@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <title>Model Convert Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            li {border: solid 1px gray; padding: 5px; width: 250px;}
+            li a {color: red; font-weight: bold;}
+            p {width: 400px;}
+        </style>
+    </head>
+    <body>
+<div id="demo-instructions">
+        <h1>Model Convert Demo</h1>
+        <p>This demo shows converting date strings sent by the
+        server to JavaScript dates with attributes and convert.</p>
+</div>
+<div id="demo-html">
+<ul id='contacts'></ul>
+</div>	
+<script type='text/javascript' 
+        src='../../steal/steal.js'>   
+</script>
+<script type='text/javascript'>
+steal.plugins('jquery/model').start()
+</script>
+<script type='text/javascript' id="demo-source">   
+$.Model.extend("Contact",{
+  attributes : { 
+    // labels birthday a date
+    birthday : 'date'
+  },
+  convert : {
+    // a date converter helper
+    date : function(raw){
+      if(typeof raw == 'string'){
+        // if a string, convert to a date
+        var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
+        return new Date( matches[1], 
+                         (+matches[2])-1, 
+                         matches[3] )
+      }else if(raw instanceof Date){
+        return raw;
+      }
+    }
+  },
+  findAll : function(params, success, error){
+    // simulates the server giving a string date
+	success(this.wrapMany(
+      [{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
+       {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
+       {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]))			
+  }
+},{
+  // helper function that returns age in years
+  age : function(){
+    return new Date().getFullYear() - 
+      this.birthday.getFullYear()
+  }
+});
+
+// get all contacts and put them in the page
+Contact.findAll( {}, function( contacts ){
+  var html = [];
+  for(var i =0; i < contacts.length; i++){
+    html.push('<li>'+contacts[i].age() + '</li>')
+  }
+  $('#contacts').html( html.join('') );
+});
+</script>
+    </body>
+</html>

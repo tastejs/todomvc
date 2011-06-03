@@ -1,0 +1,14 @@
+steal.plugins('funcunit').then(function(){
+
+module("<%= fullName %>", { 
+	setup: function(){
+		S.open("//<%= path %>/<%=underscore%>/<%=underscore%>.html");
+	}
+});
+
+test("Text Test", function(){
+	equals(S("h1").text(), "<%= fullName %> Demo","demo text");
+});
+
+
+});

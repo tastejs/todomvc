@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/application.css" type="text/css" charset="utf-8">
+
+  <script src="lib/json2.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/jquery.tmpl.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="lib/spine.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/spine.model.local.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="app/models/task.js" type="text/javascript" charset="utf-8"></script>
+  <script src="app/application.js" type="text/javascript" charset="utf-8"></script>
+  
+  <script type="text/x-jquery-tmpl" id="taskTemplate">
+    <div class="item {{if done}}done{{/if}}">
+      <div class="view" title="Double click to edit...">
+        <input type="checkbox" {{if done}}checked="checked"{{/if}}> 
+        <span>${name}</span> <a class="destroy"></a>
+      </div>
+      
+      <div class="edit">
+        <input type="text" value="${name}">
+      </div>
+    </div>
+  </script>
+</head>
+<body>
+  <div id="views">
+    <div id="tasks">
+      <h1>Todos</h1>
+      
+      <form>
+        <input type="text" placeholder="What needs to be done?">
+      </form>
+      
+      <div class="items"></div>
+      
+      <footer>
+        <a class="clear">Clear completed</a>
+        <div class="count"><span class="countVal"></span> left</div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

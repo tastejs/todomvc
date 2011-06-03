@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>List Helper Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            li {border: solid 1px gray; padding: 5px; width: 250px;}
+			li a {color: red; font-weight: bold;}
+			p {width: 400px;}
+        </style>
+	</head>
+	<body>
+		<div id="demo-instructions">
+			<h1>Model List Helper Demo</h1>
+			<p>This demo shows how you might use Lists to implement deleting a list
+			of contacts.</p>
+		</div>
+<div id="demo-html">
+<div id='contacts'></div>
+<a href='javascript://' id='destroyAll'>DESTROY ALL</a>
+</div>
+		
+		
+<script type='text/javascript' 
+        src='../../../steal/steal.js'>   
+</script>
+<script type='text/javascript'>
+steal.plugins('jquery/model',
+		'jquery/dom/fixture',
+		'jquery/model/list').start()
+</script>
+<script type='text/javascript'>
+	$.Model.extend("Contact",{
+	attributes : { 
+		birthday : 'date'
+	},
+	convert : {
+		date : function(raw){
+			if(typeof raw == 'string'){
+				var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
+				return new Date( +matches[1], 
+				                 (+matches[2])-1, 
+				                 +matches[3] )
+			}else if(raw instanceof Date){
+				return raw;
+			}
+		}
+	},
+	findAll : function(params, success, error){
+		$.get("/recipes.json",
+			{},
+			this.callback(['wrapMany',success]),
+			"json",
+			function(){
+				return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
+					 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
+					 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
+			})
+	},
+	update : function(id, attrs, success, error){
+		$.post("/recipes.json",{},success,'json',function(){
+			return [attrs]
+		})
+	}
+},{
+	ageThisYear : function(){
+		return new Date().getFullYear() - 
+		      this.birthday.getFullYear()
+	},
+	getBirthday : function(){
+		return ""+this.birthday.getFullYear()+
+			"-"+(this.birthday.getMonth()+1)+
+			"-"+this.birthday.getDate();
+	}
+
+});
+DESTROYFIXTURE = function(){
+				return [true]
+			}
+</script>
+<script type='text/javascript' id="demo-source">   
+$.Model.List.extend("Contact.List",{
+	destroyAll : function(){
+		$.post("/destroy",
+			// get a list of ids
+			this.map(function(contact){
+				return contact.id
+			}),
+			this.callback('destroyed'),
+			'json', DESTROYFIXTURE)
+	},
+	destroyed : function(){
+		// call destroyed to publish OpenAjax
+		//  and trigger events
+		this.each(function(){
+			this.destroyed();
+		})
+	}
+});
+
+// Draw a list of contacts
+Contact.findAll({},function(contacts){
+  var contactsEl = $('#contacts');
+  $.each(contacts, function(i, contact){
+    var li = $('<li>')
+              .model(contact)
+              .html("<input type='checkbox'/> "+
+			  		contact.name+" "+
+					contact.ageThisYear()+
+                    " <a>Show</a>")
+              .appendTo(contactsEl);
+    // on destroyed, remove elements
+	contact.bind("destroyed", function(){
+      li.remove();
+    })
+  });
+});
+
+$("#destroyAll").click(function(){
+	//get all checked input model instances
+	$("#contacts input:checked").closest(".contact")
+		.models()
+		// destroy them
+		.destroyAll();
+})
+</script>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>selection</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+        </style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td> <a href="javascript://" id='select_textarea'>Select Textarea</a></td>
+				<td><textarea id=''>012
+456</textarea></td>
+			</tr>
+			<tr>
+				<td><a href="javascript://" id='select_input'>Select Input</a></td>
+				<td><input text='text' value='0123456789'/></td>
+			</tr>
+			<tr>
+				<td><a href="javascript://" id='select_p'>Select Within One Element</a></td>
+				<td><p id='1'>0123456789</p></td>
+			</tr>
+			<tr>
+				<td><a href="javascript://" id='select_multi'>Select Across Multiple Elements</a></td>
+				<td><div id='2'>012<div>3<span>4</span>5</div></div></td>
+			</tr>
+		</table>
+
+		
+		<div id='selectionArea'><p>Hello    <b>World</b>! how are you  today?</p>
+			<p>I am good, thank you.</p>
+		</div>
+		
+		
+		<script type='text/javascript' 
+                src='../../../steal/steal.js?jquery/dom/selection'>   
+			$('#select_textarea').click(function(){
+				$('textarea').selection(1,5);
+			})
+			$('#select_input').click(function(){
+				$('input').selection(1,5);
+			})
+			$('#select_p').click(function(){
+				$('#1').selection(1,5);
+			})
+			$('#select_multi').click(function(){
+				$('#2').selection(1,5);
+			})
+			var selects = ['textarea', 'input', '#1','#2']
+			
+			setTimeout(function(){
+				var next = selects.shift();
+				if(next){
+					$(next).selection(1,5);
+					setTimeout(arguments.callee, 300)
+				}
+			},100)	
+			
+			$(document.body).mouseup(function(){
+				 var s = $("#selectionArea").selection()
+				if(s){
+					console.log( s.start, s.end)
+				}else{
+					console.log('nothing')
+				}
+				
+			});
+        </script>
+		<script type='text/javascript'>
+			
+		</script>
+	</body>
+</html>

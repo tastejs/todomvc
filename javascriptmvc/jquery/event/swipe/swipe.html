@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>swipe</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+			#swipe {
+				width: 500px;
+				height: 100px;
+				background-color: green;
+			}
+			li {
+				border: solid 5px green;
+				width: 200px;
+			}
+        </style>
+	</head>
+	<body>
+	    <div id='swipe'>Swipe Me</div>
+		<div id='swipes'>Swipes
+			<ul>
+				<li>Swipe Me</li>
+				<li>Swipe Me</li>
+				<li>Swipe Me</li>
+				<li>Swipe Me</li>
+			</ul>
+		</div>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js?jquery/event/swipe'>   
+        </script>
+		<script type='text/javascript'>
+			$('#swipe').bind('swipe', function(){
+				console.log('swipe1')
+			}).bind("swiperight", function(){
+				console.log('right')
+			}).bind('swipeleft', function(){
+				console.log('left')
+			}).bind('swipeup', function(){
+				console.log('up')
+			}).bind('swipedown', function(){
+				console.log('down')
+			})
+			$('#swipes').delegate('li','swipe', function(){
+				console.log('swipe2')
+			})
+		</script>
+	</body>
+</html>
