@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Download Builder</title>
+		<link rel="stylesheet" type='text/css' href='../../documentjs/jmvcdoc/style.css' />
+		<link rel="stylesheet" type='text/css' href='download.css' />
+	</head>
+	<body>
+		
+		<div id="plugins">
+
+		
+			<form type="POST" action="http://jmvcsite.heroku.com/pluginify" id="pluginForm">
+			
+			
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>Class</h3>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/class/class.js" type="checkbox">
+					<label>jquery/class/class.js</label>
+					<div class="desc">Simulated inheritance in JavaScript</div>
+				</div>
+				
+				
+			</div>
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>Controller</h3>
+					<p>jQuery widget factory</p>
+				</div>
+			
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/controller/controller.js" type="checkbox">
+					<label>jquery/controller/controller.js</label>
+					<div class="desc">Organize event handlers using event delegation</div>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/controller/history/history.js" type="checkbox">
+					<label>jquery/controller/history/history.js</label>
+					<div class="desc">Add page history support to Controller</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/controller/subscribe/subscribe.js" type="checkbox">
+					<label>jquery/controller/subscribe/subscribe.js</label>
+					<div class="desc">Add pub/sub support to Controller</div>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/controller/view/view.js" type="checkbox">
+					<label>jquery/controller/view/view.js</label>
+					<div class="desc">Helpers that tie view templates to a controller instance</div>
+				</div>
+			</div>
+		
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>Model</h3>
+					<p>Wrap an application's data layer</p>
+				</div>
+		
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/model.js" type="checkbox">
+					<label>jquery/model/model.js</label>
+					<div class="desc">A basic skeleton to organize pieces of your application's data layer</div>
+				</div>
+
+				<div class="plugin">
+
+					<input name="plugins[]" value="jquery/model/associations/associations.js" type="checkbox">
+					<label>jquery/model/associations/associations.js</label>
+					<div class="desc">Get data for related records</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/backup/backup.js" type="checkbox">
+					<label>jquery/model/backup/backup.js</label>
+					<div class="desc">Backup and restore instance data</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/list/list.js" type="checkbox">
+					<label>jquery/model/list/list.js</label>
+					<div class="desc">Type of model that provides methods for multiple model instances</div>
+
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/list/cookie/cookie.js" type="checkbox">
+					<label>jquery/model/list/cookie/cookie.js</label>
+					<div class="desc">A storeable list of model instances</div>
+				</div>
+
+				<!--<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/list/local/local.js" type="checkbox">
+					<label>jquery/model/list/local/local.js</label>
+					<div class="desc">Uses a local store instead of cookies</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/service/json_rest/json_rest.js" type="checkbox">
+					<label>jquery/model/service/json_rest/json_rest.js</label>
+					<div class="desc">Basic wrapper for JSON REST services</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/service/twitter/twitter.js" type="checkbox">
+					<label>jquery/model/service/twitter/twitter.js</label>
+					<div class="desc">Basic wrapper for Twitter services</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/model/service/yql/yql.js" type="checkbox">
+					<label>jquery/model/service/yql/yql.js</label>
+					<div class="desc">Basic wrapper for YQL services</div>
+				</div>-->
+
+				<div class="plugin">
+
+					<input name="plugins[]" value="jquery/model/validations/validations.js" type="checkbox">
+					<label>jquery/model/validations/validations.js</label>
+					<div class="desc">Validate data before sending it to the server</div>
+				</div>
+			</div>
+			
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>Event</h3>
+					<p>Helper functions used for managing events</p>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/destroyed/destroyed.js" type="checkbox">
+					<label>jquery/event/destroyed/destroyed.js</label>
+					<div class="desc">Provides a destroyed event on an element</div>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/hashchange/hashchange.js" type="checkbox">
+					<label>jquery/event/hashchange/hashchange.js</label>
+					<div class="desc">An event when the browser hash changes (for history management)</div>
+				</div>
+				
+			
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/default/default.js" type="checkbox">
+					<label>jquery/event/default/default.js</label>
+					<div class="desc">Allows you to perform default actions as a result of an event</div>
+				</div>
+
+				<div class="plugin">
+
+					<input name="plugins[]" value="jquery/event/drag/drag.js" type="checkbox">
+					<label>jquery/event/drag/drag.js</label>
+					<div class="desc">Provides drag events as a special events to jQuery</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/drag/limit/limit.js" type="checkbox">
+					<label>jquery/event/drag/limit/limit.js</label>
+					<div class="desc">Limits the drag to a containing element</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/drag/scroll/scroll.js" type="checkbox">
+					<label>jquery/event/drag/scroll/scroll.js</label>
+					<div class="desc">Will scroll elements with a scroll bar as the drag moves to borders</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/drop/drop.js" type="checkbox">
+					<label>jquery/event/drop/drop.js</label>
+					<div class="desc">Provides drop events as a special event to jQuery</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/drag/step/step.js" type="checkbox">
+					<label>jquery/event/drag/step/step.js</label>
+					<div class="desc">Drag in defined pixel increments</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/hover/hover.js" type="checkbox">
+					<label>jquery/event/hover/hover.js</label>
+					<div class="desc">Provides delegate-able hover events</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/resize/resize.js" type="checkbox">
+					<label>jquery/event/resize/resize.js</label>
+					<div class="desc">Normalizes resize events cross browser</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/pause/pause.js" type="checkbox">
+					<label>jquery/event/pause/pause.js</label>
+					<div class="desc">Adds pauseable/resumeable events to jQuery</div>
+				</div>
+
+				<!--<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/event/select/select.js" type="checkbox">
+					<label>jquery/event/select/select.js</label>
+					<div class="desc">An event that fires when some element is selected by the user (lasso)</div>
+				</div>-->
+			</div>
+			
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>View</h3>
+					<p>Client side template engines with production build support.</p>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/view/view.js" type="checkbox">
+					<label>jquery/view/view.js</label>
+					<div class="desc">A uniform interface for using templates with jQuery</div>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/view/ejs/ejs.js" type="checkbox">
+					<label>jquery/view/ejs/ejs.js</label>
+					<div class="desc">EJS templates</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/view/helpers/helpers.js" type="checkbox">
+					<label>jquery/view/helpers/helpers.js</label>
+					<div class="desc">Rails like view helpers</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/view/jaml/jaml.js" type="checkbox">
+					<label>jquery/view/jaml/jaml.js</label>
+					<div class="desc">JAML templates</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/view/micro/micro.js" type="checkbox">
+					<label>jquery/view/micro/micro.js</label>
+					<div class="desc">Micro templates</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/view/tmpl/tmpl.js" type="checkbox">
+					<label>jquery/view/tmpl/tmpl.js</label>
+					<div class="desc">jQuery tmpl templates</div>
+				</div>
+				
+			</div>
+			
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>DOM</h3>
+					<p>Useful jQuery extensions for the DOM</p>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/closest/closest.js" type="checkbox">
+					<label>jquery/dom/closest/closest.js</label>
+					<div class="desc">Overwrites closest to allow open > selectors</div>
+				</div>
+
+				<div class="plugin">
+				
+					<input name="plugins[]" value="jquery/dom/compare/compare.js" type="checkbox">
+					<label>jquery/dom/compare/compare.js</label>
+					<div class="desc">Compares the position of two nodes</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/cookie/cookie.js" type="checkbox">
+					<label>jquery/dom/cookie/cookie.js</label>
+					<div class="desc">Cookie management helpers</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/cur_styles/cur_styles.js" type="checkbox">
+					<label>jquery/dom/cur_styles/cur_styles.js</label>
+					<div class="desc">Rapidly get a bunch of computed styles from an element</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/dimensions/dimensions.js" type="checkbox">
+					<label>jquery/dom/dimensions/dimensions.js</label>
+					<div class="desc">Support for setting+animating inner+outer height and widths</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/fixture/fixture.js" type="checkbox">
+					<label>jquery/dom/fixture/fixture.js</label>
+					<div class="desc">Simulate AJAX responses</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/form_params/form_params.js" type="checkbox">
+					<label>jquery/dom/form_params/form_params.js</label>
+					<div class="desc">Name-value pairs that represents values in a form</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/dom/within/within.js" type="checkbox">
+					<label>jquery/dom/within/within.js</label>
+					<div class="desc">Returns if the elements are within the position</div>
+				</div>
+				
+			</div>
+			
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>Lang</h3>
+					<p>JavaScript language helpers</p>
+				</div>
+				
+				<div class="plugin">
+
+					<input name="plugins[]" value="jquery/lang/lang.js" type="checkbox">
+					<label>jquery/lang/lang.js</label>
+					<div class="desc">String helpers</div>
+				</div>
+
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/lang/vector/vector.js" type="checkbox">
+					<label>jquery/lang/vector/vector.js</label>
+					<div class="desc">A vector class</div>
+				</div>
+
+				<div class="plugin">
+
+					<input name="plugins[]" value="jquery/lang/rsplit/rsplit.js" type="checkbox">
+					<label>jquery/lang/rsplit/rsplit.js</label>
+					<div class="desc">Splits a string with a regex correctly cross browser</div>
+				</div>				
+				
+			</div>
+			
+			
+			<div class="section">
+				
+				<div class="section-desc">
+					<h3>Tie</h3>
+				</div>
+				
+				<div class="plugin">
+					
+					<input name="plugins[]" value="jquery/tie/tie.js" type="checkbox">
+					<label>jquery/tie/tie.js</label>
+					<div class="desc">Bi-direction binding between Controllers and Models.</div>
+				</div>
+				
+				
+			</div>
+			<div class="download-builder">
+        		<input type="submit" class="dl_btn_container" value="Download">
+            </div>
+			
+		</form>
+		<script type='text/javascript' src='../jquery.js'></script>
+		<script type='text/javascript' src='../dist/jquery.formparams.js'></script>
+		<script type='text/javascript' src='download.js'></script>
+	</body>
+</html>

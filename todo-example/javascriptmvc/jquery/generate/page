@@ -1,0 +1,21 @@
+if (_args.length < 2) {
+	print("Creates an html page that loads one of your applications.\n")
+	print("USAGE: js steal/generate/test app_name page_location\n")
+	print();
+	quit();
+}
+
+load('steal/rhino/steal.js');
+
+steal('//steal/generate/generate','//steal/generate/system',function(steal){
+	var path =  _args[0].toLowerCase().replace('.',"/")
+	var	data = steal.extend({
+		path: path, 
+		application_name: path.match(/[^\/]*$/)[0],
+		current_path: steal.File.cwdURL(),
+			path_to_steal : new steal.File(path).pathToRoot()
+	}, steal.system)
+	
+	var to = path+"/"+_args[1];
+	steal.generate.render("jquery/generate/templates/page.ejs", to, data)
+});
