@@ -5,7 +5,7 @@
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.6.1.js" type="text/javascript"></script>
     <script src="js/jquery.tmpl.js" type="text/javascript"></script>
-    <script src="js/knockout-1.2.1.debug.js" type="text/javascript"></script>
+    <script src="js/knockout-1.2.1.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="todoapp">
@@ -77,10 +77,18 @@
             current: ko.observable(),
             add: function (event) {
                 if (event.keyCode === 13) {
-                    var newTodo = new Todo(this.current());
+					
+					var todoContent = "";
+					
+					/*includes fix for Opera*/
+					(viewModel.current() == undefined) ? todoContent = $('#new-todo').val() : todoContent = viewModel.current();
+
+                    var newTodo = new Todo(todoContent);
                     this.todos.push(newTodo);
                     this.current("");
+
                 }
+
             },
 
             remove: function (event) {
@@ -91,6 +99,7 @@
                 viewModel.todos.removeAll(viewModel.done());
             }
         };
+
 
         viewModel.remaining = ko.dependentObservable(function () {
             return this.todos().filter(function (el) {
