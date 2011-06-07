@@ -1,4 +1,4 @@
-### This is the initial repo for TodoMVC - a rough idea for a new project.
+### TodoMVC - common examples for popular JavaScript MVC client-side fameworks
 
 Now more-so than ever, developers are interested in learning how to effectively apply the MVC architecture pattern to their JavaScript projects. The problem most devs experience when starting this process for the first time is trying to figure out which client-side MVC tool they should be using - JavaScriptMVC? Backbone? Spine? Sammy?. The list of solutions goes on. 
 
