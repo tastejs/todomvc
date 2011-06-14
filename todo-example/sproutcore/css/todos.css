@@ -1,0 +1,521 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+q, blockquote {
+  quotes: none; }
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+a img {
+  border: none; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+q, blockquote {
+  quotes: none; }
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+a img {
+  border: none; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1;
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 13px; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* App CSS */
+body, html {
+ }
+
+.sc-view {
+  position: relative;
+  overflow: visible; }
+
+/*
+body {
+  -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 0 1px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0 1px;
+  -o-box-shadow: rgba(0, 0, 0, 0.6) 0 0 1px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 0 1px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
+  position: absolute;
+  width: 600px;
+  left: 50%;
+  margin-top: 38px;
+  border: 1px solid #bbbbbb;
+  margin-left: -300px;
+  background-color: #fff;
+  padding: 40px 10px 10px; }
+  body .mark-all-done label {
+    margin-left: 5px;
+    font-weight: bold; }
+  body #stats {
+    overflow: hidden;
+    width: 100%;
+    padding: 5px 10px;
+    margin: 10px -10px;
+    background-color: #eee;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    line-height: 25px; }
+    body #stats .remaining {
+      float: left; }
+    body #stats .sc-button {
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #f9f9f9), color-stop(34%, #dddddd), color-stop(67%, #f2f2f2), color-stop(100%, #f7f7f7));
+      background-image: -webkit-linear-gradient(#f9f9f9 1%, #dddddd, #f2f2f2, #f7f7f7);
+      background-image: -moz-linear-gradient(#f9f9f9 1%, #dddddd, #f2f2f2, #f7f7f7);
+      background-image: -o-linear-gradient(#f9f9f9 1%, #dddddd, #f2f2f2, #f7f7f7);
+      background-image: linear-gradient(#f9f9f9 1%, #dddddd, #f2f2f2, #f7f7f7);
+      border: 1px solid #828282;
+      color: #000;
+      float: right;
+      padding: 5px; }
+      body #stats .sc-button:hover {
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #ffffff), color-stop(34%, #e2e2e2), color-stop(67%, #f7f7f7), color-stop(100%, #fcfcfc));
+        background-image: -webkit-linear-gradient(#ffffff 1%, #e2e2e2, #f7f7f7, #fcfcfc);
+        background-image: -moz-linear-gradient(#ffffff 1%, #e2e2e2, #f7f7f7, #fcfcfc);
+        background-image: -o-linear-gradient(#ffffff 1%, #e2e2e2, #f7f7f7, #fcfcfc);
+        background-image: linear-gradient(#ffffff 1%, #e2e2e2, #f7f7f7, #fcfcfc); }
+      body #stats .sc-button.is-active {
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #efefef), color-stop(34%, #d3d3d3), color-stop(67%, #e8e8e8), color-stop(100%, #ededed));
+        background-image: -webkit-linear-gradient(#efefef 1%, #d3d3d3, #e8e8e8, #ededed);
+        background-image: -moz-linear-gradient(#efefef 1%, #d3d3d3, #e8e8e8, #ededed);
+        background-image: -o-linear-gradient(#efefef 1%, #d3d3d3, #e8e8e8, #ededed);
+        background-image: linear-gradient(#efefef 1%, #d3d3d3, #e8e8e8, #ededed); }
+  body input[type='text'] {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.6);
+    -o-box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.6);
+    color: #999;
+    background-color: #f0f0f0;
+    width: 588px;
+    font-size: 30px;
+    font-family: Helvetica, sans-serif;
+    padding: 5px;
+    border: 1px solid #bbbbbb;
+    font-weight: 500; }
+    body input[type='text']::-webkit-input-placeholder {
+      color: #aaa; }
+  body h1 {
+    -moz-border-radius-topleft: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -o-border-top-left-radius: 8px;
+    -ms-border-top-left-radius: 8px;
+    -khtml-border-top-left-radius: 8px;
+    border-top-left-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -o-border-top-right-radius: 8px;
+    -ms-border-top-right-radius: 8px;
+    -khtml-border-top-right-radius: 8px;
+    border-top-right-radius: 8px;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(49%, #f4f4f4), color-stop(51%, #ededed), color-stop(100%, #dedede));
+    background-image: -webkit-linear-gradient(#ffffff, #f4f4f4 49%, #ededed 51%, #dedede);
+    background-image: -moz-linear-gradient(#ffffff, #f4f4f4 49%, #ededed 51%, #dedede);
+    background-image: -o-linear-gradient(#ffffff, #f4f4f4 49%, #ededed 51%, #dedede);
+    background-image: linear-gradient(#ffffff, #f4f4f4 49%, #ededed 51%, #dedede);
+    text-shadow: white 0 1px 1px;
+    font-size: 15px;
+    position: absolute;
+    width: 600px;
+    height: 20px;
+    color: #53565e;
+    top: 0;
+    left: 0;
+    padding: 5px 10px;
+    border-bottom: 1px solid #bbbbbb; }
+  body .sc-checkbox input[type="checkbox"] {
+    margin-right: 7px; }
+  body ul {
+    margin: 10px 0 2px 0; }
+    body ul li {
+      padding: 5px; }
+      body ul li.is-done {
+        color: #B7B7B7;
+        text-decoration: line-through; }
+    body ul li:nth-child(odd) {
+      background-color: #F7F7F7; }
+      
+ */
+    /*new additions*/
+    
+    
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.4em;
+	background: #eeeeee;
+	color: #333333;
+}
+
+#todoapp {
+	width: 480px;
+	margin: 0 auto 40px;
+	background: white;
+	padding: 20px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-o-border-bottom-left-radius: 5px;
+	-ms-border-bottom-left-radius: 5px;
+	-khtml-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-o-border-bottom-right-radius: 5px;
+	-ms-border-bottom-right-radius: 5px;
+	-khtml-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;	
+}
+#todoapp h1 {
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
+	padding: 20px 0 30px 0;
+	line-height: 1;
+}
+
+#create-todo {
+	position: relative;
+}
+#create-todo input {
+	width: 466px;
+	font-size: 24px;
+	font-family: inherit;
+	line-height: 1.4em;
+	border: 0;
+	outline: none;
+	padding: 6px;
+	border: 1px solid #999999;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+}
+#create-todo input::-webkit-input-placeholder {
+	font-style: italic;
+}
+#create-todo span {
+	position: absolute;
+	z-index: 999;
+	width: 170px;
+	left: 50%;
+	margin-left: -85px;
+}
+
+#todo-list {
+	margin-top: 10px;
+}
+#todo-list li {
+	padding: 12px 20px 11px 0;
+	position: relative;
+	font-size: 24px;
+	line-height: 1.1em;
+	border-bottom: 1px solid #cccccc;
+}
+#todo-list li:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+#todo-list li.editing {
+	padding: 0;
+	border-bottom: 0;
+}
+#todo-list .editing .display,
+#todo-list .edit {
+	display: none;
+}
+#todo-list .editing .edit {
+	display: block;
+}
+#todo-list .editing input {
+	width: 444px;
+	font-size: 24px;
+	font-family: inherit;
+	margin: 0;
+	line-height: 1.6em;
+	border: 0;
+	outline: none;
+	padding: 10px 7px 0px 27px;
+	border: 1px solid #999999;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+}
+#todo-list .check {
+	position: relative;
+	top: 9px;
+	margin: 0 10px 0 7px;
+	float: left;
+}
+#todo-list .done .todo-content {
+	text-decoration: line-through;
+	color: #777777;
+}
+#todo-list .todo-destroy {
+	position: absolute;
+	right: 5px;
+	top: 14px;
+	display: none;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background: url(destroy.png) no-repeat 0 0;
+}
+#todo-list li:hover .todo-destroy {
+	display: block;
+}
+#todo-list .todo-destroy:hover {
+	background-position: 0 -20px;
+}
+
+#todo-stats {
+	*zoom: 1;
+	margin-top: 10px;
+	color: #777777;
+}
+#todo-stats:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+#todo-stats .todo-count {
+	float: left;
+}
+#todo-stats .todo-count .number {
+	font-weight: bold;
+	color: #333333;
+}
+#todo-stats .todo-clear {
+	float: right;
+}
+#todo-stats .todo-clear a {
+	color: #777777;
+	font-size: 12px;
+}
+#todo-stats .todo-clear a:visited {
+	color: #777777;
+}
+#todo-stats .todo-clear a:hover {
+	color: #336699;
+}
+
+#instructions {
+	width: 520px;
+	margin: 10px auto;
+	color: #777777;
+	text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
+	text-align: center;
+}
+#instructions a {
+	color: #336699;
+}
+
+#credits {
+	width: 520px;
+	margin: 30px auto;
+	color: #999;
+	text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
+	text-align: center;
+}
+#credits a {
+	color: #888;
+}
+
+
+
+/* line 109 */
+#todoapp #todo-stats {
+	*zoom: 1;
+	margin-top: 10px;
+	color: #555555;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-o-border-bottom-left-radius: 5px;
+	-ms-border-bottom-left-radius: 5px;
+	-khtml-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-o-border-bottom-right-radius: 5px;
+	-ms-border-bottom-right-radius: 5px;
+	-khtml-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background: #f4fce8;
+	border-top: 1px solid #ededed;
+	padding: 0 20px;
+	line-height: 36px;
+}
+/* line 22, /opt/ree/lib/ruby/gems/1.8/gems/compass-0.10.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#todoapp #todo-stats:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+/* line 118 */
+#todoapp #todo-stats .todo-count {
+	float: left;
+}
+/* line 120 */
+#todoapp #todo-stats .todo-count .number {
+	font-weight: bold;
+	color: #555555;
+}
+/* line 123 */
+#todoapp #todo-stats .todo-clear {
+	float: right;
+}
+/* line 125 */
+#todoapp #todo-stats button {
+	display: block;
+	line-height: 20px;
+	text-decoration: none;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-o-border-radius: 12px;
+	-ms-border-radius: 12px;
+	-khtml-border-radius: 12px;
+	border-radius: 12px;
+	background: rgba(0, 0, 0, 0.1);
+	color: #555555;
+	font-size: 11px;
+	margin-top: 8px;
+	padding: 0 10px 1px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	float:right;
+}
+/* line 136 */
+#todoapp #todo-stats button:hover {
+	background: rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+}
+
+
+#todos { display:block}
+
+
+
