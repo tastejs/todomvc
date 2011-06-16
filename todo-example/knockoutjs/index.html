@@ -105,11 +105,11 @@
         };
 
 
-        viewModel.remaining = ko.dependentObservable(function () {
+      viewModel.remaining = ko.dependentObservable(function () {
             return this.todos().filter(function (el) {
                 return el.done() === false;
-            });
-        }, viewModel),
+           });
+      }, viewModel),
 
       viewModel.done = ko.dependentObservable(function () {
           return this.todos().filter(function (el) {

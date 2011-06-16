@@ -53,7 +53,9 @@
 				 
 				}
 			});
+		
 
+           
             
             $('.trashcan')
                 .live('click', function() {
