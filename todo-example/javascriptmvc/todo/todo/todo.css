@@ -45,8 +45,10 @@ h1{
 
 #todos .create {
     border: 1px solid #999999;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2) inset;
-    font-family: inherit;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;    font-family: inherit;
     font-size: 24px;
     line-height: 1.4em;
     outline: medium none;

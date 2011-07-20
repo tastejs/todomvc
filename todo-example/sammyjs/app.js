@@ -46,10 +46,7 @@
 					var todoContent = $(this).val();
 					var todo = Todos.create({ name: todoContent, done: false, listId: parseInt($('h2').attr('data-id'), 10) });
 					context.partial('templates/_todo.template', todo, function(html) {
-						//$(html).insertAfter('#todo-list li:last');
-						var q = $(html);
-						console.log(q);
-						$('#todo-list').append(q);
+						$('#todo-list').append(html);
 
 					});
 					$(this).val('');
@@ -58,12 +55,7 @@
 			});
 		
 
-            /*
-            $('#lists')
-                .delegate('dd[data-id]', 'click', function() {
-                    context.redirect('#/list/'+$(this).attr('data-id'));
-                    app.trigger('updateList');
-                });*/
+           
             
             $('.trashcan')
                 .live('click', function() {
@@ -84,14 +76,7 @@
                    app.trigger('mark' + (isDone ? 'Done' : 'Undone'), { id: $li.attr('data-id') });
             });
 	
-	/*
-            $('.checkbox')
-                .live('click', function() {
-                    var $this  = $(this),
-                        $li    = $this.parents('li').toggleClass('done'),
-                        isDone = $li.is('.done');
-                    app.trigger('mark' + (isDone ? 'Done' : 'Undone'), { id: $li.attr('data-id') });
-                });*/
+
         
             $('[contenteditable]')
                 .live('focus', function() {
@@ -145,7 +130,6 @@
                 this.redirect(lastViewedOrFirstList);
             }
             
-            //app.trigger('updateLists');
         });
         
         /*save the route as the lastviewed item*/
@@ -156,9 +140,7 @@
         this.bind('save', function(e, data) {
             var model = data.type == 'todo' ? Todos : Lists;
             model.update(data.id, { name: data.name });
-            //if (data.type == 'list') {
-                //app.trigger('updateLists');
-           // }
+         
         });
         
 		/*marking the selected item as done*/
@@ -193,24 +175,11 @@
                         
                         this.redirect('#/list/'+listId);
                     }
-                    //app.trigger('updateLists');
                 } else {
                     // delete the todo from the view
                     $('li[data-id=' + data.id + ']').remove();
                 }
-//            }
         });
-        
-        /*
-        this.bind('updateLists', function(e, data) {
-            var selected = parseInt(location.hash.substr(location.hash.lastIndexOf('/')+1), 10);
-            this.partial('templates/_lists.template', {
-                lists: Lists.getAll(),
-                selected: selected
-            }, function(html) {
-                $('#lists').html(html);
-            });
-        });*/
         
         
     });
