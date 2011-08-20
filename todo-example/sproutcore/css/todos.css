@@ -172,6 +172,9 @@ body {
 	line-height: 1;
 }
 
+#stats-area{
+	display:none;
+}
 #create-todo {
 	position: relative;
 }

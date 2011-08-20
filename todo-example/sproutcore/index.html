@@ -35,8 +35,9 @@
   {{view Todos.CreateTodoView id="new-todo" placeholder="What needs to be done?"}}
 {{/view}}
 
+{{#view id="stats-area"}}
   {{view SC.Checkbox class="mark-all-done"
-    title="Mark all as done"
+    title="Mark all as complete"
     valueBinding="Todos.todosController.allAreDone"}}
 
 {{#view id="todos"}}
@@ -55,6 +56,8 @@
     {{/view}}
     {{remainingString}} left
   {{/view}}
+
+  {{/view}}
   
   </script>
     </div>
@@ -67,9 +70,6 @@
 	    </div>
 
 	            
-	    
-	  
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
   <script src="js/libs/sproutcore-2.0.a.3.min.js"></script>
   <script src="js/app.js"></script>

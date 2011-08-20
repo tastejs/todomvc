@@ -9,8 +9,12 @@ Todos.todosController = SC.ArrayProxy.create({
   content: [],
 
   createTodo: function(title) {
-    var todo = Todos.Todo.create({ title: title });
+    var todo = Todos.Todo.create({ title: title }),
+    stats = document.getElementById('stats-area');
     this.pushObject(todo);
+
+    (stats.style.display=='block')? stats.style.display = 'inline' : stats.style.display = 'block';
+
   },
 
   clearCompletedTodos: function() {
