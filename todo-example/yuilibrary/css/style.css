@@ -1,15 +1,23 @@
 
-/*
+
 #todo-app {
-    margin: 1em;
-    text-align: center;
-}*/
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
+  
+  -moz-border-radius: 0 0 5px 5px;
+  -o-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+}
 
 #todo-list,
 #todo-stats {
     margin: 1em auto;
     text-align: left;
     width: 450px;
+
 }
 
 #todo-list {
@@ -74,16 +82,12 @@
 }
 
 .todo-remove-icon {
-    /*
-    Delete icon courtesy of The Noun Project:
-    http://thenounproject.com/noun/delete/
-    */
-    background: url(../assets/app/remove.png) no-repeat;
+    background: url(../img/destroy.png) no-repeat;
     display: block;
-    height: 16px;
+    height: 20px;
     opacity: 0.6;
     visibility: hidden;
-    width: 23px;
+    width: 20px;
 }
 
 .todo-remove:hover .todo-remove-icon { opacity: 1.0; }
