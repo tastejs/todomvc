@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 <head>
-    <title>Todo</title>
+    <title>YUIlibrary.js</title>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
 </head>
 <body>
@@ -10,14 +10,26 @@
 
 <!-- This is the main container and "shell" for the todo app. -->
 <div id="todo-app">
-    <label class="todo-label" for="new-todo">What do you want to do today?</label>
+    <div class="title">
+        <h1>Todos</h1>
+    </div>
+    <label class="todo-label" for="new-todo"></label>
     <input type="text" id="new-todo" class="todo-input"
-        placeholder="buy milk">
+        placeholder="What needs to be done?">
 
-    <ul id="todo-list"></ul>
+    <div id="todos">
+     <ul id="todo-list"></ul>
+    </div>
     <div id="todo-stats"></div>
 </div>
 
+<div id="credits">
+    This version by
+    <br />
+    <a href="http://twitter.com/addyosmani">Addy Osmani</a>
+    <br />
+    based on code by the YUILibrary team.
+</div>
 
 
 <!-- This template HTML will be used to render each todo item. -->
@@ -45,8 +57,7 @@
     </span>
 
     <a href="#" class="todo-clear">
-        Clear <span class="todo-done">{numDone}</span>
-        completed <span class="todo-done-label">{doneLabel}</span>
+        Clear {numDone} completed <span class="todo-done-label">{doneLabel}</span>
     </a>
 </script>
 
