@@ -1,0 +1,86 @@
+#todo-app {
+    margin: 1em;
+    text-align: center;
+}
+
+#todo-list,
+#todo-stats {
+    margin: 1em auto;
+    text-align: left;
+    width: 450px;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+}
+
+#todo-stats,
+.todo-clear { color: #777; }
+
+.todo-clear { float: right; }
+
+.todo-done .todo-content {
+    color: #666;
+    text-decoration: line-through;
+}
+
+.todo-edit,
+.editing .todo-view { display: none; }
+
+.editing .todo-edit { display: block; }
+
+.todo-input {
+    display: block;
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: normal;
+    margin: 5px auto 0;
+    padding: 6px;
+    width: 420px;
+}
+
+.todo-item {
+    border-bottom: 1px dotted #cfcfcf;
+    font-size: 20px;
+    padding: 6px;
+    position: relative;
+}
+
+.todo-label {
+    color: #444;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.todo-remaining {
+    color: #333;
+    font-weight: bold;
+}
+
+.todo-remove {
+    position: absolute;
+    right: 0;
+    top: 12px;
+}
+
+.todo-remove-icon {
+    /*
+    Delete icon courtesy of The Noun Project:
+    http://thenounproject.com/noun/delete/
+    */
+    background: url(../assets/app/remove.png) no-repeat;
+    display: block;
+    height: 16px;
+    opacity: 0.6;
+    visibility: hidden;
+    width: 23px;
+}
+
+.todo-remove:hover .todo-remove-icon { opacity: 1.0; }
+
+.todo-hover .todo-remove-icon,
+.todo-remove:focus .todo-remove-icon { visibility: visible; }
+
+.editing .todo-remove-icon { visibility: hidden; }
