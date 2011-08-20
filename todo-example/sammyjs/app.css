@@ -82,6 +82,10 @@ body {
 	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
 	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
 	box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	  -moz-border-radius: 0 0 5px 5px;
+  -o-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
 }
 #todoapp h1 {
 	font-size: 36px;

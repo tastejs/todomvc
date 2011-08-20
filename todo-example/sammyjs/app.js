@@ -33,7 +33,7 @@
         this.bind('run', function(e, data) {
             var context = this;
             
-            var title = localStorage.getItem('title') || "Todo";
+            var title = localStorage.getItem('title') || "Todos";
             $('h1').text(title);
 			
 			if(Lists._data.length <=0){
