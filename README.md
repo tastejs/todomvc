@@ -39,13 +39,15 @@ implementation.
 The initial result of my efforts is TodoMVC - a library of (almost) consistant Todo examples for MVC frameworks
 which include:
 
-SproutCore 2.0
-Backbone.js
-Spine.js
-JavaScriptMVC
-Sammy.js
-YUILibrary
-KnockoutJS (MVVM)
+<ul>
+<li>SproutCore 2.0</li>
+<li>Backbone.js</li>
+<li>Spine.js</li>
+<li>JavaScriptMVC</li>
+<li>Sammy.js</li>
+<li>YUILibrary</li>
+<li>KnockoutJS (MVVM)</li>
+</ul>
 
 Code samples:
 ***coming soon
