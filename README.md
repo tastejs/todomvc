@@ -2,7 +2,7 @@
 
 Over the past year, we've seen interest in lightweight JavaScript MVC frameworks continue
 to increase steadily. Backbone, Spine, SproutCore 2.0, YUILibrary, JavaScriptMVC...
-the list of choices has never been so evergrowing and developers looking to select an 
+the list of choices has never been so ever-growing and developers looking to select an 
 option would be forgiven for feeling lost in a sea of what may appear to be (at face)
 quite similar solutions.
 
@@ -19,24 +19,24 @@ It's a simple demo that illustrates how models, views and controllers may be use
 a completely functional list-based application. Whilst many frameworks do attempt to include
 a version of the 'Todo' example, there are some problems here:
 
-Implementations are inconsistant - there's no standard or specification around how the Todo
+Implementations are inconsistent - there's no standard or specification around how the Todo
 application should be written - indeed, some may ask if a demo app even needs one. Regardless,
 This is why although some frameworks will implement the example with similar features and 
-a look/feel consistant with their peers, others will stray away from this quite heavily. This 
+a look/feel consistent with their peers, others will stray away from this quite heavily. This 
 is an issue because if you're attempting to directly compare how one framework might achieve
 a task vs another, very disparate implementations make this significantly more difficult to do.
 
-Some developers may claim that it's merely just adding or removing items from a list, there's not much more to it, is there?. When you actually delve into framework demos you might be surprised at just how much they can actually differ. Some solutions will opt for a completely different MVC structure to the application, others will opt for JavaScript templating to insert new items whilst some will prefer cloning HTML markup to insert new 'rows' instead. Again, the lack of what we consider a consistant experience causes problems here. 
+Some developers may claim that it's merely just adding or removing items from a list, there's not much more to it, is there?. When you actually delve into framework demos you might be surprised at just how much they can actually differ. Some solutions will opt for a completely different MVC structure to the application, others will opt for JavaScript templating to insert new items whilst some will prefer cloning HTML markup to insert new 'rows' instead. Again, the lack of what we consider a consistent experience causes problems here. 
 
 Lack of a Todo example altogether - I can't speak for all developers, but after reviewing the feature list on such solutions, my first port of call is usually to look for their Todo app as I find this the quickest way to determine whether I'm going to like using their brand of MVC for structuring my apps. This isn't in any way stating an incapability of determining this from code samples in a frameworks docs, but rather, I prefer to review differences in a complete application. I know that other developers feel the same about this too.
 
 So, I had an idea (which you may or may not find useful): 
-Why not create a centralalized fork of the various framework Todo examples,
-Attempt to make these Todo examples more consistant in features, look and feel
+Why not create a centralized fork of the various framework Todo examples,
+Attempt to make these Todo examples more consistent in features, look and feel
 Add a Todo app for those that are missing one altogether or don't have an officially 'endorsed'
 implementation. 
 
-The initial result of my efforts is TodoMVC - a library of (almost) consistant Todo examples for MVC frameworks
+The initial result of my efforts is TodoMVC - a library of (almost) consistent Todo examples for MVC frameworks
 which include:
 
 <ul>
@@ -49,10 +49,10 @@ which include:
 <li>KnockoutJS (MVVM)</li>
 </ul>
 
-Code samples:
+####Code samples:
 ***coming soon
 
-Screenshots:
+####Screenshots:
 **coming soon
 
 All of the demos are completely self-contained, so in the case of say, a framework like 
@@ -83,5 +83,5 @@ A:Good question. Whilst this might be considered at some point, I like the idea 
 
 A:I'm currently still deciding whether there would be a great benefit to this. I regularly state that OS solutions should contain both tests and documentation, however, a few developers have suggested there not being a need nor  expectation as these are essentially usage examples. If enough people request tests, I'm happy to support them.
 
-I don't really see the point of this project. Wtf, bro?. That's a valid viewpoint. I'm not in any way saying that a cosistant, common MVC example is going to take all of the headache out of selecting a framework to use for your project, but if I was looking at these for the first time personally I would find this helpful and I hope there are some developers out there that will feel the same way too.
+I don't really see the point of this project. Wtf, bro?. That's a valid viewpoint. I'm not in any way saying that a consistent, common MVC example is going to take all of the headache out of selecting a framework to use for your project, but if I was looking at these for the first time personally I would find this helpful and I hope there are some developers out there that will feel the same way too.
 
