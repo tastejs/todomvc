@@ -1,4 +1,4 @@
-#TodoMVC - A Common Demo Application For Popular MVC Frameworks (0.1 pre)
+##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.1 pre)
 
 Over the past year, we've seen interest in lightweight JavaScript MVC frameworks continue
 to increase steadily. Backbone, Spine, SproutCore 2.0, YUILibrary, JavaScriptMVC...
@@ -20,28 +20,28 @@ a completely functional list-based application.
 
 ###Whilst many frameworks attempt to include a version of the 'Todo' example, there are issues here:
 
-####Implementations are inconsistent
+####Problem 1: Implementations are inconsistent
 There's no standard or specification around how the Todo application should be written - indeed, some may ask if a demo app even needs one. 
 
 When you actually delve into framework demos you might be surprised at just how much they can actually differ. Some solutions will opt for a completely different MVC structure to the application, others will opt for JavaScript templating to insert new items whilst some will prefer cloning HTML markup to insert new 'rows' instead. Again, the lack of what we consider a consistent experience causes problems here. 
 
 Regardless, this is why although some frameworks will implement the example with similar features and a look/feel consistent with their peers, others will stray away from this quite heavily. 
 
-####This is an issue because if you're attempting to directly compare how one framework might achieve a task vs another, very disparate implementations make this significantly more difficult to do.
+This is an issue because if you're attempting to directly compare how one framework might achieve a task vs another, very disparate implementations make this significantly more difficult to do.
 
 
 
-####Lack of a Todo example altogether
+####Problem 2: Lack of a Todo example altogether
 I can't speak for all developers, but after reviewing the feature list on such solutions, my first port of call is usually to look for their Todo app as I find this the quickest way to determine whether I'm going to like using their brand of MVC for structuring my apps. This isn't in any way stating an incapability of determining this from code samples in a frameworks docs, but rather, I prefer to review differences in a complete application. I know that other developers feel the same about this too.
 
 So, I had an idea (which you may or may not find useful): 
-Why not create a centralized fork of the various framework Todo examples,
-Attempt to make these Todo examples more consistent in features, look and feel
-Add a Todo app for those that are missing one altogether or don't have an officially 'endorsed'
-implementation. 
+<ul>
+<li>Why not create a centralized fork of the various framework Todo examples</li>
+<li>Attempt to make these Todo examples more consistent in features, look and feel</li>
+<li>Add a Todo app for those that are missing one altogether or don't have an officially'endorsed' implementation.</li>
+</ul>
 
-The initial result of my efforts is TodoMVC - a library of (almost) consistent Todo examples for MVC frameworks
-which include:
+The initial result of my efforts is TodoMVC - a library of (almost) consistent Todo examples for MVC frameworks which include:
 
 <ul>
 <li>SproutCore 2.0</li>
@@ -67,7 +67,7 @@ At the end of the day, I want to make it easier for developers to make a choice 
 and this may be just one other source of information about their differences which you may find 
 of assistance.
 
-TodoMVC is built on the efforts of a number of other developers including: **. list.
+TodoMVC is built on the efforts of a number of other developers including: Justin Meyer, Jérôme, Gravel-Niquet, Alex MacCaw, Brandon Aaron, Ashish Sharma and Tom Dale.
 
 ##Frequently Asked Questions:
 
