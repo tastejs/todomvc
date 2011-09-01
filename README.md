@@ -34,6 +34,10 @@ This is an issue because if you're attempting to directly compare how one framew
 ####Problem 2: Lack of a Todo example altogether
 I can't speak for all developers, but after reviewing the feature list on such solutions, my first port of call is usually to look for their Todo app as I find this the quickest way to determine whether I'm going to like using their brand of MVC for structuring my apps. This isn't in any way stating an incapability of determining this from code samples in a frameworks docs, but rather, I prefer to review differences in a complete application. I know that other developers feel the same about this too.
 
+
+###Solution
+
+
 So, I had an idea (which you may or may not find useful): 
 <ul>
 <li>Why not create a centralized fork of the various framework Todo examples</li>
@@ -55,7 +59,7 @@ The initial result of my efforts is TodoMVC - a library of (almost) consistent T
 
 
 ####Screenshots:
-YUILibrary, Spine.js and SproutCore demos.
+Three of the seven demos included:
 <img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
 All of the demos are completely self-contained, so in the case of say, a framework like 
