@@ -55,7 +55,8 @@ The initial result of my efforts is TodoMVC - a library of (almost) consistent T
 
 
 ####Screenshots:
-**coming soon
+YUILibrary, Spine.js and SproutCore demos.
+<img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
 All of the demos are completely self-contained, so in the case of say, a framework like 
 JavaScriptMVC - not only are all dependencies included but the demo is also 'pre-compiled'
@@ -85,5 +86,7 @@ A:Good question. Whilst this might be considered at some point, I like the idea 
 
 A:I'm currently still deciding whether there would be a great benefit to this. I regularly state that OS solutions should contain both tests and documentation, however, a few developers have suggested there not being a need nor  expectation as these are essentially usage examples. If enough people request tests, I'm happy to support them.
 
-I don't really see the point of this project. Wtf, bro?. That's a valid viewpoint. I'm not in any way saying that a consistent, common MVC example is going to take all of the headache out of selecting a framework to use for your project, but if I was looking at these for the first time personally I would find this helpful and I hope there are some developers out there that will feel the same way too.
+####Q:I don't really see the point of this project. Wtf, bro?. 
+
+A:That's a valid viewpoint. I'm not in any way saying that a consistent, common MVC example is going to take all of the headache out of selecting a framework to use for your project, but if I was looking at these for the first time personally I would find this helpful and I hope there are some developers out there that will feel the same way too.
 
