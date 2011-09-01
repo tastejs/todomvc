@@ -18,9 +18,9 @@ You may know that many frameworks now come with their own variation of the 'Todo
 It's a simple demo that illustrates how models, views and controllers may be used to write
 a completely functional list-based application. 
 
-#Whilst many frameworks attempt to include a version of the 'Todo' example, there are issues here:
+###Whilst many frameworks attempt to include a version of the 'Todo' example, there are issues here:
 
-#Implementations are inconsistent
+####Implementations are inconsistent
 There's no standard or specification around how the Todo application should be written - indeed, some may ask if a demo app even needs one. 
 
 When you actually delve into framework demos you might be surprised at just how much they can actually differ. Some solutions will opt for a completely different MVC structure to the application, others will opt for JavaScript templating to insert new items whilst some will prefer cloning HTML markup to insert new 'rows' instead. Again, the lack of what we consider a consistent experience causes problems here. 
@@ -31,7 +31,7 @@ Regardless, this is why although some frameworks will implement the example with
 
 
 
-#Lack of a Todo example altogether
+####Lack of a Todo example altogether
 I can't speak for all developers, but after reviewing the feature list on such solutions, my first port of call is usually to look for their Todo app as I find this the quickest way to determine whether I'm going to like using their brand of MVC for structuring my apps. This isn't in any way stating an incapability of determining this from code samples in a frameworks docs, but rather, I prefer to review differences in a complete application. I know that other developers feel the same about this too.
 
 So, I had an idea (which you may or may not find useful): 
