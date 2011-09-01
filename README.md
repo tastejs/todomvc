@@ -27,7 +27,7 @@ When you actually delve into framework demos you might be surprised at just how 
 
 Regardless, this is why although some frameworks will implement the example with similar features and a look/feel consistent with their peers, others will stray away from this quite heavily. 
 
-#This is an issue because if you're attempting to directly compare how one framework might achieve a task vs another, very disparate implementations make this significantly more difficult to do.
+####This is an issue because if you're attempting to directly compare how one framework might achieve a task vs another, very disparate implementations make this significantly more difficult to do.
 
 
 
