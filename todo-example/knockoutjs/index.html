@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Knockout.js</title>
@@ -43,15 +43,15 @@
         <a href="http://twitter.com/addyosmani">Addy Osmani</a>
     </div>
     <script id="todoitemtemplate" type="text/html">
-      <li>
+      <li data-bind="css: {editing: editing}">
         <div data-bind="attr: { class : done() ? 'todo done' : 'todo'}">
           <div class="display">
             <input class="check" type="checkbox" data-bind="checked: done" />
-            <div class="todo-content" data-bind="text: content"></div>
+            <div class="todo-content" data-bind="text: content, click: edit" style="cursor: pointer;"></div>
             <span class="todo-destroy" data-bind="click: viewModel.remove"></span>
           </div>
           <div class="edit">
-            <input class="todo-input" type="text" data-bind="value: content"/>
+            <input class="todo-input" type="text" data-bind="value: content, event: { keyup: editkeyup, blur: stopEditing }"/>
           </div>
         </div>
       </li>
@@ -74,6 +74,14 @@
             this.content = ko.observable(text);
             this.order = ko.observable();
             this.done = ko.observable(false);
+			this.editing = ko.observable(false);
+			this.edit = function() {  this.editing(true); };
+			this.stopEditing = function() { this.editing(false); };
+			this.editkeyup = function(event) { 
+				if (event.keyCode === 13) {
+					this.stopEditing();
+				}
+			};
         }
 
         var viewModel = {
