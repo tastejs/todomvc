@@ -66,6 +66,7 @@ The initial result of my efforts is TodoMVC - a library of (almost) consistent T
 <li>Sammy.js</li>
 <li>YUILibrary</li>
 <li>KnockoutJS (MVVM)</li>
+<li>AngularJS</li>
 </ul>
 
 
