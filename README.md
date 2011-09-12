@@ -7,6 +7,7 @@
 ####Screenshots:
 
 Three of the seven demo apps included:
+
 <img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
 
@@ -79,7 +80,7 @@ At the end of the day, I want to make it easier for developers to make a choice 
 and this may be just one other source of information about their differences which you may find 
 of assistance.
 
-TodoMVC is built on the efforts of a number of other developers including: Justin Meyer, Jérôme, Gravel-Niquet, Alex MacCaw, Brandon Aaron, Ashish Sharma and Tom Dale.
+####TodoMVC is built on the efforts of a number of other developers including: Jérôme Gravel-Niquet (who I believe created the first version of this style of Todo app), Justin Meyer, Alex MacCaw, Brandon Aaron, Ashish Sharma and Tom Dale.
 
 ##Frequently Asked Questions:
 
