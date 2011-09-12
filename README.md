@@ -1,7 +1,7 @@
 ![TodoMVC!](http://addyosmani.com/blog/wp-content/uploads/2011/09/logo.gif)
 
 ##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.1 pre)
-####Including SproutCore 2.0, YUILibrary, JavaScriptMVC, Spine.js, Backbone, Sammy, KnockoutJS and more.
+####Including SproutCore 2.0, YUILibrary, JavaScriptMVC, Spine.js, Backbone, Sammy, KnockoutJS, AngularJS and more.
 
 
 ####Screenshots:
@@ -53,7 +53,7 @@ So, I had an idea (which you may or may not find useful):
 <ul>
 <li>Why not create a centralized fork of the various framework Todo examples</li>
 <li>Attempt to make these Todo examples more consistent in features, look and feel</li>
-<li>Add a Todo app for those that are missing one altogether or don't have an officially'endorsed' implementation.</li>
+<li>Add a Todo app for those that are missing one altogether or don't have an officially 'endorsed' implementation.</li>
 </ul>
 
 The initial result of my efforts is TodoMVC - a library of (almost) consistent Todo demo apps for MVC frameworks which include:
@@ -81,7 +81,7 @@ At the end of the day, I want to make it easier for developers to make a choice 
 and this may be just one other source of information about their differences which you may find 
 of assistance.
 
-####TodoMVC is built on the efforts of a number of other developers including: Jérôme Gravel-Niquet (who I believe created the first version of this style of Todo app), Justin Meyer, Alex MacCaw, Brandon Aaron, Ashish Sharma and Tom Dale.
+####TodoMVC is built on the efforts of a number of other developers including: Jérôme Gravel-Niquet (who I believe created the first version of this style of Todo app), Justin Meyer, Alex MacCaw, Brandon Aaron, Ashish Sharma, Christoph Burgdorf and Tom Dale.
 
 ##Frequently Asked Questions:
 
