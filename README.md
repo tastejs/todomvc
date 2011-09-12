@@ -1,4 +1,5 @@
 ##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.1 pre)
+####Including SproutCore 2.0, YUILibrary, JavaScriptMVC, Spine.js, Backbone, Sammy, KnockoutJS and more.
 
 Over the past year, we've seen interest in lightweight JavaScript MVC frameworks continue
 to increase steadily. Backbone, Spine, SproutCore 2.0, YUILibrary, JavaScriptMVC...
