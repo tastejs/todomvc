@@ -69,7 +69,7 @@ All of the demos are completely self-contained, so in the case of say, a framewo
 JavaScriptMVC - not only are all dependencies included but the demo is also 'pre-compiled'
 so you can try it out of the box (unlike the version on the official repo). I may also 
 expand the example-set to include demos for other new libraries such as Batman.js and Agility
-is these are requested.
+if these are requested.
 
 At the end of the day, I want to make it easier for developers to make a choice between frameworks
 and this may be just one other source of information about their differences which you may find 
