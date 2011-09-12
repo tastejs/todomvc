@@ -3,6 +3,15 @@
 ##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.1 pre)
 ####Including SproutCore 2.0, YUILibrary, JavaScriptMVC, Spine.js, Backbone, Sammy, KnockoutJS and more.
 
+
+####Screenshots:
+
+Three of the seven demo apps included:
+<img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
+
+
+##Introducing TodoMVC
+
 Over the past year, we've seen interest in lightweight JavaScript MVC frameworks continue
 to increase steadily. Backbone, Spine, SproutCore 2.0, YUILibrary, JavaScriptMVC...
 the list of choices has never been so ever-growing and developers looking to select an 
@@ -14,8 +23,6 @@ do you choose exactly?. In my previous posts on structured application developme
 attempted to distinguish the pros and cons of such solutions, but when it comes down to
 the MVC coding style they offer perhaps there's another way these differences can be 
 compared.
-
-##Introducing TodoMVC
 
 You may know that many frameworks now come with their own variation of the 'Todo' example.
 It's a simple demo that illustrates how models, views and controllers may be used to write
@@ -48,7 +55,7 @@ So, I had an idea (which you may or may not find useful):
 <li>Add a Todo app for those that are missing one altogether or don't have an officially'endorsed' implementation.</li>
 </ul>
 
-The initial result of my efforts is TodoMVC - a library of (almost) consistent Todo examples for MVC frameworks which include:
+The initial result of my efforts is TodoMVC - a library of (almost) consistent Todo demo apps for MVC frameworks which include:
 
 <ul>
 <li>SproutCore 2.0</li>
@@ -61,9 +68,6 @@ The initial result of my efforts is TodoMVC - a library of (almost) consistent T
 </ul>
 
 
-####Screenshots:
-Three of the seven demos included:
-<img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
 All of the demos are completely self-contained, so in the case of say, a framework like 
 JavaScriptMVC - not only are all dependencies included but the demo is also 'pre-compiled'
