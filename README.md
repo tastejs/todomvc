@@ -1,3 +1,5 @@
+![TodoMVC!](http://addyosmani.com/blog/wp-content/uploads/2011/09/logo.gif)
+
 ##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.1 pre)
 ####Including SproutCore 2.0, YUILibrary, JavaScriptMVC, Spine.js, Backbone, Sammy, KnockoutJS and more.
 
