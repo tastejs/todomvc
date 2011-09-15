@@ -446,7 +446,6 @@ body {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
-	background: url(/images/destroy.png) no-repeat center center;
 }
 /* line 106 */
 #todoapp .content ul#todo-list li:hover .todo-destroy {
