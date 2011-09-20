@@ -44,6 +44,17 @@ html {
 }
 
 #todoapp {
+    background: none repeat scroll 0 0 white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    background: none repeat scroll 0 0 white;
+    margin: 0 auto 40px;
+    padding: 20px;
+    width: 480px;
+}
+
+#todoapp {
   width: 480px;
   margin: 0 auto 40px;
   background: white;
@@ -164,7 +175,20 @@ html {
   *zoom: 1;
   margin-top: 10px;
   color: #777777;
+  
+  background: none repeat scroll 0 0 #F4FCE8;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #EDEDED;
+    color: #555555;
+    display: block;
+    line-height: 36px;
+    margin: 20px -20px -20px;
+    overflow: hidden;
+    padding: 0 20px;
 }
+
+
+    
   #todo-stats:after {
     content: "\0020";
     display: block;
@@ -183,6 +207,47 @@ html {
   #todo-stats .todo-clear {
     float: right;
   }
+  
+  #todoapp #todo-stats {
+    background: none repeat scroll 0 0 #F4FCE8;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid #EDEDED;
+    color: #555555;
+    line-height: 36px;
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+  #todoapp #todo-stats .todo-clear a {
+	display: block;
+	line-height: 20px;
+	text-decoration: none;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-o-border-radius: 12px;
+	-ms-border-radius: 12px;
+	-khtml-border-radius: 12px;
+	border-radius: 12px;
+	background: rgba(0, 0, 0, 0.1);
+	color: #555555;
+	font-size: 11px;
+	margin-top: 8px;
+	padding: 0 10px 1px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+}
+/* line 136 */
+#todoapp #todo-stats .todo-clear a:hover {
+	background: rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+}
+
     #todo-stats .todo-clear a {
       color: #777777;
       font-size: 12px;
