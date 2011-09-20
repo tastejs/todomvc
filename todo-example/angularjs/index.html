@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org/">
+<html xmlns:ng="http://angularjs.org/" xmlns:my="http://rx.org">
 <head>
   <meta charset="utf-8">
   <title>AngularJS Todo App</title>
@@ -16,7 +16,7 @@
             <div id="todo-form">
             </div>
             <form id="todo-form" ng:submit="addTodo()">
-                <input id="new-todo" name="newTodo" placeholder="What needs to be done?" type="text">
+                <input id="new-todo" name="newTodo" my:blur="addTodo()" placeholder="What needs to be done?" type="text">
                 <span class="ui-tooltip-top" ng:show="showHitEnterHint">
                     Press Enter to save this task
                 </span>
@@ -39,13 +39,13 @@
             </div>
             <div id="todo-stats">
               <span class="todo-count" ng:show="hasTodos()">
-                <span class="number">{{ remainingTodos() }}</span>
-                <span class="word">items</span> left.
+                <ng:pluralize count="remainingTodos()" when="{'0' : 'No items left.', '1': '1 item left.', 'other' : '{} items left.' }">
+                </ng:pluralize>
               </span>
               <span class="todo-clear" ng:show="hasFinishedTodos()">
                   <a ng:click="clearCompletedItems()">
-                  Clear <span class="number-done">{{ finishedTodos() }}</span>
-                  completed <span class="word-done">item</span>
+                  	Clear <ng:pluralize count="finishedTodos()" when="{'1': '1 completed item', 'other' : '{} completed items' }">
+                  	</ng:pluralize>
                   </a>
               </span>
         </div>
@@ -64,16 +64,14 @@
             Rewritten to use <a href="http://angularjs.org">AngularJS </a> by
             <br>
             <a href="http://cburgdorf.wordpress.com/">Christoph Burgdorf</a>
+            <br>Cleanup, edits: <a href="http://www.linkedin.com/pub/dan-doyon/2/1b0/a83">Dan Doyon</a>
         </p>
     </div>
   <script src="js/booter.js"></script>
-  <script src="lib/angular/angular.js" ng:autobind></script>
+  <script src="lib/angular/angular.min.js" ng:autobind></script>
   <script src="lib/rx/rx.js"></script>
   <script src="lib/rx/rx.angular.js"></script>
-  <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/widgets.js"></script>
   <script src="js/directive.js"></script>  
 </body>
 </html>
