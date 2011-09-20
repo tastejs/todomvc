@@ -10,6 +10,8 @@ Three of the seven demo apps included:
 
 <img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
+####Live Previews: [http://addyosmani.github.com/todomvc/](http://addyosmani.github.com/todomvc/)
+
 
 ##Introducing TodoMVC
 
