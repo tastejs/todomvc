@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Batmanjs</title>
+
+  <script src="/batman/es5-shim.js" type="text/javascript"></script>
+  <script src="/batman/dist/batman.js" type="text/javascript"></script>
+  <script src="/batman/coffee-script.js" type="text/javascript"></script>
+
+  <script src="batmanjs.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <div id="container">
+        <h1>Alfred</h1>
+        <form data-formfor-todo="controllers.todos.emptyTodo" data-event-submit="controllers.todos.create">
+          <input class="new-item" placeholder="add a todo item" data-bind="todo.body" />
+        </form>
+
+        <ul id="items">
+            <li data-foreach-todo="Todo.all" data-mixin="animation">
+                <input type="checkbox" data-bind="todo.isDone" data-event-change="todo.save" />
+                <label data-bind="todo.body" data-addclass-done="todo.isDone" data-mixin="editable"></label>
+                <a data-event-click="todo.destroy">delete</a>
+            </li>
+            <li><span data-bind="Todo.all.length"></span> <span data-bind="'item' | pluralize Todo.all.length"></span></li>
+        </ul>
+    </div>
+
+    <script type="text/coffeescript">
+    # Start the app. This will start up the dispatcher and a number of other mechanisms.
+    Batmanjs.run()
+    </script>
+
+</body>
+</html>

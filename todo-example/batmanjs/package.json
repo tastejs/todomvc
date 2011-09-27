@@ -1,0 +1,19 @@
+{
+  "author": "You <you@domain.com>",
+  "name": "Batmanjs",
+  "description": "A new and exciting application using Batman",
+  "version": "0.1.0",
+  "main": "build/app.js",
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "batman": "~>0.1.0"
+  },
+  "devDependencies": {},
+  "batman": {
+    "appName": "Batmanjs",
+    "build": true,
+    "buildDir": "./build"
+  }
+}
