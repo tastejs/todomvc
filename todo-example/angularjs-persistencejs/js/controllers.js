@@ -72,7 +72,8 @@ App.Controllers.TodoController = function (persistencejs) {
 	self.loadTodos = function(){
 		persistencejs.fetchAll(self);
 	}
-	self.refresh = function(){ self.$root.$eval(); }
+	
+	self.refresh = function(){ self.$apply(); }
 
 	self.loadTodos();
 	
