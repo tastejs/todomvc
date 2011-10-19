@@ -28,6 +28,10 @@ angular.service('persistencejs', function() {
 			});
 		},
 		
+		clearCompletedItems: function(){
+			Todo.all().filter('done','=',true).destroyAll();
+		},
+		
 		remove: function(item){
 			Todo.all().filter('content','=',item.content).destroyAll();
 		},
