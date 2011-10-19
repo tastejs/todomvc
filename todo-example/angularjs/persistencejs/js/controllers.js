@@ -59,6 +59,7 @@ App.Controllers.TodoController = function (persistencejs) {
         angular.forEach(oldTodos, function(todo) {
             if (!todo.done) self.todos.push(todo);
         });
+		persistencejs.clearCompletedItems();
     };
 
     self.hasFinishedTodos = function() {
