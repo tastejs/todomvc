@@ -6,7 +6,7 @@ Developers these days are spoiled with choice when it comes to selecting an MVC 
 
 To help solve this problem, I created TodoMVC - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MVC frameworks of today. Solutions look and feel the same, have a common feature-set and make it easy for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.
 
-Todo apps are included for:
+####Todo apps are included for:
 
 <ul>
 <li>SproutCore 2.0</li>
@@ -22,15 +22,15 @@ Todo apps are included for:
 </ul>
 
 
-####Screenshots:
+##Screenshots:
 
 Preview of some of the apps included:
 
 <img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
-####Official site
+##Official site & Getting Involved
 
-For live previews of Todo apps and more information, see the official TodoMVC site here: [http://addyosmani.github.com/todomvc/](http://addyosmani.github.com/todomvc/)
+For live previews of Todo apps and more information on the project, see the official TodoMVC site here: [http://addyosmani.github.com/todomvc/](http://addyosmani.github.com/todomvc/)
 
 
 
