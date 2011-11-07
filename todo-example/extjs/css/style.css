@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    padding: 0;
+/*    font-size: 14px;*/
+/*    line-height: 1.4em;*/
+    background-color: #EEEEEE;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.container {
+    width: 520px;
+    margin: 0 auto;
+}
+
+.content {
+    padding: 20px;
+    color: #333333;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+    font-size: 36px;
+    text-align: center;
+    padding: 20px 0 30px;
+}
+
+.credits {
+    color: #999;
+    margin-top: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.credits a, .credits a:visited {
+    color: #888;
+}
+
+input[type="text"] {
+    padding: 6px;
+    margin: 0 auto;
+    font-size: 24px;
+    border: 1px solid #999999;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2) inset;
+}
+
+.row {
+    font-size: 1.7em;
+    padding: 20px 0 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.row input[type="checkbox"] {
+/*    margin-top: -3px;*/
+/*    position: absolute;*/
+}
+
+.row span.checked {
+    text-decoration: line-through;
+}
+
+.toolbar {
+    color: #555555;
+    padding: 8px 20px;
+    margin-top: 10px;
+    background-color: #F4FCE8;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #EDEDED;
+}
+
+.toolbar button {
+    float: right;
+    width: 110px;
+    border: 0 none;
+    color: #555555;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 3px 10px 4px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.toolbar .x-over button {
+    background: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.toolbar .x-pressed button {
+    top: 1px;
+    position: relative;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
