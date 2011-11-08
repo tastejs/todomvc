@@ -1,18 +1,17 @@
 body {
     margin: 0;
     padding: 0;
-/*    font-size: 14px;*/
-/*    line-height: 1.4em;*/
     background-color: #EEEEEE;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.container {
-    width: 520px;
-    margin: 0 auto;
+div, h1, span {
+    outline: none;
 }
 
-.content {
+#todo {
+    width: 480px;
+    margin: 0 auto 40px;
     padding: 20px;
     color: #333333;
     background-color: white;
@@ -29,7 +28,6 @@ h1 {
 
 .credits {
     color: #999;
-    margin-top: 30px;
     text-align: center;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
@@ -53,24 +51,31 @@ input[type="text"] {
 }
 
 .row input[type="checkbox"] {
-/*    margin-top: -3px;*/
-/*    position: absolute;*/
+    vertical-align: middle;
+}
+
+.row span {
+    cursor: pointer;
 }
 
 .row span.checked {
     text-decoration: line-through;
 }
 
-.toolbar {
+.x-toolbar {
     color: #555555;
-    padding: 8px 20px;
     margin-top: 10px;
+    padding: 8px 20px;
     background-color: #F4FCE8;
     border-radius: 0 0 5px 5px;
     border-top: 1px solid #EDEDED;
 }
 
-.toolbar button {
+.x-toolbar .x-container {
+    height: 21px;
+}
+
+.x-toolbar button {
     float: right;
     width: 110px;
     border: 0 none;
@@ -82,14 +87,16 @@ input[type="text"] {
     box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
 }
 
-.toolbar .x-over button {
+.x-toolbar .x-over button {
     background: rgba(0, 0, 0, 0.15);
     box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
 }
 
-.toolbar .x-pressed button {
-    top: 1px;
-    position: relative;
+.x-toolbar .x-pressed button {
     background: rgba(0, 0, 0, 0.1);
     box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.x-clear {
+    clear: both;
 }

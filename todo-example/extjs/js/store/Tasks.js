@@ -1,8 +1,9 @@
 Ext.define('Todo.store.Tasks', {
-    extend: 'Ext.data.Store',
-    fields: ['label', 'checked'],
-    data: [
-        {label: 'task one', checked: false},
-        {label: 'task two', checked: true}
-    ]
+    autoLoad: true,
+    model: 'Todo.model.Task',
+    extend: 'Ext.data.Store'
+    // data: [
+    //     {label: 'task one', checked: false},
+    //     {label: 'task two', checked: true}
+    // ]
 });

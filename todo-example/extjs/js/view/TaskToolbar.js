@@ -1,11 +1,12 @@
 Ext.define('Todo.view.TaskToolbar' , {
-    alias : 'widget.taskToolbar',
+    hidden: true,
     extend: 'Ext.Toolbar',
+    alias : 'widget.taskToolbar',
     items: [{
-        xtype: 'container',
-        html: '1 item left.'
-    }, '->', {
         xtype: 'button',
         text: 'Clear completed'
+    }, {
+        xtype: 'container',
+        html: '1 item left.'
     }]
 });

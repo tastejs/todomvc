@@ -1,7 +1,11 @@
 Ext.define('Todo.controller.Tasks', {
-    extend: 'Ext.app.Controller',
+
+    models: ['Task'],
+
     stores: ['Tasks'],
-    // models: ['Task'],
+
+    extend: 'Ext.app.Controller',
+
     views: ['TaskField', 'TaskList', 'TaskToolbar'],
 
     refs: [
@@ -35,11 +39,14 @@ Ext.define('Todo.controller.Tasks', {
             var store = this.getTasksStore();
             store.add({label: value, checked: false});
             field.reset();
+            store.sync();
         }
     },
 
     onListItemClick: function(list, record, el) {
         record.set('checked', !record.get('checked'));
+        record.store.sync();
+        record.commit();
     },
 
     onClearButtonClick: function() {
@@ -52,12 +59,14 @@ Ext.define('Todo.controller.Tasks', {
             }
         });
         store.remove(records);
+        store.sync();
     },
 
     onStoreDataChanged: function() {
         var info = '',
             store = this.getTasksStore(),
-            container = this.getTaskToolbar().items.first(),
+            toolbar = this.getTaskToolbar(),
+            container = toolbar.items.last(),
             records = store.queryBy(function(record) {
                 return !record.get('checked');
             }),
@@ -68,6 +77,7 @@ Ext.define('Todo.controller.Tasks', {
         }
 
         container.update(info);
+        toolbar.setVisible(store.getCount());
     }
 
 });

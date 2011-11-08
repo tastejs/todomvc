@@ -1,5 +1,6 @@
 Ext.define('Todo.view.TaskList' , {
     store: 'Tasks',
+    loadMask: false,
     itemSelector: 'div.row',
     extend: 'Ext.view.View',
     alias : 'widget.taskList',
