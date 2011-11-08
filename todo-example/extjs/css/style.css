@@ -39,6 +39,7 @@ h1 {
 
 input[type="text"] {
     padding: 6px;
+    width: 466px !important;
     margin: 0 auto;
     font-size: 24px;
     border: 1px solid #999999;

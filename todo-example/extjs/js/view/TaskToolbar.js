@@ -6,7 +6,6 @@ Ext.define('Todo.view.TaskToolbar' , {
         xtype: 'button',
         text: 'Clear completed'
     }, {
-        xtype: 'container',
-        html: '1 item left.'
+        xtype: 'container'
     }]
 });
