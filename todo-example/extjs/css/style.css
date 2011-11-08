@@ -11,9 +11,9 @@ div, h1, span {
 
 #todo {
     width: 480px;
-    margin: 0 auto 40px;
     padding: 20px;
     color: #333333;
+    margin: 0 auto 40px;
     background-color: white;
     border-radius: 0 0 5px 5px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
@@ -28,6 +28,7 @@ h1 {
 
 .credits {
     color: #999;
+    font-size: 0.9em;
     text-align: center;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
@@ -77,7 +78,7 @@ input[type="text"] {
 
 .x-toolbar button {
     float: right;
-    width: 110px;
+    width: 120px;
     border: 0 none;
     color: #555555;
     cursor: pointer;

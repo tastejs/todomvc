@@ -35,7 +35,7 @@ Ext.define('Todo.controller.Tasks', {
 
     onTaskFieldKeyup: function(field, event) {
         var value = field.getValue();
-        if (event.button === 12 && value !== '') {
+        if (event.keyCode === 13 && value !== '') {
             var store = this.getTasksStore();
             store.add({label: value, checked: false});
             field.reset();
