@@ -25,13 +25,20 @@ jQuery(function($){
 				uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
 			}
 			return uuid;
+		},
+		pluralize: function(count, word) {
+			return count === 1 ? word : word + 's';
 		}
 	};
 		
 	var App = {
 		init: function() {
-			this.element = $('#todoapp');
-			this.todoList = $('.items');
+			this.$template = $('#todo-template');
+			this.$todoApp = $('#todoapp');
+			this.$todoList = this.$todoApp.find('.items');
+			this.$footer = this.$todoApp.find('footer');
+			this.$count = this.$footer.find('.count');
+			this.$clearBtn = this.$footer.find('.clear');
 			// localStorage support
 			this.store = new Store('todoapp');
 			this.todos = this.store.get('todos') || [];
@@ -39,18 +46,14 @@ jQuery(function($){
 			this.render();
 		},
 		render: function() {
-			var template = $('#todo-template').tmpl( this.todos );
-			this.todoList.html( template );
-			this.renderActiveTodoCount();
+			var html = this.$template.tmpl( this.todos );
+			this.$todoList.html( html );
+			this.renderFooter();
 			this.store.set('todos', this.todos);
-			// Only show the footer when there are at least one todo.
-			$('footer').toggle( !!this.todos.length );
-			// Only show the clear button when there are done todos.
-			$('.clear').toggle( !!( this.todos.length - this.renderActiveTodoCount() ) );
 		},
 		bindEvents: function() {
-			var elem = this.element,
-				list = this.todoList;
+			var elem = this.$todoApp,
+				list = this.$todoList;
 			elem.on('click', '.clear', this.destroyDone);
 			elem.on('submit', 'form', this.create);
 			list.on('change', 'input[type="checkbox"]', this.toggle);
@@ -59,15 +62,27 @@ jQuery(function($){
 			list.on('blur', 'input[type="text"]', this.update);
 			list.on('click', '.destroy', this.destroy);
 		},
-		renderActiveTodoCount: function() {
+		activeTodoCount: function() {
 			var count = 0;
 			$.each(this.todos, function(i, val) {
 				if ( !val.done ) {
 					count++;
 				}
 			});
-			$('.countVal').text( count );
 			return count;
+		},
+		renderFooter: function() {
+			var todoCount = this.todos.length,
+				activeTodos = this.activeTodoCount(),
+				completedTodos = todoCount - activeTodos,
+				countTitle = '<b>' + activeTodos + '</b> ' + Utils.pluralize( activeTodos, 'item' ) + ' left';
+				clearTitle = 'Clear ' + completedTodos + ' completed ' + Utils.pluralize( completedTodos, 'item' );
+			// Only show the footer when there are at least one todo.
+			this.$footer.toggle( !!todoCount );
+			// Active todo count
+			this.$count.html( countTitle );
+			// Toggle clear button and update title
+			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
 		},
 		destroyDone: function() {
 			// Reverse loop; since we are dynamically removing items from the todos array
