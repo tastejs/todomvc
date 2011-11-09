@@ -9,10 +9,8 @@ Ext.application({
         Ext.create('Ext.container.Container', {
             renderTo: 'todo',
             items: [{
-                xtype: 'container',
-                html: '<h1>Todos</h1>'
-            }, {
-                xtype: 'taskField'
+                xtype: 'taskField',
+                contentEl: 'taskfield'
             }, {
                 xtype: 'taskList'
             }, {

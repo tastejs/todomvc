@@ -21,6 +21,7 @@ div, h1, span {
 
 h1 {
     margin: 0;
+    line-height: 1;
     font-size: 36px;
     text-align: center;
     padding: 20px 0 30px;
@@ -58,9 +59,11 @@ input[type="text"] {
 
 .row span {
     cursor: pointer;
+    margin-left: 5px;
 }
 
 .row span.checked {
+    color: #777777;
     text-decoration: line-through;
 }
 
@@ -79,7 +82,7 @@ input[type="text"] {
 
 .x-toolbar button {
     float: right;
-    width: 120px;
+    width: 170px;
     border: 0 none;
     color: #555555;
     cursor: pointer;

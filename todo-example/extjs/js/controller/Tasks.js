@@ -63,21 +63,30 @@ Ext.define('Todo.controller.Tasks', {
     },
 
     onStoreDataChanged: function() {
-        var info = '',
+        var info = '', text = '',
             store = this.getTasksStore(),
+            totalCount = store.getCount(),
             toolbar = this.getTaskToolbar(),
+            button = toolbar.items.first(),
             container = toolbar.items.last(),
             records = store.queryBy(function(record) {
                 return !record.get('checked');
             }),
-            count = records.getCount();
+            count = records.getCount(),
+            checkedCount = totalCount - count;
 
         if (count) {
-            info = count + ' item' + (count > 1 ? 's' : '') + ' left.';
+            info = '<b>' + count + '</b> item' + (count > 1 ? 's' : '') + ' left.';
+        }
+
+        if (checkedCount) {
+            text = 'Clear '+ checkedCount +' completed item' + (checkedCount > 1 ? 's' : '');
         }
 
         container.update(info);
-        toolbar.setVisible(store.getCount());
+        button.setText(text);
+        button.setVisible(checkedCount);
+        toolbar.setVisible(totalCount);
     }
 
 });
