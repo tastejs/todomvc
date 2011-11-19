@@ -8,16 +8,10 @@
 
 $(document).ready(->
 
-  # set the language
-  kb.locale_manager.setLocale('en')
-
   # add a doubleclick and placeholder handlers to KO
   ko.bindingHandlers.dblclick =
     init: (element, value_accessor, all_bindings_accessor, view_model) ->
       $(element).dblclick(ko.utils.unwrapObservable(value_accessor()))
-  ko.bindingHandlers.placeholder =
-    update: (element, value_accessor, all_bindings_accessor, view_model) ->
-      $(element).attr('placeholder', ko.utils.unwrapObservable(value_accessor()))
 
   ###################################
   # Model: http://en.wikipedia.org/wiki/Model_view_controller
@@ -25,21 +19,11 @@ $(document).ready(->
   ###################################
 
   # Todos
-  class Todo extends Backbone.Model
-    defaults: -> return {created_at: new Date()}
-    set: (attrs) ->
-      attrs['done_at'] = new Date(attrs['done_at']) if attrs and attrs.hasOwnProperty('done_at') and _.isString(attrs['done_at'])
-      super
-    done: (done) ->
-      return !!@get('done_at') if arguments.length == 0
-      @save({done_at: if done then new Date() else null})
-
   class TodoList extends Backbone.Collection
-    model: Todo
     localStorage: new Store("kb_todos") # Save all of the todo items under the `"kb_todos"` namespace.
-    doneCount: -> @models.reduce(((prev,cur)-> return prev + if !!cur.get('done_at') then 1 else 0), 0)
+    doneCount: -> @models.reduce(((prev,cur)-> return prev + if !!cur.get('done') then 1 else 0), 0)
     remainingCount: -> @models.length - @doneCount()
-    allDone: -> return @filter((todo) -> return !!todo.get('done_at'))
+    allDone: -> return @filter((todo) -> return !!todo.get('done'))
   todos = new TodoList()
   todos.fetch()
 
@@ -47,15 +31,8 @@ $(document).ready(->
   # MVVM: http://en.wikipedia.org/wiki/Model_View_ViewModel
   ###################################
 
-  # Header
-  HeaderViewModel = ->
-    @title = "Todos"
-    return this
-
   CreateTodoViewModel = ->
     @input_text = ko.observable('')
-    @input_placeholder_text = kb.observable(kb.locale_manager, {key: 'placeholder_create'})
-    @input_tooltip_text = kb.observable(kb.locale_manager, {key: 'tooltip_create'})
     @addTodo = (event) ->
       text = @create.input_text()
       return true if (!text || event.keyCode != 13)
@@ -69,8 +46,7 @@ $(document).ready(->
     @toggleEditMode = (event) => @edit_mode(!@edit_mode()) if not @done()
     @onEnterEndEdit = (event) => @edit_mode(false) if (event.keyCode == 13)
 
-    @created_at = model.get('created_at')
-    @done = kb.observable(model, {key: 'done_at', read: (-> return model.done()), write: ((done) -> model.done(done)) }, this)
+    @done = kb.observable(model, {key: 'done', write: ((done) -> model.save({done: done})) }, this)
     @destroyTodo = => model.destroy()
     return this
 
@@ -84,24 +60,18 @@ $(document).ready(->
     @collection_observable = kb.collectionObservable(todos)
     @remaining_text = ko.dependentObservable(=>
       count = @collection_observable.collection().remainingCount(); return '' if not count
-      return kb.locale_manager.get((if count == 1 then 'remaining_template_s' else 'remaining_template_pl'), count)
+      return "#{count} #{if count == 1 then 'item' else 'items'} remaining."
     )
     @clear_text = ko.dependentObservable(=>
       count = @collection_observable.collection().doneCount(); return '' if not count
-      return kb.locale_manager.get((if count == 1 then 'clear_template_s' else 'clear_template_pl'), count)
+      return "Clear #{count} completed #{if count == 1 then 'item' else 'items'}."
     )
     @onDestroyDone = => model.destroy() for model in todos.allDone()
     return this
 
-  FooterViewModel = ->
-    @instructions_text = kb.locale_manager.get('instructions')
-    return this
-
   app_view_model =
-    header: new HeaderViewModel()
     create: new CreateTodoViewModel()
     todo_list: new TodoListViewModel(todos)
-    footer: new FooterViewModel(kb.locale_manager.getLocales())
     stats: new StatsViewModel(todos)
   ko.applyBindings(app_view_model, $('#todoapp')[0])
 

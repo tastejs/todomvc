@@ -14,54 +14,21 @@ var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, par
   return child;
 }, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 $(document).ready(function() {
-  var CreateTodoViewModel, FooterViewModel, HeaderViewModel, StatsViewModel, Todo, TodoList, TodoListViewModel, TodoViewModel, app_view_model, todos;
-  kb.locale_manager.setLocale('en');
+  var CreateTodoViewModel, StatsViewModel, TodoList, TodoListViewModel, TodoViewModel, app_view_model, todos;
   ko.bindingHandlers.dblclick = {
     init: function(element, value_accessor, all_bindings_accessor, view_model) {
       return $(element).dblclick(ko.utils.unwrapObservable(value_accessor()));
     }
   };
-  ko.bindingHandlers.placeholder = {
-    update: function(element, value_accessor, all_bindings_accessor, view_model) {
-      return $(element).attr('placeholder', ko.utils.unwrapObservable(value_accessor()));
-    }
-  };
-  Todo = (function() {
-    __extends(Todo, Backbone.Model);
-    function Todo() {
-      Todo.__super__.constructor.apply(this, arguments);
-    }
-    Todo.prototype.defaults = function() {
-      return {
-        created_at: new Date()
-      };
-    };
-    Todo.prototype.set = function(attrs) {
-      if (attrs && attrs.hasOwnProperty('done_at') && _.isString(attrs['done_at'])) {
-        attrs['done_at'] = new Date(attrs['done_at']);
-      }
-      return Todo.__super__.set.apply(this, arguments);
-    };
-    Todo.prototype.done = function(done) {
-      if (arguments.length === 0) {
-        return !!this.get('done_at');
-      }
-      return this.save({
-        done_at: done ? new Date() : null
-      });
-    };
-    return Todo;
-  })();
   TodoList = (function() {
     __extends(TodoList, Backbone.Collection);
     function TodoList() {
       TodoList.__super__.constructor.apply(this, arguments);
     }
-    TodoList.prototype.model = Todo;
     TodoList.prototype.localStorage = new Store("kb_todos");
     TodoList.prototype.doneCount = function() {
       return this.models.reduce((function(prev, cur) {
-        return prev + (!!cur.get('done_at') ? 1 : 0);
+        return prev + (!!cur.get('done') ? 1 : 0);
       }), 0);
     };
     TodoList.prototype.remainingCount = function() {
@@ -69,25 +36,15 @@ $(document).ready(function() {
     };
     TodoList.prototype.allDone = function() {
       return this.filter(function(todo) {
-        return !!todo.get('done_at');
+        return !!todo.get('done');
       });
     };
     return TodoList;
   })();
   todos = new TodoList();
   todos.fetch();
-  HeaderViewModel = function() {
-    this.title = "Todos";
-    return this;
-  };
   CreateTodoViewModel = function() {
     this.input_text = ko.observable('');
-    this.input_placeholder_text = kb.observable(kb.locale_manager, {
-      key: 'placeholder_create'
-    });
-    this.input_tooltip_text = kb.observable(kb.locale_manager, {
-      key: 'tooltip_create'
-    });
     this.addTodo = function(event) {
       var text;
       text = this.create.input_text();
@@ -121,14 +78,12 @@ $(document).ready(function() {
         return this.edit_mode(false);
       }
     }, this);
-    this.created_at = model.get('created_at');
     this.done = kb.observable(model, {
-      key: 'done_at',
-      read: (function() {
-        return model.done();
-      }),
+      key: 'done',
       write: (function(done) {
-        return model.done(done);
+        return model.save({
+          done: done
+        });
       })
     }, this);
     this.destroyTodo = __bind(function() {
@@ -151,7 +106,7 @@ $(document).ready(function() {
       if (!count) {
         return '';
       }
-      return kb.locale_manager.get((count === 1 ? 'remaining_template_s' : 'remaining_template_pl'), count);
+      return "" + count + " " + (count === 1 ? 'item' : 'items') + " remaining.";
     }, this));
     this.clear_text = ko.dependentObservable(__bind(function() {
       var count;
@@ -159,7 +114,7 @@ $(document).ready(function() {
       if (!count) {
         return '';
       }
-      return kb.locale_manager.get((count === 1 ? 'clear_template_s' : 'clear_template_pl'), count);
+      return "Clear " + count + " completed " + (count === 1 ? 'item' : 'items') + ".";
     }, this));
     this.onDestroyDone = __bind(function() {
       var model, _i, _len, _ref, _results;
@@ -173,15 +128,9 @@ $(document).ready(function() {
     }, this);
     return this;
   };
-  FooterViewModel = function() {
-    this.instructions_text = kb.locale_manager.get('instructions');
-    return this;
-  };
   app_view_model = {
-    header: new HeaderViewModel(),
     create: new CreateTodoViewModel(),
     todo_list: new TodoListViewModel(todos),
-    footer: new FooterViewModel(kb.locale_manager.getLocales()),
     stats: new StatsViewModel(todos)
   };
   return ko.applyBindings(app_view_model, $('#todoapp')[0]);

@@ -9,29 +9,16 @@
     <script src="lib/json2.js"></script>
     <script src="lib/jquery-1.7.min.js"></script>
     <script src="lib/jquery.tmpl.min.js"></script>
-    <script src="lib/globalize/globalize.js"></script>
-    <script src="lib/globalize/globalize.culture.fr-FR.js"></script>
-    <script src="lib/globalize/globalize.culture.it-IT.js"></script>
-    <script src="lib/mColorPicker.js"></script>
-    <script type="text/javascript">
-      $.fn.mColorPicker.init.showLogo = false;
-      $.fn.mColorPicker.init.replace = false;
-    </script>
 
     <!-- Knockback Dependencies -->
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
-    <!-- <script src="lib/knockout-1.2.1.debug.js"></script> -->
-    <!-- <script src="lib/knockout-1.3.0beta.debug.js"></script> -->
     <script src="lib/knockout-1.2.1.debug.js"></script>
     <script src="lib/knockback.js"></script>
 
-    <!-- Demo Dependencies -->
-    <script src="lib/backbone-localstorage.js"></script>
-
     <!-- The Demo -->
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="app/todos_locale_manager.js"></script>
+    <script src="lib/backbone-localstorage.js"></script>
     <script src="app/todos_classic.js"></script>
 
   </head>
@@ -44,7 +31,7 @@
       <!-- Header Section -->
       <div id="todo-header">
         <div class="title">
-          <h1 data-bind="text: header.title"></h1>
+          <h1>Todos</h1>
         </div>
       </div>
 
@@ -52,8 +39,7 @@
       <div id="todo-create">
         <div class="content">
           <div id="create-todo">
-            <input id="new-todo" type="text" data-bind="placeholder: create.input_placeholder_text, value: create.input_text, event: {keyup: create.addTodo}"/>
-            <span class="ui-tooltip-top" style="display:none;" data-bind="text: create.input_tooltip_text"></span>
+            <input id="new-todo" type="text" placeholder="What needs to be done?" data-bind="value: create.input_text, event: {keyup: create.addTodo}"/>
           </div>
         </div>
       </div>
@@ -72,7 +58,7 @@
       <!-- Footer Section -->
       <div id="todo-footer">
         <ul id="instructions">
-          <li data-bind="text: footer.instructions_text"></li>
+          <li>Double-click to edit a todo.</li>
         </ul>
       </div>
     </div>
