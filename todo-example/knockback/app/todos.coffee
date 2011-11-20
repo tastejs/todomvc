@@ -55,14 +55,14 @@ $(document).ready(->
     @id = locale
     @label = kb.locale_manager.localeToLabel(locale)
     @option_group = 'lang'
-    return this
+    @
 
   # Settings
   PrioritySettingsViewModel = (model) ->
     @priority = model.get('id')
     @priority_text = kb.observable(kb.locale_manager, {key: @priority})
     @priority_color = kb.observable(model, {key: 'color'})
-    return this
+    @
 
   SettingsViewModel = (priority_settings) ->
     @priority_settings = ko.observableArray(_.map(priority_settings, (model)-> return new PrioritySettingsViewModel(model)))
@@ -78,14 +78,14 @@ $(document).ready(->
         when 'high' then return 0
         when 'medium' then return 1
         when 'low' then return 2
-    return this
+    @
 
   # Content
   SortingOptionViewModel = (string_id) ->
     @id = string_id
     @label = kb.observable(kb.locale_manager, {key: string_id})
     @option_group = 'list_sort'
-    return this
+    @
 
   ###################################
   # Knockback-powered enhancements - END
@@ -121,11 +121,6 @@ $(document).ready(->
   # MVVM: http://en.wikipedia.org/wiki/Model_View_ViewModel
   ###################################
 
-  # Header
-  HeaderViewModel = ->
-    @title = "Todos"
-    return this
-
   CreateTodoViewModel = ->
     @input_text = ko.observable('')
     @input_placeholder_text = kb.observable(kb.locale_manager, {key: 'placeholder_create'})
@@ -144,7 +139,7 @@ $(document).ready(->
       tooltip_visible(false)
       window.settings_view_model.default_priority(ko.utils.unwrapObservable(@priority))
     @onToggleTooltip = => @tooltip_visible(!@tooltip_visible())
-    return this
+    @
 
   # Content
   TodoViewModel = (model) ->
@@ -172,7 +167,7 @@ $(document).ready(->
     @onToggleTooltip = => @tooltip_visible(!@tooltip_visible())
 
     @destroyTodo = => model.destroy()
-    return this
+    @
 
   TodoListViewModel = (todos) ->
     @todos = ko.observableArray([])
@@ -191,7 +186,7 @@ $(document).ready(->
     )
     @collection_observable = kb.collectionObservable(todos, @todos, {view_model: TodoViewModel, sort_attribute: 'text'})
     @sort_visible = ko.dependentObservable(=> @collection_observable().length)
-    return this
+    @
 
   FooterViewModel = (locales) ->
     @instructions_text = kb.observable(kb.locale_manager, {key: 'instructions'})
@@ -202,7 +197,7 @@ $(document).ready(->
       write: (new_locale) => kb.locale_manager.setLocale(new_locale); @current_language(new_locale)
       owner: this
     )
-    return this
+    @
 
   ###################################
   # Knockback-powered enhancements - BEGIN
@@ -222,7 +217,7 @@ $(document).ready(->
       return kb.locale_manager.get((if count == 1 then 'clear_template_s' else 'clear_template_pl'), count)
     )
     @onDestroyDone = => model.destroy() for model in todos.allDone()
-    return this
+    @
 
   # set up and bind the application view model
   window.settings_view_model = new SettingsViewModel([
@@ -231,7 +226,6 @@ $(document).ready(->
     new Backbone.ModelRef(priorities, 'low')
   ])
   app_view_model =
-    header: new HeaderViewModel()
     create: new CreateTodoViewModel()
     todo_list: new TodoListViewModel(todos)
     footer: new FooterViewModel(kb.locale_manager.getLocales())

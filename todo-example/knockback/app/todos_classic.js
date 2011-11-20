@@ -56,7 +56,7 @@ $(document).ready(function() {
       });
       return this.create.input_text('');
     };
-    return true;
+    return this;
   };
   TodoViewModel = function(model) {
     this.text = kb.observable(model, {
@@ -96,7 +96,7 @@ $(document).ready(function() {
     this.collection_observable = kb.collectionObservable(todos, this.todos, {
       view_model: TodoViewModel
     });
-    return true;
+    return this;
   };
   StatsViewModel = function(todos) {
     this.collection_observable = kb.collectionObservable(todos);

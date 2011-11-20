@@ -14,7 +14,7 @@ var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, par
   return child;
 }, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 $(document).ready(function() {
-  var CreateTodoViewModel, FooterViewModel, HeaderViewModel, LanguageOptionViewModel, PrioritiesSettingList, PrioritySetting, PrioritySettingsViewModel, SettingsViewModel, SortingOptionViewModel, StatsViewModel, Todo, TodoList, TodoListViewModel, TodoViewModel, app_view_model, priorities, todos, _ko_native_apply_bindings;
+  var CreateTodoViewModel, FooterViewModel, LanguageOptionViewModel, PrioritiesSettingList, PrioritySetting, PrioritySettingsViewModel, SettingsViewModel, SortingOptionViewModel, StatsViewModel, Todo, TodoList, TodoListViewModel, TodoViewModel, app_view_model, priorities, todos, _ko_native_apply_bindings;
   kb.locale_manager.setLocale('en');
   kb.locale_change_observable = kb.triggeredObservable(kb.locale_manager, 'change');
   ko.bindingHandlers.dblclick = {
@@ -170,10 +170,6 @@ $(document).ready(function() {
   })();
   todos = new TodoList();
   todos.fetch();
-  HeaderViewModel = function() {
-    this.title = "Todos";
-    return this;
-  };
   CreateTodoViewModel = function() {
     var tooltip_visible;
     this.input_text = ko.observable('');
@@ -369,7 +365,6 @@ $(document).ready(function() {
   };
   window.settings_view_model = new SettingsViewModel([new Backbone.ModelRef(priorities, 'high'), new Backbone.ModelRef(priorities, 'medium'), new Backbone.ModelRef(priorities, 'low')]);
   app_view_model = {
-    header: new HeaderViewModel(),
     create: new CreateTodoViewModel(),
     todo_list: new TodoListViewModel(todos),
     footer: new FooterViewModel(kb.locale_manager.getLocales()),
