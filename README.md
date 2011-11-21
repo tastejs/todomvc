@@ -19,7 +19,10 @@ To help solve this problem, I created TodoMVC - a project which offers the same 
 <li>AngularJS</li>
 <li>Broke.js</li>
 <li>Fidel.js</li>
+<li>ExtJS</li>
 </ul>
+
+A jQuery-only version of the application is also included so you can easily see how the app can be implemented with and without a structural pattern like MVC.
 
 
 ##Screenshots:
