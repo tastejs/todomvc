@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>MVC in just javascript</title>
+		<style type="text/css">
+			html, body{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-size: 16px;
+				line-height: 1.5em;
+				background: #EEE;
+				color: #333;
+			}
+			h1, h2{
+				margin: 0;
+				padding: 0;
+			}
+			input[type="text"]{
+				font-size: 1.5em;
+				width: 100%;
+			}
+			ul{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			p{
+				margin: 0;
+				padding: 0;
+			}
+			ul li{
+				margin: 0;
+			}
+			li{
+				padding: 12px 20px 11px 0;
+				position: relative;
+				font-size: 24px;
+				line-height: 1.1em;
+				border-bottom: 1px solid #CCC;
+			}
+			li input[type="text"]{
+				font-size: 1em;
+				width: 90%;
+				border: solid 1px transparent;
+				margin-left: .5em;
+				background: transparent;
+			}
+			.view{
+				width: 480px;
+				margin: 0 auto 40px;
+				background: white;
+				padding: 0;
+				box-shadow: rgba(0, 0, 0, 0.2) 0 3px 7px 0;
+				border-radius: 0 0 5px 5px;
+			}
+			.view header{
+				margin: 0 auto;
+				text-align: center;
+			}
+			.view header
+			, .view article{
+				padding: 0 40px;
+			}
+			.view header h1{
+				font-size: 36px;
+				font-weight: bold;
+				text-align: center;
+				padding: 20px 0 30px 0;
+				line-height: 1;
+			}
+			.credits{
+				color: #999;
+				text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
+				text-align: center;
+			}
+			.view article{
+				position: relative;
+			}
+			.view .tip{
+				display: block;
+				position: absolute;
+				top: .5em;
+				right: 3em;
+				background: black;
+				color: white;
+				border-radius: 5px;
+				padding: .3em .5em .3em .5em;
+				font-size: .8em;
+				text-align: center;
+				box-shadow: 0 0 3px 1px rgba(0,0,0,.8);
+				border: solid 1px transparent;
+			}
+			.view footer{
+				position: relative;
+				background: none repeat scroll 0 0 #F4FCE8;
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+				border-top: 1px solid #EDEDED;
+				color: #555;
+				line-height: 36px;
+				margin-top: 10px;
+				width: 100%;
+				height: 36px;
+			}
+			.view footer p{
+				padding-left: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+		    <div id="todoapp" class="view">
+		        <header>
+		            <h1>Todos</h1>
+		        </header>
+				<article>
+					<input id="new-todo" placeholder="What needs to be done?" type="text" />
+					<button type="button" class="tip" id="add_button">hit enter</button>
+	                <ul id="todos"></ul>
+		        </article>
+	            <footer>
+	            	<p id="todo-stats"></p>
+	            </footer>
+		    </div>
+		</section>
+	    <footer class="credits">Created by <a href="http://www.joeyguerra.com/" title="Joey Guerra">Joey Guerra</a></footer>
+	    <script>
+			(function(){
+				// pub/sub center for key/value observing.
+				var center = (function(){
+					var observers = {};
+					var self = {
+						post: function(key, publisher, info){
+							if(observers[key] === undefined) return info;
+							var ubounds = observers[key].length;
+							var i = 0;
+							for(i; i<ubounds; i++){
+								if(!observers[key][i]) continue;
+								try{									
+									info = observers[key][i][key].apply(observers[key][i], [publisher, info]);
+								}catch(e){
+									console.log([e, observers[key][i]]);
+								}
+							}
+							return info;
+						}
+						, publish: function(key, publisher, info){
+							if(observers[key] === undefined) return info;
+							var ubounds = observers[key].length;
+							var i = 0;
+							for(i; i<ubounds; i++){
+								if(!observers[key][i]) continue;
+								try{
+									observers[key][i][key].apply(observers[key][i], [publisher, info]);
+								}catch(e){
+									console.log([e, observers[key][i]]);
+								}
+							}
+						}
+						, subscribe: function(key, observer){
+							if(observers[key] === undefined) observers[key] = [];
+							observers[key].push(observer);												
+						}
+						, unsubscribe: function(key, observer){
+							if(observers[key] === undefined) return;
+							var i = 0;
+							var ubounds = observers[key].length;
+							for(i; i<ubounds; i++){
+								if(observers[key][i] === observer){
+									observers[key].splice(i, 1);
+									break;
+								}
+							}
+						}
+					}
+					return self;
+				})();
+
+				function todo(){
+					this.timestamp = (new Date()).getTime();
+					this.order = 0;
+					this.done = false;
+					this.editing = false;
+					this.content = null;
+					return this;
+				}
+				function controller(){
+					this.list = new todos();
+					this.view = new editing_view("todoapp");
+					this.view_list = new list_view("todos");
+					center.subscribe("new_todo_was_entered", this);
+					center.subscribe("should_finish_editing_todo", this);
+					center.subscribe("todo_is_done", this);
+					this.view.focus();
+					return this;
+				}
+				controller.prototype.todo_is_done = function(publisher, id){
+					var todo = this.list.find(id);
+					this.list.pop(todo);
+				}
+				controller.prototype.should_finish_editing_todo = function(publisher, info){
+					var todo = this.list.find(info.id);
+					todo.content = info.content;
+					this.list.push(todo);
+					this.view.focus();
+				};
+				controller.prototype.new_todo_was_entered = function(publisher, info){
+					var t = new todo();
+					t.order = this.list.length();
+					t.content = info;
+					this.list.push(t);
+				};
+
+				controller.prototype.add = function(todo){
+					for(i in this.list){
+						console.log([todo, this.list[i]]);
+						if(this.list[i].timestamp === todo.timestamp){
+							this.list[i] = todo;
+							return;
+						}
+					}
+					this.list.push(todo);
+				};
+				controller.prototype.remove = function(todo){
+					this.list.pop(todo);
+				};
+				function view(id){
+					this.container = document.getElementById(id);
+					return this;
+				}
+				function editing_view(id){
+					view.apply(this, [id]);
+					var self = this;
+					var field = this.container.querySelector("input");
+					var add_button = this.container.querySelector("#add_button");
+					this.stats = this.container.querySelector("#todo-stats");
+					add_button.addEventListener("click", function(e){center.publish("new_todo_was_entered", self, field.value);});
+					field.addEventListener("keypress", function(e){self.key_was_pressed(e);}, true);
+					center.subscribe("todos.push", this);
+					center.subscribe("todos.pop", this);
+					
+					// Define as priveleged so we can keep the field property private.
+					this.focus = function(){
+						field.focus();
+					};
+					return this;
+				}
+				editing_view.prototype.key_was_pressed = function(e){
+					if(e.which !== 13) return;
+					center.publish("new_todo_was_entered", this, e.target.value);
+					e.target.value = "";
+				};
+				editing_view.prototype["todos.push"] = function(publisher, todo){
+					this.stats.innerHTML = publisher.length() + " items left.";
+					return todo;
+				};
+				editing_view.prototype["todos.pop"] = function(publisher, todo){
+					this.stats.innerHTML = publisher.length() + " items left.";
+					return todo;
+				};
+				
+				function list_view(id){
+					view.apply(this, [id]);
+					center.subscribe("todos.push", this);
+					return this;
+				}
+				list_view.prototype.todo_is_done = function(e){
+					e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+					center.publish("todo_is_done", this, e.target.id);
+				};
+				list_view.prototype.should_finish_editing_todo = function(e){
+					center.publish("should_finish_editing_todo", this, {id: e.target.id, content: e.target.value});
+				};
+				list_view.prototype.add = function(todo){
+					var self = this;
+					var item = document.createElement("li");
+					var checkbox = document.createElement("input");
+					var content = document.createElement("input");
+					content.type = "text";
+					content.id = todo.timestamp;
+					content.addEventListener("blur", function(e){self.should_finish_editing_todo(e);}, true);
+					content.addEventListener("keypress", function(e){if(e.which === 13)self.should_finish_editing_todo(e);}, true);
+					content.value = todo.content;
+					checkbox.type = "checkbox";
+					checkbox.id = todo.timestamp;
+					checkbox.addEventListener("click", function(e){self.todo_is_done(e);}, true);
+					var elems = [checkbox, content];
+					for(key in elems){
+						item.appendChild(elems[key]);
+					}
+					this.container.appendChild(item);
+				};
+				list_view.prototype["todos.push"] = function(publisher, todo){
+					var elements = this.container.querySelectorAll('li input[type="text"]');
+					for(i in elements){
+						if(parseInt(elements[i].id) === todo.timestamp){
+							return todo;
+						}
+					}
+					this.add(todo);
+					return todo;
+				};
+				
+				function todos(){
+					var list = [];
+					return {
+						push: function(todo){
+							var found = false;
+							for(i in list){
+								if(list[i].timestamp === todo.timestamp){
+									list[i] = todo;
+									found = true;
+								}
+							}
+							if(!found) list.push(todo);
+							todo = center.post("todos.push", this, todo);
+						}
+						, pop: function(todo){
+							var i = 0;
+							var ubounds = list.length;
+							for(i; i<ubounds; i++){
+								if(list[i].timestamp === todo.timestamp){
+									var removed = list.splice(i, 1);
+									center.publish("todos.pop", this, todo);
+									return removed;
+								}
+							}
+						}
+						, items: function(){
+							return list;
+						}
+						, length: function(){
+							return list.length;
+						}
+						, find: function(id){
+							id = parseInt(id);
+							for(i in list){
+								if(id === list[i].timestamp) return list[i];
+							}
+							return null;
+						}
+					};
+				}
+				
+				var c = new controller();
+			})();
+	    </script>
+	</body>
+</html>
