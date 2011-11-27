@@ -36,4 +36,12 @@ Preview of some of the apps included:
 For live previews of Todo apps and more information on the project, see the official TodoMVC site here: [http://addyosmani.github.com/todomvc/](http://addyosmani.github.com/todomvc/)
 
 
-
+##Changelog since 0.2
+1. ExtJS example added
+2. jQuery-only example added
+3. Minor fixes to Backbone example
+4. Dojo example (in-development)
+5. Backbone + RequireJS example (completed, pending merge)
+6. Backbone + RJS + Mediator + Facade (completed, deciding on merge)
+7. JavaScript non-framework MVC implementation pull received (pending review)
+8. KnockBack pull received (merging for version 0.3)
