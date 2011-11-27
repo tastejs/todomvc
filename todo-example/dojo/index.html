@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Dojo</title>
+    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+    <script data-dojo-config="async:true, parseOnLoad:true" src="/code/dtk/dojotoolkit/dojo/dojo.js"></script>
+    <script>
+        require(["dojo/parser", "dojox/mvc", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"], function (parser, mvc) {
+            var data = {
+                todos : [
+                    { content: "First" },
+                    { content: "Second" },
+                    { content: "Third" }
+                ],
+            };
+
+            model = mvc.newStatefulModel({ data : data });
+
+            window.addToModel = function addToModel (input, event) {
+                if (event.keyCode !== 13) return;
+
+				var insert = mvc.newStatefulModel({ "data" : {
+                    content: input.value
+				} });
+				model.todos.add(model.todos.length, insert);
+                input.value = "";
+			}
+
+            window.removeFromModel = function (id) {
+                console.log(id);
+                model.todos.remove(id);
+            }
+                
+        });
+    </script>
+  </head>
+
+  <body>
+
+    <!-- Todo App Interface -->
+
+    <div id="todoapp">
+
+      <div class="title">
+        <h1>Todos</h1>
+      </div>
+
+      <div class="content">
+
+        <div id="create-todo">
+          <input id="new-todo" placeholder="What needs to be done?" type="text" onkeypress="addToModel(this, event)"/>
+          <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
+        </div>
+
+        <div id="todos">
+            <ul id="todo-list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: 'model.todos'">
+                <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '${this.index}'">
+                    <div class="todo">
+                        <div class="display">
+                        <input class="check" type="checkbox" />
+                        <div data-dojo-type="dojox.mvc.Output" data-dojo-props="ref:'content'" class="todo-content"></div>
+                        <span class="todo-destroy" data-model-id="${this.index}" onclick="removeFromModel(this.dataset.modelId)">
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="todo-stats"></div>
+
+      </div>
+
+    </div>
+
+  
+    <div id="credits">
+      Created by
+      <br />
+      <a href="http://jamesthom.as/">James Thomas</a>. 
+    </div>
+<!--
+      <div class="todo">
+        <div class="display">
+          <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+          <div class="todo-content"></div>
+          <span class="todo-destroy"></span>
+        </div>
+        <div class="edit">
+          <input class="todo-input" type="text" value="" />
+        </div>
+    </div>-->
+
+  </body>
+
+</html>

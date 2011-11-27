@@ -1,0 +1,4 @@
+- Support local storage using custom Dojo Store
+- Editing of existing todos
+- Allow checking of completed items
+- Use local Dojo JS version
