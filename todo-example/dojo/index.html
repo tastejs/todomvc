@@ -3,15 +3,20 @@
 
   <head>
     <title>Dojo</title>
+	<style type="text/css">
+			@import "../../../../../fulldojo1.7Clean3/dijit/themes/claro/claro.css";
+			@import "../../../../../fulldojo1.7Clean3/dijit/themes/claro/document.css";
+	</style>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
     <script data-dojo-config="async:true, parseOnLoad:true" src="/code/dtk/dojotoolkit/dojo/dojo.js"></script>
     <script>
-        require(["dojo/parser", "dojox/mvc", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"], function (parser, mvc) {
+        require(["dojo/parser", "dojox/mvc", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output","dijit/form/CheckBox","dijit/InlineEditBox"], 
+		function (parser, mvc) {
             var data = {
                 todos : [
-                    { content: "First" },
-                    { content: "Second" },
-                    { content: "Third" }
+                    { content: "First", "isDone" : false },
+                    { content: "Second", "isDone" : true },
+                    { content: "Third", "isDone" : false }
                 ],
             };
 
@@ -21,7 +26,7 @@
                 if (event.keyCode !== 13) return;
 
 				var insert = mvc.newStatefulModel({ "data" : {
-                    content: input.value
+                    content: input.value, isDone: false 
 				} });
 				model.todos.add(model.todos.length, insert);
                 input.value = "";
@@ -31,12 +36,27 @@
                 console.log(id);
                 model.todos.remove(id);
             }
-                
+
+            window.handleCheckBoxChange = function (current) {
+				console.log('handleCheckBoxChange value changed current ='+current+"  this.index="+this.index);
+				if(this.binding){
+					this.binding.set("value",current);
+				}
+				if(this.index){
+					if(current){
+						dojo.addClass("todo"+this.index, 'checkedTodo');
+					}else{
+						dojo.removeClass("todo"+this.index, 'checkedTodo');
+					}
+				}
+            }
+
+			
         });
     </script>
   </head>
 
-  <body>
+  <body class="claro">
 
     <!-- Todo App Interface -->
 
@@ -57,11 +77,12 @@
             <ul id="todo-list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: 'model.todos'">
                 <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '${this.index}'">
                     <div class="todo">
-                        <div class="display">
-                        <input class="check" type="checkbox" />
-                        <div data-dojo-type="dojox.mvc.Output" data-dojo-props="ref:'content'" class="todo-content"></div>
-                        <span class="todo-destroy" data-model-id="${this.index}" onclick="removeFromModel(this.dataset.modelId)">
-                        </span>
+							<input class="check" data-dojo-type="dijit.form.CheckBox" index="${this.index}" id="isdone${this.index}" data-dojo-props='ref: "isDone", onChange: handleCheckBoxChange' style="display:inline-block" ></input>
+							<div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox" id="todo${this.index}" 
+										data-dojo-props='ref: "content", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></div>
+
+							<span class="todo-destroy" data-model-id="${this.index}" onclick="removeFromModel(this.dataset.modelId)">
+							</span>
                     </div>
                 </li>
             </ul>

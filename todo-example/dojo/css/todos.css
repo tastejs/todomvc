@@ -530,3 +530,8 @@ body {
 	top: 1px;
 }
 
+.checkedTodo {
+    color: #666;
+    text-decoration: line-through;
+}
+
