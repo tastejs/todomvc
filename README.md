@@ -41,7 +41,7 @@ For live previews of Todo apps and more information on the project, see the offi
 2. jQuery-only example added
 3. Minor fixes to Backbone example
 4. Dojo example (in-development)
-5. Backbone + RequireJS example (completed, pending merge)
+5. Backbone + RequireJS example (merged for version 0.3)
 6. Backbone + RJS + Mediator + Facade (completed, deciding on merge)
 7. JavaScript non-framework MVC implementation pull received (pending review)
 8. KnockBack pull received (merging for version 0.3)
