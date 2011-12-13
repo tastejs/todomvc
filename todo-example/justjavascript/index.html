@@ -187,6 +187,96 @@
 					this.content = null;
 					return this;
 				}
+				function list_controller(){
+					this.view = null;
+					this.model = null;
+					return this;
+				}
+				list_controller.prototype = {
+					get view(){
+						return this.view;
+					}
+					, set view(v){
+						if(this.view) this.view.release();
+						var field = this.view.container.querySelector("input");
+						var add_button = this.view.container.querySelector("#add_button");
+						add_button.addEventListener("click", this, true);
+						field.addEventListener("keypress", this, true);
+						this.view = v;
+						this.model = v.model;
+					}
+					, adding: function(todo){
+						var item = this.view.create_item(todo);
+						var checkbox = this.view.create_checkbox(todo);
+						var field = this.view.create_field(todo);
+						field.addEventListener("blur", this, true);
+						field.addEventListener("keypress", this, true);
+						checkbox.addEventListener("click", this, true);
+						this.view.add(item, field, checkbox);
+					}
+					, handleEvent: function(e){
+						if(this[e.type]) this[e.type](e);
+					}
+					, blur: function(e){
+						
+					}
+					, keypress: function(e){
+						if(e.which !== 13) return;
+						center.publish("new_todo_was_entered", this, e.target.value);
+						e.target.value = "";
+						var t = new todo();
+						t.order = this.model.length();
+						t.content = info;
+						this.model.push(t);
+					}
+					, click: function(e){
+						center.publish("new_todo_was_entered", this, this.view.value());
+						this.view.value("");
+						var t = new todo();
+						t.order = this.model.length();
+						t.content = this.view.value();
+						this.model.push(t);
+					}
+				}
+				function editing_controller(){
+					this.view = null;
+					this.model = null;					
+					return this;
+				}
+				editing_controller.prototype = {
+					get view(){
+						return this.view;
+					}
+					, set view(v){
+						if(this.view) this.view.release();
+						var field = this.view.container.querySelector("input");
+						var add_button = this.view.container.querySelector("#add_button");
+						add_button.addEventListener("click", this, true);
+						field.addEventListener("keypress", this, true);
+						this.view = v;
+						this.model = v.model;
+					}
+					, handleEvent: function(e){
+						if(this[e.type]) this[e.type](e);
+					}
+					, keypress: function(e){
+						if(e.which !== 13) return;
+						center.publish("new_todo_was_entered", this, e.target.value);
+						e.target.value = "";
+						var t = new todo();
+						t.order = this.model.length();
+						t.content = info;
+						this.model.push(t);
+					}
+					, click: function(e){
+						center.publish("new_todo_was_entered", this, this.view.value());
+						this.view.value("");
+						var t = new todo();
+						t.order = this.model.length();
+						t.content = this.view.value();
+						this.model.push(t);
+					}
+				}
 				function controller(){
 					this.list = new todos();
 					this.view = new editing_view("todoapp");
@@ -227,18 +317,18 @@
 				controller.prototype.remove = function(todo){
 					this.list.pop(todo);
 				};
-				function view(id){
+				function view(id, model, controller){
 					this.container = document.getElementById(id);
+					this.model = model;
+					this.controller = controller;
 					return this;
 				}
-				function editing_view(id){
-					view.apply(this, [id]);
+				function editing_view(id, model, controller){
+					view.apply(this, [id, model, controller]);
+					this.controller.view = this;
 					var self = this;
 					var field = this.container.querySelector("input");
-					var add_button = this.container.querySelector("#add_button");
 					this.stats = this.container.querySelector("#todo-stats");
-					add_button.addEventListener("click", function(e){center.publish("new_todo_was_entered", self, field.value);});
-					field.addEventListener("keypress", function(e){self.key_was_pressed(e);}, true);
 					center.subscribe("todos.push", this);
 					center.subscribe("todos.pop", this);
 					
@@ -246,13 +336,12 @@
 					this.focus = function(){
 						field.focus();
 					};
+					this.value = function(v){
+						if(!v) return field.value;
+						field.value = v;
+					};
 					return this;
 				}
-				editing_view.prototype.key_was_pressed = function(e){
-					if(e.which !== 13) return;
-					center.publish("new_todo_was_entered", this, e.target.value);
-					e.target.value = "";
-				};
 				editing_view.prototype["todos.push"] = function(publisher, todo){
 					this.stats.innerHTML = publisher.length() + " items left.";
 					return todo;
@@ -262,8 +351,8 @@
 					return todo;
 				};
 				
-				function list_view(id){
-					view.apply(this, [id]);
+				function list_view(id, model, controller){
+					view.apply(this, [id, model, controller]);
 					center.subscribe("todos.push", this);
 					return this;
 				}
@@ -274,23 +363,26 @@
 				list_view.prototype.should_finish_editing_todo = function(e){
 					center.publish("should_finish_editing_todo", this, {id: e.target.id, content: e.target.value});
 				};
-				list_view.prototype.add = function(todo){
-					var self = this;
+				list_view.prototype.create_item = function(todo){
 					var item = document.createElement("li");
+					return item;
+				};
+				list_view.prototype.create_field = function(todo){
+					var field = document.createElement("input");
+					field.value = todo.content;
+					field.type = "text";
+					field.id = todo.timestamp;
+					return field;
+				};
+				list_view.prototype.create_checkbox = function(todo){
 					var checkbox = document.createElement("input");
-					var content = document.createElement("input");
-					content.type = "text";
-					content.id = todo.timestamp;
-					content.addEventListener("blur", function(e){self.should_finish_editing_todo(e);}, true);
-					content.addEventListener("keypress", function(e){if(e.which === 13)self.should_finish_editing_todo(e);}, true);
-					content.value = todo.content;
 					checkbox.type = "checkbox";
 					checkbox.id = todo.timestamp;
-					checkbox.addEventListener("click", function(e){self.todo_is_done(e);}, true);
-					var elems = [checkbox, content];
-					for(key in elems){
-						item.appendChild(elems[key]);
-					}
+					return checkbox;
+				};
+				list_view.prototype.add = function(item, field, checkbox){
+					item.appendChild(field);
+					item.appendChild(checkbox);
 					this.container.appendChild(item);
 				};
 				list_view.prototype["todos.push"] = function(publisher, todo){
@@ -300,7 +392,7 @@
 							return todo;
 						}
 					}
-					this.add(todo);
+					this.controller.adding(todo);
 					return todo;
 				};
 				
@@ -345,7 +437,9 @@
 					};
 				}
 				
-				var c = new controller();
+				var list = new todos();
+				var editing_view = new editing_view("todoapp", list, new editing_controller());
+				var view_list = new list_view("todos", list, new list_controller());
 			})();
 	    </script>
 	</body>
