@@ -1,11 +1,14 @@
 <!doctype html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]--> <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]--> <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]--> <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>SproutCore</title>
+  <title>ember.js</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -36,20 +39,20 @@
 {{/view}}
 
 {{#view id="stats-area"}}
-  {{view SC.Checkbox class="mark-all-done"
+  {{view Ember.Checkbox class="mark-all-done"
     title="Mark all as complete"
     valueBinding="Todos.todosController.allAreDone"}}
 
 {{#view id="todos"}}
   {{#collection id="todo-list" contentBinding="Todos.todosController" tagName="ul" itemClassBinding="content.isDone"}}
-    {{view SC.Checkbox titleBinding="parentView.content.title"
-        valueBinding="parentView.content.isDone"}}
+    {{view Ember.Checkbox titleBinding="content.title"
+        valueBinding="content.isDone"}}
   {{/collection}}
 {{/view}}
   
     <!-- Insert this after the CreateTodoView and before the collection. -->
   {{#view Todos.StatsView id="todo-stats"}}
-    {{#view SC.Button classBinding="isActive"
+    {{#view Ember.Button classBinding="isActive"
       target="Todos.todosController"
       action="clearCompletedTodos"}}
       Clear Completed 
@@ -66,12 +69,12 @@
 	    <div id="credits">
 			Credits:
 	        <br />
-	        Tom Dale, SproutCore,  Updates: Addy Osmani
+	        Tom Dale, Addy Osmani
 	    </div>
 
 	            
-  <script src="js/libs/jquery-1.6.4.min.js"></script>
-  <script src="js/libs/sproutcore-2.0.a.3.min.js"></script>
+  <script src="js/libs/jquery-1.7.1.min.js"></script>
+  <script src="js/libs/ember-0.9.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
