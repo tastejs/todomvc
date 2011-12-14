@@ -2,15 +2,15 @@
 
 ##Introduction
 
-Developers these days are spoiled with choice when it comes to selecting an MVC framework for structuring and organizing JavaScript web apps. Backbone, Spine, SproutCore, JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
+Developers these days are spoiled with choice when it comes to selecting an MVC framework for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
 
 To help solve this problem, I created TodoMVC - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MVC frameworks of today. Solutions look and feel the same, have a common feature set, and make it easy for you to compare the syntax and structure of different frameworks, so you can select the one you feel the most comfortable with.
 
 ####Todo apps are included for:
 
 <ul>
-<li>SproutCore 2.0</li>
 <li>Backbone.js</li>
+<li>Ember.js (SproutCore 2.0)</li>
 <li>Spine.js</li>
 <li>JavaScriptMVC</li>
 <li>Sammy.js</li>
@@ -45,3 +45,4 @@ For live previews of Todo apps and more information on the project, see the offi
 6. Backbone + RJS + Mediator + Facade (completed, deciding on merge)
 7. JavaScript non-framework MVC implementation pull received (pending review)
 8. KnockBack pull received (merging for version 0.3)
+9. SproutCore 2.0 example updated to Ember.js
