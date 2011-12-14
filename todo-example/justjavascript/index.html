@@ -83,7 +83,7 @@
 				display: block;
 				position: absolute;
 				top: .5em;
-				right: 3em;
+				right: -4em;
 				background: black;
 				color: white;
 				border-radius: 5px;
@@ -129,57 +129,38 @@
 	    <footer class="credits">Created by <a href="http://www.joeyguerra.com/" title="Joey Guerra">Joey Guerra</a></footer>
 	    <script>
 			(function(){
-				// pub/sub center for key/value observing.
-				var center = (function(){
-					var observers = {};
-					var self = {
-						post: function(key, publisher, info){
-							if(observers[key] === undefined) return info;
-							var ubounds = observers[key].length;
-							var i = 0;
-							for(i; i<ubounds; i++){
-								if(!observers[key][i]) continue;
-								try{									
-									info = observers[key][i][key].apply(observers[key][i], [publisher, info]);
-								}catch(e){
-									console.log([e, observers[key][i]]);
-								}
-							}
-							return info;
-						}
-						, publish: function(key, publisher, info){
-							if(observers[key] === undefined) return info;
-							var ubounds = observers[key].length;
-							var i = 0;
-							for(i; i<ubounds; i++){
-								if(!observers[key][i]) continue;
-								try{
-									observers[key][i][key].apply(observers[key][i], [publisher, info]);
-								}catch(e){
-									console.log([e, observers[key][i]]);
-								}
-							}
-						}
-						, subscribe: function(key, observer){
-							if(observers[key] === undefined) observers[key] = [];
-							observers[key].push(observer);												
-						}
-						, unsubscribe: function(key, observer){
-							if(observers[key] === undefined) return;
-							var i = 0;
-							var ubounds = observers[key].length;
-							for(i; i<ubounds; i++){
-								if(observers[key][i] === observer){
-									observers[key].splice(i, 1);
+				function model(){
+					var dependents = [];
+					this.subscribe = function(key, subscriber){
+						if(dependents[key] === undefined) dependents[key] = [];
+						dependents[key].push(subscriber);
+					};
+					this.unsubscribe = function(subscriber){
+						var i = 0;
+						var ubounds = dependents.length;
+						for(i; i<ubounds; i++){
+							var k = 0;
+							var upper = dependents[i].length;
+							for(k = 0; k < upper; k++){
+								if(dependents[i][k] === subscriber){
+									dependents[i].splice(k, 1);
+									if(dependents[i].length === 0) delete dependents[i];
 									break;
 								}
 							}
 						}
+					};
+					this.changed = function(key, old, v){
+						if(dependents[key] === undefined) return;
+						var i = 0;
+						var ubounds = dependents[key].length;
+						for(i; i<ubounds; i++){
+							dependents[key][i].update(key, old, v, this);
+						}
 					}
-					return self;
-				})();
-
+				}
 				function todo(){
+					model.apply(this, []);
 					this.timestamp = (new Date()).getTime();
 					this.order = 0;
 					this.done = false;
@@ -187,218 +168,222 @@
 					this.content = null;
 					return this;
 				}
-				function list_controller(){
-					this.view = null;
-					this.model = null;
+				
+				/*Controllers namespace*/
+				var controllers = {};
+				
+				/*List controller*/
+				controllers.list = function(){
+					var view = null;
+					var model = null;
+					this.__defineGetter__("view", function(){
+						return view;
+					});
+					this.__defineSetter__("view", function(v){
+						if(view) view.release();
+						view = v;
+						view.container.addEventListener("blur", this, true);
+						view.container.addEventListener("keypress", this, true);
+						view.container.addEventListener("click", this, true);
+						model = v.model;
+					});
+					this.__defineGetter__("model", function(){
+						return model;
+					});
+					this.__defineSetter__("model", function(v){
+						model = v;
+					});
 					return this;
-				}
-				list_controller.prototype = {
-					get view(){
-						return this.view;
-					}
-					, set view(v){
-						if(this.view) this.view.release();
-						var field = this.view.container.querySelector("input");
-						var add_button = this.view.container.querySelector("#add_button");
-						add_button.addEventListener("click", this, true);
-						field.addEventListener("keypress", this, true);
-						this.view = v;
-						this.model = v.model;
-					}
-					, adding: function(todo){
-						var item = this.view.create_item(todo);
-						var checkbox = this.view.create_checkbox(todo);
-						var field = this.view.create_field(todo);
-						field.addEventListener("blur", this, true);
-						field.addEventListener("keypress", this, true);
-						checkbox.addEventListener("click", this, true);
-						this.view.add(item, field, checkbox);
-					}
-					, handleEvent: function(e){
-						if(this[e.type]) this[e.type](e);
-					}
-					, blur: function(e){
-						
-					}
-					, keypress: function(e){
-						if(e.which !== 13) return;
-						center.publish("new_todo_was_entered", this, e.target.value);
-						e.target.value = "";
-						var t = new todo();
-						t.order = this.model.length();
-						t.content = info;
-						this.model.push(t);
-					}
-					, click: function(e){
-						center.publish("new_todo_was_entered", this, this.view.value());
-						this.view.value("");
-						var t = new todo();
-						t.order = this.model.length();
-						t.content = this.view.value();
-						this.model.push(t);
-					}
-				}
-				function editing_controller(){
-					this.view = null;
-					this.model = null;					
-					return this;
-				}
-				editing_controller.prototype = {
-					get view(){
-						return this.view;
-					}
-					, set view(v){
-						if(this.view) this.view.release();
-						var field = this.view.container.querySelector("input");
-						var add_button = this.view.container.querySelector("#add_button");
-						add_button.addEventListener("click", this, true);
-						field.addEventListener("keypress", this, true);
-						this.view = v;
-						this.model = v.model;
-					}
-					, handleEvent: function(e){
-						if(this[e.type]) this[e.type](e);
-					}
-					, keypress: function(e){
-						if(e.which !== 13) return;
-						center.publish("new_todo_was_entered", this, e.target.value);
-						e.target.value = "";
-						var t = new todo();
-						t.order = this.model.length();
-						t.content = info;
-						this.model.push(t);
-					}
-					, click: function(e){
-						center.publish("new_todo_was_entered", this, this.view.value());
-						this.view.value("");
-						var t = new todo();
-						t.order = this.model.length();
-						t.content = this.view.value();
-						this.model.push(t);
-					}
-				}
-				function controller(){
-					this.list = new todos();
-					this.view = new editing_view("todoapp");
-					this.view_list = new list_view("todos");
-					center.subscribe("new_todo_was_entered", this);
-					center.subscribe("should_finish_editing_todo", this);
-					center.subscribe("todo_is_done", this);
-					this.view.focus();
-					return this;
-				}
-				controller.prototype.todo_is_done = function(publisher, id){
-					var todo = this.list.find(id);
-					this.list.pop(todo);
-				}
-				controller.prototype.should_finish_editing_todo = function(publisher, info){
-					var todo = this.list.find(info.id);
-					todo.content = info.content;
-					this.list.push(todo);
-					this.view.focus();
 				};
-				controller.prototype.new_todo_was_entered = function(publisher, info){
-					var t = new todo();
-					t.order = this.list.length();
-					t.content = info;
-					this.list.push(t);
-				};
-
-				controller.prototype.add = function(todo){
-					for(i in this.list){
-						console.log([todo, this.list[i]]);
-						if(this.list[i].timestamp === todo.timestamp){
-							this.list[i] = todo;
-							return;
+				controllers.list.prototype.save = function(id, value){
+					for(var i = 0; i < this.model.length(); i++){
+						if(id === this.model.item(i).timestamp){
+							this.model.item(i).content = value;
+							break;
 						}
 					}
-					this.list.push(todo);
 				};
-				controller.prototype.remove = function(todo){
-					this.list.pop(todo);
+				controllers.list.prototype.handleEvent = function(e){
+					if(this[e.type]) this[e.type](e);
 				};
+				controllers.list.prototype.blur = function(e){
+					this.save(parseInt(e.target.id), e.target.value);
+				};
+				controllers.list.prototype.keypress = function(e){
+					if(e.which !== 13) return;
+					this.view.select_next(e.target);
+				};
+				controllers.list.prototype.click = function(e){
+					if(e.target.type && e.target.type === "checkbox"){
+						var t = new todo();
+						t.timestamp = parseInt(e.target.id);
+						this.model.pop(t);
+					}
+				};
+				
+				/*Editing controller*/
+				controllers.editing = function(){
+					var view = null;
+					var model = null;
+					this.__defineGetter__("view", function(){
+						return view;
+					});
+					this.__defineSetter__("view", function(v){
+						if(view) view.release();
+						v.add_button.addEventListener("click", this, true);
+						v.field.addEventListener("keypress", this, true);
+						view = v;
+						model = v.model;
+					});
+					this.__defineGetter__("model", function(){
+						return model;
+					});
+					this.__defineSetter__("model", function(v){
+						model = v;
+					});
+					this.release = function(v){
+						view = null;
+					};
+					return this;
+				};
+				controllers.editing.prototype.handleEvent = function(e){
+					if(this.view.value.length === 0) return;
+					if(this[e.type]) this[e.type](e);
+				};
+				controllers.editing.prototype.keypress = function(e){
+					if(e.which !== 13) return;
+					var t = new todo();
+					t.order = this.model.length();
+					t.content = this.view.value;
+					this.model.push(t);
+					e.target.value = "";
+				};
+				controllers.editing.prototype.click = function(e){
+					if(e.target !== this.view.add_button) return;
+					var t = new todo();
+					t.order = this.model.length();
+					t.content = this.view.value;
+					this.model.push(t);
+					this.view.value = "";
+					this.view.focus();
+				};
+
+				/*parent view*/
 				function view(id, model, controller){
 					this.container = document.getElementById(id);
 					this.model = model;
 					this.controller = controller;
+					this.release = function(){
+						this.controller.release(this);
+						this.model.unsubscribe(this);
+					};
 					return this;
 				}
-				function editing_view(id, model, controller){
+				
+				/*views namespace*/
+				var views = {};
+				views.editing = function(id, model, controller){
 					view.apply(this, [id, model, controller]);
-					this.controller.view = this;
-					var self = this;
+					this.__defineGetter__("field", function(){
+						return field;
+					});
+					this.__defineGetter__("value", function(){
+						return field.value;
+					});
+					this.__defineSetter__("value", function(v){
+						field.value = v;
+					});
+
 					var field = this.container.querySelector("input");
+					this.add_button = this.container.querySelector("#add_button");
 					this.stats = this.container.querySelector("#todo-stats");
-					center.subscribe("todos.push", this);
-					center.subscribe("todos.pop", this);
+					this.model.subscribe("todos.push", this);
+					this.model.subscribe("todos.pop", this);
+					this.controller.view = this;
+					this.controller.model = this.model;					
 					
 					// Define as priveleged so we can keep the field property private.
 					this.focus = function(){
 						field.focus();
 					};
-					this.value = function(v){
-						if(!v) return field.value;
-						field.value = v;
-					};
 					return this;
 				}
-				editing_view.prototype["todos.push"] = function(publisher, todo){
-					this.stats.innerHTML = publisher.length() + " items left.";
-					return todo;
+				views.editing.prototype.update = function(key, old, v, m){
+					if(this[key] === undefined) return;
+					this[key](old, v, m);
 				};
-				editing_view.prototype["todos.pop"] = function(publisher, todo){
-					this.stats.innerHTML = publisher.length() + " items left.";
-					return todo;
+				views.editing.prototype["todos.push"] = function(old, v, m){
+					this.stats.innerHTML = m.length() + " items left.";
+				};
+				views.editing.prototype["todos.pop"] = function(old, v, m){
+					this.stats.innerHTML = m.length() + " items left.";
 				};
 				
-				function list_view(id, model, controller){
+				/*list view*/
+				views.list = function(id, model, controller){
+					this.__defineGetter__("value", function(){
+						return this.container.querySelector("input:focus").value;
+					});
+					this.__defineSetter__("value", function(v){
+						this.container.querySelector("input:focus").value = v;
+					});
 					view.apply(this, [id, model, controller]);
-					center.subscribe("todos.push", this);
+					this.model.subscribe("todos.push", this);
+					this.model.subscribe("todos.pop", this);
+					this.controller.view = this;
+					this.controller.model = this.model;					
 					return this;
 				}
-				list_view.prototype.todo_is_done = function(e){
-					e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-					center.publish("todo_is_done", this, e.target.id);
+				views.list.prototype.select_next = function(elem){
+					var li = elem.parentNode;
+					var items = this.container.querySelectorAll("li");
+					var i = 0;
+					var item = null;
+					for(i = 0; i < items.length - 1; i++){
+						if(li === items[i]){
+							item = items[i+1];
+						}
+					}
+					if(item === null) return;
+					item.querySelector("input[type='text']").focus();
+				}
+				views.list.prototype.update = function(key, old, v, m){
+					if(this[key] === undefined) return;
+					this[key](old, v, m);
 				};
-				list_view.prototype.should_finish_editing_todo = function(e){
-					center.publish("should_finish_editing_todo", this, {id: e.target.id, content: e.target.value});
-				};
-				list_view.prototype.create_item = function(todo){
-					var item = document.createElement("li");
-					return item;
-				};
-				list_view.prototype.create_field = function(todo){
-					var field = document.createElement("input");
-					field.value = todo.content;
-					field.type = "text";
-					field.id = todo.timestamp;
-					return field;
-				};
-				list_view.prototype.create_checkbox = function(todo){
-					var checkbox = document.createElement("input");
-					checkbox.type = "checkbox";
-					checkbox.id = todo.timestamp;
-					return checkbox;
-				};
-				list_view.prototype.add = function(item, field, checkbox){
-					item.appendChild(field);
-					item.appendChild(checkbox);
-					this.container.appendChild(item);
-				};
-				list_view.prototype["todos.push"] = function(publisher, todo){
+				views.list.prototype.remove = function(todo){
 					var elements = this.container.querySelectorAll('li input[type="text"]');
 					for(i in elements){
 						if(parseInt(elements[i].id) === todo.timestamp){
-							return todo;
+							this.container.removeChild(elements[i].parentNode);
+							break;
 						}
 					}
-					this.controller.adding(todo);
-					return todo;
+				};
+				views.list.prototype.add = function(todo){
+					var item = document.createElement("li");
+					var field = document.createElement("input");
+					var checkbox = document.createElement("input");
+					checkbox.type = "checkbox";
+					checkbox.id = todo.timestamp;
+					field.value = todo.content;
+					field.type = "text";
+					field.id = todo.timestamp;
+					item.appendChild(field);
+					item.appendChild(checkbox);
+					this.container.appendChild(item);
+					return item;
+				};
+				views.list.prototype["todos.push"] = function(old, v, m){
+					this.add(v);
+				};
+				views.list.prototype["todos.pop"] = function(old, v, m){
+					this.remove(v);
 				};
 				
 				function todos(){
 					var list = [];
-					return {
+					var self = {
 						push: function(todo){
 							var found = false;
 							for(i in list){
@@ -408,7 +393,7 @@
 								}
 							}
 							if(!found) list.push(todo);
-							todo = center.post("todos.push", this, todo);
+							this.changed("todos.push", null, todo, this);
 						}
 						, pop: function(todo){
 							var i = 0;
@@ -416,10 +401,13 @@
 							for(i; i<ubounds; i++){
 								if(list[i].timestamp === todo.timestamp){
 									var removed = list.splice(i, 1);
-									center.publish("todos.pop", this, todo);
+									this.changed("todos.pop", removed, todo, this);
 									return removed;
 								}
 							}
+						}
+						, item: function(i){
+							return list[i];
 						}
 						, items: function(){
 							return list;
@@ -435,11 +423,14 @@
 							return null;
 						}
 					};
+					model.apply(self, []);
+					return self;
 				}
 				
 				var list = new todos();
-				var editing_view = new editing_view("todoapp", list, new editing_controller());
-				var view_list = new list_view("todos", list, new list_controller());
+				var editing_controller = new controllers.editing();
+				var editing = new views.editing("todoapp", list, editing_controller);
+				var todos_list = new views.list("todos", list, new controllers.list());
 			})();
 	    </script>
 	</body>
