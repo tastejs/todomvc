@@ -126,9 +126,63 @@
 	            </footer>
 		    </div>
 		</section>
-	    <footer class="credits">Created by <a href="http://www.joeyguerra.com/" title="Joey Guerra">Joey Guerra</a></footer>
+	    <footer class="credits">
+			<label for="settings.persist">Persist <input type="checkbox" value="true" id="settings.persist" /></label>
+	    	<p>Created by <a href="http://www.joeyguerra.com/" title="Joey Guerra">Joey Guerra</a></p>
+	    </footer>
 	    <script>
 			(function(){
+				if(!window.localStorage.justjavascriptmvc) window.localStorage.justjavascriptmvc = JSON.stringify({settings: {persist: false}, todos: []});
+				var storage = {
+					settings: function(value){
+						if(value){
+							var justjavascriptmvc = JSON.parse(window.localStorage.justjavascriptmvc);
+							justjavascriptmvc.settings = value;
+							window.localStorage.justjavascriptmvc = JSON.stringify(justjavascriptmvc);
+							return value;
+						}
+						var s = JSON.parse(window.localStorage.justjavascriptmvc).settings;
+						var obj = new settings();
+						obj.persist = s.persist;
+						return obj;
+					}
+					, todos: function(){
+						var list = JSON.parse(window.localStorage.justjavascriptmvc).todos;
+						return list;
+					}
+					, add_todo: function(t){
+						var todos = this.todos();
+						todos.push(t);
+						var justjavascriptmvc = JSON.parse(window.localStorage.justjavascriptmvc);
+						justjavascriptmvc.todos = todos;
+						window.localStorage.justjavascriptmvc = JSON.stringify(justjavascriptmvc);
+					}
+					, remove_todo: function(t){
+						var todos = this.todos();
+						for(i in todos){
+							if(t.timestamp === parseInt(todos[i].timestamp)){
+								todos.splice(i, 1);
+								break;
+							}
+						}
+						var justjavascriptmvc = JSON.parse(window.localStorage.justjavascriptmvc);
+						justjavascriptmvc.todos = todos;
+						window.localStorage.justjavascriptmvc = JSON.stringify(justjavascriptmvc);
+					}
+					, save_todo: function(t){
+						var todos = this.todos();
+						for(var i = 0; i < todos.length; i++){
+							if(t.timestamp === parseInt(todos[i].timestamp)){
+								todos[i] = t;
+								break;
+							}
+						}
+						var justjavascriptmvc = JSON.parse(window.localStorage.justjavascriptmvc);
+						justjavascriptmvc.todos = todos;
+						window.localStorage.justjavascriptmvc = JSON.stringify(justjavascriptmvc);
+					}
+				};
+
 				function model(){
 					var dependents = [];
 					this.subscribe = function(key, subscriber){
@@ -168,6 +222,11 @@
 					this.content = null;
 					return this;
 				}
+				function settings(){
+					model.apply(this, []);
+					this.persist = false;
+					return this;
+				}
 				
 				/*Controllers namespace*/
 				var controllers = {};
@@ -176,6 +235,7 @@
 				controllers.list = function(){
 					var view = null;
 					var model = null;
+					this.settings = null;
 					this.__defineGetter__("view", function(){
 						return view;
 					});
@@ -186,6 +246,13 @@
 						view.container.addEventListener("keypress", this, true);
 						view.container.addEventListener("click", this, true);
 						model = v.model;
+						this.settings = v.settings;
+						if(model.length() > 0){
+							for(i in model.items()){
+								view.add(model.item(i));
+							}
+							view.update_stats(model.length());
+						}
 					});
 					this.__defineGetter__("model", function(){
 						return model;
@@ -199,6 +266,9 @@
 					for(var i = 0; i < this.model.length(); i++){
 						if(id === this.model.item(i).timestamp){
 							this.model.item(i).content = value;
+							if(this.settings.persist){
+								storage.save_todo(this.model.item(i));
+							}
 							break;
 						}
 					}
@@ -218,6 +288,9 @@
 						var t = new todo();
 						t.timestamp = parseInt(e.target.id);
 						this.model.pop(t);
+						if(this.settings.persist){
+							storage.remove_todo(t);
+						}
 					}
 				};
 				
@@ -225,6 +298,7 @@
 				controllers.editing = function(){
 					var view = null;
 					var model = null;
+					this.settings = null;
 					this.__defineGetter__("view", function(){
 						return view;
 					});
@@ -234,6 +308,7 @@
 						v.field.addEventListener("keypress", this, true);
 						view = v;
 						model = v.model;
+						this.settings = v.settings;
 					});
 					this.__defineGetter__("model", function(){
 						return model;
@@ -250,24 +325,52 @@
 					if(this.view.value.length === 0) return;
 					if(this[e.type]) this[e.type](e);
 				};
-				controllers.editing.prototype.keypress = function(e){
-					if(e.which !== 13) return;
+				controllers.editing.prototype.add = function(value){
 					var t = new todo();
 					t.order = this.model.length();
-					t.content = this.view.value;
+					t.content = value;
 					this.model.push(t);
+					if(this.settings.persist){
+						storage.add_todo(t);
+					}
+				};
+				controllers.editing.prototype.keypress = function(e){
+					if(e.which !== 13) return;
+					this.add(this.view.value);
 					e.target.value = "";
 				};
 				controllers.editing.prototype.click = function(e){
 					if(e.target !== this.view.add_button) return;
-					var t = new todo();
-					t.order = this.model.length();
-					t.content = this.view.value;
-					this.model.push(t);
+					this.add(this.view.value);
 					this.view.value = "";
 					this.view.focus();
 				};
 
+				controllers.settings = function(){
+					var view = null;
+					var model = null;
+					this.__defineGetter__("view", function(){
+						return view;
+					});
+					this.__defineSetter__("view", function(v){
+						if(view) view.release();
+						v.checkbox.addEventListener("click", this, true);
+						view = v;
+						model = v.model;
+					});
+					this.release = function(v){
+						view = null;
+					};
+					return this;
+				};
+				controllers.settings.prototype.handleEvent = function(e){
+					if(this[e.type]) this[e.type](e);
+				};
+				controllers.settings.prototype.click = function(e){
+					this.model.persist = this.view.value;
+					storage.settings(this.model);
+				};
+				
 				/*parent view*/
 				function view(id, model, controller){
 					this.container = document.getElementById(id);
@@ -296,7 +399,8 @@
 
 					var field = this.container.querySelector("input");
 					this.add_button = this.container.querySelector("#add_button");
-					this.stats = this.container.querySelector("#todo-stats");
+					this.model = model.list;
+					this.settings = model.settings;
 					this.model.subscribe("todos.push", this);
 					this.model.subscribe("todos.pop", this);
 					this.controller.view = this;
@@ -312,12 +416,6 @@
 					if(this[key] === undefined) return;
 					this[key](old, v, m);
 				};
-				views.editing.prototype["todos.push"] = function(old, v, m){
-					this.stats.innerHTML = m.length() + " items left.";
-				};
-				views.editing.prototype["todos.pop"] = function(old, v, m){
-					this.stats.innerHTML = m.length() + " items left.";
-				};
 				
 				/*list view*/
 				views.list = function(id, model, controller){
@@ -328,10 +426,13 @@
 						this.container.querySelector("input:focus").value = v;
 					});
 					view.apply(this, [id, model, controller]);
+					this.stats = document.getElementById("todo-stats");
+					this.model = model.list;
+					this.settings = model.settings;
 					this.model.subscribe("todos.push", this);
 					this.model.subscribe("todos.pop", this);
 					this.controller.view = this;
-					this.controller.model = this.model;					
+					this.controller.model = this.model;		
 					return this;
 				}
 				views.list.prototype.select_next = function(elem){
@@ -374,15 +475,36 @@
 					this.container.appendChild(item);
 					return item;
 				};
+				views.list.prototype.update_stats = function(count){
+					this.stats.innerHTML = count + " items left.";
+				};
 				views.list.prototype["todos.push"] = function(old, v, m){
+					this.update_stats(m.length());
 					this.add(v);
 				};
 				views.list.prototype["todos.pop"] = function(old, v, m){
+					this.update_stats(m.length());
 					this.remove(v);
 				};
 				
-				function todos(){
-					var list = [];
+				views.settings = function(id, model, controller){
+					this.__defineGetter__("value", function(){
+						return this.container.checked;
+					});
+					this.__defineSetter__("value", function(v){
+						this.container.checked = v;
+					});
+					view.apply(this, [id, model, controller]);
+					this.checkbox = this.container;
+					this.model.subscribe("settings.persist", this);
+					this.controller.view = this;
+					this.controller.model = this.model;
+					this.checkbox.checked = this.model.persist;
+					return this;
+				};
+				
+				function todos(list){
+					if(!list) list = [];
 					var self = {
 						push: function(todo){
 							var found = false;
@@ -428,9 +550,14 @@
 				}
 				
 				var list = new todos();
+				var s = storage.settings();
+				if(s.persist){
+					list = new todos(storage.todos());
+				}
 				var editing_controller = new controllers.editing();
-				var editing = new views.editing("todoapp", list, editing_controller);
-				var todos_list = new views.list("todos", list, new controllers.list());
+				var editing = new views.editing("todoapp", {list: list, settings: s}, editing_controller);
+				var todos_list = new views.list("todos", {list: list, settings: s}, new controllers.list());
+				var settings_view = new views.settings("settings.persist", s, new controllers.settings());
 			})();
 	    </script>
 	</body>
