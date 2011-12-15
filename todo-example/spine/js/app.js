@@ -9,7 +9,8 @@
     TaskApp.prototype.elements = {
       '.items': 'tasks',
       '.countVal': 'counter',
-      'a.clear': 'clearCompleted'
+      'a.clear': 'clearCompleted',
+      'form#new-task input[name=name]': 'newTaskName'
     };
 
     TaskApp.prototype.events = {
@@ -31,7 +32,8 @@
 
     TaskApp.prototype["new"] = function(e) {
       e.preventDefault();
-      return Task.fromForm('form#new-task').save();
+      Task.fromForm('form#new-task').save();
+      return this.newTaskName.val('');
     };
 
     TaskApp.prototype.renderNew = function(task) {

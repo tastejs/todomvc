@@ -1,12 +1,13 @@
 class TaskApp extends Spine.Controller
   elements:
-    '.items':    'tasks'
-    '.countVal': 'counter'
-    'a.clear':   'clearCompleted'
+    '.items':                         'tasks'
+    '.countVal':                      'counter'
+    'a.clear':                        'clearCompleted'
+    'form#new-task input[name=name]': 'newTaskName'
 
   events:
-    'submit form#new-task':   'new'
-    'click a.clear': 'clearCompleted'
+    'submit form#new-task': 'new'
+    'click a.clear':        'clearCompleted'
 
   constructor: ->
     super
@@ -19,6 +20,7 @@ class TaskApp extends Spine.Controller
   new: (e) ->
     e.preventDefault()
     Task.fromForm('form#new-task').save()
+    @newTaskName.val('')
 
   renderNew: (task) =>
     view = new Tasks(task: task)
