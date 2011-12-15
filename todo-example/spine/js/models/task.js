@@ -13,6 +13,10 @@
 
     Task.extend(Spine.Model.Local);
 
+    Task.prototype.validate = function() {
+      if (!$.trim(this.name)) return 'Task name is required';
+    };
+
     Task.active = function() {
       return this.select(function(task) {
         return !task.done;
