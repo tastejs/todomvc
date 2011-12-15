@@ -1,530 +1,751 @@
-(function(){
-  
-  var Spine;
-  if (typeof exports !== "undefined") {
-    Spine = exports;
-  } else {
-    Spine = this.Spine = {};
-  }
-  
-  Spine.version = "0.0.3";
-  
-  var $ = Spine.$ = this.jQuery || this.Zepto;
-  
-  var makeArray = Spine.makeArray = function(args){
-    return Array.prototype.slice.call(args, 0);
+(function() {
+  var $, Controller, Events, Log, Model, Module, Spine, guid, isArray, isBlank, makeArray, moduleKeywords;
+  var __slice = Array.prototype.slice, __indexOf = Array.prototype.indexOf || function(item) {
+    for (var i = 0, l = this.length; i < l; i++) {
+      if (this[i] === item) return i;
+    }
+    return -1;
+  }, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+    for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
+    function ctor() { this.constructor = child; }
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor;
+    child.__super__ = parent.prototype;
+    return child;
   };
-  
-  // Shim Array, as these functions aren't in IE
-  if (typeof Array.prototype.indexOf === "undefined")
-    Array.prototype.indexOf = function(value){
-      for ( var i = 0; i < this.length; i++ )
-    		if ( this[ i ] === value )
-    			return i;
-    	return -1;
-    };
-  
-  var Events = Spine.Events = {
+  Events = {
     bind: function(ev, callback) {
-      var evs   = ev.split(" ");
-      var calls = this._callbacks || (this._callbacks = {});
-      
-      for (var i=0; i < evs.length; i++)
-        (this._callbacks[evs[i]] || (this._callbacks[evs[i]] = [])).push(callback);
-
+      var calls, evs, name, _i, _len;
+      evs = ev.split(' ');
+      calls = this.hasOwnProperty('_callbacks') && this._callbacks || (this._callbacks = {});
+      for (_i = 0, _len = evs.length; _i < _len; _i++) {
+        name = evs[_i];
+        calls[name] || (calls[name] = []);
+        calls[name].push(callback);
+      }
       return this;
     },
-
+    one: function(ev, callback) {
+      return this.bind(ev, function() {
+        this.unbind(ev, arguments.callee);
+        return callback.apply(this, arguments);
+      });
+    },
     trigger: function() {
-      var args = makeArray(arguments);
-      var ev   = args.shift();
-            
-      var list, calls, i, l;
-      if (!(calls = this._callbacks)) return false;
-      if (!(list  = this._callbacks[ev])) return false;
-      
-      for (i = 0, l = list.length; i < l; i++)
-        if (list[i].apply(this, args) === false)
+      var args, callback, ev, list, _i, _len, _ref;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      ev = args.shift();
+      list = this.hasOwnProperty('_callbacks') && ((_ref = this._callbacks) != null ? _ref[ev] : void 0);
+      if (!list) {
+        return false;
+      }
+      for (_i = 0, _len = list.length; _i < _len; _i++) {
+        callback = list[_i];
+        if (callback.apply(this, args) === false) {
           break;
-
+        }
+      }
       return true;
     },
-    
-    unbind: function(ev, callback){
-      if ( !ev ) {
+    unbind: function(ev, callback) {
+      var cb, i, list, _len, _ref;
+      if (!ev) {
         this._callbacks = {};
         return this;
       }
-      
-      var list, calls, i, l;
-      if (!(calls = this._callbacks)) return this;
-      if (!(list  = this._callbacks[ev])) return this;
-      
-      if ( !callback ) {
+      list = (_ref = this._callbacks) != null ? _ref[ev] : void 0;
+      if (!list) {
+        return this;
+      }
+      if (!callback) {
         delete this._callbacks[ev];
         return this;
       }
-      
-      for (i = 0, l = list.length; i < l; i++)
-        if (callback === list[i]) {
+      for (i = 0, _len = list.length; i < _len; i++) {
+        cb = list[i];
+        if (cb === callback) {
+          list = list.slice();
           list.splice(i, 1);
+          this._callbacks[ev] = list;
           break;
         }
-        
+      }
       return this;
     }
   };
-  
-  var Log = Spine.Log = {
+  Log = {
     trace: true,
-    
-    logPrefix: "(App)",
-
-    log: function(){
-      if ( !this.trace ) return;
-      if (typeof console == "undefined") return;
-      var args = makeArray(arguments);
-      if (this.logPrefix) args.unshift(this.logPrefix);
+    logPrefix: '(App)',
+    log: function() {
+      var args;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      if (!this.trace) {
+        return;
+      }
+      if (typeof console === 'undefined') {
+        return;
+      }
+      if (this.logPrefix) {
+        args.unshift(this.logPrefix);
+      }
       console.log.apply(console, args);
       return this;
     }
   };
-  
-  // Classes (or prototypial inheritors)
-  
-  if (typeof Object.create !== "function")
-      Object.create = function(o) {
-        function F() {}
-        F.prototype = o;
-        return new F();
-      };
-      
-  var moduleKeywords = ["included", "extended"];
-
-  var Class = Spine.Class = {
-    inherited: function(){},
-    created: function(){},
-    
-    prototype: {
-      initializer: function(){},
-      init: function(){}
-    },
-
-    create: function(include, extend){
-      var object = Object.create(this);
-      object.parent    = this;
-      object.prototype = object.fn = Object.create(this.prototype);
-
-      if (include) object.include(include);
-      if (extend)  object.extend(extend);
-
-      object.created();
-      this.inherited(object);
-      return object;
-    },
-
-    init: function(){
-      var initance = Object.create(this.prototype);
-      initance.parent = this;
-
-      initance.initializer.apply(initance, arguments);
-      initance.init.apply(initance, arguments);
-      return initance;
-    },
-
-    proxy: function(func){
-      var thisObject = this;
-      return(function(){ 
-        return func.apply(thisObject, arguments); 
-      });
-    },
-    
-    proxyAll: function(){
-      var functions = makeArray(arguments);
-      for (var i=0; i < functions.length; i++)
-        this[functions[i]] = this.proxy(this[functions[i]]);
-    },
-
-    include: function(obj){
-      for(var key in obj)
-        if (moduleKeywords.indexOf(key) == -1)
-          this.fn[key] = obj[key];
-      
-      var included = obj.included;
-      if (included) included.apply(this);
+  moduleKeywords = ['included', 'extended'];
+  Module = (function() {
+    Module.include = function(obj) {
+      var included, key, value;
+      if (!obj) {
+        throw 'include(obj) requires obj';
+      }
+      for (key in obj) {
+        value = obj[key];
+        if (__indexOf.call(moduleKeywords, key) < 0) {
+          this.prototype[key] = value;
+        }
+      }
+      included = obj.included;
+      if (included) {
+        included.apply(this);
+      }
       return this;
-    },
-
-    extend: function(obj){
-      for(var key in obj)
-        if (moduleKeywords.indexOf(key) == -1)
-          this[key] = obj[key];
-      
-      var extended = obj.extended;
-      if (extended) extended.apply(this);
+    };
+    Module.extend = function(obj) {
+      var extended, key, value;
+      if (!obj) {
+        throw 'extend(obj) requires obj';
+      }
+      for (key in obj) {
+        value = obj[key];
+        if (__indexOf.call(moduleKeywords, key) < 0) {
+          this[key] = value;
+        }
+      }
+      extended = obj.extended;
+      if (extended) {
+        extended.apply(this);
+      }
       return this;
+    };
+    Module.proxy = function(func) {
+      return __bind(function() {
+        return func.apply(this, arguments);
+      }, this);
+    };
+    Module.prototype.proxy = function(func) {
+      return __bind(function() {
+        return func.apply(this, arguments);
+      }, this);
+    };
+    function Module() {
+      if (typeof this.init === "function") {
+        this.init.apply(this, arguments);
+      }
     }
-  };
-  
-  Class.prototype.proxy    = Class.proxy;
-  Class.prototype.proxyAll = Class.proxyAll;
-  Class.inst               = Class.init;
-  Class.sub                = Class.create;
-
-  // Models
-  
-  Spine.guid = function(){
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-      return v.toString(16);
-    }).toUpperCase();      
-  };
-
-  var Model = Spine.Model = Class.create();
-  
-  Model.extend(Events);
-
-  Model.extend({
-    setup: function(name, atts){
-      var model = Model.sub();
-      if (name) model.name = name;
-      if (atts) model.attributes = atts;
-      return model;
-    },
-    
-    created: function(sub){
+    return Module;
+  })();
+  Model = (function() {
+    __extends(Model, Module);
+    Model.extend(Events);
+    Model.records = {};
+    Model.attributes = [];
+    Model.configure = function() {
+      var attributes, name;
+      name = arguments[0], attributes = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      this.className = name;
       this.records = {};
-      this.attributes = [];
-
-      this.bind("create",  this.proxy(function(record){ 
-        this.trigger("change", "create", record);
-      }));
-      this.bind("update",  this.proxy(function(record){ 
-        this.trigger("change", "update", record);
-      }));
-      this.bind("destroy", this.proxy(function(record){ 
-        this.trigger("change", "destroy", record);
-      }));
-    },
-
-    find: function(id){
-      var record = this.records[id];
-      if ( !record ) throw("Unknown record");
+      if (attributes.length) {
+        this.attributes = attributes;
+      }
+      this.attributes && (this.attributes = makeArray(this.attributes));
+      this.attributes || (this.attributes = []);
+      this.unbind();
+      return this;
+    };
+    Model.toString = function() {
+      return "" + this.className + "(" + (this.attributes.join(", ")) + ")";
+    };
+    Model.find = function(id) {
+      var record;
+      record = this.records[id];
+      if (!record) {
+        throw 'Unknown record';
+      }
       return record.clone();
-    },
-
-    exists: function(id){
+    };
+    Model.exists = function(id) {
       try {
         return this.find(id);
       } catch (e) {
         return false;
       }
-    },
-
-    refresh: function(values){
-      this.records = {};
-
-      for (var i=0, il = values.length; i < il; i++) {    
-        var record = this.init(values[i]);
+    };
+    Model.refresh = function(values, options) {
+      var record, records, _i, _len;
+      if (options == null) {
+        options = {};
+      }
+      if (options.clear) {
+        this.records = {};
+      }
+      records = this.fromJSON(values);
+      if (!isArray(records)) {
+        records = [records];
+      }
+      for (_i = 0, _len = records.length; _i < _len; _i++) {
+        record = records[_i];
         record.newRecord = false;
+        record.id || (record.id = guid());
         this.records[record.id] = record;
       }
-
-      this.trigger("refresh");
-    },
-
-    select: function(callback){
-      var result = [];
-
-      for (var key in this.records)
-        if (callback(this.records[key]))
-          result.push(this.records[key]);
-
-      return this.cloneArray(result);
-    },
-
-    findByAttribute: function(name, value){
-      for (var key in this.records)
-        if (this.records[key][name] == value)
-          return this.records[key].clone();
-    },
-
-    findAllByAttribute: function(name, value){
-      return(this.select(function(item){
-        return(item[name] == value);
-      }));
-    },
-
-    each: function(callback){
-      for (var key in this.records)
-        callback(this.records[key]);
-    },
-
-    all: function(){
-      return this.cloneArray(this.recordsValues());
-    },
-
-    first: function(){
-      var record = this.recordsValues()[0];
-      return(record && record.clone());
-    },
-
-    last: function(){
-      var values = this.recordsValues()
-      var record = values[values.length - 1];
-      return(record && record.clone());
-    },
-
-    count: function(){
-      return this.recordsValues().length;
-    },
-
-    deleteAll: function(){
-      for (var key in this.records)
-        delete this.records[key];
-    },
-
-    destroyAll: function(){
-      for (var key in this.records)
-        this.records[key].destroy();
-    },
-
-    update: function(id, atts){
-      this.find(id).updateAttributes(atts);
-    },
-
-    create: function(atts){
-      var record = this.init(atts);
-      record.save();
-      return record;
-    },
-
-    destroy: function(id){
-      this.find(id).destroy();
-    },
-
-    sync: function(callback){
-      this.bind("change", callback);
-    },
-
-    fetch: function(callback){
-      callback ? this.bind("fetch", callback) : this.trigger("fetch");
-    },
-
-    toJSON: function(){
-      return this.recordsValues();
-    },
-    
-    fromJSON: function(objects){
-      var self = this;
-      if (typeof objects == "string")
-        objects = JSON.parse(objects)
-      if (typeof objects == "array")
-        return($.map(objects, function(){
-          return self.init(this);
-        }));
-      else
-       return this.init(objects);
-    },
-
-    // Private
-
-    recordsValues: function(){
-      var result = [];
-      for (var key in this.records)
-        result.push(this.records[key]);
-      return result;
-    },
-
-    cloneArray: function(array){
-      var result = [];
-      for (var i=0; i < array.length; i++)
-        result.push(array[i].dup());
-      return result;
-    }
-  });
-
-  Model.include({
-    model: true,
-    newRecord: true,
-
-    init: function(atts){
-      if (atts) this.load(atts);
-    },
-
-    isNew: function(){
-      return this.newRecord;
-    },
-    
-    isValid: function(){
-      return(!this.validate());
-    },
-
-    validate: function(){ },
-
-    load: function(atts){
-      for(var name in atts)
-        this[name] = atts[name];
-    },
-
-    attributes: function(){
-      var result = {};
-      for (var i=0; i < this.parent.attributes.length; i++) {
-        var attr = this.parent.attributes[i];
-        result[attr] = this[attr];
-      }
-      result.id = this.id;
-      return result;
-    },
-
-    eql: function(rec){
-      return(rec && rec.id === this.id && 
-             rec.parent === this.parent);
-    },
-
-    save: function(){
-      var error = this.validate();
-      if ( error ) {
-        if ( !this.trigger("error", this, error) )
-          throw("Validation failed: " + error);
-      }
-      
-      this.trigger("beforeSave", this);
-      this.newRecord ? this.create() : this.update();
-      this.trigger("save", this);
+      this.trigger('refresh', !options.clear && records);
       return this;
-    },
-
-    updateAttribute: function(name, value){
-      this[name] = value;
-      return this.save();
-    },
-
-    updateAttributes: function(atts){
-      this.load(atts);
-      return this.save();
-    },
-
-    destroy: function(){
-      this.trigger("beforeDestroy", this);
-      delete this.parent.records[this.id];
-      this.trigger("destroy", this);
-    },
-
-    dup: function(){
-      var result = this.parent.init(this.attributes());
-      result.newRecord = this.newRecord;
-      return result;
-    },
-    
-    clone: function(){
-      return Object.create(this);
-    },
-
-    reload: function(){
-      if ( this.newRecord ) return this;
-      var original = this.parent.find(this.id);
-      this.load(original.attributes());
-      return original;
-    },
-
-    toJSON: function(){
-      return(this.attributes());
-    },
-    
-    exists: function(){
-      return(this.id && this.id in this.parent.records);
-    },
-
-    // Private
-
-    update: function(){
-      this.trigger("beforeUpdate", this);
-      var records = this.parent.records;
-      records[this.id].load(this.attributes());
-      this.trigger("update", records[this.id].clone());
-    },
-
-    create: function(){
-      this.trigger("beforeCreate", this);
-      if ( !this.id ) this.id = Spine.guid();
-      this.newRecord   = false;
-      var records      = this.parent.records;
-      records[this.id] = this.dup();
-      this.trigger("create", records[this.id].clone());
-    },
-    
-    bind: function(events, callback){
-      return this.parent.bind(events, this.proxy(function(record){
-        if ( record && this.eql(record) )
-          callback.apply(this, arguments);
-      }));
-    },
-    
-    trigger: function(){
-      return this.parent.trigger.apply(this.parent, arguments);
-    }
-  });
-  
-  // Controllers
-  
-  var eventSplitter = /^(\w+)\s*(.*)$/;
-  
-  var Controller = Spine.Controller = Class.create({
-    tag: "div",
-    
-    initializer: function(options){
-      this.options = options;
-
-      for (var key in this.options)
-        this[key] = this.options[key];
-
-      if (!this.el) this.el = document.createElement(this.tag);
-      this.el = $(this.el);
-
-      if ( !this.events ) this.events = this.parent.events;
-      if ( !this.elements ) this.elements = this.parent.elements;
-
-      if (this.events) this.delegateEvents();
-      if (this.elements) this.refreshElements();
-      if (this.proxied) this.proxyAll.apply(this, this.proxied);
-    },
-        
-    $: function(selector){
-      return $(selector, this.el);
-    },
-        
-    delegateEvents: function(){
-      for (var key in this.events) {
-        var methodName = this.events[key];
-        var method     = this.proxy(this[methodName]);
-
-        var match      = key.match(eventSplitter);
-        var eventName  = match[1], selector = match[2];
-
-        if (selector === '') {
-          this.el.bind(eventName, method);
-        } else {
-          this.el.delegate(selector, eventName, method);
+    };
+    Model.select = function(callback) {
+      var id, record, result;
+      result = (function() {
+        var _ref, _results;
+        _ref = this.records;
+        _results = [];
+        for (id in _ref) {
+          record = _ref[id];
+          if (callback(record)) {
+            _results.push(record);
+          }
+        }
+        return _results;
+      }).call(this);
+      return this.cloneArray(result);
+    };
+    Model.findByAttribute = function(name, value) {
+      var id, record, _ref;
+      _ref = this.records;
+      for (id in _ref) {
+        record = _ref[id];
+        if (record[name] === value) {
+          return record.clone();
         }
       }
-    },
-    
-    refreshElements: function(){
-      for (var key in this.elements) {
-        this[this.elements[key]] = this.$(key);
+      return null;
+    };
+    Model.findAllByAttribute = function(name, value) {
+      return this.select(function(item) {
+        return item[name] === value;
+      });
+    };
+    Model.each = function(callback) {
+      var key, value, _ref, _results;
+      _ref = this.records;
+      _results = [];
+      for (key in _ref) {
+        value = _ref[key];
+        _results.push(callback(value.clone()));
       }
-    },
-    
-    delay: function(func, timeout){
-      setTimeout(this.proxy(func), timeout || 0);
+      return _results;
+    };
+    Model.all = function() {
+      return this.cloneArray(this.recordsValues());
+    };
+    Model.first = function() {
+      var record;
+      record = this.recordsValues()[0];
+      return record != null ? record.clone() : void 0;
+    };
+    Model.last = function() {
+      var record, values;
+      values = this.recordsValues();
+      record = values[values.length - 1];
+      return record != null ? record.clone() : void 0;
+    };
+    Model.count = function() {
+      return this.recordsValues().length;
+    };
+    Model.deleteAll = function() {
+      var key, value, _ref, _results;
+      _ref = this.records;
+      _results = [];
+      for (key in _ref) {
+        value = _ref[key];
+        _results.push(delete this.records[key]);
+      }
+      return _results;
+    };
+    Model.destroyAll = function() {
+      var key, value, _ref, _results;
+      _ref = this.records;
+      _results = [];
+      for (key in _ref) {
+        value = _ref[key];
+        _results.push(this.records[key].destroy());
+      }
+      return _results;
+    };
+    Model.update = function(id, atts) {
+      return this.find(id).updateAttributes(atts);
+    };
+    Model.create = function(atts) {
+      var record;
+      record = new this(atts);
+      return record.save();
+    };
+    Model.destroy = function(id) {
+      return this.find(id).destroy();
+    };
+    Model.change = function(callbackOrParams) {
+      if (typeof callbackOrParams === 'function') {
+        return this.bind('change', callbackOrParams);
+      } else {
+        return this.trigger('change', callbackOrParams);
+      }
+    };
+    Model.fetch = function(callbackOrParams) {
+      if (typeof callbackOrParams === 'function') {
+        return this.bind('fetch', callbackOrParams);
+      } else {
+        return this.trigger('fetch', callbackOrParams);
+      }
+    };
+    Model.toJSON = function() {
+      return this.recordsValues();
+    };
+    Model.fromJSON = function(objects) {
+      var value, _i, _len, _results;
+      if (!objects) {
+        return;
+      }
+      if (typeof objects === 'string') {
+        objects = JSON.parse(objects);
+      }
+      if (isArray(objects)) {
+        _results = [];
+        for (_i = 0, _len = objects.length; _i < _len; _i++) {
+          value = objects[_i];
+          _results.push(new this(value));
+        }
+        return _results;
+      } else {
+        return new this(objects);
+      }
+    };
+    Model.fromForm = function() {
+      var _ref;
+      return (_ref = new this).fromForm.apply(_ref, arguments);
+    };
+    Model.recordsValues = function() {
+      var key, result, value, _ref;
+      result = [];
+      _ref = this.records;
+      for (key in _ref) {
+        value = _ref[key];
+        result.push(value);
+      }
+      return result;
+    };
+    Model.cloneArray = function(array) {
+      var value, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = array.length; _i < _len; _i++) {
+        value = array[_i];
+        _results.push(value.clone());
+      }
+      return _results;
+    };
+    Model.prototype.newRecord = true;
+    function Model(atts) {
+      Model.__super__.constructor.apply(this, arguments);
+      this.ids = [];
+      if (atts) {
+        this.load(atts);
+      }
     }
-  });
-  
-  Controller.include(Events);
-  Controller.include(Log);
-  
-  Spine.App = Class.create();
-  Spine.App.extend(Events)
-  Controller.fn.App = Spine.App;
-})();
+    Model.prototype.isNew = function() {
+      return this.newRecord;
+    };
+    Model.prototype.isValid = function() {
+      return !this.validate();
+    };
+    Model.prototype.validate = function() {};
+    Model.prototype.load = function(atts) {
+      var key, value;
+      for (key in atts) {
+        value = atts[key];
+        if (typeof this[key] === 'function') {
+          this[key](value);
+        } else {
+          this[key] = value;
+        }
+      }
+      return this;
+    };
+    Model.prototype.attributes = function() {
+      var key, result, _i, _len, _ref;
+      result = {};
+      _ref = this.constructor.attributes;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        key = _ref[_i];
+        if (key in this) {
+          if (typeof this[key] === 'function') {
+            result[key] = this[key]();
+          } else {
+            result[key] = this[key];
+          }
+        }
+      }
+      if (this.id) {
+        result.id = this.id;
+      }
+      return result;
+    };
+    Model.prototype.eql = function(rec) {
+      var _ref, _ref2;
+      return rec && rec.constructor === this.constructor && (rec.id === this.id || (_ref = this.id, __indexOf.call(rec.ids, _ref) >= 0) || (_ref2 = rec.id, __indexOf.call(this.ids, _ref2) >= 0));
+    };
+    Model.prototype.save = function() {
+      var error, record;
+      error = this.validate();
+      if (error) {
+        this.trigger('error', error);
+        return false;
+      }
+      this.trigger('beforeSave');
+      record = this.newRecord ? this.create() : this.update();
+      this.trigger('save');
+      return record;
+    };
+    Model.prototype.updateAttribute = function(name, value) {
+      this[name] = value;
+      return this.save();
+    };
+    Model.prototype.updateAttributes = function(atts) {
+      this.load(atts);
+      return this.save();
+    };
+    Model.prototype.changeID = function(id) {
+      var records;
+      this.ids.push(this.id);
+      records = this.constructor.records;
+      records[id] = records[this.id];
+      delete records[this.id];
+      this.id = id;
+      return this.save();
+    };
+    Model.prototype.destroy = function() {
+      this.trigger('beforeDestroy');
+      delete this.constructor.records[this.id];
+      this.destroyed = true;
+      this.trigger('destroy');
+      this.trigger('change', 'destroy');
+      this.unbind();
+      return this;
+    };
+    Model.prototype.dup = function(newRecord) {
+      var result;
+      result = new this.constructor(this.attributes());
+      if (newRecord === false) {
+        result.newRecord = this.newRecord;
+      } else {
+        delete result.id;
+      }
+      return result;
+    };
+    Model.prototype.clone = function() {
+      return Object.create(this);
+    };
+    Model.prototype.reload = function() {
+      var original;
+      if (this.newRecord) {
+        return this;
+      }
+      original = this.constructor.find(this.id);
+      this.load(original.attributes());
+      return original;
+    };
+    Model.prototype.toJSON = function() {
+      return this.attributes();
+    };
+    Model.prototype.toString = function() {
+      return "<" + this.constructor.className + " (" + (JSON.stringify(this)) + ")>";
+    };
+    Model.prototype.fromForm = function(form) {
+      var key, result, _i, _len, _ref;
+      result = {};
+      _ref = $(form).serializeArray();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        key = _ref[_i];
+        result[key.name] = key.value;
+      }
+      return this.load(result);
+    };
+    Model.prototype.exists = function() {
+      return this.id && this.id in this.constructor.records;
+    };
+    Model.prototype.update = function() {
+      var clone, records;
+      this.trigger('beforeUpdate');
+      records = this.constructor.records;
+      records[this.id].load(this.attributes());
+      clone = records[this.id].clone();
+      clone.trigger('update');
+      clone.trigger('change', 'update');
+      return clone;
+    };
+    Model.prototype.create = function() {
+      var clone, records;
+      this.trigger('beforeCreate');
+      if (!this.id) {
+        this.id = guid();
+      }
+      this.newRecord = false;
+      records = this.constructor.records;
+      records[this.id] = this.dup(false);
+      clone = records[this.id].clone();
+      clone.trigger('create');
+      clone.trigger('change', 'create');
+      return clone;
+    };
+    Model.prototype.bind = function(events, callback) {
+      var binder, unbinder;
+      this.constructor.bind(events, binder = __bind(function(record) {
+        if (record && this.eql(record)) {
+          return callback.apply(this, arguments);
+        }
+      }, this));
+      this.constructor.bind('unbind', unbinder = __bind(function(record) {
+        if (record && this.eql(record)) {
+          this.constructor.unbind(events, binder);
+          return this.constructor.unbind('unbind', unbinder);
+        }
+      }, this));
+      return binder;
+    };
+    Model.prototype.trigger = function() {
+      var args, _ref;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      args.splice(1, 0, this);
+      return (_ref = this.constructor).trigger.apply(_ref, args);
+    };
+    Model.prototype.unbind = function() {
+      return this.trigger('unbind');
+    };
+    return Model;
+  })();
+  Controller = (function() {
+    __extends(Controller, Module);
+    Controller.include(Events);
+    Controller.include(Log);
+    Controller.prototype.eventSplitter = /^(\S+)\s*(.*)$/;
+    Controller.prototype.tag = 'div';
+    function Controller(options) {
+      this.release = __bind(this.release, this);
+      var key, value, _ref;
+      this.options = options;
+      _ref = this.options;
+      for (key in _ref) {
+        value = _ref[key];
+        this[key] = value;
+      }
+      if (!this.el) {
+        this.el = document.createElement(this.tag);
+      }
+      this.el = $(this.el);
+      if (this.className) {
+        this.el.addClass(this.className);
+      }
+      this.release(function() {
+        return this.el.remove();
+      });
+      if (!this.events) {
+        this.events = this.constructor.events;
+      }
+      if (!this.elements) {
+        this.elements = this.constructor.elements;
+      }
+      if (this.events) {
+        this.delegateEvents();
+      }
+      if (this.elements) {
+        this.refreshElements();
+      }
+      Controller.__super__.constructor.apply(this, arguments);
+    }
+    Controller.prototype.release = function(callback) {
+      if (typeof callback === 'function') {
+        return this.bind('release', callback);
+      } else {
+        return this.trigger('release');
+      }
+    };
+    Controller.prototype.$ = function(selector) {
+      return $(selector, this.el);
+    };
+    Controller.prototype.delegateEvents = function() {
+      var eventName, key, match, method, selector, _ref, _results;
+      _ref = this.events;
+      _results = [];
+      for (key in _ref) {
+        method = _ref[key];
+        if (typeof method !== 'function') {
+          method = this.proxy(this[method]);
+        }
+        match = key.match(this.eventSplitter);
+        eventName = match[1];
+        selector = match[2];
+        _results.push(selector === '' ? this.el.bind(eventName, method) : this.el.delegate(selector, eventName, method));
+      }
+      return _results;
+    };
+    Controller.prototype.refreshElements = function() {
+      var key, value, _ref, _results;
+      _ref = this.elements;
+      _results = [];
+      for (key in _ref) {
+        value = _ref[key];
+        _results.push(this[value] = this.$(key));
+      }
+      return _results;
+    };
+    Controller.prototype.delay = function(func, timeout) {
+      return setTimeout(this.proxy(func), timeout || 0);
+    };
+    Controller.prototype.html = function(element) {
+      this.el.html(element.el || element);
+      this.refreshElements();
+      return this.el;
+    };
+    Controller.prototype.append = function() {
+      var e, elements, _ref;
+      elements = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      elements = (function() {
+        var _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = elements.length; _i < _len; _i++) {
+          e = elements[_i];
+          _results.push(e.el || e);
+        }
+        return _results;
+      })();
+      (_ref = this.el).append.apply(_ref, elements);
+      this.refreshElements();
+      return this.el;
+    };
+    Controller.prototype.appendTo = function(element) {
+      this.el.appendTo(element.el || element);
+      this.refreshElements();
+      return this.el;
+    };
+    Controller.prototype.prepend = function() {
+      var e, elements, _ref;
+      elements = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      elements = (function() {
+        var _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = elements.length; _i < _len; _i++) {
+          e = elements[_i];
+          _results.push(e.el || e);
+        }
+        return _results;
+      })();
+      (_ref = this.el).prepend.apply(_ref, elements);
+      this.refreshElements();
+      return this.el;
+    };
+    Controller.prototype.replace = function(element) {
+      var previous, _ref;
+      _ref = [this.el, element.el || element], previous = _ref[0], this.el = _ref[1];
+      previous.replaceWith(this.el);
+      this.delegateEvents();
+      this.refreshElements();
+      return this.el;
+    };
+    return Controller;
+  })();
+  $ = this.jQuery || this.Zepto || function(element) {
+    return element;
+  };
+  if (typeof Object.create !== 'function') {
+    Object.create = function(o) {
+      var Func;
+      Func = function() {};
+      Func.prototype = o;
+      return new Func();
+    };
+  }
+  isArray = function(value) {
+    return Object.prototype.toString.call(value) === '[object Array]';
+  };
+  isBlank = function(value) {
+    var key;
+    if (!value) {
+      return true;
+    }
+    for (key in value) {
+      return false;
+    }
+    return true;
+  };
+  makeArray = function(args) {
+    return Array.prototype.slice.call(args, 0);
+  };
+  guid = function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r, v;
+      r = Math.random() * 16 | 0;
+      v = c === 'x' ? r : r & 3 | 8;
+      return v.toString(16);
+    }).toUpperCase();
+  };
+  Spine = this.Spine = {};
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = Spine;
+  }
+  Spine.version = '1.0.3';
+  Spine.isArray = isArray;
+  Spine.isBlank = isBlank;
+  Spine.$ = $;
+  Spine.Events = Events;
+  Spine.Log = Log;
+  Spine.Module = Module;
+  Spine.Controller = Controller;
+  Spine.Model = Model;
+  Module.extend.call(Spine, Events);
+  Module.create = Module.sub = Controller.create = Controller.sub = Model.sub = function(instances, statics) {
+    var result;
+    result = (function() {
+      __extends(result, this);
+      function result() {
+        result.__super__.constructor.apply(this, arguments);
+      }
+      return result;
+    }).call(this);
+    if (instances) {
+      result.include(instances);
+    }
+    if (statics) {
+      result.extend(statics);
+    }
+    if (typeof result.unbind === "function") {
+      result.unbind();
+    }
+    return result;
+  };
+  Model.setup = function(name, attributes) {
+    var Instance;
+    if (attributes == null) {
+      attributes = [];
+    }
+    Instance = (function() {
+      __extends(Instance, this);
+      function Instance() {
+        Instance.__super__.constructor.apply(this, arguments);
+      }
+      return Instance;
+    }).call(this);
+    Instance.configure.apply(Instance, [name].concat(__slice.call(attributes)));
+    return Instance;
+  };
+  Module.init = Controller.init = Model.init = function(a1, a2, a3, a4, a5) {
+    return new this(a1, a2, a3, a4, a5);
+  };
+  Spine.Class = Module;
+}).call(this);
