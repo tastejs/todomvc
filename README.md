@@ -1,4 +1,4 @@
-##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.2)
+##TodoMVC - A common demo application for popular JavaScript MVC frameworks (0.25)
 
 ##Introduction
 
@@ -22,7 +22,7 @@ To help solve this problem, I created TodoMVC - a project which offers the same 
 <li>ExtJS</li>
 </ul>
 
-A jQuery-only version of the application is also included so you can easily see how the app can be implemented with and without a structural pattern like MVC.
+A jQuery-only version of the application is also included so you can easily see how the app can be implemented with and without a structural pattern like MVC. A modularized Backbone.js example using AMD is also now available if you pull the latest version.
 
 
 ##Screenshots:
