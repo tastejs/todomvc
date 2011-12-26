@@ -46,3 +46,7 @@ For live previews of Todo apps and more information on the project, see the offi
 7. JavaScript non-framework MVC implementation pull received (pending review)
 8. KnockBack pull received (merging for version 0.3)
 9. SproutCore 2.0 example updated to Ember.js
+
+##Next release
+
+I aim to release TodoMVC 0.3 in early January 2012. This will contain stable versions of all in-development additions to the project.
