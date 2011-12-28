@@ -305,7 +305,7 @@ body {
 	color: #777777;
 }
 #todo-stats .todo-clear a:hover {
-	color: #336699;
+	color: 336699;
 }
 
 #instructions {
@@ -401,7 +401,7 @@ body {
 	border:0px;
 }
 /* line 136 */
-#todoapp #todo-stats button:hover {
+#todoapp #todo-stats button:hover, #todoapp #todo-stats button:focus {
 	background: rgba(0, 0, 0, 0.15);
 	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
