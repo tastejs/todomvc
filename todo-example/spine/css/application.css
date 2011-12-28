@@ -137,7 +137,9 @@ body {
   cursor: pointer;
 }
 
-#tasks .clear:hover {
+/* focus is actually pointless here as it's not
+   possible to tab to the anchor for some reason */
+#tasks .clear:hover, #tasks .clear:focus {
   background: rgba(0, 0, 0, 0.15);
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;

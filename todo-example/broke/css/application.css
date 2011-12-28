@@ -149,7 +149,7 @@ body {
   cursor: pointer;
 }
 
-#tasks .clear:hover {
+#tasks .clear:hover, #tasks .clear:focus {
   background: rgba(0, 0, 0, 0.15);
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
