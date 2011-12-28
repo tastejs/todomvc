@@ -341,15 +341,50 @@ body {
 #todo-stats .todo-clear {
     float: right;
 }
-#todo-stats .todo-clear a {
+#todo-stats a.todo-clear {
     color: #777777;
     font-size: 12px;
 }
-#todo-stats .todo-clear a:visited {
+#todo-stats a.todo-clear {
     color: #777777;
 }
-#todo-stats .todo-clear a:hover {
+#todo-stats a.todo-clear:hover, #todo-stats a.todo-clear:focus {
     color: #336699;
+}
+
+/* line 125 */
+ #todo-stats a.todo-clear {
+	display: block;
+	line-height: 20px;
+	text-decoration: none;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-o-border-radius: 12px;
+	-ms-border-radius: 12px;
+	-khtml-border-radius: 12px;
+	border-radius: 12px;
+	background: rgba(0, 0, 0, 0.1);
+	color: #555555;
+	font-size: 11px;
+	margin-top: 8px;
+	padding: 0 10px 1px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+}
+/* line 136 */
+#todo-stats a.todo-clear:hover, #todo-stats a.todo-clear:focus { 
+	background: rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+}
+/* line 139 */
+#todoapp #todo-stats a.todo-clear:active {
+	position: relative;
+	top: 1px;
 }
 
 

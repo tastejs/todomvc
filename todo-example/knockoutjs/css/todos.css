@@ -187,10 +187,11 @@ body {
 	color: #777777;
 	font-size: 12px;
 }
+/* these two rules are overridden below. find ".todo-clear a" */
 #todo-stats .todo-clear a:visited {
 	color: #777777;
 }
-#todo-stats .todo-clear a:hover {
+#todo-stats .todo-clear a:hover, #todo-stats .todo-clear a:focus {
 	color: #336699;
 }
 
@@ -383,7 +384,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 }
 /* line 136 */
-#todoapp #todo-stats .todo-clear a:hover {
+#todoapp #todo-stats .todo-clear a:hover, #todoapp #todo-stats .todo-clear a:focus {
 	background: rgba(0, 0, 0, 0.15);
 	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
