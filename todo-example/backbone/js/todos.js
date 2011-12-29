@@ -33,7 +33,6 @@ $(function(){
     // Remove this Todo from *localStorage* and delete its view.
     clear: function() {
       this.destroy();
-      this.view.remove();
     }
 
   });
@@ -102,9 +101,9 @@ $(function(){
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
-      _.bindAll(this, 'render', 'close');
+      _.bindAll(this, 'render', 'close', 'remove');
       this.model.bind('change', this.render);
-      this.model.view = this;
+      this.model.bind('destroy', this.remove);
     },
 
     // Re-render the contents of the todo item.
