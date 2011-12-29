@@ -145,11 +145,6 @@ $(function(){
       if (e.keyCode == 13) this.close();
     },
 
-    // Remove this view from the DOM.
-    remove: function() {
-      $(this.el).remove();
-    },
-
     // Remove the item, destroy the model.
     clear: function() {
       this.model.clear();
