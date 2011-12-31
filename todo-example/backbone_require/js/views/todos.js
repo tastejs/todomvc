@@ -17,7 +17,8 @@ define([
       "click .check"              : "toggleDone",
       "dblclick div.todo-content" : "edit",
       "click span.todo-destroy"   : "clear",
-      "keypress .todo-input"      : "updateOnEnter"
+      "keypress .todo-input"      : "updateOnEnter",
+      "blur .todo-input"          : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -32,18 +33,8 @@ define([
     // Re-render the contents of the todo item.
     render: function() {
       $(this.el).html(this.template(this.model.toJSON()));
-      this.setContent();
-      return this;
-    },
-
-    // To avoid XSS (not that it would be harmful in this particular app),
-    // we use `jQuery.text` to set the contents of the todo item.
-    setContent: function() {
-      var content = this.model.get('content');
-      this.$('.todo-content').text(content);
       this.input = this.$('.todo-input');
-      this.input.bind('blur', this.close);
-      this.input.val(content);
+      return this;
     },
 
     // Toggle the `"done"` state of the model.
