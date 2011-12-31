@@ -52,10 +52,8 @@
   
     <!-- Insert this after the CreateTodoView and before the collection. -->
   {{#view Todos.StatsView id="todo-stats"}}
-    {{#view Ember.Button
-      target="Todos.todosController"
-      action="clearCompletedTodos"}}
-      Clear Completed 
+    {{#view Ember.Button target="Todos.todosController" action="clearCompletedTodos" content=this}}
+      Clear {{content.completedString}} 
     {{/view}}
     {{remainingString}} left
   {{/view}}

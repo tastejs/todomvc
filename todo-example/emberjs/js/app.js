@@ -25,6 +25,10 @@ Todos.todosController = Ember.ArrayProxy.create({
     return this.filterProperty('isDone', false).get('length');
   }.property('@each.isDone'),
 
+  completed: function() {
+    return this.filterProperty('isDone', true).get('length');
+  }.property('@each.isDone'),
+
   allAreDone: function(key, value) {
     if (value !== undefined) {
       this.setEach('isDone', value);
@@ -38,11 +42,16 @@ Todos.todosController = Ember.ArrayProxy.create({
 
 Todos.StatsView = Ember.View.extend({
   remainingBinding: 'Todos.todosController.remaining',
-
   remainingString: function() {
     var remaining = this.get('remaining');
     return remaining + (remaining === 1 ? " item" : " items");
-  }.property('remaining')
+  }.property('remaining'),
+
+  completedBinding: 'Todos.todosController.completed',
+  completedString: function() {
+    var completed = this.get('completed');
+    return completed + " completed" + (completed === 1 ? " item" : " items");
+  }.property('completed')
 });
 
 Todos.CreateTodoView = Ember.TextField.extend({
