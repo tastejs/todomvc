@@ -3,6 +3,6 @@ Ext.define('Todo.model.Task', {
     fields: ['id', 'label', {name: 'checked', type: 'boolean'}],
     proxy: {
         type: 'localstorage',
-        id: 'todo'
+        id: 'todos-extjs'
     }
 });

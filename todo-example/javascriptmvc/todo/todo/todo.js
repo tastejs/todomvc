@@ -17,7 +17,7 @@ $.Model('Todo',{
 	 * This is unimportant for understanding JavaScriptMVC!
 	 */
 	localStore: function(cb){
-		var name = this.shortName,
+		var name = 'todo-javascriptmvc',
 			data = $.evalJSON( window.localStorage[name] || (window.localStorage[name] = "{}") ),
 			res = cb.call(this, data);
 		if(res !== false){
