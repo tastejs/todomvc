@@ -33,7 +33,6 @@ $(function(){
     // Remove this Todo from *localStorage* and delete its view.
     clear: function() {
       this.destroy();
-      this.view.remove();
     }
 
   });
@@ -95,33 +94,24 @@ $(function(){
       "click .check"              : "toggleDone",
       "dblclick div.todo-content" : "edit",
       "click span.todo-destroy"   : "clear",
-      "keypress .todo-input"      : "updateOnEnter"
+      "keypress .todo-input"      : "updateOnEnter",
+      "blur .todo-input"          : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
-      _.bindAll(this, 'render', 'close');
+      _.bindAll(this, 'render', 'close', 'remove');
       this.model.bind('change', this.render);
-      this.model.view = this;
+      this.model.bind('destroy', this.remove);
     },
 
     // Re-render the contents of the todo item.
     render: function() {
       $(this.el).html(this.template(this.model.toJSON()));
-      this.setContent();
-      return this;
-    },
-
-    // To avoid XSS (not that it would be harmful in this particular app),
-    // we use `jQuery.text` to set the contents of the todo item.
-    setContent: function() {
-      var content = this.model.get('content');
-      this.$('.todo-content').text(content);
       this.input = this.$('.todo-input');
-      this.input.bind('blur', this.close);
-      this.input.val(content);
+      return this;
     },
 
     // Toggle the `"done"` state of the model.
@@ -144,11 +134,6 @@ $(function(){
     // If you hit `enter`, we're through editing the item.
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
-    },
-
-    // Remove this view from the DOM.
-    remove: function() {
-      $(this.el).remove();
     },
 
     // Remove the item, destroy the model.
@@ -175,16 +160,18 @@ $(function(){
     events: {
       "keypress #new-todo":  "createOnEnter",
       "keyup #new-todo":     "showTooltip",
-      "click .todo-clear a": "clearCompleted"
+      "click .todo-clear a": "clearCompleted",
+      "click .mark-all-done": "toggleAllComplete"
     },
 
     // At initialization we bind to the relevant events on the `Todos`
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
-      _.bindAll(this, 'addOne', 'addAll', 'render');
+      _.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
 
-      this.input    = this.$("#new-todo");
+      this.input = this.$("#new-todo");
+      this.allCheckbox = this.$(".mark-all-done")[0];
 
       Todos.bind('add',     this.addOne);
       Todos.bind('reset',   this.addAll);
@@ -197,11 +184,15 @@ $(function(){
     // of the app doesn't change.
     render: function() {
       var done = Todos.done().length;
+      var remaining = Todos.remaining().length;
+
       this.$('#todo-stats').html(this.statsTemplate({
         total:      Todos.length,
-        done:       Todos.done().length,
-        remaining:  Todos.remaining().length
+        done:       done,
+        remaining:  remaining
       }));
+
+      this.allCheckbox.checked = !remaining;
     },
 
     // Add a single todo item to the list by creating a view for it, and
@@ -249,6 +240,11 @@ $(function(){
       if (val == '' || val == this.input.attr('placeholder')) return;
       var show = function(){ tooltip.show().fadeIn(); };
       this.tooltipTimeout = _.delay(show, 1000);
+    },
+
+    toggleAllComplete: function () {
+      var done = this.allCheckbox.checked;
+      Todos.each(function (todo) { todo.save({'done': done}); });
     }
 
   });
