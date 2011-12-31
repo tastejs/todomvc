@@ -1,5 +1,5 @@
 angular.service('persistencejs', function() {
-	persistence.store.websql.config(persistence, 'todo', 'todo database', 5*1024*1024);
+	persistence.store.websql.config(persistence, 'todo-angular-persistence', 'todo database', 5*1024*1024);
 	var Todo = persistence.define('todo', {
 		content: 'TEXT',
 		done: 'BOOL'

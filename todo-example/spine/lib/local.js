@@ -1,4 +1,6 @@
 (function() {
+  var storageName = 'todos-spine';
+
   if (typeof Spine === "undefined" || Spine === null) {
     Spine = require('spine');
   }
@@ -10,11 +12,11 @@
     saveLocal: function() {
       var result;
       result = JSON.stringify(this);
-      return localStorage[this.className] = result;
+      return localStorage[storageName] = result;
     },
     loadLocal: function() {
       var result;
-      result = localStorage[this.className];
+      result = localStorage[storageName];
       return this.refresh(result || [], {
         clear: true
       });
