@@ -101,6 +101,7 @@ define([
       this.tooltipTimeout = _.delay(show, 1000);
     },
 
+    // Change each todo so that it's `done` state matches the check all
     toggleAllComplete: function () {
       var done = this.allCheckbox.checked;
       Todos.each(function (todo) { todo.save({'done': done}); });
