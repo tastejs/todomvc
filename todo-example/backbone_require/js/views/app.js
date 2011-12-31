@@ -19,16 +19,18 @@ define([
     events: {
       "keypress #new-todo":  "createOnEnter",
       "keyup #new-todo":     "showTooltip",
-      "click .todo-clear a": "clearCompleted"
+      "click .todo-clear a": "clearCompleted",
+      "click .mark-all-done": "toggleAllComplete"
     },
 
     // At initialization we bind to the relevant events on the `Todos`
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
-      _.bindAll(this, 'addOne', 'addAll', 'render');
+      _.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
 
       this.input    = this.$("#new-todo");
+      this.allCheckbox = this.$(".mark-all-done")[0];
 
       Todos.bind('add',     this.addOne);
       Todos.bind('reset',   this.addAll);
@@ -41,11 +43,15 @@ define([
     // of the app doesn't change.
     render: function() {
       var done = Todos.done().length;
+      var remaining = Todos.remaining().length;
+
       this.$('#todo-stats').html(this.statsTemplate({
         total:      Todos.length,
-        done:       Todos.done().length,
-        remaining:  Todos.remaining().length
+        done:       done,
+        remaining:  remaining
       }));
+
+      this.allCheckbox.checked = !remaining;
     },
 
     // Add a single todo item to the list by creating a view for it, and
@@ -93,6 +99,11 @@ define([
       if (val == '' || val == this.input.attr('placeholder')) return;
       var show = function(){ tooltip.show().fadeIn(); };
       this.tooltipTimeout = _.delay(show, 1000);
+    },
+
+    toggleAllComplete: function () {
+      var done = this.allCheckbox.checked;
+      Todos.each(function (todo) { todo.save({'done': done}); });
     }
 
   });
