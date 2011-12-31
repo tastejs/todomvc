@@ -24,9 +24,9 @@ define([
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
-      _.bindAll(this, 'render', 'close');
+      _.bindAll(this, 'render', 'close', 'remove');
       this.model.bind('change', this.render);
-      this.model.view = this;
+      this.model.bind('destroy', this.remove);
     },
 
     // Re-render the contents of the todo item.
@@ -66,11 +66,6 @@ define([
     // If you hit `enter`, we're through editing the item.
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
-    },
-
-    // Remove this view from the DOM.
-    remove: function() {
-      $(this.el).remove();
     },
 
     // Remove the item, destroy the model.

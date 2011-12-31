@@ -19,10 +19,9 @@ define(['underscore', 'backbone'], function(_, Backbone) {
       this.save({done: !this.get("done")});
     },
 
-    // Remove this Todo from *localStorage* and delete its view.
+    // Remove this Todo from *localStorage*.
     clear: function() {
       this.destroy();
-      this.view.remove();
     }
 
   });
