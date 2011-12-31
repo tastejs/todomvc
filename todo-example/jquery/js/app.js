@@ -40,7 +40,7 @@ jQuery(function($){
 			this.$count = this.$footer.find('.count');
 			this.$clearBtn = this.$footer.find('.clear');
 			// localStorage support
-			this.store = new Store('todoapp');
+			this.store = new Store('todo-jquery');
 			this.todos = this.store.get('todos') || [];
 			this.bindEvents();
 			this.render();

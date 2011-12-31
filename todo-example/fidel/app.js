@@ -1,7 +1,8 @@
+var localStoreName = 'todos-fidel';
 var todoStore = (function() {
   return {
     get: function() {
-      var d = localStorage.getItem('fidel.todos');
+      var d = localStorage.getItem(localStoreName);
       var todos = {};
       if (d) {
         d = JSON.parse(d);
@@ -12,7 +13,7 @@ var todoStore = (function() {
       return todos;
     },
     save: function(todos) {
-      localStorage.setItem('fidel.todos', JSON.stringify(todos));
+      localStorage.setItem(localStoreName, JSON.stringify(todos));
     }
   };
 })();

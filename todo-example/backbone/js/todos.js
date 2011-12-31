@@ -48,7 +48,7 @@ $(function(){
     model: Todo,
 
     // Save all of the todo items under the `"todos"` namespace.
-    localStorage: new Store("todos"),
+    localStorage: new Store("todos-backbone"),
 
     // Filter down the list of all todo items that are finished.
     done: function() {

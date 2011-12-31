@@ -1,7 +1,7 @@
 
 YUI().use('event-focus', 'json', 'model', 'model-list', 'view', function (Y) {
 
-var TodoAppView, TodoList, TodoModel, TodoView;
+var TodoAppView, TodoList, TodoModel, TodoView, localStorageName = 'todos-yuilibrary';
 
 // -- Model --------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ var TodoAppView, TodoList, TodoModel, TodoView;
 TodoModel = Y.TodoModel = Y.Base.create('todoModel', Y.Model, [], {
     // This tells the Model to use a localStorage sync provider (which we'll
     // create below) to save and load information about a todo item.
-    sync: LocalStorageSync('todo'),
+    sync: LocalStorageSync(localStorageName),
 
     // This method will toggle the `done` attribute from `true` to `false`, or
     // vice versa.
@@ -41,7 +41,7 @@ TodoList = Y.TodoList = Y.Base.create('todoList', Y.ModelList, [], {
 
     // This tells the list to use a localStorage sync provider (which we'll
     // create below) to load the list of todo items.
-    sync : LocalStorageSync('todo'),
+    sync : LocalStorageSync(localStorageName),
 
     // Returns an array of all models in this list with the `done` attribute
     // set to `true`.
