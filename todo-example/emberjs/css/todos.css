@@ -249,7 +249,7 @@ body {
 	margin: 0 10px 0 7px;
 	float: left;
 }
-#todo-list .done .todo-content {
+#todo-list .is-done label {
 	text-decoration: line-through;
 	color: #777777;
 }
