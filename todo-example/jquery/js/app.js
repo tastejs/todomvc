@@ -37,23 +37,19 @@ jQuery(function($) {
 
 	var App = {
 		init: function() {
+			this.cacheElements();
+			this.store = new Store('todo-jquery');
+			this.todos = this.store.get('todos') || [];
+			this.bindEvents();
+			this.render();
+		},
+		cacheElements: function() {
 			this.$template = $('#todo-template');
 			this.$todoApp = $('#todoapp');
 			this.$todoList = this.$todoApp.find('.items');
 			this.$footer = this.$todoApp.find('footer');
 			this.$count = this.$footer.find('.count');
 			this.$clearBtn = this.$footer.find('.clear');
-			// localStorage support
-			this.store = new Store('todo-jquery');
-			this.todos = this.store.get('todos') || [];
-			this.bindEvents();
-			this.render();
-		},
-		render: function() {
-			var html = this.$template.tmpl( this.todos );
-			this.$todoList.html( html );
-			this.renderFooter();
-			this.store.set( 'todos', this.todos );
 		},
 		bindEvents: function() {
 			var app = this.$todoApp,
@@ -66,14 +62,11 @@ jQuery(function($) {
 			list.on( 'blur', 'input[type="text"]', this.update );
 			list.on( 'click', '.destroy', this.destroy );
 		},
-		activeTodoCount: function() {
-			var count = 0;
-			$.each( this.todos, function( i, val ) {
-				if ( !val.done ) {
-					count++;
-				}
-			});
-			return count;
+		render: function() {
+			var html = this.$template.tmpl( this.todos );
+			this.$todoList.html( html );
+			this.renderFooter();
+			this.store.set( 'todos', this.todos );
 		},
 		renderFooter: function() {
 			var todoCount = this.todos.length,
@@ -87,6 +80,15 @@ jQuery(function($) {
 			this.$count.html( countTitle );
 			// Toggle clear button and update title
 			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
+		},
+		activeTodoCount: function() {
+			var count = 0;
+			$.each( this.todos, function( i, val ) {
+				if ( !val.done ) {
+					count++;
+				}
+			});
+			return count;
 		},
 		destroyDone: function() {
 			var todos = App.todos,
@@ -138,9 +140,9 @@ jQuery(function($) {
 			}
 		},
 		update: function() {
-			var newVal = $(this).removeClass('editing').val();
+			var val = $(this).removeClass('editing').val();
 			App.getTodo( this, function(i) {
-				this.todos[i].title = newVal;
+				this.todos[i].title = val;
 			});
 			App.render();
 		},
