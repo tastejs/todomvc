@@ -66,7 +66,10 @@ Todos.StatsView = Ember.View.extend({
   completedString: function() {
     var completed = this.get('completed');
     return completed + " completed" + (completed === 1 ? " item" : " items");
-  }.property('completed')
+  }.property('completed'),
+  updateCompletedButton: function () {
+    $('#todo-stats button').toggleClass('none-completed', this.get('completed') < 1);
+  }.observes('completed')
 });
 
 Todos.CreateTodoView = Ember.TextField.extend({
