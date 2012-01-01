@@ -1,8 +1,8 @@
 // Array Remove - By John Resig (MIT Licensed)
-Array.prototype.remove = function(from, to) {
-	var rest = this.slice((to || from) + 1 || this.length);
+Array.prototype.remove = function( from, to ) {
+	var rest = this.slice( ( to || from ) + 1 || this.length );
 	this.length = from < 0 ? this.length + from : from;
-	return this.push.apply(this, rest);
+	return this.push.apply( this, rest );
 };
 
 /*
@@ -13,24 +13,28 @@ sindresorhus.com
 */
 jQuery(function($){
 
+jQuery(function($) {
+
+	"use strict";
+
 	var Utils = {
 		// https://gist.github.com/823878
 		uuid: function() {
 			var uuid = "", i, random;
 			for ( i = 0; i < 32; i++ ) {
 				random = Math.random() * 16 | 0;
-				if ( i == 8 || i == 12 || i == 16 || i == 20 ) {
+				if ( i === 8 || i === 12 || i === 16 || i === 20 ) {
 					uuid += "-";
 				}
-				uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+				uuid += ( i === 12 ? 4 : ( i === 16 ? ( random & 3 | 8 ) : random ) ).toString(16);
 			}
 			return uuid;
 		},
-		pluralize: function(count, word) {
+		pluralize: function( count, word ) {
 			return count === 1 ? word : word + 's';
 		}
 	};
-		
+
 	var App = {
 		init: function() {
 			this.$template = $('#todo-template');
@@ -49,22 +53,22 @@ jQuery(function($){
 			var html = this.$template.tmpl( this.todos );
 			this.$todoList.html( html );
 			this.renderFooter();
-			this.store.set('todos', this.todos);
+			this.store.set( 'todos', this.todos );
 		},
 		bindEvents: function() {
-			var elem = this.$todoApp,
+			var app = this.$todoApp,
 				list = this.$todoList;
-			elem.on('click', '.clear', this.destroyDone);
-			elem.on('submit', 'form', this.create);
-			list.on('change', 'input[type="checkbox"]', this.toggle);
-			list.on('dblclick', '.view', this.edit);
-			list.on('keypress', 'input[type="text"]', this.blurOnEnter);
-			list.on('blur', 'input[type="text"]', this.update);
-			list.on('click', '.destroy', this.destroy);
+			app.on( 'click', '.clear', this.destroyDone );
+			app.on( 'submit', 'form', this.create );
+			list.on( 'change', 'input[type="checkbox"]', this.toggle );
+			list.on( 'dblclick', '.view', this.edit );
+			list.on( 'keypress', 'input[type="text"]', this.blurOnEnter );
+			list.on( 'blur', 'input[type="text"]', this.update );
+			list.on( 'click', '.destroy', this.destroy );
 		},
 		activeTodoCount: function() {
 			var count = 0;
-			$.each(this.todos, function(i, val) {
+			$.each( this.todos, function( i, val ) {
 				if ( !val.done ) {
 					count++;
 				}
@@ -75,7 +79,7 @@ jQuery(function($){
 			var todoCount = this.todos.length,
 				activeTodos = this.activeTodoCount(),
 				completedTodos = todoCount - activeTodos,
-				countTitle = '<b>' + activeTodos + '</b> ' + Utils.pluralize( activeTodos, 'item' ) + ' left';
+				countTitle = '<b>' + activeTodos + '</b> ' + Utils.pluralize( activeTodos, 'item' ) + ' left',
 				clearTitle = 'Clear ' + completedTodos + ' completed ' + Utils.pluralize( completedTodos, 'item' );
 			// Only show the footer when there are at least one todo.
 			this.$footer.toggle( !!todoCount );
@@ -93,12 +97,12 @@ jQuery(function($){
 			}
 			App.render();
 		},
-		// Accepts an element from inside the ".item" div, and returns the corresponding todo in the todos array.
-		getTodo: function(elem, callback) {
-			var id = $(elem).closest('.item').data('id');
-			$.each(this.todos, function(i, val) {
+		// Accepts an element from inside the ".item" div and returns the corresponding todo in the todos array.
+		getTodo: function( elem, callback ) {
+			var id = $( elem ).closest('.item').data('id');
+			$.each( this.todos, function( i, val ) {
 				if ( val.id === id ) {
-					callback.apply(App, arguments);
+					callback.apply( App, arguments );
 					return false;
 				}
 			});
@@ -119,7 +123,7 @@ jQuery(function($){
 			App.render();
 		},
 		toggle: function() {
-			App.getTodo(this, function(i, val) {
+			App.getTodo( this, function( i, val ) {
 				val.done = !val.done;
 			});
 			App.render();
@@ -134,13 +138,13 @@ jQuery(function($){
 		},
 		update: function() {
 			var newVal = $(this).removeClass('editing').val();
-			App.getTodo(this, function(i) {
+			App.getTodo( this, function(i) {
 				this.todos[i].title = newVal;
 			});
 			App.render();
 		},
 		destroy: function() {
-			App.getTodo(this, function(i) {
+			App.getTodo( this, function(i) {
 				this.todos.remove(i);
 				this.render();
 			});
@@ -148,5 +152,5 @@ jQuery(function($){
 	};
 
 	window.TodoApp = App.init();
-	
+
 });
