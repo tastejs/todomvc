@@ -1,18 +1,8 @@
-// Array Remove - By John Resig (MIT Licensed)
-Array.prototype.remove = function( from, to ) {
-	var rest = this.slice( ( to || from ) + 1 || this.length );
-	this.length = from < 0 ? this.length + from : from;
-	return this.push.apply( this, rest );
-};
-
 /*
 
-By Sindre Sorhus
-sindresorhus.com
+(c) [Sindre Sorhus](http://sindresorhus.com)
 
 */
-jQuery(function($){
-
 jQuery(function($) {
 
 	"use strict";
@@ -102,7 +92,7 @@ jQuery(function($) {
 				l = todos.length;
 			while ( l-- ) {
 				if ( todos[l].done ) {
-					todos.remove(l);
+					todos.splice( l, 1 );
 				}
 			}
 			App.render();
@@ -155,7 +145,7 @@ jQuery(function($) {
 		},
 		destroy: function() {
 			App.getTodo( this, function(i) {
-				this.todos.remove(i);
+				this.todos.splice( i, 1 );
 				this.render();
 			});
 		}
