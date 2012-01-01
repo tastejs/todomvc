@@ -113,7 +113,6 @@ Todos.TodoStore = (function () {
     // Update a model by replacing its copy in `this.data`.
     this.update = function(model) {
       this.data[model.get('id')] = model.getProperties('id', 'title', 'isDone');
-;
       this.save();
       return model;
     };
