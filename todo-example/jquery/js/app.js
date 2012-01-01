@@ -89,10 +89,11 @@ jQuery(function($) {
 			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
 		},
 		destroyDone: function() {
-			// Reverse loop; since we are dynamically removing items from the todos array
-			for ( var i = App.todos.length; i--; ) {
-				if ( App.todos[i].done ) {
-					App.todos.remove(i);
+			var todos = App.todos,
+				l = todos.length;
+			while ( l-- ) {
+				if ( todos[l].done ) {
+					todos.remove(l);
 				}
 			}
 			App.render();
