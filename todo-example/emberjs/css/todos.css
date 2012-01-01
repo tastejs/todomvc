@@ -171,10 +171,6 @@ body {
 	padding: 20px 0 30px 0;
 	line-height: 1;
 }
-
-#stats-area{
-	display:none;
-}
 #create-todo {
 	position: relative;
 }

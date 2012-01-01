@@ -32,7 +32,7 @@
   
   <div class="content">
   
-  <script type="text/html">
+  <script type="text/x-handlebars">
 
 {{#view id="create-todo"}}
   {{view Todos.CreateTodoView id="new-todo" placeholder="What needs to be done?"}}
@@ -52,10 +52,8 @@
   
     <!-- Insert this after the CreateTodoView and before the collection. -->
   {{#view Todos.StatsView id="todo-stats"}}
-    {{#view Ember.Button classBinding="isActive"
-      target="Todos.todosController"
-      action="clearCompletedTodos"}}
-      Clear Completed 
+    {{#view Ember.Button target="Todos.todosController" action="clearCompletedTodos" content=this}}
+      Clear {{content.completedString}} 
     {{/view}}
     {{remainingString}} left
   {{/view}}
