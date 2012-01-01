@@ -37,9 +37,8 @@ jQuery(function($) {
 
 	var App = {
 		init: function() {
+			this.todos = this.store();
 			this.cacheElements();
-			this.store = new Store('todo-jquery');
-			this.todos = this.store.get('todos') || [];
 			this.bindEvents();
 			this.render();
 		},
@@ -50,6 +49,14 @@ jQuery(function($) {
 			this.$footer = this.$todoApp.find('footer');
 			this.$count = this.$footer.find('.count');
 			this.$clearBtn = this.$footer.find('.clear');
+		},
+		store: function( data ) {
+			if ( arguments.length ) {
+				return localStorage.setItem( 'todo-jquery', JSON.stringify( data ) );
+			} else {
+				var store = localStorage.getItem('todo-jquery');
+				return ( store && JSON.parse( store ) ) || [];
+			}
 		},
 		bindEvents: function() {
 			var app = this.$todoApp,
@@ -66,7 +73,7 @@ jQuery(function($) {
 			var html = this.$template.tmpl( this.todos );
 			this.$todoList.html( html );
 			this.renderFooter();
-			this.store.set( 'todos', this.todos );
+			this.store( this.todos );
 		},
 		renderFooter: function() {
 			var todoCount = this.todos.length,
