@@ -1,5 +1,6 @@
 /*
 
+[MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
 (c) [Sindre Sorhus](http://sindresorhus.com)
 
 */
