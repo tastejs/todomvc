@@ -53,10 +53,10 @@ jQuery(function($) {
 				list = this.$todoList;
 			app.on( 'click', '.clear', this.destroyDone );
 			app.on( 'submit', 'form', this.create );
-			list.on( 'change', 'input[type="checkbox"]', this.toggle );
+			list.on( 'change', '.toggle', this.toggle );
 			list.on( 'dblclick', '.view', this.edit );
-			list.on( 'keypress', 'input[type="text"]', this.blurOnEnter );
-			list.on( 'blur', 'input[type="text"]', this.update );
+			list.on( 'keypress', '.edit input', this.blurOnEnter );
+			list.on( 'blur', '.edit input', this.update );
 			list.on( 'click', '.destroy', this.destroy );
 		},
 		render: function() {
