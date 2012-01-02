@@ -159,7 +159,5 @@ Todos.TodoStore = (function () {
     items = [todo];
   }
 
-  Todos.todosController.arrayContentWillChange(0, 0, items.length);
   Todos.todosController.set('[]', items);
-  Todos.todosController.arrayContentDidChange(0, 0, items.length);
 })();
