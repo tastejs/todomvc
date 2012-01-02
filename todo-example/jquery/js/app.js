@@ -33,7 +33,7 @@ jQuery(function($) {
 			this.render();
 		},
 		cacheElements: function() {
-			this.$template = $('#todo-template');
+			this.template = Handlebars.compile( $('#todo-template').html() );
 			this.$todoApp = $('#todoapp');
 			this.$todoList = this.$todoApp.find('.items');
 			this.$footer = this.$todoApp.find('footer');
@@ -60,8 +60,7 @@ jQuery(function($) {
 			list.on( 'click', '.destroy', this.destroy );
 		},
 		render: function() {
-			var html = this.$template.tmpl( this.todos );
-			this.$todoList.html( html );
+			this.$todoList.html( this.template( this.todos ) );
 			this.renderFooter();
 			this.store( this.todos );
 		},
