@@ -52,6 +52,10 @@ Todos.todosController = Ember.ArrayProxy.create({
     } else {
       return !!this.get('length') && this.everyProperty('isDone', true);
     }
+  }.property('@each.isDone'),
+
+  completeClass: function () {
+    return this.get('completed') < 1 ? 'none-completed' : 'some-completed';
   }.property('@each.isDone')
 });
 
@@ -66,10 +70,7 @@ Todos.StatsView = Ember.View.extend({
   completedString: function() {
     var completed = this.get('completed');
     return completed + " completed" + (completed === 1 ? " item" : " items");
-  }.property('completed'),
-  updateCompletedButton: function () {
-    $('#todo-stats button').toggleClass('none-completed', this.get('completed') < 1);
-  }.observes('completed')
+  }.property('completed')
 });
 
 Todos.CreateTodoView = Ember.TextField.extend({
