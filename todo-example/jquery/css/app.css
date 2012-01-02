@@ -82,7 +82,7 @@ body {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
-	background: url(../img/destroy.png) no-repeat center center;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAABGdBTUEAALGPC/xhBQAAACdQTFRFzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAA////zMzMhnu0WAAAAAt0Uk5T5u3pqtV3jFQEKAC0bVelAAAAfUlEQVQI12NYtWpFsc8R865VqxhWrZpyBgg8QcylZ8AgCsjMgTCPrWJYfgYKqhjWwJgaDDVnzpw+c2bPmTPHGWzOnNm95/TuM2cOM/AARXfvBooeZAAp270bRCIz4QoOIGtDMqwJZoUEQzvCYrhzuhhWtUKYEahOX7UK6iEA3A6NUGwCTZIAAAAASUVORK5CYII=') no-repeat center center;
 }
 
 #todoapp .item:hover .destroy {
