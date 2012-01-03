@@ -396,9 +396,6 @@ body {
 
 	border:0px;
 }
-#todoapp #todo-stats button.none-completed {
-  display: none;
-}
 
 /* line 136 */
 #todoapp #todo-stats button:hover, #todoapp #todo-stats button:focus {
