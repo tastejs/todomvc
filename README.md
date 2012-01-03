@@ -31,9 +31,17 @@ Preview of some of the apps included:
 
 <img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
 
+##Team
+
+As of January 2012, I'm happy to introduce [Aaron Boushley](https://github.com/boushley) as a core committer to TodoMVC. Aaron is a JavaScript developer with a keen interest in architectural frameworks and will be helping both standardize existing examples and improve the project as we work on expansion. 
+
 ##Official site & Getting Involved
 
-For live previews of Todo apps and more information on the project, see the official TodoMVC site here: [http://addyosmani.github.com/todomvc/](http://addyosmani.github.com/todomvc/)
+For live previews of Todo apps and more information on the project, see the official TodoMVC site here: [http://addyosmani.github.com/todomvc/](http://addyosmani.github.com/todomvc/). 
+
+Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice. If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request. One of us will be happy to review them and consider them for inclusion. 
+
+Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
 
 
 ##Changelog 0.25
