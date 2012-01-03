@@ -249,7 +249,7 @@ body {
 	margin: 0 10px 0 7px;
 	float: left;
 }
-#todo-list .done .todo-content {
+#todo-list .is-done label {
 	text-decoration: line-through;
 	color: #777777;
 }
@@ -396,6 +396,10 @@ body {
 
 	border:0px;
 }
+#todoapp #todo-stats button.none-completed {
+  display: none;
+}
+
 /* line 136 */
 #todoapp #todo-stats button:hover, #todoapp #todo-stats button:focus {
 	background: rgba(0, 0, 0, 0.15);

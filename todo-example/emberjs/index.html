@@ -45,14 +45,13 @@
 
 {{#view id="todos"}}
   {{#collection id="todo-list" contentBinding="Todos.todosController" tagName="ul" itemClassBinding="content.isDone"}}
-    {{view Ember.Checkbox titleBinding="content.title"
-        valueBinding="content.isDone"}}
+    {{view Ember.Checkbox titleBinding="content.title" valueBinding="content.isDone"}}
   {{/collection}}
 {{/view}}
   
     <!-- Insert this after the CreateTodoView and before the collection. -->
-  {{#view Todos.StatsView id="todo-stats"}}
-    {{#view Ember.Button target="Todos.todosController" action="clearCompletedTodos" content=this}}
+  {{#view Todos.StatsView id="todo-stats" content=this}}
+    {{#view Ember.Button target="Todos.todosController" action="clearCompletedTodos" classNameBindings="Todos.todosController.completeClass" content=this}}
       Clear {{content.completedString}} 
     {{/view}}
     {{remainingString}} left

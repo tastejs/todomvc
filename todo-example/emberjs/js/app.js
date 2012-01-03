@@ -52,6 +52,10 @@ Todos.todosController = Ember.ArrayProxy.create({
     } else {
       return !!this.get('length') && this.everyProperty('isDone', true);
     }
+  }.property('@each.isDone'),
+
+  completeClass: function () {
+    return this.get('completed') < 1 ? 'none-completed' : 'some-completed';
   }.property('@each.isDone')
 });
 
@@ -155,7 +159,5 @@ Todos.TodoStore = (function () {
     items = [todo];
   }
 
-  Todos.todosController.arrayContentWillChange(0, 0, items.length);
   Todos.todosController.set('[]', items);
-  Todos.todosController.arrayContentDidChange(0, 0, items.length);
 })();
