@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
 	margin: 0;
 	padding: 0;
 }
@@ -81,16 +82,24 @@ body {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
-	background: url(../img/destroy.png) no-repeat center center;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAABGdBTUEAALGPC/xhBQAAACdQTFRFzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAA////zMzMhnu0WAAAAAt0Uk5T5u3pqtV3jFQEKAC0bVelAAAAfUlEQVQI12NYtWpFsc8R865VqxhWrZpyBgg8QcylZ8AgCsjMgTCPrWJYfgYKqhjWwJgaDDVnzpw+c2bPmTPHGWzOnNm95/TuM2cOM/AARXfvBooeZAAp270bRCIz4QoOIGtDMqwJZoUEQzvCYrhzuhhWtUKYEahOX7UK6iEA3A6NUGwCTZIAAAAASUVORK5CYII=') no-repeat center center;
 }
 
 #todoapp .item:hover .destroy {
 	display: block;
 }
 
-#todoapp .item .edit { display: none; }
-#todoapp .item.editing .edit { display: block; }
-#todoapp .item.editing .view { display: none; }
+#todoapp .item .edit {
+	display: none;
+}
+
+#todoapp .item.editing .edit {
+	display: block;
+}
+
+#todoapp .item.editing .view {
+	display: none;
+}
 
 #todoapp footer {
 	display: none;
@@ -116,7 +125,7 @@ body {
 	color: #555555;
 	font-size: 11px;
 	margin-top: 8px;
-	margin-bottom:8px;
+	margin-bottom: 8px;
 	padding: 0 10px 1px;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
@@ -125,7 +134,7 @@ body {
 	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0; 
+	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 	cursor: pointer;
 }
 
@@ -165,6 +174,7 @@ body {
 	text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
 	text-align: center;
 }
+
 #credits a {
 	color: #888;
 }

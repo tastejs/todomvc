@@ -1,81 +1,65 @@
-// Array Remove - By John Resig (MIT Licensed)
-Array.prototype.remove = function(from, to) {
-	var rest = this.slice((to || from) + 1 || this.length);
-	this.length = from < 0 ? this.length + from : from;
-	return this.push.apply(this, rest);
-};
-
 /*
 
-By Sindre Sorhus
-sindresorhus.com
+[MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
+(c) [Sindre Sorhus](http://sindresorhus.com)
 
 */
-jQuery(function($){
+jQuery(function($) {
+
+	"use strict";
 
 	var Utils = {
-		// https://gist.github.com/823878
-		uuid: function() {
-			var uuid = "", i, random;
-			for ( i = 0; i < 32; i++ ) {
-				random = Math.random() * 16 | 0;
-				if ( i == 8 || i == 12 || i == 16 || i == 20 ) {
-					uuid += "-";
-				}
-				uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
-			}
-			return uuid;
-		},
-		pluralize: function(count, word) {
+		// https://gist.github.com/1308368
+		uuid: function(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b},
+		pluralize: function( count, word ) {
 			return count === 1 ? word : word + 's';
 		}
 	};
-		
+
 	var App = {
 		init: function() {
-			this.$template = $('#todo-template');
+			this.todos = this.store();
+			this.cacheElements();
+			this.bindEvents();
+			this.render();
+		},
+		cacheElements: function() {
+			this.template = Handlebars.compile( $('#todo-template').html() );
 			this.$todoApp = $('#todoapp');
 			this.$todoList = this.$todoApp.find('.items');
 			this.$footer = this.$todoApp.find('footer');
 			this.$count = this.$footer.find('.count');
 			this.$clearBtn = this.$footer.find('.clear');
-			// localStorage support
-			this.store = new Store('todo-jquery');
-			this.todos = this.store.get('todos') || [];
-			this.bindEvents();
-			this.render();
 		},
-		render: function() {
-			var html = this.$template.tmpl( this.todos );
-			this.$todoList.html( html );
-			this.renderFooter();
-			this.store.set('todos', this.todos);
+		store: function( data ) {
+			if ( arguments.length ) {
+				return localStorage.setItem( 'todo-jquery', JSON.stringify( data ) );
+			} else {
+				var store = localStorage.getItem('todo-jquery');
+				return ( store && JSON.parse( store ) ) || [];
+			}
 		},
 		bindEvents: function() {
-			var elem = this.$todoApp,
+			var app = this.$todoApp,
 				list = this.$todoList;
-			elem.on('click', '.clear', this.destroyDone);
-			elem.on('submit', 'form', this.create);
-			list.on('change', 'input[type="checkbox"]', this.toggle);
-			list.on('dblclick', '.view', this.edit);
-			list.on('keypress', 'input[type="text"]', this.blurOnEnter);
-			list.on('blur', 'input[type="text"]', this.update);
-			list.on('click', '.destroy', this.destroy);
+			app.on( 'click', '.clear', this.destroyDone );
+			app.on( 'submit', 'form', this.create );
+			list.on( 'change', '.toggle', this.toggle );
+			list.on( 'dblclick', '.view', this.edit );
+			list.on( 'keypress', '.edit input', this.blurOnEnter );
+			list.on( 'blur', '.edit input', this.update );
+			list.on( 'click', '.destroy', this.destroy );
 		},
-		activeTodoCount: function() {
-			var count = 0;
-			$.each(this.todos, function(i, val) {
-				if ( !val.done ) {
-					count++;
-				}
-			});
-			return count;
+		render: function() {
+			this.$todoList.html( this.template( this.todos ) );
+			this.renderFooter();
+			this.store( this.todos );
 		},
 		renderFooter: function() {
 			var todoCount = this.todos.length,
 				activeTodos = this.activeTodoCount(),
 				completedTodos = todoCount - activeTodos,
-				countTitle = '<b>' + activeTodos + '</b> ' + Utils.pluralize( activeTodos, 'item' ) + ' left';
+				countTitle = '<b>' + activeTodos + '</b> ' + Utils.pluralize( activeTodos, 'item' ) + ' left',
 				clearTitle = 'Clear ' + completedTodos + ' completed ' + Utils.pluralize( completedTodos, 'item' );
 			// Only show the footer when there are at least one todo.
 			this.$footer.toggle( !!todoCount );
@@ -84,21 +68,31 @@ jQuery(function($){
 			// Toggle clear button and update title
 			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
 		},
+		activeTodoCount: function() {
+			var count = 0;
+			$.each( this.todos, function( i, val ) {
+				if ( !val.done ) {
+					count++;
+				}
+			});
+			return count;
+		},
 		destroyDone: function() {
-			// Reverse loop; since we are dynamically removing items from the todos array
-			for ( var i = App.todos.length; i--; ) {
-				if ( App.todos[i].done ) {
-					App.todos.remove(i);
+			var todos = App.todos,
+				l = todos.length;
+			while ( l-- ) {
+				if ( todos[l].done ) {
+					todos.splice( l, 1 );
 				}
 			}
 			App.render();
 		},
-		// Accepts an element from inside the ".item" div, and returns the corresponding todo in the todos array.
-		getTodo: function(elem, callback) {
-			var id = $(elem).closest('.item').data('id');
-			$.each(this.todos, function(i, val) {
+		// Accepts an element from inside the ".item" div and returns the corresponding todo in the todos array.
+		getTodo: function( elem, callback ) {
+			var id = $( elem ).closest('.item').data('id');
+			$.each( this.todos, function( i, val ) {
 				if ( val.id === id ) {
-					callback.apply(App, arguments);
+					callback.apply( App, arguments );
 					return false;
 				}
 			});
@@ -119,7 +113,7 @@ jQuery(function($){
 			App.render();
 		},
 		toggle: function() {
-			App.getTodo(this, function(i, val) {
+			App.getTodo( this, function( i, val ) {
 				val.done = !val.done;
 			});
 			App.render();
@@ -133,20 +127,20 @@ jQuery(function($){
 			}
 		},
 		update: function() {
-			var newVal = $(this).removeClass('editing').val();
-			App.getTodo(this, function(i) {
-				this.todos[i].title = newVal;
+			var val = $(this).removeClass('editing').val();
+			App.getTodo( this, function(i) {
+				this.todos[i].title = val;
 			});
 			App.render();
 		},
 		destroy: function() {
-			App.getTodo(this, function(i) {
-				this.todos.remove(i);
+			App.getTodo( this, function(i) {
+				this.todos.splice( i, 1 );
 				this.render();
 			});
 		}
 	};
 
 	window.TodoApp = App.init();
-	
+
 });
