@@ -65,12 +65,6 @@ Todos.StatsView = Ember.View.extend({
     var remaining = this.get('remaining');
     return remaining + (remaining === 1 ? " item" : " items");
   }.property('remaining'),
-
-  completedBinding: 'Todos.todosController.completed',
-  completedString: function() {
-    var completed = this.get('completed');
-    return completed + " completed" + (completed === 1 ? " item" : " items");
-  }.property('completed')
 });
 
 Todos.CreateTodoView = Ember.TextField.extend({
@@ -82,6 +76,21 @@ Todos.CreateTodoView = Ember.TextField.extend({
       this.set('value', '');
     }
   }
+});
+
+Todos.ClearCompletedButtonView = Ember.Button.extend({
+  completedBinding: 'Todos.todosController.completed',
+  completedString: function() {
+    var completed = this.get('completed');
+    return completed + " completed" + (completed === 1 ? " item" : " items");
+  }.property('completed'),
+
+  completedButtonClass: function () {
+      if (this.get('completed') < 1)
+          return 'hidden';
+      else
+          return '';
+  }.property('completed')
 });
 
 Todos.TodoStore = (function () {
