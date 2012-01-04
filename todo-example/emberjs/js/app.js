@@ -159,14 +159,13 @@ Todos.TodoStore = (function () {
 })();
 
 (function () {
+
   var items = Todos.TodoStore.findAll();
-
-  if (items.length < 1)
-  {
-    var todo = Todos.Todo.create({'title': 'First Task'});
-    Todos.TodoStore.create(todo);
-    items = [todo];
+  
+  if(items.length > 1){
+    Todos.todosController.set('[]', items);
   }
+  
 
-  Todos.todosController.set('[]', items);
+  
 })();

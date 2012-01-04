@@ -228,6 +228,7 @@ body {
 }
 .container-fluid > .content {
   margin-left: 240px;
+  max-width: 800px;
 }
 a {
   color: #0069d6;

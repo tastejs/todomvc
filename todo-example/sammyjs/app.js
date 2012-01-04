@@ -117,11 +117,14 @@
                 var listId = Lists.create({
                     name: 'My first list'
                 }).id;
+
+                /*
                 Todos.create({
                     name: 'My first todo',
                     done: false,
                     listId: listId
                 });
+                */
             
                 localStorage.setItem('initialized', 'yup');
                 this.redirect('#/list/'+listId);
