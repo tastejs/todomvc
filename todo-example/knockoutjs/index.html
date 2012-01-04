@@ -12,7 +12,7 @@
         </div>
         <div class="content">
             <div id="create-todo">
-                <input id="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', event: { keyup: add }" placeholder="What needs to be done?" />
+                <input id="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?" />
                 <span class="ui-tooltip-top" style="display: none;">Press Enter to save this task</span>
             </div>
             <div id="todos">
@@ -25,7 +25,7 @@
                                 <span class="todo-destroy" data-bind="click: $root.remove"></span>
                             </div>
                             <div class="edit">
-                                <input class="todo-input" data-bind="value: content, valueUpdate: 'afterkeydown', event: { keyup: editkeyup, blur: stopEditing }"/>
+                                <input class="todo-input" data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: stopEditing, event: { blur: stopEditing }"/>
                             </div>
                         </div>
                     </li>
@@ -78,13 +78,9 @@
             //can place methods on prototype, as there can be many todos
             ko.utils.extend(Todo.prototype, {
                 edit: function() {  this.editing(true); },
-                stopEditing: function() { this.editing(false); },
-                editkeyup: function(data, event) {
-                    if (event.keyCode === 13) {
-                        this.stopEditing();
-                    }
-                }
+                stopEditing: function() { this.editing(false); }
             });
+
 
             //our main view model
             var ViewModel = function() {
@@ -94,11 +90,9 @@
 
                 //add a new todo, when enter key is pressed
                 this.add = function (data, event) {
-                    if (event.keyCode === 13) {
-                        var newTodo = new Todo(self.current());
-                        self.todos.push(newTodo);
-                        self.current("");
-                    }
+                    var newTodo = new Todo(self.current());
+                    self.todos.push(newTodo);
+                    self.current("");
                 };
 
                 //remove a single todo
@@ -130,6 +124,30 @@
                     return ko.utils.unwrapObservable(count) === 1 ? "item" : "items";
                 };
             };
+
+
+            //a custom binding to handle the enter key (could go in a separate library)
+            ko.bindingHandlers.enterKey = {
+                init: function(element, valueAccessor, allBindingsAccessor, data) {
+                    var wrappedHandler, newValueAccessor;
+
+                    //wrap the handler with a check for the enter key
+                    wrappedHandler = function(data, event) {
+                        if (event.keyCode === 13) {
+                            valueAccessor().call(this, data, event);
+                        }
+                    };
+
+                    //create a valueAccessor with the options that we would want to pass to the event binding
+                    newValueAccessor = function() {
+                        return { keyup: wrappedHandler };
+                    };
+
+                    //call the real event binding's init function
+                    ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data);
+                }
+            };
+
 
             //bind a new instance of our view model to the page
             ko.applyBindings(new ViewModel());
