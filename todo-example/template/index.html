@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>TodoMVC Template</title>
+	<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+	<div id="todoapp">
+		<header>
+			<h1>Todos</h1>
+			<input type="text" placeholder="What needs to be done?">
+		</header>
+		<ul class="items">
+			<li class="item done">
+				<div class="view" title="Double click to edit...">
+					<input class="toggle" type="checkbox" checked>
+					<span>Create a TodoMVC template</span>
+					<a class="destroy"></a>
+				</div>
+				<div class="edit">
+					<input type="text" value="Create a TodoMVC template">
+				</div>
+			</li>
+			<li class="item">
+				<div class="view" title="Double click to edit...">
+					<input class="toggle" type="checkbox">
+					<span>Rule the web</span>
+					<a class="destroy"></a>
+				</div>
+				<div class="edit">
+					<input type="text" value="Rule the web">
+				</div>
+			</li>
+		</ul>
+		<!-- this footer needs to be shown with JS when there are todos and hidden when not -->
+		<footer>
+			<a class="clear">Clear completed</a>
+			<div class="count"></div>
+		</footer>
+	</div>
+	<div id="instructions">
+		Double-click to edit a todo.
+	</div>
+	<div id="credits">
+		Created by <a href="http://addyosmani.github.com/todomvc/">you</a>.
+	</div>
+	<!-- scripts here -->
+</body>
+</html>
