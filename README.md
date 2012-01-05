@@ -46,8 +46,8 @@ Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at
 
 ##Changelog 0.25
 * A number of clean-ups and fixes have been made to existing examples
-* Backbone + RequireJS example added
-* SproutCore 2.0 example updated to Ember.js
+* Backbone + RequireJS example added and tweaked
+* Improved Ember.js example
 * KnockBack (2 examples) added
 
 
