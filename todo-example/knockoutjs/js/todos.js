@@ -40,51 +40,66 @@
     var ViewModel = function(todos) {
         var self = this;
         //map array of passed in todos to an observableArray of Todo objects
-        this.todos = ko.observableArray(ko.utils.arrayMap(todos, function(todo) {
+        self.todos = ko.observableArray(ko.utils.arrayMap(todos, function(todo) {
             return new Todo(todo.content, todo.done);
         }));
 
         //store the new todo value being entered
-        this.current = ko.observable();
+        self.current = ko.observable();
 
         //add a new todo, when enter key is pressed
-        this.add = function (data, event) {
+        self.add = function (data, event) {
             var newTodo = new Todo(self.current());
             self.todos.push(newTodo);
             self.current("");
         };
 
         //remove a single todo
-        this.remove = function (todo) {
+        self.remove = function (todo) {
             self.todos.remove(todo);
         };
 
         //remove all completed todos
-        this.removeCompleted = function () {
+        self.removeCompleted = function () {
             self.todos.remove(function(todo) {
                 return todo.done();
             });
         };
 
         //count of all completed todos
-        this.completedCount = ko.computed(function () {
+        self.completedCount = ko.computed(function () {
             return ko.utils.arrayFilter(self.todos(), function(todo) {
                 return todo.done();
             }).length;
         });
 
         //count of todos that are not complete
-        this.remainingCount = ko.computed(function () {
+        self.remainingCount = ko.computed(function () {
             return self.todos().length - self.completedCount();
         });
 
+        //writeable computed observable to handle marking all complete/incomplete
+        self.allCompleted = ko.computed({
+            //always return true/false based on the done flag of all todos
+            read: function() {
+                return !self.remainingCount();
+            },
+            //set all todos to the written value (true/false)
+            write: function(newValue) {
+                ko.utils.arrayForEach(self.todos(), function(todo) {
+                    //set even if value is the same, as subscribers are not notified in that case
+                    todo.done(newValue);
+                });
+            }
+        });
+
         //helper function to keep expressions out of markup
-        this.getLabel = function(count) {
+        self.getLabel = function(count) {
             return ko.utils.unwrapObservable(count) === 1 ? "item" : "items";
         };
 
-        //computed observable that fires whenever anything changes in our todos
-        this.isDirty = ko.computed(function() {
+        //internal computed observable that fires whenever anything changes in our todos
+        ko.computed(function() {
             //get a clean copy of the todos, which also creates a dependency on the observableArray and all observables in each item
             var todos = ko.toJS(self.todos);
 

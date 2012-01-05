@@ -15,6 +15,10 @@
                 <span class="ui-tooltip-top" style="display: none;">Press Enter to save this task</span>
             </div>
             <div id="todos">
+                <div data-bind="visible: todos().length">
+                    <input id="check-all" class="check" type="checkbox" data-bind="checked: allCompleted" />
+                    <label for="check-all">Mark all as complete</label>
+                </div>
                 <ul id="todo-list" data-bind="foreach: todos">
                     <li data-bind="css: { editing: editing }">
                         <div class="todo" data-bind="css: { done : done }">
