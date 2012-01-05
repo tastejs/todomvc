@@ -8,21 +8,24 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 ####Todo apps are included for:
 
-<ul>
-<li>Backbone.js</li>
-<li>Ember.js (SproutCore 2.0)</li>
-<li>Spine.js</li>
-<li>JavaScriptMVC</li>
-<li>Sammy.js</li>
-<li>YUILibrary</li>
-<li>KnockoutJS (MVVM)</li>
-<li>AngularJS</li>
-<li>Broke.js</li>
-<li>Fidel.js</li>
-<li>ExtJS</li>
-</ul>
+* Backbone.js
+* Ember.js (SproutCore 2.0)
+* Spine.js
+* JavaScriptMVC
+* Sammy.js
+* YUILibrary
+* KnockoutJS (MVVM)
+* Knockback
+* AngularJS
+* Broke.js
+* Fidel.js
+* ExtJS
 
-A jQuery-only version of the application is also included so you can easily see how the app can be implemented with and without a structural pattern like MVC. A modularized Backbone.js example using AMD is also now available if you pull the latest version.
+Additionally, apps are also included for:
+
+* Backbone + RequireJS (using AMD for modules)
+* AngularJS + PersistenceJS
+* A jQuery-only (non-MVC) app is included too for comparison purposes
 
 
 ##Screenshots:
