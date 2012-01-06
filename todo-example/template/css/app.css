@@ -102,6 +102,10 @@ body {
 	display: none;
 }
 
+#todoapp .item .view span {
+	word-break: break-word;
+}
+
 #todoapp footer {
 	display: none;
 	margin: 20px -20px -20px -20px;
