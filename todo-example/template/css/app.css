@@ -57,6 +57,10 @@ body {
 	font-style: italic;
 }
 
+#todoapp #toggle-all-container {
+	display: none;
+}
+
 #todoapp .items {
 	margin: 10px 0;
 	padding: 0;
