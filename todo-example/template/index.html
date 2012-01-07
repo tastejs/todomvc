@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>TodoMVC Template</title>
+	<title>Template - TodoMVC</title>
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 	<div id="todoapp">
 		<header>
 			<h1>Todos</h1>
-			<input type="text" placeholder="What needs to be done?">
+			<input id="new-todo" type="text" placeholder="What needs to be done?">
 		</header>
 		<!-- this section is hidden by default and you be shown when there are todos and hidden when not -->
 		<section id="main">
@@ -22,9 +22,7 @@
 						<span>Create a TodoMVC template</span>
 						<a class="destroy"></a>
 					</div>
-					<div class="edit">
-						<input type="text" value="Create a TodoMVC template">
-					</div>
+					<input class="edit" type="text" value="Create a TodoMVC template">
 				</li>
 				<li>
 					<div class="view">
@@ -32,9 +30,7 @@
 						<span>Rule the web</span>
 						<a class="destroy"></a>
 					</div>
-					<div class="edit">
-						<input type="text" value="Rule the web">
-					</div>
+					<input class="edit" type="text" value="Rule the web">
 				</li>
 			</ul>
 		</section>

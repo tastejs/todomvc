@@ -61,17 +61,21 @@ body {
 	display: none;
 }
 
-#todo-list li {
+#todo-list {
 	margin: 10px 0;
 	padding: 0;
 	list-style: none;
 }
 
 #todo-list li {
-	padding: 15px 20px 15px 0;
+	padding: 18px 20px 18px 0;
 	position: relative;
 	font-size: 24px;
 	border-bottom: 1px solid #cccccc;
+}
+
+#todo-list li:last-child {
+	border-bottom: none;
 }
 
 #todo-list li.done span {
@@ -94,12 +98,21 @@ body {
 	display: block;
 }
 
-#todo-list li .edit {
-	display: none;
+#todo-list li.editing {
+	border-bottom: none;
+	margin-top: -1px;
+	padding: 0;
+}
+
+#todo-list li.editing:last-child {
+	margin-bottom: -1px;
 }
 
 #todo-list li.editing .edit {
 	display: block;
+	width: 444px;
+	padding: 13px 15px 14px 20px;
+	margin: 0;
 }
 
 #todo-list li.editing .view {
@@ -110,15 +123,19 @@ body {
 	word-break: break-word;
 }
 
+#todo-list li .edit {
+	display: none;
+}
+
 #todoapp footer {
 	display: none;
-	margin: 20px -20px -20px -20px;
+	margin: 0 -20px -20px -20px;
 	overflow: hidden;
 	color: #555555;
 	background: #f4fce8;
 	border-top: 1px solid #ededed;
 	padding: 0 20px;
-	line-height: 36px;
+	line-height: 37px;
 	-webkit-border-radius: 0 0 5px 5px;
 	-moz-border-radius: 0 0 5px 5px;
 	-ms-border-radius: 0 0 5px 5px;
