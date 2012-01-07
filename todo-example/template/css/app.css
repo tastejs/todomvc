@@ -57,29 +57,29 @@ body {
 	font-style: italic;
 }
 
-#todoapp #main {
+#main {
 	display: none;
 }
 
-#todoapp .items {
+#todo-list li {
 	margin: 10px 0;
 	padding: 0;
 	list-style: none;
 }
 
-#todoapp .item {
+#todo-list li {
 	padding: 15px 20px 15px 0;
 	position: relative;
 	font-size: 24px;
 	border-bottom: 1px solid #cccccc;
 }
 
-#todoapp .item.done span {
+#todo-list li.done span {
 	color: #777777;
 	text-decoration: line-through;
 }
 
-#todoapp .item .destroy {
+#todo-list li .destroy {
 	display: none;
 	position: absolute;
 	top: 16px;
@@ -90,23 +90,23 @@ body {
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAABGdBTUEAALGPC/xhBQAAACdQTFRFzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAA////zMzMhnu0WAAAAAt0Uk5T5u3pqtV3jFQEKAC0bVelAAAAfUlEQVQI12NYtWpFsc8R865VqxhWrZpyBgg8QcylZ8AgCsjMgTCPrWJYfgYKqhjWwJgaDDVnzpw+c2bPmTPHGWzOnNm95/TuM2cOM/AARXfvBooeZAAp270bRCIz4QoOIGtDMqwJZoUEQzvCYrhzuhhWtUKYEahOX7UK6iEA3A6NUGwCTZIAAAAASUVORK5CYII=') no-repeat center center;
 }
 
-#todoapp .item:hover .destroy {
+#todo-list li:hover .destroy {
 	display: block;
 }
 
-#todoapp .item .edit {
+#todo-list li .edit {
 	display: none;
 }
 
-#todoapp .item.editing .edit {
+#todo-list li.editing .edit {
 	display: block;
 }
 
-#todoapp .item.editing .view {
+#todo-list li.editing .view {
 	display: none;
 }
 
-#todoapp .item .view span {
+#todo-list li .view span {
 	word-break: break-word;
 }
 
@@ -126,7 +126,7 @@ body {
 	border-radius: 0 0 5px 5px;
 }
 
-#todoapp .clear {
+#clear-completed {
 	display: none;
 	float: right;
 	line-height: 20px;
@@ -150,7 +150,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 }
 
-#todoapp .clear:hover {
+#clear-completed:hover {
 	background: rgba(0, 0, 0, 0.15);
 	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
@@ -159,12 +159,12 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 }
 
-#todoapp .clear:active {
+#clear-completed:active {
 	position: relative;
 	top: 1px;
 }
 
-#todoapp .count span {
+#todo-count span {
 	font-weight: bold;
 }
 

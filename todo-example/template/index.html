@@ -15,8 +15,8 @@
 		<section id="main">
 			<input id="toggle-all" type="checkbox">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul class="items">
-				<li class="item done">
+			<ul id="todo-list">
+				<li class="done">
 					<div class="view">
 						<input class="toggle" type="checkbox" checked>
 						<span>Create a TodoMVC template</span>
@@ -26,7 +26,7 @@
 						<input type="text" value="Create a TodoMVC template">
 					</div>
 				</li>
-				<li class="item">
+				<li>
 					<div class="view">
 						<input class="toggle" type="checkbox">
 						<span>Rule the web</span>
@@ -40,8 +40,8 @@
 		</section>
 		<!-- this footer needs to be shown with JS when there are todos and hidden when not -->
 		<footer>
-			<a class="clear">Clear completed</a>
-			<div class="count"></div>
+			<a id="clear-completed">Clear completed</a>
+			<div id="todo-count"></div>
 		</footer>
 	</div>
 	<div id="instructions">
