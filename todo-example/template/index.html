@@ -10,34 +10,36 @@
 		<header>
 			<h1>Todos</h1>
 			<input type="text" placeholder="What needs to be done?">
+		</header>
+		<section>
 			<!-- toggle-all-container is hidden by default and should be shown when there are todos, and hidden when not -->
 			<div id="toggle-all-container">
 				<input id="toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 			</div>
-		</header>
-		<ul class="items">
-			<li class="item done">
-				<div class="view" title="Double click to edit...">
-					<input class="toggle" type="checkbox" checked>
-					<span>Create a TodoMVC template</span>
-					<a class="destroy"></a>
-				</div>
-				<div class="edit">
-					<input type="text" value="Create a TodoMVC template">
-				</div>
-			</li>
-			<li class="item">
-				<div class="view" title="Double click to edit...">
-					<input class="toggle" type="checkbox">
-					<span>Rule the web</span>
-					<a class="destroy"></a>
-				</div>
-				<div class="edit">
-					<input type="text" value="Rule the web">
-				</div>
-			</li>
-		</ul>
+			<ul class="items">
+				<li class="item done">
+					<div class="view" title="Double click to edit...">
+						<input class="toggle" type="checkbox" checked>
+						<span>Create a TodoMVC template</span>
+						<a class="destroy"></a>
+					</div>
+					<div class="edit">
+						<input type="text" value="Create a TodoMVC template">
+					</div>
+				</li>
+				<li class="item">
+					<div class="view" title="Double click to edit...">
+						<input class="toggle" type="checkbox">
+						<span>Rule the web</span>
+						<a class="destroy"></a>
+					</div>
+					<div class="edit">
+						<input type="text" value="Rule the web">
+					</div>
+				</li>
+			</ul>
+		</section>
 		<!-- this footer needs to be shown with JS when there are todos and hidden when not -->
 		<footer>
 			<a class="clear">Clear completed</a>
