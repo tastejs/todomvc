@@ -57,7 +57,7 @@ body {
 	font-style: italic;
 }
 
-#todoapp #toggle-all-container {
+#todoapp #main {
 	display: none;
 }
 

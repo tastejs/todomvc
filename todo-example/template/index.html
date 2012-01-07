@@ -11,12 +11,10 @@
 			<h1>Todos</h1>
 			<input type="text" placeholder="What needs to be done?">
 		</header>
-		<section>
-			<!-- toggle-all-container is hidden by default and should be shown when there are todos, and hidden when not -->
-			<div id="toggle-all-container">
-				<input id="toggle-all" type="checkbox">
-				<label for="toggle-all">Mark all as complete</label>
-			</div>
+		<!-- this section is hidden by default and you be shown when there are todos and hidden when not -->
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
 			<ul class="items">
 				<li class="item done">
 					<div class="view" title="Double click to edit...">
