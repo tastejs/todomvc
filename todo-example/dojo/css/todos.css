@@ -454,7 +454,7 @@ body {
 #todoapp .content ul#todo-list li .todo-destroy {
 	position: absolute;
 	right: 0px;
-	top: 16px;
+	top: 22px;
 	display: none;
 	cursor: pointer;
 	width: 20px;
@@ -543,8 +543,8 @@ body {
 	top: 1px;
 }
 
-.checkedTodo {
+/* When checkbox is selected, score through todo item content */
+.dijitCheckBoxChecked + .todo-content {
     color: #666;
     text-decoration: line-through;
 }
-

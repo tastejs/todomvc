@@ -7,39 +7,18 @@
 			@import "/code/dtk/dojotoolkit/dijit/themes/claro/claro.css";
 	</style>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
-    <script data-dojo-config="async:true, parseOnLoad:true" src="/code/dtk/dojotoolkit/dojo/dojo.js"></script>
+    <script data-dojo-config="async:true, parseOnLoad:true, paths:{'todo':'../../todo'}" src="./js/dtk/dojo/dojo.js"></script>
     <script>
-        require(["dojo/parser", "dojo/dom-class", "dojox/mvc", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output", "dijit/form/CheckBox","dijit/InlineEditBox"], 
-		function (parser, domClass, mvc, Group, Repeat, Output, CheckBox) {
-
-            dojo.declare("dijit.form.BoundCheckBox", [CheckBox], {
-                _setCheckedAttr: function (checked) {
-                    this.inherited(arguments);
-                    this._watchCallbacks("value", !checked, checked);
-                },
-
-                _getValueAttr: function () {
-                    return this.get("checked");
-                }
-            });
-
+        require(["dojo/parser", "dojo/dom-class", "dojo/_base/array", "dojox/mvc", "dojox/mvc/Group", 
+            "dojox/mvc/Repeat", "dojox/mvc/Output", "dijit/InlineEditBox", "todo/form/CheckBox"], 
+		function (parser, domClass, array, mvc) {
             var data = {
-                todos : [
-                    { content: "First", "isDone" : false },
-                    { content: "Second", "isDone" : true },
-                    { content: "Third", "isDone" : false }
-                ],
+                todos : [],
                 incomplete: 0,
                 complete: 0
             };
 
             window.model = mvc.newStatefulModel({ data : data });
-
-            for(var i = 0; s = model.todos[i], i < model.todos.length; i++) {
-                mvc.bindInputs([s.isDone], function () {
-                    window.updateTotalItemsLeft();
-                });
-            }
 
             mvc.bind(model.incomplete, "value", model.complete, "value", function (value) {
                 return this.model.todos.get("length") - value;
@@ -50,18 +29,21 @@
             });
 
             mvc.bindInputs([model.complete], function () {
-                domClass[model.complete.get("value") > 0 ? "add" : "remove" ]("todo-stats", "items_selected");
+                domClass[model.complete.value > 0 ? "add" : "remove" ]("todo-stats", "items_selected");
             });
 
-            window.updateTotalItemsLeft = function () {
-                for(var i = 0, left = 0; s = model.todos[i], i < model.todos.length; i++) {
-                    if (!s.isDone.get("value")) {
-                        left++;
-                    }
-                }
-                model.incomplete.set("value", left);
+
+            var updateTotalItemsLeft = function () {
+                var remaining = 0;
+
+                array.forEach(model.todos, function (item) {
+                    item && !item.isDone.value && remaining++;
+                });
+
+                model.incomplete.set("value", remaining);
             };
             
+            model.todos.watch(updateTotalItemsLeft);
 
             var addToModel = function (content, isDone) {
                 var insert = mvc.newStatefulModel({
@@ -70,7 +52,6 @@
 
                 mvc.bindInputs([insert.isDone], updateTotalItemsLeft);
 				model.todos.add(model.todos.length, insert);
-                updateTotalItemsLeft();
             }
 
             window.addTodoItem = function (input, event) {
@@ -79,28 +60,21 @@
                 addToModel(input.value, false);
 
                 input.value = "";
-			}
+			};
 
-            window.removeFromModel = function (id) {
-                model.todos.remove(id);
-                window.updateTotalItemsLeft();
-            }
+            window.removeCompletedItems = function () {
+                var len = model.todos.length, idx = 0;
 
-            window.handleCheckBoxChange = function (current) {
-				console.log('handleCheckBoxChange value changed current ='+current+"  this.index="+this.index);
-			//	if(this.binding){
-		//			this.binding.set("value",current);
-	//			}
-				if(this.index){
-					if(current){
-						dojo.addClass("todo"+this.index, 'checkedTodo');
-					}else{
-						dojo.removeClass("todo"+this.index, 'checkedTodo');
-					}
-				}
-            }
+                while (idx < len) {
+                    if (model.todos[idx].isDone.value) {
+                        model.todos.remove(idx);
+                        len--;
+                        continue;                        
+                    }
 
-			
+                    idx++; 
+                };
+            };
         });
     </script>
   </head>
@@ -126,13 +100,13 @@
             <ul id="todo-list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: 'model.todos'">
                 <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '${this.index}'">
                     <div class="todo">
-                        <input class="check" data-dojo-type="dijit.form.BoundCheckBox" index="${this.index}" id="isdone${this.index}" data-dojo-props='ref: "isDone"' style="display:inline-block" >
+                        <input class="check" data-dojo-type="todo.form.CheckBox" data-dojo-props='ref: "isDone"' style="display:inline-block" >
                         </input>
-							<div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox" id="todo${this.index}" 
-										data-dojo-props='ref: "content", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></div>
+                        <div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox"  
+                            data-dojo-props='ref: "content", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></div>
 
-							<span class="todo-destroy" data-model-id="${this.index}" onclick="removeFromModel(this.dataset.modelId)">
-							</span>
+                        <span class="todo-destroy" data-model-id="${this.index}" onclick="model.todos.remove(this.dataset.modelId)">
+                        </span>
                     </div>
                 </li>
             </ul>
@@ -144,20 +118,14 @@
                 <span class="word">items</span> left.
             </span>
             <span class="todo-clear">
-                <a href="#">
+                <a href="#" onclick="removeCompletedItems()">
                     Clear 
-                    <span class="number-done" data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: model.complete"></span>
+                    <span class="number-done" data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: model.complete" ></span>
                     completed items
                 </a>
             </span>
 
         </div>
-
-
-      
-     
-      
-
       </div>
 
     </div>
