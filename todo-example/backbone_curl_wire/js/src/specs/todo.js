@@ -6,6 +6,18 @@ function() {
 		view: {
 			create: {
 				module: 'views/todo'
+			},
+			properties: {
+				template: { $ref: 'template.underscore!templates/todos.html' }
+			},
+			connect: {
+				model: {
+					'change': 'render'
+				}
+			},
+			destroy: {
+				'undelegateEvents': {},
+				'remove': {}
 			}
 		},
 
@@ -14,7 +26,9 @@ function() {
 				module: 'models/todo',
 				args: [
 					{ $ref: 'todo_attributes' },
-					{}
+					{
+						collection: { $ref: 'collection' }
+					}
 				]
 			},
 			properties: {
@@ -22,11 +36,20 @@ function() {
 				// the app view can access it from a collection change
 				view: { $ref: 'view' }
 			},
-			init: 'save' // Save model after creating it
+			connect: {
+				view: {
+					'destroy': 'destroy',
+					'changeContent': 'set',
+					'done': 'done'
+				}
+			},
+			init: 'save', // Save model after creating it
+			destroy: []
 		},
 
 		plugins: [
-			{ module: 'wire/debug', trace: true },
+			//{ module: 'wire/debug', trace: true },
+			{ module: 'wire/underscore/template' },
 			{ module: 'wire/backbone/events' }
 		]
 		

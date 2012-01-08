@@ -1,17 +1,19 @@
 define(
 [
   'require',
+  'underscore',
   'when',
-  'wire',
   'collections/todos'
 ],
-function( require, when, wire, Todos ) {
+function( require, _, when, Todos ) {
 
-  console.log( wire );
+  var Backbone = require( 'backbone' ); // TODO: add this to the define list in the future when curl or backbone stop erroring
 
-  var Backbone = require( 'backbone' );
-  
   describe( "Todos collection", function() {
+
+    beforeEach( function() {
+      this.sync = sinon.stub( Backbone, 'sync' ); // Stop it saving the test models to localstorage
+    } );
 
     it( "is a backbone collection", function() {
 
@@ -47,21 +49,84 @@ function( require, when, wire, Todos ) {
       
     } );
 
+    it( "reset should create all new contexts", function() {
+
+      var todos = new Todos(),
+        deferreds = [],
+        models = [
+          { test: 'model' },
+          { test2: 'model2' }
+        ],
+        create_stub = sinon.stub( todos, 'create', function() {
+          var deferred = when.defer();
+          deferreds.push( deferred );
+          return deferred;
+        } ),
+        reset_spy = sinon.spy();
+
+      todos.bind( 'reset', reset_spy );
+      
+      todos.reset( models );
+
+      expect( create_stub ).toHaveBeenCalledTwice();
+      expect( create_stub ).toHaveBeenCalledWith( models[ 0 ] );
+      expect( create_stub ).toHaveBeenCalledWith( models[ 1 ] );
+
+      _.each( deferreds, function( def ) { def.resolve(); } );
+
+      expect( reset_spy ).toHaveBeenCalledOnce();
+      
+    } );
+
     it( "check for models that are done or remaining", function() {
       
-      var todos = new Todos(
-        [
-          new Backbone.Model( { done: true } ),
-          new Backbone.Model( { done: true } ),
-          new Backbone.Model( { done: false } )
-        ]
-      );
+      var todos = new Todos();
+
+      todos.add( { done: true } );
+      todos.add( { done: true } );
+      todos.add( { done: false } );
 
       expect( todos.done().length ).toEqual( 2 );
       expect( todos.remaining().length ).toEqual( 1 );
       
     } );
+
+    it( "remove all models that have a done value of 'true'", function() {
+      
+      var todos = new Todos();
+
+      todos.add( { done: true } );
+      todos.add( { done: true } );
+      todos.add( { done: false } );
+
+      todos.clearDone();
+
+      expect( todos.length ).toEqual( 1 );
+      expect( todos.done().length ).toEqual( 0 );
+      
+    } );
+
+    it( "set all models to have a done value", function() {
+      
+      var todos = new Todos();
+
+      todos.add( { done: true } );
+      todos.add( { done: true } );
+      todos.add( { done: false } );
+
+      todos.toggleDone( true );
+
+      expect( todos.done().length ).toEqual( 3 );
+
+      todos.toggleDone( false );
+
+      expect( todos.done().length ).toEqual( 0 );
+      
+    } );
     
+    afterEach( function() {
+      this.sync.restore();
+    } );
 
   } );
   

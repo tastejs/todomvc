@@ -14,17 +14,12 @@ function( Backbone ) {
 
     // Ensure that each todo created has `content`.
     initialize: function() {
-
+      
     },
 
     // Toggle the `done` state of this todo item.
-    toggle: function() {
-      this.save({done: !this.get("done")});
-    },
-
-    // Remove this Todo from *localStorage*.
-    clear: function() {
-      this.destroy();
+    done: function( done ) {
+      this.save( { done: !!done } );
     }
 
   });

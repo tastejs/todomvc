@@ -17,7 +17,7 @@ function( $, View ) {
 
     } );
 
-    it( "trigger 'inputEntry' event, on enter keypress", function() {
+    it( "trigger 'todoSubmission' event, on enter keypress", function() {
 
       var view = new View(),
         onEnter = { keyCode: 13 },
@@ -27,7 +27,7 @@ function( $, View ) {
       // Set the input element
       view.input = $( '<input />' ).val( 'test' );
 
-      view.bind( 'inputEntry', spy );
+      view.bind( 'todoSubmission', spy );
 
       view.createOnEnter( onEnter );
       view.createOnEnter( onOtherKey );

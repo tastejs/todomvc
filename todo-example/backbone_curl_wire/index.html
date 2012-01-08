@@ -23,7 +23,7 @@
 				{ name: 'aop', path: 'libs/aop', main: 'aop' }
 			]
 		}
-	).next( [ 'wire!specs/main' ] );
+	).next( [ 'wire!specs/main' ], function( context ) { context.collection.fetch(); } );
 	</script>
 
 </head>
