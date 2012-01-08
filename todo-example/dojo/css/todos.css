@@ -158,7 +158,13 @@ body {
 	*zoom: 1;
 	margin-top: 10px;
 	color: #777777;
+    display: none;
 }
+
+#todo-stats.items_present {
+    display: block;
+}
+
 #todo-stats:after {
 	content: "\0020";
 	display: block;
@@ -176,7 +182,14 @@ body {
 }
 #todo-stats .todo-clear {
 	float: right;
+    display: none
 }
+
+
+#todo-stats.items_selected .todo-clear {
+    display: inline;
+}
+
 #todo-stats .todo-clear a {
 	color: #777777;
 	font-size: 12px;

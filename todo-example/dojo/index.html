@@ -4,44 +4,93 @@
   <head>
     <title>Dojo</title>
 	<style type="text/css">
-			@import "../../../../../fulldojo1.7Clean3/dijit/themes/claro/claro.css";
-			@import "../../../../../fulldojo1.7Clean3/dijit/themes/claro/document.css";
+			@import "/code/dtk/dojotoolkit/dijit/themes/claro/claro.css";
 	</style>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
     <script data-dojo-config="async:true, parseOnLoad:true" src="/code/dtk/dojotoolkit/dojo/dojo.js"></script>
     <script>
-        require(["dojo/parser", "dojox/mvc", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output","dijit/form/CheckBox","dijit/InlineEditBox"], 
-		function (parser, mvc) {
+        require(["dojo/parser", "dojo/dom-class", "dojox/mvc", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output", "dijit/form/CheckBox","dijit/InlineEditBox"], 
+		function (parser, domClass, mvc, Group, Repeat, Output, CheckBox) {
+
+            dojo.declare("dijit.form.BoundCheckBox", [CheckBox], {
+                _setCheckedAttr: function (checked) {
+                    this.inherited(arguments);
+                    this._watchCallbacks("value", !checked, checked);
+                },
+
+                _getValueAttr: function () {
+                    return this.get("checked");
+                }
+            });
+
             var data = {
                 todos : [
                     { content: "First", "isDone" : false },
                     { content: "Second", "isDone" : true },
                     { content: "Third", "isDone" : false }
                 ],
+                incomplete: 0,
+                complete: 0
             };
 
-            model = mvc.newStatefulModel({ data : data });
+            window.model = mvc.newStatefulModel({ data : data });
 
-            window.addToModel = function addToModel (input, event) {
+            for(var i = 0; s = model.todos[i], i < model.todos.length; i++) {
+                mvc.bindInputs([s.isDone], function () {
+                    window.updateTotalItemsLeft();
+                });
+            }
+
+            mvc.bind(model.incomplete, "value", model.complete, "value", function (value) {
+                return this.model.todos.get("length") - value;
+            });
+
+            mvc.bindInputs([model.incomplete], function () {
+                domClass[model.todos.get("length") ? "add" : "remove" ]("todo-stats", "items_present");
+            });
+
+            mvc.bindInputs([model.complete], function () {
+                domClass[model.complete.get("value") > 0 ? "add" : "remove" ]("todo-stats", "items_selected");
+            });
+
+            window.updateTotalItemsLeft = function () {
+                for(var i = 0, left = 0; s = model.todos[i], i < model.todos.length; i++) {
+                    if (!s.isDone.get("value")) {
+                        left++;
+                    }
+                }
+                model.incomplete.set("value", left);
+            };
+            
+
+            var addToModel = function (content, isDone) {
+                var insert = mvc.newStatefulModel({
+                    data: {content: content, isDone: isDone} 
+				});
+
+                mvc.bindInputs([insert.isDone], updateTotalItemsLeft);
+				model.todos.add(model.todos.length, insert);
+                updateTotalItemsLeft();
+            }
+
+            window.addTodoItem = function (input, event) {
                 if (event.keyCode !== 13) return;
 
-				var insert = mvc.newStatefulModel({ "data" : {
-                    content: input.value, isDone: false 
-				} });
-				model.todos.add(model.todos.length, insert);
+                addToModel(input.value, false);
+
                 input.value = "";
 			}
 
             window.removeFromModel = function (id) {
-                console.log(id);
                 model.todos.remove(id);
+                window.updateTotalItemsLeft();
             }
 
             window.handleCheckBoxChange = function (current) {
 				console.log('handleCheckBoxChange value changed current ='+current+"  this.index="+this.index);
-				if(this.binding){
-					this.binding.set("value",current);
-				}
+			//	if(this.binding){
+		//			this.binding.set("value",current);
+	//			}
 				if(this.index){
 					if(current){
 						dojo.addClass("todo"+this.index, 'checkedTodo');
@@ -69,7 +118,7 @@
       <div class="content">
 
         <div id="create-todo">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" onkeypress="addToModel(this, event)"/>
+          <input id="new-todo" placeholder="What needs to be done?" type="text" onkeypress="addTodoItem(this, event)"/>
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
         </div>
 
@@ -77,7 +126,8 @@
             <ul id="todo-list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: 'model.todos'">
                 <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '${this.index}'">
                     <div class="todo">
-							<input class="check" data-dojo-type="dijit.form.CheckBox" index="${this.index}" id="isdone${this.index}" data-dojo-props='ref: "isDone", onChange: handleCheckBoxChange' style="display:inline-block" ></input>
+                        <input class="check" data-dojo-type="dijit.form.BoundCheckBox" index="${this.index}" id="isdone${this.index}" data-dojo-props='ref: "isDone"' style="display:inline-block" >
+                        </input>
 							<div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox" id="todo${this.index}" 
 										data-dojo-props='ref: "content", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></div>
 
@@ -88,7 +138,25 @@
             </ul>
         </div>
 
-        <div id="todo-stats"></div>
+        <div id="todo-stats">
+            <span class="todo-count">
+                <span data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: model.incomplete" class="number"></span>
+                <span class="word">items</span> left.
+            </span>
+            <span class="todo-clear">
+                <a href="#">
+                    Clear 
+                    <span class="number-done" data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: model.complete"></span>
+                    completed items
+                </a>
+            </span>
+
+        </div>
+
+
+      
+     
+      
 
       </div>
 
@@ -100,18 +168,6 @@
       <br />
       <a href="http://jamesthom.as/">James Thomas</a>. 
     </div>
-<!--
-      <div class="todo">
-        <div class="display">
-          <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-          <div class="todo-content"></div>
-          <span class="todo-destroy"></span>
-        </div>
-        <div class="edit">
-          <input class="todo-input" type="text" value="" />
-        </div>
-    </div>-->
-
   </body>
 
 </html>
