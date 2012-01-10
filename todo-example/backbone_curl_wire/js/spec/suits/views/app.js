@@ -1,9 +1,12 @@
 define(
 [
   'jquery',
-  'views/app'
+  'views/app',
+  'require'
 ],
-function( $, View ) {
+function( $, View, require ) {
+
+  var Backbone = require( 'backbone' );
   
   describe( "App view", function() {
 
@@ -14,6 +17,28 @@ function( $, View ) {
 
       // Check for a function that only a backbone view is likely to have
       expect( ( new View() ).delegateEvents ).toBeDefined();
+
+    } );
+
+    // Test the render function
+    it( "can render the template", function() {
+      
+      var view = new View(),
+        collection = new ( Backbone.Collection.extend( {
+          done: function() { return []; },
+          remaining: function() { return []; }
+        } ) )(),
+        template = sinon.stub( view, 'statsTemplate' );
+        
+      view.stats = $( '<div></div>' ).get( 0 );
+      view.allCheckbox = $( '<input type="checkbox" />' ).get( 0 );
+
+      view.render( '', collection );
+      view.render( '', { collection: collection } );
+      view.render( '', {} ); // Should be rejected
+
+      expect( template ).toHaveBeenCalledTwice();
+      expect( view.allCheckbox.checked ).toBeTruthy();
 
     } );
 

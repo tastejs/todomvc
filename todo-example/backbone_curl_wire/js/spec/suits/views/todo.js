@@ -1,11 +1,11 @@
 define(
 [
   'jquery',
-  'views/app'
+  'views/todo'
 ],
 function( $, View ) {
   
-  describe( "App view", function() {
+  describe( "Todo view", function() {
 
     it( "is a backbone view", function() {
 
@@ -17,28 +17,88 @@ function( $, View ) {
 
     } );
 
-    it( "trigger 'todoSubmission' event, on enter keypress", function() {
+    // Test the render function
+    xit( "can render the template", function() {} );
 
+    it( "can determine state of the checkbox", function() {
+      
+      var view = new View( {
+          el: $('<div><input type="checkbox" class="checkbox" checked /></div>').get( 0 )
+        } ),
+        spy = sinon.spy();
+
+      view.checkbox = '.checkbox';
+      view.bind( 'changeDone', spy );
+      view.toggleDone();
+
+      expect( spy ).toHaveBeenCalledOnce();
+      expect( spy ).toHaveBeenCalledWithExactly( { 'done': true } );
+
+    } );
+
+    it( "sets the state of the view to edit", function() {
+      
+      var view = new View( {
+          el: $('<div><input type="text" class="input" /></div>').get( 0 )
+        } ),
+        spy = sinon.spy();
+
+      view.editing = 'editing';
+      view.input = '.input';
+      $( view.el ).find( view.input ).on( 'focus', spy );
+      view.edit();
+
+      expect( $( view.el ).hasClass( view.editing ) ).toBeTruthy(); // Has set editing class
+      expect( spy ).toHaveBeenCalledOnce(); // Focused on the input
+
+    } );
+
+    it( "can finished editing", function() {
+      
+      var view = new View( {
+          el: $('<div class="editing"><input type="text" class="input" value="test1" /></div>').get( 0 )
+        } ),
+        spy = sinon.spy();
+
+      view.editing = 'editing';
+      view.input = '.input';
+      view.bind( 'changeContent', spy );
+      view.close();
+
+      expect( $( view.el ).hasClass( view.editing ) ).not.toBeTruthy(); // Has removed editing class
+      expect( spy ).toHaveBeenCalledOnce();
+      expect( spy ).toHaveBeenCalledWithExactly( { content: 'test1' } );
+
+    } );
+
+
+    it( "on enter finish editing", function() {
+      
       var view = new View(),
         onEnter = { keyCode: 13 },
         onOtherKey = { keyCode: 66 },
+        close = sinon.stub( view, 'close' );
+
+      view.updateOnEnter( onEnter );
+      view.updateOnEnter( onOtherKey );
+
+      expect( close ).toHaveBeenCalledOnce();
+
+    } );
+
+
+    it( "can tell the itself to die", function() {
+      
+      var view = new View(),
         spy = sinon.spy();
 
-      // Set the input element
-      view.input = $( '<input />' ).val( 'test' );
+      view.bind( 'destroy', spy );
+      view.clear();
 
-      view.bind( 'todoSubmission', spy );
+      expect( spy ).toHaveBeenCalledOnce();
 
-      view.createOnEnter( onEnter );
-      view.createOnEnter( onOtherKey );
-
-      expect( spy ).toHaveBeenCalledOnce(); // Only trigger the event for an enter press
-      expect( spy ).toHaveBeenCalledWithExactly( { content: 'test' } ); // Should pass the content of the input
-      expect( view.input.val() ).toEqual( '' ); // Reset input
-      
     } );
 
   } );
   
-
 } );
