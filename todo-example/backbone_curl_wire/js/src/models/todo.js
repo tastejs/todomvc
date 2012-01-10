@@ -15,11 +15,6 @@ function( Backbone ) {
     // Ensure that each todo created has `content`.
     initialize: function() {
       
-    },
-
-    // Toggle the `done` state of this todo item.
-    done: function( done ) {
-      this.save( { done: !!done } );
     }
 
   });

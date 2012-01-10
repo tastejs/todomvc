@@ -1,11 +1,19 @@
 define(
 [
   'jquery',
-  'underscore',
   'backbone'
 ],
-function($, _, Backbone){
-  var TodoView = Backbone.View.extend({
+function( $, Backbone ) {
+
+  var TodoView = Backbone.View.extend( {
+
+    // Strings, specifying the jQuery selectors for different elements
+    // These will be overwritten in the todo.js wire spec
+    input: '',
+    checkbox: '',
+
+    // Class names
+    editing: '',
 
     //... is a list tag.
     tagName:  "li",
@@ -22,36 +30,27 @@ function($, _, Backbone){
       "blur .todo-input"          : "close"
     },
 
-    // The TodoView listens for changes to its model, re-rendering. Since there's
-    // a one-to-one correspondence between a **Todo** and a **TodoView** in this
-    // app, we set a direct reference on the model for convenience.
-    initialize: function() {
-      _.bindAll(this, 'render', 'close', 'remove');
-    },
-
     // Re-render the contents of the todo item.
     render: function( model ) {
       $( this.el ).html( this.template( model.toJSON() ) );
-      this.input = this.$( '.todo-input' ).get( 0 );
-      this.check = this.$( '.check' ).get( 0 );
       return this;
     },
 
     // Toggle the `"done"` state of the model.
     toggleDone: function() {
-      this.trigger( 'done', this.check.checked );
+      this.trigger( 'changeDone', { 'done': !!this.$( this.checkbox ).is( ':checked' ) } );
     },
 
     // Switch this view into `"editing"` mode, displaying the input field.
     edit: function() {
-      $( this.el ).addClass( "editing" );
-      $( this.input ).focus();
+      $( this.el ).addClass( this.editing );
+      this.$( this.input ).focus();
     },
 
     // Close the `"editing"` mode, saving changes to the todo.
     close: function() {
-      this.trigger( 'changeContent', { content: $( this.input ).val() } );
-      $( this.el ).removeClass( "editing" );
+      this.trigger( 'changeContent', { content: this.$( this.input ).val() } );
+      $( this.el ).removeClass( this.editing );
     },
 
     // If you hit `enter`, we're through editing the item.
@@ -59,11 +58,12 @@ function($, _, Backbone){
       if ( e.keyCode == 13 ) this.close();
     },
 
-    // Remove the item, destroy the model.
+    // Trigger the destroy method
     clear: function() {
       this.trigger( 'destroy' );
     }
 
-  });
+  } );
+
   return TodoView;
-});
+} );

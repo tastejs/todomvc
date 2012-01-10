@@ -8,6 +8,14 @@ function() {
 				module: 'views/todo'
 			},
 			properties: {
+				// Dom elements need to be found in the view after the rendering of the template
+				input: '.todo-input',
+				checkbox: '.check',
+
+				// Class names
+				editing: 'editing',
+
+				// Pass in our template
 				template: { $ref: 'template.underscore!templates/todos.html' }
 			},
 			connect: {
@@ -16,8 +24,8 @@ function() {
 				}
 			},
 			destroy: {
-				'undelegateEvents': {},
-				'remove': {}
+				'undelegateEvents': [],
+				'remove': []
 			}
 		},
 
@@ -25,30 +33,36 @@ function() {
 			create: {
 				module: 'models/todo',
 				args: [
-					{ $ref: 'todo_attributes' },
+
+					// Attributes
+					{ $ref: 'todo_attributes' }, // Set the models initial attributes to those passed into the wire spec
+
+					// Options
 					{
+						// Add the collection to the model so backbone has access to it
 						collection: { $ref: 'collection' }
 					}
+
 				]
 			},
 			properties: {
 				// attach the view to our model, so
-				// the app view can access it from a collection change
+				// the views/app view can access it from a collection change
 				view: { $ref: 'view' }
 			},
 			connect: {
 				view: {
 					'destroy': 'destroy',
-					'changeContent': 'set',
-					'done': 'done'
+					'changeContent': 'save',
+					'changeDone': 'save'
 				}
 			},
 			init: 'save', // Save model after creating it
-			destroy: []
+			destroy: {}
 		},
 
 		plugins: [
-			//{ module: 'wire/debug', trace: true },
+			{ module: 'wire/debug', trace: true },
 			{ module: 'wire/underscore/template' },
 			{ module: 'wire/backbone/events' }
 		]
