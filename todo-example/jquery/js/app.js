@@ -26,10 +26,11 @@ jQuery(function($) {
 		cacheElements: function() {
 			this.template = Handlebars.compile( $('#todo-template').html() );
 			this.$todoApp = $('#todoapp');
-			this.$todoList = this.$todoApp.find('.items');
-			this.$footer = this.$todoApp.find('footer');
-			this.$count = this.$footer.find('.count');
-			this.$clearBtn = this.$footer.find('.clear');
+			this.$main = $('#main');
+			this.$todoList = $('#todo-list');
+			this.$footer = $('footer');
+			this.$count = $('#todo-count');
+			this.$clearBtn = $('#clear-completed');
 		},
 		store: function( data ) {
 			if ( arguments.length ) {
@@ -42,16 +43,18 @@ jQuery(function($) {
 		bindEvents: function() {
 			var app = this.$todoApp,
 				list = this.$todoList;
-			app.on( 'click', '.clear', this.destroyDone );
-			app.on( 'submit', 'form', this.create );
+			app.on( 'click', '#clear-completed', this.destroyDone );
+			app.on( 'keyup', '#new-todo', this.create );
+			app.on( 'change', '#toggle-all', this.toggleAll );
 			list.on( 'change', '.toggle', this.toggle );
 			list.on( 'dblclick', '.view', this.edit );
-			list.on( 'keypress', '.edit input', this.blurOnEnter );
-			list.on( 'blur', '.edit input', this.update );
+			list.on( 'keypress', '.edit', this.blurOnEnter );
+			list.on( 'blur', '.edit', this.update );
 			list.on( 'click', '.destroy', this.destroy );
 		},
 		render: function() {
 			this.$todoList.html( this.template( this.todos ) );
+			this.$main.toggle( !!this.todos.length );
 			this.renderFooter();
 			this.store( this.todos );
 		},
@@ -67,6 +70,13 @@ jQuery(function($) {
 			this.$count.html( countTitle );
 			// Toggle clear button and update title
 			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
+		},
+		toggleAll: function() {
+			var isChecked = !!$(this).attr('checked');
+			$.each( App.todos, function( i, val ) {
+				val.done = isChecked;
+			});
+			App.render();
 		},
 		activeTodoCount: function() {
 			var count = 0;
@@ -89,7 +99,7 @@ jQuery(function($) {
 		},
 		// Accepts an element from inside the ".item" div and returns the corresponding todo in the todos array.
 		getTodo: function( elem, callback ) {
-			var id = $( elem ).closest('.item').data('id');
+			var id = $( elem ).closest('li').data('id');
 			$.each( this.todos, function( i, val ) {
 				if ( val.id === id ) {
 					callback.apply( App, arguments );
@@ -98,8 +108,10 @@ jQuery(function($) {
 			});
 		},
 		create: function(e) {
-			e.preventDefault();
-			var $input = $(this).find('input'),
+			if ( e.which !== 13 ) {
+				return;
+			}
+			var $input = $(this),
 				inputVal = $input.val();
 			if ( !inputVal ) {
 				return;
@@ -119,7 +131,7 @@ jQuery(function($) {
 			App.render();
 		},
 		edit: function() {
-			$(this).closest('.item').addClass('editing').find('.edit input').focus();
+			$(this).closest('li').addClass('editing').find('.edit').focus();
 		},
 		blurOnEnter: function(e) {
 			if ( e.keyCode === 13 ) {
