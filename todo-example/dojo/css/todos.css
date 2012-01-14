@@ -129,7 +129,7 @@ body {
 }
 #todo-list .check {
 	position: relative;
-	top: 9px;
+	top: 11px;
 	margin: 0 10px 0 7px;
 	float: left;
 }
@@ -548,3 +548,20 @@ body {
     color: #666;
     text-decoration: line-through;
 }
+
+/** Override Claro's CSS rule to style application like other examples */
+.claro .dijitInlineEditBoxDisplayModeHover {
+    background-color: white;
+    border: 1px solid transparent;
+}
+
+.claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
+    background-image: none;
+    width: 14px;
+    height: 14px;
+}
+
+.dijitCheckBoxInput {
+    opacity: 1;
+}
+
