@@ -78,7 +78,7 @@ body {
 	border-bottom: none;
 }
 
-#todo-list li.done span {
+#todo-list li.done label {
 	color: #777777;
 	text-decoration: line-through;
 }
@@ -86,7 +86,7 @@ body {
 #todo-list li .destroy {
 	display: none;
 	position: absolute;
-	top: 16px;
+	top: 20px;
 	right: 10px;
 	cursor: pointer;
 	width: 20px;
@@ -119,7 +119,7 @@ body {
 	display: none;
 }
 
-#todo-list li .view span {
+#todo-list li .view label {
 	word-break: break-word;
 }
 
