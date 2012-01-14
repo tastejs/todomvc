@@ -57,10 +57,10 @@ body {
 	line-height: 1;
 }
 
-#create-todo {
+.create-todo {
 	position: relative;
 }
-#create-todo input {
+.create-todo input {
 	width: 466px;
 	font-size: 24px;
 	font-family: inherit;
@@ -75,7 +75,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 
-#create-todo span {
+.create-todo span {
 	position: absolute;
 	z-index: 999;
 	width: 170px;
@@ -83,17 +83,17 @@ body {
 	margin-left: -85px;
 }
 
-#todo-list {
+.todo-list {
 	margin-top: 10px;
 }
-#todo-list li {
+.todo-list li {
 	padding: 12px 20px 11px 0;
 	position: relative;
 	font-size: 24px;
 	line-height: 1.1em;
 	border-bottom: 1px solid #cccccc;
 }
-#todo-list li:after {
+.todo-list li:after {
 	content: "\0020";
 	display: block;
 	height: 0;
@@ -101,18 +101,18 @@ body {
 	overflow: hidden;
 	visibility: hidden;
 }
-#todo-list li.editing {
+.todo-list li.editing {
 	padding: 0;
 	border-bottom: 0;
 }
-#todo-list .editing .display,
-#todo-list .edit {
+.todo-list .editing .display,
+.todo-list .edit {
 	display: none;
 }
-#todo-list .editing .edit {
+.todo-list .editing .edit {
 	display: block;
 }
-#todo-list .editing input {
+.todo-list .editing input {
 	width: 444px;
 	font-size: 24px;
 	font-family: inherit;
@@ -127,17 +127,17 @@ body {
 	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
-#todo-list .check {
+.todo-list .check {
 	position: relative;
 	top: 11px;
 	margin: 0 10px 0 7px;
 	float: left;
 }
-#todo-list .done .todo-content {
+.todo-list .done .todo-content {
 	text-decoration: line-through;
 	color: #777777;
 }
-#todo-list .todo-destroy {
+.todo-list .todo-destroy {
 	position: absolute;
 	right: 5px;
 	top: 14px;
@@ -147,25 +147,25 @@ body {
 	height: 20px;
 	background: url(destroy.png) no-repeat 0 0;
 }
-#todo-list li:hover .todo-destroy {
+.todo-list li:hover .todo-destroy {
 	display: block;
 }
-#todo-list .todo-destroy:hover {
+.todo-list .todo-destroy:hover {
 	background-position: 0 -20px;
 }
 
-#todo-stats {
+.todo-stats {
 	*zoom: 1;
 	margin-top: 10px;
 	color: #777777;
     display: none;
 }
 
-#todo-stats.items_present {
+.todo-stats.items_present {
     display: block;
 }
 
-#todo-stats:after {
+.todo-stats:after {
 	content: "\0020";
 	display: block;
 	height: 0;
@@ -173,31 +173,31 @@ body {
 	overflow: hidden;
 	visibility: hidden;
 }
-#todo-stats .todo-count {
+.todo-stats .todo-count {
 	float: left;
 }
-#todo-stats .todo-count .number {
+.todo-stats .todo-count .number {
 	font-weight: bold;
 	color: #333333;
 }
-#todo-stats .todo-clear {
+.todo-stats .todo-clear {
 	float: right;
     display: none
 }
 
 
-#todo-stats.items_selected .todo-clear {
+.todo-stats.items_selected .todo-clear {
     display: inline;
 }
 
-#todo-stats .todo-clear a {
+.todo-stats .todo-clear a {
 	color: #777777;
 	font-size: 12px;
 }
-#todo-stats .todo-clear a:visited {
+.todo-stats .todo-clear a:visited {
 	color: #777777;
 }
-#todo-stats .todo-clear a:hover {
+.todo-stats .todo-clear a:hover {
 	color: #336699;
 }
 
@@ -352,11 +352,11 @@ body {
 
 
 /* line 32 */
-#todoapp .content #create-todo {
+#todoapp .content .create-todo {
 	position: relative;
 }
 /* line 34 */
-#todoapp .content #create-todo input {
+#todoapp .content .create-todo input {
 	font-size: 24px;
 	font-family: inherit;
 	line-height: 1.4em;
@@ -371,7 +371,7 @@ body {
 }
 
 /* line 47 */
-#todoapp .content #create-todo span {
+#todoapp .content .create-todo span {
 	position: absolute;
 	z-index: 999;
 	width: 170px;
@@ -380,11 +380,11 @@ body {
 	opacity: 0;
 }
 /* line 55 */
-#todoapp .content ul#todo-list {
+#todoapp .content ul.todo-list {
 	margin-top: 10px;
 }
 /* line 57 */
-#todoapp .content ul#todo-list li {
+#todoapp .content ul.todo-list li {
 	padding: 15px 20px 15px 0;
 	position: relative;
 	font-size: 24px;
@@ -393,7 +393,7 @@ body {
 	cursor: move;
 }
 /* line 22, /opt/ree/lib/ruby/gems/1.8/gems/compass-0.10.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-#todoapp .content ul#todo-list li:after {
+#todoapp .content ul.todo-list li:after {
 	content: "\0020";
 	display: block;
 	height: 0;
@@ -402,12 +402,12 @@ body {
 	visibility: hidden;
 }
 /* line 64 */
-#todoapp .content ul#todo-list li.editing {
+#todoapp .content ul.todo-list li.editing {
 	padding: 0;
 	border-bottom: 0;
 }
 /* line 67 */
-#todoapp .content ul#todo-list li.editing .todo-input {
+#todoapp .content ul.todo-list li.editing .todo-input {
 	display: block;
 	width: 466px;
 	font-size: 24px;
@@ -423,35 +423,35 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 /* line 79 */
-#todoapp .content ul#todo-list li.editing .todo-content {
+#todoapp .content ul.todo-list li.editing .todo-content {
 	display: none;
 }
 /* line 81 */
-#todoapp .content ul#todo-list li.editing .todo-check {
+#todoapp .content ul.todo-list li.editing .todo-check {
 	display: none;
 }
 /* line 83 */
-#todoapp .content ul#todo-list li.editing .todo-destroy {
+#todoapp .content ul.todo-list li.editing .todo-destroy {
 	display: none !important;
 }
 /* line 85 */
-#todoapp .content ul#todo-list li .todo-input {
+#todoapp .content ul.todo-list li .todo-input {
 	display: none;
 }
 /* line 87 */
-#todoapp .content ul#todo-list li .todo-check {
+#todoapp .content ul.todo-list li .todo-check {
 	position: relative;
 	top: 6px;
 	margin: 0 10px 0 7px;
 	float: left;
 }
 /* line 93 */
-#todoapp .content ul#todo-list li.done .todo-content {
+#todoapp .content ul.todo-list li.done .todo-content {
 	text-decoration: line-through;
 	color: #777777;
 }
 /* line 96 */
-#todoapp .content ul#todo-list li .todo-destroy {
+#todoapp .content ul.todo-list li .todo-destroy {
 	position: absolute;
 	right: 0px;
 	top: 22px;
@@ -461,11 +461,11 @@ body {
 	height: 20px;
 }
 /* line 106 */
-#todoapp .content ul#todo-list li:hover .todo-destroy {
+#todoapp .content ul.todo-list li:hover .todo-destroy {
 	display: block;
 }
 /* line 109 */
-#todoapp #todo-stats {
+#todoapp .todo-stats {
 	*zoom: 1;
 	margin-top: 10px;
 	color: #555555;
@@ -487,7 +487,7 @@ body {
 	line-height: 36px;
 }
 /* line 22, /opt/ree/lib/ruby/gems/1.8/gems/compass-0.10.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-#todoapp #todo-stats:after {
+#todoapp .todo-stats:after {
 	content: "\0020";
 	display: block;
 	height: 0;
@@ -496,20 +496,20 @@ body {
 	visibility: hidden;
 }
 /* line 118 */
-#todoapp #todo-stats .todo-count {
+#todoapp .todo-stats .todo-count {
 	float: left;
 }
 /* line 120 */
-#todoapp #todo-stats .todo-count .number {
+#todoapp .todo-stats .todo-count .number {
 	font-weight: bold;
 	color: #555555;
 }
 /* line 123 */
-#todoapp #todo-stats .todo-clear {
+#todoapp .todo-stats .todo-clear {
 	float: right;
 }
 /* line 125 */
-#todoapp #todo-stats .todo-clear a {
+#todoapp .todo-stats .todo-clear a {
 	display: block;
 	line-height: 20px;
 	text-decoration: none;
@@ -530,7 +530,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 }
 /* line 136 */
-#todoapp #todo-stats .todo-clear a:hover {
+#todoapp .todo-stats .todo-clear a:hover {
 	background: rgba(0, 0, 0, 0.15);
 	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
@@ -538,7 +538,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 }
 /* line 139 */
-#todoapp #todo-stats .todo-clear a:active {
+#todoapp .todo-stats .todo-clear a:active {
 	position: relative;
 	top: 1px;
 }
@@ -557,8 +557,6 @@ body {
 
 .claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
     background-image: none;
-    width: 14px;
-    height: 14px;
 }
 
 .dijitCheckBoxInput {
