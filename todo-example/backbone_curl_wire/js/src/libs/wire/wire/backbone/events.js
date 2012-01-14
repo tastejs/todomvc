@@ -12,34 +12,28 @@
 define( [], function() {
 
 	return {
-		wire$plugin: function eventsPlugin(ready, destroyed, options) {
+		wire$plugin: function eventsPlugin( ready, destroyed, options ) {
 			
 			var event_handlers = [];
 
-			function connect(target, ref, options, wire) {
-				//console.log( 'hello', arguments );
-				// If ref is a method on target, connect it to another object's method, i.e. calling a method on target
-				// causes a method on the other object to be called.
-				// If ref is a reference to another object, connect that object's method to a method on target, i.e.
-				// calling a method on the other object causes a method on target to be called.
-				if ( typeof target[ ref ] == 'function' ) {
-					var eventName = ref;
-					for( ref in options ) {
-						wire.resolveRef( ref ).then( function( resolved ) {
-							bindEvent( target, eventName, resolved[ options[ eventName ] ], resolved );
-						} );
+			function connect( target, ref, options, wire ) {
+				
+				// Connect to events
+				wire.resolveRef( ref ).then( function( resolved ) {
+					for ( var eventName in options ) {
+						bindEvent( resolved, eventName, target[ options[ eventName ] ], target );
 					}
-				} else {
-					wire.resolveRef( ref ).then( function( resolved ) {
-						for ( var eventName in options ) {
-							bindEvent( resolved, eventName, target[ options[ eventName ] ], target );
-						}
-					});
-				}
+				});
 
 			}
 
 			function bindEvent( backbone_obj, eventName, callback, context ) {
+
+				// Make sure the object is bindable
+				// TODO: the bind check could be more robust
+				if ( !backbone_obj || typeof backbone_obj.bind != 'function' ) return;
+
+
 				backbone_obj.bind( eventName, callback, context );
 
 				event_handlers.push( function unbind() {
@@ -56,18 +50,6 @@ define( [], function() {
 				connect: {
 					"refToOtherThing": {
 						"eventOrMethodOfOtherThing": "myOwnMethod"
-					},
-
-					"dom!myButton": {
-						"onclick": "_handleButtonClick"
-					},
-
-					"dijit!myWidget": {
-						"onChange": "_handleValueChange"
-					}
-
-					"myOwnEventOrMethod": {
-						"refToOtherThing": "methodOfOtherThing"
 					}
 				}
 
@@ -83,7 +65,7 @@ define( [], function() {
 			}
 			
 			destroyed.then( function onContextDestroy() {
-				for ( var i = event_handlers.length - 1; i >= 0; i-- ){
+				for ( var i = event_handlers.length - 1; i >= 0; i-- ) {
 					if ( event_handlers[ i ] ) event_handlers[ i ]();
 				}
 			} );
@@ -91,8 +73,8 @@ define( [], function() {
 			return {
 				facets: {
 					connect: {
-						ready: function(promise, facet, wire) {
-							connectFacet(wire, facet.target, facet.options);
+						ready: function( promise, facet, wire ) {
+							connectFacet( wire, facet.target, facet.options );
 							promise.resolve();
 						}
 					}
