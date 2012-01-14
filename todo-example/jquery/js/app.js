@@ -27,9 +27,11 @@ jQuery(function($) {
 		cacheElements: function() {
 			this.template = Handlebars.compile( $('#todo-template').html() );
 			this.$todoApp = $('#todoapp');
+			this.$newTodo = $('#new-todo');
+			this.$toggleAll = $('#toggle-all');
 			this.$main = $('#main');
 			this.$todoList = $('#todo-list');
-			this.$footer = $('footer');
+			this.$footer = this.$todoApp.find('footer');
 			this.$count = $('#todo-count');
 			this.$clearBtn = $('#clear-completed');
 		},
@@ -42,11 +44,10 @@ jQuery(function($) {
 			}
 		},
 		bindEvents: function() {
-			var app = this.$todoApp,
-				list = this.$todoList;
-			app.on( 'click', '#clear-completed', this.destroyDone );
-			app.on( 'keyup', '#new-todo', this.create );
-			app.on( 'change', '#toggle-all', this.toggleAll );
+			var list = this.$todoList;
+			this.$newTodo.on( 'keyup', this.create );
+			this.$toggleAll.on( 'change', this.toggleAll );
+			this.$clearBtn.on( 'click', this.destroyDone );
 			list.on( 'change', '.toggle', this.toggle );
 			list.on( 'dblclick', '.view', this.edit );
 			list.on( 'keypress', '.edit', this.blurOnEnter );
