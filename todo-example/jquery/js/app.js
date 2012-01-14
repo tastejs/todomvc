@@ -18,6 +18,7 @@ jQuery(function($) {
 
 	var App = {
 		init: function() {
+			this.ENTER_KEY = 13;
 			this.todos = this.store();
 			this.cacheElements();
 			this.bindEvents();
@@ -108,7 +109,7 @@ jQuery(function($) {
 			});
 		},
 		create: function(e) {
-			if ( e.which !== 13 ) {
+			if ( e.which !== App.ENTER_KEY ) {
 				return;
 			}
 			var $input = $(this),
@@ -134,7 +135,7 @@ jQuery(function($) {
 			$(this).closest('li').addClass('editing').find('.edit').focus();
 		},
 		blurOnEnter: function(e) {
-			if ( e.keyCode === 13 ) {
+			if ( e.keyCode === App.ENTER_KEY ) {
 				e.target.blur();
 			}
 		},
