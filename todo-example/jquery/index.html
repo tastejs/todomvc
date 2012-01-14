@@ -10,8 +10,8 @@
 		<header>
 			<h1>Todos</h1>
 			<input id="new-todo" type="text" placeholder="What needs to be done?">
-    	</header>
-    	<section id="main">
+		</header>
+		<section id="main">
 			<input id="toggle-all" type="checkbox">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list"></ul>
@@ -32,7 +32,7 @@
 	<li {{#if done}}class="done"{{/if}} data-id="{{id}}">
 		<div class="view">
 			<input class="toggle" type="checkbox" {{#if done}}checked{{/if}}>
-			<span>{{title}}</span>
+			<label>{{title}}</label>
 			<a class="destroy"></a>
 		</div>
 		<input class="edit" type="text" value="{{title}}">
