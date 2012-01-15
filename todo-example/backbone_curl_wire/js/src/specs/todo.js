@@ -23,8 +23,9 @@ function() {
 					'change': 'render'
 				}
 			},
+			init: {},
 			destroy: {
-				'undelegateEvents': [],
+				'undelegateEvents': [], // Clear bound dom events
 				'remove': []
 			}
 		},

@@ -1,9 +1,10 @@
-define([
-  'require',
+define(
+[
   'underscore',
   'jquery',
   'backbone'
-], function( require, _, $, Backbone ){
+],
+function( _, $, Backbone ) {
   var AppView = Backbone.View.extend({
 
     // Dom elements
@@ -21,16 +22,9 @@ define([
     // Delegated events for creating new items, and clearing completed ones.
     events: {
       "keypress #new-todo":  "createOnEnter",
-      //"keyup #new-todo":     "showTooltip",
+      "keyup #new-todo":     "showTooltip",
       "click .todo-clear a": "clearCompleted",
       "click .mark-all-done": "toggleAllComplete"
-    },
-
-    // At initialization we bind to the relevant events on the `Todos`
-    // collection, when items are added or changed. Kick things off by
-    // loading any preexisting todos that might be saved in *localStorage*.
-    initialize: function( options ) {
-      //_.bindAll(this, 'toggleAllComplete');
     },
 
     // Re-rendering the App just means refreshing the statistics -- the rest
@@ -50,7 +44,6 @@ define([
         done:       collection.done().length,
         remaining:  remaining
       } ) );
-
 
       this.allCheckbox.checked = !remaining;
     },
@@ -90,21 +83,23 @@ define([
 
     // Trigger the 'toggleDone' event so that it's `done` state matches the check all
     toggleAllComplete: function ( e ) {
-
       var done = this.allCheckbox.checked;
       this.trigger( 'toggleDone', done );
     },
 
     // Lazily show the tooltip that tells you to press `enter` to save
     // a new todo item, after one second.
-    showTooltip: function(e) {
-      var tooltip = $( this.tooltip );
-      var val = this.input.val();
-      tooltip.fadeOut();
-      if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
-      if (val == '' || val == this.input.attr('placeholder')) return;
-      var show = function(){ tooltip.show().fadeIn(); };
-      this.tooltipTimeout = _.delay(show, 1000);
+    showTooltip: function( e ) {
+      var $tooltip = $( this.tooltip ),
+        $input = $( this.input ),
+        val = $input.val();
+      
+      $tooltip.fadeOut();
+
+      if ( this.tooltipTimeout ) clearTimeout( this.tooltipTimeout );
+      if ( !val || val == $input.attr( 'placeholder' ) ) return;
+      var show = function() { $tooltip.show().fadeIn(); };
+      this.tooltipTimeout = _.delay( show, 1000 );
     }
 
 

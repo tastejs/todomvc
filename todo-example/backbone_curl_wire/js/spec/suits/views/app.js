@@ -62,23 +62,6 @@ function( $, View, require ) {
       expect( view.input.val() ).toEqual( '' ); // Reset input
       
     } );
-
-    // it( "returns backbone view", function() {
-
-    //   expect( view ).toBeDefined();
-
-    //   var stub = sinon.stub( mediator, 'publish' ),
-    //       channel = 'test/facade/1',
-    //       args = [ 'test/1' ];
-
-    //   mediator.publish( channel, args );
-
-    //   expect( stub ).toHaveBeenCalledOnce();
-    //   expect( stub ).toHaveBeenCalledWithExactly( channel, args );
-
-    //   stub.restore();
-
-    // } );
     
 
   } );
