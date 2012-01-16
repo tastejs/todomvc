@@ -77,7 +77,6 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
         onTodosModelChange: function (prop, oldValue, newValue) {
             this.updateTotalItemsLeft();
 
-            // Adding to an array indicated by prop being indices and no previous value existing
             if (typeof prop === "number" && !oldValue && newValue) {
                 this.bindIsDone(newValue);
             }

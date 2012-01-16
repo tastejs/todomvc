@@ -83,7 +83,7 @@ define(["dojo/_base/declare",
          */
         addToModel: function (content, isDone) {
             var insert = mvc.newStatefulModel({
-                data: {content: content, isDone: isDone} 
+                data: {todo_text: content, isDone: isDone} 
             });
 
             this.model.todos.add(this.model.todos.length, insert);
