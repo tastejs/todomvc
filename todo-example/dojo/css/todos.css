@@ -390,7 +390,6 @@ body {
 	font-size: 24px;
 	border-bottom: 1px solid #cccccc;
 	*zoom: 1;
-	cursor: move;
 }
 /* line 22, /opt/ree/lib/ruby/gems/1.8/gems/compass-0.10.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #todoapp .content ul.todo-list li:after {
