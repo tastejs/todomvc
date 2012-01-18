@@ -6,12 +6,12 @@ define(["dojo/_base/declare",
         // Parent classes
         "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin", 
         // General application modules
-        "dojo/_base/lang", "dojo/on", "dojo/dom-class", "dojox/mvc", "todo/model/TodoModel",
+        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", "dojox/mvc", "todo/model/TodoModel",
         // Widget template
         "dojo/text!./app.html",
         // Template Widgets
         "dijit/InlineEditBox", "todo/form/CheckBox", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"],
-    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, on, domClass, mvc, TodoModel, template) {
+    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr, mvc, TodoModel, template) {
 
     return declare("todo.app", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
@@ -108,7 +108,7 @@ define(["dojo/_base/declare",
 
             this.addToModel(event.target.value, false);
             event.target.value = "";
-			dojo.stopEvent(event);
+			_event.stop(event);
         },
 
         /**
@@ -117,7 +117,7 @@ define(["dojo/_base/declare",
          * model using the item identifier.
          **/ 
         onRemove: function (event) {
-            this.model.todos.remove(event.target.dataset.modelId);            
+            this.model.todos.remove(domAttr.get(event.target, "data-model-id"));            
         }
     });
 });
