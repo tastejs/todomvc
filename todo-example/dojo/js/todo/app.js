@@ -108,6 +108,7 @@ define(["dojo/_base/declare",
 
             this.addToModel(event.target.value, false);
             event.target.value = "";
+			dojo.stopEvent(event);
         },
 
         /**
