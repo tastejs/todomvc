@@ -63,7 +63,7 @@ function() {
 		},
 
 		plugins: [
-			{ module: 'wire/debug', trace: true },
+			//{ module: 'wire/debug', trace: true },
 			{ module: 'wire/underscore/template' },
 			{ module: 'wire/backbone/events' }
 		]

@@ -1,9 +1,12 @@
 define(
 [
+  'require',
   'jquery',
   'views/todo'
 ],
-function( $, View ) {
+function( require, $, View ) {
+
+  var Backbone = require( 'backbone' );
   
   describe( "Todo view", function() {
 
@@ -18,7 +21,17 @@ function( $, View ) {
     } );
 
     // Test the render function
-    xit( "can render the template", function() {} );
+    it( "can render the template", function() {
+      
+      var view = new View(),
+          template = sinon.stub( view, 'template' ).returns( '<div id="test1" ></div>' );
+
+      view.render( new Backbone.Model() );
+
+      expect( template ).toHaveBeenCalledOnce();
+      expect( view.$( '#test1' ).length ).toBeTruthy();
+
+    } );
 
     it( "can determine state of the checkbox", function() {
       
