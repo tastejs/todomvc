@@ -548,6 +548,12 @@ body {
     text-decoration: line-through;
 }
 
+/* When checkbox is selected, score through todo item content after an edit */
+.dijitCheckBoxChecked + .dijitInline + .todo-content {
+    color: #666;
+    text-decoration: line-through;
+}
+
 /** Override Claro's CSS rule to style application like other examples */
 .claro .dijitInlineEditBoxDisplayModeHover {
     background-color: white;
@@ -556,6 +562,11 @@ body {
 
 .claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
     background-image: none;
+}
+
+/* Need to have the background-image on IE */
+.dj_ie .claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
+    background-image: url("form/images/checkboxRadioButtonStates.png");
 }
 
 .dijitCheckBoxInput {
