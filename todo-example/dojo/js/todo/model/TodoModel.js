@@ -2,19 +2,19 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
     function(declare, StatefulModel, LocalStorage, mvc, lang, array) {
 
     return declare([StatefulModel], {
-        /** 
+        /**
          * Default model structure, overriden by any
          * items found in localStorage.
-         */ 
+         */
         data: {
             id: "local_storage_todos",
             todos : [],
             incomplete: 0,
             complete: 0
-        }, 
+        },
 
-        /** 
-         * Initialise our custom dojo store, backed by localStorage. This will be 
+        /**
+         * Initialise our custom dojo store, backed by localStorage. This will be
          * used to read the initial items, if available, and persist the current items
          * when the application finishes.
          */
@@ -24,7 +24,7 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
             /**
              * Attempt to read todo items from localStorage,
              * returning default value the first time the application
-             * is loaded... The "id" parameter is used as the unique 
+             * is loaded... The "id" parameter is used as the unique
              * localStorage key for this object.
              */
             var data = this.store.get(this.data.id) || this.data;
@@ -35,18 +35,18 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
         },
 
         setUpModelBinding: function () {
-            /** 
-             * Set up a composite model attribute, "complete", that is automatically 
-             * calculated whenever the "incomplete" source value is modified. The "complete" 
+            /**
+             * Set up a composite model attribute, "complete", that is automatically
+             * calculated whenever the "incomplete" source value is modified. The "complete"
              * attribute is bound to a view widget, displaying the number of items that can
-             * be cleared using the link. 
+             * be cleared using the link.
              */
             mvc.bind(this.incomplete, "value", this.complete, "value", lang.hitch(this, function (value) {
                 return this.todos.get("length") - value;
             }));
-                
-            /** 
-             * Bind all pre-populated todo items to update the 
+
+            /**
+             * Bind all pre-populated todo items to update the
              * total item values when the "isDone" attribute is changed.
              */
             array.forEach(this.todos, lang.hitch(this, "bindIsDone"));
@@ -60,10 +60,10 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
             this.todos.watch(lang.hitch(this, "onTodosModelChange"));
         },
 
-        /** 
+        /**
          * Set up binding on a todo item, so that when the
          * item's checked attribute changes, we re-calculate
-         * the composite model attribute's value, "complete". 
+         * the composite model attribute's value, "complete".
          */
         bindIsDone: function (item) {
             mvc.bindInputs([item.isDone], lang.hitch(this, "updateTotalItemsLeft"));
@@ -71,9 +71,9 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
 
         /**
          * When todos array is modified, we need to update the composite
-         * value attributes. If the modification was an addition, ensure the 
+         * value attributes. If the modification was an addition, ensure the
          * "isDone" attribute is being watched for updates.
-         */ 
+         */
         onTodosModelChange: function (prop, oldValue, newValue) {
             this.updateTotalItemsLeft();
 
@@ -88,13 +88,9 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
          * cause the bound "complete" value to be updated as well.
          */
         updateTotalItemsLeft: function () {
-            var remaining = 0;
-
-            array.forEach(this.todos, function (item) {
-                item && !item.isDone.value && remaining++;
-            });
-
-            this.incomplete.set("value", remaining);
+            this.incomplete.set("value", array.filter(this.todos, function (item) {
+                return item && !item.isDone.value;
+            }).length);
         }
     });
 });

@@ -7,10 +7,7 @@
 			@import "./css/claro.css";
 	</style>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
-    <script data-dojo-config="async:true, parseOnLoad:true, paths:{'todo':'../../todo'}" src="./js/dtk/dojo/dojo.js"></script> 
-    <script>
-        require(["dojo/parser", "todo/app"]) 
-    </script>
+    <script data-dojo-config="async:true, parseOnLoad:true, paths:{'todo':'../../todo'}, deps:['dojo/parser', 'todo/app']" src="./js/dtk/dojo/dojo.js"></script>
   </head>
 
   <body class="claro">
@@ -28,7 +25,7 @@
         <div id="credits">
             Created by
             <br />
-            <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a>. 
+            <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a>.
         </div>
     </div>
 </body>

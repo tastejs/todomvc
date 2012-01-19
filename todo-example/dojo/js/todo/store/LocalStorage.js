@@ -1,5 +1,5 @@
-/** 
-* Original source from https://gist.github.com/880822 
+/**
+* Original source from https://gist.github.com/880822
 * Converted to AMD-baseless format
 */
 define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/json", "dojo/store/util/QueryResults", "dojo/store/util/SimpleQueryEngine"],
@@ -53,7 +53,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/json", "dojo/store/
             //		property if a specific id is to be used.
             //	returns: Number
             var id = options && options.id || object[this.idProperty] || Math.random();
-            localStorage.setItem(id,dojo.toJson(object));
+            localStorage.setItem(id, json.toJson(object));
             return id;
         },
         add: function(object, options){
@@ -112,7 +112,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/json", "dojo/store/
             var data=[];
             for (var i=0; i<localStorage.length;i++){
                 data.push(this.get(localStorage.key(i)));
-            }		
+            }
             return QueryResults(this.queryEngine(query, options)(data));
         },
         setData: function(data){

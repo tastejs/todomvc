@@ -9,8 +9,7 @@
             <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '#{this.index}'">
             <div class="todo">
                 <input class="check" data-dojo-type="todo.form.CheckBox" data-dojo-props='ref: "isDone"' style="display:inline-block" >
-                </input>
-                <div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox"  
+                <div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox"
                     data-dojo-props='ref: "todo_text", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></div>
 
                 <span class="todo-destroy" data-model-id="#{this.index}">
@@ -27,7 +26,7 @@
         </span>
         <span class="todo-clear">
             <a href="#" data-dojo-attach-event="onclick:removeCompletedItems">
-                Clear 
+                Clear
                 <span class="number-done" data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: this.model.complete" ></span>
                 completed items
             </a>
