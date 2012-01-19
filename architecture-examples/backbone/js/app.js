@@ -91,11 +91,11 @@ $(function(){
 
     // The DOM events specific to an item.
     events: {
-      "click .check"              : "toggleDone",
-      "dblclick div.todo-content" : "edit",
-      "click span.todo-destroy"   : "clear",
-      "keypress .todo-input"      : "updateOnEnter",
-      "blur .todo-input"          : "close"
+      "click .toggle"   : "toggleDone",
+      "dblclick label"  : "edit",
+      "click a.destroy" : "clear",
+      "keypress .edit"  : "updateOnEnter",
+      "blur .edit"      : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -109,8 +109,11 @@ $(function(){
 
     // Re-render the contents of the todo item.
     render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
-      this.input = this.$('.todo-input');
+      var $el = $(this.el);
+      $el.html(this.template(this.model.toJSON()));
+      $el.toggleClass('done', this.model.get('done'));
+
+      this.input = this.$('.edit');
       return this;
     },
 
@@ -160,8 +163,8 @@ $(function(){
     events: {
       "keypress #new-todo":  "createOnEnter",
       "keyup #new-todo":     "showTooltip",
-      "click .todo-clear a": "clearCompleted",
-      "click .mark-all-done": "toggleAllComplete"
+      "click #clear-completed": "clearCompleted",
+      "click #toggle-all": "toggleAllComplete"
     },
 
     // At initialization we bind to the relevant events on the `Todos`
@@ -171,11 +174,14 @@ $(function(){
       _.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
 
       this.input = this.$("#new-todo");
-      this.allCheckbox = this.$(".mark-all-done")[0];
+      this.allCheckbox = this.$("#toggle-all")[0];
 
       Todos.bind('add',     this.addOne);
       Todos.bind('reset',   this.addAll);
       Todos.bind('all',     this.render);
+
+      this.$footer = this.$('footer');
+      this.$main = $('#main');
 
       Todos.fetch();
     },
@@ -186,11 +192,18 @@ $(function(){
       var done = Todos.done().length;
       var remaining = Todos.remaining().length;
 
-      this.$('#todo-stats').html(this.statsTemplate({
-        total:      Todos.length,
-        done:       done,
-        remaining:  remaining
-      }));
+      if (Todos.length) {
+          this.$main.show();
+          this.$footer.show();
+
+          this.$footer.html(this.statsTemplate({
+            done:       done,
+            remaining:  remaining
+          }));
+      } else {
+          this.$main.hide();
+          this.$footer.hide();
+      }
 
       this.allCheckbox.checked = !remaining;
     },
