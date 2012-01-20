@@ -39,8 +39,15 @@ function newTodoKeyPressHandler(event) {
     }
 }
 
+function toggleAllChangeHandler(event) {
+    for (var i in tasks) {
+        tasks[i].done = event.target.checked;
+    }
+    refreshData();
+}
+
 function spanDeleteClickHandler(event) {
-    removeTaskById(event.target.id);
+    removeTaskById(event.target.getAttribute("data-todo-id"));
     refreshData();
 }
 
@@ -50,7 +57,7 @@ function hrefClearClickHandler() {
 }
 
 function todoContentHandler(event) {
-    var taskId = event.target.id;
+    var taskId = event.target.getAttribute("data-todo-id");
 
     var div = document.getElementById("li_"+taskId);
     div.className = "editing";
@@ -63,7 +70,7 @@ function todoContentHandler(event) {
 function checkboxChangeHandler(event) {
     var checkbox = event.target;
 
-    var todo = getTodoById(checkbox.id);
+    var todo = getTodoById(checkbox.getAttribute('data-todo-id'));
     todo.done = checkbox.checked;
 
     refreshData();
@@ -147,8 +154,11 @@ function computeStats() {
 /*    DRAWING              /
 /**************************/
 function redrawTasksUI() {
+
     var ul = document.getElementById("todo-list");
     var todo;
+
+    document.getElementById("main").style.display = tasks.length ? "block" : "none";
 
     removeChildren(ul);
     document.getElementById("new-todo").value = "";
@@ -158,62 +168,50 @@ function redrawTasksUI() {
 
         //create checkbox
         var checkbox = document.createElement("input");
-        checkbox.className = "check";
-        checkbox.id = todo.id;
+        checkbox.className = "toggle";
+        checkbox.setAttribute("data-todo-id", todo.id);
         checkbox.type = "checkbox";
         checkbox.addEventListener("change", checkboxChangeHandler);
 
         //create div text
-        var divText = document.createElement("div");
-        divText.className = "todo-content";
-        divText.id = todo.id;
-        divText.appendChild(document.createTextNode(todo.name));
-        divText.addEventListener("dblclick", todoContentHandler);
+        var label = document.createElement("label");
+        label.setAttribute("data-todo-id", todo.id);
+        label.appendChild(document.createTextNode(todo.name));
+        label.addEventListener("dblclick", todoContentHandler);
 
         //create delete button
-        var spanDelete = document.createElement("span");
-        spanDelete.className = "todo-destroy";
-        spanDelete.id = todo.id;
-        spanDelete.addEventListener("click", spanDeleteClickHandler);
+        var deleteLink = document.createElement("a");
+        deleteLink.className = "destroy";
+        deleteLink.setAttribute("data-todo-id", todo.id);
+        deleteLink.addEventListener("click", spanDeleteClickHandler);
 
         //create divDisplay
         var divDisplay = document.createElement("div");
-        divDisplay.className = "display";
+        divDisplay.className = "view";
         divDisplay.appendChild(checkbox);
-        divDisplay.appendChild(divText);
-        divDisplay.appendChild(spanDelete);
-
-
-        //create div todo
-        var divTodo = document.createElement("div");
-        divTodo.className = "todo ";
-        divTodo.appendChild(divDisplay);
+        divDisplay.appendChild(label);
+        divDisplay.appendChild(deleteLink);
 
 
         //create todo input
         var inputEditTodo = document.createElement("input");
         inputEditTodo.id = "input_" + todo.id;
         inputEditTodo.type = "text";
-        inputEditTodo.className = "todo-input";
+        inputEditTodo.className = "edit";
         inputEditTodo.value = todo.name;
         inputEditTodo.addEventListener("keypress", inputEditTodoKeyPressHandler);
-
-        //create div edit
-        var divEdit = document.createElement("div");
-        divEdit.className = "edit";
-        divEdit.appendChild(inputEditTodo);
 
 
         //create li
         var li = document.createElement("li");
         li.id = "li_" + todo.id;
-        li.appendChild(divTodo);
-        li.appendChild(divEdit);
+        li.appendChild(divDisplay);
+        li.appendChild(inputEditTodo);
 
 
         if (todo.done)
         {
-            divTodo.className += "done";
+            li.className += "done";
             checkbox.checked = true;
         }
 
@@ -222,75 +220,55 @@ function redrawTasksUI() {
 }
 
 function redrawStatsUI() {
-    removeChildren(document.getElementById("todo-stats"))
-
-    if (stat.totalTodo > 0) {
-        drawTodoCount();
-    }
+    removeChildren(document.getElementsByTagName("footer")[0]);
 
     if (stat.todoCompleted > 0) {
         drawTodoClear();
     }
+
+    if (stat.totalTodo > 0) {
+        drawTodoCount();
+    }
 }
 
 function drawTodoCount() {
-    
-    //create span number
-    var spanNumber = document.createElement("span");
-    spanNumber.className = "number";
-    spanNumber.innerHTML = stat.todoLeft;
 
-    //create span word
-    var spanWord = document.createElement("span");
-    spanWord.className = "word";
-    spanWord.innerHTML = " item";
-    
-    if (stat.todoLeft > 1) {
-        spanWord.innerHTML += "s";
+    // Create remaining count
+    var number = document.createElement("span");
+    number.innerHTML = stat.todoLeft;
+    var theText = " item";
+    if (stat.todoLeft !== 1) {
+        theText += "s";
     }
+    theText += " left";
 
-    var spanTodoCount = document.createElement("span");
-    spanTodoCount.className = "todo-count";
-    spanTodoCount.appendChild(spanNumber);
-    spanTodoCount.appendChild(spanWord);
-    spanTodoCount.innerHTML += " left.";
+    var remaining = document.createElement("div");
+    remaining.id = "todo-count";
+    remaining.appendChild(number);
+    remaining.appendChild(document.createTextNode(theText));
 
-    document.getElementById("todo-stats").appendChild(spanTodoCount);
+    document.getElementsByTagName("footer")[0].appendChild(remaining);
 }
 
 function drawTodoClear() {
 
     //create a href
     var hrefClear = document.createElement("a");
-    hrefClear.href = "#";
+    hrefClear.id = "clear-completed";
     hrefClear.addEventListener("click", hrefClearClickHandler);
     hrefClear.innerHTML = "Clear ";
 
-
     //create span number done
     var spanNumberDone = document.createElement("span");
-    spanNumberDone.className = "number-done";
     spanNumberDone.innerHTML = stat.todoCompleted;
+
     hrefClear.appendChild(spanNumberDone);
-    hrefClear.innerHTML += " completed ";
-
-    //create span word
-    var spanWordDone = document.createElement("span");
-    spanWordDone.className = "word-done";
-    spanWordDone.innerHTML = " item";
-
+    hrefClear.innerHTML += " completed item";
     if (stat.todoCompleted > 1) {
-        spanWordDone.innerHTML += "s";
+        hrefClear.innerHTML += "s";
     }
 
-    hrefClear.appendChild(spanWordDone);
-
-    var spanTodoClear = document.createElement("span");
-    spanTodoClear.className = "todo-clear";
-    spanTodoClear.appendChild(hrefClear);
-
-
-    document.getElementById("todo-stats").appendChild(spanTodoClear);
+    document.getElementsByTagName("footer")[0].appendChild(hrefClear);
 }
 
 
