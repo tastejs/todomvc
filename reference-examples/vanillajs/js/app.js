@@ -33,6 +33,12 @@ function inputEditTodoKeyPressHandler(event) {
     }
 }
 
+function inputEditTodoBlurHandler(event) {
+    var inputEditTodo = event.target;
+    var taskId = event.target.id.slice(6);
+    editTask(taskId, inputEditTodo.value);
+}
+
 function newTodoKeyPressHandler(event) {
     if (event.keyCode === 13) {
         addTask(document.getElementById("new-todo").value);
@@ -200,6 +206,7 @@ function redrawTasksUI() {
         inputEditTodo.className = "edit";
         inputEditTodo.value = todo.name;
         inputEditTodo.addEventListener("keypress", inputEditTodoKeyPressHandler);
+        inputEditTodo.addEventListener("blur", inputEditTodoBlurHandler);
 
 
         //create li
