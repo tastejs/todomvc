@@ -10,7 +10,7 @@
 		{
 			baseUrl: 'js/src/',
 			pluginPath: 'curl/plugin',
-			//debug: true,
+			//debug: true, // Uncomment to see loading order and errors
 			paths: {
 				curl: 'libs/curl/src/curl'
 			},
@@ -23,7 +23,13 @@
 				{ name: 'aop', path: 'libs/aop', main: 'aop' }
 			]
 		}
-	).next( [ 'wire!specs/main' ], function( context ) { context.collection.fetch(); } );
+	).next( [ 'wire!specs/main' ], function( context ) {
+
+		// Now that eveything has loaded
+		// Get todo's saved in localstorage
+		context.collection.fetch();
+
+	} );
 	</script>
 
 </head>

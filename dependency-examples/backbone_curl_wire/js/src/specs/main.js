@@ -32,6 +32,8 @@ define(
 					'reset': 'addAll', // When muptliple models are added, add them all to the app list
 					'all':   'render'  // On any change, rerender the view
 				}
+
+				// TOOD: update wire plugin so we can connect DOM events here
 			}
 		},
 
@@ -61,7 +63,7 @@ define(
 		},
 
 		plugins: [
-			//{ module: 'wire/debug', trace: true },
+			//{ module: 'wire/debug', trace: true }, // Uncomment to see what's going on inside this spec
 			{ module: 'wire/jquery/dom' },
 			{ module: 'wire/underscore/template' },
 			{ module: 'wire/backbone/events' }

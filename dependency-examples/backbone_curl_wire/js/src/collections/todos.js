@@ -20,7 +20,7 @@ function( when, _, Backbone, Store ) {
 
       // Run the function created in our wiring spec, to create necessary objects
       // Pass in our attributes so they can be used in the creation of the model
-      // BEWARE: Wire does a lot of magic here!
+      // BEWARE: Wire does magic here!
       return this._createTodo( { 'todo_attributes': attributes } ).then( function( todo_context ) {
         
         // After creating the model, add it to the collection
@@ -35,17 +35,23 @@ function( when, _, Backbone, Store ) {
       
     },
 
+    // Override Backbone's default reset method
+    // Now we can use our new "Create" method when we load our local storage data
     reset: function( models, options ) {
       var self = this;
       models  || (models = []);
       options || (options = {});
+
+      // Empty collection
       this.each(this._removeReference);
       this._reset();
 
+      // Create models
       var promises = _.map( models, function( model ) {
         return self.create( model );
       } );
 
+      // When the models have finished creating, trigger the 'reset' event
       if ( !options.silent ) when.all( promises, function() {
         self.trigger( 'reset', self, options );
       } );
@@ -61,11 +67,12 @@ function( when, _, Backbone, Store ) {
       return this.filter( function( todo ) { return todo.get( 'done' ); } );
     },
 
-    // Filter down the list to only todo items that are still not finished.
+    // Filter down the list to only todo items that are still not 'done'.
     remaining: function() {
       return this.without.apply( this, this.done() );
     },
 
+    // Call destroy on all models that are 'done'
     clearDone: function() {
       _.invoke( this.done(), 'destroy' );
     },
@@ -74,20 +81,6 @@ function( when, _, Backbone, Store ) {
     toggleDone: function( done ) {
       this.invoke( 'save', { 'done': !!done } );
     }
-
-
-
-    // We keep the Todos in sequential order, despite being saved by unordered
-    // GUID in the database. This generates the next order number for new items.
-    // nextOrder: function() {
-    //   if (!this.length) return 1;
-    //   return this.last().get('order') + 1;
-    // },
-
-    // Todos are sorted by their original insertion order.
-    // comparator: function(todo) {
-    //   return todo.get('order');
-    // }
 
   });
 

@@ -7,6 +7,8 @@ function() {
 			create: {
 				module: 'views/todo'
 			},
+
+			// Attach properties
 			properties: {
 				// Dom elements need to be found in the view after the rendering of the template
 				input: '.todo-input',
@@ -18,12 +20,15 @@ function() {
 				// Pass in our template
 				template: { $ref: 'template.underscore!templates/todos.html' }
 			},
+
+			// Connect events
 			connect: {
 				model: {
 					'change': 'render'
 				}
 			},
-			init: {},
+
+			// Call these functions to destory this view
 			destroy: {
 				'undelegateEvents': [], // Clear bound dom events
 				'remove': []
@@ -31,6 +36,7 @@ function() {
 		},
 
 		model: {
+
 			create: {
 				module: 'models/todo',
 				args: [
@@ -46,11 +52,15 @@ function() {
 
 				]
 			},
+
+			// Attach properties
 			properties: {
 				// attach the view to our model, so
 				// the views/app view can access it from a collection change
 				view: { $ref: 'view' }
 			},
+
+			// Connect events
 			connect: {
 				view: {
 					'destroy': 'destroy',
@@ -58,12 +68,13 @@ function() {
 					'changeDone': 'save'
 				}
 			},
-			init: 'save', // Save model after creating it
-			destroy: {}
+
+			// Save model to localstorage after creating it
+			init: 'save'
 		},
 
 		plugins: [
-			//{ module: 'wire/debug', trace: true },
+			//{ module: 'wire/debug', trace: true }, // Uncomment to see what's going on inside this spec
 			{ module: 'wire/underscore/template' },
 			{ module: 'wire/backbone/events' }
 		]

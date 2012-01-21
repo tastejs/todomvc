@@ -6,6 +6,7 @@ define(
 ],
 function( require, $, View ) {
 
+  // TODO: clean up when underscore/curl amd implementions are improved
   var Backbone = require( 'backbone' );
   
   describe( "Todo view", function() {

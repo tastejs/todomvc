@@ -7,7 +7,8 @@ define(
 ],
 function( require, _, when, Todos ) {
 
-  var Backbone = require( 'backbone' ); // TODO: add this to the define list in the future when curl or backbone stop erroring
+  // TODO: clean up when underscore/curl amd implementions are improved
+  var Backbone = require( 'backbone' );
 
   describe( "Todos collection", function() {
 
