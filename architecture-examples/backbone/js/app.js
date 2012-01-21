@@ -102,9 +102,8 @@ $(function(){
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
-      _.bindAll(this, 'render', 'close', 'remove');
-      this.model.bind('change', this.render);
-      this.model.bind('destroy', this.remove);
+      this.model.bind('change', this.render, this);
+      this.model.bind('destroy', this.remove, this);
     },
 
     // Re-render the contents of the todo item.
@@ -170,14 +169,13 @@ $(function(){
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
-      _.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
 
       this.input = this.$("#new-todo");
       this.allCheckbox = this.$("#toggle-all")[0];
 
-      Todos.bind('add',     this.addOne);
-      Todos.bind('reset',   this.addAll);
-      Todos.bind('all',     this.render);
+      Todos.bind('add', this.addOne, this);
+      Todos.bind('reset', this.addAll, this);
+      Todos.bind('all', this.render, this);
 
       this.$footer = this.$('footer');
       this.$main = $('#main');
