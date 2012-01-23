@@ -1,9 +1,9 @@
 define(
 [
-  'jquery',
+  'backbone',
   'models/todo'
 ],
-function( $, Model ) {
+function( Backbone, Model ) {
   
   describe( "Todo model", function() {
 
@@ -12,8 +12,8 @@ function( $, Model ) {
       // It returned something
       expect( Model ).toBeDefined();
 
-      // Check for a function that only a backbone model is likely to have
-      expect( ( new Model() )._escapedAttributes ).toBeDefined();
+      // Check its a backbone model instance
+      expect( ( new Model() ) instanceof Backbone.Model ).toBeTruthy();
 
     } );
 

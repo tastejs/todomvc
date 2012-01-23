@@ -1,13 +1,10 @@
 define(
 [
-  'require',
+  'backbone',
   'jquery',
   'views/todo'
 ],
-function( require, $, View ) {
-
-  // TODO: clean up when underscore/curl amd implementions are improved
-  var Backbone = require( 'backbone' );
+function( Backbone, $, View ) {
   
   describe( "Todo view", function() {
 
@@ -16,8 +13,8 @@ function( require, $, View ) {
       // It returned something
       expect( View ).toBeDefined();
 
-      // Check for a function that only a backbone view is likely to have
-      expect( ( new View() ).delegateEvents ).toBeDefined();
+      // Check its a backbone view instance
+      expect( ( new View() ) instanceof Backbone.View ).toBeTruthy();
 
     } );
 
@@ -37,7 +34,7 @@ function( require, $, View ) {
     it( "can determine state of the checkbox", function() {
       
       var view = new View( {
-          el: $('<div><input type="checkbox" class="checkbox" checked /></div>').get( 0 )
+          el: '<div><input type="checkbox" class="checkbox" checked /></div>'
         } ),
         spy = sinon.spy();
 
@@ -53,7 +50,7 @@ function( require, $, View ) {
     it( "sets the state of the view to edit", function() {
       
       var view = new View( {
-          el: $('<div><input type="text" class="input" /></div>').get( 0 )
+          el: '<div><input type="text" class="input" /></div>'
         } ),
         spy = sinon.spy();
 
@@ -70,7 +67,7 @@ function( require, $, View ) {
     it( "can finished editing", function() {
       
       var view = new View( {
-          el: $('<div class="editing"><input type="text" class="input" value="test1" /></div>').get( 0 )
+          el: '<div class="editing"><input type="text" class="input" value="test1" /></div>'
         } ),
         spy = sinon.spy();
 

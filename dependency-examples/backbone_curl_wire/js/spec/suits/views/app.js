@@ -1,13 +1,10 @@
 define(
 [
+  'backbone',
   'jquery',
-  'views/app',
-  'require'
+  'views/app'
 ],
-function( $, View, require ) {
-
-  // TODO: clean up when underscore/curl amd implementions are improved
-  var Backbone = require( 'backbone' );
+function( Backbone, $, View ) {
   
   describe( "App view", function() {
 
@@ -16,8 +13,8 @@ function( $, View, require ) {
       // It returned something
       expect( View ).toBeDefined();
 
-      // Check for a function that only a backbone view is likely to have
-      expect( ( new View() ).delegateEvents ).toBeDefined();
+      // Check its a backbone view instance
+      expect( ( new View() ) instanceof Backbone.View ).toBeTruthy();
 
     } );
 

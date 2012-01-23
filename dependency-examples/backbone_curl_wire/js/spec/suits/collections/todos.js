@@ -1,14 +1,11 @@
 define(
 [
-  'require',
+  'backbone',
   'underscore',
   'when',
   'collections/todos'
 ],
-function( require, _, when, Todos ) {
-
-  // TODO: clean up when underscore/curl amd implementions are improved
-  var Backbone = require( 'backbone' );
+function( Backbone, _, when, Todos ) {
 
   describe( "Todos collection", function() {
 
@@ -21,8 +18,8 @@ function( require, _, when, Todos ) {
       // It returned something
       expect( Todos ).toBeDefined();
 
-      // Check for a function that only a backbone collection is likely to have
-      expect( ( new Todos() ).getByCid ).toBeDefined();
+      // Check its a backbone collection instance
+      expect( ( new Todos() ) instanceof Backbone.Collection ).toBeTruthy();
 
     } );
 
