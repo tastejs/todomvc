@@ -7,10 +7,10 @@ Ext.application({
     launch: function() {
 
         Ext.create('Ext.container.Container', {
-            renderTo: 'todo',
+            renderTo: Ext.select('header').elements[0],
             items: [{
                 xtype: 'taskField',
-                contentEl: 'taskfield'
+                contentEl: 'new-todo'
             }, {
                 xtype: 'taskList'
             }, {
