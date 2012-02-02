@@ -6,16 +6,17 @@ Ext.application({
     controllers: ['Tasks'],
     launch: function() {
 
-        Ext.create('Ext.container.Container', {
-            renderTo: Ext.select('header').elements[0],
-            items: [{
-                xtype: 'taskField',
-                contentEl: 'new-todo'
-            }, {
-                xtype: 'taskList'
-            }, {
-                xtype: 'taskToolbar'
-            }]
+        Ext.create('Todo.view.TaskField', {
+            renderTo: Ext.select('header').first(),
+            contentEl: 'new-todo'
+        });
+
+        Ext.create('Todo.view.TaskList', {
+            renderTo: 'main'
+        });
+
+        Ext.create('Todo.view.TaskToolbar', {
+            renderTo: 'main'
         });
 
     }
