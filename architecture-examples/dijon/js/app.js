@@ -14,8 +14,7 @@
                 system.mapValue( 'system', system );
                 system.mapOutlet( 'system' );
 
-                system.mapSingleton( 'config', ns.Config );
-                system.getObject( 'config' );
+                system.injectInto( new ns.Config() );
 
                 system.notify( 'App:startup' );
                 system.notify( 'App:startupComplete' );
