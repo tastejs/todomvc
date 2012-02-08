@@ -47,13 +47,13 @@ var dijondemo = {};
                 this.system.mapHandler( 'TodoListView:removeTodo', 'todosModel', 'remove' );
                 this.system.mapHandler( 'TodoListView:setDoneForAllTodos', 'todosModel', 'setDoneForAll')
                 this.system.mapHandler( 'TodoListView:removeAllDoneTodos', 'todosModel', 'removeAllDone' );
-                this.system.mapHandler( 'App:startup', 'todosController', 'retrieveDataFromService' );
+                this.system.mapHandler( 'StorageService:retrieveCompleted', 'todosModel', 'setList' );
                 this.system.mapHandler( 'FooterView:retrieveTodoCounts', 'todosController', 'retrieveCounts' );
-                this.system.mapHandler( 'StorageService:retrieveCompleted', 'todosController', 'updateModelFromService' );
                 this.system.mapHandler( 'TodosController:todoCountsRetrieved', 'footerView', 'updateCounts' );
                 this.system.mapHandler( 'TodosModel:todosListUpdated', 'listView', 'render' );
                 this.system.mapHandler( 'TodosModel:todosListUpdated', 'footerView', 'render' );
                 this.system.mapHandler( 'TodosModel:todosListUpdated', 'storageService', 'store' );
+                this.system.mapHandler( 'App:startup', 'storageService', 'retrieve' );
                 this.system.mapHandler( 'App:startupComplete', 'formView', 'render' );
                 this.system.mapHandler( 'App:startupComplete', 'storageService', 'retrieve' );
 
