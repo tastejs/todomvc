@@ -21,6 +21,20 @@
         }
     };
 
+    ko.bindingHandlers.block = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            element.style.display = value ? "block" : "none";
+        }
+    };
+
+    ko.bindingHandlers.inline = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            element.style.display = value ? "inline" : "none";
+        }
+    };
+
 
     //represent a single todo item
     var Todo = function (content, done) {
@@ -32,7 +46,7 @@
     //can place methods on prototype, as there can be many todos
     ko.utils.extend(Todo.prototype, {
         edit: function() {  this.editing(true); },
-        stopEditing: function() { this.editing(false); }
+        stopEditing: function() { console.log("stop editing"); this.editing(false); }
     });
 
 
@@ -90,26 +104,6 @@
                     //set even if value is the same, as subscribers are not notified in that case
                     todo.done(newValue);
                 });
-            }
-        });
-
-        //track whether the tooltip should be shown
-        self.showTooltip = ko.observable(false);
-        self.showTooltip.setTrue = function() { self.showTooltip(true); }; //avoid an anonymous function each time
-
-        //watch the current value
-        self.current.subscribe(function(newValue) {
-            //if the value was just updated, then the tooltip should not be shown
-            self.showTooltip(false);
-
-            //clear the current timer, as it is actively being updated
-            if (self.showTooltip.timer) {
-                clearTimeout(self.showTooltip.timer);
-            }
-
-            //if there is a value and then show the tooltip after 1 second
-            if (newValue) {
-                self.showTooltip.timer = setTimeout(self.showTooltip.setTrue, 1000);
             }
         });
 
