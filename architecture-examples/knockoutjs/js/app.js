@@ -46,7 +46,7 @@
     //can place methods on prototype, as there can be many todos
     ko.utils.extend(Todo.prototype, {
         edit: function() {  this.editing(true); },
-        stopEditing: function() { console.log("stop editing"); this.editing(false); }
+        stopEditing: function() { this.editing(false); }
     });
 
 
