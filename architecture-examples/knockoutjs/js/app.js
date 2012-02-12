@@ -21,6 +21,7 @@
         }
     };
 
+    //alternative to "visible" binding that will specifically set "block" to override what is in css
     ko.bindingHandlers.block = {
         update: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
@@ -28,6 +29,7 @@
         }
     };
 
+    //alternative to "visible" binding that will specifically set "inline" to override what is in css
     ko.bindingHandlers.inline = {
         update: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
