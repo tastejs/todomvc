@@ -1,4 +1,4 @@
-##TodoMVC - A common demo application for popular JavaScript MV* frameworks (0.25)
+##TodoMVC - A common demo application for popular JavaScript MV* frameworks (0.3pre)
 
 ##Introduction
 
@@ -12,9 +12,10 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 * Ember.js (SproutCore 2.0)
 * Spine.js
 * JavaScriptMVC
+* Dojo
 * Sammy.js
 * YUILibrary
-* KnockoutJS (MVVM)
+* KnockoutJS
 * Knockback
 * AngularJS
 * Broke.js
@@ -49,13 +50,6 @@ For live previews of Todo apps and more information on the project, see the offi
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice. If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request. One of us will be happy to review them and consider them for inclusion. 
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
-
-
-##Changelog 0.25
-* A number of clean-ups and fixes have been made to existing examples
-* Backbone + RequireJS example added and tweaked
-* Improved Ember.js example
-* KnockBack (2 examples) added
 
 
 ##Next release
