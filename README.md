@@ -33,7 +33,7 @@ Additionally, apps are also included for:
 
 Preview of some of the apps included:
 
-<img width="90%" src='http://www.blarnee.com/images/scr342342.jpg'/>
+<img width="90%" src='http://www.blarnee.com/images/009.jpg'/>
 
 ##Team
 
