@@ -12,7 +12,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 #### Todo apps are included for:
 
 - Backbone.js
-- Backbone.js + RequireJS
+- Backbone.js + RequireJS (using AMD)
 - Ember.js
 - JavaScriptMVC
 - Spine.js
@@ -40,16 +40,11 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 ## Team
 
-As of early 2012, I'm happy to introduce two new core committers to the project.
+As of early 2012, I'm happy to introduce two new core committers to the project:
 
-<<<<<<< HEAD
-
-## Notes
-=======
 * [Aaron Boushley](https://github.com/boushley): Aaron is a JavaScript developer with a keen interest in architectural frameworks and will be helping both standardize existing examples and improve the project as we work on expansion. 
->>>>>>> Adding reference to new team member, updating project disclaimer,  minor other changes.
 
-* [Sindre Sorhus](https://github.com/sindresorhus): Sindre is a Web Developre who has been taking an interest in contributing to a number of open-source projects this year and will also be helping with project expansion and improvements to existing applications.
+* [Sindre Sorhus](https://github.com/sindresorhus): Sindre is a Web Developer who has been taking an interest in contributing to a number of open-source projects this year and will also be helping with project expansion and improvements to existing applications.
 
 ##Disclaimer
 
@@ -62,13 +57,9 @@ It is meant to be used as a gateway to reviewing how a basic application using a
 
 For live previews of Todo apps and more information on the project, see the official [TodoMVC site](http://addyosmani.github.com/todomvc/).
 
-<<<<<<< HEAD
-Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice. If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request. One of us will be happy to review them and consider them for inclusion.
-=======
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice. 
 
 If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request. One of us will be happy to review them and discuss any changes that may be required before they can be included.
->>>>>>> Adding reference to new team member, updating project disclaimer,  minor other changes.
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
 
