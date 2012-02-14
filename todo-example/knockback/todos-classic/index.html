@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <!-- Support Localization -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <head>
+    <title>Knockback Demo: Todos</title>
+    <!-- Demo Dependencies -->
+    <script src="../vendor/json2.js"></script>
+    <script src="../vendor/jquery-1.7.min.js"></script>
+    <script src="../vendor/jquery.tmpl.min.js"></script>
+
+    <!-- Knockback Dependencies -->
+    <script src="dependencies/underscore.js"></script>
+    <script src="dependencies/backbone.js"></script>
+    <script src="dependencies/knockout-2.0.0.js"></script>
+    <script src="dependencies/knockback.js"></script>
+
+    <!-- The Demo -->
+    <link href="../css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="../vendor/backbone-localstorage.js"></script>
+    <script src="todos_classic.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Todo App Interface -->
+    <div id="todoapp">
+
+      <!-- Header Section -->
+      <div id="todo-header">
+        <div class="title">
+          <h1>Todos</h1>
+        </div>
+      </div>
+
+      <!-- Create Todo Section -->
+      <div id="todo-create">
+        <div class="content">
+          <div id="create-todo">
+            <input id="new-todo" type="text" placeholder="What needs to be done?" data-bind="value: create.input_text, event: {keyup: create.addTodo}"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Todos List Section -->
+      <div id="todo-list">
+        <ul class="todo-list" data-bind="template: {name: 'item-template', foreach: todo_list.todos}"></ul>
+      </div>
+
+      <!-- Stats Section -->
+      <div id="todo-stats">
+        <span class="todo-count" data-bind="text: stats.remaining_text"></span>
+        <span class="todo-clear"> <a href="#" data-bind="text: stats.clear_text, click: stats.onDestroyDone"></a></span>
+      </div>
+
+      <!-- Footer Section -->
+      <div id="todo-footer">
+        <ul id="instructions">
+          <li>Double-click to edit a todo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="credits">
+      Created by
+      <br />
+      <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>
+      <br />
+      <br />
+      Modified to use <a href="https://github.com/kmalakoff/knockback">Knockback.js</a> by
+      <br />
+      <a href="https://github.com/kmalakoff">Kevin Malakoff</a>
+      <br />
+      and
+      <br />
+      <a href="https://github.com/yuchi">Pier Paolo Ramon</a>
+    </div>
+
+    <!-- Templates -->
+    <script type="text/x-jquery-tmpl" id="item-template">
+      <li>
+        <div class="todo" data-bind="css: {done: done, editing: edit_mode}">
+          <div class="display">
+            <input class="check" type="checkbox" data-bind="checked: done" />
+            <div class="todo-text" data-bind="text: text, dblclick: toggleEditMode"></div>
+            <div class="todo-destroy" data-bind="click: destroyTodo"></div>
+          </div>
+          <div class="edit">
+            <input class="todo-input" type="text" data-bind="value: text, event: {keyup: onEnterEndEdit}" />
+          </div>
+        </div>
+      </li>
+    </script>
+  </body>
+
+</html>

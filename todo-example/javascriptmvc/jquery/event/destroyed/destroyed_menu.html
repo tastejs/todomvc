@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>destroyed demo</title>
+        <style type='text/css'>
+        	ul.menu {
+        		padding: 0px; margin: 0px;
+				border: solid 1px black;
+				width: 100px;
+				position: absolute;
+				list-style: none;
+				background-color: white;
+        	}
+			.menu li{
+				padding: 1px; margin: 0px;
+				font-size: 1px;
+			}
+			#remove {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+<p>This demo creates a single, reusable menu for multiple elements.
+	Click each "Show Menu" button to see the menu expand.  By clicking 
+	the "Remove" button, it removes a "Show Menu".  When
+	all "Show Menu" buttons are gone, the elment is removed.
+	  After removing all the "Show Me" elements,
+	the menu will be removed completely.  This is done with the help of the
+	destroyed special event.
+</p>
+<div id='demo-html'>
+<a href='javascript://' class='context'>Show Menu 1</a>
+<a href='javascript://' class='context'>Show Menu 2</a>
+<a href='javascript://' class='context'>Show Menu 3</a>
+<br/>
+<a id='remove' href="javascript://">Remove a "Show Menu"</div>
+</div>
+	    
+		<script type='text/javascript' src='../../../steal/steal.js?jquery/event/destroyed/destroyed.js'></script>
+<script type='text/javascript' id='demo-source'>
+//create a contextmenu plugin
+jQuery.fn.reusemenu = function(options){
+  //create menu and put in dom
+  var ul = $("<ul/>")
+              .addClass("menu")
+              .html(options.length ? "<li>"+options.join("</li><li>")+"</li>" :""  )
+              .appendTo(document.body),
+      //save a reference to our handler so we can remove it
+	  hideHandler = function(){ 
+        ul.find("li").animate({fontSize: 1, padding: 1});
+      },
+	  //the number of elements that remain
+	  count = this.length; 
+  
+  //take out the hide handler when we
+  //no longer have the ul
+  ul.bind("destroyed", function(){
+    $(document).unbind("click",hideHandler )	 
+  })
+
+  $(document).click(hideHandler)	  
+  
+  //for each menu 
+  this.each(function(){
+    
+	var me = $(this);
+	
+    //position menu on click
+	me.click( function(ev) {
+		
+      ul.offset({
+        top: ev.pageY+20,
+        left: ev.pageX+20
+      }).find("li").animate({fontSize: 12, padding: 10});
+      ev.stopPropagation();
+    })
+	
+	//if last element, remove menu
+	.bind("destroyed", function() {
+      count--;
+      if(!count){
+        ul.remove();
+        ul = null;
+      }
+    })
+  })
+};
+
+$(".context").reusemenu(["reuse","able","menu"])
+$("#remove").click(function(){
+  $(".context:first").remove()
+})
+		</script>
+	</body>
+</html>
