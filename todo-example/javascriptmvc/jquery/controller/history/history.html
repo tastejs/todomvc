@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	    "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>hover</title>
+	<style type='text/css'>
+	    body {font-family: verdana}
+	    .error {border: solid 1px red;}
+	    .error_text { color: red; font-size: 10px;}
+	    td {padding: 3px;}
+	    .list-test, .object-list-test, .nested-object-test {color: blue; cursor: pointer; text-decoration: underline;}
+	</style>
+	</head>
+	<body>
+		<div id="history_demo">
+			<a href="#first&param=I">First</a>
+			<a href="#second&param=love">Second</a>
+			<a href="#third&param=jmvc!">Third</a>
+			<a class="list-test">Fourth</a>
+			<a class="object-list-test">Fifth</a>
+			<a class="nested-object-test">Sixth</a>
+		</div>
+	<script type='text/javascript' src='../../../steal/steal.js?steal[app]=jquery/controller/history&steal[env]=development'>   
+	</script>
+	<script type='text/javascript'>
+	    $.Controller.extend('HistoryDemoController',{
+	    },
+	    {
+			    "history.first.index subscribe" : function(called, data) {
+					alert("First[param] : " + data.param);
+				},
+
+			    "history.second.index subscribe" : function(called, data) {
+					alert("Second[param] : " + data.param);
+				},
+				
+			    "history.third.index subscribe" : function(called, data) {
+					alert("Third[param] : " + data.param);
+				},
+
+			    "history.fourth.index subscribe" : function(called, data) {
+					alert("Fourth[myList] : [" + data.myList.join(', ') + "]");
+				},
+
+			    "history.fifth.index subscribe" : function(called, data) {
+					var obj_list = [];
+					$.each(data.myObjectList, function(i, obj) {
+					    var params = [];
+					    $.each(obj, function(key, val) {params.push(key + ": " + val);});
+					    obj_list.push("{" + params.join(", ") + "}");
+					});
+					alert("Fourth[myObjectList] : [" + obj_list.join(", ") + "]");
+				},
+
+			    "history.sixth.index subscribe" : function(called, data) {
+					var params = [];
+				
+					// myObject.a (object)
+					var vars_a = [];
+					$.each(data.myObject.a, function(key, val) {vars_a.push(key + ": "+val)});
+					params.push("a: {" + vars_a.join(", ") + "}");
+
+					// myObject.b (array)
+					params.push("b: [" + data.myObject.b.join(", ") + "]");
+
+					// myObject.c (array of objects)
+					var obj_list = [];
+					$.each(data.myObject.c, function(i, obj) {
+					    var obj_params = [];
+					    $.each(obj, function(key, val) {obj_params.push(key + ": " + val);});
+					    obj_list.push("\t{" + obj_params.join(", ") + "}");
+					});
+					params.push("c: [\n" + obj_list.join(",\n ") + "\t\n]");
+
+					alert("Fourth[myObject] : {\n" + params.join(",\n") + "\n}");
+				},
+
+			    ".list-test click" : function(el, ev){
+					this.history_add({controller:'fourth', myList:[1,2,3]});
+				},
+
+			    ".object-list-test click" : function(el, ev){
+					var myObjectList = [
+					    {
+						one: 1,
+						two: 2,
+						three: 3
+					    },
+					    {
+						four: 4,
+						five: 5,
+						six: 6
+					    }
+					];
+					this.history_add({controller:'fifth', myObjectList:myObjectList});
+				},
+
+			    ".nested-object-test click" : function(el, ev) {
+					var myObject = {
+					    a: {
+						one: 1,
+						two: 2,
+						three: 3
+					    },
+					    b: [1, 2, 3],
+					    c: [
+						{
+						    one: 1,
+						    two: 2,
+						    three: 3
+						},
+						{
+						    four: 4,
+						    five: 5,
+						    six: 6
+						}
+					    ]
+					};
+					this.history_add({controller:'sixth', myObject:myObject});
+				}
+	    });
+	    
+	    $("#history_demo").history_demo();
+        </script>
+    </body>
+</html>

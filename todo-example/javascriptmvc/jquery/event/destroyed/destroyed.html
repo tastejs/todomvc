@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>destroyed demo</title>
+        <style type='text/css'>#clickToDestroy { padding: 5px; border: solid 1px;width: 200px;}</style>
+	</head>
+	<body>
+<div id='demo-html'>
+<div id='clickToDestroy'>Click Below to destroy me</div>
+<a id='change' href="javascript://">Click here!</div>
+</div>
+	    
+		<script type='text/javascript' src='../../../steal/steal.js?jquery/event/destroyed/destroyed.js'></script>
+		<script type='text/javascript' id='demo-source'>
+$("#clickToDestroy").bind("destroyed", function(){
+	$("#change").html("destroyed with "+$(this).data("testData"))
+}).data("testData","joy :)")
+$("#change").bind("click", function(){
+	$("#clickToDestroy").remove()
+})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,21 @@
+// _args = ['cookbook']; load('steal/generate/app')
+
+if (!_args[0]) {
+	print("Usage: steal/js steal/generate/app path");
+	quit();
+}
+
+load('steal/rhino/steal.js');
+
+steal('//steal/generate/generate','//steal/generate/system',function(steal){
+	var path =  _args[0].toLowerCase().replace('.',"/"),
+		data = steal.extend({
+			path: path, 
+			application_name: path.match(/[^\/]*$/)[0],
+			current_path: steal.File.cwdURL(),
+			path_to_steal : new steal.File(path).pathToRoot()
+		}, steal.system)
+	
+	steal.generate("jquery/generate/templates/app",path,data);
+});
+

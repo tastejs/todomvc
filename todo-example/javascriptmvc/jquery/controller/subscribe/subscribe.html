@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>hover</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+			.subscribe, .subscribes {
+				border: solid 1px green;
+			}
+			.subscribed {
+				background-color: yellow;
+			}
+			.mysubscribe {
+				border: solid 1px red;
+			}
+        </style>
+	</head>
+	<body>
+		<div id="testSubscribe">
+            <div id="subscribe1">
+                subscribe me
+            </div>
+            <h2><a href="#" id="off">Turn OFF Above</a></h2>
+        </div>
+        
+        <script type='text/javascript' 
+                src='../../../steal/steal.js?steal[app]=jquery/controller/subscribe&steal[env]=development'
+                package='main.js'
+                compress='false'>   
+        </script>
+        <script type='text/javascript'>
+            $.Controller.extend('subscribeTest',{
+                onDocument: false
+            },
+            {
+                "#subscribe1 click": function(el, ev){
+                    ev.stopPropagation();
+                    this.publish("oaSubscribe1", {"params":"Hola Mundo"});		
+                },
+                "oaSubscribe1 subscribe": function(called, data){
+                    alert("subscribe1 " + data.params + " : " + this.Class.shortName);
+                }
+            });
+            
+            var subscribeController = new subscribeTest($("#testSubscribe")[0]);
+            
+            $("#off").bind("click",function(){
+               subscribeController.destroy(); 
+            })
+        </script>
+    </body>
+</html>

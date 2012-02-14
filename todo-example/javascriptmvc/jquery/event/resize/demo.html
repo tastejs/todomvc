@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Resize Demo Page</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+			.resizable {border: solid 1px red;
+			
+			}
+			body  {
+				margin: 0px;
+				padding: 0px;
+			}
+			h1 {
+				border: solid 2px green;
+			}
+			#content {
+				border: solid 2px red;
+			}
+			#out {
+				padding: 10px;
+			}
+			#split {
+				border: solid 2px BLUE;
+			}
+			h3 {
+				background-color: yellow;
+				padding: 10px;
+				margin: 0px;
+			}
+			.top {
+				border: dotted 1px orange;
+			}
+			
+        </style>
+		<link type="text/css" href="../../../mxui/data/grid/grid.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div id='out'>
+			<h1>My Application's Title (it's long so it will wrap)</h1>
+			<div id='content'>
+				<span>Some Buttons For Folders and Files</span>
+				<div id='split'>
+					<div class='panel' style="width:100px;position:absolute;">
+							<h3>Folders:</h3>
+							<ul>
+								<li>Folder One</li>
+								<li>Folder Two</li>
+								<li>Folder Three</li>
+								<li>Folder Four</li>
+								<li>Folder Five</li>
+								<li>Folder Six</li>
+								<li>Folder Seven</li>
+							</ul>
+					</div>
+					<div class='panel' style="width:300px;position:absolute;" id='leftPanel'>
+						<div id='vsplit'>
+							<div class='top' style='height: 300px'>
+								<div id='forever'></div>
+							</div>
+							<div class='bottom' style='height: 100px'>
+								Here are some file details
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<span>A footer</span>
+			</div>
+		</div>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>   
+
+			
+			
+        </script>
+		<script type='text/ejs' id='rowEjs'>
+			<td><%= name %></td>
+			<td><%= birthday %></td>
+			<td><%= foo %></td>
+		</script>
+		<script type='text/javascript'>
+				steal.plugins('mxui/data/grid','mxui/layout/split',
+					'jquery/dom/fixture').then(function(){
+		
+		$('#content').mxui_layout_fill({
+			parent : $(document.body)
+		})
+		
+		
+		$('#split').mxui_layout_fill({
+			parent : $('#content')
+		}).mxui_layout_split({ direction: "vertical", panelClass: "panel" })
+		
+		
+		$('#vsplit').mxui_layout_fill({
+			parent : $('#leftPanel')
+		}).mxui_layout_split({ direction: "horizontal" });
+		
+		
+			
+			$.Model('Thing',{
+				attributes : {birthday: "date"}
+			},{})
+			$.fixture.make('thing', 1000, function(i){
+				return {
+					id: i,
+					name : "thing "+i,
+					birthday : Math.round(new Date()*Math.random()),
+					foo : "bar"
+				}
+			})
+			
+			
+			
+			// we need to also provide the grid with data ...
+
+			var paramsScroll = new Mxui.Data({limit : 50, offset: 0})
+			
+			// Forever Scroll
+			$("#forever").mxui_data_grid({
+				model : Thing,
+				params : paramsScroll,
+				columns: {
+					name: "Name",
+					birthday: "Birthday",
+					foo : "Thisisaverylongtitle"
+				},
+				row : "rowEjs",
+				offsetEmpties: false
+			})
+			
+			$("#forever .scrollBody").bind("scroll", function(){
+				if(this.clientHeight+this.scrollTop + 70 >= this.scrollHeight && !paramsScroll.updating){
+					
+					paramsScroll.attr('offset', paramsScroll.offset + 30)
+				}
+			})
+		
+		
+	}).start()
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,5 @@
+load("steal/rhino/steal.js");
+steal.plugins('steal/clean', function () {
+    var url = _args.shift();
+    steal.clean(url, _args);
+});

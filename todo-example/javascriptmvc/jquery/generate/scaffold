@@ -1,0 +1,50 @@
+if (_args.length < 1) {
+	print("USAGE : steal/js steal/generate/scaffold FullName Type")
+	print("TYPES : JsonRest\n")
+	print("EX    : js steal/generate/scaffold Cashnet.Models.Customer");
+	print("      > cashnet/models/customer.js ....")
+	print();
+	quit();
+}
+
+load('steal/rhino/steal.js');
+
+steal(	'//steal/generate/generate',
+		'//steal/generate/system',	
+function(steal){
+	//check capitalization
+	
+	var parts = _args[0].split("."), part;
+	
+	for(var i=0; i< parts.length;i++){
+		part = parts[i];
+		if( part[0] !== part[0].toUpperCase() ){
+			print("! Warning: "+part+" should probably be capitalized.  JavaScriptMVC likes capital namespaces and class names.")
+		}
+		parts[i] = steal.generate.underscore(part);
+	}
+	// check folders
+	var folder = parts.slice(0, parts.length-1).join("/");
+	if(!folder){
+		print("! Error: Scaffolding needs to be part of an app");
+		quit();
+	}
+	if(!steal.File(folder).exists()){
+		print("! Error: folder "+folder+" does not exist!");
+		quit();
+	}
+	//check pluralization of last part
+	if(steal.Inflector.singularize(part) !== part){
+		print("! Warning: Model names should be singular.  I don't think "+part+
+		" is singular!")	
+	}
+
+	var md = steal.generate.convert(_args[0]);
+	
+	md.type = _args[1]
+	
+	md.appPath =  md.path.replace(/\/models$/,"");
+
+	steal.generate("jquery/generate/templates/scaffold",md.appPath,md)
+	
+});

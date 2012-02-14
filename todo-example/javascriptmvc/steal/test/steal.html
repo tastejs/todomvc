@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>steal</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+        </style>
+	</head>
+	<body>
+		<script type='text/javascript'>
+			var order_num = 0;
+			order = function(o){
+				var p  = document.createElement('p');
+				if (typeof o == 'number') {
+					p.style.backgroundColor = o == order_num ? '#ddffdd' : '#ffdddd'
+					p.innerHTML = '' + o + '=' + (order_num++) + ': ' + steal.getCurrent() + ', ' + steal.current.path;
+				}else{
+					p.innerHTML = o
+				}
+				document.body.appendChild(p)
+			}
+			window.onload = function(){
+				var p  = document.createElement('p');
+				p.style.backgroundColor =  '#ffdddd'
+				p.innerHTML = 'load'
+				document.body.appendChild(p)
+			}
+		</script>
+		<script type='text/javascript' 
+                src='../steal.js?steal[app]=steal/test/one&steal[env]=development'>   
+        </script>	
+	</body>
+</html>
