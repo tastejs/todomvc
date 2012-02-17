@@ -1,7 +1,7 @@
 {
   "id" :                "todomvc",
-  "inputs" :            "src/main.js",
-  "paths" :             "src/",
+  "inputs" :            "js/main.js",
+  "paths" :             "js/",
   "output-wrapper" :    "(function(){%output%})();",
   "mode" :              "ADVANCED",
   "define" : {
