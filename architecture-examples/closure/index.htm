@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Closure</title>
+<link href="css/todos.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="todoapp">
+		<div class="title">
+			<h1>Todos</h1>
+		</div>
+		<div class="content">
+			<div id="create-todo">
+				<input id="new-todo"
+					placeholder="What needs to be done?" type="text" /> <span
+					class="ui-tooltip-top" style="display: none;">Press Enter to
+					save this task</span>
+			</div>
+			<div id="todos">
+				<ul id="todo-list">
+				</ul>
+			</div>
+			<div id="todo-stats">
+			</div>
+		</div>
+	</div>
+	<ul id="instructions">
+		<li>Click to edit a todo.</li>
+	</ul>
+	<div id="credits">
+		Created by <br /> <a href="http://jgn.me/">J&eacute;r&ocirc;me
+			Gravel-Niquet</a> <br /> Modified to use Closure by <a
+			href="http://www.scottlogic.co.uk/blog/chris/">Chris Price</a>
+	</div>
+	<!-- The compiled version (to update run java -jar build/plovr.jar build plovr.json > web/compiled.js) -->
+	<script type="text/javascript" src="js/compiled.js"></script>
+	<!-- The RAW development version (to serve the files run java -jar build/plovr.jar serve plovr.json) -->
+	<!-- <script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=RAW"></script> -->
+	<!-- The COMPILED development version (to serve the files run java -jar build/plovr.jar serve plovr.json) -->
+	<!-- <script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=ADVANCED"></script> -->
+</body>
+</html>
