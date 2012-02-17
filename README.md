@@ -20,6 +20,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - KnockoutJS (MVVM)
 - Knockback.js
 - Dojo
+- Closure
 - YUILibrary
 - AngularJS
 - Angular + PersistenceJS
