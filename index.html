@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TodoMVC</title>
+		<meta name="description" content="A common learning application for popular JavaScript MV* frameworks">
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<header class="hero-unit row">
+				<div class="span4 screenshot">
+					<img src="screenshot.png" width="528" height="330">
+				</div>
+				<div class="span5 header-title">
+					<h1>TodoMVC</h1>
+					<p>A common learning application for popular JavaScript MV* frameworks</p>
+					<nav>
+						<a class="btn btn-primary btn-large" href="https://github.com/addyosmani/todomvc/zipball/master">Download (latest)</a>
+						<a class="btn btn-large" href="http://github.com/addyosmani/todomvc">Follow on GitHub</a>
+					</nav>
+				</div>
+			</header>
+			<div class="row">
+				<div class="span4">
+					<h2>Introduction</h2>
+					<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?.</p>
+					<p>To help solve this problem, I created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today. Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
+				</div>
+				<div class="span5" id="demos">
+					<h2>Demos</h2>
+					<ul class="nav nav-pills">
+						<li><a href="todomvc/architecture-examples/backbone/index.html">Backbone.js</a></li>
+						<li><a href="todomvc/dependency-examples/backbone_require/index.html">Backbone.js + RequireJS</a></li>
+						<li><a href="todomvc/architecture-examples/emberjs/index.html">Ember.js</a></li>
+						<li><a href="todomvc/architecture-examples/javascriptmvc/todo/todo/index.html">JavaScriptMVC</a></li>
+						<li><a href="todomvc/architecture-examples/spine/index.html">Spine.js</a></li>
+						<li><a href="todomvc/architecture-examples/sammyjs/index.html">Sammy.js</a></li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li><a href="todomvc/architecture-examples/knockoutjs/index.html">KnockoutJS (MVVM)</a></li>
+						<li><a href="todomvc/architecture-examples/knockback/index.html">Knockback.js</a></li>
+						<li><a href="todomvc/architecture-examples/dojo/index.html">Dojo</a></li>
+						<li><a href="todomvc/architecture-examples/yuilibrary/index.html">YUILibrary</a></li>
+						<li><a href="todomvc/architecture-examples/angularjs/index.html">AngularJS</a></li>
+						<li><a href="todomvc/architecture-examples/angularjs_persistencejs/index.html">Angular + PersistenceJS</a></li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li><a href="todomvc/architecture-examples/extjs/index.html">Ext.js</a></li>
+						<li><a href="todomvc/architecture-examples/broke/index.html">Broke.js</a></li>
+						<li><a href="todomvc/architecture-examples/fidel/index.html">Fidel.js</a></li>
+						<li><a href="todomvc/architecture-examples/closure/index.html">Closure</a></li>
+						<li><a href="todomvc/architecture-examples/jquery/index.html">jQuery</a></li>
+						<li><a href="todomvc/reference-examples/vanillajs/index.html">Vanilla JS</a></li>
+					</ul>
+				</div>
+				<div class="span3">
+					<h2>Coming Soon</h2>
+					<ul class="vertical-space">
+						<li>ES.Next Todo app using native Models, Modules, Classes.</li>
+						<li>Batman.js Todo app</li>
+					</ul>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="span4">
+					<h2>Getting Started</h2>
+					<p>You can get setup with TodoMVC in just a few short steps:</p>
+					<p>
+						<ol class="vertical-space">
+							<li>Download the <a href="https://github.com/addyosmani/todomvc/zipball/v0.2">latest release</a>.</li>
+							<li>Run TodoMVC on a local server (using <a href="http://www.mamp.info">MAMP</a>, <a href="http://www.wampserver.com/en/">WAMP</a> or another suitable setup). You can then select an app to run using the 'Live demos' link to the left.</li>
+							<li>Browse through the Todo apps, examine their source and discover which framework you might feel the most comfortable working with.</li>
+						</ol>
+					</p>
+				</div>
+				<div class="span4">
+					<h2>Selecting A Framework</h2>
+					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to use.</p>
+					<p>Study the syntax required for defining models, views, controllers and classes (if supported) in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
+					<p>Some developers have also found that creating derivative apps that take the basic list-editing concept further greatly helped them in their selection process, so you may find a similar exercise helpful.</p>
+			</div>
+				<div class="span4">
+					<h2>Getting Involved</h2>
+					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC? If so, feel free to grab the submit a pull request and I'll be happy to review it for inclusion. Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point.</p>
+					<p><a class="btn" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request&raquo;</a></p>
+				</div>
+			</div>
+			<hr>
+			<footer>
+				<p>© TodoMVC, Addy Osmani</p>
+			</footer>
+		</div>
+	</body>
+</html>
