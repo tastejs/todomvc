@@ -73,6 +73,28 @@ h2 {
 	float: none;
 }
 
+#demos ul li a {
+	position: relative;
+}
+
+#demos .popover {
+	margin: 0;
+	cursor: default;
+	color: #333;
+}
+
+#demos .popover-title {
+	padding: 9px 70px 9px 15px;
+}
+
+#demos .popover-title a {
+	font-size: 13px;
+	line-height: 18px;
+	position: absolute;
+	top: 16px;
+	right: 20px;
+}
+
 @media (max-width: 480px) {
 	#demos ul {
 		float: none;
