@@ -1,0 +1,10 @@
+<%%for(var attribute in <%=name%>.attributes){%>
+	<%%if(attribute == 'id') continue;%>
+	<td class='<%%= attribute %>'>
+		<input type="text" value="<%%= this[attribute]%>" name="<%%= attribute%>"/>
+	</td>
+<%%}%>
+<td>
+	<input type='submit' value='Update' class='update'/>
+	<a href='javascript://' class='cancel'>cancel</a>
+</td>

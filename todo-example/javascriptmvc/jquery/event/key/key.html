@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>jQuery Event Key</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+        </style>
+	</head>
+	<body>
+<div id='demo-html'>
+<label for='key'>Type in input:</label><input id='key' /> 
+<div>Keydown:<span id='keydown'></span></div>
+<div>Keypress:<span id='keypress'></span></div>
+<div>Keyup:<span id='keyup'></span></div>
+</div>
+<script type='text/javascript' 
+        src='../../../steal/steal.js?jquery/event/key'
+		id='demo-source'>   
+		var readable = {
+			"\r" : "\\r",
+			"\b" : "\\b",
+			"\t" : "\\t"
+		},
+		printKey = function(ev){
+			var key = ev.key();
+			$("#"+ev.type).html(readable[key] || key)
+		};
+		$('#key').keydown(printKey).keypress(printKey).keyup(printKey)
+</script>
+	</body>
+</html>
