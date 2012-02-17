@@ -28,8 +28,6 @@
 
   <body>
 
-
-
     <div class="topbar">
       <div class="topbar-inner">
         <div class="container-fluid">
@@ -53,27 +51,18 @@
         <div class="well">
           <h5>Examples Included For:</h5>
           <ul>
-            <li><a href="http://angularjs.org/">AngularJS</a></li> 
             <li><a href="http://documentcloud.github.com/backbone/">Backbone.js</a></li>  
-            <li><a href="https://github.com/brokenseal/broke-client">Broke.js</a></li> 
             <li><a href="http://www.emberjs.com/">Ember.js (SproutCore 2.0)</a></li> 
-            <li><a href="https://github.com/jgallen23/fidel">Fidel.js</a></li>
             <li><a href="http://javascriptmvc.com/">JavaScriptMVC</a></li> 
-            <li><a href="http://kmalakoff.github.com/knockback/">Knockback.js</a></li>
             <li><a href="http://knockoutjs.com/">KnockoutJS</a></li> 
             <li><a href="http://spinejs.com/">Spine.js</a></li>
-            <li><a href="http://sammyjs.org/">Sammy.js</a></li> 
+            <li><a href="http://sammyjs.org/">Sammy.js</a></li>
+            <li><a href="http://dojotoolkit.org/">Dojo</a></li> 
             <li><a href="http://developer.yahoo.com/yui/">YUILibrary</a></li> 
-          </ul>
-
-          <h5>0.2 Changelog</h5>
-          <ul>
-            <li>Patches to existing applications</li>
-            <li>Further updates</li>
-            <li><span class="label">New</span> AngularJS examples</li>
-            <li><span class="label">New</span> Broke.js example</li>
-            <li><span class="label">New</span> YUILibrary example</li>
-            <li><span class="label">New</span> Fidel.js example</li>
+            <li><a href="http://angularjs.org/">AngularJS</a></li> 
+            <li><a href="https://github.com/jgallen23/fidel">Fidel.js</a></li>
+            <li><a href="http://kmalakoff.github.com/knockback/">Knockback.js</a></li>
+            <li><a href="https://github.com/brokenseal/broke-client">Broke.js</a></li> 
           </ul>
 
           <h5>Architecture Examples:</h5>
@@ -82,6 +71,7 @@
             <li><a href="../architecture-examples/angularjs_persistencejs/index.html">Angular + PersistenceJS</a></li> 
             <li><a href="../architecture-examples/backbone/index.html">Backbone.js</a></li>  
             <li><a href="../architecture-examples/broke/index.html">Broke.js</a></li> 
+            <li><a href="../architecture-examples/dojo/index.html">Dojo</a></li>  
             <li><a href="../architecture-examples/emberjs/index.html">Ember.js</a></li> 
             <li><a href="../architecture-examples/fidel/index.html">Fidel.js</a></li>
             <li><a href="../architecture-examples/javascriptmvc/todo/todo/index.html">JavaScriptMVC</a></li> 
@@ -113,16 +103,10 @@
             <li><a href="https://github.com/brokenseal">Davide Callegari</a></li>
             <li><a href="https://github.com/kmalakoff">Kevin Malakoff</a></li>
             <li><a href="https://twitter.com/ffesseler">Florian Fesseler</a></li>
+            <li><a href="https://github.com/jthomas">James Thomas</a></li>
+            <li><a href="https://github.com/sindresorhus">Sindre Sorhus</a></li>
           </ul>
 
-          <h5>Coming Soon:</h5>
-          <ul>
-            <li>ES.Next Todo app using native Models, Modules, Classes.</li>
-            <li>Dojo Todo app (with MVC patterns)</li>
-            <li>Batman.js Todo app</li>
-            <li>Todo app boilerplate</li>
-            <li>Todo app pure JS : no framework, no MVC</li>
-          </ul>
 
         </div>
       </div>
@@ -151,9 +135,9 @@
 
         <div class="span12">
           <h2>Introduction</h2>
-          <p>Developers these days are spoiled with choice when it comes to selecting an <strong>MVC framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC..the list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?.</p>
+          <p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC..the list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?.</p>
 
-          <p>To help solve this problem, I created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MVC frameworks of today. Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
+          <p>To help solve this problem, I created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MV* frameworks of today. Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
         </div>
 
         <hr class="span12">
@@ -185,7 +169,7 @@
 
         <div class="span12">
           <h2>Getting Involved</h2>
-          <p>Is there a bug we haven't fixed or an MVC framework you feel would benefit from being included in TodoMVC? If so, feel free to submit a pull request and I'll be happy to review it for inclusion. A boilerplate for Todo apps will probably land in TodoMVC 0.3, but until then if you have any stylistic or app-specific questions you'd like to ask, feel free to ask on <a href="http://twitter.com">Twitter</a>.</p>
+          <p>Is there a bug we haven't fixed or an MVC framework you feel would benefit from being included in TodoMVC? If so, feel free to submit a pull request and we'll be happy to review them further.</p>
           <p><a class="btn" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request&raquo;</a></p>
         </div>
 
