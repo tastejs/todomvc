@@ -1,4 +1,5 @@
 (function($) {
+
     var app = $.sammy(function() {
         
         this.use(Sammy.Template);
@@ -183,7 +184,6 @@
                     $('li[data-id=' + data.id + ']').remove();
                 }
         });
-        
         
     });
 
