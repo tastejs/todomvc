@@ -21,7 +21,7 @@ Ext.define('Todo.controller.Tasks', {
             'taskList': {
                 itemclick: this.onListItemClick
             },
-            'taskToolbar > button': {
+            'completeButton': {
                 click: this.onClearButtonClick
             }
         });
@@ -50,6 +50,7 @@ Ext.define('Todo.controller.Tasks', {
     },
 
     onClearButtonClick: function() {
+        console.log('clear completed called');
         var records = [],
             store = this.getTasksStore();
 

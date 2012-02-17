@@ -3,9 +3,9 @@ Ext.define('Todo.view.TaskToolbar' , {
     extend: 'Ext.Toolbar',
     alias : 'widget.taskToolbar',
     autoEl: {tag: 'footer'},
+    requires: ['Todo.view.TaskCompleteButton'],
     items: [{
-        xtype: 'button',
-        hidden: true
+        xtype: 'completeButton'
     }, {
         xtype: 'container'
     }]

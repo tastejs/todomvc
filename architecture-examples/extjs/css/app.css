@@ -139,7 +139,6 @@ body {
 }
 
 #clear-completed {
-	display: none;
 	float: right;
 	line-height: 20px;
 	text-decoration: none;
