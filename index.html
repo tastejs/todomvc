@@ -19,7 +19,8 @@
 				</div>
 				<div class="span5 header-title">
 					<h1>TodoMVC</h1>
-					<p>A common learning application for popular JavaScript MV* frameworks</p>
+					<p>A common learning application for popular JavaScript MV* frameworks. <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.github.com/todomvc" data-via="addyosmani">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
 					<nav>
 						<a class="btn btn-primary btn-large" href="https://github.com/addyosmani/todomvc/zipball/master">Download (latest)</a>
 						<a class="btn btn-large" href="http://github.com/addyosmani/todomvc">Follow on GitHub</a>
@@ -29,8 +30,10 @@
 			<div class="row">
 				<div class="span4">
 					<h2>Introduction</h2>
-					<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?.</p>
-					<p>To help solve this problem, I created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today. Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
+					<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember (SproutCore 2.0), JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?.</p>
+					<p>To help solve this problem, we created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p> 
+					<p>Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
+
 				</div>
 				<div class="span5" id="demos">
 					<h2>Demos</h2>
@@ -40,13 +43,14 @@
 						<li><a href="architecture-examples/emberjs/index.html">Ember.js</a></li>
 						<li><a href="architecture-examples/javascriptmvc/todo/todo/index.html">JavaScriptMVC</a></li>
 						<li><a href="architecture-examples/spine/index.html">Spine.js</a></li>
+						<li><a href="architecture-examples/knockoutjs/index.html">KnockoutJS (MVVM)</a></li>
 						<li><a href="architecture-examples/sammyjs/index.html">Sammy.js</a></li>
 					</ul>
 					<ul class="nav nav-pills">
-						<li><a href="architecture-examples/knockoutjs/index.html">KnockoutJS (MVVM)</a></li>
-						<li><a href="architecture-examples/knockback/index.html">Knockback.js</a></li>
 						<li><a href="architecture-examples/dojo/index.html">Dojo</a></li>
+						<li><a href="architecture-examples/closure/index.html">Closure</a></li>
 						<li><a href="architecture-examples/yuilibrary/index.html">YUILibrary</a></li>
+						<li><a href="architecture-examples/knockback/index.html">Knockback.js</a></li>
 						<li><a href="architecture-examples/angularjs/index.html">AngularJS</a></li>
 						<li><a href="architecture-examples/angularjs_persistencejs/index.html">Angular + PersistenceJS</a></li>
 					</ul>
@@ -54,16 +58,19 @@
 						<li><a href="architecture-examples/extjs/index.html">Ext.js</a></li>
 						<li><a href="architecture-examples/broke/index.html">Broke.js</a></li>
 						<li><a href="architecture-examples/fidel/index.html">Fidel.js</a></li>
-						<li><a href="architecture-examples/closure/index.html">Closure</a></li>
 						<li><a href="architecture-examples/jquery/index.html">jQuery</a></li>
 						<li><a href="reference-examples/vanillajs/index.html">Vanilla JS</a></li>
 					</ul>
 				</div>
 				<div class="span3">
-					<h2>Coming Soon</h2>
+					<h2>New In TodoMVC 0.3</h2>
 					<ul class="vertical-space">
-						<li>ES.Next Todo app using native Models, Modules, Classes.</li>
-						<li>Batman.js Todo app</li>
+						<li>Dojo (MV*) app</li>
+						<li>Closure (MV*) app</li>
+						<li>Fixes and rewrites to existing apps including Ember.js, Spine.js and Backbone.js</li>
+						<li>Updated jQuery-only app for those wishing to compare MV* vs. a version structured without it</i>
+						<li>A new boilerplate for Todo apps</li>
+						<li><a href="https://github.com/addyosmani/backbone-boilerplates">Initial work</a> on Todo apps integrated with back-end tech stacks (Backbone.js only for now)</li>
 					</ul>
 				</div>
 			</div>
@@ -82,19 +89,20 @@
 				</div>
 				<div class="span4">
 					<h2>Selecting A Framework</h2>
-					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to use.</p>
-					<p>Study the syntax required for defining models, views, controllers and classes (if supported) in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
-					<p>Some developers have also found that creating derivative apps that take the basic list-editing concept further greatly helped them in their selection process, so you may find a similar exercise helpful.</p>
+					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.</p>
+					<p>Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
+					<p>Please <strong>ensure</strong> that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and it's complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
 			</div>
 				<div class="span4">
 					<h2>Getting Involved</h2>
-					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC? If so, feel free to grab the submit a pull request and I'll be happy to review it for inclusion. Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point.</p>
+					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
+					<p>If so, feel free to grab the submit a pull request and we'll be happy to review it for inclusion.</p><p> Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point and read the application <a href="https://github.com/addyosmani/todomvc/wiki/Todo-Application-Specification">specifications</a> to make sure your app meets the guidelines for our next major release.</p>
 					<p><a class="btn" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request&raquo;</a></p>
 				</div>
 			</div>
 			<hr>
 			<footer>
-				<p>© TodoMVC, Addy Osmani</p>
+				<p>© TodoMVC. Brought to you by <a href="http://github.com/addyosmani">Addy Osmani</a> (lead), <a href="https://github.com/boushley">Aaron Boushley</a> and <a href="https://github.com/sindresorhus">Sindre Sorhus</a>.</p>
 			</footer>
 		</div>
 	</body>
