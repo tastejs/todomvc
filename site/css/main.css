@@ -95,6 +95,11 @@ h2 {
 	right: 20px;
 }
 
+#contributor-list {
+	display: none;
+	font-size: 12px;
+}
+
 @media (max-width: 480px) {
 	#demos ul {
 		float: none;
