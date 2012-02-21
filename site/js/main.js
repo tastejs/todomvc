@@ -15,24 +15,28 @@
 	});
 
 	// Contributor list
-	$.getJSON('https://api.github.com/repos/addyosmani/todomvc/contributors?callback=?', function( res ) {
-		var data = res.data;
+	$.ajaxSetup({
+		cache: true
+	});
+	$.getJSON('https://github.com/api/v2/json/repos/show/addyosmani/todomvc/contributors?callback=?', function( res ) {
+		var data = res.contributors;
 		// Add some previous contributors not on the GitHub list
-		/*
 		[].push.apply(data, [{
-			login: 'test'
+			login: 'tomdale',
+			name: 'Tom Dale'
 		}, {
-			login: 'test'
+			login: 'justinbmeyer',
+			name: 'Justin Meyer'
 		}, {
-			login: 'test'
+			login: 'maccman',
+			name: 'Alex MacCaw'
 		}]);
-		*/
-		var ret = $.map( res.data, function( elem ) {
+		var ret = $.map( data, function( elem ) {
 			var username = elem.login;
 			if ( $.inArray( username, [ 'addyosmani', 'boushley', 'sindresorhus' ] ) >= 0 ) {
 				return;
 			}
-			return '<a href="https://github.com/' + username + '">' + username + '</a>';
+			return '<a href="https://github.com/' + username + '">' + ( elem.name || username ) + '</a>';
 		});
 		$('#contributor-list').show().children('span').html( ret.join(', ') );
 	});
