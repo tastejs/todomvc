@@ -27,9 +27,6 @@
 		}, {
 			login: 'justinbmeyer',
 			name: 'Justin Meyer'
-		}, {
-			login: 'maccman',
-			name: 'Alex MacCaw'
 		}]);
 		var ret = $.map( data, function( elem ) {
 			var username = elem.login;
