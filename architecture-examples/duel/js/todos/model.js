@@ -6,6 +6,18 @@ var todos = todos || {};
 	var KEY = 'todos-DUEL',
 		tasks = [];
 
+	localStorage = localStorage || (function(){
+		var storage = {};
+		return {
+			getItem: function(key) {
+				return storage[key];
+			},
+			setItem: function(key, value) {
+				storage[key] = value;
+			}
+		};
+	})();
+
 	function save() {
 		localStorage.setItem(KEY, JSON.stringify(tasks));
 	}
@@ -112,4 +124,4 @@ var todos = todos || {};
 		}
 	};
 
-})(todos, window.localStorage || {});
+})(todos, window.localStorage);
