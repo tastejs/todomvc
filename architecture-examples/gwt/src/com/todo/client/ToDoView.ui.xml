@@ -11,18 +11,15 @@
 				</todo:TextBoxWithPlaceholder>
 			</header>
 
-			<section class="main" ui:field="mainSection">
-
-				<g:CheckBox ui:field="toggleAllCheckBox"></g:CheckBox>
-				<label for="toggle-all">Mark all as complete</label>
-
+			<section ui:field="mainSection">
+				<g:CheckBox ui:field="toggleAllCheckBox">Mark all as complete</g:CheckBox>
 				<div id="todo-list">
 					<cv:CellList ui:field="todoTable"></cv:CellList>
 				</div>
 			</section>
 
 			<footer ui:field="todoStatsContainer">
-				<g:Anchor href="#" styleName="clear-completed" ui:field="clearCompleted">
+				<g:Anchor href="#" ui:field="clearCompleted">
 					Clear
 					<span class="number-done" ui:field="clearTasksCount"></span>
 					<span class="word-done" ui:field="clearTasksLabel"></span>

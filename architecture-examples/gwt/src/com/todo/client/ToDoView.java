@@ -64,7 +64,13 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
     initWidget(uiBinder.createAndBindUi(this));
     
     // removes the yellow highlight
-    todoTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);    
+    todoTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
+    
+    // add IDs to the elements that have ui:field attributes. This is required because the UiBinder
+    // does not permit the addition of ID attributes to elements marked with ui:field.
+    // *SIGH*
+    mainSection.setId("main");
+    clearCompleted.getElement().setId("clear-completed");
   }
 
   @Override
