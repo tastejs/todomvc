@@ -34,9 +34,16 @@ $(document).ready(function() {
     TodoList.prototype.remainingCount = function() {
       return this.models.length - this.doneCount();
     };
-    TodoList.prototype.allDone = function() {
+    TodoList.prototype.doneTasks = function() {
       return this.filter(function(todo) {
         return !!todo.get('done');
+      });
+    };
+    TodoList.prototype.allDone = function(done) {
+      return this.each(function(todo) {
+        return todo.save({
+          done: done
+        });
       });
     };
     return TodoList;
@@ -68,13 +75,14 @@ $(document).ready(function() {
       })
     }, this);
     this.edit_mode = ko.observable(false);
-    this.toggleEditMode = __bind(function(event) {
-      if (!this.done()) {
-        return this.edit_mode(!this.edit_mode());
+    this.onCheckBeginEdit = __bind(function() {
+      if (!this.edit_mode() && !this.done()) {
+        this.edit_mode(true);
+        return $('.todo-input').focus();
       }
     }, this);
-    this.onEnterEndEdit = __bind(function(event) {
-      if (event.keyCode === 13) {
+    this.onCheckEndEdit = __bind(function(view_model, event) {
+      if ((event.keyCode === 13) || (event.type === 'blur')) {
         return this.edit_mode(false);
       }
     }, this);
@@ -96,11 +104,22 @@ $(document).ready(function() {
     this.collection_observable = kb.collectionObservable(todos, this.todos, {
       view_model: TodoViewModel
     });
+    this.tasks_exist = ko.computed(__bind(function() {
+      return this.collection_observable().length;
+    }, this));
+    this.completeAll = ko.computed({
+      read: __bind(function() {
+        return !this.collection_observable.collection().remainingCount();
+      }, this),
+      write: __bind(function(done) {
+        return this.collection_observable.collection().allDone(done);
+      }, this)
+    });
     return this;
   };
   StatsViewModel = function(todos) {
     this.collection_observable = kb.collectionObservable(todos);
-    this.remaining_text = ko.dependentObservable(__bind(function() {
+    this.remaining_text = ko.computed(__bind(function() {
       var count;
       count = this.collection_observable.collection().remainingCount();
       if (!count) {
@@ -108,7 +127,7 @@ $(document).ready(function() {
       }
       return "" + count + " " + (count === 1 ? 'item' : 'items') + " remaining.";
     }, this));
-    this.clear_text = ko.dependentObservable(__bind(function() {
+    this.clear_text = ko.computed(__bind(function() {
       var count;
       count = this.collection_observable.collection().doneCount();
       if (!count) {
@@ -116,9 +135,12 @@ $(document).ready(function() {
       }
       return "Clear " + count + " completed " + (count === 1 ? 'item' : 'items') + ".";
     }, this));
+    this.clearable = ko.computed(__bind(function() {
+      return this.clear_text() !== '';
+    }, this));
     this.onDestroyDone = __bind(function() {
       var model, _i, _len, _ref, _results;
-      _ref = todos.allDone();
+      _ref = todos.doneTasks();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         model = _ref[_i];

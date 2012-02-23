@@ -23,7 +23,8 @@ $(document).ready(->
     localStorage: new Store("kb_todos") # Save all of the todo items under the `"kb_todos"` namespace.
     doneCount: -> @models.reduce(((prev,cur)-> return prev + if !!cur.get('done') then 1 else 0), 0)
     remainingCount: -> @models.length - @doneCount()
-    allDone: -> return @filter((todo) -> return !!todo.get('done'))
+    doneTasks: -> return @filter((todo) -> return !!todo.get('done'))
+    allDone: (done) -> @each((todo) -> todo.save(done: done))
   todos = new TodoList()
   todos.fetch()
 
@@ -43,8 +44,8 @@ $(document).ready(->
   TodoViewModel = (model) ->
     @text = kb.observable(model, {key: 'text', write: ((text) -> model.save({text: text}))}, this)
     @edit_mode = ko.observable(false)
-    @toggleEditMode = (event) => @edit_mode(!@edit_mode()) if not @done()
-    @onEnterEndEdit = (event) => @edit_mode(false) if (event.keyCode == 13)
+    @onCheckBeginEdit = => (@edit_mode(true); $('.todo-input').focus()) if not @edit_mode() and not @done()
+    @onCheckEndEdit = (view_model, event) => @edit_mode(false) if (event.keyCode == 13) or (event.type == 'blur')
 
     @done = kb.observable(model, {key: 'done', write: ((done) -> model.save({done: done})) }, this)
     @destroyTodo = => model.destroy()
@@ -53,20 +54,26 @@ $(document).ready(->
   TodoListViewModel = (todos) ->
     @todos = ko.observableArray([])
     @collection_observable = kb.collectionObservable(todos, @todos, { view_model: TodoViewModel })
+    @tasks_exist = ko.computed(=> @collection_observable().length)
+    @completeAll = ko.computed(
+      read: => return not @collection_observable.collection().remainingCount() # create a dependency
+      write: (done) => @collection_observable.collection().allDone(done)
+    )
     @
 
   # Stats Footer
   StatsViewModel = (todos) ->
     @collection_observable = kb.collectionObservable(todos)
-    @remaining_text = ko.dependentObservable(=>
+    @remaining_text = ko.computed(=>
       count = @collection_observable.collection().remainingCount(); return '' if not count
       return "#{count} #{if count == 1 then 'item' else 'items'} remaining."
     )
-    @clear_text = ko.dependentObservable(=>
+    @clear_text = ko.computed(=>
       count = @collection_observable.collection().doneCount(); return '' if not count
       return "Clear #{count} completed #{if count == 1 then 'item' else 'items'}."
     )
-    @onDestroyDone = => model.destroy() for model in todos.allDone()
+    @clearable = ko.computed(=> return @clear_text()!='')
+    @onDestroyDone = => model.destroy() for model in todos.doneTasks()
     @
 
   app_view_model =

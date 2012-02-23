@@ -1,5 +1,5 @@
 /*
-  knockback.js 0.12.0
+  knockback.js 0.13.0
   (c) 2011 Kevin Malakoff.
   Knockback.js is freely distributable under the MIT license.
   See the following for full license details:
@@ -17,7 +17,7 @@ if (!this._ || !this._.VERSION) {
 }
 this.Knockback || (this.Knockback = {});
 this.kb || (this.kb = this.Knockback);
-Knockback.VERSION = '0.12.0';
+Knockback.VERSION = '0.13.0';
 Knockback.locale_manager;
 Knockback.wrappedObservable = function(instance) {
   if (!instance._kb_observable) {
@@ -1111,30 +1111,31 @@ AttributeConnector = (function() {
 })();
 Knockback.ViewModel_RCBase = (function() {
   function ViewModel_RCBase() {
-    this.ref_count = 1;
+    this._kb_vm = {};
+    this._kb_vm.ref_count = 1;
   }
-  ViewModel_RCBase.prototype._destroy = function() {
+  ViewModel_RCBase.prototype.__destroy = function() {
     return kb.vmReleaseObservables(this);
   };
   ViewModel_RCBase.prototype.retain = function() {
-    if (this.ref_count <= 0) {
-      throw new Error("ViewModel: ref_count is corrupt: " + this.ref_count);
+    if (this._kb_vm.ref_count <= 0) {
+      throw new Error("ViewModel: ref_count is corrupt: " + this._kb_vm.ref_count);
     }
-    this.ref_count++;
+    this._kb_vm.ref_count++;
     return this;
   };
   ViewModel_RCBase.prototype.release = function() {
-    if (this.ref_count <= 0) {
-      throw new Error("ViewModel: ref_count is corrupt: " + this.ref_count);
+    if (this._kb_vm.ref_count <= 0) {
+      throw new Error("ViewModel: ref_count is corrupt: " + this._kb_vm.ref_count);
     }
-    this.ref_count--;
-    if (!this.ref_count) {
-      this._destroy();
+    this._kb_vm.ref_count--;
+    if (!this._kb_vm.ref_count) {
+      this.__destroy();
     }
     return this;
   };
   ViewModel_RCBase.prototype.refCount = function() {
-    return this.ref_count;
+    return this._kb_vm.ref_count;
   };
   return ViewModel_RCBase;
 })();
@@ -1145,7 +1146,7 @@ Knockback.ViewModel = (function() {
     if (options == null) {
       options = {};
     }
-    this._kb_vm = {};
+    ViewModel.__super__.constructor.apply(this, arguments);
     this._kb_vm.model = model;
     this._kb_vm.options = options;
     this._kb_vm.view_model = view_model;
@@ -1180,7 +1181,7 @@ Knockback.ViewModel = (function() {
       this._updateAttributeObservor(this._kb_vm.model, key);
     }
   }
-  ViewModel.prototype._destroy = function() {
+  ViewModel.prototype.__destroy = function() {
     var view_model;
     if (this._kb_vm.model) {
       this._kb_vm.model.unbind('change', this._kb_vm_onModelChange);

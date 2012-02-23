@@ -6,20 +6,19 @@
   <head>
     <title>Knockback Demo: Todos</title>
     <!-- Demo Dependencies -->
-    <script src="libs/json2.js"></script>
-    <script src="libs/jquery-1.7.min.js"></script>
-    <script src="libs/jquery.tmpl.min.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="js/jquery-1.7.1.min.js"></script>
 
     <!-- Knockback Dependencies -->
-    <script src="dependencies/underscore.js"></script>
-    <script src="dependencies/backbone.js"></script>
-    <script src="dependencies/knockout-2.0.0.js"></script>
-    <script src="dependencies/knockback.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/knockout-2.0.0.js"></script>
+    <script src="js/knockback.js"></script>
 
     <!-- The Demo -->
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="libs/backbone-localstorage.js"></script>
-    <script src="todos_classic.js"></script>
+    <script src="js/backbone-localstorage.js"></script>
+    <script src="js/todos.js"></script>
 
   </head>
 
@@ -39,24 +38,41 @@
       <div id="todo-create">
         <div class="content">
           <div id="create-todo">
-            <input id="new-todo" type="text" placeholder="What needs to be done?" data-bind="value: create.input_text, event: {keyup: create.addTodo}"/>
+            <input id="new-todo" type="text" placeholder="What needs to be done?" data-bind="value: create.input_text, valueUpdate: 'afterkeydown',event: {keyup: create.addTodo}"/>
           </div>
         </div>
       </div>
 
       <!-- Todos List Section -->
       <div id="todo-list">
-        <ul class="todo-list" data-bind="template: {name: 'item-template', foreach: todo_list.todos}"></ul>
+        <div data-bind="visible: todo_list.tasks_exist">
+            <input id="check-all" class="check" type="checkbox" data-bind="checked: todo_list.completeAll" />
+            <label for="check-all">Mark all as complete</label>
+        </div>
+        <ul id="todo-list" data-bind="foreach: todo_list.todos">
+          <li>
+            <div class="todo" data-bind="css: {done: done, editing: edit_mode}">
+              <div class="display">
+                <input class="check" type="checkbox" data-bind="checked: done" />
+                <div class="todo-text" data-bind="text: text, event: {dblclick: onCheckBeginEdit}"></div>
+                <div class="todo-destroy" data-bind="click: destroyTodo"></div>
+              </div>
+              <div class="edit">
+                <input class="todo-input" type="text" data-bind="value: text, valueUpdate: 'afterkeydown', event: {blur: onCheckEndEdit, keyup: onCheckEndEdit}" />
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
 
       <!-- Stats Section -->
-      <div id="todo-stats">
+      <div id="todo-stats" data-bind="visible: todo_list.tasks_exist">
         <span class="todo-count" data-bind="text: stats.remaining_text"></span>
-        <span class="todo-clear"> <a href="#" data-bind="text: stats.clear_text, click: stats.onDestroyDone"></a></span>
+        <span class="todo-clear" data-bind="visible: stats.clearable"><a href="#" data-bind="text: stats.clear_text, click: stats.onDestroyDone"></a></span>
       </div>
 
       <!-- Footer Section -->
-      <div id="todo-footer">
+      <div id="todo-footer" data-bind="visible: todo_list.tasks_exist">
         <ul id="instructions">
           <li>Double-click to edit a todo.</li>
         </ul>
@@ -76,23 +92,11 @@
       and
       <br />
       <a href="https://github.com/yuchi">Pier Paolo Ramon</a>
+      <br />
+      <br />
+      <span>Try the <a href="http://kmalakoff.github.com/knockback-todos/">enhanced version</a> to see how dynamic Knockback can be!</span>
     </div>
 
-    <!-- Templates -->
-    <script type="text/x-jquery-tmpl" id="item-template">
-      <li>
-        <div class="todo" data-bind="css: {done: done, editing: edit_mode}">
-          <div class="display">
-            <input class="check" type="checkbox" data-bind="checked: done" />
-            <div class="todo-text" data-bind="text: text, dblclick: toggleEditMode"></div>
-            <div class="todo-destroy" data-bind="click: destroyTodo"></div>
-          </div>
-          <div class="edit">
-            <input class="todo-input" type="text" data-bind="value: text, event: {keyup: onEnterEndEdit}" />
-          </div>
-        </div>
-      </li>
-    </script>
   </body>
 
 </html>
