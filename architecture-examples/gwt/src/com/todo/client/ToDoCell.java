@@ -36,7 +36,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
      */
     @SafeHtmlTemplates.Template(
         "<div class='{2}' data-timestamp='{3}'>" +
-              "{0}" +
+              "{0} " +
               "<label>{1}</label>" +
               "<a class='destroy'></a>" +
         "</div>")
