@@ -71,6 +71,7 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
     // *SIGH*
     mainSection.setId("main");
     clearCompleted.getElement().setId("clear-completed");
+    taskText.getElement().setId("new-todo");
   }
 
   @Override

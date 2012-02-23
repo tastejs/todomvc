@@ -19,13 +19,6 @@ folder also includes some redundant files, see the issue <a href="https://github
 Remove redundant compiler output</a>.
 - `src` - the Java source for this application
  
-### Running this application
-
-The GWT compiled output is plain old JavaScript and HTML, hence no server is required to run the application. However,
-because of teh way that GWT works, the JavaScript source is loaded via an iframe. For this reason, many browser
-such as Chrome and FireFox will not allow you to run this application locally. In this case, place the files
-into your favourite HTML server and you're good to go.
-
 ### Building this application
 
 The GWT TodoMVC application was built with Java 1.6 and GWT 2.4.0. The easiest way to build this application
