@@ -2,7 +2,7 @@
 
 This is a Google Web Toolkit (GWT) implementation of the TodoMVC application. The GWT version
 is rather different to all the other TodoMVC versions (Backbone, Knockout etc ...) in that it is
-written in Java which is compiled to JavaScript. The files within the <code>gwttodo</code> folder are the result
+written in Java which is compiled to JavaScript. The files within the `gwttodo` folder are the result
 of running the GWT compilation process on the Java files found within the src folder. The UI
 pattern used by this application is Model-View-Presenter.
 
@@ -12,12 +12,12 @@ with the resulting JavaScript code delivered to the client being compiled.
 
 ### Folder structure
 
-- <code>css</code> - includes the template <code>app.css</code> file and the GWT specific <code>override.css</code>
-- <code>gwttodo</code> - the GWT compiled output, this includes various HTML files, which contain the JavaScript
+- `css` - includes the template `app.css` file and the GWT specific `override.css`
+- `gwttodo` - the GWT compiled output, this includes various HTML files, which contain the JavaScript
 code for each <a href "http://code.google.com/webtoolkit/doc/latest/tutorial/compile.html">GWT permutation</a>. This
 folder also includes some redundant files, see the issue <a href="https://github.com/ColinEberhardt/todomvc/issues/9">
 Remove redundant compiler output</a>.
-- <code>src</code> - the Java source for this application
+- `src` - the Java source for this application
  
 ### Running this application
 
