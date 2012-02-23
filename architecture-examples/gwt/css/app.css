@@ -57,7 +57,7 @@ body {
 	font-style: italic;
 }
 
-.main {
+#main {
 	display: none;
 }
 
@@ -67,27 +67,23 @@ body {
 	list-style: none;
 }
 
-#todo-list .listItem {
+#todo-list li {
 	padding: 18px 20px 18px 0;
 	position: relative;
 	font-size: 24px;
 	border-bottom: 1px solid #cccccc;
 }
 
-/*
-Because of the structure imposed by the GWT CellList, this selector
-does not work.
-
-#todo-list .listItem:last-child {
+#todo-list li:last-child {
 	border-bottom: none;
-}*/
+}
 
-#todo-list .listItem.done label {
+#todo-list li.done label {
 	color: #777777;
 	text-decoration: line-through;
 }
 
-#todo-list .listItem .destroy {
+#todo-list li .destroy {
 	display: none;
 	position: absolute;
 	top: 20px;
@@ -98,36 +94,36 @@ does not work.
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAABGdBTUEAALGPC/xhBQAAACdQTFRFzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAA////zMzMhnu0WAAAAAt0Uk5T5u3pqtV3jFQEKAC0bVelAAAAfUlEQVQI12NYtWpFsc8R865VqxhWrZpyBgg8QcylZ8AgCsjMgTCPrWJYfgYKqhjWwJgaDDVnzpw+c2bPmTPHGWzOnNm95/TuM2cOM/AARXfvBooeZAAp270bRCIz4QoOIGtDMqwJZoUEQzvCYrhzuhhWtUKYEahOX7UK6iEA3A6NUGwCTZIAAAAASUVORK5CYII=') no-repeat center center;
 }
 
-#todo-list .listItem:hover .destroy {
+#todo-list li:hover .destroy {
 	display: block;
 }
 
-#todo-list .listItem.editing {
+#todo-list li.editing {
 	border-bottom: none;
 	margin-top: -1px;
 	padding: 0;
 }
 
-#todo-list .listItem.editing:last-child {
+#todo-list li.editing:last-child {
 	margin-bottom: -1px;
 }
 
-#todo-list .listItem.editing .edit {
+#todo-list li.editing .edit {
 	display: block;
 	width: 444px;
 	padding: 13px 15px 14px 20px;
 	margin: 0;
 }
 
-#todo-list .listItem.editing .view {
+#todo-list li.editing .view {
 	display: none;
 }
 
-#todo-list .listItem .view label {
+#todo-list li .view label {
 	word-break: break-word;
 }
 
-#todo-list .listItem .edit {
+#todo-list li .edit {
 	display: none;
 }
 
@@ -147,7 +143,8 @@ does not work.
 	border-radius: 0 0 5px 5px;
 }
 
-.clear-completed {
+#clear-completed {
+	display: none;
 	float: right;
 	line-height: 20px;
 	text-decoration: none;
@@ -170,7 +167,7 @@ does not work.
 	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
 }
 
-.clear-completed:hover {
+#clear-completed:hover {
 	background: rgba(0, 0, 0, 0.15);
 	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
@@ -179,7 +176,7 @@ does not work.
 	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 }
 
-.clear-completed:active {
+#clear-completed:active {
 	position: relative;
 	top: 1px;
 }

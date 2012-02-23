@@ -57,7 +57,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
     /**
      * The edit-mode template
      */
-    @SafeHtmlTemplates.Template("<input class='edit' value='{0}' type='text'></input>")
+    @SafeHtmlTemplates.Template("<input class='edit' value='{0}' type='text'>")
     SafeHtml edit(String task);
   }
 
@@ -81,13 +81,13 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
   public void render(Context context, ToDoItem value, SafeHtmlBuilder sb) {
     // render the cell in edit or view mode
     if (isEditing(value)) {
-      SafeHtml rendered = templates.edit(value.getText());
+      SafeHtml rendered = templates.edit(value.getTitle());
       sb.append(rendered);
     } else {
       SafeHtml rendered = templates.view(
-              value.isComplete() ? templates.inputChecked() : templates.inputClear(),
-              SafeHtmlUtils.fromString(value.getText()),
-              value.isComplete() ? "listItem view done" : "listItem view",
+              value.isDone() ? templates.inputChecked() : templates.inputClear(),
+              SafeHtmlUtils.fromString(value.getTitle()),
+              value.isDone() ? "listItem view done" : "listItem view",
                   // NOTE: The addition of a timestamp here is a bit of a HACK! The problem
                   // is that the CellList uses a HasDataPresenter for rendering. This class
                   // caches the more recent rendered contents for each cell, skipping a render
@@ -159,7 +159,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 
           // if so, synchronise the model state
           InputElement input = clickedElement.cast();
-          value.setComplete(input.isChecked());
+          value.setDone(input.isChecked());
           
           // update the 'row' style
           if (input.isChecked()) {
@@ -182,7 +182,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
    */
   private void commitEdit(Element parent, ToDoItem value) {
     InputElement input = getInputElement(parent);
-    value.setText(input.getValue());
+    value.setTitle(input.getValue());
   }
 
   /**

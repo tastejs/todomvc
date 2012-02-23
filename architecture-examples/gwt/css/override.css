@@ -1,0 +1,111 @@
+/* The GWT TodoMVC uses a CellList - a framework widget for rendering a list of cells - to
+   render the list of todo items. Unfortunately the CellList uses a div as its root container
+   and wraps each cell in a separate div. There are no extension points that allow you to change this.
+   As a result, this application deviates from the TodoMVC standard of ul / li for the to do list. The
+   styles applied to the li elements are duplicated here, matching a listItem class instead. */
+
+#todo-list .listItem {
+	padding: 18px 20px 18px 0;
+	position: relative;
+	font-size: 24px;
+	border-bottom: 1px solid #cccccc;
+}
+
+#todo-list div :last-child .listItem {
+	border-bottom: none;
+}
+
+#todo-list .listItem.done label {
+	color: #777777;
+	text-decoration: line-through;
+}
+
+#todo-list .listItem .destroy {
+	display: none;
+	position: absolute;
+	top: 20px;
+	right: 10px;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAABGdBTUEAALGPC/xhBQAAACdQTFRFzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAA////zMzMhnu0WAAAAAt0Uk5T5u3pqtV3jFQEKAC0bVelAAAAfUlEQVQI12NYtWpFsc8R865VqxhWrZpyBgg8QcylZ8AgCsjMgTCPrWJYfgYKqhjWwJgaDDVnzpw+c2bPmTPHGWzOnNm95/TuM2cOM/AARXfvBooeZAAp270bRCIz4QoOIGtDMqwJZoUEQzvCYrhzuhhWtUKYEahOX7UK6iEA3A6NUGwCTZIAAAAASUVORK5CYII=') no-repeat center center;
+}
+
+#todo-list .listItem:hover .destroy {
+	display: block;
+}
+
+#todo-list .listItem.editing {
+	border-bottom: none;
+	margin-top: -1px;
+	padding: 0;
+}
+
+#todo-list .listItem.editing:last-child {
+	margin-bottom: -1px;
+}
+
+#todo-list .listItem.editing .edit {
+	display: block;
+	width: 444px;
+	padding: 13px 15px 14px 20px;
+	margin: 0;
+}
+
+#todo-list .listItem.editing .view {
+	display: none;
+}
+
+#todo-list .listItem .view label {
+	word-break: break-word;
+}
+
+#todo-list .listItem .edit {
+	display: none; 
+}
+
+/* The GWT TodoMVC uses the UiBinder in order to construct the UI within XML. However
+   one limitation of this technique for UI generation is that it is not possible to place
+   an ID and a ui:field (which connects the element to a field), on the same element. For this
+   reason, the following styles have been changed to uses classes rather than IDs */
+
+.main {
+	display: none;
+}
+
+.clear-completed {
+	float: right;
+	line-height: 20px;
+	text-decoration: none;
+	background: rgba(0, 0, 0, 0.1);
+	color: #555555;
+	font-size: 11px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	padding: 0 10px 1px;
+	cursor: pointer;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	-ms-border-radius: 12px;
+	-o-border-radius: 12px;
+	border-radius: 12px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-ms-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+}
+
+.clear-completed:hover {
+	background: rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-ms-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+}
+
+.clear-completed:active {
+	position: relative;
+	top: 1px;
+}

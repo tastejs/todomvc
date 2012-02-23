@@ -120,7 +120,7 @@ public class ToDoPresenter {
     
     int completeTask = 0;
     for(ToDoItem task : todos.getList()){
-      if (task.isComplete()){
+      if (task.isDone()){
         completeTask ++;
       }
     }
@@ -158,7 +158,7 @@ public class ToDoPresenter {
   	// update the completed state of each item
   	suppressStateChanged = true;
   	for(ToDoItem task : todos.getList()){
-  		task.setComplete(completed);
+  		task.setDone(completed);
   	}
   	suppressStateChanged = false;
   	
@@ -189,7 +189,7 @@ public class ToDoPresenter {
     Iterator<ToDoItem> iterator = todos.getList().iterator();
     while (iterator.hasNext()) {
       ToDoItem item = iterator.next();
-      if (item.isComplete()) {
+      if (item.isDone()) {
         iterator.remove();
       }
     }
@@ -209,8 +209,8 @@ public class ToDoPresenter {
       for (int i = 0; i < todos.getList().size(); i++) {
         ToDoItem toDoItem = todos.getList().get(i);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("task", new JSONString(toDoItem.getText()));
-        jsonObject.put("complete", JSONBoolean.getInstance(toDoItem.isComplete()));
+        jsonObject.put("task", new JSONString(toDoItem.getTitle()));
+        jsonObject.put("complete", JSONBoolean.getInstance(toDoItem.isDone()));
         todoItems.set(i, jsonObject);
       }
 

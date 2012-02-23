@@ -1,7 +1,7 @@
 package com.todo.client;
 
 /**
- * An inidividual ToDo item.
+ * An individual ToDo item.
  * 
  * @author ceberhardt
  *
@@ -10,28 +10,28 @@ public class ToDoItem {
   
   private final ToDoPresenter presenter;
   
-  private String text;
+  private String title;
 
-  private boolean complete;
+  private boolean done;
   
   public ToDoItem(String text, ToDoPresenter presenter) {
-    this.text = text;    
-    this.complete = false;
+    this.title = text;    
+    this.done = false;
     this.presenter = presenter;
   }
 
-  public ToDoItem(String text, boolean completed, ToDoPresenter presenter) {
-    this.text = text;    
-    this.complete = completed;    
+  public ToDoItem(String title, boolean done, ToDoPresenter presenter) {
+    this.title = title;    
+    this.done = done;    
     this.presenter = presenter;
   }
 
-  public boolean isComplete() {
-    return complete;
+  public boolean isDone() {
+    return done;
   }
 
-  public void setComplete(boolean complete) {
-    this.complete = complete;
+  public void setDone(boolean done) {
+    this.done = done;
     presenter.itemStateChanged(this);
   }
   
@@ -39,12 +39,12 @@ public class ToDoItem {
     presenter.deleteTask(this);
   }
 
-  public String getText() {
-    return text;
+  public String getTitle() {
+    return title;
   }
 
-  public void setText(String text) {
-    this.text = text;
+  public void setTitle(String title) {
+    this.title = title;
     presenter.itemStateChanged(this);
   }
 }
