@@ -40,6 +40,7 @@ h2 {
 	font-size: 20px;
 	font-weight: normal;
 	padding: 14px 24px;
+	width: 160px;
 }
 
 .hero-unit .btn-large:first-child {
