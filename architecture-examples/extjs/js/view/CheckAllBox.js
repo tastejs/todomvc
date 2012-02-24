@@ -6,7 +6,6 @@ Ext.define('Todo.view.CheckAllBox' , {
         render: function (component) {
             component.getEl().on('click', function (event, el) {
                 var checked = !!Ext.get(el).getAttribute('checked');
-                console.log(checked);
                 this.fireEvent('click', checked);
             }, this, {
                 delegate: 'input'

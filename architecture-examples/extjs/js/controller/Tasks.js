@@ -55,7 +55,6 @@ Ext.define('Todo.controller.Tasks', {
     },
 
     onTodoDblClicked: function (list, record, el) {
-        // TODO Figure out why mouse up within the editing text box causes it to redraw and lose focus
         record.set('editing', true);
         record.store.sync();
         record.commit();
