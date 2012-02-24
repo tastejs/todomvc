@@ -3,9 +3,8 @@ Ext.define('Todo.view.TaskCompleteButton' , {
     alias : 'widget.completeButton',
     tpl: new Ext.XTemplate('<a id="clear-completed">{text}</a>', {compiled: true}),
     setText: function (text) {
-        this.html = this.tpl.apply({text:text});
+        this.update({text:text});
     },
-    html: '<a id="clear-completed">Clear Completed</a>',
     listeners: {
         render: function (component) {
             var self = this;
