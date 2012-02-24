@@ -1,6 +1,6 @@
 Ext.define('Todo.view.TaskCompleteButton' , {
     extend: 'Ext.Component',
-    alias : 'widget.completeButton',
+    alias: 'widget.completeButton',
     tpl: new Ext.XTemplate('<a id="clear-completed">{text}</a>', {compiled: true}),
     setText: function (text) {
         this.update({text:text});

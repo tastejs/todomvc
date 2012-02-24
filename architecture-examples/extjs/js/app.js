@@ -11,12 +11,16 @@ Ext.application({
             contentEl: 'new-todo'
         });
 
+        Ext.create('Todo.view.CheckAllBox', {
+            renderTo: 'main'
+        });
+
         Ext.create('Todo.view.TaskList', {
             renderTo: 'main'
         });
 
         Ext.create('Todo.view.TaskToolbar', {
-            renderTo: 'main'
+            renderTo: 'todoapp'
         });
 
     }

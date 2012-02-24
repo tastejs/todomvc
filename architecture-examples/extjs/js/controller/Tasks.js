@@ -10,7 +10,7 @@ Ext.define('Todo.controller.Tasks', {
 
     refs: [
         {ref: 'taskList', selector: 'taskList'},
-        {ref: 'taskToolbar', selector: 'taskToolbar'}
+        {ref: 'taskToolbar', selector: 'taskToolbar'},
     ],
 
     init: function() {
@@ -19,10 +19,14 @@ Ext.define('Todo.controller.Tasks', {
                 keyup: this.onTaskFieldKeyup
             },
             'taskList': {
-                itemclick: this.onListItemClick
+                todoChecked: this.onTodoChecked,
+                itemdblclick: this.onTodoDblClicked
             },
             'completeButton': {
                 click: this.onClearButtonClick
+            },
+            'checkAllBox': {
+                click: this.onCheckAllClick
             }
         });
 
@@ -34,8 +38,9 @@ Ext.define('Todo.controller.Tasks', {
     },
 
     onTaskFieldKeyup: function(field, event) {
+        var ENTER_KEY_CODE = 13;
         var value = field.getValue();
-        if (event.keyCode === 13 && value !== '') {
+        if (event.keyCode === ENTER_KEY_CODE && value !== '') {
             var store = this.getTasksStore();
             store.add({label: value, checked: false});
             field.reset();
@@ -43,14 +48,20 @@ Ext.define('Todo.controller.Tasks', {
         }
     },
 
-    onListItemClick: function(list, record, el) {
+    onTodoChecked: function(record) {
         record.set('checked', !record.get('checked'));
         record.store.sync();
         record.commit();
     },
 
+    onTodoDblClicked: function (list, record, el) {
+        // TODO Figure out why mouse up within the editing text box causes it to redraw and lose focus
+        record.set('editing', true);
+        record.store.sync();
+        record.commit();
+    },
+
     onClearButtonClick: function() {
-        console.log('clear completed called');
         var records = [],
             store = this.getTasksStore();
 
@@ -60,6 +71,15 @@ Ext.define('Todo.controller.Tasks', {
             }
         });
         store.remove(records);
+        store.sync();
+    },
+
+    onCheckAllClick: function(checked) {
+        console.log('on check all');
+        var store = this.getTasksStore();
+        store.each(function(record) {
+            record.set('checked', checked);
+        });
         store.sync();
     },
 
