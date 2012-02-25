@@ -20,7 +20,9 @@ Ext.define('Todo.controller.Tasks', {
             },
             'taskList': {
                 todoChecked: this.onTodoChecked,
-                itemdblclick: this.onTodoDblClicked
+                itemdblclick: this.onTodoDblClicked,
+                onTaskEditKeyup: this.onTaskEditKeyup,
+                todoRemoveSelected: this.onTodoRemoveSelected
             },
             'completeButton': {
                 click: this.onClearButtonClick
@@ -39,7 +41,7 @@ Ext.define('Todo.controller.Tasks', {
 
     onTaskFieldKeyup: function(field, event) {
         var ENTER_KEY_CODE = 13;
-        var value = field.getValue();
+        var value = field.getValue().trim();
         if (event.keyCode === ENTER_KEY_CODE && value !== '') {
             var store = this.getTasksStore();
             store.add({label: value, checked: false});
@@ -58,6 +60,32 @@ Ext.define('Todo.controller.Tasks', {
         record.set('editing', true);
         record.store.sync();
         record.commit();
+    },
+
+    onTodoRemoveSelected: function (record) {
+        var store = this.getTasksStore();
+        store.remove(record);
+        store.sync();
+    },
+
+    onTaskEditKeyup: function (keyEvent, record, extEl) {
+        var ENTER_KEY_CODE = 13;
+        if (event.keyCode === ENTER_KEY_CODE) {
+            this.finalizeTaskEdit(extEl, record);
+        }
+    },
+
+    finalizeTaskEdit: function (extEl, record) {
+        value = extEl.getValue().trim();
+
+        if (!value)
+            return;
+
+        record.set('label', value);
+        record.set('editing', false);
+        record.store.sync();
+        record.commit();
+
     },
 
     onClearButtonClick: function() {
