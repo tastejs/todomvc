@@ -1,4 +1,11 @@
 (function () {
+    //trim polyfill
+    if (!String.prototype.trim) {
+        String.prototype.trim = function () {
+            return this.replace(/^\s+|\s+$/g, '');
+        };
+    }
+
     //a custom binding to handle the enter key (could go in a separate library)
     ko.bindingHandlers.enterKey = {
         init:function (element, valueAccessor, allBindingsAccessor, data) {
@@ -78,7 +85,7 @@
 
         //add a new todo, when enter key is pressed
         self.add = function (data, event) {
-            var newTodo, current = (self.current() || "").replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g, "");
+            var newTodo, current = self.current().trim();
             if (current) {
                 newTodo = new Todo(current);
                 self.todos.push(newTodo);
