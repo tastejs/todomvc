@@ -146,7 +146,7 @@
 
                 //store to local storage
                 amplify.store("todos-knockout", todos);
-            }).extend({ throttle:1000 }); //save at most once per second
+            }).extend({ throttle:500 }); //save at most once per second
     };
 
     //check local storage for todos
