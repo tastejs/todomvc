@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dojo</title>
+	<style type="text/css">
+			@import "./css/claro.css";
+	</style>
+    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+    <script data-dojo-config="async:true, parseOnLoad:true, locale:'en', paths:{'todo':'../../todo'}, deps:['dojo/parser', 'todo/app']" src="./js/dtk/dojo/dojo.js"></script>
+  </head>
+  <body class="claro">
+    <div id="todoapp">
+
+        <div class="title">
+            <h1>Todos</h1>
+        </div>
+
+        <div class="content" data-dojo-type="todo.app"></div>
+
+        <div id="credits">
+            Created by
+            <br />
+            <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a>.
+        </div>
+    </div>
+</body>
+
+</html>
