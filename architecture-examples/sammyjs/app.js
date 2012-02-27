@@ -45,7 +45,7 @@
 				if (e.keyCode == 13){ 
 					var todoContent = $(this).val();
 					var todo = Todos.create({ name: todoContent, done: false, listId: parseInt($('h2').attr('data-id'), 10) });
-					context.partial('templates/_todo.template', todo, function(html) {
+					context.partial('templates/todo.template', todo, function(html) {
 						$('#todo-list').append(html);
 
 					});
