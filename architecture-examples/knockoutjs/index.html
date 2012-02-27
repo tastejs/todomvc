@@ -23,7 +23,7 @@
                     <a class="destroy" href="#" data-bind="click: $root.remove"></a>
                 </div>
                 <input class="edit" type="text"
-                       data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: stopEditing, hasfocus: editing, select: true, event: { blur: stopEditing }"/>
+                       data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: stopEditing, selectAndFocus: editing, event: { blur: stopEditing }"/>
             </li>
         </ul>
     </section>
