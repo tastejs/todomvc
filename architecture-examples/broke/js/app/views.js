@@ -96,15 +96,30 @@
             
         }
         ,clear_completed: function(request, taskId, callback){
+            var
+                markAllCompletedCheckbox = $('#mark-all-completed')[0]
+            ;
 
             Task.objects.filter({ is_complete: true }).all(function(taskList){
-                
                 builtins.forEach(taskList, function(task){
                     this['delete']();
                 });
-
             });
 
+            if(markAllCompletedCheckbox.checked) {
+                markAllCompletedCheckbox.checked = false;
+            }
+        }
+        ,mark_all_as_complete: function(request){
+            var
+                isComplete = request.event ? request.event.target.checked : false
+            ;
+
+            Task.objects.all(function(taskList){
+                builtins.forEach(taskList, function(){
+                    this.markAsComplete(isComplete);
+                });
+            });
         }
     };
 })(this);

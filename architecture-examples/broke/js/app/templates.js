@@ -1,7 +1,7 @@
 (function(context, undefined){
     var
-        genericTaskTemplate= '<li class="item" data-app_label="{{ task.__class__._meta.appLabel }}" data-model="{{ task.__class__._meta.modelName }}" data-pk="{{ task.pk }}">'+
-            '<input type="checkbox" data-field="is_complete" data-href="#/task/complete/{{ task.pk }}/" {% if task.fields.is_complete %} checked="checked"{% endif %} />' +
+        genericTaskTemplate= '<li class="item" data-href="#/task/update/{{ task.pk }}/" data-app_label="{{ task.__class__._meta.appLabel }}" data-model="{{ task.__class__._meta.modelName }}" data-pk="{{ task.pk }}">'+
+            '<input type="checkbox" data-field="is_complete" data-href="#/task/complete/{{ task.pk }}/"{% if task.fields.is_complete %} checked="checked"{% endif %} />' +
             '<span data-field="title">{{ task.title }}</span>' +
             '<a class="edit" href="#/task/update/{{ task.pk }}/"></a>' +
             '<a class="destroy" href="#/task/delete/{{ task.pk }}/"></a>' +

@@ -22,6 +22,10 @@
                 events: ['click']
                 ,urlAttribute: 'data-href'
             }
+            ,'li': {
+                events: ['click']
+                ,urlAttribute: 'data-href'
+            }
         })
     };
 

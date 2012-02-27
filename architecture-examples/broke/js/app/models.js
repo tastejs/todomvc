@@ -9,5 +9,12 @@
         __name__: "todo.models.Task"
         ,title: models.CharField({ max_length: 200 })
         ,is_complete: models.BooleanField({ 'default': false })
+        ,markAsComplete: function(complete){
+            this.update({
+                is_complete: complete === undefined ? true : complete
+            }, false);
+
+            this.elements().find('input:checkbox')[0].checked = complete;
+        }
     });
 })(this);
