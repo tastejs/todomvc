@@ -9,19 +9,19 @@ $(function(){
   // Todo Model
   // ----------
 
-  // Our basic **Todo** model has `content`, `order`, and `done` attributes.
+  // Our basic **Todo** model has `title`, `order`, and `done` attributes.
   var Todo = Backbone.Model.extend({
 
     // Default attributes for the todo.
     defaults: {
-      content: "empty todo...",
+      title: "empty todo...",
       done: false
     },
 
-    // Ensure that each todo created has `content`.
+    // Ensure that each todo created has `title`.
     initialize: function() {
-      if (!this.get("content")) {
-        this.set({"content": this.defaults.content});
+      if (!this.get("title")) {
+        this.set({"title": this.defaults.title});
       }
     },
 
@@ -92,7 +92,7 @@ $(function(){
     // The DOM events specific to an item.
     events: {
       "click .toggle"   : "toggleDone",
-      "dblclick label"  : "edit",
+      "dblclick .view"  : "edit",
       "click a.destroy" : "clear",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close"
@@ -106,7 +106,7 @@ $(function(){
       this.model.bind('destroy', this.remove, this);
     },
 
-    // Re-render the contents of the todo item.
+    // Re-render the titles of the todo item.
     render: function() {
       var $el = $(this.el);
       $el.html(this.template(this.model.toJSON()));
@@ -129,7 +129,7 @@ $(function(){
 
     // Close the `"editing"` mode, saving changes to the todo.
     close: function() {
-      this.model.save({content: this.input.val()});
+      this.model.save({title: this.input.val()});
       $(this.el).removeClass("editing");
     },
 
@@ -220,9 +220,9 @@ $(function(){
     // Generate the attributes for a new Todo item.
     newAttributes: function() {
       return {
-        content: this.input.val(),
-        order:   Todos.nextOrder(),
-        done:    false
+        title: this.input.val().trim(),
+        order: Todos.nextOrder(),
+        done: false
       };
     },
 
@@ -230,6 +230,8 @@ $(function(){
     // persisting it to *localStorage*.
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
+      if (!this.input.val().trim()) return;
+
       Todos.create(this.newAttributes());
       this.input.val('');
     },
