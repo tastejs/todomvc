@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Backbone.js</title>
-    <link rel="stylesheet" href="css/app.css"/>
+	<meta charset="utf-8">
+	<title>Backbone.js</title>
+	<link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
-    <div id="todoapp">
+	<div id="todoapp">
 		<header>
 			<h1>Todos</h1>
 			<input id="new-todo" type="text" placeholder="What needs to be done?">
@@ -15,49 +15,49 @@
 		<section id="main">
 			<input id="toggle-all" type="checkbox">
 			<label for="toggle-all">Mark all as complete</label>
-            <ul id="todo-list">
-            </ul>
-        </section>
+			<ul id="todo-list">
+			</ul>
+		</section>
 
 		<footer>
 			<a id="clear-completed">Clear completed</a>
 			<div id="todo-count"></div>
 		</footer>
-    </div>
+	</div>
 	<div id="instructions">
 		Double-click to edit a todo.
 	</div>
-    <div id="credits">
-        Created by
-        <br />
-        <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
-        <br />Cleanup, edits: <a href="http://addyosmani.com">Addy Osmani</a>, <a href="http://github.com/boushley">Aaron Boushley</a>.
-    </div>
+	<div id="credits">
+		Created by
+		<br />
+		<a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
+		<br />Cleanup, edits: <a href="http://addyosmani.com">Addy Osmani</a>, <a href="http://github.com/boushley">Aaron Boushley</a>.
+	</div>
 
-    <script src="js/libs/json2.js"></script>
-    <script src="js/libs/jquery-1.7.1.min.js"></script>
-    <script src="js/libs/underscore.js"></script>
-    <script src="js/libs/backbone.js"></script>
-    <script src="js/libs/backbone-localstorage.js"></script>
-    <script src="js/app.js"></script>
+	<script src="js/libs/json2.js"></script>
+	<script src="js/libs/jquery-1.7.1.min.js"></script>
+	<script src="js/libs/underscore.js"></script>
+	<script src="js/libs/backbone.js"></script>
+	<script src="js/libs/backbone-localstorage.js"></script>
+	<script src="js/app.js"></script>
 
-    <!-- Templates -->
+	<!-- Templates -->
 
-    <script type="text/template" id="item-template">
-        <div class="view">
-            <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-            <label><%= title %></label>
-            <a class="destroy"></a>
-        </div>
-        <input class="edit" type="text" value="<%= title %>" />
-    </script>
+	<script type="text/template" id="item-template">
+		<div class="view">
+			<input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+			<label><%= title %></label>
+			<a class="destroy"></a>
+		</div>
+		<input class="edit" type="text" value="<%= title %>" />
+	</script>
 
-    <script type="text/template" id="stats-template">
-        <% if (done) { %>
-            <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
-        <% } %>
-        <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
-    </script>
+	<script type="text/template" id="stats-template">
+		<% if (done) { %>
+			<a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
+			<% } %>
+		<div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+	</script>
 
 </body>
 </html>
