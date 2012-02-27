@@ -68,16 +68,6 @@
         this.editing = ko.observable(false);
     };
 
-    //can place methods on prototype, as there can be many todos
-    ko.utils.extend(Todo.prototype, {
-        edit:function () {
-            this.editing(true);
-        },
-        stopEditing:function () {
-            this.editing(false);
-        }
-    });
-
     //our main view model
     var ViewModel = function (todos) {
         var self = this;
@@ -109,6 +99,19 @@
             self.todos.remove(function (todo) {
                 return todo.done();
             });
+        };
+        
+        //edit an item
+        self.editItem = function(item) {
+            item.editing(true);
+        };
+        
+        //stop editing an item.  Remove the item, if it is now empty
+        self.stopEditing = function(item) {
+            item.editing(false);
+            if (!item.content().trim()) {
+                self.remove(item);
+            }
         };
 
         //count of all completed todos
