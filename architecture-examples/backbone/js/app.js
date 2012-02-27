@@ -129,7 +129,12 @@ $(function(){
 
     // Close the `"editing"` mode, saving changes to the todo.
     close: function() {
-      this.model.save({title: this.input.val()});
+      var value = this.input.val().trim();
+
+      if (!value)
+          this.clear();
+      
+      this.model.save({title: value});
       $(this.el).removeClass("editing");
     },
 
