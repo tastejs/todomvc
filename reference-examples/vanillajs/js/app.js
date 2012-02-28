@@ -1,12 +1,13 @@
 var tasks = [];
 var stat;
+var ENTER_KEY = 13;
 
 /**************************/
 /*    MODEL                /
 /**************************/
-function Todo(name, done) {
+function Todo(title, done) {
     this.id = uuid();
-    this.name = name;
+    this.title = title;
     this.done = done;
 }
 
@@ -28,7 +29,7 @@ function inputEditTodoKeyPressHandler(event) {
     var inputEditTodo = event.target;
     var taskId = event.target.id.slice(6);
 
-    if (event.keyCode === 13) {
+    if (event.keyCode === ENTER_KEY) {
         editTask(taskId, inputEditTodo.value);
     }
 }
@@ -60,6 +61,7 @@ function spanDeleteClickHandler(event) {
 function hrefClearClickHandler() {
     removeTasksDone();
     refreshData();
+    document.getElementById("toggle-all").checked = false;
 }
 
 function todoContentHandler(event) {
@@ -86,16 +88,16 @@ function checkboxChangeHandler(event) {
 /*    ACTIONS              /
 /**************************/
 function loadTasks() {
-    if (!localStorage.todo) {
-        localStorage.todo = JSON.stringify([]);
+    if (!localStorage.getItem('todos-vanillajs')) {
+        localStorage.setItem('todos-vanillajs', JSON.stringify([]));
     }
 
-    tasks = JSON.parse(localStorage['todo']);
+    tasks = JSON.parse(localStorage.getItem('todos-vanillajs'));
 
 }
 
 function addTask(text) {
-    var todo = new Todo(text, false);
+    var todo = new Todo(text.trim(), false);
     tasks.push(todo);
     refreshData();
 }
@@ -103,7 +105,7 @@ function addTask(text) {
 function editTask(taskId, text) {
     for (var i=0; i < tasks.length; i++) {
         if (tasks[i].id === taskId) {
-            tasks[i].name = text;
+            tasks[i].title = text;
         }
     }
     refreshData();
@@ -141,7 +143,7 @@ function refreshData() {
 }
 
 function saveTasks() {
-    localStorage['todo'] = JSON.stringify(tasks);
+    localStorage.setItem('todos-vanillajs', JSON.stringify(tasks));
 }
 
 function computeStats() {
@@ -182,8 +184,8 @@ function redrawTasksUI() {
         //create div text
         var label = document.createElement("label");
         label.setAttribute("data-todo-id", todo.id);
-        label.appendChild(document.createTextNode(todo.name));
-        label.addEventListener("dblclick", todoContentHandler);
+        label.appendChild(document.createTextNode(todo.title));
+
 
         //create delete button
         var deleteLink = document.createElement("a");
@@ -194,9 +196,11 @@ function redrawTasksUI() {
         //create divDisplay
         var divDisplay = document.createElement("div");
         divDisplay.className = "view";
+        divDisplay.setAttribute("data-todo-id", todo.id);
         divDisplay.appendChild(checkbox);
         divDisplay.appendChild(label);
         divDisplay.appendChild(deleteLink);
+        divDisplay.addEventListener("dblclick", todoContentHandler);
 
 
         //create todo input
@@ -204,7 +208,7 @@ function redrawTasksUI() {
         inputEditTodo.id = "input_" + todo.id;
         inputEditTodo.type = "text";
         inputEditTodo.className = "edit";
-        inputEditTodo.value = todo.name;
+        inputEditTodo.value = todo.title;
         inputEditTodo.addEventListener("keypress", inputEditTodoKeyPressHandler);
         inputEditTodo.addEventListener("blur", inputEditTodoBlurHandler);
 
@@ -228,6 +232,7 @@ function redrawTasksUI() {
 
 function redrawStatsUI() {
     removeChildren(document.getElementsByTagName("footer")[0]);
+
 
     if (stat.todoCompleted > 0) {
         drawTodoClear();
@@ -299,4 +304,11 @@ function uuid() {
     uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
   }
   return uuid;
+}
+
+//trim polyfill
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
 }
