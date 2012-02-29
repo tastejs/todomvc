@@ -32,7 +32,7 @@
             </ul>
         </section>
         <footer ng:show="hasTodos()">
-            <a id="clear-completed">Clear completed</a>
+            <a id="clear-completed" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
             <div id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</div>
         </footer>
     </div>

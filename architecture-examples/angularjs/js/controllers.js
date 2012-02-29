@@ -51,8 +51,13 @@ App.Controllers.TodoController = function () {
     self.finishedTodos = countTodos("done");
 
     self.itemsLeftText = function(){
-        return pluralize(self.remainingTodos(), 'item' ) + ' left'
+        return pluralize(self.remainingTodos(), 'item') + ' left'
     };
+
+    self.clearItemsText = function(){
+        var finishedTodos = finishedTodos();
+        return 'Clear ' + finishedTodos + ' completed ' + pluralize(finishedTodos, 'item');
+    }
 
     self.clearCompletedItems = function() {
         var oldTodos = self.todos;
