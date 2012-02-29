@@ -1,76 +1,51 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org/" xmlns:my="http://rx.org">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>AngularJS Todo App</title>
-  <link rel="stylesheet" href="css/app.css"/>
+    <meta charset="utf-8">
+    <title>AngularJS - TodoMVC</title>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/overwrite.css">
 </head>
 <body>
-      <div ng:controller="App.Controllers.TodoController" id="todoapp">
-        <div class="title">
-            <h1>
-                Todos
-            </h1>
-        </div>
-        <div class="content">
-            <div id="todo-form">
-            </div>
+    <div ng:controller="App.Controllers.TodoController" id="todoapp">
+        <header>
+            <h1>Todos</h1>
             <form id="todo-form" ng:submit="addTodo()">
-                <input id="new-todo" name="newTodo" my:blur="addTodo()" placeholder="What needs to be done?" type="text">
-                <span class="ui-tooltip-top" ng:show="showHitEnterHint">
-                    Press Enter to save this task
-                </span>
+            <input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
             </form>
-            <div id="todos">
-                <ul id="todo-list">
-                  <li class="todo" ng:class="'editing-' + todo.editing + ' done-' + todo.done" ng:repeat="todo in todos">
-                    <div class="display">
-                      <input class="check" type="checkbox" name="todo.done" / >
-                      <div ng:click="editTodo(todo)" class="todo-content"> {{ todo.content }} </div>
-                      <span class="todo-destroy" ng:click="removeTodo(todo)"></span>
-                   </div>
-                  <div class="edit">
+        </header>
+        <!-- TODO: figure out if its spec compliant to remove the #main id if its getting into the way?-->
+        <section id="main" ng:show="hasTodos()">
+            <input id="toggle-all" type="checkbox" name="allChecked" ng:click="toggleAllStates()">
+            <label for="toggle-all">Mark all as complete</label>
+            <ul id="todo-list">
+                <li ng:repeat="todo in todos" my:dblclick="editTodo(todo)" ng:class="(todo.done && ' done ') + (todo.editing && ' editing ')">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" name="todo.done">
+                        <label>{{ todo.content }}</label>
+                        <a class="destroy" ng:click="removeTodo(todo)"></a>
+                    </div>
                     <form ng:submit="finishEditing(todo)">
-                        <input class="todo-input" my:focus="todo.editing" my:blur="finishEditing(todo)" name="todo.content" type="text">
+                        <input class="edit" type="text" name="todo.content" my:focus="todo.editing" my:blur="finishEditing(todo)">
                     </form>
-                  </div>
-                  </li>
-                </ul>
-            </div>
-            <div id="todo-stats">
-              <span class="todo-count" ng:show="hasTodos()">
-                <ng:pluralize count="remainingTodos()" when="{'0' : 'No items left.', '1': '1 item left.', 'other' : '{} items left.' }">
-                </ng:pluralize>
-              </span>
-              <span class="todo-clear" ng:show="hasFinishedTodos()">
-                  <a ng:click="clearCompletedItems()">
-                  	Clear <ng:pluralize count="finishedTodos()" when="{'1': '1 completed item', 'other' : '{} completed items' }">
-                  	</ng:pluralize>
-                  </a>
-              </span>
-        </div>
-        </div>
+                </li>
+            </ul>
+        </section>
+        <footer ng:show="hasTodos()">
+            <a id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
+            <div id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</div>
+        </footer>
     </div>
-    <ul id="instructions">
-      <li>Click to edit a todo.</li>
-    </ul>
+    <div id="instructions">
+        Double-click to edit a todo.
+    </div>
     <div id="credits">
-        <p>
-            Originally Created by
-            <br>
-            <a href="http://jgn.me/">Jérôme Gravel-Niquet</a>
-        </p>
-        <p>
-            Rewritten to use <a href="http://angularjs.org">AngularJS </a> by
-            <br>
-            <a href="http://cburgdorf.wordpress.com/">Christoph Burgdorf</a>
-            <br>Cleanup, edits: <a href="http://www.linkedin.com/pub/dan-doyon/2/1b0/a83">Dan Doyon</a>
-        </p>
+        Created by <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>.
     </div>
   <script src="js/booter.js"></script>
-  <script src="lib/angular/angular.min.js" ng:autobind></script>
-  <script src="lib/rx/rx.js"></script>
-  <script src="lib/rx/rx.angular.js"></script>
+  <script src="js/lib/angular/angular.min.js" ng:autobind></script>
   <script src="js/controllers.js"></script>
   <script src="js/directive.js"></script>  
 </body>
