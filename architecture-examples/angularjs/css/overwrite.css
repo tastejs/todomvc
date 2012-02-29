@@ -17,30 +17,3 @@ as AngularJS's show directive will keep track of hiding/showing the elements for
 #todo-count span {
 	font-weight: inherit;
 }
-
-/*Figure out how to apply classes conditionally so that we can get rid of "editing-true" */
-#todo-list li.editing-true {
-	border-bottom: none;
-	margin-top: -1px;
-	padding: 0;
-}
-
-#todo-list li.editing-true:last-child {
-	margin-bottom: -1px;
-}
-
-#todo-list li.editing-true .edit {
-	display: block;
-	width: 444px;
-	padding: 13px 15px 14px 20px;
-	margin: 0;
-}
-
-#todo-list li.editing-true .view {
-	display: none;
-}
-
-#todo-list li.done-true label {
-	color: #777777;
-	text-decoration: line-through;
-}
