@@ -7,7 +7,7 @@ App.Controllers.TodoController = function () {
 
     self.addTodo = function() {
         if (self.newTodo.length === 0) return;
-        
+
         self.todos.push({
             content: self.newTodo,
             done: false,
@@ -42,9 +42,17 @@ App.Controllers.TodoController = function () {
         }
     };
 
+    var pluralize = function( count, word ) {
+        return count === 1 ? word : word + 's';
+    }
+
     self.remainingTodos = countTodos("undone");
 
     self.finishedTodos = countTodos("done");
+
+    self.itemsLeftText = function(){
+        return pluralize(self.remainingTodos(), 'item' ) + ' left'
+    };
 
     self.clearCompletedItems = function() {
         var oldTodos = self.todos;
