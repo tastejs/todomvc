@@ -5,25 +5,40 @@
     <link rel="stylesheet" href="css/application.css" type="text/css" charset="utf-8">
 </head>
 <body>
-    <div id="views">
-        <div id="tasks">
+    <div id="todoapp">
+        <div class="title">
             <h1>Todos</h1>
+        </div>
 
-            <form action="#/task/create/" method="post">
-                <input type="text" name="title" placeholder="What needs to be done?" />
-            </form>
-
-            <div id="content"></div>
-
-            <footer>
+        <div class="content">
+            <div id="create-todo">
+                <form action="#/task/create/" method="post">
+                    <input type="text" name="title" placeholder="What needs to be done?" />
+                </form>
+            </div>
+            <div id="todos">
                 <input type="checkbox" data-href="#/task/mark_all_as_complete/" id="mark-all-completed"/>
-                Mark all as complete
-                <a class="clear" href="#/task/clear_completed/">Clear completed</a>
-                <div class="count"><span class="countVal"></span></div>
-            </footer>
+                <label for="mark-all-completed">
+                    Mark all as complete
+                </label>
+                <div id="todo-list"></div>
+            </div>
+            <div id="todo-stats">
+                <a class="clear" href="#/task/clear_completed/">
+                    Clear completed
+                </a>
+                <span class="todo-count" data-app-label="todo" data-model="counter" data-pk="1">
+                    <span class="number" data-field="count">0</span> <span class="word">items left.</span>
+                </span>
+            </div>
         </div>
     </div>
-    
+    <div id="credits">
+        Created by
+        <br />
+        <a href="http://www.brokenseal.it/">Davide Callegari</a>
+    </div>
+
     <script src="js/jquery-1.6.4.min.js"></script>
     <script src="js/gettext.min.js"></script>
     <script src="js/pyjammin.min.js"></script>

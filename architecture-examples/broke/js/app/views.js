@@ -10,7 +10,7 @@
             Task.objects.all(function(taskList){
                 
                 callback(node.create({
-                    htmlNode: '#content'
+                    htmlNode: '#todo-list'
                     ,template: 'list'
                     ,object: taskList
                     ,context: {
@@ -19,7 +19,6 @@
                 }));
                 
             });
-            
         }
         ,create: function(request, callback){
             
@@ -31,7 +30,7 @@
                 }, function(task){
                     
                     callback(node.create({
-                        htmlNode: '#content .items'
+                        htmlNode: '#todo-list .items'
                         ,template: 'view'
                         ,object: task
                         ,context: {
@@ -116,8 +115,9 @@
             ;
 
             Task.objects.all(function(taskList){
+                console.log(taskList);
                 builtins.forEach(taskList, function(){
-                    this.markAsComplete(isComplete);
+                    this.update({ is_complete: isComplete });
                 });
             });
         }
