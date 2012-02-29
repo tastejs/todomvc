@@ -55,7 +55,7 @@ App.Controllers.TodoController = function () {
     };
 
     self.clearItemsText = function(){
-        var finishedTodos = finishedTodos();
+        var finishedTodos = self.finishedTodos();
         return 'Clear ' + finishedTodos + ' completed ' + pluralize(finishedTodos, 'item');
     }
 

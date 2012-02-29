@@ -23,7 +23,7 @@
             <ul id="todo-list">
                 <li ng:repeat="todo in todos">
                     <div class="view">
-                        <input class="toggle" type="checkbox">
+                        <input class="toggle" type="checkbox" name="todo.done">
                         <label>{{ todo.content }}</label>
                         <a class="destroy" ng:click="removeTodo(todo)"></a>
                     </div>
@@ -32,7 +32,7 @@
             </ul>
         </section>
         <footer ng:show="hasTodos()">
-            <a id="clear-completed" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
+            <a id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
             <div id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</div>
         </footer>
     </div>
