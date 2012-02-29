@@ -64,7 +64,7 @@ Todos.StatsView = Ember.View.extend({
   remainingString: function() {
     var remaining = this.get('remaining');
     return remaining + (remaining === 1 ? " item" : " items");
-  }.property('remaining'),
+  }.property('remaining')
 });
 
 Todos.CreateTodoView = Ember.TextField.extend({
