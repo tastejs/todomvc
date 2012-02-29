@@ -10,6 +10,17 @@ angular.directive('my:blur', function(expression, compiledElement) {
     };
 });
 
+angular.directive('my:dblclick', function(expression, compiledElement) {
+    var compiler = this;
+    return function(linkElement) {
+        var scope = this;
+        linkElement.bind('dblclick', function(event) {
+            scope.$apply(expression, linkElement);
+            event.stopPropagation();
+        });
+    };
+});
+
 angular.directive("my:focus", function(expression, compiledElement){
   return function(element){
     this.$watch(expression, function(){
