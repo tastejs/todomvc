@@ -44,7 +44,7 @@ App.Controllers.TodoController = function () {
 
     var pluralize = function( count, word ) {
         return count === 1 ? word : word + 's';
-    }
+    };
 
     self.remainingTodos = countTodos("undone");
 
@@ -57,7 +57,7 @@ App.Controllers.TodoController = function () {
     self.clearItemsText = function(){
         var finishedTodos = self.finishedTodos();
         return 'Clear ' + finishedTodos + ' completed ' + pluralize(finishedTodos, 'item');
-    }
+    };
 
     self.clearCompletedItems = function() {
         var oldTodos = self.todos;
@@ -67,6 +67,12 @@ App.Controllers.TodoController = function () {
         });
     };
 
+    self.toggleAllStates = function(){
+        angular.forEach(self.todos, function(todo){
+            todo.done = self.allChecked;
+        })
+    };
+
     self.hasFinishedTodos = function() {
         return self.finishedTodos() > 0;
     };
@@ -74,19 +80,4 @@ App.Controllers.TodoController = function () {
     self.hasTodos = function() {
         return self.todos.length > 0;
     };
-
-    /*
-     The following code deals with hiding the hint *while* you are typing,
-     showing it once you did *finish* typing (aka 500 ms since you hit the last key)
-     *in case* the result is a non empty string
-     */
-    Rx.Observable.FromAngularScope(self, "newTodo")
-        .Do(function() {
-            self.showHitEnterHint = false;
-        })
-        .Throttle(500)
-        .Select(function(x) {
-            return x.length > 0;
-        })
-        .ToOutputProperty(self, "showHitEnterHint");
 };

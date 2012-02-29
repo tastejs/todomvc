@@ -18,7 +18,7 @@
         </header>
         <!-- TODO: figure out if its spec compliant to remove the #main id if its getting into the way?-->
         <section id="main" ng:show="hasTodos()">
-            <input id="toggle-all" type="checkbox">
+            <input id="toggle-all" type="checkbox" name="allChecked" ng:click="toggleAllStates()">
             <label for="toggle-all">Mark all as complete</label>
             <ul id="todo-list">
                 <li ng:repeat="todo in todos" my:dblclick="editTodo(todo)" ng:class="(todo.done && ' done ') + (todo.editing && ' editing ')">
@@ -27,7 +27,9 @@
                         <label>{{ todo.content }}</label>
                         <a class="destroy" ng:click="removeTodo(todo)"></a>
                     </div>
-                    <input class="edit" type="text" name="todo.content">
+                    <form ng:submit="finishEditing(todo)">
+                        <input class="edit" type="text" name="todo.content" my:focus="todo.editing" my:blur="finishEditing(todo)">
+                    </form>
                 </li>
             </ul>
         </section>
