@@ -9,7 +9,7 @@ App.Controllers.TodoController = function () {
         if (self.newTodo.trim().length === 0) return;
 
         self.todos.push({
-            content: self.newTodo,
+            title: self.newTodo,
             done: false,
             editing: false
         });
@@ -25,7 +25,7 @@ App.Controllers.TodoController = function () {
     };
 
     self.finishEditing = function(todo) {
-        if (todo.content.trim().length === 0){
+        if (todo.title.trim().length === 0){
             self.removeTodo(todo);
         }
         else{
