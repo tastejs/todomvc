@@ -57,7 +57,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
     /**
      * The edit-mode template
      */
-    @SafeHtmlTemplates.Template("<input class='edit' value='{0}' type='text'>")
+    @SafeHtmlTemplates.Template("<div class='listItem editing'><input class='edit' value='{0}' type='text'></div>")
     SafeHtml edit(String task);
   }
 
@@ -221,7 +221,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
    * Get the input element in edit mode.
    */
   private InputElement getInputElement(Element parent) {
-    return parent.getFirstChild().<InputElement> cast();
+    return parent.getFirstChild().getFirstChild().<InputElement> cast();
   }
   
   /**

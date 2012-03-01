@@ -175,7 +175,13 @@ public class ToDoPresenter {
    * Adds a new task based on the user input field
    */
   private void addTask() {
-    ToDoItem toDoItem = new ToDoItem(view.getTaskText(), this);
+    String taskTitle = view.getTaskText().trim();
+    
+    // if white-space only, do not add a todo
+    if (taskTitle.equals(""))
+      return;
+    
+    ToDoItem toDoItem = new ToDoItem(taskTitle, this);
     view.clearTaskText();
     todos.getList().add(toDoItem);
     updateTaskStatistics();
