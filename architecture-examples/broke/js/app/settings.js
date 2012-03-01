@@ -27,14 +27,6 @@
                 ,urlAttribute: 'data-href'
             }
         })
-        /*,DATABASES: broke.extend(broke.conf.settings.DATABASES, {
-            'localStorage': {
-                NAME: ''
-                ,ENGINE: 'broke.db.engines.LocalStorage'
-                ,USER: ''
-                ,PASSWORD: ''
-            }
-        })*/
     };
 
 })(this);

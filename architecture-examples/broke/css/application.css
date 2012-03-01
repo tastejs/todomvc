@@ -154,6 +154,7 @@ body {
 }
 
 #todo-stats {
+    display: none;
     *zoom: 1;
     margin-top: 10px;
     color: #777777;
@@ -168,6 +169,7 @@ body {
 }
 #todo-stats .todo-count {
     float: left;
+    display: none;
 }
 #todo-stats .todo-count .number {
     font-weight: bold;
@@ -364,7 +366,7 @@ body {
     top: 1px;
 }
 
-.clear {
+.clear-completed {
     display: block;
     float: right;
     line-height: 20px;
@@ -390,7 +392,7 @@ body {
     cursor: pointer;
 }
 
-.clear:hover, #tasks .clear:focus {
+.clear-completed:hover, #todo-list .clear-completed:focus {
     background: rgba(0, 0, 0, 0.15);
     -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
     -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
@@ -398,9 +400,12 @@ body {
     box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
 }
 
-.clear:active {
+.clear-completed:active {
     position: relative;
     top: 1px;
+}
+.clear-completed, .number {
+    display: none;
 }
 
 

@@ -23,13 +23,11 @@
                 </label>
                 <div id="todo-list"></div>
             </div>
-            <div id="todo-stats">
-                <a class="clear" href="#/task/clear_completed/">
-                    Clear completed
+            <div id="todo-stats" data-app_label="todo" data-model="counter" data-pk="1">
+                <a class="clear-completed" href="#/task/clear_completed/">
+                    Clear <span class="number" data-field="completed">0</span> completed.
                 </a>
-                <span class="todo-count" data-app-label="todo" data-model="counter" data-pk="1">
-                    <span class="number" data-field="count">0</span> <span class="word">items left.</span>
-                </span>
+                <span class="number" data-field="count">0</span> <span class="word">items left.</span>
             </div>
         </div>
     </div>
@@ -44,7 +42,7 @@
     <script src="js/pyjammin.min.js"></script>
     <script src="js/broke-client-0.2b.min.js"></script>
 
-    <script src="js/app/my-blog.js"></script>
+    <script src="js/app/my-todo-app.js"></script>
     <script src="js/app/settings.js"></script>
     <script src="js/app/models.js"></script>
     <script src="js/app/views.js"></script>
