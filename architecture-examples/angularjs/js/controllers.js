@@ -70,6 +70,7 @@ App.Controllers.TodoController = function () {
         angular.forEach(oldTodos, function(todo) {
             if (!todo.done) self.todos.push(todo);
         });
+        self.allChecked = false;
     };
 
     self.toggleAllStates = function(){
