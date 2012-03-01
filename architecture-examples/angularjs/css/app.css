@@ -1,18 +1,3 @@
-/*hiding those elements by default is really getting into the anguluar way
-as AngularJS's show directive will keep track of hiding/showing the elements for us*/
-
-#main {
-    display: inherit;
-}
-
-#todoapp footer{
-    display: inherit;
-}
-
-#clear-completed{
-    display: inherit;
-}
-
 /*this doesn't seem to be used in the jquery example at all. Its getting in the way */
 #todo-count span {
 	font-weight: inherit;
