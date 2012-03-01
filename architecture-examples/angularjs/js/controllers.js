@@ -5,6 +5,26 @@ App.Controllers.TodoController = function () {
 
     self.newTodo = "";
 
+    var retrieveStore = function() {
+        var store = localStorage.getItem('todo-angularjs');
+        return ( store && JSON.parse( store ) ) || [];
+    };
+
+    var updateStore = function() {
+        var isEditing = angular.Array.count(self.todos, function(x) {
+            return x.editing;
+        });
+        if (!isEditing){
+            localStorage.setItem('todo-angularjs', JSON.stringify(self.todos));
+        }
+    };
+
+    //not sure if its intended to do so. However, we need a hook to update the store
+    //whenever angular changes any properties
+    self.$watch(updateStore);
+
+    self.todos = retrieveStore();
+
     self.addTodo = function() {
         if (self.newTodo.trim().length === 0) return;
 
@@ -36,8 +56,6 @@ App.Controllers.TodoController = function () {
     self.removeTodo = function(todo) {
         angular.Array.remove(self.todos, todo);
     };
-
-    self.todos = [];
 
     var countTodos = function(done) {
         return function() {
