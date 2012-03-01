@@ -1,3 +1,7 @@
+#todo-count span.word {
+	font-weight: normal;
+}
+
 /* The GWT TodoMVC uses a CellList - a framework widget for rendering a list of cells - to
    render the list of todo items. Unfortunately the CellList uses a div as its root container
    and wraps each cell in a separate div. There are no extension points that allow you to change this.
