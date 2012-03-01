@@ -6,7 +6,7 @@ App.Controllers.TodoController = function () {
     self.newTodo = "";
 
     self.addTodo = function() {
-        if (self.newTodo.length === 0) return;
+        if (self.newTodo.trim().length === 0) return;
 
         self.todos.push({
             content: self.newTodo,
@@ -25,7 +25,12 @@ App.Controllers.TodoController = function () {
     };
 
     self.finishEditing = function(todo) {
-        todo.editing = false;
+        if (todo.content.trim().length === 0){
+            self.removeTodo(todo);
+        }
+        else{
+            todo.editing = false;
+        }
     };
 
     self.removeTodo = function(todo) {
