@@ -4,8 +4,8 @@ Ext.define('Todo.view.CheckAllBox' , {
 	tpl: '<tpl if="hasContent"><input id="toggle-all" type="checkbox" <tpl if="allComplete">checked</tpl>> <label for="toggle-all">Mark all as complete</label></tpl>',
 	updateCheckedState: function (totalTasks, checkedTasks) {
 		this.update({
-				hasContent: !!totalTasks,
-				allComplete: checkedTasks == totalTasks
+			hasContent: !!totalTasks,
+			allComplete: checkedTasks == totalTasks
 		});
 	},
 	listeners: {
