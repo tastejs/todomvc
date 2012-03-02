@@ -22,7 +22,7 @@
         }
         ,create: function(request, callback){
             
-            if(request.POST) {
+            if(request.POST && request.POST['title']) {
                 
                 Task.objects.create({
                     title: request.POST['title']
@@ -90,16 +90,16 @@
             Task.objects.get({ pk: taskId }, function(task){
 
                 task.update({ is_complete: request.event.target.checked }, false);
-                
+
             });
             
         }
         ,clear_completed: function(request, taskId, callback){
             var
-                markAllCompletedCheckbox = $('#mark-all-completed')[0]
+                markAllCompletedCheckbox = $('#toggle-all')[0]
             ;
 
-            Task.objects.filter({ is_complete: true }).all(function(taskList){
+            Task.objects.filter({ is_complete: true, _deleted__isNull: true }).all(function(taskList){
                 builtins.forEach(taskList, function(task){
                     this['delete']();
                 });
@@ -114,8 +114,7 @@
                 isComplete = request.event ? request.event.target.checked : false
             ;
 
-            Task.objects.all(function(taskList){
-                console.log(taskList);
+            Task.objects.filter({ _deleted__isNull: true }).all(function(taskList){
                 builtins.forEach(taskList, function(){
                     this.update({ is_complete: isComplete });
                 });

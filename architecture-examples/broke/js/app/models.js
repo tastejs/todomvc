@@ -26,7 +26,7 @@
         ,update: function(kwargs){
             var result = this._super(kwargs);
 
-            if(!this.fields.count) {
+            if(this.fields.count === undefined) {
                 this.elements().find('[data-field="count"]').hide();
             } else {
                 this.elements().find('[data-field="count"]').show();
