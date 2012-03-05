@@ -146,6 +146,12 @@ public class ToDoPresenter {
   	if (suppressStateChanged) {
   		return;
   	}
+  	
+  	// if the item has become empty, remove it
+  	if (toDoItem.getTitle().trim().equals("")) {
+  	  todos.getList().remove(toDoItem);
+  	}
+  	
     updateTaskStatistics();
     saveState();
   }
