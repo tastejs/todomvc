@@ -2,13 +2,14 @@
     var
         node= broke.shortcuts.node
         ,Task= todo.models.Task
+        ,Counter= todo.models.Counter
     ;
 
     todo.views= {
         list: function(request, callback){
 
             Task.objects.all(function(taskList){
-                
+
                 callback(node.create({
                     htmlNode: '#todo-list'
                     ,template: 'list'
@@ -26,7 +27,6 @@
                 
                 Task.objects.create({
                     title: request.POST['title']
-                    ,pk: 'auto'
                 }, function(task){
                     
                     callback(node.create({
@@ -50,7 +50,7 @@
                 
                 if(request.POST) {
                     
-                    task.update({ title: request.POST['title'] });
+                    task.update({ title: request.POST['title'] }).save();
 
                     callback(node.replace({
                         template: 'view'
@@ -89,7 +89,7 @@
 
             Task.objects.get({ pk: taskId }, function(task){
 
-                task.update({ is_complete: request.event.target.checked }, false);
+                task.update({ is_complete: request.event.target.checked }, false).save();
 
             });
             
@@ -99,7 +99,7 @@
                 markAllCompletedCheckbox = $('#toggle-all')[0]
             ;
 
-            Task.objects.filter({ is_complete: true, _deleted__isNull: true }).all(function(taskList){
+            Task.objects.filter({ is_complete: true }).all(function(taskList){
                 builtins.forEach(taskList, function(task){
                     this['delete']();
                 });
@@ -114,9 +114,9 @@
                 isComplete = request.event ? request.event.target.checked : false
             ;
 
-            Task.objects.filter({ _deleted__isNull: true }).all(function(taskList){
+            Task.objects.all(function(taskList){
                 builtins.forEach(taskList, function(){
-                    this.update({ is_complete: isComplete });
+                    this.update({ is_complete: isComplete }).save();
                 });
             });
         }

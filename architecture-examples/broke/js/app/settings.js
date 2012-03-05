@@ -27,6 +27,11 @@
                 ,urlAttribute: 'data-href'
             }
         })
+        ,DATABASE_ROUTERS: [
+            'todo.routers.Router'
+        ]
+        ,DB_PREFIX: 'todomvc_'
+        ,enableLocalStorage: true
     };
 
 })(this);

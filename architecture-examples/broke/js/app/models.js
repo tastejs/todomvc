@@ -23,6 +23,7 @@
     models.Model.create({
         __name__: "todo.models.Counter"
         ,count: models.PositiveIntegerField({ 'default': 0 })
+        ,completed: models.PositiveIntegerField({ 'default': 0 })
         ,update: function(kwargs){
             var result = this._super(kwargs);
 

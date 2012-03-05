@@ -1,7 +1,7 @@
 (function(context, undefined){
     var
         genericTaskTemplate= '<li ' +
-            'class="item{% if task.fields.is_complete %} done{% endif %}" ' +
+            'class="item {{ task.fields.is_complete }} {% if task.fields.is_complete %} done{% endif %}" ' +
             'data-app_label="{{ task.__class__._meta.appLabel }}" ' +
             'data-model="{{ task.__class__._meta.modelName }}" ' +
             'data-pk="{{ task.pk }}">'+
