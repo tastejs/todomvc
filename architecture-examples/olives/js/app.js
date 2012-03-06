@@ -73,7 +73,7 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 			this.getCompleted().sort().reverse().forEach(this.model.del, this.model);
 		};
 
-		// Calculate the number of takses and update the statistics store
+		// Updates the statistics store that will also update the view
 		this.updateStats = function () {
 			var completed = this.getCompleted().length,
 				nbItems = this.model.getNbItems(),
@@ -88,7 +88,7 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 			stats.set("uncompletedWord", uncompleted > 1 ? "items" : "item");
 		};
 		
-		// Returns the number of completed tasks
+		// Returns the completed tasks
 		this.getCompleted = function () {
 			var completed = [];
 			this.model.loop(function (value, idx) {
