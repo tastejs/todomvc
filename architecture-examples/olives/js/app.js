@@ -25,7 +25,7 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 		};
 
 		// Synchronize the store with localStorage
-		stats.sync("todos-stats-emily");
+		stats.sync("olives-todos-stats");
 
 		stats.watchValue("allChecked", function (checked) {
 			// I wish I could simply do this.model.alter("map", func) but
@@ -52,20 +52,14 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 
 		// Toggle Edit on click in view mode
 		this.edit = function (event, node) {
-			if (event.type == "click") {
+			if (event.type == "click" || event.keyCode == 13) {
 				// Don't know atm if model_id should be public API.
 				var item = this.model.get(node.dataset["model_id"]);
 				item.edit = !item.edit;
-				this.model.set(node.dataset["model_id"], item);
-			}
-		};
-		
-		// Toggle edit on keydown in edit mode and save value
-		this.save = function (event, node) {
-			if (event.keyCode == 13) {
-				var item = this.model.get(node.dataset["model_id"]);
-				item.edit = !item.edit;
-				item.name = node.value;
+				// Thanks to double way binding, this line shouldn't be necessary.
+				// It is because keydown "enter" is fired before change, so double way binding doesn't work.
+				// Don't know how to fix this yet.
+				item.name = node.value || item.name;
 				this.model.set(node.dataset["model_id"], item);
 			}
 		};
@@ -115,7 +109,7 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 		this.model.watch("updated", this.updateStats, this);
 		
 		// Synchronize the store with localStorage
-		this.model.sync("todos-tasks-emily");
+		this.model.sync("olives-todos-tasks");
 		
 		// Add the plugins.
 		this.plugins.addAll({

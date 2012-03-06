@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 	<title>Olives + Emily - TodoMVC</title>
 	<link rel="stylesheet" href="css/base.css" />
-	<link rel="stylesheet" href="css/app.css" />
 </head>
 <body>
 	<div id="todoapp">
@@ -24,7 +23,7 @@
 						<label data-model="bind:innerHTML,name" data-event="listen:click,edit"></label>
 						<a class="destroy" data-event="listen:click,remove"></a>
 					</div>
-					<input class="edit" type="text" data-model="bind:value,name" data-event="listen:keydown,save">
+					<input class="edit" type="text" data-model="bind:value,name" data-event="listen:keydown,edit" />
 				</li>
 			</ul>
 		</section>
@@ -36,7 +35,7 @@
 			</span>
 			
 			<span class="todo-clear">
-				<a href="#" data-event="listen:click,clear;" id="clear-completed">
+				<a href="#" data-event="listen:click,clear;" id="clear-completed" data-stats="bind:toggleClass,completed,show">
 				Clear <strong data-stats="bind:innerHTML,completed"></strong> 
 				completed <span data-stats="bind:innerHTML,completedWord">item</span></a>
 			</span>
