@@ -40,7 +40,7 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 	
 		// Add a task
 		this.add = function (event, node) {
-			if (event.keyIdentifier == "Enter") {
+			if (event.keyCode == 13) {
 				this.model.alter("push", {
 					name: node.value,
 					completed: false,
@@ -50,12 +50,22 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 			}
 		};
 
-		// Toggle Edit on KeyDown if in edit mode, or on change if in view mode
+		// Toggle Edit on click in view mode
 		this.edit = function (event, node) {
-			if (event.keyIdentifier == "Enter" || event.type == "click") {
+			if (event.type == "click") {
 				// Don't know atm if model_id should be public API.
 				var item = this.model.get(node.dataset["model_id"]);
 				item.edit = !item.edit;
+				this.model.set(node.dataset["model_id"], item);
+			}
+		};
+		
+		// Toggle edit on keydown in edit mode and save value
+		this.save = function (event, node) {
+			if (event.keyCode == 13) {
+				var item = this.model.get(node.dataset["model_id"]);
+				item.edit = !item.edit;
+				item.name = node.value;
 				this.model.set(node.dataset["model_id"], item);
 			}
 		};
