@@ -79,14 +79,16 @@ Ext.define('Todo.controller.Tasks', {
 	finalizeTaskEdit: function (extEl, record) {
 		value = extEl.getValue().trim();
 
-		if (!value)
-			return;
-
-		record.set('label', value);
-		record.set('editing', false);
-		record.store.sync();
-		record.commit();
-
+		if (!value) {
+			var store = this.getTasksStore();
+			store.remove(record);
+			store.sync();
+		} else {
+			record.set('label', value);
+			record.set('editing', false);
+			record.store.sync();
+			record.commit();
+		}
 	},
 
 	onClearButtonClick: function() {
