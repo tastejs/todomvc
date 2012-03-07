@@ -17,6 +17,11 @@ define('app/models/store', [
         localStorage.setItem(this.name, JSON.stringify(this.data));
       };
 
+      this.createFromTitle = function(title) {
+        var todo = Todo.create({title: title});
+        this.create(todo);
+      },
+
       this.create = function (model) {
         if (!model.get('id')) model.set('id', Date.now());
         return this.update(model);
