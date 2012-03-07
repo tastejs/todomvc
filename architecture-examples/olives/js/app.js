@@ -57,7 +57,7 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 				var item = this.model.get(node.dataset["model_id"]);
 				item.edit = !item.edit;
 				// Thanks to double way binding, this line shouldn't be necessary.
-				// It is because keydown "enter" is fired before change, so double way binding doesn't work.
+				// Though, keydown "enter" is fired before change, so double way binding doesn't work.
 				// Don't know how to fix this yet.
 				item.name = node.value || item.name;
 				this.model.set(node.dataset["model_id"], item);
@@ -69,12 +69,8 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 		};
 		
 		// Clear all completed tasks
-		// We don't rely on the checkboxes but on the values in the store.
 		this.clear = function () {
-			// Get all completed tasks, sort their indexes and reverse them,
-			// unpiling them won't modify the remaining completed task's indexes
-			// Might need to add a function in the store to remove multiple indexes.
-			this.getCompleted().sort().reverse().forEach(this.model.del, this.model);
+			this.model.delAll(this.getCompleted());
 		};
 
 		// Updates the statistics store that will also update the view
@@ -127,9 +123,9 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 
 	
 	// Make the application inherit from OObject
-	// The oobject brings up a statemachine, a store, and some UI logic
+	// The OObject brings up a statemachine, a store, and some UI logic
 	TodosConstructor.prototype = new OObject(new Store([]));
-	// Apply the plugins to .content
+	// Apply the plugins to #todoapp
 	(new TodosConstructor).alive(document.querySelector("#todoapp"));
 
 
