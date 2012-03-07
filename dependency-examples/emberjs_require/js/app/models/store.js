@@ -37,8 +37,7 @@ define('app/models/store', [
       // Return the array of all models currently in storage.
       this.findAll = function() {
         var result = [];
-        for (var key in this.data)
-        {
+        for (var key in this.data) {
           var todo = Todo.create(this.data[key]);
           result.push(todo);
         }
