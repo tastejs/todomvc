@@ -1,7 +1,7 @@
 /*
 
 [MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
-(c) [You](http://addyosmani.github.com/todomvc/)
+(c) [Toshihide Shimayama](http://github.com/tshm/todomvc/)
 
 */
 
