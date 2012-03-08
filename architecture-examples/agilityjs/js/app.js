@@ -15,74 +15,64 @@ var drawHtml = function(selector) {
 	return html;
 };
 
+// two layer composition:
+// individual todoitem and application which holds multiple todoitems.
 (function() {
-	var input = $$({}, drawHtml('header'));
-	var todoitem = $$({done: false}, drawHtml('#todo-list li'), {
-		'change:done': function() {
-			this.model.set({mode: (this.model.get("done") ? "done" : "")});
-			app.updateCounter();
-		},
-		'click label': function() {this.view.$('input.toggle').click();},
-		'dblclick label': function() {this.model.set({mode: "editing"})},
-		'click a': function() {this.destroy();},
+	// todo item
+	var todoitem = $$({
+		model: {done: false}, 
+		view: {format: drawHtml('#todo-list li')},
+		controller: {
+			'change:done': function() {
+				this.model.set({mode: (this.model.get("done") ? "done" : "")});
+				app.updateCounter();
+			},
+			'click label': function() {this.view.$('input.toggle').click();},
+			'dblclick label': function() {
+				this.model.set({mode: "editing"});
+				this.view.$('input').select();
+			},
+			'click a': function() { this.destroy(); },
+			'change input.edit': function() {this.model.set({mode: ""})}
+		}
 	});
-	var todolist = $$({}, drawHtml('#todo-list'), {
-		'append': function() {app.updateCounter()},
-		'remove': function() {app.updateCounter()},
-	});
-	var main = $$({toggleAll: false}, drawHtml('#main'), {
-		'change:toggleAll': function() {
-			var checked = this.model.get('toggleAll');
-			todolist.each(function(id,item) { item.model.set({done: checked}); });
-		},
-	}).append(todolist);
-	var footer = $$({}, drawHtml('footer'), {
-		'click #clear-completed': function() {
-			console.log('cccc');
-			todolist.each(function(id,item) {
-				if (item.model.get('done')) item.destroy();
-			});
-		},
-		'change:count': function() {
-			if (this.model.get('count') > 0) {
-				this.view.$('').show();
-			} else {
-				this.view.$('').hide();
-			}
-		},
-	});
-	// The main application object handles the cross-object binding.
+
+	// The main application which holds todo items.
 	var app = $$({
-		model: {},
+		model: {count:0, doneCount:0, toggleAll:false, mainStyle:"", clearControlStyle:""},
 		view: {format: drawHtml('#todoapp')},
 		controller: {
-			'change #new-todo': function() {
-				var newtodo_name = input.model.get("name");
-				console.log("new-todo: " + input.model.get("name"));
-				var newitem = $$(todoitem, {name: newtodo_name});
-				todolist.append(newitem);
-			}
+			'remove': function() { app.updateCounter(); },
+			'keyup #new-todo': function(e) {
+				if (13 != e.which) return;
+				this.append($$(todoitem, {title: this.model.get("newtitle")}), 'ul');
+				this.updateCounter();
+				$(e.target).val("");
+			},
+			'change:toggleAll': function() {
+				var checked = this.model.get('toggleAll');
+				this.each(function(id,item) { item.model.set({done: checked}); });
+			},
+			'click #clear-completed': function() {
+				this.each(function(id,item) {
+					if (item.model.get('done')) item.destroy();
+					app.updateCounter();
+				});
+			},
 		},
 		updateCounter: function() {
-			var totalCount = todolist.size();
+			var count = this.size();
 			var doneCount = 0;
-			todolist.each(function(id,item) {
+			this.each(function(id,item) {
 				if (item.model.get('done')) doneCount++;
 			});
-			console.log([totalCount, doneCount]);
-			//
-			footer.model.set({count: totalCount});
-			if (0 < totalCount) {
-				$('#main').show();
-			} else {
-				$('#main').hide();
-			}
-			if (0 < doneCount) {
-				$('#clear-completed').show();
-			} else {
-				$('#clear-completed').hide();
-			}
+			this.model.set({
+				count: count,
+				doneCount: doneCount,
+				mainStyle: (0 < count ? "display:block" : "display:none"),
+				clearControlStyle: (0 < doneCount ? "display:block" : "display:none")
+			});
 		},
-	}).append(input).append(main).append(footer);
+	});
 	$$.document.prepend(app);
 })();
