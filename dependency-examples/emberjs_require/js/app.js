@@ -9,31 +9,28 @@ require.config({
 });
 
 // Load our app
-define('Todos', [
+define('app', [
   'jquery',
   'ember',
-  'app/models/store'
-  ], function($, Ember, Store) {
-    return window.Todos = Em.Application.create({
+  'app/models/store',
+  'app/controllers/main',
+  ], function($, Ember, Store, Main) {
+    var App = Em.Application.create({
       VERSION: '0.1-omfg',
-      rootElement: '#todoapp .content',
+      Views: {},
       Models: {},
       Controllers: {},
-      Views: {},
-      // App viewport
-      viewport: Em.ContainerView.create({
-        addView: function(view) {
-          this.get('childViews').pushObject(view);
-        }
-      }),
       init: function() {
         this._super();
-        this.get('viewport').appendTo(this.get('rootElement'));
         this.Models.Store = new Store('todos-emberjs');
-        require(['app/controllers/create'], function(c){
-            c.activate();
-        });
+        this.Controllers.Main = Main.create();
+
+        var items = this.Models.Store.findAll();
+        if (items.length > 1){
+          this.Controllers.Main.set('[]', items);
+        };
       }
     });
+    return window.Todos = App;
   }
 );
