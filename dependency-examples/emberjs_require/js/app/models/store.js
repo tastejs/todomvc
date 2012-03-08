@@ -20,6 +20,7 @@ define('app/models/store', [
       this.createFromTitle = function(title) {
         var todo = Todo.create({title: title});
         this.create(todo);
+        return todo;
       },
 
       this.create = function (model) {
