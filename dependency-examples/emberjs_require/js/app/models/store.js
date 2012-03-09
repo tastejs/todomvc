@@ -1,10 +1,14 @@
-/**
- * Todo entries storage model
- */
 define('app/models/store', [
-  'ember',
-  'app/models/todo'
-  ], function(Ember, Todo){
+  'app/models/todo',
+  'ember'
+
+  /**
+   * Todo entries storage model
+   *
+   * @param Class Todo, the todo entry model
+   * @returns Class
+   */
+  ], function(Todo){
     // Our Store is represented by a single JS object in *localStorage*.
     // Create it with a meaningful name, like the name you'd give a table.
     return function(name) {
@@ -17,12 +21,15 @@ define('app/models/store', [
         localStorage.setItem(this.name, JSON.stringify(this.data));
       };
 
+      // Wrapper around `this.create`
+      // Creates a `Todo` model object out of the title
       this.createFromTitle = function(title) {
         var todo = Todo.create({title: title});
         this.create(todo);
         return todo;
-      },
+      };
 
+      // Store the model inside the `Store`
       this.create = function (model) {
         if (!model.get('id')) model.set('id', Date.now());
         return this.update(model);
