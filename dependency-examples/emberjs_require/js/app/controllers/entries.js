@@ -1,8 +1,10 @@
-/**
- * Entries controller
- */
-define('app/controllers/entries', [
-  ], function() {
+define('app/controllers/entries', ['ember'],
+  /**
+   * Entries controller
+   *
+   * @returns Class
+   */
+  function() {
     return Ember.ArrayProxy.extend({
       content: [],
 
@@ -28,7 +30,7 @@ define('app/controllers/entries', [
         return this._super(item);
       },
 
-      clearCompletedTodos: function() {
+      clearCompleted: function() {
         this.filterProperty('isDone', true).forEach(this.removeObject, this);
       },
 
@@ -50,9 +52,6 @@ define('app/controllers/entries', [
         }
       }.property('@each.isDone'),
 
-      completeClass: function () {
-        return this.get('completed') < 1 ? 'none-completed' : 'some-completed';
-      }.property('@each.isDone')
     });
   }
 );
