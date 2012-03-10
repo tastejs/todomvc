@@ -1,0 +1,32 @@
+/**
+ * Some integration tests
+ */
+describe('Todos', function(){
+  describe('Todos.Models.Store', function(){
+
+    var title = 'Testing title...';
+    var store = Todos.Models.Store;
+
+    it('store should allow new todos creation', function(){
+      var count = store.findAll().length;
+      var todo = Todos.Models.Store.createFromTitle(title);
+      expect(store.findAll().length).to.equal(count + 1);
+      expect(todo).to.have.property('title', title);
+      expect(todo).to.have.property('isDone', false);
+      store.remove(todo);
+      expect(store.findAll().length).to.equal(count);
+    });
+
+    it('store should allow changing items', function(){
+      var todo = store.createFromTitle(title);
+      expect(store.find(todo).id).to.equal(todo.id);
+      expect(store.find(todo).title).to.equal(todo.title);
+      expect(store.find(todo).isDone).to.equal(false);
+      todo.set('isDone', true);
+      expect(store.find(todo).id).to.equal(todo.id);
+      expect(store.find(todo).isDone).to.equal(true);
+      Todos.Models.Store.remove(todo);
+    });
+
+  });
+});
