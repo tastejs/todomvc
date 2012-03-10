@@ -44,7 +44,7 @@ define('app/models/store', [
 
       // Retrieve a model from `this.data` by id.
       this.find = function(model) {
-        return Todos.Todo.create(this.data[model.get('id')]);
+        return Todo.create(this.data[model.get('id')]);
       };
 
       // Return the array of all models currently in storage.
