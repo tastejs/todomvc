@@ -34,7 +34,7 @@ define('app', [
           window.expect = chai.expect;
           mocha.setup('bdd');
           require([
-            'app/specs/models/todo',
+            'app/specs/models/store',
           ], function(){
             mocha
               .run()
