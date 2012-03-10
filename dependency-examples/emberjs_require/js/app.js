@@ -29,6 +29,18 @@ define('app', [
         if (items.length > 1){
           this.Controllers.Main.set('[]', items);
         };
+
+        if (typeof(mocha) !== 'undefined') {
+          window.expect = chai.expect;
+          mocha.setup('bdd');
+          require([
+            'app/specs/models/todo',
+          ], function(){
+            mocha
+              .run()
+              .globals(['$', 'Ember', 'Todos'])
+          });
+        }
       }
     });
     return window.Todos = App;
