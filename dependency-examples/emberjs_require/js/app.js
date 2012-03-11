@@ -36,6 +36,7 @@ define('app', [
           require([
             'app/specs/models/store',
             'app/specs/views/basic_acceptance',
+            'app/specs/controllers/main'
           ], function(){
             mocha
               .run()
