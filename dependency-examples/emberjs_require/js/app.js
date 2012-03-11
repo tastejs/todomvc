@@ -26,7 +26,7 @@ define('app', [
         this.Controllers.Main = Main.create();
 
         var items = this.Models.Store.findAll();
-        if (items.length > 1){
+        if (items.length > 0) {
           this.Controllers.Main.set('[]', items);
         };
 
