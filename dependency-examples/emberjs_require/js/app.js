@@ -35,6 +35,7 @@ define('app', [
           mocha.setup('bdd');
           require([
             'app/specs/models/store',
+            'app/specs/views/basic_acceptance',
           ], function(){
             mocha
               .run()
