@@ -19,7 +19,7 @@ define('app/controllers/main', [
       // New todo input
       inputView: Ember.TextField.create({
         placeholder: 'What needs to be done?',
-        elementId: 'create-todo',
+        elementId: 'new-todo',
         storageBinding: 'Todos.Controllers.Main',
         // Bind this to newly inserted line
         insertNewline: function() {
