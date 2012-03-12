@@ -1,14 +1,14 @@
 define('app/models/store', [
-  'app/models/todo',
-  'ember'
-
+    'app/models/todo',
+    'ember'
+  ], 
   /**
    * Todo entries storage model
    *
    * @param Class Todo, the todo entry model
    * @returns Class
    */
-  ], function(Todo){
+  function(Todo){
     // Our Store is represented by a single JS object in *localStorage*.
     // Create it with a meaningful name, like the name you'd give a table.
     return function(name) {
