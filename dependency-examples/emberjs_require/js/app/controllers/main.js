@@ -1,8 +1,8 @@
 define('app/controllers/main', [
-  'app/controllers/entries',
-  'text!app/views/clear_button.html',
-  'text!app/views/items.html'
-
+    'app/controllers/entries',
+    'text!app/views/clear_button.html',
+    'text!app/views/items.html'
+  ], 
   /**
    * Main controller
    *
@@ -14,12 +14,12 @@ define('app/controllers/main', [
    * @param String items_html, the html view for the `Todos` items
    * @returns Class
    */
-  ], function(Entries, button_html, items_html) {
+  function(Entries, button_html, items_html) {
     return Entries.extend({
       // New todo input
       inputView: Ember.TextField.create({
         placeholder: 'What needs to be done?',
-        elementId: 'create-todo',
+        elementId: 'new-todo',
         storageBinding: 'Todos.Controllers.Main',
         // Bind this to newly inserted line
         insertNewline: function() {

@@ -26,9 +26,23 @@ define('app', [
         this.Controllers.Main = Main.create();
 
         var items = this.Models.Store.findAll();
-        if (items.length > 1){
+        if (items.length > 0) {
           this.Controllers.Main.set('[]', items);
         };
+
+        if (typeof(mocha) !== 'undefined') {
+          window.expect = chai.expect;
+          mocha.setup('bdd');
+          require([
+            'app/specs/models/store',
+            'app/specs/views/basic_acceptance',
+            'app/specs/controllers/main'
+          ], function(){
+            mocha
+              .run()
+              .globals(['$', 'Ember', 'Todos'])
+          });
+        }
       }
     });
     return window.Todos = App;
