@@ -4,6 +4,10 @@ body {
 	padding: 0;
 }
 
+:focus {
+	outline: none;
+}
+
 body {
 	font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
