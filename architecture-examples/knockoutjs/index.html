@@ -1,81 +1,71 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
     <title>Knockout.js</title>
-    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../assets/base.css">
 </head>
 <body>
-    <div id="todoapp">
-        <div class="title">
-            <h1>Todos</h1>
-        </div>
-        <div class="content">
-            <div id="create-todo">
-                <input id="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?" />
-                <span class="ui-tooltip-top" data-bind="visible: showTooltip" style="display: none;">Press Enter to save this task</span>
-            </div>
-            <div id="todos">
-                <div data-bind="visible: todos().length">
-                    <input id="check-all" class="check" type="checkbox" data-bind="checked: allCompleted" />
-                    <label for="check-all">Mark all as complete</label>
+<div id="todoapp">
+    <header>
+        <h1>Todos</h1>
+        <input id="new-todo" type="text" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add"
+               placeholder="What needs to be done?"/>
+    </header>
+    <section id="main" data-bind="block: todos().length">
+        <input id="toggle-all" type="checkbox" data-bind="checked: allCompleted">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list" data-bind="foreach: todos">
+            <li data-bind="css: { done: done, editing: editing }">
+                <div class="view" data-bind="event: { dblclick: $root.editItem }">
+                    <input class="toggle" type="checkbox" data-bind="checked: done">
+                    <label data-bind="text: content"></label>
+                    <a class="destroy" href="#" data-bind="click: $root.remove"></a>
                 </div>
-                <ul id="todo-list" data-bind="foreach: todos">
-                    <li data-bind="css: { editing: editing }">
-                        <div class="todo" data-bind="css: { done : done }">
-                            <div class="display">
-                                <input class="check" type="checkbox" data-bind="checked: done" />
-                                <div class="todo-content" data-bind="text: content, event: { dblclick: edit }" style="cursor: pointer;"></div>
-                                <span class="todo-destroy" data-bind="click: $root.remove"></span>
-                            </div>
-                            <div class="edit">
-                                <input class="todo-input" data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: stopEditing, event: { blur: stopEditing }"/>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div id="todo-stats">
-                <span class="todo-count" data-bind="visible: remainingCount">
-                    <span class="number" data-bind="text: remainingCount"></span>
-                    <span class="word" data-bind="text: getLabel(remainingCount)"></span> left.
-                </span>
-                <span class="todo-clear" data-bind="visible: completedCount">
-                    <a href="#" data-bind="click: removeCompleted">
-                        Clear <span class="number-done" data-bind="text: completedCount"></span>
-                        completed <span class="word-done" data-bind="text: getLabel(completedCount)"></span>
-                    </a>
-                </span>
-            </div>
-        </div>
-    </div>
-    <ul id="instructions">
-        <li data-bind="visible: todos().length">Double-click to edit a todo.</li>
-    </ul>
-    <div id="credits">
-        Created by
-        <br />
-        <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>
-        <br />
-        Modified to use knockout.js by
-        <br />
-        <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a>
-        <br/>
-        Updated to use knockout.js 2.0 by
-        <br/>
-        <a href="http://knockmeout.net">Ryan Niemeyer</a>
-        <br />
-        Patches/fixes for cross-browser compat:
-        <br />
-        <a href="http://twitter.com/addyosmani">Addy Osmani</a>
-    </div>
+                <input class="edit" type="text"
+                       data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }"/>
+            </li>
+        </ul>
+    </section>
+    <footer data-bind="block: completedCount() || remainingCount()">
+        <a id="clear-completed" href="#" data-bind="inline: completedCount, click: removeCompleted">
+            Clear <span data-bind="text: completedCount"></span>
+            completed <span data-bind="text: getLabel(completedCount)"></span>
+        </a>
 
-    <!-- Knockout has no direct dependencies -->
-    <script src="js/knockout-2.0.0.js" type="text/javascript"></script>
-    <!-- needed to support JSON.stringify in older browsers (for local storage) -->
-    <script src="js/json2.js" type="text/javascript"></script>
-    <!-- used for local storage -->
-    <script src="js/amplify.store.min.js" type="text/javascript"></script>
-    <!-- our app code -->
-    <script src="js/todos.js" type="text/javascript"></script>
+        <div id="todo-count">
+            <span data-bind="text: remainingCount"></span>
+            <span data-bind="text: getLabel(remainingCount)" style="font-weight: normal"></span> left.
+        </div>
+    </footer>
+</div>
+<div id="instructions" data-bind="visible: todos().length">
+    Double-click to edit a todo.
+</div>
+<div id="credits">
+    Created by
+    <br/>
+    <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>
+    <br/>
+    Modified to use knockout.js by
+    <br/>
+    <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a>
+    <br/>
+    Updated to use knockout.js 2.0 by
+    <br/>
+    <a href="http://knockmeout.net">Ryan Niemeyer</a>
+    <br/>
+    Patches/fixes for cross-browser compat:
+    <br/>
+    <a href="http://twitter.com/addyosmani">Addy Osmani</a>
+</div>
+<!-- Knockout has no direct dependencies -->
+<script src="js/libs/knockout-2.0.0.js" type="text/javascript"></script>
+<!-- needed to support JSON.stringify in older browsers (for local storage) -->
+<script src="js/libs/json2.js" type="text/javascript"></script>
+<!-- used for local storage -->
+<script src="js/libs/amplify.store.min.js" type="text/javascript"></script>
+<!-- our app code -->
+<script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>
