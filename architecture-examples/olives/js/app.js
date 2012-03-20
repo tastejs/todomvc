@@ -52,10 +52,11 @@ function (Store, OObject, ModelPlugin, EventPlugin) {
 
 		// Toggle Edit on click in view mode
 		this.edit = function (event, node) {
-			if (event.type == "click" || event.keyCode == 13) {
+			if (event.type == "dblclick" || event.type == "blur" || event.keyCode == 13) {
 				// Don't know atm if model_id should be public API.
 				var item = this.model.get(node.dataset["model_id"]);
 				item.edit = !item.edit;
+				item.edit && node.focus();
 				// Thanks to double way binding, this line shouldn't be necessary.
 				// Though, keydown "enter" is fired before change, so double way binding doesn't work.
 				// Don't know how to fix this yet.

@@ -20,10 +20,10 @@
 				<li data-model="bind:toggleClass,completed,done; bind:toggleClass,edit,editing">
 					<div class="view">
 						<input class="toggle" type="checkbox" data-model="bind:checked,completed">
-						<label data-model="bind:innerHTML,name" data-event="listen:click,edit"></label>
+						<label data-model="bind:innerHTML,name" data-event="listen:dblclick,edit;" ></label>
 						<a class="destroy" data-event="listen:click,remove"></a>
 					</div>
-					<input class="edit" type="text" data-model="bind:value,name" data-event="listen:keydown,edit" />
+					<input class="edit" type="text" data-model="bind:value,name" data-event="listen:keydown,edit; listen:blur,edit" />
 				</li>
 			</ul>
 		</section>
@@ -42,7 +42,7 @@
 		</footer>
 	</div>
 	<div id="instructions">
-		Click to edit a todo.
+		Double-Click to edit a todo.
 	</div>
 	<div id="credits">
 		Created by <a href="http://github.com/podefr/">Olivier Scherrer</a>.
