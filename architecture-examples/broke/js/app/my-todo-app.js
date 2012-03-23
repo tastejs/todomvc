@@ -3,16 +3,39 @@
     
     $(function(){
         broke.init('todo.settings', function(){
-            // create counter
-            todo.models.Counter.objects.getOrCreate({"pk":1}, function(created, counter){
-                if(builtins.typeOf(created) == "boolean"){
-                    counter.fields = {"count": 0, "completed": 0};
-                    counter.save();
-                }
-            });
 
-            broke.events.preDelete(todo.models.Task, function(e, task, kwargs){
-                todo.models.Counter.objects.get({ pk: 1 }, function(counter){
+            todo.models.Counter.objects.getOrCreate({ pk: 1 }, function(created, counter){
+
+                todo.models.Task.objects.all(function(taskList){
+                    var count = 0,
+                        completed = 0;
+
+                    builtins.forEach(taskList, function(){
+                        if(this.fields.is_complete) {
+                            completed += 1;
+                        } else {
+                            count += 1;
+                        }
+                    });
+
+                    counter.update({
+                        count: count,
+                        completed: completed
+                    });
+
+                    broke.shortcuts.node.create({
+                        htmlNode: '#todo-list'
+                        ,template: 'list'
+                        ,object: taskList
+                        ,context: {
+                            taskList: taskList
+                        }
+                    });
+                });
+
+                broke.events.preDelete(todo.models.Task, function(e, task, kwargs){
+                    console.log("pre delete", kwargs);
+
                     if(!task.fields.is_complete) {
                         counter.update({
                             count: counter.fields.count - 1
@@ -23,17 +46,15 @@
                         }).save();
                     }
                 });
-            });
 
-            broke.events.postUpdate(todo.models.Task, function(e, task, kwargs){
-                todo.models.Counter.objects.get({ pk: 1 }, function(counter){
+                broke.events.preUpdate(todo.models.Task, function(e, task, kwargs){
 
-                    if('is_complete' in kwargs && kwargs.is_complete) {
+                    if(kwargs.is_complete === true && !task.fields.is_complete) {
                         counter.update({
                             completed: counter.fields.completed + 1
                             ,count: counter.fields.count - 1
                         }).save();
-                    } else if('is_complete' in kwargs && !kwargs.is_complete) {
+                    } else if(kwargs.is_complete === false && task.fields.is_complete === true) {
                         counter.update({
                             completed: counter.fields.completed - 1
                             ,count: counter.fields.count + 1
@@ -41,18 +62,14 @@
                     }
 
                 });
-            });
 
-            broke.events.postCreate(todo.models.Task, function(e, task){
+                broke.events.postCreate(todo.models.Task, function(e, task){
+                    console.log("post create", task);
 
-                todo.models.Counter.objects.get({ pk: 1 }, function(counter){
-                    console.log(task, counter);
                     counter.update({ count: counter.fields.count + 1 }).save();
+
                 });
-
             });
-
-            broke.events.request('/');
         });
     });
 

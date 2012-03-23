@@ -25,6 +25,12 @@
             ,'div': {
                 events: ['dblclick']
                 ,urlAttribute: 'data-href'
+                ,preventDefault: true
+            }
+            ,'a': {
+                events: ['click']
+                ,urlAttribute: 'href'
+                ,preventDefault: true
             }
         })
         ,DATABASE_ROUTERS: [

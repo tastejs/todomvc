@@ -6,22 +6,7 @@
     ;
 
     todo.views= {
-        list: function(request, callback){
-
-            Task.objects.all(function(taskList){
-
-                callback(node.create({
-                    htmlNode: '#todo-list'
-                    ,template: 'list'
-                    ,object: taskList
-                    ,context: {
-                        taskList: taskList
-                    }
-                }));
-                
-            });
-        }
-        ,create: function(request, callback){
+        create: function(request, callback){
             
             if(request.POST && request.POST['title']) {
                 
@@ -114,7 +99,7 @@
                 isComplete = request.event ? request.event.target.checked : false
             ;
 
-            Task.objects.all(function(taskList){
+            Task.objects.filter({ is_complete: !isComplete }).all(function(taskList){
                 builtins.forEach(taskList, function(){
                     this.update({ is_complete: isComplete }).save();
                 });
