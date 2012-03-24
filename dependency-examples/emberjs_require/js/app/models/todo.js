@@ -11,7 +11,7 @@ define('app/models/todo', ['ember'],
       isDone: false,
       // Observer that will react on item change and will update the storage
       todoChanged: function() {
-        Todos.Models.Store.update(this);
+        Todos.Models.get('store').update(this);
       }.observes('title', 'isDone')
     });
   }

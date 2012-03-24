@@ -6,10 +6,11 @@ define('app/controllers/entries', ['ember'],
    */
   function() {
     return Ember.ArrayProxy.extend({
+      storeBinding: 'Todos.Models.store',
       content: [],
 
       createNew: function(value) {
-        var todo = Todos.Models.Store.createFromTitle(value);
+        var todo = this.get('store').createFromTitle(value);
         this.pushObject(todo);
 
         var stats = document.getElementById('stats-area');
@@ -21,12 +22,12 @@ define('app/controllers/entries', ['ember'],
 
       pushObject: function (item, ignoreStorage) {
         if (!ignoreStorage)
-          Todos.Models.Store.create(item);
+          this.get('store').create(item);
         return this._super(item);
       },
 
       removeObject: function (item) {
-        Todos.Models.Store.remove(item);
+        this.get('store').remove(item);
         return this._super(item);
       },
 

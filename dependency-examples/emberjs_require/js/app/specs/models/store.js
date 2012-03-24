@@ -1,14 +1,14 @@
 /**
  * Some integration tests
  */
-describe('Todos.Models.Store', function(){
+describe('Todos.Models.store', function(){
 
   var title = 'Testing title...';
-  var store = Todos.Models.Store;
+  var store = Todos.Models.get('store');
 
   it('should allow creating and removing items', function(){
     var count = store.findAll().length;
-    var todo = Todos.Models.Store.createFromTitle(title);
+    var todo = Todos.Models.get('store').createFromTitle(title);
     expect(store.findAll().length).to.equal(count + 1);
     expect(todo).to.have.property('title', title);
     expect(todo).to.have.property('isDone', false);
@@ -24,7 +24,7 @@ describe('Todos.Models.Store', function(){
     todo.set('isDone', true);
     expect(store.find(todo).id).to.equal(todo.id);
     expect(store.find(todo).isDone).to.equal(true);
-    Todos.Models.Store.remove(todo);
+    Todos.Models.get('store').remove(todo);
   });
 
 });

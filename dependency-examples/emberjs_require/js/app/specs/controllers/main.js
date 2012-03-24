@@ -1,9 +1,9 @@
 /**
  * Some smoke tests
  */
-describe('Todos.Controllers.Main', function(){
+describe('Todos.Controllers.main', function(){
 
-  var controller = Todos.Controllers.Main;
+  var controller = Todos.Controllers.get('main');
   var title = "Another title...";
 
   it('should have a view for entering new entry', function(){

@@ -17,7 +17,7 @@ describe('Todos Views', function(){
     require(['text!app/views/items.html'], function(html){
       expect(html).to.be.a('string');
       expect(html).to.match(/collection/);
-      expect(html).to.match(/Todos\.Controllers\.Main/);
+      expect(html).to.match(/Todos\.Controllers\.main/);
       expect(html).to.match(/Checkbox/);
       expect(Em.Handlebars.compile(html)).to.not.throw(Error);
       done();

@@ -20,7 +20,7 @@ define('app/controllers/main', [
       inputView: Ember.TextField.create({
         placeholder: 'What needs to be done?',
         elementId: 'new-todo',
-        storageBinding: 'Todos.Controllers.Main',
+        storageBinding: 'Todos.Controllers.main',
         // Bind this to newly inserted line
         insertNewline: function() {
           var value = this.get('value');
@@ -34,8 +34,8 @@ define('app/controllers/main', [
       // Stats label
       statsView: Ember.View.create({
         elementId: 'todo-stats',
-        contentBinding: 'Todos.Controllers.Main',
-        remainingBinding: 'Todos.Controllers.Main.remaining',
+        contentBinding: 'Todos.Controllers.main',
+        remainingBinding: 'Todos.Controllers.main.remaining',
         remainingString: function() {
           var remaining = this.get('remaining');
           return remaining + (remaining === 1 ? " item" : " items");
@@ -46,9 +46,9 @@ define('app/controllers/main', [
       // Clear completed tasks button
       clearCompletedButton: Ember.Button.create({
         template: Ember.Handlebars.compile(button_html),
-        target: 'Todos.Controllers.Main',
+        target: 'Todos.Controllers.main',
         action: 'clearCompleted',
-        completedBinding: 'Todos.Controllers.Main.completed',
+        completedBinding: 'Todos.Controllers.main.completed',
         classNameBindings: 'buttonClass',
         // Observer to update content if completed value changes
         buttonString: function() {
@@ -68,7 +68,7 @@ define('app/controllers/main', [
       allDoneCheckbox: Ember.Checkbox.create({
         classNames: ['mark-all-done'],
         title: "Mark all as complete",
-        valueBinding: 'Todos.Controllers.Main.allAreDone'
+        valueBinding: 'Todos.Controllers.main.allAreDone'
       }),
 
       // Compile and render the todos view
