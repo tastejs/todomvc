@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stapes.js - TodoMVC</title>
+  <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+  <div id="todoapp">
+    <header>
+      <h1>Todos</h1>
+      <input id="new-todo" type="text" placeholder="What needs to be done?">
+    </header>
+    <!-- this section is hidden by default and you be shown when there are todos and hidden when not -->
+    <section id="main">
+      <input id="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list"></ul>
+    </section>
+    <!-- this footer needs to be shown with JS when there are todos and hidden when not -->
+    <footer>
+      <a id="clear-completed">Clear completed</a>
+      <div id="todo-count">
+        <span class="number"></span>
+        <span class="word"></span>
+        left.
+      </div>
+    </footer>
+  </div>
+  <div id="instructions">
+    Double-click to edit a todo.
+  </div>
+  <div id="credits">
+    Created by <a href="http://github.com/hay/stapes/">Hay Kranen</a>.
+  </div>
+
+  <script src="lib/jquery.js"></script>
+  <script src="lib/mustache.js"></script>
+  <script src="lib/stapes.js"></script>
+  <script src="app/todoController.js"></script>
+  <script src="app/todoModel.js"></script>
+  <script src="app/todoView.js"></script>
+  <script src="app/todoStore.js"></script>
+  <script>
+      TodoController.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{{#tasks}}
+    <li class="item {{#done}}done{{/done}}" data-id="{{id}}">
+      {{#edit}}
+        <div class="edit" style="display:block;">
+            <input class="todo-input" type="text" value="{{name}}" />
+        </div>
+      {{/edit}}
+
+      {{^edit}}
+          <div class="view">
+            <input class="toggle" type="checkbox" {{#done}}checked="checked"{{/done}}>
+            <label>{{name}}</label>
+            <a class="destroy"></a>
+          </div>
+          <input class="edit" type="text" value="{{name}}">
+      {{/edit}}
+    </li>
+{{/tasks}}
