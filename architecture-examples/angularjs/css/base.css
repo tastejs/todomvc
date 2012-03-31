@@ -57,10 +57,6 @@ body {
 	font-style: italic;
 }
 
-#main {
-	display: none;
-}
-
 #todo-list {
 	margin: 10px 0;
 	padding: 0;
@@ -128,7 +124,6 @@ body {
 }
 
 #todoapp footer {
-	display: none;
 	margin: 0 -20px -20px -20px;
 	overflow: hidden;
 	color: #555555;
@@ -144,7 +139,6 @@ body {
 }
 
 #clear-completed {
-	display: none;
 	float: right;
 	line-height: 20px;
 	text-decoration: none;

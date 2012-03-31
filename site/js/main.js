@@ -5,9 +5,9 @@
 		delay: 200,
 		placement: 'in right',
 		title: function() {
-			return $(this).text() + '<a href="' + $(this).data('source') + '">Go to site</a>';
+			return $( this ).text() + '<a href="' + $( this ).data('source') + '">Go to site</a>';
 		}
-	}).on('click', '.popover', function(e) {
+	}).on('click', '.popover', function( e ) {
 		// Prevent click on the popover, but allow links inside
 		if ( e.target.nodeName.toLowerCase() !== 'a' ) {
 			e.preventDefault();
@@ -21,7 +21,7 @@
 	$.getJSON('https://github.com/api/v2/json/repos/show/addyosmani/todomvc/contributors?callback=?', function( res ) {
 		var data = res.contributors;
 		// Add some previous contributors not on the GitHub list
-		[].push.apply(data, [{
+		[].push.apply( data, [{
 			login: 'tomdale',
 			name: 'Tom Dale'
 		}, {

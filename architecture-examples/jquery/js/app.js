@@ -97,6 +97,7 @@ jQuery(function($) {
 					todos.splice( l, 1 );
 				}
 			}
+			App.$toggleAll.attr( 'checked', false );
 			App.render();
 		},
 		// Accepts an element from inside the ".item" div and returns the corresponding todo in the todos array.
@@ -110,16 +111,13 @@ jQuery(function($) {
 			});
 		},
 		create: function(e) {
-			if ( e.which !== App.ENTER_KEY ) {
-				return;
-			}
 			var $input = $(this),
-				inputVal = $input.val();
-			if ( !inputVal ) {
+				val = $.trim( $input.val() );
+			if ( e.which !== App.ENTER_KEY || !val ) {
 				return;
 			}
 			App.todos.push({
-				title: inputVal,
+				title: val,
 				id: Utils.uuid(),
 				done: false
 			});
@@ -143,9 +141,13 @@ jQuery(function($) {
 		update: function() {
 			var val = $(this).removeClass('editing').val();
 			App.getTodo( this, function(i) {
-				this.todos[i].title = val;
+				if ( val ) {
+					this.todos[i].title = val;
+				} else {
+					this.todos.splice( i, 1 );
+				}
+				this.render();
 			});
-			App.render();
 		},
 		destroy: function() {
 			App.getTodo( this, function(i) {

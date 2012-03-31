@@ -51,7 +51,7 @@ As of early 2012, I'm happy to introduce two new core committers to the project:
 
 TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV* frameworks. Whilst we hope that this project is able to offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of what a framework may be capable of.
 
-It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured an we heavily recommend investing time researching a solution in more depth before opting to use it.
+It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
 
 ## Official Site & Getting Involved
