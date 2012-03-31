@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<app:TodoClass xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:js="js.core" xmlns:ui="js.ui" xmlns:app="app" xmlns:view="app.view">
+    <js:Injection>
+        <js:I18n locale="en_EN"/>
+    </js:Injection>
+    <div class="container">
+        <div id="todoapp">
+            <div class="language">
+                <select items="{locales}" selectedItem="{{i18n.locale}}">
+                    <js:Template name="item">
+                        <option value="{$item}">{i18n.translate({$item})}</option>
+                    </js:Template>
+                </select>
+            </div>
+
+            <div class="title">
+                <h1>{i18n.translate(title)}</h1>
+            </div>
+            <div class="content">
+                <div id="create-todo">
+                    <!-- HERE WE USE TWO WAY BINDING TO SET THE CONTENT OF THE NEW TODO -->
+                    <input id="new-todo" placeholder="{i18n.translate(placeholder)}" type="text" onkeyup="addNewTodo"
+                           value="{{newTodo.content}}"/>
+                    <!-- EACH ELEMENT WITH A CID IS REGISTERED IN THE ROOT SCOPE -->
+                    <span class="ui-tooltip-top" cid="hint" visible="false">{i18n.translate(hint)}</span>
+                </div>
+
+                <div id="todo-list">
+                    <div visible="{todoList.hasItems()}">
+                        <input class="check mark-all-done" type="checkbox" onclick="markAllComplete" id="check-all"
+                               checked="{todoList.areAllComplete()}"/>
+                        <label for="check-all">{i18n.translate(markAllAsComplete)}</label>
+                    </div>
+
+                    <!-- CUSTOM UI COMPONENT FOR RENDERING A LIST OF ITEMS -> TODOs -->
+                    <ui:ItemsView list="{todoList}" tagName="ul" id="todoList">
+                        <js:Template name="item">
+                            <view:TodoView todo="{$item}" tagName="li" onremove="removeTodo"/>
+                        </js:Template>
+                    </ui:ItemsView>
+
+                </div>
+                <div id="todo-stats">
+                    <span class="todo-count" data-num="{todoList.numOpenTodos()}">
+                        <span class="number">{data-num}</span>
+                        {i18n.translate({data-num},item)} {i18n.translate(left)}.
+                    </span>
+                    <span class="todo-sort" visible="{todoList.hasItems()}">
+                        <a href="javascript: void 0;" onclick="sort">
+                            {i18n.translate(sortTodos)}
+                        </a>
+                    </span>
+                    <span class="todo-clear" visible="{todoList.hasCompletedTodos()}">
+                        <!-- FOR THE ITEMS STRING WE USE A FUNCTION WHICH GETS A NUMBER OF ITEMS AS INPUT -->
+                        <a href="javascript: void 0;" onclick="clearCompleted"
+                           data-num="{todoList.numCompletedTodos()}">
+                            {i18n.translate(clear)}
+                            <span class="number-done">{data-num}</span>
+                            {i18n.translate(completed)}
+                            <span class="word-done">
+                                {i18n.translate({data-num},item)}
+                            </span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="credits">
+            {i18n.translate(createdBy)}
+            <a href="http://github.com/krebbl">Marcus Krejpowicz</a>
+            <br/>
+            {i18n.translate(with)}
+            <a href="http://rappidjs.com">&lt;rAppid:js /&gt;</a>.
+            <br/>
+            {i18n.translate(creditsTo)} <a href="http://github.com/it-ony">Tony Findeisen</a>.
+        </div>
+    </div>
+</app:TodoClass>
