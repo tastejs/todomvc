@@ -20,6 +20,11 @@ $(document).ready(function() {
       return $(element).dblclick(ko.utils.unwrapObservable(value_accessor()));
     }
   };
+  ko.bindingHandlers.block = {
+    update: function(element, value_accessor) {
+      return element.style.display = ko.utils.unwrapObservable(value_accessor()) ? 'block' : 'none';
+    }
+  };
   TodoList = (function() {
     __extends(TodoList, Backbone.Collection);
     function TodoList() {
@@ -54,7 +59,7 @@ $(document).ready(function() {
     this.input_text = ko.observable('');
     this.addTodo = function(view_model, event) {
       var text;
-      text = this.create.input_text();
+      text = $.trim(this.create.input_text());
       if (!text || event.keyCode !== 13) {
         return true;
       }

@@ -8,10 +8,13 @@
 
 $(document).ready(->
 
-  # add a doubleclick and placeholder handlers to KO
+  # add custom handlers to KO
   ko.bindingHandlers.dblclick =
     init: (element, value_accessor, all_bindings_accessor, view_model) ->
       $(element).dblclick(ko.utils.unwrapObservable(value_accessor()))
+  ko.bindingHandlers.block =
+    update: (element, value_accessor) ->
+      element.style.display = if ko.utils.unwrapObservable(value_accessor()) then 'block' else 'none'
 
   ###################################
   # Model: http://en.wikipedia.org/wiki/Model_view_controller
@@ -35,7 +38,7 @@ $(document).ready(->
   CreateTodoViewModel = ->
     @input_text = ko.observable('')
     @addTodo = (view_model, event) ->
-      text = @create.input_text()
+      text = $.trim(@create.input_text())
       return true if (!text || event.keyCode != 13)
       todos.create({text: text})
       @create.input_text('')

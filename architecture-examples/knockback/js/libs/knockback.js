@@ -1,5 +1,5 @@
 /*
-  knockback.js 0.13.0
+  knockback.js 0.14.0
   (c) 2011 Kevin Malakoff.
   Knockback.js is freely distributable under the MIT license.
   See the following for full license details:
@@ -17,7 +17,7 @@ if (!this._ || !this._.VERSION) {
 }
 this.Knockback || (this.Knockback = {});
 this.kb || (this.kb = this.Knockback);
-Knockback.VERSION = '0.13.0';
+Knockback.VERSION = '0.14.0';
 Knockback.locale_manager;
 Knockback.wrappedObservable = function(instance) {
   if (!instance._kb_observable) {
@@ -1216,15 +1216,20 @@ Knockback.ViewModel = (function() {
     return _results;
   };
   ViewModel.prototype._kb_vm_onModelChange = function() {
-    var key, _results;
-    if (!this._kb_vm.model._changed) {
-      return;
+    var key, _results, _results2;
+    if (this._kb_vm.model._changed) {
+      _results = [];
+      for (key in this._kb_vm.model.attributes) {
+        _results.push((this._kb_vm.model.hasChanged(key) ? this._updateAttributeObservor(this._kb_vm.model, key) : void 0));
+      }
+      return _results;
+    } else if (this._kb_vm.model.changed) {
+      _results2 = [];
+      for (key in this._kb_vm.model.changed) {
+        _results2.push(this._updateAttributeObservor(this._kb_vm.model, key));
+      }
+      return _results2;
     }
-    _results = [];
-    for (key in this._kb_vm.model.attributes) {
-      _results.push((this._kb_vm.model.hasChanged(key) ? this._updateAttributeObservor(this._kb_vm.model, key) : void 0));
-    }
-    return _results;
   };
   ViewModel.prototype._updateAttributeObservor = function(model, key) {
     var vm_key;
