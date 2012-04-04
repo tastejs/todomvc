@@ -4,20 +4,6 @@
  The MIT License (MIT)
 
  Copyright(c) 2012 Olivier Scherrer <pode.fr@gmail.com> - Olivier Wietrich <olivier.wietrich@gmail.com>
-
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation
- the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
- and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial 
- portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
- TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
- CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- IN THE SOFTWARE.
 */
 define("Olives/DomUtils",["Tools"],function(){return{getNodes:function(f,i){return f instanceof HTMLElement?(f.parentNode||document.createDocumentFragment().appendChild(f),f.parentNode.querySelectorAll(i||"*")):false}}});define("Olives/Event-plugin",function(){return function(f){this.listen=function(i,g,j,c){i.addEventListener(g,function(a){f[j].call(f,a,i)},c=="true")}}});
 define("Olives/LocalStore",["Store","Tools"],function(f,i){function g(){var g=null,c=function(){localStorage.setItem(g,this.toJSON())};this.sync=function(a){return typeof a=="string"?(g=a,a=JSON.parse(localStorage.getItem(a)),i.loop(a,function(a,d){this.has(d)||this.set(d,a)},this),c.call(this),true):false};this.watch("added",c,this);this.watch("updated",c,this);this.watch("deleted",c,this)}return function(i){g.prototype=new f(i);return new g}});
@@ -36,4 +22,4 @@ define("Olives/Plugins",["Tools","Olives/DomUtils"],function(f,i){return functio
 function(a,d){this.add(d,a)},this)};this.get=function(a){return g[a]};this.del=function(a){return delete g[a]};this.apply=function(a){var e;return a instanceof HTMLElement?(e=i.getNodes(a),f.loop(f.toArray(e),function(a){f.loop(a.dataset,function(h,e){c(a,h,e)})}),a):false}}});
 define("Olives/Transport",["Observable","Tools"],function(f,i){return function(g,j){var c=null,a=null,e=new f;this.setIO=function(d){return d&&typeof d.connect=="function"?(a=d,true):false};this.getIO=function(){return a};this.connect=function(d){return typeof d=="string"?(c=a.connect(d),true):false};this.getSocket=function(){return c};this.on=function(a,h){c.on(a,h)};this.once=function(a,h){c.once(a,h)};this.emit=function(a,h,e){c.emit(a,h,e)};this.request=function(a,e,f,g){var b=Date.now()+Math.floor(Math.random()*
 1E6),i=function(){f&&f.apply(g||null,arguments)};c[e.keptAlive?"on":"once"](b,i);e.__eventId__=b;c.emit(a,e);if(e.keptAlive)return function(){c.emit("disconnect-"+b);c.removeListener(b,i)}};this.listen=function(a,c,f,g){var b=a+"/"+c.path,j,m;e.hasTopic(b)||(i.mixin({method:"GET",keptAlive:true},c),m=this.request(a,c,function(a){e.notify(b,a)},this));j=e.watch(b,f,g);return function(){e.unwatch(j);e.hasTopic(b)||m()}};this.getListenObservable=function(){return e};this.setIO(g);this.connect(j)}});
-define("Olives/Type-plugin",["Olives/OObject","Tools"],function(f,i){return function(g){var j={};this.place=function(c,a){if(j[a]instanceof f)j[a].place(c);else throw Error(a+" is not an OObject UI in place:"+a);};this.set=function(c,a){return typeof c=="string"&&a instanceof f?(j[c]=a,true):false};this.setAll=function(c){i.loop(c,function(a,c){this.set(c,a)},this)};this.get=function(c){return j[c]};this.setAll(g)}});
+define("Olives/UI-plugin",["Olives/OObject","Tools"],function(f,i){return function(g){var j={};this.place=function(c,a){if(j[a]instanceof f)j[a].place(c);else throw Error(a+" is not an OObject UI in place:"+a);};this.set=function(c,a){return typeof c=="string"&&a instanceof f?(j[c]=a,true):false};this.setAll=function(c){i.loop(c,function(a,c){this.set(c,a)},this)};this.get=function(c){return j[c]};this.setAll(g)}});
