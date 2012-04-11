@@ -1,77 +1,146 @@
 (function() {
-  var TaskApp;
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+  var TodoApp,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-  TaskApp = (function() {
+  TodoApp = (function(_super) {
+    var ENTER_KEY;
 
-    __extends(TaskApp, Spine.Controller);
+    __extends(TodoApp, _super);
 
-    TaskApp.prototype.elements = {
-      '.items': 'tasks',
-      '.countVal': 'counter',
-      'a.clear': 'clearCompleted',
-      'form#new-task input[name=name]': 'newTaskName'
+    ENTER_KEY = 13;
+
+    TodoApp.prototype.elements = {
+      '#new-todo': 'newTodoInput',
+      '#toggle-all': 'toggleAllElem',
+      '#main': 'main',
+      '#todo-list': 'todos',
+      '#footer': 'footer',
+      '#todo-count': 'count',
+      '#filters a': 'filters',
+      '#clear-completed': 'clearCompleted'
     };
 
-    TaskApp.prototype.events = {
-      'submit form#new-task': 'new',
-      'click a.clear': 'clearCompleted'
+    TodoApp.prototype.events = {
+      'keyup #new-todo': 'new',
+      'click #toggle-all': 'toggleAll',
+      'click #clear-completed': 'clearCompleted'
     };
 
-    function TaskApp() {
-      this.toggleClearCompleted = __bind(this.toggleClearCompleted, this);
-      this.renderCounter = __bind(this.renderCounter, this);
-      this.renderAll = __bind(this.renderAll, this);
-      this.renderNew = __bind(this.renderNew, this);      TaskApp.__super__.constructor.apply(this, arguments);
-      Task.bind('create', this.renderNew);
-      Task.bind('refresh', this.renderAll);
-      Task.bind('refresh change', this.renderCounter);
-      Task.bind('refresh change', this.toggleClearCompleted);
-      Task.fetch();
+    function TodoApp() {
+      this.renderFooter = __bind(this.renderFooter, this);
+      this.toggleElems = __bind(this.toggleElems, this);
+      this.addAll = __bind(this.addAll, this);
+      this.addNew = __bind(this.addNew, this);      TodoApp.__super__.constructor.apply(this, arguments);
+      Todo.bind('create', this.addNew);
+      Todo.bind('refresh', this.addAll);
+      Todo.bind('refresh change', this.toggleElems);
+      Todo.bind('refresh change', this.renderFooter);
+      Todo.fetch();
+      this.routes({
+        '/:filter': function(param) {
+          this.filter = param.filter;
+          /*
+          				TODO: Need to figure out why the route doesn't trigger `change` event
+          */
+          Todo.trigger('refresh');
+          return this.filters.removeClass('selected').filter("[href='#/" + this.filter + "']").addClass('selected');
+        }
+      });
     }
 
-    TaskApp.prototype["new"] = function(e) {
-      e.preventDefault();
-      Task.fromForm('form#new-task').save();
-      return this.newTaskName.val('');
-    };
-
-    TaskApp.prototype.renderNew = function(task) {
-      var view;
-      view = new Tasks({
-        task: task
-      });
-      return this.tasks.append(view.render().el);
-    };
-
-    TaskApp.prototype.renderAll = function() {
-      return Task.each(this.renderNew);
-    };
-
-    TaskApp.prototype.renderCounter = function() {
-      return this.counter.text(Task.active().length);
-    };
-
-    TaskApp.prototype.toggleClearCompleted = function() {
-      if (Task.done().length) {
-        return this.clearCompleted.show();
-      } else {
-        return this.clearCompleted.hide();
+    TodoApp.prototype["new"] = function(e) {
+      var val;
+      val = $.trim(this.newTodoInput.val());
+      if (e.which === ENTER_KEY && val) {
+        Todo.create({
+          title: val
+        });
+        return this.newTodoInput.val('');
       }
     };
 
-    TaskApp.prototype.clearCompleted = function() {
-      return Task.destroyDone();
+    TodoApp.prototype.getByFilter = function() {
+      switch (this.filter) {
+        case 'active':
+          return Todo.active();
+        case 'completed':
+          return Todo.completed();
+        default:
+          return Todo.all();
+      }
     };
 
-    return TaskApp;
+    TodoApp.prototype.addNew = function(todo) {
+      var view;
+      view = new Todos({
+        todo: todo
+      });
+      return this.todos.append(view.render().el);
+    };
 
-  })();
+    TodoApp.prototype.addAll = function() {
+      var todo, _i, _len, _ref, _results;
+      this.todos.empty();
+      _ref = this.getByFilter();
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        todo = _ref[_i];
+        _results.push(this.addNew(todo));
+      }
+      return _results;
+    };
+
+    TodoApp.prototype.toggleAll = function(e) {
+      return Todo.each(function(todo) {
+        /*
+        			TODO: Model updateAttribute sometimes won't stick:
+        				https://github.com/maccman/spine/issues/219
+        */        todo.updateAttribute('completed', e.target.checked);
+        return todo.trigger('update', todo);
+      });
+    };
+
+    TodoApp.prototype.clearCompleted = function() {
+      return Todo.destroyCompleted();
+    };
+
+    TodoApp.prototype.toggleElems = function() {
+      var isTodos;
+      isTodos = !!Todo.count();
+      this.main.toggle(isTodos);
+      this.footer.toggle(isTodos);
+      this.clearCompleted.toggle(!!Todo.completed().length);
+      if (!Todo.completed().length) {
+        return this.toggleAllElem.removeAttr('checked');
+      }
+    };
+
+    TodoApp.prototype.renderFooter = function() {
+      var active, completed, text;
+      text = function(count) {
+        if (count === 1) {
+          return 'item';
+        } else {
+          return 'items';
+        }
+      };
+      active = Todo.active().length;
+      completed = Todo.completed().length;
+      this.count.html("<b>" + active + "</b> " + (text(active)) + " left");
+      return this.clearCompleted.text("Clear completed (" + completed + ")");
+    };
+
+    return TodoApp;
+
+  })(Spine.Controller);
 
   $(function() {
-    return new TaskApp({
-      el: $('#tasks')
+    new TodoApp({
+      el: $('#todoapp')
     });
+    return Spine.Route.setup();
   });
 
 }).call(this);
