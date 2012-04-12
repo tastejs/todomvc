@@ -1,5 +1,5 @@
 import localstorage
-import filter
+import list
 import text
 
 <head>
@@ -51,7 +51,7 @@ displayFilter = 'all'
 							<input class="toggle" type="checkbox" data=task.completed />
 							<label>task.title</label>
 							<button class="destroy"></button onclick=handler() {
-								tasks set: filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
+								tasks set: list.filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
 							}>
 						</div>
 						// TODO Implement editing
@@ -62,7 +62,7 @@ displayFilter = 'all'
 		</section>
 		
 		<footer id="footer">
-			completedTasks = filter(tasks, function(task) { return task.completed })
+			completedTasks = list.filter(tasks, function(task) { return task.completed })
 			pluralize = function(num) { return num is > 1 ? "items" : "item" }
 			<span id="todo-count">
 				numTasksLeft = tasks.length - completedTasks.length
@@ -74,11 +74,11 @@ displayFilter = 'all'
 					displayFilter set:'all'
 				}>
 				<li><a href="#" class=(displayFilter is 'active' ? 'selected' : '')>"Active"</a></li onclick=handler() {
-					displayTasks set: filter(tasks, function(task) { return !task.completed })
+					displayTasks set: list.filter(tasks, function(task) { return !task.completed })
 					displayFilter set:'active'
 				}>
 				<li><a href="#" class=(displayFilter is 'completed' ? 'selected' : '')>"Completed"</a></li onclick=handler() {
-					displayTasks set: filter(tasks, function(task) { return task.completed })
+					displayTasks set: list.filter(tasks, function(task) { return task.completed })
 					displayFilter set:'completed'
 				}>
 			</ul>
