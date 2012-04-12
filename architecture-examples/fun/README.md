@@ -3,7 +3,7 @@ Fun TodoMVC
 
 This is an implementation of the [TodoMVC example application](http://addyosmani.github.com/todomvc/) in [Fun](https://github.com/marcuswestin/fun), a new programming language for web apps.
 
-Note that `index.html` is the compiled output. Please see `app.fun` for the source.
+Note that `index.html` is the compiled output - see `app.fun` for the original source.
 
 Getting started
 ---------------
