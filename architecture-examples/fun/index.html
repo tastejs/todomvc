@@ -420,7 +420,7 @@ body {
 </head><body><script>
 var __require__ = {}
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/isArray
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/isArray
 	var module = __require__["_1"] = {exports:{}}, exports = module.exports;
 module.exports = (function() {
 	if (Array.isArray && Array.isArray.toString().match('\\[native code\\]')) {
@@ -438,7 +438,7 @@ module.exports = (function() {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/isArguments
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/isArguments
 	var module = __require__["_2"] = {exports:{}}, exports = module.exports;
 module.exports = function isArguments(obj) {
   return Object.prototype.toString.call(obj) == '[object Arguments]'
@@ -446,7 +446,7 @@ module.exports = function isArguments(obj) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/each
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/each
 	var module = __require__["_3"] = {exports:{}}, exports = module.exports;
 var isArray = __require__["_1"].exports,
 	isArguments = __require__["_2"].exports
@@ -472,7 +472,7 @@ module.exports = function(items, ctx, fn) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/create
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/create
 	var module = __require__["_4"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports
 // Thanks Douglas Crockford! http://javascript.crockford.com/prototypal.html
@@ -500,7 +500,7 @@ module.exports = function create(obj, extendWithProperties) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/proto
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/proto
 	var module = __require__["_5"] = {exports:{}}, exports = module.exports;
 /* 
 	// Usage: proto(prototypeObj, intantiatingFn, properties)
@@ -546,7 +546,7 @@ var proto = module.exports = function proto(prototypeObject, instantiationFuncti
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/map
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/map
 	var module = __require__["_6"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports
 
@@ -565,7 +565,7 @@ module.exports = function(items, ctx, fn) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/slice
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/slice
 	var module = __require__["_7"] = {exports:{}}, exports = module.exports;
 /*
 	Example usage:
@@ -583,7 +583,7 @@ module.exports = function args(args, offset, length) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/bind
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/bind
 	var module = __require__["_8"] = {exports:{}}, exports = module.exports;
 /*
 	Example usage:
@@ -639,7 +639,7 @@ module.exports = function bind(context, method /* curry1, curry2, ... curryN */)
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/src/runtime/expressions
+	// /Volumes/Encrypted/code/marcuswestin/fun/src/runtime/expressions
 	var module = __require__["_9"] = {exports:{}}, exports = module.exports;
 var proto = __require__["_5"].exports,
 	create = __require__["_4"].exports,
@@ -943,6 +943,8 @@ var operators = {
 	'*': multiply,
 	'=': equals,
 	'==': equals, // I wonder if we should make this just = in the fun source, since we don't allow for assignment in mutating statements...
+	'!': notEquals,
+	'!=': notEquals, // We may want to just use ! since it's `foo is ! 'hi'` now
 	'>=': greaterThanOrEquals,
 	'<=': lessThanOrEquals,
 	'<': lessThan,
@@ -983,6 +985,10 @@ function multiply(left, right) {
 
 function equals(left, right) {
 	return left.equals(right)
+}
+
+function notEquals(left, right) {
+	return Logic(!left.equals(right).getContent())
 }
 
 function greaterThanOrEquals(left, right) {
@@ -1128,7 +1134,7 @@ var List = module.exports.List = proto(collectionBase,
 			}
 			return Yes
 		},
-		getters:{
+		getters:create(base.getters, {
 			length:function() {
 				var variableLength = variable(NullValue)
 				this.observe(bind(this, function() {
@@ -1136,12 +1142,11 @@ var List = module.exports.List = proto(collectionBase,
 				}))
 				return variableLength
 			}
-		},
+		}),
 	}
 )
 
 function __interimIterationFunction(yieldFn) {
-	console.log("Figure out how to do iteration properly")
 	each(this._content, yieldFn)
 }
 
@@ -1191,7 +1196,7 @@ var Event = module.exports.Event = function(jsEvent) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/curry
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/curry
 	var module = __require__["_10"] = {exports:{}}, exports = module.exports;
 var slice = __require__["_7"].exports
 
@@ -1207,7 +1212,7 @@ module.exports = function curry(fn /* arg1, arg2, ... argN */) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/throttle
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/throttle
 	var module = __require__["_11"] = {exports:{}}, exports = module.exports;
 var unique = 0
 module.exports = function throttle(fn, delay) {
@@ -1227,7 +1232,7 @@ module.exports = function throttle(fn, delay) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/dom/hasClass
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/hasClass
 	var module = __require__["_12"] = {exports:{}}, exports = module.exports;
 module.exports = function(el, className) {
 	return (' ' + el.className + ' ').match(' ' + className + ' ')
@@ -1235,7 +1240,7 @@ module.exports = function(el, className) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/dom/addClass
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/addClass
 	var module = __require__["_13"] = {exports:{}}, exports = module.exports;
 var hasClass = __require__["_12"].exports
 
@@ -1247,7 +1252,7 @@ module.exports = function(el, className) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/dom/removeClass
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/removeClass
 	var module = __require__["_14"] = {exports:{}}, exports = module.exports;
 module.exports = function removeClass(el, className) {
 	var current = ' ' + el.className + ' ',
@@ -1260,7 +1265,7 @@ module.exports = function removeClass(el, className) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/unique
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/unique
 	var module = __require__["_15"] = {exports:{}}, exports = module.exports;
 /*
  * Return a globally unique string.
@@ -1273,7 +1278,7 @@ module.exports.__namespace = '__u'
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/Class
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/Class
 	var module = __require__["_16"] = {exports:{}}, exports = module.exports;
 /* Example usage:
 
@@ -1359,7 +1364,7 @@ module.exports = function Class(/* optParent, optMixin1, optMixin2, ..., proto *
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/std/client
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/client
 	var module = __require__["_17"] = {exports:{}}, exports = module.exports;
 var Class = __require__["_16"].exports
 
@@ -1448,7 +1453,7 @@ module.exports.parse = function(userAgent) { return new Client(userAgent) }
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/dom/getWindowScroll
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/getWindowScroll
 	var module = __require__["_18"] = {exports:{}}, exports = module.exports;
 // Thanks http://stackoverflow.com/questions/1567327/using-jquery-to-get-elements-position-relative-to-viewport!
 module.exports = function getWindowScroll(win) {
@@ -1466,7 +1471,7 @@ module.exports = function getWindowScroll(win) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/dom/on
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/on
 	var module = __require__["_19"] = {exports:{}}, exports = module.exports;
 var unique = __require__["_15"].exports,
 	curry = __require__["_10"].exports,
@@ -1592,7 +1597,7 @@ module.exports.normalizeEvent = function(eventName, e) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/node_modules/dom/off
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/off
 	var module = __require__["_20"] = {exports:{}}, exports = module.exports;
 var on = __require__["_19"].exports
 
@@ -1636,7 +1641,7 @@ module.exports._removeHandler = function(element, eventName, handler) {
 })()
 
 ;(function() {
-	// /usr/local/lib/node_modules/fun/src/runtime/library
+	// /Volumes/Encrypted/code/marcuswestin/fun/src/runtime/library
 	var module = __require__["_21"] = {exports:{}}, exports = module.exports;
 var expressions = __require__["_9"].exports,
 	each = __require__["_3"].exports,
@@ -1784,11 +1789,7 @@ var expressions = __require__["_9"].exports,
 			property.observe(function() {
 				input.value = property.evaluate().asString()
 			})
-			on(input, 'keypress', update)
-			on(input, 'keyup', update)
-			on(input, 'keydown', function(e) {
-				if (e.keyCode == 86) { update(e) } // catch paste events
-			})
+			
 			function update(e) {
 				setTimeout(function() {
 					var value = input.value
@@ -1797,6 +1798,12 @@ var expressions = __require__["_9"].exports,
 					input.value = value
 				}, 0)
 			}
+			
+			on(input, 'keypress', update)
+			on(input, 'keyup', update)
+			on(input, 'keydown', function(e) {
+				if (e.keyCode == 86) { update(e) } // catch paste events
+			})
 		}
 	}
 
@@ -1809,6 +1816,17 @@ var expressions = __require__["_9"].exports,
 })()
 
 ;(function() {
+	// /Volumes/Encrypted/code/node_modules/fun/node_modules/std/strip
+	var module = __require__["_22"] = {exports:{}}, exports = module.exports;
+var stripRegex = /^\s*(.*?)\s*$/
+module.exports = function(str) {
+	return str.match(stripRegex)[1]
+}
+
+
+})()
+
+;(function() {
 	// <code passed into compiler.compile()>
 	var module = __require__["_0"] = {exports:{}}, exports = module.exports;
 fun = __require__["_21"].exports; 
@@ -1816,9 +1834,9 @@ fun = __require__["_21"].exports;
 ;(function funApp() {
 	var _ROOT_HOOK_0 = fun.name("rootHook")
 	fun.setHook(_ROOT_HOOK_0, document.body)
-	/************************************************************************
- * Module: /usr/local/lib/node_modules/fun/src/Modules/localstorage.fun *
- ************************************************************************/
+	/*********************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/localstorage.fun *
+ *********************************************************************************/
 	var __variableName__localstorage = fun.expressions.variable( fun.expressions.Dictionary({ "persist":
 	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__variable, __variableName__name) {
 		;(function(){
@@ -1836,9 +1854,9 @@ fun = __require__["_21"].exports;
 		/* END INLINE JAVASCRIPT */
 		})()
 	}) }))
-/******************************************************************
- * Module: /usr/local/lib/node_modules/fun/src/Modules/filter.fun *
- ******************************************************************/
+/***************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/filter.fun *
+ ***************************************************************************/
 	var __variableName__filter = fun.expressions.variable(
 	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) {
 		;(function(){
@@ -1855,6 +1873,19 @@ fun = __require__["_21"].exports;
 		/* END INLINE JAVASCRIPT */
 		})()
 	}))
+/*************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/text.fun *
+ *************************************************************************/
+	var __variableName__text = fun.expressions.variable( fun.expressions.Dictionary({ "trim":
+	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__text) {
+		;(function(){
+			var text=__variableName__text;
+		/* START INLINE JAVASCRIPT */
+ var strip = __require__["_22"].exports
+ yieldValue(fun.expressions.Text(strip(text.getContent())))
+		/* END INLINE JAVASCRIPT */
+		})()
+	}) }))
 	var _XML_HOOK_1 = fun.name()
 	fun.hook(_XML_HOOK_1, _ROOT_HOOK_0, { tagName:"head", attrs:null })
 		var _XML_HOOK_2 = fun.name()
@@ -1864,6 +1895,10 @@ fun = __require__["_21"].exports;
 			fun.emit(_XML_HOOK_3,  fun.expressions.Text("Fun • TodoMVC"))
 	var __variableName__tasks = fun.expressions.variable( fun.expressions.List([  ]))
 	fun.emit(_ROOT_HOOK_0,  fun.invoke( fun.expressions.reference(__variableName__localstorage, ["persist"]), [__variableName__tasks, fun.expressions.Text("todos-fun")], _ROOT_HOOK_0))
+	var __variableName__nextId = fun.expressions.variable( fun.expressions.Number(1))
+	fun.emit(_ROOT_HOOK_0,  fun.invoke( fun.expressions.reference(__variableName__localstorage, ["persist"]), [__variableName__nextId, fun.expressions.Text("todos-id")], _ROOT_HOOK_0))
+	var __variableName__displayTasks = fun.expressions.variable(__variableName__tasks)
+	var __variableName__displayFilter = fun.expressions.variable( fun.expressions.Text("all"))
 	var _XML_HOOK_4 = fun.name()
 	fun.hook(_XML_HOOK_4, _ROOT_HOOK_0, { tagName:"section", attrs:[{name:"id",value: fun.expressions.Text("todoapp")}] })
 		var _XML_HOOK_5 = fun.name()
@@ -1876,11 +1911,23 @@ fun = __require__["_21"].exports;
 			fun.hook(_XML_HOOK_7, _XML_HOOK_5, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("new-todo")}, {name:"placeholder",value: fun.expressions.Text("What needs to be done?")}, {name:"autofocus",value: fun.expressions.Logic(true)}, {name:"data",value:__variableName__newTaskName}, {name:"onkeypress",value:
 			fun.expressions.Handler(function block(__variableName__event) {
 				;(function(ifBranch, elseBranch) {
-					 fun.expressions.composite( fun.expressions.reference(__variableName__event, ["keyCode"]), "==",  fun.expressions.Number(13)).isTruthy() ? ifBranch() : elseBranch()
+					 fun.expressions.composite( fun.expressions.reference(__variableName__event, ["keyCode"]), "=",  fun.expressions.Number(13)).isTruthy() ? ifBranch() : elseBranch()
 				})(
 					function ifBranch(){
-					__variableName__tasks.push(null,  fun.expressions.Dictionary({ "title": fun.invoke( fun.expressions.reference(__variableName__newTaskName, ["copy"]), [], ""), "completed": fun.expressions.Logic(false) }))
-					__variableName__newTaskName.set(null,  fun.expressions.Text(""))
+					var __variableName__trimmedName = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__text, ["trim"]), [ fun.invoke( fun.expressions.reference(__variableName__newTaskName, ["copy"]), [], "")], ""))
+					var __variableName__id = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__nextId, ["copy"]), [], ""))
+					;(function(ifBranch, elseBranch) {
+						 fun.expressions.composite(__variableName__trimmedName, "!",  fun.expressions.Text("")).isTruthy() ? ifBranch() : elseBranch()
+					})(
+						function ifBranch(){
+						__variableName__tasks.push(null,  fun.expressions.Dictionary({ "title":__variableName__trimmedName, "completed": fun.expressions.Logic(false), "id":__variableName__id }))
+						__variableName__newTaskName.set(null,  fun.expressions.Text(""))
+						},
+						function elseBranch(){
+							null
+						}
+					)
+					__variableName__nextId.set(null,  fun.expressions.composite( fun.invoke( fun.expressions.reference(__variableName__nextId, ["copy"]), [], ""), "+",  fun.expressions.Number(1)))
 					},
 					function elseBranch(){
 						null
@@ -1891,10 +1938,10 @@ fun = __require__["_21"].exports;
 		fun.hook(_IF_ELSE_HOOK_8, _XML_HOOK_4)
 		var _LAST_VALUE_9
 		 fun.expressions.reference(__variableName__tasks, ["length"]).observe(function() {
-			var _STATEMENT_VALUE_26 =  fun.expressions.reference(__variableName__tasks, ["length"]).evaluate()
+			var _STATEMENT_VALUE_33 =  fun.expressions.reference(__variableName__tasks, ["length"]).evaluate()
 		;(function(ifBranch, elseBranch) {
-			if (_LAST_VALUE_9 && _STATEMENT_VALUE_26.equals(_LAST_VALUE_9).isTruthy()) { return }
-			_LAST_VALUE_9 = _STATEMENT_VALUE_26
+			if (_LAST_VALUE_9 && _STATEMENT_VALUE_33.equals(_LAST_VALUE_9).isTruthy()) { return }
+			_LAST_VALUE_9 = _STATEMENT_VALUE_33
 			fun.destroyHook(_IF_ELSE_HOOK_8)
 			_LAST_VALUE_9.isTruthy() ? ifBranch() : elseBranch()
 		})(
@@ -1916,9 +1963,9 @@ fun = __require__["_21"].exports;
 				fun.hook(_XML_HOOK_13, _XML_HOOK_10, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("todo-list")}] })
 					var _FOR_LOOP_HOOK_15 = fun.name()
 					fun.hook(_FOR_LOOP_HOOK_15, _XML_HOOK_13)
-					__variableName__tasks.observe(function() {
+					__variableName__displayTasks.observe(function() {
 						fun.destroyHook(_FOR_LOOP_HOOK_15)
-						__variableName__tasks.evaluate().iterate(function(__variableName__task) {
+						__variableName__displayTasks.evaluate().iterate(function(__variableName__task) {
 							var _FOR_LOOP_EMIT_HOOK_14 = fun.name()
 							fun.hook(_FOR_LOOP_EMIT_HOOK_14, _FOR_LOOP_HOOK_15)
 						var _XML_HOOK_16 = fun.name()
@@ -1931,7 +1978,13 @@ fun = __require__["_21"].exports;
 								fun.hook(_XML_HOOK_19, _XML_HOOK_17, { tagName:"label", attrs:null })
 									fun.emit(_XML_HOOK_19,  fun.expressions.reference(__variableName__task, ["title"]))
 								var _XML_HOOK_20 = fun.name()
-								fun.hook(_XML_HOOK_20, _XML_HOOK_17, { tagName:"button", attrs:[{name:"class",value: fun.expressions.Text("destroy")}] })
+								fun.hook(_XML_HOOK_20, _XML_HOOK_17, { tagName:"button", attrs:[{name:"class",value: fun.expressions.Text("destroy")}, {name:"onclick",value:
+								fun.expressions.Handler(function block() {
+									__variableName__tasks.set(null,  fun.invoke(__variableName__filter, [ fun.invoke( fun.expressions.reference(__variableName__tasks, ["copy"]), [], ""),
+									fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__checkTask) {
+										yieldValue( fun.expressions.composite( fun.expressions.reference(__variableName__checkTask, ["id"]), "!",  fun.expressions.reference(__variableName__task, ["id"]))); return
+									})], ""))
+								})}] })
 							var _XML_HOOK_21 = fun.name()
 							fun.hook(_XML_HOOK_21, _XML_HOOK_16, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("edit")}, {name:"data",value: fun.expressions.reference(__variableName__task, ["title"])}] })
 						})
@@ -1956,7 +2009,42 @@ fun = __require__["_21"].exports;
 					fun.emit(_XML_HOOK_23,  fun.invoke(__variableName__pluralize, [__variableName__numTasksLeft], _XML_HOOK_23))
 					fun.emit(_XML_HOOK_23,  fun.expressions.Text(" left"))
 				var _XML_HOOK_25 = fun.name()
-				fun.hook(_XML_HOOK_25, _XML_HOOK_22, { tagName:"button", attrs:[{name:"id",value: fun.expressions.Text("clear-completed")}, {name:"onclick",value:
+				fun.hook(_XML_HOOK_25, _XML_HOOK_22, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("filters")}] })
+					var _XML_HOOK_26 = fun.name()
+					fun.hook(_XML_HOOK_26, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
+					fun.expressions.Handler(function block() {
+						__variableName__displayTasks.set(null, __variableName__tasks)
+						__variableName__displayFilter.set(null,  fun.expressions.Text("all"))
+					})}] })
+						var _XML_HOOK_27 = fun.name()
+						fun.hook(_XML_HOOK_27, _XML_HOOK_26, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("all")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_27,  fun.expressions.Text("All"))
+					var _XML_HOOK_28 = fun.name()
+					fun.hook(_XML_HOOK_28, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
+					fun.expressions.Handler(function block() {
+						__variableName__displayTasks.set(null,  fun.invoke(__variableName__filter, [__variableName__tasks,
+						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
+							yieldValue( fun.expressions.unary("!",  fun.expressions.reference(__variableName__task, ["completed"]))); return
+						})], ""))
+						__variableName__displayFilter.set(null,  fun.expressions.Text("active"))
+					})}] })
+						var _XML_HOOK_29 = fun.name()
+						fun.hook(_XML_HOOK_29, _XML_HOOK_28, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("active")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_29,  fun.expressions.Text("Active"))
+					var _XML_HOOK_30 = fun.name()
+					fun.hook(_XML_HOOK_30, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
+					fun.expressions.Handler(function block() {
+						__variableName__displayTasks.set(null,  fun.invoke(__variableName__filter, [__variableName__tasks,
+						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
+							yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
+						})], ""))
+						__variableName__displayFilter.set(null,  fun.expressions.Text("completed"))
+					})}] })
+						var _XML_HOOK_31 = fun.name()
+						fun.hook(_XML_HOOK_31, _XML_HOOK_30, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("completed")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_31,  fun.expressions.Text("Completed"))
+				var _XML_HOOK_32 = fun.name()
+				fun.hook(_XML_HOOK_32, _XML_HOOK_22, { tagName:"button", attrs:[{name:"id",value: fun.expressions.Text("clear-completed")}, {name:"onclick",value:
 				fun.expressions.Handler(function block() {
 					var __variableName__remainingTasks = fun.expressions.variable( fun.expressions.List([  ]))
 					__variableName__tasks.evaluate().iterate(function(__variableName__task) {
@@ -1973,30 +2061,30 @@ fun = __require__["_21"].exports;
 					})
 					__variableName__tasks.set(null, __variableName__remainingTasks)
 				})}] })
-					fun.emit(_XML_HOOK_25,  fun.expressions.Text("Clear completed ("))
-					fun.emit(_XML_HOOK_25,  fun.expressions.reference(__variableName__completedTasks, ["length"]))
-					fun.emit(_XML_HOOK_25,  fun.expressions.Text(")"))
+					fun.emit(_XML_HOOK_32,  fun.expressions.Text("Clear completed ("))
+					fun.emit(_XML_HOOK_32,  fun.expressions.reference(__variableName__completedTasks, ["length"]))
+					fun.emit(_XML_HOOK_32,  fun.expressions.Text(")"))
 			},
 			function elseBranch(){
 				null
 			}
 		)
 		})
-	var _XML_HOOK_27 = fun.name()
-	fun.hook(_XML_HOOK_27, _ROOT_HOOK_0, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("info")}] })
-		var _XML_HOOK_28 = fun.name()
-		fun.hook(_XML_HOOK_28, _XML_HOOK_27, { tagName:"p", attrs:null })
-			fun.emit(_XML_HOOK_28,  fun.expressions.Text("Double-click to edit a todo"))
-		var _XML_HOOK_29 = fun.name()
-		fun.hook(_XML_HOOK_29, _XML_HOOK_27, { tagName:"p", attrs:null })
-			fun.emit(_XML_HOOK_29,  fun.expressions.Text("Created with "))
-			var _XML_HOOK_30 = fun.name()
-			fun.hook(_XML_HOOK_30, _XML_HOOK_29, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("https://github.com/marcuswestin/fun")}] })
-				fun.emit(_XML_HOOK_30,  fun.expressions.Text("Fun"))
-			fun.emit(_XML_HOOK_29,  fun.expressions.Text(" by "))
-			var _XML_HOOK_31 = fun.name()
-			fun.hook(_XML_HOOK_31, _XML_HOOK_29, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("http://marcuswest.in")}] })
-				fun.emit(_XML_HOOK_31,  fun.expressions.Text("Marcus Westin"))
+	var _XML_HOOK_34 = fun.name()
+	fun.hook(_XML_HOOK_34, _ROOT_HOOK_0, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("info")}] })
+		var _XML_HOOK_35 = fun.name()
+		fun.hook(_XML_HOOK_35, _XML_HOOK_34, { tagName:"p", attrs:null })
+			fun.emit(_XML_HOOK_35,  fun.expressions.Text("Double-click to edit a todo"))
+		var _XML_HOOK_36 = fun.name()
+		fun.hook(_XML_HOOK_36, _XML_HOOK_34, { tagName:"p", attrs:null })
+			fun.emit(_XML_HOOK_36,  fun.expressions.Text("Created with "))
+			var _XML_HOOK_37 = fun.name()
+			fun.hook(_XML_HOOK_37, _XML_HOOK_36, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("https://github.com/marcuswestin/fun")}] })
+				fun.emit(_XML_HOOK_37,  fun.expressions.Text("Fun"))
+			fun.emit(_XML_HOOK_36,  fun.expressions.Text(" by "))
+			var _XML_HOOK_38 = fun.name()
+			fun.hook(_XML_HOOK_38, _XML_HOOK_36, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("http://marcuswest.in")}] })
+				fun.emit(_XML_HOOK_38,  fun.expressions.Text("Marcus Westin"))
 })();
 })()
 </script></body></html>
