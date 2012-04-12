@@ -1,5 +1,6 @@
 import localstorage
 import filter
+import text
 
 <head>
 	<meta charset="utf-8" />
@@ -16,10 +17,12 @@ localstorage.persist(tasks, 'todos-fun')
 		<h1>"todos"</h1>
 		newTaskName = ''
 		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
-			if (event.keyCode is == 13) {
-				// TODO check that newTaskName.trim() != ''
-				tasks push: { title:newTaskName.copy(), completed:false }
-				newTaskName set: ''
+			if (event.keyCode is 13) {
+				trimmedName = text.trim(newTaskName.copy())
+				if (trimmedName is ! '') {
+					tasks push: { title:trimmedName, completed:false }
+					newTaskName set: ''
+				}
 			}
 		}/>
 	</header>
