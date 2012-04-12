@@ -26,7 +26,7 @@ displayFilter = 'all'
 			if (event.keyCode is 13) {
 				trimmedName = text.trim(newTaskName.copy())
 				id = nextId.copy()
-				if (trimmedName is ! '') {
+				if trimmedName is ! '' {
 					tasks push: { title:trimmedName, completed:false, id:id }
 					newTaskName set: ''
 				}
