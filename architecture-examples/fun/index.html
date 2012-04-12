@@ -1854,10 +1854,10 @@ fun = __require__["_21"].exports;
 		/* END INLINE JAVASCRIPT */
 		})()
 	}) }))
-/***************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/filter.fun *
- ***************************************************************************/
-	var __variableName__filter = fun.expressions.variable(
+/*************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/list.fun *
+ *************************************************************************/
+	var __variableName__list = fun.expressions.variable( fun.expressions.Dictionary({ "filter":
 	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) {
 		;(function(){
 			var list=__variableName__list, func=__variableName__func;
@@ -1872,7 +1872,7 @@ fun = __require__["_21"].exports;
  yieldValue(result)
 		/* END INLINE JAVASCRIPT */
 		})()
-	}))
+	}) }))
 /*************************************************************************
  * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/text.fun *
  *************************************************************************/
@@ -1980,7 +1980,7 @@ fun = __require__["_21"].exports;
 								var _XML_HOOK_20 = fun.name()
 								fun.hook(_XML_HOOK_20, _XML_HOOK_17, { tagName:"button", attrs:[{name:"class",value: fun.expressions.Text("destroy")}, {name:"onclick",value:
 								fun.expressions.Handler(function block() {
-									__variableName__tasks.set(null,  fun.invoke(__variableName__filter, [ fun.invoke( fun.expressions.reference(__variableName__tasks, ["copy"]), [], ""),
+									__variableName__tasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [ fun.invoke( fun.expressions.reference(__variableName__tasks, ["copy"]), [], ""),
 									fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__checkTask) {
 										yieldValue( fun.expressions.composite( fun.expressions.reference(__variableName__checkTask, ["id"]), "!",  fun.expressions.reference(__variableName__task, ["id"]))); return
 									})], ""))
@@ -1991,7 +1991,7 @@ fun = __require__["_21"].exports;
 					})
 			var _XML_HOOK_22 = fun.name()
 			fun.hook(_XML_HOOK_22, _IF_ELSE_HOOK_8, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("footer")}] })
-				var __variableName__completedTasks = fun.expressions.variable( fun.invoke(__variableName__filter, [__variableName__tasks,
+				var __variableName__completedTasks = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
 				fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
 					yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
 				})], _XML_HOOK_22))
@@ -2022,7 +2022,7 @@ fun = __require__["_21"].exports;
 					var _XML_HOOK_28 = fun.name()
 					fun.hook(_XML_HOOK_28, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
 					fun.expressions.Handler(function block() {
-						__variableName__displayTasks.set(null,  fun.invoke(__variableName__filter, [__variableName__tasks,
+						__variableName__displayTasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
 						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
 							yieldValue( fun.expressions.unary("!",  fun.expressions.reference(__variableName__task, ["completed"]))); return
 						})], ""))
@@ -2034,7 +2034,7 @@ fun = __require__["_21"].exports;
 					var _XML_HOOK_30 = fun.name()
 					fun.hook(_XML_HOOK_30, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
 					fun.expressions.Handler(function block() {
-						__variableName__displayTasks.set(null,  fun.invoke(__variableName__filter, [__variableName__tasks,
+						__variableName__displayTasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
 						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
 							yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
 						})], ""))
