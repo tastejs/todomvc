@@ -33,34 +33,46 @@
 					var complete = this.model.get('complete');
 					this.setStatus(complete ? 'complete' : '');
 					console.info('status changed: complete = ', complete);
-					app.updateCounter();
+					app.updateStatus();
 				},
 				'dblclick label': function() {
 					this.setStatus('editing');
 					this.view.$('input').select();
 				},
-				'click .destroy': function() { this.destroy(); },
-				'change .edit': function() { this.setStatus(''); }
+				'click .destroy': function() {
+					this.destroy();
+				},
+				'change .edit': function() {
+					this.setStatus('');
+				}
 			},
 			// utility functions
-			setStatus: function(status) { this.model.set({status: status}); }
+			setStatus: function(status) {
+				this.model.set({status: status});
+			}
 		});
 
 		// The main application which holds todo items.
 		var app = $$({
 			model: {
-				completeCount:'0', todoCount:'0',
-				toggleAll:false, mainStyle:'', clearBtnStyle:''
+				completeCount: '0',
+				todoCount: '0',
+				newtitle: '',
+				toggleAll:false,
+				mainStyle:'',
+				clearBtnStyle:''
 			},
 			view: {
 				format: drawHtml('#todoapp'),
 				style: '.hidden {display: none;}'
 			},
 			controller: {
-				'remove': function() { app.updateCounter(); },
+				'remove': function() { app.updateStatus(); },
 				'keyup #new-todo': function(event) {
 					if (13 !== event.which) { return; }
-					this.addTodoItem({title: this.model.get('newtitle')});
+					var title = this.model.get('newtitle').trim();
+					if (!title) return;
+					this.addTodoItem({title: title});
 					$(event.target).val('');  // clear input field
 				},
 				'change:toggleAll': function() {
@@ -72,7 +84,7 @@
 					console.log('clear completed called');
 					this.each(function(id, item) {
 						if (item.model.get('complete')) { item.destroy(); }
-						app.updateCounter();
+						app.updateStatus();
 					});
 				}
 			},
@@ -80,9 +92,10 @@
 			addTodoItem: function(data) {
 				console.info('new item added: ', data);
 				this.append($$(todoitem, data), '#todo-list');
-				this.updateCounter();
+				this.updateStatus();
 			},
-			updateCounter: function() {
+			updateStatus: function() {
+				// update counts
 				var count = this.size(),
 					completeCount = 0;
 				this.each(function(id, item) {
@@ -95,6 +108,8 @@
 					mainStyle: (0 < count ? '' : 'hidden'),
 					clearBtnStyle: (0 < completeCount ? '' : 'hidden')
 				});
+				// update toggle-all checked status
+				$('#toggle-all').prop('checked', completeCount === count);
 			},
 			// filter handler
 			filters: {
@@ -133,4 +148,6 @@
 		});
 		if (location.hash) { $(window).trigger('hashchange'); }
 	});
+
+	// TODO: persistency
 })(window.jQuery, window.agility, window.console);
