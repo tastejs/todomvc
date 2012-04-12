@@ -54,6 +54,7 @@ displayFilter = 'all'
 								tasks set: filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
 							}>
 						</div>
+						// TODO Implement editing
 						<input class="edit" data=task.title />
 					</li>
 				}
