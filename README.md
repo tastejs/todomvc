@@ -47,7 +47,8 @@ As of early 2012, I'm happy to introduce two new core committers to the project:
 
 * [Sindre Sorhus](https://github.com/sindresorhus): Sindre is a Web Developer who has been taking an interest in contributing to a number of open-source projects this year and will also be helping with project expansion and improvements to existing applications.
 
-##Disclaimer
+
+## Disclaimer
 
 TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV* frameworks. Whilst we hope that this project is able to offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of what a framework may be capable of.
 
@@ -63,3 +64,8 @@ Whilst we enjoy implementing and improving existing Todo apps, we're always inte
 If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request. One of us will be happy to review them and discuss any changes that may be required before they can be included.
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
+
+
+## License
+
+[The Unlicense](http://unlicense.org) (aka: public domain)
