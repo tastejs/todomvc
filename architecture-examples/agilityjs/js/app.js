@@ -35,20 +35,26 @@
 					console.info('status changed: complete = ', complete);
 					app.updateStatus();
 				},
-				'dblclick label': function() {
+				'dblclick .view': function() {
 					this.setStatus('editing');
-					this.view.$('input').select();
+					this.view.$('.edit').select();
 				},
-				'click .destroy': function() {
-					this.destroy();
-				},
-				'change .edit': function() {
-					this.setStatus('');
-				}
+				'click .destroy': function() { this.destroy(); },
+				'change .edit': function() { this.updateTitle(); },
+				'blue .edit': function() { this.updateTitle(); }
 			},
 			// utility functions
 			setStatus: function(status) {
 				this.model.set({status: status});
+			},
+			updateTitle: function() {
+				this.setStatus('');
+				var title = this.model.get('title').trim();
+				if (title) {
+					this.model.set({title: title});
+				} else {
+					this.destroy();
+				}
 			}
 		});
 
