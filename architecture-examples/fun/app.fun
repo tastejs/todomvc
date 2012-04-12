@@ -51,13 +51,7 @@ displayFilter = 'all'
 							<input class="toggle" type="checkbox" data=task.completed />
 							<label>task.title</label>
 							<button class="destroy"></button onclick=handler() {
-								tasksWithoutDestroyedTask = []
-								for checkTask in tasks {
-									if checkTask.id is ! task.id {
-										tasksWithoutDestroyedTask push:checkTask
-									}
-								}
-								tasks set: tasksWithoutDestroyedTask
+								tasks set: filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
 							}>
 						</div>
 						<input class="edit" data=task.title />
