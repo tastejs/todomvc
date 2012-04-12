@@ -12,6 +12,12 @@ import text
 tasks = []
 localstorage.persist(tasks, 'todos-fun')
 
+nextId = 1
+localstorage.persist(nextId, 'todos-id')
+
+displayTasks = tasks
+displayFilter = 'all'
+
 <section id="todoapp">
 	<header id="header">
 		<h1>"todos"</h1>
@@ -19,10 +25,12 @@ localstorage.persist(tasks, 'todos-fun')
 		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
 			if (event.keyCode is 13) {
 				trimmedName = text.trim(newTaskName.copy())
+				id = nextId.copy()
 				if (trimmedName is ! '') {
-					tasks push: { title:trimmedName, completed:false }
+					tasks push: { title:trimmedName, completed:false, id:id }
 					newTaskName set: ''
 				}
+				nextId set: nextId.copy() + 1
 			}
 		}/>
 	</header>
@@ -37,13 +45,20 @@ localstorage.persist(tasks, 'todos-fun')
 			} />
 			<label for="toggle-all">"Mark all as complete"</label>
 			<ul id="todo-list">
-				for task in tasks {
+				for task in displayTasks {
 					<li class=(task.completed ? "complete" : "")>
 						<div class="view">
 							<input class="toggle" type="checkbox" data=task.completed />
 							<label>task.title</label>
-							// TODO Implement destroy
-							<button class="destroy"></button>
+							<button class="destroy"></button onclick=handler() {
+								tasksWithoutDestroyedTask = []
+								for checkTask in tasks {
+									if checkTask.id is ! task.id {
+										tasksWithoutDestroyedTask push:checkTask
+									}
+								}
+								tasks set: tasksWithoutDestroyedTask
+							}>
 						</div>
 						<input class="edit" data=task.title />
 					</li>
@@ -58,18 +73,20 @@ localstorage.persist(tasks, 'todos-fun')
 				numTasksLeft = tasks.length - completedTasks.length
 				<strong>numTasksLeft</strong>" "pluralize(numTasksLeft)" left"
 			</span>
-			// TODO implement filters
-			// <ul id="filters">
-			// 	<li>
-			// 		<a class="selected" href="#/">"All"</a>
-			// 	</li>
-			// 	<li>
-			// 		<a href="#/active">"Active"</a>
-			// 	</li>
-			// 	<li>
-			// 		<a href="#/completed">"Completed"</a>
-			// 	</li>
-			// </ul>
+			<ul id="filters">
+				<li><a href="#" class=(displayFilter is 'all' ? 'selected' : '')>"All"</a></li onclick=handler() {
+					displayTasks set: tasks
+					displayFilter set:'all'
+				}>
+				<li><a href="#" class=(displayFilter is 'active' ? 'selected' : '')>"Active"</a></li onclick=handler() {
+					displayTasks set: filter(tasks, function(task) { return !task.completed })
+					displayFilter set:'active'
+				}>
+				<li><a href="#" class=(displayFilter is 'completed' ? 'selected' : '')>"Completed"</a></li onclick=handler() {
+					displayTasks set: filter(tasks, function(task) { return task.completed })
+					displayFilter set:'completed'
+				}>
+			</ul>
 			<button id="clear-completed">"Clear completed ("completedTasks.length")"</button onclick=handler() {
 				remainingTasks = []
 				for task in tasks {
