@@ -23,10 +23,13 @@
 
 		// todo item
 		var todoitem = $$({
-			model: {complete: false},
-			view: {format: drawHtml('#todo-list li'), style: '.hidden {display: none;}'},
+			model: { complete: false },
+			view: {
+				format: drawHtml('#todo-list li'),
+				style: '.hidden {display: none;}'
+			},
 			controller: {
-				'change:complete': function(e,o) {
+				'change:complete': function() {
 					var complete = this.model.get('complete');
 					this.setStatus(complete ? 'complete' : '');
 					console.info('status changed: complete = ', complete);
@@ -45,24 +48,29 @@
 
 		// The main application which holds todo items.
 		var app = $$({
-			model: {completeCount:'0', todoCount:'0',
-				toggleAll:false, mainStyle:'', clearBtnStyle:''},
-			view: {format: drawHtml('#todoapp'), style: '.hidden {display: none;}'},
+			model: {
+				completeCount:'0', todoCount:'0',
+				toggleAll:false, mainStyle:'', clearBtnStyle:''
+			},
+			view: {
+				format: drawHtml('#todoapp'),
+				style: '.hidden {display: none;}'
+			},
 			controller: {
 				'remove': function() { app.updateCounter(); },
-				'keyup #new-todo': function(e) {
-					if (13 !== e.which) { return; }
+				'keyup #new-todo': function(event) {
+					if (13 !== event.which) { return; }
 					this.addTodoItem({title: this.model.get('newtitle')});
-					$(e.target).val('');  // clear input field
+					$(event.target).val('');  // clear input field
 				},
 				'change:toggleAll': function() {
 					var ischecked = this.model.get('toggleAll');
 					console.log('toggleAll clicked: ', ischecked);
-					this.each(function(id,item) { item.model.set({complete: ischecked}); });
+					this.each(function(id, item) { item.model.set({complete: ischecked}); });
 				},
 				'click #clear-completed': function() {
 					console.log('clear completed called');
-					this.each(function(id,item) {
+					this.each(function(id, item) {
 						if (item.model.get('complete')) { item.destroy(); }
 						app.updateCounter();
 					});
@@ -75,15 +83,15 @@
 				this.updateCounter();
 			},
 			updateCounter: function() {
-				var count = this.size();
-				var completeCount = 0;
-				this.each(function(id,item) {
+				var count = this.size(),
+					completeCount = 0;
+				this.each(function(id, item) {
 					if (item.model.get('complete')) { completeCount++; }
 				});
 				console.log('#[total, complete] = ', [count, completeCount]);
 				this.model.set({
-					completeCount: String(completeCount),
-					todoCount: String(count - completeCount),
+					completeCount: completeCount + '',
+					todoCount: count - completeCount + '',
 					mainStyle: (0 < count ? '' : 'hidden'),
 					clearBtnStyle: (0 < completeCount ? '' : 'hidden')
 				});
@@ -96,7 +104,7 @@
 			},
 			applyFilter: function(hash) {
 				var filter = this.filters[hash];
-				this.each(function(id,item) {
+				this.each(function(id, item) {
 					if (filter(item)) {
 						item.setStatus(item.model.get('complete') ? 'complete' : '');
 					} else {
