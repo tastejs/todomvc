@@ -11,7 +11,7 @@
 			<h1>todos</h1>
 			<input id="new-todo" type="text" data-bind="newtitle" placeholder="What needs to be done?" autofocus>
 		</header>
-		<!-- this section should hidden by default and shown when there are todos -->
+
 		<section id="main" data-bind="style = mainStyle">
 			<input id="toggle-all" type="checkbox" data-bind="toggleAll">
 			<label for="toggle-all">Mark all as complete</label>
@@ -34,10 +34,10 @@
 				</li>
 			</ul>
 		</section>
-		<!-- this footer should hidden by default and shown when there are todos -->
+
 		<footer id="footer" data-bind="class = mainStyle">
 			<span id="todo-count"><strong data-bind="todoCount">1</strong> item left</span>
-			<!-- remove this if you don't implement routing -->
+
 			<ul id="filters">
 				<li>
 					<a class="selected" href="#/">All</a>
@@ -56,8 +56,8 @@
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="http://github.com/tshm/todomvc/">Tosh Shimayama</a></p>
 	</footer>
-	<!-- scripts here -->
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/lib/agility.min.js"></script>
 	<script src="js/app.js"></script>
 </body>

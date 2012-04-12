@@ -4,13 +4,13 @@
 (c) [Toshihide Shimayama](http://github.com/tshm/todomvc/)
 
 */
-(function($, $$, console) {  "use strict";
+(function($, $$, console) {  'use strict';
 	// Hack of taking out html elements from DOM so that agility's view can use it.
 	var drawHtml = function(selector) {
 		// we need 'outerhtml' also, as agilityjs will append DOM, so removing it.
 		var html = $(selector).remove().wrap('<div>').parent().html();
 		if (!html) {
-			console.log("failed extracting: " + selector);
+			console.log('failed extracting: ' + selector);
 		}
 		return html;
 	};
@@ -27,17 +27,17 @@
 			view: {format: drawHtml('#todo-list li'), style: '.hidden {display: none;}'},
 			controller: {
 				'change:complete': function(e,o) {
-					var complete = this.model.get("complete");
-					this.setStatus(complete ? "complete" : "");
+					var complete = this.model.get('complete');
+					this.setStatus(complete ? 'complete' : '');
 					console.info('status changed: complete = ', complete);
 					app.updateCounter();
 				},
 				'dblclick label': function() {
-					this.setStatus("editing");
+					this.setStatus('editing');
 					this.view.$('input').select();
 				},
 				'click .destroy': function() { this.destroy(); },
-				'change .edit': function() { this.setStatus(""); }
+				'change .edit': function() { this.setStatus(''); }
 			},
 			// utility functions
 			setStatus: function(status) { this.model.set({status: status}); }
@@ -45,15 +45,15 @@
 
 		// The main application which holds todo items.
 		var app = $$({
-			model: {completeCount:"0", todoCount:"0",
-				toggleAll:false, mainStyle:"", clearBtnStyle:""},
-			view: {format: drawHtml('#todoapp'), style: ".hidden {display: none;}"},
+			model: {completeCount:'0', todoCount:'0',
+				toggleAll:false, mainStyle:'', clearBtnStyle:''},
+			view: {format: drawHtml('#todoapp'), style: '.hidden {display: none;}'},
 			controller: {
 				'remove': function() { app.updateCounter(); },
 				'keyup #new-todo': function(e) {
 					if (13 !== e.which) { return; }
-					this.addTodoItem({title: this.model.get("newtitle")});
-					$(e.target).val("");  // clear input field
+					this.addTodoItem({title: this.model.get('newtitle')});
+					$(e.target).val('');  // clear input field
 				},
 				'change:toggleAll': function() {
 					var ischecked = this.model.get('toggleAll');
@@ -84,15 +84,15 @@
 				this.model.set({
 					completeCount: String(completeCount),
 					todoCount: String(count - completeCount),
-					mainStyle: (0 < count ? "" : "hidden"),
-					clearBtnStyle: (0 < completeCount ? "" : "hidden")
+					mainStyle: (0 < count ? '' : 'hidden'),
+					clearBtnStyle: (0 < completeCount ? '' : 'hidden')
 				});
 			},
 			// filter handler
 			filters: {
-				"#/":          function(item) { return true; },
-				"#/active":    function(item) { return !item.model.get('complete'); },
-				"#/completed": function(item) { return item.model.get('complete'); }
+				'#/':          function(item) { return true; },
+				'#/active':    function(item) { return !item.model.get('complete'); },
+				'#/completed': function(item) { return item.model.get('complete'); }
 			},
 			applyFilter: function(hash) {
 				var filter = this.filters[hash];
