@@ -61,8 +61,9 @@
 		// The main application which holds todo items.
 		var app = $$({
 			model: {
-				completeCount: '0',
-				todoCount: '0',
+				count: '0',
+				pluralizer: '',
+				completeCountText: '0 item',
 				newtitle: '',
 				toggleAll:false,
 				mainStyle:'',
@@ -109,8 +110,9 @@
 				});
 				console.log('#[total, complete] = ', [count, completeCount]);
 				this.model.set({
-					completeCount: completeCount + '',
-					todoCount: count - completeCount + '',
+					count: count + '',
+					pluralizer: (count>1 ? 's':''),
+					completeCountText: completeCount + ' item' + (completeCount>1 ? 's':''),
 					mainStyle: (0 < count ? '' : 'hidden'),
 					clearBtnStyle: (0 < completeCount ? '' : 'hidden')
 				});

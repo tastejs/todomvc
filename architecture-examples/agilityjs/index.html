@@ -12,13 +12,13 @@
 			<input id="new-todo" type="text" data-bind="newtitle" placeholder="What needs to be done?" autofocus>
 		</header>
 
-		<section id="main" data-bind="style = mainStyle">
+		<section id="main" data-bind="class = mainStyle">
 			<input id="toggle-all" type="checkbox" data-bind="toggleAll">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
 				<li class="complete">
 					<div class="view">
-						<input class="toggle" type="checkbox">
+						<input class="toggle" type="checkbox" checked>
 						<label>Create a TodoMVC template</label>
 						<button class="destroy"></button>
 					</div>
@@ -26,7 +26,7 @@
 				</li>
 				<li data-bind="class = status">
 					<div class="view">
-						<input class="toggle" type="checkbox" checked data-bind="complete">
+						<input class="toggle" type="checkbox" data-bind="complete">
 						<label data-bind="title">Rule the web</label>
 						<button class="destroy"></button>
 					</div>
@@ -36,7 +36,7 @@
 		</section>
 
 		<footer id="footer" data-bind="class = mainStyle">
-			<span id="todo-count"><strong data-bind="todoCount">1</strong> item left</span>
+		<span id="todo-count"><strong data-bind='count'>1</strong> item<span data-bind='pluralizer'></span> left</span>
 
 			<ul id="filters">
 				<li>
@@ -49,11 +49,12 @@
 					<a href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" data-bind="class = clearBtnStyle">Clear completed (<span data-bind="completeCount">1</span>)</button>
+			<button id="clear-completed" data-bind="class = clearBtnStyle">Clear completed (<span data-bind="completeCountText">1</span>)</button>
 		</footer>
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
+		<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
 		<p>Created by <a href="http://github.com/tshm/todomvc/">Tosh Shimayama</a></p>
 	</footer>
 
