@@ -4,7 +4,8 @@
 (c) [Toshihide Shimayama](http://github.com/tshm/todomvc/)
 
 */
-(function($, $$, console) {  'use strict';
+(function($, $$, console) {
+	'use strict';
 	// Hack of taking out html elements from DOM so that agility's view can use it.
 	var drawHtml = function(selector) {
 		// we need 'outerhtml' also, as agilityjs will append DOM, so removing it.
@@ -41,7 +42,9 @@
 				},
 				'click .destroy': function() { this.destroy(); },
 				'change .edit': function() { this.updateTitle(); },
-				'blue .edit': function() { this.updateTitle(); }
+				'blue .edit': function() { this.updateTitle(); },
+				'change': function() { this.save(); },
+				'destroy': function() { this.erase(); console.log('remove called'); }
 			},
 			// utility functions
 			setStatus: function(status) {
@@ -56,7 +59,7 @@
 					this.destroy();
 				}
 			}
-		});
+		}).persist($$.adapter.localStorage, {collection: 'todos-agilityjs'});
 
 		// The main application which holds todo items.
 		var app = $$({
@@ -98,7 +101,7 @@
 			// utility functions
 			addTodoItem: function(data) {
 				console.info('new item added: ', data);
-				this.append($$(todoitem, data), '#todo-list');
+				this.append($$(todoitem, data).save(), '#todo-list');
 				this.updateStatus();
 			},
 			updateStatus: function() {
@@ -135,12 +138,15 @@
 					}
 				});
 			}
-		});
+		}).persist();
 		$$.document.prepend(app);
 
-		// re-add sample todo item as a agility object.
-		var title = $sampleTodo.find('label').text();
-		app.addTodoItem({title: title, complete: true});
+		// load or initialize default todo
+		app.gather(todoitem, 'append', '#todo-list');
+		if (0 === app.size()) {
+			var title = $sampleTodo.find('label').text();
+			app.addTodoItem({title: title, complete: true});
+		}
 
 		// manual routing  (not supported by agilityjs)
 		$(window).on('hashchange', function() {
@@ -157,5 +163,4 @@
 		if (location.hash) { $(window).trigger('hashchange'); }
 	});
 
-	// TODO: persistency
 })(window.jQuery, window.agility, window.console);
