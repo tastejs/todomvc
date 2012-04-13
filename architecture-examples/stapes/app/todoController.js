@@ -14,7 +14,7 @@ var TodoController = Stapes.create().extend({
             },
 
             "change ready" : function() {
-                this.view.showClearCompleted( this.model.getDone() > 0);
+                this.view.showClearCompleted( this.model.getComplete() > 0);
             }
         }, this);
 
@@ -45,7 +45,7 @@ var TodoController = Stapes.create().extend({
 
             "taskdone taskundone" : function(id, e) {
                 this.model.update(id, function(item) {
-                    item.done = e.type === "taskdone";
+                    item.complete = e.type === "taskdone";
                     return item;
                 });
             },
@@ -60,7 +60,7 @@ var TodoController = Stapes.create().extend({
 
             "doneall undoneall" : function(alldone) {
                 this.model.update(function(item) {
-                    item.done = alldone;
+                    item.complete = alldone;
                     return item;
                 });
             }
