@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>agilityjs • TodoMVC</title>
+	<title>Agility.js • TodoMVC</title>
 	<link rel="stylesheet" href="../../assets/base.css">
 </head>
 <body>
@@ -16,27 +16,19 @@
 			<input id="toggle-all" type="checkbox" data-bind="toggleAll">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
-				<li class="complete">
-					<div class="view">
-						<input class="toggle" type="checkbox" checked>
-						<label>Create a TodoMVC template</label>
-						<button class="destroy"></button>
-					</div>
-					<input class="edit" type="text" value="Create a TodoMVC template">
-				</li>
 				<li data-bind="class = status">
 					<div class="view">
 						<input class="toggle" type="checkbox" data-bind="complete">
-						<label data-bind="title">Rule the web</label>
+						<label data-bind="title"></label>
 						<button class="destroy"></button>
 					</div>
-					<input class="edit" type="text" value="Rule the web" data-bind="title">
+					<input class="edit" type="text" data-bind="title">
 				</li>
 			</ul>
 		</section>
 
 		<footer id="footer" data-bind="class = mainStyle">
-		<span id="todo-count"><strong data-bind='count'>1</strong> item<span data-bind='pluralizer'></span> left</span>
+		<span id="todo-count"><strong data-bind='todoCount'></strong> item<span data-bind='pluralizer'></span> left</span>
 
 			<ul id="filters">
 				<li>
@@ -49,7 +41,7 @@
 					<a href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" data-bind="class = clearBtnStyle">Clear completed (<span data-bind="completeCountText">1</span>)</button>
+			<button id="clear-completed" data-bind="class = clearBtnStyle">Clear completed (<span data-bind="completeCount"></span>)</button>
 		</footer>
 	</section>
 	<footer id="info">

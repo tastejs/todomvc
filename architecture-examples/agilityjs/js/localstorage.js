@@ -1,21 +1,15 @@
-/*
-
-	 [MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
-	 (c) [Toshihide Shimayama](http://github.com/tshm/todomvc/)
-
-*/
 // custom agilityjs adapter for localstorage
-(function($$, console) {
+(function($$) {
 	'use strict';
 
 	$$.adapter.localStorage = function(_params) {
 		var storageKey = (this._data.persist.baseUrl || '') + this._data.persist.collection,
-		storageStr = localStorage[storageKey],
-		items = (storageStr ? JSON.parse(storageStr) : {});
+			storageStr = localStorage[storageKey],
+			items = (storageStr ? JSON.parse(storageStr) : {});
 		//
-		if ('GET' === _params.type) {
-			if (undefined !== _params.id) {  // normal get
-				if ('object' === typeof items[_params.id]) {
+		if ( _params.type === 'GET' ) {
+			if ( _params.id !== undefined ) {  // normal get
+				if ( typeof items[_params.id] === 'object' ) {
 					_params.success(items[_params.id]);
 				} else {
 					_params.error();
@@ -23,16 +17,15 @@
 			} else {  // gather call
 				_params.success(items);
 			}
-		} else if ('DELETE' === _params.type) {
+		} else if ( _params.type === 'DELETE' ) {
 			delete items[_params.id];
 			localStorage[storageKey] = JSON.stringify(items);
-		} else if ('PUT' === _params.type || 'POST' === _params.type) {
-			if (undefined === _params.id) {
+		} else if ( _params.type === 'PUT' || _params.type === 'POST' ) {
+			if ( _params.id === undefined ) {
 				_params.id = (new Date()).getTime();
 				_params.data.id = _params.id;
 			}
 			items[_params.id] = _params.data;
-			//_params.success({id:_params.id});
 			localStorage[storageKey] = JSON.stringify(items);
 		} else {
 			_params.error();
@@ -40,4 +33,4 @@
 		_params.complete();
 	};
 
-})(window.agility, window.console);
+})(window.agility);
