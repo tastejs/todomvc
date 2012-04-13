@@ -9,13 +9,13 @@
 // (*) a (really) tiny Javascript MVC microframework
 //
 // (c) Hay Kranen < hay@bykr.org >
-// Version 0.2 - Released under the terms of the MIT license
+// Released under the terms of the MIT license
 // < http://en.wikipedia.org/wiki/MIT_License >
 //
 // Stapes.js : http://hay.github.com/stapes
 
 (function() {
-    var VERSION = "0.3pre";
+    var VERSION = "0.3";
 
     /** Utility functions
      *
@@ -252,9 +252,9 @@
                     emitEvents.call(this, type, data, type, -1);
                 }
 
-                if (typeof this._guid == 'number') {
+                if (typeof this._guid === 'number') {
                     // 'all' event for this specific module?
-                    if (Stapes._eventHandlers[this._guid]["all"]) {
+                    if (Stapes._eventHandlers[this._guid].all) {
                         emitEvents.call(this, "all", data, type);
                     }
 
@@ -299,7 +299,7 @@
         },
 
         getAll : function() {
-            return Stapes._attributes[this._guid];
+            return util.clone( Stapes._attributes[this._guid] );
         },
 
         getAllAsArray : function() {
@@ -313,8 +313,7 @@
                 arr.push(value);
             });
 
-            return arr;
-
+            return util.clone( arr );
         },
 
         has : function(key) {

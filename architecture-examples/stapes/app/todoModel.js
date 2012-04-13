@@ -16,12 +16,12 @@ var TodoModel = Stapes.create().extend({
 	"getComplete" : function() {
 		return this.filter(function(item) {
 			return item.complete === true;
-		}).length;
+		});
 	},
 
 	"getLeft" : function() {
 		return this.filter(function(item) {
 			return item.complete === false;
-		}).length;
+		});
 	}
 });

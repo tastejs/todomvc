@@ -41,10 +41,21 @@
 			var isChecked = $(this).is(':checked');
 			todoView.emit( isChecked ? 'doneall' : 'undoneall', isChecked === true);
 		});
+
+		window.onhashchange = function() {
+			var hash = window.location.hash.replace('#/', '');
+
+			// If we get the 'all' menu item we don't get anything in the hash,
+			// so we need to do this...
+			hash = (hash === "") ? "all" : hash;
+			todoView.emit('statechange', hash);
+		}
 	}
 
 	function loadTemplates(cb) {
-		$.get(window.location + 'templates/task.html', function(tmpl) {
+		var root = "//" + window.location.host + window.location.pathname;
+
+		$.get(root + 'templates/task.html', function(tmpl) {
 			cb(function(view) {
 				return Mustache.to_html(tmpl, view);
 			});

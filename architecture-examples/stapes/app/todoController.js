@@ -4,7 +4,7 @@ var TodoController = Stapes.create().extend({
 			"change" : function() {
 				this.store.save( this.model.getAll() );
 				this.view.render( this.model.getAllAsArray() );
-				this.view.showLeft( this.model.getLeft() );
+				this.view.showLeft( this.model.getLeft().length );
 
 				if (this.model.getAllAsArray().length > 0) {
 					this.view.show();
@@ -14,7 +14,7 @@ var TodoController = Stapes.create().extend({
 			},
 
 			"change ready" : function() {
-				this.view.showClearCompleted( this.model.getComplete() );
+				this.view.showClearCompleted( this.model.getComplete().length );
 			}
 		}, this);
 
@@ -32,6 +32,20 @@ var TodoController = Stapes.create().extend({
 
 			"ready" : function() {
 				this.model.set( this.store.load() );
+			},
+
+			"statechange" : function(state) {
+				switch(state) {
+					case "all":
+						this.view.render( this.model.getAllAsArray() );
+						break;
+					case "active":
+						this.view.render( this.model.getLeft() );
+						break;
+					case "completed":
+						this.view.render( this.model.getComplete() );
+						break;
+				}
 			},
 
 			"taskadd" : function(task) {
