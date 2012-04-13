@@ -1,5 +1,6 @@
-(function() {
+(function( window ) {
+	'use strict';
 
-// Your starting point. Enjoy the ride!
+	// Your starting point. Enjoy the ride!
 
-})();
+})( window );
