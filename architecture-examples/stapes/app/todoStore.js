@@ -1,21 +1,21 @@
 var TodoStore = Stapes.create().extend({
-    "init" : function() {
-        if (!"localStorage" in window) {
-            throw new Error("Your browser doesn't support localStorage");
-        }
+	"init" : function() {
+		if (!"localStorage" in window) {
+			throw new Error("Your browser doesn't support localStorage");
+		}
 
-        this.emit('ready');
-    },
+		this.emit('ready');
+	},
 
-    "load" : function() {
-        var result = window.localStorage['todos-stapes'];
+	"load" : function() {
+		var result = window.localStorage['todos-stapes'];
 
-        if (result) {
-            return JSON.parse(result);
-        }
-    },
+		if (result) {
+			return JSON.parse(result);
+		}
+	},
 
-    "save" : function(data) {
-        localStorage['todos-stapes'] = JSON.stringify( data );
-    }
+	"save" : function(data) {
+		localStorage['todos-stapes'] = JSON.stringify( data );
+	}
 });
