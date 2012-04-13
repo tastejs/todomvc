@@ -27,6 +27,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - Ext.js
 - Broke.js
 - Fidel.js
+- DUEL
 
 ###### Non MV*
 

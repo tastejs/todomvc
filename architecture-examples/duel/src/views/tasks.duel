@@ -1,0 +1,12 @@
+<view name="tasks">
+
+<%-- this section is hidden by default but will be shown when there are todos --%>
+<section id="main" if="<%= data.tasks.length %>">
+	<input id="toggle-all" type="checkbox" checked="<%= !data.stats.left %>"
+		onchange="<%= todos.actions.toggle_change %>">
+	<label for="toggle-all">Mark all as complete</label>
+
+	<ul id="todo-list"><for each="<%= data.tasks %>">
+		<call view="task">
+	</for></ul>
+</section>

@@ -1,0 +1,16 @@
+<view name="stats">
+
+<%-- this footer needs to be shown when there are todos and hidden when not --%>
+<footer id="todo-stats" if="<%= data.total %>">
+
+	<a id="clear-completed"
+		onclick="<%= todos.actions.clear_click %>"
+		if="<%= data.completed %>">
+		Clear <span class="number-done"><%= data.completed %></span>
+		completed <span class="word-done"><%= (data.completed === 1) ? 'item' : 'items' %></span></a>
+
+	<div id="todo-count">
+		<span class="number"><%= data.left %></span>
+		<span class="word"><%= (data.left === 1) ? 'item' : 'items' %></span> left
+	</div>
+</footer>
