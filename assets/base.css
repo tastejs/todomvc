@@ -258,7 +258,7 @@ WebKit supports styling of inputs */
 	transition: color 0.4s;
 }
 
-#todo-list li.complete label {
+#todo-list li.completed label {
 	color: #a9a9a9;
 	text-decoration: line-through;
 }
