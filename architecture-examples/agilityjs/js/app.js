@@ -82,7 +82,7 @@
 					app.updateStatus();
 				},
 				'keyup #new-todo': function(event) {
-					if ( ENTER_KEY !== event.which ) {
+					if ( event.which !== ENTER_KEY ) {
 						return;
 					}
 					var title = this.model.get('newtitle').trim();
