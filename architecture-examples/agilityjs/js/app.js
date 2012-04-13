@@ -3,10 +3,9 @@
 	var ENTER_KEY = 13;
 
 	// Hack of taking out html elements from DOM so that agility's view can use it.
+	// We need 'outerhtml' also, as agilityjs will append DOM, so removing it.
 	var drawHtml = function( selector ) {
-		// we need 'outerhtml' also, as agilityjs will append DOM, so removing it.
-		var html = $(selector).remove().wrap( '<div>' ).parent().html();
-		return html;
+		return $(selector).remove().wrap( '<div>' ).parent().html();
 	};
 
 	// Simple Two layer composition:
@@ -15,6 +14,7 @@
 		// todo item
 		var todoitem = $$({
 			model: {
+				title: 'no name',
 				complete: false
 			},
 			view: {
@@ -23,45 +23,35 @@
 			},
 			controller: {
 				'change:complete': function() {
-					var complete = this.model.get( 'complete' );
-					this.setStatus( complete ? 'complete' : '' );
+					this.view.$().toggleClass( 'complete', this.model.get( 'complete' ));
 					app.updateStatus();
 				},
 				'dblclick .view': function() {
-					this.setStatus( 'editing' );
+					this.view.$().addClass( 'editing' );
 					this.view.$('.edit').select();
 				},
 				'click .destroy': function() {
 					this.destroy();
 				},
-				'change .edit': function() {
-					this.updateTitle();
-				},
-				'blur .edit': function() {
-					this.updateTitle();
+				'create': function() {
+					this.view.$().toggleClass( 'complete', this.model.get( 'complete' ));
 				},
 				'change': function() {
 					this.save();
 				},
 				'destroy': function() {
 					this.erase();
-				}
-			},
-			// utility functions
-			setStatus: function( status ) {
-				this.model.set({
-					status: status
-				});
-			},
-			updateTitle: function() {
-				this.setStatus( '' );
-				var title = this.model.get( 'title' ).trim();
-				if ( title ) {
-					this.model.set({
-						title: title
-					});
-				} else {
-					this.destroy();
+				},
+				'change:title': function() {
+					this.view.$().removeClass( 'editing' );
+					var title = this.model.get( 'title' ).trim();
+					if ( title ) {
+						this.model.set({
+							title: title
+						});
+					} else {
+						this.destroy();
+					}
 				}
 			}
 		}).persist( $$.adapter.localStorage, {
@@ -75,7 +65,6 @@
 				pluralizer: '',
 				completeCount: '0',
 				newtitle: '',
-				toggleAll: false,
 				mainStyle: '',
 				clearBtnStyle: ''
 			},
@@ -85,23 +74,23 @@
 			},
 			controller: {
 				'remove': function() {
-					app.updateStatus();
+					this.updateStatus();
+				},
+				'append': function() {
+					this.updateStatus();
 				},
 				'keyup #new-todo': function( event ) {
-					if ( event.which !== ENTER_KEY ) {
-						return;
+					var title;
+					if ( event.which === ENTER_KEY && (title = $('#new-todo').val().trim()) ) {
+						var item = $$(todoitem, {
+							title: title
+						}).save();
+						this.append( item, '#todo-list' );
+						event.target.value = '';  // clear input field
 					}
-					var title = this.model.get( 'newtitle' ).trim();
-					if ( !title ) {
-						return;
-					}
-					this.addTodoItem({
-						title: title
-					});
-					$(event.target).val( '' );  // clear input field
 				},
-				'change:toggleAll': function() {
-					var ischecked = this.model.get( 'toggleAll' );
+				'click #toggle-all': function() {
+					var ischecked = this.view.$('#toggle-all').prop('checked');
 					this.each(function( id, item ) {
 						item.model.set({
 							complete: ischecked
@@ -113,15 +102,10 @@
 						if ( item.model.get( 'complete' ) ) {
 							item.destroy();
 						}
-						app.updateStatus();
 					});
 				}
 			},
 			// utility functions
-			addTodoItem: function( data ) {
-				this.append( $$(todoitem, data).save(), '#todo-list' );
-				this.updateStatus();
-			},
 			updateStatus: function() {
 				// update counts
 				var count = this.size(),
@@ -154,13 +138,9 @@
 				}
 			},
 			applyFilter: function( hash ) {
-				var filter = this.filters[hash];
+				var isVisible = this.filters[hash];
 				this.each(function( id, item ) {
-					if ( filter( item ) ) {
-						item.setStatus( item.model.get( 'complete' ) ? 'complete' : '' );
-					} else {
-						item.setStatus( 'hidden' );
-					}
+					item.view.$().toggleClass( 'hidden', !isVisible( item ));
 				});
 			}
 		}).persist();
