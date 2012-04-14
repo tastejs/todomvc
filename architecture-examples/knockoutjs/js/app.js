@@ -51,9 +51,9 @@
 	};
 
 	// represent a single todo item
-	var Todo = function( content, done ) {
-		this.content = ko.observable( content );
-		this.done = ko.observable( done );
+	var Todo = function( title, completed ) {
+		this.title = ko.observable( title );
+		this.completed = ko.observable( completed );
 		this.editing = ko.observable( false );
 	};
 
@@ -62,7 +62,7 @@
 		var self = this;
 		// map array of passed in todos to an observableArray of Todo objects
 		self.todos = ko.observableArray( ko.utils.arrayMap( todos, function( todo ) {
-			return new Todo( todo.content, todo.done );
+			return new Todo( todo.title, todo.completed );
 		}));
 
 		// store the new todo value being entered
@@ -70,10 +70,9 @@
 
 		// add a new todo, when enter key is pressed
 		self.add = function( data, event ) {
-			var newTodo, current = self.current().trim();
+			var current = self.current().trim();
 			if ( current ) {
-				newTodo = new Todo( current );
-				self.todos.push( newTodo );
+				self.todos.push( new Todo( current ) );
 				self.current( '' );
 			}
 		};
@@ -86,7 +85,7 @@
 		// remove all completed todos
 		self.removeCompleted = function() {
 			self.todos.remove(function( todo ) {
-				return todo.done();
+				return todo.completed();
 			});
 		};
 
@@ -106,7 +105,7 @@
 		// count of all completed todos
 		self.completedCount = ko.computed(function() {
 			return ko.utils.arrayFilter( self.todos(), function(todo) {
-				return todo.done();
+				return todo.completed();
 			} ).length;
 		});
 
@@ -125,7 +124,7 @@
 			write: function( newValue ) {
 				ko.utils.arrayForEach(self.todos(), function( todo ) {
 					// set even if value is the same, as subscribers are not notified in that case
-					todo.done( newValue );
+					todo.completed( newValue );
 				});
 			}
 		});
@@ -137,18 +136,16 @@
 
 		// internal computed observable that fires whenever anything changes in our todos
 		ko.computed(function() {
-			// get a clean copy of the todos, which also creates a dependency on the observableArray and all observables in each item
-			var todos = ko.toJS( self.todos );
+			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
+			localStorage.setItem( 'todos-knockout', ko.toJSON( self.todos ) );
 
-			// store to local storage
-			amplify.store( 'todos-knockout', todos );
 		}).extend({
 			throttle: 500
 		}); // save at most twice per second
 	};
 
 	// check local storage for todos
-	var todos = amplify.store( 'todos-knockout' );
+	var todos = ko.utils.parseJson( localStorage.getItem( 'todos-knockout' ) );
 
 	// bind a new instance of our view model to the page
 	ko.applyBindings( new ViewModel( todos || [] ) );
