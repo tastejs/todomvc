@@ -1,1 +1,0 @@
-Forked from https://github.com/ashish01/knockoutjs-todos
