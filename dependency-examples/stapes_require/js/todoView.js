@@ -1,4 +1,4 @@
-(function() {
+define(["lib/stapes", "lib/mustache"], function(Stapes, Mustache) {
 	var todoView = Stapes.create(),
 		taskTmpl;
 
@@ -101,5 +101,5 @@
 		}
 	});
 
-	window.TodoView = todoView;
-})();
+	return todoView;
+});
