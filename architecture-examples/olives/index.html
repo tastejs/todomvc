@@ -11,7 +11,6 @@
 			<h1>Todos</h1>
 			<input type="text" placeholder="What needs to be done?" data-event="listen:keydown,add">
 		</header>
-		<!-- this section is hidden by default and you be shown when there are todos and hidden when not -->
 		<section id="main" data-stats="bind:toggleClass,nbItems,show">
 			<input id="toggle-all" type="checkbox" data-stats="bind:checked,allChecked">
 			<label for="toggle-all">Mark all as complete</label>
@@ -27,7 +26,6 @@
 				</li>
 			</ul>
 		</section>
-		<!-- this footer needs to be shown with JS when there are todos and hidden when not -->
 		<footer data-stats="bind:toggleClass,nbItems,show">
 			<span class="todo-count">
 				<strong data-stats="bind:innerHTML,uncompleted"></strong>
@@ -47,7 +45,6 @@
 	<div id="credits">
 		Created by <a href="http://github.com/podefr/">Olivier Scherrer</a>.
 	</div>
-	<!-- scripts here -->
   <script src="js/libs/require.js"></script>           
   <script src="js/libs/Emily.js"></script>
   <script src="js/libs/Olives.js"></script>
