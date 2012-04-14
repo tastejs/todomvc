@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Olives + Emily - TodoMVC</title>
+	<link rel="stylesheet" href="css/base.css" />
+</head>
+<body>
+	<div id="todoapp">
+		<header>
+			<h1>Todos</h1>
+			<input type="text" placeholder="What needs to be done?" data-event="listen:keydown,add">
+		</header>
+		<!-- this section is hidden by default and you be shown when there are todos and hidden when not -->
+		<section id="main" data-stats="bind:toggleClass,nbItems,show">
+			<input id="toggle-all" type="checkbox" data-stats="bind:checked,allChecked">
+			<label for="toggle-all">Mark all as complete</label>
+			
+			<ul id="todo-list" data-model="foreach">
+				<li data-model="bind:toggleClass,completed,done; bind:toggleClass,edit,editing">
+					<div class="view">
+						<input class="toggle" type="checkbox" data-model="bind:checked,completed">
+						<label data-model="bind:innerHTML,name" data-event="listen:dblclick,edit;" ></label>
+						<a class="destroy" data-event="listen:click,remove"></a>
+					</div>
+					<input class="edit" type="text" data-model="bind:value,name" data-event="listen:keydown,edit; listen:blur,edit" />
+				</li>
+			</ul>
+		</section>
+		<!-- this footer needs to be shown with JS when there are todos and hidden when not -->
+		<footer data-stats="bind:toggleClass,nbItems,show">
+			<span class="todo-count">
+				<strong data-stats="bind:innerHTML,uncompleted"></strong>
+				<span data-stats="bind:innerHTML,uncompletedWord"></span> left.
+			</span>
+			
+			<span class="todo-clear">
+				<a href="#" data-event="listen:click,clear;" id="clear-completed" data-stats="bind:toggleClass,completed,show">
+				Clear <strong data-stats="bind:innerHTML,completed"></strong> 
+				completed <span data-stats="bind:innerHTML,completedWord">item</span></a>
+			</span>
+		</footer>
+	</div>
+	<div id="instructions">
+		Double-Click to edit a todo.
+	</div>
+	<div id="credits">
+		Created by <a href="http://github.com/podefr/">Olivier Scherrer</a>.
+	</div>
+	<!-- scripts here -->
+  <script src="js/libs/require.js"></script>           
+  <script src="js/libs/Emily.js"></script>
+  <script src="js/libs/Olives.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
