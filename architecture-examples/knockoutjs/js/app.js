@@ -69,7 +69,7 @@
 		self.current = ko.observable();
 
 		// add a new todo, when enter key is pressed
-		self.add = function( data, event ) {
+		self.add = function() {
 			var current = self.current().trim();
 			if ( current ) {
 				self.todos.push( new Todo( current ) );
@@ -97,7 +97,7 @@
 		// stop editing an item.  Remove the item, if it is now empty
 		self.stopEditing = function( item ) {
 			item.editing( false );
-			if ( !item.content().trim() ) {
+			if ( !item.title().trim() ) {
 				self.remove( item );
 			}
 		};
