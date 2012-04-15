@@ -4,6 +4,9 @@ if Meteor.is_client
 	Template.todo.tasks = ->
 		Tasks.find {}, {sort: {completed: 1}}
 
+	Template.todo.hasTodo = ->
+		Tasks.find({}).count() > 0
+
 	Template.todo.incompleted = ->
 		Tasks.find({completed: false}).count()
 

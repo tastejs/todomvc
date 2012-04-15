@@ -33,10 +33,12 @@
 		</ul>
 	</section>
 
+	{{#if hasTodo}}
 	<footer id="footer">
 		<span id="todo-count"><strong id="incompleted">{{ incompleted }}</strong> item left</span>
 		<button id="clear-completed">Clear completed (<span id="completed">{{ completed }}</span>)</button>
 	</footer>
+	{{/if}}
 </template>
 
 <template name="item">
