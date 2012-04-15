@@ -1,22 +1,25 @@
 (function() {
 	var todoView = Stapes.create(),
-		taskTmpl;
+		todoTmpl,
+		ENTER_KEY_KEYCODE = 13;
 
 	function bindEventHandlers() {
 		$("#new-todo").on('keyup', function(e) {
-			if (e.which === 13 && $(this).val() !== "") {
+			var todoVal = $(this).val();
+
+			if (e.which === ENTER_KEY_KEYCODE && todoVal !== "") {
 				e.preventDefault();
-				todoView.emit('taskadd', $(this).val());
+				todoView.emit('todoadd', todoVal);
 			}
 		});
 
 		$("#todo-list").on('click', '.destroy', function() {
-			todoView.emit('taskdelete', $(this).parents('.item').data('id'));
+			todoView.emit('tododelete', $(this).parents('li').data('id'));
 		});
 
 		$("#todo-list").on('click', 'input.toggle', function(e) {
-			var event = $(this).is(':checked') ? 'taskdone' : 'taskundone';
-			todoView.emit(event, $(this).parents('.item').data('id'));
+			var event = $(this).is(':checked') ? 'todocompleted' : 'todouncompleted';
+			todoView.emit(event, $(this).parents('li').data('id'));
 		});
 
 		$("#todo-list").on('dblclick', 'li', function(e) {
@@ -26,9 +29,9 @@
 		$("#todo-list").on('keyup', 'input.todo-input', function(e) {
 			if (e.which === 13) {
 				e.preventDefault();
-				todoView.emit('taskedit', {
-					id : $(this).parents(".item").data('id'),
-					name : $(this).val()
+				todoView.emit('todoedit', {
+					id : $(this).parents("li").data('id'),
+					title : $(this).val()
 				});
 			}
 		});
@@ -39,7 +42,7 @@
 
 		$("#toggle-all").on('click', function() {
 			var isChecked = $(this).is(':checked');
-			todoView.emit( isChecked ? 'doneall' : 'undoneall', isChecked === true);
+			todoView.emit( isChecked ? 'completedall' : 'uncompletedall', isChecked === true);
 		});
 
 		window.onhashchange = function() {
@@ -52,51 +55,42 @@
 		}
 	}
 
-	function loadTemplates(cb) {
-		var root = "//" + window.location.host + window.location.pathname;
-
-		$.get(root + 'templates/task.html', function(tmpl) {
-			cb(function(view) {
-				return Mustache.to_html(tmpl, view);
-			});
-		});
+	function loadTemplates() {
+		todoTmpl = Handlebars.compile( $("#todo-template").html() );
 	}
 
 	todoView.extend({
-		"clearInput" : function() {
+		"clearInput": function() {
 			$("#new-todo").val('');
 		},
 
-		"hide" : function() {
-			$("#main, footer").hide();
+		"hide": function() {
+			$("#main, #footer").hide();
 		},
 
-		"init" : function() {
+		"init": function() {
 			bindEventHandlers();
-
-			loadTemplates(function(tmpl) {
-				taskTmpl = tmpl;
-				todoView.emit('ready');
-			});
+			loadTemplates()
+			this.emit('ready');
 		},
 
-		"render" : function(tasks) {
-			var html = taskTmpl({ "tasks" : tasks });
+		"render": function(todos) {
+			var html = todoTmpl({ "todos" : todos });
 			$("#todo-list").html( html );
 		},
 
-		"show" : function() {
+		"show": function() {
 			$("#main, footer").show();
 		},
 
-		"showClearCompleted" : function(completed) {
+		"showClearCompleted": function(completed) {
 			var bool = completed > 0;
 			$("#clear-completed").toggle(bool);
 			$("#clear-completed").html('Clear completed (' + completed + ')');
 		},
 
-		"showLeft" : function(left) {
-			var word = (left > 1) ? "items" : "item";
+		"showLeft": function(left) {
+			var word = (left === 1) ? "item" : "items";
 			$("#todo-count").html('<strong>' + left + '</strong> ' + word + ' left');
 		}
 	});

@@ -1,27 +1,27 @@
 var TodoModel = Stapes.create().extend({
-	"addTask" : function(name) {
+	"addTodo": function(title) {
 		this.push({
-			"complete" : false,
-			"name" : name,
+			"completed" : false,
+			"title" : title,
 			"edit" : false
 		});
 	},
 
-	"clearCompleted" : function() {
+	"clearCompleted": function() {
 		this.remove(function(item) {
-			return item.complete === true;
+			return item.completed === true;
 		});
 	},
 
-	"getComplete" : function() {
+	"getComplete": function() {
 		return this.filter(function(item) {
-			return item.complete === true;
+			return item.completed === true;
 		});
 	},
 
-	"getLeft" : function() {
+	"getLeft": function() {
 		return this.filter(function(item) {
-			return item.complete === false;
+			return item.completed === false;
 		});
 	}
 });
