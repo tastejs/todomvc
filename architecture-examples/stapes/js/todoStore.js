@@ -1,11 +1,11 @@
 var TodoStore = Stapes.create().extend({
-	"init": function() {
-		if (!"localStorage" in window) return;
+	'init': function() {
+		if (!'localStorage' in window) return;
 
 		this.emit('ready');
 	},
 
-	"load": function() {
+	'load': function() {
 		var result = window.localStorage['todos-stapes'];
 
 		if (result) {
@@ -13,7 +13,7 @@ var TodoStore = Stapes.create().extend({
 		}
 	},
 
-	"save": function(data) {
+	'save': function(data) {
 		localStorage['todos-stapes'] = JSON.stringify( data );
 	}
 });

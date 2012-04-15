@@ -15,7 +15,7 @@
 // Stapes.js : http://hay.github.com/stapes
 
 (function() {
-    var VERSION = "0.3";
+    var VERSION = "0.4pre";
 
     /** Utility functions
      *
@@ -238,7 +238,7 @@
         },
 
         emit : function(types, data) {
-            data = data || null;
+            data = (typeof data === "undefined") ? null : data;
 
             util.each(types.split(" "), util.bind(function(type) {
                 // First 'all' type events: is there an 'all' handler in the
