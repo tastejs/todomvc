@@ -18,7 +18,7 @@
 		});
 
 		$("#todo-list").on('click', 'input.toggle', function(e) {
-			var event = $(this).is(':checked') ? 'todocompleted' : 'todouncompleted';
+			var event = $(e.target).is(':checked') ? 'todocompleted' : 'todouncompleted';
 			todoView.emit(event, $(this).parents('li').data('id'));
 		});
 
@@ -27,7 +27,7 @@
 		});
 
 		$("#todo-list").on('keyup', 'input.todo-input', function(e) {
-			if (e.which === 13) {
+			if (e.which === ENTER_KEY_KEYCODE) {
 				e.preventDefault();
 				todoView.emit('todoedit', {
 					id : $(this).parents("li").data('id'),

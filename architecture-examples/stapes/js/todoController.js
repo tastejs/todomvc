@@ -59,7 +59,7 @@ var TodoController = Stapes.create().extend({
 
 			"todocompleted todouncompleted": function(id, e) {
 				this.model.update(id, function(item) {
-					item.completed = e.type === "todocompleted";
+					item.completed = (e.type === "todocompleted");
 					return item;
 				});
 			},
@@ -72,9 +72,9 @@ var TodoController = Stapes.create().extend({
 				});
 			},
 
-			"completeall uncompleteall": function(completeall) {
+			"completedall uncompletedall": function(completedall) {
 				this.model.update(function(item) {
-					item.completed = completeall;
+					item.completed = completedall;
 					return item;
 				});
 			}

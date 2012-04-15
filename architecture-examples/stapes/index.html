@@ -39,7 +39,7 @@
 
 	<script id="todo-template" type="text/x-handlebars-template">
 		{{#todos}}
-		<li class="{{#completed}}complete{{/completed}}" data-id="{{id}}">
+		<li class="{{#completed}}completed{{/completed}}" data-id="{{id}}">
 			{{#edit}}
 			<div class="edit" style="display:block;">
 				<input class="todo-input" type="text" value="{{title}}" />
@@ -48,7 +48,7 @@
 
 			{{^edit}}
 			<div class="view">
-				<input class="toggle" type="checkbox" {{#complete}}checked="checked"{{/complete}}>
+				<input class="toggle" type="checkbox" {{#completed}}checked="checked"{{/completed}}>
 				<label>{{title}}</label>
 				<button class="destroy"></button>
 			</div>
