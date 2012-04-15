@@ -1,4 +1,5 @@
 Tasks = new Meteor.Collection("tasks")
+ENTER_KEY = 13
 
 if Meteor.is_client
 	Template.todo.tasks = ->
@@ -22,7 +23,7 @@ if Meteor.is_client
 
 	Template.todo.events =
 		'keyup #new-todo' : (evt) ->
-			if evt.type == "keyup" && evt.which == 13
+			if evt.type == "keyup" && evt.which == ENTER_KEY
 				textbox = $("#new-todo")
 				Tasks.insert {title: textbox.val(), completed: false}
 				textbox.val("")
@@ -59,7 +60,7 @@ if Meteor.is_client
 			Tasks.update {_id: this._id}, task 
 
 		'keyup input.edit': (evt) ->
-			if evt.type == "keyup" && evt.which == 13
+			if evt.type == "keyup" && evt.which == ENTER_KEY
 				task = Tasks.findOne this._id
 				task.editing = false
 				task.updated = new Date()
