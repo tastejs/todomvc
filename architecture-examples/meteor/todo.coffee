@@ -10,6 +10,13 @@ if Meteor.is_client
 	Template.todo.incompleted = ->
 		Tasks.find({completed: false}).count()
 
+	Template.todo.incompleted_text = ->
+		count = Tasks.find({completed: false}).count()
+		if count == 1
+			" item left"
+		else
+			" items left"
+
 	Template.todo.completed = ->
 		Tasks.find({completed: true}).count()
 
