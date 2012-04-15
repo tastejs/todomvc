@@ -40,11 +40,11 @@ if Meteor.is_client
 			Tasks.remove {_id: this._id}
 
 		'dblclick label': (evt) ->
-			selector = "#i-#{this._id} input.edit"
 			task = Tasks.findOne this._id
 			task.editing = true
+			edit = $(evt.target).parent().parent().find(".edit")
 			Tasks.update {_id: this._id}, task, (err) ->
-				$(selector).focus().select() unless err
+				edit.focus().select() unless err
 
 		'blur input.edit': (evt) ->
 			task = Tasks.findOne this._id
