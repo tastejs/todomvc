@@ -1,90 +1,93 @@
 define(
-["lib/stapes", "todoModel", "todoView", "todoStore"],
+['lib/stapes', 'todoModel', 'todoView', 'todoStore'],
 function(Stapes, TodoModel, TodoView, TodoStore) {
 	return Stapes.create().extend({
-		"bindEventHandlers" : function() {
-			this.model.on({
-				"change" : function() {
-					this.store.save( this.model.getAll() );
-					this.view.render( this.model.getAllAsArray() );
-					this.view.showLeft( this.model.getLeft().length );
+		'bindEventHandlers': function() {
+			this.on({
+				'change:state': function(state) {
+					this.view.setActiveRoute(state);
+					this.renderAll();
+				}
+			});
 
-					if (this.model.getAllAsArray().length > 0) {
-						this.view.show();
-					} else {
-						this.view.hide();
-					}
+			this.model.on({
+				'change' : function() {
+					this.renderAll();
 				},
 
-				"change ready" : function() {
-					this.view.showClearCompleted( this.model.getComplete().length );
+				'change ready': function() {
+					this.view.showClearCompleted(
+						this.model.getComplete().length
+					);
 				}
 			}, this);
 
 			this.view.on({
-				"clearcompleted" : function() {
+				'clearcompleted': function() {
 					this.model.clearCompleted();
 				},
 
-				"edittodo" : function(id) {
-					this.model.update(id, function(item) {
-						item.edit = true;
-						return item;
-					});
+				'edittodo': function(id) {
+					this.view.makeEditable(id);
 				},
 
-				"ready" : function() {
+				'ready': function() {
 					this.model.set( this.store.load() );
 				},
 
-				"statechange" : function(state) {
-					switch(state) {
-						case "all":
-							this.view.render( this.model.getAllAsArray() );
-							break;
-						case "active":
-							this.view.render( this.model.getLeft() );
-							break;
-						case "completed":
-							this.view.render( this.model.getComplete() );
-							break;
-					}
+				'statechange': function(state) {
+					this.set('state', state);
 				},
 
-				"taskadd" : function(task) {
-					this.model.addTask(task);
+				'todoadd': function(todo) {
+					this.model.addTodo(todo);
 					this.view.clearInput();
 				},
 
-				"taskdelete" : function(id) {
+				'tododelete': function(id) {
 					this.model.remove(id);
 				},
 
-				"taskdone taskundone" : function(id, e) {
+				'todocompleted todouncompleted': function(id, e) {
 					this.model.update(id, function(item) {
-						item.complete = e.type === "taskdone";
+						item.completed = (e.type === 'todocompleted');
 						return item;
 					});
 				},
 
-				"taskedit" : function(data) {
-					this.model.update(data.id, function(item) {
-						item.name = data.name;
-						item.edit = false;
-						return item;
-					});
+				'todoedit': function(data) {
+					if (data.title === "") {
+						this.model.remove(data.id);
+					} else {
+						this.model.update(data.id, function(item) {
+							item.title = data.title;
+							return item;
+						});
+					}
 				},
 
-				"doneall undoneall" : function(alldone) {
+				'completedall uncompletedall': function(completedall, e) {
 					this.model.update(function(item) {
-						item.complete = alldone;
+						item.completed = completedall;
 						return item;
 					});
 				}
 			}, this);
 		},
 
-		"init" : function() {
+		renderAll: function() {
+			this.store.save( this.model.getAll() );
+			this.view.render( this.model.getItemsByState( this.get('state') ) );
+			this.view.showLeft( this.model.getLeft().length );
+
+			if ( this.model.getAllAsArray().length > 0 ) {
+				this.view.show();
+			} else {
+				this.view.hide();
+			}
+		},
+
+		'init': function() {
 			this.model = TodoModel;
 			this.view = TodoView;
 			this.store = TodoStore;
@@ -94,6 +97,10 @@ function(Stapes, TodoModel, TodoView, TodoStore) {
 			this.model.init();
 			this.view.init();
 			this.store.init();
+
+			// Initial state from the URL
+			this.set('state', this.view.getState());
+
 		}
 	});
 });

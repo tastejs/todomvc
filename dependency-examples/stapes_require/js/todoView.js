@@ -1,103 +1,128 @@
-define(["lib/stapes", "lib/mustache"], function(Stapes, Mustache) {
+define(['lib/stapes'], function(Stapes) {
 	var todoView = Stapes.create(),
-		taskTmpl;
+		todoTmpl,
+		ENTER_KEY_KEYCODE = 13;
 
 	function bindEventHandlers() {
-		$("#new-todo").on('keyup', function(e) {
-			if (e.which === 13 && $(this).val() !== "") {
+		$('#new-todo').on('keyup', function(e) {
+			var todoVal = $.trim($(this).val());
+
+			if (e.which === ENTER_KEY_KEYCODE && todoVal !== '') {
 				e.preventDefault();
-				todoView.emit('taskadd', $(this).val());
+				todoView.emit('todoadd', todoVal);
 			}
 		});
 
-		$("#todo-list").on('click', '.destroy', function() {
-			todoView.emit('taskdelete', $(this).parents('.item').data('id'));
+		$('#todo-list').on('click', '.destroy', function() {
+			todoView.emit('tododelete', $(this).parents('li').data('id'));
 		});
 
-		$("#todo-list").on('click', 'input.toggle', function(e) {
-			var event = $(this).is(':checked') ? 'taskdone' : 'taskundone';
-			todoView.emit(event, $(this).parents('.item').data('id'));
+		$('#todo-list').on('click', 'input.toggle', function(e) {
+			var event = $(e.target).is(':checked') ? 'todocompleted' : 'todouncompleted';
+			todoView.emit(event, $(this).parents('li').data('id'));
 		});
 
-		$("#todo-list").on('dblclick', 'li', function(e) {
+		$('#todo-list').on('dblclick', 'li', function(e) {
 			todoView.emit('edittodo', $(this).data('id'));
 		});
 
-		$("#todo-list").on('keyup', 'input.todo-input', function(e) {
-			if (e.which === 13) {
-				e.preventDefault();
-				todoView.emit('taskedit', {
-					id : $(this).parents(".item").data('id'),
-					name : $(this).val()
-				});
+		$('#todo-list').on('keyup focusout', 'input.edit', function(e) {
+			if (e.type === 'keyup') {
+				if (e.which === ENTER_KEY_KEYCODE) {
+					e.preventDefault();
+				} else {
+					return false;
+				}
 			}
+
+			todoView.emit('todoedit', {
+				id : $(this).parents('li').data('id'),
+				title : $.trim($(this).val())
+			});
 		});
 
-		$("#clear-completed").on('click', function() {
+		$('#clear-completed').on('click', function() {
 			todoView.emit('clearcompleted');
 		});
 
-		$("#toggle-all").on('click', function() {
+		$('#toggle-all').on('click', function() {
 			var isChecked = $(this).is(':checked');
-			todoView.emit( isChecked ? 'doneall' : 'undoneall', isChecked === true);
+			todoView.emit( isChecked ? 'completedall' : 'uncompletedall', isChecked);
 		});
 
 		window.onhashchange = function() {
+			todoView.emit('statechange', todoView.getState());
+		}
+	}
+
+	function loadTemplates() {
+		todoTmpl = Handlebars.compile( $('#todo-template').html() );
+	}
+
+	todoView.extend({
+		'clearInput': function() {
+			$('#new-todo').val('');
+		},
+
+		'getState': function() {
 			var hash = window.location.hash.replace('#/', '');
 
 			// If we get the 'all' menu item we don't get anything in the hash,
 			// so we need to do this...
-			hash = (hash === "") ? "all" : hash;
-			todoView.emit('statechange', hash);
-		}
-	}
+			hash = (hash === '') ? 'all' : hash;
 
-	function loadTemplates(cb) {
-		var root = "//" + window.location.host + window.location.pathname;
-
-		$.get(root + 'templates/task.html', function(tmpl) {
-			cb(function(view) {
-				return Mustache.to_html(tmpl, view);
-			});
-		});
-	}
-
-	todoView.extend({
-		"clearInput" : function() {
-			$("#new-todo").val('');
+			return hash;
 		},
 
-		"hide" : function() {
-			$("#main, footer").hide();
+		'hide': function() {
+			$('#main, #footer').hide();
 		},
 
-		"init" : function() {
+		'init': function() {
 			bindEventHandlers();
+			loadTemplates();
+			this.emit('ready');
+		},
 
-			loadTemplates(function(tmpl) {
-				taskTmpl = tmpl;
-				todoView.emit('ready');
+		'makeEditable' : function(id) {
+			var $item = $('#todo-list li[data-id=' + id + ']');
+			$item.addClass('editing').find('input.edit').focus();
+		},
+
+		'render': function(todos) {
+			var html = todoTmpl({ 'todos' : todos });
+			$('#todo-list').html( html );
+		},
+
+		'setActiveRoute': function(route) {
+			$('#filters a').removeClass('selected');
+
+			$('#filters a').each(function() {
+				var state = $(this).attr('href').replace('#/', '');
+				// Unfortunately the 'all' state doesn't set an id in the hash,
+				// so we need to do this...
+				state = (state === '') ? 'all' : state;
+
+				if (route === state) {
+					$(this).addClass('selected');
+				}
 			});
 		},
 
-		"render" : function(tasks) {
-			var html = taskTmpl({ "tasks" : tasks });
-			$("#todo-list").html( html );
+		'show': function() {
+			$('#main, footer').show();
 		},
 
-		"show" : function() {
-			$("#main, footer").show();
-		},
-
-		"showClearCompleted" : function(completed) {
+		'showClearCompleted': function(completed) {
 			var bool = completed > 0;
-			$("#clear-completed").toggle(bool);
-			$("#clear-completed").html('Clear completed (' + completed + ')');
+			$('#clear-completed').toggle(bool);
+			$('#clear-completed').html('Clear completed (' + completed + ')');
 		},
 
-		"showLeft" : function(left) {
-			var word = (left > 1) ? "items" : "item";
-			$("#todo-count").html('<strong>' + left + '</strong> ' + word + ' left');
+		'showLeft': function(left) {
+			var word = (left === 1) ? 'item' : 'items';
+			$('#todo-count').html('<strong>' + left + '</strong> ' + word + ' left');
+			$("#toggle-all").get(0).checked = (left === 0);
 		}
 	});
 
