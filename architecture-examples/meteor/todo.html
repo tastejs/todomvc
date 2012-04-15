@@ -42,9 +42,9 @@
 </template>
 
 <template name="item">
-	<li class="item {{#if editing}}editing{{/if}} {{#if completed}}completed{{/if}}" id="i-{{ _id }}">
+	<li class="{{#if editing}}editing{{/if}} {{#if completed}}completed{{/if}}">
 		<div class="view">
-			<input class="toggle" type="checkbox" {{#if completed}}checked="checked"{{/if}}>
+			<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
 			<label>{{ title }}</label>
 			<button class="destroy"></button>
 		</div>
