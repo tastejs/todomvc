@@ -71,14 +71,14 @@ if Meteor.is_client
 		'keyup input.edit': (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
 				text = $(evt.target).val().trim()
-        
+
 				if text != ''
 					task = Tasks.findOne this._id
 					task.editing = false
 					task.updated = new Date()
 					task.title = $(evt.target).val()
 					Tasks.update {_id: this._id}, task, (err) =>
-					alert('Sorry, an error prevent the changes to be saved') if err
+					    alert('Sorry, an error prevent the changes to be saved') if err
 				else
 					Tasks.remove {_id: this._id}
           
