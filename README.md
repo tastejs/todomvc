@@ -1,4 +1,4 @@
-## TodoMVC
+# TodoMVC
 
 #### A common demo application for popular JavaScript MV* frameworks
 
@@ -8,6 +8,7 @@
 Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
 
 To help solve this problem, TodoMVC was created - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MV* frameworks of today. Solutions look and feel the same, have a common feature set, and make it easy for you to compare the syntax and structure of different frameworks, so you can select the one you feel the most comfortable with.
+
 
 #### Todo apps are included for:
 
@@ -34,6 +35,11 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - Vanilla JS
 
 
+## Live demos
+
+Live demos are available on the official [TodoMVC site](http://todomvc.com).
+
+
 ## Screenshot
 
 ![screenshot](https://raw.github.com/addyosmani/todomvc/master/screenshot.png)
@@ -55,17 +61,15 @@ TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta St
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
 
-## Official Site & Getting Involved
-
-For live previews of Todo apps and more information on the project, see the official [TodoMVC site](http://addyosmani.github.com/todomvc/).
+## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request. One of us will be happy to review them and discuss any changes that may be required before they can be included.
+If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after reading our [contribution guidelines](https://github.com/addyosmani/todomvc/wiki). One of us will be happy to review them and discuss any changes that may be required before they can be included.
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
 
 
 ## License
 
-[The Unlicense](http://unlicense.org) (aka: public domain)
+Public Domain
