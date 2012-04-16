@@ -45,7 +45,7 @@ if Meteor.is_client
 					return false
 
 		'click #clear-completed': ->
-			Tasks.remove {completed: true} 
+			Tasks.remove completed: true
 			return false
 
 	Template.item.events =
