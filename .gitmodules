@@ -1,3 +1,0 @@
-[submodule "architecture-examples/canjs"]
-	path = architecture-examples/canjs
-	url = git://github.com/jupiterjs/cantodo.git
