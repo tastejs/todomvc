@@ -24,7 +24,7 @@ var todos = todos || {};
 
 		// replace old stats
 		var old = getById( STATS_ID );
-		if (old) {
+		if ( old ) {
 			old.parentNode.replaceChild( view, old );
 		} else {
 			getById( TODOAPP_ID ).appendChild( view );
@@ -76,10 +76,10 @@ var todos = todos || {};
 		var title = (input.value || '').trim();
 		input.value = title;
 
-		if ( !title ) {
-			todos.model.remove( id );
-		} else {
+		if ( title ) {
 			todos.model.edit( id, title );
+		} else {
+			todos.model.remove( id );
 		}
 		refreshAll();
 	}

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>TodoMVC in DUEL</title>
+	<title>DUEL &bull; TodoMVC</title>
 
 	<link rel="stylesheet" href="/css/styles.merge">
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->

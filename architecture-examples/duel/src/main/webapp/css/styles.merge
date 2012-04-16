@@ -1,5 +1,5 @@
 # template styles
 /css/base.css
 
-# app overrides
-/css/app.css
+# app overrides (not used)
+#/css/app.css

@@ -1,11 +1,6 @@
 TodoMVC written in DUEL
 =======================
 
-[MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
-(c)2012 [Stephen McKamey](http://mck.me)
-
-----
-
 Prerequisites
 -------------
 
