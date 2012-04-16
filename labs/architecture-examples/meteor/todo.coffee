@@ -26,12 +26,9 @@ if Meteor.is_client
 			toggle_all = !Session.get('toggle_all')
 			Session.set('toggle_all', toggle_all)
 
-			ele = $(evt.target)
+			checkbox = $(evt.target)
 			Tasks.update {}, {$set: {completed: toggle_all}}, {multi: true}, ->
-				if toggle_all
-					ele.attr('checked', 'checked')
-				else
-					ele.removeAttr('checked')
+				checkbox.prop('checked', toggle_all)
 
 		'keyup #new-todo' : (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
