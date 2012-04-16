@@ -3,7 +3,7 @@ ENTER_KEY = 13
 
 if Meteor.is_client
 	Template.todo.tasks = ->
-		Tasks.find {}, {sort: {completed: 1}}
+		Tasks.find {}
 
 	Template.todo.hasTodo = ->
 		Tasks.find({}).count() > 0
