@@ -25,10 +25,12 @@ if Meteor.is_client
 		'keyup #new-todo' : (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
 				textbox = $('#new-todo')
-				Tasks.insert {title: textbox.val(), completed: false}
-				textbox.val('')
-				textbox.focus()
-			return false
+				text = textbox.val().trim()
+				if text != ''
+					Tasks.insert {title: textbox.val(), completed: false}
+					textbox.val('')
+					textbox.focus()
+					return false
 
 		'click #clear-completed': ->
 			Tasks.remove {completed: true} 
@@ -61,11 +63,16 @@ if Meteor.is_client
 
 		'keyup input.edit': (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
-				task = Tasks.findOne this._id
-				task.editing = false
-				task.updated = new Date()
-				task.title = $(evt.target).val()
-
-				Tasks.update {_id: this._id}, task, (err) =>
-				alert('Sorry, an error prevent the changes to be saved') if err
+				text = $(evt.target).val().trim()
+        
+				if text != ''
+					task = Tasks.findOne this._id
+					task.editing = false
+					task.updated = new Date()
+					task.title = $(evt.target).val()
+					Tasks.update {_id: this._id}, task, (err) =>
+					alert('Sorry, an error prevent the changes to be saved') if err
+				else
+					Tasks.remove {_id: this._id}
+          
 			return false
