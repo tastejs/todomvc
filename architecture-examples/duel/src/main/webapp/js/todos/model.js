@@ -67,7 +67,7 @@ var todos = todos || {};
 			};
 
 			var i = tasks.length;
-			while (i--) {
+			while ( i-- ) {
 				if ( tasks[i].completed ) {
 					stats.completed++;
 				}
@@ -88,7 +88,7 @@ var todos = todos || {};
 
 		edit: function( id, title ) {
 			var i = tasks.length;
-			while (i--) {
+			while ( i-- ) {
 				if ( tasks[i].id === id ) {
 					tasks[i].title = title;
 					save();
@@ -100,8 +100,8 @@ var todos = todos || {};
 		// toggle completion of task
 		toggle: function( id, completed ) {
 			var i = tasks.length;
-			while (i--) {
-				if (tasks[i].id === id) {
+			while ( i-- ) {
+				if ( tasks[i].id === id ) {
 					tasks[i].completed = completed;
 					save();
 					return;
@@ -112,7 +112,7 @@ var todos = todos || {};
 		// toggle completion of all tasks
 		toggleAll: function( completed ) {
 			var i = tasks.length;
-			while (i--) {
+			while ( i-- ) {
 				tasks[i].completed = completed;
 			}
 			save();
@@ -120,7 +120,7 @@ var todos = todos || {};
 
 		remove: function( id ) {
 			var i = tasks.length;
-			while (i--) {
+			while ( i-- ) {
 				if ( tasks[i].id === id ) {
 					tasks.splice( i, 1 );
 					save();
@@ -131,7 +131,7 @@ var todos = todos || {};
 
 		expunge: function() {
 			var i = tasks.length;
-			while (i--) {
+			while ( i-- ) {
 				if ( tasks[i].completed ) {
 					tasks.splice( i, 1 );
 				}
