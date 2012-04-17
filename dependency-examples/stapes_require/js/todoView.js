@@ -55,7 +55,7 @@ define(["lib/stapes", "lib/mustache"], function(Stapes, Mustache) {
 	function loadTemplates(cb) {
 		var root = "//" + window.location.host + window.location.pathname;
 
-		$.get(root + 'templates/task.html', function(tmpl) {
+		$.get('templates/task.html', function(tmpl) {
 			cb(function(view) {
 				return Mustache.to_html(tmpl, view);
 			});

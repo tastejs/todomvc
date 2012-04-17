@@ -17,11 +17,12 @@
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-weave="widget/list"></ul>
 		</section>
-		<!-- this footer needs to be shown with JS when there are todos and hidden when not -->
-		<footer data-weave="widget/display">
-			<a id="clear-completed" data-weave="widget/clear">Clear completed</a>
+
+		<footer id="footer" data-weave="widget/display">
 			<div id="todo-count" data-weave="widget/count"></div>
+			<a id="clear-completed" data-weave="widget/clear">Clear completed</a>
 		</footer>
+
 	</div>
 	<div id="instructions">
 		Double click to edit a todo.
