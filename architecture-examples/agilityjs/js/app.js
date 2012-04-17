@@ -14,16 +14,16 @@
 		// todo item
 		var todoitem = $$({
 			model: {
-				title: 'no name',
-				complete: false
+				title: '',
+				completed: false
 			},
 			view: {
 				format: drawHtml( '#todo-list li' ),
 				style: '.hidden { display: none }'
 			},
 			controller: {
-				'change:complete': function() {
-					this.view.$().toggleClass( 'complete', this.model.get( 'complete' ));
+				'change:completed': function() {
+					this.view.$().toggleClass( 'completed', this.model.get( 'completed' ));
 					app.updateStatus();
 				},
 				'dblclick .view': function() {
@@ -34,7 +34,7 @@
 					this.destroy();
 				},
 				'create': function() {
-					this.view.$().toggleClass( 'complete', this.model.get( 'complete' ));
+					this.view.$().toggleClass( 'completed', this.model.get( 'completed' ));
 				},
 				'change': function() {
 					this.save();
@@ -63,7 +63,7 @@
 			model: {
 				todoCount: '0',
 				pluralizer: '',
-				completeCount: '0',
+				completedCount: '0',
 				newtitle: '',
 				mainStyle: '',
 				clearBtnStyle: ''
@@ -93,13 +93,13 @@
 					var ischecked = this.view.$('#toggle-all').prop('checked');
 					this.each(function( id, item ) {
 						item.model.set({
-							complete: ischecked
+							completed: ischecked
 						});
 					});
 				},
 				'click #clear-completed': function() {
 					this.each(function( id, item ) {
-						if ( item.model.get( 'complete' ) ) {
+						if ( item.model.get( 'completed' ) ) {
 							item.destroy();
 						}
 					});
@@ -109,21 +109,21 @@
 			updateStatus: function() {
 				// update counts
 				var count = this.size(),
-					completeCount = 0;
+					completedCount = 0;
 				this.each(function( id, item ) {
-					if ( item.model.get( 'complete' ) ) {
-						completeCount++;
+					if ( item.model.get( 'completed' ) ) {
+						completedCount++;
 					}
 				});
 				this.model.set({
-					todoCount: count - completeCount + '',
+					todoCount: count - completedCount + '',
 					pluralizer: (count > 1 ? 's' : ''),
-					completeCount: completeCount + '',
+					completedCount: completedCount + '',
 					mainStyle: (count === 0 ? 'hidden' : ''),
-					clearBtnStyle: (completeCount === 0 ? 'hidden' : '')
+					clearBtnStyle: (completedCount === 0 ? 'hidden' : '')
 				});
 				// update toggle-all checked status
-				$('#toggle-all').prop( 'checked', completeCount === count );
+				$('#toggle-all').prop( 'checked', completedCount === count );
 			},
 			// filter handler
 			filters: {
@@ -131,10 +131,10 @@
 					return true;
 				},
 				'#/active': function( item ) {
-					return !item.model.get( 'complete' );
+					return !item.model.get( 'completed' );
 				},
 				'#/completed': function( item ) {
-					return item.model.get( 'complete' );
+					return item.model.get( 'completed' );
 				}
 			},
 			applyFilter: function( hash ) {

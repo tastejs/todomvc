@@ -14,11 +14,11 @@
 
 		<section id="main" data-bind="class = mainStyle">
 			<input id="toggle-all" type="checkbox">
-			<label for="toggle-all">Mark all as complete</label>
+			<label for="toggle-all">Mark all as completed</label>
 			<ul id="todo-list">
 				<li>
 					<div class="view">
-						<input class="toggle" type="checkbox" data-bind="complete">
+						<input class="toggle" type="checkbox" data-bind="completed">
 						<label data-bind="title"></label>
 						<button class="destroy"></button>
 					</div>
@@ -41,7 +41,7 @@
 					<a href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" data-bind="class = clearBtnStyle">Clear completed (<span data-bind="completeCount"></span>)</button>
+			<button id="clear-completed" data-bind="class = clearBtnStyle">Clear completed (<span data-bind="completedCount"></span>)</button>
 		</footer>
 	</section>
 	<footer id="info">
