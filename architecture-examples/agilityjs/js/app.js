@@ -5,7 +5,7 @@
 	// Hack of taking out html elements from DOM so that agility's view can use it.
 	// We need 'outerhtml' also, as agilityjs will append DOM, so removing it.
 	var drawHtml = function( selector ) {
-		return $(selector).remove().wrap( '<div>' ).parent().html();
+		return $(selector).remove().wrap('<div>').parent().html();
 	};
 
 	// Simple Two layer composition:
@@ -18,23 +18,23 @@
 				completed: false
 			},
 			view: {
-				format: drawHtml( '#todo-list li' ),
+				format: drawHtml('#todo-list li'),
 				style: '.hidden { display: none }'
 			},
 			controller: {
 				'change:completed': function() {
-					this.view.$().toggleClass( 'completed', this.model.get( 'completed' ));
+					this.view.$().toggleClass( 'completed', this.model.get('completed') );
 					app.updateStatus();
 				},
 				'dblclick .view': function() {
-					this.view.$().addClass( 'editing' );
+					this.view.$().addClass('editing');
 					this.view.$('.edit').select();
 				},
 				'click .destroy': function() {
 					this.destroy();
 				},
 				'create': function() {
-					this.view.$().toggleClass( 'completed', this.model.get( 'completed' ));
+					this.view.$().toggleClass( 'completed', this.model.get('completed') );
 				},
 				'change': function() {
 					this.save();
@@ -43,8 +43,8 @@
 					this.erase();
 				},
 				'change:title': function() {
-					this.view.$().removeClass( 'editing' );
-					var title = this.model.get( 'title' ).trim();
+					this.view.$().removeClass('editing');
+					var title = this.model.get('title').trim();
 					if ( title ) {
 						this.model.set({
 							title: title
@@ -69,7 +69,7 @@
 				clearBtnStyle: ''
 			},
 			view: {
-				format: drawHtml( '#todoapp' ),
+				format: drawHtml('#todoapp'),
 				style: '.hidden { display: none }'
 			},
 			controller: {
@@ -80,9 +80,9 @@
 					this.updateStatus();
 				},
 				'keyup #new-todo': function( event ) {
-					var title;
-					if ( event.which === ENTER_KEY && (title = $('#new-todo').val().trim()) ) {
-						var item = $$(todoitem, {
+					var title = $('#new-todo').val().trim();
+					if ( event.which === ENTER_KEY && title ) {
+						var item = $$( todoitem, {
 							title: title
 						}).save();
 						this.append( item, '#todo-list' );
@@ -99,7 +99,7 @@
 				},
 				'click #clear-completed': function() {
 					this.each(function( id, item ) {
-						if ( item.model.get( 'completed' ) ) {
+						if ( item.model.get('completed') ) {
 							item.destroy();
 						}
 					});
@@ -111,7 +111,7 @@
 				var count = this.size(),
 					completedCount = 0;
 				this.each(function( id, item ) {
-					if ( item.model.get( 'completed' ) ) {
+					if ( item.model.get('completed') ) {
 						completedCount++;
 					}
 				});
@@ -131,16 +131,16 @@
 					return true;
 				},
 				'#/active': function( item ) {
-					return !item.model.get( 'completed' );
+					return !item.model.get('completed');
 				},
 				'#/completed': function( item ) {
-					return item.model.get( 'completed' );
+					return item.model.get('completed');
 				}
 			},
 			applyFilter: function( hash ) {
 				var isVisible = this.filters[hash];
 				this.each(function( id, item ) {
-					item.view.$().toggleClass( 'hidden', !isVisible( item ));
+					item.view.$().toggleClass( 'hidden', !isVisible( item ) );
 				});
 			}
 		}).persist();
@@ -154,15 +154,15 @@
 			var hash = location.hash;
 			app.applyFilter( hash );
 			$('#filters a').each(function() {
-				if ( hash === $(this).attr( 'href' ) ) {
-					$(this).addClass( 'selected' );
+				if ( hash === $(this).attr('href') ) {
+					$(this).addClass('selected');
 				} else {
-					$(this).removeClass( 'selected' );
+					$(this).removeClass('selected');
 				}
 			});
-		});
+		} );
 		if ( location.hash ) {
-			$(window).trigger( 'hashchange' );
+			$(window).trigger('hashchange');
 		}
 	});
 
