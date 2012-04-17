@@ -45,8 +45,8 @@ var todos = todos || {};
 	} else {
 		// populate with demo tasks
 		tasks = [
-			create( 'Create a TodoMVC template', true ),
-			create( 'Rule the web', false )
+//			create( 'Create a TodoMVC template', true ),
+//			create( 'Rule the web', false )
 		];
 //		save();
 	}
