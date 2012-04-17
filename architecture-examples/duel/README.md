@@ -1,5 +1,5 @@
-TodoMVC written in DUEL
-=======================
+TodoMVC implemented in DUEL
+===========================
 
 Prerequisites
 -------------

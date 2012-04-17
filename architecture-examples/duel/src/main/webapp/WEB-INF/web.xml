@@ -5,12 +5,20 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<servlet>
-		<servlet-name>debug-servlet</servlet-name>
-		<servlet-class>com.example.todos.DebugServlet</servlet-class>
+		<servlet-name>routing-servlet</servlet-name>
+		<servlet-class>org.duelengine.duel.staticapps.RoutingServlet</servlet-class>
+		<init-param>
+			<param-name>config-path</param-name>
+			<param-value>staticapp.json</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dev-mode-override</param-name>
+			<param-value>true</param-value>
+		</init-param>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>debug-servlet</servlet-name>
-		<url-pattern>*.html</url-pattern>
+		<servlet-name>routing-servlet</servlet-name>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 </web-app>

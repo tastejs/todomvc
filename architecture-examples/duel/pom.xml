@@ -17,10 +17,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<resourcesDir>${project.basedir}/src/main/resources</resourcesDir>
 
-		<staticapps.version>0.8.3</staticapps.version>
-		<merge.version>0.5.1</merge.version>
+		<staticapps.version>0.8.5</staticapps.version>
+		<merge.version>0.5.2</merge.version>
 		<duel.version>0.8.2</duel.version>
-		<servlet.version>2.5</servlet.version>
+		<slf4j.version>1.6.4</slf4j.version>
 		<javac.version>1.6</javac.version>
 
 		<duel.clientPrefix>todos.views</duel.clientPrefix>
@@ -43,12 +43,18 @@
 			<version>${duel.version}</version>
 		</dependency>
 
-		<!-- Servlet interfaces -->
+		<!-- DUEL staticapps -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet.version}</version>
-			<scope>provided</scope>
+			<groupId>org.duelengine</groupId>
+			<artifactId>duel-staticapps</artifactId>
+			<version>${staticapps.version}</version>
+		</dependency>
+
+		<!-- SLF4J runtime -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 	</dependencies>
 
