@@ -36,7 +36,7 @@ if Meteor.is_client
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
 				textbox = $('#new-todo')
 				text = textbox.val().trim()
-				if text != ''
+				if text
 					Tasks.insert
 						title: textbox.val()
 						completed: false
@@ -73,7 +73,7 @@ if Meteor.is_client
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
 				text = $(evt.target).val().trim()
 
-				if text != ''
+				if text
 					task = Tasks.findOne this._id
 					task.editing = false
 					task.updated = new Date()
