@@ -1,0 +1,23 @@
+<view name="Stats">
+
+<%-- this footer should hidden by default and shown when there are todos --%>
+<footer id="footer" if="<%= data.total %>">
+	<span id="todo-count"><strong><%= data.active %></strong> <%= (data.active === 1) ? 'item' : 'items' %> left</span>
+
+<%-- TODO: implement routing
+	<ul id="filters">
+		<li>
+			<a class="selected" href="#/">All</a>
+		</li>
+		<li>
+			<a href="#/active">Active</a>
+		</li>
+		<li>
+			<a href="#/completed">Completed</a>
+		</li>
+	</ul>
+--%>
+	<button id="clear-completed"
+		if="<%= data.completed %>"
+		onclick="<%= todos.actions.clear_click %>">Clear completed (<%= data.completed %>)</button>
+</footer>
