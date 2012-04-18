@@ -22,7 +22,22 @@
                 events: ['click']
                 ,urlAttribute: 'data-href'
             }
+            ,'div': {
+                events: ['dblclick']
+                ,urlAttribute: 'data-href'
+                ,preventDefault: true
+            }
+            ,'a': {
+                events: ['click']
+                ,urlAttribute: 'href'
+                ,preventDefault: true
+            }
         })
+        ,DATABASE_ROUTERS: [
+            'todo.routers.Router'
+        ]
+        ,DB_PREFIX: 'todomvc_'
+        ,enableLocalStorage: true
     };
 
 })(this);

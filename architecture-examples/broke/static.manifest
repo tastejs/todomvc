@@ -1,0 +1,15 @@
+CACHE MANIFEST
+
+CACHE:
+../../assets/base.css
+css/app.css
+js/libs/jquery-1.7.1.min.js
+js/libs/gettext.min.js
+js/libs/pyjammin.min.js
+js/libs/broke-client-0.2b.min.js
+js/app/my-todo-app.js
+js/app/settings.js
+js/app/models.js
+js/app/views.js
+js/app/urls.js
+js/app/templates.js

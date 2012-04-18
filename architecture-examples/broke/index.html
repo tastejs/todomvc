@@ -1,37 +1,76 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Broke.js</title>
-    <link rel="stylesheet" href="css/application.css" type="text/css" charset="utf-8">
+    <meta charset="utf-8">
+    <title>Broke - TodoMVC</title>
+    <link rel="stylesheet" href="../../assets/base.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    <div id="views">
-        <div id="tasks">
-            <h1>Todos</h1>
-
-            <form action="#/task/create/" method="post">
-                <input type="text" name="title" placeholder="What needs to be done?" />
-            </form>
-
-            <div id="content"></div>
-
-            <footer>
-                <a class="clear" href="#/task/clear_completed/">Clear completed</a>
-                <div class="count"><span class="countVal"></span></div>
-            </footer>
+<div id="todoapp">
+    <header>
+        <h1>Todos</h1>
+        <form action="#/task/create/" method="post">
+            <input id="new-todo" type="text" name="title" placeholder="What needs to be done?">
+        </form>
+    </header>
+    <section id="main">
+        <div data-app_label="todo" data-model="counter" data-pk="1" class="counter">
+            <input id="toggle-all" type="checkbox" data-href="#/task/mark_all_as_complete/" />
+            <label for="toggle-all">Mark all as complete</label>
         </div>
-    </div>
-    
-    <script src="libs/jquery-1.6.4.min.js"></script>
-    <script src="libs/gettext.min.js"></script>
-    <script src="libs/pyjammin.min.js"></script>
-    <script src="libs/broke-client-0.2b.min.js"></script>
 
-    <script src="project/my-blog.js"></script>
-    <script src="project/settings.js"></script>
-    <script src="project/models.js"></script>
-    <script src="project/views.js"></script>
-    <script src="project/urls.js"></script>
-    <script src="project/templates.js"></script>
+        <ul id="todo-list"></ul>
+    </section>
+    <footer id="todo-stats" data-app_label="todo" data-model="counter" data-pk="1">
+        <a id="clear-completed" href="#/task/clear_completed/">
+            Clear <span class="number" data-field="completed">0</span> completed.
+        </a>
+        <div id="todo-count">
+            <span class="number" data-field="count">0</span> items left.
+        </div>
+    </footer>
+</div>
+<div id="instructions">
+    Double-click to edit a todo.
+</div>
+<div id="credits">
+    Created by <a href="http://www.brokenseal.it/">Davide Callegari</a>.
+</div>
+
+<script src="js/libs/jquery-1.7.1.min.js"></script>
+<script src="js/libs/gettext.min.js"></script>
+<script src="js/libs/pyjammin.min.js"></script>
+<script src="js/libs/broke-client-0.2b.min.js"></script>
+
+<script src="js/app/my-todo-app.js"></script>
+<script src="js/app/settings.js"></script>
+<script src="js/app/router.js"></script>
+<script src="js/app/models.js"></script>
+<script src="js/app/views.js"></script>
+<script src="js/app/urls.js"></script>
+<script src="js/app/templates.js"></script>
 </body>
 </html>
+
+
+
+<!--
+
+<li class="done">
+    <div class="view">
+        <input class="toggle" type="checkbox" checked>
+        <label>Create a TodoMVC template</label>
+        <a class="destroy"></a>
+    </div>
+    <input class="edit" type="text" value="Create a TodoMVC template">
+</li>
+<li>
+    <div class="view">
+        <input class="toggle" type="checkbox">
+        <label>Rule the web</label>
+        <a class="destroy"></a>
+    </div>
+    <input class="edit" type="text" value="Rule the web">
+</li>
+-->

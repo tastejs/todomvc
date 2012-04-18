@@ -1,0 +1,141 @@
+ol, ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.check {
+    margin: 0 5px;
+}
+#main, #todo-list {
+    display: block;
+}
+#todo-stats {
+    display: none;
+}
+#todo-stats .todo-count {
+    display: none;
+}
+
+#todoapp #todo-stats {
+    *zoom: 1;
+    margin-top: 10px;
+    color: #555555;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -o-border-bottom-left-radius: 5px;
+    -ms-border-bottom-left-radius: 5px;
+    -khtml-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -o-border-bottom-right-radius: 5px;
+    -ms-border-bottom-right-radius: 5px;
+    -khtml-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #f4fce8;
+    border-top: 1px solid #ededed;
+    padding: 0 20px;
+    line-height: 36px;
+}
+
+#todoapp #todo-stats:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#todoapp #todo-stats .todo-count {
+    float: left;
+}
+
+#todoapp #todo-stats .todo-count .number {
+    font-weight: bold;
+    color: #555555;
+}
+
+#todoapp #todo-stats .todo-clear {
+    float: right;
+}
+
+#todoapp #todo-stats .todo-clear a {
+    display: block;
+    line-height: 20px;
+    text-decoration: none;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -o-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -khtml-border-radius: 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.1);
+    color: #555;
+    font-size: 11px;
+    margin-top: 8px;
+    padding: 0 10px 1px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+}
+
+#todoapp #todo-stats .todo-clear a:hover, #todoapp #todo-stats .todo-clear a:focus {
+    background: rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+    -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+}
+/* line 139 */
+#todoapp #todo-stats .todo-clear a:active {
+    position: relative;
+    top: 1px;
+}
+
+.clear-completed {
+    display: block;
+    float: right;
+    line-height: 20px;
+    text-decoration: none;
+
+    background: rgba(0, 0, 0, 0.1);
+    color: #555555;
+    font-size: 11px;
+    margin-top: 8px;
+    margin-bottom:8px;
+    padding: 0 10px 1px;
+
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -o-border-radius: 12px;
+    border-radius: 12px;
+
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
+
+    cursor: pointer;
+}
+
+.clear-completed:hover, #todo-list .clear-completed:focus {
+    background: rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+    -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+}
+
+.clear-completed:active {
+    position: relative;
+    top: 1px;
+}
+.clear-completed, .number {
+    display: none;
+}
+.counter {
+    display: none;
+}
