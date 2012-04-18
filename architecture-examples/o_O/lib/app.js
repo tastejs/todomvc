@@ -1,13 +1,18 @@
 //a custom binding to handle the enter key (could go in a separate library)
+
 o_O.bindings.enterKey = function(func, $el) {
+  var ENTER_KEY = 13;
+  
   $el.keyup(function(e) {
-    if(e.keyCode === 13)
+    if(e.keyCode === ENTER_KEY)
       func.call(this)
   })
 }
 window.pluralize = function(word, count) {
   return word + (count === 1 ? "" : "s");
 }
+
+
 
 //represent a single todo item
 var Todo = o_O.model.extend({
@@ -78,7 +83,7 @@ var TodoApp = o_O.model.extend({
     })
   },
   persist: function() {
-    localStorage.todos = JSON.stringify(this.todos.toJSON());
+    localStorage['todos-o_O'] = JSON.stringify(this.todos.toJSON());
   },
   //writeable computed observable to handle marking all complete/incomplete
   allCompleted: function(v) {  
@@ -94,7 +99,7 @@ function main() {
   // load
   var todos
   try {
-    todos = JSON.parse(localStorage.todos)
+    todos = JSON.parse(localStorage['todos-o_O'])
   } catch(e) {
     todos = []
   }
