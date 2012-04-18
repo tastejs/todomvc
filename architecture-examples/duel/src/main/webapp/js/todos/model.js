@@ -36,19 +36,13 @@ var todos = todos || {};
 	}
 
 	// initialize storage
-	if ( localStorage.getItem( KEY ) ) {
-		var value = localStorage.getItem( KEY );
-
+	var value = localStorage.getItem( KEY );
+	if ( value ) {
 		// if doesn't support JSON then will be directly stored in polyfill
 		tasks = typeof JSON !== 'undefined' ? JSON.parse( value ) : value;
 
 	} else {
-		// populate with demo tasks
-		tasks = [
-//			create( 'Create a TodoMVC template', true ),
-//			create( 'Rule the web', false )
-		];
-//		save();
+		tasks = [];
 	}
 
 	/*-- export public interface -------------------------------*/
