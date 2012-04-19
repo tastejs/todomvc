@@ -162,3 +162,18 @@ body {
 #tasks .count span {
   font-weight: bold;
 }
+
+#credits {
+  width: 520px;
+  margin: 30px auto;
+  color: 
+  #999;
+  text-shadow: 
+  rgba(255, 255, 255, .8) 0 1px 0;
+  text-align: center;
+}
+
+#credits a {
+color: 
+#888;
+}

@@ -101,6 +101,10 @@ h2 {
 	font-size: 11px;
 }
 
+.nav{
+	width: 150px !important;
+}
+
 @media (max-width: 480px) {
 	#demos ul {
 		float: none;
