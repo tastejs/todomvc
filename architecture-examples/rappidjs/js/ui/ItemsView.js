@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
 
     rAppid.defineClass("js.ui.ItemsView",
@@ -7,46 +5,38 @@ requirejs(["rAppid"], function (rAppid) {
             return View.inherit({
                 defaults: {
                     tagName: "div",
-                    items: []
+                    items: null
                 },
                 hasItems: function(){
-                    return this.$.items.length > 0;
-                }.on('items'),
-                addItem: function (item) {
-                    this.$.items.push(item);
-                    if (this.isRendered()) {
-                        this._renderItem(item);
+                    if(this.$.items){
+                        return this.$.items.length;
                     }
-                },
+                    return 0;
+                }.on('items'),
                 render: function(){
                     this.$renderedItems = [];
                     return this.callBase();
                 },
-                removeItem: function(item){
-                    var index = this.$.items.indexOf(item);
-                    if(index > -1){
-                        this.$.items.slice(index,1);
-                        if (this.isRendered()) {
-                            this._removeRenderedItem(item);
-                        }
-                    }
-
-                },
                 clear: function(){
 
-
                 },
-                _renderList: function(list, oldList){
-                    if(oldList){
-                        // TODO: unbind!
+                _renderItems: function(items,oldItems){
+                    if (oldItems && oldItems instanceof List) {
+                        oldItems.unbind('sort', this._onSort);
+                        oldItems.unbind('reset', this._onReset);
+                        oldItems.unbind('add', this._onItemAdd);
+                        oldItems.unbind('remove', this._onItemRemove);
                     }
-                    if(list instanceof List){
-                        list.bind('sort', this._onSort, this);
-                        list.bind('reset', this._onReset, this);
-                        list.bind('add', this._onItemAdd,this);
-                        list.bind('remove', this._onItemRemove,this);
 
-                        this.set({items: list.$items});
+                    if(items instanceof List){
+
+                        items.bind('sort', this._onSort, this);
+                        items.bind('reset', this._onReset, this);
+                        items.bind('add', this._onItemAdd, this);
+                        items.bind('remove', this._onItemRemove, this);
+                        this._innerRenderItems(items.$items);
+                    } else if(rAppid._.isArray(items)){
+                        this._innerRenderItems(items);
                     }
                 },
                 _onSort: function(e){
@@ -61,15 +51,15 @@ requirejs(["rAppid"], function (rAppid) {
                     }
                 },
                 _onReset: function(e){
-                    this.set('items',e.$.items);
+                    this._innerRenderItems(e.$.items);
                 },
                 _onItemAdd: function(e){
-                    this._renderItem(e.$.item,e.$.index);
+                    this._innerRenderItem(e.$.item,e.$.index);
                 },
                 _onItemRemove: function(e){
                     this._removeRenderedItem(e.$.item);
                 },
-                _renderItems: function (items) {
+                _innerRenderItems: function (items) {
                     if (this.$renderedItems) {
                         var c;
                         for (var j = this.$renderedItems.length - 1; j >= 0; j--) {
@@ -79,11 +69,11 @@ requirejs(["rAppid"], function (rAppid) {
                     }
                     this.$renderedItems = [];
                     for (var i = 0; i < items.length; i++) {
-                        this._renderItem(items[i],i);
+                        this._innerRenderItem(items[i],i);
                     }
 
                 },
-                _renderItem: function (item,i) {
+                _innerRenderItem: function (item,i) {
                     var comp = this.$templates['item'].createComponents({$item: item, $index: i})[0];
                     // add to rendered item map
                     this.$renderedItems.push({
@@ -98,7 +88,7 @@ requirejs(["rAppid"], function (rAppid) {
                         ri = this.$renderedItems[i];
                         if (ri.item === item) {
                             this.$el.removeChild(ri.component.$el);
-                            this.$renderedItems.slice(i,1);
+                            this.$renderedItems.splice(i,1);
                             return;
                         }
                     }

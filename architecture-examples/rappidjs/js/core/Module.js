@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("js.core.Module", ["js.core.UIComponent"], function (UIComponent) {
         return UIComponent.inherit({
@@ -8,10 +6,14 @@ requirejs(["rAppid"], function (rAppid) {
              * @param callback
              */
             start: function (callback) {
-
+                if (callback) {
+                    callback();
+                }
             },
-            render: function (target) {
 
+            render: function (target) {
+                // module won't render anything, but delivers content via js:Content
+                // content is rendered inside ContentPlaceHolders
             }
         });
     });

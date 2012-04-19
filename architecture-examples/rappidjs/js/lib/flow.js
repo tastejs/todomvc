@@ -11,7 +11,7 @@
 (function (exports) {
     "use strict";
 
-    var Flow = function(context) {
+    var Flow = function (context) {
         this.$context = context || {
             error: null,
             actions: [],
@@ -46,12 +46,7 @@
 
                 var sync_end = false;
 
-                /**
-                 * @param err
-                 * @param data
-                 * @param end
-                 */
-                var thisArg = function (err, data, end) {
+                var setDataAndReturn = function (err, data, end) {
                     if (!err && name) {
                         // save result to var
                         self.$context.vars[name] = data;
@@ -59,26 +54,35 @@
 
                     cb(err, end);
                 };
+
+                /**
+                 * @param err
+                 * @param data
+                 */
+                var thisArg = function (err, data) {
+                    setDataAndReturn(err, data, false);
+                };
                 thisArg.vars = self.$context.vars;
+
 
                 if (fn.length) {
                     // end for async case
                     thisArg.end = function (err, data) {
                         // end
-                        thisArg(err, data, true);
+                        setDataAndReturn(err, data, true);
                     };
 
                     fn.call(thisArg, thisArg);
                 } else {
                     // sync
-                    thisArg.end = function() {
+                    thisArg.end = function () {
                         sync_end = true;
                     };
 
                     try {
-                        thisArg(null, fn.call(thisArg), sync_end);
+                        setDataAndReturn(null, fn.call(thisArg), sync_end);
                     } catch (e) {
-                        thisArg(e, null, sync_end);
+                        setDataAndReturn(e, null, sync_end);
                     }
                 }
             }
@@ -97,8 +101,7 @@
 
             var sync_end = false;
 
-            var thisArg = function (err, data, end) {
-
+            var setDataAndReturn = function (err, data, end) {
                 if (!err && name) {
                     // save result to tmp. var
                     results[name] = data;
@@ -107,13 +110,17 @@
                 parallelFinishedCallback(parallelInstance, err, end);
             };
 
+            var thisArg = function (err, data) {
+                setDataAndReturn(err, data, false);
+            };
+
             thisArg.vars = context.vars;
 
             if (fn.length) {
                 // async
                 thisArg.end = function (err, data) {
                     // end
-                    thisArg(err, data, true);
+                    setDataAndReturn(err, data, true);
                 };
 
                 fn.call(thisArg, thisArg);
@@ -124,9 +131,9 @@
                 };
 
                 try {
-                    thisArg(null, fn.call(thisArg), sync_end);
+                    setDataAndReturn(null, fn.call(thisArg), sync_end);
                 } catch (e) {
-                    thisArg(e, null, sync_end);
+                    setDataAndReturn(e, null, sync_end);
                 }
             }
         };
@@ -135,10 +142,16 @@
     /**
      * Executes the given functions parallel
      *
-     * @param {Object, Array} fns
+     * @param {Object|Array} fns
      *  {Object} fns - keys will be variable name for returned value
      */
     Flow.prototype.par = function (fns) {
+
+        if (arguments.length > 1) {
+            // parallel functions given comma separated without named return
+            this.par(Array.prototype.slice.call(arguments));
+            return this;
+        }
 
         var self = this, i, key;
 
@@ -225,10 +238,71 @@
         return this;
     };
 
+    /***
+     * executes the given function for each value in values
+     * @param {Array|Object} values for which fn should be called in parallel,
+     *                      if object is passed, keys will be var names
+     * @param {Function} fn function which will be executed for each value in values
+     *                      function(value, [cb]) - the function will be called with the value as first parameter
+     *                      and optional as second parameter with the callback
+     */
+    Flow.prototype.parEach = function (values, fn) {
+        values = values || [];
+
+        if (!(fn instanceof Function)) {
+            throw "2nd argument for parEach needs to be a function";
+        }
+
+        var noVars = values instanceof Array,
+            delegates = noVars ? [] : {};
+
+        function addDelegate(name, value) {
+            if (noVars) {
+                value = name;
+                name = null;
+            }
+
+            var parFn;
+
+            if (fn.length >= 2) {
+                // async
+                parFn = function (cb) {
+                    fn(value, cb);
+                };
+            } else {
+                // sync
+                parFn = function () {
+                    return fn(value);
+                };
+            }
+
+            if (noVars) {
+                delegates.push(parFn);
+            } else {
+                delegates[name] = parFn;
+            }
+
+        }
+
+        if (noVars) {
+            for (var i = 0; i < values.length; i++) {
+                addDelegate(values[i]);
+            }
+        } else {
+            for (var key in values) {
+                if (values.hasOwnProperty(key)) {
+                    addDelegate(key, values[key]);
+                }
+            }
+        }
+
+        return this.par(delegates);
+    };
+
     Flow.prototype.exec = function (cb) {
         var self = this;
 
-        var callback = function(err, data) {
+        var callback = function (err, data) {
             if (cb) {
                 cb(err, data);
             }
@@ -237,11 +311,11 @@
         function execNext(index) {
             if (index < self.$context.actions.length) {
                 // execute action
-                self.$context.actions[index](function(err, end) {
+                self.$context.actions[index](function (err, end) {
                     if (err || end) {
                         callback(err, self.$context.vars);
                     } else {
-                        execNext(index+1);
+                        execNext(index + 1);
                     }
                 });
 

@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("js.ui.PlaceHolder",
         ["js.core.UIComponent", "js.core.Content"], function (UIComponent, Content) {
@@ -9,7 +7,7 @@ requirejs(["rAppid"], function (rAppid) {
                         return this.$el;
                     }
 
-                    this.$textNode = document.createTextNode("");
+                    this.$textNode = this.$systemManager.$document.createTextNode("");
                     this.$el = this.$textNode;
 
                     return this.$el;

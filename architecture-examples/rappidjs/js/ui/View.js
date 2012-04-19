@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("js.ui.View",
         ["js.html.DomElement", "js.core.Template", "js.core.Content"], function (DomElement, Template, Content) {
@@ -9,6 +7,15 @@ requirejs(["rAppid"], function (rAppid) {
                 },
                 $behavesAsDomElement: false,
                 render: function () {
+                    if(this.$["layoutString"]){
+
+                        // replace $0...n with ui:Placeholder name="#0"
+                        // create layout
+                        // new layout with
+                        // %1 => <ui:PLaceholder ref="#0">
+
+                    }
+
                     // look if the component has a layout defined
                     var layout = this.$templates['layout'];
                     // if layout template available...

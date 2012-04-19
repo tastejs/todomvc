@@ -1,13 +1,10 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
-    rAppid.defineClass("js.core.List", ["js.core.EventDispatcher","js.core.Bindable"], function(EventDispatcher, Bindable) {
-        return EventDispatcher.inherit({
-
-
-            ctor: function(items){
+    rAppid.defineClass("js.core.List", ["js.core.Bindable"], function(Bindable) {
+        return Bindable.inherit({
+            ctor: function(items, attributes){
                 this.$items = [];
-                this.callBase();
+
+                this.callBase(this, attributes);
 
                 if(items){
                     this.add(items);
@@ -97,15 +94,14 @@ requirejs(["rAppid"], function (rAppid) {
                 this.trigger('reset',{items: items});
             },
             sort: function(fnc){
-                this.trigger('sort', {items: this.$items.sort(fnc)});
+                this.trigger('sort', {items: this.$items.sort(fnc), sortFnc: fnc});
             },
             clear: function(){
                 this.reset([]);
             },
             size: function(){
                 return this.$items.length;
-            }.on('add','remove')
-            ,
+            }.on('add','remove'),
             at: function(index){
                 if(index < this.$items.length && index >= 0){
                     return this.$items[index];

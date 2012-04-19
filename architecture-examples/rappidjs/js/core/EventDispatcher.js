@@ -1,17 +1,13 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
 
     var a = 0;
     rAppid.defineClass("js.core.EventDispatcher",
         ["js.core.Base"],
-        /**
-         * Base class for trigger and listen to events
-         * @export js/core/EventDispatcher
-         */
+        function (Base) {
 
-            function (Base) {
-
+            /***
+             * @param {arguments} eventTypes
+             * */
             Function.prototype.on = function () {
                 var events = Array.prototype.slice.call(arguments, 0);
                 this._events = [];
@@ -22,6 +18,10 @@ requirejs(["rAppid"], function (rAppid) {
                 return this;
             };
 
+
+            /***
+             * @param {arguments} changeEvents results in change:eventName
+             * */
             Function.prototype.onChange = function () {
                 var events = Array.prototype.slice.call(arguments, 0);
                 this._events = [];
@@ -35,124 +35,150 @@ requirejs(["rAppid"], function (rAppid) {
 
             var undefinedValue;
 
-            var EventDispatcher = Base.inherit({
-                ctor: function () {
-                    this.callBase();
-                    this._eventHandlers = {};
-                },
-                bind: function (eventType, callback, scope) {
-                    scope = scope || this;
-                    // get the list for the event
-                    var list = this._eventHandlers[eventType] || (this._eventHandlers[eventType] = []);
-                    // and push the callback function
-                    list.push(new EventDispatcher.EventHandler(callback, scope));
+            var EventDispatcher = Base.inherit(
+                /** @lends EventDispatcher# */
+                {
 
-                    return this;
-                },
-                /**
-                 *
-                 * @param {String} eventType
-                 * @param {js.core.EventDispatcher.Event|Object} event
-                 * @param caller
-                 */
-                trigger: function (eventType, event, caller) {
+                    /**
+                     * Description of constructor.
+                     * @class Description of class.
+                     * @constructs
+                     */
+                    ctor:function () {
+                        this.callBase();
+                        this._eventHandlers = {};
+                    },
+                    /**
+                     * Binds a callback and a scope to a given eventType
+                     * @param {String} eventType The name of the event
+                     * @param {Function} callback The callback function
+                     * @param {Object} [scope]  This sets the scope for the callback function
+                     */
+                    bind:function (eventType, callback, scope) {
+                        scope = scope || this;
+                        // get the list for the event
+                        var list = this._eventHandlers[eventType] || (this._eventHandlers[eventType] = []);
+                        // and push the callback function
+                        list.push(new EventDispatcher.EventHandler(callback, scope));
 
-                    if (this._eventHandlers[eventType]) {
-                        if (!(event instanceof EventDispatcher.Event)) {
-                            event = new EventDispatcher.Event(event);
-                        }
+                        return this;
+                    },
+                    /**
+                     * Triggers an event
+                     * @param {String} eventType
+                     * @param {js.core.EventDispatcher.Event|Object} event If you use an Object the object is wrapped in an js.core.EventDispatcher.Event
+                     * @param caller
+                     */
+                    trigger:function (eventType, event, caller) {
 
-                        if (!caller) {
-                            caller = arguments.callee.caller;
-                        }
+                        if (this._eventHandlers[eventType]) {
+                            if (!(event instanceof EventDispatcher.Event)) {
+                                event = new EventDispatcher.Event(event);
+                            }
 
-                        event.type = eventType;
+                            if (!caller) {
+                                caller = arguments.callee.caller;
+                            }
 
-                        var list = this._eventHandlers[eventType];
-                        for (var i = 0; i < list.length; i++) {
-                            if (list[i]) {
-                                var result = list[i].trigger(event, caller);
+                            event.type = eventType;
 
-                                if (result !== undefinedValue) {
-                                    ret = result;
-                                    if (result === false) {
-                                        event.preventDefault();
-                                        event.stopPropagation();
+                            var list = this._eventHandlers[eventType];
+                            for (var i = 0; i < list.length; i++) {
+                                if (list[i]) {
+                                    var result = list[i].trigger(event, caller);
+
+                                    if (result !== undefinedValue) {
+                                        ret = result;
+                                        if (result === false) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }
+                                    }
+
+                                    if (event.isImmediatePropagationStopped) {
+                                        break;
                                     }
                                 }
+                            }
+                        }
 
-                                if (event.isImmediatePropagationStopped) {
-                                    break;
+                        return event;
+                    },
+                    /***
+                     * Unbinds callbacks for events
+                     * @param {String} eventType
+                     * @param {Function} callback
+                     */
+                    unbind:function (eventType, callback) {
+                        if (!eventType) {
+                            // remove all events
+                            this._eventHandlers = {};
+                        } else if (!callback) {
+                            // remove all callbacks for these event
+                            this._eventHandlers[eventType] = [];
+                        } else if (this._eventHandlers[eventType]) {
+                            var list = this._eventHandlers[eventType];
+                            for (var i = list.length - 1; i >= 0; i--) {
+                                if (list[i].$callback == callback) {
+                                    list.splice(i, 1);  // delete callback
                                 }
                             }
                         }
                     }
+                });
 
-                    return event;
-                },
-                unbind: function (eventType, callback) {
-                    if (!eventType) {
-                        // remove all events
-                        this._eventHandlers = {};
-                    } else if (!callback) {
-                        // remove all callbacks for these event
-                        this._eventHandlers[eventType] = [];
-                    } else if (this._eventHandlers[eventType]) {
-                        var list = this._eventHandlers[eventType];
-                        for (var i = list.length - 1; i >= 0; i--) {
-                            if (list[i].$callback == callback) {
-                                list.splice(i, 1);  // delete callback
+            EventDispatcher.Event = Base.inherit(
+                /** @lends EventDispatcher.Event# */
+                {
+                    /**
+                     * Description of constructor.
+                     * @class Description of class.
+                     * @constructs
+                     */
+                    ctor:function (attributes) {
+                        this.$ = attributes;
+
+                        this.isDefaultPrevented = false;
+                        this.isPropagationStopped = false;
+                        this.isImmediatePropagationStopped = false;
+
+                    },
+                    preventDefault:function () {
+                        this.isDefaultPrevented = true;
+
+                        var e = this.orginalEvent;
+
+                        if (e) {
+                            if (e.preventDefault) {
+                                e.preventDefault();
+                            } else {
+                                e.returnValue = false;  // IE
                             }
                         }
-                    }
-                }
-            });
+                    },
+                    stopPropagation:function () {
+                        this.isPropagationStopped = true;
 
-            EventDispatcher.Event = Base.inherit({
-                ctor: function (attributes) {
-                    this.$ = attributes;
-
-                    this.isDefaultPrevented = false;
-                    this.isPropagationStopped = false;
-                    this.isImmediatePropagationStopped = false;
-
-                },
-                preventDefault: function () {
-                    this.isDefaultPrevented = true;
-
-                    var e = this.orginalEvent;
-
-                    if (e) {
-                        if (e.preventDefault) {
-                            e.preventDefault();
-                        } else {
-                            e.returnValue = false;  // IE
+                        var e = this.originalEvent;
+                        if (e) {
+                            if (e.stopPropagation) {
+                                e.stopPropagation();
+                            }
+                            e.cancelBubble = true;
                         }
+                    },
+                    stopImmediatePropagation:function () {
+                        this.isImmediatePropagationStopped = true;
+                        this.stopPropagation();
                     }
-                },
-                stopPropagation: function () {
-                    this.isPropagationStopped = true;
-
-                    var e = this.originalEvent;
-                    if (e) {
-                        if (e.stopPropagation) {
-                            e.stopPropagation();
-                        }
-                        e.cancelBubble = true;
-                    }
-                },
-                stopImmediatePropagation: function () {
-                    this.isImmediatePropagationStopped = true;
-                    this.stopPropagation();
-                }
-            });
+                });
 
             EventDispatcher.EventHandler = Base.inherit({
-                ctor: function (callback, scope) {
+                ctor:function (callback, scope) {
                     this.scope = scope;
                     this.$callback = callback;
                 },
-                trigger: function (event, caller) {
+                trigger:function (event, caller) {
                     this.$callback.call(this.scope, event, caller);
                 }
             });

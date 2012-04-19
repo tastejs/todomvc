@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("js.core.I18n", ["js.core.Component"], function(Component) {
         return Component.inherit({
@@ -29,7 +27,7 @@ requirejs(["rAppid"], function (rAppid) {
                 }
 
                 var self = this;
-                rAppid.require(['json!' + this.$.path + '/' + this.$.locale + this.$.suffix], function (translations) {
+                rAppid.$requirejsContext(['json!' + this.$.path + '/' + this.$.locale + this.$.suffix], function (translations) {
                     if (callback) {
                         callback();
                     }

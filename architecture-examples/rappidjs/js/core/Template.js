@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("js.core.Template", ["js.core.Component"],
         function (Component) {
@@ -8,6 +6,7 @@ requirejs(["rAppid"], function (rAppid) {
             return Component.inherit({
 
                 _initializeDescriptors: function () {
+                    this._cleanUpDescriptor(this.$descriptor);
                     this._childrenInitialized();
                 },
 

@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("js.core.Application",
         ["js.core.UIComponent", "js.core.History"], function (UIComponent, History) {
@@ -31,11 +29,9 @@ requirejs(["rAppid"], function (rAppid) {
                  * @param {Function} callback
                  */
                 start: function (parameter, callback) {
-                    this.history.start();
+                    parameter = parameter || {};
 
-                    if (callback) {
-                        callback(null);
-                    }
+                    this.history.start(callback, parameter.initialHash);
                 },
                 render: function (target) {
                     var dom = this.callBase(null);

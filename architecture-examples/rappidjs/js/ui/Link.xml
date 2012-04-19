@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ui:View xmlns="http://www.w3.org/1999/xhtml" xmlns:js="js.core" xmlns:ui="js.ui">
-    <js:Script>
+    <js:Script><![CDATA[
         (function () {
             return {
                 defaults:{
@@ -26,6 +26,7 @@
                 }
             }
         })
+        ]]>
     </js:Script>
     <js:Template name="layout">
         <ui:PlaceHolder name="icon"/>{label}

@@ -2,8 +2,8 @@ var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requi
 
 requirejs(["rAppid"], function (rAppid) {
     rAppid.defineClass("app.TodoClass",
-        ["js.core.Application", "js.core.I18n", "app.model.Todo", "app.collection.TodoList"],
-        function (Application, I18n, Todo, TodoList) {
+        ["js.core.Application", "js.core.I18n", "app.model.Todo", "app.collection.TodoList", "js.data.ListView"],
+        function (Application, I18n, Todo, TodoList, ListView) {
 
             return Application.inherit({
                 inject:{
@@ -14,9 +14,41 @@ requirejs(["rAppid"], function (rAppid) {
                  * In this method we set the initial models
                  */
                 initialize:function () {
+
                     this.set("todoList", new TodoList());
+                    this.set("filterList", new ListView({
+                        list:this.get("todoList"),
+                        filter:'all',
+                        filterFnc:function (item) {
+                            var f = this.$.filter;
+                            if (f == "active") {
+                                return !item.get("isDone");
+                            } else if (f == "completed") {
+                                return item.get("isDone");
+                            } else {
+                                return true;
+                            }
+                        }}));
                     this.set("newTodo", new Todo());
-                    this.set("locales",["en_EN","de_DE"]);
+                    this.set("locales", ["en_EN", "de_DE"]);
+                },
+                /**
+                 * Are triggered
+                 */
+                showAll:function () {
+                    console.log("show all");
+                    this.$.filterList.set("filter", 'all');
+                },
+                showActive:function () {
+                    console.log("show active");
+                    this.$.filterList.set("filter", "active");
+                },
+                showCompleted:function () {
+                    console.log("show completed");
+                    this.$.filterList.set("filter", "completed");
+                },
+                isStringEqual:function (route, filter) {
+                    return route == filter;
                 },
                 /**
                  * The rest is just controller stuff
@@ -29,19 +61,6 @@ requirejs(["rAppid"], function (rAppid) {
                             newTodo.setDone(false);
                             this.get("todoList").add(newTodo);
                             tmp.set("content", "");
-                        }
-                        this.get("hint").set("visible", false);
-                    } else {
-                        // some hint stuff
-                        var hint = this.get("hint");
-                        if (!hint.get("visible")) {
-                            setTimeout(function () {
-                                hint.set("visible", true);
-
-                                setTimeout(function () {
-                                    hint.set("visible", false);
-                                }, 2000);
-                            }, 400);
                         }
                     }
                 },
@@ -72,7 +91,7 @@ requirejs(["rAppid"], function (rAppid) {
                     // false - disables autostart
                     this.callBase(parameter, false);
 
-                    this.$.i18n.set("locale","en_EN",{silent: true});
+                    this.$.i18n.set("locale", "en_EN", {silent:true});
                     this.$.i18n.loadLocale("en_EN", callback);
                 }
             });

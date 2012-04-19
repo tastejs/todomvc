@@ -7,9 +7,9 @@ if(!String.prototype.trim){
     };
 }
 
-(function (exports, inherit, require, define, underscore, XMLHttpRequest, flow) {
+(function (exports, inherit, requirejs, define, underscore, XMLHttpRequest, flow, document) {
 
-    if (!require) {
+    if (!requirejs) {
         throw "require.js is needed";
     }
 
@@ -18,7 +18,6 @@ if(!String.prototype.trim){
     }
 
     if (!underscore) {
-        // TODO include own implementation
         throw "underscore is needed"
     }
 
@@ -26,89 +25,99 @@ if(!String.prototype.trim){
         throw "flow.js is needed";
     }
 
-    define("flowjs", function() {
-        return flow;
-    });
-
-    require.config({
-        paths: {
-            "xaml": "js/plugins/xaml",
-            "json": "js/plugins/json"
-        }
-    });
+    /***
+     * marks a function to be executed asycn
+     * @return {*}
+     */
+    Function.prototype.async = function () {
+        this._async = true;
+        return this;
+    };
 
     var Base = inherit.Base.inherit({
         ctor: function () {
             if (!this.className) {
                 this.className = this.constructor.name;
             }
+        },
+        runsInBrowser: function () {
+            return typeof window !== "undefined";
         }
     });
 
-
-    // define js.core.Base
-    define("js/core/Base", [], function() {
-        return Base;
+    // global requirejs setup
+    requirejs.config({
+        paths: {
+            "xaml": "js/plugins/xaml",
+            "json": "js/plugins/json"
+        }
     });
-
-    define("rAppid", function() {
-        return _rAppid;
-    });
-
-    function SystemManager(applicationDomain, application) {
-        this.applicationDomain = applicationDomain;
-        this.application = application;
-    }
 
     var xamlApplication = /^(xaml!)?(.+?)(\.xml)?$/;
-    var defaultNamespaceMap = {
-        "http://www.w3.org/1999/xhtml": "js.html"
-    };
 
-    var currentApplicationDomain = null;
+    var Rewrite = function (from, to) {
+            this.$from = from;
+            this.$to = to;
+        },
+        defaultNamespaceMap = {
+            "http://www.w3.org/1999/xhtml": "js.html"
+        },
+        defaultRewriteMap = [
+            new Rewrite(/^js.html.(input)$/, "js.html.Input"),
+            new Rewrite(/^js.html.(select)$/, "js.html.Select"),
+            new Rewrite(/^js.html.(textarea)$/, "js.html.TextArea"),
+            new Rewrite(/^js.html.(option)$/, "js.html.Option"),
+            new Rewrite(/^js.html.(.+)$/, "js.html.DomElement"),
+            new Rewrite(/^js.conf.(.+)$/, "js.core.Component")
+        ];
 
     var _rAppid = {
-        defineClass: function(fqName, dependencies, generateFactory){
-            if (currentApplicationDomain) {
-                currentApplicationDomain.defineClass(fqName, dependencies, generateFactory);
-            } else {
-                throw "CurrentApplicationDomain not available! Application not bootstrapped?";
-            }
-        },
 
-        defineXamlClass: function(fqClassName, dependencies, factory) {
-            if (currentApplicationDomain) {
-                currentApplicationDomain.defineXamlClass(fqClassName, dependencies, factory);
-            } else {
-                throw "CurrentApplicationDomain not available! Application not bootstrapped?";
-            }
-        },
+        createApplicationContext: function(requirejsContext, applicationDomain, mainClass, config, callback) {
 
-        getDefinition: function(fqClassName) {
-            if (currentApplicationDomain) {
-                currentApplicationDomain.getDefinition(fqClassName);
-            } else {
-                throw "CurrentApplicationDomain not available! Application not bootstrapped?";
-            }
-        },
-
-        bootStrap: function (mainClass, config, callback) {
             config = config || {};
-            
-            var internalBootstrap = function(config) {
 
-                var xamlClasses = config.xamlClasses || [];
-                var namespaceMap = config.namespaceMap || defaultNamespaceMap;
-                var rewriteMap = config.rewriteMap;
+            var internalCreateApplicationContext = function (config) {
 
-                var applicationDomain = currentApplicationDomain = new ApplicationDomain(namespaceMap, rewriteMap);
+                config.xamlClasses = config.xamlClasses || [];
+                config.namespaceMap = config.namespaceMap || defaultNamespaceMap;
+                config.rewriteMap = config.rewriteMap || defaultRewriteMap;
 
-                require.config({
-                    xamlClasses: xamlClasses,
-                    namespaceMap: namespaceMap,
-                    rewriteMap: applicationDomain.$rewriteMap,
-                    applicationDomain: applicationDomain
+                define("flow", function () {
+                    return flow;
                 });
+
+                define("flow.js", function () {
+                    return flow;
+                });
+
+                define("inherit", function () {
+                    return inherit;
+                });
+
+                define("underscore", function() {
+                    return underscore;
+                });
+
+                // define js.core.Base
+                define("js/core/Base", [], function () {
+                    return Base;
+                });
+
+                underscore.extend(config, {
+                    paths: {
+                        "xaml": "js/plugins/xaml",
+                        "json": "js/plugins/json"
+                    }
+                });
+
+                applicationDomain = applicationDomain || new ApplicationDomain(config.namespaceMap, config.rewriteMap);
+
+                // and add it to config object, so it can used from xaml.js
+                config.applicationDomain = applicationDomain;
+
+                requirejsContext.config(config);
+
 
                 if (mainClass) {
                     var parts = xamlApplication.exec(mainClass);
@@ -120,46 +129,51 @@ if(!String.prototype.trim){
                         mainClass = mainClass.replace(/\./g, "/");
                     }
 
-                    require(["./js/core/Imports"], function () {
-                        require(["./js/core/Application", mainClass], function (Application, mainClassFactory) {
-                            // create instance
-                            var application = new mainClassFactory(null, false, applicationDomain, null, null);
+                    var applicationContext = new ApplicationContext(applicationDomain, requirejsContext, config);
+                    //applicationContext.document = document;
+                    applicationContext._ = underscore;
 
-                            if (application instanceof Application) {
+                    define("rAppid", function () {
+                        return applicationContext;
+                    });
 
-                                var systemManager = new SystemManager(applicationDomain, application);
-                                rAppid.systemManager = systemManager;
 
-                                application.$config = config;
-                                application._initialize("auto");
-
-                                // return system manager
-                                if (callback) {
-                                    callback(null, systemManager, application);
-                                }
-
-                            } else {
-                                var errMessage = "mainClass isn't an instance of js.core.Application";
-                                if (callback) {
-                                    callback(errMessage);
-                                } else {
-                                    throw(errMessage);
-                                }
-                            }
+                    requirejsContext(["require"], function(){
+                        requirejsContext(["./js/core/Imports"], function () {
+                            requirejsContext([mainClass], function (applicationFactory) {
+                                applicationContext.$applicationFactory = applicationFactory;
+                                callback(null, applicationContext);
+                            });
                         });
                     });
+
+                } else {
+                    callback("MainClass missing");
                 }
+
             };
-            
+
             if (Object.prototype.toString.call(config) == '[object String]') {
-                require(["json!" + config], function(config) {
-                    internalBootstrap(config);
+                requirejs(["json!" + config], function (config) {
+                    internalCreateApplicationContext(config);
                 });
             } else {
-                internalBootstrap(config);
+                internalCreateApplicationContext(config);
             }
 
         },
+
+        bootStrap: function (mainClass, config, callback) {
+            _rAppid.createApplicationContext(requirejs, null, mainClass, config, function(err, applicationContext){
+                if (err || !applicationContext) {
+                    callback(err || "ApplicationContext missing");
+                } else {
+                    applicationContext.createApplicationInstance(document, callback);
+                }
+            })
+        },
+
+        rewriteMapEntry: Rewrite,
 
         createQueryString: function(parameter) {
             var ret = [];
@@ -196,13 +210,20 @@ if(!String.prototype.trim){
                 xhr.setRequestHeader("Content-Type", s.contentType);
             }
 
+            // TODO: don't use requirejs for this, use a rAppid instance and config these
+            if (requirejs.config.applicationUrl) {
+                url = requirejs.config.applicationUrl + "/" + url;
+            }
+
             // create new xhr
             var xhr = s.xhr();
             xhr.open(s.type, s.url, s.async);
 
             try {
                 for (var header in s.headers) {
-                    xhr.setRequestHeader(header, s.headers[header]);
+                    if (s.headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header, s.headers[header]);
+                    }
                 }
             } catch (e) {} // FF3
 
@@ -243,7 +264,8 @@ if(!String.prototype.trim){
         _: underscore,
         // export inherit
         inherit: inherit,
-        require: require
+        require: requirejs,
+        document: document
     };
 
     var rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg; // IE leaves an \r character at EOL
@@ -294,26 +316,12 @@ if(!String.prototype.trim){
         }
     };
 
-
-    var Rewrite = _rAppid.rewriteMapEntry = function (from, to) {
-        this.$from = from;
-        this.$to = to;
-    };
-
-    _rAppid.defaultRewriteMap = [
-        new Rewrite(/^js.html.(input)$/, "js.html.Input"),
-        new Rewrite(/^js.html.(select)$/, "js.html.Select"),
-        new Rewrite(/^js.html.(textarea)$/, "js.html.TextArea"),
-        new Rewrite(/^js.html.(option)$/, "js.html.Option"),
-        new Rewrite(/^js.html.(.+)$/, "js.html.DomElement"),
-        new Rewrite(/^js.conf.(.+)$/, "js.core.Component")
-    ];
-
-    var ApplicationDomain = inherit.Base.inherit({
-        ctor: function(namespaceMap, rewriteMap) {
+    var ApplicationDomain = _rAppid.ApplicationDomain = inherit.Base.inherit({
+        ctor: function(namespaceMap, rewriteMap, parentDomain) {
             this.$namespaceMap = namespaceMap || {};
-            this.$rewriteMap = rewriteMap || rAppid.defaultRewriteMap;
+            this.$rewriteMap = rewriteMap || defaultRewriteMap;
             this.$ns = {};
+            this.$parentDomain = parentDomain;
         },
         /**
          *
@@ -428,12 +436,17 @@ if(!String.prototype.trim){
                 return new F();
             }
 
-
-            var ret = construct(classDefinition, args);
-            ret.className = className;
+            var ret;
+            try {
+                ret = construct(classDefinition, args);
+                ret.className = className;
+            } catch (e) {
+                console.log("Cannot create instance of '" + fqClassName + "'");
+            }
 
             return ret;
         },
+
         getFqClassName: function (namespace, className, useRewriteMap) {
             if (useRewriteMap == undefined || useRewriteMap == null) {
                 useRewriteMap = true;
@@ -479,12 +492,97 @@ if(!String.prototype.trim){
         }
     });
 
+    var SystemManager = _rAppid.SystemManager = inherit.Base.inherit({
+        ctor: function (applicationDomain, requirejsContext, applicationContext, document) {
+            this.$applicationDomain = applicationDomain;
+            this.$requirejsContext = requirejsContext;
+            this.$applicationContext = applicationContext;
+            this.$applicationFactory = null;
+            this.$document = document;
+        }
+    });
+
+    var ApplicationContext = _rAppid.ApplicationContext = SystemManager.inherit({
+
+        ctor: function(applicationDomain, requirejsContext, config) {
+            this.callBase(applicationDomain, requirejsContext);
+            this.$config = config;
+            this.$applicationContext = this;
+        },
+
+        createApplicationInstance: function(document, callback) {
+            // create instance
+            var applicationFactory = this.$applicationFactory;
+
+            var systemManager = new SystemManager(this.$applicationDomain, this.$requirejsContext, this, document);
+
+            this.$requirejsContext(["js/core/Application"], function(Application) {
+
+                var application = new applicationFactory(null, false, systemManager, null, null);
+
+                if (application instanceof Application) {
+
+                    systemManager.$application = application;
+
+                    application._initialize("auto");
+
+                    // return rAppid instance
+                    if (callback) {
+                        callback(null, systemManager, application);
+                    }
+
+                } else {
+                    var errMessage = "mainClass isn't an instance of js.core.Application";
+                    if (callback) {
+                        callback(errMessage);
+                    } else {
+                        throw(errMessage);
+                    }
+                }
+            });
+
+        },
+
+        ajax: function(url, options, callback) {
+
+            if (!(/^http.*$/.test(url)) && this.$config.applicationUrl) {
+                url = this.$config.applicationUrl + '/' + url;
+            }
+
+            _rAppid.ajax(url, options, callback);
+        },
+
+        defineClass: function (fqName, dependencies, generateFactory) {
+            this.$applicationDomain.defineClass(fqName, dependencies, generateFactory);
+        },
+
+        defineXamlClass: function (fqClassName, dependencies, factory) {
+            this.$applicationDomain.defineXamlClass(fqClassName, dependencies, factory);
+        },
+
+        getDefinition: function (fqClassName) {
+            this.$applicationDomain.getDefinition(fqClassName);
+        },
+
+        makeRequireName: function (module) {
+            if (underscore.indexOf(this.$config.xamlClasses, module)) {
+                module = "xaml!" + module;
+            }
+
+            return module;
+        }
+
+
+    });
+
+
     rAppid = exports.rAppid = _rAppid;
 
 })(typeof exports === "undefined" ? this : exports,
-   typeof inherit === "undefined" ? global.inherit : inherit,
-    requirejs,
-    requirejs.define ? requirejs.define : define,
-    typeof this._ === "undefined" ? global.underscore : this._,
-    typeof window !== "undefined" ? window.XMLHttpRequest : global.XMLHttpRequest,
-    typeof flow === "undefined" ? global.flow : flow);
+   typeof inherit === "undefined" ? require('inherit.js').inherit : inherit,
+    typeof requirejs === "undefined" ? require('requirejs') : requirejs,
+    typeof requirejs === "undefined" ? require('requirejs').define : define,
+    typeof this._ === "undefined" ? require('underscore') : this._,
+    typeof window === "undefined" ? require('xmlhttprequest').XMLHttpRequest : window.XMLHttpRequest,
+    typeof flow === "undefined" ? require('flow.js').flow : flow,
+    typeof document === "undefined" ? (new (require('xmldom').DOMParser)()) : document);

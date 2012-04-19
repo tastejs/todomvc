@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
 
     rAppid.defineClass("js.core.Bindable", ["js.core.EventDispatcher"],
@@ -168,6 +166,74 @@ requirejs(["rAppid"], function (rAppid) {
                     return this.set(this.$, {unset: true});
                 }
             });
+
+            Bindable.StringParser = {
+                $fncRegEx:/^([a-z$_]\w*)\((.*)\)$/i,
+                splitPathOutSide:function (path, del, left, right) {
+                    var counter = 0, matches = [], c, cl, cr, last = 0;
+                    for (var i = 0; i < path.length - 1; i++) {
+                        c = path.charAt(i);
+                        cl = path.substr(i, left.length);
+                        cr = path.substr(i, right.length);
+
+                        if (cl == left) counter++;
+                        if (cr == right) counter--;
+
+                        if (counter === 0 && del == c) {
+                            matches.push(path.substring(last, i));
+                            last = i + 1;
+                        }
+                    }
+                    if (last > 0) {
+                        matches.push(path.substr(last));
+                    } else {
+                        return [path];
+                    }
+                    return matches;
+
+                },
+                splitFirst:function (path, del, left, right) {
+                    return this.splitPathOutSide(path, del, left, right)[0];
+                },
+                findMatchesIn:function (str, left, right, depth) {
+                    if (!rAppid._.isString(str)) return [];
+                    var cl, cr, stack = [], content, ret = [], r;
+                    for (var i = 0; i < str.length; i++) {
+                        cl = str.substr(i, left.length);
+                        cr = str.substr(i, right.length);
+                        if (cl == left) {
+                            stack.push(i);
+                        } else if (cr == right && stack.length > 0) {
+                            r = stack.pop();
+                            if (stack.length == depth) {
+                                content = str.substring(r, i + 1);
+                                ret.push(content);
+                                cl = cr = null;
+                            }
+                        }
+                    }
+                    return ret;
+                },
+                // Expects something like foo() foo(asdasd()) asd as dasd asd asd();
+                isFunctionDefinition:function (str) {
+                    return this.findMatchesIn(str, "(", ")", 0).length > 0;
+                },
+                getFunctionInfo:function (fncDef) {
+                    var matches = fncDef.match(Parser.$fncRegEx);
+                    return {
+                        name:matches[1],
+                        parameters:this.splitPathOutSide(matches[2], ",", "(", ")")
+                    };
+                },
+                extract:function (str, left, right) {
+                    var l = str.indexOf(left);
+                    var r = str.lastIndexOf(right);
+                    if (l < r) {
+                        return str.substring(l + left.length, r);
+                    }
+                    return null;
+                }
+            };
 
             return Bindable;
 

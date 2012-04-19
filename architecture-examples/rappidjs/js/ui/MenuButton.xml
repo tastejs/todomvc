@@ -55,11 +55,11 @@
                     }
                     var self = this;
 
-                    document.addEventListener('click', function (e) {
+                    this.addEventListener('click', function (e) {
                         self.set({menuVisible:false});
                     });
 
-                    this.$toggleButton.$el.addEventListener('click', function (e) {
+                    this.$toggleButton.addEventListener('click', function (e) {
                         e.stopPropagation();
                         e.preventDefault();
                         self.set({menuVisible:!self.$.menuVisible});

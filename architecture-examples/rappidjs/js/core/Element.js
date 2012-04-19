@@ -1,5 +1,3 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
-
 requirejs(["rAppid"], function (rAppid) {
 
     rAppid.defineClass("js.core.Element",
@@ -24,9 +22,8 @@ requirejs(["rAppid"], function (rAppid) {
                 }
                 return str;
             }
-
             return Bindable.inherit({
-                ctor: function (attributes, descriptor, applicationDomain, parentScope, rootScope) {
+                ctor: function (attributes, descriptor, systemManager, parentScope, rootScope) {
 
                     attributes = attributes || {};
 
@@ -38,7 +35,7 @@ requirejs(["rAppid"], function (rAppid) {
                     }
 
                     this.$descriptor = descriptor;
-                    this.$applicationDomain = applicationDomain;
+                    this.$systemManager = systemManager;
                     this.$parentScope = parentScope || null;
                     this.$rootScope = rootScope || null;
 
@@ -104,10 +101,10 @@ requirejs(["rAppid"], function (rAppid) {
                         this._initializeBindings();
                     }
 
-                    this._initializationComplete();
                 },
 
                 _initializeBindings: function () {
+                    this._initializationComplete();
                 },
 
                 _initializeDescriptor: function (descriptor) {
@@ -156,7 +153,18 @@ requirejs(["rAppid"], function (rAppid) {
                     this.$initialized = true;
                 },
                 _getTextContentFromDescriptor:function (desc) {
-                    return desc.textContent ? desc.textContent : desc.text;
+                    var textContent = desc.textContent || desc.text || desc.data;
+                    if(!textContent){
+                        textContent = "";
+                        for (var i = 0; i < desc.childNodes.length; i++) {
+                            var node = desc.childNodes[i];
+                            // element or cdata node
+                            if(node.nodeType == 1 || node.nodeType == 4){
+                                textContent += this._getTextContentFromDescriptor(node);
+                            }
+                        }
+                    }
+                    return textContent;
                 }
             });
         }

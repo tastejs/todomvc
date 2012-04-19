@@ -1,4 +1,4 @@
-(function () {
+(function (XMLHttpRequest, libxml) {
     var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
     var importRegEx = /((?:xaml!)?[a-z]+(\.[a-z]+[a-z0-9]*)*)/mgi;
 
@@ -91,8 +91,7 @@
                     }
                 }
 
-                // TODO fix
-                if (xamlClasses.indexOf(fqClassName) != -1) {
+                if (xamlClasses.indexOf(fqClassName) !== -1) {
                     fqClassName = "xaml!" + fqClassName;
                 }
 
@@ -190,13 +189,22 @@
             },
 
             load: function (name, req, onLoad, config) {
-//                if (config.isBuild && !config.inlineText) {
-//                    onLoad();
-//                    return;
-//                }
+
+                var url = name.replace(/\./g, "/") + ".xml";
+
+                // FOR NODE RENDERING
+                if (config.applicationUrl) {
+                    url = config.applicationUrl + '/' + url;
+                }
+
                 var self = this;
-                var url = req.toUrl(name.replace(/\./g, "/") + ".xml");
+
                 this.get(url, function (err, xhr) {
+
+                    if (!xhr.responseXML && libxml) {
+                        xhr.responseXML = libxml.parseFromString(xhr.responseText);
+                    }
+
                     if (!err) {
                         if (xhr.responseXML) {
                             // require all dependencies
@@ -204,9 +212,7 @@
 
                             var dependencies = self.findDependencies(xhr.responseXML.documentElement,
                                 config.namespaceMap, config.xamlClasses, config.rewriteMap, imports);
-                            for (var i = 0; i < imports.length; i++) {
-                                // console.log(imports[i]);
-                            }
+
                             var scripts = self.findScripts(xhr.responseXML.documentElement,
                                 config.namespaceMap, config.xamlClasses, config.rewriteMap);
 
@@ -218,9 +224,6 @@
 
                             if(imports.length > 0){
                                 dependencies = dependencies.concat(imports);
-                            }
-                            for(i = 0 ; i < dependencies.length; i++){
-                               // console.log("AFTER: "+dependencies[i]);
                             }
 
                             // first item should be the dependency of the document element
@@ -249,6 +252,9 @@
                                     }
                                 }
 
+                                if (!baseClass) {
+                                    console.log(dependencies[0]);
+                                }
                                 var xamlFactory = baseClass.inherit(
                                     self.getDeclarationFromScripts(scriptObjects)
                                 );
@@ -273,4 +279,5 @@
         };
 
     });
-})();
+}(typeof document === "undefined" ? require("xmlhttprequest").XMLHttpRequest : XMLHttpRequest,
+  typeof document === "undefined" ? require("libxml") : null));

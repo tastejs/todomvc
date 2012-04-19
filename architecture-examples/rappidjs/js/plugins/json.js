@@ -1,4 +1,4 @@
-(function () {
+(function (XMLHttpRequest) {
     var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
     var importRegEx = /((?:xaml!)?[a-z]+(\.[a-z]+[a-z0-9]*)*)/mgi;
 
@@ -55,6 +55,11 @@
 
             load: function (name, req, onLoad, config) {
 
+                // FOR NODE RENDERING
+                if (config.applicationUrl) {
+                    name = config.applicationUrl + '/' + name;
+                }
+
                 var jsonParse = (typeof JSON !== 'undefined' && typeof JSON.parse === 'function') ? JSON.parse : function (val) {
                     return eval('(' + val + ')');
                 };
@@ -70,4 +75,4 @@
         };
 
     });
-}());
+}(typeof XMLHttpRequest === "undefined" ? require("xmlhttprequest").XMLHttpRequest : XMLHttpRequest));

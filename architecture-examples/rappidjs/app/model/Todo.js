@@ -18,7 +18,7 @@ requirejs(["rAppid"], function (rAppid) {
                 }
             }.onChange("isDone","isEditing"),
             hasContent:function () {
-                return this.$.content.length > 0;
+                return this.$.content.trim().length > 0;
             }.onChange("content")
         });
     });
