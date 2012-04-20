@@ -3,7 +3,7 @@ ENTER_KEY = 13
 
 if Meteor.is_client
 	Template.todo.tasks = ->
-		Tasks.find({})
+		Tasks.find({}, sort: created_at: -1)
 
 	Template.todo.hasTodo = ->
 		Tasks.find({}).count() > 0
@@ -29,7 +29,7 @@ if Meteor.is_client
 			modifiers = $set: completed: toggle_all
 			options   = multi: true
 			Tasks.update {}, modifiers, options, ->
-				$("#toggle-all").prop('checked', toggle_all)
+				$("#toggle-all").prop 'checked', toggle_all
 
 		'keyup #new-todo' : (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
@@ -39,6 +39,7 @@ if Meteor.is_client
 					Tasks.insert
 						title: textbox.val()
 						completed: false
+						created_at: new Date()
 					textbox.val('')
 					textbox.focus()
 					return false
