@@ -8,9 +8,27 @@
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link href="site/css/bootstrap.css" rel="stylesheet">
+		<link href="site/css/bootstrap.min.css" rel="stylesheet">
 		<link href="site/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="site/css/main.css" rel="stylesheet">
+		<style>
+		/* main site overrides */
+		.nav{
+			width: 150px !important;
+		}
+
+		#contributor-list {
+			display: block;
+		}
+
+		#contributor-list a:after {
+			content: ', '
+		}
+
+		#contributor-list a:last-child:after {
+			content: ''
+		}
+		</style>
 	</head>
 	<body>
 		<div class="container">
@@ -120,20 +138,33 @@
 						</li>
 					</ul>
 				</div>
-
 				<div class="span3">
 					<h2>Contributing</h2>
 					<p>Interested in helping us improve or complete these applications?</p><p>Please feel free to get involved by taking a look at our <a href="https://github.com/addyosmani/todomvc/issues">issue tracker</a> or reviewing one of these apps on the <a href="https://github.com/addyosmani/todomvc/tree/labs">labs branch</a> of TodoMVC.</p>
 					<p>We're currently working towards bringing all applications in-line with our official <a href="https://github.com/addyosmani/todomvc/wiki/App-Specification">specifications</a> using an updated <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> to ensure consistency in style.</p>
 					<p>If you would like to get involved or simply suggest ideas for how we can improve the project further, please feel free to <a href="https://github.com/addyosmani/">reach</a> <a href="https://github.com/sindresorhus/">out</a>.</p>
 				</div>
-
 			</div>
-
 			<hr>
 			<footer>
 				<p>&copy; TodoMVC Labs. Brought to you by <a href="https://github.com/addyosmani">Addy Osmani</a> and <a href="https://github.com/sindresorhus">Sindre Sorhus</a>.</p>
-				<p id="contributor-list">Big thanks to our magnificent labs contributors: <span></span></p>
+				<p id="contributor-list">Big thanks to our magnificent labs contributors:
+					<a href="https://github.com/tshm">Tosh Shimayama</a>
+					<a href="https://github.com/johnknott">John Knott</a>
+					<a href="https://github.com/brokenseal">Davide Callegari</a>
+					<a href="http://bitovi.com">Bitovi</a>
+					<a href="https://github.com/creynders">creynders</a>
+					<a href="https://github.com/mckamey">Stephen McKamey</a>
+					<a href="https://github.com/jgallen23">Greg Allen</a>
+					<a href="https://github.com/marcuswestin">Marcus Westin</a>
+					<a href="https://github.com/jeromegn">Jérôme Gravel-Niquet</a>
+					<a href="https://github.com/ColinEberhardt">Colin Eberhardt</a>
+					<a href="https://github.com/siuying">siuying</a>
+					<a href="https://github.com/podefr">Olivier Scherrer</a>
+					<a href="https://github.com/krebbl">krebbl</a>
+					<a href="http://github.com/hay">Hay Kranen</a>
+					<a href="https://github.com/mikaelkaron">Mikael Karon</a>
+				</p>
 			</footer>
 		</div>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
