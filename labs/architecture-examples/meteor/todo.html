@@ -25,7 +25,7 @@
 
 	{{#if hasTodo}}
 	<section id="main">
-		<input id="toggle-all" type="checkbox">
+		<input id="toggle-all" type="checkbox" {{#if allCompleted}}checked{{/if}}>
 		<label for="toggle-all">Mark all as complete</label>
 		<ul id="todo-list">
 	        {{#each tasks}}

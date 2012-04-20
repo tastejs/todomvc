@@ -3,10 +3,10 @@ ENTER_KEY = 13
 
 if Meteor.is_client
 	Template.todo.toggleAll = ->
-		$("#toggle-all").prop("checked")
-	
+		$("#toggle-all").prop 'checked'
+
 	Template.todo.setToggleAll = (state) ->
-		$("#toggle-all").prop("checked", state)
+		$("#toggle-all").prop 'checked', state
 
 	Template.todo.allItemsChecked = ->
 		_.all($('.view .toggle'), (e) -> $(e).prop('checked'))
@@ -16,7 +16,7 @@ if Meteor.is_client
 
 	Template.todo.hasTodo = ->
 		Tasks.find({}).count() > 0
-
+		
 	Template.todo.incompleted = ->
 		Tasks.find(completed: false).count()
 
@@ -30,14 +30,16 @@ if Meteor.is_client
 	Template.todo.completed = ->
 		Tasks.find(completed: true).count()
 
+	Template.todo.allCompleted = ->
+		Tasks.find(completed: false).count() == 0
+
 	Template.todo.events =
 		'click #toggle-all': (evt) ->
-			toggleAll = Template.todo.toggleAll()
+			toggleAll  = Template.todo.toggleAll()
 			modifiers  = $set: completed: toggleAll
 			options    = multi: true
 
 			Tasks.update {}, modifiers, options
-			
 			Meteor.flush()
 			Template.todo.setToggleAll toggleAll
 
@@ -52,7 +54,6 @@ if Meteor.is_client
 						created_at: new Date()
 					textbox.val('')
 					textbox.focus()
-					return false
 
 		'click #clear-completed': ->
 			Tasks.remove completed: true
@@ -98,5 +99,3 @@ if Meteor.is_client
 			    alert('Sorry, an error prevent the changes to be saved') if err
 		else
 			Tasks.remove _id: id
-
-
