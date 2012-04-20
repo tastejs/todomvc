@@ -23,14 +23,13 @@ if Meteor.is_client
 
 	Template.todo.events =
 		'click #toggle-all': (evt) ->
-			toggle_all = !Session.get('toggle_all')
-			Session.set('toggle_all', toggle_all)
+			all_completed = _.all($(".view .toggle"), (e) -> $(e).prop("checked"))
+			toggle_all = !all_completed
 
-			checkbox  = $(evt.target)
 			modifiers = $set: completed: toggle_all
 			options   = multi: true
 			Tasks.update {}, modifiers, options, ->
-				checkbox.prop('checked', toggle_all)
+				$("#toggle-all").prop('checked', toggle_all)
 
 		'keyup #new-todo' : (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
@@ -52,7 +51,9 @@ if Meteor.is_client
 		'click .toggle': (evt) ->
 			task = Tasks.findOne this._id
 			task.completed = $(evt.target).prop('checked')
-			Tasks.update _id: this._id, task
+			Tasks.update _id: this._id, task, ->
+				all_completed = _.all($(".view .toggle"), (e) -> $(e).prop("checked"))
+				$("#toggle-all").prop('checked', all_completed)
 
 		'click .destroy': (evt) ->
 			Tasks.remove _id: this._id
