@@ -83,7 +83,6 @@ if Meteor.is_client
 		'blur input.edit': (evt) ->
 			text = $(evt.target).val().trim()
 			Template.item.updateTask this._id, text
-			Session.set 'editing_id', null
 
 		'keyup input.edit': (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
@@ -97,5 +96,6 @@ if Meteor.is_client
 			task.title = value
 			Tasks.update _id: id, task, (err) =>
 			    alert('Sorry, an error prevent the changes to be saved') if err
+			Session.set 'editing_id', null
 		else
 			Tasks.remove _id: id
