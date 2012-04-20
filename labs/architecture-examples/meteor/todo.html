@@ -5,6 +5,11 @@
 
 <body>
 	<section id="todoapp">
+  	<header id="header">
+  		<h1>todos</h1>
+  		<input id="new-todo" placeholder="What needs to be done?" autofocus>
+  	</header>
+
 		{{> todo}}
 	</section>
 
@@ -18,26 +23,18 @@
 </body>
 
 <template name="todo">
-	<header id="header">
-		<h1>todos</h1>
-		<input id="new-todo" placeholder="What needs to be done?" autofocus>
-	</header>
-
-	{{#if hasTodo}}
+	{{#if hasAny}}
 	<section id="main">
-		<input id="toggle-all" type="checkbox" {{#if allCompleted}}checked{{/if}}>
+		<input id="toggle-all" type="checkbox">
 		<label for="toggle-all">Mark all as complete</label>
 		<ul id="todo-list">
-	        {{#each tasks}}
-	        {{> item}}
-	        {{/each}}
+      {{#each tasks}}
+      {{> item}}
+      {{/each}}
 		</ul>
 	</section>
 
-	<footer id="footer">
-		<span id="todo-count"><strong id="incompleted">{{ incompleted }}</strong>{{ incompletedText }}</span>
-		<button id="clear-completed">Clear completed (<span id="completed">{{ completed }}</span>)</button>
-	</footer>
+  {{> footer}}
 	{{/if}}
 </template>
 
@@ -50,4 +47,11 @@
 		</div>
 		<input class="edit" value="{{ title }}">
 	</li>
+</template>
+
+<template name="footer">
+	<footer id="footer">
+		<span id="todo-count"><strong id="incompleted">{{ incompleted }}</strong>{{ incompletedText }}</span>
+		<button id="clear-completed">Clear completed (<span id="completed">{{ completed }}</span>)</button>
+	</footer>
 </template>
