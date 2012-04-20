@@ -57,12 +57,12 @@ if Meteor.is_client
 		'click .destroy': (evt) ->
 			Tasks.remove _id: this._id
 
-		'dblclick label': (evt) ->
+		'dblclick .view': (evt) ->
 			task = Tasks.findOne this._id
 			task.editing = true
-			edit = $(evt.target).parent().parent().find('.edit')
 			Tasks.update _id: this._id, task, (err) ->
-				edit.focus().select() unless err
+				unless err
+					$(".edit").focus().select()
 
 		'blur input.edit': (evt) ->
 			task = Tasks.findOne this._id
