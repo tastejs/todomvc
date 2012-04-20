@@ -3,7 +3,7 @@ ENTER_KEY = 13
 
 if Meteor.is_client
 	Template.todo.allItemsChecked = ->
-		_.all($(".view .toggle"), (e) -> $(e).prop("checked"))
+		_.all($('.view .toggle'), (e) -> $(e).prop('checked'))
 	
 	Template.todo.tasks = ->
 		Tasks.find({}, sort: created_at: -1)
@@ -64,29 +64,32 @@ if Meteor.is_client
 			Tasks.remove _id: this._id
 
 		'dblclick .view': (evt) ->
-			return if $(evt.target).hasClass("toggle") # do not response to double click on checkbox
+			return if $(evt.target).hasClass('toggle') # do not response to double click on checkbox
 			
-			Session.set("editing_id", this._id)
+			Session.set('editing_id', this._id)
 
-			Meteor.flush() # force update UI so that we can focus/select it
-			$(".edit").focus().select()
+			Meteor.flush() # force update UI so that we can select it
+			$(".edit").select()
 
 		'blur input.edit': (evt) ->
+			text = $(evt.target).val().trim()
+			Template.item.updateTask this._id, text
 			Session.set("editing_id", null)
 
 		'keyup input.edit': (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
 				text = $(evt.target).val().trim()
-
-				if text
-					task = Tasks.findOne this._id
-					task.editing = false
-					task.updated = new Date()
-					task.title = $(evt.target).val()
-					Tasks.update _id: this._id, task, (err) =>
-					    alert('Sorry, an error prevent the changes to be saved') if err
-				else
-					Tasks.remove _id: this._id
+				Template.item.updateTask this._id, text
           
 			return false
+
+	Template.item.updateTask = (id, value) ->
+		if value
+			task = Tasks.findOne id
+			task.title = value
+			Tasks.update _id: id, task, (err) =>
+			    alert('Sorry, an error prevent the changes to be saved') if err
+		else
+			Tasks.remove _id: id
+
 
