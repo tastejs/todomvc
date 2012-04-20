@@ -34,6 +34,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - jQuery
 - Vanilla JS
 
+We also have a number of in-progress applications for new frameworks (such as CanJS and Meteor) being worked on in our [Labs](http://addyosmani.github.com/todomvc/labs) site. 
 
 ## Live demos
 
