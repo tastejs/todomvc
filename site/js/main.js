@@ -11,6 +11,7 @@
 		var $this = $( this );
 		$this.popover({
 			placement: 'in right',
+			animation: false,
 			title: $this.text() + '<a href="' + $this.data('source') + '">Go to site</a>'
 		});
 	})
