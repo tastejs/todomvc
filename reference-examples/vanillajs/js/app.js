@@ -1,4 +1,4 @@
-var Todos = [],
+var todos = [],
 	stat = {},
 	ENTER_KEY = 13;
 
