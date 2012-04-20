@@ -48,6 +48,9 @@ if Meteor.is_client
 			Tasks.remove completed: true
 			return false
 
+	Template.item.editing = ->
+		Session.equals("editing_id", this._id)
+
 	Template.item.events =
 		'click .toggle': (evt) ->
 			task = Tasks.findOne this._id
@@ -60,16 +63,13 @@ if Meteor.is_client
 			Tasks.remove _id: this._id
 
 		'dblclick .view': (evt) ->
-			task = Tasks.findOne this._id
-			task.editing = true
-			Tasks.update _id: this._id, task, (err) ->
-				unless err
-					$(".edit").focus().select()
+			Session.set("editing_id", this._id)
+			Meteor.flush()
+			
+			$(".edit").focus().select()
 
 		'blur input.edit': (evt) ->
-			task = Tasks.findOne this._id
-			task.editing = false
-			Tasks.update _id: this._id, task 
+			Session.set("editing_id", null)
 
 		'keyup input.edit': (evt) ->
 			if evt.type == 'keyup' && evt.which == ENTER_KEY
@@ -86,3 +86,4 @@ if Meteor.is_client
 					Tasks.remove _id: this._id
           
 			return false
+
