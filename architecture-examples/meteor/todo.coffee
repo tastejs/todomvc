@@ -63,6 +63,8 @@ if Meteor.is_client
 			Tasks.remove _id: this._id
 
 		'dblclick .view': (evt) ->
+			return if $(evt.target).hasClass("toggle") # do not response to double click on checkbox
+			
 			Session.set("editing_id", this._id)
 			Meteor.flush()
 			
