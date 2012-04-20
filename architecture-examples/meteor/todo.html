@@ -23,6 +23,7 @@
 		<input id="new-todo" placeholder="What needs to be done?" autofocus>
 	</header>
 
+	{{#if hasTodo}}
 	<section id="main">
 		<input id="toggle-all" type="checkbox">
 		<label for="toggle-all">Mark all as complete</label>
@@ -33,7 +34,6 @@
 		</ul>
 	</section>
 
-	{{#if hasTodo}}
 	<footer id="footer">
 		<span id="todo-count"><strong id="incompleted">{{ incompleted }}</strong>{{ incompleted_text }}</span>
 		<button id="clear-completed">Clear completed (<span id="completed">{{ completed }}</span>)</button>
