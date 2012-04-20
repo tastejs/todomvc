@@ -2,6 +2,9 @@ Tasks = new Meteor.Collection('tasks')
 ENTER_KEY = 13
 
 if Meteor.is_client
+	Template.todo.allItemsChecked = ->
+		_.all($(".view .toggle"), (e) -> $(e).prop("checked"))
+	
 	Template.todo.tasks = ->
 		Tasks.find({}, sort: created_at: -1)
 
@@ -11,7 +14,7 @@ if Meteor.is_client
 	Template.todo.incompleted = ->
 		Tasks.find(completed: false).count()
 
-	Template.todo.incompleted_text = ->
+	Template.todo.incompletedText = ->
 		count = Tasks.find(completed: false).count()
 		if count == 1
 			' item left'
@@ -23,8 +26,7 @@ if Meteor.is_client
 
 	Template.todo.events =
 		'click #toggle-all': (evt) ->
-			all_completed = _.all($(".view .toggle"), (e) -> $(e).prop("checked"))
-			toggle_all = !all_completed
+			toggle_all = !Template.todo.allItemsChecked()
 
 			modifiers = $set: completed: toggle_all
 			options   = multi: true
@@ -56,8 +58,7 @@ if Meteor.is_client
 			task = Tasks.findOne this._id
 			task.completed = $(evt.target).prop('checked')
 			Tasks.update _id: this._id, task, ->
-				all_completed = _.all($(".view .toggle"), (e) -> $(e).prop("checked"))
-				$("#toggle-all").prop('checked', all_completed)
+				$("#toggle-all").prop 'checked', Template.todo.allItemsChecked()
 
 		'click .destroy': (evt) ->
 			Tasks.remove _id: this._id
@@ -66,8 +67,8 @@ if Meteor.is_client
 			return if $(evt.target).hasClass("toggle") # do not response to double click on checkbox
 			
 			Session.set("editing_id", this._id)
-			Meteor.flush()
-			
+
+			Meteor.flush() # force update UI so that we can focus/select it
 			$(".edit").focus().select()
 
 		'blur input.edit': (evt) ->
