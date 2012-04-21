@@ -91,11 +91,11 @@ define('app/controllers/main', [
       // Activates the views and other initializations
       init: function() {
         this._super();
-        this.get('inputView').appendTo('#create-todo');
-        this.get('allDoneCheckbox').appendTo('#stats-area');
-        this.get('todosView').appendTo('#todos');
-        this.get('statsView').appendTo('#todoapp .content');
-        this.get('clearCompletedButton').appendTo('#todo-stats');
+        this.get('inputView').appendTo('header');
+        this.get('allDoneCheckbox').appendTo('#main');
+        this.get('todosView').appendTo('#main');
+        this.get('statsView').appendTo('#footer');
+        this.get('clearCompletedButton').appendTo('#footer');
       }
     });
   }
