@@ -1,3 +1,4 @@
+'use strict';
 define(['lib/stapes'], function(Stapes) {
 	var todoView = Stapes.create(),
 		todoTmpl,
@@ -65,13 +66,7 @@ define(['lib/stapes'], function(Stapes) {
 		},
 
 		'getState': function() {
-			var hash = window.location.hash.replace('#/', '');
-
-			// If we get the 'all' menu item we don't get anything in the hash,
-			// so we need to do this...
-			hash = (hash === '') ? 'all' : hash;
-
-			return hash;
+			return window.location.hash.replace('#/', '') || 'all';
 		},
 
 		'hide': function() {
@@ -95,18 +90,7 @@ define(['lib/stapes'], function(Stapes) {
 		},
 
 		'setActiveRoute': function(route) {
-			$('#filters a').removeClass('selected');
-
-			$('#filters a').each(function() {
-				var state = $(this).attr('href').replace('#/', '');
-				// Unfortunately the 'all' state doesn't set an id in the hash,
-				// so we need to do this...
-				state = (state === '') ? 'all' : state;
-
-				if (route === state) {
-					$(this).addClass('selected');
-				}
-			});
+			$('#filters a').removeClass('selected').filter('[href="#/' + route + '"]').addClass('selected');
 		},
 
 		'show': function() {

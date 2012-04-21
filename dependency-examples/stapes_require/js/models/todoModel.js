@@ -1,3 +1,4 @@
+'use strict';
 define(['lib/stapes'], function(Stapes) {
 	return Stapes.create().extend({
 		'addTodo': function(title) {

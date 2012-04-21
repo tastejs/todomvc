@@ -1,5 +1,6 @@
+'use strict';
 define(
-['lib/stapes', 'todoModel', 'todoView', 'todoStore'],
+['lib/stapes', 'models/todoModel', 'views/todoView', 'stores/todoStore'],
 function(Stapes, TodoModel, TodoView, TodoStore) {
 	return Stapes.create().extend({
 		'bindEventHandlers': function() {
@@ -16,9 +17,7 @@ function(Stapes, TodoModel, TodoView, TodoStore) {
 				},
 
 				'change ready': function() {
-					this.view.showClearCompleted(
-						this.model.getComplete().length
-					);
+					this.view.showClearCompleted( this.model.getComplete().length );
 				}
 			}, this);
 
