@@ -5,11 +5,6 @@
 
 <body>
 	<section id="todoapp">
-  	<header id="header">
-  		<h1>todos</h1>
-  		<input id="new-todo" placeholder="What needs to be done?" autofocus>
-  	</header>
-
 		{{> todo}}
 	</section>
 
@@ -23,6 +18,11 @@
 </body>
 
 <template name="todo">
+	<header id="header">
+		<h1>todos</h1>
+		<input id="new-todo" placeholder="What needs to be done?" autofocus>
+	</header>
+
 	{{#if hasAny}}
 	<section id="main">
 		<input id="toggle-all" type="checkbox">
