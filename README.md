@@ -26,8 +26,6 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - AngularJS
 - Angular + PersistenceJS
 - Ext.js
-- Broke.js
-- Fidel.js
 
 ###### Non MV*
 
