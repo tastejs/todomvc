@@ -29,6 +29,10 @@ define('app/controllers/entries', ['ember'],
         this.filterProperty('completed', true).forEach(this.removeObject, this);
       },
 
+      total: function() {
+        return this.get('length');
+      }.property('@each.length'),
+
       remaining: function() {
         return this.filterProperty('completed', false).get('length');
       }.property('@each.completed'),
