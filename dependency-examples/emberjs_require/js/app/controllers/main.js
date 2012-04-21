@@ -31,9 +31,10 @@ define('app/controllers/main', [
         }
       }),
 
-      // Stats label
+      // Stats report
       statsView: Ember.View.create({
-        elementId: 'todo-stats',
+        elementId: 'todo-count',
+        tagName: 'span',
         contentBinding: 'Todos.Controllers.main',
         remainingBinding: 'Todos.Controllers.main.remaining',
         remainingString: function() {
