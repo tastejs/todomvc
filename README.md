@@ -26,6 +26,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - AngularJS
 - Angular + PersistenceJS
 - Ext.js
+- Agility.js
 
 ###### Non MV*
 
