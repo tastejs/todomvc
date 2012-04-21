@@ -26,26 +26,26 @@ define('app/controllers/entries', ['ember'],
       },
 
       clearCompleted: function() {
-        this.filterProperty('isDone', true).forEach(this.removeObject, this);
+        this.filterProperty('completed', true).forEach(this.removeObject, this);
       },
 
       remaining: function() {
-        return this.filterProperty('isDone', false).get('length');
-      }.property('@each.isDone'),
+        return this.filterProperty('completed', false).get('length');
+      }.property('@each.completed'),
 
       completed: function() {
-        return this.filterProperty('isDone', true).get('length');
-      }.property('@each.isDone'),
+        return this.filterProperty('completed', true).get('length');
+      }.property('@each.completed'),
 
       allAreDone: function(key, value) {
         if (value !== undefined) {
-          this.setEach('isDone', value);
+          this.setEach('completed', value);
 
           return value;
         } else {
-          return !!this.get('length') && this.everyProperty('isDone', true);
+          return !!this.get('length') && this.everyProperty('completed', true);
         }
-      }.property('@each.isDone'),
+      }.property('@each.completed'),
 
     });
   }

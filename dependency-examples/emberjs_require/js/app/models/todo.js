@@ -8,11 +8,11 @@ define('app/models/todo', ['ember'],
     return Ember.Object.extend({
       id: null,
       title: null,
-      isDone: false,
+      completed: false,
       // Observer that will react on item change and will update the storage
       todoChanged: function() {
         Todos.Models.get('store').update(this);
-      }.observes('title', 'isDone')
+      }.observes('title', 'completed'),
     });
   }
 );
