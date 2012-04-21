@@ -23,8 +23,8 @@
 		<input id="new-todo" placeholder="What needs to be done?" autofocus>
 	</header>
 
-	{{#if hasAny}}
-	<section id="main">
+  {{#if hasAny}}
+	<section id="main" class="{{ todoMainClass }}">
 		<input id="toggle-all" type="checkbox">
 		<label for="toggle-all">Mark all as complete</label>
 		<ul id="todo-list">
@@ -35,13 +35,13 @@
 	</section>
 
   {{> footer}}
-	{{/if}}
+  {{/if}}
 </template>
 
 <template name="item">
-	<li class="{{#if editing}}editing{{/if}} {{#if completed}}completed{{/if}}">
+	<li class="{{ editingClass }} {{ completedClass }}">
 		<div class="view">
-			<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+			<input class="toggle" type="checkbox" {{ completedCheck }}>
 			<label>{{ title }}</label>
 			<button class="destroy"></button>
 		</div>
