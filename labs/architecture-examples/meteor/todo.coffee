@@ -12,10 +12,6 @@ if Meteor.is_client
 		added: refreshToggleAll
 		changed: refreshToggleAll
 		removed: refreshToggleAll
-	
-	# Meteor.setTimeout ->
-	# 	refreshToggleAll()
-	# , 300
 
 	Template.todo.tasks = ->
 		Tasks.find({}, sort: created_at: -1)
@@ -59,8 +55,7 @@ if Meteor.is_client
 		'click .toggle': (evt) ->
 			task = Tasks.findOne this._id
 			task.completed = $(evt.target).prop('checked')
-			Tasks.update _id: this._id, task
-			
+			Tasks.update _id: this._id, task			
 			# force DOM redraw
 			Meteor.flush()
 
