@@ -12,12 +12,6 @@ define('app/controllers/entries', ['ember'],
       createNew: function(value) {
         var todo = this.get('store').createFromTitle(value);
         this.pushObject(todo);
-
-        var stats = document.getElementById('stats-area');
-        if (stats.style.display=='block')
-          stats.style.display = 'inline';
-        else
-          stats.style.display = 'block';
       },
 
       pushObject: function (item, ignoreStorage) {
