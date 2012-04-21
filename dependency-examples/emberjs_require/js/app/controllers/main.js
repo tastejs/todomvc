@@ -50,6 +50,7 @@ define('app/controllers/main', [
         target: 'Todos.Controllers.main',
         action: 'clearCompleted',
         completedBinding: 'Todos.Controllers.main.completed',
+        elementId: 'clear-completed',
         classNameBindings: 'buttonClass',
         // Observer to update content if completed value changes
         buttonString: function() {
