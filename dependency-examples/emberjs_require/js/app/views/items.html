@@ -1,3 +1,7 @@
-{{#collection id="todo-list" contentBinding="Todos.Controllers.main" tagName="ul" itemClassBinding="content.isDone"}}
-    {{view Ember.Checkbox titleBinding="content.title" valueBinding="content.isDone"}}
+{{#collection id="todo-list" contentBinding="Todos.Controllers.main" tagName="ul" itemClassBinding="content.completed"}}
+  {{#view Ember.View class="view" contentBinding="content" }}
+    {{view Ember.Checkbox valueBinding="content.completed" class="toggle"}}
+    <label>{{ content.title}}</label>
+    {{view Ember.Button target="Todos.Controllers.main" action="removeObject" class="destroy" todoBinding="content"}}
+  {{/view}}
 {{/collection}}
