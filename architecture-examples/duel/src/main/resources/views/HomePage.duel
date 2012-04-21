@@ -3,9 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
 	<title>DUEL &bull; TodoMVC</title>
-
 	<link rel="stylesheet" href="/css/styles.merge">
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
@@ -14,8 +12,8 @@
 		<p>Double-click to edit a todo</p>
 		<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
 		<p>Ported to <a href="http://duelengine.org">DUEL</a> by <a href="http://mck.me">Stephen McKamey</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-
 	<script src="/js/scripts.merge"></script>
 </body>
 </html>
