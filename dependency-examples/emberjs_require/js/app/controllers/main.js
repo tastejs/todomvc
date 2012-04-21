@@ -88,6 +88,26 @@ define('app/controllers/main', [
         template: Ember.Handlebars.compile(items_html)
       }), 
 
+      todoView: Ember.View.extend({
+        tagName: 'label',
+        doubleClick: function() {
+          this.get('todo').set('editing', true);
+        }
+      }),
+
+      todoEditor: Ember.TextField.extend({
+        storageBinding: 'Todos.Controllers.main',
+        focusOut: function() {
+          this.set('editing', false);
+        },
+        didInsertElement: function() {
+          this.$().focus();
+        },
+        insertNewline: function() {
+          this.set('editing', false);
+        }
+      }),
+
       // Activates the views and other initializations
       init: function() {
         this._super();
