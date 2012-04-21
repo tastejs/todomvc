@@ -44,6 +44,17 @@ define('app/controllers/main', [
         template: Ember.Handlebars.compile('{{remainingString}} left')
       }),
 
+      // Handle footer visibility by observing item total changes
+      footerObserver: Ember.Object.create({
+        totalBinding: 'Todos.Controllers.main.total',
+        totalChanged: function() {
+          if ( this.get('total') === 0 )
+            $('#footer').hide();
+          else 
+            $('#footer').show();
+        }.observes('total')
+      }),
+
       // Clear completed tasks button
       clearCompletedButton: Ember.Button.create({
         template: Ember.Handlebars.compile(button_html),
