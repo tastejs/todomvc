@@ -1,0 +1,75 @@
+<ui:View xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:js="js.core" xmlns:ui="js.ui">
+    <js:Script>
+        <![CDATA[
+        (function (Base, Bindable, Content) {
+            return {
+                defaults:{
+                    componentClass: "todo",
+                    editing: false
+                },
+                events: [
+                    "remove"
+                ],
+                editTodo:function (e, div) {
+                    var todo = div.find("$item");
+                    this.set("editing",true);
+                    e.$.stopPropagation();
+                    // we don't use jquery, so we have to select this the old fashioned way
+                    div.$el.parentNode.parentNode.getElementsByTagName("input")[1].select();
+                },
+                checkTodo:function (e, input) {
+                    var todo = this.get("todo");
+                    todo.setDone(!todo.get("isDone"));
+                },
+                updateTodo:function (e, input) {
+                    var todo;
+                    if (e.$.keyCode === 13) {
+                        todo = this.get("todo");
+                        this.set("editing",false);
+                    } else if (e.$.keyCode === 27) {
+                        todo = this.get("todo");
+                        var content = todo.get("content");
+
+                        input.$el.blur();
+
+                        todo.set("content", content);
+                        this.set("editing",false);
+                    } else if (e.$.type === "blur") {
+                        todo = this.get("todo");
+                        this.set("editing",false);
+                    }
+                },
+                triggerOnRemove: function(e, el){
+                    this.trigger("onremove",this.get("todo"));
+                },
+                _renderEditing: function(editing){
+                    if(editing){
+                        this.addClass("editing");
+                    }else{
+                        this.removeClass("editing");
+                    }
+
+                }
+
+            }
+        })
+        ]]>
+    </js:Script>
+    <js:Template name="layout">
+        <div class="{todo.status()}">
+            <div class="display">
+                <input class="check" type="checkbox" onchange="checkTodo"
+                       checked="{todo.isDone}"/>
+
+                <label class="todo-content" ondblclick="editTodo">{todo.content}</label>
+                <span class="todo-destroy" onclick="triggerOnRemove"></span>
+            </div>
+            <div class="edit">
+                <input class="todo-input" type="text" value="{{todo.content}}"
+                       onkeyup="updateTodo" onblur="updateTodo"/>
+            </div>
+        </div>
+    </js:Template>
+</ui:View>
+
