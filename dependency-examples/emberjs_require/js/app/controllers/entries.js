@@ -10,6 +10,8 @@ define('app/controllers/entries', ['ember'],
       content: [],
 
       createNew: function(value) {
+        if (!value.trim())
+          return;
         var todo = this.get('store').createFromTitle(value);
         this.pushObject(todo);
       },
