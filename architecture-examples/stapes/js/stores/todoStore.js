@@ -1,3 +1,4 @@
+'use strict';
 var TodoStore = Stapes.create().extend({
 	'init': function() {
 		if (!'localStorage' in window) return;

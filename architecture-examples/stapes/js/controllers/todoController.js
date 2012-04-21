@@ -1,3 +1,4 @@
+'use strict';
 var TodoController = Stapes.create().extend({
 	'bindEventHandlers': function() {
 		this.on({

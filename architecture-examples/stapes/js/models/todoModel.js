@@ -1,3 +1,4 @@
+'use strict';
 var TodoModel = Stapes.create().extend({
 	'addTodo': function(title) {
 		this.push({
