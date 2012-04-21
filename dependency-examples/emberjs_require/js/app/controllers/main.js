@@ -68,9 +68,8 @@ define('app/controllers/main', [
 
       // Checkbox to mark all todos done.
       allDoneCheckbox: Ember.Checkbox.create({
-        classNames: ['mark-all-done'],
-        title: "Mark all as complete",
-        valueBinding: 'Todos.Controllers.main.allAreDone'
+        elementId: 'toggle-all',
+        checkedBinding: 'Todos.Controllers.main.allAreDone'
       }),
 
       // Compile and render the todos view
