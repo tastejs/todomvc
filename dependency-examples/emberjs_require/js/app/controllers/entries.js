@@ -16,13 +16,13 @@ define('app/controllers/entries', ['ember'],
         this.pushObject(todo);
       },
 
-      pushObject: function (item, ignoreStorage) {
+      pushObject: function(item, ignoreStorage) {
         if (!ignoreStorage)
           this.get('store').create(item);
         return this._super(item);
       },
 
-      removeObject: function (item) {
+      removeObject: function(item) {
         item = item.get('todo') || item;
         this.get('store').remove(item);
         return this._super(item);
