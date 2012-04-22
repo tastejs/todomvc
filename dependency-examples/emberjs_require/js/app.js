@@ -16,7 +16,7 @@ define('app', [
   'ember',
   ], function($, Store, TodosController) {
     var App = Ember.Application.create({
-      VERSION: '0.1-omfg',
+      VERSION: '0.2-omfg',
       init: function() {
         this._super();
 
