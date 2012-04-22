@@ -33,8 +33,12 @@
 				} );
 				$todoList.on( 'blur', '.edit', function () {
 					var id = $( this ).closest( 'li' ).data( 'id' ),
-						val = $( this ).removeClass( 'editing' ).val();
-					self.system.notify( 'TodoListView:setTitleOfTodo', id, val );
+						val = $.trim( $( this ).removeClass( 'editing' ).val() );
+					if( val ){
+						self.system.notify( 'TodoListView:setTitleOfTodo', id, val );
+					}else{
+						self.system.notify( 'TodoListView:removeTodo', id );
+					}
 				} );
 				$todoList.on( 'click', '.destroy', function () {
 					var id = $( this ).closest( 'li' ).data( 'id' );
