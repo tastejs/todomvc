@@ -2,22 +2,30 @@ Tasks = new Meteor.Collection('tasks')
 ENTER_KEY = 13
 
 if Meteor.is_client
-	refreshToggleAll = ->
+	refreshUI = ->
 		allCompleted = Tasks.find(completed: false).count() == 0
 		$('#toggle-all').prop 'checked', allCompleted
+
+		hasTask = Tasks.find().count() > 0
+		if hasTask
+			$('#main, #footer').removeClass('hidden')
+		else 
+			$('#main, #footer').addClass('hidden')
 
 	# Listen to change on collection Tasks.
 	# When collection changed, refresh toggle all checkbox state
 	Tasks.find().observe
-		added: refreshToggleAll
-		changed: refreshToggleAll
-		removed: refreshToggleAll
+		added: refreshUI
+		changed: refreshUI
+		removed: refreshUI
+
+	# Set the initial state of UI
+	Meteor.setTimeout ->
+		refreshUI()
+	, 200
 
 	Template.todo.tasks = ->
 		Tasks.find({}, sort: created_at: -1)
-
-	Template.todo.hasAny = ->
-		Tasks.find().count() > 0
 
 	Template.todo.mainClass = ->
 		if Tasks.find().count() == 0 then 'hidden' else ''

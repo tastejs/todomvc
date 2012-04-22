@@ -23,7 +23,7 @@
 		<input id="new-todo" placeholder="What needs to be done?" autofocus>
 	</header>
 
-	<section id="main" class="{{ mainClass }}">
+	<section id="main">
 		<input id="toggle-all" type="checkbox">
 		<label for="toggle-all">Mark all as complete</label>
 		<ul id="todo-list">
@@ -37,7 +37,7 @@
 </template>
 
 <template name="item">
-	<li class="{{ editingClass }} {{ completedClass }}">
+	<li class="{{ editingClass }}">
 		<div class="view">
 			<input class="toggle" type="checkbox" {{ completedCheck }}>
 			<label>{{ title }}</label>
