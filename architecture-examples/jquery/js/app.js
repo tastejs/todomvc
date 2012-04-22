@@ -130,7 +130,6 @@ jQuery(function( $ ) {
 		},
 		blurOnEnter: function( e ) {
 			if ( e.keyCode === App.ENTER_KEY ) {
-                console.log( e.target );
 				e.target.blur();
 			}
 		},
