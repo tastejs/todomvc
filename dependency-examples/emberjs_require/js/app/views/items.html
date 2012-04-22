@@ -1,13 +1,13 @@
-{{#collection id="todo-list" contentBinding="Todos.Controllers.main" tagName="ul" itemClassBinding="content.completed content.editing" }}
+{{#collection id="todo-list" contentBinding="Todos.todosController" tagName="ul" itemClassBinding="content.completed content.editing" }}
   {{#unless content.editing}}
     {{#view Ember.View class="view" contentBinding="content" }}
       {{view Ember.Checkbox valueBinding="content.completed" class="toggle"}}
-        {{#view Todos.Controllers.main.todoView todoBinding="content"}}
+        {{#view Todos.todosController.todoView todoBinding="content"}}
           {{todo.title}}
         {{/view}}
-      {{view Ember.Button target="Todos.Controllers.main" action="removeObject" class="destroy" todoBinding="content"}}
+      {{view Ember.Button target="Todos.todosController" action="removeObject" class="destroy" todoBinding="content"}}
     {{/view}}
   {{else}}
-    {{view Todos.Controllers.main.todoEditor class="edit" valueBinding="content.title" editingBinding="content.editing"}}
+    {{view Todos.todosController.todoEditor class="edit" valueBinding="content.title" editingBinding="content.editing"}}
   {{/unless}}
 {{/collection}}

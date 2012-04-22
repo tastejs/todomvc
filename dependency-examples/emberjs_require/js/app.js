@@ -12,22 +12,29 @@ require.config({
 define('app', [
   'jquery',
   'app/models/store',
-  'app/controllers/main',
+  'app/controllers/todos',
   'ember',
-  ], function($, Store, Main) {
+  ], function($, Store, TodosController) {
     var App = Ember.Application.create({
       VERSION: '0.1-omfg',
-      Views: Ember.Namespace.create(),
-      Models: Ember.Namespace.create(),
-      Controllers: Ember.Namespace.create(),
       init: function() {
         this._super();
-        this.Models.set('store', new Store('todos-emberjs'));
-        this.Controllers.set('main', Main.create());
 
-        var items = this.Models.get('store').findAll();
+        this.set(
+          'store',
+          new Store('todos-emberjs')
+        );
+
+        this.set(
+          'todosController',
+          TodosController.create({
+            store: this.get('store')
+          })
+        );
+
+        var items = this.get('store').findAll();
         if (items.length > 0) {
-          this.Controllers.get('main').set('[]', items);
+          this.get('todosController').set('[]', items);
         };
 
         if (typeof(mocha) !== 'undefined') {
