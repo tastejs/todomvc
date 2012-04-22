@@ -40,7 +40,9 @@ define('app/models/store', [
 
       // Update a model by replacing its copy in `this.data`.
       this.update = function(model) {
-        this.data[model.get('id')] = model.getProperties('id', 'title', 'isDone');
+        this.data[model.get('id')] = model.getProperties(
+          'id', 'title', 'completed'
+        );
         this.save();
         return model;
       };
