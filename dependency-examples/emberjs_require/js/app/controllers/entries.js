@@ -6,7 +6,7 @@ define('app/controllers/entries', ['ember'],
    */
   function() {
     return Ember.ArrayProxy.extend({
-      storeBinding: 'Todos.Models.store',
+      store: null,
       content: [],
 
       createNew: function(value) {

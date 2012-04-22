@@ -24,7 +24,10 @@ define('app/models/store', [
       // Wrapper around `this.create`
       // Creates a `Todo` model object out of the title
       this.createFromTitle = function(title) {
-        var todo = Todo.create({title: title});
+        var todo = Todo.create({
+          title: title,
+          store: this
+        });
         this.create(todo);
         return todo;
       };
@@ -44,7 +47,9 @@ define('app/models/store', [
 
       // Retrieve a model from `this.data` by id.
       this.find = function(model) {
-        return Todo.create(this.data[model.get('id')]);
+        var todo = Todo.create(this.data[model.get('id')]);
+        todo.set('store', this);
+        return todo;
       };
 
       // Return the array of all models currently in storage.
@@ -52,6 +57,7 @@ define('app/models/store', [
         var result = [];
         for (var key in this.data) {
           var todo = Todo.create(this.data[key]);
+          todo.set('store', this);
           result.push(todo);
         }
 
