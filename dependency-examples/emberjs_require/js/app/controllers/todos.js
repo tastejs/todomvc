@@ -1,10 +1,10 @@
-define('app/controllers/main', [
+define('app/controllers/todos', [
     'app/controllers/entries',
     'text!app/views/clear_button.html',
     'text!app/views/items.html'
   ], 
   /**
-   * Main controller
+   * Todos controller
    *
    * Main controller inherits the `Entries` class
    * which is an `ArrayProxy` linked with the `Store` model
@@ -20,7 +20,7 @@ define('app/controllers/main', [
       inputView: Ember.TextField.create({
         placeholder: 'What needs to be done?',
         elementId: 'new-todo',
-        storageBinding: 'Todos.Controllers.main',
+        storageBinding: 'Todos.todosController',
         // Bind this to newly inserted line
         insertNewline: function() {
           var value = this.get('value');
@@ -35,8 +35,8 @@ define('app/controllers/main', [
       statsView: Ember.View.create({
         elementId: 'todo-count',
         tagName: 'span',
-        contentBinding: 'Todos.Controllers.main',
-        remainingBinding: 'Todos.Controllers.main.remaining',
+        contentBinding: 'Todos.todosController',
+        remainingBinding: 'Todos.todosController.remaining',
         remainingString: function() {
           var remaining = this.get('remaining');
           return remaining + (remaining === 1 ? " item" : " items");
@@ -58,9 +58,9 @@ define('app/controllers/main', [
       // Clear completed tasks button
       clearCompletedButton: Ember.Button.create({
         template: Ember.Handlebars.compile(button_html),
-        target: 'Todos.Controllers.main',
+        target: 'Todos.todosController',
         action: 'clearCompleted',
-        completedBinding: 'Todos.Controllers.main.completed',
+        completedBinding: 'Todos.todosController.completed',
         elementId: 'clear-completed',
         classNameBindings: 'buttonClass',
         // Observer to update content if completed value changes
@@ -80,7 +80,7 @@ define('app/controllers/main', [
       // Checkbox to mark all todos done.
       allDoneCheckbox: Ember.Checkbox.create({
         elementId: 'toggle-all',
-        checkedBinding: 'Todos.Controllers.main.allAreDone'
+        checkedBinding: 'Todos.todosController.allAreDone'
       }),
 
       // Compile and render the todos view
@@ -96,7 +96,7 @@ define('app/controllers/main', [
       }),
 
       todoEditor: Ember.TextField.extend({
-        storageBinding: 'Todos.Controllers.main',
+        storageBinding: 'Todos.todosController',
         focusOut: function() {
           this.set('editing', false);
         },
