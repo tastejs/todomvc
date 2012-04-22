@@ -20,30 +20,29 @@
                     self.system.notify( 'TodoListView:toggleDoneOfTodo', id );
                 } );
                 $todoList.on( 'dblclick', '.view', function() {
-                    $(this)
-                        .closest('li')
-                        .addClass('editing')
-                        .find('.edit')
+                    $( this )
+                        .closest( 'li' )
+                        .addClass( 'editing' )
+                        .find( '.edit' )
                         .focus();
                 } );
-                $todoList.on( 'keypress', '.edit', function(e) {
+                $todoList.on( 'keypress', '.edit', function( e ) {
                     if ( e.keyCode === self.enterKey ) {
-                        console.log( e.target );
                         e.target.blur();
                     }
                 } );
                 $todoList.on( 'blur', '.edit', function() {
-                    var id = $( this ).closest('li').data('id');
-                    var val = $(this).removeClass('editing').val();
+                    var id = $( this ).closest( 'li' ).data( 'id' ),
+                        val = $( this ).removeClass( 'editing' ).val();
                     self.system.notify( 'TodoListView:setTitleOfTodo', id, val );
                  } );
                 $todoList.on( 'click', '.destroy', function() {
-                    var id = $( this ).closest('li').data('id');
+                    var id = $( this ).closest( 'li' ).data( 'id' );
                     self.system.notify( 'TodoListView:removeTodo', id );
                 } );
 
                 $toggleAll.on( 'change', function() {
-                    var isChecked = !!$(this).attr('checked');
+                    var isChecked = !!$( this ).attr( 'checked' );
                     self.system.notify( 'TodoListView:setDoneForAllTodos', isChecked );
                 } );
 

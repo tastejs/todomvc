@@ -45,7 +45,7 @@ var dijondemo = {};
                 this.system.mapHandler( 'TodoListView:toggleDoneOfTodo', 'todosModel', 'toggleDone' );
                 this.system.mapHandler( 'TodoListView:setTitleOfTodo', 'todosModel', 'setTitle' );
                 this.system.mapHandler( 'TodoListView:removeTodo', 'todosModel', 'remove' );
-                this.system.mapHandler( 'TodoListView:setDoneForAllTodos', 'todosModel', 'setDoneForAll')
+                this.system.mapHandler( 'TodoListView:setDoneForAllTodos', 'todosModel', 'setDoneForAll' );
                 this.system.mapHandler( 'TodoListView:removeAllDoneTodos', 'todosModel', 'removeAllDone' );
                 this.system.mapHandler( 'StorageService:retrieveCompleted', 'todosModel', 'setList' );
                 this.system.mapHandler( 'FooterView:retrieveTodoCounts', 'todosController', 'retrieveCounts' );

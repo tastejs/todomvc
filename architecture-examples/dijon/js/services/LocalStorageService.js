@@ -8,11 +8,11 @@
         return {
             system : undefined, //inject
             store : function( data ){
-                return localStorage.setItem( 'todo-jquery', JSON.stringify( data ) );
+                return localStorage.setItem( 'todo-dijon', JSON.stringify( data ) );
             },
             retrieve : function(){
-                var data = localStorage.getItem('todo-jquery');
-                var output = ( data && JSON.parse( data ) ) || [];
+                var data = localStorage.getItem('todo-dijon'),
+                    output = ( data && JSON.parse( data ) ) || [];
                 this.system.notify( 'StorageService:retrieveCompleted', output );
             }
         }

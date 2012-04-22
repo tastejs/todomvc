@@ -5,9 +5,10 @@
  */
 ( function( ns ){
     ns.views.FooterView = function(){
-        var $count = $('#todo-count');
-        var $clearBtn = $('#clear-completed');
-        var $footer = $('#todoapp').find('footer');
+        var $count = $('#todo-count'),
+            $clearBtn = $('#clear-completed'),
+            $footer = $('#todoapp').find('footer');
+
         return {
             system : undefined, //inject
             pluralizeUtil : undefined, //inject,
@@ -22,9 +23,9 @@
                 this.system.notify( 'FooterView:retrieveTodoCounts' );
             },
             updateCounts : function( numTodosTotal, numTodosActive ){
-                var numTodosCompleted = numTodosTotal - numTodosActive;
-                var countTitle = '<b>' + numTodosActive + '</b> ' + this.pluralizeUtil.pluralize( numTodosActive, 'item' ) + ' left';
-                var clearTitle = 'Clear ' + numTodosCompleted + ' completed ' + this.pluralizeUtil.pluralize( numTodosCompleted, 'item' );
+                var numTodosCompleted = numTodosTotal - numTodosActive,
+                    countTitle = '<b>' + numTodosActive + '</b> ' + this.pluralizeUtil.pluralize( numTodosActive, 'item' ) + ' left',
+                    clearTitle = 'Clear completed (' + numTodosCompleted + ')';
                 // Only show the footer when there are at least one todo.
              	$footer.toggle( !!numTodosTotal );
 

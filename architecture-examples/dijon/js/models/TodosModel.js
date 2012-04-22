@@ -12,11 +12,12 @@
                 return _list[ this.getIndex( id ) ];
             },
             getIndex : function( id ){
-                var list = _list;
-                for( var i in _list ){
+                var list = _list,
+                    todo;
+                for ( var i in _list ){
 
-                    var todo = _list[ i ];
-                    if( todo.id == id ) {
+                    todo = _list[ i ];
+                    if ( todo.id == id ) {
                         return i;
                     }
                 }
@@ -40,7 +41,7 @@
             },
             toggleDone : function( id ){
                 var todo = this.getTodo( id );
-                todo.done = ! todo.done;
+                todo.completed = ! todo.completed;
                 this.notifyOfListUpdate();
             },
             setTitle : function( id, title ){
@@ -51,15 +52,18 @@
                 _list.splice( this.getIndex( id ), 1 );
                 this. notifyOfListUpdate();
             },
-            setDoneForAll : function( done ){
-                for( var i in _list ){
-                    _list[ i ].done = done;
+            setDoneForAll : function( completed ){
+                var i;
+                for ( i in _list ){
+                    _list[ i ].completed = completed;
                 }
                 this.notifyOfListUpdate();
             },
             removeAllDone : function(){
-                for( var i = _list.length - 1, n = 0; i >= n; i-- ){
-                    if( _list[ i ].done ){
+                var i,
+                    n = 0;
+                for ( i = _list.length - 1; i >= n; i-- ){
+                    if( _list[ i ].completed ){
                         _list.splice( i, 1 );
                     }
                 }
@@ -69,9 +73,10 @@
                 return _list.length;
             },
             getNumActive : function(){
-                var count = 0;
-                for( var i in _list ){
-                    if( ! _list[ i ].done ){
+                var count = 0,
+                    i;
+                for( i in _list ){
+                    if( ! _list[ i ].completed ){
                         count++;
                     }
                 }

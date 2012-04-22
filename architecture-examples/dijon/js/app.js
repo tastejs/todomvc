@@ -1,10 +1,6 @@
-/*
-
-[MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
-(c) [Sindre Sorhus](http://sindresorhus.com)
-
-*/
+/*global jQuery, Handlebars */
 ( function( ns ){
+    'use strict';
     ns.App = function(){
         var system;
         return {

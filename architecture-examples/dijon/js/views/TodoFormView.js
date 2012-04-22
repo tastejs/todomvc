@@ -12,21 +12,17 @@
             uuidUtil : undefined, //inject
             setup : function(){
                 var self = this;
-                $newTodo.on( 'keyup', function(e) {
-                    if ( e.which !== self.enterKey ) {
+                $newTodo.on( 'keyup', function( e ) {
+                    var $input = $(this),
+                        val = $.trim( $input.val() );
+                    if ( e.which !== self.enterKey || !val ) {
                         return;
                     }
-                    var $input = $(this);
-                    var inputVal = $input.val();
-                    if ( !inputVal ) {
-                        return;
-                    }
-
                     self.system.notify( 'TodoFormView:addTodo', {
-                        title: inputVal,
+                        title: val,
                         id: self.uuidUtil.uuid(),
-                        done: false
-                    })
+                        completed: false
+                    });
 
                     $input.val('');
                 } );
