@@ -23,8 +23,7 @@
 		<input id="new-todo" placeholder="What needs to be done?" autofocus>
 	</header>
 
-
-	<section id="main">
+	<section id="main" class="{{ mainClass }}">
 		<input id="toggle-all" type="checkbox">
 		<label for="toggle-all">Mark all as complete</label>
 		<ul id="todo-list">
@@ -49,7 +48,7 @@
 </template>
 
 <template name="footer">
-	<footer id="footer">
+	<footer id="footer" class="{{ footerClass }}">
 		<span id="todo-count"><strong id="incompleted">{{ incompleted }}</strong>{{ incompletedText }}</span>
 		<button id="clear-completed">Clear completed (<span id="completed">{{ completed }}</span>)</button>
 	</footer>

@@ -19,6 +19,9 @@ if Meteor.is_client
 	Template.todo.hasAny = ->
 		Tasks.find().count() > 0
 
+	Template.todo.mainClass = ->
+		if Tasks.find().count() == 0 then 'hidden' else ''
+
 	Template.todo.events =
 		'click #toggle-all': (evt) ->
 			isChecked  = $("#toggle-all").prop 'checked'
@@ -50,6 +53,9 @@ if Meteor.is_client
 	Template.footer.events =
 		'click #clear-completed': ->
 			Tasks.remove completed: true
+
+	Template.footer.footerClass = ->
+		if Tasks.find().count() == 0 then 'hidden' else ''
 
 	Template.item.events =
 		'click .toggle': (evt) ->
