@@ -12,6 +12,7 @@
 		return {
 			system:undefined, //inject
 			pluralizeUtil:undefined, //inject,
+			todosModel : undefined, //inject
 			setup:function () {
 				var self = this;
 				$clearBtn.on( 'click', function () {
@@ -20,9 +21,10 @@
 
 			},
 			render:function () {
-				this.system.notify( 'FooterView:retrieveTodoCounts' );
+
+				this.renderCounts( this.todosModel.getNumTotal(), this.todosModel.getNumActive() );
 			},
-			updateCounts:function ( numTodosTotal, numTodosActive ) {
+			renderCounts:function ( numTodosTotal, numTodosActive ) {
 				var numTodosCompleted = numTodosTotal - numTodosActive,
 					countTitle = '<b>' + numTodosActive + '</b> ' + this.pluralizeUtil.pluralize( numTodosActive, 'item' ) + ' left',
 					clearTitle = 'Clear completed (' + numTodosCompleted + ')';
