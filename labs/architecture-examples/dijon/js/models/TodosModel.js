@@ -1,65 +1,69 @@
+/*global dijondemo */
 /**
  * @author Camille Reynders
  * Date: 03/02/12
  * Time: 14:39
  */
-( function ( ns ) {
-	ns.models.TodosModel = function () {
+(function( ns ) {
+	'use strict';
+
+	ns.models.TodosModel = function() {
 		var _list = [];
 		return {
-			system:undefined, //inject,
-			getTodo:function ( id ) {
+			system: undefined, //inject,
+			getTodo: function( id ) {
 				return _list[ this.getIndex( id ) ];
 			},
-			getIndex:function ( id ) {
+			getIndex: function( id ) {
 				var list = _list,
-					todo;
-				for ( var i in _list ) {
+					todo,
+					i;
 
+				for ( i in _list ) {
 					todo = _list[ i ];
-					if ( todo.id == id ) {
+					if ( todo.id === id ) {
 						return i;
 					}
 				}
 
 				return -1;
 			},
-			notifyOfListUpdate:function () {
+			notifyOfListUpdate: function() {
 				var list = this.getList();
 				this.system.notify( 'TodosModel:todosListUpdated', list );
 			},
-			setList:function ( list ) {
+			setList: function( list ) {
 				_list = list || [];
 				this.system.notify( 'TodosModel:todosListUpdated', list );
 			},
-			getList:function () {
+			getList: function() {
 				return _list;
 			},
-			add:function ( vo ) {
+			add: function( vo ) {
 				_list.push( vo );
 				this.notifyOfListUpdate();
 			},
-			toggleDone:function ( id ) {
+			toggleDone: function( id ) {
 				var todo = this.getTodo( id );
 				todo.completed = !todo.completed;
 				this.notifyOfListUpdate();
 			},
-			setTitle:function ( id, title ) {
+			setTitle: function( id, title ) {
 				this.getTodo( id ).title = title;
 				this.notifyOfListUpdate();
 			},
-			remove:function ( id ) {
+			remove: function( id ) {
 				_list.splice( this.getIndex( id ), 1 );
 				this.notifyOfListUpdate();
 			},
-			setDoneForAll:function ( completed ) {
+			setDoneForAll: function( completed ) {
 				var i;
 				for ( i in _list ) {
 					_list[ i ].completed = completed;
 				}
 				this.notifyOfListUpdate();
 			},
-			removeAllDone:function () {
+			removeAllDone: function() {
 				var i,
 					n = 0;
 				for ( i = _list.length - 1 ; i >= n ; i-- ) {
@@ -69,10 +73,10 @@
 				}
 				this.notifyOfListUpdate();
 			},
-			getNumTotal:function () {
+			getNumTotal: function() {
 				return _list.length;
 			},
-			getNumActive:function () {
+			getNumActive: function() {
 				var count = 0,
 					i;
 				for ( i in _list ) {
@@ -82,7 +86,7 @@
 				}
 				return count;
 			}
+		};
+	};
 
-		}
-	}
-}( dijondemo ) );
+}( dijondemo ));

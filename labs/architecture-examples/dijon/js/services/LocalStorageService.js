@@ -1,20 +1,24 @@
+/*global dijondemo */
 /**
  * @author Camille Reynders
  * Date: 03/02/12
  * Time: 13:27
  */
-( function ( ns ) {
-	dijondemo.services.LocalStorageService = function () {
+(function( ns ) {
+	'use strict';
+
+	dijondemo.services.LocalStorageService = function() {
 		return {
-			system:undefined, //inject
-			store:function ( data ) {
+			system: undefined, //inject
+			store: function( data ) {
 				return localStorage.setItem( 'todos-dijon', JSON.stringify( data ) );
 			},
-			retrieve:function () {
+			retrieve: function() {
 				var data = localStorage.getItem( 'todos-dijon' ),
 					output = ( data && JSON.parse( data ) ) || [];
 				this.system.notify( 'StorageService:retrieveCompleted', output );
 			}
-		}
-	}
-}( dijondemo ) )
+		};
+	};
+
+}( dijondemo ));

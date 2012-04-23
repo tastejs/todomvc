@@ -3,41 +3,42 @@
  * Date: 03/02/12
  * Time: 15:23
  */
-
 var dijondemo = {};
 
-( function ( ns ) {
+(function( ns ) {
+	'use strict';
+
 	ns.views = {};
 	ns.models = {};
 	ns.controllers = {};
 	ns.services = {};
 	ns.utils = {};
-	ns.Config = function () {
-		return{
-			system:undefined, //inject
-			setup:function () {
+	ns.Config = function() {
+		return {
+			system: undefined, //inject
+			setup: function() {
 
 				this.system.autoMapOutlets = true;
 
-				//values
+				// Values
 				this.system.mapValue( 'enterKey', 13 );
 				this.system.mapValue( 'uuidUtil', ns.utils.Utils );
 				this.system.mapValue( 'pluralizeUtil', ns.utils.Utils );
 
-				//models
+				// Models
 				this.system.mapSingleton( 'todosModel', ns.models.TodosModel );
 
-				//services
+				// Services
 				this.system.mapSingleton( 'storageService', ns.services.LocalStorageService );
 
-				//views
+				// Views
 				this.system.mapSingleton( 'footerView', ns.views.FooterView );
 
 				this.system.mapSingleton( 'formView', ns.views.TodoFormView );
 
 				this.system.mapSingleton( 'listView', ns.views.TodoListView );
 
-				//handlers
+				//Handlers
 				this.system.mapHandler( 'TodoFormView:addTodo', 'todosModel', 'add' );
 				this.system.mapHandler( 'TodoListView:toggleDoneOfTodo', 'todosModel', 'toggleDone' );
 				this.system.mapHandler( 'TodoListView:setTitleOfTodo', 'todosModel', 'setTitle' );
@@ -53,6 +54,7 @@ var dijondemo = {};
 				this.system.mapHandler( 'App:startupComplete', 'storageService', 'retrieve' );
 
 			}
-		}
-	}
-}( dijondemo ) );
+		};
+	};
+
+}( dijondemo ));
