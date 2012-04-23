@@ -37,7 +37,7 @@
 </template>
 
 <template name="item">
-	<li class="{{ editingClass }}">
+	<li class="{{ editingClass }} {{ completedClass }}">
 		<div class="view">
 			<input class="toggle" type="checkbox" {{ completedCheck }}>
 			<label>{{ title }}</label>
