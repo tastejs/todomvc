@@ -100,7 +100,7 @@ if Meteor.is_client
 		if value
 			task = Tasks.findOne id
 			task.title = value
-			Tasks.update _id: id, task, ->
+			Tasks.update _id: id, task, (err) ->
 				alert('Sorry, an error prevent the changes to be saved') if err
 			Session.set 'editing_id', null
 		else
