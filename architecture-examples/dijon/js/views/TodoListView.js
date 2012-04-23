@@ -13,6 +13,7 @@
 		return {
 			system:undefined, //inject
 			enterKey:undefined,
+			todosModel : undefined, //inject
 			setup:function () {
 				var self = this;
 				$todoList.on( 'change', '.toggle', function () {
@@ -52,9 +53,11 @@
 
 			},
 
-			render:function ( todosList ) {
-				$todoList.html( _template( todosList ) );
-				$main.toggle( !!todosList.length );
+			render:function () {
+				var todoList = this.todosModel.getList();
+				$todoList.html( _template( todoList ) );
+				$main.toggle( !!todoList.length );
+				$toggleAll.prop( 'checked', !this.todosModel.getNumActive() );
 			}
 		}
 	}
