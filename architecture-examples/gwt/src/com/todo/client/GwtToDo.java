@@ -8,9 +8,10 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class GwtToDo implements EntryPoint {
 
-  public void onModuleLoad() {
-    ToDoView toDoView = new ToDoView();
-    new ToDoPresenter(toDoView);
-    RootPanel.get().add(toDoView);
-  }
+	@Override
+	public void onModuleLoad() {
+		ToDoView toDoView = new ToDoView();
+		new ToDoPresenter(toDoView);
+		RootPanel.get().add(toDoView);
+	}
 }
