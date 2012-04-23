@@ -3,37 +3,33 @@
  * Date: 03/02/12
  * Time: 13:38
  */
-( function(ns){
-    ns.views.TodoFormView = function(){
-        var $newTodo = $('#new-todo');
-        return {
-            system : undefined, //inject
-            enterKey : undefined, //inject
-            uuidUtil : undefined, //inject
-            setup : function(){
-                var self = this;
-                $newTodo.on( 'keyup', function(e) {
-                    if ( e.which !== self.enterKey ) {
-                        return;
-                    }
-                    var $input = $(this);
-                    var inputVal = $input.val();
-                    if ( !inputVal ) {
-                        return;
-                    }
+( function ( ns ) {
+	ns.views.TodoFormView = function () {
+		var $newTodo = $( '#new-todo' );
+		return {
+			system:undefined, //inject
+			enterKey:undefined, //inject
+			uuidUtil:undefined, //inject
+			setup:function () {
+				var self = this;
+				$newTodo.on( 'keyup', function ( e ) {
+					var $input = $( this ),
+						val = $.trim( $input.val() );
+					if ( e.which !== self.enterKey || !val ) {
+						return;
+					}
+					self.system.notify( 'TodoFormView:addTodo', {
+						title:val,
+						id:self.uuidUtil.uuid(),
+						completed:false
+					} );
 
-                    self.system.notify( 'TodoFormView:addTodo', {
-                        title: inputVal,
-                        id: self.uuidUtil.uuid(),
-                        done: false
-                    })
+					$input.val( '' );
+				} );
+			},
+			render:function () {
 
-                    $input.val('');
-                } );
-            },
-            render : function(){
-
-            }
-        }
-    }
+			}
+		}
+	}
 }( dijondemo ))

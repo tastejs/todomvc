@@ -1,26 +1,22 @@
-/*
+/*global jQuery, Handlebars */
+( function ( ns ) {
+	'use strict';
+	ns.App = function () {
+		var system;
+		return {
+			startup:function () {
+				system = new dijon.System();
 
-[MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
-(c) [Sindre Sorhus](http://sindresorhus.com)
+				system.mapValue( 'system', system );
+				system.mapOutlet( 'system' );
 
-*/
-( function( ns ){
-    ns.App = function(){
-        var system;
-        return {
-            startup : function(){
-                system = new dijon.System();
+				system.injectInto( new ns.Config() );
 
-                system.mapValue( 'system', system );
-                system.mapOutlet( 'system' );
-
-                system.injectInto( new ns.Config() );
-
-                system.notify( 'App:startup' );
-                system.notify( 'App:startupComplete' );
-            }
-        }
-    }
+				system.notify( 'App:startup' );
+				system.notify( 'App:startupComplete' );
+			}
+		}
+	}
 }( dijondemo ) );
 
 dijondemo.app = new dijondemo.App();

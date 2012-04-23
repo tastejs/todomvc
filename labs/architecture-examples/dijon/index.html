@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>jQuery • TodoMVC</title>
+	<title>Dijon • TodoMVC</title>
 	<link rel="stylesheet" href="../../../assets/base.css">
 </head>
 <body>
@@ -22,8 +22,10 @@
 			<button id="clear-completed">Clear completed</button>
 		</footer>
 	</section>
-	<footer id="info">
+    <footer id="info">
 		<p>Double-click to edit a todo</p>
+		<p>Based on app and template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+		<p>Created by <a href="http://www.creynders.be">Camille Reynders</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
 	<script type="text/x-handlebars-template" id="todo-template">
@@ -38,17 +40,16 @@
 	</li>
 	{{/this}}
 	</script>
-	<script src="js/libs/json2.js"></script>
-	<script src="js/libs/jquery-1.7.1.min.js"></script>
-	<script src="js/libs/handlebars-1.0.0.beta.6.js"></script>
-    <script src="js/libs/dijon-0.5.1.min.js"></script>
+	<script src="../../../assets/jquery.min.js"></script>
+	<script src="../../../assets/handlebars.min.js"></script>
+    <script src="http://creynders.github.com/dijon-framework/bin/dijon-0.5.3.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/models/TodosModel.js"></script>
     <script src="js/services/LocalStorageService.js"></script>
-    <script src="js/controllers/TodosController.js"></script>
     <script src="js/utils/Utils.js"></script>
     <script src="js/views/FooterView.js"></script>
     <script src="js/views/TodoFormView.js"></script>
     <script src="js/views/TodoListView.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>
