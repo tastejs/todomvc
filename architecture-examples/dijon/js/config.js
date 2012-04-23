@@ -30,9 +30,6 @@ var dijondemo = {};
 				//services
 				this.system.mapSingleton( 'storageService', ns.services.LocalStorageService );
 
-				//controllers
-				this.system.mapSingleton( 'todosController', ns.controllers.TodosController );
-
 				//views
 				this.system.mapSingleton( 'footerView', ns.views.FooterView );
 
@@ -48,8 +45,6 @@ var dijondemo = {};
 				this.system.mapHandler( 'TodoListView:setDoneForAllTodos', 'todosModel', 'setDoneForAll' );
 				this.system.mapHandler( 'TodoListView:removeAllDoneTodos', 'todosModel', 'removeAllDone' );
 				this.system.mapHandler( 'StorageService:retrieveCompleted', 'todosModel', 'setList' );
-				this.system.mapHandler( 'FooterView:retrieveTodoCounts', 'todosController', 'retrieveCounts' );
-				this.system.mapHandler( 'TodosController:todoCountsRetrieved', 'footerView', 'updateCounts' );
 				this.system.mapHandler( 'TodosModel:todosListUpdated', 'listView', 'render' );
 				this.system.mapHandler( 'TodosModel:todosListUpdated', 'footerView', 'render' );
 				this.system.mapHandler( 'TodosModel:todosListUpdated', 'storageService', 'store' );
