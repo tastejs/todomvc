@@ -1,65 +1,116 @@
-Tasks = new Meteor.Collection("tasks")
+Tasks = new Meteor.Collection('tasks')
+ENTER_KEY = 13
 
 if Meteor.is_client
-  # Export Tasks model to client
-  window.Tasks = Tasks
+	refreshUI = ->
+		allCompleted = Tasks.find(completed: false).count() == 0
+		$('#toggle-all').prop 'checked', allCompleted
 
-  Template.todo.tasks = ->
-    Tasks.find {}, {sort: {completed: 1, updated: -1, created: -1}}
+		hasTask = Tasks.find().count() > 0
+		if hasTask
+			$('#main, #footer').removeClass('hidden')
+		else 
+			$('#main, #footer').addClass('hidden')
 
-  Template.todo.remainingTodos = ->
-    Tasks.find({completed: false}).count()
+	# Listen to change on collection Tasks.
+	# When collection changed, refresh toggle all checkbox state
+	Tasks.find().observe
+		added: refreshUI
+		changed: refreshUI
+		removed: refreshUI
 
-  Template.todo.hasCompleted = ->
-    Tasks.find({completed: true}).count() > 0
+	# Set the initial state of UI
+	Meteor.setTimeout ->
+		refreshUI()
+	, 200
 
-  Template.todo.events =
-    'keyup #new-todo' : (evt) ->
-      if evt.type == "keyup" && evt.which == 13
-        textbox = $("#new-todo")
+	Template.todo.tasks = ->
+		Tasks.find({}, sort: created_at: -1)
 
-        Tasks.insert {text: textbox.val(), created: new Date(), updated: new Date(), completed: false}
-        textbox.val("")
-        textbox.focus()
-      return false
+	Template.todo.mainClass = ->
+		if Tasks.find().count() == 0 then 'hidden' else ''
 
-    'click #clear-completed': ->
-      Tasks.remove {completed: true} 
-      return false
+	Template.todo.events =
+		'click #toggle-all': (evt) ->
+			isChecked  = $("#toggle-all").prop 'checked'
+			modifiers  = $set: completed: isChecked
+			options    = multi: true
+			Tasks.update {}, modifiers, options
 
-    'click #mark-all-checked': (evt) ->
-      Tasks.update {}, {$set: {completed: true}}, {multi: true}
-      $(evt.target).removeAttr("checked")
-  
-  Template.item.events =
-    'click #done': (evt) ->
-      task = Tasks.findOne this._id
-      task.completed = $(evt.target).attr("checked") == "checked"
-      Tasks.update {_id: this._id}, task
+		'keyup #new-todo' : (evt) ->
+			if evt.type == 'keyup' && evt.which == ENTER_KEY
+				textbox = $('#new-todo')
+				text = textbox.val().trim()
+				if text
+					Tasks.insert
+						title: textbox.val()
+						completed: false
+						created_at: new Date()
+					textbox.val('')
 
-    'dblclick .text': (evt) ->
-      task = Tasks.findOne this._id
-      task.editing = true
-      selector = "#i-#{this._id} input.edit"
-      Tasks.update {_id: this._id}, task, (err) ->
-        $(selector).focus().select() unless err
+	Template.footer.incompleted = ->
+		Tasks.find(completed: false).count()
 
-    'blur input.edit': (evt) ->
-      task = Tasks.findOne this._id
-      task.editing = false
-      Tasks.update {_id: this._id}, task 
+	Template.footer.incompletedText = ->
+		count = Tasks.find(completed: false).count()
+		if count == 1 then ' item left' else ' items left'
 
-    'keyup input.edit': (evt) ->
-      if evt.type == "keyup" && evt.which == 13
-        task = Tasks.findOne this._id
-        task.editing = false
-        task.updated = new Date()
-        task.text = $(evt.target).val()
-        Tasks.update {_id: this._id}, task, (err) =>
-          alert("Sorry, an error prevent the changes to be saved") if err
+	Template.footer.completed = ->
+		Tasks.find(completed: true).count()
 
-      return false
+	Template.footer.events =
+		'click #clear-completed': ->
+			Tasks.remove completed: true
 
-if Meteor.is_server
-  Meteor.startup ->
-    console.log "server startup"    
+	Template.footer.footerClass = ->
+		if Tasks.find().count() == 0 then 'hidden' else ''
+
+	Template.item.events =
+		'click .toggle': (evt) ->
+			task = Tasks.findOne this._id
+			task.completed = $(evt.target).prop('checked')
+			Tasks.update _id: this._id, task			
+			# force DOM redraw
+			Meteor.flush()
+
+		'click .destroy': (evt) ->
+			Template.item.updateTask this._id, null
+
+		'dblclick .view': (evt) ->
+			# do not response to double click on checkbox
+			return if $(evt.target).hasClass('toggle')
+
+			Session.set 'editing_id', this._id
+
+			# force DOM redraw, so we can select the edit field
+			Meteor.flush()
+			$('.edit').select()
+
+		'blur input.edit': (evt) ->
+			text = $(evt.target).val().trim()
+			Template.item.updateTask this._id, text
+
+		'keyup input.edit': (evt) ->
+			if evt.type == 'keyup' && evt.which == ENTER_KEY
+				text = $(evt.target).val().trim()
+				Template.item.updateTask this._id, text
+			return false
+
+	Template.item.updateTask = (id, value) ->
+		if value
+			task = Tasks.findOne id
+			task.title = value
+			Tasks.update _id: id, task, (err) ->
+				alert('Sorry, an error prevent the changes to be saved') if err
+			Session.set 'editing_id', null
+		else
+			Tasks.remove _id: id
+
+	Template.item.editingClass = ->
+		if Session.equals('editing_id', this._id) then 'editing' else ''
+
+	Template.item.completedClass = ->
+		if this.completed then 'completed' else ''
+			
+	Template.item.completedCheck = ->
+		if this.completed then 'checked' else ''
