@@ -20,15 +20,11 @@ define('app', [
       init: function() {
         this._super();
 
-        this.set(
-          'store',
-          new Store('todos-emberjs')
-        );
-
+        // Initiate main controller
         this.set(
           'todosController',
           TodosController.create({
-            store: this.get('store')
+            store: new Store('todos-emberjs')
           })
         );
 
