@@ -32,11 +32,6 @@ define('app', [
           })
         );
 
-        var items = this.get('store').findAll();
-        if (items.length > 0) {
-          this.get('todosController').set('[]', items);
-        };
-
         if (typeof(mocha) !== 'undefined') {
           window.expect = chai.expect;
           mocha.setup('bdd');

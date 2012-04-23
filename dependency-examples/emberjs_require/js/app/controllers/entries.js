@@ -54,6 +54,16 @@ define('app/controllers/entries', ['ember'],
         }
       }.property('@each.completed'),
 
+      init: function() {
+        this._super();
+
+        // Load items if any upon initialization
+        var items = this.get('store').findAll();
+        if (items.length > 0) {
+          this.set('[]', items);
+        };
+      }
+
     });
   }
 );
