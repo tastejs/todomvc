@@ -1,9 +1,9 @@
 /**
  * Some smoke tests
  */
-describe('Todos.Controllers.main', function(){
+describe('controllers/todos', function(){
 
-  var controller = Todos.Controllers.get('main');
+  var controller = Todos.get('todosController');
   var title = "Another title...";
 
   it('should have a view for entering new entry', function(){
@@ -19,7 +19,6 @@ describe('Todos.Controllers.main', function(){
     expect(controller.get('lastObject').title).to.equal(title);
     controller.removeObject(controller.get('lastObject'));
   });
-
 
   it('should reflect the same number of items as in store', function(){
     controller.inputView.set('value', title);
