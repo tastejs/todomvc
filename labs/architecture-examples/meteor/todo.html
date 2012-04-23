@@ -1,61 +1,55 @@
 <head>
-  <meta charset="utf-8">
-  <title>Meteor - TodoMVC</title>
+	<meta charset="utf-8">
+	<title>Meteor • TodoMVC</title>
 </head>
 
 <body>
-  <div id="views">
-    <div id="tasks">
-      {{> todo}}
-    </div>
-  </div>
-    <div id="credits">
-      <p>Double-click to edit a todo</p>
-      <p>Created by <a href="https://github.com/siuying">siuying</a>.</p>
-      <p>Modifications by <a href="https://github.com/addyosmani">addyosmani</a>.</p>
-      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-  </div>
+	<section id="todoapp">
+		{{> todo}}
+	</section>
+
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+		<p>Created by <a href="https://github.com/siuying">siuying</a>.</p>
+		<p>Modifications by <a href="https://github.com/addyosmani">addyosmani</a>.</p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
 </body>
 
 <template name="todo">
-  <header>
-    <h1>Todos</h1>
-    <input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
-  </header>
+	<header id="header">
+		<h1>todos</h1>
+		<input id="new-todo" placeholder="What needs to be done?" autofocus>
+	</header>
 
-  <section id="main">
-    <input id="mark-all-checked" type="checkbox" name="allChecked">
-    <label for="mark-all-checked">Mark all as complete</label>
+	<section id="main">
+		<input id="toggle-all" type="checkbox">
+		<label for="toggle-all">Mark all as complete</label>
+		<ul id="todo-list">
+			{{#each tasks}}
+			{{> item}}
+			{{/each}}
+		</ul>
+	</section>
 
-    <ul id="todo-list">
-      {{#each tasks}}
-        {{> item}}
-      {{/each}}
-    </ul>
-  </section>
-
-  <footer>
-    {{#if hasCompleted}}
-    <a id="clear-completed" class="clear">Clear completed</a>
-    {{/if}}
-
-    <div id="todo-count"><b>{{ remainingTodos }}</b> left</div>
-  </footer>
+	{{> footer}}
 </template>
 
-
 <template name="item">
-  <li id="i-{{ _id }}">
-    {{#unless editing}}
-    <div class="item {{#if completed}}done{{/if}}">
-      <input class="toggle" type="checkbox" id="done" {{#if completed}}checked="checked"{{/if}}>
-      <span class="text">{{ text }}</span>
-      <a class="destroy"></a>
-    </div>
-    {{/unless}}
+	<li class="{{ editingClass }} {{ completedClass }}">
+		<div class="view">
+			<input class="toggle" type="checkbox" {{ completedCheck }}>
+			<label>{{ title }}</label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" value="{{ title }}">
+	</li>
+</template>
 
-    {{#if editing}}
-      <input class="edit" type="text" name="text" value="{{ text }}">
-    {{/if}}
-  </li>
+<template name="footer">
+	<footer id="footer" class="{{ footerClass }}">
+		<span id="todo-count"><strong id="incompleted">{{ incompleted }}</strong>{{ incompletedText }}</span>
+		<button id="clear-completed">Clear completed (<span id="completed">{{ completed }}</span>)</button>
+	</footer>
 </template>
