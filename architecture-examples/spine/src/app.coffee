@@ -1,46 +1,88 @@
-class TaskApp extends Spine.Controller
-  elements:
-    '.items':                         'tasks'
-    '.countVal':                      'counter'
-    'a.clear':                        'clearCompleted'
-    'form#new-task input[name=name]': 'newTaskName'
+class TodoApp extends Spine.Controller
+	ENTER_KEY = 13
 
-  events:
-    'submit form#new-task': 'new'
-    'click a.clear':        'clearCompleted'
+	elements:
+		'#new-todo':        'newTodoInput'
+		'#toggle-all':      'toggleAllElem'
+		'#main':			'main'
+		'#todo-list':       'todos'
+		'#footer':          'footer'
+		'#todo-count':      'count'
+		'#filters a':       'filters'
+		'#clear-completed': 'clearCompleted'
 
-  constructor: ->
-    super
-    Task.bind 'create', @renderNew
-    Task.bind 'refresh', @renderAll
-    Task.bind 'refresh change', @renderCounter
-    Task.bind 'refresh change', @toggleClearCompleted
-    Task.fetch()
+	events:
+		'keyup #new-todo':        'new'
+		'click #toggle-all':      'toggleAll'
+		'click #clear-completed': 'clearCompleted'
 
-  new: (e) ->
-    e.preventDefault()
-    Task.fromForm('form#new-task').save()
-    @newTaskName.val('')
+	constructor: ->
+		super
+		Todo.bind 'create', @addNew
+		Todo.bind 'refresh', @addAll
+		Todo.bind 'refresh change', @toggleElems
+		Todo.bind 'refresh change', @renderFooter
+		Todo.fetch()
+		@routes
+			'/:filter': (param) ->
+				@filter = param.filter
+				###
+				TODO: Need to figure out why the route doesn't trigger `change` event
+				###
+				Todo.trigger('refresh')
+				@filters.removeClass('selected')
+					.filter("[href='#/#{ @filter }']").addClass('selected');
 
-  renderNew: (task) =>
-    view = new Tasks(task: task)
-    @tasks.append view.render().el
+	new: (e) ->
+		val = $.trim @newTodoInput.val()
+		if e.which is ENTER_KEY and val
+			Todo.create title: val
+			@newTodoInput.val ''
 
-  renderAll: =>
-    Task.each @renderNew
+	getByFilter: ->
+		switch @filter
+			when 'active'
+				Todo.active()
+			when 'completed'
+				Todo.completed()
+			else
+				Todo.all()
 
-  renderCounter: =>
-    @counter.text Task.active().length
+	addNew: (todo) =>
+		view = new Todos todo: todo
+		@todos.append view.render().el
 
-  toggleClearCompleted: =>
-    if Task.done().length
-      @clearCompleted.show()
-    else
-      @clearCompleted.hide()
+	addAll: =>
+		@todos.empty()
+		@addNew todo for todo in @getByFilter()
 
-  clearCompleted: ->
-    Task.destroyDone()
+	toggleAll: (e) ->
+		Todo.each (todo) ->
+			###
+			TODO: Model updateAttribute sometimes won't stick:
+				https://github.com/maccman/spine/issues/219
+			###
+			todo.updateAttribute 'completed', e.target.checked
+			todo.trigger 'update', todo
+
+	clearCompleted: ->
+		Todo.destroyCompleted()
+
+	toggleElems: =>
+		isTodos = !!Todo.count()
+		@main.toggle isTodos
+		@footer.toggle isTodos
+		@clearCompleted.toggle !!Todo.completed().length
+		@toggleAllElem.removeAttr 'checked' if !Todo.completed().length
+
+	renderFooter: =>
+		text = (count) -> if count is 1 then 'item' else 'items'
+		active = Todo.active().length
+		completed = Todo.completed().length
+		@count.html "<b>#{ active }</b> #{ text active } left"
+		@clearCompleted.text "Clear completed (#{ completed })"
 
 
 $ ->
-  new TaskApp(el: $('#tasks'))
+	new TodoApp el: $('#todoapp')
+	Spine.Route.setup()
