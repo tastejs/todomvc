@@ -21,7 +21,6 @@ describe( 'views/*', function() {
 			expect( html ).to.match( /Todos\.todosController/ );
 			expect( html ).to.match( /Checkbox/ );
 			expect( html ).to.match( /class="toggle"/ );
-			expect( html ).to.match( /class="edit"/ );
 			expect( Em.Handlebars.compile( html ) ).to.not.throw( Error );
 			done();
 		});
