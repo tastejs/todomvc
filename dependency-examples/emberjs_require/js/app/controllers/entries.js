@@ -60,7 +60,7 @@ define('app/controllers/entries', ['ember'],
 				this._super();
 				// Load items if any upon initialization
 				var items = this.get( 'store' ).findAll();
-				if ( items.length ) {
+				if ( items.get( 'length' ) ) {
 					this.set( '[]', items );
 				};
 			}
