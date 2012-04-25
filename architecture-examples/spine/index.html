@@ -1,51 +1,63 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Spine.js</title>
-  <link rel="stylesheet" href="css/application.css" type="text/css" charset="utf-8">
-
-  <script src="lib/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/jquery.tmpl.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/spine.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/local.js" type="text/javascript" charset="utf-8"></script>
-
-  <script src="js/controllers/tasks.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/models/task.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<meta charset="utf-8">
+	<title>Spine.js • TodoMVC</title>
+	<link rel="stylesheet" href="../../assets/base.css">
 </head>
 <body>
-  <div id="views">
-    <div id="tasks">
-      <h1>Todos</h1>
-
-      <form id="new-task">
-        <input name="name" type="text" placeholder="What needs to be done?">
-      </form>
-
-      <div class="items">
-        <script type="text/html" id="task-template">
-          <div class="item {{if done}}done{{/if}}">
-            <div class="view" title="Double click to edit...">
-              <input type="checkbox" {{if done}}checked="checked"{{/if}}>
-              <span>${name}</span> <a class="destroy"></a>
-            </div>
-
-            <form class="edit">
-              <input type="text" name="name" value="${name}">
-            </form>
-          </div>
-        </script>
-      </div>
-
-      <footer>
-        <a class="clear">Clear completed</a>
-        <div class="count"><span class="countVal"></span> left</div>
-      </footer>
-    </div>
-  </div>
-
-  <div id="credits">
-    Based on the official <a href="https://github.com/maccman/spine.todos">Spine.Todos</a>.
-  </div>
+	<section id="todoapp">
+		<header id="header">
+			<h1>Todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?">
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer">
+			<span id="todo-count"><strong>1</strong> item left</span>
+			<ul id="filters">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed">Clear completed</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<!-- delete this ↓ -->
+		<p>Inspired by the official <a href="https://github.com/maccman/spine.todos">Spine.Todos</a></p>
+		<!-- change this out with your name and url ↓ -->
+		<p>Created by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+	</footer>
+	<script type="text/x-handlebars-template" id="todo-template">
+	{{#this}}
+	<li {{#if completed}}class="completed"{{/if}}>
+		<div class="view">
+			<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+			<label>{{title}}</label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" value="{{title}}">
+	</li>
+	{{/this}}
+	</script>
+	<script src="../../assets/jquery.min.js"></script>
+	<script src="../../assets/handlebars.min.js"></script>
+	<script src="js/lib/spine.min.js"></script>
+	<script src="js/lib/route.min.js"></script>
+	<script src="js/lib/local.js"></script>
+	<script src="js/controllers/todos.js"></script>
+	<script src="js/models/todo.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>

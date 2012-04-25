@@ -1,0 +1,5 @@
+{
+    "xamlClasses": ["js.ui.Link", "js.ui.MenuButton", "js.ui.SplitButton" , "js.ui.TabView", "app.view.TodoView"],
+    "namespaceMap": null,
+    "rewriteMap": null
+}
