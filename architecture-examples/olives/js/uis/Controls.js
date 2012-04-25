@@ -1,7 +1,9 @@
-define( "Todo/Controls", ["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Olives/LocalStore"],
+define( "Todos/Controls", 
+		
+["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Olives/LocalStore", "Todos/Tools"],
 
 // The Controls UI
-function Controls( OObject, EventPlugin, ModelPlugin, Store ) {
+function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 	
 	return function ControlsInit( view, model, stats ) {
 		
@@ -34,9 +36,7 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store ) {
 		controls.plugins.addAll({
 			"event": new EventPlugin(controls),
 			"stats": new ModelPlugin(stats, {
-				"toggleClass": function ( value, className ) {
-					value ? this.classList.add(className) : this.classList.remove(className);
-				}
+				"toggleClass": Tools.toggleClass
 			})
 		});
 		
@@ -53,7 +53,7 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store ) {
 		model.watch("deleted", updateStats);
 		model.watch("updated", updateStats);
 		
-		// I could either update stats at init or saved them in a localStore
+		// I could either update stats at init or save them in a localStore
 		updateStats();
 		
 	};

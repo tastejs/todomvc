@@ -1,7 +1,9 @@
-define( "Todo/List", ["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin"],
+define( "Todos/List", 
+		
+["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Todos/Tools"],
 
 // The List UI
-function List( OObject, EventPlugin, ModelPlugin ) {
+function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 	
 	return function ListInit( view, model, stats ) {
 		
@@ -15,14 +17,10 @@ function List( OObject, EventPlugin, ModelPlugin ) {
 		list.plugins.addAll({
 			"event": new EventPlugin(list),
 			"model": new ModelPlugin(model, {
-				"toggleClass": function ( value, className ) {
-					value ? this.classList.add(className) : this.classList.remove(className);
-				}
+				"toggleClass": Tools.toggleClass
 			}),
 			"stats": new ModelPlugin(stats, {
-				"toggleClass": function ( value, className ) {
-					value ? this.classList.add(className) : this.classList.remove(className);
-				},
+				"toggleClass": Tools.toggleClass,
 				"toggleCheck": function ( value ) {
 					this.checked = model.getNbItems() == value ? "on" : "";
 				}

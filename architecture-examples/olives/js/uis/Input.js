@@ -1,5 +1,5 @@
 // It's going to be called Input
-define( "Todo/Input", 
+define( "Todos/Input", 
 		
 // It uses the Olives' OObject and the Event Plugin to listen to dom events and connect them to methods
 ["Olives/OObject", "Olives/Event-plugin"],
@@ -34,7 +34,6 @@ function Input( OObject, EventPlugin ) {
 		
 		// Alive applies the plugins on the HTML view
 		input.alive(view);
-		
 	};
 	
 });

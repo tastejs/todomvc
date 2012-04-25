@@ -2,16 +2,18 @@
 	'use strict';
 	
 	// These are the UIs that compose the Todo application
-	require( ["Todo/Input", "Todo/List", "Todo/Controls", "Olives/LocalStore"],
+	require( ["Todos/Input", "Todos/List", "Todos/Controls", "Olives/LocalStore"],
 
 	// The application
 	function Todos( Input, List, Controls, Store ) {
 		
 		// The tasks Store is told to init on an array 
 		// so tasks are indexed by a number
+		// This store is shared among several UIs of this application
+		// that's why it's created here
 		var tasks = new Store([]),
 		
-		// Also create a stats store
+		// Also create a shared stats store
 		stats = new Store({
 			nbItems: 0,
 			nbLeft: 0,
