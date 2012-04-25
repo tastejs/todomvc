@@ -1,17 +1,12 @@
-# Template • [TodoMVC](http://todomvc.com)
+# Ember.js + Require.js • [TodoMVC](http://todomvc.com)
 
+## Running tests
 
-
-## Getting Started
-
-Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) before touching the template.
-
-
-## Need help?
-
-Feel free to [contact me](https://github.com/sindresorhus) if you have any questions or need help with the template.
-
+To fire specs runner, append `#specs` to the url in address bar,
+and reload the webpage.
 
 ## Credit
 
-Created by [Sindre Sorhus](http://sindresorhus.com)
+Initial release by @tomdale.
+
+Refactoring and maintenance by @stas.
