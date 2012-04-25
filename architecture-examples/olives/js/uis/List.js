@@ -10,7 +10,27 @@
 			
 			// The OObject (the controller) inits with a default model which is a simple store
 			// But it can be init'ed with any other store, like the LocalStore
-			var list = new OObject(model);
+			var list = new OObject(model),
+			
+			ENTER_KEYCODE = 13;
+			
+			// The plugins
+			list.plugins.addAll({
+				"event": new EventPlugin(list),
+				"model": new ModelPlugin(model, {
+					"toggleClass": function ( value, className ) {
+						value ? this.classList.add(className) : this.classList.remove(className);
+					}
+				}),
+				"stats": new ModelPlugin(controls, {
+					"toggleClass": function ( value, className ) {
+						value ? this.classList.add(className) : this.classList.remove(className);
+					},
+					"toggleCheck": function ( value ) {
+						this.checked = model.getNbItems() == value ? "on" : "";
+					}
+				})
+			});
 			
 			// Remove the completed task
 			list.remove = function remove( event, node ) {
@@ -25,23 +45,48 @@
 				}, model);
 			};
 			
-			// Switch to edit mode
-			list.edit = function ( event, node ) {
-		
+			// Enter edit mode
+			list.startEdit = function ( event, node ) {
+				var taskId = node.getAttribute("data-model_id");
+				
+				// Switch the task to edit mode
+				model.update(taskId, "editing", true);
+				// Select the field's content
+				view.querySelector("input.edit[data-model_id='" + taskId + "']").select();
 			};
 			
-			// list's view
+			// Quit to edit mode
+			list.stopEdit = function ( event, node ) {
+				var taskId = node.getAttribute("data-model_id"),
+					value;
+				
+				// If  we hit enter
+				if ( event.keyCode == ENTER_KEYCODE ) {
+					// Trim the value
+					value = node.value.trim();
+					
+					// If it's not empty
+					if ( value ) {
+						// Update its value
+						model.update(taskId, "title", value);
+					} else {
+						// Else, delete it
+						model.del(taskId);
+					}
+					
+					// And switch edit mode
+					model.update(taskId, "editing", false);
+					
+				// If the field has lost focus
+				} else if ( event.type == "blur" ) {
+					
+					// Simply switch the edit mode
+					model.update(taskId, "editing", false);
+				}
+			};
+			
+			// Alive applies the plugins on the HTML view
 			list.alive(view);
-			
-			// Show/Hide the list
-			controls.watchValue("nbItems", function (value) {
-				view.style.display = value ? "block" : "none";
-			});
-			
-			// Check/Uncheck all tasks if nb completed tasks is the same as the nb of items
-			controls.watchValue("nbCompleted", function (value) {
-				view.querySelector("#toggle-all").checked = model.getNbItems() == value ? "on" : "";
-			});
 
 			
 		};

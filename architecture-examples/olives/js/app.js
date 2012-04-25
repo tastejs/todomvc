@@ -11,7 +11,7 @@
 		// so tasks are indexed by a number
 		var tasks = new Store([]),
 		
-		// The Controls UI returns a small API for things like stats
+		// The Controls UI returns a small Store with the statistics
 		controls = Controls(document.querySelector("#footer"), tasks);
 		
 		// Synchronize the store on "todos-olives" local store

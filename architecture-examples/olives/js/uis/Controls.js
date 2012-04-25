@@ -1,7 +1,7 @@
 (function( window ) {
 	'use strict';
 	
-	define( "Todo/Controls", ["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Store"],
+	define( "Todo/Controls", ["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Olives/LocalStore"],
 
 	// The Controls UI
 	function Controls( OObject, EventPlugin, ModelPlugin, Store ) {
@@ -41,13 +41,19 @@
 				stats.set("plural", stats.get("nbLeft") == 1 ? "item" : "items");
 			};
 			
+			stats.sync("todos-olives-stats");
+			
 			// Add plugins to the UI.
 			controls.plugins.addAll({
 				"event": new EventPlugin(controls),
-				"stats": new ModelPlugin(stats)
+				"stats": new ModelPlugin(stats, {
+					"toggleClass": function ( value, className ) {
+						value ? this.classList.add(className) : this.classList.remove(className);
+					}
+				})
 			});
 			
-			// The controls' view
+			// Alive applies the plugins on the HTML view
 			controls.alive(view);
 			
 			// Delete all tasks
@@ -59,20 +65,6 @@
 			model.watch("added", updateStats);
 			model.watch("deleted", updateStats);
 			model.watch("updated", updateStats);
-			
-			// Here, I could either calculate the data first, or save it using a localStorage
-			// I'm recalculating, it only happens once and saves a store in localStorage
-			updateStats();
-			
-			// Hide/show the clear completed button
-			stats.watchValue("nbCompleted", function (value) {
-				view.querySelector("button").style.display = value ? "block" : "none";
-			});
-			
-			// Hide/show the controls bar according to the number of items
-			stats.watchValue("nbItems", function (value) {
-				view.style.display = value ? "block" : "none";
-			});
 			
 			return stats;
 			

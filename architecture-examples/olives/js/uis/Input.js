@@ -25,16 +25,17 @@
 			
 			// The method to add a new taks
 			input.addTask = function addTask( event, node ) {
-				if (event.keyCode == ENTER_KEYCODE && node.value.trim()) {
+				if ( event.keyCode == ENTER_KEYCODE && node.value.trim() ) {
 					model.alter("push", {
 						title: node.value.trim(),
-						completed: false
+						completed: false,
+						editing: false
 					});
 					node.value = "";
 				}
 			};
 			
-			// Alive makes your view "alive"
+			// Alive applies the plugins on the HTML view
 			input.alive(view);
 			
 		};
