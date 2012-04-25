@@ -88,14 +88,19 @@ define('app/controllers/todos', [
 			// Todo list item editing view
 			todoEditor: Ember.TextField.extend({
 				storageBinding: 'Todos.todosController',
-				focusOut: function() {
+				classNames: [ 'edit' ],
+				whenDone: function() {
 					this.set( 'editing', false );
+					this.set( 'value', this.get( 'value' ).trim() );
+				},
+				focusOut: function() {
+					this.whenDone();
 				},
 				didInsertElement: function() {
 					this.$().focus();
 				},
 				insertNewline: function() {
-					this.set( 'editing', false );
+					this.whenDone();
 				}
 			}),
 
