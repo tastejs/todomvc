@@ -5,24 +5,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Olives • TodoMVC</title>
 	<link rel="stylesheet" href="../../assets/base.css">
-	<style type="text/css">
-		#main, #footer, #clear-completed {
-			display: none;
-		}
-		
-		.show {
-			display: block !important;
-		}
-	</style>
+	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 	<section id="todoapp">
 		<header id="header">
 			<h1>Todos</h1>
-			<input id="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown, addTask">
+			<input id="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown,addTask">
 		</header>
 		<section id="main" data-stats="bind:toggleClass,nbItems,show">
-			<input id="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck, nbCompleted">
+			<input id="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-model="foreach">
 				<li data-model="bind:toggleClass,completed,completed; bind:toggleClass,editing,editing"">
@@ -46,7 +38,6 @@
 		<p>Created by <a href="http://github.com/podefr">Olivier Scherrer</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-	<!-- Scripts here. Don't remove this ↓ -->
 	<script src="../../assets/base.js"></script>
 	<script src="js/lib/require.js"></script>
 	<script src="js/lib/Emily.js"></script>
