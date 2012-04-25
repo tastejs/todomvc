@@ -16,7 +16,7 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 		// The plugins
 		list.plugins.addAll({
 			"event": new EventPlugin(list),
-			"model": new ModelPlugin(model, {
+			"model": new ModelPlugin( model, {
 				"toggleClass": Tools.toggleClass
 			}),
 			"stats": new ModelPlugin(stats, {

@@ -14,7 +14,7 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 		// A function to get the completed tasks
 		getCompleted = function () {
 			var completed = [];
-			model.loop(function (value, id) {
+			model.loop(function ( value, id ) {
 				if ( value.completed ) {
 					completed.push(id);
 				}

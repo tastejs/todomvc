@@ -27,10 +27,10 @@
 		// Initialize Input UI by giving it a view and a model.
 		Input(document.querySelector("#header input"), tasks);
 		
-		// Init the List UI the same way, pass it the controls' API too
+		// Init the List UI the same way, pass it the stats store too
 		List(document.querySelector("#main"), tasks, stats);
 		
-		// The Controls UI returns a small Store with the statistics
+		// Same goes for the control UI
 		Controls(document.querySelector("#footer"), tasks, stats);
 		
 	});
