@@ -13,6 +13,12 @@ describe( 'controllers/todos', function() {
 		).to.equal( controller.inputView.get( 'placeholder' ) );
 	});
 
+	it( 'should not allow empty values on edits', function() {
+		var editorField = controller.todoEditor.create({ value: title });
+		editorField.whenDone();
+		expect( editorField.get( 'value' ) ).to.equal( title );
+	});
+
 	it( 'should create new entry on newline', function() {
 		controller.inputView.set( 'value', title );
 		controller.inputView.insertNewline();
@@ -20,9 +26,15 @@ describe( 'controllers/todos', function() {
 		controller.removeObject( controller.get( 'lastObject' ) );
 	});
 
+	it( 'should not allow empty values on entry changes', function() {
+		controller.createNew( title );
+		var entry = controller.get( 'lastObject' );
+		entry.set( 'title', '  ' );
+		expect( entry.title ).to.equal( title );
+	});
+
 	it( 'should reflect the same number of items as in store', function() {
-		controller.inputView.set( 'value', title );
-		controller.inputView.insertNewline();
+		controller.createNew( 'value', title );
 		var visibles = controller.todosView.
 			get( 'childViews' )[ 0 ].get( 'childViews' ).length;
 		expect( controller.get( 'content' ).length ).to.equal( visibles );
@@ -30,8 +42,7 @@ describe( 'controllers/todos', function() {
 	});
 
 	it( 'should allow removing entries', function( done ) {
-		controller.inputView.set( 'value', title );
-		controller.inputView.insertNewline();
+		controller.createNew( 'value', title );
 		setTimeout( function(){
 			controller.allDoneCheckbox.set( 'value', true );
 		}, 100 );
