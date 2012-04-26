@@ -1,6 +1,6 @@
-define( "Todos/Controls", 
+define( 'Todos/Controls', 
 		
-["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Olives/LocalStore", "Todos/Tools"],
+[ 'Olives/OObject', 'Olives/Event-plugin', 'Olives/Model-plugin', 'Olives/LocalStore', 'Todos/Tools' ],
 
 // The Controls UI
 function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
@@ -26,32 +26,32 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 		updateStats = function () {
 			var nbCompleted = getCompleted().length;
 			
-			stats.set("nbItems", model.getNbItems());
-			stats.set("nbLeft", stats.get("nbItems") - nbCompleted);
-			stats.set("nbCompleted", nbCompleted);
-			stats.set("plural", stats.get("nbLeft") == 1 ? "item" : "items");
+			stats.set( 'nbItems', model.getNbItems() );
+			stats.set( 'nbLeft', stats.get( 'nbItems' ) - nbCompleted );
+			stats.set( 'nbCompleted', nbCompleted );
+			stats.set( 'plural', stats.get( 'nbLeft' ) === 1 ? 'item' : 'items' );
 		};
 		
 		// Add plugins to the UI.
 		controls.plugins.addAll({
-			"event": new EventPlugin(controls),
-			"stats": new ModelPlugin(stats, {
-				"toggleClass": Tools.toggleClass
+			'event': new EventPlugin( controls ),
+			'stats': new ModelPlugin( stats, {
+				'toggleClass': Tools.toggleClass
 			})
 		});
 		
 		// Alive applies the plugins on the HTML view
-		controls.alive(view);
+		controls.alive( view );
 		
 		// Delete all tasks
 		controls.delAll = function () {
-			model.delAll(getCompleted());
+			model.delAll( getCompleted() );
 		};
 		
 		// Update stats when the tasks list is modified
-		model.watch("added", updateStats);
-		model.watch("deleted", updateStats);
-		model.watch("updated", updateStats);
+		model.watch( 'added', updateStats );
+		model.watch( 'deleted', updateStats );
+		model.watch( 'updated', updateStats );
 		
 		// I could either update stats at init or save them in a localStore
 		updateStats();

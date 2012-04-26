@@ -1,6 +1,6 @@
-define( "Todos/List", 
+define( 'Todos/List', 
 		
-["Olives/OObject", "Olives/Event-plugin", "Olives/Model-plugin", "Todos/Tools"],
+['Olives/OObject', 'Olives/Event-plugin', 'Olives/Model-plugin', 'Todos/Tools'],
 
 // The List UI
 function List( OObject, EventPlugin, ModelPlugin, Tools ) {
@@ -9,67 +9,68 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 		
 		// The OObject (the controller) inits with a default model which is a simple store
 		// But it can be init'ed with any other store, like the LocalStore
-		var list = new OObject(model),
+		var list = new OObject( model ),
 		
 		ENTER_KEY = 13;
 		
 		// The plugins
 		list.plugins.addAll({
-			"event": new EventPlugin(list),
-			"model": new ModelPlugin( model, {
-				"toggleClass": Tools.toggleClass
+			'event': new EventPlugin( list ),
+			'model': new ModelPlugin( model, {
+				'toggleClass': Tools.toggleClass
 			}),
-			"stats": new ModelPlugin(stats, {
-				"toggleClass": Tools.toggleClass,
-				"toggleCheck": function ( value ) {
-					this.checked = model.getNbItems() == value ? "on" : "";
+			'stats': new ModelPlugin( stats, {
+				'toggleClass': Tools.toggleClass,
+				'toggleCheck': function ( value ) {
+					this.checked = model.getNbItems() === value ? 'on' : '';
 				}
 			})
 		});
 		
 		// Remove the completed task
 		list.remove = function remove( event, node ) {
-			model.del(node.getAttribute("data-model_id"));
+			model.del( node.getAttribute( 'data-model_id' ) );
 		};
 		
 		// Un/check all tasks
 		list.toggleAll = function toggleAll( event, node ) {
 			var checked = !!node.checked;
+			
 			model.loop(function ( value, idx ) {
-				this.update(idx, "completed", checked);
+				this.update( idx, 'completed', checked );
 			}, model);
 		};
 		
 		// Enter edit mode
 		list.startEdit = function ( event, node ) {
-			var taskId = node.getAttribute("data-model_id");
+			var taskId = node.getAttribute( 'data-model_id' );
 
-			model.update(taskId, "editing", true);
-			view.querySelector("input.edit[data-model_id='" + taskId + "']").select();
+			model.update( taskId, 'editing', true );
+			view.querySelector( 'input.edit[data-model_id="' + taskId + '"]' ).select();
 		};
 		
 		// Leave edit mode
 		list.stopEdit = function ( event, node ) {
-			var taskId = node.getAttribute("data-model_id"),
+			var taskId = node.getAttribute( 'data-model_id' ),
 				value;
 			
-			if ( event.keyCode == ENTER_KEY ) {
+			if ( event.keyCode === ENTER_KEY ) {
 				value = node.value.trim();
 				
 				if ( value ) {
-					model.update(taskId, "title", value);
+					model.update( taskId, 'title', value );
 				} else {
-					model.del(taskId);
+					model.del( taskId );
 				}
-				model.update(taskId, "editing", false);
+				model.update( taskId, 'editing', false );
 
-			} else if ( event.type == "blur" ) {
-				model.update(taskId, "editing", false);
+			} else if ( event.type === 'blur' ) {
+				model.update( taskId, 'editing', false );
 			}
 		};
 		
 		// Alive applies the plugins on the HTML view
-		list.alive(view);
+		list.alive( view );
 
 		
 	};
