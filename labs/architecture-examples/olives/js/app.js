@@ -6,7 +6,6 @@
 
 	// The application
 	function Todos( Input, List, Controls, LocalStore, Store ) {
-		
 		// The tasks Store is told to init on an array 
 		// so tasks are indexed by a number
 		// This store is shared among several UIs of this application
@@ -22,16 +21,16 @@
 		});
 		
 		// Synchronize the store on 'todos-olives' localStorage
-		tasks.sync( 'todos-olives' );
+		tasks.sync('todos-olives');
 		
 		// Initialize Input UI by giving it a view and a model.
-		Input(document.querySelector( '#header input' ), tasks );
+		Input(document.querySelector('#header input'), tasks );
 		
 		// Init the List UI the same way, pass it the stats store too
-		List(document.querySelector( '#main' ), tasks, stats );
+		List(document.querySelector('#main'), tasks, stats );
 		
 		// Same goes for the control UI
-		Controls(document.querySelector( '#footer' ), tasks, stats );
+		Controls(document.querySelector('#footer'), tasks, stats );
 		
 	});
 

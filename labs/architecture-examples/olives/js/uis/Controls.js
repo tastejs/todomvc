@@ -6,7 +6,6 @@ define( 'Todos/Controls',
 function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 	
 	return function ControlsInit( view, model, stats ) {
-		
 		// The OObject (the controller) inits with a default model which is a simple store
 		// But it can be init'ed with any other store, like the LocalStore
 		var controls = new OObject(model),
@@ -27,9 +26,9 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 			var nbCompleted = getCompleted().length;
 			
 			stats.set( 'nbItems', model.getNbItems() );
-			stats.set( 'nbLeft', stats.get( 'nbItems' ) - nbCompleted );
+			stats.set( 'nbLeft', stats.get('nbItems') - nbCompleted );
 			stats.set( 'nbCompleted', nbCompleted );
-			stats.set( 'plural', stats.get( 'nbLeft' ) === 1 ? 'item' : 'items' );
+			stats.set( 'plural', stats.get('nbLeft') === 1 ? 'item' : 'items' );
 		};
 		
 		// Add plugins to the UI.

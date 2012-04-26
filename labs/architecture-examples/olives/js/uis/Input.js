@@ -9,7 +9,6 @@ function Input( OObject, EventPlugin ) {
 	
 	// It returns an init function
 	return function InputInit( view, model ) {
-		
 		// The OObject (the controller) inits with a default model which is a simple store
 		// But it can be init'ed with any other store, like the LocalStore
 		var input = new OObject( model ),
