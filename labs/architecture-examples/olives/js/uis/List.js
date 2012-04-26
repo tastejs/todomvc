@@ -11,7 +11,7 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 		// But it can be init'ed with any other store, like the LocalStore
 		var list = new OObject(model),
 		
-		ENTER_KEYCODE = 13;
+		ENTER_KEY = 13;
 		
 		// The plugins
 		list.plugins.addAll({
@@ -53,7 +53,7 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 			var taskId = node.getAttribute("data-model_id"),
 				value;
 			
-			if ( event.keyCode == ENTER_KEYCODE ) {
+			if ( event.keyCode == ENTER_KEY ) {
 				value = node.value.trim();
 				
 				if ( value ) {

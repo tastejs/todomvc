@@ -14,7 +14,7 @@ function Input( OObject, EventPlugin ) {
 		// But it can be init'ed with any other store, like the LocalStore
 		var input = new OObject(model),
 			
-		ENTER_KEYCODE = 13;
+		ENTER_KEY = 13;
 		
 		// The event plugin that is added to the OObject
 		// We have to tell it where to find the methods
@@ -22,7 +22,7 @@ function Input( OObject, EventPlugin ) {
 		
 		// The method to add a new taks
 		input.addTask = function addTask( event, node ) {
-			if ( event.keyCode == ENTER_KEYCODE && node.value.trim() ) {
+			if ( event.keyCode == ENTER_KEY && node.value.trim() ) {
 				model.alter("push", {
 					title: node.value.trim(),
 					completed: false,
