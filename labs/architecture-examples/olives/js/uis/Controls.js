@@ -13,9 +13,13 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 		
 		// A function to get the completed tasks
 		getCompleted = function () {
-			return model.alter( "filter", function ( value, id ) {
-				return !!value.completed;
+			var completed = [];
+			model.loop(function ( value, id ) {
+				if ( value.completed ) {
+					completed.push(id);
+				}
 			});
+			return completed;
 		},
 		
 		// Update all stats
