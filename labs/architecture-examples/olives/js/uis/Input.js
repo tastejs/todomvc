@@ -25,8 +25,7 @@ function Input( OObject, EventPlugin ) {
 			if ( event.keyCode === ENTER_KEY && node.value.trim() ) {
 				model.alter( 'push', {
 					title: node.value.trim(),
-					completed: false,
-					editing: false
+					completed: false
 				});
 				node.value = '';
 			}

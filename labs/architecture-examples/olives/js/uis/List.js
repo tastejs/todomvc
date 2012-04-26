@@ -46,6 +46,7 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 			var taskId = node.getAttribute( 'data-model_id' );
 
 			model.update( taskId, 'editing', true );
+			Tools.toggleClass.call( view.querySelector( 'li[data-model_id="' + taskId + '"]' ), true, 'editing' );
 			view.querySelector( 'input.edit[data-model_id="' + taskId + '"]' ).select();
 		};
 		
@@ -62,10 +63,10 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 				} else {
 					model.del( taskId );
 				}
-				model.update( taskId, 'editing', false );
+				Tools.toggleClass.call( view.querySelector( 'li[data-model_id="' + taskId + '"]' ), false, 'editing' );
 
 			} else if ( event.type === 'blur' ) {
-				model.update( taskId, 'editing', false );
+				Tools.toggleClass.call( view.querySelector( 'li[data-model_id="' + taskId + '"]' ), false, 'editing' );
 			}
 		};
 		

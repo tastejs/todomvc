@@ -17,7 +17,7 @@
 			<input id="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-model="foreach">
-				<li data-model="bind:toggleClass,completed,completed; bind:toggleClass,editing,editing"">
+				<li data-model="bind:toggleClass,completed,completed;">
 					<div class="view" data-event="listen:dblclick,startEdit">
 						<input class="toggle" type="checkbox" data-model="bind:checked,completed">
 						<label data-model="bind:innerHTML,title"></label>
