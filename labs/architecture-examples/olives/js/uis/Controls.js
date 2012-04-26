@@ -13,13 +13,9 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 		
 		// A function to get the completed tasks
 		getCompleted = function () {
-			var completed = [];
-			model.loop(function ( value, id ) {
-				if ( value.completed ) {
-					completed.push(id);
-				}
+			return model.alter( "filter", function ( value, id ) {
+				return !!value.completed;
 			});
-			return completed;
 		},
 		
 		// Update all stats
@@ -40,7 +36,7 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 			})
 		});
 		
-		// Alive applies the plugins on the HTML view
+		// Alive applies the plugins to the HTML view
 		controls.alive( view );
 		
 		// Delete all tasks

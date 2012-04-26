@@ -70,7 +70,7 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 			}
 		};
 		
-		// Alive applies the plugins on the HTML view
+		// Alive applies the plugins to the HTML view
 		list.alive( view );
 
 		
