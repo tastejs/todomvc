@@ -3,9 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Template • TodoMVC</title>
+	<title>Batman • TodoMVC</title>
 	<link rel="stylesheet" href="../../../assets/base.css">
-	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
   <div data-yield="main"></div>
@@ -13,27 +12,26 @@
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
-            <form data-formfor-todo="newTodo" data-event-submit="createTodo">
-              <input id="new-todo" type="text" placeholder="What needs to be done?" autofocus data-bind="todo.name">
-            </form>
+        <form data-formfor-todo="newTodo" data-event-submit="createTodo">
+          <input id="new-todo" type="text" placeholder="What needs to be completed?" autofocus data-bind="todo.title">
+        </form>
       </header>
-      <!-- This section should be hidden by default and shown when there are todos -->
       <section id="main" data-showif="Todo.all.length">
-        <input id="toggle-all" type="checkbox" data-event-click="completeAll" data-source="Todo.active.length | not">
+        <input id="toggle-all" type="checkbox" data-event-change="toggleAll" data-source="Todo.completed.length | equals Todo.all.length">
         <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list">
           <li data-foreach-todo="currentTodos"
-              data-addclass-completed="todo.done"
+              data-addclass-completed="todo.completed"
               data-addclass-editing="todo.editing" >
 
-            <div class="view" data-hideif="todo.editing">
-              <input class="toggle" type="checkbox" data-bind="todo.done" >
-              <label data-bind="todo.name" data-event-doubleclick="toggleEditing"></label>
+            <div class="view" data-hideif="todo.editing" data-event-doubleclick="toggleEditing">
+              <input class="toggle" type="checkbox" data-bind="todo.completed" data-event-change="todoDoneChanged">
+              <label data-bind="todo.title"></label>
               <button class="destroy" data-event-click="destroyTodo"></button>
             </div>
 
             <input class="edit" type="text"
-              data-bind="todo.name"
+              data-bind="todo.title"
               data-bind-id="'todo-input-' | append todo.id"
               data-event-blur="toggleEditing"
               data-event-keypress="disableEditingUponSubmit" >
@@ -41,12 +39,15 @@
           </li>
         </ul>
       </section>
-      <!-- This footer should hidden by default and shown when there are todos -->
-      <footer id="footer" data-showif="Todo.all.length">
-      <span id="todo-count"><span data-bind="'item' | pluralize Todo.active.length"></span> left</span>
+        <footer id="footer" data-showif="Todo.all.length">
+        <span id="todo-count">
+          <strong data-bind="Todo.active.length"></strong>
+          <span data-bind="'item' | pluralize Todo.active.length, false"></span>
+          left
+        </span>
         <ul id="filters">
           <li>
-            <a data-addclass-selected="currentRoute.action | equals 'all'" data-route="'/all'">All</a>
+            <a data-addclass-selected="currentRoute.action | equals 'all'" data-route="'/'">All</a>
           </li>
           <li>
             <a data-addclass-selected="currentRoute.action | equals 'active'" data-route="'/active'">Active</a>
@@ -55,7 +56,7 @@
             <a data-addclass-selected="currentRoute.action | equals 'completed'" data-route="'/completed'">Completed</a>
           </li>
         </ul>
-        <button id="clear-completed" data-event-click="clearCompleted">Clear completed (<span data-bind="Todo.done.length"></span>)</button>
+        <button id="clear-completed" data-event-click="clearCompleted" data-showif="Todo.completed.length">Clear completed (<span data-bind="Todo.completed.length"></span>)</button>
       </footer>
     </section>
     <footer id="info">

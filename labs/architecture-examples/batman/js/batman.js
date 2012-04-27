@@ -625,11 +625,19 @@
     singularize: function() {
       return helpers.inflector.singularize.apply(helpers.inflector, arguments);
     },
-    pluralize: function(count, singular, plural) {
+    pluralize: function(count, singular, plural, includeCount) {
+      var result;
+      if (includeCount == null) {
+        includeCount = true;
+      }
       if (arguments.length < 2) {
         return helpers.inflector.pluralize(count);
       } else {
-        return ("" + (count || 0) + " ") + (+count === 1 ? singular : plural || helpers.inflector.pluralize(singular));
+        result = +count === 1 ? singular : plural || helpers.inflector.pluralize(singular);
+        if (includeCount) {
+          result = ("" + (count || 0) + " ") + result;
+        }
+        return result;
       }
     },
     camelize: function(string, firstLetterLower) {
@@ -10481,9 +10489,17 @@
     upcase: buntUndefined(function(value) {
       return value.toUpperCase();
     }),
-    pluralize: buntUndefined(function(string, count, binding) {
-      if (binding) {
-        return helpers.pluralize(count, string);
+    pluralize: buntUndefined(function(string, count, includeCount, binding) {
+      if (!binding) {
+        binding = includeCount;
+        includeCount = true;
+        if (!binding) {
+          binding = count;
+          count = void 0;
+        }
+      }
+      if (count) {
+        return helpers.pluralize(count, string, void 0, includeCount);
       } else {
         return helpers.pluralize(string);
       }

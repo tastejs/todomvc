@@ -17,7 +17,7 @@
 
     Alfred.root('todos#all');
 
-    _ref = ['all', 'completed', 'active'];
+    _ref = ['completed', 'active'];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       action = _ref[_i];
       Alfred.route("/" + action, "todos#" + action);
@@ -36,7 +36,7 @@
     function TodosController() {
       TodosController.__super__.constructor.apply(this, arguments);
       this.set('newTodo', new Alfred.Todo({
-        done: false
+        completed: false
       }));
     }
 
@@ -45,7 +45,7 @@
     };
 
     TodosController.prototype.completed = function() {
-      this.set('currentTodos', Alfred.Todo.get('done'));
+      this.set('currentTodos', Alfred.Todo.get('completed'));
       return this.render({
         source: 'todos/all'
       });
@@ -67,9 +67,19 @@
           }
         } else {
           return _this.set('newTodo', new Alfred.Todo({
-            done: false,
-            name: ""
+            completed: false,
+            title: ""
           }));
+        }
+      });
+    };
+
+    TodosController.prototype.todoDoneChanged = function(node, event, context) {
+      var todo;
+      todo = context.get('todo');
+      return todo.save(function(err) {
+        if (err && !err instanceof Batman.ErrorsSet) {
+          throw err;
         }
       });
     };
@@ -84,21 +94,19 @@
       });
     };
 
-    TodosController.prototype.completeAll = function() {
+    TodosController.prototype.toggleAll = function(node, context) {
       return Alfred.Todo.get('all').forEach(function(todo) {
-        todo.set('done', true);
+        todo.set('completed', !!node.checked);
         return todo.save(function(err) {
-          if (err) {
-            if (!(err instanceof Batman.ErrorsSet)) {
-              throw err;
-            }
+          if (err && !err instanceof Batman.ErrorsSet) {
+            throw err;
           }
         });
       });
     };
 
     TodosController.prototype.clearCompleted = function() {
-      return Alfred.Todo.get('done').forEach(function(todo) {
+      return Alfred.Todo.get('completed').forEach(function(todo) {
         return todo.destroy(function(err) {
           if (err) {
             throw err;
@@ -108,30 +116,33 @@
     };
 
     TodosController.prototype.toggleEditing = function(node, event, context) {
-      var editing, todo;
+      var editing, input, todo, _ref;
       todo = context.get('todo');
       editing = todo.set('editing', !todo.get('editing'));
       if (editing) {
-        document.getElementById("todo-input-" + (todo.get('id'))).focus();
-      }
-      if (todo.get('name').trim().length > 0) {
-        return todo.save(function(err) {
-          if (err) {
-            throw err;
-          }
-        });
+        input = document.getElementById("todo-input-" + (todo.get('id')));
+        input.focus();
+        return input.select();
       } else {
-        return todo.destroy(function(err) {
-          if (err) {
-            throw err;
-          }
-        });
+        if (((_ref = todo.get('title')) != null ? _ref.length : void 0) > 0) {
+          return todo.save(function(err, todo) {
+            if (err && !err instanceof Batman.ErrorsSet) {
+              throw err;
+            }
+          });
+        } else {
+          return todo.destroy(function(err, todo) {
+            if (err) {
+              throw err;
+            }
+          });
+        }
       }
     };
 
     TodosController.prototype.disableEditingUponSubmit = function(node, event, context) {
       if (Batman.DOM.events.isEnter(event)) {
-        return context.get('todo').set('editing', false);
+        return this.toggleEditing(node, event, context);
       }
     };
 
@@ -149,24 +160,34 @@
       return Todo.__super__.constructor.apply(this, arguments);
     }
 
-    Todo.encode('name', 'done');
+    Todo.encode('title', 'completed');
 
     Todo.persist(Batman.LocalStorage);
 
-    Todo.validate('name', {
+    Todo.validate('title', {
       presence: true
     });
 
+    Todo.storageKey = 'todos-batman';
+
     Todo.classAccessor('active', function() {
       return this.get('all').filter(function(todo) {
-        return !todo.get('done');
+        return !todo.get('completed');
       });
     });
 
-    Todo.classAccessor('done', function() {
+    Todo.classAccessor('completed', function() {
       return this.get('all').filter(function(todo) {
-        return todo.get('done');
+        return todo.get('completed');
       });
+    });
+
+    Todo.wrapAccessor('title', function(core) {
+      return {
+        set: function(key, value) {
+          return core.set.call(this, key, value != null ? value.trim() : void 0);
+        }
+      };
     });
 
     return Todo;
