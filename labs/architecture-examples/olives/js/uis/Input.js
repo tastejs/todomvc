@@ -33,5 +33,4 @@ function Input( OObject, EventPlugin ) {
 		// Alive applies the plugins to the HTML view
 		input.alive( view );
 	};
-	
 });

@@ -56,5 +56,4 @@ function Controls( OObject, EventPlugin, ModelPlugin, Store, Tools ) {
 		updateStats();
 		
 	};
-	
 });
