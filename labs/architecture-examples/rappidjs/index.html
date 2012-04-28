@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Todo</title>
+
+    <link rel="stylesheet" href="css/todo.css"/>
+
+    <script type="text/javascript" src="lib/require.js"></script>
+    <script type="text/javascript" src="lib/inherit.js"></script>
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/flow.js"></script>
+    <script type="text/javascript" src="lib/rAppid.js"></script>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<script type="text/javascript">
+    rAppid.bootStrap("app/Todo.xml", "config.json",
+            function (err, systemManager, application) {
+                if (!err) {
+                    application.start(null, function () {
+                        application.render(document.body);
+                    });
+                } else {
+                    console.warn(err);
+                }
+            });
+
+</script>
+</body>
+</html>
