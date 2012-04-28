@@ -1,10 +1,9 @@
-run: node_modules/fun
-	node_modules/.bin/fun app.fun
+run: fun
+	./fun/bin/fun app.fun
 
-node_modules/fun:
-	mkdir -p node_modules
-	git clone git://github.com/marcuswestin/fun.git node_modules/fun
-	cd node_modules/fun && make setup
+fun:
+	git clone git://github.com/marcuswestin/fun.git fun
+	cd fun && git checkout 3ec19592b6b0ee11ab67770220820c1ec9791a23 && make setup
 
 clean:
-	rm -rf node_modules/
+	rm -rf fun
