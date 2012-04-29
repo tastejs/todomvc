@@ -10,17 +10,11 @@ o_O.bindings.enterKey = function( func, $el ) {
 o_O.bindingTypes.enterKey = 'outbound'
 
 
-// adds an `s` where necessary
-window.pluralize = function( word, count ) {
-  return word + (count === 1 ? "" : "s");
-}
-
 // represents a single todo item
 var Todo = o_O.model.extend({
-    type: 'Todo',
     title: '',
     completed: false
-  }, 
+  },
   {
     initialize: function() {
       this.editing = o_O(false)
@@ -35,8 +29,12 @@ var Todo = o_O.model.extend({
     },
 
     stopEditing: function() {
-      var text = $.trim( this.title() ) || this.title.old_value
-      this.title( text )
+      var text = $.trim( this.title() )
+
+      text
+        ? this.title( text )        
+        : this.remove()
+
       this.editing( false )
     },
 
@@ -117,6 +115,11 @@ var TodoApp = o_O.model.extend({
 
     persist: function() {
       localStorage[ 'todos-o_O' ] = JSON.stringify( this.todos.toJSON() )
+    },
+
+    // adds an `s` where necessary
+    pluralize: function( word, count ) {
+      return word + (count === 1 ? "" : "s");
     }
   }
 );
@@ -131,7 +134,7 @@ function main() {
 
   // create models
   for( var i=0; i < todos.length; i++ ) 
-    todos[ i ] = o_O.model.create( todos[i] )
+    todos[ i ] = Todo.create( todos[i] )
 
   // create app
   window.todoapp = TodoApp( {todos: todos} )

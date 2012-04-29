@@ -563,7 +563,8 @@ extend(model, Events, {
     return child;
   },
   create: function(o) {
-    var type = model.types[o.type]
+    o = o || {}
+    var type = this == model ? model.types[o.type] : this
     if(!type) throw new Error('no such Model with type: ' + o.type)
     return new type(o)
   }
