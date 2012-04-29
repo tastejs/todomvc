@@ -249,8 +249,12 @@ WebKit supports styling of inputs */
 
 #todo-list li label {
 	word-break: break-word;
-	margin: 20px 15px;
+	padding: 20px 15px;
 	display: inline-block;
+	width: 440px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	-webkit-transition: color 0.4s;
 	-moz-transition: color 0.4s;
 	-ms-transition: color 0.4s;
