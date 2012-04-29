@@ -5,7 +5,6 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
   Alfred = (function(_super) {
-    var action, _i, _len, _ref;
 
     __extends(Alfred, _super);
 
@@ -17,11 +16,9 @@
 
     Alfred.root('todos#all');
 
-    _ref = ['completed', 'active'];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      action = _ref[_i];
-      Alfred.route("/" + action, "todos#" + action);
-    }
+    Alfred.route("/completed", "todos#completed");
+
+    Alfred.route("/active", "todos#active");
 
     return Alfred;
 

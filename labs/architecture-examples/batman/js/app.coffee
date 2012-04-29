@@ -1,7 +1,7 @@
 class Alfred extends Batman.App
   @root 'todos#all'
-  for action in ['completed', 'active']
-    @route "/#{action}", "todos##{action}"
+  @route "/completed", "todos#completed"
+  @route "/active", "todos#active"
 
 class Alfred.TodosController extends Batman.Controller
   constructor: ->
