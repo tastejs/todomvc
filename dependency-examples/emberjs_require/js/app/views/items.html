@@ -8,6 +8,6 @@
 			{{view Ember.Button target="Todos.todosController" action="removeObject" class="destroy" todoBinding="content"}}
 		{{/view}}
 	{{else}}
-		{{view Todos.todosController.todoEditor editingBinding="content.editing" valueBinding="content.title"}}
+		{{view Todos.todosController.todoEditor todoBinding="content" valueBinding="content.title"}}
 	{{/unless}}
 {{/collection}}

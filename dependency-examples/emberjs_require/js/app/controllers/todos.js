@@ -90,8 +90,10 @@ define('app/controllers/todos', [
 				storageBinding: 'Todos.todosController',
 				classNames: [ 'edit' ],
 				whenDone: function() {
-					this.set( 'editing', false );
-					this.set( 'value', this.get( 'value' ).trim() );
+					this.get( 'todo' ).set( 'editing', false );
+					if ( !this.get( 'todo' ).get( 'title' ).trim() ) {
+					 this.get( 'storage' ).removeObject( this.get( 'todo' ) );
+					}
 				},
 				focusOut: function() {
 					this.whenDone();
