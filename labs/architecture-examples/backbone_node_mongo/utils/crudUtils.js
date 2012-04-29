@@ -7,10 +7,6 @@
 
   "use strict";
 
-  function errMsg(msg) {
-    return {'error': {'message': msg.toString()}};
-  }
-
   //------------------------------
   // List
   //
@@ -18,10 +14,10 @@
     return function (req, res) {
       //console.log('list', req.body);
       model.find({}, function (err, result) {
-        if (!err) {
-          res.send(result);
+        if (err) {
+          res.send(409, err);
         } else {
-          res.send(errMsg(err));
+          res.send(result);
         }
       });
     };
@@ -35,10 +31,10 @@
       //console.log('create', req.body);
       var m = new model(req.body);
       m.save(function (err) {
-        if (!err) {
-          res.send(m);
+        if (err) {
+          res.send(409, err);
         } else {
-          res.send(errMsg(err));
+          res.send(m);
         }
       });
     };
@@ -51,10 +47,10 @@
     return function (req, res) {
       //console.log('read', req.body);
       model.findById(req.params.id, function (err, result) {
-        if (!err) {
-          res.send(result);
+        if (err) {
+          res.send(409, err);
         } else {
-          res.send(errMsg(err));
+          res.send(result);
         }
       });
     };
@@ -72,10 +68,10 @@
           result[key] = req.body[key];
         }
         result.save(function (err) {
-          if (!err) {
-            res.send(result);
+          if (err) {
+            res.send(409, err);
           } else {
-            res.send(errMsg(err));
+            res.send(result);
           }
         });
       });
@@ -90,14 +86,14 @@
       //console.log('delete', req.body);
       model.findById(req.params.id, function (err, result) {
         if (err) {
-          res.send(errMsg(err));
+          res.send(409, err);
         } else {
           result.remove();
           result.save(function (err) {
-            if (!err) {
-              res.send({});
+            if (err) {
+              res.send(409, err);
             } else {
-              res.send(errMsg(err));
+              res.send({});
             }
           });
         }
@@ -106,10 +102,10 @@
   }
 
   exports.initRoutesForModel = function (options) {
-    var app = options.app,
-      model = options.model,
-      path,
-      pathWithId;
+    var app = options.app
+      , model = options.model
+      , path
+      , pathWithId;
 
     if (!app || !model) {
       return;

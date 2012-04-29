@@ -111,8 +111,8 @@ $(function ($, _, Backbone) {
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function () {
-      this.model.bind('change', this.render, this);
-      this.model.bind('destroy', this.remove, this);
+      this.model.on('change', this.render, this);
+      this.model.on('destroy', this.remove, this);
     },
 
     // Re-render the titles of the todo item.
@@ -186,9 +186,9 @@ $(function ($, _, Backbone) {
       this.input = this.$("#new-todo");
       this.allCheckbox = this.$("#toggle-all")[0];
 
-      Todos.bind('add', this.addOne, this);
-      Todos.bind('reset', this.addAll, this);
-      Todos.bind('all', this.render, this);
+      Todos.on('add', this.addOne, this);
+      Todos.on('reset', this.addAll, this);
+      Todos.on('all', this.render, this);
 
       this.footer = this.$('footer');
       this.main = $('#main');
@@ -199,8 +199,8 @@ $(function ($, _, Backbone) {
     // Re-rendering the App just means refreshing the statistics -- the rest
     // of the app doesn't change.
     render: function () {
-      var done = Todos.done().length,
-        remaining = Todos.remaining().length;
+      var done = Todos.done().length
+        , remaining = Todos.remaining().length;
 
       if (Todos.length) {
         this.main.show();
