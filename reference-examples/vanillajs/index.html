@@ -3,19 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<title>VanillaJS • TodoMVC</title>
-	<link rel="stylesheet" href="../../assets/base.css">
+	<link rel="stylesheet" href="../../../assets/base.css">
 </head>
 
-<body onload="bodyLoadHandler()">
+<body>
 
 	<section id="todoapp">
 		<header id="header">
 			<h1>Todos</h1>
-			<input id="new-todo" placeholder="What needs to be done?" onkeypress="newTodoKeyPressHandler(event)" autofocus>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
 		</header>
 
 		<section id="main">
-			<input id="toggle-all" type="checkbox" onchange="toggleAllChangeHandler(event)">
+			<input id="toggle-all" type="checkbox" >
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
 
@@ -36,7 +36,6 @@
 
 	<!-- scripts here -->
 	<script src="js/app.js"></script>
-	<script src="js/json2.js"></script>
 
 </body>
 </html>
