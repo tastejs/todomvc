@@ -13,12 +13,7 @@ define('app/models/todo', ['ember'],
 			store: null,
 			// Observer that will react on item change and will update the storage
 			todoChanged: function() {
-				if ( !this.get( 'title' ).trim() ) {
-					var older = this.get( 'store' ).find( this );
-					this.set( 'title', older.get( 'title' ) );
-				} else {
-					this.get( 'store' ).update( this );
-				}
+				this.get( 'store' ).update( this );
 			}.observes( 'title', 'completed' )
 		});
 	}
