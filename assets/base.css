@@ -223,7 +223,12 @@ WebKit supports styling of inputs */
 
 #todo-list li .toggle {
 	text-align: center;
-	width: 35px;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
 	-webkit-appearance: none;
 	/*-moz-appearance: none;*/
 	-ms-appearance: none;
@@ -234,7 +239,7 @@ WebKit supports styling of inputs */
 #todo-list li .toggle:after {
 	font-size: 18px;
 	content: '✔';
-	line-height: 40px;
+	line-height: 43px; /* 40 + a couple of pixels visual adjustment */
 	font-size: 20px;
 	color: #d9d9d9;
 	text-shadow: 0 -1px 0 #bfbfbf;
@@ -249,8 +254,9 @@ WebKit supports styling of inputs */
 
 #todo-list li label {
 	word-break: break-word;
-	margin: 20px 15px;
+	margin: 15px 15px 15px 60px;
 	display: inline-block;
+	line-height: 1.2;
 	-webkit-transition: color 0.4s;
 	-moz-transition: color 0.4s;
 	-ms-transition: color 0.4s;
@@ -266,10 +272,12 @@ WebKit supports styling of inputs */
 #todo-list li .destroy {
 	display: none;
 	position: absolute;
-	top: 10px;
+	top: 0;
 	right: 10px;
+	bottom: 0;
 	width: 40px;
 	height: 40px;
+	margin: auto 0;
 	font-size: 22px;
 	color: #a88a8a;
 	-webkit-transition: all 0.2s;
