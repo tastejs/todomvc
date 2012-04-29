@@ -6,17 +6,18 @@ describe( 'controllers/todos', function() {
 	var controller = Todos.get( 'todosController' );
 	var title = 'Another title...';
 
-	it( 'should have a view for entering new entry', function() {
+	it( 'should have an input for entering new entry', function() {
 		expect( controller.inputView ).to.be.a( 'object' );
 		expect(
 			$( controller.inputView.get( 'element' ) ).attr( 'placeholder' )
 		).to.equal( controller.inputView.get( 'placeholder' ) );
 	});
 
-	it( 'should not allow empty values on edits', function() {
-		var editorField = controller.todoEditor.create({ value: title });
-		editorField.whenDone();
-		expect( editorField.get( 'value' ) ).to.equal( title );
+	it( 'should not create new entry on empty-ish input', function() {
+		var counted = controller.get( 'remaining' );
+		controller.inputView.set( 'value', '  ' );
+		controller.inputView.insertNewline();
+		expect( controller.get( 'remaining' ) ).to.equal( counted )
 	});
 
 	it( 'should create new entry on newline', function() {
@@ -26,11 +27,17 @@ describe( 'controllers/todos', function() {
 		controller.removeObject( controller.get( 'lastObject' ) );
 	});
 
-	it( 'should not allow empty values on entry changes', function() {
+	it( 'should delete item if title is empty-ish', function() {
 		controller.createNew( title );
+		var counted = controller.get( 'remaining' );
 		var entry = controller.get( 'lastObject' );
 		entry.set( 'title', '  ' );
-		expect( entry.title ).to.equal( title );
+		var editor = controller.todoEditor.create({
+			todo: entry,
+			storage: controller
+		});
+		editor.whenDone();
+		expect( controller.get( 'remaining' ) ).to.equal( counted - 1 );
 	});
 
 	it( 'should reflect the same number of items as in store', function() {
