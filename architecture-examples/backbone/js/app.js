@@ -1,8 +1,3 @@
-// An example Backbone application contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/). This demo uses a simple
-// [LocalStorage adapter](backbone-localstorage.js)
-// to persist Backbone models within your browser.
-
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
@@ -92,7 +87,7 @@ $(function(){
 		events: {
 			"click .toggle"   : "toggleDone",
 			"dblclick .view"  : "edit",
-			"click a.destroy" : "clear",
+			"click .destroy" : "clear",
 			"keypress .edit"  : "updateOnEnter",
 			"blur .edit"      : "close"
 		},
