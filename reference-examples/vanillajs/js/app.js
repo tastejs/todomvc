@@ -2,11 +2,11 @@ var todos = [],
 	stat = {},
 	ENTER_KEY = 13;
 
-window.addEventListener("load", windowLoadHandler, false);
+window.addEventListener( "load", windowLoadHandler, false );
 
 
 function Todo( title, completed ) {
-	this.id = uuid();
+	this.id = getUuid();
 	this.title = title;
 	this.completed = completed;
 }
@@ -17,9 +17,7 @@ function Stat() {
 	this.totalTodo = 0;
 }
 
-/**************************/
-/*    EVENT HANDLERS       /
-/**************************/
+
 function windowLoadHandler() {
 	loadTodos();
 	refreshData();
@@ -27,8 +25,8 @@ function windowLoadHandler() {
 }
 
 function addEventListeners() {
-	document.getElementById('new-todo').addEventListener("keypress", newTodoKeyPressHandler, false);
-	document.getElementById('toggle-all').addEventListener("change", toggleAllChangeHandler, false);
+	document.getElementById( 'new-todo' ).addEventListener( "keypress", newTodoKeyPressHandler, false );
+	document.getElementById( 'toggle-all' ).addEventListener( "change", toggleAllChangeHandler, false );
 }
 
 function inputEditTodoKeyPressHandler( event ) {
@@ -37,16 +35,16 @@ function inputEditTodoKeyPressHandler( event ) {
 		todoId;
 
 	inputEditTodo = event.target;
-	trimmedText = inputEditTodo.value.trim()
- 	todoId = event.target.id.slice(6)
+	trimmedText = inputEditTodo.value.trim();
+	todoId = event.target.id.slice( 6 );
 
-	if (trimmedText) {
-		if (event.keyCode === ENTER_KEY) {
-			editTodo(todoId, trimmedText);
+	if ( trimmedText ) {
+		if ( event.keyCode === ENTER_KEY ) {
+			editTodo( todoId, trimmedText );
 		}
 	}
 	else {
-		removeTodoById(todoId);
+		removeTodoById( todoId );
 		refreshData();
 	}
 }
@@ -56,25 +54,25 @@ function inputEditTodoBlurHandler( event ) {
 		todoId;
 
 	inputEditTodo = event.target;
-	todoId = event.target.id.slice(6)
-	editTodo(todoId, inputEditTodo.value);
+	todoId = event.target.id.slice( 6 );
+	editTodo( todoId, inputEditTodo.value );
 }
 
 function newTodoKeyPressHandler( event ) {
-	if (event.keyCode === ENTER_KEY) {
-		addTodo(document.getElementById('new-todo').value);
+	if ( event.keyCode === ENTER_KEY ) {
+		addTodo( document.getElementById( 'new-todo' ).value );
 	}
 }
 
 function toggleAllChangeHandler( event ) {
-	for (var i in todos) {
+	for ( var i in todos ) {
 		todos[i].completed = event.target.checked;
 	}
 	refreshData();
 }
 
 function spanDeleteClickHandler( event ) {
-	removeTodoById(event.target.getAttribute('data-todo-id'));
+	removeTodoById( event.target.getAttribute( 'data-todo-id' ) );
 	refreshData();
 }
 
@@ -88,11 +86,11 @@ function todoContentHandler( event ) {
 		div,
 		inputEditTodo;
 
-	todoId = event.target.getAttribute('data-todo-id');
-	div = document.getElementById('li_'+todoId);
+	todoId = event.target.getAttribute( 'data-todo-id' );
+	div = document.getElementById( 'li_'+todoId );
 	div.className = 'editing';
 
-	inputEditTodo = document.getElementById('input_'+todoId);
+	inputEditTodo = document.getElementById( 'input_' + todoId );
 	inputEditTodo.focus();
 }
 
@@ -101,30 +99,27 @@ function checkboxChangeHandler( event ) {
 		todo;
 
 	checkbox = event.target;
-	todo = getTodoById(checkbox.getAttribute('data-todo-id'));
+	todo = getTodoById( checkbox.getAttribute( 'data-todo-id' ) );
 	todo.completed = checkbox.checked;
 
 	refreshData();
 }
 
-/**************************/
-/*    ACTIONS              /
-/**************************/
 function loadTodos() {
-	if (!localStorage.getItem('todos-vanillajs')) {
-		localStorage.setItem('todos-vanillajs', JSON.stringify([]));
+	if ( !localStorage.getItem( 'todos-vanillajs' ) ) {
+		localStorage.setItem( 'todos-vanillajs', JSON.stringify( [] ) );
 	}
 
-	todos = JSON.parse(localStorage.getItem('todos-vanillajs'));
+	todos = JSON.parse( localStorage.getItem( 'todos-vanillajs' ) );
 
 }
 
 function addTodo( text ) {
 	var trimmedText = text.trim();
 
-	if (trimmedText) {
-		var todo = new Todo(trimmedText, false);
-		todos.push(todo);
+	if ( trimmedText ) {
+		var todo = new Todo( trimmedText, false );
+		todos.push( todo );
 		refreshData();
 	}
 }
@@ -132,8 +127,8 @@ function addTodo( text ) {
 function editTodo( todoId, text ) {
 	var i;
 
-	for (i=0; i < todos.length; i++) {
-		if (todos[i].id === todoId) {
+	for ( i=0; i < todos.length; i++ ) {
+		if ( todos[i].id === todoId ) {
 			todos[i].title = text;
 		}
 	}
@@ -143,18 +138,18 @@ function editTodo( todoId, text ) {
 function removeTodoById( id ) {
 	var i;
 
-   	for (i=0; i < todos.length; i++) {
-		if (todos[i].id === id) {
-			todos.splice(i, 1);
+	for ( i=0; i < todos.length; i++ ) {
+		if ( todos[i].id === id ) {
+			todos.splice( i, 1 );
 		}
-   	}
+	}
 }
 
 function removeTodosCompleted() {
 	var i = todos.length-1;
-	while (i >= 0) {
-		if (todos[i].completed) {
-			todos.splice(i, 1);
+	while ( i >= 0 ) {
+		if ( todos[i].completed ) {
+			todos.splice( i, 1 );
 		}
 		--i;
    }
@@ -163,8 +158,8 @@ function removeTodosCompleted() {
 function getTodoById( id ) {
 	var i;
 
-	for (i=0; i < todos.length; i++) {
-		if (todos[i].id === id) {
+	for ( i=0; i < todos.length; i++ ) {
+		if ( todos[i].id === id ) {
 			return todos[i];
 		}
 	}
@@ -179,7 +174,7 @@ function refreshData() {
 }
 
 function saveTodos() {
-	localStorage.setItem('todos-vanillajs', JSON.stringify(todos));
+	localStorage.setItem( 'todos-vanillajs', JSON.stringify( todos ) );
 }
 
 function computeStats() {
@@ -187,8 +182,8 @@ function computeStats() {
 
 	stat = new Stat();
 	stat.totalTodo = todos.length;
-	for (i=0; i < todos.length; i++) {
-		if (todos[i].completed) {
+	for ( i=0; i < todos.length; i++ ) {
+		if ( todos[i].completed ) {
 			stat.todoCompleted += 1;
 		}
 	}
@@ -196,9 +191,6 @@ function computeStats() {
 }
 
 
-/**************************/
-/*    DRAWING              /
-/**************************/
 function redrawTodosUI() {
 
 	var ul,
@@ -211,90 +203,91 @@ function redrawTodosUI() {
 		li, 
 		i;
 
-	ul = document.getElementById('todo-list');
+	ul = document.getElementById( 'todo-list' );
 
-	document.getElementById('main').style.display = todos.length ? 'block' : 'none';
+	document.getElementById( 'main' ).style.display = todos.length ? 'block' : 'none';
 
 	ul.innerHTML = "";
-	document.getElementById('new-todo').value = '';
+	document.getElementById( 'new-todo' ).value = '';
 
-	for (i= 0; i < todos.length; i++) {
+	for ( i= 0; i < todos.length; i++ ) {
 		todo = todos[i];
 
 		//create checkbox
-		checkbox = document.createElement('input');
+		checkbox = document.createElement( 'input' );
 		checkbox.className = 'toggle';
-		checkbox.setAttribute('data-todo-id', todo.id);
+		checkbox.setAttribute( 'data-todo-id', todo.id );
 		checkbox.type = 'checkbox';
-		checkbox.addEventListener('change', checkboxChangeHandler);
+		checkbox.addEventListener( 'change', checkboxChangeHandler );
 
 		//create div text
-		label = document.createElement('label');
-		label.setAttribute('data-todo-id', todo.id);
-		label.appendChild(document.createTextNode(todo.title));
+		label = document.createElement( 'label' );
+		label.setAttribute( 'data-todo-id', todo.id );
+		label.appendChild( document.createTextNode( todo.title ) );
 
 
 		//create delete button
-		deleteLink = document.createElement('button');
+		deleteLink = document.createElement( 'button' );
 		deleteLink.className = 'destroy';
-		deleteLink.setAttribute('data-todo-id', todo.id);
-		deleteLink.addEventListener('click', spanDeleteClickHandler);
+		deleteLink.setAttribute( 'data-todo-id', todo.id );
+		deleteLink.addEventListener( 'click', spanDeleteClickHandler );
 
 		//create divDisplay
-		divDisplay = document.createElement('div');
+		divDisplay = document.createElement( 'div' );
 		divDisplay.className = 'view';
-		divDisplay.setAttribute('data-todo-id', todo.id);
-		divDisplay.appendChild(checkbox);
-		divDisplay.appendChild(label);
-		divDisplay.appendChild(deleteLink);
-		divDisplay.addEventListener('dblclick', todoContentHandler);
+		divDisplay.setAttribute( 'data-todo-id', todo.id );
+		divDisplay.appendChild( checkbox );
+		divDisplay.appendChild( label );
+		divDisplay.appendChild( deleteLink );
+		divDisplay.addEventListener( 'dblclick', todoContentHandler );
 
 
 		//create todo input
-		inputEditTodo = document.createElement('input');
+		inputEditTodo = document.createElement( 'input' );
 		inputEditTodo.id = 'input_' + todo.id;
 		inputEditTodo.className = 'edit';
 		inputEditTodo.value = todo.title;
-		inputEditTodo.addEventListener('keypress', inputEditTodoKeyPressHandler);
-		inputEditTodo.addEventListener('blur', inputEditTodoBlurHandler);
+		inputEditTodo.addEventListener( 'keypress', inputEditTodoKeyPressHandler );
+		inputEditTodo.addEventListener( 'blur', inputEditTodoBlurHandler );
 
 
 		//create li
-		li = document.createElement('li');
+		li = document.createElement( 'li' );
 		li.id = 'li_' + todo.id;
-		li.appendChild(divDisplay);
-		li.appendChild(inputEditTodo);
+		li.appendChild( divDisplay );
+		li.appendChild( inputEditTodo );
 
 
-		if (todo.completed)
+		if ( todo.completed )
 		{
 			li.className += 'complete';
 			checkbox.checked = true;
 		}
 
-		ul.appendChild(li);
+		ul.appendChild( li );
 	}
 
 	
 }
 
 function changeToggleAllCheckboxState() {
-	var toggleAll = document.getElementById('toggle-all');
-	if (stat.todoCompleted == todos.length)
+	var toggleAll = document.getElementById( 'toggle-all' );
+	if ( stat.todoCompleted === todos.length ) {
 		toggleAll.checked = true;
-	else
+	} else {
 		toggleAll.checked = false;
+	}
 }
 
 function redrawStatsUI() {
-	removeChildren(document.getElementsByTagName('footer')[0]);
-	document.getElementById('footer').style.display = todos.length ? 'block' : 'none';
+	removeChildren( document.getElementsByTagName( 'footer' )[ 0 ] );
+	document.getElementById( 'footer' ).style.display = todos.length ? 'block' : 'none';
 
-	if (stat.todoCompleted > 0) {
+	if ( stat.todoCompleted > 0 ) {
 		drawTodoClear();
 	}
 
-	if (stat.totalTodo > 0) {
+	if ( stat.totalTodo > 0 ) {
 		drawTodoCount();
 	}
 }
@@ -305,54 +298,52 @@ function drawTodoCount() {
 		theText, 
 		remaining;
 	// Create remaining count
-	number = document.createElement('strong');
+	number = document.createElement( 'strong' );
 	number.innerHTML = stat.todoLeft;
 	theText = ' item';
-	if (stat.todoLeft !== 1) {
+	if ( stat.todoLeft !== 1 ) {
 		theText += 's';
 	}
 	theText += ' left';
 
-	remaining = document.createElement('span');
+	remaining = document.createElement( 'span' );
 	remaining.id = 'todo-count';
-	remaining.appendChild(number);
-	remaining.appendChild(document.createTextNode(theText));
+	remaining.appendChild( number );
+	remaining.appendChild( document.createTextNode( theText ) );
 
-	document.getElementsByTagName('footer')[0].appendChild(remaining);
+	document.getElementsByTagName( 'footer' )[ 0 ].appendChild( remaining );
 }
 
 function drawTodoClear() {
 
-	var buttonClear = document.createElement('button');
+	var buttonClear = document.createElement( 'button' );
 	buttonClear.id = 'clear-completed';
-	buttonClear.addEventListener('click', hrefClearClickHandler);
-	buttonClear.innerHTML = 'Clear completed ('+stat.todoCompleted+')';
+	buttonClear.addEventListener( 'click', hrefClearClickHandler );
+	buttonClear.innerHTML = 'Clear completed (' + stat.todoCompleted + ')';
 
 	
-	document.getElementsByTagName('footer')[0].appendChild(buttonClear);
+	document.getElementsByTagName( 'footer' )[ 0 ].appendChild( buttonClear );
 }
 
 
 function removeChildren( node ) {
-	while (node.firstChild) {
-      node.removeChild(node.firstChild);
+	while ( node.firstChild ) {
+      node.removeChild( node.firstChild );
     }
 }
 
-/**************************/
-/*    UTILS                /
-/**************************/
-function uuid() {
- 	var uuid = '', 
-  		i, 
-  		random;
+
+function getUuid() {
+	var uuid = '', 
+		i,
+		random;
   
-  	for (i = 0; i < 32; i++) {
+	for ( i = 0; i < 32; i++ ) {
 		random = Math.random() * 16 | 0;
-		if (i == 8 || i == 12 || i == 16 || i == 20) {
-			uuid += '-'
+		if ( i === 8 || i === 12 || i === 16 || i === 20 ) {
+			uuid += '-';
 		}
-		uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
-  	}
- 	return uuid;
+		uuid += ( i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random) ).toString( 16 );
+	}	
+	return uuid;
 }
