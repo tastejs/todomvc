@@ -33,8 +33,10 @@ function List( OObject, EventPlugin, ModelPlugin, Tools ) {
 		
 		// Un/check all tasks
 		list.toggleAll = function toggleAll( event, node ) {
+			var checked = !!node.checked;
+			
 			model.loop( function ( value, idx ) {
-				this.update( idx, 'completed', !!node.checked );
+				this.update( idx, 'completed', checked );
 			}, model);
 		};
 		
