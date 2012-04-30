@@ -1,7 +1,7 @@
 //a custom binding to handle the enter key
 o_O.bindings.enterKey = function( func, $el ) {
   var ENTER_KEY = 13;
-  var context = this
+  var context = this;
   $el.keyup(function(e) {
     if( e.keyCode === ENTER_KEY )
       func.call(context);
@@ -20,7 +20,7 @@ var Todo = o_O.model.extend({
       this.editing = o_O(false)
     },
 
-    startEditing: function() {  
+    startEditing: function() {
       this.editing( true )
       var self = this
       setTimeout(function() {
@@ -32,7 +32,7 @@ var Todo = o_O.model.extend({
       var text = $.trim( this.title() )
 
       text
-        ? this.title( text )        
+        ? this.title( text )
         : this.remove()
 
       this.editing( false )
@@ -51,7 +51,7 @@ var Todo = o_O.model.extend({
     klass: function() {
       if(this.editing())
         return 'editing'
-      if(this.completed()) 
+      if(this.completed())
         return 'completed'
       else
         return ''
@@ -61,7 +61,7 @@ var Todo = o_O.model.extend({
 
 // main application
 var TodoApp = o_O.model.extend({
-    current: "",
+    current: '',
     completedCount: 0,
     filter: ''
   }, {
@@ -76,15 +76,15 @@ var TodoApp = o_O.model.extend({
         self.completedCount( completed.length )
         self.persist()
       })
-      
+
       this.remainingCount = o_O(function() {
         return self.todos.count() - self.completedCount()
       })
-      
-      // writeable computed observable 
+
+      // writeable computed observable
       // handles marking all complete/incomplete
       // or retrieving if this is true
-      this.allCompleted = o_O(function(v) {    
+      this.allCompleted = o_O(function(v) {
         if(arguments.length == 0) {
           return self.remainingCount() == 0
         }
@@ -102,7 +102,7 @@ var TodoApp = o_O.model.extend({
       var text = $.trim( this.current() );
       if( text ) {
         this.todos.unshift( Todo({title: text}) );
-        this.current( "" )        
+        this.current( "" )
       }
     },
 
@@ -129,11 +129,11 @@ function main() {
   var todos = []
   try {
     todos = JSON.parse( localStorage['todos-o_O'] );
-  } 
+  }
   catch(e) { }
 
   // create models
-  for( var i=0; i < todos.length; i++ ) 
+  for( var i=0; i < todos.length; i++ )
     todos[ i ] = Todo.create( todos[i] )
 
   // create app
@@ -147,11 +147,11 @@ function main() {
   o_O.router()
     .add('*filter', function(filt) {
       todoapp.filter(filt)
-      
+
       $( '#filters a' )
         .removeClass( 'selected' )
         .filter( "[href='#/" + filt + "']" )
-        .addClass( 'selected' ) 
+        .addClass( 'selected' )
     })
     .start()
 }
