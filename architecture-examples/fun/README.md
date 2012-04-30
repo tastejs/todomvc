@@ -10,10 +10,13 @@ Getting started
 
 To make changes to the todos-fun example you need to install fun:
 
-	git clone git://github.com/marcuswestin/fun.git
-	cd fun && make setup
+	sudo npm install fun@0.3.0 -g
 
-To compile, run
+To develop the app:
 
-	./fun/bin/fun --compile app.fun --normalize.css=false > index.html
+	fun app.fun --normalize.css=false
+
+To compile a static build:
+
+	fun compile app.fun --normalize.css=false > index.html
 
