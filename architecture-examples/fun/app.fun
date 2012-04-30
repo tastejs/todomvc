@@ -30,7 +30,11 @@ getVisibleTasks = function(displayFilter) {
 createTask = handler(taskName) {
 	trimmedName = text.trim(taskName)
 	if trimmedName is ! '' {
-		tasks push: { title:trimmedName, completed:false, id:uuid.v4() }
+		tasks push: {
+			title:trimmedName,
+			completed:false,
+			id:uuid.v4()
+		}
 	}
 }
 
@@ -45,7 +49,8 @@ destroyTask = handler(task) {
 		<h1>"todos"</h1>
 		newTaskName = ''
 		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
-			if (event.keyCode is 13) {
+			enterKey = 13
+			if event.keyCode is enterKey {
 				createTask(newTaskName.copy())
 				newTaskName set: ''
 			}
@@ -74,7 +79,7 @@ destroyTask = handler(task) {
 						</div>
 						
 						newTitle = task.title
-						<input class="edit" data=newTitle autofocus="true" onblur=handler() {
+						<input class="edit" data=newTitle autofocus=true onblur=handler() {
 							task set:'title', newTitle.copy()
 						} />
 					</li>
@@ -92,13 +97,13 @@ destroyTask = handler(task) {
 			</span>
 			
 			<ul id="filters">
-				<li><a href="#" class=(displayFilter is 'all' ? 'selected' : '')>"All"</a></li onclick=handler() {
+				<li><a href="#" class=(displayFilter is "all" ? "selected" : "")>"All"</a></li onclick=handler() {
 					displayFilter set:'all'
 				}>
-				<li><a href="#" class=(displayFilter is 'active' ? 'selected' : '')>"Active"</a></li onclick=handler() {
+				<li><a href="#" class=(displayFilter is "active" ? "selected" : "")>"Active"</a></li onclick=handler() {
 					displayFilter set:'active'
 				}>
-				<li><a href="#" class=(displayFilter is 'completed' ? 'selected' : '')>"Completed"</a></li onclick=handler() {
+				<li><a href="#" class=(displayFilter is "completed" ? "selected" : "")>"Completed"</a></li onclick=handler() {
 					displayFilter set:'completed'
 				}>
 			</ul>
@@ -106,6 +111,7 @@ destroyTask = handler(task) {
 			<button id="clear-completed">"Clear completed ("completedTasks.length")"</button onclick=handler() {
 				remainingTasks = list.filter(tasks, function(task) { return !task.completed })
 				tasks set: remainingTasks.copy()
+				displayFilter set:displayFilter.copy() // force display to recalc
 			}>
 		</footer>
 	}
