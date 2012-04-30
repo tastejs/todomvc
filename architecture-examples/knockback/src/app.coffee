@@ -1,11 +1,3 @@
-###
-	knockback-todos.js
-	(c) 2011 Kevin Malakoff.
-	Knockback-Todos is freely distributable under the MIT license.
-	See the following for full license details:
-		https:#github.com/kmalakoff/knockback-todos/blob/master/LICENSE
-###
-
 $ ->
 	# Add custom handlers to Knockout.js - adapted from Knockout.js Todos app: https://github.com/ashish01/knockoutjs-todos
 	ko.bindingHandlers.dblclick =

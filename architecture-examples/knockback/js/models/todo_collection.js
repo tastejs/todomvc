@@ -12,7 +12,7 @@
     function TodosCollection() {
       TodosCollection.__super__.constructor.apply(this, arguments);
     }
-    TodosCollection.prototype.localStorage = new Store("todos-knockback");
+    TodosCollection.prototype.localStorage = new Store('todos-knockback');
     TodosCollection.prototype.model = Todo;
     TodosCollection.prototype.completedCount = function() {
       return this.models.reduce((function(prev, cur) {
