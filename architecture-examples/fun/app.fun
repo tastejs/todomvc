@@ -87,8 +87,9 @@ createNewTask = handler(taskName) {
 		
 		<footer id="footer">
 			completedTasks = list.filter(tasks, function(task) { return task.completed })
-			pluralize = function(num) { return num is > 1 ? "items" : "item" }
+			
 			<span id="todo-count">
+				pluralize = function(num) { return num is > 1 ? "items" : "item" }
 				numTasksLeft = tasks.length - completedTasks.length
 				<strong>numTasksLeft</strong>" "pluralize(numTasksLeft)" left"
 			</span>
