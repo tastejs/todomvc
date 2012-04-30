@@ -2,6 +2,514 @@
 <html><head>
 <meta charset="UTF-8">
 <style type="text/css">
+/* inlined stylesheet: /usr/local/lib/node_modules/fun/src/runtime/normalize.css */
+/*! normalize.css 2012-03-11T12:53 UTC - http://github.com/necolas/normalize.css */
+
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+/*
+ * Corrects block display not defined in IE6/7/8/9 & FF3
+ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+    display: block;
+}
+
+/*
+ * Corrects inline-block display not defined in IE6/7/8/9 & FF3
+ */
+
+audio,
+canvas,
+video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+/*
+ * Prevents modern browsers from displaying 'audio' without controls
+ * Remove excess height in iOS5 devices
+ */
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+/*
+ * Addresses styling for 'hidden' attribute not present in IE7/8/9, FF3, S4
+ * Known issue: no IE6 support
+ */
+
+[hidden] {
+    display: none;
+}
+
+
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+/*
+ * 1. Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+ *    http://clagnut.com/blog/348/#c790
+ * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ *    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
+ */
+
+html {
+    font-size: 100%; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+    -ms-text-size-adjust: 100%; /* 2 */
+}
+
+/*
+ * Addresses font-family inconsistency between 'textarea' and other form elements.
+ */
+
+html,
+button,
+input,
+select,
+textarea {
+    font-family: sans-serif;
+}
+
+/*
+ * Addresses margins handled incorrectly in IE6/7
+ */
+
+body {
+    margin: 0;
+}
+
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+/*
+ * Addresses outline displayed oddly in Chrome
+ */
+
+a:focus {
+    outline: thin dotted;
+}
+
+/*
+ * Improves readability when focused and also mouse hovered in all browsers
+ * people.opera.com/patrickl/experiments/keyboard/test
+ */
+
+a:hover,
+a:active {
+    outline: 0;
+}
+
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+/*
+ * Addresses font sizes and margins set differently in IE6/7
+ * Addresses font sizes within 'section' and 'article' in FF4+, Chrome, S5
+ */
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+
+h6 {
+    font-size: 0.75em;
+    margin: 2.33em 0;
+}
+
+/*
+ * Addresses styling not present in IE7/8/9, S5, Chrome
+ */
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+/*
+ * Addresses style set to 'bolder' in FF3+, S4/5, Chrome
+*/
+
+b,
+strong {
+    font-weight: bold;
+}
+
+blockquote {
+    margin: 1em 40px;
+}
+
+/*
+ * Addresses styling not present in S5, Chrome
+ */
+
+dfn {
+    font-style: italic;
+}
+
+/*
+ * Addresses styling not present in IE6/7/8/9
+ */
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+/*
+ * Addresses margins set differently in IE6/7
+ */
+
+p,
+pre {
+    margin: 1em 0;
+}
+
+/*
+ * Corrects font family set oddly in IE6, S4/5, Chrome
+ * en.wikipedia.org/wiki/User:Davidgothberg/Test59
+ */
+
+pre,
+code,
+kbd,
+samp {
+    font-family: monospace, serif;
+    _font-family: 'courier new', monospace;
+    font-size: 1em;
+}
+
+/*
+ * Improves readability of pre-formatted text in all browsers
+ */
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/*
+ * 1. Addresses CSS quotes not supported in IE6/7
+ * 2. Addresses quote property not supported in S4
+ */
+
+/* 1 */
+
+q {
+    quotes: none;
+}
+
+/* 2 */
+
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+small {
+    font-size: 75%;
+}
+
+/*
+ * Prevents sub and sup affecting line-height in all browsers
+ * gist.github.com/413930
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+/*
+ * Addresses margins set differently in IE6/7
+ */
+
+dl,
+menu,
+ol,
+ul {
+    margin: 1em 0;
+}
+
+dd {
+    margin: 0 0 0 40px;
+}
+
+/*
+ * Addresses paddings set differently in IE6/7
+ */
+
+menu,
+ol,
+ul {
+    padding: 0 0 0 40px;
+}
+
+/*
+ * Corrects list images handled incorrectly in IE7
+ */
+
+nav ul,
+nav ol {
+    list-style: none;
+    list-style-image: none;
+}
+
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+/*
+ * 1. Removes border when inside 'a' element in IE6/7/8/9, FF3
+ * 2. Improves image quality when scaled in IE7
+ *    code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+ */
+
+img {
+    border: 0; /* 1 */
+    -ms-interpolation-mode: bicubic; /* 2 */
+}
+
+/*
+ * Corrects overflow displayed oddly in IE9
+ */
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+/*
+ * Addresses margin not present in IE6/7/8/9, S5, O11
+ */
+
+figure {
+    margin: 0;
+}
+
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+/*
+ * Corrects margin displayed oddly in IE6/7
+ */
+
+form {
+    margin: 0;
+}
+
+/*
+ * Define consistent border, margin, and padding
+ */
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+/*
+ * 1. Corrects color not being inherited in IE6/7/8/9
+ * 2. Corrects text not wrapping in FF3
+ * 3. Corrects alignment displayed oddly in IE6/7
+ */
+
+legend {
+    border: 0; /* 1 */
+    padding: 0;
+    white-space: normal; /* 2 */
+    *margin-left: -7px; /* 3 */
+}
+
+/*
+ * 1. Corrects font size not being inherited in all browsers
+ * 2. Addresses margins set differently in IE6/7, FF3+, S5, Chrome
+ * 3. Improves appearance and consistency in all browsers
+ */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%; /* 1 */
+    margin: 0; /* 2 */
+    vertical-align: baseline; /* 3 */
+    *vertical-align: middle; /* 3 */
+}
+
+/*
+ * Addresses FF3/4 setting line-height on 'input' using !important in the UA stylesheet
+ */
+
+button,
+input {
+    line-height: normal; /* 1 */
+}
+
+/*
+ * 1. Improves usability and consistency of cursor style between image-type 'input' and others
+ * 2. Corrects inability to style clickable 'input' types in iOS
+ * 3. Removes inner spacing in IE7 without affecting normal text inputs
+ *    Known issue: inner spacing remains in IE6
+ */
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    cursor: pointer; /* 1 */
+    -webkit-appearance: button; /* 2 */
+    *overflow: visible;  /* 3 */
+}
+
+/*
+ * Re-set default cursor for disabled elements
+ */
+
+button[disabled],
+input[disabled] {
+    cursor: default;
+}
+
+/*
+ * 1. Addresses box sizing set to content-box in IE8/9
+ * 2. Removes excess padding in IE8/9
+ * 3. Removes excess padding in IE7
+      Known issue: excess padding remains in IE6
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+    *height: 13px; /* 3 */
+    *width: 13px; /* 3 */
+}
+
+/*
+ * 1. Addresses appearance set to searchfield in S5, Chrome
+ * 2. Addresses box-sizing set to border-box in S5, Chrome (include -moz to future-proof)
+ */
+
+input[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; /* 2 */
+    box-sizing: content-box;
+}
+
+/*
+ * Removes inner padding and search cancel button in S5, Chrome on OS X
+ */
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/*
+ * Removes inner padding and border in FF3+
+ * www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 1. Removes default vertical scrollbar in IE6/7/8/9
+ * 2. Improves readability and alignment in all browsers
+ */
+
+textarea {
+    overflow: auto; /* 1 */
+    vertical-align: top; /* 2 */
+}
+
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+/*
+ * Remove most spacing between table cells
+ */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+</style>
+<style type="text/css">
 /* inlined stylesheet: /Volumes/Encrypted/code/marcuswestin/todomvc/assets/base.css */
 html,
 body {
@@ -263,7 +771,7 @@ WebKit supports styling of inputs */
 	transition: color 0.4s;
 }
 
-#todo-list li.complete label {
+#todo-list li.completed label {
 	color: #a9a9a9;
 	text-decoration: line-through;
 }
@@ -420,7 +928,7 @@ body {
 </head><body><script>
 var __require__ = {}
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/isArray
+	// /usr/local/lib/node_modules/fun/node_modules/std/isArray
 	var module = __require__["_1"] = {exports:{}}, exports = module.exports;
 module.exports = (function() {
 	if (Array.isArray && Array.isArray.toString().match('\\[native code\\]')) {
@@ -438,7 +946,7 @@ module.exports = (function() {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/isArguments
+	// /usr/local/lib/node_modules/fun/node_modules/std/isArguments
 	var module = __require__["_2"] = {exports:{}}, exports = module.exports;
 module.exports = function isArguments(obj) {
   return Object.prototype.toString.call(obj) == '[object Arguments]'
@@ -446,7 +954,7 @@ module.exports = function isArguments(obj) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/each
+	// /usr/local/lib/node_modules/fun/node_modules/std/each
 	var module = __require__["_3"] = {exports:{}}, exports = module.exports;
 var isArray = __require__["_1"].exports,
 	isArguments = __require__["_2"].exports
@@ -472,7 +980,7 @@ module.exports = function(items, ctx, fn) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/create
+	// /usr/local/lib/node_modules/fun/node_modules/std/create
 	var module = __require__["_4"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports
 // Thanks Douglas Crockford! http://javascript.crockford.com/prototypal.html
@@ -500,7 +1008,7 @@ module.exports = function create(obj, extendWithProperties) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/proto
+	// /usr/local/lib/node_modules/fun/node_modules/std/proto
 	var module = __require__["_5"] = {exports:{}}, exports = module.exports;
 /* 
 	// Usage: proto(prototypeObj, intantiatingFn, properties)
@@ -546,7 +1054,7 @@ var proto = module.exports = function proto(prototypeObject, instantiationFuncti
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/map
+	// /usr/local/lib/node_modules/fun/node_modules/std/map
 	var module = __require__["_6"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports
 
@@ -565,7 +1073,7 @@ module.exports = function(items, ctx, fn) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/slice
+	// /usr/local/lib/node_modules/fun/node_modules/std/slice
 	var module = __require__["_7"] = {exports:{}}, exports = module.exports;
 /*
 	Example usage:
@@ -583,7 +1091,7 @@ module.exports = function args(args, offset, length) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/bind
+	// /usr/local/lib/node_modules/fun/node_modules/std/bind
 	var module = __require__["_8"] = {exports:{}}, exports = module.exports;
 /*
 	Example usage:
@@ -639,118 +1147,88 @@ module.exports = function bind(context, method /* curry1, curry2, ... curryN */)
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/src/runtime/expressions
+	// /usr/local/lib/node_modules/fun/node_modules/std/arrayToObject
 	var module = __require__["_9"] = {exports:{}}, exports = module.exports;
+module.exports = function arrayToObject(arr) {
+	var obj = {}
+	for (var i=0; i<arr.length; i++) { obj[arr[i]] = true }
+	return obj
+}
+})()
+
+;(function() {
+	// /usr/local/lib/node_modules/fun/node_modules/std/copy
+	var module = __require__["_10"] = {exports:{}}, exports = module.exports;
+var each = __require__["_3"].exports,
+	isArray = __require__["_1"].exports
+
+module.exports = function copy(obj, deep) {
+	var result = isArray(obj) ? [] : {}
+	each(obj, function(val, key) {
+		result[key] = (deep && typeof val == 'object') ? copy(val, deep) : val
+	})
+	return result
+}
+
+})()
+
+;(function() {
+	// /usr/local/lib/node_modules/fun/src/runtime/expressions
+	var module = __require__["_11"] = {exports:{}}, exports = module.exports;
 var proto = __require__["_5"].exports,
 	create = __require__["_4"].exports,
 	map = __require__["_6"].exports,
 	isArray = __require__["_1"].exports,
-	each = __require__["_3"].exports,
-	bind = __require__["_8"].exports
+	bind = __require__["_8"].exports,
+	arrayToObject = __require__["_9"].exports,
+	copy = __require__["_10"].exports
 
-/* Value bases
- *************/
+// All values inherit from base
+///////////////////////////////
 var base = module.exports.base = {
-	observe:function(callback) { callback() },
-	asJSON:function() { return this.asLiteral() },
-	asJSONObject:function() { return JSON.parse(this.asJSON()) }, // HACK
+	observe:function(callback) {
+		var id = this._onMutate(callback)
+		callback()
+		return id
+	},
+	_onMutate:function(callback) {},
+	toJSON:function() { return JSON.parse(this.asLiteral()) },
 	isTruthy:function() { return true },
 	isNull:function() { return false },
+	iterate:function() {},
 	getters:{
 		copy:function() {
-			var self = this
-			return module.exports.Function(function(yieldValue) {
-				yieldValue(self.getContent())
-			})
+			return module.exports.Function(bind(this, function(yieldValue) {
+				yieldValue(this.getContent())
+			}))
+		},
+		Type:function() {
+			return Text(this.getType())
 		}
 	}
 }
 
+// Simple values
+////////////////
 var constantAtomicBase = create(base, {
+	isAtomic:function() { return true },
 	inspect:function() { return '<'+this._type+' ' + this.asLiteral() + '>' },
 	getType:function() { return this._type },
 	evaluate:function() { return this },
-	isAtomic:function() { return true },
-	isMutable:function() { return false },
-	asString:function() { return this._content.toString() },
-	equals:function(that) { return (this.getType() == that.getType() && this.getContent() == that.getContent()) ? Yes : No },
+	toString:function() { return this._content.toString() },
+	equals:function(that) { return (this._type == that.getType() && this._content == that.getContent()) ? Yes : No },
 	getContent:function() { return this._content },
-	hasVariableContent:function() { return false },
-	dismiss:function(id) { /* This function intentionally left blank */  }
-})
-
-var invocableBase = create(constantAtomicBase, {
-	asLiteral:function() { return '<block>' }
-})
-
-var variableValueBase = create(base, {
-	isAtomic:function() { return this.evaluate().isAtomic() },
-	getType:function() { return this.evaluate().getType() },
-	asString:function() { return this.evaluate().asString() },
-	asLiteral:function() { return this.evaluate().asLiteral() },
-	equals:function(that) { return this.evaluate().equals(that) },
-	getContent:function() { return this.evaluate().getContent() },
-	isTruthy:function() { return this.evaluate().isTruthy() },
-	hasVariableContent:function() { return true }
-})
-
-var mutableBase = create(variableValueBase, {
-	isMutable:function() { return true },
-	notifyObservers:function() { each(this.observers, function(observer) { observer() }) },
-	observe:function(callback) {
-		var uniqueID = 'u'+_unique++
-		this.observers[uniqueID] = callback
-		callback()
-		return uniqueID
-	},
-	dismiss:function(uniqueID) {
-		if (!this.observers[uniqueID]) {
-			throw new Error("Tried to dismiss an observer by incorrect ID")
-		}
-		delete this.observers[uniqueID]
-	},
-	onNewValue:function(oldValue, observationId, newValue) {
-		if (oldValue && oldValue.hasVariableContent()) {
-			oldValue.dismiss(observationId)
-		}
-		if (newValue.hasVariableContent()) {
-			return newValue.observe(bind(this, this.notifyObservers))
-		} else {
-			this.notifyObservers()
-		}
+	mutate:function() { throw new Error("Called mutate on non-mutable value "+this.asLiteral() )},
+	dismiss:function(id) {},
+	render:function(hookName) {
+		fun.hooks[hookName].innerHTML = ''
+		fun.hooks[hookName].appendChild(document.createTextNode(this.toString()))
 	}
 })
 
-var collectionBase = create(mutableBase, {
-	isAtomic:function() { return false },
-	getType:function() { return this._type },
-	evaluate:function() { return this },
-	getContent:function() { return this._content },
-	isTruthy:function() { return true },
-	set:function(chain, value) {
-		if (!chain || !chain.length) {
-			throw new Error("Attempted setting collection property without a chain")
-		}
-		var prop = chain[0]
-		if (chain.length == 1) {
-			var oldValue = this._content[prop]
-			this._content[prop] = value
-			this._observationIDs[prop] = this.onNewValue(oldValue, this._observationIDs[prop], value)
-		} else if (!this._content[prop]) {
-			throw new Error('Attempted to set the value of a null property')
-		} else if (!this._content[prop].isMutable()) {
-			throw new Error("Attempted to set the value of a non-mutable property")
-		} else {
-			this._content[prop].set(chain.slice(1), value)
-		}
-	}
-})
-
-/* Atomic, immutable expressions
- *******************************/
 var Number = module.exports.Number = proto(constantAtomicBase,
-	function(content) {
-		if (typeof content != 'number') { TypeMismatch }
+	function Number(content) {
+		if (typeof content != 'number') { typeMismatch() }
 		this._content = content
 	}, {
 		_type:'Number',
@@ -760,8 +1238,8 @@ var Number = module.exports.Number = proto(constantAtomicBase,
 )
 
 var Text = module.exports.Text = proto(constantAtomicBase,
-	function(content) {
-		if (typeof content != 'string') { TypeMismatch }
+	function Text(content) {
+		if (typeof content != 'string') { typeMismatch() }
 		this._content = content
 	}, {
 		_type:'Text',
@@ -770,31 +1248,30 @@ var Text = module.exports.Text = proto(constantAtomicBase,
 )
 
 var Logic = module.exports.Logic = function(content) {
-	if (typeof content != 'boolean') { TypeMismatch }
+	if (typeof content != 'boolean') { typeMismatch() }
 	return content ? Yes : No
 }
-
 var LogicProto = proto(constantAtomicBase,
-	function(content) {
+	function Logic(content) {
 		this._content = content
 	}, {
 		_type:'Logic',
-		asString:function() { return this._content ? 'yes' : 'no' },
+		toString:function() { return this._content ? 'yes' : 'no' },
 		asLiteral:function() { return this._content ? 'true' : 'false' },
 		isTruthy:function() { return this._content }
 	}
 )
-
 var Yes = module.exports.Yes = LogicProto(true),
 	No = module.exports.No = LogicProto(false)
 
-var NullValue = (proto(constantAtomicBase,
-	function() {
-		if (arguments.length) { TypeMismatch }
+module.exports.Null = function() { return Null }
+var Null = (proto(constantAtomicBase,
+	function Null() {
+		if (arguments.length) { typeMismatch() }
 	}, {
 		_type:'Null',
 		inspect:function() { return '<Null>' },
-		asString:function() { return '' },
+		toString:function() { return '' },
 		equals:function(that) { return that.getType() == 'Null' ? Yes : No },
 		asLiteral:function() { return 'null' },
 		isTruthy:function() { return false },
@@ -802,138 +1279,430 @@ var NullValue = (proto(constantAtomicBase,
 	}
 ))();
 
-module.exports.Null = function() { return NullValue }
-
-module.exports.Function = proto(invocableBase,
-	function(block) {
-		if (typeof block != 'function') { TypeMismatch }
+// Invocable values
+///////////////////
+module.exports.Function = proto(constantAtomicBase,
+	function Function(block) {
+		if (typeof block != 'function') { typeMismatch() }
 		this._content = block
 	}, {
 		_type:'Function',
 		invoke:function(args) {
-			var invocationValue = variable(NullValue)
-			var yieldValue = function(value) { invocationValue.set(null, fromJsValue(value)) }
-			var __hackFirstExecution = true
+			var result = variable(Null)
+			this._withArgs(args, this._content, function(value) {
+				result.mutate('set', [fromJsValue(value)])
+			})
+			return result
+		},
+		render:function(hookName, args) {
+			this._withArgs(args, this._content, function(value) {
+				fromJsValue(value).render(hookName)
+			})
+		},
+		_withArgs:function(args, content, yieldValue) {
 			var executeBlock = bind(this, function() {
-				if (waitForSetup) { return }
-				var isFirstExecution = __hackFirstExecution
-				__hackFirstExecution = false
-				this._content.apply(this, [yieldValue, isFirstExecution].concat(args))
+				if (args[1]) {
+					 // hack: isFirstExecution
+					var useArgs = copy(args)
+					args[1] = false
+					content.apply(this, useArgs)
+				} else {
+					content.apply(this, args)
+				}
 			})
 			
-			var waitForSetup = true
-			each(args, function(arg) {
-				arg && arg.observe(executeBlock)
-			})
-			waitForSetup = false
+			for (var i=0; i<args.length; i++) {
+				if (args[i]) { args[i]._onMutate(executeBlock) }
+			}
+			
+			var isFirstExecution = true
+			args = _cleanArgs([yieldValue, isFirstExecution].concat(args), this._content)
 			executeBlock()
-			
-			return invocationValue
 		}
 	}
 )
 
-function waitFor(fn) {
-	var waitingFor = 0
-	return {
-		addWaiter:function() {
-			var responded = false
-			waitingFor++
-			return function() {
-				if (!responded) {
-					responded = true
-					waitingFor--
-				}
-				if (!waitingFor) { fn() }
-			}
-		},
-		tryNow:function() {
-			if (!waitingFor) { fn() }
-		}
-	}
-}
-
-module.exports.Handler = proto(invocableBase,
-	function(block) {
-		if (typeof block != 'function') { TypeMismatch }
+module.exports.Handler = proto(constantAtomicBase,
+	function Handler(block) {
+		if (typeof block != 'function') { typeMismatch() }
 		this._content = block
 	}, {
 		_type:'Handler',
-		invoke:function(element, event) {
-			this._content.call(element, event)
+		invoke:function(args) {
+			this._content.apply(this, args)
 		}
 	}
 )
 
-module.exports.Template = proto(invocableBase,
-	function(block) {
-		if (typeof block != 'function') { TypeMismatch }
+module.exports.Template = proto(constantAtomicBase,
+	function Template(block) {
+		if (typeof block != 'function') { typeMismatch() }
 		this._content = block
 	}, {
 		_type:'Template',
 		render:function(hookName, args) {
-			this._content.apply(this, [hookName].concat(args))
-			return NullValue // This is a bit ghetto - allows template invocations to render nothing. I'm thinking more and more that template invocations may want their own syntax (<templateName foo=foo, bar=bar, gee=gee> </templateName>)
+			args = _cleanArgs([hookName].concat(args), this._content)
+			this._content.apply(this, args)
 		}
 	}
 )
 
-/* Variable value expressions
- ****************************/
-var composite = module.exports.composite = proto(variableValueBase,
-	function(left, operator, right) {
-		if (typeof operator != 'string') { TypeMismatch }
-		// TODO typecheck left and right
-		this.left = left
-		this.right = right
+// Variable expressions
+///////////////////////
+var variableValueBase = create(base, {
+	isAtomic:function() { return this.evaluate().isAtomic() },
+	getType:function() { return this.evaluate().getType() },
+	toString:function() { return this.evaluate().toString() },
+	asLiteral:function() { return this.evaluate().asLiteral() },
+	equals:function(that) { return this.evaluate().equals(that) },
+	getContent:function() { return this.evaluate().getContent() },
+	isTruthy:function() { return this.evaluate().isTruthy() },
+	invoke:function(args) { return this.evaluate().invoke(args) },
+	render:function(hookName, args) {
+		this.observe(bind(this, function() {
+			this.evaluate().render(hookName, args)
+		}))
+	}
+})
+
+var variableCompositeBase = create(variableValueBase, {
+	_initComposite:function(components) {
+		this.ids = {}
+		this.components = components
+	},
+	_onMutate:function(callback) {
+		var id = unique(),
+			ids = this.ids[id] = {}
+		for (var key in this.components) {
+			ids[key] = this.components[key]._onMutate(callback)
+		}
+		return id
+	},
+	dismiss:function(id) {
+		var ids = this.ids[id]
+		if (!ids) { throw new Error("Tried to dismiss a collection observer by incorrect ID") }
+		delete this.ids[id]
+		for (var key in ids) {
+			this.components[key].dismiss(ids[key])
+		}
+	}
+})
+
+module.exports.unaryOp = proto(variableCompositeBase,
+	function unaryOp(operator, value) {
 		this.operator = operator
+		this._initComposite({ value:value })
 	}, {
-		_type:'composite',
-		evaluate:function() { return operators[this.operator](this.left, this.right) },
-		observe:function(callback) {
-			this._leftId = this.left.observe(callback)
-			this._rightId = this.right.observe(callback)
-		},
-		dismiss:function() {
-			this.left.dismiss(this._leftId)
-			this.right.dismiss(this._rightId)
+		_type:'unaryOp',
+		evaluate:function() {
+			return unaryOperators[this.operator](this.components.value.evaluate())
 		}
 	}
 )
 
-module.exports.ternary = proto(variableValueBase,
-	function(condition, ifValue, elseValue) {
-		this.condition = condition
-		this.ifValue = ifValue
-		this.elseValue = elseValue
-	}, {
-		_type:'ternary',
-		evaluate:function() { return this.condition.getContent() ? this.ifValue.evaluate() : this.elseValue.evaluate() },
-		observe:function(callback) {
-			this._conditionId = this.condition.observe(callback)
-			this._ifValueId = this.ifValue.observe(callback)
-			this._elseValueId = this.elseValue.observe(callback)
-		},
-		dismiss:function() {
-			this.condition.dismiss(this._conditionID)
-			this.ifValue.dismiss(this._ifValueId)
-			this.elseValue.dismiss(this._elseValueId)
-		}
-	})
-
-module.exports.unary = proto(variableValueBase,
-	function(operator, value) {
+module.exports.binaryOp = proto(variableCompositeBase,
+	function binaryOp(left, operator, right) {
 		this.operator = operator
-		this.value = value
+		this._initComposite({ left:left, right:right })
 	}, {
-		_type:'unary',
-		evaluate:function() { return unaryOperators[this.operator](this.value.evaluate()) },
-		observe:function(callback) { this._valueId = this.value.observe(callback) },
-		dismiss:function() { this.value.dismiss(this._valueId) }
-	})
+		_type:'binaryOp',
+		evaluate:function() { return operators[this.operator](this.components.left, this.components.right) }
+	}
+)
 
+module.exports.ternaryOp = proto(variableCompositeBase,
+	function ternaryOp(condition, ifValue, elseValue) {
+		this._initComposite.call(this, { condition:condition, ifValue:ifValue, elseValue:elseValue })
+	}, {
+		_type:'ternaryOp',
+		evaluate:function() {
+			return this.components.condition.isTruthy()
+				? this.components.ifValue.evaluate()
+				: this.components.elseValue.evaluate()
+		}
+	}
+)
+
+var dereference = module.exports.dereference = proto(variableCompositeBase,
+	function dereference(value, key) {
+		this._initComposite({ value:value, key:key })
+	}, {
+		_onMutate:function(callback) {
+			return variableCompositeBase._onMutate.call(this, bind(this, function(mutation) {
+				var affectedProperties = mutation.affectedProperties
+				var propertyKey = this.components.key.asLiteral()
+				if (affectedProperties && !affectedProperties[propertyKey]) { return }
+				mutation = { affectedProperties:null }
+				callback(mutation)
+			}))
+		},
+		_type:'dereference',
+		inspect:function() { return '<dereference '+this.components.value.inspect()+'['+this.components.key.inspect()+']>' },
+		equals:function(that) { return this.evaluate().equals(that) },
+		lookup:function(key) { return this._getCurrentValue().lookup(key) },
+		evaluate:function() { return this._getCurrentValue().evaluate() },
+		mutate:function(operator, args) { this._getCurrentValue().mutate(operator, args) },
+		_getCurrentValue:function() {
+			var key = this.components.key.evaluate(),
+				value = this.components.value,
+				getterValue = value.evaluate(),
+				getter = (key.getType() == 'Text' && getterValue.getters[key.toString()])
+			
+			if (getter) {
+				return getter.call(getterValue)
+			} else if (value.isAtomic()) {
+				return Null
+			} else {
+				return value.lookup(key) || Null
+			}
+		}
+	}
+)
+
+// Mutable values - variables and collections
+/////////////////////////////////////////////
+var mutableBase = create(variableValueBase, {
+	_initMutable:function() {
+		this.observers = {}
+		this.notify = bind(this, this._notifyObservers)
+	},
+	_notifyObservers:function(mutation) {
+		for (var id in this.observers) {
+			this.observers[id](mutation)
+		}
+	},
+	_onMutate:function(callback) {
+		var id = unique()
+		this.observers[id] = callback
+		return id
+	},
+	dismiss:function(id) {
+		if (!this.observers[id]) { throw new Error("Tried to dismiss an observer by incorrect ID") }
+		delete this.observers[id]
+	}
+})
+
+var variable = module.exports.variable = proto(mutableBase,
+	function variable(content) {
+		this._initMutable()
+		this.mutate('set', [content])
+	}, {
+		_type:'variable',
+		evaluate:function() { return this._content.evaluate() },
+		inspect:function() { return '<variable '+this._content.inspect()+'>' },
+		toString:function() { return this._content.toString() },
+		asLiteral:function() { return this._content.asLiteral() },
+		equals:function(that) { return this._content.equals(that) },
+		lookup:function(key) { return this._content.lookup(key) },
+		mutate: function(operator, args) {
+			if (operator != 'set' || args.length == 2) { // Hmm, hacky, should methods with multiple arguments have different method names like in ObjC?
+				return this._content.mutate(operator, args)
+			}
+			_checkArgs(args, 1)
+			var newContent = args[0]
+			
+			if (this._observationID) {
+				this._content.dismiss(this._observationID)
+			}
+			this._content = newContent
+			this._observationID = newContent._onMutate(this.notify)
+			
+			var mutation = { affectedProperties:null }
+			this.notify(mutation)
+		}
+	}
+)
+
+var collectionBase = create(mutableBase, {
+	_initCollection: function() {
+		this._initMutable()
+		this.propObservations = {}
+	},
+	isAtomic:function() { return false },
+	getType:function() { return this._type },
+	evaluate:function() { return this },
+	getContent:function() { return this._content },
+	isTruthy:function() { return true },
+	
+	_setProperty: function(propertyKey, newProperty, additionalAffectedProperties) {
+		this._forgetProperty(propertyKey)
+		
+		this._content[propertyKey] = newProperty
+		
+		this.propObservations[propertyKey] = newProperty._onMutate(bind(this, function(mutation) {
+			this.notify(this._createMutation(propertyKey, null))
+		}))
+		
+		this.notify(this._createMutation(propertyKey, additionalAffectedProperties))
+	},
+	_forgetProperty: function(propertyKey) {
+		var oldId = this.propObservations[propertyKey]
+		if (oldId) {
+			this._content[propertyKey].dismiss(oldId)
+			delete this.propObservations[propertyKey]
+		}
+	}
+})
+
+var Dictionary = module.exports.Dictionary = proto(collectionBase,
+	function Dictionary(content) {
+		if (typeof content != 'object' || isArray(content) || content == null) { typeMismatch() }
+		this._initCollection()
+		this._content = {}
+		for (var key in content) {
+			this.mutate('set', [Text(key), content[key]])
+		}
+	}, {
+		_type:'Dictionary',
+		asLiteral:function() { return '{ '+map(this._content, function(val, key) { return fromLiteral(key).asLiteral()+':'+val.asLiteral() }).join(', ')+' }' },
+		toString:function() { return this.asLiteral() },
+		inspect:function() { return '<Dictionary { '+map(this._content, function(val, key) { return fromLiteral(key).inspect()+':'+val.inspect() }).join(', ')+' }>' },
+		lookup:function(key) {
+			var value = this._content[key.asLiteral()]
+			return value
+		},
+		iterate:function(yieldFn) {
+			var content = this._content
+			for (var key in content) {
+				yieldFn(content[key])
+			}
+		},
+		equals:function(that) {
+			that = that.evaluate()
+			if (that._type != this._type) {
+				return No
+			}
+			for (var key in this._content) {
+				if (that._content[key] && that._content[key].equals(this._content[key])) { continue }
+				return No
+			}
+			for (var key in that._content) {
+				if (this._content[key] && this._content[key].equals(that._content[key])) { continue }
+				return No
+			}
+			return Yes
+		},
+		mutate:function(operator, args) {
+			if (operator != 'set') { throw new Error('Bad Dictionary operator "'+operator+'"') }
+			_checkArgs(args, 2)
+			var key = args[0],
+				value = args[1]
+			if (!key || key.isNull() || !value) { BAD_ARGS }
+			this._setProperty(key.asLiteral(), value)
+		},
+		_createMutation: function(propertyKey, additionalAffectedProperties) {
+			if (additionalAffectedProperties) { throw new Error("I think Dictionary should never be getting additionalAffectedProperties") }
+			return { affectedProperties:arrayToObject([propertyKey]) }
+		}
+	}
+)
+
+var List = module.exports.List = proto(collectionBase,
+	function List(content) {
+		if (!isArray(content)) { typeMismatch() }
+		this._initCollection()
+		this._content = []
+		for (var i=0; i<content.length; i++) {
+			this.mutate('push', [content[i]])
+		}
+	}, {
+		_type:'List',
+		asLiteral:function() { return '[ '+map(this._content, function(val) { return val.asLiteral() }).join(', ')+' ]' },
+		toString:function() { return this.asLiteral() },
+		inspect:function() { return '<List [ '+map(this._content, function(val) { return val.inspect() }).join(', ')+' ]>' },
+		lookup:function(index) {
+			if (index.getType() == 'Number') { typeMismatch() }
+			var value = this._content[index.getContent()]
+			return value
+		},
+		iterate:function(yieldFn) {
+			var content = this._content
+			for (var i=0; i<content.length; i++) {
+				yieldFn(content[i])
+			}
+		},
+		equals:function(that) {
+			that = that.evaluate()
+			if (that._type != this._type) {
+				return No
+			}
+			if (that._content.length != this._content.length) {
+				return No
+			}
+			for (var i=0; i<this._content.length; i++) {
+				if (that._content[i].equals(this._content[i])) { continue }
+				return No
+			}
+			return Yes
+		},
+		getters:create(base.getters, {
+			length:function() {
+				var variableLength = variable(Null)
+				this.observe(bind(this, function() {
+					variableLength.mutate('set', [Number(this._content.length)])
+				}))
+				return variableLength
+			},
+			last:function() {
+				var last = variable(Null)
+				this.observe(bind(this, function() {
+					last.mutate('set', [this._content[this._content.length - 1] || Null])
+				}))
+				return last
+			},
+			first:function() {
+				var first = variable(Null)
+				this.observe(bind(this, function() {
+					first.mutate('set', [this._content[0] || Null])
+				}))
+				return first
+			}
+		}),
+		mutate:function(operator, args) {
+			switch(operator) {
+				case 'push':
+					_checkArgs(args, 1)
+					this._setProperty(this._content.length, args[0], '"length"')
+					break
+				case 'set':
+					_checkArgs(args, 2)
+					if (args[0].getType() != 'Number') { typeMismatch() }
+					var index = args[0].getContent(),
+						length = this._content.length
+					if (index >= length) { throw new Error("List set: index larger than current length") }
+					
+					var affected = [index]
+					if (index == 0) { affected.push('"first"') }
+					if (index == length - 1) { affected.push('"last"') }
+					this._setProperty(index, args[1], affected)
+					break
+				case 'pop':
+					_checkArgs(args, 1)
+					var index = this._content.length - 1
+					this._forgetProperty(index)
+					this._content.pop()
+					
+					this.notify(this._createMutation(index, ['"length"', '"last"']))
+					break
+				default:
+					throw new Error('Bad Dictionary operator "'+operator+'"')
+			}
+		},
+		_createMutation: function(propertyKey, additionalAffectedProperties) {
+			var affectedProperties = [propertyKey]
+			if (propertyKey == 0) { affectedProperties.push('"first"') }
+			if (propertyKey == this._content.length - 1) { affectedProperties.push('"last"') }
+			if (additionalAffectedProperties) { affectedProperties = affectedProperties.concat(additionalAffectedProperties) }
+			return { affectedProperties:arrayToObject(affectedProperties) }
+		}
+	}
+)
+
+// Operators
+////////////
 var unaryOperators = {
-	'!': function not(value) { return Logic(!value.isTruthy()) }
+	'!': not,
+	'-': negative
 }
 
 var operators = {
@@ -951,18 +1720,27 @@ var operators = {
 	'>': greaterThan
 }
 
+function negative(value) {
+	if (value.getType() != 'Number') { return Null }
+	return Number(-value.getContent())
+}
+
+function not(value) {
+	return Logic(!value.isTruthy())
+}
+
 function add(left, right) {
 	if (left.getType() == 'Number' && right.getType() == 'Number') {
 		return Number(left.getContent() + right.getContent())
 	}
-	return Text(left.asString() + right.asString())
+	return Text(left.toString() + right.toString())
 }
 
 function subtract(left, right) {
 	if (left.getType() == 'Number' && right.getType() == 'Number') {
 		return Number(left.getContent() - right.getContent())
 	} else {
-		return NullValue
+		return Null
 	}
 }
 
@@ -970,7 +1748,7 @@ function divide(left, right) {
 	if (left.getType() == 'Number' && right.getType() == 'Number') {
 		return Number(left.getContent() / right.getContent())
 	} else {
-		return NullValue
+		return Null
 	}
 }
 
@@ -978,7 +1756,7 @@ function multiply(left, right) {
 	if (left.getType() == 'Number' && right.getType() == 'Number') {
 		return Number(left.getContent() * right.getContent())
 	} else {
-		return NullValue
+		return Null
 	}
 }
 
@@ -1011,173 +1789,37 @@ function greaterThan(left, right) {
 	return Logic(left.getContent() > right.getContent())
 }
 
-/* Variable and mutable value expressions
- ****************************************/
+// Util
+///////
 var _unique = 1
-var variable = module.exports.variable = proto(mutableBase,
-	function(content) {
-		this.observers = {}
-		this.set(null, content)
-	}, {
-		_type:'variable',
-		evaluate:function() { return this._content.evaluate() },
-		inspect:function() { return '<variable '+this._content.inspect()+'>' },
-		asString:function() { return this._content.asString() },
-		asLiteral:function() { return this._content.asLiteral() },
-		equals:function(that) { return this._content.equals(that) },
-		push:function(chain, value) { this._content.push(chain, value) },
-		notifyObservers:function() { each(this.observers, function(observer, id) { observer() }) },
-		set:function(chain, value) {
-			if (!chain || !chain.length) {
-				var oldValue = this._content
-				this._content = value
-				this._observationID = this.onNewValue(oldValue, this._observationID, value)
-			} else if (!this._content.isMutable()) {
-				throw new Error("Attempted to set the value of a non-mutable property")
-			} else {
-				this._content.set(chain, value)
-			}
-		}
-	}
-)
+function unique() { return 'u'+_unique++ }
 
-var reference = module.exports.reference = proto(variableValueBase,
-	function(content, chain) {
-		this._content = content
-		this._chain = chain
-	}, {
-		_type:'reference',
-		getType:function() { return this.evaluate().getType() },
-		inspect:function() { return '<Reference '+this._chain.join('.')+' '+this._content.inspect()+'>' },
-		observe:function(callback) { return this._content.observe(callback) },
-		equals:function(that) { return this.evaluate().equals(that) },
-		dismiss:function(observationId) { this._content.dismiss(observationId) },
-		set:function(chain, toValue) {
-			chain = (this._chain && chain) ? (this._chain.concat(chain)) : (this._chain || chain)
-			return this._content.set(chain, toValue)
-		},
-		evaluate:function() {
-			var value = this._content.evaluate()
-			for (var i=0; i<this._chain.length; i++) {
-				var prop = this._chain[i]
-				if (value.getters[prop]) {
-					value = value.getters[prop].call(value)
-				} else if (value.isAtomic()) {
-					return NullValue
-				} else if (!value._content[prop]) {
-					return NullValue
-				} else {
-					value = value._content[prop].evaluate()
-				}
-			}
-			return value
-		}
-	}
-)
-
-var Dictionary = module.exports.Dictionary = proto(collectionBase,
-	function(content) {
-		if (typeof content != 'object' || isArray(content) || content == null) { TypeMismatch }
-		this.observers = {}
-		this._observationIDs = {}
-		this._content = {}
-		each(content, bind(this, function(val, key) { this.set([key], val) }))
-	}, {
-		_type:'Dictionary',
-		asLiteral:function() { return '{ '+map(this._content, function(val, key) { return '"'+key+'":'+val.asLiteral() }).join(', ')+' }' },
-		asString:function() { return this.asLiteral() },
-		inspect:function() { return '<Dictionary { '+map(this._content, function(val, key) { return '"'+key+'":'+val.inspect() }).join(', ')+' }>' },
-		iterate:__interimIterationFunction,
-		equals:function(that) {
-			that = that.evaluate()
-			if (that._type != this._type) {
-				return No
-			}
-			for (var key in this._content) {
-				if (that._content[key] && that._content[key].equals(this._content[key])) { continue }
-				return No
-			}
-			for (var key in that._content) {
-				if (this._content[key] && this._content[key].equals(that._content[key])) { continue }
-				return No
-			}
-			return Yes
-		}
-	}
-)
-
-var List = module.exports.List = proto(collectionBase,
-	function(content) {
-		if (!isArray(content)) { TypeMismatch }
-		this.observers = {}
-		this._observationIDs = {}
-		this._content = []
-		each(content, bind(this, function(val, key) { this.set([key], val) }))
-	}, {
-		_type:'List',
-		asLiteral:function() { return '[ '+map(this._content, function(val) { return val.asLiteral() }).join(', ')+' ]' },
-		asString:function() { return this.asLiteral() },
-		inspect:function() { return '<List [ '+map(this._content, function(val) { return val.inspect() }).join(', ')+' ]>' },
-		push:function(chain, value) { this.set([this._content.length], value) },
-		iterate:__interimIterationFunction,
-		equals:function(that) {
-			that = that.evaluate()
-			if (that._type != this._type) {
-				return No
-			}
-			if (that._content.length != this._content.length) {
-				return No
-			}
-			for (var i=0; i<this._content.length; i++) {
-				if (that._content[i].equals(this._content[i])) { continue }
-				return No
-			}
-			return Yes
-		},
-		getters:create(base.getters, {
-			length:function() {
-				var variableLength = variable(NullValue)
-				this.observe(bind(this, function() {
-					variableLength.set(null, Number(this._content.length))
-				}))
-				return variableLength
-			}
-		}),
-	}
-)
-
-function __interimIterationFunction(yieldFn) {
-	each(this._content, yieldFn)
-}
-
-/* Util
- ******/
 var fromJsValue = module.exports.fromJsValue = module.exports.value = function(val) {
 	switch (typeof val) {
 		case 'string': return Text(val)
 		case 'number': return Number(val)
 		case 'boolean': return Logic(val)
-		case 'undefined': return NullValue
+		case 'undefined': return Null
 		case 'object':
 			if (base.isPrototypeOf(val)) { return val }
 			if (val == null) {
-				return NullValue
+				return Null
 			}
 			if (isArray(val)) {
 				var content = map(val, fromJsValue)
 				return List(content)
 			}
 			var content = {}
-			each(val, function(contentVal, contentName) {
-				content[contentName] = fromJsValue(contentVal)
-			})
+			for (var key in val) {
+				content[key] = fromJsValue(val[key])
+			}
 			return Dictionary(content)
 	}
 }
 
-module.exports.fromJSON = function(json) {
+var fromLiteral = module.exports.fromLiteral = module.exports.fromJSON = function(json) {
 	try { var jsValue = JSON.parse(json) }
-	catch(e) { return NullValue }
+	catch(e) { return Null }
 	return fromJsValue(jsValue)
 }
 
@@ -1193,11 +1835,24 @@ var Event = module.exports.Event = function(jsEvent) {
 	funEvent.jsEvent = jsEvent // For JS API
 	return funEvent
 }
+
+function _cleanArgs(args, fn) {
+	var diffArgs = fn.length - args.length
+	while (diffArgs-- > 0) { args.push(Null) }
+	return args
+}
+
+var _checkArgs = function(args, num) {
+	if (!isArray(args) || args.length != num) { BAD_ARGS }
+}
+
+function typeMismatch() { throw new Error('Type mismatch') }
+
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/curry
-	var module = __require__["_10"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/std/curry
+	var module = __require__["_12"] = {exports:{}}, exports = module.exports;
 var slice = __require__["_7"].exports
 
 module.exports = function curry(fn /* arg1, arg2, ... argN */) {
@@ -1212,8 +1867,8 @@ module.exports = function curry(fn /* arg1, arg2, ... argN */) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/throttle
-	var module = __require__["_11"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/std/throttle
+	var module = __require__["_13"] = {exports:{}}, exports = module.exports;
 var unique = 0
 module.exports = function throttle(fn, delay) {
 	if (typeof delay != 'number') { delay = 50 }
@@ -1232,17 +1887,17 @@ module.exports = function throttle(fn, delay) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/hasClass
-	var module = __require__["_12"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/dom/hasClass
+	var module = __require__["_14"] = {exports:{}}, exports = module.exports;
 module.exports = function(el, className) {
 	return (' ' + el.className + ' ').match(' ' + className + ' ')
 }
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/addClass
-	var module = __require__["_13"] = {exports:{}}, exports = module.exports;
-var hasClass = __require__["_12"].exports
+	// /usr/local/lib/node_modules/fun/node_modules/dom/addClass
+	var module = __require__["_15"] = {exports:{}}, exports = module.exports;
+var hasClass = __require__["_14"].exports
 
 module.exports = function(el, className) {
 	if (hasClass(el, className)) { return }
@@ -1252,21 +1907,21 @@ module.exports = function(el, className) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/removeClass
-	var module = __require__["_14"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/dom/removeClass
+	var module = __require__["_16"] = {exports:{}}, exports = module.exports;
 module.exports = function removeClass(el, className) {
 	var current = ' ' + el.className + ' ',
-	  target = ' ' + className + ' ',
-	  index = current.indexOf(target)
+		target = ' ' + className + ' ',
+		index  = current.indexOf(target)
 
-  if (index == -1) { return }
+  	if (index == -1) { return }
 	el.className = current.replace(target, ' ')
 }
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/unique
-	var module = __require__["_15"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/std/unique
+	var module = __require__["_17"] = {exports:{}}, exports = module.exports;
 /*
  * Return a globally unique string.
  */
@@ -1278,8 +1933,8 @@ module.exports.__namespace = '__u'
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/Class
-	var module = __require__["_16"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/std/Class
+	var module = __require__["_18"] = {exports:{}}, exports = module.exports;
 /* Example usage:
 
 	var UIComponent = Class(function() {
@@ -1364,9 +2019,9 @@ module.exports = function Class(/* optParent, optMixin1, optMixin2, ..., proto *
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/client
-	var module = __require__["_17"] = {exports:{}}, exports = module.exports;
-var Class = __require__["_16"].exports
+	// /usr/local/lib/node_modules/fun/node_modules/std/client
+	var module = __require__["_19"] = {exports:{}}, exports = module.exports;
+var Class = __require__["_18"].exports
 
 var mobileRegex = /mobile/i;
 
@@ -1392,7 +2047,7 @@ var Client = Class(function() {
 		
 		try {
 			document.createEvent("TouchEvent")
-			this.isTouch = true
+			this.isTouch = ('ontouchstart' in window)
 		} catch (e) {
 			this.isTouch = false
 		}
@@ -1453,8 +2108,8 @@ module.exports.parse = function(userAgent) { return new Client(userAgent) }
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/getWindowScroll
-	var module = __require__["_18"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/dom/getWindowScroll
+	var module = __require__["_20"] = {exports:{}}, exports = module.exports;
 // Thanks http://stackoverflow.com/questions/1567327/using-jquery-to-get-elements-position-relative-to-viewport!
 module.exports = function getWindowScroll(win) {
 	var win = win || window,
@@ -1471,12 +2126,40 @@ module.exports = function getWindowScroll(win) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/on
-	var module = __require__["_19"] = {exports:{}}, exports = module.exports;
-var unique = __require__["_15"].exports,
-	curry = __require__["_10"].exports,
-	client = __require__["_17"].exports,
-	getWindowScroll = __require__["_18"].exports
+	// /usr/local/lib/node_modules/fun/node_modules/dom/getAttribute
+	var module = __require__["_21"] = {exports:{}}, exports = module.exports;
+module.exports = function(element, attribute) {
+	if (element.getAttribute) {
+		return element.getAttribute(attribute)
+	} else {
+		return element[attribute]
+	}
+}
+})()
+
+;(function() {
+	// /usr/local/lib/node_modules/fun/node_modules/dom/setAttribute
+	var module = __require__["_22"] = {exports:{}}, exports = module.exports;
+module.exports = function setAttribute(element, attribute, value) {
+	if (element.setAttribute) {
+		element.setAttribute(attribute, value)
+	} else {
+		element[attribute] = value
+	}
+	return value
+}
+})()
+
+;(function() {
+	// /usr/local/lib/node_modules/fun/node_modules/dom/on
+	var module = __require__["_23"] = {exports:{}}, exports = module.exports;
+var unique = __require__["_17"].exports,
+	curry = __require__["_12"].exports,
+	client = __require__["_19"].exports,
+	getWindowScroll = __require__["_20"].exports,
+	proto = __require__["_5"].exports,
+	getAttribute = __require__["_21"].exports,
+	setAttribute = __require__["_22"].exports
 
 module.exports = function on(element, eventName, handler) {
 	var uniqueID = module.exports.stampElement(element),
@@ -1496,24 +2179,16 @@ module.exports._idNamespace = '__onID'
 module.exports._elementMaps = {}
 
 module.exports.stampElement = function(element) {
-	var uniqueID
-	if (element.getAttribute) {
-		uniqueID = element.getAttribute(module.exports._idNamespace)
-		if (!uniqueID) {
-			uniqueID = unique()
-			element.setAttribute(module.exports._idNamespace, uniqueID)
-		}
-	} else {
-		uniqueID = element[module.exports._idNamespace]
-		if (!uniqueID) {
-			uniqueID = element[module.exports._idNamespace] = unique()
-		}
+	var uniqueID = getAttribute(element, module.exports._idNamespace)
+	if (!uniqueID) {
+		uniqueID = unique()
+		setAttribute(element, module.exports._idNamespace, uniqueID)
 	}
 	return uniqueID
 }
 
 module.exports.getElementMap = function(element) {
-	var uniqueID = element.getAttribute ? element.getAttribute(module.exports._idNamespace) : element[module.exports._idNamespace]
+	var uniqueID = getAttribute(element, module.exports._idNamespace)
 	return uniqueID && module.exports._elementMaps[uniqueID]
 }
 
@@ -1543,63 +2218,104 @@ module.exports._handleEvent = function(element, eventName, e) {
 	}
 }
 
-module.exports.normalizeEvent = function(eventName, e) {
-	e = e || event
-	var eventObj = {
-		keyCode: e.keyCode,
-		metaKey: e.metaKey,
-		target: e.target || e.srcElement,
-		source: e.source, // postmessage
-		origin: e.origin,
-		data: e.data,
-		touches: e.touches,
-		changedTouches: e.changedTouches
-	}
+var charCodes = {
+	'c': 99,
+	'r': 114
+}
 
-	if (eventName == 'mousewheel') {
+var keyCodes = {
+	'tab': 9,
+	'backspace': 8,
+	'return': 13
+}
+
+var eventBase = {
+	cancel: function() {
+		var e = this.domEvent
+		if (e.preventDefault) { e.preventDefault() }
+		else { e.returnValue = false }
+	},
+	isCopy: function() {
+		var e = this.domEvent
+		return e.type == 'keypress' && e.metaKey && e.charCode == charCodes['c']
+	},
+	isRefresh: function() {
+		var e = this.domEvent
+		return e.type == 'keypress' && e.metaKey && e.charCode == charCodes['r']
+	},
+	isTab: function() {
+		return this.keyCode == keyCodes['tab']
+	},
+	isBackspace:function() {
+		return this.keyCode == keyCodes['backspace']
+	},
+	isReturn:function() {
+		return this.keyCode == keyCodes['return']
+	},
+	_normalizeMouseWheel: function(eventName) {
+		if (eventName != 'mousewheel') { return }
 		// http://adomas.org/javascript-mouse-wheel/
 		// https://developer.mozilla.org/en/Gecko-Specific_DOM_Events
 		// TODO Normalize the values across browsers
+		var e = this.domEvent
 		if (typeof e.wheelDeltaX == 'number') {
-			eventObj.dx = -e.wheelDeltaX
-			eventObj.dy = -e.wheelDeltaY
+			this.dx = -e.wheelDeltaX
+			this.dy = -e.wheelDeltaY
 		} else if (e.wheelDelta) {
-			eventObj.dy = -e.wheelDelta
+			this.dy = -e.wheelDelta
 		} else if (e.detail) {
-			if (e.axis == e.HORIZONTAL_AXIS) { eventObj.dx = e.detail }
-			if (e.axis == e.VERTICAL_AXIS) { eventObj.dy = e.detail }
+			if (e.axis == e.HORIZONTAL_AXIS) { this.dx = e.detail }
+			if (e.axis == e.VERTICAL_AXIS) { this.dy = e.detail }
 		}
-	}
-
-	if (typeof e.pageX == 'number')   {
-		eventObj.x = e.pageX
-		eventObj.y = e.pageY
-	} else if (typeof e.clientX == 'number') {
-		var scroll = getWindowScroll(window)
-		eventObj.x = e.clientX + scroll.left
-		eventObj.y = e.clientY + scroll.top
-	}
-
-	eventObj.cancel = function() {
-		if (e.preventDefault) { e.preventDefault() }
-		else { e.returnValue = false }
-	}
-
-	if (e.type == 'keypress') {
-		eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13) 
+	},
+	_normalizeXY: function(eventName, e) {
+		var e = this.domEvent
+		if (typeof e.pageX == 'number')   {
+			this.x = e.pageX
+			this.y = e.pageY
+		} else if (typeof e.clientX == 'number') {
+			var scroll = getWindowScroll(window)
+			this.x = e.clientX + scroll.left
+			this.y = e.clientY + scroll.top
+		}
+	},
+	_normalizeKeyPress: function(eventName, e) {
+		var e = this.domEvent
+		if (e.type != 'keypress') { return }
+		this.charCode = (this.charCode == 13 && this.keyCode == 13) 
 			? 0 // in Webkit, return/enter key gives a charCode as well as a keyCode. Should only be a keyCode
 			: e.charCode
 	}
+}
+var Event = proto(eventBase,
+	function(eventName, e) {
+		this.domEvent = e
+		this.keyCode = e.keyCode
+		this.metaKey = e.metaKey
+		this.target = e.target || e.srcElement
+		this.source = e.source // postmessage
+		this.origin = e.origin
+		this.data = e.data
+		this.touches = e.touches
+		this.changedTouches = e.changedTouches
+		this.type = e.type
+		
+		this._normalizeMouseWheel(eventName)
+		this._normalizeXY()
+		this._normalizeKeyPress()
+	}
+)
 
-	return eventObj
+module.exports.normalizeEvent = function(eventName, e) {
+	return new Event(eventName, e || event)
 }
 
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/off
-	var module = __require__["_20"] = {exports:{}}, exports = module.exports;
-var on = __require__["_19"].exports
+	// /usr/local/lib/node_modules/fun/node_modules/dom/off
+	var module = __require__["_24"] = {exports:{}}, exports = module.exports;
+var on = __require__["_23"].exports
 
 module.exports = function(element, eventName, handler) {
 	var map = on.getElementMap(element),
@@ -1641,16 +2357,17 @@ module.exports._removeHandler = function(element, eventName, handler) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/fun/src/runtime/library
-	var module = __require__["_21"] = {exports:{}}, exports = module.exports;
-var expressions = __require__["_9"].exports,
+	// /usr/local/lib/node_modules/fun/src/runtime/library
+	var module = __require__["_25"] = {exports:{}}, exports = module.exports;
+var expressions = __require__["_11"].exports,
 	each = __require__["_3"].exports,
-	curry = __require__["_10"].exports,
-	throttle = __require__["_11"].exports,
-	addClass = __require__["_13"].exports,
-	removeClass = __require__["_14"].exports,
-	on = __require__["_19"].exports,
-	off = __require__["_20"].exports
+	curry = __require__["_12"].exports,
+	throttle = __require__["_13"].exports,
+	addClass = __require__["_15"].exports,
+	removeClass = __require__["_16"].exports,
+	on = __require__["_23"].exports,
+	off = __require__["_24"].exports,
+	arrayToObject = __require__["_9"].exports
 
 ;(function() {
 	if (typeof fun == 'undefined') { fun = {} }
@@ -1658,7 +2375,8 @@ var expressions = __require__["_9"].exports,
 	
 	fun.reset = function() {
 		_unique = 0
-		_hooks = {}
+		fun.expressions = expressions
+		_hooks = fun.hooks = {}
 		_hookCallbacks = {}
 	}
 	
@@ -1666,30 +2384,31 @@ var expressions = __require__["_9"].exports,
 
 	fun.expressions = expressions
 	
-	fun.invoke = function(operand, args, parentHookName) {
-		operand = operand.evaluate()
-		// TODO Observe operand
-		// TODO Observe arguments
-		switch (operand.getType()) {
-			case 'Handler':
-				return operand.invoke(args)
-			case 'Function':
-				return operand.invoke(args)
-			case 'Template':
-				return operand.render(fun.hook(fun.name(), parentHookName), args)
-			default:
-				throw new Error('Attempted to invoke a non-invocable: '+operand.inspect())
-		}
-	}
-	
 /* Values
  ********/
 	fun.emit = function(parentHookName, value) {
+		if (!value) { return }
 		var hookName = fun.hook(fun.name(), parentHookName)
 		value.observe(function() {
 			_hooks[hookName].innerHTML = ''
-			_hooks[hookName].appendChild(document.createTextNode(value.asString()))
+			_hooks[hookName].appendChild(document.createTextNode(value))
 		})
+	}
+	
+	fun.set = function(value, chainStr, setValue) {
+		if (arguments.length == 2) {
+			setValue = chainStr
+			chainStr = null
+		}
+		var chain = chainStr ? chainStr.split('.') : []
+		while (chain.length) {
+			value = expressions.dereference(value, expressions.Text(chain.shift()))
+		}
+		value.mutate('set', [expressions.fromJsValue(setValue)])
+	}
+	
+	fun.dictSet = function(dict, prop, setValue) {
+		dict.mutate('set', [expressions.fromJsValue(prop), expressions.fromJsValue(setValue)])
 	}
 	
 /* Hooks
@@ -1744,7 +2463,8 @@ var expressions = __require__["_9"].exports,
 					return
 				}
 				on(hook, eventName, lastValue = function(e) {
-					value.evaluate().invoke(hook, expressions.Event(e))
+					e.hook = hook
+					value.evaluate().invoke([expressions.Event(e)])
 				})
 			} else if (key == 'style') {
 				// TODO remove old styles
@@ -1763,13 +2483,28 @@ var expressions = __require__["_9"].exports,
 	fun.attrExpand = function(hookName, expandValue) {
 		// TODO Observe the expandValue, and detect keys getting added/removed properly
 		each(expandValue.getContent(), function(value, name) {
+			name = _getDictionaryKeyString(name)
 			fun.attr(hookName, name, value)
 		})
 	}
+	
+	var _getDictionaryKeyString = function(key) {
+		key = fun.expressions.fromLiteral(key)
+		if (key.getType() != 'Text') { return }
+		return key.getContent()
+	}
 
+	var skipPx = arrayToObject(['zIndex', 'z-index'])
 	fun.setStyle = function(hook, key, value) {
-		var rawValue = value.evaluate().asString()
-		if (value.getType() == 'Number' || rawValue.match(/^\d+$/)) { rawValue = rawValue + 'px' }
+		key = _getDictionaryKeyString(key)
+		if (!key) { return }
+		
+		value = value.evaluate()
+		var rawValue = value.toString()
+		
+		if ((value.getType() == 'Number' || rawValue.match(/^\d+$/)) && !skipPx[key]) {
+			rawValue = rawValue + 'px'
+		}
 		if (key == 'float') { key = 'cssFloat' }
 		hook.style[key] = rawValue
 	}
@@ -1782,19 +2517,19 @@ var expressions = __require__["_9"].exports,
 			})
 			on(input, 'change', function() {
 				setTimeout(function() {
-					property.set(null, input.checked ? fun.expressions.Yes : fun.expressions.No)
+					_doSet(property, input.checked ? fun.expressions.Yes : fun.expressions.No)
 				})
 			})
 		} else {
 			property.observe(function() {
-				input.value = property.evaluate().asString()
+				input.value = property.evaluate().toString()
 			})
 			
 			function update(e) {
 				setTimeout(function() {
 					var value = input.value
 					if (property.getContent() === value) { return }
-					property.set(null, fun.expressions.Text(input.value))
+					_doSet(property, fun.expressions.Text(input.value))
 					input.value = value
 				}, 0)
 			}
@@ -1804,6 +2539,14 @@ var expressions = __require__["_9"].exports,
 			on(input, 'keydown', function(e) {
 				if (e.keyCode == 86) { update(e) } // catch paste events
 			})
+		}
+		function _doSet(property, value) {
+			if (property._type == 'dereference') {
+				var components = property.components
+				fun.dictSet(components.value, components.key, value)
+			} else {
+				fun.set(property, value)
+			}
 		}
 	}
 
@@ -1816,8 +2559,8 @@ var expressions = __require__["_9"].exports,
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/node_modules/fun/node_modules/std/strip
-	var module = __require__["_22"] = {exports:{}}, exports = module.exports;
+	// /usr/local/lib/node_modules/fun/node_modules/std/strip
+	var module = __require__["_26"] = {exports:{}}, exports = module.exports;
 var stripRegex = /^\s*(.*?)\s*$/
 module.exports = function(str) {
 	return str.match(stripRegex)[1]
@@ -1829,39 +2572,36 @@ module.exports = function(str) {
 ;(function() {
 	// <code passed into compiler.compile()>
 	var module = __require__["_0"] = {exports:{}}, exports = module.exports;
-fun = __require__["_21"].exports; 
+fun = __require__["_25"].exports; 
 
 ;(function funApp() {
 	var _ROOT_HOOK_0 = fun.name("rootHook")
 	fun.setHook(_ROOT_HOOK_0, document.body)
-	/*********************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/localstorage.fun *
- *********************************************************************************/
-	var __variableName__localstorage = fun.expressions.variable( fun.expressions.Dictionary({ "persist":
-	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__variable, __variableName__name) {
+	/************************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/localstorage.fun *
+ ************************************************************************/
+	var __variableName__localstorage = fun.expressions.variable( fun.expressions.Dictionary({ "persist": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__variable, __variableName__name) { 
 		;(function(){
-			var variable=__variableName__variable, name=__variableName__name;
 		/* START INLINE JAVASCRIPT */
+			var variable=__variableName__variable, name=__variableName__name;
  if (!__hackFirstExecution) { return }
  var key = name.getContent(),
- persistedJSON = localStorage.getItem(key)
- if (persistedJSON && persistedJSON != "null") {
- variable.set(null, fun.expressions.fromJSON(persistedJSON))
+ persistedLiteral = localStorage.getItem(key)
+ if (persistedLiteral && persistedLiteral != "null") {
+ variable.mutate("set", [fun.expressions.fromLiteral(persistedLiteral)])
  }
  variable.observe(function() {
- localStorage.setItem(key, variable.asJSON())
+ localStorage.setItem(key, variable.asLiteral())
  })
 		/* END INLINE JAVASCRIPT */
-		})()
-	}) }))
-/*************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/list.fun *
- *************************************************************************/
-	var __variableName__list = fun.expressions.variable( fun.expressions.Dictionary({ "filter":
-	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) {
+		})() }) }))
+/****************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/list.fun *
+ ****************************************************************/
+	var __variableName__list = fun.expressions.variable( fun.expressions.Dictionary({ "filter": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) { 
 		;(function(){
-			var list=__variableName__list, func=__variableName__func;
 		/* START INLINE JAVASCRIPT */
+			var list=__variableName__list, func=__variableName__func;
  var result = [],
  items = list.getContent()
  for (var i=0, item; item=items[i]; i++) {
@@ -1871,21 +2611,50 @@ fun = __require__["_21"].exports;
  }
  yieldValue(result)
 		/* END INLINE JAVASCRIPT */
-		})()
-	}) }))
-/*************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/text.fun *
- *************************************************************************/
-	var __variableName__text = fun.expressions.variable( fun.expressions.Dictionary({ "trim":
-	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__text) {
+		})() }) }))
+/****************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/text.fun *
+ ****************************************************************/
+	var __variableName__text = fun.expressions.variable( fun.expressions.Dictionary({ "trim": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__text) { 
 		;(function(){
-			var text=__variableName__text;
 		/* START INLINE JAVASCRIPT */
- var strip = __require__["_22"].exports
+			var text=__variableName__text;
+ var strip = __require__["_26"].exports
  yieldValue(fun.expressions.Text(strip(text.getContent())))
 		/* END INLINE JAVASCRIPT */
+		})() }) }))
+/****************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/uuid.fun *
+ ****************************************************************/
+	var __variableName__uuid = fun.expressions.variable( fun.expressions.Dictionary({ "v4": fun.expressions.Function(function block(yieldValue, __hackFirstExecution) { 
+		var __variableName__result = fun.expressions.variable( fun.expressions.Null(null))
+		;(function(){
+		/* START INLINE JAVASCRIPT */
+			var result=__variableName__result;
+ var uuid = "", i, random;
+ for (i = 0; i < 32; i++) {
+ random = Math.random() * 16 | 0;
+ if (i == 8 || i == 12 || i == 16 || i == 20) {
+ uuid += "-"
+ }
+ uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+ }
+ fun.set(result, uuid)
+		/* END INLINE JAVASCRIPT */
 		})()
-	}) }))
+		yieldValue(  fun.expressions.dereference(__variableName__result,  fun.expressions.Text("copy")).invoke([], "")); return }) }))
+/***************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/app.fun *
+ ***************************************************************/
+	var __variableName__app = fun.expressions.variable( fun.expressions.Dictionary({ "whenLoaded": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__appLoadedHandler) { 
+		;(function(){
+		/* START INLINE JAVASCRIPT */
+			var appLoadedHandler=__variableName__appLoadedHandler;
+ setTimeout(function() {
+ appLoadedHandler.invoke()
+ })
+		/* END INLINE JAVASCRIPT */
+		})() }) }))
 	var _XML_HOOK_1 = fun.name()
 	fun.hook(_XML_HOOK_1, _ROOT_HOOK_0, { tagName:"head", attrs:null })
 		var _XML_HOOK_2 = fun.name()
@@ -1894,11 +2663,55 @@ fun = __require__["_21"].exports;
 		fun.hook(_XML_HOOK_3, _XML_HOOK_1, { tagName:"title", attrs:null })
 			fun.emit(_XML_HOOK_3,  fun.expressions.Text("Fun • TodoMVC"))
 	var __variableName__tasks = fun.expressions.variable( fun.expressions.List([  ]))
-	fun.emit(_ROOT_HOOK_0,  fun.invoke( fun.expressions.reference(__variableName__localstorage, ["persist"]), [__variableName__tasks, fun.expressions.Text("todos-fun")], _ROOT_HOOK_0))
-	var __variableName__nextId = fun.expressions.variable( fun.expressions.Number(1))
-	fun.emit(_ROOT_HOOK_0,  fun.invoke( fun.expressions.reference(__variableName__localstorage, ["persist"]), [__variableName__nextId, fun.expressions.Text("todos-id")], _ROOT_HOOK_0))
-	var __variableName__displayTasks = fun.expressions.variable(__variableName__tasks)
 	var __variableName__displayFilter = fun.expressions.variable( fun.expressions.Text("all"))
+	 fun.expressions.dereference(__variableName__app,  fun.expressions.Text("whenLoaded")).render(fun.hook(fun.name(), _ROOT_HOOK_0), [ fun.expressions.Handler(function block() { 	
+		 fun.expressions.dereference(__variableName__localstorage,  fun.expressions.Text("persist")).invoke([__variableName__tasks, fun.expressions.Text("todos-fun.tasks")])
+		 fun.expressions.dereference(__variableName__localstorage,  fun.expressions.Text("persist")).invoke([__variableName__displayFilter, fun.expressions.Text("todos-fun.displayFilter")]) })])
+	var __variableName__getVisibleTasks = fun.expressions.variable( fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__displayFilter) { 
+		yieldValue(  fun.expressions.dereference(__variableName__list,  fun.expressions.Text("filter")).invoke([__variableName__tasks, fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) { 
+			;(function(ifBranch, elseBranch) {
+				 fun.expressions.binaryOp(__variableName__displayFilter, "=",  fun.expressions.Text("all")).isTruthy() ? ifBranch() : elseBranch()
+			})(
+				function ifBranch(){
+				yieldValue( fun.expressions.Logic(true)); return
+				},
+				function elseBranch(){
+				;(function(ifBranch, elseBranch) {
+					 fun.expressions.binaryOp(__variableName__displayFilter, "=",  fun.expressions.Text("active")).isTruthy() ? ifBranch() : elseBranch()
+				})(
+					function ifBranch(){
+					yieldValue( fun.expressions.unaryOp("!",  fun.expressions.dereference(__variableName__task,  fun.expressions.Text("completed")))); return
+					},
+					function elseBranch(){
+					;(function(ifBranch, elseBranch) {
+						 fun.expressions.binaryOp(__variableName__displayFilter, "=",  fun.expressions.Text("completed")).isTruthy() ? ifBranch() : elseBranch()
+					})(
+						function ifBranch(){
+						yieldValue( fun.expressions.dereference(__variableName__task,  fun.expressions.Text("completed"))); return
+						},
+						function elseBranch(){
+							null
+						}
+					)
+					}
+				)
+				}
+			) })], "")); return }))
+	var __variableName__createTask = fun.expressions.variable( fun.expressions.Handler(function block(__variableName__taskName) { 	
+		var __variableName__trimmedName = fun.expressions.variable(  fun.expressions.dereference(__variableName__text,  fun.expressions.Text("trim")).invoke([__variableName__taskName], ""))
+		;(function(ifBranch, elseBranch) {
+			 fun.expressions.binaryOp(__variableName__trimmedName, "!",  fun.expressions.Text("")).isTruthy() ? ifBranch() : elseBranch()
+		})(
+			function ifBranch(){
+			__variableName__tasks.mutate("push", [ fun.expressions.Dictionary({ "title":__variableName__trimmedName, "completed": fun.expressions.Logic(false), "id":  fun.expressions.dereference(__variableName__uuid,  fun.expressions.Text("v4")).invoke([], "") })])
+			},
+			function elseBranch(){
+				null
+			}
+		) }))
+	var __variableName__destroyTask = fun.expressions.variable( fun.expressions.Handler(function block(__variableName__task) { 	
+		__variableName__tasks.mutate("set", [  fun.expressions.dereference(__variableName__list,  fun.expressions.Text("filter")).invoke([  fun.expressions.dereference(__variableName__tasks,  fun.expressions.Text("copy")).invoke([], ""), fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__checkTask) { 
+			yieldValue( fun.expressions.binaryOp( fun.expressions.dereference(__variableName__checkTask,  fun.expressions.Text("id")), "!",  fun.expressions.dereference(__variableName__task,  fun.expressions.Text("id")))); return })], "")]) }))
 	var _XML_HOOK_4 = fun.name()
 	fun.hook(_XML_HOOK_4, _ROOT_HOOK_0, { tagName:"section", attrs:[{name:"id",value: fun.expressions.Text("todoapp")}] })
 		var _XML_HOOK_5 = fun.name()
@@ -1908,40 +2721,26 @@ fun = __require__["_21"].exports;
 				fun.emit(_XML_HOOK_6,  fun.expressions.Text("todos"))
 			var __variableName__newTaskName = fun.expressions.variable( fun.expressions.Text(""))
 			var _XML_HOOK_7 = fun.name()
-			fun.hook(_XML_HOOK_7, _XML_HOOK_5, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("new-todo")}, {name:"placeholder",value: fun.expressions.Text("What needs to be done?")}, {name:"autofocus",value: fun.expressions.Logic(true)}, {name:"data",value:__variableName__newTaskName}, {name:"onkeypress",value:
-			fun.expressions.Handler(function block(__variableName__event) {
+			fun.hook(_XML_HOOK_7, _XML_HOOK_5, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("new-todo")}, {name:"placeholder",value: fun.expressions.Text("What needs to be done?")}, {name:"autofocus",value: fun.expressions.Logic(true)}, {name:"data",value:__variableName__newTaskName}, {name:"onkeypress",value: fun.expressions.Handler(function block(__variableName__event) { 	
 				;(function(ifBranch, elseBranch) {
-					 fun.expressions.composite( fun.expressions.reference(__variableName__event, ["keyCode"]), "=",  fun.expressions.Number(13)).isTruthy() ? ifBranch() : elseBranch()
+					 fun.expressions.binaryOp( fun.expressions.dereference(__variableName__event,  fun.expressions.Text("keyCode")), "=",  fun.expressions.Number(13)).isTruthy() ? ifBranch() : elseBranch()
 				})(
 					function ifBranch(){
-					var __variableName__trimmedName = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__text, ["trim"]), [ fun.invoke( fun.expressions.reference(__variableName__newTaskName, ["copy"]), [], "")], ""))
-					var __variableName__id = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__nextId, ["copy"]), [], ""))
-					;(function(ifBranch, elseBranch) {
-						 fun.expressions.composite(__variableName__trimmedName, "!",  fun.expressions.Text("")).isTruthy() ? ifBranch() : elseBranch()
-					})(
-						function ifBranch(){
-						__variableName__tasks.push(null,  fun.expressions.Dictionary({ "title":__variableName__trimmedName, "completed": fun.expressions.Logic(false), "id":__variableName__id }))
-						__variableName__newTaskName.set(null,  fun.expressions.Text(""))
-						},
-						function elseBranch(){
-							null
-						}
-					)
-					__variableName__nextId.set(null,  fun.expressions.composite( fun.invoke( fun.expressions.reference(__variableName__nextId, ["copy"]), [], ""), "+",  fun.expressions.Number(1)))
+					__variableName__createTask.invoke([  fun.expressions.dereference(__variableName__newTaskName,  fun.expressions.Text("copy")).invoke([], "")])
+					__variableName__newTaskName.mutate("set", [ fun.expressions.Text("")])
 					},
 					function elseBranch(){
 						null
 					}
-				)
-			})}] })
+				) })}] })
 		var _IF_ELSE_HOOK_8 = fun.name()
 		fun.hook(_IF_ELSE_HOOK_8, _XML_HOOK_4)
 		var _LAST_VALUE_9
-		 fun.expressions.reference(__variableName__tasks, ["length"]).observe(function() {
-			var _STATEMENT_VALUE_33 =  fun.expressions.reference(__variableName__tasks, ["length"]).evaluate()
+		 fun.expressions.dereference(__variableName__tasks,  fun.expressions.Text("length")).observe(function() {
+			var _STATEMENT_VALUE_32 =  fun.expressions.dereference(__variableName__tasks,  fun.expressions.Text("length")).evaluate()
 		;(function(ifBranch, elseBranch) {
-			if (_LAST_VALUE_9 && _STATEMENT_VALUE_33.equals(_LAST_VALUE_9).isTruthy()) { return }
-			_LAST_VALUE_9 = _STATEMENT_VALUE_33
+			if (_LAST_VALUE_9 && _STATEMENT_VALUE_32.equals(_LAST_VALUE_9).isTruthy()) { return }
+			_LAST_VALUE_9 = _STATEMENT_VALUE_32
 			fun.destroyHook(_IF_ELSE_HOOK_8)
 			_LAST_VALUE_9.isTruthy() ? ifBranch() : elseBranch()
 		})(
@@ -1950,141 +2749,105 @@ fun = __require__["_21"].exports;
 			fun.hook(_XML_HOOK_10, _IF_ELSE_HOOK_8, { tagName:"section", attrs:[{name:"id",value: fun.expressions.Text("main")}] })
 				var __variableName__toggleAll = fun.expressions.variable( fun.expressions.Logic(false))
 				var _XML_HOOK_11 = fun.name()
-				fun.hook(_XML_HOOK_11, _XML_HOOK_10, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("toggle-all")}, {name:"type",value: fun.expressions.Text("checkbox")}, {name:"data",value:__variableName__toggleAll}, {name:"onchange",value:
-				fun.expressions.Handler(function block() {
+				fun.hook(_XML_HOOK_11, _XML_HOOK_10, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("toggle-all")}, {name:"type",value: fun.expressions.Text("checkbox")}, {name:"checked",value:__variableName__toggleAll}, {name:"onchange",value: fun.expressions.Handler(function block() { 	
+					var __variableName__toggled = fun.expressions.variable(  fun.expressions.dereference( fun.expressions.unaryOp("!", __variableName__toggleAll),  fun.expressions.Text("copy")).invoke([], ""))
+					__variableName__toggleAll.mutate("set", [__variableName__toggled])
 					__variableName__tasks.evaluate().iterate(function(__variableName__task) {
-						 fun.expressions.reference(__variableName__task, ["completed"]).set(null,  fun.expressions.unary("!",  fun.invoke( fun.expressions.reference(__variableName__toggleAll, ["copy"]), [], "")))
-					})
-				})}] })
+						__variableName__task.mutate("set", [ fun.expressions.Text("completed"), __variableName__toggled])
+					}) })}] })
 				var _XML_HOOK_12 = fun.name()
-				fun.hook(_XML_HOOK_12, _XML_HOOK_10, { tagName:"label", attrs:[{name:"for",value: fun.expressions.Text("toggle-all")}] })
-					fun.emit(_XML_HOOK_12,  fun.expressions.Text("Mark all as complete"))
-				var _XML_HOOK_13 = fun.name()
-				fun.hook(_XML_HOOK_13, _XML_HOOK_10, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("todo-list")}] })
-					var _FOR_LOOP_HOOK_15 = fun.name()
-					fun.hook(_FOR_LOOP_HOOK_15, _XML_HOOK_13)
-					__variableName__displayTasks.observe(function() {
-						fun.destroyHook(_FOR_LOOP_HOOK_15)
-						__variableName__displayTasks.evaluate().iterate(function(__variableName__task) {
-							var _FOR_LOOP_EMIT_HOOK_14 = fun.name()
-							fun.hook(_FOR_LOOP_EMIT_HOOK_14, _FOR_LOOP_HOOK_15)
-						var _XML_HOOK_16 = fun.name()
-						fun.hook(_XML_HOOK_16, _FOR_LOOP_EMIT_HOOK_14, { tagName:"li", attrs:[{name:"class",value: fun.expressions.ternary( fun.expressions.reference(__variableName__task, ["completed"]),  fun.expressions.Text("complete"),  fun.expressions.Text(""))}] })
-							var _XML_HOOK_17 = fun.name()
-							fun.hook(_XML_HOOK_17, _XML_HOOK_16, { tagName:"div", attrs:[{name:"class",value: fun.expressions.Text("view")}] })
+				fun.hook(_XML_HOOK_12, _XML_HOOK_10, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("todo-list")}] })
+					var _FOR_LOOP_HOOK_14 = fun.name()
+					fun.hook(_FOR_LOOP_HOOK_14, _XML_HOOK_12)
+					 __variableName__getVisibleTasks.invoke([__variableName__displayFilter], _XML_HOOK_12).observe(function() {
+						fun.destroyHook(_FOR_LOOP_HOOK_14)
+						 __variableName__getVisibleTasks.invoke([__variableName__displayFilter], _XML_HOOK_12).evaluate().iterate(function(__variableName__task) {
+							var _FOR_LOOP_EMIT_HOOK_13 = fun.name()
+							fun.hook(_FOR_LOOP_EMIT_HOOK_13, _FOR_LOOP_HOOK_14)
+						var __variableName__editing = fun.expressions.variable( fun.expressions.Logic(false))
+						var _XML_HOOK_15 = fun.name()
+						fun.hook(_XML_HOOK_15, _FOR_LOOP_EMIT_HOOK_13, { tagName:"li", attrs:[{name:"class",value: fun.expressions.binaryOp( fun.expressions.ternaryOp( fun.expressions.dereference(__variableName__task,  fun.expressions.Text("completed")),  fun.expressions.Text("completed"),  fun.expressions.Text("")), "+",  fun.expressions.ternaryOp(__variableName__editing,  fun.expressions.Text(" editing"),  fun.expressions.Text("")))}] })
+							var _XML_HOOK_16 = fun.name()
+							fun.hook(_XML_HOOK_16, _XML_HOOK_15, { tagName:"div", attrs:[{name:"class",value: fun.expressions.Text("view")}] })
+								var _XML_HOOK_17 = fun.name()
+								fun.hook(_XML_HOOK_17, _XML_HOOK_16, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("toggle")}, {name:"type",value: fun.expressions.Text("checkbox")}, {name:"data",value: fun.expressions.dereference(__variableName__task,  fun.expressions.Text("completed"))}] })
 								var _XML_HOOK_18 = fun.name()
-								fun.hook(_XML_HOOK_18, _XML_HOOK_17, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("toggle")}, {name:"type",value: fun.expressions.Text("checkbox")}, {name:"data",value: fun.expressions.reference(__variableName__task, ["completed"])}] })
+								fun.hook(_XML_HOOK_18, _XML_HOOK_16, { tagName:"label", attrs:[{name:"ondblclick",value: fun.expressions.Handler(function block() { 	
+									__variableName__editing.mutate("set", [ fun.expressions.Logic(true)]) })}] })
+									fun.emit(_XML_HOOK_18,  fun.expressions.dereference(__variableName__task,  fun.expressions.Text("title")))
 								var _XML_HOOK_19 = fun.name()
-								fun.hook(_XML_HOOK_19, _XML_HOOK_17, { tagName:"label", attrs:null })
-									fun.emit(_XML_HOOK_19,  fun.expressions.reference(__variableName__task, ["title"]))
-								var _XML_HOOK_20 = fun.name()
-								fun.hook(_XML_HOOK_20, _XML_HOOK_17, { tagName:"button", attrs:[{name:"class",value: fun.expressions.Text("destroy")}, {name:"onclick",value:
-								fun.expressions.Handler(function block() {
-									__variableName__tasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [ fun.invoke( fun.expressions.reference(__variableName__tasks, ["copy"]), [], ""),
-									fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__checkTask) {
-										yieldValue( fun.expressions.composite( fun.expressions.reference(__variableName__checkTask, ["id"]), "!",  fun.expressions.reference(__variableName__task, ["id"]))); return
-									})], ""))
-								})}] })
-							var _XML_HOOK_21 = fun.name()
-							fun.hook(_XML_HOOK_21, _XML_HOOK_16, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("edit")}, {name:"data",value: fun.expressions.reference(__variableName__task, ["title"])}] })
+								fun.hook(_XML_HOOK_19, _XML_HOOK_16, { tagName:"button", attrs:[{name:"class",value: fun.expressions.Text("destroy")}, {name:"onclick",value: fun.expressions.Handler(function block() { 	
+									__variableName__destroyTask.invoke([__variableName__task]) })}] })
+							var __variableName__newTitle = fun.expressions.variable( fun.expressions.dereference(__variableName__task,  fun.expressions.Text("title")))
+							var _XML_HOOK_20 = fun.name()
+							fun.hook(_XML_HOOK_20, _XML_HOOK_15, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("edit")}, {name:"data",value:__variableName__newTitle}, {name:"autofocus",value: fun.expressions.Text("true")}, {name:"onblur",value: fun.expressions.Handler(function block() { 	
+								__variableName__task.mutate("set", [ fun.expressions.Text("title"),   fun.expressions.dereference(__variableName__newTitle,  fun.expressions.Text("copy")).invoke([], "")]) })}] })
 						})
 					})
-			var _XML_HOOK_22 = fun.name()
-			fun.hook(_XML_HOOK_22, _IF_ELSE_HOOK_8, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("footer")}] })
-				var __variableName__completedTasks = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
-				fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
-					yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
-				})], _XML_HOOK_22))
-				var __variableName__pluralize = fun.expressions.variable(
-				fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__num) {
-					yieldValue( fun.expressions.ternary( fun.expressions.composite(__variableName__num, ">",  fun.expressions.Number(1)),  fun.expressions.Text("items"),  fun.expressions.Text("item"))); return
-				}))
-				var _XML_HOOK_23 = fun.name()
-				fun.hook(_XML_HOOK_23, _XML_HOOK_22, { tagName:"span", attrs:[{name:"id",value: fun.expressions.Text("todo-count")}] })
-					var __variableName__numTasksLeft = fun.expressions.variable( fun.expressions.composite( fun.expressions.reference(__variableName__tasks, ["length"]), "-",  fun.expressions.reference(__variableName__completedTasks, ["length"])))
-					var _XML_HOOK_24 = fun.name()
-					fun.hook(_XML_HOOK_24, _XML_HOOK_23, { tagName:"strong", attrs:null })
-						fun.emit(_XML_HOOK_24, __variableName__numTasksLeft)
-					fun.emit(_XML_HOOK_23,  fun.expressions.Text(" "))
-					fun.emit(_XML_HOOK_23,  fun.invoke(__variableName__pluralize, [__variableName__numTasksLeft], _XML_HOOK_23))
-					fun.emit(_XML_HOOK_23,  fun.expressions.Text(" left"))
-				var _XML_HOOK_25 = fun.name()
-				fun.hook(_XML_HOOK_25, _XML_HOOK_22, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("filters")}] })
-					var _XML_HOOK_26 = fun.name()
-					fun.hook(_XML_HOOK_26, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
-					fun.expressions.Handler(function block() {
-						__variableName__displayTasks.set(null, __variableName__tasks)
-						__variableName__displayFilter.set(null,  fun.expressions.Text("all"))
-					})}] })
-						var _XML_HOOK_27 = fun.name()
-						fun.hook(_XML_HOOK_27, _XML_HOOK_26, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("all")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
-							fun.emit(_XML_HOOK_27,  fun.expressions.Text("All"))
-					var _XML_HOOK_28 = fun.name()
-					fun.hook(_XML_HOOK_28, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
-					fun.expressions.Handler(function block() {
-						__variableName__displayTasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
-						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
-							yieldValue( fun.expressions.unary("!",  fun.expressions.reference(__variableName__task, ["completed"]))); return
-						})], ""))
-						__variableName__displayFilter.set(null,  fun.expressions.Text("active"))
-					})}] })
-						var _XML_HOOK_29 = fun.name()
-						fun.hook(_XML_HOOK_29, _XML_HOOK_28, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("active")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
-							fun.emit(_XML_HOOK_29,  fun.expressions.Text("Active"))
-					var _XML_HOOK_30 = fun.name()
-					fun.hook(_XML_HOOK_30, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
-					fun.expressions.Handler(function block() {
-						__variableName__displayTasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
-						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
-							yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
-						})], ""))
-						__variableName__displayFilter.set(null,  fun.expressions.Text("completed"))
-					})}] })
-						var _XML_HOOK_31 = fun.name()
-						fun.hook(_XML_HOOK_31, _XML_HOOK_30, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("completed")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
-							fun.emit(_XML_HOOK_31,  fun.expressions.Text("Completed"))
-				var _XML_HOOK_32 = fun.name()
-				fun.hook(_XML_HOOK_32, _XML_HOOK_22, { tagName:"button", attrs:[{name:"id",value: fun.expressions.Text("clear-completed")}, {name:"onclick",value:
-				fun.expressions.Handler(function block() {
-					var __variableName__remainingTasks = fun.expressions.variable( fun.expressions.List([  ]))
-					__variableName__tasks.evaluate().iterate(function(__variableName__task) {
-						;(function(ifBranch, elseBranch) {
-							 fun.expressions.unary("!",  fun.expressions.reference(__variableName__task, ["completed"])).isTruthy() ? ifBranch() : elseBranch()
-						})(
-							function ifBranch(){
-							__variableName__remainingTasks.push(null, __variableName__task)
-							},
-							function elseBranch(){
-								null
-							}
-						)
-					})
-					__variableName__tasks.set(null, __variableName__remainingTasks)
-				})}] })
-					fun.emit(_XML_HOOK_32,  fun.expressions.Text("Clear completed ("))
-					fun.emit(_XML_HOOK_32,  fun.expressions.reference(__variableName__completedTasks, ["length"]))
-					fun.emit(_XML_HOOK_32,  fun.expressions.Text(")"))
+			var _XML_HOOK_21 = fun.name()
+			fun.hook(_XML_HOOK_21, _IF_ELSE_HOOK_8, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("footer")}] })
+				var __variableName__completedTasks = fun.expressions.variable(  fun.expressions.dereference(__variableName__list,  fun.expressions.Text("filter")).invoke([__variableName__tasks, fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) { 
+					yieldValue( fun.expressions.dereference(__variableName__task,  fun.expressions.Text("completed"))); return })], _XML_HOOK_21))
+				var _XML_HOOK_22 = fun.name()
+				fun.hook(_XML_HOOK_22, _XML_HOOK_21, { tagName:"span", attrs:[{name:"id",value: fun.expressions.Text("todo-count")}] })
+					var __variableName__pluralize = fun.expressions.variable( fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__num) { 
+						yieldValue( fun.expressions.ternaryOp( fun.expressions.binaryOp(__variableName__num, ">",  fun.expressions.Number(1)),  fun.expressions.Text("items"),  fun.expressions.Text("item"))); return }))
+					var __variableName__numTasksLeft = fun.expressions.variable( fun.expressions.binaryOp( fun.expressions.dereference(__variableName__tasks,  fun.expressions.Text("length")), "-",  fun.expressions.dereference(__variableName__completedTasks,  fun.expressions.Text("length"))))
+					var _XML_HOOK_23 = fun.name()
+					fun.hook(_XML_HOOK_23, _XML_HOOK_22, { tagName:"strong", attrs:null })
+						fun.emit(_XML_HOOK_23, __variableName__numTasksLeft)
+					fun.emit(_XML_HOOK_22,  fun.expressions.Text(" "))
+					__variableName__pluralize.render(fun.hook(fun.name(), _XML_HOOK_22), [__variableName__numTasksLeft])
+					fun.emit(_XML_HOOK_22,  fun.expressions.Text(" left"))
+				var _XML_HOOK_24 = fun.name()
+				fun.hook(_XML_HOOK_24, _XML_HOOK_21, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("filters")}] })
+					var _XML_HOOK_25 = fun.name()
+					fun.hook(_XML_HOOK_25, _XML_HOOK_24, { tagName:"li", attrs:[{name:"onclick",value: fun.expressions.Handler(function block() { 	
+						__variableName__displayFilter.mutate("set", [ fun.expressions.Text("all")]) })}] })
+						var _XML_HOOK_26 = fun.name()
+						fun.hook(_XML_HOOK_26, _XML_HOOK_25, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternaryOp( fun.expressions.binaryOp(__variableName__displayFilter, "=",  fun.expressions.Text("all")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_26,  fun.expressions.Text("All"))
+					var _XML_HOOK_27 = fun.name()
+					fun.hook(_XML_HOOK_27, _XML_HOOK_24, { tagName:"li", attrs:[{name:"onclick",value: fun.expressions.Handler(function block() { 	
+						__variableName__displayFilter.mutate("set", [ fun.expressions.Text("active")]) })}] })
+						var _XML_HOOK_28 = fun.name()
+						fun.hook(_XML_HOOK_28, _XML_HOOK_27, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternaryOp( fun.expressions.binaryOp(__variableName__displayFilter, "=",  fun.expressions.Text("active")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_28,  fun.expressions.Text("Active"))
+					var _XML_HOOK_29 = fun.name()
+					fun.hook(_XML_HOOK_29, _XML_HOOK_24, { tagName:"li", attrs:[{name:"onclick",value: fun.expressions.Handler(function block() { 	
+						__variableName__displayFilter.mutate("set", [ fun.expressions.Text("completed")]) })}] })
+						var _XML_HOOK_30 = fun.name()
+						fun.hook(_XML_HOOK_30, _XML_HOOK_29, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternaryOp( fun.expressions.binaryOp(__variableName__displayFilter, "=",  fun.expressions.Text("completed")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_30,  fun.expressions.Text("Completed"))
+				var _XML_HOOK_31 = fun.name()
+				fun.hook(_XML_HOOK_31, _XML_HOOK_21, { tagName:"button", attrs:[{name:"id",value: fun.expressions.Text("clear-completed")}, {name:"onclick",value: fun.expressions.Handler(function block() { 	
+					var __variableName__remainingTasks = fun.expressions.variable(  fun.expressions.dereference(__variableName__list,  fun.expressions.Text("filter")).invoke([__variableName__tasks, fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) { 
+						yieldValue( fun.expressions.unaryOp("!",  fun.expressions.dereference(__variableName__task,  fun.expressions.Text("completed")))); return })], ""))
+					__variableName__tasks.mutate("set", [  fun.expressions.dereference(__variableName__remainingTasks,  fun.expressions.Text("copy")).invoke([], "")]) })}] })
+					fun.emit(_XML_HOOK_31,  fun.expressions.Text("Clear completed ("))
+					fun.emit(_XML_HOOK_31,  fun.expressions.dereference(__variableName__completedTasks,  fun.expressions.Text("length")))
+					fun.emit(_XML_HOOK_31,  fun.expressions.Text(")"))
 			},
 			function elseBranch(){
 				null
 			}
 		)
 		})
-	var _XML_HOOK_34 = fun.name()
-	fun.hook(_XML_HOOK_34, _ROOT_HOOK_0, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("info")}] })
+	var _XML_HOOK_33 = fun.name()
+	fun.hook(_XML_HOOK_33, _ROOT_HOOK_0, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("info")}] })
+		var _XML_HOOK_34 = fun.name()
+		fun.hook(_XML_HOOK_34, _XML_HOOK_33, { tagName:"p", attrs:null })
+			fun.emit(_XML_HOOK_34,  fun.expressions.Text("Double-click to edit a todo"))
 		var _XML_HOOK_35 = fun.name()
-		fun.hook(_XML_HOOK_35, _XML_HOOK_34, { tagName:"p", attrs:null })
-			fun.emit(_XML_HOOK_35,  fun.expressions.Text("Double-click to edit a todo"))
-		var _XML_HOOK_36 = fun.name()
-		fun.hook(_XML_HOOK_36, _XML_HOOK_34, { tagName:"p", attrs:null })
-			fun.emit(_XML_HOOK_36,  fun.expressions.Text("Created with "))
+		fun.hook(_XML_HOOK_35, _XML_HOOK_33, { tagName:"p", attrs:null })
+			fun.emit(_XML_HOOK_35,  fun.expressions.Text("Created with "))
+			var _XML_HOOK_36 = fun.name()
+			fun.hook(_XML_HOOK_36, _XML_HOOK_35, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("https://github.com/marcuswestin/fun")}] })
+				fun.emit(_XML_HOOK_36,  fun.expressions.Text("Fun"))
+			fun.emit(_XML_HOOK_35,  fun.expressions.Text(" by "))
 			var _XML_HOOK_37 = fun.name()
-			fun.hook(_XML_HOOK_37, _XML_HOOK_36, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("https://github.com/marcuswestin/fun")}] })
-				fun.emit(_XML_HOOK_37,  fun.expressions.Text("Fun"))
-			fun.emit(_XML_HOOK_36,  fun.expressions.Text(" by "))
-			var _XML_HOOK_38 = fun.name()
-			fun.hook(_XML_HOOK_38, _XML_HOOK_36, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("http://marcuswest.in")}] })
-				fun.emit(_XML_HOOK_38,  fun.expressions.Text("Marcus Westin"))
+			fun.hook(_XML_HOOK_37, _XML_HOOK_35, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("http://marcuswest.in")}] })
+				fun.emit(_XML_HOOK_37,  fun.expressions.Text("Marcus Westin"))
 })();
 })()
 </script></body></html>
