@@ -14,21 +14,21 @@ import app
 tasks = []
 displayFilter = 'all'
 
-app.whenLoaded(handler() {
-	localstorage.persist(tasks, 'todos-fun.tasks')
-	localstorage.persist(displayFilter, 'todos-fun.displayFilter')
-})
+app.whenLoaded( handler() {
+	localstorage.persist( tasks, 'todos-fun.tasks' )
+	localstorage.persist( displayFilter, 'todos-fun.displayFilter' )
+} )
 
-getVisibleTasks = function(displayFilter) {
-	return list.filter(tasks, function(task) {
+getVisibleTasks = function( displayFilter ) {
+	return list.filter( tasks, function( task ) {
 		if displayFilter is 'all' { return true }
 		else if displayFilter is 'active' { return !task.completed }
 		else if displayFilter is 'completed' { return task.completed }
 	})
 }
 
-createTask = handler(taskName) {
-	trimmedName = text.trim(taskName)
+createTask = handler( taskName ) {
+	trimmedName = text.trim( taskName )
 	if trimmedName is ! '' {
 		tasks push: {
 			title:trimmedName,
@@ -38,8 +38,8 @@ createTask = handler(taskName) {
 	}
 }
 
-destroyTask = handler(task) {
-	tasks set: list.filter(tasks.copy(), function(checkTask) {
+destroyTask = handler( task ) {
+	tasks set: list.filter( tasks.copy(), function( checkTask ) {
 		return checkTask.id is ! task.id
 	})
 }
@@ -48,10 +48,10 @@ destroyTask = handler(task) {
 	<header id="header">
 		<h1>"todos"</h1>
 		newTaskName = ''
-		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
+		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler( event ) {
 			enterKey = 13
 			if event.keyCode is enterKey {
-				createTask(newTaskName.copy())
+				createTask( newTaskName.copy() )
 				newTaskName set: ''
 			}
 		}/>
@@ -69,13 +69,13 @@ destroyTask = handler(task) {
 			} />
 			
 			<ul id="todo-list">
-				for task in getVisibleTasks(displayFilter) {
+				for task in getVisibleTasks( displayFilter ) {
 					editing = false
-					<li class=(task.completed ? "completed" : "") + (editing ? " editing" : "")>
+					<li class=( task.completed ? "completed" : "" ) + ( editing ? " editing" : "" )>
 						<div class="view">
 							<input class="toggle" type="checkbox" data=task.completed />
 							<label>task.title</label ondblclick=handler() { editing set:true }>
-							<button class="destroy"></button onclick=handler() { destroyTask(task) }>
+							<button class="destroy"></button onclick=handler() { destroyTask( task ) }>
 						</div>
 						
 						newTitle = task.title
@@ -88,28 +88,28 @@ destroyTask = handler(task) {
 		</section>
 		
 		<footer id="footer">
-			completedTasks = list.filter(tasks, function(task) { return task.completed })
+			completedTasks = list.filter( tasks, function( task ) { return task.completed } )
 			
 			<span id="todo-count">
-				pluralize = function(num) { return num is > 1 ? "items" : "item" }
+				pluralize = function( num ) { return num is > 1 ? "items" : "item" }
 				numTasksLeft = tasks.length - completedTasks.length
-				<strong>numTasksLeft</strong>" "pluralize(numTasksLeft)" left"
+				<strong>numTasksLeft</strong>" "pluralize( numTasksLeft )" left"
 			</span>
 			
 			<ul id="filters">
-				<li><a href="#" class=(displayFilter is "all" ? "selected" : "")>"All"</a></li onclick=handler() {
+				<li><a href="#" class=( displayFilter is "all" ? "selected" : "" )>"All"</a></li onclick=handler() {
 					displayFilter set:'all'
 				}>
-				<li><a href="#" class=(displayFilter is "active" ? "selected" : "")>"Active"</a></li onclick=handler() {
+				<li><a href="#" class=( displayFilter is "active" ? "selected" : "" )>"Active"</a></li onclick=handler() {
 					displayFilter set:'active'
 				}>
-				<li><a href="#" class=(displayFilter is "completed" ? "selected" : "")>"Completed"</a></li onclick=handler() {
+				<li><a href="#" class=( displayFilter is "completed" ? "selected" : "" )>"Completed"</a></li onclick=handler() {
 					displayFilter set:'completed'
 				}>
 			</ul>
 			
-			<button id="clear-completed">"Clear completed ("completedTasks.length")"</button onclick=handler() {
-				remainingTasks = list.filter(tasks, function(task) { return !task.completed })
+			<button id="clear-completed">"Clear completed (" completedTasks.length ")"</button onclick=handler() {
+				remainingTasks = list.filter( tasks, function( task ) { return !task.completed } )
 				tasks set: remainingTasks.copy()
 				displayFilter set:displayFilter.copy() // force display to recalc
 			}>
