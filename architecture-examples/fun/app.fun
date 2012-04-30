@@ -39,26 +39,30 @@ displayTasks = tasks
 			toggleAll = false
 			<input id="toggle-all" type="checkbox" checked=toggleAll onchange=handler() {
 				toggled = (!toggleAll).copy()
+				toggleAll set: toggled
 				for task in tasks {
 					task set: 'completed', toggled
 				}
-				toggleAll set: toggled
 			} />
 			<label for="toggle-all">"Mark all as complete"</label>
 			<ul id="todo-list">
 				for task in displayTasks {
-					<li class=(task.completed ? "complete" : "")>
+					editing = false
+					<li class=(task.completed ? "complete" : "") + (editing ? " editing" : "")>
 						<div class="view">
-							<input class="toggle" type="checkbox" checked=task.completed onchange=handler() {
-								task set:'completed', (!task.completed).copy()
-							} />
-							<label>task.title</label>
+							<input class="toggle" type="checkbox" data=task.completed />
+							<label>task.title</label ondblclick=handler() {
+								editing set:true
+							}>
 							<button class="destroy"></button onclick=handler() {
 								tasks set: list.filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
 							}>
 						</div>
-						// TODO Implement editing
-						<input class="edit" data=task.title />
+						
+						newTitle = task.title
+						<input class="edit" data=newTitle autofocus="true" onblur=handler() {
+							task set:'title', newTitle.copy()
+						} />
 					</li>
 				}
 			</ul>
