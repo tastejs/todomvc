@@ -32,17 +32,21 @@ getDisplayTasks = function(displayFilter) {
 	})
 }
 
+createNewTask = handler(taskName) {
+	trimmedName = text.trim(taskName)
+	if trimmedName is ! '' {
+		tasks push: { title:trimmedName, completed:false, id:uuid.v4() }
+	}
+}
+
 <section id="todoapp">
 	<header id="header">
 		<h1>"todos"</h1>
 		newTaskName = ''
 		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
 			if (event.keyCode is 13) {
-				trimmedName = text.trim(newTaskName.copy())
-				if trimmedName is ! '' {
-					tasks push: { title:trimmedName, completed:false, id:uuid.v4() }
-					newTaskName set: ''
-				}
+				createNewTask(newTaskName.copy())
+				newTaskName set: ''
 			}
 		}/>
 	</header>
