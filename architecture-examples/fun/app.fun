@@ -1,6 +1,9 @@
 import localstorage
 import list
 import text
+import uuid
+import console
+import app
 
 <head>
 	<meta charset="utf-8" />
@@ -10,27 +13,23 @@ import text
 </head>
 
 tasks = []
-// localstorage.persist(tasks, 'todos-fun')
-
-nextId = 1
-// localstorage.persist(nextId, 'todos-id')
-
-displayTasks = tasks
+app.whenLoaded(handler() {
+	localstorage.persist(tasks, 'todos-fun')
+})
 displayFilter = 'all'
+displayTasks = tasks
 
 <section id="todoapp">
 	<header id="header">
 		<h1>"todos"</h1>
 		newTaskName = ''
-		<input id="new-todo" placeholder="What needs to be done?" data=newTaskName onkeypress=handler(event) { // autofocus=true
+		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
 			if (event.keyCode is 13) {
 				trimmedName = text.trim(newTaskName.copy())
-				id = nextId.copy()
 				if trimmedName is ! '' {
-					tasks push: { title:trimmedName, completed:false, id:id }
+					tasks push: { title:trimmedName, completed:false, id:uuid.v4() }
 					newTaskName set: ''
 				}
-				nextId set: nextId.copy() + 1
 			}
 		}/>
 	</header>
@@ -38,17 +37,21 @@ displayFilter = 'all'
 	if tasks.length {
 		<section id="main">
 			toggleAll = false
-			<input id="toggle-all" type="checkbox" data=toggleAll onchange=handler() {
+			<input id="toggle-all" type="checkbox" checked=toggleAll onchange=handler() {
+				toggled = (!toggleAll).copy()
 				for task in tasks {
-					task.completed set: !toggleAll.copy()
+					task set: 'completed', toggled
 				}
+				toggleAll set: toggled
 			} />
 			<label for="toggle-all">"Mark all as complete"</label>
 			<ul id="todo-list">
 				for task in displayTasks {
 					<li class=(task.completed ? "complete" : "")>
 						<div class="view">
-							<input class="toggle" type="checkbox" data=task.completed />
+							<input class="toggle" type="checkbox" checked=task.completed onchange=handler() {
+								task set:'completed', (!task.completed).copy()
+							} />
 							<label>task.title</label>
 							<button class="destroy"></button onclick=handler() {
 								tasks set: list.filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
