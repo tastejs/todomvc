@@ -1,70 +1,85 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Knockback.js - TodoMVC</title>
-  <link rel="stylesheet" href="../../assets/base.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Knockback.js • TodoMVC</title>
+	<link rel="stylesheet" href="../../assets/base.css">
 </head>
 <body>
-  <div id="todoapp">
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" type="text" data-bind="value: header.title, valueUpdate: 'afterkeydown', event: {keyup: header.onAddTodo}" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main" data-bind="block: todos.tasks_exist">
+			<input id="toggle-all" type="checkbox" data-bind="checked: todos.all_completed">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list" data-bind="foreach: todos.todos">
+				<li data-bind="css: {completed: completed, editing: editing}, visible: visible">
+					<div class="view">
+						<input class="toggle" type="checkbox" data-bind="checked: completed" checked>
+						<label data-bind="text: title, event: {dblclick: onCheckEditBegin}"></label>
+						<button class="destroy" data-bind="click: onDestroyTodo"></button>
+					</div>
+					<input class="edit" type="text" data-bind="value: title, selectAndFocus: editing, event: {blur: onCheckEditEnd, keyup: onCheckEditEnd}">
+				</li>
+			</ul>
+		</section>
+		<footer id="footer" data-bind="block: todos.tasks_exist">
+			<span id="todo-count">
+				<strong data-bind="text: footer.remaining_count"></strong>
+				<span data-bind="text: footer.remaining_text"></span>
+			</span>
+			<ul id="filters">
+				<li>
+					<a href="#/" data-bind="css: {selected: app_settings_view_model.list_filter_mode()==''}">All</a>
+				</li>
+				<li>
+					<a href="#/active" data-bind="css: {selected: app_settings_view_model.list_filter_mode()=='active'}">Active</a>
+				</li>
+				<li>
+					<a href="#/completed" data-bind="css: {selected: app_settings_view_model.list_filter_mode()=='completed'}">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed" data-bind="text: footer.clear_text, block: footer.clear_text, click: footer.onDestroyCompleted"></button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+		<p>Created by <a href="https://github.com/kmalakoff">Kevin Malakoff</a>. <br/>
+		Please try out the <a href="http://kmalakoff.github.com/knockback-todos/">enhanced version</a> <br/>
+		with localization, priority colors, and lazy loading <br/>
+		to see just how dynamic <a href="https://github.com/kmalakoff/knockback">Knockback.js</a> can be!</p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
 
-    <header>
-      <h1>Todos</h1>
-      <input id="new-todo" type="text" placeholder="What needs to be done?" data-bind="value: create.input_text, valueUpdate: 'afterkeydown',event: {keyup: create.addTodo}">
-    </header>
+	<!-- Demo Dependencies -->
+	<script src="js/lib/json2.js"></script>
+	<script src="../../assets/jquery.min.js"></script>
 
-    <section id="main" data-bind="block: todo_list.tasks_exist">
-      <input id="toggle-all" type="checkbox" data-bind="checked: todo_list.completeAll">
-      <label for="toggle-all">Mark all as complete</label>
+	<!-- Knockback Dependencies -->
+	<script src="js/lib/underscore-min.js"></script>
+	<script src="js/lib/backbone-min.js"></script>
+	<script src="js/lib/knockout-2.0.0.js"></script>
+	<script src="js/lib/knockback.min.js"></script>
 
-      <!-- Tasks -->
-      <ul id="todo-list" data-bind="foreach: todo_list.todos">
+	<!-- More Demo Dependencies -->
+	<script src="js/lib/backbone-localstorage.js"></script>
 
-        <!-- Task Template -->
-        <li data-bind="css: {done: done, editing: edit_mode}">
-          <div class="view">
-            <input class="toggle" type="checkbox" data-bind="checked: done">
-            <label data-bind="text: text, event: {dblclick: onCheckBeginEdit}"></label>
-            <a class="destroy" data-bind="click: destroyTodo"></a>
-          </div>
-          <input class="edit" type="text" data-bind="value: text, valueUpdate: 'afterkeydown', event: {blur: onCheckEndEdit, keyup: onCheckEndEdit}">
-        </li>
+	<!-- Demo Components -->
+	<script src="js/models/todo.js"></script>
+	<script src="js/models/todo_collection.js"></script>
+	<script src="js/viewmodels/app_settings.js"></script>
+	<script src="js/viewmodels/header.js"></script>
+	<script src="js/viewmodels/todos.js"></script>
+	<script src="js/viewmodels/footer.js"></script>
+	<script src="js/viewmodels/app.js"></script>
+	<script src="js/routers/app.js"></script>
 
-      </ul>
-    </section>
-
-    <footer data-bind="block: todo_list.tasks_exist">
-      <a id="clear-completed" data-bind="block: stats.clearable, text: stats.clear_text, click: stats.onDestroyDone">Clear completed</a>
-      <div id="todo-count" data-bind="text: stats.remaining_text"></div>
-    </footer>
-
-  </div>
-
-  <div id="instructions">
-    Double-click to edit a todo.
-  </div>
-
-  <div id="credits">
-    Created by <a href="https://github.com/kmalakoff">Kevin Malakoff</a>. <br/><br/>
-    Please try out the <a href="http://kmalakoff.github.com/knockback-todos/">enhanced version</a> <br/>
-    with localization, priority colors, and lazy loading <br/>
-    to see just how dynamic <a href="https://github.com/kmalakoff/knockback">Knockback.js</a> can be!
-  </div>
-
-  <!-- Demo Dependencies -->
-  <script src="js/libs/json2.js"></script>
-  <script src="js/libs/jquery-1.7.1.min.js"></script>
-
-  <!-- Knockback Dependencies -->
-  <script src="js/libs/underscore.js"></script>
-  <script src="js/libs/backbone.js"></script>
-  <script src="js/libs/knockout-2.0.0.js"></script>
-  <script src="js/libs/knockback.js"></script>
-
-  <!-- More Demo Dependencies -->
-  <script src="js/libs/backbone-localstorage.js"></script>
-
-  <!-- The Demo -->
-  <script src="js/app.js"></script>
+	<!-- The Demo -->
+	<script src="../../assets/base.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>
