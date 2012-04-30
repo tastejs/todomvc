@@ -90,13 +90,8 @@ displayTasks = tasks
 				}>
 			</ul>
 			<button id="clear-completed">"Clear completed ("completedTasks.length")"</button onclick=handler() {
-				remainingTasks = []
-				for task in tasks {
-					if !task.completed {
-						remainingTasks push: task
-					}
-				}
-				tasks set: remainingTasks
+				remainingTasks = list.filter(tasks, function(task) { return !task.completed })
+				tasks set: remainingTasks.copy()
 			}>
 		</footer>
 	}
