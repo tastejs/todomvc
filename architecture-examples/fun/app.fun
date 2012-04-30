@@ -13,11 +13,24 @@ import app
 </head>
 
 tasks = []
-app.whenLoaded(handler() {
-	localstorage.persist(tasks, 'todos-fun')
-})
 displayFilter = 'all'
-displayTasks = tasks
+
+app.whenLoaded(handler() {
+	localstorage.persist(tasks, 'todos-fun.tasks')
+	localstorage.persist(displayFilter, 'todos-fun.displayFilter')
+})
+
+getDisplayTasks = function(displayFilter) {
+	return list.filter(tasks, function(task) {
+		if displayFilter is 'all' {
+			return true
+		} else if displayFilter is 'active' {
+			return !task.completed
+		} else {
+			return task.completed
+		}
+	})
+}
 
 <section id="todoapp">
 	<header id="header">
@@ -46,7 +59,7 @@ displayTasks = tasks
 			} />
 			<label for="toggle-all">"Mark all as complete"</label>
 			<ul id="todo-list">
-				for task in displayTasks {
+				for task in getDisplayTasks(displayFilter) {
 					editing = false
 					<li class=(task.completed ? "complete" : "") + (editing ? " editing" : "")>
 						<div class="view">
@@ -75,20 +88,19 @@ displayTasks = tasks
 				numTasksLeft = tasks.length - completedTasks.length
 				<strong>numTasksLeft</strong>" "pluralize(numTasksLeft)" left"
 			</span>
+			
 			<ul id="filters">
 				<li><a href="#" class=(displayFilter is 'all' ? 'selected' : '')>"All"</a></li onclick=handler() {
-					displayTasks set: tasks
 					displayFilter set:'all'
 				}>
 				<li><a href="#" class=(displayFilter is 'active' ? 'selected' : '')>"Active"</a></li onclick=handler() {
-					displayTasks set: list.filter(tasks, function(task) { return !task.completed })
 					displayFilter set:'active'
 				}>
 				<li><a href="#" class=(displayFilter is 'completed' ? 'selected' : '')>"Completed"</a></li onclick=handler() {
-					displayTasks set: list.filter(tasks, function(task) { return task.completed })
 					displayFilter set:'completed'
 				}>
 			</ul>
+			
 			<button id="clear-completed">"Clear completed ("completedTasks.length")"</button onclick=handler() {
 				remainingTasks = list.filter(tasks, function(task) { return !task.completed })
 				tasks set: remainingTasks.copy()
