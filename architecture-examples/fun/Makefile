@@ -1,10 +1,11 @@
-run: node_modules/fun
-	node_modules/.bin/fun app.fun
+run: lib/fun
+	lib/fun/bin/fun app.fun --normalize.css=false
 
-node_modules/fun:
-	mkdir -p node_modules
-	git clone git://github.com/marcuswestin/fun.git node_modules/fun
-	cd node_modules/fun && make setup
+lib/fun:
+	mkdir -p lib
+	git clone git://github.com/marcuswestin/fun.git lib/fun
+	cd lib/fun && make setup
 
 clean:
-	rm -rf node_modules/
+	rm -rf lib
+
