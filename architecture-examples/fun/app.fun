@@ -2,7 +2,6 @@ import localstorage
 import list
 import text
 import uuid
-import console
 import app
 
 <head>
