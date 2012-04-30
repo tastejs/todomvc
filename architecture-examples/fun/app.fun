@@ -57,10 +57,9 @@ destroyTask = handler(task) {
 			
 			toggleAll = false
 			<input id="toggle-all" type="checkbox" checked=toggleAll onchange=handler() {
-				toggled = (!toggleAll).copy()
-				toggleAll set: toggled
+				toggleAll set: !toggleAll.copy()
 				for task in tasks {
-					task set: 'completed', toggled
+					task set: 'completed', !toggleAll.copy()
 				}
 			} />
 			
