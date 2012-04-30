@@ -10,7 +10,7 @@ Getting started
 
 To make changes to the todos-fun example you need to install fun:
 
-	sudo npm install fun@0.3.0 -g
+	npm install fun@0.3.0 -g
 
 To develop the app:
 

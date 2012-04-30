@@ -394,7 +394,7 @@ WebKit supports styling of inputs */
 }
 </style>
 <style type="text/css">
-/* inlined stylesheet: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/css/app.css */
+/* inlined stylesheet: /Volumes/Encrypted/code/marcuswestin/todomvc/labs/fun/css/app.css */
 /*
 	Fun injects "hook" dom nodes into the dom tree. The
 	reason why is too involved to outline here. However,
@@ -420,7 +420,7 @@ body {
 </head><body><script>
 var __require__ = {}
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/isArray
+	// /usr/local/lib/node_modules/fun/node_modules/std/isArray
 	var module = __require__["_1"] = {exports:{}}, exports = module.exports;
 module.exports = (function() {
 	if (Array.isArray && Array.isArray.toString().match('\\[native code\\]')) {
@@ -438,7 +438,7 @@ module.exports = (function() {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/isArguments
+	// /usr/local/lib/node_modules/fun/node_modules/std/isArguments
 	var module = __require__["_2"] = {exports:{}}, exports = module.exports;
 module.exports = function isArguments(obj) {
   return Object.prototype.toString.call(obj) == '[object Arguments]'
@@ -446,7 +446,7 @@ module.exports = function isArguments(obj) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/each
+	// /usr/local/lib/node_modules/fun/node_modules/std/each
 	var module = __require__["_3"] = {exports:{}}, exports = module.exports;
 var isArray = __require__["_1"].exports,
 	isArguments = __require__["_2"].exports
@@ -472,7 +472,7 @@ module.exports = function(items, ctx, fn) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/create
+	// /usr/local/lib/node_modules/fun/node_modules/std/create
 	var module = __require__["_4"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports
 // Thanks Douglas Crockford! http://javascript.crockford.com/prototypal.html
@@ -500,7 +500,7 @@ module.exports = function create(obj, extendWithProperties) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/proto
+	// /usr/local/lib/node_modules/fun/node_modules/std/proto
 	var module = __require__["_5"] = {exports:{}}, exports = module.exports;
 /* 
 	// Usage: proto(prototypeObj, intantiatingFn, properties)
@@ -546,7 +546,7 @@ var proto = module.exports = function proto(prototypeObject, instantiationFuncti
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/map
+	// /usr/local/lib/node_modules/fun/node_modules/std/map
 	var module = __require__["_6"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports
 
@@ -565,7 +565,7 @@ module.exports = function(items, ctx, fn) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/slice
+	// /usr/local/lib/node_modules/fun/node_modules/std/slice
 	var module = __require__["_7"] = {exports:{}}, exports = module.exports;
 /*
 	Example usage:
@@ -583,7 +583,7 @@ module.exports = function args(args, offset, length) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/bind
+	// /usr/local/lib/node_modules/fun/node_modules/std/bind
 	var module = __require__["_8"] = {exports:{}}, exports = module.exports;
 /*
 	Example usage:
@@ -639,7 +639,7 @@ module.exports = function bind(context, method /* curry1, curry2, ... curryN */)
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/arrayToObject
+	// /usr/local/lib/node_modules/fun/node_modules/std/arrayToObject
 	var module = __require__["_9"] = {exports:{}}, exports = module.exports;
 module.exports = function arrayToObject(arr) {
 	var obj = {}
@@ -649,7 +649,7 @@ module.exports = function arrayToObject(arr) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/copy
+	// /usr/local/lib/node_modules/fun/node_modules/std/copy
 	var module = __require__["_10"] = {exports:{}}, exports = module.exports;
 var each = __require__["_3"].exports,
 	isArray = __require__["_1"].exports
@@ -665,7 +665,7 @@ module.exports = function copy(obj, deep) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/runtime/expressions
+	// /usr/local/lib/node_modules/fun/src/runtime/expressions
 	var module = __require__["_11"] = {exports:{}}, exports = module.exports;
 var proto = __require__["_5"].exports,
 	create = __require__["_4"].exports,
@@ -1343,7 +1343,7 @@ function typeMismatch() { throw new Error('Type mismatch') }
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/curry
+	// /usr/local/lib/node_modules/fun/node_modules/std/curry
 	var module = __require__["_12"] = {exports:{}}, exports = module.exports;
 var slice = __require__["_7"].exports
 
@@ -1359,7 +1359,7 @@ module.exports = function curry(fn /* arg1, arg2, ... argN */) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/throttle
+	// /usr/local/lib/node_modules/fun/node_modules/std/throttle
 	var module = __require__["_13"] = {exports:{}}, exports = module.exports;
 var unique = 0
 module.exports = function throttle(fn, delay) {
@@ -1379,7 +1379,7 @@ module.exports = function throttle(fn, delay) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/hasClass
+	// /usr/local/lib/node_modules/fun/node_modules/dom/hasClass
 	var module = __require__["_14"] = {exports:{}}, exports = module.exports;
 module.exports = function(el, className) {
 	return (' ' + el.className + ' ').match(' ' + className + ' ')
@@ -1387,7 +1387,7 @@ module.exports = function(el, className) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/addClass
+	// /usr/local/lib/node_modules/fun/node_modules/dom/addClass
 	var module = __require__["_15"] = {exports:{}}, exports = module.exports;
 var hasClass = __require__["_14"].exports
 
@@ -1399,7 +1399,7 @@ module.exports = function(el, className) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/removeClass
+	// /usr/local/lib/node_modules/fun/node_modules/dom/removeClass
 	var module = __require__["_16"] = {exports:{}}, exports = module.exports;
 module.exports = function removeClass(el, className) {
 	var current = ' ' + el.className + ' ',
@@ -1412,7 +1412,7 @@ module.exports = function removeClass(el, className) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/unique
+	// /usr/local/lib/node_modules/fun/node_modules/std/unique
 	var module = __require__["_17"] = {exports:{}}, exports = module.exports;
 /*
  * Return a globally unique string.
@@ -1425,7 +1425,7 @@ module.exports.__namespace = '__u'
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/Class
+	// /usr/local/lib/node_modules/fun/node_modules/std/Class
 	var module = __require__["_18"] = {exports:{}}, exports = module.exports;
 /* Example usage:
 
@@ -1511,7 +1511,7 @@ module.exports = function Class(/* optParent, optMixin1, optMixin2, ..., proto *
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/client
+	// /usr/local/lib/node_modules/fun/node_modules/std/client
 	var module = __require__["_19"] = {exports:{}}, exports = module.exports;
 var Class = __require__["_18"].exports
 
@@ -1600,7 +1600,7 @@ module.exports.parse = function(userAgent) { return new Client(userAgent) }
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/getWindowScroll
+	// /usr/local/lib/node_modules/fun/node_modules/dom/getWindowScroll
 	var module = __require__["_20"] = {exports:{}}, exports = module.exports;
 // Thanks http://stackoverflow.com/questions/1567327/using-jquery-to-get-elements-position-relative-to-viewport!
 module.exports = function getWindowScroll(win) {
@@ -1618,7 +1618,7 @@ module.exports = function getWindowScroll(win) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/getAttribute
+	// /usr/local/lib/node_modules/fun/node_modules/dom/getAttribute
 	var module = __require__["_21"] = {exports:{}}, exports = module.exports;
 module.exports = function(element, attribute) {
 	if (element.getAttribute) {
@@ -1630,7 +1630,7 @@ module.exports = function(element, attribute) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/setAttribute
+	// /usr/local/lib/node_modules/fun/node_modules/dom/setAttribute
 	var module = __require__["_22"] = {exports:{}}, exports = module.exports;
 module.exports = function setAttribute(element, attribute, value) {
 	if (element.setAttribute) {
@@ -1643,7 +1643,7 @@ module.exports = function setAttribute(element, attribute, value) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/on
+	// /usr/local/lib/node_modules/fun/node_modules/dom/on
 	var module = __require__["_23"] = {exports:{}}, exports = module.exports;
 var unique = __require__["_17"].exports,
 	curry = __require__["_12"].exports,
@@ -1805,7 +1805,7 @@ module.exports.normalizeEvent = function(eventName, e) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/dom/off
+	// /usr/local/lib/node_modules/fun/node_modules/dom/off
 	var module = __require__["_24"] = {exports:{}}, exports = module.exports;
 var on = __require__["_23"].exports
 
@@ -1849,7 +1849,7 @@ module.exports._removeHandler = function(element, eventName, handler) {
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/runtime/library
+	// /usr/local/lib/node_modules/fun/src/runtime/library
 	var module = __require__["_25"] = {exports:{}}, exports = module.exports;
 var expressions = __require__["_11"].exports,
 	each = __require__["_3"].exports,
@@ -2051,7 +2051,7 @@ var expressions = __require__["_11"].exports,
 })()
 
 ;(function() {
-	// /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/node_modules/std/strip
+	// /usr/local/lib/node_modules/fun/node_modules/std/strip
 	var module = __require__["_26"] = {exports:{}}, exports = module.exports;
 var stripRegex = /^\s*(.*?)\s*$/
 module.exports = function(str) {
@@ -2069,9 +2069,9 @@ fun = __require__["_25"].exports;
 ;(function funApp() {
 	var _ROOT_HOOK_0 = fun.name("rootHook")
 	fun.setHook(_ROOT_HOOK_0, document.body)
-	/***********************************************************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/modules/localstorage.fun *
- ***********************************************************************************************************************/
+	/************************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/localstorage.fun *
+ ************************************************************************/
 	var __variableName__localstorage = fun.expressions.variable( fun.expressions.Dictionary({ "persist": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__variable, __variableName__name) { 
 		;(function(){
 		/* START INLINE JAVASCRIPT */
@@ -2087,9 +2087,9 @@ fun = __require__["_25"].exports;
  })
 		/* END INLINE JAVASCRIPT */
 		})() }) }))
-/***************************************************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/modules/list.fun *
- ***************************************************************************************************************/
+/****************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/list.fun *
+ ****************************************************************/
 	var __variableName__list = fun.expressions.variable( fun.expressions.Dictionary({ "filter": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) { 
 		;(function(){
 		/* START INLINE JAVASCRIPT */
@@ -2103,24 +2103,10 @@ fun = __require__["_25"].exports;
  }
  yieldValue(result)
 		/* END INLINE JAVASCRIPT */
-		})() }), "pick": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) { 
-		;(function(){
-		/* START INLINE JAVASCRIPT */
-			var list=__variableName__list, func=__variableName__func;
- var items = list.getContent()
- for (var i=0, item; item=items[i]; i++) {
- var result = func.invoke([item])
- if (result.isTruthy()) {
- yieldValue(result)
- return
- }
- }
- yieldValue(fun.expressions.NullValue)
-		/* END INLINE JAVASCRIPT */
 		})() }) }))
-/***************************************************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/modules/text.fun *
- ***************************************************************************************************************/
+/****************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/text.fun *
+ ****************************************************************/
 	var __variableName__text = fun.expressions.variable( fun.expressions.Dictionary({ "trim": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__text) { 
 		;(function(){
 		/* START INLINE JAVASCRIPT */
@@ -2129,9 +2115,9 @@ fun = __require__["_25"].exports;
  yieldValue(fun.expressions.Text(strip(text.getContent())))
 		/* END INLINE JAVASCRIPT */
 		})() }) }))
-/***************************************************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/modules/uuid.fun *
- ***************************************************************************************************************/
+/****************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/uuid.fun *
+ ****************************************************************/
 	var __variableName__uuid = fun.expressions.variable( fun.expressions.Dictionary({ "v4": fun.expressions.Function(function block(yieldValue, __hackFirstExecution) { 
 		var __variableName__result = fun.expressions.variable( fun.expressions.Null(null))
 		;(function(){
@@ -2149,9 +2135,9 @@ fun = __require__["_25"].exports;
 		/* END INLINE JAVASCRIPT */
 		})()
 		yieldValue(  fun.expressions.dereference(__variableName__result,  fun.expressions.Text("copy")).invoke([], "")); return }) }))
-/**************************************************************************************************************
- * Module: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/lib/fun/src/modules/app.fun *
- **************************************************************************************************************/
+/***************************************************************
+ * Module: /usr/local/lib/node_modules/fun/src/modules/app.fun *
+ ***************************************************************/
 	var __variableName__app = fun.expressions.variable( fun.expressions.Dictionary({ "whenLoaded": fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__appLoadedHandler) { 
 		;(function(){
 		/* START INLINE JAVASCRIPT */

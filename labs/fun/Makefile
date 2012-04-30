@@ -1,14 +1,10 @@
-run: lib/fun
-	lib/fun/bin/fun app.fun --normalize.css=false
+run:
+	fun app.fun --normalize.css=false
 
-lib/fun:
-	mkdir -p lib
-	git clone git://github.com/marcuswestin/fun.git lib/fun
-	cd lib/fun && make setup
+install:
+	npm install fun@0.3.0
 
-index.html: app.fun lib/fun
-	lib/fun/bin/fun compile app.fun --normalize.css=false > index.html
+index.html: app.fun
+	fun compile app.fun --normalize.css=false > index.html
 
-clean:
-	rm -rf lib
-
+.PHONY: run, install
