@@ -19,23 +19,25 @@ app.whenLoaded(handler() {
 	localstorage.persist(displayFilter, 'todos-fun.displayFilter')
 })
 
-getDisplayTasks = function(displayFilter) {
+getVisibleTasks = function(displayFilter) {
 	return list.filter(tasks, function(task) {
-		if displayFilter is 'all' {
-			return true
-		} else if displayFilter is 'active' {
-			return !task.completed
-		} else {
-			return task.completed
-		}
+		if displayFilter is 'all' { return true }
+		else if displayFilter is 'active' { return !task.completed }
+		else if displayFilter is 'completed' { return task.completed }
 	})
 }
 
-createNewTask = handler(taskName) {
+createTask = handler(taskName) {
 	trimmedName = text.trim(taskName)
 	if trimmedName is ! '' {
 		tasks push: { title:trimmedName, completed:false, id:uuid.v4() }
 	}
+}
+
+destroyTask = handler(task) {
+	tasks set: list.filter(tasks.copy(), function(checkTask) {
+		return checkTask.id is ! task.id
+	})
 }
 
 <section id="todoapp">
@@ -44,7 +46,7 @@ createNewTask = handler(taskName) {
 		newTaskName = ''
 		<input id="new-todo" placeholder="What needs to be done?" autofocus=true data=newTaskName onkeypress=handler(event) {
 			if (event.keyCode is 13) {
-				createNewTask(newTaskName.copy())
+				createTask(newTaskName.copy())
 				newTaskName set: ''
 			}
 		}/>
@@ -52,6 +54,7 @@ createNewTask = handler(taskName) {
 	
 	if tasks.length {
 		<section id="main">
+			
 			toggleAll = false
 			<input id="toggle-all" type="checkbox" checked=toggleAll onchange=handler() {
 				toggled = (!toggleAll).copy()
@@ -60,19 +63,15 @@ createNewTask = handler(taskName) {
 					task set: 'completed', toggled
 				}
 			} />
-			<label for="toggle-all">"Mark all as complete"</label>
+			
 			<ul id="todo-list">
-				for task in getDisplayTasks(displayFilter) {
+				for task in getVisibleTasks(displayFilter) {
 					editing = false
-					<li class=(task.completed ? "complete" : "") + (editing ? " editing" : "")>
+					<li class=(task.completed ? "completed" : "") + (editing ? " editing" : "")>
 						<div class="view">
 							<input class="toggle" type="checkbox" data=task.completed />
-							<label>task.title</label ondblclick=handler() {
-								editing set:true
-							}>
-							<button class="destroy"></button onclick=handler() {
-								tasks set: list.filter(tasks.copy(), function(checkTask) { return checkTask.id is ! task.id })
-							}>
+							<label>task.title</label ondblclick=handler() { editing set:true }>
+							<button class="destroy"></button onclick=handler() { destroyTask(task) }>
 						</div>
 						
 						newTitle = task.title
