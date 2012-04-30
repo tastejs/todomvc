@@ -51,7 +51,7 @@ define('app/controllers/entries', ['ember'],
 					this.setEach( 'completed', value );
 					return value;
 				} else {
-					return !!this.get( 'length' ) && 
+					return !!this.get( 'length' ) &&
 						this.everyProperty( 'completed', true );
 				}
 			}.property( '@each.completed' ),
