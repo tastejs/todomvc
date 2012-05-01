@@ -26,10 +26,15 @@
         }, this));
       }
     };
-    window.app_settings_view_model = new AppSettingsViewModel();
+    window.app = {
+      viewmodels: {}
+    };
+    app.viewmodels.settings = new SettingsViewModel();
     todos = new TodosCollection();
-    window.app_view_model = new AppViewModel(todos);
-    ko.applyBindings(app_view_model, $('#todoapp')[0]);
+    app.viewmodels.header = new HeaderViewModel(todos);
+    app.viewmodels.todos = new TodosViewModel(todos);
+    app.viewmodels.footer = new FooterViewModel(todos);
+    ko.applyBindings(app.viewmodels, $('#todoapp')[0]);
     new AppRouter();
     Backbone.history.start();
     return todos.fetch();

@@ -18,13 +18,13 @@
       "completed": "completed"
     };
     AppRouter.prototype.all = function() {
-      return app_settings_view_model.list_filter_mode('');
+      return app.viewmodels.settings.list_filter_mode('');
     };
     AppRouter.prototype.active = function() {
-      return app_settings_view_model.list_filter_mode('active');
+      return app.viewmodels.settings.list_filter_mode('active');
     };
     AppRouter.prototype.completed = function() {
-      return app_settings_view_model.list_filter_mode('completed');
+      return app.viewmodels.settings.list_filter_mode('completed');
     };
     return AppRouter;
   })();

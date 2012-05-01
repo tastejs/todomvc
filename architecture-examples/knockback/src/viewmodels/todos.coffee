@@ -3,7 +3,7 @@ TodoViewModel = (model) ->
 	@editing = ko.observable(false)
 	@completed = kb.observable(model, {key: 'completed', write: ((completed) -> model.save(completed: completed)) }, @)
 	@visible = ko.computed(=>
-		switch app_settings_view_model.list_filter_mode()
+		switch app.viewmodels.settings.list_filter_mode()
 			when 'active' then return not @completed()
 			when 'completed' then return @completed()
 			else return true
@@ -12,7 +12,7 @@ TodoViewModel = (model) ->
 	@title = kb.observable(model, {
 		key: 'title'
 		write: ((title) =>
-			if $.trim(title) then model.save(title: $.trim(title)) else model.save(completed: true)
+			if $.trim(title) then model.save(title: $.trim(title)) else model.destroy()
 			@editing(false)
 		)
 	}, @)

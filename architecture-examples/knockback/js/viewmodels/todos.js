@@ -12,7 +12,7 @@
       })
     }, this);
     this.visible = ko.computed(__bind(function() {
-      switch (app_settings_view_model.list_filter_mode()) {
+      switch (app.viewmodels.settings.list_filter_mode()) {
         case 'active':
           return !this.completed();
         case 'completed':
@@ -29,9 +29,7 @@
             title: $.trim(title)
           });
         } else {
-          model.save({
-            completed: true
-          });
+          model.destroy();
         }
         return this.editing(false);
       }, this))

@@ -12,13 +12,14 @@ $ ->
 			ko.utils.unwrapObservable(value_accessor()) # create dependency
 			_.defer(=>ko.bindingHandlers.hasfocus.update(element, value_accessor))
 
-	# Create app settings view model
-	window.app_settings_view_model = new AppSettingsViewModel()
-
-	# Create and bind the app view model
+	# Create and bind the app viewmodels
+	window.app = {viewmodels: {}}
+	app.viewmodels.settings = new SettingsViewModel()
 	todos = new TodosCollection()
-	window.app_view_model = new AppViewModel(todos)
-	ko.applyBindings(app_view_model, $('#todoapp')[0])
+	app.viewmodels.header = new HeaderViewModel(todos)
+	app.viewmodels.todos = new TodosViewModel(todos)
+	app.viewmodels.footer = new FooterViewModel(todos)
+	ko.applyBindings(app.viewmodels, $('#todoapp')[0])
 
 	# Start the app routing
 	new AppRouter()
@@ -27,4 +28,4 @@ $ ->
 	# Load the todos
 	todos.fetch()
 
-	# kb.vmRelease(app_view_model)		# Destroy when finished with the view model
+	# kb.vmRelease(app.viewmodels)		# Destroy when finished with the view model

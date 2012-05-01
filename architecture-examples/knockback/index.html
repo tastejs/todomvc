@@ -17,9 +17,9 @@
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-bind="foreach: todos.todos">
 				<li data-bind="css: {completed: completed, editing: editing}, visible: visible">
-					<div class="view">
+					<div class="view" data-bind="event: {dblclick: onCheckEditBegin}">
 						<input class="toggle" type="checkbox" data-bind="checked: completed" checked>
-						<label data-bind="text: title, event: {dblclick: onCheckEditBegin}"></label>
+						<label data-bind="text: title"></label>
 						<button class="destroy" data-bind="click: onDestroyTodo"></button>
 					</div>
 					<input class="edit" type="text" data-bind="value: title, selectAndFocus: editing, event: {blur: onCheckEditEnd, keyup: onCheckEditEnd}">
@@ -33,13 +33,13 @@
 			</span>
 			<ul id="filters">
 				<li>
-					<a href="#/" data-bind="css: {selected: app_settings_view_model.list_filter_mode()==''}">All</a>
+					<a href="#/" data-bind="css: {selected: settings.list_filter_mode()==''}">All</a>
 				</li>
 				<li>
-					<a href="#/active" data-bind="css: {selected: app_settings_view_model.list_filter_mode()=='active'}">Active</a>
+					<a href="#/active" data-bind="css: {selected: settings.list_filter_mode()=='active'}">Active</a>
 				</li>
 				<li>
-					<a href="#/completed" data-bind="css: {selected: app_settings_view_model.list_filter_mode()=='completed'}">Completed</a>
+					<a href="#/completed" data-bind="css: {selected: settings.list_filter_mode()=='completed'}">Completed</a>
 				</li>
 			</ul>
 			<button id="clear-completed" data-bind="text: footer.clear_text, block: footer.clear_text, click: footer.onDestroyCompleted"></button>
@@ -71,11 +71,10 @@
 	<!-- Demo Components -->
 	<script src="js/models/todo.js"></script>
 	<script src="js/models/todo_collection.js"></script>
-	<script src="js/viewmodels/app_settings.js"></script>
+	<script src="js/viewmodels/settings.js"></script>
 	<script src="js/viewmodels/header.js"></script>
 	<script src="js/viewmodels/todos.js"></script>
 	<script src="js/viewmodels/footer.js"></script>
-	<script src="js/viewmodels/app.js"></script>
 	<script src="js/routers/app.js"></script>
 
 	<!-- The Demo -->
