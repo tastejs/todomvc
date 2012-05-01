@@ -32,7 +32,7 @@
 		<merge.cdnRoot>/cdn/</merge.cdnRoot>
 		<merge.cdnFiles>.ico .png .jpg .gif .eot .woff .ttf .svg .svgz</merge.cdnFiles>
 
-		<staticapps.config>${project.basedir}/staticapp.json</staticapps.config>		
+		<staticapps.config>${project.basedir}/staticapp.json</staticapps.config>
 	</properties>
 
 	<dependencies>
@@ -149,7 +149,7 @@
 						<target>${javac.version}</target>
 					</configuration>
 				</plugin>
-			</plugins> 
+			</plugins>
 		</pluginManagement>
 	</build>
 </project>

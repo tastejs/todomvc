@@ -6,11 +6,14 @@
 	<title>Olives • TodoMVC</title>
 	<link rel="stylesheet" href="../../../assets/base.css">
 	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
 </head>
 <body>
 	<section id="todoapp">
 		<header id="header">
-			<h1>Todos</h1>
+			<h1>todos</h1>
 			<input id="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown,addTask">
 		</header>
 		<section id="main" data-stats="bind:toggleClass,nbItems,show">
@@ -29,12 +32,14 @@
 		</section>
 		<footer id="footer" data-stats="bind:toggleClass,nbItems,show">
 			<span id="todo-count"><strong data-stats="bind:innerHTML,nbLeft">0</strong> <span data-stats="bind:innerHTML,plural"></span> left</span>
-			<button id="clear-completed" data-event="listen:click,delAll" data-stats="bind:toggleClass,nbCompleted,show">Clear completed (<span data-stats="bind:innerHTML,nbCompleted"></span>)</button>
+			<button id="clear-completed" data-event="listen:click,delAll" data-stats="bind:toggleClass,nbCompleted,show">
+				Clear completed (<span data-stats="bind:innerHTML,nbCompleted"></span>)
+			</button>
 		</footer>
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-		<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 		<p>Created by <a href="http://github.com/podefr">Olivier Scherrer</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
