@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Spine.js • TodoMVC</title>
 	<link rel="stylesheet" href="../../assets/base.css">
+	<!--[if IE]>
+	<script src="../../assets/ie.js"></script>
+	<![endif]-->
 </head>
 <body>
 	<section id="todoapp">
@@ -37,7 +41,7 @@
 		<!-- delete this ↓ -->
 		<p>Inspired by the official <a href="https://github.com/maccman/spine.todos">Spine.Todos</a></p>
 		<!-- change this out with your name and url ↓ -->
-		<p>Created by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+		<p>Created by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 	</footer>
 	<script type="text/x-handlebars-template" id="todo-template">
 	{{#this}}
@@ -51,6 +55,7 @@
 	</li>
 	{{/this}}
 	</script>
+	<script src="../../assets/base.js"></script>
 	<script src="../../assets/jquery.min.js"></script>
 	<script src="../../assets/handlebars.min.js"></script>
 	<script src="js/lib/spine.min.js"></script>
