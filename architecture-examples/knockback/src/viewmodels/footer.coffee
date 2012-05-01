@@ -6,7 +6,7 @@ window.FooterViewModel = (todos) ->
 
 	@clear_text = ko.computed(=>
 		count = @collection_observable.collection().completedCount()
-		return if count then "Clear #{count} completed #{if count == 1 then 'item' else 'items'}" else ''
+		return if count then "Clear completed (#{count})" else ''
 	)
 
 	@onDestroyCompleted = => todos.destroyCompleted()

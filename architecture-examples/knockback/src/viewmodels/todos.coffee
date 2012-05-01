@@ -12,7 +12,7 @@ TodoViewModel = (model) ->
 	@title = kb.observable(model, {
 		key: 'title'
 		write: ((title) =>
-			if $.trim(title) then model.save(title: $.trim(title)) else model.destroy()
+			if $.trim(title) then model.save(title: $.trim(title)) else _.defer(->model.destroy())
 			@editing(false)
 		)
 	}, @)

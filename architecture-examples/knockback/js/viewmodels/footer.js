@@ -12,7 +12,7 @@
       var count;
       count = this.collection_observable.collection().completedCount();
       if (count) {
-        return "Clear " + count + " completed " + (count === 1 ? 'item' : 'items');
+        return "Clear completed (" + count + ")";
       } else {
         return '';
       }
