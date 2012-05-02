@@ -16,23 +16,18 @@
 
     <section id="todoapp">
         <header id="header">
-            <select items="{locales}" selectedItem="{{i18n.locale}}" id="language-selector">
-                <js:Template name="item">
-                    <option value="{$item}">{i18n.translate({$item})}</option>
-                </js:Template>
-            </select>
             <h1>{i18n.translate('title')}</h1>
             <input id="new-todo" placeholder="{i18n.translate('placeholder')}" type="text" onkeyup="addNewTodo"
-                   value="{{newTodo.content}}" autofocus="true"/>
+                   value="{{newTodo.title}}" autofocus="autofocus"/>
         </header>
         <section id="main" visible="{todoList.hasItems()}">
             <input id="toggle-all" type="checkbox" onclick="markAllComplete"
                    checked="{todoList.areAllComplete()}"/>
             <label for="toggle-all">{i18n.translate('markAllAsComplete')}</label>
             <!-- CUSTOM UI COMPONENT FOR RENDERING A LIST OF ITEMS -> TODOs -->
-            <ui:ItemsView items="{filterList}" tagName="ul" id="todo-list">
+            <ui:ItemsView items="{filterList}" tagName="ul" id="todo-list" itemKey="todo">
                 <js:Template name="item">
-                    <view:TodoView todo="{$item}" tagName="li" onremove="removeTodo"/>
+                    <view:TodoView todo="{todo}" tagName="li" onremove="removeTodo"/>
                 </js:Template>
             </ui:ItemsView>
         </section>
@@ -51,11 +46,8 @@
                     <a href="#/completed" selected="{isStringEqual('completed',{filterList.filter})}">{i18n.translate('completed')}</a>
                 </li>
             </ul>
-            <button id="clear-completed" onclick="clearCompleted" data-num="{todoList.numCompletedTodos()}" visible="{todoList.hasCompletedTodos()}">
-                <ui:TextWrapper string="{i18n.translate({data-num},'clearItems')}">
-                    <strong>{data-num}</strong>
-                    <span class="word-done">{$text}</span>
-                </ui:TextWrapper>
+            <button id="clear-completed" onclick="clearCompleted" visible="{todoList.hasCompletedTodos()}">
+                {i18n.translate('clearItems',{todoList.numCompletedTodos()})}
             </button>
         </footer>
     </section>
