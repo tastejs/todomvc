@@ -17,7 +17,7 @@
 					placeholder="What needs to be done?" autofocus>
 		</header>
 		<section id="main" data-bind="visible: todos().length">
-			<input id="toggle-all" type="checkbox" data-bind="checked: allCompleted">
+			<input id="toggle-all" type="checkbox" data-bind="checked: completeAll">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-bind="foreach: todos">
 				<li data-bind="css: { completed: completed, editing: editing }">
