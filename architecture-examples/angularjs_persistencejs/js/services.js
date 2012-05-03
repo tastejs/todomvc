@@ -1,28 +1,31 @@
 angular.service('persistencejs', function() {
-	persistence.store.websql.config(persistence, 'todo-angular-persistence', 'todo database', 5*1024*1024);
+	persistence.store.websql.config(persistence, 'todo', 'todo database', 5*1024*1024);
 	var Todo = persistence.define('todo', {
-		content: 'TEXT',
+		title: 'TEXT',
 		done: 'BOOL'
 	});
 	persistence.schemaSync();
+	
 	return {
 		add: function(item){
 			var t = new Todo();
-			t.content = item;
+			t.title = item;
 			t.done = false;
 			persistence.add(t);
 			persistence.flush();
 		},
 		
-		edit: function(startContent, endContent){
-			Todo.all().filter('content','=',startContent).one(function(item){
-				item.content = endContent;
-				persistence.flush();
+		edit: function(oldTitle, newTitle){
+			Todo.all().filter('title','=',oldTitle).one(function(item){
+				if(item){
+					item.title = newTitle;
+					persistence.flush();
+				}
 			});
 		},
 		
 		changeStatus: function(item){
-			Todo.all().filter('content','=',item.content).one(function(todo){
+			Todo.all().filter('title','=',item.title).one(function(todo){
 				todo.done = item.done;
 				persistence.flush();
 			});
@@ -33,7 +36,7 @@ angular.service('persistencejs', function() {
 		},
 		
 		remove: function(item){
-			Todo.all().filter('content','=',item.content).destroyAll();
+			Todo.all().filter('title','=',item.title).destroyAll();
 		},
 		
 		fetchAll: function(controller){
@@ -42,7 +45,7 @@ angular.service('persistencejs', function() {
 				var todos = [];
 				items.forEach(function(item){
 					todos.push({
-						content: item.content,
+						title: item.title,
 						done: item.done,
 						editing: false
 					});
