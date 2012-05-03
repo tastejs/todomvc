@@ -3,18 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<title>AngularJS + PersistenceJS - TodoMVC</title>
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="../../assets/base.css">
+	<!--<link rel="stylesheet" href="css/app.css">-->
 	<!--[if IE]>
 	<script src="../../assets/ie.js"></script>
 	<![endif]-->
 </head>
 <body>
-	<div ng:controller="App.Controllers.TodoController" id="todoapp">
+	<section ng:controller="App.Controllers.TodoController" id="todoapp">
 		<header>
 			<h1>Todos</h1>
 			<form id="todo-form" ng:submit="addTodo()">
-			<input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
+				<input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
 			</form>
 		</header>
 		<section id="main" ng:show="hasTodos()">
@@ -33,18 +33,17 @@
 				</li>
 			</ul>
 		</section>
-		<footer ng:show="hasTodos()">
-			<a id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
-			<div id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</div>
+		<footer id="footer">
+				<span id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</span>
+				<button id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</button>
 		</footer>
-	</div>
-	<div id="instructions">
-		Double-click to edit a todo.
-	</div>
-	<div id="credits">
-		Created by <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>.<br/>
-		Extended to use PersistenceJS for local storage by <a href="http://jacobmumm.com">Jacob Mumm</a>.
-	</div>
+	</section>
+	<footer id="info" ng:show="hasTodos()">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>.</p>
+		<p>Extended to use PersistenceJS for local storage by <a href="http://jacobmumm.com">Jacob Mumm</a>.</p>
+	</footer>
+	
 	<script src="../../assets/base.js"></script>
 	<script src="js/booter.js"></script>
 	<script src="js/libs/angular/angular.min.js" ng:autobind></script>
