@@ -4,7 +4,9 @@ var todomvc = angular.module('todomvc', []);
 
 App.Controllers.TodoController = function($scope) {
   $scope.todos = retrieveStore();
-  //$scope.todos = retrieveStore();
+
+  // Call updateStore() whenever the todos array changes.
+  $scope.$watch('todos', updateStore, true);
 
   $scope.todoForms = {
     0: "You're done!",
@@ -27,10 +29,6 @@ App.Controllers.TodoController = function($scope) {
     }
   };
 
-  //not sure if its intended to do so. However, we need a hook to update the store
-  //whenever angular changes any properties
-  //$scope.$watch($scope.todos, updateStore);
-
   $scope.addTodo = function() {
     if (this.newTodo.trim().length === 0) {
       return;
@@ -43,8 +41,6 @@ App.Controllers.TodoController = function($scope) {
     });
 
     this.newTodo = '';
-
-    updateStore();
   };
 
   $scope.editTodo = function(todo) {
@@ -61,7 +57,6 @@ App.Controllers.TodoController = function($scope) {
     } else {
       todo.editing = false;
     }
-    updateStore();
   };
 
   $scope.removeTodo = function(todo) {
@@ -70,8 +65,6 @@ App.Controllers.TodoController = function($scope) {
         $scope.todos.splice(i, 1);
       }
     }
-
-    updateStore();
   };
 
   $scope.remainingTodos = function() {
@@ -88,7 +81,6 @@ App.Controllers.TodoController = function($scope) {
 
   $scope.clearDoneTodos = function() {
     $scope.todos = $scope.remainingTodos();
-    updateStore();
   };
 
   $scope.markAllDone = function() {
