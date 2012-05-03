@@ -1,107 +1,95 @@
 /* App Controllers */
 
-App.Controllers.TodoController = function () {
-    var self = this;
+var todomvc = angular.module('todomvc', []);
 
-    self.newTodo = "";
+App.Controllers.TodoController = function($scope) {
+  $scope.todos = retrieveStore();
 
-    var retrieveStore = function() {
-        var store = localStorage.getItem('todo-angularjs');
-        return ( store && JSON.parse( store ) ) || [];
-    };
+  // Call updateStore() whenever the todos array changes.
+  $scope.$watch('todos', updateStore, true);
 
-    var updateStore = function() {
-        var isEditing = angular.Array.count(self.todos, function(x) {
-            return x.editing;
-        });
-        if (!isEditing){
-            localStorage.setItem('todo-angularjs', JSON.stringify(self.todos));
-        }
-    };
+  $scope.todoForms = {
+    0: "You're done!",
+    one: '{} item left',
+    other: '{} items left'
+  };
 
-    //not sure if its intended to do so. However, we need a hook to update the store
-    //whenever angular changes any properties
-    self.$watch(updateStore);
+  function retrieveStore() {
+    var store = localStorage.getItem('todo-angularjs');
+    return (store && JSON.parse(store)) || [];
+  };
 
-    self.todos = retrieveStore();
+  function updateStore() {
+    var isEditing = $scope.todos.filter(function(val) {
+      return val.editing;
+    }).length;
 
-    self.addTodo = function() {
-        if (self.newTodo.trim().length === 0) return;
+    if (!isEditing) {
+      localStorage.setItem('todo-angularjs', JSON.stringify($scope.todos));
+    }
+  };
 
-        self.todos.push({
-            title: self.newTodo,
-            done: false,
-            editing: false
-        });
-        self.newTodo = "";
-    };
+  $scope.addTodo = function() {
+    if (this.newTodo.trim().length === 0) {
+      return;
+    }
 
-    self.editTodo = function(todo) {
-        //cancel any active editing operation
-        angular.forEach(self.todos, function(value) {
-            value.editing = false;
-        });
-        todo.editing = true;
-    };
+    $scope.todos.push({
+      title: this.newTodo,
+      done: false,
+      editing: false
+    });
 
-    self.finishEditing = function(todo) {
-        if (todo.title.trim().length === 0){
-            self.removeTodo(todo);
-        }
-        else{
-            todo.editing = false;
-        }
-    };
+    this.newTodo = '';
+  };
 
-    self.removeTodo = function(todo) {
-        angular.Array.remove(self.todos, todo);
-    };
+  $scope.editTodo = function(todo) {
+     //cancel any active editing operation
+    $scope.todos.forEach(function(val) {
+      val.editing = false;
+    });
+    todo.editing = true;
+  };
 
-    var countTodos = function(done) {
-        return function() {
-            return angular.Array.count(self.todos, function(x) {
-                return x.done === (done === "done");
-            });
-        }
-    };
+  $scope.finishEditing = function(todo) {
+    if (todo.title.trim().length === 0) {
+      $scope.removeTodo(todo);
+    } else {
+      todo.editing = false;
+    }
+  };
 
-    var pluralize = function( count, word ) {
-        return count === 1 ? word : word + 's';
-    };
+  $scope.removeTodo = function(todo) {
+    for (var i = 0, len = $scope.todos.length; i < len; ++i) {
+      if (todo === $scope.todos[i]) {
+        $scope.todos.splice(i, 1);
+      }
+    }
+  };
 
-    self.remainingTodos = countTodos("undone");
+  $scope.remainingTodos = function() {
+    return $scope.todos.filter(function(val) {
+      return !val.done;
+    });
+  };
 
-    self.finishedTodos = countTodos("done");
+  $scope.doneTodos = function() {
+    return $scope.todos.filter(function(val) {
+      return val.done;
+    });
+  }
 
-    self.itemsLeftText = function(){
-        return pluralize(self.remainingTodos(), 'item') + ' left'
-    };
+  $scope.clearDoneTodos = function() {
+    $scope.todos = $scope.remainingTodos();
+  };
 
-    self.clearItemsText = function(){
-        var finishedTodos = self.finishedTodos();
-        return 'Clear ' + finishedTodos + ' completed ' + pluralize(finishedTodos, 'item');
-    };
-
-    self.clearCompletedItems = function() {
-        var oldTodos = self.todos;
-        self.todos = [];
-        angular.forEach(oldTodos, function(todo) {
-            if (!todo.done) self.todos.push(todo);
-        });
-        self.allChecked = false;
-    };
-
-    self.toggleAllStates = function(){
-        angular.forEach(self.todos, function(todo){
-            todo.done = self.allChecked;
-        })
-    };
-
-    self.hasFinishedTodos = function() {
-        return self.finishedTodos() > 0;
-    };
-
-    self.hasTodos = function() {
-        return self.todos.length > 0;
-    };
+  $scope.markAllDone = function() {
+    var markDone = true;
+    if (!$scope.remainingTodos().length) {
+      markDone = false;
+    }
+    $scope.todos.forEach(function(todo) {
+      todo.done = markDone;
+    });
+  };
 };
