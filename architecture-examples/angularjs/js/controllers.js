@@ -1,107 +1,103 @@
 /* App Controllers */
 
-App.Controllers.TodoController = function () {
-    var self = this;
+var todomvc = angular.module('todomvc', []);
 
-    self.newTodo = "";
+App.Controllers.TodoController = function($scope) {
+  $scope.todos = retrieveStore();
+  //$scope.todos = retrieveStore();
 
-    var retrieveStore = function() {
-        var store = localStorage.getItem('todo-angularjs');
-        return ( store && JSON.parse( store ) ) || [];
-    };
+  $scope.todoForms = {
+    0: "You're done!",
+    one: '{} item left',
+    other: '{} items left'
+  };
 
-    var updateStore = function() {
-        var isEditing = angular.Array.count(self.todos, function(x) {
-            return x.editing;
-        });
-        if (!isEditing){
-            localStorage.setItem('todo-angularjs', JSON.stringify(self.todos));
-        }
-    };
+  function retrieveStore() {
+    var store = localStorage.getItem('todo-angularjs');
+    return (store && JSON.parse(store)) || [];
+  };
 
-    //not sure if its intended to do so. However, we need a hook to update the store
-    //whenever angular changes any properties
-    self.$watch(updateStore);
+  function updateStore() {
+    var isEditing = $scope.todos.filter(function(val) {
+      return val.editing;
+    }).length;
 
-    self.todos = retrieveStore();
+    if (!isEditing) {
+      localStorage.setItem('todo-angularjs', JSON.stringify($scope.todos));
+    }
+  };
 
-    self.addTodo = function() {
-        if (self.newTodo.trim().length === 0) return;
+  //not sure if its intended to do so. However, we need a hook to update the store
+  //whenever angular changes any properties
+  //$scope.$watch($scope.todos, updateStore);
 
-        self.todos.push({
-            title: self.newTodo,
-            done: false,
-            editing: false
-        });
-        self.newTodo = "";
-    };
+  $scope.addTodo = function() {
+    if (this.newTodo.trim().length === 0) {
+      return;
+    }
 
-    self.editTodo = function(todo) {
-        //cancel any active editing operation
-        angular.forEach(self.todos, function(value) {
-            value.editing = false;
-        });
-        todo.editing = true;
-    };
+    $scope.todos.push({
+      title: this.newTodo,
+      done: false,
+      editing: false
+    });
 
-    self.finishEditing = function(todo) {
-        if (todo.title.trim().length === 0){
-            self.removeTodo(todo);
-        }
-        else{
-            todo.editing = false;
-        }
-    };
+    this.newTodo = '';
 
-    self.removeTodo = function(todo) {
-        angular.Array.remove(self.todos, todo);
-    };
+    updateStore();
+  };
 
-    var countTodos = function(done) {
-        return function() {
-            return angular.Array.count(self.todos, function(x) {
-                return x.done === (done === "done");
-            });
-        }
-    };
+  $scope.editTodo = function(todo) {
+     //cancel any active editing operation
+    $scope.todos.forEach(function(val) {
+      val.editing = false;
+    });
+    todo.editing = true;
+  };
 
-    var pluralize = function( count, word ) {
-        return count === 1 ? word : word + 's';
-    };
+  $scope.finishEditing = function(todo) {
+    if (todo.title.trim().length === 0) {
+      $scope.removeTodo(todo);
+    } else {
+      todo.editing = false;
+    }
+    updateStore();
+  };
 
-    self.remainingTodos = countTodos("undone");
+  $scope.removeTodo = function(todo) {
+    for (var i = 0, len = $scope.todos.length; i < len; ++i) {
+      if (todo === $scope.todos[i]) {
+        $scope.todos.splice(i, 1);
+      }
+    }
 
-    self.finishedTodos = countTodos("done");
+    updateStore();
+  };
 
-    self.itemsLeftText = function(){
-        return pluralize(self.remainingTodos(), 'item') + ' left'
-    };
+  $scope.remainingTodos = function() {
+    return $scope.todos.filter(function(val) {
+      return !val.done;
+    });
+  };
 
-    self.clearItemsText = function(){
-        var finishedTodos = self.finishedTodos();
-        return 'Clear ' + finishedTodos + ' completed ' + pluralize(finishedTodos, 'item');
-    };
+  $scope.doneTodos = function() {
+    return $scope.todos.filter(function(val) {
+      return val.done;
+    });
+  }
 
-    self.clearCompletedItems = function() {
-        var oldTodos = self.todos;
-        self.todos = [];
-        angular.forEach(oldTodos, function(todo) {
-            if (!todo.done) self.todos.push(todo);
-        });
-        self.allChecked = false;
-    };
+  $scope.clearDoneTodos = function() {
+    $scope.todos = $scope.remainingTodos();
+    updateStore();
+  };
 
-    self.toggleAllStates = function(){
-        angular.forEach(self.todos, function(todo){
-            todo.done = self.allChecked;
-        })
-    };
-
-    self.hasFinishedTodos = function() {
-        return self.finishedTodos() > 0;
-    };
-
-    self.hasTodos = function() {
-        return self.todos.length > 0;
-    };
+  $scope.markAllDone = function() {
+    var markDone = true;
+    if (!$scope.remainingTodos().length) {
+      markDone = false;
+    }
+    $scope.todos.forEach(function(todo) {
+      todo.done = markDone;
+    });
+  };
 };
