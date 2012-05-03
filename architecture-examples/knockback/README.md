@@ -5,7 +5,7 @@ Forked from https://github.com/kmalakoff/knockback-todos
 
 ## Getting started
 
-You need [CoffeScript](http://coffeescript.org) to compile if you make changes to the files in the `src` folder.
+[CoffeeScript](http://coffeescript.org) is required to compile this application if you make changes to the files in the `src` folder.
 
 
 ## Compile
