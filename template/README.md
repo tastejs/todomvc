@@ -9,7 +9,7 @@ Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Spec
 
 ## Need help?
 
-Feel free to [contact me](https://github.com/sindresorhus) if you have any questions or need help with the template.
+Feel free to [contact us](https://github.com/sindresorhus) if you have any questions or need help with the template.
 
 
 ## Credit
