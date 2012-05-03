@@ -1,39 +1,39 @@
 # TodoMVC
 
-#### A common demo application for popular JavaScript MV* frameworks
+#### A common learning application for popular JavaScript MV* frameworks
 
 
 ## Introduction
 
-Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js (SproutCore 2.0), JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
+Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js, AngularJS, JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
 
 To help solve this problem, TodoMVC was created - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MV* frameworks of today. Solutions look and feel the same, have a common feature set, and make it easy for you to compare the syntax and structure of different frameworks, so you can select the one you feel the most comfortable with.
 
 
 #### Todo apps are included for:
 
-- Backbone.js
-- Backbone.js + RequireJS (using AMD)
-- Ember.js
-- JavaScriptMVC
-- Spine.js
-- Sammy.js
-- KnockoutJS (MVVM)
-- Knockback.js
-- Dojo
-- Closure
-- YUILibrary
-- AngularJS
-- Angular + PersistenceJS
-- Ext.js
-- Agility.js
+- [Backbone.js](http://documentcloud.github.com/backbone/)
+- [Backbone.js + RequireJS](http://requirejs.org/) (using AMD)
+- [Ember.js](http://emberjs.com/)
+- [JavaScriptMVC](http://javascriptmvc.com/)
+- [Spine.js](http://spinejs.com/)
+- [Sammy.js](http://sammyjs.org/)
+- [KnockoutJS](http://knockoutjs.com/) (MVVM)
+- [Knockback.js](http://kmalakoff.github.com/knockback/)
+- [Dojo](http://dojotoolkit.org/)
+- [Closure](http://code.google.com/closure/library/)
+- [YUILibrary](http://yuilibrary.com/)
+- [AngularJS](http://angularjs.org/)
+- [Angular + PersistenceJS](http://persistencejs.org/)
+- [Ext.js](http://www.sencha.com/products/extjs)
+- [Agility.js](http://agilityjs.com/)
 
 ###### Non MV*
 
 - jQuery
 - Vanilla JS
 
-We also have a number of in-progress applications for new frameworks (such as CanJS and Meteor) being worked on in our [Labs](http://addyosmani.github.com/todomvc/labs) site. 
+We also have a number of in-progress applications for new frameworks (such as [CanJS](http://canjs.us/) and [Meteor](http://meteor.com/)) being worked on in our [Labs](http://addyosmani.github.com/todomvc/labs) site. 
 
 ## Live demos
 
@@ -47,11 +47,13 @@ Live demos are available on the official [TodoMVC site](http://todomvc.com).
 
 ## Team
 
-As of early 2012, I'm happy to introduce two new core committers to the project:
+TodoMVC would not be possible without a strong team of [contributors](https://github.com/addyosmani/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
 
-* [Aaron Boushley](https://github.com/boushley): Aaron is a JavaScript developer with a keen interest in architectural frameworks and will be helping both standardize existing examples and improve the project as we work on expansion.
+* [Addy Osmani - Founder/Lead](http://github.com/addyosmani): Addy is a Developer Platform Engineer at Google who originally created TodoMVC. He oversees the project direction, drives expansion and helps lead core development with Sindre Sorhus (by far our most active contributor!).
 
-* [Sindre Sorhus](https://github.com/sindresorhus): Sindre is a Web Developer who has been taking an interest in contributing to a number of open-source projects this year and will also be helping with project expansion and improvements to existing applications.
+* [Sindre Sorhus - Lead Developer](https://github.com/sindresorhus): Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible. 
+
+* [Aaron Boushley - on leave](https://github.com/boushley): Aaron is a JavaScript developer with a keen interest in architectural frameworks and has helped both standardize existing examples and improve the project as we worked on expansion. He is currently taking a break from his open-source contributions at this time.
 
 
 ## Disclaimer
@@ -65,7 +67,7 @@ It is meant to be used as a gateway to reviewing how a basic application using a
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after reading our [contribution guidelines](https://github.com/addyosmani/todomvc/wiki). One of us will be happy to review them and discuss any changes that may be required before they can be included.
+If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after reading our [contribution guidelines](https://github.com/addyosmani/todomvc/wiki) (in particular our [application specifications](https://github.com/addyosmani/todomvc/wiki/App-Specification)). One of us will be happy to review your submission and discuss any changes that may be required before they can be included.
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
 
