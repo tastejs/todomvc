@@ -57,6 +57,15 @@ body {
 	height: 100%;
 }
 
+#todoapp input::-webkit-input-placeholder {
+	font-style: italic;
+}
+
+#todoapp input:-moz-placeholder {
+	font-style: italic;
+	color: #a9a9a9;
+}
+
 #todoapp h1 {
 	position: absolute;
 	top: -120px;
@@ -79,7 +88,7 @@ body {
 	border-radius: inherit;
 }
 
-#todoapp header:before {
+#header:before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -96,16 +105,8 @@ body {
 	background: -ms-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
 	background: linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#9d8b83', EndColorStr='#847670');
-	border-radius: inherit;
-}
-
-#todoapp input::-webkit-input-placeholder {
-	font-style: italic;
-}
-
-#todoapp input:-moz-placeholder {
-	font-style: italic;
-	color: #a9a9a9;
+	border-top-left-radius: 1px;
+	border-top-right-radius: 1px;
 }
 
 #new-todo,
