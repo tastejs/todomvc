@@ -213,26 +213,26 @@ function redrawTodosUI() {
 	for ( i= 0; i < todos.length; i++ ) {
 		todo = todos[i];
 
-		//create checkbox
+		// create checkbox
 		checkbox = document.createElement( 'input' );
 		checkbox.className = 'toggle';
 		checkbox.setAttribute( 'data-todo-id', todo.id );
 		checkbox.type = 'checkbox';
 		checkbox.addEventListener( 'change', checkboxChangeHandler );
 
-		//create div text
+		// create div text
 		label = document.createElement( 'label' );
 		label.setAttribute( 'data-todo-id', todo.id );
 		label.appendChild( document.createTextNode( todo.title ) );
 
 
-		//create delete button
+		// create delete button
 		deleteLink = document.createElement( 'button' );
 		deleteLink.className = 'destroy';
 		deleteLink.setAttribute( 'data-todo-id', todo.id );
 		deleteLink.addEventListener( 'click', spanDeleteClickHandler );
 
-		//create divDisplay
+		// create divDisplay
 		divDisplay = document.createElement( 'div' );
 		divDisplay.className = 'view';
 		divDisplay.setAttribute( 'data-todo-id', todo.id );
@@ -242,7 +242,7 @@ function redrawTodosUI() {
 		divDisplay.addEventListener( 'dblclick', todoContentHandler );
 
 
-		//create todo input
+		// create todo input
 		inputEditTodo = document.createElement( 'input' );
 		inputEditTodo.id = 'input_' + todo.id;
 		inputEditTodo.className = 'edit';
@@ -251,7 +251,7 @@ function redrawTodosUI() {
 		inputEditTodo.addEventListener( 'blur', inputEditTodoBlurHandler );
 
 
-		//create li
+		// create li
 		li = document.createElement( 'li' );
 		li.id = 'li_' + todo.id;
 		li.appendChild( divDisplay );
@@ -297,7 +297,7 @@ function drawTodoCount() {
 	var number,
 		theText,
 		remaining;
-	// Create remaining count
+	// create remaining count
 	number = document.createElement( 'strong' );
 	number.innerHTML = stat.todoLeft;
 	theText = ' item';

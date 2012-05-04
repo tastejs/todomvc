@@ -1,5 +1,4 @@
-# jQuery • [TodoMVC](http://todomvc.com)
-
+# jQuery TodoMVC app
 
 ## Credit
 

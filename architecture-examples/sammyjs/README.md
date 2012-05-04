@@ -1,5 +1,3 @@
-# Sammy's Todos
+# Sammy.js TodoMVC app
 
-This is a demo todo list app built on top of Sammy.js. 
-
-Original base code: [Brandon Aaron](http://brandonaaron.net). This version, refactored and rewritten: Addy Osmani
+[Brandon Aaron](http://brandonaaron.net) wrote the original version of this application, which was then refactored and rewritten by Addy Osmani.
