@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>AngularJS - TodoMVC</title>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="../../assets/base.css">
   <!--[if IE]>
   <script src="../../assets/ie.js"></script>
   <![endif]-->
 </head>
 <body>
-  <div ng-controller="App.Controllers.TodoController" id="todoapp">
+  <section ng-controller="App.Controllers.TodoController" id="todoapp">
     <header>
       <h1>Todos</h1>
       <form id="todo-form" ng-submit="addTodo()">
@@ -33,19 +32,17 @@
         </li>
       </ul>
     </section>
-    <footer ng-show="todos.length">
+    <footer id="footer" ng-show="todos.length">
       <a id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length">Clear {{doneTodos().length}} items</a>
       <div id="todo-count">
         <ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize>
       </div>
     </footer>
-  </div>
-  <div id="instructions">
-    Double-click to edit a todo.
-  </div>
-  <div id="credits">
-    Credits: <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>, <a href="http://ericbidelman.com">Eric Bidelman</a>
-  </div>
+  </section>
+  <footer id="info" ng-show="todos.length">
+	<p>Double-click to edit a todo.</p>
+    <p>Credits: <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>, <a href="http://ericbidelman.com">Eric Bidelman</a></p>
+  </footer>
   <script src="../../assets/base.js"></script>
   <script src="js/booter.js"></script>
   <script src="js/libs/angular/angular.min.js"></script>

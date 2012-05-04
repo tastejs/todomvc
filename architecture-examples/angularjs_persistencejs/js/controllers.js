@@ -1,105 +1,98 @@
 /* App Controllers */
 
-App.Controllers.TodoController = function (persistencejs) {
-    var self = this;
-    self.newTodo = "";
-	self.editTodoStartContent = "";
+var todomvc = angular.module('todomvc', []);
 
-    self.addTodo = function() {
-        if (self.newTodo.length === 0) return;
+App.Controllers.TodoController = function ($scope, persistencejs) {
+	$scope.todos = [];
+    $scope.newTodo = "";
+	$scope.editTodoStartContent = "";
+
+	$scope.todoForms = {
+		0: "You're done!",
+		one: '{} item left',
+		other: '{} items left'
+	  };
+	
+    $scope.addTodo = function() {
+        if (this.newTodo.length === 0) return;
         
-        self.todos.push({
-            title: self.newTodo,
+        $scope.todos.push({
+            title: this.newTodo,
             done: false,
             editing: false
         });
-		persistencejs.add(self.newTodo);
-        self.newTodo = "";
+		persistencejs.add(this.newTodo);
+        this.newTodo = "";
     };
 
-    self.editTodo = function(todo) {
-        angular.forEach(self.todos, function(value) {
+    $scope.editTodo = function(todo) {
+        angular.forEach($scope.todos, function(value) {
             value.editing = false;
         });
         todo.editing = true;
-		self.editTodoStartContent = todo.title;
+		$scope.editTodoStartContent = todo.title;
     };
 
-	self.changeStatus = function(todo){
+	$scope.changeStatus = function(todo){
 		persistencejs.changeStatus(todo);
 	};
 	
-    self.finishEditing = function(todo) {
+    $scope.finishEditing = function(todo) {
 		if (todo.title.trim().length === 0){
-            self.removeTodo(todo);
+            $scope.removeTodo(todo);
+			persistencejs.remove(todo);
         }else{
 			todo.editing = false;
-			persistencejs.edit(self.editTodoStartContent, todo.title);
+			persistencejs.edit($scope.editTodoStartContent, todo.title);
 		}
     };
 
-    self.removeTodo = function(todo) {
-        angular.Array.remove(self.todos, todo);
+    $scope.removeTodo = function(todo) {
+        for (var i = 0, len = $scope.todos.length; i < len; ++i) {
+		  if (todo === $scope.todos[i]) {
+			$scope.todos.splice(i, 1);
+		  }
+		}
 		persistencejs.remove(todo);
     };
 
-    self.todos = [];
-
-    var countTodos = function(done) {
-        return function() {
-            return angular.Array.count(self.todos, function(x) {
-                return x.done === (done === "done");
-            });
-        }
-    };
-
-	var pluralize = function( count, word ) {
-        return count === 1 ? word : word + 's';
-    };
 	
-	self.itemsLeftText = function(){
-        return pluralize(self.remainingTodos(), 'item') + ' left'
-    };
-	
-	self.clearItemsText = function(){
-        var finishedTodos = self.finishedTodos();
-        return 'Clear ' + finishedTodos + ' completed ' + pluralize(finishedTodos, 'item');
-    };
-	
-    self.remainingTodos = countTodos("undone");
+	$scope.remainingTodos = function() {
+		return $scope.todos.filter(function(val) {
+			return !val.done;
+		});
+	};
 
-    self.finishedTodos = countTodos("done");
+	$scope.doneTodos = function() {
+		return $scope.todos.filter(function(val) {
+			return val.done;
+		});
+	};
 
-    self.clearCompletedItems = function() {
-        var oldTodos = self.todos;
-        self.todos = [];
-        angular.forEach(oldTodos, function(todo) {
-            if (!todo.done) self.todos.push(todo);
-        });
+    $scope.clearDoneTodos = function() {
+        $scope.todos = $scope.remainingTodos();
 		persistencejs.clearCompletedItems();
     };
 
-	self.toggleAllStates = function(){
-        angular.forEach(self.todos, function(todo){
-            todo.done = self.allChecked;
-        })
-    };
+	$scope.markAllDone = function() {
+		var markDone = true;
+		if (!$scope.remainingTodos().length) {
+		  markDone = false;
+		}
+		$scope.todos.forEach(function(todo) {
+			if(todo.done !== markDone){
+				persistencejs.changeStatus(todo);
+			}
+			todo.done = markDone;
+		});
+	  };
 	
-    self.hasFinishedTodos = function() {
-        return self.finishedTodos() > 0;
-    };
 
-    self.hasTodos = function() {
-        return self.todos.length > 0;
-    };
-	
-	self.loadTodos = function(){
-		persistencejs.fetchAll(self);
+	$scope.loadTodos = function(){
+		persistencejs.fetchAll($scope);
 	}
 	
-	self.refresh = function(){ self.$apply(); }
+	$scope.refresh = function(){ $scope.$apply(); }
 
-	self.loadTodos();
+	$scope.loadTodos();
 };
-
-App.Controllers.TodoController.$inject = ['persistencejs'];

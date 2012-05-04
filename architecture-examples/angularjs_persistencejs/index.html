@@ -1,44 +1,45 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org/" xmlns:my="http://rx.org">
+<html ng-app="todomvc">
 <head>
 	<meta charset="utf-8">
 	<title>AngularJS + PersistenceJS - TodoMVC</title>
 	<link rel="stylesheet" href="../../assets/base.css">
-	<!--<link rel="stylesheet" href="css/app.css">-->
 	<!--[if IE]>
 	<script src="../../assets/ie.js"></script>
 	<![endif]-->
 </head>
 <body>
-	<section ng:controller="App.Controllers.TodoController" id="todoapp">
+	<section ng-controller="App.Controllers.TodoController" id="todoapp">
 		<header>
 			<h1>Todos</h1>
-			<form id="todo-form" ng:submit="addTodo()">
-				<input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
+			<form id="todo-form" ng-submit="addTodo()">
+				<input id="new-todo" name="newTodo" ng-model="newTodo" type="text" placeholder="What needs to be done?">
 			</form>
 		</header>
-		<section id="main" ng:show="hasTodos()">
-			<input id="toggle-all" type="checkbox" name="allChecked" ng:click="toggleAllStates()">
+		<section id="main" ng-show="todos.length">
+			<input type="checkbox" id="toggle-all" ng-click="markAllDone()" ng-checked="remainingTodos().length == 0">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
-				<li ng:repeat="todo in todos" my:dblclick="editTodo(todo)" ng:class="(todo.done && ' done ') + (todo.editing && ' editing ')">
+				<li ng-repeat="todo in todos" ng-dblclick="editTodo(todo)" ng-class="(todo.done && ' done ') + (todo.editing && ' editing ')">
 					<div class="view">
-						<input ng:change="changeStatus(todo)" class="toggle" type="checkbox" name="todo.done">
-						<label>{{ todo.title }}</label>
-						<a class="destroy" ng:click="removeTodo(todo)"></a>
+						<input type="checkbox" class="toggle" name="todo.done" ng-change="changeStatus(todo)" ng-model="todo.done">
+						<label>{{todo.title}}</label>
+						<a class="destroy" ng-click="removeTodo(todo)"></a>
 					</div>
-					<form ng:submit="finishEditing(todo)">
-						<input class="edit" type="text" name="todo.title" my:focus="todo.editing" my:blur="finishEditing(todo)">
+					<form ng-submit="finishEditing(todo)">
+						<input type="text" class="edit" name="todo.title" ng-model="todo.title" my:focus="todo.editing" my:blur="finishEditing(todo)">
 					</form>
 				</li>
 			</ul>
 		</section>
-		<footer id="footer">
-				<span id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</span>
-				<button id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</button>
+		<footer id="footer" ng-show="todos.length">
+			<a id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length">Clear {{doneTodos().length}} items</a>
+			<div id="todo-count">
+				<ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize>
+			</div>
 		</footer>
 	</section>
-	<footer id="info" ng:show="hasTodos()">
+	<footer id="info" ng-show="todos.length">
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>.</p>
 		<p>Extended to use PersistenceJS for local storage by <a href="http://jacobmumm.com">Jacob Mumm</a>.</p>
@@ -46,9 +47,8 @@
 	
 	<script src="../../assets/base.js"></script>
 	<script src="js/booter.js"></script>
-	<script src="js/libs/angular/angular.min.js" ng:autobind></script>
+	<script src="js/libs/angular/angular.min.js" ng-autobind></script>
 	<script src="js/controllers.js"></script>
-	<script src="js/directive.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/libs/persistence/persistence.js"></script>
 	<script src="js/libs/persistence/persistence.store.sql.js"></script>
