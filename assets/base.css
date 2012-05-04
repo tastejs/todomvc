@@ -137,7 +137,6 @@ body {
 	padding: 16px 16px 16px 60px;
 	border: none;
 	background: rgba(0, 0, 0, 0.02);
-	position: relative;
 	z-index: 2;
 	box-shadow: none;
 }
@@ -154,9 +153,12 @@ label[for='toggle-all'] {
 
 #toggle-all {
 	position: absolute;
-	top: -42px;
-	left: 12px;
+	top: -56px;
+	left: -15px;
+	width: 65px;
+	height: 41px;
 	text-align: center;
+	border: none; /* Mobile Safari */
 	-webkit-appearance: none;
 	/*-moz-appearance: none;*/
 	-ms-appearance: none;
@@ -178,15 +180,6 @@ label[for='toggle-all'] {
 
 #toggle-all:checked:before {
 	color: #737373;
-}
-
-/* Need this ugly hack, since only
-WebKit supports styling of inputs */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	#toggle-all {
-		top: -52px;
-		left: -11px;
-	}
 }
 
 #todo-list {
@@ -229,6 +222,7 @@ WebKit supports styling of inputs */
 	top: 0;
 	bottom: 0;
 	margin: auto 0;
+	border: none; /* Mobile Safari */
 	-webkit-appearance: none;
 	/*-moz-appearance: none;*/
 	-ms-appearance: none;
@@ -394,4 +388,15 @@ WebKit supports styling of inputs */
 
 #info a {
 	color: inherit;
+}
+
+/*
+	Hack to remove background from Mobile Safari.
+	Can't use it globally since it destroys checkboxes in Firefox and Opera
+*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#toggle-all,
+	#todo-list li .toggle {
+		background: none;
+	}
 }
