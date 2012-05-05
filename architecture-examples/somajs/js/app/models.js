@@ -9,7 +9,7 @@ var TodoModel = new soma.Model.extend({
 		var active = this.getActiveLength();
 		this.dataFooter = {
 			active: active,
-			activePlural: active > 0 ? 's' : '',
+			activePlural: active > 1 ? 's' : '',
 			completed: this.data.length - active,
 			length: this.data.length
 		};
