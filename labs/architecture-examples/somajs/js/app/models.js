@@ -1,52 +1,66 @@
 var TodoModel = new soma.Model.extend({
+
 	dataFooter: null,
+
 	init: function() {
 		this.storeKey = 'todos-somajs';
-		this.data = JSON.parse(this.getStore()) || [];
+		this.data = JSON.parse( this.getStore() ) || [];
 		this.updateDataFooter();
 	},
+
 	updateDataFooter: function() {
 		var active = this.getActiveLength();
 		this.dataFooter = {
 			active: active,
-			activePlural: active > 1 ? 's' : '',
+			activePlural: active === 1 ? '' : 's',
 			completed: this.data.length - active,
 			length: this.data.length
 		};
 	},
-	addItem: function(title) {
-		this.data.unshift({id:this.uuid(), title:title, completed:false});
+
+	addItem: function( title ) {
+		this.data.unshift({
+			id: this.uuid(),
+			title: title,
+			completed: false
+		});
 		this.update();
 	},
-	removeItem: function(id) {
-		this.data.splice(this.getIndexById(id), 1);
+
+	removeItem: function( id ) {
+		this.data.splice( this.getIndexById( id ), 1 );
 		this.update();
 	},
-	toggleItem: function(id) {
-		var item = this.data[this.getIndexById(id)];
+
+	toggleItem: function( id ) {
+		var item = this.data[this.getIndexById( id )];
 		item.completed = !item.completed;
 		this.update();
 	},
-	updateItem: function(id, title) {
-		this.data[this.getIndexById(id)].title = title;
+
+	updateItem: function( id, title ) {
+		this.data[this.getIndexById( id )].title = title;
 		this.update();
 	},
-	toggleAll: function(toggleValue) {
-		for (var i=0; i<this.data.length; ++i) {
+
+	toggleAll: function( toggleValue ) {
+		for (var i = 0; i < this.data.length; ++i) {
 			this.data[i].completed = toggleValue;
 		}
 		this.update();
 	},
+
 	clearCompleted: function() {
 		var i = this.data.length;
-		while(i--) {
+		while( i-- ) {
 			if (this.data[i].completed) {
 				this.data.splice(i, 1);
 			}
 		}
 		this.update();
 	},
-	getIndexById: function(id) {
+
+	getIndexById: function( id ) {
 		for (var i=0; i<this.data.length; ++i) {
 			if (this.data[i].id === id) {
 				return i;
@@ -54,26 +68,31 @@ var TodoModel = new soma.Model.extend({
 		}
 		return -1;
 	},
+
 	getActiveLength: function() {
 		var count = 0;
-		for (var i=0; i<this.data.length; ++i) {
+		for (var i = 0; i < this.data.length; ++i) {
 			if (!this.data[i].completed) {
 				count++;
 			}
 		}
 		return count;
 	},
+
 	update: function() {
 		this.updateDataFooter();
-		this.setStore(this.data);
-		this.dispatchEvent(new TodoEvent(TodoEvent.RENDER));
+		this.setStore( this.data );
+		this.dispatchEvent( new TodoEvent( TodoEvent.RENDER ) );
 	},
+
 	getStore: function() {
-		return localStorage.getItem(this.storeKey);
+		return localStorage.getItem( this.storeKey );
 	},
+
 	setStore: function() {
-		localStorage.setItem(this.storeKey, JSON.stringify(this.data));
+		localStorage.setItem( this.storeKey, JSON.stringify( this.data ) );
 	},
+
 	// https://gist.github.com/1308368
 	uuid: function(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b;}
 });
