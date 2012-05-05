@@ -1,6 +1,4 @@
-# Template • [TodoMVC](http://todomvc.com)
-
-## soma.js
+# soma.js • [TodoMVC](http://todomvc.com)
 
 soma.js is a javascript model-view-controller (MVC) framework that is meant to help developers to write loosely-coupled applications to increase scalability and maintainability.
 
