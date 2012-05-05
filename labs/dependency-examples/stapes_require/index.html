@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Stapes.js • TodoMVC</title>
+	<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<!-- this section should hidden by default and shown when there are todos -->
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<!-- this footer should hidden by default and shown when there are todos -->
+		<footer id="footer">
+			<span id="todo-count"><strong>1</strong> item left</span>
+			<!-- remove this if you don't implement routing -->
+			<ul id="filters">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed">Clear completed (1)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<!-- change this out with your name and url ↓ -->
+		<p>Created by <a href="http://github.com/hay/stapes/">Hay Kranen</a>.</p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="js/lib/zepto.js"></script>
+	<script src="js/lib/require.js" data-main="js/app"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+#main.show,
+#stats.show,
+#stats.show #clear-completed {
+  display: block;
+}

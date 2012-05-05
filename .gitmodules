@@ -1,3 +1,0 @@
-[submodule "labs"]
-	path = labs
-	url = git://github.com/addyosmani/todomvc.git
