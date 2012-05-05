@@ -80,7 +80,14 @@ define(['lib/stapes'], function(Stapes) {
 		},
 
 		'makeEditable' : function(id) {
-			var $item = $('#todo-list li[data-id=' + id + ']');
+			// Zepto is a little quirky here and both doesn't accept filter()
+			// and $('#todo-list li[data-id=' + id + ']') :(
+			var $item;
+
+		 	$('#todo-list li').each(function() {
+				if ($(this).data('id') === id) $item = $(this);
+			});
+
 			$item.addClass('editing').find('input.edit').focus();
 		},
 
