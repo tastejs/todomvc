@@ -45,7 +45,7 @@
 	</script>
 
 	<script id="footer-template" type="text/x-handlebars-template">
-		<span id="todo-count"><strong>{{active}}</strong> item{{activePlural}} left</span>
+		<span id="todo-count"><strong>{{active}}</strong> {{itemLabel}} left</span>
 		<button id="clear-completed">Clear completed ({{completed}})</button>
 	</script>
 
@@ -53,9 +53,9 @@
 	<script src="../../../assets/handlebars.min.js"></script>
 	<script src="../../../assets/jquery.min.js"></script>
 	<script src="js/lib/soma-native_v1.0.2_min.js"></script>
-	<script src="js/app/models.js"></script>
-	<script src="js/app/views.js"></script>
-	<script src="js/app/controllers.js"></script>
+	<script src="js/todos/models/models.js"></script>
+	<script src="js/todos/views/views.js"></script>
+	<script src="js/todos/controllers/controllers.js"></script>
 	<script src="js/app.js"></script>
 
 </body>
