@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.math</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.math');
+    goog.require('goog.testing.jsunit');
+  </script>
+</head>
+<body>
+  <script>
+    function testRandomInt() {
+      assertEquals(0, goog.math.randomInt(0));
+      assertEquals(0, goog.math.randomInt(1));
+
+      var r = goog.math.randomInt(3);
+      assertTrue(0 <= r && r < 3);
+    }
+
+    function testUniformRandom() {
+      assertEquals(5.2, goog.math.uniformRandom(5.2, 5.2));
+      assertEquals(-6, goog.math.uniformRandom(-6, -6));
+
+      var r = goog.math.uniformRandom(-0.5, 0.5);
+      assertTrue(-0.5 <= r && r < 0.5);
+    }
+
+    function testClamp() {
+      assertEquals(3, goog.math.clamp(3, -5, 5));
+      assertEquals(5, goog.math.clamp(5, -5, 5));
+      assertEquals(-5, goog.math.clamp(-5, -5, 5));
+
+      assertEquals(-5, goog.math.clamp(-22, -5, 5));
+      assertEquals(5, goog.math.clamp(6, -5, 5));
+    }
+
+    function testModulo() {
+      assertEquals(0, goog.math.modulo(256, 8));
+
+      assertEquals(7, goog.math.modulo(7, 8));
+      assertEquals(7, goog.math.modulo(23, 8));
+      assertEquals(7, goog.math.modulo(-1, 8));
+
+      assertEquals(-4, goog.math.modulo(1, -5));
+      assertEquals(-4, goog.math.modulo(6, -5));
+      assertEquals(-4, goog.math.modulo(-4, -5));
+    }
+
+    function testLerp() {
+      assertEquals(0, goog.math.lerp(0, 0, 0));
+      assertEquals(3, goog.math.lerp(0, 6, 0.5));
+      assertEquals(3, goog.math.lerp(-1, 1, 2));
+    }
+
+    function testNearlyEquals() {
+      assertTrue('Numbers inside default tolerance should be equal',
+                 goog.math.nearlyEquals(0.000001, 0.000001001));
+      assertFalse('Numbers outside default tolerance should be unequal',
+                  goog.math.nearlyEquals(0.000001, 0.000003));
+      assertTrue('Numbers inside custom tolerance should be equal',
+                 goog.math.nearlyEquals(0.001, 0.002, 0.1));
+      assertFalse('Numbers outside custom tolerance should be unequal',
+                  goog.math.nearlyEquals(0.001, -0.1, 0.1));
+      assertTrue('Integer tolerance greater than one should succeed',
+                 goog.math.nearlyEquals(87, 85, 3));
+    }
+
+    function testStandardAngle() {
+      assertEquals(359.5, goog.math.standardAngle(-360.5));
+      assertEquals(0, goog.math.standardAngle(-360));
+      assertEquals(359.5, goog.math.standardAngle(-0.5));
+      assertEquals(0, goog.math.standardAngle(0));
+      assertEquals(0.5, goog.math.standardAngle(0.5));
+      assertEquals(0, goog.math.standardAngle(360));
+      assertEquals(1, goog.math.standardAngle(721));
+    }
+
+    function testToRadians() {
+      assertEquals(-Math.PI, goog.math.toRadians(-180));
+      assertEquals(0, goog.math.toRadians(0));
+      assertEquals(Math.PI, goog.math.toRadians(180));
+    }
+
+    function testToDegrees() {
+      assertEquals(-180, goog.math.toDegrees(-Math.PI));
+      assertEquals(0, goog.math.toDegrees(0));
+      assertEquals(180, goog.math.toDegrees(Math.PI));
+    }
+
+    function testAngleDx() {
+      assertRoughlyEquals(0, goog.math.angleDx(0, 0), 1e-10);
+      assertRoughlyEquals(0, goog.math.angleDx(90, 0), 1e-10);
+      assertRoughlyEquals(100, goog.math.angleDx(0, 100), 1e-10);
+      assertRoughlyEquals(0, goog.math.angleDx(90, 100), 1e-10);
+      assertRoughlyEquals(-100, goog.math.angleDx(180, 100), 1e-10);
+      assertRoughlyEquals(0, goog.math.angleDx(270, 100), 1e-10);
+    }
+
+    function testAngleDy() {
+      assertRoughlyEquals(0, goog.math.angleDy(0, 0), 1e-10);
+      assertRoughlyEquals(0, goog.math.angleDy(90, 0), 1e-10);
+      assertRoughlyEquals(0, goog.math.angleDy(0, 100), 1e-10);
+      assertRoughlyEquals(100, goog.math.angleDy(90, 100), 1e-10);
+      assertRoughlyEquals(0, goog.math.angleDy(180, 100), 1e-10);
+      assertRoughlyEquals(-100, goog.math.angleDy(270, 100), 1e-10);
+    }
+
+    function testAngle() {
+      assertRoughlyEquals(0, goog.math.angle(10, 10, 20, 10), 1e-10);
+      assertRoughlyEquals(90, goog.math.angle(10, 10, 10, 20), 1e-10);
+      assertRoughlyEquals(225, goog.math.angle(10, 10, 0, 0), 1e-10);
+      assertRoughlyEquals(270, goog.math.angle(10, 10, 10, 0), 1e-10);
+
+      // 0 is the conventional result, but mathematically this is undefined.
+      assertEquals(0, goog.math.angle(10, 10, 10, 10));
+    }
+
+    function testAngleDifference() {
+      assertEquals(10, goog.math.angleDifference(30, 40));
+      assertEquals(-10, goog.math.angleDifference(40, 30));
+      assertEquals(180, goog.math.angleDifference(10, 190));
+      assertEquals(180, goog.math.angleDifference(190, 10));
+      assertEquals(20, goog.math.angleDifference(350, 10));
+      assertEquals(-20, goog.math.angleDifference(10, 350));
+      assertEquals(100, goog.math.angleDifference(350, 90));
+      assertEquals(-80, goog.math.angleDifference(350, 270));
+      assertEquals(0, goog.math.angleDifference(15, 15));
+    }
+
+    function testSign() {
+      assertEquals(-1, goog.math.sign(-1));
+      assertEquals(1, goog.math.sign(1));
+      assertEquals(0, goog.math.sign(0));
+      assertEquals(0, goog.math.sign(-0));
+      assertEquals(1, goog.math.sign(0.0001));
+      assertEquals(-1, goog.math.sign(-0.0001));
+      assertEquals(-1, goog.math.sign(-Infinity));
+      assertEquals(1, goog.math.sign(Infinity));
+      assertEquals(1, goog.math.sign(3141592653589793));
+    }
+
+    function testLongestCommonSubsequence() {
+      var func = goog.math.longestCommonSubsequence;
+
+      assertArrayEquals([2], func([1,2], [2,1]));
+      assertArrayEquals([1,2], func([1,2,5], [2,1,2]));
+      assertArrayEquals([1,2,3,4,5], func([1,0,2,3,8,4,9,5], [8,1,2,4,3,6,4,5]));
+      assertArrayEquals([1,1,1,1,1], func([1,1,1,1,1], [1,1,1,1,1]));
+      assertArrayEquals([5], func([1,2,3,4,5], [5,4,3,2,1]));
+    }
+
+    function testLongestCommonSubsequenceWithCustomComparator() {
+      var func = goog.math.longestCommonSubsequence;
+
+      var compareFn = function(a, b) {
+        return a.field == b.field;
+      };
+
+      var a1 = {field: 'a1', field2: 'hello'};
+      var a2 = {field: 'a2', field2: 33};
+      var a3 = {field: 'a3'};
+      var a4 = {field: 'a3'};
+
+      assertArrayEquals([a1,a2], func([a1,a2,a3], [a3,a1,a2], compareFn));
+      assertArrayEquals([a1,a3], func([a1,a3], [a1,a4], compareFn));
+      // testing the same arrays without compare function
+      assertArrayEquals([a1], func([a1,a3], [a1,a4]));
+    }
+
+    function testLongestCommonSubsequenceWithCustomCollector() {
+      var func = goog.math.longestCommonSubsequence;
+
+      var collectorFn = function(a, b) {
+        return b;
+      };
+
+      assertArrayEquals([1,2,4,6,7], func([1,0,2,3,8,4,9,5], [8,1,2,4,3,6,4,5],
+          null, collectorFn));
+    }
+
+    function testSum() {
+      assertEquals('sum() must return 0 if there are no arguments',
+          0, goog.math.sum());
+      assertEquals('sum() must return its argument if there is only one',
+          17, goog.math.sum(17));
+      assertEquals('sum() must handle positive integers',
+          10, goog.math.sum(1, 2, 3, 4));
+      assertEquals('sum() must handle real numbers',
+          -2.5, goog.math.sum(1, -2, 3, -4.5));
+      assertTrue('sum() must return NaN if one of the arguments isn\'t numeric',
+          isNaN(goog.math.sum(1, 2, 'foo', 3)));
+    }
+
+    function testAverage() {
+      assertTrue('average() must return NaN if there are no arguments',
+          isNaN(goog.math.average()));
+      assertEquals('average() must return its argument if there is only one',
+          17, goog.math.average(17));
+      assertEquals('average() must handle positive integers',
+          3, goog.math.average(1, 2, 3, 4, 5));
+      assertEquals('average() must handle real numbers',
+          -0.625, goog.math.average(1, -2, 3, -4.5));
+      assertTrue('average() must return NaN if one of the arguments isn\'t ' +
+          'numeric', isNaN(goog.math.average(1, 2, 'foo', 3)));
+    }
+
+    function testStandardDeviation() {
+      assertEquals('standardDeviation() must return 0 if there are no samples',
+          0, goog.math.standardDeviation());
+      assertEquals('standardDeviation() must return 0 if there is only one ' +
+          'sample', 0, goog.math.standardDeviation(17));
+      assertRoughlyEquals('standardDeviation() must handle positive integers',
+          6.9282, goog.math.standardDeviation(3, 7, 7, 19),
+          0.0001);
+      assertRoughlyEquals('standardDeviation() must handle real numbers',
+          3.4660, goog.math.standardDeviation(1.23, -2.34, 3.14, -4.56),
+          0.0001);
+    }
+
+    function testIsInt() {
+      assertFalse(goog.math.isInt(12345.67));
+      assertFalse(goog.math.isInt(0.123));
+      assertFalse(goog.math.isInt(.1));
+      assertFalse(goog.math.isInt(-23.43));
+      assertFalse(goog.math.isInt(-.1));
+      assertFalse(goog.math.isInt(1e-1));
+      assertTrue(goog.math.isInt(1));
+      assertTrue(goog.math.isInt(0));
+      assertTrue(goog.math.isInt(-2));
+      assertTrue(goog.math.isInt(-2.0));
+      assertTrue(goog.math.isInt(10324231));
+      assertTrue(goog.math.isInt(1.));
+      assertTrue(goog.math.isInt(1e3));
+    }
+
+    function testIsFiniteNumber() {
+      assertFalse(goog.math.isFiniteNumber(NaN));
+      assertFalse(goog.math.isFiniteNumber(-Infinity));
+      assertFalse(goog.math.isFiniteNumber(+Infinity));
+      assertTrue(goog.math.isFiniteNumber(0));
+      assertTrue(goog.math.isFiniteNumber(1));
+      assertTrue(goog.math.isFiniteNumber(Math.PI));
+    }
+  </script>
+</body>
+</html>

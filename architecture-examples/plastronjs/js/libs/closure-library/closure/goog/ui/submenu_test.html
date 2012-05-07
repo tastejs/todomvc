@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+
+  @author nicksantos@google.com (Nick Santos)
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.SubMenu</title>
+<style type='text/css'>
+.goog-menu {
+  position: absolute;
+  color: #000;
+  border: 1px solid #B5B6B5;
+  background-color: #F3F3F7;
+  cursor: default;
+  font: normal small arial, helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+.goog-menuitem {
+  padding: 2px 1.5em 2px 5px;
+  margin: 0;
+  list-style: none;
+}
+
+.goog-menuitem-rtl {
+  padding: 2px 5px 2px 1.5em;
+}
+
+.goog-submenu-arrow {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  left: auto;
+}
+
+.goog-menuitem-rtl .goog-submenu-arrow {
+  text-align: left;
+  position: absolute;
+  left: 0;
+  right: auto;
+}
+
+.goog-menuitem-disabled .goog-submenu-arrow {
+  display: none;
+}
+</style>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.classes');
+  goog.require('goog.events');
+  goog.require('goog.style');
+  goog.require('goog.positioning');
+  goog.require('goog.positioning.Overflow');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.Component.EventType');
+  goog.require('goog.ui.Menu');
+  goog.require('goog.ui.MenuItem');
+  goog.require('goog.ui.Popup');
+  goog.require('goog.ui.SubMenu');
+  goog.require('goog.ui.SubMenuRenderer');
+</script>
+</head>
+<body>
+<script>
+
+var menu;
+var clonedMenuDom;
+
+var mockClock;
+
+// mock out goog.positioning.positionAtCoordinate so that
+// the menu always fits. (we don't care about testing the
+// dynamic menu positioning if the menu doesn't fit in the window.)
+var oldPositionFn = goog.positioning.positionAtCoordinate;
+goog.positioning.positionAtCoordinate = function(absolutePos, movableElement,
+                                                 movableElementCorner,
+                                                 opt_margin, opt_overflow) {
+  return oldPositionFn.call(null, absolutePos, movableElement,
+      movableElementCorner, opt_margin, goog.positioning.Overflow.IGNORE);
+};
+
+function setUp() {
+  clonedMenuDom = goog.dom.getElement('demoMenu').cloneNode(true);
+
+  menu = new goog.ui.Menu();
+}
+
+function tearDown() {
+  document.body.style.direction = 'ltr';
+  menu.dispose();
+
+  var element = goog.dom.getElement('demoMenu');
+  element.parentNode.replaceChild(clonedMenuDom, element);
+
+  goog.dom.getElement('sandbox').innerHTML = '';
+
+  if (mockClock) {
+    mockClock.uninstall();
+    mockClock = null;
+  }
+}
+
+function testNormalLtrSubMenu() {
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  assertArrowDirection(subMenu, false);
+  assertRenderDirection(subMenu, false);
+  assertArrowPosition(subMenu, false);
+}
+
+function testNormalRtlSubMenu() {
+  document.body.style.direction = 'rtl';
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  assertArrowDirection(subMenu, true);
+  assertRenderDirection(subMenu, true);
+  assertArrowPosition(subMenu, true);
+}
+
+function testLtrSubMenuAlignedToStart() {
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  subMenu.setAlignToEnd(false);
+  assertArrowDirection(subMenu, true);
+  assertRenderDirection(subMenu, true);
+  assertArrowPosition(subMenu, false);
+}
+
+function testRtlSubMenuAlignedToStart() {
+  document.body.style.direction = 'rtl';
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  subMenu.setAlignToEnd(false);
+  assertArrowDirection(subMenu, false);
+  assertRenderDirection(subMenu, false);
+  assertArrowPosition(subMenu, true);
+}
+
+function testExitDocument() {
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  var innerMenu = subMenu.getMenu();
+
+  assertTrue('Top-level menu was not in document', menu.isInDocument());
+  assertTrue('Submenu was not in document', subMenu.isInDocument());
+  assertTrue('Inner menu was not in document', innerMenu.isInDocument());
+
+  menu.exitDocument();
+
+  assertFalse('Top-level menu was in document', menu.isInDocument());
+  assertFalse('Submenu was in document', subMenu.isInDocument());
+  assertFalse('Inner menu was in document', innerMenu.isInDocument());
+}
+
+function testDisposal() {
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  var innerMenu = subMenu.getMenu();
+  menu.dispose();
+
+  assert('Top-level menu was not disposed', menu.getDisposed());
+  assert('Submenu was not disposed', subMenu.getDisposed());
+  assert('Inner menu was not disposed', innerMenu.getDisposed());
+}
+
+function testShowAndDismissSubMenu() {
+  var openEventDispatched = false;
+  var closeEventDispatched = false;
+
+  function handleEvent(e) {
+    switch (e.type) {
+      case goog.ui.Component.EventType.OPEN:
+        openEventDispatched = true;
+        break;
+      case goog.ui.Component.EventType.CLOSE:
+        closeEventDispatched = true;
+        break;
+      default:
+        fail('Invalid event type: ' + e.type);
+    }
+  }
+
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  subMenu.setHighlighted(true);
+
+  goog.events.listen(subMenu, [
+    goog.ui.Component.EventType.OPEN,
+    goog.ui.Component.EventType.CLOSE
+  ], handleEvent);
+
+  assertFalse('Submenu must not have "-open" CSS class',
+      goog.dom.classes.has(subMenu.getElement(), 'goog-submenu-open'));
+  assertFalse('Popup menu must not be visible',
+      subMenu.getMenu().isVisible());
+  assertFalse('No OPEN event must have been dispatched', openEventDispatched);
+  assertFalse('No CLOSE event must have been dispatched', closeEventDispatched);
+
+  subMenu.showSubMenu();
+  assertTrue('Submenu must have "-open" CSS class',
+      goog.dom.classes.has(subMenu.getElement(), 'goog-submenu-open'));
+  assertTrue('Popup menu must be visible',
+      subMenu.getMenu().isVisible());
+  assertTrue('OPEN event must have been dispatched', openEventDispatched);
+  assertFalse('No CLOSE event must have been dispatched', closeEventDispatched);
+
+  subMenu.dismissSubMenu();
+  assertFalse('Submenu must not have "-open" CSS class',
+      goog.dom.classes.has(subMenu.getElement(), 'goog-submenu-open'));
+  assertFalse('Popup menu must not be visible',
+      subMenu.getMenu().isVisible());
+  assertTrue('CLOSE event must have been dispatched', closeEventDispatched);
+
+  goog.events.unlisten(subMenu, [
+    goog.ui.Component.EventType.OPEN,
+    goog.ui.Component.EventType.CLOSE
+  ], handleEvent);
+}
+
+function testLazyInstantiateSubMenu() {
+  menu.decorate(goog.dom.getElement('demoMenu'));
+  var subMenu = menu.getChildAt(1);
+  subMenu.setHighlighted(true);
+
+  var lazyMenu;
+
+  var key = goog.events.listen(subMenu, goog.ui.Component.EventType.OPEN,
+      function(e) {
+        lazyMenu = new goog.ui.Menu();
+        lazyMenu.addItem(new goog.ui.MenuItem('foo'));
+        lazyMenu.addItem(new goog.ui.MenuItem('bar'));
+        subMenu.setMenu(lazyMenu, /* opt_internal */ false);
+      });
+
+  subMenu.showSubMenu();
+  assertNotNull('Popup menu must have been created', lazyMenu);
+  assertEquals('Popup menu must be a child of the submenu', subMenu,
+      lazyMenu.getParent());
+  assertTrue('Popup menu must have been rendered', lazyMenu.isInDocument());
+  assertTrue('Popup menu must be visible', lazyMenu.isVisible());
+
+  menu.dispose();
+  assertTrue('Submenu must have been disposed of', subMenu.isDisposed());
+  assertFalse('Popup menu must not have been disposed of',
+      lazyMenu.isDisposed());
+
+  lazyMenu.dispose();
+
+  goog.events.unlistenByKey(key);
+}
+
+function testReusableMenu() {
+  var subMenuOne = new goog.ui.SubMenu('SubMenu One');
+  var subMenuTwo = new goog.ui.SubMenu('SubMenu Two');
+  menu.addItem(subMenuOne);
+  menu.addItem(subMenuTwo);
+  menu.render(goog.dom.getElement('sandbox'));
+
+  // It is possible for the same popup menu to be shared between different
+  // submenus.
+  var sharedMenu = new goog.ui.Menu();
+  sharedMenu.addItem(new goog.ui.MenuItem('Hello'));
+  sharedMenu.addItem(new goog.ui.MenuItem('World'));
+
+  assertNull('Shared menu must not have a parent', sharedMenu.getParent());
+
+  subMenuOne.setMenu(sharedMenu);
+  assertEquals('SubMenuOne must point to the shared menu', sharedMenu,
+      subMenuOne.getMenu());
+  assertEquals('SubMenuOne must be the shared menu\'s parent', subMenuOne,
+      sharedMenu.getParent());
+
+  subMenuTwo.setMenu(sharedMenu);
+  assertEquals('SubMenuTwo must point to the shared menu', sharedMenu,
+      subMenuTwo.getMenu());
+  assertEquals('SubMenuTwo must be the shared menu\'s parent', subMenuTwo,
+      sharedMenu.getParent());
+  assertEquals('SubMenuOne must still point to the shared menu', sharedMenu,
+      subMenuOne.getMenu());
+
+  menu.setHighlighted(subMenuOne);
+  subMenuOne.showSubMenu();
+  assertEquals('SubMenuOne must point to the shared menu', sharedMenu,
+      subMenuOne.getMenu());
+  assertEquals('SubMenuOne must be the shared menu\'s parent', subMenuOne,
+      sharedMenu.getParent());
+  assertEquals('SubMenuTwo must still point to the shared menu', sharedMenu,
+      subMenuTwo.getMenu());
+  assertTrue('Shared menu must be visible', sharedMenu.isVisible());
+
+  menu.setHighlighted(subMenuTwo);
+  subMenuTwo.showSubMenu();
+  assertEquals('SubMenuTwo must point to the shared menu', sharedMenu,
+      subMenuTwo.getMenu());
+  assertEquals('SubMenuTwo must be the shared menu\'s parent', subMenuTwo,
+      sharedMenu.getParent());
+  assertEquals('SubMenuOne must still point to the shared menu', sharedMenu,
+      subMenuOne.getMenu());
+  assertTrue('Shared menu must be visible', sharedMenu.isVisible());
+}
+
+/**
+ * If you remove a submenu in the interval between when a mouseover event
+ * is fired on it, and showSubMenu() is called, showSubMenu causes a null
+ * value to be dereferenced. This test validates that the fix for this works.
+ * (See bug 1823144).
+ */
+function testDeleteItemDuringSubmenuDisplayInterval() {
+  mockClock = new goog.testing.MockClock(true);
+
+  var submenu = new goog.ui.SubMenu('submenu');
+  submenu.addItem(new goog.ui.MenuItem("submenu item 1"));
+  menu.addItem(submenu);
+
+  // Trigger mouseover, and remove item before showSubMenu can be called.
+  var e = new goog.events.Event();
+  submenu.handleMouseOver(e);
+  menu.removeItem(submenu);
+  mockClock.tick(goog.ui.SubMenu.MENU_DELAY_MS);
+  // (No JS error should occur.)
+}
+
+function testShowSubMenuAfterRemoval() {
+  var submenu = new goog.ui.SubMenu('submenu');
+  menu.addItem(submenu);
+  menu.removeItem(submenu);
+  submenu.showSubMenu();
+  // (No JS error should occur.)
+}
+
+function testSubmenuSelectable() {
+  var submenu = new goog.ui.SubMenu('submenu');
+  submenu.addItem(new goog.ui.MenuItem('submenu item 1'));
+  menu.addItem(submenu);
+  submenu.setSelectable(true);
+
+  var numClicks = 0;
+  var menuClickedFn = function(e) {
+    numClicks++;
+  }
+
+  goog.events.listen(submenu, goog.ui.Component.EventType.ACTION,
+      menuClickedFn);
+  submenu.performActionInternal(null);
+  submenu.performActionInternal(null);
+
+  assertEquals('The submenu should have fired an event', 2, numClicks);
+
+  submenu.setSelectable(false);
+  submenu.performActionInternal(null);
+
+  assertEquals('The submenu should not have fired any further events', 2,
+      numClicks);
+}
+
+/**
+ * Asserts that this sub menu renders in the right direction relative to
+ * the parent menu.
+ * @param {goog.ui.SubMenu} subMenu The sub menu.
+ * @param {boolean} left True for left-pointing, false for right-pointing.
+ */
+function assertRenderDirection(subMenu, left) {
+  subMenu.getParent().setHighlighted(subMenu);
+  subMenu.showSubMenu();
+  var menuItemPosition = goog.style.getPageOffset(subMenu.getElement());
+  var menuPosition = goog.style.getPageOffset(subMenu.getMenu().getElement());
+  assert(Math.abs(menuItemPosition.y - menuPosition.y) < 5);
+  assertEquals(
+      "Menu at: " + menuPosition.x +
+      ", submenu item at: " + menuItemPosition.x,
+      left, menuPosition.x < menuItemPosition.x);
+}
+
+/**
+ * Asserts that this sub menu has a properly-oriented arrow.
+ * @param {goog.ui.SubMenu} subMenu The sub menu.
+ * @param {boolean} left True for left-pointing, false for right-pointing.
+ */
+function assertArrowDirection(subMenu, left) {
+  assertEquals(
+      left ? goog.ui.SubMenuRenderer.LEFT_ARROW_ :
+      goog.ui.SubMenuRenderer.RIGHT_ARROW_,
+      getArrowElement(subMenu).innerHTML);
+}
+
+/**
+ * Asserts that the arrow position is correct.
+ * @param {goog.ui.SubMenu} subMenu The sub menu.
+ * @param {boolean} leftAlign True for left-aligned, false for right-aligned.
+ */
+function assertArrowPosition(subMenu, left) {
+  var arrow = getArrowElement(subMenu);
+  var expectedLeft =
+      left ? 0 : arrow.offsetParent.offsetWidth - arrow.offsetWidth;
+  var actualLeft = arrow.offsetLeft;
+  assertTrue('Expected left offset: ' + expectedLeft + '\n' +
+             'Actual left offset: ' + actualLeft + '\n',
+             Math.abs(expectedLeft - actualLeft) < 5);
+}
+
+/**
+ * Gets the arrow element of a sub menu.
+ * @param {goog.ui.SubMenu} subMenu The sub menu.
+ * @return {Element} The arrow.
+ */
+function getArrowElement(subMenu) {
+  return subMenu.getContentElement().lastChild;
+}
+
+</script>
+
+<p>
+  Here's a menu (with submenus) defined in markup:
+</p>
+<div id="demoMenu" class="goog-menu">
+  <div class="goog-menuitem">Open...</div>
+  <div class="goog-submenu">Open Recent
+    <div class="goog-menu">
+      <div class="goog-menuitem">Annual Report.pdf</div>
+      <div class="goog-menuitem">Quarterly Update.pdf</div>
+      <div class="goog-menuitem">Enemies List.txt</div>
+      <div class="goog-submenu">More
+        <div class="goog-menu">
+          <div class="goog-menuitem">Foo.txt</div>
+          <div class="goog-menuitem">Bar.txt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="sandbox"></div>
+
+</body>
+</html>

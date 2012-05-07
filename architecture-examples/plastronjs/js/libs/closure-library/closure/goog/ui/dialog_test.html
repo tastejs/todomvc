@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.Dialog</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.ui.Dialog');
+  goog.require('goog.ui.Dialog.ButtonSet');
+  goog.require('goog.dom');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('goog.style');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.recordFunction');
+</script>
+</head>
+<body>
+<iframe id="f" src="javascript:'<input>'"></iframe>
+<script>
+  var decorateTarget;
+  var dialog;
+
+  function setUp() {
+    dialog = new goog.ui.Dialog();
+    var buttons = new goog.ui.Dialog.ButtonSet();
+    buttons.set(goog.ui.Dialog.DefaultButtonKeys.CANCEL,
+       'Foo!',
+       false,
+       true);
+    buttons.set(goog.ui.Dialog.DefaultButtonKeys.OK,
+       'OK',
+       true);
+    dialog.setButtonSet(buttons);
+    dialog.setVisible(true);
+
+    decorateTarget = goog.dom.createDom('div');
+    document.body.appendChild(decorateTarget);
+  }
+
+  function tearDown() {
+    dialog.dispose();
+    goog.dom.removeNode(decorateTarget);
+  }
+
+  function testCrossFrameFocus() {
+    // Firefox (3.6, maybe future versions) fails this test when there are too
+    // many other test files being run concurrently.
+    if (goog.userAgent.IE || goog.userAgent.GECKO) {
+      return;
+    }
+    dialog.setVisible(false);
+    var iframeWindow = goog.dom.getElement('f').contentWindow;
+    var iframeInput = iframeWindow.document.getElementsByTagName('input')[0];
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    var buttonElement = dialog.getButtonSet().getButton(0);
+    var focusCounter = 0;
+    goog.events.listen(buttonElement, 'focus', function() {
+      focusCounter++;
+    });
+    iframeInput.focus();
+    dialog.setVisible(true);
+    dialog.setVisible(false);
+    iframeInput.focus();
+    dialog.setVisible(true);
+    assertEquals(2, focusCounter);
+  }
+
+  function testNoTitleClose() {
+    assertTrue(goog.style.isElementShown(dialog.getTitleCloseElement()));
+    dialog.setHasTitleCloseButton(false);
+    assertFalse(goog.style.isElementShown(dialog.getTitleCloseElement()));
+  }
+
+  /**
+   * Helper that clicks the first button in the dialog and checks if that
+   * results in a goog.ui.Dialog.EventType.SELECT being dispatched.
+   * @param {boolean} disableButton Whether to disable the button being
+   *     tested.
+   * @return {boolean} Whether a goog.ui.Dialog.EventType.SELECT was dispatched.
+   */
+  function checkSelectDispatchedOnButtonClick(disableButton) {
+    var aButton = dialog.getButtonElement().getElementsByTagName('BUTTON')[0];
+    assertNotEquals(aButton, null);
+    aButton.disabled = disableButton;
+    var wasCalled = false;
+    var callRecorder = function() { wasCalled = true; };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, callRecorder);
+    goog.testing.events.fireClickSequence(aButton);
+    return wasCalled;
+  }
+
+  function testButtonClicksDispatchSelectEvents() {
+    assertTrue('Select event should be dispatched' +
+               ' when clicking on an enabled button',
+        checkSelectDispatchedOnButtonClick(false));
+  }
+
+  function testDisabledButtonClicksDontDispatchSelectEvents() {
+    assertFalse('Select event should not be dispatched' +
+                ' when clicking on a disabled button',
+        checkSelectDispatchedOnButtonClick(true));
+  }
+
+  function testEnterKeyDispatchesDefaultSelectEvents() {
+    var okButton = dialog.getButtonElement().getElementsByTagName('BUTTON')[1];
+    assertNotEquals(okButton, null);
+    var wasCalled = false;
+    var callRecorder = function() { wasCalled = true; };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, callRecorder);
+    // Test that event is not dispatched when default button is disabled.
+    okButton.disabled = true;
+    goog.testing.events.fireKeySequence(dialog.getElement(),
+                                        goog.events.KeyCodes.ENTER);
+    assertFalse(wasCalled);
+    // Test that event is dispatched when default button is enabled.
+    okButton.disabled = false;
+    goog.testing.events.fireKeySequence(dialog.getElement(),
+                                        goog.events.KeyCodes.ENTER);
+    assertTrue(wasCalled);
+  }
+
+  function testEnterKeyDoesNothingOnSpecialFormElements() {
+    dialog.setContent('<textarea>Hello dialog</textarea>');
+    var textarea = dialog.getContentElement().
+        getElementsByTagName('TEXTAREA')[0];
+    var wasCalled = false;
+    var callRecorder = function() {
+      wasCalled = true;
+    };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, callRecorder);
+
+    // Enter does not fire on the enabled textarea.
+    goog.testing.events.fireKeySequence(textarea,
+        goog.events.KeyCodes.ENTER);
+    assertFalse(wasCalled);
+
+    // Enter fires on the disabled textarea.
+    textarea.disabled = true;
+    goog.testing.events.fireKeySequence(textarea,
+        goog.events.KeyCodes.ENTER);
+    assertTrue(wasCalled);
+  }
+
+  function testEscapeKeyDoesNothingOnSpecialFormElements() {
+    dialog.setContent('<select><option>Hello</option>' +
+        '<option>dialog</option></select>');
+    var select = dialog.getContentElement().
+        getElementsByTagName('SELECT')[0];
+    var wasCalled = false;
+    var callRecorder = function() {
+      wasCalled = true;
+    };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, callRecorder);
+
+    // Escape does not fire on the enabled select box.
+    goog.testing.events.fireKeySequence(select,
+        goog.events.KeyCodes.ESC);
+    assertFalse(wasCalled);
+
+    // Escape fires on the disabled select.
+    select.disabled = true;
+    goog.testing.events.fireKeySequence(select,
+        goog.events.KeyCodes.ESC);
+    assertTrue(wasCalled);
+  }
+
+  function testEscapeCloses() {
+    // If escapeCloses is set to false, the dialog should ignore the escape key
+    assertTrue(dialog.isEscapeToCancel());
+    dialog.setEscapeToCancel(false);
+    assertFalse(dialog.isEscapeToCancel());
+
+    var buttons = new goog.ui.Dialog.ButtonSet();
+    buttons.set(goog.ui.Dialog.DefaultButtonKeys.OK, 'OK', true);
+    dialog.setButtonSet(buttons);
+    goog.testing.events.fireKeySequence(dialog.getContentElement(),
+        goog.events.KeyCodes.ESC);
+    assertTrue(dialog.isVisible());
+
+    // Having a cancel button should make no difference, escape should still not
+    // work.
+    buttons.set(goog.ui.Dialog.DefaultButtonKeys.CANCEL, 'Foo!', false, true);
+    dialog.setButtonSet(buttons);
+    goog.testing.events.fireKeySequence(dialog.getContentElement(),
+        goog.events.KeyCodes.ESC);
+    assertTrue(dialog.isVisible());
+  }
+
+  function testKeydownClosesWithoutButtonSet() {
+    // Clear button set
+    dialog.setButtonSet(null);
+
+    // Create a custom button.
+    dialog.setContent('<button id="button" name="ok">OK</button>');
+    var wasCalled = false;
+    function called() {
+      wasCalled = true;
+    }
+    var element = goog.dom.getElement('button');
+    goog.events.listen(element, goog.events.EventType.KEYPRESS, called);
+    // Listen for 'Enter' on the button.
+    // This tests using a dialog with no ButtonSet that has been set. Uses
+    // a custom button.  The callback should be called with no exception thrown.
+    goog.testing.events.fireKeySequence(element, goog.events.KeyCodes.ENTER);
+    assertTrue('Should have gotten event on the button.', wasCalled);
+  }
+
+  function testEnterKeyWithoutDefaultDoesNotPreventPropagation() {
+    var buttons = new goog.ui.Dialog.ButtonSet();
+    buttons.set(goog.ui.Dialog.DefaultButtonKeys.CANCEL,
+       'Foo!',
+       false);
+    // Set a button set without a default selected button
+    dialog.setButtonSet(buttons);
+    dialog.setContent('<span id="linkel" tabindex="0">Link Span</span>');
+
+    var call = false;
+    function called() {
+      call = true;
+    }
+    var element = document.getElementById("linkel");
+    goog.events.listen(element, goog.events.EventType.KEYDOWN, called);
+    goog.testing.events.fireKeySequence(element, goog.events.KeyCodes.ENTER);
+
+    assertTrue('Should have gotten event on the link', call);
+  }
+
+  function testPreventDefaultedSelectCausesStopPropagation() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK_CANCEL);
+
+    var callCount = 0;
+    var keypressCount = 0;
+    var keydownCount = 0;
+
+    var preventDefaulter = function(e) {
+      e.preventDefault();
+    };
+
+    goog.events.listen(
+        dialog, goog.ui.Dialog.EventType.SELECT, preventDefaulter);
+    goog.events.listen(
+        document.body, goog.events.EventType.KEYPRESS, function() {
+          keypressCount++;
+        });
+    goog.events.listen(
+        document.body, goog.events.EventType.KEYDOWN, function() {
+          keydownCount++;
+        });
+
+    // Ensure that if the SELECT event is prevented, all key events
+    // are still stopped from propagating.
+    goog.testing.events.fireKeySequence(
+        dialog.getElement(), goog.events.KeyCodes.ENTER);
+    assertEquals('The KEYPRESS should be stopped', 0, keypressCount);
+    assertEquals('The KEYDOWN should not be stopped', 1, keydownCount);
+
+    keypressCount = 0;
+    keydownCount = 0;
+    goog.testing.events.fireKeySequence(
+        dialog.getElement(), goog.events.KeyCodes.ESC);
+    assertEquals('The KEYDOWN should be stopped', 0, keydownCount);
+    // Note: Some browsers don't yield keypresses on escape, so don't check.
+
+    goog.events.unlisten(
+        dialog, goog.ui.Dialog.EventType.SELECT, preventDefaulter);
+
+    keypressCount = 0;
+    keydownCount = 0;
+    goog.testing.events.fireKeySequence(
+        dialog.getElement(), goog.events.KeyCodes.ENTER);
+    assertEquals('The KEYPRESS should be stopped', 0, keypressCount);
+    assertEquals('The KEYDOWN should not be stopped', 1, keydownCount);
+  }
+
+  function testEnterKeyHandledInKeypress() {
+    var inKeyPress = false;
+    goog.events.listen(
+        document.body, goog.events.EventType.KEYPRESS,
+        function() {
+          inKeyPress = true;
+        }, true /* capture */);
+    goog.events.listen(
+        document.body, goog.events.EventType.KEYPRESS,
+        function() {
+          inKeyPress = false;
+        }, false /* !capture */);
+    var selectCalled = false;
+    goog.events.listen(
+        dialog, goog.ui.Dialog.EventType.SELECT, function() {
+          selectCalled = true;
+          assertTrue(
+              'Select must be dispatched during keypress to allow popups',
+              inKeyPress);
+        });
+
+    goog.testing.events.fireKeySequence(
+        dialog.getElement(), goog.events.KeyCodes.ENTER);
+    assertTrue(selectCalled);
+  }
+
+  function testButtonsWithContentsDispatchSelectEvents() {
+    var aButton = dialog.getButtonElement().getElementsByTagName('BUTTON')[0];
+    var aSpan = document.createElement('SPAN');
+    aButton.appendChild(aSpan);
+    var wasCalled = false;
+    var callRecorder = function() { wasCalled = true; };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT, callRecorder);
+    goog.testing.events.fireClickSequence(aSpan);
+    assertTrue(wasCalled);
+  }
+
+  function testAfterHideEvent() {
+    var wasCalled = false;
+    var callRecorder = function() { wasCalled = true; };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.AFTER_HIDE,
+        callRecorder);
+    dialog.setVisible(false);
+    assertTrue(wasCalled);
+  }
+
+  function testAfterShowEvent() {
+    dialog.setVisible(false);
+    var wasCalled = false;
+    var callRecorder = function() { wasCalled = true; };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.AFTER_SHOW,
+        callRecorder);
+    dialog.setVisible(true);
+    assertTrue(wasCalled);
+  }
+
+  function testCannedButtonSets() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.OK]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK_CANCEL);
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.OK,
+                   goog.ui.Dialog.DefaultButtonKeys.CANCEL]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.YES_NO);
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.YES,
+                   goog.ui.Dialog.DefaultButtonKeys.NO]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.YES_NO_CANCEL);
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.YES,
+                   goog.ui.Dialog.DefaultButtonKeys.NO,
+                   goog.ui.Dialog.DefaultButtonKeys.CANCEL]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.CONTINUE_SAVE_CANCEL);
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.CONTINUE,
+                   goog.ui.Dialog.DefaultButtonKeys.SAVE,
+                   goog.ui.Dialog.DefaultButtonKeys.CANCEL]);
+  }
+
+  function testFactoryButtonSets() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.createOk());
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.OK]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.createOkCancel());
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.OK,
+                   goog.ui.Dialog.DefaultButtonKeys.CANCEL]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.createYesNo());
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.YES,
+                   goog.ui.Dialog.DefaultButtonKeys.NO]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.createYesNoCancel());
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.YES,
+                   goog.ui.Dialog.DefaultButtonKeys.NO,
+                   goog.ui.Dialog.DefaultButtonKeys.CANCEL]);
+
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.createContinueSaveCancel());
+    assertButtons([goog.ui.Dialog.DefaultButtonKeys.CONTINUE,
+                   goog.ui.Dialog.DefaultButtonKeys.SAVE,
+                   goog.ui.Dialog.DefaultButtonKeys.CANCEL]);
+  }
+
+  function testDefaultButtonClassName() {
+    var key = 'someKey';
+    var msg = 'someMessage';
+    var isDefault = false;
+    var buttonSetOne = new goog.ui.Dialog.ButtonSet().set(key, msg, isDefault);
+    dialog.setButtonSet(buttonSetOne);
+    var defaultClassName = goog.getCssName(buttonSetOne.class_, 'default');
+    var buttonOne = buttonSetOne.getButton(key);
+    assertNotEquals(defaultClassName, buttonOne.className);
+    var isDefault = true;
+    var buttonSetTwo = new goog.ui.Dialog.ButtonSet().set(key, msg, isDefault);
+    dialog.setButtonSet(buttonSetTwo);
+    var buttonTwo = buttonSetTwo.getButton(key);
+    assertEquals(defaultClassName, buttonTwo.className);
+  }
+
+  function testGetButton() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    var buttons = document.getElementsByName(
+        goog.ui.Dialog.DefaultButtonKeys.OK);
+    assertEquals(buttons[0], dialog.getButtonSet().getButton(
+        goog.ui.Dialog.DefaultButtonKeys.OK));
+  }
+
+  function testGetAllButtons() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.YES_NO_CANCEL);
+    var buttons = dialog.getElement().getElementsByTagName(
+        goog.dom.TagName.BUTTON);
+    for (var i = 0; i < buttons.length; i++) {
+      assertEquals(buttons[i], dialog.getButtonSet().getAllButtons()[i]);
+    }
+  }
+
+  function testSetButtonEnabled() {
+    var buttonSet = goog.ui.Dialog.ButtonSet.createYesNoCancel();
+    dialog.setButtonSet(buttonSet);
+    assertFalse(
+        buttonSet.getButton(goog.ui.Dialog.DefaultButtonKeys.NO).disabled);
+    buttonSet.setButtonEnabled(goog.ui.Dialog.DefaultButtonKeys.NO, false);
+    assertTrue(
+        buttonSet.getButton(goog.ui.Dialog.DefaultButtonKeys.NO).disabled);
+    buttonSet.setButtonEnabled(goog.ui.Dialog.DefaultButtonKeys.NO, true);
+    assertFalse(
+        buttonSet.getButton(goog.ui.Dialog.DefaultButtonKeys.NO).disabled);
+  }
+
+  function testSetAllButtonsEnabled() {
+    var buttonSet = goog.ui.Dialog.ButtonSet.createContinueSaveCancel();
+    dialog.setButtonSet(buttonSet);
+    var buttons = buttonSet.getAllButtons();
+    for (var i = 0; i < buttons.length; i++) {
+      assertFalse(buttons[i].disabled);
+    }
+
+    buttonSet.setAllButtonsEnabled(false);
+    for (var i = 0; i < buttons.length; i++) {
+      assertTrue(buttons[i].disabled);
+    }
+
+    buttonSet.setAllButtonsEnabled(true);
+    for (var i = 0; i < buttons.length; i++) {
+      assertFalse(buttons[i].disabled);
+    }
+  }
+
+  function testIframeMask() {
+    // generate a new dialog
+    dialog.dispose();
+    dialog = new goog.ui.Dialog(null, true /* iframe mask */);
+    dialog.setVisible(true);
+
+    var iframes =
+        goog.dom.getElementsByTagNameAndClass(goog.dom.TagName.IFRAME);
+    // NOTE: one iframe already exists in the document, so we check for 1 extra
+    // iframe.
+    assertEquals('No iframe mask created', 2, iframes.length);
+  }
+
+  function testNonModalDialog() {
+    // generate a new dialog
+    dialog.dispose();
+    dialog = new goog.ui.Dialog(null, true /* iframe mask */);
+    dialog.setModal(false);
+    dialog.setVisible(true);
+
+    var iframes =
+        goog.dom.getElementsByTagNameAndClass(goog.dom.TagName.IFRAME);
+    // NOTE: one iframe already exists in the document, so we check there are
+    // no extra iframes in the document.
+    assertEquals('Iframe mask created for modal dialog', 1, iframes.length);
+  }
+
+  function testSwapModalForOpenDialog() {
+    dialog.dispose();
+    dialog = new goog.ui.Dialog(null, true /* iframe mask */);
+    dialog.setVisible(true);
+    dialog.setModal(false);
+    assertFalse('IFrame bg element should not be in dom',
+        goog.dom.contains(document.body, dialog.getBackgroundIframe()));
+    assertFalse('bg element should not be in dom',
+        goog.dom.contains(document.body, dialog.getBackgroundElement()));
+
+    dialog.setModal(true);
+    assertTrue('IFrame bg element should be in dom',
+        goog.dom.contains(document.body, dialog.getBackgroundIframe()));
+    assertTrue('bg element should be in dom',
+        goog.dom.contains(document.body, dialog.getBackgroundElement()));
+
+    assertEquals('IFrame bg element is a child of body',
+        document.body, dialog.getBackgroundIframe().parentNode);
+    assertEquals('bg element is a child of body',
+        document.body, dialog.getBackgroundElement().parentNode);
+
+    assertTrue('IFrame bg element should visible',
+        goog.style.isElementShown(dialog.getBackgroundIframe()));
+    assertTrue('bg element should be visible',
+        goog.style.isElementShown(dialog.getBackgroundElement()));
+  }
+
+  /**
+   * Assert that the dialog has buttons with the given keys in the correct
+   * order.
+   * @param {Array.<string>} keys An array of button keys.
+   */
+  function assertButtons(keys) {
+    var buttons = dialog.getElement().getElementsByTagName(
+        goog.dom.TagName.BUTTON);
+    var actualKeys = [];
+    for (var i = 0; i < buttons.length; i++) {
+      actualKeys[i] = buttons[i].name;
+    }
+    assertArrayEquals(keys, actualKeys);
+  }
+
+  function testButtonSetOkFiresDialogEventOnEscape() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    var wasCalled = false;
+    var callRecorder = function() { wasCalled = true; };
+    goog.events.listen(dialog, goog.ui.Dialog.EventType.SELECT,
+        callRecorder);
+    goog.testing.events.fireKeySequence(
+        dialog.getElement(), goog.events.KeyCodes.ESC);
+    assertTrue(wasCalled);
+  }
+
+  function testHideButtons_afterRender() {
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    assertTrue(goog.style.isElementShown(dialog.buttonEl_));
+    dialog.setButtonSet(null);
+    assertFalse(goog.style.isElementShown(dialog.buttonEl_));
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    assertTrue(goog.style.isElementShown(dialog.buttonEl_));
+  }
+
+  function testHideButtons_beforeRender() {
+    dialog.dispose();
+
+    dialog = new goog.ui.Dialog();
+    dialog.setButtonSet(null);
+    dialog.setVisible(true);
+    assertFalse(goog.style.isElementShown(dialog.buttonEl_));
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    assertTrue(goog.style.isElementShown(dialog.buttonEl_));
+  }
+
+  function testHideButtons_beforeDecorate() {
+    dialog.dispose();
+
+    dialog = new goog.ui.Dialog();
+    dialog.setButtonSet(null);
+    dialog.decorate(decorateTarget);
+    dialog.setVisible(true);
+    assertFalse(goog.style.isElementShown(dialog.buttonEl_));
+    dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+    assertTrue(goog.style.isElementShown(dialog.buttonEl_));
+  }
+
+  function testDefaultOpacityIsAppliedOnRender() {
+    dialog.dispose();
+
+    dialog = new goog.ui.Dialog();
+    dialog.render();
+    assertEquals(0.5, goog.style.getOpacity(dialog.getBackgroundElement()));
+  }
+
+  function testDefaultOpacityIsAppliedOnDecorate() {
+    dialog.dispose();
+
+    dialog = new goog.ui.Dialog();
+    dialog.decorate(decorateTarget);
+    assertEquals(0.5, goog.style.getOpacity(dialog.getBackgroundElement()));
+  }
+
+  function testDraggableStyle() {
+    assertTrue('draggable CSS class is set', goog.dom.classes.has(
+        dialog.titleEl_, 'modal-dialog-title-draggable'));
+    dialog.setDraggable(false);
+    assertFalse('draggable CSS class is removed', goog.dom.classes.has(
+        dialog.titleEl_, 'modal-dialog-title-draggable'));
+  }
+
+  function testDraggingLifecycle() {
+    dialog.dispose();
+
+    dialog = new goog.ui.Dialog();
+    dialog.setDraggerLimits_ = goog.testing.recordFunction();
+    dialog.createDom();
+    assertNull('dragger is not created in createDom', dialog.dragger_);
+
+    dialog.setVisible(true);
+    assertNotNull('dragger is created when the dialog is rendered',
+        dialog.dragger_);
+
+    assertNull('dragging limits are not set just before dragging',
+        dialog.setDraggerLimits_.getLastCall());
+    goog.testing.events.fireMouseDownEvent(dialog.titleEl_);
+    assertNotNull('dragging limits are set',
+        dialog.setDraggerLimits_.getLastCall());
+
+    dialog.exitDocument();
+    assertNull('dragger is cleaned up in exitDocument', dialog.dragger_);
+  }
+</script>
+</body>
+</html>

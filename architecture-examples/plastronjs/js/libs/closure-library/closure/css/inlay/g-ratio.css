@@ -1,0 +1,253 @@
+/*
+ * Copyright 2007 The Closure Library Authors. All Rights Reserved.
+ *
+ * Use of this source code is governed by the Apache License, Version 2.0.
+ * See the COPYING file for details.
+ */
+
+/**
+ * CSS Inlay
+ * Percentage based templates
+ * @author ddiaz@google.com (Dustin Diaz)
+ * @author elsigh@google.com (Lindsey Simon)
+ * @fileoverview
+ * The first ten templates are described using the following convention:
+ * tpl-LEFT%-RIGHT% and tpl-LEFT%-RIGHT%-alt, where alt switches render order.
+ *
+ * The rationale for the percentage values are pretty fascinating.
+ * Three nine's are needed for a miminal affordance in the gap between units
+ * for Opera, while two for IE 5.5 and down.
+ * Straight percentages seem to work fine otherwise, but the values here test
+ * well cross-browser.
+ *
+ * Sample Usage:
+  <div class="g-section g-tpl-50-50">
+    <div class="g-unit g-first">
+      <p>
+        Lorem Ipsum...
+      </p>
+    </div>
+    <div class="g-unit">
+      <p>
+        Lorem Ipsum...
+      </p>
+    </div>
+  </div>
+ */
+
+/* 25/75 */
+.g-tpl-25-75 .g-unit,
+.g-unit .g-tpl-25-75 .g-unit,
+.g-unit .g-unit .g-tpl-25-75 .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-25-75 .g-unit {
+  width: 74.999%;
+  float: right;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-25-75 .g-first,
+.g-unit .g-unit .g-tpl-25-75 .g-first,
+.g-unit .g-tpl-25-75 .g-first,
+.g-tpl-25-75 .g-first {
+  width: 24.999%;
+  float: left;
+  margin: 0;
+}
+
+/* 25/75-alt */
+.g-tpl-25-75-alt .g-unit,
+.g-unit .g-tpl-25-75-alt .g-unit,
+.g-unit .g-unit .g-tpl-25-75-alt .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-25-75-alt .g-unit {
+  width: 24.999%;
+  float: left;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-25-75-alt .g-first,
+.g-unit .g-unit .g-tpl-25-75-alt .g-first,
+.g-unit .g-tpl-25-75-alt .g-first,
+.g-tpl-25-75-alt .g-first {
+  width: 74.999%;
+  float: right;
+  margin: 0;
+}
+
+/* 75/25 */
+.g-tpl-75-25 .g-unit,
+.g-unit .g-tpl-75-25 .g-unit,
+.g-unit .g-unit .g-tpl-75-25 .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-75-25 .g-unit {
+  width: 24.999%;
+  float: right;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-75-25 .g-first,
+.g-unit .g-unit .g-tpl-75-25 .g-first,
+.g-unit .g-tpl-75-25 .g-first,
+.g-tpl-75-25 .g-first {
+  width: 74.999%;
+  float: left;
+  margin: 0;
+}
+
+/* 75/25-alt */
+.g-tpl-75-25-alt .g-unit,
+.g-unit .g-tpl-75-25-alt .g-unit,
+.g-unit .g-unit .g-tpl-75-25-alt .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-75-25-alt .g-unit {
+  width: 74.999%;
+  float: left;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-75-25-alt .g-first,
+.g-unit .g-unit .g-tpl-75-25-alt .g-first,
+.g-unit .g-tpl-75-25-alt .g-first,
+.g-tpl-75-25-alt .g-first {
+  width: 24.999%;
+  float: right;
+  margin: 0;
+}
+
+/* 33/67 */
+.g-tpl-33-67  .g-unit,
+.g-unit .g-tpl-33-67  .g-unit,
+.g-unit .g-unit .g-tpl-33-67  .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-33-67  .g-unit {
+  width: 66.999%;
+  float: right;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-33-67 .g-first,
+.g-unit .g-unit .g-tpl-33-67 .g-first,
+.g-unit .g-tpl-33-67 .g-first,
+.g-tpl-33-67 .g-first {
+  width: 32.999%;
+  float: left;
+  margin: 0;
+}
+
+/* 33/67-alt */
+.g-tpl-33-67-alt .g-unit,
+.g-unit .g-tpl-33-67-alt .g-unit,
+.g-unit .g-unit .g-tpl-33-67-alt .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-33-67-alt .g-unit {
+  width: 32.999%;
+  float: left;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-33-67-alt .g-first,
+.g-unit .g-unit .g-tpl-33-67-alt .g-first,
+.g-unit .g-tpl-33-67-alt .g-first,
+.g-tpl-33-67-alt .g-first {
+  width: 66.999%;
+  float: right;
+  margin: 0;
+}
+/* 67/33 */
+.g-tpl-67-33 .g-unit,
+.g-unit .g-tpl-67-33 .g-unit,
+.g-unit .g-unit .g-tpl-67-33 .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-67-33 .g-unit {
+  width: 32.999%;
+  float: right;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-67-33 .g-first,
+.g-unit .g-unit .g-tpl-67-33 .g-first,
+.g-unit .g-tpl-67-33 .g-first,
+.g-tpl-67-33 .g-first {
+  width: 66.999%;
+  float: left;
+  margin: 0;
+}
+
+/* 67/33-alt */
+.g-tpl-67-33-alt .g-unit,
+.g-unit .g-tpl-67-33-alt .g-unit,
+.g-unit .g-unit .g-tpl-67-33-alt .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-67-33-alt .g-unit {
+  width: 66.999%;
+  float: left;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-67-33-alt .g-first,
+.g-unit .g-unit .g-tpl-67-33-alt .g-first,
+.g-unit .g-tpl-67-33-alt .g-first,
+.g-tpl-67-33-alt .g-first {
+  width: 32.999%;
+  float: right;
+  margin: 0;
+}
+
+/* 50/50 */
+.g-tpl-50-50 .g-unit,
+.g-unit .g-tpl-50-50 .g-unit,
+.g-unit .g-unit .g-tpl-50-50 .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-50-50 .g-unit {
+  width: 49.999%;
+  float: right;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-50-50 .g-first,
+.g-unit .g-unit .g-tpl-50-50 .g-first,
+.g-unit .g-tpl-50-50 .g-first,
+.g-tpl-50-50 .g-first {
+  width: 49.999%;
+  float: left;
+  margin: 0;
+}
+
+/* 50/50-alt */
+.g-tpl-50-50-alt .g-unit,
+.g-unit .g-tpl-50-50-alt .g-unit,
+.g-unit .g-unit .g-tpl-50-50-alt .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-50-50-alt .g-unit {
+  width: 49.999%;
+  float: left;
+  margin: 0;
+}
+.g-unit .g-unit .g-unit .g-tpl-50-50-alt .g-first,
+.g-unit .g-unit .g-tpl-50-50-alt .g-first,
+.g-unit .g-tpl-50-50-alt .g-first,
+.g-tpl-50-50-alt .g-first {
+  width: 49.999%;
+  float: right;
+  margin: 0;
+}
+
+/**
+ * Nest templates contain floating g-units.
+ * For these, width needs to be reset from the 100% for inline-block
+ * to auto. This fixes an issue with horizontal scrollbars.
+ */
+.g-tpl-nest {
+  width: auto;
+}
+/**
+ * Making any g-sections inside of g-tpl-nests display inline instead
+ * of display block solves an issue where inner sections add up incrementally
+ * their widths to set the width of the outer g-unit. This causes all kinds of
+ * problems with float-drops and display:inline fixes this.
+ */
+.g-tpl-nest .g-section {
+  display: inline;
+}
+
+/* g-tpl-nest for multi unit nesting (float left), say for a menu. */
+.g-tpl-nest .g-unit,
+.g-unit .g-tpl-nest .g-unit,
+.g-unit .g-unit .g-tpl-nest .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-nest .g-unit {
+  float: left;
+  width: auto;
+  margin: 0;
+}
+
+/* g-tpl-nest-alt for multi unit nesting (float right), say for a menu. */
+.g-tpl-nest-alt .g-unit,
+.g-unit .g-tpl-nest-alt .g-unit,
+.g-unit .g-unit .g-tpl-nest-alt .g-unit,
+.g-unit .g-unit .g-unit .g-tpl-nest-alt .g-unit {
+  float: right;
+  width: auto;
+  margin: 0;
+}

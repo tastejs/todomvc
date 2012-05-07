@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.crypt.Md5</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.crypt');
+  goog.require('goog.crypt.hash_test');
+  goog.require('goog.crypt.Md5');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+var thirty = '123456789012345678901234567890'
+var sixty = thirty + thirty
+var ninety = sixty + thirty
+
+function testBasicOperations() {
+  var md5 = new goog.crypt.Md5();
+  goog.crypt.hash_test.runBasicTests(md5);
+}
+
+function testHashing() {
+  // Empty stream.
+  var md5 = new goog.crypt.Md5();
+  assertEquals('d41d8cd98f00b204e9800998ecf8427e',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Empty stream with an empty update.
+  md5.reset();
+  md5.update([]);
+  assertEquals('d41d8cd98f00b204e9800998ecf8427e',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Simple stream.
+  md5.reset();
+  md5.update([97]);
+  assertEquals('0cc175b9c0f1b6a831c399e269772661',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Simple stream as string.
+  md5.reset();
+  md5.update('a');
+  assertEquals('0cc175b9c0f1b6a831c399e269772661',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Simple stream with reinitialization.
+  md5.reset();
+  md5.update('b');
+  md5.reset();
+  md5.update('a');
+  assertEquals('0cc175b9c0f1b6a831c399e269772661',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Simple stream with two updates.
+  md5.reset();
+  md5.update([97]);
+  md5.update('bc');
+  assertEquals('900150983cd24fb0d6963f7d28e17f72',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // RFC 1321 standard test.
+  md5.reset();
+  md5.update('abcdefghijklmnopqrstuvwxyz');
+  assertEquals('c3fcd3d76192e4007dfb496cca67e13b',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // RFC 1321 standard test with two updates.
+  md5.reset();
+  md5.update('message ');
+  md5.update('digest');
+  assertEquals('f96b697d7cb7938d525a2f31aaf161d0',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // RFC 1321 standard test with three updates.
+  md5.reset();
+  md5.update('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  md5.update('abcdefghijklmnopqrstuvwxyz');
+  md5.update('0123456789');
+  assertEquals('d174ab98d277d9f5a5611c2c9f419d9f',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Fill a 64-byte block.
+  md5.reset();
+  md5.update(sixty + '1234');
+  md5.update('5678901234567890');
+  assertEquals('57edf4a22be3c955ac49da2e2107b67a',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Overflow a 64-byte block.
+  md5.reset();
+  md5.update(sixty + '12345');
+  md5.update('678901234567890');
+  assertEquals('57edf4a22be3c955ac49da2e2107b67a',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Almost fill a 64-byte block, then overflow.
+  md5.reset();
+  md5.update(sixty + '123');
+  md5.update('45678901234567890');
+  assertEquals('57edf4a22be3c955ac49da2e2107b67a',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Double overflow test.
+  md5.reset();
+  md5.update(ninety);
+  md5.update(ninety);
+  assertEquals('649de0d62015d329dca1302b142888d2',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Double overflow test with arrays.
+  md5.reset();
+  md5.update(goog.crypt.stringToByteArray(ninety));
+  md5.update(goog.crypt.stringToByteArray(ninety));
+  assertEquals('649de0d62015d329dca1302b142888d2',
+               goog.crypt.byteArrayToHex(md5.digest()));
+}
+
+function testPadding() {
+  // Message + padding fits in two 64-byte blocks.
+  var md5 = new goog.crypt.Md5();
+  md5.update(sixty);
+  md5.update(sixty.substr(0,59));
+  assertEquals('6261005311809757906e04c0d670492d',
+               goog.crypt.byteArrayToHex(md5.digest()));
+
+  // Message + padding does not fit in two 64-byte blocks.
+  md5.reset();
+  md5.update(sixty);
+  md5.update(sixty);
+  assertEquals('1d453b96d48d5e0cec4a20a71fecaa81',
+               goog.crypt.byteArrayToHex(md5.digest()));
+}
+
+function testTwoAccumulators() {
+  // Two accumulators in parallel.
+  var md5_A = new goog.crypt.Md5();
+  var md5_B = new goog.crypt.Md5();
+  md5_A.update(sixty);
+  md5_B.update(sixty);
+  md5_A.update(sixty + '1');
+  md5_B.update(sixty + '2');
+  assertEquals('0801d688cc107d4789ec8b9a4519f01f',
+               goog.crypt.byteArrayToHex(md5_A.digest()));
+  assertEquals('6e1a35ffc185d1e684d6ed281c0d4bd2',
+               goog.crypt.byteArrayToHex(md5_B.digest()));
+}
+
+function testCollision() {
+  // Check a known collision.
+  var A = [0xd1, 0x31, 0xdd, 0x02, 0xc5, 0xe6, 0xee, 0xc4,
+           0x69, 0x3d, 0x9a, 0x06, 0x98, 0xaf, 0xf9, 0x5c,
+           0x2f, 0xca, 0xb5, 0x87, 0x12, 0x46, 0x7e, 0xab,
+           0x40, 0x04, 0x58, 0x3e, 0xb8, 0xfb, 0x7f, 0x89,
+           0x55, 0xad, 0x34, 0x06, 0x09, 0xf4, 0xb3, 0x02,
+           0x83, 0xe4, 0x88, 0x83, 0x25, 0x71, 0x41, 0x5a,
+           0x08, 0x51, 0x25, 0xe8, 0xf7, 0xcd, 0xc9, 0x9f,
+           0xd9, 0x1d, 0xbd, 0xf2, 0x80, 0x37, 0x3c, 0x5b,
+           0xd8, 0x82, 0x3e, 0x31, 0x56, 0x34, 0x8f, 0x5b,
+           0xae, 0x6d, 0xac, 0xd4, 0x36, 0xc9, 0x19, 0xc6,
+           0xdd, 0x53, 0xe2, 0xb4, 0x87, 0xda, 0x03, 0xfd,
+           0x02, 0x39, 0x63, 0x06, 0xd2, 0x48, 0xcd, 0xa0,
+           0xe9, 0x9f, 0x33, 0x42, 0x0f, 0x57, 0x7e, 0xe8,
+           0xce, 0x54, 0xb6, 0x70, 0x80, 0xa8, 0x0d, 0x1e,
+           0xc6, 0x98, 0x21, 0xbc, 0xb6, 0xa8, 0x83, 0x93,
+           0x96, 0xf9, 0x65, 0x2b, 0x6f, 0xf7, 0x2a, 0x70];
+  var B = [0xd1, 0x31, 0xdd, 0x02, 0xc5, 0xe6, 0xee, 0xc4,
+           0x69, 0x3d, 0x9a, 0x06, 0x98, 0xaf, 0xf9, 0x5c,
+           0x2f, 0xca, 0xb5, 0x07, 0x12, 0x46, 0x7e, 0xab,
+           0x40, 0x04, 0x58, 0x3e, 0xb8, 0xfb, 0x7f, 0x89,
+           0x55, 0xad, 0x34, 0x06, 0x09, 0xf4, 0xb3, 0x02,
+           0x83, 0xe4, 0x88, 0x83, 0x25, 0xf1, 0x41, 0x5a,
+           0x08, 0x51, 0x25, 0xe8, 0xf7, 0xcd, 0xc9, 0x9f,
+           0xd9, 0x1d, 0xbd, 0x72, 0x80, 0x37, 0x3c, 0x5b,
+           0xd8, 0x82, 0x3e, 0x31, 0x56, 0x34, 0x8f, 0x5b,
+           0xae, 0x6d, 0xac, 0xd4, 0x36, 0xc9, 0x19, 0xc6,
+           0xdd, 0x53, 0xe2, 0x34, 0x87, 0xda, 0x03, 0xfd,
+           0x02, 0x39, 0x63, 0x06, 0xd2, 0x48, 0xcd, 0xa0,
+           0xe9, 0x9f, 0x33, 0x42, 0x0f, 0x57, 0x7e, 0xe8,
+           0xce, 0x54, 0xb6, 0x70, 0x80, 0x28, 0x0d, 0x1e,
+           0xc6, 0x98, 0x21, 0xbc, 0xb6, 0xa8, 0x83, 0x93,
+           0x96, 0xf9, 0x65, 0xab, 0x6f, 0xf7, 0x2a, 0x70];
+  var digest = '79054025255fb1a26e4bc422aef54eb4';
+  var md5_A = new goog.crypt.Md5();
+  var md5_B = new goog.crypt.Md5();
+  md5_A.update(A);
+  md5_B.update(B);
+  assertEquals(digest, goog.crypt.byteArrayToHex(md5_A.digest()));
+  assertEquals(digest, goog.crypt.byteArrayToHex(md5_B.digest()));
+}
+
+</script>
+</body>
+</html>

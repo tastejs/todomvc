@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.DatePicker</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.events');
+    goog.require('goog.i18n.DateTimeSymbols_en_US');
+    goog.require('goog.i18n.DateTimeSymbols_zh_HK');
+    goog.require('goog.style');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.DatePicker');
+  </script>
+</head>
+<body>
+<div id="sandbox"></div>
+<script>
+  var picker;
+  var $$ = goog.dom.getElementsByTagNameAndClass;
+  var sandbox = goog.dom.getElement('sandbox');
+
+  function tearDown() {
+    picker.dispose();
+    goog.dom.removeChildren(sandbox);
+  }
+
+  function testIsMonthOnLeft() {
+    goog.i18n.DateTimeSymbols = goog.i18n.DateTimeSymbols_en_US;
+    picker = new goog.ui.DatePicker();
+    picker.create(sandbox);
+    var head = $$('tr', 'goog-date-picker-head')[0];
+    var month = $$('button', 'goog-date-picker-month',
+        head.firstChild)[0];
+    assertSameElements(
+        'Button element must have expected class names',
+        ['goog-date-picker-btn','goog-date-picker-month'],
+        goog.dom.classes.get(month)
+    );
+  }
+
+  function testIsYearOnLeft() {
+    goog.i18n.DateTimeSymbols = goog.i18n.DateTimeSymbols_zh_HK;
+    picker = new goog.ui.DatePicker();
+    picker.create(sandbox);
+    var head = $$('tr', 'goog-date-picker-head')[0];
+    var year = $$('button', 'goog-date-picker-year',
+        head.firstChild)[0];
+    assertSameElements(
+        'Button element must have expected class names',
+        ['goog-date-picker-btn','goog-date-picker-year'],
+        goog.dom.classes.get(year)
+    );
+  }
+
+  function testHidingOfTableFoot0() {
+    picker = new goog.ui.DatePicker();
+    picker.setAllowNone(false);
+    picker.setShowToday(false);
+    picker.create(sandbox);
+    var tFoot = $$('tfoot')[0];
+    assertFalse(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFoot1() {
+    picker = new goog.ui.DatePicker();
+    picker.setAllowNone(false);
+    picker.setShowToday(true);
+    picker.create(sandbox);
+    var tFoot = $$('tfoot')[0];
+    assertTrue(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFoot2() {
+    picker = new goog.ui.DatePicker();
+    picker.setAllowNone(true);
+    picker.setShowToday(false);
+    picker.create(sandbox);
+    var tFoot = $$('tfoot')[0];
+    assertTrue(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFoot3() {
+    picker = new goog.ui.DatePicker();
+    picker.setAllowNone(true);
+    picker.setShowToday(true);
+    picker.create(sandbox);
+    var tFoot = $$('tfoot')[0];
+    assertTrue(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFootAfterCreate0() {
+    picker = new goog.ui.DatePicker();
+    picker.create(sandbox);
+    picker.setAllowNone(false);
+    picker.setShowToday(false);
+    var tFoot = $$('tfoot')[0];
+    assertFalse(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFootAfterCreate1() {
+    picker = new goog.ui.DatePicker();
+    picker.create(sandbox);
+    picker.setAllowNone(false);
+    picker.setShowToday(true);
+    var tFoot = $$('tfoot')[0];
+    assertTrue(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFootAfterCreate2() {
+    picker = new goog.ui.DatePicker();
+    picker.create(sandbox);
+    picker.setAllowNone(true);
+    picker.setShowToday(false);
+    var tFoot = $$('tfoot')[0];
+    assertTrue(goog.style.isElementShown(tFoot))
+  }
+
+  function testHidingOfTableFootAfterCreate3() {
+    picker = new goog.ui.DatePicker();
+    picker.create(sandbox);
+    picker.setAllowNone(true);
+    picker.setShowToday(true);
+    var tFoot = $$('tfoot')[0];
+    assertTrue(goog.style.isElementShown(tFoot))
+  }
+
+  function testGetDate() {
+    picker = new goog.ui.DatePicker(new Date(2000, 0, 1));
+    var date = picker.getDate();
+    assertObjectEquals(new goog.date.Date(2000, 0, 1), date);
+
+    date.setMonth(1);
+    assertObjectEquals('modifying the returned date is safe',
+        new goog.date.Date(2000, 0, 1), picker.getDate());
+
+    picker.setDate(null);
+    assertNull('no date is selected', picker.getDate());
+  }
+
+  function testSetDate() {
+    picker = new goog.ui.DatePicker();
+    picker.createDom();
+    picker.enterDocument();
+    var selectEvents = 0;
+    var changeEvents = 0;
+    goog.events.listen(picker, goog.ui.DatePicker.Events.SELECT,
+        function() {
+          selectEvents++;
+        });
+    goog.events.listen(picker, goog.ui.DatePicker.Events.CHANGE,
+        function() {
+          changeEvents++;
+        });
+
+    // Set date.
+    picker.setDate(new Date(2010, 1, 26));
+    assertEquals('no select event dispatched', 1, selectEvents);
+    assertEquals('no change event dispatched', 1, changeEvents);
+    assertTrue('date is set',
+        new goog.date.Date(2010, 1, 26).equals(picker.getDate()));
+
+    // Set date to same date.
+    picker.setDate(new Date(2010, 1, 26));
+    assertEquals('1 select event dispatched', 2, selectEvents);
+    assertEquals('no change event dispatched', 1, changeEvents);
+
+    // Set date to different date.
+    picker.setDate(new Date(2010, 1, 27));
+    assertEquals('another select event dispatched', 3, selectEvents);
+    assertEquals('1 change event dispatched', 2, changeEvents);
+
+    // Set date to none.
+    picker.setDate(null);
+    assertEquals('another select event dispatched', 4, selectEvents);
+    assertEquals('another change event dispatched', 3, changeEvents);
+    assertNull('date cleared', picker.getDate());
+  }
+
+  function testEventListenerLeaks() {
+    var listeners = goog.events.getTotalListenerCount();
+    picker = new goog.ui.DatePicker();
+    assertEquals('no listeners registered in constructor', listeners,
+        goog.events.getTotalListenerCount());
+    picker.createDom();
+    picker.enterDocument();
+    picker.exitDocument();
+    assertEquals('exitDocument cleans up all listeners', listeners,
+        goog.events.getTotalListenerCount());
+  }
+
+</script>
+</body>
+</html>

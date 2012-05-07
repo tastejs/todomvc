@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+Copyright 2005-2008, The Dojo Foundation
+Modifications Copyright 2008 The Closure Library Authors. All Rights Reserved.
+All Rights Reserved
+-->
+<html>
+<head>
+  <title>Closure Unit Tests - goog.dom</title>
+  <script src="../../../../../closure/goog/base.js"></script>
+  <script src="../../deps.js"></script>
+  <script>
+    goog.require('goog.testing.jsunit');
+  </script>
+  <script src="query_test.js"></script>
+</head>
+<body>
+  <h1>testing goog.dom.query()</h1>
+  <div id="t">
+    <h3>h3 <span>span</span> endh3 </h3>
+    <!-- comment to throw things off -->
+    <div class="foo bar" id="_foo">
+      <h3>h3</h3>
+      <span id="foo"></span>
+      <span></span>
+    </div>
+    <h3>h3</h3>
+    <h3 class="baz" title="thud">h3</h3>
+    <span class="foobar baz foo"></span>
+    <span foo="bar"></span>
+    <span foo="baz bar thud"></span>
+    <!-- FIXME: should foo="bar-baz-thud" match? [foo$=thud] ??? -->
+    <span foo="bar-baz-thudish" id="silly:id::with:colons"></span>
+    <div id="container">
+      <div id="child1" qux="true"></div>
+      <div id="child2"></div>
+      <div id="child3" qux="true"></div>
+    </div>
+    <div qux="true"></div>
+    <input id="notbug" name="bug" type="hidden" value="failed">
+    <input id="bug" type="hidden" value="passed">
+  </div>
+
+  <div class="myupperclass">
+    <span class="myclass">
+      <input id="myid1">
+    </span>
+    <span class="myclass">
+      <input id="myid2">
+    </span>
+  </div>
+
+  <iframe name=ifr></iframe>
+  <div id=iframe-test>
+    <div id=if1>
+      <div class=if2>
+        <div id=if3></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

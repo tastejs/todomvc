@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.jsaction.Dispatcher</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.jsaction.Dispatcher');
+goog.require('goog.jsaction.replay');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.mockmatchers.ArgumentMatcher');
+</script>
+<script>
+
+
+var mockControl;
+var containerElem;
+var actionElem;
+var contract;
+var dispatcher;
+
+
+function setUp() {
+  mockControl = new goog.testing.MockControl;
+}
+
+
+function tearDown() {
+  mockControl.$tearDown();
+}
+
+
+function createContextMatcher(action, elem) {
+  return new goog.testing.mockmatchers.ArgumentMatcher(
+      function(context) {
+        assertEquals(action, context.getAction());
+        assertEquals(elem, context.getElement());
+        return true;
+      });
+}
+
+
+/**
+ * Creates a basic environment for tests consisting of a container element,
+ * an action element (with jsaction 'gna.klik'), an EventContract instance
+ * and a Dispatcher instance.
+ */
+function createTestEnvironment() {
+  containerElem = document.createElement('div');
+  document.body.appendChild(containerElem);
+
+  actionElem = document.createElement('div');
+  actionElem.setAttribute('jsaction', 'gna.klik');
+  containerElem.appendChild(actionElem);
+
+  contract = new goog.jsaction.EventContract;
+  contract.addEvent('click');
+  contract.addContainer(containerElem);
+
+  dispatcher = new goog.jsaction.Dispatcher;
+
+  // Clean up after the testcase has finished (on teardown).
+  // Remove the created elements from the DOM and nullify variables.
+  mockControl.addMock(new goog.testing.MockInterface).$tearDown = function() {
+    document.body.removeChild(containerElem);
+    containerElem = null;
+    actionElem = null;
+    contract = null;
+    dispatcher = null;
+  };
+}
+
+
+/**
+ * Triggers an event programmatically.
+ * @param {string} type The event type.
+ * @param {!Element} elem The element to trigger the event on.
+ */
+function triggerEvent(type, elem) {
+  var fakeEvent = {
+    type: type,
+    detail: 0,
+    screenX: 0, screenY: 0, clientX: 0, clientY: 0,
+    ctrlKey: false, altKey: false, shiftKey: false, metaKey: false,
+    button: 0,
+    relatedTarget: undefined
+  };
+  var event = goog.jsaction.replay.createEvent_(fakeEvent);
+  goog.jsaction.replay.triggerEvent_(elem, event);
+}
+
+
+function testNoHandlerPresent() {
+  var dispatcher = new goog.jsaction.Dispatcher;
+  var fakeElem = {};
+  var fakeEvent = {};
+  assertFalse(dispatcher.dispatch('gna.klik', fakeElem, fakeEvent, 123));
+}
+
+
+function testHandlerInvoked() {
+  var dispatcher = new goog.jsaction.Dispatcher;
+  var fakeElem = {};
+  var fakeEvent = {};
+
+  var handlerFn = mockControl.createFunctionMock();
+  handlerFn(createContextMatcher('gna.klik', fakeElem));
+
+  mockControl.$replayAll();
+
+  dispatcher.registerHandlers('gna', {'klik': handlerFn});
+  assertTrue(dispatcher.dispatch('gna.klik', fakeElem, fakeEvent, 123));
+
+  mockControl.$verifyAll();
+}
+
+
+function testReplayOnAttach() {
+  createTestEnvironment();
+
+  var handlerFn = mockControl.createFunctionMock();
+  handlerFn(createContextMatcher('gna.klik', actionElem));
+  dispatcher.registerHandlers('gna', {'klik': handlerFn});
+
+  triggerEvent('click', actionElem);
+  assertEquals(1, contract.getQueue().length);
+
+  mockControl.$replayAll();
+
+  dispatcher.attach(contract);
+
+  mockControl.$verifyAll();
+}
+
+
+function testReplayOnHandlerRegistration() {
+  createTestEnvironment();
+
+  dispatcher.attach(contract);
+
+  triggerEvent('click', actionElem);
+  assertEquals(1, contract.getQueue().length);
+
+  var handlerFn = mockControl.createFunctionMock();
+  handlerFn(createContextMatcher('gna.klik', actionElem));
+
+  mockControl.$replayAll();
+
+  dispatcher.registerHandlers('gna', {'klik': handlerFn});
+
+  mockControl.$verifyAll();
+}
+
+
+function testLoaderInvoked() {
+  var dispatcher = new goog.jsaction.Dispatcher;
+  var fakeElem = {};
+  var fakeEvent = {};
+
+  var loaderFn = mockControl.createFunctionMock();
+  loaderFn('gna');
+
+  mockControl.$replayAll();
+
+  dispatcher.registerLoader('gna', loaderFn);
+  assertFalse(dispatcher.dispatch('gna.klik', fakeElem, fakeEvent, 123));
+
+  mockControl.$verifyAll();
+}
+
+
+function testSynchronousLoader() {
+  var dispatcher = new goog.jsaction.Dispatcher;
+  var fakeElem = {};
+  var fakeEvent = {};
+
+  var handlerFn = mockControl.createFunctionMock();
+  handlerFn(createContextMatcher('gna.klik', fakeElem));
+
+  var loaderFn = mockControl.createFunctionMock();
+  loaderFn('gna').$does(
+      function() {
+        dispatcher.registerHandlers('gna', {'klik': handlerFn});
+      });
+
+  mockControl.$replayAll();
+
+  dispatcher.registerLoader('gna', loaderFn);
+  assertTrue(dispatcher.dispatch('gna.klik', fakeElem, fakeEvent, 123));
+
+  mockControl.$verifyAll();
+}
+
+
+function testGetNamespace() {
+  assertEquals('gna', goog.jsaction.Dispatcher.getNamespace_('gna.fu'));
+}
+
+
+function testJsnamespaceAttribute() {
+  var dispatcher = new goog.jsaction.Dispatcher;
+  var ancestor = document.createElement('div');
+  ancestor.setAttribute('jsnamespace', 'gna');
+  actionElem = document.createElement('div');
+  actionElem.setAttribute('jsaction', 'klik');
+  ancestor.appendChild(actionElem);
+  var fakeEvent = {};
+
+  var handlerFn = mockControl.createFunctionMock();
+  handlerFn(createContextMatcher('gna.klik', actionElem));
+  dispatcher.registerHandlers('gna', {'klik': handlerFn});
+
+  mockControl.$replayAll();
+
+  assertTrue(dispatcher.dispatch('klik', actionElem, fakeEvent, 123));
+
+  mockControl.$verifyAll();
+}
+
+</script>
+</head>
+</html>

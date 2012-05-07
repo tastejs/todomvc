@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.debug.Error</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.Error');
+  goog.require('goog.testing.ExpectedFailures');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+  goog.require('goog.userAgent.product');
+</script>
+</head>
+<body>
+<script>
+var expectedFailures = new goog.testing.ExpectedFailures();
+
+function tearDown() {
+  expectedFailures.handleTearDown();
+}
+
+function testError() {
+  function xxxxx() {
+    yyyyy();
+  }
+  function yyyyy() {
+    zzzzz();
+  }
+  function zzzzz() {
+    throw new goog.debug.Error('testing');
+  }
+
+  var stack = null, message = null;
+  try {
+    xxxxx();
+  } catch (e) {
+    message = e.message;
+    stack = e.stack.split('\n');
+  }
+
+  assertEquals('Message property should be set', 'testing', message);
+
+  expectedFailures.expectFailureFor(
+      goog.userAgent.IE ||
+      goog.userAgent.product.SAFARI || (
+          goog.userAgent.product.CHROME &&
+          !goog.userAgent.isVersion(532)),
+      'error.stack is not widely supported');
+  try {
+    assertContains('1st line of stack should have "Error"', 'Error', stack[0]);
+    // 2nd line is slightly different in firefox/chrome
+    assertContains('3rd line of stack should have "zzzzz"', 'zzzzz', stack[2]);
+    assertContains('4th line of stack should have "yyyyy"', 'yyyyy', stack[3]);
+    assertContains('5th line of stack should have "xxxxx"', 'xxxxx', stack[4]);
+  } catch (e) {
+    expectedFailures.handleException(e);
+  }
+}
+
+function testInheriting() {
+  function MyError() {
+    goog.debug.Error.call(this);
+  }
+  goog.inherits(MyError, goog.debug.Error);
+  MyError.prototype.message = 'My custom error';
+
+  var message = null;
+  try {
+    throw new MyError();
+  } catch (e) {
+    message = e.message;
+  }
+  assertEquals('My custom error', message);
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  Closure Unit Tests - goog.gears
+</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.gears');
+  goog.require('goog.string');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function assertInvalidFileName(original) {
+  try {
+    goog.gears.makeSafeFileName(original);
+    fail('expect exception for file name: ' + original);
+  } catch (ex) {
+    // success
+  }
+}
+
+function assertSafeFileName(expected, original) {
+  var actual = goog.gears.makeSafeFileName(original);
+  assertTrue('safe file name too short: ' + actual, actual.length > 0);
+  assertTrue('safe file name too long: ' + actual, actual.length <= 64);
+  assertEquals('unexpected value for safe file name', expected, actual);
+}
+
+function testSafeFileNameInvalid() {
+  assertInvalidFileName(null);
+  assertInvalidFileName('');
+  assertInvalidFileName('\t');
+}
+
+function testSafeFileNameTypical() {
+  var fileName = 'foo@foo.com-MyAppname-d';
+  assertSafeFileName(fileName, fileName);
+}
+
+function testSafeFileNameLength() {
+  // Just under limit.
+  var fileName = goog.string.repeat('a', 64);
+  assertSafeFileName(fileName, fileName);
+
+  // Just over limit.
+  fileName = goog.string.repeat('a', 65);
+  var hashedSuffix = String(goog.string.hashCode(fileName));
+  assertSafeFileName(fileName.substring(0, 54) + hashedSuffix, fileName);
+
+  // Way over limit.
+  fileName = goog.string.repeat('a', 1024);
+  hashedSuffix = String(goog.string.hashCode(fileName));
+  assertSafeFileName(fileName.substring(0, 54) + hashedSuffix, fileName);
+}
+
+function testSafeFileNameInvalidChar() {
+  assertSafeFileName(goog.string.repeat('a', 44),
+      goog.string.repeat('a', 22) + '\t' + goog.string.repeat('a', 22));
+  assertSafeFileName('b', 'b' + goog.string.repeat('\t', 20));
+  assertSafeFileName('b', 'b' + goog.string.repeat('\t', 200));
+}
+
+</script>
+</body>
+</html>

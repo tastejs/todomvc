@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!--
+  All Rights Reserved.
+
+  @author robbyw@google.com (Robby Walker)
+--><html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Editor Unit Tests - goog.editor.Link</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.NodeType');
+  goog.require('goog.dom.Range');
+  goog.require('goog.dom.TagName');
+  goog.require('goog.editor.Link');
+  goog.require('goog.testing.dom');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<script>
+var anchor;
+
+function setUp() {
+  anchor = goog.dom.createDom('A');
+  document.body.appendChild(anchor);
+}
+
+function tearDown() {
+  goog.dom.removeNode(anchor);
+}
+
+function testCreateNew() {
+  var link = new goog.editor.Link(anchor, true);
+  assertNotNull('Should have created object', link);
+  assertTrue('Should be new', link.isNew());
+  assertEquals('Should have correct anchor', anchor, link.getAnchor());
+  assertEquals('Should be empty', '', link.getCurrentText());
+}
+
+function testCreateNotNew() {
+  var link = new goog.editor.Link(anchor, false);
+  assertNotNull('Should have created object', link);
+  assertFalse('Should not be new', link.isNew());
+  assertEquals('Should have correct anchor', anchor, link.getAnchor());
+  assertEquals('Should be empty', '', link.getCurrentText());
+}
+
+function testInitialize() {
+  var link = goog.editor.Link.createNewLink(anchor, 'http://www.google.com');
+  assertNotNull('Should have created object', link);
+  assertTrue('Should be new', link.isNew());
+  assertEquals('Should have correct anchor', anchor, link.getAnchor());
+  assertEquals('Should be empty', '', link.getCurrentText());
+}
+
+function testInitializeWithTarget() {
+  var link = goog.editor.Link.createNewLink(anchor, 'http://www.google.com',
+      '_blank');
+  assertNotNull('Should have created object', link);
+  assertTrue('Should be new', link.isNew());
+  assertEquals('Should have correct anchor', anchor, link.getAnchor());
+  assertEquals('Should be empty', '', link.getCurrentText());
+  assertEquals('Should have _blank target', '_blank', anchor.target);
+}
+
+function testSetText() {
+  var link = goog.editor.Link.createNewLink(anchor, 'http://www.google.com',
+      '_blank');
+  assertEquals('Should be empty', '', link.getCurrentText());
+  link.setTextAndUrl('Text', 'http://docs.google.com/');
+  assertEquals('Should point to http://docs.google.com/',
+      'http://docs.google.com/', anchor.href);
+  assertEquals('Should have correct text', 'Text', link.getCurrentText());
+}
+
+function testSetBoldText() {
+  anchor.innerHTML = '<b></b>';
+  var link = goog.editor.Link.createNewLink(anchor, 'http://www.google.com',
+      '_blank');
+  assertEquals('Should be empty', '', link.getCurrentText());
+  link.setTextAndUrl('Text', 'http://docs.google.com/');
+  assertEquals('Should point to http://docs.google.com/',
+      'http://docs.google.com/', anchor.href);
+  assertEquals('Should have correct text', 'Text', link.getCurrentText());
+  assertEquals('Should still be bold', goog.dom.TagName.B,
+      anchor.firstChild.tagName);
+}
+
+function testSetMixed() {
+  anchor.innerHTML = '<b>A</b>B';
+  var link = goog.editor.Link.createNewLink(anchor, 'http://www.google.com',
+      '_blank');
+  assertEquals('Should have text: AB', 'AB', link.getCurrentText());
+  link.setTextAndUrl('Text', 'http://docs.google.com/');
+  assertEquals('Should point to http://docs.google.com/',
+      'http://docs.google.com/', anchor.href);
+  assertEquals('Should have correct text', 'Text', link.getCurrentText());
+  assertEquals('Should not be bold', goog.dom.NodeType.TEXT,
+      anchor.firstChild.nodeType);
+}
+
+function testPlaceCursorRightOf() {
+  // IE can only do selections properly if the region is editable.
+  var ed = goog.dom.createDom('div');
+  goog.dom.replaceNode(ed, anchor);
+  ed.contentEditable = true;
+  ed.appendChild(anchor);
+
+  // In order to test the cursor placement properly, we need to have
+  // link text.  See more details in the test below.
+  anchor.innerHTML = 'I am text';
+
+  var link = goog.editor.Link.createNewLink(anchor, 'http://www.google.com');
+  link.placeCursorRightOf();
+
+  var range = goog.dom.Range.createFromWindow();
+  assertTrue('Range should be collapsed', range.isCollapsed());
+  var startNode = range.getStartNode();
+
+  if (goog.userAgent.WEBKIT && !goog.userAgent.isVersion('528')) {
+    assertEquals('Selection should be to the right of the anchor',
+        anchor, startNode.previousSibling);
+  } else {
+    // Check that the selection is the "right" place.
+    //
+    // If you query the selection, it is actually still inside the anchor,
+    // but if you type, it types outside the anchor.
+    //
+    // Best we can do is test that it is at the end of the anchor text.
+    assertEquals('Selection should be in anchor text',
+        anchor.firstChild, startNode);
+    assertEquals('Selection should be at the end of the text',
+        anchor.firstChild.length, range.getStartOffset());
+  }
+
+  if (ed) {
+    goog.dom.removeNode(ed);
+  }
+}
+
+function testIsLikelyUrl() {
+  var good = [
+    // Proper URLs
+    'http://google.com', 'http://google.com/', 'http://192.168.1.103',
+    'http://www.google.com:8083', 'https://antoine', 'https://foo.foo.net',
+    'ftp://google.com:22/', 'http://user@site.com',
+    'ftp://user:pass@ftp.site.com', 'http://google.com/search?q=laser%20cats',
+    'aim:goim?screenname=en2es', 'mailto:x@y.com',
+
+    // Bad URLs a browser will accept
+    'www.google.com', 'www.amazon.co.uk', 'amazon.co.uk', 'foo2.foo3.com',
+    'pandora.tv', 'marketing.us', 'del.icio.us', 'bridge-line.com',
+    'www.frigid.net:80', 'www.google.com?q=foo', 'www.foo.com/j%20.txt',
+    'foodtv.net', 'google.com', 'slashdot.org', '192.168.1.1',
+    'justin.edu?kumar&nbsp;something', 'google.com/search?q=hot%20pockets',
+
+    // Due to TLD explosion, these could be URLs either now or soon.
+    'ww.jester', 'juicer.fake', 'abs.nonsense.something', 'filename.txt'
+  ];
+  for (var i = 0; i < good.length; i++) {
+    assertTrue(good[i] + ' should be good',
+        goog.editor.Link.isLikelyUrl(good[i]));
+  }
+
+  var bad = [
+    // Definitely not URLs
+    'bananas', 'http google com', '<img>', 'Sad :/', '*garbage!.123',
+    'ftp', 'http', '/', 'https', 'this is', '*!&.banana!*&!',
+    'www.jester is gone.com', 'ftp .nospaces.net', 'www_foo_net',
+    "www.'jester'.net", 'www:8080',
+    'www . notnsense.com', 'email@address.com',
+
+    // URL-ish but not quite
+    '  http://www.google.com', 'http://www.google.com:8081   ',
+    'www.google.com foo bar', 'google.com/search?q=not quite'
+  ];
+
+  for (i = 0; i < bad.length; i++) {
+    assertFalse(bad[i] + ' should be bad',
+        goog.editor.Link.isLikelyUrl(bad[i]));
+  }
+};
+
+function testIsLikelyEmailAddress() {
+  var good = [
+    // Valid email addresses
+    'foo@foo.com', 'foo1@foo2.foo3.com', 'f45_1@goog13.org', 'user@gmail.co.uk',
+    'jon-smith@crazy.net', 'roland1@capuchino.gov', 'ernir@gshi.nl',
+    'JOON@jno.COM', 'media@meDIa.fREnology.FR', 'john.mail4me@del.icio.us',
+    'www9@wc3.madeup1.org', 'hi@192.168.1.103', 'hi@192.168.1.1'
+  ];
+  for (var i = 0; i < good.length; i++) {
+    assertTrue(goog.editor.Link.isLikelyEmailAddress(good[i]));
+  }
+
+  var bad = [
+    // Malformed/incomplete email addresses
+    'user', '@gmail.com', 'user@gmail', 'user@.com', 'user@gmail.c',
+    'user@gmail.co.u', '@ya.com', '.@hi3.nl', 'jim.com',
+    'ed:@gmail.com', '*!&.banana!*&!', ':jon@gmail.com',
+    '3g?@bil.com', 'adam be@hi.net', 'john\nsmith@test.com',
+    "www.'jester'.net", "'james'@covald.net", 'ftp://user@site.com/',
+    'aim:goim?screenname=en2es', 'user:pass@site.com', 'user@site.com yay'
+  ];
+
+  for (i = 0; i < bad.length; i++) {
+    assertFalse(goog.editor.Link.isLikelyEmailAddress(bad[i]));
+  }
+};
+
+function testIsMailToLink() {
+  assertFalse(goog.editor.Link.isMailto());
+  assertFalse(goog.editor.Link.isMailto(null));
+  assertFalse(goog.editor.Link.isMailto(''));
+  assertFalse(goog.editor.Link.isMailto('http://foo.com'));
+  assertFalse(goog.editor.Link.isMailto('http://mailto:80'));
+
+  assertTrue(goog.editor.Link.isMailto('mailto:'));
+  assertTrue(goog.editor.Link.isMailto('mailto://'));
+  assertTrue(goog.editor.Link.isMailto('mailto://ptucker@gmail.com'));
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.RichTextSpellChecker</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.string.StringBuffer');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.RichTextSpellChecker');
+</script>
+</head>
+<body>
+
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+
+<script>
+
+var attributeSet = ['b', 'u', 'del', 'i'];
+var vocabulary = ['test', 'words', 'a', 'few', 'missspelling', 'iggnore'];
+
+// We don't use Math.random() to make test predictable. Math.random is not
+// repeatable, so a success on the dev machine != success in the lab (or on
+// other dev machines). This is the same pseudorandom logic that CRT rand()
+// uses.
+var rseed = 1;
+function random(range) {
+  rseed = (rseed * 1103515245 + 12345) & 0xffffffff;
+  return ((rseed >> 16) & 0x7fff) % range;
+};
+
+function localSpellCheckingFunction(words, spellChecker, callback) {
+  var len = words.length;
+  var results = [];
+  for (var i = 0; i < len; i++) {
+    var word = words[i];
+    var found = false;
+    // Last two words are considered misspellings
+    for (var j = 0 ; j < vocabulary.length - 2 ; ++j) {
+      if (vocabulary[j] == word) {
+        found = true;
+        break;
+      }
+    }
+    if (found) {
+      results.push([word, goog.spell.SpellCheck.WordStatus.VALID]);
+    } else {
+      results.push([word, goog.spell.SpellCheck.WordStatus.INVALID,
+          ['foo','bar']]);
+    }
+  }
+  callback.call(spellChecker, results);
+};
+
+function generateRandomSpace() {
+  var string = '';
+  var nSpace = 1 + random(4);
+  for (var i = 0; i < nSpace ; ++i) {
+    string += ' ';
+  }
+  return string;
+};
+
+function generateRandomString(maxWords) {
+  var string = '';
+  var nWords = 1 + random(maxWords);
+  for (var i = 0; i < nWords ; ++i) {
+    string += vocabulary[random(vocabulary.length)];
+    string += generateRandomSpace();
+  }
+  return string;
+};
+
+function generateRandomHtml(rootNode, branchFactor, attributes, numAttr) {
+  if (numAttr == 0) {
+    var text = document.createTextNode(generateRandomString(10));
+    rootNode.appendChild(text);
+    return;
+  }
+
+  var lastElementWasText = false;
+  for (var i = 0; i < branchFactor; ++i) {
+    var rand = random(10);
+    if (rand < 8 && !lastElementWasText) {
+      lastElementWasText = true;
+      var text = document.createTextNode(generateRandomString(10));
+      rootNode.appendChild(text);
+    } else {
+      lastElementWasText = false;
+
+      var rand = random(numAttr);
+      var index = 0;
+      for (;;) {
+        while (attributes[index] == null) {
+          ++index;
+        }
+        if (rand == 0)
+          break;
+        ++index;
+        --rand;
+      };
+
+      var attr = attributes[index];
+      var el = document.createElement(attr);
+      rootNode.appendChild(el);
+      rand = random(10);
+      if (rand == 0) {
+        el.className = 'goog-quote';
+      }
+      attributes[index] = null;
+      generateRandomHtml(el, branchFactor, attributes, numAttr-1);
+      attributes[index] = attr;
+    }
+  }
+};
+
+var timerQueue = [];
+function processTimerQueue() {
+  while (timerQueue.length > 0) {
+    var fn = timerQueue.shift();
+    fn();
+  }
+};
+
+function localTimer(fn, delay, obj) {
+  if (obj) {
+    fn = goog.bind(fn, obj);
+  }
+  timerQueue.push(fn);
+  return timerQueue.length;
+};
+
+function testDocumentIntegrity() {
+  var handler = new goog.spell.SpellCheck(localSpellCheckingFunction);
+  var s = new goog.ui.RichTextSpellChecker(handler);
+  s.asyncWordsPerBatch_ = 100;
+  var el = document.getElementById('test1');
+  s.decorate(el);
+  generateRandomHtml(el, 4, attributeSet, attributeSet.length);
+  var el2 = el.cloneNode(true);
+
+  var timerSav = goog.Timer.callOnce;
+  goog.Timer.callOnce = localTimer;
+
+  s.setExcludeMarker('goog-quote');
+  s.check();
+  processTimerQueue();
+  s.ignoreWord('iggnore');
+  processTimerQueue();
+  s.check();
+  processTimerQueue();
+  s.resume();
+  processTimerQueue();
+
+  goog.Timer.callOnce = timerSav;
+
+  assertEquals('Spell checker run should not change the underlying element.',
+               el2.innerHTML, el.innerHTML);
+  s.dispose();
+};
+
+function testBiggerDocument() {
+  var handler = new goog.spell.SpellCheck(localSpellCheckingFunction);
+  var s = new goog.ui.RichTextSpellChecker(handler);
+  var el = document.getElementById('test2');
+  s.decorate(el);
+  generateRandomHtml(el, 4, attributeSet, attributeSet.length);
+  var el2 = el.cloneNode(true);
+
+  var timerSav = goog.Timer.callOnce;
+  goog.Timer.callOnce = localTimer;
+
+  s.check();
+  processTimerQueue();
+  s.resume();
+  processTimerQueue();
+
+  goog.Timer.callOnce = timerSav;
+
+  assertEquals('Spell checker run should not change the underlying element.',
+               el2.innerHTML, el.innerHTML);
+  s.dispose();
+};
+
+function testElementOverflow() {
+  var handler = new goog.spell.SpellCheck(localSpellCheckingFunction);
+  var s = new goog.ui.RichTextSpellChecker(handler);
+  s.asyncWordsPerBatch_ = 100;
+  var el = document.getElementById('test3');
+  s.decorate(el);
+  var text = generateRandomString(200);
+  el.appendChild(document.createTextNode(text));
+
+  var el2 = el.cloneNode(true);
+
+  var timerSav = goog.Timer.callOnce;
+  goog.Timer.callOnce = localTimer;
+
+  s.check();
+  processTimerQueue();
+  s.check();
+  processTimerQueue();
+  s.resume();
+  processTimerQueue();
+
+  goog.Timer.callOnce = timerSav;
+
+  assertEquals('Spell checker run should not change the underlying element.',
+               el2.innerHTML, el.innerHTML);
+  s.dispose();
+};
+
+</script>
+</body>
+</html>

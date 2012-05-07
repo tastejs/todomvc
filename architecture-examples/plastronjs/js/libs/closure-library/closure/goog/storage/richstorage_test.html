@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.storage.RichStorage</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.storage.ErrorCode');
+  goog.require('goog.storage.RichStorage');
+  goog.require('goog.storage.mechanism.mechanismfactory');
+  goog.require('goog.storage.storage_test');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testBasicOperations() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var storage = new goog.storage.RichStorage(mechanism);
+    goog.storage.storage_test.runBasicTests(storage);
+  }
+}
+
+function testWrapping() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var storage = new goog.storage.RichStorage(mechanism);
+
+    // Some metadata.
+    var object = {'a': 97, 'b': 98};
+    var wrapper = new goog.storage.RichStorage.Wrapper(object);
+    wrapper['meta'] = 'info';
+    storage.set('first', wrapper);
+    assertObjectEquals(object, storage.get('first'));
+    assertObjectEquals(wrapper, storage.getWrapper('first'));
+    assertEquals('info', storage.getWrapper('first')['meta']);
+
+    // Multiple wrappings.
+    var wrapper1 = goog.storage.RichStorage.Wrapper.wrapIfNecessary(object);
+    wrapper1['some'] = 'meta';
+    var wrapper2 = goog.storage.RichStorage.Wrapper.wrapIfNecessary(wrapper1);
+    wrapper2['more'] = 'stuff';
+    storage.set('second', wrapper2);
+    assertObjectEquals(object, storage.get('second'));
+    assertObjectEquals(wrapper2, storage.getWrapper('second'));
+    assertEquals('meta', storage.getWrapper('second')['some']);
+    assertEquals('stuff', storage.getWrapper('second')['more']);
+
+    // Invalid wrappings.
+    mechanism.set('third', 'null');
+    assertEquals(goog.storage.ErrorCode.INVALID_VALUE,
+                 assertThrows(function() {storage.get('third')}));
+    mechanism.set('third', '{"meta": "data"}');
+    assertEquals(goog.storage.ErrorCode.INVALID_VALUE,
+                 assertThrows(function() {storage.get('third')}));
+
+    // Weird values.
+    var wrapperA = new goog.storage.RichStorage.Wrapper.wrapIfNecessary(null);
+    wrapperA['one'] = 1;
+    storage.set('first', wrapperA);
+    assertObjectEquals(wrapperA, storage.getWrapper('first'));
+    var wrapperB = new goog.storage.RichStorage.Wrapper.wrapIfNecessary('');
+    wrapperA['two'] = [];
+    storage.set('second', wrapperB);
+    assertObjectEquals(wrapperB, storage.getWrapper('second'));
+
+    // Clean up.
+    storage.remove('first');
+    storage.remove('second');
+    storage.remove('third');
+    assertUndefined(storage.get('first'));
+    assertUndefined(storage.get('second'));
+    assertUndefined(storage.get('third'));
+    assertNull(mechanism.get('first'));
+    assertNull(mechanism.get('second'));
+    assertNull(mechanism.get('third'));
+  }
+}
+
+</script>
+</body>
+</html>

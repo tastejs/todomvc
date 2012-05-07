@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.AutoComplete.Renderer</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.a11y');
+  goog.require('goog.dom.a11y.Role');
+  goog.require('goog.dom.a11y.State');
+  goog.require('goog.events');
+  goog.require('goog.functions');
+  goog.require('goog.fx.dom.FadeInAndShow');
+  goog.require('goog.fx.dom.FadeOutAndHide');
+  goog.require('goog.style');
+  goog.require('goog.testing.PropertyReplacer');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.AutoComplete.Renderer');
+</script>
+</head>
+<body>
+<div id="someElement">Click target</div>
+<div id="target">Target</div>
+<script>
+  var renderer;
+  var rendRows = [];
+  var someElement = goog.dom.getElement('someElement');
+  var target = goog.dom.getElement('target');
+  var propertyReplacer = new goog.testing.PropertyReplacer();
+
+
+  // One-time set up of rows formatted for the renderer.
+  var rows = [
+    'Amanda Annie Anderson',
+    'Frankie Manning',
+    'Louis D Armstrong'
+  ];
+  for (var i = 0; i < rows.length; i++) {
+    rendRows.push({
+      id: i,
+      data: rows[i]
+    });
+  }
+
+  function setUp() {
+    renderer = new goog.ui.AutoComplete.Renderer();
+    renderer.rowDivs_ = [];
+    renderer.target_ = target;
+  }
+
+  function tearDown() {
+    renderer.dispose();
+    propertyReplacer.reset();
+  }
+
+  function testBasicStringTokenHighlighting() {
+    var row = rendRows[0];  // 'Amanda Annie Anderson'
+
+    // Should highlight first match only.
+    var token = 'A';
+    var node = renderer.renderRowHtml(row, token);
+    var boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'A');
+    assertLastNodeText(node, 'manda Annie Anderson');
+
+    // Should only match on non-empty strings.
+    token = '';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Match should be case insensitive, and should not match tokens in the
+    // middle of words ("an" in Amanda).
+    token = 'an';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Amanda ');
+    assertHighlightedText(boldTagElArray[0], 'An');
+    assertLastNodeText(node, 'nie Anderson');
+
+    // Should not match whitespace.
+    token = ' ';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Should not match leading whitespace since all matches are at the start of
+    // word boundaries.
+    token = ' an';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Should match trailing whitespace.
+    token = 'annie ';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Amanda ');
+    assertHighlightedText(boldTagElArray[0], 'Annie ');
+    assertLastNodeText(node, 'Anderson');
+
+    // Should match across whitespace.
+    row = rendRows[2]; // 'Louis D Armstrong'
+    token = 'd a';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Louis ');
+    assertHighlightedText(boldTagElArray[0], 'D A');
+    assertLastNodeText(node, 'rmstrong');
+
+    // Should match the last token.
+    token = 'aRmStRoNg';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Louis D ');
+    assertHighlightedText(boldTagElArray[0], 'Armstrong');
+    assertLastNodeText(node, '');
+  }
+
+  function testBasicArrayTokenHighlighting() {
+    var row = rendRows[1];  // 'Frankie Manning'
+
+    // Only the first match in the array should be highlighted.
+    var token = ['f', 'm'];
+    var node = renderer.renderRowHtml(row, token);
+    var boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'F');
+    assertLastNodeText(node, 'rankie Manning');
+
+    // Only the first match in the array should be highlighted.
+    token = ['m', 'f'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Frankie ');
+    assertHighlightedText(boldTagElArray[0], 'M');
+    assertLastNodeText(node, 'anning');
+
+    // Skip tokens that do not match.
+    token = ['asdf', 'f'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'F');
+    assertLastNodeText(node, 'rankie Manning');
+
+    // Highlight nothing if no tokens match.
+    token = ['Foo', 'bar', 'baz'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Frankie Manning');
+
+    // Empty array should not match.
+    token = [];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Frankie Manning');
+
+    // Empty string in array should not match.
+    token = [''];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Frankie Manning');
+
+    // Whitespace in array should not match.
+    token = [' '];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Frankie Manning');
+
+    // Whitespace entries in array should not match.
+    token = [' ', 'man'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Frankie ');
+    assertHighlightedText(boldTagElArray[0], 'Man');
+    assertLastNodeText(node, 'ning');
+
+    // Whitespace in array entry should match as a whole token.
+    row = rendRows[2]; // 'Louis D Armstrong'
+    token = ['d arm', 'lou'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Louis ');
+    assertHighlightedText(boldTagElArray[0], 'D Arm');
+    assertLastNodeText(node, 'strong');
+  }
+
+  function testHighlightAllTokensSingleTokenHighlighting() {
+    renderer.setHighlightAllTokens(true);
+    var row = rendRows[0];  // 'Amanda Annie Anderson'
+
+    // All matches at the start of the word should be highlighted when
+    // highlightAllTokens is set.
+    var token = 'a';
+    var node = renderer.renderRowHtml(row, token);
+    var boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 3);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'A');
+    assertPreviousNodeText(boldTagElArray[1], 'manda ');
+    assertHighlightedText(boldTagElArray[1], 'A');
+    assertPreviousNodeText(boldTagElArray[2], 'nnie ');
+    assertHighlightedText(boldTagElArray[2], 'A');
+    assertLastNodeText(node, 'nderson');
+
+    // Should not match on empty string.
+    token = '';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Match should be case insensitive.
+    token = 'AN';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 2);
+    assertPreviousNodeText(boldTagElArray[0], 'Amanda ');
+    assertHighlightedText(boldTagElArray[0], 'An');
+    assertPreviousNodeText(boldTagElArray[1], 'nie ');
+    assertHighlightedText(boldTagElArray[1], 'An');
+    assertLastNodeText(node, 'derson');
+
+    // Should not match on whitespace.
+    token = ' ';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // When highlighting all tokens, should match despite leading whitespace.
+    token = '  am';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'Am');
+    assertLastNodeText(node, 'anda Annie Anderson');
+
+    // Should match with trailing whitepsace.
+    token = 'ann   ';
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Amanda ');
+    assertHighlightedText(boldTagElArray[0], 'Ann');
+    assertLastNodeText(node, 'ie Anderson');
+  }
+
+  function testHighlightAllTokensMultipleStringTokenHighlighting() {
+    renderer.setHighlightAllTokens(true);
+    var row = rendRows[1];  // 'Frankie Manning'
+
+    // Each individual space-separated token should match.
+    var token = 'm F';
+    var node = renderer.renderRowHtml(row, token);
+    var boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 2);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'F');
+    assertPreviousNodeText(boldTagElArray[1], 'rankie ');
+    assertHighlightedText(boldTagElArray[1], 'M');
+    assertLastNodeText(node, 'anning');
+  }
+
+  function testHighlightAllTokensArrayTokenHighlighting() {
+    renderer.setHighlightAllTokens(true);
+    var row = rendRows[0];  // 'Amanda Annie Anderson'
+
+    // All tokens in the array should match.
+    var token = ['AM', 'AN'];
+    var node = renderer.renderRowHtml(row, token);
+    var boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 3);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'Am');
+    assertPreviousNodeText(boldTagElArray[1], 'anda ');
+    assertHighlightedText(boldTagElArray[1], 'An');
+    assertPreviousNodeText(boldTagElArray[2], 'nie ');
+    assertHighlightedText(boldTagElArray[2], 'An');
+    assertLastNodeText(node, 'derson');
+
+    // Empty array should not match.
+    token = [];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Empty string in array should not match.
+    token = [''];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Whitespace in array should not match.
+    token = [' '];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 0);
+    assertLastNodeText(node, 'Amanda Annie Anderson');
+
+    // Empty string entries in array should not match.
+    token = ['', 'Ann'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Amanda ');
+    assertHighlightedText(boldTagElArray[0], 'Ann');
+    assertLastNodeText(node, 'ie Anderson');
+
+    // Whitespace entries in array should not match.
+    token = [' ', 'And'];
+    node = renderer.renderRowHtml(row, token);
+    boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 1);
+    assertPreviousNodeText(boldTagElArray[0], 'Amanda Annie ');
+    assertHighlightedText(boldTagElArray[0], 'And');
+    assertLastNodeText(node, 'erson');
+
+    // Whitespace in array entry should match as a whole token.
+    token = ['annie a', 'Am'];
+    node = renderer.renderRowHtml(row, token);
+    var boldTagElArray = node.getElementsByTagName('b');
+    assertNumBoldTags(boldTagElArray, 2);
+    assertPreviousNodeText(boldTagElArray[0], '');
+    assertHighlightedText(boldTagElArray[0], 'Am');
+    assertPreviousNodeText(boldTagElArray[1], 'anda ');
+    assertHighlightedText(boldTagElArray[1], 'Annie A');
+    assertLastNodeText(node, 'nderson');
+  }
+
+  function testMousedownToDismiss() {
+    var dismissEvents = 0;
+    goog.events.listen(renderer, goog.ui.AutoComplete.EventType.DISMISS,
+        function() {
+          dismissEvents++;
+        });
+    renderer.redraw();
+    goog.testing.events.fireMouseDownEvent(someElement);
+    assertEquals('1 dismiss event should be fired', 1, dismissEvents);
+  }
+
+  function testMenuFadeDuration() {
+    var hideCalled = false;
+    var hideAnimCalled = false;
+    var showCalled = false;
+    var showAnimCalled = false;
+
+    propertyReplacer.set(goog.style, 'showElement',  function(el, state) {
+      if (state) {
+        showCalled = true;
+      } else {
+        hideCalled = true;
+      }
+    });
+
+    propertyReplacer.set(goog.fx.dom.FadeInAndShow.prototype, 'play',
+        function() {
+          showAnimCalled = true;
+        });
+
+    propertyReplacer.set(goog.fx.dom.FadeOutAndHide.prototype, 'play',
+        function() {
+          hideAnimCalled = true;
+        });
+
+    // Default behavior does show/hide but not animations.
+
+    renderer.show();
+    assertTrue(showCalled);
+    assertFalse(showAnimCalled);
+
+    renderer.dismiss();
+    assertTrue(hideCalled);
+    assertFalse(hideAnimCalled);
+
+    // But animations can be turned on.
+
+    showCalled = false;
+    hideCalled = false;
+    renderer.setMenuFadeDuration(100);
+
+    renderer.show();
+    assertFalse(showCalled);
+    assertTrue(showAnimCalled);
+
+    renderer.dismiss();
+    assertFalse(hideCalled);
+    assertTrue(hideAnimCalled);
+  }
+
+  function testAriaTags() {
+    renderer.maybeCreateElement_();
+
+    assertEquals('', goog.dom.a11y.getRole(target));
+    assertEquals('',
+        goog.dom.a11y.getState(target, goog.dom.a11y.State.AUTOCOMPLETE));
+    assertEquals('',
+        goog.dom.a11y.getState(target, goog.dom.a11y.State.HASPOPUP));
+
+    renderer.show();
+    assertEquals(goog.dom.a11y.Role.COMBOBOX, goog.dom.a11y.getRole(target));
+    assertEquals('list',
+        goog.dom.a11y.getState(target, goog.dom.a11y.State.AUTOCOMPLETE));
+    assertEquals('true',
+        goog.dom.a11y.getState(target, goog.dom.a11y.State.HASPOPUP));
+
+    renderer.dismiss();
+    assertEquals(goog.dom.a11y.Role.COMBOBOX, goog.dom.a11y.getRole(target));
+    assertEquals('list',
+        goog.dom.a11y.getState(target, goog.dom.a11y.State.AUTOCOMPLETE));
+    assertEquals('false',
+        goog.dom.a11y.getState(target, goog.dom.a11y.State.HASPOPUP));
+  }
+
+  function testHiliteRowWithDefaultRenderer() {
+    renderer.renderRows(rendRows, '');
+    renderer.hiliteRow(2);
+    assertEquals(2, renderer.hilitedRow_);
+    assertTrue(goog.dom.classes.has(
+        renderer.rowDivs_[2], renderer.activeClassName));
+  }
+
+  function testHiliteRowWithCustomRenderer() {
+    // Use a custom renderer that doesn't put the result divs as direct children
+    // of this.element_.
+    var customRenderer = {
+      render: function(renderer, element, rows, token) {
+        // Put all of the results into a results holder div that is a child of
+        // this.element_.
+        var resultsHolder = goog.dom.createDom('div');
+        goog.dom.appendChild(element, resultsHolder);
+        for (var i = 0, row; row = rows[i]; ++i) {
+          var node = renderer.renderRowHtml(row, token);
+          goog.dom.appendChild(resultsHolder, node);
+        }
+      }
+    };
+    var myRenderer = new goog.ui.AutoComplete.Renderer(null, customRenderer);
+
+    // Make sure we can still highlight the row at position 2 even though
+    // this.element_.childNodes contains only a single child.
+    myRenderer.renderRows(rendRows, '');
+    myRenderer.hiliteRow(2);
+    assertEquals(2, myRenderer.hilitedRow_);
+    assertTrue(goog.dom.classes.has(
+        myRenderer.rowDivs_[2], myRenderer.activeClassName));
+  }
+
+  // ------- Helper functions -------
+  function assertNumBoldTags (boldTagElArray, expectedNum) {
+    assertEquals('Incorrect number of bold tags', expectedNum,
+        boldTagElArray.length);
+  }
+
+  function assertPreviousNodeText(boldTag, expectedText) {
+    var prevNode = boldTag.previousSibling;
+    assertEquals('Expected text before the token does not match', expectedText,
+        prevNode.nodeValue);
+  }
+
+  function assertHighlightedText(boldTag, expectedHighlightedText) {
+    assertEquals('Incorrect text bolded', expectedHighlightedText,
+        boldTag.innerHTML);
+  }
+
+  function assertLastNodeText(node, expectedText) {
+    var lastNode = node.lastChild;
+    assertEquals('Incorrect text in the last node', expectedText,
+        lastNode.nodeValue);
+  }
+
+</script>
+</body>
+</html>
+

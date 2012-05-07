@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.math.Line</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.math.Coordinate');
+  goog.require('goog.math.Line');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+  function testEquals() {
+    var input = new goog.math.Line(1, 2, 3, 4);
+
+    assert(input.equals(input));
+  }
+
+  function testClone() {
+    var input = new goog.math.Line(1, 2, 3, 4);
+
+    assertNotEquals('Clone returns a new object', input, input.clone())
+    assertTrue('Contents of clone match original', input.equals(input.clone()));
+  }
+
+  function testGetLength() {
+    var input = new goog.math.Line(0, 0, Math.sqrt(2), Math.sqrt(2));
+    assertRoughlyEquals(input.getSegmentLengthSquared(), 4, 1e-10);
+    assertRoughlyEquals(input.getSegmentLength(), 2, 1e-10);
+  }
+
+  function testGetClosestPoint() {
+    var input = new goog.math.Line(0, 1, 1, 2);
+
+    var point = input.getClosestPoint(0, 3);
+    assertRoughlyEquals(point.x, 1, 1e-10);
+    assertRoughlyEquals(point.y, 2, 1e-10);
+  }
+
+  function testGetClosestSegmentPoint() {
+    var input = new goog.math.Line(0, 1, 2, 3);
+
+    var point = input.getClosestSegmentPoint(4, 4);
+    assertRoughlyEquals(point.x, 2, 1e-10);
+    assertRoughlyEquals(point.y, 3, 1e-10);
+
+    point = input.getClosestSegmentPoint(new goog.math.Coordinate(-1, -10));
+    assertRoughlyEquals(point.x, 0, 1e-10);
+    assertRoughlyEquals(point.y, 1, 1e-10);
+  }
+</script>
+</body>
+</html>

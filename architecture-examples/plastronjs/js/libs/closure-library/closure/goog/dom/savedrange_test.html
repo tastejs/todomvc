@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.dom.SavedRange</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.Range');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+</script>
+</head>
+<body>
+  <div id="test1">Text</div>
+
+<script>
+  function testSaved() {
+    var node = goog.dom.getElement('test1');
+    var range = goog.dom.Range.createFromNodeContents(node);
+    var savedRange = range.saveUsingDom();
+
+    range = savedRange.restore(true);
+    assertEquals('Restored range should select "Text"', 'Text',
+        range.getText());
+    assertFalse('Restored range should not be reversed.', range.isReversed());
+    assertFalse('Range should not have disposed itself.',
+        savedRange.isDisposed());
+
+    goog.dom.Range.clearSelection();
+    assertFalse(goog.dom.Range.hasSelection(window));
+
+    range = savedRange.restore();
+    assertTrue('Range should have auto-disposed.', savedRange.isDisposed());
+    assertEquals('Restored range should select "Text"', 'Text',
+        range.getText());
+    assertFalse('Restored range should not be reversed.', range.isReversed());
+  }
+
+  function testReversedSave() {
+    var node = goog.dom.getElement('test1').firstChild;
+    var range = goog.dom.Range.createFromNodes(node, 4, node, 0);
+    var savedRange = range.saveUsingDom();
+
+    range = savedRange.restore();
+    assertEquals('Restored range should select "Text"', 'Text',
+        range.getText());
+    if (!goog.userAgent.IE) {
+      assertTrue('Restored range should be reversed.', range.isReversed());
+    }
+  }
+
+</script>
+</body>
+</html>

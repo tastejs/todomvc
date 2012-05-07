@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.storage.Storage</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.storage.ErrorCode');
+  goog.require('goog.storage.Storage');
+  goog.require('goog.storage.mechanism.mechanismfactory');
+  goog.require('goog.storage.storage_test');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testBasicOperations() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('foo');
+  if (mechanism) {
+    var storage = new goog.storage.Storage(mechanism);
+    goog.storage.storage_test.runBasicTests(storage);
+  }
+}
+
+function testMechanismCommunication() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('foo');
+  if (mechanism) {
+    var storage = new goog.storage.Storage(mechanism);
+
+    // Invalid JSON.
+    mechanism.set('first', '');
+    assertEquals(goog.storage.ErrorCode.INVALID_VALUE,
+                 assertThrows(function() {storage.get('first')}));
+    mechanism.set('second', '(');
+    assertEquals(goog.storage.ErrorCode.INVALID_VALUE,
+                 assertThrows(function() {storage.get('second')}));
+
+    // Cleaning up.
+    storage.remove('first');
+    storage.remove('second');
+    assertUndefined(storage.get('first'));
+    assertUndefined(storage.get('second'));
+    assertNull(mechanism.get('first'));
+    assertNull(mechanism.get('second'));
+  }
+}
+
+</script>
+</body>
+</html>

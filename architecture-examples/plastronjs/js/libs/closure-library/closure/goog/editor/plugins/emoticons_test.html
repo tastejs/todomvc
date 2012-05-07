@@ -1,0 +1,67 @@
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="../../base.js"></script>
+  <script>
+    goog.require('goog.Uri');
+    goog.require('goog.editor.Field');
+    goog.require('goog.editor.plugins.Emoticons');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.emoji.Emoji');
+  </script>
+</head>
+<div id='parent'>
+<div id="testField">I am text.</div>
+</div>
+<script>
+
+var HTML;
+
+function setUp() {
+  HTML = goog.dom.$('parent').innerHTML;
+}
+
+function tearDown() {
+  goog.dom.$('parent').innerHTML = HTML;
+}
+
+function testEmojiWithEmoticonsPlugin() {
+  runEmojiTestWithPlugin(new goog.editor.plugins.Emoticons());
+}
+
+function runEmojiTestWithPlugin(plugin) {
+  var field = new goog.editor.Field('testField');
+  field.registerPlugin(plugin);
+  field.makeEditable();
+  field.focusAndPlaceCursorAtStart();
+
+  var src = 'testdata/emoji/4F4.gif';
+  var id = '4F4';
+  var emoji = new goog.ui.emoji.Emoji(src, id);
+  field.execCommand(goog.editor.plugins.Emoticons.COMMAND, emoji);
+
+  // The url may be relative or absolute.
+  var imgs = field.getEditableDomHelper().
+      getElementsByTagNameAndClass(goog.dom.TagName.IMG);
+  assertEquals(1, imgs.length);
+
+  var img = imgs[0];
+  assertUriEquals(src, img.getAttribute('src'));
+  assertEquals(id, img.getAttribute(goog.ui.emoji.Emoji.ATTRIBUTE));
+}
+
+function assertUriEquals(expected, actual) {
+  var winUri = new goog.Uri(window.location);
+  assertEquals(winUri.resolve(new goog.Uri(expected)).toString(),
+      winUri.resolve(new goog.Uri(actual)).toString());
+}
+
+</script>
+</body>
+</html>

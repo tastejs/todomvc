@@ -1,0 +1,82 @@
+/*
+ * Copyright 2007 The Closure Library Authors. All Rights Reserved.
+ *
+ * Use of this source code is governed by the Apache License, Version 2.0.
+ * See the COPYING file for details.
+ */
+
+/**
+ * CSS Inlay
+ * This is the minimum CSS required to use the markup/classname patterns.
+ * @author elsigh@google.com (Lindsey Simon)
+ * @author ddiaz@google.com (Dustin Diaz)
+ */
+
+/**
+ * Document container designed for fluid width scaling.
+ * Alternative g-doc- fixed-width classes are in gui-fixed.css.
+ */
+.g-doc {
+  width: 100%;
+  text-align: left;
+}
+
+/**
+ * g-section fundamentally has to clear floats. There are many ways to do this.
+ * This technique is nice because it doesn't rely on overflow: hidden, which
+ * has the potential to hide your content in situations where a fixed size
+ * node takes up too much space (like a big table, or a text input or image.
+ * Works in Webkit, IE8, and FF3.
+ */
+.g-section {
+  width: 100%;
+  vertical-align: top;
+  display: inline-block;
+}
+
+/**
+ * IE7-only hack. Nicely IE7 will clear floats with just block display
+ * and hasLayout.
+ */
+*:first-child+html .g-section {
+  display: block;
+}
+
+/**
+ * IE6 cannot hang with overflow: visible. If we use the IE7 display block
+ * trick in IE6 we get severe float drop in nested grids.
+ */
+* html .g-section {
+  overflow: hidden;
+}
+
+/* FF2 can't actually hang with overflow: visible. */
+@-moz-document url-prefix() {
+  .g-section {
+    overflow: hidden;
+  }
+}
+
+/**
+ * FF3 now needs to be reset after the previous block which affects it as well.
+ * We target the tt element in this hack because no one uses it.
+ */
+@-moz-document url-prefix() {
+  .g-section,tt:default {
+    overflow: visible;
+  }
+}
+
+/* Forces "hasLayout" fixing a gamut of bugs in <= IE7. */
+.g-section,
+.g-unit {
+  zoom: 1;
+}
+
+/* Used for splitting a template's units text-alignment to the outer edges. */
+.g-split .g-unit {
+  text-align: right;
+}
+.g-split .g-first {
+  text-align: left;
+}

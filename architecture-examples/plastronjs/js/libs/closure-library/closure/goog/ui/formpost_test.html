@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<!--
+This test has not yet been updated to run on IE8. See http://b/hotlist?id=36311
+-->
+<!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+  <title>Closure Unit Tests - goog.ui.FormPost</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.dom.TagName');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.FormPost');
+    goog.require('goog.userAgent');
+    goog.require('goog.userAgent.product');
+    goog.require('goog.userAgent.product.isVersion');
+  </script>
+</head>
+<body>
+  <script>
+    var TARGET = 'target';
+    var ACTION_URL = 'http://url/';
+    var formPost;
+    var parameters;
+    var submits;
+    var originalCreateDom = goog.ui.FormPost.prototype.createDom;
+
+    function isChrome7or8() {
+      // Temporarily disabled in Chrome 7 & 8. See b/3176768
+      if (goog.userAgent.product.CHROME &&
+          goog.userAgent.product.isVersion('7.0') &&
+          !goog.userAgent.product.isVersion('8.0')) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function setUp() {
+      formPost = new goog.ui.FormPost();
+      submits = 0;
+
+      // Replace the form's submit method with a fake.
+      goog.ui.FormPost.prototype.createDom = function() {
+        originalCreateDom.apply(this, arguments);
+
+        this.getElement().submit = function() { submits++ };
+      }
+      parameters = {'foo': 'bar', 'baz': 'blah', 'array': ['no', 'yes']};
+    }
+
+    function tearDown() {
+      formPost.dispose();
+      goog.ui.FormPost.prototype.createDom = originalCreateDom;
+    }
+
+    function testPost() {
+      formPost.post(parameters, ACTION_URL, TARGET);
+      expectUrlAndParameters_(ACTION_URL, TARGET, parameters);
+    }
+
+    function testPostWithDefaults() {
+      // Temporarily disabled in Chrome 7. See See b/3176768
+      if (isChrome7or8) {
+        return;
+      }
+      formPost = new goog.ui.FormPost();
+      formPost.post(parameters);
+      expectUrlAndParameters_('', '', parameters);
+    }
+
+    function expectUrlAndParameters_(url, target, parameters) {
+      var form = formPost.getElement();
+      assertEquals('element must be a form',
+          goog.dom.TagName.FORM, form.tagName);
+      assertEquals('form must be hidden', 'none', form.style.display);
+      assertEquals('form method must be POST',
+          'POST', form.method.toUpperCase());
+      assertEquals('submits', 1, submits);
+      assertEquals('action attribute', url, form.action);
+      assertEquals('target attribute', target, form.target);
+      var inputs = goog.dom.getElementsByTagNameAndClass(
+          goog.dom.TagName.INPUT, null, form);
+      var formValues = {};
+      for (var i = 0, input = inputs[i]; input = inputs[i]; i++) {
+        if (goog.isArray(formValues[input.name])) {
+          formValues[input.name].push(input.value);
+        } else if (input.name in formValues) {
+          formValues[input.name] = [formValues[input.name], input.value];
+        } else {
+          formValues[input.name] = input.value;
+        }
+      }
+      assertObjectEquals('form values must match', parameters, formValues);
+    }
+
+  </script>
+</body>
+</html>

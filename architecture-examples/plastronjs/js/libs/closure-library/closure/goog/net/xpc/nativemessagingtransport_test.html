@@ -1,0 +1,165 @@
+<!--
+-->
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NativeMessagingTransport Unit-Tests</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.net.xpc.CrossPageChannel');
+  goog.require('goog.net.xpc.CrossPageChannelRole');
+  goog.require('goog.net.xpc.NativeMessagingTransport');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+</script>
+<script>
+
+function tearDown() {
+  goog.net.xpc.NativeMessagingTransport.activeCount_ = {};
+  goog.events.removeAll(window.postMessage ? window : document, 'message');
+}
+
+
+function testConstructor() {
+  var t = new goog.net.xpc.NativeMessagingTransport(null, 'http://g.com:80');
+  assertEquals('http://g.com:80', t.peerHostname_);
+
+  var t = new goog.net.xpc.NativeMessagingTransport(null, null);
+  assertEquals('*', t.peerHostname_);
+  t.dispose();
+}
+
+
+function testConstructorDom() {
+  var t = new goog.net.xpc.NativeMessagingTransport(
+      null, 'http://g.com:80', goog.dom.getDomHelper());
+  assertEquals('http://g.com:80', t.peerHostname_);
+
+  var t = new goog.net.xpc.NativeMessagingTransport(null, null);
+  assertEquals('*', t.peerHostname_);
+  t.dispose();
+}
+
+
+function testDispose() {
+  var xpc = getTestChannel();
+  var listenedObj = window.postMessage ? window : document;
+
+  var t0 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  assertEquals(0, goog.events.removeAll(listenedObj, 'message'));
+  t0.dispose();
+  assertEquals(0, goog.events.removeAll(listenedObj, 'message'));
+
+  var t1 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  t1.connect();
+  t1.dispose();
+  assertEquals(0, goog.events.removeAll(listenedObj, 'message'));
+
+  var t2 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  var t3 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  t2.connect();
+  t3.connect();
+  t2.dispose();
+  assertEquals(1, goog.events.removeAll(listenedObj, 'message'));
+}
+
+
+function testDisposeWithDom() {
+  var xpc = getTestChannel(goog.dom.getDomHelper());
+  var listenedObj = window.postMessage ? window : document;
+
+  var t0 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  assertEquals(0, goog.events.removeAll(listenedObj, 'message'));
+  t0.dispose();
+  assertEquals(0, goog.events.removeAll(listenedObj, 'message'));
+
+  var t1 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  t1.connect();
+  t1.dispose();
+  assertEquals(0, goog.events.removeAll(listenedObj, 'message'));
+
+  var t2 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  var t3 = new goog.net.xpc.NativeMessagingTransport(xpc, null);
+  t2.connect();
+  t3.connect();
+  t2.dispose();
+  assertEquals(1, goog.events.removeAll(listenedObj, 'message'));
+}
+
+
+function testBogusMessages() {
+  var e = createMockEvent('bogus_message');
+  assertFalse(goog.net.xpc.NativeMessagingTransport.messageReceived_(e));
+
+  e = createMockEvent('bogus|message');
+  assertFalse(goog.net.xpc.NativeMessagingTransport.messageReceived_(e));
+
+  e = createMockEvent('bogus|message:data');
+  assertFalse(goog.net.xpc.NativeMessagingTransport.messageReceived_(e));
+}
+
+
+function testSendingMessagesToUnconnectedInnerPeer() {
+  var xpc = getTestChannel();
+
+  var serviceResult, payloadResult;
+  xpc.deliver_ = function(service, payload) {
+    serviceResult = service;
+    payloadResult = payload;
+  };
+
+  // Construct an unconnected inner peer.
+  xpc.getRole = function() {
+    return goog.net.xpc.CrossPageChannelRole.INNER;
+  };
+  xpc.isConnected = function() {
+    return false;
+  };
+  var t = new goog.net.xpc.NativeMessagingTransport(xpc, 'http://g.com');
+
+  // Test a valid message.
+  var e = createMockEvent('test_channel|test_service:test_payload');
+  assertTrue(goog.net.xpc.NativeMessagingTransport.messageReceived_(e));
+  assertEquals('test_service', serviceResult);
+  assertEquals('test_payload', payloadResult);
+  assertEquals('Ensure channel name has not been changed.',
+               'test_channel',
+               t.channel_.name);
+
+  // Test updating a stale inner peer.
+  var e = createMockEvent('new_channel|tp:SETUP');
+  assertTrue(goog.net.xpc.NativeMessagingTransport.messageReceived_(e));
+  assertEquals('tp', serviceResult);
+  assertEquals('SETUP', payloadResult);
+  assertEquals('Ensure channel name has been updated.',
+               'new_channel',
+               t.channel_.name);
+  t.dispose();
+}
+
+
+function createMockEvent(data) {
+  var event = {};
+  event.getBrowserEvent = function() { return {data: data} };
+  return event;
+}
+
+
+function getTestChannel(opt_domHelper) {
+  var cfg = {};
+  cfg[goog.net.xpc.CfgFields.CHANNEL_NAME] = 'test_channel';
+  return new goog.net.xpc.CrossPageChannel(cfg, opt_domHelper);
+}
+
+</script>
+</head>
+
+<body></body>
+
+</html>

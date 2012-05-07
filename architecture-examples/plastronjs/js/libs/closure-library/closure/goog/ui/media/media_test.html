@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.media.Media</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.debug.Logger');
+  goog.require('goog.dom');
+  goog.require('goog.events');
+  goog.require('goog.math.Size');
+  goog.require('goog.testing.LooseMock');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.Component');
+  goog.require('goog.ui.Control');
+  goog.require('goog.ui.ControlRenderer');
+  goog.require('goog.ui.media.Media');
+  goog.require('goog.ui.media.MediaModel');
+  goog.require('goog.ui.media.MediaModel.Player');
+  goog.require('goog.ui.media.MediaModel.Thumbnail');
+</script>
+</head>
+<body>
+<script>
+
+  var control;  // The name 'media' collides with a built-in var in Chrome.
+  var renderer;
+  var model;
+
+  function setUp() {
+    renderer = new goog.ui.media.MediaRenderer();
+    model = new goog.ui.media.MediaModel(
+        'http://url.com', 'a caption', 'a description');
+    control = new goog.ui.media.Media(model, renderer);
+  }
+
+  function tearDown() {
+    control.dispose();
+  }
+
+  function testBasicElements() {
+    var model = new goog.ui.media.MediaModel(
+        'http://url.com', 'a caption', 'a description');
+    var thumb1 = new goog.ui.media.MediaModel.Thumbnail(
+        'http://thumb.com/small.jpg', new goog.math.Size(320, 288));
+    var thumb2 = new goog.ui.media.MediaModel.Thumbnail(
+        'http://thumb.com/big.jpg', new goog.math.Size(800, 600));
+    model.setThumbnails([thumb1, thumb2]);
+    model.setPlayer(new goog.ui.media.MediaModel.Player(
+        'http://media/player.swf'));
+    var control = new goog.ui.media.Media(model, renderer);
+    control.render();
+
+    var caption = goog.dom.getElementsByTagNameAndClass(
+        undefined,
+        goog.ui.ControlRenderer.CSS_CLASS + '-caption');
+    var description = goog.dom.getElementsByTagNameAndClass(
+        undefined,
+        goog.ui.ControlRenderer.CSS_CLASS + '-description');
+    var thumbnail0 = goog.dom.getElementsByTagNameAndClass(
+        'img',
+        goog.ui.ControlRenderer.CSS_CLASS + '-thumbnail0');
+    var thumbnail1 = goog.dom.getElementsByTagNameAndClass(
+        'img',
+        goog.ui.ControlRenderer.CSS_CLASS + '-thumbnail1');
+    var player = goog.dom.getElementsByTagNameAndClass(
+        'iframe',
+        goog.ui.ControlRenderer.CSS_CLASS + '-player');
+
+    assertNotNull(caption);
+    assertEquals(1, caption.length);
+    assertNotNull(description);
+    assertEquals(1, description.length);
+    assertNotNull(thumbnail0);
+    assertEquals(1, thumbnail0.length);
+    assertEquals('320px', thumbnail0[0].style.width);
+    assertEquals('288px', thumbnail0[0].style.height);
+    assertEquals('http://thumb.com/small.jpg', thumbnail0[0].src);
+    assertNotNull(thumbnail1);
+    assertEquals(1, thumbnail1.length);
+    assertEquals('800px', thumbnail1[0].style.width);
+    assertEquals('600px', thumbnail1[0].style.height);
+    assertEquals('http://thumb.com/big.jpg', thumbnail1[0].src);
+    // players are only shown when media is selected
+    assertNotNull(player);
+    assertEquals(0, player.length);
+
+    control.dispose();
+  }
+
+  function testDoesntCreatesCaptionIfUnavailable() {
+    var incompleteModel = new goog.ui.media.MediaModel(
+        'http://url.com', undefined, 'a description');
+    incompleteMedia = new goog.ui.media.Media('', renderer);
+    incompleteMedia.setDataModel(incompleteModel);
+    incompleteMedia.render();
+    var caption = goog.dom.getElementsByTagNameAndClass(
+        undefined,
+        goog.ui.ControlRenderer.CSS_CLASS + '-caption');
+    var description = goog.dom.getElementsByTagNameAndClass(
+        undefined,
+        goog.ui.ControlRenderer.CSS_CLASS + '-description');
+    assertEquals(0, caption.length);
+    assertNotNull(description);
+    incompleteMedia.dispose();
+  }
+
+</script>
+</body>
+</html>

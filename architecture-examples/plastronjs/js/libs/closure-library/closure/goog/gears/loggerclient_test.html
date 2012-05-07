@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  Closure Unit Tests - goog.gears.LoggerClient
+</title>
+<script src="../base.js"></script>
+<script>
+
+goog.require('goog.debug.Logger');
+goog.require('goog.debug.Logger.Level');
+goog.require('goog.events.EventTarget');
+goog.require('goog.gears.LoggerClient');
+goog.require('goog.gears.Worker');
+goog.require('goog.testing.StrictMock');
+goog.require('goog.testing.jsunit');
+
+</script>
+</head>
+<body>
+<script>
+
+var LOGGER_NAME = 'WorkerLog';
+var LOG_COMMAND_ID = 1;
+
+var client, logger;
+
+function setUp() {
+  // Remove instance so we get new instances for every run.
+  goog.gears.LoggerClient.instance_ = null;
+  logger = goog.debug.Logger.getLogger(LOGGER_NAME);
+}
+
+function tearDown() {
+  if (client) {
+    client.dispose();
+    client = null;
+  }
+}
+
+function getMockWorker(levelValue, workerName, ex) {
+  var mockWorker = new goog.testing.StrictMock(goog.gears.Worker);
+
+  // Normalize stack
+  ex.stack = 'STACK';
+  ex.message0 = 'message one';
+  ex.message1 = 'message two';
+
+  // The logger client creates a new object based on the error object.
+  var errorLikeObject = {
+    message: (workerName ? workerName + ': ' : '') + ex.message,
+    stack: ex.stack,
+    message0: ex.message0,
+    message1: ex.message1
+  };
+
+  mockWorker.sendCommand(LOG_COMMAND_ID, [
+    LOGGER_NAME,
+    levelValue,
+    'one',
+    undefined
+  ]);
+
+  mockWorker.sendCommand(LOG_COMMAND_ID, [
+    LOGGER_NAME,
+    levelValue,
+    'two',
+    errorLikeObject
+  ]);
+
+  return mockWorker;
+}
+
+function testShout() {
+  var ex = Error('custom shout error');
+  var mockWorker = getMockWorker(goog.debug.Logger.Level.SHOUT.value,
+                                 '',
+                                 ex);
+
+  mockWorker.$replay();
+
+  client = new goog.gears.LoggerClient(mockWorker, LOG_COMMAND_ID);
+
+  logger.shout('one');
+  logger.shout('two', ex);
+
+  mockWorker.$verify();
+}
+
+function testSevere() {
+  var ex = Error('custom severe error');
+  var mockWorker = getMockWorker(goog.debug.Logger.Level.SEVERE.value,
+                                 '',
+                                 ex);
+
+  mockWorker.$replay();
+
+  client = new goog.gears.LoggerClient(mockWorker, LOG_COMMAND_ID);
+
+  logger.severe('one');
+  logger.severe('two', ex);
+
+  mockWorker.$verify();
+}
+
+function testWarning() {
+  var ex = Error('custom warning error');
+  var mockWorker = getMockWorker(goog.debug.Logger.Level.WARNING.value,
+                                 '',
+                                 ex);
+
+  mockWorker.$replay();
+
+  client = new goog.gears.LoggerClient(mockWorker, LOG_COMMAND_ID);
+
+  logger.warning('one');
+  logger.warning('two', ex);
+
+  mockWorker.$verify();
+}
+
+function testWarningWithPrefix() {
+  var ex = Error('custom warning error');
+  var workerName = 'W';
+  var mockWorker = getMockWorker(goog.debug.Logger.Level.WARNING.value,
+                                 workerName,
+                                 ex);
+
+  mockWorker.$replay();
+
+  client = new goog.gears.LoggerClient(mockWorker, LOG_COMMAND_ID, workerName);
+
+  logger.warning('one');
+  logger.warning('two', ex);
+
+  mockWorker.$verify();
+}
+
+function testLogRecord() {
+  var ex = Error('custom severe error');
+  var workerName = 'W';
+  var mockWorker = getMockWorker(goog.debug.Logger.Level.SEVERE.value,
+                                 workerName,
+                                 ex);
+
+  mockWorker.$replay();
+
+  client = new goog.gears.LoggerClient(mockWorker, LOG_COMMAND_ID, workerName);
+
+  var logRecord1 =
+      logger.getLogRecord(goog.debug.Logger.Level.SEVERE, 'one');
+  logger.logRecord(logRecord1);
+  var logRecord2 =
+      logger.getLogRecord(goog.debug.Logger.Level.SEVERE, 'two', ex);
+  logger.logRecord(logRecord2);
+
+  mockWorker.$verify();
+}
+
+</script>
+</body>
+</html>

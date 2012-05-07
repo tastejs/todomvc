@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.dom.abstractrange</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.AbstractRange');
+  goog.require('goog.dom.Range');
+
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<iframe src="javascript:&quot;<html><body contenteditable>asdf&quot;"
+        id="a">
+</iframe>
+<iframe src="javascript:&quot;<html><body contenteditable>asdf&quot;"
+        id="b">
+</iframe>
+<iframe src="javascript:&quot;<html><body contenteditable><img>&quot;"
+        id="c">
+</iframe>
+<script>
+  function testCorrectDocument() {
+    var a = goog.dom.getElement('a').contentWindow;
+    var b = goog.dom.getElement('b').contentWindow;
+
+    a.document.body.focus();
+    var selection = goog.dom.AbstractRange.getBrowserSelectionForWindow(a);
+    assertNotNull('Selection must not be null', selection);
+    var range = goog.dom.Range.createFromBrowserSelection(selection);
+    assertEquals('getBrowserSelectionForWindow must return selection in the ' +
+                 'correct document', a.document, range.getDocument());
+
+    // This is intended to trip up Internet Explorer --
+    // see http://b/2048934
+    b.document.body.focus();
+    selection = goog.dom.AbstractRange.getBrowserSelectionForWindow(a);
+    // Some (non-IE) browsers keep a separate selection state for each document
+    // in the same browser window. That's fine, as long as the selection object
+    // requested from the window object is correctly associated with that
+    // window's document.
+    if (selection) {
+      range = goog.dom.Range.createFromBrowserSelection(selection);
+      assertEquals('getBrowserSelectionForWindow must return selection in ' +
+                   'the correct document', a.document, range.getDocument());
+    } else {
+      assertNull(selection);
+    }
+  }
+
+  function testSelectionIsControlRange() {
+    var c = goog.dom.getElement('c').contentWindow;
+    // Only IE supports control ranges
+    if (c.document.body.createControlRange) {
+      var controlRange = c.document.body.createControlRange();
+      controlRange.add(c.document.getElementsByTagName('img')[0]);
+      controlRange.select();
+      var selection = goog.dom.AbstractRange.getBrowserSelectionForWindow(c);
+      assertNotNull('Selection must not be null', selection);
+    }
+  }
+</script>
+</body>
+</html>

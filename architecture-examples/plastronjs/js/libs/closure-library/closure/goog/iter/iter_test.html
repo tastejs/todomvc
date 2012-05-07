@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.iter</title>
+<script src="../base.js"></script>
+<script>
+
+goog.require('goog.iter');
+goog.require('goog.testing.jsunit');
+
+</script>
+</head>
+<body>
+
+<div id="t1"
+     style="display:none"><span>0</span><span>1</span><span>2</span></div>
+
+<script>
+
+function ArrayIterator(array) {
+  this.array_ = array;
+  this.current_ = 0;
+}
+
+goog.inherits(ArrayIterator, goog.iter.Iterator);
+
+ArrayIterator.prototype.next = function() {
+  if (this.current_ >= this.array_.length) {
+    throw goog.iter.StopIteration;
+  }
+  return this.array_[this.current_++];
+};
+
+function testForEach() {
+  var s = '';
+  var iter = new ArrayIterator(['a', 'b', 'c', 'd']);
+  goog.iter.forEach(iter, function(val, index, iter2) {
+    assertEquals(iter, iter2);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    s += val;
+  });
+  assertEquals('abcd', s);
+}
+
+function testJoin() {
+  var iter = new ArrayIterator(['a', 'b', 'c', 'd']);
+  assertEquals('abcd', goog.iter.join(iter, ''));
+
+  iter = new ArrayIterator(['a', 'b', 'c', 'd']);
+  assertEquals('a,b,c,d', goog.iter.join(iter, ','));
+
+  // make sure everything is treated as strings
+  iter = new ArrayIterator([0, 1, 2, 3]);
+  assertEquals('0123', goog.iter.join(iter, ''));
+
+  iter = new ArrayIterator([0, 1, 2, 3]);
+  assertEquals('0919293', goog.iter.join(iter, 9));
+
+  // Joining an empty iterator should result in an empty string
+  iter = new ArrayIterator([]);
+  assertEquals('', goog.iter.join(iter, ','));
+
+}
+
+function testRange() {
+  var iter = goog.iter.range(0, 5, 1);
+  assertEquals('01234', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(0, 5, 2);
+  assertEquals('024', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(0, 5, 5);
+  assertEquals('0', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(0, 5, 10);
+  assertEquals('0', goog.iter.join(iter, ''));
+
+  // negative step
+  var iter = goog.iter.range(5, 0, -1);
+  assertEquals('54321', goog.iter.join(iter, ''));
+
+
+  iter = goog.iter.range(5, 0, -2);
+  assertEquals('531', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(5, 0, -5);
+  assertEquals('5', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(5, 0, -10);
+  assertEquals('5', goog.iter.join(iter, ''));
+
+  // wrong direction should result in empty iterator
+  iter = goog.iter.range(0, 5, -1);
+  assertEquals('', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(5, 0, 1);
+  assertEquals('', goog.iter.join(iter, ''));
+
+  // a step of 0 is not allowed
+  goog.iter.range(0, 5, 0);
+
+  // test the opt args
+  iter = goog.iter.range(0, 5);
+  assertEquals('01234', goog.iter.join(iter, ''));
+
+  iter = goog.iter.range(5);
+  assertEquals('01234', goog.iter.join(iter, ''));
+
+}
+
+function testFilter() {
+  var iter = goog.iter.range(5);
+  var iter2 = goog.iter.filter(iter, function (val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val > 1;
+  });
+
+  assertEquals('234', goog.iter.join(iter2, ''));
+
+  // Chaining filters
+  iter = goog.iter.range(10);
+  var sb = [];
+  var evens = goog.iter.filter(iter, function(v) {
+    sb.push('a' + v);
+    return v % 2 == 0;
+  });
+  var evens2 = goog.iter.filter(evens, function(v) {
+    sb.push('b' + v);
+    return v >= 5;
+  });
+
+  assertEquals('68', goog.iter.join(evens2, ''));
+  // Not the order here. The next calls are done lazily
+  assertEquals('a0b0a1a2b2a3a4b4a5a6b6a7a8b8a9', sb.join(''))
+
+}
+
+function testMap() {
+  var iter = goog.iter.range(4);
+  var iter2 = goog.iter.map(iter, function (val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val * val;
+  });
+  assertEquals('0149', goog.iter.join(iter2, ''));
+}
+
+function testReduce() {
+  var iter = goog.iter.range(1, 5);
+  assertEquals(
+      10, // 1 + 2 + 3 + 4
+      goog.iter.reduce(iter, function(val, el) {
+        return val + el;
+      }, 0));
+}
+
+function testReduce2() {
+  var iter = goog.iter.range(1, 5);
+  assertEquals(
+      24, // 4!
+      goog.iter.reduce(iter, function(val, el) {
+        return val * el;
+      }, 1));
+}
+
+function testSome() {
+  var iter = goog.iter.range(5);
+  var b = goog.iter.some(iter, function (val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val > 1;
+  });
+  assertTrue(b);
+  iter = goog.iter.range(5);
+  b = goog.iter.some(iter, function (val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val > 100;
+  });
+  assertFalse(b);
+}
+
+
+function testEvery() {
+  var iter = goog.iter.range(5);
+  var b = goog.iter.every(iter, function (val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val >= 0;
+  });
+  assertTrue(b);
+  iter = goog.iter.range(5);
+  b = goog.iter.every(iter, function (val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val > 1;
+  });
+  assertFalse(b);
+}
+
+function testChain() {
+  var iter = goog.iter.range(0, 2);
+  var iter2 = goog.iter.range(2, 4);
+  var iter3 = goog.iter.range(4, 6);
+  var iter4 = goog.iter.chain(iter, iter2, iter3);
+
+  assertEquals('012345', goog.iter.join(iter4, ''));
+
+  // empty iter
+  iter = new goog.iter.Iterator;
+  iter2 = goog.iter.chain(iter);
+  assertEquals('', goog.iter.join(iter2, ''));
+
+  // no args
+  iter2 = goog.iter.chain();
+  assertEquals('', goog.iter.join(iter2, ''));
+}
+
+function testDropWhile() {
+  var iter = goog.iter.range(10);
+  var iter2 = goog.iter.dropWhile(iter, function(val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val < 5;
+  });
+
+  assertEquals('56789', goog.iter.join(iter2, ''));
+}
+
+function testDropWhile2() {
+  var iter = goog.iter.range(10);
+  var iter2 = goog.iter.dropWhile(iter, function(val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val != 5;
+  });
+
+  assertEquals('56789', goog.iter.join(iter2, ''));
+}
+
+
+function testTakeWhile() {
+  var iter = goog.iter.range(10);
+  var iter2 = goog.iter.takeWhile(iter, function(val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val < 5;
+  });
+
+  assertEquals('01234', goog.iter.join(iter2, ''));
+
+  // next() should not have been called on iter after the first failure and
+  // therefore it should contain some elements.  5 failed so we should have
+  // the rest
+  assertEquals('6789', goog.iter.join(iter, ''));
+}
+
+function testTakeWhile2() {
+  var iter = goog.iter.range(10);
+  var iter2 = goog.iter.takeWhile(iter, function(val, index, iter3) {
+    assertEquals(iter, iter3);
+    assertEquals('index should be undefined', 'undefined', typeof index);
+    return val != 5;
+  });
+
+  assertEquals('01234', goog.iter.join(iter2, ''));
+
+  // next() should not have been called on iter after the first failure and
+  // therefore it should contain some elements.  5 failed so we should have
+  // the rest
+  assertEquals('6789', goog.iter.join(iter, ''));
+}
+
+function testToArray() {
+  var iter = goog.iter.range(5);
+  var array = goog.iter.toArray(iter);
+  assertEquals('01234', array.join(''));
+
+  // Empty
+  iter = new goog.iter.Iterator;
+  array = goog.iter.toArray(iter);
+  assertEquals('Empty iterator to array', '', array.join(''));
+}
+
+function testToArray2() {
+  var iterable = [0, 1, 2, 3, 4];
+  var array = goog.iter.toArray(iterable);
+  assertEquals('01234', array.join(''));
+
+  // Empty
+  iterable = [];
+  array = goog.iter.toArray(iterable);
+  assertEquals('Empty iterator to array', '', array.join(''));
+}
+
+function testEquals() {
+  var iter = goog.iter.range(5);
+  var iter2 = goog.iter.range(5);
+  assertTrue('Equal iterators', goog.iter.equals(iter, iter2));
+
+  iter = goog.iter.range(4);
+  iter2 = goog.iter.range(5);
+  assertFalse('Second one is longer', goog.iter.equals(iter, iter2));
+
+  iter = goog.iter.range(5);
+  iter2 = goog.iter.range(4);
+  assertFalse('First one is longer', goog.iter.equals(iter, iter2));
+
+  // 2 empty iterators
+  iter = new goog.iter.Iterator;
+  iter2 = new goog.iter.Iterator;
+  assertTrue('Two empty iterators are equal', goog.iter.equals(iter, iter2));
+
+  iter = goog.iter.range(4);
+  assertFalse('Same iterator', goog.iter.equals(iter, iter));
+}
+
+
+function testToIterator() {
+  var iter = new goog.iter.range(5);
+  var iter2 = goog.iter.toIterator(iter);
+  assertEquals('toIterator on an iterator should return the same obejct',
+               iter, iter2);
+
+  var iterLikeObject = {
+    next: function() {
+      throw goog.iter.StopIteration;
+    }
+  };
+  var obj = {
+    __iterator__: function(opt_keys) {
+      assertFalse(
+          '__iterator__ should always be called with false in toIterator',
+          opt_keys);
+      return iterLikeObject;
+    }
+  };
+
+  assertEquals('Should return the return value of __iterator_(false)',
+               iterLikeObject, goog.iter.toIterator(obj));
+
+  // Array
+  var array = [0, 1, 2, 3, 4];
+  iter = goog.iter.toIterator(array);
+  assertEquals('01234', goog.iter.join(iter, ''));
+
+  // Array like
+  var arrayLike = {'0': 0, '1': 1, '2': 2, length: 3};
+  iter = goog.iter.toIterator(arrayLike);
+  assertEquals('012', goog.iter.join(iter, ''));
+
+  // DOM
+  var dom = document.getElementById('t1').childNodes;
+  iter = goog.iter.toIterator(dom);
+  iter2 = goog.iter.map(iter, function(el) {
+    return el.innerHTML;
+  });
+  assertEquals('012', goog.iter.join(iter2, ''));
+}
+
+
+function testNextOrValue() {
+  var iter = goog.iter.toIterator([1]);
+
+  assertEquals('Should return value when iterator is non-empty',
+      1, goog.iter.nextOrValue(iter, null));
+  assertNull('Should return given default when iterator is empty',
+      goog.iter.nextOrValue(iter, null));
+  assertEquals('Should return given default when iterator is (still) empty',
+      -1, goog.iter.nextOrValue(iter, -1));
+}
+
+// Return the product of several arrays as an array
+function productAsArray(var_args) {
+  var iter = goog.iter.product.apply(null, arguments);
+  return goog.iter.toArray(iter);
+}
+
+function testProduct() {
+  assertArrayEquals([[1, 3], [1, 4], [2, 3], [2, 4]],
+      productAsArray([1, 2], [3, 4]));
+
+  assertArrayEquals([
+    [1, 3, 5], [1, 3, 6], [1, 4, 5], [1, 4, 6],
+    [2, 3, 5], [2, 3, 6], [2, 4, 5], [2, 4, 6]
+  ], productAsArray([1, 2], [3, 4], [5, 6]));
+
+  assertArrayEquals([[1]],  productAsArray([1]));
+  assertArrayEquals([],  productAsArray([1], []));
+  assertArrayEquals([], productAsArray());
+
+  var expectedResult = [];
+  var a = [1, 2, 3];
+  var b = [4, 5, 6];
+  var c = [7, 8, 9];
+  for (var i = 0; i < a.length; i ++) {
+    for (var j = 0; j < b.length; j ++) {
+      for (var k = 0; k < c.length; k ++) {
+        expectedResult.push([a[i], b[j], c[k]]);
+      }
+    }
+  }
+
+  assertArrayEquals(expectedResult, productAsArray(a, b, c));
+}
+
+function testProductIteration() {
+  var iter = goog.iter.product([1, 2], [3, 4]);
+
+  assertArrayEquals([1, 3], iter.next());
+  assertArrayEquals([1, 4], iter.next());
+  assertArrayEquals([2, 3], iter.next());
+  assertArrayEquals([2, 4], iter.next());
+
+  var ex = assertThrows(function() { iter.next() });
+  assertEquals(goog.iter.StopIteration, ex);
+
+  // Ensure the iterator forever throws StopIteration.
+  for (var i = 0; i < 5; i++) {
+    var ex = assertThrows(function() { iter.next() });
+    assertEquals(goog.iter.StopIteration, ex);
+  }
+
+  iter = goog.iter.product();
+  var ex = assertThrows(function() { iter.next() });
+  assertEquals(goog.iter.StopIteration, ex);
+
+  iter = goog.iter.product([]);
+  var ex = assertThrows(function() { iter.next() });
+  assertEquals(goog.iter.StopIteration, ex);
+}
+
+function testCycle() {
+
+  var regularArray = [1, 2, 3];
+  var iter = goog.iter.cycle(regularArray);
+
+  // Test 3 cycles to ensure proper cache behavior
+  var values = [];
+  for (var i = 0; i < 9; i++) {
+    values.push(iter.next());
+  }
+
+  assertArrayEquals([1, 2, 3, 1, 2, 3, 1, 2, 3], values);
+}
+
+function testCycleSingleItemIterable() {
+  var singleItemArray = [1];
+
+  var iter = goog.iter.cycle(singleItemArray);
+  var values = [];
+
+  for (var i = 0; i < 5; i++) {
+    values.push(iter.next());
+  }
+
+  assertArrayEquals([1, 1, 1, 1, 1], values);
+}
+
+function testCycleEmptyIterable() {
+
+  var emptyArray = [];
+
+  var iter = goog.iter.cycle(emptyArray);
+  var ex = assertThrows(function(){ iter.next(); });
+  assertEquals(goog.iter.StopIteration, ex);
+}
+
+</script>
+</body>
+</html>

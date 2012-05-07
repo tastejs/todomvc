@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>goog.editor.plugins.LinkDialogPlugin Tests</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.editor.BrowserFeature');
+  goog.require('goog.editor.Command');
+  goog.require('goog.editor.Field');
+  goog.require('goog.editor.Link');
+  goog.require('goog.editor.plugins.LinkDialogPlugin');
+  goog.require('goog.string.Unicode');
+  goog.require('goog.testing.MockControl');
+  goog.require('goog.testing.editor.FieldMock');
+  goog.require('goog.testing.editor.TestHelper');
+  goog.require('goog.testing.editor.dom');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.mockmatchers');
+  goog.require('goog.ui.editor.AbstractDialog.EventType');
+  goog.require('goog.ui.editor.LinkDialog');
+  goog.require('goog.ui.editor.LinkDialog.OkEvent');
+  goog.require('goog.userAgent');
+</script>
+<link rel="stylesheet" href="../../css/dialog.css"/>
+<link rel="stylesheet" href="../../css/editor/dialog.css"/>
+<link rel="stylesheet" href="../../css/editor/linkdialog.css"/>
+</head>
+<body>
+<script>
+  var plugin;
+  var anchorElem;
+  var isNew;
+
+  var mockCtrl;
+  var mockField;
+  var mockLink;
+
+  var OLD_LINK_TEXT = 'old text';
+  var OLD_LINK_URL = 'http://old.url/';
+  var NEW_LINK_TEXT = 'My Link Text';
+  var NEW_LINK_URL = 'http://my.link/url/';
+
+  var fieldElem;
+  var fieldObj;
+  var linkObj;
+
+  function setUp() {
+    anchorElem = goog.dom.createElement(goog.dom.TagName.A);
+    anchorElem.href = 'http://www.google.com/';
+    anchorElem.innerHTML = 'anchor text';
+    goog.dom.appendChild(goog.dom.getDocument().body, anchorElem);
+
+    mockCtrl = new goog.testing.MockControl();
+    mockField = new goog.testing.editor.FieldMock();
+    mockCtrl.addMock(mockField);
+    mockLink = mockCtrl.createLooseMock(goog.editor.Link);
+
+    isNew = false;
+    mockLink.isNew().$anyTimes().$does(function() {
+      return isNew;
+    });
+    mockLink.
+        setTextAndUrl(goog.testing.mockmatchers.isString,
+            goog.testing.mockmatchers.isString).
+        $anyTimes().
+        $does(function(text, url) {
+          anchorElem.innerHTML = text;
+          anchorElem.href = url;
+        });
+    mockLink.getAnchor().$anyTimes().$returns(anchorElem);
+  }
+
+  function tearDown() {
+    plugin.dispose();
+    tearDownRealEditableField();
+    goog.dom.removeNode(anchorElem);
+  }
+
+  function setUpAnchor(text, href, opt_isNew, opt_target) {
+    anchorElem.innerHTML = text;
+    anchorElem.href = href;
+    isNew = !!opt_isNew;
+    if (opt_target) {
+      anchorElem.target = opt_target;
+    }
+  }
+
+  /**
+   * Tests that the plugin's dialog is properly created.
+   */
+  function testCreateDialog() {
+    // Note: this tests simply creating the dialog because that's the only
+    // functionality added to this class. Opening or closing effects (editing
+    // the actual link) is tested in linkdialog_test.html, but should be moved
+    // here if that functionality gets refactored from the dialog to the plugin.
+    mockCtrl.$replayAll();
+
+    plugin = new goog.editor.plugins.LinkDialogPlugin();
+    plugin.registerFieldObject(mockField);
+
+    var dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+    assertTrue('Dialog should be of type goog.ui.editor.LinkDialog',
+               dialog instanceof goog.ui.editor.LinkDialog);
+
+    mockCtrl.$verifyAll();
+  }
+
+  /**
+   * Tests that when the OK event fires the link is properly updated.
+   */
+  function testOk() {
+    mockLink.placeCursorRightOf();
+    mockField.dispatchSelectionChangeEvent();
+    mockField.dispatchChange();
+    mockCtrl.$replayAll();
+
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL);
+    plugin = new goog.editor.plugins.LinkDialogPlugin();
+    plugin.registerFieldObject(mockField);
+    var dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+
+    // Mock of execCommand + clicking OK without actually opening the dialog.
+    plugin.currentLink_ = mockLink;
+    dialog.dispatchEvent(new goog.ui.editor.LinkDialog.OkEvent(NEW_LINK_TEXT,
+                                                             NEW_LINK_URL));
+
+    assertEquals('Display text incorrect',
+                 NEW_LINK_TEXT,
+                 anchorElem.innerHTML);
+    assertEquals('Anchor element href incorrect',
+                 NEW_LINK_URL,
+                 anchorElem.href);
+
+    mockCtrl.$verifyAll();
+  }
+
+  /**
+   * Tests that when the Cancel event fires the link is unchanged.
+   */
+  function testCancel() {
+    mockCtrl.$replayAll();
+
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL);
+    plugin = new goog.editor.plugins.LinkDialogPlugin();
+    plugin.registerFieldObject(mockField);
+    var dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+
+    // Mock of execCommand + cancel without actually opening the dialog.
+    plugin.currentLink_ = mockLink;
+    dialog.dispatchEvent(goog.ui.editor.AbstractDialog.EventType.CANCEL);
+
+    assertEquals('Display text should not be changed',
+                 OLD_LINK_TEXT,
+                 anchorElem.innerHTML);
+    assertEquals('Anchor element href should not be changed',
+                 OLD_LINK_URL,
+                 anchorElem.href);
+
+    mockCtrl.$verifyAll();
+  }
+
+  /**
+   * Tests that when the Cancel event fires for a new link it gets removed.
+   */
+  function testCancelNew() {
+    mockField.dispatchChange(); // Should be fired because link was removed.
+    mockCtrl.$replayAll();
+
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL, true);
+    var prevSib = anchorElem.previousSibling;
+    plugin = new goog.editor.plugins.LinkDialogPlugin();
+    plugin.registerFieldObject(mockField);
+    var dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+
+    // Mock of execCommand + cancel without actually opening the dialog.
+    plugin.currentLink_ = mockLink;
+    dialog.dispatchEvent(goog.ui.editor.AbstractDialog.EventType.CANCEL);
+
+    assertNotEquals('Anchor element should be removed from document body',
+                    goog.dom.getDocument().body,
+                    anchorElem.parentNode);
+    var newElem = prevSib.nextSibling;
+    assertEquals('Link should be replaced by text node',
+                 goog.dom.NodeType.TEXT,
+                 newElem.nodeType);
+    assertEquals('Original text should be left behind',
+                 OLD_LINK_TEXT,
+                 newElem.nodeValue);
+
+    mockCtrl.$verifyAll();
+    goog.dom.removeNode(newElem);
+  }
+
+  /**
+   * Tests the anchor's target is correctly modified with the "open in new
+   * window" feature on.
+   */
+  function testOkOpenInNewWindow() {
+    mockLink.placeCursorRightOf().$anyTimes();
+    mockField.dispatchSelectionChangeEvent().$anyTimes();
+    mockField.dispatchChange().$anyTimes();
+    mockCtrl.$replayAll();
+
+    plugin = new goog.editor.plugins.LinkDialogPlugin();
+    plugin.registerFieldObject(mockField);
+    plugin.showOpenLinkInNewWindow(false);
+    plugin.currentLink_ = mockLink;
+
+    // Edit a link that doesn't open in a new window and leave it as such.
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL);
+    var dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+    dialog.dispatchEvent(new goog.ui.editor.LinkDialog.OkEvent(
+            NEW_LINK_TEXT, NEW_LINK_URL, false));
+    assertEquals(
+        'Target should not be set for link that doesn\'t open in new window',
+        '', anchorElem.target);
+    assertFalse('Checked state should stay false',
+        plugin.getOpenLinkInNewWindowCheckedState());
+
+    // Edit a link that doesn't open in a new window and toggle it on.
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL);
+    dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+    dialog.dispatchEvent(new goog.ui.editor.LinkDialog.OkEvent(
+            NEW_LINK_TEXT, NEW_LINK_URL, true));
+    assertEquals(
+        'Target should be set to _blank for link that opens in new window',
+        '_blank', anchorElem.target);
+    assertTrue('Checked state should be true after toggling a link on',
+        plugin.getOpenLinkInNewWindowCheckedState());
+
+    // Edit a link that doesn't open in a named window and don't touch it.
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL, false, 'named');
+    dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+    dialog.dispatchEvent(new goog.ui.editor.LinkDialog.OkEvent(
+            NEW_LINK_TEXT, NEW_LINK_URL, false));
+    assertEquals(
+        'Target should keep its original value',
+        'named', anchorElem.target);
+    assertFalse('Checked state should be false again',
+        plugin.getOpenLinkInNewWindowCheckedState());
+
+    // Edit a link that opens in a new window and toggle it off.
+    setUpAnchor(OLD_LINK_TEXT, OLD_LINK_URL, false, '_blank');
+    dialog = plugin.createDialog(new goog.dom.DomHelper(), mockLink);
+    dialog.dispatchEvent(new goog.ui.editor.LinkDialog.OkEvent(
+            NEW_LINK_TEXT, NEW_LINK_URL, false));
+    assertEquals(
+        'Target should not be set for link that doesn\'t open in new window',
+        '', anchorElem.target);
+
+    mockCtrl.$verifyAll();
+  }
+
+  /**
+   * Tests that the selection is cleared when the dialog opens and is
+   * correctly restored after cancel is clicked.
+   */
+  function testRestoreSelectionOnOk() {
+    setUpAnchor('12345', '/');
+    setUpRealEditableField();
+
+    var elem = fieldObj.getElement();
+    var helper = new goog.testing.editor.TestHelper(elem);
+    helper.select('12345', 1, '12345', 4); // Selects '234'.
+
+    assertEquals('Incorrect text selected before dialog is opened',
+                 '234',
+                 fieldObj.getRange().getText());
+    plugin.execCommand(goog.editor.Command.MODAL_LINK_EDITOR, linkObj);
+    if (!goog.userAgent.IE && !goog.userAgent.OPERA) {
+      // IE returns some bogus range when field doesn't have selection.
+      // You can't remove the selection from a whitebox field in Opera.
+      assertNull('There should be no selection while dialog is open',
+                 fieldObj.getRange());
+    }
+    goog.testing.events.fireClickSequence(
+        plugin.dialog_.getOkButtonElement());
+    assertEquals('No text should be selected after clicking ok',
+                 '',
+                 fieldObj.getRange().getText());
+
+    // Test that the caret is placed at the end of the link text.
+    goog.testing.editor.dom.assertRangeBetweenText(
+        // If the browser gets stuck in links, an nbsp was added after the link
+        // to avoid that, otherwise we just look for the 5.
+        goog.editor.BrowserFeature.GETS_STUCK_IN_LINKS ?
+            goog.string.Unicode.NBSP : '5',
+        '',
+        fieldObj.getRange());
+
+    // NOTE(user): The functionality to avoid getting stuck in links is
+    // tested in editablelink_test.html::testPlaceCursorRightOf().
+  }
+
+  /**
+   * Tests that the selection is cleared when the dialog opens and is
+   * correctly restored after cancel is clicked.
+   * @param {boolean=} opt_isNew Whether to test behavior when creating a new
+   *     link (cancelling will flatten it).
+   */
+  function testRestoreSelectionOnCancel(opt_isNew) {
+    setUpAnchor('12345', '/', opt_isNew);
+    setUpRealEditableField();
+
+    var elem = fieldObj.getElement();
+    var helper = new goog.testing.editor.TestHelper(elem);
+    helper.select('12345', 1, '12345', 4); // Selects '234'.
+
+    assertEquals('Incorrect text selected before dialog is opened',
+                 '234',
+                 fieldObj.getRange().getText());
+    plugin.execCommand(goog.editor.Command.MODAL_LINK_EDITOR, linkObj);
+    if (!goog.userAgent.IE && !goog.userAgent.OPERA) {
+      // IE returns some bogus range when field doesn't have selection.
+      // You can't remove the selection from a whitebox field in Opera.
+      assertNull('There should be no selection while dialog is open',
+                 fieldObj.getRange());
+    }
+    goog.testing.events.fireClickSequence(
+        plugin.dialog_.getCancelButtonElement());
+    assertEquals('Incorrect text selected after clicking cancel',
+                 '234',
+                 fieldObj.getRange().getText());
+  }
+
+  /**
+   * Tests that the selection is cleared when the dialog opens and is
+   * correctly restored after cancel is clicked and the new link is removed.
+   */
+  function testRestoreSelectionOnCancelNew() {
+    testRestoreSelectionOnCancel(true);
+  }
+
+  /**
+   * Regression test for http://b/issue?id=1607766 . Without the fix, this
+   * should give an Invalid Argument error in IE, because the editable field
+   * caches a selection util that has a reference to the node of the link text
+   * before it is edited (which gets replaced by a new node for the new text
+   * after editing).
+   */
+  function testBug1607766() {
+    setUpAnchor('abc', 'def');
+    setUpRealEditableField();
+
+    var elem = fieldObj.getElement();
+    var helper = new goog.testing.editor.TestHelper(elem);
+    helper.select('abc', 1, 'abc', 2); // Selects 'b'.
+    // Dispatching a selection event causes the field to cache a selection
+    // util, which is the root of the bug.
+    plugin.fieldObject.dispatchSelectionChangeEvent();
+
+    plugin.execCommand(goog.editor.Command.MODAL_LINK_EDITOR, linkObj);
+    goog.dom.getElement(
+        goog.ui.editor.LinkDialog.Id_.TEXT_TO_DISPLAY).value = 'Abc';
+    goog.testing.events.fireClickSequence(plugin.dialog_.getOkButtonElement());
+
+    // In IE the unit test somehow doesn't cause a browser focus event, so we
+    // need to manually invoke this, which is where the bug happens.
+    plugin.fieldObject.dispatchFocus_();
+  }
+
+  /**
+   * Regression test for http://b/issue?id=2215546 .
+   */
+  function testBug2215546() {
+    setUpRealEditableField();
+
+    var elem = fieldObj.getElement();
+    fieldObj.setHtml(false, '<div><a href="/"></a></div>');
+    anchorElem = elem.firstChild.firstChild;
+    linkObj = new goog.editor.Link(anchorElem, true);
+
+    var helper = new goog.testing.editor.TestHelper(elem);
+    // Select "</a>" in a way, simulating what IE does if you hit enter twice,
+    // arrow up into the blank line and open the link dialog.
+    helper.select(anchorElem, 0, elem.firstChild, 1);
+
+    plugin.execCommand(goog.editor.Command.MODAL_LINK_EDITOR, linkObj);
+    goog.dom.getElement(
+        goog.ui.editor.LinkDialog.Id_.TEXT_TO_DISPLAY).value = 'foo';
+    goog.dom.getElement(
+        goog.ui.editor.LinkDialog.Id_.ON_WEB_INPUT).value = 'foo';
+    var okButton = plugin.dialog_.getOkButtonElement();
+    okButton.disabled = false;
+    goog.testing.events.fireClickSequence(okButton);
+
+    assertEquals('Link text should have been inserted',
+                 'foo', anchorElem.innerHTML);
+  }
+
+  /**
+   * Setup a real editable field (instead of a mock) and register the plugin to
+   * it.
+   */
+  function setUpRealEditableField() {
+    fieldElem = document.createElement('div');
+    fieldElem.id = 'myField';
+    document.body.appendChild(fieldElem);
+    fieldElem.appendChild(anchorElem);
+    fieldObj = new goog.editor.Field('myField', document);
+    fieldObj.makeEditable();
+    linkObj = new goog.editor.Link(fieldObj.getElement().firstChild, isNew)
+    // Register the plugin to that field.
+    plugin = new goog.editor.plugins.LinkDialogPlugin();
+    fieldObj.registerPlugin(plugin);
+  }
+
+  /**
+   * Tear down the real editable field.
+   */
+  function tearDownRealEditableField() {
+    if (fieldObj) {
+      fieldObj.makeUneditable();
+      fieldObj.dispose();
+      fieldObj = null;
+    }
+    goog.dom.removeNode(fieldElem);
+  }
+
+
+</script>
+</body>
+</html>

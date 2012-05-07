@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.structs.Trie</title>
+</script>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.object');
+  goog.require('goog.structs');
+  goog.require('goog.structs.Trie');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function makeTrie() {
+  var trie = new goog.structs.Trie();
+  trie.add('hello', 1);
+  trie.add('hi', 'howdy');
+  trie.add('', 'an empty string key');
+  trie.add('empty value', '');
+  trie.add('zero', 0);
+  trie.add('object', {});
+  trie.add('null', null);
+  trie.add('hello, world', 2);
+  trie.add('world', {});
+  return trie;
+}
+
+function checkTrie(trie) {
+  assertEquals('get, should be 1', trie.get('hello'), 1);
+  assertEquals('get, should be "howdy"', trie.get('hi'), 'howdy');
+  assertEquals('get, should be "an empty string key"', trie.get(''),
+      'an empty string key');
+  assertEquals('get, should be ""', trie.get('empty value'), '');
+  assertEquals('get, should be ""', typeof trie.get('empty value'), 'string');
+  assertEquals('get, should be an object', typeof trie.get('object'), 'object');
+  assertEquals('get, should be 0', trie.get('zero'), 0);
+  assertEquals('get "null", should be null', trie.get('null'), null);
+  assertEquals('get, should be 2', trie.get('hello, world'), 2);
+  assertEquals('get, should be an object', typeof trie.get('world'), 'object');
+}
+
+function testTrieFormation() {
+  var t = makeTrie();
+  checkTrie(t);
+}
+
+function testFailureOfMultipleAdds() {
+  var t = new goog.structs.Trie();
+  t.add('hello', 'testing');
+  assertThrows('Error should be thrown when same key added twice.', function() {
+    t.add('hello', 'test');
+  });
+
+  t = new goog.structs.Trie();
+  t.add('null', null);
+  assertThrows('Error should be thrown when same key added twice.', function() {
+    t.add('null', 'hi!');
+  });
+
+  t = new goog.structs.Trie();
+  t.add('null', 'blah');
+  assertThrows('Error should be thrown when same key added twice.', function() {
+    t.add('null', null);
+  });
+}
+
+function testTrieClone() {
+  var trieOne = makeTrie();
+  var trieTwo = new goog.structs.Trie(trieOne);
+  checkTrie(trieTwo);
+}
+
+function testTrieFromObject() {
+  var someObject = {'hello' : 1,
+                    'hi' : 'howdy',
+                    '' : 'an empty string key',
+                    'empty value' : '',
+                    'object' : {},
+                    'zero' : 0,
+                    'null' : null,
+                    'hello, world' : 2,
+                    'world' : {}};
+  var trie = new goog.structs.Trie(someObject);
+  checkTrie(trie);
+}
+
+function testTrieGetValues() {
+  var trie = makeTrie();
+  var values = trie.getValues();
+  assertTrue('getValues, should contain "howdy"',
+      goog.object.contains(values, 'howdy'));
+  assertTrue('getValues, should contain 1', goog.object.contains(values, 1));
+  assertTrue('getValues, should contain 0', goog.object.contains(values, 0));
+  assertTrue('getValues, should contain ""', goog.object.contains(values, ''));
+  assertTrue('getValues, should contain null',
+      goog.object.contains(values, null));
+  assertEquals('goog.structs.getCount(getValues()) should be 9',
+      goog.structs.getCount(values), 9);
+}
+
+function testTrieGetKeys() {
+  var trie = makeTrie();
+  var keys = trie.getKeys();
+  assertTrue('getKeys, should contain "hello"',
+      goog.object.contains(keys, 'hello'));
+  assertTrue('getKeys, should contain "empty value"',
+      goog.object.contains(keys, 'empty value'));
+  assertTrue('getKeys, should contain ""', goog.object.contains(keys, ''));
+  assertTrue('getKeys, should contain "zero"',
+      goog.object.contains(keys, 'zero'));
+  assertEquals('goog.structs.getCount(getKeys()) should be 9',
+      goog.structs.getCount(keys), 9);
+}
+
+
+function testTrieCount() {
+  var trieOne = makeTrie();
+  var trieTwo = new goog.structs.Trie();
+  assertEquals('count, should be 9', trieOne.getCount(), 9);
+  assertEquals('count, should be 0', trieTwo.getCount(), 0);
+}
+
+function testRemoveKeyFromTrie() {
+  var trie = new goog.structs.Trie();
+  trie.add('key1', 'value1');
+  trie.add('key2', 'value2');
+  trie.add('ke', 'value3');
+  trie.add('zero', 0);
+  trie.remove('key2');
+  assertEquals('get "key1", should be "value1"', trie.get('key1'), 'value1');
+  assertUndefined('get "key2", should be undefined', trie.get('key2'));
+  trie.remove('zero');
+  assertUndefined('get "zero", should be undefined', trie.get('zero'));
+  trie.remove('ke');
+  assertUndefined('get "ke", should be undefined', trie.get('ke'));
+  assertEquals('get "key1", should be "value1"', trie.get('key1'), 'value1');
+  trie.add('a', 'value4');
+  assertTrue('testing internal structure, a should be a child',
+      'a' in trie.childNodes_);
+  trie.remove('a');
+  assertFalse('testing internal structure, a should no longer be a child',
+      'a' in trie.childNodes_);
+
+  trie.add('xyza', 'value');
+  trie.remove('xyza', 'value');
+  assertFalse('Should not have "x"', 'x' in trie.childNodes_);
+
+  trie.add('xyza', null);
+  assertTrue('Should have "x"', 'x' in trie.childNodes_);
+  trie.remove('xyza');
+  assertFalse('Should not have "x"', 'x' in trie.childNodes_);
+
+  trie.add('xyza', 'value');
+  trie.add('xb', 'value');
+  trie.remove('xyza');
+  assertTrue('get "x" should be defined', 'x' in trie.childNodes_);
+  assertFalse('get "y" should be undefined',
+      'y' in trie.childNodes_['x'].childNodes_);
+}
+
+function testRemoveKeyFromTrieWithNulls() {
+  var trie = new goog.structs.Trie();
+  trie.add('key1', null);
+  trie.add('key2', 'value2');
+  trie.add('ke', 'value3');
+  trie.add('zero', 0);
+  trie.remove('key2');
+  assertEquals('get "key1", should be null', trie.get('key1'), null);
+  assertUndefined('get "key2", should be undefined', trie.get('key2'));
+  trie.remove('zero');
+  assertUndefined('get "zero", should be undefined', trie.get('zero'));
+  trie.remove('ke');
+  assertUndefined('get "ke", should be undefined', trie.get('ke'));
+  assertEquals('get "key1", should be null', trie.get('key1'), null);
+  trie.add('a', 'value4');
+  assertTrue('testing internal structure, a should be a child',
+      'a' in trie.childNodes_);
+  trie.remove('a');
+  assertFalse('testing internal structure, a should no longer be a child',
+      'a' in trie.childNodes_);
+
+  trie.add('xyza', null);
+  trie.add('xb', 'value');
+  trie.remove('xyza');
+  assertTrue('Should have "x"', 'x' in trie.childNodes_);
+  assertFalse('Should not have "y"',
+      'y' in trie.childNodes_['x'].childNodes_);
+}
+
+function testRemoveKeyException() {
+  var trie = new goog.structs.Trie();
+  trie.add('abcdefg', 'value');
+  trie.add('abcz', 'value');
+  trie.add('abc', 'value');
+
+  assertThrows('Remove should throw an error on removal of non-existent key',
+      function() {
+        trie.remove('abcdefge');
+      });
+}
+
+function testTrieIsEmpty() {
+  var trieOne = new goog.structs.Trie();
+  var trieTwo = makeTrie();
+  assertTrue('isEmpty, should be empty', trieOne.isEmpty());
+  assertFalse('isEmpty, should not be empty', trieTwo.isEmpty());
+  trieOne.add('', 1);
+  assertFalse('isEmpty, should not be empty', trieTwo.isEmpty());
+  trieOne.remove('');
+  assertTrue('isEmpty, should be empty', trieOne.isEmpty());
+  trieOne.add('', 1);
+  trieOne.add('a', 1);
+  trieOne.remove('a');
+  assertFalse('isEmpty, should not be empty', trieOne.isEmpty());
+  trieOne.remove('');
+  assertTrue('isEmpty, should be empty', trieOne.isEmpty());
+  trieOne.add('', 1);
+  trieOne.add('a', 1);
+  trieOne.remove('');
+  assertFalse('isEmpty, should not be empty', trieOne.isEmpty());
+  trieOne.remove('a');
+  assertTrue('isEmpty, should be empty', trieOne.isEmpty());
+}
+
+function testTrieClear() {
+  var trie = new goog.structs.Trie();
+  trie.add('key1', 'value1');
+  trie.add('key2', 'value2');
+  trie.add('key3', null);
+  trie.clear();
+  assertUndefined('get key1, should be undefined', trie.get('key1'));
+  assertUndefined('get key2, should be undefined', trie.get('key2'));
+  assertUndefined('get key3, should be undefined', trie.get('key3'));
+}
+
+function testTrieContainsKey() {
+  var trie = makeTrie();
+  assertTrue('containsKey, should contain "hello"', trie.containsKey('hello'));
+  assertTrue('containsKey, should contain "hi"', trie.containsKey('hi'));
+  assertTrue('containsKey, should contain ""', trie.containsKey(''));
+  assertTrue('containsKey, should contain "empty value"',
+      trie.containsKey('empty value'));
+  assertTrue('containsKey, should contain "object"',
+      trie.containsKey('object'));
+  assertTrue('containsKey, should contain "zero"', trie.containsKey('zero'));
+  assertTrue('containsKey, should contain "null"', trie.containsKey('null'));
+  assertFalse('containsKey, should not contain "blah"',
+      trie.containsKey('blah'));
+  trie.remove('');
+  trie.remove('hi');
+  trie.remove('zero');
+  trie.remove('null');
+  assertFalse('containsKey, should not contain "zero"',
+      trie.containsKey('zero'));
+  assertFalse('containsKey, should not contain ""', trie.containsKey(''));
+  assertFalse('containsKey, should not contain "hi"', trie.containsKey('hi'));
+  assertFalse('containsKey, should not contain "null"',
+      trie.containsKey('null'));
+}
+
+function testTrieContainsValue() {
+  var trie = makeTrie();
+  assertTrue('containsValue, should be true, should contain 1',
+      trie.containsValue(1));
+  assertTrue('containsValue, should be true, should contain "howdy"',
+      trie.containsValue('howdy'));
+  assertTrue('containsValue, should be true, should contain ""',
+      trie.containsValue(''));
+  assertTrue('containsValue, should be true, should contain 0',
+      trie.containsValue(0));
+  assertTrue('containsValue, should be true, should contain null',
+      trie.containsValue(null));
+  assertTrue('containsValue, should be true, should ' +
+      'contain "an empty string key"',
+      trie.containsValue('an empty string key'));
+  assertFalse('containsValue, should be false, should not contain "blah"',
+      trie.containsValue('blah'));
+  trie.remove('empty value');
+  trie.remove('zero');
+  assertFalse('containsValue, should be false, should not contain 0',
+      trie.containsValue(0));
+  assertFalse('containsValue, should be false, should not contain ""',
+      trie.containsValue(''));
+}
+
+function testTrieHandlingOfEmptyStrings() {
+  var trie = new goog.structs.Trie();
+  assertEquals('get, should be undefined', trie.get(''), undefined);
+  assertFalse('containsValue, should be false', trie.containsValue(''));
+  assertFalse('containsKey, should be false', trie.containsKey(''));
+  trie.add('', 'test');
+  trie.add('test2', '');
+  assertTrue('containsValue, should be true', trie.containsValue(''));
+  assertTrue('containsKey, should be true', trie.containsKey(''));
+  assertEquals('get, should be "test"', trie.get(''), 'test');
+  assertEquals('get, should be ""', trie.get('test2'), '');
+  trie.remove('');
+  trie.remove('test2');
+  assertEquals('get, should be undefined', trie.get(''), undefined);
+  assertFalse('containsValue, should be false', trie.containsValue(''));
+  assertFalse('containsKey, should be false', trie.containsKey(''));
+}
+
+function testPrefixOptionOnGetKeys() {
+  var trie = new goog.structs.Trie();
+  trie.add('abcdefg', 'one');
+  trie.add('abcdefghijk', 'two');
+  trie.add('abcde', 'three');
+  trie.add('abcq', null);
+  trie.add('abc', 'four');
+  trie.add('xyz', 'five');
+  assertEquals('getKeys, should be 1', trie.getKeys('xy').length, 1);
+  assertEquals('getKeys, should be 1', trie.getKeys('xyz').length, 1);
+  assertEquals('getKeys, should be 1', trie.getKeys('x').length, 1);
+  assertEquals('getKeys, should be 4', trie.getKeys('abc').length, 5);
+  assertEquals('getKeys, should be 2', trie.getKeys('abcdef').length, 2);
+  assertEquals('getKeys, should be 0', trie.getKeys('abcdefgi').length, 0);
+}
+
+function testGetKeyAndPrefixes() {
+  var trie = makeTrie();
+  // Note: trie has one of its keys as ''
+  assertEquals('getKeyAndPrefixes, should be 2',
+               2,
+               goog.object.getCount(trie.getKeyAndPrefixes('world')));
+  assertEquals('getKeyAndPrefixes, should be 2',
+               2,
+               goog.object.getCount(trie.getKeyAndPrefixes('hello')));
+  assertEquals('getKeyAndPrefixes, should be 2',
+               2,
+               goog.object.getCount(trie.getKeyAndPrefixes('hello,')));
+  assertEquals('getKeyAndPrefixes, should be 3',
+               3,
+               goog.object.getCount(trie.getKeyAndPrefixes('hello, world')));
+  assertEquals('getKeyAndPrefixes, should be 1',
+               1,
+               goog.object.getCount(trie.getKeyAndPrefixes('hell')));
+}
+
+function testGetKeyAndPrefixesStartIndex() {
+  var trie = new goog.structs.Trie();
+  trie.add('abcdefg', 'one');
+  trie.add('bcdefg', 'two');
+  trie.add('abcdefghijk', 'three');
+  trie.add('abcde', 'four');
+  trie.add('abcq', null);
+  trie.add('q', null);
+  trie.add('abc', 'five');
+  trie.add('xyz', 'six');
+  assertEquals('getKeyAndPrefixes, should be 3',
+               3,
+               goog.object.getCount(trie.getKeyAndPrefixes('abcdefg', 0)));
+  assertEquals('getKeyAndPrefixes, should be 1',
+               1,
+               goog.object.getCount(trie.getKeyAndPrefixes('abcdefg', 1)));
+  assertEquals('getKeyAndPrefixes, should be 1',
+               1,
+               goog.object.getCount(trie.getKeyAndPrefixes('abcq', 3)));
+  assertEquals('getKeyAndPrefixes, should be 0',
+               0,
+               goog.object.getCount(trie.getKeyAndPrefixes('abcd', 3)));
+}
+
+</script>
+</body>
+</html>

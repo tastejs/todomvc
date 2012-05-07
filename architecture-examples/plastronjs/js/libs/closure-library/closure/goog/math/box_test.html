@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.math.Box</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.math.Box');
+goog.require('goog.math.Coordinate');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testBoxClone() {
+  var b = new goog.math.Box(0, 0, 0, 0);
+  assertTrue(goog.math.Box.equals(b, b.clone()));
+
+  b.left = 0;
+  b.top = 1;
+  b.right = 2;
+  b.bottom = 3;
+  assertTrue(goog.math.Box.equals(b, b.clone()));
+}
+
+function testBoxDistance() {
+  var box = new goog.math.Box(50, 100, 100, 50);
+
+  assertEquals(25,
+               goog.math.Box.distance(box, new goog.math.Coordinate(75, 25)));
+  assertEquals(10,
+               goog.math.Box.distance(box, new goog.math.Coordinate(40, 80)));
+  assertEquals(5,
+               goog.math.Box.distance(box, new goog.math.Coordinate(46, 47)));
+  assertEquals(10,
+               goog.math.Box.distance(box, new goog.math.Coordinate(106, 108)));
+}
+
+function testBoxContains() {
+  var box = new goog.math.Box(50, 100, 100, 50);
+
+  assertTrue(goog.math.Box.contains(box, new goog.math.Coordinate(75, 75)));
+  assertTrue(goog.math.Box.contains(box, new goog.math.Coordinate(50, 100)));
+  assertTrue(goog.math.Box.contains(box, new goog.math.Coordinate(100, 99)));
+  assertFalse(goog.math.Box.contains(box, new goog.math.Coordinate(100, 101)));
+  assertFalse(goog.math.Box.contains(box, new goog.math.Coordinate(49, 50)));
+  assertFalse(goog.math.Box.contains(box, new goog.math.Coordinate(25, 25)));
+}
+
+function testBoxContainsBox() {
+  var box = new goog.math.Box(50, 100, 100, 50);
+
+  function assertContains(boxB) {
+    assertTrue(box + ' expected to contain ' + boxB,
+        goog.math.Box.contains(box, boxB));
+  }
+
+  function assertNotContains(boxB) {
+    assertFalse(box + ' expected to not contain ' + boxB,
+        goog.math.Box.contains(box, boxB));
+  }
+
+  assertContains(new goog.math.Box(60, 90, 90, 60));
+  assertNotContains(new goog.math.Box(1, 3, 4, 2));
+  assertNotContains(new goog.math.Box(30, 90, 60, 60));
+  assertNotContains(new goog.math.Box(60, 110, 60, 60));
+  assertNotContains(new goog.math.Box(60, 90, 110, 60));
+  assertNotContains(new goog.math.Box(60, 90, 60, 40));
+}
+
+function testBoxesIntersect() {
+  var box = new goog.math.Box(50, 100, 100, 50);
+
+  function assertIntersects(boxB) {
+    assertTrue(box + ' expected to intersect ' + boxB,
+        goog.math.Box.intersects(box, boxB));
+  }
+  function assertNotIntersects(boxB) {
+    assertFalse(box + ' expected to not intersect ' + boxB,
+        goog.math.Box.intersects(box, boxB));
+  }
+
+  assertIntersects(box);
+  assertIntersects(new goog.math.Box(20, 80, 80, 20));
+  assertIntersects(new goog.math.Box(50, 80, 100, 20));
+  assertIntersects(new goog.math.Box(80, 80, 120, 20));
+  assertIntersects(new goog.math.Box(20, 100, 80, 50));
+  assertIntersects(new goog.math.Box(80, 100, 120, 50));
+  assertIntersects(new goog.math.Box(20, 120, 80, 80));
+  assertIntersects(new goog.math.Box(50, 120, 100, 80));
+  assertIntersects(new goog.math.Box(80, 120, 120, 80));
+  assertIntersects(new goog.math.Box(20, 120, 120, 20));
+  assertIntersects(new goog.math.Box(70, 80, 80, 70));
+  assertNotIntersects(new goog.math.Box(10, 30, 30, 10));
+  assertNotIntersects(new goog.math.Box(10, 70, 30, 30));
+  assertNotIntersects(new goog.math.Box(10, 100, 30, 50));
+  assertNotIntersects(new goog.math.Box(10, 120, 30, 80));
+  assertNotIntersects(new goog.math.Box(10, 140, 30, 120));
+  assertNotIntersects(new goog.math.Box(30, 30, 70, 10));
+  assertNotIntersects(new goog.math.Box(30, 140, 70, 120));
+  assertNotIntersects(new goog.math.Box(50, 30, 100, 10));
+  assertNotIntersects(new goog.math.Box(50, 140, 100, 120));
+  assertNotIntersects(new goog.math.Box(80, 30, 120, 10));
+  assertNotIntersects(new goog.math.Box(80, 140, 120, 120));
+  assertNotIntersects(new goog.math.Box(120, 30, 140, 10));
+  assertNotIntersects(new goog.math.Box(120, 70, 140, 30));
+  assertNotIntersects(new goog.math.Box(120, 100, 140, 50));
+  assertNotIntersects(new goog.math.Box(120, 120, 140, 80));
+  assertNotIntersects(new goog.math.Box(120, 140, 140, 120));
+}
+
+function testBoxesIntersectWithPadding() {
+  var box = new goog.math.Box(50, 100, 100, 50);
+
+  function assertIntersects(boxB, padding) {
+    assertTrue(box + ' expected to intersect ' + boxB + ' with padding ' +
+        padding, goog.math.Box.intersectsWithPadding(box, boxB, padding));
+  }
+  function assertNotIntersects(boxB, padding) {
+    assertFalse(box + ' expected to not intersect ' + boxB + ' with padding ' +
+        padding, goog.math.Box.intersectsWithPadding(box, boxB, padding));
+  }
+
+  assertIntersects(box, 10);
+  assertIntersects(new goog.math.Box(20, 80, 80, 20), 10);
+  assertIntersects(new goog.math.Box(50, 80, 100, 20), 10);
+  assertIntersects(new goog.math.Box(80, 80, 120, 20), 10);
+  assertIntersects(new goog.math.Box(20, 100, 80, 50), 10);
+  assertIntersects(new goog.math.Box(80, 100, 120, 50), 10);
+  assertIntersects(new goog.math.Box(20, 120, 80, 80), 10);
+  assertIntersects(new goog.math.Box(50, 120, 100, 80), 10);
+  assertIntersects(new goog.math.Box(80, 120, 120, 80), 10);
+  assertIntersects(new goog.math.Box(20, 120, 120, 20), 10);
+  assertIntersects(new goog.math.Box(70, 80, 80, 70), 10);
+  assertIntersects(new goog.math.Box(10, 30, 30, 10), 20);
+  assertIntersects(new goog.math.Box(10, 70, 30, 30), 20);
+  assertIntersects(new goog.math.Box(10, 100, 30, 50), 20);
+  assertIntersects(new goog.math.Box(10, 120, 30, 80), 20);
+  assertIntersects(new goog.math.Box(10, 140, 30, 120), 20);
+  assertIntersects(new goog.math.Box(30, 30, 70, 10), 20);
+  assertIntersects(new goog.math.Box(30, 140, 70, 120), 20);
+  assertIntersects(new goog.math.Box(50, 30, 100, 10), 20);
+  assertIntersects(new goog.math.Box(50, 140, 100, 120), 20);
+  assertIntersects(new goog.math.Box(80, 30, 120, 10), 20);
+  assertIntersects(new goog.math.Box(80, 140, 120, 120), 20);
+  assertIntersects(new goog.math.Box(120, 30, 140, 10), 20);
+  assertIntersects(new goog.math.Box(120, 70, 140, 30), 20);
+  assertIntersects(new goog.math.Box(120, 100, 140, 50), 20);
+  assertIntersects(new goog.math.Box(120, 120, 140, 80), 20);
+  assertIntersects(new goog.math.Box(120, 140, 140, 120), 20);
+  assertNotIntersects(new goog.math.Box(10, 30, 30, 10), 10);
+  assertNotIntersects(new goog.math.Box(10, 70, 30, 30), 10);
+  assertNotIntersects(new goog.math.Box(10, 100, 30, 50), 10);
+  assertNotIntersects(new goog.math.Box(10, 120, 30, 80), 10);
+  assertNotIntersects(new goog.math.Box(10, 140, 30, 120), 10);
+  assertNotIntersects(new goog.math.Box(30, 30, 70, 10), 10);
+  assertNotIntersects(new goog.math.Box(30, 140, 70, 120), 10);
+  assertNotIntersects(new goog.math.Box(50, 30, 100, 10), 10);
+  assertNotIntersects(new goog.math.Box(50, 140, 100, 120), 10);
+  assertNotIntersects(new goog.math.Box(80, 30, 120, 10), 10);
+  assertNotIntersects(new goog.math.Box(80, 140, 120, 120), 10);
+  assertNotIntersects(new goog.math.Box(120, 30, 140, 10), 10);
+  assertNotIntersects(new goog.math.Box(120, 70, 140, 30), 10);
+  assertNotIntersects(new goog.math.Box(120, 100, 140, 50), 10);
+  assertNotIntersects(new goog.math.Box(120, 120, 140, 80), 10);
+  assertNotIntersects(new goog.math.Box(120, 140, 140, 120), 10);
+}
+
+function testExpandToInclude() {
+  var box = new goog.math.Box(10, 50, 50, 10);
+  box.expandToInclude(new goog.math.Box(60, 70, 70, 60));
+  assertEquals(10, box.left);
+  assertEquals(10, box.top);
+  assertEquals(70, box.right);
+  assertEquals(70, box.bottom);
+  box.expandToInclude(new goog.math.Box(30, 40, 40, 30));
+  assertEquals(10, box.left);
+  assertEquals(10, box.top);
+  assertEquals(70, box.right);
+  assertEquals(70, box.bottom);
+  box.expandToInclude(new goog.math.Box(0, 100, 100, 0));
+  assertEquals(0, box.left);
+  assertEquals(0, box.top);
+  assertEquals(100, box.right);
+  assertEquals(100, box.bottom);
+}
+
+function testBoundingBox() {
+  assertObjectEquals(
+      new goog.math.Box(1, 10, 11, 0),
+      goog.math.Box.boundingBox(
+          new goog.math.Coordinate(5, 5),
+          new goog.math.Coordinate(5, 11),
+          new goog.math.Coordinate(0, 5),
+          new goog.math.Coordinate(5, 1),
+          new goog.math.Coordinate(10, 5)));
+}
+
+</script>
+</body>
+</html>

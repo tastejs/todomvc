@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.SliderBase</title>
+<script src="../base.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.events');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.recordFunction');
+  goog.require('goog.ui.SliderBase');
+  goog.require('goog.userAgent');
+</script>
+<style type="text/css">
+
+#twoThumbSlider {
+  position: relative;
+  /* Extra 20px is so distance between thumb centers is 1000px */
+  width: 1020px;
+}
+
+#valueThumb, #extentThumb {
+  position: absolute;
+  width: 20px;
+}
+
+#rangeHighlight {
+  position: absolute;
+}
+
+</style>
+</head>
+<body>
+
+<div id="sandbox"></div>
+
+<script type="text/javascript">
+var oneThumbSlider;
+var oneChangeEventCount;
+
+var twoThumbSlider;
+var twoChangeEventCount;
+
+var mockClock;
+
+/**
+ * A basic class to implement the abstract goog.ui.SliderBase for testing.
+ * @constructor
+ * @extends {goog.ui.SliderBase}
+ */
+function OneThumbSlider() {
+  goog.ui.SliderBase.call(this);
+}
+goog.inherits(OneThumbSlider, goog.ui.SliderBase);
+
+
+/** {@override} */
+OneThumbSlider.prototype.createThumbs = function() {
+  this.valueThumb = this.extentThumb = goog.dom.getElement('thumb');
+};
+
+
+/** {@override} */
+OneThumbSlider.prototype.getCssClass = function() {
+  return 'dummyCssClass';
+};
+
+
+/**
+ * A basic class to implement the abstract goog.ui.SliderBase for testing.
+ * @constructor
+ * @extends {goog.ui.SliderBase}
+ */
+function TwoThumbSlider() {
+  goog.ui.SliderBase.call(this);
+}
+goog.inherits(TwoThumbSlider, goog.ui.SliderBase);
+
+
+/** {@override} */
+TwoThumbSlider.prototype.createThumbs = function() {
+  this.valueThumb = goog.dom.getElement('valueThumb');
+  this.extentThumb = goog.dom.getElement('extentThumb');
+  this.rangeHighlight = goog.dom.getElement('rangeHighlight');
+};
+
+
+/** {@override} */
+TwoThumbSlider.prototype.getCssClass = function() {
+  return 'dummyCssClass';
+};
+
+
+function setUp() {
+  var sandBox = goog.dom.getElement('sandbox');
+  mockClock = new goog.testing.MockClock(true);
+
+  var oneThumbElem = goog.dom.createDom(
+      'div', {'id': 'oneThumbSlider'},
+      goog.dom.createDom('span', {'id': 'thumb'}));
+  sandBox.appendChild(oneThumbElem);
+  oneThumbSlider = new OneThumbSlider();
+  oneThumbSlider.decorate(oneThumbElem);
+  oneChangeEventCount = 0;
+  goog.events.listen(oneThumbSlider, goog.ui.Component.EventType.CHANGE,
+      function() {
+        oneChangeEventCount++;
+      });
+
+ var twoThumbElem = goog.dom.createDom(
+     'div', {'id': 'twoThumbSlider'},
+     goog.dom.createDom('div', {'id': 'rangeHighlight'}),
+     goog.dom.createDom('span', {'id': 'valueThumb'}),
+     goog.dom.createDom('span', {'id': 'extentThumb'}));
+  sandBox.appendChild(twoThumbElem);
+  twoThumbSlider = new TwoThumbSlider();
+  twoThumbSlider.decorate(twoThumbElem);
+  twoChangeEventCount = 0;
+  goog.events.listen(twoThumbSlider, goog.ui.Component.EventType.CHANGE,
+      function() {
+        twoChangeEventCount++;
+      });
+
+}
+
+function tearDown() {
+  goog.events.removeAll();
+  oneThumbSlider.dispose();
+  twoThumbSlider.dispose();
+  mockClock.dispose();
+  goog.dom.getElement('sandbox').innerHTML = '';
+}
+
+function testGetAndSetValue() {
+  oneThumbSlider.setValue(30);
+  assertEquals(30, oneThumbSlider.getValue());
+  assertEquals('Setting valid value must dispatch only a single change event.',
+      1, oneChangeEventCount);
+
+  oneThumbSlider.setValue(30);
+  assertEquals(30, oneThumbSlider.getValue());
+  assertEquals('Setting to same value must not dispatch change event.',
+      1, oneChangeEventCount);
+
+  oneThumbSlider.setValue(-30);
+  assertEquals('Setting invalid value must not change value.',
+      30, oneThumbSlider.getValue());
+  assertEquals('Setting invalid value must not dispatch change event.',
+      1, oneChangeEventCount);
+
+
+  // Value thumb can't go past extent thumb, so we must move that first to
+  // allow setting value.
+  twoThumbSlider.setExtent(70);
+  twoChangeEventCount = 0;
+  twoThumbSlider.setValue(60);
+  assertEquals(60, twoThumbSlider.getValue());
+  assertEquals('Setting valid value must dispatch only a single change event.',
+      1, twoChangeEventCount);
+
+  twoThumbSlider.setValue(60);
+  assertEquals(60, twoThumbSlider.getValue());
+  assertEquals('Setting to same value must not dispatch change event.',
+      1, twoChangeEventCount);
+
+  twoThumbSlider.setValue(-60);
+  assertEquals('Setting invalid value must not change value.',
+      60, twoThumbSlider.getValue());
+  assertEquals('Setting invalid value must not dispatch change event.',
+      1, twoChangeEventCount);
+}
+
+function testGetAndSetExtent() {
+  // Note(user): With a one thumb slider the API only really makes sense if you
+  // always use setValue since there is no extent.
+
+  twoThumbSlider.setExtent(7);
+  assertEquals(7, twoThumbSlider.getExtent());
+  assertEquals('Setting valid value must dispatch only a single change event.',
+      1, twoChangeEventCount);
+
+  twoThumbSlider.setExtent(7);
+  assertEquals(7, twoThumbSlider.getExtent());
+  assertEquals('Setting to same value must not dispatch change event.',
+      1, twoChangeEventCount);
+
+  twoThumbSlider.setExtent(-7);
+  assertEquals('Setting invalid value must not change value.',
+      7, twoThumbSlider.getExtent());
+  assertEquals('Setting invalid value must not dispatch change event.',
+      1, twoChangeEventCount);
+}
+
+function testRangeListener() {
+  var slider = new goog.ui.SliderBase;
+  slider.updateUi_= slider.updateAriaStates = function() {};
+  slider.rangeModel.setValue(0);
+
+  var f = goog.testing.recordFunction();
+  goog.events.listen(slider, goog.ui.Component.EventType.CHANGE, f);
+
+  slider.rangeModel.setValue(50);
+  assertEquals(1, f.getCallCount());
+
+  slider.exitDocument();
+  slider.rangeModel.setValue(0);
+  assertEquals('The range model listener should not have been removed so we ' +
+               'should have gotten a second event dispatch',
+               2, f.getCallCount());
+}
+
+/**
+ * Verifies that rangeHighlight position and size are correct for the given
+ * startValue and endValue. Assumes slider has default min/max values [0, 100],
+ * width of 1020px, and thumb widths of 20px, with rangeHighlight drawn from
+ * the centers of the thumbs.
+ */
+function assertHighlightedRange(rangeHighlight, startValue, endValue) {
+  var rangeStr = '[' + startValue + ', ' + endValue + ']';
+  var rangeStart = 10 + 10 * startValue;
+  assertEquals('Range highlight for ' + rangeStr + ' should start at ' +
+      rangeStart + 'px.', rangeStart, rangeHighlight.offsetLeft);
+  var rangeSize = 10 * (endValue - startValue);
+  assertEquals('Range highlight for ' + rangeStr + ' should have size ' +
+      rangeSize + 'px.', rangeSize, rangeHighlight.offsetWidth);
+}
+
+function testRangeHighlight() {
+  var rangeHighlight = goog.dom.getElement('rangeHighlight');
+
+  // Test [0, 100]
+  twoThumbSlider.setValue(0);
+  twoThumbSlider.setExtent(100);
+  assertHighlightedRange(rangeHighlight, 0, 100);
+
+  // Test [25, 75]
+  twoThumbSlider.setValue(25);
+  twoThumbSlider.setExtent(50);
+  assertHighlightedRange(rangeHighlight, 25, 75);
+
+  // Test [50, 50]
+  twoThumbSlider.setValue(50);
+  twoThumbSlider.setExtent(0);
+  assertHighlightedRange(rangeHighlight, 50, 50);
+}
+
+function testRangeHighlightAnimation() {
+  var animationDelay = 160; // Delay in ms, is a bit higher than actual delay.
+  if (goog.userAgent.IE) {
+    // For some reason, (probably due to how timing works), IE7 and IE8 will not
+    // stop if we don't wait for it.
+    animationDelay = 250;
+  }
+
+  var rangeHighlight = goog.dom.getElement('rangeHighlight');
+  twoThumbSlider.setValue(0);
+  twoThumbSlider.setExtent(100);
+
+  // Animate right thumb, final range is [0, 75]
+  twoThumbSlider.animatedSetValue(75);
+  assertHighlightedRange(rangeHighlight, 0, 100);
+  mockClock.tick(animationDelay);
+  assertHighlightedRange(rangeHighlight, 0, 75);
+
+  // Animate left thumb, final range is [25, 75]
+  twoThumbSlider.animatedSetValue(25);
+  assertHighlightedRange(rangeHighlight, 0, 75);
+  mockClock.tick(animationDelay);
+  assertHighlightedRange(rangeHighlight, 25, 75);
+}
+
+/**
+ * Verifies that no error occurs and that the range highlight is sized correctly
+ * for a zero-size slider (i.e. doesn't attempt to set a negative size). The
+ * test tries to resize the slider from its original size to 0, then checks
+ * that the range highlight's size is correctly set to 0.
+ *
+ * The size verification is needed because Webkit/Gecko outright ignore calls
+ * to set negative sizes on an element, leaving it at its former size. IE
+ * throws an error in the same situation.
+ */
+function testRangeHighlightForZeroSizeSlider() {
+  // Make sure range highlight spans whole slider before zeroing width.
+  twoThumbSlider.setExtent(100);
+  twoThumbSlider.getElement().style.width = 0;
+
+  // The setVisible call is used to force a UI update.
+  twoThumbSlider.setVisible(true);
+  assertEquals('Range highlight size should be 0 when slider size is 0',
+      0, goog.dom.getElement('rangeHighlight').offsetWidth);
+}
+
+</script>
+</body>
+</html>

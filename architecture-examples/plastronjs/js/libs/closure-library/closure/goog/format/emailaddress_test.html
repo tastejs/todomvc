@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.format.EmailAddress</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.array');
+  goog.require('goog.format.EmailAddress');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+function testparseList() {
+  var res = goog.format.EmailAddress.parseList('');
+  assertEquals('Failed to parse empty string', 0, res.length);
+
+  res = goog.format.EmailAddress.parseList(',,');
+  assertEquals('Failed to parse string with commas only', 0, res.length);
+
+  res = goog.format.EmailAddress.parseList('<foo@gmail.com>');
+  assertEquals('Failed to parse string with one email address', 1, res.length);
+  assertEquals('Failed to parse string with one email address',
+               'foo@gmail.com', res[0].getAddress());
+
+  res = goog.format.EmailAddress.parseList('<foo@gmail.com>,');
+  assertEquals('Failed to parse string with one email address. Trailing comma',
+               1, res.length);
+
+  res = goog.format.EmailAddress.parseList('<foo@gmail.com>, ');
+  assertEquals('Failed to parse string with one email address. ' +
+               'Trailing comma and whitespace', 1, res.length);
+
+  res = goog.format.EmailAddress.parseList(',<foo@gmail.com>');
+  assertEquals('Failed to parse string with one email address. Leading comma',
+               1, res.length);
+
+  res = goog.format.EmailAddress.parseList(' ,<foo@gmail.com>');
+  assertEquals('Failed to parse string with one email address. ' +
+               'Leading whitespace and comma.',
+               1, res.length);
+
+  res = goog.format.EmailAddress.parseList(
+      '<foo@gmail.com>, <bar@gmail.com>');
+  assertEquals('Failed to parse string with two email address', 2, res.length);
+  assertEquals('Failed to parse string with two email address',
+               'foo@gmail.com', res[0].getAddress());
+  assertEquals('Failed to parse string with two email address',
+               'bar@gmail.com', res[1].getAddress());
+
+  res = goog.format.EmailAddress.parseList(
+      '<foo@gmail.com>, <bar@gmail.com>,');
+  assertEquals('Failed to parse string with two email address. Trailing comma',
+               2, res.length);
+
+  res = goog.format.EmailAddress.parseList(
+      '<foo@gmail.com>, <bar@gmail.com>, ');
+  assertEquals('Failed to parse string with two email address. ' +
+               'Trailing comma and whitespace', 2, res.length);
+
+  res = goog.format.EmailAddress.parseList(
+      'John Doe <john@gmail.com>; Jane Doe <jane@gmail.com>, ' +
+      '<jerry@gmail.com>');
+  assertEquals('Failed to parse addresses with semicolon separator',
+      3, res.length);
+  assertEquals('First address should be for John Doe',
+      'john@gmail.com', res[0].getAddress());
+  assertEquals('Second address should be for Jane Doe',
+      'jane@gmail.com', res[1].getAddress());
+  assertEquals('Third address should be for Jerry',
+      'jerry@gmail.com', res[2].getAddress());
+};
+
+function testparseListOpenersAndClosers() {
+  var res = goog.format.EmailAddress.parseList('aaa@gmail.com, ' +
+                                                  '"bbb@gmail.com", ' +
+                                                  '<ccc@gmail.com>, ' +
+                                                  '(ddd@gmail.com), ' +
+                                                  '[eee@gmail.com]');
+  assertEquals('Failed to handle all 5 opener/closer characters',
+               5, res.length);
+};
+
+function testparseListIdn() {
+  var idnaddr = 'mailtest@\u4F8B\u3048.\u30C6\u30B9\u30C8';
+  var res = goog.format.EmailAddress.parseList(idnaddr);
+  assertEquals('Failed to parse an address with an IDN',
+               1, res.length);
+  assertEquals('Failed to parse an address with an IDN',
+               idnaddr, res[0].getAddress());
+};
+
+function testparseListWithQuotedSpecialChars() {
+  var res = goog.format.EmailAddress.parseList('a\\"b\\"c <d@e.f>,' +
+      '"g\\"h\\"i\\\\" <j@k.l>');
+  assertEquals('Wrong name 0', 'a"b"c', res[0].getName());
+  assertEquals('Wrong address 0', 'd@e.f', res[0].getAddress());
+  assertEquals('Wrong name 1', 'g"h"i\\', res[1].getName());
+  assertEquals('Wrong address 1', 'j@k.l', res[1].getAddress());
+};
+
+function testparseListWithCommaInLocalPart() {
+  var res = goog.format.EmailAddress.parseList(
+      '"Doe, John" <doe.john@gmail.com>, <someone@gmail.com>');
+  assertEquals('Should have 2 addresses', 2, res.length);
+  assertEquals('Doe, John', res[0].getName());
+  assertEquals('doe.john@gmail.com', res[0].getAddress());
+  assertEquals('', res[1].getName());
+  assertEquals('someone@gmail.com', res[1].getAddress());
+};
+
+function testToString() {
+  var f = function(str) {
+    return goog.format.EmailAddress.parse(str).toString();
+  };
+
+  // No modification.
+  assertEquals('JOHN Doe <john@gmail.com>',
+               f('JOHN Doe <john@gmail.com>'));
+
+  // Extra spaces.
+  assertEquals('JOHN Doe <john@gmail.com>',
+               f(' JOHN  Doe  <john@gmail.com> '));
+
+  // No name.
+  assertEquals('john@gmail.com', f('<john@gmail.com>'));
+  assertEquals('john@gmail.com', f('john@gmail.com'));
+
+  // No address.
+  assertEquals('JOHN Doe', f('JOHN Doe <>'));
+
+  // Special char in the name.
+  assertEquals('"JOHN, Doe" <john@gmail.com>',
+               f('JOHN, Doe <john@gmail.com>'));
+
+  // Already quoted.
+  assertEquals('"JOHN, Doe" <john@gmail.com>',
+               f('"JOHN, Doe" <john@gmail.com>'));
+
+  // Needless quotes.
+  assertEquals('JOHN Doe <john@gmail.com>',
+               f('"JOHN Doe" <john@gmail.com>'));
+
+  // Not quoted-string, but has double quotes.
+  assertEquals('"JOHN, Doe" <john@gmail.com>',
+               f('JOHN, "Doe" <john@gmail.com>'));
+
+  // No special characters other than quotes.
+  assertEquals('JOHN Doe <john@gmail.com>',
+               f('JOHN "Doe" <john@gmail.com>'));
+
+  // Escaped quotes are also removed.
+  assertEquals('"JOHN, Doe" <john@gmail.com>',
+               f('JOHN, \\"Doe\\" <john@gmail.com>'));
+};
+
+function testIsValid() {
+  var valid = [
+      'e@b.eu', '<a.b+foo@c.com>', 'eric <e@b.com>', '"e" <e@b.com>',
+      'a@FOO.MUSEUM', 'bla@b.co.ac.uk', 'bla@a.b.com'];
+  var invalid = [
+      'e', '', 'e @c.com', 'a@b', 'foo.com', 'foo@c..com'];
+  goog.array.forEach(valid, function(str) {
+    assertTrue(goog.format.EmailAddress.isValidAddress(str));
+  });
+  goog.array.forEach(invalid, function(str) {
+    assertFalse(goog.format.EmailAddress.isValidAddress(str));
+  });
+};
+</script>
+</body>
+</html>

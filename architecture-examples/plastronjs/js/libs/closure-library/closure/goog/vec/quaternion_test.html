@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.vec.Quaternion</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.vec.Float32Array');
+  goog.require('goog.vec.Matrix4');
+  goog.require('goog.vec.Quaternion');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+  function testConjugate() {
+    var q0 = goog.vec.Quaternion.createFromValues(1, 2, 3, 4);
+    var q1 = goog.vec.Quaternion.create();
+
+    goog.vec.Quaternion.conjugate(q0, q1);
+    assertElementsEquals([1, 2, 3, 4], q0);
+    assertElementsEquals([-1, -2, -3, 4], q1);
+
+    goog.vec.Quaternion.conjugate(q1, q1);
+    assertElementsEquals([1, 2, 3, 4], q1);
+  }
+
+  function testConcat() {
+    var q0 = goog.vec.Quaternion.createFromValues(1, 2, 3, 4);
+    var q1 = goog.vec.Quaternion.createFromValues(2, 3, 4, 5);
+    var q2 = goog.vec.Quaternion.create();
+    goog.vec.Quaternion.concat(q0, q1, q2);
+    assertElementsEquals([12, 24, 30, 0], q2);
+
+    goog.vec.Quaternion.concat(q0, q1, q0);
+    assertElementsEquals([12, 24, 30, 0], q0);
+  }
+
+  function testSlerp() {
+    var q0 = goog.vec.Quaternion.createFromValues(1, 2, 3, 4);
+    var q1 = goog.vec.Quaternion.createFromValues(5, -6, 7, -8);
+    var q2 = goog.vec.Quaternion.create();
+
+    goog.vec.Quaternion.slerp(q0, q1, 0, q2);
+    assertElementsEquals([5, -6, 7, -8], q2);
+
+    goog.vec.Quaternion.normalize(q0, q0);
+    goog.vec.Quaternion.normalize(q1, q1);
+
+    goog.vec.Quaternion.slerp(q0, q0, .5, q2);
+    assertElementsEquals(q0, q2);
+
+    goog.vec.Quaternion.slerp(q0, q1, 0, q2);
+    assertElementsEquals(q0, q2);
+
+    goog.vec.Quaternion.slerp(q0, q1, 1, q2);
+    if (q1[3] * q2[3] < 0) {
+      goog.vec.Quaternion.negate(q2, q2);
+    }
+    assertElementsEquals(q1, q2);
+
+    goog.vec.Quaternion.slerp(q0, q1, .3, q2);
+    assertElementsRoughlyEqual(
+        [-0.000501537327541, 0.4817612034640, 0.2398775270769, 0.842831337398],
+        q2, goog.vec.EPSILON);
+
+    goog.vec.Quaternion.slerp(q0, q1, .5, q2);
+    assertElementsRoughlyEqual(
+        [-0.1243045421171, 0.51879732466, 0.0107895780990, 0.845743047108],
+        q2, goog.vec.EPSILON);
+
+    goog.vec.Quaternion.slerp(q0, q1, .8, q0);
+    assertElementsRoughlyEqual(
+        [-0.291353561485, 0.506925588797, -0.3292443285721, 0.741442999653],
+        q0, goog.vec.EPSILON);
+  }
+
+  function testToRotMatrix() {
+    var q0 = goog.vec.Quaternion.createFromValues(
+        0.22094256606638, 0.53340203646030,
+        0.64777022739548, 0.497051689967954);
+    var m0 = goog.vec.Matrix4.create();
+    goog.vec.Quaternion.toRotationMatrix4(q0, m0);
+
+    assertElementsRoughlyEqual(
+        [-0.408248, 0.8796528, -0.244016935, 0,
+         -0.4082482, 0.06315623, 0.9106836, 0,
+         0.8164965, 0.47140452, 0.3333333, 0,
+         0, 0, 0, 1],
+        m0, goog.vec.EPSILON);
+  }
+
+  function testFromRotMatrix() {
+    var m0 = goog.vec.Matrix4.createFromValues(
+        -0.408248, 0.8796528, -0.244016935, 0,
+        -0.4082482, 0.06315623, 0.9106836, 0,
+        0.8164965, 0.47140452, 0.3333333, 0,
+        0, 0, 0, 1);
+    var q0 = goog.vec.Quaternion.create();
+    goog.vec.Quaternion.fromRotationMatrix4(m0, q0);
+    assertElementsRoughlyEqual(
+        [0.22094256606638, 0.53340203646030,
+         0.64777022739548, 0.497051689967954],
+        q0, goog.vec.EPSILON);
+  }
+
+</script>
+</body>

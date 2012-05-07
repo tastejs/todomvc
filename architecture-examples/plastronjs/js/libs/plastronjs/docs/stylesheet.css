@@ -1,0 +1,45 @@
+body {
+  font-family: Arial;
+  font-size: 13px;
+}
+
+code {
+  color: green;
+}
+
+.method-list {
+  border-collapse: collapse;
+  margin-bottom: 3ex;
+}
+
+.method-list-cell {
+  border-width: 1px 0;
+  border-color: #E0E7F2;
+  border-style: solid;  
+}
+
+.method-access {
+  min-width: 5px;
+  opacity: 0.6;    
+}
+
+.method-public {
+  background-color: green;
+}
+
+.method-protected {
+  background-color: goldenrod;
+}
+
+.method-private {
+  background-color: red;
+}
+
+.method-cell {
+  padding-left: 4px;
+}
+
+.method-description {
+  text-indent: 2em;
+  margin: 0;
+}

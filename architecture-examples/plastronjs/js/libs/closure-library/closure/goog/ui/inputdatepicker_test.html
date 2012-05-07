@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+Author: bolinfest@google.com (Michael Bolin)
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.InputDatePicker</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.ui.InputDatePicker');
+    goog.require('goog.testing.jsunit');
+  </script>
+</head>
+<body>
+
+<div id="renderElement"></div>
+<div id="popupParent"></div>
+
+<script>
+  var dateTimeFormatter = new goog.i18n.DateTimeFormat('MM/dd/yyyy');
+  var dateTimeParser = new goog.i18n.DateTimeParse('MM/dd/yyyy');
+
+  var inputDatePicker;
+  var popupDatePicker;
+
+  function setUp() {
+  }
+
+  function tearDown() {
+    if (inputDatePicker) {
+      inputDatePicker.dispose();
+    }
+    if (popupDatePicker) {
+      popupDatePicker.dispose();
+    }
+    goog.dom.getElement('renderElement').innerHTML = '';
+    goog.dom.getElement('popupParent').innerHTML = '';
+  }
+
+  /**
+   * Ensure that if setPopupParentElement is not called, that the
+   * PopupDatePicker is parented to the body element.
+   */
+  function test_setPopupParentElementDefault() {
+    setPopupParentElement_(null);
+    assertEquals('PopupDatePicker should be parented to the body element',
+        document.body,
+        popupDatePicker.getElement().parentNode);
+  }
+
+  /**
+   * Ensure that if setPopupParentElement is called, that the
+   * PopupDatePicker is parented to the specified element.
+   */
+  function test_setPopupParentElement() {
+    var popupParentElement = goog.dom.getElement('popupParent');
+    setPopupParentElement_(popupParentElement);
+    assertEquals('PopupDatePicker should be parented to the popupParent DIV',
+        popupParentElement,
+        popupDatePicker.getElement().parentNode);
+  }
+
+  /**
+   * Creates a new InputDatePicker and calls setPopupParentElement with the
+   * specified element, if provided. If el is null, then setPopupParentElement
+   * is not called.
+   * @param {Element} el If non-null, the argument to pass to
+   *     inputDatePicker.setPopupParentElement().
+   * @private
+   */
+  function setPopupParentElement_(el) {
+    inputDatePicker = new goog.ui.InputDatePicker(
+        dateTimeFormatter,
+        dateTimeParser);
+
+    if (el) {
+      inputDatePicker.setPopupParentElement(el);
+    }
+
+    inputDatePicker.render(goog.dom.getElement('renderElement'));
+    popupDatePicker = inputDatePicker.popupDatePicker_;
+  }
+
+
+  function test_ItParsesDataCorrectly() {
+    inputDatePicker = new goog.ui.InputDatePicker(
+        dateTimeFormatter,
+        dateTimeParser);
+    inputDatePicker.render(goog.dom.getElement('renderElement'));
+
+    inputDatePicker.createDom();
+    inputDatePicker.setInputValue('8/9/2009');
+
+    var parsedDate = inputDatePicker.getInputValueAsDate_();
+    assertEquals(2009, parsedDate.getYear());
+    assertEquals(7, parsedDate.getMonth()); // Months start from 0
+    assertEquals(9, parsedDate.getDate());
+  }
+</script>
+
+</body>
+</html>

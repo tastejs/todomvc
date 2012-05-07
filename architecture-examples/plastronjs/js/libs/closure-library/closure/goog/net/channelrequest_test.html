@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.net.ChannelRequest</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.net.BrowserChannel');
+goog.require('goog.net.ChannelDebug');
+goog.require('goog.net.ChannelRequest');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.MockClock');
+goog.require('goog.testing.net.XhrIo');
+</script>
+</head>
+<body>
+<script>
+
+var mockClock;
+
+/**
+ * Time to wait for a network request to time out, before aborting.
+ */
+var WATCHDOG_TIME = 2000;
+
+/**
+ * A really long time - used to make sure no more timeouts will fire.
+ */
+var ALL_DAY_MS = 1000 * 60 * 60 * 24;
+
+
+function setUp() {
+  mockClock = new goog.testing.MockClock();
+  mockClock.install();
+}
+
+
+function tearDown() {
+  mockClock.uninstall();
+}
+
+
+/**
+ * Constructs a duck-type BrowserChannel that tracks the completed requests.
+  * @constructor
+ */
+function MockBrowserChannel() {
+  this.createXhrIo = function(domainPrefix) {
+    assertNull(domainPrefix);
+    var xhrIo = new goog.testing.net.XhrIo();
+    xhrIo.abort = xhrIo.abort || function() {
+      this.active_ = false;
+    };
+    return xhrIo;
+  }
+  this.isClosed = function() {
+    return false;
+  };
+  this.isActive = function() {
+    return true;
+  };
+  this.shouldUseSecondaryDomains = function() {
+    return false;
+  }
+  this.completedRequests = [];
+  this.onRequestComplete = function(request) {
+    this.completedRequests.push(request);
+  };
+  this.onRequestData = function(request, data) {};
+}
+
+
+/**
+ * Creates a real ChannelRequest object, with some modifications for
+ * testability:
+ * <ul>
+ * <li>The BrowserChannel is a MockBrowserChannel.
+ * <li>createXhrIo_() returns the xhrIo that is passed in.
+ * <li>The new watchdogTimeoutCallCount property tracks onWatchDogTimeout_()
+ *     calls.
+ * <li>The timeout is set to WATCHDOG_TIME.
+ * </ul>
+ * @param {goog.testing.net.XhrIo} xhrIo  A test XhrIo.
+ * @return {goog.net.ChannelRequest} A slightly modified ChannelRequest
+ */
+function createChannelRequest(xhrIo) {
+  // Install mock browser channel and no-op debug logger.
+  var req = new goog.net.ChannelRequest(
+      new MockBrowserChannel(),
+      new goog.net.ChannelDebug());
+
+  // Install test XhrIo.
+  req.createXhrIo_ = function() {
+    return xhrIo;
+  };
+
+  // Install watchdogTimeoutCallCount.
+  req.watchdogTimeoutCallCount = 0;
+  req.originalOnWatchDogTimeout = req.onWatchDogTimeout_;
+  req.onWatchDogTimeout_ = function() {
+    this.watchdogTimeoutCallCount++;
+    return this.originalOnWatchDogTimeout();
+  };
+
+  req.setTimeout(WATCHDOG_TIME);
+
+  return req;
+}
+
+
+/**
+ * Creates a test XhrIo, with the abort() method defined.
+ * @return {goog.testing.net.XhrIo} A test XhrIo.
+ */
+function createXhrIo() {
+  var xhrIo = new goog.testing.net.XhrIo();
+  xhrIo.abort = xhrIo.abort || function() {
+    this.active_ = false;
+  };
+  return xhrIo;
+}
+
+
+/**
+ * Make sure that the request "completes" with an error when the timeout
+ * expires.
+ */
+function testRequestTimeout() {
+  var xhrIo = createXhrIo();
+  var req = createChannelRequest(xhrIo);
+
+  req.xmlHttpPost(new goog.Uri('some_uri'), 'some_postdata', true);
+  assertEquals(0, req.watchdogTimeoutCallCount);
+  assertEquals(0, req.channel_.completedRequests.length);
+
+  // Watchdog timeout.
+  mockClock.tick(WATCHDOG_TIME);
+  assertEquals(1, req.watchdogTimeoutCallCount);
+  assertEquals(1, req.channel_.completedRequests.length);
+  assertFalse(req.getSuccess());
+
+  // Make sure no more timers are firing.
+  mockClock.tick(ALL_DAY_MS);
+  assertEquals(1, req.watchdogTimeoutCallCount);
+  assertEquals(1, req.channel_.completedRequests.length);
+}
+
+</script>
+</body>
+</html>

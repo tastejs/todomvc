@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - Iframe/XHR Execution Context</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.events');
+  goog.require('goog.debug.Console');
+  goog.require('goog.net.XhrLite');
+  goog.require('goog.net.IframeIo');
+  goog.require('goog.testing.AsyncTestCase');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.Timer');
+</script>
+</head>
+<body>
+  <p>
+    XmlHttpRequests that initiate from code executed in an iframe, that is then
+    destroyed, result in an error in FireFox.  This test case is used to verify
+    that Closure's IframeIo and XhrLite do not suffer from this problem.  See
+    <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=369939">
+      https://bugzilla.mozilla.org/show_bug.cgi?id=369939</a>.
+  </p>
+  <script>
+    var c = new goog.debug.Console;
+    c.setCapturing(true);
+    goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+    
+    // Can't use exportSymbol if we want JsUnit support
+    top.GG_iframeFn = goog.net.IframeIo.handleIncrementalData;
+    
+    // Make the dispose time short enough that it will cause the bug to appear
+    goog.net.IframeIo.IFRAME_DISPOSE_DELAY_MS = 0;
+    
+    
+    var fileName = 'iframe_xhr_test_response.html';
+    var iframeio;
+    
+    // Create an async test case
+    var testCase = new goog.testing.AsyncTestCase(document.title);
+    testCase.stepTimeout = 4 * 1000;
+    testCase.resultCount = 0;
+    testCase.xhrCount = 0;
+    testCase.error = null;
+    
+    /** Set up the iframe io and request the test response page. */
+    testCase.setUpPage = function() {
+      testCase.waitForAsync('setUpPage');
+      iframeio = new goog.net.IframeIo();
+      goog.events.listen(
+          iframeio, 'incrementaldata', this.onIframeData, false, this);
+      goog.events.listen(
+          iframeio, 'ready', this.onIframeReady, false, this);
+      iframeio.send(fileName);
+      
+      this.add(new goog.testing.TestCase.Test(
+          'test results', this.testResults, this));
+    };
+    
+    /** Disposes the iframe object. */
+    testCase.tearDownPage = function() {
+      iframeio.dispose();
+    };
+    
+    /** Handles the packets received  from the Iframe incremental results. */
+    testCase.onIframeData = function(e) {
+      this.log('Data received  : ' + e.data);
+      this.resultCount++;
+      goog.net.XhrLite.send(fileName, goog.bind(this.onXhrData, this));
+    };
+    
+    /** Handles the iframe becoming ready. */
+    testCase.onIframeReady = function(e) {
+      this.log('Iframe ready');
+      var me = this;
+      goog.net.XhrLite.send(fileName, goog.bind(this.onXhrData, this));
+    };
+    
+    /** Handles the response from an Xhr request. */
+    testCase.onXhrData = function(e) {
+      this.xhrCount++;
+      // We access status directly so that XhrLite doesn't mask the error that
+      // would be thrown in FF if this worked correctly.
+      try {
+        this.log('Xhr Received: ' + e.target.xhr_.status);
+      } catch (e) {
+        this.log('ERROR: ' + e.message);
+        this.error = e;
+      }
+      if (this.xhrCount == 4 && this.resultCount == 3) {
+        // Wait for the async iframe disposal to fire.
+        this.log('Test set up finished, waiting 500ms for iframe disposal');
+        goog.Timer.callOnce(goog.bind(this.continueTesting, this), 0);
+      }
+    };
+    
+    /** The main test function that validates the results were as expected. */
+    testCase.testResults = function() {
+      assertEquals('There should be 3 data packets', 3, this.resultCount);
+      // 3 results + 1 ready
+      assertEquals('There should be 4 XHR results', 4, this.xhrCount);
+      if (this.error) {
+        throw this.error;
+      }
+      
+      assertEquals('There should be no iframes left', 0,
+          document.getElementsByTagName('iframe').length);
+    }
+
+    /** This test only runs on GECKO browsers. */
+    if (goog.userAgent.GECKO) {
+      /** Used by the JsUnit test runner. */
+      var testXhrMonitorWorksForIframeIoRequests = function() {
+        testCase.reset();
+        testCase.cycleTests();
+      }
+
+      /** Used by the JsUnit test runner. */
+      var setUpPage = function() {
+        testCase.runTests();
+      }
+    }
+
+    // Standalone Closure Test Runner.
+    if (typeof G_testRunner != 'undefined') {
+      if (goog.userAgent.GECKO) {
+        G_testRunner.initialize(testCase);
+      } else {
+        G_testRunner.setStrict(false);
+      }
+    }
+    
+  </script>
+</body>
+</html>

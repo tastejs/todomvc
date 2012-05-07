@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.serverchart</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.ui.ServerChart');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testSchemeIndependentBarChartRequest() {
+  var bar = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR,
+      180,
+      104,
+      null);
+  tryToCreateBarChart(bar);
+  var uri = bar.getUri();
+  var schemeIndependentUri = new goog.Uri(
+      goog.ui.ServerChart.CHART_SERVER_SCHEME_INDEPENDENT_URI);
+  assertEquals('', uri.getScheme());
+  assertEquals(schemeIndependentUri.getDomain(), uri.getDomain());
+}
+
+function testHttpBarChartRequest() {
+  var bar = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR,
+      180,
+      104,
+      null,
+      goog.ui.ServerChart.CHART_SERVER_HTTP_URI);
+  tryToCreateBarChart(bar);
+  var uri = bar.getUri();
+  var httpUri = new goog.Uri(goog.ui.ServerChart.CHART_SERVER_HTTP_URI);
+  assertEquals('http', uri.getScheme());
+  assertEquals(httpUri.getDomain(), uri.getDomain());
+}
+
+function testHttpsBarChartRequest() {
+  var bar = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 
+      180, 
+      104,
+      null,
+      goog.ui.ServerChart.CHART_SERVER_HTTPS_URI);
+  tryToCreateBarChart(bar);
+  var uri = bar.getUri();
+  var httpsUri = new goog.Uri(goog.ui.ServerChart.CHART_SERVER_HTTPS_URI);
+  assertEquals('https', uri.getScheme());
+  assertEquals(httpsUri.getDomain(), uri.getDomain());
+}
+
+function testMinValue() {
+  var pie = new goog.ui.ServerChart(goog.ui.ServerChart.ChartType.PIE3D,
+      180, 104);
+  pie.addDataSet([1, 2, 3], '000000');
+  assertEquals(pie.getMinValue(), 0);
+
+  var line = new goog.ui.ServerChart(goog.ui.ServerChart.ChartType.LINE,
+      180, 104);
+  line.addDataSet([1, 2, 3], '000000');
+  assertEquals(line.getMinValue(), 1);
+}
+
+function testMargins() {
+  var pie = new goog.ui.ServerChart(goog.ui.ServerChart.ChartType.PIE3D,
+      180, 104);
+  pie.setMargins(1, 2, 3, 4);
+  assertEquals('1,2,3,4',
+      pie.getUri().getParameterValue(goog.ui.ServerChart.UriParam.MARGINS));
+}
+
+function testSetParameterValue() {
+  var scatter = new goog.ui.ServerChart(goog.ui.ServerChart.ChartType.SCATTER,
+      180, 104);
+  var key = goog.ui.ServerChart.UriParam.DATA_COLORS;
+  var value = '000000,FF0000|00FF00|0000FF';
+  scatter.setParameterValue(key, value);
+
+  assertEquals('unexpected parameter value', value,
+      scatter.getUri().getParameterValue(key));
+
+  scatter.removeParameter(key);
+
+  assertUndefined('parameter not removed',
+      scatter.getUri().getParameterValue(key));
+}
+
+function testTypes() {
+  var chart;
+
+  chart = new goog.ui.ServerChart(goog.ui.ServerChart.ChartType.CONCENTRIC_PIE,
+      180, 104);
+
+  assertTrue(chart.isPieChart());
+  assertFalse(chart.isBarChart());
+  assertFalse(chart.isMap());
+  assertFalse(chart.isLineChart());
+
+  chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_GROUPED_BAR, 180, 104);
+
+  assertFalse(chart.isPieChart());
+  assertTrue(chart.isBarChart());
+  assertTrue(chart.isHorizontalBarChart());
+  assertTrue(chart.isGroupedBarChart());
+  assertFalse(chart.isVerticalBarChart());
+  assertFalse(chart.isStackedBarChart());
+
+  chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 180, 104);
+  assertTrue(chart.isBarChart());
+  assertTrue(chart.isStackedBarChart());
+  assertFalse(chart.isGroupedBarChart());
+
+  chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.XYLINE, 180, 104);
+  assertTrue('I thought lxy was a line chart', chart.isLineChart());
+  assertFalse('lxy is definitely not a pie chart', chart.isPieChart());
+}
+
+function testBarChartRequest() {
+  var bar = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 180, 104);
+  tryToCreateBarChart(bar);
+  var httpUri = new goog.Uri(goog.ui.ServerChart.CHART_SERVER_URI);
+  var uri = bar.getUri();
+  assertEquals(httpUri.getDomain(), uri.getDomain());
+}
+
+function tryToCreateBarChart(bar) {
+  bar.addDataSet([8,23,7], '008000');
+  bar.addDataSet([31,11,7], 'ffcc33');
+  bar.addDataSet([2,43,70,3,43,74], '3072f3');
+  bar.setLeftLabels(['','20K','','60K','','100K']);
+  bar.setXLabels(['O','N','D']);
+  bar.setMaxValue(100);
+  var uri = bar.getUri();
+  assertEquals(
+      'br',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.TYPE));
+  assertEquals(
+      '180x104',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.SIZE));
+  assertEquals(
+      'e:D6NtDQ,S7F4DQ,AAaxsZApaxvA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+  assertEquals(
+      '008000,ffcc33,3072f3',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA_COLORS));
+  assertEquals(
+      '100K||60K||20K|',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.LEFT_Y_LABELS));
+  assertEquals(
+      'O|N|D',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.X_LABELS));
+}
+
+function testClearDataSets() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 180, 104);
+  tryToCreateBarChart(chart);
+  var uriBefore = chart.getUri().toString();
+  chart.clearDataSets();
+  tryToCreateBarChart(chart);
+  var uriAfter = chart.getUri().toString();
+  assertEquals(uriBefore, uriAfter);
+}
+
+function testMultipleDatasetsTextEncoding() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 180, 104);
+  chart.setEncodingType(goog.ui.ServerChart.EncodingType.TEXT);
+  chart.addDataSet([0, 25, 100], '008000');
+  chart.addDataSet([12, 2, 7.1], '112233');
+  chart.addDataSet([82, 16, 2], '3072f3');
+  var uri = chart.getUri();
+  assertEquals(
+    't:0,25,100|12,2,7.1|82,16,2',
+    uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+}
+
+function testVennDiagramRequest() {
+  var venn = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.VENN, 300,200);
+  venn.setTitle('Google Employees');
+  var weights = [80,  // Size of circle A
+                 60,  // Size of circle B
+                 40,  // Size of circle C
+                 20,  // Overlap of A and B
+                 20,  // Overlap of A and C
+                 20,  // Overlap of B and C
+                 5];  // Overlap of A, B and C
+  var labels = [
+      'C Hackers',      // Label for A
+      'LISP Gurus',     // Label for B
+      'Java Jockeys'];  // Label for C
+  venn.setVennSeries(weights, labels);
+  var uri = venn.getUri();
+  var httpUri = new goog.Uri(goog.ui.ServerChart.CHART_SERVER_URI);
+  assertEquals(httpUri.getDomain(), uri.getDomain());
+  assertEquals(
+      'v',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.TYPE));
+  assertEquals(
+      '300x200',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.SIZE));
+  assertEquals(
+      'e:..u7d3MzMzMzAA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+  assertEquals(
+      'Google Employees',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.TITLE));
+  assertEquals(
+      labels.join('|'),
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.LEGEND_TEXTS));
+}
+
+
+function testSparklineChartRequest() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  chart.addDataSet([8,23,7], '008000');
+  chart.addDataSet([31,11,7], 'ffcc33');
+  chart.addDataSet([2,43,70,3,43,74], '3072f3');
+  chart.setLeftLabels(['','20K','','60K','','100K']);
+  chart.setXLabels(['O','N','D']);
+  chart.setMaxValue(100);
+  var uri = chart.getUri();
+  assertEquals(
+      'ls',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.TYPE));
+  assertEquals(
+      '300x200',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.SIZE));
+  assertEquals(
+      'e:D6NtDQ,S7F4DQ,AAaxsZApaxvA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+  assertEquals(
+      '008000,ffcc33,3072f3',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA_COLORS));
+  assertEquals(
+      '100K||60K||20K|',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.LEFT_Y_LABELS));
+  assertEquals(
+      'O|N|D',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.X_LABELS));
+}
+
+function testLegendPositionRequest() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  chart.addDataSet([0, 100], '008000', 'foo');
+  chart.setLegendPosition(goog.ui.ServerChart.LegendPosition.TOP);
+  assertEquals('t', chart.getLegendPosition());
+  var uri = chart.getUri();
+  assertEquals(
+      't',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.LEGEND_POSITION));
+}
+
+function testSetGridParameter() {
+  var gridArg = '20,20,4,4';
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  chart.addDataSet([0, 100], '008000', 'foo');
+  chart.setGridParameter(gridArg);
+  assertEquals(gridArg, chart.getGridParameter());
+  var uri = chart.getUri();
+  assertEquals(
+      gridArg,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.GRID));
+}
+
+function testSetMarkerParameter() {
+  var markerArg = 's,FF0000,0,-1,5';
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  chart.addDataSet([0, 100], '008000', 'foo');
+  chart.setMarkerParameter(markerArg);
+  assertEquals(markerArg, chart.getMarkerParameter());
+  var uri = chart.getUri();
+  assertEquals(
+      markerArg,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.MARKERS));
+}
+
+function testNullDataPointRequest() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  chart.addDataSet([40, null, 10], '008000');
+  assertEquals(10, chart.getMinValue());
+  assertEquals(40, chart.getMaxValue());
+  var uri = chart.getUri();
+  assertEquals(
+      'e:..__AA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+
+  chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  chart.addDataSet([-5, null, -1], '008000');
+  assertEquals(-5, chart.getMinValue());
+  assertEquals(-1, chart.getMaxValue());
+  uri = chart.getUri();
+  assertEquals(
+      'e:AA__..',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+}
+
+function testSetBarSpaceWidths() {
+  var noSpaceBetweenBarsSpecified = '20';
+  var noSpaceBetweenBarsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.VERTICAL_STACKED_BAR);
+  noSpaceBetweenBarsChart.setBarSpaceWidths(20);
+  var uri = noSpaceBetweenBarsChart.getUri();
+  assertEquals(noSpaceBetweenBarsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+
+  var spaceBetweenBarsSpecified = '20,5';
+  var spaceBetweenBarsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  spaceBetweenBarsChart.setBarSpaceWidths(20, 5);
+  var uri = spaceBetweenBarsChart.getUri();
+  assertEquals(spaceBetweenBarsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+
+  var spaceBetweenGroupsSpecified = '20,5,6';
+  var spaceBetweenGroupsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  spaceBetweenGroupsChart.setBarSpaceWidths(20, 5, 6);
+  var uri = spaceBetweenGroupsChart.getUri();
+  assertEquals(spaceBetweenGroupsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+
+  var groupsButNotBarsSpecified = '20,6';
+  var groupsButNotBarsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  groupsButNotBarsChart.setBarSpaceWidths(20, undefined, 6);
+  var uri = groupsButNotBarsChart.getUri();
+  assertEquals(groupsButNotBarsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+}
+
+function testSetAutomaticBarWidth() {
+  var noSpaceBetweenBarsSpecified = 'a';
+  var noSpaceBetweenBarsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.VERTICAL_STACKED_BAR);
+  noSpaceBetweenBarsChart.setAutomaticBarWidth();
+  var uri = noSpaceBetweenBarsChart.getUri();
+  assertEquals(noSpaceBetweenBarsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+
+  var spaceBetweenBarsSpecified = 'a,5';
+  var spaceBetweenBarsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  spaceBetweenBarsChart.setAutomaticBarWidth(5);
+  uri = spaceBetweenBarsChart.getUri();
+  assertEquals(spaceBetweenBarsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+
+  var spaceBetweenGroupsSpecified = 'a,5,6';
+  var spaceBetweenGroupsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  spaceBetweenGroupsChart.setAutomaticBarWidth(5, 6);
+  uri = spaceBetweenGroupsChart.getUri();
+  assertEquals(spaceBetweenGroupsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+
+  var groupsButNotBarsSpecified = 'a,6';
+  var groupsButNotBarsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  groupsButNotBarsChart.setAutomaticBarWidth(undefined, 6);
+  uri = groupsButNotBarsChart.getUri();
+  assertEquals(groupsButNotBarsSpecified,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.BAR_HEIGHT));
+}
+
+function testSetDataScaling() {
+  var dataScalingArg = '0,160';
+  var dataArg = 't:0,50,100,130';
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.VERTICAL_STACKED_BAR, 300, 200);
+  chart.addDataSet([0,50,100,130], '008000');
+  chart.setDataScaling(0,160);
+  var uri = chart.getUri();
+  assertEquals(dataScalingArg,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA_SCALING));
+  assertEquals(
+      dataArg,
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+}
+
+function testSetMultiAxisLabelStyle() {
+  var noFontSizeChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR, 300, 200);
+  noFontSizeChart.addDataSet([0,50,100,130], '008000');
+  var axisNumber = noFontSizeChart.addMultiAxis(
+      goog.ui.ServerChart.MultiAxisType.LEFT_Y_AXIS);
+  var noFontSizeArgs = axisNumber + ',009000';
+  noFontSizeChart.setMultiAxisLabelStyle(axisNumber, '009000');
+  var noFontSizeUri = noFontSizeChart.getUri();
+  assertEquals(noFontSizeArgs,
+      noFontSizeUri.getParameterValue(
+          goog.ui.ServerChart.UriParam.MULTI_AXIS_STYLE));
+
+  var noAlignChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR, 300, 200);
+  noAlignChart.addDataSet([0,50,100,130], '008000');
+  var xAxisNumber = noAlignChart.addMultiAxis(
+      goog.ui.ServerChart.MultiAxisType.X_AXIS);
+  var yAxisNumber = noAlignChart.addMultiAxis(
+      goog.ui.ServerChart.MultiAxisType.LEFT_Y_AXIS);
+  var noAlignArgs = xAxisNumber + ',009000,12|' + yAxisNumber + ',007000,14';
+  noAlignChart.setMultiAxisLabelStyle(xAxisNumber, '009000', 12);
+  noAlignChart.setMultiAxisLabelStyle(yAxisNumber, '007000', 14);
+  var noAlignUri = noAlignChart.getUri();
+  assertEquals(noAlignArgs,
+      noAlignUri.getParameterValue(
+          goog.ui.ServerChart.UriParam.MULTI_AXIS_STYLE));
+
+  var noLineTicksChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR, 300, 200);
+  noLineTicksChart.addDataSet([0,50,100,130], '008000');
+  axisNumber = noLineTicksChart.addMultiAxis(
+      goog.ui.ServerChart.MultiAxisType.LEFT_Y_AXIS);
+  var noLineTicksArgs = axisNumber + ',009000,12,0';
+  noLineTicksChart.setMultiAxisLabelStyle(axisNumber, '009000', 12,
+      goog.ui.ServerChart.MultiAxisAlignment.ALIGN_CENTER);
+  var noLineTicksUri = noLineTicksChart.getUri();
+  assertEquals(noLineTicksArgs,
+      noLineTicksUri.getParameterValue(
+          goog.ui.ServerChart.UriParam.MULTI_AXIS_STYLE));
+
+
+  var allParamsChart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR, 300, 200);
+  allParamsChart.addDataSet([0,50,100,130], '008000');
+  axisNumber = allParamsChart.addMultiAxis(
+      goog.ui.ServerChart.MultiAxisType.LEFT_Y_AXIS);
+  var allParamsArgs = axisNumber + ',009000,12,0,lt';
+  allParamsChart.setMultiAxisLabelStyle(axisNumber, '009000', 12,
+      goog.ui.ServerChart.MultiAxisAlignment.ALIGN_CENTER,
+      goog.ui.ServerChart.AxisDisplayType.LINE_AND_TICKS);
+  var allParamsUri = allParamsChart.getUri();
+  assertEquals(allParamsArgs,
+      allParamsUri.getParameterValue(
+          goog.ui.ServerChart.UriParam.MULTI_AXIS_STYLE));
+}
+
+function testSetBackgroundFill() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR, 300, 200);
+  assertEquals(0, chart.getBackgroundFill().length);
+  chart.setBackgroundFill([{color: '00ff00'}]);
+  assertObjectEquals({
+    area: 'bg',
+    effect: 's',
+    color: '00ff00'}, chart.getBackgroundFill()[0]);
+  chart.setBackgroundFill([
+      {color: '00ff00'},
+      {area: 'c', color: '00ff00'}
+  ]);
+  assertObjectEquals({
+    area: 'bg',
+    effect: 's',
+    color: '00ff00'}, chart.getBackgroundFill()[0]);
+  assertObjectEquals({
+    area: 'c',
+    effect: 's',
+    color: '00ff00'}, chart.getBackgroundFill()[1]);
+  
+  chart.setParameterValue(goog.ui.ServerChart.UriParam.BACKGROUND_FILL,
+      'bg,s,00ff00|c,lg,45,ff00ff|bg,s,ff00ff');
+  assertEquals(0, chart.getBackgroundFill().length);
+}
+
+function testSetMultiAxisRange() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR, 300, 200);
+  var x = chart.addMultiAxis(goog.ui.ServerChart.MultiAxisType.X_AXIS);
+  var top = chart.addMultiAxis(goog.ui.ServerChart.MultiAxisType.TOP_AXIS);
+  chart.setMultiAxisRange(x, -500, 500, 100);
+  chart.setMultiAxisRange(top, 0, 10);
+  var range = chart.getMultiAxisRange();
+
+  assertArrayEquals(range[x], [-500, 500, 100]);
+  assertArrayEquals(range[top], [0, 10]);
+}
+
+function testGetConvertedValue() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.VERTICAL_STACKED_BAR);
+
+  assertThrows('No exception thrown when minValue > maxValue', function() {
+    var result = chart.getConvertedValue_(
+        90, 24, 3, goog.ui.ServerChart.EncodingType.SIMPLE);
+  });
+
+  assertEquals('_', chart.getConvertedValue_(90, 100, 101,
+       goog.ui.ServerChart.EncodingType.SIMPLE));
+
+  assertEquals('_', chart.getConvertedValue_(
+      null, 0, 5, goog.ui.ServerChart.EncodingType.SIMPLE));
+  assertEquals('__', chart.getConvertedValue_(
+      null, 0, 150, goog.ui.ServerChart.EncodingType.EXTENDED));
+  assertEquals('24', chart.getConvertedValue_(
+      24, 1, 200, goog.ui.ServerChart.EncodingType.TEXT));
+  assertEquals('H', chart.getConvertedValue_(
+      24, 1, 200, goog.ui.ServerChart.EncodingType.SIMPLE));
+  assertEquals('HZ', chart.getConvertedValue_(
+      24, 1, 200, goog.ui.ServerChart.EncodingType.EXTENDED));
+
+  // Out-of-range values should give a missing data point, not an empty string.
+  assertEquals('__', chart.getConvertedValue_(
+      0, 1, 200, goog.ui.ServerChart.EncodingType.EXTENDED));
+  assertEquals('__', chart.getConvertedValue_(
+      201, 1, 200, goog.ui.ServerChart.EncodingType.EXTENDED));
+  assertEquals('_', chart.getConvertedValue_(
+      0, 1, 200, goog.ui.ServerChart.EncodingType.SIMPLE));
+  assertEquals('_', chart.getConvertedValue_(
+      201, 1, 200, goog.ui.ServerChart.EncodingType.SIMPLE));
+  assertEquals('_', chart.getConvertedValue_(
+      0, 1, 200, goog.ui.ServerChart.EncodingType.TEXT));
+  assertEquals('_', chart.getConvertedValue_(
+      201, 1, 200, goog.ui.ServerChart.EncodingType.TEXT));
+}
+
+function testGetChartServerValues() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.HORIZONTAL_STACKED_BAR);
+  var values = [0, 1, 2, 56, 90, 120];
+  var minValue = 0;
+  var maxValue = 140;
+  var expectedSimple = 'AABYn0';
+  assertEquals(expectedSimple,
+      chart.getChartServerValues_(values, minValue, maxValue));
+  var expectedText = '0,1,2,56,90,120';
+  assertEquals(expectedSimple,
+      chart.getChartServerValues_(values, minValue, maxValue));
+}
+
+function testUriLengthLimit() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.SPARKLINE, 300,200);
+  var longUri = null;
+  goog.events.listen(chart, goog.ui.ServerChart.Event.URI_TOO_LONG,
+                     function(e) {longUri = e.uri;});
+  assertEquals(goog.ui.ServerChart.EncodingType.AUTOMATIC,
+      chart.getEncodingType());
+  chart.addDataSet([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      '008000');
+  assertEquals(
+      'e:AAHHOOVVccjjqqxx44..AAHHOOVVccjjqqxx44..',
+      chart.getUri().getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+  chart.setUriLengthLimit(100);
+  assertEquals(
+      's:AHOUbipv29AHOUbipv29',
+      chart.getUri().getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+  chart.setUriLengthLimit(80);
+  assertEquals(null, longUri)
+  chart.getUri();
+  assertNotEquals(null, longUri);
+}
+
+function testVisibleDataSets() {
+  var uri;
+
+  var bar = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 180, 104);
+  bar.addDataSet([8,23,7], '008000');
+  bar.addDataSet([31,11,7], 'ffcc33');
+  bar.addDataSet([2,43,70,3,43,74], '3072f3');
+  bar.setMaxValue(100);
+
+  bar.setNumVisibleDataSets(0);
+  uri = bar.getUri();
+  assertEquals(
+      'e0:D6NtDQ,S7F4DQ,AAaxsZApaxvA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+
+  bar.setNumVisibleDataSets(1);
+  uri = bar.getUri();
+  assertEquals(
+      'e1:D6NtDQ,S7F4DQ,AAaxsZApaxvA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+
+  bar.setNumVisibleDataSets(2);
+  uri = bar.getUri();
+  assertEquals(
+      'e2:D6NtDQ,S7F4DQ,AAaxsZApaxvA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+
+  bar.setNumVisibleDataSets(null);
+  uri = bar.getUri();
+  assertEquals(
+      'e:D6NtDQ,S7F4DQ,AAaxsZApaxvA',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.DATA));
+}
+
+function testTitle() {
+  var chart = new goog.ui.ServerChart(
+      goog.ui.ServerChart.ChartType.BAR, 180, 104);
+  assertEquals('Default title size', 13.5, chart.getTitleSize());
+  assertEquals('Default title color', '333333', chart.getTitleColor());
+  chart.setTitle('Test title');
+  chart.setTitleSize(7);
+  chart.setTitleColor('ff0000');
+  var uri = chart.getUri();
+  assertEquals(
+      'Changing chart title failed',
+      'Test title',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.TITLE));
+  assertEquals(
+      'Changing title size and color failed',
+      'ff0000,7',
+      uri.getParameterValue(goog.ui.ServerChart.UriParam.TITLE_FORMAT));
+  assertEquals('New title size', 7, chart.getTitleSize());
+  assertEquals('New title color', 'ff0000', chart.getTitleColor());
+}
+</script>
+</body>
+</html>

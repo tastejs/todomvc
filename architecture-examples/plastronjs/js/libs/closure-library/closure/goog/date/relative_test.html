@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!--
+-->
+
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Test for goog.date.relative</title>
+<script src="../base.js"></script>
+<script>
+  goog.LOCALE = 'en_US';
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.date.relative');
+</script>
+</head>
+<body>
+<script>
+  // Timestamp to base times for test on.
+  var baseTime = new Date(2009, 2, 23, 14, 31, 6).getTime();
+
+  // Ensure goog.now returns a constant timestamp.
+  goog.now = function() {
+    return baseTime;
+  };
+
+
+  function testFormatRelativeForPastDates() {
+    var fn = goog.date.relative.format;
+
+    assertEquals('Should round seconds to the minute below',
+        '0 minutes ago', fn(timestamp('23 March 2009 14:30:10')));
+
+    assertEquals('Should round seconds to the minute below',
+        '1 minute ago',
+        fn(timestamp('23 March 2009 14:29:56')));
+
+    assertEquals('Should round seconds to the minute below',
+        '2 minutes ago', fn(timestamp('23 March 2009 14:29:00')));
+
+    assertEquals('10 minutes ago', fn(timestamp('23 March 2009 14:20:10')));
+    assertEquals('59 minutes ago', fn(timestamp('23 March 2009 13:31:42')));
+    assertEquals('2 hours ago', fn(timestamp('23 March 2009 12:20:56')));
+    assertEquals('23 hours ago', fn(timestamp('22 March 2009 15:30:56')));
+    assertEquals('1 day ago', fn(timestamp('22 March 2009 12:11:04')));
+    assertEquals('2 days ago', fn(timestamp('21 March 2009 10:30:56')));
+  }
+
+  function testFormatRelativeForFutureDates() {
+    var fn = goog.date.relative.format;
+
+    assertEquals('Should round seconds to the minute below',
+        'in 1 minute',
+        fn(timestamp('23 March 2009 14:32:05')));
+
+    assertEquals('Should round seconds to the minute below',
+        'in 2 minutes', fn(timestamp('23 March 2009 14:33:00')));
+
+    assertEquals('in 10 minutes', fn(timestamp('23 March 2009 14:40:10')));
+    assertEquals('in 59 minutes', fn(timestamp('23 March 2009 15:29:15')));
+    assertEquals('in 2 hours', fn(timestamp('23 March 2009 17:20:56')));
+    assertEquals('in 23 hours', fn(timestamp('24 March 2009 13:30:56')));
+    assertEquals('in 1 day', fn(timestamp('24 March 2009 16:11:04')));
+    assertEquals('in 2 days', fn(timestamp('25 March 2009 10:30:56')));
+  }
+
+
+  function testFormatPast() {
+    var fn = goog.date.relative.formatPast;
+
+    assertEquals('59 minutes ago', fn(timestamp('23 March 2009 13:31:42')));
+    assertEquals('0 minutes ago', fn(timestamp('23 March 2009 14:32:05')));
+    assertEquals('0 minutes ago', fn(timestamp('23 March 2009 14:33:00')));
+    assertEquals('0 minutes ago', fn(timestamp('25 March 2009 10:30:56')));
+  }
+
+
+  function testFormatDay() {
+    var fn = goog.date.relative.formatDay;
+    assertEquals('Today', fn(timestamp('23 March 2009 10:31:06')));
+    assertEquals('Today', fn(timestamp('23 March 2009 00:12:19')));
+    assertEquals('Yesterday', fn(timestamp('22 March 2009 23:48:12')));
+    assertEquals('Yesterday', fn(timestamp('22 March 2009 04:11:23')));
+    assertEquals('Mar 21', fn(timestamp('21 March 2009 15:54:45')));
+    assertEquals('Mar 19', fn(timestamp('19 March 2009 01:22:11')));
+  }
+
+  function testGetDateString() {
+    var fn = goog.date.relative.getDateString;
+
+    assertEquals('2:21 PM (10 minutes ago)',
+                 fn(new Date(baseTime - 10 * 60 * 1000)));
+
+    assertEquals('4:31 AM (10 hours ago)',
+                 fn(new Date(baseTime - 10 * 60 * 60 * 1000)));
+
+    assertEquals('Friday, March 13, 2009 (10 days ago)',
+                 fn(new Date(baseTime - 10 * 24 * 60 * 60 * 1000)));
+
+    assertEquals('Tuesday, March 3, 2009',
+                 fn(new Date(baseTime - 20 * 24 * 60 * 60 * 1000)));
+  }
+
+  function testGetPastDateString() {
+    var fn = goog.date.relative.getPastDateString;
+    assertEquals('2:21 PM (10 minutes ago)',
+                 fn(new Date(baseTime - 10 * 60 * 1000)));
+    assertEquals('2:41 PM (0 minutes ago)',
+                 fn(new Date(baseTime + 10 * 60 * 1000)));
+  }
+
+  function timestamp(str) {
+    return new Date(str).getTime()
+  }
+
+</script>
+</body>
+</html>

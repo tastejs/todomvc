@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.debug</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug');
+  goog.require('goog.structs.Set');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testMakeWhitespaceVisible() {
+  assertEquals(
+      'Hello[_][_]World![r][n]\n' +
+      '[r][n]\n' +
+      '[f][f]I[_]am[t][t]here![r][n]\n',
+      goog.debug.makeWhitespaceVisible(
+          'Hello  World!\r\n\r\n\f\fI am\t\there!\r\n'));
+}
+
+function testGetFunctionName() {
+  // Trivial resolver that matches just a few names: a static function, a
+  // constructor, and a member function.
+  var resolver = function(f) {
+    if (f === goog.debug.getFunctionName) {
+      return 'goog.debug.getFunctionName';
+    } else if (f === goog.structs.Set) {
+      return 'goog.structs.Set';
+    } else if (f === goog.structs.Set.prototype.getCount) {
+      return 'goog.structs.Set.getCount';
+    } else {
+      return null;
+    }
+  };
+  goog.debug.setFunctionResolver(resolver);
+
+  assertEquals(
+      'goog.debug.getFunctionName',
+      goog.debug.getFunctionName(goog.debug.getFunctionName));
+  assertEquals(
+      'goog.structs.Set',
+      goog.debug.getFunctionName(goog.structs.Set));
+  var set = new goog.structs.Set();
+  assertEquals(
+      'goog.structs.Set.getCount',
+      goog.debug.getFunctionName(set.getCount));
+
+  // This function is matched by the fallback heuristic.
+  assertEquals(
+      'testGetFunctionName',
+      goog.debug.getFunctionName(testGetFunctionName));
+
+  goog.debug.setFunctionResolver(null);
+}
+
+</script>
+</body>
+</html>

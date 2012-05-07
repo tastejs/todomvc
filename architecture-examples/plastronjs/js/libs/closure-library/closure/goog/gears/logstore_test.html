@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.gears.LogStore</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.Logger');
+  goog.require('goog.debug.LogManager');
+  goog.require('goog.gears.LogStore');
+  goog.require('goog.gears.Database');
+  goog.require('goog.testing.asserts');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.MockClock');
+</script>
+</head>
+<body>
+<script>
+
+function isGearsAllowed() {
+  return goog.gears.hasFactory() && goog.gears.getFactory().hasPermission;
+}
+
+var TEST_DB_NAME = 'my_test_db';
+var TEST_TABLE_NAME = 'my_test_log_table';
+
+var database_;
+var logStore_;
+var mockClock_ = new goog.testing.MockClock();
+
+function setUpPage() {
+  if (isGearsAllowed()) {
+    // Remove table if already there
+    try {
+      database_ = new goog.gears.Database(
+          'me@mydomain.com', TEST_DB_NAME);
+      database_.execute('DROP TABLE IF EXISTS ' + TEST_TABLE_NAME);
+    } catch (ex) {
+      debug('Could not create the database');
+    }
+  }
+  setUpPageStatus = 'complete';
+}
+
+function setUp() {
+  if (isGearsAllowed()) {
+    logStore_ = new goog.gears.LogStore(database_, TEST_TABLE_NAME);
+    logStore_.removeStore();
+    logStore_.ensureStoreExists();
+  }
+  mockClock_.install();
+  mockClock_.tick(1);
+}
+
+function tearDown() {
+  if (logStore_) {
+    logStore_.removeStore();
+  }
+  mockClock_.reset();
+  mockClock_.uninstall();
+}
+
+function testStoreVersion() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  assertEquals(
+     'Bad initial store version', 1, logStore_.getStoreVersion());
+}
+
+function testSchema() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  assertTrue('Missing ' + TEST_TABLE_NAME, logStore_.hasTable(TEST_TABLE_NAME));
+}
+
+function testDefaultDbName() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  var aLogStore = new goog.gears.LogStore(database_);
+  aLogStore.removeStore();
+  aLogStore.ensureStoreExists();
+  assertTrue('Missing ' + goog.gears.LogStore.DEFAULT_TABLE_NAME_,
+      aLogStore.hasTable(goog.gears.LogStore.DEFAULT_TABLE_NAME_));
+  aLogStore.removeStore();
+}
+
+function assertLogRecord(actualRecord, expectedMinMillis,
+    expectedMaxMillis, expectedLevel, expectedMessage, expectedLoggerName,
+    expectedException) {
+  assertTrue('wrong millis: ' + actualRecord.getMillis(),
+      expectedMinMillis <= actualRecord.getMillis() &&
+      actualRecord.getMillis() <= expectedMaxMillis);
+  assertEquals('wrong level', expectedLevel, actualRecord.getLevel());
+  assertEquals('wrong message', expectedMessage, actualRecord.getMessage());
+  assertEquals('wrong logger', expectedLoggerName,
+      actualRecord.getLoggerName());
+
+  // Exception.
+  if (expectedException) {
+    assertObjectEquals('wrong exception', expectedException,
+        actualRecord.getException());
+    assertTrue('missing exception text', !!actualRecord.getExceptionText());
+  } else {
+    assertNull('unexpected exception', actualRecord.getException());
+    assertNull('unexpected exception text', actualRecord.getExceptionText());
+  }
+}
+
+function assertSequence(records) {
+  var lastSequenceNumber = -1;
+  var lastMillis = -1;
+  for (var i = records.length - 1; i >= 0; i--) {
+    var thisSequenceNumber = records[i].getSequenceNumber();
+    var thisMillis = records[i].getMillis();
+    assertTrue('not descending sequence numbers',
+        thisSequenceNumber > lastSequenceNumber);
+    assertTrue('not descending millis', thisMillis >= lastMillis);
+    lastSequenceNumber = thisSequenceNumber;
+    lastMillis = thisMillis;
+  }
+}
+
+function testSetCapturing() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Disabled capturing. Select by logger to avoid other records.
+  assertFalse('capturing', logStore_.isCapturing());
+  logger.severe('not capturing');
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = loggerName;
+  assertEquals('records found while not capturing',
+      0, logStore_.select(query).length);
+
+  // Enable capturing.
+  logStore_.setCapturing(true);
+  assertTrue('not capturing', logStore_.isCapturing());
+  logger.severe('capturing');
+  var count = logStore_.select(query).length;
+  assertTrue('no records found while capturing', count > 0);
+
+  // Disable capturing.
+  logStore_.setCapturing(false);
+  assertFalse('capturing', logStore_.isCapturing());
+  logger.severe('not capturing');
+  assertEquals('records found while not capturing',
+      count, logStore_.select(query).length);
+}
+
+function testLogException() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  logStore_.setCapturing(true);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log message.
+  var beforeMillis = goog.now();
+  var msgs = ['my-message-0', 'my-message-1'];
+  var err = {
+    message: 'my-error-msg',
+    name: 'my-error',
+    lineNumber: 10,
+    fileName: 'my-file',
+    stack: 'my-stack'
+  };
+  logger.info(msgs[0]);
+  logger.severe(msgs[1], err);
+  var afterMillis = goog.now();
+
+  // Select by logger to avoid other records.
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = loggerName;
+  var records = logStore_.select(query);
+
+  // Validate records.
+  assertEquals('wrong # records', 2, records.length);
+  assertLogRecord(records[0], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.SEVERE, msgs[1], loggerName, err);
+  assertLogRecord(records[1], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msgs[0], loggerName);
+  assertSequence(records);
+}
+
+function testSelectByLevel() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  logStore_.setCapturing(true);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+  logger.setLevel(goog.debug.Logger.Level.FINE);
+
+  // Log messages.
+  var msg = 'my-message';
+  var beforeMillis = goog.now();
+  logger.finest(msg + 'FINEST');
+  logger.finer(msg + 'FINER');
+  logger.fine(msg + 'FINE');
+  logger.config(msg + 'CONFIG');
+  logger.info(msg + 'INFO');
+  logger.warning(msg + 'WARNING');
+  logger.severe(msg + 'SEVERE');
+  var afterMillis = goog.now();
+
+  // Select FINE+ records. Select by logger to avoid other records.
+  var query = new goog.gears.LogStore.Query();
+  query.level = goog.debug.Logger.Level.ALL;
+  query.loggerLike = loggerName;
+  var records = logStore_.select(query);
+  var expectedLevels = [
+    goog.debug.Logger.Level.SEVERE,
+    goog.debug.Logger.Level.WARNING,
+    goog.debug.Logger.Level.INFO,
+    goog.debug.Logger.Level.CONFIG,
+    goog.debug.Logger.Level.FINE
+  ];
+  assertEquals('wrong # records', 5, records.length);
+  for (var i = 0; i < records.length; i++) {
+    assertLogRecord(records[i], beforeMillis, afterMillis,
+        expectedLevels[i], msg + expectedLevels[i].name, loggerName);
+  }
+  assertSequence(records);
+
+  // Select INFO+ records.
+  query.level = goog.debug.Logger.Level.INFO;
+  var records = logStore_.select(query);
+  expectedLevels = [
+    goog.debug.Logger.Level.SEVERE,
+    goog.debug.Logger.Level.WARNING,
+    goog.debug.Logger.Level.INFO
+  ];
+  assertEquals('wrong # records', 3, records.length);
+  for (var i = 0; i < records.length; i++) {
+    assertLogRecord(records[i], beforeMillis, afterMillis,
+      expectedLevels[i], msg + expectedLevels[i].name, loggerName);
+  }
+  assertSequence(records);
+}
+
+/**
+ * This tests selecting by clock time, and also tests log records added by
+ * logStore.
+ */
+function testSelectByMillis() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  logStore_.setCapturing(true);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log messages.
+  var msg = 'my-message';
+  var millis0 = mockClock_.tick(100000);
+  logger.info(msg + 0);
+  var millis1 = mockClock_.tick(100000);
+  logger.info(msg + 1);
+  var millis2 = mockClock_.tick(100000);
+  logger.info(msg + 2);
+  var millis3 = mockClock_.tick(0xfffffffffffffffffffffffff);
+  logger.info(msg + 3);
+  var millis4 = mockClock_.tick(100000);
+
+  // Select before records. Select by logger to avoid other records.
+  var query = new goog.gears.LogStore.Query();
+  query.maxMillis = millis1;
+  query.loggerLike = loggerName;
+  var records = logStore_.select(query);
+  assertEquals('wrong # records', 2, records.length);
+  assertLogRecord(records[0], millis0, millis1,
+      goog.debug.Logger.Level.INFO, msg + 1, loggerName);
+  assertLogRecord(records[1], millis0, millis1,
+      goog.debug.Logger.Level.INFO, msg + 0, loggerName);
+  assertSequence(records);
+
+  // Select between records.
+  query.minMillis = millis2;
+  query.maxMillis = millis3;
+  records = logStore_.select(query);
+  assertEquals('wrong # records', 2, records.length);
+  assertLogRecord(records[0], millis2, millis3,
+      goog.debug.Logger.Level.INFO, msg + 3, loggerName);
+  assertLogRecord(records[1], millis2, millis3,
+      goog.debug.Logger.Level.INFO, msg + 2, loggerName);
+  assertSequence(records);
+
+  // Select after records.
+  query.minMillis = millis3;
+  query.maxMillis = Infinity;
+  records = logStore_.select(query);
+  assertEquals('wrong # records', 1, records.length);
+  assertLogRecord(records[0], millis3, millis4,
+      goog.debug.Logger.Level.INFO, msg + 3, loggerName);
+  assertSequence(records);
+}
+
+function testSelectByMessage() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  logStore_.setCapturing(true);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log messages.
+  var msg = 'my-message';
+  var beforeMillis = goog.now();
+  logger.info(msg + '1');
+  logger.info(msg + '20');
+  logger.info(msg + '21');
+  logger.info(msg + '3');
+  var afterMillis = goog.now();
+
+  // Select 2 records.
+  var query = new goog.gears.LogStore.Query();
+  query.msgLike = '%2%';
+  var records = logStore_.select(query);
+  assertEquals('wrong # records', 2, records.length);
+  assertLogRecord(records[0], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msg + '21', loggerName);
+  assertLogRecord(records[1], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msg + '20', loggerName);
+  assertSequence(records);
+}
+
+function testSelectByLogger() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  logStore_.setCapturing(true);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger1 = goog.debug.Logger.getLogger(loggerName + 1);
+  var logger2 = goog.debug.Logger.getLogger(loggerName + 2);
+  var logger3 = goog.debug.Logger.getLogger(loggerName + 3);
+
+  // Log messages.
+  var msg = 'my-message';
+  var beforeMillis = goog.now();
+  logger1.info(msg + '1');
+  mockClock_.tick();
+  logger2.info(msg + '2');
+  mockClock_.tick();
+  logger3.info(msg + '3');
+  mockClock_.tick();
+  var afterMillis = goog.now();
+
+  // Select 1 records.
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = '%2%';
+  var records = logStore_.select(query);
+  assertEquals('wrong # records', 1, records.length);
+  assertLogRecord(records[0], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msg + '2', loggerName + 2);
+  assertSequence(records);
+}
+
+function testSelectLimit() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+
+  logStore_.setCapturing(true);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log messages.
+  var msg = 'my-message';
+  var beforeMillis = goog.now();
+  logger.info(msg + '1');
+  mockClock_.tick();
+  logger.info(msg + '2');
+  mockClock_.tick();
+  logger.info(msg + '3');
+  mockClock_.tick();
+  logger.info(msg + '4');
+  mockClock_.tick();
+  logger.info(msg + '5');
+  mockClock_.tick();
+  var afterMillis = goog.now();
+
+  // Select 5 records.
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = loggerName;
+  records = logStore_.select(query);
+  assertEquals('wrong # records', 5, records.length);
+  assertSequence(records);
+
+  // Select last 3 records.
+  query.limit = 3;
+  records = logStore_.select(query);
+  assertEquals('wrong # records', 3, records.length);
+  assertLogRecord(records[0], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msg + '5', loggerName);
+  assertLogRecord(records[1], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msg + '4', loggerName);
+  assertLogRecord(records[2], beforeMillis, afterMillis,
+      goog.debug.Logger.Level.INFO, msg + '3', loggerName);
+  assertSequence(records);
+}
+
+function testPruneBeforeCount() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  logStore_.setCapturing(true);
+
+  // Set to WARNING to avoid database and other logging.
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.WARNING);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log messages.
+  var msg = 'my-message';
+  logger.severe(msg + '1!');
+  mockClock_.tick();
+  logger.warning(msg + '2');
+  mockClock_.tick();
+  logger.severe(msg + '3!');
+  var betweenMillis = mockClock_.tick();
+  logger.warning(msg + '4');
+  mockClock_.tick();
+  logger.severe(msg + '5!');
+  mockClock_.tick();
+  logger.warning(msg + '6');
+  mockClock_.tick();
+
+  // Select by logger to avoid other records.
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = loggerName;
+  assertEquals('wrong # records', 6, logStore_.select(query).length);
+  logStore_.pruneBeforeCount(3);
+  assertEquals('wrong # records', 3, logStore_.select(query).length);
+}
+
+function testPruneBeforeSequenceNumber() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  logStore_.setCapturing(true);
+
+  // Set to WARNING to avoid database and other logging.
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.WARNING);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log messages.
+  var msg = 'my-message';
+  logger.severe(msg + '1!');
+  mockClock_.tick();
+  logger.warning(msg + '2');
+  mockClock_.tick();
+  logger.severe(msg + '3!');
+  var betweenMillis = mockClock_.tick();
+  logger.warning(msg + '4');
+  mockClock_.tick();
+  logger.severe(msg + '5!');
+  mockClock_.tick();
+  logger.warning(msg + '6');
+  mockClock_.tick();
+
+  // Select by logger to avoid other records.
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = loggerName;
+  var records = logStore_.select(query);
+  assertEquals('wrong # records', 6, records.length);
+  logStore_.pruneBeforeSequenceNumber(records[3].getSequenceNumber());
+  assertEquals('wrong # records', 3, logStore_.select(query).length);
+}
+
+function testAutoPrune() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  logStore_.setCapturing(true);
+
+  // Set to WARNING to avoid database and other logging.
+  goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.WARNING);
+
+  // Create logger object.
+  var loggerName = 'my-logger';
+  var logger = goog.debug.Logger.getLogger(loggerName);
+
+  // Log messages.
+  var msg = 'my-message';
+  mockClock_.tick(100);
+  logger.severe(msg + '1!');
+  mockClock_.tick(100);
+  logger.warning(msg + '2');
+  mockClock_.tick(100);
+  logger.severe(msg + '3!');
+  mockClock_.tick(100);
+  logger.warning(msg + '4');
+  mockClock_.tick(100);
+  logger.severe(msg + '5!');
+  mockClock_.tick(100);
+  logger.warning(msg + '6');
+  mockClock_.tick(100);
+
+  // Auto-prune specified interval (100).
+  assertFalse('auto prune should not be active', logStore_.isAutoPruneActive());
+  var query = new goog.gears.LogStore.Query();
+  query.loggerLike = loggerName;
+  assertEquals('wrong # records', 6,
+      logStore_.select(query).length);
+  logStore_.createAutoPruneDelay(3, 100);
+  logStore_.startAutoPrune();
+  assertTrue('auto prune should be active', logStore_.isAutoPruneActive());
+  assertEquals('wrong # records', 3, logStore_.select(query).length);
+  logger.warning(msg + '7');
+  mockClock_.tick(50);
+  assertEquals('wrong # records', 4, logStore_.select(query).length);
+  mockClock_.tick(50);
+  assertEquals('wrong # records', 3, logStore_.select(query).length);
+
+  // Stop autoprune.
+  logStore_.stopAutoPrune();
+  assertFalse('auto prune should not be active', logStore_.isAutoPruneActive());
+  logger.warning(msg + '8');
+  mockClock_.tick(200);
+  assertEquals('wrong # records', 4, logStore_.select(query).length);
+
+  // Auto-prune default interval (600000).
+  logStore_.createAutoPruneDelay(3);
+  logStore_.startAutoPrune(3);
+  assertTrue('auto prune should be active', logStore_.isAutoPruneActive());
+  assertEquals('wrong # records', 3, logStore_.select(query).length);
+  logger.warning(msg + '7');
+  logger.severe(msg + '8!');
+  logger.warning(msg + '9');
+  mockClock_.tick(50);
+  assertEquals('wrong # records', 6, logStore_.select(query).length);
+  mockClock_.tick(50);
+  assertEquals('wrong # records', 6, logStore_.select(query).length);
+  mockClock_.tick(599900);
+  assertEquals('wrong # records', 3, logStore_.select(query).length);
+  logger.warning(msg + '10');
+  mockClock_.tick(100);
+  assertEquals('wrong # records', 4, logStore_.select(query).length);
+
+  // Stop autoprune.
+  logStore_.stopAutoPrune();
+  assertFalse('auto prune should not be active', logStore_.isAutoPruneActive());
+}
+
+</script>
+</body>
+</html>

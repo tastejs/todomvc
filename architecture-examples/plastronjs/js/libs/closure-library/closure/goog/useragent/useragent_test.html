@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.userAgent</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.array');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.PropertyReplacer');
+  goog.require('goog.userAgent');
+</script>
+</head>
+<body>
+
+<script>
+
+var documentMode;
+goog.userAgent.getDocumentMode_ = function() {
+  return documentMode;
+};
+
+
+var propertyReplacer = new goog.testing.PropertyReplacer();
+
+var UserAgents = {
+  GECKO: 'GECKO',
+  IE: 'IE',
+  OPERA: 'OPERA',
+  WEBKIT: 'WEBKIT'
+};
+
+/**
+ * Rerun the initialization code to set all of the goog.userAgent constants.
+ */
+function reinitializeUserAgent() {
+  goog.userAgent.init_();
+
+  // Unfortunately we can't isolate the useragent setting in a function
+  // we can call, because things rely on it compiling to nothing when
+  // one of the ASSUME flags is set, and the compiler isn't smart enough
+  // to do that when the setting is done inside a function that's inlined.
+  goog.userAgent.OPERA = goog.userAgent.detectedOpera_;
+  goog.userAgent.IE = goog.userAgent.detectedIe_;
+  goog.userAgent.GECKO = goog.userAgent.detectedGecko_;
+  goog.userAgent.WEBKIT = goog.userAgent.detectedWebkit_;
+  goog.userAgent.MOBILE = goog.userAgent.detectedMobile_;
+  goog.userAgent.SAFARI = goog.userAgent.WEBKIT;
+
+  goog.userAgent.PLATFORM = goog.userAgent.determinePlatform_();
+  goog.userAgent.initPlatform_();
+
+  goog.userAgent.VERSION = goog.userAgent.determineVersion_();
+}
+
+function tearDown() {
+  documentMode = undefined;
+  propertyReplacer.reset();
+}
+
+/**
+ * Test browser detection for a user agent configuration.
+ * @param {Array.<number>} expectedAgents Array of expected userAgents.
+ * @param {string} uaString User agent string.
+ * @param {string=} opt_product Navigator product string.
+ * @param {string=} opt_vendor Navigator vendor string.
+ */
+function assertUserAgent(expectedAgents, uaString, opt_product, opt_vendor) {
+  //alert('mocking');
+  var mockGlobal = {
+    'navigator': {
+      'userAgent': uaString,
+      'product': opt_product,
+      'vendor': opt_vendor
+    }
+  };
+  propertyReplacer.set(goog, 'global', mockGlobal);
+  reinitializeUserAgent();
+  for (var ua in UserAgents) {
+    var isExpected = goog.array.contains(expectedAgents, UserAgents[ua]);
+    assertEquals(isExpected, getUserAgentDetected_(UserAgents[ua]));
+  }
+}
+
+/**
+ * Return whether a given user agent has been detected.
+ * @param {number} agent Value in UserAgents.
+ * @return {boolean} Whether the user agent has been detected.
+ */
+function getUserAgentDetected_(agent) {
+  switch (agent) {
+    case UserAgents.GECKO:
+      return goog.userAgent.detectedGecko_;
+    case UserAgents.IE:
+      return goog.userAgent.detectedIe_;
+    case UserAgents.OPERA:
+      return goog.userAgent.detectedOpera_;
+    case UserAgents.WEBKIT:
+      return goog.userAgent.detectedWebkit_;
+  }
+  return null;
+}
+
+function testOperaInit() {
+  propertyReplacer.set(goog.userAgent, 'getUserAgentString', function() {
+    return 'Opera/9.20 (Windows NT 5.1; U; de),gzip(gfe)';
+  });
+
+  goog.global['opera'] = {
+    version: function() {
+      return '9.20';
+    }
+  };
+  reinitializeUserAgent();
+  assertTrue(goog.userAgent.detectedOpera_);
+  assertEquals('9.20', goog.userAgent.VERSION);
+
+  // What if 'opera' global has been overwritten?
+  // We must degrade gracefully (rather than throwing JS errors).
+  goog.global['opera'] = 'bobloblaw';
+  reinitializeUserAgent();
+  assertUndefined(goog.userAgent.VERSION);
+}
+
+function testCompare() {
+  assertTrue('exact equality broken',
+             goog.userAgent.compare('1.0', '1.0') == 0);
+  assertTrue('mutlidot equality broken',
+             goog.userAgent.compare('1.0.0.0', '1.0') == 0);
+  assertTrue('less than broken',
+             goog.userAgent.compare('1.0.2.1', '1.1') < 0);
+  assertTrue('greater than broken',
+             goog.userAgent.compare('1.1', '1.0.2.1') > 0);
+
+  assertTrue('b broken', goog.userAgent.compare('1.1', '1.1b') > 0);
+  assertTrue('b broken', goog.userAgent.compare('1.1b', '1.1') < 0);
+  assertTrue('b broken', goog.userAgent.compare('1.1b', '1.1b') == 0);
+
+  assertTrue('b>a broken', goog.userAgent.compare('1.1b', '1.1a') > 0);
+  assertTrue('a<b broken', goog.userAgent.compare('1.1a', '1.1b') < 0);
+}
+
+function testGecko() {
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; nl-NL; rv:1.7.5)' +
+      'Gecko/20041202 Gecko/1.0', '1.7.5');
+  assertGecko('Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.7.6)' +
+      'Gecko/20050512 Gecko', '1.7.6');
+  assertGecko('Mozilla/5.0 (X11; U; FreeBSD i386; en-US; rv:1.7.8)' +
+      'Gecko/20050609 Gecko/1.0.4', '1.7.8');
+  assertGecko('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.9)' +
+      'Gecko/20050711 Gecko/1.0.5', '1.7.9');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.10)' +
+      'Gecko/20050716 Gecko/1.0.6', '1.7.10');
+  assertGecko('Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-GB;' +
+        'rv:1.7.10) Gecko/20050717 Gecko/1.0.6', '1.7.10');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.12)' +
+      'Gecko/20050915 Gecko/1.0.7', '1.7.12');
+  assertGecko('Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US;' +
+        'rv:1.7.12) Gecko/20050915 Gecko/1.0.7', '1.7.12');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8b4)' +
+      'Gecko/20050908 Gecko/1.4', '1.8b4');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; nl; rv:1.8)' +
+      'Gecko/20051107 Gecko/1.5', '1.8');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.0.1)' +
+      'Gecko/20060111 Gecko/1.5.0.1', '1.8.0.1');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.8.0.1)' +
+      'Gecko/20060111 Gecko/1.5.0.1', '1.8.0.1');
+  assertGecko('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.2)' +
+      'Gecko/20060308 Gecko/1.5.0.2', '1.8.0.2');
+  assertGecko('Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US;' +
+        'rv:1.8.0.3) Gecko/20060426 Gecko/1.5.0.3', '1.8.0.3');
+  assertGecko('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.3)' +
+      'Gecko/20060426 Gecko/1.5.0.3', '1.8.0.3');
+  assertGecko('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.4)' +
+      'Gecko/20060508 Gecko/1.5.0.4', '1.8.0.4');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.4)' +
+      'Gecko/20060508 Gecko/1.5.0.4', '1.8.0.4');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.8.0.4)' +
+      'Gecko/20060508 Gecko/1.5.0.4', '1.8.0.4');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES; rv:1.8.0.6)' +
+      'Gecko/20060728 Gecko/1.5.0.6', '1.8.0.6');
+  assertGecko('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.6)' +
+      'Gecko/20060808 Fedora/1.5.0.6-2.fc5 Gecko/1.5.0.6 pango-text',
+      '1.8.0.6');
+  assertGecko('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8)' +
+      'Gecko/20060321 Gecko/2.0a1', '1.8');
+}
+
+function testIe() {
+  assertIe('Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)', '5.01');
+  assertIe('Mozilla/4.0 (compatible; MSIE 5.17; Mac_PowerPC)', '5.17');
+  assertIe('Mozilla/4.0 (compatible; MSIE 5.23; Mac_PowerPC)', '5.23');
+  assertIe('Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)', '5.5');
+  assertIe('Mozilla/4.0 (compatible; MSIE 6.0; MSN 2.5; Windows 98)', '6.0');
+  assertIe('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)', '6.0');
+  assertIe('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; ' +
+      '.NET CLR 1.1.4322)', '6.0');
+  assertIe('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; ' +
+      '.NET CLR 2.0.50727)', '6.0');
+  assertIe('Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.1)', '7.0b');
+  assertIe('Mozilla/4.0 (compatible; MSIE 7.0b; Win32)', '7.0b');
+  assertIe('Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 6.0)', '7.0b');
+  assertIe('Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1;' +
+      'Arcor 5.005; .NET CLR 1.0.3705; .NET CLR 1.1.4322)', '7.0');
+}
+
+function testIeDocumentModeOverride() {
+  documentMode = 9;
+  assertIe('Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0',
+           '9');
+  assertIe('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/5.0',
+           '9');
+
+  documentMode = 8;
+  assertIe('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/5.0',
+          '8.0');
+}
+
+function testOpera() {
+  var assertOpera = function(uaString) {
+    assertUserAgent([UserAgents.OPERA], uaString);
+  };
+  var assertIe = function(uaString) {
+    assertUserAgent([UserAgents.IE], uaString);
+  };
+  assertOpera('Opera/7.23 (Windows 98; U) [en]');
+  assertOpera('Opera/8.00 (Windows NT 5.1; U; en)');
+  assertOpera('Opera/8.0 (X11; Linux i686; U; cs)');
+  assertOpera('Opera/8.02 (Windows NT 5.1; U; en)');
+  assertOpera('Opera/8.50 (Windows NT 5.1; U; en)');
+  assertOpera('Opera/8.5 (X11; Linux i686; U; cs)');
+  assertOpera('Opera/8.51 (Windows NT 5.1; U; en)');
+  assertOpera('Opera/9.0 (Windows NT 5.0; U; en)');
+  assertOpera('Opera/9.00 (Macintosh; PPC Mac OS X; U; en)');
+  assertOpera('Opera/9.00 (Windows NT 5.1; U; en)');
+  assertOpera('Opera/9.00 (Windows NT 5.2; U; en)');
+  assertOpera('Opera/9.00 (Windows NT 6.0; U; en)');
+  // Test Opera spoofing as IE.  Currently detected as IE.
+  assertIe('Mozilla/4.0 (compatible; MSIE 5.0; Windows 2000) Opera 6.03' +
+      '[en]');
+  assertIe('Mozilla/4.0 (compatible; MSIE 5.0; Mac_PowerPC) Opera 6.0' +
+      '[en]');
+  assertIe('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera' +
+      '8.50');
+  assertIe('Mozilla/4.0 (compatible; MSIE 6.0; Symbian OS; Nokia' +
+        '6630/4.03.38; 6937) Opera 8.50 [es]');
+}
+
+function testUnknownBrowser() {
+  assertUserAgent([], 'MyWebBrowser');
+  assertUserAgent([], undefined);
+}
+
+function testNoNavigator() {
+  // global object has no "navigator" property.
+  var mockGlobal = {};
+  propertyReplacer.set(goog, 'global', mockGlobal);
+  reinitializeUserAgent();
+
+  assertEquals('Platform should be the empty string', '',
+      goog.userAgent.PLATFORM);
+  assertEquals('Version should be the empty string', '',
+      goog.userAgent.VERSION);
+}
+
+function assertIe(uaString, expectedVersion) {
+  assertUserAgent([UserAgents.IE], uaString);
+  assertEquals('User agent ' + uaString + ' should have had version ' +
+      expectedVersion + ' but had ' + goog.userAgent.VERSION,
+      expectedVersion,
+      goog.userAgent.VERSION);
+}
+
+function assertGecko(uaString, expectedVersion) {
+  assertUserAgent([UserAgents.GECKO], uaString, 'Gecko');
+  assertEquals('User agent ' + uaString + ' should have had version ' +
+      expectedVersion + ' but had ' + goog.userAgent.VERSION,
+      expectedVersion,
+     goog.userAgent.VERSION);
+}
+
+</script>
+</body>
+</html>

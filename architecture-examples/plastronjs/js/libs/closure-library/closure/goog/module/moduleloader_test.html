@@ -1,0 +1,245 @@
+<!--
+
+  A regression test for goog.module.ModuleLoader.
+
+  Unlike the unit tests for goog.module.ModuleManager, this uses
+  asynchronous test cases and real XHRs.
+
+  Author: nicksantos@google.com (Nick Santos)
+-->
+
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>JsUnit tests for goog.module.ModuleLoader</title>
+<script src='../base.js'></script>
+<script src='../../../third_party/closure/goog/deps.js'></script>
+<script>
+
+goog.require('goog.array');
+goog.require('goog.dom');
+goog.require('goog.functions');
+goog.require('goog.module.ModuleLoader');
+goog.require('goog.module.ModuleManager');
+goog.require('goog.module.ModuleManager.CallbackType');
+goog.require('goog.object');
+goog.require('goog.testing.AsyncTestCase');
+goog.require('goog.testing.PropertyReplacer');
+goog.require('goog.testing.jsunit');
+
+
+</script>
+</head>
+<body>
+
+<b>Note:</b>: If you're running this test off local disk on Chrome, it
+will fail unless you start Chrome with
+<code>--allow-file-access-from-files</code>.
+
+<script>
+
+var moduleLoader = null;
+var moduleManager = null;
+var stubs = new goog.testing.PropertyReplacer();
+
+var testCase = goog.testing.AsyncTestCase.createAndInstall(document.title);
+testCase.stepTimeout = 5 * 1000; // 5 seconds
+
+testCase.setUp = function() {
+  goog.provide = goog.nullFunction;
+  moduleManager = goog.module.ModuleManager.getInstance();
+  moduleLoader = new goog.module.ModuleLoader();
+
+  moduleManager.setLoader(moduleLoader);
+  moduleManager.setAllModuleInfo({
+      'modA': [],
+      'modB': ['modA']
+  });
+  moduleManager.setModuleUris({
+      'modA': ['testdata/modA_1.js', 'testdata/modA_2.js'],
+      'modB': ['testdata/modB_1.js']
+  });
+
+  assertNotLoaded('modA');
+  assertNotLoaded('modB');
+  assertUndefined(window.modA_);
+};
+
+testCase.tearDown = function() {
+  stubs.reset();
+
+  // Ensure that the module manager was created.
+  assertNotNull(goog.module.ModuleManager.getInstance());
+  moduleManager = goog.module.ModuleManager.instance_ = null;
+
+  // tear down the module loaded flag.
+  window.modA_1 = false;
+
+  // Remove all the fake scripts.
+  var scripts = goog.array.clone(
+      document.getElementsByTagName('SCRIPT'));
+  for (var i = 0; i < scripts.length; i++) {
+    if (scripts[i].src.indexOf('testdata') != -1) {
+      goog.dom.removeNode(scripts[i]);
+    }
+  }
+};
+
+function testLoadModuleA() {
+  testCase.waitForAsync('wait for module A load');
+  moduleManager.execOnLoad('modA', function() {
+    testCase.continueTesting();
+    assertLoaded('modA');
+    assertNotLoaded('modB');
+    assertTrue(window.modA_1);
+  });
+}
+
+function testLoadModuleB() {
+  testCase.waitForAsync('wait for module B load');
+  moduleManager.execOnLoad('modB', function() {
+    testCase.continueTesting();
+    assertLoaded('modA');
+    assertLoaded('modB');
+    assertTrue(window.modA_1);
+  });
+}
+
+function testLoadDebugModuleA() {
+  testCase.waitForAsync('wait for module A load');
+  moduleLoader.setDebugMode(true);
+  moduleManager.execOnLoad('modA', function() {
+    testCase.continueTesting();
+    assertLoaded('modA');
+    assertNotLoaded('modB');
+    assertTrue(window.modA_1);
+  });
+}
+
+function testLoadDebugModuleB() {
+  testCase.waitForAsync('wait for module B load');
+  moduleLoader.setDebugMode(true);
+  moduleManager.execOnLoad('modB', function() {
+    testCase.continueTesting();
+    assertLoaded('modA');
+    assertLoaded('modB');
+    assertTrue(window.modA_1);
+  });
+}
+
+function testLoadDebugModuleAThenB() {
+  // Swap the script tags of module A, to introduce a race condition.
+  // See the comments on this in ModuleLoader's debug loader.
+  moduleManager.setModuleUris({
+      'modA': ['testdata/modA_2.js', 'testdata/modA_1.js'],
+      'modB': ['testdata/modB_1.js']
+  });
+  testCase.waitForAsync('wait for module B load');
+  moduleLoader.setDebugMode(true);
+  moduleManager.execOnLoad('modB', function() {
+    testCase.continueTesting();
+    assertLoaded('modA');
+    assertLoaded('modB');
+
+    var scripts = goog.array.clone(
+        document.getElementsByTagName('SCRIPT'));
+    var seenLastScriptOfModuleA = false;
+    for (var i = 0; i < scripts.length; i++) {
+      var uri = scripts[i].src;
+      if (uri.indexOf('modA_1.js') >= 0) {
+        seenLastScriptOfModuleA = true;
+      } else if (uri.indexOf('modB') >= 0) {
+        assertTrue(seenLastScriptOfModuleA);
+      }
+    }
+  });
+}
+
+function testModuleLoaderRecursesTooDeep(opt_numModules) {
+  // There was a bug in the module loader where it would retry recursively
+  // whenever there was a synchronous failure in the module load. When you
+  // asked for modB, it would try to load its dependency modA. When modA
+  // failed, it would move onto modB, and then start over, repeating until it
+  // ran out of stack.
+  var numModules = opt_numModules || 1;
+  var uris = {};
+  var deps = {};
+  var mods = [];
+  for (var num = 0; num < numModules; num++) {
+    var modName = 'mod' + num;
+    mods.unshift(modName);
+    uris[modName] = [];
+    deps[modName] = num ? ['mod' + (num - 1)] : [];
+    for (var i = 0; i < 5; i++) {
+      uris[modName].push(
+          'http://www.google.com/crossdomain' + num + 'x' + i + '.js');
+    }
+  }
+
+  moduleManager.setAllModuleInfo(deps);
+  moduleManager.setModuleUris(uris);
+
+  // Make all XHRs throw an error, so that we test the error-handling
+  // functionality.
+  var oldXmlHttp = goog.net.XmlHttp;
+  stubs.set(goog.net, 'XmlHttp', function() {
+    return {
+       open: goog.functions.error('mock error'),
+       abort: goog.nullFunction
+    };
+  });
+  goog.object.extend(goog.net.XmlHttp, oldXmlHttp);
+
+  var errorCount = 0;
+  var errorIds = [];
+  var errorHandler = function(ignored, modId) {
+    errorCount++;
+    errorIds.push(modId);
+  };
+  moduleManager.registerCallback(
+      goog.module.ModuleManager.CallbackType.ERROR,
+      errorHandler);
+
+  moduleManager.execOnLoad(mods[0], function() {
+    fail('modB should not load successfully');
+  });
+
+  assertEquals(mods.length, errorCount);
+
+  goog.array.sort(mods);
+  goog.array.sort(errorIds);
+  assertArrayEquals(mods, errorIds);
+
+  assertArrayEquals([], moduleManager.requestedModuleIdsQueue_);
+  assertArrayEquals([], moduleManager.userInitiatedLoadingModuleIds_);
+}
+
+function testModuleLoaderRecursesTooDeep2modules() {
+  testModuleLoaderRecursesTooDeep(2);
+}
+
+function testModuleLoaderRecursesTooDeep3modules() {
+  testModuleLoaderRecursesTooDeep(3);
+}
+
+function testModuleLoaderRecursesTooDeep4modules() {
+  testModuleLoaderRecursesTooDeep(3);
+}
+
+function assertLoaded(id) {
+  assertTrue(moduleManager.getModuleInfo(id).isLoaded());
+}
+
+function assertNotLoaded(id) {
+  assertFalse(moduleManager.getModuleInfo(id).isLoaded());
+}
+
+</script>
+</body>
+</html>

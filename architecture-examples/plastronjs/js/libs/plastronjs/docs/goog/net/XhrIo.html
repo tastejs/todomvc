@@ -1,0 +1,73 @@
+<!doctype html><html><head><title>goog.net.XhrIo</title><link href="../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../index.html">Home</a><h1>Class goog.net.XhrIo</h1><p>Basic class for handling XMLHttpRequests.</p>extends <a href="../../goog/events/EventTarget.html">goog.events.EventTarget</a><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>abort(?goog.net.ErrorCode= opt_failureCode)</code><br><p class="method-description">Abort the current XMLHttpRequest</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>cleanUpXhr_(boolean= opt_fromDispose)</code><br><p class="method-description">Remove the listener to protect against leaks, and nullify the XMLHttpRequest
+object.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>createXhr() &#8658; (GearsHttpRequest|XMLHttpRequest|null)</code><br><p class="method-description">Creates a new XHR object.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>dispatchErrors_()</code><br><p class="method-description">Dispatches COMPLETE and ERROR in case of an error. This ensures that we do
+not dispatch multiple error events.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>disposeInternal()</code><br><p class="method-description">Nullifies all callbacks to reduce risks of leaks.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>error_(?goog.net.ErrorCode errorCode, ?Error err)</code><br><p class="method-description">Something errorred, so inactivate, fire error callback and clean up</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>formatMsg_(string msg) &#8658; string</code><br><p class="method-description">Adds the last method, status and URI to the message.  This is used to add
+this information to the logging calls.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getAllResponseHeaders() &#8658; string</code><br><p class="method-description">Gets the text of all the headers in the response.
+Will only return correct result when called from the context of a callback
+and the request has completed.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getLastError() &#8658; string</code><br><p class="method-description">Get the last error message</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getLastErrorCode() &#8658; ?goog.net.ErrorCode</code><br><p class="method-description">Get the last error message</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getLastUri() &#8658; string</code><br><p class="method-description">Get the last Uri that was requested</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getReadyState() &#8658; ?goog.net.XmlHttp.ReadyState</code><br><p class="method-description">Get the readystate from the Xhr object
+Will only return correct result when called from the context of a callback</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getResponse() &#8658; &lt;Any Type&gt;</code><br><p class="method-description">Get the response as the type specificed by {@link #setResponseType}. At time
+of writing, this is only directly supported in very recent versions of WebKit
+(10.0.612.1 dev and later). If the field is not supported directly, we will
+try to emulate it.
+
+Emulating the response means following the rules laid out at
+http://dev.w3.org/2006/webapi/XMLHttpRequest-2/#the-response-attribute.
+
+On browsers with no support for this (Chrome < 10, Firefox < 4, etc), only
+response types of DEFAULT or TEXT may be used, and the response returned will
+be the text response.
+
+On browsers with Mozilla's draft support for array buffers (Firefox 4, 5),
+only response types of DEFAULT, TEXT, and ARRAY_BUFFER may be used, and the
+response returned will be either the text response or the Mozilla
+implementation of the array buffer response.
+
+On browsers will full support, any valid response type supported by the
+browser may be used, and the response provided by the browser will be
+returned.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getResponseHeader(string key) &#8658; (string|undefined)</code><br><p class="method-description">Get the value of the response-header with the given name from the Xhr object
+Will only return correct result when called from the context of a callback
+and the request has completed</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getResponseJson(string= opt_xssiPrefix) &#8658; (Object|null|undefined)</code><br><p class="method-description">Get the response and evaluates it as JSON from the Xhr object
+Will only return correct result when called from the context of a callback</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getResponseText() &#8658; string</code><br><p class="method-description">Get the response text from the Xhr object
+Will only return correct result when called from the context of a callback.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getResponseType() &#8658; ?goog.net.XhrIo.ResponseType</code><br><p class="method-description">Gets the desired type for the response.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getResponseXml() &#8658; ?Document</code><br><p class="method-description">Get the response XML from the Xhr object
+Will only return correct result when called from the context of a callback.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getStatus() &#8658; number</code><br><p class="method-description">Get the status from the Xhr object
+Will only return correct result when called from the context of a callback</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getStatusText() &#8658; string</code><br><p class="method-description">Get the status text from the Xhr object
+Will only return correct result when called from the context of a callback</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getTimeoutInterval() &#8658; number</code><br><p class="method-description">Returns the number of milliseconds after which an incomplete request will be
+aborted, or 0 if no timeout is set.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getWithCredentials() &#8658; boolean</code><br><p class="method-description">Gets whether a "credentialed" request is to be sent.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>isActive() &#8658; boolean</code><br></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>isComplete() &#8658; boolean</code><br></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>isLastUriEffectiveSchemeHttp_() &#8658; boolean</code><br></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>isSuccess() &#8658; boolean</code><br></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>onReadyStateChangeEntryPoint_()</code><br><p class="method-description">Used to protect the onreadystatechange handler entry point.  Necessary
+as {#onReadyStateChange_} maybe called from within send or abort, this
+method is only called when {#onReadyStateChange_} is called as an
+entry point.
+{@see #protectEntryPoints}</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>onReadyStateChangeHelper_()</code><br><p class="method-description">Helper for {@link #onReadyStateChange_}.  This is used so that
+entry point calls to {@link #onReadyStateChange_} can be routed through
+{@link #onReadyStateChangeEntryPoint_}.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>onReadyStateChange_()</code><br><p class="method-description">Internal handler for the XHR object's readystatechange event.  This method
+checks the status and the readystate and fires the correct callbacks.
+If the request has ended, the handlers are cleaned up and the XHR object is
+nullified.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>send((goog.Uri|null|string) url, string= opt_method, (GearsBlob|null|string=) opt_content, (Object|goog.structs.Map|null=) opt_headers)</code><br><p class="method-description">Instance send that actually uses XMLHttpRequest to make a server call.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setResponseType(?goog.net.XhrIo.ResponseType type)</code><br><p class="method-description">Sets the desired type for the response. At time of writing, this is only
+supported in very recent versions of WebKit (10.0.612.1 dev and later).
+
+If this is used, the response may only be accessed via {@link #getResponse}.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setTimeoutInterval(number ms)</code><br><p class="method-description">Sets the number of milliseconds after which an incomplete request will be
+aborted and a {@link goog.net.EventType.TIMEOUT} event raised; 0 means no
+timeout is set.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setWithCredentials(boolean withCredentials)</code><br><p class="method-description">Sets whether a "credentialed" request that is aware of cookie and
+authentication information should be made. This option is only supported by
+browsers that support HTTP Access Control. As of this writing, this option
+is not supported in IE.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>timeout_()</code><br><p class="method-description">The request didn't complete after {@link goog.net.XhrIo#timeoutInterval_}
+milliseconds; raises a {@link goog.net.EventType.TIMEOUT} event and aborts
+the request.</p></td></tr></table><table class="method-list"><tr><td colspan="2"><strong>Static Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>cleanup()</code><br><p class="method-description">Disposes all non-disposed instances of goog.net.XhrIo created by
+{@link goog.net.XhrIo.send}.
+{@link goog.net.XhrIo.send} cleans up the goog.net.XhrIo instance
+it creates when the request completes or fails.  However, if
+the request never completes, then the goog.net.XhrIo is not disposed.
+This can occur if the window is unloaded before the request completes.
+We could have {@link goog.net.XhrIo.send} return the goog.net.XhrIo
+it creates and make the client of {@link goog.net.XhrIo.send} be
+responsible for disposing it in this case.  However, this makes things
+significantly more complicated for the client, and the whole point
+of {@link goog.net.XhrIo.send} is that it's simple and easy to use.
+Clients of {@link goog.net.XhrIo.send} should call
+{@link goog.net.XhrIo.cleanup} when doing final
+cleanup on window unload.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>cleanupSend_(?goog.net.XhrIo XhrIo)</code><br><p class="method-description">Disposes of the specified goog.net.XhrIo created by
+{@link goog.net.XhrIo.send} and removes it from
+{@link goog.net.XhrIo.pendingStaticSendInstances_}.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>protectEntryPoints(?goog.debug.ErrorHandler errorHandler)</code><br><p class="method-description">Installs exception protection for all entry point introduced by
+goog.net.XhrIo instances which are not protected by
+{@link goog.debug.ErrorHandler#protectWindowSetTimeout},
+{@link goog.debug.ErrorHandler#protectWindowSetInterval}, or
+{@link goog.events.protectBrowserEventEntryPoint}.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>send((goog.Uri|null|string) url, ?Function= opt_callback, string= opt_method, (GearsBlob|null|string=) opt_content, (Object|goog.structs.Map|null=) opt_headers, number= opt_timeoutInterval)</code><br><p class="method-description">Static send that creates a short lived instance of XhrIo to send the
+request.</p></td></tr></table></body></html>

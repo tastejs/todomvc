@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--
+  All Rights Reserved.
+
+  @author tildahl@google.com (Michael Tildahl)
+-->
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>goog.editor.plugins.LinkBubble Tests</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.TagName');
+  goog.require('goog.editor.Link');
+  goog.require('goog.events.BrowserEvent');
+  goog.require('goog.events.Event');
+  goog.require('goog.events.KeyCodes');
+  goog.require('goog.testing.FunctionMock');
+  goog.require('goog.testing.editor.FieldMock');
+  goog.require('goog.testing.editor.TestHelper');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+  goog.require('goog.editor.plugins.LinkBubble');
+</script>
+</head>
+<body>
+
+<div id="field"><a href="http://www.google.com/">Google</a></div>
+
+<script>
+
+var fieldDiv = goog.dom.$('field');
+var FIELDMOCK;
+var linkBubble;
+var link;
+var mockWindowOpen;
+var stubs = new goog.testing.PropertyReplacer();
+var testHelper = new goog.testing.editor.TestHelper(
+    goog.dom.getElement('field'));
+
+function setUp() {
+  testHelper.setUpEditableElement();
+  FIELDMOCK = new goog.testing.editor.FieldMock();
+
+  linkBubble = new goog.editor.plugins.LinkBubble();
+  linkBubble.fieldObject = FIELDMOCK;
+
+  link = fieldDiv.firstChild;
+
+  mockWindowOpen = new goog.testing.FunctionMock('open');
+  stubs.set(window, 'open', mockWindowOpen);
+}
+
+function tearDown() {
+  linkBubble.closeBubble();
+  testHelper.tearDownEditableElement();
+  stubs.reset();
+}
+
+function testLinkSelected() {
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+  goog.dom.Range.createFromNodeContents(link).select();
+  linkBubble.handleSelectionChange();
+  assertBubble();
+  FIELDMOCK.$verify();
+}
+
+function testLinkClicked() {
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+  FIELDMOCK.$verify();
+}
+
+function testImageLink() {
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+  link.setAttribute('imageanchor', 1);
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+  FIELDMOCK.$verify();
+}
+
+function closeBox() {
+  var closeBox = goog.dom.getElementsByTagNameAndClass(goog.dom.TagName.DIV,
+      'tr_bubble_closebox');
+  assertEquals('Should find only one close box', 1, closeBox.length);
+  assertNotNull('Found close box', closeBox[0]);
+  goog.testing.events.fireClickSequence(closeBox[0]);  
+}
+
+function testCloseBox() {
+  testLinkClicked();
+  closeBox();
+  assertNoBubble();
+  FIELDMOCK.$verify();
+}
+
+function testChangeClicked() {
+  FIELDMOCK.execCommand(goog.editor.Command.MODAL_LINK_EDITOR,
+      new goog.editor.Link(link, false));
+  FIELDMOCK.$registerArgumentListVerifier('execCommand', function(arr1, arr2) {
+    return arr1.length == arr2.length &&
+           arr1.length == 2 &&
+           arr1[0] == goog.editor.Command.MODAL_LINK_EDITOR &&
+           arr2[0] == goog.editor.Command.MODAL_LINK_EDITOR &&
+           arr1[1] instanceof goog.editor.Link &&
+           arr2[1] instanceof goog.editor.Link;
+  });
+  FIELDMOCK.$times(1);
+  FIELDMOCK.$returns(true);
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+
+  goog.testing.events.fireClickSequence(
+      goog.dom.$(goog.editor.plugins.LinkBubble.CHANGE_LINK_ID_));
+  assertNoBubble();
+  FIELDMOCK.$verify();
+}
+
+function testDeleteClicked() {
+  FIELDMOCK.dispatchBeforeChange();
+  FIELDMOCK.$times(1);
+  FIELDMOCK.dispatchChange();
+  FIELDMOCK.$times(1);
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+
+  goog.testing.events.fireClickSequence(
+      goog.dom.$(goog.editor.plugins.LinkBubble.DELETE_LINK_ID_));
+  var element = goog.userAgent.GECKO ?  document.body : fieldDiv;
+  assertNotEquals('Link removed', element.firstChild.nodeName,
+      goog.dom.TagName.A);
+  assertNoBubble();
+  FIELDMOCK.$verify();
+}
+
+function testActionClicked() {
+  var SPAN = 'actionSpanId';
+  var LINK = 'actionLinkId';
+  var toShowCount = 0;
+  var actionCount = 0;
+
+  var linkAction = new goog.editor.plugins.LinkBubble.Action(
+      SPAN, LINK, 'message',
+      function() {
+        toShowCount++;
+        return toShowCount == 1; // Show it the first time.
+      },
+      function() {
+        actionCount++;
+      });
+
+  linkBubble = new goog.editor.plugins.LinkBubble(linkAction);
+  linkBubble.fieldObject = FIELDMOCK;
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  // The first time the bubble is shown, show our custom action.
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+  assertEquals('Should check showing the action', 1, toShowCount);
+  assertEquals('Action should not have fired yet', 0, actionCount);
+
+  assertTrue('Action should be visible 1st time', goog.style.isElementShown(
+      goog.dom.$(SPAN)));
+  goog.testing.events.fireClickSequence(goog.dom.$(LINK));
+
+  assertEquals('Should not check showing again yet', 1, toShowCount);
+  assertEquals('Action should be fired', 1, actionCount);
+
+  closeBox();
+  assertNoBubble();
+
+  // The action won't be shown the second time around.
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+  assertEquals('Should check showing again', 2, toShowCount);
+  assertEquals('Action should not fire again', 1, actionCount);
+  assertFalse('Action should not be shown 2nd time', goog.style.isElementShown(
+      goog.dom.$(SPAN)));
+
+  FIELDMOCK.$verify();
+}
+
+function testLinkTextClicked() {
+  mockWindowOpen('http://www.google.com/', '_blank', '');
+  mockWindowOpen.$replay();
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+
+  goog.testing.events.fireClickSequence(
+      goog.dom.$(goog.editor.plugins.LinkBubble.TEST_LINK_ID_));
+
+  assertBubble();
+  mockWindowOpen.$verify();
+  FIELDMOCK.$verify();
+}
+
+function testLinkTextClickedCustomUrlFn() {
+  mockWindowOpen('http://images.google.com/', '_blank', '');
+  mockWindowOpen.$replay();
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  linkBubble.setTestLinkUrlFn(function(url) {
+    return url.replace('www', 'images');
+  });
+
+  linkBubble.handleSelectionChange(createMouseEvent(link));
+  assertBubble();
+
+  goog.testing.events.fireClickSequence(
+      goog.dom.$(goog.editor.plugins.LinkBubble.TEST_LINK_ID_));
+
+  assertBubble();
+  mockWindowOpen.$verify();
+  FIELDMOCK.$verify();
+}
+
+/**
+ * @bug 763211
+ * @bug 2182147
+ */
+function testLongUrlTestLinkAnchorTextCorrect() {
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  var longUrl = 'http://www.reallylonglinkthatshouldbetruncated' +
+      'becauseitistoolong.com';
+  var truncatedLongUrl = goog.string.truncateMiddle(longUrl, 48);
+
+  var longLink = document.createElement('a');
+  longLink.href = longUrl;
+  longLink.innerHTML = 'Google';
+  fieldDiv.appendChild(longLink);
+
+  linkBubble.handleSelectionChange(createMouseEvent(longLink));
+  assertBubble();
+
+  var testLinkEl = goog.dom.$(goog.editor.plugins.LinkBubble.TEST_LINK_ID_);
+  assertEquals(
+      'The test link\'s anchor text should be the truncated URL.',
+      truncatedLongUrl,
+      testLinkEl.innerHTML);
+
+  fieldDiv.removeChild(longLink);
+  FIELDMOCK.$verify();
+}
+
+/**
+ * @bug 2416024
+ */
+function testOverridingCreateBubbleContentsDoesntNpeGetTargetUrl() {
+  FIELDMOCK.$replay();
+  linkBubble.enable(FIELDMOCK);
+
+  stubs.set(linkBubble, 'createBubbleContents',
+      function(elem) {
+        // getTargetUrl would cause an NPE if urlUtil_ wasn't defined yet.
+        linkBubble.getTargetUrl();
+      });
+  assertNotThrows('Accessing this.urlUtil_ should not NPE',
+                  goog.bind(linkBubble.handleSelectionChange,
+                            linkBubble, createMouseEvent(link)));
+
+  FIELDMOCK.$verify();
+}
+
+function assertBubble() {
+  assertTrue('Link bubble visible', linkBubble.isVisible());
+  assertNotNull('Link bubble created',
+      goog.dom.$(goog.editor.plugins.LinkBubble.LINK_DIV_ID_));
+}
+
+function assertNoBubble() {
+  assertFalse('Link bubble not visible', linkBubble.isVisible());
+  assertNull('Link bubble not created',
+      goog.dom.$(goog.editor.plugins.LinkBubble.LINK_DIV_ID_));
+}
+
+function createMouseEvent(target) {
+  var eventObj = new goog.events.Event(goog.events.EventType.MOUSEUP, target);
+  eventObj.button = goog.events.BrowserEvent.MouseButton.LEFT;
+
+  return new goog.events.BrowserEvent(eventObj, target);
+}
+</script>
+</body>
+</html>

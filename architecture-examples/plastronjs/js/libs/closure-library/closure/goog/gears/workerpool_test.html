@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.gears.WorkerPool</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.gears.Worker.EventType');
+  goog.require('goog.gears.WorkerPool');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.TestCase');
+</script>
+</head>
+<body>
+<script type='text/x-gears-worker-pool-js' id='workercode'>
+
+var ONE = 1
+var TWO = 2
+var THREE = 3;
+
+/**
+ * Every message should be a JSON string.
+ */
+google.gears.workerPool.onmessage = function(message, sender, messageObject) {
+  function sendMessage(m) {
+    google.gears.workerPool.sendMessage(m, sender);
+  }
+
+  var obj = messageObject.body;
+
+  if (typeof obj == 'object' && obj != null) {
+    var commandId = obj[0];
+    var params = obj[1];
+    if (commandId == ONE) {
+      sendMessage([1, ['one', params.toUpperCase()]]);
+    } else if (commandId == TWO) {
+      sendMessage([2, ['two', params.toUpperCase()]]);
+    } else if (commandId == THREE) {
+      sendMessage([3, ['three', params.toUpperCase()]]);
+    } else {
+      // {a: null} case
+      sendMessage(obj);
+    }
+  } else {
+    sendMessage(obj);
+  }
+};
+
+</script>
+<script>
+
+function isGearsAllowed() {
+  return goog.gears.hasFactory() && goog.gears.getFactory().hasPermission;
+}
+
+var ONE = 1
+var TWO = 2
+var THREE = 3;
+
+// Create a new test case.
+var workerTestCase = new goog.testing.TestCase(document.title);
+
+/** True once the test environment is set up. */
+workerTestCase.isSetUp = false;
+
+/** True once the page is ready for the test to be run. */
+workerTestCase.isReady = false;
+
+/** The number of tests recieved from the worker pool. */
+workerTestCase.resultCount = 0;
+
+/** Array of test results */
+workerTestCase.results = [];
+
+/** Array of tests */
+workerTestCase.tests = [
+  [ONE, 'one', 'ONE'],
+  [TWO, 'two', 'TWO'],
+  [THREE, 'three', 'THREE'],
+  {a: null},
+  'JSON string',
+  '',
+  1,
+  0,
+  false,
+  true
+];
+
+/** Sets up the test environment, adds tests and sets up the worker pools. */
+workerTestCase.setUpTests = function() {
+  this.log('Setting tests up');
+
+  this.add(new goog.testing.TestCase.Test(
+      'test worker results', this.testResults, this));
+
+  this.isSetUp = true;
+
+  // Can't test if gears isn't installed.
+  if (!isGearsAllowed()) {
+    setUpPageStatus = 'complete';
+    this.isReady = true;
+    return;
+  }
+
+  var workerPool = new goog.gears.WorkerPool;
+
+  var worker = workerPool.createWorker(this.getWorkerCode());
+  goog.events.listen(worker, goog.gears.Worker.EventType.MESSAGE, this);
+
+  for (var i = 0; i < 3; i++) {
+    worker.sendMessage([this.tests[i][0], this.tests[i][1]]);
+  }
+
+  for (var i = 3; i < this.tests.length; i++) {
+    worker.sendMessage(this.tests[i]);
+  }
+};
+
+/** Gets the worker code. */
+workerTestCase.getWorkerCode = function() {
+  return document.getElementById('workercode').innerHTML;
+};
+
+/** Handles the worker's MESSAGE event . */
+workerTestCase.handleEvent = function(e) {
+  this.log('handleEvent, type: ' + e.type + ', message: ' + e.message);
+  if (e.type == goog.gears.Worker.EventType.MESSAGE) {
+    if (goog.isArray(e.message)) {
+      var commandId = e.message[0];
+      var params = e.message[1];
+
+      this.results.push([commandId, params[0], params[1]]);
+    } else {
+      this.results.push(e.message);
+    }
+    this.resultCount++;
+    if (this.resultCount >= this.tests.length) {
+      this.isReady = true;
+      // Backwards compatability for JsUnit to start tests
+      setUpPageStatus = 'complete';
+    }
+  }
+};
+
+/** Tests that the results were correct. */
+workerTestCase.testResults = function() {
+  this.log('testing results');
+  // Can't test if gears isn't installed.
+  if (!isGearsAllowed()) {
+    return;
+  }
+
+  for (var i = 0; i < this.tests.length; i++) {
+    if (goog.isArray(this.tests[i])) {
+      assertArrayEquals(this.tests[i], this.results[i]);
+    } else if (goog.isObject(this.tests[i])) {
+      assertObjectEquals(this.tests[i], this.results[i]);
+    } else {
+      assertEquals(this.tests[i], this.results[i]);
+    }
+  }
+};
+
+/** Waits until the tests are ready to begin, before running them. */
+workerTestCase.runTests = function() {
+  if (!this.isSetUp) {
+    this.setUpTests();
+  }
+  if (this.isReady) {
+    this.execute();
+  } else {
+    this.log('Not ready, waiting');
+    // Try again in 100ms
+    setTimeout('workerTestCase.runTests()', 100);
+  }
+};
+
+/** Used by the JsUnit test runner. */
+function testResults() {
+  workerTestCase.testResults();
+}
+
+/** Used by the JsUnit test runner. */
+function setUpPage() {
+  workerTestCase.runTests();
+}
+
+/** Standalone Closure Test Runner. */
+if (typeof G_testRunner != 'undefined') {
+  G_testRunner.initialize(workerTestCase);
+}
+
+</script>
+</body>
+</html>

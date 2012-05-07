@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>goog.dom.NodeOffset Tests</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.NodeOffset');
+  goog.require('goog.dom.NodeType');
+  goog.require('goog.dom.TagName');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<div id="test1">Text<br> and <b>more <i id="i">text.</i></b></div>
+<div id="test2"></div>
+<div id="empty"></div>
+
+<script>
+  var test1 = goog.dom.getElement('test1');
+  var i = goog.dom.getElement('i');
+
+  var test2 = goog.dom.getElement('test2');
+  test2.innerHTML = test1.innerHTML;
+
+  var empty = goog.dom.getElement('empty');
+
+  function testElementOffset() {
+    var nodeOffset = new goog.dom.NodeOffset(i, test1);
+
+    var recovered = nodeOffset.findTargetNode(test2);
+    assertNotNull('Should recover a node.', recovered);
+    assertEquals('Should recover an I node.', goog.dom.TagName.I,
+        recovered.tagName);
+    assertTrue('Should recover a child of test2',
+        goog.dom.contains(test2, recovered));
+    assertFalse('Should not recover a child of test1',
+        goog.dom.contains(test1, recovered));
+
+    nodeOffset.dispose();
+  }
+
+  function testNodeOffset() {
+    var nodeOffset = new goog.dom.NodeOffset(i.firstChild, test1);
+
+    var recovered = nodeOffset.findTargetNode(test2);
+    assertNotNull('Should recover a node.', recovered);
+    assertEquals('Should recover a text node.', goog.dom.NodeType.TEXT,
+        recovered.nodeType);
+    assertEquals('Should  have correct contents.', 'text.',
+        recovered.nodeValue);
+    assertTrue('Should recover a child of test2',
+        goog.dom.contains(test2, recovered));
+    assertFalse('Should not recover a child of test1',
+        goog.dom.contains(test1, recovered));
+
+    nodeOffset.dispose();
+  }
+
+  function testToString() {
+    var nodeOffset = new goog.dom.NodeOffset(i.firstChild, test1);
+
+    assertEquals('Should have correct string representation',
+        '3,B\n1,I\n0,#text', nodeOffset.toString());
+
+    nodeOffset.dispose();
+  }
+
+  function testBadRecovery() {
+    var nodeOffset = new goog.dom.NodeOffset(i.firstChild, test1);
+
+    var recovered = nodeOffset.findTargetNode(empty);
+    assertNull('Should recover nothing.', recovered);
+
+    nodeOffset.dispose();
+  }
+
+</script>
+</body>
+</html>

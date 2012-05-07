@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>UrlCapture tests</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.gears.UrlCapture');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.LooseMock');
+</script>
+</head>
+<body>
+<script>
+
+/**
+ * @return {GearsLocalServer} Stub local server.
+ */
+function newStubLocalServer() {
+  return {
+    createStore: function() {},
+    openStore: function() {},
+    removeStore: function() {}
+  };
+}
+
+/**
+ * @return {GearsResourceStore} Stub resource store.
+ */
+function newStubResourceStore() {
+  var nextCaptureId = 0;
+  var capturedUrls = [];
+
+  var result = {};
+  result.callbacks = {};
+
+  result.capture = function(urls, callback) {
+    var id = nextCaptureId++;
+    this.callbacks[id] = function(url, success, captureId) {
+      if (url && success) {
+        capturedUrls.push(url);
+      }
+      callback(url, success, captureId);
+    }
+    return id;
+  };
+
+  result.rename = function(oldUrl, newUrl) {
+    goog.array.remove(capturedUrls, oldUrl);
+    capturedUrls.push(newUrl);
+  };
+
+  result.copy = function(oldUrl, newUrl) {
+    capturedUrls.push(newUrl);
+  };
+
+  result.remove = function(url) {
+    goog.array.remove(capturedUrls, url);
+  };
+
+  result.isCaptured = function(url) {
+    return goog.array.contains(capturedUrls, url);
+  };
+
+  result.abortCapture = function(id) {
+    delete this.callbacks[id];
+  };
+
+  return result;
+}
+
+/**
+ * @param {GearsResourceStore} ResourceStore to be returned by #createStore.
+ * @return {Mock.<GearsLocalServer>} Mock local server expecting a single call
+ *     to #createStore returning #stubResourceStore.
+ */
+function newMockLocalServerCreateStore(stubResourceStore) {
+  var result = new goog.testing.LooseMock(newStubLocalServer());
+  result.createStore(STORE_NAME, COOKIE_NAME).$returns(
+      stubResourceStore);
+  result.$replay();
+  return result;
+}
+
+/**
+ * @return {Object} Event listener for UrlCapture.
+ */
+function newListener(uut) {
+  var result = {
+      url_success: [],
+      url_error: [],
+      complete: [],
+      abort: []
+  };
+  goog.events.listen(uut, goog.gears.UrlCapture.EventType.URL_SUCCESS,
+      function(e) { result.url_success.push(e); });
+  goog.events.listen(uut, goog.gears.UrlCapture.EventType.URL_ERROR,
+      function(e) { result.url_error.push(e); });
+  goog.events.listen(uut, goog.gears.UrlCapture.EventType.COMPLETE,
+      function(e) { result.complete.push(e); });
+  goog.events.listen(uut, goog.gears.UrlCapture.EventType.ABORT,
+      function(e) { result.abort.push(e); });
+  return result;
+}
+
+function assertEventEquals(expectedType, expectedCaptureId, expectedUri,
+    expectedErrorUris, actualEvent) {
+  assertEquals('wrong type', expectedType, actualEvent.type);
+  assertEquals('wrong capture ID', expectedCaptureId, actualEvent.captureId);
+  assertEquals('wrong URL', expectedUri, actualEvent.uri);
+  assertArrayEquals('wrong error URIs', expectedErrorUris,
+      actualEvent.errorUris);
+}
+
+function assertIsCaptured(expectedCapturedUrls, expectedUncapturedUrls, uut) {
+  for (var i = 0; i < expectedCapturedUrls.length; ++i) {
+    var url = expectedCapturedUrls[i];
+    assertTrue('not captured: ' + url, uut.isCaptured(url));
+  }
+  for (var i = 0; i < expectedUncapturedUrls.length; ++i) {
+    var url = expectedUncapturedUrls[i];
+    assertFalse('captured: ' + url, uut.isCaptured(url));
+  }
+}
+
+var STORE_NAME = 'TestCapture';
+var COOKIE_NAME = 'TestCookie';
+
+/**
+ * Tests resource store exists.
+ */
+function testExists() {
+  var mockLocalServer = new goog.testing.LooseMock(newStubLocalServer());
+  mockLocalServer.openStore(STORE_NAME, COOKIE_NAME).$returns(true);
+  mockLocalServer.$replay();
+
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+  assertTrue('exists failed for ' + STORE_NAME, uut.exists());
+  mockLocalServer.$verify();
+}
+
+/**
+ * Tests resource store does not exist.
+ */
+function testNotExists() {
+  var mockLocalServer = new goog.testing.LooseMock(newStubLocalServer());
+  mockLocalServer.openStore(STORE_NAME, COOKIE_NAME).$returns(false);
+  mockLocalServer.$replay();
+
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+  assertFalse('exists succeeded for ' + STORE_NAME, uut.exists());
+  mockLocalServer.$verify();
+}
+
+/**
+ * Test remove resource store.
+ */
+function testRemoveStore() {
+  var mockLocalServer = new goog.testing.LooseMock(newStubLocalServer());
+  mockLocalServer.removeStore(STORE_NAME, COOKIE_NAME);
+  mockLocalServer.$replay();
+
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+  uut.removeStore();
+  mockLocalServer.$verify();
+}
+
+/**
+ * Test empty capture request.
+ */
+function testEmptyCapture() {
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME,
+      newStubLocalServer());
+  assertThrows('should fail for null uris', function() { uut.capture(); });
+  assertThrows('should fail for 0 uris', function() { uut.capture([]); });
+}
+
+/**
+ * Test successful capture.
+ */
+function testCaptureUrlSuccess() {
+  // Create stubs and mocks.
+  var stubResourceStore = newStubResourceStore();
+  var mockLocalServer = newMockLocalServerCreateStore(stubResourceStore);
+
+  // Create url capturer and event listener.
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+  var listener = newListener(uut);
+
+  // Start capture.
+  var url = '/foo.html';
+  var id = uut.capture([url]);
+  mockLocalServer.$verify();
+  assertEquals('wrong capture ID', 0, id);
+  var callback = stubResourceStore.callbacks[id];
+  assertEquals('missing callback', 'function', typeof callback);
+
+  // Callback capture success.
+  var uncapturedUrl = '/uncaptured.html';
+  assertIsCaptured([], [url, uncapturedUrl], uut);
+  callback(url, true, id);
+  assertIsCaptured([url], [uncapturedUrl], uut);
+
+  // Assert events.
+  assertEquals('url error', 0, listener.url_error.length);
+  assertEquals('abort', 0, listener.abort.length);
+  assertEquals('url success', 1, listener.url_success.length);
+  assertEventEquals(goog.gears.UrlCapture.EventType.URL_SUCCESS, id, url, [],
+      listener.url_success[0]);
+  assertEquals('url complete', 1, listener.complete.length);
+  assertEventEquals(goog.gears.UrlCapture.EventType.COMPLETE, id, null, [],
+      listener.complete[0]);
+}
+
+/**
+ * Test unsuccessful capture.
+ */
+function testCaptureUrlFail() {
+  // Create stubs and mocks.
+  var stubResourceStore = newStubResourceStore();
+  var mockLocalServer = newMockLocalServerCreateStore(stubResourceStore);
+
+  // Create url capturer and event listener.
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+  var listener = newListener(uut);
+
+  // Start capture.
+  var url = '/foo.html';
+  var id = uut.capture([url]);
+  mockLocalServer.$verify();
+  assertEquals('wrong capture ID', 0, id);
+  var callback = stubResourceStore.callbacks[id];
+  assertEquals('missing callback', 'function', typeof callback);
+
+  // Callback capture success.
+  assertIsCaptured([], [url], uut);
+  callback(url, false, id);
+  assertIsCaptured([], [url], uut);
+
+  // Assert events.
+  assertEquals('url error', 1, listener.url_error.length);
+  assertEventEquals(goog.gears.UrlCapture.EventType.URL_ERROR, id, url, [],
+      listener.url_error[0]);
+  assertEquals('abort', 0, listener.abort.length);
+  assertEquals('url success', 0, listener.url_success.length);
+  assertEquals('url complete', 1, listener.complete.length);
+  assertEventEquals(goog.gears.UrlCapture.EventType.COMPLETE, id, null, [url],
+      listener.complete[0]);
+}
+
+/**
+ * Test abort capture.
+ */
+function testAbortCapture() {
+  // Create stubs and mocks.
+  var stubResourceStore = newStubResourceStore();
+  var mockLocalServer = newMockLocalServerCreateStore(stubResourceStore);
+
+  // Create url capturer and event listener.
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+  var listener = newListener(uut);
+
+  // Throw exception for aborting with no ID.
+  assertThrows('should fail for no ID', function() { uut.abort(); });
+  assertThrows('should fail for null ID', function() { uut.abort(null); });
+
+  // Start capture.
+  var url = '/foo.html';
+  var id = uut.capture([url]);
+  mockLocalServer.$verify();
+  var callback = stubResourceStore.callbacks[id];
+  assertEquals('missing callback', 'function', typeof callback);
+
+  // Abort capture.
+  assertIsCaptured([], [url], uut);
+  uut.abort(id);
+  assertEquals('abort', 1, listener.abort.length);
+  assertFalse('found aborted callback', !!stubResourceStore.callbacks[id]);
+  assertIsCaptured([], [url], uut);
+
+  // Callback after abort captures URL but dispatches no events.
+  callback(url, true, id);
+  assertIsCaptured([url], [], uut);
+
+  // Assert events.
+  assertEquals('url error', 0, listener.url_error.length);
+  assertEquals('url success', 0, listener.url_success.length);
+  assertEquals('url complete', 0, listener.complete.length);
+}
+
+/**
+ * Test removing captured URL.
+ */
+function testRemoveUrl() {
+  // Create stubs and mocks.
+  var stubResourceStore = newStubResourceStore();
+  var mockLocalServer = newMockLocalServerCreateStore(stubResourceStore);
+
+  // Create url capturer.
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+
+  // Throw exception for removing with no URL.
+  assertThrows('should fail for no URL', function() { uut.remove(); });
+  assertThrows('should fail for null URL', function() { uut.remove(null); });
+
+  // Start capture.
+  var url = '/foo.html';
+  var id = uut.capture([url]);
+  mockLocalServer.$verify();
+  assertIsCaptured([], [url], uut);
+
+  // Capture callback success.
+  stubResourceStore.callbacks[id](url, true, id);
+  assertIsCaptured([url], [], uut);
+
+  // Remove URL.
+  uut.remove(url);
+  assertIsCaptured([], [url], uut);
+}
+
+/**
+ * Test renaming captured URL.
+ */
+function testRenameUrl() {
+  // Create stubs and mocks.
+  var stubResourceStore = newStubResourceStore();
+  var mockLocalServer = newMockLocalServerCreateStore(stubResourceStore);
+
+  // Create url capturer.
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+
+  // Throw exception for removing with no URL.
+  assertThrows('should fail for no URL', function() { uut.rename(); });
+  assertThrows('should fail for null URL', function() { uut.rename(null); });
+
+  // Start capture.
+  var url = '/foo.html';
+  var renamedUrl = '/renamed.html';
+  var id = uut.capture([url]);
+  mockLocalServer.$verify();
+  assertIsCaptured([], [url, renamedUrl], uut);
+
+  // Callback capture success.
+  stubResourceStore.callbacks[id](url, true, id);
+  assertIsCaptured([url], [renamedUrl], uut);
+
+  // Rename URL.
+  uut.rename(url, renamedUrl);
+  assertIsCaptured([renamedUrl], [url], uut);
+}
+
+/**
+ * Test copying captured URL.
+ */
+function testCopyUrl() {
+  // Create stubs and mocks.
+  var stubResourceStore = newStubResourceStore();
+  var mockLocalServer = newMockLocalServerCreateStore(stubResourceStore);
+
+  // Create url capturer.
+  var uut = new goog.gears.UrlCapture(STORE_NAME, COOKIE_NAME, mockLocalServer);
+
+  // Throw exception for removing with no URL.
+  assertThrows('should fail for no URL', function() { uut.copy(); });
+  assertThrows('should fail for null URL', function() { uut.copy(null); });
+
+  // Start capture.
+  var url = '/foo.html';
+  var copiedUrl = '/renamed.html';
+  var id = uut.capture([url]);
+  mockLocalServer.$verify();
+  assertIsCaptured([], [url, copiedUrl], uut);
+
+  // Callback capture success.
+  stubResourceStore.callbacks[id](url, true, id);
+  assertIsCaptured([url], [copiedUrl], uut);
+
+  // Copy URL.
+  uut.copy(url, copiedUrl);
+  assertIsCaptured([url, copiedUrl], [], uut);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.fx</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.Timer');
+  goog.require('goog.fx');
+  goog.require('goog.fx.Animation');
+  goog.require('goog.object');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.PropertyReplacer');
+  goog.require('goog.testing.jsunit');
+</script>
+<style>
+
+</style>
+</head>
+<body>
+<script>
+
+// TODO(user): Add tests for the event dispatches.
+// TODO(user): Add tests for the calculation of the coordinates.
+
+var clock, replacer, anim, anim2;
+var Animation = goog.fx.Animation;
+
+function setUpPage() {
+  clock = new goog.testing.MockClock(true);
+}
+
+function tearDownPage() {
+  clock.dispose();
+}
+
+function setUp() {
+  replacer = new goog.testing.PropertyReplacer();
+}
+
+function tearDown() {
+  replacer.reset();
+
+  if (anim && anim.dispose) {
+    anim.dispose();
+  }
+
+  if (anim2 && anim2.dispose) {
+    anim2.dispose();
+  }
+}
+
+function testAnimationConstructor() {
+  assertThrows('Should throw since first arg is not an array', function() {
+    new Animation(1, [2], 3);
+  });
+  assertThrows('Should throw since second arg is not an array', function() {
+    new Animation([1], 2, 3);
+  });
+  assertThrows('Should throw since the length are different', function() {
+    new Animation([0, 1], [2], 3);
+  });
+}
+
+function testPlayAndStopDoesNotLeaveAnyActiveAnimations() {
+  anim = new Animation([0], [1], 1000);
+
+  assertTrue('There should be no active animations',
+             goog.object.isEmpty(goog.fx.anim.activeAnimations_));
+
+  anim.play();
+  assertEquals('There should be one active animations',
+               1, goog.object.getCount(goog.fx.anim.activeAnimations_));
+
+  anim.stop();
+  assertTrue('There should be no active animations',
+             goog.object.isEmpty(goog.fx.anim.activeAnimations_));
+
+  anim.play();
+  assertEquals('There should be one active animations',
+               1, goog.object.getCount(goog.fx.anim.activeAnimations_));
+
+  anim.pause();
+  assertTrue('There should be no active animations',
+             goog.object.isEmpty(goog.fx.anim.activeAnimations_));
+}
+
+
+</script>
+</body>
+</html>

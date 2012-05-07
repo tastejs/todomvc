@@ -1,0 +1,126 @@
+<!doctype html><html><head><title>goog.ui.Component</title><link href="../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../index.html">Home</a><h1>Class goog.ui.Component</h1><p>Default implementation of UI component.</p>extends <a href="../../goog/events/EventTarget.html">goog.events.EventTarget</a><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>addChild(?goog.ui.Component child, boolean= opt_render)</code><br><p class="method-description">Adds the specified component as the last child of this component.  See
+{@link goog.ui.Component#addChildAt} for detailed semantics.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>addChildAt(?goog.ui.Component child, number index, boolean= opt_render)</code><br><p class="method-description">Adds the specified component as a child of this component at the given
+0-based index.
+
+Both {@code addChild} and {@code addChildAt} assume the following contract
+between parent and child components:
+<ul>
+<li>the child component's element must be a descendant of the parent
+component's element, and
+<li>the DOM state of the child component must be consistent with the DOM
+state of the parent component (see {@code isInDocument}).
+</ul>
+
+In particular, {@code parent.addChild(child)} will throw an error if the
+child component is already in the document, but the parent isn't.
+
+Clients of this API may call {@code addChild} and {@code addChildAt} with
+{@code opt_render} set to true.  If {@code opt_render} is true, calling these
+methods will automatically render the child component's element into the
+parent component's element.  However, {@code parent.addChild(child, true)}
+will throw an error if:
+<ul>
+<li>the parent component has no DOM (i.e. {@code parent.getElement()} is
+null), or
+<li>the child component is already in the document, regardless of the
+parent's DOM state.
+</ul>
+
+If {@code opt_render} is true and the parent component is not already
+in the document, {@code enterDocument} will not be called on this component
+at this point.
+
+Finally, this method also throws an error if the new child already has a
+different parent, or the given index is out of bounds.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>canDecorate(?Element element) &#8658; boolean</code><br><p class="method-description">Determines if a given element can be decorated by this type of component.
+This method should be overridden by inheriting objects.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>createDom()</code><br><p class="method-description">Creates the initial DOM representation for the component.  The default
+implementation is to set this.element_ = div.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>decorate(?Element element)</code><br><p class="method-description">Decorates the element for the UI component.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>decorateInternal(?Element element)</code><br><p class="method-description">Actually decorates the element. Should be overridden by inheriting objects.
+This method can assume there are checks to ensure the component has not
+already been rendered have occurred and that enter document will be called
+afterwards. This method is considered protected.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>disposeInternal()</code><br><p class="method-description">Disposes of the component.  Calls {@code exitDocument}, which is expected to
+remove event handlers and clean up the component.  Propagates the call to
+the component's children, if any. Removes the component's DOM from the
+document unless it was decorated.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>enterDocument()</code><br><p class="method-description">Called when the component's element is known to be in the document. Anything
+using document.getElementById etc. should be done at this stage.
+
+If the component contains child components, this call is propagated to its
+children.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>exitDocument()</code><br><p class="method-description">Called by dispose to clean up the elements and listeners created by a
+component, or by a parent component/application who has removed the
+component from the document but wants to reuse it later.
+
+If the component contains child components, this call is propagated to its
+children.
+
+It should be possible for the component to be rendered again once this method
+has been called.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>forEachChild(?Function f, ?Object= opt_obj)</code><br><p class="method-description">Calls the given function on each of this component's children in order.  If
+{@code opt_obj} is provided, it will be used as the 'this' object in the
+function when called.  The function should take two arguments:  the child
+component and its 0-based index.  The return value is ignored.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getChild(string id) &#8658; ?goog.ui.Component</code><br><p class="method-description">Returns the child with the given ID, or null if no such child exists.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getChildAt(number index) &#8658; ?goog.ui.Component</code><br><p class="method-description">Returns the child at the given index, or null if the index is out of bounds.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getChildCount() &#8658; number</code><br><p class="method-description">Returns the number of children of this component.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getChildIds() &#8658; ?Array.&lt;string&gt;</code><br><p class="method-description">Returns an array containing the IDs of the children of this component, or an
+empty array if the component has no children.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getContentElement() &#8658; ?Element</code><br><p class="method-description">Returns the DOM element into which child components are to be rendered,
+or null if the component itself hasn't been rendered yet.  This default
+implementation returns the component's root element.  Subclasses with
+complex DOM structures must override this method.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getDomHelper() &#8658; !goog.dom.DomHelper</code><br><p class="method-description">Returns the dom helper that is being used on this component.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getElement() &#8658; ?Element</code><br><p class="method-description">Gets the component's element.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getElementByClass(string className) &#8658; ?Element</code><br><p class="method-description">Returns the first element in this component's DOM with the provided
+className.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getElementByFragment(string idFragment) &#8658; ?Element</code><br><p class="method-description">Helper function for returning an element in the document with a unique id
+generated using makeId().</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getElementsByClass(string className) &#8658; !goog.array.ArrayLike</code><br><p class="method-description">Returns an array of all the elements in this component's DOM with the
+provided className.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getFragmentFromId(string id) &#8658; string</code><br><p class="method-description">Helper function for returning the fragment portion of an id generated using
+makeId().</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>getHandler() &#8658; !goog.events.EventHandler</code><br><p class="method-description">Returns the event handler for this component, lazily created the first time
+this method is called.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getId() &#8658; string</code><br><p class="method-description">Gets the unique ID for the instance of this component.  If the instance
+doesn't already have an ID, generates one on the fly.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getModel() &#8658; &lt;Any Type&gt;</code><br><p class="method-description">Returns the model associated with the UI component.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getParent() &#8658; ?goog.ui.Component</code><br><p class="method-description">Returns the component's parent, if any.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>hasChildren() &#8658; boolean</code><br><p class="method-description">Returns true if the component has children.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>indexOfChild(?goog.ui.Component child) &#8658; number</code><br><p class="method-description">Returns the 0-based index of the given child component, or -1 if no such
+child is found.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>isInDocument() &#8658; boolean</code><br><p class="method-description">Determines whether the component has been added to the document.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>isRightToLeft() &#8658; boolean</code><br><p class="method-description">Returns true if the component is rendered right-to-left, false otherwise.
+The first time this function is invoked, the right-to-left rendering property
+is set if it has not been already.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>makeId(string idFragment) &#8658; string</code><br><p class="method-description">Helper function for subclasses that gets a unique id for a given fragment,
+this can be used by components to generate unique string ids for DOM
+elements.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>makeIds(?Object object) &#8658; ?Object</code><br><p class="method-description">Makes a collection of ids.  This is a convenience method for makeId.  The
+object's values are the id fragments and the new values are the generated
+ids.  The key will remain the same.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>removeChild((goog.ui.Component|null|string) child, boolean= opt_unrender) &#8658; ?goog.ui.Component</code><br><p class="method-description">Removes the given child from this component, and returns it.  Throws an error
+if the argument is invalid or if the specified child isn't found in the
+parent component.  The argument can either be a string (interpreted as the
+ID of the child component to remove) or the child component itself.
+
+If {@code opt_unrender} is true, calls {@link goog.ui.component#exitDocument}
+on the removed child, and subsequently detaches the child's DOM from the
+document.  Otherwise it is the caller's responsibility to clean up the child
+component's DOM.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>removeChildAt(number index, boolean= opt_unrender) &#8658; ?goog.ui.Component</code><br><p class="method-description">Removes the child at the given index from this component, and returns it.
+Throws an error if the argument is out of bounds, or if the specified child
+isn't found in the parent.  See {@link goog.ui.Component#removeChild} for
+detailed semantics.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>removeChildren(boolean= opt_unrender)</code><br><p class="method-description">Removes every child component attached to this one.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>render(?Element= opt_parentElement)</code><br><p class="method-description">Renders the component.  If a parent element is supplied, the component's
+element will be appended to it.  If there is no optional parent element and
+the element doesn't have a parentNode then it will be appended to the
+document body.
+
+If this component has a parent component, and the parent component is
+not in the document already, then this will not call {@code enterDocument}
+on this component.
+
+Throws an Error if the component is already rendered.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>renderBefore(?Node sibling)</code><br><p class="method-description">Renders the component before another element. The other element should be in
+the document already.
+
+Throws an Error if the component is already rendered.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>render_(?Element= opt_parentElement, ?Node= opt_beforeNode)</code><br><p class="method-description">Renders the component.  If a parent element is supplied, the component's
+element will be appended to it.  If there is no optional parent element and
+the element doesn't have a parentNode then it will be appended to the
+document body.
+
+If this component has a parent component, and the parent component is
+not in the document already, then this will not call {@code enterDocument}
+on this component.
+
+Throws an Error if the component is already rendered.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>setElementInternal(?Element element)</code><br><p class="method-description">Sets the component's root element to the given element.  Considered
+protected and final.
+
+This should generally only be called during createDom. Setting the element
+does not actually change which element is rendered, only the element that is
+associated with this UI component.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setId(string id)</code><br><p class="method-description">Assigns an ID to this component instance.  It is the caller's responsibility
+to guarantee that the ID is unique.  If the component is a child of a parent
+component, then the parent component's child index is updated to reflect the
+new ID; this may throw an error if the parent already has a child with an ID
+that conflicts with the new ID.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setModel(&lt;Any Type&gt; obj)</code><br><p class="method-description">Sets the model associated with the UI component.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setParent(?goog.ui.Component parent)</code><br><p class="method-description">Sets the parent of this component to use for event bubbling.  Throws an error
+if the component already has a parent or if an attempt is made to add a
+component to itself as a child.  Callers must use {@code removeChild}
+or {@code removeChildAt} to remove components from their containers before
+calling this method.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setParentEventTarget(?goog.events.EventTarget parent)</code><br><p class="method-description">Overrides {@link goog.events.EventTarget#setParentEventTarget} to throw an
+error if the parent component is set, and the argument is not the parent.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setRightToLeft(boolean rightToLeft)</code><br><p class="method-description">Set is right-to-left. This function should be used if the component needs
+to know the rendering direction during dom creation (i.e. before
+{@link #enterDocument} is called and is right-to-left is set).</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>wasDecorated() &#8658; boolean</code><br></td></tr></table><table class="method-list"><tr><td colspan="2"><strong>Static Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getStateTransitionEvent(?goog.ui.Component.State state, boolean isEntering) &#8658; ?goog.ui.Component.EventType</code><br><p class="method-description">Static helper method; returns the type of event components are expected to
+dispatch when transitioning to or from the given state.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setDefaultRightToLeft(?boolean rightToLeft)</code><br><p class="method-description">Set the default right-to-left value. This causes all component's created from
+this point foward to have the given value. This is useful for cases where
+a given page is always in one directionality, avoiding unnecessary
+right to left determinations.</p></td></tr></table></body></html>

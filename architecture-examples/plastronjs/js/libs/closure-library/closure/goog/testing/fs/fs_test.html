@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>Closure Unit Tests - goog.testing.fs</title>
+<script src="../../base.js"></script>
+<script src="../../../../third_party/closure/goog/deps.js"></script>
+<script>
+goog.require('goog.testing.AsyncTestCase');
+goog.require('goog.testing.fs');
+goog.require('goog.testing.fs.Blob');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+var asyncTestCase = goog.testing.AsyncTestCase.createAndInstall();
+
+function testObjectUrls() {
+  var blob = goog.testing.fs.getBlob('foo');
+  var url = goog.testing.fs.createObjectUrl(blob);
+  assertTrue(goog.testing.fs.isObjectUrlGranted(blob));
+  goog.testing.fs.revokeObjectUrl(url);
+  assertFalse(goog.testing.fs.isObjectUrlGranted(blob));
+}
+
+function testGetBlob() {
+  assertEquals(
+      new goog.testing.fs.Blob('foobarbaz').toString(),
+      goog.testing.fs.getBlob('foo', 'bar', 'baz').toString());
+  assertEquals(
+      new goog.testing.fs.Blob('foobarbaz').toString(),
+      goog.testing.fs.getBlob('foo', new goog.testing.fs.Blob('bar'), 'baz').
+        toString());
+}
+
+function testBlobToString() {
+  goog.testing.fs.blobToString(new goog.testing.fs.Blob('foobarbaz')).
+      addCallback(goog.partial(assertEquals, 'foobarbaz')).
+      addCallback(goog.bind(asyncTestCase.continueTesting, asyncTestCase));
+  asyncTestCase.waitForAsync('testBlobToString');
+}
+
+</script>
+</body>
+</html>

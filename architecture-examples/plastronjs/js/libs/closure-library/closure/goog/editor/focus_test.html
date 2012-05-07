@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+
+  @author marcosalmeida@google.com (Marcos Almeida)
+-->
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.editor.focus</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom.selection');
+  goog.require('goog.editor.focus');
+  goog.require('goog.editor.BrowserFeature');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+  <div>
+    <input type="text" id="myInput" value="my value">
+    <a href="" id="dummyLink">dummy</a>
+  </div>
+
+<script>
+
+  function setUp() {
+    // Make sure focus is not in the input to begin with.
+    var dummy = document.getElementById('dummyLink');
+    dummy.focus();
+  }
+
+
+  /**
+   * Tests that focusInputField() puts focus in the input field and sets the
+   * cursor to the end of the text cointained inside.
+   */
+  function testFocusInputField() {
+    var input = document.getElementById('myInput');
+    assertNotEquals('Input should not be focused initially',
+                    input,
+                    document.activeElement);
+
+    goog.editor.focus.focusInputField(input);
+    if (goog.editor.BrowserFeature.HAS_ACTIVE_ELEMENT) {
+      assertEquals('Input should be focused after call to focusInputField',
+                   input,
+                   document.activeElement);
+    }
+    assertEquals('Selection should start at the end of the input text',
+                 input.value.length,
+                 goog.dom.selection.getStart(input));
+    assertEquals('Selection should end at the end of the input text',
+                 input.value.length,
+                 goog.dom.selection.getEnd(input));
+  }
+
+</script>
+</body>
+</html>

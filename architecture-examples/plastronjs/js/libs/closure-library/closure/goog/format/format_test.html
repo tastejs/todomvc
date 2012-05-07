@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.format</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.format');
+  goog.require('goog.string');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.style');
+</script>
+</head>
+<body>
+<script>
+
+var wordBreakHtml;
+
+function setUpPage() {
+  wordBreakHtml = goog.format.WORD_BREAK_HTML;
+}
+
+function tearDown() {
+  // set back to the original value (some tests edit this member).
+  goog.format.WORD_BREAK_HTML = wordBreakHtml;
+}
+
+function testFormatFileSize() {
+  var fn = goog.format.fileSize;
+
+  assertEquals('45', fn(45));
+  assertEquals('45', fn(45, 0));
+  assertEquals('45', fn(45, 1));
+  assertEquals('45', fn(45, 3));
+  assertEquals('454', fn(454));
+  assertEquals('600', fn(600));
+
+  assertEquals('1K', fn(1024));
+  assertEquals('2K', fn(2 * 1024));
+  assertEquals('5K', fn(5 * 1024));
+  assertEquals('5.123K', fn(5.12345 * 1024, 3));
+  assertEquals('5.68K', fn(5.678 * 1024, 2));
+
+  assertEquals('1M', fn(1024 * 1024));
+  assertEquals('1.5M', fn(1.5 * 1024 * 1024));
+  assertEquals('2M', fn(1.5 * 1024 * 1024, 0));
+  assertEquals('1.5M', fn(1.51 * 1024 * 1024, 1));
+  assertEquals('1.56M', fn(1.56 * 1024 * 1024, 2));
+
+  assertEquals('1G', fn(1024 * 1024 * 1024));
+  assertEquals('6G', fn(6 * 1024 * 1024 * 1024));
+  assertEquals('12.06T', fn(12345.6789 * 1024 * 1024 * 1024));
+}
+
+function testIsConvertableScaledNumber() {
+  var fn = goog.format.isConvertableScaledNumber;
+
+  assertTrue(fn('0'));
+  assertTrue(fn('45'));
+  assertTrue(fn('45K'));
+  assertTrue(fn('45MB'));
+  assertTrue(fn('45GB'));
+  assertTrue(fn('45T'));
+  assertTrue(fn('2.33P'));
+  assertTrue(fn('45m'));
+  assertTrue(fn('45u'));
+  assertTrue(fn('-5.0n'));
+
+  assertFalse(fn('45x'));
+  assertFalse(fn('ux'));
+  assertFalse(fn('K'));
+}
+
+function testNumericValueToString() {
+  var fn = goog.format.numericValueToString;
+
+  assertEquals('0', fn(0.0));
+  assertEquals('45', fn(45));
+  assertEquals('454', fn(454));
+  assertEquals('600', fn(600));
+
+  assertEquals('1.02K', fn(1024));
+  assertEquals('2.05K', fn(2 * 1024));
+  assertEquals('5.12K', fn(5 * 1024));
+  assertEquals('5.246K', fn(5.12345 * 1024, 3));
+  assertEquals('5.81K', fn(5.678 * 1024, 2));
+
+  assertEquals('1.05M', fn(1024 * 1024));
+  assertEquals('1.57M', fn(1.5 * 1024 * 1024));
+  assertEquals('2M', fn(1.5 * 1024 * 1024, 0));
+  assertEquals('1.6M', fn(1.51 * 1024 * 1024, 1));
+  assertEquals('1.64M', fn(1.56 * 1024 * 1024, 2));
+
+  assertEquals('1.07G', fn(1024 * 1024 * 1024));
+  assertEquals('6.44G', fn(6 * 1024 * 1024 * 1024));
+  assertEquals('13.26T', fn(12345.6789 * 1024 * 1024 * 1024));
+
+  assertEquals('23.4m', fn(0.0234));
+  assertEquals('1.23u', fn(0.00000123));
+  assertEquals('15.78n', fn(0.000000015784));
+  assertEquals('0.58u', fn(0.0000005784));
+  assertEquals('0.5', fn(0.5));
+
+  assertEquals('-45', fn(-45.3, 0));
+  assertEquals('-45', fn(-45.5, 0));
+  assertEquals('-46', fn(-45.51, 0));
+}
+
+function testFormatNumBytes() {
+  var fn = goog.format.numBytesToString;
+
+  assertEquals('45', fn(45));
+  assertEquals('454', fn(454));
+
+  assertEquals('5KB', fn(5 * 1024));
+  assertEquals('1MB', fn(1024 * 1024));
+  assertEquals('6GB', fn(6 * 1024 * 1024 * 1024));
+  assertEquals('12.06TB', fn(12345.6789 * 1024 * 1024 * 1024));
+}
+
+function testStringToNumeric() {
+  var fn = goog.format.stringToNumericValue;
+  var epsilon = Math.pow(10, -10);
+
+  assertNaN(fn('foo'));
+
+  assertEquals(45, fn('45'));
+  assertEquals(-45, fn('-45'));
+  assertEquals(-45, fn('-45'));
+  assertEquals(454, fn('454'));
+
+  assertEquals(5 * 1024, fn('5KB'));
+  assertEquals(1024 * 1024, fn('1MB'));
+  assertEquals(6 * 1024 * 1024 * 1024, fn('6GB'));
+  assertEquals(13260110230978.56, fn('12.06TB'));
+
+  assertEquals(5010, fn('5.01K'));
+  assertEquals(5100000, fn('5.1M'));
+  assertTrue(Math.abs(0.051 - fn('51.0m')) < epsilon);
+  assertTrue(Math.abs(0.000051 - fn('51.0u')) < epsilon);
+}
+
+function testStringToNumBytes() {
+  var fn = goog.format.stringToNumBytes;
+
+  assertEquals(45, fn('45'));
+  assertEquals(454, fn('454'));
+
+  assertEquals(5 * 1024, fn('5K'));
+  assertEquals(1024 * 1024, fn('1M'));
+  assertEquals(6 * 1024 * 1024 * 1024, fn('6G'));
+  assertEquals(13260110230978.56, fn('12.06T'));
+}
+
+function testInsertWordBreaks() {
+  // HTML that gets inserted is browser dependent, ensure for the test it is
+  // a constant - browser dependent HTML is for display purposes only.
+  goog.format.WORD_BREAK_HTML = '<wbr>';
+
+  var fn = goog.format.insertWordBreaks;
+
+  assertEquals('abcdef', fn('abcdef', 10));
+  assertEquals('ab<wbr>cd<wbr>ef', fn('abcdef', 2));
+  assertEquals('a<wbr>b<wbr>c<wbr>d<wbr>e<wbr>f', fn('abcdef', 1));
+
+  assertEquals('a&amp;b=<wbr>=fal<wbr>se', fn('a&amp;b==false', 4));
+  assertEquals('&lt;&amp;&gt;&raquo;<wbr>&laquo;',
+               fn('&lt;&amp;&gt;&raquo;&laquo;', 4));
+
+  assertEquals('a<wbr>b<wbr>c d<wbr>e<wbr>f', fn('abc def', 1));
+  assertEquals('ab<wbr>c de<wbr>f', fn('abc def', 2));
+  assertEquals('abc def', fn('abc def', 3));
+  assertEquals('abc def', fn('abc def', 4));
+
+  assertEquals('a<b>cd</b>e<wbr>f', fn('a<b>cd</b>ef', 4));
+  assertEquals('Thi<wbr>s is a <a href="">lin<wbr>k</a>.',
+               fn('This is a <a href="">link</a>.', 3));
+  assertEquals('<abc a="&amp;&amp;&amp;&amp;&amp;">a<wbr>b',
+      fn('<abc a="&amp;&amp;&amp;&amp;&amp;">ab', 1));
+
+  assertEquals('ab\u0300<wbr>cd', fn('ab\u0300cd', 2));
+  assertEquals('ab\u036F<wbr>cd', fn('ab\u036Fcd', 2));
+  assertEquals('ab<wbr>\u0370c<wbr>d', fn('ab\u0370cd', 2));
+  assertEquals('ab<wbr>\uFE1Fc<wbr>d', fn('ab\uFE1Fcd', 2));
+  assertEquals('ab\u0300<wbr>c\u0301<wbr>de<wbr>f',
+      fn('ab\u0300c\u0301def', 2));
+}
+
+function testInsertWordBreaksBasic() {
+  // HTML that gets inserted is browser dependent, ensure for the test it is
+  // a constant - browser dependent HTML is for display purposes only.
+  goog.format.WORD_BREAK_HTML = '<wbr>';
+  var fn = goog.format.insertWordBreaksBasic;
+
+  assertEquals('abcdef', fn('abcdef', 10));
+  assertEquals('ab<wbr>cd<wbr>ef', fn('abcdef', 2));
+  assertEquals('a<wbr>b<wbr>c<wbr>d<wbr>e<wbr>f', fn('abcdef', 1));
+  assertEquals('ab\u0300<wbr>c\u0301<wbr>de<wbr>f',
+      fn('ab\u0300c\u0301def', 2));
+
+  assertEquals(
+      'Inserting word breaks into the word "Russia" should work fine.',
+      '\u0420\u043E<wbr>\u0441\u0441<wbr>\u0438\u044F',
+      fn('\u0420\u043E\u0441\u0441\u0438\u044F', 2));
+
+  // The word 'Internet' in Hindi.
+  var hindiInternet = '\u0907\u0902\u091F\u0930\u0928\u0947\u091F';
+  assertEquals('The baisc algorithm is not good enough to insert word ' +
+      'breaks into Hindi.',
+      hindiInternet, fn(hindiInternet, 2));
+  // The word 'Internet' in Hindi broken into slashes.
+  assertEquals('Hindi can have word breaks inserted between slashes',
+      hindiInternet + '<wbr>/' + hindiInternet + '<wbr>.' + hindiInternet,
+      fn(hindiInternet + '/' + hindiInternet + '.' + hindiInternet, 2));
+}
+
+function testWordBreaksWorking() {
+  var text = goog.string.repeat('test', 20);
+  var textWbr = goog.string.repeat('test' + goog.format.WORD_BREAK_HTML, 20);
+
+  var overflowEl = goog.dom.createDom('div',
+      {'style': 'width: 100px; overflow: hidden; margin 5px'});
+  var wbrEl = goog.dom.createDom('div',
+      {'style': 'width: 100px; overflow: hidden; margin-top: 15px'});
+  goog.dom.appendChild(goog.global.document.body, overflowEl);
+  goog.dom.appendChild(goog.global.document.body, wbrEl);
+
+  overflowEl.innerHTML = text;
+  wbrEl.innerHTML = textWbr;
+
+  assertTrue('Text should overflow', overflowEl.scrollWidth > 100);
+  assertTrue('Text should not overflow', wbrEl.scrollWidth <= 100);
+}
+
+function testWordBreaksRemovedFromTextContent() {
+  var expectedText = goog.string.repeat('test', 20);
+  var textWbr = goog.string.repeat('test' + goog.format.WORD_BREAK_HTML, 20);
+
+  var wbrEl = goog.dom.createDom('div', null);
+  wbrEl.innerHTML = textWbr;
+
+  assertEquals('text content should have wbr character removed', expectedText,
+      goog.dom.getTextContent(wbrEl));
+
+}
+
+
+</script>
+</body>
+</html>

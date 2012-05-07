@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.math.Coordinate</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.math.Coordinate');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testCoordinate1() {
+  var dim1 = new goog.math.Coordinate();
+  assertEquals(0, dim1.x);
+  assertEquals(0, dim1.y);
+  assertEquals('(0, 0)', dim1.toString());
+}
+
+function testCoordinate2() {
+  var dim2 = new goog.math.Coordinate(10);
+  assertEquals(10, dim2.x);
+  assertEquals(0, dim2.y);
+  assertEquals('(10, 0)', dim2.toString());
+}
+
+function testCoordinate3() {
+  var dim3 = new goog.math.Coordinate(10, 20);
+  assertEquals(10, dim3.x);
+  assertEquals(20, dim3.y);
+  assertEquals('(10, 20)', dim3.toString());
+}
+
+function testCoordinate4() {
+  var dim4 = new goog.math.Coordinate(10.5, 20.897);
+  assertEquals(10.5, dim4.x);
+  assertEquals(20.897, dim4.y);
+  assertEquals('(10.5, 20.897)', dim4.toString());
+}
+
+function testCoordinate5() {
+  var dim5 = new goog.math.Coordinate(NaN, 1000);
+  assertTrue(isNaN(dim5.x));
+  assertEquals(1000, dim5.y);
+  assertEquals('(NaN, 1000)', dim5.toString());
+}
+
+function testCoordinateSquaredDistance() {
+  var a = new goog.math.Coordinate(7, 11);
+  var b = new goog.math.Coordinate(3, -1);
+  assertEquals(160, goog.math.Coordinate.squaredDistance(a, b));
+}
+
+function testCoordinateDistance() {
+  var a = new goog.math.Coordinate(-2, -3);
+  var b = new goog.math.Coordinate(2, 0);
+  assertEquals(5, goog.math.Coordinate.distance(a, b));
+}
+
+function testCoordinateClone() {
+  var c = new goog.math.Coordinate();
+  assertEquals(c.toString(), c.clone().toString());
+  c.x = -12;
+  c.y = 13;
+  assertEquals(c.toString(), c.clone().toString());
+}
+
+function testCoordinateDifference() {
+  assertObjectEquals(new goog.math.Coordinate(3, -40),
+      goog.math.Coordinate.difference(
+          new goog.math.Coordinate(5, 10),
+          new goog.math.Coordinate(2, 50)));
+}
+
+function testCoordinateSum() {
+  assertObjectEquals(new goog.math.Coordinate(7, 60),
+      goog.math.Coordinate.sum(
+          new goog.math.Coordinate(5, 10),
+          new goog.math.Coordinate(2, 50)));
+}
+
+</script>
+</body>
+</html>

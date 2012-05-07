@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.testing.asynctestcase</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.Error');
+  goog.require('goog.testing.AsyncTestCase');
+  goog.require('goog.testing.AsyncTestCase.ControlBreakingException');
+  goog.require('goog.testing.asserts');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+
+function testControlBreakingExceptionThrown() {
+  var asyncTestCase = new goog.testing.AsyncTestCase();
+
+  // doAsyncError with no message.
+  try {
+    asyncTestCase.doAsyncError();
+  } catch (e) {
+    assertTrue(e.isControlBreakingException);
+    assertEquals('', e.message);
+  }
+
+  // doAsyncError with string.
+  var errorMessage1 = 'Error message 1';
+  try {
+    asyncTestCase.doAsyncError(errorMessage1);
+  } catch (e) {
+    assertTrue(e.isControlBreakingException);
+    assertEquals(errorMessage1, e.message);
+  }
+
+  // doAsyncError with error.
+  var errorMessage2 = 'Error message 2';
+  try {
+    var error = new goog.debug.Error(errorMessage2);
+    asyncTestCase.doAsyncError(error);
+  } catch (e) {
+    assertTrue(e.isControlBreakingException);
+    assertEquals(errorMessage2, e.message);
+  }
+}
+
+</script>
+</body>
+</html>

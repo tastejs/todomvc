@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.i18n.uChar</title>
+<meta charset=utf-8>
+
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.i18n.uChar');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+function testToHexString() {
+  var result = goog.i18n.uChar.toHexString('\uD869\uDED6');
+  assertEquals('U+2A6D6', result);
+}
+
+function testPadString() {
+  var result = goog.i18n.uChar.padString_('abc', 4, '0');
+  assertEquals('0abc', result);
+}
+
+function testToCharCode() {
+  var result = goog.i18n.uChar.toCharCode('\uD869\uDED6');
+  assertEquals(0x2A6D6, result);
+}
+
+function testFromCharCode() {
+  var result = goog.i18n.uChar.fromCharCode(0x2A6D6);
+  assertEquals('\uD869\uDED6', result);
+}
+
+function testToName() {
+  var result = goog.i18n.uChar.toName(' ');
+  assertEquals('Space', result);
+}
+
+function testToNameForNumberKey() {
+  var result = goog.i18n.uChar.toName('\u2028');
+  assertEquals('Line Separator', result);
+}
+
+function testToNameForVariationSelector() {
+  var result = goog.i18n.uChar.toName('\ufe00');
+  assertEquals('Variation Selector - 1', result);
+}
+
+function testToNameForVariationSelectorSupp() {
+  var result = goog.i18n.uChar.toName('\uDB40\uDD00');
+  assertEquals('Variation Selector - 17', result);
+}
+
+function testToNameForNull() {
+  var result = goog.i18n.uChar.toName('a');
+  assertNull(result);
+}
+
+</script>
+</body>
+</html>
+

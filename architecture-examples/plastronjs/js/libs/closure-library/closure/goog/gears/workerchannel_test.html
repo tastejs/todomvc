@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>
+  Closure Unit Tests - goog.gears.WorkerChannel
+</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.events.EventTarget');
+goog.require('goog.gears.Worker.EventType');
+goog.require('goog.gears.WorkerChannel');
+goog.require('goog.gears.WorkerEvent');
+goog.require('goog.json');
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.mockmatchers.IgnoreArgument');
+</script>
+</head>
+<body>
+<script>
+
+var mockControl;
+var mockWorker;
+var workerChannel;
+
+function setUp() {
+  mockControl = new goog.testing.MockControl();
+  mockWorker = new goog.events.EventTarget();
+  mockWorker.sendMessage = mockControl.createFunctionMock('sendMessage');
+  workerChannel = new goog.gears.WorkerChannel(mockWorker);
+}
+
+function tearDown() {
+  workerChannel.dispose();
+  mockControl.$verifyAll();
+}
+
+function makeMessage(serviceName, payload) {
+  var msg = {serviceName: serviceName, payload: payload};
+  msg[goog.gears.WorkerChannel.FLAG] = true;
+  return msg;
+}
+
+function expectedFn(name, callback) {
+  var ignored = new goog.testing.mockmatchers.IgnoreArgument();
+  var fn = mockControl.createFunctionMock(name);
+  fn(ignored).$does(function(args) {
+    callback.apply(this, args);
+  });
+  return function() { fn(arguments); };
+}
+
+function assertEqualsFn() {
+  var expectedArgs = Array.prototype.slice.call(arguments);
+  return expectedFn('assertEqualsFn', function() {
+    assertObjectEquals(expectedArgs, Array.prototype.slice.call(arguments));
+  });
+}
+
+function expectNoMessage() {
+  workerChannel.registerDefaultService(
+    mockControl.createFunctionMock('expectNoMessage'));
+}
+
+function receiveMessage(serviceName, payload, opt_origin) {
+  var msgObject = {body: makeMessage(serviceName, payload)};
+  msgObject.origin = opt_origin || 'http://google.com';
+  mockWorker.dispatchEvent(
+    new goog.gears.WorkerEvent(goog.gears.Worker.EventType.MESSAGE, msgObject));
+}
+
+function receiveNonChannelMessage(body) {
+  var msgObject = {body: body, origin: 'http://google.com'};
+  mockWorker.dispatchEvent(
+    new goog.gears.WorkerEvent(goog.gears.Worker.EventType.MESSAGE, msgObject));
+}
+
+function testSendMessage() {
+  mockWorker.sendMessage(makeMessage('foobar', 'This is a value'));
+  mockControl.$replayAll();
+  workerChannel.send('foobar', 'This is a value');
+}
+
+function testMessageStringToString() {
+  var payload = 'This is a string';
+  workerChannel.registerService('foobar', assertEqualsFn(payload));
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'This is a string');
+}
+
+function testMessageObjectToObject() {
+  var payload = {key: 'value'};
+  workerChannel.registerService('foobar', assertEqualsFn(payload), true);
+  mockControl.$replayAll();
+  receiveMessage('foobar', payload);
+}
+
+function testMessageStringToObject() {
+  workerChannel.registerService('foobar', assertEqualsFn({key: 'value'}), true);
+  mockControl.$replayAll();
+  receiveMessage('foobar', '{"key":"value"}');
+}
+
+function testMessageObjectToString() {
+  workerChannel.registerService('foobar', assertEqualsFn('{"key":"value"}'));
+  mockControl.$replayAll();
+  receiveMessage('foobar', {key: 'value'});
+}
+
+function testNonChannelMessageWithStringBody() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveNonChannelMessage('Foo bar');
+}
+
+function testNonChannelMessageWithArrayBody() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveNonChannelMessage([5, 'Foo bar']);
+}
+
+function testNonChannelMessageWithNoFlag() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveNonChannelMessage({
+    serviceName: 'foobar',
+    payload: 'this is a payload'
+  });
+}
+
+function testNonChannelMessageWithFalseFlag() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  var body = {
+    serviceName: 'foobar',
+    payload: 'this is a payload'
+  };
+  body[goog.gears.WorkerChannel.FLAG] = false;
+  receiveNonChannelMessage(body);
+}
+
+function testMessageWithWrongOriginDomain() {
+  workerChannel.peerOrigin = 'http://mail.google.com';
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar');
+}
+
+function testMessageWithWrongOriginPort() {
+  workerChannel.peerOrigin = 'http://google.com:123';
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar');
+}
+
+function testMessageWithWrongOriginProtocol() {
+  workerChannel.peerOrigin = 'https://google.com';
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar');
+}
+
+function testMessageWithRightOrigin() {
+  workerChannel.peerOrigin = 'http://google.com';
+  workerChannel.registerService('foobar', assertEqualsFn('Foo bar'));
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar');
+}
+
+function testMessageWithRightOriginPort80() {
+  workerChannel.peerOrigin = 'http://google.com:80';
+  workerChannel.registerService('foobar', assertEqualsFn('Foo bar'));
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar');
+}
+
+function testMessageWithRightOriginPort443() {
+  workerChannel.peerOrigin = 'https://google.com:443';
+  workerChannel.registerService('foobar', assertEqualsFn('Foo bar'));
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar', 'https://google.com');
+}
+
+function testDefaultServiceWithString() {
+  workerChannel.registerDefaultService(assertEqualsFn('foobar', 'Foo bar'));
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'Foo bar');
+}
+
+function testDefaultServiceWithObject() {
+  var payload = {key: 'value'};
+  workerChannel.registerDefaultService(assertEqualsFn('foobar', payload));
+  mockControl.$replayAll();
+  receiveMessage('foobar', payload);
+}
+
+</script>
+</body>
+</html>

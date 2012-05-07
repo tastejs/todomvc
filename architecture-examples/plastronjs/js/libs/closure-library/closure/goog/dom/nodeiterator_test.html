@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>goog.dom.NodeIterator Tests</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom.NodeIterator');
+  goog.require('goog.testing.dom');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<!--
+  The next line goes past 80 characters to avoid ambiguity with
+  newlines as text nodes
+-->
+<div id="test"><a href="#" id="a1">T<b id="b1">e</b>xt</a><span id="span1"></span><p id="p1">Text</p></div>
+<ul id="test2"><li id="li1">Not<li id="li2">Closed</ul>
+
+<script>
+  function testBasic() {
+    goog.testing.dom.assertNodesMatch(
+        new goog.dom.NodeIterator(goog.dom.getElement('test')),
+        ['#test', '#a1', 'T', '#b1', 'e', 'xt', '#span1', '#p1', 'Text']);
+  }
+
+  function testUnclosed() {
+    goog.testing.dom.assertNodesMatch(
+        new goog.dom.NodeIterator(goog.dom.getElement('test2')),
+        ['#test2', '#li1', 'Not', '#li2', 'Closed']);
+  }
+
+  function testReverse() {
+    goog.testing.dom.assertNodesMatch(
+        new goog.dom.NodeIterator(goog.dom.getElement('test'), true),
+        ['Text', '#p1', '#span1', 'xt', 'e', '#b1', 'T', '#a1', '#test']);
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.net.XhrLite</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.ErrorHandler');
+  goog.require('goog.net.WrapperXmlHttpFactory');
+  goog.require('goog.net.XhrLite');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.jsunit');
+</script>
+<script>
+
+function MockXmlHttp() {}
+
+MockXmlHttp.prototype.readyState = goog.net.XmlHttp.ReadyState.UNINITIALIZED;
+
+MockXmlHttp.prototype.status = 200;
+
+MockXmlHttp.syncSend = false;
+
+MockXmlHttp.prototype.send = function(opt_data) {
+  this.readyState = goog.net.XmlHttp.ReadyState.UNINITIALIZED;
+
+  if (MockXmlHttp.syncSend) {
+    this.complete();
+  }
+
+};
+
+MockXmlHttp.prototype.complete = function() {
+  this.readyState = goog.net.XmlHttp.ReadyState.LOADING;
+  this.onreadystatechange();
+
+  this.readyState = goog.net.XmlHttp.ReadyState.LOADED;
+  this.onreadystatechange();
+
+  this.readyState = goog.net.XmlHttp.ReadyState.INTERACTIVE;
+  this.onreadystatechange();
+
+  this.readyState = goog.net.XmlHttp.ReadyState.COMPLETE;
+  this.onreadystatechange();
+};
+
+
+MockXmlHttp.prototype.open = function(verb, uri, async) {
+};
+
+MockXmlHttp.prototype.abort = function() {};
+
+MockXmlHttp.prototype.setRequestHeader = function(key, value) {};
+
+goog.net.XmlHttp.setGlobalFactory(new goog.net.WrapperXmlHttpFactory(
+    function() {
+      return new MockXmlHttp();
+    },
+    function() {
+      return {};
+    }));
+
+var clock;
+
+function setUp() {
+  clock = new goog.testing.MockClock(true);
+}
+
+function tearDown() {
+  clock.dispose();
+}
+
+
+function testSyncSend() {
+  MockXmlHttp.syncSend = true;
+  var count = 0;
+
+  var x = new goog.net.XhrLite;
+  goog.events.listen(x, goog.net.EventType.COMPLETE, function(e) {
+    assertFalse('Should not fire complete from inside send', inSend);
+    assertTrue('Should be succesful', e.target.isSuccess());
+    count++;
+
+  });
+
+  var inSend = true;
+  x.send('url');
+  inSend = false;
+
+  clock.tick(1); // callOnce(f, 0, ...)
+
+  assertEquals('Complete should have been called once', 1, count);
+}
+
+function testSyncSendFailure() {
+  MockXmlHttp.syncSend = true;
+  var count = 0;
+
+  var x = new goog.net.XhrLite;
+  goog.events.listen(x, goog.net.EventType.COMPLETE, function(e) {
+    assertFalse('Should not fire complete from inside send', inSend);
+    assertFalse('Should not be succesful', e.target.isSuccess());
+    count++;
+  });
+
+  var inSend = true;
+  x.send('url');
+  x.xhr_.status = 404;
+  inSend = false;
+
+  clock.tick(1); // callOnce(f, 0, ...)
+
+  assertEquals('Complete should have been called once', 1, count);
+}
+
+
+function testProtectEntryPointCalledOnAsyncSend() {
+  MockXmlHttp.syncSend = false;
+
+  var errorHandlerCallbackCalled = false;
+  var errorHandler = new goog.debug.ErrorHandler(function() {
+    errorHandlerCallbackCalled = true;
+  });
+
+  goog.net.XhrLite.protectEntryPoints(errorHandler);
+
+  var x = new goog.net.XhrLite;
+  goog.events.listen(x, goog.net.EventType.READY_STATE_CHANGE, function(e) {
+    throw Error();
+  });
+
+  x.send('url');
+  assertThrows(function() {
+    x.xhr_.complete();
+  });
+
+  assertTrue('Error handler callback should be called on async send.',
+      errorHandlerCallbackCalled);
+}
+
+
+</script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+  <head>
+    <title>Closure Unit Tests - goog.structs.Collection</title>
+    <script src="../base.js"></script>
+    <script>
+      goog.require('goog.structs.AvlTree');
+      goog.require('goog.structs.Collection');
+      goog.require('goog.structs.Set');
+      goog.require('goog.testing.jsunit');
+    </script>
+  </head>
+  <body>
+    <script>
+
+function testSet() {
+  var set = new goog.structs.Set();
+  exerciseCollection(set)
+}
+
+function testAvlTree() {
+  var tree = new goog.structs.AvlTree();
+  exerciseCollection(tree)
+}
+
+// Simple exercise of a collection object.
+function exerciseCollection(collection) {
+  assertEquals(0, collection.getCount());
+
+  for (var i = 1; i <= 10; i++) {
+    assertFalse(collection.contains(i));
+    collection.add(i);
+    assertTrue(collection.contains(i));
+    assertEquals(i, collection.getCount());
+  }
+
+  assertEquals(10, collection.getCount());
+
+  for (var i = 10; i > 0; i--) {
+    assertTrue(collection.contains(i));
+    collection.remove(i);
+    assertFalse(collection.contains(i));
+    assertEquals(i - 1, collection.getCount());
+  }
+
+  assertEquals(0, collection.getCount());
+}
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  Closure Unit Tests - goog.gears.LoggerServer
+</title>
+<script src="../base.js"></script>
+<script>
+
+goog.require('goog.events.EventTarget');
+goog.require('goog.gears.LoggerServer');
+goog.require('goog.gears.Worker.EventType');
+goog.require('goog.gears.WorkerEvent');
+goog.require('goog.testing.PropertyReplacer');
+goog.require('goog.testing.StrictMock');
+goog.require('goog.testing.jsunit');
+
+</script>
+</head>
+<body>
+<script>
+
+var LOGGER_NAME = 'WorkerLog';
+var LOG_COMMAND_ID = 1;
+var WORKER_ID = 2;
+var WORKER_NAME = 'worker-name';
+
+var server, worker;
+var propertyReplacer = new goog.testing.PropertyReplacer();
+
+function setUp() {
+  worker = new goog.events.EventTarget();
+  worker.getId = function() {
+    return WORKER_ID;
+  };
+  server = new goog.gears.LoggerServer(worker, LOG_COMMAND_ID, WORKER_NAME);
+}
+
+function tearDown() {
+  server.dispose();
+  worker.dispose();
+  propertyReplacer.reset();
+}
+
+function dispatchCommand(params) {
+  worker.dispatchEvent(
+      new goog.gears.WorkerEvent(goog.gears.Worker.EventType.COMMAND,
+                                  {body: [LOG_COMMAND_ID, params]}));
+}
+
+
+function verify(name, level, msg, exception, expectedMessage) {
+  var levelValue = level.value;
+  var logRecord = {};
+
+  var mockLogger = new goog.testing.StrictMock(goog.debug.Logger);
+  propertyReplacer.set(goog.debug.Logger, 'getLogger', function(name) {
+    return mockLogger;
+  });
+
+  mockLogger.getLogRecord(level, expectedMessage, exception).
+      $returns(logRecord);
+  mockLogger.logRecord(logRecord);
+
+  mockLogger.$replay();
+
+  dispatchCommand([name, levelValue, msg, exception]);
+
+  mockLogger.$verify();
+
+  assertEquals('workerName not added to the log record',
+               WORKER_NAME, logRecord.workerName);
+}
+
+function testCommand() {
+  var name = 'test.command';
+  var level = goog.debug.Logger.Level.WARNING;
+  var msg = 'MSG';
+  var exception = Error();
+  var expectedMessage = '[' + WORKER_ID + '] ' + msg;
+
+  verify(name, level, msg, exception, expectedMessage);
+}
+
+function testCommandWithoutMessagePrefix() {
+  server.setUseMessagePrefix(false);
+
+  var name = 'test.command';
+  var level = goog.debug.Logger.Level.SEVERE;
+  var msg = 'MSG';
+  var exception = Error();
+  var expectedMessage = msg;
+
+  verify(name, level, msg, exception, expectedMessage);
+}
+
+function testCommandWithNoException() {
+  var name = 'test.command';
+  var level = goog.debug.Logger.Level.SHOUT;
+  var msg = 'MSG';
+  var exception = null;
+  var expectedMessage = '[' + WORKER_ID + '] ' + msg;
+
+  verify(name, level, msg, exception, expectedMessage);
+}
+
+</script>
+</body>
+</html>

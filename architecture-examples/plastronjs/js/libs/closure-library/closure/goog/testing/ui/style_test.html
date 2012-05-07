@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.testing.ui.style</title>
+  <script src="../../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.testing.ui.style');
+  </script>
+</head>
+<body>
+  <script>
+    // Write iFrame tag to load reference FastUI markup. Then, our tests will
+    // compare the generated markup to the reference markup.
+    var refPath = 'style_reference.html';
+    goog.testing.ui.style.writeReferenceFrame(refPath);
+
+    // assertStructureMatchesReference should succeed if the structure, node
+    // names, and classes match.
+    function testCorrect() {
+      var el = goog.dom.getFirstElementChild(goog.dom.getElement('correct'));
+      goog.testing.ui.style.assertStructureMatchesReference(el, 'reference');
+    }
+
+    // assertStructureMatchesReference should fail if one of the nodes is
+    // missing a class.
+    function testMissingClass() {
+      var el = goog.dom.getFirstElementChild(
+          goog.dom.getElement('missing-class'));
+      var e = assertThrows(function() {
+        goog.testing.ui.style.assertStructureMatchesReference(el, 'reference');
+      });
+      assertContains('all reference classes', e.message);
+    }
+
+    // assertStructureMatchesReference should NOT fail if one of the nodes has
+    // an additional class.
+    function testExtraClass() {
+      var el = goog.dom.getFirstElementChild(
+          goog.dom.getElement('extra-class'));
+      goog.testing.ui.style.assertStructureMatchesReference(el, 'reference');
+    }
+
+    // assertStructureMatchesReference should fail if there is a missing child
+    // node somewhere in the DOM structure.
+    function testMissingChild() {
+      var el = goog.dom.getFirstElementChild(
+          goog.dom.getElement('missing-child'));
+      var e = assertThrows(function() {
+        goog.testing.ui.style.assertStructureMatchesReference(el, 'reference');
+      });
+      assertContains('same number of children', e.message);
+    }
+
+    // assertStructureMatchesReference should fail if there is an extra child
+    // node somewhere in the DOM structure.
+    function testExtraChild() {
+      var el = goog.dom.getFirstElementChild(
+          goog.dom.getElement('extra-child'));
+      var e = assertThrows(function() {
+        goog.testing.ui.style.assertStructureMatchesReference(el, 'reference');
+      });
+      assertContains('same number of children', e.message);
+    }
+
+  </script>
+
+  <div id="correct">
+    <div class="one two three">
+      <div class="four five"></div>
+      <div class="six seven content">
+        <div></div>
+        Blah
+      </div>
+    </div>
+  </div>
+
+  <div id="missing-class">
+    <div class="one two three">
+      <div class="five"></div>
+      <div class="six seven content">
+        <div></div>
+        Blah
+      </div>
+    </div>
+  </div>
+
+  <div id="extra-class">
+    <div class="one two three">
+      <div class="four five five-point-five"></div>
+      <div class="six seven content">
+        <div></div>
+        Blah
+      </div>
+    </div>
+  </div>
+
+  <div id="missing-child">
+    <div class="one two three">
+      <div class="six seven content">
+        <div></div>
+        Blah
+      </div>
+    </div>
+  </div>
+
+  <div id="extra-child">
+    <div class="one two three">
+      <div class="four five">
+        <div class="five-point-five"></div>
+      </div>
+      <div class="six seven content">
+        <div></div>
+        Blah
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

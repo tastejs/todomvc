@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>Closure Unit Tests - goog.testing.fs.FileEntry</title>
+<script src="../../base.js"></script>
+<script src="../../../../third_party/closure/goog/deps.js"></script>
+<script>
+goog.require('goog.fs.DirectoryEntry.Behavior');
+goog.require('goog.testing.AsyncTestCase');
+goog.require('goog.testing.MockClock');
+goog.require('goog.testing.fs.FileSystem');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+var asyncTestCase = goog.testing.AsyncTestCase.createAndInstall();
+var fs, file, fileEntry, mockClock, currentTime;
+
+function setUp() {
+  mockClock = new goog.testing.MockClock(true);
+
+  fs = new goog.testing.fs.FileSystem();
+  fileEntry = fs.getRoot().createDirectorySync('foo').createFileSync('bar');
+}
+
+function tearDown() {
+  mockClock.uninstall();
+}
+
+function testIsFile() {
+  assertTrue(fileEntry.isFile());
+}
+
+function testIsDirectory() {
+  assertFalse(fileEntry.isDirectory());
+}
+
+function testFile() {
+  var testFile = new goog.testing.fs.FileEntry(fs, fs.getRoot(),
+                                               'test', 'hello world');
+  testFile.file().addCallback(function(f) {
+    assertEquals('test', f.name);
+    assertEquals('hello world', f.toString());
+
+    asyncTestCase.continueTesting();
+  });
+  waitForAsync('testFile');
+}
+
+function testGetLastModified() {
+  // Advance the clock to a known time.
+  mockClock.tick(53);
+  var testFile = new goog.testing.fs.FileEntry(fs, fs.getRoot(),
+                                               'timeTest', 'hello world');
+  mockClock.tick();
+  testFile.getLastModified().addCallback(function(date) {
+    assertEquals(53, date.getTime());
+    asyncTestCase.continueTesting();
+  });
+  waitForAsync('testGetLastModified');
+}
+
+
+function waitForAsync(msg) {
+  asyncTestCase.waitForAsync(msg);
+  mockClock.tick();
+}
+
+</script>
+</body>
+</html>

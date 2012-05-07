@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.structs.Queue</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.structs.Queue');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function stringifyQueue(q) {
+  var values = q.getValues();
+  var s = '';
+  for (var i = 0; i < values.length; i++) {
+    s += values[i];
+  }
+  return s;
+}
+
+function createQueue() {
+  var q = new goog.structs.Queue();
+  q.enqueue('a');
+  q.enqueue('b');
+  q.enqueue('c');
+  return q;
+}
+
+function testConstructor() {
+  var q = new goog.structs.Queue();
+  assertTrue('testConstructor(), queue should be empty initially', q.isEmpty());
+  assertEquals('testConstructor(), count should be 0', q.getCount(), 0);
+  assertEquals('testConstructor(), head element should be undefined', q.peek(),
+      undefined);
+}
+
+function testCount() {
+  var q = createQueue();
+  assertEquals('testCount(), count should be 3', q.getCount(), 3);
+  q.enqueue('d');
+  assertEquals('testCount(), count should be 4', q.getCount(), 4);
+  q.dequeue();
+  assertEquals('testCount(), count should be 3', q.getCount(), 3);
+  q.clear();
+  assertEquals('testCount(), count should be 0', q.getCount(), 0);
+}
+
+function testEnqueue() {
+  var q = new goog.structs.Queue();
+  q.enqueue('a');
+  assertEquals('testEnqueue(), count should be 1', q.getCount(), 1);
+  q.enqueue('b');
+  assertEquals('testEnqueue(), count should be 2', q.getCount(), 2);
+  assertEquals('testEnqueue(), head element should be a', q.peek(), 'a');
+  q.dequeue();
+  assertEquals('testEnqueue(), count should be 1', q.getCount(), 1);
+  assertEquals('testEnqueue(), head element should be b', q.peek(), 'b');
+}
+
+function testDequeue() {
+  var q = createQueue();
+  var head = q.dequeue();
+  assertEquals('testDequeue(), should return a', head, 'a');
+  q.dequeue();
+  head = q.dequeue();
+  assertEquals('testDequeue(), should return c', head, 'c');
+  assertTrue('testDequeue(), queue should be empty', q.isEmpty());
+  head = q.dequeue();
+  assertEquals('testDequeue(), should return undefined for empty queue', head,
+      undefined);
+}
+
+function testPeek() {
+  var q = createQueue();
+  var head = q.peek();
+  assertEquals('testPeek(), should return a', head, 'a');
+  var head2 = q.dequeue();
+  assertEquals('testPeek(), dequeue should return peek() result', head, head2);
+  head = q.peek();
+  assertEquals('testPeek(), should return b', head, 'b');
+  q.clear();
+  head = q.peek();
+  assertEquals('testPeek(), should return undefined for empty queue', head,
+      undefined);
+}
+
+function testClear() {
+  var q = createQueue();
+  q.clear();
+  assertTrue('testClear(), queue should be empty', q.isEmpty());
+}
+
+function testQueue() {
+  var q = createQueue();
+  assertEquals('testQueue(), contents must be abc', stringifyQueue(q), 'abc');
+}
+
+function testRemove() {
+  var q = createQueue();
+  assertEquals('testRemove(), contents must be abc', stringifyQueue(q), 'abc');
+
+  q.dequeue();
+  assertEquals('testRemove(), contents must be bc', stringifyQueue(q), 'bc');
+
+  q.enqueue('a');
+  assertEquals('testRemove(), contents must be bca', stringifyQueue(q), 'bca');
+
+  assertTrue('testRemove(), remove should have returned true', q.remove('c'));
+  assertEquals('testRemove(), contents must be ba', stringifyQueue(q), 'ba');
+
+  assertTrue('testRemove(), remove should have returned true', q.remove('b'));
+  assertEquals('testRemove(), contents must be a', stringifyQueue(q), 'a');
+
+  assertFalse('testRemove(), remove should have returned false', q.remove('b'));
+  assertEquals('testRemove(), contents must be a', stringifyQueue(q), 'a');
+
+  assertTrue('testRemove(), remove should have returned true', q.remove('a'));
+  assertEquals('testRemove(), contents must be empty', stringifyQueue(q), '');
+}
+
+function testContains() {
+  var q = createQueue();
+  assertTrue('testContains(), contains should have returned true',
+      q.contains('a'));
+  assertFalse('testContains(), contains should have returned false',
+      q.contains('foobar'));
+}
+
+</script>
+</body>
+</html>

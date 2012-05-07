@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.module.ModuleInfo</title>
+<script src="../base.js"></script>
+<script src="../../../third_party/closure/goog/deps.js"></script>
+<script>
+  goog.require('goog.module.BaseModule');
+  goog.require('goog.module.ModuleInfo');
+  goog.require('goog.module.ModuleManager');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.MockClock');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+  /**
+   * Test initial state of module info.
+   */
+  function testNotLoadedAtStart() {
+    var m = new goog.module.ModuleInfo();
+    assertFalse('Shouldn\'t be loaded', m.isLoaded());
+  }
+
+  var TestModule = function() {
+    goog.module.BaseModule.call(this);
+  };
+  goog.inherits(TestModule, goog.module.BaseModule);
+
+  /**
+   * Test loaded module info.
+   */
+  function testOnLoad() {
+    var m = new goog.module.ModuleInfo();
+
+    m.setModuleConstructor(TestModule);
+    m.onLoad(goog.nullFunction);
+    assertTrue(m.isLoaded());
+
+    var module = m.getModule();
+    assertNotNull(module);
+    assertTrue(module instanceof TestModule);
+
+    m.dispose();
+    assertTrue(m.isDisposed());
+    assertTrue('Disposing of ModuleInfo should dispose of its module',
+        module.isDisposed());
+  }
+
+  /**
+   * Test callbacks on module load.
+   */
+  function testCallbacks() {
+    var m = new goog.module.ModuleInfo();
+    m.setModuleConstructor(TestModule);
+    var index = 0;
+    var a = -1, b = -1, c = -1, d = -1;
+    var ca = m.registerCallback(function() { a = index++; })
+    var cb = m.registerCallback(function() { b = index++; })
+    var cc = m.registerCallback(function() { c = index++; })
+    var cd = m.registerEarlyCallback(function() { d = index++; })
+    cb.abort();
+    m.onLoad(goog.nullFunction);
+
+    assertTrue('callback A should have fired', a >= 0);
+    assertFalse('callback B should have been aborted', b >= 0);
+    assertTrue('callback C should have fired', c >= 0);
+    assertTrue('early callback d should have fired', d >= 0);
+
+    assertEquals('ordering of callbacks was wrong', 0, d);
+    assertEquals('ordering of callbacks was wrong', 1, a);
+    assertEquals('ordering of callbacks was wrong', 2, c);
+  }
+
+
+  /**
+   * Tests the error callbacks.
+   */
+  function testErrbacks() {
+    var m = new goog.module.ModuleInfo();
+    m.setModuleConstructor(TestModule);
+    var index = 0;
+    var a = -1, b = -1, c = -1, d = -1;
+    var ca = m.registerErrback(function() { a = index++; })
+    var cb = m.registerErrback(function() { b = index++; })
+    var cc = m.registerErrback(function() { c = index++; })
+    m.onError('foo');
+
+    assertTrue('callback A should have fired', a >= 0);
+    assertTrue('callback B should have fired', b >= 0);
+    assertTrue('callback C should have fired', c >= 0);
+
+    assertEquals('ordering of callbacks was wrong', 0, a);
+    assertEquals('ordering of callbacks was wrong', 1, b);
+    assertEquals('ordering of callbacks was wrong', 2, c);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.dom.a11y</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.dom.a11y');
+    goog.require('goog.dom.a11y.Announcer');
+    goog.require('goog.dom.a11y.LivePriority');
+    goog.require('goog.dom.a11y.Role');
+    goog.require('goog.dom.a11y.State');
+    goog.require('goog.dom.iframe');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.userAgent');
+  </script>
+</head>
+<body>
+  <div id="sandbox"></div>
+  <script>
+    var sandbox = goog.dom.getElement('sandbox');
+    var someDiv;
+    var someSpan;
+
+    function setUp() {
+      someDiv = goog.dom.createDom('div', {id: 'someDiv'}, 'DIV');
+      someSpan = goog.dom.createDom('span', {id: 'someSpan'}, 'SPAN');
+      sandbox.appendChild(someDiv);
+      someDiv.appendChild(someSpan);
+    }
+    
+    function tearDown() {
+      sandbox.innerHTML = '';
+      someDiv = null;
+      someSpan = null;
+    }
+
+    function testGetSetRole() {
+      assertEquals('someDiv\'s role should be the empty string',
+          '', goog.dom.a11y.getRole(someDiv));
+      assertEquals('someSpan\'s role should be the empty string',
+          '', goog.dom.a11y.getRole(someSpan));
+
+      goog.dom.a11y.setRole(someDiv, goog.dom.a11y.Role.MENU);
+      goog.dom.a11y.setRole(someSpan, goog.dom.a11y.Role.MENU_ITEM);
+
+      assertEquals('someDiv\'s role should be MENU',
+            goog.dom.a11y.Role.MENU, goog.dom.a11y.getRole(someDiv));
+      assertEquals('someSpan\'s role should be MENU_ITEM',
+            goog.dom.a11y.Role.MENU_ITEM, goog.dom.a11y.getRole(someSpan));
+    }
+
+    function testGetSetState() {
+      assertEquals('someDiv\'s state should be the empty string',
+          '', goog.dom.a11y.getState(someDiv));
+
+      goog.dom.a11y.setState(someDiv, goog.dom.a11y.State.LABELLEDBY,
+          'someSpan');
+
+      assertEquals(
+          'someDiv\'s labelledby state should be "someSpan"',
+          'someSpan',
+          goog.dom.a11y.getState(someDiv, goog.dom.a11y.State.LABELLEDBY));
+    }
+
+    function testGetSetActiveDescendant() {
+      goog.dom.a11y.setActiveDescendant(someDiv, null);
+      assertNull('someDiv\'s activedescendant should be null',
+          goog.dom.a11y.getActiveDescendant(someDiv));
+
+      goog.dom.a11y.setActiveDescendant(someDiv, someSpan);
+
+      assertEquals(
+          'someDiv\'s active descendant should be "someSpan"',
+          someSpan,
+          goog.dom.a11y.getActiveDescendant(someDiv));
+    }
+
+    function testAnnouncerAndDispose() {
+      var text = 'test content';
+      var announcer = new goog.dom.a11y.Announcer(goog.dom.getDomHelper());
+      announcer.say(text);
+      checkLiveRegionContains(text, 'polite');
+      goog.dispose(announcer);
+    }
+
+    function testAnnouncerTwice() {
+      var text = 'test content1';
+      var text2 = 'test content2';
+      var announcer = new goog.dom.a11y.Announcer(goog.dom.getDomHelper());
+      announcer.say(text);
+      announcer.say(text2);
+      checkLiveRegionContains(text2, 'polite');
+      goog.dispose(announcer);
+    }
+
+    function testAnnouncerAssertive() {
+      var text = 'test content';
+      var announcer = new goog.dom.a11y.Announcer(goog.dom.getDomHelper());
+      announcer.say(text, goog.dom.a11y.LivePriority.ASSERTIVE);
+      checkLiveRegionContains(text, 'assertive');
+      goog.dispose(announcer);
+    }
+
+    function testAnnouncerInIframe() {
+      var text = 'test content';
+      var frame = goog.dom.iframe.createWithContent(sandbox);
+      var helper = goog.dom.getDomHelper(
+          goog.dom.getFrameContentDocument(frame).body);
+      var announcer = new goog.dom.a11y.Announcer(helper);
+      announcer.say(text, 'polite', helper);
+      checkLiveRegionContains(text, 'polite', helper);
+      goog.dispose(announcer);
+    }
+
+    function checkLiveRegionContains(text, priority, opt_domHelper) {
+      var dom = opt_domHelper || goog.dom.getDomHelper();
+      var divs = dom.getElementsByTagNameAndClass('div', null);
+      var liveRegions = [];
+      goog.array.forEach(divs, function(div) {
+        if (goog.dom.a11y.getState(div, 'live') == priority) {
+          liveRegions.push(div);
+        }
+      });
+      assertEquals(1, liveRegions.length);
+      assertEquals(text, goog.dom.getTextContent(liveRegions[0]));
+    }
+  </script>
+</body>
+</html>

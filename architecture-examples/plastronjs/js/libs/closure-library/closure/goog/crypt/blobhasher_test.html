@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.crypt.BlobHasher</title>
+<script src="../base.js"></script>
+<script src="../../../third_party/closure/goog/deps.js"></script>
+<script>
+  goog.require('goog.crypt');
+  goog.require('goog.crypt.BlobHasher');
+  goog.require('goog.crypt.Md5');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+// Mock out the Blob using a string.
+BlobMock = function(string) {
+  this.data = string;
+  this.size = this.data.length;
+};
+
+BlobMock.prototype.slice = function(start, length) {
+  return new BlobMock(this.data.substr(start, length));
+};
+
+
+// Mock out the FileReader to have control over the flow.
+FileReaderMock = function() {
+  this.array_ = [];
+  this.result = null;
+  this.readyState = this.EMPTY;
+
+  this.onload = null;
+  this.onabort = null;
+  this.onerror = null;
+};
+
+FileReaderMock.prototype.EMPTY = 0;
+FileReaderMock.prototype.LOADING = 1;
+FileReaderMock.prototype.DONE = 2;
+
+FileReaderMock.prototype.mockLoad = function() {
+  this.readyState = this.DONE;
+  this.result = this.array_;
+  if (this.onload) {
+    this.onload.call();
+  }
+}
+
+FileReaderMock.prototype.abort = function() {
+  this.readyState = this.DONE;
+  if (this.onabort) {
+    this.onabort.call();
+  }
+}
+
+FileReaderMock.prototype.mockError = function() {
+  this.readyState = this.DONE;
+  if (this.onerror) {
+    this.onerror.call();
+  }
+}
+
+FileReaderMock.prototype.readAsArrayBuffer = function(blobMock) {
+  this.readyState = this.LOADING;
+  this.array_ = [];
+  for (var i = 0; i < blobMock.size; ++i) {
+    this.array_[i] = blobMock.data.charCodeAt(i);
+  }
+};
+
+
+function testBasicOperations() {
+  if (!window.Blob) {
+    return;
+  }
+
+  var originalFileReader = FileReader;
+  FileReader = FileReaderMock;
+
+  // Test hashing with one chunk.
+  var hashFn = new goog.crypt.Md5();
+  var blobHasher = new goog.crypt.BlobHasher(hashFn);
+  var blob = new BlobMock("The quick brown fox jumps over the lazy dog");
+  blobHasher.hash(blob);
+  blobHasher.fileReader_.mockLoad();
+  assertEquals('9e107d9d372bb6826bd81d3542a419d6',
+               goog.crypt.byteArrayToHex(blobHasher.getHash()));
+
+  // Test hashing with multiple chunks.
+  blobHasher = new goog.crypt.BlobHasher(hashFn, 7);
+  blobHasher.hash(blob);
+  while (blobHasher.fileReader_ && !blobHasher.fileReader_.result) {
+    blobHasher.fileReader_.mockLoad();
+  }
+  assertEquals('9e107d9d372bb6826bd81d3542a419d6',
+               goog.crypt.byteArrayToHex(blobHasher.getHash()));
+
+  // Test hashing with no chunks.
+  blob = new BlobMock("");
+  blobHasher.hash(blob);
+  while (blobHasher.fileReader_ && !blobHasher.fileReader_.result) {
+    blobHasher.fileReader_.mockLoad();
+  }
+  assertEquals('d41d8cd98f00b204e9800998ecf8427e',
+               goog.crypt.byteArrayToHex(blobHasher.getHash()));
+
+  FileReader = originalFileReader;
+}
+
+function testNormalFlow() {
+  if (!window.Blob) {
+    return;
+  }
+
+  var originalFileReader = FileReader;
+  FileReader = FileReaderMock;
+
+  // Test the flow with one chunk.
+  var hashFn = new goog.crypt.Md5();
+  var blobHasher = new goog.crypt.BlobHasher(hashFn, 13);
+  var blob = new BlobMock("short");
+  var startedEvents = 0;
+  var progressEvents = 0;
+  var completeEvents = 0;
+  goog.events.listen(blobHasher, goog.crypt.BlobHasher.EventType.STARTED,
+                     function() { ++startedEvents; });
+  goog.events.listen(blobHasher, goog.crypt.BlobHasher.EventType.PROGRESS,
+                     function() { ++progressEvents; });
+  goog.events.listen(blobHasher, goog.crypt.BlobHasher.EventType.COMPLETE,
+                     function() { ++completeEvents; });
+  blobHasher.hash(blob);
+  assertEquals(1, startedEvents);
+  assertEquals(0, progressEvents);
+  assertEquals(0, completeEvents);
+  blobHasher.fileReader_.mockLoad();
+  assertEquals(1, startedEvents);
+  assertEquals(1, progressEvents);
+  assertEquals(1, completeEvents);
+
+  // Test the flow with multiple chunks.
+  blob = new BlobMock("The quick brown fox jumps over the lazy dog");
+  startedEvents = 0;
+  progressEvents = 0;
+  completeEvents = 0;
+  var progressLoops = 0;
+  blobHasher.hash(blob);
+  assertEquals(1, startedEvents);
+  assertEquals(0, progressEvents);
+  assertEquals(0, completeEvents);
+  while (blobHasher.fileReader_ && !blobHasher.fileReader_.result) {
+    assertEquals(0, completeEvents);
+    blobHasher.fileReader_.mockLoad();
+    assertEquals(++progressLoops, progressEvents);
+  }
+  assertEquals(1, startedEvents);
+  assertEquals(progressLoops, progressEvents);
+  assertEquals(1, completeEvents);
+
+  FileReader = originalFileReader;
+}
+
+function testAbortsAndErrors() {
+  if (!window.Blob) {
+    return;
+  }
+
+  var originalFileReader = FileReader;
+  FileReader = FileReaderMock;
+
+  var hashFn = new goog.crypt.Md5();
+  var blobHasher = new goog.crypt.BlobHasher(hashFn, 13);
+  var blob = new BlobMock("The quick brown fox jumps over the lazy dog");
+  var abortEvents = 0;
+  var errorEvents = 0;
+  var completeEvents = 0;
+  goog.events.listen(blobHasher, goog.crypt.BlobHasher.EventType.ABORT,
+                     function() { ++abortEvents; });
+  goog.events.listen(blobHasher, goog.crypt.BlobHasher.EventType.ERROR,
+                     function() { ++errorEvents; });
+  goog.events.listen(blobHasher, goog.crypt.BlobHasher.EventType.COMPLETE,
+                     function() { ++completeEvents; });
+
+  // Immediate abort.
+  blobHasher.hash(blob);
+  assertEquals(0, abortEvents);
+  assertEquals(0, errorEvents);
+  assertEquals(0, completeEvents);
+  blobHasher.abort();
+  blobHasher.abort();
+  assertEquals(1, abortEvents);
+  assertEquals(0, errorEvents);
+  assertEquals(0, completeEvents);
+  abortEvents = 0;
+
+  // Delayed abort.
+  blobHasher.hash(blob);
+  blobHasher.fileReader_.mockLoad();
+  assertEquals(0, abortEvents);
+  assertEquals(0, errorEvents);
+  assertEquals(0, completeEvents);
+  blobHasher.abort();
+  blobHasher.abort();
+  assertEquals(1, abortEvents);
+  assertEquals(0, errorEvents);
+  assertEquals(0, completeEvents);
+  abortEvents = 0;
+
+  // Immediate error.
+  blobHasher.hash(blob);
+  blobHasher.fileReader_.mockError();
+  assertEquals(0, abortEvents);
+  assertEquals(1, errorEvents);
+  assertEquals(0, completeEvents);
+  errorEvents = 0;
+
+  // Delayed error.
+  blobHasher.hash(blob);
+  blobHasher.fileReader_.mockLoad();
+  blobHasher.fileReader_.mockError();
+  assertEquals(0, abortEvents);
+  assertEquals(1, errorEvents);
+  assertEquals(0, completeEvents);
+  abortEvents = 0;
+
+  FileReader = originalFileReader;
+}
+
+</script>
+</body>
+</html>

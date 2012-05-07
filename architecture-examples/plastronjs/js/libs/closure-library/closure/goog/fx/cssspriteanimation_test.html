@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.fx.CssSpriteAnimation</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.fx.CssSpriteAnimation');
+  goog.require('goog.math.Box');
+  goog.require('goog.math.Size');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.jsunit');
+</script>
+<style>
+
+#test {
+  width: 10px;
+  height: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="test"></div>
+
+<script>
+
+var el = document.getElementById('test');
+var size = new goog.math.Size(10, 10);
+var box = new goog.math.Box(0, 10, 100, 0);
+var time = 1000;
+var anim, clock;
+
+function setUpPage() {
+  clock = new goog.testing.MockClock(true);
+}
+
+function tearDownPage() {
+  clock.dispose();
+}
+
+function setUp() {
+  anim = new goog.fx.CssSpriteAnimation(el, size, box, time);
+  anim.play();
+}
+
+function tearDown() {
+  anim.clearSpritePosition();
+  anim.dispose();
+}
+
+function assertBackgroundPosition(x, y) {
+  if (typeof el.style.backgroundPositionX != 'undefined') {
+    assertEquals(x + 'px', el.style.backgroundPositionX);
+    assertEquals(y + 'px', el.style.backgroundPositionY);
+  } else {
+    var bgPos = el.style.backgroundPosition;
+    var message = 'Expected <' + x + 'px ' + y + 'px>, found <' + bgPos + '>';
+    if (x == y) {
+      // when x and y are the same the browser sometimes collapse the prop
+      assertTrue(message,
+                 bgPos == x || // in case of 0 without a unit
+                 bgPos == x + 'px' ||
+                 bgPos == x + ' ' + y ||
+                 bgPos == x + 'px ' + y + 'px');
+    } else {
+      assertTrue(message,
+                 bgPos == x + ' ' + y ||
+                 bgPos == x + 'px ' + y ||
+                 bgPos == x + ' ' + y + 'px' ||
+                 bgPos == x + 'px ' + y + 'px');
+    }
+  }
+}
+
+function testAnimation() {
+  assertBackgroundPosition(0, 0);
+
+  clock.tick(5);
+  assertBackgroundPosition(0, 0);
+
+  clock.tick(95);
+  assertBackgroundPosition(0, -10);
+
+  clock.tick(100);
+  assertBackgroundPosition(0, -20);
+
+  clock.tick(300);
+  assertBackgroundPosition(0, -50);
+
+  clock.tick(400);
+  assertBackgroundPosition(0, -90);
+
+  // loop around
+  clock.tick(100);
+  assertBackgroundPosition(0, 0);
+}
+
+function testClearSpritePosition() {
+  assertBackgroundPosition(0, 0);
+
+  clock.tick(100);
+  assertBackgroundPosition(0, -10);
+  anim.clearSpritePosition();
+
+  if (typeof el.style.backgroundPositionX != 'undefined') {
+    assertEquals('', el.style.backgroundPositionX);
+    assertEquals('', el.style.backgroundPositionY);
+  }
+
+  assertEquals('', el.style.backgroundPosition);
+}
+
+</script>
+</body>
+</html>

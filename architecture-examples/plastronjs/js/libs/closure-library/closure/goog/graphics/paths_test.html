@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+Author: nicksantos@google.com (Nick Santos)
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>JsUnit tests for goog.graphics.paths</title>
+<script src="../base.js"></script>
+<script>
+
+goog.require('goog.dom');
+goog.require('goog.graphics');
+goog.require('goog.graphics.paths');
+goog.require('goog.testing.jsunit');
+
+
+</script>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type='text/javascript'>
+
+// The purpose of this test is less about the actual unit test, and
+// more for drawing demos of shapes.
+var regularNGon = goog.graphics.paths.createRegularNGon;
+var arrow = goog.graphics.paths.createArrow;
+
+function setUp() {
+  goog.dom.removeChildren(goog.dom.getElement('root'));
+}
+
+function testSquare() {
+  var square = regularNGon(
+      $coord(10, 10), $coord(0, 10), 4);
+  assertArrayRoughlyEquals(
+      [0, 10, 10, 0, 20, 10, 10, 20], square.arguments_, 0.05);
+}
+
+function assertArrayRoughlyEquals(expected, actual, delta) {
+  var message = 'Expected: ' + expected + ', Actual: ' + actual;
+  assertEquals('Wrong length. ' + message, expected.length, actual.length);
+  for (var i = 0; i < expected.length; i++) {
+    assertRoughlyEquals(
+        'Wrong item at ' + i + '. ' + message,
+        expected[i], actual[i], delta);
+  }
+}
+
+function tearDownPage() {
+  var root = goog.dom.getElement('root');
+  var graphics = goog.graphics.createGraphics(800, 600);
+
+  var blueFill = new goog.graphics.SolidFill('blue');
+  var blackStroke = new goog.graphics.Stroke(1, 'black');
+  graphics.drawPath(
+      regularNGon($coord(20, 50), $coord(0, 20), 3),
+      blackStroke, blueFill);
+  graphics.drawPath(
+      regularNGon($coord(120, 50), $coord(100, 20), 4),
+      blackStroke, blueFill);
+  graphics.drawPath(
+      regularNGon($coord(220, 50), $coord(200, 20), 5),
+      blackStroke, blueFill);
+  graphics.drawPath(
+      regularNGon($coord(320, 50), $coord(300, 20), 6),
+      blackStroke, blueFill);
+
+  graphics.drawPath(
+      arrow($coord(0, 300), $coord(100, 400), 0, 0),
+      blackStroke, blueFill);
+  graphics.drawPath(
+      arrow($coord(120, 400), $coord(200, 300), 0, 10),
+      blackStroke, blueFill);
+  graphics.drawPath(
+      arrow($coord(220, 300), $coord(300, 400), 10, 0),
+      blackStroke, blueFill);
+  graphics.drawPath(
+      arrow($coord(320, 400), $coord(400, 300), 10, 10),
+      blackStroke, blueFill);
+
+  root.appendChild(graphics.getElement());
+}
+
+function $coord(x, y) {
+  return new goog.math.Coordinate(x, y);
+}
+
+</script>
+</body>
+</html>

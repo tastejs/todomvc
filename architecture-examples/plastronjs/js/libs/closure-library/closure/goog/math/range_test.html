@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.math.Range</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.math.Range');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+/**
+ * Produce legible assertion results. If two ranges are not equal, the error
+ * message will be of the form
+ * "Expected <[1, 2]> (Object) but was <[3, 4]> (Object)"
+ */
+function assertRangesEqual(expected, actual) {
+  if (!goog.math.Range.equals(expected, actual)) {
+    assertEquals(expected, actual);
+  }
+}
+
+function createRange(a) {
+  return a ? new goog.math.Range(a[0], a[1]) : null;
+}
+
+function testRangeIntersection() {
+  var tests = [[[1, 2], [3, 4], null],
+               [[1, 3], [2, 4], [2, 3]],
+               [[1, 4], [2, 3], [2, 3]],
+               [[-1, 2], [-1, 2], [-1, 2]],
+               [[1, 2], [2, 3], [2, 2]],
+               [[1, 1], [1, 1], [1, 1]]];
+  for (var i = 0; i < tests.length; ++i) {
+    var t = tests[i];
+    var r0 = createRange(t[0]);
+    var r1 = createRange(t[1]);
+    var expected = createRange(t[2]);
+    assertRangesEqual(expected, goog.math.Range.intersection(r0, r1));
+    assertRangesEqual(expected, goog.math.Range.intersection(r1, r0));
+
+    assertEquals(expected != null, goog.math.Range.hasIntersection(r0, r1));
+    assertEquals(expected != null, goog.math.Range.hasIntersection(r1, r0));
+  }
+}
+
+function testBoundingRange() {
+  var tests = [[[1, 2], [3, 4], [1, 4]],
+               [[1, 3], [2, 4], [1, 4]],
+               [[1, 4], [2, 3], [1, 4]],
+               [[-1, 2], [-1, 2], [-1, 2]],
+               [[1, 2], [2, 3], [1, 3]],
+               [[1, 1], [1, 1], [1, 1]]];
+  for (var i = 0; i < tests.length; ++i) {
+    var t = tests[i];
+    var r0 = createRange(t[0]);
+    var r1 = createRange(t[1]);
+    var expected = createRange(t[2]);
+    assertRangesEqual(expected, goog.math.Range.boundingRange(r0, r1));
+    assertRangesEqual(expected, goog.math.Range.boundingRange(r1, r0));
+  }
+}
+
+function testRangeContains() {
+  var tests = [[[0, 4], [2, 1], true],
+               [[-4, -1], [-2, -3], true],
+               [[1, 3], [2, 4], false],
+               [[-1, 0], [0, 1], false],
+               [[0, 2], [3, 5], false]];
+  for (var i = 0; i < tests.length; ++i) {
+    var t = tests[i];
+    var r0 = createRange(t[0]);
+    var r1 = createRange(t[1]);
+    var expected = t[2];
+    assertEquals(expected, goog.math.Range.contains(r0, r1));
+  }
+}
+
+function testRangeClone() {
+  var r = new goog.math.Range(5.6, -3.4);
+  assertRangesEqual(r, r.clone());
+}
+
+function testRangeContainsPoint() {
+  var r = new goog.math.Range(0, 1);
+  assert(goog.math.Range.containsPoint(r, 0));
+  assert(goog.math.Range.containsPoint(r, 1));
+  assertFalse(goog.math.Range.containsPoint(r, -1));
+  assertFalse(goog.math.Range.containsPoint(r, 2));
+}
+
+</script>
+</body>
+</html>

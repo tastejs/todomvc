@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.jsaction.EventContract</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.jsaction.Dispatcher');
+goog.require('goog.jsaction.EventContract');
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.mockmatchers.ArgumentMatcher');
+</script>
+<script>
+
+var mockControl;
+var isNumber = goog.testing.mockmatchers.isNumber;
+
+function createHandlerMatcher(containerElem) {
+  return new goog.testing.mockmatchers.ArgumentMatcher(
+      function(handler) {
+        return handler ==
+            containerElem[
+                goog.jsaction.EventContract.PROPERTY_KEY_EVENT_HANDLER_];
+      });
+}
+
+
+function setUp() {
+  mockControl = new goog.testing.MockControl;
+}
+
+
+function tearDown() {
+  mockControl.$tearDown();
+}
+
+
+function testAddContainer() {
+  var contract = new goog.jsaction.EventContract;
+  var containerElem = document.createElement('div');
+  contract.addContainer(containerElem);
+
+  assertTrue(goog.isFunction(containerElem[
+      goog.jsaction.EventContract.PROPERTY_KEY_EVENT_HANDLER_]));
+}
+
+
+function testAddEvents() {
+  var contract = new goog.jsaction.EventContract;
+  var containerA = document.createElement('div');
+  var containerB = document.createElement('div');
+
+  var mockAddListener = mockControl.createMethodMock(
+      goog.jsaction.util, 'addEventListener');
+
+  // Ensure the event handler gets registered for every event type
+  // for every container (regardless of order).
+  mockAddListener(
+      containerA, 'click', createHandlerMatcher(containerA));
+  mockAddListener(
+      containerA, 'mouseover', createHandlerMatcher(containerA));
+
+  mockAddListener(
+      containerB, 'click', createHandlerMatcher(containerB));
+  mockAddListener(
+      containerB, 'mouseover', createHandlerMatcher(containerB));
+
+  mockAddListener(
+      containerA, 'mouseout', createHandlerMatcher(containerA));
+  mockAddListener(
+      containerB, 'mouseout', createHandlerMatcher(containerB));
+
+  mockControl.$replayAll();
+
+  contract.addEvent('click');
+  contract.addContainer(containerA);
+  contract.addEvent('mouseover');
+  contract.addContainer(containerB);
+  contract.addEvent('mouseout');
+
+  mockControl.$verifyAll();
+}
+
+
+function testGetAction() {
+  var elem = document.createElement('div');
+  elem.setAttribute('jsaction', 'click: foo.klik; mouseover: foo.over');
+
+  assertEquals(
+      'foo.klik', goog.jsaction.EventContract.getAction_(elem, 'click'));
+  assertEquals(
+      'foo.over', goog.jsaction.EventContract.getAction_(elem, 'mouseover'));
+  assertNull(
+      goog.jsaction.EventContract.getAction_(elem, 'mouseout'));
+}
+
+
+function testGetActionDefaultEventType() {
+  var elem = document.createElement('div');
+  elem.setAttribute('jsaction', 'foo.bar');
+
+  assertEquals(
+      'foo.bar', goog.jsaction.EventContract.getAction_(elem, 'click_plain'));
+}
+
+
+function testGetActionClick() {
+  var elem = document.createElement('div');
+  elem.setAttribute('jsaction', 'click: foo.bar');
+
+  assertEquals(
+      'foo.bar', goog.jsaction.EventContract.getAction_(elem, 'click_plain'));
+  assertEquals(
+      'foo.bar', goog.jsaction.EventContract.getAction_(elem, 'click_mod'));
+}
+
+
+function testClickEventNoAction() {
+  var rootElem = document.createElement('div');
+  var childElem = document.createElement('div');
+  rootElem.appendChild(childElem);
+  var subSubElem = document.createElement('div');
+  childElem.appendChild(subSubElem);
+
+  var contract = new goog.jsaction.EventContract;
+  contract.addContainer(rootElem);
+  contract.addEvent('click');
+
+  var handler = rootElem[
+      goog.jsaction.EventContract.PROPERTY_KEY_EVENT_HANDLER_];
+  var fakeEvent = {
+    type: 'click',
+    srcElement: subSubElem
+  };
+  handler(fakeEvent);
+
+  assertEquals(0, contract.getQueue().length);
+}
+
+
+function testClickEventActionFound() {
+  var rootElem = document.createElement('div');
+  var childElem = document.createElement('div');
+  childElem.setAttribute('jsaction', 'click: foo.bar');
+  rootElem.appendChild(childElem);
+  var leafElem = document.createElement('div');
+  childElem.appendChild(leafElem);
+
+  var contract = new goog.jsaction.EventContract;
+  contract.addContainer(rootElem);
+  contract.addEvent('click');
+
+  var handler = rootElem[
+      goog.jsaction.EventContract.PROPERTY_KEY_EVENT_HANDLER_];
+  var fakeEvent = {
+    type: 'click',
+    srcElement: leafElem
+  };
+
+  var mockStopPropagation = mockControl.createMethodMock(
+      goog.jsaction.util, 'stopPropagation');
+  var mockPreventDefault = mockControl.createMethodMock(
+      goog.jsaction.util, 'preventDefault');
+  mockStopPropagation(fakeEvent);
+  mockPreventDefault(fakeEvent);
+
+  mockControl.$replayAll();
+
+  handler(fakeEvent);
+
+  mockControl.$verifyAll();
+
+  var queue = contract.getQueue();
+  assertEquals(1, queue.length);
+  var entry = queue[0];
+  assertEquals('foo.bar', entry.action);
+  assertEquals(leafElem, entry.event.srcElement);
+  assertEquals(childElem, entry.element);
+}
+
+
+function testClickActionNotHandled() {
+  var rootElem = document.createElement('div');
+  var childElem = document.createElement('div');
+  childElem.setAttribute('jsaction', 'foo.bar');
+  rootElem.appendChild(childElem);
+
+  var contract = new goog.jsaction.EventContract;
+  contract.addContainer(rootElem);
+  contract.addEvent('click');
+
+  var eventHandler = rootElem[
+      goog.jsaction.EventContract.PROPERTY_KEY_EVENT_HANDLER_];
+  var fakeEvent = {
+    type: 'click',
+    srcElement: childElem
+  };
+
+  var dispatcher = mockControl.createLooseMock(goog.jsaction.Dispatcher);
+  contract.setDispatcher(dispatcher);
+
+  dispatcher.dispatch('foo.bar', childElem, fakeEvent, isNumber).
+      $returns(false);
+
+  mockControl.$replayAll();
+
+  eventHandler(fakeEvent);
+  assertEquals(1, contract.getQueue().length);
+
+  mockControl.$verifyAll();
+}
+
+
+function testClickActionHandled() {
+  var rootElem = document.createElement('div');
+  var childElem = document.createElement('div');
+  childElem.setAttribute('jsaction', 'foo.bar');
+  rootElem.appendChild(childElem);
+
+  var contract = new goog.jsaction.EventContract;
+  contract.addContainer(rootElem);
+  contract.addEvent('click');
+
+  var eventHandler = rootElem[
+      goog.jsaction.EventContract.PROPERTY_KEY_EVENT_HANDLER_];
+  var fakeEvent = {
+    type: 'click',
+    srcElement: childElem
+  };
+
+  var dispatcher = mockControl.createLooseMock(goog.jsaction.Dispatcher);
+  contract.setDispatcher(dispatcher);
+
+  dispatcher.dispatch('foo.bar', childElem, fakeEvent, isNumber).
+      $returns(true);
+
+  mockControl.$replayAll();
+
+  eventHandler(fakeEvent);
+  assertEquals(0, contract.getQueue().length);
+
+  mockControl.$verifyAll();
+}
+
+
+</script>
+</head>
+</html>

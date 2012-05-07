@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>
+  Closure Unit Tests - goog.messaging.PortNetwork
+</title>
+<script src="../base.js"></script>
+<script src="../../../third_party/closure/goog/deps.js"></script>
+<script>
+goog.require('goog.events.EventTarget');
+goog.require('goog.messaging.PortChannel');
+goog.require('goog.messaging.PortOperator');
+goog.require('goog.testing.AsyncTestCase');
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.async.MockControl');
+goog.require('goog.testing.messaging.MockMessageEvent');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<iframe style="display: none;" name="inner" id="inner"
+        src="testdata/portnetwork_inner.html"></iframe>
+<script>
+
+var asyncTestCase = goog.testing.AsyncTestCase.createAndInstall();
+
+// Use a relatively long timeout because workers can take a while to start up.
+asyncTestCase.stepTimeout = 5 * 1000;
+
+function testRouteMessageThroughWorkers() {
+  if (!('MessageChannel' in goog.global)) {
+    return;
+  }
+
+  var master = new goog.messaging.PortOperator('main');
+  master.addPort('worker1', new goog.messaging.PortChannel(
+      new Worker('testdata/portnetwork_worker1.js')));
+  master.addPort('worker2', new goog.messaging.PortChannel(
+      new Worker('testdata/portnetwork_worker2.js')));
+  master.addPort(
+      'frame', goog.messaging.PortChannel.forEmbeddedWindow(
+          window.frames['inner'], '*'));
+
+  master.dial('worker1').registerService('result', function(msg) {
+    assertArrayEquals(['main', 'worker2', 'frame', 'worker1'], msg);
+    master.dispose();
+    asyncTestCase.continueTesting();
+  }, true);
+
+  master.dial('worker2').send('sendToFrame', ['main']);
+
+  asyncTestCase.waitForAsync('routing messages');
+}
+
+</script>
+</body>
+</html>

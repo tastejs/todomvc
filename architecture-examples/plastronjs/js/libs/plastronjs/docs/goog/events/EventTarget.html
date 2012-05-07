@@ -1,0 +1,63 @@
+<!doctype html><html><head><title>goog.events.EventTarget</title><link href="../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../index.html">Home</a><h1>Class goog.events.EventTarget</h1><p>Inherit from this class to give your object the ability to dispatch events.
+Note that this class provides event <em>sending</em> behaviour, not event
+receiving behaviour: your object will be able to broadcast events, and other
+objects will be able to listen for those events using goog.events.listen().
+
+<p>The name "EventTarget" reflects the fact that this class implements the
+<a href="http://www.w3.org/TR/DOM-Level-2-Events/events.html">
+EventTarget interface</a> as defined by W3C DOM 2/3, with a few differences:
+<ul>
+<li>Event objects do not have to implement the Event interface. An object
+is treated as an event object if it has a 'type' property.
+<li>You can use a plain string instead of an event object; an event-like
+object will be created with the 'type' set to the string value.
+</ul>
+
+<p>Unless propagation is stopped, an event dispatched by an EventTarget
+will bubble to the parent returned by <code>getParentEventTarget</code>.
+To set the parent, call <code>setParentEventTarget</code> or override
+<code>getParentEventTarget</code> in a subclass.  Subclasses that don't
+support changing the parent should override the setter to throw an error.
+
+<p>Example usage:
+<pre>
+var source = new goog.events.EventTarget();
+function handleEvent(event) {
+alert('Type: ' + e.type + '\nTarget: ' + e.target);
+}
+goog.events.listen(source, 'foo', handleEvent);
+...
+source.dispatchEvent({type: 'foo'}); // will call handleEvent
+// or source.dispatchEvent('foo');
+...
+goog.events.unlisten(source, 'foo', handleEvent);
+
+// You can also use the Listener interface:
+var listener = {
+handleEvent: function(event) {
+...
+}
+};
+goog.events.listen(source, 'bar', listener);
+</pre></p>extends <a href="../../goog/Disposable.html">goog.Disposable</a><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>addEventListener(string type, ?Object handler, boolean= opt_capture, ?Object= opt_handlerScope)</code><br><p class="method-description">Adds an event listener to the event target. The same handler can only be
+added once per the type. Even if you add the same handler multiple times
+using the same type then it will only be called once when the event is
+dispatched.
+
+Supported for legacy but use goog.events.listen(src, type, handler) instead.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>dispatchEvent((Object|goog.events.Event|null|string) e) &#8658; boolean</code><br><p class="method-description">Dispatches an event (or event like object) and calls all listeners
+listening for events of this type. The type of the event is decided by the
+type property on the event object.
+
+If any of the listeners returns false OR calls preventDefault then this
+function will return false.  If one of the capture listeners calls
+stopPropagation, then the bubble listeners won't fire.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>disposeInternal()</code><br><p class="method-description">Unattach listeners from this object.  Classes that extend EventTarget may
+need to override this method in order to remove references to DOM Elements
+and additional listeners, it should be something like this:
+<pre>
+MyClass.prototype.disposeInternal = function() {
+MyClass.superClass_.disposeInternal.call(this);
+// Dispose logic for MyClass
+};
+</pre></p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getParentEventTarget() &#8658; ?goog.events.EventTarget</code><br><p class="method-description">Returns the parent of this event target to use for bubbling.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>removeEventListener(string type, ?Object handler, boolean= opt_capture, ?Object= opt_handlerScope)</code><br><p class="method-description">Removes an event listener from the event target. The handler must be the
+same object as the one added. If the handler has not been added then
+nothing is done.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setParentEventTarget(?goog.events.EventTarget parent)</code><br><p class="method-description">Sets the parent of this event target to use for bubbling.</p></td></tr></table></body></html>

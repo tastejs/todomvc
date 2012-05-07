@@ -1,0 +1,13 @@
+<!doctype html><html><head><title>goog.structs.PriorityPool</title><link href="../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../index.html">Home</a><h1>Class goog.structs.PriorityPool</h1><p>A generic pool class. If max is greater than min, an error is thrown.</p>extends <a href="../../goog/structs/Pool.html">goog.structs.Pool</a><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>addFreeObject(?Object obj)</code><br><p class="method-description">Adds an object to the collection of objects that are free. If the object can
+not be added, then it is disposed.
+
+NOTE: This method does not remove the object from the in use collection.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>adjustForMinMax()</code><br><p class="method-description">Adjusts the objects held in the pool to be within the min/max constraints.
+
+NOTE: It is possible that the number of objects in the pool will still be
+greater than the maximum count of objects allowed. This will be the case
+if no more free objects can be disposed of to get below the minimum count
+(i.e., all objects are in use).</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>disposeInternal()</code><br><p class="method-description">Disposes of the pool and all objects currently held in the pool.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getObject(?Function= opt_callback, &lt;Any Type&gt; opt_priority) &#8658; (Object|null|undefined)</code><br><p class="method-description">Get a new object from the the pool, if there is one available, otherwise
+return undefined.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>handleQueueRequests_()</code><br><p class="method-description">Handles the request queue. Tries to fires off as many queued requests as
+possible.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setDelay(number delay)</code><br><p class="method-description">Sets the minimum delay between objects being returned by getObject, in
+milliseconds. This defaults to zero, meaning that no minimum delay is
+enforced and objects may be used as soon as they're available.</p></td></tr></table></body></html>

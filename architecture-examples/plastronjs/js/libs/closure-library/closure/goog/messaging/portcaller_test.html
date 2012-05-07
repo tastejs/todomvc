@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>
+  Closure Unit Tests - goog.messaging.PortCaller
+</title>
+<script src="../base.js"></script>
+<script src="../../../third_party/closure/goog/deps.js"></script>
+<script>
+goog.require('goog.events.EventTarget');
+goog.require('goog.messaging.PortCaller');
+goog.require('goog.messaging.PortChannel');
+goog.require('goog.messaging.PortNetwork');
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.messaging.MockMessageChannel');
+</script>
+</head>
+<body>
+<script>
+
+var mockControl;
+var mockChannel;
+var caller;
+
+function setUp() {
+  mockControl = new goog.testing.MockControl();
+  mockChannel = new goog.testing.messaging.MockMessageChannel(mockControl);
+  caller = new goog.messaging.PortCaller(mockChannel);
+}
+
+function tearDown() {
+  goog.dispose(caller);
+  mockControl.$verifyAll();
+}
+
+function MockMessagePort(index, port) {
+  goog.base(this);
+  this.index = index;
+  this.port = port;
+  this.started = false;
+}
+goog.inherits(MockMessagePort, goog.events.EventTarget);
+
+
+MockMessagePort.prototype.start = function() {
+  this.started = true;
+};
+
+function testGetPort() {
+  mockChannel.send(goog.messaging.PortNetwork.REQUEST_CONNECTION_SERVICE, 'foo');
+  mockControl.$replayAll();
+  caller.dial('foo');
+}
+
+</script>
+</body>
+</html>

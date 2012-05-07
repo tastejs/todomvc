@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!-- Author:  robbyw@google.com (Robby Walker) -->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.TableSorter</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.testing.events');
+    goog.require('goog.ui.TableSorter');
+  </script>
+</head>
+<body>
+  <div id="content">
+    <table id="sortable">
+      <thead>
+        <tr><th>alpha</th><th>number</th><th>not sortable</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>C</td><td>10</td><td></td></tr>
+        <tr><td>A</td><td>10</td><td></td></tr>
+        <tr><td>C</td><td>17</td><td></td></tr>
+        <tr><td>B</td><td>0</td><td></td></tr>
+        <tr><td>C</td><td>3</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    var oldHtml = goog.dom.getElement('content').innerHTML;
+    var alphaHeader, numberHeader, notSortableHeader, table, tableSorter;
+
+    function setUp() {
+      goog.dom.getElement('content').innerHTML = oldHtml;
+      table = goog.dom.getElement('sortable');
+      alphaHeader = table.getElementsByTagName('TH')[0];
+      numberHeader = table.getElementsByTagName('TH')[1];
+      notSortableHeader = table.getElementsByTagName('TH')[2];
+
+      tableSorter = new goog.ui.TableSorter();
+      tableSorter.setSortFunction(0, goog.ui.TableSorter.alphaSort);
+          tableSorter.setSortFunction(2, goog.ui.TableSorter.noSort);
+      tableSorter.decorate(table);
+    }
+
+    function tearDown() {
+      tableSorter.dispose();
+      assertEquals(0, goog.events.getTotalListenerCount());
+      table = null;
+    }
+
+    function testConstructor() {
+      assertNotNull('Should have successful construction', tableSorter);
+      assertNotNull('Should be in document', tableSorter);
+    }
+
+    function testForwardAlpha() {
+      goog.testing.events.fireClickEvent(alphaHeader);
+      assertOrder(['A', '10', 'B', '0', 'C', '10', 'C', '17', 'C', '3']);
+      assertTrue(goog.dom.classes.has(alphaHeader, 'goog-tablesorter-sorted'));
+      assertEquals(0, tableSorter.getSortColumn());
+      assertFalse(tableSorter.isSortReversed());
+    }
+
+    function testBackwardAlpha() {
+      goog.testing.events.fireClickEvent(alphaHeader);
+      goog.testing.events.fireClickEvent(alphaHeader);
+      assertOrder(['C', '10', 'C', '17', 'C', '3', 'B', '0', 'A', '10']);
+      assertTrue(goog.dom.classes.has(alphaHeader,
+          'goog-tablesorter-sorted-reverse'));
+      assertEquals(0, tableSorter.getSortColumn());
+      assertTrue(tableSorter.isSortReversed());
+    }
+
+    function testForwardNumeric() {
+      goog.testing.events.fireClickEvent(numberHeader);
+      assertOrder(['B', '0', 'C', '3', 'C', '10', 'A', '10', 'C', '17']);
+      assertTrue(goog.dom.classes.has(numberHeader, 'goog-tablesorter-sorted'));
+      assertEquals(1, tableSorter.getSortColumn());
+      assertFalse(tableSorter.isSortReversed());
+    }
+
+    function testBackwardNumeric() {
+      goog.testing.events.fireClickEvent(numberHeader);
+      goog.testing.events.fireClickEvent(numberHeader);
+      assertOrder(['C', '17', 'C', '10', 'A', '10', 'C', '3', 'B', '0']);
+      assertTrue(goog.dom.classes.has(numberHeader,
+          'goog-tablesorter-sorted-reverse'));
+      assertEquals(1, tableSorter.getSortColumn());
+      assertTrue(tableSorter.isSortReversed());
+    }
+
+    function testAlphaThenNumeric() {
+      testForwardAlpha();
+      goog.testing.events.fireClickEvent(numberHeader);
+      assertOrder(['B', '0', 'C', '3', 'A', '10', 'C', '10', 'C', '17']);
+      assertFalse(goog.dom.classes.has(alphaHeader, 'goog-tablesorter-sorted'));
+      assertEquals(1, tableSorter.getSortColumn());
+      assertFalse(tableSorter.isSortReversed());
+    }
+
+    function testNotSortableUnchanged() {
+      goog.testing.events.fireClickEvent(notSortableHeader);
+      assertEquals(0, goog.dom.classes.get(notSortableHeader).length);
+      assertEquals(-1, tableSorter.getSortColumn());
+    }
+
+    function assertOrder(arr) {
+      var actual = [];
+      goog.array.forEach(table.getElementsByTagName('TD'), function(td, idx) {
+        var txt = goog.dom.getTextContent(td);
+        if (txt) {
+          actual.push(txt);
+        }
+      });
+      assertArrayEquals(arr, actual);
+    }
+
+  </script>
+</body>
+</html>

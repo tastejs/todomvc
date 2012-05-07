@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.ColorButton</title>
+<script type="text/javascript" src="../base.js"></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.dom');
+  goog.require('goog.dom.classes');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.ColorButton');
+  goog.require('goog.ui.decorate');
+</script>
+</head>
+<body>
+
+<div id="buttonDiv"></div>
+
+<script type="text/javascript">
+
+var button, button2;
+var buttonDiv;
+
+function setUp() {
+  buttonDiv = goog.dom.getElement('buttonDiv');
+}
+
+function tearDown() {
+  goog.dom.removeChildren(buttonDiv);
+  goog.dispose(button);
+  goog.dispose(button2);
+  button = null;
+  button2 = null;
+}
+
+function testRender() {
+  button = new goog.ui.ColorButton('test');
+  assertNotNull('button should be valid', button);
+  button.render(buttonDiv);
+  assertColorButton(button.getElement());
+}
+
+function testDecorate() {
+  var colorDiv = goog.dom.createDom('div', 'goog-color-button');
+  goog.dom.appendChild(buttonDiv, colorDiv);
+  button2 = goog.ui.decorate(colorDiv);
+  assertNotNull('button should be valid', button2);
+  assertColorButton(button2.getElement());
+}
+
+function assertColorButton(div) {
+  assertTrue('button className contains goog-color-button',
+      goog.array.contains(goog.dom.classes.get(div), 'goog-color-button'));
+  var caption = div.firstChild.firstChild.firstChild;
+  assertTrue('caption className contains goog-color-button',
+      goog.array.contains(goog.dom.classes.get(caption), 'goog-color-button'));
+}
+
+</script>
+</body>
+</html>

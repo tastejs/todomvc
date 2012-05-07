@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>
+  Closure Unit Tests - goog.messaging.PortChannel
+</title>
+<script src="../base.js"></script>
+<script src="../../../third_party/closure/goog/deps.js"></script>
+<script>
+goog.require('goog.dom');
+goog.require('goog.events.EventTarget');
+goog.require('goog.json');
+goog.require('goog.messaging.PortChannel');
+goog.require('goog.testing.AsyncTestCase');
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.async.MockControl');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.messaging.MockMessageEvent');
+</script>
+</head>
+<body>
+<div id="frame"></div>
+<script>
+
+var mockControl;
+var asyncMockControl;
+var mockPort;
+var portChannel;
+
+var workerChannel;
+var asyncTestCase = goog.testing.AsyncTestCase.createAndInstall();
+
+// Use a relatively long timeout because workers can take a while to start up.
+asyncTestCase.stepTimeout = 3 * 1000;
+
+function setUpPage() {
+  workerChannel = new goog.messaging.PortChannel(
+      new Worker('testdata/portchannel_worker.js'));
+}
+
+function tearDownPage() {
+  goog.dispose(workerChannel);
+}
+
+function setUp() {
+  mockControl = new goog.testing.MockControl();
+  asyncMockControl = new goog.testing.async.MockControl(mockControl);
+  mockPort = new goog.events.EventTarget();
+  mockPort.postMessage = mockControl.createFunctionMock('postMessage');
+  portChannel = new goog.messaging.PortChannel(mockPort);
+}
+
+function tearDown() {
+  portChannel.dispose();
+  mockControl.$verifyAll();
+}
+
+function makeMessage(serviceName, payload) {
+  var msg = {'serviceName': serviceName, 'payload': payload};
+  msg[goog.messaging.PortChannel.FLAG] = true;
+  if (goog.messaging.PortChannel.REQUIRES_SERIALIZATION_) {
+    msg = goog.json.serialize(msg);
+  }
+  return msg;
+}
+
+function expectNoMessage() {
+  portChannel.registerDefaultService(
+    mockControl.createFunctionMock('expectNoMessage'));
+}
+
+function receiveMessage(serviceName, payload, opt_origin, opt_ports) {
+  mockPort.dispatchEvent(
+      goog.testing.messaging.MockMessageEvent.wrap(
+          makeMessage(serviceName, payload),
+          opt_origin || 'http://google.com',
+          undefined, undefined, opt_ports));
+}
+
+function receiveNonChannelMessage(data) {
+  if (goog.messaging.PortChannel.REQUIRES_SERIALIZATION_ &&
+      !goog.isString(data)) {
+    data = goog.json.serialize(data);
+  }
+  mockPort.dispatchEvent(
+      goog.testing.messaging.MockMessageEvent.wrap(
+          data, 'http://google.com'));
+}
+
+function testPostMessage() {
+  mockPort.postMessage(makeMessage('foobar', 'This is a value'), []);
+  mockControl.$replayAll();
+  portChannel.send('foobar', 'This is a value');
+}
+
+function testPostMessageWithPorts() {
+  if (!('MessageChannel' in goog.global)) {
+    return;
+  }
+  var channel = new MessageChannel();
+  var port1 = channel.port1;
+  var port2 = channel.port2;
+  mockPort.postMessage(makeMessage('foobar', {'val': [
+    {'_port': {'type': 'real', 'index': 0}},
+    {'_port': {'type': 'real', 'index': 1}}
+  ]}), [port1, port2]);
+  mockControl.$replayAll();
+  portChannel.send('foobar', {'val': [port1, port2]});
+}
+
+function testReceiveMessage() {
+  portChannel.registerService(
+      'foobar', asyncMockControl.asyncAssertEquals(
+          'testReceiveMessage', 'This is a string'));
+  mockControl.$replayAll();
+  receiveMessage('foobar', 'This is a string');
+}
+
+function testReceiveMessageWithPorts() {
+  if (!('MessageChannel' in goog.global)) {
+    return;
+  }
+  var channel = new MessageChannel();
+  var port1 = channel.port1;
+  var port2 = channel.port2;
+  portChannel.registerService(
+      'foobar', asyncMockControl.asyncAssertEquals(
+          'testReceiveMessage', {'val': [port1, port2]}),
+      true);
+  mockControl.$replayAll();
+  receiveMessage('foobar', {'val': [
+    {'_port': {'type': 'real', 'index': 0}},
+    {'_port': {'type': 'real', 'index': 1}}
+  ]}, null, [port1, port2]);
+}
+
+function testReceiveNonChannelMessageWithStringBody() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveNonChannelMessage('Foo bar');
+}
+
+function testReceiveNonChannelMessageWithArrayBody() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveNonChannelMessage([5, 'Foo bar']);
+}
+
+function testReceiveNonChannelMessageWithNoFlag() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  receiveNonChannelMessage({
+    serviceName: 'foobar',
+    payload: 'this is a payload'
+  });
+}
+
+function testReceiveNonChannelMessageWithFalseFlag() {
+  expectNoMessage();
+  mockControl.$replayAll();
+  var body = {
+    serviceName: 'foobar',
+    payload: 'this is a payload'
+  };
+  body[goog.messaging.PortChannel.FLAG] = false;
+  receiveNonChannelMessage(body);
+}
+
+// Integration tests
+
+function testWorker() {
+  if (!('Worker' in goog.global)) {
+    return;
+  }
+  workerChannel.registerService('pong', function(msg) {
+    assertObjectEquals({'val': 'fizzbang'}, msg);
+    asyncTestCase.continueTesting();
+  }, true);
+  workerChannel.send('ping', {'val': 'fizzbang'});
+  asyncTestCase.waitForAsync('worker response');
+}
+
+function testWorkerWithPorts() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  var messageChannel = new MessageChannel();
+  workerChannel.registerService('pong', function(msg) {
+    assertPortsEntangled(msg['port'], messageChannel.port2, function() {
+      asyncTestCase.continueTesting();
+    });
+  }, true);
+  workerChannel.send('ping', {'port': messageChannel.port1});
+  asyncTestCase.waitForAsync('worker response');
+}
+
+function testPort() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  var messageChannel = new MessageChannel();
+  workerChannel.send('addPort', messageChannel.port1);
+  messageChannel.port2.start();
+  var realPortChannel = new goog.messaging.PortChannel(messageChannel.port2);
+  realPortChannel.registerService('pong', function(msg) {
+    assertObjectEquals({'val': 'fizzbang'}, msg);
+
+    messageChannel.port2.close();
+    realPortChannel.dispose();
+    asyncTestCase.continueTesting();
+  }, true);
+  realPortChannel.send('ping', {'val': 'fizzbang'});
+  asyncTestCase.waitForAsync('port response');
+}
+
+function testPortIgnoresOrigin() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  var messageChannel = new MessageChannel();
+  workerChannel.send('addPort', messageChannel.port1);
+  messageChannel.port2.start();
+  var realPortChannel = new goog.messaging.PortChannel(
+      messageChannel.port2, 'http://somewhere-else.com');
+  realPortChannel.registerService('pong', function(msg) {
+    assertObjectEquals({'val': 'fizzbang'}, msg);
+
+    messageChannel.port2.close();
+    realPortChannel.dispose();
+    asyncTestCase.continueTesting();
+  }, true);
+  realPortChannel.send('ping', {'val': 'fizzbang'});
+  asyncTestCase.waitForAsync('port response');
+}
+
+function testWindow() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  withIframe(function() {
+    var iframeChannel = goog.messaging.PortChannel.forEmbeddedWindow(
+        window.frames['inner'], '*');
+    iframeChannel.registerService('pong', function(msg) {
+      assertEquals('fizzbang', msg);
+
+      goog.dispose(iframeChannel);
+      asyncTestCase.continueTesting();
+    });
+    iframeChannel.send('ping', 'fizzbang');
+    asyncTestCase.waitForAsync('window response');
+  });
+}
+
+function testWindowCancelled() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  withIframe(function() {
+    var iframeChannel = goog.messaging.PortChannel.forEmbeddedWindow(
+        window.frames['inner'], '*');
+    iframeChannel.cancel();
+
+    iframeChannel.registerService('pong', function(msg) {
+      fail('no messages should be received due to cancellation');
+      goog.dispose(iframeChannel);
+      asyncTestCase.continueTesting();
+    });
+
+    iframeChannel.send('ping', 'fizzbang');
+    asyncTestCase.waitForAsync('window response');
+
+    // Leave plenty of time for the connection to be made if the test fails, but
+    // stop the test before the asyncTestCase timeout is hit.
+    setTimeout(goog.bind(asyncTestCase.continueTesting, asyncTestCase),
+               asyncTestCase.stepTimeout / 3);
+  });
+}
+
+function testWindowWontSendToWrongOrigin() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  withIframe(function() {
+    var iframeChannel = goog.messaging.PortChannel.forEmbeddedWindow(
+        window.frames['inner'], 'http://somewhere-else.com');
+    iframeChannel.registerService('pong', function(msg) {
+      fail('Should not receive pong from unexpected origin');
+      iframeChannel.dispose();
+      asyncTestCase.continueTesting();
+    });
+    iframeChannel.send('ping', 'fizzbang');
+
+    setTimeout(function() {
+      asyncTestCase.continueTesting();
+    }, asyncTestCase.stepTimeout - 500);
+    asyncTestCase.waitForAsync('window response');
+  });
+}
+
+function testWindowWontReceiveFromWrongOrigin() {
+  if (!('Worker' in goog.global) || !('MessageChannel' in goog.global)) {
+    return;
+  }
+  withIframe(function() {
+    var iframeChannel = goog.messaging.PortChannel.forEmbeddedWindow(
+        window.frames['inner'], '*');
+    iframeChannel.registerService('pong', function(msg) {
+      fail('Should not receive pong from unexpected origin');
+      iframeChannel.dispose();
+      asyncTestCase.continueTesting();
+    });
+    iframeChannel.send('ping', 'fizzbang');
+
+    setTimeout(function() {
+      asyncTestCase.continueTesting();
+    }, asyncTestCase.stepTimeout - 500);
+    asyncTestCase.waitForAsync('window response');
+  }, 'testdata/portchannel_wrong_origin_inner.html');
+}
+
+/**
+ * Assert that two HTML5 MessagePorts are entangled by posting messages from
+ * each to the other.
+ *
+ * @param {!MessagePort} port1
+ * @param {!MessagePort} port2
+ * @param {function()} callback Called when the assertion is finished.
+ */
+function assertPortsEntangled(port1, port2, callback) {
+  port1.onmessage = function(e) {
+    assertEquals('port 2 should send messages to port 1',
+                 'port2 to port1', e.data);
+    callback();
+  };
+
+  port2.onmessage = function(e) {
+    assertEquals('port 1 should send messages to port 2',
+                 'port1 to port2', e.data);
+    port2.postMessage('port2 to port1');
+    asyncTestCase.waitForAsync('port 1 receiving message');
+  };
+
+  port1.postMessage('port1 to port2');
+  asyncTestCase.waitForAsync('port 2 receiving message');
+}
+
+function withIframe(callback, opt_url) {
+  var frameDiv = goog.dom.$('frame');
+  goog.dom.removeChildren(frameDiv);
+  goog.dom.appendChild(frameDiv, goog.dom.createDom('iframe', {
+    style: 'display: none',
+    name: 'inner',
+    id: 'inner',
+    src: opt_url || 'testdata/portchannel_inner.html'
+  }));
+
+  asyncTestCase.waitForAsync('creating iframe');
+  // We need to pass control back to the event loop to give the iframe a chance
+  // to load.
+  setTimeout(function() {
+    asyncTestCase.continueTesting();
+    callback();
+  }, 0);
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+
+  @author nicksantos@google.com (Nick Santos)
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests for MenuButtonRenderer</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.classes');
+  goog.require('goog.events');
+  goog.require('goog.events.Event');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.MenuButton');
+  goog.require('goog.testing.ui.rendererasserts');
+</script>
+</head>
+<body>
+
+<div id='root'>
+  <!-- A parent to attach rendered buttons to -->
+  <div id='parent'></div>
+
+  <!-- A button to decorate -->
+  <div id='decoratedButton'>Foo</div>
+</div>
+
+<script>
+
+var decoratedButton;
+var renderedButton;
+var savedRootTree;
+
+function setUp() {
+  savedRootTree = goog.dom.getElement('root').cloneNode(true);
+  decoratedButton = null;
+  renderedButton = null;
+}
+
+function tearDown() {
+  if (decoratedButton) {
+    decoratedButton.dispose();
+  }
+
+  if (renderedButton) {
+    renderedButton.dispose();
+  }
+
+  var root = goog.dom.getElement('root');
+  root.parentNode.replaceChild(savedRootTree, root);
+}
+
+function testRendererWithTextContent() {
+  renderedButton = new goog.ui.MenuButton('Foo');
+  renderOnParent(renderedButton);
+  checkButtonCaption(renderedButton);
+
+  decoratedButton = new goog.ui.MenuButton();
+  decorateDemoButton(decoratedButton);
+  checkButtonCaption(decoratedButton);
+
+  assertButtonsEqual();
+}
+
+function testRendererWithNodeContent() {
+  renderedButton = new goog.ui.MenuButton(
+      goog.dom.createDom('div', null, 'Foo'));
+  renderOnParent(renderedButton);
+
+  var contentEl = renderedButton.getContentElement();
+  if (goog.userAgent.IE || goog.userAgent.OPERA) {
+    assertHTMLEquals('<div unselectable="on">Foo</div>', contentEl.innerHTML);
+  } else {
+    assertHTMLEquals('<div>Foo</div>', contentEl.innerHTML);
+  }
+  assertTrue(hasInlineBlock(contentEl));
+}
+
+function testSetContent() {
+  renderedButton = new goog.ui.MenuButton();
+  renderOnParent(renderedButton);
+
+  var contentEl = renderedButton.getContentElement();
+  assertHTMLEquals('', contentEl.innerHTML);
+
+  renderedButton.setContent('Foo');
+  contentEl = renderedButton.getContentElement();
+  assertHTMLEquals('Foo', contentEl.innerHTML);
+  assertTrue(hasInlineBlock(contentEl));
+
+  renderedButton.setContent(goog.dom.createDom('div', null, 'Bar'));
+  contentEl = renderedButton.getContentElement();
+  assertHTMLEquals('<div>Bar</div>', contentEl.innerHTML);
+
+  renderedButton.setContent('Foo');
+  contentEl = renderedButton.getContentElement();
+  assertHTMLEquals('Foo', contentEl.innerHTML);
+}
+
+function assertButtonsEqual() {
+  assertHTMLEquals(
+      "Rendered button and decorated button produced different HTML!",
+      renderedButton.getElement().innerHTML,
+      decoratedButton.getElement().innerHTML);
+}
+
+/**
+ * Render the given button as a child of 'parent'.
+ * @param {goog.ui.Button} button A button with content 'Foo'.
+ */
+function renderOnParent(button) {
+  button.render(goog.dom.getElement('parent'));
+}
+
+/**
+ * Decaorate the button with id 'button'.
+ * @param {goog.ui.Button} button A button with no content.
+ */
+function decorateDemoButton(button) {
+  button.decorate(goog.dom.getElement('decoratedButton'));
+}
+
+/**
+ * Verify that the button's caption is never the direct
+ * child of an inline-block element.
+ * @param {goog.ui.Button} button A button.
+ */
+function checkButtonCaption(button) {
+  var contentElement = button.getContentElement();
+  assertEquals('Foo', contentElement.innerHTML);
+  assertTrue(hasInlineBlock(contentElement));
+  assert(hasInlineBlock(contentElement.parentNode));
+
+  button.setContent('Bar');
+  contentElement = button.getContentElement();
+  assertEquals('Bar', contentElement.innerHTML);
+  assertTrue(hasInlineBlock(contentElement));
+  assert(hasInlineBlock(contentElement.parentNode));
+}
+
+function hasInlineBlock(el) {
+  return goog.dom.classes.has(el, 'goog-inline-block');
+}
+
+function testDoesntCallGetCssClassInConstructor() {
+  goog.testing.ui.rendererasserts.
+      assertNoGetCssClassCallsInConstructor(goog.ui.MenuButtonRenderer);
+}
+</script>
+</body>
+</html>

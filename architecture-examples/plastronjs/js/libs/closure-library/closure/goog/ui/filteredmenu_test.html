@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+
+  @author eae@google.com (Emil A Eklund)
+-->
+<head>
+<!--
+This test has not yet been updated to run on IE8. See http://b/hotlist?id=36311
+-->
+<!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>Closure Unit Tests - goog.ui.FilteredMenu</title>
+<style>
+.goog-menu {
+  position: absolute;
+  background: #eee;
+  border: 1px solid #aaa;
+  font: menu;
+}
+.goog-menu-content {
+  height: 2em;
+  overflow: auto;
+}
+
+#testmenu {
+  right: 5px;
+  bottom: 5px;
+}
+</style>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.events');
+  goog.require('goog.events.Event');
+  goog.require('goog.style');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.FilteredMenu');
+  goog.require('goog.ui.MenuItem');
+</script>
+</head>
+<body>
+<div>
+  <div id="sandbox"></div>
+
+  <div id="testmenu" class="goog-menu goog-menu-vertical">
+    <div class="goog-menu-filter">
+      <div></div>
+      <input tabindex="0" autocomplete="off" type="text">
+    </div>
+    <div class="goog-menu-content">
+      <div class="goog-menuitem">Apple</div>
+      <div class="goog-menuitem">Lemon</div>
+      <div class="goog-menuitem">Orange</div>
+      <div class="goog-menuitem">Strawberry</div>
+    </div>
+  </div>
+
+</div>
+<script>
+
+var sandbox;
+
+function setUp() {
+  sandbox = goog.dom.getElement('sandbox');
+}
+
+
+function tearDown() {
+  sandbox.innerHTML = '';
+}
+
+
+function testRender() {
+  menu = new goog.ui.FilteredMenu();
+  menu.addItem(new goog.ui.MenuItem('Menu Item 1'));
+  menu.addItem(new goog.ui.MenuItem('Menu Item 2'));
+  menu.render(sandbox);
+
+  assertEquals('Menu should contain two items.', 2, menu.getChildCount());
+  assertEquals('Caption of first menu item should match supplied value.',
+               'Menu Item 1',
+               menu.getItemAt(0).getCaption());
+  assertEquals('Caption of second menu item should match supplied value.',
+               'Menu Item 2',
+               menu.getItemAt(1).getCaption());
+  assertTrue('Caption of first item should be in document.',
+              sandbox.innerHTML.indexOf('Menu Item 1') != -1);
+  assertTrue('Caption of second item should be in document.',
+              sandbox.innerHTML.indexOf('Menu Item 2') != -1);
+
+  menu.dispose();
+}
+
+
+function testDecorate() {
+  menu = new goog.ui.FilteredMenu();
+  menu.decorate(goog.dom.getElement('testmenu'));
+
+  assertEquals('Menu should contain four items.', 4, menu.getChildCount());
+  assertEquals('Caption of menu item should match decorated element',
+               'Apple',
+               menu.getItemAt(0).getCaption());
+  assertEquals('Caption of menu item should match decorated element',
+               'Lemon',
+               menu.getItemAt(1).getCaption());
+  assertEquals('Caption of menu item should match decorated element',
+               'Orange',
+               menu.getItemAt(2).getCaption());
+  assertEquals('Caption of menu item should match decorated element',
+               'Strawberry',
+               menu.getItemAt(3).getCaption());
+
+  menu.dispose();
+}
+
+
+function testDisposeClearsAllListeners() {
+  menu = new goog.ui.FilteredMenu();
+  menu.addItem(new goog.ui.MenuItem('Menu Item 1'));
+  menu.addItem(new goog.ui.MenuItem('Menu Item 2'));
+  menu.render(sandbox);
+  menu.dispose();
+
+  assertEquals('Dispose should clear all listeners.',
+               0,
+               goog.events.getTotalListenerCount());
+}
+
+
+function testFilter() {
+  menu = new goog.ui.FilteredMenu();
+  menu.addItem(new goog.ui.MenuItem('Family'));
+  menu.addItem(new goog.ui.MenuItem('Friends'));
+  menu.addItem(new goog.ui.MenuItem('Photos'));
+  menu.addItem(new goog.ui.MenuItem('Work'));
+
+  menu.render(sandbox);
+
+  // Check menu items.
+  assertEquals('Family should be the first label in the move to menu',
+               'Family', menu.getChildAt(0).getCaption());
+  assertEquals('Friends should be the second label in the move to menu',
+               'Friends', menu.getChildAt(1).getCaption());
+  assertEquals('Photos should be the third label in the move to menu',
+               'Photos', menu.getChildAt(2).getCaption());
+  assertEquals('Work should be the fourth label in the move to menu',
+               'Work', menu.getChildAt(3).getCaption());
+
+  // Filter menu.
+  menu.setFilter('W');
+  assertFalse('Family should not be visible when the menu is filtered',
+              menu.getChildAt(0).isVisible());
+  assertFalse('Friends should not be visible when the menu is filtered',
+              menu.getChildAt(1).isVisible());
+  assertFalse('Photos should not be visible when the menu is filtered',
+              menu.getChildAt(2).isVisible());
+  assertTrue('Work should be visible when the menu is filtered',
+             menu.getChildAt(3).isVisible());
+
+  menu.setFilter('W,');
+  for (var i = 0; i < menu.getChildCount(); i++) {
+    assertFalse('W, should not match anything with allowMultiple set to false',
+               menu.getChildAt(i).isVisible());
+  }
+
+  // Clear filter.
+  menu.setFilter('');
+  for (var i = 0; i < menu.getChildCount(); i++) {
+    assertTrue('All items should be visible', menu.getChildAt(i).isVisible());
+  }
+
+  menu.dispose();
+}
+
+
+function testFilterAllowMultiple() {
+  menu = new goog.ui.FilteredMenu();
+  menu.setAllowMultiple(true);
+  menu.addItem(new goog.ui.MenuItem('Family'));
+  menu.addItem(new goog.ui.MenuItem('Friends'));
+  menu.addItem(new goog.ui.MenuItem('Photos'));
+  menu.addItem(new goog.ui.MenuItem('Work'));
+
+  menu.render(sandbox);
+
+  // Filter menu.
+  menu.setFilter('W,');
+  for (var i = 0; i < menu.getChildCount(); i++) {
+    assertTrue('W, should show all items with allowMultiple set to true',
+               menu.getChildAt(i).isVisible());
+  }
+
+  // Filter second label.
+  menu.setFilter('Work,P');
+  assertFalse('Family should not be visible when the menu is filtered',
+              menu.getChildAt(0).isVisible());
+  assertFalse('Friends should not be visible when the menu is filtered',
+              menu.getChildAt(1).isVisible());
+  assertTrue('Photos should be visible when the menu is filtered',
+             menu.getChildAt(2).isVisible());
+  assertFalse('Work should not be visible when the menu is filtered',
+              menu.getChildAt(3).isVisible());
+
+  // Clear filter.
+  menu.setFilter('');
+  for (var i = 0; i < menu.getChildCount(); i++) {
+    assertTrue('All items should be visible', menu.getChildAt(i).isVisible());
+  }
+
+  menu.dispose();
+}
+
+
+function testFilterWordBoundary() {
+  menu = new goog.ui.FilteredMenu();
+  menu.addItem(new goog.ui.MenuItem('Vacation Photos'));
+  menu.addItem(new goog.ui.MenuItem('Work'));
+  menu.addItem(new goog.ui.MenuItem('Receipts & Invoices'));
+  menu.addItem(new goog.ui.MenuItem('Invitations'));
+  menu.addItem(new goog.ui.MenuItem('3.Family'));
+  menu.addItem(new goog.ui.MenuItem('No:Farm'));
+  menu.addItem(new goog.ui.MenuItem('Syd/Family'));
+
+  menu.render(sandbox);
+
+  // Filter menu.
+  menu.setFilter('Photos');
+  assertTrue('Vacation Photos should be visible when the menu is filtered',
+             menu.getChildAt(0).isVisible());
+  assertFalse('Work should not be visible when the menu is filtered',
+              menu.getChildAt(1).isVisible());
+  assertFalse('Receipts & Invoices should not be visible when the menu is ' +
+              'filtered',
+              menu.getChildAt(2).isVisible());
+  assertFalse('Invitations should not be visible when the menu is filtered',
+              menu.getChildAt(3).isVisible());
+
+  menu.setFilter('I');
+  assertFalse('Vacation Photos should not be visible when the menu is filtered',
+             menu.getChildAt(0).isVisible());
+  assertFalse('Work should not be visible when the menu is filtered',
+              menu.getChildAt(1).isVisible());
+  assertTrue('Receipts & Invoices should be visible when the menu is filtered',
+             menu.getChildAt(2).isVisible());
+  assertTrue('Invitations should be visible when the menu is filtered',
+             menu.getChildAt(3).isVisible());
+
+  menu.setFilter('Fa');
+  assertTrue('3.Family should be visible when the menu is filtered',
+             menu.getChildAt(4).isVisible());
+  assertTrue('No:Farm should be visible when the menu is filtered',
+             menu.getChildAt(5).isVisible());
+  assertTrue('Syd/Family should be visible when the menu is filtered',
+             menu.getChildAt(6).isVisible());
+
+  menu.dispose();
+}
+
+
+function testScrollIntoView() {
+  menu = new goog.ui.FilteredMenu();
+  menu.addItem(new goog.ui.MenuItem('Family'));
+  menu.addItem(new goog.ui.MenuItem('Friends'));
+  menu.addItem(new goog.ui.MenuItem('Photos'));
+  menu.addItem(new goog.ui.MenuItem('Work'));
+  menu.render(sandbox);
+
+  menu.setHighlightedIndex(0);
+  assertTrue('Highlighted item should be visible', isHighlightedVisible(menu));
+  menu.setHighlightedIndex(1);
+  assertTrue('Highlighted item should be visible', isHighlightedVisible(menu));
+  menu.setHighlightedIndex(2);
+  assertTrue('Highlighted item should be visible', isHighlightedVisible(menu));
+  menu.setHighlightedIndex(3);
+  assertTrue('Highlighted item should be visible', isHighlightedVisible(menu));
+  menu.setHighlightedIndex(0);
+  assertTrue('Highlighted item should be visible', isHighlightedVisible(menu));
+
+  menu.dispose();
+}
+
+
+function isHighlightedVisible(menu) {
+  var contRect = goog.style.getBounds(menu.getContentElement());
+  var itemRect = goog.style.getBounds(menu.getHighlighted().getElement());
+  return contRect.contains(itemRect);
+}
+
+</script>
+</body>
+</html>

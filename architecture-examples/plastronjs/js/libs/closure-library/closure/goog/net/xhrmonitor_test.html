@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.net.XhrMonitor</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.net.xhrMonitor');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+</script>
+</head>
+<body>
+<script>
+  var mon = goog.net.xhrMonitor;
+  
+  function testNonGeckoIsAlwaysSafe() {
+    if (goog.userAgent.GECKO) return;
+    var o = {}, x = {}, y = {};
+    assertTrue('Should be safe', mon.isContextSafe(o)); 
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.markXhrOpen(y);
+    mon.popContext();
+    assertTrue('Should be safe', mon.isContextSafe(o)); 
+    mon.markXhrClosed(x);
+    assertTrue('Should be safe', mon.isContextSafe(o)); 
+    mon.markXhrClosed(y);
+    assertTrue('Should be safe', mon.isContextSafe(o)); 
+    
+  }
+  
+  function testSyncOpenClose() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {};
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.markXhrClosed(x);
+    mon.popContext();
+    assertTrue('Should be safe', mon.isContextSafe(o));
+  }
+  
+  function testSyncOpenCloseWithNull() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {};
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    mon.pushContext(null);
+    mon.markXhrOpen(x);
+    mon.markXhrClosed(x);
+    mon.popContext();
+    assertTrue('Should be safe', mon.isContextSafe(o));
+  }
+  
+  function testAsyncOpenClose() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {};
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.popContext();
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+  
+    mon.markXhrClosed(x);
+    assertTrue('Should be safe', mon.isContextSafe(o));
+  }
+
+  function testMultipleRequests1() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {}, y = {};
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.markXhrOpen(y);
+    mon.popContext();
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    mon.markXhrClosed(x);
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    mon.markXhrClosed(y);
+    assertTrue('Should be safe', mon.isContextSafe(o));   
+  }
+  
+  function testMultipleRequests2() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {}, y = {};
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.markXhrOpen(y);
+    mon.markXhrClosed(x);
+    mon.popContext();
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    mon.markXhrClosed(y);
+    assertTrue('Should be safe', mon.isContextSafe(o));   
+  }
+  
+  function testNestedContexts() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, p = {}, x = {}, y = {};
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    assertTrue('Should be safe', mon.isContextSafe(p));
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    assertTrue('Should be safe', mon.isContextSafe(p));
+    mon.pushContext(p);
+    mon.markXhrOpen(y);
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    assertFalse('Should not be safe', mon.isContextSafe(p));
+    mon.popContext();
+    mon.popContext();
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    assertFalse('Should not be safe', mon.isContextSafe(p));
+    mon.markXhrClosed(x);
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    assertFalse('Should not be safe', mon.isContextSafe(p));
+    mon.markXhrClosed(y);
+    assertTrue('Should be safe', mon.isContextSafe(o));
+    assertTrue('Should be safe', mon.isContextSafe(p));   
+  }
+  
+  function testNestedXhrScopes() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {}, y = {};
+
+    // Simulates an XHR request triggering a 2nd XHR request
+
+    // Iframe response opens an XHR
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.popContext();
+
+    // XHR returns and dispatches an event which opens another response
+    mon.pushContext(x);
+    mon.markXhrOpen(y);
+    mon.popContext();
+    
+    // Closing the original XHR should update any dependencies
+    mon.markXhrClosed(x);
+    
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    
+    // Close the later XHR
+    mon.markXhrClosed(y);
+    
+    assertTrue('Should be safe', mon.isContextSafe(o));
+  }
+  
+  function testCrazyNestedXhrScopes() {
+    if (!goog.userAgent.GECKO) return;
+    var o = {}, x = {}, y = {}, z = {};
+
+    // Iframe response opens an XHR
+    mon.pushContext(o);
+    mon.markXhrOpen(x);
+    mon.popContext();
+
+    // XHR returns and dispatches an event which opens another response
+    mon.pushContext(x);
+    mon.markXhrOpen(y);
+    mon.popContext();
+    
+    // Closing the original XHR should update any dependencies
+    mon.markXhrClosed(x);
+
+    mon.pushContext(y);
+    mon.markXhrOpen(z);
+    mon.popContext();
+    
+    // Close the middle XHR
+    mon.markXhrClosed(y);
+    
+    assertFalse('Should not be safe', mon.isContextSafe(o));
+    
+    // Close the last XHR
+    mon.markXhrClosed(z);
+    
+    assertTrue('Should be safe', mon.isContextSafe(o));
+  }
+  
+  function testGetKey() {
+    var fn = goog.net.XhrMonitor_.getKey;
+    assertEquals('test', fn('test'));
+    assertEquals('test2', fn('test2'));
+    assertEquals('', fn(null));
+    var o = {};
+    assertEquals(goog.getUid(o), fn(o));
+  }
+
+</script>
+</body>
+</html>

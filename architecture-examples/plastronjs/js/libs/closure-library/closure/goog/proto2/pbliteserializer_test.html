@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.proto2 - pbliteserializer.js</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.proto2.PbLiteSerializer');
+  goog.require('goog.testing.jsunit');
+  goog.require('proto2.TestAllTypes');
+</script>
+</head>
+<body>
+<script>
+
+function testSerializationAndDeserialization() {
+  var message = new proto2.TestAllTypes();
+
+  // Set the fields.
+  // Singular.
+  message.setOptionalInt32(101);
+  message.setOptionalInt64('102');
+  message.setOptionalUint32(103);
+  message.setOptionalUint64('104');
+  message.setOptionalSint32(105);
+  message.setOptionalSint64('106');
+  message.setOptionalFixed32(107);
+  message.setOptionalFixed64('108');
+  message.setOptionalSfixed32(109);
+  message.setOptionalSfixed64('110');
+  message.setOptionalFloat(111.5);
+  message.setOptionalDouble(112.5);
+  message.setOptionalBool(true);
+  message.setOptionalString('test');
+  message.setOptionalBytes('abcd');
+
+  var group = new proto2.TestAllTypes.OptionalGroup();
+  group.setA(111);
+
+  message.setOptionalgroup(group);
+
+  var nestedMessage = new proto2.TestAllTypes.NestedMessage();
+  nestedMessage.setB(112);
+
+  message.setOptionalNestedMessage(nestedMessage);
+
+  message.setOptionalNestedEnum(proto2.TestAllTypes.NestedEnum.FOO);
+
+  // Repeated.
+  message.addRepeatedInt32(201);
+  message.addRepeatedInt32(202);
+
+  // Skip a few repeated fields so we can test how null array values are
+  // handled.
+  message.addRepeatedString('foo');
+  message.addRepeatedString('bar');
+
+  // Serialize.
+  var serializer = new goog.proto2.PbLiteSerializer();
+  var pblite = serializer.serialize(message);
+
+  assertTrue(goog.isArray(pblite));
+
+  // Assert that everything serialized properly.
+  assertEquals(101, pblite[1]);
+  assertEquals('102', pblite[2]);
+  assertEquals(103, pblite[3]);
+  assertEquals('104', pblite[4]);
+  assertEquals(105, pblite[5]);
+  assertEquals('106', pblite[6]);
+  assertEquals(107, pblite[7]);
+  assertEquals('108', pblite[8]);
+  assertEquals(109, pblite[9]);
+  assertEquals('110', pblite[10]);
+  assertEquals(111.5, pblite[11]);
+  assertEquals(112.5, pblite[12]);
+  assertEquals(1, pblite[13]); // true is serialized as 1
+  assertEquals('test', pblite[14]);
+  assertEquals('abcd', pblite[15]);
+
+  assertEquals(111, pblite[16][17]);
+  assertEquals(112, pblite[18][1]);
+
+  assertTrue(pblite[19] === undefined);
+  assertTrue(pblite[20] === undefined);
+
+  assertEquals(proto2.TestAllTypes.NestedEnum.FOO, pblite[21]);
+
+  assertEquals(201, pblite[31][0]);
+  assertEquals(202, pblite[31][1]);
+  assertEquals('foo', pblite[44][0]);
+  assertEquals('bar', pblite[44][1]);
+
+  var serializer = new goog.proto2.PbLiteSerializer();
+  // Deserialize.
+  var messageCopy =
+    serializer.deserialize(proto2.TestAllTypes.getDescriptor(), pblite);
+
+  assertNotEquals(messageCopy, message);
+
+  assertDeserializationMatches(messageCopy);
+}
+
+function testDeserializationFromExternalSource() {
+  // Test deserialization where the JSON array is initialized from something
+  // outside the Closure proto2 library, such as the JsPbLite library, or
+  // manually as in this test.
+  var pblite = [
+    , // 0
+    101, // 1
+    '102', // 2
+    103, // 3
+    '104', // 4
+    105, // 5
+    '106', // 6
+    107, // 7
+    '108', // 8
+    109, // 9
+    '110', // 10
+    111.5, // 11
+    112.5, // 12
+    1, // 13
+    'test', // 14
+    'abcd', // 15
+    [,,,,,,,,,,,,,,,,,111], // 16, note the 17 commas so value is index 17
+    , // 17
+    [,112], // 18
+    ,, // 19-20
+    proto2.TestAllTypes.NestedEnum.FOO, // 21
+    ,,,,,,,,, // 22-30
+    [201, 202], // 31
+    ,,,,,,,,,,,, // 32-43
+    ['foo', 'bar'], // 44
+    ,,,, // 45-49
+  ];
+
+  var serializer = new goog.proto2.PbLiteSerializer();
+  // Deserialize.
+  var messageCopy =
+    serializer.deserialize(proto2.TestAllTypes.getDescriptor(), pblite);
+
+  assertDeserializationMatches(messageCopy);
+
+  // http://b/issue?id=2928075
+  assertFalse(messageCopy.hasRepeatedInt64());
+  assertEquals(0, messageCopy.repeatedInt64Count());
+  messageCopy.repeatedInt64Array();
+  assertFalse(messageCopy.hasRepeatedInt64());
+  assertEquals(0, messageCopy.repeatedInt64Count());
+}
+
+function assertDeserializationMatches(messageCopy) {
+  assertNotNull(messageCopy);
+
+  assertTrue(messageCopy.hasOptionalInt32());
+  assertTrue(messageCopy.hasOptionalInt64());
+  assertTrue(messageCopy.hasOptionalUint32());
+  assertTrue(messageCopy.hasOptionalUint64());
+  assertTrue(messageCopy.hasOptionalSint32());
+  assertTrue(messageCopy.hasOptionalSint64());
+  assertTrue(messageCopy.hasOptionalFixed32());
+  assertTrue(messageCopy.hasOptionalFixed64());
+  assertTrue(messageCopy.hasOptionalSfixed32());
+  assertTrue(messageCopy.hasOptionalSfixed64());
+  assertTrue(messageCopy.hasOptionalFloat());
+  assertTrue(messageCopy.hasOptionalDouble());
+  assertTrue(messageCopy.hasOptionalBool());
+  assertTrue(messageCopy.hasOptionalString());
+  assertTrue(messageCopy.hasOptionalBytes());
+  assertTrue(messageCopy.hasOptionalgroup());
+  assertTrue(messageCopy.hasOptionalNestedMessage());
+  assertTrue(messageCopy.hasOptionalNestedEnum());
+
+  assertTrue(messageCopy.hasRepeatedInt32());
+  assertFalse(messageCopy.hasRepeatedInt64());
+  assertFalse(messageCopy.hasRepeatedUint32());
+  assertFalse(messageCopy.hasRepeatedUint64());
+  assertFalse(messageCopy.hasRepeatedSint32());
+  assertFalse(messageCopy.hasRepeatedSint64());
+  assertFalse(messageCopy.hasRepeatedFixed32());
+  assertFalse(messageCopy.hasRepeatedFixed64());
+  assertFalse(messageCopy.hasRepeatedSfixed32());
+  assertFalse(messageCopy.hasRepeatedSfixed64());
+  assertFalse(messageCopy.hasRepeatedFloat());
+  assertFalse(messageCopy.hasRepeatedDouble());
+  assertFalse(messageCopy.hasRepeatedBool());
+  assertTrue(messageCopy.hasRepeatedString());
+  assertFalse(messageCopy.hasRepeatedBytes());
+  assertFalse(messageCopy.hasRepeatedgroup());
+  assertFalse(messageCopy.hasRepeatedNestedMessage());
+  assertFalse(messageCopy.hasRepeatedNestedEnum());
+
+  assertEquals(1, messageCopy.optionalInt32Count());
+  assertEquals(1, messageCopy.optionalInt64Count());
+  assertEquals(1, messageCopy.optionalUint32Count());
+  assertEquals(1, messageCopy.optionalUint64Count());
+  assertEquals(1, messageCopy.optionalSint32Count());
+  assertEquals(1, messageCopy.optionalSint64Count());
+  assertEquals(1, messageCopy.optionalFixed32Count());
+  assertEquals(1, messageCopy.optionalFixed64Count());
+  assertEquals(1, messageCopy.optionalSfixed32Count());
+  assertEquals(1, messageCopy.optionalSfixed64Count());
+  assertEquals(1, messageCopy.optionalFloatCount());
+  assertEquals(1, messageCopy.optionalDoubleCount());
+  assertEquals(1, messageCopy.optionalBoolCount());
+  assertEquals(1, messageCopy.optionalStringCount());
+  assertEquals(1, messageCopy.optionalBytesCount());
+  assertEquals(1, messageCopy.optionalgroupCount());
+  assertEquals(1, messageCopy.optionalNestedMessageCount());
+  assertEquals(1, messageCopy.optionalNestedEnumCount());
+
+  assertEquals(2, messageCopy.repeatedInt32Count());
+  assertEquals(0, messageCopy.repeatedInt64Count());
+  assertEquals(0, messageCopy.repeatedUint32Count());
+  assertEquals(0, messageCopy.repeatedUint64Count());
+  assertEquals(0, messageCopy.repeatedSint32Count());
+  assertEquals(0, messageCopy.repeatedSint64Count());
+  assertEquals(0, messageCopy.repeatedFixed32Count());
+  assertEquals(0, messageCopy.repeatedFixed64Count());
+  assertEquals(0, messageCopy.repeatedSfixed32Count());
+  assertEquals(0, messageCopy.repeatedSfixed64Count());
+  assertEquals(0, messageCopy.repeatedFloatCount());
+  assertEquals(0, messageCopy.repeatedDoubleCount());
+  assertEquals(0, messageCopy.repeatedBoolCount());
+  assertEquals(2, messageCopy.repeatedStringCount());
+  assertEquals(0, messageCopy.repeatedBytesCount());
+  assertEquals(0, messageCopy.repeatedgroupCount());
+  assertEquals(0, messageCopy.repeatedNestedMessageCount());
+  assertEquals(0, messageCopy.repeatedNestedEnumCount());
+
+  assertEquals(101, messageCopy.getOptionalInt32());
+  assertEquals('102', messageCopy.getOptionalInt64());
+  assertEquals(103, messageCopy.getOptionalUint32());
+  assertEquals('104', messageCopy.getOptionalUint64());
+  assertEquals(105, messageCopy.getOptionalSint32());
+  assertEquals('106', messageCopy.getOptionalSint64());
+  assertEquals(107, messageCopy.getOptionalFixed32());
+  assertEquals('108', messageCopy.getOptionalFixed64());
+  assertEquals(109, messageCopy.getOptionalSfixed32());
+  assertEquals('110', messageCopy.getOptionalSfixed64());
+  assertEquals(111.5, messageCopy.getOptionalFloat());
+  assertEquals(112.5, messageCopy.getOptionalDouble());
+  assertEquals(true, messageCopy.getOptionalBool());
+  assertEquals('test', messageCopy.getOptionalString());
+  assertEquals('abcd', messageCopy.getOptionalBytes());
+  assertEquals(111, messageCopy.getOptionalgroup().getA());
+
+  assertEquals(112, messageCopy.getOptionalNestedMessage().getB());
+
+  assertEquals(proto2.TestAllTypes.NestedEnum.FOO,
+    messageCopy.getOptionalNestedEnum());
+
+  assertEquals(201, messageCopy.getRepeatedInt32(0));
+  assertEquals(202, messageCopy.getRepeatedInt32(1));
+}
+
+</script>
+</body>
+</html>

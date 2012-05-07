@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.Timer</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.Timer');
+  goog.require('goog.events');
+  goog.require('goog.events.EventTarget');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.MockClock');
+</script>
+</head>
+<body>
+<script>
+
+  var intervalIds = {};
+  var intervalIdCounter = 0;
+  var mockClock;
+  var maxDuration = 60 * 1000; // 60s
+
+  function setUp() {
+    mockClock = new goog.testing.MockClock(true /* install */);
+  }
+
+  function tearDown() {
+    mockClock.dispose();
+  }
+
+  // Run a test for 60s and see how many counts we get
+  function runTest(string, ticks, number) {
+    var t = new goog.Timer(ticks);
+    var count = 0;
+    goog.events.listen(t, 'tick', function(evt) {
+      count++;
+    });
+    t.start();
+    mockClock.tick(maxDuration);
+    assertEquals(string, number, count);
+    t.stop();
+    goog.events.removeAll(t);
+  }
+
+
+  function test100msTicks() {
+    // Desc, interval in ms, expected ticks in 60s
+    runTest('10 ticks per second for 60 seconds', 100, 600);
+  }
+
+  function test500msTicks() {
+    runTest('2 ticks per second for 60 seconds', 500, 120);
+  }
+
+  function test1sTicks() {
+    runTest('1 tick per second for 60 seconds', 1000, 60);
+  }
+
+  function test2sTicks() {
+    runTest('1 tick every 2 seconds for 60 seconds', 2000, 30);
+  }
+
+  function test5sTicks() {
+    runTest('1 tick every 5 seconds for 60 seconds', 5000, 12);
+  }
+
+  function test10sTicks() {
+    runTest('1 tick every 10 seconds for 60 seconds', 10000, 6);
+  }
+
+  function test30sTicks() {
+    runTest('1 tick every 30 seconds for 60 seconds', 30000, 2);
+  }
+
+  function test60sTicks() {
+    runTest('1 tick every 60 seconds', 60000, 1);
+  }
+
+  function testCallOnce() {
+    var c = 0;
+    var actualTimeoutId = goog.Timer.callOnce(
+        function() {
+          if (c > 0) {
+            assertTrue('callOnce should only be called once', false);
+          }
+          c++;
+        });
+    assertEquals('callOnce should return the timeout ID',
+        mockClock.getTimeoutsMade(), actualTimeoutId);
+
+    var obj = {c:0};
+    goog.Timer.callOnce(function() {
+      if (this.c > 0) {
+        assertTrue('callOnce should only be called once', false);
+      }
+      assertEquals(obj, this);
+      this.c++;
+    }, 1, obj);
+    mockClock.tick(maxDuration);
+  }
+
+  function testCallOnceIgnoresTimeoutsTooLarge() {
+    var failCallback = goog.partial(fail, 'Timeout should never be called');
+    assertEquals('Timeouts slightly too large should yield a timer ID of -1',
+      -1, goog.Timer.callOnce(failCallback, 2147483648));
+    assertEquals('Infinite timeouts should yield a timer ID of -1',
+      -1, goog.Timer.callOnce(failCallback, Infinity));
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.dom.ViewportSizeMonitor</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom.ViewportSizeMonitor');
+  goog.require('goog.events.Event');
+  goog.require('goog.events.EventTarget');
+  goog.require('goog.events.EventType');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.PropertyReplacer');
+</script>
+</head>
+<body>
+<script>
+  var propertyReplacer, fakeWindow, viewportSizeMonitor, mockClock;
+
+
+  function FakeWindow() {
+  };
+  goog.inherits(FakeWindow, goog.events.EventTarget);
+
+
+  FakeWindow.prototype.fireResize = function() {
+    return this.dispatchEvent(new FakeResizeEvent());
+  };
+
+
+  function FakeResizeEvent(obj) {
+    this.type = goog.events.EventType.RESIZE;
+  }
+  goog.inherits(FakeResizeEvent, goog.events.Event);
+
+
+  function getViewportSize() {
+    return viewportSize;
+  };
+
+
+  function setViewportSize(w, h, fireEvent) {
+    this.viewportSize = new goog.math.Size(w, h);
+    if (fireEvent) {
+      fakeWindow.fireResize();
+    }
+  };
+
+
+  var eventWasFired = {};
+  function getListenerFn(id) {
+    return function() {
+      propertyReplacer.set(eventWasFired, id, true);
+    };
+  };
+
+
+  function listenerWasCalled(id) {
+    return !!eventWasFired[id];
+  };
+
+
+  function setUp() {
+    propertyReplacer = new goog.testing.PropertyReplacer();
+    propertyReplacer.set(goog.dom, 'getViewportSize', getViewportSize);
+    mockClock = new goog.testing.MockClock();
+    mockClock.install();
+    fakeWindow = new FakeWindow();
+    setViewportSize(300, 300);
+    viewportSizeMonitor = new goog.dom.ViewportSizeMonitor(fakeWindow);
+  };
+
+
+  function tearDown() {
+    propertyReplacer.reset();
+    mockClock.uninstall();
+  };
+
+
+  function testResizeEvent() {
+    goog.events.listen(viewportSizeMonitor, goog.events.EventType.RESIZE,
+        getListenerFn(1));
+    assertFalse('Listener should not be called if window was not resized',
+        listenerWasCalled(1));
+    setViewportSize(300, 300, true);
+    assertFalse('Listener should not be called for bogus resize event',
+        listenerWasCalled(1));
+    setViewportSize(301, 301, true);
+    assertTrue('Listener should be called for valid resize event',
+        listenerWasCalled(1));
+  };
+
+
+  function testPollingEvent() {
+    propertyReplacer.set(goog.dom.ViewportSizeMonitor.prototype,
+        'isPollingRequired_', function() { return true; });
+    viewportSizeMonitor = new goog.dom.ViewportSizeMonitor(fakeWindow);
+    goog.events.listen(viewportSizeMonitor, goog.events.EventType.RESIZE,
+        getListenerFn(1));
+    assertFalse('Listener should not be called if window was not resized',
+        listenerWasCalled(1));
+    mockClock.tick(goog.dom.ViewportSizeMonitor.WINDOW_SIZE_POLL_RATE);
+    assertFalse('Listener should not be called if window was not resized ' +
+        'during polling', listenerWasCalled(1));
+    setViewportSize(301, 301, false);
+    mockClock.tick(goog.dom.ViewportSizeMonitor.WINDOW_SIZE_POLL_RATE);
+    assertTrue('Listener should be called for valid resize during polling',
+        listenerWasCalled(1));
+  };
+
+
+  function testIsPollingRequired() {
+    propertyReplacer.set(goog.userAgent, 'WEBKIT', false);
+    propertyReplacer.set(goog.userAgent, 'OPERA', false);
+    assertFalse('Polling should not be required except for WebKit and Opera',
+        viewportSizeMonitor.isPollingRequired_());
+    propertyReplacer.set(goog.userAgent, 'WEBKIT', true);
+    propertyReplacer.set(goog.userAgent, 'WINDOWS', true);
+    assertTrue('WebKit on Windows should require polling',
+        viewportSizeMonitor.isPollingRequired_());
+    propertyReplacer.set(goog.userAgent, 'WEBKIT', false);
+    propertyReplacer.set(goog.userAgent, 'OPERA', true);
+
+    // window.top and window.self are read-only in Opera
+    fakeWindow.self = fakeWindow;
+    fakeWindow.top = {};
+    assertEquals('Opera should require polling if window.top != window.self',
+        viewportSizeMonitor.isPollingRequired_(), true);
+    fakeWindow.self = fakeWindow;
+    fakeWindow.top = fakeWindow;
+    assertEquals(
+        'Opera should not require polling if window.top == window.self',
+        viewportSizeMonitor.isPollingRequired_(), false);
+  };
+
+
+  function testInstanceGetter() {
+    var fakeWindow1 = new FakeWindow();
+    var monitor1 = goog.dom.ViewportSizeMonitor.getInstanceForWindow(
+        fakeWindow1);
+    var monitor2 = goog.dom.ViewportSizeMonitor.getInstanceForWindow(
+        fakeWindow1);
+    assertEquals('The same window should give us the same instance monitor',
+        monitor1, monitor2);
+
+    var fakeWindow2 = new FakeWindow();
+    var monitor3 = goog.dom.ViewportSizeMonitor.getInstanceForWindow(
+        fakeWindow2);
+    assertNotEquals('Different windows should give different instances',
+        monitor1, monitor3);
+
+    assertEquals('Monitors should match if opt_window is not provided',
+        goog.dom.ViewportSizeMonitor.getInstanceForWindow(),
+        goog.dom.ViewportSizeMonitor.getInstanceForWindow());
+  }
+
+</script>
+</body>
+</html>

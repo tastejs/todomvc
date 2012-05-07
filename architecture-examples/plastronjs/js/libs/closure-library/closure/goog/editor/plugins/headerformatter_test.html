@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<!--
+ All Rights Reserved.
+-->
+
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>goog.editor.plugins.HeaderFormatter Tests</title>
+<script type="text/javascript" src="../../base.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.editor.Command');
+  goog.require('goog.editor.plugins.BasicTextFormatter');
+  goog.require('goog.editor.plugins.HeaderFormatter');
+  goog.require('goog.testing.editor.FieldMock');
+  goog.require('goog.testing.editor.TestHelper');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+
+
+</script>
+</head>
+<body>
+
+<div id="field"></div>
+
+<script type="text/javascript">
+  var field = goog.dom.getElement('field');
+  var editableField;
+  var headerFormatter;
+  var btf;
+  var testHelper = new goog.testing.editor.TestHelper(field);
+
+  function setUp() {
+    testHelper.setUpEditableElement();
+    editableField = new goog.testing.editor.FieldMock();
+    headerFormatter = new goog.editor.plugins.HeaderFormatter();
+    headerFormatter.registerFieldObject(editableField);
+    btf = new goog.editor.plugins.BasicTextFormatter();
+    btf.registerFieldObject(editableField);
+  }
+
+  function tearDown() {
+    editableField = null;
+    headerFormatter.dispose();
+    testHelper.tearDownEditableElement();
+  }
+
+
+  function testHeaderShortcuts() {
+    field.innerHTML = 'myText';
+
+    var textNode = field.firstChild;
+    testHelper.select(textNode, 0, textNode, textNode.length);
+
+    editableField.getElement();
+    editableField.$anyTimes();
+    editableField.$returns(field);
+
+    editableField.getPluginByClassId("Bidi");
+    editableField.$anyTimes();
+    editableField.$returns(null);
+
+    editableField.execCommand(
+        goog.editor.Command.FORMAT_BLOCK,
+        goog.editor.plugins.HeaderFormatter.HEADER_COMMAND.H1);
+    // Bypass EditableField's execCommand and directly call
+    // basicTextFormatter's.  Future version of headerformatter will include
+    // that code in its own execCommand.
+    editableField.$does(function() {
+      btf.execCommandInternal(
+          goog.editor.plugins.BasicTextFormatter.COMMAND.FORMAT_BLOCK,
+          goog.editor.plugins.HeaderFormatter.HEADER_COMMAND.H1); });
+
+    var event = new goog.testing.LooseMock(goog.events.BrowserEvent);
+    if (goog.userAgent.GECKO) {
+      event.stopPropagation();
+    }
+
+    editableField.$replay();
+    event.$replay();
+
+    assertTrue('Event handled',
+        headerFormatter.handleKeyboardShortcut(event, '1', true));
+    assertEquals('Field contains a header', 'H1', field.firstChild.nodeName);
+
+    editableField.$verify();
+    event.$verify();
+  }
+</script>
+</body>
+</html>

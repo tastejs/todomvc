@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.PopupBase</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.events.EventTarget');
+  goog.require('goog.events.EventType');
+  goog.require('goog.fx.Transition');
+  goog.require('goog.fx.Transition.EventType');
+  goog.require('goog.ui.Popup');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<div id="commonAncestor">
+  <div id="targetDiv">
+    Mouse and key target
+  </div>
+
+  <div id="popupDiv" style="visibility:hidden">
+    Popup Contents Here.
+  </div>
+</div>
+
+<script>
+
+var targetDiv = goog.dom.getElement('targetDiv');
+var popupDiv = goog.dom.getElement('popupDiv');
+var clock;
+var popup;
+
+function setUp() {
+  popup = new goog.ui.PopupBase(popupDiv);
+  clock = new goog.testing.MockClock(true);
+}
+
+function tearDown() {
+  popup.dispose();
+  clock.uninstall();
+}
+
+function testSetVisible() {
+  popup.setVisible(true);
+  assertEquals('visible', popupDiv.style.visibility);
+  assertEquals('', popupDiv.style.display);
+  popup.setVisible(false);
+  assertEquals('hidden', popupDiv.style.visibility);
+  assertEquals('none', popupDiv.style.display);
+}
+
+function testEscapeDismissal() {
+  popup.setHideOnEscape(true);
+  assertTrue('Sanity check that getHideOnEscape is true when set to true.',
+      popup.getHideOnEscape());
+  popup.setVisible(true);
+  assertFalse('Escape key should be cancelled',
+      goog.testing.events.fireKeySequence(
+          targetDiv, goog.events.KeyCodes.ESC));
+  assertFalse(popup.isVisible());
+}
+
+function testEscapeDismissalCanBeDisabled() {
+  popup.setHideOnEscape(false);
+  popup.setVisible(true);
+  assertTrue('Escape key should be cancelled',
+      goog.testing.events.fireKeySequence(
+          targetDiv, goog.events.KeyCodes.ESC));
+  assertTrue(popup.isVisible());
+}
+
+function testEscapeDismissalIsDisabledByDefault() {
+  assertFalse(popup.getHideOnEscape());
+}
+
+function testEscapeDismissalDoesNotRecognizeOtherKeys() {
+  popup.setHideOnEscape(true);
+  popup.setVisible(true);
+  var eventsPropagated = 0;
+  goog.events.listenOnce(goog.dom.getElement('commonAncestor'),
+      [goog.events.EventType.KEYDOWN,
+       goog.events.EventType.KEYUP,
+       goog.events.EventType.KEYPRESS],
+      function() {
+        ++eventsPropagated;
+      });
+  assertTrue('Popup should remain visible', popup.isVisible());
+  assertTrue('The key event default action should not be prevented',
+      goog.testing.events.fireKeySequence(
+          targetDiv, goog.events.KeyCodes.A));
+  assertEquals('Keydown, keyup, and keypress should have all propagated',
+      3, eventsPropagated);
+}
+
+function testEscapeDismissalCanBeCancelledByBeforeHideEvent() {
+  popup.setHideOnEscape(true);
+  popup.setVisible(true);
+  var eventsPropagated = 0;
+  goog.events.listenOnce(goog.dom.getElement('commonAncestor'),
+      goog.events.EventType.KEYDOWN,
+      function() {
+        ++eventsPropagated;
+      });
+  // Make a listener so that we stop hiding with an event handler.
+  goog.events.listenOnce(popup, goog.ui.PopupBase.EventType.BEFORE_HIDE,
+      function(e) {
+        e.preventDefault();
+      });
+  assertEquals('The hide should have been cancelled',
+      true, popup.isVisible());
+  assertTrue('The key event default action should not be prevented',
+      goog.testing.events.fireKeySequence(
+          targetDiv, goog.events.KeyCodes.ESC));
+  assertEquals('Keydown should have all propagated',
+      1, eventsPropagated);
+}
+
+function testEscapeDismissalProvidesKeyTargetAsTargetForHideEvents() {
+  popup.setHideOnEscape(true);
+  popup.setVisible(true);
+  var calls = 0;
+  goog.events.listenOnce(popup,
+      [goog.ui.PopupBase.EventType.BEFORE_HIDE,
+       goog.ui.PopupBase.EventType.HIDE],
+      function(e) {
+        calls++;
+        assertEquals('The key target should be the hide event target',
+            'targetDiv', e.target.id);
+      });
+  goog.testing.events.fireKeySequence(
+      targetDiv, goog.events.KeyCodes.ESC);
+}
+
+function testAutoHide() {
+  popup.setAutoHide(true);
+  popup.setVisible(true);
+  clock.tick(1000); // avoid bouncing
+  goog.testing.events.fireClickSequence(targetDiv);
+  assertFalse(popup.isVisible());
+}
+
+function testAutoHideCanBeDisabled() {
+  popup.setAutoHide(false);
+  popup.setVisible(true);
+  clock.tick(1000); // avoid bouncing
+  goog.testing.events.fireClickSequence(targetDiv);
+  assertTrue('Should not be hidden if auto hide is disabled', popup.isVisible());
+}
+
+function testAutoHideEnabledByDefault() {
+  assertTrue(popup.getAutoHide());
+}
+
+function testCanAddElementDuringBeforeShow() {
+  popup.setElement(null);
+  goog.events.listenOnce(popup, goog.ui.PopupBase.EventType.BEFORE_SHOW,
+      function() {
+        popup.setElement(popupDiv);
+      });
+  popup.setVisible(true);
+  assertTrue('Popup should be shown', popup.isVisible());
+}
+
+function testShowWithNoElementThrowsException() {
+  popup.setElement(null);
+  var e = assertThrows(function() {
+    popup.setVisible(true);
+  });
+  assertEquals('Caller must call setElement before trying to show the popup',
+      e.message);
+}
+
+function testShowEventFiredWithNoTransition() {
+  var showHandlerCalled = false;
+  goog.events.listen(popup, goog.ui.PopupBase.EventType.SHOW, function() {
+    showHandlerCalled = true;
+  });
+
+  popup.setVisible(true);
+  assertTrue(showHandlerCalled);
+}
+
+function testHideEventFiredWithNoTransition() {
+  var hideHandlerCalled = false;
+  goog.events.listen(popup, goog.ui.PopupBase.EventType.HIDE, function() {
+    hideHandlerCalled = true;
+  });
+
+  popup.setVisible(true);
+  popup.setVisible(false);
+  assertTrue(hideHandlerCalled);
+}
+
+function testOnShowTransition() {
+  var mockTransition = new MockTransition();
+
+  var showHandlerCalled = false;
+  goog.events.listen(popup, goog.ui.PopupBase.EventType.SHOW, function() {
+    showHandlerCalled = true;
+  });
+
+  popup.setTransition(mockTransition);
+  popup.setVisible(true);
+  assertTrue(mockTransition.wasPlayed);
+
+  assertFalse(showHandlerCalled);
+  mockTransition.dispatchEvent(goog.fx.Transition.EventType.END);
+  assertTrue(showHandlerCalled);
+}
+
+function testOnHideTransition() {
+  var mockTransition = new MockTransition();
+
+  var hideHandlerCalled = false;
+  goog.events.listen(popup, goog.ui.PopupBase.EventType.HIDE, function() {
+    hideHandlerCalled = true;
+  });
+
+  popup.setTransition(undefined, mockTransition);
+  popup.setVisible(true);
+  assertFalse(mockTransition.wasPlayed);
+
+  popup.setVisible(false);
+  assertTrue(mockTransition.wasPlayed);
+
+  assertFalse(hideHandlerCalled);
+  mockTransition.dispatchEvent(goog.fx.Transition.EventType.END);
+  assertTrue(hideHandlerCalled);
+}
+
+
+
+/**
+ * @implements {goog.fx.Transition}
+ * @extends {goog.events.EventTarget}
+ */
+var MockTransition = function() {
+  goog.base(this);
+  this.wasPlayed = false;
+};
+goog.inherits(MockTransition, goog.events.EventTarget);
+
+
+MockTransition.prototype.play = function() {
+  this.wasPlayed = true;
+}
+
+
+MockTransition.prototype.stop = goog.nullFunction;
+
+
+// TODO(user): Write better unit tests for click and cross-iframe dismissal.
+
+</script>
+</body>
+</html>

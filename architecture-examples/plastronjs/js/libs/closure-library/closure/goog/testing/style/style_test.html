@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>goog.testing.style Tests</title>
+  <script src="../../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.style');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.testing.style');
+  </script>
+</head>
+<body>
+  <script>
+
+  var div1;
+  var div2;
+
+  function setUp() {
+    var createDiv = function(color) {
+      var div = goog.dom.createDom(
+        'div',
+        {
+          style: 'position:absolute;top:0;left:0;' +
+                 'width:200px;height:100px;' +
+                  'background-color:' + color,
+          innerHTML: 'abc'
+      });
+      document.body.appendChild(div);
+      return div;
+    };
+
+    div1 = createDiv('#EEE');
+    div2 = createDiv('#F00');
+  }
+
+
+  function tearDown() {
+    if (div1.parentNode)
+      div1.parentNode.removeChild(div1);
+    if (div2.parentNode)
+      div2.parentNode.removeChild(div2);
+
+    div1 = null;
+    div2 = null;
+  }
+
+
+  function testIsVisible() {
+    assertTrue('The div should be detected as visible.',
+               goog.testing.style.isVisible(div1));
+
+    // Tests with hidden element
+    goog.style.showElement(div1, false /* display */);
+    assertFalse('The div should be detected as not visible.',
+                goog.testing.style.isVisible(div1));
+  }
+
+
+  function testHasVisibleDimensions() {
+    goog.style.setSize(div1, 0, 0);
+    assertFalse('0x0 should not be considered visible dimensions.',
+                goog.testing.style.hasVisibleDimensions(div1));
+    goog.style.setSize(div1, 10, 0);
+    assertFalse('10x0 should not be considered visible dimensions.',
+                goog.testing.style.hasVisibleDimensions(div1));
+    goog.style.setSize(div1, 10, 10);
+    assertTrue('10x10 should be considered visible dimensions.',
+               goog.testing.style.hasVisibleDimensions(div1));
+    goog.style.setSize(div1, 0, 10);
+    assertFalse('0x10 should not be considered visible dimensions.',
+                goog.testing.style.hasVisibleDimensions(div1));
+  }
+
+  function testIntersects() {
+    // No intersection
+    goog.style.setPosition(div1, 0, 0);
+    goog.style.setPosition(div2, 500, 500);
+    assertFalse('The divs should not be determined to itersect.',
+                goog.testing.style.intersects(div1, div2));
+
+    // Some intersection
+    goog.style.setPosition(div1, 0, 0);
+    goog.style.setPosition(div2, 50, 50);
+    assertTrue('The divs should be determined to itersect.',
+               goog.testing.style.intersects(div1, div2));
+
+    // Completely superimposed.
+    goog.style.setPosition(div1, 0, 0);
+    goog.style.setPosition(div2, 0, 0);
+    assertTrue('The divs should be determined to itersect.',
+               goog.testing.style.intersects(div1, div2));
+  }
+
+  </script>
+</body>
+</html>

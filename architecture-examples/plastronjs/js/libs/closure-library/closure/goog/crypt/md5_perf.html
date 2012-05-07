@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Performance Tests - goog.crypt.Md5</title>
+<link rel="stylesheet" type="text/css" href="../testing/performancetable.css"/>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.crypt.Md5');
+  goog.require('goog.testing.PerformanceTable');
+  goog.require('goog.testing.PseudoRandom');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<h1>Closure Performance Tests - goog.crypt.Md5</h1>
+<p>
+<strong>User-agent:</strong>
+<script>document.write(navigator.userAgent);</script>
+</p>
+<div id="perfTable"></div>
+<hr>
+<script>
+
+var table = new goog.testing.PerformanceTable(goog.dom.getElement('perfTable'));
+
+var MESSAGE_LENGTH_FULL = 10000020;
+var MESSAGE_LENGTH_SHORT = 1000020;
+
+function testHashing() {
+  var bytes = [];
+  var randomMock = new goog.testing.PseudoRandom(0, true);
+  for (var i = 0; i < MESSAGE_LENGTH_FULL / 10; ++i) {
+    bytes.push(Math.floor(Math.random() * 0x100));
+  }
+  randomMock.uninstall();
+
+  table.run(function() {
+    var md5 = new goog.crypt.Md5();
+    for (var i = 0; i < 10; ++i) {
+      md5.update(bytes, MESSAGE_LENGTH_SHORT / 10);
+    }
+    var hash = md5.digest();
+  }, 'MD5 hash of ' + Math.round(MESSAGE_LENGTH_SHORT/1000000) + ' Mbytes');
+
+  table.run(function() {
+    var md5 = new goog.crypt.Md5();
+    for (var i = 0; i < 10; ++i) {
+      md5.update(bytes);
+    }
+    var hash = md5.digest();
+  }, 'MD5 hash of ' + Math.round(MESSAGE_LENGTH_FULL/1000000) + ' Mbytes');
+}
+
+</script>
+</body>
+</html>

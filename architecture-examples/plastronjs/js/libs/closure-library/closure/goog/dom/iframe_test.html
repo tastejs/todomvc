@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+ All Rights Reserved.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.dom.iframe</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.iframe');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+</script>
+
+</head>
+<body>
+  <div style="border: 1px solid black; padding: 4px">
+    <div>
+      Blank Iframe - The below area should be completely white.
+    </div>
+    <!--
+      - Simple table to measure the exterior size of the iframe. A table is
+      - used because it is sensitive to problems with iframe margins and
+      - vertical alignment.
+      -->
+    <table cellpadding="0" cellspacing="0">
+      <tr><td>
+        <div id="blank">
+        </div>
+      </td></tr>
+    </table>
+  </div>
+
+  <div id="sandbox"></div>
+
+<script>
+
+  var domHelper = goog.dom.getDomHelper();
+  var sandbox = domHelper.getElement('sandbox');
+
+  function setUp() {
+    goog.dom.removeChildren(sandbox);
+  }
+
+  function testCreateWithContent() {
+    var iframe = goog.dom.iframe.createWithContent(sandbox,
+        '<title>Foo Title</title>', '<div id="blah">Test</div>',
+        'position: absolute',
+        false /* opt_quirks */);
+
+    var doc = goog.dom.getFrameContentDocument(iframe);
+    assertNotNull(doc.getElementById('blah'));
+    assertEquals('Foo Title', doc.title);
+    assertEquals('absolute', iframe.style.position);
+  };
+
+  function testCreateBlankYieldsIframeWithNoBorderOrPadding() {
+    var iframe = goog.dom.iframe.createBlank(domHelper);
+    iframe.style.width = '350px';
+    iframe.style.height = '250px';
+    var blankElement = domHelper.getElement('blank');
+    blankElement.appendChild(iframe);
+    assertEquals(
+        'Width should be as styled: no extra borders, padding, etc.',
+        350, blankElement.offsetWidth);
+    assertEquals(
+        'Height should be as styled: no extra borders, padding, etc.',
+        250, blankElement.offsetHeight);
+  };
+
+  function testCreateBlankWithStyles() {
+    var iframe = goog.dom.iframe.createBlank(domHelper, 'position:absolute');
+    assertEquals('absolute', iframe.style.position);
+    assertEquals('bottom', iframe.style.verticalAlign);
+  };
+</script>
+</body>
+</html>

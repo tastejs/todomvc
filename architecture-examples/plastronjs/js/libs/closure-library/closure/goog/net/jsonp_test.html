@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.net.Jsonp</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.net.Jsonp');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+  goog.require('goog.testing.recordFunction');
+  goog.require('goog.testing.PropertyReplacer');
+</script>
+</head>
+<body>
+<script>
+// Global vars to facilitate a shared set up function.
+
+var timeoutWasCalled;
+var timeoutHandler;
+
+var fakeUrl = 'http://fake-site.eek/';
+
+var originalTimeout;
+function setUp() {
+  timeoutWasCalled = false;
+  timeoutHandler = null;
+  originalTimeout = window.setTimeout;
+  window.setTimeout = function(handler, time) {
+    timeoutWasCalled = true;
+    timeoutHandler = handler;
+  };
+}
+
+// Firefox throws a JS error when a script is not found.  We catch that here and
+// ensure the test case doesn't fail because of it.
+var originalOnError = window.onerror;
+window.onerror = function(msg, url, line) {
+  // TODO(user): Safari 3 on the farm returns an object instead of the typcial
+  // params.  Pass through errors for safari for now.
+  if (goog.userAgent.WEBKIT ||
+      msg == 'Error loading script' && url.indexOf('fake-site') != -1) {
+    return true;
+  } else {
+    return originalOnError && originalOnError(msg, url, line);
+  }
+};
+
+function tearDown() {
+  window.setTimeout = originalTimeout;
+}
+
+// Quick function records the before-state of the DOM, and then return a
+// a function to check that XDC isn't leaving stuff behind.
+function newCleanupGuard() {
+  var bodyChildCount = document.body.childNodes.length;
+
+  return function() {
+    // let any timeout queues finish before we check these:
+    window.setTimeout(function() {
+      var propCounter = 0;
+
+      // All callbacks should have been deleted or be the null function.
+      for (var id in goog.global[goog.net.Jsonp.CALLBACKS]) {
+        if (goog.global[goog.net.Jsonp.CALLBACKS][id] != goog.nullFunction) {
+          propCounter++;
+        }
+      }
+
+      assertEquals(
+          'script cleanup', bodyChildCount, document.body.childNodes.length);
+      assertEquals('window jsonp array empty', 0, propCounter);
+    }, 0);
+  }
+}
+
+
+// Check that send function is sane when things go well.
+function testSend() {
+  var replyReceived;
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+
+  var checkCleanup = newCleanupGuard();
+
+  var userCallback = function(data) {
+    replyReceived = data;
+  }
+
+  var payload = {atisket: 'atasket', basket: 'yellow'};
+  var result = jsonp.send(payload, userCallback);
+
+  var script = goog.dom.getElement(result.id_);
+
+  assertNotNull('script created', script);
+  assertEquals('encoding is utf-8', 'UTF-8', script.charset);
+
+  // Check that the URL matches our payload.
+  assertTrue('payload in url', script.src.indexOf('basket=yellow') > -1);
+  assertTrue('server url', script.src.indexOf(fakeUrl) == 0);
+
+  // Now, we have to track down the name of the callback function, so we can
+  // call that to simulate a returned request.
+  var callbackName = /callback=([^&]+)/.exec(script.src)[1];
+  var callbackFunc = eval(callbackName);
+  callbackFunc({some: 'data', another: ['data', 'right', 'here']});
+  assertEquals('input was received', 'right', replyReceived.another[1]);
+
+  // Verify that the same callback function does not break if it receives a
+  // second unexpected parameter.
+  callbackFunc({some: 'data', another: ['data', 'right', 'here']},
+      'unexpected');
+  assertEquals('input was received', 'right', replyReceived.another[1]);
+
+  // Because the callbackFunc calls cleanUp_ and that calls setTimeout which
+  // we have overwritten, we have to call the timeoutHandler to actually do
+  // the cleaning.
+  timeoutHandler();
+
+  checkCleanup();
+  timeoutHandler();
+}
+
+
+// Check that send function is sane when things go well.
+function testSendWhenCallbackHasTwoParameters() {
+  var replyReceived, replyReceived2;
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+
+  var checkCleanup = newCleanupGuard();
+
+  var userCallback = function(data, opt_data2) {
+    replyReceived = data;
+    replyReceived2 = opt_data2;
+  }
+
+  var payload = {atisket: 'atasket', basket: 'yellow'};
+  var result = jsonp.send(payload, userCallback);
+  var script = goog.dom.getElement(result.id_);
+
+  // Test a callback function that receives two parameters.
+  var callbackName = /callback=([^&]+)/.exec(script.src)[1];
+  var callbackFunc = eval(callbackName);
+  callbackFunc('param1', {some: 'data', another: ['data', 'right', 'here']});
+  assertEquals('input was received', 'param1', replyReceived);
+  assertEquals('second input was received', 'right',
+      replyReceived2.another[1]);
+
+  // Because the callbackFunc calls cleanUp_ and that calls setTimeout which
+  // we have overwritten, we have to call the timeoutHandler to actually do
+  // the cleaning.
+  timeoutHandler();
+
+  checkCleanup();
+  timeoutHandler();
+}
+
+// Check that send function works correctly when callback param value is
+// specified.
+function testSendWithCallbackParamValue() {
+  var replyReceived;
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+
+  var checkCleanup = newCleanupGuard();
+
+  var userCallback = function(data) {
+    replyReceived = data;
+  }
+
+  var payload = {atisket: 'atasket', basket: 'yellow'};
+  var result = jsonp.send(payload, userCallback, undefined, 'dummyId');
+
+  var script = goog.dom.getElement(result.id_);
+
+  assertNotNull('script created', script);
+  assertEquals('encoding is utf-8', 'UTF-8', script.charset);
+
+  // Check that the URL matches our payload.
+  assertTrue('payload in url', script.src.indexOf('basket=yellow') > -1);
+  assertTrue('dummyId in url',
+      script.src.indexOf('callback=_callbacks_.dummyId') > -1);
+  assertTrue('server url', script.src.indexOf(fakeUrl) == 0);
+
+  // Now, we simulate a returned request using the known callback function
+  // name.
+  var callbackFunc = _callbacks_.dummyId;
+  callbackFunc({some: 'data', another: ['data', 'right', 'here']});
+  assertEquals('input was received', 'right', replyReceived.another[1]);
+
+  // Verify that the same callback function does not break if it receives a
+  // second unexpected parameter.
+  callbackFunc({some: 'data', another: ['data', 'right', 'here']},
+      'unexpected');
+  assertEquals('input was received', 'right', replyReceived.another[1]);
+
+  // Because the callbackFunc calls cleanUp_ and that calls setTimeout which
+  // we have overwritten, we have to call the timeoutHandler to actually do
+  // the cleaning.
+  timeoutHandler();
+
+  checkCleanup();
+  timeoutHandler();
+}
+
+
+// Check that the send function is sane when the thing goes south.
+function testSendFailure() {
+  var replyReceived = false;
+  var errorReplyReceived = false;
+
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+
+  var checkCleanup = newCleanupGuard();
+
+  var userCallback = function(data) {
+    replyReceived = data;
+  }
+  var userErrorCallback = function(data) {
+    errorReplyReceived = data;
+  }
+
+  var payload = { justa: 'test' };
+
+  jsonp.send(payload, userCallback, userErrorCallback);
+
+  assertTrue('timeout called', timeoutWasCalled);
+
+  // Now, simulate the time running out, so we go into error mode.
+  // After jsonp.send(), the timeoutHandler now is the Jsonp.cleanUp_ function.
+  timeoutHandler();
+  // But that function also calls a setTimeout(), so it changes the timeout
+  // handler once again, so to actually clean up we have to call the
+  // timeoutHandler() once again. Fun!
+  timeoutHandler();
+
+  assertFalse('standard callback not called', replyReceived);
+
+  // The user's error handler should be called back with the same payload
+  // passed back to it.
+  assertEquals('error handler called', 'test', errorReplyReceived.justa);
+
+  // Check that the relevant cleanup has occurred.
+  checkCleanup();
+  // Check cleanup just calls setTimeout so we have to call the handler to
+  // actually check that the cleanup worked.
+  timeoutHandler();
+}
+
+
+// Check that a cancel call works and cleans up after itself.
+function testCancel() {
+  var checkCleanup = newCleanupGuard();
+
+  var successCalled = false;
+  var successCallback = function() {
+    successCalled = true;
+  };
+
+  // Send and cancel a request, then make sure it was cleaned up.
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+  var requestObject = jsonp.send({test: 'foo'}, successCallback);
+  jsonp.cancel(requestObject);
+
+  for (var key in goog.global[goog.net.Jsonp.CALLBACKS]) {
+    assertNotEquals('The success callback should have been removed',
+                    goog.global[goog.net.Jsonp.CALLBACKS][key],
+                    successCallback);
+  }
+
+  // Make sure cancelling removes the script tag
+  checkCleanup();
+  timeoutHandler();
+}
+
+function testPayloadParameters() {
+  var checkCleanup = newCleanupGuard();
+
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+  var result = jsonp.send({
+    'foo': 3,
+    'bar': 'baz'
+  });
+
+  var script = goog.dom.getElement(result.id_);
+  assertEquals('Payload parameters should have been added to url.',
+               fakeUrl + '?foo=3&bar=baz',
+               script.src);
+
+  checkCleanup();
+  timeoutHandler();
+}
+
+function testOptionalPayload() {
+  var checkCleanup = newCleanupGuard();
+
+  var errorCallback = goog.testing.recordFunction();
+
+  var stubs = new goog.testing.PropertyReplacer();
+  stubs.set(goog.global, 'setTimeout', function(errorHandler) {
+    errorHandler();
+  });
+
+  var jsonp = new goog.net.Jsonp(fakeUrl);
+  var result = jsonp.send(null, null, errorCallback);
+
+  var script = goog.dom.getElement(result.id_);
+  assertEquals('Parameters should not have been added to url.',
+               fakeUrl, script.src);
+
+  var errorCallbackArguments = errorCallback.getLastCall().getArguments();
+  assertEquals(1, errorCallbackArguments.length);
+  assertNull(errorCallbackArguments[0]);
+
+  checkCleanup();
+  stubs.reset();
+}
+
+</script>
+</body>
+</html>

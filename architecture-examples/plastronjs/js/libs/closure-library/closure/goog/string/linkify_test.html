@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.string.linkify</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.string.linkify');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.dom');
+</script>
+</head>
+<body>
+<script>
+
+var div = document.createElement('div');
+
+function assertLinkify(comment, input, expected) {
+  assertEquals(
+      comment, expected,
+      goog.string.linkify.linkifyPlainText(input, {rel: '', target: ''}));
+}
+
+function testContainsNoLink() {
+  assertLinkify(
+      'Text does not contain any links',
+      'Text with no links in it.',
+      'Text with no links in it.');
+}
+
+function testContainsALink() {
+  assertLinkify(
+      'Text only contains a link',
+      'http://www.google.com/',
+      '<a href="http://www.google.com/">http://www.google.com/</a>');
+}
+
+function testStartsWithALink() {
+  assertLinkify(
+      'Text starts with a link',
+      'http://www.google.com/ is a well known search engine',
+      '<a href="http://www.google.com/">http://www.google.com/</a>' +
+          ' is a well known search engine');
+}
+
+function testEndsWithALink() {
+  assertLinkify(
+      'Text ends with a link',
+      'Look at this search engine: http://www.google.com/',
+      'Look at this search engine: ' +
+          '<a href="http://www.google.com/">http://www.google.com/</a>');
+}
+
+function testContainsOnlyEmail() {
+  assertLinkify(
+      'Text only contains an email address',
+      'bolinfest@google.com',
+      '<a href="mailto:bolinfest@google.com">bolinfest@google.com</a>');
+}
+
+function testStartsWithAnEmail() {
+  assertLinkify(
+      'Text starts with an email address',
+      'bolinfest@google.com wrote this test.',
+      '<a href="mailto:bolinfest@google.com">bolinfest@google.com</a>' +
+          ' wrote this test.');
+}
+
+function testEndsWithAnEmail() {
+  assertLinkify(
+      'Text ends with an email address',
+      'This test was written by bolinfest@google.com.',
+      'This test was written by ' +
+          '<a href="mailto:bolinfest@google.com">bolinfest@google.com</a>.');
+}
+
+function testUrlWithPortNumber() {
+  assertLinkify(
+      'URL with a port number',
+      'http://www.google.com:80/',
+      '<a href="http://www.google.com:80/">http://www.google.com:80/</a>');
+}
+
+function testUrlWithUserPasswordAndPortNumber() {
+  assertLinkify(
+      'URL with a user, a password and a port number',
+      'http://lascap:p4ssw0rd@google.com:80/s?q=a&hl=en',
+      '<a href="http://lascap:p4ssw0rd@google.com:80/s?q=a&amp;hl=en">' +
+          'http://lascap:p4ssw0rd@google.com:80/s?q=a&amp;hl=en</a>');
+}
+
+function testUrlWithUnderscore() {
+  assertLinkify(
+      'URL with an underscore',
+      'http://www_foo.google.com/',
+      '<a href="http://www_foo.google.com/">http://www_foo.google.com/</a>');
+}
+
+function testInternalUrlWithoutDomain() {
+  assertLinkify(
+      'Internal URL without a proper domain',
+      'http://tracker/1068594',
+      '<a href="http://tracker/1068594">http://tracker/1068594</a>');
+}
+
+function testInternalUrlOneChar() {
+  assertLinkify(
+      'Internal URL with a one char domain',
+      'http://b',
+      '<a href="http://b">http://b</a>');
+}
+
+function testSecureInternalUrlWithoutDomain() {
+  assertLinkify(
+      'Secure Internal URL without a proper domain',
+      'https://review/6594805',
+      '<a href="https://review/6594805">https://review/6594805</a>');
+}
+
+function testTwoUrls() {
+  assertLinkify(
+      'Text with two URLs in it',
+      'I use both http://www.google.com and http://yahoo.com, don\'t you?',
+      'I use both <a href="http://www.google.com">http://www.google.com</a> ' +
+          'and <a href="http://yahoo.com">http://yahoo.com</a>, don\'t you?');
+}
+
+function testGetParams() {
+  assertLinkify(
+      'URL with GET params',
+      'http://google.com/?a=b&c=d&e=f',
+      '<a href="http://google.com/?a=b&amp;c=d&amp;e=f">' +
+          'http://google.com/?a=b&amp;c=d&amp;e=f</a>');
+}
+
+function testGoogleCache() {
+  assertLinkify(
+      'Google search result from cache',
+      'http://66.102.7.104/search?q=cache:I4LoMT6euUUJ:' +
+          'www.google.com/intl/en/help/features.html+google+cache&hl=en',
+      '<a href="http://66.102.7.104/search?q=cache:I4LoMT6euUUJ:' +
+          'www.google.com/intl/en/help/features.html+google+cache&amp;hl=en">' +
+          'http://66.102.7.104/search?q=cache:I4LoMT6euUUJ:' +
+          'www.google.com/intl/en/help/features.html+google+cache&amp;hl=en' +
+          '</a>');
+}
+
+function testUrlWithoutHttp() {
+  assertLinkify(
+      'URL without http protocol',
+      'It\'s faster to type www.google.com without the http:// in front.',
+      'It\'s faster to type <a href="http://www.google.com">www.google.com' +
+          '</a> without the http:// in front.');
+}
+
+function testTextLooksLikeUrlWithoutHttp() {
+  assertLinkify(
+      'Text looks like an url but is not',
+      'This showww.is just great: www.is',
+      'This showww.is just great: <a href="http://www.is">www.is</a>');
+}
+
+function testEmailWithSubdomain() {
+  assertLinkify(
+      'Email with a subdomain',
+      'Send mail to bolinfest@groups.google.com.',
+      'Send mail to <a href="mailto:bolinfest@groups.google.com">' +
+          'bolinfest@groups.google.com</a>.');
+}
+
+function testEmailWithHyphen() {
+  assertLinkify(
+      'Email with a hyphen in the domain name',
+      'Send mail to bolinfest@google-groups.com.',
+      'Send mail to <a href="mailto:bolinfest@google-groups.com">' +
+          'bolinfest@google-groups.com</a>.');
+}
+
+function testEmailUsernameWithSpecialChars() {
+  assertLinkify(
+      'Email with a hyphen and + in the user name',
+      'Send mail to bolin-fest+forum@google.com',
+      'Send mail to <a href="mailto:bolin-fest+forum@google.com">' +
+          'bolin-fest+forum@google.com</a>');
+}
+
+function testEmailWithUnderscoreInvalid() {
+  assertLinkify(
+      'Email with an underscore in the domain name, which is invalid',
+      'Do not email bolinfest@google_groups.com.',
+      'Do not email bolinfest@google_groups.com.');
+}
+
+function testUrlNotHttp() {
+  assertLinkify(
+      'Url using unusual scheme',
+      'Looking for some goodies: ftp://ftp.google.com/goodstuff/',
+      'Looking for some goodies: ' +
+      '<a href="ftp://ftp.google.com/goodstuff/">' +
+          'ftp://ftp.google.com/goodstuff/</a>');
+}
+
+function testLinkifyNoOptions() {
+  div.innerHTML = goog.string.linkify.linkifyPlainText('http://www.google.com');
+  goog.testing.dom.assertHtmlContentsMatch(
+      '<a href="http://www.google.com" target="_blank" rel="nofollow">' +
+      'http://www.google.com</a>',
+      div, true /* opt_strictAttributes */);
+}
+
+function testLinkifyOptionsNoAttributes() {
+  div.innerHTML = goog.string.linkify.linkifyPlainText(
+      'The link for www.google.com is located somewhere in ' +
+      'https://www.google.fr/?hl=en, you should find it easily.',
+      {rel: '', target: ''});
+  goog.testing.dom.assertHtmlContentsMatch(
+      'The link for <a href="http://www.google.com">www.google.com</a> is ' +
+      'located somewhere in ' +
+      '<a href="https://www.google.fr/?hl=en">https://www.google.fr/?hl=en' +
+      '</a>, you should find it easily.',
+      div, true /* opt_strictAttributes */);
+}
+
+function testLinkifyOptionsClassName() {
+  div.innerHTML = goog.string.linkify.linkifyPlainText(
+      'Attribute with <class> name www.w3c.org.',
+      {'class': 'link-added'});
+  goog.testing.dom.assertHtmlContentsMatch(
+      'Attribute with &lt;class&gt; name <a href="http://www.w3c.org" ' +
+      'target="_blank" rel="nofollow" class="link-added">www.w3c.org</a>.',
+      div, true /* opt_strictAttributes */);
+}
+
+</script>
+</body>
+</html>

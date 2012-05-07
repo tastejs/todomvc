@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.debug.Console</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.Console');
+  goog.require('goog.debug.LogRecord');
+  goog.require('goog.debug.Logger.Level');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.recordFunction');
+</script>
+</head>
+<body>
+<script>
+
+var debugConsole;
+var mockConsole;
+var loggerName1;
+var logRecord1;
+var loggerName2;
+var logRecord2;
+var loggerName3;
+var logRecord3;
+
+function setUp() {
+  debugConsole = new goog.debug.Console();
+
+  // Set up a recorder for mockConsole.log
+  mockConsole = { log: goog.testing.recordFunction() };
+  goog.debug.Console.console_ = mockConsole;
+
+  // Test logger 1.
+  loggerName1 = 'this.is.a.logger';
+  logRecord1 = new goog.debug.LogRecord(goog.debug.Logger.Level.INFO,
+      'this is a statement', loggerName1);
+
+  // Test logger 2.
+  loggerName2 = 'name.of.logger';
+  logRecord2 = new goog.debug.LogRecord(goog.debug.Logger.Level.WARNING,
+      'hey, this is a warning', loggerName2);
+
+  // Test logger 3.
+  loggerName3 = 'third.logger';
+  logRecord3 = new goog.debug.LogRecord(goog.debug.Logger.Level.SEVERE,
+      'seriously, this statement is serious', loggerName3);
+}
+
+function testAddLogRecordWithoutFilters() {
+  // Make sure none are filtered.
+  debugConsole.addLogRecord(logRecord1);
+  assertEquals(1, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord2);
+  assertEquals(2, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord3);
+  assertEquals(3, mockConsole.log.getCallCount());
+}
+
+function testAddLogRecordWithOneFilter() {
+  // Filter #2 and make sure the filtering is correct for all records.
+  debugConsole.addFilter(loggerName2);
+  debugConsole.addLogRecord(logRecord1);
+  assertEquals(1, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord2);
+  assertEquals(1, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord3);
+  assertEquals(2, mockConsole.log.getCallCount());
+}
+
+function testAddLogRecordWithMoreThanOneFilter() {
+  // Filter #1 and #3 and check.
+  debugConsole.addFilter(loggerName1);
+  debugConsole.addFilter(loggerName3);
+  debugConsole.addLogRecord(logRecord1);
+  assertEquals(0, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord2);
+  assertEquals(1, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord3);
+  assertEquals(1, mockConsole.log.getCallCount());
+}
+
+function testAddLogRecordWithAddAndRemoveFilter() {
+  debugConsole.addFilter(loggerName1);
+  debugConsole.addFilter(loggerName2);
+  debugConsole.removeFilter(loggerName1);
+  debugConsole.removeFilter(loggerName2);
+  debugConsole.addLogRecord(logRecord1);
+  assertEquals(1, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord2);
+  assertEquals(2, mockConsole.log.getCallCount());
+  debugConsole.addLogRecord(logRecord3);
+  assertEquals(3, mockConsole.log.getCallCount());
+}
+
+</script>
+</body>
+</html>

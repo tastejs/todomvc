@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+
+  This file is responsible for setting up the inner peer half of an XPC
+  communication channel. It instantiates a CrossPageChannel and attempts to
+  connect to the outer peer. The XPC configuration should match that of the
+  outer peer (i.e. same channel name, polling URIs, etc).
+-->
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+
+<head>
+<script src="../../../base.js"></script>
+<script>
+goog.require('goog.debug.Logger');
+goog.require('goog.dom');
+goog.require('goog.events');
+goog.require('goog.events.EventType');
+goog.require('goog.net.xpc.CrossPageChannel');
+</script>
+<script>
+var channel;
+var queuedMessage;
+
+function clearDebug() {
+  document.getElementById('debugDiv').innerHTML = '';
+}
+
+function instantiateChannel(cfg) {
+  if (window.channel) {
+    window.channel.dispose();
+  }
+  window.channel = new goog.net.xpc.CrossPageChannel(cfg);
+  window.channel.registerService('echo', echoHandler);
+}
+
+function connectChannel(opt_callback) {
+  var callback = opt_callback || goog.nullFunction;
+
+  window.channel.connect(function() {
+    callback();
+
+    var message = window.queuedMessage;
+    if (message) {
+      window.queuedMessage = null;
+      echoHandler(message);
+    }
+  });
+}
+
+function isConnected() {
+  return window.channel && window.channel.isConnected();
+}
+
+function echoHandler(payload) {
+  // TODO(user): Works around the bug where the parent
+  // can get the connect callback before the child is
+  // marked as connected.
+  if (isConnected()) {
+    window.channel.send('msg', payload);
+  } else {
+    window.queuedMessage = payload;
+  }
+}
+
+function handleLoad(evt) {
+  // Get the channel configuration passed by the containing document.
+  var xpc = (new goog.Uri(window.location.href)).getParameterValue('xpc');
+  if (xpc) {
+    var cfg = goog.json.parse(xpc);
+    instantiateChannel(cfg);
+    connectChannel();
+  }
+}
+
+goog.events.listen(window, goog.events.EventType.LOAD, handleLoad);
+
+</script>
+</head>
+
+<body>
+
+<div style="position:absolute">
+  Debug [<a href="#" onclick="clearDebug()">clear</a>]: <br>
+  <div id=debugDiv style="border: 1px #000000 solid; font-size:xx-small"></div>
+</div>
+
+<script>
+var debugDiv = goog.dom.getElement('debugDiv');
+var logger = goog.debug.Logger.getLogger('goog.net.xpc');
+logger.setLevel(goog.debug.Logger.Level.ALL);
+logger.addHandler(function(logRecord) {
+  var msgElm = goog.dom.createDom('div');
+  msgElm.innerHTML = logRecord.getMessage();
+  goog.dom.appendChild(debugDiv, msgElm);
+});
+</script>
+
+</body>
+
+</html>

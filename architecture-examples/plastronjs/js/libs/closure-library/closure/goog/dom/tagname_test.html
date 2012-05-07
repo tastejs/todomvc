@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.dom.TagName</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom.TagName');
+  goog.require('goog.object');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<script>
+
+  function testCorrectNumberOfTagNames() {
+    assertEquals(92, goog.object.getCount(goog.dom.TagName));
+  }
+
+  function testPropertyNamesEqualValues() {
+    for (var propertyName in goog.dom.TagName) {
+      assertEquals(propertyName, goog.dom.TagName[propertyName]);
+    }
+  }
+
+</script>
+</body>
+</html>

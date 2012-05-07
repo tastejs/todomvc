@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.events.OnlineListener</title>
+<script src="../base.js"></script>
+<script>
+
+goog.require('goog.events.OnlineHandler');
+goog.require('goog.userAgent');
+goog.require('goog.testing.jsunit');
+goog.require('goog.testing.MockClock');
+
+</script>
+</head>
+<body>
+<script>
+
+var IE = goog.userAgent.IE;
+var GECKO = goog.userAgent.GECKO;
+var OPERA = goog.userAgent.OPERA;
+var VERSION = goog.userAgent.VERSION;
+
+var browserNames = ['OPERA', 'IE', 'GECKO', 'CAMINO', 'WEBKIT'];
+var orgFlags = [];
+var orgVersion;
+
+function saveUserAgent() {
+  for (var i = 0; i < browserNames.length; i++) {
+    orgFlags[i] = goog.userAgent[browserNames[i]];
+  }
+  orgVersion = goog.userAgent.VERSION;
+}
+
+function setUserAgent(s, v) {
+  for (var i = 0; i < browserNames.length; i++) {
+    goog.userAgent[browserNames[i]] = browserNames[i] == s;
+  }
+  goog.userAgent.VERSION = v;
+  goog.userAgent.isVersionCache_ = {};
+}
+
+function restoreUserAgent() {
+  for (var i = 0; i < browserNames.length; i++) {
+    goog.userAgent[browserNames[i]] = orgFlags[i];
+  }
+  goog.userAgent.VERSION = orgVersion;
+  goog.userAgent.isVersionCache_ = {};
+
+}
+
+function setUpPage() {
+  saveUserAgent();
+}
+
+// Store original isOnline method since some tests override this and we want to
+// restore it after each test.
+var orgIsOnline = goog.events.OnlineHandler.prototype.isOnline;
+
+function tearDown() {
+  restoreUserAgent();
+  // Restore isOnline method.
+  goog.events.OnlineHandler.prototype.isOnline = orgIsOnline;
+}
+
+function testSupportsHtml5Events_() {
+  // Firefox 3+
+  setUserAgent('GECKO', '1.9b');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('GECKO', '1.9');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('GECKO', '2');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+
+  // Firefox 2-
+  setUserAgent('GECKO', '1.8');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('GECKO', '1.5');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+
+  // IE8+
+  setUserAgent('IE', '8');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('IE', '9');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+
+  // IE7-
+  setUserAgent('IE', '7');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('IE', '6');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+
+  // Opera 9.5+
+  setUserAgent('OPERA', '9.5');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('OPERA', '10');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+
+  // Opera 9-
+  setUserAgent('OPERA', '9');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('OPERA', '8');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+
+
+  // WebKit
+  setUserAgent('WEBKIT', '522');
+  assertFalse(goog.events.OnlineHandler.supportsHtml5Events_());
+  setUserAgent('WEBKIT', '528');
+  assertTrue(goog.events.OnlineHandler.supportsHtml5Events_());
+}
+
+function testConstructAndDispose() {
+  var oh = new goog.events.OnlineHandler;
+  oh.dispose();
+}
+
+function testNonHtml5() {
+  var clock = new goog.testing.MockClock(true);
+  setUserAgent('IE', '7');
+
+  // Override isOnline to let us control it.
+  var online = true;
+  goog.events.OnlineHandler.prototype.isOnline = function() {
+    return online;
+  };
+  var onlineCount = 0;
+  var offlineCount = 0;
+
+  var oh = new goog.events.OnlineHandler;
+  goog.events.listen(oh, goog.events.OnlineHandler.EventType.ONLINE,
+                     function(e) {
+                       assertTrue(oh.isOnline());
+                       onlineCount++;
+                     });
+  goog.events.listen(oh, goog.events.OnlineHandler.EventType.OFFLINE,
+                     function(e) {
+                       assertFalse(oh.isOnline());
+                       offlineCount++;
+                     });
+
+  clock.tick(500);
+  online = false;
+  clock.tick(500);
+
+  assertEquals(0, onlineCount);
+  assertEquals(1, offlineCount);
+
+  online = true;
+  clock.tick(500);
+
+  assertEquals(1, onlineCount);
+  assertEquals(1, offlineCount);
+
+  oh.dispose();
+  clock.dispose();
+}
+
+function testHtml5() {
+  setUserAgent('GECKO', '1.9');
+
+  // Override isOnline to let us control it.
+  var online = true;
+  goog.events.OnlineHandler.prototype.isOnline = function() {
+    return online;
+  };
+  var onlineCount = 0;
+  var offlineCount = 0;
+
+  var oh = new goog.events.OnlineHandler;
+  goog.events.listen(oh, goog.events.OnlineHandler.EventType.ONLINE,
+                     function(e) {
+                       assertEquals(goog.events.OnlineHandler.EventType.ONLINE,
+                                    e.type);
+                       assertTrue(oh.isOnline());
+                       onlineCount++;
+                     });
+
+  goog.events.listen(oh, goog.events.OnlineHandler.EventType.OFFLINE,
+                     function(e) {
+                       assertEquals(goog.events.OnlineHandler.EventType.OFFLINE,
+                                    e.type);
+                       assertFalse(oh.isOnline());
+                       offlineCount++;
+                     });
+
+  online = false;
+  var e = new goog.events.Event('offline');
+  goog.events.fireListeners(document.body, e.type, false, e);
+
+  assertEquals(0, onlineCount);
+  assertEquals(1, offlineCount);
+
+  online = true;
+  e = new goog.events.Event('online');
+  goog.events.fireListeners(document.body, e.type, false, e);
+
+  assertEquals(1, onlineCount);
+  assertEquals(1, offlineCount);
+
+  oh.dispose();
+}
+
+</script>
+</body>
+</html>

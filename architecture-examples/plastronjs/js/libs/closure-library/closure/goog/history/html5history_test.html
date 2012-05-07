@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.history.Html5History</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.history.Html5History');
+  goog.require('goog.testing.MockControl');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.mockmatchers');
+</script>
+</head>
+<body>
+<script>
+
+  var mockControl;
+  var mockWindow;
+
+  var html5History;
+
+  function setUp() {
+    mockControl = new goog.testing.MockControl();
+
+    mockWindow = {
+      location: {}
+    };
+    mockWindow.attachEvent = mockControl.createFunctionMock();
+    mockWindow.attachEvent(
+        goog.testing.mockmatchers.ignoreArgument,
+        goog.testing.mockmatchers.ignoreArgument).$anyTimes();
+    var mockHistoryIsSupportedMethod = mockControl.createMethodMock(
+        goog.history.Html5History, 'isSupported');
+    mockHistoryIsSupportedMethod(mockWindow).$returns(true).$anyTimes();
+  }
+
+  function tearDown() {
+    if (html5History) {
+      html5History.dispose();
+      html5History = null;
+    }
+    mockControl.$tearDown();
+  }
+
+  function testGetTokenWithoutUsingFragment() {
+    mockWindow.location.pathname = '/test/something';
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow);
+    html5History.setUseFragment(false);
+
+    assertEquals('test/something', html5History.getToken());
+    mockControl.$verifyAll();
+  }
+
+  function testGetTokenWithoutUsingFragmentWithCustomPathPrefix() {
+    mockWindow.location.pathname = '/test/something';
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow);
+    html5History.setUseFragment(false);
+    html5History.setPathPrefix('/test/');
+
+    assertEquals('something', html5History.getToken());
+    mockControl.$verifyAll();
+  }
+
+  function testGetTokenWithoutUsingFragmentWithCustomTransformer() {
+    mockWindow.location.pathname = '/test/something';
+    var mockTransformer = mockControl.createLooseMock(
+        goog.history.Html5History.TokenTransformer);
+    mockTransformer.retrieveToken('/', mockWindow.location).$returns('abc/1');
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow, mockTransformer);
+    html5History.setUseFragment(false);
+
+    assertEquals('abc/1', html5History.getToken());
+    mockControl.$verifyAll();
+  }
+
+  function testGetTokenWithoutUsingFragmentWithCustomTransformerAndPrefix() {
+    mockWindow.location.pathname = '/test/something';
+    var mockTransformer = mockControl.createLooseMock(
+        goog.history.Html5History.TokenTransformer);
+    mockTransformer.retrieveToken('/test/', mockWindow.location).
+        $returns('abc/1');
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow, mockTransformer);
+    html5History.setUseFragment(false);
+    html5History.setPathPrefix('/test/');
+
+    assertEquals('abc/1', html5History.getToken());
+    mockControl.$verifyAll();
+  }
+
+  function testGetUrlWithoutUsingFragment() {
+    mockWindow.location.search = '?q=something';
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow);
+    html5History.setUseFragment(false);
+
+    assertEquals('/some/token?q=something', html5History.getUrl_('some/token'));
+    mockControl.$verifyAll();
+  }
+
+  function testGetUrlWithoutUsingFragmentWithCustomPathPrefix() {
+    mockWindow.location.search = '?q=something';
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow);
+    html5History.setUseFragment(false);
+    html5History.setPathPrefix('/test/');
+
+    assertEquals('/test/some/token?q=something',
+                 html5History.getUrl_('some/token'));
+    mockControl.$verifyAll();
+  }
+
+  function testGetUrlWithoutUsingFragmentWithCustomTransformer() {
+    mockWindow.location.search = '?q=something';
+    var mockTransformer = mockControl.createLooseMock(
+        goog.history.Html5History.TokenTransformer);
+    mockTransformer.createUrl('some/token', '/', mockWindow.location).
+        $returns('/something/else/?different');
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow, mockTransformer);
+    html5History.setUseFragment(false);
+
+    assertEquals('/something/else/?different',
+                 html5History.getUrl_('some/token'));
+    mockControl.$verifyAll();
+  }
+
+  function testGetUrlWithoutUsingFragmentWithCustomTransformerAndPrefix() {
+    mockWindow.location.search = '?q=something';
+    var mockTransformer = mockControl.createLooseMock(
+        goog.history.Html5History.TokenTransformer);
+    mockTransformer.createUrl('some/token', '/test/', mockWindow.location).
+        $returns('/something/else/?different');
+
+    mockControl.$replayAll();
+    html5History = new goog.history.Html5History(mockWindow, mockTransformer);
+    html5History.setUseFragment(false);
+    html5History.setPathPrefix('/test/');
+
+    assertEquals('/something/else/?different',
+                 html5History.getUrl_('some/token'));
+    mockControl.$verifyAll();
+  }
+
+</script>
+</body>
+</html>

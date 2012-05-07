@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.proto2 - fielddescriptor.js</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.proto2.Descriptor');
+  goog.require('goog.proto2.FieldDescriptor');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testFieldDescriptorConstruction() {
+  var messageType = {};
+  var fieldDescriptor = new goog.proto2.FieldDescriptor(messageType, 10, {
+    name: 'test',
+    repeated: true,
+    fieldType: 7,
+    type: Number
+  });
+
+  assertEquals(10, fieldDescriptor.getTag());
+  assertEquals('test', fieldDescriptor.getName());
+
+  assertEquals(true, fieldDescriptor.isRepeated());
+
+  assertEquals(7, fieldDescriptor.getFieldType());
+  assertEquals(Number, fieldDescriptor.getNativeType());
+  assertEquals(0, fieldDescriptor.getDefaultValue());
+}
+
+function testFieldDescriptorConstruction2() {
+  var fieldDescriptor = new goog.proto2.FieldDescriptor({}, 10, {
+    name: 'test',
+    fieldType: 7,
+    type: String
+  });
+
+  assertEquals('', fieldDescriptor.getDefaultValue());
+}
+
+function testFieldDescriptorConstruction3() {
+  var fieldDescriptor = new goog.proto2.FieldDescriptor({}, 10, {
+    name: 'test',
+    fieldType: 7,
+    type: Boolean
+  });
+
+  assertEquals(false, fieldDescriptor.getDefaultValue());
+}
+
+function testRepeatedField() {
+  var messageType = {};
+  var fieldDescriptor = new goog.proto2.FieldDescriptor(messageType, 10, {
+    name: 'test',
+    repeated: true,
+    fieldType: 7,
+    type: Number
+  });
+
+  assertEquals(true, fieldDescriptor.isRepeated());
+  assertEquals(false, fieldDescriptor.isRequired());
+  assertEquals(false, fieldDescriptor.isOptional());
+}
+
+function testRequiredField() {
+  var messageType = {};
+  var fieldDescriptor = new goog.proto2.FieldDescriptor(messageType, 10, {
+    name: 'test',
+    required: true,
+    fieldType: 7,
+    type: Number
+  });
+
+  assertEquals(false, fieldDescriptor.isRepeated());
+  assertEquals(true, fieldDescriptor.isRequired());
+  assertEquals(false, fieldDescriptor.isOptional());
+}
+
+function testOptionalField() {
+  var messageType = {};
+  var fieldDescriptor = new goog.proto2.FieldDescriptor(messageType, 10, {
+    name: 'test',
+    fieldType: 7,
+    type: Number
+  });
+
+  assertEquals(false, fieldDescriptor.isRepeated());
+  assertEquals(false, fieldDescriptor.isRequired());
+  assertEquals(true, fieldDescriptor.isOptional());
+}
+
+function testContaingType() {
+  var messageType = {};
+  var fieldDescriptor = new goog.proto2.FieldDescriptor(messageType, 10, {
+    name: 'test',
+    fieldType: 7,
+    type: Number
+  });
+
+  var descriptor = new goog.proto2.Descriptor(messageType, {
+    name: 'test_message',
+    fullName: 'this.is.a.test_message'
+  }, [fieldDescriptor]);
+
+  messageType.descriptor_ = descriptor;
+
+  assertEquals(descriptor, fieldDescriptor.getContainingType());
+}
+
+</script>
+</body>
+</html>

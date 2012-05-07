@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.AnimatedZippy</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.dom.a11y');
+    goog.require('goog.dom.a11y.State');
+    goog.require('goog.events');
+    goog.require('goog.functions');
+    goog.require('goog.fx.Animation');
+    goog.require('goog.fx.Transition.EventType');
+    goog.require('goog.testing.PropertyReplacer');
+    goog.require('goog.testing.asserts');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.AnimatedZippy');
+    goog.require('goog.ui.Zippy.Events');
+  </script>
+  <style type="text/css">
+
+    .demo {
+      border: solid 1px red;
+      margin: 0 0 20px 0;
+    }
+
+    .demo h2 {
+      background-color: yellow;
+      border: solid 1px #ccc;
+      padding: 2px;
+      margin: 0;
+      fint-size: 100%;
+    }
+
+    .demo div {
+      border: solid 1px #ccc;
+      padding: 2px;
+    }
+
+  </style>
+</head>
+<body>
+
+
+<div class="demo" id="d1">
+
+  <h2 id="t1">handler</h2>
+
+  <div id="c1">
+    sem. Suspendisse porta felis ac ipsum. Sed tincidunt dui vitae nulla. Ut
+    blandit. Nunc non neque. Mauris placerat. Vestibulum mollis tellus id dolor.
+    Phasellus ac dolor molestie nunc euismod aliquam. Mauris tellus ipsum,
+    fringilla id, tincidunt eu, vestibulum sit amet, metus. Quisque congue
+    varius
+    ligula. Quisque ornare mollis enim. Aliquam erat volutpat. Nulla mattis
+    venenatis magna.
+  </div>
+</div>
+
+
+<script>
+
+  var animatedZippy;
+  var animatedZippyHeaderEl;
+  var propertyReplacer;
+
+  function setUp() {
+    animatedZippyHeaderEl = goog.dom.getElement('t1');
+    animatedZippy = new goog.ui.AnimatedZippy(animatedZippyHeaderEl,
+        goog.dom.getElement('c1'));
+
+    propertyReplacer = new goog.testing.PropertyReplacer();
+  }
+
+  function tearDown() {
+    propertyReplacer.reset();
+    animatedZippy.dispose();
+  }
+
+  function testConstructor() {
+    assertNotNull('must not be null', animatedZippy);
+  }
+
+  function testExpandCollapse() {
+    var animationsPlayed = 0;
+    var toggleEventsFired = 0;
+
+    propertyReplacer.replace(goog.fx.Animation.prototype, 'play', function() {
+      animationsPlayed++;
+      this.dispatchAnimationEvent(goog.fx.Transition.EventType.END);
+    });
+    propertyReplacer.replace(goog.ui.AnimatedZippy.prototype, 'onAnimate_',
+        goog.functions.NULL);
+
+    goog.events.listenOnce(animatedZippy, goog.ui.Zippy.Events.TOGGLE,
+        function(e) {
+          toggleEventsFired++;
+          assertTrue('TOGGLE event must be for expansion', e.expanded);
+          assertEquals('expanded must be true', true,
+              animatedZippy.isExpanded());
+          assertEquals('aria-expanded must be true', 'true',
+              goog.dom.a11y.getState(animatedZippyHeaderEl,
+                  goog.dom.a11y.State.EXPANDED));
+        });
+
+    animatedZippy.expand();
+
+    goog.events.listenOnce(animatedZippy, goog.ui.Zippy.Events.TOGGLE,
+      function(e) {
+        toggleEventsFired++;
+        assertFalse('TOGGLE event must be for collapse', e.expanded);
+        assertEquals('expanded must be false', false,
+            animatedZippy.isExpanded());
+        assertEquals('aria-expanded must be false', 'false',
+            goog.dom.a11y.getState(animatedZippyHeaderEl,
+                goog.dom.a11y.State.EXPANDED));
+      });
+
+    animatedZippy.collapse();
+
+    assertEquals('animations must play', 2, animationsPlayed);
+    assertEquals('TOGGLE events must fire', 2, toggleEventsFired);
+  }
+
+</script>
+
+</body>
+</html>

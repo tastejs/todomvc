@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.fx.Dragger</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.events');
+  goog.require('goog.events.BrowserEvent');
+  goog.require('goog.events.BrowserEvent.MouseButton');
+  goog.require('goog.events.Event');
+  goog.require('goog.events.EventType');
+  goog.require('goog.fx.Dragger');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.StrictMock');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<div id="sandbox"></div>
+
+<script>
+
+var HAS_SET_CAPTURE = goog.fx.Dragger.HAS_SET_CAPTURE_;
+
+var target;
+function setUp() {
+  var sandbox = goog.dom.getElement('sandbox');
+  target = goog.dom.createDom('div', {
+    'id': 'target',
+    'style': 'display:none;position:absolute;top:15px;left:10px'
+  });
+  sandbox.appendChild(target);
+  sandbox.appendChild(goog.dom.createDom('div', {'id': 'handle'}));
+}
+
+function tearDown() {
+  goog.dom.getElement('sandbox').innerHTML = '';
+  goog.events.removeAll();
+}
+
+function testStartDrag() {
+  var dragger = new goog.fx.Dragger(target, goog.dom.getElement('handle'));
+
+  var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  e.type = goog.events.EventType.MOUSEDOWN;
+  e.clientX = 1;
+  e.clientY = 2;
+  e.isMouseActionButton().$returns(true);
+  e.preventDefault();
+  e.isMouseActionButton().$returns(true);
+  e.preventDefault();
+  e.$replay();
+
+  goog.events.listen(dragger, goog.fx.Dragger.EventType.START, function() {
+    target.style.display = 'block';
+  });
+
+  dragger.startDrag(e);
+
+  assertTrue('Start drag with no hysteresis must actually start the drag.',
+      dragger.dragging_);
+
+  assertEquals('Dragger startX must match event\'s clientX.',
+      1, dragger.startX);
+  assertEquals('Dragger clientX must match event\'s clientX',
+      1, dragger.clientX);
+  assertEquals('Dragger startY must match event\'s clientY.',
+      2, dragger.startY);
+  assertEquals('Dragger clientY must match event\'s clientY',
+      2, dragger.clientY);
+  assertEquals('Dragger deltaX must match target\'s offsetLeft',
+      10, dragger.deltaX);
+  assertEquals('Dragger deltaY must match target\'s offsetTop',
+      15, dragger.deltaY);
+
+  dragger = new goog.fx.Dragger(target, goog.dom.getElement('handle'));
+  dragger.setHysteresis(1);
+  dragger.startDrag(e);
+  assertFalse('Start drag with a valid non-zero hysteresis should not start ' +
+      'the drag.', dragger.dragging_);
+  e.$verify();
+}
+
+/**
+ * @bug 1381317 Cancelling start drag didn't end the attempt to drag.
+ */
+function testStartDrag_Cancel() {
+  var dragger = new goog.fx.Dragger(target);
+
+  var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  e.type = goog.events.EventType.MOUSEDOWN;
+  e.clientX = 1;
+  e.clientY = 2;
+  e.isMouseActionButton().$returns(true);
+  e.$replay();
+
+  goog.events.listen(dragger, goog.fx.Dragger.EventType.START, function(e) {
+    // Cancel drag.
+    e.preventDefault();
+  });
+
+  dragger.startDrag(e);
+
+  assertFalse('Start drag must have been cancelled.',
+      dragger.dragging_);
+  assertFalse('Dragger must not have registered mousemove handlers.',
+      goog.events.hasListener(dragger.document_,
+          goog.events.EventType.MOUSEMOVE, !HAS_SET_CAPTURE));
+  assertFalse('Dragger must not have registered mouseup handlers.',
+      goog.events.hasListener(dragger.document_, goog.events.EventType.MOUSEUP,
+          !HAS_SET_CAPTURE));
+  e.$verify();
+}
+
+/**
+ * Tests that start drag happens on left mousedown.
+ */
+function testStartDrag_LeftMouseDownOnly() {
+  var dragger = new goog.fx.Dragger(target);
+
+  var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  e.type = goog.events.EventType.MOUSEDOWN;
+  e.clientX = 1;
+  e.clientY = 2;
+  e.isMouseActionButton().$returns(false);
+  e.$replay();
+
+  goog.events.listen(dragger, goog.fx.Dragger.EventType.START, function(e) {
+    fail("No drag START event should have been dispatched");
+  });
+
+  dragger.startDrag(e);
+
+  assertFalse('Start drag must have been cancelled.',
+      dragger.dragging_);
+  assertFalse('Dragger must not have registered mousemove handlers.',
+      goog.events.hasListener(dragger.document_,
+          goog.events.EventType.MOUSEMOVE, true));
+  assertFalse('Dragger must not have registered mouseup handlers.',
+      goog.events.hasListener(dragger.document_, goog.events.EventType.MOUSEUP,
+          true));
+  e.$verify();
+}
+
+/**
+ * Tests that start drag happens on other event type than MOUSEDOWN.
+ */
+function testStartDrag_MouseMove() {
+  var dragger = new goog.fx.Dragger(target);
+
+  var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  e.type = goog.events.EventType.MOUSEMOVE;
+  e.clientX = 1;
+  e.clientY = 2;
+  e.preventDefault();
+  e.$replay();
+
+  var startDragFired = false;
+  goog.events.listen(dragger, goog.fx.Dragger.EventType.START, function(e) {
+    startDragFired = true;
+  });
+
+  dragger.startDrag(e);
+
+  assertTrue('Dragging should be in progress.', dragger.dragging_);
+  assertTrue('Start drag event should have fired.', startDragFired);
+  assertTrue('Dragger must have registered mousemove handlers.',
+      goog.events.hasListener(dragger.document_,
+          goog.events.EventType.MOUSEMOVE, !HAS_SET_CAPTURE));
+  assertTrue('Dragger must have registered mouseup handlers.',
+      goog.events.hasListener(dragger.document_, goog.events.EventType.MOUSEUP,
+          !HAS_SET_CAPTURE));
+  e.$verify();
+}
+
+/**
+ * @bug 1381317 Cancelling start drag didn't end the attempt to drag.
+ */
+function testHandleMove_Cancel() {
+  var dragger = new goog.fx.Dragger(target);
+  dragger.setHysteresis(5);
+
+  goog.events.listen(dragger, goog.fx.Dragger.EventType.START, function(e) {
+    // Cancel drag.
+    e.preventDefault();
+  });
+
+  var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  e.clientX = 1;
+  e.clientY = 2;
+  e.isMouseActionButton().$returns(true).
+      $anyTimes();
+  e.preventDefault();
+  e.$replay();
+  dragger.startDrag(e);
+  assertFalse('Start drag must not start drag because of hysterisis.',
+      dragger.dragging_);
+  assertTrue('Dragger must have registered mousemove handlers.',
+      goog.events.hasListener(dragger.document_,
+          goog.events.EventType.MOUSEMOVE, !HAS_SET_CAPTURE));
+  assertTrue('Dragger must have registered mouseup handlers.',
+      goog.events.hasListener(dragger.document_, goog.events.EventType.MOUSEUP,
+          !HAS_SET_CAPTURE));
+
+  e.clientX = 10;
+  e.clientY = 10;
+  dragger.handleMove_(e);
+  assertFalse('Drag must be cancelled.', dragger.dragging_);
+  assertFalse('Dragger must unregistered mousemove handlers.',
+      goog.events.hasListener(dragger.document_,
+          goog.events.EventType.MOUSEMOVE, true));
+  assertFalse('Dragger must unregistered mouseup handlers.',
+      goog.events.hasListener(dragger.document_, goog.events.EventType.MOUSEUP,
+          true));
+  e.$verify();
+}
+
+/**
+ * @bug 1714667 IE built in drag and drop handling stops dragging.
+ */
+function testIeDragStartCancelling() {
+  // Testing only IE.
+  if (!goog.userAgent.IE) {
+    return;
+  }
+
+  // Built in 'dragstart' cancelling not enabled.
+  var dragger = new goog.fx.Dragger(target);
+
+  var e = new goog.events.Event(goog.events.EventType.MOUSEDOWN);
+  e.clientX = 1;
+  e.clientY = 2;
+  e.button = 1; // IE only constant for left button.
+  var be = new goog.events.BrowserEvent(e);
+  dragger.startDrag(be);
+  assertTrue('The drag should have started.', dragger.dragging_);
+
+  e = new goog.events.Event(goog.events.EventType.DRAGSTART);
+  e.target = dragger.document_.documentElement;
+  assertTrue('The event should not be canceled.',
+      goog.testing.events.fireBrowserEvent(e));
+
+  dragger.dispose();
+
+  // Built in 'dragstart' cancelling enabled.
+  dragger = new goog.fx.Dragger(target);
+  dragger.setCancelIeDragStart(true);
+
+  e = new goog.events.Event(goog.events.EventType.MOUSEDOWN);
+  e.clientX = 1;
+  e.clientY = 2;
+  e.button = 1; // IE only constant for left button.
+  be = new goog.events.BrowserEvent(e);
+  dragger.startDrag(be);
+  assertTrue('The drag should have started.', dragger.dragging_);
+
+  e = new goog.events.Event(goog.events.EventType.DRAGSTART);
+  e.target = dragger.document_.documentElement;
+  assertFalse('The event should be canceled.',
+      goog.testing.events.fireBrowserEvent(e));
+
+  dragger.dispose();
+}
+
+
+/** @bug 1680770 */
+function testOnWindowMouseOut() {
+  // Test older Gecko browsers - FireFox 2.
+  if (goog.userAgent.GECKO && !goog.userAgent.isVersion('1.9a')) {
+    var dragger = new goog.fx.Dragger(target);
+
+    var dragCanceled = false;
+    goog.events.listen(dragger, goog.fx.Dragger.EventType.END, function(e) {
+      dragCanceled = e.dragCanceled;
+    });
+
+    var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+    e.type = goog.events.EventType.MOUSEDOWN;
+    e.clientX = 1;
+    e.clientY = 2;
+    e.isMouseActionButton().$returns(true);
+    e.preventDefault();
+    e.$replay();
+    dragger.startDrag(e);
+    e.$verify();
+
+    assertTrue(dragger.dragging_);
+
+    e = new goog.events.BrowserEvent();
+    e.type = goog.events.EventType.MOUSEOUT;
+    e.target = goog.dom.getElement('sandbox');
+    e.currentTarget = window.top;
+    e.relatedTarget = target;
+    dragger.onWindowMouseOut_(e);
+
+    assertFalse('Drag is not canceled for normal in-window mouseout.',
+        dragCanceled);
+    assertTrue('Must not stop dragging for normal in-window mouseout.',
+        dragger.dragging_);
+
+    dragCanceled = false;
+    delete e.relatedTarget;
+    e.target = goog.dom.createDom('iframe');
+    dragger.onWindowMouseOut_(e);
+    assertFalse('Drag is not canceled for mousing into iframe.',
+        dragCanceled);
+    assertTrue('Must not stop dragging for mousing into iframe.',
+        dragger.dragging_);
+
+    dragCanceled = false;
+    e.target = target;
+    dragger.onWindowMouseOut_(e);
+    assertTrue('Drag is canceled for real mouse out of top window.',
+        dragCanceled);
+    assertFalse('Must stop dragging for real mouse out of top window.',
+        dragger.dragging_);
+  }
+}
+
+function testLimits() {
+  var dragger = new goog.fx.Dragger(target);
+
+  assertEquals(100, dragger.limitX(100));
+  assertEquals(100, dragger.limitY(100));
+
+  dragger.setLimits(new goog.math.Rect(10, 20, 30, 40));
+
+  assertEquals(10, dragger.limitX(0));
+  assertEquals(40, dragger.limitX(100));
+  assertEquals(20, dragger.limitY(0));
+  assertEquals(60, dragger.limitY(100));
+}
+
+function testWindowBlur() {
+  if (!goog.fx.Dragger.HAS_SET_CAPTURE_) {
+    var dragger = new goog.fx.Dragger(target);
+
+    var dragEnded = false;
+    goog.events.listen(dragger, goog.fx.Dragger.EventType.END, function(e) {
+      dragEnded = true;
+    });
+
+    var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+    e.type = goog.events.EventType.MOUSEDOWN;
+    e.clientX = 1;
+    e.clientY = 2;
+    e.isMouseActionButton().$returns(true);
+    e.preventDefault();
+    e.$replay();
+    dragger.startDrag(e);
+    e.$verify();
+
+    assertTrue(dragger.dragging_);
+
+    e = new goog.events.BrowserEvent();
+    e.type = goog.events.EventType.BLUR;
+    e.target = window;
+    e.currentTarget = window;
+    goog.testing.events.fireBrowserEvent(e);
+
+    assertTrue(dragEnded);
+  }
+}
+
+function testBlur() {
+  if (!goog.fx.Dragger.HAS_SET_CAPTURE_) {
+    var dragger = new goog.fx.Dragger(target);
+
+    var dragEnded = false;
+    goog.events.listen(dragger, goog.fx.Dragger.EventType.END, function(e) {
+      dragEnded = true;
+    });
+
+    var e = new goog.testing.StrictMock(goog.events.BrowserEvent);
+    e.type = goog.events.EventType.MOUSEDOWN;
+    e.clientX = 1;
+    e.clientY = 2;
+    e.isMouseActionButton().$returns(true);
+    e.preventDefault();
+    e.$replay();
+    dragger.startDrag(e);
+    e.$verify();
+
+    assertTrue(dragger.dragging_);
+
+    e = new goog.events.BrowserEvent();
+    e.type = goog.events.EventType.BLUR;
+    e.target = document.body;
+    e.currentTarget = document.body;
+    // Blur events do not bubble but the test event system does not emulate that
+    // part so we add a capturing listener on the target and stops the
+    // propagation at the target, preventing any event from bubbling.
+    goog.events.listen(document.body, goog.events.EventType.BLUR, function(e) {
+      e.propagationStopped_ = true;
+    }, true);
+    goog.testing.events.fireBrowserEvent(e);
+
+    assertFalse(dragEnded);
+  }
+}
+
+</script>
+</body>
+</html>

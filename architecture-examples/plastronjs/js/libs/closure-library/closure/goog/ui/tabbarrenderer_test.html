@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.TabBarRenderer</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.dom.a11y.Role');
+    goog.require('goog.dom.classes');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.Container.Orientation');
+    goog.require('goog.ui.Tab');
+    goog.require('goog.ui.TabBar');
+    goog.require('goog.ui.TabBar.Location');
+    goog.require('goog.ui.TabBarRenderer');
+    goog.require('goog.testing.ui.rendererasserts');
+  </script>
+</head>
+<body>
+  <div id="sandbox"></div>
+  <script>
+    var sandbox = goog.dom.getElement('sandbox');
+    var renderer = goog.ui.TabBarRenderer.getInstance();
+    var tabBar;
+  
+    function setUp() {
+      tabBar = new goog.ui.TabBar();
+    }
+    
+    function tearDown() {
+      tabBar.dispose();
+      goog.dom.removeChildren(sandbox);
+    }
+
+    function testConstructor() {
+      assertNotNull('Renderer must not be null', renderer);
+    }
+
+    function testGetCssClass() {
+      assertEquals('getCssClass() must return expected value',
+          goog.ui.TabBarRenderer.CSS_CLASS, renderer.getCssClass());
+    }
+
+    function testGetAriaRole() {
+      assertEquals('getAriaRole() must return expected value',
+          goog.dom.a11y.Role.TAB_LIST, renderer.getAriaRole());
+    }
+
+    function testCreateDom() {
+      var element = renderer.createDom(tabBar);
+      assertNotNull('Created element must not be null', element);
+      assertEquals('Created element must be a DIV', 'DIV', element.tagName);
+      assertSameElements('Created element must have expected class names',
+          ['goog-tab-bar', 'goog-tab-bar-horizontal', 'goog-tab-bar-top'],
+          goog.dom.classes.get(element));
+    }
+
+    function testDecorate() {
+      sandbox.innerHTML = '<div id="start" class="goog-tab-bar-start"></div>';
+      var element = renderer.decorate(tabBar, goog.dom.getElement('start'));
+      assertNotNull('Decorated element must not be null', element);
+      assertEquals('Decorated element must be as expected',
+          goog.dom.getElement('start'), element);
+      // Due to a bug in ContainerRenderer, the "-vertical" class isn't applied.
+      // TODO(user): Fix this!
+      assertSameElements('Decorated element must have expected class names',
+          ['goog-tab-bar', 'goog-tab-bar-start'],
+          goog.dom.classes.get(element));
+    }
+
+    function testSetStateFromClassName() {
+      renderer.setStateFromClassName(tabBar, 'goog-tab-bar-bottom',
+          renderer.getCssClass());
+      assertEquals('Location must be BOTTOM', goog.ui.TabBar.Location.BOTTOM,
+          tabBar.getLocation());
+      assertEquals('Orientation must be HORIZONTAL',
+          goog.ui.Container.Orientation.HORIZONTAL, tabBar.getOrientation());
+
+      renderer.setStateFromClassName(tabBar, 'goog-tab-bar-end',
+          renderer.getCssClass());
+      assertEquals('Location must be END', goog.ui.TabBar.Location.END,
+          tabBar.getLocation());
+      assertEquals('Orientation must be VERTICAL',
+          goog.ui.Container.Orientation.VERTICAL, tabBar.getOrientation());
+
+      renderer.setStateFromClassName(tabBar, 'goog-tab-bar-top',
+          renderer.getCssClass());
+      assertEquals('Location must be TOP', goog.ui.TabBar.Location.TOP,
+          tabBar.getLocation());
+      assertEquals('Orientation must be HORIZONTAL',
+          goog.ui.Container.Orientation.HORIZONTAL, tabBar.getOrientation());
+
+      renderer.setStateFromClassName(tabBar, 'goog-tab-bar-start',
+          renderer.getCssClass());
+      assertEquals('Location must be START', goog.ui.TabBar.Location.START,
+          tabBar.getLocation());
+      assertEquals('Orientation must be VERTICAL',
+          goog.ui.Container.Orientation.VERTICAL, tabBar.getOrientation());
+    }
+
+    function testGetClassNames() {
+      assertSameElements('Class names for TOP location must be as expected',
+          ['goog-tab-bar', 'goog-tab-bar-horizontal', 'goog-tab-bar-top'],
+          renderer.getClassNames(tabBar));
+
+      tabBar.setLocation(goog.ui.TabBar.Location.START);
+      assertSameElements('Class names for START location must be as expected',
+          ['goog-tab-bar', 'goog-tab-bar-vertical', 'goog-tab-bar-start'],
+          renderer.getClassNames(tabBar));
+
+      tabBar.setLocation(goog.ui.TabBar.Location.BOTTOM);
+      assertSameElements('Class names for BOTTOM location must be as expected',
+          ['goog-tab-bar', 'goog-tab-bar-horizontal', 'goog-tab-bar-bottom'],
+          renderer.getClassNames(tabBar));
+      
+      tabBar.setLocation(goog.ui.TabBar.Location.END);
+      assertSameElements('Class names for END location must be as expected',
+          ['goog-tab-bar', 'goog-tab-bar-vertical', 'goog-tab-bar-end'],
+          renderer.getClassNames(tabBar));
+    }
+
+    function testDoesntCallGetCssClassInConstructor() {
+      goog.testing.ui.rendererasserts.
+          assertNoGetCssClassCallsInConstructor(goog.ui.TabBarRenderer);
+    }
+  </script>
+</body>
+</html>

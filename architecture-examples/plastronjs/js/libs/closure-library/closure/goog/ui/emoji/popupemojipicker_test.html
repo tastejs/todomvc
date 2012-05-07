@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.emoji.PopupEmojiPicker</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.emoji.PopupEmojiPicker');
+</script>
+</head>
+<body>
+<div id="containingDiv">
+<button id="button1"></button>
+
+<script>
+
+var emojiGroup1 = [
+    'Emoji 1',
+    [
+        ['../../demos/emoji/200.gif', 'std.200'],
+        ['../../demos/emoji/201.gif', 'std.201']
+    ]];
+
+var emojiGroup2 = [
+    'Emoji 2',
+    [
+        ['../../demos/emoji/2D0.gif', 'std.2D0'],
+        ['../../demos/emoji/2D1.gif', 'std.2D1']
+    ]];
+
+var emojiGroup3 = [
+    'Emoji 3',
+    [
+        ['../../demos/emoji/2E4.gif', 'std.2E4'],
+        ['../../demos/emoji/2E5.gif', 'std.2E5']
+    ]];
+
+function testConstructAndRenderPopupEmojiPicker() {
+  var picker = new goog.ui.emoji.PopupEmojiPicker(
+        '../../demos/emoji/none.gif');
+  picker.addEmojiGroup(emojiGroup1[0], emojiGroup1[1]);
+  picker.addEmojiGroup(emojiGroup2[0], emojiGroup2[1]);
+  picker.addEmojiGroup(emojiGroup3[0], emojiGroup3[1]);
+  picker.render();
+  picker.attach(document.getElementById('button1'));
+  picker.dispose();
+}
+
+// Unittest to ensure that the popup gets created in createDom().
+function testPopupCreation() {
+  var picker = new goog.ui.emoji.PopupEmojiPicker();
+  picker.addEmojiGroup(emojiGroup1[0], emojiGroup1[1]);
+  picker.createDom();
+  assertNotNull(picker.getPopup());
+}
+
+
+function testAutoHideIsSetProperly() {
+  var picker = new goog.ui.emoji.PopupEmojiPicker();
+  picker.addEmojiGroup(emojiGroup1[0], emojiGroup1[1]);
+  picker.createDom();
+  picker.setAutoHide(true);
+  var containingDiv = goog.dom.getElement('containingDiv');
+  picker.setAutoHideRegion(containingDiv);
+  assertTrue(picker.getAutoHide());
+  assertEquals(containingDiv, picker.getAutoHideRegion());
+}
+
+</script>
+</div>
+</body>
+</html>

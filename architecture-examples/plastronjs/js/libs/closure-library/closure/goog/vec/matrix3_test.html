@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.vec.Vec3</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.vec.Float32Array');
+  goog.require('goog.vec.Matrix3');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+  function testConstructor() {
+    var m0 = goog.vec.Matrix3.create();
+    assertElementsEquals([0, 0, 0, 0, 0, 0, 0, 0, 0], m0);
+
+    var m1 = goog.vec.Matrix3.createFromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m1);
+
+    var m2 = goog.vec.Matrix3.createFromArray(m1);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m1);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m2);
+
+    var m3 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m3);
+
+    var m4 = goog.vec.Matrix3.createIdentity();
+    assertElementsEquals([1, 0, 0, 0, 1, 0, 0, 0, 1], m4);
+  }
+
+  function testSet() {
+    var m0 = goog.vec.Matrix3.create();
+    var m1 = goog.vec.Matrix3.createFromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    goog.vec.Matrix3.setFromArray(m0, m1);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+
+    goog.vec.Matrix3.setFromValues(m0, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    assertElementsEquals([2, 3, 4, 5, 6, 7, 8, 9, 10], m0);
+  }
+
+  function testSetDiagonal() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setDiagonalValues(m0, 1, 2, 3);
+    assertElementsEquals([1, 0, 0, 0, 2, 0, 0, 0, 3], m0);
+
+    goog.vec.Matrix3.setDiagonal(m0, [4, 5, 6]);
+    assertElementsEquals([4, 0, 0, 0, 5, 0, 0, 0, 6], m0);
+  }
+
+  function testSetGetColumn() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setColumn(m0, 0, [1, 2, 3]);
+    goog.vec.Matrix3.setColumn(m0, 1, [4, 5, 6]);
+    goog.vec.Matrix3.setColumn(m0, 2, [7, 8, 9]);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+
+    var v0 = [0, 0, 0];
+    goog.vec.Matrix3.getColumn(m0, 0, v0);
+    assertElementsEquals([1, 2, 3], v0);
+    goog.vec.Matrix3.getColumn(m0, 1, v0);
+    assertElementsEquals([4, 5, 6], v0);
+    goog.vec.Matrix3.getColumn(m0, 2, v0);
+    assertElementsEquals([7, 8, 9], v0);
+  }
+
+  function testSetGetColumns() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setColumns(m0, [1, 2, 3], [4, 5, 6], [7, 8, 9]);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+
+    var v0 = [0, 0, 0], v1 = [0, 0, 0], v2 = [0, 0, 0];
+    goog.vec.Matrix3.getColumns(m0, v0, v1, v2);
+    assertElementsEquals([1, 2, 3], v0);
+    assertElementsEquals([4, 5, 6], v1);
+    assertElementsEquals([7, 8, 9], v2);
+  }
+
+  function testSetGetRow() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setRow(m0, 0, [1, 2, 3]);
+    goog.vec.Matrix3.setRow(m0, 1, [4, 5, 6]);
+    goog.vec.Matrix3.setRow(m0, 2, [7, 8, 9]);
+    assertElementsEquals([1, 4, 7, 2, 5, 8, 3, 6, 9], m0);
+
+    var v0 = [0, 0, 0];
+    goog.vec.Matrix3.getRow(m0, 0, v0);
+    assertElementsEquals([1, 2, 3], v0);
+    goog.vec.Matrix3.getRow(m0, 1, v0);
+    assertElementsEquals([4, 5, 6], v0);
+    goog.vec.Matrix3.getRow(m0, 2, v0);
+    assertElementsEquals([7, 8, 9], v0);
+  }
+
+  function testSetGetRows() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setRows(m0, [1, 2, 3], [4, 5, 6], [7, 8, 9]);
+    assertElementsEquals([1, 4, 7, 2, 5, 8, 3, 6, 9], m0);
+
+    var v0 = [0, 0, 0], v1 = [0, 0, 0], v2 = [0, 0, 0];
+    goog.vec.Matrix3.getRows(m0, v0, v1, v2);
+    assertElementsEquals([1, 2, 3], v0);
+    assertElementsEquals([4, 5, 6], v1);
+    assertElementsEquals([7, 8, 9], v2);
+  }
+
+  function testSetRowMajorArray() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setFromRowMajorArray(
+        m0, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    assertElementsEquals([1, 4, 7, 2, 5, 8, 3, 6, 9], m0);
+  }
+
+  function testSetZero() {
+    var m0 = goog.vec.Matrix3.createFromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+    goog.vec.Matrix3.setZero(m0);
+    assertElementsEquals([0, 0, 0, 0, 0, 0, 0, 0, 0], m0);
+  }
+
+  function testSetIdentity() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setIdentity(m0);
+    assertElementsEquals([1, 0, 0, 0, 1, 0, 0, 0, 1], m0);
+  }
+
+  function testSetGetElement() {
+    var m0 = goog.vec.Matrix3.create();
+    for (var r = 0; r < 3; r++) {
+      for (var c = 0; c < 3; c++) {
+        var value = c * 3 + r + 1;
+        goog.vec.Matrix3.setElement(m0, r, c, value);
+        assertEquals(value, goog.vec.Matrix3.getElement(m0, r, c));
+      }
+    }
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+  }
+
+  function testAdd() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = goog.vec.Matrix3.createFromValues(3, 4, 5, 6, 7, 8, 9, 1, 2);
+    var m2 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.add(m0, m1, m2);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+    assertElementsEquals([3, 4, 5, 6, 7, 8, 9, 1, 2], m1);
+    assertElementsEquals([4, 6, 8, 10, 12, 14, 16, 9, 11], m2);
+
+    goog.vec.Matrix3.add(m0, m1, m0);
+    assertElementsEquals([3, 4, 5, 6, 7, 8, 9, 1, 2], m1);
+    assertElementsEquals([4, 6, 8, 10, 12, 14, 16, 9, 11], m0);
+  }
+
+  function testSubtract() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = goog.vec.Matrix3.createFromValues(3, 4, 5, 6, 7, 8, 9, 1, 2);
+    var m2 = goog.vec.Matrix3.create();
+
+    goog.vec.Matrix3.subtract(m0, m1, m2);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+    assertElementsEquals([3, 4, 5, 6, 7, 8, 9, 1, 2], m1);
+    assertElementsEquals([-2, -2, -2, -2, -2, -2, -2, 7, 7], m2);
+
+    goog.vec.Matrix3.subtract(m1, m0, m1);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+    assertElementsEquals([2, 2, 2, 2, 2, 2, 2, -7, -7], m1);
+  }
+
+  function testScale() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = goog.vec.Matrix3.create();
+
+    goog.vec.Matrix3.scale(m0, 5, m1);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m0);
+    assertElementsEquals([5, 10, 15, 20, 25, 30, 35, 40, 45], m1);
+
+    goog.vec.Matrix3.scale(m0, 5, m0);
+    assertElementsEquals([5, 10, 15, 20, 25, 30, 35, 40, 45], m0);
+  }
+
+  function testMultMat() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m2 = goog.vec.Matrix3.create();
+
+    goog.vec.Matrix3.multMat(m0, m1, m2);
+    assertElementsEquals([30, 36, 42, 66, 81, 96, 102, 126, 150], m2);
+
+    goog.vec.Matrix3.add(m0, m1, m1);
+    goog.vec.Matrix3.multMat(m0, m1, m1);
+    assertElementsEquals([60, 72, 84, 132, 162, 192, 204, 252, 300], m1);
+  }
+
+  function testTranspose() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.transpose(m0, m1);
+    assertElementsEquals([1, 4, 7, 2, 5, 8, 3, 6, 9], m1);
+    goog.vec.Matrix3.transpose(m1, m1);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], m1);
+  }
+
+  function testInvert() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 1, 1, 1, 1, 1, 1, 1, 1);
+    assertFalse(goog.vec.Matrix3.invert(m0, m0));
+    assertElementsEquals([1, 1, 1, 1, 1, 1, 1, 1, 1], m0);
+
+    goog.vec.Matrix3.setFromValues(m0, 1, 2, 3, 1, 3, 4, 3, 4, 5);
+    assertTrue(goog.vec.Matrix3.invert(m0, m0));
+    assertElementsEquals([0.5, -1.0, 0.5, -3.5, 2.0, 0.5, 2.5, -1.0, -0.5], m0);
+
+    goog.vec.Matrix3.makeScale(m0, .01, .01, .01);
+    assertTrue(goog.vec.Matrix3.invert(m0, m0));
+    var m1 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.makeScale(m1, 100, 100, 100);
+    assertElementsEquals(m1, m0);
+  }
+
+  function testEquals() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = goog.vec.Matrix3.createFromArray(m0);
+    assertTrue(goog.vec.Matrix3.equals(m0, m1));
+    assertTrue(goog.vec.Matrix3.equals(m1, m0));
+    for (var i = 0; i < 9; i++) {
+      m1[i] = 15;
+      assertFalse(goog.vec.Matrix3.equals(m0, m1));
+      assertFalse(goog.vec.Matrix3.equals(m1, m0));
+      m1[i] = i + 1;
+    }
+  }
+
+  function testMultVec3() {
+    var m0 = goog.vec.Matrix3.createFromValues(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var v0 = [1, 2, 3];
+    var v1 = [0, 0, 0];
+
+    goog.vec.Matrix3.multVec3(m0, v0, v1);
+    assertElementsEquals([30, 36, 42], v1);
+    goog.vec.Matrix3.multVec3(m0, v0, v0);
+    assertElementsEquals([30, 36, 42], v0);
+  }
+
+  function testSetValues() {
+    var a0 = goog.vec.Matrix3.create();
+    assertElementsEquals([0, 0, 0, 0, 0, 0, 0, 0, 0], a0);
+    goog.vec.Matrix3.setFromValues(a0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], a0);
+
+    var a1 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.setDiagonalValues(a1, 1, 2, 3);
+    assertElementsEquals([1, 0, 0, 0, 2, 0, 0, 0, 3], a1);
+
+    goog.vec.Matrix3.setColumnValues(a1, 0, 2, 3, 4);
+    goog.vec.Matrix3.setColumnValues(a1, 1, 5, 6, 7);
+    goog.vec.Matrix3.setColumnValues(a1, 2, 8, 9, 1);
+    assertElementsEquals([2, 3, 4, 5, 6, 7, 8, 9, 1], a1);
+
+    goog.vec.Matrix3.setRowValues(a1, 0, 1, 4, 7);
+    goog.vec.Matrix3.setRowValues(a1, 1, 2, 5, 8);
+    goog.vec.Matrix3.setRowValues(a1, 2, 3, 6, 9);
+    assertElementsEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], a1);
+  }
+
+  function testMakeTranslate() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.makeTranslate(m0, 3, 4);
+    assertElementsEquals([1, 0, 0, 0, 1, 0, 3, 4, 1], m0);
+  }
+
+  function testMakeScale() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.makeScale(m0, 3, 4, 5);
+    assertElementsEquals([3, 0, 0, 0, 4, 0, 0, 0, 5], m0);
+  }
+
+  function testMakeRotate() {
+    var m0 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.makeAxisAngleRotate(m0, Math.PI / 2, 0, 0, 1);
+    var v0 = [0, 1, 0, -1, 0, 0, 0, 0, 1];
+    for (var i = 0; i < 9; ++i) {
+      assertTrue(Math.abs(m0[i] - v0[i]) < 1e-6);
+    }
+
+    var m1 = goog.vec.Matrix3.create();
+    goog.vec.Matrix3.makeAxisAngleRotate(m1, -Math.PI / 4, 0, 0, 1);
+    goog.vec.Matrix3.multMat(m0, m1, m1);
+    var v1 = [0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 0, 0, 1];
+    for (var i = 0; i < 9; ++i) {
+      assertTrue(Math.abs(m1[i] - v1[i]) < 1e-6);
+    }
+  }
+
+</script>
+</body>

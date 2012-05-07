@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.ui.Prompt</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom.selection');
+  goog.require('goog.functions');
+  goog.require('goog.string');
+  goog.require('goog.ui.Prompt');
+  goog.require('goog.userAgent.product');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.events');
+</script>
+<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../css/dialog.css"/>
+</head>
+<body>
+
+<input type='button' value='Prompt' onclick='newPrompt();' />
+
+<script>
+
+var prompt;
+
+function setUp() {
+  document.body.focus();
+}
+
+function tearDown() {
+  goog.dispose(prompt);
+}
+
+function testFocusOnInputElement() {
+  var promptResult = undefined;
+  prompt = new goog.ui.Prompt('title', 'Prompt:', function(result) {
+    promptResult = result;
+  }, 'defaultValue');
+  prompt.setVisible(true);
+
+  if (goog.userAgent.product.CHROME) {
+    // For some reason, this test fails non-deterministically on Chrome,
+    // but only on the test farm.
+    return;
+  }
+  assertEquals('defaultValue',
+      goog.dom.selection.getText(prompt.userInputEl_));
+}
+
+
+function testValidationFunction() {
+  var promptResult = undefined;
+  prompt = new goog.ui.Prompt('title', 'Prompt:', function(result) {
+    promptResult = result;
+  }, '');
+  prompt.setValidationFunction(goog.functions.not(goog.string.isEmpty));
+  prompt.setVisible(true);
+
+  var buttonSet = prompt.getButtonSet();
+  var okButton = buttonSet.getButton(goog.ui.Dialog.DefaultButtonKeys.OK);
+  assertTrue(okButton.disabled);
+
+  prompt.userInputEl_.value = '';
+  goog.testing.events.fireKeySequence(prompt.userInputEl_,
+      goog.events.KeyCodes.SPACE);
+  assertTrue(okButton.disabled);
+  prompt.userInputEl_.value = 'foo';
+  goog.testing.events.fireKeySequence(prompt.userInputEl_,
+      goog.events.KeyCodes.X);
+  assertFalse(okButton.disabled);
+}
+
+// An interactive test so we can manually see what it looks like.
+function newPrompt() {
+  prompt = new goog.ui.Prompt('title', 'Prompt:', function(result) {
+    alert('Result: ' + result);
+    goog.dispose(prompt);
+  }, 'defaultValue');
+  prompt.setVisible(true);
+}
+
+</script>
+</body>
+</html>

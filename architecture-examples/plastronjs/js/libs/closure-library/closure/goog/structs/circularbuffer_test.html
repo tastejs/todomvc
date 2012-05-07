@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2006 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.structs</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.structs.CircularBuffer');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testCircularBuffer() {
+  var buff = new goog.structs.CircularBuffer(2);
+  buff.add('first');
+  assertEquals(1, buff.getCount());
+  assertEquals('first', buff.get(0));
+  assertEquals('first', buff.getLast());
+  buff.add('second');
+  assertEquals(2, buff.getCount());
+  assertEquals('first', buff.get(0));
+  assertEquals('second', buff.get(1));
+  assertEquals('second', buff.getLast());
+  buff.add('third');
+  assertEquals(2, buff.getCount());
+  assertEquals('second', buff.get(0));
+  assertEquals('third', buff.get(1));
+  assertEquals('third', buff.getLast());
+}
+
+function testIsEmpty() {
+  var buff = new goog.structs.CircularBuffer(2);
+  assertTrue('initially empty', buff.isEmpty());
+  buff.add('first');
+  assertFalse('not empty after add empty', buff.isEmpty());
+}
+
+function testClear() {
+  var buff = new goog.structs.CircularBuffer(2);
+  buff.add('first');
+  buff.clear();
+  assertTrue('should be empty after clear', buff.isEmpty());
+
+}
+
+function testGetValues() {
+  var buff = new goog.structs.CircularBuffer(2);
+  buff.add('first');
+  buff.add('second');
+  assertEquals('firstsecond', buff.getValues().join(''));
+}
+
+function testGetNewestVtalues() {
+  var buff = new goog.structs.CircularBuffer(5);
+  buff.add('first');
+  buff.add('second');
+  buff.add('third');
+  buff.add('fourth');
+  buff.add('fifth');
+  assertEquals('fourthfifth', buff.getNewestValues(2).join(''));
+}
+
+
+function testGetKeys() {
+  var buff = new goog.structs.CircularBuffer(2);
+  buff.add('first');
+  buff.add('second');
+  assertEquals('01', buff.getKeys().join(''));
+}
+
+function testContainsValue() {
+  var buff = new goog.structs.CircularBuffer(2);
+  buff.add('first');
+  buff.add('second');
+  assertTrue(buff.containsValue('first'));
+  assertTrue(buff.containsValue('second'));
+  assertFalse(buff.containsValue('third'));
+}
+
+function testContainsKey() {
+  var buff = new goog.structs.CircularBuffer(3);
+  buff.add('first');
+  buff.add('second');
+  buff.add('third');
+  assertTrue(buff.containsKey(0));
+  assertTrue(buff.containsKey('0'));
+  assertTrue(buff.containsKey(1));
+  assertTrue(buff.containsKey('1'));
+  assertTrue(buff.containsKey(2));
+  assertTrue(buff.containsKey('2'));
+  assertFalse(buff.containsKey(3));
+  assertFalse(buff.containsKey('3'));
+}
+
+</script>
+</body>
+</html>

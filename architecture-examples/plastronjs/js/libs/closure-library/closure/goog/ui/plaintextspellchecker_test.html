@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<!--
+This test has not yet been updated to run on IE8. See http://b/hotlist?id=36311
+-->
+<!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>Closure Unit Tests - goog.ui.PlainTextSpellChecker</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.string.StringBuffer');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.ui.PlainTextSpellChecker');
+</script>
+</head>
+<body>
+
+<textarea id="test1" style="width: 50ex; height: 15em;"></textarea>
+<textarea id="test2" style="width: 50ex; height: 15em;"></textarea>
+<textarea id="test3" style="width: 50ex; height: 15em;"></textarea>
+
+<script>
+
+var missspelling = 'missspelling';
+var iggnore = 'iggnore';
+var vocabulary = ['test', 'words', 'a', 'few', missspelling, iggnore];
+
+// We don't use Math.random() to make test predictable. Math.random is not
+// repeatable, so a success on the dev machine != success in the lab (or on
+// other dev machines). This is the same pseudorandom logic that CRT rand()
+// uses.
+var rseed = 1;
+function random(range) {
+  rseed = (rseed * 1103515245 + 12345) & 0xffffffff;
+  return ((rseed >> 16) & 0x7fff) % range;
+};
+
+function localSpellCheckingFunction(words, spellChecker, callback) {
+  var len = words.length;
+  var results = [];
+  for (var i = 0; i < len; i++) {
+    var word = words[i];
+    var found = false;
+    // Last two words are considered misspellings
+    for (var j = 0 ; j < vocabulary.length - 2 ; ++j) {
+      if (vocabulary[j] == word) {
+        found = true;
+        break;
+      }
+    }
+    if (found) {
+      results.push([word, goog.spell.SpellCheck.WordStatus.VALID]);
+    } else {
+      results.push([word, goog.spell.SpellCheck.WordStatus.INVALID,
+          ['foo','bar']]);
+    }
+  }
+  callback.call(spellChecker, results);
+};
+
+function generateRandomSpace() {
+  var string = '';
+  var nSpace = 1 + random(4);
+  for (var i = 0; i < nSpace ; ++i) {
+    string += ' ';
+  }
+  return string;
+};
+
+function generateRandomString(maxWords, doQuotes) {
+  var x = random(10);
+  var string = '';
+  if (doQuotes) {
+    if (x == 0) {
+      string = 'On xxxxx yyyy wrote:\n> ';
+    } else if (x < 3) {
+      string = '> ';
+    }
+  }
+
+  var nWords = 1 + random(maxWords);
+  for (var i = 0; i < nWords ; ++i) {
+    string += vocabulary[random(vocabulary.length)];
+    string += generateRandomSpace();
+  }
+  return string;
+};
+
+var timerQueue = [];
+function processTimerQueue() {
+  while (timerQueue.length > 0) {
+    var fn = timerQueue.shift();
+    fn();
+  }
+};
+
+function localTimer(fn, delay, obj) {
+  if (obj) {
+    fn = goog.bind(fn, obj);
+  }
+  timerQueue.push(fn);
+  return timerQueue.length;
+};
+
+function testPlainTextSpellCheckerNoQuotes() {
+  var handler = new goog.spell.SpellCheck(localSpellCheckingFunction);
+  var s = new goog.ui.PlainTextSpellChecker(handler);
+  s.asyncWordsPerBatch_ = 100;
+  var el = document.getElementById('test1');
+  s.decorate(el);
+  var text = '';
+  for (var i = 0 ; i < 10 ; ++i) {
+    text += generateRandomString(10, false) + '\n';
+  }
+  el.value = text;
+  // Yes this looks bizzare. This is for '\n' processing.
+  // They get converted to CRLF as part of the above statement.
+  text = el.value;
+
+  var timerSav = goog.Timer.callOnce;
+  goog.Timer.callOnce = localTimer;
+
+  s.check();
+  processTimerQueue();
+  s.ignoreWord(iggnore);
+  processTimerQueue();
+  s.check();
+  processTimerQueue();
+  s.resume();
+  processTimerQueue();
+
+  goog.Timer.callOnce = timerSav;
+
+  assertEquals('Spell checker run should not change the underlying element.',
+               text, el.value);
+  s.dispose();
+};
+
+function testPlainTextSpellCheckerWithQuotes() {
+  var handler = new goog.spell.SpellCheck(localSpellCheckingFunction);
+  var s = new goog.ui.PlainTextSpellChecker(handler);
+  s.asyncWordsPerBatch_ = 100;
+  var el = document.getElementById('test2');
+  s.decorate(el);
+  var text = '';
+  for (var i = 0 ; i < 10; ++i) {
+    text += generateRandomString(10, true) + '\n';
+  }
+  el.value = text;
+  // Yes this looks bizzare. This is for '\n' processing.
+  // They get converted to CRLF as part of the above statement.
+  text = el.value;
+
+  var timerSav = goog.Timer.callOnce;
+  goog.Timer.callOnce = localTimer;
+
+  s.setExcludeMarker(new RegExp('\nOn .* wrote:\n(> .*\n)+|\n(> .*\n)', 'g'));
+  s.check();
+  processTimerQueue();
+  s.ignoreWord(iggnore);
+  processTimerQueue();
+  s.check();
+  processTimerQueue();
+  s.resume();
+  processTimerQueue();
+
+  goog.Timer.callOnce = timerSav;
+
+  assertEquals('Spell checker run should not change the underlying element.',
+               text, el.value);
+  s.dispose();
+};
+
+function testPlainTextSpellCheckerWordReplacement() {
+  var handler = new goog.spell.SpellCheck(localSpellCheckingFunction);
+  var s = new goog.ui.PlainTextSpellChecker(handler);
+  s.asyncWordsPerBatch_ = 100;
+  var el = document.getElementById('test3');
+  s.decorate(el);
+  var text = '';
+  for (var i = 0 ; i < 10 ; ++i) {
+    text += generateRandomString(10, false) + '\n';
+  }
+  el.value = text;
+
+  var timerSav = goog.Timer.callOnce;
+  goog.Timer.callOnce = localTimer;
+
+  s.check();
+  processTimerQueue();
+
+  var container = s.overlay_;
+  var wordEl = container.firstChild;
+  while (wordEl) {
+    if (goog.dom.getTextContent(wordEl) == missspelling) {
+      break;
+    }
+    wordEl = wordEl.nextSibling;
+  }
+
+  if (!wordEl) {
+    assertTrue('Cannot find the world that should have been here.'
+               + 'Please revise the test', false);
+    return;
+  }
+
+  s.activeWord_ = missspelling;
+  s.activeElement_ = wordEl;
+  var suggestions = s.getSuggestions_();
+  s.replaceWord(wordEl, missspelling, 'foo');
+  assertEquals('Should have set the original word attribute!',
+      wordEl.getAttribute(goog.ui.AbstractSpellChecker.ORIGINAL_),
+      missspelling);
+
+  s.activeWord_ = goog.dom.getTextContent(wordEl);
+  s.activeElement_ = wordEl;
+  var newSuggestions = s.getSuggestions_();
+  assertEquals('Suggestion list should still be present even if the word '
+      + 'is now correct!', suggestions, newSuggestions);
+
+  s.resume();
+  processTimerQueue();
+
+  goog.Timer.callOnce = timerSav;
+  s.dispose();
+};
+
+
+
+</script>
+</body>
+</html>

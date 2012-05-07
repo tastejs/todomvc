@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.gears.BaseStore</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.gears.BaseStore');
+  goog.require('goog.gears.Database');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function isGearsAllowed() {
+  return goog.gears.hasFactory() && goog.gears.getFactory().hasPermission;
+}
+
+var database;
+var baseStore;
+
+function setUpPage() {
+  if (isGearsAllowed()) {
+    // Remove table if already there
+    try {
+      database = new goog.gears.Database(
+          'tester', 'basestore-common-test', '');
+      database.execute('DROP TABLE IF EXISTS StoreVersionInfo');
+    } catch (ex) {
+      debug('Could not create the database');
+    }
+  }
+  setUpPageStatus = 'complete';
+}
+
+function setUp() {
+  if (isGearsAllowed()) {
+    baseStore = new goog.gears.BaseStore(database);
+    baseStore.removeStore();
+    baseStore.ensureStoreExists();
+  }
+}
+
+function tearDown() {
+  if (baseStore) {
+    baseStore.removeStore();
+  }
+}
+
+function testStoreVersion() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  assertEquals(
+     'Bad initial store version', 1, baseStore.getStoreVersion());
+
+  baseStore.setStoreVersion_(2);
+
+  var version = baseStore.getStoreVersion();
+  assertEquals('Bad store version', 2, version);
+
+  baseStore.setStoreVersion_(3);
+
+  version = baseStore.getStoreVersion();
+  assertEquals('Bad store version', 3, version);
+  baseStore.removeStoreVersion();
+  version = baseStore.getStoreVersion();
+  assertEquals('Bad removed store version', 0, version);
+}
+
+function testUpdateStore() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  var additionalTable = {
+      type:  goog.gears.BaseStore.SchemaType.TABLE,
+      name: 'GoogleIsCool',
+      columns: [
+        'OhYesItIs TEXT NOT NULL PRIMARY KEY'
+      ]};
+
+  // We need to append this table to the schema, so that it is cleaned up during
+  // the tear down.
+  baseStore.schema.push(additionalTable);
+
+  baseStore.updateStore = function(version) {
+    this.createSchema([additionalTable], true);
+  };
+  baseStore.version = 2;
+  baseStore.ensureStoreExists();
+  assertEquals('Bad store version', 2, baseStore.getStoreVersion());
+  assertTrue('No test table', baseStore.hasTable('GoogleIsCool'));
+}
+
+function testSchema() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  var schema = [
+    {type: goog.gears.BaseStore.SchemaType.TABLE,
+     name: "Things",
+     columns: [
+      "ThingId INTEGER PRIMARY KEY AUTOINCREMENT",
+      "Name TEXT NOT NULL",
+      "Description TEXT",
+      "Value INTEGER DEFAULT 42",
+      "Year INTEGER"]},
+    {type: goog.gears.BaseStore.SchemaType.INDEX,
+     name: "ThingsNameIndex",
+     isUnique: true,
+     tableName: "Things",
+     columns: ["Name"]},
+    {type: goog.gears.BaseStore.SchemaType.INDEX,
+     name: "ThingsYearIndex",
+     isUnique: false,
+     tableName: "Things",
+     columns: ["Year DESC"]},
+    {type: goog.gears.BaseStore.SchemaType.VIRTUAL_TABLE,
+     name: "Virt",
+     columns: [
+      "Foo",
+      "Bar"]}
+  ];
+
+  baseStore.dropSchema(schema);
+  assertFalse('Things table still exists', baseStore.hasTable('Things'));
+  assertFalse('Virt table still exists', baseStore.hasTable('Virt'));
+  assertFalse('ThingsNameIndex index still exists',
+              baseStore.hasIndex('ThingsNameIndex'));
+  assertFalse('ThingsYearIndex index still exists',
+               baseStore.hasIndex('ThingsYearIndex'));
+  baseStore.createSchema(schema);
+  assertTrue('Missing Things table', baseStore.hasTable('Things'));
+  assertTrue('Missing Virt table', baseStore.hasTable('Virt'));
+  assertTrue('Missing ThingsNameIndex index',
+             baseStore.hasIndex('ThingsNameIndex'));
+  assertTrue('Missing ThingsYearIndex index',
+             baseStore.hasIndex('ThingsYearIndex'));
+
+  database.execute('INSERT INTO Things (Name, Description, Year) ' +
+                   'VALUES (?, ?, ?)',
+                   'George Washington',
+                   '1st President',
+                   1792);
+
+  var obj = database.queryObject('SELECT * FROM Things');
+  assertNotNull('Could not retrieve record', obj);
+  assertEquals('Incorrect auto id', 1, obj['ThingId']);
+  assertEquals('Incorrect name', 'George Washington', obj['Name']);
+  assertEquals('Incorrect description', '1st President', obj['Description']);
+  assertEquals('Incorrect default value', 42, obj['Value']);
+  assertEquals('Incorrect default year', 1792, obj['Year']);
+
+  var insertFailed = false;
+  try {
+    // this should fail.
+    database.execute('INSERT INTO Things (Name, Description, Year) ' +
+                     'VALUES (?, ?, ?)',
+                     'George Washington',
+                     '1st President',
+                     1792);
+  } catch (e) {
+    insertFailed = true;
+  }
+
+  assertTrue('Insertion of duplicated record did not fail', insertFailed);
+
+  database.execute('INSERT INTO Virt (Foo, Bar) ' +
+                   'VALUES (?, ?)',
+                   'alpha',
+                   'beta');
+
+  obj = database.queryObject('SELECT Foo, Bar FROM Virt');
+  assertNotNull('Could not retrieve record', obj);
+  assertEquals('Incorrect Foo', 'alpha', obj['Foo']);
+  assertEquals('Incorrect Bar', 'beta', obj['Bar']);
+
+  baseStore.dropSchema(schema);
+  assertFalse('Things table still exists', baseStore.hasTable('Things'));
+  assertFalse('Virt table still exists', baseStore.hasTable('Virt'));
+  assertFalse('ThingsNameIndex index still exists',
+              baseStore.hasIndex('ThingsNameIndex'));
+  assertFalse('ThingsYearIndex index still exists',
+              baseStore.hasIndex('ThingsYearIndex'));
+
+}
+
+function testCreateTriggers() {
+  if (!isGearsAllowed()) {
+    return;
+  }
+  var oldSchema = [
+    {type: goog.gears.BaseStore.SchemaType.TABLE,
+     name: 'SampleTable',
+     columns: [
+       'Column1 INTEGER NOT NULL',
+       'Column2 TEXT'
+     ]},
+    {type: goog.gears.BaseStore.SchemaType.AFTER_INSERT_TRIGGER,
+     name: 'SomeTrigger',
+     tableName: 'SampleTable',
+     when: 'NEW.Column1=4',
+     actions: ['UPDATE SampleTable SET Column2="four" WHERE Column1=4']}
+  ];
+  baseStore.createSchema(oldSchema);
+  baseStore.schema = oldSchema; // so that it gets dropped after test
+  database.execute('INSERT INTO SampleTable (Column1) VALUES (4)');
+  assertEquals('Should execute trigger', 'four', database.queryValue(
+      'SELECT Column2 FROM SampleTable WHERE Column1=4'));
+  var newSchema = [
+    {type: goog.gears.BaseStore.SchemaType.TABLE,
+     name: 'SampleTable',
+     columns: [
+       'Column1 INTEGER NOT NULL',
+       'Column2 TEXT'
+     ]},
+    {type: goog.gears.BaseStore.SchemaType.AFTER_INSERT_TRIGGER,
+     name: 'SomeTrigger',
+     tableName: 'SampleTable',
+     when: 'NEW.Column1=5',
+     actions: ['UPDATE SampleTable SET Column2="five" WHERE Column1=5']}
+  ];
+  baseStore.createTriggers(newSchema);
+  baseStore.schema = newSchema;
+  assertTrue(baseStore.hasTable('SampleTable'));
+  assertTrue(baseStore.hasTrigger('SomeTrigger'));
+  database.execute('DELETE FROM SampleTable');
+  database.execute('INSERT INTO SampleTable (Column1) VALUES (4)');
+  database.execute('INSERT INTO SampleTable (Column1) VALUES (5)');
+  assertNull('Should no longer have old trigger', database.queryValue(
+      'SELECT Column2 FROM SampleTable WHERE Column1=4'));
+  assertEquals('Should have new trigger', 'five', database.queryValue(
+      'SELECT Column2 FROM SampleTable WHERE Column1=5'));
+}
+
+</script>
+</body>
+</html>

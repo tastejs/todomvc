@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.vec.Vec3</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.vec.Float32Array');
+  goog.require('goog.vec.Vec3');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+  function testConstructor() {
+    var v = goog.vec.Vec3.create();
+    assertElementsEquals(0, v[0]);
+    assertEquals(0, v[1]);
+    assertEquals(0, v[2]);
+
+    assertElementsEquals([0, 0, 0], goog.vec.Vec3.create());
+
+    assertElementsEquals([1, 2, 3], goog.vec.Vec3.createFromValues(1, 2, 3));
+
+    assertElementsEquals([1, 2, 3], goog.vec.Vec3.createFromArray([1, 2, 3]));
+
+    v = goog.vec.Vec3.createFromValues(1, 2, 3);
+    assertElementsEquals([1, 2, 3], goog.vec.Vec3.clone(v));
+  }
+
+  function testSet() {
+    var v = goog.vec.Vec3.create();
+    goog.vec.Vec3.setFromValues(v, 1, 2, 3);
+    assertElementsEquals([1, 2, 3], v);
+
+    goog.vec.Vec3.setFromArray(v, [4, 5, 6]);
+    assertElementsEquals([4, 5, 6], v);
+  }
+
+  function testAdd() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    var v1 = goog.vec.Vec3.createFromArray([4, 5, 6]);
+    var v2 = goog.vec.Vec3.clone(v0);
+
+    goog.vec.Vec3.add(v2, v1, v2);
+    assertElementsEquals([1, 2, 3], v0);
+    assertElementsEquals([4, 5, 6], v1);
+    assertElementsEquals([5, 7, 9], v2);
+
+    goog.vec.Vec3.add(goog.vec.Vec3.add(v0, v1, v2), v0, v2);
+    assertElementsEquals([6, 9, 12], v2);
+  }
+
+  function testSubtract() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    var v1 = goog.vec.Vec3.createFromArray([4, 5, 6]);
+    var v2 = goog.vec.Vec3.clone(v0);
+
+    goog.vec.Vec3.subtract(v2, v1, v2);
+    assertElementsEquals([1, 2, 3], v0);
+    assertElementsEquals([4, 5, 6], v1);
+    assertElementsEquals([-3, -3, -3], v2);
+
+    goog.vec.Vec3.setFromValues(v2, 0, 0, 0);
+    goog.vec.Vec3.subtract(v1, v0, v2);
+    assertElementsEquals([3, 3, 3], v2);
+
+    v2 = goog.vec.Vec3.clone(v0);
+    goog.vec.Vec3.subtract(v2, v1, v2);
+    assertElementsEquals([-3, -3, -3], v2);
+
+    goog.vec.Vec3.subtract(goog.vec.Vec3.subtract(v1, v0, v2), v0, v2);
+    assertElementsEquals([2, 1, 0], v2);
+  }
+
+  function testNegate() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    var v1 = goog.vec.Vec3.create();
+
+    goog.vec.Vec3.negate(v0, v1);
+    assertElementsEquals([-1, -2, -3], v1);
+    assertElementsEquals([1, 2, 3], v0);
+
+    goog.vec.Vec3.negate(v0, v0);
+    assertElementsEquals([-1, -2, -3], v0);
+  }
+
+  function testScale() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    var v1 = goog.vec.Vec3.create();
+
+    goog.vec.Vec3.scale(v0, 4, v1);
+    assertElementsEquals([4, 8, 12], v1);
+    assertElementsEquals([1, 2, 3], v0);
+
+    goog.vec.Vec3.setFromArray(v1, v0);
+    goog.vec.Vec3.scale(v1, 5, v1);
+    assertElementsEquals([5, 10, 15], v1);
+  }
+
+  function testMagnitudeSquared() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    assertEquals(14, goog.vec.Vec3.magnitudeSquared(v0));
+  }
+
+  function testMagnitude() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    assertEquals(Math.sqrt(14), goog.vec.Vec3.magnitude(v0));
+  }
+
+  function testNormalize() {
+    var v0 = goog.vec.Vec3.createFromArray([2, 3, 4]);
+    var v1 = goog.vec.Vec3.create();
+    var v2 = goog.vec.Vec3.create();
+    goog.vec.Vec3.scale(
+        v0, 1 / goog.vec.Vec3.magnitude(v0), v2);
+
+    goog.vec.Vec3.normalize(v0, v1);
+    assertElementsEquals(v2, v1);
+    assertElementsEquals([2, 3, 4], v0);
+
+    goog.vec.Vec3.setFromArray(v1, v0);
+    goog.vec.Vec3.normalize(v1, v1);
+    assertElementsEquals(v2, v1);
+  }
+
+  function testDot() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    var v1 = goog.vec.Vec3.createFromArray([4, 5, 6]);
+    assertEquals(32, goog.vec.Vec3.dot(v0, v1));
+    assertEquals(32, goog.vec.Vec3.dot(v1, v0));
+  }
+
+  function testCross() {
+    var v0 = goog.vec.Vec3.createFromArray([1, 2, 3]);
+    var v1 = goog.vec.Vec3.createFromArray([4, 5, 6]);
+    var crossVec = goog.vec.Vec3.create();
+
+    goog.vec.Vec3.cross(v0, v1, crossVec);
+    assertElementsEquals([1, 2, 3], v0);
+    assertElementsEquals([4, 5, 6], v1);
+    assertElementsEquals([-3, 6, -3], crossVec);
+
+    goog.vec.Vec3.setFromArray(crossVec, v1);
+    goog.vec.Vec3.cross(crossVec, v0, crossVec);
+    assertElementsEquals([1, 2, 3], v0);
+    assertElementsEquals([4, 5, 6], v1);
+    assertElementsEquals([3, -6, 3], crossVec);
+
+    goog.vec.Vec3.cross(v0, v0, v0);
+    assertElementsEquals([0, 0, 0], v0);
+  }
+
+  function testLerp() {
+    var v0 = goog.vec.Vec3.createFromValues(1, 2, 3);
+    var v1 = goog.vec.Vec3.createFromValues(10, 20, 30);
+    var v2 = goog.vec.Vec3.clone(v0);
+
+    goog.vec.Vec3.lerp(v2, v1, 0, v2);
+    assertElementsEquals([1, 2, 3], v2);
+    goog.vec.Vec3.lerp(v2, v1, 1, v2);
+    assertElementsEquals([10, 20, 30], v2);
+    goog.vec.Vec3.lerp(v0, v1, .5, v2);
+    assertElementsEquals([5.5, 11, 16.5], v2);
+  }
+
+  function testEquals() {
+    var v0 = goog.vec.Vec3.createFromValues(1, 2, 3);
+    var v1 = goog.vec.Vec3.clone(v0);
+    assertElementsEquals(v0, v1);
+
+    v1[0] = 4;
+    assertFalse(goog.vec.Vec3.equals(v0, v1));
+
+    v1 = goog.vec.Vec3.clone(v0);
+    v1[1] = 4;
+    assertFalse(goog.vec.Vec3.equals(v0, v1));
+
+    v1 = goog.vec.Vec3.clone(v0);
+    v1[2] = 4;
+    assertFalse(goog.vec.Vec3.equals(v0, v1));
+  }
+
+</script>
+</body>

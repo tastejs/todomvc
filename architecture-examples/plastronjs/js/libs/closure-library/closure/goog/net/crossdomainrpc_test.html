@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.net.CrossDomainRpc</title>
+<link href="CrossDomainRpc_test.css?123" rel="stylesheet" type="text/css">
+<link href="CrossDomainRpc_test.css#123" rel="stylesheet" type="text/css">
+<link href="CrossDomainRpc_test.css" rel="stylesheet" type="text/css">
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.Logger');
+  goog.require('goog.net.CrossDomainRpc');
+  goog.require('goog.testing.jsunit');
+</script>
+
+<script>
+
+// TODO(user): These tests are in fact async since the send command makes a
+// request for a file, the reason they do not fail is that the JsUnit test
+// runner reports completion after the testFoo functions are finished, and
+// does not catch any errors after this point.  These tests need updating so
+// that they either mock out the async part of the test, or they should be
+// written as an async test case.
+
+function print(o) {
+  if (Object.prototype.toSource) {
+    return o.toSource();
+  } else {
+    var fragments = [];
+    fragments.push('{');
+    var first = true;
+    for (var p in o) {
+      if (!first) fragments.push(',');
+      fragments.push(p);
+      fragments.push(':"');
+      fragments.push(o[p]);
+      fragments.push('"');
+      first = false;
+    }
+    return fragments.join('');
+  }
+};
+
+
+function testNormalRequest() {
+  var start = new Date();
+  goog.net.CrossDomainRpc.send(
+      'crossdomainrpc_test_response.html',
+      function(e) {
+        if (e.target.status < 300) {
+          var elapsed = new Date() - start;
+          var responseData = eval(e.target.responseText);
+          goog.net.CrossDomainRpc.logger_.log(goog.debug.Logger.Level.FINE,
+              elapsed + 'ms: [' + responseData.result.length + '] '
+              + print(responseData)
+          );
+          assertEquals(16 * 1024, responseData.result.length);
+          assertEquals(e.target.status, 123);
+          assertEquals(e.target.responseHeaders.a, 1);
+          assertEquals(e.target.responseHeaders.b, '2');
+        } else {
+          goog.net.CrossDomainRpc.logger_.log(goog.debug.Logger.Level.FINE,
+              print(e));
+          fail();
+        }
+      },
+      'POST',
+      {xyz: '01234567891123456789'}
+  );
+};
+
+
+function testErrorRequest() {
+  goog.net.CrossDomainRpc.send(
+      'http://hoodjimcwaadji.google.com/index.html',
+      function(e) {
+        if (e.target.status < 300) {
+          fail('should have failed requesting a non-existent URI');
+        } else {
+          goog.net.CrossDomainRpc.logger_.log(goog.debug.Logger.Level.FINE,
+              'expected error seen; event=' + print(e));
+        }
+      },
+      'POST',
+      {xyz: '01234567891123456789'}
+  );
+};
+
+
+function testGetDummyResourceUri() {
+  var url = goog.net.CrossDomainRpc.getDummyResourceUri_();
+  assertTrue(
+      'dummy resource URL should not contain "?"', url.indexOf('?') < 0);
+  assertTrue(
+      'dummy resource URL should not contain "#"', url.indexOf('#') < 0);
+};
+
+
+function testRemoveHash() {
+  assertEquals('abc', goog.net.CrossDomainRpc.removeHash_('abc#123'));
+  assertEquals('abc', goog.net.CrossDomainRpc.removeHash_('abc#12#3'));
+};
+</script>
+</head>
+
+<body>
+<img src="crossdomainrpc_test.gif?123" alt="dummy resource">
+<img src="crossdomainrpc_test.gif#123" alt="dummy resource">
+<img src="crossdomainrpc_test.gif" alt="dummy resource">
+</body>
+
+</html>

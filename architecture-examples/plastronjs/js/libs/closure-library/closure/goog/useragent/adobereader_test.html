@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.userAgent.adobeReader</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent.adobeReader');
+</script>
+</head>
+<body>
+<script>
+  
+  // For now, just test that the variables exist, the test runner will
+  // pick up any runtime errors.
+  // TODO(chrisn): Mock out each browser implementation and test the code path
+  // correctly detects the version for each case.
+  function testAdobeReader() {
+    assertNotUndefined(goog.userAgent.adobeReader.HAS_READER);
+    assertNotUndefined(goog.userAgent.adobeReader.VERSION);
+    assertNotUndefined(goog.userAgent.adobeReader.SILENT_PRINT);
+  }
+      
+      
+</script>
+</body>
+</html>

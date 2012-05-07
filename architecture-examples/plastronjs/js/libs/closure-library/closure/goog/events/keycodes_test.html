@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+Author: nicksantos@google.com (Nick Santos)
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>JsUnit tests for goog.events.KeyCodes</title>
+<script src="../base.js"></script>
+<script>
+
+goog.require('goog.events.BrowserEvent');
+goog.require('goog.events.KeyCodes');
+goog.require('goog.object');
+goog.require('goog.testing.jsunit');
+
+
+</script>
+</head>
+<body>
+
+<script>
+
+var KeyCodes = goog.events.KeyCodes;
+
+function testTextModifyingKeys() {
+  var specialTextModifiers = goog.object.createSet(
+      KeyCodes.BACKSPACE,
+      KeyCodes.DELETE,
+      KeyCodes.ENTER,
+      KeyCodes.MAC_ENTER,
+      KeyCodes.TAB,
+      KeyCodes.WIN_IME);
+
+  for (var keyId in KeyCodes) {
+    var key = KeyCodes[keyId];
+    if (goog.isFunction(key)) {
+      // skip static methods
+      continue;
+    }
+
+    var fakeEvent = createEventWithKeyCode(key);
+
+    if (KeyCodes.isCharacterKey(key) || (key in specialTextModifiers)) {
+      assertTrue('Expected key to modify text: ' + keyId,
+          KeyCodes.isTextModifyingKeyEvent(fakeEvent));
+    } else {
+      assertFalse('Expected key to not modify text: ' + keyId,
+          KeyCodes.isTextModifyingKeyEvent(fakeEvent));
+    }
+  }
+
+  for (var i = KeyCodes.FIRST_MEDIA_KEY; i <= KeyCodes.LAST_MEDIA_KEY; i++) {
+    var fakeEvent = createEventWithKeyCode(i);
+    assertFalse('Expected key to not modify text: ' + i,
+        KeyCodes.isTextModifyingKeyEvent(fakeEvent));
+  }
+}
+
+function testPhantomKey() {
+  // KeyCode 255 deserves its own test to make sure this does not regress,
+  // because it's so weird. See the comments in the KeyCode enum.
+  var fakeEvent = createEventWithKeyCode(goog.events.KeyCodes.PHANTOM);
+  assertFalse('Expected phantom key to not modify text',
+      KeyCodes.isTextModifyingKeyEvent(fakeEvent));
+  assertFalse(KeyCodes.isCharacterKey(fakeEvent));
+}
+
+function testNonUsKeyboards() {
+  var fakeEvent = createEventWithKeyCode(1092 /* Russian a */);
+  assertTrue('Expected key to not modify text: 1092',
+      KeyCodes.isTextModifyingKeyEvent(fakeEvent));
+}
+
+function createEventWithKeyCode(i) {
+  var fakeEvent = new goog.events.BrowserEvent('keydown');
+  fakeEvent.keyCode = i;
+  return fakeEvent;
+}
+
+</script>
+
+</body>
+</html>

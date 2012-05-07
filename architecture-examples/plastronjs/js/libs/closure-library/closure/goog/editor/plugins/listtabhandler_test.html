@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--
+
+  @author robbyw@google.com (Robby Walker)
+-->
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.editor.plugins.ListTabHandler</title>
+<script src="../../base.js"></script>
+<script src="../../deps.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.editor.BrowserFeature');
+  goog.require('goog.editor.Command');
+  goog.require('goog.editor.Field');
+  goog.require('goog.editor.plugins.ListTabHandler');
+  goog.require('goog.events.BrowserEvent');
+  goog.require('goog.events.KeyCodes');
+  goog.require('goog.functions');
+  goog.require('goog.testing.StrictMock');
+  goog.require('goog.testing.editor.TestHelper');
+  goog.require('goog.testing.editor.FieldMock');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+
+<div id="field"></div>
+
+<script>
+
+var field = goog.dom.getElement('field');
+var editableField;
+var tabHandler;
+var testHelper;
+
+function setUp() {
+  editableField = new goog.testing.editor.FieldMock();
+  // Modal mode behavior tested as part of AbstractTabHandler tests.
+  editableField.inModalMode = goog.functions.FALSE;
+
+  tabHandler = new goog.editor.plugins.ListTabHandler();
+  tabHandler.registerFieldObject(editableField);
+
+  testHelper = new goog.testing.editor.TestHelper(field);
+  testHelper.setUpEditableElement();
+}
+
+function tearDown() {
+  editableField = null;
+  testHelper.tearDownEditableElement();
+  tabHandler.dispose();
+}
+
+function testListIndentInLi() {
+  field.innerHTML = '<ul><li>Text</li></ul>';
+
+  var testText = field.firstChild.firstChild.firstChild; // div ul li Test
+  testHelper.select(testText, 0, testText, 4);
+
+  var event = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  event.keyCode = goog.events.KeyCodes.TAB;
+  event.shiftKey = false;
+
+  editableField.execCommand(goog.editor.Command.INDENT);
+  event.preventDefault();
+
+  editableField.$replay();
+  event.$replay();
+
+  assertTrue('Event must be handled',
+      tabHandler.handleKeyboardShortcut(event, '', false));
+
+  editableField.$verify();
+  event.$verify();
+}
+
+function testListIndentContainLi() {
+  field.innerHTML = '<ul><li>Text</li></ul>';
+
+  var testText = field.firstChild.firstChild.firstChild; // div ul li Test
+  testHelper.select(field.firstChild, 0, testText, 4);
+
+  var event = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  event.keyCode = goog.events.KeyCodes.TAB;
+  event.shiftKey = false;
+
+  editableField.execCommand(goog.editor.Command.INDENT);
+  event.preventDefault();
+
+  editableField.$replay();
+  event.$replay();
+
+  assertTrue('Event must be handled',
+      tabHandler.handleKeyboardShortcut(event, '', false));
+
+  editableField.$verify();
+  event.$verify();
+}
+
+function testListOutdentInLi() {
+  field.innerHTML = '<ul><li>Text</li></ul>';
+
+  var testText = field.firstChild.firstChild.firstChild; // div ul li Test
+  testHelper.select(testText, 0, testText, 4);
+
+  var event = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  event.keyCode = goog.events.KeyCodes.TAB;
+  event.shiftKey = true;
+
+  editableField.execCommand(goog.editor.Command.OUTDENT);
+  event.preventDefault();
+
+  editableField.$replay();
+  event.$replay();
+
+  assertTrue('Event must be handled',
+      tabHandler.handleKeyboardShortcut(event, '', false));
+
+  editableField.$verify();
+  event.$verify();
+}
+
+function testListOutdentContainLi() {
+  field.innerHTML = '<ul><li>Text</li></ul>';
+
+  var testText = field.firstChild.firstChild.firstChild; // div ul li Test
+  testHelper.select(field.firstChild, 0, testText, 4);
+
+  var event = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  event.keyCode = goog.events.KeyCodes.TAB;
+  event.shiftKey = true;
+
+  editableField.execCommand(goog.editor.Command.OUTDENT);
+  event.preventDefault();
+
+  editableField.$replay();
+  event.$replay();
+
+  assertTrue('Event must be handled',
+      tabHandler.handleKeyboardShortcut(event, '', false));
+
+  editableField.$verify();
+  event.$verify();
+}
+
+
+function testNoOp() {
+  field.innerHTML = 'Text';
+
+  var testText = field.firstChild;
+  testHelper.select(testText, 0, testText, 4);
+
+  var event = new goog.testing.StrictMock(goog.events.BrowserEvent);
+  event.keyCode = goog.events.KeyCodes.TAB;
+  event.shiftKey = true;
+
+  editableField.$replay();
+  event.$replay();
+
+  assertFalse('Event must not be handled',
+      tabHandler.handleKeyboardShortcut(event, '', false));
+
+  editableField.$verify();
+  event.$verify();
+}
+
+</script>
+</body>
+</html>

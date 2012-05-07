@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.i18n.bidi</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.i18n.bidi');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+  var LRE = '\u202A';
+  var RLE = '\u202B';
+  var PDF = '\u202C';
+  var LRM = '\u200E';
+  var RLM = '\u200F';
+
+  function testIsRtlLang() {
+    assert(!goog.i18n.bidi.isRtlLanguage('en'));
+    assert(!goog.i18n.bidi.isRtlLanguage('fr'));
+    assert(!goog.i18n.bidi.isRtlLanguage('zh-CN'));
+    assert(!goog.i18n.bidi.isRtlLanguage('fil'));
+    assert(!goog.i18n.bidi.isRtlLanguage('az'));
+    assert(!goog.i18n.bidi.isRtlLanguage('iw-Latn'));
+    assert(goog.i18n.bidi.isRtlLanguage('ar'));
+    assert(goog.i18n.bidi.isRtlLanguage('iw'));
+    assert(goog.i18n.bidi.isRtlLanguage('he'));
+    assert(goog.i18n.bidi.isRtlLanguage('fa'));
+    assert(goog.i18n.bidi.isRtlLanguage('ar-EG'));
+    assert(goog.i18n.bidi.isRtlLanguage('az-Arab'));
+    assert(goog.i18n.bidi.isRtlLanguage('az-Arab-IR'));
+  }
+
+  function testIsLtrChar() {
+    assert(goog.i18n.bidi.isLtrChar('a'));
+    assert(!goog.i18n.bidi.isLtrChar('\u05e0'));
+    var str = 'a\u05e0z';
+    assert(goog.i18n.bidi.isLtrChar(str.charAt(0)));
+    assert(!goog.i18n.bidi.isLtrChar(str.charAt(1)));
+    assert(goog.i18n.bidi.isLtrChar(str.charAt(2)));
+  }
+
+  function testIsRtlChar() {
+    assert(!goog.i18n.bidi.isRtlChar('a'));
+    assert(goog.i18n.bidi.isRtlChar('\u05e0'));
+    var str = 'a\u05e0z';
+    assert(!goog.i18n.bidi.isRtlChar(str.charAt(0)));
+    assert(goog.i18n.bidi.isRtlChar(str.charAt(1)));
+    assert(!goog.i18n.bidi.isRtlChar(str.charAt(2)));
+  }
+
+  function testIsNeutralChar() {
+    assert(goog.i18n.bidi.isNeutralChar('\u0000'));
+    assert(goog.i18n.bidi.isNeutralChar('\u0020'));
+    assert(!goog.i18n.bidi.isNeutralChar('a'));
+    assert(goog.i18n.bidi.isNeutralChar('!'));
+    assert(goog.i18n.bidi.isNeutralChar('@'));
+    assert(goog.i18n.bidi.isNeutralChar('['));
+    assert(goog.i18n.bidi.isNeutralChar('`'));
+    assert(goog.i18n.bidi.isNeutralChar('0'));
+    assert(!goog.i18n.bidi.isNeutralChar('\u05e0'));
+  }
+
+  function testIsNeutralText() {
+    assert(goog.i18n.bidi.isNeutralText('123'));
+    assert(!goog.i18n.bidi.isNeutralText('abc'));
+    assert(goog.i18n.bidi.isNeutralText('http://abc'));
+    assert(goog.i18n.bidi.isNeutralText(' 123-()'));
+    assert(!goog.i18n.bidi.isNeutralText('123a456'));
+    assert(!goog.i18n.bidi.isNeutralText('123\u05e0456'));
+    assert(!goog.i18n.bidi.isNeutralText('<input value=\u05e0>123&lt;', false));
+    assert(goog.i18n.bidi.isNeutralText('<input value=\u05e0>123&lt;', true));
+  }
+
+  function testHasAnyLtr() {
+    assert(!goog.i18n.bidi.hasAnyLtr(''));
+    assert(!goog.i18n.bidi.hasAnyLtr('\u05e0\u05e1\u05e2'));
+    assert(goog.i18n.bidi.hasAnyLtr('\u05e0\u05e1z\u05e2'));
+    assert(!goog.i18n.bidi.hasAnyLtr('123\t...  \n'));
+    assert(goog.i18n.bidi.hasAnyLtr('<br>123&lt;', false));
+    assert(!goog.i18n.bidi.hasAnyLtr('<br>123&lt;', true));
+  }
+
+  function testHasAnyRtl() {
+    assert(!goog.i18n.bidi.hasAnyRtl(''));
+    assert(!goog.i18n.bidi.hasAnyRtl('abc'));
+    assert(goog.i18n.bidi.hasAnyRtl('ab\u05e0c'));
+    assert(!goog.i18n.bidi.hasAnyRtl('123\t...  \n'));
+    assert(goog.i18n.bidi.hasAnyRtl('<input value=\u05e0>123', false));
+    assert(!goog.i18n.bidi.hasAnyRtl('<input value=\u05e0>123', true));
+  }
+
+  function testEndsWithLtr() {
+    assert(goog.i18n.bidi.endsWithLtr('a'));
+    assert(goog.i18n.bidi.endsWithLtr('abc'));
+    assert(goog.i18n.bidi.endsWithLtr('a (!)'));
+    assert(goog.i18n.bidi.endsWithLtr('a.1'));
+    assert(goog.i18n.bidi.endsWithLtr('http://www.google.com '));
+    assert(goog.i18n.bidi.endsWithLtr('\u05e0a'));
+    assert(goog.i18n.bidi.endsWithLtr(' \u05e0\u05e1a\u05e2\u05e3 a (!)'));
+    assert(!goog.i18n.bidi.endsWithLtr(''));
+    assert(!goog.i18n.bidi.endsWithLtr(' '));
+    assert(!goog.i18n.bidi.endsWithLtr('1'));
+    assert(!goog.i18n.bidi.endsWithLtr('\u05e0'));
+    assert(!goog.i18n.bidi.endsWithLtr('\u05e0 1(!)'));
+    assert(!goog.i18n.bidi.endsWithLtr('a\u05e0'));
+    assert(!goog.i18n.bidi.endsWithLtr('a abc\u05e0\u05e1def\u05e2. 1'));
+    assert(!goog.i18n.bidi.endsWithLtr(' \u05e0\u05e1a\u05e2 &lt;', true));
+    assert(goog.i18n.bidi.endsWithLtr(' \u05e0\u05e1a\u05e2 &lt;', false));
+  }
+
+  function testEndsWithRtl() {
+    assert(goog.i18n.bidi.endsWithRtl('\u05e0'));
+    assert(goog.i18n.bidi.endsWithRtl('\u05e0\u05e1\u05e2'));
+    assert(goog.i18n.bidi.endsWithRtl('\u05e0 (!)'));
+    assert(goog.i18n.bidi.endsWithRtl('\u05e0.1'));
+    assert(goog.i18n.bidi.endsWithRtl('http://www.google.com/\u05e0 '));
+    assert(goog.i18n.bidi.endsWithRtl('a\u05e0'));
+    assert(goog.i18n.bidi.endsWithRtl(' a abc\u05e0def\u05e3. 1'));
+    assert(!goog.i18n.bidi.endsWithRtl(''));
+    assert(!goog.i18n.bidi.endsWithRtl(' '));
+    assert(!goog.i18n.bidi.endsWithRtl('1'));
+    assert(!goog.i18n.bidi.endsWithRtl('a'));
+    assert(!goog.i18n.bidi.endsWithRtl('a 1(!)'));
+    assert(!goog.i18n.bidi.endsWithRtl('\u05e0a'));
+    assert(!goog.i18n.bidi.endsWithRtl('\u05e0 \u05e0\u05e1ab\u05e2 a (!)'));
+    assert(goog.i18n.bidi.endsWithRtl(' \u05e0\u05e1a\u05e2 &lt;', true));
+    assert(!goog.i18n.bidi.endsWithRtl(' \u05e0\u05e1a\u05e2 &lt;', false));
+  }
+
+  function testGuardBracketInHtml() {
+    var strWithRtl = "asc \u05d0 (\u05d0\u05d0\u05d0)";
+    assertEquals("asc \u05d0 <span dir=rtl>(\u05d0\u05d0\u05d0)</span>",
+        goog.i18n.bidi.guardBracketInHtml(strWithRtl));
+    assertEquals("asc \u05d0 <span dir=rtl>(\u05d0\u05d0\u05d0)</span>",
+        goog.i18n.bidi.guardBracketInHtml(strWithRtl, true));
+    assertEquals("asc \u05d0 <span dir=ltr>(\u05d0\u05d0\u05d0)</span>",
+        goog.i18n.bidi.guardBracketInHtml(strWithRtl, false));
+
+    var strWithRtl2 = "\u05d0 a (asc:))";
+    assertEquals("\u05d0 a <span dir=rtl>(asc:))</span>",
+        goog.i18n.bidi.guardBracketInHtml(strWithRtl2));
+    assertEquals("\u05d0 a <span dir=rtl>(asc:))</span>",
+        goog.i18n.bidi.guardBracketInHtml(strWithRtl2, true));
+    assertEquals("\u05d0 a <span dir=ltr>(asc:))</span>",
+        goog.i18n.bidi.guardBracketInHtml(strWithRtl2, false));
+
+    var strWithoutRtl = "a (asc) {{123}}";
+        assertEquals("a <span dir=ltr>(asc)</span> <span dir=ltr>{{123}}</span>",
+    goog.i18n.bidi.guardBracketInHtml(strWithoutRtl));
+        assertEquals("a <span dir=rtl>(asc)</span> <span dir=rtl>{{123}}</span>",
+    goog.i18n.bidi.guardBracketInHtml(strWithoutRtl, true));
+    assertEquals("a <span dir=ltr>(asc)</span> <span dir=ltr>{{123}}</span>",
+          goog.i18n.bidi.guardBracketInHtml(strWithoutRtl, false));
+
+  }
+
+  function testGuardBracketInText() {
+    var strWithRtl = "asc \u05d0 (\u05d0\u05d0\u05d0)";
+    assertEquals("asc \u05d0 \u200f(\u05d0\u05d0\u05d0)\u200f",
+        goog.i18n.bidi.guardBracketInText(strWithRtl));
+    assertEquals("asc \u05d0 \u200f(\u05d0\u05d0\u05d0)\u200f",
+        goog.i18n.bidi.guardBracketInText(strWithRtl, true));
+    assertEquals("asc \u05d0 \u200e(\u05d0\u05d0\u05d0)\u200e",
+        goog.i18n.bidi.guardBracketInText(strWithRtl, false));
+
+    var strWithRtl2 = "\u05d0 a (asc:))";
+    assertEquals("\u05d0 a \u200f(asc:))\u200f",
+        goog.i18n.bidi.guardBracketInText(strWithRtl2));
+    assertEquals("\u05d0 a \u200f(asc:))\u200f",
+        goog.i18n.bidi.guardBracketInText(strWithRtl2, true));
+    assertEquals("\u05d0 a \u200e(asc:))\u200e",
+        goog.i18n.bidi.guardBracketInText(strWithRtl2, false));
+
+    var strWithoutRtl = "a (asc) {{123}}";
+    assertEquals("a \u200e(asc)\u200e \u200e{{123}}\u200e",
+        goog.i18n.bidi.guardBracketInText(strWithoutRtl));
+    assertEquals("a \u200f(asc)\u200f \u200f{{123}}\u200f",
+        goog.i18n.bidi.guardBracketInText(strWithoutRtl, true));
+    assertEquals("a \u200e(asc)\u200e \u200e{{123}}\u200e",
+        goog.i18n.bidi.guardBracketInText(strWithoutRtl, false));
+
+  }
+
+  function testEnforceRtlInHtml() {
+    var str = '<div> first <br> second </div>';
+    assertEquals('<div dir=rtl> first <br> second </div>',
+                 goog.i18n.bidi.enforceRtlInHtml(str));
+    str = 'first second';
+    assertEquals('\n<span dir=rtl>first second</span>',
+                 goog.i18n.bidi.enforceRtlInHtml(str));
+  }
+
+  function testEnforceRtlInText() {
+    var str = 'first second';
+    assertEquals(RLE + 'first second' + PDF,
+                 goog.i18n.bidi.enforceRtlInText(str));
+  }
+
+  function testEnforceLtrInHtml() {
+    var str = '<div> first <br> second </div>';
+    assertEquals('<div dir=ltr> first <br> second </div>',
+                 goog.i18n.bidi.enforceLtrInHtml(str));
+    str = 'first second';
+    assertEquals('\n<span dir=ltr>first second</span>',
+                 goog.i18n.bidi.enforceLtrInHtml(str));
+  }
+
+  function testEnforceLtrInText() {
+    var str = 'first second';
+    assertEquals(LRE + 'first second' + PDF,
+                 goog.i18n.bidi.enforceLtrInText(str));
+  }
+
+  function testNormalizeHebrewQuote() {
+    assertEquals('\u05d0\u05f4', goog.i18n.bidi.normalizeHebrewQuote('\u05d0"'));
+    assertEquals('\u05d0\u05f3', goog.i18n.bidi.normalizeHebrewQuote('\u05d0\''));
+    assertEquals('\u05d0\u05f4\u05d0\u05f3',
+                 goog.i18n.bidi.normalizeHebrewQuote('\u05d0"\u05d0\''));
+  }
+
+  function testMirrorCSS() {
+    var str = 'left:10px;right:20px';
+    assertEquals('right:10px;left:20px',
+                 goog.i18n.bidi.mirrorCSS(str));
+    str = 'border:10px 20px 30px 40px';
+    assertEquals('border:10px 40px 30px 20px',
+                 goog.i18n.bidi.mirrorCSS(str));
+  }
+
+  function testEstimateDirection() {
+    assertEquals(goog.i18n.bidi.Dir.UNKNOWN,
+                 goog.i18n.bidi.estimateDirection('', false));
+    assertEquals(goog.i18n.bidi.Dir.UNKNOWN,
+                 goog.i18n.bidi.estimateDirection(' ', false));
+    assertEquals(goog.i18n.bidi.Dir.UNKNOWN,
+                 goog.i18n.bidi.estimateDirection('! (...)', false));
+    assertEquals(goog.i18n.bidi.Dir.LTR,
+                 goog.i18n.bidi.estimateDirection('All-Ascii content', false));
+    assertEquals(goog.i18n.bidi.Dir.LTR,
+                 goog.i18n.bidi.estimateDirection('-17.0%', false));
+    assertEquals(goog.i18n.bidi.Dir.LTR,
+                 goog.i18n.bidi.estimateDirection('http://foo/bar/', false));
+    assertEquals(goog.i18n.bidi.Dir.LTR,
+                 goog.i18n.bidi.estimateDirection(
+                     'http://foo/bar/?s=\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0' +
+                     '\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0' +
+                     '\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0\u05d0',
+                     false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection('\u05d0', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '9 \u05d0 -> 17.5, 23, 45, 19', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     'http://foo/bar/ \u05d0 http://foo2/bar2/ ' +
+                     'http://foo3/bar3/', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05d0\u05d9\u05df \u05de\u05de\u05e9 ' +
+                     '\u05de\u05d4 \u05dc\u05e8\u05d0\u05d5\u05ea: ' +
+                     '\u05dc\u05d0 \u05e6\u05d9\u05dc\u05de\u05ea\u05d9 ' +
+                     '\u05d4\u05e8\u05d1\u05d4 \u05d5\u05d2\u05dd \u05d0' +
+                     '\u05dd \u05d4\u05d9\u05d9\u05ea\u05d9 \u05de\u05e6' +
+                     '\u05dc\u05dd, \u05d4\u05d9\u05d4 \u05e9\u05dd', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05db\u05d0 - http://geek.co.il/gallery/v/2007-06' +
+                     ' - \u05d0\u05d9\u05df \u05de\u05de\u05e9 \u05de\u05d4 ' +
+                     '\u05dc\u05e8\u05d0\u05d5\u05ea: \u05dc\u05d0 \u05e6' +
+                     '\u05d9\u05dc\u05de\u05ea\u05d9 \u05d4\u05e8\u05d1 ' +
+                     '\u05d5\u05d2\u05dd \u05d0\u05dd \u05d4\u05d9\u05d9' +
+                     '\u05d9 \u05de\u05e6\u05dc\u05dd, \u05d4\u05d9\u05d4 ' +
+                     '\u05e9\u05dd \u05d1\u05e2\u05d9\u05e7 \u05d4\u05e8' +
+                     '\u05d1\u05d4 \u05d0\u05e0\u05e9\u05d9\u05dd. \u05de' +
+                     '\u05d4 \u05e9\u05db\u05df - \u05d0\u05e4\u05e9\u05e8 ' +
+                     '\u05dc\u05e0\u05e6\u05dc \u05d0\u05ea \u05d4\u05d4 ' +
+                     '\u05d3\u05d6\u05de\u05e0\u05d5 \u05dc\u05d4\u05e1' +
+                     '\u05ea\u05db\u05dc \u05e2\u05dc \u05db\u05de\u05d4 ' +
+                     '\u05ea\u05de\u05d5\u05e0\u05d5\u05ea \u05de\u05e9' +
+                     '\u05e9\u05e2\u05d5\u05ea \u05d9\u05e9\u05e0\u05d5 ' +
+                     '\u05d9\u05d5\u05ea\u05e8 \u05e9\u05d9\u05e9 \u05dc' +
+                     '\u05d9 \u05d1\u05d0\u05ea\u05e8', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     'CAPTCHA \u05de\u05e9\u05d5\u05db\u05dc\u05dc ' +
+                     '\u05de\u05d3\u05d9?', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     'Yes Prime Minister \u05e2\u05d3\u05db\u05d5\u05df. ' +
+                     '\u05e9\u05d0\u05dc\u05d5 \u05d0\u05d5\u05ea\u05d9 ' +
+                     '\u05de\u05d4 \u05d0\u05e0\u05d9 \u05e8\u05d5\u05e6' +
+                     '\u05d4 \u05de\u05ea\u05e0\u05d4 \u05dc\u05d7\u05d2',
+                     false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '17.4.02 \u05e9\u05e2\u05d4:13-20 .15-00 .\u05dc\u05d0 ' +
+                     '\u05d4\u05d9\u05d9\u05ea\u05d9 \u05db\u05d0\u05df.',
+                     false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '5710 5720 5730. \u05d4\u05d3\u05dc\u05ea. ' +
+                     '\u05d4\u05e0\u05e9\u05d9\u05e7\u05d4', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05d4\u05d3\u05dc\u05ea http://www.google.com ' +
+                     'http://www.gmail.com', false));
+    assertEquals(goog.i18n.bidi.Dir.LTR,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05d4\u05d3\u05dc <some quite nasty html mark up>',
+                     false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05d4\u05d3\u05dc <some quite nasty html mark up>',
+                     true));
+    assertEquals(goog.i18n.bidi.Dir.LTR,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05d4\u05d3\u05dc\u05ea &amp; &lt; &gt;', false));
+    assertEquals(goog.i18n.bidi.Dir.RTL,
+                 goog.i18n.bidi.estimateDirection(
+                     '\u05d4\u05d3\u05dc\u05ea &amp; &lt; &gt;', true));
+  }
+
+  var bidi_text = [];
+
+  function testDetectRtlDirectionality() {
+    InitializeSamples();
+  for (var i = 0; i < bidi_text.length; i++) {
+    //alert(bidi_text[i].text);
+      var is_rtl = goog.i18n.bidi.detectRtlDirectionality(bidi_text[i].text,
+                                                          bidi_text[i].isHtml);
+    if (is_rtl != bidi_text[i].isRtl) {
+        var str = '"' + bidi_text[i].text + '" should be ' +
+                  (bidi_text[i].isRtl ? 'rtl' : 'ltr') + ' but detected as ' +
+                  (is_rtl ? 'rtl' : 'ltr');
+    alert(str);
+      }
+    assertEquals(bidi_text[i].isRtl, is_rtl);
+    }
+  }
+
+
+  function SampleItem() {
+    this.text = '';
+    this.isRtl = false;
+  }
+
+  function InitializeSamples() {
+    var item = new SampleItem;
+    item.text = 'Pure Ascii content';
+    item.isRtl = false;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '\u05d0\u05d9\u05df \u05de\u05de\u05e9 \u05de\u05d4 \u05dc\u05e8\u05d0\u05d5\u05ea: \u05dc\u05d0 \u05e6\u05d9\u05dc\u05de\u05ea\u05d9 \u05d4\u05e8\u05d1\u05d4 \u05d5\u05d2\u05dd \u05d0\u05dd \u05d4\u05d9\u05d9\u05ea\u05d9 \u05de\u05e6\u05dc\u05dd, \u05d4\u05d9\u05d4 \u05e9\u05dd';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '\u05db\u05d0\u05df - http://geek.co.il/gallery/v/2007-06 - \u05d0\u05d9\u05df \u05de\u05de\u05e9 \u05de\u05d4 \u05dc\u05e8\u05d0\u05d5\u05ea: \u05dc\u05d0 \u05e6\u05d9\u05dc\u05de\u05ea\u05d9 \u05d4\u05e8\u05d1\u05d4 \u05d5\u05d2\u05dd \u05d0\u05dd \u05d4\u05d9\u05d9\u05ea\u05d9 \u05de\u05e6\u05dc\u05dd, \u05d4\u05d9\u05d4 \u05e9\u05dd \u05d1\u05e2\u05d9\u05e7\u05e8 \u05d4\u05e8\u05d1\u05d4 \u05d0\u05e0\u05e9\u05d9\u05dd. \u05de\u05d4 \u05e9\u05db\u05df - \u05d0\u05e4\u05e9\u05e8 \u05dc\u05e0\u05e6\u05dc \u05d0\u05ea \u05d4\u05d4\u05d3\u05d6\u05de\u05e0\u05d5\u05ea \u05dc\u05d4\u05e1\u05ea\u05db\u05dc \u05e2\u05dc \u05db\u05de\u05d4 \u05ea\u05de\u05d5\u05e0\u05d5\u05ea \u05de\u05e9\u05e2\u05e9\u05e2\u05d5\u05ea \u05d9\u05e9\u05e0\u05d5\u05ea \u05d9\u05d5\u05ea\u05e8 \u05e9\u05d9\u05e9 \u05dc\u05d9 \u05d1\u05d0\u05ea\u05e8';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = 'CAPTCHA \u05de\u05e9\u05d5\u05db\u05dc\u05dc \u05de\u05d3\u05d9?';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+
+    item = new SampleItem;
+    item.text = 'Yes Prime Minister \u05e2\u05d3\u05db\u05d5\u05df. \u05e9\u05d0\u05dc\u05d5 \u05d0\u05d5\u05ea\u05d9 \u05de\u05d4 \u05d0\u05e0\u05d9 \u05e8\u05d5\u05e6\u05d4 \u05de\u05ea\u05e0\u05d4 \u05dc\u05d7\u05d2';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '17.4.02 \u05e9\u05e2\u05d4:13-20 .15-00 .\u05dc\u05d0 \u05d4\u05d9\u05d9\u05ea\u05d9 \u05db\u05d0\u05df.';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '5710 5720 5730. \u05d4\u05d3\u05dc\u05ea. \u05d4\u05e0\u05e9\u05d9\u05e7\u05d4';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '\u05d4\u05d3\u05dc\u05ea http://www.google.com http://www.gmail.com';
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '&gt;\u05d4&lt;';
+    item.isHtml = true;
+    item.isRtl = true;
+    bidi_text.push(item);
+
+    item = new SampleItem;
+    item.text = '&gt;\u05d4&lt;';
+    item.isHtml = false;
+    item.isRtl = false;
+    bidi_text.push(item);
+
+  }
+</script>
+</body>
+</html>

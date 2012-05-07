@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<title>
+  Closure Unit Tests - goog.messaging.AbstractChannel
+</title>
+<script src="../base.js"></script>
+<script src="../../../third_party/closure/goog/deps.js"></script>
+<script>
+goog.require('goog.testing.MockControl');
+goog.require('goog.testing.async.MockControl');
+goog.require('goog.messaging.AbstractChannel');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+var mockControl;
+var mockWorker;
+var asyncMockControl;
+var channel;
+
+function setUp() {
+  mockControl = new goog.testing.MockControl();
+  asyncMockControl = new goog.testing.async.MockControl(mockControl);
+  channel = new goog.messaging.AbstractChannel();
+}
+
+function tearDown() {
+  channel.dispose();
+  mockControl.$verifyAll();
+}
+
+function testConnect() {
+  channel.connect(
+      asyncMockControl.createCallbackMock('connectCallback', function() {}));
+}
+
+function testIsConnected() {
+  assertTrue('Channel should be connected by default', channel.isConnected());
+}
+
+function testDeliverString() {
+  channel.registerService(
+      'foo',
+      asyncMockControl.asyncAssertEquals(
+          'should pass string to service', 'bar'),
+      false /* opt_json */);
+  channel.deliver('foo', 'bar');
+}
+
+function testDeliverDeserializedString() {
+  channel.registerService(
+      'foo',
+      asyncMockControl.asyncAssertEquals(
+          'should pass string to service', '{"bar":"baz"}'),
+      false /* opt_json */);
+  channel.deliver('foo', {bar: 'baz'});
+}
+
+function testDeliverObject() {
+  channel.registerService(
+      'foo',
+      asyncMockControl.asyncAssertEquals(
+          'should pass string to service', {bar: 'baz'}),
+      true /* opt_json */);
+  channel.deliver('foo', {bar: 'baz'});
+}
+
+function testDeliverSerializedObject() {
+  channel.registerService(
+      'foo',
+      asyncMockControl.asyncAssertEquals(
+          'should pass string to service', {bar: 'baz'}),
+      true /* opt_json */);
+  channel.deliver('foo', '{"bar":"baz"}');
+}
+
+</script>
+</body>
+</html>

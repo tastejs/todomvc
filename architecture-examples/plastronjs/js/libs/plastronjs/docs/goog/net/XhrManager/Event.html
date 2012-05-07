@@ -1,0 +1,21 @@
+<!doctype html><html><head><title>goog.net.XhrManager.Event</title><link href="../../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../../index.html">Home</a><h1>Class goog.net.XhrManager.Event</h1><p>An event dispatched by XhrManager.</p>extends <a href="../../../goog/events/Event.html">goog.events.Event</a><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>disposeInternal()</code><br><p class="method-description">Deletes or nulls out any references to COM objects, DOM nodes, or other
+disposable objects. Classes that extend {@code goog.Disposable} should
+override this method.
+Not reentrant. To avoid calling it twice, it must only be called from the
+subclass' {@code disposeInternal} method. Everywhere else the public
+{@code dispose} method must be used.
+For example:
+<pre>
+mypackage.MyClass = function() {
+goog.base(this);
+// Constructor logic specific to MyClass.
+...
+};
+goog.inherits(mypackage.MyClass, goog.Disposable);
+
+mypackage.MyClass.prototype.disposeInternal = function() {
+goog.base(this, 'disposeInternal');
+// Dispose logic specific to MyClass.
+...
+};
+</pre></p></td></tr></table></body></html>

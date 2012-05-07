@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+
+Author: robbyw@google.com (Robby Walker)
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.dom.MultiRange</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.MultiRange');
+  goog.require('goog.dom.Range');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+  <div id="test">
+    <div id="test1">abc</div>
+    <div id="test2">defghi</div>
+   </div>
+
+<script>
+  var range;
+  function setUp() {
+    range = new goog.dom.MultiRange.createFromTextRanges([
+      goog.dom.Range.createFromNodeContents(goog.dom.getElement('test2')),
+      goog.dom.Range.createFromNodeContents(goog.dom.getElement('test1'))
+    ]);
+  }
+
+  function testStartAndEnd() {
+    assertEquals(goog.dom.getElement('test1').firstChild, range.getStartNode());
+    assertEquals(0, range.getStartOffset());
+    assertEquals(goog.dom.getElement('test2').firstChild, range.getEndNode());
+    assertEquals(6, range.getEndOffset());
+  }
+
+  function testStartAndEndIterator() {
+    var it = goog.iter.toIterator(range);
+    assertEquals(goog.dom.getElement('test1').firstChild, it.getStartNode());
+    assertEquals(0, it.getStartTextOffset());
+    assertEquals(goog.dom.getElement('test2').firstChild, it.getEndNode());
+    assertEquals(3, it.getEndTextOffset());
+
+    it.next();
+    it.next();
+    assertEquals(6, it.getEndTextOffset());
+  }
+
+  function testIteration() {
+    var tags = goog.iter.toArray(range);
+    assertEquals(2, tags.length);
+
+    assertEquals(goog.dom.getElement('test1').firstChild, tags[0]);
+    assertEquals(goog.dom.getElement('test2').firstChild, tags[1]);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.events.Event</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.events.Event');
+    goog.require('goog.events.EventTarget');
+    goog.require('goog.testing.jsunit');
+  </script>
+</head>
+<body>
+  <script>
+    var e, target;
+
+    function setUp() {
+      target = new goog.events.EventTarget();
+      e = new goog.events.Event('eventType', target);
+    }
+
+    function tearDown() {
+      target.dispose();
+      e.dispose();
+    }
+
+    function testConstructor() {
+      assertNotNull('Event must not be null', e);
+      assertEquals('Event type must be as expected', 'eventType', e.type);
+      assertEquals('Event target must be as expected', target, e.target);
+      assertEquals('Current target must be as expected', target,
+          e.currentTarget);
+    }
+
+    function testDispose() {
+      assertFalse('Event must not have been disposed of', e.isDisposed());
+      e.dispose();
+      assertTrue('Event must have been disposed of', e.isDisposed());
+      assertUndefined('Event type must have been deleted', e.type);
+      assertUndefined('Event target reference must have been deleted',
+          e.target);
+      assertUndefined('Current target reference must have been deleted',
+          e.currentTarget);
+    }
+
+    function testStopPropagation() {
+      // This test breaks encapsulation because thre is no public getter for
+      // propagationStopped_.
+      assertFalse('Propagation must not have been stopped',
+          e.propagationStopped_);
+      e.stopPropagation();
+      assertTrue('Propagation must have been stopped', e.propagationStopped_);
+    }
+
+    function testPreventDefault() {
+      // This test breaks encapsulation because thre is no public getter for
+      // returnValue_.
+      assertTrue('Return value must be true', e.returnValue_);
+      e.preventDefault();
+      assertFalse('Return value must be false', e.returnValue_);
+    }
+  </script>
+</body>
+</html>

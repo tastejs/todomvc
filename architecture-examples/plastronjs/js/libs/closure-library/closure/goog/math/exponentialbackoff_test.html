@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.math.ExponentialBackoff</title>
+<script src="../base.js"></script>
+<script>
+goog.require('goog.math.ExponentialBackoff');
+goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+var INITIAL_VALUE = 1;
+
+var MAX_VALUE = 10;
+
+function assertValueAndCount(value, count, backoff) {
+  assertEquals('Wrong value', value, backoff.getValue());
+  assertEquals('Wrong backoff count', count, backoff.getBackoffCount());
+}
+
+
+function createBackoff() {
+  return new goog.math.ExponentialBackoff(INITIAL_VALUE, MAX_VALUE);
+}
+
+
+function testInitialState() {
+  var backoff = createBackoff();
+  assertValueAndCount(INITIAL_VALUE, 0, backoff);
+}
+
+
+function testBackoff() {
+  var backoff = createBackoff();
+  backoff.backoff();
+  assertValueAndCount(2 /* value */, 1 /* count */, backoff);
+  backoff.backoff();
+  assertValueAndCount(4 /* value */, 2 /* count */, backoff);
+  backoff.backoff();
+  assertValueAndCount(8 /* value */, 3 /* count */, backoff);
+  backoff.backoff();
+  assertValueAndCount(MAX_VALUE, 4 /* count */, backoff);
+  backoff.backoff();
+  assertValueAndCount(MAX_VALUE, 5 /* count */, backoff);
+}
+
+
+function testReset() {
+  var backoff = createBackoff();
+  backoff.backoff();
+  backoff.reset();
+  assertValueAndCount(INITIAL_VALUE, 0 /* count */, backoff);
+
+}
+
+</script>
+</body>
+</html>

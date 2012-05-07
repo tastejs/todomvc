@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.structs.StringSet</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.array');
+  goog.require('goog.iter');
+  goog.require('goog.structs.StringSet');
+  goog.require('goog.testing.asserts');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+// Test how overwritten object prototype affects StringSet.
+Object.prototype.evil1 = null;
+Object.prototype.evil2 = null;
+
+var TEST_VALUES = [
+  '', ' ', '  ', 'true', 'null', 'undefined', '0', 'new', 'constructor',
+  'prototype', '__proto__', 'set', 'hasOwnProperty', 'toString', 'valueOf',
+  'evil1'
+];
+
+var TEST_VALUES_WITH_DUPLICATES = [
+  '', '', ' ', '  ', 'true', true, 'null', null, 'undefined', undefined, '0', 0,
+  'new', 'constructor', 'prototype', '__proto__', 'set', 'hasOwnProperty',
+  'toString', 'valueOf', 'evil1'
+];
+
+function testConstructor() {
+  var empty = new goog.structs.StringSet;
+  assertSameElements('elements in empty set', [], empty.getValues());
+
+  var s = new goog.structs.StringSet(TEST_VALUES_WITH_DUPLICATES);
+  assertSameElements('duplicates are filtered out by their string value',
+      TEST_VALUES, s.getValues());
+}
+
+function testAdd() {
+  var s = new goog.structs.StringSet;
+  goog.array.forEach(TEST_VALUES_WITH_DUPLICATES, s.add, s);
+  assertSameElements(TEST_VALUES, s.getValues());
+}
+
+function testAddArray() {
+  var s = new goog.structs.StringSet;
+  s.addArray(TEST_VALUES_WITH_DUPLICATES);
+  assertSameElements('added elements from array', TEST_VALUES, s.getValues());
+}
+
+function testAddSet() {
+  var s = new goog.structs.StringSet;
+  s.addSet(new goog.structs.StringSet([1, 2]));
+  assertSameElements('empty set + {1, 2}', ['1', '2'], s.getValues());
+  s.addSet(new goog.structs.StringSet([2, 3]));
+  assertSameElements('{1, 2} + {2, 3}', ['1', '2', '3'], s.getValues());
+}
+
+function testClear() {
+  var s = new goog.structs.StringSet([1, 2]);
+  s.clear();
+  assertSameElements('cleared set', [], s.getValues());
+}
+
+function testClone() {
+  var s = new goog.structs.StringSet([1, 2]);
+  var c = s.clone();
+  assertSameElements('elements in clone', ['1', '2'], c.getValues());
+  s.add(3);
+  assertSameElements('changing the original set does not affect the clone',
+      ['1', '2'], c.getValues());
+}
+
+function testContains() {
+  var e = new goog.structs.StringSet;
+  goog.array.forEach(TEST_VALUES, function(element) {
+    assertFalse('empty set does not contain ' + element, e.contains(element));
+  });
+
+  var s = new goog.structs.StringSet(TEST_VALUES);
+  goog.array.forEach(TEST_VALUES_WITH_DUPLICATES, function(element) {
+    assertTrue('s contains ' + element, s.contains(element));
+  });
+  assertFalse('s does not contain 42', s.contains(42));
+
+  Object.prototype[' a'] = 'a';
+  Object.prototype['  a'] = 'a';
+  assertFalse('empty set does not contain elements defined in Object.prototype',
+      new goog.structs.StringSet().contains(' a'));
+}
+
+function testContainsArray() {
+  var s = new goog.structs.StringSet(TEST_VALUES);
+  assertTrue('set contains empty array', s.containsArray([]));
+  assertTrue('set contains all elements of itself with some duplication',
+      s.containsArray(TEST_VALUES_WITH_DUPLICATES));
+  assertFalse('set does not contain 42', s.containsArray([42]));
+}
+
+function testEquals() {
+  var s = new goog.structs.StringSet([1, 2]);
+  assertTrue('set equals to itself', s.equals(s));
+  assertTrue('set equals to its clone', s.equals(s.clone()));
+  assertFalse('set does not equal to its subset',
+      s.equals(new goog.structs.StringSet([1])));
+  assertFalse('set does not equal to its superset',
+      s.equals(new goog.structs.StringSet([1, 2, 3])));
+}
+
+function testForEach() {
+  var s = new goog.structs.StringSet(TEST_VALUES);
+  var values = [];
+  var context = {};
+  s.forEach(function(value, key, stringSet) {
+    assertEquals('context of forEach callback', context, this);
+    values.push(value);
+    assertUndefined('key argument of forEach callback', key);
+    assertEquals('set argument of forEach callback', s, stringSet);
+  }, context);
+  assertSameElements('values passed to forEach callback', TEST_VALUES, values);
+}
+
+function testGetCount() {
+  var empty = new goog.structs.StringSet;
+  assertEquals('count(empty set)', 0, empty.getCount());
+
+  var s = new goog.structs.StringSet(TEST_VALUES);
+  assertEquals('count(non-empty set)', TEST_VALUES.length, s.getCount());
+}
+
+function testGetDifference() {
+  var s1 = new goog.structs.StringSet([1, 2]);
+  var s2 = new goog.structs.StringSet([2, 3]);
+  assertSameElements('{1, 2} - {2, 3}', ['1'],
+      s1.getDifference(s2).getValues());
+}
+
+function testGetIntersection() {
+  var s1 = new goog.structs.StringSet([1, 2]);
+  var s2 = new goog.structs.StringSet([2, 3]);
+  assertSameElements('{1, 2} * {2, 3}', ['2'],
+      s1.getIntersection(s2).getValues());
+}
+
+function testGetSymmetricDifference() {
+  var s1 = new goog.structs.StringSet([1, 2]);
+  var s2 = new goog.structs.StringSet([2, 3]);
+  assertSameElements('{1, 2} sym.diff. {2, 3}', ['1', '3'],
+      s1.getSymmetricDifference(s2).getValues());
+}
+
+function testGetUnion() {
+  var s1 = new goog.structs.StringSet([1, 2]);
+  var s2 = new goog.structs.StringSet([2, 3]);
+  assertSameElements('{1, 2} + {2, 3}', ['1', '2', '3'],
+      s1.getUnion(s2).getValues());
+}
+
+function testIsDisjoint() {
+  var s = new goog.structs.StringSet;
+  var s12 = new goog.structs.StringSet([1, 2]);
+  var s23 = new goog.structs.StringSet([2, 3]);
+  var s34 = new goog.structs.StringSet([3, 4]);
+
+  assertTrue('{} and {1, 2} are disjoint', s.isDisjoint(s12));
+  assertTrue('{1, 2} and {3, 4} are disjoint', s12.isDisjoint(s34));
+  assertFalse('{1, 2} and {2, 3} are not disjoint', s12.isDisjoint(s23));
+}
+
+function testIsEmpty() {
+  assertTrue('empty set', new goog.structs.StringSet().isEmpty());
+  assertFalse('non-empty set', new goog.structs.StringSet(['']).isEmpty());
+}
+
+function testIsSubsetOf() {
+  var s1 = new goog.structs.StringSet([1]);
+  var s12 = new goog.structs.StringSet([1, 2]);
+  var s123 = new goog.structs.StringSet([1, 2, 3]);
+  var s23 = new goog.structs.StringSet([2, 3]);
+
+  assertTrue('{1, 2} is subset of {1, 2}', s12.isSubsetOf(s12));
+  assertTrue('{1, 2} is subset of {1, 2, 3}', s12.isSubsetOf(s123));
+  assertFalse('{1, 2} is not subset of {1}', s12.isSubsetOf(s1));
+  assertFalse('{1, 2} is not subset of {2, 3}', s12.isSubsetOf(s23));
+}
+
+function testIsSupersetOf() {
+  var s1 = new goog.structs.StringSet([1]);
+  var s12 = new goog.structs.StringSet([1, 2]);
+  var s123 = new goog.structs.StringSet([1, 2, 3]);
+  var s23 = new goog.structs.StringSet([2, 3]);
+
+  assertTrue('{1, 2} is superset of {1}', s12.isSupersetOf(s1));
+  assertTrue('{1, 2} is superset of {1, 2}', s12.isSupersetOf(s12));
+  assertFalse('{1, 2} is not superset of {1, 2, 3}', s12.isSupersetOf(s123));
+  assertFalse('{1, 2} is not superset of {2, 3}', s12.isSupersetOf(s23));
+}
+
+function testRemove() {
+  var n = new goog.structs.StringSet([1, 2]);
+  assertFalse('3 not removed from {1, 2}', n.remove(3));
+  assertSameElements('set == {1, 2}', ['1', '2'], n.getValues());
+  assertTrue('2 removed from {1, 2}', n.remove(2));
+  assertSameElements('set == {1}', ['1'], n.getValues());
+  assertTrue('"1" removed from {1}', n.remove('1'));
+  assertSameElements('set == {}', [], n.getValues());
+
+  var s = new goog.structs.StringSet(TEST_VALUES);
+  goog.array.forEach(TEST_VALUES, s.remove, s);
+  assertSameElements('all special values have been removed', [], s.getValues());
+}
+
+function testRemoveArray() {
+  var s = new goog.structs.StringSet(TEST_VALUES);
+  s.removeArray(TEST_VALUES.slice(0, TEST_VALUES.length - 2));
+  assertSameElements('removed elements from array',
+      TEST_VALUES.slice(TEST_VALUES.length - 2), s.getValues());
+}
+
+function testRemoveSet() {
+  var s1 = new goog.structs.StringSet([1, 2]);
+  var s2 = new goog.structs.StringSet([2, 3]);
+  s1.removeSet(s2);
+  assertSameElements('{1, 2} - {2, 3}', ['1'], s1.getValues());
+}
+
+function testIterator() {
+  var s = new goog.structs.StringSet(TEST_VALUES_WITH_DUPLICATES);
+  var values = []
+  goog.iter.forEach(s, function(value) {
+    values.push(value);
+  });
+  assertSameElements('__iterator__ takes all elements once',
+      TEST_VALUES, values);
+}
+
+</script>
+</body>
+</html>

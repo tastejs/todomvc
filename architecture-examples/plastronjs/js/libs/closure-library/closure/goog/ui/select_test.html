@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.Select</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.dom');
+    goog.require('goog.dom.a11y');
+    goog.require('goog.dom.a11y.Role');
+    goog.require('goog.dom.a11y.State');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.Component.EventType');
+    goog.require('goog.ui.MenuItem');
+    goog.require('goog.ui.Select');
+  </script>
+</head>
+<body>
+
+<div id="sandbox"></div>
+<script>
+
+var defaultCaption = 'initial caption';
+var sandbox = goog.dom.getElement('sandbox');
+var select;
+
+function setUp() {
+  select = new goog.ui.Select(defaultCaption);
+}
+
+function tearDown() {
+  select.dispose();
+  goog.dom.removeChildren(sandbox);
+}
+
+/**
+ * Checks that the default caption passed in the constructor and in the setter
+ * is returned by getDefaultCaption, and acts as a default caption, i.e. is
+ * shown as a caption when no items are selected.
+ */
+function testDefaultCaption() {
+  select.render(sandbox);
+  var item1 = new goog.ui.MenuItem("item 1");
+  select.addItem(item1);
+  select.addItem(new goog.ui.MenuItem("item 2"));
+  assertEquals(defaultCaption, select.getDefaultCaption());
+  assertEquals(defaultCaption, select.getCaption());
+
+  var newCaption = 'new caption';
+  select.setDefaultCaption(newCaption);
+  assertEquals(newCaption, select.getDefaultCaption());
+  assertEquals(newCaption, select.getCaption());
+
+  select.setSelectedItem(item1);
+  assertNotEquals(newCaption, select.getCaption());
+
+  select.setSelectedItem(null);
+  assertEquals(newCaption, select.getCaption());
+}
+
+// Confirms that aria roles for select conform to spec:
+// http://www.w3.org/TR/wai-aria/roles#listbox
+// Basically the select should have a role of LISTBOX and all the items should
+// have a role of OPTION.
+function testAriaRoles() {
+  select.render(sandbox);
+  var item1 = new goog.ui.MenuItem("item 1");
+  select.addItem(item1);
+  var item2 = new goog.ui.MenuItem("item 2");
+  select.addItem(item2);
+
+  assertEquals(goog.dom.a11y.Role.LISTBOX,
+      goog.dom.a11y.getRole(select.getElement()));
+  assertEquals('false', goog.dom.a11y.getState(select.getElement(),
+          goog.dom.a11y.State.HASPOPUP));
+  assertEquals(goog.dom.a11y.Role.OPTION,
+      goog.dom.a11y.getRole(item1.getElement()));
+  assertEquals(goog.dom.a11y.Role.OPTION,
+      goog.dom.a11y.getRole(item2.getElement()));
+}
+
+/**
+ * Checks that the select control handles ACTION events from its items.
+ */
+function testHandlesItemActions() {
+  select.render(sandbox);
+  var item1 = new goog.ui.MenuItem("item 1");
+  var item2 = new goog.ui.MenuItem("item 2");
+  select.addItem(item1);
+  select.addItem(item2);
+
+  item1.dispatchEvent(goog.ui.Component.EventType.ACTION);
+  assertEquals(item1, select.getSelectedItem());
+  assertEquals(item1.getCaption(), select.getCaption());
+
+  item2.dispatchEvent(goog.ui.Component.EventType.ACTION);
+  assertEquals(item2, select.getSelectedItem());
+  assertEquals(item2.getCaption(), select.getCaption());
+}
+
+/**
+ * Tests goog.ui.Select.prototype.setValue.
+ */
+function testSetValue() {
+  select.render(sandbox);
+  var item1 = new goog.ui.MenuItem("item 1", 1);
+  var item2 = new goog.ui.MenuItem("item 2", 2);
+  select.addItem(item1);
+  select.addItem(item2);
+
+  select.setValue(1);
+  assertEquals(item1, select.getSelectedItem());
+
+  select.setValue(2);
+  assertEquals(item2, select.getSelectedItem());
+
+  select.setValue(3);
+  assertNull(select.getSelectedItem());
+}
+
+/**
+ * Checks that the current selection is cleared when the selected item is
+ * removed.
+ */
+function testSelectionIsClearedWhenSelectedItemIsRemoved() {
+  select.render(sandbox);
+  var item1 = new goog.ui.MenuItem("item 1");
+  select.addItem(item1);
+  select.addItem(new goog.ui.MenuItem("item 2"));
+
+  select.setSelectedItem(item1);
+  select.removeItem(item1);
+  assertNull(select.getSelectedItem());
+}
+
+/**
+ * Check that the select control is subscribed to its selection model events
+ * after being added, removed and added back again into the document.
+ */
+function testExitAndEnterDocument() {
+  var component = new goog.ui.Component();
+  component.render(sandbox);
+
+  var item1 = new goog.ui.MenuItem("item 1");
+  var item2 = new goog.ui.MenuItem("item 2");
+  var item3 = new goog.ui.MenuItem("item 3");
+
+  select.addItem(item1);
+  select.addItem(item2);
+  select.addItem(item3);
+
+  component.addChild(select, true);
+  item2.dispatchEvent(goog.ui.Component.EventType.ACTION);
+  assertEquals(item2.getCaption(), select.getCaption());
+
+  component.removeChild(select, true);
+  item1.dispatchEvent(goog.ui.Component.EventType.ACTION);
+  assertEquals(item2.getCaption(), select.getCaption());
+
+  component.addChild(select, true);
+  item3.dispatchEvent(goog.ui.Component.EventType.ACTION);
+  assertEquals(item3.getCaption(), select.getCaption());
+}
+
+</script>
+
+</body>
+</html>

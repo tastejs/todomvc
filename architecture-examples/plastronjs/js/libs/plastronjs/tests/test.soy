@@ -1,0 +1,31 @@
+{namespace org.plovr}
+
+/**
+ * @param title
+ * @param baseJsUrl
+ * @param testJsUrl
+ */
+{template .test}
+<!doctype html>
+<html>
+<head>
+  <title>{$title} test</title>
+</head>
+<body>
+  <div id="control">
+    <div id="test1" class="class1">
+      <div id="test2" class="class2">
+        <span id="test3" class="class1">
+        </span>
+      </div>
+    </div>
+  </div>
+  <script src="{$baseJsUrl}"></script>
+  <script>
+    goog.require('goog.testing.ContinuationTestCase');
+    goog.require('goog.testing.jsunit');
+  </script>
+  <script src="{$testJsUrl}"></script>
+</body>
+</html>
+{/template}

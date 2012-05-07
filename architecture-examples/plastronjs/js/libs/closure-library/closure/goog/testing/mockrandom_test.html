@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.testing.MockRandom</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.testing.MockRandom');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+  function testMockRandomInstall() {
+    var random = new goog.testing.MockRandom([]);
+    var originalRandom = Math.random;
+
+    assertFalse(!!random.installed_);
+
+    random.install();
+    assertTrue(random.installed_);
+    assertNotEquals(Math.random, originalRandom);
+
+    random.uninstall();
+    assertFalse(random.installed_);
+    assertEquals(originalRandom, Math.random);
+  }
+
+  function testMockRandomRandom() {
+    var random = new goog.testing.MockRandom([], true);
+
+    assertFalse(random.hasMoreValues());
+
+    random.inject(2);
+    assertTrue(random.hasMoreValues());
+    assertEquals(2, Math.random());
+
+    random.inject([1, 2, 3]);
+    assertTrue(random.hasMoreValues());
+    assertEquals(1, Math.random());
+    assertEquals(2, Math.random());
+    assertEquals(3, Math.random());
+    assertFalse(random.hasMoreValues());
+    assertNotUndefined(Math.random());
+  }
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!doctype html><html><head><title>goog.debug.entryPointRegistry</title><link href="../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../index.html">Home</a><h1>Library goog.debug.entryPointRegistry</h1><table class="method-list"><tr><td colspan="2">Function Summary</td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>monitorAll(!goog.debug.EntryPointMonitor monitor)</code><br><p class="method-description">Configures a monitor to wrap all entry points.
+
+Entry points that have already been registered are immediately wrapped by
+the monitor. When an entry point is registered in the future, it will also
+be wrapped by the monitor when it is registered.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>register(function (Function): ? callback)</code><br><p class="method-description">Register an entry point with this module.
+
+The entry point will be instrumented when a monitor is passed to
+goog.debug.entryPointRegistry.monitorAll. If this has already occurred, the
+entry point is instrumented immediately.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>unmonitorAllIfPossible(!goog.debug.EntryPointMonitor monitor)</code><br><p class="method-description">Try to unmonitor all the entry points that have already been registered. If
+an entry point is registered in the future, it will not be wrapped by the
+monitor when it is registered. Note that this may fail if the entry points
+have additional wrapping.</p></td></tr></table></body></html>

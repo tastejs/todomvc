@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.debug.ErrorHandler</title>
+<!-- These paths should be relative to the test -->
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.debug.ErrorHandler');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.userAgent');
+</script>
+</head>
+<body>
+<script>
+
+  var oldGetObjectByName;
+
+  // provide our own window that implements our instrumented and
+  // immediate-call versions of setTimeout and setInterval
+  var fakeWin = {};
+
+  var errorHandler;
+
+  function badTimer() {
+    arguments.callee.called = true;
+    throw 'die die die';
+  }
+
+  function setUp() {
+    // On IE, globalEval happens async. So make it synchronous.
+    goog.globalEval = function(str) {
+      eval(str);
+    };
+
+    oldGetObjectByName = goog.getObjectByName;
+    goog.getObjectByName = function(name) {
+      if (name == 'window') {
+        return fakeWin;
+      } else {
+        return oldGetObjectByName(name);
+      }
+    };
+
+    fakeWin.setTimeout = function(fn, time) {
+      fakeWin.setTimeout.called = true;
+      fakeWin.setTimeout.that = this;
+      if (goog.isString(fn)) {
+        eval(fn);
+      } else {
+        fn();
+      }
+    };
+
+    fakeWin.setInterval = function(fn, time) {
+      fakeWin.setInterval.called = true;
+      fakeWin.setInterval.that = this;
+      if (goog.isString(fn)) {
+        eval(fn);
+      } else {
+        fn();
+      }
+    };
+
+    // just record the exception in the error handler when it happens
+    errorHandler = new goog.debug.ErrorHandler(function(ex) {
+                                                 this.ex = ex;
+                                               });
+  }
+
+  function tearDown() {
+    goog.dispose(errorHandler);
+    errorHandler = null;
+
+    goog.getObjectByName = oldGetObjectByName;
+
+    delete badTimer['__protected__'];
+  }
+
+  function testWrapSetTimeout() {
+    errorHandler.protectWindowSetTimeout();
+
+    var caught;
+
+    try {
+      fakeWin.setTimeout(badTimer, 3);
+    } catch (ex) {
+      caught = ex;
+    }
+    assertSetTimeoutError(caught);
+  }
+
+  function testWrapSetTimeoutWithString() {
+    errorHandler.protectWindowSetTimeout();
+
+    var caught;
+
+    try {
+      fakeWin.setTimeout('badTimer()', 3);
+    } catch (ex) {
+      caught = ex;
+    }
+    assertSetTimeoutError(caught);
+  }
+
+  function testWrapSetInterval() {
+    errorHandler.protectWindowSetInterval();
+
+    var caught;
+
+    try {
+      fakeWin.setInterval(badTimer, 3);
+    } catch (ex) {
+      caught = ex;
+    }
+    assertSetIntervalError(caught);
+  }
+
+  function testWrapSetIntervalWithString() {
+    errorHandler.protectWindowSetInterval();
+
+    var caught;
+
+    try {
+      fakeWin.setInterval('badTimer()', 3);
+    } catch (ex) {
+      caught = ex;
+    }
+    assertSetIntervalError(caught);
+  }
+
+  function testDisposal() {
+    fakeWin = goog.getObjectByName('window');
+    var originalSetTimeout = fakeWin.setTimeout;
+    var originalSetInterval = fakeWin.setInterval;
+
+    errorHandler.protectWindowSetTimeout();
+    errorHandler.protectWindowSetInterval();
+
+    assertNotEquals(originalSetTimeout, fakeWin.setTimeout);
+    assertNotEquals(originalSetInterval, fakeWin.setInterval);
+
+    errorHandler.dispose();
+
+    assertEquals(originalSetTimeout, fakeWin.setTimeout);
+    assertEquals(originalSetInterval, fakeWin.setInterval);
+  }
+
+  function testUnwrap() {
+    var fn = function() {};
+    var wrappedFn = errorHandler.wrap(fn);
+    assertNotEquals(wrappedFn, fn);
+
+    assertEquals(fn, errorHandler.unwrap(fn));
+    assertEquals(fn, errorHandler.unwrap(wrappedFn));
+  }
+
+  function assertSetTimeoutError(caught) {
+    assertMethodCalledHelper('setTimeout', caught);
+  }
+
+  function assertSetIntervalError(caught) {
+    assertMethodCalledHelper('setInterval', caught);
+  }
+
+  function assertMethodCalledHelper(method, caught) {
+    assertTrue('exception not thrown', !!caught);
+    assertEquals('exception not caught by error handler',
+        caught.cause, errorHandler.ex);
+    assertTrue('fake ' + method + ' not called',
+        !!fakeWin[method].called);
+    assertTrue('"this" not passed to original ' + method,
+        fakeWin[method].that === fakeWin);
+  }
+
+</script>
+</body>
+</html>

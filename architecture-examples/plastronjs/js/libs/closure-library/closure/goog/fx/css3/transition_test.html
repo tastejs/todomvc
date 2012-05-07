@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.fx.css3.Transition</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.dispose');
+  goog.require('goog.dom');
+  goog.require('goog.events');
+  goog.require('goog.fx.css3.Transition');
+  goog.require('goog.style.transition');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+var transition;
+var element;
+var mockClock;
+
+
+function createTransition(element, duration) {
+  return new goog.fx.css3.Transition(
+      element, duration, {'opacity': 0}, {'opacity': 1},
+      {property: 'opacity', duration: duration, timing: 'ease-in', delay: 0});
+}
+
+
+function setUp() {
+  mockClock = new goog.testing.MockClock(true);
+  element = goog.dom.createElement('div');
+  document.body.appendChild(element);
+}
+
+
+function tearDown() {
+  goog.dispose(transition);
+  goog.dispose(mockClock);
+  goog.dom.removeNode(element);
+}
+
+
+function testPlayEventFiredOnPlay() {
+  if (!goog.style.transition.isSupported()) return;
+
+  transition = createTransition(element, 10);
+  var handlerCalled = false;
+  goog.events.listen(transition, goog.fx.Transition.EventType.PLAY,
+      function() {
+        handlerCalled = true;
+      });
+
+  transition.play();
+  assertTrue(handlerCalled);
+}
+
+
+function testBeginEventFiredOnPlay() {
+  if (!goog.style.transition.isSupported()) return;
+
+  transition = createTransition(element, 10);
+  var handlerCalled = false;
+  goog.events.listen(transition, goog.fx.Transition.EventType.BEGIN,
+      function() {
+        handlerCalled = true;
+      });
+
+  transition.play();
+  assertTrue(handlerCalled);
+}
+
+
+function testFinishEvents() {
+  if (!goog.style.transition.isSupported()) return;
+
+  transition = createTransition(element, 10);
+  var finishHandlerCalled = false;
+  var endHandlerCalled = false;
+  goog.events.listen(transition, goog.fx.Transition.EventType.FINISH,
+      function() {
+        finishHandlerCalled = true;
+      });
+  goog.events.listen(transition, goog.fx.Transition.EventType.END,
+      function() {
+        endHandlerCalled = true;
+      });
+
+  transition.play();
+
+  mockClock.tick(10000);
+
+  assertTrue(finishHandlerCalled);
+  assertTrue(endHandlerCalled);
+}
+
+
+function testStopEvents() {
+  if (!goog.style.transition.isSupported()) return;
+
+  transition = createTransition(element, 10);
+
+  var stopHandlerCalled = false;
+  var endHandlerCalled = false;
+  goog.events.listen(transition, goog.fx.Transition.EventType.STOP,
+      function() {
+        stopHandlerCalled = true;
+      });
+  goog.events.listen(transition, goog.fx.Transition.EventType.END,
+      function() {
+        endHandlerCalled = true;
+      });
+
+  transition.play();
+  transition.stop();
+  assertTrue(stopHandlerCalled);
+  assertTrue(endHandlerCalled);
+}
+
+function testUnsupportedEvents() {
+  if (goog.style.transition.isSupported()) return;
+
+  transition = createTransition(element, 10);
+
+  var stopHandlerCalled = false;
+  var finishHandlerCalled = false, endHandlerCalled = false;
+  var beginHandlerCalled = false, playHandlerCalled = false;
+  goog.events.listen(transition, goog.fx.Transition.EventType.BEGIN,
+      function() {
+        beginHandlerCalled = true;
+      });
+  goog.events.listen(transition, goog.fx.Transition.EventType.PLAY,
+      function() {
+        playHandlerCalled = true;
+      });
+  goog.events.listen(transition, goog.fx.Transition.EventType.FINISH,
+      function() {
+        finishHandlerCalled = true;
+      });
+  goog.events.listen(transition, goog.fx.Transition.EventType.END,
+      function() {
+        endHandlerCalled = true;
+      });
+
+  goog.events.listen(transition, goog.fx.Transition.EventType.STOP,
+      function() {
+        stopHandlerCalled = true;
+      });
+
+  assertFalse(transition.play());
+
+  assertTrue(beginHandlerCalled);
+  assertTrue(playHandlerCalled);
+  assertTrue(endHandlerCalled);
+  assertTrue(finishHandlerCalled);
+
+  transition.stop();
+
+  assertFalse(stopHandlerCalled);
+}
+
+</script>
+</body>
+</html>

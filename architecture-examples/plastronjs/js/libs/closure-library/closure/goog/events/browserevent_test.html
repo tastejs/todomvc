@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<!--
+
+  Author: nicksantos@google.com (Nick Santos)
+-->
+
+<html>
+<!--
+Copyright 2009 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>JsUnit tests for goog.events.BrowserEvent</title>
+<script type='text/javascript' src='../base.js'></script>
+<script type='text/javascript'>
+
+goog.require('goog.events.BrowserEvent');
+goog.require('goog.testing.PropertyReplacer');
+goog.require('goog.testing.jsunit');
+goog.require('goog.userAgent');
+
+
+</script>
+</head>
+<body>
+<script type='text/javascript'>
+
+var stubs = new goog.testing.PropertyReplacer();
+var Button = goog.events.BrowserEvent.MouseButton;
+
+function setUp() {
+  stubs.reset();
+}
+
+
+/**
+ * @see https://bugzilla.mozilla.org/show_bug.cgi?id=497780
+ */
+function testInvalidNodeBug() {
+  if (!goog.userAgent.GECKO) return;
+
+  var event = {};
+  event.relatedTarget = {};
+  event.relatedTarget.__defineGetter__(
+      'nodeName',
+      function() {
+        throw Error('https://bugzilla.mozilla.org/show_bug.cgi?id=497780');
+      });
+  assertThrows(function() { return event.relatedTarget.nodeName; });
+
+  var bEvent = new goog.events.BrowserEvent(event);
+  assertEquals(event, bEvent.event_);
+  assertNull(bEvent.relatedTarget);
+}
+
+function testIsButtonIe() {
+  stubs.set(goog.events.BrowserFeature, 'HAS_W3C_BUTTON', false);
+  assertIsButton(
+      createBrowserEvent('mousedown', 1),
+      Button.LEFT,
+      true);
+  assertIsButton(
+      createBrowserEvent('click', 0),
+      Button.LEFT,
+      true);
+  assertIsButton(
+      createBrowserEvent('mousedown', 2),
+      Button.RIGHT,
+      false);
+  assertIsButton(
+      createBrowserEvent('mousedown', 4),
+      Button.MIDDLE,
+      false);
+}
+
+function testIsButtonWebkitMac() {
+  stubs.set(goog.events.BrowserFeature, 'HAS_W3C_BUTTON', true);
+  stubs.set(goog.userAgent, 'WEBKIT', true);
+  stubs.set(goog.userAgent, 'MAC', true);
+  assertIsButton(
+      createBrowserEvent('mousedown', 0),
+      Button.LEFT,
+      true);
+  assertIsButton(
+      createBrowserEvent('mousedown', 0, true),
+      Button.LEFT,
+      false);
+  assertIsButton(
+      createBrowserEvent('mousedown', 2),
+      Button.RIGHT,
+      false);
+  assertIsButton(
+      createBrowserEvent('mousedown', 2, true),
+      Button.RIGHT,
+      false);
+  assertIsButton(
+      createBrowserEvent('mousedown', 1),
+      Button.MIDDLE,
+      false);
+  assertIsButton(
+      createBrowserEvent('mousedown', 1, true),
+      Button.MIDDLE,
+      false);
+}
+
+function testIsButtonGecko() {
+  stubs.set(goog.events.BrowserFeature, 'HAS_W3C_BUTTON', true);
+  stubs.set(goog.userAgent, 'GECKO', true);
+  stubs.set(goog.userAgent, 'MAC', true);
+  assertIsButton(
+      createBrowserEvent('mousedown', 0),
+      Button.LEFT,
+      true);
+  assertIsButton(
+      createBrowserEvent('mousedown', 2, true),
+      Button.RIGHT,
+      false);
+}
+
+function createBrowserEvent(type, button, opt_ctrlKey) {
+  return new goog.events.BrowserEvent({
+    type: type,
+    button: button,
+    ctrlKey: !!opt_ctrlKey
+  });
+}
+
+function assertIsButton(event, button, isActionButton) {
+  for (var key in Button) {
+    assertEquals(
+        'Testing isButton(' + key + ') against ' +
+        button + ' and type ' + event.type,
+        Button[key] == button, event.isButton(Button[key]));
+  }
+
+  assertEquals(isActionButton, event.isMouseActionButton());
+}
+
+</script>
+</body>
+</html>

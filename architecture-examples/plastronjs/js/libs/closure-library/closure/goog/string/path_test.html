@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<title>Closure Unit Tests - goog.string.path</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.string.path');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+// Some test data comes from Python's posixpath tests.
+// See http://svn.python.org/view/python/trunk/Lib/test/test_posixpath.py
+
+function testJoin() {
+  assertEquals('/bar/baz',
+              goog.string.path.join('/foo', 'bar', '/bar', 'baz'));
+  assertEquals('/foo/bar/baz',
+              goog.string.path.join('/foo', 'bar', 'baz'));
+  assertEquals('/foo/bar/baz/',
+              goog.string.path.join('/foo/', 'bar/', 'baz/'))
+}
+
+function testNormalizePath() {
+  assertEquals('.', goog.string.path.normalizePath(''));
+  assertEquals('.', goog.string.path.normalizePath('./'));
+  assertEquals('/', goog.string.path.normalizePath('/'));
+  assertEquals('//', goog.string.path.normalizePath('//'));
+  assertEquals('/', goog.string.path.normalizePath('///'));
+  assertEquals('/foo/bar',
+               goog.string.path.normalizePath('///foo/.//bar//'));
+  assertEquals('/foo/baz',
+               goog.string.path.normalizePath('///foo/.//bar//.//..//.//baz'));
+  assertEquals('/foo/bar',
+               goog.string.path.normalizePath('///..//./foo/.//bar'));
+  assertEquals('../../cat/dog',
+               goog.string.path.normalizePath('../../cat/dog/'));
+  assertEquals('../dog',
+               goog.string.path.normalizePath('../cat/../dog/'));
+  assertEquals('/cat/dog',
+               goog.string.path.normalizePath('/../cat/dog/'));
+  assertEquals('/dog',
+               goog.string.path.normalizePath('/../cat/../dog'));
+  assertEquals('/dog',
+               goog.string.path.normalizePath('/../../../dog'));
+}
+
+
+</script>
+</body>
+</html>

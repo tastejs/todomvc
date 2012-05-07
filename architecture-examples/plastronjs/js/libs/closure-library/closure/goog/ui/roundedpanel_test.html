@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+
+  Unit test file for goog.ui.RoundedPanel component
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.RoundedPanel</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.RoundedPanel');
+    goog.require('goog.userAgent');
+  </script>
+</head>
+<body>
+  <script>
+    /**
+     * Tests goog.ui.RoundedPanel.create(), ensuring that the proper instance is
+     * created based on user-agent
+     */
+    function testRoundedPanelCreate() {
+      var rcp = goog.ui.RoundedPanel.create(15,
+                                            5,
+                                            '#cccccc',
+                                            '#cccccc',
+                                            goog.ui.RoundedPanel.Corner.ALL);
+
+      if (goog.userAgent.GECKO && goog.userAgent.isVersion('1.9a')) {
+        assertTrue('For Firefox 3.0+ (uses Gecko 1.9+), an instance of ' +
+            'goog.ui.CssRoundedPanel should be returned.',
+            rcp instanceof goog.ui.CssRoundedPanel);
+      } else if (goog.userAgent.WEBKIT && goog.userAgent.isVersion('500')) {
+        assertTrue('For Safari 3.0+, an instance of goog.ui.CssRoundedPanel ' +
+            'should be returned.', rcp instanceof goog.ui.CssRoundedPanel);
+      } else if (goog.userAgent.GECKO ||
+                 goog.userAgent.IE ||
+                 goog.userAgent.OPERA ||
+                 goog.userAgent.WEBKIT) {
+        assertTrue('For Gecko 1.8- (ex. Firefox 2.0-, Camino 1.5-, etc.), ' +
+            'IE, Opera, and Safari 2.0-, an instance of ' +
+            'goog.ui.GraphicsRoundedPanel should be returned.',
+            rcp instanceof goog.ui.GraphicsRoundedPanel);
+      } else {
+        assertNull('For non-supported user-agents, null is returned.', rcp);
+      }
+    };
+  </script>
+</body>
+</html>

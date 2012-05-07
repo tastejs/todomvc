@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Closure Unit Tests - goog.ui.Container</title>
+  <script src="../base.js"></script>
+  <script>
+    goog.require('goog.Disposable');
+    goog.require('goog.dom');
+    goog.require('goog.dom.classes');
+    goog.require('goog.testing.events');
+    goog.require('goog.testing.jsunit');
+    goog.require('goog.ui.Container');
+    goog.require('goog.ui.Container.EventType');
+    goog.require('goog.ui.Control');
+  </script>
+</head>
+<body>
+  <div id="sandbox"></div>
+  <script>
+    var sandbox = goog.dom.getElement('sandbox');
+    var containerElement;
+    var container;
+    var keyContainer;
+    var listContainer;
+
+    function setUp() {
+      container = new goog.ui.Container();
+      keyContainer = null;
+      listContainer = null;
+
+      sandbox.innerHTML =
+          '<div id="containerElement" class="goog-container">\n' +
+          '  <div class="goog-control">Hello</div>\n' +
+          '  <div class="goog-control">World</div>\n' +
+          '</div>';
+      containerElement = goog.dom.getElement('containerElement');
+    }
+
+    function tearDown() {
+      goog.dom.removeChildren(sandbox);
+      container.dispose();
+      goog.events.removeAll();
+      goog.dispose(keyContainer);
+      goog.dispose(listContainer);
+    }
+
+    function testDecorateHidden() {
+      containerElement.style.display = 'none';
+
+      assertTrue('Container must be visible', container.isVisible());
+      container.decorate(containerElement);
+      assertFalse('Container must be hidden', container.isVisible());
+      container.forEachChild(function(control) {
+        assertTrue('Child control ' + control.getId() + ' must report being ' +
+            'visible, even if in a hidden container', control.isVisible());
+      });
+    }
+
+    function testDecorateDisabled() {
+      goog.dom.classes.add(containerElement, 'goog-container-disabled');
+
+      assertTrue('Container must be enabled', container.isEnabled());
+      container.decorate(containerElement);
+      assertFalse('Container must be disabled', container.isEnabled());
+      container.forEachChild(function(control) {
+        assertFalse('Child control ' + control.getId() + ' must be disabled, ' +
+            'because the host container is disabled', control.isEnabled());
+      });
+    }
+
+    function testDecorateFocusableContainer() {
+      container.decorate(containerElement);
+      assertTrue('Container must be focusable', container.isFocusable());
+      container.forEachChild(function(control) {
+        assertFalse('Child control ' + control.getId() + ' must not be ' +
+            'focusable',
+            control.isSupportedState(goog.ui.Component.State.FOCUSED));
+      });
+    }
+
+    function testDecorateFocusableChildrenContainer() {
+      container.setFocusable(false);
+      container.setFocusableChildrenAllowed(true);
+      container.decorate(containerElement);
+      assertFalse('Container must not be focusable', container.isFocusable());
+      container.forEachChild(function(control) {
+        assertTrue('Child control ' + control.getId() + ' must be ' +
+            'focusable',
+            control.isSupportedState(goog.ui.Component.State.FOCUSED));
+      });
+    }
+
+    function testHighlightOnEnter() {
+      // This interaction test ensures that containers enforce that children
+      // get highlighted on mouseover, and that one and only one child may
+      // be highlighted at a time.  Although integration tests aren't the
+      // best, it's difficult to test these event-based interactions due to
+      // their disposition toward the "misunderstood contract" problem.
+
+      container.decorate(containerElement);
+      assertFalse('Child 0 should initially not be highlighted',
+          container.getChildAt(0).isHighlighted());
+
+      goog.testing.events.fireMouseOverEvent(
+          container.getChildAt(0).getElement(), sandbox);
+      assertTrue('Child 0 should become highlighted after a mouse over',
+          container.getChildAt(0).isHighlighted());
+
+      goog.testing.events.fireMouseOverEvent(
+          container.getChildAt(1).getElement(),
+          container.getChildAt(0).getElement());
+      assertFalse('Child 0 should lose highlight when child 1 is moused ' +
+          'over, even if no mouseout occurs.',
+          container.getChildAt(0).isHighlighted());
+      assertTrue('Child 1 should now be highlighted.',
+          container.getChildAt(1).isHighlighted());
+    }
+
+    function testHighlightOnEnterPreventable() {
+      container.decorate(containerElement);
+      goog.events.listen(container, goog.ui.Component.EventType.ENTER,
+          function(event) {
+            event.preventDefault();
+          });
+      goog.testing.events.fireMouseOverEvent(
+          container.getChildAt(0).getElement(), sandbox);
+      assertFalse('Child 0 should not be highlighted if preventDefault called',
+          container.getChildAt(0).isHighlighted());
+    }
+
+    function testHighlightDisabled() {
+      // Another interaction test.  Already tested in control_test.
+      container.decorate(containerElement);
+      container.getChildAt(0).setEnabled(false);
+      goog.testing.events.fireMouseOverEvent(
+          container.getChildAt(0).getElement(), sandbox);
+      assertFalse('Disabled children should not be highlighted',
+          container.getChildAt(0).isHighlighted());
+    }
+
+    function testGetOwnerControl() {
+      container.decorate(containerElement);
+
+      assertEquals('Must return appropriate control given an element in the ' +
+          'control.',
+          container.getChildAt(1),
+          container.getOwnerControl(container.getChildAt(1).getElement()));
+
+      assertNull('Must return null for element not associated with control.',
+          container.getOwnerControl(document.body));
+      assertNull('Must return null if given null node',
+          container.getOwnerControl(null));
+    }
+
+    function testShowEvent() {
+      container.decorate(containerElement);
+      container.setVisible(false);
+      var eventFired = false;
+      goog.events.listen(container, goog.ui.Component.EventType.SHOW,
+          function() {
+            assertFalse('Container must not be visible when SHOW event is ' +
+                        'fired',
+                        container.isVisible());
+            eventFired = true;
+          });
+      container.setVisible(true);
+      assertTrue('SHOW event expected', eventFired);
+    }
+
+    function testAfterShowEvent() {
+      container.decorate(containerElement);
+      container.setVisible(false);
+      var eventFired = false;
+      goog.events.listen(container, goog.ui.Container.EventType.AFTER_SHOW,
+          function() {
+            assertTrue('Container must be visible when AFTER_SHOW event is ' +
+                       'fired',
+                       container.isVisible());
+            eventFired = true;
+          });
+      container.setVisible(true);
+      assertTrue('AFTER_SHOW event expected', eventFired);
+    }
+
+    function testHideEvents() {
+      var events = [];
+      container.decorate(containerElement);
+      container.setVisible(true);
+      var eventFired = false;
+      goog.events.listen(container, goog.ui.Component.EventType.HIDE,
+          function(e) {
+            assertTrue(
+                'Container must be visible when HIDE event is fired',
+                container.isVisible());
+            events.push(e.type);
+          });
+      goog.events.listen(container, goog.ui.Container.EventType.AFTER_HIDE,
+          function(e) {
+            assertFalse(
+                'Container must not be visible when AFTER_HIDE event is fired',
+                container.isVisible());
+            events.push(e.type);
+          });
+      container.setVisible(false);
+      assertArrayEquals('HIDE event followed by AFTER_HIDE expected', [
+            goog.ui.Component.EventType.HIDE,
+            goog.ui.Container.EventType.AFTER_HIDE
+          ], events);
+    }
+
+    /**
+     * Test container to which the elements have to be added with
+     * {@code container.addChild(element, false)}
+     * @constructor
+     * @extends {goog.ui.Container}
+     */
+    function ListContainer() {
+      goog.ui.Container.call(this);
+    }
+    goog.inherits(ListContainer, goog.ui.Container);
+
+    /** @override */
+    ListContainer.prototype.createDom = function() {
+      ListContainer.superClass_.createDom.call(this);
+      var ul = this.getDomHelper().createDom('ul');
+      this.forEachChild(function(child) {
+        child.createDom();
+        var childEl = child.getElement();
+        ul.appendChild(this.getDomHelper().createDom('li', {}, childEl));
+      }, this);
+      this.getContentElement().appendChild(ul);
+    };
+
+    function testGetOwnerControlWithNoRenderingInAddChild() {
+      listContainer = new ListContainer();
+      var control = new goog.ui.Control('item');
+      listContainer.addChild(control);
+      listContainer.render();
+      var ownerControl = listContainer.getOwnerControl(control.getElement());
+
+      assertEquals('Control was added with addChild(control, false)',
+          control, ownerControl);
+    }
+
+    /**
+     * Test container for tracking key events being handled.
+     * @constructor
+     * @extends {goog.ui.Container}
+     */
+    function KeyHandlingContainer() {
+      goog.ui.Container.call(this);
+      this.keyEventsHandled = 0;
+    }
+    goog.inherits(KeyHandlingContainer, goog.ui.Container);
+
+    /** @override */
+    KeyHandlingContainer.prototype.handleKeyEventInternal = function() {
+      this.keyEventsHandled++;
+      return false;
+    };
+
+    function testHandleKeyEvent_onlyHandlesWhenVisible() {
+      keyContainer = new KeyHandlingContainer();
+      keyContainer.decorate(containerElement);
+
+      keyContainer.setVisible(false);
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('No key events should be handled',
+          0, keyContainer.keyEventsHandled);
+
+      keyContainer.setVisible(true);
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('One key event should be handled',
+          1, keyContainer.keyEventsHandled);
+    }
+
+    function testHandleKeyEvent_onlyHandlesWhenEnabled() {
+      keyContainer = new KeyHandlingContainer();
+      keyContainer.decorate(containerElement);
+      keyContainer.setVisible(true);
+
+      keyContainer.setEnabled(false);
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('No key events should be handled',
+          0, keyContainer.keyEventsHandled);
+
+      keyContainer.setEnabled(true);
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('One key event should be handled',
+          1, keyContainer.keyEventsHandled);
+    }
+
+    function testHandleKeyEvent_childlessContainersIgnoreKeyEvents() {
+      keyContainer = new KeyHandlingContainer();
+      keyContainer.render();
+      keyContainer.setVisible(true);
+
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('No key events should be handled',
+          0, keyContainer.keyEventsHandled);
+
+      keyContainer.addChild(new goog.ui.Control());
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('One key event should be handled',
+          1, keyContainer.keyEventsHandled);
+    }
+
+    function testHandleKeyEvent_alwaysHandlesWithKeyEventTarget() {
+      keyContainer = new KeyHandlingContainer();
+      keyContainer.render();
+      keyContainer.setKeyEventTarget(goog.dom.createDom('div'));
+      keyContainer.setVisible(true);
+
+      keyContainer.handleKeyEvent(new goog.events.Event());
+      assertEquals('One key events should be handled',
+          1, keyContainer.keyEventsHandled);
+    }
+
+    function testHandleKeyEventInternal_onlyHandlesUnmodified() {
+      container.setKeyEventTarget(sandbox);
+      var event = new goog.events.KeyEvent(
+          goog.events.KeyCodes.ESC, 0, false, null);
+
+      var propertyNames = [
+        'shiftKey',
+        'altKey',
+        'ctrlKey',
+        'metaKey'
+      ];
+
+      // Verify that the event is not handled whenever a modifier key is true.
+      for (var i = 0, propertyName; propertyName = propertyNames[i]; i++) {
+        assertTrue('Event should be handled when modifer key is not pressed.',
+            container.handleKeyEventInternal(event));
+        event[propertyName] = true;
+        assertFalse('Event should not be handled when modifer key is pressed.',
+            container.handleKeyEventInternal(event));
+        event[propertyName] = false;
+      }
+    }
+
+    function testOpenFollowsHighlight() {
+      container.decorate(containerElement);
+      container.setOpenFollowsHighlight(true);
+      assertTrue('isOpenFollowsHighlight should return true',
+          container.isOpenFollowsHighlight());
+
+      // Make the children openable.
+      container.forEachChild(function(child) {
+        child.setSupportedState(goog.ui.Component.State.OPENED, true);
+      });
+      // Open child 1 initially.
+      container.getChildAt(1).setOpen(true);
+
+      assertFalse('Child 0 should initially not be highlighted',
+          container.getChildAt(0).isHighlighted());
+      goog.testing.events.fireMouseOverEvent(
+          container.getChildAt(0).getElement(), sandbox);
+      assertTrue('Child 0 should become highlighted after a mouse over',
+          container.getChildAt(0).isHighlighted());
+      assertTrue('Child 0 should become open after higlighted',
+          container.getChildAt(0).isOpen());
+      assertFalse('Child 1 should become closed once 0 is open',
+          container.getChildAt(1).isOpen());
+      assertEquals('OpenItem should be child 0',
+          container.getChildAt(0), container.getOpenItem());
+    }
+
+    function testOpenNotFollowsHighlight() {
+      container.decorate(containerElement);
+      container.setOpenFollowsHighlight(false);
+      assertFalse('isOpenFollowsHighlight should return false',
+          container.isOpenFollowsHighlight());
+
+      // Make the children openable.
+      container.forEachChild(function(child) {
+        child.setSupportedState(goog.ui.Component.State.OPENED, true);
+      });
+      // Open child 1 initially.
+      container.getChildAt(1).setOpen(true);
+
+      assertFalse('Child 0 should initially not be highlighted',
+          container.getChildAt(0).isHighlighted());
+      goog.testing.events.fireMouseOverEvent(
+          container.getChildAt(0).getElement(), sandbox);
+      assertTrue('Child 0 should become highlighted after a mouse over',
+          container.getChildAt(0).isHighlighted());
+      assertFalse('Child 0 should remain closed after higlighted',
+          container.getChildAt(0).isOpen());
+      assertTrue('Child 1 should remain open',
+          container.getChildAt(1).isOpen());
+      assertEquals('OpenItem should be child 1',
+          container.getChildAt(1), container.getOpenItem());
+    }
+
+    function testRemoveChild() {
+      goog.dom.removeChildren(containerElement);
+      container.decorate(containerElement);
+
+      var a = new goog.ui.Control('A');
+      var b = new goog.ui.Control('B');
+      var c = new goog.ui.Control('C');
+
+      a.setId('a');
+      b.setId('b');
+      c.setId('c');
+
+      container.addChild(a, true);
+      container.addChild(b, true);
+      container.addChild(c, true);
+
+      container.setHighlightedIndex(2);
+
+      assertEquals('Parent must remove and return child by ID', b,
+          container.removeChild('b'));
+      assertNull('Parent must no longer contain this child',
+          container.getChild('b'));
+      assertEquals('Highlighted index must be decreased', 1,
+          container.getHighlightedIndex());
+      assertTrue('The removed control must handle its own mouse events',
+          b.isHandleMouseEvents());
+
+      assertEquals('Parent must remove and return child', c,
+          container.removeChild(c));
+      assertNull('Parent must no longer contain this child',
+          container.getChild('c'));
+      assertFalse('This child must no longer be highlighted',
+          c.isHighlighted());
+      assertTrue('The removed control must handle its own mouse events',
+          c.isHandleMouseEvents());
+
+      assertEquals('Parent must remove and return child by index', a,
+          container.removeChildAt(0));
+      assertNull('Parent must no longer contain this child',
+          container.getChild('a'));
+      assertTrue('The removed control must handle its own mouse events',
+          a.isHandleMouseEvents());
+    }
+  </script>
+</body>
+</html>

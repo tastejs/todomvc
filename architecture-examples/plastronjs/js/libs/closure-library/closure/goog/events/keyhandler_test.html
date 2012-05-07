@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.events.KeyHandler</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.dom')
+  goog.require('goog.events.KeyEvent');
+  goog.require('goog.events.EventType');
+  goog.require('goog.functions');
+  goog.require('goog.testing.events');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+  function setUp() {
+    // Have this based on a fictitious DOCUMENT_MODE constant.
+    goog.userAgent.isDocumentMode = function(mode) {
+      return mode <= goog.userAgent.DOCUMENT_MODE;
+    };
+  }
+
+  /**
+   * Tests the key handler for the IE 8 and lower behavior.
+   */
+  function testIe8StyleKeyHandling() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = true;
+    goog.userAgent.GECKO = false;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = false;
+    goog.userAgent.WINDOWS = true;
+    goog.userAgent.LINUX = false;
+    goog.userAgent.VERSION = 8;
+    goog.userAgent.DOCUMENT_MODE = 8;
+    goog.events.KeyHandler.USES_KEYDOWN_ = true;
+
+    assertIe8StyleKeyHandling();
+  }
+
+  /**
+   * Tests the key handler for the IE 8 and lower behavior.
+   */
+  function testIe8StyleKeyHandlingInIe9DocumentMode() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = true;
+    goog.userAgent.GECKO = false;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = false;
+    goog.userAgent.WINDOWS = true;
+    goog.userAgent.LINUX = false;
+    goog.userAgent.VERSION = 9; // Try IE9 in IE8 document mode.
+    goog.userAgent.DOCUMENT_MODE = 8;
+    goog.events.KeyHandler.USES_KEYDOWN_ = true;
+
+    assertIe8StyleKeyHandling();
+  }
+
+  function assertIe8StyleKeyHandling() {
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ENTER);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ENTER);
+    assertEquals('Enter should fire a key event with the keycode 13',
+                 goog.events.KeyCodes.ENTER,
+                 keyEvent.keyCode);
+    assertEquals('Enter should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ESC);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ESC);
+    assertEquals('Esc should fire a key event with the keycode 27',
+                 goog.events.KeyCodes.ESC,
+                 keyEvent.keyCode);
+    assertEquals('Esc should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.UP);
+    assertEquals('Up should fire a key event with the keycode 38',
+                 goog.events.KeyCodes.UP,
+                 keyEvent.keyCode);
+    assertEquals('Up should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.SEVEN, undefined, undefined,
+        undefined, undefined, true);
+    fireKeyPress(keyHandler, 38, undefined, undefined, undefined, undefined,
+        true);
+    assertEquals('Shift+7 should fire a key event with the keycode 55',
+                 goog.events.KeyCodes.SEVEN,
+                 keyEvent.keyCode);
+    assertEquals('Shift+7 should fire a key event with the charcode 38',
+                 38,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, 97);
+    assertEquals('Lower case a should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Lower case a should fire a key event with the charcode 97',
+                 97,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, 65);
+    assertEquals('Upper case A should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Upper case A should fire a key event with the charcode 65',
+                 65,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.DELETE);
+    assertEquals('Delete should fire a key event with the keycode 46',
+                 goog.events.KeyCodes.DELETE,
+                 keyEvent.keyCode);
+    assertEquals('Delete should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.PERIOD);
+    fireKeyPress(keyHandler, 46);
+    assertEquals('Period should fire a key event with the keycode 190',
+                 goog.events.KeyCodes.PERIOD,
+                 keyEvent.keyCode);
+    assertEquals('Period should fire a key event with the charcode 46',
+                 46,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.CTRL);
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    assertEquals('A with control down should fire a key event',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+
+    // On IE, when Ctrl+<key> is held down, there is a KEYDOWN, a KEYPRESS, and
+    // then a series of KEYDOWN events for each repeat.
+    fireKeyDown(keyHandler, goog.events.KeyCodes.B, undefined, undefined, true);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.B, undefined, undefined,
+        true);
+    assertEquals('B with control down should fire a key event',
+                 goog.events.KeyCodes.B,
+                 keyEvent.keyCode);
+    assertTrue('Ctrl should be down.', keyEvent.ctrlKey);
+    assertFalse('Should not have repeat=true on the first key press.',
+        keyEvent.repeat);
+    // Fire one repeated keydown event.
+    fireKeyDown(keyHandler, goog.events.KeyCodes.B, undefined, undefined, true);
+    assertEquals('A with control down should fire a key event',
+                 goog.events.KeyCodes.B,
+                 keyEvent.keyCode);
+    assertTrue('Should have repeat=true on key repeat.',
+        keyEvent.repeat);
+    assertTrue('Ctrl should be down.', keyEvent.ctrlKey);
+  }
+
+
+  /**
+   * Tests special cases for IE9.
+   */
+  function testIe9StyleKeyHandling() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = true;
+    goog.userAgent.GECKO = false;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = false;
+    goog.userAgent.WINDOWS = true;
+    goog.userAgent.LINUX = false;
+    goog.userAgent.VERSION = 9;
+    goog.userAgent.DOCUMENT_MODE = 9;
+    goog.events.KeyHandler.USES_KEYDOWN_ = true;
+
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ENTER);
+    fireKeyUp(keyHandler, goog.events.KeyCodes.ENTER);
+    assertEquals('Enter should fire a key event with the keycode 13',
+                 goog.events.KeyCodes.ENTER,
+                 keyEvent.keyCode);
+    assertEquals('Enter should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+  }
+
+
+  /**
+   * Tests the key handler for the Gecko behavior.
+   */
+  function testGeckoStyleKeyHandling() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = false;
+    goog.userAgent.GECKO = true;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = false;
+    goog.userAgent.WINDOWS = true;
+    goog.userAgent.LINUX = false;
+    goog.events.KeyHandler.USES_KEYDOWN_ = false;
+
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ENTER);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ENTER);
+    assertEquals('Enter should fire a key event with the keycode 13',
+                 goog.events.KeyCodes.ENTER,
+                 keyEvent.keyCode);
+    assertEquals('Enter should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ESC);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ESC);
+    assertEquals('Esc should fire a key event with the keycode 27',
+                 goog.events.KeyCodes.ESC,
+                 keyEvent.keyCode);
+    assertEquals('Esc should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.UP);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.UP);
+    assertEquals('Up should fire a key event with the keycode 38',
+                 goog.events.KeyCodes.UP,
+                 keyEvent.keyCode);
+    assertEquals('Up should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.SEVEN, undefined, undefined,
+        undefined, undefined, true);
+    fireKeyPress(keyHandler, undefined, 38, undefined, undefined, undefined,
+        true);
+    assertEquals('Shift+7 should fire a key event with the keycode 55',
+                 goog.events.KeyCodes.SEVEN,
+                 keyEvent.keyCode);
+    assertEquals('Shift+7 should fire a key event with the charcode 38',
+                 38,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, undefined, 97);
+    assertEquals('Lower case a should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Lower case a should fire a key event with the charcode 97',
+                 97,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, undefined, 65);
+    assertEquals('Upper case A should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Upper case A should fire a key event with the charcode 65',
+                 65,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.DELETE);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.DELETE);
+    assertEquals('Delete should fire a key event with the keycode 46',
+                 goog.events.KeyCodes.DELETE,
+                 keyEvent.keyCode);
+    assertEquals('Delete should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.PERIOD);
+    fireKeyPress(keyHandler, undefined, 46);
+    assertEquals('Period should fire a key event with the keycode 190',
+                 goog.events.KeyCodes.PERIOD,
+                 keyEvent.keyCode);
+    assertEquals('Period should fire a key event with the charcode 46',
+                 46,
+                 keyEvent.charCode);
+  }
+
+
+  /**
+   * Tests the key handler for the Safari 3 behavior.
+   */
+  function testSafari3StyleKeyHandling() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = false;
+    goog.userAgent.GECKO = false;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = true;
+    goog.userAgent.MAC = true;
+    goog.userAgent.WINDOWS = false;
+    goog.userAgent.LINUX = false;
+    goog.events.KeyHandler.USES_KEYDOWN_ = true;
+    goog.userAgent.VERSION = 525.3;
+
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    // Make sure all events are caught while testing
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ENTER);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ENTER);
+    assertEquals('Enter should fire a key event with the keycode 13',
+                 goog.events.KeyCodes.ENTER,
+                 keyEvent.keyCode);
+    assertEquals('Enter should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+    fireKeyUp(keyHandler, goog.events.KeyCodes.ENTER);
+
+    // Add a listener to ensure that an extra ENTER event is not dispatched
+    // by a subsequent keypress.
+    var enterCheck = goog.events.listen(keyHandler,
+        goog.events.KeyHandler.EventType.KEY,
+        function(e) {
+          assertNotEquals('Unexpected ENTER keypress dispatched',
+            e.keyCode, goog.events.KeyCodes.ENTER)
+        });
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ESC);
+    assertEquals('Esc should fire a key event with the keycode 27',
+                 goog.events.KeyCodes.ESC,
+                 keyEvent.keyCode);
+    assertEquals('Esc should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ESC);
+    goog.events.unlistenByKey(enterCheck);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.UP);
+    assertEquals('Up should fire a key event with the keycode 38',
+                 goog.events.KeyCodes.UP,
+                 keyEvent.keyCode);
+    assertEquals('Up should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.SEVEN, undefined, undefined,
+        undefined, undefined, true);
+    fireKeyPress(keyHandler, 38, 38, undefined, undefined, undefined, true);
+    assertEquals('Shift+7 should fire a key event with the keycode 55',
+                 goog.events.KeyCodes.SEVEN,
+                 keyEvent.keyCode);
+    assertEquals('Shift+7 should fire a key event with the charcode 38',
+                 38,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, 97, 97);
+    assertEquals('Lower case a should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Lower case a should fire a key event with the charcode 97',
+                 97,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, 65, 65);
+    assertEquals('Upper case A should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Upper case A should fire a key event with the charcode 65',
+                 65,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.CTRL);
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A, null, null, true /*ctrl*/);
+    assertEquals('A with control down should fire a key event',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+
+    // Test that Alt-Tab outside the window doesn't break things.
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ALT);
+    keyEvent.keyCode = -1;  // Reset the event.
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    assertEquals('Should not have dispatched an Alt-A', -1, keyEvent.keyCode);
+    fireKeyPress(keyHandler, 65, 65);
+    assertEquals('Alt should be ignored since it isn\'t currently depressed',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.DELETE);
+    assertEquals('Delete should fire a key event with the keycode 46',
+                 goog.events.KeyCodes.DELETE,
+                 keyEvent.keyCode);
+    assertEquals('Delete should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.PERIOD);
+    fireKeyPress(keyHandler, 46, 46);
+    assertEquals('Period should fire a key event with the keycode 190',
+                 goog.events.KeyCodes.PERIOD,
+                 keyEvent.keyCode);
+    assertEquals('Period should fire a key event with the charcode 46',
+                 46,
+                 keyEvent.charCode);
+
+    // Safari sends zero key code for non-latin characters.
+    fireKeyDown(keyHandler, 0, 0);
+    fireKeyPress(keyHandler, 1092, 1092);
+    assertEquals('Cyrillic small letter "Ef" should fire a key event with ' +
+                     'the keycode 0',
+                 0,
+                 keyEvent.keyCode);
+    assertEquals('Cyrillic small letter "Ef" should fire a key event with ' +
+                     'the charcode 1092',
+                 1092,
+                 keyEvent.charCode);
+  }
+
+
+  /**
+   * Tests the key handler for the Opera behavior.
+   */
+  function testOperaStyleKeyHandling() {
+    goog.userAgent.OPERA = true;
+    goog.userAgent.IE = false;
+    goog.userAgent.GECKO = false;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = false;
+    goog.userAgent.WINDOWS = true;
+    goog.userAgent.LINUX = false;
+    goog.events.KeyHandler.USES_KEYDOWN_ = false;
+
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ENTER);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ENTER);
+    assertEquals('Enter should fire a key event with the keycode 13',
+                 goog.events.KeyCodes.ENTER,
+                 keyEvent.keyCode);
+    assertEquals('Enter should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.ESC);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.ESC);
+    assertEquals('Esc should fire a key event with the keycode 27',
+                 goog.events.KeyCodes.ESC,
+                 keyEvent.keyCode);
+    assertEquals('Esc should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.UP);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.UP);
+    assertEquals('Up should fire a key event with the keycode 38',
+                 goog.events.KeyCodes.UP,
+                 keyEvent.keyCode);
+    assertEquals('Up should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.SEVEN, undefined, undefined,
+        undefined, undefined, true);
+    fireKeyPress(keyHandler, 38, undefined, undefined, undefined, undefined,
+        true);
+    assertEquals('Shift+7 should fire a key event with the keycode 55',
+                 goog.events.KeyCodes.SEVEN,
+                 keyEvent.keyCode);
+    assertEquals('Shift+7 should fire a key event with the charcode 38',
+                 38,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, 97);
+    assertEquals('Lower case a should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Lower case a should fire a key event with the charcode 97',
+                 97,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.A);
+    fireKeyPress(keyHandler, 65);
+    assertEquals('Upper case A should fire a key event with the keycode 65',
+                 goog.events.KeyCodes.A,
+                 keyEvent.keyCode);
+    assertEquals('Upper case A should fire a key event with the charcode 65',
+                 65,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.DELETE);
+    fireKeyPress(keyHandler, goog.events.KeyCodes.DELETE);
+    assertEquals('Delete should fire a key event with the keycode 46',
+                 goog.events.KeyCodes.DELETE,
+                 keyEvent.keyCode);
+    assertEquals('Delete should fire a key event with the charcode 0',
+                 0,
+                 keyEvent.charCode);
+
+    fireKeyDown(keyHandler, goog.events.KeyCodes.PERIOD);
+    fireKeyPress(keyHandler, 46);
+    assertEquals('Period should fire a key event with the keycode 190',
+                 goog.events.KeyCodes.PERIOD,
+                 keyEvent.keyCode);
+    assertEquals('Period should fire a key event with the charcode 46',
+                 46,
+                 keyEvent.charCode);
+  }
+
+  function testGeckoEqualSign() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = false;
+    goog.userAgent.GECKO = true;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = false;
+    goog.userAgent.WINDOWS = true;
+    goog.userAgent.LINUX = false;
+    goog.events.KeyHandler.USES_KEYDOWN_ = false;
+
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, 61, 0);
+    fireKeyPress(keyHandler, 0, 61);
+    assertEquals('= should fire should fire a key event with the keyCode 187',
+                 goog.events.KeyCodes.EQUALS,
+                 keyEvent.keyCode);
+    assertEquals('= should fire a key event with the charCode 61',
+                 61,
+                 keyEvent.charCode);
+  }
+
+  function testMacGeckoSlash() {
+    goog.userAgent.OPERA = false;
+    goog.userAgent.IE = false;
+    goog.userAgent.GECKO = true;
+    goog.userAgent.CAMINO = false;
+    goog.userAgent.WEBKIT = false;
+    goog.userAgent.MAC = true;
+    goog.userAgent.WINDOWS = false;
+    goog.userAgent.LINUX = false;
+    goog.events.KeyHandler.USES_KEYDOWN_ = false;
+
+    var keyEvent, keyHandler = new goog.events.KeyHandler();
+    goog.events.listen(keyHandler, goog.events.KeyHandler.EventType.KEY,
+        function(e) { keyEvent = e; });
+
+    fireKeyDown(keyHandler, 0, 63, null, false, false, true);
+    fireKeyPress(keyHandler, 0, 63, null, false, false, true);
+    assertEquals('= should fire should fire a key event with the keyCode 191',
+                 goog.events.KeyCodes.SLASH,
+                 keyEvent.keyCode);
+    assertEquals('= should fire a key event with the charCode 63',
+                 goog.events.KeyCodes.QUESTION_MARK,
+                 keyEvent.charCode);
+  }
+
+  function testGetElement() {
+    var target = goog.dom.createDom('div');
+    var target2 = goog.dom.createDom('div');
+    var keyHandler = new goog.events.KeyHandler();
+    assertNull(keyHandler.getElement());
+
+    keyHandler.attach(target);
+    assertEquals(target, keyHandler.getElement());
+
+    keyHandler.attach(target2);
+    assertNotEquals(target, keyHandler.getElement());
+    assertEquals(target2, keyHandler.getElement());
+
+    var doc = goog.dom.getDocument();
+    keyHandler.attach(doc);
+    assertEquals(doc, keyHandler.getElement());
+
+    keyHandler = new goog.events.KeyHandler(doc);
+    assertEquals(doc, keyHandler.getElement());
+
+    keyHandler = new goog.events.KeyHandler(target);
+    assertEquals(target, keyHandler.getElement());
+  }
+
+  function testDetach() {
+    var target = goog.dom.createDom('div');
+    var keyHandler = new goog.events.KeyHandler(target);
+    assertEquals(target, keyHandler.getElement());
+
+    fireKeyDown(keyHandler, 0, 63, null, false, false, true);
+    fireKeyPress(keyHandler, 0, 63, null, false, false, true);
+    keyHandler.detach();
+
+    assertNull(keyHandler.getElement());
+    // All listeners should be cleared.
+    assertNull(keyHandler.keyDownKey_);
+    assertNull(keyHandler.keyPressKey_);
+    assertNull(keyHandler.keyUpKey_);
+    // All key related state should be cleared.
+    assertEquals('Last key should be -1', -1, keyHandler.lastKey_);
+    assertEquals('keycode should be -1', -1, keyHandler.keyCode_);
+  }
+
+  function testCapturePhase() {
+    var gotInCapturePhase;
+    var gotInBubblePhase;
+
+    var target = goog.dom.createDom('div');
+    goog.events.listen(
+        new goog.events.KeyHandler(target, false /* bubble */),
+        goog.events.KeyHandler.EventType.KEY,
+        function() {
+          gotInBubblePhase = true;
+          assertTrue(gotInCapturePhase);
+        });
+    goog.events.listen(
+        new goog.events.KeyHandler(target, true /* capture */),
+        goog.events.KeyHandler.EventType.KEY,
+        function() {
+          gotInCapturePhase = true;
+        });
+
+    goog.testing.events.fireKeySequence(target, goog.events.KeyCodes.ESC);
+    assertTrue(gotInBubblePhase);
+  }
+
+  function fireKeyDown(keyHandler, keyCode, opt_charCode, opt_keyIdentifier,
+      opt_ctrlKey, opt_altKey, opt_shiftKey) {
+    var fakeEvent = createFakeKeyEvent(
+        goog.events.EventType.KEYDOWN, keyCode, opt_charCode, opt_keyIdentifier,
+        opt_ctrlKey, opt_altKey, opt_shiftKey);
+    keyHandler.handleKeyDown_(fakeEvent);
+    return fakeEvent.returnValue_;
+  }
+
+  function fireKeyPress(keyHandler, keyCode, opt_charCode, opt_keyIdentifier,
+      opt_ctrlKey, opt_altKey, opt_shiftKey) {
+    var fakeEvent = createFakeKeyEvent(
+        goog.events.EventType.KEYPRESS, keyCode, opt_charCode,
+        opt_keyIdentifier, opt_ctrlKey, opt_altKey, opt_shiftKey);
+    keyHandler.handleEvent(fakeEvent);
+    return fakeEvent.returnValue_;
+  }
+
+  function fireKeyUp(keyHandler, keyCode, opt_charCode, opt_keyIdentifier,
+      opt_ctrlKey, opt_altKey, opt_shiftKey) {
+    var fakeEvent = createFakeKeyEvent(
+        goog.events.EventType.KEYUP, keyCode, opt_charCode,
+        opt_keyIdentifier, opt_ctrlKey, opt_altKey, opt_shiftKey);
+    keyHandler.handleKeyup_(fakeEvent);
+    return fakeEvent.returnValue_;
+  }
+
+  function createFakeKeyEvent(type, keyCode, opt_charCode, opt_keyIdentifier,
+      opt_ctrlKey, opt_altKey, opt_shiftKey) {
+    var event = {
+      type: type,
+      keyCode: keyCode,
+      charCode: opt_charCode || undefined,
+      keyIdentifier: opt_keyIdentifier || undefined,
+      ctrlKey: opt_ctrlKey || false,
+      altKey: opt_altKey || false,
+      shiftKey: opt_shiftKey || false,
+      timeStamp: goog.now()
+    };
+    return new goog.events.BrowserEvent(event);
+  }
+
+</script>
+</body>
+</html>

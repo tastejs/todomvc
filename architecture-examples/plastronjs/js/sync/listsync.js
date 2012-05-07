@@ -1,0 +1,29 @@
+goog.provide('todomvc.listsync');
+
+goog.require('mvc.LocalSync');
+
+
+
+/**
+ * @constructor
+ * @extends {mvc.LocalSync}
+ */
+todomvc.listsync = function() {
+  goog.base(this);
+};
+goog.inherits(todomvc.listsync, mvc.LocalSync);
+
+
+/**
+ * @inheritDoc
+ */
+todomvc.listsync.prototype.read = function(model, opt_callback) {
+  var todos = this.store_.get(model.get('id')) || [];
+  goog.array.forEach(todos,
+      function(todo) {
+        model.newModel(todo, true);
+      });
+  model.change();
+};
+
+

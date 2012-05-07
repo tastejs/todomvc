@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2008 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.fx</title>
+<script src="../../base.js"></script>
+<script>
+  goog.require('goog.Timer');
+  goog.require('goog.fx.Animation');
+  goog.require('goog.fx.anim');
+  goog.require('goog.object');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.PropertyReplacer');
+  goog.require('goog.testing.jsunit');
+</script>
+<style>
+
+</style>
+</head>
+<body>
+  <script>
+
+var clock, replacer;
+
+function setUpPage() {
+  clock = new goog.testing.MockClock(true);
+}
+
+function tearDownPage() {
+  clock.dispose();
+}
+
+function setUp() {
+  replacer = new goog.testing.PropertyReplacer();
+}
+
+function tearDown() {
+  replacer.reset();
+}
+
+function testRegisterAndUnregisterAnimation() {
+  var setTimoutCount = 0;
+  var setIntervalCount = 0;
+  var timerIdCounter = 1;
+
+  replacer.set(goog.Timer.defaultTimerObject, 'setTimeout', function() {
+    setTimoutCount++;
+    return timerIdCounter++;
+  });
+  replacer.set(goog.Timer.defaultTimerObject, 'setInterval', function() {
+    setIntervalCount++;
+    return timerIdCounter++;
+  });
+  replacer.set(goog.Timer.defaultTimerObject, 'clearTimeout', function() {
+    setTimoutCount--;
+  });
+  replacer.set(goog.fx.anim, 'requestAnimationFrameFn_', function() {
+    setTimoutCount++;
+    return timerIdCounter++;
+  });
+  replacer.set(goog.fx.anim, 'cancelRequestAnimationFrameFn_', function() {
+    setTimoutCount--;
+  });
+
+  var anim = new goog.fx.Animation([0], [1], 1000);
+  var anim2 = new goog.fx.Animation([0], [1], 1000);
+
+  goog.fx.anim.registerAnimation(anim);
+
+  assertTrue('Should contain the animation',
+             goog.object.containsValue(goog.fx.anim.activeAnimations_,
+                                       anim));
+  assertEquals('Should have called setTimout once', 1, setTimoutCount);
+  assertEquals('setInterval should not be called', 0, setIntervalCount);
+
+  goog.fx.anim.registerAnimation(anim2);
+
+  assertEquals('Should not have called setTimout again', 1, setTimoutCount);
+  assertEquals('setInterval should not be called', 0, setIntervalCount);
+
+  // Add anim again.
+  goog.fx.anim.registerAnimation(anim);
+  assertTrue('Should contain the animation',
+             goog.object.containsValue(goog.fx.anim.activeAnimations_,
+                                       anim));
+  assertEquals('Should not have called setTimout again', 1, setTimoutCount);
+  assertEquals('setInterval should not be called', 0, setIntervalCount);
+
+  goog.fx.anim.unregisterAnimation(anim);
+  assertFalse('Should not contain the animation',
+              goog.object.containsValue(goog.fx.anim.activeAnimations_,
+                                        anim));
+  assertEquals('clearTimeout should not have been called', 1, setTimoutCount);
+  assertEquals('setInterval should not be called', 0, setIntervalCount);
+
+  goog.fx.anim.unregisterAnimation(anim2);
+  assertEquals('There should be no remaining timers', 0, setTimoutCount);
+  assertEquals('setInterval should not be called', 0, setIntervalCount);
+
+  // Make sure we don't trigger setTimeout or setInterval.
+  clock.tick(1000);
+  goog.fx.anim.cycleAnimations_(goog.now());
+
+  assertEquals('There should be no remaining timers', 0, setTimoutCount);
+  assertEquals('setInterval should not be called', 0, setIntervalCount);
+
+  anim.dispose();
+  anim2.dispose();
+}
+
+function testRegisterAndUnregisterAnimationWithRequestAnimationFrame() {
+  goog.fx.anim.setAnimationWindow(window);
+  testRegisterAndUnregisterAnimation();
+  goog.fx.anim.setAnimationWindow(null);
+}
+
+
+function testRegisterUnregisterAnimation() {
+  var anim = new goog.fx.Animation([0], [1], 1000);
+
+  goog.fx.anim.registerAnimation(anim);
+
+  assertNotNull('There should be an active timer',
+      goog.fx.anim.animationTimer_);
+  assertEquals('There should be an active animations',
+      1, goog.object.getCount(goog.fx.anim.activeAnimations_));
+
+  goog.fx.anim.unregisterAnimation(anim);
+
+  assertTrue('There should be no active animations',
+      goog.object.isEmpty(goog.fx.anim.activeAnimations_));
+  assertNull('There should be no active timer', goog.fx.anim.animationTimer_);
+
+  anim.dispose();
+}
+
+</script>
+</body>
+</html>

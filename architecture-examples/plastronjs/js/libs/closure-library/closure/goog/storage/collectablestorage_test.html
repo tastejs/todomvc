@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.storage.CollectableStorage</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.storage.CollectableStorage');
+  goog.require('goog.storage.mechanism.mechanismfactory');
+  goog.require('goog.storage.storage_test');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function testBasicOperations() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var storage = new goog.storage.CollectableStorage(mechanism);
+    goog.storage.storage_test.runBasicTests(storage);
+  }
+}
+
+function testExpiredKeyCollection() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var clock = new goog.testing.MockClock(true);
+    var storage = new goog.storage.CollectableStorage(mechanism);
+
+    // No expiration.
+    storage.set('first', 'three seconds', 3000);
+    storage.set('second', 'one second', 1000);
+    storage.set('third', 'permanent');
+    storage.set('fourth', 'two seconds', 2000);
+    clock.tick(100);
+    storage.collect();
+    assertEquals('three seconds', storage.get('first'));
+    assertEquals('one second', storage.get('second'));
+    assertEquals('permanent', storage.get('third'));
+    assertEquals('two seconds', storage.get('fourth'));
+
+    // A key has expired.
+    clock.tick(1000);
+    storage.collect();
+    assertNull(mechanism.get('second'));
+    assertEquals('three seconds', storage.get('first'));
+    assertUndefined(storage.get('second'));
+    assertEquals('permanent', storage.get('third'));
+    assertEquals('two seconds', storage.get('fourth'));
+
+    // Another two keys have expired.
+    clock.tick(2000);
+    storage.collect();
+    assertNull(mechanism.get('first'));
+    assertNull(mechanism.get('fourth'));
+    assertUndefined(storage.get('first'));
+    assertEquals('permanent', storage.get('third'));
+    assertUndefined(storage.get('fourth'));
+
+    // Clean up.
+    storage.remove('third');
+    assertNull(mechanism.get('third'));
+    assertUndefined(storage.get('third'));
+    storage.collect();
+    clock.uninstall();
+  }
+}
+
+</script>
+</body>
+</html>

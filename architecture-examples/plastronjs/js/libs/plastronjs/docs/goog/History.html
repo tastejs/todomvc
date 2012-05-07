@@ -1,0 +1,94 @@
+<!doctype html><html><head><title>goog.History</title><link href="../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../index.html">Home</a><h1>Class goog.History</h1><p>A history management object. Can be instantiated in user-visible mode (uses
+the address fragment to manage state) or in hidden mode. This object should
+be created from a script in the document body before the document has
+finished loading.
+
+To store the hidden states in browsers other than IE, a hidden iframe is
+used. It must point to a valid html page on the same domain (which can and
+probably should be blank.)
+
+Sample instantiation and usage:
+
+<pre>
+// Instantiate history to use the address bar for state.
+var h = new goog.History();
+goog.events.listen(h, goog.history.EventType.NAVIGATE, navCallback);
+h.setEnabled(true);
+
+// Any changes to the location hash will call the following function.
+function navCallback(e) {
+alert('Navigated to state "' + e.token + '"');
+}
+
+// The history token can also be set from code directly.
+h.setToken('foo');
+</pre></p>extends <a href="../goog/events/EventTarget.html">goog.events.EventTarget</a><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>check_(boolean isNavigation)</code><br><p class="method-description">Checks the state of the document fragment and the iframe title to detect
+navigation changes. If {@code goog.History.HAS_ONHASHCHANGE} is
+{@code false}, then this runs approximately twenty times per second.</p></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>disposeInternal()</code><br><p class="method-description">Unattach listeners from this object.  Classes that extend EventTarget may
+need to override this method in order to remove references to DOM Elements
+and additional listeners, it should be something like this:
+<pre>
+MyClass.prototype.disposeInternal = function() {
+MyClass.superClass_.disposeInternal.call(this);
+// Dispose logic for MyClass
+};
+</pre></p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>getIframeToken_() &#8658; ?string</code><br><p class="method-description">Return the current state string from the hidden iframe. On internet explorer,
+this is stored as a string in the document body. Other browsers use the
+location hash of the hidden iframe.
+
+Older versions of webkit cannot access the iframe location, so always return
+null in that case.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>getLocationFragment_(?Window win) &#8658; string</code><br><p class="method-description">Gets the location fragment for the current URL.  We don't use location.hash
+directly as the browser helpfully urlDecodes the string for us which can
+corrupt the tokens.  For example, if we want to store: label/%2Froot it would
+be returned as label//root.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>getToken() &#8658; string</code><br></td></tr><tr><td class="method-list-cell method-access method-protected"></td><td class="method-list-cell method-cell"><code>onDocumentLoaded()</code><br><p class="method-description">Callback for the window onload event in IE. This is necessary to read the
+value of the hidden input after restoring a history session. The value of
+input elements is not viewable until after window onload for some reason (the
+iframe state is similarly unavailable during the loading phase.)  If
+setEnabled is called before the iframe has completed loading, the history
+object will actually be enabled at this point.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>onHashChange_(?goog.events.BrowserEvent e)</code><br><p class="method-description">Handles HTML5 onhashchange events on browsers where it is supported.
+This is very similar to {@link #check_}, except that it is not executed
+continuously. It is only used when {@code goog.History.HAS_ONHASHCHANGE} is
+true.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>onShow_(?goog.events.BrowserEvent e)</code><br><p class="method-description">Handler for the Gecko pageshow event. Restarts the history object so that the
+correct state can be restored in the hash or iframe.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>operaDefibrillator_()</code><br><p class="method-description">Opera cancels all outstanding timeouts and intervals after any rapid
+succession of navigation events, including the interval used to detect
+navigation events. This function restarts the interval so that navigation can
+continue. Ideally, only events which would be likely to cause a navigation
+change (mousedown and keydown) would be bound to this function. Since Opera
+seems to ignore keydown events while the alt key is pressed (such as
+alt-left or right arrow), this function is also bound to the much more
+frequent mousemove event. This way, when the update loop freezes, it will
+unstick itself as the user wiggles the mouse in frustration.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>replaceToken(string token, string= opt_title)</code><br><p class="method-description">Replaces the current history state without affecting the rest of the history
+stack.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setEnabled(boolean enable)</code><br><p class="method-description">Starts or stops the History polling loop. When enabled, the History object
+will immediately fire an event for the current location. The caller can set
+up event listeners between the call to the constructor and the call to
+setEnabled.
+
+On IE, actual startup may be delayed until the iframe and hidden input
+element have been loaded and can be polled. This behavior is transparent to
+the caller.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>setHash_(string token, boolean= opt_replace)</code><br><p class="method-description">Sets or replaces the URL fragment. The token does not need to be URL encoded
+according to the URL specification, though certain characters (like newline)
+are automatically stripped.
+
+If opt_replace is not set, non-IE browsers will append a new entry to the
+history list. Setting the hash does not affect the history stack in IE
+(unless there is a pre-existing named anchor for that hash.)
+
+Older versions of Webkit cannot query the location hash, but it still can be
+set. If we detect one of these versions, always replace instead of creating
+new history entries.
+
+window.location.replace replaces the current state from the history stack.
+http://www.whatwg.org/specs/web-apps/current-work/#dom-location-replace
+http://www.whatwg.org/specs/web-apps/current-work/#replacement-enabled</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>setHistoryState_(string token, boolean replace, string= opt_title)</code><br><p class="method-description">Sets the history state. When user visible states are used, the URL fragment
+will be set to the provided token. Setting opt_replace to true will cause the
+navigation to occur, but will replace the current history entry without
+affecting the length of the stack.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>setIframeToken_(string token, boolean= opt_replace, string= opt_title)</code><br><p class="method-description">Sets the hidden iframe state. On IE, this is accomplished by writing a new
+document into the iframe. In Firefox, the iframe's URL fragment stores the
+state instead.
+
+Older versions of webkit cannot set the iframe, so ignore those browsers.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>setLongerPolling_(boolean longerPolling)</code><br><p class="method-description">Sets if the history oject should use longer intervals when polling.</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>setToken(string token, string= opt_title)</code><br><p class="method-description">Sets the history state. When user visible states are used, the URL fragment
+will be set to the provided token.  Sometimes it is necessary to set the
+history token before the document title has changed, in this case IE's
+history drop down can be out of sync with the token.  To get around this
+problem, the app can pass in a title to use with the hidden iframe.</p></td></tr><tr><td class="method-list-cell method-access method-private"></td><td class="method-list-cell method-cell"><code>update_(string token, boolean isNavigation)</code><br><p class="method-description">Updates the current history state with a given token. Called after a change
+to the location or the iframe state is detected by poll_.</p></td></tr></table></body></html>

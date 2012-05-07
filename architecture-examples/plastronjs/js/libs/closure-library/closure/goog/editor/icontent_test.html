@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--
+  All Rights Reserved.
+
+  @author nicksantos@google.com (Nick Santos)
+-->
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Trogedit Unit Tests - goog.editor.icontent</title>
+<script src='../base.js'></script>
+<script>
+  goog.require('goog.dom');
+  goog.require('goog.dom.classes');
+  goog.require('goog.editor.BrowserFeature');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.testing.PropertyReplacer');
+
+  goog.require('goog.editor.icontent');
+</script>
+</head>
+<body>
+<script>
+
+var wrapperDiv;
+var realIframe;
+var realIframeDoc;
+var propertyReplacer;
+
+function setUp() {
+  wrapperDiv = goog.dom.createDom('div', null,
+      realIframe = goog.dom.createDom('iframe'));
+  goog.dom.appendChild(document.body, wrapperDiv);
+  realIframeDoc = realIframe.contentWindow.document;
+  propertyReplacer = new goog.testing.PropertyReplacer();
+}
+
+function tearDown() {
+  goog.dom.removeNode(wrapperDiv);
+  propertyReplacer.reset();
+}
+
+function testWriteHttpsInitialIframeContent() {
+  // This is not a particularly useful test; it's just a sanity check to make
+  // sure nothing explodes
+  var info =
+      new goog.editor.icontent.FieldFormatInfo('id', false, false, false);
+  var doc = createMockDocument();
+  goog.editor.icontent.writeHttpsInitialIframe(info, doc, 'some html');
+  assertBodyCorrect(doc.body, 'id', 'some html');
+}
+
+function testWriteHttpsInitialIframeContentRtl() {
+  var info = new goog.editor.icontent.FieldFormatInfo('id', false, false, true);
+  var doc = createMockDocument();
+  goog.editor.icontent.writeHttpsInitialIframe(info, doc, 'some html');
+  assertBodyCorrect(doc.body, 'id', 'some html', true);
+}
+
+function testWriteInitialIframeContentBlendedStandardsGrowing() {
+  if (goog.editor.BrowserFeature.HAS_CONTENT_EDITABLE) {
+    return; // only executes when using an iframe
+  }
+
+  var info = new goog.editor.icontent.FieldFormatInfo('id', true, true, false);
+  var styleInfo = new goog.editor.icontent.FieldStyleInfo(wrapperDiv,
+      '.MyClass { position: absolute; top: 500px; }');
+  var doc = realIframeDoc;
+  var html = '<div class="MyClass">Some Html</div>';
+  goog.editor.icontent.writeNormalInitialBlendedIframe(info, html,
+      styleInfo, realIframe);
+
+  assertBodyCorrect(doc.body, 'id', html);
+  assertEquals('CSS1Compat', doc.compatMode); // standards
+  assertEquals('auto', doc.documentElement.style.height); // growing
+  assertEquals('100%', doc.body.style.height); // standards
+  assertEquals('hidden', doc.body.style.overflowY); // growing
+  assertEquals('', realIframe.style.position); // no padding on wrapper
+
+  assertEquals(500, doc.body.firstChild.offsetTop);
+  assert(doc.getElementsByTagName('style')[0].innerHTML.indexOf(
+             '-moz-force-broken-image-icon') != -1); // standards
+}
+
+function testWriteInitialIframeContentBlendedQuirksFixedRtl() {
+  if (goog.editor.BrowserFeature.HAS_CONTENT_EDITABLE) {
+    return; // only executes when using an iframe
+  }
+
+  var info = new goog.editor.icontent.FieldFormatInfo('id', false, true, true);
+  var styleInfo = new goog.editor.icontent.FieldStyleInfo(wrapperDiv, '');
+  wrapperDiv.style.padding = '2px 5px';
+  var doc = realIframeDoc;
+  var html = 'Some Html';
+  goog.editor.icontent.writeNormalInitialBlendedIframe(info, html,
+      styleInfo, realIframe);
+
+  assertBodyCorrect(doc.body, 'id', html, true);
+  assertEquals('BackCompat', doc.compatMode); // quirks
+  assertEquals('100%', doc.documentElement.style.height); // fixed height
+  assertEquals('auto', doc.body.style.height); // quirks
+  assertEquals('auto', doc.body.style.overflow); // fixed height
+
+  assertEquals('-2px', realIframe.style.marginTop);
+  assertEquals('-5px', realIframe.style.marginLeft);
+  assert(doc.getElementsByTagName('style')[0].innerHTML.indexOf(
+             '-moz-force-broken-image-icon') == -1); // quirks
+}
+
+function testWhiteboxStandardsFixedRtl() {
+  var info = new goog.editor.icontent.FieldFormatInfo('id', true, false, true);
+  var styleInfo = null;
+  var doc = realIframeDoc;
+  var html = 'Some Html';
+  goog.editor.icontent.writeNormalInitialBlendedIframe(info, html,
+      styleInfo, realIframe);
+  assertBodyCorrect(doc.body, 'id', html, true);
+
+  // TODO(nicksantos): on Safari, there's a bug where all written iframes
+  // are CSS1Compat. It's fixed in the nightlies as of 3/31/08, so remove
+  // this guard when the latest version of Safari is on the farm.
+  if (!goog.userAgent.WEBKIT) {
+    assertEquals('BackCompat', doc.compatMode); // always use quirks in whitebox
+  }
+}
+
+function testGetInitialIframeContent() {
+  var info = new goog.editor.icontent.FieldFormatInfo(
+      'id', true, false, false);
+  var styleInfo = null;
+  var html = 'Some Html';
+  propertyReplacer.set(goog.editor.BrowserFeature,
+      'HAS_CONTENT_EDITABLE', false);
+  var htmlOut = goog.editor.icontent.getInitialIframeContent_(
+      info, html, styleInfo);
+  assertEquals(/contentEditable/i.test(htmlOut), false);
+  propertyReplacer.set(goog.editor.BrowserFeature,
+      'HAS_CONTENT_EDITABLE', true);
+  htmlOut = goog.editor.icontent.getInitialIframeContent_(
+      info, html, styleInfo);
+  assertEquals(/<body[^>]+?contentEditable/i.test(htmlOut), true);
+};
+
+function testBlendedStandardsGrowingMatchesComparisonDiv() {
+  // TODO(nicksantos): If we ever move
+  // TR_EditableUtil.prototype.makeIframeField_
+  // into goog.editor.icontent (and I think we should), we could actually run
+  // functional tests to ensure that the iframed field matches the dimensions
+  // of the equivalent uneditable div. Functional tests would help a lot here.
+}
+
+/**
+ * Check a given body for the most basic properties that all iframes must have.
+ *
+ * @param {Element} body The actual body element
+ * @param {string} id The expected id
+ * @param {string} bodyHTML The expected innerHTML
+ * @param {boolean=} opt_rtl If true, expect RTL directionality
+ */
+function assertBodyCorrect(body, id, bodyHTML, opt_rtl) {
+  assertEquals(bodyHTML, body.innerHTML);
+  // We can't just check
+  // assert(HAS_CONTENTE_EDITABLE, !!body.contentEditable) since in
+  // FF 3 we don't currently use contentEditable, but body.contentEditable
+  // = 'inherit' and !!'inherit' = true.
+  if (goog.editor.BrowserFeature.HAS_CONTENT_EDITABLE) {
+    assertEquals('true', String(body.contentEditable));
+  } else {
+    assertNotEquals('true', String(body.contentEditable));
+  }
+  assert(goog.dom.classes.has(body, 'editable'));
+  assertEquals('true', String(body.getAttribute('g_editable')));
+  assertEquals('true',
+      // IE has bugs with getAttribute('hideFocus'), and
+      // Webkit has bugs with normal .hideFocus access.
+      String(goog.userAgent.IE ? body.hideFocus :
+          body.getAttribute('hideFocus')));
+  assertEquals(id, body.id);
+}
+
+/**
+ * @return {Object} A mock document
+ */
+function createMockDocument() {
+  return {
+    body: {
+      setAttribute: function(key, val) { this[key] = val; },
+      getAttribute: function(key) { return this[key]; },
+      style: { direction: '' }
+    }
+  };
+};
+
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2011 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+
+-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Closure Unit Tests - goog.storage.EncryptedStorage</title>
+<script src="../base.js"></script>
+<script>
+  goog.require('goog.crypt');
+  goog.require('goog.json');
+  goog.require('goog.storage.EncryptedStorage');
+  goog.require('goog.storage.ErrorCode');
+  goog.require('goog.storage.mechanism.mechanismfactory');
+  goog.require('goog.storage.storage_test');
+  goog.require('goog.testing.MockClock');
+  goog.require('goog.testing.PseudoRandom');
+  goog.require('goog.testing.jsunit');
+</script>
+</head>
+<body>
+<script>
+
+function getEncryptedWrapper(storage, key) {
+  return goog.json.parse(
+      storage.mechanism.get(storage.hashKeyWithSecret_(key)));
+}
+
+function getEncryptedData(storage, key) {
+  return getEncryptedWrapper(storage, key)[goog.storage.RichStorage.DATA_KEY];
+}
+
+function decryptWrapper(storage, key, wrapper) {
+  return goog.json.parse(
+      storage.decryptValue_(wrapper[goog.storage.EncryptedStorage.SALT_KEY],
+          key, wrapper[goog.storage.RichStorage.DATA_KEY]));
+}
+
+function hammingDistance(a, b) {
+  if (a.length != b.length) {
+    throw Error('Lengths must be the same for Hamming distance');
+  }
+  var distance = 0;
+  for (var i = 0; i < a.length; ++i) {
+    if (a.charAt(i) != b.charAt(i)) {
+      ++distance;
+    }
+  }
+  return distance;
+}
+
+
+function testBasicOperations() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var storage = new goog.storage.EncryptedStorage(mechanism, 'secret');
+    goog.storage.storage_test.runBasicTests(storage);
+  }
+}
+
+function testEncryption() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var clock = new goog.testing.MockClock(true);
+    var storage = new goog.storage.EncryptedStorage(mechanism, 'secret');
+    var mallory = new goog.storage.EncryptedStorage(mechanism, 'guess');
+
+    // Simple Objects.
+    storage.set('first', 'Hello world!');
+    storage.set('second', ['one', 'two', 'three'], 1000);
+    storage.set('third', {'a': 97, 'b': 98});
+
+    // Wrong secret can't find keys.
+    assertNull(mechanism.get('first'));
+    assertNull(mechanism.get('second'));
+    assertNull(mechanism.get('third'));
+    assertUndefined(mallory.get('first'));
+    assertUndefined(mallory.get('second'));
+    assertUndefined(mallory.get('third'));
+
+    // Wrong secret can't overwrite keys.
+    mallory.set('first', 'Ho ho ho!');
+    assertObjectEquals('Ho ho ho!', mallory.get('first'));
+    assertObjectEquals('Hello world!', storage.get('first'));
+    mallory.remove('first');
+
+    // Correct key decrypts properly.
+    assertObjectEquals('Hello world!', storage.get('first'));
+    assertObjectEquals(['one', 'two', 'three'], storage.get('second'));
+    assertObjectEquals({'a': 97, 'b': 98}, storage.get('third'));
+
+    // Wrong secret can't decode values even if the key is revealed.
+    var encryptedWrapper = getEncryptedWrapper(storage, 'first');
+    assertObjectEquals('Hello world!',
+        decryptWrapper(storage, 'first', encryptedWrapper));
+    assertThrows(function() {
+      decryptWrapper(mallory, 'first', encryptedWrapper);
+    });
+
+    // If the value is overwritten, it can't be decrypted.
+    encryptedWrapper[goog.storage.RichStorage.DATA_KEY] = 'kaboom';
+    mechanism.set(storage.hashKeyWithSecret_('first'),
+        mallory.serializer_.serialize(encryptedWrapper));
+    assertEquals(goog.storage.ErrorCode.DECRYPTION_ERROR,
+                 assertThrows(function() {storage.get('first')}));
+
+    // Test garbage collection.
+    storage.collect();
+    assertNotNull(getEncryptedWrapper(storage, 'first'));
+    assertObjectEquals(['one', 'two', 'three'], storage.get('second'));
+    assertObjectEquals({'a': 97, 'b': 98}, storage.get('third'));
+    clock.tick(2000);
+    storage.collect();
+    assertNotNull(getEncryptedWrapper(storage, 'first'));
+    assertUndefined(storage.get('second'));
+    assertObjectEquals({'a': 97, 'b': 98}, storage.get('third'));
+    mechanism.set(storage.hashKeyWithSecret_('first'), '"kaboom"');
+    storage.collect();
+    assertNotNull(getEncryptedWrapper(storage, 'first'));
+    assertObjectEquals({'a': 97, 'b': 98}, storage.get('third'));
+    storage.collect(true);
+    assertUndefined(storage.get('first'));
+    assertObjectEquals({'a': 97, 'b': 98}, storage.get('third'));
+
+    // Clean up.
+    storage.remove('third');
+    assertUndefined(storage.get('third'));
+    clock.uninstall();
+  }
+}
+
+function testSalting() {
+  var mechanism = goog.storage.mechanism.mechanismfactory.create('test');
+  if (mechanism) {
+    var randomMock = new goog.testing.PseudoRandom(0, true);
+    var storage = new goog.storage.EncryptedStorage(mechanism, 'secret');
+
+    // Same value under two different keys should appear very different,
+    // even with the same salt.
+    storage.set('one', 'Hello world!');
+    randomMock.seed(0); // Reset the generator so we get the same salt.
+    storage.set('two', 'Hello world!');
+    var golden = getEncryptedData(storage, 'one');
+    assertRoughlyEquals('Ciphertext did not change with keys', golden.length,
+        hammingDistance(golden, getEncryptedData(storage, 'two')), 2);
+
+    // Same key-value pair written second time should appear very different.
+    storage.set('one', 'Hello world!');
+    assertRoughlyEquals('Salting seems to have failed', golden.length,
+        hammingDistance(golden, getEncryptedData(storage, 'one')), 2);
+
+    // Clean up.
+    storage.remove('1');
+    storage.remove('2');
+    randomMock.uninstall();
+  }
+}
+
+</script>
+</body>
+</html>
