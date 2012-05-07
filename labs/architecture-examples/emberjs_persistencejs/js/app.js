@@ -94,11 +94,14 @@ Todos.ClearCompletedButtonView = Ember.Button.extend({
 });
 
 Todos.TodoStore = (function () {
-  var Store = function(name) {
+  if (!!window.openDatabase) {
+    // WebSQL store:
+    persistence.store.websql.config(persistence, name, 'todo database', 5*1024*1024);
+  } else if (!!Storage) {
     // In-memory localStore:
     persistence.store.memory.config(persistence);
-    // WebSQL store:
-    // persistence.store.websql.config(persistence, name, 'todo database', 5*1024*1024);
+  }
+  var Store = function(name) {
     var Todo = persistence.define('todo', {
       title: 'TEXT',
       isDone: 'BOOL'
@@ -143,17 +146,23 @@ Todos.TodoStore = (function () {
   return new Store('todos-emberjs-persistence');
 })();
 
-// In-memory localStore:
-$(function() {
-  persistence.loadFromLocalStorage(function() {
+if (!!window.openDatabase) {
+  // WebSQL store:
+  (function () {
+    persistence.store.websql.config(persistence, name, 'todo database', 5*1024*1024);
     Todos.TodoStore.findAll();
+  })();
+} else if (!!Storage) {
+  // In-memory localStore:
+  $(function() {
+    persistence.store.memory.config(persistence);
+    persistence.loadFromLocalStorage(function() {
+      Todos.TodoStore.findAll();
+    });
   });
-});
-$(window).unload(function() {
-  persistence.saveToLocalStorage();
-});
-
-// WebSQL store:
-// (function () {
-//   Todos.TodoStore.findAll();
-// })();
+  $(window).unload(function() {
+    persistence.saveToLocalStorage();
+  });
+} else {
+  alert('Your browser does not support WebSQL or localStore');
+}
