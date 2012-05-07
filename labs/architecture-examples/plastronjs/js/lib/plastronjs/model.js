@@ -511,8 +511,9 @@ mvc.Model.prototype.getChanges = function() {
   // use schema to look for differences
   var ret = goog.object.getKeys(goog.object.filter(this.schema_,
       function(val, key) {
-        if (this.schema_[key].cmp)
-          return !this.schema_[key].cmp(this.prev(key), this.get(key));
+        var scheme = this.schema_[key];
+        if (scheme.cmp)
+          return !scheme.cmp(this.prev(key), this.get(key));
         var prev = this.prev(key);
         if (goog.isArray(prev)) {
           return !goog.array.equals(prev, this.get(key));

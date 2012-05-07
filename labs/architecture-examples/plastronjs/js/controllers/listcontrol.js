@@ -87,8 +87,16 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
   // update count on completed changes
   this.bind('completed', function(mods) {
+
+    // set items left count
     goog.dom.setTextContent(goog.dom.getElement('todo-count'),
         (list.getLength() - mods.length) + ' items left');
+
+    // set clear button
+    var clearButton = goog.dom.getElement('clear-completed');
+    goog.dom.setTextContent(clearButton,
+        'Clear completed (' + mods.length + ')');
+    goog.style.showElement(clearButton, mods.length);
   });
 
   // get the saved todos
@@ -104,10 +112,9 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 todomvc.listcontrol.prototype.showMainFooter = function(opt_hide) {
   var main = goog.dom.getElement('main');
   var footer = goog.dom.getElementsByTagNameAndClass('footer')[0];
-  var display = opt_hide ? 'block' : 'none';
 
-  main.style.display = display;
-  footer.style.display = display;
+  goog.style.showElement(main, opt_hide);
+  goog.style.showElement(footer, opt_hide);
 };
 
 

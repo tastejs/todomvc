@@ -132,7 +132,8 @@ todomvc.todocontrol.prototype.makeEditable = function(editable) {
 
   var inputEl = this.getEls('.edit')[0];
   var displayEl = this.getEls('.view')[0];
-  displayEl.style.display = editable ? 'none' : 'block';
+
+  goog.style.showElement(displayEl, !editable);
   inputEl.value = this.getModel().get('text');
   inputEl.style.display = editable ? 'block' : 'none';
 };
