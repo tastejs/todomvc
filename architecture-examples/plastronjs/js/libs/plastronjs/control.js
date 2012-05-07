@@ -73,8 +73,7 @@ mvc.Control.prototype.handleEvents_ = function(type, e) {
             goog.array.some(handler.selectors, function(className) {
           return goog.isFunction(className) ?
               className(e) :
-              goog.dom.classes.has(/** @type {!Node} */(e.target),
-                  className);
+              goog.dom.getAncestorByClass(e.target, className);
             })) {
       goog.bind(handler.fn, handler.handler)(e);
     }

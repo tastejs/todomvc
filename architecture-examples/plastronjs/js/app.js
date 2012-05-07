@@ -23,17 +23,17 @@ todomvc.main = function() {
   var router = new mvc.Router();
 
   router.route('/', function() {
-    todolist.setReturnState(todomvc.listmodel.ReturnState.DEFAULT);
+    todolistControl.setReturnState(todomvc.listcontrol.ReturnState.DEFAULT);
     todolistControl.refresh();
   });
 
   router.route('/active', function() {
-    todolist.setReturnState(todomvc.listmodel.ReturnState.ACTIVE);
+    todolistControl.setReturnState(todomvc.listcontrol.ReturnState.ACTIVE);
     todolistControl.refresh();
   });
 
   router.route('/completed', function() {
-    todolist.setReturnState(todomvc.listmodel.ReturnState.COMPLETED);
+    todolistControl.setReturnState(todomvc.listcontrol.ReturnState.COMPLETED);
     todolistControl.refresh();
   });
 

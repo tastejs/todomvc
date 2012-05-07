@@ -14,8 +14,20 @@ goog.require('todomvc.todocontrol');
  */
 todomvc.listcontrol = function(list) {
   goog.base(this, list);
+  this.returnState_ = todomvc.listcontrol.ReturnState.DEFAULT;
 };
 goog.inherits(todomvc.listcontrol, mvc.Control);
+
+
+/**
+ * @enum {Function}
+ * @return {boolean} filter.
+ */
+todomvc.listcontrol.ReturnState = {
+  DEFAULT: function() {return true},
+  ACTIVE: function(model) {return !model.get('completed')},
+  COMPLETED: function(model) {return model.get('completed')}
+};
 
 
 /**
@@ -83,15 +95,24 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
 
 /**
+ * @param {todomvc.listmodel.ReturnState} state to decide models returned.
+ */
+todomvc.listcontrol.prototype.setReturnState = function(state) {
+  this.returnState_ = state;
+};
+
+
+/**
  *
  */
 todomvc.listcontrol.prototype.refresh = function() {
   this.removeChildren(true);
-  goog.array.forEach(this.getModel().getModels(), function(model) {
-    var newModelControl = new todomvc.todocontrol(model);
-    this.addChild(newModelControl);
-    newModelControl.render(goog.dom.getElement('todo-list'));
-  }, this);
+  goog.array.forEach(this.getModel().getModels(this.returnState_),
+      function(model) {
+        var newModelControl = new todomvc.todocontrol(model);
+        this.addChild(newModelControl);
+        newModelControl.render(goog.dom.getElement('todo-list'));
+      }, this);
 };
 
 
