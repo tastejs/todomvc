@@ -2,7 +2,7 @@ goog.provide('todomvc.listmodel');
 
 goog.require('mvc.Collection');
 goog.require('todomvc.listsync');
-goog.require('todomvc.todocontrol');
+goog.require('todomvc.todomodel');
 
 
 /**
@@ -10,6 +10,7 @@ goog.require('todomvc.todocontrol');
  * @extends {mvc.Collection}
  */
 todomvc.listmodel = function() {
+
   var todosSchema = {
     'completed': {
       get: function() {
@@ -24,7 +25,8 @@ todomvc.listmodel = function() {
   goog.base(this, {
     'id': 'todos-plastronjs',
     'sync': new todomvc.listsync(),
-    'schema': todosSchema
+    'schema': todosSchema,
+    'modelType': todomvc.todomodel
   });
 };
 goog.inherits(todomvc.listmodel, mvc.Collection);

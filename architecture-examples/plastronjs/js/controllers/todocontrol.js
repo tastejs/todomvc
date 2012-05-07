@@ -12,6 +12,11 @@ goog.require('mvc.Control');
  */
 todomvc.todocontrol = function(model) {
   goog.base(this, model);
+
+  /** @private */
+  this.editable_ = false;
+  /** @private */
+  this.complete_ = false;
 };
 goog.inherits(todomvc.todocontrol, mvc.Control);
 
@@ -23,15 +28,15 @@ goog.inherits(todomvc.todocontrol, mvc.Control);
  * @inheritDoc
  */
 todomvc.todocontrol.prototype.createDom = function() {
-  this.el = goog.dom.htmlToDocumentFragment('<li>' +
+  var el = goog.dom.htmlToDocumentFragment('<li>' +
           '<div class="view">' +
             '<input class="toggle" type="checkbox">' +
             '<label>' + this.getModel().get('text') + '</label>' +
             '<a class="destroy"></a>' +
           '</div>' +
-          '<input class="edit" type="text" value="Create a TodoMVC template">' +
+          '<input class="edit" type="text" value="">' +
         '</li>');
- this.setElementInternal(this.el);
+ this.setElementInternal(/** @type {Element} */(el));
 };
 
 
@@ -44,6 +49,8 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 
   var model = this.getModel();
   var element = this.getElement();
+  this.inputEl = this.getEls('.edit')[0];
+  this.displayEl = this.getEls('.view')[0];
 
   // toggle complete
   this.click(function(e) {
@@ -55,18 +62,8 @@ todomvc.todocontrol.prototype.enterDocument = function() {
   }, 'toggle');
 
   // toggle classes on 'complete' change
-  var completeToggle = this.getEls('.toggle')[0];
-
-  var completedFn = function(complete) {
-    if (complete) {
-      goog.dom.classes.add(element, 'done');
-    } else {
-      goog.dom.classes.remove(element, 'done');
-    }
-    completeToggle.checked = complete;
-  };
-  this.bind('completed', completedFn);
-  completedFn(model.get('completed'));
+  this.bind('completed', this.setComplete, this);
+  this.setComplete(model.get('completed'));
 
   // keep label up to date with text
   var textLabel = this.getEls('label')[0];
@@ -87,23 +84,55 @@ todomvc.todocontrol.prototype.enterDocument = function() {
   }, 'destroy');
 
   // dblclick to edit
-  var inputEl = this.getEls('.edit')[0];
-  var displayEl = this.getEls('.view')[0];
   this.on(goog.events.EventType.DBLCLICK, function(e) {
-    displayEl.style.display = 'none';
-    inputEl.value = model.get('text');
-    inputEl.style.display = 'block';
+    this.getParent().makeChildEditable(this);
   }, 'view');
 
   // save on edit
+  var inputEl = this.getEls('.edit')[0];
   this.on(goog.events.EventType.KEYUP, function(e) {
-    if (e.keyCode == 13) {
-      displayEl.style.display = 'block';
-      inputEl.style.display = 'none';
-    }
-    model.set('text', inputEl.value);
+    if (e.keyCode == 13 && model.set('text', inputEl.value))
+        this.makeEditable(false);
   }, 'edit');
 };
 
 
+/**
+ * toggle completed state.
+ *
+ * @param {boolean} complete whether the item is completed.
+ */
+todomvc.todocontrol.prototype.setComplete = function(complete) {
 
+  if (this.complete_ == complete)
+    return;
+  this.complete_ = complete;
+
+  var completeToggle = this.getEls('.toggle')[0];
+
+  if (complete) {
+    goog.dom.classes.add(this.getElement(), 'done');
+  } else {
+    goog.dom.classes.remove(this.getElement(), 'done');
+  }
+  completeToggle.checked = complete;
+};
+
+
+/**
+ * make (un)editable
+ *
+ * @param {boolean} editable whether to make editable.
+ */
+todomvc.todocontrol.prototype.makeEditable = function(editable) {
+
+  if (this.editable_ == editable)
+    return;
+  this.editable_ = editable;
+
+  var inputEl = this.getEls('.edit')[0];
+  var displayEl = this.getEls('.view')[0];
+  displayEl.style.display = editable ? 'none' : 'block';
+  inputEl.value = this.getModel().get('text');
+  inputEl.style.display = editable ? 'block' : 'none';
+};
