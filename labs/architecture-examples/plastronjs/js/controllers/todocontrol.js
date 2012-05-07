@@ -1,5 +1,7 @@
 goog.provide('todomvc.todocontrol');
 
+goog.require('goog.dom');
+goog.require('goog.events.KeyCodes');
 goog.require('mvc.Control');
 
 
@@ -13,10 +15,6 @@ goog.require('mvc.Control');
 todomvc.todocontrol = function(model) {
   goog.base(this, model);
 
-  /** @private */
-  this.editable_ = false;
-  /** @private */
-  this.complete_ = false;
 };
 goog.inherits(todomvc.todocontrol, mvc.Control);
 
@@ -91,8 +89,14 @@ todomvc.todocontrol.prototype.enterDocument = function() {
   // save on edit
   var inputEl = this.getEls('.edit')[0];
   this.on(goog.events.EventType.KEYUP, function(e) {
-    if (e.keyCode == 13 && model.set('text', inputEl.value))
-        this.makeEditable(false);
+    if (e.keyCode == goog.events.KeyCodes.ENTER &&
+        model.set('text', inputEl.value))
+      this.makeEditable(false);
+  }, 'edit');
+
+  this.on(goog.events.EventType.BLUR, function(e) {
+    if (model.set('text', inputEl.value))
+      this.makeEditable(false);
   }, 'edit');
 };
 
@@ -104,17 +108,10 @@ todomvc.todocontrol.prototype.enterDocument = function() {
  */
 todomvc.todocontrol.prototype.setComplete = function(complete) {
 
-  if (this.complete_ == complete)
-    return;
-  this.complete_ = complete;
-
   var completeToggle = this.getEls('.toggle')[0];
 
-  if (complete) {
-    goog.dom.classes.add(this.getElement(), 'done');
-  } else {
-    goog.dom.classes.remove(this.getElement(), 'done');
-  }
+  goog.dom.classes.enable(this.getElement(), 'done', complete);
+
   completeToggle.checked = complete;
 };
 
@@ -126,14 +123,10 @@ todomvc.todocontrol.prototype.setComplete = function(complete) {
  */
 todomvc.todocontrol.prototype.makeEditable = function(editable) {
 
-  if (this.editable_ == editable)
-    return;
-  this.editable_ = editable;
-
   var inputEl = this.getEls('.edit')[0];
-  var displayEl = this.getEls('.view')[0];
 
-  goog.style.showElement(displayEl, !editable);
   inputEl.value = this.getModel().get('text');
-  inputEl.style.display = editable ? 'block' : 'none';
+  goog.dom.classes.enable(this.getElement(), 'editing', editable);
+  if (editable)
+    inputEl.select();
 };

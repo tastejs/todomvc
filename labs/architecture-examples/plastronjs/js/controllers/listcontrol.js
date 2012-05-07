@@ -1,6 +1,7 @@
 goog.provide('todomvc.listcontrol');
 
 goog.require('goog.dom');
+goog.require('goog.events.KeyCodes');
 goog.require('goog.string');
 goog.require('mvc.Control');
 goog.require('todomvc.todocontrol');
@@ -47,7 +48,7 @@ todomvc.listcontrol.prototype.enterDocument = function() {
     e.preventDefault();
 
     // on return get trimmed text
-    if (e.keyCode != 13) return;
+    if (e.keyCode != goog.events.KeyCodes.ENTER) return;
 
     var text = goog.string.trim(input.value);
     if (text == '') return;
@@ -67,8 +68,9 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
   // toggle completed
   this.click(function(e) {
+    var checked = e.target.checked;
     goog.array.forEach(list.getModels(), function(mod) {
-      mod.set('completed', e.target.checked);
+      mod.set('completed', checked);
     });
   }, 'toggle-all');
 
@@ -88,15 +90,19 @@ todomvc.listcontrol.prototype.enterDocument = function() {
   // update count on completed changes
   this.bind('completed', function(mods) {
 
+    var checkBox = this.getEls('.toggle-all')[0];
+
     // set items left count
-    goog.dom.setTextContent(goog.dom.getElement('todo-count'),
-        (list.getLength() - mods.length) + ' items left');
+    goog.dom.getElement('todo-count').innerHTML =
+        '<strong>' + (list.getLength() - mods.length) + '</strong> items left';
 
     // set clear button
     var clearButton = goog.dom.getElement('clear-completed');
     goog.dom.setTextContent(clearButton,
         'Clear completed (' + mods.length + ')');
     goog.style.showElement(clearButton, mods.length);
+
+    checkBox.checked = mods.length && mods.length == list.getLength();
   });
 
   // get the saved todos

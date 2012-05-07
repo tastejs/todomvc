@@ -100,6 +100,8 @@ mvc.Control.prototype.handleEvents_ = function(type, e) {
 mvc.Control.prototype.on = function(
     eventName, fn, opt_className, opt_handler, opt_priority) {
 
+  var capture = ['blur', 'focus', 'focusout'];
+
   // initialize
   if (!this.eventHolder_) {
     this.eventHolder_ = {
@@ -113,7 +115,8 @@ mvc.Control.prototype.on = function(
   if (!this.eventHolder_.listeners[eventName]) {
     this.eventHolder_.listeners[eventName] = this.getHandler().listen(
         this.getElement(), eventName,
-        goog.bind(this.handleEvents_, this, eventName));
+        goog.bind(this.handleEvents_, this, eventName),
+        goog.array.contains(capture, eventName));
   }
   if (!goog.isDef(opt_className)) {
     opt_className = [];

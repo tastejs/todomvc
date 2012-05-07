@@ -7,6 +7,7 @@ goog.require('todomvc.listmodel');
 
 
 
+
 var todolist = new todomvc.listmodel();
 
 //create the control for the collection.
