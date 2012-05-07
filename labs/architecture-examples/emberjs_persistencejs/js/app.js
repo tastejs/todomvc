@@ -93,10 +93,12 @@ Todos.ClearCompletedButtonView = Ember.Button.extend({
   }.property('completed')
 });
 
-// Persistence.js-driven store using WebSQL adapter
 Todos.TodoStore = (function () {
   var Store = function(name) {
-    persistence.store.websql.config(persistence, name, 'todo database', 5*1024*1024);
+    // In-memory localStore:
+    persistence.store.memory.config(persistence);
+    // WebSQL store:
+    // persistence.store.websql.config(persistence, name, 'todo database', 5*1024*1024);
     var Todo = persistence.define('todo', {
       title: 'TEXT',
       isDone: 'BOOL'
@@ -117,7 +119,10 @@ Todos.TodoStore = (function () {
     };
 
     this.remove = function(item) {
-      Todo.all().filter('title', '=', item.get('title')).destroyAll();
+      Todo.all().filter('title', '=', item.get('title')).one(function(obj) {
+        persistence.remove(obj);
+        persistence.flush();
+      });
     };
 
     this.findAll = function() {
@@ -138,8 +143,17 @@ Todos.TodoStore = (function () {
   return new Store('todos-emberjs-persistence');
 })();
 
+// In-memory localStore:
+$(function() {
+  persistence.loadFromLocalStorage(function() {
+    Todos.TodoStore.findAll();
+  });
+});
+$(window).unload(function() {
+  persistence.saveToLocalStorage();
+});
 
-// On DOM ready
-(function () {
-  Todos.TodoStore.findAll();
-})();
+// WebSQL store:
+// (function () {
+//   Todos.TodoStore.findAll();
+// })();
