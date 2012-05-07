@@ -1,12 +1,6 @@
-/*
-
-[MIT licensed](http://en.wikipedia.org/wiki/MIT_License)
-(c) [Sindre Sorhus](http://sindresorhus.com)
-
-*/
-jQuery(function($) {
-
-	"use strict";
+/*global jQuery, Handlebars */
+jQuery(function( $ ) {
+	'use strict';
 
 	var Utils = {
 		// https://gist.github.com/1308368
@@ -31,7 +25,7 @@ jQuery(function($) {
 			this.$toggleAll = $('#toggle-all');
 			this.$main = $('#main');
 			this.$todoList = $('#todo-list');
-			this.$footer = this.$todoApp.find('footer');
+			this.$footer = this.$todoApp.find('#footer');
 			this.$count = $('#todo-count');
 			this.$clearBtn = $('#clear-completed');
 		},
@@ -47,7 +41,7 @@ jQuery(function($) {
 			var list = this.$todoList;
 			this.$newTodo.on( 'keyup', this.create );
 			this.$toggleAll.on( 'change', this.toggleAll );
-			this.$clearBtn.on( 'click', this.destroyDone );
+			this.$clearBtn.on( 'click', this.destroyCompleted );
 			list.on( 'change', '.toggle', this.toggle );
 			list.on( 'dblclick', '.view', this.edit );
 			list.on( 'keypress', '.edit', this.blurOnEnter );
@@ -57,6 +51,7 @@ jQuery(function($) {
 		render: function() {
 			this.$todoList.html( this.template( this.todos ) );
 			this.$main.toggle( !!this.todos.length );
+			this.$toggleAll.prop( 'checked', !this.activeTodoCount() );
 			this.renderFooter();
 			this.store( this.todos );
 		},
@@ -64,8 +59,8 @@ jQuery(function($) {
 			var todoCount = this.todos.length,
 				activeTodos = this.activeTodoCount(),
 				completedTodos = todoCount - activeTodos,
-				countTitle = '<b>' + activeTodos + '</b> ' + Utils.pluralize( activeTodos, 'item' ) + ' left',
-				clearTitle = 'Clear ' + completedTodos + ' completed ' + Utils.pluralize( completedTodos, 'item' );
+				countTitle = '<strong>' + activeTodos + '</strong> ' + Utils.pluralize( activeTodos, 'item' ) + ' left',
+				clearTitle = 'Clear completed (' + completedTodos + ')';
 			// Only show the footer when there are at least one todo.
 			this.$footer.toggle( !!todoCount );
 			// Active todo count
@@ -74,33 +69,33 @@ jQuery(function($) {
 			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
 		},
 		toggleAll: function() {
-			var isChecked = !!$(this).attr('checked');
+			var isChecked = $( this ).prop('checked');
 			$.each( App.todos, function( i, val ) {
-				val.done = isChecked;
+				val.completed = isChecked;
 			});
 			App.render();
 		},
 		activeTodoCount: function() {
 			var count = 0;
 			$.each( this.todos, function( i, val ) {
-				if ( !val.done ) {
+				if ( !val.completed ) {
 					count++;
 				}
 			});
 			return count;
 		},
-		destroyDone: function() {
+		destroyCompleted: function() {
 			var todos = App.todos,
 				l = todos.length;
 			while ( l-- ) {
-				if ( todos[l].done ) {
+				if ( todos[l].completed ) {
 					todos.splice( l, 1 );
 				}
 			}
-			App.$toggleAll.attr( 'checked', false );
 			App.render();
 		},
-		// Accepts an element from inside the ".item" div and returns the corresponding todo in the todos array.
+		// Accepts an element from inside the ".item" div and
+		// returns the corresponding todo in the todos array
 		getTodo: function( elem, callback ) {
 			var id = $( elem ).closest('li').data('id');
 			$.each( this.todos, function( i, val ) {
@@ -117,32 +112,32 @@ jQuery(function($) {
 				return;
 			}
 			App.todos.push({
-				title: val,
 				id: Utils.uuid(),
-				done: false
+				title: val,
+				completed: false
 			});
 			$input.val('');
 			App.render();
 		},
 		toggle: function() {
 			App.getTodo( this, function( i, val ) {
-				val.done = !val.done;
+				val.completed = !val.completed;
 			});
 			App.render();
 		},
 		edit: function() {
 			$(this).closest('li').addClass('editing').find('.edit').focus();
 		},
-		blurOnEnter: function(e) {
+		blurOnEnter: function( e ) {
 			if ( e.keyCode === App.ENTER_KEY ) {
 				e.target.blur();
 			}
 		},
 		update: function() {
-			var val = $(this).removeClass('editing').val();
-			App.getTodo( this, function(i) {
+			var val = $.trim( $(this).removeClass('editing').val() );
+			App.getTodo( this, function( i ) {
 				if ( val ) {
-					this.todos[i].title = val;
+					this.todos[ i ].title = val;
 				} else {
 					this.todos.splice( i, 1 );
 				}
@@ -150,13 +145,13 @@ jQuery(function($) {
 			});
 		},
 		destroy: function() {
-			App.getTodo( this, function(i) {
+			App.getTodo( this, function( i ) {
 				this.todos.splice( i, 1 );
 				this.render();
 			});
 		}
 	};
 
-	window.TodoApp = App.init();
+	App.init();
 
 });

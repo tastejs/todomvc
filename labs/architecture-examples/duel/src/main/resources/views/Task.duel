@@ -1,0 +1,20 @@
+<view name="Task">
+
+<%-- could have embedded in 'tasks' for-loop, but this allows us to add single tasks --%>
+
+<li class="<%= data.completed ? 'complete' : '' %>"
+	ondblclick="<%= todos.actions.content_dblclick(data.id) %>">
+
+	<div class="view">
+		<input class="toggle" type="checkbox" checked="<%= data.completed %>"
+			onchange="<%= todos.actions.completed_change(data.id) %>">
+
+		<label><%= data.title %></label>
+
+		<button class="destroy" onclick="<%= todos.actions.remove_click(data.id) %>"></button>
+	</div>
+
+	<input class="edit" type="text" value="<%= data.title %>"
+		onblur="<%= todos.actions.edit_blur(data.id) %>"
+		onkeypress="<%= todos.actions.edit_keypress(data.id) %>">
+</li>

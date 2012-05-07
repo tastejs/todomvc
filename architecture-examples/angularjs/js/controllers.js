@@ -1,79 +1,95 @@
 /* App Controllers */
 
-App.Controllers.TodoController = function () {
-    var self = this;
+var todomvc = angular.module('todomvc', []);
 
-    self.newTodo = "";
+App.Controllers.TodoController = function($scope) {
+  $scope.todos = retrieveStore();
 
-    self.addTodo = function() {
-        if (self.newTodo.length === 0) return;
-        
-        self.todos.push({
-            content: self.newTodo,
-            done: false,
-            editing: false
-        });
-        self.newTodo = "";
-    };
+  // Call updateStore() whenever the todos array changes.
+  $scope.$watch('todos', updateStore, true);
 
-    self.editTodo = function(todo) {
-        //cancel any active editing operation
-        angular.forEach(self.todos, function(value) {
-            value.editing = false;
-        });
-        todo.editing = true;
-    };
+  $scope.todoForms = {
+    0: "You're done!",
+    one: '{} item left',
+    other: '{} items left'
+  };
 
-    self.finishEditing = function(todo) {
-        todo.editing = false;
-    };
+  function retrieveStore() {
+    var store = localStorage.getItem('todo-angularjs');
+    return (store && JSON.parse(store)) || [];
+  };
 
-    self.removeTodo = function(todo) {
-        angular.Array.remove(self.todos, todo);
-    };
+  function updateStore() {
+    var isEditing = $scope.todos.filter(function(val) {
+      return val.editing;
+    }).length;
 
-    self.todos = [];
+    if (!isEditing) {
+      localStorage.setItem('todo-angularjs', JSON.stringify($scope.todos));
+    }
+  };
 
-    var countTodos = function(done) {
-        return function() {
-            return angular.Array.count(self.todos, function(x) {
-                return x.done === (done === "done");
-            });
-        }
-    };
+  $scope.addTodo = function() {
+    if (this.newTodo.trim().length === 0) {
+      return;
+    }
 
-    self.remainingTodos = countTodos("undone");
+    $scope.todos.push({
+      title: this.newTodo,
+      done: false,
+      editing: false
+    });
 
-    self.finishedTodos = countTodos("done");
+    this.newTodo = '';
+  };
 
-    self.clearCompletedItems = function() {
-        var oldTodos = self.todos;
-        self.todos = [];
-        angular.forEach(oldTodos, function(todo) {
-            if (!todo.done) self.todos.push(todo);
-        });
-    };
+  $scope.editTodo = function(todo) {
+     //cancel any active editing operation
+    $scope.todos.forEach(function(val) {
+      val.editing = false;
+    });
+    todo.editing = true;
+  };
 
-    self.hasFinishedTodos = function() {
-        return self.finishedTodos() > 0;
-    };
+  $scope.finishEditing = function(todo) {
+    if (todo.title.trim().length === 0) {
+      $scope.removeTodo(todo);
+    } else {
+      todo.editing = false;
+    }
+  };
 
-    self.hasTodos = function() {
-        return self.todos.length > 0;
-    };
+  $scope.removeTodo = function(todo) {
+    for (var i = 0, len = $scope.todos.length; i < len; ++i) {
+      if (todo === $scope.todos[i]) {
+        $scope.todos.splice(i, 1);
+      }
+    }
+  };
 
-    /*
-     The following code deals with hiding the hint *while* you are typing,
-     showing it once you did *finish* typing (aka 500 ms since you hit the last key)
-     *in case* the result is a non empty string
-     */
-    Rx.Observable.FromAngularScope(self, "newTodo")
-        .Do(function() {
-            self.showHitEnterHint = false;
-        })
-        .Throttle(500)
-        .Select(function(x) {
-            return x.length > 0;
-        })
-        .ToOutputProperty(self, "showHitEnterHint");
+  $scope.remainingTodos = function() {
+    return $scope.todos.filter(function(val) {
+      return !val.done;
+    });
+  };
+
+  $scope.doneTodos = function() {
+    return $scope.todos.filter(function(val) {
+      return val.done;
+    });
+  }
+
+  $scope.clearDoneTodos = function() {
+    $scope.todos = $scope.remainingTodos();
+  };
+
+  $scope.markAllDone = function() {
+    var markDone = true;
+    if (!$scope.remainingTodos().length) {
+      markDone = false;
+    }
+    $scope.todos.forEach(function(todo) {
+      todo.done = markDone;
+    });
+  };
 };

@@ -1,77 +1,54 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org/" xmlns:my="http://rx.org">
+<html ng-app="todomvc">
 <head>
   <meta charset="utf-8">
-  <title>AngularJS Todo App</title>
-  <link rel="stylesheet" href="css/app.css"/>
+  <title>AngularJS - TodoMVC</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+  <!--[if IE]>
+  <script src="../../assets/ie.js"></script>
+  <![endif]-->
 </head>
 <body>
-      <div ng:controller="App.Controllers.TodoController" id="todoapp">
-        <div class="title">
-            <h1>
-                Todos
-            </h1>
-        </div>
-        <div class="content">
-            <div id="todo-form">
-            </div>
-            <form id="todo-form" ng:submit="addTodo()">
-                <input id="new-todo" name="newTodo" my:blur="addTodo()" placeholder="What needs to be done?" type="text">
-                <span class="ui-tooltip-top" ng:show="showHitEnterHint">
-                    Press Enter to save this task
-                </span>
-            </form>
-            <div id="todos">
-                <ul id="todo-list">
-                  <li class="todo" ng:class="'editing-' + todo.editing + ' done-' + todo.done" ng:repeat="todo in todos">
-                    <div class="display">
-                      <input class="check" type="checkbox" name="todo.done" / >
-                      <div ng:click="editTodo(todo)" class="todo-content"> {{ todo.content }} </div>
-                      <span class="todo-destroy" ng:click="removeTodo(todo)"></span>
-                   </div>
-                  <div class="edit">
-                    <form ng:submit="finishEditing(todo)">
-                        <input class="todo-input" my:focus="todo.editing" my:blur="finishEditing(todo)" name="todo.content" type="text">
-                    </form>
-                  </div>
-                  </li>
-                </ul>
-            </div>
-            <div id="todo-stats">
-              <span class="todo-count" ng:show="hasTodos()">
-                <ng:pluralize count="remainingTodos()" when="{'0' : 'No items left.', '1': '1 item left.', 'other' : '{} items left.' }">
-                </ng:pluralize>
-              </span>
-              <span class="todo-clear" ng:show="hasFinishedTodos()">
-                  <a ng:click="clearCompletedItems()">
-                  	Clear <ng:pluralize count="finishedTodos()" when="{'1': '1 completed item', 'other' : '{} completed items' }">
-                  	</ng:pluralize>
-                  </a>
-              </span>
-        </div>
-        </div>
-    </div>
-    <ul id="instructions">
-      <li>Click to edit a todo.</li>
-    </ul>
-    <div id="credits">
-        <p>
-            Originally Created by
-            <br>
-            <a href="http://jgn.me/">Jérôme Gravel-Niquet</a>
-        </p>
-        <p>
-            Rewritten to use <a href="http://angularjs.org">AngularJS </a> by
-            <br>
-            <a href="http://cburgdorf.wordpress.com/">Christoph Burgdorf</a>
-            <br>Cleanup, edits: <a href="http://www.linkedin.com/pub/dan-doyon/2/1b0/a83">Dan Doyon</a>
-        </p>
-    </div>
+  <div ng-controller="App.Controllers.TodoController" id="todoapp">
+    <header>
+      <h1>Todos</h1>
+      <form id="todo-form" ng-submit="addTodo()">
+        <input type="text" id="new-todo" name="newTodo" ng-model="newTodo" placeholder="What needs to be done?">
+      </form>
+    </header>
+    <section id="main" ng-show="todos.length">
+      <input type="checkbox" id="toggle-all" ng-click="markAllDone()" ng-checked="remainingTodos().length == 0">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list">
+        <li ng-repeat="todo in todos" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
+          <div class="view">
+            <input type="checkbox" class="toggle" name="todo.done" ng-model="todo.done">
+            <label>{{todo.title}}</label>
+            <a class="destroy" ng-click="removeTodo(todo)"></a>
+          </div>
+          <form ng-submit="finishEditing(todo)">
+            <input type="text" class="edit" name="todo.title" ng-model="todo.title" my:blur="finishEditing(todo)">
+          </form>
+        </li>
+      </ul>
+    </section>
+    <footer ng-show="todos.length">
+      <a id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length">Clear {{doneTodos().length}} items</a>
+      <div id="todo-count">
+        <ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize>
+      </div>
+    </footer>
+  </div>
+  <div id="instructions">
+    Double-click to edit a todo.
+  </div>
+  <div id="credits">
+    Credits: <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>, <a href="http://ericbidelman.com">Eric Bidelman</a>
+  </div>
+  <script src="../../assets/base.js"></script>
   <script src="js/booter.js"></script>
-  <script src="lib/angular/angular.min.js" ng:autobind></script>
-  <script src="lib/rx/rx.js"></script>
-  <script src="lib/rx/rx.angular.js"></script>
+  <script src="js/libs/angular/angular.min.js"></script>
   <script src="js/controllers.js"></script>
-  <script src="js/directive.js"></script>  
 </body>
 </html>

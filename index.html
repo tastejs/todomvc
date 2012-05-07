@@ -28,6 +28,7 @@
 						<a class="btn btn-primary btn-large" href="https://github.com/addyosmani/todomvc/zipball/v0.3">Download</a>
 						<a class="btn btn-large" href="http://github.com/addyosmani/todomvc">Follow on GitHub</a>
 					</nav>
+					<p style="font-size: 16px;">Check out our new subproject <a href="http://todomvc.com/labs">TodoMVC Labs</a></p>
 				</div>
 			</header>
 			<div class="row">
@@ -82,19 +83,20 @@ had it been designed for web apps">AngularJS</a>
 						<li>
 							<a href="architecture-examples/angularjs_persistencejs/index.html" data-source="http://persistencejs.org/" data-content="persistence.js is an asynchronous Javascript object-database mapper. It has database-independent abstractions and can therefore easily be ported to new databases.">Angular + PersistenceJS</a>
 						</li>
-					</ul>
-					<ul class="nav nav-pills">
 						<li>
 							<a href="architecture-examples/extjs/index.html" data-source="http://www.sencha.com/products/extjs" data-content="Ext JS 4 is the next major advancement in our JavaScript framework. Featuring expanded functionality, plugin-free charting, and a new MVC architecture it's the best Ext JS yet. Create incredible web apps for every browser.">Ext.js</a>
 						</li>
+					</ul>
+					<ul class="nav nav-pills">
 						<li>
-							<a href="architecture-examples/broke/index.html" data-source="https://github.com/brokenseal/broke-client" data-content="The Broke Javascript Framework is a porting of the fantastic Django Web Framework on Javascript. It summarizes all the best concepts present in Django like url resolving, decoupling, DRY principle, project-specific settings and a pretty simple template engine. It could be put in the big Javascript MVC frameworks group outside there, but, as Django is, this is more a MTV (Model-Template-View) framework.">Broke.js</a>
+							<a href="architecture-examples/agilityjs/index.html" data-source="http://agilityjs.com" data-content="Agility.js is an MVC library for Javascript that lets you write maintainable and reusable browser code without the infrastructural overhead found in other MVC libraries. The goal is to enable developers to write web apps at least as quickly as with jQuery, while simplifying long-term maintainability through MVC objects.">Agility.js</a>
 						</li>
 						<li>
-							<a href="architecture-examples/fidel/index.html" data-source="http://jga.me/blog/2011/06/10/fidel" data-content="Fidel is a small library for building out ui components (widgets, modules, plugins, whatever you want to call them). It looks very similar to backbone.js and spine.js's controller.">Fidel.js</a>
+							<a href="architecture-examples/jquery/index.html" data-source="http://jquery.com/" data-content="jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.">jQuery</a>
 						</li>
-						<li><a href="architecture-examples/jquery/index.html" data-source="http://jquery.com/" data-content="jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.">jQuery</a></li>
-						<li><a href="reference-examples/vanillajs/index.html" data-source="https://developer.mozilla.org/en/JavaScript" data-content="You know JavaScript right? :P">Vanilla JS</a></li>
+						<li>
+							<a href="reference-examples/vanillajs/index.html" data-source="https://developer.mozilla.org/en/JavaScript" data-content="You know JavaScript right? :P">Vanilla JS</a>
+						</li>
 					</ul>
 				</div>
 				<div class="span3">
@@ -126,12 +128,12 @@ had it been designed for web apps">AngularJS</a>
 					<h2>Selecting a Framework</h2>
 					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.</p>
 					<p>Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
-					<p>Please <strong>ensure</strong> that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and it's complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
+					<p>Please <strong>ensure</strong> that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
 			</div>
 				<div class="span4">
 					<h2>Getting Involved</h2>
 					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
-					<p>If so, feel free to fork the repo and submit a pull request &mdash; we'll be happy to review it for inclusion.</p><p> Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point and read the application <a href="https://github.com/addyosmani/todomvc/wiki/Todo-Application-Specification">specifications</a> to make sure your app meets the guidelines for our next major release.</p>
+					<p>If so, feel free to fork the repo, read our <a href="https://github.com/addyosmani/todomvc/wiki">contribution guidelines</a>, and submit a pull request &mdash; we'll be happy to review it for inclusion.</p><p> Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point and read the <a href="https://github.com/addyosmani/todomvc/wiki/App-Specification">app specification</a>.</p>
 					<p><a class="btn" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request &raquo;</a></p>
 				</div>
 			</div>
@@ -141,9 +143,11 @@ had it been designed for web apps">AngularJS</a>
 				<p id="contributor-list">Big thanks to our magnificent contributors: <span></span></p>
 			</footer>
 		</div>
-		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+		<script src="assets/jquery.min.js"></script>
+		<script src="site/js/jquery.hoverIntent.min.js"></script>
 		<script src="site/js/bootstrap.min.js"></script>
 		<script src="site/js/main.js"></script>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		<script>var _gaq=[['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>
 	</body>
 </html>
