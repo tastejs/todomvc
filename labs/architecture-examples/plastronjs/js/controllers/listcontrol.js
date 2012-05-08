@@ -18,7 +18,7 @@ goog.require('todomvc.todocontrol');
  */
 todomvc.listcontrol = function(list) {
   goog.base(this, list);
-  this.returnState_ = todomvc.listcontrol.ReturnState.DEFAULT;
+  this.filter_ = todomvc.listcontrol.Filter.ALL;
 };
 goog.inherits(todomvc.listcontrol, mvc.Control);
 
@@ -26,8 +26,8 @@ goog.inherits(todomvc.listcontrol, mvc.Control);
 /**
  * @enum {Function}
  */
-todomvc.listcontrol.ReturnState = {
-  DEFAULT: function() {return true},
+todomvc.listcontrol.Filter = {
+  ALL: function() {return true},
   ACTIVE: function(model) {return !model.get('completed')},
   COMPLETED: function(model) {return model.get('completed')}
 };
@@ -45,41 +45,35 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
   // create new model from text box
   var input = this.getEls('input')[0];
-  this.on('keyup', function(e) {
-    e.preventDefault();
+  this.on(goog.events.EventType.KEYUP, function(e) {
 
     // on return get trimmed text
     if (e.keyCode !== goog.events.KeyCodes.ENTER) return;
 
     var text = goog.string.trim(input.value);
     if (text === '') return;
-    input.value = '';
 
     //create new model
     list.newModel({'title': text});
+
+    input.value = '';
 
   }, 'todo-entry');
 
   // clear completed
   this.click(function(e) {
-    goog.array.forEach(list.get('completed'), function(mod) {
-      mod.dispose();
+    goog.array.forEach(list.get('completed'), function(model) {
+      model.dispose();
     });
   }, 'clear-completed');
 
   // toggle completed
   this.click(function(e) {
     var checked = e.target.checked;
-    goog.array.forEach(list.getModels(), function(mod) {
-      mod.set('completed', checked);
+    goog.array.forEach(list.getModels(), function(model) {
+      model.set('completed', checked);
     });
   }, 'toggle-all');
-
-  // hide/show footer and main body
-  this.modelChange(function(e) {
-    this.showMainFooter(!!list.getLength());
-  }, this);
-  this.showMainFooter(!!list.getLength());
 
   // refresh the view on changes that effect the models order
   this.anyModelChange(this.refresh, this);
@@ -88,23 +82,30 @@ todomvc.listcontrol.prototype.enterDocument = function() {
   // save any changes from models
   this.anyModelChange(list.save, list);
 
-  // update count on completed changes
+  // hide/show footer and main body
+  this.modelChange(function() {
+    this.showMainFooter(!!list.getLength());
+  }, this);
+  this.showMainFooter(!!list.getLength());
+
+  // update counts
   this.bind('completed', function(mods) {
 
-    var checkBox = this.getEls('.toggle-all')[0];
-
+    // update "left" count
     soy.renderElement(goog.dom.getElement('todo-count'),
         todomvc.templates.itemsLeft, {
           left: list.getLength() - mods.length
         });
 
-    // set clear button
+    // update clear button
     var clearButton = goog.dom.getElement('clear-completed');
     goog.dom.setTextContent(clearButton,
         'Clear completed (' + mods.length + ')');
     goog.style.showElement(clearButton, mods.length);
 
-    checkBox.checked = mods.length && mods.length === list.getLength();
+    // update checkbox
+    var checkBox = this.getEls('.toggle-all')[0];
+    checkBox.checked = mods.length === list.getLength();
   });
 
   // get the saved todos
@@ -129,10 +130,10 @@ todomvc.listcontrol.prototype.showMainFooter = function(opt_hide) {
 /**
  * sets the function to determine which children are returned by the control.
  *
- * @param {Function} state to decide models returned.
+ * @param {Function} filter to decide models returned.
  */
-todomvc.listcontrol.prototype.setReturnState = function(state) {
-  this.returnState_ = state;
+todomvc.listcontrol.prototype.setFilter = function(filter) {
+  this.filter_ = filter;
   this.refresh();
 };
 
@@ -147,25 +148,12 @@ todomvc.listcontrol.prototype.refresh = function() {
   this.removeChildren(true);
 
   // create new controls for the models
-  goog.array.forEach(this.getModel().getModels(this.returnState_),
+  goog.array.forEach(this.getModel().getModels(this.filter_),
       function(model) {
         var newModelControl = new todomvc.todocontrol(model);
         this.addChild(newModelControl);
         newModelControl.render(goog.dom.getElement('todo-list'));
       }, this);
 };
-
-
-/**
- * make child editable
- *
- * @param {todomvc.todocontrol} child to make editable.
- */
-todomvc.listcontrol.prototype.makeChildEditable = function(child) {
-  this.forEachChild(function(todoControl) {
-    todoControl.makeEditable(todoControl === child);
-  });
-};
-
 
 

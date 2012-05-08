@@ -4,9 +4,9 @@
  * @param model
  */
 {template .todoItem}
-  <li>
+  <li {if $model['completed']}class="done"{/if}>
     <div class="view">
-      <input class="toggle" type="checkbox">
+      <input class="toggle" type="checkbox" {if $model['completed']}checked{/if}>
       <label>{$model['title']}</label>
       <button class="destroy"></button>
     </div>
