@@ -20,28 +20,29 @@ var router = new mvc.Router();
 
 
 /**
- * @param {number} index of selected filter.
+ * @param {string} chosenFilter of selected filter.
  */
-var toggleFilters = function(index) {
+var toggleFilters = function(chosenFilter) {
   var filters = goog.dom.getElementsByTagNameAndClass('A', undefined,
     goog.dom.getElement('filters'));
-  goog.dom.classes.enable(filters[0], 'selected', index == 0);
-  goog.dom.classes.enable(filters[1], 'selected', index == 1);
-  goog.dom.classes.enable(filters[2], 'selected', index == 2);
+  goog.array.forEach(filters, function(filter) {
+    goog.dom.classes.enable(filter, 'selected',
+        goog.dom.getTextContent(filter) === chosenFilter);
+  });
 };
 
 router.route('/', function() {
   todolistControl.setReturnState(todomvc.listcontrol.ReturnState.DEFAULT);
-  toggleFilters(0);
+  toggleFilters('All');
 });
 
 router.route('/active', function() {
   todolistControl.setReturnState(todomvc.listcontrol.ReturnState.ACTIVE);
-  toggleFilters(1);
+  toggleFilters('Active');
 });
 
 router.route('/completed', function() {
   todolistControl.setReturnState(todomvc.listcontrol.ReturnState.COMPLETED);
-  toggleFilters(2);
+  toggleFilters('Completed');
 });
 

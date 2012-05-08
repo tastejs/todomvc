@@ -3,6 +3,7 @@ goog.provide('todomvc.todocontrol');
 goog.require('goog.dom');
 goog.require('goog.events.KeyCodes');
 goog.require('mvc.Control');
+goog.require('todomvc.templates');
 
 
 /**
@@ -26,14 +27,9 @@ goog.inherits(todomvc.todocontrol, mvc.Control);
  * @inheritDoc
  */
 todomvc.todocontrol.prototype.createDom = function() {
-  var el = goog.dom.htmlToDocumentFragment('<li>' +
-          '<div class="view">' +
-            '<input class="toggle" type="checkbox">' +
-            '<label>' + this.getModel().get('text') + '</label>' +
-            '<a class="destroy"></a>' +
-          '</div>' +
-          '<input class="edit" type="text" value="">' +
-        '</li>');
+  var el = soy.renderAsFragment(todomvc.templates.todoItem, {
+    model: this.getModel().toJson()
+  }, null);
  this.setElementInternal(/** @type {Element} */(el));
 };
 
@@ -65,8 +61,8 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 
   // keep label up to date with text
   var textLabel = this.getEls('label')[0];
-  this.bind('text', function(text) {
-    goog.dom.setTextContent(textLabel, text);
+  this.bind('title', function(title) {
+    goog.dom.setTextContent(textLabel, title);
   });
 
   // remove control on model delete
@@ -89,14 +85,15 @@ todomvc.todocontrol.prototype.enterDocument = function() {
   // save on edit
   var inputEl = this.getEls('.edit')[0];
   this.on(goog.events.EventType.KEYUP, function(e) {
-    if (e.keyCode == goog.events.KeyCodes.ENTER &&
-        model.set('text', inputEl.value))
+    if (e.keyCode === goog.events.KeyCodes.ENTER) {
       this.makeEditable(false);
+      model.set('title', inputEl.value);
+    }
   }, 'edit');
 
   this.on(goog.events.EventType.BLUR, function(e) {
-    if (model.set('text', inputEl.value))
-      this.makeEditable(false);
+    this.makeEditable(false);
+    model.set('title', inputEl.value);
   }, 'edit');
 };
 
@@ -125,7 +122,8 @@ todomvc.todocontrol.prototype.makeEditable = function(editable) {
 
   var inputEl = this.getEls('.edit')[0];
 
-  inputEl.value = this.getModel().get('text');
+  if (editable)
+    inputEl.value = this.getModel().get('title');
   goog.dom.classes.enable(this.getElement(), 'editing', editable);
   if (editable)
     inputEl.select();

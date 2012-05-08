@@ -14,8 +14,8 @@ goog.require('mvc.Model.ValidateError');
 todomvc.todomodel = function(opt_options) {
   goog.base(this, opt_options);
 
-  this.setter('text', function(text) {
-    var updated = goog.string.trim(text);
+  this.setter('title', function(title) {
+    var updated = goog.string.trim(title);
     if (!updated.length)
       throw new mvc.Model.ValidateError('null string');
     return updated;

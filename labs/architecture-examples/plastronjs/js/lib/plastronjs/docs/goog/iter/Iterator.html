@@ -1,7 +1,0 @@
-<!doctype html><html><head><title>goog.iter.Iterator</title><link href="../../stylesheet.css" rel="stylesheet" type="text/css"></head><body><a href="../../index.html">Home</a><h1>Class goog.iter.Iterator</h1><p>Class/interface for iterators.  An iterator needs to implement a {@code next}
-method and it needs to throw a {@code goog.iter.StopIteration} when the
-iteration passes beyond the end.  Iterators have no {@code hasNext} method.
-It is recommended to always use the helper functions to iterate over the
-iterator or in case you are only targeting JavaScript 1.7 for in loops.</p><table class="method-list"><tr><td colspan="2"><strong>Instance Method Summary</strong></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>__iterator__(boolean= opt_keys) &#8658; !goog.iter.Iterator</code><br><p class="method-description">Returns the {@code Iterator} object itself.  This is used to implement
-the iterator protocol in JavaScript 1.7</p></td></tr><tr><td class="method-list-cell method-access method-public"></td><td class="method-list-cell method-cell"><code>next() &#8658; &lt;Any Type&gt;</code><br><p class="method-description">Returns the next value of the iteration.  This will throw the object
-{@see goog.iter#StopIteration} when the iteration passes the end.</p></td></tr></table></body></html>

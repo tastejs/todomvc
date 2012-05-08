@@ -4,6 +4,7 @@ goog.require('goog.dom');
 goog.require('goog.events.KeyCodes');
 goog.require('goog.string');
 goog.require('mvc.Control');
+goog.require('todomvc.templates');
 goog.require('todomvc.todocontrol');
 
 
@@ -48,14 +49,14 @@ todomvc.listcontrol.prototype.enterDocument = function() {
     e.preventDefault();
 
     // on return get trimmed text
-    if (e.keyCode != goog.events.KeyCodes.ENTER) return;
+    if (e.keyCode !== goog.events.KeyCodes.ENTER) return;
 
     var text = goog.string.trim(input.value);
-    if (text == '') return;
+    if (text === '') return;
     input.value = '';
 
     //create new model
-    list.newModel({'text': text});
+    list.newModel({'title': text});
 
   }, 'todo-entry');
 
@@ -81,7 +82,7 @@ todomvc.listcontrol.prototype.enterDocument = function() {
   this.showMainFooter(!!list.getLength());
 
   // refresh the view on changes that effect the models order
-  this.modelChange(this.refresh, this);
+  this.anyModelChange(this.refresh, this);
   this.refresh();
 
   // save any changes from models
@@ -92,9 +93,10 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
     var checkBox = this.getEls('.toggle-all')[0];
 
-    // set items left count
-    goog.dom.getElement('todo-count').innerHTML =
-        '<strong>' + (list.getLength() - mods.length) + '</strong> items left';
+    soy.renderElement(goog.dom.getElement('todo-count'),
+        todomvc.templates.itemsLeft, {
+          left: list.getLength() - mods.length
+        });
 
     // set clear button
     var clearButton = goog.dom.getElement('clear-completed');
@@ -102,7 +104,7 @@ todomvc.listcontrol.prototype.enterDocument = function() {
         'Clear completed (' + mods.length + ')');
     goog.style.showElement(clearButton, mods.length);
 
-    checkBox.checked = mods.length && mods.length == list.getLength();
+    checkBox.checked = mods.length && mods.length === list.getLength();
   });
 
   // get the saved todos
@@ -161,7 +163,7 @@ todomvc.listcontrol.prototype.refresh = function() {
  */
 todomvc.listcontrol.prototype.makeChildEditable = function(child) {
   this.forEachChild(function(todoControl) {
-    todoControl.makeEditable(todoControl == child);
+    todoControl.makeEditable(todoControl === child);
   });
 };
 
