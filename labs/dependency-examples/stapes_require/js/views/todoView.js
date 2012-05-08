@@ -53,7 +53,7 @@ define(['lib/stapes'], function(Stapes) {
 
 		window.onhashchange = function() {
 			todoView.emit('statechange', todoView.getState());
-		}
+		};
 	}
 
 	function loadTemplates() {
@@ -97,6 +97,8 @@ define(['lib/stapes'], function(Stapes) {
 		},
 
 		'setActiveRoute': function(route) {
+			// 'all' doesnt have a href="#/all"
+			route = (route === 'all') ? '' : route;
 			$('#filters a').removeClass('selected').filter('[href="#/' + route + '"]').addClass('selected');
 		},
 
