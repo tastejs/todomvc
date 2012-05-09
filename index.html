@@ -1,207 +1,153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>TodoMVC</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-      }
-    </style>
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  </head>
-
-  <body>
-
-
-
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="http://github.com/addyosmani/todomvc">TodoMVC</a>
-          <ul class="nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="http://github.com/addyosmani/todomvc/issues/new">Submit New Ticket</a></li>
-          </ul>
-          <p class="pull-right">
-
-          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.github.com/todomvc" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-
-          &nbsp; </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="sidebar">
-        <div class="well">
-          <h5>Examples Included For:</h5>
-          <ul>
-
-        <li><a href="http://www.sproutcore.com/">SproutCore</a></li> 
-        <li><a href="http://javascriptmvc.com/">JavaScriptMVC</a></li> 
-        <li><a href="http://documentcloud.github.com/backbone/">Backbone.js</a></li>  
-        <li><a href="http://spinejs.com/">Spine.js</a></li>
-        <li><a href="http://sammyjs.org/">Sammy.js</a></li> 
-        <li><a href="http://knockoutjs.com/">KnockoutJS</a></li> 
-        <li><a href="http://developer.yahoo.com/yui/">YUILibrary</a></li> 
-        <li><a href="http://angularjs.org/">AngularJS</a></li> 
-        <li><a href="https://github.com/brokenseal/broke-client">Broke.js</a></li> 
-        <li><a href="https://github.com/jgallen23/fidel">Fidel.js</a></li>
-
-          </ul>
-
-          <h5>0.2 Changelog</h5>
-          <ul>
-            <li>Patches to existing applications</li>
-            <li>Sylistic updates</li>
-            <li><span class="label">New</span> AngularJS examples</li>
-            <li><span class="label">New</span> Broke.js example</li>
-            <li><span class="label">New</span> YUILibrary example</li>
-            <li><span class="label">New</span> Fidel.js example</li>
-          </ul>
-
-          <h5>Live demos</h5>
-          <ul>
-<li><a href="todo-example/sproutcore/index.html">SproutCore 2.0</a></li> 
-<li><a href="todo-example/javascriptmvc/todo/todo/index.html">JavaScriptMVC</a></li> 
-<li><a href="todo-example/spine/index.html">Spine.js</a></li>
-<li><a href="todo-example/backbone/index.html">Backbone.js</a></li>  
-<li><a href="todo-example/sammyjs/index.html">Sammy.js</a></li> 
-<li><a href="todo-example/knockoutjs/index.html">KnockoutJS (MVVM)</a></li> 
-<li><a href="todo-example/yuilibrary/index.html">YUILibrary</a></li> 
-<li><a href="todo-example/angularjs/main/index.html">AngularJS</a></li> 
-<li><a href="todo-example/angularjs/persistencejs/index.html">Angular + PersistenceJS</a></li> 
-<li><a href="todo-example/broke/index.html">Broke.js</a></li> 
-<li><a href="todo-example/fidel/index.html">Fidel.js</a></li>
-          </ul>
-
-          <h5>Contributors</h5>
-          <ul>
-            <li><a href="http://twitter.com/addyosmani">Addy Osmani</a></li> 
-            <li><a href="http://twitter.com/jeromegn">Jérôme Gravel-Niquet</a></li> 
-            <li><a href="http://twitter.com/justinbmeyer">Justin Meyer</a></li> 
-            <li><a href="http://twitter.com/macmann">Alex MacCaw</a></li> 
-            <li><a href="">Ashish Sharma</a></li> 
-            <li><a href="http://sproutcore.com">Tom Dale, Yehuda Katz</a></li> 
-            <li><a href="http://cburgdorf.wordpress.com/">Christoph Burgdorf</a></li>
-            <li><a href="http://developer.yahoo.com">The YUI team</a></li> 
-            <li><a href="https://github.com/jacobmumm">Jacob Mumm</a></li>
-            <li><a href="https://github.com/brokenseal">Davide Callegari</a></li>
-          </ul>
-
-          <h5>Coming Soon</h5>
-          <ul>
-            <li>ES.Next Todo app using native Models, Modules, Classes.</li>
-            <li>Dojo Todo app (with MVC patterns)</li>
-            <li>Batman.js Todo app</li>
-            <li>Todo app boilerplate</li>
-          </ul>
-
-        </div>
-      </div>
-      <div class="content">
-        <!-- Main hero unit for a primary marketing message or call to action -->
-        <div class="hero-unit">
-          <h1>TodoMVC</h1>
-          <p>A common learning application for popular JavaScript MVC frameworks</p>
-          <p><a class="btn primary large" href="https://github.com/addyosmani/todomvc/zipball/v0.2">Download Version 0.2</a> &nbsp;
-          <a class="btn secondary large" href="http://github.com/addyosmani/todomvc">Follow On GitHub</a></p>
-        </div>
-
-
-<div class="row">
-    <div class="span12">
-      <h3>Screenshots</h3>
-      <p>A preview of the Todo apps included in the download:</p>
-      <ul class="media-grid">
-        <li>
-          <a href="#"><img src="images/sproutcore.jpg" alt="SproutCore"></a>
-        </li>
-        <li>
-          <a href="#"><img src="images/backbone.jpg" alt="Backbone"></a>
-        </li>
-        <li>
-          <a href="#"><img src="images/yui.jpg" alt="YUILibrary"></a>
-        </li>
-      </ul>
-    </div>
-    <a name="about"></a>
-    <!-- end row-->
-
-
-
-      <div class="span12">
-              <h2>Introduction</h2>
-  <p>Developers these days are spoiled with choice when it comes to selecting an <strong>MVC framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, SproutCore, JavaScriptMVC..the list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?.</p>
-
-  <p>To help solve this problem, I created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MVC frameworks of today. Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
-  </div>
-
- <hr class="span12">
-
-  <div class="span12">
-    <h2>Getting Started</h2>
-    <p>You can get setup with TodoMVC in just a few short steps:</p>
-    <p>
-      <ol>
-        <li>Download the <a href="https://github.com/addyosmani/todomvc/zipball/v0.2">latest release</a>.</li>
-        <li>Run TodoMVC on a local server (using <a href="http://www.mamp.info">MAMP</a>, <a href="http://www.wampserver.com/en/">WAMP</a> or another suitable setup). You can then select an app to run using the 'Live demos' link to the left.</li>
-        <li>Browse through the Todo apps, examine their source and discover which framework you might feel the most comfortable working with.</li>
-      </ol>
-    </p>
-  </div>
-
- <hr class="span12">
-
- <div class="span12">
-
-<h2>Selecting A Framework</h2>
-<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to use. </p>
-
-<p>Study the syntax required for defining models, views, controllers and classes (if supported) in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand. </p>
-
-<p>Some developers have also found that creating derivative apps that take the basic list-editing concept further greatly helped them in their selection process, so you may find a similar exercise helpful.</p>
- </div>
-
-
- <hr class="span12">
-
-
-<div class="span12">
-<h2>Getting Involved</h2>
-<p>Is there a bug we haven't fixed or an MVC framework you feel would benefit from being included in TodoMVC? If so, feel free to submit a pull request and I'll be happy to review it for inclusion. A boilerplate for Todo apps will probably land in TodoMVC 0.3, but until then if you have any stylistic or app-specific questions you'd like to ask, feel free to ask on <a href="http://twitter.com">Twitter</a>.</p>
-            <p><a class="btn" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request&raquo;</a></p>
-</div>
-
-
- </div>
-
-  </div>
-
-
-
-        <footer>
-          <p>&copy; TodoMVC, Addy Osmani 2011</p>
-        </footer>
-      </div>
-    </div>
-
-  </body>
+	<head>
+		<meta charset="utf-8">
+		<title>TodoMVC</title>
+		<meta name="description" content="A common learning application for popular JavaScript MV* frameworks">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="site/css/bootstrap.min.css" rel="stylesheet">
+		<link href="site/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="site/css/main.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<header class="hero-unit row">
+				<div class="span4 screenshot">
+					<img src="site/screenshot.png" width="528" height="330">
+				</div>
+				<div class="span5 header-title">
+					<h1>TodoMVC</h1>
+					<p>
+						A common learning application for popular JavaScript MV* frameworks
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.github.com/todomvc" data-via="addyosmani">Tweet</a>
+					</p>
+					<nav>
+						<a class="btn btn-primary btn-large" href="https://github.com/addyosmani/todomvc/zipball/v0.3">Download</a>
+						<a class="btn btn-large" href="http://github.com/addyosmani/todomvc">Follow on GitHub</a>
+					</nav>
+					<p style="font-size: 16px;">Check out our new subproject <a href="http://todomvc.com/labs">TodoMVC Labs</a></p>
+				</div>
+			</header>
+			<div class="row">
+				<div class="span4">
+					<h2>Introduction</h2>
+					<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember (SproutCore 2.0), JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?</p>
+					<p>To help solve this problem, we created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p>
+					<p>Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
+				</div>
+				<div class="span5" id="demos">
+					<h2>Demos</h2>
+					<ul class="nav nav-pills">
+						<li>
+							<a href="architecture-examples/backbone/index.html" data-source="http://documentcloud.github.com/backbone/" data-content="Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.">Backbone.js</a>
+						</li>
+						<li>
+							<a href="dependency-examples/backbone_require/index.html" data-source="http://requirejs.org/" data-content="RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.">Backbone.js + RequireJS</a>
+						</li>
+						<li>
+							<a href="architecture-examples/emberjs/index.html" data-source="http://emberjs.com/" data-content="Ember is a JavaScript framework for creating ambitious web applications that eliminates boilerplate and provides a standard application architecture.">Ember.js</a>
+						</li>
+						<li>
+							<a href="architecture-examples/javascriptmvc/todo/todo/index.html" data-source="http://javascriptmvc.com/" data-content="JavaScriptMVC is an open-source framework containing the best ideas in jQuery development. It guides you to successfully completed projects by promoting best practices, maintainability, and convention over configuration.">JavaScriptMVC</a>
+						</li>
+						<li>
+							<a href="architecture-examples/spine/index.html" data-source="http://spinejs.com/" data-content="Spine is a lightweight framework for building JavaScript web applications. Spine gives you an MVC structure and then gets out of your way, allowing you to concentrate on the fun stuff, building awesome web applications.">Spine.js</a>
+						</li>
+						<li>
+							<a href="architecture-examples/knockoutjs/index.html" data-source="http://knockoutjs.com/" data-content="Simplify dynamic JavaScript UIs by applying the Model-View-View Model (MVVM) pattern">Knockout (MVVM)</a>
+						</li>
+						<li>
+							<a href="architecture-examples/sammyjs/index.html" data-source="http://sammyjs.org/" data-content="Sammy.js is a tiny JavaScript framework developed to ease the pain and provide a basic structure for developing JavaScript applications.">Sammy.js</a>
+						</li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li>
+							<a href="architecture-examples/dojo/index.html" data-source="http://dojotoolkit.org/" data-content="Dojo saves you time and scales with your development process, using web standards as its platform. It’s the toolkit experienced developers turn to for building high quality desktop and mobile web applications.">Dojo</a>
+						</li>
+						<li>
+							<a href="architecture-examples/closure/index.html" data-source="http://code.google.com/closure/library/" data-content="The Closure Library is a broad, well-tested, modular, and cross-browser JavaScript library. You can pull just what you need from a large set of reusable UI widgets and controls, and from lower-level utilities for DOM manipulation, server communication, animation, data structures, unit testing, rich-text editing, and more.">Closure</a>
+						</li>
+						<li>
+							<a href="architecture-examples/yuilibrary/index.html" data-source="http://yuilibrary.com/" data-content="YUI's lightweight core and modular architecture make it scalable, fast, and robust. Built by frontend engineers at Yahoo!, YUI powers the most popular websites in the world.">YUILibrary</a>
+						</li>
+						<li>
+							<a href="architecture-examples/knockback/index.html" data-source="http://kmalakoff.github.com/knockback/" data-content="Knockback.js provides Knockout.js magic for Backbone.js Models and Collections.">Knockback.js</a>
+						</li>
+						<li>
+							<a href="architecture-examples/angularjs/index.html" data-source="http://angularjs.org/" data-content="What HTML would have been
+had it been designed for web apps">AngularJS</a>
+						</li>
+						<li>
+							<a href="architecture-examples/angularjs_persistencejs/index.html" data-source="http://persistencejs.org/" data-content="persistence.js is an asynchronous Javascript object-database mapper. It has database-independent abstractions and can therefore easily be ported to new databases.">Angular + PersistenceJS</a>
+						</li>
+						<li>
+							<a href="architecture-examples/extjs/index.html" data-source="http://www.sencha.com/products/extjs" data-content="Ext JS 4 is the next major advancement in our JavaScript framework. Featuring expanded functionality, plugin-free charting, and a new MVC architecture it's the best Ext JS yet. Create incredible web apps for every browser.">Ext.js</a>
+						</li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li>
+							<a href="architecture-examples/agilityjs/index.html" data-source="http://agilityjs.com" data-content="Agility.js is an MVC library for Javascript that lets you write maintainable and reusable browser code without the infrastructural overhead found in other MVC libraries. The goal is to enable developers to write web apps at least as quickly as with jQuery, while simplifying long-term maintainability through MVC objects.">Agility.js</a>
+						</li>
+						<li>
+							<a href="architecture-examples/jquery/index.html" data-source="http://jquery.com/" data-content="jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.">jQuery</a>
+						</li>
+						<li>
+							<a href="reference-examples/vanillajs/index.html" data-source="https://developer.mozilla.org/en/JavaScript" data-content="You know JavaScript right? :P">Vanilla JS</a>
+						</li>
+					</ul>
+				</div>
+				<div class="span3">
+					<h2>New in version 0.3</h2>
+					<ul class="vertical-space">
+						<li>Dojo (MV*) app</li>
+						<li>Closure (MV*) app</li>
+						<li>Fixes and rewrites to existing apps including Ember.js, Spine.js and Backbone.js</li>
+						<li>Updated jQuery-only app for those wishing to compare MV* vs. a version structured without it</i>
+						<li>A new boilerplate for Todo apps</li>
+						<li><a href="https://github.com/addyosmani/backbone-boilerplates">Initial work</a> on Todo apps integrated with back-end tech stacks (Backbone.js only for now)</li>
+					</ul>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="span4">
+					<h2>Getting Started</h2>
+					<p>You can get setup with TodoMVC in just a few short steps:</p>
+					<p>
+						<ol class="vertical-space">
+							<li>Download the <a href="https://github.com/addyosmani/todomvc/zipball/v0.3">latest release</a>.</li>
+							<li>Run TodoMVC on a local server (using <a href="http://www.mamp.info">MAMP</a>, <a href="http://www.wampserver.com/en/">WAMP</a> or another suitable setup). You can then select an app to run using the 'Live demos' link to the left.</li>
+							<li>Browse through the Todo apps, examine their source and discover which framework you might feel the most comfortable working with.</li>
+						</ol>
+					</p>
+				</div>
+				<div class="span4">
+					<h2>Selecting a Framework</h2>
+					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.</p>
+					<p>Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
+					<p>Please <strong>ensure</strong> that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
+			</div>
+				<div class="span4">
+					<h2>Getting Involved</h2>
+					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
+					<p>If so, feel free to fork the repo, read our <a href="https://github.com/addyosmani/todomvc/wiki">contribution guidelines</a>, and submit a pull request &mdash; we'll be happy to review it for inclusion.</p><p> Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point and read the <a href="https://github.com/addyosmani/todomvc/wiki/App-Specification">app specification</a>.</p>
+					<p><a class="btn" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request &raquo;</a></p>
+				</div>
+			</div>
+			<hr>
+			<footer>
+				<p>© TodoMVC. Brought to you by <a href="https://github.com/addyosmani">Addy Osmani</a> (lead), <a href="https://github.com/boushley">Aaron Boushley</a> and <a href="https://github.com/sindresorhus">Sindre Sorhus</a>.</p>
+				<p id="contributor-list">Big thanks to our magnificent contributors: <span></span></p>
+			</footer>
+		</div>
+		<script src="assets/jquery.min.js"></script>
+		<script src="site/js/jquery.hoverIntent.min.js"></script>
+		<script src="site/js/bootstrap.min.js"></script>
+		<script src="site/js/main.js"></script>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		<script>var _gaq=[['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>
+	</body>
 </html>

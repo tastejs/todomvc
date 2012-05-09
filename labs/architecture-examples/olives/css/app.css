@@ -1,0 +1,7 @@
+#main, #footer, #clear-completed {
+	display: none;
+}
+
+.show {
+	display: block !important;
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="todomvc">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS - TodoMVC</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+  <!--[if IE]>
+  <script src="../../assets/ie.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div ng-controller="App.Controllers.TodoController" id="todoapp">
+    <header>
+      <h1>Todos</h1>
+      <form id="todo-form" ng-submit="addTodo()">
+        <input type="text" id="new-todo" name="newTodo" ng-model="newTodo" placeholder="What needs to be done?">
+      </form>
+    </header>
+    <section id="main" ng-show="todos.length">
+      <input type="checkbox" id="toggle-all" ng-click="markAllDone()" ng-checked="remainingTodos().length == 0">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list">
+        <li ng-repeat="todo in todos" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
+          <div class="view">
+            <input type="checkbox" class="toggle" name="todo.done" ng-model="todo.done">
+            <label>{{todo.title}}</label>
+            <a class="destroy" ng-click="removeTodo(todo)"></a>
+          </div>
+          <form ng-submit="finishEditing(todo)">
+            <input type="text" class="edit" name="todo.title" ng-model="todo.title" my:blur="finishEditing(todo)">
+          </form>
+        </li>
+      </ul>
+    </section>
+    <footer ng-show="todos.length">
+      <a id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length">Clear {{doneTodos().length}} items</a>
+      <div id="todo-count">
+        <ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize>
+      </div>
+    </footer>
+  </div>
+  <div id="instructions">
+    Double-click to edit a todo.
+  </div>
+  <div id="credits">
+    Credits: <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>, <a href="http://ericbidelman.com">Eric Bidelman</a>
+  </div>
+  <script src="../../assets/base.js"></script>
+  <script src="js/booter.js"></script>
+  <script src="js/libs/angular/angular.min.js"></script>
+  <script src="js/controllers.js"></script>
+</body>
+</html>
