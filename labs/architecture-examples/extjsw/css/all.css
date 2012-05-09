@@ -1,0 +1,35 @@
+header, footer {
+    text-align: center;
+}
+
+tr.x-grid-row td.delete-icon .x-grid-cell-inner {
+    vertical-align: middle;
+    font-size: 17px;
+    color: #a88a8a;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+tr.x-grid-row-selected td.delete-icon .x-grid-cell-inner,
+tr.x-grid-row-over td.delete-icon .x-grid-cell-inner,
+tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
+    content: '✖';
+    text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+.check-all .x-form-cb-wrap {
+    padding: 0;
+    text-align: center;
+}
+
+.check-all .x-form-cb-wrap input {
+    vertical-align: 1px;
+}
