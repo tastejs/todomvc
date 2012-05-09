@@ -76,11 +76,11 @@ todomvc.listcontrol.prototype.enterDocument = function() {
   }, 'toggle-all');
 
   // refresh the view on changes that effect the models order
-  this.anyModelChange(this.refresh, this);
-  this.refresh();
+  this.anyModelChange(function() {
+    this.refresh();
+    list.save();
+  }, this);
 
-  // save any changes from models
-  this.anyModelChange(list.save, list);
 
   // hide/show footer and main body
   this.modelChange(function() {
