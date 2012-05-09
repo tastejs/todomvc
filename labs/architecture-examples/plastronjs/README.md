@@ -9,17 +9,33 @@ Just open the index.html in your browser
 
 ## Run uncompiled
 
-The app is built with [Plovr](http://plovr.com/). You can run an unminified version of the site by openning the folder in your commandline and typing:
+The app is built with [Plovr](http://plovr.com/). To run the unminified version you need to [download Plovr](http://plovr.com/download.html), create a directory called "build" and put the jar file in the build folder.
+
+You will then need to [download PlastronJS](https://github.com/rhysbrettbowen/PlastronJS) to js/lib (you will need to create the folder).
+
+Next open a command prompt in the base directory of the plastronjs todomvc example and type in.
 
 ```
 java -jar build/plovr serve plovr.json
 ```
 
-and changing the script src at the bottom of the index.html from js/compiled.js to:
+Change the script src at the bottom of the index.html from js/compiled.js to:
 
 ```
 http://localhost:9810/compile?id=todomvc&mode=raw
 ```
+
+You can now view the uncompiled example and play around with it!
+
+# Compilation
+
+Once you have done the steps above you can compile any changes you make by running the below command:
+
+```
+java -jar build/plovr build plovr.json
+```
+
+and view the compiled version fo the page by changing the bottom script src back to js/compiled. 
 
 ## Need help?
 

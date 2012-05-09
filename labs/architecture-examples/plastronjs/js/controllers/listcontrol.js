@@ -89,23 +89,23 @@ todomvc.listcontrol.prototype.enterDocument = function() {
   this.showMainFooter(!!list.getLength());
 
   // update counts
-  this.bind('completed', function(mods) {
+  this.bind('completed', function(completedModels) {
 
     // update "left" count
     soy.renderElement(goog.dom.getElement('todo-count'),
         todomvc.templates.itemsLeft, {
-          left: list.getLength() - mods.length
+          left: list.getLength() - completedModels.length
         });
 
     // update clear button
     var clearButton = goog.dom.getElement('clear-completed');
     goog.dom.setTextContent(clearButton,
-        'Clear completed (' + mods.length + ')');
-    goog.style.showElement(clearButton, mods.length);
+        'Clear completed (' + completedModels.length + ')');
+    goog.style.showElement(clearButton, completedModels.length);
 
     // update checkbox
     var checkBox = this.getEls('.toggle-all')[0];
-    checkBox.checked = mods.length === list.getLength();
+    checkBox.checked = completedModels.length === list.getLength();
   });
 
   // get the saved todos
