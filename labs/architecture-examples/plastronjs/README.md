@@ -16,7 +16,7 @@ You will then need to [download PlastronJS](https://github.com/rhysbrettbowen/Pl
 Next open a command prompt in the base directory of the plastronjs todomvc example and type in.
 
 ```
-java -jar build/plovr serve plovr.json
+java -jar build/plovr.jar serve plovr.json
 ```
 
 Change the script src at the bottom of the index.html from js/compiled.js to:
@@ -32,10 +32,10 @@ You can now view the uncompiled example and play around with it!
 Once you have done the steps above you can compile any changes you make by running the below command:
 
 ```
-java -jar build/plovr build plovr.json
+java -jar build/plovr.jar build plovr.json
 ```
 
-and view the compiled version fo the page by changing the bottom script src back to js/compiled. 
+and view the compiled version fo the page by changing the bottom script src back to js/compiled.
 
 ## Need help?
 
