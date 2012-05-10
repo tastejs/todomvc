@@ -15,7 +15,7 @@ $ ->
 	# Create and bind the app viewmodels
 	window.app = {viewmodels: {}}
 	app.viewmodels.settings = new SettingsViewModel()
-	todos = new TodosCollection()
+	todos = new TodoCollection()
 	app.viewmodels.header = new HeaderViewModel(todos)
 	app.viewmodels.todos = new TodosViewModel(todos)
 	app.viewmodels.footer = new FooterViewModel(todos)
