@@ -14,7 +14,7 @@ todomvc.listmodel = function() {
 	var todosSchema = {
 		'completed': {
 			get: function() {
-				return this.getModels(function(mod) {
+				return this.getModels(function( mod ) {
 					return mod.get('completed');
 				});
 			},
@@ -22,22 +22,21 @@ todomvc.listmodel = function() {
 		}
 	};
 
-	goog.base(this, {
+	goog.base( this, {
 		'id': 'todos-plastronjs',
 		'sync': new todomvc.listsync(),
 		'schema': todosSchema,
 		'modelType': todomvc.todomodel
 	});
 };
-goog.inherits(todomvc.listmodel, mvc.Collection);
+goog.inherits( todomvc.listmodel, mvc.Collection );
 
 
 /**
  * @return {Object} todos as json.
  */
 todomvc.listmodel.prototype.toJson = function() {
-	return goog.array.map(this.getModels(), function(mod) {
+	return goog.array.map( this.getModels(), function( mod ) {
 		return mod.toJson();
 	});
 };
-

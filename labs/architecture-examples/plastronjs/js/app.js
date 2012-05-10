@@ -6,16 +6,13 @@ goog.require('todomvc.listcontrol');
 goog.require('todomvc.listmodel');
 
 
-
-
-
 var todolist = new todomvc.listmodel();
 
-//create the control for the collection.
-var todolistControl = new todomvc.listcontrol(todolist);
-todolistControl.decorate(goog.dom.getElement('todoapp'));
+// Create the control for the collection.
+var todolistControl = new todomvc.listcontrol( todolist );
+todolistControl.decorate( goog.dom.getElement('todoapp') );
 
-//setup router
+// Setup router
 var router = new mvc.Router();
 
 
@@ -24,28 +21,27 @@ var router = new mvc.Router();
  *
  * @param {string} chosenFilter selected filter by name.
  */
-var toggleFilters = function(chosenFilter) {
-  var filters = goog.dom.getElementsByTagNameAndClass('A', undefined,
-    goog.dom.getElement('filters'));
-  goog.array.forEach(filters, function(filter) {
-    goog.dom.classes.enable(filter, 'selected',
-        goog.dom.getTextContent(filter) === chosenFilter);
-  });
+var toggleFilters = function( chosenFilter ) {
+	var filters = goog.dom.getElementsByTagNameAndClass( 'A', undefined,
+		goog.dom.getElement('filters') );
+
+	goog.array.forEach( filters, function( filter ) {
+		goog.dom.classes.enable( filter, 'selected',
+				goog.dom.getTextContent( filter ) === chosenFilter );
+	});
 };
 
-router.route('/', function() {
-  todolistControl.setFilter(todomvc.listcontrol.Filter.ALL);
-  toggleFilters('All');
+router.route( '/', function() {
+	todolistControl.setFilter( todomvc.listcontrol.Filter.ALL );
+	toggleFilters('All');
 });
 
-router.route('/active', function() {
-  todolistControl.setFilter(todomvc.listcontrol.Filter.ACTIVE);
-  toggleFilters('Active');
+router.route( '/active', function() {
+	todolistControl.setFilter( todomvc.listcontrol.Filter.ACTIVE );
+	toggleFilters('Active');
 });
 
-router.route('/completed', function() {
-  todolistControl.setFilter(todomvc.listcontrol.Filter.COMPLETED);
-  toggleFilters('Completed');
+router.route( '/completed', function() {
+	todolistControl.setFilter( todomvc.listcontrol.Filter.COMPLETED );
+	toggleFilters('Completed');
 });
-
-

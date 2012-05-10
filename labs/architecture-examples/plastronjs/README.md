@@ -1,11 +1,12 @@
-# PlastronJS • [TodoMVC](http://todomvc.com)
+# PlastronJS TodoMVC app
 
-A todo app using [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
-and [Closure Tools](https://developers.google.com/closure/)
+A todo app using [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS) and [Closure Tools](https://developers.google.com/closure/)
+
 
 ## Run
 
 Just open the index.html in your browser
+
 
 ## Run uncompiled
 
@@ -13,9 +14,9 @@ The app is built with [Plovr](http://plovr.com/). To run the unminified version 
 
 You will then need to [download PlastronJS](https://github.com/rhysbrettbowen/PlastronJS) to js/lib (you will need to create the folder).
 
-Next open a command prompt in the base directory of the plastronjs todomvc example and type in.
+Next open a command prompt in the base directory of the PlastronJS TodoMVC example and type in:
 
-```
+```shell
 java -jar build/plovr.jar serve plovr.json
 ```
 
@@ -27,6 +28,7 @@ http://localhost:9810/compile?id=todomvc&mode=raw
 
 You can now view the uncompiled example and play around with it!
 
+
 # Compilation
 
 Once you have done the steps above you can compile any changes you make by running the below command:
@@ -35,11 +37,13 @@ Once you have done the steps above you can compile any changes you make by runni
 java -jar build/plovr.jar build plovr.json
 ```
 
-and view the compiled version fo the page by changing the bottom script src back to js/compiled.
+and view the compiled version for the page by changing the bottom script src back to js/compiled.
+
 
 ## Need help?
 
-shoot me a quick message on [twitter](https://twitter.com/#!/RhysBB)
+Message me on [twitter](https://twitter.com/#!/RhysBB)
+
 
 ## Credit
 
