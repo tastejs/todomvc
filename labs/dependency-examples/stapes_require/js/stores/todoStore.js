@@ -1,14 +1,13 @@
-define(["lib/stapes"], function(Stapes) {
+'use strict';
+define(['lib/stapes'], function(Stapes) {
 	return Stapes.create().extend({
-		"init" : function() {
-			if (!"localStorage" in window) {
-				throw new Error("Your browser doesn't support localStorage");
-			}
+		'init': function() {
+			if (!'localStorage' in window) return;
 
 			this.emit('ready');
 		},
 
-		"load" : function() {
+		'load': function() {
 			var result = window.localStorage['todos-stapes'];
 
 			if (result) {
@@ -16,7 +15,7 @@ define(["lib/stapes"], function(Stapes) {
 			}
 		},
 
-		"save" : function(data) {
+		'save': function(data) {
 			localStorage['todos-stapes'] = JSON.stringify( data );
 		}
 	});
