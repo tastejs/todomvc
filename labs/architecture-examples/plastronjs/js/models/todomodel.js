@@ -12,17 +12,17 @@ goog.require('mvc.Model.ValidateError');
  * @extends {mvc.Model}
  */
 todomvc.todomodel = function(opt_options) {
-  goog.base(this, opt_options);
+	goog.base(this, opt_options);
 
-  this.setter('title', function(title) {
-    var updated = goog.string.trim(title);
-    if (!updated.length)
-      throw new mvc.Model.ValidateError('null string');
-    return updated;
-  });
+	this.setter('title', function(title) {
+		var updated = goog.string.trim(title);
+		if (!updated.length)
+			throw new mvc.Model.ValidateError('null string');
+		return updated;
+	});
 
-  this.errorHandler(function() {
-    this.dispose();
-  });
+	this.errorHandler(function() {
+		this.dispose();
+	});
 };
 goog.inherits(todomvc.todomodel, mvc.Model);
