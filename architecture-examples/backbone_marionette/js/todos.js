@@ -13,7 +13,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
 
   App.Todo = Backbone.Model.extend({
     toggle: function(done){
-      done = done || !this.get("done");
+      console.log("toggling individual", done);
       this.set({done: done});
     },
 
@@ -43,14 +43,14 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     },
 
     updateCounts: function(){
-      var data = {};
+      var counts = {};
 
-      data.total = this.length;
-      data.done = this.doneCount();
-      data.remaining = data.total - data.done;
+      counts.total = this.length;
+      counts.done = this.doneCount();
+      counts.remaining = counts.total - counts.done;
 
-      this.counts = data;
-      this.trigger("update:counts");
+      this.counts = counts;
+      this.trigger("update:counts", counts);
     },
 
     doneCount: function(){
@@ -78,33 +78,46 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
 
     events: {
       "keypress #new-todo":  "createOnEnter",
-      "change .mark-all-done": "toggleAllComplete",
+      "click .mark-all-done": "toggleAllClicked",
     },
 
     triggers: {
       "click .todo-clear a": "clear:completed"
     },
 
+    initialize: function(){
+      this.bindTo(this.collection, "update:counts", this.countsUpdated, this);
+    },
+
+    countsUpdated: function(counts){
+      if (counts.done === counts.total){
+        this.checkAll.attr("checked", "checked");
+      } else {
+        this.checkAll.removeAttr('checked');
+      }
+    },
+
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
-      var input = $(e.currentTarget);
 
-      var content = input.val();
+      var content = this.input.val();
       var data = {
         content: content,
         done: false
       };
 
       this.trigger("create:todo", data);
-      input.val('');
+      this.input.val('');
     },
 
-    toggleAllComplete: function(e){
-      var checked = !!$(e.currentTarget).attr("checked");
-      this.trigger("toggle:all", checked)
+    toggleAllClicked: function(e){
+      var checked = !!this.checkAll.attr("checked");
+      this.trigger("toggle:all", checked);
     },
 
     render: function(){
+      this.checkAll = this.$(".mark-all-done");
+      this.input = this.$("#new-todo");
       this.initializeRegions();
     }
   });
@@ -114,30 +127,30 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     tagName: "li",
 
     events: {
-      "click input.check": "checkClicked"
+      "change input.check": "checkChanged"
     },
 
     initialize: function(){
-      this.bindTo(this.model, "change:done", this.showComplete, this);
+      _.bindAll(this, "render");
+      this.bindTo(this.model, "change:done", this.changeDone, this);
     },
 
-    checkClicked: function(e){
-      this.model.toggle();
+    checkChanged: function(e){
+      var checked = !!$(e.currentTarget).attr("checked");
+      this.model.toggle(checked);
     },
 
-    showComplete: function(attr, done){
+    changeDone: function(model, done){
+      var $chk = this.$(".chk");
+      var $todo = this.$(".todo");
+
       if (done){
-        this.checkbox.attr("checked", "checked");
-        this.todo.addClass("done");
+        $chk.attr("checked", "checked");
+        $todo.addClass("done");
       } else {
-        this.checkbox.removeAttr("checked");
-        this.todo.removeClass("done");
+        $chk.removeAttr("checked");
+        $todo.removeClass("done");
       }
-    },
-
-    onRender: function(){
-      this.checkbox = this.$("input.check");
-      this.todo = this.$(".todo");
     }
   });
 
@@ -165,7 +178,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     run: function(){
       this.todoList = new App.TodoCollection();
 
-      var form = this.getTodoForm();
+      var form = this.getTodoForm(this.todoList);
 
       form.on("create:todo", this.todoList.add, this.todoList);
       form.on("toggle:all", this.todoList.toggle, this.todoList);
@@ -192,9 +205,10 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       return listView;
     },
 
-    getTodoForm: function(){
+    getTodoForm: function(todos){
       var layout = new App.Layout({
-        el: $("#todoapp")
+        el: $("#todoapp"),
+        collection: todos
       });
       layout.render();
       return layout;
