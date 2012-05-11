@@ -13,7 +13,6 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
 
   App.Todo = Backbone.Model.extend({
     toggle: function(done){
-      console.log("toggling individual", done);
       this.set({done: done});
     },
 
@@ -38,7 +37,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       _.each(completed, function(todo){ that.remove(todo); });
     },
 
-    toggle: function(done){
+    toggleAll: function(done){
       this.each(function(todo){ todo.toggle(done); });
     },
 
@@ -48,6 +47,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       counts.total = this.length;
       counts.done = this.doneCount();
       counts.remaining = counts.total - counts.done;
+      counts.allDone = counts.remaining === 0;
 
       this.counts = counts;
       this.trigger("update:counts", counts);
@@ -82,7 +82,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     },
 
     triggers: {
-      "click .todo-clear a": "clear:completed"
+      "change .todo-clear a": "clear:completed"
     },
 
     initialize: function(){
@@ -90,34 +90,36 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     },
 
     countsUpdated: function(counts){
-      if (counts.done === counts.total){
-        this.checkAll.attr("checked", "checked");
+      var $chk = this.$(".mark-all-done");
+      if (counts.allDone){
+        $chk.prop("checked", true);
       } else {
-        this.checkAll.removeAttr('checked');
+        $chk.prop("checked", false);
       }
     },
 
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
 
-      var content = this.input.val();
+      var input = $(e.currentTarget);
+
+      var content = input.val();
       var data = {
         content: content,
         done: false
       };
 
       this.trigger("create:todo", data);
-      this.input.val('');
+      input.val('');
     },
 
     toggleAllClicked: function(e){
-      var checked = !!this.checkAll.attr("checked");
-      this.trigger("toggle:all", checked);
+      var $chk = $(e.currentTarget);
+      var checked = !!$chk.attr("checked");
+      this.collection.toggleAll(checked);
     },
 
     render: function(){
-      this.checkAll = this.$(".mark-all-done");
-      this.input = this.$("#new-todo");
       this.initializeRegions();
     }
   });
@@ -127,7 +129,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     tagName: "li",
 
     events: {
-      "change input.check": "checkChanged"
+      "click input.check": "checkChanged"
     },
 
     initialize: function(){
@@ -141,14 +143,14 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     },
 
     changeDone: function(model, done){
-      var $chk = this.$(".chk");
+      var $chk = this.$(".check");
       var $todo = this.$(".todo");
 
       if (done){
-        $chk.attr("checked", "checked");
+        $chk.prop("checked", true);
         $todo.addClass("done");
       } else {
-        $chk.removeAttr("checked");
+        $chk.prop("checked", false);
         $todo.removeClass("done");
       }
     }
@@ -181,7 +183,6 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       var form = this.getTodoForm(this.todoList);
 
       form.on("create:todo", this.todoList.add, this.todoList);
-      form.on("toggle:all", this.todoList.toggle, this.todoList);
       form.on("clear:completed", this.todoList.clearCompleted, this.todoList);
 
       var listView = this.getListView(this.todoList);
