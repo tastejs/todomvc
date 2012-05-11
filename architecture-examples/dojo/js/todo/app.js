@@ -49,7 +49,7 @@ define(["dojo/_base/declare",
          * contents.
          */
         postCreate: function () {
-            on(this.domNode, ".todo-destroy:click", lang.hitch(this, "onRemove"));
+            on(this.domNode, ".destroy:click", lang.hitch(this, "onRemove"));
             this.onItemStatusUpdate();
         },
 

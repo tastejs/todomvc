@@ -1,36 +1,53 @@
-<div>
-    <div class="create-todo">
-        <input class="new-todo" data-dojo-attach-event="onkeypress:onKeyPress" placeholder="What needs to be done?" type="text"/>
+<section>
+	<header id="header">
+	<h1>todos</h1>
+        <input id="new-todo" data-dojo-attach-event="onkeypress:onKeyPress" placeholder="What needs to be done?" type="text" autofocus>
         <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
-    </div>
+    </header>
 
-    <div class="todos">
-        <ul class="todo-list" data-dojo-attach-point="todo_list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: this.model.todos, exprchar: '#'">
+    <section id="main">
+	    <input id="toggle-all" type="checkbox">
+	    <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list" data-dojo-attach-point="todo_list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: this.model.todos, exprchar: '#'">
             <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '#{this.index}'">
-            <div class="todo">
-                <input class="check" data-dojo-type="todo.form.CheckBox" data-dojo-props='ref: "isDone"' style="display:inline-block" >
-                <div class="todo-content dijitInline" data-dojo-type="dijit.InlineEditBox"
-                    data-dojo-props='ref: "todo_text", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></div>
+            <div class="view">
+                <input class="toggle" type="checkbox" data-dojo-type="todo.form.CheckBox" data-dojo-props='ref: "isDone"' style="display:inline-block" >
+                <label class="dijitInline" data-dojo-type="dijit.InlineEditBox"
+                    data-dojo-props='ref: "todo_text", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></label>
 
-                <span class="todo-destroy" data-model-id="#{this.index}">
-                </span>
+                <button class="destroy" data-model-id="#{this.index}">
+                </button>
             </div>
             </li>
-        </ul>
-    </div>
+	    </ul>
+	</section>
 
-    <div class="todo-stats" data-dojo-attach-point="todo_stats">
-        <span class="todo-count">
-            <span data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: this.model.incomplete" class="number"></span>
+
+		<!-- This footer should hidden by default and shown when there are todos -->
+    <footer id="footer" data-dojo-attach-point="todo_stats">
+	<!-- This should be `0 items left` by default -->
+        <span id="todo-count">
+            <strong>
+                <span data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: this.model.incomplete" class="number"></span>
+            </strong>
             <span class="word">items</span> left.
         </span>
-        <span class="todo-clear">
-            <a href="#" data-dojo-attach-event="onclick:removeCompletedItems">
-                Clear
-                <span class="number-done" data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: this.model.complete" ></span>
-                completed items
-            </a>
-        </span>
-
-    </div>
-</div>
+	    <!-- Remove this if you don't implement routing -->
+		<ul id="filters">
+		    <li>
+			    <a class="selected" href="#/">All</a>
+		    </li>
+			<li>
+			    <a href="#/active">Active</a>
+		    </li>
+			<li>
+				<a href="#/completed">Completed</a>
+			</li>
+	    </ul>
+        <button id="clear-completed" data-dojo-attach-event="onclick:removeCompletedItems">
+            Clear completed (
+            <span class="number-done" data-dojo-type="dojox.mvc.Output" data-dojo-props="ref: this.model.complete" ></span>
+            )
+        </button>
+    </footer>
+</section>
