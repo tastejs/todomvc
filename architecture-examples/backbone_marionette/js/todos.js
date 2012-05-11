@@ -1,5 +1,6 @@
 // An example Backbone/Backbone.Marionette application 
-// contributed by [Derick Bailey](http://mutedsolutions.com). 
+// contributed by [Derick Bailey](http://mutedsolutions.com)
+// and build with [Backbone.Marionette](http://github.com/derickbailey/backbone.marionette).
 
 // Define an application
 var TodoMVC = new Backbone.Marionette.Application();
@@ -14,14 +15,55 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     toggle: function(done){
       done = done || !this.get("done");
       this.set({done: done});
+    },
+
+    isDone: function(){
+      return this.get("done");
     }
   });
 
   App.TodoCollection = Backbone.Collection.extend({
     model: App.Todo,
 
+    initialize: function(){
+      this.updateCounts();
+      this.on("add", this.updateCounts, this);
+      this.on("remove", this.updateCounts, this);
+      this.on("change:done", this.updateCounts, this);
+    },
+
+    clearCompleted: function(){
+      var that = this;
+      var completed = this.where({done: true});
+      _.each(completed, function(todo){ that.remove(todo); });
+    },
+
     toggle: function(done){
       this.each(function(todo){ todo.toggle(done); });
+    },
+
+    updateCounts: function(){
+      var data = {};
+
+      data.total = this.length;
+      data.done = this.doneCount();
+      data.remaining = data.total - data.done;
+
+      this.counts = data;
+      this.trigger("update:counts");
+    },
+
+    doneCount: function(){
+      var done = this.reduce(function(memo, todo){
+
+        if (todo.isDone()){
+          memo += 1
+        };
+
+        return memo;
+      }, 0);
+
+      return done;
     }
   });
 
@@ -36,9 +78,11 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
 
     events: {
       "keypress #new-todo":  "createOnEnter",
-      "change .mark-all-done": "toggleAllComplete"
-      //"keyup #new-todo":     "showTooltip",
-      //"click .todo-clear a": "clearCompleted",
+      "change .mark-all-done": "toggleAllComplete",
+    },
+
+    triggers: {
+      "click .todo-clear a": "clear:completed"
     },
 
     createOnEnter: function(e) {
@@ -101,6 +145,18 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     itemView: App.TodoItemView
   });
 
+  App.StatsView = Marionette.ItemView.extend({
+    template: "#stats-template",
+
+    initialize: function(){
+      this.bindTo(this.collection, "update:counts", this.render, this);
+    },
+
+    serializeData: function(){
+      return this.collection.counts;
+    }
+  });
+
   // Helpers
   // -------
 
@@ -110,20 +166,23 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       this.todoList = new App.TodoCollection();
 
       var form = this.getTodoForm();
-      form.on("create:todo", this.addTodo, this);
-      form.on("toggle:all", this.toggleAll, this);
+
+      form.on("create:todo", this.todoList.add, this.todoList);
+      form.on("toggle:all", this.todoList.toggle, this.todoList);
+      form.on("clear:completed", this.todoList.clearCompleted, this.todoList);
 
       var listView = this.getListView(this.todoList);
       form.list.show(listView);
+
+      var statsView = this.getStatsView(this.todoList);
+      form.stats.show(statsView);
     },
 
-    toggleAll: function(done){
-      this.todoList.toggle(done);
-    },
-
-    addTodo: function(todoData){
-      var todo = new App.Todo(todoData);
-      this.todoList.add(todo);
+    getStatsView: function(todos){
+      var statsView = new App.StatsView({
+        collection: todos
+      });
+      return statsView;
     },
 
     getListView: function(todos){
