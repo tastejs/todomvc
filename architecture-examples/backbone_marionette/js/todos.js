@@ -47,7 +47,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       counts.total = this.length;
       counts.done = this.doneCount();
       counts.remaining = counts.total - counts.done;
-      counts.allDone = counts.remaining === 0;
+      counts.allDone = (counts.remaining === 0 && counts.done > 0);
 
       this.counts = counts;
       this.trigger("update:counts", counts);
@@ -82,7 +82,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
     },
 
     triggers: {
-      "change .todo-clear a": "clear:completed"
+      "click .todo-clear a": "clear:completed"
     },
 
     initialize: function(){
