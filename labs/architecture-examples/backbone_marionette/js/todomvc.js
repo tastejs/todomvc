@@ -17,7 +17,7 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
   // Views
   // -----
 
-  App.TodoForm = Marionette.Layout.extend({
+  App.TodoForm = Marionette.ItemView.extend({
     events: {
       "keypress #new-todo":  "createOnEnter",
       "click .mark-all-done": "toggleAllClicked",
@@ -59,10 +59,6 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
       var $chk = $(e.currentTarget);
       var checked = !!$chk.attr("checked");
       this.collection.toggleAll(checked);
-    },
-
-    render: function(){
-      this.initializeRegions();
     }
   });
 
@@ -87,7 +83,6 @@ TodoMVC.module("App", function(App, TodoMVC, Backbone, Marionette, $, _){
         el: $("#todoapp"),
         collection: todos
       });
-      layout.render();
       return layout;
     }
 
