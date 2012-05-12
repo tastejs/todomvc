@@ -141,3 +141,23 @@ goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
 		updateStats();
 	}
 });
+
+/**
+ * @type {Element}
+ */
+var toggleAll = document.getElementById('toggle-all');
+goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
+	/**
+	 * @type {Boolean}
+	 */
+	var state = toggleAll.checked;
+	goog.array.forEach(items, function(model) {
+		model.setDone(state);
+	});
+	// do optimised model view sync
+	container.forEachChild(function(control) {
+		control.setChecked(control.getModel().isDone());
+	});
+
+	updateStats();
+});

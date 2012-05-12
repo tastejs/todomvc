@@ -2,6 +2,7 @@ goog.provide('todomvc.view.ToDoItemControl');
 
 goog.require('goog.dom');
 goog.require('goog.events');
+goog.require('goog.events.KeyCodes');
 goog.require('goog.ui.Component.State');
 goog.require('goog.ui.Control');
 
@@ -27,9 +28,6 @@ todomvc.view.ToDoItemControl = function(opt_domHelper) {
 	this.setAutoStates(goog.ui.Component.State.CHECKED, false);
 	this.setAutoStates(goog.ui.Component.State.SELECTED, false);
 
-	// allow text selection within this control
-	this.setAllowTextSelection(true);
-
 };
 goog.inherits(todomvc.view.ToDoItemControl, goog.ui.Control);
 
@@ -54,6 +52,22 @@ todomvc.view.ToDoItemControl.prototype.enterDocument = function() {
 			function(e) {
 				e.preventDefault();
 			});
+	this.getHandler().listen(this.getElement(), goog.events.EventType.DBLCLICK,
+			function(e) {
+				this.setSelected(true);
+	});
+	/**
+	 * @type {Element}
+	 */
+	var inputElement = this.getRenderer().getInputElement(
+			this.getElement());
+	this.getHandler().listen(inputElement, goog.events.EventType.KEYUP,
+			function(e) {
+		var be = e.getBrowserEvent();
+		if (be.keyCode === goog.events.KeyCodes.ENTER) {
+			this.setFocused(false);
+		}
+	});
 };
 
 /**
@@ -82,8 +96,6 @@ todomvc.view.ToDoItemControl.prototype.handleMouseUp = function(e) {
 		} else if (e.target === this.getRenderer().getDestroyElement(
 				this.getElement())) {
 			this.dispatchEvent(todomvc.view.ToDoItemControl.EventType.DESTROY);
-		} else if (!this.isSelected()) {
-			this.setSelected(true);
 		}
 	}
 };
@@ -112,6 +124,9 @@ todomvc.view.ToDoItemControl.prototype.setFocused = function(focused) {
  */
 todomvc.view.ToDoItemControl.prototype.setSelected = function(selected) {
 	todomvc.view.ToDoItemControl.superClass_.setSelected.call(this, selected);
+	// allow text selection whilst editing but prevent otherwise
+	this.setAllowTextSelection(selected);
+	// populate the input box when selected
 	if (selected) {
 		/**
 		 * @type {Element}
