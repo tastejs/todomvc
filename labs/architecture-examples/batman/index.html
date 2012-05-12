@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Batman • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div data-yield="main"></div>
+	<div data-defineview="todos/all">
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<form data-formfor-todo="newTodo" data-event-submit="createTodo">
+					<input id="new-todo" type="text" placeholder="What needs to be completed?" autofocus data-bind="todo.title">
+				</form>
+			</header>
+			<section id="main" data-showif="Todo.all.length">
+				<input id="toggle-all" type="checkbox" data-event-change="toggleAll" data-source="Todo.completed.length | equals Todo.all.length">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+					<li data-foreach-todo="currentTodos"
+							data-addclass-completed="todo.completed"
+							data-addclass-editing="todo.editing" >
+						<div class="view" data-hideif="todo.editing" data-event-doubleclick="toggleEditing">
+							<input class="toggle" type="checkbox" data-bind="todo.completed" data-event-change="todoDoneChanged">
+							<label data-bind="todo.title"></label>
+							<button class="destroy" data-event-click="destroyTodo"></button>
+						</div>
+						<input class="edit" type="text"
+							data-bind="todo.title"
+							data-bind-id="'todo-input-' | append todo.id"
+							data-event-blur="toggleEditing"
+							data-event-keypress="disableEditingUponSubmit">
+					</li>
+				</ul>
+			</section>
+				<footer id="footer" data-showif="Todo.all.length">
+				<span id="todo-count">
+					<strong data-bind="Todo.active.length"></strong>
+					<span data-bind="'item' | pluralize Todo.active.length, false"></span> left
+				</span>
+				<ul id="filters">
+					<li>
+						<a data-addclass-selected="currentRoute.action | equals 'all'" data-route="'/'">All</a>
+					</li>
+					<li>
+						<a data-addclass-selected="currentRoute.action | equals 'active'" data-route="'/active'">Active</a>
+					</li>
+					<li>
+						<a data-addclass-selected="currentRoute.action | equals 'completed'" data-route="'/completed'">Completed</a>
+					</li>
+				</ul>
+				<button id="clear-completed" data-event-click="clearCompleted" data-showif="Todo.completed.length">
+					Clear completed (<span data-bind="Todo.completed.length"></span>)
+				</button>
+			</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
+			<p>Created by <a href="http://batmanjs.org">Harry Brundage</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+	</div>
+	<script src="../../../assets/base.js"></script>
+	<script src="js/lib/batman.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

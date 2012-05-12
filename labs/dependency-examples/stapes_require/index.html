@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Stapes.js • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer">
+			<span id="todo-count"><strong>0</strong> item left</span>
+			<ul id="filters">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed">Clear completed (1)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="http://github.com/hay/stapes/">Hay Kranen</a>.</p>
+	</footer>
+
+	<script id="todo-template" type="text/x-handlebars-template">
+		{{#todos}}
+		<li class="{{#completed}}completed{{/completed}}" data-id="{{id}}">
+			<div class="view">
+				<input class="toggle" type="checkbox" {{#completed}}checked="checked"{{/completed}}>
+				<label>{{title}}</label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="{{title}}">
+		</li>
+		{{/todos}}
+	</script>
+
+	<script src="../../../assets/handlebars.min.js"></script>
+	<script src="js/lib/stapes.js"></script>
+	<script src="js/lib/zepto.js"></script>
+
+	<script src="js/lib/require.js" data-main="js/app"></script>
+</body>
+</html>
