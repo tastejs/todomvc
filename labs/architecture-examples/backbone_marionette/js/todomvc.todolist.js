@@ -6,7 +6,9 @@ TodoMVC.module("TodoList", function(TodoList, TodoMVC, Backbone, Marionette, $, 
   // Views
   // -----
 
-  // Item view for each item in the collection
+  // Item view for each item in the collection. This handled the
+  // interaction of each individual item, as well as the checking
+  // and un-checking of the box, css class for strike-through / done, etc
   TodoList.TodoItemView = Marionette.ItemView.extend({
     template: "#item-template",
     tagName: "li",
@@ -39,12 +41,16 @@ TodoMVC.module("TodoList", function(TodoList, TodoMVC, Backbone, Marionette, $, 
     }
   });
 
-  // Collection view for the list of items
+  // Collection view for the list of items. This is a wrapper
+  // view that renders each of the individual Todo items, using
+  // the defined TodoItemView.
   TodoList.TodoListView = Marionette.CollectionView.extend({
     itemView: TodoList.TodoItemView
   });
 
-  // Status view
+  // Stats view. This is the stats at the bottom of the todo list,
+  // where you can see how many are lef to be done, and clear the
+  // list of completed items.
   TodoList.StatsView = Marionette.ItemView.extend({
     template: "#stats-template",
 
@@ -60,6 +66,8 @@ TodoMVC.module("TodoList", function(TodoList, TodoMVC, Backbone, Marionette, $, 
   // Helpers
   // -------
 
+  // The primary object to get the actual todo list of the ground 
+  // and running.
   var todoList = {
 
     run: function(todos){
@@ -88,6 +96,10 @@ TodoMVC.module("TodoList", function(TodoList, TodoMVC, Backbone, Marionette, $, 
   // Initializer
   // -----------
 
+  // All `Marionette.Application` objects have an event aggregator. We're
+  // listening to this one to tell us that the app was initialized, and
+  // give us the list of Todos to use for display and manipulation in
+  // our list.
   TodoMVC.vent.on("app:initialized", function(todos){
     todoList.run(todos);
   });

@@ -8,6 +8,8 @@ TodoMVC.module("TodoApp", function(App, TodoMVC, Backbone, Marionette, $, _){
   // Views
   // -----
 
+  // The main form of the app, encapsulating the
+  // form input to create a todo, and the "mark all as complete" checkbox
   App.TodoForm = Marionette.ItemView.extend({
     events: {
       "keypress #new-todo":  "createOnEnter",
@@ -24,26 +26,18 @@ TodoMVC.module("TodoApp", function(App, TodoMVC, Backbone, Marionette, $, _){
 
     countsUpdated: function(counts){
       var $chk = this.$(".mark-all-done");
-      if (counts.allDone){
-        $chk.prop("checked", true);
-      } else {
-        $chk.prop("checked", false);
-      }
+      $chk.prop("checked", counts.allDone);
     },
 
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
 
       var input = $(e.currentTarget);
-
       var content = input.val();
-      var data = {
-        content: content,
-        done: false
-      };
-
-      this.trigger("create:todo", data);
       input.val('');
+
+      var data = { content: content };
+      this.trigger("create:todo", data);
     },
 
     toggleAllClicked: function(e){
@@ -56,6 +50,8 @@ TodoMVC.module("TodoApp", function(App, TodoMVC, Backbone, Marionette, $, _){
   // Helpers
   // -------
 
+  // The main application code, to get the app
+  // off the ground and running.
   var todoApp = {
 
     run: function(){
@@ -82,6 +78,7 @@ TodoMVC.module("TodoApp", function(App, TodoMVC, Backbone, Marionette, $, _){
   // Initializers
   // ------------
 
+  // Initializers run when the `TodoMVC.start()` method is called
   TodoMVC.addInitializer(function(){
     todoApp.run();
   });
