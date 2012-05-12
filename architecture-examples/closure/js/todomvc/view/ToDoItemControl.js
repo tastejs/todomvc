@@ -3,6 +3,7 @@ goog.provide('todomvc.view.ToDoItemControl');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.events.KeyCodes');
+goog.require('goog.string');
 goog.require('goog.ui.Component.State');
 goog.require('goog.ui.Control');
 
@@ -112,9 +113,14 @@ todomvc.view.ToDoItemControl.prototype.setFocused = function(focused) {
 		 */
 		var inputElement = this.getRenderer().getInputElement(
 				this.getElement());
-		this.setContent(inputElement.value);
-		this.setSelected(false);
-		this.dispatchEvent(todomvc.view.ToDoItemControl.EventType.EDIT);
+		var value = goog.string.trim(inputElement.value);
+		if (value === "") {
+			this.dispatchEvent(todomvc.view.ToDoItemControl.EventType.DESTROY);
+		} else {
+			this.setContent(value);
+			this.setSelected(false);
+			this.dispatchEvent(todomvc.view.ToDoItemControl.EventType.EDIT);
+		}
 	}
 };
 
@@ -134,6 +140,6 @@ todomvc.view.ToDoItemControl.prototype.setSelected = function(selected) {
 		var inputElement = this.getRenderer().getInputElement(
 				this.getElement());
 		inputElement.value = this.getContent();
-		inputElement.focus();
+		inputElement.select();
 	}
 };
