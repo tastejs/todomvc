@@ -11,10 +11,10 @@
         <ul id="todo-list" data-dojo-attach-point="todo_list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: this.model.todos, exprchar: '#'">
             <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '#{this.index}'">
             <div class="view">
-                <input class="toggle" type="checkbox" data-dojo-type="todo.form.CheckBox" data-dojo-props='ref: "isDone"' style="display:inline-block" >
-                <label class="dijitInline" data-dojo-type="dijit.InlineEditBox"
-                    data-dojo-props='ref: "todo_text", editor:"dijit.form.TextBox", autosave:true, width:"420px", style:"width:420px;"'></label>
+                <label class="dijitInline inline_edit" data-dojo-type="dijit.InlineEditBox"
+                    data-dojo-props='ref: "todo_text", editor:"dijit.form.TextBox", autosave:true'></label>
 
+                <input class="toggle" type="checkbox" data-dojo-type="todo.form.CheckBox" data-dojo-props='ref: "isDone"'>
                 <button class="destroy" data-model-id="#{this.index}">
                 </button>
             </div>
