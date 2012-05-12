@@ -26,7 +26,7 @@ var items = [];
 /**
  * @type {Element}
  */
-var todoStats = document.getElementById('todo-stats');
+var todoStats = document.getElementById('footer');
 
 /**
  * @type {goog.ui.Control}

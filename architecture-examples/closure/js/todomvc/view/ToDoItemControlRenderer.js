@@ -76,7 +76,7 @@ todomvc.view.ToDoItemControlRenderer.prototype.getKeyEventTarget = function(cont
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getDisplayElement = function(
 		element) {
-	return element ? element.childNodes[0].childNodes[0] : null;
+	return element ? element.childNodes[0] : null;
 };
 
 /**
@@ -125,5 +125,5 @@ todomvc.view.ToDoItemControlRenderer.prototype.getDestroyElement = function(
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getInputElement = function(
 		element) {
-	return element ? element.childNodes[0].childNodes[1].childNodes[0] : null;
+	return element ? element.childNodes[1] : null;
 };
