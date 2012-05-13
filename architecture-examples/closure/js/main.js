@@ -55,6 +55,26 @@ goog.events.listen(clearCompletedControl, goog.ui.Component.EventType.ACTION, fu
 });
 
 /**
+ * @type {Element}
+ */
+var toggleAll = document.getElementById('toggle-all');
+goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
+	/**
+	 * @type {boolean}
+	 */
+	var state = toggleAll.checked;
+	goog.array.forEach(itemStore.getAll(), function(model) {
+		/**
+		 * @type {!todomvc.model.ToDoItem}
+		 */
+		var updatedModel = new todomvc.model.ToDoItem(
+				model.getNote(), state, model.getId());
+
+		itemStore.addOrUpdate(updatedModel);
+	});
+});
+
+/**
  * @type {todomvc.model.ToDoItemStore}
  */
 var itemStore = new todomvc.model.ToDoItemStore();
@@ -77,14 +97,16 @@ itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType, function
 		container.addChild(control, true);
 	});
 
-	var doneCount = goog.array.reduce(items, function(count, model) {
+	var doneCount = /** @type {number} */
+	(goog.array.reduce(items, function(count, model) {
 		return model.isDone() ? count + 1 : count;
-	}, 0);
-	var remainingCount = items.length - (/**@type {number}*/ doneCount); 
-	itemCountControl.setContent((/**@type {string}*/ remainingCount));
+	}, 0));
+	var remainingCount = items.length - ( doneCount);
+	toggleAll.checked = remainingCount === 0;
+	itemCountControl.setContent(remainingCount.toString());
 	itemCountControl.setVisible(remainingCount > 0);
-	clearCompletedControl.setContent((/**@type {string}*/ doneCount));
-	clearCompletedControl.setVisible((/**@type {number}*/ doneCount) > 0);
+	clearCompletedControl.setContent(doneCount.toString());
+	clearCompletedControl.setVisible(doneCount > 0);
 });
 itemStore.load();
 
@@ -143,25 +165,4 @@ goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
 	newToDo.value = '';
 	// create the item
 	itemStore.addOrUpdate(new todomvc.model.ToDoItem(value));
-});
-
-/**
- * @type {Element}
- */
-var toggleAll = document.getElementById('toggle-all');
-// TODO - respond to manual selection/deselection post toggling all
-goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
-	/**
-	 * @type {boolean}
-	 */
-	var state = toggleAll.checked;
-	goog.array.forEach(itemStore.getAll(), function(model) {
-		/**
-		 * @type {!todomvc.model.ToDoItem}
-		 */
-		var updatedModel = new todomvc.model.ToDoItem(
-				model.getNote(), state, model.getId());
-
-		itemStore.addOrUpdate(updatedModel);
-	});
 });
