@@ -13,3 +13,8 @@ Open Terminal in this folder.
 - `cake build` to compile once
 
 - `cake watch` to compile on save
+
+
+## Credit
+
+Created by [Sindre Sorhus](https://github.com/sindresorhus)

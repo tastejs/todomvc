@@ -19,7 +19,7 @@ class TodoApp extends Spine.Controller
 	constructor: ->
 		super
 		Todo.bind 'create', @addNew
-		Todo.bind 'refresh', @addAll
+		Todo.bind 'refresh change', @addAll
 		Todo.bind 'refresh change', @toggleElems
 		Todo.bind 'refresh change', @renderFooter
 		Todo.fetch()

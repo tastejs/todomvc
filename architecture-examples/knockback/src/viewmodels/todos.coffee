@@ -1,7 +1,7 @@
 TodoViewModel = (model) ->
 	# Task UI state
 	@editing = ko.observable(false)
-	@completed = kb.observable(model, {key: 'completed', write: ((completed) -> model.save(completed: completed)) }, @)
+	@completed = kb.observable(model, {key: 'completed', read: (-> return model.completed()), write: ((completed) -> model.completed(completed)) }, @)
 	@visible = ko.computed(=>
 		switch app.viewmodels.settings.list_filter_mode()
 			when 'active' then return not @completed()
@@ -24,13 +24,13 @@ TodoViewModel = (model) ->
 	@
 
 window.TodosViewModel = (todos) ->
-	@todos = ko.observableArray([])
-	@collection_observable = kb.collectionObservable(todos, @todos, view_model: TodoViewModel)
+	@todos = kb.collectionObservable(todos, {view_model: TodoViewModel})
+	@todos.collection().bind('change', => @todos.valueHasMutated())   # get notified of changes to any models
 
-	@tasks_exist = ko.computed(=> @collection_observable().length)
+	@tasks_exist = ko.computed(=> @todos().length)
 
 	@all_completed = ko.computed(
-		read: => return not @collection_observable.collection().remainingCount()
-		write: (completed) => @collection_observable.collection().completeAll(completed)
+		read: => return not @todos.collection().remainingCount()
+		write: (completed) => @todos.collection().completeAll(completed)
 	)
 	@
