@@ -1,6 +1,8 @@
 goog.require('goog.array');
 goog.require('goog.events.EventType');
 goog.require('goog.events.KeyCodes');
+goog.require('goog.storage.mechanism.mechanismfactory')
+goog.require('goog.storage.Storage');
 goog.require('goog.string');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Control');
@@ -18,6 +20,46 @@ goog.require('todomvc.view.ToDoListContainer');
  * This file creates the interface and marshals changes from the interface to the model and back.
  */
 
+/**
+ * @type {goog.storage.Storage}
+ */
+var storage = new goog.storage.Storage(goog.storage.mechanism.mechanismfactory
+		.createHTML5LocalStorage());
+
+/**
+ * @returns {Array.<todomvc.model.ToDoItem>}
+ */
+function load() {
+	/**
+	 * @type {Array.<todomvc.model.ToDoItem>}
+	 */
+	var items = [];
+	var serializedItems = storage.get("todos-closure");
+	goog.array.forEach(serializedItems, function (serializedItem) {
+		var item = new todomvc.model.ToDoItem();
+		item.setDone(serializedItem["completed"]);
+		item.setNote(serializedItem["title"]);
+		items.push(item);
+	});
+	return items;
+}
+
+/**
+ * @param items {Array.<todomvc.model.ToDoItem>}
+ */
+function save(items) {
+	/**
+	 * @type {Array.<Object>}
+	 */
+	var serializedItems = [];
+	goog.array.forEach(items, function (item) {
+		serializedItems.push({
+			"completed" : item.isDone(),
+			"title": item.getNote()
+		});
+	});
+	storage.set("todos-closure", serializedItems);
+}
 
 /**
  * @type {Array.<todomvc.model.ToDoItem>}
