@@ -95,7 +95,7 @@ todomvc.model.ToDoItemStore.prototype.remove = function(itemToRemove) {
  */
 todomvc.model.ToDoItemStore.prototype.notify_ = function(opt_save) {
 	// TODO delay until all changes have been made
-	if (opt_save) {
+	if (!goog.isDef(opt_save) || opt_save) {
 		this.save_();
 	}
 	this.dispatchEvent(new todomvc.model.ToDoItemStore.ChangeEvent(this));
