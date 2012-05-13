@@ -3,11 +3,12 @@
 /**
  * A todo list item template
  * @param content the label for this item
+ * @param checked whether the item is checked
  */
 {template .toDoItem}
 <li>
 	<div class="view">
-		<input class="toggle" type="checkbox">
+		<input class="toggle" type="checkbox" {if $checked}checked{/if}>
 		<label>{$content}</label>
 		<button class="destroy"></button>
 	</div>

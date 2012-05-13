@@ -24,10 +24,12 @@ goog.addSingletonGetter(todomvc.view.ToDoItemControlRenderer);
  */
 todomvc.view.ToDoItemControlRenderer.prototype.createDom = function(control) {
 	var html = todomvc.view.toDoItem({
-		content : control.getContent()
+		content : control.getContent(),
+		checked : control.isChecked()
 	});
 	var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
 	this.setAriaStates(control, element);
+	this.setState(control, /** @type {goog.ui.Component.State} */ (control.getState()), true);
 	return element;
 };
 
