@@ -58,11 +58,11 @@ todomvc.model.ToDoItemStore.prototype.load = function() {
 		}
 		this.items_.push(item);
 	}, this);
-	this.dispatchEvent(new todomvc.model.ToDoItemStore.ChangeEvent(this));
+	this.notify_(false);
 };
 
 /**
- * @param updatedItem {todomvc.model.ToDoItem}
+ * @param {!todomvc.model.ToDoItem} updatedItem
  */
 todomvc.model.ToDoItemStore.prototype.addOrUpdate = function(updatedItem) {
 	var idx = goog.array.findIndex(this.items_, function (item) {
@@ -76,18 +76,28 @@ todomvc.model.ToDoItemStore.prototype.addOrUpdate = function(updatedItem) {
 	} else {
 		this.items_[idx] = updatedItem;
 	}
-	this.save_();
-	this.dispatchEvent(new todomvc.model.ToDoItemStore.ChangeEvent(this));
+	this.notify_();
 };
 
 /**
- * @param itemToRemove {todomvc.model.ToDoItem}
+ * @param {!todomvc.model.ToDoItem} itemToRemove
  */
 todomvc.model.ToDoItemStore.prototype.remove = function(itemToRemove) {
 	goog.array.removeIf(this.items_, function (item) {
 		return itemToRemove.getId() === item.getId();
 	});
-	this.save_();
+	this.notify_();
+};
+
+/**
+ * @param {boolean=} opt_save whether to save to storage, defaults to true 
+ * @private
+ */
+todomvc.model.ToDoItemStore.prototype.notify_ = function(opt_save) {
+	// TODO delay until all changes have been made
+	if (opt_save) {
+		this.save_();
+	}
 	this.dispatchEvent(new todomvc.model.ToDoItemStore.ChangeEvent(this));
 };
 
