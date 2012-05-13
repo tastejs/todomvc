@@ -5,6 +5,7 @@ goog.require('mvc.Model');
 goog.require('mvc.Model.ValidateError');
 
 
+
 /**
  * @constructor
  * @param {Object=} opt_options to be put on the model.

@@ -3,6 +3,7 @@ goog.provide('todomvc.listsync');
 goog.require('mvc.LocalSync');
 
 
+
 /**
  * @constructor
  * @extends {mvc.LocalSync}

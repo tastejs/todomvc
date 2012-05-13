@@ -8,6 +8,7 @@ goog.require('todomvc.templates');
 goog.require('todomvc.todocontrol');
 
 
+
 /**
  * the control for the todo list, handles the page as well
  *

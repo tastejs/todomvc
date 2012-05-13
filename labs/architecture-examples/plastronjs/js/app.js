@@ -6,6 +6,7 @@ goog.require('todomvc.listcontrol');
 goog.require('todomvc.listmodel');
 
 
+
 var todolist = new todomvc.listmodel();
 
 // Create the control for the collection.
@@ -21,6 +22,7 @@ var router = new mvc.Router();
  *
  * @param {string} chosenFilter selected filter by name.
  */
+
 var toggleFilters = function( chosenFilter ) {
 	var filters = goog.dom.getElementsByTagNameAndClass( 'A', undefined,
 		goog.dom.getElement('filters') );
