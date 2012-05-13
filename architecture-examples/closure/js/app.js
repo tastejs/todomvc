@@ -1,14 +1,13 @@
 goog.require('goog.array');
 goog.require('goog.events.EventType');
 goog.require('goog.events.KeyCodes');
-goog.require('goog.storage.mechanism.mechanismfactory')
 goog.require('goog.storage.Storage');
+goog.require('goog.storage.mechanism.mechanismfactory');
 goog.require('goog.string');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Control');
-
-goog.require('todomvc.model.ToDoItemStore');
 goog.require('todomvc.model.ToDoItem');
+goog.require('todomvc.model.ToDoItemStore');
 goog.require('todomvc.view');
 goog.require('todomvc.view.ClearCompletedControlRenderer');
 goog.require('todomvc.view.ItemCountControlRenderer');
@@ -17,7 +16,7 @@ goog.require('todomvc.view.ToDoListContainer');
 
 /**
  * @fileoverview The controller/business logic for the application.
- * 
+ *
  * This file creates the interface and marshals changes from the interface to the model and back.
  */
 
@@ -101,7 +100,7 @@ itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType, function
 	(goog.array.reduce(items, function(count, model) {
 		return model.isDone() ? count + 1 : count;
 	}, 0));
-	var remainingCount = items.length - ( doneCount);
+	var remainingCount = items.length - (doneCount);
 	toggleAll.checked = remainingCount === 0;
 	itemCountControl.setContent(remainingCount.toString());
 	itemCountControl.setVisible(remainingCount > 0);
@@ -158,7 +157,7 @@ goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
 	}
 	// get the text
 	var value = goog.string.trim(newToDo.value);
-	if (value === "") {
+	if (value === '') {
 		return;
 	}
 	// clear the input box

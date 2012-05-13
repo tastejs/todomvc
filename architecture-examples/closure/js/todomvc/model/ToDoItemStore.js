@@ -3,12 +3,11 @@ goog.provide('todomvc.model.ToDoItemStore');
 goog.require('goog.array');
 goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
-goog.require('goog.storage.mechanism.mechanismfactory')
 goog.require('goog.storage.Storage');
+goog.require('goog.storage.mechanism.mechanismfactory');
 goog.require('goog.string');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Control');
-
 goog.require('todomvc.model.ToDoItem');
 
 
@@ -38,9 +37,11 @@ todomvc.model.ToDoItemStore = function() {
 	 */
 	this.maxId_ = 0;
 };
-
 goog.inherits(todomvc.model.ToDoItemStore, goog.events.EventTarget);
 
+/**
+ * Load item list from storage
+ */
 todomvc.model.ToDoItemStore.prototype.load = function() {
 	if (!this.storage_) {
 		return; // no storage = no loading!
@@ -49,10 +50,11 @@ todomvc.model.ToDoItemStore.prototype.load = function() {
 	/**
 	 * @type {Array.<*>}
 	 */
-	var serializedItems = /** @type {Array.<*>} */ (this.storage_.get("todos-closure"));
-	goog.array.forEach(serializedItems, function (serializedItem) {
-		var item = new todomvc.model.ToDoItem(serializedItem["title"],
-				serializedItem["completed"], serializedItem["id"]);
+	var serializedItems = /** @type {Array.<*>} */
+		(this.storage_.get('todos-closure'));
+	goog.array.forEach(serializedItems, function(serializedItem) {
+		var item = new todomvc.model.ToDoItem(serializedItem['title'],
+				serializedItem['completed'], serializedItem['id']);
 		if (item.getId() > this.maxId_) {
 			this.maxId_ = item.getId();
 		}
@@ -62,10 +64,10 @@ todomvc.model.ToDoItemStore.prototype.load = function() {
 };
 
 /**
- * @param {!todomvc.model.ToDoItem} updatedItem
+ * @param {!todomvc.model.ToDoItem} updatedItem A prototype model to update.
  */
 todomvc.model.ToDoItemStore.prototype.addOrUpdate = function(updatedItem) {
-	var idx = goog.array.findIndex(this.items_, function (item) {
+	var idx = goog.array.findIndex(this.items_, function(item) {
 		return updatedItem.getId() === item.getId();
 	});
 	if (idx === -1) {
@@ -80,17 +82,17 @@ todomvc.model.ToDoItemStore.prototype.addOrUpdate = function(updatedItem) {
 };
 
 /**
- * @param {!todomvc.model.ToDoItem} itemToRemove
+ * @param {!todomvc.model.ToDoItem} itemToRemove A prototype model to remove.
  */
 todomvc.model.ToDoItemStore.prototype.remove = function(itemToRemove) {
-	goog.array.removeIf(this.items_, function (item) {
+	goog.array.removeIf(this.items_, function(item) {
 		return itemToRemove.getId() === item.getId();
 	});
 	this.notify_();
 };
 
 /**
- * @param {boolean=} opt_save whether to save to storage, defaults to true 
+ * @param {boolean=} opt_save whether to save to storage, defaults to true.
  * @private
  */
 todomvc.model.ToDoItemStore.prototype.notify_ = function(opt_save) {
@@ -102,7 +104,7 @@ todomvc.model.ToDoItemStore.prototype.notify_ = function(opt_save) {
 };
 
 /**
- * @returns {Array.<todomvc.model.ToDoItem>}
+ * @return {Array.<todomvc.model.ToDoItem>} All of the stored items.
  */
 todomvc.model.ToDoItemStore.prototype.getAll = function() {
 	return this.items_;
@@ -119,28 +121,28 @@ todomvc.model.ToDoItemStore.prototype.save_ = function() {
 	 * @type {Array.<*>}
 	 */
 	var serializedItems = [];
-	goog.array.forEach(this.items_, function (item) {
+	goog.array.forEach(this.items_, function(item) {
 		serializedItems.push({
-			"completed" : item.isDone(),
-			"title": item.getNote(),
-			"id" : item.getId()
+			'completed' : item.isDone(),
+			'title': item.getNote(),
+			'id' : item.getId()
 		});
 	});
-	this.storage_.set("todos-closure", serializedItems);
+	this.storage_.set('todos-closure', serializedItems);
 };
 
 /**
  * @const
  */
-todomvc.model.ToDoItemStore.ChangeEventType = "change";
+todomvc.model.ToDoItemStore.ChangeEventType = 'change';
 
 /**
  * @constructor
  * @extends {goog.events.Event}
- * @param {todomvc.model.ToDoItemStore} target
+ * @param {todomvc.model.ToDoItemStore} target The item store.
  */
 todomvc.model.ToDoItemStore.ChangeEvent = function(target) {
-	goog.events.Event.call(this, todomvc.model.ToDoItemStore.ChangeEventType, target);
+	goog.events.Event.call(this,
+		todomvc.model.ToDoItemStore.ChangeEventType, target);
 };
-
 goog.inherits(todomvc.model.ToDoItemStore.ChangeEvent, goog.events.Event);

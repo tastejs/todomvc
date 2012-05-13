@@ -10,15 +10,16 @@ goog.require('goog.ui.Control');
 goog.require('todomvc.view.ToDoItemControlRenderer');
 
 /**
- * A control representing each item in the todo list. It makes use of the CHECKED and SELECTED states to represent being
- * done and being in edit mode.
- * 
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for document interaction.
+ * A control representing each item in the todo list. It makes use of the
+ * CHECKED and SELECTED states to represent being done and being in edit mode.
+ *
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper,
+ * used for document interaction.
  * @constructor
  * @extends {goog.ui.Control}
  */
 todomvc.view.ToDoItemControl = function(opt_domHelper) {
-	goog.ui.Control.call(this, "", todomvc.view.ToDoItemControlRenderer
+	goog.ui.Control.call(this, '', todomvc.view.ToDoItemControlRenderer
 			.getInstance(), opt_domHelper);
 
 	// enable CHECKED and SELECTED states
@@ -32,16 +33,19 @@ todomvc.view.ToDoItemControl = function(opt_domHelper) {
 };
 goog.inherits(todomvc.view.ToDoItemControl, goog.ui.Control);
 
+/**
+ * The event types this control dispatches.
+ */
 todomvc.view.ToDoItemControl.EventType = {
-	EDIT: "edit",
-	DESTROY: "destroy"
+	EDIT: 'edit',
+	DESTROY: 'destroy'
 };
 
 
 /**
  * Configures the component after its DOM has been rendered, and sets up event
  * handling. Overrides {@link goog.ui.Component#enterDocument}.
- * 
+ *
  * @override
  */
 todomvc.view.ToDoItemControl.prototype.enterDocument = function() {
@@ -74,8 +78,9 @@ todomvc.view.ToDoItemControl.prototype.enterDocument = function() {
 /**
  * Returns the renderer used by this component to render itself or to decorate
  * an existing element.
- * 
- * @return {todomvc.view.ToDoItemControlRenderer} Renderer used by the component
+ *
+ * @return {todomvc.view.ToDoItemControlRenderer} Renderer used by the
+ * component.
  */
 todomvc.view.ToDoItemControl.prototype.getRenderer = function() {
 	return (/**@type {todomvc.view.ToDoItemControlRenderer}*/ this.renderer_);
@@ -84,7 +89,7 @@ todomvc.view.ToDoItemControl.prototype.getRenderer = function() {
 /**
  * Specialised handling of mouse events when clicking on the checkbox, label,
  * textbox or remove link.
- * 
+ *
  * @param {goog.events.Event} e Mouse event to handle.
  */
 todomvc.view.ToDoItemControl.prototype.handleMouseUp = function(e) {
@@ -103,7 +108,7 @@ todomvc.view.ToDoItemControl.prototype.handleMouseUp = function(e) {
 
 /**
  * Override the behaviour when the control is unfocused.
- * @param {boolean} focused
+ * @param {boolean} focused is focused?
  */
 todomvc.view.ToDoItemControl.prototype.setFocused = function(focused) {
 	todomvc.view.ToDoItemControl.superClass_.setFocused.call(this, focused);
@@ -114,7 +119,7 @@ todomvc.view.ToDoItemControl.prototype.setFocused = function(focused) {
 		var inputElement = this.getRenderer().getInputElement(
 				this.getElement());
 		var value = goog.string.trim(inputElement.value);
-		if (value === "") {
+		if (value === '') {
 			this.dispatchEvent(todomvc.view.ToDoItemControl.EventType.DESTROY);
 		} else {
 			this.setContent(value);
@@ -126,7 +131,7 @@ todomvc.view.ToDoItemControl.prototype.setFocused = function(focused) {
 
 /**
  * Override the behaviour to switch to editing mode when the control is selected
- * @param {boolean} selected
+ * @param {boolean} selected is selected?
  */
 todomvc.view.ToDoItemControl.prototype.setSelected = function(selected) {
 	todomvc.view.ToDoItemControl.superClass_.setSelected.call(this, selected);

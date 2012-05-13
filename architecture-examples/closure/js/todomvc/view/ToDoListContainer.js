@@ -5,9 +5,11 @@ goog.require('goog.ui.Container');
 goog.require('todomvc.view.ToDoListContainerRenderer');
 
 /**
- * A container for the ToDoItemControls, overridden to support keyboard focus on child controls.
- * 
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for document interaction.
+ * A container for the ToDoItemControls, overridden to support keyboard focus
+ * on child controls.
+ *
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
+ * document interaction.
  * @constructor
  * @extends {goog.ui.Container}
  */
@@ -25,7 +27,7 @@ goog.inherits(todomvc.view.ToDoListContainer, goog.ui.Container);
 
 /**
  * Override this method to allow text selection in children.
- * 
+ *
  * @param {goog.events.BrowserEvent} e Mousedown event to handle.
  */
 todomvc.view.ToDoListContainer.prototype.handleMouseDown = function(e) {
