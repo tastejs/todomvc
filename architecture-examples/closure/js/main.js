@@ -7,6 +7,7 @@ goog.require('goog.string');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Control');
 
+goog.require('todomvc.model.ToDoItemStore');
 goog.require('todomvc.model.ToDoItem');
 goog.require('todomvc.view');
 goog.require('todomvc.view.ClearCompletedControlRenderer');
@@ -20,51 +21,12 @@ goog.require('todomvc.view.ToDoListContainer');
  * This file creates the interface and marshals changes from the interface to the model and back.
  */
 
-/**
- * @type {goog.storage.Storage}
- */
-var storage = new goog.storage.Storage(goog.storage.mechanism.mechanismfactory
-		.createHTML5LocalStorage());
 
 /**
- * @returns {Array.<todomvc.model.ToDoItem>}
+ * @type {todomvc.view.ToDoListContainer}
  */
-function load() {
-	/**
-	 * @type {Array.<todomvc.model.ToDoItem>}
-	 */
-	var items = [];
-	var serializedItems = storage.get("todos-closure");
-	goog.array.forEach(serializedItems, function (serializedItem) {
-		var item = new todomvc.model.ToDoItem();
-		item.setDone(serializedItem["completed"]);
-		item.setNote(serializedItem["title"]);
-		items.push(item);
-	});
-	return items;
-}
-
-/**
- * @param items {Array.<todomvc.model.ToDoItem>}
- */
-function save(items) {
-	/**
-	 * @type {Array.<Object>}
-	 */
-	var serializedItems = [];
-	goog.array.forEach(items, function (item) {
-		serializedItems.push({
-			"completed" : item.isDone(),
-			"title": item.getNote()
-		});
-	});
-	storage.set("todos-closure", serializedItems);
-}
-
-/**
- * @type {Array.<todomvc.model.ToDoItem>}
- */
-var items = [];
+var container = new todomvc.view.ToDoListContainer();
+container.decorate(document.getElementById('todo-list'));
 
 /**
  * @type {Element}
@@ -85,21 +47,36 @@ clearCompletedControl.render(todoStats);
 
 goog.events.listen(clearCompletedControl, goog.ui.Component.EventType.ACTION, function(e) {
 	// go backwards to avoid collection modification problems
-	goog.array.forEachRight(items, function(model) {
+	goog.array.forEachRight(itemStore.getAll(), function(model) {
 		if (model.isDone()) {
-			goog.array.remove(items, model);
-			// do optimised model view sync
-			container.forEachChild(function(control) {
-				if (control.getModel() === model) {
-					container.removeChild(control, true);					
-				}
-			});
+			itemStore.remove(model);
 		}
 	});
-	updateStats();
 });
 
-function updateStats() {
+/**
+ * @type {todomvc.model.ToDoItemStore}
+ */
+var itemStore = new todomvc.model.ToDoItemStore();
+itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType, function() {
+	container.removeChildren(true);
+	/**
+	 * @type {Array.<todomvc.model.ToDoItem>}
+	 */
+	var items = itemStore.getAll();
+	goog.array.forEach(items, function(item) {
+		/**
+		 * @type {todomvc.view.ToDoItemControl}
+		 */
+		var control = new todomvc.view.ToDoItemControl();
+
+		control.setContent(item.getNote());
+		control.setChecked(item.isDone());
+		control.setModel(item);
+
+		container.addChild(control, true);
+	});
+
 	var doneCount = goog.array.reduce(items, function(count, model) {
 		return model.isDone() ? count + 1 : count;
 	}, 0);
@@ -108,14 +85,9 @@ function updateStats() {
 	itemCountControl.setVisible(remainingCount > 0);
 	clearCompletedControl.setContent((/**@type {string}*/ doneCount));
 	clearCompletedControl.setVisible((/**@type {number}*/ doneCount) > 0);
-}
-updateStats();
+});
+itemStore.load();
 
-/**
- * @type {todomvc.view.ToDoListContainer}
- */
-var container = new todomvc.view.ToDoListContainer();
-container.decorate(document.getElementById('todo-list'));
 
 goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.EDIT, function(e) {
 	/**
@@ -126,13 +98,17 @@ goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.EDIT, funct
 	/**
 	 * @type {todomvc.model.ToDoItem}
 	 */
-	var model = (/**@type {todomvc.model.ToDoItem} */ control.getModel());
+	var originalModel = (/**@type {todomvc.model.ToDoItem} */ control.getModel());
 
-	// do optimised model view sync
-	model.setNote((/**@type {!string} */ control.getContent()));
-	model.setDone((/**@type {!boolean} */ control.isChecked()));
+	/**
+	 * @type {!todomvc.model.ToDoItem}
+	 */
+	var updatedModel = new todomvc.model.ToDoItem(
+			(/**@type {!string} */ control.getContent()),
+			(/**@type {!boolean} */ control.isChecked()),
+			originalModel.getId());
 
-	updateStats();
+	itemStore.addOrUpdate(updatedModel);
 });
 
 goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.DESTROY, function(e) {
@@ -145,12 +121,9 @@ goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.DESTROY, fu
 	 * @type {todomvc.model.ToDoItem}
 	 */
 	var model = (/**@type {todomvc.model.ToDoItem} */ control.getModel());
-	
-	// do optimised model view sync
-	goog.array.remove(items, model);
-	container.removeChild(control, true);
-	
-	updateStats();
+	if (model !== null) {
+		itemStore.remove(model);
+	}
 });
 
 /**
@@ -161,53 +134,34 @@ goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
 	if (e.keyCode !== goog.events.KeyCodes.ENTER) {
 		return;
 	}
+	// get the text
 	var value = goog.string.trim(newToDo.value);
 	if (value === "") {
 		return;
 	}
-
-	/**
-	 * @type {todomvc.model.ToDoItem}
-	 */
-	var model = new todomvc.model.ToDoItem(value);
-
-	/**
-	 * @type {todomvc.view.ToDoItemControl}
-	 */
-	var control = new todomvc.view.ToDoItemControl();
-
-	// do optimised model view sync
-	items.push(model);
-
-	control.setContent(model.getNote());
-	control.setChecked(model.isDone());
-	control.setModel(model);
-
-	container.addChild(control, true);
-
 	// clear the input box
 	newToDo.value = '';
-
-	updateStats();
-
+	// create the item
+	itemStore.addOrUpdate(new todomvc.model.ToDoItem(value));
 });
 
 /**
  * @type {Element}
  */
 var toggleAll = document.getElementById('toggle-all');
+// TODO - respond to manual selection/deselection post toggling all
 goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
 	/**
-	 * @type {Boolean}
+	 * @type {boolean}
 	 */
 	var state = toggleAll.checked;
-	goog.array.forEach(items, function(model) {
-		model.setDone(state);
-	});
-	// do optimised model view sync
-	container.forEachChild(function(control) {
-		control.setChecked(control.getModel().isDone());
-	});
+	goog.array.forEach(itemStore.getAll(), function(model) {
+		/**
+		 * @type {!todomvc.model.ToDoItem}
+		 */
+		var updatedModel = new todomvc.model.ToDoItem(
+				model.getNote(), state, model.getId());
 
-	updateStats();
+		itemStore.addOrUpdate(updatedModel);
+	});
 });
