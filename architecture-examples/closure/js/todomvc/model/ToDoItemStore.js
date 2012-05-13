@@ -137,7 +137,7 @@ todomvc.model.ToDoItemStore.ChangeEventType = "change";
 /**
  * @constructor
  * @extends {goog.events.Event}
- * @param target {todomvc.model.ToDoItemStore}
+ * @param {todomvc.model.ToDoItemStore} target
  */
 todomvc.model.ToDoItemStore.ChangeEvent = function(target) {
 	goog.events.Event.call(this, todomvc.model.ToDoItemStore.ChangeEventType, target);
