@@ -15,7 +15,7 @@ goog.require('todomvc.view.ToDoListContainer');
 /**
  * @fileoverview The controller/business logic for the application.
  * 
- * This file creates the interface and marshalls changes from the interface to the model and back.
+ * This file creates the interface and marshals changes from the interface to the model and back.
  */
 
 
