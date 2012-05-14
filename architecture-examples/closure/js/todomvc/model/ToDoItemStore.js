@@ -44,6 +44,7 @@ goog.inherits(todomvc.model.ToDoItemStore, goog.events.EventTarget);
  */
 todomvc.model.ToDoItemStore.prototype.load = function() {
 	if (!this.storage_) {
+		this.notify_(false);
 		return; // no storage = no loading!
 	}
 	goog.array.clear(this.items_);
@@ -52,6 +53,10 @@ todomvc.model.ToDoItemStore.prototype.load = function() {
 	 */
 	var serializedItems = /** @type {Array.<*>} */
 		(this.storage_.get('todos-closure'));
+	if (!serializedItems) {
+		this.notify_(false);
+		return; // nothing in storage
+	}
 	goog.array.forEach(serializedItems, function(serializedItem) {
 		var item = new todomvc.model.ToDoItem(serializedItem['title'],
 				serializedItem['completed'], serializedItem['id']);
