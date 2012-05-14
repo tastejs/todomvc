@@ -54,13 +54,15 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 		model.dispose();
 	}, 'destroy' );
 
+	var inputEl = this.getEls('.edit')[0];
 	// Dblclick to edit
 	this.on( goog.events.EventType.DBLCLICK, function( e ) {
-		this.makeEditable( true );
+		goog.dom.classes.add( this.getElement(), 'editing' );
+		inputEl.value = model.get('title');
+		inputEl.select();
 	}, 'view' );
 
 	// Save on edit
-	var inputEl = this.getEls('.edit')[0];
 	this.on( goog.events.EventType.KEYUP, function( e ) {
 		if ( e.keyCode === goog.events.KeyCodes.ENTER ) {
 			model.set( 'title', inputEl.value );
@@ -70,21 +72,4 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	this.on( goog.events.EventType.BLUR, function( e ) {
 		model.set( 'title', inputEl.value );
 	}, 'edit' );
-};
-
-
-/**
- * make (un)editable
- *
- * @param {boolean} editable whether to make editable.
- */
-todomvc.todocontrol.prototype.makeEditable = function( editable ) {
-	var inputEl = this.getEls('.edit')[0];
-
-	goog.dom.classes.enable( this.getElement(), 'editing', editable );
-
-	if ( editable ) {
-		inputEl.value = this.getModel().get('title');
-		inputEl.select();
-	}
 };
