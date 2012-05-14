@@ -25,7 +25,9 @@ Whilst Plovr features many of the tools from the Closure toolkit, one very usefu
 
 The linter must be installed before use, the installation package is included in the build folder and the instructions are available on the [linter homepage](https://developers.google.com/closure/utilities/). Once installed run the following to check for errors -
 
-gjslint **/*
+find . -name *.js | xargs gjslint 
+
+(or whatever floats your OSs boat)
 
 ## Compiling
 
