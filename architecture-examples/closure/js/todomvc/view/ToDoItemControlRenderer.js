@@ -11,7 +11,7 @@ goog.require('goog.ui.ControlRenderer');
  * @extends {goog.ui.ControlRenderer}
  */
 todomvc.view.ToDoItemControlRenderer = function() {
-	goog.ui.ControlRenderer.call(this);
+    goog.ui.ControlRenderer.call(this);
 };
 goog.inherits(todomvc.view.ToDoItemControlRenderer, goog.ui.ControlRenderer);
 
@@ -23,15 +23,15 @@ goog.addSingletonGetter(todomvc.view.ToDoItemControlRenderer);
  * @return {Element} Root element for the control.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.createDom = function(control) {
-	var html = todomvc.view.toDoItem({
-		content: control.getContent(),
-		checked: control.isChecked()
-	});
-	var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
-	this.setAriaStates(control, element);
-	this.setState(control, /** @type {goog.ui.Component.State} */
-		(control.getState()), true);
-	return element;
+    var html = todomvc.view.toDoItem({
+        content: control.getContent(),
+        checked: control.isChecked()
+    });
+    var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
+    this.setAriaStates(control, element);
+    this.setState(control, /** @type {goog.ui.Component.State} */
+        (control.getState()), true);
+    return element;
 };
 
 /**
@@ -42,21 +42,21 @@ todomvc.view.ToDoItemControlRenderer.prototype.createDom = function(control) {
  * @param {boolean} enable Whether the control is entering or exiting the state.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.setState =
-	function(control, state, enable) {
-	var element = control.getElement();
-	if (element) {
-		switch (state) {
-		case goog.ui.Component.State.CHECKED:
-			this.enableClassName(control, 'done', enable);
-			this.getCheckboxElement(element).checked = enable;
-			break;
-		case goog.ui.Component.State.SELECTED:
-			this.enableClassName(control, 'editing', enable);
-			break;
-		}
+    function(control, state, enable) {
+    var element = control.getElement();
+    if (element) {
+        switch (state) {
+        case goog.ui.Component.State.CHECKED:
+            this.enableClassName(control, 'done', enable);
+            this.getCheckboxElement(element).checked = enable;
+            break;
+        case goog.ui.Component.State.SELECTED:
+            this.enableClassName(control, 'editing', enable);
+            break;
+        }
 
-		this.updateAriaState(element, state, enable);
-	}
+        this.updateAriaState(element, state, enable);
+    }
 };
 
 /**
@@ -68,7 +68,7 @@ todomvc.view.ToDoItemControlRenderer.prototype.setState =
  * @return {Element} The key event target.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getKeyEventTarget =
-	function(control) {
+    function(control) {
   return this.getInputElement(control.getElement());
 };
 
@@ -80,8 +80,8 @@ todomvc.view.ToDoItemControlRenderer.prototype.getKeyEventTarget =
  * @return {Element} The control's display element.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getDisplayElement = function(
-		element) {
-	return element ? element.childNodes[0] : null;
+        element) {
+    return element ? element.childNodes[0] : null;
 };
 
 /**
@@ -93,8 +93,8 @@ todomvc.view.ToDoItemControlRenderer.prototype.getDisplayElement = function(
  * @return {Element} The control's content element.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getContentElement = function(
-		element) {
-	return element ? this.getDisplayElement(element).childNodes[1] : null;
+        element) {
+    return element ? this.getDisplayElement(element).childNodes[1] : null;
 };
 
 /**
@@ -105,8 +105,8 @@ todomvc.view.ToDoItemControlRenderer.prototype.getContentElement = function(
  * @return {Element} The control's checkbox element.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getCheckboxElement = function(
-		element) {
-	return element ? this.getDisplayElement(element).childNodes[0] : null;
+        element) {
+    return element ? this.getDisplayElement(element).childNodes[0] : null;
 };
 
 /**
@@ -117,8 +117,8 @@ todomvc.view.ToDoItemControlRenderer.prototype.getCheckboxElement = function(
  * @return {Element} The control's destroy element.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getDestroyElement = function(
-		element) {
-	return element ? this.getDisplayElement(element).childNodes[2] : null;
+        element) {
+    return element ? this.getDisplayElement(element).childNodes[2] : null;
 };
 
 /**
@@ -129,6 +129,6 @@ todomvc.view.ToDoItemControlRenderer.prototype.getDestroyElement = function(
  * @return {Element} The control's input element.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.getInputElement = function(
-		element) {
-	return element ? element.childNodes[1] : null;
+        element) {
+    return element ? element.childNodes[1] : null;
 };

@@ -14,14 +14,14 @@ goog.require('todomvc.view.ToDoListContainerRenderer');
  * @extends {goog.ui.Container}
  */
 todomvc.view.ToDoListContainer = function(opt_domHelper) {
-	goog.ui.Container
-			.call(this, goog.ui.Container.Orientation.VERTICAL,
-					todomvc.view.ToDoListContainerRenderer.getInstance(),
-					opt_domHelper);
+    goog.ui.Container
+            .call(this, goog.ui.Container.Orientation.VERTICAL,
+                    todomvc.view.ToDoListContainerRenderer.getInstance(),
+                    opt_domHelper);
 
-	// allow focus on children
-	this.setFocusable(false);
-	this.setFocusableChildrenAllowed(true);
+    // allow focus on children
+    this.setFocusable(false);
+    this.setFocusableChildrenAllowed(true);
 };
 goog.inherits(todomvc.view.ToDoListContainer, goog.ui.Container);
 
@@ -31,7 +31,7 @@ goog.inherits(todomvc.view.ToDoListContainer, goog.ui.Container);
  * @param {goog.events.BrowserEvent} e Mousedown event to handle.
  */
 todomvc.view.ToDoListContainer.prototype.handleMouseDown = function(e) {
-	if (this.enabled_) {
-		this.setMouseButtonPressed(true);
-	}
+    if (this.enabled_) {
+        this.setMouseButtonPressed(true);
+    }
 };

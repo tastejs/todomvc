@@ -11,10 +11,10 @@ goog.require('goog.ui.ControlRenderer');
  * @extends {goog.ui.ControlRenderer}
  */
 todomvc.view.ClearCompletedControlRenderer = function() {
-	goog.ui.ControlRenderer.call(this);
+    goog.ui.ControlRenderer.call(this);
 };
 goog.inherits(todomvc.view.ClearCompletedControlRenderer,
-	goog.ui.ControlRenderer);
+    goog.ui.ControlRenderer);
 
 // add getInstance method to todomvc.view.ClearCompletedControlRenderer
 goog.addSingletonGetter(todomvc.view.ClearCompletedControlRenderer);
@@ -24,13 +24,13 @@ goog.addSingletonGetter(todomvc.view.ClearCompletedControlRenderer);
  * @return {Element} Root element for the control.
  */
 todomvc.view.ClearCompletedControlRenderer.prototype.createDom =
-	function(control) {
-	var html = todomvc.view.clearCompleted({
-		number: control.getContent()
-	});
-	var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
-	this.setAriaStates(control, element);
-	return element;
+    function(control) {
+    var html = todomvc.view.clearCompleted({
+        number: control.getContent()
+    });
+    var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
+    this.setAriaStates(control, element);
+    return element;
 };
 
 /**
@@ -38,8 +38,8 @@ todomvc.view.ClearCompletedControlRenderer.prototype.createDom =
  * @return {boolean} Whether the renderer can decorate the element.
  */
 todomvc.view.ClearCompletedControlRenderer.prototype.canDecorate =
-	function(element) {
-	return false;
+    function(element) {
+    return false;
 };
 
 /**
@@ -47,10 +47,10 @@ todomvc.view.ClearCompletedControlRenderer.prototype.canDecorate =
  * @param {goog.ui.ControlContent} content Text caption or DOM.
  */
 todomvc.view.ClearCompletedControlRenderer.prototype.setContent =
-	function(element, content) {
-	element.innerHTML = todomvc.view.clearCompletedInner({
-		number: content
-	});
+    function(element, content) {
+    element.innerHTML = todomvc.view.clearCompletedInner({
+        number: content
+    });
 };
 
 /**
@@ -61,9 +61,9 @@ todomvc.view.ClearCompletedControlRenderer.prototype.setContent =
  * @param {boolean} enable Whether the control is entering or exiting the state.
  */
 todomvc.view.ClearCompletedControlRenderer.prototype.setState =
-	function(control, state, enable) {
-	var element = control.getElement();
-	if (element) {
-		this.updateAriaState(element, state, enable);
-	}
+    function(control, state, enable) {
+    var element = control.getElement();
+    if (element) {
+        this.updateAriaState(element, state, enable);
+    }
 };

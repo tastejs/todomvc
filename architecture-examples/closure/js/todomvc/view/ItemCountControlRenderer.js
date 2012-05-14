@@ -11,7 +11,7 @@ goog.require('goog.ui.ControlRenderer');
  * @extends {goog.ui.ControlRenderer}
  */
 todomvc.view.ItemCountControlRenderer = function() {
-	goog.ui.ControlRenderer.call(this);
+    goog.ui.ControlRenderer.call(this);
 };
 goog.inherits(todomvc.view.ItemCountControlRenderer, goog.ui.ControlRenderer);
 
@@ -23,12 +23,12 @@ goog.addSingletonGetter(todomvc.view.ItemCountControlRenderer);
  * @return {Element} Root element for the control.
  */
 todomvc.view.ItemCountControlRenderer.prototype.createDom = function(control) {
-	var html = todomvc.view.itemCount({
-		number: control.getContent()
-	});
-	var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
-	this.setAriaStates(control, element);
-	return element;
+    var html = todomvc.view.itemCount({
+        number: control.getContent()
+    });
+    var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
+    this.setAriaStates(control, element);
+    return element;
 };
 
 /**
@@ -36,8 +36,8 @@ todomvc.view.ItemCountControlRenderer.prototype.createDom = function(control) {
  * @return {boolean} Whether the renderer can decorate the element.
  */
 todomvc.view.ItemCountControlRenderer.prototype.canDecorate =
-	function(element) {
-	return false;
+    function(element) {
+    return false;
 };
 
 /**
@@ -45,10 +45,10 @@ todomvc.view.ItemCountControlRenderer.prototype.canDecorate =
  * @param {goog.ui.ControlContent} content Text caption or DOM.
  */
 todomvc.view.ItemCountControlRenderer.prototype.setContent =
-	function(element, content) {
-	element.innerHTML = todomvc.view.itemCountInner({
-		number: content
-	});
+    function(element, content) {
+    element.innerHTML = todomvc.view.itemCountInner({
+        number: content
+    });
 };
 
 /**
@@ -59,9 +59,9 @@ todomvc.view.ItemCountControlRenderer.prototype.setContent =
  * @param {boolean} enable Whether the control is entering or exiting the state.
  */
 todomvc.view.ItemCountControlRenderer.prototype.setState =
-	function(control, state, enable) {
-	var element = control.getElement();
-	if (element) {
-		this.updateAriaState(element, state, enable);
-	}
+    function(control, state, enable) {
+    var element = control.getElement();
+    if (element) {
+        this.updateAriaState(element, state, enable);
+    }
 };

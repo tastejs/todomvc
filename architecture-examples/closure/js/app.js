@@ -17,7 +17,8 @@ goog.require('todomvc.view.ToDoListContainer');
 /**
  * @fileoverview The controller/business logic for the application.
  *
- * This file creates the interface and marshals changes from the interface to the model and back.
+ * This file creates the interface and marshals changes from the interface
+ * to the model and back.
  */
 
 
@@ -35,22 +36,25 @@ var todoStats = document.getElementById('footer');
 /**
  * @type {goog.ui.Control}
  */
-var itemCountControl = new goog.ui.Control(null, todomvc.view.ItemCountControlRenderer.getInstance());
+var itemCountControl = new goog.ui.Control(null,
+    todomvc.view.ItemCountControlRenderer.getInstance());
 itemCountControl.render(todoStats);
 
 /**
  * @type {goog.ui.Control}
  */
-var clearCompletedControl = new goog.ui.Control(null, todomvc.view.ClearCompletedControlRenderer.getInstance());
+var clearCompletedControl = new goog.ui.Control(null,
+    todomvc.view.ClearCompletedControlRenderer.getInstance());
 clearCompletedControl.render(todoStats);
 
-goog.events.listen(clearCompletedControl, goog.ui.Component.EventType.ACTION, function(e) {
-	// go backwards to avoid collection modification problems
-	goog.array.forEachRight(itemStore.getAll(), function(model) {
-		if (model.isDone()) {
-			itemStore.remove(model);
-		}
-	});
+goog.events.listen(clearCompletedControl,
+    goog.ui.Component.EventType.ACTION, function(e) {
+    // go backwards to avoid collection modification problems
+    goog.array.forEachRight(itemStore.getAll(), function(model) {
+        if (model.isDone()) {
+            itemStore.remove(model);
+        }
+    });
 });
 
 /**
@@ -58,93 +62,97 @@ goog.events.listen(clearCompletedControl, goog.ui.Component.EventType.ACTION, fu
  */
 var toggleAll = document.getElementById('toggle-all');
 goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
-	/**
-	 * @type {boolean}
-	 */
-	var state = toggleAll.checked;
-	goog.array.forEach(itemStore.getAll(), function(model) {
-		/**
-		 * @type {!todomvc.model.ToDoItem}
-		 */
-		var updatedModel = new todomvc.model.ToDoItem(
-				model.getNote(), state, model.getId());
+    /**
+     * @type {boolean}
+     */
+    var state = toggleAll.checked;
+    goog.array.forEach(itemStore.getAll(), function(model) {
+        /**
+         * @type {!todomvc.model.ToDoItem}
+         */
+        var updatedModel = new todomvc.model.ToDoItem(
+                model.getNote(), state, model.getId());
 
-		itemStore.addOrUpdate(updatedModel);
-	});
+        itemStore.addOrUpdate(updatedModel);
+    });
 });
 
 /**
  * @type {todomvc.model.ToDoItemStore}
  */
 var itemStore = new todomvc.model.ToDoItemStore();
-itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType, function() {
-	container.removeChildren(true);
-	/**
-	 * @type {Array.<todomvc.model.ToDoItem>}
-	 */
-	var items = itemStore.getAll();
-	goog.array.forEach(items, function(item) {
-		/**
-		 * @type {todomvc.view.ToDoItemControl}
-		 */
-		var control = new todomvc.view.ToDoItemControl();
+itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType,
+    function() {
+    container.removeChildren(true);
+    /**
+     * @type {Array.<todomvc.model.ToDoItem>}
+     */
+    var items = itemStore.getAll();
+    goog.array.forEach(items, function(item) {
+        /**
+         * @type {todomvc.view.ToDoItemControl}
+         */
+        var control = new todomvc.view.ToDoItemControl();
 
-		control.setContent(item.getNote());
-		control.setChecked(item.isDone());
-		control.setModel(item);
+        control.setContent(item.getNote());
+        control.setChecked(item.isDone());
+        control.setModel(item);
 
-		container.addChild(control, true);
-	});
+        container.addChild(control, true);
+    });
 
-	var doneCount = /** @type {number} */
-	(goog.array.reduce(items, function(count, model) {
-		return model.isDone() ? count + 1 : count;
-	}, 0));
-	var remainingCount = items.length - (doneCount);
-	toggleAll.checked = remainingCount === 0;
-	itemCountControl.setContent(remainingCount.toString());
-	itemCountControl.setVisible(remainingCount > 0);
-	clearCompletedControl.setContent(doneCount.toString());
-	clearCompletedControl.setVisible(doneCount > 0);
+    var doneCount = /** @type {number} */
+    (goog.array.reduce(items, function(count, model) {
+        return model.isDone() ? count + 1 : count;
+    }, 0));
+    var remainingCount = items.length - (doneCount);
+    toggleAll.checked = remainingCount === 0;
+    itemCountControl.setContent(remainingCount.toString());
+    itemCountControl.setVisible(remainingCount > 0);
+    clearCompletedControl.setContent(doneCount.toString());
+    clearCompletedControl.setVisible(doneCount > 0);
 });
 itemStore.load();
 
 
-goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.EDIT, function(e) {
-	/**
-	 * @type {todomvc.view.ToDoItemControl}
-	 */
-	var control = e.target;
+goog.events.listen(container,
+    todomvc.view.ToDoItemControl.EventType.EDIT, function(e) {
+    /**
+     * @type {todomvc.view.ToDoItemControl}
+     */
+    var control = e.target;
 
-	/**
-	 * @type {todomvc.model.ToDoItem}
-	 */
-	var originalModel = (/**@type {todomvc.model.ToDoItem} */ control.getModel());
+    /**
+     * @type {todomvc.model.ToDoItem}
+     */
+    var originalModel = /**@type {todomvc.model.ToDoItem} */
+        (control.getModel());
 
-	/**
-	 * @type {!todomvc.model.ToDoItem}
-	 */
-	var updatedModel = new todomvc.model.ToDoItem(
-			(/**@type {!string} */ control.getContent()),
-			(/**@type {!boolean} */ control.isChecked()),
-			originalModel.getId());
+    /**
+     * @type {!todomvc.model.ToDoItem}
+     */
+    var updatedModel = new todomvc.model.ToDoItem(
+            (/**@type {!string} */ control.getContent()),
+            (/**@type {!boolean} */ control.isChecked()),
+            originalModel.getId());
 
-	itemStore.addOrUpdate(updatedModel);
+    itemStore.addOrUpdate(updatedModel);
 });
 
-goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.DESTROY, function(e) {
-	/**
-	 * @type {todomvc.view.ToDoItemControl}
-	 */
-	var control = e.target;
+goog.events.listen(container,
+    todomvc.view.ToDoItemControl.EventType.DESTROY, function(e) {
+    /**
+     * @type {todomvc.view.ToDoItemControl}
+     */
+    var control = e.target;
 
-	/**
-	 * @type {todomvc.model.ToDoItem}
-	 */
-	var model = (/**@type {todomvc.model.ToDoItem} */ control.getModel());
-	if (model !== null) {
-		itemStore.remove(model);
-	}
+    /**
+     * @type {todomvc.model.ToDoItem}
+     */
+    var model = (/**@type {todomvc.model.ToDoItem} */ control.getModel());
+    if (model !== null) {
+        itemStore.remove(model);
+    }
 });
 
 /**
@@ -152,16 +160,16 @@ goog.events.listen(container, todomvc.view.ToDoItemControl.EventType.DESTROY, fu
  */
 var newToDo = document.getElementById('new-todo');
 goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
-	if (e.keyCode !== goog.events.KeyCodes.ENTER) {
-		return;
-	}
-	// get the text
-	var value = goog.string.trim(newToDo.value);
-	if (value === '') {
-		return;
-	}
-	// clear the input box
-	newToDo.value = '';
-	// create the item
-	itemStore.addOrUpdate(new todomvc.model.ToDoItem(value));
+    if (e.keyCode !== goog.events.KeyCodes.ENTER) {
+        return;
+    }
+    // get the text
+    var value = goog.string.trim(newToDo.value);
+    if (value === '') {
+        return;
+    }
+    // clear the input box
+    newToDo.value = '';
+    // create the item
+    itemStore.addOrUpdate(new todomvc.model.ToDoItem(value));
 });

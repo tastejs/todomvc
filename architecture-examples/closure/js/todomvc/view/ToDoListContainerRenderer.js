@@ -11,10 +11,10 @@ goog.require('goog.ui.ContainerRenderer');
  * @extends {goog.ui.ContainerRenderer}
  */
 todomvc.view.ToDoListContainerRenderer = function() {
-	goog.ui.ContainerRenderer.call(this);
+    goog.ui.ContainerRenderer.call(this);
 };
 goog.inherits(todomvc.view.ToDoListContainerRenderer,
-				goog.ui.ContainerRenderer);
+                goog.ui.ContainerRenderer);
 goog.addSingletonGetter(todomvc.view.ToDoListContainerRenderer);
 
 /**
@@ -22,8 +22,8 @@ goog.addSingletonGetter(todomvc.view.ToDoListContainerRenderer);
  * @return {boolean} Whether the renderer can decorate the element.
  */
 todomvc.view.ToDoListContainerRenderer.prototype.canDecorate =
-	function(element) {
-	return element.tagName == 'UL';
+    function(element) {
+    return element.tagName == 'UL';
 };
 
 /**
@@ -33,12 +33,12 @@ todomvc.view.ToDoListContainerRenderer.prototype.canDecorate =
  *            as it enters the document.
  */
 todomvc.view.ToDoListContainerRenderer.prototype.initializeDom =
-	function(container) {
-	var elem = (/**@type {!Element}*/ container.getElement());
+    function(container) {
+    var elem = (/**@type {!Element}*/ container.getElement());
 
-	// Set the ARIA role.
-	var ariaRole = this.getAriaRole();
-	if (ariaRole) {
-		goog.dom.a11y.setRole(elem, ariaRole);
-	}
+    // Set the ARIA role.
+    var ariaRole = this.getAriaRole();
+    if (ariaRole) {
+        goog.dom.a11y.setRole(elem, ariaRole);
+    }
 };
