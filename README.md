@@ -17,7 +17,6 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - [Ember.js](http://emberjs.com/)
 - [JavaScriptMVC](http://javascriptmvc.com/)
 - [Spine.js](http://spinejs.com/)
-- [Sammy.js](http://sammyjs.org/)
 - [KnockoutJS](http://knockoutjs.com/) (MVVM)
 - [Knockback.js](http://kmalakoff.github.com/knockback/)
 - [Dojo](http://dojotoolkit.org/)
