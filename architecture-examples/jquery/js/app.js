@@ -7,13 +7,21 @@ jQuery(function( $ ) {
 		uuid: function(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b},
 		pluralize: function( count, word ) {
 			return count === 1 ? word : word + 's';
+		},
+		store: function( namespace, data ) {
+			if ( arguments.length > 1 ) {
+				return localStorage.setItem( namespace, JSON.stringify( data ) );
+			} else {
+				var store = localStorage.getItem( namespace );
+				return ( store && JSON.parse( store ) ) || [];
+			}
 		}
 	};
 
 	var App = {
 		init: function() {
 			this.ENTER_KEY = 13;
-			this.todos = this.store();
+			this.todos = Utils.store('todos-jquery');
 			this.cacheElements();
 			this.bindEvents();
 			this.render();
@@ -29,14 +37,6 @@ jQuery(function( $ ) {
 			this.$footer = this.$todoApp.find('#footer');
 			this.$count = $('#todo-count');
 			this.$clearBtn = $('#clear-completed');
-		},
-		store: function( data ) {
-			if ( arguments.length ) {
-				return localStorage.setItem( 'todo-jquery', JSON.stringify( data ) );
-			} else {
-				var store = localStorage.getItem('todo-jquery');
-				return ( store && JSON.parse( store ) ) || [];
-			}
 		},
 		bindEvents: function() {
 			var list = this.$todoList;
@@ -54,7 +54,7 @@ jQuery(function( $ ) {
 			this.$main.toggle( !!this.todos.length );
 			this.$toggleAll.prop( 'checked', !this.activeTodoCount() );
 			this.renderFooter();
-			this.store( this.todos );
+			Utils.store( 'todos-jquery', this.todos );
 		},
 		renderFooter: function() {
 			var todoCount = this.todos.length,
