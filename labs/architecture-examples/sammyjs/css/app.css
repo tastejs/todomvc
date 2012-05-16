@@ -22,7 +22,7 @@ p { position: absolute; top: 116px; left: 80px; margin: 0; padding: 0; width: 27
 .new:hover { opacity: .75; }
 
 
-.trashcan { position: absolute; top: 63px; left: 57px; width: 25px; height: 25px; cursor: pointer; background: url(assets/destroy.png) no-repeat;  }
+.trashcan { position: absolute; top: 63px; left: 57px; width: 25px; height: 25px; cursor: pointer; background: url(destroy.png) no-repeat;  }
 .trashcan:hover { opacity: .75; }
 li .trashcan { float: right;
 left: 95%;
