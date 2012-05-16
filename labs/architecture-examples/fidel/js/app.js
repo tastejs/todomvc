@@ -22,7 +22,7 @@ var Todo = Fidel.Class.extend({
   defaults: {
     name: "empty todo...",
     done: false,
-    order: 0 
+    order: 0
   },
   init: function() {
   },
@@ -45,7 +45,7 @@ var TodoView = Fidel.ViewController.extend({
     this.renderAll();
   },
   addOnEnter: function(e) {
-    if (e.keyCode == 13) 
+    if (e.keyCode == 13)
       this.add();
   },
   add: function() {
@@ -103,7 +103,7 @@ var TodoView = Fidel.ViewController.extend({
   },
   complete: function(e) {
     var complete = (e.target.value == "on");
-    
+
     var el = $(e.target);
     el.parents('li').toggleClass('done');
     var todoId = el.parents('li').attr('data-todoid');

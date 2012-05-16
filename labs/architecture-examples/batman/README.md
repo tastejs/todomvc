@@ -1,4 +1,4 @@
-# Batman • [TodoMVC](http://todomvc.com)
+# Batman TodoMVC app
 
 A todo app built using [Batman](http://batmanjs.org)
 
