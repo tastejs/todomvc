@@ -6,12 +6,14 @@ define(["dojo/_base/declare",
         // Parent classes
         "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
         // General application modules
-        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", "dojox/mvc", "todo/model/TodoModel",
+        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", 
+        "dojo/keys", "dojox/mvc", "todo/model/TodoModel",
         // Widget template
         "dojo/text!./app.html",
         // Template Widgets
         "dijit/InlineEditBox", "todo/form/CheckBox", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"],
-    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr, mvc, TodoModel, template) {
+    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr, 
+             keys, mvc, TodoModel, template) {
 
     return declare("todo.app", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
@@ -94,8 +96,8 @@ define(["dojo/_base/declare",
          * we a number of completed and incomplete todo items.
          */
         onItemStatusUpdate: function () {
-            domClass.toggle(this.todo_stats, "items_selected", this.model.complete.value > 0);
-            domClass.toggle(this.todo_stats, "items_present", this.model.todos.get("length"));
+            domClass.toggle(this.domNode, "todos_selected", this.model.complete.value > 0);
+            domClass.toggle(this.domNode, "todos_present", this.model.todos.get("length"));
         },
 
         /**
@@ -104,7 +106,7 @@ define(["dojo/_base/declare",
          * text value as new todo item in the model.
          */
         onKeyPress: function (event) {
-            if (event.keyCode !== 13) return;
+            if (event.keyCode !== keys.ENTER) return;
 
             this.addToModel(event.target.value, false);
             event.target.value = "";

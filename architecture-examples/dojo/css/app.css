@@ -1,10 +1,19 @@
+#clear-completed, #footer, #main {
+    display: none;
+}
+
+#todoapp.todos_selected #clear-completed,
+#todoapp.todos_present #footer, 
+#todoapp.todos_present #main {
+    display: inherit;
+}
+
 #todo-list li .toggle.dijitChecked:after {
 	color: #85ada7;
 	text-shadow: 0 1px 0 #669991;
 	bottom: 1px;
 	position: relative;
 }
-
 
 /* When checkbox is selected, score through todo item content */
 .dijitCheckBoxChecked + .todo-content {
