@@ -9,7 +9,10 @@ Ext.define('Todo.view.Viewport', {
     items:[
         {
             xtype:'box',
-            contentEl:'header',
+            autoEl:{
+                tag:'h1',
+                html:'Todos'
+            },
             region:'north'
         },
         {
@@ -35,7 +38,14 @@ Ext.define('Todo.view.Viewport', {
         },
         {
             xtype:'box',
-            contentEl:'footer',
+            autoEl:{
+                tag:'footer',
+                html:'<p>Double-click to edit a todo</p>' +
+                     '<p>Created by <a href="http://revolunet.com/">Revolunet</a>.</p>' +
+                     '<p>Updates and Edits by <a href="http://github.com/boushley">Aaron Boushley</a></p>' +
+                     '<p>Total refactor by <a href="http://github.com/ettavolt">Arseniy Skvortsov</a></p>' +
+                     '<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>'
+            },
             region:'south'
         }
     ]

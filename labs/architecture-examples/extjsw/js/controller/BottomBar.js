@@ -15,45 +15,17 @@ Ext.define('Todo.controller.BottomBar', {
             }
         });
 
-        this.getTasksStore().on({
-            scope:this,
-            remove:this.onDeleteTodo,
-            add:this.onAddTodo,
-            update:this.onUpdate,
-            datachange:this.doRecount,
-            load:this.doRecount
-        });
+        //No need in listen to add, remove, etc, because we have immediate sync.
+        this.getTasksStore().on('datachanged', this.doRecount, this);
     },
 
-    completedTodos:0,
-    existingTodos:0,
-    onUpdate:function(store, record, cause, modified) {
-        if (modified && Ext.Array.contains(modified, 'completed')) {
-            this.completedTodos += 2 * record.get('completed') - 1;
-            this.onCountUpdate();
-        }
-    },
-    onAddTodo:function(store, records) {
-        Ext.each(records, function(record) {
-            this.completedTodos += record.get('completed');
-            this.existingTodos++;
-        }, this);
-        this.onCountUpdate();
-    },
-    onDeleteTodo:function(store, record) {
-        this.completedTodos -= record.get('completed');
-        this.existingTodos--;
-        this.onCountUpdate();
-    },
     doRecount:function(store) {
         var total = 0, completed = 0;
         store.queryBy(function(record) {
             total++;
             completed += record.get('completed');
         });
-        this.completedTodos = completed;
-        this.existingTodos = total;
-        this.onCountUpdate();
+        this.onCountUpdate(total, completed);
     },
 
     onClearButtonClick:function() {
@@ -66,12 +38,13 @@ Ext.define('Todo.controller.BottomBar', {
             }).getRange();
         store.remove(records);
     },
-    onCountUpdate:function() {
-        this.getBottomBar().setVisible(!!this.existingTodos);
-        this.getTextUncompleted().update({count:this.existingTodos - this.completedTodos});
-        this.getButtonCompleted()
-            .setVisible(!!this.completedTodos)
-            .update({count:this.completedTodos});
-        this.application.fireEvent('countschange', this.existingTodos, this.completedTodos);
+    onCountUpdate:function(total, completed) {
+        var completedButton = this.getButtonCompleted();
+        this.getBottomBar().setVisible(!!total);
+        this.getTextUncompleted().update({count:total - completed});
+        completedButton
+            .setVisible(!!completed)
+            .setText(completedButton.textTpl.apply({count:completed}));
+        this.application.fireEvent('countschange', total, completed);
     }
 });

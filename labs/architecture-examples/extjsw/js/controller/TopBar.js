@@ -24,7 +24,11 @@ Ext.define('Todo.controller.TopBar', {
             if (!Ext.isEmpty(value)) {
                 field.blur();
                 field.setValue('');
-                this.getStore('Tasks').add({title:value});
+                var store = this.getStore('Tasks'),
+                    filters = store.filters.getRange();
+                store.add({title:value});
+                store.clearFilter(true);
+                store.filter(filters);
             }
         }
     },
@@ -36,10 +40,14 @@ Ext.define('Todo.controller.TopBar', {
                 record.set('completed', checked);
             });
             //Refresh filtered set, because records have changed.
-            store.filter();
+            //TODO: Write to Sencha about applying filter to snapshot data.
+            var filters = store.filters.getRange();
+            store.clearFilter(true);
+            store.filter(filters);
         }
     },
     remarkCheckbox:function(total, completed) {
+        //TODO: Post a bug about suspended events dispatching by EventBus.
         this.dontCheckAll = true;
         this.getCheckAll().setValue((total == completed) && (total > 0));
         this.dontCheckAll = false;

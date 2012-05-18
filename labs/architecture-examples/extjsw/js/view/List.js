@@ -1,6 +1,7 @@
 Ext.define('Todo.view.List', {
     extend:'Ext.grid.Panel',
     alias:'widget.todo_list',
+    cls:'todo-app-list',
     store:'Tasks',
     hideHeaders:true,
     plugins:{
@@ -17,9 +18,18 @@ Ext.define('Todo.view.List', {
         {
             text:'Title',
             dataIndex:'title',
+            tdCls:'todo-text',
+            renderer:function(value, meta, todo) {
+                if (todo.get('completed')) {
+                    meta.tdCls = 'completed';
+                }
+                return value;
+            },
             flex:1,
             field:{
-                allowBlank:false
+                cls:'todo-text-input',
+                allowBlank:false,
+                selectOnFocus:true
             }
         },
         {
