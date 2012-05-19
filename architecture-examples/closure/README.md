@@ -33,7 +33,7 @@ find . -name *.js | xargs gjslint
 
 To compile the code from the command line run Plovr like so -
 
-java -jar build/plovr.jar build plovr.json
+java -jar build/plovr.jar build plovr.json > js/compiled.js
 
 This will overwrite the js/compiled.js file with the new version, be sure to change the script tag reference in the HTML page.
 
