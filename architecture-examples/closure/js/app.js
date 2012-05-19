@@ -1,10 +1,10 @@
 goog.provide('todomvc');
 
+goog.require('goog.History');
 goog.require('goog.array');
 goog.require('goog.dom.query');
 goog.require('goog.events.EventType');
 goog.require('goog.events.KeyCodes');
-goog.require('goog.History');
 goog.require('goog.storage.Storage');
 goog.require('goog.storage.mechanism.mechanismfactory');
 goog.require('goog.string');
@@ -86,9 +86,9 @@ goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
  * @enum {!string}
  */
 todomvc.Route = {
-    ALL: "/",
-    ACTIVE: "/active",
-    COMPLETED: "/completed"
+    ALL: '/',
+    ACTIVE: '/active',
+    COMPLETED: '/completed'
 };
 
 /**
