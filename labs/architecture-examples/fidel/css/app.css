@@ -145,7 +145,7 @@ body {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
-	background: url(../images/destroy.png) no-repeat 0 0;
+	background: url(destroy.png) no-repeat 0 0;
 }
 #todo-list li:hover .todo-destroy {
 	display: block;
