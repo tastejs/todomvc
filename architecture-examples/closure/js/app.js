@@ -162,7 +162,7 @@ function redraw() {
         (goog.dom.query('#filters a'));
     goog.array.forEach(routeLinks, function(link, i) {
         if ((currentRoute === todomvc.Route.ALL && i === 0) ||
-                (currentRoute === todomvc.Route.ACTIVE && i === 1) || 
+                (currentRoute === todomvc.Route.ACTIVE && i === 1) ||
                 (currentRoute === todomvc.Route.COMPLETED && i === 2)) {
             link.className = 'selected';
         } else {
