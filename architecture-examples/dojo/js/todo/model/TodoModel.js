@@ -7,7 +7,7 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
          * items found in localStorage.
          */
         data: {
-            id: "local_storage_todos",
+            id: "todos_dojo",
             todos : [],
             incomplete: 0,
             complete: 0

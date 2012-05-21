@@ -6,17 +6,22 @@ define(["dojo/_base/declare",
         // Parent classes
         "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
         // General application modules
-        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", 
-        "dojo/keys", "dojox/mvc", "todo/model/TodoModel",
+        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", "dojo/query",
+        "dojo/keys", "dojox/mvc", "dojo/hash", "dojo/_base/connect", "todo/model/TodoModel",
         // Widget template
         "dojo/text!./app.html",
         // Template Widgets
         "dijit/InlineEditBox", "todo/form/CheckBox", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"],
     function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr, 
-             keys, mvc, TodoModel, template) {
+             query, keys, mvc, hash, connect, TodoModel, template) {
 
     return declare("todo.app", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+        /** Widget template HTML string */
         templateString: template,
+
+        /** Hash state constants */
+        ACTIVE: "/active",
+        COMPLETED: "/completed",
 
         constructor: function () {
             /**
@@ -42,6 +47,9 @@ define(["dojo/_base/declare",
             window.onbeforeunload = lang.hitch(this, function () {
                 this.model.commit();
             });
+
+            /** Connect to changes to the URI hash */
+            connect.subscribe("/dojo/hashchange", this, "onHashChange");
         },
 
         /**
@@ -53,6 +61,15 @@ define(["dojo/_base/declare",
         postCreate: function () {
             on(this.domNode, ".destroy:click", lang.hitch(this, "onRemove"));
             this.onItemStatusUpdate();
+        },
+
+        /** 
+         * Ensure application state reflects current 
+         * hash value after rendering model in the view.
+         */  
+        startup: function () {
+            this.inherited(arguments);
+            this.onHashChange(hash());
         },
 
         /**
@@ -94,10 +111,29 @@ define(["dojo/_base/declare",
         /**
          * Adjust CSS classes on todo-stats element based upon whether
          * we a number of completed and incomplete todo items.
+         * Also verify state of the "Mark All" box.
          */
         onItemStatusUpdate: function () {
-            domClass.toggle(this.domNode, "todos_selected", this.model.complete.value > 0);
-            domClass.toggle(this.domNode, "todos_present", this.model.todos.get("length"));
+            var completed = this.model.complete.get("value"), 
+                length = this.model.todos.get("length");
+
+            domClass.toggle(this.domNode, "todos_selected", completed > 0);
+            domClass.toggle(this.domNode, "todos_present", length);
+
+            domAttr.set(this.mark_all, "checked", length && length === completed);
+        },
+
+        /**
+         * Event fired when user selects the "Mark All" checkbox.
+         * Update selection state of all the todos based upon current 
+         * checked value.
+         */ 
+        onMarkAll: function () {
+            var checked = this.mark_all.checked;
+
+            for(var i = 0, len = this.model.todos.length; i < len; i++) {
+                this.model.todos[i].isDone.set("value", checked);
+            }
         },
 
         /**
@@ -120,6 +156,29 @@ define(["dojo/_base/declare",
          **/
         onRemove: function (event) {
             this.model.todos.remove(domAttr.get(event.target, "data-model-id"));
+        }, 
+
+        /**
+         * When the URI's hash value changes, modify the 
+         * displayed list items to show either completed,
+         * remaining or all tasks. 
+         * Also highlight currently selected link value.
+         */ 
+        onHashChange: function (hash) {
+            var showIfDone = (hash === this.COMPLETED ? false : 
+                (hash === this.ACTIVE? true : null));
+           
+            query("#todo-list > li").forEach(lang.hitch(this, function (item, idx) {
+                var done = this.model.todos[idx].isDone.get("value");
+                domClass.toggle(item, "hidden", done === showIfDone);
+            }));
+
+            /** Normalise hash value to match link hrefs */
+            hash = "#" + (showIfDone !== null ? hash : "/");
+
+            query("#filters a").forEach(lang.hitch(this, function (link) {
+                domClass.toggle(link, "selected", domAttr.get(link, "href") === hash);
+            }));
         }
     });
 });

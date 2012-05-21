@@ -6,7 +6,7 @@
     </header>
 
     <section id="main">
-	    <input id="toggle-all" type="checkbox">
+	    <input id="toggle-all" data-dojo-attach-point="mark_all" data-dojo-attach-event="onclick:onMarkAll" type="checkbox">
 	    <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list" data-dojo-attach-point="todo_list" data-dojo-type="dojox.mvc.Repeat" data-dojo-props="ref: this.model.todos, exprchar: '#'">
             <li data-dojo-type="dojox.mvc.Group" data-dojo-props="ref: '#{this.index}'">

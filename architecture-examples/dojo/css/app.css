@@ -8,6 +8,10 @@
     display: inherit;
 }
 
+#todo-list li.hidden {
+    display: none;
+}
+
 #todo-list li .toggle.dijitChecked:after {
 	color: #85ada7;
 	text-shadow: 0 1px 0 #669991;
