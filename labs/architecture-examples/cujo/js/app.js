@@ -1,6 +1,18 @@
-(function( window ) {
-	'use strict';
+(function( curl ) {
 
-	// Your starting point. Enjoy the ride!
+	var config = {
+		baseUrl: 'js',
+		paths: {
+			curl: 'lib/curl/src/curl'
+		},
+		pluginPath: 'curl/plugin',
+		packages: [
+			{ name: 'wire', location: 'lib/wire', main: 'wire' },
+			{ name: 'when', location: 'lib/when', main: 'when' },
+			{ name: 'aop', location: 'lib/aop', main: 'aop' }
+		]
+	};
 
-})( window );
+	curl(config, ['wire!main']);
+
+})( curl );
