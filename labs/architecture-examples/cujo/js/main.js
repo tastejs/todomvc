@@ -21,7 +21,7 @@ define({
 			bindings: {
 				id: { prop: 'data-todo-id' },
 				text: { node: 'label' },
-				complete: { node: '.toggle' }
+				complete: { node: '.toggle', prop: 'checked', event: 'change' }
 			}
 		},
 		insert: { after: 'createView' }
