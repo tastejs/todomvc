@@ -31,15 +31,6 @@
     text-decoration: line-through;
 }
 
-.claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
-    background-image: none;
-}
-
-/* Need to have the background-image on IE */
-.dj_ie .claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
-    background-image: url("form/images/checkboxRadioButtonStates.png");
-}
-
 #todo-list .dijitCheckBoxInput {
     opacity: 0;
     position: absolute;
