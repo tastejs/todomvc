@@ -19,7 +19,6 @@ define({
 			comparator: 'id',
 			querySelector: { $ref: 'dom.first!' },
 			bindings: {
-				id: { prop: 'data-todo-id' },
 				text: { node: 'label' },
 				complete: { node: '.toggle', prop: 'checked', event: 'change' }
 			}
