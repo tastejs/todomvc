@@ -4,14 +4,14 @@ define({
 
 	createView: {
 		render: {
-			module: 'text!view/create/template.html'
+			module: 'text!create/template.html'
 		},
 		insert: { first: 'root' }
 	},
 
 	listView: {
 		render: {
-			module: 'text!view/list/template.html'
+			module: 'text!list/template.html'
 		},
 		bind: {
 			to: { $ref: 'todoHub' },
@@ -53,7 +53,7 @@ define({
 
 	controlsView: {
 		render: {
-			module: 'text!view/controls/template.html'
+			module: 'text!controls/template.html'
 		},
 		insert: { last: 'listView' }
 	},
