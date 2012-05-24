@@ -4,14 +4,16 @@ define({
 
 	createView: {
 		render: {
-			module: 'text!create/template.html'
+			template: { module: 'text!create/template.html' },
+			replace: { module: 'create/strings' }
 		},
 		insert: { first: 'root' }
 	},
 
 	listView: {
 		render: {
-			module: 'text!list/template.html'
+			template: { module: 'text!list/template.html' },
+			replace: { module: 'list/strings' }
 		},
 		bind: {
 			to: { $ref: 'todoHub' },
@@ -52,7 +54,8 @@ define({
 
 	controlsView: {
 		render: {
-			module: 'text!controls/template.html'
+			template: { module: 'text!controls/template.html' },
+			replace: { module: 'controls/strings' }
 		},
 		insert: { last: 'listView' }
 	},
