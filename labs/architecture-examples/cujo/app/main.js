@@ -17,12 +17,10 @@ define({
 		},
 		bind: {
 			to: { $ref: 'todoHub' },
-			identifier: 'id',
-			comparator: 'id',
 			querySelector: { $ref: 'dom.first!' },
 			bindings: {
 				text: { node: 'label' },
-				complete: { node: '.toggle', prop: 'checked', event: 'change' }
+				complete: { node: '.toggle', prop: 'checked' }
 			}
 		},
 		insert: { after: 'createView' }
@@ -45,8 +43,7 @@ define({
 			{ id: 2, text: 'Test 2', complete: false }
 		],
 		bind: {
-			to: { $ref: 'todoHub' },
-			identifier: 'id'
+			to: { $ref: 'todoHub' }
 		}
 	},
 
@@ -57,7 +54,7 @@ define({
 			template: { module: 'text!controls/template.html' },
 			replace: { module: 'controls/strings' }
 		},
-		insert: { last: 'listView' }
+		insert: { after: 'listView' }
 	},
 
 	plugins: [
@@ -65,7 +62,7 @@ define({
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
-		{ module: 'wire/cola' },
+		{ module: 'wire/cola', comparator: 'text' },
 		{ module: 'wire/functional' }
 	]
 });
