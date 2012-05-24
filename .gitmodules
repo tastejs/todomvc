@@ -1,0 +1,15 @@
+[submodule "labs/architecture-examples/cujo/lib/curl"]
+	path = labs/architecture-examples/cujo/lib/curl
+	url = https://github.com/cujojs/curl
+[submodule "labs/architecture-examples/cujo/lib/when"]
+	path = labs/architecture-examples/cujo/lib/when
+	url = https://github.com/cujojs/when
+[submodule "labs/architecture-examples/cujo/lib/wire"]
+	path = labs/architecture-examples/cujo/lib/wire
+	url = https://github.com/cujojs/wire
+[submodule "labs/architecture-examples/cujo/lib/aop"]
+	path = labs/architecture-examples/cujo/lib/aop
+	url = https://github.com/cujojs/aop
+[submodule "labs/architecture-examples/cujo/lib/cola"]
+	path = labs/architecture-examples/cujo/lib/cola
+	url = https://github.com/cujojs/cola
