@@ -1,7 +1,6 @@
 (function( curl ) {
 
 	var config = {
-		baseUrl: 'js',
 		paths: {
 			curl: 'lib/curl/src/curl'
 		},
