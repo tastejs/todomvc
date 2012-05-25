@@ -6,13 +6,37 @@ define(function () {
 		 * @injected
 		 * @param form
 		 */
-		parseForm: function(form) {},
+//		parseForm: function(form) {},
+
+		add: function() {},
+		update: function() {},
+		remove: function() {},
+
+		removeCompleted: function() {
+			var self = this;
+
+			this._forEachTodo(function(todo) {
+				if(todo.complete) self.remove(todo);
+			});
+		},
+
+		toggleAll: function(e) {
+			var checked, self;
+
+			checked = (e.selectorTarget || e.target).checked;
+			self = this;
+
+			this._forEachTodo(function(todo) {
+				todo.complete = checked;
+				self.update(todo);
+			});
+		},
 
 		/**
 		 * @injected
 		 * @param todo
 		 */
-		validate: function(todo) { return { valid: true }; },
+		validate: function(todo) { return { valid: /\S+/.test(todo.text) }; },
 
 		handleSubmit: function(e) {
 			// TODO: Sure would be nice not to have to deal with a form
@@ -24,10 +48,11 @@ define(function () {
 			form = e.selectorTarget || e.target;
 			todo = this.parseForm(form);
 			validation = this.validate(todo);
+
 			if(validation.valid) {
-				this.createTodo(todo);
+				this.add(todo);
+				form.reset();
 			}
-			form.reset();
 		}
 	}
 

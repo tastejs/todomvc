@@ -17,39 +17,45 @@ define({
 		},
 		bind: {
 			to: { $ref: 'todoHub' },
-			querySelector: { $ref: 'dom.first!' },
 			bindings: {
 				text: { node: 'label' },
-				complete: { node: '.toggle', prop: 'checked' }
+				complete: { node: '.toggle', prop: 'checked', events: 'change' }
 			}
 		},
 		insert: { after: 'createView' }
 	},
 
 	todoController: {
-		prototype: { module: 'controller' },
+		prototype: { create: 'controller' },
+		mixin: { $ref: 'todoHub' },
 		properties: {
 			parseForm: { module: 'cola/dom/formToObject' },
-			createTodo: { compose: 'generateId | todoHub.add' }
+			add: { compose: 'generateId | todoHub.add' },
+			// TODO: This is ugly and flat out wrong, but works for demo purposes
+			// This will iterate over all the todos in the adapter, not just
+			// the ones that happen to be shown.
+			// And we shouldn't have to know about the adapter at all.
+			_forEachTodo: { compose: 'todos.forEach' }
 		},
 		on: {
-			createView: { 'submit:form': 'handleSubmit' }
+			createView: {
+				'submit:form': 'handleSubmit'
+			},
+			listView: {
+				'click:.destroy': 'remove',
+				'click:.toggle': 'update',
+				'click:#toggle-all': 'toggleAll'
+			},
+			controlsView: {
+				'click:#clear-completed': 'removeCompleted'
+			}
 		}
 	},
 
+
 	generateId: { module: 'create/generateId' },
 
-//	todoData: {
-//		literal: [
-//			{ id: 1, text: 'Test 1', complete: true },
-//			{ id: 2, text: 'Test 2', complete: false }
-//		],
-//		bind: {
-//			to: { $ref: 'todoHub' }
-//		}
-//	},
-//
-	todoData: {
+	todos: {
 		create: {
 			module: 'cola/LocalStorageAdapter',
 			args: 'todos'
@@ -74,7 +80,9 @@ define({
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
-		{ module: 'wire/cola', comparator: 'text' },
+		{ module: 'wire/aop' },
+		{ module: 'wire/connect' },
+		{ module: 'wire/cola', comparator: 'text', querySelector: { $ref: 'dom.first!' } },
 		{ module: 'wire/functional' }
 	]
 });
