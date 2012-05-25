@@ -30,18 +30,30 @@ define({
 		prototype: { module: 'controller' },
 		properties: {
 			parseForm: { module: 'cola/dom/formToObject' },
-			createTodo: { compose: 'todoHub.add' }
+			createTodo: { compose: 'generateId | todoHub.add' }
 		},
 		on: {
 			createView: { 'submit:form': 'handleSubmit' }
 		}
 	},
 
+	generateId: { module: 'create/generateId' },
+
+//	todoData: {
+//		literal: [
+//			{ id: 1, text: 'Test 1', complete: true },
+//			{ id: 2, text: 'Test 2', complete: false }
+//		],
+//		bind: {
+//			to: { $ref: 'todoHub' }
+//		}
+//	},
+//
 	todoData: {
-		literal: [
-			{ id: 1, text: 'Test 1', complete: true },
-			{ id: 2, text: 'Test 2', complete: false }
-		],
+		create: {
+			module: 'cola/LocalStorageAdapter',
+			args: 'todos'
+		},
 		bind: {
 			to: { $ref: 'todoHub' }
 		}
