@@ -1,0 +1,155 @@
+header, footer {
+    text-align: center;
+}
+
+tr.x-grid-row td.delete-icon .x-grid-cell-inner {
+    vertical-align: middle;
+    font-size: 17px;
+    color: #a88a8a;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+tr.x-grid-row-selected td.delete-icon .x-grid-cell-inner,
+tr.x-grid-row-over td.delete-icon .x-grid-cell-inner,
+tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
+    content: '✖';
+    text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+.check-all .x-form-cb-wrap {
+    padding: 22px 12px;
+    text-align: center;
+    border-right: double #f5d6d6;
+}
+
+.check-all .x-form-cb-wrap input {
+    vertical-align: 1px;
+}
+
+.todo-app-list .x-grid-cell-checkcolumn {
+    border-right: double #f5d6d6;
+}
+
+.filters a {
+    color: #83756F;
+    text-decoration: none;
+}
+
+.filters a + a {
+    padding-left: 4px;
+}
+
+.filters a.selected {
+    font-weight: 700;
+}
+
+/*Styles just to match*/
+
+.todo-app {
+    background: #eeeeee url('../../../../assets/bg.png');
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.todo-app h1 {
+    text-align: center;
+    font: bold 70px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #b3b3b3;
+    color: rgba(255, 255, 255, 0.3);
+    text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+}
+
+.todo-app-tbar {
+    border-top-color: rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.65);
+    padding: 0;
+}
+
+.todo-app .todo-text,
+.todo-app .todo-text-input .x-form-text {
+    font-size: 24px;
+    padding: 0 16px;
+    height: 59px;
+}
+.todo-app .todo-text-input .x-form-text {
+    border: none;
+    background: transparent;
+}
+
+.todo-app-list {
+    box-shadow: 0 -2px 50px 0 rgba(0, 0, 0, 0.2);
+    border: none;
+}
+.todo-app-list .x-grid-body {
+    box-shadow: 0px 20px 15px 15px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+
+.todo-app-list .x-grid-cell {
+    vertical-align: middle;
+}
+
+.todo-app-list .todo-text.completed {
+    color: #A9A9A9;
+    text-decoration: line-through;
+}
+
+.todo-app-list .todo-text .x-grid-cell-inner {
+    line-height:33px;
+    padding: 0;
+}
+
+.todo-app-bbar {
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: #83756F;
+    margin: 0 7px;
+    padding: 3px 8px;
+}
+
+.todo-app-bbar strong {
+    font-weight: bold;
+}
+
+.todo-app-bbar .x-btn {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: transparent;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.todo-app-bbar .x-btn-inner {
+    font-size: 11px;
+    color: #777777;
+}
+
+.todo-app-bbar .x-btn.x-btn-over {
+    background: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+footer p,
+footer a {
+    color: #a6a6a6;
+    font-size: 12px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+footer p {
+    margin: 0.5em 0;
+}
