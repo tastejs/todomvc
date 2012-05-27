@@ -1,11 +1,9 @@
 var todo = window.todo || {};
 
 (function( window ) {
-
 	'use strict';
 
 	todo.TodoCommand = soma.Command.extend({
-
 		execute: function( event ) {
 			var model = this.getModel( todo.TodoModel.NAME );
 			switch( event.type ) {
@@ -36,8 +34,7 @@ var todo = window.todo || {};
 		}
 	});
 
-	todo.TodoEvent = soma.Event.extend( {
-
+	todo.TodoEvent = soma.Event.extend({
 		constructor: function( type, todoTitle, todoId, toggleAll ) {
 			return soma.Event.call( this, type, {
 				todoTitle: todoTitle,
@@ -45,8 +42,7 @@ var todo = window.todo || {};
 				toggleAll: toggleAll
 			});
 		}
-
-	} );
+	});
 
 	todo.TodoEvent.RENDER = 'TodoEvent.RENDER';
 	todo.TodoEvent.CREATE = 'TodoEvent.CREATE';

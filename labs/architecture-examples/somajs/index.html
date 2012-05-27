@@ -6,11 +6,10 @@
 	<title>soma.js • TodoMVC</title>
 	<link rel="stylesheet" href="../../../assets/base.css">
 	<!--[if IE]>
-	<script src="../assets/ie.js"></script>
+	<script src="../../../assets/ie.js"></script>
 	<![endif]-->
 </head>
 <body>
-
 	<section id="todoapp">
 		<header id="header">
 			<h1>todos</h1>
@@ -27,10 +26,9 @@
 		<p>Double-click to edit a todo</p>
 		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 		<p>Created by <a href="http://soundstep.com">Romuald Quantin</a></p>
-		<p>With <a href="http://somajs.github.com/somajs/">soma.js</a></p>
+		<p>With <a href="http://somajs.github.com/somajs">soma.js</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-
 	<script id="todo-list-template" type="text/x-handlebars-template">
 		{{#this}}
 		<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
@@ -43,12 +41,10 @@
 		</li>
 		{{/this}}
 	</script>
-
 	<script id="footer-template" type="text/x-handlebars-template">
 		<span id="todo-count"><strong>{{active}}</strong> {{itemLabel}} left</span>
 		<button id="clear-completed">Clear completed ({{completed}})</button>
 	</script>
-
 	<script src="../../../assets/base.js"></script>
 	<script src="../../../assets/handlebars.min.js"></script>
 	<script src="../../../assets/jquery.min.js"></script>
@@ -57,6 +53,5 @@
 	<script src="js/todos/views/views.js"></script>
 	<script src="js/todos/controllers/controllers.js"></script>
 	<script src="js/app.js"></script>
-
 </body>
 </html>

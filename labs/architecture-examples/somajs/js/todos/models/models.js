@@ -1,11 +1,9 @@
 var todo = window.todo || {};
 
 (function( window ) {
-
 	'use strict';
 
 	todo.TodoModel = new soma.Model.extend({
-
 		dataFooter: null,
 
 		init: function() {
@@ -50,38 +48,49 @@ var todo = window.todo || {};
 		},
 
 		toggleAll: function( toggleValue ) {
-			for (var i = 0; i < this.data.length; i++) {
+			var i;
+
+			for ( i = 0; i < this.data.length; i++ ) {
 				this.data[i].completed = toggleValue;
 			}
+
 			this.update();
 		},
 
 		clearCompleted: function() {
 			var i = this.data.length;
-			while( i-- ) {
-				if ( this.data[i].completed ) {
+
+			while ( i-- ) {
+				if ( this.data[ i ].completed ) {
 					this.data.splice( i, 1 );
 				}
 			}
+
 			this.update();
 		},
 
 		getIndexById: function( id ) {
-			for ( var i = 0; i < this.data.length; i++ ) {
-				if ( this.data[i].id === id ) {
+			var i;
+
+			for ( i = 0; i < this.data.length; i++ ) {
+				if ( this.data[ i ].id === id ) {
 					return i;
 				}
 			}
+
 			return -1;
 		},
 
 		getActiveLength: function() {
-			var count = 0;
-			for ( var i = 0; i < this.data.length; i++ ) {
-				if ( !this.data[i].completed ) {
+			var i,
+				count = 0;
+
+			for ( i = 0; i < this.data.length; i++ ) {
+				if ( !this.data[ i ].completed ) {
 					count++;
 				}
 			}
+
 			return count;
 		},
 
