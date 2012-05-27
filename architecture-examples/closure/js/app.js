@@ -151,7 +151,6 @@ function redraw() {
     var remainingCount = items.length - (doneCount);
     toggleAll.checked = remainingCount === 0;
     itemCountControl.setContent(remainingCount.toString());
-    itemCountControl.setVisible(remainingCount > 0);
     clearCompletedControl.setContent(doneCount.toString());
     clearCompletedControl.setVisible(doneCount > 0);
 
