@@ -32,7 +32,25 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - jQuery
 - Vanilla JS
 
-We also have a number of in-progress applications for new frameworks (such as [CanJS](http://canjs.us/) and [Meteor](http://meteor.com/)) being worked on in our [Labs](http://addyosmani.github.com/todomvc/labs) site. 
+#### Labs
+
+We also have a number of in-progress applications in our [Labs](http://addyosmani.github.com/todomvc/labs) site. These include:
+
+- [CanJS](http://canjs.us/)
+- [Batman.js](http://batmanjs.org/)
+- [Meteor](http://meteor.com/)
+- [Google Web Toolkit](https://developers.google.com/web-toolkit/)
+- [Stapes.js](http://hay.github.com/stapes/)
+- [TroopJS](https://github.com/troopjs/)
+- [Fun](https://github.com/marcuswestin/fun)
+- [DUEL](https://bitbucket.org/mckamey/duel/wiki/Home)
+- [Fidel](https://github.com/jgallen23/fidel)
+- [Olives](https://github.com/flams/olives)
+- [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
+- [Dijon](https://github.com/creynders/dijon-framework)
+- [Sammy.js](http://sammyjs.org/)
+- [rAppid](https://github.com/it-ony/rAppid.js)
+
 
 ## Live demos
 
