@@ -25,6 +25,12 @@ goog.require('todomvc.view.ToDoListContainer');
  * to the model and back.
  */
 
+/**
+ * @type {todomvc.model.ToDoItemStore}
+ */
+var itemStore = new todomvc.model.ToDoItemStore();
+itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType,
+    redraw);
 
 /**
  * @type {todomvc.view.ToDoListContainer}
@@ -117,7 +123,6 @@ goog.events.listen(history, goog.history.EventType.NAVIGATE,
         break;
     }
 });
-history.setEnabled(true);
 
 function redraw() {
     container.removeChildren(true);
@@ -169,15 +174,6 @@ function redraw() {
         }
     });
 }
-
-/**
- * @type {todomvc.model.ToDoItemStore}
- */
-var itemStore = new todomvc.model.ToDoItemStore();
-itemStore.addEventListener(todomvc.model.ToDoItemStore.ChangeEventType,
-    redraw);
-itemStore.load();
-
 
 goog.events.listen(container,
     todomvc.view.ToDoItemControl.EventType.EDIT, function(e) {
@@ -237,3 +233,6 @@ goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
     // create the item
     itemStore.addOrUpdate(new todomvc.model.ToDoItem(value));
 });
+
+itemStore.load();
+history.setEnabled(true);
