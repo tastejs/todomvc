@@ -41,21 +41,26 @@ container.decorate(document.getElementById('todo-list'));
 /**
  * @type {Element}
  */
-var todoStats = document.getElementById('footer');
+var main = document.getElementById('main');
+
+/**
+ * @type {Element}
+ */
+var footer = document.getElementById('footer');
 
 /**
  * @type {goog.ui.Control}
  */
 var itemCountControl = new goog.ui.Control(null,
     todomvc.view.ItemCountControlRenderer.getInstance());
-itemCountControl.render(todoStats);
+itemCountControl.render(footer);
 
 /**
  * @type {goog.ui.Control}
  */
 var clearCompletedControl = new goog.ui.Control(null,
     todomvc.view.ClearCompletedControlRenderer.getInstance());
-clearCompletedControl.render(todoStats);
+clearCompletedControl.render(footer);
 
 goog.events.listen(clearCompletedControl,
     goog.ui.Component.EventType.ACTION, function(e) {
@@ -158,6 +163,8 @@ function redraw() {
     itemCountControl.setContent(remainingCount.toString());
     clearCompletedControl.setContent(doneCount.toString());
     clearCompletedControl.setVisible(doneCount > 0);
+    goog.style.showElement(main, items.length > 0);
+    goog.style.showElement(footer, items.length > 0);
 
     /**
      * @type {Array.<Element>}
