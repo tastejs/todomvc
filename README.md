@@ -13,19 +13,20 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 #### Todo apps are included for:
 
 - [Backbone.js](http://documentcloud.github.com/backbone/)
-- [Backbone.js + RequireJS](http://requirejs.org/) (using AMD)
-- [Ember.js](http://emberjs.com/)
-- [JavaScriptMVC](http://javascriptmvc.com/)
-- [Spine.js](http://spinejs.com/)
-- [KnockoutJS](http://knockoutjs.com/) (MVVM)
+- [Backbone.js + RequireJS](http://requirejs.org) (using AMD)
+- [Ember.js](http://emberjs.com)
+- [Ember.js + RequireJS](http://emberjs.com) (using AMD)
+- [JavaScriptMVC](http://javascriptmvc.com)
+- [Spine.js](http://spinejs.com)
+- [KnockoutJS](http://knockoutjs.com) (MVVM)
 - [Knockback.js](http://kmalakoff.github.com/knockback/)
-- [Dojo](http://dojotoolkit.org/)
+- [Dojo](http://dojotoolkit.org)
 - [Closure](http://code.google.com/closure/library/)
-- [YUILibrary](http://yuilibrary.com/)
-- [AngularJS](http://angularjs.org/)
-- [Angular + PersistenceJS](http://persistencejs.org/)
+- [YUILibrary](http://yuilibrary.com)
+- [AngularJS](http://angularjs.org)
+- [Angular + PersistenceJS](http://persistencejs.org)
 - [Ext.js](http://www.sencha.com/products/extjs)
-- [Agility.js](http://agilityjs.com/)
+- [Agility.js](http://agilityjs.com)
 
 ###### Non MV*
 
@@ -36,19 +37,20 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 We also have a number of in-progress applications in our [Labs](http://addyosmani.github.com/todomvc/labs) site. These include:
 
-- [CanJS](http://canjs.us/)
-- [Batman.js](http://batmanjs.org/)
-- [Meteor](http://meteor.com/)
+- [CanJS](http://canjs.us)
+- [Batman.js](http://batmanjs.org)
+- [Meteor](http://meteor.com)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
 - [Stapes.js](http://hay.github.com/stapes/)
 - [TroopJS](https://github.com/troopjs/)
+- [soma.js](http://somajs.github.com/somajs)
 - [Fun](https://github.com/marcuswestin/fun)
 - [DUEL](https://bitbucket.org/mckamey/duel/wiki/Home)
 - [Fidel](https://github.com/jgallen23/fidel)
 - [Olives](https://github.com/flams/olives)
 - [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
 - [Dijon](https://github.com/creynders/dijon-framework)
-- [Sammy.js](http://sammyjs.org/)
+- [Sammy.js](http://sammyjs.org)
 - [rAppid](https://github.com/it-ony/rAppid.js)
 
 
