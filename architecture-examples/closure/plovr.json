@@ -1,6 +1,6 @@
 {
   "id" :                "todomvc",
-  "inputs" :            "js/main.js",
+  "inputs" :            "js/app.js",
   "paths" :             "js/",
   "output-wrapper" :    "(function(){%output%})();",
   "mode" :              "ADVANCED",
