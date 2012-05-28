@@ -29,7 +29,9 @@ todomvc.view.ToDoItemControl = function(opt_domHelper) {
     // disable auto handling of CHECKED and SELECTED states
     this.setAutoStates(goog.ui.Component.State.CHECKED, false);
     this.setAutoStates(goog.ui.Component.State.SELECTED, false);
-
+    
+    // allow text selection
+    this.setAllowTextSelection(true);
 };
 goog.inherits(todomvc.view.ToDoItemControl, goog.ui.Control);
 
@@ -135,8 +137,6 @@ todomvc.view.ToDoItemControl.prototype.setFocused = function(focused) {
  */
 todomvc.view.ToDoItemControl.prototype.setSelected = function(selected) {
     todomvc.view.ToDoItemControl.superClass_.setSelected.call(this, selected);
-    // allow text selection whilst editing but prevent otherwise
-    this.setAllowTextSelection(selected);
     // populate the input box when selected
     if (selected) {
         /**
