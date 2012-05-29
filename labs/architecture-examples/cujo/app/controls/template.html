@@ -1,6 +1,6 @@
 <footer id="footer">
 	<!-- This should be `0 items left` by default -->
-	<span id="todo-count"><strong>1</strong> ${itemsLeft.singular}</span>
+	<span id="todo-count"><strong class="count">1</strong> ${itemsLeft.singular}</span>
 	<!-- Remove this if you don't implement routing -->
 	<ul id="filters">
 		<li>
@@ -13,5 +13,5 @@
 			<a href="#/completed">${filter.completed}</a>
 		</li>
 	</ul>
-	<button id="clear-completed">${clearCompleted} (1)</button>
+	<button id="clear-completed">${clearCompleted} (<span class="count">1</span>)</button>
 </footer>
