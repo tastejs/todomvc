@@ -1,6 +1,12 @@
 define(function () {
 	"use strict";
 
+	var slice = [].slice;
+
+	function toArray(nodeList) {
+		return slice.call(nodeList);
+	}
+
 	return {
 		/**
 		 * @injected
@@ -26,10 +32,35 @@ define(function () {
 			checked = (e.selectorTarget || e.target).checked;
 			self = this;
 
-			this._forEachTodo(function(todo) {
-				todo.complete = checked;
-				self.update(todo);
+			var checkboxes = toArray(this.getCheckboxes());
+			checked = checkboxes.forEach(function(cb) {
+				cb.checked = true;
+				self.update(cb);
 			});
+
+
+//			this._forEachTodo(function(todo) {
+//				todo.complete = checked;
+//				self.update(todo);
+//			});
+		},
+
+		updateCount: function() {
+			var checkboxes, checked, countNodes;
+
+			checkboxes = toArray(this.getCheckboxes());
+			checked = checkboxes.filter(function(cb) {
+				return cb.checked;
+			}).length;
+
+			this.masterCheckbox.checked = checkboxes.length > 0 && checked === checkboxes.length;
+
+			countNodes = toArray(this.countNodes);
+			countNodes.forEach(function(n) {
+				n.innerHTML = checked;
+			});
+
+			return checked;
 		},
 
 		/**

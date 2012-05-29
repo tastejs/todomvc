@@ -27,10 +27,13 @@ define({
 
 	todoController: {
 		prototype: { create: 'controller' },
-		mixin: { $ref: 'todoHub' },
 		properties: {
 			parseForm: { module: 'cola/dom/formToObject' },
-			add: { compose: 'generateId | todoHub.add' },
+			getCheckboxes: { $ref: 'getCheckboxes' },
+
+			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
+			countNodes: { $ref: 'dom.all!.count', at: 'controlsView' },
+
 			// TODO: This is ugly and flat out wrong, but works for demo purposes
 			// This will iterate over all the todos in the adapter, not just
 			// the ones that happen to be shown.
@@ -49,10 +52,19 @@ define({
 			controlsView: {
 				'click:#clear-completed': 'removeCompleted'
 			}
-		}
+		},
+		connect: {
+			add: 'generateId | todoHub.add',
+			update: 'todoHub.update',
+			remove: 'todoHub.remove',
+			'todoHub.onUpdate': 'updateCount',
+			'todoHub.onRemove': 'updateCount'
+		},
+		ready: 'updateCount'
 	},
 
-
+	qsa: { $ref: 'dom.all!' },
+	getCheckboxes: { $ref: 'bind!qsa', args: ['.toggle', { $ref: 'listView' }] },
 	generateId: { module: 'create/generateId' },
 
 	todos: {
@@ -76,7 +88,7 @@ define({
 	},
 
 	plugins: [
-		{ module: 'wire/debug' },
+//		{ module: 'wire/debug' },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
