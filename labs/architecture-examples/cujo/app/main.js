@@ -32,13 +32,7 @@ define({
 			getCheckboxes: { $ref: 'getCheckboxes' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
-			countNodes: { $ref: 'dom.all!.count', at: 'controlsView' },
-
-			// TODO: This is ugly and flat out wrong, but works for demo purposes
-			// This will iterate over all the todos in the adapter, not just
-			// the ones that happen to be shown.
-			// And we shouldn't have to know about the adapter at all.
-			_forEachTodo: { compose: 'todos.forEach' }
+			countNodes: { $ref: 'dom.all!.count', at: 'controlsView' }
 		},
 		on: {
 			createView: {

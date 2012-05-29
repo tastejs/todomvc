@@ -37,12 +37,6 @@ define(function () {
 				cb.checked = true;
 				self.update(cb);
 			});
-
-
-//			this._forEachTodo(function(todo) {
-//				todo.complete = checked;
-//				self.update(todo);
-//			});
 		},
 
 		updateCount: function() {
