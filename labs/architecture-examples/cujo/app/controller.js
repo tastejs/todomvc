@@ -21,19 +21,20 @@ define(function () {
 		removeCompleted: function() {
 			var self = this;
 
-			this._forEachTodo(function(todo) {
-				if(todo.complete) self.remove(todo);
+			var checkboxes = toArray(this.getCheckboxes());
+			checkboxes.forEach(function(cb) {
+				self.remove(cb);
 			});
 		},
 
 		toggleAll: function(e) {
-			var checked, self;
+			var checked, checkboxes, self;
 
 			checked = (e.selectorTarget || e.target).checked;
+			checkboxes = toArray(this.getCheckboxes());
 			self = this;
 
-			var checkboxes = toArray(this.getCheckboxes());
-			checked = checkboxes.forEach(function(cb) {
+			checkboxes.forEach(function(cb) {
 				cb.checked = true;
 				self.update(cb);
 			});
