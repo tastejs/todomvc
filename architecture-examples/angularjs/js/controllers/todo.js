@@ -17,11 +17,6 @@ function TodoController($scope, $routeParams) {
     other: '{} items left'
   };
 
-  function getFilterCss(filter){
-    console.log($scope.filter, filter);
-    return filter == $scope.filter ? 'selected' : '';
-  }
-
   function retrieveStore() {
     var store = localStorage.getItem('todo-angularjs');
     return (store && JSON.parse(store)) || [];
