@@ -2,8 +2,8 @@ define( [ "troopjs-core/widget/application", "troopjs-core/route/router", "jquer
 
 	function forward(signal, deferred) {
 		var services = $.map(this.services, function map(service, index) {
-			return $.Deferred(function deferredSignal(dfd) {
-				service.signal(signal, dfd);
+			return $.Deferred(function deferredSignal(deferSignal) {
+				service.signal(signal, deferSignal);
 			});
 		});
 

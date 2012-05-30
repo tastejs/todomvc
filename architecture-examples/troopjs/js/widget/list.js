@@ -13,14 +13,14 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 		var self = this;
 
 		// Defer initialization
-		$.Deferred(function deferredInit(dfdInit) {
+		$.Deferred(function deferredInit(deferInit) {
 			// Defer get
-			$.Deferred(function deferredGet(dfdGet) {
-				store.get(self.config.store, dfdGet);
+			$.Deferred(function deferredGet(deferGet) {
+				store.get(self.config.store, deferGet);
 			})
 			.done(function doneGet(items) {
 				// Set items (empty or compacted) - then resolve
-				store.set(self.config.store, items === null ? [] : $.grep(items, filter, true), dfdInit);
+				store.set(self.config.store, items === null ? [] : $.grep(items, filter, true), deferInit);
 			});
 		})
 		.done(function doneInit(items) {
@@ -41,10 +41,10 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			var self = this;
 
 			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
+			$.Deferred(function deferredSet(deferSet) {
 				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
-					store.get(self.config.store, dfdGet);
+				$.Deferred(function deferredGet(deferGet) {
+					store.get(self.config.store, deferGet);
 				})
 				.done(function doneGet(items) {
 					// Get the next index
@@ -63,7 +63,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 					});
 
 					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					store.set(self.config.store, items, deferSet);
 				});
 			})
 			.done(function doneSet(items) {
@@ -114,17 +114,17 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				.toggleClass("active", !completed);
 
 			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
+			$.Deferred(function deferredSet(deferSet) {
 				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
-					store.get(self.config.store, dfdGet);
+				$.Deferred(function deferredGet(deferGet) {
+					store.get(self.config.store, deferGet);
 				})
 				.done(function doneGet(items) {
 					// Update completed
 					items[index].completed = completed;
 
 					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					store.set(self.config.store, items, deferSet);
 				});
 			})
 			.done(function doneSet(items) {
@@ -144,18 +144,18 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				});
 
 			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
+			$.Deferred(function deferredSet(deferSet) {
 				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
+				$.Deferred(function deferredGet(deferGet) {
 					// Get the items
-					store.get(self.config.store, dfdGet);
+					store.get(self.config.store, deferGet);
 				})
 				.done(function doneGet(items) {
 					// Delete item
 					items[index] = null;
 
 					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					store.set(self.config.store, items, deferSet);
 				});
 			})
 			.done(function doneSet(items) {
@@ -177,9 +177,9 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				.prop(DISABLED, true);
 
 			// Defer get
-			$.Deferred(function deferredGet(dfdGet) {
+			$.Deferred(function deferredGet(deferGet) {
 				// Get items
-				store.get(self.config.store, dfdGet);
+				store.get(self.config.store, deferGet);
 			})
 			.done(function doneGet(items) {
 				// Update input value, enable and select
@@ -214,21 +214,21 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			}
 			else {
 				// Defer set
-				$.Deferred(function deferredSet(dfdSet) {
+				$.Deferred(function deferredSet(deferSet) {
 					// Disable
 					$target.prop(DISABLED, true);
 
 					// Defer get
-					$.Deferred(function deferredGet(dfdGet) {
+					$.Deferred(function deferredGet(deferGet) {
 						// Get items
-						store.get(self.config.store, dfdGet);
+						store.get(self.config.store, deferGet);
 					})
 					.done(function doneGet(items) {
 						// Update text
 						items[index].title = title;
 
 						// Set items and resolve set
-						store.set(self.config.store, items, dfdSet);
+						store.set(self.config.store, items, deferSet);
 					});
 				})
 				.done(function doneSet(items) {
