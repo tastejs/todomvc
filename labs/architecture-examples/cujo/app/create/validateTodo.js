@@ -8,7 +8,7 @@ define(function() {
 
 		// Must be a valid object, and have a text property that is non-empty
 		valid = todo && 'text' in todo && todo.text.trim();
-		result = { valid: valid };
+		result = { valid: !!valid };
 
 		if(!valid) result.errors = [{ property: 'text', message: 'missing' }];
 

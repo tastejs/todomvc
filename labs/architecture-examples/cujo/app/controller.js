@@ -17,6 +17,7 @@ define(function () {
 		add: function() {},
 		update: function() {},
 		remove: function() {},
+		select: function() {},
 
 		removeCompleted: function() {
 			var self, checkboxes;
@@ -32,13 +33,21 @@ define(function () {
 		toggleAll: function(e) {
 			var checked, checkboxes, self;
 
-			checked = (e.selectorTarget || e.target).checked;
+//			checked = (e.selectorTarget || e.target).checked;
 			checkboxes = toArray(this.getCheckboxes());
 			self = this;
 
 			checkboxes.forEach(function(cb) {
-				cb.checked = checked;
-				self.update(cb);
+				self.select(cb);
+			});
+		},
+
+		handleToggleAll: function(items) {
+			var self = this;
+			var complete = self.masterCheckbox.checked;
+			items.forEach(function(item) {
+				item.complete = complete;
+				self.update(item);
 			});
 		},
 

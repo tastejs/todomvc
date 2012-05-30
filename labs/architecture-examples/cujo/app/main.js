@@ -51,9 +51,18 @@ define({
 		connect: {
 			add: 'generateId | todoHub.add',
 			remove: 'todoHub.remove',
+			update: 'todoHub.update',
+			select: 'todoHub.select',
 			'todoHub.onAdd': 'updateCount',
 			'todoHub.onUpdate': 'updateCount',
-			'todoHub.onRemove': 'updateCount'
+			'todoHub.onRemove': 'updateCount',
+			'todoHub.onDeliver': 'handleToggleAll'
+		},
+		before: {
+			toggleAll: 'todoHub.collect'
+		},
+		after: {
+			toggleAll: 'todoHub.submit'
 		}
 	},
 
@@ -82,7 +91,7 @@ define({
 	},
 
 	plugins: [
-//		{ module: 'wire/debug' },
+		{ module: 'wire/debug', trace: true },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
