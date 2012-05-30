@@ -33,7 +33,8 @@ define({
 			getCheckboxes: { $ref: 'getCheckboxes' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
-			countNodes: { $ref: 'dom.all!.count', at: 'controlsView' }
+			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
+			remainingNode: { $ref: 'dom.first!.remaining', at: 'controlsView' }
 		},
 		on: {
 			createView: {
