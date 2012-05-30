@@ -136,10 +136,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			// Update UI
 			$($event.target)
 				.closest("li")
-				.slideUp("slow", function hidden() {
-					// Remove LI
-					$(this).remove();
-				});
+				.remove();
 
 			// Defer set
 			$.Deferred(function deferredSet(deferSet) {

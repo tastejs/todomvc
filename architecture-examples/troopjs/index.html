@@ -18,13 +18,13 @@
 			<input id="new-todo" placeholder="What needs to be done?" autofocus data-weave="widget/create">
 		</header>
 		<!-- This section should be hidden by default and shown when there are todos -->
-		<section id="main" data-weave="widget/display" data-show="slideDown" data-hide="slideUp">
+		<section id="main" data-weave="widget/display">
 			<input id="toggle-all" type="checkbox" data-weave="widget/mark">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-weave="widget/list"></ul>
 		</section>
 		<!-- This footer should hidden by default and shown when there are todos -->
-		<footer id="footer" data-weave="widget/display" data-show="fadeIn" data-hide="fadeOut">
+		<footer id="footer" data-weave="widget/display">
 			<!-- This should be `0 items left` by default -->
 			<span id="todo-count" data-weave="widget/count"><strong>0</strong> items left</span>
 			<!-- Remove this if you don't implement routing -->
