@@ -1,0 +1,10 @@
+<li ng-repeat="todo in todos | filter:filter" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
+	<div class="view">
+		<input class="toggle" type="checkbox" name="todo.done" ng-model="todo.done">
+		<label>{{todo.title}}</label>
+		<button class="destroy" ng-click="removeTodo(todo)"></button>
+	</div>
+	<form ng-submit="finishEditing(todo)">
+		<input class="edit" type="text" name="todo.title" ng-model="todo.title" my:blur="finishEditing(todo)">
+	</form>
+</li>
