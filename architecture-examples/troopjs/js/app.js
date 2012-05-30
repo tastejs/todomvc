@@ -1,7 +1,7 @@
 require({
 	"baseUrl" : "js",
 	"paths" : {
-		"jquery" : "lib/jquery",
+		"jquery" : "../../../assets/jquery.min",
 		"troopjs-bundle" : "lib/troopjs-bundle"
 	},
 	"priority": [ "jquery", "config", "troopjs-bundle" ]
