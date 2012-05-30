@@ -29,6 +29,7 @@ define({
 		prototype: { create: 'controller' },
 		properties: {
 			parseForm: { module: 'cola/dom/formToObject' },
+			validate: { module: 'create/validateTodo' },
 			getCheckboxes: { $ref: 'getCheckboxes' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
@@ -40,7 +41,6 @@ define({
 			},
 			listView: {
 				'click:.destroy': 'remove',
-				'click:.toggle': 'update',
 				'click:#toggle-all': 'toggleAll'
 			},
 			controlsView: {
@@ -49,12 +49,11 @@ define({
 		},
 		connect: {
 			add: 'generateId | todoHub.add',
-			update: 'todoHub.update',
 			remove: 'todoHub.remove',
+			'todoHub.onAdd': 'updateCount',
 			'todoHub.onUpdate': 'updateCount',
 			'todoHub.onRemove': 'updateCount'
-		},
-		ready: 'updateCount'
+		}
 	},
 
 	qsa: { $ref: 'dom.all!' },

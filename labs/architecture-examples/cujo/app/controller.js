@@ -12,16 +12,18 @@ define(function () {
 		 * @injected
 		 * @param form
 		 */
-//		parseForm: function(form) {},
+		parseForm: function(form) {},
 
 		add: function() {},
 		update: function() {},
 		remove: function() {},
 
 		removeCompleted: function() {
-			var self = this;
+			var self, checkboxes;
 
-			var checkboxes = toArray(this.getCheckboxes());
+			self = this;
+			checkboxes = toArray(this.getCheckboxes());
+
 			checkboxes.forEach(function(cb) {
 				self.remove(cb);
 			});
@@ -35,7 +37,7 @@ define(function () {
 			self = this;
 
 			checkboxes.forEach(function(cb) {
-				cb.checked = true;
+				cb.checked = checked;
 				self.update(cb);
 			});
 		},
@@ -62,7 +64,7 @@ define(function () {
 		 * @injected
 		 * @param todo
 		 */
-		validate: function(todo) { return { valid: /\S+/.test(todo.text) }; },
+		validate: function(todo) {},
 
 		handleSubmit: function(e) {
 			// TODO: Sure would be nice not to have to deal with a form

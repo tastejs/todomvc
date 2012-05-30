@@ -1,7 +1,10 @@
 define(function() {
 
 	return function generateId(item) {
-		item.id = guidLike();
+		if(!('id' in item)) {
+			item.id = guidLike();
+		}
+
 		return item;
 	};
 
