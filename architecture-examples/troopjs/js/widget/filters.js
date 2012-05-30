@@ -1,7 +1,5 @@
 define( [ "troopjs-core/component/widget", "jquery" ], function FiltersModule(Widget, $) {
 
-	var SELECTED = "selected";
-
 	return Widget.extend({
 		"hub:memory/route" : function onRoute(topic, uri) {
 			this.publish("todos/filter", uri.source);
@@ -12,9 +10,9 @@ define( [ "troopjs-core/component/widget", "jquery" ], function FiltersModule(Wi
 
 			// Update UI
 			$("a[href^='#']")
-				.removeClass(SELECTED)
+				.removeClass("selected")
 				.filter("[href='#" + filter + "']")
-				.addClass(SELECTED);
+				.addClass("selected");
 		}
 	});
 });

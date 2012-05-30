@@ -1,7 +1,5 @@
 define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery", "template!./item.html" ], function ListModule(Widget, store, $, template) {
 	var ENTER_KEY = 13;
-	var DISABLED = "disabled";
-	var CHECKED = "checked";
 	var FILTER_ACTIVE = "filter-active";
 	var FILTER_COMPLETED = "filter-completed";
 
@@ -72,7 +70,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 		},
 
 		"hub/todos/mark" : function onMark(topic, value) {
-			this.$element.find(":checkbox").prop(CHECKED, value).change();
+			this.$element.find(":checkbox").prop("checked", value).change();
 		},
 
 		"hub/todos/clear" : function onClear(topic) {
@@ -105,7 +103,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 		"dom/action/status.change" : function onStatus(topic, $event, index) {
 			var self = this;
 			var $target = $($event.target);
-			var completed = $target.prop(CHECKED);
+			var completed = $target.prop("checked");
 
 			// Update UI
 			$target
@@ -174,7 +172,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			// Get INPUT and disable
 			var $input = $li
 				.find("input")
-				.prop(DISABLED, true);
+				.prop("disabled", true);
 
 			// Defer get
 			$.Deferred(function deferredGet(deferGet) {
@@ -185,7 +183,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				// Update input value, enable and select
 				$input
 					.val(items[index].title)
-					.removeProp(DISABLED)
+					.removeProp("disabled")
 					.select();
 			})
 			.fail(function failGet() {
@@ -216,7 +214,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				// Defer set
 				$.Deferred(function deferredSet(deferSet) {
 					// Disable
-					$target.prop(DISABLED, true);
+					$target.prop("disabled", true);
 
 					// Defer get
 					$.Deferred(function deferredGet(deferGet) {
@@ -243,7 +241,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				})
 				.always(function alwaysSet() {
 					// Enable
-					$target.removeProp(DISABLED);
+					$target.removeProp("disabled");
 				});
 			}
 		}
