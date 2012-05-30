@@ -25,7 +25,7 @@ define(function () {
 			checkboxes = toArray(this.getCheckboxes());
 
 			checkboxes.forEach(function(cb) {
-				self.remove(cb);
+				if(cb.checked) self.remove(cb);
 			});
 		},
 
@@ -43,7 +43,7 @@ define(function () {
 		},
 
 		updateCount: function() {
-			var checkboxes, checked, countNodes;
+			var checkboxes, checked;
 
 			checkboxes = toArray(this.getCheckboxes());
 			checked = checkboxes.filter(function(cb) {
@@ -52,10 +52,8 @@ define(function () {
 
 			this.masterCheckbox.checked = checkboxes.length > 0 && checked === checkboxes.length;
 
-			countNodes = toArray(this.countNodes);
-			countNodes.forEach(function(n) {
-				n.innerHTML = checked;
-			});
+			this.countNode.innerHTML = checked;
+			this.remainingNode.innerHTML = checkboxes.length - checked;
 
 			return checked;
 		},
