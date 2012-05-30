@@ -1,7 +1,5 @@
 define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery", "template!./item.html" ], function ListModule(Widget, store, $, template) {
-	var RE = /^\s+|\s+$/;
 	var ENTER_KEY = 13;
-	var EMPTY = "";
 	var DISABLED = "disabled";
 	var CHECKED = "checked";
 	var FILTER_ACTIVE = "filter-active";
@@ -205,11 +203,9 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 		"dom/action/commit.focusout" : function onCommitFocusOut(topic, $event, index) {
 			var self = this;
 			var $target = $($event.target);
-			var title = $target
-				.val()
-				.replace(RE, EMPTY);
+			var title = $target.val().trim();
 
-			if (title === EMPTY) {
+			if (title === "") {
 				$target
 					.closest("li")
 					.removeClass("editing")
