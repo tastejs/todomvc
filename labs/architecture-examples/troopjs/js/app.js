@@ -1,12 +1,12 @@
 require({
 	"baseUrl" : "js",
 	"paths" : {
-		"jquery" : "lib/jquery",
+		"jquery" : "../../../../assets/jquery.min",
 		"troopjs-bundle" : "lib/troopjs-bundle"
 	},
 	"priority": [ "jquery", "config", "troopjs-bundle" ]
-}, [ "jquery" ], function App(jQuery) {
+}, [ "jquery", "widget/application" ], function App(jQuery, Application) {
 	jQuery(document).ready(function ready($) {
-		$(this.body).find("[data-weave]").weave();
+		Application($(this.body), "app/todos").start();
 	});
 });

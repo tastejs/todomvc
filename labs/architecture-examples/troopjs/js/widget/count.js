@@ -5,16 +5,10 @@ define( [ "troopjs-core/component/widget", "jquery" ], function CountModule(Widg
 	}
 
 	return Widget.extend({
-		"hub/todos/change" : function onChange(topic, items) {
+		"hub:memory/todos/change" : function onChange(topic, items) {
 			var count = $.grep(items, filter, true).length;
-			var $element = this.$element;
 
-			if (count > 0) {
-				$element.text(count + (count > 1 ? " items left" : " item left"));
-			}
-			else {
-				$element.text("No items left");
-			}
+			this.$element.html("<strong>" + count + "</strong> " + (count === 1 ? "item" : "items") + " left");
 		}
 	});
 });
