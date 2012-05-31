@@ -1,93 +1,46 @@
 define(function () {
 	"use strict";
 
-	var slice = [].slice;
-
-	function toArray(nodeList) {
-		return slice.call(nodeList);
-	}
-
 	return {
-		/**
-		 * @injected
-		 * @param form
-		 */
-		parseForm: function(form) {},
-
-		add: function() {},
-		update: function() {},
-		remove: function() {},
-		select: function() {},
+		createTodo: function() {},
+		removeTodo: function() {},
 
 		removeCompleted: function() {
-			var self, checkboxes;
+			var todos = this.todos;
 
-			self = this;
-			checkboxes = toArray(this.getCheckboxes());
-
-			checkboxes.forEach(function(cb) {
-				if(cb.checked) self.remove(cb);
+			todos.forEach(function(todo) {
+				if(todo.complete) todos.remove(todo);
 			});
 		},
 
-		toggleAll: function(e) {
-			var checked, checkboxes, self;
+		toggleAll: function() {
+			var todos, complete;
 
-//			checked = (e.selectorTarget || e.target).checked;
-			checkboxes = toArray(this.getCheckboxes());
-			self = this;
+			todos = this.todos;
+			complete = this.masterCheckbox.checked;
 
-			checkboxes.forEach(function(cb) {
-				self.select(cb);
-			});
-		},
-
-		handleToggleAll: function(items) {
-			var self = this;
-			var complete = self.masterCheckbox.checked;
-			items.forEach(function(item) {
-				item.complete = complete;
-				self.update(item);
+			todos.forEach(function(todo) {
+				todo.complete = complete;
+				todos.update(todo);
 			});
 		},
 
 		updateCount: function() {
-			var checkboxes, checked;
+			var total, checked;
 
-			checkboxes = toArray(this.getCheckboxes());
-			checked = checkboxes.filter(function(cb) {
-				return cb.checked;
-			}).length;
+			total = checked = 0;
 
-			this.masterCheckbox.checked = checkboxes.length > 0 && checked === checkboxes.length;
+			this.todos.forEach(function(todo) {
+				total++;
+				if(todo.complete) checked++;
+			});
+
+			this.masterCheckbox.checked = total > 0 && checked === total;
 
 			this.countNode.innerHTML = checked;
-			this.remainingNode.innerHTML = checkboxes.length - checked;
+			this.remainingNode.innerHTML = total - checked;
 
 			return checked;
-		},
-
-		/**
-		 * @injected
-		 * @param todo
-		 */
-		validate: function(todo) {},
-
-		handleSubmit: function(e) {
-			// TODO: Sure would be nice not to have to deal with a form
-			// in any way here.  Or better yet, have this controller go
-			// away entirely in favor of just being able to compose it
-			// in the wire spec.
-			var form, todo, validation;
-
-			form = e.selectorTarget || e.target;
-			todo = this.parseForm(form);
-			validation = this.validate(todo);
-
-			if(validation.valid) {
-				this.add(todo);
-				form.reset();
-			}
 		}
 	}
 
