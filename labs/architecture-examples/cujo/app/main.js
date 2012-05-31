@@ -33,7 +33,8 @@ define({
 	controlsView: {
 		render: {
 			template: { module: 'text!controls/template.html' },
-			replace: { module: 'i18n!controls/strings' }
+			replace: { module: 'i18n!controls/strings' },
+			css: { module: 'css!controls/structure.css' }
 		},
 		insert: { after: 'listView' }
 	},
@@ -49,7 +50,7 @@ define({
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
 			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
-			remainingNode: { $ref: 'dom.first!#todo-count', at: 'controlsView' }
+			remainingNodes: { $ref: 'dom.all!#todo-count strong', at: 'controlsView' }
 		},
 		on: {
 			createView: {
@@ -94,7 +95,7 @@ define({
 	},
 
 	plugins: [
-		{ module: 'wire/debug', trace: true },
+		{ module: 'wire/debug' },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },

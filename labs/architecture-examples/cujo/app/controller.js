@@ -1,6 +1,10 @@
 define(function () {
 	"use strict";
 
+	var updateRemainingCount, textProp;
+
+	updateRemainingCount = normalizeTextProp;
+
 	return {
 		createTodo: function() {},
 		removeTodo: function() {},
@@ -43,12 +47,24 @@ define(function () {
 			this.countNode.innerHTML = checked;
 
 			remaining = total - checked;
-			// TODO: It would be nice to abstract this kind of singular/pluralization
-			this.remainingNode.innerHTML =
-				(remaining === 1 ? this.strings.itemsLeft.singular : this.strings.itemsLeft.plural)
-					.replace(/\{count\}/, function() { return remaining; });
+
+			updateRemainingCount(this.remainingNodes, remaining);
 
 			return checked;
 		}
+	};
+
+	function normalizeTextProp () {
+		// sniff for proper textContent property
+		textProp = 'textContent' in document.documentElement ? 'textContent' : 'innerText';
+		// resume normally
+		(updateRemainingCount = setTextProp).apply(this, arguments);
 	}
+
+	function setTextProp (nodes, value) {
+		for (var i = 0; i < nodes.length; i++) {
+			nodes[i][textProp] = '' + value;
+		}
+	}
+
 });
