@@ -74,7 +74,7 @@ define({
 
 	todoStore: {
 		create: {
-			module: 'cola/LocalStorageAdapter',
+			module: 'cola/adapter/LocalStorage',
 			args: 'todos-cujo'
 		},
 		bind: {
@@ -100,7 +100,7 @@ define({
 		{ module: 'wire/on' },
 		{ module: 'wire/aop' },
 		{ module: 'wire/connect' },
-		{ module: 'wire/cola', comparator: 'text', querySelector: { $ref: 'dom.first!' } },
+		{ module: 'wire/cola', comparator: 'text' },
 		{ module: 'wire/functional' }
 	]
 });
