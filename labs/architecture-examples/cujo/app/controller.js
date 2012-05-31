@@ -28,7 +28,7 @@ define(function () {
 		},
 
 		updateCount: function() {
-			var total, checked;
+			var total, checked, remaining;
 
 			total = checked = 0;
 
@@ -37,13 +37,18 @@ define(function () {
 				if(todo.complete) checked++;
 			});
 
+			// TODO: It may make sense to move this stuff to a JS view
 			this.masterCheckbox.checked = total > 0 && checked === total;
 
 			this.countNode.innerHTML = checked;
-			this.remainingNode.innerHTML = total - checked;
+
+			remaining = total - checked;
+			// TODO: It would be nice to abstract this kind of singular/pluralization
+			this.remainingNode.innerHTML =
+				(remaining === 1 ? this.strings.itemsLeft.singular : this.strings.itemsLeft.plural)
+					.replace(/\{count\}/, function() { return remaining; });
 
 			return checked;
 		}
 	}
-
 });

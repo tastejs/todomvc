@@ -1,8 +1,8 @@
 define({
 	// TODO: Deal with singular vs. plural
 	itemsLeft: {
-		singular: 'item left',
-		plural: 'items left'
+		singular: '<strong>{count}</strong> item left',
+		plural: '<strong>{count}</strong> items left'
 	},
 	filter: {
 		all: 'All',
