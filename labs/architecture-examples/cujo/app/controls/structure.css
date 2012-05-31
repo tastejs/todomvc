@@ -1,0 +1,18 @@
+.todo-count-zero,
+.todo-count-one {
+	display: none;
+}
+
+.todo-zero .todo-count-zero {
+	display: inline;
+}
+
+.todo-one .todo-count-one {
+	display: inline;
+}
+
+.todo-zero .todo-count-many,
+.todo-one .todo-count-many {
+	display: none;
+}
+
