@@ -41,6 +41,7 @@ define({
 	todoController: {
 		prototype: { create: 'controller' },
 		properties: {
+			strings: { module: 'controls/strings' },
 			todos: { $ref: 'todos' },
 
 			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
@@ -48,7 +49,7 @@ define({
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
 			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
-			remainingNode: { $ref: 'dom.first!.remaining', at: 'controlsView' }
+			remainingNode: { $ref: 'dom.first!#todo-count', at: 'controlsView' }
 		},
 		on: {
 			createView: {
