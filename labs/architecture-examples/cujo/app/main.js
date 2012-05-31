@@ -5,7 +5,7 @@ define({
 	createView: {
 		render: {
 			template: { module: 'text!create/template.html' },
-			replace: { module: 'create/strings' }
+			replace: { module: 'i18n!create/strings' }
 		},
 		insert: { first: 'root' }
 	},
@@ -18,7 +18,7 @@ define({
 	listView: {
 		render: {
 			template: { module: 'text!list/template.html' },
-			replace: { module: 'list/strings' }
+			replace: { module: 'i18n!list/strings' }
 		},
 		bind: {
 			to: { $ref: 'todos' },
@@ -33,7 +33,7 @@ define({
 	controlsView: {
 		render: {
 			template: { module: 'text!controls/template.html' },
-			replace: { module: 'controls/strings' }
+			replace: { module: 'i18n!controls/strings' }
 		},
 		insert: { after: 'listView' }
 	},
