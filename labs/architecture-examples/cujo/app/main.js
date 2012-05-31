@@ -24,7 +24,7 @@ define({
 			to: { $ref: 'todos' },
 			bindings: {
 				text: { node: 'label' },
-				complete: { node: '.toggle', prop: 'checked', events: 'change' }
+				complete: { node: '.toggle', prop: 'checked' }
 			}
 		},
 		insert: { after: 'createView' }
@@ -46,6 +46,7 @@ define({
 
 			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
 			removeTodo: { compose: 'todos.remove' },
+			updateTodo: { compose: 'todos.update' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
 			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
@@ -57,6 +58,7 @@ define({
 			},
 			listView: {
 				'click:.destroy': 'removeTodo',
+				'click:.toggle': 'updateTodo',
 				'click:#toggle-all': 'toggleAll'
 			},
 			controlsView: {
