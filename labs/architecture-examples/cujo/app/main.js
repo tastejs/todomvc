@@ -100,7 +100,6 @@ define({
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
-		{ module: 'wire/aop' },
 		{ module: 'wire/connect' },
 		{ module: 'wire/cola', comparator: 'text' },
 		{ module: 'wire/functional' }
