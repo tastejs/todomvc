@@ -67,7 +67,8 @@ define({
 			}
 		},
 		connect: {
-			'todos.onChange': 'updateCount'
+			'todos.onChange': 'updateCount',
+			updateRemainingCount: 'setControlsOocssState'
 		}
 	},
 
@@ -96,6 +97,23 @@ define({
 		}
 	},
 
+	setControlsOocssState: {
+		compose: [
+			{
+				create: {
+					module: 'wire/dom/transform/mapTokenList',
+					args: { 0: 'todo-zero', 1: 'todo-one' }
+				}
+			},
+			{
+				create: {
+					module: 'wire/dom/transform/replaceClasses',
+					args: { $ref: 'controlsView' }
+				}
+			}
+		]
+	},
+
 	plugins: [
 		{ module: 'wire/debug' },
 		{ module: 'wire/dom' },
@@ -103,6 +121,7 @@ define({
 		{ module: 'wire/on' },
 		{ module: 'wire/connect' },
 		{ module: 'wire/cola', comparator: 'text' },
+		{ module: 'wire/aop' },
 		{ module: 'wire/functional' }
 	]
 });

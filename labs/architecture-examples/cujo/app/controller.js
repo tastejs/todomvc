@@ -48,10 +48,16 @@ define(function () {
 
 			remaining = total - checked;
 
-			updateRemainingCount(this.remainingNodes, remaining);
+			this.updateRemainingCount(remaining);
 
 			return checked;
+		},
+
+		updateRemainingCount: function (remaining) {
+			updateRemainingCount(this.remainingNodes, remaining);
+			return remaining;
 		}
+
 	};
 
 	function normalizeTextProp () {
