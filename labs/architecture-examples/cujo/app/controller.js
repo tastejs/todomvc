@@ -11,6 +11,8 @@ define(function () {
 			todos.forEach(function(todo) {
 				if(todo.complete) todos.remove(todo);
 			});
+
+			this.updateCount();
 		},
 
 		toggleAll: function() {
