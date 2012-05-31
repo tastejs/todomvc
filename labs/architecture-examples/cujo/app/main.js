@@ -63,9 +63,7 @@ define({
 			}
 		},
 		connect: {
-			'todos.onAdd': 'updateCount',
-			'todos.onUpdate': 'updateCount',
-			'todos.onRemove': 'updateCount'
+			'todos.onChange': 'updateCount'
 		}
 	},
 
@@ -76,7 +74,7 @@ define({
 	todoStore: {
 		create: {
 			module: 'cola/LocalStorageAdapter',
-			args: 'todos'
+			args: 'todos-cujo'
 		},
 		bind: {
 			to: { $ref: 'todos' }
