@@ -10,13 +10,18 @@ define({
 		insert: { first: 'root' }
 	},
 
+	createForm: {
+		getElement: { $ref: 'dom.first!form', at: 'createView' },
+		connect: { 'todos.onAdd': 'reset' }
+	},
+
 	listView: {
 		render: {
 			template: { module: 'text!list/template.html' },
 			replace: { module: 'list/strings' }
 		},
 		bind: {
-			to: { $ref: 'todoHub' },
+			to: { $ref: 'todos' },
 			bindings: {
 				text: { node: 'label' },
 				complete: { node: '.toggle', prop: 'checked', events: 'change' }
@@ -25,12 +30,21 @@ define({
 		insert: { after: 'createView' }
 	},
 
+	controlsView: {
+		render: {
+			template: { module: 'text!controls/template.html' },
+			replace: { module: 'controls/strings' }
+		},
+		insert: { after: 'listView' }
+	},
+
 	todoController: {
 		prototype: { create: 'controller' },
 		properties: {
-			parseForm: { module: 'cola/dom/formToObject' },
-			validate: { module: 'create/validateTodo' },
-			getCheckboxes: { $ref: 'getCheckboxes' },
+			todos: { $ref: 'todos' },
+
+			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
+			removeTodo: { compose: 'todos.remove' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
 			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
@@ -38,10 +52,10 @@ define({
 		},
 		on: {
 			createView: {
-				'submit:form': 'handleSubmit'
+				'submit:form': 'createTodo'
 			},
 			listView: {
-				'click:.destroy': 'remove',
+				'click:.destroy': 'removeTodo',
 				'click:#toggle-all': 'toggleAll'
 			},
 			controlsView: {
@@ -49,45 +63,35 @@ define({
 			}
 		},
 		connect: {
-			add: 'generateId | todoHub.add',
-			remove: 'todoHub.remove',
-			update: 'todoHub.update',
-			select: 'todoHub.select',
-			'todoHub.onAdd': 'updateCount',
-			'todoHub.onUpdate': 'updateCount',
-			'todoHub.onRemove': 'updateCount',
-			'todoHub.onDeliver': 'handleToggleAll'
-		},
-		before: {
-			toggleAll: 'todoHub.collect'
-		},
-		after: {
-			toggleAll: 'todoHub.submit'
+			'todos.onAdd': 'updateCount',
+			'todos.onUpdate': 'updateCount',
+			'todos.onRemove': 'updateCount'
 		}
 	},
 
-	qsa: { $ref: 'dom.all!' },
-	getCheckboxes: { $ref: 'bind!qsa', args: ['.toggle', { $ref: 'listView' }] },
+	parseForm: { module: 'cola/dom/formToObject' },
+	cleanInput: { module: 'create/cleanInput' },
 	generateId: { module: 'create/generateId' },
 
-	todos: {
+	todoStore: {
 		create: {
 			module: 'cola/LocalStorageAdapter',
 			args: 'todos'
 		},
 		bind: {
-			to: { $ref: 'todoHub' }
+			to: { $ref: 'todos' }
 		}
 	},
 
-	todoHub: { create: 'cola/Hub' },
-
-	controlsView: {
-		render: {
-			template: { module: 'text!controls/template.html' },
-			replace: { module: 'controls/strings' }
-		},
-		insert: { after: 'listView' }
+	todos: {
+		create: {
+			module: 'cola/Hub',
+			args: {
+				strategyOptions: {
+					validator: { module: 'create/validateTodo' }
+				}
+			}
+		}
 	},
 
 	plugins: [
