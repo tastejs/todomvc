@@ -7,7 +7,7 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
          * items found in localStorage.
          */
         data: {
-            id: "local_storage_todos",
+            id: "todos-dojo",
             todos : [],
             incomplete: 0,
             complete: 0
@@ -47,9 +47,9 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
 
             /**
              * Bind all pre-populated todo items to update the
-             * total item values when the "isDone" attribute is changed.
+             * total item values when the "completed" attribute is changed.
              */
-            array.forEach(this.todos, lang.hitch(this, "bindIsDone"));
+            array.forEach(this.todos, lang.hitch(this, "bindItemProps"));
 
             /**
              * Whenever the "todos" array is modified, an element is added
@@ -64,21 +64,41 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
          * Set up binding on a todo item, so that when the
          * item's checked attribute changes, we re-calculate
          * the composite model attribute's value, "complete".
+         *
+         * We also need to remove any tasks with empty titles.
          */
-        bindIsDone: function (item) {
-            mvc.bindInputs([item.isDone], lang.hitch(this, "updateTotalItemsLeft"));
+        bindItemProps: function (item) {
+            mvc.bindInputs([item.completed], lang.hitch(this, "updateTotalItemsLeft"));
+            mvc.bindInputs([item.title], lang.hitch(window, setTimeout, lang.hitch(this, "deleteEmptyTasks")));
+        },
+
+        /**
+         * Search through current tasks list, removing all 
+         * with empty titles.
+         */ 
+        deleteEmptyTasks: function () {
+            var len = this.todos.length, idx = 0;
+
+             while (idx < len) {
+                 if (!this.todos[idx].title.value.length) {
+                     this.todos.remove(idx);
+                     len--;
+                     continue;
+                 }
+                 idx++;
+             }
         },
 
         /**
          * When todos array is modified, we need to update the composite
          * value attributes. If the modification was an addition, ensure the
-         * "isDone" attribute is being watched for updates.
+         * "completed" attribute is being watched for updates.
          */
         onTodosModelChange: function (prop, oldValue, newValue) {
             this.updateTotalItemsLeft();
 
             if (typeof prop === "number" && !oldValue && newValue) {
-                this.bindIsDone(newValue);
+                this.bindItemProps(newValue);
             }
         },
 
@@ -89,7 +109,7 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
          */
         updateTotalItemsLeft: function () {
             this.incomplete.set("value", array.filter(this.todos, function (item) {
-                return item && !item.isDone.value;
+                return item && !item.completed.value;
             }).length);
         }
     });
