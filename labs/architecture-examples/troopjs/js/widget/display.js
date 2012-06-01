@@ -5,8 +5,8 @@ define( [ "troopjs-core/component/widget", "jquery" ], function DisplayModule(Wi
 	}
 
 	return Widget.extend({
-		"hub/todos/change": function onChange(topic, items) {
-			this.$element[$.grep(items, filter, true).length > 0 ? "show" : "hide"]("fast");
+		"hub:memory/todos/change": function onChange(topic, items) {
+			this.$element[$.grep(items, filter, true).length > 0 ? "show" : "hide"]();
 		}
 	});
 });
