@@ -1,9 +1,7 @@
 define( [ "troopjs-core/component/widget" ], function MarkModule(Widget) {
-	var INDETERMINATE = "indeterminate";
-	var CHECKED = "checked";
 
 	return Widget.extend({
-		"hub/todos/change" : function onChange(topic, items) {
+		"hub:memory/todos/change" : function onChange(topic, items) {
 			var total = 0;
 			var count = 0;
 			var $element = this.$element;
@@ -22,18 +20,18 @@ define( [ "troopjs-core/component/widget" ], function MarkModule(Widget) {
 
 			if (count === 0) {
 				$element
-					.prop(INDETERMINATE, false)
-					.prop(CHECKED, false);
+					.prop("indeterminate", false)
+					.prop("checked", false);
 			}
 			else if (count === total) {
 				$element
-					.prop(INDETERMINATE, false)
-					.prop(CHECKED, true);
+					.prop("indeterminate", false)
+					.prop("checked", true);
 			}
 			else {
 				$element
-					.prop(INDETERMINATE, true)
-					.prop(CHECKED, false);
+					.prop("indeterminate", true)
+					.prop("checked", false);
 			}
 		},
 
