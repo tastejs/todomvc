@@ -202,7 +202,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 
 			if (title === "") {
 				$target
-					.closest("li")
+					.closest("li.editing")
 					.removeClass("editing")
 					.find(".destroy")
 					.click();
