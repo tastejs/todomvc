@@ -10,9 +10,13 @@ Whilst this application is very different to the other TodoMVC implementations, 
 an interesting comparison. Large-scale JavaScript applications are often written with GWT or Closure,
 with the resulting JavaScript code delivered to the client being compiled. 
 
+You can read more about the implementation on my blog:
+
+http://www.scottlogic.co.uk/blog/colin/2012/03/developing-a-gwt-todomvc-application/
+
 ### Folder structure
 
-- `css` - includes the template `app.css` file and the GWT specific `override.css`
+- `css` - includes GWT specific `app.css`, most styling is taken from the base CSS file `../../assets/base.css`
 - `gwttodo` - the GWT compiled output, this includes various HTML files, which contain the JavaScript
 code for each <a href "http://code.google.com/webtoolkit/doc/latest/tutorial/compile.html">GWT permutation</a>. This
 folder also includes some redundant files, see the issue <a href="https://github.com/ColinEberhardt/todomvc/issues/9">
