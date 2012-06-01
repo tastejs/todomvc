@@ -6,14 +6,14 @@ define(["dojo/_base/declare",
         // Parent classes
         "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
         // General application modules
-        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", "dojo/query",
-        "dojo/keys", "dojox/mvc", "dojo/hash", "dojo/_base/connect", "todo/model/TodoModel",
+        "dojo/_base/lang", "dojo/_base/event", "dojo/on", "dojo/dom-class", "dojo/dom-attr", "dojo/query", "dojo/string",
+        "dijit/_base/manager", "dojo/keys", "dojox/mvc", "dojo/hash", "dojo/_base/connect", "todo/model/TodoModel",
         // Widget template
         "dojo/text!./app.html",
         // Template Widgets
-        "dijit/InlineEditBox", "todo/form/CheckBox", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"],
+        "todo/form/InlineEditBox", "todo/form/CheckBox", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"],
     function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr, 
-             query, keys, mvc, hash, connect, TodoModel, template) {
+             query, str, manager, keys, mvc, hash, connect, TodoModel, template) {
 
     return declare("todo.app", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         /** Widget template HTML string */
@@ -60,6 +60,7 @@ define(["dojo/_base/declare",
          */
         postCreate: function () {
             on(this.domNode, ".destroy:click", lang.hitch(this, "onRemove"));
+            on(this.domNode, ".view:dblclick", lang.hitch(this, "onEdit"));
             this.onItemStatusUpdate();
         },
 
@@ -87,7 +88,7 @@ define(["dojo/_base/declare",
              * index and, instead, decrement the total item count.
              */
              while (idx < len) {
-                 if (this.model.todos[idx].isDone.value) {
+                 if (this.model.todos[idx].completed.value) {
                      this.model.todos.remove(idx);
                      len--;
                      continue;
@@ -100,9 +101,9 @@ define(["dojo/_base/declare",
          * Add new a new todo item as the last element
          * in the parent model.
          */
-        addToModel: function (content, isDone) {
+        addToModel: function (content, completed) {
             var insert = mvc.newStatefulModel({
-                data: {todo_text: content, isDone: isDone}
+                data: {title: content, completed: completed}
             });
 
             this.model.todos.add(this.model.todos.length, insert);
@@ -118,9 +119,12 @@ define(["dojo/_base/declare",
                 length = this.model.todos.get("length");
 
             domClass.toggle(this.domNode, "todos_selected", completed > 0);
+            domClass.toggle(this.domNode, "multiple", completed > 1);
             domClass.toggle(this.domNode, "todos_present", length);
 
             domAttr.set(this.mark_all, "checked", length && length === completed);
+
+            setTimeout(lang.hitch(this, "onHashChange", hash()));
         },
 
         /**
@@ -132,7 +136,7 @@ define(["dojo/_base/declare",
             var checked = this.mark_all.checked;
 
             for(var i = 0, len = this.model.todos.length; i < len; i++) {
-                this.model.todos[i].isDone.set("value", checked);
+                this.model.todos[i].completed.set("value", checked);
             }
         },
 
@@ -142,7 +146,10 @@ define(["dojo/_base/declare",
          * text value as new todo item in the model.
          */
         onKeyPress: function (event) {
-            if (event.keyCode !== keys.ENTER) return;
+            if (event.keyCode !== keys.ENTER || 
+                !str.trim(event.target.value).length) {
+                return;
+            }
 
             this.addToModel(event.target.value, false);
             event.target.value = "";
@@ -153,10 +160,20 @@ define(["dojo/_base/declare",
          * Event handler when user has clicked to
          * remove a todo item, just remove it from the
          * model using the item identifier.
-         **/
+         */
         onRemove: function (event) {
             this.model.todos.remove(domAttr.get(event.target, "data-model-id"));
         }, 
+
+        /**
+         * Whenever the user double clicks the item label, 
+         * set inline edit box to true.
+         */ 
+        onEdit: function (event) {
+            query(".inline_edit", event.target).forEach(function (inline_edit) {
+                manager.byNode(inline_edit).edit();
+            });
+        },
 
         /**
          * When the URI's hash value changes, modify the 
@@ -169,7 +186,7 @@ define(["dojo/_base/declare",
                 (hash === this.ACTIVE? true : null));
            
             query("#todo-list > li").forEach(lang.hitch(this, function (item, idx) {
-                var done = this.model.todos[idx].isDone.get("value");
+                var done = this.model.todos[idx].completed.get("value");
                 domClass.toggle(item, "hidden", done === showIfDone);
             }));
 

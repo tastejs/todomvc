@@ -1,10 +1,12 @@
-#clear-completed, #footer, #main {
+#clear-completed, #footer, #main,
+.plural {
     display: none;
 }
 
 #todoapp.todos_selected #clear-completed,
 #todoapp.todos_present #footer, 
-#todoapp.todos_present #main {
+#todoapp.todos_present #main,
+.multiple .plural {
     display: inherit;
 }
 
