@@ -15,7 +15,7 @@
 	border-bottom: 1px dotted #ccc;
 }
 
-#todo-list .listItem:last-child {
+#todo-list div :last-child .listItem {
 	border-bottom: none;
 }
 
@@ -115,6 +115,6 @@
 	display: none;
 }
 
-#todo-list .listItem.editing:last-child {
+#todo-list div :last-child .listItem.editing {
 	margin-bottom: -1px;
 }

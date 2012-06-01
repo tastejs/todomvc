@@ -22,7 +22,7 @@ import com.google.gwt.view.client.ListDataProvider;
  */
 public class ToDoPresenter {
 
-	private static final String STORAGE_KEY = "todo-gwt-state";
+	private static final String STORAGE_KEY = "todo-gwt";
 
 	/**
 	 * The interface that a view for this presenter must implement.
