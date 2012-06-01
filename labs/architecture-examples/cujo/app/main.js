@@ -42,7 +42,6 @@ define({
 	todoController: {
 		prototype: { create: 'controller' },
 		properties: {
-			strings: { module: 'controls/strings' },
 			todos: { $ref: 'todos' },
 
 			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
