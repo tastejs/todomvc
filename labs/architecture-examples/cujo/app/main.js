@@ -46,7 +46,7 @@ define({
 
 			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
 			removeTodo: { compose: 'todos.get | todos.remove' },
-			updateTodo: { compose: 'todos.update' },
+			updateTodo: { compose: 'todos.get | todos.update' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
 			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
@@ -65,9 +65,13 @@ define({
 				'click:#clear-completed': 'removeCompleted'
 			}
 		},
+		// Simple JS-to-JS connections via wire/connect
 		connect: {
-			'todos.onChange': 'updateCount',
 			updateRemainingCount: 'setControlsOocssState'
+		},
+		// Could use connect, but just showing AOP connector type via wire/aop
+		after: {
+			'todos.onChange': 'updateCount'
 		}
 	},
 
