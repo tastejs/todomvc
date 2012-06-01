@@ -45,7 +45,7 @@ define({
 			todos: { $ref: 'todos' },
 
 			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
-			removeTodo: { compose: 'todos.remove' },
+			removeTodo: { compose: 'todos.get | todos.remove' },
 			updateTodo: { compose: 'todos.update' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
@@ -58,7 +58,7 @@ define({
 			},
 			listView: {
 				'click:.destroy': 'removeTodo',
-				'click:.toggle': 'updateTodo',
+				'change:.toggle': 'updateTodo',
 				'click:#toggle-all': 'toggleAll'
 			},
 			controlsView: {
