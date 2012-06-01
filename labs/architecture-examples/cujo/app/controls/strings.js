@@ -1,9 +1,9 @@
 define({
 	// TODO: Deal with singular vs. plural
 	itemsLeft: {
-		zero: '\\o/ no items left!!!',
+		zero: '\\o/ no todo items!!!',
 		one: 'only one item left!',
-		many: '<strong>{count}</strong> items left'
+		many: 'ugh, <strong></strong> items left'
 	},
 	filter: {
 		all: 'All',
