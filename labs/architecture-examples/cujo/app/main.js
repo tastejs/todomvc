@@ -39,6 +39,14 @@ define({
 		insert: { after: 'listView' }
 	},
 
+	footerView: {
+		render: {
+			template: { module: 'text!footer/template.html' },
+			replace: { module: 'i18n!footer/strings' }
+		},
+		insert: { after: 'root' }
+	},
+
 	todoController: {
 		prototype: { create: 'controller' },
 		properties: {
