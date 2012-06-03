@@ -33,7 +33,7 @@
 
 	<script type="text/template" id="item-template">
 		<div class="view">
-			<input class="toggle" type="checkbox" <%- done ? 'checked="checked"' : '' %> />
+			<input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
 			<label><%- title %></label>
 			<button class="destroy"></button>
 		</div>
@@ -42,7 +42,7 @@
 	
 	<script type="text/template" id="stats-template">
 		<footer id="footer">
-			<span id="todo-count"><strong><%- remaining %></strong> <%- remaining == 1 ? 'item' : 'items' %> left</span>
+			<span id="todo-count"><strong><%- remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left</span>
 			<ul id="filters">
 				<li>
 					<a class="selected" href="#/">All</a>
@@ -55,7 +55,7 @@
 				</li>
 			</ul>
 			<% if (done) { %>
-			<button id="clear-completed">Clear <%- done %> completed <%- done == 1 ? 'item' : 'items' %></button>
+			<button id="clear-completed">Clear <%- done %> completed <%= done == 1 ? 'item' : 'items' %></button>
 			<% } %>
 		</footer>
 	</script>
