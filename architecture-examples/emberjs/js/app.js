@@ -1,171 +1,270 @@
-Todos = Ember.Application.create();
 
-Todos.Todo = Ember.Object.extend({
-  id: null,
-  title: null,
-  isDone: false,
-  todoChanged: function () {
-    Todos.TodoStore.update(this);
-  }.observes('title', 'isDone')
-});
 
-Todos.todosController = Ember.ArrayProxy.create({
-  content: [],
+// Controllers
+var Entries = Ember.ArrayProxy.extend({
+      store: null,
+      content: [],
 
-  createTodo: function(title) {
-    var todo = Todos.Todo.create({ title: title }),
-    stats = document.getElementById('stats-area');
-    this.pushObject(todo);
-    Todos.TodoStore.create(todo);
+      createNew: function( value ) {
+        if ( !value.trim() )
+          return;
+        var todo = this.get( 'store' ).createFromTitle( value );
+        this.pushObject( todo );
+      },
 
-    (stats.style.display=='block')? stats.style.display = 'inline' : stats.style.display = 'block';
-  },
+      pushObject: function( item, ignoreStorage) {
+        if ( !ignoreStorage )
+          this.get( 'store' ).create( item );
+        return this._super( item );
+      },
 
-  pushObject: function (item, ignoreStorage) {
-    if (!ignoreStorage)
-      Todos.TodoStore.create(item);
-    return this._super(item);
-  },
+      removeObject: function( item ) {
+        item = item.get( 'todo' ) || item;
+        this.get( 'store' ).remove( item );
+        return this._super( item );
+      },
 
-  removeObject: function (item) {
-    Todos.TodoStore.remove(item);
-    return this._super(item);
-  },
+      clearCompleted: function() {
+        this.filterProperty(
+          'completed', true
+        ).forEach( this.removeObject, this );
+      },
 
-  clearCompletedTodos: function() {
-    this.filterProperty('isDone', true).forEach(this.removeObject, this);
-  },
+      total: function() {
+        return this.get( 'length' );
+      }.property( '@each.length' ),
 
-  remaining: function() {
-    return this.filterProperty('isDone', false).get('length');
-  }.property('@each.isDone'),
+      remaining: function() {
+        return this.filterProperty( 'completed', false ).get( 'length' );
+      }.property( '@each.completed' ),
 
-  completed: function() {
-    return this.filterProperty('isDone', true).get('length');
-  }.property('@each.isDone'),
+      completed: function() {
+        return this.filterProperty( 'completed', true ).get( 'length' );
+      }.property( '@each.completed' ),
 
-  allAreDone: function(key, value) {
-    if (value !== undefined) {
-      this.setEach('isDone', value);
+      allAreDone: function( key, value ) {
+        if ( value !== undefined ) {
+          this.setEach( 'completed', value );
+          return value;
+        } else {
+          return !!this.get( 'length' ) &&
+            this.everyProperty( 'completed', true );
+        }
+      }.property( '@each.completed' ),
 
-      return value;
-    } else {
-      return !!this.get('length') && this.everyProperty('isDone', true);
-    }
-  }.property('@each.isDone'),
-
-  completeClass: function () {
-    return this.get('completed') < 1 ? 'none-completed' : 'some-completed';
-  }.property('@each.isDone')
-});
-
-Todos.StatsView = Ember.View.extend({
-  remainingBinding: 'Todos.todosController.remaining',
-  remainingString: function() {
-    var remaining = this.get('remaining');
-    return remaining + (remaining === 1 ? " item" : " items");
-  }.property('remaining')
-});
-
-Todos.CreateTodoView = Ember.TextField.extend({
-  insertNewline: function() {
-    var value = this.get('value');
-
-    if (value) {
-      Todos.todosController.createTodo(value);
-      this.set('value', '');
-    }
-  }
-});
-
-Todos.ClearCompletedButtonView = Ember.Button.extend({
-  completedBinding: 'Todos.todosController.completed',
-  completedString: function() {
-    var completed = this.get('completed');
-    return completed + " completed" + (completed === 1 ? " item" : " items");
-  }.property('completed'),
-
-  completedButtonClass: function () {
-      if (this.get('completed') < 1)
-          return 'hidden';
-      else
-          return '';
-  }.property('completed')
-});
-
-Todos.TodoStore = (function () {
-  // Generate four random hex digits.
-  var S4 = function () {
-     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-  };
-
-  // Generate a pseudo-GUID by concatenating random hexadecimal.
-  var guid = function () {
-     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  };
-
-  // Our Store is represented by a single JS object in *localStorage*. Create it
-  // with a meaningful name, like the name you'd give a table.
-  var Store = function(name) {
-    this.name = name;
-    var store = localStorage.getItem(this.name);
-    this.data = (store && JSON.parse(store)) || {};
-
-    // Save the current state of the **Store** to *localStorage*.
-    this.save = function() {
-      localStorage.setItem(this.name, JSON.stringify(this.data));
-    };
-
-    // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
-    // have an id of it's own.
-    this.create = function (model) {
-      if (!model.get('id')) model.set('id', guid());
-      return this.update(model);
-    };
-
-    // Update a model by replacing its copy in `this.data`.
-    this.update = function(model) {
-      this.data[model.get('id')] = model.getProperties('id', 'title', 'isDone');
-      this.save();
-      return model;
-    };
-
-    // Retrieve a model from `this.data` by id.
-    this.find = function(model) {
-      return Todos.Todo.create(this.data[model.get('id')]);
-    };
-
-    // Return the array of all models currently in storage.
-    this.findAll = function() {
-      var result = [];
-      for (var key in this.data)
-      {
-        var todo = Todos.Todo.create(this.data[key]);
-        result.push(todo);
+      init: function() {
+        this._super();
+        // Load items if any upon initialization
+        var items = this.get( 'store' ).findAll();
+        if ( items.get( 'length' ) ) {
+          this.set( '[]', items );
+        };
       }
+    });
 
-      return result;
+
+var TodosController = Entries.extend({
+      // New todo input
+      inputView: Ember.TextField.create({
+        placeholder: 'What needs to be done?',
+        elementId: 'new-todo',
+        storageBinding: 'Todos.todosController',
+        // Bind this to newly inserted line
+        insertNewline: function() {
+          var value = this.get( 'value' );
+          if ( value ) {
+            this.get( 'storage' ).createNew( value );
+            this.set( 'value', '' );
+          }
+        }
+      }),
+
+      // Stats report
+      statsView: Ember.View.create({
+        elementId: 'todo-count',
+        tagName: 'span',
+        contentBinding: 'Todos.todosController',
+        remainingBinding: 'Todos.todosController.remaining',
+        template: Ember.Handlebars.compile(
+          '<strong>{{remaining}}</strong> {{remainingString}} left'
+        ),
+        remainingString: function() {
+          var remaining = this.get( 'remaining' );
+          return ( remaining === 1 ? ' item' : ' items' );
+        }.property( 'remaining' )
+      }),
+
+      // Handle visibility of some elements as items totals change
+      visibilityObserver: function() {
+        $( '#main, #footer' ).toggle( !!this.get( 'total' ) );
+      }.observes( 'total' ),
+
+      // Clear completed tasks button
+      clearCompletedButton: Ember.Button.create({
+        template: Ember.Handlebars.compile( $('#buttonTemplate').html() ),
+        target: 'Todos.todosController',
+        action: 'clearCompleted',
+        completedCountBinding: 'Todos.todosController.completed',
+        elementId: 'clear-completed',
+        classNameBindings: 'buttonClass',
+        // Observer to update class if completed value changes
+        buttonClass: function () {
+            if ( !this.get( 'completedCount' ) )
+                return 'hidden';
+        }.property( 'completedCount' )
+      }),
+
+      // Checkbox to mark all todos done.
+      allDoneCheckbox: Ember.Checkbox.create({
+        elementId: 'toggle-all',
+        checkedBinding: 'Todos.todosController.allAreDone'
+      }),
+
+      // Compile and render the todos view
+      todosView: Ember.View.create({
+        template: Ember.Handlebars.compile( $('#itemsTemplate').html() )
+      }),
+
+      // Todo list item view
+      todoView: Ember.View.extend({
+        classNames: [ 'view' ],
+        doubleClick: function() {
+          this.get( 'content' ).set( 'editing', true );
+        }
+      }),
+
+      // Todo list item editing view
+      todoEditor: Ember.TextField.extend({
+        storageBinding: 'Todos.todosController',
+        classNames: [ 'edit' ],
+        whenDone: function() {
+          this.get( 'todo' ).set( 'editing', false );
+          if ( !this.get( 'todo' ).get( 'title' ).trim() ) {
+           this.get( 'storage' ).removeObject( this.get( 'todo' ) );
+          }
+        },
+        focusOut: function() {
+          this.whenDone();
+        },
+        didInsertElement: function() {
+          this.$().focus();
+        },
+        insertNewline: function() {
+          this.whenDone();
+        }
+      }),
+
+      // Activates the views and other initializations
+      init: function() {
+        this._super();
+        this.get( 'inputView' ).appendTo( 'header' );
+        this.get( 'allDoneCheckbox' ).appendTo( '#main' );
+        this.get( 'todosView' ).appendTo( '#main' );
+        this.get( 'statsView' ).appendTo( '#footer' );
+        this.get( 'clearCompletedButton' ).appendTo( '#footer' );
+      }
+    });
+  
+
+// Models
+
+var Todo = Ember.Object.extend({
+      id: null,
+      title: null,
+      completed: false,
+      // set store reference upon creation instead of creating static bindings
+      store: null,
+      // Observer that will react on item change and will update the storage
+      todoChanged: function() {
+        this.get( 'store' ).update( this );
+      }.observes( 'title', 'completed' )
+    });
+
+var Store = function( name ) {
+      this.name = name;
+      var store = localStorage.getItem( this.name );
+      this.data = ( store && JSON.parse( store ) ) || {};
+
+      // Save the current state of the **Store** to *localStorage*.
+      this.save = function() {
+        localStorage.setItem( this.name, JSON.stringify( this.data ) );
+      };
+
+      // Wrapper around `this.create`
+      // Creates a `Todo` model object out of the title
+      this.createFromTitle = function( title ) {
+        var todo = Todo.create({
+          title: title,
+          store: this
+        });
+        this.create( todo );
+        return todo;
+      };
+
+      // Store the model inside the `Store`
+      this.create = function ( model ) {
+        if ( !model.get( 'id' ) )
+          model.set( 'id', Date.now() );
+        return this.update( model );
+      };
+
+      // Update a model by replacing its copy in `this.data`.
+      this.update = function( model ) {
+        this.data[ model.get( 'id' ) ] = model.getProperties(
+          'id', 'title', 'completed'
+        );
+        this.save();
+        return model;
+      };
+
+      // Retrieve a model from `this.data` by id.
+      this.find = function( model ) {
+        var todo = Todo.create( this.data[ model.get( 'id' ) ] );
+        todo.set( 'store', this );
+        return todo;
+      };
+
+      // Return the array of all models currently in storage.
+      this.findAll = function() {
+        var result = [],
+            key;
+
+        for ( key in this.data ) {
+          var todo = Todo.create( this.data[ key ] );
+          todo.set( 'store', this );
+          result.push( todo );
+        }
+
+        return result;
+      };
+
+      // Delete a model from `this.data`, returning it.
+      this.remove = function( model ) {
+        delete this.data[ model.get( 'id' ) ];
+        this.save();
+        return model;
+      };
     };
-
-    // Delete a model from `this.data`, returning it.
-    this.remove = function(model) {
-      delete this.data[model.get('id')];
-      this.save();
-      return model;
-    };
-  };
-
-  return new Store('todos-emberjs');
-})();
-
-(function () {
-
-  var items = Todos.TodoStore.findAll();
-  
-  if(items.length > 1){
-    Todos.todosController.set('[]', items);
-  }
   
 
-  
-})();
+// Initialize App
+
+var App = Ember.Application.create({
+
+      // Constructor
+      init: function() {
+        this._super();
+
+        // Initiate main controller
+        this.set(
+          'todosController',
+          TodosController.create({
+            store: new Store( 'todos-emberjs' )
+          })
+        );
+
+      }
+    });
+
+window.Todos = App;
+
