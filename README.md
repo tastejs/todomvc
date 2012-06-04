@@ -82,6 +82,10 @@ TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta St
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
 
+## Project Status
+
+TodoMVC is currently preparing applications for the next major release of the project due on June 20th. This will include re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We will also be addressing framework author concerns about routing by adding this to some of the more mainstream applications in the project.
+
 ## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
