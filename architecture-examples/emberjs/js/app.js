@@ -1,5 +1,4 @@
 
-
 // Controllers
 var Entries = Ember.ArrayProxy.extend({
       store: null,
@@ -116,7 +115,7 @@ var TodosController = Entries.extend({
 
       // Checkbox to mark all todos done.
       allDoneCheckbox: Ember.Checkbox.create({
-        elementId: 'toggle-all',
+        elementId: 'toggle-all', 
         checkedBinding: 'Todos.todosController.allAreDone'
       }),
 
@@ -135,7 +134,7 @@ var TodosController = Entries.extend({
 
       // Todo list item editing view
       todoEditor: Ember.TextField.extend({
-        storageBinding: 'Todos.todosController',
+        storageBinding: 'TodosController', //'Todos.todosController',
         classNames: [ 'edit' ],
         whenDone: function() {
           this.get( 'todo' ).set( 'editing', false );
