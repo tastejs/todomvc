@@ -69,7 +69,7 @@ Ext.define('Todo.controller.Tasks', {
                 store.sync();
         },
 
-        onTaskEditKeyup: function (keyEvent, record, extEl) {
+        onTaskEditKeyup: function (event, record, extEl) {
                 var ENTER_KEY_CODE = 13;
                 if (event.keyCode === ENTER_KEY_CODE) {
                         this.finalizeTaskEdit(extEl, record);
