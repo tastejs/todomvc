@@ -11,7 +11,7 @@ define({
 	},
 
 	createForm: {
-		getElement: { $ref: 'dom.first!form', at: 'createView' },
+		element: { $ref: 'dom.first!form', at: 'createView' },
 		connect: { 'todos.onAdd': 'reset' }
 	},
 
@@ -73,12 +73,8 @@ define({
 				'click:#clear-completed': 'removeCompleted'
 			}
 		},
-		// Simple JS-to-JS connections via wire/connect
 		connect: {
-			updateRemainingCount: 'setControlsOocssState'
-		},
-		// Could use connect, but just showing AOP connector type via wire/aop
-		after: {
+			updateRemainingCount: 'setControlsOocssState',
 			'todos.onChange': 'updateCount'
 		}
 	},
@@ -132,7 +128,6 @@ define({
 		{ module: 'wire/on' },
 		{ module: 'wire/connect' },
 		{ module: 'wire/cola', comparator: 'text' },
-		{ module: 'wire/aop' },
-		{ module: 'wire/functional' }
+		{ module: 'wire/aop' }
 	]
 });

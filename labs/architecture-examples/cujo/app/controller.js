@@ -15,8 +15,6 @@ define(function () {
 			todos.forEach(function(todo) {
 				if(todo.complete) todos.remove(todo);
 			});
-
-			this.updateCount();
 		},
 
 		toggleAll: function() {
@@ -32,7 +30,7 @@ define(function () {
 		},
 
 		updateCount: function() {
-			var total, checked, remaining;
+			var total, checked;
 
 			total = checked = 0;
 
@@ -46,16 +44,11 @@ define(function () {
 
 			this.countNode.innerHTML = checked;
 
-			remaining = total - checked;
-
-			this.updateRemainingCount(remaining);
-
-			return checked;
+			this.updateRemainingCount(total - checked);
 		},
 
 		updateRemainingCount: function (remaining) {
 			updateRemainingCount(this.remainingNodes, remaining);
-			return remaining;
 		}
 
 	};
