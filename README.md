@@ -74,6 +74,8 @@ TodoMVC would not be possible without a strong team of [contributors](https://gi
 
 * [Aaron Boushley - on leave](https://github.com/boushley): Aaron is a JavaScript developer with a keen interest in architectural frameworks and has helped both standardize existing examples and improve the project as we worked on expansion. He is currently taking a break from his open-source contributions at this time.
 
+* [Gianni Chiappetta - Logo designer](http://gitub.com/gf3)
+
 
 ## Disclaimer
 
