@@ -1,17 +1,11 @@
 # Template • [TodoMVC](http://todomvc.com)
 
+## Interesting Things:
 
-
-## Getting Started
-
-Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) before touching the template.
-
-
-## Need help?
-
-Feel free to [contact us](https://github.com/sindresorhus) if you have any questions or need help with the template.
-
+* Highly modularized
+* Clean HTML templates
+* Fully internationalized
 
 ## Credit
 
-Created by [Sindre Sorhus](http://sindresorhus.com)
+TodoMVC Template Created by [Sindre Sorhus](http://sindresorhus.com)
