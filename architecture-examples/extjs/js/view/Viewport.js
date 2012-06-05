@@ -1,6 +1,7 @@
 Ext.define('Todo.view.Viewport', {
     extend:'Ext.container.Viewport',
     requires:[
+        'Ext.layout.container.Border',
         'Todo.view.TopBar',
         'Todo.view.List',
         'Todo.view.BottomBar'
@@ -38,14 +39,7 @@ Ext.define('Todo.view.Viewport', {
         },
         {
             xtype:'box',
-            autoEl:{
-                tag:'footer',
-                html:'<p>Double-click to edit a todo</p>' +
-                     '<p>Created by <a href="http://revolunet.com/">Revolunet</a>.</p>' +
-                     '<p>Updates and Edits by <a href="http://github.com/boushley">Aaron Boushley</a></p>' +
-                     '<p>Total refactor by <a href="http://github.com/ettavolt">Arseniy Skvortsov</a></p>' +
-                     '<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>'
-            },
+            contentEl:'footer',
             region:'south'
         }
     ]

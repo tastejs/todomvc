@@ -35,8 +35,22 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
     vertical-align: 1px;
 }
 
-.todo-app-list .x-grid-cell-checkcolumn {
+.todo-app-list .checkcolumn {
     border-right: double #f5d6d6;
+    text-align: center;
+}
+.todo-app-list .checkcolumn .x-grid-cell-inner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url("checkbox.gif") no-repeat;
+}
+.todo-app-list .checkcolumn.checked .x-grid-cell-inner {
+    background-position: 0px -13px;
+}
+
+.x-form-checkbox, .x-form-radio {
+    background: url("checkbox.gif");
 }
 
 .filters a {
@@ -55,7 +69,7 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
 /*Styles just to match*/
 
 .todo-app {
-    background: #eeeeee url('../../../../assets/bg.png');
+    background: #eeeeee url('../../../assets/bg.png');
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 

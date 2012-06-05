@@ -1,5 +1,9 @@
 Ext.define('Todo.view.TopBar', {
     extend:'Ext.toolbar.Toolbar',
+    requires:[
+        'Ext.form.field.Checkbox',
+        'Ext.form.field.Text'
+    ],
     alias:'widget.todo_topbar',
     cls:'todo-app-tbar',
     border: '15 0 0 0',

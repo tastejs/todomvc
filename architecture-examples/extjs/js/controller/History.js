@@ -1,5 +1,6 @@
 Ext.define('Todo.controller.History',{
     extend:'Ext.app.Controller',
+    requires:['Ext.util.History'],
     refs: [
         {ref:'buttonCompleted', selector:'todo_bottombar #completed'},
         {ref:'filters', selector:'todo_bottombar #filters'}

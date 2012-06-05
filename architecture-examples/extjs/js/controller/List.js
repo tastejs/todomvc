@@ -5,14 +5,17 @@ Ext.define('Todo.controller.List', {
         this.control({
             "todo_list":{
                 edit:this.onEdit,
-                cellclick:this.doDeleteTodoClick
+                cellclick:this.onTodoClick
             }
         });
     },
 
-    doDeleteTodoClick:function(view, cellEl, cellNum, record, rowEl, rowNum, event) {
+    onTodoClick:function(view, cellEl, cellNum, record, rowEl, rowNum, event) {
         if (event.getTarget('.delete-icon')) {
-            this.getStore('Tasks').remove(arguments[3]);
+            this.getStore('Tasks').remove(record);
+        }
+        if (event.getTarget('.checkcolumn')) {
+            record.set('completed', ! record.get('completed'));
         }
     },
     //In-place label edit.

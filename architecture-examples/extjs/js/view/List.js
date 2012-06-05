@@ -1,5 +1,9 @@
 Ext.define('Todo.view.List', {
     extend:'Ext.grid.Panel',
+    requires:[
+        'Ext.grid.plugin.CellEditing',
+        'Ext.form.field.Text'
+    ],
     alias:'widget.todo_list',
     cls:'todo-app-list',
     store:'Tasks',
@@ -11,8 +15,15 @@ Ext.define('Todo.view.List', {
     columns:[
         {
             text:'Completed',
-            xtype:'checkcolumn',
             dataIndex:'completed',
+            tdCls:'checkcolumn',
+            //align:'center',
+            renderer:function(value, meta) {
+                if (value) {
+                    meta.tdCls = 'checked'
+                }
+                //return '<div class="checkbox"></div>';
+            },
             width:40
         },
         {
