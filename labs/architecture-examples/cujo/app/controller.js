@@ -42,9 +42,16 @@ define(function () {
 			// TODO: It may make sense to move this stuff to a JS view
 			this.masterCheckbox.checked = total > 0 && checked === total;
 
-			this.countNode.innerHTML = checked;
+			this.updateTotalCount(total);
+			this.updateCompletedCount(checked);
 
 			this.updateRemainingCount(total - checked);
+		},
+
+		updateTotalCount: function(total) {},
+
+		updateCompletedCount: function(completed) {
+			this.countNode.innerHTML = completed;
 		},
 
 		updateRemainingCount: function (remaining) {

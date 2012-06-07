@@ -2,8 +2,10 @@
 
 ## Interesting Things:
 
-* Highly modularized
+* Application composition separate from application logic
+* Highly modularized: JS, HTML, *and CSS* are all modularized
 * Clean HTML templates
+* OOCSS for visual state changes--zero direct style manipulation
 * Fully internationalized
 
 ## Credit
