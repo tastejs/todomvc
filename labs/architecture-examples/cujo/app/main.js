@@ -18,12 +18,13 @@ define({
 	listView: {
 		render: {
 			template: { module: 'text!list/template.html' },
-			replace: { module: 'i18n!list/strings' }
+			replace: { module: 'i18n!list/strings' },
+			css: { module: 'css!list/structure.css' }
 		},
 		bind: {
 			to: { $ref: 'todos' },
 			bindings: {
-				text: { node: 'label' },
+				text: 'label, .edit',
 				complete: { node: '.toggle', prop: 'checked' }
 			}
 		},
@@ -74,7 +75,9 @@ define({
 			}
 		},
 		connect: {
-			updateRemainingCount: 'setControlsOocssState',
+			updateTotalCount: 'setTodosTotalState',
+			updateRemainingCount: 'setTodosRemainingState',
+			updateCompletedCount: 'setTodosCompletedState',
 			'todos.onChange': 'updateCount'
 		}
 	},
@@ -104,22 +107,38 @@ define({
 		}
 	},
 
-	setControlsOocssState: {
-		compose: [
-			{
-				create: {
-					module: 'wire/dom/transform/mapTokenList',
-					args: { 0: 'todo-zero', 1: 'todo-one' }
-				}
-			},
-			{
-				create: {
-					module: 'wire/dom/transform/replaceClasses',
-					args: { $ref: 'controlsView' }
-				}
-			}
-		]
+	setTodosTotalState: {
+		create: {
+			module: 'wire/dom/transform/cardinality',
+			args: [{ $ref: 'root' }, 'todos']
+		}
 	},
+
+	setTodosRemainingState: {
+		create: {
+			module: 'wire/dom/transform/cardinality',
+			args: [{ $ref: 'root' }, 'remaining']
+		}
+	},
+
+	setTodosCompletedState: {
+		create: {
+			module: 'wire/dom/transform/cardinality',
+			args: [{ $ref: 'root' }, 'completed']
+		}
+	},
+
+	setTodoCompletedState: {
+		create: {
+			module: 'cola/transform/createEnum',
+			// need to use literal factory until wire 0.9
+			args: { literal: { 'true': 'completed', 'false': 'foo' } }
+		}
+	},
+
+//	setTodosCompletedState: {
+//		setClasses: { 0: 'completed-zero' }
+//	},
 
 	plugins: [
 		{ module: 'wire/debug' },
@@ -127,7 +146,7 @@ define({
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
 		{ module: 'wire/connect' },
-		{ module: 'wire/cola', comparator: 'text' },
+		{ module: 'cola', comparator: 'text' },
 		{ module: 'wire/aop' }
 	]
 });

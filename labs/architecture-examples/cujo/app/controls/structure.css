@@ -1,18 +1,34 @@
-.todo-count-zero,
-.todo-count-one {
+.remaining-count-zero,
+.remaining-count-one {
 	display: none;
 }
 
-.todo-zero .todo-count-zero {
+.remaining-zero .remaining-count-zero {
 	display: inline;
 }
 
-.todo-one .todo-count-one {
+.remaining-one .remaining-count-one {
 	display: inline;
 }
 
-.todo-zero .todo-count-many,
-.todo-one .todo-count-many {
+.remaining-zero .remaining-count-many,
+.remaining-one .remaining-count-many {
 	display: none;
 }
 
+#clear-completed {
+    -webkit-transition: all .1s ease;
+    opacity: 1
+}
+.completed-zero #clear-completed {
+    opacity: 0;
+}
+
+#footer {
+    display: none;
+}
+
+.todos-one #footer,
+.todos-many #footer {
+    display: block;
+}
