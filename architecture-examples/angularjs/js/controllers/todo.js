@@ -2,7 +2,7 @@
 
 var todomvc = angular.module('todomvc', []);
 
-function TodoController($scope, $routeParams, $location) {
+function TodoController($scope, $location) {
 	$scope.todos = retrieveStore();
 	if($location.path()=='') $location.path('/');
 	$scope.location = $location;
