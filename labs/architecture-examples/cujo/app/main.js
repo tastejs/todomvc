@@ -25,7 +25,7 @@ define({
 			to: { $ref: 'todos' },
 			bindings: {
 				text: 'label, .edit',
-				complete: { node: '.toggle', prop: 'checked' }
+				complete: [{ selector: '.toggle', attr: 'checked' }]
 			}
 		},
 		insert: { after: 'createView' }
