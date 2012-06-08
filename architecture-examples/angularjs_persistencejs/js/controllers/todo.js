@@ -84,6 +84,10 @@ function TodoController($scope, $location, persistencejs) {
 		persistencejs.clearCompletedItems();
 	};
 
+	$scope.toggleDone = function(todo){
+		persistencejs.changeStatus(todo);
+	}
+
 	$scope.markAllDone = function() {
 		var markDone = true;
 		if (!$scope.remainingTodos().length) {

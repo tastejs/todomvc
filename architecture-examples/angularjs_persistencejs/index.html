@@ -23,7 +23,7 @@
 			<ul id="todo-list">
 				<li ng-repeat="todo in todos | filter:filter" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
 	        			<div class="view">
-				                <input class="toggle" type="checkbox" name="todo.done" ng-model="todo.done">
+				                <input class="toggle" type="checkbox" name="todo.done" ng-model="todo.done" ng-click="toggleDone(todo)">
 				                <label ng-bind="todo.title">Loading...</label>
 				                <button class="destroy" ng-click="removeTodo(todo)"></button>
 			        	</div>
