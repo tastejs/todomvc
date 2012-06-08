@@ -1,160 +1,180 @@
-//a custom binding to handle the enter key
-o_O.bindings.enterKey = function( func, $el ) {
-  var ENTER_KEY = 13;
-  var context = this;
-  $el.keyup(function(e) {
-    if( e.keyCode === ENTER_KEY )
-      func.call(context);
-  })
-}
-o_O.bindingTypes.enterKey = 'outbound'
+/*global $, o_O, todoapp */
+(function( window ) {
+	'use strict';
 
+	// represents a single todo item
+	var Todo = o_O.model.extend({
+			title: '',
+			completed: false
+		},
+		{
+			initialize: function() {
+				this.editing = o_O( false );
+			},
 
-// represents a single todo item
-var Todo = o_O.model.extend({
-    title: '',
-    completed: false
-  },
-  {
-    initialize: function() {
-      this.editing = o_O(false)
-    },
+			startEditing: function() {
+				this.editing( true );
+				var self = this;
+				setTimeout(function() {
+					$( self.el ).parent().find('input.edit').select();
+				}, 0);
+			},
 
-    startEditing: function() {
-      this.editing( true )
-      var self = this
-      setTimeout(function() {
-        $(self.el).parent().find('input.edit').focus().select()
-      }, 0)
-    },
+			stopEditing: function() {
+				var text = $.trim( this.title() );
 
-    stopEditing: function() {
-      var text = $.trim( this.title() )
+				if ( text ) {
+					this.title( text );
+				} else {
+					this.remove();
+				}
 
-      text
-        ? this.title( text )
-        : this.remove()
+				this.editing( false );
+			},
 
-      this.editing( false )
-    },
+			remove: function() {
+				todoapp.todos.remove( this );
+			},
 
-    remove: function() {
-      todoapp.todos.remove( this )
-    },
+			visible: function() {
+				var filter = todoapp.filter(),
+					completed = this.completed();
 
-    visible: function() {
-      var filter = todoapp.filter(),
-          completed = this.completed()
-      return filter == '' || (filter == 'completed' && completed) || (filter == 'active' && !completed)
-    },
+				return filter === '' ||
+					 ( filter === 'completed' && completed ) ||
+					 ( filter === 'active' && !completed );
+			},
 
-    klass: function() {
-      if(this.editing())
-        return 'editing'
-      if(this.completed())
-        return 'completed'
-      else
-        return ''
-    }
-  }
-);
+			klass: function() {
+				if ( this.editing() ) {
+					return 'editing';
+				}
+				if ( this.completed() ) {
+					return 'completed';
+				} else {
+					return '';
+				}
+			}
+		}
+	);
 
-// main application
-var TodoApp = o_O.model.extend({
-    current: '',
-    completedCount: 0,
-    filter: ''
-  }, {
-    initialize: function() {
-      var self = this
-      self.todos = o_O.array( this.todos() )
+	// main application
+	var TodoApp = o_O.model.extend({
+			current: '',
+			completedCount: 0,
+			filter: ''
+		}, {
+		initialize: function() {
+			var self = this;
 
-      this.todos.on('set:completed set:title add remove', function() {
-        var completed = self.todos.filter(function(todo) {
-          return todo.completed()
-        })
-        self.completedCount( completed.length )
-        self.persist()
-      })
+			self.todos = o_O.array( this.todos() );
 
-      this.remainingCount = o_O(function() {
-        return self.todos.count() - self.completedCount()
-      })
+			this.todos.on( 'set:completed set:title add remove', function() {
+				var completed = self.todos.filter(function( todo ) {
+					return todo.completed();
+				});
 
-      // writeable computed observable
-      // handles marking all complete/incomplete
-      // or retrieving if this is true
-      this.allCompleted = o_O(function(v) {
-        if(arguments.length == 0) {
-          return self.remainingCount() == 0
-        }
+				self.completedCount( completed.length );
+				self.persist();
+			});
 
-        self.todos.each(function(todo) {
-          todo.completed( v )
-        })
+			this.remainingCount = o_O(function() {
+				return self.todos.count() - self.completedCount();
+			});
 
-        return v
-      })
+			// writeable computed observable
+			// handles marking all complete/incomplete
+			// or retrieving if this is true
+			this.allCompleted = o_O(function( v ) {
+				if ( !arguments.length ) {
+					return !self.remainingCount();
+				}
 
-    },
+				self.todos.each(function( todo ) {
+					todo.completed( v );
+				});
 
-    add: function() {
-      var text = $.trim( this.current() );
-      if( text ) {
-        this.todos.unshift( Todo({title: text}) );
-        this.current( "" )
-      }
-    },
+				return v;
+			});
+		},
 
-    removeCompleted: function () {
-      this.todos.remove( function(todo) {
-        return todo.completed()
-      })
-      return false
-    },
+		add: function() {
+			var text = $.trim( this.current() );
 
-    persist: function() {
-      localStorage[ 'todos-o_O' ] = JSON.stringify( this.todos.toJSON() )
-    },
+			if ( text ) {
+				this.todos.unshift(Todo({
+					title: text
+				}));
+				this.current('');
+			}
+		},
 
-    // adds an `s` where necessary
-    pluralize: function( word, count ) {
-      return word + (count === 1 ? "" : "s");
-    }
-  }
-);
+		removeCompleted: function() {
+			this.todos.remove(function( todo ) {
+				return todo.completed();
+			});
+			return false;
+		},
 
-function main() {
-  // load todos
-  var todos = []
-  try {
-    todos = JSON.parse( localStorage['todos-o_O'] );
-  }
-  catch(e) { }
+		persist: function() {
+			localStorage['todos-o_O'] = JSON.stringify( this.todos.toJSON() );
+		},
 
-  // create models
-  for( var i=0; i < todos.length; i++ )
-    todos[ i ] = Todo.create( todos[i] )
+		pluralize: function( word, count ) {
+			return word + ( count === 1 ? '' : 's' );
+		}
+	});
 
-  // create app
-  window.todoapp = TodoApp( {todos: todos} )
+	function main() {
+		// load todos
+		var i, l,
+			todos = [];
 
-  // bind to DOM element
-  todoapp.bind('#todoapp')
+		try {
+			todos = JSON.parse( localStorage['todos-o_O'] );
+		} catch( e ) {}
 
+		// create models
+		for( i = 0, l = todos.length; i < l; i++ ) {
+			todos[ i ] = Todo.create( todos[ i ] );
+		}
 
-  // setup Routing
-  o_O.router()
-    .add('*filter', function(filt) {
-      todoapp.filter(filt)
+		// create app
+		window.todoapp = TodoApp({
+			todos: todos
+		});
 
-      $( '#filters a' )
-        .removeClass( 'selected' )
-        .filter( "[href='#/" + filt + "']" )
-        .addClass( 'selected' )
-    })
-    .start()
-}
+		// bind to DOM element
+		todoapp.bind('#todoapp');
 
-// kick it off
-main();
+		// setup Routing
+		o_O.router()
+			.add('*filter', function( filter ) {
+				todoapp.filter( filter );
+
+				$('#filters a')
+					.removeClass('selected')
+					.filter( '[href="#/' + filter + '"]' )
+					.addClass('selected');
+			})
+			.start();
+	}
+
+	// a custom binding to handle the enter key
+	o_O.bindings.enterKey = function( func, $el ) {
+		var ENTER_KEY = 13,
+			context = this;
+
+		$el.keyup(function( e ) {
+			if ( e.which === ENTER_KEY ) {
+				func.call( context );
+			}
+		});
+	};
+
+	o_O.bindingTypes.enterKey = 'outbound';
+
+	// kick it off
+	main();
+
+})( window );

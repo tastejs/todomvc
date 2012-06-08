@@ -2,7 +2,8 @@
 
 var todomvc = angular.module('todomvc', []);
 
-App.Controllers.TodoController = function($scope) {
+todomvc.controller('TodoController',['$scope',function ($scope) {
+
   $scope.todos = retrieveStore();
 
   // Call updateStore() whenever the todos array changes.
@@ -92,4 +93,4 @@ App.Controllers.TodoController = function($scope) {
       todo.done = markDone;
     });
   };
-};
+}]);

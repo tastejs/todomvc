@@ -1,0 +1,23 @@
+{
+	"id": "todomvc",
+	"inputs": "js/app.js",
+	"paths": ["js/", "template/"],
+	"output-wrapper": "(function(){%output%})();",
+	"mode": "ADVANCED",
+	"level": "VERBOSE",
+	"output-file": "js/compiled.js",
+	"define": {
+		"goog.LOCALE": "en_GB"
+	},
+	"checks": {
+		"checkRegExp": "WARNING",
+		"checkTypes": "WARNING",
+		"checkVars": "WARNING",
+		"deprecated": "WARNING",
+		"fileoverviewTags": "WARNING",
+		"invalidCasts": "WARNING",
+		"missingProperties": "WARNING",
+		"nonStandardJsDocs": "WARNING",
+		"undefinedVars": "WARNING"
+	}
+}

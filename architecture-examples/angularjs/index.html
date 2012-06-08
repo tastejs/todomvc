@@ -9,7 +9,11 @@
   <![endif]-->
 </head>
 <body>
+<<<<<<< HEAD
   <section ng-controller="App.Controllers.TodoController" id="todoapp">
+=======
+  <div ng-controller="TodoController" id="todoapp">
+>>>>>>> upstream/master
     <header>
       <h1>Todos</h1>
       <form id="todo-form" ng-submit="addTodo()">
@@ -23,7 +27,7 @@
         <li ng-repeat="todo in todos" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
           <div class="view">
             <input type="checkbox" class="toggle" name="todo.done" ng-model="todo.done">
-            <label>{{todo.title}}</label>
+            <label ng-bind="todo.title">Loading...</label>
             <a class="destroy" ng-click="removeTodo(todo)"></a>
           </div>
           <form ng-submit="finishEditing(todo)">
@@ -32,8 +36,13 @@
         </li>
       </ul>
     </section>
+<<<<<<< HEAD
     <footer id="footer" ng-show="todos.length">
       <a id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length">Clear {{doneTodos().length}} items</a>
+=======
+    <footer ng-show="todos.length">
+      <a id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length" ng-bind-template="Clear {{doneTodos().length}} items"></a>
+>>>>>>> upstream/master
       <div id="todo-count">
         <ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize>
       </div>
@@ -44,7 +53,6 @@
     <p>Credits: <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>, <a href="http://ericbidelman.com">Eric Bidelman</a></p>
   </footer>
   <script src="../../assets/base.js"></script>
-  <script src="js/booter.js"></script>
   <script src="js/libs/angular/angular.min.js"></script>
   <script src="js/controllers.js"></script>
 </body>

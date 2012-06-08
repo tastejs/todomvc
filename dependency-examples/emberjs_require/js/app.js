@@ -3,7 +3,7 @@ require.config({
 	baseUrl: 'js/',
 	paths: {
 		jquery: '../../../assets/jquery.min',
-		ember: 'lib/ember-0.9.7.1.min',
+                ember: 'lib/ember-0.9.8.1.min',
 		text: 'lib/require/text',
 		mocha: 'lib/mocha',
 		chai: 'lib/chai'

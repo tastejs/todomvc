@@ -16,9 +16,9 @@
 
     Alfred.root('todos#all');
 
-    Alfred.route("/completed", "todos#completed");
+    Alfred.route('/completed', 'todos#completed');
 
-    Alfred.route("/active", "todos#active");
+    Alfred.route('/active', 'todos#active');
 
     return Alfred;
 
@@ -118,7 +118,6 @@
       editing = todo.set('editing', !todo.get('editing'));
       if (editing) {
         input = document.getElementById("todo-input-" + (todo.get('id')));
-        input.focus();
         return input.select();
       } else {
         if (((_ref = todo.get('title')) != null ? _ref.length : void 0) > 0) {
