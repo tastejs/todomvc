@@ -2,15 +2,19 @@
 
 var todomvc = angular.module('todomvc', []);
 
-function TodoController($scope, $routeParams) {
+function TodoController($scope, $routeParams, $location) {
   $scope.todos = retrieveStore();
-  $scope.filter = $routeParams.filter == 'active' ? 
-	{ done: false } : $routeParams.filter == 'completed' ?
-		{ done: true } : null;
+  if($location.path()=='') $location.path('/');
+  $scope.location = $location;
 
-  
   // Call updateStore() whenever the todos array changes.
   $scope.$watch('todos', updateStore, true);
+
+  $scope.$watch(function() {return $location.path(); }, function(path) { 
+    $scope.filter = path == '/active' ? 
+	{ done: false } : path == '/completed' ?
+		{ done: true } : null;
+  });
 
   $scope.todoForms = {
     one: '{} item left',

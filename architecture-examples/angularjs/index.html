@@ -20,22 +20,33 @@
 		<section id="main" ng-show="todos.length">
 			<input id="toggle-all" type="checkbox" ng-click="markAllDone()" ng-checked="remainingTodos().length == 0">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul id="todo-list" ng-view></ul>
+			<ul id="todo-list">
+				<li ng-repeat="todo in todos | filter:filter" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
+	        			<div class="view">
+				                <input class="toggle" type="checkbox" name="todo.done" ng-model="todo.done">
+				                <label ng-bind="todo.title">Loading...</label>
+				                <button class="destroy" ng-click="removeTodo(todo)"></button>
+			        	</div>
+				        <form ng-submit="finishEditing(todo)">
+			                	<input class="edit" type="text" name="todo.title" ng-model="todo.title" my:blur="finishEditing(todo)">
+			        	</form>
+				</li>
+			</ul>
 		</section>
 		<footer id="footer" ng-show="todos.length">
 			<span id="todo-count"><ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize></span>
 			<ul id="filters">
 				<li>
-					<a class="" href="#/">All</a>
+					<a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
 				</li>
 				<li>
-					<a class="" href="#/active">Active</a>
+					<a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
 				</li>
 				<li>
-					<a class="" href="#/completed">Completed</a>
+					<a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length">Clear completed ({{doneTodos().length}})</button>
+			<button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length" ng-bind-template="Clear completed ({{doneTodos().length}})"></button>
 		</footer>
 	</section>
 	<footer id="info">
@@ -46,6 +57,6 @@
 	<script src="js/libs/angular/angular.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers/todo.js"></script>
-	<script src="js/modules/routes.js"></script>
+<!--	<script src="js/modules/routes.js"></script> -->
 </body>
 </html>
