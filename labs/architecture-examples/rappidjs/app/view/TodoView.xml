@@ -4,17 +4,13 @@
         <![CDATA[
         (function () {
             var ENTER_KEY = 13;
-<<<<<<< HEAD
             var INPUT_BLUR = "blur";
-=======
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36
 
             return {
                 defaults: {
                     componentClass: "todo",
                     editing: false
                 },
-<<<<<<< HEAD
                 $classAttributes: ['todo', 'inputElement'],
                 events: ["remove"],
                 editTodo: function (e) {
@@ -44,45 +40,12 @@
                 },
                 triggerOnRemove: function () {
                     this.trigger("remove", this.get("todo"));
-=======
-                events: [
-                    "remove"
-                ],
-                editTodo: function (e, div) {
-                    var todo = div.find("$item");
-                    this.set("editing", true);
-                    e.$.stopPropagation();
-                    // we don't use jquery, so we have to select this the old fashioned way
-                    div.$el.parentNode.parentNode.getElementsByTagName("input")[1].select();
-                },
-                checkTodo: function (e, input) {
-                    var todo = this.get("todo");
-                    todo.setCompleted(!todo.isCompleted());
-                },
-                updateTodo: function (e, input) {
-                    var todo;
-                    if (e.$.keyCode === ENTER_KEY) {
-                        todo = this.get("todo");
-                        if (!todo.hasTitle()) {
-                            this.trigger("onremove", todo);
-                        } else {
-                            this.set("editing", false);
-                        }
-                    } else if (e.$.type === "blur") {
-                        todo = this.get("todo");
-                        this.set("editing", false);
-                    }
-                },
-                triggerOnRemove: function (e, el) {
-                    this.trigger("onremove", this.get("todo"));
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36
                 },
                 _renderEditing: function (editing) {
                     if (editing) {
                         this.addClass("editing");
                     } else {
                         this.removeClass("editing");
-<<<<<<< HEAD
                         this.$.inputElement.$el.blur();
                     }
                 },
@@ -91,9 +54,6 @@
                         return title.trim();
                     }
                     return "";
-=======
-                    }
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36
                 }
 
             }
@@ -103,22 +63,13 @@
     <js:Template name="layout">
         <div class="{todo.status()}">
             <div class="view">
-<<<<<<< HEAD
                 <input class="toggle" type="checkbox" onclick="checkTodo"
-=======
-                <input class="toggle" type="checkbox" onchange="checkTodo"
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36
                        checked="{todo.completed}"/>
                 <label ondblclick="editTodo">{todo.title}</label>
                 <button class="destroy" onclick="triggerOnRemove"/>
             </div>
-<<<<<<< HEAD
             <input class="edit" cid="inputElement" type="text" value="{{todo.title|trim()}}"
                    onkeyup="updateTodo" onblur="updateTodo" updateOnEvent="change"/>
-=======
-            <input class="edit" type="text" value="{{todo.title}}"
-                   onkeyup="updateTodo" onblur="updateTodo"/>
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36
         </div>
     </js:Template>
 </ui:View>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "xamlClasses": ["app/Todo", "app/view/TodoView", "js/ui/ButtonGroup", "js/ui/Link", "js/ui/List", "js/ui/MenuButton", "js/ui/Modal", "js/ui/ScrollView", "js/ui/SplitButton", "js/ui/TabView"],
     "namespaceMap": null,
@@ -28,6 +27,3 @@
         "exports": "JSON"
     }
 }}
-=======
-{"xamlClasses":["app/Todo","app/view/TodoView","js/ui/Link","js/ui/MenuButton","js/ui/SplitButton","js/ui/SplitView","js/ui/TabView"],"namespaceMap":null,"rewriteMap":null}
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36

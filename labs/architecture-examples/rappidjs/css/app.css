@@ -382,11 +382,7 @@ WebKit supports styling of inputs */
     color: inherit;
 }
 
-<<<<<<< HEAD
 .hide {
-=======
-.hidden {
->>>>>>> ff2959b913b2a0489bcd4d67eb2c021582beaa36
     display: none;
 }
 
