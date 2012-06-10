@@ -1,5 +1,5 @@
-define(["js/data/Model"], function (Bindable) {
-    return Bindable.inherit("app.model.Todo", {
+define(["js/data/Model"], function (Model) {
+    return Model.inherit("app.model.Todo", {
         defaults: {
             title: "",
             completed: false
