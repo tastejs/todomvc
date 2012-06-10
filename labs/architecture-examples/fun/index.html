@@ -1,0 +1,2090 @@
+<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+<style type="text/css">
+/* inlined stylesheet: /Volumes/Encrypted/code/marcuswestin/todomvc/assets/base.css */
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-family: inherit;
+	color: inherit;
+	-webkit-appearance: none;
+	/*-moz-appearance: none;*/
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
+
+body {
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #eeeeee url('bg.png');
+	color: #4d4d4d;
+	width: 550px;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+#todoapp {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.9);
+	margin: 130px 0 40px 0;
+	border: 1px solid #ccc;
+	position: relative;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+				0 25px 50px 0 rgba(0, 0, 0, 0.15);
+}
+
+#todoapp:before {
+	content: '';
+	border-left: 1px solid #f5d6d6;
+	border-right: 1px solid #f5d6d6;
+	width: 2px;
+	position: absolute;
+	top: 0;
+	left: 40px;
+	height: 100%;
+}
+
+#todoapp h1 {
+	position: absolute;
+	top: -120px;
+	width: 100%;
+	font-size: 70px;
+	font-weight: bold;
+	text-align: center;
+	color: #b3b3b3;
+	color: rgba(255, 255, 255, 0.3);
+	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+	-webkit-text-rendering: optimizeLegibility;
+	-moz-text-rendering: optimizeLegibility;
+	-ms-text-rendering: optimizeLegibility;
+	-o-text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
+}
+
+#header {
+	padding-top: 15px;
+	border-radius: inherit;
+}
+
+#todoapp header:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 15px;
+	z-index: 2;
+	border-bottom: 1px solid #6c615c;
+	background: #8d7d77;
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(132, 110, 100, 0.8)),to(rgba(101, 84, 76, 0.8)));
+	background: -webkit-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: -moz-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: -o-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: -ms-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#9d8b83', EndColorStr='#847670');
+	border-radius: inherit;
+}
+
+#todoapp input::-webkit-input-placeholder {
+	font-style: italic;
+}
+
+#todoapp input:-moz-placeholder {
+	font-style: italic;
+	color: #a9a9a9;
+}
+
+#new-todo,
+.edit {
+	margin: 0;
+	width: 100%;
+	font-size: 24px;
+	font-family: inherit;
+	line-height: 1.4em;
+	border: 0;
+	outline: none;
+	color: inherit;
+	padding: 6px;
+	border: 1px solid #999;
+	box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+#new-todo {
+	padding: 16px 16px 16px 60px;
+	border: none;
+	background: rgba(0, 0, 0, 0.02);
+	position: relative;
+	z-index: 2;
+	box-shadow: none;
+}
+
+#main {
+	position: relative;
+	z-index: 2;
+	border-top: 1px dotted #adadad;
+}
+
+label[for='toggle-all'] {
+	display: none;
+}
+
+#toggle-all {
+	position: absolute;
+	top: -42px;
+	left: 12px;
+	text-align: center;
+	-webkit-appearance: none;
+	/*-moz-appearance: none;*/
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	-webkit-transform: rotate(90deg);
+	/*-moz-transform: rotate(90deg);*/
+	-ms-transform: rotate(90deg);
+	/*-o-transform: rotate(90deg);*/
+	transform: rotate(90deg);
+}
+
+#toggle-all:before {
+	content: '»';
+	font-size: 28px;
+	color: #d9d9d9;
+	padding: 0 25px 7px;
+}
+
+#toggle-all:checked:before {
+	color: #737373;
+}
+
+/* Need this ugly hack, since only
+WebKit supports styling of inputs */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#toggle-all {
+		top: -52px;
+		left: -11px;
+	}
+}
+
+#todo-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#todo-list li {
+	position: relative;
+	font-size: 24px;
+	border-bottom: 1px dotted #ccc;
+}
+
+#todo-list li:last-child {
+	border-bottom: none;
+}
+
+#todo-list li.editing {
+	border-bottom: none;
+	padding: 0;
+}
+
+#todo-list li.editing .edit {
+	display: block;
+	width: 506px;
+	padding: 13px 17px 12px 17px;
+	margin: 0 0 0 43px;
+}
+
+#todo-list li.editing .view {
+	display: none;
+}
+
+#todo-list li .toggle {
+	text-align: center;
+	width: 35px;
+	-webkit-appearance: none;
+	/*-moz-appearance: none;*/
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
+
+#todo-list li .toggle:after {
+	font-size: 18px;
+	content: '✔';
+	line-height: 40px;
+	font-size: 20px;
+	color: #d9d9d9;
+	text-shadow: 0 -1px 0 #bfbfbf;
+}
+
+#todo-list li .toggle:checked:after {
+	color: #85ada7;
+	text-shadow: 0 1px 0 #669991;
+	bottom: 1px;
+	position: relative;
+}
+
+#todo-list li label {
+	word-break: break-word;
+	margin: 20px 15px;
+	display: inline-block;
+	-webkit-transition: color 0.4s;
+	-moz-transition: color 0.4s;
+	-ms-transition: color 0.4s;
+	-o-transition: color 0.4s;
+	transition: color 0.4s;
+}
+
+#todo-list li.complete label {
+	color: #a9a9a9;
+	text-decoration: line-through;
+}
+
+#todo-list li .destroy {
+	display: none;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 40px;
+	height: 40px;
+	font-size: 22px;
+	color: #a88a8a;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+#todo-list li .destroy:hover {
+	text-shadow: 0 0 1px #000,
+				 0 0 10px rgba(199, 107, 107, 0.8);
+	-webkit-transform: scale(1.3);
+	-moz-transform: scale(1.3);
+	-ms-transform: scale(1.3);
+	-o-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+#todo-list li .destroy:after {
+	content: '✖';
+}
+
+#todo-list li:hover .destroy {
+	display: block;
+}
+
+#todo-list li .edit {
+	display: none;
+}
+
+#todo-list li.editing:last-child {
+	margin-bottom: -1px;
+}
+
+#footer {
+	color: #777;
+	padding: 0 15px;
+	position: absolute;
+	right: 0;
+	bottom: -31px;
+	left: 0;
+	z-index: 1;
+	text-align: center;
+}
+
+#footer:before {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 31px;
+	left: 0;
+	height: 100px;
+	z-index: -1;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3),
+				0 6px 0 -3px rgba(255, 255, 255, 0.8),
+				0 7px 1px -3px rgba(0, 0, 0, 0.3),
+				0 42px 0 -6px rgba(255, 255, 255, 0.8),
+				0 43px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+#todo-count {
+	float: left;
+	text-align: left;
+}
+
+#filters {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	right: 0;
+	left: 0;
+}
+
+#filters li {
+	display: inline;
+}
+
+#filters li a {
+	color: #83756f;
+	margin: 2px;
+	text-decoration: none;
+}
+
+#filters li a.selected {
+	font-weight: bold;
+}
+
+#clear-completed {
+	float: right;
+	line-height: 20px;
+	text-decoration: none;
+	background: rgba(0, 0, 0, 0.1);
+	font-size: 11px;
+	padding: 0 10px;
+	position: relative;
+	border-radius: 3px;
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+#clear-completed:hover {
+	background: rgba(0, 0, 0, 0.15);
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+#info {
+	margin: 65px auto 0;
+	color: #a6a6a6;
+	font-size: 12px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+	text-align: center;
+}
+
+#info a {
+	color: inherit;
+}
+</style>
+<style type="text/css">
+/* inlined stylesheet: /Volumes/Encrypted/code/marcuswestin/todomvc/architecture-examples/fun/css/app.css */
+/*
+	Fun injects "hook" dom nodes into the dom tree. The
+	reason why is too involved to outline here. However,
+	they break a few of the todo app styles, such as
+	`#todo-list li:last-child { border-bottom:none; }`.
+	This should be rectified in fun in the future, but
+	these css modifications are fine in the meantime.
+*/
+
+body {
+	background: 
+	#EEE url('../../assets/bg.png');
+}
+
+#todo-list li:last-child {
+	border-bottom: 1px dotted #CCC;
+}
+
+#todo-list li label {
+	margin:20px 22px;
+}
+</style>
+</head><body><script>
+var __require__ = {}
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/isArray
+	var module = __require__["_1"] = {exports:{}}, exports = module.exports;
+module.exports = (function() {
+	if (Array.isArray && Array.isArray.toString().match('\\[native code\\]')) {
+		return function(obj) {
+			return Array.isArray(obj)
+		}
+	} else {
+		// thanks @kangax http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/
+		return function(obj) {
+			return Object.prototype.toString.call(obj) == '[object Array]'
+		}
+	}
+})();
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/isArguments
+	var module = __require__["_2"] = {exports:{}}, exports = module.exports;
+module.exports = function isArguments(obj) {
+  return Object.prototype.toString.call(obj) == '[object Arguments]'
+}
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/each
+	var module = __require__["_3"] = {exports:{}}, exports = module.exports;
+var isArray = __require__["_1"].exports,
+	isArguments = __require__["_2"].exports
+
+module.exports = function(items, ctx, fn) {
+	if (!items) { return }
+	if (!fn) {
+		fn = ctx
+		ctx = this
+	}
+	if (isArray(items) || isArguments(items)) {
+		for (var i=0; i < items.length; i++) {
+			fn.call(ctx, items[i], i)
+		}
+	} else {
+		for (var key in items) {
+			if (!items.hasOwnProperty(key)) { continue }
+			fn.call(ctx, items[key], key)
+		}
+	}
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/create
+	var module = __require__["_4"] = {exports:{}}, exports = module.exports;
+var each = __require__["_3"].exports
+// Thanks Douglas Crockford! http://javascript.crockford.com/prototypal.html
+module.exports = function create(obj, extendWithProperties) {
+	function extendObject(result, props) {
+		each(props, function(val, key) {
+			result[key] = val
+		})
+		return result
+	}
+	if (typeof Object.create == 'function') {
+		module.exports = function nativeCreate(obj, extendWithProperties) {
+			return extendObject(Object.create(obj), extendWithProperties)
+		}
+	} else {
+		module.exports = function shimCreate(obj, extendWithProperties) {
+			function F() {}
+			F.prototype = obj
+			return extendObject(new F(), extendWithProperties)
+		}
+	}
+	return module.exports(obj, extendWithProperties)
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/proto
+	var module = __require__["_5"] = {exports:{}}, exports = module.exports;
+/* 
+	// Usage: proto(prototypeObj, intantiatingFn, properties)
+	
+	var base = {
+		say:function(arg) { alert(arg) }
+	}
+
+	var person = proto(base,
+		function(name) {
+			this.name = name
+		}, {
+			greet:function(other) {
+				this.say("hello "+other.name+", I'm "+this.name)
+			}
+		}
+	)
+	
+	var marcus = person("marcus"),
+		john = person("john")
+
+	marcus.greet(john)
+*/
+
+var create = __require__["_4"].exports,
+	each = __require__["_3"].exports
+
+var proto = module.exports = function proto(prototypeObject, instantiationFunction, propertiesToAdd) {
+	// F is the function that is required in order to implement JS prototypical inheritence
+	function F(args) {
+		// When a new object is created, call the instantiation function
+		return instantiationFunction.apply(this, args)
+	}
+	// The prototype object itself points to the passed-in prototypeObject,
+	// but also has all the properties enumerated in propertiesToAdd
+	F.prototype = prototypeObject ? create(prototypeObject, propertiesToAdd) : propertiesToAdd
+	
+	return function() {
+		return new F(arguments)
+	}
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/map
+	var module = __require__["_6"] = {exports:{}}, exports = module.exports;
+var each = __require__["_3"].exports
+
+module.exports = function(items, ctx, fn) {
+	var result = []
+	if (!fn) {
+		fn = ctx
+		ctx = this
+	}
+	each(items, ctx, function(item, key) {
+		result.push(fn.call(ctx, item, key))
+	})
+	return result
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/slice
+	var module = __require__["_7"] = {exports:{}}, exports = module.exports;
+/*
+	Example usage:
+
+	function log(category, arg1, arg2) { // arg3, arg4, ..., argN
+		console.log('log category', category, std.slice(arguments, 1))
+	}
+*/
+module.exports = function args(args, offset, length) {
+	if (typeof length == 'undefined') { length = args.length }
+	return Array.prototype.slice.call(args, offset || 0, length)
+}
+
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/bind
+	var module = __require__["_8"] = {exports:{}}, exports = module.exports;
+/*
+	Example usage:
+
+	function Client() {
+		this._socket = new Connection()
+		this._socket.open()
+		this._socket.on('connected', bind(this, '_log', 'connected!'))
+		this._socket.on('connected', bind(this, 'disconnect'))
+	}
+
+	Client.prototype._log = function(message) {
+		console.log('client says:', message)
+	}
+
+	Client.prototype.disconnect = function() {
+		this._socket.disconnect()
+	}
+
+	Example usage:
+
+	var Toolbar = Class(function() {
+		
+		this.init = function() {
+			this._buttonWasClicked = false
+		}
+		
+		this.addButton = function(clickHandler) {
+			this._button = new Button()
+			this._button.on('Click', bind(this, '_onButtonClick', clickHandler))
+		}
+
+		this._onButtonClick = function(clickHandler) {
+			this._buttonWasClicked = true
+			clickHandler()
+		}
+
+	})
+
+*/
+var slice = __require__["_7"].exports
+
+module.exports = function bind(context, method /* curry1, curry2, ... curryN */) {
+	if (typeof method == 'string') { method = context[method] }
+	var curryArgs = slice(arguments, 2)
+	return function bound() {
+		var invocationArgs = slice(arguments)
+		return method.apply(context, curryArgs.concat(invocationArgs))
+	}
+}
+
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/src/runtime/expressions
+	var module = __require__["_9"] = {exports:{}}, exports = module.exports;
+var proto = __require__["_5"].exports,
+	create = __require__["_4"].exports,
+	map = __require__["_6"].exports,
+	isArray = __require__["_1"].exports,
+	each = __require__["_3"].exports,
+	bind = __require__["_8"].exports
+
+/* Value bases
+ *************/
+var base = module.exports.base = {
+	observe:function(callback) { callback() },
+	asJSON:function() { return this.asLiteral() },
+	asJSONObject:function() { return JSON.parse(this.asJSON()) }, // HACK
+	isTruthy:function() { return true },
+	isNull:function() { return false },
+	getters:{
+		copy:function() {
+			var self = this
+			return module.exports.Function(function(yieldValue) {
+				yieldValue(self.getContent())
+			})
+		}
+	}
+}
+
+var constantAtomicBase = create(base, {
+	inspect:function() { return '<'+this._type+' ' + this.asLiteral() + '>' },
+	getType:function() { return this._type },
+	evaluate:function() { return this },
+	isAtomic:function() { return true },
+	isMutable:function() { return false },
+	asString:function() { return this._content.toString() },
+	equals:function(that) { return (this.getType() == that.getType() && this.getContent() == that.getContent()) ? Yes : No },
+	getContent:function() { return this._content },
+	hasVariableContent:function() { return false },
+	dismiss:function(id) { /* This function intentionally left blank */  }
+})
+
+var invocableBase = create(constantAtomicBase, {
+	asLiteral:function() { return '<block>' }
+})
+
+var variableValueBase = create(base, {
+	isAtomic:function() { return this.evaluate().isAtomic() },
+	getType:function() { return this.evaluate().getType() },
+	asString:function() { return this.evaluate().asString() },
+	asLiteral:function() { return this.evaluate().asLiteral() },
+	equals:function(that) { return this.evaluate().equals(that) },
+	getContent:function() { return this.evaluate().getContent() },
+	isTruthy:function() { return this.evaluate().isTruthy() },
+	hasVariableContent:function() { return true }
+})
+
+var mutableBase = create(variableValueBase, {
+	isMutable:function() { return true },
+	notifyObservers:function() { each(this.observers, function(observer) { observer() }) },
+	observe:function(callback) {
+		var uniqueID = 'u'+_unique++
+		this.observers[uniqueID] = callback
+		callback()
+		return uniqueID
+	},
+	dismiss:function(uniqueID) {
+		if (!this.observers[uniqueID]) {
+			throw new Error("Tried to dismiss an observer by incorrect ID")
+		}
+		delete this.observers[uniqueID]
+	},
+	onNewValue:function(oldValue, observationId, newValue) {
+		if (oldValue && oldValue.hasVariableContent()) {
+			oldValue.dismiss(observationId)
+		}
+		if (newValue.hasVariableContent()) {
+			return newValue.observe(bind(this, this.notifyObservers))
+		} else {
+			this.notifyObservers()
+		}
+	}
+})
+
+var collectionBase = create(mutableBase, {
+	isAtomic:function() { return false },
+	getType:function() { return this._type },
+	evaluate:function() { return this },
+	getContent:function() { return this._content },
+	isTruthy:function() { return true },
+	set:function(chain, value) {
+		if (!chain || !chain.length) {
+			throw new Error("Attempted setting collection property without a chain")
+		}
+		var prop = chain[0]
+		if (chain.length == 1) {
+			var oldValue = this._content[prop]
+			this._content[prop] = value
+			this._observationIDs[prop] = this.onNewValue(oldValue, this._observationIDs[prop], value)
+		} else if (!this._content[prop]) {
+			throw new Error('Attempted to set the value of a null property')
+		} else if (!this._content[prop].isMutable()) {
+			throw new Error("Attempted to set the value of a non-mutable property")
+		} else {
+			this._content[prop].set(chain.slice(1), value)
+		}
+	}
+})
+
+/* Atomic, immutable expressions
+ *******************************/
+var Number = module.exports.Number = proto(constantAtomicBase,
+	function(content) {
+		if (typeof content != 'number') { TypeMismatch }
+		this._content = content
+	}, {
+		_type:'Number',
+		asLiteral:function() { return this._content },
+		isTruthy: function() { return this._content != 0 }
+	}
+)
+
+var Text = module.exports.Text = proto(constantAtomicBase,
+	function(content) {
+		if (typeof content != 'string') { TypeMismatch }
+		this._content = content
+	}, {
+		_type:'Text',
+		asLiteral:function() { return '"'+this._content+'"' }
+	}
+)
+
+var Logic = module.exports.Logic = function(content) {
+	if (typeof content != 'boolean') { TypeMismatch }
+	return content ? Yes : No
+}
+
+var LogicProto = proto(constantAtomicBase,
+	function(content) {
+		this._content = content
+	}, {
+		_type:'Logic',
+		asString:function() { return this._content ? 'yes' : 'no' },
+		asLiteral:function() { return this._content ? 'true' : 'false' },
+		isTruthy:function() { return this._content }
+	}
+)
+
+var Yes = module.exports.Yes = LogicProto(true),
+	No = module.exports.No = LogicProto(false)
+
+var NullValue = (proto(constantAtomicBase,
+	function() {
+		if (arguments.length) { TypeMismatch }
+	}, {
+		_type:'Null',
+		inspect:function() { return '<Null>' },
+		asString:function() { return '' },
+		equals:function(that) { return that.getType() == 'Null' ? Yes : No },
+		asLiteral:function() { return 'null' },
+		isTruthy:function() { return false },
+		isNull:function() { return true }
+	}
+))();
+
+module.exports.Null = function() { return NullValue }
+
+module.exports.Function = proto(invocableBase,
+	function(block) {
+		if (typeof block != 'function') { TypeMismatch }
+		this._content = block
+	}, {
+		_type:'Function',
+		invoke:function(args) {
+			var invocationValue = variable(NullValue)
+			var yieldValue = function(value) { invocationValue.set(null, fromJsValue(value)) }
+			var __hackFirstExecution = true
+			var executeBlock = bind(this, function() {
+				if (waitForSetup) { return }
+				var isFirstExecution = __hackFirstExecution
+				__hackFirstExecution = false
+				this._content.apply(this, [yieldValue, isFirstExecution].concat(args))
+			})
+			
+			var waitForSetup = true
+			each(args, function(arg) {
+				arg && arg.observe(executeBlock)
+			})
+			waitForSetup = false
+			executeBlock()
+			
+			return invocationValue
+		}
+	}
+)
+
+function waitFor(fn) {
+	var waitingFor = 0
+	return {
+		addWaiter:function() {
+			var responded = false
+			waitingFor++
+			return function() {
+				if (!responded) {
+					responded = true
+					waitingFor--
+				}
+				if (!waitingFor) { fn() }
+			}
+		},
+		tryNow:function() {
+			if (!waitingFor) { fn() }
+		}
+	}
+}
+
+module.exports.Handler = proto(invocableBase,
+	function(block) {
+		if (typeof block != 'function') { TypeMismatch }
+		this._content = block
+	}, {
+		_type:'Handler',
+		invoke:function(element, event) {
+			this._content.call(element, event)
+		}
+	}
+)
+
+module.exports.Template = proto(invocableBase,
+	function(block) {
+		if (typeof block != 'function') { TypeMismatch }
+		this._content = block
+	}, {
+		_type:'Template',
+		render:function(hookName, args) {
+			this._content.apply(this, [hookName].concat(args))
+			return NullValue // This is a bit ghetto - allows template invocations to render nothing. I'm thinking more and more that template invocations may want their own syntax (<templateName foo=foo, bar=bar, gee=gee> </templateName>)
+		}
+	}
+)
+
+/* Variable value expressions
+ ****************************/
+var composite = module.exports.composite = proto(variableValueBase,
+	function(left, operator, right) {
+		if (typeof operator != 'string') { TypeMismatch }
+		// TODO typecheck left and right
+		this.left = left
+		this.right = right
+		this.operator = operator
+	}, {
+		_type:'composite',
+		evaluate:function() { return operators[this.operator](this.left, this.right) },
+		observe:function(callback) {
+			this._leftId = this.left.observe(callback)
+			this._rightId = this.right.observe(callback)
+		},
+		dismiss:function() {
+			this.left.dismiss(this._leftId)
+			this.right.dismiss(this._rightId)
+		}
+	}
+)
+
+module.exports.ternary = proto(variableValueBase,
+	function(condition, ifValue, elseValue) {
+		this.condition = condition
+		this.ifValue = ifValue
+		this.elseValue = elseValue
+	}, {
+		_type:'ternary',
+		evaluate:function() { return this.condition.getContent() ? this.ifValue.evaluate() : this.elseValue.evaluate() },
+		observe:function(callback) {
+			this._conditionId = this.condition.observe(callback)
+			this._ifValueId = this.ifValue.observe(callback)
+			this._elseValueId = this.elseValue.observe(callback)
+		},
+		dismiss:function() {
+			this.condition.dismiss(this._conditionID)
+			this.ifValue.dismiss(this._ifValueId)
+			this.elseValue.dismiss(this._elseValueId)
+		}
+	})
+
+module.exports.unary = proto(variableValueBase,
+	function(operator, value) {
+		this.operator = operator
+		this.value = value
+	}, {
+		_type:'unary',
+		evaluate:function() { return unaryOperators[this.operator](this.value.evaluate()) },
+		observe:function(callback) { this._valueId = this.value.observe(callback) },
+		dismiss:function() { this.value.dismiss(this._valueId) }
+	})
+
+var unaryOperators = {
+	'!': function not(value) { return Logic(!value.isTruthy()) }
+}
+
+var operators = {
+	'+': add,
+	'-': subtract,
+	'/': divide,
+	'*': multiply,
+	'=': equals,
+	'==': equals, // I wonder if we should make this just = in the fun source, since we don't allow for assignment in mutating statements...
+	'!': notEquals,
+	'!=': notEquals, // We may want to just use ! since it's `foo is ! 'hi'` now
+	'>=': greaterThanOrEquals,
+	'<=': lessThanOrEquals,
+	'<': lessThan,
+	'>': greaterThan
+}
+
+function add(left, right) {
+	if (left.getType() == 'Number' && right.getType() == 'Number') {
+		return Number(left.getContent() + right.getContent())
+	}
+	return Text(left.asString() + right.asString())
+}
+
+function subtract(left, right) {
+	if (left.getType() == 'Number' && right.getType() == 'Number') {
+		return Number(left.getContent() - right.getContent())
+	} else {
+		return NullValue
+	}
+}
+
+function divide(left, right) {
+	if (left.getType() == 'Number' && right.getType() == 'Number') {
+		return Number(left.getContent() / right.getContent())
+	} else {
+		return NullValue
+	}
+}
+
+function multiply(left, right) {
+	if (left.getType() == 'Number' && right.getType() == 'Number') {
+		return Number(left.getContent() * right.getContent())
+	} else {
+		return NullValue
+	}
+}
+
+
+function equals(left, right) {
+	return left.equals(right)
+}
+
+function notEquals(left, right) {
+	return Logic(!left.equals(right).getContent())
+}
+
+function greaterThanOrEquals(left, right) {
+	// TODO Typecheck?
+	return Logic(left.getContent() >= right.getContent())
+}
+
+function lessThanOrEquals(left, right) {
+	// TODO Typecheck?
+	return Logic(left.getContent() <= right.getContent())
+}
+
+function lessThan(left, right) {
+	// TODO Typecheck?
+	return Logic(left.getContent() < right.getContent())
+}
+
+function greaterThan(left, right) {
+	// TODO Typecheck?
+	return Logic(left.getContent() > right.getContent())
+}
+
+/* Variable and mutable value expressions
+ ****************************************/
+var _unique = 1
+var variable = module.exports.variable = proto(mutableBase,
+	function(content) {
+		this.observers = {}
+		this.set(null, content)
+	}, {
+		_type:'variable',
+		evaluate:function() { return this._content.evaluate() },
+		inspect:function() { return '<variable '+this._content.inspect()+'>' },
+		asString:function() { return this._content.asString() },
+		asLiteral:function() { return this._content.asLiteral() },
+		equals:function(that) { return this._content.equals(that) },
+		push:function(chain, value) { this._content.push(chain, value) },
+		notifyObservers:function() { each(this.observers, function(observer, id) { observer() }) },
+		set:function(chain, value) {
+			if (!chain || !chain.length) {
+				var oldValue = this._content
+				this._content = value
+				this._observationID = this.onNewValue(oldValue, this._observationID, value)
+			} else if (!this._content.isMutable()) {
+				throw new Error("Attempted to set the value of a non-mutable property")
+			} else {
+				this._content.set(chain, value)
+			}
+		}
+	}
+)
+
+var reference = module.exports.reference = proto(variableValueBase,
+	function(content, chain) {
+		this._content = content
+		this._chain = chain
+	}, {
+		_type:'reference',
+		getType:function() { return this.evaluate().getType() },
+		inspect:function() { return '<Reference '+this._chain.join('.')+' '+this._content.inspect()+'>' },
+		observe:function(callback) { return this._content.observe(callback) },
+		equals:function(that) { return this.evaluate().equals(that) },
+		dismiss:function(observationId) { this._content.dismiss(observationId) },
+		set:function(chain, toValue) {
+			chain = (this._chain && chain) ? (this._chain.concat(chain)) : (this._chain || chain)
+			return this._content.set(chain, toValue)
+		},
+		evaluate:function() {
+			var value = this._content.evaluate()
+			for (var i=0; i<this._chain.length; i++) {
+				var prop = this._chain[i]
+				if (value.getters[prop]) {
+					value = value.getters[prop].call(value)
+				} else if (value.isAtomic()) {
+					return NullValue
+				} else if (!value._content[prop]) {
+					return NullValue
+				} else {
+					value = value._content[prop].evaluate()
+				}
+			}
+			return value
+		}
+	}
+)
+
+var Dictionary = module.exports.Dictionary = proto(collectionBase,
+	function(content) {
+		if (typeof content != 'object' || isArray(content) || content == null) { TypeMismatch }
+		this.observers = {}
+		this._observationIDs = {}
+		this._content = {}
+		each(content, bind(this, function(val, key) { this.set([key], val) }))
+	}, {
+		_type:'Dictionary',
+		asLiteral:function() { return '{ '+map(this._content, function(val, key) { return '"'+key+'":'+val.asLiteral() }).join(', ')+' }' },
+		asString:function() { return this.asLiteral() },
+		inspect:function() { return '<Dictionary { '+map(this._content, function(val, key) { return '"'+key+'":'+val.inspect() }).join(', ')+' }>' },
+		iterate:__interimIterationFunction,
+		equals:function(that) {
+			that = that.evaluate()
+			if (that._type != this._type) {
+				return No
+			}
+			for (var key in this._content) {
+				if (that._content[key] && that._content[key].equals(this._content[key])) { continue }
+				return No
+			}
+			for (var key in that._content) {
+				if (this._content[key] && this._content[key].equals(that._content[key])) { continue }
+				return No
+			}
+			return Yes
+		}
+	}
+)
+
+var List = module.exports.List = proto(collectionBase,
+	function(content) {
+		if (!isArray(content)) { TypeMismatch }
+		this.observers = {}
+		this._observationIDs = {}
+		this._content = []
+		each(content, bind(this, function(val, key) { this.set([key], val) }))
+	}, {
+		_type:'List',
+		asLiteral:function() { return '[ '+map(this._content, function(val) { return val.asLiteral() }).join(', ')+' ]' },
+		asString:function() { return this.asLiteral() },
+		inspect:function() { return '<List [ '+map(this._content, function(val) { return val.inspect() }).join(', ')+' ]>' },
+		push:function(chain, value) { this.set([this._content.length], value) },
+		iterate:__interimIterationFunction,
+		equals:function(that) {
+			that = that.evaluate()
+			if (that._type != this._type) {
+				return No
+			}
+			if (that._content.length != this._content.length) {
+				return No
+			}
+			for (var i=0; i<this._content.length; i++) {
+				if (that._content[i].equals(this._content[i])) { continue }
+				return No
+			}
+			return Yes
+		},
+		getters:create(base.getters, {
+			length:function() {
+				var variableLength = variable(NullValue)
+				this.observe(bind(this, function() {
+					variableLength.set(null, Number(this._content.length))
+				}))
+				return variableLength
+			}
+		}),
+	}
+)
+
+function __interimIterationFunction(yieldFn) {
+	each(this._content, yieldFn)
+}
+
+/* Util
+ ******/
+var fromJsValue = module.exports.fromJsValue = module.exports.value = function(val) {
+	switch (typeof val) {
+		case 'string': return Text(val)
+		case 'number': return Number(val)
+		case 'boolean': return Logic(val)
+		case 'undefined': return NullValue
+		case 'object':
+			if (base.isPrototypeOf(val)) { return val }
+			if (val == null) {
+				return NullValue
+			}
+			if (isArray(val)) {
+				var content = map(val, fromJsValue)
+				return List(content)
+			}
+			var content = {}
+			each(val, function(contentVal, contentName) {
+				content[contentName] = fromJsValue(contentVal)
+			})
+			return Dictionary(content)
+	}
+}
+
+module.exports.fromJSON = function(json) {
+	try { var jsValue = JSON.parse(json) }
+	catch(e) { return NullValue }
+	return fromJsValue(jsValue)
+}
+
+var Event = module.exports.Event = function(jsEvent) {
+	var funEvent = fromJsValue({
+		keyCode:jsEvent.keyCode,
+		type:jsEvent.type,
+		cancel:fun.expressions.Function(function() {
+			if (jsEvent.preventDefault) { jsEvent.preventDefault() }
+			else { jsEvent.returnValue = false }
+		})
+	})
+	funEvent.jsEvent = jsEvent // For JS API
+	return funEvent
+}
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/curry
+	var module = __require__["_10"] = {exports:{}}, exports = module.exports;
+var slice = __require__["_7"].exports
+
+module.exports = function curry(fn /* arg1, arg2, ... argN */) {
+	var curryArgs = slice(arguments, 1)
+	return function curried() {
+		var invocationArgs = slice(arguments)
+		return fn.apply(this, curryArgs.concat(invocationArgs))
+	}
+}
+
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/throttle
+	var module = __require__["_11"] = {exports:{}}, exports = module.exports;
+var unique = 0
+module.exports = function throttle(fn, delay) {
+	if (typeof delay != 'number') { delay = 50 }
+	var timeoutName = '__throttleTimeout__' + (++unique)
+	return function throttled() {
+		if (this[timeoutName]) { return }
+		var args = arguments, self = this
+		this[timeoutName] = setTimeout(function fireDelayed() {
+			delete self[timeoutName]
+			fn.apply(self, args)
+		}, delay)
+		fn.apply(self, args)
+	}
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/hasClass
+	var module = __require__["_12"] = {exports:{}}, exports = module.exports;
+module.exports = function(el, className) {
+	return (' ' + el.className + ' ').match(' ' + className + ' ')
+}
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/addClass
+	var module = __require__["_13"] = {exports:{}}, exports = module.exports;
+var hasClass = __require__["_12"].exports
+
+module.exports = function(el, className) {
+	if (hasClass(el, className)) { return }
+	el.className += ' ' + className
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/removeClass
+	var module = __require__["_14"] = {exports:{}}, exports = module.exports;
+module.exports = function removeClass(el, className) {
+	var current = ' ' + el.className + ' ',
+	  target = ' ' + className + ' ',
+	  index = current.indexOf(target)
+
+  if (index == -1) { return }
+	el.className = current.replace(target, ' ')
+}
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/unique
+	var module = __require__["_15"] = {exports:{}}, exports = module.exports;
+/*
+ * Return a globally unique string.
+ */
+module.exports = function() {
+	return module.exports.__namespace + (++module.exports.__id)
+}
+module.exports.__id = 0
+module.exports.__namespace = '__u'
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/Class
+	var module = __require__["_16"] = {exports:{}}, exports = module.exports;
+/* Example usage:
+
+	var UIComponent = Class(function() {
+		this.init = function() { ... }
+		this.create = function() { ... this.createDOM() ... }
+	})
+
+	var PublisherMixin = {
+		init: function(){ ... },
+		publish_: function() { ... }
+	}
+  
+	var Button = Class(UIComponent, PublisherMixin, function(supr) {
+		this.init = function(opts) {
+			// call UIComponents init method, with the passed in arguments
+			supr(this, 'init', arguments) // or, UIComponent.constructor.prototype.init.apply(this, arguments)
+			this.color_ = opts && opts.color
+		}
+
+		// createDOM overwrites abstract method from parent class UIComponent
+		this.createDOM = function() {
+			this.getElement().onclick = bind(this, function(e) {
+				// this.publish_ is a method added to Button by the Publisher mixin
+				this.publish_('Click', e)
+			})
+		}
+	})
+
+*/
+module.exports = function Class(/* optParent, optMixin1, optMixin2, ..., proto */) {
+	var args = arguments,
+		numOptArgs = args.length - 1,
+		mixins = []
+
+	// the prototype function is always the last argument
+	var proto = args[numOptArgs]
+
+	// if there's more than one argument, then the first argument is the parent class
+	if (numOptArgs) {
+		var parent = args[0]
+		if (parent) { proto.prototype = parent.prototype }
+	}
+
+	for (var i=1; i < numOptArgs; i++) { mixins.push(arguments[i]) }
+
+	// cls is the actual class function. Classes may implement this.init = function(){ ... },
+	// which gets called upon instantiation
+	var cls = function() {
+		if(this.init) { this.init.apply(this, arguments) }
+		for (var i=0, mixin; mixin = mixins[i]; i++) {
+			if (mixin.init) { mixin.init.apply(this) }
+		}
+	}
+
+	// the proto function gets called with the supr function as an argument. supr climbs the
+	// inheritence chain, looking for the named method
+	cls.prototype = new proto(function supr(context, method, args) {
+		var target = parent
+		while(target = target.prototype) {
+			if(target[method]) {
+				return target[method].apply(context, args || [])
+			}
+		}
+		throw new Error('supr: parent method ' + method + ' does not exist')
+	})
+
+	// add all mixins' properties to the class' prototype object
+	for (var i=0, mixin; mixin = mixins[i]; i++) {
+		for (var propertyName in mixin) {
+			if (!mixin.hasOwnProperty(propertyName) || propertyName == 'init') { continue }
+			if (cls.prototype.hasOwnProperty(propertyName)) {
+				throw new Error('Mixin property "'+propertyName+'" already exists on class')
+			}
+			cls.prototype[propertyName] = mixin[propertyName]
+		}
+	}
+
+	cls.prototype.constructor = cls
+	return cls
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/client
+	var module = __require__["_17"] = {exports:{}}, exports = module.exports;
+var Class = __require__["_16"].exports
+
+var mobileRegex = /mobile/i;
+
+var Client = Class(function() {
+	
+	this.init = function(userAgent) {
+		this._userAgent = userAgent
+		this._parseBrowser()
+		this._parseDevice()
+	}
+	
+	this._parseBrowser = function() {
+		(this.isChrome = this._isBrowser('Chrome'))
+			|| (this.isFirefox = this._isBrowser('Firefox'))
+			|| (this.isIE = this._isBrowser('MSIE'))
+			|| (this.isSkyfire = this._isBrowser('Skyfire', 'Skyfire')) // Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Safari/530.17 Skyfire/2.0
+			|| (this.isSafari = this._isBrowser('Safari', 'Version'))
+			|| (this.isOpera = this._isBrowser('Opera', 'Version'))
+		
+		if (this.isOpera) {
+			if (this._userAgent.match('Opera Mini')) { this.isOperaMini = true } // Opera mini is a cloud browser - Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/ADR-1110171336; U; en) Presto/2.9.201 Version/11.50
+		}
+		
+		try {
+			document.createEvent("TouchEvent")
+			this.isTouch = true
+		} catch (e) {
+			this.isTouch = false
+		}
+	}
+	
+	this._parseDevice = function() {
+		((this.isIPhone = this._is('iPhone'))
+			|| (this.isIPad = this._is('iPad'))
+			|| (this.isIPod = this._is('iPod')))
+		
+		this.isAndroid = this._isBrowser('Android', 'Version')
+		this.isIOS = (this.isIPhone || this.isIPad || this.isIPod)
+		
+		if (this.isIOS) {
+			var osVersionMatch = this._userAgent.match(/ OS ([\d_]+) /),
+				osVersion = osVersionMatch ? osVersionMatch[1] : '',
+				parts = osVersion.split('_'),
+				version = { major:parseInt(parts[0]), minor:parseInt(parts[1]), patch:parseInt(parts[2]) }
+			
+			this.os = { version:version }
+		}
+		
+		if (this.isOpera && this._userAgent.match('Opera Mobi')) { this.isMobile = true } // Opera mobile is a proper mobile browser - Opera/9.80 (Android; Opera Mini/6.5.26571/ 26.1069; U; en) Presto/2.8.119 Version/10.54
+		if (this.isSkyfire) { this.isMobile = true }
+		if (this.isIPhone) { this.isMobile = true }
+		if (this.isAndroid) {
+			if (this._userAgent.match(mobileRegex)) { this.isMobile = true }
+			if (this.isFirefox) { this.isMobile = true } // Firefox Android browsers do not seem to have an indication that it's a phone vs a tablet: Mozilla/5.0 (Android; Linux armv7l; rv:7.0.1) Gecko/20110928 Firefox/7.0.1 Fennec/7.0.1
+		}
+		
+		this.isTablet = this.isIPad
+	}
+	
+	this.isQuirksMode = function(doc) {
+		// in IE, if compatMode is undefined (early ie) or explicitly set to BackCompat, we're in quirks
+		return this.isIE && (!doc.compatMode || doc.compatMode == 'BackCompat')
+	}
+	
+	this._isBrowser = function(name, versionString) {
+		if (!this._is(name)) { return false }
+		var agent = this._userAgent,
+			index = agent.indexOf(versionString || name)
+		this.version = parseFloat(agent.substr(index + (versionString || name).length + 1))
+		this.name = name
+		return true
+	}
+
+	this._is = function(name) {
+		return (this._userAgent.indexOf(name) >= 0)
+	}
+})
+
+if (typeof window != 'undefined') { module.exports = new Client(window.navigator.userAgent) }
+else { module.exports = {} }
+
+module.exports.parse = function(userAgent) { return new Client(userAgent) }
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/getWindowScroll
+	var module = __require__["_18"] = {exports:{}}, exports = module.exports;
+// Thanks http://stackoverflow.com/questions/1567327/using-jquery-to-get-elements-position-relative-to-viewport!
+module.exports = function getWindowScroll(win) {
+	var win = win || window,
+		doc = win.document,
+		docEl = doc.documentElement,
+		body = doc.body
+	
+	return {
+		top:  win.pageYOffset || (docEl && docEl.scrollTop) || body.scrollTop,
+		left: win.pageXOffset || (docEl && docEl.scrollLeft) || body.scrollLeft
+	}
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/on
+	var module = __require__["_19"] = {exports:{}}, exports = module.exports;
+var unique = __require__["_15"].exports,
+	curry = __require__["_10"].exports,
+	client = __require__["_17"].exports,
+	getWindowScroll = __require__["_18"].exports
+
+module.exports = function on(element, eventName, handler) {
+	var uniqueID = module.exports.stampElement(element),
+		map = module.exports._elementMaps[uniqueID]
+	if (!map) { map = module.exports._elementMaps[uniqueID] = {} }
+
+	var eventListeners = map[eventName]
+	if (!eventListeners) {
+		eventListeners = map[eventName] = []
+		eventListeners._realHandler = curry(module.exports._handleEvent, element, eventName)
+		module.exports._addListener(element, eventName, eventListeners._realHandler)
+	}
+	eventListeners.push(handler)
+}
+
+module.exports._idNamespace = '__onID'
+module.exports._elementMaps = {}
+
+module.exports.stampElement = function(element) {
+	var uniqueID
+	if (element.getAttribute) {
+		uniqueID = element.getAttribute(module.exports._idNamespace)
+		if (!uniqueID) {
+			uniqueID = unique()
+			element.setAttribute(module.exports._idNamespace, uniqueID)
+		}
+	} else {
+		uniqueID = element[module.exports._idNamespace]
+		if (!uniqueID) {
+			uniqueID = element[module.exports._idNamespace] = unique()
+		}
+	}
+	return uniqueID
+}
+
+module.exports.getElementMap = function(element) {
+	var uniqueID = element.getAttribute ? element.getAttribute(module.exports._idNamespace) : element[module.exports._idNamespace]
+	return uniqueID && module.exports._elementMaps[uniqueID]
+}
+
+module.exports._addListener = function(element, eventName, handler) {
+	if (window.addEventListener) {
+		module.exports._addListener = function(element, eventName, handler) {
+			if (eventName == 'mousewheel' && client.isFirefox) { eventName = 'MozMousePixelScroll' }
+			element.addEventListener(eventName, handler, false)
+		}
+	} else if (window.attachEvent) {
+		module.exports._addListener = function(element, eventName, handler) {
+			element.attachEvent('on'+eventName, handler)
+		}
+	} else {
+		module.exports._addListener = null
+	}
+	
+	module.exports._addListener(element, eventName, handler)
+}
+
+module.exports._handleEvent = function(element, eventName, e) {
+	var eventObj = module.exports.normalizeEvent(eventName, e),
+		elementMap = module.exports.getElementMap(element),
+		handlers = elementMap[eventName]
+	for (var i=0; i<handlers.length; i++) {
+		handlers[i].call(element, eventObj)
+	}
+}
+
+module.exports.normalizeEvent = function(eventName, e) {
+	e = e || event
+	var eventObj = {
+		keyCode: e.keyCode,
+		metaKey: e.metaKey,
+		target: e.target || e.srcElement,
+		source: e.source, // postmessage
+		origin: e.origin,
+		data: e.data,
+		touches: e.touches,
+		changedTouches: e.changedTouches
+	}
+
+	if (eventName == 'mousewheel') {
+		// http://adomas.org/javascript-mouse-wheel/
+		// https://developer.mozilla.org/en/Gecko-Specific_DOM_Events
+		// TODO Normalize the values across browsers
+		if (typeof e.wheelDeltaX == 'number') {
+			eventObj.dx = -e.wheelDeltaX
+			eventObj.dy = -e.wheelDeltaY
+		} else if (e.wheelDelta) {
+			eventObj.dy = -e.wheelDelta
+		} else if (e.detail) {
+			if (e.axis == e.HORIZONTAL_AXIS) { eventObj.dx = e.detail }
+			if (e.axis == e.VERTICAL_AXIS) { eventObj.dy = e.detail }
+		}
+	}
+
+	if (typeof e.pageX == 'number')   {
+		eventObj.x = e.pageX
+		eventObj.y = e.pageY
+	} else if (typeof e.clientX == 'number') {
+		var scroll = getWindowScroll(window)
+		eventObj.x = e.clientX + scroll.left
+		eventObj.y = e.clientY + scroll.top
+	}
+
+	eventObj.cancel = function() {
+		if (e.preventDefault) { e.preventDefault() }
+		else { e.returnValue = false }
+	}
+
+	if (e.type == 'keypress') {
+		eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13) 
+			? 0 // in Webkit, return/enter key gives a charCode as well as a keyCode. Should only be a keyCode
+			: e.charCode
+	}
+
+	return eventObj
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/dom/off
+	var module = __require__["_20"] = {exports:{}}, exports = module.exports;
+var on = __require__["_19"].exports
+
+module.exports = function(element, eventName, handler) {
+	var map = on.getElementMap(element),
+		handlers = map[eventName]
+	
+	if (!handlers) { return }
+	
+	if (handler) {
+		for (var i=0; i<handlers.length; i++) {
+			if (handler != handlers[i]) { continue }
+			handlers.splice(i, 1)
+			break
+		}
+	}
+		
+	if (!handler || !handlers.length) {
+		module.exports._removeHandler(element, eventName, handlers._realHandler)
+		delete map[eventName]
+	}
+}
+
+module.exports._removeHandler = function(element, eventName, handler) {
+	if (window.removeEventListener) {
+		module.exports._removeHandler = function(element, eventName, handler) {
+			if (eventName == 'mousewheel' && client.isFirefox) { eventName = 'MozMousePixelScroll' }
+			element.removeEventListener(eventName, handler, false)
+		}
+	} else if (window.detachEvent) {
+		module.exports._removeHandler = function(element, eventName, handler) {
+			element.detachEvent('on'+eventName, handler)
+		}
+	} else {
+		module.exports._removeHandler = null
+	}
+
+	module.exports._removeHandler(element, eventName, handler)
+}
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/marcuswestin/fun/src/runtime/library
+	var module = __require__["_21"] = {exports:{}}, exports = module.exports;
+var expressions = __require__["_9"].exports,
+	each = __require__["_3"].exports,
+	curry = __require__["_10"].exports,
+	throttle = __require__["_11"].exports,
+	addClass = __require__["_13"].exports,
+	removeClass = __require__["_14"].exports,
+	on = __require__["_19"].exports,
+	off = __require__["_20"].exports
+
+;(function() {
+	if (typeof fun == 'undefined') { fun = {} }
+	var _unique, _hooks, _hookCallbacks
+	
+	fun.reset = function() {
+		_unique = 0
+		_hooks = {}
+		_hookCallbacks = {}
+	}
+	
+	fun.name = function(readable) { return '_' + (readable || '') + '_' + (_unique++) }
+
+	fun.expressions = expressions
+	
+	fun.invoke = function(operand, args, parentHookName) {
+		operand = operand.evaluate()
+		// TODO Observe operand
+		// TODO Observe arguments
+		switch (operand.getType()) {
+			case 'Handler':
+				return operand.invoke(args)
+			case 'Function':
+				return operand.invoke(args)
+			case 'Template':
+				return operand.render(fun.hook(fun.name(), parentHookName), args)
+			default:
+				throw new Error('Attempted to invoke a non-invocable: '+operand.inspect())
+		}
+	}
+	
+/* Values
+ ********/
+	fun.emit = function(parentHookName, value) {
+		var hookName = fun.hook(fun.name(), parentHookName)
+		value.observe(function() {
+			_hooks[hookName].innerHTML = ''
+			_hooks[hookName].appendChild(document.createTextNode(value.asString()))
+		})
+	}
+	
+/* Hooks
+ *******/
+	fun.setHook = function(name, dom) { _hooks[name] = dom }
+	fun.hook = function(name, parentName, opts) {
+		if (_hooks[name]) { return name }
+		opts = opts || {}
+		var parent = _hooks[parentName],
+			hook = _hooks[name] = document.createElement(opts.tagName || 'hook')
+		
+		each(opts.attrs, function(attr) {
+			if (attr.expand) { fun.attrExpand(name, attr.expand) }
+			else { fun.attr(name, attr.name, attr.value) }
+		})
+		
+		if (_hookCallbacks[name]) {
+			for (var i=0, callback; callback = _hookCallbacks[name][i]; i++) {
+				callback(hook)
+			}
+		}
+		
+		if (!parent.childNodes.length || !opts.prepend) { parent.appendChild(hook) }
+		else { parent.insertBefore(hook, parent.childNodes[0]) }
+		
+		return name
+	}
+	fun.destroyHook = function(hookName) {
+		if (!_hooks[hookName]) { return }
+		_hooks[hookName].innerHTML = ''
+	}
+	fun.withHook = function(hookName, callback) {
+		if (_hooks[hookName]) { return callback(_hooks[hookName]) }
+		else if (_hookCallbacks[hookName]) { _hookCallbacks[hookName].push(callback) }
+		else { _hookCallbacks[hookName] = [callback] }
+	}
+
+	fun.attr = function(hookName, key, value) {
+		if (key == 'data') {
+			fun.reflectInput(hookName, value)
+			return
+		}
+		var hook = _hooks[hookName],
+			lastValue
+		value.observe(function() {
+			if (match = key.match(/^on(\w+)$/)) {
+				if (lastValue) { off(hook, eventName, lastValue) }
+				
+				var eventName = match[1].toLowerCase()
+				if (value.getType() != 'Handler') {
+					console.warn('Event attribute', eventName, 'value is not a Handler')
+					return
+				}
+				on(hook, eventName, lastValue = function(e) {
+					value.evaluate().invoke(hook, expressions.Event(e))
+				})
+			} else if (key == 'style') {
+				// TODO remove old styles
+				each(value.getContent(), function(val, key) {
+					fun.setStyle(hook, key, val)
+				})
+			} else if (key == 'class' || key == 'className') {
+				if (lastValue) { removeClass(hook, lastValue) }
+				addClass(hook, lastValue = value.getContent())
+			} else {
+				hook.setAttribute(key, value.getContent())
+			}
+		})
+	}
+	
+	fun.attrExpand = function(hookName, expandValue) {
+		// TODO Observe the expandValue, and detect keys getting added/removed properly
+		each(expandValue.getContent(), function(value, name) {
+			fun.attr(hookName, name, value)
+		})
+	}
+
+	fun.setStyle = function(hook, key, value) {
+		var rawValue = value.evaluate().asString()
+		if (value.getType() == 'Number' || rawValue.match(/^\d+$/)) { rawValue = rawValue + 'px' }
+		if (key == 'float') { key = 'cssFloat' }
+		hook.style[key] = rawValue
+	}
+	
+	fun.reflectInput = function(hookName, property) {
+		var input = _hooks[hookName]
+		if (input.type == 'checkbox') {
+			property.observe(function() {
+				input.checked = property.getContent() ? true : false
+			})
+			on(input, 'change', function() {
+				setTimeout(function() {
+					property.set(null, input.checked ? fun.expressions.Yes : fun.expressions.No)
+				})
+			})
+		} else {
+			property.observe(function() {
+				input.value = property.evaluate().asString()
+			})
+			
+			function update(e) {
+				setTimeout(function() {
+					var value = input.value
+					if (property.getContent() === value) { return }
+					property.set(null, fun.expressions.Text(input.value))
+					input.value = value
+				}, 0)
+			}
+			
+			on(input, 'keypress', update)
+			on(input, 'keyup', update)
+			on(input, 'keydown', function(e) {
+				if (e.keyCode == 86) { update(e) } // catch paste events
+			})
+		}
+	}
+
+/* init & export
+ ***************/
+	fun.reset()
+	if (typeof module != 'undefined') { module.exports = fun }
+})()
+
+})()
+
+;(function() {
+	// /Volumes/Encrypted/code/node_modules/fun/node_modules/std/strip
+	var module = __require__["_22"] = {exports:{}}, exports = module.exports;
+var stripRegex = /^\s*(.*?)\s*$/
+module.exports = function(str) {
+	return str.match(stripRegex)[1]
+}
+
+
+})()
+
+;(function() {
+	// <code passed into compiler.compile()>
+	var module = __require__["_0"] = {exports:{}}, exports = module.exports;
+fun = __require__["_21"].exports; 
+
+;(function funApp() {
+	var _ROOT_HOOK_0 = fun.name("rootHook")
+	fun.setHook(_ROOT_HOOK_0, document.body)
+	/*********************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/localstorage.fun *
+ *********************************************************************************/
+	var __variableName__localstorage = fun.expressions.variable( fun.expressions.Dictionary({ "persist":
+	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__variable, __variableName__name) {
+		;(function(){
+			var variable=__variableName__variable, name=__variableName__name;
+		/* START INLINE JAVASCRIPT */
+ if (!__hackFirstExecution) { return }
+ var key = name.getContent(),
+ persistedJSON = localStorage.getItem(key)
+ if (persistedJSON && persistedJSON != "null") {
+ variable.set(null, fun.expressions.fromJSON(persistedJSON))
+ }
+ variable.observe(function() {
+ localStorage.setItem(key, variable.asJSON())
+ })
+		/* END INLINE JAVASCRIPT */
+		})()
+	}) }))
+/*************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/list.fun *
+ *************************************************************************/
+	var __variableName__list = fun.expressions.variable( fun.expressions.Dictionary({ "filter":
+	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__list, __variableName__func) {
+		;(function(){
+			var list=__variableName__list, func=__variableName__func;
+		/* START INLINE JAVASCRIPT */
+ var result = [],
+ items = list.getContent()
+ for (var i=0, item; item=items[i]; i++) {
+ if (func.invoke([item]).isTruthy()) {
+ result.push(item)
+ }
+ }
+ yieldValue(result)
+		/* END INLINE JAVASCRIPT */
+		})()
+	}) }))
+/*************************************************************************
+ * Module: /Volumes/Encrypted/code/marcuswestin/fun/src/Modules/text.fun *
+ *************************************************************************/
+	var __variableName__text = fun.expressions.variable( fun.expressions.Dictionary({ "trim":
+	fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__text) {
+		;(function(){
+			var text=__variableName__text;
+		/* START INLINE JAVASCRIPT */
+ var strip = __require__["_22"].exports
+ yieldValue(fun.expressions.Text(strip(text.getContent())))
+		/* END INLINE JAVASCRIPT */
+		})()
+	}) }))
+	var _XML_HOOK_1 = fun.name()
+	fun.hook(_XML_HOOK_1, _ROOT_HOOK_0, { tagName:"head", attrs:null })
+		var _XML_HOOK_2 = fun.name()
+		fun.hook(_XML_HOOK_2, _XML_HOOK_1, { tagName:"meta", attrs:[{name:"charset",value: fun.expressions.Text("utf-8")}] })
+		var _XML_HOOK_3 = fun.name()
+		fun.hook(_XML_HOOK_3, _XML_HOOK_1, { tagName:"title", attrs:null })
+			fun.emit(_XML_HOOK_3,  fun.expressions.Text("Fun • TodoMVC"))
+	var __variableName__tasks = fun.expressions.variable( fun.expressions.List([  ]))
+	fun.emit(_ROOT_HOOK_0,  fun.invoke( fun.expressions.reference(__variableName__localstorage, ["persist"]), [__variableName__tasks, fun.expressions.Text("todos-fun")], _ROOT_HOOK_0))
+	var __variableName__nextId = fun.expressions.variable( fun.expressions.Number(1))
+	fun.emit(_ROOT_HOOK_0,  fun.invoke( fun.expressions.reference(__variableName__localstorage, ["persist"]), [__variableName__nextId, fun.expressions.Text("todos-id")], _ROOT_HOOK_0))
+	var __variableName__displayTasks = fun.expressions.variable(__variableName__tasks)
+	var __variableName__displayFilter = fun.expressions.variable( fun.expressions.Text("all"))
+	var _XML_HOOK_4 = fun.name()
+	fun.hook(_XML_HOOK_4, _ROOT_HOOK_0, { tagName:"section", attrs:[{name:"id",value: fun.expressions.Text("todoapp")}] })
+		var _XML_HOOK_5 = fun.name()
+		fun.hook(_XML_HOOK_5, _XML_HOOK_4, { tagName:"header", attrs:[{name:"id",value: fun.expressions.Text("header")}] })
+			var _XML_HOOK_6 = fun.name()
+			fun.hook(_XML_HOOK_6, _XML_HOOK_5, { tagName:"h1", attrs:null })
+				fun.emit(_XML_HOOK_6,  fun.expressions.Text("todos"))
+			var __variableName__newTaskName = fun.expressions.variable( fun.expressions.Text(""))
+			var _XML_HOOK_7 = fun.name()
+			fun.hook(_XML_HOOK_7, _XML_HOOK_5, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("new-todo")}, {name:"placeholder",value: fun.expressions.Text("What needs to be done?")}, {name:"autofocus",value: fun.expressions.Logic(true)}, {name:"data",value:__variableName__newTaskName}, {name:"onkeypress",value:
+			fun.expressions.Handler(function block(__variableName__event) {
+				;(function(ifBranch, elseBranch) {
+					 fun.expressions.composite( fun.expressions.reference(__variableName__event, ["keyCode"]), "=",  fun.expressions.Number(13)).isTruthy() ? ifBranch() : elseBranch()
+				})(
+					function ifBranch(){
+					var __variableName__trimmedName = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__text, ["trim"]), [ fun.invoke( fun.expressions.reference(__variableName__newTaskName, ["copy"]), [], "")], ""))
+					var __variableName__id = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__nextId, ["copy"]), [], ""))
+					;(function(ifBranch, elseBranch) {
+						 fun.expressions.composite(__variableName__trimmedName, "!",  fun.expressions.Text("")).isTruthy() ? ifBranch() : elseBranch()
+					})(
+						function ifBranch(){
+						__variableName__tasks.push(null,  fun.expressions.Dictionary({ "title":__variableName__trimmedName, "completed": fun.expressions.Logic(false), "id":__variableName__id }))
+						__variableName__newTaskName.set(null,  fun.expressions.Text(""))
+						},
+						function elseBranch(){
+							null
+						}
+					)
+					__variableName__nextId.set(null,  fun.expressions.composite( fun.invoke( fun.expressions.reference(__variableName__nextId, ["copy"]), [], ""), "+",  fun.expressions.Number(1)))
+					},
+					function elseBranch(){
+						null
+					}
+				)
+			})}] })
+		var _IF_ELSE_HOOK_8 = fun.name()
+		fun.hook(_IF_ELSE_HOOK_8, _XML_HOOK_4)
+		var _LAST_VALUE_9
+		 fun.expressions.reference(__variableName__tasks, ["length"]).observe(function() {
+			var _STATEMENT_VALUE_33 =  fun.expressions.reference(__variableName__tasks, ["length"]).evaluate()
+		;(function(ifBranch, elseBranch) {
+			if (_LAST_VALUE_9 && _STATEMENT_VALUE_33.equals(_LAST_VALUE_9).isTruthy()) { return }
+			_LAST_VALUE_9 = _STATEMENT_VALUE_33
+			fun.destroyHook(_IF_ELSE_HOOK_8)
+			_LAST_VALUE_9.isTruthy() ? ifBranch() : elseBranch()
+		})(
+			function ifBranch(){
+			var _XML_HOOK_10 = fun.name()
+			fun.hook(_XML_HOOK_10, _IF_ELSE_HOOK_8, { tagName:"section", attrs:[{name:"id",value: fun.expressions.Text("main")}] })
+				var __variableName__toggleAll = fun.expressions.variable( fun.expressions.Logic(false))
+				var _XML_HOOK_11 = fun.name()
+				fun.hook(_XML_HOOK_11, _XML_HOOK_10, { tagName:"input", attrs:[{name:"id",value: fun.expressions.Text("toggle-all")}, {name:"type",value: fun.expressions.Text("checkbox")}, {name:"data",value:__variableName__toggleAll}, {name:"onchange",value:
+				fun.expressions.Handler(function block() {
+					__variableName__tasks.evaluate().iterate(function(__variableName__task) {
+						 fun.expressions.reference(__variableName__task, ["completed"]).set(null,  fun.expressions.unary("!",  fun.invoke( fun.expressions.reference(__variableName__toggleAll, ["copy"]), [], "")))
+					})
+				})}] })
+				var _XML_HOOK_12 = fun.name()
+				fun.hook(_XML_HOOK_12, _XML_HOOK_10, { tagName:"label", attrs:[{name:"for",value: fun.expressions.Text("toggle-all")}] })
+					fun.emit(_XML_HOOK_12,  fun.expressions.Text("Mark all as complete"))
+				var _XML_HOOK_13 = fun.name()
+				fun.hook(_XML_HOOK_13, _XML_HOOK_10, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("todo-list")}] })
+					var _FOR_LOOP_HOOK_15 = fun.name()
+					fun.hook(_FOR_LOOP_HOOK_15, _XML_HOOK_13)
+					__variableName__displayTasks.observe(function() {
+						fun.destroyHook(_FOR_LOOP_HOOK_15)
+						__variableName__displayTasks.evaluate().iterate(function(__variableName__task) {
+							var _FOR_LOOP_EMIT_HOOK_14 = fun.name()
+							fun.hook(_FOR_LOOP_EMIT_HOOK_14, _FOR_LOOP_HOOK_15)
+						var _XML_HOOK_16 = fun.name()
+						fun.hook(_XML_HOOK_16, _FOR_LOOP_EMIT_HOOK_14, { tagName:"li", attrs:[{name:"class",value: fun.expressions.ternary( fun.expressions.reference(__variableName__task, ["completed"]),  fun.expressions.Text("complete"),  fun.expressions.Text(""))}] })
+							var _XML_HOOK_17 = fun.name()
+							fun.hook(_XML_HOOK_17, _XML_HOOK_16, { tagName:"div", attrs:[{name:"class",value: fun.expressions.Text("view")}] })
+								var _XML_HOOK_18 = fun.name()
+								fun.hook(_XML_HOOK_18, _XML_HOOK_17, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("toggle")}, {name:"type",value: fun.expressions.Text("checkbox")}, {name:"data",value: fun.expressions.reference(__variableName__task, ["completed"])}] })
+								var _XML_HOOK_19 = fun.name()
+								fun.hook(_XML_HOOK_19, _XML_HOOK_17, { tagName:"label", attrs:null })
+									fun.emit(_XML_HOOK_19,  fun.expressions.reference(__variableName__task, ["title"]))
+								var _XML_HOOK_20 = fun.name()
+								fun.hook(_XML_HOOK_20, _XML_HOOK_17, { tagName:"button", attrs:[{name:"class",value: fun.expressions.Text("destroy")}, {name:"onclick",value:
+								fun.expressions.Handler(function block() {
+									__variableName__tasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [ fun.invoke( fun.expressions.reference(__variableName__tasks, ["copy"]), [], ""),
+									fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__checkTask) {
+										yieldValue( fun.expressions.composite( fun.expressions.reference(__variableName__checkTask, ["id"]), "!",  fun.expressions.reference(__variableName__task, ["id"]))); return
+									})], ""))
+								})}] })
+							var _XML_HOOK_21 = fun.name()
+							fun.hook(_XML_HOOK_21, _XML_HOOK_16, { tagName:"input", attrs:[{name:"class",value: fun.expressions.Text("edit")}, {name:"data",value: fun.expressions.reference(__variableName__task, ["title"])}] })
+						})
+					})
+			var _XML_HOOK_22 = fun.name()
+			fun.hook(_XML_HOOK_22, _IF_ELSE_HOOK_8, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("footer")}] })
+				var __variableName__completedTasks = fun.expressions.variable( fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
+				fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
+					yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
+				})], _XML_HOOK_22))
+				var __variableName__pluralize = fun.expressions.variable(
+				fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__num) {
+					yieldValue( fun.expressions.ternary( fun.expressions.composite(__variableName__num, ">",  fun.expressions.Number(1)),  fun.expressions.Text("items"),  fun.expressions.Text("item"))); return
+				}))
+				var _XML_HOOK_23 = fun.name()
+				fun.hook(_XML_HOOK_23, _XML_HOOK_22, { tagName:"span", attrs:[{name:"id",value: fun.expressions.Text("todo-count")}] })
+					var __variableName__numTasksLeft = fun.expressions.variable( fun.expressions.composite( fun.expressions.reference(__variableName__tasks, ["length"]), "-",  fun.expressions.reference(__variableName__completedTasks, ["length"])))
+					var _XML_HOOK_24 = fun.name()
+					fun.hook(_XML_HOOK_24, _XML_HOOK_23, { tagName:"strong", attrs:null })
+						fun.emit(_XML_HOOK_24, __variableName__numTasksLeft)
+					fun.emit(_XML_HOOK_23,  fun.expressions.Text(" "))
+					fun.emit(_XML_HOOK_23,  fun.invoke(__variableName__pluralize, [__variableName__numTasksLeft], _XML_HOOK_23))
+					fun.emit(_XML_HOOK_23,  fun.expressions.Text(" left"))
+				var _XML_HOOK_25 = fun.name()
+				fun.hook(_XML_HOOK_25, _XML_HOOK_22, { tagName:"ul", attrs:[{name:"id",value: fun.expressions.Text("filters")}] })
+					var _XML_HOOK_26 = fun.name()
+					fun.hook(_XML_HOOK_26, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
+					fun.expressions.Handler(function block() {
+						__variableName__displayTasks.set(null, __variableName__tasks)
+						__variableName__displayFilter.set(null,  fun.expressions.Text("all"))
+					})}] })
+						var _XML_HOOK_27 = fun.name()
+						fun.hook(_XML_HOOK_27, _XML_HOOK_26, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("all")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_27,  fun.expressions.Text("All"))
+					var _XML_HOOK_28 = fun.name()
+					fun.hook(_XML_HOOK_28, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
+					fun.expressions.Handler(function block() {
+						__variableName__displayTasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
+						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
+							yieldValue( fun.expressions.unary("!",  fun.expressions.reference(__variableName__task, ["completed"]))); return
+						})], ""))
+						__variableName__displayFilter.set(null,  fun.expressions.Text("active"))
+					})}] })
+						var _XML_HOOK_29 = fun.name()
+						fun.hook(_XML_HOOK_29, _XML_HOOK_28, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("active")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_29,  fun.expressions.Text("Active"))
+					var _XML_HOOK_30 = fun.name()
+					fun.hook(_XML_HOOK_30, _XML_HOOK_25, { tagName:"li", attrs:[{name:"onclick",value:
+					fun.expressions.Handler(function block() {
+						__variableName__displayTasks.set(null,  fun.invoke( fun.expressions.reference(__variableName__list, ["filter"]), [__variableName__tasks,
+						fun.expressions.Function(function block(yieldValue, __hackFirstExecution, __variableName__task) {
+							yieldValue( fun.expressions.reference(__variableName__task, ["completed"])); return
+						})], ""))
+						__variableName__displayFilter.set(null,  fun.expressions.Text("completed"))
+					})}] })
+						var _XML_HOOK_31 = fun.name()
+						fun.hook(_XML_HOOK_31, _XML_HOOK_30, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("#")}, {name:"class",value: fun.expressions.ternary( fun.expressions.composite(__variableName__displayFilter, "=",  fun.expressions.Text("completed")),  fun.expressions.Text("selected"),  fun.expressions.Text(""))}] })
+							fun.emit(_XML_HOOK_31,  fun.expressions.Text("Completed"))
+				var _XML_HOOK_32 = fun.name()
+				fun.hook(_XML_HOOK_32, _XML_HOOK_22, { tagName:"button", attrs:[{name:"id",value: fun.expressions.Text("clear-completed")}, {name:"onclick",value:
+				fun.expressions.Handler(function block() {
+					var __variableName__remainingTasks = fun.expressions.variable( fun.expressions.List([  ]))
+					__variableName__tasks.evaluate().iterate(function(__variableName__task) {
+						;(function(ifBranch, elseBranch) {
+							 fun.expressions.unary("!",  fun.expressions.reference(__variableName__task, ["completed"])).isTruthy() ? ifBranch() : elseBranch()
+						})(
+							function ifBranch(){
+							__variableName__remainingTasks.push(null, __variableName__task)
+							},
+							function elseBranch(){
+								null
+							}
+						)
+					})
+					__variableName__tasks.set(null, __variableName__remainingTasks)
+				})}] })
+					fun.emit(_XML_HOOK_32,  fun.expressions.Text("Clear completed ("))
+					fun.emit(_XML_HOOK_32,  fun.expressions.reference(__variableName__completedTasks, ["length"]))
+					fun.emit(_XML_HOOK_32,  fun.expressions.Text(")"))
+			},
+			function elseBranch(){
+				null
+			}
+		)
+		})
+	var _XML_HOOK_34 = fun.name()
+	fun.hook(_XML_HOOK_34, _ROOT_HOOK_0, { tagName:"footer", attrs:[{name:"id",value: fun.expressions.Text("info")}] })
+		var _XML_HOOK_35 = fun.name()
+		fun.hook(_XML_HOOK_35, _XML_HOOK_34, { tagName:"p", attrs:null })
+			fun.emit(_XML_HOOK_35,  fun.expressions.Text(""))
+		var _XML_HOOK_36 = fun.name()
+		fun.hook(_XML_HOOK_36, _XML_HOOK_34, { tagName:"p", attrs:null })
+			fun.emit(_XML_HOOK_36,  fun.expressions.Text("Created for TodoMVC with "))
+			var _XML_HOOK_37 = fun.name()
+			fun.hook(_XML_HOOK_37, _XML_HOOK_36, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("https://github.com/marcuswestin/fun")}] })
+				fun.emit(_XML_HOOK_37,  fun.expressions.Text("Fun"))
+			fun.emit(_XML_HOOK_36,  fun.expressions.Text(" by "))
+			var _XML_HOOK_38 = fun.name()
+			fun.hook(_XML_HOOK_38, _XML_HOOK_36, { tagName:"a", attrs:[{name:"href",value: fun.expressions.Text("http://marcuswest.in")}] })
+				fun.emit(_XML_HOOK_38,  fun.expressions.Text("Marcus Westin"))
+})();
+})()
+</script></body></html>

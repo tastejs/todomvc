@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example.todos</groupId>
+	<artifactId>todomvc</artifactId>
+	<version>0.1.0</version>
+	<packaging>war</packaging>
+
+	<name>TodoMVC</name>
+	<description>TodoMVC example written in DUEL</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<resourcesDir>${project.basedir}/src/main/resources</resourcesDir>
+
+		<staticapps.version>0.8.5</staticapps.version>
+		<merge.version>0.5.2</merge.version>
+		<duel.version>0.8.2</duel.version>
+		<slf4j.version>1.6.4</slf4j.version>
+		<javac.version>1.6</javac.version>
+
+		<duel.clientPrefix>todos.views</duel.clientPrefix>
+		<duel.serverPrefix>com.example.todos.views</duel.serverPrefix>
+		<duel.sourceDir>${resourcesDir}/views/</duel.sourceDir>
+		<duel.clientPath>/js/</duel.clientPath>
+
+		<merge.cdnMapFile>/cdn.properties</merge.cdnMapFile>
+		<merge.cdnRoot>/cdn/</merge.cdnRoot>
+		<merge.cdnFiles>.ico .png .jpg .gif .eot .woff .ttf .svg .svgz</merge.cdnFiles>
+
+		<staticapps.config>${project.basedir}/staticapp.json</staticapps.config>
+	</properties>
+
+	<dependencies>
+		<!-- DUEL runtime -->
+		<dependency>
+			<groupId>org.duelengine</groupId>
+			<artifactId>duel-runtime</artifactId>
+			<version>${duel.version}</version>
+		</dependency>
+
+		<!-- DUEL staticapps -->
+		<dependency>
+			<groupId>org.duelengine</groupId>
+			<artifactId>duel-staticapps</artifactId>
+			<version>${staticapps.version}</version>
+		</dependency>
+
+		<!-- SLF4J runtime -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>${resourcesDir}</directory>
+				<excludes>
+					<!-- exclude DUEL sources from target output -->
+					<exclude>**/*.duel</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<!-- Tomcat 7 config -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.0-beta-1</version>
+				<configuration>
+					<path>/</path>
+					<port>8080</port>
+					<warSourceDirectory>${project.build.directory}/${project.build.finalName}/</warSourceDirectory>
+				</configuration>
+			</plugin>
+
+			<!-- DUEL Compiler -->
+			<plugin>
+				<groupId>org.duelengine</groupId>
+				<artifactId>duel-maven-plugin</artifactId>
+				<version>${duel.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<clientPrefix>${duel.clientPrefix}</clientPrefix>
+							<serverPrefix>${duel.serverPrefix}</serverPrefix>
+							<inputDir>${duel.sourceDir}</inputDir>
+							<outputClientPath>${duel.clientPath}</outputClientPath>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Merge Builder -->
+			<plugin>
+				<groupId>org.duelengine</groupId>
+				<artifactId>merge-maven-plugin</artifactId>
+				<version>${merge.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>merge</goal>
+						</goals>
+						<configuration>
+							<cdnMapFile>${merge.cdnMapFile}</cdnMapFile>
+							<cdnRoot>${merge.cdnRoot}</cdnRoot>
+							<cdnFiles>${merge.cdnFiles}</cdnFiles>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Static App Builder -->
+			<plugin>
+				<groupId>org.duelengine</groupId>
+				<artifactId>duel-staticapps-maven-plugin</artifactId>
+				<version>${staticapps.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<configPath>${staticapps.config}</configPath>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- Java compiler -->
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${javac.version}</source>
+						<target>${javac.version}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

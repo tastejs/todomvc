@@ -1,50 +1,53 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org/" xmlns:my="http://rx.org">
 <head>
-    <meta charset="utf-8">
-    <title>AngularJS - TodoMVC</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/app.css">
+	<meta charset="utf-8">
+	<title>AngularJS - TodoMVC</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../assets/ie.js"></script>
+	<![endif]-->
 </head>
 <body>
-    <div ng:controller="App.Controllers.TodoController" id="todoapp">
-        <header>
-            <h1>Todos</h1>
-            <form id="todo-form" ng:submit="addTodo()">
-            <input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
-            </form>
-        </header>
-        <section id="main" ng:show="hasTodos()">
-            <input id="toggle-all" type="checkbox" name="allChecked" ng:click="toggleAllStates()">
-            <label for="toggle-all">Mark all as complete</label>
-            <ul id="todo-list">
-                <li ng:repeat="todo in todos" my:dblclick="editTodo(todo)" ng:class="(todo.done && ' done ') + (todo.editing && ' editing ')">
-                    <div class="view">
-                        <input class="toggle" type="checkbox" name="todo.done">
-                        <label>{{ todo.title }}</label>
-                        <a class="destroy" ng:click="removeTodo(todo)"></a>
-                    </div>
-                    <form ng:submit="finishEditing(todo)">
-                        <input class="edit" type="text" name="todo.title" my:focus="todo.editing" my:blur="finishEditing(todo)">
-                    </form>
-                </li>
-            </ul>
-        </section>
-        <footer ng:show="hasTodos()">
-            <a id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
-            <div id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</div>
-        </footer>
-    </div>
-    <div id="instructions">
-        Double-click to edit a todo.
-    </div>
-    <div id="credits">
-        Created by <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>.
-    </div>
-  <script src="js/libs/json2.js"></script>
-  <script src="js/booter.js"></script>
-  <script src="js/libs/angular/angular.min.js" ng:autobind></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/directive.js"></script>  
+	<div ng:controller="App.Controllers.TodoController" id="todoapp">
+		<header>
+			<h1>Todos</h1>
+			<form id="todo-form" ng:submit="addTodo()">
+			<input id="new-todo" name="newTodo" type="text" placeholder="What needs to be done?">
+			</form>
+		</header>
+		<section id="main" ng:show="hasTodos()">
+			<input id="toggle-all" type="checkbox" name="allChecked" ng:click="toggleAllStates()">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list">
+				<li ng:repeat="todo in todos" my:dblclick="editTodo(todo)" ng:class="(todo.done && ' done ') + (todo.editing && ' editing ')">
+					<div class="view">
+						<input class="toggle" type="checkbox" name="todo.done">
+						<label>{{ todo.title }}</label>
+						<a class="destroy" ng:click="removeTodo(todo)"></a>
+					</div>
+					<form ng:submit="finishEditing(todo)">
+						<input class="edit" type="text" name="todo.title" my:focus="todo.editing" my:blur="finishEditing(todo)">
+					</form>
+				</li>
+			</ul>
+		</section>
+		<footer ng:show="hasTodos()">
+			<a id="clear-completed" ng:click="clearCompletedItems()" ng:show="hasFinishedTodos()">{{ clearItemsText() }}</a>
+			<div id="todo-count"><b>{{ remainingTodos() }}</b> {{ itemsLeftText() }}</div>
+		</footer>
+	</div>
+	<div id="instructions">
+		Double-click to edit a todo.
+	</div>
+	<div id="credits">
+		Created by <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>.
+	</div>
+	<script src="../../assets/base.js"></script>
+	<script src="js/booter.js"></script>
+	<script src="js/libs/angular/angular.min.js" ng:autobind></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/directive.js"></script>
 </body>
 </html>

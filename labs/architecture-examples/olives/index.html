@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Olives • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown,addTask">
+		</header>
+		<section id="main" data-stats="bind:toggleClass,nbItems,show">
+			<input id="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list" data-model="foreach">
+				<li data-model="bind:toggleClass,completed,completed;">
+					<div class="view" data-event="listen:dblclick,startEdit">
+						<input class="toggle" type="checkbox" data-model="bind:checked,completed">
+						<label data-model="bind:innerHTML,title"></label>
+						<button class="destroy" data-event="listen:click,remove"></button>
+					</div>
+					<input class="edit" data-model="bind:value,title" data-event="listen:keydown,stopEdit; listen:blur,stopEdit">
+				</li>
+			</ul>
+		</section>
+		<footer id="footer" data-stats="bind:toggleClass,nbItems,show">
+			<span id="todo-count"><strong data-stats="bind:innerHTML,nbLeft">0</strong> <span data-stats="bind:innerHTML,plural"></span> left</span>
+			<button id="clear-completed" data-event="listen:click,delAll" data-stats="bind:toggleClass,nbCompleted,show">
+				Clear completed (<span data-stats="bind:innerHTML,nbCompleted"></span>)
+			</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
+		<p>Created by <a href="http://github.com/podefr">Olivier Scherrer</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="../../../assets/base.js"></script>
+	<script src="js/lib/require.js"></script>
+	<script src="js/lib/Emily.js"></script>
+	<script src="js/lib/Olives.js"></script>
+	<script src="js/lib/Tools.js"></script>
+	<script src="js/uis/Input.js"></script>
+	<script src="js/uis/List.js"></script>
+	<script src="js/uis/Controls.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

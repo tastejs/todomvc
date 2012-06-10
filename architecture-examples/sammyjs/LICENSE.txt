@@ -1,3 +1,0 @@
-
-This version/changes copyright 2011, Addy Osmani
-Original multi-list/multi-todo/non todo standard version copyright 2010, Brandon Aaron
