@@ -1,37 +1,33 @@
 <?xml version="1.0"?>
 <app:TodoClass xmlns="http://www.w3.org/1999/xhtml"
-               xmlns:js="js.core" xmlns:ui="js.ui" xmlns:app="app" xmlns:view="app.view" xmlns:conf="js.conf"
-               xmlns:data="js.data">
-    <!-- i18n -->
-    <js:I18n cid="i18n" locale="en_EN"/>
-
-    <!-- Locale Storage Configuration-->
-    <data:LocalStorageDataSource cid="dataSource" name="todo-rappidjs">
-        <conf:Configuration path="todos" modelClassName="app.model.Todo"
-                            collectionClassName="app.collection.TodoList"/>
-    </data:LocalStorageDataSource>
-
-    <!-- LE ROUTE DEFINITIONS -->
+               xmlns:js="js.core" xmlns:ui="js.ui" xmlns:app="app" xmlns:view="app.view" xmlns:conf="js.conf">
+    <!-- INJECTION OF i18n COMPONENTN FOR TRANSLATIONS -->
+    <js:Injection>
+        <js:I18n locale="en_EN"/>
+    </js:Injection>
+    <!-- DEFINTION OF ROUTERS -->
     <js:Router cid="router">
         <conf:Route name="default" route="^$" onexec="showAll"/>
         <conf:Route name="active" route="^active$" onexec="showActive"/>
         <conf:Route name="completed" route="^completed$" onexec="showCompleted"/>
-    </js:Router>
 
+    </js:Router>
     <!-- HERE WE START TO DEFINE THE UI WITH HTML AND CUSTOM UI COMPONENTS -->
+
     <section id="todoapp">
         <header id="header">
             <h1>{i18n.translate('title')}</h1>
-            <input id="new-todo" placeholder="{i18n.translate('placeholder')}" type="text" onkeyup="addNewTodo" autofocus="autofocus"/>
+            <input id="new-todo" placeholder="{i18n.translate('placeholder')}" type="text" onkeyup="addNewTodo"
+                   value="{{newTodo.title}}" autofocus="autofocus"/>
         </header>
         <section id="main" visible="{todoList.hasItems()}">
             <input id="toggle-all" type="checkbox" onclick="markAllComplete"
                    checked="{todoList.areAllComplete()}"/>
             <label for="toggle-all">{i18n.translate('markAllAsComplete')}</label>
             <!-- CUSTOM UI COMPONENT FOR RENDERING A LIST OF ITEMS -> TODOs -->
-            <ui:ItemsView items="{filterList.list}" tagName="ul" id="todo-list" itemKey="todo">
+            <ui:ItemsView items="{filterList}" tagName="ul" id="todo-list" itemKey="todo">
                 <js:Template name="item">
-                    <view:TodoView todo="{$todo}" tagName="li" onremove="removeTodo"/>
+                    <view:TodoView todo="{todo}" tagName="li" onremove="removeTodo"/>
                 </js:Template>
             </ui:ItemsView>
         </section>
