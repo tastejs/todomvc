@@ -1,5 +1,5 @@
 <ui:View xmlns="http://www.w3.org/1999/xhtml"
-         xmlns:js="js.core" xmlns:ui="js.ui">
+         xmlns:js="js.core" xmlns:ui="js.ui" componentClass="{todo.status()}">
     <js:Script>
         <![CDATA[
         (function () {
@@ -8,7 +8,6 @@
 
             return {
                 defaults: {
-                    componentClass: "todo",
                     editing: false
                 },
                 $classAttributes: ['todo', 'inputElement'],
@@ -46,6 +45,7 @@
                         this.addClass("editing");
                     } else {
                         this.removeClass("editing");
+                        console.log(this.$);
                         this.$.inputElement.$el.blur();
                     }
                 },
@@ -61,16 +61,14 @@
         ]]>
     </js:Script>
     <js:Template name="layout">
-        <div class="{todo.status()}">
-            <div class="view">
+            <div class="view" ondblclick="editTodo">
                 <input class="toggle" type="checkbox" onclick="checkTodo"
                        checked="{todo.completed}"/>
-                <label ondblclick="editTodo">{todo.title}</label>
+                <label>{todo.title}</label>
                 <button class="destroy" onclick="triggerOnRemove"/>
             </div>
             <input class="edit" cid="inputElement" type="text" value="{{todo.title|trim()}}"
                    onkeyup="updateTodo" onblur="updateTodo" updateOnEvent="change"/>
-        </div>
     </js:Template>
 </ui:View>
 

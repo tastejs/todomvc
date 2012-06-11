@@ -11,7 +11,7 @@ define(["js/data/Model"], function (Model) {
             return this.$.completed;
         },
         status: function () {
-            return this.$.completed ? "done" : '';
+            return this.$.completed ? "completed" : '';
         }.onChange("completed"),
         hasTitle: function () {
             return this.$.title.trim().length;
