@@ -41,13 +41,13 @@
             </ui:TextWrapper>
             <ul id="filters">
                 <li>
-                    <a href="#/" selected="{isStringEqual('all',{filterList.filter})}">{i18n.translate('all')}</a>
+                    <a href="#/" class="{selectedClass('all',{filterList.filter})}">{i18n.translate('all')}</a>
                 </li>
                 <li>
-                    <a href="#/active" selected="{isStringEqual('active',{filterList.filter})}">{i18n.translate('active')}</a>
+                    <a href="#/active" class="{selectedClass('active',{filterList.filter})}">{i18n.translate('active')}</a>
                 </li>
                 <li>
-                    <a href="#/completed" selected="{isStringEqual('completed',{filterList.filter})}">{i18n.translate('completed')}</a>
+                    <a href="#/completed" class="{selectedClass('completed',{filterList.filter})}">{i18n.translate('completed')}</a>
                 </li>
             </ul>
             <button id="clear-completed" onclick="clearCompleted" visible="{todoList.hasCompletedTodos()}">

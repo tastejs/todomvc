@@ -38,7 +38,6 @@ define(["js/core/Application", "js/core/I18n", "app/model/Todo", "app/collection
 
                         // save the new item
                         newTodo.save();
-
                         input.set('value','');
                     }
                 }
@@ -86,9 +85,8 @@ define(["js/core/Application", "js/core/I18n", "app/model/Todo", "app/collection
                 // load locale and start by calling callback
                 this.$.i18n.loadLocale("en_EN", callback);
             },
-            // compares 2 strings
-            isStringEqual: function (str1, str2) {
-                return str1 == str2;
+            selectedClass: function (expected, current) {
+                return expected == current ? "selected" : "";
             }
         });
     });

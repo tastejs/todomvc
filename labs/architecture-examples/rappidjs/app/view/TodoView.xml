@@ -45,7 +45,6 @@
                         this.addClass("editing");
                     } else {
                         this.removeClass("editing");
-                        console.log(this.$);
                         this.$.inputElement.$el.blur();
                     }
                 },
