@@ -12,8 +12,8 @@ function TodoController($scope, $location) {
 
 	$scope.$watch(function() {return $location.path(); }, function(path) { 
 		$scope.filter = path == '/active' ? 
-			{ done: false } : path == '/completed' ?
-				{ done: true } : null;
+			{ completed: false } : path == '/completed' ?
+				{ completed: true } : null;
 	});
 
 	$scope.todoForms = {
@@ -22,7 +22,7 @@ function TodoController($scope, $location) {
 	};
 
 	function retrieveStore() {
-		var store = localStorage.getItem('todo-angularjs');
+		var store = localStorage.getItem('todos-angularjs');
 		return (store && JSON.parse(store)) || [];
 	};
 
@@ -32,7 +32,7 @@ function TodoController($scope, $location) {
 		}).length;
 
 		if (!isEditing) {
-			localStorage.setItem('todo-angularjs', JSON.stringify($scope.todos));
+			localStorage.setItem('todos-angularjs', JSON.stringify($scope.todos));
 		}
 	};
 
@@ -43,7 +43,7 @@ function TodoController($scope, $location) {
 
 		$scope.todos.push({
 			title: this.newTodo,
-			done: false,
+			completed: false,
 			editing: false
 		});
 
@@ -76,13 +76,13 @@ function TodoController($scope, $location) {
 
 	$scope.remainingTodos = function() {
 		return $scope.todos.filter(function(val) {
-			return !val.done;
+			return !val.completed;
 		});
 	};
 
-	$scope.doneTodos = function() {
+	$scope.completedTodos = function() {
 		return $scope.todos.filter(function(val) {
-			return val.done;
+			return val.completed;
 		});
 	}
 
@@ -96,7 +96,7 @@ function TodoController($scope, $location) {
 			markDone = false;
 		}
 		$scope.todos.forEach(function(todo) {
-			todo.done = markDone;
+			todo.completed = markDone;
 		});
 	};
 };

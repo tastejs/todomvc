@@ -21,9 +21,9 @@
 			<input id="toggle-all" type="checkbox" ng-click="markAllDone()" ng-checked="remainingTodos().length == 0">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
-				<li ng-repeat="todo in todos | filter:filter" ng-dblclick="editTodo(todo)" ng-class="{done: todo.done, editing: todo.editing}">
+				<li ng-repeat="todo in todos | filter:filter" ng-dblclick="editTodo(todo)" ng-class="{completed: todo.completed, editing: todo.editing}">
 	        			<div class="view">
-				                <input class="toggle" type="checkbox" name="todo.done" ng-model="todo.done">
+				                <input class="toggle" type="checkbox" name="todo.completed" ng-model="todo.completed">
 				                <label ng-bind="todo.title">Loading...</label>
 				                <button class="destroy" ng-click="removeTodo(todo)"></button>
 			        	</div>
@@ -46,7 +46,7 @@
 					<a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneTodos().length" ng-bind-template="Clear completed ({{doneTodos().length}})"></button>
+			<button id="clear-completed" ng-click="clearDoneTodos()" ng-show="completedTodos().length" ng-bind-template="Clear completed ({{completedTodos().length}})"></button>
 		</footer>
 	</section>
 	<footer id="info">
