@@ -33,9 +33,9 @@
             </ui:ItemsView>
         </section>
         <footer id="footer" data-num="{todoList.numOpenTodos()}" visible="{todoList.hasItems()}">
-            <div id="todo-count">
+            <span id="todo-count">
                 <strong>{data-num}</strong> {translateItems({data-num})} left
-            </div>
+            </span>
             <ul id="filters">
                 <li>
                     <a href="#/" class="{selectedClass('all',{filterList.filter})}">All</a>
