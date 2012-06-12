@@ -78,12 +78,12 @@ define(["js/core/Application", "js/core/I18n", "app/model/Todo", "app/collection
                             return true;
                         }
                     }}));
-
-                // false - disables autostart
-                this.callBase(parameter, false);
-
-                // load locale and start by calling callback
-                this.$.i18n.loadLocale("en_EN", callback);
+                if(callback){
+                    callback();
+                }
+            },
+            translateItems: function(num){
+                return (num === 1) ? "item" : "items";
             },
             selectedClass: function (expected, current) {
                 return expected == current ? "selected" : "";

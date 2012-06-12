@@ -2,16 +2,13 @@
 <app:TodoClass xmlns="http://www.w3.org/1999/xhtml"
                xmlns:js="js.core" xmlns:ui="js.ui" xmlns:app="app" xmlns:view="app.view" xmlns:conf="js.conf"
                xmlns:data="js.data">
-    <!-- i18n -->
-    <js:I18n cid="i18n" locale="en_EN"/>
-
-    <!-- Locale Storage Configuration-->
+    <!-- LOCAL STORAGE CONFIGURATION -->
     <data:LocalStorageDataSource cid="dataSource" name="todo-rappidjs">
         <conf:Configuration path="todos" modelClassName="app.model.Todo"
                             collectionClassName="app.collection.TodoList"/>
     </data:LocalStorageDataSource>
 
-    <!-- LE ROUTE DEFINITIONS -->
+    <!-- ROUTER CONFIGURATION -->
     <js:Router cid="router">
         <conf:Route name="default" route="^$" onexec="showAll"/>
         <conf:Route name="active" route="^active$" onexec="showActive"/>
@@ -21,13 +18,13 @@
     <!-- HERE WE START TO DEFINE THE UI WITH HTML AND CUSTOM UI COMPONENTS -->
     <section id="todoapp">
         <header id="header">
-            <h1>{i18n.translate('title')}</h1>
-            <input id="new-todo" placeholder="{i18n.translate('placeholder')}" type="text" onkeyup="addNewTodo" autofocus="autofocus"/>
+            <h1>Todos</h1>
+            <input id="new-todo" placeholder="What needs to be done?" type="text" onkeyup="addNewTodo" autofocus="autofocus"/>
         </header>
         <section id="main" visible="{todoList.hasItems()}">
             <input id="toggle-all" type="checkbox" onclick="markAllComplete"
                    checked="{todoList.areAllComplete()}"/>
-            <label for="toggle-all">{i18n.translate('markAllAsComplete')}</label>
+            <label for="toggle-all">Mark all as complete</label>
             <!-- CUSTOM UI COMPONENT FOR RENDERING A LIST OF ITEMS -> TODOs -->
             <ui:ItemsView items="{filterList.list}" tagName="ul" id="todo-list" itemKey="todo">
                 <js:Template name="item">
@@ -36,32 +33,31 @@
             </ui:ItemsView>
         </section>
         <footer id="footer" data-num="{todoList.numOpenTodos()}" visible="{todoList.hasItems()}">
-            <ui:TextWrapper string="{i18n.translate({data-num},'itemsLeft')}" id="todo-count">
-                <strong>{data-num}</strong>
-            </ui:TextWrapper>
+            <div id="todo-count">
+                <strong>{data-num}</strong> {translateItems({data-num})} left
+            </div>
             <ul id="filters">
                 <li>
-                    <a href="#/" class="{selectedClass('all',{filterList.filter})}">{i18n.translate('all')}</a>
+                    <a href="#/" class="{selectedClass('all',{filterList.filter})}">All</a>
                 </li>
                 <li>
-                    <a href="#/active" class="{selectedClass('active',{filterList.filter})}">{i18n.translate('active')}</a>
+                    <a href="#/active" class="{selectedClass('active',{filterList.filter})}">Active</a>
                 </li>
                 <li>
-                    <a href="#/completed" class="{selectedClass('completed',{filterList.filter})}">{i18n.translate('completed')}</a>
+                    <a href="#/completed" class="{selectedClass('completed',{filterList.filter})}">Completed</a>
                 </li>
             </ul>
             <button id="clear-completed" onclick="clearCompleted" visible="{todoList.hasCompletedTodos()}">
-                {i18n.translate('clearItems',{todoList.numCompletedTodos()})}
+                Clear completed ({todoList.numCompletedTodos()})
             </button>
         </footer>
     </section>
     <footer id="info">
-        <p visible="{todoList.hasItems()}">{i18n.translate('doubleClickToEdit')}</p>
-        <ui:TextWrapper string="{i18n.translate('credits')}" tagName="p">
-            <a href="http://github.com/krebbl">{$text}</a>
-            <a href="http://rappidjs.com">{$text}</a>
-            <a href="http://github.com/it-ony">{$text}</a>
+        <p visible="{todoList.hasItems()}">Double - click to edit a todo</p>
+        <p>
+            Created by<a href="http://github.com/krebbl">Marcus Krejpowicz</a> with<a href="http://rappidjs.com">&lt; rAppid:js/&gt;</a>
             <br/>
-        </ui:TextWrapper>
+            Big credits to<a href="http://github.com/it-ony">Tony Findeisen</a>
+        </p>
     </footer>
 </app:TodoClass>
