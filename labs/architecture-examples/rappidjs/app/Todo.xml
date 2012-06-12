@@ -60,5 +60,8 @@
             <br/>
             Big credits to <a href="http://github.com/it-ony">Tony Findeisen</a>
         </p>
+        <p>Part of
+            <a href="http://todomvc.com">TodoMVC</a>
+        </p>
     </footer>
 </app:TodoClass>
