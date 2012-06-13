@@ -21,14 +21,14 @@
 			<input id="toggle-all" type="checkbox" ng-click="markAllDone()" ng-checked="remainingTodos().length == 0">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
-				<li ng-repeat="todo in todos | filter:filter" ng-dblclick="editTodo(todo)" ng-class="{completed: todo.completed, editing: todo.editing}">
+				<li ng-repeat="todo in todos | filter:statusFilter" ng-dblclick="editTodo(todo)" ng-class="{completed: todo.completed, editing: todo.editing}">
 	        			<div class="view">
 				                <input class="toggle" type="checkbox" name="todo.completed" ng-model="todo.completed">
 				                <label ng-bind="todo.title">Loading...</label>
 				                <button class="destroy" ng-click="removeTodo(todo)"></button>
 			        	</div>
 				        <form ng-submit="finishEditing(todo)">
-			                	<input class="edit" type="text" name="todo.title" ng-model="todo.title" my:blur="finishEditing(todo)">
+			                	<input class="edit" type="text" name="todo.title" ng-model="todo.title" todo-blur="finishEditing(todo)" todo-focus="todo.editing">
 			        	</form>
 				</li>
 			</ul>
@@ -56,5 +56,6 @@
 	<script src="../../assets/base.js"></script>
 	<script src="js/libs/angular/angular.min.js"></script>
 	<script src="js/controllers/todo.js"></script>
+	<script src="js/directives/todo-directives.js"></script>
 </body>
 </html>

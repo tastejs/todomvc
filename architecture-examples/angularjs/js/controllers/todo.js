@@ -4,6 +4,7 @@ var todomvc = angular.module('todomvc', []);
 
 function TodoController($scope, $location) {
 	$scope.todos = retrieveStore();
+	$scope.newTodo = "";
 	if($location.path()=='') $location.path('/');
 	$scope.location = $location;
 
@@ -11,7 +12,7 @@ function TodoController($scope, $location) {
 	$scope.$watch('todos', updateStore, true);
 
 	$scope.$watch(function() {return $location.path(); }, function(path) { 
-		$scope.filter = path == '/active' ? 
+		$scope.statusFilter = path == '/active' ? 
 			{ completed: false } : path == '/completed' ?
 				{ completed: true } : null;
 	});
