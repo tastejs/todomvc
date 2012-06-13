@@ -18,8 +18,8 @@ function TodoController($scope, $location) {
 	});
 
 	$scope.todoForms = {
-		one: '{} item left',
-		other: '{} items left'
+		one: 'item left',
+		other: 'items left'
 	};
 
 	function retrieveStore() {

@@ -22,8 +22,8 @@ function TodoController($scope, $location, persistencejs) {
 	$scope.refresh = function(){ $scope.$apply(); }
 	
 	$scope.todoForms = {
-		one: '{} item left',
-		other: '{} items left'
+		one: 'item left',
+		other: 'items left'
 	};
 
 	$scope.addTodo = function() {

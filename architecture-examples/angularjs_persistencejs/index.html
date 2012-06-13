@@ -34,7 +34,7 @@
 			</ul>
 		</section>
 		<footer id="footer" ng-show="todos.length">
-			<span id="todo-count"><ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize></span>
+			<span id="todo-count"><strong>{{remainingTodos().length}}</strong> <ng-pluralize count="remainingTodos().length" when="todoForms"></ng-pluralize></span>
 			<ul id="filters">
 				<li>
 					<a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
