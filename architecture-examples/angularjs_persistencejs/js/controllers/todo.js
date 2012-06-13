@@ -4,14 +4,15 @@ var todomvc = angular.module('todomvc', []);
 
 function TodoController($scope, $location, persistencejs) {
 	$scope.todos = []; loadTodos();
-
+	$scope.newTodo = "";
+	$scope.editTodoStartContent = "";
 	if($location.path()=='') $location.path('/');
 	$scope.location = $location;
 
 	$scope.$watch(function() {return $location.path(); }, function(path) { 
-		$scope.filter = path == '/active' ? 
-			{ done: false } : path == '/completed' ?
-				{ done: true } : null;
+		$scope.statusFilter = path == '/active' ? 
+			{ completed: false } : path == '/completed' ?
+				{ completed: true } : null;
 	});
 
 	function loadTodos() {
@@ -32,7 +33,7 @@ function TodoController($scope, $location, persistencejs) {
 
 		$scope.todos.push({
 			title: this.newTodo,
-			done: false,
+			completed: false,
 			editing: false
 		});
 		
@@ -41,11 +42,11 @@ function TodoController($scope, $location, persistencejs) {
 	};
 
 	$scope.editTodo = function(todo) {
-		//cancel any active editing operation
 		$scope.todos.forEach(function(val) {
 			val.editing = false;
 		});
 		todo.editing = true;
+		$scope.editTodoStartContent = todo.title;
 	};
 
 	$scope.finishEditing = function(todo) {
@@ -69,13 +70,13 @@ function TodoController($scope, $location, persistencejs) {
 
 	$scope.remainingTodos = function() {
 		return $scope.todos.filter(function(val) {
-			return !val.done;
+			return !val.completed;
 		});
 	};
 
-	$scope.doneTodos = function() {
+	$scope.completedTodos = function() {
 		return $scope.todos.filter(function(val) {
-			return val.done;
+			return val.completed;
 		});
 	}
 
@@ -94,10 +95,10 @@ function TodoController($scope, $location, persistencejs) {
 			markDone = false;
 		}
 		$scope.todos.forEach(function(todo) {
-			if(todo.done !== markDone){
+			if(todo.completed !== markDone){
 				persistencejs.changeStatus(todo);
 			}
-			todo.done = markDone;
+			todo.completed = markDone;
 		});
 	};
 };

@@ -1,15 +1,15 @@
 todomvc.factory('persistencejs', function(){
-	persistence.store.websql.config(persistence, 'todo', 'todo database', 5*1024*1024);
+	persistence.store.websql.config(persistence, 'todos-angularjs', 'todo database', 5*1024*1024);
 	var Todo = persistence.define('todo', {
 		title: 'TEXT',
-		done: 'BOOL'
+		completed: 'BOOL'
 	});
 	persistence.schemaSync();
 	return {
 		add: function(item){
 			var t = new Todo();
 			t.title = item;
-			t.done = false;
+			t.completed = false;
 			persistence.add(t);
 			persistence.flush();
 		},
@@ -25,13 +25,13 @@ todomvc.factory('persistencejs', function(){
 		
 		changeStatus: function(item){
 			Todo.all().filter('title','=',item.title).one(function(todo){
-				todo.done = item.done;
+				todo.completed = item.completed;
 				persistence.flush();
 			});
 		},
 		
 		clearCompletedItems: function(){
-			Todo.all().filter('done','=',true).destroyAll();
+			Todo.all().filter('completed','=',true).destroyAll();
 		},
 		
 		remove: function(item){
@@ -45,7 +45,7 @@ todomvc.factory('persistencejs', function(){
 				items.forEach(function(item){
 					todos.push({
 						title: item.title,
-						done: item.done,
+						completed: item.completed,
 						editing: false
 					});
 					if(--itemCount == 0){
