@@ -53,7 +53,7 @@ define({
 		properties: {
 			todos: { $ref: 'todos' },
 
-			createTodo: { compose: 'parseForm | cleanInput | generateId | todos.add' },
+			createTodo: { compose: 'parseForm | cleanTodo | generateId | todos.add' },
 			removeTodo: { compose: 'todos.get | todos.remove' },
 			updateTodo: { compose: 'todos.get | todos.update' },
 
@@ -68,7 +68,9 @@ define({
 			listView: {
 				'click:.destroy': 'removeTodo',
 				'change:.toggle': 'updateTodo',
-				'click:#toggle-all': 'toggleAll'
+				'click:#toggle-all': 'toggleAll',
+				'dblclick:label': 'todos.edit',
+				'focusout:.edit': 'todos.submit' // also need way to submit on [enter]
 			},
 			controlsView: {
 				'click:#clear-completed': 'removeCompleted'
@@ -78,12 +80,13 @@ define({
 			updateTotalCount: 'setTodosTotalState',
 			updateRemainingCount: 'setTodosRemainingState',
 			updateCompletedCount: 'setTodosCompletedState',
-			'todos.onChange': 'updateCount'
+			'todos.onChange': 'updateCount',
+			'todos.onEdit': 'cleanTodo | todos.update'
 		}
 	},
 
 	parseForm: { module: 'cola/dom/formToObject' },
-	cleanInput: { module: 'create/cleanInput' },
+	cleanTodo: { module: 'create/cleanTodo' },
 	generateId: { module: 'create/generateId' },
 
 	todoStore: {
@@ -133,6 +136,14 @@ define({
 			module: 'cola/transform/createEnum',
 			// need to use literal factory until wire 0.9
 			args: { literal: { 'true': 'completed', 'false': 'foo' } }
+		}
+	},
+
+	setTodoEditState: {
+		create: {
+			module: 'wire/dom/transform/mapClasses',
+			// need to use literal factory until wire 0.9
+			args: { literal: { 'true': 'editing', 'false': '' } }
 		}
 	},
 
