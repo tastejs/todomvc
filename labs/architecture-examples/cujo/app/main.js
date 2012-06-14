@@ -25,7 +25,10 @@ define({
 			to: { $ref: 'todos' },
 			bindings: {
 				text: 'label, .edit',
-				complete: [{ selector: '.toggle', attr: 'checked' }]
+				complete: [
+					'.toggle',
+					{ attr: 'classList', handler: { module: 'list/setCompletedClass' } }
+				]
 			}
 		},
 		insert: { after: 'createView' }
@@ -113,21 +116,21 @@ define({
 	setTodosTotalState: {
 		create: {
 			module: 'wire/dom/transform/cardinality',
-			args: [{ $ref: 'root' }, 'todos']
+			args: { node: { $ref: 'root' }, prefix: 'todos' }
 		}
 	},
 
 	setTodosRemainingState: {
 		create: {
 			module: 'wire/dom/transform/cardinality',
-			args: [{ $ref: 'root' }, 'remaining']
+			args: { node: { $ref: 'root' }, prefix: 'remaining' }
 		}
 	},
 
 	setTodosCompletedState: {
 		create: {
 			module: 'wire/dom/transform/cardinality',
-			args: [{ $ref: 'root' }, 'completed']
+			args: { node: { $ref: 'root' }, prefix: 'completed' }
 		}
 	},
 
