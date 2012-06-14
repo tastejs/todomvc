@@ -28,9 +28,9 @@ define(["js/core/Application", "js/core/I18n", "app/model/Todo", "app/collection
             /**
              * The rest is just controller stuff
              */
-            addNewTodo: function (e, input) {
-                if (e.$.keyCode === ENTER_KEY) {
-                    var title = input.get("value").trim();
+            addNewTodo: function (e) {
+                if (e.domEvent.keyCode === ENTER_KEY) {
+                    var title = e.target.get("value").trim();
                     if (title) {
                         var newTodo = this.$.dataSource.createEntity(Todo);
                         newTodo.set({title: title, completed: false});
@@ -38,12 +38,12 @@ define(["js/core/Application", "js/core/I18n", "app/model/Todo", "app/collection
 
                         // save the new item
                         newTodo.save();
-                        input.set('value','');
+                        e.target.set('value','');
                     }
                 }
             },
-            markAllComplete: function (e, input) {
-                this.get("todoList").markAll(input.$el.checked);
+            markAllComplete: function (e) {
+                this.get("todoList").markAll(e.target.$el.checked);
             },
             clearCompleted: function () {
                 this.get("todoList").clearCompleted();
@@ -77,10 +77,10 @@ define(["js/core/Application", "js/core/I18n", "app/model/Todo", "app/collection
                         } else {
                             return true;
                         }
-                    }}));
-                if(callback){
-                    callback();
-                }
+                    }})
+                );
+                // false - disables autostart
+                this.callBase();
             },
             translateItems: function(num){
                 return (num === 1) ? "item" : "items";

@@ -14,9 +14,8 @@
                 events: ["remove"],
                 editTodo: function (e) {
                     this.set("editing", true);
-                    if(e.$.preventDefault){
-                        e.$.preventDefault();
-                    }
+                    e.preventDefault();
+
                     this.$.inputElement.$el.select();
                     return false;
                 },
@@ -25,9 +24,12 @@
                     todo.setCompleted(!todo.isCompleted());
                     todo.save();
                 },
+                preventEditing: function(e){
+                    e.stopPropagation();
+                },
                 updateTodo: function (e) {
                     var todo;
-                    if (e.$.keyCode === ENTER_KEY || e.$.type === INPUT_BLUR) {
+                    if (e.domEvent.keyCode === ENTER_KEY || e.domEvent.type === INPUT_BLUR) {
                         todo = this.get("todo");
                         if (!todo.hasTitle()) {
                             this.trigger("remove", todo);
@@ -61,7 +63,7 @@
     </js:Script>
     <js:Template name="layout">
             <div class="view" ondblclick="editTodo">
-                <input class="toggle" type="checkbox" onclick="checkTodo"
+                <input class="toggle" type="checkbox" onclick="checkTodo" ondblclick="preventEditing"
                        checked="{todo.completed}"/>
                 <label>{todo.title}</label>
                 <button class="destroy" onclick="triggerOnRemove"/>
