@@ -8,6 +8,7 @@ define(function () {
 	return {
 		createTodo: function() {},
 		removeTodo: function() {},
+		updateTodo: function() {},
 
 		removeCompleted: function() {
 			var todos = this.todos;
