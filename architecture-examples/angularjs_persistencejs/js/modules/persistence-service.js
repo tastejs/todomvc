@@ -1,39 +1,41 @@
-angular.service('persistencejs', function() {
-	persistence.store.websql.config(persistence, 'todo-angular-persistence', 'todo database', 5*1024*1024);
+todomvc.factory('persistencejs', function(){
+	persistence.store.websql.config(persistence, 'todos-angularjs', 'todo database', 5*1024*1024);
 	var Todo = persistence.define('todo', {
-		content: 'TEXT',
-		done: 'BOOL'
+		title: 'TEXT',
+		completed: 'BOOL'
 	});
 	persistence.schemaSync();
 	return {
 		add: function(item){
 			var t = new Todo();
-			t.content = item;
-			t.done = false;
+			t.title = item;
+			t.completed = false;
 			persistence.add(t);
 			persistence.flush();
 		},
 		
-		edit: function(startContent, endContent){
-			Todo.all().filter('content','=',startContent).one(function(item){
-				item.content = endContent;
-				persistence.flush();
+		edit: function(oldTitle, newTitle){
+			Todo.all().filter('title','=',oldTitle).one(function(item){
+				if(item){
+					item.title = newTitle;
+					persistence.flush();
+				}
 			});
 		},
 		
 		changeStatus: function(item){
-			Todo.all().filter('content','=',item.content).one(function(todo){
-				todo.done = item.done;
+			Todo.all().filter('title','=',item.title).one(function(todo){
+				todo.completed = item.completed;
 				persistence.flush();
 			});
 		},
 		
 		clearCompletedItems: function(){
-			Todo.all().filter('done','=',true).destroyAll();
+			Todo.all().filter('completed','=',true).destroyAll();
 		},
 		
 		remove: function(item){
-			Todo.all().filter('content','=',item.content).destroyAll();
+			Todo.all().filter('title','=',item.title).destroyAll();
 		},
 		
 		fetchAll: function(controller){
@@ -42,8 +44,8 @@ angular.service('persistencejs', function() {
 				var todos = [];
 				items.forEach(function(item){
 					todos.push({
-						content: item.content,
-						done: item.done,
+						title: item.title,
+						completed: item.completed,
 						editing: false
 					});
 					if(--itemCount == 0){

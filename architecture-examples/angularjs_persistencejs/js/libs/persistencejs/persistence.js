@@ -459,7 +459,7 @@ persistence.get = function(arg1, arg2) {
                       that._data_obj[ref] = session.trackedObjects[that._data[ref]];
                       return that._data_obj[ref];
                     } else {
-                      throw new Error("Property '" + ref + "' with id: " + that._data[ref] + " not fetched, either prefetch it or fetch it manually.");
+                      throw new Error("Property '" + ref + "' of '" + meta.name + "' with id: " + that._data[ref] + " not fetched, either prefetch it or fetch it manually.");
                     }
                   });
               }());
@@ -1016,7 +1016,12 @@ persistence.get = function(arg1, arg2) {
         switch(type) {
         case 'DATE':
           if(typeof value === 'number') {
-            return new Date(value * 1000);
+            if (value > 1000000000000) {
+              // it's in milliseconds
+              return new Date(value); 
+            } else {
+              return new Date(value * 1000); 
+            }
           } else {
             return null;
           }
@@ -1281,8 +1286,10 @@ persistence.get = function(arg1, arg2) {
         var el = ar[i];
         if(el.equals && el.equals(item)) {
           ar.splice(i, 1);
+          return;
         } else if(el === item) {
           ar.splice(i, 1);
+          return;
         }
       }
     }
@@ -1627,7 +1634,7 @@ persistence.get = function(arg1, arg2) {
       s += '|Order:';
       for(var i = 0; i < this._orderColumns.length; i++) {
         var col = this._orderColumns[i];
-        s += col[0] + ", " + col[1];
+        s += col[0] + ", " + col[1] + ", " + col[2];
       }
       s += '|Prefetch:';
       for(var i = 0; i < this._prefetchFields.length; i++) {
@@ -1714,12 +1721,16 @@ persistence.get = function(arg1, arg2) {
      * Returns a new query collection with an ordering imposed on the collection
      * @param property the property to sort on
      * @param ascending should the order be ascending (= true) or descending (= false)
+     * @param caseSensitive should the order be case sensitive (= true) or case insensitive (= false)
+     *        note: using case insensitive ordering for anything other than TEXT fields yields
+     *        undefinded behavior
      * @return the query collection with imposed ordering
      */
-    QueryCollection.prototype.order = function (property, ascending) {
+    QueryCollection.prototype.order = function (property, ascending, caseSensitive) {
       ascending = ascending === undefined ? true : ascending;
+      caseSensitive = caseSensitive === undefined ? true : caseSensitive;
       var c = this.clone();
-      c._orderColumns.push( [ property, ascending ]);
+      c._orderColumns.push( [ property, ascending, caseSensitive ]);
       return this._session.uniqueQueryCollection(c);
     };
 
@@ -2055,8 +2066,13 @@ persistence.get = function(arg1, arg2) {
           for(var i = 0; i < that._orderColumns.length; i++) {
             var col = that._orderColumns[i][0];
             var asc = that._orderColumns[i][1];
+            var sens = that._orderColumns[i][2];
             var aVal = persistence.get(a, col);
             var bVal = persistence.get(b, col);
+            if (!sens) {
+              aVal = aVal.toLowerCase();
+              bVal = bVal.toLowerCase();
+            }
             if(aVal < bVal) {
               return asc ? -1 : 1;
             } else if(aVal > bVal) {

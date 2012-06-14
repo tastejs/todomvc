@@ -6,7 +6,7 @@ var defaultTypeMapper = {
    * SQL type for ids
    */
   idType: "VARCHAR(32)",
-  
+
   /**
    * SQL type for class names (used by mixins)
    */
@@ -44,7 +44,12 @@ var defaultTypeMapper = {
     switch (type) {
       case 'DATE':
         // SQL is in seconds and JS in miliseconds
-        return new Date(parseInt(val, 10) * 1000);
+        if (val > 1000000000000) {
+          // usually in seconds, but sometimes it's milliseconds
+          return new Date(parseInt(val, 10));
+        } else {
+          return new Date(parseInt(val, 10) * 1000);
+        }
       case 'BOOL':
         return val === 1 || val === '1';
         break;
@@ -124,7 +129,7 @@ function config(persistence, dialect) {
   /**
    * Synchronize the data model with the database, creates table that had not
    * been defined before
-   * 
+   *
    * @param tx
    *            transaction object to use (optional)
    * @param callback
@@ -147,7 +152,7 @@ function config(persistence, dialect) {
       return;
     }
     var queries = [], meta, colDefs, otherMeta, tableName;
-	
+
 	var tm = persistence.typeMapper;
     var entityMeta = persistence.getEntityMeta();
     for (var entityName in entityMeta) {
@@ -178,10 +183,10 @@ function config(persistence, dialect) {
               var otherMeta = meta.hasMany[rel].type.meta;
               var inv = meta.hasMany[rel].inverseProperty;
               // following test ensures that mixin mtm tables get created with the mixin itself
-              // it seems superfluous because mixin will be processed before entitites that use it 
+              // it seems superfluous because mixin will be processed before entitites that use it
               // but better be safe than sorry.
               if (otherMeta.hasMany[inv].type.meta != meta)
-                continue; 
+                continue;
               var p1 = meta.name + "_" + rel;
               var p2 = otherMeta.name + "_" + inv;
               queries.push([dialect.createIndex(tableName, [p1]), null]);
@@ -219,7 +224,7 @@ function config(persistence, dialect) {
 
   /**
    * Persists all changes to the database transaction
-   * 
+   *
    * @param tx
    *            transaction to use
    * @param callback
@@ -276,7 +281,7 @@ function config(persistence, dialect) {
         }
       });
   };
-  
+
   /**
    * Remove all tables in the database (as defined by the model)
    */
@@ -316,7 +321,7 @@ function config(persistence, dialect) {
         } else {
           cb();
         }
-		
+
         function cb(result, err) {
           session.clean();
           persistence.generatedTables = {};
@@ -372,7 +377,7 @@ function config(persistence, dialect) {
           obj._dirtyProperties[p] = true;
         }
       }
-    } 
+    }
     for ( var p in obj._dirtyProperties) {
       if (obj._dirtyProperties.hasOwnProperty(p)) {
         properties.push("`" + p + "`");
@@ -389,7 +394,7 @@ function config(persistence, dialect) {
       }
     }
     executeQueriesSeq(tx, additionalQueries, function() {
-        if (properties.length === 0) { // Nothing changed
+        if (!obj._new && properties.length === 0) { // Nothing changed and not new
           if(callback) callback();
           return;
         }
@@ -455,7 +460,7 @@ function config(persistence, dialect) {
   /////////////////////////// QueryCollection patches to work in SQL environment
 
   /**
-   * Function called when session is flushed, returns list of SQL queries to execute 
+   * Function called when session is flushed, returns list of SQL queries to execute
    * (as [query, arg] tuples)
    */
   persistence.QueryCollection.prototype.persistQueries = function() { return []; };
@@ -568,7 +573,7 @@ function config(persistence, dialect) {
   /**
    * Asynchronous call to actually fetch the items in the collection
    * @param tx transaction to use
-   * @param callback function to be called taking an array with 
+   * @param callback function to be called taking an array with
    *   result objects as argument
    */
   persistence.DbQueryCollection.prototype.list = function (tx, callback) {
@@ -590,7 +595,7 @@ function config(persistence, dialect) {
     var entityName = this._entityName;
     var meta = persistence.getMeta(entityName);
     var tm = persistence.typeMapper;
-    
+
     // handles mixin case -- this logic is generic and could be in persistence.
     if (meta.isMixin) {
       var result = [];
@@ -609,7 +614,7 @@ function config(persistence, dialect) {
         query.list(null, callback);
       });
       return;
-    }    
+    }
 
     function selectAll (meta, tableAlias, prefix) {
       var selectFields = [ tm.inIdVar("`" + tableAlias + "`.id") + " AS " + prefix + "id" ];
@@ -670,7 +675,7 @@ function config(persistence, dialect) {
       sql += " ORDER BY "
       + this._orderColumns.map(
         function (c) {
-          return "`" + mainPrefix + c[0] + "` "
+          return (c[2] ? "`" : "LOWER(`") + mainPrefix + c[0] + (c[2] ? "` " : "`) ")
           + (c[1] ? "ASC" : "DESC");
         }).join(", ");
     }
@@ -705,7 +710,7 @@ function config(persistence, dialect) {
   };
 
   /**
-   * Asynchronous call to remove all the items in the collection. 
+   * Asynchronous call to remove all the items in the collection.
    * Note: does not only remove the items from the collection, but
    * the items themselves.
    * @param tx transaction to use
@@ -726,7 +731,7 @@ function config(persistence, dialect) {
           that.destroyAll(tx, callback);
         });
       return;
-    } 
+    }
     var entityName = this._entityName;
     var meta = persistence.getMeta(entityName);
     var tm = persistence.typeMapper;
@@ -739,7 +744,7 @@ function config(persistence, dialect) {
         query.destroyAll(tx, callback);
       }, callback);
       return;
-    }    
+    }
 
     var joinSql = '';
     var additionalWhereSqls = this._additionalWhereSqls.slice(0);
@@ -789,13 +794,13 @@ function config(persistence, dialect) {
     if(tx && !tx.executeSql) { // provided callback as first argument
       callback = tx;
       tx = null;
-    } 
+    }
     if(!tx) { // no transaction supplied
       session.transaction(function(tx) {
           that.count(tx, callback);
         });
       return;
-    } 
+    }
     var entityName = this._entityName;
     var meta = persistence.getMeta(entityName);
     var tm = persistence.typeMapper;
@@ -814,7 +819,7 @@ function config(persistence, dialect) {
         callback(result);
       });
       return;
-    }    
+    }
 
     var joinSql = '';
     var additionalWhereSqls = this._additionalWhereSqls.slice(0);
@@ -862,14 +867,14 @@ function config(persistence, dialect) {
         vars.push("?");
         args.push(inverseMeta.name);
       }
-      queries.push(["INSERT INTO " + rel.tableName + 
+      queries.push(["INSERT INTO " + rel.tableName +
             " (`" + columns.join("`, `") + "`) VALUES (" + vars.join(",") + ")", args]);
     }
     this._localAdded = [];
     // Removed
     for(var i = 0; i < this._localRemoved.length; i++) {
-    queries.push(["DELETE FROM  " + rel.tableName + 
-          " WHERE `" + direct + "_" + this._coll + "` = " + tm.outIdVar("?") + " AND `" + 
+    queries.push(["DELETE FROM  " + rel.tableName +
+          " WHERE `" + direct + "_" + this._coll + "` = " + tm.outIdVar("?") + " AND `" +
           inverse + '_' + rel.inverseProperty +
           "` = " + tm.outIdVar("?"), [tm.entityIdToDbId(this._obj.id), tm.entityIdToDbId(this._localRemoved[i].id)]]);
     }
