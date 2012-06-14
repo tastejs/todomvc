@@ -136,17 +136,12 @@ define({
 		}
 	},
 
-//	setTodosCompletedState: {
-//		setClasses: { 0: 'completed-zero' }
-//	},
-
 	plugins: [
 		{ module: 'wire/debug' },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
 		{ module: 'wire/connect' },
-		{ module: 'cola', comparator: 'text' },
-		{ module: 'wire/aop' }
+		{ module: 'cola', comparator: 'text' }
 	]
 });
