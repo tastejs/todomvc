@@ -1,7 +1,9 @@
 define({
 
+	// The root node where all the views will be inserted
 	root: { $ref: 'dom!todoapp' },
 
+	// Render and insert the create view
 	createView: {
 		render: {
 			template: { module: 'text!create/template.html' },
@@ -10,17 +12,21 @@ define({
 		insert: { first: 'root' }
 	},
 
+	// Hook up the form to auto-reset whenever a new todo is added
 	createForm: {
 		element: { $ref: 'dom.first!form', at: 'createView' },
 		connect: { 'todos.onAdd': 'reset' }
 	},
 
+	// Render and insert the list of todos, linking it to the
+	// data and mapping data fields to the DOM
 	listView: {
 		render: {
 			template: { module: 'text!list/template.html' },
 			replace: { module: 'i18n!list/strings' },
 			css: { module: 'css!list/structure.css' }
 		},
+		insert: { after: 'createView' },
 		bind: {
 			to: { $ref: 'todos' },
 			comparator: 'dateCreated',
@@ -31,10 +37,11 @@ define({
 					{ attr: 'classList', handler: { module: 'list/setCompletedClass' } }
 				]
 			}
-		},
-		insert: { after: 'createView' }
+		}
 	},
 
+	// Render and insert the "controls" view--this has the todo count,
+	// filters, and clear completed button.
 	controlsView: {
 		render: {
 			template: { module: 'text!controls/template.html' },
@@ -44,6 +51,8 @@ define({
 		insert: { after: 'listView' }
 	},
 
+	// Render and insert the footer.  This is mainly static text, but
+	// is still fully internationalized.
 	footerView: {
 		render: {
 			template: { module: 'text!footer/template.html' },
@@ -52,6 +61,36 @@ define({
 		insert: { after: 'root' }
 	},
 
+	// Create a localStorage adapter that will use the storage
+	// key 'todos-cujo' for storing todos.  This is also linked,
+	// creating a two-way linkage between the listView and the
+	// data storage.
+	todoStore: {
+		create: {
+			module: 'cola/adapter/LocalStorage',
+			args: 'todos-cujo'
+		},
+		bind: {
+			to: { $ref: 'todos' }
+		}
+	},
+
+	todos: {
+		create: {
+			module: 'cola/Hub',
+			args: {
+				strategyOptions: {
+					validator: { module: 'create/validateTodo' }
+				}
+			}
+		}
+	},
+
+	// The main controller, which is acting more like a mediator in this
+	// application by reacting to events in multiple views.
+	// Typically, cujo-based apps will have several (or many) smaller
+	// view controllers. Since this is a relatively simple application,
+	// a single controller fits well.
 	todoController: {
 		prototype: { create: 'controller' },
 		properties: {
@@ -92,36 +131,15 @@ define({
 		}
 	},
 
+	parseForm: { module: 'cola/dom/formToObject' },
+	cleanTodo: { module: 'create/cleanTodo' },
+	generateMetadata: { module: 'create/generateMetadata' },
+
 	toggleEditingState: {
 		create: {
 			module: 'wire/dom/transform/toggleClasses',
 			args: {
 				classes: 'editing'
-			}
-		}
-	},
-
-	parseForm: { module: 'cola/dom/formToObject' },
-	cleanTodo: { module: 'create/cleanTodo' },
-	generateMetadata: { module: 'create/generateMetadata' },
-
-	todoStore: {
-		create: {
-			module: 'cola/adapter/LocalStorage',
-			args: 'todos-cujo'
-		},
-		bind: {
-			to: { $ref: 'todos' }
-		}
-	},
-
-	todos: {
-		create: {
-			module: 'cola/Hub',
-			args: {
-				strategyOptions: {
-					validator: { module: 'create/validateTodo' }
-				}
 			}
 		}
 	},
