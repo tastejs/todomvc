@@ -73,7 +73,7 @@ define({
 				'change:.toggle': 'updateTodo',
 				'click:#toggle-all': 'toggleAll',
 				'dblclick:label': 'todos.edit',
-				'focusout:.edit': 'todos.submit' // also need way to submit on [enter]
+				'change:.edit': 'todos.submit' // also need way to submit on [enter]
 			},
 			controlsView: {
 				'click:#clear-completed': 'removeCompleted'
@@ -84,7 +84,18 @@ define({
 			updateRemainingCount: 'setTodosRemainingState',
 			updateCompletedCount: 'setTodosCompletedState',
 			'todos.onChange': 'updateCount',
-			'todos.onEdit': 'cleanTodo | todos.update'
+			'todos.onEdit': 'todos.findNode | toggleTodoEditingState.add',
+			'todos.onSubmit': 'cleanTodo | todos.update',
+			'todos.onUpdate': 'todos.findNode | toggleTodoEditingState.remove'
+		}
+	},
+
+	toggleTodoEditingState: {
+		create: {
+			module: 'wire/dom/transform/toggleClasses',
+			args: {
+				classes: 'editing'
+			}
 		}
 	},
 
