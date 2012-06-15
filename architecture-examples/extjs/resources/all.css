@@ -76,6 +76,7 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
 .todo-app h1 {
     text-align: center;
     font: bold 70px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 40px 0 20px 0;
     color: #b3b3b3;
     color: rgba(255, 255, 255, 0.3);
     text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
@@ -87,7 +88,7 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
 }
 
 .todo-app-tbar {
-    border-top-color: rgba(0, 0, 0, 0.4);
+    border-top-color: rgba(115, 97, 88, 0.804);
     background: rgba(255, 255, 255, 0.65);
     padding: 0;
 }
@@ -103,8 +104,17 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
     background: transparent;
 }
 
+#todoapp .todo-text-input .x-form-text::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+#todoapp .todo-text-input .x-form-text:-moz-placeholder {
+    font-style: italic;
+    color: #a9a9a9;
+}
+
 .todo-app-list {
-    box-shadow: 0 -2px 50px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.15);
     border: none;
 }
 .todo-app-list .x-grid-body {
@@ -113,6 +123,7 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
 }
 
 .todo-app-list .x-grid-cell {
+    border-top: 1px dotted #CCCCCC;
     vertical-align: middle;
 }
 
@@ -139,6 +150,10 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
     font-weight: bold;
 }
 
+.filters {
+    text-align: center;
+}
+
 .todo-app-bbar .x-btn {
     background: rgba(0, 0, 0, 0.1);
     border-color: transparent;
@@ -146,14 +161,27 @@ tr.x-grid-row-focused td.delete-icon .x-grid-cell-inner {
     box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
 }
 
+.todo-app-bbar .hidden.x-btn {
+    background: transparent;
+    box-shadow: none;
+}
+
 .todo-app-bbar .x-btn-inner {
     font-size: 11px;
     color: #777777;
 }
 
+.todo-app-bbar .hidden .x-btn-inner {
+    color: transparent !important;
+}
+
 .todo-app-bbar .x-btn.x-btn-over {
     background: rgba(0, 0, 0, 0.15);
     box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    margin-top:3em;
 }
 
 footer p,
@@ -165,5 +193,5 @@ footer a {
 }
 
 footer p {
-    margin: 0.5em 0;
+    margin: 2em 0;
 }
