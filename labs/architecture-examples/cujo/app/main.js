@@ -23,6 +23,7 @@ define({
 		},
 		bind: {
 			to: { $ref: 'todos' },
+			comparator: 'dateCreated',
 			bindings: {
 				text: 'label, .edit',
 				complete: [
@@ -56,9 +57,11 @@ define({
 		properties: {
 			todos: { $ref: 'todos' },
 
-			createTodo: { compose: 'parseForm | cleanTodo | generateId | todos.add' },
-			removeTodo: { compose: 'todos.get | todos.remove' },
-			updateTodo: { compose: 'todos.get | todos.update' },
+			createTodo: { compose: 'parseForm | cleanTodo | generateMetadata | todos.add' },
+			removeTodo: { compose: 'todos.remove' },
+			updateTodo: { compose: 'cleanTodo | todos.update' },
+
+			querySelector: { $ref: 'dom.first!' },
 
 			masterCheckbox: { $ref: 'dom.first!#toggle-all', at: 'listView' },
 			countNode: { $ref: 'dom.first!.count', at: 'controlsView' },
@@ -72,8 +75,8 @@ define({
 				'click:.destroy': 'removeTodo',
 				'change:.toggle': 'updateTodo',
 				'click:#toggle-all': 'toggleAll',
-				'dblclick:label': 'todos.edit',
-				'change:.edit': 'todos.submit' // also need way to submit on [enter]
+				'dblclick:.view': 'todos.edit',
+				'change,focusout:.edit': 'todos.submit' // also need way to submit on [enter]
 			},
 			controlsView: {
 				'click:#clear-completed': 'removeCompleted'
@@ -84,13 +87,12 @@ define({
 			updateRemainingCount: 'setTodosRemainingState',
 			updateCompletedCount: 'setTodosCompletedState',
 			'todos.onChange': 'updateCount',
-			'todos.onEdit': 'todos.findNode | toggleTodoEditingState.add',
-			'todos.onSubmit': 'cleanTodo | todos.update',
-			'todos.onUpdate': 'todos.findNode | toggleTodoEditingState.remove'
+			'todos.onEdit': 'todos.findNode | toggleEditingState.add | beginEditTodo',
+			'todos.onSubmit': 'todos.findNode | toggleEditingState.remove | todos.findItem | endEditTodo'
 		}
 	},
 
-	toggleTodoEditingState: {
+	toggleEditingState: {
 		create: {
 			module: 'wire/dom/transform/toggleClasses',
 			args: {
@@ -101,7 +103,7 @@ define({
 
 	parseForm: { module: 'cola/dom/formToObject' },
 	cleanTodo: { module: 'create/cleanTodo' },
-	generateId: { module: 'create/generateId' },
+	generateMetadata: { module: 'create/generateMetadata' },
 
 	todoStore: {
 		create: {
@@ -145,28 +147,12 @@ define({
 		}
 	},
 
-	setTodoCompletedState: {
-		create: {
-			module: 'cola/transform/createEnum',
-			// need to use literal factory until wire 0.9
-			args: { literal: { 'true': 'completed', 'false': 'foo' } }
-		}
-	},
-
-	setTodoEditState: {
-		create: {
-			module: 'wire/dom/transform/mapClasses',
-			// need to use literal factory until wire 0.9
-			args: { literal: { 'true': 'editing', 'false': '' } }
-		}
-	},
-
 	plugins: [
-		{ module: 'wire/debug' },
+//		{ module: 'wire/debug', trace: true },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
 		{ module: 'wire/connect' },
-		{ module: 'cola', comparator: 'text' }
+		{ module: 'cola' }
 	]
 });

@@ -10,6 +10,22 @@ define(function () {
 		removeTodo: function() {},
 		updateTodo: function() {},
 
+		beginEditTodo: function(node) {
+			this.querySelector('.edit', node).select();
+		},
+
+		endEditTodo: function(todo) {
+			// As per application spec, todos edited to have empty
+			// text should be removed.
+			todo.text = todo.text.trim();
+			if (todo.text) {
+				this.updateTodo(todo);
+			}
+			else {
+				this.removeTodo(todo);
+			}
+		},
+
 		removeCompleted: function() {
 			var todos = this.todos;
 
@@ -40,7 +56,6 @@ define(function () {
 				if(todo.complete) checked++;
 			});
 
-			// TODO: It may make sense to move this stuff to a JS view
 			this.masterCheckbox.checked = total > 0 && checked === total;
 
 			this.updateTotalCount(total);
