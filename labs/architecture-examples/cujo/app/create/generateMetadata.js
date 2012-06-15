@@ -1,9 +1,13 @@
 define(function() {
 
-	return function generateId(item) {
-		if(!('id' in item)) {
-			item.id = guidLike();
-		}
+	/**
+	 * Since we're using a datastore (localStorage) that doesn't generate ids and such
+	 * for us, this transform generates a GUID id and a dateCreated.  It can be
+	 * injected into a pipeline for creating new todos.
+	 */
+	return function generateMetadata(item) {
+		item.id = guidLike();
+		item.dateCreated = new Date().getTime();
 
 		return item;
 	};
