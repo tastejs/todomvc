@@ -8,7 +8,7 @@ describe( 'views/*', function() {
 		require( [ 'text!app/views/clear_button.html' ], function( html ){
 			expect( html ).to.be.a( 'string' );
 			expect( html ).to.match( /completedCount/ );
-			expect( Em.Handlebars.compile( html ) ).to.not.throw( Error );
+			expect( function(){ Em.Handlebars.compile( html ) } ).to.not.throw( Error );
 			done();
 		});
 	});
@@ -21,7 +21,7 @@ describe( 'views/*', function() {
 			expect( html ).to.match( /Todos\.todosController/ );
 			expect( html ).to.match( /Checkbox/ );
 			expect( html ).to.match( /class="toggle"/ );
-			expect( Em.Handlebars.compile( html ) ).to.not.throw( Error );
+			expect( function(){ Em.Handlebars.compile( html ) } ).to.not.throw( Error );
 			done();
 		});
 	});

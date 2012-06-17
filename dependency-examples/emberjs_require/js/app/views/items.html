@@ -2,9 +2,9 @@
 	{{#unless content.editing}}
 		{{#view Todos.todosController.todoView contentBinding="content" }}
 			{{view Ember.Checkbox valueBinding="content.completed" class="toggle"}}
-				{{#view Ember.View tagName="label" todoBinding="content"}}
-					{{todo.title}}
-				{{/view}}
+			{{#view Ember.View tagName="label" todoBinding="content"}}
+				{{todo.title}}
+			{{/view}}
 			{{view Ember.Button target="Todos.todosController" action="removeObject" class="destroy" todoBinding="content"}}
 		{{/view}}
 	{{else}}
