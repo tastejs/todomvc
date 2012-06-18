@@ -2,7 +2,6 @@
 
 #### A common learning application for popular JavaScript MV* frameworks
 
-
 ## Introduction
 
 Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js, AngularJS, JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
@@ -38,6 +37,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 We also have a number of in-progress applications in our [Labs](http://addyosmani.github.com/todomvc/labs) site. These include:
 
 - [CanJS](http://canjs.us)
+- [Maria.js](https://github.com/petermichaux/maria/)
 - [Batman.js](http://batmanjs.org)
 - [Meteor](http://meteor.com)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
@@ -57,7 +57,6 @@ We also have a number of in-progress applications in our [Labs](http://addyosman
 ## Live demos
 
 Live demos are available on the official [TodoMVC site](http://todomvc.com).
-
 
 ## Screenshot
 
@@ -86,13 +85,32 @@ It is meant to be used as a gateway to reviewing how a basic application using a
 
 ## Project Status
 
-TodoMVC is currently preparing applications for the next major release of the project due on June 20th. This will include re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We will also be addressing framework author concerns about routing by adding this to some of the more mainstream applications in the project.
+TodoMVC is currently preparing applications for the next major release of the project due out in early July. This will include re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We will also be addressing framework author concerns about routing by adding this to some of the more mainstream applications in the project.
 
 ## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after reading our [contribution guidelines](https://github.com/addyosmani/todomvc/wiki) (in particular our [application specifications](https://github.com/addyosmani/todomvc/wiki/App-Specification)). One of us will be happy to review your submission and discuss any changes that may be required before they can be included.
+*New Applications*
+
+If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after:
+
+* Reading our [contribution guidelines](https://github.com/addyosmani/todomvc/wiki)
+* Going through our [application specifications](https://github.com/addyosmani/todomvc/wiki/App-Specification))
+* Looking at our most recent [reference application](https://github.com/addyosmani/todomvc/tree/master/architecture-examples/spine) 
+
+One of us will be happy to review your submission and discuss any changes that may be required before they can be included.
+
+
+*Unit Tests*
+
+At present, due to the large number of applications in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted. 
+
+We do however plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework. 
+
+If you are a library author or contributor wishing to start work on writing tests for an implementation, we'll happily consider including them in the future. This may change based on how we specify unit tests must be structured and so on post 1.0.
+
+*A Final Note*
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
 
