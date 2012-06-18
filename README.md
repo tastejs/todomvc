@@ -91,7 +91,7 @@ TodoMVC is currently preparing applications for the next major release of the pr
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-*New Applications*
+###New Applications
 
 If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after:
 
@@ -102,7 +102,7 @@ If you have an implementation you would like to show us or a patch you would lik
 One of us will be happy to review your submission and discuss any changes that may be required before they can be included.
 
 
-*Unit Tests*
+###Unit Tests
 
 At present, due to the large number of applications in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted. 
 
@@ -110,7 +110,7 @@ We do however plan on addressing this in a future release as we feel it would bo
 
 If you are a library author or contributor wishing to start work on writing tests for an implementation, we'll happily consider including them in the future. This may change based on how we specify unit tests must be structured and so on post 1.0.
 
-*A Final Note*
+###A Final Note
 
 Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
 
