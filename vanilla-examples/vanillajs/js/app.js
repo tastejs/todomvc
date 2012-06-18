@@ -91,7 +91,7 @@ function todoContentHandler( event ) {
     div.className = 'editing';
 
     inputEditTodo = document.getElementById( 'input_' + todoId );
-    inputEditTodo.focus();
+    inputEditTodo.select();
 }
 
 function checkboxChangeHandler( event ) {
