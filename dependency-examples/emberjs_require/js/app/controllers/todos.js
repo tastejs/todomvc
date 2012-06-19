@@ -1,7 +1,9 @@
 define('app/controllers/todos', [
 		'app/controllers/entries',
-		'text!app/views/clear_button.html',
-		'text!app/views/items.html'
+		'app/views/items',
+		'app/views/stats',
+		'app/views/filters',
+		'app/views/clear_button',
 	],
 	/**
 	 * Todos controller
@@ -10,40 +12,26 @@ define('app/controllers/todos', [
 	 * which is an `ArrayProxy` linked with the `Store` model
 	 *
 	 * @param Class Entries, the Entries class
-	 * @param String button_html, the html view for the clearCompletedButton
-	 * @param String items_html, the html view for the `Todos` items
+	 * @param Class ItemsView, items view class
+	 * @param Class StatsView, stats view class
+	 * @param Class FiltersView, filters view class
+	 * @param Class ClearBtnView, clear button view class
 	 * @returns Class
 	 */
-	function( Entries, button_html, items_html ) {
+	function( Entries, ItemsView, StatsView, FiltersView, ClearBtnView ) {
 		return Entries.extend({
 			// New todo input
-			inputView: Ember.TextField.create({
+			InputView: Ember.TextField.extend({
 				placeholder: 'What needs to be done?',
 				elementId: 'new-todo',
-				storageBinding: 'Todos.todosController',
 				// Bind this to newly inserted line
 				insertNewline: function() {
 					var value = this.get( 'value' );
 					if ( value ) {
-						this.get( 'storage' ).createNew( value );
+						this.get( 'controller' ).createNew( value );
 						this.set( 'value', '' );
 					}
 				}
-			}),
-
-			// Stats report
-			statsView: Ember.View.create({
-				elementId: 'todo-count',
-				tagName: 'span',
-				contentBinding: 'Todos.todosController',
-				remainingBinding: 'Todos.todosController.remaining',
-				template: Ember.Handlebars.compile(
-					'<strong>{{remaining}}</strong> {{remainingString}} left'
-				),
-				remainingString: function() {
-					var remaining = this.get( 'remaining' );
-					return ( remaining === 1 ? ' item' : ' items' );
-				}.property( 'remaining' )
 			}),
 
 			// Handle visibility of some elements as items totals change
@@ -51,34 +39,15 @@ define('app/controllers/todos', [
 				$( '#main, #footer' ).toggle( !!this.get( 'total' ) );
 			}.observes( 'total' ),
 
-			// Clear completed tasks button
-			clearCompletedButton: Ember.Button.create({
-				template: Ember.Handlebars.compile( button_html ),
-				target: 'Todos.todosController',
-				action: 'clearCompleted',
-				completedCountBinding: 'Todos.todosController.completed',
-				elementId: 'clear-completed',
-				classNameBindings: 'buttonClass',
-				// Observer to update class if completed value changes
-				buttonClass: function () {
-						if ( !this.get( 'completedCount' ) )
-								return 'hidden';
-				}.property( 'completedCount' )
-			}),
-
 			// Checkbox to mark all todos done.
-			allDoneCheckbox: Ember.Checkbox.create({
+			MarkAllChkbox: Ember.Checkbox.extend({
 				elementId: 'toggle-all',
-				checkedBinding: 'Todos.todosController.allAreDone'
-			}),
-
-			// Compile and render the todos view
-			todosView: Ember.View.create({
-				template: Ember.Handlebars.compile( items_html )
+				checkedBinding: 'controller.allAreDone'
 			}),
 
 			// Todo list item view
-			todoView: Ember.View.extend({
+			ItemView: Ember.View.extend({
+				contentBinding: 'controller',
 				classNames: [ 'view' ],
 				doubleClick: function() {
 					this.get( 'content' ).set( 'editing', true );
@@ -86,8 +55,8 @@ define('app/controllers/todos', [
 			}),
 
 			// Todo list item editing view
-			todoEditor: Ember.TextField.extend({
-				storageBinding: 'Todos.todosController',
+			ItemEditor: Ember.TextField.extend({
+				storageBinding: 'content',
 				classNames: [ 'edit' ],
 				whenDone: function() {
 					this.get( 'todo' ).set( 'editing', false );
@@ -109,11 +78,20 @@ define('app/controllers/todos', [
 			// Activates the views and other initializations
 			init: function() {
 				this._super();
+
+				this.set( 'inputView', this.InputView.create({ controller: this }) );
+				this.set( 'markAllChkbox', this.MarkAllChkbox.create({ controller: this }) );
+				this.set( 'itemsView', ItemsView.create({ controller: this }) );
+				this.set( 'statsView', StatsView.create({ controller: this }) );
+				this.set( 'filtersView', FiltersView.create() );
+				this.set( 'clearBtnView', ClearBtnView.create({ controller: this }) );
+
 				this.get( 'inputView' ).appendTo( 'header' );
-				this.get( 'allDoneCheckbox' ).appendTo( '#main' );
-				this.get( 'todosView' ).appendTo( '#main' );
+				this.get( 'markAllChkbox' ).appendTo( '#main' );
+				this.get( 'itemsView' ).appendTo( '#main' );
 				this.get( 'statsView' ).appendTo( '#footer' );
-				this.get( 'clearCompletedButton' ).appendTo( '#footer' );
+				this.get( 'clearBtnView' ).appendTo( '#footer' );
+				this.get( 'filtersView' ).appendTo( '#footer' );
 			}
 		});
 	}

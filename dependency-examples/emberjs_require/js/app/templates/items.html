@@ -1,0 +1,13 @@
+{{#collection contentBinding="controller" controllerBinding="controller" id="todo-list" tagName="ul" itemClassBinding="content.completed content.editing" }}
+	{{#unless content.editing}}
+		{{#view controller.ItemView contentBinding="content" }}
+			{{view Ember.Checkbox valueBinding="content.completed" class="toggle"}}
+			{{#view Ember.View tagName="label" todoBinding="content"}}
+				{{todo.title}}
+			{{/view}}
+			{{view Ember.Button target="controller" action="removeObject" class="destroy" todoBinding="content"}}
+		{{/view}}
+	{{else}}
+		{{view controller.ItemEditor todoBinding="content" valueBinding="content.title"}}
+	{{/unless}}
+{{/collection}}
