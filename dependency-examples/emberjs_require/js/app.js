@@ -3,7 +3,8 @@ require.config({
 	baseUrl: 'js/',
 	paths: {
 		jquery: '../../../assets/jquery.min',
-                ember: 'lib/ember-0.9.8.1.min',
+		ember: 'http://cloud.github.com/downloads/emberjs/ember.js/ember-latest.min',
+		// ember: 'lib/ember-0.9.8.1.min',
 		text: 'lib/require/text',
 		mocha: 'lib/mocha',
 		chai: 'lib/chai'
@@ -12,34 +13,28 @@ require.config({
 
 // Load our app
 define( 'app', [
-	'jquery',
+	'app/router',
 	'app/models/store',
 	'app/controllers/todos',
+	'jquery',
 	'ember',
-	], function( $, Store, TodosController ) {
+	], function( Router, Store, TodosController ) {
 		var App = Ember.Application.create({
 
-			VERSION: '0.2-omfg',
+			VERSION: '0.2',
 
-			// Constructor
 			init: function() {
 				this._super();
 
-				// Initiate main controller
-				this.set(
-					'todosController',
-					TodosController.create({
-						store: new Store( 'todos-emberjs' )
-					})
-				);
-
-				// Run specs if asked
-				if ( location.hash.match( /specs/ ) ) {
-					require( [ 'app/specs/helper' ] );
-				}
+				this.set( 'todosController', TodosController.create(
+					{ store: new Store( 'todos-emberjs' ) }
+				) );
 			}
 		});
 
+		// Initialize Application to load routes
+		App.Router = Router;
+		App.initialize();
 		// Expose the application globally
 		return window.Todos = App;
 	}
