@@ -58,8 +58,8 @@ define('app/models/store', [
       // Store the model inside the `Store`
       this.create = function ( model ) {
         if ( !model.get( 'id' ) ) {
-          model.set( 'id', Date.now() );
           var t = new TodoPersistence( model.getProperties( 'title', 'completed' ) );
+          model.set( 'id', t.id );
           persistence.add(t);
           this.save();
         }
