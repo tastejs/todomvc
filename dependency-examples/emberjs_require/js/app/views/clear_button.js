@@ -9,10 +9,8 @@ define('app/views/clear_button', [
 	 * @returns Class
 	 */
 	function( button_html ) {
-		return Ember.Button.extend({
+		return Ember.View.extend({
 			template: Ember.Handlebars.compile( button_html ),
-			target: 'controller',
-			action: 'clearCompleted',
 			completedBinding: 'controller.completed',
 			elementId: 'clear-completed',
 			classNameBindings: 'buttonClass',
