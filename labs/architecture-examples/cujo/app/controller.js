@@ -6,26 +6,53 @@ define(function () {
 	updateRemainingCount = normalizeTextProp;
 
 	return {
-		createTodo: function() {},
-		removeTodo: function() {},
-		updateTodo: function() {},
+		/**
+		 * Create a new todo
+		 * @injected
+		 * @param todo {Object} data used to create new todo
+		 * @param todo.text {String} text of the todo
+		 */
+		createTodo: function(todo) {},
 
+		/**
+		 * Remove an existing todo
+		 * @injected
+		 * @param todo {Object} existing todo, or object with same identifier, to remove
+		 */
+		removeTodo: function(todo) {},
+
+		/**
+		 * Update an existing todo
+		 * @injected
+		 * @param todo {Object} updated todo
+		 */
+		updateTodo: function(todo) {},
+
+		/**
+		 * Start inline editing a todo
+		 * @param node {Node} Dom node of the todo
+		 */
 		beginEditTodo: function(node) {
 			this.querySelector('.edit', node).select();
 		},
 
+		/**
+		 * Finish editing a todo
+		 * @param todo {Object} todo to finish editing and save changes
+		 */
 		endEditTodo: function(todo) {
 			// As per application spec, todos edited to have empty
 			// text should be removed.
-			todo.text = todo.text.trim();
-			if (todo.text) {
+			if (/\S/.test(todo.text)) {
 				this.updateTodo(todo);
-			}
-			else {
+			} else {
 				this.removeTodo(todo);
 			}
 		},
 
+		/**
+		 * Remove all completed todos
+		 */
 		removeCompleted: function() {
 			var todos = this.todos;
 
@@ -34,6 +61,9 @@ define(function () {
 			});
 		},
 
+		/**
+		 * Check/uncheck all todos
+		 */
 		toggleAll: function() {
 			var todos, complete;
 
@@ -46,6 +76,11 @@ define(function () {
 			});
 		},
 
+		/**
+		 * Update the remaining and completed counts, and update
+		 * the check/uncheck all checkbox if all todos have become
+		 * checked or unchecked.
+		 */
 		updateCount: function() {
 			var total, checked;
 
@@ -76,6 +111,9 @@ define(function () {
 
 	};
 
+	/**
+	 * Self-optimizing function to set the text of a node
+	 */
 	function normalizeTextProp () {
 		// sniff for proper textContent property
 		textProp = 'textContent' in document.documentElement ? 'textContent' : 'innerText';
