@@ -90,8 +90,8 @@ define('app/controllers/todos', [
 				this.get( 'markAllChkbox' ).appendTo( '#main' );
 				this.get( 'itemsView' ).appendTo( '#main' );
 				this.get( 'statsView' ).appendTo( '#footer' );
-				this.get( 'clearBtnView' ).appendTo( '#footer' );
 				this.get( 'filtersView' ).appendTo( '#footer' );
+				this.get( 'clearBtnView' ).appendTo( '#footer' );
 			}
 		});
 	}
