@@ -23,7 +23,6 @@ define('app/controllers/entries', ['ember'],
 			},
 
 			removeObject: function( item ) {
-				item = item.get( 'todo' ) || item;
 				this.get( 'store' ).remove( item );
 				return this._super( item );
 			},
