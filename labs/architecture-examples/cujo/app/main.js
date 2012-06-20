@@ -83,6 +83,10 @@ define({
 					validator: { module: 'create/validateTodo' }
 				}
 			}
+		},
+		before: {
+			add: 'cleanTodo | generateMetadata',
+			update: 'cleanTodo'
 		}
 	},
 
@@ -96,9 +100,9 @@ define({
 		properties: {
 			todos: { $ref: 'todos' },
 
-			createTodo: { compose: 'parseForm | cleanTodo | generateMetadata | todos.add' },
+			createTodo: { compose: 'parseForm | todos.add' },
 			removeTodo: { compose: 'todos.remove' },
-			updateTodo: { compose: 'cleanTodo | todos.update' },
+			updateTodo: { compose: 'todos.update' },
 
 			querySelector: { $ref: 'dom.first!' },
 
@@ -170,6 +174,7 @@ define({
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
+		{ module: 'wire/aop' },
 		{ module: 'wire/connect' },
 		{ module: 'cola' }
 	]
