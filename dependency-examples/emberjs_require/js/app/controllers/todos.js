@@ -45,36 +45,6 @@ define('app/controllers/todos', [
 				checkedBinding: 'controller.allAreDone'
 			}),
 
-			// Todo list item view
-			ItemView: Ember.View.extend({
-				contentBinding: 'controller',
-				classNames: [ 'view' ],
-				doubleClick: function() {
-					this.get( 'content' ).set( 'editing', true );
-				}
-			}),
-
-			// Todo list item editing view
-			ItemEditor: Ember.TextField.extend({
-				storageBinding: 'content',
-				classNames: [ 'edit' ],
-				whenDone: function() {
-					this.get( 'todo' ).set( 'editing', false );
-					if ( !this.get( 'todo' ).get( 'title' ).trim() ) {
-					 this.get( 'storage' ).removeObject( this.get( 'todo' ) );
-					}
-				},
-				focusOut: function() {
-					this.whenDone();
-				},
-				didInsertElement: function() {
-					this.$().focus();
-				},
-				insertNewline: function() {
-					this.whenDone();
-				}
-			}),
-
 			// Activates the views and other initializations
 			init: function() {
 				this._super();
