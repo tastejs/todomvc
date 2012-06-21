@@ -5,7 +5,7 @@ define([
   'models/todo'
   ], function(_, Backbone, Store, Todo){
 	  
-	var TodosCollection = Backbone.Collection.extend({
+  var TodosCollection = Backbone.Collection.extend({
 
     // Reference to this collection's model.
     model: Todo,
