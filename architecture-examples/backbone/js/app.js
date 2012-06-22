@@ -212,7 +212,7 @@ $(function(){
 
 		// Add all items in the **Todos** collection at once.
 		addAll: function() {
-			Todos.each(this.addOne);
+			Todos.each(this.addOne, this);
 		},
 
 		// Generate the attributes for a new Todo item.
