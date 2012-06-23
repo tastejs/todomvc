@@ -8,7 +8,6 @@ define('app/router', [ 'ember' ],
 	 */
 	function() {
 		return Ember.Router.extend({
-			enableLogging: true,
 
 			root: Ember.Route.extend({
 

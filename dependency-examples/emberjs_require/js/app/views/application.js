@@ -51,7 +51,7 @@ define('app/views/application', [
 						entriesBinding: 'controller.namespace.entriesController',
 						elementId: 'toggle-all',
 						checkedBinding: 'entries.allAreDone'
-					}),
+					})
 				}),
 				footerView: Ember.ContainerView.create({
 					elementId: 'footer',
