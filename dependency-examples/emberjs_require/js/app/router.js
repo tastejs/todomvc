@@ -6,7 +6,7 @@ define('app/router', [ 'ember' ],
 	 *
 	 * @returns Class
 	 */
-	function( ItemsView, StatsView, FiltersView, ClearBtnView ) {
+	function() {
 		return Ember.Router.extend({
 			enableLogging: true,
 
@@ -18,6 +18,20 @@ define('app/router', [ 'ember' ],
 
 				index: Ember.Route.extend({
 					route: '/',
+					connectOutlets: function( router ) {
+						var controller = router.get( 'applicationController' );
+						var context = controller.namespace.entriesController;
+
+						require([ 'app/controllers/todos', 'app/views/items' ],
+							function( TodosController, ItemsView ) {
+								controller.connectOutlet({
+									viewClass: ItemsView,
+									controller: TodosController.create(),
+									context: context
+								});
+							}
+						);
+					}
 				}),
 
 				active: Ember.Route.extend({
