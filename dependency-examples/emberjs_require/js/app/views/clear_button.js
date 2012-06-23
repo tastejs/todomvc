@@ -10,15 +10,14 @@ define('app/views/clear_button', [
 	 */
 	function( button_html ) {
 		return Ember.View.extend({
+			entriesBinding: 'controller.namespace.entriesController',
 			template: Ember.Handlebars.compile( button_html ),
-			completedBinding: 'controller.completed',
 			elementId: 'clear-completed',
 			classNameBindings: 'buttonClass',
-			// Observer to update class if completed value changes
 			buttonClass: function () {
-				if ( !this.get( 'completed' ) )
+				if ( !this.getPath( 'entries.completed' ) )
 					return 'hidden';
-			}.property( 'completed' )
+			}.property( 'entries.completed' )
 		})
 	}
 );

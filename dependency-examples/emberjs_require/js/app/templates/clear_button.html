@@ -1,3 +1,5 @@
-<button {{action "clearCompleted" target="controller"}}>
-	Clear completed ({{completed}})
-</button>
+{{#with view}}
+	<button {{action "clearCompleted" target="entries"}} >
+		Clear completed ({{entries.completed}})
+	</button>
+{{/with}}
