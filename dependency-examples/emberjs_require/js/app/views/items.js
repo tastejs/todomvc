@@ -10,7 +10,7 @@ define('app/views/items', [
 	 */
 	function( items_html ) {
 		return Ember.CollectionView.extend({
-			contentBinding: 'controller.content',
+			contentBinding: 'controller.entries',
 			tagName: 'ul',
 			elementId: 'todo-list',
 			itemViewClass: Ember.View.extend({
