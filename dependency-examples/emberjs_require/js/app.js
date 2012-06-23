@@ -15,25 +15,26 @@ require.config({
 define( 'app', [
 	'app/router',
 	'app/models/store',
-	'app/controllers/todos',
+	'app/controllers/entries',
 	'jquery',
-	'ember',
-	], function( Router, Store, TodosController ) {
+	'ember'
+	], function( Router, Store, EntriesController ) {
 		var App = Ember.Application.create({
-
 			VERSION: '0.2',
-
-			init: function() {
-				this._super();
-
-				this.set( 'todosController', TodosController.create(
-					{ store: new Store( 'todos-emberjs' ) }
-				) );
-			}
+			rootElement: '#main',
+			// Load routes
+			Router: Router,
+			// Extend to inherit outlet support
+			ApplicationController: Ember.Controller.extend(),
+			ApplicationView: Em.View.extend({
+				template: Ember.Handlebars.compile( '{{outlet}}' )
+			}),
+			// Preload entries controller
+			entriesController: EntriesController.create(
+				{ store: new Store( 'todos-emberjs' ) }
+			)
 		});
 
-		// Initialize Application to load routes
-		App.Router = Router;
 		App.initialize();
 		// Expose the application globally
 		return window.Todos = App;
