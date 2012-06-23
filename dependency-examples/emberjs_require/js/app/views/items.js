@@ -10,7 +10,7 @@ define('app/views/items', [
 	 */
 	function( items_html ) {
 		return Ember.CollectionView.extend({
-			contentBinding: 'controller',
+			contentBinding: 'controller.content',
 			tagName: 'ul',
 			elementId: 'todo-list',
 			itemViewClass: Ember.View.extend({
@@ -21,14 +21,14 @@ define('app/views/items', [
 					this.get( 'content' ).set( 'editing', true );
 				},
 				removeItem: function() {
-					this.get( 'controller' ).removeObject( this.get( 'content' ) );
+					this.getPath( 'controller.content' ).removeObject( this.get( 'content' ) );
 				},
 				ItemEditorView: Ember.TextField.extend({
 					valueBinding: 'content.title',
 					classNames: [ 'edit' ],
 					change: function() {
 						if ( Ember.empty( this.getPath( 'content.title' ) ) ) {
-							this.get( 'controller' ).removeObject( this.get( 'content' ) );
+							this.getPath( 'controller.content' ).removeObject( this.get( 'content' ) );
 						}
 					},
 					whenDone: function() {
@@ -44,9 +44,7 @@ define('app/views/items', [
 						this.whenDone();
 					}
 				})
-			}),
-
-
+			})
 		})
 	}
 );
