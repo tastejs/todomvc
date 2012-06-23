@@ -16,20 +16,18 @@ define( 'app', [
 	'app/router',
 	'app/models/store',
 	'app/controllers/entries',
+	'app/views/application',
 	'jquery',
 	'ember'
-	], function( Router, Store, EntriesController ) {
+	], function( Router, Store, EntriesController, ApplicationView ) {
 		var App = Ember.Application.create({
 			VERSION: '0.2',
-			rootElement: '#main',
+			rootElement: '#todoapp',
 			// Load routes
 			Router: Router,
 			// Extend to inherit outlet support
 			ApplicationController: Ember.Controller.extend(),
-			ApplicationView: Em.View.extend({
-				template: Ember.Handlebars.compile( '{{outlet}}' )
-			}),
-			// Preload entries controller
+			ApplicationView: ApplicationView,
 			entriesController: EntriesController.create(
 				{ store: new Store( 'todos-emberjs' ) }
 			)
