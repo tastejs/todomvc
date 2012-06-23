@@ -1,4 +1,4 @@
-define('app/controllers/entries', ['ember'],
+define('app/controllers/entries', [ 'ember' ],
 	/**
 	 * Entries controller
 	 *
