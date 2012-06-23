@@ -45,6 +45,10 @@ define('app/controllers/entries', [ 'ember' ],
 				return this.filterProperty( 'completed', true ).get( 'length' );
 			}.property( '@each.completed' ),
 
+			noneLeft: function() {
+				return this.get( 'total' ) === 0;
+			}.property( 'total' ),
+
 			allAreDone: function( key, value ) {
 				if ( value !== undefined ) {
 					this.setEach( 'completed', value );

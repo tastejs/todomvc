@@ -41,6 +41,8 @@ define('app/views/application', [
 				mainView: Em.ContainerView.create({
 					elementId: 'main',
 					tagName: 'section',
+					visibilityBinding: 'controller.namespace.entriesController.noneLeft',
+					classNameBindings: [ 'visibility:hidden' ],
 					childViews: [ 'outletView', 'markAllChkbox' ],
 					outletView: Ember.View.create({
 						template: Ember.Handlebars.compile( '{{outlet}}' ),
@@ -54,6 +56,8 @@ define('app/views/application', [
 				footerView: Ember.ContainerView.create({
 					elementId: 'footer',
 					tagName: 'footer',
+					visibilityBinding: 'controller.namespace.entriesController.noneLeft',
+					classNameBindings: [ 'visibility:hidden' ],
 					childViews: [
 						StatsView.create(),
 						FiltersView.create(),
