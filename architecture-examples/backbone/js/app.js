@@ -96,8 +96,8 @@ $(function(){
 		// a one-to-one correspondence between a **Todo** and a **TodoView** in this
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
-			this.model.bind('change', this.render, this);
-			this.model.bind('destroy', this.remove, this);
+			this.model.on('change', this.render, this);
+			this.model.on('destroy', this.remove, this);
 		},
 
 		// Re-render the titles of the todo item.
@@ -125,8 +125,9 @@ $(function(){
 		close: function() {
 			var value = this.input.val().trim();
 
-			if (!value)
+			if (!value){
 				this.clear();
+			}
 
 			this.model.save({title: value});
 			$(this.el).removeClass("editing");
@@ -171,11 +172,11 @@ $(function(){
 			this.input = this.$("#new-todo");
 			this.allCheckbox = this.$("#toggle-all")[0];
 
-			Todos.bind('add', this.addOne, this);
-			Todos.bind('reset', this.addAll, this);
-			Todos.bind('all', this.render, this);
+			Todos.on('add', this.addOne, this);
+			Todos.on('reset', this.addAll, this);
+			Todos.on('all', this.render, this);
 
-			this.$footer = this.$('footer');
+			this.$footer = $('#footer');
 			this.$main = $('#main');
 
 			Todos.fetch();
@@ -195,6 +196,7 @@ $(function(){
 							done:       done,
 							remaining:  remaining
 				}));
+		
 			} else {
 				this.$main.hide();
 				this.$footer.hide();
@@ -246,6 +248,45 @@ $(function(){
 		}
 	});
 
+	// Todo Router
+	// ----------
+
+	var Router = Backbone.Router.extend({
+		routes:{
+			"/:filter": "filter",
+			"/:*": "filter"
+		},
+
+		filter: function(param){
+
+			this.$todos = $('#todo-list');
+			this.$todoItems = this.$todos.find('li');
+			this.$todosDone = this.$todos.find('.done');
+
+			switch(param){
+				default:
+					this.$todoItems.show();
+					break;
+				case 'active':
+					this.$todoItems.show().not('.done').hide();
+					break;
+				case 'completed':
+					this.$todoItems.show();
+					this.$todosDone.hide();
+					break;
+			}
+
+			$('#filters li a')
+				.removeClass('selected')
+				.filter("[href='#/" + param + "']")
+				.addClass('selected');
+		}
+
+	});
+
+	var app_router = new Router;
+	Backbone.history.start();
+	
 	// Finally, we kick things off by creating the **App**.
 	var App = new AppView;
 });

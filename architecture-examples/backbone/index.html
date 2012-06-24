@@ -16,9 +16,10 @@
 			<input id="toggle-all" type="checkbox">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list"></ul>
+			<footer id="footer"></div>
 		</section>
 	</section>
-	<footer id="info">
+	<div id="info">
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="http://addyosmani.github.com/todomvc/">Addy Osmani</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
@@ -41,23 +42,21 @@
 	</script>
 	
 	<script type="text/template" id="stats-template">
-		<footer id="footer">
-			<span id="todo-count"><strong><%- remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left</span>
-			<ul id="filters">
-				<li>
-					<a class="selected" href="#/">All</a>
-				</li>
-				<li>
-					<a href="#/active">Active</a>
-				</li>
-				<li>
-					<a href="#/completed">Completed</a>
-				</li>
-			</ul>
-			<% if (done) { %>
-			<button id="clear-completed">Clear <%- done %> completed <%= done == 1 ? 'item' : 'items' %></button>
-			<% } %>
-		</footer>
+		<span id="todo-count"><strong><%- remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left</span>
+		<ul id="filters">
+			<li>
+				<a class="selected" href="#/">All</a>
+			</li>
+			<li>
+				<a href="#/active">Active</a>
+			</li>
+			<li>
+				<a href="#/completed">Completed</a>
+			</li>
+		</ul>
+		<% if (done) { %>
+		<button id="clear-completed">Clear <%- done %> completed <%= done == 1 ? 'item' : 'items' %></button>
+		<% } %>
 	</script>
 </body>
 </html>
