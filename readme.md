@@ -77,12 +77,12 @@ TodoMVC would not be possible without a strong team of [contributors](https://gi
 
 #### [Addy Osmani](http://github.com/addyosmani) - Founder/Lead
 
-<img style="float:left;margin-right:5px" width="40" height="40" src="http://www.gravatar.com/avatar/96270e4c3e5e9806cf7245475c00b275.png?s=40">
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/96270e4c3e5e9806cf7245475c00b275.png?s=40">
 Addy is a Developer Platform Engineer at Google who originally created TodoMVC. He oversees the project direction, drives expansion and helps lead core development with Sindre Sorhus (by far our most active contributor!).
 
 #### [Sindre Sorhus](https://github.com/sindresorhus) - Lead Developer
 
-<img style="float:left;margin-right:5px" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
 Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible.
 
 #### [Aaron Boushley](https://github.com/boushley) - on leave
