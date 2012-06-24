@@ -1,6 +1,6 @@
-(function( app ) {
+(function( Todos) {
   'use strict';
-  
+
      var App = Ember.Application.create({
 
               // Constructor
@@ -10,13 +10,14 @@
                 // Initiate main controller
                 this.set(
                   'todosController',
-                  window.Todos.TodosController.create({
-                    store: new window.Todos.Store( 'todos-emberjs' )
+                  Todos.TodosController.create({
+                    store: new Todos.Store( 'todos-emberjs' )
                   })
                 );
 
               }
             });
 
-        window.Todos = App;
-})();
+      window.Todos = App;
+
+})( window.Todos );

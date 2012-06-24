@@ -1,18 +1,6 @@
 (function( app ) {
   'use strict';
 
-    var Todo = Ember.Object.extend({
-          id: null,
-          title: null,
-          completed: false,
-          // set store reference upon creation instead of creating static bindings
-          store: null,
-          // Observer that will react on item change and will update the storage
-          todoChanged: function() {
-            this.get( 'store' ).update( this );
-          }.observes( 'title', 'completed' )
-        });
-
     var Store = function( name ) {
           this.name = name;
           var store = localStorage.getItem( this.name );
@@ -26,7 +14,7 @@
           // Wrapper around `this.create`
           // Creates a `Todo` model object out of the title
           this.createFromTitle = function( title ) {
-            var todo = Todo.create({
+            var todo = app.Todo.create({
               title: title,
               store: this
             });
@@ -63,7 +51,7 @@
                 key;
 
             for ( key in this.data ) {
-              var todo = Todo.create( this.data[ key ] );
+              var todo = app.Todo.create( this.data[ key ] );
               todo.set( 'store', this );
               result.push( todo );
             }
