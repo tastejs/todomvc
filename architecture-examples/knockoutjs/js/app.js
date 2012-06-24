@@ -67,6 +67,21 @@
 
 		// store the new todo value being entered
 		self.current = ko.observable();
+		
+		self.showMode = ko.observable('all');
+
+		self.showAll = function () { self.showMode('all'); };
+		self.showActive = function () { self.showMode('active'); };
+		self.showCompleted = function () { self.showMode('completed'); };
+
+		self.todosFiltered = ko.computed(function () { 
+			switch(self.showMode())
+			{
+				case 'active': return self.todos().filter(function(todo){ return !todo.completed(); });
+				case 'completed': return self.todos().filter(function(todo){ return todo.completed(); });
+				default: return self.todos();
+			}
+		});
 
 		// add a new todo, when enter key is pressed
 		self.add = function() {
