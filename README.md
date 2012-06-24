@@ -12,9 +12,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 #### Todo apps are included for:
 
 - [Backbone.js](http://documentcloud.github.com/backbone/)
-- [Backbone.js + RequireJS](http://requirejs.org) (using AMD)
 - [Ember.js](http://emberjs.com)
-- [Ember.js + RequireJS](http://emberjs.com) (using AMD)
 - [JavaScriptMVC](http://javascriptmvc.com)
 - [Spine.js](http://spinejs.com)
 - [KnockoutJS](http://knockoutjs.com) (MVVM)
@@ -23,7 +21,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - [Closure](http://code.google.com/closure/library/)
 - [YUILibrary](http://yuilibrary.com)
 - [AngularJS](http://angularjs.org)
-- [Angular + PersistenceJS](http://persistencejs.org)
+- [AngularJS + PersistenceJS](http://persistencejs.org)
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Agility.js](http://agilityjs.com)
 
@@ -31,6 +29,12 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 - jQuery
 - Vanilla JS
+
+###### RequireJS
+
+- [Backbone.js + RequireJS](http://requirejs.org) (using AMD)
+- [Ember.js + RequireJS](http://emberjs.com) (using AMD)
+
 
 #### Labs
 
@@ -52,7 +56,9 @@ We also have a number of in-progress applications in our [Labs](http://addyosman
 - [Dijon](https://github.com/creynders/dijon-framework)
 - [Sammy.js](http://sammyjs.org)
 - [rAppid](https://github.com/it-ony/rAppid.js)
-
+- [Broke](https://github.com/brokenseal/broke)
+- o_O
+- Fun
 
 ## Live demos
 
