@@ -121,9 +121,9 @@ function editTodo( todoId, text ) {
 }
 
 function removeTodoById( id ) {
-	var i, l;
+	var i = todos.length;
 
-	for ( i = 0, l = todos.length; i < l; i++ ) {
+	while ( i-- ) {
 		if ( todos[ i ].id === id ) {
 			todos.splice( i, 1 );
 		}
