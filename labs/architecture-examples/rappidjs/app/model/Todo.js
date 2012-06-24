@@ -1,20 +1,26 @@
-define(["js/data/Model"], function (Model) {
-	return Model.inherit("app.model.Todo", {
+define([
+	'js/data/Model'
+], function( Model ) {
+	return Model.inherit('app.model.Todo', {
 		defaults: {
-			title: "",
+			title: '',
 			completed: false
 		},
-		setCompleted: function (completed) {
-			this.set("completed", completed);
+
+		setCompleted: function( completed ) {
+			this.set( 'completed', completed );
 		},
-		isCompleted: function () {
+
+		isCompleted: function() {
 			return this.$.completed;
 		},
-		status: function () {
-			return this.$.completed ? "completed" : '';
-		}.onChange("completed"),
-		hasTitle: function () {
+
+		status: function() {
+			return this.$.completed ? 'completed' : '';
+		}.onChange('completed'),
+
+		hasTitle: function() {
 			return this.$.title.trim().length;
-		}.onChange("title")
+		}.onChange('title')
 	});
 });
