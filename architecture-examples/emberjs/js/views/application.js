@@ -63,10 +63,8 @@
 				entriesBinding: 'controller.namespace.entriesController',
 				templateName: 'clearBtnTemplate',
 				elementId: 'clear-completed',
-				classNameBindings: 'buttonClass',
 				buttonClass: function () {
-					if ( !this.getPath( 'entries.completed' ) )
-						return 'hidden';
+					return !this.getPath( 'entries.completed' );
 				}.property( 'entries.completed' )
 			})
 		})

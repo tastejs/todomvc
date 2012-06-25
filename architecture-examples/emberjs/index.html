@@ -46,7 +46,7 @@
 	</script>
 	<script id="clearBtnTemplate" type="text/x-handlebars">
 		{{#with view}}
-			<button {{action "clearCompleted" target="entries"}} >
+			<button {{action "clearCompleted" target="entries"}} {{bindAttr class="buttonClass:hidden"}} >
 				Clear completed ({{entries.completed}})
 			</button>
 		{{/with}}
