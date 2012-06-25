@@ -6,7 +6,7 @@ var http = require('http')
 // Define a single-page client
 ss.client.define('main', {
   view: 'app.html',
-  css:  ['libs', 'app.css'],
+  css:  ['base.css'],
   code: ['libs', 'app'],
   tmpl: '*'
 });
@@ -31,4 +31,4 @@ server.listen(3000);
 
 // Start SocketStream
 ss.start(server);
-console.log('server runing on http://localhost:3000')
+console.log('server running on http://localhost:3000')

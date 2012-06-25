@@ -1,0 +1,12 @@
+{
+  "name": "todo",
+  "description": "An awesome real time TodoMVC app on SocketStream",
+  "version": "0.0.1",
+  "author": "Dennis Mårtensson <me@dennis.is>",
+  "private": true,
+  "engines": { "node": ">= 0.6.0" },
+  "dependencies": {
+    "socketstream": "0.3.x",
+    "ss-hogan": "0.1.x"
+  }
+}

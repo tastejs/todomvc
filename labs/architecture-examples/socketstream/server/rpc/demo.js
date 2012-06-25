@@ -17,7 +17,7 @@ exports.actions = function(req, res, ss) {
     },
 
     AnswersOnSendTodos: function(todos, socketId) {
-      if(req.socketId != socketId){
+      if(req.socketId !== socketId){
         ss.publish.socketId(socketId, 'updateList', todos);
       }
     },

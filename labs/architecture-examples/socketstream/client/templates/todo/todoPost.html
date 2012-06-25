@@ -1,8 +1,8 @@
-<li id="li{{order}}" {{lidone}}>
-    <div id="ClickEdit{{order}}" class="view">
-      <input id="Done{{order}}" class="toggle" type="checkbox" {{done}}>
+<li id="li{{id}}" {{#completed}}class="completed"{{/completed}}>
+    <div id="ClickEdit{{id}}" class="view" title="{{id}}">
+      <input id="Done{{id}}" class="toggle" name="{{id}}" type="checkbox" {{#completed}}checked=checked{{/completed}}>
       <label>{{message}}</label>
-      <button id="Delete{{order}}" class="destroy"></button>
+      <button id="Delete{{id}}" class="destroy" name="{{id}}"></button>
     </div>
-    <input id="Edit{{order}}" class="edit" type="text" value="{{message}}">
+    <input id="Edit{{id}}" class="edit" type="text" name="{{id}}" value="{{message}}">
 </li>

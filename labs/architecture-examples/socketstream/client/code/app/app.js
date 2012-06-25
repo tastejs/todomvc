@@ -1,9 +1,13 @@
 var todosLocal = [];
+var todosLocalLength = 0;
+
+
+var ENTER_KEY = 13;
 
 // Listen out for new events coming from the server
 ss.event.on('updateList', function(todos) {
   $("#todo-list").html('');
-  upDateList(todos);
+  updateList(todos);
 });
 
 ss.event.on('sendTodos', function(socketId) {
@@ -11,235 +15,139 @@ ss.event.on('sendTodos', function(socketId) {
 });
 
 
-// Show the chat form and bind to the submit action
-$('#todo').on('submit', function() {
+$('#new-todo').on('keyup', function(e) {
+  if (e.keyCode == ENTER_KEY) {
+    // Grab the text from the text box
+    var text = $('#new-todo').val().trim();
+    // Call the 'send' funtion to ensure it's valid before sending to the server
+    var success = exports.send(text);
 
-  // Grab the message from the text box
-  var text = $('#new-todo').val();
-
-  // Call the 'send' funtion (below) to ensure it's valid before sending to the server
-  return exports.send(text, function(success) {
     if (success) {
-      return $('#new-todo').val('');
+      $('#new-todo').val('');
+      return true;
     } else {
-      return alert('Oops! Unable to creat todo');
-    }
-  });
-});
-
-$('#completed').on('click', function() {
-  $("#completed").addClass('selected');
-  $("#active").removeClass('selected');
-  $("#all").removeClass('selected');
-  $("#todo-list").empty();
-
-  upDateList(todosLocal, 3);
-});
-
-$("#active").on('click', function() {
-  $("#active").addClass('selected');
-  $("#completed").removeClass('selected');
-  $("#all").removeClass('selected');
-  $("#todo-list").empty();
-
-  upDateList(todosLocal, 2);
-});
-
-$("#all").on('click', function() {
-  $("#all").addClass('selected');
-  $("#completed").removeClass('selected');
-  $("#active").removeClass('selected');
-  $("#todo-list").empty();
-
-  upDateList(todosLocal, 1);
-});
-
-$("#toggle-all").on('click', function() {
-  doneToggle();
-});
-
-$("#clear-completed").on('click', function() {
-  var temopTodos = todosLocal.slice();
-
-  for (x in temopTodos) {
-    todo = temopTodos[x];
-    if (todo.done) {
-      var i = getIndex(todo);
-      todosLocal.remove(i);
+      return false;
     }
   }
-  ss.rpc('demo.BroadcastTodos', todosLocal);
 });
 
-// Demonstrates sharing code between modules by exporting function
-exports.send = function(text, cb) {
+exports.send = function(text) {
   if (valid(text)) {
     todo = {
+      id: nextId(),
       title: text,
-      done: false,
-      order: todosLocal.length + 1
+      completed: false,
+      order: todosLocalLength + 1
     };
     todosLocal.push(todo);
     ss.rpc('demo.BroadcastTodos', todosLocal);
-    return cb(true);
+    return true;
   } else {
-    return cb(false);
+    return false;
   }
 };
 
-exports.update = function(todo, text, cb) {
+exports.update = function(todo, text) {
   if (valid(text)) {
-    var index = getIndex(todo);
+    var index = getIndex(todo.id);
     todo.title = text;
     todosLocal[index] = todo;
     ss.rpc('demo.BroadcastTodos', todosLocal);
-    return cb(true);
+    return true;
   } else {
-    return cb(false);
+    return false;
   }
 };
 
 
-// Private functions
-var valid = function(text) {
-    return text && text.length > 0;
-  };
+function valid(text) {
+  return text && text.length > 0;
+};
 
 
-function upDateList(todos, status) {
+function updateList(todos) {
   todosLocal = todos;
+  todosLocalLength = todosLocal.length;
 
-  var statusUser
-
-  switch (status) {
-  case 1:
-    statusUser = null;
-    break;
-  case 2:
-    statusUser = false;
-    break;
-  case 3:
-    statusUser = true;
-    break;
-  default:
-    statusUser = getStatusOfThisUser();
-  }
+  var statusUser = getStatusOfThisUser();
 
   var todosStatus = sortTodosWithStatus(statusUser);
 
-  if (todosStatus.length > 0) {
+  setFooter();
+
+  if (todosStatus.length) {
     $("#main").show();
     $("#footer").show();
-    setCountLeft();
-    setCountComplete();
-    if (allmarkt()) {
-      $("#toggle-all").attr('checked', true);
-    } else {
-      $("#toggle-all").attr('checked', false);
-    }
+
+    $("#toggle-all").prop('checked', allmarkt());
 
     $.each(todosStatus, function(id, todo) {
       createToDo(todo);
     });
-  } else {
-    if (statusUser == null) {
-      $("#main").hide();
-      $("#footer").hide();
-      $("#all").addClass('selected');
-      $("#completed").removeClass('selected');
-      $("#active").removeClass('selected');
-    } else if (statusUser) {
-      $("#main").show();
-      $("#footer").show();
-      $("#completed").addClass('selected');
-      $("#all").removeClass('selected');
-      $("#active").removeClass('selected');
-    } else if (!statusUser) {
-      $("#main").show();
-      $("#footer").show();
-      $("#active").addClass('selected');
-      $("#all").removeClass('selected');
-      $("#completed").removeClass('selected');
-    }
-
-  }
+  };
+  setListener();
 }
 
 function createToDo(todo) {
-  var TempDone = '';
-  var TempLiDone = '';
-
-  if (todo.done) {
-    TempDone = 'checked=checked'
-    TempLiDone = 'class=done'
-  };
-
   var html = ss.tmpl['todo-todoPost'].render({
+    id: todo.id,
     message: todo.title,
     order: todo.order,
-    done: TempDone,
-    lidone: TempLiDone
+    completed: todo.completed,
   });
   $(html).appendTo('#todo-list');
-
-  $("#Delete" + todo.order).on('click', function() {
-    deleteTodo(todo);
-  });
-
-  $("#Done" + todo.order).on('click', function() {
-    doneToggle(todo);
-  });
-
-  $("#ClickEdit" + todo.order).on('dblclick', function() {
-    $("#li" + todo.order).addClass('editing');
-    $("#Edit" + todo.order).show();
-  });
-
-  $("#Edit" + todo.order).on('keyup', function(e) {
-    if (e.keyCode == 13) {
-
-      var text = $("#Edit" + todo.order).val();
-
-      return exports.update(todo, text, function(success) {
-        if (success) {
-
-        } else {
-          return alert('Oops! Unable to creat todo');
-        }
-      });
-    }
-  });
 }
 
 function deleteTodo(todo) {
-  var index = getIndex(todo);
-  todosLocal.remove(index);
+  var index = getIndex(todo.id);
+  todosLocal.splice(index, 1);
   ss.rpc('demo.BroadcastTodos', todosLocal);
+}
+//Use templating for the footer (#footer). This means the counter, and the Clear completed button.
+
+function setFooter() {
+  var count = setCountLeft();
+  var s = true;
+  var all = true;
+  var active = false;
+  var completed = false;
+
+  if (count == 1) {
+    s = false;
+  }
+
+  var url = window.location.hash;
+
+  if (url == '#/active') {
+    all = false;
+    active = true;
+    $("#footer").show();
+  } else if (url == '#/completed') {
+    all = false;
+    completed = true;
+    $("#footer").show();
+  }
+
+  var html = ss.tmpl['todo-footer'].render({
+    countLeft: count,
+    countComplete: todosLocalLength - count,
+    s: s,
+    all: all,
+    active: active,
+    completed: completed,
+  });
+  $("#footer").html('');
+  $(html).appendTo('#footer');
 }
 
 function setCountLeft() {
   var count = 0;
   $.each(todosLocal, function(id, todo) {
-    if (!todo.done) {
+    if (!todo.completed) {
       count++;
     }
   });
-
-  $("#todo-count").html('<b>' + count + '<b> items left');
-}
-
-function setCountComplete() {
-  var count = 0;
-  $.each(todosLocal, function(id, todo) {
-    if (todo.done) {
-      count++;
-    }
-  });
-  if (count == 0) {
-    $("#clear-completed").hide();
-  } else {
-    $("#clear-completed").html('Clear completed (' + count + ')').show();
-  }
+  return count;
 }
 
 function sortTodosWithStatus(status) {
@@ -248,9 +156,9 @@ function sortTodosWithStatus(status) {
   if (status == null) {
     return todosLocal;
   } else {
-    for (i = 0; i < todosLocal.length; i++) {
+    for (var i = 0; i < todosLocalLength; i++) {
       var todo = todosLocal[i];
-      if (todo.done == status) {
+      if (todo.completed == status) {
         todosStatus.push(todo);
       }
     }
@@ -268,7 +176,7 @@ function getStatusOfThisUser() {
   return null;
 }
 
-function doneToggle(todo) {
+function toggleCompleted(todo) {
   //find and toggle done on todos or todo and push new todos
   if (todo == null) {
     if (allmarkt()) {
@@ -285,21 +193,16 @@ function doneToggle(todo) {
 }
 
 function toggleDone(todo) {
-  var index = getIndex(todo);
+  var index = getIndex(todo.id);
   var tempTodo = todosLocal[index];
 
-  if (tempTodo.done) {
-    tempTodo.done = false;
-  } else {
-    tempTodo.done = true;
-  }
-  todosLocal[index] = tempTodo;
+  tempTodo.completed = !tempTodo.completed;
 }
 
 function setDoneOnAll(status) {
-  for (i = 0; i < todosLocal.length; i++) {
+  for (var i = 0; i < todosLocalLength; i++) {
     var todo = todosLocal[i];
-    todo.done = status;
+    todo.completed = status;
     todosLocal[i] = todo;
   }
 }
@@ -307,12 +210,12 @@ function setDoneOnAll(status) {
 function allmarkt() {
   var markt = true;
 
-  if (todosLocal.length == 0) {
+  if (todosLocalLength == 0) {
     markt = false;
   } else {
-    for (i = 0; i < todosLocal.length; i++) {
+    for (var i = 0; i < todosLocalLength; i++) {
       var todo = todosLocal[i];
-      if (!todo.done) {
+      if (!todo.completed) {
         markt = false;
       }
     }
@@ -321,7 +224,7 @@ function allmarkt() {
 }
 
 function getIndex(todo) {
-  for (i = 0; i < todosLocal.length; i++) {
+  for (var i = 0; i < todosLocalLength; i++) {
     if (todosLocal[i].order == todo.order) {
       return i;
     }
@@ -329,9 +232,105 @@ function getIndex(todo) {
   return -1;
 }
 
-// Array Remove - By John Resig (MIT Licensed)
-Array.prototype.remove = function(from, to) {
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
+function setListener() {
+
+  var todo;
+
+  $(".destroy").on('click', function(event) {
+    todo = getTodoOnId(event.target.name);
+    if(todo !== null){
+      deleteTodo(todo);
+    };
+  });
+
+  $(".toggle").on('click', function(event) {
+    todo = getTodoOnId(event.target.name);
+    if(todo !== null){
+      toggleCompleted(todo);
+    };
+  });
+
+  $('.view').on('dblclick', function(event) {
+    todo = getTodoOnId(event.target.title);
+    if(todo !== null){
+      $('.editing').removeClass('editing');
+      $('#li' + todo.order).addClass('editing');
+      $('#Edit' + todo.order).show().select();
+    };
+  });
+
+  $(".edit").on('keyup blur', function(event) {
+    todo = getTodoOnId(event.target.name);
+    if(todo !== null){
+      if (event.keyCode == ENTER_KEY || event.type == 'blur') {
+
+        var text = $("#Edit" + todo.order).val().trim();
+
+        var success = exports.update(todo, text);
+
+        if (success) {
+          return true;
+        } else {
+          deleteTodo(todo);
+          return false;
+        }
+      }
+    }
+  });
+
+  $("#clear-completed").on('click', function() {
+    var tempTodos = todosLocal.slice();
+
+    for (var x in tempTodos) {
+      todo = tempTodos[x];
+      if (todo.completed) {
+        var i = getIndex(todo.id);
+        todosLocal.splice(i, 1);
+      }
+    }
+    ss.rpc('demo.BroadcastTodos', todosLocal);
+  });
+};
+
+$("#toggle-all").on('click', function() {
+  toggleCompleted();
+});
+
+function hashChange() {
+  $("#todo-list").html('');
+  updateList(todosLocal);
+}
+
+window.addEventListener("hashchange", hashChange, false);
+
+
+function nextId() {
+  if (!todosLocal.length) {
+    return 1;
+  } else {
+    var id = todosLocal[todosLocalLength - 1].id;
+    return id + 1;
+  }
+};
+
+function getIndex(id) {
+  for (var i = 0; i < todosLocalLength; i++) {
+    var todo = todosLocal[i];
+    if (todo.id == id) {
+      return i;
+    }
+  };
+  return null;
+};
+
+function getTodoOnId(id) {
+  for (var i = 0; i < todosLocalLength; i++) {
+    var todo = todosLocal[i];
+    if (typeof todo === "undefined") {
+      return null;
+    }else if (todo.id == id) {
+      return todo;
+    }
+  };
+  return null;
 };
