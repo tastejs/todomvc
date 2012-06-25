@@ -6,7 +6,6 @@ todomvc.directive('todoFocus', function( $timeout ) {
     scope.$watch(attrs.todoFocus, function( newval ) {
       if ( newval ) {
         $timeout(function() {
-          elem[0].focus();
           elem[0].select();
         }, 0, false);
       }

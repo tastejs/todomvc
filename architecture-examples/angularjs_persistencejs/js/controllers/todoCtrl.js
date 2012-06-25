@@ -31,7 +31,7 @@ todomvc.controller( 'TodoCtrl', function TodoCtrl( $scope, $location, filterFilt
 	$scope.refresh = function(){ $scope.$apply(); }
 
 	$scope.addTodo = function() {
-		if ( !$scope.newTodo.length ) return;
+		if ( !$scope.newTodo.length ) { return; }
 
 		todos.push({
 			title: this.newTodo,
