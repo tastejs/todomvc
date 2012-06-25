@@ -22,35 +22,47 @@ todomvc.factory('persistencejs', function(){
 				}
 			});
 		},
-		
-		changeStatus: function(item){
-			Todo.all().filter('title','=',item.title).one(function(todo){
-				todo.completed = item.completed;
+
+		markAll: function( done, callback ) {
+			Todo.all().list(function( items ) {
+				var itemCount = items.length;
+				items.forEach(function( item ) {
+					item.completed = done;
+					if( --itemCount == 0 ) {
+						persistence.flush(callback);
+					}
+				});
+			});
+		},
+
+		changeStatus: function( todo ) {
+			Todo.all().filter( 'title', '=', todo.title ).one( function( todo ) {
+				todo.completed = !todo.completed;
 				persistence.flush();
 			});
 		},
-		
+	
 		clearCompletedItems: function(){
 			Todo.all().filter('completed','=',true).destroyAll();
 		},
 		
-		remove: function(item){
-			Todo.all().filter('title','=',item.title).destroyAll();
+		remove: function(todo){
+			Todo.all().filter('title','=',todo.title).destroyAll();
 		},
 		
-		fetchAll: function(controller){
+		fetchAll: function( scope, callback ){
 			Todo.all().list(function(items){
+				if( !items ) return [];
 				var itemCount = items.length;
 				var todos = [];
 				items.forEach(function(item){
 					todos.push({
 						title: item.title,
-						completed: item.completed,
-						editing: false
+						completed: item.completed
 					});
 					if(--itemCount == 0){
-						controller.todos = todos;
-						controller.refresh();
+						scope.todos = todos;
+						callback();
 					}
 				});
 			});

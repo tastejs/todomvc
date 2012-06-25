@@ -19,7 +19,7 @@
 			</form>
 		</header>
 		<section id="main" ng-show="todos.length" ng-cloak>
-			<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAllDone(allChecked)" ng-checked="remainingTodos().length == 0">
+			<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)" ng-checked="allChecked">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
 				<li ng-repeat="todo in todos | filter:statusFilter" ng-dblclick="editTodo(todo)" ng-class="{done: todo.completed, editing: todo == editedTodo}">
@@ -35,7 +35,7 @@
 			</ul>
 		</section>
 		<footer id="footer" ng-show="todos.length" ng-cloak>
-			<span id="todo-count"><strong>{{remainingTodos().length}}</strong> <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left'}"></ng-pluralize></span>
+			<span id="todo-count"><strong>{{remainingCount}}</strong> <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left'}"></ng-pluralize></span>
 			<ul id="filters">
 				<li>
 					<a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
@@ -47,7 +47,7 @@
 					<a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneCount">Clear completed ({{doneCount}})"></button>
+			<button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneCount">Clear completed ({{doneCount}})</button>
 		</footer>
 	</section>
 	<footer id="info">
