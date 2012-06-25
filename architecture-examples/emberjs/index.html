@@ -11,31 +11,7 @@
 	<![endif]-->
 </head>
 <body>
-	<section id="todoapp">
-		<header id="header">
-			<h1>todos</h1>
-		</header>
-		<section id="main"></section>
-		<footer id="footer"></footer>
-	</section>
-	<script id="itemsTemplate" type="text/x-handlebars">
-	{{#collection id="todo-list" contentBinding="Todos.todosController" tagName="ul" itemClassBinding="content.completed content.editing" }}
-	{{#unless content.editing}}
-		{{#view Todos.todosController.todoView contentBinding="content" }}
-			{{view Ember.Checkbox valueBinding="content.completed" class="toggle"}}
-				{{#view Ember.View tagName="label" todoBinding="content"}}
-					{{todo.title}}
-				{{/view}}
-			{{view Ember.Button target="Todos.todosController" action="removeObject" class="destroy" todoBinding="content"}}
-		{{/view}}
-	{{else}}
-		{{view Todos.todosController.todoEditor todoBinding="content" valueBinding="content.title"}}
-	{{/unless}}
-{{/collection}}
-	</script>
-	<script id="buttonTemplate" type="text/x-handlebars">
-	Clear completed ({{completedCount}})
-	</script>
+	<section id="todoapp"></section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>
@@ -45,15 +21,59 @@
 		</p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
+	<!-- /* Handlebars templates start */ -->
+	<script id="statsTemplate" type="text/x-handlebars">
+		{{#with view}}
+			{{#if oneLeft }}
+				<strong>{{entries.remaining}}</strong> item left
+			{{else}}
+				<strong>{{entries.remaining}}</strong> items left
+			{{/if}}
+		{{/with}}
+	</script>
+	<script id="filtersTemplate" type="text/x-handlebars">
+		<ul id="filters">
+			<li>
+				<a {{action showAll href=true}}>All</a>
+			</li>
+			<li>
+				<a {{action showActive href=true}}>Active</a>
+			</li>
+			<li>
+				<a {{action showCompleted href=true}}>Completed</a>
+			</li>
+		</ul>
+	</script>
+	<script id="clearBtnTemplate" type="text/x-handlebars">
+		{{#with view}}
+			<button {{action "clearCompleted" target="entries"}} >
+				Clear completed ({{entries.completed}})
+			</button>
+		{{/with}}
+	</script>
+	<script id="todosTemplate" type="text/x-handlebars">
+		{{#unless view.content.editing}}
+			{{view Ember.Checkbox checkedBinding="view.content.completed" class="toggle"}}
+			<label>{{view.content.title}}</label>
+			<button {{action removeItem target="this"}} class="destroy" ></button>
+		{{else}}
+			{{view view.ItemEditorView contentBinding="view.content"}}
+		{{/unless}}
+	</script>
+	<!-- /* Handlebars templates end */ -->
 	<script src="../../assets/base.js"></script>
 	<script src="../../assets/jquery.min.js"></script>
-	<script src="js/libs/ember-0.9.8.1.min.js"></script>
-	<script src="js/init.js"></script>
+	<script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-latest.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/router.js"></script>
 	<script src="js/models/todo.js"></script>
 	<script src="js/models/store.js"></script>
 	<script src="js/controllers/entries.js"></script>
 	<script src="js/controllers/todos.js"></script>
-	<script src="js/main.js"></script>
-	
+	<script src="js/views/application.js"></script>
+	<script src="js/views/todos.js"></script>
+	<script type="text/javascript">
+		Todos.initialize();
+	</script>
 </body>
 </html>
