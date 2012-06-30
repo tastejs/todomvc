@@ -1,23 +1,16 @@
-define( 'app/specs/helper', [ 'chai', 'mocha' ],
+define( 'app/specs/helper', [ 'jasmine', 'jasmine_html' ],
 	/**
 	 * Specs Runner
 	 */
-	function( chai ) {
-		// Create placeholder for mocha output
-		// TODO: Make this shit look better and inside body
-		$( document.body ).before( '<div id="mocha"></div>' );
-
-		// Setup mocha and expose chai matchers
-		window.expect = chai.expect;
-		mocha.setup('bdd');
-
+	function() {
 		// Load testsuite
 		require([
-			'app/specs/models/store',
-			'app/specs/views/basic_acceptance',
-			'app/specs/controllers/todos'
+			'app/specs/todoMVC',
 		], function() {
-			mocha.run().globals( [ '$', 'Ember', 'Todos' ] );
+				var jasmineEnv = jasmine.getEnv();
+				var htmlReporter = new jasmine.HtmlReporter();
+				jasmineEnv.addReporter( htmlReporter );
+				jasmineEnv.execute();
 		});
 	}
 );

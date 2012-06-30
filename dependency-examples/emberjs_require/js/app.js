@@ -3,11 +3,11 @@ require.config({
 	baseUrl: 'js/',
 	paths: {
 		jquery: '../../../assets/jquery.min',
-		ember: 'http://cloud.github.com/downloads/emberjs/ember.js/ember-latest.min',
-		// ember: 'lib/ember-0.9.8.1.min',
+		// ember: 'http://cloud.github.com/downloads/emberjs/ember.js/ember-latest.min',
+		ember: 'lib/ember-latest',
 		text: 'lib/require/text',
-		mocha: 'lib/mocha',
-		chai: 'lib/chai'
+		jasmine: '../../../assets/jasmine/jasmine',
+		jasmine_html: '../../../assets/jasmine/jasmine-html'
 	}
 });
 
