@@ -12,7 +12,6 @@ define('app/views/clear_button', [
 		return Ember.View.extend({
 			entriesBinding: 'controller.namespace.entriesController',
 			template: Ember.Handlebars.compile( button_html ),
-			elementId: 'clear-completed',
 			classNameBindings: 'buttonClass',
 			buttonClass: function () {
 				if ( !this.getPath( 'entries.completed' ) )
