@@ -1,6 +1,8 @@
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
+	var currentFilter = "";
+
 	// Todo Model
 	// ----------
 
@@ -172,7 +174,7 @@ $(function(){
 			this.input = this.$("#new-todo");
 			this.allCheckbox = this.$("#toggle-all")[0];
 
-			Todos.on('add', this.adcompleted, this);
+			Todos.on('add', this.addOne, this);
 			Todos.on('reset', this.addAll, this);
 			Todos.on('all', this.render, this);
 
@@ -207,14 +209,28 @@ $(function(){
 
 		// Add a single todo item to the list by creating a view for it, and
 		// appending its element to the `<ul>`.
-		adcompleted: function(todo) {
+		addOne: function(todo) {
 			var view = new TodoView({model: todo});
 			this.$("#todo-list").append(view.render().el);
 		},
 
 		// Add all items in the **Todos** collection at once.
 		addAll: function() {
-			Todos.each(this.adcompleted, this);
+
+			this.$("#todo-list").html('');
+
+			switch(currentFilter){
+				case "active":
+					_.each(Todos.remaining(), this.addOne);
+					break;
+				case "completed":
+					_.each(Todos.completed(), this.addOne);
+					break;
+				default:
+					Todos.each(this.addOne, this);
+					break;
+			}
+
 		},
 
 		// Generate the attributes for a new Todo item.
@@ -253,36 +269,22 @@ $(function(){
 
 	var Router = Backbone.Router.extend({
 		routes:{
-			"/:filter": "filter",
-			"/:*": "filter"
+			"/:filter": "setFilter",
+			"/:*": "setFilter"
 		},
 
-		filter: function(param){
+		setFilter: function(param){
 
-			//this.$todos = $('#todo-list');
-			//this.$todoItems = this.$todos.find('li');
-			//this.$todoscompleted = this.$todos.find('.completed');
+			currentFilter = param;
+			Todos.trigger('reset');
 
-			switch(param){
-				default:
-					//this.$todoItems.show();
-					console.log(Todos);
-					break;
-				case 'active':
-					//this.$todoItems.show().not('.completed').hide();
-					console.log(Todos.remaining());
-					break;
-				case 'completed':
-					console.log(Todos.completed());
-					//this.$todoItems.show();
-					//this.$todoscompleted.hide();
-					break;
-			}
-
+			// Currently not working on navigation.
 			$('#filters li a')
 				.removeClass('selected')
 				.filter("[href='#/" + param + "']")
 				.addClass('selected');
+
+
 		}
 
 	});
