@@ -25,7 +25,7 @@
       <ul id="todo-list">
         <li ng-repeat="todo in todos | filter:statusFilter" ng-dblclick="editTodo(todo)" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
           <div class="view">
-            <input class="toggle" type="checkbox" ng-model="todo.completed">
+            <input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="todoCompleted(todo)">
             <label>{{todo.title}}</label>
             <button class="destroy" ng-click="removeTodo(todo)"></button>
           </div>
@@ -50,7 +50,7 @@
           <a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
         </li>
       </ul>
-      <button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneCount">Clear completed ({{doneCount}})</button>
+      <button id="clear-completed" ng-click="clearDoneTodos()" ng-show="remainingCount < todos.length">Clear completed ({{todos.length - remainingCount}})</button>
     </footer>
   </section>
   <footer id="info">
