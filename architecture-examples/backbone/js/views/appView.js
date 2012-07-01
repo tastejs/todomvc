@@ -108,7 +108,7 @@ $(function( $ ) {
 		// persisting it to *localStorage*.
 		createOnEnter: function(e) {
 
-			if ( e.keyCode !== 13 ){
+			if ( e.keyCode !== ENTER_KEY ){
 				return;
 			}
 
