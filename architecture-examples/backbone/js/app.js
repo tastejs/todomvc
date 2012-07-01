@@ -1,8 +1,6 @@
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
-	var currentFilter = "";
-
 	// Todo Model
 	// ----------
 
@@ -72,6 +70,10 @@ $(function(){
 
 	// Create our global collection of **Todos**.
 	var Todos = new TodoList;
+
+	
+	// Todo Filter (active || completed || "")
+	var TodoFilter = "";
 
 	// Todo Item View
 	// --------------
@@ -198,6 +200,13 @@ $(function(){
 							completed:       completed,
 							remaining:  remaining
 				}));
+
+
+				this.$('#filters li a')
+					.removeClass('selected')
+					.filter("[href='#/" + TodoFilter + "']")
+					.addClass('selected');
+
 		
 			} else {
 				this.$main.hide();
@@ -219,7 +228,7 @@ $(function(){
 
 			this.$("#todo-list").html('');
 
-			switch(currentFilter){
+			switch(TodoFilter){
 				case "active":
 					_.each(Todos.remaining(), this.addOne);
 					break;
@@ -275,15 +284,11 @@ $(function(){
 
 		setFilter: function(param){
 
-			currentFilter = param;
+			// Set the current filter to be used
+			TodoFilter = param || "";
+
+			// Trigger a collection reset/addAll
 			Todos.trigger('reset');
-
-			// Currently not working on navigation.
-			$('#filters li a')
-				.removeClass('selected')
-				.filter("[href='#/" + param + "']")
-				.addClass('selected');
-
 
 		}
 
