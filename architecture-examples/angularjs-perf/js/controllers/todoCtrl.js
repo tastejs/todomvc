@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * The main controller for the app. The controller:
  * - retrieves and persist the model via the todoStorage service

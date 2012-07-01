@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * The main TodoMVC app module.
  *
