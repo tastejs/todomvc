@@ -79,6 +79,8 @@ $(function( $ ) {
 		// Add all items in the **Todos** collection at once.
 		addAll: function() {
 
+			console.log('addall', window.app.TodoFilter);
+
 			this.$("#todo-list").html('');
 
 			switch(window.app.TodoFilter){

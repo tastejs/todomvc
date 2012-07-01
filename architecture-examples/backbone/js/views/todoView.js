@@ -1,9 +1,6 @@
 $(function() {
 	'use strict';
 
-	// Todo Filter (active || completed || "")
-	window.app.TodoFilter = "";
-
 	// Todo Item View
 	// --------------
 

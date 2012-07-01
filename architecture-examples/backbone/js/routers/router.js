@@ -17,6 +17,7 @@
 
 			// Trigger a collection reset/addAll
 			window.app.Todos.trigger('reset');
+			
 		}
 
 	});
