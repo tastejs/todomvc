@@ -34,7 +34,7 @@
 
 	<script type="text/template" id="item-template">
 		<div class="view">
-			<input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+			<input class="toggle" type="checkbox" <%= completed ? 'checked="checked"' : '' %> />
 			<label><%- title %></label>
 			<button class="destroy"></button>
 		</div>
@@ -54,8 +54,8 @@
 				<a href="#/completed">Completed</a>
 			</li>
 		</ul>
-		<% if (done) { %>
-		<button id="clear-completed">Clear <%- done %> completed <%= done == 1 ? 'item' : 'items' %></button>
+		<% if (completed) { %>
+		<button id="clear-completed">Clear <%- completed %> completed <%= completed == 1 ? 'item' : 'items' %></button>
 		<% } %>
 	</script>
 </body>
