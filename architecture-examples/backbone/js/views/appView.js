@@ -57,7 +57,7 @@ $(function( $ ) {
 
 				this.$('#filters li a')
 					.removeClass('selected')
-					.filter("[href='#/" + window.app.TodoFilter + "']")
+					.filter("[href='#/" + (window.app.TodoFilter || "") + "']")
 					.addClass('selected');
 
 		
