@@ -1,1 +1,0 @@
-maria.borrow(maria, hormigas);
