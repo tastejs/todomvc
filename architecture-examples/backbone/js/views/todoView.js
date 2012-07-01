@@ -55,7 +55,7 @@ $(function() {
 		close: function() {
 			var value = this.input.val().trim();
 
-			if (!value){
+			if ( !value ){
 				this.clear();
 			}
 
@@ -65,7 +65,9 @@ $(function() {
 
 		// If you hit `enter`, we're through editing the item.
 		updateOnEnter: function(e) {
-			if (e.keyCode == 13) this.close();
+			if ( e.keyCode === 13 ){
+				this.close();
+			}
 		},
 
 		// Remove the item, destroy the model.
