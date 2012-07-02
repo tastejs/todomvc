@@ -4,25 +4,24 @@
 	// Todo Router
 	// ----------
 
-	var Router = Backbone.Router.extend({
+	var Workspace = Backbone.Router.extend({
+		
 		routes:{
-			"/:filter": "setFilter",
-			"/:*": "setFilter"
+			"*filter": "setFilter"
 		},
 
 		setFilter: function(param){
 
 			// Set the current filter to be used
-			window.app.TodoFilter = param || "";
+			window.app.TodoFilter = param.trim() || "";
 
 			// Trigger a collection reset/addAll
 			window.app.Todos.trigger('reset');
-			
 		}
 
 	});
 
-	window.app.TodoRouter = new Router;
+	window.app.TodoRouter = new Workspace;
 	Backbone.history.start();
 
 })();
