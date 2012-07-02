@@ -77,7 +77,7 @@ Ext.define('Todo.controller.Tasks', {
         },
 
         finalizeTaskEdit: function (extEl, record) {
-                value = extEl.getValue().trim();
+                var value = extEl.getValue().trim();
 
                 if (!value) {
                         var store = this.getTasksStore();
