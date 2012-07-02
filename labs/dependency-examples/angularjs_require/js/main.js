@@ -1,5 +1,4 @@
-// Author: Pascal Hartig <phartig@weluse.de>
-// Filename: main.js
+'use strict';
 
 require.config({
     paths: {
@@ -12,8 +11,6 @@ require.config({
     }
 });
 
-require(['angular', 'controllers/todo', 'directives/todo'], function (angular) {
+require(['angular', 'app', 'controllers/todo', 'directives/todoFocus', 'directives/todoBlur'], function (angular) {
     angular.bootstrap(document, ['todomvc']);
 });
-
-// vim:sts=4:sw=4:ft=javascript

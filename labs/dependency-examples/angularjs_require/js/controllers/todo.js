@@ -1,8 +1,8 @@
+'use strict';
 /**
  * The main controller for the app. The controller:
  * - retrieves and persist the model via the todoStorage service
- * -
- * exposes the model to the template and
+ * - exposes the model to the template and provides event handlers
  */
 
 define(['app', 'services/todoStorage'], function (app) {
@@ -11,34 +11,36 @@ define(['app', 'services/todoStorage'], function (app) {
       var todos = $scope.todos = todoStorage.get();
 
       $scope.newTodo = "";
-      $scope.remainingCount = filterFilter(todos, {completed: false}).length;
       $scope.editedTodo = null;
+
+      $scope.$watch('todos', function() {
+        $scope.remainingCount = filterFilter(todos, {completed: false}).length;
+        $scope.doneCount = todos.length - $scope.remainingCount;
+        $scope.allChecked = !$scope.remainingCount
+        todoStorage.put(todos);
+      }, true);
 
       if ( $location.path() === '' ) $location.path('/');
       $scope.location = $location;
 
-      $scope.$watch('location.path()', function( path ) {
+      $scope.$watch( 'location.path()', function( path ) {
         $scope.statusFilter = (path == '/active') ?
-        { completed: false } : (path == '/completed') ?
-        { completed: true } : null;
-      });
-
-      $scope.$watch('remainingCount == 0', function( val ) {
-        $scope.allChecked = val;
+          { completed: false } : (path == '/completed') ?
+            { completed: true } : null;
       });
 
 
       $scope.addTodo = function() {
-        if ($scope.newTodo.length === 0) return;
+        if ( !$scope.newTodo.length ) {
+          return;
+        }
 
         todos.push({
-          title: $scope.newTodo,
+          title: this.newTodo,
           completed: false
         });
-        todoStorage.put(todos);
 
-        $scope.newTodo = '';
-        $scope.remainingCount++;
+        this.newTodo = '';
       };
 
 
@@ -49,21 +51,14 @@ define(['app', 'services/todoStorage'], function (app) {
 
       $scope.doneEditing = function( todo ) {
         $scope.editedTodo = null;
-        if ( !todo.title ) $scope.removeTodo(todo);
-        todoStorage.put(todos);
+        if ( !todo.title ) {
+          $scope.removeTodo(todo);
+        }
       };
 
 
       $scope.removeTodo = function( todo ) {
-        $scope.remainingCount -= todo.completed ? 0 : 1;
         todos.splice(todos.indexOf(todo), 1);
-        todoStorage.put(todos);
-      };
-
-
-      $scope.todoCompleted = function( todo ) {
-        todo.completed ? $scope.remainingCount-- : $scope.remainingCount++;
-        todoStorage.put(todos);
       };
 
 
@@ -71,7 +66,6 @@ define(['app', 'services/todoStorage'], function (app) {
         $scope.todos = todos = todos.filter(function( val ) {
           return !val.completed;
         });
-        todoStorage.put(todos);
       };
 
 
@@ -79,8 +73,6 @@ define(['app', 'services/todoStorage'], function (app) {
         todos.forEach(function( todo ) {
           todo.completed = done;
         });
-        $scope.remainingCount = done ? 0 : todos.length;
-        todoStorage.put(todos);
       };
     }
   ]);
