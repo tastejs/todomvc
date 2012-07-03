@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Services that persists and retrieves TODOs from localStorage.
  */
