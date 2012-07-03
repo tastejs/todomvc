@@ -59,6 +59,7 @@ We also have a number of in-progress applications in our [Labs](http://addyosman
 - [Broke](https://github.com/brokenseal/broke)
 - [o_O](http://weepy.github.com/o_O)
 - [Fun](https://github.com/marcuswestin/fun)
+- [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
 
 
 ## Live demos
