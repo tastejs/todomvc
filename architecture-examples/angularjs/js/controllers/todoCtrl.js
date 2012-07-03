@@ -34,11 +34,11 @@ todomvc.controller( 'TodoCtrl', function TodoCtrl( $scope, $location, todoStorag
     }
 
     todos.push({
-      title: this.newTodo,
+      title: $scope.newTodo,
       completed: false
     });
 
-    this.newTodo = '';
+    $scope.newTodo = '';
   };
 
 
