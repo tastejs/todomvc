@@ -22,7 +22,6 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - [Closure](http://code.google.com/closure/library/)
 - [YUI](http://yuilibrary.com)
 - [AngularJS](http://angularjs.org)
-- [AngularJS](http://angularjs.org) + [PersistenceJS](http://persistencejs.org)
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Agility.js](http://agilityjs.com)
 
