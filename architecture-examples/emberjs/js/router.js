@@ -1,13 +1,6 @@
 (function( app ) {
 	'use strict';
 
-	function switchFilter( filterName ){
-		$('#filters li a')
-			.removeClass('selected')
-			.filter("[href='#/" + (filterName || "") + "']")
-			.addClass('selected');
-	}
-
 	var Router = Ember.Router.extend({
 
 		root: Ember.Route.extend({
@@ -19,7 +12,6 @@
 			index: Ember.Route.extend({
 				route: '/',
 				connectOutlets: function( router ) {
-					switchFilter('');
 					var controller = router.get( 'applicationController' );
 					var context = app.entriesController;
 					context.set( 'filterBy', '' );
@@ -30,7 +22,6 @@
 			active: Ember.Route.extend({
 				route: '/active',
 				connectOutlets: function( router ) {
-					switchFilter('active');
 					var controller = router.get( 'applicationController' );
 					var context = app.entriesController;
 					context.set( 'filterBy', 'active' );
@@ -41,7 +32,6 @@
 			completed: Ember.Route.extend({
 				route: '/completed',
 				connectOutlets: function( router ) {
-					switchFilter('completed');
 					var controller = router.get( 'applicationController' );
 					var context = app.entriesController;
 					context.set( 'filterBy', 'completed' );

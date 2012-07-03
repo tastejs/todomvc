@@ -68,4 +68,5 @@
 	app.EntriesController = Entries;
 	app.entriesController = Entries.create();
 
+
 })( window.Todos );
