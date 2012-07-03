@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * The main controller for the app. The controller:
  * - retrieves and persist the model via the todoStorage service
@@ -36,11 +37,11 @@ define(['app', 'services/todoStorage'], function (app) {
         }
 
         todos.push({
-          title: this.newTodo,
+          title: $scope.newTodo,
           completed: false
         });
 
-        this.newTodo = '';
+        $scope.newTodo = '';
       };
 
 
