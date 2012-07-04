@@ -1,2 +1,0 @@
-a = "Miércoles";
-b = "Atenção";

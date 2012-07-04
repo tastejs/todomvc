@@ -14,7 +14,6 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 - [Backbone.js](http://documentcloud.github.com/backbone)
 - [Ember.js](http://emberjs.com)
-- [JavaScriptMVC](http://javascriptmvc.com)
 - [Spine.js](http://spinejs.com)
 - [KnockoutJS](http://knockoutjs.com) (MVVM)
 - [Knockback.js](http://kmalakoff.github.com/knockback)
@@ -44,6 +43,7 @@ We also have a number of in-progress applications in our [Labs](http://addyosman
 - [Maria.js](https://github.com/petermichaux/maria)
 - [Batman.js](http://batmanjs.org)
 - [Meteor](http://meteor.com)
+- [JavaScriptMVC](http://javascriptmvc.com)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
 - [Stapes.js](http://hay.github.com/stapes)
 - [TroopJS](https://github.com/troopjs)
