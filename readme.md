@@ -37,7 +37,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 #### Labs
 
-We also have a number of in-progress applications in our [Labs](http://addyosmani.github.com/todomvc/labs) site. These include:
+We also have a number of in-progress applications in our [Labs](http://todomvc.com/labs) site. These include:
 
 - [CanJS](http://canjs.us)
 - [Maria.js](https://github.com/petermichaux/maria)
