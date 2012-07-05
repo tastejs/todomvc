@@ -1,8 +1,10 @@
 maria.ElementView.subclass(checkit, 'TodosStatsView', {
-    modelConstructor: checkit.TodosModel,
     properties: {
-        update: function() {
+        buildData: function() {
             this.find('.todos-count').innerHTML = this.getModel().length;
+        },
+        update: function() {
+            this.buildData();
         }
     }
 });
