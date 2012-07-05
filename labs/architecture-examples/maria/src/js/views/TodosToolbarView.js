@@ -1,5 +1,4 @@
 maria.ElementView.subclass(checkit, 'TodosToolbarView', {
-    modelConstructor: checkit.TodosModel,
     uiActions: {
         'click .allCheckbox'   : 'onClickAllCheckbox'  ,
         'click .markallDone'   : 'onClickMarkAllDone'  ,
@@ -7,11 +6,14 @@ maria.ElementView.subclass(checkit, 'TodosToolbarView', {
         'click .deleteComplete': 'onClickDeleteDone'
     },
     properties: {
-        update: function() {
+        buildData: function() {
             var model = this.getModel();
             var checkbox = this.find('.allCheckbox');
             checkbox.checked = model.isAllDone();
             checkbox.disabled = model.isEmpty();
+        },
+        update: function() {
+            this.buildData();
         }
     }
 });

@@ -1,5 +1,4 @@
 maria.ElementView.subclass(checkit, 'TodosInputView', {
-    modelConstructor: checkit.TodosModel,
     uiActions: {
         'focus    .new-todo': 'onFocusInput'   ,
         'blur     .new-todo': 'onBlurInput'    ,
