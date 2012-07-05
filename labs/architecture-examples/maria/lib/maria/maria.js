@@ -223,8 +223,9 @@ et.dispatchEvent({type:'change', extraData:'abc'});
         }
         if (hasOwnProperty(this, '_evento_parents') &&
             !evt._propagationStopped) {
-            for (var i=0, ilen=this._evento_parents.length; i<ilen; i++) {
-                this._evento_parents[i].dispatchEvent(evt);
+            var parents = this._evento_parents.slice(0);
+            for (var i = 0, ilen = parents.length; i < ilen; i++) {
+                parents[i].dispatchEvent(evt);
             }
         }
     };
@@ -2077,6 +2078,141 @@ maria.SetModel.prototype.handleEvent = function(ev) {
     }
 
 };
+/**
+
+@property maria.View
+
+@parameter model {Object} Optional
+
+@parameter controller {Object} Optional
+
+@description
+
+A constructor function to create new view objects.
+
+    var view = new maria.View();
+
+This constructor function takes two optional arguments.
+
+    var model = new maria.Model();
+    var controller = new maria.Controller();
+    var view = new maria.View(model, controller);
+
+The null or undefined value can be passed for either of these two
+parameters to skip setting it.
+
+A view is has a model. You can get the current model which might
+be undefined.
+
+    view.getModel();
+
+You can set the model.
+
+    view.setModel(model);
+
+When a view object's model object is set, the view will, by convention,
+observe the model's "change" event. When a "change" event is dispatched
+on the model, the view's "update" method will be called.
+
+Your application will redefine or more likely override the update method.
+
+    maria.View.prototype.update = function(evt) {
+        alert('the model changed');
+    };
+
+If necessary, you can change the events and methods that the view will
+observe when the model is set by redefining or overriding the
+getModelActions method.
+
+    maria.View.prototype.getModelActions = function() {
+        return {
+            'squashed': 'onSquashed',
+            'squished': 'onSquished'
+        };
+    };
+
+When the model is set, if the view had a previous model then the view
+will unsubscribe from the events it subscribed to on the prevous model
+when the previous model was set.
+
+A view has a controller. You can get the current controller.
+
+    view.getController();
+
+The view's controller is created lazily the first time the
+getController method is called. The view's 
+getDefaultControllerConstructor method returns the constructor function
+to create the controller object and the getDefaultController actually
+calls that constructor. Your application may redefine or override
+either of these methods.
+
+A view's initialize method is called when the view is constructed.
+
+A view has a destroy method which should be called before your
+application looses its last reference to the view.
+
+An view object is a composite view. This means the view can have child
+views added and removed. This functionality is provided by the Hijos
+library. Briefly,
+
+    var childView1 = new maria.View();
+    var childView2 = new maria.View();
+    view.appendChild(childView1);
+    view.replaceChild(childView2, childView1);
+    view.insertBefore(childView1, childView2);
+    view.removeChild(childView2);
+    view.childNodes;
+    view.firstChild;
+    view.lastChild;
+    childView1.nextSibling;
+    childView1.previousSibling;
+    childView1.parentNode;
+
+When a view's destroy method executes, it calls each child's destroy
+method.
+
+The maria.View constructor is relatively abstract. It is most likely
+that your application can use maria.ElementView; however, if you are
+creating a new type of view where maria.ElementView is not a good fit,
+for example a view that represents part of a bitmap drawing on a canvas
+element, then you may want to use maria.View as the "superclass" of
+your new view constructor. The following example shows how this can be
+done at a low level. See maria.View.subclass for a more compact way to
+accomplish the same.
+
+    myapp.MyView = function() {
+        maria.View.apply(this, arguments);
+    };
+    myapp.MyView.prototype = new maria.View();
+    myapp.MyView.prototype.constructor = myapp.MyView;
+    myapp.MyView.prototype.getModelActions = function() {
+        return {
+            'squashed': 'onSquashed',
+            'squished': 'onSquished'
+        };
+    };
+    maria.MyView.prototype.onSquished = function(evt) {
+        this.getController().onSquished(evt);
+    };
+    maria.MyView.prototype.onSquashed = function() {
+    this.getController().onSquashed(evt);
+    };
+    myapp.MyView.prototype.getDefaultControllerConstructor = function() {
+        return myapp.MyController;
+    };
+    myapp.MyView.prototype.anotherMethod = function() {
+        alert('another method');
+    };
+
+The above MyView example does not have an "initialize" method;
+however, if some special initialization is requried, maria.View
+will automatically call your "initialize" method.
+
+    myapp.MyView.prototype.initialize = function() {
+        alert('Another view has been created.');
+    };
+
+*/
 maria.View = function(model, controller) {
     maria.Node.call(this);
     this.setModel(model);
@@ -2162,6 +2298,179 @@ maria.View.prototype._setModelAndController = function(model, controller) {
     }
     this._controller = controller;
 };
+/**
+
+@property maria.ElementView
+
+@parameter model {Object} Optional
+
+@parameter controller {Object} Optional
+
+@parameter document {Document} Optional
+
+@description
+
+A constructor function to create new element view objects.
+
+    var elementView = new maria.ElementView();
+
+This constructor function takes three optional arguments.
+
+    var model = new maria.Model();
+    var controller = new maria.Controller();
+    var myFrameDoc = window.frames['myFrame'].document;
+    var elementView =
+        new maria.ElementView(model, controller, myFrameDoc);
+
+The null or undefined value can be passed for any of these three
+parameters to skip setting it.
+
+The purpose of the third document parameter is to allow the creation
+of element views in one window that will be shown in another window.
+At least some older browsers do not allow a DOM element created with
+one document object to be appended to another document object.
+
+An element view is a view (inheriting from maria.View) and so has
+a model and controller. See maria.View for more documentation about
+setting and getting the model and controller objects.
+
+What makes maria.ElementView different from the more abstract
+maria.View is that an element view has the concept of a "root element"
+which is the main DOM element that acts as a container for all the
+other DOM elements that are part of the element view.
+
+The DOM is built using the getTemplate method which should return a
+fragment of HTML for a single DOM element and its children. By default
+the template is just an empty div element. You can redefine or override
+this to suit your needs.
+
+    maria.ElementView.prototype.getTemplate = function() {
+        return '<div>' +
+                   '<span class="greeting">hello</span>, ' +
+                   '<span class="name">world</span>' +
+               '</div>';
+    };
+
+When an element view is created and its HTML template is rendered as
+a DOM element, the view will automatically start listening to the DOM
+element or its children for the events specified in the map returned
+by the getUIActions method. This map is empty by default but you can
+redefine or override as necessary and supply the necessary handler
+functions which usually delegate to the controller.
+
+    maria.ElementView.prototype.getUIActions = function() {
+        return {
+            'mouseover .greeting': 'onMouseoverGreeting',
+            'click .name'        : 'onClickName'
+        };
+    };
+
+    maria.ElementView.prototype.onMouseoverGreeting = function(evt) {
+        this.getController().onMouseoverGreeting(evt);
+    };
+
+    maria.ElementView.prototype.onClickName = function(evt) {
+        this.getController().onClickName(evt);
+    };
+
+Only a few simple CSS selectors are allowed in the keys of the UI
+action map. An id can be used like "#alpha" but this is not
+recommended. A class name like ".greeting", a tag name like "div", or
+a combination of tag name and class name like "div.greeting" are
+acceptable. In almost all cases, a single class name is sufficient and
+recommended as the best practice. (If you need more complex selectors
+you can use a different query library to replace the Grail library
+used by default in Maria.)
+
+You can find an element or multiple elements in a view using the
+element view's find and findAll methods.
+
+    elementView.find('.name');   // returns a DOM element
+    elementView.findAll('span'); // returns an array
+
+Because maria.View objects are composite views, so are
+maria.ElementView objects. This means that sub-element-view objects can
+be added to an element view. By default the sub-element-view object's
+root DOM element will be added to the parent element view's root
+DOM element. You can change the element to which they are added by
+redefining or overridding the getContainerEl function.
+
+    maria.ElementView.prototype.getContainerEl = function() {
+        return this.find('.name');
+    };
+
+A particularly useful pattern is using maria.ElementView as the
+"superclass" of your application's element views. The following example
+shows how this can be done at a low level for a to-do application. See
+maria.ElementView.subclass for a much more compact way to accomplish
+the same.
+
+    checkit.TodoView = function() {
+        maria.ElementView.apply(this, arguments);
+    };
+    checkit.TodoView.prototype = new maria.ElementView();
+    checkit.TodoView.prototype.constructor = checkit.TodoView;
+    checkit.TodoView.prototype.getDefaultControllerConstructor = function() {
+        return checkit.TodoController;
+    };
+    checkit.TodoView.prototype.getTemplate = function() {
+        return checkit.TodoTemplate;
+    };
+    checkit.TodoView.prototype.getUIActions = function() {
+        return {
+            'click     .check'       : 'onClickCheck'     ,
+            'dblclick  .todo-content': 'onDblclickDisplay',
+            'keyup     .todo-input'  : 'onKeyupInput'     ,
+            'keypress  .todo-input'  : 'onKeypressInput'  ,
+            'blur      .todo-input'  : 'onBlurInput'
+        };
+    };
+    checkit.TodoView.prototype.onClickCheck = function(evt) {
+        this.getController().onClickCheck(evt);
+    };
+    checkit.TodoView.prototype.onDblclickDisplay = function(evt) {
+        this.getController().onDblclickDisplay(evt);
+    };
+    checkit.TodoView.prototype.onKeyupInput = function(evt) {
+        this.getController().onKeyupInput(evt);
+    };
+    checkit.TodoView.prototype.onKeypressInput = function(evt) {
+        this.getController().onKeypressInput(evt);
+    };
+    checkit.TodoView.prototype.onBlurInput = function(evt) {
+        this.getController().onBlurInput(evt);
+    };
+    checkit.TodoView.prototype.buildData = function() {
+        var model = this.getModel();
+        var content = model.getContent();
+        this.find('.todo-content').innerHTML =
+            content.replace('&', '&amp;').replace('<', '&lt;');
+        this.find('.check').checked = model.isDone();
+        aristocrat[model.isDone() ? 'addClass' : 'removeClass'](this.find('.todo'), 'done');
+    };
+    checkit.TodoView.prototype.update = function() {
+        this.buildData();
+    };
+    checkit.TodoView.prototype.showEdit = function() {
+        var input = this.find('.todo-input');
+        input.value = this.getModel().getContent();
+        aristocrat.addClass(this.find('.todo'), 'editing');
+        input.select();
+    };
+    checkit.TodoView.prototype.showDisplay = function() {
+        aristocrat.removeClass(this.find('.todo'), 'editing');
+    };
+    checkit.TodoView.prototype.getInputValue = function() {
+        return this.find('.todo-input').value;
+    };
+    checkit.TodoView.prototype.showToolTip = function() {
+        this.find('.ui-tooltip-top').style.display = 'block';
+    };
+    checkit.TodoView.prototype.hideToolTip = function() {
+        this.find('.ui-tooltip-top').style.display = 'none';
+    };
+
+*/
 maria.ElementView = function(model, controller, doc) {
     this._doc = doc || document;
     maria.View.call(this, model, controller);
@@ -2182,65 +2491,132 @@ maria.ElementView.prototype.getUIActions = function() {
     return {};
 };
 
+maria.ElementView.prototype.build = function() {
+    if (!this._rootEl) {
+        this.buildTemplate();
+        this.buildUIActions();
+        this.buildData();
+        this.buildChildViews();
+    }
+    return this._rootEl;
+};
+
+maria.ElementView.prototype.buildTemplate = function() {
+    // parseHTML returns a DocumentFragment so take firstChild as the rootEl
+    this._rootEl = maria.parseHTML(this.getTemplate(), this._doc).firstChild;
+};
+
 (function() {
     var actionRegExp = /^(\S+)\s*(.*)$/;
 
-    maria.ElementView.prototype.getRootEl = function() {
-        if (!this._rootEl) {
-            // parseHTML returns a DocumentFragment so take firstChild as the rootEl
-            var rootEl = this._rootEl = maria.parseHTML(this.getTemplate(), this._doc).firstChild;
-
-            var uiActions = this.getUIActions();
-            for (var key in uiActions) {
-                if (Object.prototype.hasOwnProperty.call(uiActions, key)) {
-                    var matches = key.match(actionRegExp),
-                        eventType = matches[1],
-                        selector = matches[2],
-                        methodName = uiActions[key],
-                        elements = maria.findAll(selector, this._rootEl);
-                    for (var i = 0, ilen = elements.length; i < ilen; i++) {
-                        evento.addEventListener(elements[i], eventType, this, methodName);
-                    }
+    maria.ElementView.prototype.buildUIActions = function() {
+        var uiActions = this.getUIActions();
+        for (var key in uiActions) {
+            if (Object.prototype.hasOwnProperty.call(uiActions, key)) {
+                var matches = key.match(actionRegExp),
+                    eventType = matches[1],
+                    selector = matches[2],
+                    methodName = uiActions[key],
+                    elements = maria.findAll(selector, this._rootEl);
+                for (var i = 0, ilen = elements.length; i < ilen; i++) {
+                    maria.addEventListener(elements[i], eventType, this, methodName);
                 }
             }
-
-            var childViews = this.childNodes;
-            for (var i = 0, ilen = childViews.length; i < ilen; i++) {
-                this.getContainerEl().appendChild(childViews[i].getRootEl());
-            }
-
-            this.update();
         }
-        return this._rootEl;
     };
 
 }());
 
+maria.ElementView.prototype.buildData = function() {
+    // to be overridden by concrete ElementView subclasses
+};
+
+maria.ElementView.prototype.buildChildViews = function() {
+    var childViews = this.childNodes;
+    for (var i = 0, ilen = childViews.length; i < ilen; i++) {
+        this.getContainerEl().appendChild(childViews[i].build());
+    }
+};
+
+maria.ElementView.prototype.update = function() {
+    // to be overridden by concrete ElementView subclasses
+};
+
 maria.ElementView.prototype.getContainerEl = function() {
-    return this.getRootEl();
+    return this.build();
 };
 
 maria.ElementView.prototype.insertBefore = function(newChild, oldChild) {
     maria.View.prototype.insertBefore.call(this, newChild, oldChild);
     if (this._rootEl) {
-        this.getContainerEl().insertBefore(newChild.getRootEl(), oldChild ? oldChild.getRootEl() : null);
+        this.getContainerEl().insertBefore(newChild.build(), oldChild ? oldChild.build() : null);
     }
 };
 
 maria.ElementView.prototype.removeChild = function(oldChild) {
     maria.View.prototype.removeChild.call(this, oldChild);
     if (this._rootEl) {
-        this.getContainerEl().removeChild(oldChild.getRootEl());
+        this.getContainerEl().removeChild(oldChild.build());
     }
 };
 
 maria.ElementView.prototype.find = function(selector) {
-    return maria.find(selector, this.getRootEl());
+    return maria.find(selector, this.build());
 };
 
 maria.ElementView.prototype.findAll = function(selector) {
-    return maria.findAll(selector, this.getRootEl());
+    return maria.findAll(selector, this.build());
 };
+/**
+
+@property maria.SetView
+
+@parameter model {Object} Optional
+
+@parameter controller {Object} Optional
+
+@parameter document {Document} Optional
+
+@description
+
+A constructor function to create new set view objects.
+
+    var setView = new maria.SetView();
+
+maria.SetView inherits from maria.ElementView and the documentation of
+maria.ElementView will tell you most of what you need to know when
+working with a maria.SetView.
+
+A maria.SetView is intended to be a view for a maria.SetModel. The set
+view will take care child views when elements are added or deleted from
+the set model.
+
+When an element is added to the set, the set view need to know what
+kind of view to make. Your application will redefine or likely override
+the set view's createChildView method.
+
+    maria.SetView.prototype.createChildView = function(model) {
+        return new maria.ElementView(model);
+    };
+
+A particularly useful pattern is using maria.SetView as the
+"superclass" of your application's set views. The following example
+shows how this can be done at a low level for a to-do application. See
+maria.SetView.subclass for a more compact way to accomplish the same.
+
+    checkit.TodosListView = function() {
+        maria.SetView.apply(this, arguments);
+    };
+    checkit.TodosListView.prototype = new maria.SetView();
+    checkit.TodosListView.prototype.constructor = checkit.TodosListView;
+    checkit.TodosListView.prototype.getTemplate = function() {
+        return checkit.TodosListTemplate;
+    };
+    checkit.TodosListView.prototype.createChildView = function(todoModel) {
+        return new checkit.TodoView(todoModel);
+    };
+
+*/
 maria.SetView = function() {
     maria.ElementView.apply(this, arguments);
 };
@@ -2248,19 +2624,10 @@ maria.SetView = function() {
 maria.SetView.prototype = new maria.ElementView();
 maria.SetView.prototype.constructor = maria.SetView;
 
-maria.SetView.prototype.setModel = function(model) {
-    if (this.getModel() !== model) {
-        maria.ElementView.prototype.setModel.call(this, model);
-
-        var childViews = this.childNodes.slice(0);
-        for (var i = 0, ilen = childViews.length; i < ilen; i++) {
-            this.removeChild(childViews[i]);
-        }
-
-        var childModels = this.getModel().toArray();
-        for (var i = 0, ilen = childModels.length; i < ilen; i++) {
-            this.appendChild(this.createChildView(childModels[i]));
-        }
+maria.SetView.prototype.buildChildViews = function() {
+    var childModels = this.getModel().toArray();
+    for (var i = 0, ilen = childModels.length; i < ilen; i++) {
+        this.appendChild(this.createChildView(childModels[i]));
     }
 };
 
@@ -2269,9 +2636,8 @@ maria.SetView.prototype.createChildView = function(model) {
 };
 
 maria.SetView.prototype.update = function(evt) {
-    // Check if there is an event as this method is also called
-    // at the end of building the view.
-    if (evt) {
+    // Don't update for bubbling events.
+    if (evt.target === this.getModel()) {
         if (evt.addedTargets && evt.addedTargets.length) {
             this.handleAdd(evt);
         }
@@ -2297,6 +2663,7 @@ maria.SetView.prototype.handleDelete = function(evt) {
             var childView = childViews[j];
             if (childView.getModel() === childModel) {
                 this.removeChild(childView);
+                childView.destroy();
                 break;
             }
         }
@@ -2518,14 +2885,56 @@ for maria.SetModel.
 
 */
 maria.SetModel.subclass = maria.Model.subclass;
+/**
+
+@property maria.View.subclass
+
+@description
+
+A function that makes subclassing maria.View more compact.
+
+The following example creates a myapp.MyView constructor function
+equivalent to the more verbose example shown in the documentation
+for maria.View.
+
+    maria.View.subclass(myapp, 'MyView', {
+        modelActions: {
+            'squashed': 'onSquashed',
+            'squished': 'onSquished'
+        },
+        properties: {
+            anotherMethod: function() {
+                alert('another method');
+            }
+        }
+    });
+
+This subclassing function implements options following the
+"convention over configuration" philosophy. The myapp.MyView will,
+by convention, use the myapp.MyController constructor.
+This can be configured.
+
+    maria.View.subclass(myapp, 'MyView', {
+        controllerConstructor: myapp.MyController,
+        modelActions: {
+        ...
+
+Alternately you can use late binding by supplying a string name of
+an object in the application's namespace object (i.e. the myapp object
+in this example).
+
+    maria.View.subclass(myapp, 'MyView', {
+        controllerConstructorName: 'MyController',
+        modelActions: {
+        ...
+
+*/
 maria.View.subclass = function(namespace, name, options) {
     options = options || {};
-    var modelConstructor = options.modelConstructor;
-    var modelConstructorName = options.modelConstructorName || name.replace(/(View|)$/, 'Model');
     var controllerConstructor = options.controllerConstructor;
     var controllerConstructorName = options.controllerConstructorName || name.replace(/(View|)$/, 'Controller');
     var modelActions = options.modelActions;
-    var properties = options.properties || (option.properties = {});
+    var properties = options.properties || (options.properties = {});
     if (!Object.prototype.hasOwnProperty.call(properties, 'getDefaultControllerConstructor')) {
         properties.getDefaultControllerConstructor = function() {
             return controllerConstructor || namespace[controllerConstructorName];
@@ -2536,16 +2945,86 @@ maria.View.subclass = function(namespace, name, options) {
             return modelActions;
         };
     }
-    if (!Object.prototype.hasOwnProperty.call(properties, 'initialize')) {
-        properties.initialize = function() {
-            if (!this.getModel()) {
-                var mc = modelConstructor || namespace[modelConstructorName];
-                this.setModel(new mc());
-            }
-        };
-    }
     maria.subclass.call(this, namespace, name, options);
 };
+/**
+
+@property maria.ElementView.subclass
+
+@description
+
+A function that makes subclassing maria.ElementView more compact.
+
+The following example creates a checkit.TodoView constructor function
+equivalent to the more verbose example shown in the documentation
+for maria.ElementView.
+
+    maria.ElementView.subclass(checkit, 'TodoView', {
+        uiActions: {
+            'click     .check'       : 'onClickCheck'     ,
+            'dblclick  .todo-content': 'onDblclickDisplay',
+            'keyup     .todo-input'  : 'onKeyupInput'     ,
+            'keypress  .todo-input'  : 'onKeypressInput'  ,
+            'blur      .todo-input'  : 'onBlurInput'
+        },
+        properties: {
+            buildData: function() {
+                var model = this.getModel();
+                var content = model.getContent();
+                this.find('.todo-content').innerHTML =
+                    content.replace('&', '&amp;').replace('<', '&lt;');
+                this.find('.check').checked = model.isDone();
+                aristocrat[model.isDone() ? 'addClass' : 'removeClass'](this.find('.todo'), 'done');
+            },
+            update: function() {
+                this.buildData();
+            },
+            showEdit: function() {
+                var input = this.find('.todo-input');
+                input.value = this.getModel().getContent();
+                aristocrat.addClass(this.find('.todo'), 'editing');
+                input.select();
+            },
+            showDisplay: function() {
+                aristocrat.removeClass(this.find('.todo'), 'editing');
+            },
+            getInputValue: function() {
+                return this.find('.todo-input').value;
+            },
+            showToolTip: function() {
+                this.find('.ui-tooltip-top').style.display = 'block';
+            },
+            hideToolTip: function() {
+                this.find('.ui-tooltip-top').style.display = 'none';
+            }
+        }
+    });
+
+This subclassing function implements options following the
+"convention over configuration" philosophy. The checkit.TodoView will,
+by convention, use the checkit.TodoModel, checkit.TodoController
+and checkit.TodoTemplate objects. All of these can be configured
+explicitely if these conventions do not match your view's needs.
+
+    maria.ElementView.subclass(checkit, 'TodoView', {
+        modelConstructor     : checkit.TodoModel     ,
+        controllerConstructor: checkit.TodoController,
+        template             : checkit.TodoTemplate  ,
+        uiActions: {
+        ...
+
+Alternately you can use late binding by supplying string names of
+objects in the application's namespace object (i.e. the checkit object
+in this example).
+
+maria.ElementView.subclass(checkit, 'TodoView', {
+    modelConstructorName     : 'TodoModel'     ,
+    controllerConstructorName: 'TodoController',
+    templateName             : 'TodoTemplate'  ,
+    uiActions: {
+    ...
+
+*/
 maria.ElementView.subclass = function(namespace, name, options) {
     options = options || {};
     var template = options.template;
@@ -2585,6 +3064,30 @@ maria.ElementView.subclass = function(namespace, name, options) {
     }
     maria.View.subclass.call(this, namespace, name, options);
 };
+/**
+
+@property maria.SetView.subclass
+
+@description
+
+The same as maria.ElementView.
+
+You will likely want to specify a createChildView method.
+
+The following example creates a checkit.TodosListView constructor
+function equivalent to the more verbose example shown in the
+documentation for maria.SetView.
+
+    maria.SetView.subclass(checkit, 'TodosListView', {
+        modelConstructor: checkit.TodosModel,
+        properties: {
+            createChildView: function(todoModel) {
+                return new checkit.TodoView(todoModel);
+            }
+        }
+    });
+
+*/
 maria.SetView.subclass = maria.ElementView.subclass;
 /**
 

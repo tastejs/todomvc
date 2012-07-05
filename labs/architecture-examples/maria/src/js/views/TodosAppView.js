@@ -8,10 +8,6 @@ maria.ElementView.subclass(checkit, 'TodosAppView', {
         },
         initialize: function() {
             var model = this.getModel();
-            if (!model) {
-                model = new checkit.TodosModel();
-                this.setModel(model);
-            }
             this.appendChild(new checkit.TodosInputView(model));
             this.appendChild(new checkit.TodosToolbarView(model));
             this.appendChild(new checkit.TodosListView(model));
