@@ -1,0 +1,15 @@
+AddType "text/javascript;charset=UTF-8" .jgz .js
+AddEncoding gzip .jgz
+
+<IfModule expires_module>
+    ExpiresActive On
+    ExpiresDefault A86400
+</IfModule>
+
+<IfModule rewrite_module>
+    RewriteEngine on
+    #RewriteCond %{HTTP_USER_AGENT} ".*Safari.*" [OR]
+    RewriteCond %{HTTP_USER_AGENT} ".*MSIE 6.*" [OR]
+    RewriteCond %{HTTP:Accept-Encoding} !gzip
+    RewriteRule (.*)\.jgz$ $1.js [L]
+</IfModule>

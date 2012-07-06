@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>wire/sizzle test</title>
+
+    <script src="test-config.js"></script>
+
+	<script type="text/javascript">
+		var pluginName = 'wire/sizzle';
+	</script>
+
+	<script src="test-dom.js"></script>
+</head>
+<body>
+<div>
+	<div>
+		<p id="node1"></p>
+		<p id="node2"></p>
+	</div>
+	<div class="test one"></div>
+	<div class="test two"></div>
+	<div class="test three"></div>
+	<div id="at-tests">
+		<div class="root">
+			<p class="at-test ok"></p>
+		</div>
+		<div class="fake">
+			<p class="at-test fail"></p>
+		</div>
+	</div>
+	<a id="get1"></a>
+	<div id="get1-inserts-here"></div>
+	<span id="get1-appends-this"></span>
+	<a id="clone1"></a>
+	<div id="clone1-inserts-here"></div>
+	<span id="clone1-appends-this"></span>
+</div>
+</body>
+</html>

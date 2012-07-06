@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>NodeAdapter test</title>
+
+<script src="../util/doh/runner.js"></script>
+<script src="../test-config.js"></script>
+
+<script type="text/javascript">
+require(['cola/dom/adapter/Node', 'domReady!'], function(NodeAdapter) {
+
+	function getNode (id) {
+		return document.getElementById(id);
+	}
+
+	function querySelector (selector, root) {
+		return root.querySelector(selector);
+	}
+
+	function querySelectorAll (selector, root) {
+		return root.querySelectorAll(selector);
+	}
+
+	function nodeFinder (name, form) {
+		return form.elements[name];
+	}
+
+	function simulateEvent (node, type) {
+		var evt;
+		if (document.createEvent) {
+			if (/click|mouse/.test(type)) {
+				evt = document.createEvent('MouseEvents');
+				evt.initMouseEvent(type, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			}
+			else {
+				evt = document.createEvent('HTMLEvents');
+				evt.initEvent(type, false, true);
+			}
+			node.dispatchEvent(evt);
+		}
+		else {
+			var evt = document.createEventObject();
+			node.fireEvent('on' + type, evt);
+		}
+	}
+
+	// quick and dirty on() implementation
+	function on (node, event, handler, selector) {
+		function filter (e) {
+			var target, matches, i, len, match;
+			// if e.target matches the selector, call the handler
+			target = e.target;
+			matches = querySelectorAll(selector, node);
+			for (i = 0, len = matches.length; i < len; i++) {
+				match = matches[i];
+				if (target == match || contains(match, target)) {
+					e.selectorTarget = match;
+					return handler(e);
+				}
+			}
+		}
+		node.addEventListener(event, filter, false);
+		return function () {
+			node.removeEventListener(event, filter, false);
+		}
+	}
+
+	var contains;
+	if (document && document.compareDocumentPosition) {
+		contains = function w3cContains (refNode, testNode) {
+			return (refNode.compareDocumentPosition(testNode) & 16) == 16;
+		}
+	}
+	else {
+		contains = function oldContains (refNode, testNode) {
+			return refNode.contains(testNode);
+		}
+	}
+
+	function init () {
+		// this function has to run to ensure that the browser hasn't
+		// attempted to preserve form values across a browser reload
+		var node, first, last;
+		node = getNode('test');
+		first = node.elements.first;
+		last = node.elements.last;
+		first.value = 'Fred';
+		last.value = 'Flintstone';
+	}
+
+	doh.register('the basics', [
+		function getOptions (doh) {
+			var bindings = { cake: { attr: 'yes', selector: 'foo' } }, adaptedObject;
+			adaptedObject = new NodeAdapter(getNode('test'), {
+				bindings: bindings,
+				querySelector: querySelector,
+				on: on
+			});
+			doh.assertEqual(bindings.cake, adaptedObject.getOptions().bindings.cake);
+		},
+		function canHandle (doh) {
+			doh.assertFalse(NodeAdapter.canHandle(), 'undefined');
+			doh.assertFalse(NodeAdapter.canHandle(null), 'null');
+			doh.assertFalse(NodeAdapter.canHandle(function(){}), 'function');
+			doh.assertFalse(NodeAdapter.canHandle([]), 'array');
+			doh.assertFalse(NodeAdapter.canHandle({}), 'object');
+			doh.assertTrue(NodeAdapter.canHandle(getNode('test')), 'DOMNode');
+		}
+	]);
+	doh.register('events', [
+		function shouldInjectPropertyIntoNode (doh) {
+			var node, first, last, adapted;
+			node = getNode('test');
+			init();
+			first = node.elements.first;
+			last = node.elements.last;
+			adapted = new NodeAdapter(node, {
+				bindings: {
+					// test pre-resolved node
+					first: { attr: 'value', selector: 'first' },
+					// TODO: test auto-resolved form node (remove selector)
+					last: { attr: 'value', selector: 'last' }
+				},
+				querySelector: querySelector,
+				on: on,
+				nodeFinder: nodeFinder
+			});
+			adapted.set({ first: 'Fred', last: 'Astaire' });
+			doh.assertEqual('Fred', first.value, 'first name is set');
+			doh.assertEqual('Astaire', last.value, 'last name is set');
+		},
+		function shouldUpdatePropertyIntoNode (doh) {
+			var node, first, last, adapted;
+			node = getNode('test');
+			init();
+			first = node.elements.first;
+			last = node.elements.last;
+			adapted = new NodeAdapter(node, {
+				bindings: {
+					// test pre-resolved node
+					first: { attr: 'value', selector: 'first' },
+					// TODO: test auto-resolved form node (remove selector)
+					last: { attr: 'value', selector: 'last' }
+				},
+				querySelector: querySelector,
+				on: on,
+				nodeFinder: nodeFinder
+			});
+			adapted.set({ first: 'Fred', last: 'Astaire' });
+			adapted.update({ last: 'Flintstone' });
+			doh.assertEqual('Fred', first.value, 'first name is set');
+			doh.assertEqual('Flintstone', last.value, 'last name is set');
+		},
+		function shouldCallUpdateWhenEventFires (doh) {
+			var node, checked, adapted, item;
+			function inverseHandler (node, item, binding) {
+				item[binding.prop] = node[binding.attr];
+			}
+			node = getNode('test');
+			init();
+			checked = node.elements.checked;
+			adapted = new NodeAdapter(node, {
+				bindings: {
+					checked: { attr: 'checked', selector: '[name=checked]'/*, inverse: inverseHandler*/ },
+					first: { attr: 'value', selector: '[name=first]'},
+					last: { attr: 'value', selector: '[name=last]' }
+				},
+				querySelector: querySelector,
+				on: on,
+				// need to use qSA with our simplified on() implementation
+				nodeFinder: querySelectorAll
+			});
+			item = { first: 'Fred', last: 'Astaire' };
+			adapted.set(item);
+			checked.checked = false;
+			checked.click();
+			//simulateEvent(checked, 'click');
+			doh.assertEqual(item.checked, true);
+		},
+		function shouldInsertClassNamesUsingClassSet (doh) {
+			var node, first, adapted;
+			node = getNode('test');
+			init();
+			first = node.elements.first;
+			adapted = new NodeAdapter(node, {
+				bindings: {
+					// test classSet
+					state: { attr: 'classSet' }
+				},
+				querySelector: querySelector,
+				on: on
+			});
+			adapted.update({
+				state: {
+					'foo bar': true,
+					'baz bap': true,
+					'elmer fudd': false
+				}
+			});
+			doh.assertTrue(/foo bar/.test(node.className), 'class name contains "foo bar"');
+			doh.assertTrue(/baz bap/.test(node.className), 'class name contains "baz bap"');
+			doh.assertFalse(/elmer fudd/.test(node.className), 'class name contains "elmer fudd"');
+		}
+	]);
+
+	doh.run();
+
+});
+</script>
+</head>
+<body>
+
+<form id="test">
+	<input name="first" value="Fred"/>
+	<input name="last" value="Flinstone"/>
+	<label><input type="checkbox" name="checked"/>check me</label>
+</form>
+
+</body>
+</html>

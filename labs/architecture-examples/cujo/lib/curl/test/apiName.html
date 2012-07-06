@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>apiName/apiContext curl test file</title>
+
+<script>
+    foo = {};
+
+	curl = {
+        apiName: 'bar',
+        apiContext: foo,
+		paths: {
+			curl: '../src/curl/'
+		}
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    var contextifiedCurl = foo.bar;
+
+    if(typeof contextifiedCurl !== 'function') {
+        alert('api context foo.bar failed');
+    }
+    else {
+        contextifiedCurl(
+                [
+                    'stuff/three',
+					'domReady!'
+                ]
+        ).then(
+                function (three) {
+                    if (document.body) {
+                        document.body.appendChild(document.createTextNode('api context foo.bar SUCCESS'));
+                    }
+                }
+        );
+    }
+
+</script>
+
+</head>
+<body>
+</body>
+</html>

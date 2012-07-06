@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>main curl test file</title>
+
+<script>
+
+	// mock console for IE
+	if (!window.console) console = {};
+	if (!('log' in console)) {
+		console._msg = [];
+		console.log = function (msg) {
+			var _msg = this._msg;
+			_msg.push([].join.call(arguments, ' '));
+			clearTimeout(this._timeout);
+			this._timeout = setTimeout(function () {
+				alert(_msg.join('\n'));
+			}, 100);
+		};
+	}
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+<!--<script src="../dist/curl-kitchen-sink/curl.js" type="text/javascript"></script>-->
+
+<script type="text/javascript">
+
+	curl({
+			paths: {
+				curl: '../src/curl/',
+				aView: 'stuff/aView'
+			}
+		},
+		[
+			'aView/controller',
+			'domReady!'
+		]
+	).then(
+		function (aView) {
+			document.body.appendChild(document.createTextNode('SUCCESS: all files loaded'));
+			aView.render(document.getElementById('test'));
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p id="test"></p>
+
+</body>
+</html>
