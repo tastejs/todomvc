@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>simple plugin test</title>
+
+<script>
+
+	curl = {
+		debug: true,
+		paths: {
+			curl: '../src/curl'
+		},
+		pluginPath: 'curl/plugin',
+		jsPrefetch: true
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	curl(
+		[
+			'support/simple-plugin!stuff/zero',
+			'domReady!'
+		]
+	).then(
+		function (foo) {
+			var doc = document;
+			doc.body.appendChild(doc.createTextNode('SUCCESS: simple plugin worked'));
+		},
+		function (ex) {
+			var doc = document;
+			doc.body.appendChild(doc.createTextNode('FAILED:' + ex.message));
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+
+</body>
+</html>

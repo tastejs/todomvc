@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>dijit factory test</title>
+	<script src="../../require.js" type="text/javascript"></script>
+	<script src="../../wire.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		wire({
+			plugins: [
+				{ module: 'wire/dojo/dijit' },
+				{ module: 'wire/debug' }
+			],
+			widget1: {
+				dijit$create: ['dijit/form/TextBox', 'dom!text1']
+			}
+		}).then(
+			function(context) {
+				console.log('ready', context);
+			},
+			function(err) {
+				console.log("FAILED", err);
+			}
+		);
+	</script>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="text1" id="text1">
+	</form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>wire.js All Unit Tests</title>
+    <script type="text/javascript">
+
+        (function(w) {
+            var hash = '';
+            try {
+                hash = w.location.hash;
+            } catch(e) {}
+
+            w.location.href = '../util/doh/runner.html?testUrl=../../jquery/all' + hash;
+        })(window);
+    </script>
+</head>
+<body>
+	<div id="testBody"></div>
+</body>
+</html>

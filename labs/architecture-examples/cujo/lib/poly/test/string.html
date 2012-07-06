@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<title>string tests</title>
+
+<script>
+
+curl = {
+	baseUrl: '../',
+	paths: {
+		curl: 'test/curl'
+	},
+	packages: [
+		{ name: 'poly', location: '.', main: 'poly' }
+	]
+};
+
+</script>
+
+<script src="curl.js"></script>
+
+<script>
+
+var natives = {
+	trim: String.prototype.trim,
+	trimRight: String.prototype.trimRight,
+	trimLeft: String.prototype.trimLeft
+};
+
+// First, test that poly/string doesn't clobber native methods
+curl(['test/testutils', 'poly/string'], function (tester) {
+
+	var test = " testString ";
+	// Note: these tests won't run in evirons that don't support .trim()
+	if (natives.trim) {
+		tester.assertTrue('shim doesn\'t clobber trim', function () { return test.trim == natives.trim; });
+		tester.assertTrue('shim doesn\'t clobber trimLeft', function () { return test.trimLeft == natives.trimLeft; });
+		tester.assertTrue('shim doesn\'t clobber trimRight', function () { return test.trimRight == natives.trimRight; });
+	}
+
+}).next(['curl/_privileged'], function (priv) {
+
+	// remove poly/string from cache
+	delete priv.cache['poly/string'];
+	// For testing in an ES env, remove shimmed methods first
+	delete String.prototype.trim;
+	delete String.prototype.trimLeft;
+	delete String.prototype.trimRight;
+
+}).next(['test/testutils', 'poly/string'], runTests);
+
+
+	function runTests (tester) {
+
+		var testS = ' test string ';
+		var testT = '\ttest\tstring\t';
+		var testN = '\ntest\nstring\n';
+
+		// check for existence of string prototype methods
+		for (var m in natives) {
+			tester.assertTrue(m + ' exists', function () {
+				return typeof testS[m] == 'function';
+			});
+		}
+
+		// test trim, trimRight, trimLeft
+		tester.assertEquals('trim removes leading and trailing spaces', function () {
+			return testS.trim();
+		}, 'test string');
+		tester.assertEquals('trimLeft removes leading spaces', function () {
+			return testS.trimLeft();
+		}, 'test string ');
+		tester.assertEquals('trimRight removes trailing spaces', function () {
+			return testS.trimRight();
+		}, ' test string');
+		tester.assertEquals('trim removes leading and trailing line feeds', function () {
+			return testN.trim();
+		}, 'test\nstring');
+		tester.assertEquals('trimLeft removes leading line feeds', function () {
+			return testN.trimLeft();
+		}, 'test\nstring\n');
+		tester.assertEquals('trimRight removes trailing line feeds', function () {
+			return testN.trimRight();
+		}, '\ntest\nstring');
+		tester.assertEquals('trim removes leading and tabs', function () {
+			return testT.trim();
+		}, 'test\tstring');
+		tester.assertEquals('trimLeft removes leading tabs', function () {
+			return testT.trimLeft();
+		}, 'test\tstring\t');
+		tester.assertEquals('trimRight removes trailing tabs', function () {
+			return testT.trimRight();
+		}, '\ttest\tstring');
+
+		// moar tests
+		tester.assertEquals('trim removes multiple leading and trailing whitespace', function () {
+			return '  \t\t\n\n foo \n\t  \t\n '.trim();
+		}, 'foo');
+		tester.assertEquals('trimLeft removes multiple leading whitespace', function () {
+			return '  \t\t\n\n foo \n\t  \t\n '.trimLeft();
+		}, 'foo \n\t  \t\n ');
+		tester.assertEquals('trimRight removes multiple trailing whitespace', function () {
+			return '  \t\t\n\n foo \n\t  \t\n '.trimRight();
+		}, '  \t\t\n\n foo');
+		tester.assertEquals('trim preserves inner whitespace', function () {
+			return 'beginning\t\n end'.trim();
+		}, 'beginning\t\n end');
+		tester.assertEquals('trim preserves string with no whitespace', function () {
+			return 'tomfoolery'.trim();
+		}, 'tomfoolery');
+	}
+
+</script>
+
+</head>
+
+<body>
+
+<div id="output"></div>
+
+</body>
+</html>

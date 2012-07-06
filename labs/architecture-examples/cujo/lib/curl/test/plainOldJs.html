@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>curl loading test for plain old javascript</title>
+
+<script>
+
+	curl = {
+		debug: true,
+		paths: {
+			curl: '../src/curl'
+		},
+		pluginPath: 'curl/plugin',
+		jsPrefetch: true
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+<!--<script src="../dist/curl-with-js-and-domReady/curl.js" type="text/javascript"></script>-->
+
+
+<script type="text/javascript">
+
+	curl(
+		[
+			'stuff/three',
+			'css!stuff/base',
+			'text!stuff/template.html',
+			'js!stuff/plain_old.js!order!exports=testDomain.foo.bar',
+			'js!stuff/plain_old_2.js?foo!order',
+			'js!http://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js',
+			'domReady!'
+		]
+	).then(
+		function (three, link, template, foobar) {
+			document.body.appendChild(document.createTextNode('A module with dependencies loaded successfully if 3 == ' + three + '.'));
+			document.body.appendChild(document.createElement('br'));
+			document.body.appendChild(document.createTextNode('If the following line says something then the plain js files loaded in the right order:'));
+			document.body.appendChild(document.createElement('div')).innerHTML = testDomain.foo.bar + ' ' + testDomain.awesome.sauce;
+			document.body.appendChild(document.createElement('div')).innerHTML = 'Did !test option work? ' + (foobar == 'whizzah!' ? 'SUCCESS' : 'FAILED');
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p>This text should all be the same <span style="color: #2faced;">color</span> if the css file loaded.</p>
+
+</body>
+</html>

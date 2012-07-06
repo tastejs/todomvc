@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>wire/connect test</title>
+
+	<script src="test-config.js"></script>
+
+	<script type="text/javascript">
+		define('Sender', function() {
+			function Sender() {}
+
+			Sender.prototype = {
+				onEvent: function(a) {
+					console.log()
+				}
+			};
+
+			return Sender;
+		});
+
+		define('Receiver', function() {
+
+			function Receiver(deferred, expected) {
+				this.deferred = deferred;
+				this.expected = expected;
+			}
+
+			Receiver.prototype = {
+				handleEvent: function(arg) {
+					this.deferred.callback(this.expected === arg);
+				}
+			};
+
+			return Receiver;
+		});
+
+		define('transform', function() {
+			return function(x) {
+				return x+1;
+			}
+		});
+
+		require(['wire'], function(wire) {
+
+			var expected = 1;
+
+			doh.register('wire/connect', [
+				function connectFromReceiverToSenderShort(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						sender: { create: 'Sender' },
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected]
+							},
+							// Test connect
+							connect: {
+								'sender.onEvent': 'handleEvent'
+							}
+						}
+					}).then(
+						function(context) {
+							context.sender.onEvent(expected);
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+
+					return dohd;
+				},
+				function connectFromReceiverToSenderTransformedShort(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						tx: { module: 'transform' },
+						sender: { create: 'Sender' },
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected+1]
+							},
+							// Test connect
+							connect: {
+								'sender.onEvent': 'tx | handleEvent'
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				},
+				function connectFromReceiverToSenderLong(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						sender: { create: 'Sender' },
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected]
+							},
+							// Test connect
+							connect: {
+								sender: {
+									onEvent: 'handleEvent'
+								}
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				},
+				function connectFromReceiverToSenderTransformedLong(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						tx: { module: 'transform' },
+						sender: { create: 'Sender' },
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected+1]
+							},
+							// Test connect
+							connect: {
+								sender: {
+									onEvent: 'tx | handleEvent'
+								}
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				},
+				function connectFromSenderToReceiverShort(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						sender: {
+							create: 'Sender',
+							// Test connect
+							connect: {
+								onEvent: 'receiver.handleEvent'
+							}
+						},
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected]
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				},
+				function connectFromSenderToReceiverTransformedShort(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						tx: { module: 'transform' },
+						sender: {
+							create: 'Sender',
+							// Test connect
+							connect: {
+								onEvent: 'tx | receiver.handleEvent'
+							}
+						},
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected+1]
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				},
+				function connectFromSenderToReceiverLong(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						sender: {
+							create: 'Sender',
+							// Test connect
+							connect: {
+								onEvent: {
+									receiver: 'handleEvent'
+								}
+							}
+						},
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected]
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				},
+				function connectFromSenderToReceiverTransformedLong(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugins: [ { module: 'wire/connect' } ],
+						tx: { module: 'transform' },
+						sender: {
+							create: 'Sender',
+							// Test connect
+							connect: {
+								onEvent: {
+									receiver: 'tx | handleEvent'
+								}
+							}
+						},
+						receiver: {
+							create: {
+								module: 'Receiver',
+								args: [{ literal: dohd }, expected+1]
+							}
+						}
+					}).then(
+							function(context) {
+								context.sender.onEvent(expected);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+					);
+
+					return dohd;
+				}
+
+			]);
+
+			doh.run();
+
+		});
+	</script>
+</head>
+<body>
+</body>
+</html>
