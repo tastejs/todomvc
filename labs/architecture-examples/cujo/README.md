@@ -11,7 +11,7 @@ Some things we feel are interesting about cujojs's TodoMVC as compared to other 
 * Application composition is separate from application logic
 * Code is *highly* modular and organized into components, each consisting of
   one or more of the following:
-	* JSON composition specification (a.k.a. "wire spec")
+	* Composition specification (a.k.a. "wire spec")
 	* JavaScript controller module
 	* helper modules
 	* localization bundle (strings.js)
