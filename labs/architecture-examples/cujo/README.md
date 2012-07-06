@@ -23,7 +23,7 @@ Some things we feel are interesting about cujojs's TodoMVC as compared to other 
 	* drastically simplifies HTML templates
 * JavaScript environment is shimmed, rather than abstracted
 	* code to modern standards, not to abstraction layers
-* All strings are easily internationalizable
+* All strings are easily internationalized
 * Application code has no explicit dependencies on:
 	* DOMReady - the application lifecycle, even DOMReady, is managed
 	  transparently.  Things that can happen before DOMReady, do.
