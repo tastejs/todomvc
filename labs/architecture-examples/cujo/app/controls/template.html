@@ -1,0 +1,21 @@
+<footer id="footer">
+	<!-- This should be `0 items left` by default -->
+	<span id="todo-count">
+		<span class="remaining-count-zero">${itemsLeft.zero}</span>
+		<span class="remaining-count-one">${itemsLeft.one}</span>
+		<span class="remaining-count-many">${itemsLeft.many}</span>
+	</span>
+	<!-- Remove this if you don't implement routing -->
+	<ul id="filters">
+		<li>
+			<a class="selected" href="#/">${filter.all}</a>
+		</li>
+		<li>
+			<a href="#/active">${filter.active}</a>
+		</li>
+		<li>
+			<a href="#/completed">${filter.completed}</a>
+		</li>
+	</ul>
+	<button id="clear-completed">${clearCompleted} (<span class="count">1</span>)</button>
+</footer>

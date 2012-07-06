@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>issue 53</title>
+
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	curl({
+			paths: {
+				curl: '../src/curl/',
+				// mimic case in which two modules point to the same url
+				'eaf.util': 'stuff/one',
+				'eaf.core': 'stuff/one'
+			}
+		},
+		[
+			'stuff/issue53'
+		]
+	).then(
+		function (issue53) {
+			write('SUCCESS: module loaded');
+			clearTimeout(timeout);
+		},
+		function (ex) {
+			write('FAILED: ' + ex.message);
+			clearTimeout(timeout);
+		}
+	);
+
+	var timeout = setTimeout(function () {
+		write('FAILED: timed out. check console or network activity');
+	}, 3000);
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

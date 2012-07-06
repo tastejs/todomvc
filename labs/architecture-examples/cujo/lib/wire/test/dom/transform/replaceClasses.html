@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>replaceClasses transform test</title>
+
+    <!--<script src="../../util/doh/runner.js"></script>-->
+    <script src="../../test-config.js"></script>
+
+    <script type="text/javascript">
+
+        require(['wire'], function(wire) {
+
+			var wired, undef;
+
+			wired = wire({
+				plugins: [
+//					{ module: 'wire/debug' },
+					{ module: 'wire/dom' },
+					{ module: 'wire/dom/render' }
+				],
+				node1: document.getElementById('node1'),
+				replacer: {
+					create: {
+						module: 'wire/dom/transform/replaceClasses',
+						args: [
+							{
+								node: { $ref: 'node1' },
+								group: 'foo-mode bar-mode edit-rights view-rights delete-rights simple-one simple-two simple-three'
+							}
+						]
+					}
+				},
+				replacer2: {
+					create: {
+						module: 'wire/dom/transform/replaceClasses',
+						args: [
+							{
+								node: { $ref: 'node1' },
+								group: 'other-one other-two'
+							}
+						]
+					}
+				},
+				replacer3: {
+					create: 'wire/dom/transform/replaceClasses'
+				},
+				replacer4: {
+					create: {
+						module: 'wire/dom/transform/replaceClasses',
+						args: [
+							{
+								node: { $ref: 'node1' }
+							}
+						]
+					}
+				}
+			});
+
+			wired.then(
+				function(context) {
+					var replacer = context.replacer,
+						replacer2 = context.replacer2,
+						replacer3 = context.replacer3,
+						replacer4 = context.replacer4,
+						node1 = context.node1;
+
+					function setup () {
+						// rest to a known value
+						node1.className = 'test';
+					}
+
+					doh.register('basic', [
+						function replaceClassesShouldNotFailFromFalseyValues () {
+							var success;
+							try {
+								replacer('');
+								replacer();
+								replacer(null);
+								success = true;
+							}
+							catch (ex) {
+								success = false;
+							}
+							doh.assertTrue(success, 'did not fail');
+						},
+						function replaceClassesShouldAddStateClass () {
+							setup();
+							replacer('foo-mode');
+							doh.assertTrue(/\bfoo-mode\b/.test(node1.className));
+						},
+						function replaceClassesShouldNotCreateLeadingOrTrailingWhitespace () {
+							setup();
+							replacer('foo-mode edit-rights yukkity-yuk');
+							doh.assertFalse(/^\s|\s$/.test(node1.className));
+							replacer('foo-mode');
+							doh.assertFalse(/^\s|\s$/.test(node1.className));
+							replacer('');
+							doh.assertFalse(/^\s|\s$/.test(node1.className));
+						},
+						function replaceClassesShouldNotRemoveExistingClassNames (doh) {
+							setup();
+							replacer('foo-mode');
+							doh.assertTrue(hasClassName(node1, 'foo-mode'));
+						},
+						function replaceClassesShouldRemoveEntireGroupWhenProvidingBlank (doh) {
+							setup();
+							replacer('foo-mode edit-rights');
+							replacer('');
+							doh.assertFalse(hasClassName(node1, 'foo-mode'));
+							doh.assertFalse(hasClassName(node1, 'edit-rights'));
+						},
+						function replaceClassesShouldAddMultipleClassesInGroup () {
+							setup();
+							// these should both be added
+							replacer('delete-rights edit-rights');
+							doh.assertTrue(hasClassName(node1, 'delete-rights'));
+							doh.assertTrue(hasClassName(node1, 'edit-rights'));
+						},
+						function replaceClassesShouldUsePrevClassesWhenNoGroup () {
+							setup();
+							replacer4('foo-mode');
+							doh.assertTrue(hasClassName(node1, 'foo-mode'), 'added className');
+							replacer4('');
+							doh.assertFalse(hasClassName(node1, 'foo-mode'), 'removed className');
+						},
+						function replaceClassesShouldAcceptNodeWhenNotConfigured () {
+							var node = document.createElement('div');
+							replacer3(node, 'foo-mode');
+							doh.assertTrue(hasClassName(node, 'foo-mode'), 'added className');
+							replacer3(node, '');
+							doh.assertFalse(hasClassName(node, 'foo-mode'), 'removed className');
+						}
+					]);
+					doh.register('multi-groups', [
+						function replaceClassesShouldRemoveOtherClassInGroup () {
+							setup();
+							replacer('delete-rights'); // this should get overridden by next line
+							replacer('view-rights edit-rights');
+							doh.assertTrue(hasClassName(node1, 'edit-rights'), 'edit-rights');
+							doh.assertFalse(hasClassName(node1, 'delete-rights'), 'delete-rights');
+							doh.assertTrue(hasClassName(node1, 'view-rights'), 'view-rights');
+						},
+						function replaceClassesShouldRemoveOtherClassesInGroup () {
+							setup();
+							// these should get overridden by following line
+							replacer('delete-rights edit-rights');
+							replacer('view-rights');
+							doh.assertFalse(hasClassName(node1, 'edit-rights'));
+							doh.assertFalse(hasClassName(node1, 'delete-rights'));
+							doh.assertTrue(hasClassName(node1, 'view-rights'));
+						},
+						function replaceClassesShouldNotRemoveClassesInOtherReplacers () {
+							setup();
+							// these should stay
+							replacer('foo-mode bar-mode delete-rights edit-rights');
+							replacer2('other-one');
+							doh.assertTrue(hasClassName(node1, 'foo-mode'), 'foo-mode');
+							doh.assertTrue(hasClassName(node1, 'bar-mode'), 'bar-mode');
+							doh.assertTrue(hasClassName(node1, 'delete-rights'), 'delete-rights');
+							doh.assertTrue(hasClassName(node1, 'edit-rights'), 'edit-rights');
+						},
+						function replaceClassesShouldAddClassesInMultipleGroupsSimultaneously () {
+							setup();
+							// these should stay
+							var classes = 'foo-mode bar-mode delete-rights edit-rights simple-two',
+								arr = classes.split(' ');
+							replacer(classes);
+							for (var i in arr) doh.assertTrue(hasClassName(node1, arr[i]));
+						}
+					]);
+					doh.run();
+
+				},
+				function(e) {
+					// somehow error here?
+				}
+			);
+
+
+        });
+
+	function hasClassName (node, className) {
+		var rx = new RegExp('(^|\\s)' + className + '($|\\s)');
+		return rx.test(node.className);
+	}
+
+    </script>
+</head>
+<body>
+<div>
+    <p id="node1" class="orig1"></p>
+</div>
+</body>
+</html>

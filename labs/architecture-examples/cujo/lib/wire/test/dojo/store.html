@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>wire/dojo/store test</title>
+
+	<script src="../test-config.js"></script>
+
+	<script type="text/javascript">
+		require(['wire'], function(wire) {
+
+			doh.register('wire/dojo/store', [
+				function shouldPassIdPropertyToStore(doh) {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugin: { module: 'wire/dojo/store' },
+						store: { $ref: 'resource!people/', idProperty: 'name' }
+					}).then(
+						function(context) {
+							dohd.callback(context.store.idProperty === 'name');
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+
+					return dohd;
+				}
+			]);
+
+			doh.run();
+
+		});
+	</script>
+</head>
+<body>
+<div id="container1">
+</div>
+<div id="container2">
+</div>
+</body>
+</html>
