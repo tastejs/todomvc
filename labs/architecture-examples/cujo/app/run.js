@@ -10,10 +10,11 @@
 			{ name: 'wire', location: '../lib/wire', main: 'wire' },
 			{ name: 'when', location: '../lib/when', main: 'when' },
 			{ name: 'aop',  location: '../lib/aop',  main: 'aop' },
-			{ name: 'cola', location: '../lib/cola', main: 'cola' }
+			{ name: 'cola', location: '../lib/cola', main: 'cola' },
+			{ name: 'poly', location: '../lib/poly', main: 'poly' }
 		]
 	};
 
-	curl(config, ['wire!main']);
+	curl(config, ['poly/string', 'poly/array']).next(['wire!main']);
 
 })( curl );
