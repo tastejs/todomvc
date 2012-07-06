@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>scope test</title>
+
+    <script src="test-config.js"></script>
+
+	<script type="text/javascript">
+		// Both controllers will be created, configured, and initialized, and will
+		// log a message to the console, but, the debug plugin is scoped to
+		// group1, so only debug messages related to group1 will be logged.
+		require(['wire'], function(wire) {
+			wire({
+				group1: {
+					debug: { module: 'wire/debug' },
+					controller: {
+						create: 'test/test1/Controller',
+						properties: {
+							name: 'controller1',
+							logger: { create: 'test/test1/ConsoleLogger' }
+						},
+						init: {
+							ready: "Hello!"
+						}
+					},
+					// This should resolve to group1's controller
+					controllerRef: { $ref: 'controller' }
+				},
+				group2: {
+					controller: {
+						create: 'test/test1/Controller',
+						properties: {
+							name: 'controller2',
+							logger: { create: 'test/test1/ConsoleLogger' }
+						},
+						init: {
+							ready: "Hello!"
+						}
+					},
+					// This should resolve to group2's controller
+					controllerRef: { $ref: 'controller' }
+				}
+			}).then(
+				function(context) {
+					console.log("Done", context);
+				},
+				function(err) {
+					console.log(err);
+				}
+			);
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<p id="node1"></p>
+	</div>
+</body>
+</html>

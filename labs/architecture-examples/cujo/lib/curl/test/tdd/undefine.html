@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>undefine test</title>
+
+<script>
+	curl = {
+			baseUrl: '../',
+			paths: {
+				curl: '../src/curl'
+			},
+			preloads: [
+			]
+		};
+
+</script>
+<script src="../../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	curl(
+		['stuff/one', 'stuff/two', 'stuff/three', 'curl/tdd/undefine', 'require'],
+		function (one, two, three, undefine, require) {
+			// test undefine on a module id
+			undefine('stuff/one');
+			try {
+				require('stuff/one');
+				write('FAILED: module still in cache.');
+			}
+			catch (ex) {
+				write('SUCCESS: module stuff/one not in cache.');
+			}
+			// test undefine on an array of module ids
+			undefine(['stuff/two', 'stuff/three']);
+			try {
+				require('stuff/two');
+				write('FAILED: module stuff/two still in cache.');
+			}
+			catch (ex) {
+				write('SUCCESS: module stuff/two not in cache.');
+			}
+			try {
+				require('stuff/three');
+				write('FAILED: module stuff/three still in cache.');
+			}
+			catch (ex) {
+				write('SUCCESS: module stuff/three not in cache.');
+			}
+		},
+		function (ex) {
+			write('ERROR: ' + ex.message);
+		}
+	);
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

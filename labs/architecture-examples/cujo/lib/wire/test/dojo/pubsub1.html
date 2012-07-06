@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Dojo pubsub test</title>
+
+	<script src="../test-config.js"></script>
+
+	<script type="text/javascript">
+		define('test', [], function() {
+
+			var me = function() {};
+
+			me.prototype = {
+
+				sentSomething: false,
+				sentSomethingElse: false,
+				respondedToSomething: false,
+				respondedToSomethingElse: false,
+
+				doSomething: function(message) {
+					this.sentSomething = true;
+					return message;
+				},
+
+				doSomethingElse: function(message) {
+					this.sentSomethingElse = true;
+					return message;
+				},
+
+				respondToSomething: function(message) {
+					this.respondedToSomething = true;
+					return message;
+				},
+
+				respondToSomethingElse: function(message) {
+					this.respondedToSomethingElse = true;
+					return message;
+				}
+			};
+
+			return me;
+		});
+
+		var spec = {
+			plugins: [
+//		{ module: 'wire/debug' },
+				{ module: 'wire/dojo/pubsub' }
+			],
+			thing1: {
+				create: "test",
+				publish: {
+					"doSomething": "thing/did-something",
+					"doSomethingElse": "thing/did-something-else"
+				}
+			},
+			thing2: {
+				create: "test",
+				subscribe: {
+					"thing/did-something": "respondToSomething",
+					"thing/did-something-else": "respondToSomethingElse"
+				}
+			}
+		};
+
+		// NOTE: Loading dojo via curl/requirejs seems to cause long load times,
+		// which can cause unit tests to timeout.  Hence the 2 second timeout
+		// used in these tests.
+
+		require(['wire'], function(wire) {
+			doh.register('wire/dojo/pubsub', [{
+					name: 'should publish and subscribe corresponding topics 1',
+					timeout: 2000,
+					runTest: function(doh) {
+						var dohd = new doh.Deferred();
+						wire(spec).then(
+							function(context) {
+								//Checking first pub-sub connection
+								context.thing1.doSomething("Hello there!");
+
+								dohd.callback(
+									context.thing1.sentSomething
+									&& context.thing2.respondedToSomething
+									&& !context.thing1.sentSomethingElse
+									&& !context.thing2.respondedToSomethingElse
+								);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+						);
+
+						return dohd;
+					}
+				},
+				{
+					name: 'should publish and subscribe corresponding topics 2',
+					timeout: 2000,
+					runTest: function(doh) {
+						var dohd = new doh.Deferred();
+						wire(spec).then(
+							function(context) {
+								//Checking first pub-sub connection
+								context.thing1.doSomethingElse("Hello there again!");
+
+								dohd.callback(
+									context.thing1.sentSomethingElse
+									&& context.thing2.respondedToSomethingElse
+									&& !context.thing1.sentSomething
+									&& !context.thing2.respondedToSomething
+								);
+							},
+							function(e) {
+								dohd.errback(e);
+							}
+						);
+
+						return dohd;
+					}
+				}
+			]);
+			
+			doh.run();
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>test for github issue #34</title>
+
+<script src="../src/curl.js" type="text/javascript"></script>
+<!--<script src="support/curl-0.5.3.js"></script>-->
+<!--<script src="support/curl-0.5.4.js"></script>-->
+
+<script type="text/javascript">
+
+	curl(
+		{
+			baseUrl: '../..',
+			paths: {
+				// this pattern fails in 0.5.x:
+				'curl': 'curl/src/curl'
+			},
+			// we're not testing plugin path resolution, so just ensure domReady! works:
+			pluginPath: '../../curl/src/curl/plugin'
+		},
+		[
+			// see if curl can find something under 'curl'
+			'curl/domReady',
+			// this avoids path lookup because of pluginPath above
+			'domReady!'
+		]
+	).then(
+		function (ready) {
+			var doc = document;
+			doc.body.appendChild(doc.createElement('div')).innerHTML = 'SUCCESS: path resolved correctly';
+		},
+		function (ex) {
+			var doc = document;
+			doc.body.appendChild(doc.createElement('div')).innerHTML = 'FAILED: ' + ex.message;
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

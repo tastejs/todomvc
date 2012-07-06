@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>plugin config test file</title>
+
+<script>
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	var testValue = 'does it work?';
+
+	curl(
+		{
+			baseUrl: '..',
+			paths: {
+				stuff: 'test/stuff'
+			},
+			plugins: {
+				'test/support/fake': {
+					testValue: testValue
+				}
+			}
+		},
+		[
+			'test/support/fake!', // explicitly configured plugin
+			'test/support/simple-plugin', // un-configured plugin should still get config
+			'test/support/simple-plugin!stuff/zero', // just to run load method
+			'src/curl/domReady'
+		]
+	).then(
+		function (pluginsValue, simple, dummy, ready) {
+			ready(function () {
+				if (pluginsValue == testValue) {
+					document.body.appendChild(document.createTextNode('SUCCESS: config value passed to explicitly configured plugin'));
+				}
+				else {
+					document.body.appendChild(document.createTextNode('FAILED: config value NOT passed to explicitly configured plugin'));
+				}
+				document.body.appendChild(document.createElement('br'));
+				if (simple.config.baseUrl) {
+					document.body.appendChild(document.createTextNode('SUCCESS: config value passed to un-configured plugin'));
+				}
+				else {
+					document.body.appendChild(document.createTextNode('FAILED: config value NOT passed to un-configured plugin'));
+				}
+			});
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p>There should be text below if this page loaded.</p>
+
+</body>
+</html>
