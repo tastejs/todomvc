@@ -63,33 +63,33 @@ h2 {
 	float: none;
 }
 
-#demos {
+.demos {
 	display: inline-block;
 }
 
-#demos ul {
+.demos ul {
 	float: left;
 }
 
-#demos ul li {
+.demos ul li {
 	float: none;
 }
 
-#demos ul li a {
+.demos ul li a {
 	position: relative;
 }
 
-#demos .popover {
+.demos .popover {
 	margin: 0;
 	cursor: default;
 	color: #333;
 }
 
-#demos .popover-title {
+.demos .popover-title {
 	padding: 9px 70px 9px 15px;
 }
 
-#demos .popover-title a {
+.demos .popover-title a {
 	font-size: 13px;
 	line-height: 18px;
 	position: absolute;
@@ -103,7 +103,7 @@ h2 {
 }
 
 @media (max-width: 480px) {
-	#demos ul {
+	.demos ul {
 		float: none;
 	}
 }
@@ -131,7 +131,7 @@ h2 {
 	.header-title h1 {
 		font-size: 60px;
 	}
-	#demos ul {
+	.demos ul {
 		margin: 0;
 		font-size: 16px;
 	}
