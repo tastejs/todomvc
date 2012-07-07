@@ -136,4 +136,4 @@ Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at
 
 ## License
 
-Public Domain
+[The Unlicense](unlicense.org) (i.e Public Domain)
