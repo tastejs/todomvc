@@ -1,22 +1,100 @@
+body {
+	font: 120% Merriweather, Georgia;
+	font-weight: 300;
+	line-height: 1.5;
+	width: auto;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	font-weight: 500;
+	font-weight: 600;
+	color: #594A43;
+	text-shadow: 1px 1px 0 #7D2A2F;
 }
 
 h2 {
 	margin: 10px 0;
+	font-size: 30px;
+}
+
+a {
+	color: #B83F45;
+	font-weight: 400;
+}
+
+a:hover {
+	color: #787e7e;
+}
+
+p {
+	font: 100% Merriweather, Georgia;
+	line-height: 1.5;
+	font-weight: 300;
+}
+
+hr {
+	border-top: 1px dashed #C5C5C5;
+	border-bottom: 1px dashed #F7F7F7;
+}
+
+header h1 {
+	font-size: 100px;
+	line-height: 1.2;
+	text-shadow: 2px 2px 1px #7D2A2F;
+	font-weight: 900;
+}
+
+header p {
+	font-size: 45px;
+}
+
+header .btn-large {
+	font-size: 25px;
+	margin-right: 10px;
+}
+
+header nav {
+	margin: 20px 0;
+}
+
+.btn {
+	background: #fafafa;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+	position: relative;
+	top: 1px;
+	left: 1px;
+	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+	background: #fafafa;
+}
+
+.btn.btn-primary {
+	background: #ad6e7f;
+	box-shadow: 2px 2px 0 #594a43;
+}
+
+.btn.btn-primary:active {
+	background: #ad6e7f;
+	box-shadow: 1px 1px 0 #594a43;
 }
 
 .vertical-space li {
 	margin: 5px 0;
+	line-height: inherit;
 }
 
 .row {
-	margin-top: 20px;
+	margin-top: 40px;
+	margin-bottom: 40px;
 }
 
 .hero-unit {
@@ -63,6 +141,32 @@ h2 {
 	float: none;
 }
 
+.container {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.nav-pills {
+	margin-left: -10px;
+}
+
+#icon {
+	float: right;
+}
+
+#screenshot {
+	width: 100%;
+	height: auto;
+	max-width: 570px;
+	margin-top: 50px;
+}
+
+#app-preview {
+	display: none;
+	margin-top: 43px;
+	margin-left: -25px;
+}
+
 #demos {
 	display: inline-block;
 }
@@ -97,9 +201,18 @@ h2 {
 	right: 20px;
 }
 
+.credit a {
+	margin: 0 5px;
+}
+
+.credit a img {
+	border-radius: 3px;
+	margin-right: 5px;
+}
+
 #contributor-list {
 	display: none;
-	font-size: 11px;
+	font-size: 13px;
 }
 
 @media (max-width: 480px) {
@@ -144,4 +257,59 @@ h2 {
 	.hero-unit .btn-large {
 		margin: 5px;
 	}
+}
+
+
+
+.button {
+	display: inline-block;
+	margin: 10px;
+	border-radius: 8px;
+	font-size: 25px;
+	color: #fff;
+	box-shadow: 0 8px 0 #C53737, 0 15px 20px rgba(0, 0, 0, .35);
+	-webkit-transition: -webkit-box-shadow .1s ease-in-out;
+	-moz-transition: -moz-box-shadow .1s ease-in-out;
+	-o-transition: -o-box-shadow .1s ease-in-out;
+	transition: box-shadow .1s ease-in-out;
+}
+
+.button span {
+	display: inline-block;
+	padding: 20px 30px;
+	background-color: #CF5258;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 119, 119, .8)), to(rgba(255, 73, 73, .2)));
+	background-image: -webkit-linear-gradient(rgba(255, 119, 119, .8), rgba(255, 73, 73, .2));
+	background-image: -moz-linear-gradient(rgba(255, 119, 119, .8), rgba(255, 73, 73, .2));
+	background-image: -o-linear-gradient(rgba(255, 119, 119, .8), rgba(255, 73, 73, .2));
+	border-radius: 8px;
+	box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+	font-family: 'Pacifico', Arial, sans-serif;
+	line-height: 1;
+	text-shadow: 0 -1px 1px rgba(146, 46, 46, .7);
+	-webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+	-moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+	-o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+	transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+}
+
+.button:hover span {
+	background-color: #e45b62;
+	color: #fff;
+}
+
+.button:active, .button:focus {
+	box-shadow: 0 8px 0 #aa3030, 0 12px 10px rgba(0, 0, 0, .3);
+}
+
+.button:active span {
+	-webkit-transform: translate(0, 4px);
+	-moz-transform: translate(0, 4px);
+	-o-transform: translate(0, 4px);
+	transform: translate(0, 4px);
+}
+
+.button small {
+	color: #666;
+	font-size: 12px;
 }

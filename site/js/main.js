@@ -48,4 +48,14 @@
 		$('#contributor-list').show().children('span').html( ret.join(', ') );
 	});
 
+	/*
+	$('#app-preview')[0].contentWindow.localStorage['spine-Todo'] = '[{"title":"Do some nerdy stuff","completed":true,"id":"c-4"},{"title":"Redesign the website","id":"c-6"}]';
+	$('#app-preview').load(function() {
+		var $this = $(this);
+		var $iframe = $this.contents();
+		$iframe.find('html,body').scrollTop(110);
+		$this.show();
+	});
+	*/
+
 })();
