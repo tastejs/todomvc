@@ -7,11 +7,10 @@ maria.ElementView.subclass(checkit, 'TodosAppView', {
             return this.find('.content'); // child views will be appended to this element
         },
         initialize: function() {
-            var model = this.getModel();
-            this.appendChild(new checkit.TodosInputView(model));
-            this.appendChild(new checkit.TodosToolbarView(model));
-            this.appendChild(new checkit.TodosListView(model));
-            this.appendChild(new checkit.TodosStatsView(model));
+            this.appendChild(new checkit.TodosInputView());
+            this.appendChild(new checkit.TodosToolbarView());
+            this.appendChild(new checkit.TodosListView());
+            this.appendChild(new checkit.TodosStatsView());
         },
         insertBefore: function(newChild, oldChild) {
             newChild.setModel(this.getModel());
