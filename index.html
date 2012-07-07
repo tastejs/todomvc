@@ -34,13 +34,20 @@
 			<div class="row">
 				<div class="span4">
 					<h2>Introduction</h2>
-					<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember (SproutCore 2.0), JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?</p>
+					<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong> for structuring and organizing JavaScript web apps. Backbone, Spine, Ember, JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you <strong>decide</strong> on which to use in a sea of so many options?</p>
 					<p>To help solve this problem, we created <a href="http://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p>
 					<p>Solutions look and feel the same, have a common simple feature-set and make it <strong>easy</strong> for you to compare the syntax and structure of different frameworks so you can select the one you feel the most comfortable with.</p>
 				</div>
 				<div class="span4" id="demos">
 					<h2>Demos</h2>
 					<ul class="nav nav-pills">
+						<li>
+							<a href="architecture-examples/angularjs/index.html" data-source="http://angularjs.org/" data-content="What HTML would have been
+had it been designed for web apps">AngularJS</a>
+						</li>
+						<li>
+							<a href="architecture-examples/angularjs-perf/index.html" data-source="http://angularjs.org/" data-content="What HTML would have been
+had it been designed for web apps. A version with several performance optimizations.">AngularJS (Optimized)</a>
 						<li>
 							<a href="architecture-examples/backbone/index.html" data-source="http://documentcloud.github.com/backbone/" data-content="Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.">Backbone.js</a>
 						</li>
@@ -59,23 +66,22 @@
 						<li>
 							<a href="architecture-examples/knockoutjs/index.html" data-source="http://knockoutjs.com/" data-content="Simplify dynamic JavaScript UIs by applying the Model-View-View Model (MVVM) pattern">Knockout (MVVM)</a>
 						</li>
+
+					</ul>
+					<ul class="nav nav-pills">
 						<li>
 							<a href="architecture-examples/dojo/index.html" data-source="http://dojotoolkit.org/" data-content="Dojo saves you time and scales with your development process, using web standards as its platform. It’s the toolkit experienced developers turn to for building high quality desktop and mobile web applications.">Dojo</a>
 						</li>
 						<li>
 							<a href="architecture-examples/closure/index.html" data-source="http://code.google.com/closure/library/" data-content="The Closure Library is a broad, well-tested, modular, and cross-browser JavaScript library. You can pull just what you need from a large set of reusable UI widgets and controls, and from lower-level utilities for DOM manipulation, server communication, animation, data structures, unit testing, rich-text editing, and more.">Closure</a>
 						</li>
-					</ul>
-					<ul class="nav nav-pills">
 						<li>
 							<a href="architecture-examples/yuilibrary/index.html" data-source="http://yuilibrary.com/" data-content="YUI's lightweight core and modular architecture make it scalable, fast, and robust. Built by frontend engineers at Yahoo!, YUI powers the most popular websites in the world.">YUILibrary</a>
 						</li>
 						<li>
 							<a href="architecture-examples/knockback/index.html" data-source="http://kmalakoff.github.com/knockback/" data-content="Knockback.js provides Knockout.js magic for Backbone.js Models and Collections.">Knockback.js</a>
 						</li>
-						<li>
-							<a href="architecture-examples/angularjs/index.html" data-source="http://angularjs.org/" data-content="What HTML would have been
-had it been designed for web apps">AngularJS</a>
+
 						</li>
 						<li>
 							<a href="architecture-examples/extjs/index.html" data-source="http://www.sencha.com/products/extjs" data-content="Ext JS 4 is the next major advancement in our JavaScript framework. Featuring expanded functionality, plugin-free charting, and a new MVC architecture it's the best Ext JS yet. Create incredible web apps for every browser.">Ext.js</a>
@@ -84,22 +90,24 @@ had it been designed for web apps">AngularJS</a>
 							<a href="architecture-examples/agilityjs/index.html" data-source="http://agilityjs.com" data-content="Agility.js is an MVC library for Javascript that lets you write maintainable and reusable browser code without the infrastructural overhead found in other MVC libraries. The goal is to enable developers to write web apps at least as quickly as with jQuery, while simplifying long-term maintainability through MVC objects.">Agility.js</a>
 						</li>
 						<li>
+							<a href="architecture-examples/gwt/index.html" data-source="https://developers.google.com/web-toolkit/" data-content="Google Web Toolkit (GWT) is an MVP development toolkit for building and optimizing complex browser-based applications. GWT is used by many products at Google, including Google AdWords.">Google Web Toolkit</a>
+						</li>
+						<li>
 							<a href="architecture-examples/jquery/index.html" data-source="http://jquery.com/" data-content="jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.">jQuery</a>
 						</li>
 						<li>
-							<a href="reference-examples/vanillajs/index.html" data-source="https://developer.mozilla.org/en/JavaScript" data-content="You know JavaScript right? :P">Vanilla JS</a>
+							<a href="vanilla-examples/vanillajs/index.html" data-source="https://developer.mozilla.org/en/JavaScript" data-content="You know JavaScript right? :P">Vanilla JS</a>
 						</li>
 					</ul>
 				</div>
 				<div class="span4">
-					<h2>New in version 0.3</h2>
+					<h2>Version 1.0 Pre</h2>
 					<ul class="vertical-space">
-						<li>Dojo (MV*) app</li>
-						<li>Closure (MV*) app</li>
-						<li>Fixes and rewrites to existing apps including Ember.js, Spine.js and Backbone.js</li>
-						<li>Updated jQuery-only app for those wishing to compare MV* vs. a version structured without it</i>
-						<li>A new boilerplate for Todo apps</li>
-						<li><a href="https://github.com/addyosmani/backbone-boilerplates">Initial work</a> on Todo apps integrated with back-end tech stacks (Backbone.js only for now)</li>
+						<li>New applications</li>
+						<li>Improved consistency</li>
+						<li>Routing</li>
+						<li>TodoMVC Labs apps</li>
+						<li>and more!</li>
 					</ul>
 				</div>
 			</div>
@@ -110,7 +118,7 @@ had it been designed for web apps">AngularJS</a>
 					<p>You can get setup with TodoMVC in just a few short steps:</p>
 					<p>
 						<ol class="vertical-space">
-							<li>Download the <a href="https://github.com/addyosmani/todomvc/zipball/v0.3">latest release</a>.</li>
+							<li>Download the <a href="https://github.com/addyosmani/todomvc/zipball/master">latest release</a>.</li>
 							<li>Run TodoMVC on a local server (using <a href="http://www.mamp.info">MAMP</a>, <a href="http://www.wampserver.com/en/">WAMP</a> or another suitable setup). You can then select an app to run using the 'Live demos' link to the left.</li>
 							<li>Browse through the Todo apps, examine their source and discover which framework you might feel the most comfortable working with.</li>
 						</ol>
