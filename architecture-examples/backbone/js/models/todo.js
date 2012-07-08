@@ -23,7 +23,6 @@
 		// Toggle the `completed` state of this todo item.
 		toggle: function() {
 			this.save({completed: !this.get("completed")});
-			window.app.Todos.trigger('reset');
 		},
 
 		// Remove this Todo from *localStorage* and delete its view.
