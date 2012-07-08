@@ -1656,7 +1656,7 @@ hormigas.ObjectSet.mixin = function(obj) {
     hormigas.ObjectSet.call(obj);
 };
 /*
-Maria version 0 - an MVC framework for JavaScript applications
+Maria release candidate 1 - an MVC framework for JavaScript applications
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
@@ -2215,14 +2215,16 @@ will automatically call your "initialize" method.
 */
 maria.View = function(model, controller) {
     maria.Node.call(this);
+    this.initialize();
     this.setModel(model);
     this.setController(controller);
-    this.initialize();
 };
 
 maria.Node.mixin(maria.View.prototype);
 
-maria.View.prototype.initialize = function() {};
+maria.View.prototype.initialize = function() {
+    // to be overridden by concrete view subclasses
+};
 
 maria.View.prototype.destroy = function() {
     maria.purgeEventListener(this);
@@ -2472,15 +2474,23 @@ the same.
 
 */
 maria.ElementView = function(model, controller, doc) {
-    this._doc = doc || document;
     maria.View.call(this, model, controller);
+    this.setDocument(doc);
 };
 
 maria.ElementView.prototype = new maria.View();
 maria.ElementView.prototype.constructor = maria.ElementView;
 
 maria.ElementView.prototype.getDocument = function() {
-    return this._doc;
+    return this._doc || document;
+};
+
+maria.ElementView.prototype.setDocument = function(doc) {
+    this._doc = doc;
+    var childViews = this.childNodes;
+    for (var i = 0, ilen = childViews.length; i < ilen; i++) {
+        childViews[i].setDocument(doc);
+    }
 };
 
 maria.ElementView.prototype.getTemplate = function() {
@@ -2503,7 +2513,7 @@ maria.ElementView.prototype.build = function() {
 
 maria.ElementView.prototype.buildTemplate = function() {
     // parseHTML returns a DocumentFragment so take firstChild as the rootEl
-    this._rootEl = maria.parseHTML(this.getTemplate(), this._doc).firstChild;
+    this._rootEl = maria.parseHTML(this.getTemplate(), this.getDocument()).firstChild;
 };
 
 (function() {
@@ -3052,7 +3062,8 @@ maria.ElementView.subclass = function(namespace, name, options) {
         for (var key in uiActions) {
             if (Object.prototype.hasOwnProperty.call(uiActions, key)) {
                 var methodName = uiActions[key];
-                if (!Object.prototype.hasOwnProperty.call(properties, methodName)) {
+                if ((!Object.prototype.hasOwnProperty.call(properties, methodName)) &&
+                    (!(methodName in this.prototype))) {
                     (function(methodName) {
                         properties[methodName] = function(evt) {
                             this.getController()[methodName](evt);
