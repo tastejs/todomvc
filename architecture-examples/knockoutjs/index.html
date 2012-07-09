@@ -19,7 +19,7 @@
 		<section id="main" data-bind="visible: todos().length">
 			<input id="toggle-all" type="checkbox" data-bind="checked: allCompleted">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul id="todo-list" data-bind="foreach: todos">
+			<ul id="todo-list" data-bind="foreach: todosFiltered">
 				<li data-bind="css: { completed: completed, editing: editing }">
 					<div class="view" data-bind="event: { dblclick: $root.editItem }">
 						<input class="toggle" type="checkbox" data-bind="checked: completed">
@@ -35,6 +35,11 @@
 				<strong data-bind="text: remainingCount">1</strong>
 				<span data-bind="text: getLabel( remainingCount )"></span> left
 			</span>
+			<ul id="filters">
+				<li><a data-bind="click: showAll, css: { selected: showMode() == 'all' }" href="#">All</a> </li>
+				<li><a data-bind="click: showActive, css: { selected: showMode() == 'active' }" href="#">Active</a> </li>
+				<li><a data-bind="click: showCompleted, css: { selected: showMode()  == 'completed' }" href="#">Completed</a> </li>
+			</ul>
 			<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">Clear completed (<span data-bind="text: completedCount"></span>)</button>
 		</footer>
 	</section>
