@@ -12,8 +12,7 @@ h4,
 h5,
 h6 {
 	font-weight: 600;
-	color: #594A43;
-	/*text-shadow: 1px 1px 0 #7D2A2F;*/
+	color: #000;
 	font:100% Oswald, Helvetica;
 }
 
@@ -24,7 +23,7 @@ h2 {
 
 a {
 	color: #B83F45;
-	font-weight: 400;
+	font-weight:bold;
 }
 
 a:hover {
@@ -55,7 +54,7 @@ header h1 {
 }
 
 header p {
-	font-size: 45px;
+	font-size: 30px;
 }
 
 header .btn-large {
@@ -65,6 +64,10 @@ header .btn-large {
 
 header nav {
 	margin: 20px 0;
+}
+
+.logo{
+	margin-top:70px;
 }
 
 .nav-tabs > li, .nav-pills > li{
