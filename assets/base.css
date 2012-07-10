@@ -366,6 +366,7 @@ label[for='toggle-all'] {
 
 #clear-completed {
 	float: right;
+	position: relative;
 	line-height: 20px;
 	text-decoration: none;
 	background: rgba(0, 0, 0, 0.1);
