@@ -67,6 +67,19 @@
 
 		// store the new todo value being entered
 		self.current = ko.observable();
+        
+        self.showMode = ko.observable();
+        
+        self.filteredTodos = ko.computed(function(){
+            switch(self.showMode()){
+                case 'active': 
+                    return self.todos().filter(function(todo){ return !todo.completed(); });
+                case 'completed': 
+                    return self.todos().filter(function(todo){ return todo.completed(); });
+                default: 
+                    return self.todos();
+            }
+        });
 
 		// add a new todo, when enter key is pressed
 		self.add = function() {
@@ -148,5 +161,16 @@
 	var todos = ko.utils.parseJson( localStorage.getItem( 'todos-knockout' ) );
 
 	// bind a new instance of our view model to the page
-	ko.applyBindings( new ViewModel( todos || [] ) );
+	var viewModel = new ViewModel(todos || [])
+    ko.applyBindings(viewModel);
+    
+    //setup crossroads
+    crossroads.addRoute('all', function() { viewModel.showMode('all'); });
+    crossroads.addRoute('active', function() { viewModel.showMode('active'); });
+    crossroads.addRoute('completed', function() { viewModel.showMode('completed'); });
+
+    window.onhashchange = function() {
+        crossroads.parse(location.hash.replace("#", ""));
+    };
+    crossroads.parse(location.hash.replace("#", ""));
 })();

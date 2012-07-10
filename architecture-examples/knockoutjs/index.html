@@ -19,7 +19,7 @@
 		<section id="main" data-bind="visible: todos().length">
 			<input id="toggle-all" type="checkbox" data-bind="checked: allCompleted">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul id="todo-list" data-bind="foreach: todos">
+			<ul id="todo-list" data-bind="foreach: filteredTodos">
 				<li data-bind="css: { completed: completed, editing: editing }">
 					<div class="view" data-bind="event: { dblclick: $root.editItem }">
 						<input class="toggle" type="checkbox" data-bind="checked: completed">
@@ -35,6 +35,17 @@
 				<strong data-bind="text: remainingCount">1</strong>
 				<span data-bind="text: getLabel( remainingCount )"></span> left
 			</span>
+            <ul id="filters">
+				<li>
+					<a data-bind="css: { selected: showMode() == 'all' }" href="#/all">All</a>
+				</li>
+				<li>
+					<a data-bind="css: { selected: showMode() == 'active' }" href="#/active">Active</a>
+				</li>
+				<li>
+					<a data-bind="css: { selected: showMode() == 'completed' }" href="#/completed">Completed</a>
+				</li>
+			</ul>
 			<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">Clear completed (<span data-bind="text: completedCount"></span>)</button>
 		</footer>
 	</section>
@@ -46,6 +57,13 @@
 	</footer>
 	<script src="../../assets/base.js"></script>
 	<script src="js/lib/knockout-2.0.0.js"></script>
+    <!--Crossroad.js Begin -->		
+    <script src="js/lib/signals.js"></script>
+    <script src="js/lib/crossroads.js"></script>
+    <script src="js/lib/route.js"></script>
+    <script src="js/lib/pattern_lexer.js"></script>
+    <script src="js/lib/intro.js"></script>
+    <!--Crossroad.js End -->		
 	<script src="js/app.js"></script>
 </body>
 </html>
