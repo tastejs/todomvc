@@ -68,7 +68,7 @@
         // store the new todo value being entered
         self.current = ko.observable();
 
-        self.showMode = ko.observable();
+        self.showMode = ko.observable('all');
 
         self.filteredTodos = ko.computed(function() {
             switch(self.showMode()) {
