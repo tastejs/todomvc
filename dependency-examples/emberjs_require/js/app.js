@@ -3,8 +3,8 @@ require.config({
 	baseUrl: 'js/',
 	paths: {
 		jquery: '../../../assets/jquery.min',
-		// ember: 'http://cloud.github.com/downloads/emberjs/ember.js/ember-latest.min',
-		ember: 'lib/ember-latest',
+		ember: 'lib/ember-latest.min',
+		handlebars: '../../../assets/handlebars.min',
 		text: 'lib/require/text',
 		jasmine: '../../../assets/jasmine/jasmine',
 		jasmine_html: '../../../assets/jasmine/jasmine-html'
@@ -18,6 +18,7 @@ define( 'app', [
 	'app/controllers/entries',
 	'app/views/application',
 	'jquery',
+	'handlebars',
 	'ember'
 	], function( Router, Store, EntriesController, ApplicationView ) {
 		var App = Ember.Application.create({
