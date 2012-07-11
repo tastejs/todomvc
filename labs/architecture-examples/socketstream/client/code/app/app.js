@@ -1,19 +1,15 @@
-var todosLocal = [];
-var todosLocalLength = 0;
-
+var todosLocal = [],
+    todosLocalLength = 0;
 
 var ENTER_KEY = 13;
 
-// Listen out for new events coming from the server
-ss.event.on('updateList', function(todos) {
-  $("#todo-list").html('');
-  updateList(todos);
-});
 
-ss.event.on('sendTodos', function(socketId) {
-  ss.rpc('demo.AnswersOnSendTodos', todosLocal, socketId);
-});
+/** SocketStream Event Bindings **/
 
+ss.event.on('updateTodos', updateList);
+
+
+/** DOM Bindings **/
 
 $('#new-todo').on('keyup', function(e) {
   if (e.keyCode == ENTER_KEY) {
@@ -31,6 +27,21 @@ $('#new-todo').on('keyup', function(e) {
   }
 });
 
+// Filter the list if the hash changes
+
+function hashChange() {
+  updateList(todosLocal);
+}
+
+window.addEventListener("hashchange", hashChange, false);
+
+
+/** Public Functions **/
+
+exports.init = function() {
+  ss.rpc('todo.getAll', updateList);
+};
+
 exports.send = function(text) {
   if (valid(text)) {
     todo = {
@@ -40,7 +51,7 @@ exports.send = function(text) {
       order: todosLocalLength + 1
     };
     todosLocal.push(todo);
-    ss.rpc('demo.BroadcastTodos', todosLocal);
+    ss.rpc('todo.update', todosLocal);
     return true;
   } else {
     return false;
@@ -52,7 +63,7 @@ exports.update = function(todo, text) {
     var index = getIndex(todo.id);
     todo.title = text;
     todosLocal[index] = todo;
-    ss.rpc('demo.BroadcastTodos', todosLocal);
+    ss.rpc('todo.update', todosLocal);
     return true;
   } else {
     return false;
@@ -60,10 +71,11 @@ exports.update = function(todo, text) {
 };
 
 
+/** Private Functions **/
+
 function valid(text) {
   return text && text.length > 0;
-};
-
+}
 
 function updateList(todos) {
   todosLocal = todos;
@@ -75,6 +87,7 @@ function updateList(todos) {
 
   setFooter();
 
+  $("#todo-list").html('');
   if (todosStatus.length) {
     $("#main").show();
     $("#footer").show();
@@ -84,7 +97,7 @@ function updateList(todos) {
     $.each(todosStatus, function(id, todo) {
       createToDo(todo);
     });
-  };
+  }
   setListener();
 }
 
@@ -93,7 +106,7 @@ function createToDo(todo) {
     id: todo.id,
     message: todo.title,
     order: todo.order,
-    completed: todo.completed,
+    completed: todo.completed
   });
   $(html).appendTo('#todo-list');
 }
@@ -101,10 +114,10 @@ function createToDo(todo) {
 function deleteTodo(todo) {
   var index = getIndex(todo.id);
   todosLocal.splice(index, 1);
-  ss.rpc('demo.BroadcastTodos', todosLocal);
+  ss.rpc('todo.update', todosLocal);
 }
-//Use templating for the footer (#footer). This means the counter, and the Clear completed button.
 
+//Use templating for the footer (#footer). This means the counter, and the Clear completed button.
 function setFooter() {
   var count = setCountLeft();
   var s = true;
@@ -115,6 +128,9 @@ function setFooter() {
   if (count == 1) {
     s = false;
   }
+
+  // Filter TODOs by URL:
+  // Example http://localhost:3000/#/active will only show Active TODOs
 
   var url = window.location.hash;
 
@@ -134,7 +150,7 @@ function setFooter() {
     s: s,
     all: all,
     active: active,
-    completed: completed,
+    completed: completed
   });
   $("#footer").html('');
   $(html).appendTo('#footer');
@@ -153,7 +169,7 @@ function setCountLeft() {
 function sortTodosWithStatus(status) {
   var todosStatus = [];
 
-  if (status == null) {
+  if (status === null) {
     return todosLocal;
   } else {
     for (var i = 0; i < todosLocalLength; i++) {
@@ -178,17 +194,17 @@ function getStatusOfThisUser() {
 
 function toggleCompleted(todo) {
   //find and toggle done on todos or todo and push new todos
-  if (todo == null) {
+  if (todo === null) {
     if (allmarkt()) {
       setDoneOnAll(false);
     } else {
       setDoneOnAll(true);
     }
-    ss.rpc('demo.BroadcastTodos', todosLocal)
+    ss.rpc('todo.update', todosLocal);
 
   } else {
     toggleDone(todo);
-    ss.rpc('demo.BroadcastTodos', todosLocal)
+    ss.rpc('todo.update', todosLocal);
   }
 }
 
@@ -210,7 +226,7 @@ function setDoneOnAll(status) {
 function allmarkt() {
   var markt = true;
 
-  if (todosLocalLength == 0) {
+  if (todosLocalLength === 0) {
     markt = false;
   } else {
     for (var i = 0; i < todosLocalLength; i++) {
@@ -238,16 +254,12 @@ function setListener() {
 
   $(".destroy").on('click', function(event) {
     todo = getTodoOnId(event.target.name);
-    if(todo !== null){
-      deleteTodo(todo);
-    };
+    if(todo !== null) deleteTodo(todo);
   });
 
   $(".toggle").on('click', function(event) {
     todo = getTodoOnId(event.target.name);
-    if(todo !== null){
-      toggleCompleted(todo);
-    };
+    if(todo !== null) toggleCompleted(todo);
   });
 
   $('.view').on('dblclick', function(event) {
@@ -256,7 +268,7 @@ function setListener() {
       $('.editing').removeClass('editing');
       $('#li' + todo.order).addClass('editing');
       $('#Edit' + todo.order).show().select();
-    };
+    }
   });
 
   $(".edit").on('keyup blur', function(event) {
@@ -288,20 +300,13 @@ function setListener() {
         todosLocal.splice(i, 1);
       }
     }
-    ss.rpc('demo.BroadcastTodos', todosLocal);
+    ss.rpc('todo.update', todosLocal);
   });
-};
+}
 
 $("#toggle-all").on('click', function() {
   toggleCompleted();
 });
-
-function hashChange() {
-  $("#todo-list").html('');
-  updateList(todosLocal);
-}
-
-window.addEventListener("hashchange", hashChange, false);
 
 
 function nextId() {
@@ -311,7 +316,7 @@ function nextId() {
     var id = todosLocal[todosLocalLength - 1].id;
     return id + 1;
   }
-};
+}
 
 function getIndex(id) {
   for (var i = 0; i < todosLocalLength; i++) {
@@ -319,9 +324,9 @@ function getIndex(id) {
     if (todo.id == id) {
       return i;
     }
-  };
+  }
   return null;
-};
+}
 
 function getTodoOnId(id) {
   for (var i = 0; i < todosLocalLength; i++) {
@@ -331,6 +336,6 @@ function getTodoOnId(id) {
     }else if (todo.id == id) {
       return todo;
     }
-  };
+  }
   return null;
-};
+}
