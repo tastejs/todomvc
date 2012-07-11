@@ -41,6 +41,10 @@ YUI.add('mvc-app-view', function (Y) {
 
             list.load();
 
+            Y.Handlebars.registerHelper('pluralize', function (context, word) {
+                return (context === 1) ? word : word + 's';
+            });
+
             // Keep our filters on refresh by immediately dispatching route.
             this.once('ready', function (e) {
                 if (this.hasRoute(this.getPath())) {
