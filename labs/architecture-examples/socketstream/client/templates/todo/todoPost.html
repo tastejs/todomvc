@@ -1,0 +1,8 @@
+<li id="li{{id}}" {{#completed}}class="completed"{{/completed}}>
+    <div id="ClickEdit{{id}}" class="view" title="{{id}}">
+      <input id="Done{{id}}" class="toggle" name="{{id}}" type="checkbox" {{#completed}}checked=checked{{/completed}}>
+      <label>{{message}}</label>
+      <button id="Delete{{id}}" class="destroy" name="{{id}}"></button>
+    </div>
+    <input id="Edit{{id}}" class="edit" type="text" name="{{id}}" value="{{message}}">
+</li>
