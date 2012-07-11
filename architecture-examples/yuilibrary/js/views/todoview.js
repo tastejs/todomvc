@@ -71,7 +71,12 @@ YUI.add('mvc-todo-view', function (Y) {
                 editedValue = Y.Escape.html(Y.Lang.trim(value));
             
             this.get('container').removeClass('editing');
-            this.get('model').save({title: editedValue});
+            
+            if (editedValue) {
+                this.get('model').save({title: editedValue});
+            } else {
+                this.clear();
+            }
         },
 
         // Also allow updating the Todo's text through the enter key.
