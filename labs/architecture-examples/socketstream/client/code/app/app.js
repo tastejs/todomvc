@@ -194,7 +194,7 @@ function getStatusOfThisUser() {
 
 function toggleCompleted(todo) {
   //find and toggle done on todos or todo and push new todos
-  if (todo === null) {
+  if (todo === undefined) {
     if (allmarkt()) {
       setDoneOnAll(false);
     } else {
