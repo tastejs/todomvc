@@ -40,6 +40,13 @@ YUI.add('mvc-app-view', function (Y) {
                 this.render, this);
 
             list.load();
+
+            // Keep our filters on refresh by immediately dispatching route.
+            this.once('ready', function (e) {
+                if (this.hasRoute(this.getPath())) {
+                    this.dispatch();
+                }
+            });
         },
 
 
