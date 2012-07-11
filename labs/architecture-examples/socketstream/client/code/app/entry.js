@@ -16,12 +16,7 @@ ss.server.on('ready', function() {
 	$(function() {
 
 		// Load app
-		require('/app');
-
-		ss.rpc('demo.GetTodos', function(todos) {
-			todosLocal = todos;
-			upDateList(todos);
-		});
+		require('/app').init();
 
 	});
 
