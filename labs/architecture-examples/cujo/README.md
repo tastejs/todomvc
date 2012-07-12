@@ -30,7 +30,3 @@ Some things we feel are interesting about cujojs's TodoMVC as compared to other 
 	  Things that can't, don't.
 	* DOM Query engine
 	* DOM Event library
-
-## Credit
-
-TodoMVC Template Created by [Sindre Sorhus](http://sindresorhus.com)

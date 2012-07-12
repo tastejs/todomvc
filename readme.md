@@ -45,6 +45,7 @@ We also have a number of in-progress applications in our [Labs](http://todomvc.c
 - [Meteor](http://meteor.com)
 - [JavaScriptMVC](http://javascriptmvc.com)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
+- [cujo.js](http://cujojs.github.com)
 - [Stapes.js](http://hay.github.com/stapes)
 - [TroopJS](https://github.com/troopjs)
 - [soma.js](http://somajs.github.com/somajs)
@@ -135,4 +136,4 @@ Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at
 
 ## License
 
-Public Domain
+[The Unlicense](unlicense.org) (i.e Public Domain)
