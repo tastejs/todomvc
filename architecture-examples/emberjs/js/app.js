@@ -13,12 +13,9 @@ Todos.todosController = Ember.ArrayProxy.create({
   content: [],
 
   createTodo: function(title) {
-    var todo = Todos.Todo.create({ title: title }),
-    stats = document.getElementById('stats-area');
+    var todo = Todos.Todo.create({ title: title });
     this.pushObject(todo);
     Todos.TodoStore.create(todo);
-
-    (stats.style.display=='block')? stats.style.display = 'inline' : stats.style.display = 'block';
   },
 
   pushObject: function (item, ignoreStorage) {
