@@ -1,0 +1,12 @@
+/* base.css overrides */
+
+#filters li span {
+	color: #83756f;
+	margin: 2px;
+	text-decoration: none;
+    cursor:default;
+}
+
+#filters li span.selected {
+	font-weight: bold;
+}
