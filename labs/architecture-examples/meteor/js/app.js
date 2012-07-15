@@ -45,32 +45,19 @@ if (Meteor.is_client) {
 			}
 		};
 	};
-
-	// Some global helpers
-
-	// Get the number of todos not completed
-	Handlebars.registerHelper('todos_not_completed', function() {
-		return Todos.find({completed: false}).count();
-	});
+	
+	// Some helpers
 	
 	// Get the number of todos completed
-	Handlebars.registerHelper('todos_completed', function() {
+	var todos_completed_helper = function() {
 		return Todos.find({completed: true}).count();
-	});
+	};
 	
-	// True if the requested filter type is currently selected,
-	// false otherwise
-	Handlebars.registerHelper('filter_selected', function(type) {
-		if (type === 'all') {
-			return Session.equals('filter', null);
-		}			
-		return Session.equals('filter', type);
-	});
+	// Get the number of todos not completed
+	var todos_not_completed_helper = function() {
+		return Todos.find({completed: false}).count();
+	};
 	
-	Handlebars.registerHelper('filter', function() {
-		return {all: 'all', active: 'active', completed: 'completed'};
-	});
-
 	////
 	// Logic for the 'todoapp' partial which represents the whole app
 	////
@@ -109,6 +96,8 @@ if (Meteor.is_client) {
 		}
 		return Todos.find(filter, {sort: {created_at: 1}});
 	};
+	
+	Template.main.todos_not_completed = todos_not_completed_helper;
 	
 	// Register click event for toggling complete/not complete button
 	Template.main.events = {
@@ -166,13 +155,30 @@ if (Meteor.is_client) {
 	////
 	// Logic for the 'footer' partial
 	////
-		
+
+	Template.footer.todos_completed = todos_completed_helper;
+	
+	Template.footer.todos_not_completed = todos_not_completed_helper;
+	
 	// True if exactly one todo is not completed, false otherwise
 	// Used for handling pluralization of "item"/"items" word
 	Template.footer.todos_one_not_completed = function() {
 		return Todos.find({completed: false}).count() == 1;
 	};
-				
+	
+	Template.footer.filter = function() {
+		return {all: 'all', active: 'active', completed: 'completed'};
+	};
+	
+	// True if the requested filter type is currently selected,
+	// false otherwise
+	Template.footer.filter_selected = function(type) {
+		if (type === 'all') {
+			return Session.equals('filter', null);
+		}			
+		return Session.equals('filter', type);
+	};
+					
 	// Register click events for selecting filter type and
 	// clearing completed todos
 	Template.footer.events = {
