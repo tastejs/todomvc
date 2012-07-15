@@ -1,11 +1,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Template • TodoMVC</title>
-    <link rel="stylesheet" href="./assets/base.css">
-    <link rel="stylesheet" href="./css/app.css">
+	<title>Meteor • TodoMVC</title>
+    <link rel="stylesheet" href="assets/base.css">
+    <link rel="stylesheet" href="css/app.css">
     <!--[if IE]>
-    	<script src="./assets/ie.js"></script>
+    	<script src="assets/ie.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -14,7 +14,6 @@
     </section>
     <footer id="info">
         <p>Double-click to edit a todo</p>
-        <p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
         <p>Created by <a href="https://github.com/MStumpp">Matthias Stumpp</a></p>
         <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
@@ -33,13 +32,7 @@
 
 <template name="main">
     <section id="main">
-    	{{#unless filter_selected filter.completed}}
-        	{{#if todos_not_completed}}
-            	<input id="toggle-all" type="checkbox">
-        	{{else}}
-            	<input id="toggle-all" type="checkbox" checked="checked">
-        	{{/if}}
-        {{/unless}}
+        <input id="toggle-all" type="checkbox" {{#unless todos_not_completed}}checked="checked"{{/unless}}>
         <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list">
             {{#each todos}}
@@ -50,21 +43,9 @@
 </template>
 
 <template name="todo">
-    {{#if todo_completed}}
-        <li class="completed">
-    {{else}}
-        {{#if todo_editing}}
-            <li class="editing">
-        {{else}}
-            <li>
-        {{/if}}
-    {{/if}}
+	<li class="{{#if todo_completed}}completed{{/if}} {{#if todo_editing}}editing{{/if}}">
         <div class="view">
-            {{#if todo_completed}}
-                <input class="toggle" type="checkbox" checked="checked">
-            {{else}}
-                <input class="toggle" type="checkbox">
-            {{/if}}
+            <input class="toggle" type="checkbox" {{#if todo_completed}}checked{{/if}}>
             <label>{{title}}</label>
             <button class="destroy"></button>
         </div>
@@ -75,28 +56,16 @@
 <template name="footer">
     <footer id="footer">
         <span id="todo-count"><strong>{{todos_not_completed}}</strong> 
-        	{{#if todos_one_not_completed}} item {{else}} items {{/if}} left</span>
+        	{{#if todos_one_not_completed}}item{{else}}items{{/if}} left</span>
         <ul id="filters">
             <li>
-                {{#if filter_selected filter.all}}
-                    <span class="all selected">All</span>
-                {{else}}
-                    <span class="all">All</span>
-                {{/if}}
+            	<span class="all {{#if filter_selected filter.all}}selected{{/if}}">All</span>
             </li>
             <li>
-                {{#if filter_selected filter.active}}
-                    <span class="active selected">Active</span>
-                {{else}}
-                    <span class="active">Active</span>
-                {{/if}}
+                <span class="active {{#if filter_selected filter.active}}selected{{/if}}">Active</span>
             </li>
             <li>
-                {{#if filter_selected filter.completed}}
-                    <span class="completed selected">Completed</span>
-                {{else}}
-                    <span class="completed">Completed</span>
-                {{/if}}
+                <span class="completed {{#if filter_selected filter.completed}}selected{{/if}}">Completed</span>
             </li>
         </ul>
         {{#if todos_completed}}

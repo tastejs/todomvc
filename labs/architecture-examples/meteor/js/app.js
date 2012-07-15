@@ -37,10 +37,11 @@ if (Meteor.is_client) {
 				evt.type === 'focusout') {
 				// blur/return/enter = ok/submit if non-empty
 				var value = String(evt.target.value || '');
-				if (value)
+				if (value) {
 					ok.call(this, value, evt);
-				else
+				} else {
 					cancel.call(this, evt);
+				}
 			}
 		};
 	};
@@ -60,8 +61,9 @@ if (Meteor.is_client) {
 	// True if the requested filter type is currently selected,
 	// false otherwise
 	Handlebars.registerHelper('filter_selected', function(type) {
-		if (type === 'all')
-			return Session.equals('filter', null);			
+		if (type === 'all') {
+			return Session.equals('filter', null);
+		}			
 		return Session.equals('filter', type);
 	});
 	
@@ -84,7 +86,7 @@ if (Meteor.is_client) {
 	Template.todoapp.events[okcancel_events('#new-todo')] =
 		make_okcancel_handler({
 			ok: function (title, evt) {
-				Todos.insert({title: title, completed: false, 
+				Todos.insert({title: $.trim(title), completed: false, 
 					created_at: new Date().getTime()});
 				evt.target.value = '';
 			}
@@ -112,7 +114,9 @@ if (Meteor.is_client) {
 	Template.main.events = {
 		'click input#toggle-all': function(evt) {
 			var completed = true;
-			if (!Todos.find({completed: false}).count()) completed = false;
+			if (!Todos.find({completed: false}).count()) { 
+				completed = false;
+			}
 			Todos.find({}).forEach(function(todo) {
 				Todos.update({'_id': todo._id}, {$set: {completed: completed}});
 			});
@@ -138,7 +142,7 @@ if (Meteor.is_client) {
 		'click input.toggle': function() {
 			Todos.update(this._id, {$set: {completed: !this.completed}});
 		},
-		'dblclick .view label': function() {
+		'dblclick .view': function() {
 			Session.set('editing_todo', this._id);
 		},
 		'click button.destroy': function() {
@@ -150,11 +154,12 @@ if (Meteor.is_client) {
 	Template.todo.events[okcancel_events('li.editing input.edit')] =
 		make_okcancel_handler({
 			ok: function (value) {
-				Todos.update(this._id, {$set: {title: value}});
 				Session.set('editing_todo', null);
+				Todos.update(this._id, {$set: {title: $.trim(value)}});
 			},
 			cancel: function () {
 				Session.set('editing_todo', null);
+				Todos.remove(this._id);
 			}
 		});
 	
