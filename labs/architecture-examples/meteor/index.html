@@ -59,13 +59,13 @@
         	{{#if todos_one_not_completed}}item{{else}}items{{/if}} left</span>
         <ul id="filters">
             <li>
-            	<span class="all {{#if filter_selected filter.all}}selected{{/if}}">All</span>
+            	<a class="all {{#if filter_selected filter.all}}selected{{/if}}" href="#/">All</a>
             </li>
             <li>
-                <span class="active {{#if filter_selected filter.active}}selected{{/if}}">Active</span>
+                <a class="active {{#if filter_selected filter.active}}selected{{/if}}" href="#/active">Active</a>
             </li>
             <li>
-                <span class="completed {{#if filter_selected filter.completed}}selected{{/if}}">Completed</span>
+                <a class="completed {{#if filter_selected filter.completed}}selected{{/if}}" href="#/completed">Completed</a>
             </li>
         </ul>
         {{#if todos_completed}}

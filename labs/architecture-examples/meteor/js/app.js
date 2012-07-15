@@ -185,13 +185,16 @@ if (Meteor.is_client) {
 		'click button#clear-completed': function() {
 			Todos.remove({completed: true});
 		},
-		'click #filters span.all': function() {
+		'click #filters a.all': function(evt) {
+			evt.preventDefault();
 			Session.set('filter', null);
 		},
-		'click #filters span.active': function() {
+		'click #filters a.active': function(evt) {
+			evt.preventDefault();
 			Session.set('filter', 'active');
 		},
-		'click #filters span.completed': function() {
+		'click #filters a.completed': function(evt) {
+			evt.preventDefault();
 			Session.set('filter', 'completed');
 		}
 	};
