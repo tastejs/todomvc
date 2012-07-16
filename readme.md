@@ -46,6 +46,7 @@ We also have a number of in-progress applications in our [Labs](http://todomvc.c
 - [JavaScriptMVC](http://javascriptmvc.com)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
 - [cujo.js](http://cujojs.github.com)
+- [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
 - [Stapes.js](http://hay.github.com/stapes)
 - [TroopJS](https://github.com/troopjs)
 - [soma.js](http://somajs.github.com/somajs)
