@@ -1,7 +1,7 @@
 require({
 	packages: [{
     	name: "can/dojo",
-    	location: "http://donejs.com/can/dist/edge/",
+    	location: "http://canjs.us/release/latest/",
     	main: "can.dojo"
 	}]
 }, ['can/dojo', 
