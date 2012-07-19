@@ -3,3 +3,9 @@
 .hidden {
   display: none
 }
+
+.all-selected #filters li.all-filter a,
+.active-selected #filters li.active-filter a,
+.completed-selected #filters li.completed-filter a {
+  font-weight: bold;
+}

@@ -33,13 +33,13 @@
 	</script>
 	<script id="filtersTemplate" type="text/x-handlebars">
 		<ul id="filters">
-			<li>
+			<li class="all-filter">
 				<a {{action showAll href=true}}>All </a>
 			</li>
-			<li>
+			<li class="active-filter">
 				<a {{action showActive href=true}}>Active</a>
 			</li>
-			<li>
+			<li class="completed-filter">
 				<a {{action showCompleted href=true}}>Completed</a>
 			</li>
 		</ul>

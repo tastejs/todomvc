@@ -58,6 +58,12 @@
 			}),
 			filtersView: Ember.View.create({
 				templateName: 'filtersTemplate',
+				classNameBindings: 'routerClassName'.w(),
+				currentFilterBinding: 'Todos.entriesController.filterBy',
+				routerClassName: function() {
+					var currentFilter = this.get('currentFilter');
+					return (currentFilter.length ? currentFilter : 'all') + '-selected';
+				}.property( 'currentFilter' )
 			}),
 			clearBtnView: Ember.View.create({
 				entriesBinding: 'controller.namespace.entriesController',
