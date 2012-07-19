@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>noConflict define test</title>
+
+<script>
+var define = function () {}, orig = define;
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+</head>
+<body>
+</body>
+
+<script type="text/javascript">
+
+try {
+	curl({
+			paths: {
+				curl: '../src/curl/'
+			}
+		}
+	);
+	write('FAILED: curl overwrote global define (plz ignore this in IE6. feature works, test doesn\'t');
+}
+catch (ex) {
+	write('SUCCESS: curl threw when it conflicted with no recourse: ' + ex.message);
+}
+
+curl({
+	defineContext: this, defineName: 'define2'
+});
+
+write((orig == define ? 'SUCCESS' : 'FAILED') + ': curl should restore previous define()');
+write((define2 ? 'SUCCESS' : 'FAILED') + ': curl should create non-conflicting define2()');
+
+	function write (msg) {
+		document.body.appendChild(document.createElement('div')).innerHTML = msg;
+	}
+
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>top-level plugin test</title>
+
+<script>
+
+	curl = {
+		baseUrl: 'support',
+		paths: {
+			curl: '../../src/curl',
+			fake: 'fake'
+		},
+		packages: {
+			fake2: { location: './fake', main: '../fake' }
+		}
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	curl(
+		[
+			'fake!',
+			'fake2!',
+			'domReady!'
+		]
+	).then(
+		success,
+		fail
+	);
+
+	function success (fake1, fake2) {
+		write('SUCCESS: top-level plugin was found at top-level using path config');
+		write('SUCCESS: top-level plugin was found at top-level using packages config');
+	}
+
+	function fail (ex) {
+		write('FAILED: ' + ex.message);
+	}
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+
+</body>
+</html>

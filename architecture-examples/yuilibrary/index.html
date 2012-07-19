@@ -4,53 +4,41 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>YUI • TodoMVC</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../../assets/base.css">
+	<link rel="stylesheet" href="css/app.css">
 	<!--[if IE]>
 	<script src="../../assets/ie.js"></script>
 	<![endif]-->
 </head>
 <body>
-	<div id="todo-app">
-		<div class="title">
-			<h1>Todos</h1>
-		</div>
-		<label class="todo-label" for="new-todo"></label>
-		<input type="text" id="new-todo" class="todo-input" placeholder="What needs to be done?">
-		<div id="todos">
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+		</header>
+		<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer"></footer>
+	</section>
+	<footer id="info">
+		<p>Based on code by the YUILibrary team</p>
+		<p>Created by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
+		<p>Rewrite by <a href="https://github.com/sindresorhus">Sindre Sorhus</a></p>
+	</footer>
+	<script type="text/x-template" id="todo-template">
+		<div class="view">
+			<input class="toggle" type="checkbox" {completed}>
+			<label>{title}</label>
+			<button class="destroy"></button>
 		</div>
-		<div id="todo-stats"></div>
-	</div>
-	<div id="credits">
-		This version by
-		<br />
-		<a href="http://twitter.com/addyosmani">Addy Osmani</a>
-		<br />
-		based on code by the YUILibrary team.
-	</div>
-	<script type="text/x-template" id="todo-item-template">
-		<div class="todo-view">
-			<input type="checkbox" class="todo-checkbox" {checked}>
-			<span class="todo-content" tabindex="0">{text}</span>
-		</div>
-
-		<div class="todo-edit">
-			<input type="text" class="todo-input" value="{text}">
-		</div>
-
-		<a href="#" class="todo-remove" title="Remove this task">
-			<span class="todo-remove-icon"></span>
-		</a>
+		<input class="edit" value="{title}">
 	</script>
-	<script type="text/x-template" id="todo-stats-template">
-		<span class="todo-count">
-			<span class="todo-remaining">{numRemaining}</span>
-			<span class="todo-remaining-label">{remainingLabel}</span> left.
-		</span>
-
-		<a href="#" class="todo-clear">
-			Clear {numDone} completed <span class="todo-done-label">{doneLabel}</span>
-		</a>
+	<script type="text/x-template" id="footer-template">
+		<span id="todo-count"><strong>{numRemaining}</strong> {remainingLabel} left</span>
+		<button id="clear-completed">Clear completed ({numCompleted})</button>
 	</script>
 	<script src="../../assets/base.js"></script>
 	<script src="js/yui-3.4.0.min.js"></script>

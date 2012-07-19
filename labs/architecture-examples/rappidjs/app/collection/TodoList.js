@@ -1,51 +1,82 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
+define([
+	'js/data/Collection',
+	'app/model/Todo',
+	'flow'
+], function ( Collection, Todo, flow ) {
+	return Collection.inherit( 'app.collection.TodoList', {
+		$modelFactory: Todo,
 
-requirejs(["rAppid"], function (rAppid) {
-    rAppid.defineClass("app.collection.TodoList", ["js.core.List"], function (List) {
-        return List.inherit({
-            markAll:function (done) {
-                this.each(function (todo) {
-                    todo.setDone(done);
-                });
-            },
-            areAllComplete:function () {
-                if(this.$items.length == 0) return false;
-                for (var i = 0; i < this.$items.length; i++) {
-                    if (!this.$items[i].get("isDone")) {
-                        return false;
-                    }
-                }
-                return true;
-            }.on('change','add','remove'),
-            clearCompleted:function () {
-                console.log("clear completed");
-                for (var i = this.$items.length-1; i >= 0; i--) {
-                    if (this.$items[i].get("isDone")) {
-                        this.removeAt(i);
-                    }
-                }
-            },
-            numOpenTodos:function () {
-                var num = 0;
-                for (var i = 0; i < this.$items.length; i++) {
-                    if (!this.$items[i].get("isDone")) {
-                        num++;
-                    }
-                }
-                return num;
-            }.on('change','add','remove'),
-            numCompletedTodos: function(){
-                var num = 0;
-                for (var i = 0; i < this.$items.length; i++) {
-                    if (this.$items[i].get("isDone")) {
-                        num++;
-                    }
-                }
-                return num;
-            }.on('change', 'add', 'remove'),
-            hasCompletedTodos: function(){
-                return this.numCompletedTodos() > 0;
-            }.on('change','add','remove')
-        });
-    });
+		markAll: function( done ) {
+			this.each(function (todo) {
+				todo.setCompleted( done );
+				todo.save();
+			});
+		},
+
+		areAllComplete: function() {
+			var i, l;
+
+			if ( this.$items.length ) {
+				return false;
+			}
+
+			for ( i = 0, l = this.$items.length; i < l; i++ ) {
+				if ( !this.$items[ i ].isCompleted() ) {
+					return false;
+				}
+			}
+
+			return true;
+		}.on('change', 'add', 'remove'),
+
+		clearCompleted: function() {
+			var self = this;
+
+			// remove all completed todos in a sequence
+			flow().seqEach( this.$items, function( todo, cb ) {
+
+				if ( todo.isCompleted() ) {
+					// remove the todo
+					todo.remove( null, function( err ) {
+						if ( !err ) {
+							self.remove( todo );
+						}
+						cb( err );
+					});
+				} else {
+					cb();
+				}
+			}).exec();
+		},
+
+		numOpenTodos: function() {
+			var i, l,
+				num = 0;
+
+			for ( i = 0, l = this.$items.length; i < l; i++ ) {
+				if ( !this.$items[ i ].isCompleted() ) {
+					num++;
+				}
+			}
+
+			return num;
+		}.on('change', 'add', 'remove'),
+
+		numCompletedTodos: function() {
+			var i, l,
+				num = 0;
+
+			for ( i = 0, l = this.$items.length; i < l; i++ ) {
+				if ( this.$items[ i ].isCompleted() ) {
+					num++;
+				}
+			}
+
+			return num;
+		}.on('change', 'add', 'remove'),
+
+		hasCompletedTodos: function() {
+			return this.numCompletedTodos() > 0;
+		}.on('change', 'add', 'remove')
+	});
 });

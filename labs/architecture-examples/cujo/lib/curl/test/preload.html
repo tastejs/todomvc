@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>preloads test file</title>
+
+<script>
+	curl = {
+			baseUrl: '',
+			paths: {
+				curl: '../src/curl'
+			},
+			preloads: [
+				// load a bunch of stuff so that preloads take time
+				// TODO: devise a test that doesn't rely on this hack
+				'curl/debug',
+				'curl/domReady',
+				'curl/shim/dojo16',
+				'js!stuff/plain_old.js'
+			]
+		};
+	// IE needs a console to operate the debug module
+	console = { log: function () {} };
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	curl(
+		['stuff/one'], // load something or callback will execute asap
+		function () {
+			try {
+				// debug module adds an undefine method to curl and plain_old
+				// adds a global testDomain object
+				if (curl.undefine && testDomain.foo)
+					write('SUCCESS: preloads loaded first');
+				else
+					write('FAILED: preloads not loaded');
+			}
+			catch (ex) {
+				write('FAILED: ' + ex.message);
+			}
+		},
+		function (ex) {alert(ex);
+			write('ERROR: ' + ex.message);
+		}
+	);
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

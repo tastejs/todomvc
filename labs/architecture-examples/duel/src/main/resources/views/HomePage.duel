@@ -12,7 +12,6 @@
 <body>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 		<p>Ported to <a href="http://duelengine.org">DUEL</a> by <a href="http://mck.me">Stephen McKamey</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>

@@ -3,27 +3,37 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
     // Default attributes for the todo.
     defaults: {
-      content: "empty todo...",
-      done: false
+      title: "empty todo...",
+      completed: false
     },
 
-    // Ensure that each todo created has `content`.
+    // Ensure that each todo created has `title`.
     initialize: function() {
-      if (!this.get("content")) {
-        this.set({"content": this.defaults.content});
+      if (!this.get("title")) {
+        this.set({"title": this.defaults.title});
       }
     },
 
-    // Toggle the `done` state of this todo item.
+    // Toggle the `completed` state of this todo item.
     toggle: function() {
-      this.save({done: !this.get("done")});
+      this.save({completed: !this.get("completed")});
     },
 
-    // Remove this Todo from *localStorage*.
+    // Remove this Todo from *localStorage* and delete its view.
     clear: function() {
       this.destroy();
     }
 
   });
+
   return TodoModel;
 });
+
+
+
+
+
+
+
+
+

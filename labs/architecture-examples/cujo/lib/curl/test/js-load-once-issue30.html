@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>js! plugin load once</title>
+
+<script>
+
+	curl = {
+		paths: {
+			curl: '../src/curl'
+		},
+		pluginPath: 'curl/plugin'
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	curl(
+		[
+			'require',
+			'js!stuff/random.js!order!exports=random'
+		]
+	).then(
+		function (require, random) {
+				require(['js!stuff/random.js!exports=random'], function (random2) {
+					if (random == random2) {
+						write('SUCCESS: js file downloaded/executed once');
+					}
+					else {
+						write('FAILED: js file downloaded/executed twice');
+					}
+				});
+		},
+		fail
+	);
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+	function fail (ex) {
+		write('FAILED: ' + ex.message);
+	}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,1 +1,0 @@
-// defined under rAppid.js

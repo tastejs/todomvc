@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>test for github issue #20</title>
+
+<script>
+
+	// mock console for IE
+	if (!window.console) console = {};
+	if (!('log' in console)) {
+		console._msg = [];
+		console.log = function (msg) {
+			var _msg = this._msg;
+			_msg.push(msg && msg.join ? msg.join(' ') : msg);
+			clearTimeout(this._timeout);
+			this._timeout = setTimeout(function () {
+				alert(_msg.join('\n'));
+			}, 100);
+		};
+	}
+
+//	curl = {
+//		pluginPath: '../src/curl/plugin/'
+//	};
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+<!--<script src="../dist/curl-for-jQuery1.7/curl.js" type="text/javascript"></script>-->
+
+
+<script type="text/javascript">
+
+	curl(
+		{
+			paths: {
+				curl: '../src/curl'
+			}
+		},
+		[
+			'js!stuff/plain_old.js'
+		]
+	).then(
+		function (three, link) {
+			setTimeout(function () {
+				document.body.appendChild(document.createTextNode('loaded'));
+			})
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p>You should see the word, "loaded".</p>
+
+</body>
+</html>
