@@ -105,8 +105,24 @@ header nav a:first-child {
 	margin-bottom: 20px;
 }
 
-.applist .row > div {
+.applist {
+	list-style: none;
+	margin: 0;
+	-webkit-columns: 4;
+	-moz-columns: 4;
+	-ms-columns: 4;
+	-o-columns: 4;
+	columns: 4;
+}
+
+.applist li {
 	white-space: nowrap;
+	padding-bottom: 20px;
+	-webkit-column-break-inside: avoid;
+	-moz-column-break-inside: avoid;
+	-ms-column-break-inside: avoid;
+	-o-column-break-inside: avoid;
+	column-break-inside: avoid;
 }
 
 .applist a {
@@ -126,26 +142,20 @@ header nav a:first-child {
 	color: red;
 }
 
+.applist.amd {
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	-ms-columns: 2;
+	-o-columns: 2;
+	columns: 2;
+}
+
 .applist.labs {
 	-webkit-columns: 3;
 	-moz-columns: 3;
 	-ms-columns: 3;
 	-o-columns: 3;
 	columns: 3;
-}
-
-.applist.labs {
-	list-style: none;
-	margin: 0;
-}
-
-.applist.labs li {
-	margin-bottom: 20px;
-	-webkit-column-break-inside: avoid;
-	-moz-column-break-inside: avoid;
-	-ms-column-break-inside: avoid;
-	-o-column-break-inside: avoid;
-	column-break-inside: avoid;
 }
 
 .credit a {
@@ -221,7 +231,7 @@ a.zocial {
 }
 
 @media (max-width: 480px) {
-	.applist.labs {
+	body .applist {
 		-webkit-columns: auto !important;
 		-moz-columns: auto !important;
 		-ms-columns: auto !important;
@@ -261,12 +271,22 @@ a.zocial {
 		margin: auto;
 	}
 
-	.applist.labs {
-		-webkit-columns: 2;
-		-moz-columns: 2;
-		-ms-columns: 2;
-		-o-columns: 2;
-		columns: 2;
+	.applist {
+		-webkit-columns: 2 !important;
+		-moz-columns: 2 !important;
+		-ms-columns: 2 !important;
+		-o-columns: 2 !important;
+		columns: 2 !important;
+	}
+}
+
+@media (max-width: 980px) {
+	.applist {
+		-webkit-columns: 3;
+		-moz-columns: 3;
+		-ms-columns: 3;
+		-o-columns: 3;
+		columns: 3;
 	}
 }
 
