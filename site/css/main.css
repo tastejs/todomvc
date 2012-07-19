@@ -45,7 +45,7 @@ a:hover {
 
 .nav-tabs > li > a,
 .nav-pills > li > a {
-	line-height: 23px;
+	line-height: 20px;
 }
 
 p {
@@ -83,9 +83,8 @@ header nav a:first-child {
 	clear: both;
 }
 
-.vertical-space li {
-	margin: 5px 0;
-	line-height: inherit;
+.nav-pills {
+	margin-left: -10px;
 }
 
 .row {
@@ -96,7 +95,7 @@ header nav a:first-child {
 .screenshot {
 	width: 100%;
 	height: auto;
-	max-width: 570px;
+	max-width: 558px;
 	margin-top: 12px;
 }
 
@@ -111,12 +110,9 @@ header nav a:first-child {
 	margin-bottom: 20px;
 }
 
-.nav-pills {
-	margin-left: -10px;
-}
-
 .applist a {
 	white-space: nowrap;
+	position: relative; /* popover */
 }
 
 .applist .label {
@@ -131,6 +127,8 @@ header nav a:first-child {
 	margin: 0;
 	cursor: default;
 	color: #333;
+	white-space: normal;
+	z-index: 999;
 }
 
 .applist .popover-title {
@@ -151,6 +149,14 @@ header nav a:first-child {
 	-ms-columns: 3;
 	-o-columns: 3;
 	columns: 3;
+}
+
+.applist.labs li {
+	-webkit-column-break-inside: avoid;
+	-moz-column-break-inside: avoid;
+	-ms-column-break-inside: avoid;
+	-o-column-break-inside: avoid;
+	column-break-inside: avoid;
 }
 
 .credit a {

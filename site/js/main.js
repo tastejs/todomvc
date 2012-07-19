@@ -2,17 +2,17 @@
 (function() {
 	'use strict';
 
-	// Demos popover
+	// Apps popover
 	function hover() {
 		$( this ).popover('toggle');
 	}
 
-	$('#demos li a').each(function() {
+	$('.applist a').each(function() {
 		var $this = $( this );
 		$this.popover({
 			placement: 'in right',
 			animation: false,
-			title: $this.text() + '<a href="' + $this.data('source') + '">Go to site</a>'
+			title: $this[0].firstChild.textContent + '<a href="' + $this.data('source') + '">Go to site</a>'
 		});
 	})
 	.off()
@@ -24,38 +24,4 @@
 		}
 	});
 
-	// Contributor list
-	$.ajaxSetup({
-		cache: true
-	});
-	$.getJSON('https://github.com/api/v2/json/repos/show/addyosmani/todomvc/contributors?callback=?', function( res ) {
-		var data = res.contributors;
-		// Add some previous contributors not on the GitHub list
-		[].push.apply( data, [{
-			login: 'tomdale',
-			name: 'Tom Dale'
-		}, {
-			login: 'justinbmeyer',
-			name: 'Justin Meyer'
-		}]);
-		var ret = $.map( data, function( elem ) {
-			var username = elem.login;
-			if ( $.inArray( username, [ 'addyosmani', 'boushley', 'sindresorhus' ] ) >= 0 ) {
-				return;
-			}
-			return '<a href="https://github.com/' + username + '">' + ( elem.name || username ) + '</a>';
-		});
-		$('#contributor-list').show().children('span').html( ret.join(', ') );
-	});
-
-	/*
-	$('#app-preview')[0].contentWindow.localStorage['spine-Todo'] = '[{"title":"Do some nerdy stuff","completed":true,"id":"c-4"},{"title":"Redesign the website","id":"c-6"}]';
-	$('#app-preview').load(function() {
-		var $this = $(this);
-		var $iframe = $this.contents();
-		$iframe.find('html,body').scrollTop(110);
-		$this.show();
-	});
-	*/
-
-})();
+}());
