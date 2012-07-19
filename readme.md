@@ -14,15 +14,16 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 - [Backbone.js](http://documentcloud.github.com/backbone)
 - [Ember.js](http://emberjs.com)
+- [AngularJS](http://angularjs.org)
 - [Spine.js](http://spinejs.com)
 - [KnockoutJS](http://knockoutjs.com) (MVVM)
-- [Knockback.js](http://kmalakoff.github.com/knockback)
 - [Dojo](http://dojotoolkit.org)
-- [Closure](http://code.google.com/closure/library/)
 - [YUI](http://yuilibrary.com)
-- [AngularJS](http://angularjs.org)
-- [Ext.js](http://www.sencha.com/products/extjs)
+- [Batman.js](http://batmanjs.org)
+- [Closure](http://code.google.com/closure/library/)
 - [Agility.js](http://agilityjs.com)
+- [Knockback.js](http://kmalakoff.github.com/knockback)
+
 
 ###### Non MV*
 
@@ -39,23 +40,24 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 We also have a number of in-progress applications in our [Labs](http://todomvc.com/labs) site. These include:
 
+
 - [CanJS](http://canjs.us)
 - [Maria.js](https://github.com/petermichaux/maria)
-- [Batman.js](http://batmanjs.org)
+- [cujo.js](http://cujojs.github.com)
 - [Meteor](http://meteor.com)
+- [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
+- [Ext.js](http://www.sencha.com/products/extjs)
+- [Sammy.js](http://sammyjs.org)
 - [JavaScriptMVC](http://javascriptmvc.com)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
-- [cujo.js](http://cujojs.github.com)
-- [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
-- [Stapes.js](http://hay.github.com/stapes)
 - [TroopJS](https://github.com/troopjs)
+- [Stapes.js](http://hay.github.com/stapes)
 - [soma.js](http://somajs.github.com/somajs)
 - [DUEL](https://bitbucket.org/mckamey/duel/wiki/Home)
 - [Fidel](https://github.com/jgallen23/fidel)
 - [Olives](https://github.com/flams/olives)
 - [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
 - [Dijon](https://github.com/creynders/dijon-framework)
-- [Sammy.js](http://sammyjs.org)
 - [rAppid.js](http://www.rappidjs.com)
 - [Broke](https://github.com/brokenseal/broke)
 - [o_O](http://weepy.github.com/o_O)
