@@ -43,11 +43,6 @@ a:hover {
 	color: #787e7e;
 }
 
-.nav-tabs > li > a,
-.nav-pills > li > a {
-	line-height: 20px;
-}
-
 p {
 	font-size: 15px;
 	line-height: 1.5;
@@ -110,8 +105,11 @@ header nav a:first-child {
 	margin-bottom: 20px;
 }
 
-.applist a {
+.applist .row > div {
 	white-space: nowrap;
+}
+
+.applist a {
 	position: relative; /* popover */
 }
 
@@ -123,24 +121,9 @@ header nav a:first-child {
 	background-color: rgba(0, 0, 0, .2);
 }
 
-.applist .popover {
-	margin: 0;
-	cursor: default;
-	color: #333;
-	white-space: normal;
-	z-index: 999;
-}
-
-.applist .popover-title {
-	padding: 9px 70px 9px 15px;
-}
-
-.applist .popover-title a {
-	font-size: 13px;
-	line-height: 18px;
-	position: absolute;
-	top: 16px;
-	right: 20px;
+.applist a:hover .label {
+	text-decoration: none !important;
+	color: red;
 }
 
 .applist.labs {
@@ -151,7 +134,13 @@ header nav a:first-child {
 	columns: 3;
 }
 
+.applist.labs {
+	list-style: none;
+	margin: 0;
+}
+
 .applist.labs li {
+	margin-bottom: 20px;
 	-webkit-column-break-inside: avoid;
 	-moz-column-break-inside: avoid;
 	-ms-column-break-inside: avoid;
@@ -167,6 +156,26 @@ header nav a:first-child {
 .credit a img {
 	border-radius: 3px;
 	margin-right: 5px;
+}
+
+.popover {
+	margin: 0;
+	cursor: default;
+	color: #333;
+	white-space: normal;
+	z-index: 999;
+}
+
+.popover-title {
+	padding: 9px 70px 9px 15px;
+}
+
+.popover-title a {
+	font-size: 13px;
+	line-height: 18px;
+	position: absolute;
+	top: 16px;
+	right: 20px;
 }
 
 .zocial.red {

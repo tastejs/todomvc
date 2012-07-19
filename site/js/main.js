@@ -2,26 +2,40 @@
 (function() {
 	'use strict';
 
-	// Apps popover
-	function hover() {
-		$( this ).popover('toggle');
-	}
+	$.fn.persistantPopover = function() {
+		var popoverTimeout;
 
-	$('.applist a').each(function() {
-		var $this = $( this );
-		$this.popover({
-			placement: 'in right',
-			animation: false,
-			title: $this[0].firstChild.textContent + '<a href="' + $this.data('source') + '">Go to site</a>'
-		});
-	})
-	.off()
-	.hoverIntent( hover, hover )
-	.on('click', '.popover', function( e ) {
-		// Prevent click on the popover, but allow links inside
-		if ( e.target.nodeName.toLowerCase() !== 'a' ) {
-			e.preventDefault();
+		function delay() {
+			popoverTimeout = setTimeout(function() {
+				$('.popover').hide();
+			}, 100);
 		}
-	});
+
+		this.each(function() {
+			var $this = $( this );
+			$this.popover({
+				trigger: 'manual',
+				placement: 'right',
+				animation: false,
+				title: this.firstChild.textContent + '<a href="' + $this.data('source') + '">Website</a>'
+			});
+		})
+		.mouseenter(function() {
+			clearTimeout( popoverTimeout );
+			$('.popover').remove();
+			$( this ).popover('show');
+		})
+		.mouseleave(function() {
+			delay();
+			$('.popover').mouseenter(function() {
+				clearTimeout( popoverTimeout ) ;
+			}).mouseleave(function() {
+				delay();
+			});
+		});
+	};
+
+	// Apps popover
+	$('.applist a').persistantPopover();
 
 }());
