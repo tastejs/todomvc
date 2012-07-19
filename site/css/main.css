@@ -129,7 +129,8 @@ header nav a:first-child {
 	position: relative; /* popover */
 }
 
-.applist .label {
+.applist .label,
+p .label {
 	position: relative;
 	top: -3px;
 	font-size: 9px;

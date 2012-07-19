@@ -15,7 +15,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - [Backbone.js](http://documentcloud.github.com/backbone)
 - [Ember.js](http://emberjs.com)
 - [AngularJS](http://angularjs.org)
-- [Spine.js](http://spinejs.com)
+- [Spine](http://spinejs.com)
 - [KnockoutJS](http://knockoutjs.com) (MVVM)
 - [Dojo](http://dojotoolkit.org)
 - [YUI](http://yuilibrary.com)
@@ -23,6 +23,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 - [Closure](http://code.google.com/closure/library/)
 - [Agility.js](http://agilityjs.com)
 - [Knockback.js](http://kmalakoff.github.com/knockback)
+- [Google Web Toolkit](https://developers.google.com/web-toolkit/)
 
 
 ###### Non MV*
@@ -38,8 +39,7 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 #### Labs
 
-We also have a number of in-progress applications in our [Labs](http://todomvc.com/labs) site. These include:
-
+We also have a number of in-progress applications in Labs:
 
 - [CanJS](http://canjs.us)
 - [Maria.js](https://github.com/petermichaux/maria)
@@ -49,9 +49,8 @@ We also have a number of in-progress applications in our [Labs](http://todomvc.c
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Sammy.js](http://sammyjs.org)
 - [JavaScriptMVC](http://javascriptmvc.com)
-- [Google Web Toolkit](https://developers.google.com/web-toolkit/)
-- [TroopJS](https://github.com/troopjs)
 - [Stapes.js](http://hay.github.com/stapes)
+- [TroopJS](https://github.com/troopjs)
 - [soma.js](http://somajs.github.com/somajs)
 - [DUEL](https://bitbucket.org/mckamey/duel/wiki/Home)
 - [Fidel](https://github.com/jgallen23/fidel)
@@ -62,7 +61,9 @@ We also have a number of in-progress applications in our [Labs](http://todomvc.c
 - [Broke](https://github.com/brokenseal/broke)
 - [o_O](http://weepy.github.com/o_O)
 - [Fun](https://github.com/marcuswestin/fun)
+- [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
+- [AngularJS](http://angularjs.org) (optimized)
 
 
 ## Live demos
