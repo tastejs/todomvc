@@ -8,42 +8,31 @@
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<link href="site/css/bootstrap.min.css" rel="stylesheet">
-	<link href="site/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="assets/base.css" rel="stylesheet">
-	<link href="site/css/main.css" rel="stylesheet">
-	<link href="site/css/buttons.css" rel="stylesheet"></head>
+	<link rel="stylesheet" href="site/css/bootstrap.min.css">
+	<link rel="stylesheet" href="site/css/bootstrap-responsive.css">
+	<link rel="stylesheet" href="site/css/main.css">
+</head>
 <body>
 	<div class="container">
 		<header class="row">
 			<div class="span8">
-				<img class="logo" src="site/img/logo.png" width="500"/>
-				<p>
-					Helping you <strong>select</strong>
-					a MV* framework
-				</p>
+				<img class="logo" src="site/img/logo.png" width="500">
+				<p>Helping you <strong>select</strong> a MV* framework</p>
 				<nav>
 					<a href="#" class="zocial red">Download (1.0)</a>
 					<a href="#" class="zocial red">Project on GitHub</a>
 				</nav>
 			</div>
 			<div class="span4">
-				<img id="icon" src="site/css/Todo MVC.png" width="350"></div>
+				<img class="logo-icon" src="site/img/logo-icon.png" width="330" height="330" alt="TodoMVC">
+			</div>
 		</header>
 		<div class="row">
 			<div class="span4">
 				<h2>Introduction</h2>
-				<p>
-					Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong>
-					for structuring and organizing JavaScript web apps. Backbone, Spine, Ember (SproutCore 2.0), JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you
-					<strong>decide</strong>
-					on which to use in a sea of so many options?
-				</p>
-				<p>
-					To help solve this problem, we created
-					<a href="http://github.com/addyosmani/todomvc">TodoMVC</a>
-					- a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.
-				</p>
+				<p>Developers these days are spoiled with choice when it comes to selecting an <strong>MV* framework</strong>
+					for structuring and organizing JavaScript web apps. Backbone, Spine, Ember (SproutCore 2.0), JavaScriptMVC... the list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?</p>
+				<p>To help solve this problem, we created <a href="https://github.com/addyosmani/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p>
 			</div>
 			<div class="span8 applist">
 				<h2>Our Stable Apps</h2>
@@ -136,17 +125,18 @@
 						<a href="architecture-examples/jquery/index.html" data-source="http://jquery.com/" data-content="jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.">jQuery</a>
 					</div>
 				</div>
-                                <p>* <span class="label">R</span> = App also demonstrates routing</p>
+				<p>* <span class="label">R</span> = App also demonstrates routing</p>
 			</div>
 		</div>
 		<hr>
-		<h2>Scroll down for 20 more framework apps in Labs</h2>
+		<div class="row">
+			<h2 style="text-align:center;font-weight:300">Scroll down for 30 more framework apps in Labs</h2>
+		</div>
+		<hr>
 		<div class="row">
 			<div class="span6">
-				<img id="screenshot" src="site/screenshot.png">
-				<p style="font-size:25px;font-weight:400;margin-top:40px;font-style:italic">
-					TodoMVC is a common learning application for popular JavaScript MV* frameworks
-				</p>
+				<img class="screenshot" src="site/img/screenshot.png">
+				<p class="tagline2">TodoMVC is a common learning application for popular JavaScript MV* frameworks</p>
 			</div>
 			<div class="span6">
 				<h2>Introduction</h2>
@@ -173,64 +163,26 @@
 		<div class="row">
 			<div class="span4">
 				<h2>Labs</h2>
-				<p>
-					Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.
-				</p>
-				<p>
-					Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.
-				</p>
-				<p>
-					Please
-					<strong>ensure</strong>
-					that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.
-				</p>
+				<p>[text about labs? or something else?]</p>
 			</div>
 			<div class="span4">
 				<h2>Selecting a Framework</h2>
-				<p>
-					Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.
-				</p>
-				<p>
-					Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.
-				</p>
-				<p>
-					Please
-					<strong>ensure</strong>
-					that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.
-				</p>
+				<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.</p>
+				<p>Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
+				<p>Please ensure that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
 			</div>
 			<div class="span4">
 				<h2>Getting Involved</h2>
+				<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
+				<p>If so, feel free to fork the repo, read our <a href="https://github.com/addyosmani/todomvc/wiki">contribution guidelines</a>, and submit a pull request &mdash; we'll be happy to review it for inclusion.</p>
+				<p>Make sure you use the <a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a> as a starting point and read the <a href="https://github.com/addyosmani/todomvc/wiki/App-Specification">app specification</a>.</p>
 				<p>
-					Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?
-				</p>
-				<p>
-					If so, feel free to fork the repo, read our
-					<a href="https://github.com/addyosmani/todomvc/wiki">contribution guidelines</a>
-					, and submit a pull request &mdash; we'll be happy to review it for inclusion.
-				</p>
-				<p>
-					Make sure you use the
-					<a href="https://github.com/addyosmani/todomvc/tree/master/template">template</a>
-					as a starting point and read the
-					<a href="https://github.com/addyosmani/todomvc/wiki/App-Specification">app specification</a>
-					.
-				</p>
-				<p>
-					<a class="zocial black" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request &raquo;</a>
+					<a class="zocial small gray" href="https://github.com/addyosmani/todomvc/pull/new/master">Submit Pull Request &raquo;</a>
 				</p>
 			</div>
 		</div>
-		<div class="row apps">
-			<div class="span3">
-				<h2>Optimized</h2>
-				<ul class="nav nav-pills">
-					<li>
-						<a href="architecture-examples/angularjs-perf/index.html" data-source="http://angularjs.org/" data-content="What HTML would have been
-had it been designed for web apps. A version with several performance optimizations.">AngularJS (Optimized)</a>
-					</li>
-				</ul>
-			</div>
+		<hr>
+		<div class="row applist labs">
 			<div class="span3">
 				<h2>Labs</h2>
 				<ul class="nav nav-pills">
@@ -245,96 +197,89 @@ had it been designed for web apps. A version with several performance optimizati
 					</li>
 					<li>
 						<a href="labs/architecture-examples/stapes/index.html" data-source="http://hay.github.com/stapes/" data-content="Stapes is a (really) tiny Javascript MVC micro-framework (1.7kb) that has all the building blocks you need when writing an MVC app. It includes a powerful event system, support for inheritance, use with AMD, plugin support and more. A RequireJS Todo application is <a href='dependency-examples/stapes_require/index.html'>also</a>
-						available.">Stapes *
-					</a>
-				</li>
-
-				<li>
-					<a href="labs/architecture-examples/troopjs/index.html" data-source="https://github.com/troopjs/" data-content="TroopJS attempts to package popular front-end technologies and bind them with minimal effort for the developer. It includes jQuery for DOM manipulation, ComposeJS for object composition, RequireJS for modularity and Has.js for feature detection. On top, it includes Pub/Sub support, templating, weaving (widgets to DOM) and auto-wiring.">TroopJS *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/fun/index.html" data-source="https://github.com/marcuswestin/fun" data-content="Fun is not an MVC framework, but a programming language meant to tackle MVC/UI programming on a deeper, more fundamental level - part reactive/functional and part sequential/procedural.">Fun *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/duel/www/index.html" data-source="https://bitbucket.org/mckamey/duel/wiki/Home" data-content="DUEL is a dual-side templating engine using HTML for layout and 100% pure JavaScript as the binding language. The same views may be executed both directly in the browser (client-side template) and on the server (server-side template).">DUEL *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/fidel/index.html" data-source="https://github.com/jgallen23/fidel" data-content="Fidel is a micro-framework for building widgets, modules and plugins. It resembles the controller in Spine.js and could be considered a controller library. Having not heavily needed models and routing in some of the single-page applications the author built, he found a library focusing on controller logic more useful.">Fidel</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/broke/index.html" data-source="https://github.com/brokenseal/broke-client" data-content="The Broke Javascript Framework is a porting of the fantastic Django Web Framework on Javascript. It summarizes all the best concepts present in Django like url resolving, decoupling, DRY principle, project-specific settings and a pretty simple template engine. It could be put in the big Javascript MVC frameworks group outside there, but, as Django is, this is more a MTV (Model-Template-View) framework.">Broke.js</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/o_O/index.html" data-source="http://weepy.github.com/o_O/" data-content="o_O: HTML binding for teh lulz: &lt;br>
-						- Elegantly binds objects to HTML&lt;br>- Proxies through jQuery, Ender, etc&lt;br>- Automatic dependency resolution&lt;br>- Plays well with others">Funnyface.js *
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="span3">
-			<h2></h2>
-			<ul class="nav nav-pills">
-				<li>
-					<a href="labs/architecture-examples/javascriptmvc/todo/todo/index.html" data-source="http://javascriptmvc.com/" data-content="JavaScriptMVC is an open-source framework containing the best ideas in jQuery development. It guides you to successfully completed projects by promoting best practices, maintainability, and convention over configuration.">JavaScriptMVC</a>
-				</li>
-
-				<li>
-					<a href="labs/architecture-examples/batman/index.html" data-source="http://batmanjs.org/" data-content="Batman.js is a framework for building rich web applications with CoffeeScript or JavaScript. App code is concise and declarative, thanks to a powerful system of view bindings and observable properties. The API is designed with developer and designer happiness as its first priority.">Batman.js *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/olives/index.html" data-source="https://github.com/flams/olives" data-content="Olives is a JS MVC framework that helps you create realtime UIs. It includes a set of AMD/CommonJS modules that are easily extensive, a high level of abstraction to reduce boilerplate and is based on socket.io, to provide a powerful means to communicate with node.js.">Olives *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/somajs/index.html" data-source="http://somajs.github.com/somajs" data-content="soma.js is a JavaScript Model-View-Controller (MVC) framework that is meant to help developers to write loosely-coupled applications to increase scalability and maintainability.">soma.js *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/rappidjs/index.html" data-source="http://www.rappidjs.com" data-content="rAppid.js is a declarative JavaScript framework for rapid web application development. It supports dependency loading, Model-View binding, View-Model binding, dependency injection and i18n.">rAppid.js</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/dijon/index.html" data-source="https://github.com/creynders/dijon-framework" data-content="Dijon is an IOC and DI micro-framework for Javascript. Originally it was meant to be a port of Robotlegs, but deviated to something quite different. It remains however heavily inspired by Robotlegs, and more specifically Swiftsuspenders.">Dijon *</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/sammyjs/index.html" data-source="http://sammyjs.org/" data-content="Sammy.js is a tiny JavaScript framework developed to ease the pain and provide a basic structure for developing JavaScript applications.">Sammy.js</a>
-				</li>
-				<li>
-					<a href="labs/dependency-examples/knockoutjs_require/index.html" data-source="" data-content="This project is an adaptation of /architecture-examples/knockoutjs with require.js.">Knockout + Require.js *</a>
-				</li>
-				<li>
-					<a href="labs/dependency-examples/angularjs_require/index.html" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps. This is an example of using it with AMD modules.">AngularJS + RequireJS</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/plastronjs/index.html" data-source="https://github.com/rhysbrettbowen/PlastronJS" data-content="PlastronJS is an mvc framework built on top of the Closure Library and built to compile with projects that use the Closure Compiler.">PlastronJS *</a>
-				</li>
-			</ul>
-		</div>
-		<div class="span3">
-			<h2></h2>
-			<ul class="nav nav-pills">
-				<li>
-					<a href="labs/architecture-examples/canjs/dojo/index.html" data-source="http://canjs.us" data-content="CanJS with Dojo. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (Dojo)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/dojo-widget/index.html" data-source="http://canjs.us" data-content="CanJS with Dojo (includes a Dojo widget binding example). CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (Dojo Widget)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/jquery/index.html" data-source="http://canjs.us" data-content="CanJS with jQuery. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (jQuery)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/jquery-widget/index.html" data-source="http://canjs.us" data-content="CanJS with jQuery (includes a jQuery UI widget binding example). CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (jQuery Widget)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/mootools/index.html" data-source="http://canjs.us" data-content="CanJS with Mootools. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (MooTools)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/yui/index.html" data-source="http://canjs.us" data-content="CanJS with YUI. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (YUI)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/yui-widget/index.html" data-source="http://canjs.us" data-content="CanJS with YUI (includes a YUI widget binding example). CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (YUI Widget)</a>
-				</li>
-				<li>
-					<a href="labs/architecture-examples/canjs/zepto/index.html" data-source="http://canjs.us" data-content="CanJS with Zepto. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (Zepto)</a>
-				</li>
-			</ul>
+						available.">Stapes *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/troopjs/index.html" data-source="https://github.com/troopjs/" data-content="TroopJS attempts to package popular front-end technologies and bind them with minimal effort for the developer. It includes jQuery for DOM manipulation, ComposeJS for object composition, RequireJS for modularity and Has.js for feature detection. On top, it includes Pub/Sub support, templating, weaving (widgets to DOM) and auto-wiring.">TroopJS *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/fun/index.html" data-source="https://github.com/marcuswestin/fun" data-content="Fun is not an MVC framework, but a programming language meant to tackle MVC/UI programming on a deeper, more fundamental level - part reactive/functional and part sequential/procedural.">Fun *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/duel/www/index.html" data-source="https://bitbucket.org/mckamey/duel/wiki/Home" data-content="DUEL is a dual-side templating engine using HTML for layout and 100% pure JavaScript as the binding language. The same views may be executed both directly in the browser (client-side template) and on the server (server-side template).">DUEL *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/fidel/index.html" data-source="https://github.com/jgallen23/fidel" data-content="Fidel is a micro-framework for building widgets, modules and plugins. It resembles the controller in Spine.js and could be considered a controller library. Having not heavily needed models and routing in some of the single-page applications the author built, he found a library focusing on controller logic more useful.">Fidel</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/broke/index.html" data-source="https://github.com/brokenseal/broke-client" data-content="The Broke Javascript Framework is a porting of the fantastic Django Web Framework on Javascript. It summarizes all the best concepts present in Django like url resolving, decoupling, DRY principle, project-specific settings and a pretty simple template engine. It could be put in the big Javascript MVC frameworks group outside there, but, as Django is, this is more a MTV (Model-Template-View) framework.">Broke.js</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/o_O/index.html" data-source="http://weepy.github.com/o_O/" data-content="o_O: HTML binding for teh lulz: &lt;br>
+							- Elegantly binds objects to HTML&lt;br>- Proxies through jQuery, Ender, etc&lt;br>- Automatic dependency resolution&lt;br>- Plays well with others">Funnyface.js *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/javascriptmvc/todo/todo/index.html" data-source="http://javascriptmvc.com/" data-content="JavaScriptMVC is an open-source framework containing the best ideas in jQuery development. It guides you to successfully completed projects by promoting best practices, maintainability, and convention over configuration.">JavaScriptMVC</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/batman/index.html" data-source="http://batmanjs.org/" data-content="Batman.js is a framework for building rich web applications with CoffeeScript or JavaScript. App code is concise and declarative, thanks to a powerful system of view bindings and observable properties. The API is designed with developer and designer happiness as its first priority.">Batman.js *</a>
+					</li>
+					<li>
+							<a href="labs/architecture-examples/socketstream/index.html" data-source="http://www.socketstream.org" data-content="SocketStream is a fast, modular Node.js web framework dedicated to building realtime single-page apps">SocketStream + jQuery</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/olives/index.html" data-source="https://github.com/flams/olives" data-content="Olives is a JS MVC framework that helps you create realtime UIs. It includes a set of AMD/CommonJS modules that are easily extensive, a high level of abstraction to reduce boilerplate and is based on socket.io, to provide a powerful means to communicate with node.js.">Olives *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/somajs/index.html" data-source="http://somajs.github.com/somajs" data-content="soma.js is a JavaScript Model-View-Controller (MVC) framework that is meant to help developers to write loosely-coupled applications to increase scalability and maintainability.">soma.js *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/rappidjs/index.html" data-source="http://www.rappidjs.com" data-content="rAppid.js is a declarative JavaScript framework for rapid web application development. It supports dependency loading, Model-View binding, View-Model binding, dependency injection and i18n.">rAppid.js</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/dijon/index.html" data-source="https://github.com/creynders/dijon-framework" data-content="Dijon is an IOC and DI micro-framework for Javascript. Originally it was meant to be a port of Robotlegs, but deviated to something quite different. It remains however heavily inspired by Robotlegs, and more specifically Swiftsuspenders.">Dijon *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/sammyjs/index.html" data-source="http://sammyjs.org/" data-content="Sammy.js is a tiny JavaScript framework developed to ease the pain and provide a basic structure for developing JavaScript applications.">Sammy.js</a>
+					</li>
+					<li>
+						<a href="labs/dependency-examples/knockoutjs_require/index.html" data-source="" data-content="This project is an adaptation of /architecture-examples/knockoutjs with require.js.">Knockout + Require.js *</a>
+					</li>
+					<li>
+						<a href="labs/dependency-examples/angularjs_require/index.html" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps. This is an example of using it with AMD modules.">AngularJS + RequireJS</a>
+					</li>
+					<li>
+							<a href="architecture-examples/angularjs-perf/index.html" data-source="http://angularjs.org/" data-content="What HTML would have been
+	had it been designed for web apps. A version with several performance optimizations.">AngularJS (Optimized)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/plastronjs/index.html" data-source="https://github.com/rhysbrettbowen/PlastronJS" data-content="PlastronJS is an mvc framework built on top of the Closure Library and built to compile with projects that use the Closure Compiler.">PlastronJS *</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/dojo/index.html" data-source="http://canjs.us" data-content="CanJS with Dojo. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (Dojo)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/dojo-widget/index.html" data-source="http://canjs.us" data-content="CanJS with Dojo (includes a Dojo widget binding example). CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (Dojo Widget)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/jquery/index.html" data-source="http://canjs.us" data-content="CanJS with jQuery. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (jQuery)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/jquery-widget/index.html" data-source="http://canjs.us" data-content="CanJS with jQuery (includes a jQuery UI widget binding example). CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (jQuery Widget)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/mootools/index.html" data-source="http://canjs.us" data-content="CanJS with Mootools. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (MooTools)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/yui/index.html" data-source="http://canjs.us" data-content="CanJS with YUI. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (YUI)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/yui-widget/index.html" data-source="http://canjs.us" data-content="CanJS with YUI (includes a YUI widget binding example). CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (YUI Widget)</a>
+					</li>
+					<li>
+						<a href="labs/architecture-examples/canjs/zepto/index.html" data-source="http://canjs.us" data-content="CanJS with Zepto. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS (Zepto)</a>
+					</li>
+				</ul>
 		</div>
 	</div>
 	<hr>
