@@ -1,0 +1,8 @@
+<li {{#completed}}class="completed"{{/completed}} data-id="{{id}}">
+	<div class="view">
+		<input class="toggle" type="checkbox" {{#completed}}checked{{/completed}}>
+		<label>{{title}}</label>
+		<button class="destroy"></button>
+	</div>
+	<input class="edit" value="{{title}}">
+</li>
