@@ -1,4 +1,4 @@
-YUI.add('mvc-todo', function (Y) {
+YUI.add('todo', function (Y) {
     "use strict";
     // -- Todo Model -------------
     var Todo = Y.Base.create('todo', Y.Model, [Y.ModelSync.Local], {
@@ -28,7 +28,7 @@ YUI.add('mvc-todo', function (Y) {
     });
 
     // Set this Model under our custom Y.MVC namespace.
-    Y.namespace('MVC').Todo = Todo;
+    Y.namespace('TodoMVC').Todo = Todo;
 
 }, '@VERSION@', {
     requires: [

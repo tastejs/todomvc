@@ -1,4 +1,4 @@
-YUI.add('mvc-todo-view', function (Y) {
+YUI.add('todo-view', function (Y) {
     "use strict";
 
     // -- Todo View -------------------
@@ -92,8 +92,8 @@ YUI.add('mvc-todo-view', function (Y) {
         }
     });
 
-    // Set this View under our custom Y.MVC namespace.
-    Y.namespace('MVC').TodoView = TodoView;
+    // Set this View under our custom Y.TodoMVC namespace.
+    Y.namespace('TodoMVC').TodoView = TodoView;
 }, '@VERSION@', {
     requires: [
         'view',

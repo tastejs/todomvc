@@ -1,8 +1,8 @@
-YUI.add('mvc-todos', function (Y) {
+YUI.add('todo-list', function (Y) {
     "use strict";
     
     // Dependencies from Y.MVC.
-    var Todo = Y.MVC.Todo,
+    var Todo = Y.TodoMVC.Todo,
         TodoList;
 
     // -- TodoList Model list -----
@@ -31,12 +31,12 @@ YUI.add('mvc-todos', function (Y) {
     });
 
     // Set this Model List under our custom Y.MVC namespace.
-    Y.namespace('MVC').TodoList = TodoList;
+    Y.namespace('TodoMVC').TodoList = TodoList;
 
 }, '@VERSION@', {
     requires: [
         'model-sync-local',
         'model-list',
-        'mvc-todo'
+        'todo'
     ]
 });

@@ -1,9 +1,9 @@
-YUI.add('mvc-app-view', function (Y) {
+YUI.add('todo-app', function (Y) {
     "use strict";
 
     // Dependencies from MVC namespace.
-    var TodoList = Y.MVC.TodoList,
-        TodoView = Y.MVC.TodoView,
+    var TodoList = Y.TodoMVC.TodoList,
+        TodoView = Y.TodoMVC.TodoView,
         TodoApp;
    
     // -- Main Application --------------
@@ -227,12 +227,12 @@ YUI.add('mvc-app-view', function (Y) {
     });
 
     // Namespace this application under our custom Y.MVC namespace.
-    Y.namespace('MVC').TodoApp = TodoApp;
+    Y.namespace('TodoMVC').TodoApp = TodoApp;
 }, '@VERSION@', {
     requires: [
         'app',
-        'mvc-todos',
-        'mvc-todo-view',
+        'todo-list',
+        'todo-view',
         'node',
         'event-focus'
     ]
