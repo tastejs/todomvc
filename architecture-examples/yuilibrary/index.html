@@ -59,31 +59,27 @@
                 'todo-mvc': {
                     base: './js/',
                     modules: {
-                        'mvc-todo': {
+                        'todo': {
                             path: 'models/todo.js',
-                            requires: ['model-sync-local', 'model']
+                            requires: ['gallery-model-sync-local', 'model']
                         },
-                        'mvc-todos': {
+                        'todo-list': {
                             path: 'models/todolist.js',
-                            requires: ['model-sync-local', 'model-list', 'mvc-todo']
+                            requires: ['gallery-model-sync-local', 'model-list', 'todo']
                         },
-                        'mvc-todo-view': {
+                        'todo-view': {
                             path: 'views/todoview.js',
                             requires: ['view', 'handlebars']
                         },
-                        'mvc-todo-app': {
+                        'todo-app': {
                             path: 'app.js',
-                            requires: ['app', 'mvc-todos', 'mvc-app-view']
-                        },
-                        'model-sync-local': {
-                            path: 'lib/model-sync-local.js',
-                            requires: ['model', 'io-base', 'json-stringify']
+                            requires: ['app', 'todo-list', 'todo-view']
                         }
                     }
                 }
             }
-        }).use('mvc-todo-app', function (Y) {
-            var app = new Y.MVC.TodoApp();
+        }).use('todo-app', function (Y) {
+            var app = new Y.TodoMVC.TodoApp();
         });
     </script>
 </body>
