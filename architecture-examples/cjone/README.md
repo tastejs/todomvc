@@ -1,4 +1,4 @@
-# ClojureScript One
+# ClojureScript One TodoMVC
 
 
 # Getting started
