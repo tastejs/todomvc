@@ -123,11 +123,12 @@ YUI.add('todo-app', function (Y) {
         // Create and save a new Todo from the inputted value when the
         // Enter key is pressed down.
         enterCreate: function (e) {
-            var todoList  = this.get('todoList'),
+            var ENTER_KEY = 13,
+                todoList  = this.get('todoList'),
                 inputNode = this.get('inputNode'),
                 value     = Y.Escape.html(Y.Lang.trim(inputNode.get('value')));
 
-            if (e.keyCode !== 13 || !value) {
+            if (e.keyCode !== ENTER_KEY || !value) {
                 return;
             }
 

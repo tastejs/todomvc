@@ -81,7 +81,8 @@ YUI.add('todo-view', function (Y) {
 
         // Also allow updating the Todo's text through the enter key.
         enterUpdate: function (e) {
-            if (e.keyCode === 13) {
+            var ENTER_KEY = 13;
+            if (e.keyCode === ENTER_KEY) {
                 this.close();
             }
         },
