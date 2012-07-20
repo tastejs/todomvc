@@ -14,16 +14,16 @@ YUI.add('todo-list', function (Y) {
         // The root used for our localStorage key.
         root: 'todos-yui',
 
-        // Return an Array of our completed Models.
+        // Return a ModelList of our completed Models.
         completed: function () {
-            return this.filter(function (todo) {
+            return this.filter({ asList: true }, function (todo) {
                 return todo.get('completed');
             });
         },
 
-        // Return an Array of our un-completed Models.
+        // Return an ModelList of our un-completed Models.
         remaining: function () {
-            return this.filter(function (todo) {
+            return this.filter({ asList: true }, function (todo) {
                 return !todo.get('completed');
             });
         }
@@ -35,7 +35,7 @@ YUI.add('todo-list', function (Y) {
 
 }, '@VERSION@', {
     requires: [
-        'model-sync-local',
+        'gallery-model-sync-local',
         'model-list',
         'todo'
     ]

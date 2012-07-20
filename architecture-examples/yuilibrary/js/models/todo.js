@@ -32,7 +32,7 @@ YUI.add('todo', function (Y) {
 
 }, '@VERSION@', {
     requires: [
-        'model-sync-local',
+        'gallery-model-sync-local',
         'model'
     ]
 });
