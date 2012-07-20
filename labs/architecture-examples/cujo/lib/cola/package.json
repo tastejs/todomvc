@@ -1,0 +1,48 @@
+{
+    "name": "cola",
+    "version": "0.1.0",
+    "description": "cujo object linking architecture",
+    "keywords": ["data binding", "data linking", "rest", "data"],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/cujojs/cola"
+        }
+    ],
+    "bugs": "https://github.com/cujojs/cola/issues",
+    "maintainers": [
+        {
+            "name": "John Hann",
+            "web": "http://unscriptable.com"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Brian Cavalier",
+            "web": "http://hovercraftstudios.com"
+        },
+        {
+            "name": "John Hann",
+            "web": "http://unscriptable.com"
+        }
+    ],
+    "dependencies": {
+        "when": "~1"
+    },
+    "devDependencies": {
+        "buster": "~0.5"
+    },
+    "main": "./cola",
+    "directories": {
+        "test": "test"
+    },
+	"scripts": {
+		"test": "buster test -e node"
+	}
+}

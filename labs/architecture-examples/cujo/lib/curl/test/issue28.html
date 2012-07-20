@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>test for github issue #28</title>
+
+<script src="../src/curl.js" type="text/javascript"></script>
+<!--<script src="support/curl-0.5.3.js"></script>-->
+<!--<script src="support/curl-0.5.4.js"></script>-->
+
+<script type="text/javascript">
+
+	curl(
+		{
+			baseUrl: '', // default path
+			paths: {
+				'curl': '../src/curl',
+				'css!': '//ajax.googleapis.com/ajax/libs/dojo/1.6', // default path for css! resources
+				'css!dijit': '//ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes',
+				'css!dojo/dojo.css': '//ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/dojo.css'
+			}
+		},
+		[
+			'stuff/css-on-cdn',
+			'domReady!'
+		]
+	).then(
+		function (cssOnCdn) {
+			var doc = document,
+				testEl = doc.getElementById('test'),
+				msg,
+				testVal;
+
+			function getStyle (el, prop) {
+				return window.getComputedStyle ?
+					window.getComputedStyle(el, null)[prop] :
+					el.currentStyle[prop]
+			}
+
+			testVal = cssOnCdn;
+			msg = testVal ?
+				'SUCCESS: test module loaded.' :
+				'FAILED: test module file not loaded.';
+			doc.body.appendChild(doc.createElement('div')).innerHTML = msg;
+
+			testVal = getStyle(testEl, 'display');
+			msg = testVal.toLowerCase() == 'inline-block' ?
+				'SUCCESS: claro.css file loaded.' :
+				'FAILED: claro.css file not loaded.';
+			doc.body.appendChild(doc.createElement('div')).innerHTML = msg;
+
+			testVal = getStyle(testEl, 'fontFamily');
+			msg = testVal.toLowerCase().indexOf('tahoma') >= 0 ?
+				'SUCCESS: dojo.css file loaded.' :
+				'FAILED: dojo.css file not loaded.';
+			doc.body.appendChild(doc.createElement('div')).innerHTML = msg;
+		},
+		function (ex) {
+			var doc = document;
+			doc.body.appendChild(doc.createElement('div')).innerHTML = 'Failed: ' + ex.message;
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p id="test" class="dijitInlineTable">Success or failure message below:</p>
+
+</body>
+</html>

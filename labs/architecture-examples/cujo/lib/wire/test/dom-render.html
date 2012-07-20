@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>dom/render plugin test</title>
+
+    <script src="test-config.js"></script>
+
+    <script type="text/javascript">
+
+		var simpleText = 'this is a simple template',
+			replace = {
+				foo: 'foo',
+				bar: 'bar'
+			};
+
+		define('template-simple', '<div>' + simpleText + '</div>');
+		define('template-whitespace', '\n<div>' + simpleText + '</div>\n');
+		define('template-with-root-attributes', '<div class="foo bar" role="menuitem" aria-haspopup="true">this element has attributes</div>');
+		define('template-with-children', '<div>top-level element <code>child element</code></div>');
+		define('template-with-strict-parent', '<li>this is a list item</li>');
+		define('template-with-complexity', '<div class="foo bar" role="menuitem" aria-haspopup="true">top-level element<span>child element</span></div>');
+		define('template-from-plugin', '<div>top-level element from plugin<code>child element</code> with replace foo=${foo}</div>');
+		define('template-with-multi-level-replace', '<div class="${data.class}">${data.content}</div>');
+
+        require(['wire'], function(wire) {
+
+			var wired, dfds = [], undef;
+
+			wired = wire({
+				plugins: [
+//					{ module: 'wire/debug' },
+					{ module: 'wire/dom' },
+					{ module: 'wire/dom/render' }
+				],
+				node1: {
+					create: {
+						module: 'wire/dom/render',
+						args: [
+							{ module: 'template-simple' },
+							{},
+							{ $ref: 'dom!node1' }
+						]
+					}
+				},
+				node2: {
+					create: {
+						module: 'wire/dom/render',
+						args: [
+							{ module: 'template-with-root-attributes' },
+							{},
+							{ $ref: 'dom!node2' }
+						]
+					}
+				},
+				node3: {
+					create: {
+						module: 'wire/dom/render',
+						args: [
+							{ module: 'template-with-children' },
+							{},
+							{ $ref: 'dom!node3' }
+						]
+					}
+				},
+				node4: {
+					create: {
+						module: 'wire/dom/render',
+						args: [
+							{ module: 'template-with-strict-parent' },
+							{},
+							{ $ref: 'dom!node4' }
+						]
+					}
+				},
+				node5: {
+					render: {
+						template: { module: 'template-from-plugin' },
+						replace: replace,
+						at: { $ref: 'dom!node5' }
+					}
+				},
+				node6: {
+					render: {
+						template: { module: 'template-with-multi-level-replace' },
+						replace: {
+							data: {
+								'class': 'class1 class2',
+								content: 'some content'
+							}
+						},
+						at: { $ref: 'dom!node6' }
+					}
+				},
+				whitespace: {
+					render: {
+						template: { module: 'template-whitespace' }
+					}
+				},
+				justATag: {
+					render: 'td'
+				},
+				tree: {
+					render: '<table><tr><td>foo</td><td>bar</td></tr></table>'
+				},
+				leadingGarbage: {
+					render: '123<table><tr><td>foo</td><td>bar</td></tr></table>'
+				},
+				trailingGarbage: {
+					render: '<table><tr><td>foo</td><td>bar</td></tr></table>123'
+				}
+			});
+
+            doh.register('template-simple', [
+                function hasTextContent(doh) {
+                    var dohd = new doh.Deferred();
+					dfds.push(dohd);
+                    wired.then(
+                        function(context) {
+							dohd.callback(simpleText == context.node1.innerHTML);
+                        },
+                        function(e) {
+                            dohd.errback(e);
+                        }
+                    );
+                    return dohd;
+				}
+			]);
+
+            doh.register('template-with-strict-parent', [
+                function allowsStrictParent(doh) {
+                    var dohd = new doh.Deferred();
+					dfds.push(dohd);
+                    wired.then(
+                        function(context) {
+							// test doesn't need to do much. either we get here or we don't!
+							dohd.callback('LI' == context.node4.tagName);
+                        },
+                        function(e) {
+                            dohd.errback(e);
+                        }
+                    );
+                    return dohd;
+				}
+			]);
+
+            doh.register('template-with-root-attributes', [
+                function hasAttributeFromTemplate(doh) {
+                    var dohd = new doh.Deferred();
+					dfds.push(dohd);
+                    wired.then(
+                        function(context) {
+							dohd.callback('true' == context.node2.getAttribute('aria-haspopup'));
+                        },
+                        function(e) {
+                            dohd.errback(e);
+                        }
+                    );
+                    return dohd;
+				},
+                function hasAttributeFromRefNode(doh) {
+                    var dohd = new doh.Deferred();
+					dfds.push(dohd);
+                    wired.then(
+                        function(context) {
+							dohd.callback('node2' == context.node2.id);
+                        },
+                        function(e) {
+                            dohd.errback(e);
+                        }
+                    );
+                    return dohd;
+				},
+				function hasCombinedClasses(doh) {
+					var dohd = new doh.Deferred();
+					dfds.push(dohd);
+					wired.then(
+						function(context) {
+							dohd.callback(hasSameItems(['foo', 'bar', 'orig2'], context.node2.className.split(' ')));
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+					return dohd;
+				}
+            ]);
+
+			doh.register('template-with-children', [
+				function hasChildren(doh) {
+					var dohd = new doh.Deferred();
+					dfds.push(dohd);
+					wired.then(
+						function(context) {
+							dohd.callback(hasChildWithTagName(context.node3, 'CODE'));
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+					return dohd;
+				}
+
+			]);
+
+			doh.register('template-with-multi-level-replace', [
+				function multiLevel(doh) {
+					var dohd = new doh.Deferred();
+					dfds.push(dohd);
+					wired.then(
+						function(context) {
+							var classNames, innerHTML;
+							classNames = context.node6.className.split(' ');
+							innerHTML = context.node6.innerHTML;
+							dohd.callback(hasSameItems(['class1', 'class2', 'orig6'], classNames) && innerHTML == 'some content');
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+					return dohd;
+				}
+
+			]);
+
+			doh.register('template-from-plugin', [
+				function hasContent(doh) {
+					var dohd = new doh.Deferred();
+					dfds.push(dohd);
+					wired.then(
+						function(context) {
+							dohd.callback(hasChildWithTagName(context.node5, 'CODE'));
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+					return dohd;
+				},
+				function replacedToken(doh) {
+					var dohd = new doh.Deferred();
+					dfds.push(dohd);
+					wired.then(
+						function(context) {
+							dohd.callback(/foo=foo/.test(context.node5.innerHTML));
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+					return dohd;
+				}
+			]);
+
+			doh.register('template-whitespace', [
+				function ignoreLeadingWhitespace(doh) {
+					var dohd = new doh.Deferred();
+					dfds.push(dohd);
+					wired.then(
+						function(context) {
+							dohd.callback(context.whitespace.nodeType == 1);
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+					return dohd;
+				}
+			]);
+
+			wired.then(function (context) {
+
+				doh.register('inline templates', [
+					function nakedTagNameRendersSingleElement(doh) {
+						doh.assertEqual(context.justATag.tagName, 'TD');
+					},
+					function inlineTemplateRendersDomTree(doh) {
+						doh.assertEqual(context.tree.tagName, 'TABLE');
+					},
+					function renderIgnoresLeadingGarbage(doh) {
+						doh.assertEqual(context.leadingGarbage.tagName, 'TABLE');
+					},
+					function renderIgnoresTrailingGarbage(doh) {
+						doh.assertEqual(context.trailingGarbage.tagName, 'TABLE');
+					}
+				]);
+
+				doh.run();
+			});
+
+        });
+
+		function hasSameItems(arr1, arr2) {
+			var i, sorted
+			if (!arr1 || !arr2 || arr1.length != arr2.length) return false;
+			sorted = [arr1.sort(), arr2.sort()];
+			for (i = 0; i < sorted[0].length; i++) {
+				if (sorted[0][i] != sorted[1][i]) return false;
+			}
+			return true;
+		}
+
+		function hasChildWithTagName(node, tagName) {
+			for (var i = 0; i < node.childNodes.length; i++) {
+				if (node.childNodes[i].tagName == tagName) return true;
+			}
+			return false;
+		}
+
+    </script>
+</head>
+<body>
+<div>
+    <p id="node1" class="orig1"></p>
+    <p id="node2" class="orig2"></p>
+    <p id="node3" class="orig3"></p>
+    <ol id="node4" class="orig4"></ol>
+	<p id="node5" class="orig5"></p>
+	<p id="node6" class="orig6"></p>
+</div>
+</body>
+</html>

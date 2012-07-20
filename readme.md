@@ -1,30 +1,32 @@
 # TodoMVC
 
-#### A common learning application for popular JavaScript MV* frameworks
+#### Helping you select an MV\* framework
 
 
 ## Introduction
 
-Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing JavaScript web apps. Backbone, Spine, Ember.js, AngularJS, JavaScriptMVC... The list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
+Developers these days are spoiled with choice when it comes to selecting an MV\* framework for structuring and organizing JavaScript web apps.
 
-To help solve this problem, TodoMVC was created - a project which offers the same Todo application implemented using MVC concepts in most of the popular JavaScript MV* frameworks of today. Solutions look and feel the same, have a common feature set, and make it easy for you to compare the syntax and structure of different frameworks, so you can select the one you feel the most comfortable with.
+Backbone, Ember, AngularJS, Spine... the list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
+
+To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV\* frameworks of today.
 
 
 #### Todo apps are included for:
 
 - [Backbone.js](http://documentcloud.github.com/backbone)
 - [Ember.js](http://emberjs.com)
-- [JavaScriptMVC](http://javascriptmvc.com)
-- [Spine.js](http://spinejs.com)
-- [KnockoutJS](http://knockoutjs.com) (MVVM)
-- [Knockback.js](http://kmalakoff.github.com/knockback)
-- [Dojo](http://dojotoolkit.org)
-- [Closure](http://code.google.com/closure/library/)
-- [YUI](http://yuilibrary.com)
 - [AngularJS](http://angularjs.org)
-- [AngularJS](http://angularjs.org) + [PersistenceJS](http://persistencejs.org)
-- [Ext.js](http://www.sencha.com/products/extjs)
+- [Spine](http://spinejs.com)
+- [KnockoutJS](http://knockoutjs.com) (MVVM)
+- [Dojo](http://dojotoolkit.org)
+- [YUI](http://yuilibrary.com)
+- [Batman.js](http://batmanjs.org)
+- [Closure](http://code.google.com/closure/library/)
 - [Agility.js](http://agilityjs.com)
+- [Knockback.js](http://kmalakoff.github.com/knockback)
+- [Google Web Toolkit](https://developers.google.com/web-toolkit/)
+
 
 ###### Non MV*
 
@@ -39,13 +41,16 @@ To help solve this problem, TodoMVC was created - a project which offers the sam
 
 #### Labs
 
-We also have a number of in-progress applications in our [Labs](http://addyosmani.github.com/todomvc/labs) site. These include:
+We also have a number of in-progress applications in Labs:
 
 - [CanJS](http://canjs.us)
 - [Maria.js](https://github.com/petermichaux/maria)
-- [Batman.js](http://batmanjs.org)
+- [cujo.js](http://cujojs.github.com)
 - [Meteor](http://meteor.com)
-- [Google Web Toolkit](https://developers.google.com/web-toolkit/)
+- [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
+- [Ext.js](http://www.sencha.com/products/extjs)
+- [Sammy.js](http://sammyjs.org)
+- [JavaScriptMVC](http://javascriptmvc.com)
 - [Stapes.js](http://hay.github.com/stapes)
 - [TroopJS](https://github.com/troopjs)
 - [soma.js](http://somajs.github.com/somajs)
@@ -54,11 +59,13 @@ We also have a number of in-progress applications in our [Labs](http://addyosman
 - [Olives](https://github.com/flams/olives)
 - [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
 - [Dijon](https://github.com/creynders/dijon-framework)
-- [Sammy.js](http://sammyjs.org)
 - [rAppid.js](http://www.rappidjs.com)
 - [Broke](https://github.com/brokenseal/broke)
 - [o_O](http://weepy.github.com/o_O)
 - [Fun](https://github.com/marcuswestin/fun)
+- [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
+- [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
+- [AngularJS](http://angularjs.org) (optimized)
 
 
 ## Live demos
@@ -135,4 +142,4 @@ Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at
 
 ## License
 
-Public Domain
+[The Unlicense](unlicense.org) (i.e Public Domain)

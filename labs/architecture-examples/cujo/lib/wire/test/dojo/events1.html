@@ -1,0 +1,59 @@
+    <!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Dojo connect test</title>
+
+    <script src="../test-config.js"></script>
+
+	<script type="text/javascript">
+		define('handler', [], function() {
+			return {
+				handleEvent: function(e) {
+					this.context.destroy().then(function() {
+						e.target.innerHTML = "Success!";
+						console.log("DESTROYED");
+					});
+				}
+			};
+		});
+		
+		require(['wire'], function(wire) {
+			wire({
+				plugins: [
+					{ module: 'wire/debug' },
+					{ module: 'wire/dojo/events' },
+					{ module: 'wire/dom' }
+				],
+				handler: {
+					// Get the handler module (see above).  Note that it is a singleton
+					// since the module doesn't return a function (constructor or otherwise)
+					// that can be invoked--it returns an object.
+					module: "handler",
+					// Use the wire/dojo/events plugin to declare that when the
+					// #test button is clicked, handler's handleEvent method will
+					// be called.
+					connect: {
+						"dom!test": {
+							"click": "handleEvent"
+						}
+					}
+				}
+			}).then(
+				function(context) {
+                    context.handler.context = context;
+					console.log("Done", context);
+				},
+				function(err) {
+					console.log(err);
+				}
+			);
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<button id="test">Click me!</button>
+	</div>
+</body>
+</html>
