@@ -1,0 +1,577 @@
+/* RESET */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dd,
+dl,
+dt,
+li,
+ol,
+ul,
+fieldset,
+form,
+label,
+legend,
+button,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 100%;
+  line-height: 1;
+  font-family: inherit;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#content ol, #content ul {
+  list-style: none;
+  list-style-position: outside;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+#content li
+{
+  display: list-item;
+}
+
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+html {
+  overflow-y: scroll;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+a:focus {
+  outline: thin dotted;
+}
+a:hover, a:active {
+  outline: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* ****************************************************************************************
+ * 
+ * MAIN
+ * 
+ **************************************************************************************** */
+body {
+  background-color: #d3def7;
+  background-image: url('/images/main-background-noise.png');
+  color: #404040;
+  font-family: "Museo300", sans-serif;
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+}
+
+code {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #0f3617;
+  font-family: Courier, monospace;
+  font-size: .8em;
+  padding: 2px 4px;
+}
+
+.panel code {
+  background-color: #c0efb6;
+}
+
+p {
+  line-height: 1.8em;
+}
+
+p strong {
+  font-family: "Museo700", serif;
+}
+
+a, a:hover, a:visited {
+  color: #248e0f;
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul, li
+{
+  line-height: 1.6em;
+}
+
+h1, h2 {
+  color: #3c4764;
+  font-family: "Museo700", serif;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 1.0);
+  padding-bottom: 10px;
+}
+
+h1 {
+  font-family: "Chunkfive", serif;
+  font-size: 4.4em;
+}
+
+h2 {
+  border-bottom: 3px dashed #d3def7;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.section {
+  padding: 30px 30px;
+}
+
+#index-header {
+  background-image: url('/images/index-header.png');
+  height: 264px;
+  padding-bottom: 0;
+  padding-top: 80px;
+}
+
+#index-header p {
+  font-size: 110%;
+  line-height: 160%;
+}
+
+.panel {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fbfbfb;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #fafafa;
+  margin: 0px 5px 40px 5px;
+}
+
+.panel-index {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fbfbfb;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #fafafa;
+  margin: 0px 5px 40px 5px;
+  width: 240px;
+  height: 250px;
+  float: left;
+}
+
+.panel-index p {
+  font-family: Helvetica, sans-serif;
+  font-size: 0.9em;
+  line-height: 160%;
+  height: 130px;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+#content {
+}
+
+#form, #greeting {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#form {
+  background: url('/images/form-background-gradient.png') center center no-repeat;
+  margin-top: -40px;
+  padding-top: 160px;
+  height: 447px;
+}
+
+#form h2 {
+  color: #3c4764;
+  font-family: "Museo500", serif;
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 1.0);
+}
+
+#greeting {
+  background: url("/images/greeting-cloud.png") top center no-repeat;
+  margin: 0 auto;
+  width: 494px;
+  height: 344px;
+}
+
+#greeting h2, #greeting h3
+{
+  border-bottom: none;
+  color: #57c142;
+  font-family: "Museo700", serif;
+  text-shadow: 0 1px 0 #3e3e3e;
+}
+
+#greeting h2 {
+  font-size: 3.2em;
+  padding: 122px 0 10px 0;
+}
+
+#greeting > * {
+  margin: 0 auto;
+}
+
+.break {
+  border-bottom: 3px dashed #d9dee9;
+  height: 5px;
+  width: 370px;
+}
+
+#greeting h3 {
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+.small {
+  font-size: .8em;
+}
+
+.error {
+  color: #cc5b5b;
+  padding-top: 10px;
+}
+
+.input
+{
+  padding: 40px 0;
+}
+
+input[type="text"] {
+  -moz-box-shadow: inset 0 1px 4px 0 rgba(173, 184, 210, 0.75);
+  -webkit-box-shadow: inset 0 1px 4px 0 rgba(173, 184, 210, 0.75);
+  box-shadow: inset 0 1px 4px 0 rgba(173, 184, 210, 0.75),
+              0 0 4px 2px rgba(173, 184, 210, 0.75);
+  outline: none;
+  border: 1px solid #fff;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  font-family: 'Museo300', serif;
+  font-size: 1em;
+  padding: 10px;
+  text-align: center;
+}
+
+#name-input-label
+{
+  display: block;
+  margin: 0 auto;
+  width: 254px;
+}
+
+#name-input-label span
+{
+  color: #bbc4d7;
+  cursor: text;
+  display: block;
+  padding-top: 12px;
+  position: absolute;
+  width: 254px;
+  z-index: 1;
+}
+
+.clearfix {
+  clear: both;
+}
+
+/* TOOLBAR */
+
+.topbar {
+  height: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  overflow: visible;
+  background-color: #3c4764;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.topbar .container {
+  max-width: 960px;
+}
+
+.topbar a {
+  color: #bfbfbf;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.topbar a.brand {
+  text-decoration: none;
+}
+
+.topbar .brand {
+  float: left;
+  display: block;
+  padding: 8px 20px 12px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 1;
+}
+
+.topbar #navigation {
+  margin-right: 20px;
+}
+
+.topbar div > ul, .nav {
+  display: block;
+  float: right;
+  margin: 0 0 0 10px;
+  position: relative;
+  left: 0;
+}
+.topbar div > ul > li, .nav > li {
+  display: block;
+  float: left;
+}
+.topbar div > ul a, .nav a {
+  display: block;
+  float: none;
+  padding: 10px 10px 11px;
+  line-height: 19px;
+  text-decoration: none;
+}
+.topbar div > ul a:hover, .nav a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.topbar div > ul .active > a, .nav .active > a {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * Green Button
+ */
+input.button, a.button {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px #63ce66,
+                0 0 0 1px rgba(255, 255, 255, 0.75),
+                0 1px 4px 0 rgba(0, 0, 0, 0.35);
+    color: #555;
+    display: inline-block;
+    margin: 10px 0 10px 0;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fafafa;
+}
+
+input.button.green, a.button.green {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #57c142;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#57c142), to(#43ad2e));
+    background: -moz-linear-gradient(#57c142, #43ad2e);
+    background: linear-gradient(#57c142, #43ad2e);
+    border: solid 1px #2e9c3a;
+    border-bottom: solid 3px #116101;
+    color: #fff;
+    font-family: "Chunkfive", serif;
+    font-size: 1.3em;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
+}
+    
+input.button.green:hover, a.button.green:hover {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #57c142;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#43ad2e), to(#57c142));
+    background: -moz-linear-gradient(#43ad2e, #57c142);
+    background: linear-gradient(#43ad2e, #57c142);
+    border: solid 1px #2e9c3a;
+    border-bottom: solid 3px #116101;
+}
+    
+input.button.green:active, a.button.green:active {
+    background: #43ad2e;
+    border: solid 1px #6e883f;
+    box-shadow: inset 0 0 0 1px #116101,
+                inset 0 0 6px 1px rgba(0, 0, 0, 0.65),
+                0 0 0 1px rgba(255, 255, 255, 0.75),
+                0 1px 4px 0 rgba(0, 0, 0, 0.35);
+    margin-top: 8px;
+}
+
+/* FONTS */
+@font-face {
+  font-family: "Chunkfive";
+  src: url("fonts/Chunkfive-webfont.eot");
+  src: local("☺"),
+    url("fonts/Chunkfive-webfont.woff") format("woff"),
+    url("fonts/Chunkfive-webfont.otf") format("opentype"),
+    url("fonts/Chunkfive-webfont.svg#Chunkfive-webfont") format("svg");
+}
+
+@font-face {
+    font-family: 'Museo300';
+    src: url('fonts/Museo300-Regular-webfont.eot');
+    src: url('fonts/Museo300-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Museo300-Regular-webfont.woff') format('woff'),
+         url('fonts/Museo300-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Museo300-Regular-webfont.svg#Museo300') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Museo500';
+    src: url('fonts/Museo500-Regular-webfont.eot');
+    src: url('fonts/Museo500-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Museo500-Regular-webfont.woff') format('woff'),
+         url('fonts/Museo500-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Museo500-Regular-webfont.svg#Museo500') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Museo700';
+    src: url('fonts/Museo700-Regular-webfont.eot');
+    src: url('fonts/Museo700-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Museo700-Regular-webfont.woff') format('woff'),
+         url('fonts/Museo700-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Museo700-Regular-webfont.svg#Museo700') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

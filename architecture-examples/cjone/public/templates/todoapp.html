@@ -1,0 +1,45 @@
+
+  <section id="todoapp">
+    <header id="header">
+      <h1>todos</h1>
+      <input id="new-todo" placeholder="What needs to be done?" autofocus="">
+    </header>
+
+    <!-- This section should be hidden by default and shown when there are todos -->
+    <section id="main" style="display: none; ">
+      <input type="checkbox" id="toggle-all">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list">
+      </ul>
+    </section>
+
+    <footer style="display: none;" id="footer">
+      <!-- This should be `0 items left` by default -->
+      <span id="todo-count"><strong>1</strong> item left</span>
+      <!-- Remove this if you don't implement routing -->
+      <ul id="filters">
+	<li>
+	  <a href="#/all" class="selected">All</a>
+	</li>
+	<li>
+	  <a href="#/active">Active</a>
+	</li>
+	<li>
+	  <a href="#/completed">Completed</a>
+	</li>
+      </ul>
+      <button id="clear-completed">Clear completed (1)</button>
+    </footer>
+
+  </section>
+
+  <footer id="info">
+    <p>Double-click to edit a todo</p>
+    <p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
+    <!-- Change this out with your name and url ¡ý -->
+    <p>Created
+      by <a href="http://github.com/phperret">Pierre-Henry Perret</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
+
+
