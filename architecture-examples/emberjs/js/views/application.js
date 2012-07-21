@@ -58,6 +58,16 @@
 			}),
 			filtersView: Ember.View.create({
 				templateName: 'filtersTemplate',
+				filterBinding: 'controller.namespace.entriesController.filterBy',
+				isAll: function() {
+					return !!Ember.empty( this.get('filter') );
+				}.property( 'filter' ),
+				isActive: function() {
+					return !!( this.get('filter') === 'active' );
+				}.property('filter'),
+				isCompleted: function() {
+					return !!( this.get('filter') === 'completed' );
+				}.property('filter')
 			}),
 			clearBtnView: Ember.View.create({
 				entriesBinding: 'controller.namespace.entriesController',
