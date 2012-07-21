@@ -39,6 +39,7 @@
 
 (add-watch !todos :todos-change-key
            (fn [k r o n]
+             (save-todos!)
              (swap! !count assoc :count (todo-count) :left (todo-count false) :completed (todo-count true))
              (dispatch/fire :todos-change {:old o :new n :count @!count})
 ))
@@ -159,10 +160,13 @@
                    (fn [t d]
                      (clear-completed!)))
 
+(dispatch/react-to #{:dom-loaded}
+                   (fn [t d]
+                     (load-todos!)))
 ;;;;;;;;;;;;;;;;;;;
 ;;Persistence
 
-(def ls-key "todos-c2")
+(def ls-key "todos-cjone")
 (defn save-todos! []
   (aset js/localStorage ls-key
         (pr-str (map #(dissoc % :editing?) ;;Don't save editing state

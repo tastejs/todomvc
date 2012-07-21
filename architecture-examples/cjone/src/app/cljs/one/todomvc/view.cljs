@@ -34,7 +34,8 @@
 
 (defmethod render :init [_]
   (def/start)
-  (add-input-event-listeners "new-todo"))
+  (add-input-event-listeners "new-todo")
+  (dispatch/fire :dom-loaded))
 
 (defmethod render :all [_]
   (swap! !filter :all))
