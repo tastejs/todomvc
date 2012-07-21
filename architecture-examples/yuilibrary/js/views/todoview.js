@@ -34,9 +34,6 @@ YUI.add('todo-view', function (Y) {
             var model = this.get('model');
 
             model.after('change', this.render, this);
-            model.after('destroy', function () {
-                this.destroy({remove: true});
-            }, this);
         },
 
         // Render this view in our <li> container, and fill it with the
@@ -71,7 +68,7 @@ YUI.add('todo-view', function (Y) {
                 editedValue = Y.Escape.html(Y.Lang.trim(value));
             
             this.get('container').removeClass('editing');
-            
+
             if (editedValue) {
                 this.get('model').save({title: editedValue});
             } else {
