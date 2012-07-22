@@ -123,7 +123,7 @@ If you have an implementation you would like to show us or a patch you would lik
 * Going through our [application specification](https://github.com/addyosmani/todomvc/wiki/App-Specification)
 * Looking at our most recent [reference application](https://github.com/addyosmani/todomvc/tree/master/architecture-examples/spine)
 
-One of us will be happy to review your submission and discuss any changes that may be required before they can be included.
+One of us will be happy to review your submission and discuss any changes that may be required before they can be included. Applications will typically land first in Labs, reaching the 'stable' mark once we have verified they meet all of the application specifications referenced above.
 
 
 ### Unit Tests
@@ -137,7 +137,9 @@ If you are a library author or contributor wishing to start work on writing test
 
 ### A Final Note
 
-Note that due to the current number of MVC/MVVM/MV* frameworks in circulation at the moment, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. We hope you understand :)
+Note that due to the current number of MVC/MVVM/MV* frameworks in circulation, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision :)
+
+For applications that we feel don't quite match the goals of the project, but which we feel still offer value, we're happy to include references to them in our official [wiki](https://github.com/addyosmani/todomvc/wiki/Other-implementations).
 
 
 ## License
