@@ -1,4 +1,3 @@
-
 // Require.js allows us to configure shortcut alias
 require.config({
 
@@ -12,7 +11,7 @@ require.config({
 	    'backbone': {
 	        deps: ['underscore', 'jquery'],
 	        exports: 'Backbone'
-	    },
+	    }
 
 	},
 
