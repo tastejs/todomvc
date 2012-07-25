@@ -1,3 +1,0 @@
-define({
-	itWorks: 'it works'
-});

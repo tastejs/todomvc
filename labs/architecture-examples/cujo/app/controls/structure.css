@@ -18,8 +18,6 @@
 
 #clear-completed {
 	opacity: 1;
-	/* TODO: this is theme/skin. Move to a theme file */
-	-webkit-transition: all .1s ease;
 }
 .completed-zero #clear-completed {
     opacity: 0;

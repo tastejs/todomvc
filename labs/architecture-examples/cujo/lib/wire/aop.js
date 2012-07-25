@@ -13,13 +13,10 @@
 (function(define) {
 define(['aop', 'when', './lib/connection'], function(aop, when, connection) {
 
-    var adviceTypes, whenAll, chain, deferred, undef;
-
-    whenAll  = when.all;
-    chain    = when.chain;
-    deferred = when.defer;
+	var adviceTypes, adviceStep, undef;
 
 	adviceTypes = ['before', 'around', 'after', 'afterReturning', 'afterThrowing'];
+	adviceStep = 'connect:before';
 
     //
     // Decoration
@@ -54,7 +51,7 @@ define(['aop', 'when', './lib/connection'], function(aop, when, connection) {
             promises.push(doDecorate(target, d, options[d], wire));
         }
 
-        chain(whenAll(promises), resolver);
+        when.chain(when.all(promises), resolver);
     }
 
 	//
@@ -162,7 +159,7 @@ define(['aop', 'when', './lib/connection'], function(aop, when, connection) {
         applyAdvice = applyAspectCombined;
 
         // Reduce will preserve order of aspects being applied
-        chain(when.reduce(aspects, function(target, aspect) {
+        when.chain(when.reduce(aspects, function(target, aspect) {
             var aspectPath;
 
             if (aspect.advice) {
@@ -229,16 +226,10 @@ define(['aop', 'when', './lib/connection'], function(aop, when, connection) {
             // Plugin
             plugin = {
                 facets: {
-                    decorate:  makeFacet('configure', decorateFacet),
-					afterResolving: {
-						create: makeAdviceFacet(addAfterResolvingAdvice, woven)
-					},
-					afterRejecting: {
-						create: makeAdviceFacet(addAfterRejectingAdvice, woven)
-					},
-					afterPromise: {
-						create: makeAdviceFacet(addAfterPromiseAdvice, woven)
-					}
+                    decorate:       makeFacet('configure', decorateFacet),
+					afterResolving: makeFacet(adviceStep, makeAdviceFacet(addAfterResolvingAdvice, woven)),
+					afterRejecting: makeFacet(adviceStep, makeAdviceFacet(addAfterRejectingAdvice, woven)),
+					afterPromise:   makeFacet(adviceStep, makeAdviceFacet(addAfterPromiseAdvice, woven))
                 }
             };
 
@@ -251,9 +242,7 @@ define(['aop', 'when', './lib/connection'], function(aop, when, connection) {
 			// Add all regular single advice facets
 			for(i = 0, len = adviceTypes.length; i<len; i++) {
 				adviceType = adviceTypes[i];
-				plugin.facets[adviceType] = {
-					create: makeAdviceFacet(makeSingleAdviceAdd(adviceType), woven)
-				};
+				plugin.facets[adviceType] = makeFacet(adviceStep, makeAdviceFacet(makeSingleAdviceAdd(adviceType), woven));
 			}
 
 			return plugin;

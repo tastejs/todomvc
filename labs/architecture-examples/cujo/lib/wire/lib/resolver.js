@@ -26,26 +26,30 @@ define(['when'], function(when) {
 		},
 
 		create: function(name, options) {
-			var self = this;
+			var self, split, resolver;
+
+			self = this;
+
+			split = name.indexOf('!');
+			resolver = name.substring(0, split);
+			name = name.substring(split + 1);
+
 			return {
+				resolver: resolver,
 				name: name,
 				options: options,
 				resolve: function() {
-					return self._resolve(name, options);
+					return self._resolve(resolver, name, options);
 				}
 			}
 		},
 
-		_resolve: function(name, options) {
-			var deferred, split, resolverName, resolver;
+		_resolve: function(resolverName, name, options) {
+			var deferred, resolver;
 
 			deferred = when.defer();
-			split = name.indexOf('!');
 
-			if (split > 0) {
-				resolverName = name.substring(0, split);
-				name = name.substring(split + 1);
-
+			if (resolverName) {
 				resolver = this._resolvers[resolverName];
 
 				if (resolver) {

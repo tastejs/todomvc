@@ -27,11 +27,9 @@ define(function() {
 		var begotten;
 
 		if (forceConstructor || isConstructor(ctor)) {
-			WireComponent.prototype = ctor.prototype;
-			WireComponent.prototype.constructor = ctor;
-			begotten = new WireComponent(ctor, args);
-
-			WireComponent.prototype = undef;
+			begotten = Object.create(ctor.prototype);
+			defineConstructorIfPossible(begotten, ctor);
+			ctor.apply(begotten, args);
 
 		} else {
 			begotten = ctor.apply(undef, args);
@@ -42,12 +40,23 @@ define(function() {
 	};
 
 	/**
-	 * Constructor used to beget objects that wire needs to create using new.
-	 * @param ctor {Function} real constructor to be invoked
-	 * @param args {Array} arguments to be supplied to ctor
+	 * Carefully sets the instance's constructor property to the supplied
+	 * constructor, using Object.defineProperty if available.  If it can't
+	 * set the constructor in a safe way, it will do nothing.
+	 * @param instance {Object} component instance
+	 * @param ctor {Function} constructor
 	 */
-	function WireComponent(ctor, args) {
-		return ctor.apply(this, args);
+	function defineConstructorIfPossible(instance, ctor) {
+		try {
+			Object.defineProperty(instance, 'constructor', {
+				value: ctor,
+				enumerable: false
+			});
+		} catch(e) {
+			// If we can't define a constructor, oh well.
+			// This can happen if in envs where Object.defineProperty is not
+			// available, or when using cujojs/poly or other ES5 shims
+		}
 	}
 
 	/**

@@ -40,6 +40,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+(function(define) {
 define(['when', 'aop', './lib/functional', './lib/connection'],
 function(when, aop, functional, connection) {
 
@@ -101,3 +102,12 @@ function(when, aop, functional, connection) {
         }
     };
 });
+})(typeof define == 'function'
+	? define
+	: function(deps, factory) {
+		module.exports = factory.apply(this, deps.map(function(x) {
+			return require(x);
+		}));
+	}
+);
+

@@ -1,3 +1,0 @@
-[submodule "test/util"]
-	path = test/util
-	url = https://github.com/dojo/util.git

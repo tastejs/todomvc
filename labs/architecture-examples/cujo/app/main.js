@@ -1,5 +1,9 @@
 define({
 
+	// Cujo uses OOCSS principles and thus separates theme (skin)
+	// from structure CSS.
+	theme: { module: 'css!theme/base.css' },
+
 	// The root node where all the views will be inserted
 	root: { $ref: 'dom!todoapp' },
 
