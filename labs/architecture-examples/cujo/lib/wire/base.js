@@ -26,7 +26,7 @@ define(['when', './lib/object', './lib/functional', './lib/component'], function
 	}
 
 	function invoke(func, proxy, args, wire) {
-        return when(wire(args),
+        return when(wire(args, func, proxy.path),
 			function (resolvedArgs) {
 				return proxy.invoke(func, asArray(resolvedArgs));
 			}
@@ -40,11 +40,11 @@ define(['when', './lib/object', './lib/functional', './lib/component'], function
 			return invoke(options, facet, [], wire);
 
 		} else {
-			var promises, func;
+			var promises, funcName;
 			promises = [];
 
-			for(func in options) {
-				promises.push(invoke(func, facet, options[func], wire));
+			for(funcName in options) {
+				promises.push(invoke(funcName, facet, options[funcName], wire));
 			}
 
 			return whenAll(promises);
@@ -136,12 +136,14 @@ define(['when', './lib/object', './lib/functional', './lib/component'], function
 
 	function propertiesFacet(resolver, facet, wire) {
 
-		when(wire(facet.options),
-			function(wiredProperties) {
-				Object.keys(wiredProperties).forEach(function(name) {
-					facet.set(name, wiredProperties[name]);
-				});
-		}).then(resolver.resolve, resolver.reject);
+		when.reduce(Object.keys(facet.options), function(properties, key) {
+			return wire(properties[key], key, facet.path).then(
+				function(wiredProperty) {
+					facet.set(key, wiredProperty);
+					return properties;
+				}
+			);
+		}, facet.options).then(resolver.resolve, resolver.reject);
 
 	}
 
@@ -262,10 +264,9 @@ define(['when', './lib/object', './lib/functional', './lib/component'], function
 		} else if(wire.resolver.isRef(create)) {
 			promise = wire(create);
 		} else {
+			promise = wire(create);
 			args = create.args;
 			isConstructor = create.isConstructor;
-
-			promise = wire(create);
 		}
 
 		chain(when(promise, handleModule), resolver);
@@ -281,7 +282,7 @@ define(['when', './lib/object', './lib/functional', './lib/component'], function
 			if (typeof module == 'function') {
 				// Instantiate or invoke it and use the result
 				return args
-					? when(wire(asArray(args), { name: name }), resolve)
+					? when(wire(asArray(args)), resolve)
 					: resolve([]);
 
 			} else {

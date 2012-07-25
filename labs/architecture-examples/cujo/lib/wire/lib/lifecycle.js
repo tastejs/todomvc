@@ -10,27 +10,39 @@ define(['when'], function(when) {
 
 	"use strict";
 
+	var lifecyclePhases, phase;
+
+	lifecyclePhases = {
+		init: generateSteps(['create', 'configure', 'initialize']),
+		startup: generateSteps(['connect', 'ready']),
+		shutdown: generateSteps(['destroy'])
+	};
+
 	function Lifecycle(config) {
 		this._config = config;
 	}
 
-	Lifecycle.prototype = {
-		startup: function(proxy) {
-			return processLifecycle(proxy, this._config);
-		},
-
-		shutdown: function(proxy) {
-			return processListeners('destroy', proxy, this._config);
-		}
-	};
+	// Generate prototype from lifecyclePhases
+	for(phase in lifecyclePhases) {
+		Lifecycle.prototype[phase] = createLifecyclePhase(phase);
+	}
 
 	return Lifecycle;
 
-	function processLifecycle(proxy, config) {
-		return when.reduce(config.lifecycleSteps,
-			function (unused, step) {
-				return processFacets(step, proxy, config);
+	/**
+	 * Generate a method to process all steps in a lifecycle phase
+	 * @param phase
+	 * @return {Function}
+	 */
+	function createLifecyclePhase(phase) {
+		var steps = lifecyclePhases[phase];
+
+		return function(proxy) {
+			var self = this;
+			return when.reduce(steps, function (unused, step) {
+				return processFacets(step, proxy, self._config);
 			}, proxy);
+		}
 	}
 
 	function processFacets(step, proxy, config) {
@@ -51,7 +63,7 @@ define(['when'], function(when) {
 
 		when.all(promises,
 			function () {
-				return when.chain(processListeners(step, proxy, config), d, proxy.target);
+				return when.chain(processListeners(step, proxy, config), d, proxy);
 			},
 			function (e) { d.reject(e); }
 		);
@@ -85,7 +97,16 @@ define(['when'], function(when) {
 		}
 	}
 
+	function generateSteps(steps) {
+		return steps.reduce(reduceSteps, []);
+	}
 
+	function reduceSteps(lifecycle, step) {
+		lifecycle.push(step + ':before');
+		lifecycle.push(step);
+		lifecycle.push(step + ':after');
+		return lifecycle;
+	}
 });
 })(typeof define == 'function'
 	// AMD

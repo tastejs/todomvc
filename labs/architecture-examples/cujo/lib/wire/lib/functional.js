@@ -100,7 +100,8 @@ define(['when'], function (when) {
 	 * @param proxy {Object} wire proxy on which to invoke the final method of the composition
 	 * @param composeString {String} function composition string
 	 *  of the form: 'transform1 | transform2 | ... | methodOnProxyTarget"
-	 * @param resolveRef {Function} function to use is resolving references, returns a promise
+	 * @param wire.resolveRef {Function} function to use is resolving references, returns a promise
+	 * @param wire.getProxy {Function} function used to obtain a proxy for a component
 	 * @return {Promise} a promise for the composed function
 	 */
 	compose.parse = function parseCompose(proxy, composeString, wire) {
@@ -127,6 +128,9 @@ define(['when'], function (when) {
 			var target, method;
 
 			target = bindSpec.split('.');
+
+			if(target.length > 2) throw new Error('Only 1 "." is allowed in refs: ' + bindSpec);
+
 			if(target.length > 1) {
 				method = target[1];
 				target = target[0];

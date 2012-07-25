@@ -1,3 +1,0 @@
-define(function () {
-	// returns nothing
-});

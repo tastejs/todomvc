@@ -1,6 +1,6 @@
 {
     "name": "wire",
-    "version": "0.8.0",
+    "version": "0.9.0-dev",
     "description": "A light, fast, flexible Javascript IOC container.",
     "keywords": [
         "ioc",

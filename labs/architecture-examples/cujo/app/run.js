@@ -3,6 +3,7 @@
 	var config = {
 		baseUrl: 'app',
 		paths: {
+			theme: '../theme',
 			curl: '../lib/curl/src/curl'
 		},
 		pluginPath: 'curl/plugin',

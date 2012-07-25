@@ -1,1 +1,0 @@
-window.random = Math.random();

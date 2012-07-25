@@ -18,9 +18,11 @@ Some things we feel are interesting about cujojs's TodoMVC as compared to other 
 	* HTML template (template.html)
 	* CSS file, typically unthemed (structure.css)
 * HTML templates are clean and simple, editable by mere mortals.
-* OOCSS is used for visual state changes
-	* zero direct style manipulation
-	* drastically simplifies HTML templates
+* OOCSS principles
+	* Separates structural CSS from theme (skin)
+	* visual state changes done via CSS
+		* zero direct style manipulation
+		* drastically simplifies HTML templates
 * JavaScript environment is shimmed, rather than abstracted
 	* code to modern standards, not to abstraction layers
 * All strings are easily internationalized
