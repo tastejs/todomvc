@@ -106,6 +106,21 @@ header nav a:first-child {
 	margin-bottom: 20px;
 }
 
+.whats-new {
+        list-style: none;
+}
+
+.whats-new li {
+        position: relative;
+        margin: 15px 0;
+}
+
+.whats-new li:before {
+        content: '✔';
+        position: absolute;
+        left: -20px;
+}
+
 .applist {
 	list-style: none;
 	margin: 0;
@@ -300,6 +315,7 @@ a.zocial {
 	background-image:         linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
 }
 
+
 @media (max-width: 480px) {
 	body .applist {
 		-webkit-columns: auto !important;
@@ -314,8 +330,7 @@ a.zocial {
 	}
 }
 
-@media (min-width: 768px) and (max-width: 980px) {
-}
+@media (min-width: 768px) and (max-width: 980px) {}
 
 @media (max-width: 768px) {
 	h2 {
@@ -360,5 +375,4 @@ a.zocial {
 	}
 }
 
-@media (max-width: 1200px) {
-}
+@media (max-width: 1200px) {}
