@@ -52,6 +52,7 @@ We also have a number of in-progress applications in Labs:
 - [Sammy.js](http://sammyjs.org)
 - [JavaScriptMVC](http://javascriptmvc.com)
 - [Stapes.js](http://hay.github.com/stapes)
+- [Epitome](http://dimitarchristoff.github.com/Epitome)
 - [TroopJS](https://github.com/troopjs)
 - [soma.js](http://somajs.github.com/somajs)
 - [DUEL](https://bitbucket.org/mckamey/duel/wiki/Home)
