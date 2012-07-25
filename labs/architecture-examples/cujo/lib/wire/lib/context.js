@@ -6,17 +6,14 @@
  */
 
 (function(define){
-define(['require', 'when', './array', './object', './moduleLoader', './lifecycle', './resolver', '../base'],
-function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, basePlugin) {
+define(['require', 'when', 'when/timeout', './array', './object', './moduleLoader', './lifecycle', './resolver', '../base'],
+function(require, when, timeout, array, object, createModuleLoader, Lifecycle, Resolver, basePlugin) {
 
 	"use strict";
 
-	var lifecycleSteps,
-		defer, chain, whenAll,
+	var defer, chain, whenAll,
 		emptyObject,
 		undef;
-
-	lifecycleSteps = ['create', 'configure', 'initialize', 'connect', 'ready'];
 
 	// Local refs to when.js
 	defer = when.defer;
@@ -58,50 +55,6 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 
 	return createContext;
 
-	function getModuleLoader(context, options) {
-		return options && options.require
-			? createModuleLoader(options.require)
-			: context.moduleLoader;
-	}
-
-	/**
-	 * Given a mixed array of strings and non-strings, returns a promise that will resolve
-	 * to an array containing resolved modules by loading all the strings found in the
-	 * specs array as module ids
-	 * @private
-	 *
-	 * @param specs {Array} mixed array of strings and non-strings
-	 *
-	 * @returns {Promise} a promise that resolves to an array of resolved modules
-	 */
-	function ensureAllSpecsLoaded(specs, loadModule) {
-		return when.reduce(specs, function(merged, module) {
-			return isString(module)
-				? when(loadModule(module), function(spec) { return safeMixin(merged, spec); })
-				: safeMixin(merged, module)
-		}, {});
-	}
-
-	/**
-	 * Add components in from to those in to.  If duplicates are found, it
-	 * is an error.
-	 * @param to {Object} target object
-	 * @param from {Object} source object
-	 */
-	function safeMixin(to, from) {
-		for (var name in from) {
-			if (from.hasOwnProperty(name) && !(name in emptyObject)) {
-				if (to.hasOwnProperty(name)) {
-					throw new Error("Duplicate component name in sibling specs: " + name);
-				} else {
-					to[name] = from[name];
-				}
-			}
-		}
-
-		return to;
-	}
-
 	/**
 	 * Do the work of creating a new scope and fully wiring its contents
 	 * @private
@@ -114,11 +67,13 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 	 * @return {Promise} a promise for the new scope
 	 */
 	function createScope(scopeDef, parent, options) {
-		var scope, scopeParent, config, contextHandlers,
-			proxiedComponents, components, lifecycle, resolver,
+		var scope, scopeParent, context, config, contextHandlers,
+			proxiedComponents, components, lifecycle, resolver, inflightRefs,
 			pluginApi, resolvers, factories, facets, listeners, proxiers,
 			moduleLoader, modulesToLoad, plugins,
 			wireApi, modulesReady, scopeReady, scopeDestroyed, doDestroy;
+
+		inflightRefs = [];
 
 		// Empty parent scope if none provided
 		if(!parent) parent = {};
@@ -144,27 +99,33 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 			return when(destroyContext(), executeDestroyers);
 		};
 
+		context = {
+			spec: scopeDef,
+			components: components,
+			config: config
+		};
+
 		function executeInitializers() {
-			return sequence(contextHandlers.init, components, scopeDef);
+			return sequence(contextHandlers.init, context);
 		}
 		function executeDestroyers() {
-			return sequence(contextHandlers.destroy, components, scopeDef);
+			return sequence(contextHandlers.destroy, context);
 		}
 
-		return when(executeInitializers(), function() {
+		return executeInitializers()
+			.then(function() {
 
-			parseSpec(scopeDef, scopeReady);
+				var componentsToCreate = parseSpec(scopeDef, scopeReady);
 
-			createComponents(scopeDef);
+				createComponents(componentsToCreate, scopeDef);
 
-			// Once all modules are loaded, all the components can finish
-			ensureAllModulesLoaded();
+				// Once all modules are loaded, all the components can finish
+				ensureAllModulesLoaded();
 
-			// Return promise
-			// Context will be ready when this promise resolves
-			return scopeReady.promise;
-
-		});
+				// Return promise
+				// Context will be ready when this promise resolves
+				return scopeReady.promise;
+			});
 
 		//
 		// Initialization
@@ -257,7 +218,6 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 		function configureContext(options) {
 			// TODO: This configuration object needs to be abstracted and reused
 			config = {
-				lifecycleSteps: lifecycleSteps,
 				pluginApi: pluginApi,
 				resolvers: resolvers,
 				facets: facets,
@@ -274,28 +234,38 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 		}
 
 		function parseSpec(scopeDef, scopeReady) {
-			var promises = [];
+			var promises, componentsToCreate;
+
+			promises = [];
+			componentsToCreate = {};
 
 			// Setup a promise for each item in this scope
 			for (var name in scopeDef) {
-				promises.push(components[name] = defer());
+				// An initializer may have inserted concrete components
+				// into the context.  If so, they override components of the
+				// same name from the input spec
+				if(!(components.hasOwnProperty(name))) {
+					promises.push(componentsToCreate[name] = components[name] = defer());
+				}
 			}
 
 			// When all scope item promises are resolved, the scope
 			// is ready. When this scope is ready, resolve the promise
 			// with the objects that were created
 			chain(whenAll(promises), scopeReady, components);
+
+			return componentsToCreate;
 		}
 
 		//
 		// Context Startup
 		//
 
-		function createComponents(scopeDef) {
+		function createComponents(componentsToCreate, spec) {
 			// Process/create each item in scope and resolve its
 			// promise when completed.
-			for (var name in scopeDef) {
-				createScopeItem(name, scopeDef[name], components[name]);
+			for (var name in componentsToCreate) {
+				createScopeItem(name, spec[name], components[name]);
 			}
 		}
 
@@ -312,20 +282,17 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 		//
 
 		function destroyContext() {
-			var promises, i, len;
+			var shutdown;
 
 			scopeDestroyed.resolve();
 
 			// TODO: Clear out the context prototypes?
 
-			promises = [];
+			shutdown = when.reduce(proxiedComponents, function(unused, proxied) {
+				return lifecycle.shutdown(proxied);
+			}, undef);
 
-			for(i = 0, len = proxiedComponents.length; i < len; i++) {
-				promises.push(lifecycle.shutdown(proxiedComponents[i]));
-			}
-
-			// *After* listeners are processed,
-			return whenAll(promises, function () {
+			return when(shutdown, function () {
 				var i, len;
 
 				function deleteAll(container) {
@@ -363,8 +330,8 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 		 *
 		 * @param ref {String} reference name (may contain resolver prefix, e.g. "resolver!refname"
 		 */
-		function apiResolveRef(ref) {
-			return when(resolveRefName(ref));
+		function apiResolveRef(ref, onBehalfOf) {
+			return when(resolveRefName(ref, {}, onBehalfOf));
 		}
 
 		/**
@@ -401,9 +368,18 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 			var p = createItem(val, name);
 
 			return when(p, function (resolved) {
-				components[name] = getResolvedValue(resolved);
+				makeResolvable(name, resolved);
 				itemPromise.resolve(resolved);
 			}, chainReject(itemPromise));
+		}
+
+		/**
+		 * Make a component resolvable under the given name
+		 * @param name {String} name by which to allow the component to be resolved
+		 * @param component {*} component
+		 */
+		function makeResolvable(name, component) {
+			components[name] = getResolvedValue(component);
 		}
 
 		function createItem(val, name) {
@@ -418,8 +394,8 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 				created = createArray(val, name);
 
 			} else if (object.isObject(val)) {
-				// Module or nested scope
-				created = createModule(val, name);
+				// component spec, create the component
+				created = realizeComponent(val, name);
 
 			} else {
 				// Plain value
@@ -512,33 +488,72 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 				: [];
 		}
 
-		function createModule(spec, name) {
+		/**
+		 * Fully realize a component from a spec: create, initialize, then
+		 * startup.
+		 * @param spec {Object} component spec
+		 * @param name {String} component name
+		 * @return {Promise} promise for the fully realized component
+		 */
+		function realizeComponent(spec, name) {
 
 			// Look for a factory, then use it to create the object
 			return when(findFactory(spec),
 				function (factory) {
-					var factoryPromise = defer();
+					var component = defer();
 
 					if (!spec.id) spec.id = name;
 
-					factory(factoryPromise.resolver, spec, pluginApi);
+					factory(component.resolver, spec, pluginApi);
 
-					return when(factoryPromise, function(component) {
-						return when(modulesReady, function() {
-							return lifecycle.startup(createProxy(component, spec));
-						});
-					});
+					return processComponent(component, spec, name);
 				},
 				function () {
 					// No factory found, treat object spec as a nested scope
-					return createScope(spec, scope, { name: name });
+					return createScope(spec, scope, { name: name }).then(function(context) {
+						return safeMixin({}, context);
+					});
 				}
 			);
 		}
 
+		/**
+		 * Move component through all phases of the component lifecycle up
+		 * to ready.
+		 * @param component {*} component or promise for a component
+		 * @param spec {Object} component spec
+		 * @param name {String} component name
+		 * @return {Promise} promise for the component in the ready state
+		 */
+		function processComponent(component, spec, name) {
+			return when(component, function(component) {
+
+				return when(createProxy(component, spec), function(proxy) {
+					return lifecycle.init(proxy);
+
+				}).then(function(proxy) {
+					// Components become resolvable after the initialization phase
+					// This allows circular references to be resolved after init
+					makeResolvable(name, proxy.target);
+					return lifecycle.startup(proxy);
+
+				}).then(function(proxy) {
+					return proxy.target;
+
+				});
+			});
+		}
+
+		/**
+		 * Select the factory plugin to use to create a component
+		 * for the supplied component spec
+		 * @param spec {Object} component spec
+		 * @return {Promise} promise for factory, rejected if no suitable
+		 *  factory can be found
+		 */
 		function findFactory(spec) {
 
-			// FIXME: Should not have to wait for all modules to load,
+			// FUTURE: Should not have to wait for all modules to load,
 			// but rather only the module containing the particular
 			// factory we need.  But how to know which factory before
 			// they are all loaded?
@@ -566,29 +581,37 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 		}
 
 		function createProxy(object, spec) {
-			var proxier, proxy, id, i;
+			return when(modulesReady, function() {
+				var proxier, proxy, id, i;
 
-			i = 0;
+				i = 0;
 
-			while ((proxier = proxiers[i++]) && !(proxy = proxier(object, spec))) {}
+				while ((proxier = proxiers[i++]) && !(proxy = proxier(object, spec))) {}
 
-			proxy.target = object;
-			proxy.spec = spec;
+				proxy.target = object;
+				proxy.spec = spec;
 
-			if(spec) {
-				id = spec && spec.id;
-				proxy.id = id;
-				proxy.path = createPath(id);
-				proxiedComponents.push(proxy);
-			}
+				if(spec) {
+					id = spec && spec.id;
+					proxy.id = id;
+					proxy.path = createPath(id);
+					proxiedComponents.push(proxy);
+				}
 
-			return proxy;
+				return proxy;
+			});
 		}
 
-		function getProxy(nameOrComponent) {
+		/**
+		 * Return a proxy for the component name, or concrete component
+		 * @param nameOrComponent {String|*} if it's a string, consider it to be a component name
+		 *  otherwise, consider it to be a concrete component
+		 * @return {Object|Promise} proxy or promise for proxy of the component
+		 */
+		function getProxy(nameOrComponent, onBehalfOf) {
 			return typeof nameOrComponent != 'string'
 				? createProxy(nameOrComponent)
-				: when(resolveRefName(nameOrComponent), function(component) {
+				: when(resolveRefName(nameOrComponent, {}, onBehalfOf), function(component) {
 					return createProxy(component);
 				});
 		}
@@ -617,12 +640,30 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 		 * to registered resolver plugins
 		 * @param ref {Object} reference object returned by resolver.parse or resolver.create
 		 * @param scope {Object} scope for resolving local component names
+		 * @param [onBehalfOf] {*} optional indicator of the party requesting the reference
 		 * @return {Promise} a promise for the fully resolved reference value
 		 */
-		function doResolveRef(ref, scope) {
-			return (ref.name in scope)
-				? scope[ref.name]
-				: when(modulesReady, ref.resolve);
+		function doResolveRef(ref, scope, onBehalfOf) {
+			var resolution = ref.resolver ? when(modulesReady, ref.resolve) : doResolveDeepRef(ref.name, scope);
+
+			return trackInflightRef(resolution, inflightRefs, ref.name, onBehalfOf);
+		}
+
+		/**
+		 * Resolves a component references, traversing one level of "." nesting
+		 * if necessarily (e.g. "thing.property")
+		 * @param name {String} component name or dot-separated path
+		 * @param scope {Object} scope in which to resolve the reference
+		 * @return {Promise} promise for the referenced component or property
+		 */
+		function doResolveDeepRef(name, scope) {
+			var parts = name.split('.');
+
+			if(parts.length > 2) return when.reject('Only 1 "." is allowed in refs: ' + name);
+
+			return when.reduce(parts, function(scope, name) {
+				return name in scope ? scope[name] : when.reject(name);
+			}, scope);
 		}
 
 		/**
@@ -637,20 +678,20 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 			ref = resolver.parse(ref);
 			scope = name == ref.name && parent.components ? parent.components : components;
 
-			return doResolveRef(ref, scope);
+			return doResolveRef(ref, scope, name);
 		}
 
 		/**
 		 *
 		 * @param refName {String} name of reference to resolve. Can be either a
 		 *  component name, or a plugin-style reference, e.g. plugin!reference
-		 * @param options {Object} additional options to pass to reference resolver
+		 * @param [options] {Object} additional options to pass to reference resolver
 		 *  plugins if the refName requires a plugin to resolve
-		 * @param scope {Object} scope for resolving local component names
+		 * @param [onBehalfOf] {*} optional indicator of the party requesting the reference
 		 * @return {Promise} a promise for the fully resolved reference value
 		 */
-		function resolveRefName(refName, options, scope) {
-			return doResolveRef(resolver.create(refName, options), scope||components);
+		function resolveRefName(refName, options, onBehalfOf) {
+			return doResolveRef(resolver.create(refName, options), components, onBehalfOf);
 		}
 
 		/**
@@ -679,7 +720,7 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 			//
 			// TODO: Move wireFactory to its own module
 			//
-			var options, module, get, provide, defer, waitParent;
+			var options, module, provide, defer, waitParent;
 
 			options = spec.wire;
 
@@ -690,27 +731,28 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 				module = options.spec;
 				waitParent = options.waitParent;
 				defer = options.defer;
-				get = options.get;
 				provide = options.provide;
 			}
 
-			// Trying to use both get and defer is an error
-			if(defer && get) {
-				return resolver.reject("you can't use defer and get at the same time");
-			}
-
-			function init(components) {
+			function init(context) {
 				if(provide) {
 					return when(wire(provide), function(provides) {
-						safeMixin(components, provides);
+						safeMixin(context.components, provides);
 					});
 				}
 			}
 
 			function createChild(/** {Object|String}? */ mixin) {
-				var spec = mixin ? [].concat(module, mixin) : module;
+				var spec, config;
 
-				return wireChild(spec, { init: init });
+				spec = mixin ? [].concat(module, mixin) : module;
+				config = { init: init };
+
+				var child = wireChild(spec, config);
+				return defer ? child
+					: when(child, function(child) {
+						return child.hasOwnProperty('$exports') ? child.$exports : child;
+					});
 			}
 
 			if (defer) {
@@ -718,28 +760,66 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 				// which can be used later to wire the spec
 				resolver.resolve(createChild);
 
-			} else if (get) {
-				// Wire a new scope, and get a named component from it to use
-				// as the component currently being wired.
-				return when(createChild(spec), function(scope) {
-					return resolveRefName(get, {}, scope);
-				}).then(resolver.resolve, resolver.reject);
-
 			} else if(waitParent) {
 
 				var childPromise = when(scopeReady, function() {
+					// ensure nothing is passed to createChild here
 					return createChild();
 				});
 
 				resolver.resolve(new ResolvedValue(childPromise));
 
 			} else {
-				resolver.resolve(createChild());
+				when.chain(createChild(spec), resolver);
 
 			}
 		}
 
 	} // createScope
+
+	function getModuleLoader(context, options) {
+		return options && options.require
+			? createModuleLoader(options.require)
+			: context.moduleLoader;
+	}
+
+	/**
+	 * Given a mixed array of strings and non-strings, returns a promise that will resolve
+	 * to an array containing resolved modules by loading all the strings found in the
+	 * specs array as module ids
+	 * @private
+	 *
+	 * @param specs {Array} mixed array of strings and non-strings
+	 *
+	 * @returns {Promise} a promise that resolves to an array of resolved modules
+	 */
+	function ensureAllSpecsLoaded(specs, loadModule) {
+		return when.reduce(specs, function(merged, module) {
+			return isString(module)
+				? when(loadModule(module), function(spec) { return safeMixin(merged, spec); })
+				: safeMixin(merged, module)
+		}, {});
+	}
+
+	/**
+	 * Add components in from to those in to.  If duplicates are found, it
+	 * is an error.
+	 * @param to {Object} target object
+	 * @param from {Object} source object
+	 */
+	function safeMixin(to, from) {
+		for (var name in from) {
+			if (from.hasOwnProperty(name) && !(name in emptyObject)) {
+				if (to.hasOwnProperty(name)) {
+					throw new Error("Duplicate component name in sibling specs: " + name);
+				} else {
+					to[name] = from[name];
+				}
+			}
+		}
+
+		return to;
+	}
 
 	function isString(it) {
 		return typeof it == 'string';
@@ -796,6 +876,32 @@ function(require, when, array, object, createModuleLoader, Lifecycle, Resolver, 
 				return context;
 			});
 		}, undef);
+	}
+
+	function trackInflightRef(refPromise, inflightRefs, refName, onBehalfOf) {
+		var inflight = (onBehalfOf||'?') + ' -> ' + refName;
+
+		inflightRefs.push(inflight);
+
+		return timeout(refPromise, 5000).then(
+			function(resolved) {
+				// Successfully resolved, remove from inflight
+				var ref, i = inflightRefs.length;
+				while(ref = inflightRefs[--i]) {
+					if(ref === inflight) {
+						inflightRefs.splice(i, 1);
+						break;
+					}
+				}
+
+				return resolved;
+			},
+			function() {
+				// Could not resolve in a reasonable time, warn of possible deadlocked
+				// circular ref
+				return when.reject('Possible circular ref:\n' + inflightRefs.join('\n'));
+			}
+		);
 	}
 
 });

@@ -1,18 +1,31 @@
 (function (define) {
 define(function (require) {
-	"use strict";
+"use strict";
 
-	var mapTokenList, replaceClasses, functional;
+	var mapTokenList, replaceClasses;
 
 	mapTokenList = require('./mapTokenList');
 	replaceClasses = require('./replaceClasses');
-	functional = require('../../lib/functional');
 
-	return function(map, options) {
-		return functional.compose(
-			mapTokenList(map, options),
-			replaceClasses(options)
-		);
+	return function (options) {
+		var mapper, replacer;
+
+		if (!options.group) options.group = mapToGroup(options.map);
+
+		mapper = mapTokenList(options.map, options);
+		replacer = replaceClasses(options);
+
+		return options.node
+			? function (val) { return replacer(mapper(val)); }
+			: function (node, val) { return replacer(node, mapper(val)); };
+	};
+
+	function mapToGroup (map) {
+		return Object.keys(map).reduce(function (group, p) {
+			var str = '' + map[p];
+			if (str) group.push(str);
+			return group;
+		}, []);
 	}
 
 });

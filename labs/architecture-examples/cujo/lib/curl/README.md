@@ -20,6 +20,14 @@ Helpful link for updating submodules:
 What's New?
 =======
 
+* 0.6.6
+	* Fix for Safari 6's strict treatment of string properties in un-compiled
+	  files (paths were broken -- thanks Tiago!)
+* 0.6.5
+	* better support when unning under RingoJS and node.js (still experimental)
+	* fixed bugs with apiContext/apiName or defineContext/defineName
+	* added package.json
+	* configuration can be overridden by successive calls: `curl({})`
 * 0.6.4
 	* curl now restores any previous curl() or define() if the dev reassigns
 	  either using apiContext/apiName or defineContext/defineName
