@@ -1,16 +1,16 @@
-(function(window) {
+/*global Epitome */
+(function( window ) {
 	'use strict';
 
 	var App = window.App;
 
-	// Your starting point. Enjoy the ride!
-	var todos = new App.TodoCollection(null, {
-		// a consistent collection if is needed if you want to use storage for a collection.
+        var todos = new App.TodoCollection( null, {
+                // a consistent collection if is needed if you want to use storage for a collection
 		id: 'todos'
 	});
 
 	// populate from storage if available
-	todos.setUp(todos.retrieve());
+        todos.setUp( todos.retrieve() );
 
 	// instantiate the todo list view
 	App.todoView = new App.TodoView({
@@ -52,7 +52,7 @@
 			this.navigate('#!/');
 		},
 
-		onApplyFilter: function(filter) {
+                onApplyFilter: function( filter ) {
 			// the filter is being used by the todo collection and view.
 			// when false, the whole collection is being passed.
 			todos.filterType = filter || false;
@@ -62,12 +62,9 @@
 
 			// fix up the links quickie.
 			var self = this;
-			document.getElements('#filters li a').each(function(link) {
-				link.set('class', link.get('href') == self.req ? 'selected' : '');
+                        document.getElements('#filters li a').each(function( link ) {
+                                link.set( 'class', link.get('href') === self.req ? 'selected' : '' );
 			});
 		}
-
 	});
-
-
-})(window);
+}( window ));

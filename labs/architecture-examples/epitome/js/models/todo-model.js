@@ -1,8 +1,8 @@
-;(function(window) {
+/*global Epitome, App, Class */
+(function(window) {
 	'use strict';
 
 	window.App = window.App || {};
-
 
 	// base structure for the todos themselves
 	App.Todo = new Class({
@@ -27,6 +27,4 @@
 		model: App.Todo
 
 	});
-
-
-}(window));
+}( window ));
