@@ -1,4 +1,5 @@
-/*global Epitome, App, Class */
+/*global Epitome, App */
+/*jshint mootools:true */
 (function(window) {
 	'use strict';
 
@@ -11,7 +12,7 @@
 
 		options: {
 			defaults: {
-				completed: 'active',
+				completed: false,
 				title: ''
 			}
 		}
