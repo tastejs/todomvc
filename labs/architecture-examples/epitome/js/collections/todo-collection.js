@@ -1,4 +1,5 @@
-/*global Epitome, App, Class */
+/*global Epitome, App */
+/*jshint mootools:true */
 (function(window) {
 	'use strict';
 
@@ -15,9 +16,14 @@
 		// base model class prototype
 		model: App.Todo,
 
-                todoFilter: function( model ) {
+		map: {
+			active: 0,
+			completed: 1
+		},
+
+		todoFilter: function( model ) {
 			// references the filterType which the controller sets
-                        return this.filterType === false ? true : model.get('completed') === this.filterType;
+			return this.filterType === false ? true : this.map[this.filterType] === +model.get( 'completed' );
 		}
 	});
 }( window ));
