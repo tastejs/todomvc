@@ -2,6 +2,10 @@ steal(
 	'jquery',
 	'jquery/controller'
 	)
+.then(
+	'./views/todo-list.ejs',
+	'./views/todo-template.ejs',
+	'./views/todo-count.ejs')
 .then(function(){
 
 /**
