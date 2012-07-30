@@ -349,7 +349,7 @@ steal("jquery","jquery/lang/string",function( $ ) {
 
 	clss = $.Class = function() {
 		if (arguments.length) {
-			return clss.extend.apply(clss, arguments);
+			clss.extend.apply(clss, arguments);
 		}
 	};
 

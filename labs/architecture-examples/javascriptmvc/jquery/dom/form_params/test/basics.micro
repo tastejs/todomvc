@@ -11,10 +11,6 @@
   <input type='radio' name='params[three]' value='1'/> 
   <input type='radio' name='params[three]' value='2'/>
   <input type='radio' name='params[three]' value='3' checked="checked"/>
-
-  <input type='radio' name='singleRadio' value='1' />
-  <input type='radio' name='singleRadio' value='2' checked='checked' />
-  <input type='radio' name='singleRadio' value='3' />
   
   <input type='text' name='empty' value='' />
   <select name='params[four]' multiple="multiple">
@@ -27,12 +23,6 @@
   <input type='checkbox' name='params[five]' value='1'/> 
   <input type='checkbox' name='params[five]' value='2' checked="checked"/>
   <input type='checkbox' name='params[five]' value='3' checked="checked"/>
-
-
-  <input type='checkbox' name='lastOneChecked' value='1' /> 
-  <input type='checkbox' name='lastOneChecked' value='2' />
-  <input type='checkbox' name='lastOneChecked' value='4' checked="checked"/>
-  
   <input type='text' name='id' value='' />
   <input type='text' name='param1' value='first' />
   <input type='text' name='param1' value='second' />

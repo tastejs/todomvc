@@ -10,7 +10,6 @@ module("jquery/dom/form_params")
 test("with a form", function(){
 
 	$("#qunit-test-area").html("//jquery/dom/form_params/test/basics.micro",{})
-
 	
 	var formParams =  $("#qunit-test-area form").formParams() ;
 	ok(formParams.params.one === "1","one is right");
@@ -18,24 +17,10 @@ test("with a form", function(){
 	ok(formParams.params.three === "3","three is right");
 	same(formParams.params.four,["4","1"],"four is right");
 	same(formParams.params.five,["2","3"],"five is right");
+
 	equal(typeof formParams.id , 'string', "Id value is empty");
 
-	equal( typeof formParams.singleRadio, "string", "Type of single named radio is string" );
-	equal( formParams.singleRadio, "2", "Value of single named radio is right" );
-
-	ok( $.isArray(formParams.lastOneChecked), "Type of checkbox with last option checked is array" );
-	equal( formParams.lastOneChecked, "4", "Value of checkbox with the last option checked is 4" );
 	
-});
-
-test("With a non-form element", function() {
-
-	$("#qunit-test-area").html("//jquery/dom/form_params/test/non-form.micro",{})
-
-	var formParams =  $("#divform").formParams() ;
-
-	equal( formParams.id , "foo-bar-baz", "ID input read correctly" );
-
 });
 
 

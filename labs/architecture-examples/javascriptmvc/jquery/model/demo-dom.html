@@ -25,12 +25,9 @@
 steal('jquery/model','jquery/dom/fixture').then(function(){
 
 $.fixture("GET /contacts.json", function(){
-	return [[{id: 1, name: 'Justin Meyer', 
-	          birthday: 403938000000},
-			 {id: 2, name: 'Brian Moschel', 
-			  birthday: 437205600000},
-			 {id: 3, name: 'Mihael Konjevic', 
-			  birthday: 483771600000}]];
+	return [[{id: 1, name: 'Justin Meyer', birthday: 403938000000},
+			 {id: 2, name: 'Brian Moschel', birthday: 437205600000},
+			 {id: 3, name: 'Mihael Konjevic', birthday: 483771600000}]];
 });
 
 $.fixture("DELETE /contacts.json", function(){

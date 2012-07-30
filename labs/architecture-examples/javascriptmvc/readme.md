@@ -1,78 +1,109 @@
-@page stealjs StealJS
-@parent index 1
+# JavaScriptMVC TodoMVC app
 
-StealJS is a collection of command line and JavaScript client utilities
-that make building, packaging, and sharing JavaScript applications easy.
+##Getting Started
 
-## Features
+JavaScriptMVC is a jQuery-based JavaScript framework that's excellent as a comprehensive front-end solution for structuring applications using the MVC architecture pattern.
 
-Behold StealJS's goodies:
+It's broken down into 4 separate projects that can be used independently of each other. These are:
 
-### Dependency Management ([steal])
+* jQueryMVC - MVC extensions for jQuery
+* StealJS - Dependency management, build process, code generators
+* FuncUnit - A web testing framework
+* DocumentJS - A JavaScript documentation framework
 
-[steal] loads JS and other file into your app.  Features:
+For more information on getting started with the framework as a whole, you may find Justin Meyer's [documentation](https://gist.github.com/989117) on it  quite helpful. It discusses classes, models, views and controllers and is an overall good read for any developers wishing to begin using JMVC. Otherwise just consult directly the [official JavaScriptMVC docs](http://javascriptmvc.com/docs.html#!);
 
- - Loads JavaScript, CSS, Less, CoffeeScript, and a variety of client-side templates.
- - Can be use with scripts that don't use steal.
 
-    steal('widgets/tabs.js',
-          './style.css', function(){
-      $('#tabs ).tabs();     
-    });
+###Setup
 
-### JS/CSS Concatenation and Compression ([steal.build])
+To get started with the Todo application, you'll first need to clone the repository to a local directory. You have a few options of how to approach this.
 
-The [steal.build] plugin combines an application's files into a single minified 
-JavaScript and CSS file extremely easy.  Features:
+###Cloning with submodules automatically synched
 
-  - Configurable compressors (defaults to Google Closure).
-  - Compresses Less and CoffeeScript.
-  - Pre-processes and compresses client-side templates (templates don't have to be parsed).
-  
-@codestart text
-js steal/buildjs mypage.html
-@codeend
+The repository also contains git submodules for jQueryMVC, StealJS, FuncUnit and DocumentJS out of the box. If you would like to check-out the code for the application including all submodules you can do so as follows:
 
-### Logging ([steal.dev])
+```
+git clone --recursive git://github.com/addyosmani/todo
+```
 
-[steal.dev] logs messages cross browser.  Messages are removed in production builds.
+Git 1.6.5 supports this however if you're using an older version of Git you can achieve the same effect using `git submodule update --init`
 
-    steal.dev.log('something is happening');
+###Cloning with submodules manually 
 
-### Code Generators ([steal.generate])
+Alternatively, you can checkout the main application files and clone the dependancies manually. To checkout the app simply execute:
 
-[steal.generate]  makes building code generators extremely easy.  Features:
+```
+git clone git@github.com:addyosmani/todo.git	
+```
 
-  - Pre-packaged JMVC style code generators.
-  - Easily author custom generators.
-  
-@codestart text
-js jquery/generate/app cookbook
-@codeend
+You can then either use *submodules* to checkout the submodules as their own repositories (eg. if you forked them from JMVC and wished to keep track of your own versions) or alternatively by cloning their repos locally.
 
-### Package Management ([steal.get])
+###Submodules
 
-[steal.get] is a simple JavaScript version of [http://rubygems.org/ ruby gems] featuring:
+```
+git submodule add git://github.com/jupiterjs/steal.git steal
+git submodule add git://github.com/jupiterjs/jquerymx.git jquery
+git submodule add git://github.com/jupiterjs/funcunit.git funcunit
+git submodule add git://github.com/jupiterjs/documentjs.git documentjs
+```
 
- - Download and install plugins from remote SVN or GIT repositories.  
- - Installs dependencies.
+Note that as per Bitovi's original Todo application, jquerymx is actually stored in the directory called jquery in case we decide to sync up any changes made without worrying about path differences.
 
-@codestart text
-js steal/getjs http://github.com/jupiterjs/mxui/
-@codeend
+###Cloning
 
-### Code Cleaner ([steal.clean])
+Cloning repositories using GitHub is a fairly straight-forward process and the todo application just requires the following commands to be executed to get you setup:
 
-[steal.clean] cleans your code and checks it against JSLint. 
+```
+git clone git://github.com/jupiterjs/steal.git
+git clone git://github.com/jupiterjs/jquerymx.git
+git clone git://github.com/jupiterjs/funcunit.git
+git clone git://github.com/jupiterjs/documentjs.git
+```
 
-@codestart text
-js steal/clean path/to/page.html
-@codeend
+###Structure
 
-### Searchable Ajax Apps ([steal.html])
+In order to correctly build the todo application, you'll need to ensure that you have the following directory structure, unless you decide to change the build files in the todo/scripts directory:
 
-[steal.html] makes Google-crawlable html from your ajax app.
+```
+documentjs (<< optional for creating documentation)
+funcunit
+jquery
+steal
+todo
+	index.html, todo.js etc.
+	scripts
+	test
+```
 
-@codestart text
-js steal/htmljs http://localhost/cookbook.html#recipes
-@codeend   
+###Building
+
+Within todo, you'll find the main application (todo.js) as well as two additional folders. The *scripts* folder contains the build files needed to build the final production files required for the app to run, whilst the *test* folder contains the FuncUnit and QUnit files required for testing. Let's take a look at todo/scripts/build.js:
+
+```
+load("steal/rhino/rhino.js");
+steal('steal/build','steal/build/scripts','steal/build/styles',function(){
+	steal.build('todo/scripts/build.html',{to: 'todo'});
+});
+```
+
+In this simple build file, we're telling out build process to load steal.js from the rhino directory (for more on Rhino, see here: http://www.mozilla.org/rhino/doc.html) and then *steal* (ie. load within the context of a script loader) the steal plugins we'll be using for our build. 
+
+We finally define the build actions required, which essentially allows us to specify the build source (todo/todo/scripts/build.html) and the build target (todo/todo). In case you're wondering what build.html does, it effectively tells steal.js to build the application within the folder todo as follows:
+
+```
+<script type="text/javascript" src="../steal/steal.js?todo/todo.js">
+```
+
+The above instruction basically tells the app to load in "development" mode, meaning the uncompressed files. If you desire to build the application in order to instruct JMVC to output the production-ready version of your code, execute the following command where we pass our build.js file as an argument to steal's builder.
+
+```
+./js todo/scripts/build.js 				(on unix systems)
+js.bat todo\scripts\build.js 			(on windows)
+```
+
+As a consequence you'll get a `production.js` and possibly (if any CSS is being loaded with steal) a `production.css` file. For then loading the app in "production" mode you have to slightly change the script include to the following:
+
+```
+<script type="text/javascript" src="../steal/steal.production.js?todo/production.js">;
+```
+

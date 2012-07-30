@@ -3,287 +3,152 @@ steal(
 	'jquery',
 	'jquery/controller',
 	'jquery/controller/route',
-	'jquery/model/list',
 	'jquery/view/ejs',
 	'jquery/lang/json',
-	'./base.css')	 
+	//'./base.css', 		// should be loaded here if it is desired to compress it with steal; loaded
+							// it in the html file instead to avoid flickering during app startup
+	'./todoitem/models/todo.js')
+.then(
+	'//todo/todolist/todolist.js', //load todolist jmvc plugin
+	'//todo/views/todo-stats.ejs'
+	)
 .then(function($){
 
+// This controller is responsible for managing the entire todo app, basically
+// to instantiate the required controllers and manage events such as updating
+// statistics etc.
+$.Controller('Todoapp',{
 
-/**
- * A todo model for CRUDing todos.
- */
-$.Model('Todo',{
-	/**
-	 * Gets JSON data from localStorage.  Any changes that 
-	 * get made in cb get written back to localStorage.
-	 * 
-	 * This is unimportant for understanding JavaScriptMVC!
-	 */
-	localStore: function(cb){
-		var name = 'todo-javascriptmvc',
-			data = $.evalJSON( window.localStorage[name] || (window.localStorage[name] = "{}") ),
-			res = cb.call(this, data);
-		if(res !== false){
-			window.localStorage[name] = $.toJSON(data);
-		}
-	},
-	/**
-	 * Gets todos from localStorage.
-	 * 
-	 *     Todo.findAll({}, success(todos))
-	 */
-	findAll: function(params , success){
-		this.localStore(function(todos){
-			instances = [];
-			for(var id in todos){
-				instances.push( new this( todos[id]) )
-			}
-			success && success(instances)
-		})
-	},
-	/**
-	 * Destroys a list of todos by id from localStorage
-	 *     
-	 *     Todo.destroyAll([1,2], success())
-	 */
-	destroyAll: function(ids, success){
-		this.localStore(function(todos){
-			$.each(ids, function(){
-				delete todos[this]
-			});
-		});
-		success();
-	},
-	/**
-	 * Destroys a single todo by id
-	 *     
-	 *     Todo.destroyAll(1, success())
-	 */
-	destroy: function(id, success){
-
-		this.destroyAll(id, success);
-		this.localStore(function(todos){
-			delete todos[id]
-		});
-				
-	},
-	/**
-	 * Creates a todo with the provided attrs.  This allows:
-	 * 
-	 *     new Todo({text: 'hello'}).save( success(todo) );
-	 */
-	create: function(attrs, success){
-		this.localStore(function(todos){
-			attrs.id = attrs.id || parseInt(100000 *Math.random())
-			todos[attrs.id] = attrs;
-		});
-		success({id : attrs.id})
-	},
-	/**
-	 * Updates a todo by id with the provided attrs.  This allows:
-	 * 
-	 *     todo.update({text: 'world'}, success(todos) )
-	 */
-	update: function(id, attrs, success){
-		this.localStore(function(todos){
-			var todo = todos[id];
-			$.extend(todo, attrs);
-		});
-		success({});
-	}
-	
-},{});
-
-/**
- * Helper methods on collections of todos.  But lists can also use their model's 
- * methods.  Ex:
- * 
- *   var todos = [new Todo({id: 5}) , new Todo({id: 6})],
- *       list = new Todo.List(todos);
- *       
- *   list.destroyAll() -> calls Todo.destroyAll with [5,6].
- */
-$.Model.List('Todo.List',{
-	
-	/**
-	 * Return a new Todo.List of only complete items
-	 */
-	completed : function(){
-		return this.grep(function(item){
-			return item.complete === true;
-		})
-	}
-});
-
-$.Controller("Router", {
+  listensTo: ['completionStatusChanged'] //custom event listener
+    
+}, {
 
 	init: function(){
+		this.find('#new-todo').val('')[0].focus();
 
+		$('#todo-list').todolist({list : this.options.list });
+
+		//load all the todos into the list
+		this.options.list.findAll();
+		this._updateStats();
 	},
 
-	"route": function(){
-		//default route
+	// used for loading the data onto the list based on some filter
+	loadData: function(filter){
+		this._currentFilter = filter;
+
+		if(filter){
+			$('#todo-list').controller().render(this.options.list[filter]());
+		}else{
+			$('#todo-list').controller().render(this.options.list);
+		}
+
+		this._updateStats();
 	},
 
-	// "all route": function(routeData){
-	// 	console.log("route all");
-	// },
-
-	"active route": function(routeData){
-		console.log("route active");	
+	// handler for the custom event
+	'completionStatusChanged': function(){
+		this.loadData(this._currentFilter);
 	},
 
-	"completed route": function(routeData){
-		console.log("route completed");
-	}
-
-});
-
-/**
- * A Todos widget created like
- * 
- *    $("#todos").todos({ list: new Todo.List() });
- *    
- * It listens on changes to the list and items in the list with the following actions:
- * 
- *   - "{list} add"    - todos being added to the list
- *   - "{list} remove" - todos being removed from the list
- *   - "{list} update" - todos being updated in the list
- *   
- */
-$.Controller('Todos',{
-	
-	// sets up the widget
-	init : function(){
-		
-		// empties the create input element
-		//this.find(".create").val("")[0].focus();
-		
-		// fills this list of items (creates add events on the list)
-		//this.options.list.findAll();
-	},
-
-	"active route": function(routeData){
-		alert("active ones");
-	},
-
-	"completed route": function(routeData){
-		alert("completed ones");
-	},
-	
-	// adds existing and created to the list
-	"{list} add" : function(list, ev, items){
-	 	
-		// uses the todosEJS template (in todo.html) to render a list of items
-		// then adds those items to #list
-		this.find('#list').append("todosEJS",items)
-	 	
-		// calls a helper to update the stats info
-		this.updateStats();
-	},
-	
-	// Creating a todo --------------
-	
 	// listens for key events and creates a new todo
-	".create keyup" : function(el, ev){
-		
-		if(ev.keyCode == 13){
+	'#new-todo keyup' : function(el, ev){
+		var value = $.trim(el.val());
+
+		if(ev.which === 13 && value !== ''){
 			new Todo({
-				text : el.val(),
-				complete : false
-			}).save(this.callback('created'));
+				title : value,
+				completed : false
+			}).save(); //invoke the created function; proxy(...) to maintain the context of this
 			
-			el.val("");
+			el.val('');
 		}
 	},
-	
-	// When a todo is created, add it to this list
-	"created" : function(todo){
-		this.options.list.push(todo); //triggers 'add' on the list
-	},
-	
-	// Destroying a todo --------------
-	
+
 	// the clear button is clicked
-	".todo-clear click" : function(){
+	'#clear-completed click' : function(){
 		// gets completed todos in the list, destroys them
-		
-		this.options.list.completed()
-			.destroyAll(); 
+		this.options.list.completed().destroyAll();
+		this._updateStats();
+	},
 
-	},
-	
-	// When a todo's destroy button is clicked.
-	".todo .todestroy click" : function(el){
-	
-		el.closest('.todo').model().destroy();
+	// listen for changes on the toggle all checkbox
+	'#toggle-all change': function(el, ev){
+		var isCompleted = el.is(':checked');
 		
+		this.options.list.each(function(idx, el){
+		   el.update({ completed: isCompleted });  
+		});
 
+		this.loadData(this._currentFilter);
+	},
+
+	// When a todo is created, add it to the list and reload everything
+	// to also take the current filter into account
+	'{Todo} created': function(Todo, ev, item){
+		this.options.list.push(item); //triggers 'add' event on the list
+		this.loadData(this._currentFilter);
 	},
 	
-	// when an item is removed from the list ...
-	"{list} remove" : function(list, ev, items){
-		
-		// get the elements in the list and remove them
-		items.elements(this.element).slideUp(function(){
-			$(this).remove();
-		});
-		
-		this.updateStats();
+	'{Todo} destroyed': function(){
+	    this._updateStats();    
 	},
-	
-	
-	// Updating a todo --------------
-	
-	// when the checkbox changes, update the model
-	".todo [name=complete] change" : function(el, ev){
-		
-		var todo = el.closest('.todo').model().update({
-			complete : el.is(':checked')
-		});
-	},
-	
-	// switch to edit mode
-	".todo dblclick" : function(el){
-		var input = $("<input name='text' class='text'/>").val(el.model().text)
-		el.html(input);
-		input[0].focus();
-	},
-	
-	// update the todo's text on blur
-	".todo [name=text] focusout" : function(el, ev){
-		
-		var todo = el.closest('.todo').model().update({
-			text : el.val()
-		});
-	},
-	
-	// when an item is updated
-	"{list} update" : function(list, ev, item){
-		item.elements().html("todoEJS", item);
-		this.updateStats();
-		//update completed
-	},
-	
+
 	// a helper that updates the stats
-	updateStats : function(){
+	_updateStats : function(){
 		var list = this.options.list,
-			completed = list.completed().length;
-		$("#todo-stats").html("statsEJS",{
+			completed = list.completed().length,
+			remaining = list.length - completed;
+		
+		this.find('#footer').html('//todo/views/todo-stats.ejs',{
 			completed : completed,
-			total : list.length,
-			remaining : list.length - completed
-		})
+			remaining : remaining
+		});
+
+		this.find('#main, #footer').toggle( list.length > 0 );
+
+		this.find('#filters li a')
+			.removeClass('selected')
+			.filter('[href="#!/' + (this._currentFilter || '') + '"]')
+			.addClass('selected');
+		
+		this.find('#toggle-all')[0].checked = !remaining;
 	}
+
 });
 
-//$(function(){
-	// create a todos widget with a list
-	new Router(document.body);	
+// The router which initializes the entire app and watches for hash changes
+// in the url
+$.Controller('Router', {
 
-	//$("#todos").todos({list : new Todo.List()});
-//});
+	init: function(){
+		//var todoList = new Todo.List();
+		new Todoapp($('#todoapp'), { list: new Todo.List() });
+
+		$.route.ready(true); //fires 1st route event
+	},
+
+	//default route index.html#!
+	'route': function(){
+		$('#todoapp').controller().loadData();
+	},
+
+	//route index.html#!/active
+	'/active route': function(routeData){
+		$('#todoapp').controller().loadData('active');
+	},
+
+	//route index.html#!/completed
+	'/completed route': function(routeData){
+		$('#todoapp').controller().loadData('completed');
+	}
+
+});
+
+$(function(){
+	//register the router
+	new Router(document.body);
+});
 
 
 });

@@ -51,23 +51,26 @@ steal('jquery/lang/observe',function(){
 		delegate = function(event, prop, how, newVal, oldVal){
 			// pre-split properties to save some regexp time
 			var props = prop.split("."),
-				delegates = ($.data(this,"_observe_delegates") || []).slice(0),
+				delegates = $.data(this,"_observe_delegates") || [],
 				delegate,
+				len = delegates.length,
 				attr,
 				matchedAttr,
 				hasMatch,
 				valuesEqual;
 			event.attr = prop;
 			event.lastAttr = props[props.length -1 ];
+			
 			// for each delegate
-			for(var i =0; delegate = delegates[i++];){
+			for(var i =0; i < len; i++){
 				
+				delegate = delegates[i];
 				// if there is a batchNum, this means that this
 				// event is part of a series of events caused by a single 
 				// attrs call.  We don't want to issue the same event
 				// multiple times
 				// setting the batchNum happens later
-				if((event.batchNum && delegate.batchNum === event.batchNum) || delegate.undelegated ){
+				if(event.batchNum && delegate.batchNum === event.batchNum){
 					continue;
 				}
 				
@@ -291,7 +294,6 @@ steal('jquery/lang/observe',function(){
 					delegateOb = delegates[i];
 					if( delegateOb.callback === cb ||
 						(!cb && delegateOb.selector === selector) ){
-						delegateOb.undelegated = true;
 						delegates.splice(i,1)
 					} else {
 						i++;
