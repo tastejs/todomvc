@@ -1,4 +1,4 @@
-steal.plugins('jquery/event','jquery/event/livehack').then(function($){
+steal('jquery/event','jquery/event/livehack').then(function($){
 /**
  * @class jQuery.Hover
  * @plugin jquery/event/hover
@@ -46,7 +46,7 @@ steal.plugins('jquery/event','jquery/event/livehack').then(function($){
  * <p>Or you can adjust delay and distance for
  * an individual element in hoverenter:</p>
  * @codestart
- * $(".option").live("hoverinit", function(ev, hover){
+ * $(".option").delegate("hoverinit", function(ev, hover){
  * //set the distance to 10px
  * hover.distance(10)
  * //set the delay to 200ms
@@ -115,7 +115,7 @@ var event = $.event,
 	handle  = event.handle,
 	onmouseenter = function(ev){
 		//now start checking mousemoves to update location
-		var delegate = ev.liveFired || ev.currentTarget;
+		var delegate = ev.delegateTarget || ev.currentTarget;
 		var selector = ev.handleObj.selector;
 		//prevents another mouseenter until current has run its course
 		if($.data(delegate,"_hover"+selector)){
@@ -201,7 +201,7 @@ event.setupHelper( [
  * [jQuery.Hover.prototype.delay] and [jQuery.Hover.prototype.distance]
  * for the current element.  Hoverinit is called on mouseenter.
  * @codestart
- * $(".option").live("hoverinit", function(ev, hover){
+ * $(".option").delegate("hoverinit", function(ev, hover){
  *    //set the distance to 10px
  *    hover.distance(10)
  *    //set the delay to 200ms
@@ -216,7 +216,7 @@ event.setupHelper( [
  * than [jQuery.Hover.prototype.distance] pixels in 
  * [jQuery.Hover.prototype.delay] milliseconds.
  * @codestart
- * $(".option").live("hoverenter", function(ev, hover){
+ * $(".option").delegate("hoverenter", function(ev, hover){
  *    $(this).addClass("hovering");
  * })
  * @codeend
@@ -227,7 +227,7 @@ event.setupHelper( [
  * Called when the mouse leaves an element that has been
  * hovered.
  * @codestart
- * $(".option").live("hoverleave", function(ev, hover){
+ * $(".option").delegate("hoverleave", function(ev, hover){
  *    $(this).removeClass("hovering");
  * })
  * @codeend
@@ -238,7 +238,7 @@ event.setupHelper( [
  * Called when the mouse moves on an element that 
  * has been hovered.
  * @codestart
- * $(".option").live("hovermove", function(ev, hover){
+ * $(".option").delegate("hovermove", function(ev, hover){
  *    //not sure why you would want to listen for this
  *    //but we provide it just in case
  * })

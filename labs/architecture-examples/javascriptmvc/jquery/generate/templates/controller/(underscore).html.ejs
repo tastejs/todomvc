@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-            "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 	<head>
 		<title><%= name %></title>
@@ -14,10 +13,13 @@
 	    <h1><%= name %> Demo</h1>
 		<div id='<%= underscore %>'></div>
 		<script type='text/javascript' 
-                src='<%= path_to_steal %>/steal/steal.js?<%= path %>/<%= underscore %>'>
+                src='<%= path_to_steal %>/steal/steal.js'>
         </script>
 		<script type='text/javascript'>
-			$('#<%= underscore %>').<%= path %>_<%= underscore %>();
+			steal('<%= path %>/<%= underscore %>',function(){
+				
+				$('#<%= underscore %>').<%= plugin %>();
+			})
 		</script>
 	</body>
 </html>

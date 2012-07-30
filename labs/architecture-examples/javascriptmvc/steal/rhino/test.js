@@ -1,16 +1,21 @@
-load('steal/rhino/steal.js')
-steal('//steal/test/test', function( s ) {
+load('steal/rhino/rhino.js')
+steal('steal/test', function( s ) {
 
-	//test options
-	var res = s.opts("-n abc def -other foo", {
-		name: {
-			shortcut: "-n",
-			args: ["first", "second"]
-		},
-		other: 1
+	s.test.test("options", function(t){
+		
+		//test options
+		var res = s.opts("-n abc def -other foo", {
+			name: {
+				shortcut: "-n",
+				args: ["first", "second"]
+			},
+			other: 1
+		})
+	
+		t.ok(res.name)
+		t.ok(res.name[0] == "abc")
+		t.ok(res.name[1] == "def")
+		
 	})
 
-	s.test.ok(res.name)
-	s.test.ok(res.name[0] == "abc")
-	s.test.ok(res.name[1] == "def")
 })

@@ -1,36 +1,41 @@
+(function(){
+	var isReady,
+		stateAfterScript;
+		
 //we probably have to have this only describing where the tests are
-steal('//jquery/class/class_test',
-	  '//jquery/controller/controller_test',
-	  '//jquery/dom/compare/compare_test',
-	  '//jquery/dom/cur_styles/cur_styles_test',
-	  '//jquery/lang/lang_test',
-	  '//jquery/lang/deparam/deparam_test',
-	  '//jquery/dom/fixture/fixture_test',
-	  '//jquery/event/default/default_test',
-	  '//jquery/event/drag/drag_test',
-	  '//jquery/event/key/key_test',
-	  '//jquery/tie/tie_test'
-	  
-	  
-	  ).plugins(	
+steal('jquery').then(function(){
+	$(function(){
+			isReady = true;
+	})
+},'jquery/class/class_test.js')
+.then('jquery/controller/controller_test.js')
+.then('jquery/dom/compare/compare_test.js')
+.then('jquery/dom/cur_styles/cur_styles_test.js')
+.then('jquery/dom/dimensions/dimensions_test.js')
+.then('jquery/dom/form_params/form_params_test.js')
+.then('jquery/dom/route/route_test.js')
+.then('jquery/lang/lang_test.js')
+.then('jquery/dom/fixture/fixture_test.js')
+.then('jquery/event/default/default_test.js')
+.then('jquery/event/destroyed/destroyed_test.js')
+.then('jquery/event/drag/drag_test.js')
+.then('jquery/event/hover/hover_test.js')
+.then('jquery/event/key/key_test.js')
+.then('jquery/tie/tie_test.js')
+.then('jquery/controller/view/test/qunit')
+.then('jquery/model/test/qunit')
+.then('jquery/view/test/qunit')
+.then('./integration.js')
+.then('jquery/event/default/default_pause_test.js',function(){
+	
+	stateAfterScript = isReady;
+	module('jquery v steal');
 
-'jquery/controller/view/test/qunit',
 
+	test("jquery isn't ready", function(){
+		ok(!stateAfterScript, "jQuery isn't ready yet")
+	})
+   	
+});
 
-
-'jquery/dom/dimensions/test/qunit',
-
-'jquery/dom/form_params/test/qunit',
-
-'jquery/event/destroyed/test/qunit',
-'jquery/event/hover/test/qunit',
-
-
-
-
-'jquery/model/test/qunit',
-
-'jquery/view/test/qunit',
-	'jquery/view/ejs/test/qunit'
-).then('integration',
-	   '//jquery/event/default/default_pause_test')
+})();

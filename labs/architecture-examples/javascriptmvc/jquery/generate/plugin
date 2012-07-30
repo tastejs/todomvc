@@ -4,9 +4,9 @@ if (!_args[0]) {
 	print("Usage: steal/js steal/generate/plugin path");
 	quit();
 }
-load('steal/rhino/steal.js');
+load('steal/rhino/rhino.js');
 
-steal('//steal/generate/generate',function(steal){
+steal('steal/generate',function(steal){
 	var	data = steal.extend({
 		path: _args[0], 
 		application_name: _args[0].match(/[^\/]*$/)[0],

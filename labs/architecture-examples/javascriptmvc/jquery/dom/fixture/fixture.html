@@ -15,11 +15,13 @@
 </div>
 <script type='text/javascript'  
         src='../../../steal/steal.js'></script>
-<script type='text/javascript'>
-steal.plugins('jquery/dom/fixture','jquery/dom/form_params').start()
-</script>
-
 <script type='text/javascript' id="demo-source">
+steal('jquery/dom/fixture',
+      'jquery/dom/form_params',
+	  function(){
+
+$.fixture("/messages.php",
+	'fixtures/messages.html')	
 
 // gets content from a fixture
 $.get("/messages.php",
@@ -27,8 +29,7 @@ $.get("/messages.php",
     // put the result in content
     $('#content').html(html)
   }, 
-  'text',
-  'fixtures/messages.html');
+  'text');
 
 
 // makes 20 messages in a fixture
@@ -135,7 +136,7 @@ var messagesHTML = function(json){
 }
 
 
-
+});
 
 
 </script>

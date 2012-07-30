@@ -40,35 +40,36 @@
 <div class='dropmove'></div>
 <span>Drop Count <span class='count'>0</span></span>
 </div>
-		<script type='text/javascript' 
-                src='../../../steal/steal.js?steal[app]=jquery/event/drop'>   
-        </script>
-		<script type='text/javascript' id='demo-source'>
-//make drags
-$('.handle').live("draginit", function(){})
-			
-//add dropout/dropover
-$('#dropout')
-  .delegate(".dropout","dropover", function(){ $(this).addClass('over') })
-  .delegate(".dropout","dropout", function(){ $(this).removeClass('over') })
-  .bind("dropover", function(){ $(this).addClass('over') })
-  .bind("dropout", function(){ $(this).removeClass('over') });
-	
-//turn off dropout/dropover
-$("#undelegate").click(function(){
-    $('#dropout').undelegate(".dropout","dropover");
-    $('#dropout').undelegate(".dropout","dropout");
+<script type='text/javascript' 
+        src='../../../steal/steal.js'></script>
+<script type='text/javascript' id='demo-source'>
+steal('jquery/event/drop', function(){
+	//make drags
+	$('.handle').live("draginit", function(){})
+				
+	//add dropout/dropover
+	$('#dropout')
+	  .delegate(".dropout","dropover", function(){ $(this).addClass('over') })
+	  .delegate(".dropout","dropout", function(){ $(this).removeClass('over') })
+	  .bind("dropover", function(){ $(this).addClass('over') })
+	  .bind("dropout", function(){ $(this).removeClass('over') });
+		
+	//turn off dropout/dropover
+	$("#undelegate").click(function(){
+	    $('#dropout').undelegate(".dropout","dropover");
+	    $('#dropout').undelegate(".dropout","dropout");
+	})
+		
+	//add dropmove/dropon
+	var count = 0
+	$('.dropmove')
+	  .bind('dropmove', function(){
+	    $('.count').text(count++)
+	  })
+	  .bind('dropon', function(){
+	    $(this).text("Dropped on!")
+	  }) 
 })
-	
-//add dropmove/dropon
-var count = 0
-$('.dropmove')
-  .bind('dropmove', function(){
-    $('.count').text(count++)
-  })
-  .bind('dropon', function(){
-    $(this).text("Dropped on!")
-  })
-        </script>
+</script>
 	</body>
 </html>

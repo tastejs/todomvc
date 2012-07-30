@@ -1,6 +1,5 @@
-steal
- .plugins("jquery/controller",'jquery/controller/subscribe')  //load your app
- .plugins('funcunit/qunit')  //load qunit
+steal("jquery/controller",'jquery/controller/subscribe')  //load your app
+ .then('funcunit/qunit')  //load qunit
  .then(function(){
  	
 module("jquery/controller")
@@ -59,54 +58,6 @@ test("subscribe testing works", function(){
 	equals(subscribes,2, "Subscribes stopped")
 })
 
-
-test("document and main controllers", function(){
-	var a = $("<div id='test'><span/></div>").appendTo($("#qunit-test-area")),
-		a_inner = a.find('span'),
-		b = $("<div><span/></div>").appendTo($("#qunit-test-area")),
-		b_inner = b.find('span'),
-		doc_outer_clicks = 0,
-		doc_inner_clicks = 0,
-		main_outer_clicks = 0,
-		main_inner_clicks = 0;
-
-	$.Controller.extend("TestController", { onDocument: true }, {
-		click: function() {
-			doc_outer_clicks++;
-		},
-		"span click" : function() {
-			doc_inner_clicks++;
-		}
-	})
-
-	a_inner.trigger("click");
-	equals(doc_outer_clicks,1,"document controller handled (no-selector) click inside listening element");
-	equals(doc_inner_clicks,1,"document controller handled (selector) click inside listening element");
-
-	b_inner.trigger("click");
-	equals(doc_outer_clicks,1,"document controller ignored (no-selector) click outside listening element");
-	equals(doc_inner_clicks,1,"document controller ignored (selector) click outside listening element");
-
-	$(document.documentElement).controller('test').destroy();
-
-	$.Controller.extend("MainController", { onDocument: true }, {
-		click: function() {
-			main_outer_clicks++;
-		},
-		"span click" : function() {
-			main_inner_clicks++;
-		}
-	})
-
-	b_inner.trigger("click");
-	equals(main_outer_clicks,1,"main controller handled (no-selector) click");
-	equals(main_inner_clicks,1,"main controller handled (selector) click");
-
-	$(document.documentElement).controller('main').destroy();
-
-	a.remove();
-	b.remove();
-})
 
 
 test("bind to any special", function(){
@@ -196,7 +147,7 @@ test("objects in action", function(){
 		"{item} someEvent" : function(thing, ev){
 			ok(true, "called");
 			equals(ev.type, "someEvent","correct event")
-			equals(this.Class.fullName, "Thing", "This is a controller isntance")
+			equals(this.constructor.fullName, "Thing", "This is a controller isntance")
 			equals(thing.name,"Justin","Raw, not jQuery wrapped thing")
 		}
 	});
@@ -235,5 +186,84 @@ test("the right element", 1, function(){
 		.form_tester();
 	$("#qunit-test-area").html("")
 })
+
+test("pluginName", function() {
+	// Testing for controller pluginName fixes as reported in
+	// http://forum.javascriptmvc.com/#topic/32525000000253001
+	// http://forum.javascriptmvc.com/#topic/32525000000488001
+	expect(6);
+
+	$.Controller("PluginName", {
+	pluginName : "my_plugin"
+	}, {
+	method : function(arg) {
+	ok(true, "Method called");
+	},
+
+	update : function(options) {
+	this._super(options);
+	ok(true, "Update called");
+	},
+
+	destroy : function() {
+	ok(true, "Destroyed");
+	this._super();
+	}
+	});
+
+	var ta = $("<div/>").addClass('existing_class').appendTo( $("#qunit-test-area") );
+	ta.my_plugin(); // Init
+	ok(ta.hasClass("my_plugin"), "Should have class my_plugin");
+	ta.my_plugin(); // Update
+	ta.my_plugin("method"); // method()
+	ta.controller().destroy(); // destroy
+	ok(!ta.hasClass("my_plugin"), "Shouldn't have class my_plugin after being destroyed");
+	ok(ta.hasClass("existing_class"), "Existing class should still be there");
+})
+
+test("inherit defaults", function() {
+    $.Controller.extend("BaseController", {
+        defaults : {
+            foo: 'bar'
+        }
+    }, {});
+
+    BaseController.extend("InheritingController", {
+        defaults : {
+            newProp : 'newVal'
+        }
+    }, {});
+
+    ok(InheritingController.defaults.foo === 'bar', 'Class must inherit defaults from the parent class');
+    ok(InheritingController.defaults.newProp == 'newVal', 'Class must have own defaults');
+    var inst = new InheritingController($('<div/>'), {});
+    ok(inst.options.foo === 'bar', 'Instance must inherit defaults from the parent class');
+    ok(inst.options.newProp == 'newVal', 'Instance must have defaults of it`s class');
+});
+
+test("update rebinding", 2, function(){
+	var first = true;
+	$.Controller("Rebinder", {
+		"{item} foo" : function(item, ev){
+			if(first){
+				equals(item.id, 1, "first item");
+				first = false;
+			} else  {
+				equals(item.id, 2, "first item");
+			}
+		}
+	});
+	
+	var item1 = {id: 1},
+		item2 = {id: 2},
+		el = $('<div>').rebinder({item: item1})
+	
+	$(item1).trigger("foo")
+	
+	el.rebinder({item: item2});
+	
+	$(item2).trigger("foo")
+})
+
 
 });

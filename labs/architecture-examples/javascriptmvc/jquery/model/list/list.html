@@ -25,44 +25,32 @@
 <script type='text/javascript' 
         src='../../../steal/steal.js'>   
 </script>
-<script type='text/javascript'>
-steal.plugins('jquery/model',
+<script type='text/javascript' id="demo-source">   
+steal('jquery/model',
 		'jquery/dom/fixture',
-		'jquery/model/list').start()
-</script>
-<script type='text/javascript'>
-	$.Model.extend("Contact",{
+		'jquery/model/list', 
+		function(){
+
+// =============== SETUP FIXTURES =============== 
+
+$.fixture("GET /contacts", function(){
+	return [[{'id': 1,'name' : 'Justin Meyer','birthday': 403938000000},
+			 {'id': 2,'name' : 'Brian Moschel','birthday': 437205600000},
+			 {'id': 3,'name' : 'Mihael Konjevic','birthday': 483771600000}]];
+});
+
+$.fixture("POST /contacts/destroy", function(){
+	return true;
+});
+	
+
+// =============== Contact Model =============== 
+
+$.Model("Contact",{
 	attributes : { 
 		birthday : 'date'
 	},
-	convert : {
-		date : function(raw){
-			if(typeof raw == 'string'){
-				var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
-				return new Date( +matches[1], 
-				                 (+matches[2])-1, 
-				                 +matches[3] )
-			}else if(raw instanceof Date){
-				return raw;
-			}
-		}
-	},
-	findAll : function(params, success, error){
-		$.get("/recipes.json",
-			{},
-			this.callback(['wrapMany',success]),
-			"json",
-			function(){
-				return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
-					 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
-					 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
-			})
-	},
-	update : function(id, attrs, success, error){
-		$.post("/recipes.json",{},success,'json',function(){
-			return [attrs]
-		})
-	}
+	findAll : "/contacts"
 },{
 	ageThisYear : function(){
 		return new Date().getFullYear() - 
@@ -75,31 +63,16 @@ steal.plugins('jquery/model',
 	}
 
 });
-DESTROYFIXTURE = function(){
-				return [true]
-			}
-</script>
-<script type='text/javascript' id="demo-source">   
-$.Model.List.extend("Contact.List",{
-	destroyAll : function(){
-		$.post("/destroy",
-			// get a list of ids
-			this.map(function(contact){
-				return contact.id
-			}),
-			this.callback('destroyed'),
-			'json', DESTROYFIXTURE)
-	},
-	destroyed : function(){
-		// call destroyed to publish OpenAjax
-		//  and trigger events
-		this.each(function(){
-			this.destroyed();
-		})
-	}
-});
 
-// Draw a list of contacts
+// =============== Contact List =============== 
+
+$.Model.List("Contact.List",{
+	destroy: "POST /contacts/destroy"
+},{});
+
+
+// =============== Get and List Contacts =============== 
+
 Contact.findAll({},function(contacts){
   var contactsEl = $('#contacts');
   $.each(contacts, function(i, contact){
@@ -107,14 +80,13 @@ Contact.findAll({},function(contacts){
               .model(contact)
               .html("<input type='checkbox'/> "+
 			  		contact.name+" "+
-					contact.ageThisYear()+
-                    " <a>Show</a>")
+					contact.ageThisYear() )
               .appendTo(contactsEl);
-    // on destroyed, remove elements
-	contact.bind("destroyed", function(){
-      li.remove();
-    })
+	
   });
+  contacts.bind("remove", function(ev, removed){
+  	removed.elements(contactsEl).remove()
+  })
 });
 
 $("#destroyAll").click(function(){
@@ -122,7 +94,9 @@ $("#destroyAll").click(function(){
 	$("#contacts input:checked").closest(".contact")
 		.models()
 		// destroy them
-		.destroyAll();
+		.destroy();
+})
+
 })
 </script>
 	</body>

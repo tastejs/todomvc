@@ -32,7 +32,8 @@ String.prototype.tokens = function (prefix, suffix) {
     var str;                    // The string value.
 
     var result = [];            // An array to hold the results.
-	var prereg = true;
+	var prereg = true,
+		self = this;
     var make = function (type, value) {
 
 // Make a token object.
@@ -44,11 +45,18 @@ String.prototype.tokens = function (prefix, suffix) {
         prereg = (type == 'operator' || type === 'name') &&
 				 (value === 'return' ||   ('(,=:[!&|?{};'.indexOf(value.charAt(value.length - 1)) >= 0 ) )
 		//print(type+" : "+value+" - "+prereg)
+		
 		return {
             type: type,
             value: value,
             from: from,
-            to: i
+            to: i,
+			toString: function(){
+				return "Type: "+type+", value: "+value+", from: "+from+", to: "+i;
+			},
+			error : function(message){
+				throw "steal/parse/tokens.js "+message + " with "+this.value+".\n"+self.substr(this.from-20, 70)
+			}
         };
 		
     };
@@ -88,7 +96,7 @@ String.prototype.tokens = function (prefix, suffix) {
     c = this.charAt(i);
     while (c) {
         from = i;
-		//print(c);
+		// print(c);
 // Ignore whitespace.
 
         if (c <= ' ') {
@@ -97,7 +105,7 @@ String.prototype.tokens = function (prefix, suffix) {
 
 // name.
 
-        } else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
+        } else if (c === '_' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
             str = c;
             i += 1;
             for (;;) {
@@ -168,6 +176,20 @@ String.prototype.tokens = function (prefix, suffix) {
                     c = this.charAt(i);
                 } while (c >= '0' && c <= '9');
             }
+// if its an x, its a hex number
+			if( c == 'x' ) {
+                i += 1;
+                str += c;
+                for (;;) {
+                    c = this.charAt(i);
+                    if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f' ) || (c >= 'A' && c <= 'F' ))) {
+                        break;
+                    }
+                    i += 1;
+                    str += c;
+                }
+			}
+
 
 // Make sure the next character is not a letter.
 
@@ -195,16 +217,26 @@ String.prototype.tokens = function (prefix, suffix) {
             str = '';
             q = c;
             i += 1;
+			var cntrlAllowed = false;
             //print("----")
 			for (;;) {
                 c = this.charAt(i);
-				//print(this[i])
-                if (c < ' ') {
-					print(this.substr(i-20,20))
-					print(this.substr(i,20))
-                    make('string', str).error(c === '\n' || c === '\r' || c === '' ?
-                        "Unterminated string." :
-                        "Control character in string.", make('', str));
+				
+
+                		
+				if (c < ' ' && c !== '\t') {
+					// Look for trailing \
+					if(str.charAt(str.length -1) == "\\" && (c === '\n' || c === '\r')){
+						str = str.substr(0, str.length -1);
+						i = i + 1;
+						continue;
+					} else {
+                    	make('string', str).error(c === '\n' || c === '\r' || c === '' ?
+	                        "Unterminated string." :
+	                        "Control character in string. "+c+"|", make('', str));
+					}
+					
+					
                 }
 
 // Look for the closing quote.
@@ -221,7 +253,13 @@ String.prototype.tokens = function (prefix, suffix) {
                         make('string', str).error("Unterminated string");
                     }
                     c = this.charAt(i);
-                    switch (c) {
+
+					switch (c) {
+					case '\n' :
+					case '\r' :
+						c = "";
+						i += 1;
+						break;
                     case 'b':
                         c = '\b';
                         break;
@@ -254,7 +292,6 @@ String.prototype.tokens = function (prefix, suffix) {
                 i += 1;
             }
             i += 1;
-			//print("str = "+str)
             result.push(make('string', str));
             c = this.charAt(i);
 

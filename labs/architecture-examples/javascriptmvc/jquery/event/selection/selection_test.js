@@ -1,5 +1,4 @@
-steal
-  .plugins("funcunit/qunit", "jquery/dom/selection").then(function(){
+steal("funcunit/qunit", "jquery/dom/selection").then(function(){
   	
 module("jquery/dom/selection");
 

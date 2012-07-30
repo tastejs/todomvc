@@ -1,4 +1,4 @@
-steal.plugins("jquery/view").then(function(){
+steal("jquery/view").then(function(){
 	
 
 

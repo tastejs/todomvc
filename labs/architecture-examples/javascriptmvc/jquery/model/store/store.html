@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>store</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+			.folder {display: block;}
+			#accounts {
+				width: 250px;
+				float: left;
+			}
+        </style>
+	</head>
+	<body>
+	    <h1>store Demo</h1>
+        <ul id='accounts'>
+        	
+        </ul>
+		<ul id='grid'>
+			
+		</ul>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>   
+        </script>
+		<script type='text/ejs' id='accountsEJS'>
+			<% for(var i =0; i < this.length; i++){ %>
+			  <li <%= this[i]%>>
+			  	<h3>
+					<%== $.route.link(this[i].name , {file: this[i].id}) %>
+				</h3>
+				<ul class='contents'  <%= plugin('folder_contents',{item: this[i]})%>></ul>
+			  </li>
+			<% } %>
+		</script>
+		<script type='text/ejs' id='foldersEJS'>
+			<% for(var i =0; i < this.length; i++){ %>
+			  <li <%= this[i]%>>
+			  	<%== $.route.link(this[i].name , {file: this[i].id},{className: 'folder'}) %>
+				<ul class='contents' <%= plugin('folder_contents',{item: this[i]})%> ></ul>
+			  </li>
+			<% } %>
+		</script>
+		<script type='text/javascript'>
+			steal('mj/store','jquery/controller',
+					'jquery/dom/fixture',
+					'jquery/dom/route',
+					'jquery/lang/observe/delegate',
+					'jquery/view/ejs',
+					function(){
+				// lets create a grid widget ...
+				$.route("file/:file",{});
+				
+				$.Model('Item',{},{
+					has : function(id){
+						return new RegExp("(^|\\/)"+id+"(\\/|$)").test(this.path)
+					}
+				});
+				$.Model.List('Item.List');
+				$.Model.Store('Item.Store');
+				
+				var folderIds = [],
+					rand = $.fixture.rand,
+					getPath = function(items, parentId){
+						var path = parentId == null ? [] : [parentId],
+							next
+						while(next = items[parentId]){
+							if(next.parentId != null){
+								path.unshift(next.parentId)
+							}
+							parentId = next.parentId
+						}
+						return {
+							path: path.join('/'),
+							accountId: path.length ? path[0]  : null
+						}
+					};
+				
+				
+				
+				$.fixture.make('item',500, function(i, items){
+					var parentId = i < 5 ? null : rand(folderIds, 1)[0],
+						type = i < 5 ? 'folder' : rand(['file','folder'],1)[0];
+					if(type === 'folder'){
+						folderIds.push(i)
+					}
+					var data = getPath(items, parentId)
+					return {
+						name: parentId === null ? "Account "+i : type+" "+i,
+						parentId : parentId,
+						type: type,
+						path : data.path,
+						accountId: data.accountId
+					}
+				})
+				
+				$.Controller('Grid',{
+					init : function(){
+						//check the list, render if it's there
+						this.fillIn();
+					},
+					fillIn : function(){
+						var file = $.route.data.attr('file');
+						if(file){
+							Item.Store.findOne(file, this.callback('fill'))
+						}	
+					},
+					fill : function(item){
+						if(item.type === "folder"){
+							this.list = Item.Store.findAll({type: "files", parentId: this.item.id})
+						} else {
+							this.list = Item.Store.findAll({type: "files", parentId: this.item.parentId})
+						}
+					}
+				});
+				$('#grid')
+				// a folder's contents
+				// should essentially come alive if the path in the file
+				// is 'in me'
+				//   this means request data from the store
+				//   but ... the store might already have this ...
+				//   how do you handle this situation
+				$.Controller('FolderContents',{
+					setup :  function(el, options){
+						options.items = Item.Store.findAll({
+							parentId: options.item.id,
+							type: "folder"
+						}, true);
+						this._super(el, options)
+					},
+					
+					init : function(){
+						this.fillIn();
+					},
+					"{items} add" : function(accounts, ev, items){
+						this.element.html("foldersEJS", items);
+						//check the state and add a new folder
+					},
+					fillIn : function(file){
+						var file = $.route.attr('file');
+						if(file){
+							Item.Store.findOne(file, this.callback('fill'))
+						}						
+					},
+					// path 34/4/23/1123/
+					fill : function(item){
+						if(( item.id == this.options.item.id ||
+						   item.has(this.options.item.id) )&&
+							 !this.options.items.length){
+							// get this content!
+							Item.Store.findAll({
+								parentId: this.options.item.id,
+								type: "folder"
+							})
+						}
+					},
+					"{$.route} file change" : function(){
+						// if it's in us ... get our shit
+						this.fillIn();
+						// if it's not, hide ourselves?
+					}
+				})
+				
+				// Immediately get accounts ....
+				$.Controller('Accounts',{
+					setup : function(element){
+						
+						this._super(element, {
+							accounts : Item.Store.findAll({parentId: null})
+						})
+						
+					},
+					"{accounts} add" : function(accounts, ev, accounts){
+						// add something for each account
+						this.element.html("accountsEJS", accounts)
+					}
+				})
+				
+				$('#accounts').accounts();
+				
+				$.route.ready();
+			})
+		</script>
+	</body>
+</html>

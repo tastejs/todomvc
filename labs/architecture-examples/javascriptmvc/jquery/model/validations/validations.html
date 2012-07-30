@@ -26,36 +26,40 @@
 <script type='text/javascript' 
         src='../../../steal/steal.js'>   
 </script>
-<script type='text/javascript'>
-steal.plugins('jquery/model',
+<script type='text/javascript'  id="demo-source">   
+steal('jquery/model',
 		'jquery/dom/fixture',
 		'jquery/model/list',
-		'jquery/model/validations').start()
-</script>
-<script type='text/javascript'>
-	CONVERSIONS = {
-		date : function(raw){
-			if(typeof raw == 'string'){
-				var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
-				return new Date( +matches[1], 
-				                 (+matches[2])-1, 
-				                 +matches[3] )
-			}else if(raw instanceof Date){
-				return raw;
-			}
-		}
+		'jquery/model/validations').then(function(){
+	
+$.Model.convert.date = function(raw){
+	if(typeof raw == 'string'){
+		var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
+		
+		return matches ? new Date( +matches[1], 
+		                 (+matches[2])-1, 
+		                 +matches[3] )
+					   : null;
+	}else if(raw instanceof Date){
+		return raw;
 	}
-	FIXTURE = function(){
-				return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
-					 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
-					 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
-			}
-</script>
-<script type='text/javascript'  id="demo-source">   
+};
 
-$.Model.extend("Contact",{
+$.fixture("/contacts.json", function(){
+  return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
+	       {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
+	       {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
+});
+$.fixture("/contacts/{id}.json", function() {
+	return {};
+})
+
+$.Model("Contact",{
 	init : function(){
 		this.validate("birthday",function(){
+			if(this.birthday == null){
+				return "your birthday needs to be formatted YYYY-MM-DD"
+			}
 			if(this.birthday > new Date){
 				return "your birthday needs to be in the past"
 			}
@@ -64,17 +68,8 @@ $.Model.extend("Contact",{
 	attributes : { 
 		birthday : 'date'
 	},
-	convert : CONVERSIONS,
-	findAll : function(params, success, error){
-		$.get("/recipes.json",{},
-			this.callback(['wrapMany',success]),
-			"json",FIXTURE )
-	},
-	update : function(id, attrs, success, error){
-		$.post("/recipes.json",{},success,'json',function(){
-			return [attrs]
-		})
-	}
+	findAll : "/contacts.json",
+	update : "/contacts/{id}.json"
 },{
 	ageThisYear : function(){
 		return new Date().getFullYear() - 
@@ -103,11 +98,6 @@ makeAgeUpdater = function(contact){
 	}).appendTo(updater);
 	updater.append("<div id='error' style='display:none'><div>");
 }
-
-
-</script>
-
-<script type='text/javascript'>
 	// List 1
 Contact.findAll({},function(contacts){
   var contactsEl = $('#contacts1');
@@ -127,6 +117,7 @@ Contact.findAll({},function(contacts){
 	 makeAgeUpdater( $(this).closest('.contact').model() );
   });
 });
+})
 </script>
 	</body>
 </html>

@@ -47,10 +47,10 @@
 </div>
     
             
-        <script type='text/javascript' 
-                src='../../../steal/steal.js?jquery/event/default'>   
-        </script>
-<script id="demo-source" type='text/javascript'>
+<script type='text/javascript' 
+        src='../../../steal/steal.js'></script>
+<script type='text/javascript' id="demo-source">
+steal('jquery/event/default').then(function(){
 // create a tabs plugin
 // this is code written by a widget developer, and provides an event based 
 // tabs API
@@ -66,7 +66,6 @@ $.fn.tabs = function(){
     
   //set the first tab button as active
   tab.find("li:first").addClass('active')
-    
   //hide all the other tabs
   tab.find(".tab:gt(0)").hide();
     
@@ -77,15 +76,14 @@ $.fn.tabs = function(){
         
 
     if( // not active button
-	    !el.hasClass('active') && 
-		// default wasn't prevented
-        sub(el).triggerDefaults("show")){
-			
-	  // remove active and hide old active	
-      sub(tab.find(".active").removeClass("active")).hide();
-	  
-	  //mark as active
-      el.addClass("active");
+	    !el.hasClass('active')) {
+			sub(el).triggerAsync('show', function(){
+				// remove active and hide old active	
+			    sub(tab.find(".active").removeClass("active")).hide();
+				
+				//mark as active
+			    el.addClass("active");
+			})
     }
   })
     
@@ -111,7 +109,9 @@ $("#second").bind("show",function(ev){
     ev.preventDefault();
   }
 });
+})
 </script>
+
 
     </body>
 </html>

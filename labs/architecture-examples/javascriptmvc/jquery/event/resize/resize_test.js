@@ -1,5 +1,5 @@
 
-steal.plugins('funcunit/qunit', 'jquery/event/resize').then(function() {
+steal('funcunit/qunit', 'jquery/event/resize').then(function() {
 
 	module("jquery/event/resize")
 

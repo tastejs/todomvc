@@ -1,0 +1,7 @@
+	$.fixture.make("<%= underscore %>", 5, function(i, <%= underscore %>){
+		var descriptions = ["grill fish", "make ice", "cut onions"]
+		return {
+			name: "<%= underscore %> "+i,
+			description: $.fixture.rand( descriptions , 1)[0]
+		}
+	})

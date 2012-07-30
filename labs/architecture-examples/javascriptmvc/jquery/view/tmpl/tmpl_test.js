@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','jquery/view/tmpl').then(function(){
+steal('funcunit/qunit','jquery/view/tmpl').then(function(){
 // use the view/qunit.html test to run this test script
 module("jquery/view/tmpl")
 

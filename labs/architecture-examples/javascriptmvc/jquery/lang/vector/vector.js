@@ -1,8 +1,9 @@
-steal.plugins('jquery').then(function($){
+steal('jquery').then(function($){
 	var getSetZero = function(v){ return v !== undefined ? (this.array[0] = v) : this.array[0] },
 		getSetOne = function(v){ return v !== undefined ? (this.array[1] = v) : this.array[1] }
 /**
  * @class jQuery.Vector
+ * @parent jquerymx.lang
  * A vector class
  * @constructor creates a new vector instance from the arguments.  Example:
  * @codestart
@@ -76,28 +77,36 @@ steal.plugins('jquery').then(function($){
 			}
 			return vec.update(arr);
 		},
-/*
-	 * Returns the 2nd value of the vector
-	 * @return {Number}
-	 */
-		x: getSetZero,
-		width: getSetZero,
 		/**
 		 * Returns the first value of the vector
 		 * @return {Number}
 		 */
-		y: getSetOne,
-		height: getSetOne,
+		x: getSetZero,
 		/**
-		 * Same as x()
+		 * same as x()
+		 * @return {Number}
+		 */
+		left: getSetZero,
+		/**
+		 * Returns the first value of the vector
+		 * @return {Number}
+		 */
+		width: getSetZero,
+		/**
+		 * Returns the 2nd value of the vector
+		 * @return {Number}
+		 */
+		y: getSetOne,
+		/**
+		 * Same as y()
 		 * @return {Number}
 		 */
 		top: getSetOne,
 		/**
-		 * same as y()
+		 * Returns the 2nd value of the vector
 		 * @return {Number}
 		 */
-		left: getSetZero,
+		height: getSetOne,
 		/**
 		 * returns (x,y)
 		 * @return {String}

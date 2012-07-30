@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','jquery/model/validations').then(function(){
+steal('funcunit/qunit','jquery/model/validations').then(function(){
 
 module("jquery/model/validations",{
 	setup : function(){
@@ -22,23 +22,28 @@ test("models can validate, events, callbacks", 11,function(){
 	equals(errors.age[0], "it's a date type", "error message is right");
 	
 	task.bind("error.age", function(ev, errs){
-		ok(this === task, "we get task back");
+		ok(this === task, "we get task back by binding");
 		
 		ok(errs, "There are errors");
 		equals(errs.age.length, 1, "there is one error");
 		equals(errs.age[0], "it's a date type", "error message is right");
 	})
 	
-	task.attr("age","blah")
+	task.attr("age","blah");
+	
+	
 	
 	task.unbind("error.age");
+	
+	
 	task.attr("age", "blaher", function(){}, function(errs){
-		ok(this === task, "we get task back");
+		ok(this === task, "we get task back in error handler");
 		
 		ok(errs, "There are errors");
 		equals(errs.age.length, 1, "there is one error");
 		equals(errs.age[0], "it's a date type", "error message is right");
-	})
+	});
+	
 })
 
 test("validatesFormatOf", function(){
@@ -105,6 +110,7 @@ test("validatesPresenceOf", function(){
 		}
 	},{});
 	
+    //test for undefined
 	var task = new Task(),
 		errors = task.errors();
 	
@@ -112,6 +118,23 @@ test("validatesPresenceOf", function(){
 	ok(errors.dueDate)
 	equals(errors.dueDate[0], "can't be empty" , "right message");
 	
+    //test for null
+	task = new Task({dueDate: null});
+    errors = task.errors();
+	
+	ok(errors)
+	ok(errors.dueDate)
+	equals(errors.dueDate[0], "can't be empty" , "right message");
+
+    //test for ""
+	task = new Task({dueDate: ""});
+    errors = task.errors();
+	
+	ok(errors)
+	ok(errors.dueDate)
+	equals(errors.dueDate[0], "can't be empty" , "right message");
+
+	//Affirmative test
 	task = new Task({dueDate : "yes"});
 	errors = task.errors();;
 	
@@ -148,4 +171,4 @@ test("validatesRangeOf", function(){
 	equals(errors2.otherThing[0],"value out of range", "can supply a custom message");
 });
 
-})
+});

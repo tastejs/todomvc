@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Model Events Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            li {border: solid 1px gray; padding: 5px; width: 250px;}
+			li a {color: red; font-weight: bold;}
+			li li {width: auto; border: none;}
+			p {width: 400px;}
+        </style>
+	</head>
+	<body>
+		<div id="demo-instructions">
+		<h1>Model Associations Demo</h1>
+		<p>This demo shows how you can setup associations.</p>
+		</div>
+<div id="demo-html">
+<div id='contacts'></div>
+</div>
+		
+<script type='text/javascript' 
+        src='../../../steal/steal.js'>
+</script>
+<script type='text/javascript'  id="demo-source">
+steal('jquery/model',
+		'jquery/dom/fixture',
+		'jquery/model/list').then(function(){
+			
+$.Model.convert.date =  function(raw){
+	if(typeof raw == 'string'){
+		var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
+		return new Date( +matches[1], 
+		                 (+matches[2])-1, 
+		                 +matches[3] )
+	}else if(raw instanceof Date){
+		return raw;
+	}
+};
+
+$.fixture("/contacts.json", function(){
+	return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20',
+				tasks : [{id: 1, title: "write up model layer", due: "2010-10-5"}]},
+		 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10',
+		 		tasks : [{id: 2, title: "write up funcunit", due: "2009-5-1"}, 
+				         {id: 3, title: "test funcunit", due: "2010-3-15"}]},
+		 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
+})
+
+// A task model that has a date
+$.Model("Task",{
+	attributes : {
+		due : 'date'
+	}
+},{
+	weeksPastDue : function(){
+		return Math.round( (new Date() - this.due) /
+			(1000*60*60*24*7 ) );
+	}
+})
+
+// A contact model that has many tasks
+$.Model("Contact",{
+	attributes : { 
+		birthday : 'date',
+		tasks: "Task.models"
+	},
+	findAll : "/contacts.json"
+},{
+	ageThisYear : function(){
+		return new Date().getFullYear() - 
+		      this.birthday.getFullYear()
+	},
+	getBirthday : function(){
+		return ""+this.birthday.getFullYear()+
+			"-"+(this.birthday.getMonth()+1)+
+			"-"+this.birthday.getDate();
+	}
+
+});
+
+
+// Get all contacts and put them on the page
+Contact.findAll({},function(contacts){
+  var contactsEl = $('#contacts');
+  $.each(contacts, function(i, contact){
+    var li = $('<li>')
+              .html(contact.name+" "+contact.ageThisYear())
+              .appendTo(contactsEl);
+			  
+	var ul =$("<ul>");
+	var tasks = contact.attr('tasks')
+	if(tasks){
+		tasks.each(function(){
+			ul.append('<li>'+this.title+" "+this.weeksPastDue()+'</li>')
+		})
+	}
+		
+	ul.appendTo(li)
+  });
+});
+})
+</script>
+	</body>
+</html>

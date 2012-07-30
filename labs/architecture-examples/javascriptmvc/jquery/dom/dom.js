@@ -1,6 +1,8 @@
 /**
 @page dom DOM Helpers
-@tag core
+@parent jquerymx
+@description jQuery DOM extension.
+
 JavaScriptMVC adds a bunch of useful 
 jQuery extensions for the dom.  Check them out on the left. 
 
@@ -68,6 +70,13 @@ Text range utilities.
 
     $('#copy').range() //-> text range that has copy selected
     
+## [jQuery.route]
+
+Hash routes mapped to an [jQuery.Observe $.Observe].
+
+	$.route(':type',{type: 'videos'})
+    $.route.delegate('type','set', function(){ ... })
+    $.route.attr('type','images');
 
 */
-steal.plugins('jquery');
+steal('jquery');

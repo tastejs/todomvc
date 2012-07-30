@@ -1,11 +1,9 @@
+<!DOCTYPE HTML>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<%= path_to_steal %>/funcunit/qunit/qunit.css" />
         <title><%= application_name%> QUnit Test</title>
-		<script type='text/javascript'>
-			steal = {ignoreControllers: true}
-		</script>
-		<script type='text/javascript' src='<%= path_to_steal %>/steal/steal.js?<%=path%>/test/qunit'></script>
+		<script type='text/javascript' src='<%= path_to_steal %>/steal/steal.js?<%=path%>/<%= application_name%>_test.js'></script>
     </head>
     <body>
 

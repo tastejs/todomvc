@@ -1,26 +1,34 @@
 
-steal.plugins('jquery/dom/cur_styles').then(function($) {
+steal('jquery/dom/cur_styles').then(function($) {
 /**
  * @page dimensions dimensions
  * @parent dom
- * <h1>jquery/dom/dimensions <span class="Constructor type">Plugin</span></h1>
+ * @plugin jquery/dom/dimensions
+ * 
  * The dimensions plugin adds support for setting+animating inner+outer height and widths.
- * <h3>Quick Examples</h3>
-@codestart
-$('#foo').outerWidth(100).innerHeight(50);
-$('#bar').animate({outerWidth: 500});
-@codeend
- * <h2>Use</h2>
- * <p>When writing reusable plugins, you often want to 
+ * 
+ * ### Quick Examples
+ * 
+ *      $('#foo').outerWidth(100).innerHeight(50);
+ *      $('#bar').animate({outerWidth: 500});
+ *      
+ * ## Use
+ * 
+ * When writing reusable plugins, you often want to 
  * set or animate an element's width and height that include its padding,
  * border, or margin.  This is especially important in plugins that
  * allow custom styling.
+ * 
  * The dimensions plugin overwrites [jQuery.fn.outerHeight outerHeight],
  * [jQuery.fn.outerWidth outerWidth], [jQuery.fn.innerHeight innerHeight] 
  * and [jQuery.fn.innerWidth innerWidth]
  * to let you set and animate these properties.
- * </p>
- * <h2>Demo</h2>
+ * 
+ * 
+ * 
+ * 
+ * ## Demo
+ * 
  * @demo jquery/dom/dimensions/dimensions.html
  */
 
@@ -39,22 +47,27 @@ var weird = /button|select/i, //margin is inside border
  */
 $.each({ 
 
-/*
+/**
  * @function outerWidth
  * @parent dimensions
- * Lets you set the outer height on an object
+ * Lets you set the outer width on an object
  * @param {Number} [height] 
- * @param {Boolean} [includeMargin]
+ * @param {Boolean} [includeMargin=false] Makes setting the outerWidth adjust 
+ * for margin. Defaults to false.
+ * 
+ *     $('#hasMargin').outerWidth(50, true);
+ * 
+ * @return {jQuery|Number} If you are setting the value, returns the jQuery wrapped elements.
  */
 width: 
-/*
+/**
  * @function innerWidth
  * @parent dimensions
  * Lets you set the inner height of an object
  * @param {Number} [height] 
  */
 "Width", 
-/*
+/**
  * @function outerHeight
  * @parent dimensions
  * Lets you set the outer height of an object where: <br/> 
@@ -74,7 +87,7 @@ width:
  * Otherwise, returns outerHeight in pixels.
  */
 height: 
-/*
+/**
  * @function innerHeight
  * @parent dimensions
  * Lets you set the outer width on an object
@@ -104,19 +117,21 @@ height:
 
     //getter / setter
     $.fn["outer" + Upper] = function(v, margin) {
-        if (typeof v == 'number') {
-            this[lower](v - getBoxes[lower](this[0], {padding: true, border: true, margin: margin}))
+        var first = this[0];
+		if (typeof v == 'number') {
+            first && this[lower](v - getBoxes[lower](first, {padding: true, border: true, margin: margin}))
             return this;
         } else {
-            return checks["oldOuter" + Upper].call(this, v)
+            return first ? checks["oldOuter" + Upper].call(this, v) : null;
         }
     }
     $.fn["inner" + Upper] = function(v) {
-        if (typeof v == 'number') {
-            this[lower](v - getBoxes[lower](this[0], { padding: true }))
+        var first = this[0];
+		if (typeof v == 'number') {
+            first&& this[lower](v - getBoxes[lower](first, { padding: true }))
             return this;
         } else {
-            return checks["oldInner" + Upper].call(this, v)
+            return first ? checks["oldInner" + Upper].call(this, v) : null;
         }
     }
     //provides animations

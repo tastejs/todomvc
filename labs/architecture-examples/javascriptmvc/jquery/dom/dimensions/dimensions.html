@@ -69,10 +69,8 @@
         <script type='text/javascript' 
                 src='../../../steal/steal.js'>   
         </script>
-<script type='text/javascript'>
-    steal.plugins('jquery/dom/dimensions').start()
-</script>
 <script type='text/javascript' id="demo-source">
+steal('jquery/dom/dimensions').then(function(){
 // sets the values in the input boxes
 var set = function() {
     
@@ -126,6 +124,7 @@ $("input").live('keyup',function(ev) {
   timer = setTimeout(function() {
     update(ev)
   },1400)
+})
 })
 </script>
     </body>

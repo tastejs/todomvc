@@ -1,0 +1,7 @@
+steal "funcunit",
+ ->
+  module "<%= fullName %>", setup: ->
+    S.open "//<%= path %>/<%=underscore%>/<%=underscore%>.html"
+  
+  test "Text Test", ->
+    equals S("h1").text(), "<%= fullName %> Demo", "demo text"

@@ -2,13 +2,13 @@
 /**
  * Tests compressing a very basic page and one that is using steal
  */
-load('steal/rhino/steal.js')
-steal('//steal/test/test', function( s ) {
+load('steal/rhino/rhino.js')
+steal('steal/test', function( s ) {
 	STEALPRINT = false;
 	s.test.module("jquery/download")
 	
 	s.test.test("controller", function(){
-		load('steal/rhino/steal.js')
+		load('steal/rhino/rhino.js')
 		s.test.open('jquery/download/test/controllerpage.html')
 		s.test.ok(MyController, "Controller was loaded")
 		s.test.clear();

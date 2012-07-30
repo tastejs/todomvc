@@ -1,5 +1,7 @@
-steal.plugins('jquery/event/livehack').then(function($){
-var supportTouch = "ontouchend" in document,
+steal('jquery/event/livehack').then(function($){
+// TODO remove this, phantom supports touch AND click, but need to make funcunit support touch so its testable
+var isPhantom = /Phantom/.test(navigator.userAgent),
+	supportTouch = !isPhantom && "ontouchend" in document,
 	scrollEvent = "touchmove scroll",
 	touchStartEvent = supportTouch ? "touchstart" : "mousedown",
 	touchStopEvent = supportTouch ? "touchend" : "mouseup",
@@ -53,7 +55,7 @@ $.event.setupHelper( [
 	//listen to mouseup
 	var start = data(ev),
 		stop,
-		delegate = ev.liveFired || ev.currentTarget,
+		delegate = ev.delegateTarget || ev.currentTarget,
 		selector = ev.handleObj.selector,
 		entered = this;
 	
@@ -75,7 +77,7 @@ $.event.setupHelper( [
 				var deltaX = Math.abs(start.coords[0] - stop.coords[0]),
 					deltaY = Math.abs(start.coords[1] - stop.coords[1]),
 					distance = Math.sqrt(deltaX*deltaX+deltaY*deltaY);
-				console.log(stop.time - start.time, swipe.delay, distance , swipe.min)
+
 				if ( stop.time - start.time < swipe.delay && distance >= swipe.min ) {
 					
 					var events = ['swipe']

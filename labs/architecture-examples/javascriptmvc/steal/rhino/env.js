@@ -40,7 +40,33 @@ __this__ = this;
 
 //eg "Mozilla"
 Envjs.appCodeName  = "Envjs";
-
+Envjs.reportError = function(e, fn){
+    var max = 0;
+    for(var name in e){
+      if(name.length > max && name !== 'rhinoException'){
+        max = name.length;
+      }
+    }
+    max++;
+    var space = "\n  "+ new Array(max+2).join(" ");
+    console.log("!!!!!!!!!!! ERROR !!!!!!!!!!!\n");
+    for(var name in e){
+    	if (name === 'rhinoException') {
+    		continue;
+    	}
+		console.log("-"+name+
+			new Array(max-name.length).join(" ")+
+			" = "+
+			(""+e[name]).split("\n").join(space) );
+    }
+    if(typeof fn === 'string'){
+    	var args = [space+fn];
+    	for(var i = 2; i < arguments.length; i++){
+    	   args.push(arguments[i])
+    	}
+    	console.log.apply(console,args);
+    }
+}
 //eg "Gecko/20070309 Firefox/2.0.0.3"
 Envjs.appName      = "Netscape";
 
@@ -269,7 +295,8 @@ Envjs.scriptTypes = {
  * @param {Object} e
  */
 Envjs.onScriptLoadError = function(script, e){
-    console.log('error loading script %s %s', script, e);
+	Envjs.reportError(e)
+    //console.log('error loading script %s %s', script, e);
 };
 
 /**
@@ -1385,15 +1412,17 @@ urlparse.normalizepath = function(path)
 //   %7e -> %7E
 // Nor, '+' <--> %20 translation
 //
-urlparse.urlnormalize = function(url)
+urlparse.urlnormalize = function(url, allow)
 {
     var parts = urlparse.urlsplit(url);
     switch (parts.scheme) {
     case 'file':
         // files can't have query strings
         //  and we don't bother with fragments
-        parts.query = '';
-        parts.fragment = '';
+        // parts.query = '';
+        if(!allow){
+        	parts.fragment = '';
+        }
         break;
     case 'http':
     case 'https':
@@ -1434,7 +1463,6 @@ urlparse.urlsplit = function(url, default_scheme, allow_fragments)
     if (typeof allow_fragments === 'undefined') {
         allow_fragments = true;
     }
-
     // scheme (optional), host, port
     var fullurl = /^([A-Za-z]+)?(:?\/\/)([0-9.\-A-Za-z]*)(?::(\d+))?(.*)$/;
     // path, query, fragment
@@ -1474,7 +1502,6 @@ urlparse.urlsplit = function(url, default_scheme, allow_fragments)
     } else {
         o.fragment = '';
     }
-
     return o;
 };
 
@@ -1592,8 +1619,9 @@ Envjs.getcwd = function() {
  *
  * @param {Object} path  Relative or absolute URL
  * @param {Object} base  (semi-optional)  The base url used in resolving "path" above
+ 
  */
-Envjs.uri = function(path, base) {
+Envjs.uri = function(path, base, allow) {
 	path = path.replace(/\\/g, '/');
     //console.log('constructing uri from path %s and base %s', path, base);
 
@@ -1605,7 +1633,7 @@ Envjs.uri = function(path, base) {
 
     // if path is absolute, then just normalize and return
     if (path.match('^[a-zA-Z]+://')) {
-        return urlparse.urlnormalize(path);
+        return urlparse.urlnormalize(path, allow);
     }
 
     // if path is a Windows style absolute path (C:\foo\bar\index.html)
@@ -1639,7 +1667,7 @@ Envjs.uri = function(path, base) {
     }
     // handles all cases if path is abosulte or relative to base
     // 3rd arg is "false" --> remove fragments
-    var newurl = urlparse.urlnormalize(urlparse.urljoin(base, path, false));
+    var newurl = urlparse.urlnormalize(urlparse.urljoin(base, path, allow ||false), allow);
 	//console.log('uri %s %s = %s', base, path, newurl);
     return newurl;
 };
@@ -1999,7 +2027,9 @@ Envjs.runAsync = function(fn, onInterupt){
             	fn();
             }
             
+
             //Envjs.wait();
+
         });
         Envjs.spawn(run);
     }catch(e){
@@ -2115,7 +2145,7 @@ Envjs.connection = function(xhr, responseHandler, data){
                 //try to add some canned headers that make sense
                 xhr.readyState = 4;
                 xhr.statusText = "ok";
-                xhr.responseText = Envjs.readFromFile(xhr.url);
+                xhr.responseText = Envjs.readFromFile(xhr.url.replace(/\?.+$/, ""));
                 try{
                     if(xhr.url.match(/html$/)){
                         xhr.responseHeaders["Content-Type"] = 'text/html';
@@ -6788,7 +6818,7 @@ setTimeout = function(fn, time){
                     // eval in global scope
                     eval(fn, null);
                 } catch (e) {
-                    console.log('timer error %s %s', fn, e);
+                    Envjs.reportError(e, fn);
                 } finally {
                     clearInterval(num);
                 }
@@ -6798,7 +6828,7 @@ setTimeout = function(fn, time){
                 try {
                     fn();
                 } catch (e) {
-                    console.log('timer error %s %s', fn, e);
+                    Envjs.reportError(e, fn);
                 } finally {
                     clearInterval(num);
                 }
@@ -6917,7 +6947,7 @@ Envjs.wait = function(wait) {
                 earliest.running = true;
                 nextfn();
             } catch (e) {
-                console.log('timer error %s %s', nextfn, e);
+                Envjs.reportError(e, nextfn);
             } finally {
                 earliest.running = false;
             }
@@ -7525,7 +7555,7 @@ Aspect.around({
                         node.dispatchEvent( event, false );
                     }
                 }catch(e){
-                    console.log('error loading html element %s %e', node, e.toString());
+                    Envjs.reportError(e, 'error loading html element %s %e', node, e.toString());                    
                 }
             }
         }
@@ -7555,6 +7585,7 @@ Aspect.around({
                                 }
                             }catch(e){
                                 console.log('error loading html element %s %e', node, e.toString());
+                                Envjs.reportError(e);
                             }
                         }
                         break;
@@ -8724,7 +8755,7 @@ __extend__(HTMLAnchorElement.prototype, {
         if (!link) {
             return '';
         }
-        return Envjs.uri(link, this.ownerDocument.location.toString());
+        return Envjs.uri(link, this.ownerDocument.location.toString(), true);
     },
     set href(val) {
         return this.setAttribute("href", val);
@@ -9971,7 +10002,7 @@ __extend__(HTMLLinkElement.prototype, {
         this.setAttribute('charset',value);
     },
     get href(){
-        return this.getAttribute('href');
+		return this.getAttribute('href');
     },
     set href(value){
         this.setAttribute('href',value);
@@ -18929,7 +18960,7 @@ function $clinit_124(){
   ONCELLCHANGE = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('oncellchange'), ALL_NO_PREFIX, ALL_NCNAME, false);
   ONMOUSEWHEEL = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('onmousewheel'), ALL_NO_PREFIX, ALL_NCNAME, false);
   ONMOUSEENTER = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('onmouseenter'), ALL_NO_PREFIX, ALL_NCNAME, false);
-  ONAFTERPRINT = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('onafterprint'), ALL_NO_PREFIX, ALL_NCNAME, false);
+  ONAFTERPRINT = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('onafterupdate'), ALL_NO_PREFIX, ALL_NCNAME, false);
   ONBEFORECOPY = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('onbeforecopy'), ALL_NO_PREFIX, ALL_NCNAME, false);
   MARGINHEIGHT = $AttributeName_0(new AttributeName, ALL_NO_NS, SAME_LOCAL('marginheight'), ALL_NO_PREFIX, ALL_NCNAME, false);
   MARKERHEIGHT = $AttributeName_0(new AttributeName, ALL_NO_NS, SVG_DIFFERENT('markerheight', 'markerHeight'), ALL_NO_PREFIX, ALL_NCNAME, false);
@@ -23907,6 +23938,7 @@ var __elementPopped__ = function(ns, name, node){
                                         }
                                     }catch(e){
                                         console.log('error loading html element %s %s %s %e', ns, name, node, e.toString());
+                                        Envjs.reportError(e);
                                     }
                                     break;
                                 case 'frame':
@@ -23946,6 +23978,7 @@ var __elementPopped__ = function(ns, name, node){
                                         }
                                     }catch(e){
                                         console.log('error loading html element %s %e', node, e.toString());
+                                        Envjs.reportError(e);
                                     }
                                     /*try{
                                         if (node.src && node.src.length > 0){
@@ -23979,9 +24012,6 @@ var __elementPopped__ = function(ns, name, node){
                                     doc.parsing = false;
                                     //DOMContentLoaded event
                                     try{
-										if ( Envjs.killTimersAfterLoad === true ) {
-											Envjs.clear();
-										}
 										if ( Envjs.fireLoad === false ) {
 											return;
 										}
@@ -24192,6 +24222,10 @@ Location = function(url, doc, history) {
             if ($history) {
                 $history.add($url, 'hash');
             }
+            //console.log('triggering window.hashchange');
+            event = doc.createEvent('HTMLEvents');
+            event.initEvent('hashchange', false, false);
+            window.dispatchEvent( event, false );
         },
 
         get host() {
@@ -24314,7 +24348,7 @@ Location = function(url, doc, history) {
         },
 
         assign: function(url, /*non-standard*/ method, data) {
-            var _this = this,
+			var _this = this,
                 xhr,
                 event;
 			method = method||"GET";
@@ -24349,7 +24383,7 @@ Location = function(url, doc, history) {
                        		default:
 								//console.log('status is good for assignment %s', xhr.status);
 	                        	if (xhr.readyState === 4) {// update closure upvars
-					            	$url = xhr.url;
+					            	$url = url;
 						            parts = Envjs.urlsplit($url);
 	                            	//console.log('new document baseURI %s', xhr.url);
 	                            	Envjs.exchangeHTMLDocument($document, xhr.responseText, xhr.url);
@@ -25218,9 +25252,9 @@ Window = function(scope, parent, opener){
         set location(url){
 			//very important or you will go into an infinite
         	//loop when creating a xml document
-			//console.log('setting window location %s', url);
+			// console.log('setting window location %s', url);
         	if(url) {
-            	$location.assign(Envjs.uri(url, $location+''));
+            	$location.assign(Envjs.uri(url, $location+'', true));
 			}
         },
         get name(){
@@ -25370,6 +25404,8 @@ Window = function(scope, parent, opener){
         //onunload: function(){},
 		focus: function(){},
 		blur: function(){},
+		get onhashchange(){},
+		set onhashchange(){},
         get guid(){
             return $uuid;
         }

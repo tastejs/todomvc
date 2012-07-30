@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','jquery/event/default').then(function(){
+steal('funcunit/qunit','jquery/event/default').then(function(){
 
 module("jquery/event/default")
 test("namespaced with same function", function(){
@@ -30,17 +30,17 @@ test("triggering defaults", function(){
 		touchNum = (++num)
 	})
 	$("#touchme1").trigger("touch")
-	equals(1, count1, "trigger default event")
-	equals(1, touchNum, "default called second")
-	equals(2, defaultNum, "default called second")
-	
-	
+	equals(count1, 1 , "trigger default event")
+	equals(touchNum, 1, "default called second")
+	equals(defaultNum, 2, "default called second")
 	
 	//now prevent
 	
-	$("#bigwrapper").bind("touch", function(e){ e.preventDefault()})
-	$("#touchme1").trigger("touch")
-	equals(1, count1, "default event not called")
+	$("#bigwrapper").bind("touch", function(e){ e.preventDefault()});
+	
+	$("#touchme1").trigger("touch");
+	
+	equals(count1, 1 , "default event not called again"); // breaking
 	equals(3, touchNum, "touch called again")
 	
 	var count2 = 0;
@@ -49,7 +49,6 @@ test("triggering defaults", function(){
 	})
 	$(document.body).bind("hide", function(ev){
 		if(ev.target.id == "clickme1"){
-			console.log("stopping and preventing")
 			ev.stopPropagation()
 			ev.preventDefault()
 		}
@@ -125,6 +124,43 @@ test("default and live order", function(){
 	
 	same(order, ['show','default'],"show then default")
 	$("#foo").die()
+});
+
+
+test("type on objects", function(){
+	var ev = $.Event('updated'),
+		obj = {foo: 'bar'};
+		
+	$(obj).trigger(ev)
+
+	equals(ev.type, 'updated')
+});
+
+test("namespace on objects", function(){
+	var ev = $.Event('updated.ns'),
+		obj = {foo: 'bar'};
+		
+	$(obj).trigger(ev)
+	equals(ev.namespace, 'ns')
+});
+
+
+test("default events with argument", function(){
+
+	$("#qunit-test-area").html(
+	"<div id='touchme'></div>")
+	
+	
+	var arg = "foobar", touchArg, defaultArg;
+	$("#touchme").bind("default.touch", function(e, data){
+		defaultArg = data;
+	})
+	$("#touchme").bind("touch", function(e, data){
+		touchArg = data;
+	})
+	$("#touchme").trigger("touch", arg)
+	equals(touchArg, arg, "standard event got args")
+	equals(defaultArg, arg, "default event got args")
 });
 
 

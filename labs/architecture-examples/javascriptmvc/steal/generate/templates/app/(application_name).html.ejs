@@ -1,18 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-            "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 	<head>
 		<title><%= application_name %></title>
 	</head>
 	<body>
-	    <h1>Thanks for stealing StealJS!</h1>
-		<p>Don't worry, it's open source.  It's only stealing if you don't do something
-		awesome with it.
+		<h1>Thanks for stealing StealJS!</h1>
+		<p>
+			Don't worry, it's open source.  It's only stealing if you don't do something awesome with it.
+			<hr>
+			<b><a href="http://javascriptmvc.com/docs.html#!stealjs">Read more about Steal</a></b>
 		</p>
-        <div id='content'></div>
-		
-		<script type='text/javascript' 
-                src='<%= path_to_steal %>/steal/steal.js?<%= path %>/<%= application_name %>.js'>   
-        </script>
+		<div id='content'></div>
+		<script type='text/javascript' src='<%= path_to_steal %>/steal/steal.js?<%= path %>/<%= application_name %>.js'></script>
 	</body>
 </html>

@@ -1,31 +1,72 @@
 /**
  *  @add jQuery.fn
  */
-steal.plugins("jquery/dom").then(function( $ ) {
-	var radioCheck = /radio|checkbox/i,
-		keyBreaker = /[^\[\]]+/g,
-		numberMatcher = /^[\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?$/;
+steal("jquery/dom").then(function( $ ) {
+	var keyBreaker = /[^\[\]]+/g,
+		convertValue = function( value ) {
+			if ( $.isNumeric( value )) {
+				return parseFloat( value );
+			} else if ( value === 'true') {
+				return true;
+			} else if ( value === 'false' ) {
+				return false;
+			} else if ( value === '' ) {
+				return undefined;
+			}
+			return value;
+		}, 
+		nestData = function( elem, type, data, parts, value, seen ) {
+			var name = parts.shift();
 
-	var isNumber = function( value ) {
-		if ( typeof value == 'number' ) {
-			return true;
-		}
+			if ( parts.length ) {
+				if ( ! data[ name ] ) {
+					data[ name ] = {};
+				}
+				// Recursive call
+				nestData( elem, type, data[ name ], parts, value, seen );
+			} else {
 
-		if ( typeof value != 'string' ) {
-			return false;
-		}
+				// Handle same name case, as well as "last checkbox checked"
+				// case
+				if ( name in seen && type != "radio" && ! $.isArray( data[ name ] )) {
+					if ( name in data ) {
+						data[ name ] = [ data[name] ];
+					} else {
+						data[ name ] = [];
+					}
+				} else {
+					seen[ name ] = true;
+				}
 
-		return value.match(numberMatcher);
-	};
+				// Finally, assign data
+				if ( ( type == "radio" || type == "checkbox" ) && ! elem.is(":checked") ) {
+					return
+				}
 
+				if ( ! data[ name ] ) {
+					data[ name ] = value;
+				} else {
+					data[ name ].push( value );
+				}
+				
+
+			}
+
+		};
+		
 	$.fn.extend({
 		/**
 		 * @parent dom
 		 * @download http://jmvcsite.heroku.com/pluginify?plugins[]=jquery/dom/form_params/form_params.js
 		 * @plugin jquery/dom/form_params
 		 * @test jquery/dom/form_params/qunit.html
-		 * <p>Returns an object of name-value pairs that represents values in a form.  
-		 * It is able to nest values whose element's name has square brackets. </p>
+		 * 
+		 * Returns an object of name-value pairs that represents values in a form.  
+		 * It is able to nest values whose element's name has square brackets.
+		 * 
+		 * When convert is set to true strings that represent numbers and booleans will
+		 * be converted and empty string will not be added to the object. 
+		 * 
 		 * Example html:
 		 * @codestart html
 		 * &lt;form>
@@ -34,76 +75,103 @@ steal.plugins("jquery/dom").then(function( $ ) {
 		 * &lt;form/>
 		 * @codeend
 		 * Example code:
-		 * @codestart
-		 * $('form').formParams() //-> { foo:{bar:2, ced: 4} }
-		 * @codeend
+		 * 
+		 *     $('form').formParams() //-> { foo:{bar:'2', ced: '4'} }
+		 * 
 		 * 
 		 * @demo jquery/dom/form_params/form_params.html
 		 * 
-		 * @param {Boolean} [convert] True if strings that look like numbers and booleans should be converted.  Defaults to true.
+		 * @param {Object} [params] If an object is passed, the form will be repopulated
+		 * with the values of the object based on the name of the inputs within
+		 * the form
+		 * @param {Boolean} [convert=false] True if strings that look like numbers 
+		 * and booleans should be converted and if empty string should not be added 
+		 * to the result. Defaults to false.
 		 * @return {Object} An object of name-value pairs.
 		 */
-		formParams: function( convert ) {
-			if ( this[0].nodeName.toLowerCase() == 'form' && this[0].elements ) {
+		formParams: function( params ) {
 
-				return jQuery(jQuery.makeArray(this[0].elements)).getParams(convert);
+			var convert;
+
+			// Quick way to determine if something is a boolean
+			if ( !! params === params ) {
+				convert = params;
+				params = null;
 			}
-			return jQuery("input[name], textarea[name], select[name]", this[0]).getParams(convert);
+
+			if ( params ) {
+				return this.setParams( params );
+			} else {
+				return this.getParams( convert );
+			}
+		},
+		setParams: function( params ) {
+
+			// Find all the inputs
+			this.find("[name]").each(function() {
+				
+				var value = params[ $(this).attr("name") ],
+					$this;
+				
+				// Don't do all this work if there's no value
+				if ( value !== undefined ) {
+					$this = $(this);
+					
+					// Nested these if statements for performance
+					if ( $this.is(":radio") ) {
+						if ( $this.val() == value ) {
+							$this.attr("checked", true);
+						}
+					} else if ( $this.is(":checkbox") ) {
+						// Convert single value to an array to reduce
+						// complexity
+						value = $.isArray( value ) ? value : [value];
+						if ( $.inArray( $this.val(), value ) > -1) {
+							$this.attr("checked", true);
+						}
+					} else {
+						$this.val( value );
+					}
+				}
+			});
 		},
 		getParams: function( convert ) {
 			var data = {},
+				// This is used to keep track of the checkbox names that we've
+				// already seen, so we know that we should return an array if
+				// we see it multiple times. Fixes last checkbox checked bug.
+				seen = {},
 				current;
 
-			convert = convert === undefined ? true : convert;
 
-			this.each(function() {
-				var el = this,
-					type = el.type && el.type.toLowerCase();
-				//if we are submit, ignore
-				if ((type == 'submit') || !el.name ) {
+			this.find("[name]").each(function() {
+				var $this    = $(this),
+					type     = $this.attr("type"),
+					name     = $this.attr("name"),
+					value    = $this.val(),
+					parts;
+
+				// Don't accumulate submit buttons and nameless elements
+				if ( type == "submit" || ! name ) {
 					return;
 				}
 
-				var key = el.name,
-					value = $.data(el, "value") || $.fn.val.call([el]),
-					isRadioCheck = radioCheck.test(el.type),
-					parts = key.match(keyBreaker),
-					write = !isRadioCheck || !! el.checked,
-					//make an array of values
-					lastPart;
+				// Figure out name parts
+				parts = name.match( keyBreaker );
+				if ( ! parts.length ) {
+					parts = [name];
+				}
 
+				// Convert the value
 				if ( convert ) {
-					if ( isNumber(value) ) {
-						value = parseFloat(value);
-					} else if ( value === 'true' || value === 'false' ) {
-						value = Boolean(value);
-					}
-
+					value = convertValue( value );
 				}
 
-				// go through and create nested objects
-				current = data;
-				for ( var i = 0; i < parts.length - 1; i++ ) {
-					if (!current[parts[i]] ) {
-						current[parts[i]] = {};
-					}
-					current = current[parts[i]];
-				}
-				lastPart = parts[parts.length - 1];
-
-				//now we are on the last part, set the value
-				if ( lastPart in current && type === "checkbox" ) {
-					if (!$.isArray(current[lastPart]) ) {
-						current[lastPart] = current[lastPart] === undefined ? [] : [current[lastPart]];
-					}
-					if ( write ) {
-						current[lastPart].push(value);
-					}
-				} else if ( write || !current[lastPart] ) {
-					current[lastPart] = write ? value : undefined;
-				}
+				// Assign data recursively
+				nestData( $this, type, data, parts, value, seen );
 
 			});
+
 			return data;
 		}
 	});

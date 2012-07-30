@@ -255,7 +255,7 @@ SOFTWARE.
 // global variable. The function will be invoked, its return value is the JSLINT
 // application itself.
 
-"use strict";
+//"use strict";
 
 JSLINT = (function () {
     var adsafe_id,      // The widget's ADsafe id.

@@ -1,4 +1,4 @@
-steal.plugins("jquery/event/drop").then(function($){ //needs drop to determine if respondable
+steal("jquery/event/drop").then(function($){ //needs drop to determine if respondable
 
 /**
  * @add jQuery.Drag.prototype
@@ -9,17 +9,34 @@ $.Drag.prototype.
 	 * @plugin jquery/event/drag/scroll
 	 * @download  http://jmvcsite.heroku.com/pluginify?plugins[]=jquery/event/drag/scroll/scroll.js
 	 * @param {jQuery} elements to scroll.  The window can be in this array.
+	 * @param {Object} options changes the default settings.
+	 * 
+	 *   - distance {number} 30 - how many pixels away from a boundry where we start scrolling
+	 *   - delta(diff) {Function} - returns how far we should scroll.  It is passed how many pixels the cursor is
+	 *     from the boundry.
+	 *   - direction {String} - direction scrolling should happen.  "xy" is the default.
 	 */
-	scrolls = function(elements){
+	scrolls = function(elements, options){
 		var elements = $(elements);
 		
 		for(var i = 0 ; i < elements.length; i++){
-			this.constructor.responder._elements.push( elements.eq(i).data("_dropData", new $.Scrollable(elements[i]) )[0] )
+			this.constructor.responder._elements.push( elements.eq(i).data("_dropData", new $.Scrollable(elements[i], options) )[0] )
 		}
 	},
 	
-$.Scrollable = function(element){
+$.Scrollable = function(element, options){
 	this.element = jQuery(element);
+	this.options = $.extend({
+		// when  we should start scrolling
+		distance : 30,
+		// how far we should move
+		delta : function(diff, distance){
+			return (distance - diff) / 2;
+		},
+		direction: "xy"
+	}, options);
+	this.x = this.options.direction.indexOf("x") != -1;
+	this.y = this.options.direction.indexOf("y") != -1;
 }
 $.extend($.Scrollable.prototype,{
 	init: function( element ) {
@@ -72,18 +89,18 @@ $.extend($.Scrollable.prototype,{
 			left = mouse.x() - position.x(),
 		
 		//how far we should scroll
-			dx =0, dy =0;
+			dx =0, dy =0,
+			distance =  this.options.distance;
 
-		
 		//check if we should scroll
-		if(bottom < 30)
-			dy = this.distance(bottom);
-		else if(top < 30)
-			dy = -this.distance(top)
-		if(right < 30)
-			dx = this.distance(right);
-		else if(left < 30)
-			dx = -this.distance(left);
+		if(bottom < distance && this.y)
+			dy = this.options.delta(bottom,distance);
+		else if(top < distance && this.y)
+			dy = -this.options.delta(top,distance)
+		if(right < distance && this.options && this.x)
+			dx = this.options.delta(right,distance);
+		else if(left < distance && this.x)
+			dx = -this.options.delta(left,distance);
 		
 		//if we should scroll
 		if(dx || dy){

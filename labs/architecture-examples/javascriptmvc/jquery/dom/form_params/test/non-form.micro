@@ -1,0 +1,5 @@
+<div id='divform'>
+
+  <input type='text' name='id' value='foo-bar-baz' />
+
+</div>

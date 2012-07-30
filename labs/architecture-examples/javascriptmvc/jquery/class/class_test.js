@@ -1,6 +1,5 @@
-steal
- .plugins("jquery/class")  //load your app
- .plugins('funcunit/qunit').then(function(){
+steal("jquery/class")  //load your app
+ .then('funcunit/qunit').then(function(){
 
 module("jquery/class");
 

@@ -25,20 +25,13 @@
 <script type='text/javascript' 
         src='../../steal/steal.js'>   
 </script>
-<script type='text/javascript'>
-	steal.plugins('jquery/model',
-		'jquery/controller',
-		'jquery/dom/form_params',
-		'jquery/dom/fixture',
-		'jquery/view/ejs').start()
-</script>
 <script type='text/ejs' id='listView'>
 	<table cellspacing='0px'>
 	<thead>
 	<tr>
 	    <% for(var attr in model.attributes){%>
 	        <% if(attr == 'id') continue;%>
-	        <th><%= attr%> </th>    
+	        <th><%= attr %> </th>    
 	    <%}%>
 	    <th>Options</th>
 	</tr>
@@ -46,7 +39,7 @@
 	<tbody>
 		<% for(var i =0; i < items.length;i++){ %>
 			<tr <%= items[i] %>>
-				<%= view('itemView',{item: items[i], model : model})%>
+				<%== view('itemView',{item: items[i], model : model})%>
 			</tr>
 		<%} %>
 	    
@@ -66,25 +59,35 @@
 	</td>
 </script>
 <script type='text/javascript'>
+
+</script>
+<script type='text/javascript' id="demo-source"> 
+steal('jquery/model',
+	'jquery/controller',
+	'jquery/dom/form_params',
+	'jquery/dom/fixture',
+	'jquery/view/ejs',
+	function(){
+
 // Use fixtures to make 4 recipes
-$.fixture.make(["recipes","recipe"],4, function(i, messages){
+$.fixture.make("recipe",4, function(i, messages){
 	return {
 		title: "Recipe "+i,
 		instructions: "Here are some instructions"
 	}
 })
 // Use fixtures to make 4 work items
-$.fixture.make(["workitems","workitem"],4, function(i, messages){
+$.fixture.make("workitem",4, function(i, messages){
 	return {
 		task: "item "+i,
 		instructions: "Here are some instructions",
 		assignedTo : i%2? "Brian" : "Justin"
 	}
 })
-</script>
-<script type='text/javascript' id="demo-source">   
+
+ 
 // A grid widget
-$.Controller.extend("Grid",{
+$.Controller("Grid",{
 	// when added to an element, use the model
 	// to find items
 	init : function(){
@@ -106,7 +109,7 @@ $.Controller.extend("Grid",{
 		el.val("updating ...").attr("disabled", true)
 		
 		// update the model instance
-		item.update(tr.formParams(), this.callback('updated'));
+		item.update(tr.formParams(), this.proxy('updated'));
 	},
 	updated : function(item){
 		// update the html
@@ -122,38 +125,24 @@ $.Controller.extend("Grid",{
 })
 
 // A Recipe model that implements findAll and update
-$.Model.extend("Recipe",{
-	findAll : function(params, success, error){
-		$.get("/recipes.json",{},
-				this.callback(['wrapMany',success]),
-				"json","-recipes")
-	},
-	update : function(id, attrs, success, error){
-		$.post("/recipes.json",{},success,'json',function(){
-			return [attrs]
-		})
-	}
+$.Model("Recipe",{
+	findAll : "/recipes.json",
+	update : "/recipes/{id}.json"
 },{});
 
 // A WorkItem model that implements findAll and update
-$.Model.extend("WorkItem",{
-	findAll : function(params, success, error){
-		$.get("/recipes.json", {},
-			  this.callback(['wrapMany',success]),
-			  "json","-workitems")
-	},
-	update : function(id, attrs, success, error){
-		$.post("/recipes.json",{},success,'json',function(){
-			return [attrs]
-		})
-	}
+$.Model("Workitem",{
+	findAll : "/workitems.json",
+	update : "/workitems/{id}.json"
 },{});
 
 // Add a grid with recipes
 $("#recipes").grid({model: Recipe});
 
 // Add a grid with workitems
-$("#workItems").grid({model: WorkItem});
+$("#workItems").grid({model: Workitem});
+
+});
 </script>
 	</body>
 </html>

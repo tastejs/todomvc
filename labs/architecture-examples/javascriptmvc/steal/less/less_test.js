@@ -1,8 +1,5 @@
-steal.plugins('funcunit/qunit','steal/less').then(
-function(){
-	steal.less('less')
-},
-function(){
+steal('funcunit/qunit','steal/less').then('./less.less')
+.then(function(){
 	module("steal/less",{
 		setup : function(){
 			
