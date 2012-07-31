@@ -5,23 +5,20 @@
 	// ----------
 
 	var Workspace = Backbone.Router.extend({
-		
 		routes:{
-			"*filter": "setFilter"
+			'*filter': 'setFilter'
 		},
 
-		setFilter: function(param){
-
+		setFilter: function( param ) {
 			// Set the current filter to be used
-			window.app.TodoFilter = param.trim() || "";
+			window.app.TodoFilter = param.trim() || '';
 
 			// Trigger a collection reset/addAll
 			window.app.Todos.trigger('reset');
 		}
-
 	});
 
-	window.app.TodoRouter = new Workspace;
+	window.app.TodoRouter = new Workspace();
 	Backbone.history.start();
 
-})();
+}());
