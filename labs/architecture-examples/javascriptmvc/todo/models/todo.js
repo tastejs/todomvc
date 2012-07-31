@@ -86,6 +86,14 @@ $.Model('Todo',{
 		success({});
 	}
 	
-},{});
+},{
+
+	//setter
+	setTitle: function(rawValue){
+		//trim
+		return $.trim(rawValue);
+	}
+
+});
 
 });

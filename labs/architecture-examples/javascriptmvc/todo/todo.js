@@ -13,7 +13,6 @@ steal(
 	'todo/todolist') //load todolist jmvc plugin
 .then(function($){
 
-
 /**
  * Helper methods on collections of todos.  But lists can also use their model's 
  * methods.  Ex:
@@ -31,7 +30,7 @@ $.Model.List('Todo.List',{
 	completed : function(){
 		return this.grep(function(item){
 			return item.complete === true;
-		})
+		});
 	}
 });
 
@@ -45,10 +44,6 @@ $.Controller("Router", {
 		//default route
 	},
 
-	// "all route": function(routeData){
-	// 	console.log("route all");
-	// },
-
 	"active route": function(routeData){
 		console.log("route active");	
 	},
@@ -60,10 +55,8 @@ $.Controller("Router", {
 });
 
 $(function(){
-	// create a todos widget with a list
+	//register the router
 	new Router(document.body);	
-
-	//$("#todos").todos({list : new Todo.List()});
 });
 
 

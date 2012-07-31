@@ -39,19 +39,16 @@ $.Controller('Todolist',{
 		// uses the todosEJS template (in todo.html) to render a list of items
 		// then adds those items to #list
 		//this.find('#list').append("todosEJS",items)
-	 	//this.find('#todo-list').append(this.view("//todo/todolist/views/todo-list.ejs", items));
-	 	$("#todo-list").html(this.view("//todo/todolist/views/todo-list.ejs", items));
-	 	//$("#todo-list").html(this.view("//todo/todolist/views/todo-template.ejs", items[0]));
+	 	this.find('#todo-list').append(this.view("//todo/todolist/views/todo-list.ejs", items));
 
 		// calls a helper to update the stats info
-		this.updateStats();
+		this._updateStats();
 	},
 	
 	// Creating a todo --------------
 	
 	// listens for key events and creates a new todo
 	"#new-todo keyup" : function(el, ev){
-		
 		if(ev.keyCode == 13){
 			new Todo({
 				title : el.val(),
@@ -72,61 +69,74 @@ $.Controller('Todolist',{
 	// the clear button is clicked
 	".todo-clear click" : function(){
 		// gets completed todos in the list, destroys them
-		
 		this.options.list.completed().destroyAll(); 
 	},
 	
 	// When a todo's destroy button is clicked.
-	".todo .todestroy click" : function(el){	
+	".todo .destroy click" : function(el){	
 		el.closest('.todo').model().destroy();
 	},
 	
 	// when an item is removed from the list ...
-	"{list} remove" : function(list, ev, items){
-		
-		// get the elements in the list and remove them
-		items.elements(this.element).slideUp(function(){
-			$(this).remove();
-		});
-		
-		this.updateStats();
+	"{list} remove" : function(list, ev, items){	
+		items.elements(this.element).remove();
+		this._updateStats();
 	},
 	
 	
 	// Updating a todo --------------
 	
 	// when the checkbox changes, update the model
-	".todo [name=complete] change" : function(el, ev){
+	".toggle change" : function(el, ev){
+		var isCompleted = el.is(':checked');
+
+		var $todoElement = el.closest('.todo');
+		if(isCompleted){
+			$todoElement.addClass("completed");
+		}else{
+			$todoElement.removeClass("completed");
+		}
 		
-		var todo = el.closest('.todo').model().update({
-			complete : el.is(':checked')
+		$todoElement.model().update({
+			complete : isCompleted
 		});
 	},
 	
 	// switch to edit mode
 	".todo dblclick" : function(el){
-		var input = $("<input name='text' class='text'/>").val(el.model().text)
-		el.html(input);
-		input[0].focus();
+		el.addClass("editing");
+		el.find(".edit").focus();
 	},
 	
 	// update the todo's text on blur
-	".todo [name=text] focusout" : function(el, ev){
-		
-		var todo = el.closest('.todo').model().update({
-			text : el.val()
-		});
+	".edit focusout" : function(el, ev){
+		this._updateTodo(el);
 	},
-	
+
+	".edit keyup": function(el, ev){
+		if(ev.keyCode == 13){
+			this._updateTodo(el);	
+		}
+	},
+
 	// when an item is updated
-	"{list} update" : function(list, ev, item){
+	"{list} updated" : function(list, ev, item){
 		item.elements().html(this.view("//todo/todolist/views/todo-template.ejs", item));
-		this.updateStats();
+		this._updateStats();
 		//update completed
 	},
 	
+	//"private" helpers
+	_updateTodo: function(el){
+		el.closest('li')
+			.removeClass("editing")
+			.model().update({
+				title : el.val()
+			});
+	},
+
 	// a helper that updates the stats
-	updateStats : function(){
+	_updateStats : function(){
 		var list = this.options.list,
 			completed = list.completed().length;
 		$("#todo-count").html(this.view("//todo/todolist/views/todo-count.ejs",{
@@ -134,6 +144,14 @@ $.Controller('Todolist',{
 			total : list.length,
 			remaining : list.length - completed
 		}));
+
+		if(completed > 0){
+			$("#clear-completed")
+				.text("Clear completed (" + completed + ")")
+				.show();
+		}else{
+			$("#clear-completed").hide();
+		}
 	}
 });
 
