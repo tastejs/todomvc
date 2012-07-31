@@ -1,5 +1,10 @@
 <% for(var i =0; i < this.length ; i++){ %>
 	<li <%= this[i]%>>
-	<%= $.View("//todo/todolist/views/todo-template.ejs", this[i]) %>
+		<div class="view">
+			<input class="toggle" type="checkbox" <%= (this[i].complete) ? "checked" : "" %>>
+			<label><%= this[i].title %></label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" value="<%= this[i].title %>">
 	</li>
 <% } %>

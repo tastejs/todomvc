@@ -1,6 +1,7 @@
 steal(
-	'jquery',
-	'jquery/controller'
+	'jquery/controller',
+	'jquery/controller/view',
+	'jquery/view/ejs'
 	)
 .then(
 	'./views/todo-list.ejs',
@@ -38,7 +39,9 @@ $.Controller('Todolist',{
 		// uses the todosEJS template (in todo.html) to render a list of items
 		// then adds those items to #list
 		//this.find('#list').append("todosEJS",items)
-	 	this.find('#todo-list').append(this.view("todo-list", items));
+	 	//this.find('#todo-list').append(this.view("//todo/todolist/views/todo-list.ejs", items));
+	 	$("#todo-list").html(this.view("//todo/todolist/views/todo-list.ejs", items));
+	 	//$("#todo-list").html(this.view("//todo/todolist/views/todo-template.ejs", items[0]));
 
 		// calls a helper to update the stats info
 		this.updateStats();
@@ -117,7 +120,7 @@ $.Controller('Todolist',{
 	
 	// when an item is updated
 	"{list} update" : function(list, ev, item){
-		item.elements().html(this.view("todo-template", item));
+		item.elements().html(this.view("//todo/todolist/views/todo-template.ejs", item));
 		this.updateStats();
 		//update completed
 	},
@@ -126,7 +129,7 @@ $.Controller('Todolist',{
 	updateStats : function(){
 		var list = this.options.list,
 			completed = list.completed().length;
-		$("#todo-count").html(this.view("todo-count",{
+		$("#todo-count").html(this.view("//todo/todolist/views/todo-count.ejs",{
 			completed : completed,
 			total : list.length,
 			remaining : list.length - completed

@@ -761,14 +761,6 @@ steal('jquery/model').then(function( $ ) {
 			 */
 			splice: [].splice,
 			/**
-			 * @function indexOf
-			 * Finds the index of the item in the list. Returns -1 if not found.
-			 *
-			 *     list.indexOf(item)
-			 * 
-			 */
-			indexOf: [].indexOf,
-			/**
 			 * @function sort
 			 * Sorts the instances in the list.
 			 *

@@ -422,8 +422,7 @@ test("converters and serializes", function(){
 		}
 	},{});
 	var d = new Date();
-	d.setDate(1);
-	d.setMonth(1);
+	d.setMonth(1)
 	var task1=new Task1({
 		createdAt: d,
 		name:"Task1"
@@ -502,8 +501,8 @@ test("hookup and elements", function(){
 	
 	var res  = esc.elements(ul);
 	
-	equals(res.length,1, "1 item")
-	ok(res[0] === li[0], "items are equal")
+	equals(res.length,1)
+	equals(res[0], li[0])
 })
 
 test('aborting create update and destroy', function(){

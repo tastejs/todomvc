@@ -221,33 +221,4 @@ test("compound sets", function(){
 	equals(count, 3, "setting person does not fire anything");
 })
 
-test("undelegate within event loop",1, function(){
-
-	var state = new $.Observe({
-		type : "person",
-		id: "5"
-	});
-	var f1 = function(){
-		state.undelegate("type","add",f2);
-	},
-		f2 = function(){
-			ok(false,"I am removed, how am I called")
-		},
-		f3 = function(){
-			state.undelegate("type","add",f1);
-		},
-		f4 = function(){
-			ok(true,"f4 called")
-		};
-	state.delegate("type", "set", f1);
-	state.delegate("type","set",f2);
-	state.delegate("type","set",f3);
-	state.delegate("type","set",f4);
-	state.attr("type","other");
-	
-})
-
-
-
-
 });

@@ -2,58 +2,22 @@
  *  @add jQuery.fn
  */
 steal("jquery/dom").then(function( $ ) {
-	var keyBreaker = /[^\[\]]+/g,
-		convertValue = function( value ) {
-			if ( $.isNumeric( value )) {
-				return parseFloat( value );
-			} else if ( value === 'true') {
-				return true;
-			} else if ( value === 'false' ) {
-				return false;
-			} else if ( value === '' ) {
-				return undefined;
-			}
-			return value;
-		}, 
-		nestData = function( elem, type, data, parts, value, seen ) {
-			var name = parts.shift();
+	var radioCheck = /radio|checkbox/i,
+		keyBreaker = /[^\[\]]+/g,
+		numberMatcher = /^[\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?$/;
 
-			if ( parts.length ) {
-				if ( ! data[ name ] ) {
-					data[ name ] = {};
-				}
-				// Recursive call
-				nestData( elem, type, data[ name ], parts, value, seen );
-			} else {
+	var isNumber = function( value ) {
+		if ( typeof value == 'number' ) {
+			return true;
+		}
 
-				// Handle same name case, as well as "last checkbox checked"
-				// case
-				if ( name in seen && type != "radio" && ! $.isArray( data[ name ] )) {
-					if ( name in data ) {
-						data[ name ] = [ data[name] ];
-					} else {
-						data[ name ] = [];
-					}
-				} else {
-					seen[ name ] = true;
-				}
+		if ( typeof value != 'string' ) {
+			return false;
+		}
 
-				// Finally, assign data
-				if ( ( type == "radio" || type == "checkbox" ) && ! elem.is(":checked") ) {
-					return
-				}
+		return value.match(numberMatcher);
+	};
 
-				if ( ! data[ name ] ) {
-					data[ name ] = value;
-				} else {
-					data[ name ].push( value );
-				}
-				
-
-			}
-
-		};
-		
 	$.fn.extend({
 		/**
 		 * @parent dom
@@ -89,9 +53,7 @@ steal("jquery/dom").then(function( $ ) {
 		 * to the result. Defaults to false.
 		 * @return {Object} An object of name-value pairs.
 		 */
-		formParams: function( params ) {
-
-			var convert;
+		formParams: function( params, convert ) {
 
 			// Quick way to determine if something is a boolean
 			if ( !! params === params ) {
@@ -101,9 +63,10 @@ steal("jquery/dom").then(function( $ ) {
 
 			if ( params ) {
 				return this.setParams( params );
-			} else {
-				return this.getParams( convert );
+			} else if ( this[0].nodeName.toLowerCase() == 'form' && this[0].elements ) {
+				return jQuery(jQuery.makeArray(this[0].elements)).getParams(convert);
 			}
+			return jQuery("input[name], textarea[name], select[name]", this[0]).getParams(convert);
 		},
 		setParams: function( params ) {
 
@@ -137,41 +100,63 @@ steal("jquery/dom").then(function( $ ) {
 		},
 		getParams: function( convert ) {
 			var data = {},
-				// This is used to keep track of the checkbox names that we've
-				// already seen, so we know that we should return an array if
-				// we see it multiple times. Fixes last checkbox checked bug.
-				seen = {},
 				current;
 
+			convert = convert === undefined ? false : convert;
 
-			this.find("[name]").each(function() {
-				var $this    = $(this),
-					type     = $this.attr("type"),
-					name     = $this.attr("name"),
-					value    = $this.val(),
-					parts;
-
-				// Don't accumulate submit buttons and nameless elements
-				if ( type == "submit" || ! name ) {
+			this.each(function() {
+				var el = this,
+					type = el.type && el.type.toLowerCase();
+				//if we are submit, ignore
+				if ((type == 'submit') || !el.name ) {
 					return;
 				}
 
-				// Figure out name parts
-				parts = name.match( keyBreaker );
-				if ( ! parts.length ) {
-					parts = [name];
-				}
+				var key = el.name,
+					value = $.data(el, "value") || $.fn.val.call([el]),
+					isRadioCheck = radioCheck.test(el.type),
+					parts = key.match(keyBreaker),
+					write = !isRadioCheck || !! el.checked,
+					//make an array of values
+					lastPart;
 
-				// Convert the value
 				if ( convert ) {
-					value = convertValue( value );
+					if ( isNumber(value) ) {
+						value = parseFloat(value);
+					} else if ( value === 'true') {
+						value = true;
+					} else if ( value === 'false' ) {
+						value = false;
+					}
+					if(value === '') {
+						value = undefined;
+					}
 				}
 
-				// Assign data recursively
-				nestData( $this, type, data, parts, value, seen );
+				// go through and create nested objects
+				current = data;
+				for ( var i = 0; i < parts.length - 1; i++ ) {
+					if (!current[parts[i]] ) {
+						current[parts[i]] = {};
+					}
+					current = current[parts[i]];
+				}
+				lastPart = parts[parts.length - 1];
+
+				//now we are on the last part, set the value
+				if (current[lastPart]) {
+					if (!$.isArray(current[lastPart]) ) {
+						current[lastPart] = current[lastPart] === undefined ? [] : [current[lastPart]];
+					}
+					if ( write ) {
+						current[lastPart].push(value);
+					}
+				} else if ( write || !current[lastPart] ) {
+
+					current[lastPart] = write ? value : undefined;
+				}
 
 			});
-
 			return data;
 		}
 	});

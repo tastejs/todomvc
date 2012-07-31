@@ -46,7 +46,7 @@
 </script>
 
 <script type='text/javascript'>   
-steal('jquery/model','mxui/nav/slider').then(function(){
+steal('jquery/model','mxui/slider').then(function(){
 
 	$.fn.hookup = function(inst, attr, type){
 		
@@ -79,9 +79,9 @@ steal('jquery/model','mxui/nav/slider').then(function(){
 	
 	var person = new Person({age: 1})
 	
-	$("#slider").mxui_nav_slider({interval: 1, min: 1, max: 10})
+	$("#slider").mxui_slider({interval: 1, min: 1, max: 10})
 		
-		.hookup(person,"age","mxui_nav_slider");
+		.hookup(person,"age","mxui_slider");
 	
 	$('#value, #foo, #bar').hookup(person,"age");
 	

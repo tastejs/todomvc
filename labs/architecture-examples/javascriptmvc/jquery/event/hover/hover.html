@@ -32,12 +32,11 @@
 <div class='hoverleave'>Leave and don't return for a half second</div>
 </div>
 <script type='text/javascript' 
-        src='../../../steal/steal.js'></script>
+        src='../../../steal/steal.js?jquery/event/hover'></script>
 
 <script type="text/javascript" id="demo-source">  
-
-steal('jquery/event/hover', function(){
-
+steal().then(function(){
+	
 // adds a hover class
 var add = function(ev){
   $(this).addClass("hoverstate");
@@ -64,7 +63,6 @@ $('.hoverleave').bind('hoverinit',function(ev, hovered){
 }).bind('hoverenter',add).bind('hoverleave', remove);
 
 });
-
 </script>
 	</body>
 </html>
