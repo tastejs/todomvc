@@ -56,11 +56,12 @@ $(function() {
 		close: function() {
 			var value = this.input.val().trim();
 
-			if ( !value ) {
+			if ( value ) {
+				this.model.save({ title: value });
+			} else {
 				this.clear();
 			}
 
-			this.model.save({ title: value });
 			$( this.el ).removeClass('editing');
 		},
 
