@@ -51,11 +51,11 @@ $.Controller("Router", {
 	},
 
 	"active route": function(routeData){
-		console.log("route active");	
+		//$("#todoapp").controller().listActive();
 	},
 
 	"completed route": function(routeData){
-		console.log("route completed");
+		//$("#todoapp").controller().listCompleted();
 	}
 
 });
