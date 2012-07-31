@@ -71,7 +71,7 @@ $.Controller('Todolist',{
 	// the clear button is clicked
 	"#clear-completed click" : function(){
 		// gets completed todos in the list, destroys them
-		this.options.list.completed().destroyAll(); 
+		this.options.list.completed().destroyAll();
 	},
 	
 	// When a todo's destroy button is clicked.
@@ -149,11 +149,12 @@ $.Controller('Todolist',{
 	// a helper that updates the stats
 	_updateStats : function(){
 		var list = this.options.list,
-			completed = list.completed().length;
+			completed = list.completed().length,
+			remaining = list.length - completed;
 		$("#todo-count").html(this.view("//todo/todolist/views/todo-count.ejs",{
 			completed : completed,
 			total : list.length,
-			remaining : list.length - completed
+			remaining : remaining
 		}));
 
 		if(completed > 0){
@@ -171,6 +172,8 @@ $.Controller('Todolist',{
 			this.find("#main").hide();
 			this.find("#footer").hide();
 		}
+
+		$("#toggle-all")[0].checked = !remaining;
 	}
 });
 
