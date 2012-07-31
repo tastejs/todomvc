@@ -31,6 +31,12 @@ $.Model.List('Todo.List',{
 		return this.grep(function(item){
 			return item.completed === true;
 		});
+	},
+
+	destroyAll: function(){
+		for(var i=0, l=this.length; i<l; i++){
+			this[i].destroy();
+		}
 	}
 });
 

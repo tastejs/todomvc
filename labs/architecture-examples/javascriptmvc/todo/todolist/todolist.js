@@ -68,7 +68,7 @@ $.Controller('Todolist',{
 	// Destroying a todo --------------
 	
 	// the clear button is clicked
-	".clear-completed click" : function(){
+	"#clear-completed click" : function(){
 		// gets completed todos in the list, destroys them
 		this.options.list.completed().destroyAll(); 
 	},
