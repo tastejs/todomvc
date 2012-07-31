@@ -1,7 +1,7 @@
 <% for(var i =0; i < this.length ; i++){ %>
-	<li <%= this[i]%>>
+	<li <%= this[i]%> class="<%= (this[i].completed) ? 'completed': ''%>">
 		<div class="view">
-			<input class="toggle" type="checkbox" <%= (this[i].complete) ? "checked" : "" %>>
+			<input class="toggle" type="checkbox" <%= (this[i].completed) ? "checked" : "" %>>
 			<label><%= this[i].title %></label>
 			<button class="destroy"></button>
 		</div>

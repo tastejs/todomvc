@@ -31,6 +31,7 @@ $.Controller('Todolist',{
 		
 		// fills this list of items (creates add events on the list)
 		this.options.list.findAll();
+		this._updateStats();
 	},
 	
 	// adds existing and created to the list
@@ -52,7 +53,7 @@ $.Controller('Todolist',{
 		if(ev.keyCode == 13){
 			new Todo({
 				title : el.val(),
-				complete : false
+				completed : false
 			}).save(this.callback('created'));
 			
 			el.val("");
@@ -67,7 +68,7 @@ $.Controller('Todolist',{
 	// Destroying a todo --------------
 	
 	// the clear button is clicked
-	".todo-clear click" : function(){
+	".clear-completed click" : function(){
 		// gets completed todos in the list, destroys them
 		this.options.list.completed().destroyAll(); 
 	},
@@ -83,7 +84,6 @@ $.Controller('Todolist',{
 		this._updateStats();
 	},
 	
-	
 	// Updating a todo --------------
 	
 	// when the checkbox changes, update the model
@@ -98,7 +98,7 @@ $.Controller('Todolist',{
 		}
 		
 		$todoElement.model().update({
-			complete : isCompleted
+			completed : isCompleted
 		});
 	},
 	
@@ -151,6 +151,14 @@ $.Controller('Todolist',{
 				.show();
 		}else{
 			$("#clear-completed").hide();
+		}
+
+		if(list.length > 0){
+			this.find("#main").show();
+			this.find("#footer").show();
+		}else{
+			this.find("#main").hide();
+			this.find("#footer").hide();
 		}
 	}
 });

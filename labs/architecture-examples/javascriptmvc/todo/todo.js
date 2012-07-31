@@ -29,7 +29,7 @@ $.Model.List('Todo.List',{
 	 */
 	completed : function(){
 		return this.grep(function(item){
-			return item.complete === true;
+			return item.completed === true;
 		});
 	}
 });
