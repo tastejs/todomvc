@@ -1,3 +1,5 @@
+var app = app || {};
+
 (function() {
 	'use strict';
 
@@ -18,7 +20,7 @@
 		}
 	});
 
-	window.app.TodoRouter = new Workspace();
+	app.TodoRouter = new Workspace();
 	Backbone.history.start();
 
 }());
