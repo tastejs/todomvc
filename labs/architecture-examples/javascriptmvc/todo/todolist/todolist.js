@@ -50,9 +50,10 @@ $.Controller('Todolist',{
 	
 	// listens for key events and creates a new todo
 	"#new-todo keyup" : function(el, ev){
-		if(ev.keyCode == 13){
+		var value = $.trim(el.val());
+		if(ev.keyCode == 13 && value !== ""){
 			new Todo({
-				title : el.val(),
+				title : value,
 				completed : false
 			}).save(this.callback('created'));
 			
@@ -90,16 +91,14 @@ $.Controller('Todolist',{
 	".toggle change" : function(el, ev){
 		var isCompleted = el.is(':checked');
 
-		var $todoElement = el.closest('.todo');
-		if(isCompleted){
-			$todoElement.addClass("completed");
-		}else{
-			$todoElement.removeClass("completed");
-		}
-		
-		$todoElement.model().update({
-			completed : isCompleted
-		});
+		this._updateTodos(isCompleted, el.closest('.todo'));
+	},
+
+	"#toggle-all change": function(el, ev){
+		var isCompleted = el.is(':checked');
+		this.find(".todo").each(this.proxy(function(idx, element){
+			this._updateTodos(isCompleted, $(element));
+		}));
 	},
 	
 	// switch to edit mode
@@ -127,6 +126,18 @@ $.Controller('Todolist',{
 	},
 	
 	//"private" helpers
+	_updateTodos: function(isCompleted, $todoElement){
+		if(isCompleted){
+			$todoElement.addClass("completed");
+		}else{
+			$todoElement.removeClass("completed");
+		}
+		
+		$todoElement.model().update({
+			completed : isCompleted
+		});
+	},
+
 	_updateTodo: function(el){
 		el.closest('li')
 			.removeClass("editing")
