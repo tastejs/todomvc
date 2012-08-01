@@ -1,42 +1,42 @@
 define([
-  'underscore', 
-  'backbone', 
-  'libs/backbone/localstorage', 
-  'models/todo'
-  ], function(_, Backbone, Store, Todo){
-	  
-  var TodosCollection = Backbone.Collection.extend({
+	'underscore',
+	'backbone',
+	'lib/backbone/localstorage',
+	'models/todo'
+	], function(_, Backbone, Store, Todo){
 
-    // Reference to this collection's model.
-    model: Todo,
+	var TodosCollection = Backbone.Collection.extend({
 
-    // Save all of the todo items under the `"todos"` namespace.
-    localStorage: new Store("todos-backbone"),
+		// Reference to this collection's model.
+		model: Todo,
 
-    // Filter down the list of all todo items that are finished.
-    completed: function() {
-      return this.filter(function(todo){ return todo.get('completed'); });
-    },
+		// Save all of the todo items under the `"todos"` namespace.
+		localStorage: new Store("todos-backbone"),
 
-    // Filter down the list to only todo items that are still not finished.
-    remaining: function() {
-      return this.without.apply(this, this.completed());
-    },
+		// Filter down the list of all todo items that are finished.
+		completed: function() {
+			return this.filter(function(todo){ return todo.get('completed'); });
+		},
 
-    // We keep the Todos in sequential order, despite being saved by unordered
-    // GUID in the database. This generates the next order number for new items.
-    nextOrder: function() {
-      if ( !this.length ){
-        return 1;
-      }
-      return this.last().get('order') + 1;
-    },
+		// Filter down the list to only todo items that are still not finished.
+		remaining: function() {
+			return this.without.apply(this, this.completed());
+		},
 
-    // Todos are sorted by their original insertion order.
-    comparator: function(todo) {
-      return todo.get('order');
-    }
+		// We keep the Todos in sequential order, despite being saved by unordered
+		// GUID in the database. This generates the next order number for new items.
+		nextOrder: function() {
+			if ( !this.length ){
+				return 1;
+			}
+			return this.last().get('order') + 1;
+		},
 
-  });
-  return new TodosCollection;
+		// Todos are sorted by their original insertion order.
+		comparator: function(todo) {
+			return todo.get('order');
+		}
+
+	});
+	return new TodosCollection;
 });
