@@ -33,6 +33,30 @@ $.Controller('Todolist',{
 		this.options.list.findAll();
 		this._updateStats();
 	},
+
+	loadAll: function(){
+		this.render(this.options.list);
+		$('#filters li a')
+			.removeClass('selected')
+			.filter("[href='#!']")
+			.addClass('selected');
+	},
+
+	loadActive: function(){
+		this.render(this.options.list.active());
+		$('#filters li a')
+			.removeClass('selected')
+			.filter("[href='#!active']")
+			.addClass('selected');		
+	},
+
+	loadCompleted: function(){
+		this.render(this.options.list.completed());
+		$('#filters li a')
+			.removeClass('selected')
+			.filter("[href='#!completed']")
+			.addClass('selected');		
+	},
 	
 	// adds existing and created to the list
 	"{list} add" : function(list, ev, items){
@@ -41,6 +65,13 @@ $.Controller('Todolist',{
 		// then adds those items to #list
 		//this.find('#list').append("todosEJS",items)
 	 	this.find('#todo-list').append(this.view("//todo/views/todo-list.ejs", items));
+
+		// calls a helper to update the stats info
+		this._updateStats();
+	},
+
+	render: function(items){
+		this.find('#todo-list').html(this.view("//todo/views/todo-list.ejs", items));
 
 		// calls a helper to update the stats info
 		this._updateStats();

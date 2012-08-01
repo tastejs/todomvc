@@ -30,7 +30,7 @@ $.Model('Todo',{
 		this.localStore(function(todos){
 			instances = [];
 			for(var id in todos){
-				instances.push( new this( todos[id]) )
+				instances.push( new this( todos[id]) )	
 			}
 			success && success(instances)
 		})
@@ -114,6 +114,12 @@ $.Model.List('Todo.List',{
 	completed : function(){
 		return this.grep(function(item){
 			return item.completed === true;
+		});
+	},
+
+	active: function(){
+		return this.grep(function(item){
+			return item.completed === false;
 		});
 	},
 
