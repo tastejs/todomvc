@@ -7,7 +7,7 @@ steal(
 	'./base.css',
 	'./models/todo')
 .then(
-	'todo/todolist') //load todolist jmvc plugin
+	'//todo/controllers/todolist.js') //load todolist jmvc plugin
 .then(function($){
 
 

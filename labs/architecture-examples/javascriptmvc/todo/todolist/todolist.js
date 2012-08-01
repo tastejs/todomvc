@@ -4,9 +4,9 @@ steal(
 	'jquery/view/ejs'
 	)
 .then(
-	'./views/todo-list.ejs',
-	'./views/todo-template.ejs',
-	'./views/todo-count.ejs')
+	'/views/todo-list.ejs',
+	'/views/todo-template.ejs',
+	'/views/todo-count.ejs')
 .then(function(){
 
 /**
@@ -30,7 +30,9 @@ $.Controller('Todolist',{
 		this.find("#new-todo").val("")[0].focus();
 		
 		// fills this list of items (creates add events on the list)
-		this.options.list.findAll();
+		this.options.filter = this.options.filter || "findAll";
+		this.options.list.findAll({ completed: true });	
+		
 		this._updateStats();
 	},
 	
