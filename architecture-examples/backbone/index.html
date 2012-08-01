@@ -30,10 +30,10 @@
 	<script type="text/template" id="item-template">
 		<div class="view">
 			<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
-			<label><%= title %></label>
+			<label><%- title %></label>
 			<button class="destroy"></button>
 		</div>
-		<input class="edit" value="<%= title %>">
+		<input class="edit" value="<%- title %>">
 	</script>
 	<script type="text/template" id="stats-template">
 		<span id="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
