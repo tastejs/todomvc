@@ -4,36 +4,37 @@ define([
 	'backbone',
 	'text!templates/todos.html',
 	'common'
-	], function($, _, Backbone, todosTemplate, Common){
+], function( $, _, Backbone, todosTemplate, Common ) {
+
 	var TodoView = Backbone.View.extend({
 
-		//... is a list tag.
-		tagName:  "li",
+		tagName:  'li',
 
-		template: _.template(todosTemplate),
+		template: _.template( todosTemplate ),
 
 		// The DOM events specific to an item.
 		events: {
-			"click .toggle"   : "togglecompleted",
-			"dblclick .view"  : "edit",
-			"click .destroy" : "clear",
-			"keypress .edit"  : "updateOnEnter",
-			"blur .edit"      : "close"
+			'click .toggle':	'togglecompleted',
+			'dblclick .view':	'edit',
+			'click .destroy':	'clear',
+			'keypress .edit':	'updateOnEnter',
+			'blur .edit':		'close'
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since there's
 		// a one-to-one correspondence between a **Todo** and a **TodoView** in this
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
-			this.model.on('change', this.render, this);
-			this.model.on('destroy', this.remove, this);
+			this.model.on( 'change', this.render, this );
+			this.model.on( 'destroy', this.remove, this );
 		},
 
 		// Re-render the titles of the todo item.
 		render: function() {
-			var $el = $(this.el);
-			$el.html(this.template(this.model.toJSON()));
-			$el.toggleClass('completed', this.model.get('completed'));
+			var $el = $( this.el );
+
+			$el.html( this.template( this.model.toJSON() ) );
+			$el.toggleClass( 'completed', this.model.get('completed') );
 
 			this.input = this.$('.edit');
 			return this;
@@ -46,7 +47,7 @@ define([
 
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function() {
-			$(this.el).addClass("editing");
+			$( this.el ).addClass('editing');
 			this.input.focus();
 		},
 
@@ -54,17 +55,18 @@ define([
 		close: function() {
 			var value = this.input.val().trim();
 
-			if ( !value ){
+			if ( value ){
+				this.model.save({ title: value });
+			} else {
 				this.clear();
 			}
 
-			this.model.save({title: value});
-			$(this.el).removeClass("editing");
+			$( this.el ).removeClass('editing');
 		},
 
 		// If you hit `enter`, we're through editing the item.
-		updateOnEnter: function(e) {
-			if ( e.keyCode === Common.ENTER_KEY ){
+		updateOnEnter: function( e ) {
+			if ( e.keyCode === Common.ENTER_KEY ) {
 				this.close();
 			}
 		},
@@ -74,7 +76,6 @@ define([
 			this.model.clear();
 		}
 	});
-
 
 	return TodoView;
 });
