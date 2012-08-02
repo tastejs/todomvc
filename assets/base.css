@@ -23,7 +23,7 @@ button {
 body {
 	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
-        background: #eaeaea url('bg.png');
+	background: #eaeaea url('bg.png');
 	color: #4d4d4d;
 	width: 550px;
 	margin: 0 auto;
@@ -250,8 +250,9 @@ label[for='toggle-all'] {
 
 #todo-list li label {
 	word-break: break-word;
-	margin: 15px 15px 15px 60px;
-	display: inline-block;
+	padding: 15px;
+	margin-left: 45px;
+	display: block;
 	line-height: 1.2;
 	-webkit-transition: color 0.4s;
 	-moz-transition: color 0.4s;
