@@ -8,7 +8,7 @@ steal(
 	// using steal.build
 	'//todo/views/todo-list.ejs',
 	'//todo/views/todo-template.ejs',
-	'//todo/views/todo-count.ejs')
+	'//todo/views/todo-stats.ejs')
 .then(function(){
 
 /**

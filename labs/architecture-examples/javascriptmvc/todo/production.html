@@ -1,3 +1,14 @@
+<!--
+	Note, this file is completely the same as
+	the index.html with the difference of the steal instruction
+	which here loads a minified ("compiled") production.js file
+	created by invoking the command
+		js.bat todo\scripts\build.js
+	on windows or
+		./js todo/scripts/build.js
+	on unix systems, from the javascriptmvc root.
+-->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -40,6 +51,6 @@
 		<p>Fixes and upgrade to latest JavaScriptMVC version by <a href="http://www.js-development.com">Juri Strumpflohner</a></p>
 	</footer>
 		
-	<script type='text/javascript' src='../steal/steal.js?todo/todo.js'></script>
+	<script type='text/javascript' src='../steal/steal.production.js?todo/production.js'></script>
 	</body>
 </html>
