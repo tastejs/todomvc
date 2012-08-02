@@ -4,7 +4,8 @@ steal(
 	'jquery/controller',
 	'jquery/controller/route',
 	'jquery/lang/json',
-	'./base.css',
+	//'./base.css', 		// should be loaded here if it is desired to compress it with steal; loaded
+							// it in the html file instead to avoid flickering during app startup
 	'./models/todo')
 .then(
 	'//todo/controllers/todolist.js') //load todolist jmvc plugin
@@ -18,17 +19,19 @@ $.Controller("Router", {
 		$.route.ready(true); //fires 1st route event
 	},
 
+	//default route index.html#!
 	"route": function(){
-		//default route
-		$("#todoapp").controller().loadAll();
+		$("#todoapp").controller().loadData();
 	},
 
+	//route index.html#!active
 	"active route": function(routeData){
-		$("#todoapp").controller().loadActive();
+		$("#todoapp").controller().loadData("active");
 	},
 
+	//route index.html#!completed
 	"completed route": function(routeData){
-		$("#todoapp").controller().loadCompleted();
+		$("#todoapp").controller().loadData("completed");
 	}
 
 });

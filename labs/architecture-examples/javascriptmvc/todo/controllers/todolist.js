@@ -1,9 +1,11 @@
 steal(
 	'jquery/controller',
-	'jquery/controller/view',
 	'jquery/view/ejs'
 	)
 .then(
+	// this is optional but allows for later "embedding/compiling" the views
+	// into the resulting production.js file during the minification process
+	// using steal.build
 	'//todo/views/todo-list.ejs',
 	'//todo/views/todo-template.ejs',
 	'//todo/views/todo-count.ejs')
@@ -12,13 +14,13 @@ steal(
 /**
  * A Todos widget created like
  * 
- *    $("#todos").todos({ list: new Todo.List() });
+ *    $("#todos").todolist({ list: new Todo.List() });
  *    
  * It listens on changes to the list and items in the list with the following actions:
  * 
  *   - "{list} add"    - todos being added to the list
  *   - "{list} remove" - todos being removed from the list
- *   - "{list} update" - todos being updated in the list
+ *   - "{list} updated" - todos being updated in the list
  *   
  */
 $.Controller('Todolist',{
@@ -34,51 +36,46 @@ $.Controller('Todolist',{
 		this._updateStats();
 	},
 
-	loadAll: function(){
-		this.render(this.options.list);
-		$('#filters li a')
+	//publics
+	loadData: function(loadWhat){
+		if(loadWhat){
+			//dynamically invoke this.options.list.active() or this.options.list.completed()
+			this._render(this.options.list[loadWhat]());
+		}else{
+			this._render(this.options.list); //no filter applied, just load the list
+		}
+
+		this.find('#filters li a')
 			.removeClass('selected')
-			.filter("[href='#!']")
-			.addClass('selected');
+			.filter("[href='#!" + (loadWhat || "") + "']")
+			.addClass('selected');	
 	},
 
-	loadActive: function(){
-		this.render(this.options.list.active());
-		$('#filters li a')
-			.removeClass('selected')
-			.filter("[href='#!active']")
-			.addClass('selected');		
-	},
-
-	loadCompleted: function(){
-		this.render(this.options.list.completed());
-		$('#filters li a')
-			.removeClass('selected')
-			.filter("[href='#!completed']")
-			.addClass('selected');		
-	},
+	//events
 	
 	// adds existing and created to the list
 	"{list} add" : function(list, ev, items){
-	 	
 		// uses the todosEJS template (in todo.html) to render a list of items
 		// then adds those items to #list
 		//this.find('#list').append("todosEJS",items)
-	 	this.find('#todo-list').append(this.view("//todo/views/todo-list.ejs", items));
+	 	this.find('#todo-list').append("//todo/views/todo-list.ejs", items);
 
 		// calls a helper to update the stats info
 		this._updateStats();
 	},
 
-	render: function(items){
-		this.find('#todo-list').html(this.view("//todo/views/todo-list.ejs", items));
-
-		// calls a helper to update the stats info
+	// when an item is updated
+	"{list} updated" : function(list, ev, item){
+		item.elements().html("//todo/views/todo-template.ejs", item);
 		this._updateStats();
 	},
 	
-	// Creating a todo --------------
-	
+	// when an item is removed from the list ...
+	"{list} remove" : function(list, ev, items){	
+		items.elements(this.element).remove();
+		this._updateStats();
+	},		
+		
 	// listens for key events and creates a new todo
 	"#new-todo keyup" : function(el, ev){
 		var value = $.trim(el.val());
@@ -86,7 +83,7 @@ $.Controller('Todolist',{
 			new Todo({
 				title : value,
 				completed : false
-			}).save(this.callback('created'));
+			}).save(this.proxy('created')); //invoke the created function; proxy(...) to maintain the context of this
 			
 			el.val("");
 		}
@@ -94,10 +91,8 @@ $.Controller('Todolist',{
 	
 	// When a todo is created, add it to this list
 	"created" : function(todo){
-		this.options.list.push(todo); //triggers 'add' on the list
+		this.options.list.push(todo); //triggers 'add' event on the list
 	},
-	
-	// Destroying a todo --------------
 	
 	// the clear button is clicked
 	"#clear-completed click" : function(){
@@ -109,30 +104,26 @@ $.Controller('Todolist',{
 	".todo .destroy click" : function(el){	
 		el.closest('.todo').model().destroy();
 	},
-	
-	// when an item is removed from the list ...
-	"{list} remove" : function(list, ev, items){	
-		items.elements(this.element).remove();
-		this._updateStats();
-	},
-	
-	// Updating a todo --------------
-	
+		
 	// when the checkbox changes, update the model
 	".toggle change" : function(el, ev){
 		var isCompleted = el.is(':checked');
 
-		this._updateTodos(isCompleted, el.closest('.todo'));
+		this._updateCompletedStatus(isCompleted, el.closest('.todo'));
 	},
 
+	// listen for changes on the toggle all checkbox
 	"#toggle-all change": function(el, ev){
 		var isCompleted = el.is(':checked');
 		this.find(".todo").each(this.proxy(function(idx, element){
-			this._updateTodos(isCompleted, $(element));
+			this._updateCompletedStatus(isCompleted, $(element));
 		}));
 	},
 	
-	// switch to edit mode
+	// switch to edit mode; Note the .todo class is added
+	// since in the 'todo-list.ejs' template we have a <%= this[i] %>
+	// on the li element. This binds the model onto the DOM element,
+	// also adding a class with the same name as the model
 	".todo dblclick" : function(el){
 		el.addClass("editing");
 		el.find(".edit").focus();
@@ -143,32 +134,36 @@ $.Controller('Todolist',{
 		this._updateTodo(el);
 	},
 
+	// when pressing the "enter" key on the textbox
+	// the todo should be updated
 	".edit keyup": function(el, ev){
 		if(ev.keyCode == 13){
 			this._updateTodo(el);	
 		}
 	},
-
-	// when an item is updated
-	"{list} updated" : function(list, ev, item){
-		item.elements().html(this.view("//todo/views/todo-template.ejs", item));
-		this._updateStats();
-		//update completed
-	},
 	
-	//"private" helpers
-	_updateTodos: function(isCompleted, $todoElement){
-		if(isCompleted){
-			$todoElement.addClass("completed");
-		}else{
-			$todoElement.removeClass("completed");
-		}
+	// "private" helpers
+	// They're not really private, per convention functions prefixed with _ shouldn't
+	// be called from "outside" the controller
+
+	// re-renders the list of items
+	_render: function(items){
+		this.find('#todo-list').html("//todo/views/todo-list.ejs", items);
+		this._updateStats();
+	},
+
+	//updates the completion status
+	_updateCompletedStatus: function(isCompleted, $todoElement){
+		$todoElement.toggleClass("completed");
 		
 		$todoElement.model().update({
 			completed : isCompleted
 		});
 	},
 
+	// performs the necessary operations for an update action,
+	// such as removing the classes + calling the update function on
+	// the model.
 	_updateTodo: function(el){
 		el.closest('li')
 			.removeClass("editing")
@@ -182,29 +177,20 @@ $.Controller('Todolist',{
 		var list = this.options.list,
 			completed = list.completed().length,
 			remaining = list.length - completed;
-		$("#todo-count").html(this.view("//todo/views/todo-count.ejs",{
+		
+		this.find("#footer").html("//todo/views/todo-stats.ejs",{
 			completed : completed,
 			total : list.length,
 			remaining : remaining
-		}));
-
-		if(completed > 0){
-			$("#clear-completed")
-				.text("Clear completed (" + completed + ")")
-				.show();
-		}else{
-			$("#clear-completed").hide();
-		}
+		});
 
 		if(list.length > 0){
-			this.find("#main").show();
-			this.find("#footer").show();
+			this.find("#main, #footer").show();
 		}else{
-			this.find("#main").hide();
-			this.find("#footer").hide();
+			this.find("#main, #footer").hide();
 		}
 
-		$("#toggle-all")[0].checked = !remaining;
+		this.find("#toggle-all")[0].checked = !remaining;
 	}
 });
 

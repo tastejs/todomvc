@@ -1,10 +1,9 @@
 <% for(var i =0; i < this.length ; i++){ %>
 	<li <%= this[i]%> class="<%= (this[i].completed) ? 'completed': ''%>">
-		<div class="view">
-			<input class="toggle" type="checkbox" <%= (this[i].completed) ? "checked" : "" %>>
-			<label><%= this[i].title %></label>
-			<button class="destroy"></button>
-		</div>
-		<input class="edit" value="<%= this[i].title %>">
+		<!-- 
+			The double "%==" are intentional as otherwise you'll get the content
+			in encoded form
+		 -->
+		<%== $.View("//todo/views/todo-template.ejs", this[i]) %>
 	</li>
 <% } %>
