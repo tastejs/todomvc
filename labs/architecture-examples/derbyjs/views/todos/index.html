@@ -1,0 +1,70 @@
+<head:>
+	<link href=/base.css rel=stylesheet>
+	<!-- The following ie inclusion is useless as it'll be stripped
+		 out before getting to the client, but serves as a reminder
+		 that it needs to be sorted out for ie compatability :) -->
+	<!--[if IE]>
+	<script src="/ie.js"></script>
+	<![endif]-->
+
+<Title:>
+  DerbyJS • TodoMVC
+
+<Header:>
+	<ui:connectionAlert>
+
+<TodoHeader:>
+	<header id="header">
+		<h1>todos</h1>
+		<form x-bind=submit:add><input id="new-todo" placeholder="What needs to be done?" autofocus value={_newTodo}></form>
+	</header>
+
+<Body:>
+	<section id="todoapp">
+		<app:TodoHeader>
+
+		<section id="main" class="{#unless _todoList}empty-list{/}">
+			<input id="toggle-all" type="checkbox" checked="{_group.select_all}">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id=todo-list class={{filterName}}>{#each _todoList}<app:todo>{/}</ul>
+		</section>
+
+		<app:TodoFooter>
+	</section>
+	<app:Info>
+
+<todo:>
+	<li data-id={{id}} class="{#if .completed}completed{else}active{/}{#if ._editing} editing{/}">
+		<div>
+			<input class="toggle" type="checkbox" checked={.completed} x-bind=change:checkAllCompleted>
+			<form x-bind=submit:endEdit>
+			<input class="text" x-bind="focus:startEdit, blur:endEdit" value="{.text}">
+			</form>
+			<button class="destroy" x-bind=click:del></button>
+		</div>
+  </li>
+
+<TodoFooter:>
+	<footer id="footer" class="{#unless _todoList}empty-list{/}">
+	<span id="todo-count"><strong>{_stats.remaining}</strong> item{#unless _stats.oneOnly}s{/} left</span>
+		<ul id="filters" class="{filterName}">
+			<li class="all">
+				<a href="/{{groupName}}">All</a>
+			</li>
+			<li class="active">
+				<a href="/{{groupName}}/active">Active</a>
+			</li>
+			<li class="completed">
+				<a href="/{{groupName}}/completed">Completed</a>
+			</li>
+		</ul>
+		<button x-bind=click:clearCompleted id="clear-completed" class="{#unless _stats.completed}non-completed{/}">Clear completed (<span>{_stats.completed}</span>)</button>
+	</footer>
+
+<Info:>
+	<footer id="info">
+		<h3>Open this <a href="/{{groupName}}">ToDo list</a> in another browser, or share it with a friend to collaborate!</h3>
+		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
+		<p>Created by <a href="http://micknelson.wordpress.com">Michael Nelson</a> and <a href="https://github.com/lackac">László Bácsi</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>

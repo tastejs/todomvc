@@ -1,0 +1,22 @@
+<connectionAlert:>
+  <div class="connection">
+    <!--
+      connected and canConnect are built-in properties of model. If a variable
+      is not defined in the current context, it will be looked up in the model
+      data and the model properties
+    -->
+    {#unless connected}
+      <p class="alert">
+        {#if canConnect}
+          <!-- Leading space is removed, and trailing space is maintained -->
+          Offline
+          <!-- a :self path alias is automatically created per component -->
+          {#unless :self.hideReconnect}
+            &ndash; <a x-bind="click:connect">Reconnect</a>
+          {/}
+        {else}
+          Unable to reconnect &ndash; <a x-bind="click:reload">Reload</a>
+        {/}
+      </p>
+    {/}
+  </div>
