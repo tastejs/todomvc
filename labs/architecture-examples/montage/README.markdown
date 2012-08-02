@@ -3,6 +3,8 @@ montage-todomvc
 
 This is a Montage implementation of the TodoMVC application.
 
+TL;DR: The unbundled application code included is for reference only; it is not being executed.
+
 The [source code for this application is available](https://github.com/mczepiel/montage-todomvc) but
 in an effort to not include an unminified version of Montage itself in TodoMVC we have run the
 application through our build tool, [mop](https://github.com/Motorola-Mobility/montage/tree/master/tools/mop).
