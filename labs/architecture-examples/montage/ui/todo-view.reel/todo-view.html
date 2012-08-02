@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>TodoView</title>
+
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "properties": {
+                "element": {"#": "todoView"},
+                "editInput": {"@": "editInput"}
+            }
+        },
+
+        "todoTitle": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "todoTitle"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.todo.title"}
+            }
+        },
+
+        "todoCompletedCheckbox": {
+            "prototype": "montage/ui/native/input-checkbox.reel",
+            "properties": {
+                "element": {"#": "todoCompletedCheckbox"}
+            },
+            "bindings": {
+                "checked": {"<->": "@owner.todo.completed"}
+            }
+        },
+
+        "destroyButton": {
+            "prototype": "montage/ui/native/button.reel",
+            "properties": {
+                "element": {"#": "destroyButton"}
+            },
+            "listeners": [
+                {
+                    "type": "action",
+                    "listener": {"@": "owner"},
+                    "capture": true
+                }
+            ]
+        },
+
+        "editInput": {
+            "prototype": "montage/ui/native/input-text.reel",
+            "properties": {
+                "element": {"#": "edit-input"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.todo.title"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <li data-montage-id="todoView">
+        <div class="view">
+            <input data-montage-id="todoCompletedCheckbox" class="toggle" type="checkbox">
+            <label data-montage-id="todoTitle"></label>
+            <button data-montage-id="destroyButton" class="destroy"></button>
+        </div>
+        <form data-montage-id="edit">
+            <input data-montage-id="edit-input" class="edit" value="Rule the web">
+        </form>
+    </li>
+</body>
+</html>
