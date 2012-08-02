@@ -91,7 +91,7 @@ In this simple build file, we're telling out build process to load steal.js from
 We finally define the build actions required, which essentially allows us to specify the build source (todo/todo/scripts/build.html) and the build target (todo/todo). In case you're wondering what build.html does, it effectively tells steal.js to build the application within the folder todo as follows:
 
 ```
-&lt;script type=&#39;text/javascript&#39; src=&#39;../steal/steal.js?todo/todo.js&#39;&gt;
+<script type="text/javascript" src="../steal/steal.js?todo/todo.js">
 ```
 
 The above instruction basically tells the app to load in "development" mode, meaning the uncompressed files. If you desire to build the application in order to instruct JMVC to output the production-ready version of your code, execute the following command where we pass our build.js file as an argument to steal's builder.
@@ -104,6 +104,6 @@ js.bat todo\scripts\build.js 			(on windows)
 As a consequence you'll get a `production.js` and possibly (if any CSS is being loaded with steal) a `production.css` file. For then loading the app in "production" mode you have to slightly change the script include to the following:
 
 ```
-&lt;script type=&#39;text/javascript&#39; src=&#39;../steal/steal.production.js?todo/production.js&#39;&gt;
+<script type="text/javascript" src="../steal/steal.production.js?todo/production.js">;
 ```
 
