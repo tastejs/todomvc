@@ -9,7 +9,7 @@ $(function( $ ) {
 
 		// Instead of generating a new element, bind to the existing skeleton of
 		// the App already present in the HTML.
-		el: $('#todoapp'),
+		el: '#todoapp',
 
 		// Our template for the line of statistics at the bottom of the app.
 		statsTemplate: _.template( $('#stats-template').html() ),
@@ -28,12 +28,13 @@ $(function( $ ) {
 			this.input = this.$('#new-todo');
 			this.allCheckbox = this.$('#toggle-all')[0];
 
-			window.app.Todos.on( 'add', this.addOne, this );
+			window.app.Todos.on( 'add', this.addAll, this );
 			window.app.Todos.on( 'reset', this.addAll, this );
+			window.app.Todos.on( 'change:completed', this.addAll, this );
 			window.app.Todos.on( 'all', this.render, this );
 
-			this.$footer = $('#footer');
-			this.$main = $('#main');
+			this.$footer = this.$('#footer');
+			this.$main = this.$('#main');
 
 			window.app.Todos.fetch();
 		},
@@ -112,7 +113,7 @@ $(function( $ ) {
 		// Clear all completed todo items, destroying their models.
 		clearCompleted: function() {
 			_.each( window.app.Todos.completed(), function( todo ) {
-				todo.clear();
+				todo.destroy();
 			});
 
 			return false;

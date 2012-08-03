@@ -32,10 +32,8 @@ $(function() {
 
 		// Re-render the titles of the todo item.
 		render: function() {
-			var $el = $( this.el );
-
-			$el.html( this.template( this.model.toJSON() ) );
-			$el.toggleClass( 'completed', this.model.get('completed') );
+			this.$el.html( this.template( this.model.toJSON() ) );
+			this.$el.toggleClass( 'completed', this.model.get('completed') );
 
 			this.input = this.$('.edit');
 			return this;
@@ -48,7 +46,7 @@ $(function() {
 
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function() {
-			$( this.el ).addClass('editing');
+			this.$el.addClass('editing');
 			this.input.focus();
 		},
 
@@ -62,7 +60,7 @@ $(function() {
 				this.clear();
 			}
 
-			$( this.el ).removeClass('editing');
+			this.$el.removeClass('editing');
 		},
 
 		// If you hit `enter`, we're through editing the item.
@@ -72,9 +70,9 @@ $(function() {
 			}
 		},
 
-		// Remove the item, destroy the model.
+		// Remove the item, destroy the model from *localStorage* and delete its view.
 		clear: function() {
-			this.model.clear();
+			this.model.destroy();
 		}
 	});
 });
