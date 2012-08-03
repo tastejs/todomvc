@@ -1,3 +1,5 @@
+var app = app || {};
+
 $(function( $ ) {
 	'use strict';
 
@@ -5,7 +7,7 @@ $(function( $ ) {
 	// ---------------
 
 	// Our overall **AppView** is the top-level piece of UI.
-	window.app.AppView = Backbone.View.extend({
+	app.AppView = Backbone.View.extend({
 
 		// Instead of generating a new element, bind to the existing skeleton of
 		// the App already present in the HTML.
@@ -36,16 +38,16 @@ $(function( $ ) {
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 
-			window.app.Todos.fetch();
+			app.Todos.fetch();
 		},
 
 		// Re-rendering the App just means refreshing the statistics -- the rest
 		// of the app doesn't change.
 		render: function() {
-			var completed = window.app.Todos.completed().length;
-			var remaining = window.app.Todos.remaining().length;
+			var completed = app.Todos.completed().length;
+			var remaining = app.Todos.remaining().length;
 
-			if ( window.app.Todos.length ) {
+			if ( app.Todos.length ) {
 				this.$main.show();
 				this.$footer.show();
 
@@ -56,7 +58,7 @@ $(function( $ ) {
 
 				this.$('#filters li a')
 					.removeClass('selected')
-					.filter('[href="#/' + ( window.app.TodoFilter || '' ) + '"]')
+					.filter('[href="#/' + ( app.TodoFilter || '' ) + '"]')
 					.addClass('selected');
 			} else {
 				this.$main.hide();
@@ -69,7 +71,7 @@ $(function( $ ) {
 		// Add a single todo item to the list by creating a view for it, and
 		// appending its element to the `<ul>`.
 		addOne: function( todo ) {
-			var view = new window.app.TodoView({ model: todo });
+			var view = new app.TodoView({ model: todo });
 			$('#todo-list').append( view.render().el );
 		},
 
@@ -77,15 +79,15 @@ $(function( $ ) {
 		addAll: function() {
 			this.$('#todo-list').html('');
 
-			switch( window.app.TodoFilter ) {
+			switch( app.TodoFilter ) {
 				case 'active':
-					_.each( window.app.Todos.remaining(), this.addOne );
+					_.each( app.Todos.remaining(), this.addOne );
 					break;
 				case 'completed':
-					_.each( window.app.Todos.completed(), this.addOne );
+					_.each( app.Todos.completed(), this.addOne );
 					break;
 				default:
-					window.app.Todos.each( this.addOne, this );
+					app.Todos.each( this.addOne, this );
 					break;
 			}
 		},
@@ -94,7 +96,7 @@ $(function( $ ) {
 		newAttributes: function() {
 			return {
 				title: this.input.val().trim(),
-				order: window.app.Todos.nextOrder(),
+				order: app.Todos.nextOrder(),
 				completed: false
 			};
 		},
@@ -106,7 +108,7 @@ $(function( $ ) {
 				return;
 			}
 
-			window.app.Todos.create( this.newAttributes() );
+			app.Todos.create( this.newAttributes() );
 			this.input.val('');
 		},
 
@@ -122,7 +124,7 @@ $(function( $ ) {
 		toggleAllComplete: function() {
 			var completed = this.allCheckbox.checked;
 
-			window.app.Todos.each(function( todo ) {
+			app.Todos.each(function( todo ) {
 				todo.save({
 					'completed': completed
 				});

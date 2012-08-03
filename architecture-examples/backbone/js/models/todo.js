@@ -1,3 +1,5 @@
+var app = app || {};
+
 (function() {
 	'use strict';
 
@@ -5,7 +7,7 @@
 	// ----------
 
 	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
-	window.app.Todo = Backbone.Model.extend({
+	app.Todo = Backbone.Model.extend({
 
 		// Default attributes for the todo
 		// and ensure that each todo created has `title` and `completed` keys.
