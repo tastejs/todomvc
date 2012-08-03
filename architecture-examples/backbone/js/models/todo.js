@@ -7,8 +7,8 @@
 	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
 	window.app.Todo = Backbone.Model.extend({
 
-		// Default attributes for the todo.
-		// Ensure that each todo created has `title` and `completed` keys
+		// Default attributes for the todo
+		// and ensure that each todo created has `title` and `completed` keys.
 		defaults: {
 			title: '',
 			completed: false
