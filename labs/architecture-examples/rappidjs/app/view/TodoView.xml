@@ -18,7 +18,7 @@
 					this.set( 'editing', true );
 					e.preventDefault();
 
-					this.$.inputElement.$el.select();
+					this.$.inputElement.$el.focus();
 					return false;
 				},
 

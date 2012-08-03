@@ -45,7 +45,7 @@
     this.onCheckEditBegin = function() {
       if (!_this.editing() && !_this.completed()) {
         _this.editing(true);
-        return $('.todo-input').focus();
+        return;
       }
     };
     this.onCheckEditEnd = function(view_model, event) {

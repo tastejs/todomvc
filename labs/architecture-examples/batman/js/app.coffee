@@ -50,7 +50,7 @@ class Alfred.TodosController extends Batman.Controller
 		editing = todo.set('editing', !todo.get('editing'))
 		if editing
 			input = document.getElementById("todo-input-#{todo.get('id')}")
-			input.select()
+			input.focus()
 		else
 			if todo.get('title')?.length > 0
 				todo.save (err, todo) ->

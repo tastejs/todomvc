@@ -82,7 +82,7 @@
 			inputEditTodo = document.getElementById( 'input_' + todoId );
 
 		div.className = 'editing';
-		inputEditTodo.select();
+		inputEditTodo.focus();
 	}
 
 	function checkboxChangeHandler( event ) {

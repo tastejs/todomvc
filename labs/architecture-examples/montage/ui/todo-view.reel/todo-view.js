@@ -119,7 +119,7 @@ exports.TodoView = Montage.create(Component, {
         value: function() {
             if (this.isEditing) {
                 this.element.classList.add("editing");
-                this.editInput.element.select();
+                this.editInput.element.focus();
             } else {
                 this.element.classList.remove("editing");
                 this.editInput.element.blur();

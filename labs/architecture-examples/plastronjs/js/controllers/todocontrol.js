@@ -59,7 +59,7 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	this.on( goog.events.EventType.DBLCLICK, function( e ) {
 		goog.dom.classes.add( this.getElement(), 'editing' );
 		inputEl.value = model.get('title');
-		inputEl.select();
+		inputEl.focus();
 	}, 'view' );
 
 	// Save on edit

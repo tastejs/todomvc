@@ -17,7 +17,7 @@
       init: function(element, value_accessor, all_bindings_accessor) {
         ko.bindingHandlers.hasfocus.init(element, value_accessor, all_bindings_accessor);
         return ko.utils.registerEventHandler(element, 'focus', function() {
-          return element.select();
+          return element.focus();
         });
       },
       update: function(element, value_accessor) {

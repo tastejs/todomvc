@@ -9,7 +9,6 @@ todomvc.directive('todoFocus', function( $timeout ) {
       if ( newval ) {
         $timeout(function() {
           elem[0].focus();
-          elem[0].select();
         }, 0, false);
       }
     });

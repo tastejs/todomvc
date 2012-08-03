@@ -32,7 +32,7 @@ define([
     init: function( element, valueAccessor, allBindingsAccessor ) {
       ko.bindingHandlers.hasfocus.init( element, valueAccessor, allBindingsAccessor );
       ko.utils.registerEventHandler( element, 'focus', function() {
-        element.select();
+        element.focus();
       } );
     },
     update: function( element, valueAccessor ) {

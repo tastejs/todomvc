@@ -39,7 +39,7 @@ var todo = window.todo || {};
 		},
 
 		edit: function( event ) {
-			$( this ).closest('li').addClass('editing').find('.edit').select();
+			$( this ).closest('li').addClass('editing').find('.edit').focus();
 		},
 
 		update: function( event ) {

@@ -4,18 +4,18 @@ require({
     	location: "http://canjs.us/release/latest/",
     	main: "can.dojo"
 	}]
-}, ['can/dojo', 
-	"dojo/dom", 
-	"dojo/dom-construct", 
-	"dojo/dom-attr", 
-	"dojo/NodeList-manipulate", 
-	"dijit/focus",  
-	"dojo/domReady!"], 
+}, ['can/dojo',
+	"dojo/dom",
+	"dojo/dom-construct",
+	"dojo/dom-attr",
+	"dojo/NodeList-manipulate",
+	"dijit/focus",
+	"dojo/domReady!"],
 function(can, dom, domConstruct, domAttr){
 // Basic Todo entry model
 // { text: 'todo', complete: false }
 Todo = can.Model({
-	
+
 	// Implement local storage handling
 	localStore: function(cb){
 		var name = 'todos-canjs-dojo',
@@ -28,7 +28,7 @@ Todo = can.Model({
 			window.localStorage[name] = dojo.toJson(data);
 		}
 	},
-	
+
 	findAll: function(params){
 		var def = new dojo.Deferred();
 		this.localStore(function(todos){
@@ -41,7 +41,7 @@ Todo = can.Model({
 		})
 		return def;
 	},
-	
+
 	destroy: function(id){
 		var def = new dojo.Deferred();
 		this.localStore(function(todos){
@@ -55,7 +55,7 @@ Todo = can.Model({
 		});
 		return def
 	},
-	
+
 	create: function(attrs){
 		var def = new dojo.Deferred();
 		this.localStore(function(todos){
@@ -65,7 +65,7 @@ Todo = can.Model({
 		def.resolve({id : attrs.id});
 		return def
 	},
-	
+
 	update: function(id, attrs){
 		var def = new dojo.Deferred();
 		this.localStore(function(todos){
@@ -80,31 +80,31 @@ Todo = can.Model({
 		def.resolve({});
 		return def
 	}
-	
+
 },{});
 
 // List for Todos
 Todo.List = can.Model.List({
-	
+
 	completed: function() {
 		// Ensure this triggers on length change
 		this.attr('length');
-		
+
 		var completed = 0;
 		this.each(function(todo) {
 			completed += todo.attr('complete') ? 1 : 0
 		});
 		return completed;
 	},
-	
+
 	remaining: function() {
 		return this.attr('length') - this.completed();
 	},
-	
+
 	allComplete: function() {
 		return this.attr('length') === this.completed();
 	}
-	
+
 });
 
 Todos = can.Control({
@@ -115,7 +115,7 @@ Todos = can.Control({
 		this.element.append(can.view('todo', {
 			todos: this.options.todos
 		}));
-		
+
 		// Clear the new todo field
 		dijit.focus(dojo.byId('new-todo'));
 	},
@@ -136,11 +136,11 @@ Todos = can.Control({
 	'{Todo} created' : function(list, ev, item){
 		this.options.todos.push(item);
 	},
-	
+
 	// Listen for editing a Todo
 	'.todo dblclick' : function(el) {
 		can.data(el, 'todo').attr('editing', true).save(function(){
-			dijit.focus(el.children('.edit')[0].select());
+			dijit.focus(el.children('.edit')[0].focus());
 		});
 	},
 
@@ -182,7 +182,7 @@ Todos = can.Control({
 			todo.attr('complete', toggle).save();
 		});
 	},
-	
+
 	// Listen for removing all completed Todos
 	'#clear-completed click' : function() {
 		for (var i = this.options.todos.length - 1, todo; i > -1 && (todo = this.options.todos[i]); i--) {

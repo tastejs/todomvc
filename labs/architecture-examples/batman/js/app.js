@@ -118,7 +118,7 @@
       editing = todo.set('editing', !todo.get('editing'));
       if (editing) {
         input = document.getElementById("todo-input-" + (todo.get('id')));
-        return input.select();
+        return input.focus();
       } else {
         if (((_ref = todo.get('title')) != null ? _ref.length : void 0) > 0) {
           return todo.save(function(err, todo) {

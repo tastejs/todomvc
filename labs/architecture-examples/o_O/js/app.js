@@ -16,7 +16,7 @@
 				this.editing( true );
 				var self = this;
 				setTimeout(function() {
-					$( self.el ).parent().find('input.edit').select();
+					$( self.el ).parent().find('input.edit').focus();
 				}, 0);
 			},
 

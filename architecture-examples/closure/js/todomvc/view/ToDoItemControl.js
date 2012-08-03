@@ -29,7 +29,7 @@ todomvc.view.ToDoItemControl = function(opt_domHelper) {
     // disable auto handling of CHECKED and SELECTED states
     this.setAutoStates(goog.ui.Component.State.CHECKED, false);
     this.setAutoStates(goog.ui.Component.State.SELECTED, false);
-    
+
     // allow text selection
     this.setAllowTextSelection(true);
 };
@@ -145,6 +145,6 @@ todomvc.view.ToDoItemControl.prototype.setSelected = function(selected) {
         var inputElement = this.getRenderer().getInputElement(
                 this.getElement());
         inputElement.value = this.getContent();
-        inputElement.select();
+        inputElement.focus();
     }
 };

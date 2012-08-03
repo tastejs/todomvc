@@ -5,7 +5,7 @@ YUI().use(/* CanJS */ 'can', 'json', 'node', function(Y) {
 // Basic Todo entry model
 // { text: 'todo', complete: false }
 Todo = can.Model({
-	
+
 	// Implement local storage handling
 	localStore: function(cb){
 		var name = 'todos-canjs-yui',
@@ -18,7 +18,7 @@ Todo = can.Model({
 			window.localStorage[name] = Y.JSON.stringify(data);
 		}
 	},
-	
+
 	findAll: function(params){
 		var def = new can.Deferred();
 		this.localStore(function(todos){
@@ -31,7 +31,7 @@ Todo = can.Model({
 		})
 		return def;
 	},
-	
+
 	destroy: function(id){
 		var def = new can.Deferred();
 		this.localStore(function(todos){
@@ -45,7 +45,7 @@ Todo = can.Model({
 		});
 		return def
 	},
-	
+
 	create: function(attrs){
 		var def = new can.Deferred();
 		this.localStore(function(todos){
@@ -55,7 +55,7 @@ Todo = can.Model({
 		def.resolve({id : attrs.id});
 		return def
 	},
-	
+
 	update: function(id, attrs){
 		var def = new can.Deferred();
 		this.localStore(function(todos){
@@ -70,31 +70,31 @@ Todo = can.Model({
 		def.resolve({});
 		return def
 	}
-	
+
 },{});
 
 // List for Todos
 Todo.List = can.Model.List({
-	
+
 	completed: function() {
 		// Ensure this triggers on length change
 		this.attr('length');
-		
+
 		var completed = 0;
 		this.each(function(todo) {
 			completed += todo.attr('complete') ? 1 : 0
 		});
 		return completed;
 	},
-	
+
 	remaining: function() {
 		return this.attr('length') - this.completed();
 	},
-	
+
 	allComplete: function() {
 		return this.attr('length') === this.completed();
 	}
-	
+
 });
 
 Todos = can.Control({
@@ -105,11 +105,11 @@ Todos = can.Control({
 		this.element.append(can.view('todo', {
 			todos: this.options.todos
 		}));
-		
+
 		// Clear the new todo field
 		Y.one('#new-todo').set('value','').focus();
 	},
-		
+
 	// Listen for when a new Todo has been entered
 	'#new-todo keyup' : function(el, ev){
 		if(ev.keyCode == 13){
@@ -121,16 +121,16 @@ Todos = can.Control({
 			});
 		}
 	},
-	
+
 	// Handle a newly created Todo
 	'{Todo} created' : function(list, ev, item){
 		this.options.todos.push(item);
 	},
-	
+
 	// Listen for editing a Todo
 	'.todo dblclick' : function(el) {
 		el.getData('todo').attr('editing', true).save(function() {
-			el.one('.edit').focus().select();
+			el.one('.edit').focus();
 		});
 	},
 
@@ -142,7 +142,7 @@ Todos = can.Control({
 				text: el.get('value')
 			}).save();
 	},
-	
+
 	// Listen for an edited Todo
 	'.todo .edit keyup' : function(el, ev){
 		if(ev.keyCode == 13){
@@ -152,19 +152,19 @@ Todos = can.Control({
 	'.todo .edit blur' : function(el, ev) {
 		this.updateTodo(el);
 	},
-	
+
 	// Listen for the toggled completion of a Todo
 	'.todo .toggle click' : function(el, ev) {
 		el.ancestor('.todo').getData('todo')
 			.attr('complete', el.get('checked'))
 			.save();
 	},
-	
+
 	// Listen for a removed Todo
 	'.todo .destroy click' : function(el){
 		el.ancestor('.todo').getData('todo').destroy();
 	},
-	
+
 	// Listen for toggle all completed Todos
 	'#toggle-all click' : function(el, ev) {
 		var toggle = el.get('checked');
@@ -172,7 +172,7 @@ Todos = can.Control({
 			todo.attr('complete', toggle).save();
 		});
 	},
-	
+
 	// Listen for removing all completed Todos
 	'#clear-completed click' : function() {
 		for (var i = this.options.todos.length - 1, todo; i > -1 && (todo = this.options.todos[i]); i--) {

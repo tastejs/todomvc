@@ -33,7 +33,7 @@ define(function () {
 		 * @param node {Node} Dom node of the todo
 		 */
 		beginEditTodo: function(node) {
-			this.querySelector('.edit', node).select();
+			this.querySelector('.edit', node).focus();
 		},
 
 		/**

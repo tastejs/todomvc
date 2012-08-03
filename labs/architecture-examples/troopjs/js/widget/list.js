@@ -181,7 +181,7 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 				$input
 					.val(items[index].title)
 					.removeProp("disabled")
-					.select();
+					.focus();
 			})
 			.fail(function failGet() {
 				$li.removeClass("editing");

@@ -28,7 +28,7 @@
 				},
 				'dblclick .view': function() {
 					this.view.$().addClass('editing');
-					this.view.$('.edit').select();
+					this.view.$('.edit').focus();
 				},
 				'click .destroy': function() {
 					this.destroy();

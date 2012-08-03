@@ -20,9 +20,9 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
  * A cell that renders {@link ToDoItem} instances. This cell is rendered in both view and edit modes
  * based on user interaction. In edit mode, browser events are handled in order to update the model
  * item state.
- * 
+ *
  * @author ceberhardt
- * 
+ *
  */
 public class ToDoCell extends AbstractCell<ToDoItem> {
 
@@ -139,7 +139,6 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 				beginningEdit = true;
 				InputElement input = getInputElement(parent);
 				input.focus();
-				input.select();
 				beginningEdit = false;
 			}
 
