@@ -1,3 +1,5 @@
+var app = app || {};
+
 $(function() {
 	'use strict';
 
@@ -5,7 +7,7 @@ $(function() {
 	// --------------
 
 	// The DOM element for a todo item...
-	window.app.TodoView = Backbone.View.extend({
+	app.TodoView = Backbone.View.extend({
 
 		//... is a list tag.
 		tagName:  'li',

@@ -1,6 +1,9 @@
+var app = app || {};
+var ENTER_KEY = 13;
+
 $(function() {
 
 	// Kick things off by creating the **App**.
-	var App = new window.app.AppView;
+	new app.AppView();
 
 });
