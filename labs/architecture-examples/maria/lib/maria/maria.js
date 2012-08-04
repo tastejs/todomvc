@@ -186,7 +186,7 @@ et.dispatchEvent({type:'change', extraData:'abc'});
 
 */
     evento.EventTarget.prototype.dispatchEvent = function(evt) {
-        // Want to ensure we don't alter the evt object passed in as it 
+        // Want to ensure we don't alter the evt object passed in as it
         // may be a bubbling event. So clone it and then setting currentTarget
         // won't break some event that is already being dispatched.
         evt = create(evt);
@@ -204,9 +204,9 @@ et.dispatchEvent({type:'change', extraData:'abc'});
             //
             // Without making a copy, one listener removing
             // an already-called listener would result in skipping
-            // a not-yet-called listener. One listener removing 
+            // a not-yet-called listener. One listener removing
             // a not-yet-called listener would result in skipping that
-            // not-yet-called listner. The worst case scenario 
+            // not-yet-called listner. The worst case scenario
             // is a listener adding itself again which would
             // create an infinite loop.
             //
@@ -285,7 +285,7 @@ o.dispatchEvent({type:'change'});
                 (typeof pt[p] === 'function')) {
                 obj[p] = pt[p];
             }
-        } 
+        }
         evento.EventTarget.call(obj);
     };
 
@@ -385,7 +385,7 @@ MVC application this can lead to "zombie views" if the model data cannot be
 garbage collected. Event listeners need to be removed from event targets in browsers
 with circular reference memory leak problems (i.e. old versions of Internet Explorer.)
 
-The primary motivation for this purge function is to easy cleanup in MVC View destroy 
+The primary motivation for this purge function is to easy cleanup in MVC View destroy
 methods. For example,
 
 var APP_BoxView = function(model, controller) {
@@ -480,13 +480,13 @@ APP_BoxView.prototype.destroy = function() {
             if (indexOfBundle(listener._evento_bundles, bundle) >= 0) {
                 // do not add the same listener twice
                 return;
-            }            
+            }
         }
         else {
             listener._evento_bundles = [];
         }
         if (typeof bundle.element.addEventListener === 'function') {
-            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false); 
+            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false);
         }
         else if ((typeof bundle.element.attachEvent === 'object') &&
                  (bundle.element.attachEvent !== null)) {
@@ -505,14 +505,14 @@ APP_BoxView.prototype.destroy = function() {
                 var bundle = listener._evento_bundles[i];
                 if (typeof bundle.element.removeEventListener === 'function') {
                     bundle.element.removeEventListener(bundle.type, bundle.wrappedHandler, false);
-                } 
+                }
                 else if ((typeof bundle.element.detachEvent === 'object') &&
                          (bundle.element.detachEvent !== null)) {
                     bundle.element.detachEvent('on'+bundle.type, bundle.wrappedHandler);
-                } 
+                }
                 else {
                     throw new Error('evento.removeEventListener: Supported EventTarget interface not found.');
-                } 
+                }
                 listener._evento_bundles.splice(i, 1);
             }
         }
@@ -1829,7 +1829,7 @@ with those elements.
 
 You can create an empty set model object.
 
-    var setModel = new maria.SetModel(); 
+    var setModel = new maria.SetModel();
 
 What makes a set model object interesting in comparison to a set is
 that a set model object is a model object that dispatches "change"
@@ -2010,7 +2010,7 @@ maria.SetModel.prototype.add = function() {
             added.push(argument);
             if ((typeof argument.addEventListener === 'function') &&
                 (typeof argument.removeEventListener === 'function')) {
-                argument.addEventListener('destroy', this);    
+                argument.addEventListener('destroy', this);
             }
             if ((typeof argument.addParentEventTarget === 'function') &&
                 // want to know can remove later
@@ -2140,7 +2140,7 @@ A view has a controller. You can get the current controller.
     view.getController();
 
 The view's controller is created lazily the first time the
-getController method is called. The view's 
+getController method is called. The view's
 getDefaultControllerConstructor method returns the constructor function
 to create the controller object and the getDefaultController actually
 calls that constructor. Your application may redefine or override

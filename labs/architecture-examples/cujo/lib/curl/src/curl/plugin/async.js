@@ -16,7 +16,7 @@
 	define(['async!deferredResource'], function (deferredResource) {
 		// use deferredResource
 	});
-	
+
 	// deferredResource:
 	define(function () {
 		var resolved, queue, undef;

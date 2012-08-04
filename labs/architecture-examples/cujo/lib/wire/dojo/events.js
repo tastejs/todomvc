@@ -18,7 +18,7 @@ function(when, connection, events) {
 
 	return {
 		wire$plugin: function eventsPlugin(ready, destroyed /*, options*/) {
-			
+
 			var connectHandles = [];
 
 			function handleConnection(source, eventName, handler) {
@@ -28,7 +28,7 @@ function(when, connection, events) {
 			function connect(source, connect, options, wire) {
 				return connection.parse(source, connect, options, wire, handleConnection);
 			}
-			
+
 			/*
 				Function: connectFacet
 				Setup connections for each specified in the connects param.  Each key
@@ -68,7 +68,7 @@ function(when, connection, events) {
 
                 return when.all(promises);
 			}
-			
+
 			destroyed.then(function onContextDestroy() {
 				for (var i = connectHandles.length - 1; i >= 0; i--){
 					events.disconnect(connectHandles[i]);

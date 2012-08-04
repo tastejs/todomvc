@@ -211,7 +211,7 @@ define(['./when'], function(when) {
 			p.toString = function() {
 				return toString('Promise', p.id, status, value);
 			};
-			
+
 			// See below. Not sure if debug promises should be frozen
 			return freeze(p);
 		};

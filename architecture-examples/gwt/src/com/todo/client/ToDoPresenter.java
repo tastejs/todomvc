@@ -16,9 +16,9 @@ import com.google.gwt.view.client.ListDataProvider;
 /**
  * The presenter for the ToDo application. This class is responsible for the lifecycle of the
  * {@link ToDoItem} instances.
- * 
+ *
  * @author ceberhardt
- * 
+ *
  */
 public class ToDoPresenter {
 
@@ -57,7 +57,7 @@ public class ToDoPresenter {
 
 	/**
 	 * The interface that handles interactions from the view.
-	 * 
+	 *
 	 */
 	public interface ViewEventHandler {
 		/**

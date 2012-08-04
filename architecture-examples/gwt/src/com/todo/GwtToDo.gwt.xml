@@ -2,7 +2,7 @@
 <module rename-to='gwttodo'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
-  <inherits name='com.google.gwt.json.JSON'/> 
+  <inherits name='com.google.gwt.json.JSON'/>
 
   <!-- Don't inherit any GWT styles - they're ugly!               -->
   <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/>-->

@@ -6,7 +6,7 @@ public class TextBoxWithPlaceholder extends TextBox {
 
 	/**
 	 * Sets the placeholder for this textbox
-	 * 
+	 *
 	 * @param value the placeholder value
 	 */
 	public void setPlaceholder(String value) {
@@ -15,7 +15,7 @@ public class TextBoxWithPlaceholder extends TextBox {
 
 	/**
 	 * Gets the placeholder for this textbox
-	 * 
+	 *
 	 * @return the placeholder
 	 */
 	public String getPlaceholder() {

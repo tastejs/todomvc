@@ -19,7 +19,7 @@
 				</div>
 			</section>
 
-			<footer ui:field="todoStatsContainer">				
+			<footer ui:field="todoStatsContainer">
 				<span id="todo-count">
 					<strong class="number" ui:field="remainingTasksCount"></strong>
 					<span class="word" ui:field="remainingTasksLabel"></span>
@@ -36,6 +36,6 @@
 			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
 			<p>Created by <a href="http://www.scottlogic.co.uk/blog/colin/">Colin Eberhardt</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-		</footer>	
+		</footer>
 	</g:HTMLPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

@@ -5,12 +5,12 @@ YUI.add('todo-app', function (Y) {
     var TodoList = Y.TodoMVC.TodoList,
         TodoView = Y.TodoMVC.TodoView,
         TodoApp;
-   
+
     // -- Main Application --------------
     TodoApp = Y.Base.create('todoApp', Y.App, [], {
         // Set container to bind to the existing '#todoapp' element
         containerTemplate: '#todoapp',
-        
+
         // Compile statistics template with Handlebars.
         template: Y.Handlebars.compile(Y.one('#stats-template').getHTML()),
 
@@ -71,11 +71,11 @@ YUI.add('todo-app', function (Y) {
                     completed: completed,
                     remaining: remaining
                 }));
-                
+
                 // Highlights for filters at the bottom of our Todo application.
-            
+
                 container.one('#filters li a').removeClass('selected');
-                
+
                 container.all('#filters li a')
                         .filter('[href="#/' + (this.get('filter') || '') + '"]')
                         .addClass('selected');
@@ -83,7 +83,7 @@ YUI.add('todo-app', function (Y) {
                 main.hide();
                 footer.hide();
             }
-            
+
             // Set the checkbox only if all Todos have been completed.
             this.get('allCheckbox').set('checked', !remaining);
             this.addViews();

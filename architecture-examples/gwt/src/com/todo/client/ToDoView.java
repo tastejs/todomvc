@@ -24,7 +24,7 @@ import com.todo.client.ToDoPresenter.ViewEventHandler;
 
 /**
  * A view for the {@link ToDoPresenter}
- * 
+ *
  */
 public class ToDoView extends Composite implements ToDoPresenter.View {
 

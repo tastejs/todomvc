@@ -18,11 +18,11 @@ describe( 'TodoMVC features.', function(){
 
 		it( 'should allow creating a new todo' , function() {
 			runs( function(){
-				$( '#new-todo' ).val( todoTitle ).trigger( enterEvent );	
+				$( '#new-todo' ).val( todoTitle ).trigger( enterEvent );
 			});
 
 			waits( 100 );
-			
+
 			runs( function() {
 				!!$( '#todo-list li' ).text().match( todoTitle );
 			});

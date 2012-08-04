@@ -34,7 +34,7 @@ displayFilter = 'all'
 			}
 		}/>
 	</header>
-	
+
 	if tasks.length {
 		<section id="main">
 			toggleAll = false
@@ -60,7 +60,7 @@ displayFilter = 'all'
 				}
 			</ul>
 		</section>
-		
+
 		<footer id="footer">
 			completedTasks = list.filter(tasks, function(task) { return task.completed })
 			pluralize = function(num) { return num is > 1 ? "items" : "item" }

@@ -6,7 +6,7 @@ YUI.add('todo-view', function (Y) {
 
         // The container element that the View is rendered under.
         containerTemplate: '<li>',
-       
+
         // Compile our template using Handlebars.
         template: Y.Handlebars.compile(Y.one('#item-template').getHTML()),
 
@@ -50,7 +50,7 @@ YUI.add('todo-view', function (Y) {
             return this;
         },
 
-        // Toggle the linked Todo's completion status.     
+        // Toggle the linked Todo's completion status.
         toggleComplete: function () {
             this.get('model').toggle();
         },
@@ -61,12 +61,12 @@ YUI.add('todo-view', function (Y) {
             this.get('inputNode').focus();
         },
 
-        // Get the value from our input field while hiding it, and 
+        // Get the value from our input field while hiding it, and
         // save it to our Todo when focus is lost from the field.
         close: function (e) {
             var value = this.get('inputNode').get('value'),
                 editedValue = Y.Escape.html(Y.Lang.trim(value));
-            
+
             this.get('container').removeClass('editing');
 
             if (editedValue) {

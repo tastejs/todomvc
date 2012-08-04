@@ -2,9 +2,9 @@ package com.todo.client;
 
 /**
  * An individual ToDo item.
- * 
+ *
  * @author ceberhardt
- * 
+ *
  */
 public class ToDoItem {
 

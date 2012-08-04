@@ -138,7 +138,7 @@ Plugins also allow you to use capabilities of your existing modules/libraries/fr
 * `create` factory now supports the `isConstructor` option, when `true`, forces an object instance to be created using `new`.
 * Improved debug output when using [wire/debug](https://github.com/cujojs/wire/wiki/wire-debug) plugin,
 * Slimmed down [wire/aop](https://github.com/cujojs/wire/wiki/wire-aop) plugin in preparation for a new version in an upcoming release,
-* Automated unit tests using [Dojo DOH](http://dojotoolkit.org/reference-guide/util/doh.html), 
+* Automated unit tests using [Dojo DOH](http://dojotoolkit.org/reference-guide/util/doh.html),
 * Semantic versioning
 
 ### 0.5

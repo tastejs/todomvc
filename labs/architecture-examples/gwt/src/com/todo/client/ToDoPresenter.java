@@ -16,7 +16,7 @@ import com.google.gwt.view.client.ListDataProvider;
 /**
  * The presenter for the ToDo application. This class is responsible for the lifecycle
  * of the {@link ToDoItem} instances.
- * 
+ *
  * @author ceberhardt
  *
  */
@@ -25,10 +25,10 @@ public class ToDoPresenter {
   private static final String STORAGE_KEY = "todo-gwt-state";
 
   /**
-   * The interface that a view for this presenter must implement. 
+   * The interface that a view for this presenter must implement.
    */
   public interface View {
-    
+
     /**
      * Gets the text that the user has input for the creation of new tasks.
      */
@@ -69,13 +69,13 @@ public class ToDoPresenter {
      * Invoked when a user wishes to clear completed tasks.
      */
     void clearCompletedTasks();
-    
+
     /**
      * Sets the completed state of all tasks to the given state
      */
     void markAllCompleted(boolean completed);
   }
-  
+
   /**
    * Handler for view events, defers to private presenter methods.
    */
@@ -99,14 +99,14 @@ public class ToDoPresenter {
   private final ListDataProvider<ToDoItem> todos = new ListDataProvider<ToDoItem>();
 
   private final View view;
-  
+
   private boolean suppressStateChanged = false;
 
   public ToDoPresenter(View view) {
     this.view = view;
-    
-    loadState();  
-        
+
+    loadState();
+
     view.addhandler(viewHandler);
     view.setDataProvider(todos);
     updateTaskStatistics();
@@ -117,14 +117,14 @@ public class ToDoPresenter {
    */
   private void updateTaskStatistics() {
     int totalTasks = todos.getList().size();
-    
+
     int completeTask = 0;
     for(ToDoItem task : todos.getList()){
       if (task.isDone()){
         completeTask ++;
       }
     }
-    
+
     view.setTaskStatistics(totalTasks, completeTask);
   }
 
@@ -138,41 +138,41 @@ public class ToDoPresenter {
   }
 
   /**
-   * Invoked by a task when its state changes so that we can update 
+   * Invoked by a task when its state changes so that we can update
    * the view statistics and persist.
    */
   protected void itemStateChanged(ToDoItem toDoItem) {
-  	
+
   	if (suppressStateChanged) {
   		return;
   	}
-  	
+
   	// if the item has become empty, remove it
   	if (toDoItem.getTitle().trim().equals("")) {
   	  todos.getList().remove(toDoItem);
   	}
-  	
+
     updateTaskStatistics();
     saveState();
   }
-  
+
   /**
    * Sets the completed state of all tasks
    */
   private void markAllCompleted(boolean completed) {
-  	
+
   	// update the completed state of each item
   	suppressStateChanged = true;
   	for(ToDoItem task : todos.getList()){
   		task.setDone(completed);
   	}
   	suppressStateChanged = false;
-  	
+
   	// cause the view to refresh the whole list - yes, this is a bit ugly!
   	List<ToDoItem> items = new ArrayList<ToDoItem>(todos.getList());
   	todos.getList().clear();
   	todos.getList().addAll(items);
-  	
+
   	updateTaskStatistics();
     saveState();
   }
@@ -182,18 +182,18 @@ public class ToDoPresenter {
    */
   private void addTask() {
     String taskTitle = view.getTaskText().trim();
-    
+
     // if white-space only, do not add a todo
     if (taskTitle.equals(""))
       return;
-    
+
     ToDoItem toDoItem = new ToDoItem(taskTitle, this);
     view.clearTaskText();
     todos.getList().add(toDoItem);
     updateTaskStatistics();
     saveState();
   }
-  
+
   /**
    * Clears completed tasks and updates the view.
    */
@@ -208,7 +208,7 @@ public class ToDoPresenter {
     updateTaskStatistics();
     saveState();
   }
-  
+
   /**
    * Saves the current to-do items to local storage
    */
@@ -230,26 +230,26 @@ public class ToDoPresenter {
       storage.setItem(STORAGE_KEY, todoItems.toString());
     }
   }
-  
+
   private void loadState() {
     Storage storage = Storage.getLocalStorageIfSupported();
-    if (storage != null) {      
+    if (storage != null) {
       try {
         // get state
         String state = storage.getItem(STORAGE_KEY);
-        
+
         // parse the JSON array
         JSONArray todoItems = JSONParser.parseStrict(state).isArray();
         for (int i = 0; i < todoItems.size(); i++) {
           // extract the to-do item values
           JSONObject jsonObject = todoItems.get(i).isObject();
           String task = jsonObject.get("task").isString().stringValue();
-          boolean completed = jsonObject.get("complete").isBoolean().booleanValue();          
+          boolean completed = jsonObject.get("complete").isBoolean().booleanValue();
           // add a new item to our list
           todos.getList().add(new ToDoItem(task, completed, this));
         }
       } catch (Exception e) {
-        
+
       }
     }
   }

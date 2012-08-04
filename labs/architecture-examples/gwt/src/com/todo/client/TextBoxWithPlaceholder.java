@@ -12,10 +12,10 @@ public class TextBoxWithPlaceholder extends TextBox {
   public void setPlaceholder(String value){
     getElement().setAttribute("placeholder", value);
   }
-  
+
   /**
    * Gets the placeholder for this textbox
-   * 
+   *
    * @return the placeholder
    */
   public String getPlaceholder(){

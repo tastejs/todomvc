@@ -1,6 +1,6 @@
 YUI.add('todo-list', function (Y) {
     "use strict";
-    
+
     // Dependencies from Y.MVC.
     var Todo = Y.TodoMVC.Todo,
         TodoList;

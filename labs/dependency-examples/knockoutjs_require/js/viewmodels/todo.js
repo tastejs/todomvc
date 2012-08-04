@@ -7,7 +7,7 @@ define([
   // our main view model
   var ViewModel = function( todos ) {
     var self = this;
-    
+
     // map array of passed in todos to an observableArray of Todo objects
     self.todos = ko.observableArray( ko.utils.arrayMap( todos, function( todo ) {
       return new Todo( todo.title, todo.completed );
@@ -15,9 +15,9 @@ define([
 
     // store the new todo value being entered
     self.current = ko.observable();
-    
-    
-    
+
+
+
     // add a new todo, when enter key is pressed
     self.add = function() {
       var current = self.current().trim();
@@ -91,7 +91,7 @@ define([
     }).extend({
       throttle: 500
     }); // save at most twice per second
-    
+
   };
   return ViewModel;
 });

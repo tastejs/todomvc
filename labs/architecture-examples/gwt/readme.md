@@ -6,9 +6,9 @@ written in Java which is compiled to JavaScript. The files within the `gwttodo` 
 of running the GWT compilation process on the Java files found within the src folder. The UI
 pattern used by this application is Model-View-Presenter.
 
-Whilst this application is very different to the other TodoMVC implementations, it still makes for 
+Whilst this application is very different to the other TodoMVC implementations, it still makes for
 an interesting comparison. Large-scale JavaScript applications are often written with GWT or Closure,
-with the resulting JavaScript code delivered to the client being compiled. 
+with the resulting JavaScript code delivered to the client being compiled.
 
 ### Folder structure
 
@@ -18,7 +18,7 @@ code for each <a href "http://code.google.com/webtoolkit/doc/latest/tutorial/com
 folder also includes some redundant files, see the issue <a href="https://github.com/ColinEberhardt/todomvc/issues/9">
 Remove redundant compiler output</a>.
 - `src` - the Java source for this application
- 
+
 ### Building this application
 
 The GWT TodoMVC application was built with Java 1.6 and GWT 2.4.0. The easiest way to build this application

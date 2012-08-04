@@ -12,7 +12,7 @@
 define(function() {
 
     var toString = Object.prototype.toString;
-    
+
     /**
      * Creates a function that accepts a function that takes individual
      * arguments (it can be variadic, too), and returns a new function that

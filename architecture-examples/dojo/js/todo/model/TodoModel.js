@@ -73,9 +73,9 @@ define(["dojo/_base/declare", "dojox/mvc/StatefulModel", "todo/store/LocalStorag
         },
 
         /**
-         * Search through current tasks list, removing all 
+         * Search through current tasks list, removing all
          * with empty titles.
-         */ 
+         */
         deleteEmptyTasks: function () {
             var len = this.todos.length, idx = 0;
 

@@ -9,7 +9,7 @@
 
 /**
  * TODO: load xdomain text, too
- * 
+ *
  */
 
 define(/*=='text',==*/ function () {

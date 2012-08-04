@@ -18,7 +18,7 @@ define(['when'], function(when) {
     /**
      * Reference resolver for "datastore!url" for easy references to
      * legacy dojo/data datastores.
-     * 
+     *
      * @param resolver
      * @param name
      * @param refObj

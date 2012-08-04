@@ -15,7 +15,7 @@
 define(['when', './lib/object', './lib/functional', './lib/component'], function(when, object, functional, createComponent) {
 
 	var whenAll, chain, obj, undef;
-	
+
 	whenAll = when.all;
 	chain = when.chain;
 

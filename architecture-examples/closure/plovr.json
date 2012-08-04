@@ -11,7 +11,7 @@
 	  // Unfortunately, the Closure Library violates these in many places.
 	  // "accessControls": "ERROR",
 	  // "visibility": "ERROR"
-	
+
 	  "checkRegExp": "WARNING",
 	  "checkTypes": "WARNING",
 	  "checkVars": "WARNING",

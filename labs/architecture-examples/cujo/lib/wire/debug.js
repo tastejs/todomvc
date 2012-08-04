@@ -221,7 +221,7 @@ define(['aop'], function(aop) {
 
         /** Default pointcut query to match methods that will be traced */
         defaultPointcut = /^[^_]/;
-        
+
         function logAfter(context, tag, start, val) {
             console.log(context + tag + (new Date().getTime() - start.getTime()) + 'ms): ', val);
         }
@@ -234,7 +234,7 @@ define(['aop'], function(aop) {
             return {
                 around:function (joinpoint) {
                     var val, context, start, indent;
-                    
+
                     // Setup current indent level
                     indent = padding.substr(0, depth);
                     // Form full path to invoked method

@@ -104,7 +104,7 @@
 		head,
 		// collection of modules that have been written to the built file
 		built = {};
-			
+
 		if (doc) {
 			head = doc.head || (doc.head = doc.getElementsByTagName('head')[0]);
 		}
@@ -275,7 +275,7 @@
 	}
 
 	/***** style element functions *****/
-	
+
 	var currentStyle;
 
 	function translateUrls (cssText, baseUrl) {
@@ -321,9 +321,9 @@
 
 			'cssText' in style ? style.cssText = allCssText :
 				style.appendChild(doc.createTextNode(allCssText));
-				
+
 		}, 0);
-		
+
 		return currentStyle;
 	}
 

@@ -1,4 +1,4 @@
-/** 
+/**
  * There's an incompatibility between the Dojo CheckBox and the Dojo MVC
  * module. To use them together, I've manually tied the "checked" attribute
  * value to push updates to the "value" attribute, which the Dojo MVC module
