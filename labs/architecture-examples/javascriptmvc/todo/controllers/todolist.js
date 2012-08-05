@@ -165,11 +165,21 @@ $.Controller('Todolist',{
 	// such as removing the classes + calling the update function on
 	// the model.
 	_updateTodo: function(el){
-		el.closest('li')
-			.removeClass("editing")
-			.model().update({
-				title : el.val()
-			});
+		var todoVal = el.val().trim();
+
+		//leaving editing mode and fetching the model instance
+		//back from the DOM
+		var model = el.closest("li")
+						.removeClass("editing")
+						.model();
+
+		if(!todoVal){
+			model.destroy();
+		}else{
+			model.update({
+					title : el.val()
+				});
+		}
 	},
 
 	// a helper that updates the stats
