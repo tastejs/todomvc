@@ -47,7 +47,7 @@ $.Controller('Todolist',{
 
 		this.find('#filters li a')
 			.removeClass('selected')
-			.filter("[href='#!" + (loadWhat || "") + "']")
+			.filter("[href='#!/" + (loadWhat || "") + "']")
 			.addClass('selected');	
 	},
 

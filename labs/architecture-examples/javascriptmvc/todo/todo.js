@@ -25,12 +25,12 @@ $.Controller("Router", {
 	},
 
 	//route index.html#!active
-	"active route": function(routeData){
+	"/active route": function(routeData){
 		$("#todoapp").controller().loadData("active");
 	},
 
 	//route index.html#!completed
-	"completed route": function(routeData){
+	"/completed route": function(routeData){
 		$("#todoapp").controller().loadData("completed");
 	}
 
