@@ -66,7 +66,8 @@ $.Controller('Todolist',{
 
 	// when an item is updated
 	"{list} updated" : function(list, ev, item){
-		item.elements().html("//todo/views/todo-template.ejs", item);
+		item.elements().toggleClass("completed", item.completed)
+					 .html("//todo/views/todo-template.ejs", item);
 		this._updateStats();
 	},
 	
@@ -154,8 +155,6 @@ $.Controller('Todolist',{
 
 	//updates the completion status
 	_updateCompletedStatus: function(isCompleted, $todoElement){
-		$todoElement.toggleClass("completed");
-		
 		$todoElement.model().update({
 			completed : isCompleted
 		});
