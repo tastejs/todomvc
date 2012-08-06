@@ -44,7 +44,7 @@ jQuery(function( $ ) {
 			this.$toggleAll.on( 'change', this.toggleAll );
 			this.$footer.on( 'click', '#clear-completed', this.destroyCompleted );
 			list.on( 'change', '.toggle', this.toggle );
-			list.on( 'dblclick', '.view', this.edit );
+			list.on( 'dblclick', 'label', this.edit );
 			list.on( 'keypress', '.edit', this.blurOnEnter );
 			list.on( 'blur', '.edit', this.update );
 			list.on( 'click', '.destroy', this.destroy );

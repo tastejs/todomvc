@@ -122,7 +122,7 @@ define({
 				'click:.destroy': 'removeTodo',
 				'change:.toggle': 'updateTodo',
 				'click:#toggle-all': 'toggleAll',
-				'dblclick:.view': 'todos.edit',
+				'dblclick:label': 'todos.edit',
 				'change,focusout:.edit': 'todos.submit' // also need way to submit on [enter]
 			},
 			controlsView: {

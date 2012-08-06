@@ -72,10 +72,10 @@
 		]]>
 	</js:Script>
 	<js:Template name="layout">
-			<div class="view" ondblclick="editTodo">
+			<div class="view">
 				<input class="toggle" type="checkbox" onclick="checkTodo" ondblclick="preventEditing"
 					   checked="{todo.completed}"/>
-				<label>{todo.title}</label>
+				<label ondblclick="editTodo">{todo.title}</label>
 				<button class="destroy" onclick="triggerOnRemove"/>
 			</div>
 			<input class="edit" cid="inputElement" type="text" value="{{todo.title|trim()}}"

@@ -206,6 +206,7 @@
 			label = document.createElement('label');
 			label.setAttribute( 'data-todo-id', todo.id );
 			label.appendChild( document.createTextNode( todo.title ) );
+			label.addEventListener( 'dblclick', todoContentHandler );
 
 
 			// create delete button
@@ -221,8 +222,6 @@
 			divDisplay.appendChild( checkbox );
 			divDisplay.appendChild( label );
 			divDisplay.appendChild( deleteLink );
-			divDisplay.addEventListener( 'dblclick', todoContentHandler );
-
 
 			// create todo input
 			inputEditTodo = document.createElement('input');

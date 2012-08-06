@@ -26,9 +26,9 @@
 					<li data-foreach-todo="currentTodos"
 							data-addclass-completed="todo.completed"
 							data-addclass-editing="todo.editing" >
-						<div class="view" data-hideif="todo.editing" data-event-doubleclick="toggleEditing">
+						<div class="view" data-hideif="todo.editing">
 							<input class="toggle" type="checkbox" data-bind="todo.completed" data-event-change="todoDoneChanged">
-							<label data-bind="todo.title"></label>
+							<label data-bind="todo.title" data-event-doubleclick="toggleEditing"></label>
 							<button class="destroy" data-event-click="destroyTodo"></button>
 						</div>
 						<input class="edit" type="text"

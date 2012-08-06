@@ -76,7 +76,7 @@ if Meteor.is_client
 		'click .destroy': (evt) ->
 			Template.item.updateTask this._id, null
 
-		'dblclick .view': (evt) ->
+		'dblclick label': (evt) ->
 			# do not response to double click on checkbox
 			return if $(evt.target).hasClass('toggle')
 

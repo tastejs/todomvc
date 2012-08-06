@@ -23,10 +23,10 @@
       <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
       <label for="toggle-all">Mark all as complete</label>
       <ul id="todo-list">
-        <li ng-repeat="todo in todos | filter:statusFilter" ng-dblclick="editTodo(todo)" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+	<li ng-repeat="todo in todos | filter:statusFilter" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
           <div class="view">
             <input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="todoCompleted(todo)">
-            <label>{{todo.title}}</label>
+	    <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
             <button class="destroy" ng-click="removeTodo(todo)"></button>
           </div>
           <form ng-submit="doneEditing(todo)">

@@ -16,7 +16,7 @@ YUI.add('todo-view', function (Y) {
             '.toggle': {
                 click: 'toggleComplete'
             },
-            '.view': {
+	    'label': {
                 dblclick: 'edit'
             },
             '.edit': {

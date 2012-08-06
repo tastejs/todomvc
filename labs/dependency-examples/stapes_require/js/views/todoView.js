@@ -23,8 +23,8 @@ define(['lib/stapes'], function(Stapes) {
 			todoView.emit(event, $(this).parents('li').data('id'));
 		});
 
-		$('#todo-list').on('dblclick', 'li', function(e) {
-			todoView.emit('edittodo', $(this).data('id'));
+		$('#todo-list').on('dblclick', 'label', function(e) {
+			todoView.emit('edittodo', $(this).closest('li').data('id'));
 		});
 
 		$('#todo-list').on('keyup focusout', 'input.edit', function(e) {

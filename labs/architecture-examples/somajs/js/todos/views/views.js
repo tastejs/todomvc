@@ -12,7 +12,7 @@ var todo = window.todo || {};
 			this.template = Handlebars.compile( $( '#' + this.domElement.id + '-template' ).html() );
 			$( this.domElement ).on( 'click', '.destroy', this.destroy.bind( this ) );
 			$( this.domElement ).on( 'click', '.toggle', this.toggle.bind( this ) );
-			$( this.domElement ).on( 'dblclick', '.view', this.edit );
+			$( this.domElement ).on( 'dblclick', 'label', this.edit );
 			$( this.domElement ).on( 'blur', '.edit', this.update.bind( this ) );
 			$( this.domElement ).on( 'keypress', '.edit', this.blurInput );
 			$('#toggle-all').click( this.toggleAll );

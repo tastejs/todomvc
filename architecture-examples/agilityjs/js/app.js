@@ -26,7 +26,7 @@
 					this.view.$().toggleClass( 'completed', this.model.get('completed') );
 					app.updateStatus();
 				},
-				'dblclick .view': function() {
+				'dblclick label': function() {
 					this.view.$().addClass('editing');
 					this.view.$('.edit').focus();
 				},

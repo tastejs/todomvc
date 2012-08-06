@@ -25,7 +25,7 @@
 				'click:relay(input.toggle)': 'statusChange',
 				'keypress:relay(input.edit)': 'handleKeypress',
 				'click:relay(button.destroy)': 'removeItem',
-				'dblclick:relay(li)': 'editing'
+				'dblclick:relay(label)': 'editing'
 			},
 
 			// define actual event handlers
@@ -64,8 +64,9 @@
 					e.stop();
 				}
 
-				el.addClass( this.options.editingClass );
-				el.getElement( this.options.input ).focus();
+				var container = el.getParent('li');
+				container.addClass( this.options.editingClass );
+				container.getElement( this.options.input ).focus();
 			},
 
 			// when enter pressed while editing

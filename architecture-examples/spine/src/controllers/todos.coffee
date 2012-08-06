@@ -8,7 +8,7 @@ class window.Todos extends Spine.Controller
 	events:
 		'click    .destroy': 'remove'
 		'click    .toggle':  'toggleStatus'
-		'dblclick .view':    'edit'
+		'dblclick label':    'edit'
 		'keyup    .edit':    'finishEditOnEnter'
 		'blur     .edit':    'finishEdit'
 
