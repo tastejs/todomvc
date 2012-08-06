@@ -1,0 +1,11 @@
+<ul id="filters">
+	<li>
+		<a {{action showAll href=true}} {{bindAttr class="view.isAll:selected"}}>All</a>
+	</li>
+	<li>
+		<a {{action showActive href=true}} {{bindAttr class="view.isActive:selected"}}>Active</a>
+	</li>
+	<li>
+		<a {{action showCompleted href=true}} {{bindAttr class="view.isCompleted:selected"}}>Completed</a>
+	</li>
+</ul>
