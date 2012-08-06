@@ -61,7 +61,6 @@ We also have a number of in-progress applications in Labs:
 - [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
 - [Dijon](https://github.com/creynders/dijon-framework)
 - [rAppid.js](http://www.rappidjs.com)
-- [Broke](https://github.com/brokenseal/broke)
 - [o_O](http://weepy.github.com/o_O)
 - [Fun](https://github.com/marcuswestin/fun)
 - [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
