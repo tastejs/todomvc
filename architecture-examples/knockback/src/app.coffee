@@ -7,7 +7,7 @@ $ ->
 	ko.bindingHandlers.selectAndFocus =
 		init: (element, value_accessor, all_bindings_accessor) ->
 			ko.bindingHandlers.hasfocus.init(element, value_accessor, all_bindings_accessor)
-			ko.utils.registerEventHandler(element, 'focus', -> element.select())
+			ko.utils.registerEventHandler(element, 'focus', -> element.focus())
 		update: (element, value_accessor) ->
 			ko.utils.unwrapObservable(value_accessor()) # create dependency
 			_.defer(=>ko.bindingHandlers.hasfocus.update(element, value_accessor))

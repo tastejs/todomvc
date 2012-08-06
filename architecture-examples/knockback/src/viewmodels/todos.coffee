@@ -19,7 +19,7 @@ TodoViewModel = (model) ->
 
 	@onDestroyTodo = => model.destroy()
 
-	@onCheckEditBegin = => (@editing(true); $('.todo-input').focus()) if not @editing() and not @completed()
+	@onCheckEditBegin = => @editing(true) if not @editing() and not @completed()
 	@onCheckEditEnd = (view_model, event) => ($('.todo-input').blur(); @editing(false)) if (event.keyCode == 13) or (event.type == 'blur')
 	@
 
