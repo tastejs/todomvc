@@ -1,0 +1,8 @@
+{
+	"name": "emberjs_webpack",
+	"version": "0.1.0",
+	"devDependencies": {
+		"grunt-webpack": "0.2.x",
+		"grunt": "0.3.x"
+	}
+}
