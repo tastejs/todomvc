@@ -31,10 +31,12 @@ define( 'app', [
 			ApplicationView: ApplicationView,
 			entriesController: EntriesController.create(
 				{ store: new Store( 'todos-emberjs' ) }
-			)
+			),
+			ready: function() {
+				this.initialize();
+			}
 		});
 
-		App.initialize();
 		// Expose the application globally
 		return window.Todos = App;
 	}
