@@ -60,13 +60,13 @@
 				templateName: 'filtersTemplate',
 				filterBinding: 'controller.namespace.entriesController.filterBy',
 				isAll: function() {
-					return !!Ember.empty( this.get('filter') );
+					return Ember.empty( this.get('filter') );
 				}.property( 'filter' ),
 				isActive: function() {
-					return !!( this.get('filter') === 'active' );
+					return this.get('filter') === 'active';
 				}.property('filter'),
 				isCompleted: function() {
-					return !!( this.get('filter') === 'completed' );
+					return this.get('filter') === 'completed';
 				}.property('filter')
 			}),
 			clearBtnView: Ember.View.create({

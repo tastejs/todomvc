@@ -2,7 +2,7 @@
 	'use strict';
 
 	win.Todos = Ember.Application.create({
-		VERSION: '0.2',
+		VERSION: '1.0',
 		rootElement: '#todoapp',
 		storeNamespace: 'todos-emberjs',
 		// Extend to inherit outlet support

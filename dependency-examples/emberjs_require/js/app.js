@@ -22,16 +22,16 @@ define( 'app', [
 	'ember'
 	], function( Router, Store, EntriesController, ApplicationView ) {
 		var App = Ember.Application.create({
-			VERSION: '0.2',
+			VERSION: '1.0',
 			rootElement: '#todoapp',
 			// Load routes
 			Router: Router,
 			// Extend to inherit outlet support
 			ApplicationController: Ember.Controller.extend(),
 			ApplicationView: ApplicationView,
-			entriesController: EntriesController.create(
-				{ store: new Store( 'todos-emberjs' ) }
-			),
+			entriesController: EntriesController.create({
+				store: new Store('todos-emberjs')
+			}),
 			ready: function() {
 				this.initialize();
 			}
