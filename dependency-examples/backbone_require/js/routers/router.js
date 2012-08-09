@@ -14,8 +14,8 @@ define([
 			// Set the current filter to be used
 			Common.TodoFilter = param.trim() || '';
 
-			// Trigger a collection reset/addAll
-			Todos.trigger('reset');
+			// Trigger a collection 'filter' event, causing hiding/unhiding of todo view items
+			Todos.trigger('filter');
 		}
 	});
 

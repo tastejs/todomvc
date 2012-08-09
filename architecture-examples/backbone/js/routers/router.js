@@ -15,8 +15,8 @@ var app = app || {};
 			// Set the current filter to be used
 			window.app.TodoFilter = param.trim() || '';
 
-			// Trigger a collection reset/addAll
-			window.app.Todos.trigger('reset');
+			// Trigger a collection 'filter' event, causing hiding/unhiding of todo view items
+			window.app.Todos.trigger('filter');
 		}
 	});
 

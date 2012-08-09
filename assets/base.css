@@ -1,4 +1,5 @@
 html,
+html,
 body {
 	margin: 0;
 	padding: 0;
@@ -403,4 +404,8 @@ label[for='toggle-all'] {
 	#todo-list li .toggle {
 		background: none;
 	}
+}
+
+.hidden {
+    display: none;
 }
