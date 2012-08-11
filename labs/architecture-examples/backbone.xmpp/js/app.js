@@ -1,4 +1,5 @@
-var app = app || {};
+var app = app || {},
+    boshUrl = 'http://localhost:5280/http-bind';
 
 app.start = function () {
     // Create our global collection of **Todos**.
@@ -15,7 +16,7 @@ $(function() {
 
 
     // Connect to XMPP
-    var XMPPConnection = new Strophe.Connection('http://localhost:8080/http-bind'),
+    var XMPPConnection = new Strophe.Connection(boshUrl),
         chars = 'abcdefghijklmnopqrstuvwxyz',
         resource = '';
 
