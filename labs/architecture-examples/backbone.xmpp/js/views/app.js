@@ -108,7 +108,7 @@ $(function( $ ) {
 				return;
 			}
 
-			app.Todos.create( this.newAttributes() );
+			app.Todos.create( this.newAttributes(), {wait: true} );
 			this.input.val('');
 		},
 
