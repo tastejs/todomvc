@@ -1,6 +1,10 @@
 var app = app || {};
 
 app.start = function () {
+    // Create our global collection of **Todos**.
+    app.Todos.initialize([], {id: 'todos', connection: app.connection});
+    Backbone.history.start();
+
     // Kick things off by creating the **App**.
     new app.AppView();
 };
@@ -44,7 +48,6 @@ $(function() {
             cp.always(function () {
                 app.start();
             });
-
         }
     });
 
