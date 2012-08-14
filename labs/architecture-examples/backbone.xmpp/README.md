@@ -9,9 +9,8 @@ Backbone.xmpp allows use to use XMPP PubSub nodes for syncing your Backbone mode
 #Installation of the XMPP server with installer
 
 In the `server` directory scripts are included to help you build and configure an XMPP server without too much hussle.
-If you wish you to use the ejabberd installer you can get it [here](http://www.process-one.net/en/ejabberd/downloads/)
+If you wish you to use the ejabberd installer you can get it [here](http://www.process-one.net/en/ejabberd/downloads/). When prompted for the domain and admin user, use `localhost` as the domain and `admin` for the user with `admin` as password.
 Once the installation is complete, run the following to generate a config file with all you need.
-
 
     cd server
     python bootstrap.py
@@ -41,6 +40,3 @@ Usage
 -----
 
 While ejabberd is running, you can open the `index.html` and a few browser windows (use different browsers, or "incognito" mode) to observe real-time updates across them.
-
-
-
