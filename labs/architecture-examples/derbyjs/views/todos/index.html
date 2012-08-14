@@ -46,7 +46,7 @@
 
 <TodoFooter:>
 	<footer id="footer" class="{#unless _todoList}empty-list{/}">
-	<span id="todo-count"><strong>{_stats.remaining}</strong> item{#if _stats.moreThanOne}s{/} left</span>
+	<span id="todo-count"><strong>{_stats.remaining}</strong> item{#unless _stats.oneOnly}s{/} left</span>
 		<ul id="filters" class="{filterName}">
 			<li class="all">
 				<a href="/{{groupName}}">All</a>

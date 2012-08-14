@@ -33,7 +33,7 @@ renderGroup = (page, model, {groupName, filterName}) ->
 			return {
 				completed: completed,
 				remaining: remaining,
-				moreThanOne: remaining > 1,
+				oneOnly: remaining == 1,
 			}
 
 		filterName = filterName or 'all'
