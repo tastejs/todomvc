@@ -7,10 +7,7 @@ if Meteor.is_client
 		$('#toggle-all').prop 'checked', allCompleted
 
 		hasTask = Tasks.find().count() > 0
-		if hasTask
-			$('#main, #footer').removeClass('hidden')
-		else
-			$('#main, #footer').addClass('hidden')
+		$('#main, #footer').toggleClass('hidden', !hasTask)
 
 	# Listen to change on collection Tasks.
 	# When collection changed, refresh toggle all checkbox state
