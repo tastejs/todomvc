@@ -30,6 +30,13 @@ $(function() {
 		initialize: function() {
 			this.model.on( 'change', this.render, this );
 			this.model.on( 'destroy', this.remove, this );
+			this.model.collection.on( 'remove', this.remoteRemove, this);
+		},
+
+		remoteRemove: function (model) {
+			if (model.id === this.model.id) {
+				this.remove();
+			}
 		},
 
 		// Re-render the titles of the todo item.
@@ -76,5 +83,6 @@ $(function() {
 		clear: function() {
 			this.model.destroy();
 		}
+
 	});
 });
