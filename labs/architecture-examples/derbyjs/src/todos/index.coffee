@@ -55,6 +55,10 @@ ready (model) ->
 	group = model.at '_group'
 
 	group.on 'set', 'select_all', (select_all, previous_value, isLocal, e) ->
+		# We only want to react to select_all being set if it's in response
+		# to a UI event (as opposed to our checkAllCompleted below checking
+		# individual items).
+		return unless e
 		# Is there a way to do this with one call rather than iterating?
 		todos = model.at('_group.todos')
 		for item in list.get()
@@ -87,8 +91,7 @@ ready (model) ->
 	exports.checkAllCompleted = ->
 		allCompleted = true
 		allCompleted &&= item.completed for item in list.get()
-		if allCompleted
-			group.set('select_all', true)
+		group.set('select_all', allCompleted)
 
 	exports.endEdit = (e) ->
 		target = e.target
