@@ -63,8 +63,9 @@ ready (model) ->
 	newTodo = model.at '_newTodo'
 	exports.add = ->
 		# Don't add a blank todo
-		return unless text = view.escapeHtml newTodo.get()
+		text = view.escapeHtml newTodo.get().trim()
 		newTodo.set ''
+		return unless text
 		# Insert the new todo before the first completed item in the list
 		# or append to the end if none are completed
 		items = list.get()
