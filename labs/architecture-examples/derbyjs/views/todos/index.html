@@ -36,7 +36,7 @@
 <todo:>
 	<li data-id={{id}} class="{#if .completed}completed{else}active{/}{#if ._editing} editing{/}">
 		<div>
-			<input class="toggle" type="checkbox" checked={.completed}>
+			<input class="toggle" type="checkbox" checked={.completed} x-bind=change:checkAllCompleted>
 			<form x-bind=submit:endEdit>
 			<input class="text" x-bind="focus:startEdit, blur:endEdit" value="{.text}">
 			</form>

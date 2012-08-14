@@ -83,6 +83,12 @@ ready (model) ->
 		list.remove(i) for i in completed_indexes.reverse()
 		group.set('select_all', false)
 
+	exports.checkAllCompleted = ->
+		allCompleted = true
+		allCompleted &&= item.completed for item in list.get()
+		if allCompleted
+			group.set('select_all', true)
+
 	exports.endEdit = (e) ->
 		target = e.target
 		if target.tagName == "FORM"
