@@ -16,13 +16,14 @@ In the `server` directory scripts are included to help you build and configure a
     ./bin/buildout
 
 Once buildout completes, you should have a compiled ejabberd.
-Proceed by setting up the `admin` user:
 
-    ./bin/ejabberdctl register admin localhost admin
-
-and start ejabberd
+Start ejabberd
 
     ./bin/ejabberd
+
+and set up the `admin` user:
+
+    ./bin/ejabberdctl register admin localhost admin
 
 Usage
 -----
