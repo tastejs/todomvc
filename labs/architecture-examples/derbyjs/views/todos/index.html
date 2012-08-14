@@ -37,7 +37,9 @@
 	<li data-id={{id}} class="{#if .completed}completed{else}active{/}{#if ._editing} editing{/}">
 		<div>
 			<input class="toggle" type="checkbox" checked={.completed}>
+			<form x-bind=submit:endEdit>
 			<input class="text" x-bind="focus:startEdit, blur:endEdit" value="{.text}">
+			</form>
 			<button class="destroy" x-bind=click:del></button>
 		</div>
   </li>

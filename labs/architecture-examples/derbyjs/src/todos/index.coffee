@@ -84,7 +84,10 @@ ready (model) ->
 		group.set('select_all', false)
 
 	exports.endEdit = (e) ->
-		item = model.at(e.target)
+		target = e.target
+		if target.tagName == "FORM"
+			target.firstChild.blur()
+		item = model.at(target)
 		item.set('_editing', false)
 		text = item.get('text').trim()
 		if not text
