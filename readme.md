@@ -140,4 +140,4 @@ For applications that we feel don't quite match the goals of the project, but wh
 
 ## License
 
-[The Unlicense](unlicense.org) (i.e Public Domain)
+[The Unlicense](http://unlicense.org) (i.e Public Domain)
