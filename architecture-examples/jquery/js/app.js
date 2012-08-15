@@ -1,157 +1,154 @@
 /*global jQuery, Handlebars */
-jQuery(function( $ ) {
+jQuery( function( $ ) {
 	'use strict';
 
-	var Utils = {
-		// https://gist.github.com/1308368
-		uuid: function(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b},
-		pluralize: function( count, word ) {
-			return count === 1 ? word : word + 's';
-		},
-		store: function( namespace, data ) {
-			if ( arguments.length > 1 ) {
-				return localStorage.setItem( namespace, JSON.stringify( data ) );
-			} else {
-				var store = localStorage.getItem( namespace );
-				return ( store && JSON.parse( store ) ) || [];
+	var
+		APP_STORAGE_KEY = 'todos-jquery',
+
+		$main = $('#main'),
+		$footer = $('#footer'),
+		$todoList = $('#todo-list'),
+		$toggleAll = $('#toggle-all'),
+
+		templateTodo = Handlebars.compile( $('#todo-template').html() ),
+		templateFooter = Handlebars.compile( $('#footer-template').html() ),
+
+		todos = JSON.parse(localStorage.getItem(APP_STORAGE_KEY) || '[]');
+
+	// Accepts an element from inside the ".item" div
+	function getTodo( elem, callback ) {
+		var
+			id = $( elem ).closest('li').data('id');
+
+		$.each( todos, function( i, val ) {
+			if ( val.id === id ) {
+				callback( i, val );
+				return false;
+			}
+		} );
+	}
+
+	// https://gist.github.com/1308368
+	function getUID(a, b) {
+		for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');
+		return b;
+	}
+
+	function update() {
+		var todoCount = todos.length,
+			activeTodoCount = 0;
+
+		// save
+		localStorage.setItem(APP_STORAGE_KEY, JSON.stringify( todos ) );
+
+		// counting active todo items
+		$.each( todos, function( i, val ) {
+			if ( !val.completed ) {
+				activeTodoCount++;
+			}
+		} );
+
+		$todoList.html( templateTodo( todos ) );
+		$main.toggle( !!todos.length );
+		$toggleAll.prop( 'checked', !activeTodoCount );
+
+		$footer.html( templateFooter( {
+			activeTodoCount: activeTodoCount,
+			activeTodoWord: 'item' + (activeTodoCount === 1 ? '' : 's'),
+			completedTodos: todoCount - activeTodoCount
+		} ) ).toggle( !!todoCount );
+	}
+
+	update();
+
+	$('#new-todo').on( 'keyup', function(e) {
+		var $input = $(this),
+			val = $.trim( $input.val() );
+
+		if ( e.which !== 13 || !val ) {
+			return;
+		}
+
+		todos.push( {
+			id: getUID(),
+			title: val,
+			completed: false
+		} );
+
+		$input.val('');
+
+		update();
+	} );
+
+	$footer.on( 'click', '#clear-completed', function() {
+		var
+			l = todos.length;
+
+		while ( l-- ) {
+			if ( todos[l].completed ) {
+				todos.splice( l, 1 );
 			}
 		}
-	};
 
-	var App = {
-		init: function() {
-			this.ENTER_KEY = 13;
-			this.todos = Utils.store('todos-jquery');
-			this.cacheElements();
-			this.bindEvents();
-			this.render();
-		},
-		cacheElements: function() {
-			this.todoTemplate = Handlebars.compile( $('#todo-template').html() );
-			this.footerTemplate = Handlebars.compile( $('#footer-template').html() );
-			this.$todoApp = $('#todoapp');
-			this.$newTodo = $('#new-todo');
-			this.$toggleAll = $('#toggle-all');
-			this.$main = $('#main');
-			this.$todoList = $('#todo-list');
-			this.$footer = this.$todoApp.find('#footer');
-			this.$count = $('#todo-count');
-			this.$clearBtn = $('#clear-completed');
-		},
-		bindEvents: function() {
-			var list = this.$todoList;
-			this.$newTodo.on( 'keyup', this.create );
-			this.$toggleAll.on( 'change', this.toggleAll );
-			this.$footer.on( 'click', '#clear-completed', this.destroyCompleted );
-			list.on( 'change', '.toggle', this.toggle );
-			list.on( 'dblclick', 'label', this.edit );
-			list.on( 'keypress', '.edit', this.blurOnEnter );
-			list.on( 'blur', '.edit', this.update );
-			list.on( 'click', '.destroy', this.destroy );
-		},
-		render: function() {
-			this.$todoList.html( this.todoTemplate( this.todos ) );
-			this.$main.toggle( !!this.todos.length );
-			this.$toggleAll.prop( 'checked', !this.activeTodoCount() );
-			this.renderFooter();
-			Utils.store( 'todos-jquery', this.todos );
-		},
-		renderFooter: function() {
-			var todoCount = this.todos.length,
-				activeTodoCount = this.activeTodoCount(),
-				footer = {
-					activeTodoCount: activeTodoCount,
-					activeTodoWord: Utils.pluralize( activeTodoCount, 'item' ),
-					completedTodos: todoCount - activeTodoCount
-				};
+		update();
+	} );
 
-			this.$footer.toggle( !!todoCount );
-			this.$footer.html( this.footerTemplate( footer ) );
-		},
-		toggleAll: function() {
-			var isChecked = $( this ).prop('checked');
-			$.each( App.todos, function( i, val ) {
-				val.completed = isChecked;
-			});
-			App.render();
-		},
-		activeTodoCount: function() {
-			var count = 0;
-			$.each( this.todos, function( i, val ) {
-				if ( !val.completed ) {
-					count++;
-				}
-			});
-			return count;
-		},
-		destroyCompleted: function() {
-			var todos = App.todos,
-				l = todos.length;
-			while ( l-- ) {
-				if ( todos[l].completed ) {
-					todos.splice( l, 1 );
-				}
-			}
-			App.render();
-		},
-		// Accepts an element from inside the ".item" div and
-		// returns the corresponding todo in the todos array
-		getTodo: function( elem, callback ) {
-			var id = $( elem ).closest('li').data('id');
-			$.each( this.todos, function( i, val ) {
-				if ( val.id === id ) {
-					callback.apply( App, arguments );
-					return false;
-				}
-			});
-		},
-		create: function(e) {
-			var $input = $(this),
-				val = $.trim( $input.val() );
-			if ( e.which !== App.ENTER_KEY || !val ) {
-				return;
-			}
-			App.todos.push({
-				id: Utils.uuid(),
-				title: val,
-				completed: false
-			});
-			$input.val('');
-			App.render();
-		},
-		toggle: function() {
-			App.getTodo( this, function( i, val ) {
+	$todoList
+		// toggle the todo item is completed
+		.on( 'change', '.toggle', function() {
+			getTodo( this, function( i, val ) {
 				val.completed = !val.completed;
-			});
-			App.render();
-		},
-		edit: function() {
-			$(this).closest('li').addClass('editing').find('.edit').focus();
-		},
-		blurOnEnter: function( e ) {
-			if ( e.keyCode === App.ENTER_KEY ) {
+			} );
+
+			update();
+		} )
+		// creating new todo item by double clicking
+		.on( 'dblclick', 'label', function() {
+			$(this)
+				.closest('li')
+				.addClass('editing')
+				.find('.edit')
+				.focus();
+		} )
+		// triggering blur event on enter is pressed
+		.on( 'keypress', '.edit', function(e) {
+			if ( e.keyCode === 13 ) {
 				e.target.blur();
 			}
-		},
-		update: function() {
-			var val = $.trim( $(this).removeClass('editing').val() );
-			App.getTodo( this, function( i ) {
+		} )
+		// updating todo after input is blurred
+		.on( 'blur', '.edit', function() {
+			var
+				val = $.trim( $(this).removeClass('editing').val() );
+
+			getTodo( this, function( i ) {
 				if ( val ) {
-					this.todos[ i ].title = val;
+					todos[ i ].title = val;
 				} else {
-					this.todos.splice( i, 1 );
+					todos.splice( i, 1 );
 				}
-				this.render();
-			});
-		},
-		destroy: function() {
-			App.getTodo( this, function( i ) {
-				this.todos.splice( i, 1 );
-				this.render();
-			});
-		}
-	};
 
-	App.init();
+				update();
+			});
+		} )
+		// removing todo item
+		.on( 'click', '.destroy', function() {
+			getTodo( this, function( i ) {
+				todos.splice( i, 1 );
 
-});
+				update();
+			} );
+		} );
+
+	$toggleAll.on( 'change', function(e) {
+		var
+			isChecked = $( this ).prop('checked');
+
+		$.each( todos, function( i, val ) {
+			val.completed = isChecked;
+		});
+
+		update();
+	} );
+
+} );
