@@ -74,15 +74,9 @@ ready (model) ->
 		text = view.escapeHtml newTodo.get().trim()
 		newTodo.set ''
 		return unless text
-		# Insert the new todo before the first completed item in the list
-		# or append to the end if none are completed
-		items = list.get()
-		i = 0
-		if items
-			for todo, i in list.get()
-				break if todo.completed
-		list.insert i, {text:text, completed: false, group: model.get '_group.id'}
-		group.set('select_all', false)
+
+		list.push text: text, completed: false, group: group.get('id')
+		group.set 'select_all', false
 
 	exports.del = (e) ->
 		# Derby extends model.at to support creation from DOM nodes
