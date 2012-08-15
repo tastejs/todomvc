@@ -24,9 +24,9 @@
 		<app:TodoHeader>
 
 		<section id="main" class="{#unless _todoList}empty-list{/}">
-			<input id="toggle-all" type="checkbox" checked="{_group.select_all}">
+			<input id="toggle-all" type="checkbox" checked="{_group.all_completed}">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul id=todo-list class={{filterName}}>{#each _todoList}<app:todo>{/}</ul>
+			<ul id=todo-list class={_filter}>{#each _todoList}<app:todo>{/}</ul>
 		</section>
 
 		<app:TodoFooter>
@@ -47,15 +47,15 @@
 <TodoFooter:>
 	<footer id="footer" class="{#unless _todoList}empty-list{/}">
 	<span id="todo-count"><strong>{_stats.remaining}</strong> item{#unless _stats.oneOnly}s{/} left</span>
-		<ul id="filters" class="{filterName}">
+		<ul id="filters">
 			<li class="all">
-				<a href="/{{groupName}}">All</a>
+				<a href="/{{_group.id}}" class="{#unless _filter}selected{/}">All</a>
 			</li>
 			<li class="active">
-				<a href="/{{groupName}}/active">Active</a>
+				<a href="/{{_group.id}}/active" class="{#if equal(_filter, 'active')}selected{/}">Active</a>
 			</li>
 			<li class="completed">
-				<a href="/{{groupName}}/completed">Completed</a>
+				<a href="/{{_group.id}}/completed" class="{#if equal(_filter, 'completed')}selected{/}">Completed</a>
 			</li>
 		</ul>
 		<button x-bind=click:clearCompleted id="clear-completed" class="{#unless _stats.completed}non-completed{/}">Clear completed (<span>{_stats.completed}</span>)</button>
@@ -63,7 +63,8 @@
 
 <Info:>
 	<footer id="info">
-		<h3>Open this <a href="/{{groupName}}">ToDo list</a> in another browser, or share it with a friend to collaborate!</h3>
+		<h3>Open this <a href="/{{_group.id}}">ToDo list</a> in another browser, or share it with a friend to collaborate!</h3>
+		<p>Click on a todo to edit</p>
 		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 		<p>Created by <a href="http://micknelson.wordpress.com">Michael Nelson</a> and <a href="https://github.com/lackac">László Bácsi</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
