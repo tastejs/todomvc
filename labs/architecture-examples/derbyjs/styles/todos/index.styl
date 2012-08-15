@@ -15,6 +15,14 @@
 	width: 506px;
 	padding: 13px 17px 12px 17px;
 	margin: 0 0 0 43px;
+   /* XXX I haven't got access to a mac to verify the cause of the
+    * bold item titles which Sindre sees:
+    * https://img.skitch.com/20120814-8c6ji6bk8sk9mdijwpmrttpdy9.png
+    * Chromium on Ubuntu shows the computed style as font-weight normal
+    * without this rule:
+    * https://plus.google.com/photos/104504554179044898910/albums/5776780624770893793?authkey=CMu84rm-yra8Dg
+    */
+    font-weight: normal;
 }
 #todo-list li input.text:focus {
 	border: 1px solid #999;
