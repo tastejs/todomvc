@@ -71,7 +71,7 @@ ready (model) ->
 	newTodo = model.at '_newTodo'
 	exports.add = ->
 		# Don't add a blank todo
-		text = view.escapeHtml newTodo.get().trim()
+		text = newTodo.get().trim()
 		newTodo.set ''
 		return unless text
 
