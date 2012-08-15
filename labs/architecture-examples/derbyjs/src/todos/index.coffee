@@ -18,11 +18,10 @@ get '/:groupName', (page, model, {groupName}) ->
 
 		todoIds = group.at 'todoIds' or []
 
-		# The refList supports array methods, but it stores the todo values on an
-		# object by id. The todos are stored on the object
-		# 'groups.groupName.todos', and their order is stored in an array of ids at
-		# '_group.todoIds'
-		model.refList '_todoList', "groups.#{groupName}.todos", todoIds
+		# The refList supports array methods, but it stores the todo values
+		# on an object by id. The todos are stored on the object 'todos',
+		# and their order is stored in an array of ids at '_group.todoIds'
+		model.refList '_todoList', 'todos', todoIds
 
 		# Create a reactive function that automatically keeps '_stats'
 		# updated with the number of remaining and completed todos.
@@ -66,9 +65,8 @@ ready (model) ->
 		# individual items).
 		return unless e
 		# Is there a way to do this with one call rather than iterating?
-		todos = model.at('_group.todos')
-		for item in list.get()
-			todos.set("#{item.id}.completed", select_all)
+		for {id} in list.get()
+			model.set "todos.#{id}.completed", select_all
 
 	newTodo = model.at '_newTodo'
 	exports.add = ->
