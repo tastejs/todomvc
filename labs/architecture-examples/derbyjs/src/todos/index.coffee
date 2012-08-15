@@ -14,7 +14,7 @@ get '/:groupName', (page, model, {groupName}) ->
 	groupTodosQuery = model.query('todos').forGroup(groupName)
 	model.subscribe "groups.#{groupName}", groupTodosQuery, (err, group, groupTodos) ->
 		model.ref '_group', group
-		model.setNull('_group._id', groupName)
+		group.setNull 'id', groupName
 
 		todoIds = group.at 'todoIds' or []
 
@@ -44,7 +44,7 @@ get '/:groupName', (page, model, {groupName}) ->
 		# Do not filter the list by default
 		model.del '_filter'
 
-		page.render 'todo', groupName: groupName
+		page.render 'todo'
 
 # Transitional route for enabling a filter
 get {from: '/:groupName', to: '/:groupName/:filterName'},
