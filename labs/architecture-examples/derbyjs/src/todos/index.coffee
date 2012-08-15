@@ -78,6 +78,7 @@ ready (model) ->
 			for todo, i in list.get()
 				break if todo.completed
 		list.insert i, {text:text, completed: false, group: model.get '_group.id'}
+		group.set('select_all', false)
 
 	exports.del = (e) ->
 		# Derby extends model.at to support creation from DOM nodes
