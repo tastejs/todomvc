@@ -26,7 +26,7 @@
 		<section id="main" class="{#unless _todoList}empty-list{/}">
 			<input id="toggle-all" type="checkbox" checked="{_group.select_all}">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul id=todo-list class={{filterName}}>{#each _todoList}<app:todo>{/}</ul>
+			<ul id=todo-list class={_filter}>{#each _todoList}<app:todo>{/}</ul>
 		</section>
 
 		<app:TodoFooter>
@@ -47,15 +47,15 @@
 <TodoFooter:>
 	<footer id="footer" class="{#unless _todoList}empty-list{/}">
 	<span id="todo-count"><strong>{_stats.remaining}</strong> item{#unless _stats.oneOnly}s{/} left</span>
-		<ul id="filters" class="{filterName}">
+		<ul id="filters">
 			<li class="all">
-				<a href="/{{groupName}}">All</a>
+				<a href="/{{groupName}}" class="{#unless _filter}selected{/}">All</a>
 			</li>
 			<li class="active">
-				<a href="/{{groupName}}/active">Active</a>
+				<a href="/{{groupName}}/active" class="{#if equal(_filter, 'active')}selected{/}">Active</a>
 			</li>
 			<li class="completed">
-				<a href="/{{groupName}}/completed">Completed</a>
+				<a href="/{{groupName}}/completed" class="{#if equal(_filter, 'completed')}selected{/}">Completed</a>
 			</li>
 		</ul>
 		<button x-bind=click:clearCompleted id="clear-completed" class="{#unless _stats.completed}non-completed{/}">Clear completed (<span>{_stats.completed}</span>)</button>

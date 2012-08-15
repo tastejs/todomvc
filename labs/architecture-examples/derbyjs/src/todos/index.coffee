@@ -3,9 +3,14 @@ derby = require 'derby'
 
 derby.use(require '../../ui')
 
-# Define a rendering function to handle both /:groupName and
-# /:groupName/filterName.
-renderGroup = (page, model, {groupName, filterName}) ->
+## ROUTES ##
+
+# Redirect the visitor to a random todo list
+get '/', (page) ->
+	page.redirect '/' + parseInt(Math.random() * 1e9).toString(36)
+
+# Sets up the model, the reactive function for stats and renders the todo list
+get '/:groupName', (page, model, {groupName}) ->
 	groupTodosQuery = model.query('todos').forGroup(groupName)
 	model.subscribe "groups.#{groupName}", groupTodosQuery, (err, group, groupTodos) ->
 		model.ref '_group', group
@@ -36,18 +41,19 @@ renderGroup = (page, model, {groupName, filterName}) ->
 				oneOnly: remaining == 1,
 			}
 
-		filterName = filterName or 'all'
-		page.render 'todo',
-			filterName: filterName
-			groupName: groupName
+		# Do not filter the list by default
+		model.del '_filter'
 
+		page.render 'todo', groupName: groupName
 
-## ROUTES ##
-get '/', (page) ->
-	page.redirect '/' + parseInt(Math.random() * 1e9).toString(36)
-
-get '/:groupName', renderGroup
-get '/:groupName/:filterName', renderGroup
+# Transitional route for enabling a filter
+get {from: '/:groupName', to: '/:groupName/:filterName'},
+	forward: (model, {filterName}, next) ->
+		# enable the filter
+		model.set '_filter', filterName
+	back: (model, params, next) ->
+		# disable the filter
+		model.del '_filter'
 
 ready (model) ->
 
