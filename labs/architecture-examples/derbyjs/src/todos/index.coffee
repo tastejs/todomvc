@@ -95,8 +95,9 @@ ready (model) ->
 
 	exports.endEdit = (e) ->
 		target = e.target
-		if target.tagName == "FORM"
+		if target.nodeName == "FORM"
 			target.firstChild.blur()
+			return
 		item = model.at(target)
 		item.set('_editing', false)
 		text = item.get('text').trim()
