@@ -58,15 +58,17 @@ ready (model) ->
 
 	list = model.at '_todoList'
 	group = model.at '_group'
+	all_completed = group.at 'all_completed'
 
-	group.on 'set', 'select_all', (select_all, previous_value, isLocal, e) ->
-		# We only want to react to select_all being set if it's in response
+	group.on 'set', 'all_completed', (all_completed, previous_value, isLocal, e) ->
+		# We only want to react to all_completed being set if it's in response
 		# to a UI event (as opposed to our checkAllCompleted below checking
 		# individual items).
 		return unless e
+
 		# Is there a way to do this with one call rather than iterating?
 		for {id} in list.get()
-			model.set "todos.#{id}.completed", select_all
+			model.set "todos.#{id}.completed", all_completed
 
 	newTodo = model.at '_newTodo'
 	exports.add = ->
@@ -76,21 +78,22 @@ ready (model) ->
 		return unless text
 
 		list.push text: text, completed: false, group: group.get('id')
-		group.set 'select_all', false
+		all_completed.set false
 
 	exports.del = (e) ->
 		# Derby extends model.at to support creation from DOM nodes
 		model.at(e.target).remove()
 
 	exports.clearCompleted = ->
-		completed_indexes = (i for item, i in list.get() when item.completed)
+		completed_indexes = (i for {completed}, i in list.get() when completed)
 		list.remove(i) for i in completed_indexes.reverse()
-		group.set('select_all', false)
+		all_completed.set false
 
 	exports.checkAllCompleted = ->
-		allCompleted = true
-		allCompleted &&= item.completed for item in list.get()
-		group.set('select_all', allCompleted)
+		for {completed} in list.get() when not completed
+			all_completed.set false
+			return
+		all_completed.set true
 
 	exports.endEdit = (e) ->
 		target = e.target
@@ -98,11 +101,9 @@ ready (model) ->
 			target.firstChild.blur()
 			return
 		item = model.at(target)
-		item.set('_editing', false)
-		text = item.get('text').trim()
-		if not text
-			item.remove()
+		item.set '_editing', false
+		item.remove() if item.get('text').trim() == ''
 
 	exports.startEdit = (e) ->
 		item = model.at(e.target)
-		item.set('_editing', true)
+		item.set '_editing', true

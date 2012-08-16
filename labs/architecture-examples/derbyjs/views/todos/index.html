@@ -24,7 +24,7 @@
 		<app:TodoHeader>
 
 		<section id="main" class="{#unless _todoList}empty-list{/}">
-			<input id="toggle-all" type="checkbox" checked="{_group.select_all}">
+			<input id="toggle-all" type="checkbox" checked="{_group.all_completed}">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id=todo-list class={_filter}>{#each _todoList}<app:todo>{/}</ul>
 		</section>
