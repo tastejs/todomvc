@@ -93,7 +93,7 @@ Addy is a Developer Platform Engineer at Google who originally created TodoMVC. 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
 Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible.
 
-#### [Gianni Chiappetta](http://gitub.com/gf3) - Logo designer
+#### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 
 ## Disclaimer
