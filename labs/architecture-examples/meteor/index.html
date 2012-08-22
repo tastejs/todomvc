@@ -58,18 +58,14 @@
         <span id="todo-count"><strong>{{todos_not_completed}}</strong> 
         	{{#if todos_one_not_completed}}item{{else}}items{{/if}} left</span>
         <ul id="filters">
-            <li>
-            	<a class="all {{#if filter_selected filter.all}}selected{{/if}}" href="#/">All</a>
-            </li>
-            <li>
-                <a class="active {{#if filter_selected filter.active}}selected{{/if}}" href="#/active">Active</a>
-            </li>
-            <li>
-                <a class="completed {{#if filter_selected filter.completed}}selected{{/if}}" href="#/completed">Completed</a>
-            </li>
+					{{#each filters}}
+						<li>
+							<a class="{{this}} {{#if filter_selected this}}selected{{/if}}" href="#/">{{this}}</a>
+						</li>
+					{{/each}}
         </ul>
         {{#if todos_completed}}
-            <button id="clear-completed">Clear completed ({{todos_completed}})</button>
+        	<button id="clear-completed">Clear completed ({{todos_completed}})</button>
         {{/if}}
     </footer>
 </template>

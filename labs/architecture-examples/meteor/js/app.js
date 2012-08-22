@@ -2,10 +2,19 @@
 Todos = new Meteor.Collection('todos');
 
 // Session var to keep current filter type ("all", "active", "completed")
-Session.set('filter', null);
+Session.set('filter', 'all');
 
 // Session var to keep todo which is currently in editing mode, if any
 Session.set('editing_todo', null);
+
+// Set up filter types and their selections
+var filter_selections = {
+	all: {},
+	active: {completed: false},
+	completed: {completed: true}
+};
+
+var filters = _.keys(filter_selections);
 
 // JS code for the client (browser)
 if (Meteor.is_client) {
@@ -85,16 +94,7 @@ if (Meteor.is_client) {
 	
 	// Get the todos considering the current filter type
 	Template.main.todos = function() {
-		var filter = {};
-		switch (Session.get('filter')) {
-			case 'active':
-				filter.completed = false;
-				break;
-			case 'completed':
-				filter.completed = true;
-				break;
-		}
-		return Todos.find(filter, {sort: {created_at: 1}});
+		return Todos.find(filter_selections[Session.get('filter')], {sort: {created_at: 1}});
 	};
 	
 	Template.main.todos_not_completed = todos_not_completed_helper;
@@ -131,7 +131,7 @@ if (Meteor.is_client) {
 		'click input.toggle': function() {
 			Todos.update(this._id, {$set: {completed: !this.completed}});
 		},
-		'dblclick .view': function() {
+		'dblclick .view label': function() {
 			Session.set('editing_todo', this._id);
 		},
 		'click button.destroy': function() {
@@ -166,36 +166,27 @@ if (Meteor.is_client) {
 		return Todos.find({completed: false}).count() == 1;
 	};
 	
-	Template.footer.filter = function() {
-		return {all: 'all', active: 'active', completed: 'completed'};
-	};
+	// Prepare array with keys of filter_selections only
+	Template.footer.filters = filters;
 	
 	// True if the requested filter type is currently selected,
 	// false otherwise
-	Template.footer.filter_selected = function(type) {
-		if (type === 'all') {
-			return Session.equals('filter', null);
-		}			
+	Template.footer.filter_selected = function(type) {		
 		return Session.equals('filter', type);
 	};
-					
-	// Register click events for selecting filter type and
-	// clearing completed todos
+	
+	// Register click events for clearing completed todos
 	Template.footer.events = {
 		'click button#clear-completed': function() {
 			Todos.remove({completed: true});
-		},
-		'click #filters a.all': function(evt) {
-			evt.preventDefault();
-			Session.set('filter', null);
-		},
-		'click #filters a.active': function(evt) {
-			evt.preventDefault();
-			Session.set('filter', 'active');
-		},
-		'click #filters a.completed': function(evt) {
-			evt.preventDefault();
-			Session.set('filter', 'completed');
 		}
 	};
+	
+	// Bind click handler for each filter type
+	_.each(filters, function(filter) {
+		Template.footer.events['click #filters a.'+filter] = function(evt) {
+			evt.preventDefault();
+			Session.set('filter', filter);
+		};
+	});
 };
