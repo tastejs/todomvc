@@ -131,7 +131,7 @@ if (Meteor.is_client) {
 		'click input.toggle': function() {
 			Todos.update(this._id, {$set: {completed: !this.completed}});
 		},
-		'dblclick .view label': function() {
+		'dblclick label': function() {
 			Session.set('editing_todo', this._id);
 		},
 		'click button.destroy': function() {
