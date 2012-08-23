@@ -1,0 +1,209 @@
+<!doctype html>
+<!--
+	This is a test runner for Dojo version of TodoMVC.
+	To use this, place todomvc directory at the directory containing dojo/dijit/dojox.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Dojo • TodoMVC</title>
+	<link rel="stylesheet" href="../../../../../assets/base.css">
+	<!-- CSS overrides - remove if you don't need it -->
+	<link rel="stylesheet" href="../../../css/app.css">
+	<!--[if IE]>
+	<script>
+		nativeDate = Date;
+	</script>
+	<script src="../../../../../assets/ie.js"></script>
+	<script>
+		(function(nativeDate){
+			// It appears that the modification to Date constructor done by ie.js negatively affects new Date("X"), ending up a JS error.
+			// Using the native Date constructor for that case.
+			var origDate = Date;
+			Date = function(){
+				return (arguments.length == 1 && typeof arguments[0] == "string" ? nativeDate : origDate).apply(this, [].slice.call(arguments, 0));
+			};
+			Date.prototype = new origDate();
+		})(nativeDate);
+	</script>
+	<![endif]-->
+</head>
+<body>
+	<section id="todoapp" data-dojo-type="todo/app18"></section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a></p>
+	</footer>
+
+	<script src="../../../../../assets/base.js"></script>
+	<script>
+		require = {
+			async: true,
+			parseOnLoad: false,
+			locale: "en",
+			paths: {
+				"todo": "../todomvc/architecture-examples/dojo/js/todo"
+			},
+			deps: ["doh", "dojo/dom-style", "dojo/json", "dojo/keys", "dojo/on", "dojo/parser", "dojo/query", "dojo/when", "dojo/domReady!"],
+			mvc: {debugBindings: true},
+			callback: function(doh, domStyle, json, keys, on, parser, query, when){
+				var id = "todos-dojo";
+				localStorage.removeItem(id);
+				localStorage.setItem(id, json.stringify({
+					id: "todos-dojo",
+					todos : [
+						{title: "Task0", completed: false},
+						{title: "Task1", completed: true},
+						{title: "Task2", completed: false}
+					],
+					incomplete: 2,
+					complete: 1
+				}));
+
+				when(parser.parse(), function(){
+					doh.register("todo.app18", [
+						function initialState(){
+							doh.f(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be unchecked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(1, complete, "Count of completed todo items should be 1");
+							doh.is(2, incomplete, "Count of incomplete todo items should be 2");
+							doh.t(/^\s*2\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 2 in the UI");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be shown");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be shown");
+							doh.t(/^\s*1\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 1 in the UI");
+						},
+						function markItemComplete(){
+							query("#todo-list input[type=checkbox]")[0].click();
+							doh.f(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be unchecked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(2, complete, "Count of completed todo items should be 2");
+							doh.is(1, incomplete, "Count of incomplete todo items should be 1");
+							doh.t(/^\s*1\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 1 in the UI");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be hidden");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be shown");
+							doh.t(/^\s*2\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 2 in the UI");
+						},
+						function markItemIncomplete(){
+							query("#todo-list input[type=checkbox]")[1].click();
+							doh.f(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be unchecked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(1, complete, "Count of completed todo items should be 1");
+							doh.is(2, incomplete, "Count of incomplete todo items should be 2");
+							doh.t(/^\s*2\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 2 in the UI");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be shown");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be shown");
+							doh.t(/^\s*1\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 1 in the UI");
+						},
+						function clearCompleted(){
+							query("#clear-completed")[0].click();
+							doh.f(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be unchecked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(0, complete, "Count of completed todo items should be 0");
+							doh.is(2, incomplete, "Count of incomplete todo items should be 2");
+							doh.t(/^\s*2\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 2 in the UI");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be shown");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be hidden");
+							doh.t(/^\s*0\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 0 in the UI");
+						},
+						function markAllComplete(){
+							query("#toggle-all")[0].click();
+							doh.t(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be checked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(2, complete, "Count of completed todo items should be 2");
+							doh.is(0, incomplete, "Count of incomplete todo items should be 0");
+							doh.t(/^\s*0\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 0 in the UI");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be hidden");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be shown");
+							doh.t(/^\s*2\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 2 in the UI");
+						},
+						function markAllInComplete(){
+							query("#toggle-all")[0].click();
+							doh.f(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be unchecked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(0, complete, "Count of completed todo items should be 0");
+							doh.is(2, incomplete, "Count of incomplete todo items should be 2");
+							doh.t(/^\s*2\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 2 in the UI");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be shown");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be hidden");
+							doh.t(/^\s*0\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 0 in the UI");
+						},
+						function removeItem(){
+							query("button.destroy")[1].click();
+							doh.f(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be unchecked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(0, complete, "Count of completed todo items should be 0");
+							doh.is(1, incomplete, "Count of incomplete todo items should be 1");
+							doh.t(/^\s*1\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 1 in the UI");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be hidden");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be hidden");
+							doh.t(/^\s*0\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 0 in the UI");
+						},
+						function markItemComplete(){
+							query("#todo-list input[type=checkbox]")[0].click();
+							doh.t(query("#toggle-all")[0].checked, "The check box to mark all todo items complete/incomplete should be checked");
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(1, complete, "Count of completed todo items should be 1");
+							doh.is(0, incomplete, "Count of incomplete todo items should be 0");
+							doh.t(/^\s*0\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 0 in the UI");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be hidden");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be shown");
+							doh.t(/^\s*1\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 1 in the UI");
+						},
+						function addItem(){
+							query("#new-todo")[0].value = "Task3";
+							on.emit(query("#new-todo")[0], "keypress", {keyCode: keys.ENTER});
+							var complete = 0, incomplete = 0;
+							query("#todo-list input[type=checkbox]").forEach(function(node){
+								complete += !!node.checked;
+								incomplete += !node.checked;
+							});
+							doh.is(1, complete, "Count of completed todo items should be 1");
+							doh.is(1, incomplete, "Count of incomplete todo items should be 1");
+							doh.t(/^\s*1\s*$/.test(query("#todo-count strong span.number")[0].innerHTML), "Count of incomplete todo items should be shown as 1 in the UI");
+							doh.t(/^none$/i.test(domStyle.getComputedStyle(query("#todo-count span.word span")[0]).display), "'s' in \"items\" should be hidden");
+							doh.f(/^none$/i.test(domStyle.getComputedStyle(query("#clear-completed")[0]).display), "Clear completed button should be shown");
+							doh.t(/^\s*1\s*$/.test(query("#clear-completed span.number-done")[0].innerHTML), "Count of completed todo items should be shown as 1 in the UI");
+						}
+					]);
+
+					doh.run();
+				});
+			}
+		};
+	</script>
+	<script src="../../../../../../dojo/dojo.js"></script>
+</body>
+</html>
