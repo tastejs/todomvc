@@ -1,29 +1,23 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
-  var TodoModel = Backbone.Model.extend({
+define([
+	'underscore',
+	'backbone'
+], function( _, Backbone ) {
 
-    // Default attributes for the todo.
-    defaults: {
-      content: "empty todo...",
-      done: false
-    },
+	var TodoModel = Backbone.Model.extend({
+		// Default attributes for the todo
+		// and ensure that each todo created has `title` and `completed` keys.
+		defaults: {
+			title: '',
+			completed: false
+		},
 
-    // Ensure that each todo created has `content`.
-    initialize: function() {
-      if (!this.get("content")) {
-        this.set({"content": this.defaults.content});
-      }
-    },
+		// Toggle the `completed` state of this todo item.
+		toggle: function() {
+			this.save({
+				completed: !this.get('completed')
+			});
+		}
+	});
 
-    // Toggle the `done` state of this todo item.
-    toggle: function() {
-      this.save({done: !this.get("done")});
-    },
-
-    // Remove this Todo from *localStorage*.
-    clear: function() {
-      this.destroy();
-    }
-
-  });
-  return TodoModel;
+	return TodoModel;
 });

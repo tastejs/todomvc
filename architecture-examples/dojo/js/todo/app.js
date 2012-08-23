@@ -12,7 +12,7 @@ define(["dojo/_base/declare",
         "dojo/text!./app.html",
         // Template Widgets
         "todo/form/InlineEditBox", "todo/form/CheckBox", "dojox/mvc/Group", "dojox/mvc/Repeat", "dojox/mvc/Output"],
-    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr, 
+    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, _event, on, domClass, domAttr,
              query, str, manager, keys, mvc, hash, connect, TodoModel, template) {
 
     return declare("todo.app", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
@@ -64,10 +64,10 @@ define(["dojo/_base/declare",
             this.onItemStatusUpdate();
         },
 
-        /** 
-         * Ensure application state reflects current 
+        /**
+         * Ensure application state reflects current
          * hash value after rendering model in the view.
-         */  
+         */
         startup: function () {
             this.inherited(arguments);
             this.onHashChange(hash());
@@ -115,7 +115,7 @@ define(["dojo/_base/declare",
          * Also verify state of the "Mark All" box.
          */
         onItemStatusUpdate: function () {
-            var completed = this.model.complete.get("value"), 
+            var completed = this.model.complete.get("value"),
                 length = this.model.todos.get("length");
 
             domClass.toggle(this.domNode, "todos_selected", completed > 0);
@@ -131,7 +131,7 @@ define(["dojo/_base/declare",
          * Event fired when user selects the "Mark All" checkbox.
          * Update selection state of all the todos based upon current 
          * checked value.
-         */ 
+         */
         onMarkAll: function () {
             var checked = this.mark_all.checked;
 
@@ -146,7 +146,7 @@ define(["dojo/_base/declare",
          * text value as new todo item in the model.
          */
         onKeyPress: function (event) {
-            if (event.keyCode !== keys.ENTER || 
+            if (event.keyCode !== keys.ENTER ||
                 !str.trim(event.target.value).length) {
                 return;
             }
@@ -163,12 +163,12 @@ define(["dojo/_base/declare",
          */
         onRemove: function (event) {
             this.model.todos.remove(domAttr.get(event.target, "data-model-id"));
-        }, 
+        },
 
         /**
-         * Whenever the user double clicks the item label, 
+         * Whenever the user double clicks the item label,
          * set inline edit box to true.
-         */ 
+         */
         onEdit: function (event) {
             query(".inline_edit", event.target).forEach(function (inline_edit) {
                 manager.byNode(inline_edit).edit();
@@ -176,15 +176,15 @@ define(["dojo/_base/declare",
         },
 
         /**
-         * When the URI's hash value changes, modify the 
+         * When the URI's hash value changes, modify the
          * displayed list items to show either completed,
-         * remaining or all tasks. 
+         * remaining or all tasks.
          * Also highlight currently selected link value.
-         */ 
+         */
         onHashChange: function (hash) {
-            var showIfDone = (hash === this.COMPLETED ? false : 
+            var showIfDone = (hash === this.COMPLETED ? false :
                 (hash === this.ACTIVE? true : null));
-           
+
             query("#todo-list > li").forEach(lang.hitch(this, function (item, idx) {
                 var done = this.model.todos[idx].completed.get("value");
                 domClass.toggle(item, "hidden", done === showIfDone);

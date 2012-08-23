@@ -1,0 +1,52 @@
+{
+    "name": "wire",
+    "version": "0.9.0-dev",
+    "description": "A light, fast, flexible Javascript IOC container.",
+    "keywords": [
+        "ioc",
+        "aop",
+        "dependency injection",
+        "dependency inversion",
+        "application composition"
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/cujojs/wire"
+        }
+    ],
+    "bugs": "https://github.com/cujojs/wire/issues",
+    "maintainers": [
+        {
+            "name": "Brian Cavalier",
+            "web": "http://hovercraftstudios.com"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Brian Cavalier",
+            "web": "http://hovercraftstudios.com"
+        },
+        {
+            "name": "John Hann",
+            "web": "http://unscriptable.com"
+        }
+    ],
+    "dependencies": {
+        "aop": "git://github.com/cujojs/aop#0.5.3",
+        "when": "~1"
+    },
+    "main": "./wire",
+    "directories": {
+        "test": "test"
+    },
+	"scripts": {
+		"test": "buster test -e node"
+	}
+}

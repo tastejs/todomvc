@@ -1,25 +1,13 @@
 <%
 var i = data.i;
 var item = data.item;
-
-if (item.completed) { %>
-<li class="done">
-	<div class="view">
-		<input class="toggle" type="checkbox" data-action="status(<%= i %>)" checked>
-		<label data-action="prepare.dblclick(<%= i %>)"><%= item.text %></label>
-		<a class="destroy" data-action="delete(<%= i %>)"></a>
-		<a class="prepare" data-action="prepare.click(<%= i %>)"></a>
+var completed = item.completed;
+%>
+<li class="<%= (completed ? 'completed' : 'active') %>">
+	<div class="view" data-action="prepare(<%= i %>)">
+		<input class="toggle" type="checkbox" <%= (completed ? 'checked' : '') %> data-action="status(<%= i %>)">
+		<label><%= item.title %></label>
+		<button class="destroy" data-action="delete(<%= i %>)"></button>
 	</div>
-	<input class="edit" type="text" data-action="update(<%= i %>)">
+	<input class="edit" data-action="commit(<%= i %>)">
 </li>
-<% } else { %>
-<li>
-	<div class="view">
-		<input class="toggle" type="checkbox" data-action="status(<%= i %>)">
-		<label data-action="prepare.dblclick(<%= i %>)"><%= item.text %></label>
-		<a class="destroy" data-action="delete(<%= i %>)"></a>
-		<a class="prepare" data-action="prepare.click(<%= i %>)"></a>
-	</div>
-	<input class="edit" type="text" data-action="update(<%= i %>)">
-</li>
-<% } %>

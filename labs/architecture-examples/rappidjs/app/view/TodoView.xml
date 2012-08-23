@@ -1,75 +1,84 @@
 <ui:View xmlns="http://www.w3.org/1999/xhtml"
-         xmlns:js="js.core" xmlns:ui="js.ui">
-    <js:Script>
-        <![CDATA[
-        (function (Base, Bindable, Content) {
-            return {
-                defaults:{
-                    componentClass: "todo",
-                    editing: false
-                },
-                events: [
-                    "remove"
-                ],
-                editTodo:function (e, div) {
-                    var todo = div.find("$item");
-                    this.set("editing",true);
-                    e.$.stopPropagation();
-                    // we don't use jquery, so we have to select this the old fashioned way
-                    div.$el.parentNode.parentNode.getElementsByTagName("input")[1].select();
-                },
-                checkTodo:function (e, input) {
-                    var todo = this.get("todo");
-                    todo.setDone(!todo.get("isDone"));
-                },
-                updateTodo:function (e, input) {
-                    var todo;
-                    if (e.$.keyCode === 13) {
-                        todo = this.get("todo");
-                        this.set("editing",false);
-                    } else if (e.$.keyCode === 27) {
-                        todo = this.get("todo");
-                        var content = todo.get("content");
+		 xmlns:js="js.core" xmlns:ui="js.ui" componentClass="{todo.status()}">
+	<js:Script>
+		<![CDATA[
+		(function() {
+			var ENTER_KEY = 13;
 
-                        input.$el.blur();
+			return {
+				defaults: {
+					editing: false
+				},
 
-                        todo.set("content", content);
-                        this.set("editing",false);
-                    } else if (e.$.type === "blur") {
-                        todo = this.get("todo");
-                        this.set("editing",false);
-                    }
-                },
-                triggerOnRemove: function(e, el){
-                    this.trigger("onremove",this.get("todo"));
-                },
-                _renderEditing: function(editing){
-                    if(editing){
-                        this.addClass("editing");
-                    }else{
-                        this.removeClass("editing");
-                    }
+				$classAttributes: ['todo', 'inputElement'],
 
-                }
+				events: ['remove'],
 
-            }
-        })
-        ]]>
-    </js:Script>
-    <js:Template name="layout">
-        <div class="{todo.status()}">
-            <div class="display">
-                <input class="check" type="checkbox" onchange="checkTodo"
-                       checked="{todo.isDone}"/>
+				editTodo: function( e ) {
+					this.set( 'editing', true );
+					e.preventDefault();
 
-                <label class="todo-content" ondblclick="editTodo">{todo.content}</label>
-                <span class="todo-destroy" onclick="triggerOnRemove"></span>
-            </div>
-            <div class="edit">
-                <input class="todo-input" type="text" value="{{todo.content}}"
-                       onkeyup="updateTodo" onblur="updateTodo"/>
-            </div>
-        </div>
-    </js:Template>
+					this.$.inputElement.$el.focus();
+					return false;
+				},
+
+				checkTodo: function() {
+					var todo = this.get('todo');
+
+					todo.setCompleted( !todo.isCompleted() );
+					todo.save();
+				},
+
+				preventEditing: function( e ) {
+					e.stopPropagation();
+				},
+
+				updateTodo: function( e ) {
+					var todo;
+
+					if ( e.domEvent.keyCode === ENTER_KEY || e.domEvent.type === 'blur' ) {
+						todo = this.get('todo');
+
+						if ( todo.hasTitle() ) {
+							this.set( 'editing', false );
+							todo.save();
+						} else {
+							this.trigger( 'remove', todo );
+						}
+					}
+				},
+
+				triggerOnRemove: function() {
+					this.trigger( 'remove', this.get('todo') );
+				},
+
+				_renderEditing: function( editing ) {
+					if ( editing ) {
+						this.addClass('editing');
+					} else {
+						this.removeClass('editing');
+						this.$.inputElement.$el.blur();
+					}
+				},
+
+				trim: function( title ) {
+					if( title ) {
+						return title.trim();
+					}
+					return '';
+				}
+			};
+		})
+		]]>
+	</js:Script>
+	<js:Template name="layout">
+			<div class="view">
+				<input class="toggle" type="checkbox" onclick="checkTodo" ondblclick="preventEditing"
+					   checked="{todo.completed}"/>
+				<label ondblclick="editTodo">{todo.title}</label>
+				<button class="destroy" onclick="triggerOnRemove"/>
+			</div>
+			<input class="edit" cid="inputElement" type="text" value="{{todo.title|trim()}}"
+				   onkeyup="updateTodo" onblur="updateTodo" updateOnEvent="change"/>
+	</js:Template>
 </ui:View>
-

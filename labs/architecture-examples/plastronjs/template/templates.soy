@@ -1,0 +1,22 @@
+{namespace todomvc.templates}
+
+/**
+ * @param model
+ */
+{template .todoItem}
+<li {if $model['completed']}class="completed"{/if}>
+	<div class="view">
+		<input class="toggle" type="checkbox" {if $model['completed']}checked{/if}>
+		<label>{$model['title']}</label>
+		<button class="destroy"></button>
+	</div>
+	<input class="edit">
+</li>
+{/template}
+
+/**
+ * @param left
+ */
+{template .itemsLeft}
+<strong>{$left}</strong> item{if $left != 1}s{/if} left
+{/template}

@@ -3,20 +3,17 @@
 /**
  * A todo list item template
  * @param content the label for this item
+ * @param checked whether the item is checked
  */
 {template .toDoItem}
-  <li>
-    <div>
-      <div class="display">
-        <input class="check" type="checkbox" />
-        <div class="todo-content" style="cursor: pointer;">{$content}</div>
-        <span class="todo-destroy"></span>
-      </div>
-      <div class="edit">
-        <input class="todo-input" type="text"/>
-      </div>
-    </div>
-  </li>
+<li>
+	<div class="view">
+		<input class="toggle" type="checkbox" {if $checked}checked{/if}>
+		<label>{$content}</label>
+		<button class="destroy"></button>
+	</div>
+	<input class="edit" value="Rule the web">
+</li>
 {/template}
 
 /**
@@ -24,9 +21,7 @@
  * @param number the count of items
  */
 {template .itemCount}
-  <span class="todo-count">
-  	{call .itemCountInner data="all"/}
-  </span>
+<span id="todo-count">{call .itemCountInner data="all"/}</span>
 {/template}
 
 /**
@@ -34,7 +29,7 @@
  * @param number the count of items
  */
 {template .itemCountInner}
-   <span class="number">{$number}</span> <span class="word">{if $number > 1}items{else}item{/if}</span> left.
+<strong>{$number}</strong> {if $number == 1}item{else}items{/if} left
 {/template}
 
 /**
@@ -42,9 +37,7 @@
  * @param number the count of items
  */
 {template .clearCompleted}
-<span class="todo-clear">
-  {call .clearCompletedInner data="all"/}
-</span>
+<button id="clear-completed">{call .clearCompletedInner data="all"/}</button>
 {/template}
 
 /**
@@ -52,7 +45,5 @@
  * @param number the count of items
  */
 {template .clearCompletedInner}
-  <a href="#">
-    Clear <span class="number-done">{$number}</span> <span class="word-done">{if $number > 1}items{else}item{/if}</span>
-  </a>
+Clear completed ({$number})
 {/template}

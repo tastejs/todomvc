@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- To move this project from labs to replace in this page "../../../assets" with "../../assets" -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Knockout.js • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+	<script data-main="js/main" src="../../../assets/require.min.js"></script>
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" type="text" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add"
+					placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main" data-bind="visible: todos().length">
+			<input id="toggle-all" type="checkbox" data-bind="checked: allCompleted">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list" data-bind="foreach: todos">
+				<li data-bind="css: { completed: completed, editing: editing }">
+					<div class="view">
+						<input class="toggle" type="checkbox" data-bind="checked: completed">
+						<label data-bind="text: title, event: { dblclick: $root.editItem }"></label>
+						<button class="destroy" data-bind="click: $root.remove"></button>
+					</div>
+					<input class="edit" data-bind="value: title, valueUpdate: 'afterkeydown', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }" >
+				</li>
+			</ul>
+		</section>
+		<footer id="footer" data-bind="visible: completedCount() || remainingCount()">
+			<span id="todo-count">
+				<strong data-bind="text: remainingCount">1</strong>
+				<span data-bind="text: getLabel( remainingCount )"></span> left
+			</span>
+			<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">Clear completed (<span data-bind="text: completedCount"></span>)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<span data-bind="visible: todos().length">Double-click to edit a todo.</span>
+		<p>Original Knockout version from <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a></p>
+		<p>Rewritten to use Knockout 2.0 and standard template by <a href="http://knockmeout.net">Ryan Niemeyer</a></p>
+		<p>Patches/fixes for cross-browser compat: <a href="http://twitter.com/addyosmani">Addy Osmani</a></p>
+		<p>Adapt app with require.js modules: <a href="https://twitter.com/loicknuchel">Loïc Knuchel</a></p>
+	</footer>
+	<script src="../../../assets/base.js"></script>
+</body>
+</html>

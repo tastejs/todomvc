@@ -1,5 +1,5 @@
 require(
-    ["todoController"],
+    ["controllers/todoController"],
     function(todoController) {
         todoController.init();
     }

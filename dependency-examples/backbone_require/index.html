@@ -1,45 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Todo App - Backbone - RequireJs - Thomas Davis</title>
-	<link rel="stylesheet" href="css/todos.css">
-
-	<script data-main="js/main" src="js/libs/require/require.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Backbone.js + RequireJS • TodoMVC</title>
+	<link rel="stylesheet" href="../../assets/base.css">
+	<script src="../../assets/base.js"></script>
+	<script data-main="js/main" src="js/lib/require/require.js"></script>
+	<!--[if IE]>
+	<script src="../../assets/ie.js"></script>
+	<![endif]-->
 </head>
 <body>
-
-<div id="todoapp">
-
-      <div class="title">
-        <h1>Todos</h1>
-      </div>
-
-      <div class="content">
-
-        <div id="create-todo">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" />
-          <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
-        </div>
-
-        <div id="todos">
-          <input class="check mark-all-done" type="checkbox"/>
-          <label for="check-all">Mark all as complete</label>
-          <ul id="todo-list"></ul>
-        </div>
-
-        <div id="todo-stats"></div>
-
-      </div>
-
-    </div>
-
-    <div id="credits">
-        <p>Modularized by
-        <a href="http://backbonetutorials.com">Thomas Davis</a>.
-        Originally by 
-      <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
-      </p>
-    </div>
-
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer"></footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Written by <a href="http://addyosmani.github.com/todomvc/">Addy Osmani</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
 </body>
 </html>

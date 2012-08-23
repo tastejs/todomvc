@@ -1,13 +1,8 @@
+/*global ko, crossroads */
 (function() {
 	'use strict';
-	var ENTER_KEY = 13;
 
-	// trim polyfill
-	if ( !String.prototype.trim ) {
-		String.prototype.trim = function() {
-			return this.replace( /^\s+|\s+$/g, '' );
-		};
-	}
+	var ENTER_KEY = 13;
 
 	// a custom binding to handle the enter key (could go in a separate library)
 	ko.bindingHandlers.enterKey = {
@@ -38,15 +33,15 @@
 		init: function( element, valueAccessor, allBindingsAccessor ) {
 			ko.bindingHandlers.hasfocus.init( element, valueAccessor, allBindingsAccessor );
 			ko.utils.registerEventHandler( element, 'focus', function() {
-				element.select();
-			} );
+				element.focus();
+			});
 		},
 		update: function( element, valueAccessor ) {
 			ko.utils.unwrapObservable( valueAccessor() ); // for dependency
 			// ensure that element is visible before trying to focus
 			setTimeout(function() {
 				ko.bindingHandlers.hasfocus.update( element, valueAccessor );
-			}, 0 );
+			}, 0);
 		}
 	};
 
@@ -60,20 +55,38 @@
 	// our main view model
 	var ViewModel = function( todos ) {
 		var self = this;
+
 		// map array of passed in todos to an observableArray of Todo objects
-		self.todos = ko.observableArray( ko.utils.arrayMap( todos, function( todo ) {
+		self.todos = ko.observableArray(ko.utils.arrayMap( todos, function( todo ) {
 			return new Todo( todo.title, todo.completed );
 		}));
 
 		// store the new todo value being entered
 		self.current = ko.observable();
 
+		self.showMode = ko.observable('all');
+
+		self.filteredTodos = ko.computed(function() {
+			switch( self.showMode() ) {
+				case 'active':
+					return self.todos().filter(function( todo ) {
+						return !todo.completed();
+					});
+				case 'completed':
+					return self.todos().filter(function( todo ) {
+						return todo.completed();
+					});
+				default:
+					return self.todos();
+			}
+		});
+
 		// add a new todo, when enter key is pressed
 		self.add = function() {
 			var current = self.current().trim();
 			if ( current ) {
 				self.todos.push( new Todo( current ) );
-				self.current( '' );
+				self.current('');
 			}
 		};
 
@@ -97,6 +110,7 @@
 		// stop editing an item.  Remove the item, if it is now empty
 		self.stopEditing = function( item ) {
 			item.editing( false );
+
 			if ( !item.title().trim() ) {
 				self.remove( item );
 			}
@@ -104,9 +118,9 @@
 
 		// count of all completed todos
 		self.completedCount = ko.computed(function() {
-			return ko.utils.arrayFilter( self.todos(), function(todo) {
+			return ko.utils.arrayFilter( self.todos(), function( todo ) {
 				return todo.completed();
-			} ).length;
+			}).length;
 		});
 
 		// count of todos that are not complete
@@ -121,8 +135,8 @@
 				return !self.remainingCount();
 			},
 			// set all todos to the written value (true/false)
-			write: function( newValue ) {
-				ko.utils.arrayForEach(self.todos(), function( todo ) {
+			write: function(newValue) {
+				ko.utils.arrayForEach( self.todos(), function( todo ) {
 					// set even if value is the same, as subscribers are not notified in that case
 					todo.completed( newValue );
 				});
@@ -137,16 +151,35 @@
 		// internal computed observable that fires whenever anything changes in our todos
 		ko.computed(function() {
 			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
-			localStorage.setItem( 'todos-knockout', ko.toJSON( self.todos ) );
-
+			localStorage.setItem('todos-knockout', ko.toJSON( self.todos ) );
 		}).extend({
 			throttle: 500
 		}); // save at most twice per second
 	};
 
 	// check local storage for todos
-	var todos = ko.utils.parseJson( localStorage.getItem( 'todos-knockout' ) );
+	var todos = ko.utils.parseJson( localStorage.getItem('todos-knockout') );
 
 	// bind a new instance of our view model to the page
-	ko.applyBindings( new ViewModel( todos || [] ) );
-})();
+	var viewModel = new ViewModel( todos || [] );
+	ko.applyBindings( viewModel );
+
+	//setup crossroads
+	crossroads.addRoute('all', function() {
+		viewModel.showMode('all');
+	});
+
+	crossroads.addRoute('active', function() {
+		viewModel.showMode('active');
+	});
+
+	crossroads.addRoute('completed', function() {
+		viewModel.showMode('completed');
+	});
+
+	window.onhashchange = function() {
+		crossroads.parse( location.hash.replace('#', '') );
+	};
+
+	crossroads.parse( location.hash.replace('#', '') );
+}());

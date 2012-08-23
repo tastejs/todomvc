@@ -7,19 +7,28 @@ jQuery(function( $ ) {
 		uuid: function(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b},
 		pluralize: function( count, word ) {
 			return count === 1 ? word : word + 's';
+		},
+		store: function( namespace, data ) {
+			if ( arguments.length > 1 ) {
+				return localStorage.setItem( namespace, JSON.stringify( data ) );
+			} else {
+				var store = localStorage.getItem( namespace );
+				return ( store && JSON.parse( store ) ) || [];
+			}
 		}
 	};
 
 	var App = {
 		init: function() {
 			this.ENTER_KEY = 13;
-			this.todos = this.store();
+			this.todos = Utils.store('todos-jquery');
 			this.cacheElements();
 			this.bindEvents();
 			this.render();
 		},
 		cacheElements: function() {
-			this.template = Handlebars.compile( $('#todo-template').html() );
+			this.todoTemplate = Handlebars.compile( $('#todo-template').html() );
+			this.footerTemplate = Handlebars.compile( $('#footer-template').html() );
 			this.$todoApp = $('#todoapp');
 			this.$newTodo = $('#new-todo');
 			this.$toggleAll = $('#toggle-all');
@@ -29,44 +38,35 @@ jQuery(function( $ ) {
 			this.$count = $('#todo-count');
 			this.$clearBtn = $('#clear-completed');
 		},
-		store: function( data ) {
-			if ( arguments.length ) {
-				return localStorage.setItem( 'todo-jquery', JSON.stringify( data ) );
-			} else {
-				var store = localStorage.getItem('todo-jquery');
-				return ( store && JSON.parse( store ) ) || [];
-			}
-		},
 		bindEvents: function() {
 			var list = this.$todoList;
 			this.$newTodo.on( 'keyup', this.create );
 			this.$toggleAll.on( 'change', this.toggleAll );
-			this.$clearBtn.on( 'click', this.destroyCompleted );
+			this.$footer.on( 'click', '#clear-completed', this.destroyCompleted );
 			list.on( 'change', '.toggle', this.toggle );
-			list.on( 'dblclick', '.view', this.edit );
+			list.on( 'dblclick', 'label', this.edit );
 			list.on( 'keypress', '.edit', this.blurOnEnter );
 			list.on( 'blur', '.edit', this.update );
 			list.on( 'click', '.destroy', this.destroy );
 		},
 		render: function() {
-			this.$todoList.html( this.template( this.todos ) );
+			this.$todoList.html( this.todoTemplate( this.todos ) );
 			this.$main.toggle( !!this.todos.length );
 			this.$toggleAll.prop( 'checked', !this.activeTodoCount() );
 			this.renderFooter();
-			this.store( this.todos );
+			Utils.store( 'todos-jquery', this.todos );
 		},
 		renderFooter: function() {
 			var todoCount = this.todos.length,
-				activeTodos = this.activeTodoCount(),
-				completedTodos = todoCount - activeTodos,
-				countTitle = '<strong>' + activeTodos + '</strong> ' + Utils.pluralize( activeTodos, 'item' ) + ' left',
-				clearTitle = 'Clear completed (' + completedTodos + ')';
-			// Only show the footer when there are at least one todo.
+				activeTodoCount = this.activeTodoCount(),
+				footer = {
+					activeTodoCount: activeTodoCount,
+					activeTodoWord: Utils.pluralize( activeTodoCount, 'item' ),
+					completedTodos: todoCount - activeTodoCount
+				};
+
 			this.$footer.toggle( !!todoCount );
-			// Active todo count
-			this.$count.html( countTitle );
-			// Toggle clear button and update title
-			this.$clearBtn.text( clearTitle ).toggle( !!completedTodos );
+			this.$footer.html( this.footerTemplate( footer ) );
 		},
 		toggleAll: function() {
 			var isChecked = $( this ).prop('checked');

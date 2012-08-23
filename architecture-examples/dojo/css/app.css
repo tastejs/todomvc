@@ -4,7 +4,7 @@
 }
 
 #todoapp.todos_selected #clear-completed,
-#todoapp.todos_present #footer, 
+#todoapp.todos_present #footer,
 #todoapp.todos_present #main,
 .multiple .plural {
     display: inherit;
@@ -79,7 +79,7 @@
     margin: 0 !important;
 }
 
-/** 
+/**
  * Inline edit box doesn't provide indication via class names
  * when a box is 'live'. Style values are set manually. Use the
  * opacity change as indicator... :( */

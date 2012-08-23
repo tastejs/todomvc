@@ -1,81 +1,115 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
+define([
+	'js/core/Application',
+	'app/model/Todo',
+	'app/collection/TodoList',
+	'js/data/FilterDataView',
+	'js/data/LocalStorageDataSource'
+], function ( Application, Todo, TodoList, FilterDataView, DataSource ) {
 
-requirejs(["rAppid"], function (rAppid) {
-    rAppid.defineClass("app.TodoClass",
-        ["js.core.Application", "js.core.I18n", "app.model.Todo", "app.collection.TodoList"],
-        function (Application, I18n, Todo, TodoList) {
+	var ENTER_KEY = 13;
 
-            return Application.inherit({
-                inject:{
-                    i18n:I18n
-                },
-                /**
-                 * Initializes the app
-                 * In this method we set the initial models
-                 */
-                initialize:function () {
-                    this.set("todoList", new TodoList());
-                    this.set("newTodo", new Todo());
-                    this.set("locales",["en_EN","de_DE"]);
-                },
-                /**
-                 * The rest is just controller stuff
-                 */
-                addNewTodo:function (e) {
-                    if (e.$.keyCode === 13) {
-                        var tmp = this.get("newTodo");
-                        if (tmp.hasContent()) {
-                            var newTodo = new Todo({content:tmp.get("content")});
-                            newTodo.setDone(false);
-                            this.get("todoList").add(newTodo);
-                            tmp.set("content", "");
-                        }
-                        this.get("hint").set("visible", false);
-                    } else {
-                        // some hint stuff
-                        var hint = this.get("hint");
-                        if (!hint.get("visible")) {
-                            setTimeout(function () {
-                                hint.set("visible", true);
+	return Application.inherit('app.TodoClass', {
+		/**
+		 * Initializes the app
+		 * In this method we set the initial models
+		 */
+		initialize: function() {
+			this.set( 'todoList', null );
+			this.set( 'filterList', null );
+			this.callBase();
+		},
 
-                                setTimeout(function () {
-                                    hint.set("visible", false);
-                                }, 2000);
-                            }, 400);
-                        }
-                    }
-                },
-                markAllComplete:function (e, input) {
-                    this.get("todoList").markAll(input.get("checked"));
-                },
-                clearCompleted:function (e) {
-                    this.get("todoList").clearCompleted();
-                },
-                removeTodo:function (e, el) {
-                    this.get("todoList").remove(e.$);
-                },
-                sort:function () {
-                    this.get("todoList").sort(function (t1, t2) {
-                        if (t1.get("isDone") && t2.get("isDone")) {
-                            return 0;
-                        } else if (t1.get("isDone") === true && !t2.get("isDone")) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    });
-                },
-                /**
-                 * Start the application and render it to the body ...
-                 */
-                start:function (parameter, callback) {
-                    // false - disables autostart
-                    this.callBase(parameter, false);
+		/**
+		 * Are triggered
+		 */
+		showAll: function() {
+			this.$.filterList.set( 'filter', 'all' );
+		},
 
-                    this.$.i18n.set("locale","en_EN",{silent: true});
-                    this.$.i18n.loadLocale("en_EN", callback);
-                }
-            });
-        }
-    );
+		showActive: function() {
+			this.$.filterList.set( 'filter', 'active' );
+		},
+
+		showCompleted: function() {
+			this.$.filterList.set( 'filter', 'completed' );
+		},
+
+		/**
+		 * The rest is just controller stuff
+		 */
+		addNewTodo: function( e ) {
+			if ( e.domEvent.keyCode === ENTER_KEY ) {
+				var title = e.target.get('value').trim();
+
+				if ( title ) {
+					var newTodo = this.$.dataSource.createEntity( Todo );
+
+					newTodo.set({
+						title: title,
+						completed: false
+					});
+					this.get('todoList').add( newTodo );
+
+					// save the new item
+					newTodo.save();
+					e.target.set( 'value', '' );
+				}
+			}
+		},
+
+		markAllComplete: function( e ) {
+			this.get('todoList').markAll( e.target.$el.checked );
+		},
+
+		clearCompleted: function() {
+			this.get('todoList').clearCompleted();
+		},
+
+		removeTodo: function( e ) {
+			var todo = e.$,
+				self = this;
+
+			todo.remove( null, function( err ) {
+				if ( !err ) {
+					self.get('todoList').remove( todo );
+				}
+			});
+		},
+
+		/**
+		 * Start the application and render it to the body ...
+		 */
+		start: function( parameter, callback ) {
+			this.set( 'todoList', this.$.dataSource.createCollection( TodoList ) );
+
+			// fetch all todos, can be done sync because we use localStorage
+			this.$.todoList.fetch();
+
+			this.set( 'filterList', new FilterDataView({
+				baseList: this.get('todoList'),
+				filter: 'all',
+				filterFnc: function( item ) {
+					var filter = this.$.filter;
+
+					if ( filter === 'active' ) {
+						return !item.isCompleted();
+					} else if ( filter === 'completed' ) {
+						return item.isCompleted();
+					} else {
+						return true;
+					}
+				}})
+			);
+			// false - disables autostart
+			this.callBase();
+		},
+
+		translateItems: function( num ) {
+			return num === 1 ? 'item' : 'items';
+		},
+
+		selectedClass: function( expected, current ) {
+			return expected === current ? 'selected' : '';
+		}
+	});
 });

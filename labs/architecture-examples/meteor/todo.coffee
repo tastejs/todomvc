@@ -9,7 +9,7 @@ if Meteor.is_client
 		hasTask = Tasks.find().count() > 0
 		if hasTask
 			$('#main, #footer').removeClass('hidden')
-		else 
+		else
 			$('#main, #footer').addClass('hidden')
 
 	# Listen to change on collection Tasks.
@@ -69,14 +69,14 @@ if Meteor.is_client
 		'click .toggle': (evt) ->
 			task = Tasks.findOne this._id
 			task.completed = $(evt.target).prop('checked')
-			Tasks.update _id: this._id, task			
+			Tasks.update _id: this._id, task
 			# force DOM redraw
 			Meteor.flush()
 
 		'click .destroy': (evt) ->
 			Template.item.updateTask this._id, null
 
-		'dblclick .view': (evt) ->
+		'dblclick label': (evt) ->
 			# do not response to double click on checkbox
 			return if $(evt.target).hasClass('toggle')
 
@@ -84,7 +84,7 @@ if Meteor.is_client
 
 			# force DOM redraw, so we can select the edit field
 			Meteor.flush()
-			$('.edit').select()
+			$('.edit').focus()
 
 		'blur input.edit': (evt) ->
 			text = $(evt.target).val().trim()
@@ -111,6 +111,6 @@ if Meteor.is_client
 
 	Template.item.completedClass = ->
 		if this.completed then 'completed' else ''
-			
+
 	Template.item.completedCheck = ->
 		if this.completed then 'checked' else ''

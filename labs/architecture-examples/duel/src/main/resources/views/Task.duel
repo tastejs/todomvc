@@ -2,14 +2,13 @@
 
 <%-- could have embedded in 'tasks' for-loop, but this allows us to add single tasks --%>
 
-<li class="<%= data.completed ? 'complete' : '' %>"
-	ondblclick="<%= todos.actions.content_dblclick(data.id) %>">
+<li class="<%= data.completed ? 'complete' : '' %>">
 
 	<div class="view">
 		<input class="toggle" type="checkbox" checked="<%= data.completed %>"
 			onchange="<%= todos.actions.completed_change(data.id) %>">
 
-		<label><%= data.title %></label>
+		<label ondblclick="<%= todos.actions.content_dblclick(data.id) %>"><%= data.title %></label>
 
 		<button class="destroy" onclick="<%= todos.actions.remove_click(data.id) %>"></button>
 	</div>

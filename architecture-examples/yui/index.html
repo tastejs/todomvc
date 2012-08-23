@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>YUI • TodoMVC</title>
+	<link rel="stylesheet" href="../../assets/base.css"/>
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer"></div>
+	</section>
+	<div id="info">
+		<p>Double-click to edit a todo</p>
+        <p>Created by
+          <a href="https://github.com/clarle">Clarence Leung</a> and
+          <a href="https://twitter.com/ericf">Eric Ferraiuolo</a>
+        </p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+
+	<script type="text/x-handlebars-template" id="item-template">
+		<div class="view">
+			<input class="toggle" type="checkbox" {{#if completed}} checked="checked" {{/if}} />
+			<label>{{title}}</label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" type="text" value="{{title}}" />
+	</script>
+
+	<script type="text/x-handlebars-template" id="stats-template">
+		<span id="todo-count"><strong>{{remaining}}</strong> {{pluralize remaining "item"}} left</span>
+		<ul id="filters">
+			<li>
+				<a class="selected" href="#/">All</a>
+			</li>
+			<li>
+				<a href="#/active">Active</a>
+			</li>
+			<li>
+				<a href="#/completed">Completed</a>
+			</li>
+		</ul>
+		{{#if completed}}
+		<button id="clear-completed">Clear completed ({{completed}})</button>
+		{{/if}}
+	</script>
+    <script src="http://yui.yahooapis.com/3.6.0pr4/build/yui/yui-min.js"></script>
+    <script>
+        YUI({
+            filter: 'raw',
+            allowRollup: 'false',
+            groups: {
+                'todo-mvc': {
+                    base: './js/',
+                    modules: {
+                        'todo': {
+                            path: 'models/todo.js',
+                            requires: ['gallery-model-sync-local', 'model']
+                        },
+                        'todo-list': {
+                            path: 'models/todolist.js',
+                            requires: ['gallery-model-sync-local', 'model-list', 'todo']
+                        },
+                        'todo-view': {
+                            path: 'views/todoview.js',
+                            requires: ['view', 'handlebars']
+                        },
+                        'todo-app': {
+                            path: 'app.js',
+                            requires: ['app', 'todo-list', 'todo-view']
+                        }
+                    }
+                }
+            }
+        }).use('todo-app', function (Y) {
+            var app = new Y.TodoMVC.TodoApp();
+        });
+    </script>
+</body>
+</html>

@@ -23,7 +23,7 @@
 					var id = $( this ).closest('li').data('id');
 					self.system.notify( 'TodoListView:toggleDoneOfTodo', id );
 				});
-				$todoList.on( 'dblclick', '.view', function() {
+				$todoList.on( 'dblclick', 'label', function() {
 					$( this ).closest('li').addClass('editing').find('.edit').focus();
 				} );
 				$todoList.on( 'keypress', '.edit', function( e ) {

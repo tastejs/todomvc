@@ -1,6 +1,6 @@
 {
   "id" :                "todomvc",
-  "inputs" :            "js/main.js",
+  "inputs" :            "js/app.js",
   "paths" :             "js/",
   "output-wrapper" :    "(function(){%output%})();",
   "mode" :              "ADVANCED",
@@ -11,7 +11,7 @@
 	  // Unfortunately, the Closure Library violates these in many places.
 	  // "accessControls": "ERROR",
 	  // "visibility": "ERROR"
-	
+
 	  "checkRegExp": "WARNING",
 	  "checkTypes": "WARNING",
 	  "checkVars": "WARNING",

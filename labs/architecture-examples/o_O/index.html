@@ -21,10 +21,10 @@
 				<label for="toggle-all">Mark all as complete</label>
 			</div>
 			<ul id="todo-list" data-bind="foreach: todos">
-				<li data-bind="class: klass; visible; dblclick: startEditing">
+				<li data-bind="class: klass; visible">
 					<div class="view">
 						<input class="toggle" type="checkbox" data-bind="value: completed">
-						<label data-bind="text: title"></label>
+						<label data-bind="text: title; dblclick: startEditing"></label>
 						<button class="destroy" data-bind="click: remove"></button>
 					</div>
 					<input class="edit" data-bind="value: title; enterKey: stopEditing; blur: stopEditing">
@@ -48,7 +48,6 @@
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 		<p>Created by <a href="http://weepy.github.com">weepy (Jonah Fox)</a></p>
 	</footer>
 	<script src="../../../assets/base.js"></script>

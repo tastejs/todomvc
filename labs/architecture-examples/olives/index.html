@@ -21,9 +21,9 @@
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list" data-model="foreach">
 				<li data-model="bind:toggleClass,completed,completed;">
-					<div class="view" data-event="listen:dblclick,startEdit">
+					<div class="view">
 						<input class="toggle" type="checkbox" data-model="bind:checked,completed">
-						<label data-model="bind:innerHTML,title"></label>
+						<label data-model="bind:innerHTML,title" data-event="listen:dblclick,startEdit"></label>
 						<button class="destroy" data-event="listen:click,remove"></button>
 					</div>
 					<input class="edit" data-model="bind:value,title" data-event="listen:keydown,stopEdit; listen:blur,stopEdit">
@@ -39,7 +39,6 @@
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
 		<p>Created by <a href="http://github.com/podefr">Olivier Scherrer</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>

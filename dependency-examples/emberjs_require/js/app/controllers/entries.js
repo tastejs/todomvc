@@ -1,4 +1,4 @@
-define('app/controllers/entries', ['ember'],
+define('app/controllers/entries', [ 'ember' ],
 	/**
 	 * Entries controller
 	 *
@@ -23,7 +23,6 @@ define('app/controllers/entries', ['ember'],
 			},
 
 			removeObject: function( item ) {
-				item = item.get( 'todo' ) || item;
 				this.get( 'store' ).remove( item );
 				return this._super( item );
 			},
@@ -45,6 +44,10 @@ define('app/controllers/entries', ['ember'],
 			completed: function() {
 				return this.filterProperty( 'completed', true ).get( 'length' );
 			}.property( '@each.completed' ),
+
+			noneLeft: function() {
+				return this.get( 'total' ) === 0;
+			}.property( 'total' ),
 
 			allAreDone: function( key, value ) {
 				if ( value !== undefined ) {

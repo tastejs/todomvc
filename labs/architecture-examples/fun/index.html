@@ -405,7 +405,7 @@ WebKit supports styling of inputs */
 */
 
 body {
-	background: 
+	background:
 	#EEE url('../../assets/bg.png');
 }
 
@@ -502,9 +502,9 @@ module.exports = function create(obj, extendWithProperties) {
 ;(function() {
 	// /Volumes/Encrypted/code/marcuswestin/fun/node_modules/std/proto
 	var module = __require__["_5"] = {exports:{}}, exports = module.exports;
-/* 
+/*
 	// Usage: proto(prototypeObj, intantiatingFn, properties)
-	
+
 	var base = {
 		say:function(arg) { alert(arg) }
 	}
@@ -518,7 +518,7 @@ module.exports = function create(obj, extendWithProperties) {
 			}
 		}
 	)
-	
+
 	var marcus = person("marcus"),
 		john = person("john")
 
@@ -537,7 +537,7 @@ var proto = module.exports = function proto(prototypeObject, instantiationFuncti
 	// The prototype object itself points to the passed-in prototypeObject,
 	// but also has all the properties enumerated in propertiesToAdd
 	F.prototype = prototypeObject ? create(prototypeObject, propertiesToAdd) : propertiesToAdd
-	
+
 	return function() {
 		return new F(arguments)
 	}
@@ -606,11 +606,11 @@ module.exports = function args(args, offset, length) {
 	Example usage:
 
 	var Toolbar = Class(function() {
-		
+
 		this.init = function() {
 			this._buttonWasClicked = false
 		}
-		
+
 		this.addButton = function(clickHandler) {
 			this._button = new Button()
 			this._button.on('Click', bind(this, '_onButtonClick', clickHandler))
@@ -820,14 +820,14 @@ module.exports.Function = proto(invocableBase,
 				__hackFirstExecution = false
 				this._content.apply(this, [yieldValue, isFirstExecution].concat(args))
 			})
-			
+
 			var waitForSetup = true
 			each(args, function(arg) {
 				arg && arg.observe(executeBlock)
 			})
 			waitForSetup = false
 			executeBlock()
-			
+
 			return invocationValue
 		}
 	}
@@ -1291,7 +1291,7 @@ module.exports.__namespace = '__u'
 		init: function(){ ... },
 		publish_: function() { ... }
 	}
-  
+
 	var Button = Class(UIComponent, PublisherMixin, function(supr) {
 		this.init = function(opts) {
 			// call UIComponents init method, with the passed in arguments
@@ -1371,13 +1371,13 @@ var Class = __require__["_16"].exports
 var mobileRegex = /mobile/i;
 
 var Client = Class(function() {
-	
+
 	this.init = function(userAgent) {
 		this._userAgent = userAgent
 		this._parseBrowser()
 		this._parseDevice()
 	}
-	
+
 	this._parseBrowser = function() {
 		(this.isChrome = this._isBrowser('Chrome'))
 			|| (this.isFirefox = this._isBrowser('Firefox'))
@@ -1385,11 +1385,11 @@ var Client = Class(function() {
 			|| (this.isSkyfire = this._isBrowser('Skyfire', 'Skyfire')) // Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Safari/530.17 Skyfire/2.0
 			|| (this.isSafari = this._isBrowser('Safari', 'Version'))
 			|| (this.isOpera = this._isBrowser('Opera', 'Version'))
-		
+
 		if (this.isOpera) {
 			if (this._userAgent.match('Opera Mini')) { this.isOperaMini = true } // Opera mini is a cloud browser - Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/ADR-1110171336; U; en) Presto/2.9.201 Version/11.50
 		}
-		
+
 		try {
 			document.createEvent("TouchEvent")
 			this.isTouch = true
@@ -1397,24 +1397,24 @@ var Client = Class(function() {
 			this.isTouch = false
 		}
 	}
-	
+
 	this._parseDevice = function() {
 		((this.isIPhone = this._is('iPhone'))
 			|| (this.isIPad = this._is('iPad'))
 			|| (this.isIPod = this._is('iPod')))
-		
+
 		this.isAndroid = this._isBrowser('Android', 'Version')
 		this.isIOS = (this.isIPhone || this.isIPad || this.isIPod)
-		
+
 		if (this.isIOS) {
 			var osVersionMatch = this._userAgent.match(/ OS ([\d_]+) /),
 				osVersion = osVersionMatch ? osVersionMatch[1] : '',
 				parts = osVersion.split('_'),
 				version = { major:parseInt(parts[0]), minor:parseInt(parts[1]), patch:parseInt(parts[2]) }
-			
+
 			this.os = { version:version }
 		}
-		
+
 		if (this.isOpera && this._userAgent.match('Opera Mobi')) { this.isMobile = true } // Opera mobile is a proper mobile browser - Opera/9.80 (Android; Opera Mini/6.5.26571/ 26.1069; U; en) Presto/2.8.119 Version/10.54
 		if (this.isSkyfire) { this.isMobile = true }
 		if (this.isIPhone) { this.isMobile = true }
@@ -1422,15 +1422,15 @@ var Client = Class(function() {
 			if (this._userAgent.match(mobileRegex)) { this.isMobile = true }
 			if (this.isFirefox) { this.isMobile = true } // Firefox Android browsers do not seem to have an indication that it's a phone vs a tablet: Mozilla/5.0 (Android; Linux armv7l; rv:7.0.1) Gecko/20110928 Firefox/7.0.1 Fennec/7.0.1
 		}
-		
+
 		this.isTablet = this.isIPad
 	}
-	
+
 	this.isQuirksMode = function(doc) {
 		// in IE, if compatMode is undefined (early ie) or explicitly set to BackCompat, we're in quirks
 		return this.isIE && (!doc.compatMode || doc.compatMode == 'BackCompat')
 	}
-	
+
 	this._isBrowser = function(name, versionString) {
 		if (!this._is(name)) { return false }
 		var agent = this._userAgent,
@@ -1461,7 +1461,7 @@ module.exports = function getWindowScroll(win) {
 		doc = win.document,
 		docEl = doc.documentElement,
 		body = doc.body
-	
+
 	return {
 		top:  win.pageYOffset || (docEl && docEl.scrollTop) || body.scrollTop,
 		left: win.pageXOffset || (docEl && docEl.scrollLeft) || body.scrollLeft
@@ -1530,7 +1530,7 @@ module.exports._addListener = function(element, eventName, handler) {
 	} else {
 		module.exports._addListener = null
 	}
-	
+
 	module.exports._addListener(element, eventName, handler)
 }
 
@@ -1586,7 +1586,7 @@ module.exports.normalizeEvent = function(eventName, e) {
 	}
 
 	if (e.type == 'keypress') {
-		eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13) 
+		eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13)
 			? 0 // in Webkit, return/enter key gives a charCode as well as a keyCode. Should only be a keyCode
 			: e.charCode
 	}
@@ -1604,9 +1604,9 @@ var on = __require__["_19"].exports
 module.exports = function(element, eventName, handler) {
 	var map = on.getElementMap(element),
 		handlers = map[eventName]
-	
+
 	if (!handlers) { return }
-	
+
 	if (handler) {
 		for (var i=0; i<handlers.length; i++) {
 			if (handler != handlers[i]) { continue }
@@ -1614,7 +1614,7 @@ module.exports = function(element, eventName, handler) {
 			break
 		}
 	}
-		
+
 	if (!handler || !handlers.length) {
 		module.exports._removeHandler(element, eventName, handlers._realHandler)
 		delete map[eventName]
@@ -1655,17 +1655,17 @@ var expressions = __require__["_9"].exports,
 ;(function() {
 	if (typeof fun == 'undefined') { fun = {} }
 	var _unique, _hooks, _hookCallbacks
-	
+
 	fun.reset = function() {
 		_unique = 0
 		_hooks = {}
 		_hookCallbacks = {}
 	}
-	
+
 	fun.name = function(readable) { return '_' + (readable || '') + '_' + (_unique++) }
 
 	fun.expressions = expressions
-	
+
 	fun.invoke = function(operand, args, parentHookName) {
 		operand = operand.evaluate()
 		// TODO Observe operand
@@ -1681,7 +1681,7 @@ var expressions = __require__["_9"].exports,
 				throw new Error('Attempted to invoke a non-invocable: '+operand.inspect())
 		}
 	}
-	
+
 /* Values
  ********/
 	fun.emit = function(parentHookName, value) {
@@ -1691,7 +1691,7 @@ var expressions = __require__["_9"].exports,
 			_hooks[hookName].appendChild(document.createTextNode(value.asString()))
 		})
 	}
-	
+
 /* Hooks
  *******/
 	fun.setHook = function(name, dom) { _hooks[name] = dom }
@@ -1700,21 +1700,21 @@ var expressions = __require__["_9"].exports,
 		opts = opts || {}
 		var parent = _hooks[parentName],
 			hook = _hooks[name] = document.createElement(opts.tagName || 'hook')
-		
+
 		each(opts.attrs, function(attr) {
 			if (attr.expand) { fun.attrExpand(name, attr.expand) }
 			else { fun.attr(name, attr.name, attr.value) }
 		})
-		
+
 		if (_hookCallbacks[name]) {
 			for (var i=0, callback; callback = _hookCallbacks[name][i]; i++) {
 				callback(hook)
 			}
 		}
-		
+
 		if (!parent.childNodes.length || !opts.prepend) { parent.appendChild(hook) }
 		else { parent.insertBefore(hook, parent.childNodes[0]) }
-		
+
 		return name
 	}
 	fun.destroyHook = function(hookName) {
@@ -1737,7 +1737,7 @@ var expressions = __require__["_9"].exports,
 		value.observe(function() {
 			if (match = key.match(/^on(\w+)$/)) {
 				if (lastValue) { off(hook, eventName, lastValue) }
-				
+
 				var eventName = match[1].toLowerCase()
 				if (value.getType() != 'Handler') {
 					console.warn('Event attribute', eventName, 'value is not a Handler')
@@ -1759,7 +1759,7 @@ var expressions = __require__["_9"].exports,
 			}
 		})
 	}
-	
+
 	fun.attrExpand = function(hookName, expandValue) {
 		// TODO Observe the expandValue, and detect keys getting added/removed properly
 		each(expandValue.getContent(), function(value, name) {
@@ -1773,7 +1773,7 @@ var expressions = __require__["_9"].exports,
 		if (key == 'float') { key = 'cssFloat' }
 		hook.style[key] = rawValue
 	}
-	
+
 	fun.reflectInput = function(hookName, property) {
 		var input = _hooks[hookName]
 		if (input.type == 'checkbox') {
@@ -1789,7 +1789,7 @@ var expressions = __require__["_9"].exports,
 			property.observe(function() {
 				input.value = property.evaluate().asString()
 			})
-			
+
 			function update(e) {
 				setTimeout(function() {
 					var value = input.value
@@ -1798,7 +1798,7 @@ var expressions = __require__["_9"].exports,
 					input.value = value
 				}, 0)
 			}
-			
+
 			on(input, 'keypress', update)
 			on(input, 'keyup', update)
 			on(input, 'keydown', function(e) {
@@ -1829,7 +1829,7 @@ module.exports = function(str) {
 ;(function() {
 	// <code passed into compiler.compile()>
 	var module = __require__["_0"] = {exports:{}}, exports = module.exports;
-fun = __require__["_21"].exports; 
+fun = __require__["_21"].exports;
 
 ;(function funApp() {
 	var _ROOT_HOOK_0 = fun.name("rootHook")

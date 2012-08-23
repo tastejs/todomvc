@@ -1,4 +1,7 @@
 define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery", "template!./item.html" ], function ListModule(Widget, store, $, template) {
+	var ENTER_KEY = 13;
+	var FILTER_ACTIVE = "filter-active";
+	var FILTER_COMPLETED = "filter-completed";
 
 	function filter(item, index) {
 		return item === null;
@@ -8,14 +11,14 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 		var self = this;
 
 		// Defer initialization
-		$.Deferred(function deferredInit(dfdInit) {
+		$.Deferred(function deferredInit(deferInit) {
 			// Defer get
-			$.Deferred(function deferredGet(dfdGet) {
-				store.get(self.config.store, dfdGet);
+			$.Deferred(function deferredGet(deferGet) {
+				store.get(self.config.store, deferGet);
 			})
 			.done(function doneGet(items) {
 				// Set items (empty or compacted) - then resolve
-				store.set(self.config.store, items === null ? [] : $.grep(items, filter, true), dfdInit);
+				store.set(self.config.store, items === null ? [] : $.grep(items, filter, true), deferInit);
 			});
 		})
 		.done(function doneInit(items) {
@@ -32,22 +35,23 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			self.publish("todos/change", items);
 		});
 	}, {
-		"hub/todos/add" : function onAdd(topic, text) {
+		"hub/todos/add" : function onAdd(topic, title) {
 			var self = this;
 
 			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
+			$.Deferred(function deferredSet(deferSet) {
 				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
-					store.get(self.config.store, dfdGet);
+				$.Deferred(function deferredGet(deferGet) {
+					store.get(self.config.store, deferGet);
 				})
 				.done(function doneGet(items) {
 					// Get the next index
 					var i = items.length;
+
 					// Create new item, store in items
 					var item = items[i] = {
 						"completed": false,
-						"text": text
+						"title": title
 					};
 
 					// Append new item to self
@@ -55,10 +59,9 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 						"i": i,
 						"item": item
 					});
-				})
-				.done(function doneGet(items) {
+
 					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					store.set(self.config.store, items, deferSet);
 				});
 			})
 			.done(function doneSet(items) {
@@ -71,7 +74,28 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 		},
 
 		"hub/todos/clear" : function onClear(topic) {
-			this.$element.find("li.done a.destroy").click();
+			this.$element.find(".completed .destroy").click();
+		},
+
+		"hub:memory/todos/filter" : function onFilter(topic, filter) {
+			var $element = this.$element;
+
+			switch (filter) {
+			case "/completed":
+				$element
+					.removeClass(FILTER_ACTIVE)
+					.addClass(FILTER_COMPLETED);
+				break;
+
+			case "/active":
+				$element
+					.removeClass(FILTER_COMPLETED)
+					.addClass(FILTER_ACTIVE);
+				break;
+
+			default:
+				$element.removeClass([FILTER_ACTIVE, FILTER_COMPLETED].join(" "));
+			}
 		},
 
 		"dom/action.change.click.dblclick.focusout.keyup" : $.noop,
@@ -84,21 +108,21 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			// Update UI
 			$target
 				.closest("li")
-				.toggleClass("done", completed);
+				.toggleClass("completed", completed)
+				.toggleClass("active", !completed);
 
 			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
+			$.Deferred(function deferredSet(deferSet) {
 				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
-					store.get(self.config.store, dfdGet);
+				$.Deferred(function deferredGet(deferGet) {
+					store.get(self.config.store, deferGet);
 				})
 				.done(function doneGet(items) {
 					// Update completed
 					items[index].completed = completed;
-				})
-				.done(function doneGet(items) {
+
 					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					store.set(self.config.store, items, deferSet);
 				});
 			})
 			.done(function doneSet(items) {
@@ -112,25 +136,21 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			// Update UI
 			$($event.target)
 				.closest("li")
-				.hide("slow", function hidden() {
-					// Remove LI
-					$(this).remove();
-				});
+				.remove();
 
 			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
+			$.Deferred(function deferredSet(deferSet) {
 				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
+				$.Deferred(function deferredGet(deferGet) {
 					// Get the items
-					store.get(self.config.store, dfdGet);
+					store.get(self.config.store, deferGet);
 				})
 				.done(function doneGet(items) {
 					// Delete item
 					items[index] = null;
-				})
-				.done(function doneGet(items) {
+
 					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					store.set(self.config.store, items, deferSet);
 				});
 			})
 			.done(function doneSet(items) {
@@ -138,70 +158,89 @@ define( [ "troopjs-core/component/widget", "troopjs-core/store/local", "jquery",
 			});
 		},
 
-		"dom/action/prepare.click.dblclick" : function onPrepare(topic, $event, index) {
+		"dom/action/prepare.dblclick" : function onPrepare(topic, $event, index) {
 			var self = this;
-			var $li = $($event.target).closest("li");
 
-			// Update UI
-			$li.addClass("preparing");
+			// Get LI and update
+			var $li = $($event.target)
+				.closest("li")
+				.addClass("editing");
 
-			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
-				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
-					// Get items
-					store.get(self.config.store, dfdGet);
-				})
-				.done(function doneGet(items) {
-					// Update UI
-					$li
-						.removeClass("preparing")
-						.addClass("editing")
-						.find("input")
-						.val(items[index].text)
-						.focus();
-				});
+			// Get INPUT and disable
+			var $input = $li
+				.find("input")
+				.prop("disabled", true);
+
+			// Defer get
+			$.Deferred(function deferredGet(deferGet) {
+				// Get items
+				store.get(self.config.store, deferGet);
+			})
+			.done(function doneGet(items) {
+				// Update input value, enable and select
+				$input
+					.val(items[index].title)
+					.removeProp("disabled")
+					.focus();
+			})
+			.fail(function failGet() {
+				$li.removeClass("editing");
 			});
 		},
 
-		"dom/action/update.keyup" : function onUpdateKeyUp(topic, $event) {
+		"dom/action/commit.keyup" : function onCommitKeyUp(topic, $event) {
 			switch($event.originalEvent.keyCode) {
-			case 13:
+			case ENTER_KEY:
 				$($event.target).focusout();
 			}
 		},
 
-		"dom/action/update.focusout" : function onUpdateFocusOut(topic, $event, index) {
+		"dom/action/commit.focusout" : function onCommitFocusOut(topic, $event, index) {
 			var self = this;
 			var $target = $($event.target);
-			var text = $target.val();
+			var title = $target.val().trim();
 
-			// Update UI
-			$target
-				.closest("li")
-				.removeClass("editing")
-				.find("label")
-				.text(text);
+			if (title === "") {
+				$target
+					.closest("li.editing")
+					.removeClass("editing")
+					.find(".destroy")
+					.click();
+			}
+			else {
+				// Defer set
+				$.Deferred(function deferredSet(deferSet) {
+					// Disable
+					$target.prop("disabled", true);
 
-			// Defer set
-			$.Deferred(function deferredSet(dfdSet) {
-				// Defer get
-				$.Deferred(function deferredGet(dfdGet) {
-					// Get items
-					store.get(self.config.store, dfdGet);
-				})
-				.done(function doneGet(items) {
-					// Update text
-					items[index].text = text;
-				})
-				.done(function doneGet(items) {
-					// Set items and resolve set
-					store.set(self.config.store, items, dfdSet);
+					// Defer get
+					$.Deferred(function deferredGet(deferGet) {
+						// Get items
+						store.get(self.config.store, deferGet);
+					})
+					.done(function doneGet(items) {
+						// Update text
+						items[index].title = title;
+
+						// Set items and resolve set
+						store.set(self.config.store, items, deferSet);
+					});
 				})
 				.done(function doneSet(items) {
+					// Update UI
+					$target
+						.closest("li")
+						.removeClass("editing")
+						.find("label")
+						.text(title);
+
 					self.publish("todos/change", items);
+				})
+				.always(function alwaysSet() {
+					// Enable
+					$target.removeProp("disabled");
 				});
-			});
+			}
 		}
 	});
 });

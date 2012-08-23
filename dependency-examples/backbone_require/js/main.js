@@ -1,17 +1,35 @@
-// Author: Thomas Davis <thomasalwyndavis@gmail.com>
-// Filename: main.js
-
 // Require.js allows us to configure shortcut alias
 require.config({
-  paths: {
-    jquery: 'libs/jquery/jquery-min',
-    underscore: 'libs/underscore/underscore',
-    backbone: 'libs/backbone/backbone',
-    text: 'libs/require/text'
-  }
-
+	// The shim config allows us to configure dependencies for
+	// scripts that do not call define() to register a module
+	shim: {
+		'underscore': {
+			exports: '_'
+		},
+		'backbone': {
+			deps: [
+				'underscore',
+				'jquery'
+			],
+			exports: 'Backbone'
+		}
+	},
+	paths: {
+		jquery: 'lib/jquery/jquery.min',
+		underscore: 'lib/underscore/underscore',
+		backbone: 'lib/backbone/backbone',
+		text: 'lib/require/text'
+	}
 });
 
-require(['views/app'], function(AppView){
-  var app_view = new AppView;
+require([
+	'views/app',
+	'routers/router'
+], function( AppView, Workspace ) {
+	// Initialize routing and start Backbone.history()
+	new Workspace();
+	Backbone.history.start();
+
+	// Initialize the application view
+	new AppView();
 });

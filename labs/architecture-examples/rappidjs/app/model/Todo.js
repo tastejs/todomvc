@@ -1,25 +1,26 @@
-var requirejs = (typeof requirejs === "undefined" ? require("requirejs") : requirejs);
+define([
+	'js/data/Model'
+], function( Model ) {
+	return Model.inherit('app.model.Todo', {
+		defaults: {
+			title: '',
+			completed: false
+		},
 
-requirejs(["rAppid"], function (rAppid) {
-    rAppid.defineClass("app.model.Todo", ["js.core.Bindable"], function (Bindable) {
-        return Bindable.inherit({
-            defaults:{
-                content:"",
-                isDone: false
-            },
-            setDone:function (done) {
-                this.set("isDone", done);
-            },
-            status: function(){
-                if(this.$.isDone){
-                    return "done";
-                }else{
-                    return "";
-                }
-            }.onChange("isDone","isEditing"),
-            hasContent:function () {
-                return this.$.content.length > 0;
-            }.onChange("content")
-        });
-    });
+		setCompleted: function( completed ) {
+			this.set( 'completed', completed );
+		},
+
+		isCompleted: function() {
+			return this.$.completed;
+		},
+
+		status: function() {
+			return this.$.completed ? 'completed' : '';
+		}.onChange('completed'),
+
+		hasTitle: function() {
+			return this.$.title.trim().length;
+		}.onChange('title')
+	});
 });

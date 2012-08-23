@@ -32,40 +32,40 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 
   @UiField
   TextBoxWithPlaceholder taskText;
-  
+
   @UiField
   SpanElement remainingTasksCount;
-  
+
   @UiField
   SpanElement remainingTasksLabel;
-  
+
   @UiField
   Element mainSection;
-  
+
   @UiField
   Element todoStatsContainer;
-  
+
   @UiField
   SpanElement clearTasksCount;
-  
+
   @UiField
   SpanElement clearTasksLabel;
-  
-  @UiField 
+
+  @UiField
   Anchor clearCompleted;
-  
+
   @UiField
   CheckBox toggleAllCheckBox;
-   
+
   @UiField(provided = true)
   CellList<ToDoItem> todoTable = new CellList<ToDoItem>(new ToDoCell());
 
   public ToDoView() {
     initWidget(uiBinder.createAndBindUi(this));
-    
+
     // removes the yellow highlight
     todoTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
-    
+
     // add IDs to the elements that have ui:field attributes. This is required because the UiBinder
     // does not permit the addition of ID attributes to elements marked with ui:field.
     // *SIGH*
@@ -81,16 +81,16 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 
   @Override
   public void addhandler(final ViewEventHandler handler) {
-    
-    // wire-up the events from the UI to the presenter. 
-	  
+
+    // wire-up the events from the UI to the presenter.
+
 		toggleAllCheckBox.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				handler.markAllCompleted(toggleAllCheckBox.getValue());
 			}
 		});
-    
+
     taskText.addKeyUpHandler(new KeyUpHandler() {
       @Override
       public void onKeyUp(KeyUpEvent event) {
@@ -99,8 +99,8 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
         }
       }
     });
-    
-    clearCompleted.addClickHandler(new ClickHandler() {      
+
+    clearCompleted.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
         handler.clearCompletedTasks();
@@ -117,28 +117,28 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
   public void clearTaskText() {
     taskText.setText("");
   }
-  
+
   @Override
   public void setTaskStatistics(int totalTasks, int completedTasks) {
-    int remainingTasks = totalTasks - completedTasks;       
-    
+    int remainingTasks = totalTasks - completedTasks;
+
     hideElement(mainSection, totalTasks == 0);
     hideElement(todoStatsContainer, totalTasks == 0);
     hideElement(clearCompleted.getElement(), completedTasks == 0);
-    
+
     remainingTasksCount.setInnerText(Integer.toString(remainingTasks));
     remainingTasksLabel.setInnerText(remainingTasks > 1 || remainingTasks == 0 ? "items" : "item");
     clearTasksCount.setInnerHTML(Integer.toString(completedTasks));
     clearTasksLabel.setInnerText(completedTasks > 1 ? "items" : "item");
-    
+
     toggleAllCheckBox.setValue(totalTasks == completedTasks);
   }
-  
+
   private void hideElement(Element element, boolean hide) {
     if (hide) {
     	element.setAttribute("style", "display:none;");
     } else {
-    	element.setAttribute("style", "display:block;");	
+    	element.setAttribute("style", "display:block;");
     }
-  }  
+  }
 }
