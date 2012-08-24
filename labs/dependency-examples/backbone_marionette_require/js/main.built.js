@@ -5042,10 +5042,10 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
             input: "#new-todo"
         },
         events: {
-            "keypress #new-todo": "onCreateKeypress"
+            "keypress #new-todo": "onInputKeypress"
         
 },
-        onCreateKeypress: function(e) {
+        onInputKeypress: function(e) {
             var t = 13, n = this.ui.input.val().trim();
             e.which === t && n && (this.collection.create({
                 title: n
@@ -5061,27 +5061,27 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
         },
         events: {
             "click .destroy": "destroy",
-            "dblclick label": "editClick",
-            "keypress .edit": "updateOnEnter",
+            "dblclick label": "onEditClick",
+            "keypress .edit": "onEditKeypress",
             "click .toggle": "toggle"
         },
         initialize: function() {
-            this.model.on("change", this.render, this);
+            this.bindTo(this.model, "change", this.render, this);
         },
         onRender: function() {
             this.$el.removeClass("active completed"), this.model.get("completed") ? this.$el.addClass("completed") : this.$el.addClass("active");
         },
         destroy: function() {
-            this.model
-.destroy();
+            
+this.model.destroy();
         },
         toggle: function() {
             this.model.toggle().save();
         },
-        editClick: function() {
+        onEditClick: function() {
             this.$el.addClass("editing"), this.ui.edit.focus();
         },
-        updateOnEnter: function(e) {
+        onEditKeypress: function(e) {
             var t = 13, n = this.ui.edit.val().trim();
             e.which === t && n && (this.model.set("title", n).save(), this.$el.removeClass("editing"));
         }
@@ -5095,28 +5095,29 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
             toggleAll: "#toggle-all"
         },
         events: {
-            "click #toggle-all": "toggleAllClick"
+            "click #toggle-all": "onToggleAllClick"
         },
         initialize: function() {
-            this.bindTo(n, "todoList:filter", this.setFilter, this), this.bindTo(this.collection, "all", this.updateToggleCheckbox, this);
-        }
-,
+            this.bindTo(n, "todoList:filter", this.setFilter, this), this.bindTo(this.collection, "all", this.updateToggleCheckbox, this
+);
+        },
         onRender: function() {
             this.updateToggleCheckbox();
         },
         updateToggleCheckbox: function() {
-            var e = this.collection.reduce(function(e, t) {
+            function e(e, t) {
                 return e && t.get("completed");
-            }, !0);
-            this.ui.toggleAll.prop("checked", e);
+            }
+            var t = this.collection.reduce(e, !0);
+            this.ui.toggleAll.prop("checked", t);
         },
         appendHtml: function(e, t) {
             this.ui.list.append(t.el);
         },
         setFilter: function(e) {
-            this.ui.list.removeClass("filter-all filter-completed filter-active").addClass("filter-" + e);
+            this.ui.list.removeClass("filter-completed filter-active"), e && this.ui.list.addClass("filter-" + e);
         },
-        toggleAllClick: function(e) {
+        onToggleAllClick: function(e) {
             var t = e.currentTarget.checked;
             this.collection.each(function(e) {
                 e.save({
@@ -5129,8 +5130,8 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
     return e.View.extend({
         tagName: "span",
         initialize: function() {
-            this.collection.on("all", this.render, this
-);
+            this.
+collection.on("all", this.render, this);
         },
         render: function() {
             this.$el.html(this.collection.getActive().length);
@@ -5156,10 +5157,10 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
     });
 }), define("app", [ "marionette", "vent", "collections/TodoList", "views/Header", "views/TodoListCompositeView", "views/Footer" ], function(e, t, n, r, i, s) {
     function a() {
-        u.length === 0 ? (o.main.$el.hide(), o.footer.$el.hide()) : (o.main.$el.show(), o.footer.$el.show());
+        u.length === 0 ? (o.main.$el.hide(), o.footer.$el.hide()) : (o.main.$el.show
+(), o.footer.$el.show());
     }
-    var o = new 
-e.Application, u = new n;
+    var o = new e.Application, u = new n;
     return u.fetch(), o.addRegions({
         header: "#header",
         main: "#main",
@@ -5190,9 +5191,9 @@ e.Application, u = new n;
 }), require.config({
     paths: {
         underscore: "lib/underscore",
-        backbone: "lib/backbone",
-        marionette: "lib/backbone.marionette"
+        backbone: "lib/backbone"
 ,
+        marionette: "lib/backbone.marionette",
         jquery: "../../../../assets/jquery.min",
         tpl: "lib/tpl"
     },
