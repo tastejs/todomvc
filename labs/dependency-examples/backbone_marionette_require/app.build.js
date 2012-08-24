@@ -1,10 +1,9 @@
 
 
 ({
-  appDir: "js/",
-  baseUrl: "./",
+  baseUrl: "js/",
   mainConfigFile: 'js/main.js',
-  out: "main.built.js",
+  out: "js/main.built.js",
 
   //The directory path to save the output. If not specified, then
   //the path will default to be a directory called "build" as a sibling
@@ -32,19 +31,13 @@
   stubModules: ['text'],
   optimizeAllPluginResources: false,
   findNestedDependencies: false,
-  removeCombined: true,
-
-  modules: [
-    {
-      name: "main"
-    }
-  ],
-
+  removeCombined: false,
+  include : 'main',
 
   fileExclusionRegExp: /^\./,
 
   preserveLicenseComments: true,
 
-  logLevel: 0,
+  logLevel: 0
 
-});
+})
