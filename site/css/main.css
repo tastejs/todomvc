@@ -107,18 +107,18 @@ header nav a:first-child {
 }
 
 .whats-new {
-        list-style: none;
+	list-style: none;
 }
 
 .whats-new li {
-        position: relative;
-        margin: 15px 0;
+	position: relative;
+	margin: 15px 0;
 }
 
 .whats-new li:before {
-        content: '✔';
-        position: absolute;
-        left: -20px;
+	content: '✔';
+	position: absolute;
+	left: -20px;
 }
 
 .applist {
@@ -205,6 +205,12 @@ p .label {
 	padding: 9px 70px 9px 15px;
 }
 
+.popover-title a {
+	font-size: 13px;
+	position: absolute;
+	right: 20px;
+}
+
 .quote {
 	border: none;
 	margin: 20px 0 70px 0;
@@ -247,14 +253,6 @@ p .label {
 .quote footer a {
 	margin-left: 5px;
 	vertical-align: middle;
-}
-
-.popover-title a {
-	font-size: 13px;
-	line-height: 18px;
-	position: absolute;
-	top: 16px;
-	right: 20px;
 }
 
 .speech-bubble {

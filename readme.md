@@ -66,6 +66,7 @@ We also have a number of in-progress applications in Labs:
 - [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) (optimized)
+- [Backbone.xmpp](https://github.com/ggozad/Backbone.xmpp)
 
 
 ## Live demos
@@ -92,7 +93,7 @@ Addy is a Developer Platform Engineer at Google who originally created TodoMVC. 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
 Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible.
 
-#### [Gianni Chiappetta](http://gitub.com/gf3) - Logo designer
+#### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 
 ## Disclaimer
@@ -140,4 +141,4 @@ For applications that we feel don't quite match the goals of the project, but wh
 
 ## License
 
-[The Unlicense](unlicense.org) (i.e Public Domain)
+[The Unlicense](http://unlicense.org) (i.e Public Domain)

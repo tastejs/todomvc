@@ -7,7 +7,7 @@
 (function( ns ) {
 	'use strict';
 
-	dijondemo.services.LocalStorageService = function() {
+	ns.services.LocalStorageService = function() {
 		return {
 			system: undefined, //inject
 			store: function( data ) {
