@@ -9,9 +9,9 @@ define(['marionette','templates'], function (Marionette,templates) {
       input : '#new-todo'
     },
     events : {
-      'keypress #new-todo':		'onCreateKeypress'
+      'keypress #new-todo':		'onInputKeypress'
     },
-    onCreateKeypress : function(evt) {
+    onInputKeypress : function(evt) {
       var ENTER_KEY = 13;
       var todoText = this.ui.input.val().trim();
 

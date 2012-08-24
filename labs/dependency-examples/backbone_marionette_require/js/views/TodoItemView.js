@@ -13,13 +13,13 @@ define(['marionette','templates'], function (Marionette,templates) {
 
     events : {
       'click .destroy' : 'destroy',
-      'dblclick label' : 'editClick',
-      'keypress .edit' : 'updateOnEnter',
+      'dblclick label' : 'onEditClick',
+      'keypress .edit' : 'onEditKeypress',
       'click .toggle'  : 'toggle'
     },
 
     initialize : function() {
-      this.model.on('change',this.render,this);
+      this.bindTo(this.model, 'change', this.render, this);
     },
 
     onRender : function() {
@@ -36,12 +36,12 @@ define(['marionette','templates'], function (Marionette,templates) {
       this.model.toggle().save();
     },
 
-    editClick : function() {
+    onEditClick : function() {
       this.$el.addClass('editing');
       this.ui.edit.focus();
     },
 
-    updateOnEnter : function(evt) {
+    onEditKeypress : function(evt) {
       var ENTER_KEY = 13;
       var todoText = this.ui.edit.val().trim();
 
