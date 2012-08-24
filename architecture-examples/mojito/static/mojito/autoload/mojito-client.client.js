@@ -1,0 +1,1075 @@
+/*
+ * Copyright (c) 2011-2012, Yahoo! Inc.  All rights reserved.
+ * Copyrights licensed under the New BSD License.
+ * See the accompanying LICENSE file for terms.
+ */
+
+
+/*jslint anon:true, sloppy:true, nomen:true*/
+/*global YUI*/
+
+
+// Set up a global client-side Mojito namespace
+if (!YUI._mojito) {
+
+    /**
+     * The top-level Mojito namespace.
+     * @type {Object}
+     */
+    YUI._mojito = {
+        // this is initially a dummy logger object so that client code can set
+        // mutator functions before the logger has actually been instantiated
+        logger: {
+            _logMutatorCache: {
+                publisher: function() {
+                    YUI._mojito._clientYlog.apply(YUI._mojito._clientY,
+                        arguments);
+                }
+            },
+            set: function(k, v) {
+                this._logMutatorCache[k] = v;
+            }
+        },
+        // A general cache object to be used by internal mojito only
+        _cache: {},
+        _clientY: null,
+        _clientYlog: null
+    };
+}
+
+
+YUI.add('mojito-client', function(Y, NAME) {
+
+    // These methods are methods that potentially make XHR calls to retrieve
+    // data from the server. When the Mojito client is "paused" by calling the
+    // pause() function, all the methods below are queued as they are executed
+    // instead of being fully executed. When the resume() function is called,
+    // the pause queue is flushed and all the intercepted actions are taken at
+    // that time.
+    var PAUSEABLE = [
+            'executeAction',
+            'doRender',
+            'doBroadcast',
+            'doListen',
+            'doUnlisten'
+        ],
+        log,
+        lifecycleEvents,
+        State = {
+            PAUSED: 'paused',
+            ACTIVE: 'active'
+        };
+
+
+    // because there is a moment during startup when we need it, cache the
+    // original Y instance for use as the log platform
+    // And don't clobber the global
+    if (!YUI._mojito._clientY) {
+        YUI._mojito._clientY = Y;
+    }
+    log = function() {
+        if (YUI._mojito.logger && YUI._mojito.logger.log) {
+            YUI._mojito.logger.log.apply(YUI._mojito.logger, arguments);
+        } else {
+            YUI._mojito._clientY.log.apply(YUI._mojito._clientY, arguments);
+        }
+    };
+
+
+    // this is the heart of mojitProxy.render(), but it needs to be a separate
+    // function called once we have mojit type details
+    function privateRender(mp, data, view, cb) {
+        var mojitView,
+            renderer;
+
+        if (!mp._views || !mp._views[view]) {
+            cb(new Error('View "' + view + '" not found'));
+            return;
+        }
+
+        data = data || {};
+        // this is presumed to be useful enough that we'll set it up for them
+        data.mojit_assets = data.mojit_assets || mp._assetsRoot;
+
+        mojitView = mp._views[view];
+        renderer = new Y.mojito.ViewRenderer(mojitView.engine);
+        Y.log('Rendering "' + view + '" in Binder', 'debug', NAME);
+        renderer.render(data, mp.type, mojitView['content-path'], {
+            buffer: '',
+            flush: function(data) {
+                this.buffer += data;
+            },
+            done: function(data) {
+                this.buffer += data;
+                cb(null, this.buffer);
+            }
+        });
+    }
+
+
+    function setNewMojitView(viewData, mp) {
+
+        Y.log('setting new view on mojit ' + mp._instanceId, 'debug', NAME);
+
+        var newNode = Y.Node.create(viewData);
+        mp._node.replace(newNode);
+        mp._element = document.getElementById(mp._viewId);
+        mp._node = new Y.Node(mp._element);
+
+        if (Y.Lang.isFunction(mp._binder.onRefreshView)) {
+            mp._binder.onRefreshView(mp._node, mp._element);
+        }
+    }
+
+    // we have to match the children by instanceId to identify them and replace
+    // their viewId with the actual viewId for the binder that should be
+    // attached.
+    function processChildren(children, binderMap) {
+        var name,
+            viewId,
+            found;
+
+        for (name in children) {
+            if (children.hasOwnProperty(name)) {
+                for (viewId in binderMap) {
+                    if (binderMap.hasOwnProperty(viewId) && !found) {
+                        if (binderMap[viewId].instanceId ===
+                                children[name].instanceId) {
+                            children[name].viewId = viewId;
+                            found = true;
+                        }
+                    }
+                }
+                found = false;
+            }
+        }
+        return children;
+    }
+
+
+    function bindNode(binder, node, element) {
+        var handles = [];
+
+        if (Y.Lang.isFunction(binder.bind)) {
+            // Pass the "node" to the bind method
+            binder.bind(node, element);
+        }
+        // all automatic event delegation
+        if (Y.Lang.isFunction(binder.handleClick)) {
+            // This code should be deferred till after the page has visibly
+            // loaded
+            handles.push(Y.delegate('click', binder.handleClick, node,
+                function() { return true; },
+                binder));
+        }
+
+        // TODO: add all the event delegation magic here.
+        Y.log('Attached ' + handles.length + ' event delegates', 'debug', NAME);
+        return handles;
+    }
+
+
+    // TODO: complete work to call this in the destroyMojitProxy function().
+    // this function is never called /iy
+    function unbindNode(binder, handles) {
+        var retainBinder = false;
+
+        if (Y.Lang.isFunction(binder.unbind)) {
+            // let the binder decide whether it wants to stick around in case
+            // its node is reattached at some point in the future
+            retainBinder = binder.unbind.call(binder);
+        }
+
+        if (handles) {
+            Y.Array.each(handles, function(handle) {
+                Y.log('Detaching event handle from binder', 'debug', NAME);
+                handle.detach();
+            });
+        }
+        return retainBinder;
+    }
+
+
+    function findParentProxy(mojits, childId) {
+        var p;
+
+        // TODO: convert to "some" instead of each for performance. We're doing
+        // a "detect" here.
+        Y.Object.each(mojits, function(mojit) {
+            Y.Object.each(mojit.children, function(child) {
+                if (child.viewId === childId) {
+                    p = mojit.proxy;
+                    return true;
+                }
+            });
+            if (p) {
+                return true;
+            }
+        });
+        return p;
+    }
+
+
+    function recordBoundMojit(mojits, parentid, newid, type) {
+        if (parentid && mojits[parentid]) {
+            if (!mojits[parentid].children) {
+                mojits[parentid].children = {};
+            }
+            mojits[parentid].children[newid] = {
+                type: type,
+                viewId: newid
+            };
+            //console.log('recorded %s child of %s', newid, parentid);
+        }
+    }
+
+
+    /**
+     * The starting point for mojito to run in the browser. You can access one
+     * instance of the Mojito Client running within the browser environment
+     * through window.YMojito.client.
+     * @module MojitoClient
+     * @class Client
+     * @constructor
+     * @namespace Y.mojito
+     * @param {Object} config The entire configuration object written by the
+     *     server to start up mojito.
+     */
+    function MojitoClient(config) {
+        this.timeLogStack = [];
+        this.yuiConsole = null;
+        this._pauseQueue = [];
+        if (config) {
+            // Note the server sends cleased config data directly to the
+            // constructor from the deploy.server.js initializer to allow markup
+            // to move over the wire in config strings without triggering
+            // injection attacks. We need to undo that here so the strings
+            // return to their original format before we try to use them.
+            this.init(Y.mojito.util.uncleanse(config));
+        }
+    }
+
+
+    lifecycleEvents = {};
+
+
+    /**
+     * Subscribe to a MojitoClient lifecycle event.
+     * @method subscribe
+     * @param {string} evt name of event to subscribe to.
+     * @param {function(data)} cb callback called when the event fires.
+     */
+    MojitoClient.subscribe = function(evt, cb) {
+        // Subscribe works only in appLevel
+        if (Y && YUI._mojito._clientY &&
+                (Y._yuid !== YUI._mojito._clientY._yuid)) {
+            // Y.log('Applevel subscribe ?  ' + Y._yuid + " ==== " +
+            //     YUI._mojito._clientY._yuid, 'error', NAME);
+            return;
+        }
+        if (!lifecycleEvents[evt]) {
+            lifecycleEvents[evt] = [];
+        }
+        lifecycleEvents[evt].push(cb);
+    };
+
+
+    /**
+     * Fires a lifecycle event.
+     * @method fireLifecycle
+     * @param {string} evt The name of event to fire.
+     * @param {Object} data The data to pass to listeners.
+     * @private
+     */
+    function fireLifecycle(evt, data) {
+        var cbs = lifecycleEvents[evt],
+            c;
+        if (!cbs || !cbs.length) {
+            return;
+        }
+        for (c = 0; c < cbs.length; c += 1) {
+            cbs[c](data);
+        }
+    }
+
+
+    /**
+     * Fired at the beginning of the startup of MojitoClient.
+     *
+     * The data contains the following:
+     * <dl>
+     *  <dt><code>config</code></dt>
+     *  <dd>the config object used to initialize the MojitoClient</dd>
+     * </dl>
+     *
+     * Any change to the config will be picked up and used by MojitoClient.
+     * @param {Object} data The data for the event.
+     */
+
+    /**
+     * Fired at the end of the startup of MojitoClient.
+     * @param {Object} data The data for the event. (Empty in this case).
+     */
+
+    /**
+     * Fired before the binders are attached to the page.
+     *
+     * The data contains the following:
+     * <dl>
+     *  <dt><code>binderMap</code></dt>
+     *  <dd>the details of the binders to attach to the page</dd>
+     *  <dt><code>parentId</code></dt>
+     *  <dd>[optional] the parent binder view id to attach any children</dd>
+     *  <dt><code>topLevelMojitViewId</code></dt>
+     *  <dd>[optional] the topmost (root) binder view id to attach as a child to
+     *      the parent</dd>
+     * </dl>
+     *
+     * Any change to the data will be picked up and used by MojitoClient.
+     * @param {Object} data The data for the event.
+     */
+
+    /**
+     * Fired after the binders are attached to the page.
+     * @param {Object} data The data for the event. (Empty in this case).
+     */
+
+    MojitoClient.prototype = {
+
+        init: function(config) {
+            fireLifecycle('pre-init', {config: config});
+            Y.mojito.perf.mark('mojito', 'core_client_start');
+            var that = this,
+                logConfig = {},
+                appConfig = config.appConfig;
+
+            // YUI Console
+            if (appConfig && appConfig.yui &&
+                    appConfig.yui.showConsoleInClient && !that.yuiConsole) {
+                YUI().use('console-filters', function(Y) {
+                    Y.one('body').addClass('yui3-skin-sam');
+                    that.yuiConsole = new Y.Console({
+                        plugins: [Y.Plugin.ConsoleFilters],
+                        logSource: Y.Global,
+                        height: 600
+                    });
+                    that.yuiConsole.render();
+                    that.init(config);
+                });
+                return;
+            }
+
+            if (appConfig && appConfig.log && appConfig.log.client) {
+                logConfig = appConfig.log.client;
+            }
+
+            // to allow any client code to provide global log mutators before
+            // mojito starts...
+            Y.Array.each(['formatter', 'writer', 'publisher'],
+                function(logMutator) {
+                    if (YUI._mojito.logger._logMutatorCache[logMutator]) {
+                        logConfig[logMutator] =
+                            YUI._mojito.logger._logMutatorCache[logMutator];
+                    }
+                });
+
+            // Don't clobber globals
+            if (!YUI._mojito.logger.log) {
+                YUI._mojito.logger = new Y.mojito.Logger(logConfig);
+            }
+            if (!YUI._mojito.loader) {
+                YUI._mojito.loader = new Y.mojito.Loader(appConfig,
+                    config.pathToRoot);
+            }
+            // push all client logs through our logger
+            if (!YUI._mojito._clientYlog) {
+                YUI._mojito._clientYlog = Y.log;
+            }
+            Y.log = log;
+
+            if (Y.mojito.TunnelClient) {
+                this.tunnel = new Y.mojito.TunnelClient(config.appConfig);
+            }
+
+            // Make the "Resource Store" by wrapping it with the adapter
+            this.resourceStore = new Y.mojito.ResourceStore(config);
+
+            // the resource store adapter and the dispatcher must be passed the
+            // mojito logger object, because they were created within a Y scope
+            // that still has reference to the original Y.log function
+            this.resourceStore = Y.mojito.ResourceStoreAdapter.init('client',
+                this.resourceStore, YUI._mojito.logger);
+            this.dispatcher = Y.mojito.Dispatcher.init(this.resourceStore,
+                null, YUI._mojito.logger, YUI._mojito.loader);
+
+            // request context from server
+            this.context = config.context;
+            // application configuration
+            this.config = config;
+
+            // create listener bag for mojit comms
+            this._listeners = {};
+            // the mojits represented in the current DOM, keyed by DOM element
+            // id
+            this._mojits = {};
+
+            Y.mojito.perf.mark('mojito',
+                'core_client_end', 'Mojito client library loaded');
+            /* FUTURE -- perhaps only do this once a user needs it
+            var singletons;
+            singletons = {
+                tunnel:         this.tunnel,
+                resourceStore:  this.resourceStore,
+                dispatcher:     this.dispatcher
+            }
+            fireLifecycle('made-singletons', singletons);
+            // allow the event listeners to modify the singletons
+            this.tunnel         = singletons.tunnel;
+            this.resourceStore  = singletons.resourceStore;
+            this.dispatcher     = singletons.dispatcher;
+            */
+
+            this.attachBinders(config.binderMap);
+
+            // wrap pause-able methods
+            Y.Array.each(PAUSEABLE, function(mName) {
+                var me = this,
+                    originalMethod = me[mName];
+
+                this[mName] = function() {
+                    // during execution of these pauseable function, we'll check
+                    // to see if the client is in a paused state
+                    if (me._state === State.PAUSED) {
+                        // now just queue the method call with original function
+                        // and args for execution on resume()
+                        me._pauseQueue.push({
+                            fn: originalMethod,
+                            args: arguments
+                        });
+                    } else {
+                        // not paused, so go ahead and apply the function
+                        originalMethod.apply(me, arguments);
+                    }
+                };
+            }, this);
+
+            this._state = State.ACTIVE;
+            fireLifecycle('post-init', {});
+        },
+
+
+        /**
+         * Given a set of binder information, initialize binder instances and
+         * bind them to the page.
+         * @method attachBinders
+         * @private
+         * @param {Object} binderMap viewId ==> binder data, contains all we
+         *     need from the mojit dispatch's meta object about all the binders
+         *     that were executed to create the DOM addition recently added to
+         *     the document.
+         * @param {string} parentId the parent binder view id to attach any
+         *     children.
+         * @param {string} topLevelMojitViewId the topmost (root) binder view
+         *     id to attach as a child to the parent.
+         */
+        attachBinders: function(binderMap, parentId, topLevelMojitViewId) {
+            var context = this.context,
+                me = this,
+                newMojitProxies = [],
+                parent,
+                topLevelMojitObj,
+                totalBinders = Y.Object.size(binderMap),
+                bindersComplete = 0,
+                onBinderComplete,
+                // Note: This here so we can get access view meta data for
+                // each binder
+                store = this.resourceStore,
+                eventData = {
+                    binderMap: binderMap,
+                    parentId: parentId,
+                    topLevelMojitViewId: topLevelMojitViewId
+                };
+
+            fireLifecycle('pre-attach-binders', eventData);
+            this.pause();
+            binderMap = eventData.binderMap;
+            parentId = eventData.parentId;
+            topLevelMojitViewId = eventData.topLevelMojitViewId;
+            Y.mojito.perf.mark('mojito', 'core_binders_start');
+
+            if (!totalBinders) {
+                Y.mojito.perf.mark('mojito', 'core_binders_resume');
+                me.resume();
+                Y.mojito.perf.mark('mojito', 'core_binders_end');
+                fireLifecycle('post-attach-binders', {});
+                return;
+            }
+
+            onBinderComplete = function() {
+
+                // only run the function when all binders have completed
+                bindersComplete += 1;
+                if (bindersComplete < totalBinders) {
+                    return;
+                }
+
+                // now that all binders have been initialized and accounted
+                // for...
+
+                // first, we must create the MojitClient's state of the binders
+                // before binding, in case the binders' bind() function tries to
+                // do anything that includes children
+                Y.Array.each(newMojitProxies, function(item) {
+                    var proxy = item.proxy,
+                        children = item.children;
+
+                    // 'me' here is the MojitoClient instance.
+                    me._mojits[proxy._viewId] = {
+                        proxy: proxy,
+                        children: children
+                    };
+                });
+
+                // now we'll loop through again and do the binding, saving the
+                // handles
+                Y.Array.each(newMojitProxies, function(item) {
+                    var viewid = item.proxy.getId(),
+                        mojit = me._mojits[viewid],
+                        proxy = item.proxy;
+
+                    mojit.handles = bindNode(proxy._binder, proxy._node,
+                        proxy._element);
+
+                    recordBoundMojit(me._mojits, parentId, viewid, proxy.type);
+                });
+
+                Y.mojito.perf.mark('mojito', 'core_binders_resume');
+                me.resume();
+                Y.mojito.perf.mark('mojito', 'core_binders_end');
+                fireLifecycle('post-attach-binders', {});
+            };
+
+            // loop over the binder map, load, use, and instantiate them
+            Y.Object.each(binderMap, function(binderData, viewId) {
+
+                // Make sure viewIds's are not bound to more than once
+                if (me._mojits[viewId]) {
+                    Y.log('Not rebinding binder for ' + binderData.type +
+                          ' for DOM node ' + viewId, 'info', NAME);
+                    onBinderComplete();
+                    return;
+                }
+
+                if (!binderData.name) {
+                    Y.log('No binder for ' + binderData.type + '.' +
+                          binderData.action, 'info', NAME);
+                    onBinderComplete();
+                    return;
+                }
+
+                YUI._mojito.loader.load(binderData.needs, function(err) {
+
+                    var config,
+                        type = binderData.type,
+                        base = binderData.base,
+                        binderName = binderData.name,
+                        instanceId = binderData.instanceId,
+                        mojitProxy,
+                        binderClass,
+                        children,
+                        binder,
+                        mojitNode,
+                        element;
+
+                    if (err) {
+                        Y.log('failed to load prerequisites for binder ' +
+                              binderName, 'error', NAME);
+                        onBinderComplete();
+                        return;
+                    }
+
+                    // "Y.mojito.binders" is blind to all new "binders" added to
+                    // the page we have to "use()" any binder name we are given
+                    // to have access to it.
+                    Y.use(binderData.name, function(BY) {
+
+                        // Check again to make sure viewIds's are not bound
+                        // more than once, just in case they were bound during
+                        // the async fetch for the binder
+                        if (me._mojits[viewId]) {
+                            Y.log('Not rebinding binder for ' + binderData.type +
+                                  ' for DOM node ' + viewId, 'info', NAME);
+                            onBinderComplete();
+                            return;
+                        }
+
+                        config = Y.mojito.util.copy(binderData.config);
+
+                        element = document.getElementById(viewId);
+
+                        if (!element) {
+                            Y.log('Did not find DOM node "' + viewId +
+                                '" for binder "' + binderName + '"',
+                                'warn', NAME);
+                            onBinderComplete();
+                            return;
+                        }
+
+                        mojitNode = new Y.Node(element);
+
+                        // BY reference here is the 'use()' return value...the
+                        // Binder class we need to access.
+                        binderClass = BY.mojito.binders[binderName];
+
+                        binder = Y.mojito.util.heir(binderClass);
+
+                        Y.log('Created binder "' + binderName +
+                              '" for DOM node "' + viewId + '"', 'info', NAME);
+
+                        if (binderData.children) {
+                            children = processChildren(binderData.children,
+                                binderMap);
+                        }
+
+                        // One mojitProxy per binder. The mp is how client code
+                        // gets to the binder...they don't hold refs to anything
+                        // but the mp. (close enough).
+                        mojitProxy = new Y.mojito.MojitProxy({
+                            // private
+                            action: binderData.action,
+                            binder: binder,
+                            base: base,
+                            node: mojitNode,
+                            element: element,
+                            viewId: viewId,
+                            instanceId: instanceId,
+                            client: me,
+                            store: store,
+                            // public
+                            type: type,
+                            config: config,
+                            context: context
+                        });
+                        // If client is paused, proxy must be paused
+                        if (me._state === State.PAUSED) {
+                            mojitProxy._pause();
+                        }
+
+                        newMojitProxies.push({
+                            proxy: mojitProxy,
+                            children: children
+                        });
+
+                        if (Y.Lang.isFunction(binder.init)) {
+                            binder.init(mojitProxy);
+                        }
+
+                        onBinderComplete();
+
+                    });
+
+                });
+
+            }, this);
+
+        },
+
+
+        /**
+         * Used for binders to execute their actions through the Mojito
+         * framework through their proxies.
+         * @method executeAction
+         * @param {Object} command must contain mojit id and action to execute.
+         * @param {String} viewId the view id of the current mojit, which is
+         *     executing the action.
+         * @param {Function} cb callback to run when complete.
+         * @private
+         */
+        executeAction: function(command, viewId, cb) {
+            var my = this;
+
+            // Sending a command to dispatcher that defines our action execution
+            Y.log('Executing "' + (command.instance.base || '@' +
+                command.instance.type) + '/' + command.instance.action +
+                '" on the client.', 'mojito', NAME);
+
+            this.resourceStore.expandInstanceForEnv('client',
+                command.instance, this.context, function(err, details) {
+
+                    // if there is a controller in the client type details, that
+                    // means the controller exists here "cast details.controller
+                    // to Boolean" ;)
+                    var existsOnClient = Boolean(details.controller);
+
+                    command.context = my.context;
+
+                    // if this controller does not exist here, or we have been
+                    // instructed to force an RPC call, we'll go to the server
+                    if (!existsOnClient || command.rpc) {
+                        // Make the call via a fixed RPC channel
+                        my.tunnel.rpc(command,
+                            new Y.mojito.OutputHandler(viewId, cb, my));
+                    } else {
+                        // Dispatch locally
+                        my.dispatcher.dispatch(command,
+                            new Y.mojito.OutputHandler(viewId, cb, my));
+                    }
+                });
+        },
+
+
+        doRender: function(mp, data, view, cb) {
+            if (!mp._views || !mp._assetsRoot) {
+                this.resourceStore.getType('client', mp.type, mp.context,
+                    function(err, typeInfo) {
+                        if (err) {
+                            cb(new Error(
+                                'Failed to load mojit information for ' +
+                                    mp.type
+                            ));
+                            return;
+                        }
+                        mp._views = typeInfo.views;
+                        mp._assetsRoot = typeInfo.assetsRoot;
+                        privateRender(mp, data, view, cb);
+                    });
+            } else {
+                privateRender(mp, data, view, cb);
+            }
+        },
+
+
+        doBroadcast: function(eventId, source, payload, opts) {
+            opts = opts || {};
+            var tgtInstId,
+                tgtViewId,
+                child = opts.target ?
+                        this._mojits[source].children[opts.target.slot] : null;
+            if (opts && opts.target) {
+                if (opts.target.slot && child) {
+                    tgtInstId = child.instanceId;
+                    // find the target of the message
+                    Y.Object.each(this._mojits, function(v, k) {
+                        if (v.proxy._instanceId === tgtInstId) {
+                            tgtViewId = k;
+                        }
+                    });
+                    // if there was no target found, give an error and return
+                    if (!tgtViewId) {
+                        Y.log('No broadcast target found for ' +
+                            opts.target.slot + ':' + tgtInstId, 'warn', NAME);
+                        return;
+                    }
+                } else if (opts.target.viewId) {
+                    tgtViewId = opts.target.viewId;
+                }
+            }
+            if (this._listeners[eventId]) {
+                Y.Array.each(this._listeners[eventId], function(listener) {
+                    if (!tgtViewId || tgtViewId === listener.viewId) {
+                        listener.cb({
+                            data: payload,
+                            source: source
+                        });
+                    }
+                });
+            }
+        },
+
+
+        doListen: function(eventId, viewId, callback) {
+            if (!this._listeners[eventId]) {
+                this._listeners[eventId] = [];
+            }
+            this._listeners[eventId].push({
+                guid: viewId,     // DEPRECATED, use viewId instead
+                viewId: viewId,
+                cb: callback
+            });
+        },
+
+
+        doUnlisten: function(viewId, needleEvent) {
+            var listeners = this._listeners,
+                eventType;
+
+            function processListenerArray(arr, id) {
+                var i = 0;
+
+                while (i < arr.length) {
+                    if (arr[i].viewId === id) {
+                        arr.splice(i, 1);
+                        // no increment. i is now the "next" index
+                    } else {
+                        i += 1;
+                    }
+                }
+                return arr;
+            }
+
+            // if there is only one event to unlisten, do it quickly
+            if (needleEvent) {
+                processListenerArray(listeners[needleEvent], viewId);
+            } else {
+                // but if we need to unlisten to all callbacks registered by
+                // this binder, we must loop over the entire listener object
+                for (eventType in listeners) {
+                    if (listeners.hasOwnProperty(eventType)) {
+                        processListenerArray(listeners[eventType], viewId);
+                    }
+                }
+            }
+        },
+
+
+        destroyMojitProxy: function(id, retainNode) {
+            var parent;
+
+            if (this._mojits[id]) {
+                // TODO: activate call to unbindNode below:
+                // unbindNode(this._mojits[id].proxy._binder,
+                //      this._mojits[id].handles);
+                this._mojits[id].proxy._destroy(retainNode);
+                delete this._mojits[id];
+                // We don't manage binder children automatically, but any time a
+                // new child is added or removed, we should at least give the
+                // application code a chance to stay up to date if they want to.
+                // The only gap is when a mojit destroys itself.
+                // onChildDestroyed is called whenever a binder is destroyed so
+                // any parents can be notified.
+                parent = findParentProxy(this._mojits, id);
+                if (parent && parent._binder.onChildDestroyed &&
+                        Y.Lang.isFunction(parent._binder.onChildDestroyed)) {
+                    parent._binder.onChildDestroyed({ id: id });
+                }
+            }
+        },
+
+
+        /**
+         * Pause the Mojito Client and all mojits that are running. This will
+         * notify all binders that they have been paused by calling their
+         * onPause() functions. It will prevent the immediate execution of
+         * several mojit proxy operations that might cause a long process to
+         * begin (especially things that might go to the server).
+         *
+         * To resume, simply call .resume(). This will immediately execute all
+         * actions that occurred while Mojito was paused.
+         * @method pause
+         */
+        pause: function() {
+            if (this._state === State.PAUSED) {
+                Y.log('Cannot "pause" the mojito client because it has' +
+                    ' already been paused.', 'warn', NAME);
+                return;
+            }
+            this._state = State.PAUSED;
+            Y.Object.each(this._mojits, function(moj) {
+                moj.proxy._pause();
+            });
+            Y.log('Mojito Client state: ' + this._state + '.', 'info', NAME);
+        },
+
+
+        /**
+         * Resumes the Mojito client after it has been paused (see method
+         * "pause"). If there are any queued actions that were executed and
+         * cached during the pause, calling resume() will immediately execute
+         * them. All binders are notified through their onResume() function that
+         * they are been resumed.
+         * @method resume
+         */
+        resume: function() {
+            if (this._state !== State.PAUSED) {
+                Y.log('Cannot "resume" the mojito client because it was' +
+                    ' never paused.', 'warn', NAME);
+                return;
+            }
+            this._state = State.ACTIVE;
+            Y.Object.each(this._mojits, function(moj) {
+                moj.proxy._resume();
+            });
+            Y.Array.each(this._pauseQueue, function(queuedItem) {
+                var fn = queuedItem.fn,
+                    args = queuedItem.args;
+
+                fn.apply(this, args);
+            }, this);
+            this._pauseQueue = [];
+            Y.log('Mojito Client state: ' + this._state + '.', 'info', NAME);
+        },
+
+
+        refreshMojitView: function(mp, opts, cb) {
+            var my = this;
+
+            mp.invoke(mp._action, opts, function(err, data, meta) {
+
+                if (err) {
+                    if (typeof cb === 'function') {
+                        cb(new Error(err));
+                        return;
+                    } else {
+                        throw new Error(err);
+                    }
+                }
+
+                /*
+                 * The new markup returned from the server has all new DOM ids
+                 * within it, but we don't want to use them. Before doing any
+                 * DOM stuff, we are going to replace all the new view ids with
+                 * our current view ids for this mojit view as well as any
+                 * children that have come along for the ride.
+                 */
+
+                var idReplacements = {}, // from: to
+                    metaBinderViewId,
+                    mBinder,
+                    freshBinders = {},
+                    clientMojitViewId,
+                    clientMojit,
+                    processMojitChildrenForIdReplacements;
+
+                /*
+                 * Recursive function used to walk down the hierarchy of
+                 * children in order to replace every view id within the meta
+                 * data
+                 */
+                processMojitChildrenForIdReplacements =
+                    function(clientChildren, metaChildren, idRepls) {
+                        var metaChild,
+                            childMojitProxy,
+                            metaSubChildren,
+                            slot;
+
+                        if (!metaChildren || !clientChildren) {
+                            return;
+                        }
+                        for (slot in metaChildren) {
+                            if (metaChildren.hasOwnProperty(slot)) {
+                                metaChild = metaChildren[slot];
+                                if (clientChildren && clientChildren[slot]) {
+                                    childMojitProxy =
+                                        clientChildren[slot].proxy;
+                                }
+                                if (childMojitProxy) {
+                                    metaSubChildren = meta.binders[
+                                        metaChild.viewId
+                                    ].config.children;
+                                    idRepls[metaChild.viewId] =
+                                        childMojitProxy.getId();
+                                    if (metaSubChildren) {
+                                        processMojitChildrenForIdReplacements(
+                                            my.mojits[childMojitProxy.getId()].
+                                                children,
+                                            metaSubChildren,
+                                            idRepls
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                for (clientMojitViewId in my._mojits) {
+                    if (my._mojits.hasOwnProperty(clientMojitViewId)) {
+                        clientMojit = my._mojits[clientMojitViewId];
+                        for (metaBinderViewId in meta.binders) {
+                            if (meta.binders.hasOwnProperty(metaBinderViewId)) {
+                                mBinder = meta.binders[metaBinderViewId];
+                                if (mBinder.instanceId ===
+                                        clientMojit.proxy._instanceId) {
+                                    Y.log('matched instanceId ' +
+                                        mBinder.instanceId,
+                                        'debug',
+                                        NAME
+                                        );
+                                    idReplacements[metaBinderViewId] =
+                                        clientMojitViewId;
+                                    processMojitChildrenForIdReplacements(
+                                        my._mojits[clientMojit.proxy.getId()].
+                                            children,
+                                        mBinder.children,
+                                        idReplacements
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Y.Object.each(idReplacements, function(to, from) {
+                    var regex = new RegExp(from, 'g');
+
+                    data = data.replace(regex, to);
+                });
+
+                setNewMojitView(data, mp);
+
+                // Do a "light bind" for each child, keeping track of any
+                // binders that need a "full bind". We'll bind those in the
+                // attachBinders call below this loop.
+                Y.Object.each(meta.children, function(child, slot) {
+
+                    var childViewId = idReplacements[child.viewId],
+                        childMojit = my._mojits[childViewId],
+                        childProxy,
+                        childNode,
+                        childElement,
+                        childBinder;
+
+                    // may not be a binder for this mojit child, so there would
+                    // be no mojit proxy yet
+                    if (!childMojit) {
+                        // this must be a new binder instance that we need to
+                        // instantiate
+                        freshBinders[child.viewId] = meta.binders[child.viewId];
+                        return;
+                    }
+
+                    childProxy = my._mojits[childViewId].proxy;
+                    childNode = mp._node.one('#' + childViewId);
+                    childElement = childNode._node;
+                    childBinder = childProxy._binder;
+
+                    // set new node and element into the mojit proxy object
+                    childProxy._node = childNode;
+                    childProxy._element = childElement;
+
+                    if (Y.Lang.isFunction(childBinder.onRefreshView)) {
+                        childBinder.onRefreshView(childNode, childElement);
+                    } else if (Y.Lang.isFunction(childBinder.bind)) {
+                        childBinder.bind(childNode, childElement);
+                    }
+                });
+
+                // Do a "full bind" on the new binders we tracked in the loop
+                // above. These need the full treatment.
+                my.attachBinders(freshBinders);
+
+                if (cb) {
+                    cb(data, meta);
+                }
+            });
+        }
+    };
+
+    Y.namespace('mojito').Client = MojitoClient;
+
+}, '0.1.0', {requires: [
+    'io-base',
+    'event-delegate',
+    'node-base',
+    'querystring-stringify-simple',
+    'mojito',
+    'mojito-logger',
+    'mojito-loader',
+    'mojito-dispatcher',
+    'mojito-route-maker',
+    'mojito-client-store',
+    'mojito-resource-store-adapter',
+    'mojito-mojit-proxy',
+    'mojito-tunnel-client',
+    'mojito-output-handler',
+    'mojito-util'
+]});

@@ -1,0 +1,69 @@
+{
+    "type": "HTMLFrameMojit",
+    "config": {},
+    "action": "index",
+    "instanceId": "yui_3_5_1_2_3_1345816854402_12",
+    "guid": "yui_3_5_1_2_3_1345816854402_12",
+    "actions": [],
+    "models": {},
+    "modelYUIModuleNames": {},
+    "views": {
+        "index": {
+            "engine": "mu"
+        }
+    },
+    "yui": {
+        "config": {
+            "modules": {
+                "mojito-mu": {
+                    "fullpath": "/static/mojito/addons/view-engines/mu.client.js",
+                    "requires": [
+                        "mojito-util",
+                        "io-base"
+                    ]
+                }
+            }
+        },
+        "requires": [],
+        "langs": {},
+        "sorted": [],
+        "sortedPaths": {}
+    },
+    "definition": {
+        "yui": {
+            "sharedYUIInstance": true
+        }
+    },
+    "defaults": {},
+    "appConfig": {
+        "mojitsDirs": [
+            "mojits"
+        ],
+        "routesFiles": [
+            "routes.json"
+        ],
+        "tunnelPrefix": "/tunnel",
+        "yui": {
+            "dependencyCalculations": "precomputed"
+        },
+        "appPort": 6789,
+        "staticHandling": {
+            "appName": "todomvc"
+        },
+        "log": {
+            "server": {
+                "yui": false,
+                "level": "warn"
+            },
+            "client": {
+                "yui": false,
+                "level": "warn"
+            }
+        },
+        "builds": {
+            "html5app": {
+                "forceRelativePaths": true
+            }
+        }
+    }
+}
