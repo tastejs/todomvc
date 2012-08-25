@@ -12,15 +12,16 @@ define(['marionette','vent','templates','views/ActiveCount'], function (Marionet
       filters : '#filters a'
     },
     events : {
-      'click #clear-completed' : 'clearCompletedClick',
-      'click #filters a' : 'onFilterClick'
+      'click #clear-completed' : 'clearCompletedClick'
+    },
+    initialize : function() {
+      this.bindTo(vent, 'todoList:filter', this.updateFilterSelection, this);
     },
     onRender : function() {
       this.count.show(new ActiveCount({collection : this.collection}));
     },
-    onFilterClick : function(evt) {
-      this.ui.filters.removeClass('selected');
-      $(evt.currentTarget).addClass('selected');
+    updateFilterSelection : function(filter) {
+      this.ui.filters.removeClass('selected').filter('[href="#/' + filter + '"]').addClass('selected');
     },
     clearCompletedClick : function() {
       vent.trigger('todoList:clear:completed');
