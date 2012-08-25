@@ -1,7 +1,7 @@
-#todo-list.filter-active .completed {
+#todoapp.filter-active #todo-list .completed {
   display:none
 }
-#todo-list.filter-completed .active {
+#todoapp.filter-completed #todo-list .active {
   display:none
 }
 

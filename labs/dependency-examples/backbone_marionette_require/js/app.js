@@ -1,3 +1,4 @@
+/*global $*/
 define(
   ['marionette','vent','collections/TodoList','views/Header','views/TodoListCompositeView','views/Footer'],
   function(marionette, vent, TodoList, Header, TodoListCompositeView, Footer){
@@ -37,6 +38,11 @@ define(
         app.footer.$el.show();
       }
     }
+
+    vent.on('todoList:filter',function(filter) {
+      filter = filter || 'all';
+      $('#todoapp').attr('class', 'filter-' + filter);
+    });
 
     vent.on('todoList:clear:completed',function(){
       function destroy(todo)     { todo.destroy(); }
