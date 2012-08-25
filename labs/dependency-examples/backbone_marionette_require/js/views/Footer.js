@@ -12,7 +12,7 @@ define(['marionette','vent','templates','views/ActiveCount'], function (Marionet
       filters : '#filters a'
     },
     events : {
-      'click #clear-completed' : 'clearCompletedClick'
+      'click #clear-completed' : 'onClearClick'
     },
     initialize : function() {
       this.bindTo(vent, 'todoList:filter', this.updateFilterSelection, this);
@@ -23,7 +23,7 @@ define(['marionette','vent','templates','views/ActiveCount'], function (Marionet
     updateFilterSelection : function(filter) {
       this.ui.filters.removeClass('selected').filter('[href="#/' + filter + '"]').addClass('selected');
     },
-    clearCompletedClick : function() {
+    onClearClick : function() {
       vent.trigger('todoList:clear:completed');
     }
   });
