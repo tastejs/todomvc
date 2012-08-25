@@ -2,7 +2,7 @@
 define(['backbone','lib/backbone-localStorage'],function(Backbone){
   'use strict';
 
-  var Todo = Backbone.Model.extend({
+  return Backbone.Model.extend({
     localStorage: new Backbone.LocalStorage('todos-backbone'),
     defaults: {
       title     : '',
@@ -17,6 +17,5 @@ define(['backbone','lib/backbone-localStorage'],function(Backbone){
     }
   });
 
-  return Todo;
 });
 

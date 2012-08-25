@@ -3,7 +3,7 @@ define(['backbone','models/Todo','lib/backbone-localStorage'],function(Backbone,
 
   function isCompleted(todo) { return todo.get('completed'); }
 
-  var Todos = Backbone.Collection.extend({
+  return Backbone.Collection.extend({
     model: Todo,
     localStorage: new Backbone.LocalStorage('todos-backbone'),
 
@@ -18,5 +18,4 @@ define(['backbone','models/Todo','lib/backbone-localStorage'],function(Backbone,
     }
   });
 
-  return Todos;
 });
