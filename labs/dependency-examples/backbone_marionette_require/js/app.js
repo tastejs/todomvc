@@ -25,7 +25,7 @@ define(
       app.main.show(new TodoListCompositeView(viewOptions));
       app.footer.show(new Footer(viewOptions));
 
-      app.bindTo(viewOptions.collection, 'all', updateVisibility);
+      app.bindTo(todoList, 'all', updateVisibility);
       updateVisibility();
     });
 
