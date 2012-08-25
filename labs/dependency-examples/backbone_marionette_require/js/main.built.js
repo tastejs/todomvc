@@ -4892,7 +4892,7 @@ e.reject(this.records, function(e) {
         return t.getSyncMethod(n).apply(this, [ e, n, r, i ]);
     };
 }(), define("lib/backbone-localStorage", function() {}), define("models/Todo", [ "backbone", "lib/backbone-localStorage" ], function(e) {
-    var t = e.Model.extend({
+    return e.Model.extend({
         localStorage: new e.LocalStorage("todos-backbone"),
         defaults: {
             title: "",
@@ -4906,17 +4906,16 @@ e.reject(this.records, function(e) {
             return this.set("completed", !this.get("completed"));
         }
     });
-    return t;
 }), define("collections/TodoList", [ "backbone", "models/Todo", "lib/backbone-localStorage" ], function(e, t) {
     function n(e) {
         return e.get("completed");
     }
-    var r = e.Collection.extend({
+    return e.Collection.extend({
         model: t,
         localStorage: new e.LocalStorage("todos-backbone"),
-        getCompleted: function(
-) {
-            return this.filter(n);
+        getCompleted: function() {
+            
+return this.filter(n);
         },
         getActive: function() {
             return this.reject(n);
@@ -4925,7 +4924,6 @@ e.reject(this.records, function(e) {
             return e.get("created");
         }
     });
-    return r;
 }), function() {
     var e = [ "Msxml2.XMLHTTP", "Microsoft.XMLHTTP", "Msxml2.XMLHTTP.4.0" ], t = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im, n = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im, r = [], i = {
         evaluate: /<%([\s\S]+?)%>/g,
@@ -4935,8 +4933,8 @@ e.reject(this.records, function(e) {
             return "'," + t.replace(/\\'/g, "'") + ",'";
         }).replace(n.evaluate || null, function(e, t) {
             return "');" + t.replace(/\\'/g, "'").replace(/[\r\n\t]/g, " ") + "; __p.push('";
-        }).replace(/\r/g, "").replace(/\n/g, ""
-).replace(/\t/g, "") + "');}return __p.join('');";
+        }).replace(/\r/g, "").replace(/\n/g, "").replace(/\t/g, "") + "');}return __p.join('');"
+;
         return r;
     };
     define("tpl", [], function() {
@@ -4959,8 +4957,8 @@ e.reject(this.records, function(e) {
                 return e;
             },
             jsEscape: function(e) {
-                return e.replace(/(['\\])/g, "\\$1"
-).replace(/[\f]/g, "\\f").replace(/[\b]/g, "\\b").replace(/[\n]/g, "").replace(/[\t]/g, "").replace(/[\r]/g, "");
+                return e.replace(/(['\\])/g, "\\$1").replace(/[\f]/g, "\\f").replace(/[\b]/g, "\\b"
+).replace(/[\n]/g, "").replace(/[\t]/g, "").replace(/[\r]/g, "");
             },
             createXhr: function() {
                 var t, n, r;
@@ -4981,8 +4979,8 @@ e.reject(this.records, function(e) {
             get: o,
             load: function(e, t, n, o) {
                 var u = !1, a, f = e.indexOf("."), l = e.substring(0, f), c = e.substring(f + 1, e.length);
-                f = c.indexOf("!"), f !== -1 && (u = c.substring(f + 1, c.length), u = u === "strip", c = 
-c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l + "." + c), i.get(a, function(t) {
+                f = c.indexOf("!"), f !== -1 && (u = c.substring(f + 1, c.length), u = u === "strip", c = c.substring(0, f)), a = "nameToUrl" in t ? t.
+nameToUrl(l, "." + c) : t.toUrl(l + "." + c), i.get(a, function(t) {
                     t = s(t), o.isBuild || (t = new Function("obj", t)), t = u ? i.strip(t) : t, o.isBuild && o.inlineText && (r[e] = t), n(t);
                 });
             },
@@ -4999,8 +4997,8 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
         var __p = [], print = function() {
             __p.push.apply(__p, arguments);
         };
-        with (obj || {}) __p.push('<div class="view">  <input class="toggle" type="checkbox" '), completed && __p.push("checked"), __p.push(">    <label>", title, '</label>  <button class="destroy"></button></div><input class="edit" value="'
-, title, '">');
+        with (obj || {}) __p.push('<div class="view">  <input class="toggle" type="checkbox" '), completed && __p.push("checked"), __p.push(">    <label>", title, '</label>  <button class="destroy"></button></div><input class="edit" value="', title
+, '">');
         return __p.join("");
     };
 }), define("tpl!templates/todoListCompositeView.tmpl", function() {
@@ -5016,12 +5014,12 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
         var __p = [], print = function() {
             __p.push.apply(__p, arguments);
         };
-        with (obj || {}) __p.push('<span id="todo-count"><strong></strong> items left</span><ul id="filters">  <li>    <a class="selected" href="#/">All</a>  </li>  <li>    <a href="#/active">Active</a>  </li>  <li>    <a href="#/completed">Completed</a>  </li></ul><button id="clear-completed">Clear completed</button>');
+        with (obj || {}) __p.push('<span id="todo-count"><strong></strong> items left</span><ul id="filters">  <li>    <a href="#/">All</a>  </li>  <li>    <a href="#/active">Active</a>  </li>  <li>    <a href="#/completed">Completed</a>  </li></ul><button id="clear-completed">Clear completed</button>');
         return __p.join("");
     };
-}), define("tpl!templates/header.tmpl"
-, function() {
-    return function(obj) {
+}), define("tpl!templates/header.tmpl", function() {
+    
+return function(obj) {
         var __p = [], print = function() {
             __p.push.apply(__p, arguments);
         };
@@ -5043,9 +5041,9 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
         },
         events: {
             "keypress #new-todo": "onInputKeypress"
-        
-},
-        onInputKeypress: function(e) {
+        },
+        onInputKeypress
+: function(e) {
             var t = 13, n = this.ui.input.val().trim();
             e.which === t && n && (this.collection.create({
                 title: n
@@ -5072,8 +5070,8 @@ c.substring(0, f)), a = "nameToUrl" in t ? t.nameToUrl(l, "." + c) : t.toUrl(l +
             this.$el.removeClass("active completed"), this.model.get("completed") ? this.$el.addClass("completed") : this.$el.addClass("active");
         },
         destroy: function() {
-            
-this.model.destroy();
+            this.model.destroy()
+;
         },
         toggle: function() {
             this.model.toggle().save();
@@ -5092,30 +5090,27 @@ this.model.destroy();
         itemView: r,
         ui: {
             list: "#todo-list",
-            toggleAll: "#toggle-all"
+            toggle: "#toggle-all"
         },
         events: {
             "click #toggle-all": "onToggleAllClick"
         },
         initialize: function() {
-            this.bindTo(n, "todoList:filter", this.setFilter, this), this.bindTo(this.collection, "all", this.updateToggleCheckbox, this
-);
+            this.bindTo(this.collection, "all", this.updateToggleCheckbox, this);
         },
         onRender: function() {
-            this.updateToggleCheckbox();
+            this.updateToggleCheckbox
+();
         },
         updateToggleCheckbox: function() {
             function e(e, t) {
                 return e && t.get("completed");
             }
             var t = this.collection.reduce(e, !0);
-            this.ui.toggleAll.prop("checked", t);
+            this.ui.toggle.prop("checked", t);
         },
         appendHtml: function(e, t) {
             this.ui.list.append(t.el);
-        },
-        setFilter: function(e) {
-            this.ui.list.removeClass("filter-completed filter-active"), e && this.ui.list.addClass("filter-" + e);
         },
         onToggleAllClick: function(e) {
             var t = e.currentTarget.checked;
@@ -5130,35 +5125,44 @@ this.model.destroy();
     return e.View.extend({
         tagName: "span",
         initialize: function() {
-            this.
-collection.on("all", this.render, this);
+            this.collection.on("all", this.render, this);
         },
         render: function() {
             this.$el.html(this.collection.getActive().length);
         }
     });
-}), define("views/Footer", [ "marionette", "vent", "templates", "views/ActiveCount" ], function(e, t, n, r) {
+}), define("views/Footer", [ "marionette", "vent", "templates", "views/ActiveCount" 
+], function(e, t, n, r) {
     return e.Layout.extend({
         template: n.footer,
         regions: {
             count: "#todo-count strong"
         },
+        ui: {
+            filters: "#filters a"
+        },
         events: {
             "click #clear-completed": "clearCompletedClick"
+        },
+        initialize: function() {
+            this.bindTo(t, "todoList:filter", this.updateFilterSelection, this);
         },
         onRender: function() {
             this.count.show(new r({
                 collection: this.collection
             }));
         },
+        updateFilterSelection: function(e) {
+            this.ui.filters.removeClass("selected").filter('[href="#/' + e + '"]').addClass("selected");
+        },
         clearCompletedClick: function() {
             t.trigger("todoList:clear:completed");
         }
     });
 }), define("app", [ "marionette", "vent", "collections/TodoList", "views/Header", "views/TodoListCompositeView", "views/Footer" ], function(e, t, n, r, i, s) {
-    function a() {
-        u.length === 0 ? (o.main.$el.hide(), o.footer.$el.hide()) : (o.main.$el.show
-(), o.footer.$el.show());
+    
+function a() {
+        u.length === 0 ? (o.main.$el.hide(), o.footer.$el.hide()) : (o.main.$el.show(), o.footer.$el.show());
     }
     var o = new e.Application, u = new n;
     return u.fetch(), o.addRegions({
@@ -5170,6 +5174,8 @@ collection.on("all", this.render, this);
             collection: u
         };
         o.header.show(new r(e)), o.main.show(new i(e)), o.footer.show(new s(e)), o.bindTo(e.collection, "all", a), a();
+    }), t.on("todoList:filter", function(e) {
+        e = e || "all", $("#todoapp").attr("class", "filter-" + e);
     }), t.on("todoList:clear:completed", function() {
         function e(e) {
             e.destroy();
@@ -5183,7 +5189,8 @@ collection.on("all", this.render, this);
         }
     });
 }), define("controllers/index", [ "vent" ], function(e) {
-    return {
+    
+return {
         setFilter: function(t) {
             e.trigger("todoList:filter", t.trim() || "");
         }
@@ -5191,8 +5198,7 @@ collection.on("all", this.render, this);
 }), require.config({
     paths: {
         underscore: "lib/underscore",
-        backbone: "lib/backbone"
-,
+        backbone: "lib/backbone",
         marionette: "lib/backbone.marionette",
         jquery: "../../../../assets/jquery.min",
         tpl: "lib/tpl"
