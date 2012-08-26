@@ -42,16 +42,24 @@
 				'destroy': function() {
 					this.erase();
 				},
-				'change:title': function() {
-					this.view.$().removeClass('editing');
-					var title = this.model.get('title').trim();
-					if ( title ) {
-						this.model.set({
-							title: title
-						});
-					} else {
-						this.destroy();
+				'blur input': function() {
+					this.updateTitle();
+				},
+				'keyup input': function() {
+					if ( event.which === ENTER_KEY ) {
+						this.updateTitle();
 					}
+				}
+			},
+			updateTitle: function() {
+				this.view.$().removeClass('editing');
+				var title = this.model.get('title').trim();
+				if ( title ) {
+					this.model.set({
+						title: title
+					});
+				} else {
+					this.destroy();
 				}
 			}
 		}).persist( $$.adapter.localStorage, {
