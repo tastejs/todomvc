@@ -3,7 +3,9 @@ derby = require 'derby'
 
 derby.use(require '../../ui')
 
-## ROUTES ##
+view.fn 'noItems',
+	get: (list) -> !list.length
+	set: ->
 
 # Redirect the visitor to a random todo list
 get '/', (page) ->
@@ -11,99 +13,69 @@ get '/', (page) ->
 
 # Sets up the model, the reactive function for stats and renders the todo list
 get '/:groupName', (page, model, {groupName}) ->
-	groupTodosQuery = model.query('todos').forGroup(groupName)
-	model.subscribe "groups.#{groupName}", groupTodosQuery, (err, group, groupTodos) ->
-		model.ref '_group', group
-		group.setNull 'id', groupName
+	model.query('todos').forGroup(groupName).subscribe ->
+		model.set '_groupName', groupName
 
-		todoIds = group.at 'todoIds' or []
+		model.ref '_list.all', model.filter('todos')
+			.where('group').equals(groupName)
 
-		# The refList supports array methods, but it stores the todo values
-		# on an object by id. The todos are stored on the object 'todos',
-		# and their order is stored in an array of ids at '_group.todoIds'
-		model.refList '_todoList', 'todos', todoIds
+		model.ref '_list.completed', model.filter('todos')
+			.where('group').equals(groupName)
+			.where('completed').equals(true)
 
-		# Create a reactive function that automatically keeps '_stats'
-		# updated with the number of remaining and completed todos.
-		model.fn '_stats', '_todoList', (list) ->
-			remaining = 0
-			completed = 0
-			if list
-				for todo in list
-					if todo?.completed
-						completed++
-					else
-						remaining++
-			return {
-				completed: completed,
-				remaining: remaining,
-				oneOnly: remaining == 1,
-			}
+		model.ref '_list.active', model.filter('todos')
+			.where('group').equals(groupName)
+			.where('completed').notEquals(true)
 
-		# Do not filter the list by default
-		model.del '_filter'
+		model.set '_filter', 'all'
+		model.ref '_list.shown', '_list', '_filter'
 
-		page.render 'todo'
+		page.render()
 
 # Transitional route for enabling a filter
-get {from: '/:groupName', to: '/:groupName/:filterName'},
-	forward: (model, {filterName}, next) ->
-		# enable the filter
+get from: '/:groupName', to: '/:groupName/:filterName',
+	forward: (model, {filterName}) ->
 		model.set '_filter', filterName
-	back: (model, params, next) ->
-		# disable the filter
-		model.del '_filter'
+	back: (model, params) ->
+		model.set '_filter', 'all'
+
+get from: '/:groupName/:filterName', to: '/:groupName/:filterName',
+	forward: (model, {filterName}) ->
+		model.set '_filter', filterName
 
 ready (model) ->
-
-	list = model.at '_todoList'
-	group = model.at '_group'
-	all_completed = group.at 'all_completed'
-
-	group.on 'set', 'all_completed', (all_completed, previous_value, isLocal, e) ->
-		# We only want to react to all_completed being set if it's in response
-		# to a UI event (as opposed to our checkAllCompleted below checking
-		# individual items).
-		return unless e
-
-		# Is there a way to do this with one call rather than iterating?
-		for {id} in list.get()
-			model.set "todos.#{id}.completed", all_completed
-
+	todos = model.at 'todos'
 	newTodo = model.at '_newTodo'
+
 	exports.add = ->
 		# Don't add a blank todo
 		text = newTodo.get().trim()
 		newTodo.set ''
 		return unless text
+		todos.add text: text, group: model.get('_groupName')
 
-		list.push text: text, completed: false, group: group.get('id')
-		all_completed.set false
-
-	exports.del = (e) ->
+	exports.del = (e, el) ->
 		# Derby extends model.at to support creation from DOM nodes
-		model.at(e.target).remove()
+		todos.del model.at(el).get('id')
 
 	exports.clearCompleted = ->
-		completed_indexes = (i for {completed}, i in list.get() when completed)
-		list.remove(i) for i in completed_indexes.reverse()
-		all_completed.set false
+		for {id} in model.get('_list.completed')
+			todos.del id
 
-	exports.checkAllCompleted = ->
-		for {completed} in list.get() when not completed
-			all_completed.set false
-			return
-		all_completed.set true
+	exports.clickToggleAll = ->
+		value = !!model.get('_list.active.length')
+		for {id} in model.get('_list.all')
+			todos.set id + '.completed', value
 
-	exports.endEdit = (e) ->
-		target = e.target
-		if target.nodeName == "FORM"
-			target.firstChild.blur()
-			return
-		item = model.at(target)
-		item.set '_editing', false
-		item.remove() if item.get('text').trim() == ''
+	exports.submitEdit = (e, el) ->
+		el.firstChild.blur()
 
-	exports.startEdit = (e) ->
-		item = model.at(e.target)
+	exports.startEdit = (e, el) ->
+		item = model.at(el)
 		item.set '_editing', true
+
+	exports.endEdit = (e, el) ->
+		item = model.at(el)
+		item.set '_editing', false
+		if item.get('text').trim() == ''
+			todos.del item.get('id')

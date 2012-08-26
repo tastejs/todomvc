@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "./server.js",
   "dependencies": {
-    "derby": "0.3.12",
+    "derby": "0.3.13",
     "express": "3.0.0beta4",
     "gzippo": ">=0.1.4"
   },
