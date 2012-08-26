@@ -132,6 +132,8 @@
 				});
 				// update toggle-all checked status
 				$('#toggle-all').prop( 'checked', completedCount === count );
+				// update the view according to the current filter.
+				this.applyFilter();
 			},
 			// filter handler
 			filters: {
@@ -146,7 +148,7 @@
 				}
 			},
 			applyFilter: function( hash ) {
-				var isVisible = this.filters[hash];
+				var isVisible = this.filters[hash || location.hash];
 				this.each(function( id, item ) {
 					item.view.$().toggleClass( 'hidden', !isVisible( item ) );
 				});
