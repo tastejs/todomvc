@@ -141,4 +141,4 @@ For applications that we feel don't quite match the goals of the project, but wh
 
 ## License
 
-[The Unlicense](http://unlicense.org) (i.e Public Domain)
+Licensed under the [MIT](https://github.com/addyosmani/todomvc/tree/master/LICENSE.md) license.
