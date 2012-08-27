@@ -74,6 +74,7 @@ define([
 
 			this.inherited(arguments);
 			this.getStore(this.defaultId); // Obtain data from Dojo Object Store as soon as this starts up
+			this._started = true;
 		},
 
 		set: function(/*String*/ name, /*Anything*/ value){
@@ -84,6 +85,15 @@ define([
 				this[this._refSourceModelProp].destroy(); // If we have a data model and it's being replaced, make sure it's cleaned up
 			}
 			this.inherited(arguments);
+		},
+
+		hasControllerProperty: function(/*String*/ name){
+			// summary:
+			//		Returns true if this controller itself owns the given property.
+			// name: String
+			//		The property name.
+
+			return this.inherited(arguments) || /^dojoAttach(Point|Event)$/i.test(name); // Let dojoAttachPoint/dojoAttachEvent be this controller's property
 		},
 
 		destroy: function(){
