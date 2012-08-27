@@ -40,7 +40,7 @@
 
 <todoFooter:>
 	<footer id="footer" class="{#unless _list.all}empty-list{/}">
-	<span id="todo-count"><strong>{_list.active.length}</strong> item{#unless equal(_list.active.length, 1)}s{/} left</span>
+	<span id="todo-count"><strong>{_list.active.length}</strong> item{#unless oneItem(_list.active)}s{/} left</span>
 		<ul id="filters">
 			<li class="all">
 				<a href="/{{_groupName}}" class="{#if equal(_filter, 'all')}selected{/}">All</a>
