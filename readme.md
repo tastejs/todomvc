@@ -47,6 +47,7 @@ We also have a number of in-progress applications in Labs:
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujo.js](http://cujojs.github.com)
 - [Meteor](http://meteor.com)
+- [Derby](http://derbyjs.com)
 - [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Sammy.js](http://sammyjs.org)

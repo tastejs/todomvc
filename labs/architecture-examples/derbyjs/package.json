@@ -1,0 +1,15 @@
+{
+  "name": "todomvc-derbyjs",
+  "description": "",
+  "version": "0.0.0",
+  "main": "./server.js",
+  "dependencies": {
+    "derby": "0.3.13",
+    "express": "3.0.0beta4",
+    "gzippo": ">=0.1.4"
+  },
+  "private": true,
+  "devDependencies": {
+    "coffee-script": ">=1.3.1"
+  }
+}
