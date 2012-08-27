@@ -4,8 +4,11 @@ derby = require 'derby'
 derby.use(require '../../ui')
 
 view.fn 'noItems',
-	get: (list) -> !list.length
+	get: (list) -> !list.length unless list is undefined
 	set: ->
+
+view.fn 'oneItem',
+	get: (list) -> list.length == 1 unless list is undefined
 
 # Redirect the visitor to a random todo list
 get '/', (page) ->
