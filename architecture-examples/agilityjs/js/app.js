@@ -149,9 +149,11 @@
 			},
 			applyFilter: function( hash ) {
 				var isVisible = this.filters[hash || location.hash];
-				this.each(function( id, item ) {
-					item.view.$().toggleClass( 'hidden', !isVisible( item ) );
-				});
+				if ( isVisible ) {
+					this.each(function( id, item ) {
+						item.view.$().toggleClass( 'hidden', !isVisible( item ) );
+					});
+				}
 			}
 		}).persist();
 		$$.document.prepend( app );
