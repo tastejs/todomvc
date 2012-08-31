@@ -47,7 +47,6 @@ define([
 			}));
 			router.startup(); // Activate dojo/router
 			this.set("hash", router._currentPath); // Set the inital value of hash property
-			this._started = true;
 		},
 
 		_setHashAttr: function(value){

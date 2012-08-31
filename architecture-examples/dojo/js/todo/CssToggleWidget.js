@@ -2,11 +2,12 @@ define([
 	"dojo/_base/array",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
-	"dojo/dom-class"
-], function(array, declare, lang, domClass){
-	return declare(null, {
+	"dojo/dom-class",
+	"dijit/_WidgetBase"
+], function(array, declare, lang, domClass, _WidgetBase){
+	return declare(_WidgetBase, {
 		// summary:
-		//		Mixin class to support widget attributes with classExists type.
+		//		Widget supporting widget attributes with classExists type.
 		//		classExists type allows boolean value of an attribute to reflect existence of a CSS class in a DOM node in the widget.
 		// example:
 		//		In this example, the text will be bold when the check box is checked.
@@ -25,8 +26,7 @@ define([
 		// |			<body>
 		// |				<script type="dojo/require">at: "dojox/mvc/at"</script>
 		// |				<input id="checkbox" data-dojo-type="dijit/form/CheckBox">
-		// |				<div data-dojo-type="dijit/_WidgetBase"
-		// |				 data-dojo-mixins="todo/_CssToggleMixin"
+		// |				<div data-dojo-type="todo/CssToggleWidget"
 		// |				 data-dojo-props="_setBoldAttr: {type: 'classExists', className: 'boldText'},
 		// |				                  bold: at('widget:checkbox', 'checked')">This text will be bold when above check box is checked.</div>
 		// |			</body>

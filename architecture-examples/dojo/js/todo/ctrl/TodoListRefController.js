@@ -16,26 +16,6 @@ define([
 		//		Actions are implemented in the manner of manipulating array.
 		//		The change will automatically be reflected to the UI via the notification system of dojox/mvc/StatefulArray.
 
-		postscript: function(/*Object?*/ params, /*DOMNode?*/ srcNodeRef){
-			// summary:
-			//		Kicks off instantiation of this controller, in a similar manner as dijit/_WidgetBase.postscript().
-			// params: Object?
-			//		The optional parameters for this controller.
-			// srcNodeRef: DOMNode?
-			//		The DOM node declaring this controller. Set if this controller is created via Dojo parser.
-
-			this.inherited(arguments);
-			srcNodeRef && srcNodeRef.setAttribute("widgetId", this.id); // If this is created via Dojo parser, set widgetId attribute so that destroyDescendants() of parent widget works
-		},
-
-		startup: function(){
-			// summary:
-			//		A function called after the DOM fragment declaring this controller is added to the document, in a similar manner as dijit/_WidgetBase.startup().
-
-			this.inherited(arguments);
-			this._started = true;
-		},
-
 		addItem: function(/*String*/ title){
 			// summary:
 			//		Adds a todo item with the given title.
@@ -79,15 +59,6 @@ define([
 			array.forEach(this[this._refModelProp], function(item){
 				item.set("completed", markComplete);
 			});
-		},
-
-		hasControllerProperty: function(/*String*/ name){
-			// summary:
-			//		Returns true if this controller itself owns the given property.
-			// name: String
-			//		The property name.
-
-			return this.inherited(arguments) || /^dojoAttach(Point|Event)$/i.test(name); // Let dojoAttachPoint/dojoAttachEvent be this controller's property
 		}
 	});
 });

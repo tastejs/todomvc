@@ -1,82 +1,46 @@
 <section>
-<!-- This is the widgets-in-template that composes the application UI of TodoMVC (Dojo 1.8 version) -->
-<!--
-	Notes:
-		data-dojo-id creates object reference of the widget. Though TodoMVC application does not have multiple instances of this widgets-in-template, "${id}_" prefix is added to data-dojo-id attribute to avoid ID duplication.
--->
-	<!--
-		This <script> tag assigns module references to variables that can be used in this template, as well as the parameter file for the data binding setting, etc. (app18bindings.json) for this template.
-		The modules used here are:
-
-			- dojo/_base/lang: A utility library containing a function to control what object "this" in a function points to 
-			- dojox/mvc/at: Function to create a pointer to dojo/Stateful, for the purpose of data binding
-			- todo/model/SimpleTodoModel: The data model class for TodoMVC data
-			- todo/misc/HashSelectedConverter: dojox/mvc data converter for widgets of the <a> tags for All/Active/Completed, for the selected state of the <a> tags
-			- todo/misc/LessThanOrEqualToConverter: dojox/mvc data converter for the shown/hidden state of "s" in "items left", as well as for the check box to mark all todo items complete/incomplete
-	-->
 	<script type="dojo/require">
-		lang: "dojo/_base/lang",
 		at: "dojox/mvc/at",
 		SimpleTodoModel: "todo/model/SimpleTodoModel",
 		HashSelectedConverter: "todo/misc/HashSelectedConverter",
 		LessThanOrEqualToConverter: "todo/misc/LessThanOrEqualToConverter"
 	</script>
-	<!-- A controller that keeps its hash attribute in sync with the URL hash -->
-	<span data-dojo-attach-point="routeCtrl"
-	 data-dojo-type="todo/ctrl/RouteController"></span>
-	<!-- A Dojo Object Store for fetching/saving data from/to localStorage -->
-	<span data-dojo-id="${id}_localStorage"
-	 data-dojo-type="todo/store/LocalStorage"></span>
-	<!-- Our custom controller, based on dojox/mvc/EditStoreRefController, that loads and saves data using a Dojo Object Store, and provides references to the data model (from the Dojo Object Store). -->
-	<span data-dojo-attach-point="ctrl"
+	<span data-dojo-id="${id}_routeCtl" data-dojo-type="todo/ctrl/RouteController"></span>
+	<span data-dojo-id="${id}_localStorage" data-dojo-type="todo/store/LocalStorage"></span>
+	<span data-dojo-id="${id}_ctrl"
 	 data-dojo-type="todo/ctrl/TodoRefController"
-	 data-dojo-props="store: ${id}_localStorage,
-	                  modelClass: SimpleTodoModel,
-	                  defaultId: 'todos-dojo'"></span>
-	<!-- Our custom controller, based on dojox/mvc/ModelRefController, that provides references to the todo list in data model, and handles actions like adding/removing/marking. -->
+	 data-dojo-props="defaultId: 'todos-dojo', store: ${id}_localStorage, modelClass: SimpleTodoModel, complete: at('widget:${id}', 'complete')"></span>
 	<span data-dojo-id="${id}_listCtrl"
-	 data-dojo-attach-point="listCtrl"
-	 data-dojo-type="todo/ctrl/TodoListRefController"></span>
+	 data-dojo-type="todo/ctrl/TodoListRefController"
+	 data-dojo-props="model: at(${id}_ctrl, 'todos'), length: at('widget:${id}', 'present').direction(at.to)"></span>
 	<header id="header">
 		<h1>todos</h1>
-		<!--
-			The text box to enter new todo item.
-			The keypress event is handled by a method of parent widgets-in-template, so that pressing Enter key ends up with adds the new todo item.
-		-->
 		<input id="new-todo" placeholder="What needs to be done?" type="text" autofocus
 		 data-dojo-attach-event="onkeypress: onKeyPressNewItem">
 		<span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
 	</header>
 	<section id="main">
 		<input id="toggle-all" type="checkbox"
-		 data-dojo-attach-point="toggleAll"
-		 data-dojo-type="dijit/form/CheckBox">
+		 data-dojo-type="dijit/form/CheckBox"
+		 data-dojo-props="checked: at(${id}_ctrl, 'incomplete').transform(LessThanOrEqualToConverter),
+		                  onClick: function(e){ ${id}_listCtrl.markAll(e.target.checked); }">
 		<label for="toggle-all">Mark all as complete</label>
-		<!--
-			The todo UI, composed by repeating <li> for each todo item with dojox/mvc/WidgetList.
-			Each <li> is created along with a widgets-in-template associated with it.
-		-->
 		<ul id="todo-list"
-		 data-dojo-attach-point="todoList"
-		 data-dojo-type="dojox/mvc/WidgetList"
-		 data-dojo-mixins="dojox/mvc/_InlineTemplateMixin"
-		 data-mvc-child-type="todo/TodoListItem">
-			<!--
-				dojox/mvc/_InlineTemplateMixin picks up the contents in <script type="dojox/mvc/InlineTemplate"> as the template string.
-				dojox/mvc/WidgetList used its template string for each child widget.
-			-->
+		 data-dojo-type="todo/TodoList"
+		 data-dojo-props="children: at(${id}_listCtrl, 'model'), partialRebuild: true, listCtrl: ${id}_listCtrl"
+		 data-mvc-child-props="uniqueId: at(this.target, 'uniqueId'), completed: at(this.target, 'completed'), hash: at(${id}_routeCtl, 'hash')">
 			<script type="dojox/mvc/InlineTemplate">
 				<li>
 					<div class="view">
-						<!-- The title of the todo item, with in-line editing feature. -->
 						<label class="dijitInline inline_edit"
 						 data-dojo-attach-point="editBox"
-						 data-dojo-type="todo/form/InlineEditBox"></label>
-						<!-- The check box indicating whether the todo item is completed or not. -->
+						 data-dojo-attach-event="onChange: onEditBoxChange"
+						 data-dojo-type="todo/form/InlineEditBox"
+						 data-dojo-props="value: at('rel:', 'title'), editor: 'dijit/form/TextBox', autosave: true"></label>
 						<input class="toggle" type="checkbox"
-						 data-dojo-attach-point="checkBox"
-						 data-dojo-type="dijit/form/CheckBox">
-						<button class="destroy" data-dojo-attach-event="onclick: removeItem"></button>
+						 data-dojo-type="dijit/form/CheckBox"
+						 data-dojo-props="checked: at('rel:', 'completed')">
+						<button class="destroy" data-dojo-attach-event="onclick: onRemoveClick"></button>
 					</div>
 				</li>
 			</script>
@@ -86,42 +50,42 @@
 		<span id="todo-count">
 			<strong>
 				<span class="number"
-				 data-dojo-attach-point="countIncompleteItems"
-				 data-dojo-type="dijit/_WidgetBase"></span>
+				 data-dojo-type="dijit/_WidgetBase"
+				 data-dojo-props="_setValueAttr: {type: 'innerText', node: 'domNode'}, value: at(${id}_ctrl, 'incomplete')"></span>
 			</strong>
 			<span class="word">item<!--
-				--><span data-dojo-attach-point="pluralIncompleteItems"
-				 data-dojo-type="dijit/_WidgetBase"
-				 data-dojo-mixins="todo/_CssToggleMixin">s</span></span>
+				--><span data-dojo-type="todo/CssToggleWidget"
+				 data-dojo-props="_setSingleAttr: {type: 'classExists', className: 'plural'},
+				                  constraints: {lessThanOrEqualTo: 1},
+				                  single: at(${id}_ctrl, 'incomplete').transform(LessThanOrEqualToConverter)">s</span></span>
 			left.
 		</span>
 		<!-- Remove this if you don't implement routing -->
 		<ul id="filters">
 			<li>
 				<a href="#/"
-				 data-dojo-attach-point="hashAll"
-				 data-dojo-type="dijit/_WidgetBase"
-				 data-dojo-mixins="todo/_CssToggleMixin">All</a>
+				 data-dojo-type="todo/CssToggleWidget"
+				 data-dojo-props="_setSelectedAttr: {type: 'classExists', className: 'selected'},
+				                  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">All</a>
 			</li>
 			<li>
 				<a href="#/active"
-				 data-dojo-attach-point="hashActive"
-				 data-dojo-type="dijit/_WidgetBase"
-				 data-dojo-mixins="todo/_CssToggleMixin">Active</a>
+				 data-dojo-type="todo/CssToggleWidget"
+				 data-dojo-props="_setSelectedAttr: {type: 'classExists', className: 'selected'},
+				                  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">Active</a>
 			</li>
 			<li>
 				<a href="#/completed"
-				 data-dojo-attach-point="hashCompleted"
-				 data-dojo-type="dijit/_WidgetBase"
-				 data-dojo-mixins="todo/_CssToggleMixin"
-				 data-dojo-props="">Completed</a>
+				 data-dojo-type="todo/CssToggleWidget"
+				 data-dojo-props="_setSelectedAttr: {type: 'classExists', className: 'selected'},
+				                  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">Completed</a>
 			</li>
 		</ul>
 		<button id="clear-completed" onclick="${id}_listCtrl.removeCompletedItems();">
 			Clear completed (
 			<span class="number-done"
-			 data-dojo-attach-point="countCompleted"
-			 data-dojo-type="dijit/_WidgetBase"></span>
+			 data-dojo-type="dijit/_WidgetBase"
+			 data-dojo-props="_setValueAttr: {type: 'innerText', node: 'domNode'}, value: at(${id}_ctrl, 'complete')"></span>
 			)
 		</button>
 	</footer>
