@@ -29,14 +29,15 @@ $(function( $ ) {
 		initialize: function() {
 			this.input = this.$('#new-todo');
 			this.allCheckbox = this.$('#toggle-all')[0];
+			this.$footer = this.$('#footer');
+			this.$main = this.$('#main');
 
 			window.app.Todos.on( 'add', this.addAll, this );
 			window.app.Todos.on( 'reset', this.addAll, this );
-			window.app.Todos.on( 'change:completed', this.addAll, this );
-			window.app.Todos.on( 'all', this.render, this );
+			window.app.Todos.on('change:completed', this.filterOne, this);
+			window.app.Todos.on("filter", this.filterAll, this);
 
-			this.$footer = this.$('#footer');
-			this.$main = this.$('#main');
+			window.app.Todos.on( 'all', this.render, this );
 
 			app.Todos.fetch();
 		},
@@ -78,18 +79,15 @@ $(function( $ ) {
 		// Add all items in the **Todos** collection at once.
 		addAll: function() {
 			this.$('#todo-list').html('');
+			app.Todos.each(this.addOne, this);
+		},
 
-			switch( app.TodoFilter ) {
-				case 'active':
-					_.each( app.Todos.remaining(), this.addOne );
-					break;
-				case 'completed':
-					_.each( app.Todos.completed(), this.addOne );
-					break;
-				default:
-					app.Todos.each( this.addOne, this );
-					break;
-			}
+		filterOne : function (todo) {
+			todo.trigger("visible");
+		},
+
+		filterAll : function () {
+			app.Todos.each(this.filterOne, this);
 		},
 
 		// Generate the attributes for a new Todo item.
