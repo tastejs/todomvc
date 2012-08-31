@@ -1,12 +1,14 @@
 define([
 	"dojo/_base/declare",
+	"dojo/_base/lang",
 	"dojo/_base/unload",
 	"dojo/keys",
 	"dojo/string",
-	"todo/Templated",
+	"dijit/_WidgetBase",
+	"dijit/_TemplatedMixin",
+	"dijit/_WidgetsInTemplateMixin",
 	"todo/_CssToggleMixin",
 	"dojo/text!./app18.html",
-	"dojo/text!./app18bindings.json",
 	// Below modules are referred in template.
 	// dijit/_WidgetsInTemplateMixin requires all modules referred in template to have been loaded before it's instantiated.
 	"dijit/form/CheckBox",
@@ -14,7 +16,7 @@ define([
 	"dojox/mvc/at",
 	"dojox/mvc/_InlineTemplateMixin",
 	"dojox/mvc/WidgetList",
-	"todo/TodoListItem",
+	"todo/ctrl/_HashCompletedMixin",
 	"todo/ctrl/RouteController",
 	"todo/ctrl/TodoListRefController",
 	"todo/ctrl/TodoRefController",
@@ -23,10 +25,8 @@ define([
 	"todo/misc/LessThanOrEqualToConverter",
 	"todo/model/SimpleTodoModel",
 	"todo/store/LocalStorage"
-], function(declare, unload, keys, string, Templated, _CssToggleMixin, template, bindings){
-	function runEval(js){ return eval(js); } // To let eval script point to app18 instance as "this"
-
-	return declare([Templated, _CssToggleMixin], {
+], function(declare, lang, unload, keys, string, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CssToggleMixin, template){
+	return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CssToggleMixin], {
 		// summary:
 		//		A widgets-in-template widget that composes the application UI of TodoMVC (Dojo 1.8 version).
 		//		Also, this class inherits todo/_CssToggleMixin so that it can react to change in "present"/"complete" attributes and add/remove CSS class to the root DOM node of this widget.
@@ -49,7 +49,6 @@ define([
 			//		See documentation for dijit/_WidgetBase.startup() for more details.
 
 			var _self = this;
-			this.bindings = runEval.call(this, "(" + bindings + ")");
 			this.inherited(arguments);
 			unload.addOnUnload(function(){
 				_self.destroy(); // When this page is being unloaded, call destroy callbacks of inner-widgets to let them clean up
@@ -66,7 +65,7 @@ define([
 				return; // If the key is not Enter, or the input field is empty, bail
 			}
 
-			this.listCtrl.addItem(event.target.value); // Add a todo item with the given text
+			lang.getObject(this.id + "_listCtrl").addItem(event.target.value); // Add a todo item with the given text
 			event.target.value = ""; // Clear the input field
 			event.preventDefault();
 			event.stopPropagation();
