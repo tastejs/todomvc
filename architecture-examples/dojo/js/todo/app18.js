@@ -4,19 +4,16 @@ define([
 	"dojo/_base/unload",
 	"dojo/keys",
 	"dojo/string",
-	"dijit/_WidgetBase",
 	"dijit/_TemplatedMixin",
 	"dijit/_WidgetsInTemplateMixin",
-	"todo/_CssToggleMixin",
+	"todo/CssToggleWidget",
 	"dojo/text!./app18.html",
 	// Below modules are referred in template.
 	// dijit/_WidgetsInTemplateMixin requires all modules referred in template to have been loaded before it's instantiated.
 	"dijit/form/CheckBox",
 	"dijit/form/TextBox",
 	"dojox/mvc/at",
-	"dojox/mvc/_InlineTemplateMixin",
-	"dojox/mvc/WidgetList",
-	"todo/ctrl/_HashCompletedMixin",
+	"todo/TodoList",
 	"todo/ctrl/RouteController",
 	"todo/ctrl/TodoListRefController",
 	"todo/ctrl/TodoRefController",
@@ -25,22 +22,22 @@ define([
 	"todo/misc/LessThanOrEqualToConverter",
 	"todo/model/SimpleTodoModel",
 	"todo/store/LocalStorage"
-], function(declare, lang, unload, keys, string, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CssToggleMixin, template){
-	return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CssToggleMixin], {
+], function(declare, lang, unload, keys, string, _TemplatedMixin, _WidgetsInTemplateMixin, CssToggleWidget, template){
+	return declare([CssToggleWidget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		// summary:
 		//		A widgets-in-template widget that composes the application UI of TodoMVC (Dojo 1.8 version).
-		//		Also, this class inherits todo/_CssToggleMixin so that it can react to change in "present"/"complete" attributes and add/remove CSS class to the root DOM node of this widget.
+		//		Also, this class inherits todo/CssToggleWidget so that it can react to change in "present"/"complete" attributes and add/remove CSS class to the root DOM node of this widget.
 
 		// templateString: String
 		//		The HTML of widget template.
 		templateString: template,
 
 		// _setPresentAttr: Object
-		//		A object used by todo/_CssToggleMixin to reflect true/false state of "present" attribute to existence of "todos_present" CSS class in this widget's root DOM.
+		//		A object used by todo/CssToggleWidget to reflect true/false state of "present" attribute to existence of "todos_present" CSS class in this widget's root DOM.
 		_setPresentAttr: {type: "classExists", className: "todos_present"},
 
 		// _setCompleteAttr: Object
-		//		A object used by todo/_CssToggleMixin to reflect true/false state of "complete" attribute to existence of "todos_selected" CSS class in this widget's root DOM.
+		//		A object used by todo/CssToggleWidget to reflect true/false state of "complete" attribute to existence of "todos_selected" CSS class in this widget's root DOM.
 		_setCompleteAttr: {type: "classExists", className: "todos_selected"},
 
 		startup: function(){
