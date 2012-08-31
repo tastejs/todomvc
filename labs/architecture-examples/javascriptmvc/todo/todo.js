@@ -54,7 +54,8 @@ $.Controller('Todoapp',{
 	// listens for key events and creates a new todo
 	'#new-todo keyup' : function(el, ev){
 		var value = $.trim(el.val());
-		if(ev.keyCode == 13 && value !== ''){
+
+		if(ev.which === 13 && value !== ''){
 			new Todo({
 				title : value,
 				completed : false
