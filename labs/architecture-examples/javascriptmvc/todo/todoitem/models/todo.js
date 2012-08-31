@@ -14,7 +14,7 @@ $.Model('Todo',{
 	 */
 	localStore: function(cb){
 		var name = 'todos-javascriptmvc',
-			data = $.evalJSON( window.localStorage[name] || (window.localStorage[name] = "{}") ),
+			data = $.evalJSON( window.localStorage[name] || (window.localStorage[name] = '{}') ),
 			res = cb.call(this, data);
 		if(res !== false){
 			window.localStorage[name] = $.toJSON(data);

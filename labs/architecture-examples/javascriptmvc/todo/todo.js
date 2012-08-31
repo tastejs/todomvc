@@ -17,16 +17,16 @@ steal(
 // This controller is responsible for managing the entire todo app, basically
 // to instantiate the required controllers and manage events such as updating
 // statistics etc.
-$.Controller("Todoapp",{
+$.Controller('Todoapp',{
 
-  listensTo: ["completionStatusChanged"] //custom event listener
+  listensTo: ['completionStatusChanged'] //custom event listener
     
 }, {
 
 	init: function(){
-		this.find("#new-todo").val("")[0].focus();
+		this.find('#new-todo').val('')[0].focus();
 
-		$("#todo-list").todolist({list : this.options.list });
+		$('#todo-list').todolist({list : this.options.list });
 
 		//load all the todos into the list
 		this.options.list.findAll();
@@ -38,41 +38,41 @@ $.Controller("Todoapp",{
 		this._currentFilter = filter;
 
 		if(filter){
-			$("#todo-list").controller().render(this.options.list[filter]());
+			$('#todo-list').controller().render(this.options.list[filter]());
 		}else{
-			$("#todo-list").controller().render(this.options.list);
+			$('#todo-list').controller().render(this.options.list);
 		}
 
 		this._updateStats();
 	},
 
 	// handler for the custom event
-	"completionStatusChanged": function(){
+	'completionStatusChanged': function(){
 		this.loadData(this._currentFilter);
 	},
 
 	// listens for key events and creates a new todo
-	"#new-todo keyup" : function(el, ev){
+	'#new-todo keyup' : function(el, ev){
 		var value = $.trim(el.val());
-		if(ev.keyCode == 13 && value !== ""){
+		if(ev.keyCode == 13 && value !== ''){
 			new Todo({
 				title : value,
 				completed : false
 			}).save(); //invoke the created function; proxy(...) to maintain the context of this
 			
-			el.val("");
+			el.val('');
 		}
 	},
 
 	// the clear button is clicked
-	"#clear-completed click" : function(){
+	'#clear-completed click' : function(){
 		// gets completed todos in the list, destroys them
 		this.options.list.completed().destroyAll();
 		this._updateStats();
 	},
 
 	// listen for changes on the toggle all checkbox
-	"#toggle-all change": function(el, ev){
+	'#toggle-all change': function(el, ev){
 		var isCompleted = el.is(':checked');
 		
 		this.options.list.each(function(idx, el){
@@ -84,12 +84,12 @@ $.Controller("Todoapp",{
 
 	// When a todo is created, add it to the list and reload everything
 	// to also take the current filter into account
-	"{Todo} created": function(Todo, ev, item){
+	'{Todo} created': function(Todo, ev, item){
 		this.options.list.push(item); //triggers 'add' event on the list
 		this.loadData(this._currentFilter);
 	},
 	
-	"{Todo} destroyed": function(){
+	'{Todo} destroyed': function(){
 	    this._updateStats();    
 	},
 
@@ -99,52 +99,52 @@ $.Controller("Todoapp",{
 			completed = list.completed().length,
 			remaining = list.length - completed;
 		
-		this.find("#footer").html("//todo/views/todo-stats.ejs",{
+		this.find('#footer').html('//todo/views/todo-stats.ejs',{
 			completed : completed,
 			remaining : remaining
 		});
 
 		if(list.length > 0){
-			this.find("#main, #footer").show();
+			this.find('#main, #footer').show();
 		}else{
-			this.find("#main, #footer").hide();
+			this.find('#main, #footer').hide();
 		}
 
 
 		this.find('#filters li a')
 			.removeClass('selected')
-			.filter("[href='#!/" + (this._currentFilter || "") + "']")
+			.filter('[href="#!/' + (this._currentFilter || '') + '"]')
 			.addClass('selected');
 		
-		this.find("#toggle-all")[0].checked = !remaining;
+		this.find('#toggle-all')[0].checked = !remaining;
 	}
 
 });
 
 // The router which initializes the entire app and watches for hash changes
 // in the url
-$.Controller("Router", {
+$.Controller('Router', {
 
 	init: function(){
 		//var todoList = new Todo.List();
-		new Todoapp($("#todoapp"), { list: new Todo.List() });
+		new Todoapp($('#todoapp'), { list: new Todo.List() });
 
 		$.route.ready(true); //fires 1st route event
 	},
 
 	//default route index.html#!
-	"route": function(){
-		$("#todoapp").controller().loadData();
+	'route': function(){
+		$('#todoapp').controller().loadData();
 	},
 
 	//route index.html#!/active
-	"/active route": function(routeData){
-		$("#todoapp").controller().loadData("active");
+	'/active route': function(routeData){
+		$('#todoapp').controller().loadData('active');
 	},
 
 	//route index.html#!/completed
-	"/completed route": function(routeData){
-		$("#todoapp").controller().loadData("completed");
+	'/completed route': function(routeData){
+		$('#todoapp').controller().loadData('completed');
 	}
 
 });
