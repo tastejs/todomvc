@@ -86,3 +86,10 @@
 .inline_edit[style~='0;'] ~ .toggle {
   visibility: hidden !important;
 }
+
+.dijitOffScreen { /* For 1.8 in-line edit box */
+	position: absolute !important;
+	left: 50% !important;
+	top: -10000px !important;
+}
+

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Dojo • TodoMVC</title>
+	<link rel="stylesheet" href="../../assets/base.css">
+	<!-- CSS overrides - remove if you don't need it -->
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+    <section id="todoapp" data-dojo-type="todo.app"></section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+        <p>Created by <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a></p>
+	</footer>
+
+	<script src="../../assets/base.js"></script>
+	<script data-dojo-config="async:true, parseOnLoad:true, locale:'en', paths:{'todo':'../todo/'}, deps:['dojo/parser', 'todo/app']" src="js/lib/dojo/dojo.js"></script>
+</body>
+</html>
