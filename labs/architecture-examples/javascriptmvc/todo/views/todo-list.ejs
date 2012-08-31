@@ -1,9 +1,0 @@
-<% for(var i =0; i < this.length ; i++){ %>
-	<li <%= this[i]%> class="<%= (this[i].completed) ? 'completed': ''%>">
-		<!-- 
-			The double "%==" are intentional as otherwise you'll get the content
-			in encoded form
-		 -->
-		<%== $.View("//todo/views/todo-template.ejs", this[i]) %>
-	</li>
-<% } %>
