@@ -6,9 +6,9 @@ define(['marionette','templates','vent','views/TodoItemView'], function (Marione
   return Marionette.CompositeView.extend({
     template : templates.todosCompositeView,
     itemView : ItemView,
+    itemViewContainer : '#todo-list',
 
     ui : {
-      list   : '#todo-list',
       toggle : '#toggle-all'
     },
 
@@ -28,10 +28,6 @@ define(['marionette','templates','vent','views/TodoItemView'], function (Marione
       function reduceCompleted(left, right) { return left && right.get('completed'); }
       var allCompleted = this.collection.reduce(reduceCompleted,true);
       this.ui.toggle.prop('checked', allCompleted);
-    },
-
-    appendHtml : function(collectionView, itemView) {
-      this.ui.list.append(itemView.el);
     },
 
     onToggleAllClick : function(evt) {
