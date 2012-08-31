@@ -104,12 +104,7 @@ $.Controller('Todoapp',{
 			remaining : remaining
 		});
 
-		if(list.length > 0){
-			this.find('#main, #footer').show();
-		}else{
-			this.find('#main, #footer').hide();
-		}
-
+		this.find('#main, #footer').toggle( list.length > 0 );
 
 		this.find('#filters li a')
 			.removeClass('selected')
