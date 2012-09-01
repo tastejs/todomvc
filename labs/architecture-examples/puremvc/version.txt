@@ -1,0 +1,13 @@
+PureMVC Javascript Demo - TodoMVC
+Copyright(c) 2012 Mike Britton, Addy Osmani & Sindre Sorhus
+Reuse governed by MIT License
+--------------------------------------------------------------------------
+Release Date: 9/1/2012
+    Platform: JavaScript 
+     Version: 1
+    Revision: 0
+      Author: Mike Britton <mike.britton@puremvc.org>
+     License: Creative Commons Attribution 3.0 United States License
+--------------------------------------------------------------------------
+1.0 - First official release on PureMVC.org. 
+      This is a PureMVC port of the TodoMVC project at http://todomvc.com/

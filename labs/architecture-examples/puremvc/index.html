@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+ * PureMVC JavaScript port of the TodoMVC framework comparision demo app
+ * @link https://github.com/PureMVC/puremvc-js-demo-todomvc.git
+ *
+ * @author Mike Britton, Addy Osmani & Sindre Sorhus
+ *
+ * PureMVC Framework for JavaScript
+ * http://puremvc.org/
+ * https://github.com/PureMVC/puremvc-js-multicore-framework
+ *
+ * TodoMVC - Helping you select an MV* framework
+ * http://todomvc.com/
+ * https://github.com/addyosmani/todomvc 
+ -->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>TodoMVC - A PureMVC JavaScript Demo</title>
+        <meta name="author" content="Mike Britton" />
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+        <link rel="stylesheet" href="../../../assets/base.css">
+        <!--[if IE]>
+            <script src="../../../assets/ie.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <section id="todoapp">
+            <header id="header">
+                <h1>todos</h1>
+                <input id="new-todo" placeholder="What needs to be done?" autofocus>
+            </header>
+            <section id="main">
+                <input id="toggle-all" type="checkbox"/>
+                <label for="toggle-all">Mark all as complete</label>
+                <ul id="todo-list"></ul>
+            </section>
+            <footer id="footer">
+                <span id="todo-count"></span>
+                <button id="clear-completed">
+                    Clear completed
+                </button>
+            </footer>            
+        </section>
+        <footer id="info">
+            <p>
+                Double-click to edit a todo
+            </p>
+            <p>
+                Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a>
+            </p>
+            <p>
+                Created by <a href="http://twitter.com/ffesseler">Florian Fesseler</a>
+            </p>
+            <p>
+                Cleanup, edits by <a href="http://github.com/boushley">Aaron Boushley</a>
+            </p>
+        </footer>
+    </body>
+
+    <!-- PUREMVC LIBRARY -->
+    <script language="JavaScript" src="lib/puremvc-1.0.1.min.js"></script>
+
+    <!-- APPLICATION CONSTANTS -->
+    <script language="JavaScript" src="AppConstants.js"></script>
+
+    <!-- PROXIES -->
+    <script language="JavaScript" src="src/model/proxy/TodoProxy.js"></script>
+    
+    <!-- VIEW COMPONENTS -->
+    <script language="JavaScript" src="src/view/component/TodoForm.js"></script>
+    
+    <!-- MEDIATORS -->
+    <script language="JavaScript" src="src/view/mediator/TodoFormMediator.js"></script>
+
+    <!-- COMMANDS -->
+    <script language="JavaScript" src="src/controller/command/StartupCommand.js"></script>
+    <script language="JavaScript" src="src/controller/command/PrepControllerCommand.js"></script>
+    <script language="JavaScript" src="src/controller/command/PrepModelCommand.js"></script>
+    <script language="JavaScript" src="src/controller/command/PrepViewCommand.js"></script>
+    <script language="JavaScript" src="src/controller/command/TodoCommand.js"></script>
+    
+    <!-- APPLICATION -->
+    <script language="JavaScript" src="Application.js"></script>
+    
+    <!-- START THE APPLICATION -->
+    <script language="JavaScript">
+        // initialize the app when all DOM content has loaded.
+        document.addEventListener('DOMContentLoaded', function() 
+        {
+            var app = new todomvc.Application;
+        });
+    </script>
+
+</html>
