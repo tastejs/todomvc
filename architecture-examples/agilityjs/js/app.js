@@ -125,7 +125,7 @@
 				});
 				this.model.set({
 					todoCount: count - completedCount + '',
-					pluralizer: (count - completedCount === 0 ? '' : 's'),
+					pluralizer: (count - completedCount === 1 ? '' : 's'),
 					completedCount: completedCount + '',
 					mainStyle: (count === 0 ? 'hidden' : ''),
 					clearBtnStyle: (completedCount === 0 ? 'hidden' : '')
