@@ -164,22 +164,6 @@
 	var viewModel = new ViewModel( todos || [] );
 	ko.applyBindings( viewModel );
 
-	//setup crossroads
-	crossroads.addRoute('all', function() {
-		viewModel.showMode('all');
-	});
-
-	crossroads.addRoute('active', function() {
-		viewModel.showMode('active');
-	});
-
-	crossroads.addRoute('completed', function() {
-		viewModel.showMode('completed');
-	});
-
-	window.onhashchange = function() {
-		crossroads.parse( location.hash.replace('#', '') );
-	};
-
-	crossroads.parse( location.hash.replace('#', '') );
+	// set up filter routing
+	Router({ '/:filter': viewModel.showMode }).init();
 }());
