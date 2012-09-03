@@ -26,7 +26,7 @@
 					this.view.$().toggleClass( 'completed', this.model.get('completed') );
 					app.updateStatus();
 				},
-				'dblclick label': function() {
+				'dblclick &': function() {
 					this.view.$().addClass('editing');
 					this.view.$('.edit').focus();
 				},
@@ -42,16 +42,24 @@
 				'destroy': function() {
 					this.erase();
 				},
-				'change:title': function() {
-					this.view.$().removeClass('editing');
-					var title = this.model.get('title').trim();
-					if ( title ) {
-						this.model.set({
-							title: title
-						});
-					} else {
-						this.destroy();
+				'blur input': function() {
+					this.updateTitle();
+				},
+				'keyup input': function() {
+					if ( event.which === ENTER_KEY ) {
+						this.updateTitle();
 					}
+				}
+			},
+			updateTitle: function() {
+				this.view.$().removeClass('editing');
+				var title = this.model.get('title').trim();
+				if ( title ) {
+					this.model.set({
+						title: title
+					});
+				} else {
+					this.destroy();
 				}
 			}
 		}).persist( $$.adapter.localStorage, {
@@ -117,13 +125,15 @@
 				});
 				this.model.set({
 					todoCount: count - completedCount + '',
-					pluralizer: (count > 1 ? 's' : ''),
+					pluralizer: (count - completedCount === 1 ? '' : 's'),
 					completedCount: completedCount + '',
 					mainStyle: (count === 0 ? 'hidden' : ''),
 					clearBtnStyle: (completedCount === 0 ? 'hidden' : '')
 				});
 				// update toggle-all checked status
 				$('#toggle-all').prop( 'checked', completedCount === count );
+				// update the view according to the current filter.
+				this.applyFilter();
 			},
 			// filter handler
 			filters: {
@@ -138,10 +148,12 @@
 				}
 			},
 			applyFilter: function( hash ) {
-				var isVisible = this.filters[hash];
-				this.each(function( id, item ) {
-					item.view.$().toggleClass( 'hidden', !isVisible( item ) );
-				});
+				var isVisible = this.filters[hash || location.hash];
+				if ( isVisible ) {
+					this.each(function( id, item ) {
+						item.view.$().toggleClass( 'hidden', !isVisible( item ) );
+					});
+				}
 			}
 		}).persist();
 		$$.document.prepend( app );
