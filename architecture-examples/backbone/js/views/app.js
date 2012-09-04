@@ -32,7 +32,7 @@ $(function( $ ) {
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 
-			window.app.Todos.on( 'add', this.addAll, this );
+			window.app.Todos.on( 'add', this.addOne, this );
 			window.app.Todos.on( 'reset', this.addAll, this );
 			window.app.Todos.on('change:completed', this.filterOne, this);
 			window.app.Todos.on("filter", this.filterAll, this);
