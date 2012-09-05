@@ -47,6 +47,7 @@ We also have a number of in-progress applications in Labs:
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujo.js](http://cujojs.github.com)
 - [Meteor](http://meteor.com)
+- [Derby](http://derbyjs.com)
 - [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Sammy.js](http://sammyjs.org)
@@ -141,4 +142,4 @@ For applications that we feel don't quite match the goals of the project, but wh
 
 ## License
 
-[The Unlicense](http://unlicense.org) (i.e Public Domain)
+Licensed under the [MIT](https://github.com/addyosmani/todomvc/tree/master/LICENSE.md) license.
