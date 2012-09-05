@@ -7,7 +7,15 @@ define(
     var app = new marionette.Application(),
         todoList = new TodoList();
 
-    todoList.fetch();
+    app.bindTo(todoList, 'all', function() {
+      if (todoList.length === 0) {
+        app.main.$el.hide();
+        app.footer.$el.hide();
+      } else {
+        app.main.$el.show();
+        app.footer.$el.show();
+      }
+    });
 
     app.addRegions({
       header : '#header',
@@ -25,19 +33,9 @@ define(
       app.main.show(new TodoListCompositeView(viewOptions));
       app.footer.show(new Footer(viewOptions));
 
-      app.bindTo(todoList, 'all', updateVisibility);
-      updateVisibility();
+      todoList.fetch();
     });
 
-    function updateVisibility() {
-      if (todoList.length === 0) {
-        app.main.$el.hide();
-        app.footer.$el.hide();
-      } else {
-        app.main.$el.show();
-        app.footer.$el.show();
-      }
-    }
 
     vent.on('todoList:filter',function(filter) {
       filter = filter || 'all';
