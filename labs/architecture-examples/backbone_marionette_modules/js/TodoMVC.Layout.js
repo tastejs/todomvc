@@ -69,7 +69,7 @@ TodoMVC.module("Layout", function(Layout, App, Backbone, Marionette, $, _){
     updateFilterSelection : function(filter) {
       this.ui.filters
         .removeClass('selected')
-        .filter('[href="#/' + filter + '"]')
+        .filter('[href="#' + filter + '"]')
         .addClass('selected');
     },
 

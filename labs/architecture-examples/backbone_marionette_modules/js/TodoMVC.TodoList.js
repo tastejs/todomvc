@@ -7,8 +7,7 @@ TodoMVC.module("TodoList", function(TodoList, App, Backbone, Marionette, $, _){
 
   TodoList.Router = Marionette.AppRouter.extend({
     appRoutes : {
-      "": "showActiveItems",
-      "*filter": "showFilteredItems"
+      "*filter": "filterItems"
     }
   });
 
@@ -54,14 +53,9 @@ TodoMVC.module("TodoList", function(TodoList, App, Backbone, Marionette, $, _){
       }));
     },
 
-    // Set the filter to show active items only
-    showActiveItems: function(){
-      App.vent.trigger("todoList:filter", "");
-    },
-
     // Set the filter to show complete or all items
-    showFilteredItems: function(filter){
-      App.vent.trigger("todoList:filter", filter.trim());
+    filterItems: function(filter){
+      App.vent.trigger("todoList:filter", filter.trim() || "");
     }
   });
 
@@ -81,17 +75,6 @@ TodoMVC.module("TodoList", function(TodoList, App, Backbone, Marionette, $, _){
 
     controller.start();
 
-  });
-
-  // Application Event Handlers
-  // --------------------------
-  //
-  // Handler for filtering the list of items by showing and
-  // hiding through the use of various CSS classes
-  
-  TodoMVC.vent.on('todoList:filter',function(filter) {
-    filter = filter || 'all';
-    $('#todoTodoMVC').attr('class', 'filter-' + filter);
   });
 
 });
