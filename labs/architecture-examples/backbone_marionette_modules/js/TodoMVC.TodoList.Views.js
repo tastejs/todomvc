@@ -6,7 +6,7 @@ TodoMVC.module("TodoList.Views", function(Views, App, Backbone, Marionette, $, _
   // Display an individual todo item, and respond to changes
   // that are made to the item, including marking completed.
 
-  Views.ItemView = Marionette.CompositeView.extend({
+  Views.ItemView = Marionette.ItemView.extend({
     tagName : 'li',
       template : "#template-todoItemView",
 
