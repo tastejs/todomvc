@@ -106,6 +106,7 @@ puremvc.define(
                 var todo = {};
                 todo.id = event.target.id.slice(6);
                 todo.title = event.target.value.trim();
+                todo.completed = event.target.completed;
                 var updateItemEvent = this.createEvent( todomvc.view.event.AppEvents.UPDATE_ITEM );
                 updateItemEvent.todo = todo;
                 this.dispatchEvent( updateItemEvent );
@@ -173,9 +174,11 @@ puremvc.define(
                     inputEditTodo.id = 'input_' + todo.id;
                     inputEditTodo.className = 'edit';
                     inputEditTodo.value = todo.title;
+                    inputEditTodo.completed = todo.completed;
                     inputEditTodo.component = this;            
                     inputEditTodo.addEventListener('keypress', function( event ) {
                         if (event.keyCode === this.component.ENTER_KEY) {
+                            var testing=5;
                             this.component.dispatchUpdateTodo( event );
                         }
                     });            
