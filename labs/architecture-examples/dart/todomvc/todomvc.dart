@@ -1,48 +1,32 @@
 #import('dart:html');
 
-int ENTER_KEY = 13;
-
 void main() {
-  Todo todo = new Todo();
-  todo.done = true;
-  todo.content = "test";
-
-  final node = new Element.html('''
-    <div class="todo ${todo.done ? 'done' : ''}">
-      <div class="display">
-        <input class="check" type="checkbox" ${todo.done ? 'checked="checked"' : ''}/>
-        <label class="todo-content">${todo.content}</label>
-        <span class="todo-destroy"></span>
-      </div>
-      <div class="edit">
-        <input class="todo-input" type="text" value="${todo.content}" />
-      </div>
-    </div>
-  ''');
+  InputElement newTodoElement = query("#new-todo");
+  Element todoListElement = query("#todo-list");
   
-  query("#new-todo").on.keyPress.add((KeyboardEvent e) {
+  newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
-      document.body.nodes.add(node);
+      Todo todo = new Todo();
+      todo.done = false;
+      todo.content = newTodoElement.value;
+      newTodoElement.value = "";
+      todoListElement.nodes.add(buildTodoElement(todo));
     }
   });
 }
 
-/*
-<% if (total) { %>
-<span class="todo-count">
-<span class="number"><%= remaining %></span>
-<span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left.
-    </span>
-<% } %>
-<% if (done) { %>
-<span class="todo-clear">
-<a href="#">
-Clear <span class="number-done"><%= done %></span>
-completed <span class="word-done"><%= done == 1 ? 'item' : 'items' %></span>
-</a>
-</span>
-<% } %>
-*/
+Element buildTodoElement(Todo todo) {
+  return new Element.html('''
+  <li ${todo.done ? 'class="completed"' : ''}>
+    <div class="view">
+      <input class="toggle" type="checkbox" ${todo.done ? 'checked' : ''}>
+      <label>${todo.content}</label>
+      <button class="destroy"></button>
+    </div>
+    <input class="edit" value="${todo.content}">
+  </li>
+  ''');
+}
 
 class Todo {
   String content;
