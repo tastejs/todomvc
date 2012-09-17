@@ -3,6 +3,9 @@
 #### Helping you select an MV\* framework
 
 
+![logo](https://raw.github.com/addyosmani/todomvc/gh-pages/site/img/logo.svg)
+
+
 ## Introduction
 
 Developers these days are spoiled with choice when it comes to selecting an MV\* framework for structuring and organizing JavaScript web apps.
@@ -76,7 +79,7 @@ Live demos are available on our [website](http://todomvc.com)
 
 ## Screenshot
 
-![screenshot](https://raw.github.com/addyosmani/todomvc/master/screenshot.png)
+![screenshot](https://raw.github.com/addyosmani/todomvc/gh-pages/screenshot.png)
 
 
 ## Team
@@ -105,39 +108,14 @@ It is meant to be used as a gateway to reviewing how a basic application using a
 
 ## Project Status
 
-TodoMVC 1.0 was just released and includes re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We've also addressed framework author concerns about routing by adding this to many of the more mainstream applications in the project.
+TodoMVC 1.0 includes re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We've also addressed framework author concerns about routing by adding this to many of the more mainstream applications in the project.
 
 
 ## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-
-### New Applications
-
-If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after:
-
-* Reading our [contribution guidelines](https://github.com/addyosmani/todomvc/wiki)
-* Going through our [application specification](https://github.com/addyosmani/todomvc/wiki/App-Specification)
-* Looking at our most recent [reference application](https://github.com/addyosmani/todomvc/tree/master/architecture-examples/spine)
-
-One of us will be happy to review your submission and discuss any changes that may be required before they can be included. Applications will typically land first in Labs, reaching the 'stable' mark once we have verified they meet all of the application specifications referenced above.
-
-
-### Unit Tests
-
-At present, due to the large number of applications in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted.
-
-We do however plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework.
-
-If you are a library author or contributor wishing to start work on writing tests for an implementation, we'll happily consider including them in the future. This may change based on how we specify unit tests must be structured and so on post 1.0.
-
-
-### A Final Note
-
-Note that due to the current number of MVC/MVVM/MV* frameworks in circulation, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision :)
-
-For applications that we feel don't quite match the goals of the project, but which we feel still offer value, we're happy to include references to them in our official [wiki](https://github.com/addyosmani/todomvc/wiki/Other-implementations).
+Check out our [contribution docs](todomvc/blob/gh-pages/contributing.md) for more info.
 
 
 ## License
