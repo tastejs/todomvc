@@ -112,6 +112,7 @@ TodoMVC 1.0 was just released and includes re-writes of almost all applications,
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
+
 ### New Applications
 
 If you have an implementation you would like to show us or a patch you would like to send upstream, please feel free to send through a pull request after:
@@ -141,4 +142,5 @@ For applications that we feel don't quite match the goals of the project, but wh
 
 ## License
 
-Licensed under the [MIT](https://github.com/addyosmani/todomvc/tree/master/LICENSE.md) license.
+MIT License
+Copyright (c) Addy Osmani & Sindre Sorhus
