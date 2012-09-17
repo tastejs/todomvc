@@ -94,10 +94,9 @@ Sindre is a Web Developer who drives core development, quality control and appli
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 
-<img align="right" width="256" height="256" src="https://raw.github.com/addyosmani/todomvc/gh-pages/media/icon-small.png">
-
-
 ## Disclaimer
+
+<img align="right" width="230" height="230" src="https://raw.github.com/addyosmani/todomvc/gh-pages/media/icon-small.png">
 
 TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV* frameworks. Whilst we hope that this project is able to offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of what a framework may be capable of.
 
