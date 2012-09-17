@@ -8,7 +8,7 @@ void main() {
     if(e.keyIdentifier == KeyName.ENTER) {
       Todo todo = new Todo();
       todo.done = false;
-      todo.content = newTodoElement.value;
+      todo.content = newTodoElement.value.trim();
       newTodoElement.value = "";
       todoListElement.nodes.add(buildTodoElement(todo));
     }
