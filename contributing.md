@@ -12,7 +12,7 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues, 
 
 ## Submitting a New App
 
-- **Read the [App Specification](wiki/App-Specification) thoroughly**
+- **Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) thoroughly**
 - Make sure it hasn't already been submitted or declined by searching the issue tracker
 - Looking at our most recent [reference app](https://github.com/addyosmani/todomvc/tree/master/architecture-examples/backbone)
 - Test in the [supported browsers](https://github.com/addyosmani/todomvc/wiki/Home/)
