@@ -20,9 +20,7 @@ $(function( $ ) {
 			// to the view. Any events in this hash will be bound to the
 			// collection.
 			collection: {
-				all: 'toggleToggleAllButton',
-				'change:completed': 'filterOne',
-				'filter': 'filterAll'
+				all: 'toggleToggleAllButton'
 			},
 			rendered: 'toggleToggleAllButton'
 		},
@@ -41,12 +39,11 @@ $(function( $ ) {
 			this.$('#toggle-all').attr('checked', !this.todosCollection.remaining().length);
 		},
 
-		filterOne : function (todo) {
-			todo.trigger("visible");
-		},
-
-		filterAll : function () {
-			app.Todos.each(this.filterOne, this);
+		// This function is specified in the collection helper as the filter
+		// and will be called each time a model changes, or for each item
+		// when the collection is rendered
+		filterTodoItem: function(model) {
+			return model.isVisible();
 		},
 
 		// Generate the attributes for a new Todo item.

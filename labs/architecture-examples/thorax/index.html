@@ -20,7 +20,7 @@
 	  	  <section id="main">
 	  	  	<input id="toggle-all" type="checkbox">
 	  	  	<label for="toggle-all">Mark all as complete</label>
-	  	  	{{#collection todosCollection item-view="todo-item" tag="ul" id="todo-list"}}
+	  	  	{{#collection todosCollection filter="filterTodoItem" item-view="todo-item" tag="ul" id="todo-list"}}
 			  		<div class="view">
 			  			<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
 			  			<label>{{title}}</label>
@@ -59,7 +59,7 @@
 	<script src="../../../assets/jquery.min.js"></script>
 	<script src="../../../assets/lodash.min.js"></script>
 	<script src="../../../assets/handlebars.min.js"></script>
-	<script src="js/lib/backbone-min.js"></script>
+	<script src="js/lib/backbone.js"></script>
 	<script src="js/lib/backbone-localstorage.js"></script>
 	<script src="js/lib/thorax.js"></script>
 	<script>

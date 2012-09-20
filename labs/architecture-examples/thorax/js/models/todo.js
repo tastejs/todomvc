@@ -21,6 +21,17 @@ var app = app || {};
 			this.save({
 				completed: !this.get('completed')
 			});
+		},
+
+		isVisible: function () {
+			var isCompleted = this.get('completed');
+			if (app.TodoFilter === '') {
+				return true;
+			} else if (app.TodoFilter === 'completed') {
+				return isCompleted;
+			} else if (app.TodoFilter === 'active') {
+				return !isCompleted;
+			}
 		}
 
 	});

@@ -8,15 +8,15 @@ var app = app || {};
 
 	app.TodoRouter = new (Thorax.Router.extend({
 		routes: {
-			'*filter': 'setFilter'
+			'': 'setFilter',
+			':filter': 'setFilter'
 		},
 
 		setFilter: function( param ) {
 			// Set the current filter to be used
-			window.app.TodoFilter = param.trim() || '';
-
-			// Trigger a collection filter event, causing hiding/unhiding
-			// of Todo view items
+			window.app.TodoFilter = param ? param.trim().replace(/^\//, '') : '';
+			// Thorax listens for a `filter` event which will
+			// force the collection to re-filter
 			window.app.Todos.trigger('filter');
 		}
 	}));
