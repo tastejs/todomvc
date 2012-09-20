@@ -31,9 +31,11 @@ Thorax.View.extend({
   // be called to generate the context / scope that the template
   // will be called with. "context" defaults to "return this"
   context: function() {
+    var remaining = app.Todos.remaining().length;
     return {
+      itemText: remaining === 1 ? 'item' : 'items',
       completed: app.Todos.completed().length,
-      remaining: app.Todos.remaining().length
+      remaining: remaining
     };
   },
 
