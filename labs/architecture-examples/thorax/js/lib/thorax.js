@@ -52,7 +52,16 @@ _.extend(Thorax, {
   //view instances
   _viewsIndexedByCid: {},
   templates: {},
-  Views: {}
+  //view classes
+  Views: {},
+  //certain error prone pieces of code (on Android only it seems)
+  //are wrapped in a try catch block, then trigger this handler in
+  //the catch, with the name of the function or event that was
+  //trying to be executed. Override this with a custom handler
+  //to debug / log / etc
+  onException: function(name, err) {
+    throw err;
+  }
 });
 
 Thorax.Util = {
@@ -244,17 +253,8 @@ Thorax.View = Backbone.View.extend({
     }
     
   //HelperView will not have mixins so need to check
-  if (this.constructor.mixins) {
-    //mixins
-    for (var i = 0; i < this.constructor.mixins.length; ++i) {
-      applyMixin.call(this, this.constructor.mixins[i]);
-    }
-    if (this.mixins) {
-      for (var i = 0; i < this.mixins.length; ++i) {
-        applyMixin.call(this, this.mixins[i]);
-      }
-    }
-  }
+  this.constructor.mixins && _.each(this.constructor.mixins, applyMixin, this);
+  this.mixins && _.each(this.mixins, applyMixin, this);
 
   //_events not present on HelperView
   this.constructor._events && this.constructor._events.forEach(function(event) {
@@ -328,10 +328,14 @@ Thorax.View = Backbone.View.extend({
   },
 
   _getContext: function(attributes) {
-    return _.extend({}, Thorax.Util.getValue(this, 'context'), attributes || {}, {
+    var data = _.extend({}, Thorax.Util.getValue(this, 'context'), attributes || {}, {
       cid: _.uniqueId('t'),
+      yield: function() {
+        return data.fn && data.fn(data);
+      },
       _view: this
     });
+    return data;
   },
 
   renderTemplate: function(file, data, ignoreErrors) {
@@ -410,7 +414,7 @@ Handlebars.registerHelper('super', function() {
 });
 
 Handlebars.registerHelper('template', function(name, options) {
-  var context = _.extend({}, this, options ? options.hash : {});
+  var context = _.extend({fn: options && options.fn}, this, options ? options.hash : {});
   var output = Thorax.View.prototype.renderTemplate.call(this._view, name, context);
   return new Handlebars.SafeString(output);
 });
@@ -574,8 +578,8 @@ function applyMixin(mixin) {
 }
 
 var _destroy = Thorax.View.prototype.destroy,
-  _on = Thorax.View.prototype.on,
-  _delegateEvents = Thorax.View.prototype.delegateEvents;
+    _on = Thorax.View.prototype.on,
+    _delegateEvents = Thorax.View.prototype.delegateEvents;
 
 
 
@@ -615,6 +619,9 @@ _.extend(Thorax.View, {
 
 _.extend(Thorax.View.prototype, {
   freeze: function(options) {
+    
+  this.model && this._unbindModelEvents();
+
     options = _.defaults(options || {}, {
       dom: true,
       children: true
@@ -703,10 +710,10 @@ _.extend(Thorax.View.prototype, {
   _addEvent: function(params) {
     if (params.type === 'view') {
       params.name.split(/\s+/).forEach(function(name) {
-        _on.call(this, name, params.handler, params.context || this);
+        _on.call(this, name, bindEventHandler.call(this, 'view-event:' + params.name, params.handler), params.context || this);
       }, this);
     } else {
-      var boundHandler = containHandlerToCurentView(bindEventHandler.call(this, params.handler), this.cid);
+      var boundHandler = containHandlerToCurentView(bindEventHandler.call(this, 'dom-event:' + params.name, params.handler), this.cid);
       if (params.selector) {
         //TODO: determine why collection views and some nested views
         //need defered event delegation
@@ -747,12 +754,18 @@ function containHandlerToCurentView(handler, cid) {
   }
 }
 
-function bindEventHandler(callback) {
+function bindEventHandler(eventName, callback) {
   var method = typeof callback === 'function' ? callback : this[callback];
   if (!method) {
-    throw new Error('Event "' + callback + '" does not exist');
+    throw new Error('Event "' + callback + '" does not exist ' + (this.name || this.cid) + ':' + eventName);
   }
-  return _.bind(method, this);
+  return _.bind(function() {
+    try {
+      method.apply(this, arguments);
+    } catch (e) {
+      Thorax.onException('thorax-exception: ' + (this.name || this.cid) + ':' + eventName, e);
+    }
+  }, this);
 }
 
 function eventParamsFromEventItem(name, handler, context) {
@@ -774,9 +787,7 @@ function eventParamsFromEventItem(name, handler, context) {
 }
 
 var modelCidAttributeName = 'data-model-cid',
-    modelNameAttributeName = 'data-model-name',
-    _freeze = Thorax.View.prototype.freeze,
-    _context = Thorax.View.prototype.context;
+    modelNameAttributeName = 'data-model-name';
 
 Thorax.Model = Backbone.Model.extend({
   isEmpty: function() {
@@ -808,6 +819,8 @@ Thorax.Util.createRegistryWrapper(Thorax.Model, Thorax.Models);
 
 
 
+
+
 Thorax.View._modelEvents = [];
 
 function addEvents(target, source) {
@@ -823,18 +836,8 @@ function addEvents(target, source) {
 }
 
 _.extend(Thorax.View.prototype, {
-  _getContext: function(attributes) {
-    return _.extend({}, Thorax.Util.getValue(this, 'context', this.model), attributes || {}, {
-      cid: _.uniqueId('t'),
-      _view: this
-    });
-  },
   context: function() {
-    return _.extend({}, _context.call(this), (this.model && this.model.attributes) || {});
-  },
-  freeze: function(options) {
-    this.model && this._unbindModelEvents();
-    _freeze.call(this, options);
+    return _.extend({}, this, (this.model && this.model.attributes) || {});
   },
   _bindModelEvents: function() {
     bindModelEvents.call(this, this.constructor._modelEvents);
@@ -1841,8 +1844,12 @@ Thorax.loadHandler = function(start, end) {
     function startLoadTimeout() {
       clearTimeout(self._loadStart.timeout);
       self._loadStart.timeout = setTimeout(function() {
-          self._loadStart.run = true;
-          start.call(self, self._loadStart.message, self._loadStart.background, self._loadStart);
+          try {
+            self._loadStart.run = true;
+            start.call(self, self._loadStart.message, self._loadStart.background, self._loadStart);
+          } catch(e) {
+            Thorax.onException('loadStart', e);
+          }
         },
         loadingTimeout*1000);
     }
@@ -1887,19 +1894,23 @@ Thorax.loadHandler = function(start, end) {
         events.splice(index, 1);
       }
       if (!events.length) {
-        self._loadStart.endTimeout = setTimeout(function(){
-          if (!events.length) {
-            var run = self._loadStart.run;
-
-            if (run) {
-              // Emit the end behavior, but only if there is a paired start
-              end.call(self, self._loadStart.background, self._loadStart);
-              self._loadStart.trigger(loadEnd, self._loadStart);
+        self._loadStart.endTimeout = setTimeout(function() {
+          try {
+            if (!events.length) {
+              var run = self._loadStart.run;
+  
+              if (run) {
+                // Emit the end behavior, but only if there is a paired start
+                end.call(self, self._loadStart.background, self._loadStart);
+                self._loadStart.trigger(loadEnd, self._loadStart);
+              }
+  
+              // If stopping make sure we don't run a start
+              clearTimeout(self._loadStart.timeout);
+              self._loadStart = undefined;
             }
-
-            // If stopping make sure we don't run a start
-            clearTimeout(self._loadStart.timeout);
-            self._loadStart = undefined;
+          } catch(e) {
+            Thorax.onException('loadEnd', e);
           }
         }, loadingEndTimeout * 1000);
       }
