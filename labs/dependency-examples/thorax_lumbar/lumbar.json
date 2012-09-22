@@ -1,0 +1,90 @@
+{
+  "application": {
+    "name": "Application",
+    "module": "base"
+  },
+  "modules": {
+    "base": {
+      "scripts": [
+        {
+          "src": "../../../assets/base.js",
+          "global": true
+        },
+        {
+          "src": "../../../assets/jquery.min.js",
+          "global": true
+        },
+        {
+          "src": "../../../assets/lodash.min.js",
+          "global": true
+        },
+        {
+          "src": "../../../assets/handlebars.min.js",
+          "global": true
+        },
+        {
+          "src": "src/js/lib/backbone.js",
+          "global": true
+        },
+        {
+          "src": "src/js/lib/backbone.js",
+          "global": true
+        },
+        {
+          "src": "src/js/lib/backbone-localstorage.js",
+          "global": true
+        },
+        {
+          "src": "src/js/lib/thorax.js",
+          "global": true
+        },
+        {
+          "src": "src/js/lib/script.js",
+          "global": true
+        },
+        {
+          "src": "src/js/lib/lumbar-loader.js"
+        },
+        {
+          "src": "src/js/lib/lumbar-loader-events.js"
+        },
+        {
+          "src": "src/js/lib/lumbar-loader-standard.js"
+        },
+        {
+          "src": "src/js/lib/lumbar-loader-backbone.js"
+        },
+        {
+          "src": "src/js/init.js"
+        },
+        {
+          "module-map": true
+        }
+      ]
+    },
+    "todomvc": {
+      "routes": {
+        "": "setFilter",
+        ":filter": "setFilter"
+      },
+      "scripts": [
+        "src/js/models/todo.js",
+        "src/js/collections/todos.js",
+        "src/js/views/todo-item.js",
+        "src/js/views/stats.js",
+        "src/js/views/app.js",
+        "src/js/routers/todomvc.js",
+        "src/js/app.js"
+      ]
+    }
+  },
+  "templates": {
+    "template": "Thorax.templates['{{{without-extension name}}}'] = '{{{data}}}';",
+    "src/js/views/app.js": [
+      "src/templates/app.handlebars"
+    ],
+    "src/js/views/stats.js": [
+      "src/templates/stats.handlebars"
+    ]
+  }
+}
