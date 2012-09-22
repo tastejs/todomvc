@@ -1,5 +1,3 @@
-var app = app || {};
-
 $(function( $ ) {
 	'use strict';
 
@@ -30,7 +28,7 @@ $(function( $ ) {
 		// global Todos collection available to the template.
 		// Load any preexisting todos that might be saved in *localStorage*.
 		initialize: function() {
-			this.todosCollection = app.Todos;
+			this.todosCollection = window.app.Todos;
 			this.todosCollection.fetch();
 			this.render();
 		},
@@ -50,7 +48,7 @@ $(function( $ ) {
 		newAttributes: function() {
 			return {
 				title: this.$('#new-todo').val().trim(),
-				order: app.Todos.nextOrder(),
+				order: window.app.Todos.nextOrder(),
 				completed: false
 			};
 		},
@@ -62,14 +60,14 @@ $(function( $ ) {
 				return;
 			}
 
-			app.Todos.create( this.newAttributes() );
+			window.app.Todos.create( this.newAttributes() );
 			this.$('#new-todo').val('');
 		},
 
 		toggleAllComplete: function() {
 			var completed = this.$('#toggle-all')[0].checked;
 
-			app.Todos.each(function( todo ) {
+			window.app.Todos.each(function( todo ) {
 				todo.save({
 					'completed': completed
 				});

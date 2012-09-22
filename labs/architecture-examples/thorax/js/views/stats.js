@@ -31,10 +31,10 @@ Thorax.View.extend({
   // be called to generate the context / scope that the template
   // will be called with. "context" defaults to "return this"
   context: function() {
-    var remaining = app.Todos.remaining().length;
+    var remaining = window.app.Todos.remaining().length;
     return {
       itemText: remaining === 1 ? 'item' : 'items',
-      completed: app.Todos.completed().length,
+      completed: window.app.Todos.completed().length,
       remaining: remaining
     };
   },
@@ -43,7 +43,7 @@ Thorax.View.extend({
   highlightFilter: function() {
     this.$('#filters li a')
       .removeClass('selected')
-      .filter('[href="#/' + ( app.TodoFilter || '' ) + '"]')
+      .filter('[href="#/' + ( window.app.TodoFilter || '' ) + '"]')
       .addClass('selected');
   }
 });

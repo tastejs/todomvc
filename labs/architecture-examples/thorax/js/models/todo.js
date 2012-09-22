@@ -1,5 +1,3 @@
-var app = app || {};
-
 (function() {
 	'use strict';
 
@@ -7,7 +5,7 @@ var app = app || {};
 	// ----------
 
 	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
-	app.Todo = Backbone.Model.extend({
+	window.app.Todo = Backbone.Model.extend({
 
 		// Default attributes for the todo
 		// and ensure that each todo created has `title` and `completed` keys.
@@ -25,11 +23,11 @@ var app = app || {};
 
 		isVisible: function () {
 			var isCompleted = this.get('completed');
-			if (app.TodoFilter === '') {
+			if (window.app.TodoFilter === '') {
 				return true;
-			} else if (app.TodoFilter === 'completed') {
+			} else if (window.app.TodoFilter === 'completed') {
 				return isCompleted;
-			} else if (app.TodoFilter === 'active') {
+			} else if (window.app.TodoFilter === 'active') {
 				return !isCompleted;
 			}
 		}

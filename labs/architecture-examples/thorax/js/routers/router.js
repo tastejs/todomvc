@@ -1,12 +1,10 @@
-var app = app || {};
-
 (function() {
 	'use strict';
 
 	// Todo Router
 	// ----------
 
-	app.TodoRouter = new (Thorax.Router.extend({
+	window.app.TodoRouter = new (Thorax.Router.extend({
 		routes: {
 			'': 'setFilter',
 			':filter': 'setFilter'

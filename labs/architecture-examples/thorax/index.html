@@ -68,6 +68,9 @@
 			app: Handlebars.compile($('script[data-template-name="app"]').html()),
 			stats: Handlebars.compile($('script[data-template-name="stats"]').html())
 		};
+
+		//initialize the app object
+		window.app = {};
 	</script>
 	<script src="js/models/todo.js"></script>
 	<script src="js/collections/todos.js"></script>

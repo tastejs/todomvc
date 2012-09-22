@@ -1,5 +1,3 @@
-var app = app || {};
-
 (function() {
 	'use strict';
 
@@ -11,7 +9,7 @@ var app = app || {};
 	var TodoList = Backbone.Collection.extend({
 
 		// Reference to this collection's model.
-		model: app.Todo,
+		model: window.app.Todo,
 
 		// Save all of the todo items under the `"todos"` namespace.
 		localStorage: new Store('todos-backbone'),
@@ -44,6 +42,6 @@ var app = app || {};
 	});
 
 	// Create our global collection of **Todos**.
-	app.Todos = new TodoList();
+	window.app.Todos = new TodoList();
 
 }());
