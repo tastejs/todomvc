@@ -12,11 +12,30 @@ goog.require('todomvc.todomodel');
 todomvc.listmodel = function() {
 
 	var todosSchema = {
+		// number of completed
 		'completed': {
 			get: function() {
-				return this.getModels(function( mod ) {
-					return mod.get('completed');
-				});
+				return this.getModels( 'completed' ).length;
+			},
+			models: true
+		},
+		'allDone': {
+			get: function() {
+				return this.getLength() == this.getModels( 'completed' ).length;
+			},
+			models: true
+		},
+		// number of active
+		'active': {
+			get: function() {
+				return this.getLength() - this.getModels( 'completed' ).length;
+			},
+			models: true
+		},
+		// the total
+		'total': {
+			get: function() {
+				return this.getLength();
 			},
 			models: true
 		}

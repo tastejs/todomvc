@@ -1,0 +1,18 @@
+ul.active li.completed {
+	display: none;
+}
+
+ul.completed li {
+	display: none;
+}
+
+ul.completed li.completed {
+	display: list-item;
+}
+
+#filters.none li.none,
+#filters.active li.active,
+#filters.completed li.completed {
+	font-weight: bold;
+}
+
