@@ -1,5 +1,5 @@
-Thorax + Lumbar TodoMVC Example
-===============================
+Thorax + Lumbar TodoMVC
+=======================
 
 This example uses [Thorax](http://thoraxjs.org) and [Lumbar](http://walmartlabs.github.com/lumbar). The compiled JavaScript is included in the repo, to re-build the files run: 
 

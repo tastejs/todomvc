@@ -6,13 +6,15 @@ define([
 	'common'
 ], function( $, _, Backbone, Common ) {
 
+	// This view has no template assigned in the class definition
+	// as it will recieve the capture block from the collection
+	// helper in templates/app.handlebars as it's template
+
 	return 	Thorax.View.extend({
+		name: 'todo-item',
 
 		//... is a list tag.
 		tagName:  'li',
-
-		// Cache the template function for a single item.
-		name: 'todo-item',
 
 		// The DOM events specific to an item.
 		events: {

@@ -7,7 +7,7 @@
     <section id="main">
       <input id="toggle-all" type="checkbox">
       <label for="toggle-all">Mark all as complete</label>
-      {{#collection todosCollection filter="filterTodoItem" item-view="todo-item" tag="ul" id="todo-list"}}
+      {{#collection todosCollection filter="filterTodoItem" item-view=todoItemView tag="ul" id="todo-list"}}
         <div class="view">
           <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
           <label>{{title}}</label>
@@ -16,7 +16,7 @@
         <input class="edit" value="{{title}}">
       {{/collection}}
     </section>
-    {{view "stats" tag="footer" id="footer"}}
+    {{view statsView}}
    {{/empty}}
 </section>
 <div id="info">

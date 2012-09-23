@@ -10,6 +10,10 @@ define([
   return Thorax.View.extend({
     name: 'stats',
 
+    tagName: 'footer',
+
+    id: 'footer',
+
     template: Handlebars.compile(statsTemplate),
   
     events: {

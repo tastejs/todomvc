@@ -10,9 +10,6 @@ define([
 	'common'
 ], function( $, _, Backbone, Thorax, Todos, TodoItemView, StatsView, appTemplate, Common ) {
 
-	// TodoView & StatsView needs to be included in "define"
-	// as it will be initialized by this view
-
 	return Thorax.View.extend({
 		// In a require.js application the name is primarily for
 		// consistency and debugging purposes
@@ -38,6 +35,8 @@ define([
 		// global Todos collection available to the template.
 		// Load any preexisting todos that might be saved in *localStorage*.
 		initialize: function() {
+			this.todoItemView = TodoItemView;
+			this.statsView = new StatsView;
 			this.todosCollection = Todos;
 			this.todosCollection.fetch();
 			this.render();
