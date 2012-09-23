@@ -39,9 +39,11 @@ require([
 ], function( AppView, TodoMVCRouter ) {
 	// Initialize routing and start Backbone.history()
 	new TodoMVCRouter();
-	Backbone.history.start();
 
 	// Initialize the application view
 	var view = new AppView();
 	$('body').append(view.el);
+
+	Backbone.history.start();
+
 });
