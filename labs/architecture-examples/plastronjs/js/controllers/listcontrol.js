@@ -16,8 +16,25 @@ goog.require('todomvc.todocontrol');
  */
 todomvc.listcontrol = function( list ) {
 	goog.base( this, list );
+	this.filter_ = todomvc.listcontrol.Filter.ALL;
 };
 goog.inherits( todomvc.listcontrol, mvc.Control );
+
+
+/**
+ * @enum {Function}
+ */
+todomvc.listcontrol.Filter = {
+	ALL: function() {
+		return true
+	},
+	ACTIVE: function( model ) {
+		return !model.get('completed')
+	},
+	COMPLETED: function( model ) {
+		return model.get('completed')
+	}
+};
 
 
 /**
@@ -32,9 +49,6 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
 	// handle new note entry
 	this.on( goog.events.EventType.KEYUP, this.handleNewInput, 'todo-entry' );
-
-	// setup list display
-	this.autolist( todomvc.todocontrol, this.getEls( 'ul' )[0] );
 
 	// update complete button based on completed
 	this.autobind('#clear-completed', {
@@ -86,13 +100,23 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 	// Get the saved todos
 	list.fetch();
 
-	// save any changes
+	// save any changes and refresh view
 	this.anyModelChange(function() {
 		list.save();
+		this.refresh();
 	}, this );
 };
 
 
+todomvc.listcontrol.prototype.setFilter = function( filter ) {
+	this.filter_ = filter;
+	this.refresh();
+};
+
+
+/**
+ * adds the input as a new item
+ */
 todomvc.listcontrol.prototype.handleNewInput = function( e ) {
 	var input = e.target;
 
@@ -112,6 +136,28 @@ todomvc.listcontrol.prototype.handleNewInput = function( e ) {
 	});
 
 	input.value = '';
+};
+
+
+/**
+ * refreshes the view of the childen.
+ */
+todomvc.listcontrol.prototype.refresh = function() {
+
+	// Dispose and remove all the children.
+	this.forEachChild(function( child ) {
+		child.dispose();
+	});
+	this.removeChildren( true );
+
+	// Create new controls for the models
+	goog.array.forEach( this.getModel().getModels(this.filter_),
+		function( model ) {
+			var newModelControl = new todomvc.todocontrol( model );
+
+			this.addChild( newModelControl );
+			newModelControl.render( goog.dom.getElement('todo-list') );
+		}, this );
 };
 
 

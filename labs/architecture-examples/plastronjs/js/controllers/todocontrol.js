@@ -48,12 +48,6 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 		model.dispose();
 	}, 'destroy' );
 
-	// put the completed class on the top element when complete
-	this.autobind( '', {
-		onClass: 'completed',
-		reqs: 'completed'
-	})
-
 	// keep label inline with title
 	this.autobind( 'label', '{$title}')
 

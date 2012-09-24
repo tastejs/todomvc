@@ -15,13 +15,16 @@ var router = new mvc.Router();
 
 
 router.route( '/', function() {
+	todolistControl.setFilter( todomvc.listcontrol.Filter.ALL );
 	todolist.set( 'filter', 'none' );
 });
 
 router.route( '/active', function() {
+	todolistControl.setFilter( todomvc.listcontrol.Filter.ACTIVE );
 	todolist.set( 'filter', 'active' );
 });
 
 router.route( '/completed', function() {
+	todolistControl.setFilter( todomvc.listcontrol.Filter.COMPLETED );
 	todolist.set( 'filter', 'completed' );
 });
