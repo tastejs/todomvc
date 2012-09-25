@@ -2,7 +2,7 @@
 
 ## Introduction
 
-An example making use of the [Closure toolkit](https://developers.google.com/closure/). Note this project breaks with the convention of the others and uses spaces in place of tabs withing JavaScript files. This is to comply with the Google style guidelines which the Closure Linter enforces (see Linting below).
+An example making use of the [Closure toolkit](https://developers.google.com/closure/). Note this project breaks with the convention of the others and uses spaces in place of tabs within JavaScript files. This is to comply with the Google style guidelines which the Closure Linter enforces (see Linting below).
 
 ## Running
 
