@@ -5,17 +5,19 @@ if (!_args[0]) {
 	quit();
 }
 
-load('steal/rhino/steal.js');
+load('steal/rhino/rhino.js');
 
-steal('//steal/generate/generate','//steal/generate/system',function(steal){
-	var path =  _args[0].toLowerCase().replace('.',"/"),
+steal('steal/generate','steal/generate/system.js',function(steal){
+	var classed =  steal.generate.toClass(_args[0]),
+		md = steal.generate.convert(classed),
 		data = steal.extend({
-			path: path, 
-			application_name: path.match(/[^\/]*$/)[0],
+			path: _args[0], 
+			application_name: md.underscore,
 			current_path: steal.File.cwdURL(),
-			path_to_steal : new steal.File(path).pathToRoot()
-		}, steal.system)
+			path_to_steal : steal.File(_args[0]).pathToRoot()
+		}, steal.system);
 	
-	steal.generate("jquery/generate/templates/app",path,data);
+	
+	steal.generate("jquery/generate/templates/app", _args[0], data);
 });
 

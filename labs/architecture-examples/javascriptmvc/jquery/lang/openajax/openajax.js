@@ -1,4 +1,4 @@
-//@steal-clean
+//!steal-clean
 /*******************************************************************************
  * OpenAjax.js
  *
@@ -7,7 +7,7 @@
  *
  *   http://www.openajax.org/member/wiki/OpenAjax_Hub_Specification
  *
- * Copyright 2006-2008 OpenAjax Alliance
+ * Copyright 2006-2009 OpenAjax Alliance
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not 
  * use this file except in compliance with the License. You may obtain a copy 
@@ -22,10 +22,10 @@ steal.then(function(){
 // prevent re-definition of the OpenAjax object
 if(!window["OpenAjax"]){
 	/**
-	 * @class OpenAjax
-	 * Use OpenAjax.hub to publish and subscribe to messages.
-	 */
-    OpenAjax = new function(){
+	* @class OpenAjax
+	* Use OpenAjax.hub to publish and subscribe to messages.
+	*/
+	OpenAjax = new function(){
 		var t = true;
 		var f = false;
 		var g = window;
@@ -34,8 +34,8 @@ if(!window["OpenAjax"]){
 		var h = {};
 		this.hub = h;
 		h.implementer = "http://openajax.org";
-		h.implVersion = "1.0";
-		h.specVersion = "1.0";
+		h.implVersion = "2.0";
+		h.specVersion = "2.0";
 		h.implExtraData = {};
 		var libs = {};
 		h.libraries = libs;
@@ -109,14 +109,14 @@ if(!window["OpenAjax"]){
 			}
 		}
 
-		h._publish = function(tree, path, index, name, msg, pcb, pcid) {
+		h._publish = function(tree, path, index, name, msg, pid) {
 			if(typeof tree != "undefined") {
 				var node;
 				if(index == path.length) {
 					node = tree;
 				} else {
-					this._publish(tree.c[path[index]], path, index + 1, name, msg, pcb, pcid);
-					this._publish(tree.c["*"], path, index + 1, name, msg, pcb, pcid);			
+					this._publish(tree.c[path[index]], path, index + 1, name, msg, pid);
+					this._publish(tree.c["*"], path, index + 1, name, msg, pid);
 					node = tree.c["**"];
 				}
 				if(typeof node != "undefined") {
@@ -128,8 +128,6 @@ if(!window["OpenAjax"]){
 							var cb = callbacks[i].cb;
 							var fcb = callbacks[i].fcb;
 							var d = callbacks[i].data;
-							var sid = callbacks[i].sid;
-							var scid = callbacks[i].cid;
 							if(typeof cb == "string"){
 								// get a function object
 								cb = sc[cb];
@@ -139,9 +137,7 @@ if(!window["OpenAjax"]){
 								fcb = sc[fcb];
 							}
 							if((!fcb) || (fcb.call(sc, name, msg, d))) {
-							  if((!pcb) || (pcb(name, msg, pcid, scid))) {
-								  cb.call(sc, name, msg, d, sid);
-							  }
+								cb.call(sc, name, msg, d, pid);
 							}
 						}
 					}
@@ -198,5 +194,5 @@ if(!window["OpenAjax"]){
 	OpenAjax.hub.registerLibrary("OpenAjax", "http://openajax.org/hub", "1.0", {});
 
 }
-OpenAjax.hub.registerLibrary("JavaScriptMVC", "http://JavaScriptMVC.com", "3.0", {});
+OpenAjax.hub.registerLibrary("JavaScriptMVC", "http://JavaScriptMVC.com", "3.1", {});
 });

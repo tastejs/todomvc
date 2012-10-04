@@ -1,4 +1,4 @@
-//@steal-clean
+//!steal-clean
 /**
  * CoffeeScript Compiler v0.9.1
  * http://coffeescript.org

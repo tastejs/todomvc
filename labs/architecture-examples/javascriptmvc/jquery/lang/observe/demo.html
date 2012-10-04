@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>object</title>
+    <style type='text/css'>
+    </style>
+</head>
+<body>
+	<h2>My Unsorted Todo List</h2>
+	<ul id='unsorted'>
+		
+	</ul>
+	<h2>My Sorted Todo List</h2>
+	<ul id='sorted'>
+		
+	</ul>
+	
+	<form id='create'><input type='text'/></form>
+	<script type='text/javascript' 
+            src='../../../steal/steal.js'>   
+    </script>
+	<script type='text/ejs' id='todosEJS'>
+		<% $.each(this, function(i, item){ %>
+		  <li><span <%= plugin('updater', item,'name') %>/> 
+		      <a href="javascript://" class='destroy'>X</a>
+		  </li>
+		<% }) %>
+	</script>
+	<script type='text/javascript'>
+steal('jquery/lang/observe/delegate', 
+	  'jquery/lang/json',
+	  'jquery/controller',
+	  'jquery/view/ejs',function(){
+
+// create a list of todos
+unsortedTodos = new $.Observe.List([
+	{ name: "mow lawn"},
+	{ name: "dishes" },
+	{ name: "laundry" }
+]);
+
+// create another sorted list of the same todos:
+sortedTodos = new $.Observe.List(unsortedTodos,{
+	comparator : "name"
+});
+
+
+
+// each item gets an updater widget
+$.Controller("Updater",{
+	init : function(el, item, attr){
+		this.item = item;
+		this.attr = attr;
+		this.element.text(this.val());
+	},
+	"click" : function(el, ev){
+		if(ev.target === this.element[0]){
+			this.element.html('<input type="text" value="'+this.val()+'"/>');
+		}
+			
+	},
+	val : function(){
+		return this.item.attr(this.attr);
+	},
+	"input focusout" : function(el){
+		this.item.attr(this.attr,el.val());
+	}
+})
+
+$.Controller('Todos',{
+	
+	init : function(){
+		this.insert(this.options.list)
+	},
+	// when an item is added
+	"{list} add" : function(list, ev, items, pos){
+		this.insert(items, pos);
+		
+	},
+	// when the list is cleared and new items are inserted
+	"{list} reset" : function(list){
+		this.element.html('items.ejs', list)
+	},
+	// when an item is removed
+	"{list} remove" : function(list, ev, oldItems, pos){
+		this.element.children().eq(pos).remove()
+	},
+	
+	// listen to a change on an element within this list
+	"{list} * change" : function(item, ev, prop, how, newVal, oldVal){
+		console.log("change ...",ev.curAttr)
+		this.element.children(":eq("+ev.curAttr+")")
+			.replaceWith('todosEJS', [item])
+	},
+	
+	// listens to an item moving from one location to another
+	"{list} move" : function(list, ev, item, newPos, oldPos){
+		var moving = this.element.children().eq(oldPos).detach();
+		this.insert( moving, newPos );
+	},
+	
+	// adds an item at a specified position
+	insert : function(items, pos){
+		if( !items.jquery ){
+			items = $($.View('todosEJS',items))
+		}
+		if( pos === 0 ){
+			this.element.prepend(items)
+		} else if(! pos || pos >= this.element.children().length ){
+			this.element.append(items)
+		} else {
+			this.element.children(":eq("+pos+")")
+				.before(items)
+		}
+	},
+	".destroy click" : function(el, ev){
+		this.options.list.splice( el.closest('li').index(), 1);
+	}
+})
+
+$('#sorted').todos({list:  sortedTodos});
+$('#unsorted').todos({list:  unsortedTodos});
+
+$('#rename').click(function(){
+	todos.attr('0.name', "wash dishes")
+})
+
+$('#create').submit(function(ev){
+	ev.preventDefault();
+	var input =  $(this).find('input');
+	todos.push({
+		name: input.val()
+	})
+	input.val("")
+})
+
+})
+	</script>
+</body>
+</html>

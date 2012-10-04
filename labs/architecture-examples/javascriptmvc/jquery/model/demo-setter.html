@@ -22,26 +22,22 @@
 <script type='text/javascript' 
         src='../../steal/steal.js'>   
 </script>
-<script type='text/javascript'>
-steal.plugins('jquery/model',
-		'jquery/dom/fixture',
-		'jquery/model/list').start()
-CONTACTS = [{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
-			 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
-			 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]
-CONTACTS_FIXTURE =  function(){
-				return [CONTACTS];
-			};
-</script>
+
 <script type='text/javascript' id="demo-source">   
+steal('jquery/model',
+		'jquery/dom/fixture',
+		'jquery/model/list',
+		function(){
+
+$.fixture("/contacts.json", function(orig, settings, headers){
+	return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
+			 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
+			 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
+});
+
 // A contact model
-$.Model.extend("Contact",{
-	findAll : function(params, success, error){
-		$.get("/recipes.json", {},
-			this.callback(['wrapMany',success]),
-			"json", CONTACTS_FIXTURE );
-			
-	}
+$.Model("Contact",{
+	findAll : "/contacts.json"
 },{
 	// converts dates
 	setBirthday : function(raw){
@@ -71,6 +67,8 @@ Contact.findAll( {}, function( contacts ){
     html.push('<li>'+age(contacts[i].birthday) + '</li>')
   }
   $('#contacts').html( html.join('') );
+});
+
 });
 </script>
 	</body>

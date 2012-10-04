@@ -1,4 +1,4 @@
-steal.plugins('jquery','jquery/dom/range').then(function($){
+steal('jquery','jquery/dom/range').then(function($){
 var convertType = function(type){
 	return  type.replace(/([a-z])([a-z]+)/gi, function(all,first,  next){
 			  return first+next.toLowerCase()	
@@ -195,10 +195,10 @@ getCharElement = function( elems , range, len ) {
  * returns an object with:
  * 
  *   - __start__ - The number of characters from the start of the element to the start of the selection.
- *   _ __end__ - The number of characters from teh start of the element to the end of the selection.
- *   _ __range__ - A [jQuery.Range] that represents the current selection.
+ *   - __end__ - The number of characters from the start of the element to the end of the selection.
+ *   - __range__ - A [jQuery.Range $.Range] that represents the current selection.
  * 
- * This lets you do:
+ * This lets you get the selected text in a textarea like:
  * 
  *     var textarea = $('textarea')
  *       selection = textarea.selection(),
@@ -206,7 +206,7 @@ getCharElement = function( elems , range, len ) {
  *       
  *     alert('You selected '+selected+'.');
  *     
- * Selection works with all elements.  If you want to get selection information on the page:
+ * Selection works with all elements.  If you want to get selection information of the document:
  * 
  *     $(document.body).selection();
  *     
@@ -216,9 +216,15 @@ getCharElement = function( elems , range, len ) {
  * 
  *     $('#rte').selection(30, 40)
  * 
- * @param {Number} [start] - Start of the range
- * @param {Number} [end] - End of the range
- * @return {Object|jQuery} - returns the selection information or the jQuery collection for
+ * ## Demo
+ * 
+ * This demo shows setting the selection in various elements
+ * 
+ * @demo jquery/dom/selection/selection.html
+ * 
+ * @param {Number} [start] Start of the range
+ * @param {Number} [end] End of the range
+ * @return {Object|jQuery} returns the selection information or the jQuery collection for
  * chaining.
  */
 $.fn.selection = function(start, end){

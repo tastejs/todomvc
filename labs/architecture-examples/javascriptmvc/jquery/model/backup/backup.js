@@ -1,8 +1,56 @@
 //allows you to backup and restore a model instance
-steal.plugins('jquery/model').then(function(){
-
+steal('jquery/model').then(function($){
+var isArray = $.isArray,
+	propCount = function(obj){
+		var count = 0;
+		for(var prop in obj) count++;
+		return count;
+	},
+	same = function(a, b, deep){
+		var aType = typeof a,
+			aArray = isArray(a);
+		if(deep === -1){
+			return aType === 'object' || a === b;
+		}
+		if(aType !== typeof  b || aArray !== isArray(b)){
+			return false;
+		}
+		if(a === b){
+			return true;
+		}
+		if(aArray){
+			if(a.length !== b.length){
+				return false;
+			}
+			for(var i =0; i < a.length; i ++){
+				if(!same(a[i],b[i])){
+					return false;
+				}
+			};
+			return true;
+		} else if(aType === "object" || aType === 'function'){
+			var count = 0;
+			for(var prop in a){
+				if(!same(a[prop],b[prop], deep === false ? -1 : undefined )){
+					return false;
+				}
+				count++;
+			}
+			return count === propCount(b)
+		} 
+		return false;
+	},
+	flatProps = function(a){
+		var obj = {};
+		for(var prop in a){
+			if(typeof a[prop] !== 'object' || a[prop] === null){
+				obj[prop] = a[prop]
+			}
+		}
+		return obj;
+	};
 /**
-@page jquery.model.backup Backup / Restore
+@page jquerymx.model.backup Backup / Restore
 @parent jQuery.Model
 @plugin jquery/model/backup
 @test jquery/model/backup/qunit.html
@@ -38,101 +86,45 @@ See this in action:
 @demo jquery/model/backup/backup.html
  */
 
-	// a helper to iterate through the associations
-	var associations = function(instance, func){
-		var name, 
-			res;
-			
-		for(name in instance.Class.associations){
-			association = instance.Class.associations[name];
-			if("belongsTo" in association){
-				if(instance[name] && (res = func(instance[name]) ) ){
-					return res;
-				}
-			}
-			if("hasMany" in association){
-				if(instance[name]){
-					for(var i =0 ; i < instance[name].length; i++){
-						if( (res = func(instance[name][i]) ) ){
-							return res;
-						}
-					}
-				}	
-			}
-		}
-	}
-	
-
 	$.extend($.Model.prototype,{
 		/**
 		 * @function jQuery.Model.prototype.backup
-		 * @plugin jquery/model/backup
-		 * @parent jquery.model.backup
+		 * @parent jquerymx.model.backup
 		 * Backs up an instance of a model, so it can be restored later.
 		 * The plugin also adds an [jQuery.Model.prototype.isDirty isDirty]
 		 * method for checking if it is dirty.
 		 */
 		backup: function() {
-			associations(this, function(associated){
-				associated.backup();
-			})
-			this._backupStore = $.extend(true, {},this.attrs());
+			this._backupStore = this.serialize();
 			return this;
 		},
-	   
-	   _backup: function() {
-		   this._backupStore = $.extend(true, {},this.attrs());
-	   },
+
 	   /**
 	    * @function jQuery.Model.prototype.isDirty
 	    * @plugin jquery/model/backup
-	    * @parent jquery.model.backup
+	    * @parent jquerymx.model.backup
 	    * Returns if the instance needs to be saved.  This will go
 	    * through associations too.
-	    * @param {Boolean} [checkAssociations=false] true if associations should be checked.  Defaults to false.
-	    * be checked, false if otherwise
 	    * @return {Boolean} true if there are changes, false if otherwise
 	    */
 	   isDirty: function(checkAssociations) {
-			if(!this._backupStore) return false;
-			//go through attrs and compare ...
-			var current = this.attrs(),
-				name,
-				association,
-				res;
-			for(name in current){
-				if(current[name] !== this._backupStore[name]){
-					return true;
-				}
-					
+			// check if it serializes the same
+			if(!this._backupStore){
+				return false;
+			} else {
+				return !same(this.serialize(), this._backupStore, !!checkAssociations);
 			}
-			if( checkAssociations ){
-				res = associations(this, function(associated){
-					return associated.isDirty();
-				})
-				if(res === true){
-					return true;
-				}
-			}
-			
-			return false;
 		},
 		/**
 		 * @function jQuery.Model.prototype.restore
-		 * @plugin jquery/model/backup
 		 * @parent jquery.model.backup
 		 * restores this instance to its backup data.
-		 * @param {Boolean} [restoreAssociations=false] if true, restores associations.
 		 * @return {model} the instance (for chaining)
 		 */
 		restore: function(restoreAssociations) {
-			this.attrs(this._backupStore);   
+			var props = restoreAssociations ? this._backupStore : flatProps(this._backupStore)
+			this.attrs(props);   
 			
-			if( restoreAssociations ){
-				associations(this, function(associated){
-					associated.restore();
-				})
-			}
 			return this;
 		}
 	   

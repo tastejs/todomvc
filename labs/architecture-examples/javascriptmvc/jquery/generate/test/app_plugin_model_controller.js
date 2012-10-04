@@ -1,4 +1,4 @@
-load('steal/rhino/steal.js')
+load('steal/rhino/rhino.js')
 load('steal/rhino/test.js');
 
 (function(rhinoSteal){
@@ -31,17 +31,17 @@ load('steal/rhino/test.js');
 	 */
 	
 	_S.test("controller, model, and page" , function(t){		
-		_args = ['Cnu.Controllers.Todos']; 
+		_args = ['Cnu.Todos']; 
 		load('jquery/generate/controller');
 		_S.clear();
 
 		_args = ['Cnu.Models.Todo']; 
 		load('jquery/generate/model');
 		_S.clear();
-		cnuContent = readFile('cnu/cnu.js').
-		    replace(".models()", ".models('todo')").
-		    replace(".controllers()", ".controllers('todos')");
-		load('steal/rhino/steal.js')
+		cnuContent = readFile('cnu/cnu.js')
+				+"\n.then('./models/todo.js')"
+		    	+"\n.then('./todos/todos.js')";
+		load('steal/rhino/rhino.js')
 		new steal.File('cnu/cnu.js').save( cnuContent );
 		
 
@@ -51,8 +51,7 @@ load('steal/rhino/test.js');
 		
 		_S.open('cnu/cnugen.html');
 		
-		t.ok(typeof Cnu.Controllers.Todos !== 'undefined', "Cnu.Controllers.Todos")
-		t.ok(typeof Cnu.Controllers.Todos !== 'undefined',"load Cnu.Controllers.Todos")
+		t.ok(typeof Cnu.Todos !== 'undefined',"load Cnu.Controllers.Todos")
 		t.ok(typeof Cnu.Models.Todo !== 'undefined', "load Cnu.Models.Todo")
 		
 		rhinoSteal.File("cnu").removeDir();

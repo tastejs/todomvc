@@ -16,14 +16,12 @@
 		
 		
 <script type='text/javascript' 
-        src='../../../steal/steal.js'>   
+        src='../../../steal/steal.js'>
 </script>
-<script type='text/javascript'>
-steal.plugins('jquery/model',
+<script type='text/javascript' id="demo-source">
+steal('jquery/model',
 		'jquery/dom/fixture',
-		'jquery/model/list','jquery/controller').start()
-</script>
-<script type='text/javascript'>
+		'jquery/model/list','jquery/controller').then(function(){
 	var index = 0;
 	$.Model("Thing",{
 		findAll : function(params, success){
@@ -83,11 +81,7 @@ steal.plugins('jquery/model',
 		})*/
 		$("#items").tester({list : new Thing.List()});
 	})
-	
-	
-</script>
-<script type='text/javascript' id="demo-source">   
-
+})
 </script>
 	</body>
 </html>

@@ -19,6 +19,16 @@ steal.test =  {
 	getWindow: function() {
 		return (function(){return this}).call(null,0)
 	},
+	expect: function(num){
+		var checkReady = function(){
+			if(assertions.length >= num)
+				return true;
+	        return false;
+	    }
+	    while(!checkReady()){
+	        java.lang.Thread.currentThread().sleep(300);
+	    }
+	},
 	wait: function( name ) {
 		var checkExists = function(name){
 	        var parts = name.split(".");
@@ -43,10 +53,11 @@ steal.test =  {
 		for(var n in win) print(n);
 	},
 	deleteDir: function( dir ) {
+		dir = new java.io.File(dir)
 		if (dir.isDirectory()) {
 	        var children = dir.list();
 	        for (var i=0; i<children.length; i++) {
-	            var success = deleteDir(new java.io.File(dir, children[i]));
+	            var success = this.deleteDir(new java.io.File(dir, children[i]));
 	            if (!success) return false;
 	            
 	        }
@@ -63,7 +74,8 @@ steal.test =  {
 	testNamespace: function() {
 		var win = this.getWindow();
 		for(var n in win) {
-			if(n !== "_S" && n !== "STEALPRINT")
+			// add parser for coffeescript ... boo!
+			if(n !== "_S" && n !== "STEALPRINT" && n !== "parser")
 				throw "Namespace Pollution "+n;
 		}
 	},
@@ -97,6 +109,10 @@ steal.test =  {
 			logLevel: 2,
 			dontPrintUserAgent: true
 		});
+		//var newSteal = window.steal;
+		//newSteal.done(function(){});
+		//Envjs.wait();
+		
 	},
 	test : function(name, test){
 		assertions = []

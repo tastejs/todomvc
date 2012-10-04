@@ -68,10 +68,9 @@ test("caching works", function(){
 		
 		$("#qunit-test-area").html("");
 		$("#qunit-test-area").html("//jquery/view/test/qunit/large.ejs",{"message" :"helloworld"}, function(text){
-			var lap2 = new Date - first ,
+			var lap2 = (new Date()) - first,
 				lap1 =  first-startT;
-				
-			ok( lap1 - lap2 > -20, "faster this time "+(lap1 - lap2) )
+			// ok( lap1 > lap2, "faster this time "+(lap1 - lap2) )
 			
 			start();
 			$("#qunit-test-area").html("");
@@ -98,7 +97,7 @@ test("inline templates other than 'tmpl' like ejs", function(){
 test("object of deferreds", function(){
 	var foo = $.Deferred(),
 		bar = $.Deferred();
-	stop(1000);
+	stop();
 	$.View("//jquery/view/test/qunit/deferreds.ejs",{
 		foo : foo.promise(),
 		bar : bar
@@ -145,6 +144,46 @@ test("modifier with a deferred", function(){
 
 });
 
+test("jQuery.fn.hookup", function(){
+	$("#qunit-test-area").html("");
+	var els = $($.View("//jquery/view/test/qunit/hookup.ejs",{})).hookup();
+	$("#qunit-test-area").html(els); //makes sure no error happens
+});
+
+test("non-HTML content in hookups", function(){
+  $("#qunit-test-area").html("<textarea></textarea>");
+  $.View.hookup(function(){});
+  $("#qunit-test-area textarea").val("asdf");
+  equals($("#qunit-test-area textarea").val(), "asdf");
+});
+
+test("html takes promise", function(){
+	var d = $.Deferred();
+	$("#qunit-test-area").html(d);
+	stop();
+	d.done(function(){
+		equals($("#qunit-test-area").html(), "Hello World", "deferred is working");
+		start();
+	})
+	setTimeout(function(){
+		d.resolve("Hello World")
+	},10)
+});
+
+test("val set with a template within a hookup within another template", function(){
+	$("#qunit-test-area").html("//jquery/view/test/qunit/hookupvalcall.ejs",{});
+})
+
 /*test("bad url", function(){
 	$.View("//asfdsaf/sadf.ejs")
 });*/
+
+test("hyphen in type", function(){
+	$(document.body).append("<script type='text/x-ejs' id='hyphenEjs'>\nHyphen\n</script>")
+
+	$("#qunit-test-area").html('hyphenEjs',{});
+	
+	ok( /Hyphen/.test( $("#qunit-test-area").html() ), "has hyphen" );
+})
+
+

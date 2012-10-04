@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','funcunit/syn','jquery/event/swipe').then(function(){
+steal('funcunit/qunit','funcunit/syn','jquery/event/swipe').then(function(){
 
 module("jquery/swipe", {setup : function(){
 	$("#qunit-test-area").html("")

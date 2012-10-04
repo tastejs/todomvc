@@ -1,6 +1,5 @@
-steal
- .plugins("jquery/dom/compare")  //load your app
- .plugins('funcunit/qunit').then(function(){
+steal("jquery/dom/compare")  //load your app
+ .then('funcunit/qunit').then(function(){
 
 module("jquery/dom/compare")
 test("Compare cases", function(){

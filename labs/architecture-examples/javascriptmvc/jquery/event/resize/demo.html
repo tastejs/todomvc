@@ -84,22 +84,19 @@
 			<td><%= foo %></td>
 		</script>
 		<script type='text/javascript'>
-				steal.plugins('mxui/data/grid','mxui/layout/split',
+				steal('mxui/data/grid','mxui/layout/split',
 					'jquery/dom/fixture').then(function(){
 		
-		$('#content').mxui_layout_fill({
-			parent : $(document.body)
-		})
+		$('#content').mxui_layout_fill(document.body)
 		
 		
-		$('#split').mxui_layout_fill({
-			parent : $('#content')
-		}).mxui_layout_split({ direction: "vertical", panelClass: "panel" })
+		
+		$('#split').mxui_layout_fill('#content')
+			.mxui_layout_split({ direction: "vertical", panelClass: "panel" })
 		
 		
-		$('#vsplit').mxui_layout_fill({
-			parent : $('#leftPanel')
-		}).mxui_layout_split({ direction: "horizontal" });
+		$('#vsplit').mxui_layout_fill($('#leftPanel'))
+			.mxui_layout_split({ direction: "horizontal" });
 		
 		
 			
@@ -142,7 +139,7 @@
 			})
 		
 		
-	}).start()
+	});
 			
 		</script>
 	</body>

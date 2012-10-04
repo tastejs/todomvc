@@ -67,8 +67,32 @@
 //         who want just the basic event & back button support, without all the
 //         extra awesomeness that BBQ provides. This plugin will be included as
 //         part of jQuery BBQ, but also be available separately.
-
-(function($,window,undefined){
+/**
+ * @add jQuery.event.special
+ */
+//
+/**
+ * @attribute hashchange
+ * 
+ * Documentation on JMVC's hashchange event can 
+ * be found at [http://benalman.com/projects/jquery-hashchange-plugin/].
+ * 
+ * ### Examples
+ * 
+ *     // with jQuery
+ *     $(window).bind('hashchange', function(){
+ *       // do something
+ *     })
+ *    
+ *     // with $.Controller
+ *     $.Controller('Nav',{
+ *       "{window} hashchange" : function(){
+ *         // do something
+ *       }
+ *     })
+ *    
+ */
+steal('jquery').then(function($){
   '$:nomunge'; // Used by YUI compressor.
   
   // Method / object references.
@@ -241,5 +265,4 @@
     
     return self;
   })();
-  
-})(jQuery,this);
+})

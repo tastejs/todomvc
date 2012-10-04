@@ -1,10 +1,24 @@
-steal.plugins('jquery/event/livehack', 'jquery/event/handle').then(function($){
+steal('jquery/event/default').then(function($){
+
 
 var current,
 	rnamespaces = /\.(.*)$/,
 	returnFalse = function(){return false},
 	returnTrue = function(){return true};
 
+/**
+ * @function
+ * @parent jquery.event.pause
+ * Pauses an event (to be resumed later);
+ */
+//
+/**
+ * @function
+ * @parent jquery.event.pause
+ * 
+ * Resumes an event
+ */
+//
 /**
  * @page jquery.event.pause Pause-Resume
  * @plugin jquery/event/pause
@@ -83,145 +97,73 @@ var current,
  */
 $.Event.prototype.isPaused = returnFalse
 
-/**
- * @function
- * @parent jquery.event.pause
- * Pauses an event (to be resumed later);
- */
+
 $.Event.prototype.pause = function(){
-	current = this;
+	// stop the event from continuing temporarily
+	// keep the current state of the event ...
+	this.pausedState = {
+		isDefaultPrevented : this.isDefaultPrevented() ?
+			returnTrue : returnFalse,
+		isPropagationStopped : this.isPropagationStopped() ?
+			returnTrue : returnFalse
+	};
+	
 	this.stopImmediatePropagation();
+	this.preventDefault();
 	this.isPaused = returnTrue;
+	
+	
+	
+	
 };
-/**
- * @function
- * @parent jquery.event.pause
- * 
- * Resumes an event
- */
+
 $.Event.prototype.resume = function(){
-	this.isPaused = this.isImmediatePropagationStopped = this.isPropagationStopped = returnFalse;
-	
-	var el = this.liveFired || this.currentTarget || this.target,
-		defult = $.event.special['default'], 
-		oldType = this.type;
-	
-	// if we were in a 'live' -> run our liveHandler
-	if(this.handleObj.origHandler){
-		var cur = this.currentTarget;
-		this.currentTarget = this.liveFired;
-		this.liveFired = undefined;
+	// temporarily remove all event handlers of this type 
+	var handleObj = this.handleObj,
+		currentTarget = this.currentTarget;
+	// temporarily overwrite special handle
+	var origType = jQuery.event.special[ handleObj.origType ],
+		origHandle = origType && origType.handle;
 		
-		liveHandler.call(el, this, cur );
-		el = cur;
+	if(!origType){
+		jQuery.event.special[ handleObj.origType ] = {};
 	}
-	if(this.isImmediatePropagationStopped()){
-		return false;
+	jQuery.event.special[ handleObj.origType ].handle = function(ev){
+		// remove this once we have passed the handleObj
+		if(ev.handleObj === handleObj && ev.currentTarget === currentTarget){
+			if(!origType){
+				delete jQuery.event.special[ handleObj.origType ];
+			} else {
+				jQuery.event.special[ handleObj.origType ].handle = origHandle;
+			}
+		}
 	}
+	delete this.pausedState;
+	// reset stuff
+	this.isPaused = this.isImmediatePropagationStopped = returnFalse;
 	
-	// skip the event the first pass because we've already handled it
-	this.firstPass = true;
+	
+	// re-run dispatch
+	//$.event.dispatch.call(currentTarget, this)
+	
+	// with the events removed, dispatch
 	
 	if(!this.isPropagationStopped()){
-		$.event.trigger(this, [this.handleObj], el, false);
+		// fire the event again, no events will get fired until
+		// same currentTarget / handler
+		$.event.trigger(this, [], this.target);
 	}
 	
 };
 
+/*var oldDispatch = $.event.dispatch;
+$.event.dispatch = function(){
+	
+}*/
+// we need to finish handling
 
-function liveHandler( event, after ) {
-	var stop, maxLevel, related, match, handleObj, elem, j, i, l, data, close, namespace, ret,
-		elems = [],
-		selectors = [],
-		events = jQuery._data( this, "events" );
+// and then trigger on next element ...
+// can we fake the target ?
 
-	// Make sure we avoid non-left-click bubbling in Firefox (#3861) and disabled elements in IE (#6911)
-	if ( event.liveFired === this || !events || !events.live || event.target.disabled || event.button && event.type === "click" ) {
-		return;
-	}
-
-	if ( event.namespace ) {
-		namespace = new RegExp("(^|\\.)" + event.namespace.split(".").join("\\.(?:.*\\.)?") + "(\\.|$)");
-	}
-
-	event.liveFired = this;
-
-	var live = events.live.slice(0);
-
-	for ( j = 0; j < live.length; j++ ) {
-		handleObj = live[j];
-
-		if ( handleObj.origType.replace( rnamespaces, "" ) === event.type ) {
-			selectors.push( handleObj.selector );
-
-		} else {
-			live.splice( j--, 1 );
-		}
-	}
-
-	match = jQuery( event.target ).closest( selectors, event.currentTarget );
-
-	for ( i = 0, l = match.length; i < l; i++ ) {
-		close = match[i];
-
-		for ( j = 0; j < live.length; j++ ) {
-			handleObj = live[j];
-
-			if ( close.selector === handleObj.selector && (!namespace || namespace.test( handleObj.namespace )) && !close.elem.disabled ) {
-				elem = close.elem;
-				related = null;
-
-				// Those two events require additional checking
-				if ( handleObj.preType === "mouseenter" || handleObj.preType === "mouseleave" ) {
-					event.type = handleObj.preType;
-					related = jQuery( event.relatedTarget ).closest( handleObj.selector )[0];
-
-					// Make sure not to accidentally match a child element with the same selector
-					if ( related && jQuery.contains( elem, related ) ) {
-						related = elem;
-					}
-				}
-
-				if ( !related || related !== elem ) {
-					elems.push({ elem: elem, handleObj: handleObj, level: close.level });
-				}
-			}
-		}
-	}
-
-	for ( i = 0, l = elems.length; i < l; i++ ) {
-		match = elems[i];
-		// inserted to only call elements after this point ...
-		if(after) {
-			if(after === match.elem){
-				after = undefined;
-			}
-			continue;
-		}
-
-		if ( maxLevel && match.level > maxLevel ) {
-			break;
-		}
-
-		event.currentTarget = match.elem;
-		event.data = match.handleObj.data;
-		event.handleObj = match.handleObj;
-
-		ret = match.handleObj.origHandler.apply( match.elem, arguments );
-
-		if ( ret === false || event.isPropagationStopped() ) {
-			maxLevel = match.level;
-
-			if ( ret === false ) {
-				stop = false;
-			}
-			if ( event.isImmediatePropagationStopped() ) {
-				break;
-			}
-		}
-	}
-
-	return stop;
-}
 
 });

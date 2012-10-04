@@ -17,7 +17,7 @@
 				var p  = document.createElement('p');
 				if (typeof o == 'number') {
 					p.style.backgroundColor = o == order_num ? '#ddffdd' : '#ffdddd'
-					p.innerHTML = '' + o + '=' + (order_num++) + ': ' + steal.getCurrent() + ', ' + steal.current.path;
+					p.innerHTML = '' + o + '=' + (order_num++) + ': ' + steal.getCurrent() + ', ' + steal.cur().path;
 				}else{
 					p.innerHTML = o
 				}
@@ -29,6 +29,42 @@
 				p.innerHTML = 'load'
 				document.body.appendChild(p)
 			}
+			
+			inserter = function(src, onload){
+				var head = document.getElementsByTagName("head")[0] || document.documentElement;
+				var script = document.createElement("script");
+				
+				script.src = src;
+	
+				// Handle Script loading
+				
+				var done = false;
+
+				// Attach handlers for all browsers
+				script.onload = script.onreadystatechange = function() {
+					if ( !done && (!this.readyState ||
+							this.readyState === "loaded" || this.readyState === "complete") ) {
+						done = true;
+						onload && onload(script);
+
+						// Handle memory leak in IE
+						script.onload = script.onreadystatechange = null;
+						//if ( head && script.parentNode ) {
+						//	head.removeChild( script );
+						//}
+					}
+				};
+				
+	
+				// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+				// This arises when a base node is used (#2709 and #4378).
+				head.insertBefore( script, head.firstChild );
+	
+				// We handle everything using the script element injection
+				return undefined;
+			}
+			
+			
 		</script>
 		<script type='text/javascript' 
                 src='../steal.js?steal[app]=steal/test/one&steal[env]=development'>   

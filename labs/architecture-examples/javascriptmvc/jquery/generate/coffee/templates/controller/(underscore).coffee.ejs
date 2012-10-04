@@ -1,0 +1,11 @@
+steal "jquery/controller", 
+($) ->
+
+	$.Controller "<%= name %>",
+	{
+		defaults : {},
+	},
+	{
+		init : ->
+			@element.html "Hello World!"
+	}

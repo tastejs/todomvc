@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','funcunit/syn','jquery/event/key').then(function(){
+steal('funcunit/qunit','funcunit/syn','jquery/event/key').then(function(){
 	
 module('jquery/event/key');
 
@@ -6,11 +6,11 @@ test("type some things", function(){
 	$("#qunit-test-area").append("<input id='key' />")
 	var keydown, keypress, keyup;
 	$('#key').keydown(function(ev){
-		keydown = ev.key();
+		keydown = ev.keyName();
 	}).keypress(function(ev){
-		keypress = ev.key();
+		keypress = ev.keyName();
 	}).keyup(function(ev){
-		keyup = ev.key();
+		keyup = ev.keyName();
 	});
 	
 	stop();

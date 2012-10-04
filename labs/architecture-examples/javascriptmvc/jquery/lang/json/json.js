@@ -13,17 +13,25 @@
  * It is also influenced heavily by MochiKit's serializeJSON, which is 
  * copyrighted 2005 by Bob Ippolito.
  */
- steal.plugins('jquery').then(function(){
-(function($) {
-    /** jQuery.toJSON( json-serializble )
-        Converts the given argument into a JSON respresentation.
+//
 
-        If an object has a "toJSON" function, that will be used to get the representation.
-        Non-integer/string keys are skipped in the object, as are keys that point to a function.
-
-        json-serializble:
-            The *thing* to be converted.
-     **/
+ steal('jquery',function($){
+    /**
+     * @page jQuery.toJSON jQuery.toJSON
+     * @parent jquerymx.lang
+     * 
+     *     jQuery.toJSON( json-serializble )
+     * 
+     * Converts the given argument into a JSON respresentation.
+     * 
+     * If an object has a "toJSON" function, that will 
+     * be used to get the representation.
+     * Non-integer/string keys are skipped in the 
+     * object, as are keys that point to a function.
+     * 
+     * json-serializble:
+     * The *thing* to be converted.
+     */
     $.toJSON = function(o, replacer, space, recurse)
     {
         if (typeof(JSON) == 'object' && JSON.stringify)
@@ -131,8 +139,9 @@
         }
     };
 
-    /** jQuery.evalJSON(src)
-        Evaluates a given piece of json source.
+    /** 
+     * @function jQuery.evalJSON
+     * Evaluates a given piece of json source.
      **/
     $.evalJSON = function(src)
     {
@@ -141,9 +150,10 @@
         return eval("(" + src + ")");
     };
     
-    /** jQuery.secureEvalJSON(src)
-        Evals JSON in a way that is *more* secure.
-    **/
+    /** 
+     * @function jQuery.secureEvalJSON
+     * Evals JSON in a way that is *more* secure.
+     **/
     $.secureEvalJSON = function(src)
     {
         if (typeof(JSON) == 'object' && JSON.parse)
@@ -160,16 +170,18 @@
             throw new SyntaxError("Error parsing JSON, source is not valid.");
     };
 
-    /** jQuery.quoteString(string)
-        Returns a string-repr of a string, escaping quotes intelligently.  
-        Mostly a support function for toJSON.
-    
-        Examples:
-            >>> jQuery.quoteString("apple")
-            "apple"
-        
-            >>> jQuery.quoteString('"Where are we going?", she asked.')
-            "\"Where are we going?\", she asked."
+    /** 
+     * @function jQuery.quoteString
+     * 
+     * Returns a string-repr of a string, escaping quotes intelligently.  
+     * Mostly a support function for toJSON.
+     * 
+     * Examples:
+     * 
+     *      jQuery.quoteString("apple") //-> "apple"
+     * 
+     *      jQuery.quoteString('"Where are we going?", she asked.')
+     *        // -> "\"Where are we going?\", she asked."
      **/
     $.quoteString = function(string)
     {
@@ -197,5 +209,4 @@
         '"' : '\\"',
         '\\': '\\\\'
     };
-})(jQuery);
 })

@@ -1,4 +1,4 @@
-steal.plugins('jquery/model').then(function($){
+steal('jquery/model').then(function($){
 /**
 @page jquery.model.validations Validations
 @plugin jquery/model/validations
@@ -15,7 +15,7 @@ To use validations, you need to call a validate method on the Model class.
 The best place to do this is in a Class's init function.
 
 @codestart
-$.Model.extend("Contact",{
+$.Model("Contact",{
 	init : function(){
 		// validates that birthday is in the future
 		this.validate("birthday",function(){
@@ -45,14 +45,12 @@ var validate = function(attrNames, options, proc) {
 	}
 	options = options || {};
 	attrNames = $.makeArray(attrNames)
-	var customMsg = options.message,
-		self = this;
 	
 	if(options.testIf && !options.testIf.call(this)){
 		return;
 	}
-	     
 	
+	var self = this;
 	$.each(attrNames, function(i, attrName) {
 		// Call the validate proc function in the instance context
 		if(!self.validations[attrName]){
@@ -66,23 +64,55 @@ var validate = function(attrNames, options, proc) {
    
 };
 
-
 $.extend($.Model, {
    /**
     * @function jQuery.Model.static.validate
     * @parent jquery.model.validations
-    * Validates each of the specified attributes with the given function.  See [validation] for more on validations.
+    * Validates each of the specified attributes with the given function.  See [jquery.model.validations validation] for more on validations.
     * @param {Array|String} attrNames Attribute name(s) to to validate
-    * @param {Function} validateProc Function used to validate each given attribute. Returns true for valid and false otherwise. Function is called in the instance context and takes the value to validate
+    * @param {Function} validateProc Function used to validate each given attribute. Returns nothing if valid and an error message otherwise. Function is called in the instance context and takes the value to validate.
     * @param {Object} options (optional) Options for the validations.  Valid options include 'message' and 'testIf'.
     */
    validate: validate,
+   
+   /**
+    * @attribute jQuery.Model.static.validationMessages
+    * @parent jquery.model.validations
+    * The default validation error messages that will be returned by the builtin
+    * validation methods. These can be overwritten by assigning new messages
+    * to $.Model.validationMessages.&lt;message> in your application setup.
+    * 
+    * The following messages (with defaults) are available:
+    * 
+    *  * format - "is invalid"
+    *  * inclusion - "is not a valid option (perhaps out of range)"
+    *  * lengthShort - "is too short"
+    *  * lengthLong - "is too long"
+    *  * presence - "can't be empty"
+    *  * range - "is out of range"
+    * 
+    * It is important to steal jquery/model/validations before 
+    * overwriting the messages, otherwise the changes will
+    * be lost once steal loads it later.
+    * 
+    * ## Example
+    * 
+    *     $.Model.validationMessages.format = "is invalid dummy!"
+    */
+   validationMessages : {
+       format      : "is invalid",
+       inclusion   : "is not a valid option (perhaps out of range)",
+       lengthShort : "is too short",
+       lengthLong  : "is too long",
+       presence    : "can't be empty",
+       range       : "is out of range"
+   },
 
    /**
     * @function jQuery.Model.static.validateFormatOf
     * @parent jquery.model.validations
     * Validates where the values of specified attributes are of the correct form by
-    * matching it against the regular expression provided.  See [validation] for more on validations.
+    * matching it against the regular expression provided.  See [jquery.model.validations validation] for more on validations.
     * @param {Array|String} attrNames Attribute name(s) to to validate
     * @param {RegExp} regexp Regular expression used to match for validation
     * @param {Object} options (optional) Options for the validations.  Valid options include 'message' and 'testIf'.
@@ -93,7 +123,7 @@ $.extend($.Model, {
          if(  (typeof value != 'undefined' && value != '')
          	&& String(value).match(regexp) == null )
          {
-            return "is invalid";
+            return this.Class.validationMessages.format;
          }
       });
    },
@@ -102,7 +132,7 @@ $.extend($.Model, {
     * @function jQuery.Model.static.validateInclusionOf
     * @parent jquery.model.validations
     * Validates whether the values of the specified attributes are available in a particular
-    * array.   See [validation] for more on validations.
+    * array.   See [jquery.model.validations validation] for more on validations.
     * @param {Array|String} attrNames Attribute name(s) to to validate
     * @param {Array} inArray Array of options to test for inclusion
     * @param {Object} options (optional) Options for the validations.  Valid options include 'message' and 'testIf'.
@@ -114,14 +144,14 @@ $.extend($.Model, {
             return;
 
          if($.grep(inArray, function(elm) { return (elm == value);}).length == 0)
-            return "is not a valid option (perhaps out of range)";
+            return this.Class.validationMessages.inclusion;
       });
    },
 
    /**
     * @function jQuery.Model.static.validateLengthOf
     * @parent jquery.model.validations
-    * Validates that the specified attributes' lengths are in the given range.  See [validation] for more on validations.
+    * Validates that the specified attributes' lengths are in the given range.  See [jquery.model.validations validation] for more on validations.
     * @param {Array|String} attrNames Attribute name(s) to to validate
     * @param {Number} min Minimum length (inclusive)
     * @param {Number} max Maximum length (inclusive)
@@ -131,31 +161,31 @@ $.extend($.Model, {
    validateLengthOf: function(attrNames, min, max, options) {
       validate.call(this, attrNames, options, function(value) {
          if((typeof value == 'undefined' && min > 0) || value.length < min)
-            return "is too short (min=" + min + ")";
+            return this.Class.validationMessages.lengthShort + " (min=" + min + ")";
          else if(typeof value != 'undefined' && value.length > max)
-            return "is too long (max=" + max + ")";
+            return this.Class.validationMessages.lengthLong + " (max=" + max + ")";
       });
    },
 
    /**
     * @function jQuery.Model.static.validatePresenceOf
     * @parent jquery.model.validations
-    * Validates that the specified attributes are not blank.  See [validation] for more on validations.
+    * Validates that the specified attributes are not blank.  See [jquery.model.validations validation] for more on validations.
     * @param {Array|String} attrNames Attribute name(s) to to validate
     * @param {Object} options (optional) Options for the validations.  Valid options include 'message' and 'testIf'.
     *
     */
    validatePresenceOf: function(attrNames, options) {
       validate.call(this, attrNames, options, function(value) {
-         if(typeof value == 'undefined' || value == "")
-            return "can't be empty";
+         if(typeof value == 'undefined' || value == "" || value === null)
+            return this.Class.validationMessages.presence;
       });
    },
 
    /**
     * @function jQuery.Model.static.validateRangeOf
     * @parent jquery.model.validations
-    * Validates that the specified attributes are in the given numeric range.  See [validation] for more on validations.
+    * Validates that the specified attributes are in the given numeric range.  See [jquery.model.validations validation] for more on validations.
     * @param {Array|String} attrNames Attribute name(s) to to validate
     * @param {Number} low Minimum value (inclusive)
     * @param {Number} hi Maximum value (inclusive)
@@ -165,14 +195,9 @@ $.extend($.Model, {
    validateRangeOf: function(attrNames, low, hi, options) {
       validate.call(this, attrNames, options, function(value) {
          if(typeof value != 'undefined' && value < low || value > hi)
-            return "is out of range [" + low + "," + hi + "]";
+            return this.Class.validationMessages.range + " [" + low + "," + hi + "]";
       });
    }
 });
 
-
-
-
-
-	
 });

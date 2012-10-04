@@ -1,6 +1,6 @@
 // a text selection event that is useful in mobile safari
 
-steal.plugins('jquery/dom/range','jquery/controller','jquery/event/livehack').then(function($){
+steal('jquery/dom/range','jquery/controller','jquery/event/livehack').then(function($){
 
 
 	var event = $.event;
@@ -12,7 +12,7 @@ steal.plugins('jquery/dom/range','jquery/controller','jquery/event/livehack').th
 	
 	event.setupHelper( ["selectionStart","selectionEnd","selectionEnding","selectionMoving","selectionMove"], "mousedown", function(ev){
 		//now start checking mousemoves to update location
-		var delegate = ev.liveFired || ev.currentTarget,
+		var delegate = ev.delegateTarget || ev.currentTarget,
 			selector = ev.handleObj.selector,
 			ready = false,
 			el = this,
@@ -69,7 +69,7 @@ steal.plugins('jquery/dom/range','jquery/controller','jquery/event/livehack').th
 			start = function(){
 				ready = true;
 				var startEv = event.selection.preventDefault ? $.Event('selectionStart') : ev;
-				startEv.target = startEv.target || ev.target;
+				var startEv = $.extend(ev, startEv)
 				$.each(event.find(delegate, ["selectionStart"], selector), function(){
 					this.call(el, startEv, startRange)
 				});

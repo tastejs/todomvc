@@ -1,14 +1,15 @@
 /**
  *  @add jQuery.fn
  */
-steal.plugins('jquery/dom').then(function(){
+steal('jquery/dom').then(function(){
 	/**
 	 * @function closest
 	 * @parent dom
-	 * Overwrites closest to allow open > selectors.  This allows controller actions such as:
-	 * @codestart
-	 * ">li click" : function( el, ev ) { ... }
-	 * @codeend
+	 * @plugin jquery/dom/closest
+	 * Overwrites closest to allow open > selectors.  This allows controller 
+	 * actions such as:
+	 * 
+	 *     ">li click" : function( el, ev ) { ... }
 	 */
 	var oldClosest = jQuery.fn.closest;
 	jQuery.fn.closest = function(selectors, context){

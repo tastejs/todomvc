@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','funcunit/syn','jquery/event/pause').then(function(){
+steal('funcunit/qunit','funcunit/syn','jquery/event/pause').then(function(){
 
 module("jquery/event/pause", {setup : function(){
 	$("#qunit-test-area").html("")

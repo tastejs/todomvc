@@ -1,7 +1,7 @@
 /**
  *  @add jQuery.fn
  */
-steal.plugins("jquery/dom").then(function( $ ) {
+steal("jquery/dom").then(function( $ ) {
 	var radioCheck = /radio|checkbox/i,
 		keyBreaker = /[^\[\]]+/g,
 		numberMatcher = /^[\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?$/;
@@ -24,8 +24,13 @@ steal.plugins("jquery/dom").then(function( $ ) {
 		 * @download http://jmvcsite.heroku.com/pluginify?plugins[]=jquery/dom/form_params/form_params.js
 		 * @plugin jquery/dom/form_params
 		 * @test jquery/dom/form_params/qunit.html
-		 * <p>Returns an object of name-value pairs that represents values in a form.  
-		 * It is able to nest values whose element's name has square brackets. </p>
+		 * 
+		 * Returns an object of name-value pairs that represents values in a form.  
+		 * It is able to nest values whose element's name has square brackets.
+		 * 
+		 * When convert is set to true strings that represent numbers and booleans will
+		 * be converted and empty string will not be added to the object. 
+		 * 
 		 * Example html:
 		 * @codestart html
 		 * &lt;form>
@@ -34,27 +39,70 @@ steal.plugins("jquery/dom").then(function( $ ) {
 		 * &lt;form/>
 		 * @codeend
 		 * Example code:
-		 * @codestart
-		 * $('form').formParams() //-> { foo:{bar:2, ced: 4} }
-		 * @codeend
+		 * 
+		 *     $('form').formParams() //-> { foo:{bar:'2', ced: '4'} }
+		 * 
 		 * 
 		 * @demo jquery/dom/form_params/form_params.html
 		 * 
-		 * @param {Boolean} [convert] True if strings that look like numbers and booleans should be converted.  Defaults to true.
+		 * @param {Object} [params] If an object is passed, the form will be repopulated
+		 * with the values of the object based on the name of the inputs within
+		 * the form
+		 * @param {Boolean} [convert=false] True if strings that look like numbers 
+		 * and booleans should be converted and if empty string should not be added 
+		 * to the result. Defaults to false.
 		 * @return {Object} An object of name-value pairs.
 		 */
-		formParams: function( convert ) {
-			if ( this[0].nodeName.toLowerCase() == 'form' && this[0].elements ) {
+		formParams: function( params, convert ) {
 
+			// Quick way to determine if something is a boolean
+			if ( !! params === params ) {
+				convert = params;
+				params = null;
+			}
+
+			if ( params ) {
+				return this.setParams( params );
+			} else if ( this[0].nodeName.toLowerCase() == 'form' && this[0].elements ) {
 				return jQuery(jQuery.makeArray(this[0].elements)).getParams(convert);
 			}
 			return jQuery("input[name], textarea[name], select[name]", this[0]).getParams(convert);
+		},
+		setParams: function( params ) {
+
+			// Find all the inputs
+			this.find("[name]").each(function() {
+				
+				var value = params[ $(this).attr("name") ],
+					$this;
+				
+				// Don't do all this work if there's no value
+				if ( value !== undefined ) {
+					$this = $(this);
+					
+					// Nested these if statements for performance
+					if ( $this.is(":radio") ) {
+						if ( $this.val() == value ) {
+							$this.attr("checked", true);
+						}
+					} else if ( $this.is(":checkbox") ) {
+						// Convert single value to an array to reduce
+						// complexity
+						value = $.isArray( value ) ? value : [value];
+						if ( $.inArray( $this.val(), value ) > -1) {
+							$this.attr("checked", true);
+						}
+					} else {
+						$this.val( value );
+					}
+				}
+			});
 		},
 		getParams: function( convert ) {
 			var data = {},
 				current;
 
-			convert = convert === undefined ? true : convert;
+			convert = convert === undefined ? false : convert;
 
 			this.each(function() {
 				var el = this,
@@ -75,10 +123,14 @@ steal.plugins("jquery/dom").then(function( $ ) {
 				if ( convert ) {
 					if ( isNumber(value) ) {
 						value = parseFloat(value);
-					} else if ( value === 'true' || value === 'false' ) {
-						value = Boolean(value);
+					} else if ( value === 'true') {
+						value = true;
+					} else if ( value === 'false' ) {
+						value = false;
 					}
-
+					if(value === '') {
+						value = undefined;
+					}
 				}
 
 				// go through and create nested objects
@@ -92,7 +144,7 @@ steal.plugins("jquery/dom").then(function( $ ) {
 				lastPart = parts[parts.length - 1];
 
 				//now we are on the last part, set the value
-				if ( lastPart in current && type === "checkbox" ) {
+				if (current[lastPart]) {
 					if (!$.isArray(current[lastPart]) ) {
 						current[lastPart] = current[lastPart] === undefined ? [] : [current[lastPart]];
 					}
@@ -100,6 +152,7 @@ steal.plugins("jquery/dom").then(function( $ ) {
 						current[lastPart].push(value);
 					}
 				} else if ( write || !current[lastPart] ) {
+
 					current[lastPart] = write ? value : undefined;
 				}
 

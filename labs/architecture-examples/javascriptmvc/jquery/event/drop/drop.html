@@ -40,10 +40,9 @@
 <div class='dropmove'></div>
 <span>Drop Count <span class='count'>0</span></span>
 </div>
-		<script type='text/javascript' 
-                src='../../../steal/steal.js?steal[app]=jquery/event/drop'>   
-        </script>
-		<script type='text/javascript' id='demo-source'>
+<script type='text/javascript' 
+        src='../../../steal/steal.js?jquery/event/drop'
+		id='demo-source'>  
 //make drags
 $('.handle').live("draginit", function(){})
 			
@@ -68,7 +67,7 @@ $('.dropmove')
   })
   .bind('dropon', function(){
     $(this).text("Dropped on!")
-  })
-        </script>
+  }) 
+</script>
 	</body>
 </html>

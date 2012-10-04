@@ -1,15 +1,13 @@
-steal.plugins('jquery/lang/json').then(function() {
+steal('jquery/lang/json',function() {
     // break
     /**
      * @function jQuery.cookie
      * @parent dom
+     * @plugin jquery/dom/cookie
      * @author Klaus Hartl/klaus.hartl@stilbuero.de
      *
-     * <h3>Cookie plugin</h3>
-     *
-     *
-	 *  <p>
-	 *  Copyright (c) 2006 Klaus Hartl (stilbuero.de)<br />
+     *  JavaScriptMVC's packaged cookie plugin is written by
+     *  Klaus Hartl (stilbuero.de)<br />
 	 *  Dual licensed under the MIT and GPL licenses:<br />
 	 *  http://www.opensource.org/licenses/mit-license.php<br />
 	 *  http://www.gnu.org/licenses/gpl.html
@@ -21,9 +19,8 @@ steal.plugins('jquery/lang/json').then(function() {
 	 *  <h3>Quick Examples</h3>
 	 * 
 	 *  Set the value of a cookie.
-	 *  @codestart
-	 *  * $.cookie('the_cookie', 'the_value');
-	 *  @codeend
+	 *  
+	 *     $.cookie('the_cookie', 'the_value');
 	 * 
 	 *  Create a cookie with all available options.
 	 *  @codestart
@@ -59,7 +56,7 @@ steal.plugins('jquery/lang/json').then(function() {
      * @param {String} [domain] The value of the domain attribute of the cookie (default: domain of page that created the cookie).<br />
      * @param {Boolean} secure If true, the secure attribute of the cookie will be set and the cookie transmission will
      *                        require a secure protocol (like HTTPS).<br />
-     * @return {String} or {undefined} when setting the cookie.
+     * @return {String} the value of the cookie or {undefined} when setting the cookie.
      */
     jQuery.cookie = function(name, value, options) {
         if (typeof value != 'undefined') { // name and value given, set cookie

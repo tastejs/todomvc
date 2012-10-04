@@ -2,16 +2,12 @@
 /**
  * Tests compressing a very basic page and one that is using steal
  */
-load('steal/rhino/steal.js')
-steal('//steal/test/test', function( s ) {
+load('steal/rhino/rhino.js')
+steal('steal/test', 'steal/clean', function( s ) {
 	
 	s.test.module("steal/clean")
 	
 	s.test.test("basic formatting", function(t){
-		s.test.clear();
-		load('steal/rhino/steal.js');
-		steal.plugins('steal/clean');
-		
 		steal.File('steal/clean/test/test.js').copyTo('steal/clean/test/testStart.js')
 		
 		// clean this file and see if it looks like it should

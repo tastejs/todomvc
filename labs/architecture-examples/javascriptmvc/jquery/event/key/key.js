@@ -1,4 +1,4 @@
-steal.plugins('jquery/event').then(function($){
+steal('jquery/event').then(function($){
 	var keymap = {},
 		reverseKeyMap = {};
 		
@@ -83,7 +83,7 @@ steal.plugins('jquery/event').then(function($){
 	 * listens to and prevents backspaces being pressed in inputs:
 	 * 
 	 *     $("input").keypress(function(ev){
-	 *       if(ev.key() == '\b') {
+	 *       if(ev.keyName() == '\b') {
 	 *        ev.preventDefault();
 	 *       }
 	 *     });
@@ -111,7 +111,7 @@ steal.plugins('jquery/event').then(function($){
 	 *  
 	 * @return {String} The string representation of of the key pressed.
 	 */
-	jQuery.Event.prototype.key  = function(){
+	jQuery.Event.prototype.keyName  = function(){
 		var event = this,
 			keycode,
 			test = /\w/;
@@ -133,7 +133,7 @@ steal.plugins('jquery/event').then(function($){
 		if( key_Key && test.test(key_Key) ) {
 			return key_Key.toLowerCase()
 		}
-		//console.log(this.type, key_Key, char_Key, key_Char, char_Char);
+
 		//if IE
 		//if ($.browser.msie){
 			if (event.type == 'keypress'){

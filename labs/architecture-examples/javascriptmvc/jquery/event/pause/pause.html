@@ -99,10 +99,10 @@
 </div>
 
 <script type='text/javascript' src='../../../steal/steal.js'></script>
-<script type='text/javascript'>
-    steal.plugins("jquery/controller",'jquery/event/pause','jquery/event/default').start();
-</script>
 <script type='text/javascript' id="demo-source">
+steal("jquery/controller",'jquery/event/pause','jquery/event/default')
+	.then(function(){
+		
 $.Controller("Tabs",{
   init : function(el){
     $(el).children("li:first").addClass('active');
@@ -209,8 +209,9 @@ $("#panels .tab").dirtybit().saver();
 // a fake post method
 $.post = function(url,data, success){
 	setTimeout(success,500)
-}
+};
 
+});
 </script>
     </body>
 </html>

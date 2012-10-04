@@ -1,7 +1,7 @@
 /**
  *  @add jQuery.fn
  */
-steal.plugins('jquery/dom').then(function($){
+steal('jquery/dom').then(function($){
 /**
  * @function compare
  * @parent dom
@@ -50,8 +50,12 @@ jQuery.fn.compare = function(element){ //usually
 		return null;
 	}
 	if (window.HTMLElement) { //make sure we aren't coming from XUL element
+
 		var s = HTMLElement.prototype.toString.call(element)
-		if (s == '[xpconnect wrapped native prototype]' || s == '[object XULElement]') return null;
+		if (s == '[xpconnect wrapped native prototype]' || s == '[object XULElement]' || s === '[object Window]') {
+			return null;
+		}
+
 	}
 	if(this[0].compareDocumentPosition){
 		return this[0].compareDocumentPosition(element);

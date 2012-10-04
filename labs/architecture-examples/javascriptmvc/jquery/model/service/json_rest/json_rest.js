@@ -1,4 +1,4 @@
-steal.plugins('jquery/model/service').then(function(){
+steal('jquery/model/service').then(function(){
 
 $.Model.service.jsonRest = $.Model.service({
 	url : "",
@@ -22,7 +22,7 @@ $.Model.service.jsonRest = $.Model.service({
             type: 'get',
             dataType: 'json',
             data: params,
-            success: this.callback(['wrapMany',success]),
+            success: this.proxy(['wrapMany',success]),
             error: error,
             fixture: true
         })

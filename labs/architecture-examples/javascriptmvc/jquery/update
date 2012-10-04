@@ -1,5 +1,5 @@
-load('steal/rhino/steal.js')
+load('steal/rhino/rhino.js')
 
-steal('//steal/get/get', function(s) {
+steal('steal/get', function(s) {
 	s.get('http://github.com/jupiterjs/jquerymx/', {name: 'jquery'});
 })

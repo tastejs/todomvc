@@ -1,5 +1,5 @@
-steal.plugins('funcunit/qunit')
- .plugins("jquery/model/backup","jquery/model/associations").then(function(){
+steal('funcunit/qunit')
+ .then("jquery/model/backup").then(function(){
  	
 	
 module("jquery/model/backup",{
@@ -28,11 +28,18 @@ test("backing up", function(){
 });
 
 test("backup / restore with associations", function(){
-	$.Model.extend("Instruction")
-	Recipe.hasMany("Instruction")
+	$.Model("Instruction");
+	$.Model("Cookbook");
 	
-	$.Model.extend("Cookbook")
-	Recipe.belongsTo("Cookbook")
+	$.Model("Recipe",{
+		attributes : {
+			instructions : "Instruction.models",
+			cookbook: "Cookbook.model"
+		}
+	},{});
+	
+	
+
 	
 	var recipe = new Recipe({
 		name: "cheese burger",

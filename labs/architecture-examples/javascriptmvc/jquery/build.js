@@ -1,6 +1,6 @@
 // load('jquery/build.js')
 
-load('steal/rhino/steal.js')
+load('steal/rhino/rhino.js')
 
 var i, fileName, cmd, 
 	plugins = [
@@ -40,14 +40,6 @@ var i, fileName, cmd,
 	"dom/within", 
 	"dom/cur_styles",
 	"model",
-	{
-		plugin: "model/associations",
-		exclude: ["jquery/class/class.js",
-				  "jquery/lang/lang.js",
-				  "jquery/event/destroyed/destroyed.js",
-				  "jquery/lang/openajax/openajax.js",
-				  "jquery/model/model.js"]
-	},
 	{
 		plugin: "model/backup",
 		exclude: ["jquery/class/class.js",
@@ -98,7 +90,8 @@ var i, fileName, cmd,
 ]
 
 
-steal.plugins('steal/build/pluginify').then( function(s){
+steal.File('jquery/dist').mkdir();
+steal('steal/build/pluginify').then( function(s){
 var plugin, exclude, fileDest, fileName;
 	for(i=0; i<plugins.length; i++){
 		plugin = plugins[i];
@@ -113,7 +106,7 @@ var plugin, exclude, fileDest, fileName;
 		fileDest = "jquery/dist/"+fileName
 		s.build.pluginify("jquery/"+plugin,{
 			nojquery: true,
-			destination: fileDest,
+			out: fileDest,
 			exclude: exclude.length? exclude: false
 		})
 		

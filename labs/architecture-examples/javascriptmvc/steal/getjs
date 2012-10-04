@@ -1,4 +1,4 @@
-load("steal/rhino/steal.js");
+load("steal/rhino/rhino.js");
 steal('//steal/get/get', function () {
     var url = _args.shift();
     steal.get(url, _args);

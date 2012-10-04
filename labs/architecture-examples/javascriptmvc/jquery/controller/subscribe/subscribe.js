@@ -1,5 +1,5 @@
 /*global OpenAjax: true */
-steal.plugins('jquery/controller', 'jquery/lang/openajax').then(function() {
+steal('jquery/controller', 'jquery/lang/openajax').then(function() {
 
 	/**
 	 * @function jQuery.Controller.static.processors.subscribe
@@ -26,13 +26,14 @@ steal.plugins('jquery/controller', 'jquery/lang/openajax').then(function() {
 	 * @param {HTMLElement} el the element being bound.  This isn't used.
 	 * @param {String} event the event type (subscribe).
 	 * @param {String} selector the subscription name
-	 * @param {Function} cb the callback function
+	 * @param {String} cb the callback function's name
 	 */
-	jQuery.Controller.processors.subscribe = function( el, event, selector, cb ) {
-		var subscription = OpenAjax.hub.subscribe(selector, cb);
+	jQuery.Controller.processors.subscribe = function( el, event, selector, cb, controller ) {
+		var subscription = OpenAjax.hub.subscribe(selector, function(){
+			return controller[cb].apply(controller, arguments)
+		});
 		return function() {
-			var sub = subscription;
-			OpenAjax.hub.unsubscribe(sub);
+			OpenAjax.hub.unsubscribe(subscription);
 		};
 	};
 

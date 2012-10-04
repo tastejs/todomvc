@@ -23,12 +23,11 @@
 </div>
 <script type='text/javascript'  
         src='../../../steal/steal.js'></script>
-<script type='text/javascript'>
-steal.plugins('jquery/dom/cur_styles').start()
-</script>
+
 
 <script type='text/javascript' id="demo-source">
-
+steal('jquery/dom/cur_styles').then(function(){
+	
 $.fn.fastHeight = function(){
 	var sum = this[0] && this[0].offsetHeight;
 	$.each(this.curStyles(
@@ -49,7 +48,7 @@ var test = function(func){
 		content[func]()
 	}
 	return ( new Date() - start );
-}
+};
 
 
 $("#content").click(function(){
@@ -61,10 +60,9 @@ $("#content").click(function(){
 		fastheight+
 		"</b>ms"
 		)
-})
+});
 
-
-
+});
 
 </script>
     </body>
