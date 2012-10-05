@@ -1,12 +1,13 @@
 #import('dart:html');
 
 // TODO XSS check
+
+List<TodoElement> todoElements = new List();
+
 void main() {
   InputElement newTodoElement = query("#new-todo");
   Element todoListElement = query("#todo-list");
   Element clearCompletedElement = query("#clear-completed");
-  
-  List<TodoElement> todoElements = new List();
   
   newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
@@ -70,6 +71,8 @@ class TodoElement {
     });
     element.query(".destroy").on.click.add((MouseEvent e) {
       element.remove();
+      // TODO throw an event to delete global todoElements
+      todoElements.removeAt(todoElements.indexOf(this));
     });
     editElement.on.keyPress.add((KeyboardEvent e) {
       if(e.keyIdentifier == KeyName.ENTER) {
