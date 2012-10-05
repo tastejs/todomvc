@@ -1,5 +1,6 @@
 #import('dart:html');
 
+// TODO XSS check
 void main() {
   InputElement newTodoElement = query("#new-todo");
   Element todoListElement = query("#todo-list");
@@ -26,14 +27,31 @@ class TodoElement {
         <li ${todo.done ? 'class="completed"' : ''}>
         <div class="view">
         <input class="toggle" type="checkbox" ${todo.done ? 'checked' : ''}>
-        <label>${todo.content}</label>
+        <label class="todo-content">${todo.content}</label>
         <button class="destroy"></button>
         </div>
         <input class="edit" value="${todo.content}">
         </li>
     ''');
+    Element contentElement = element.query(".todo-content");
+    InputElement editElement = element.query(".edit");
+
+    element.query(".toggle").on.click.add((MouseEvent e) {
+      todo.done = !todo.done;
+    });
+    contentElement.on.doubleClick.add((MouseEvent e) {
+      element.classes.add("editing");
+      editElement.focus();
+    });
     element.query(".destroy").on.click.add((MouseEvent e) {
       element.remove();
+    });
+    editElement.on.keyPress.add((KeyboardEvent e) {
+      if(e.keyIdentifier == KeyName.ENTER) {
+        todo.content = editElement.value.trim();
+        element.classes.remove("editing");
+        contentElement.innerHTML = todo.content;
+      }
     });
     return element;
   }
