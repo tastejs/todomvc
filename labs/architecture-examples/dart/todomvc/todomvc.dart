@@ -38,6 +38,11 @@ class TodoElement {
 
     element.query(".toggle").on.click.add((MouseEvent e) {
       todo.done = !todo.done;
+      if(todo.done) {
+        element.classes.add("completed");
+      } else {
+        element.classes.remove("completed");
+      }
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add("editing");
