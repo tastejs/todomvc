@@ -10,15 +10,18 @@ void main() {
   
   newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
-      Todo todo = new Todo();
-      todo.complete = false;
-      todo.content = newTodoElement.value.trim();
-      
-      TodoElement todoElement = new TodoElement(todo);
-      todoElements.add(todoElement);
-      todoListElement.nodes.add(todoElement.createElement());
+      String content = newTodoElement.value.trim();
+      if(content != "") {
+        Todo todo = new Todo();
+        todo.complete = false;
+        todo.content = content;
 
-      newTodoElement.value = "";
+        TodoElement todoElement = new TodoElement(todo);
+        todoElements.add(todoElement);
+        todoListElement.nodes.add(todoElement.createElement());
+
+        newTodoElement.value = "";
+      }
     }
   });
   
