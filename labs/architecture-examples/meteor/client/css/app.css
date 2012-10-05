@@ -1,5 +1,3 @@
-/* base.css overrides */
-
 #filters li a {
-	text-transform:capitalize;
+	text-transform: capitalize;
 }

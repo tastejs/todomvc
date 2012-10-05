@@ -404,3 +404,7 @@ label[for='toggle-all'] {
 		background: none;
 	}
 }
+
+.hidden{
+	display:none;
+}
