@@ -4,29 +4,46 @@
 void main() {
   InputElement newTodoElement = query("#new-todo");
   Element todoListElement = query("#todo-list");
+  Element clearCompletedElement = query("#clear-completed");
+  
+  List<TodoElement> todoElements = new List();
   
   newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
       Todo todo = new Todo();
-      todo.done = false;
+      todo.complete = false;
       todo.content = newTodoElement.value.trim();
+      
+      TodoElement todoElement = new TodoElement(todo);
+      todoElements.add(todoElement);
+      todoListElement.nodes.add(todoElement.createElement());
+
       newTodoElement.value = "";
-      todoListElement.nodes.add(new TodoElement(todo).element());
+    }
+  });
+  
+  clearCompletedElement.on.click.add((MouseEvent e) {
+    for(int i = 0 ; i < todoElements.length ; i++) {
+      if(todoElements[i].todo.complete) {
+        todoElements[i].element.remove();
+        todoElements.removeAt(i);
+      }
     }
   });
 }
 
 class TodoElement {
   Todo todo;
+  Element element;
   
   TodoElement(this.todo) {
   }
   
-  Element element() {
-    Element element = new Element.html('''
-        <li ${todo.done ? 'class="completed"' : ''}>
+  Element createElement() {
+    element = new Element.html('''
+        <li ${todo.complete ? 'class="completed"' : ''}>
         <div class="view">
-        <input class="toggle" type="checkbox" ${todo.done ? 'checked' : ''}>
+        <input class="toggle" type="checkbox" ${todo.complete ? 'checked' : ''}>
         <label class="todo-content">${todo.content}</label>
         <button class="destroy"></button>
         </div>
@@ -37,8 +54,8 @@ class TodoElement {
     InputElement editElement = element.query(".edit");
 
     element.query(".toggle").on.click.add((MouseEvent e) {
-      todo.done = !todo.done;
-      if(todo.done) {
+      todo.toggle();
+      if(todo.complete) {
         element.classes.add("completed");
       } else {
         element.classes.remove("completed");
@@ -60,13 +77,19 @@ class TodoElement {
     });
     return element;
   }
+  
+  void hideIfComplete() {
+    if(todo.complete) {
+      element.classes.add("hidden");
+    }
+  }
 }
 
 class Todo {
   String content;
-  bool done;
+  bool complete;
   
   void toggle() {
-    done = !done;
+    complete = !complete;
   }
 }
