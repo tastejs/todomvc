@@ -3,37 +3,81 @@
 // TODO XSS check
 
 List<TodoElement> todoElements = new List();
+Element todoListElement = query("#todo-list");
+Element checkAllCheckboxElement = query("#main");
+Element footerElement = query("#footer"); 
+Element countElement = query("#todo-count");
+Element clearCompletedElement = query("#clear-completed");
 
 void main() {
   InputElement newTodoElement = query("#new-todo");
-  Element todoListElement = query("#todo-list");
-  Element clearCompletedElement = query("#clear-completed");
-  
+
   newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
       String content = newTodoElement.value.trim();
       if(content != "") {
-        Todo todo = new Todo();
-        todo.complete = false;
-        todo.content = content;
-
-        TodoElement todoElement = new TodoElement(todo);
-        todoElements.add(todoElement);
-        todoListElement.nodes.add(todoElement.createElement());
-
+        addTodo(content);
         newTodoElement.value = "";
+        updateFooterDisplay();
       }
     }
+  });
+
+  clearCompletedElement.on.click.add((MouseEvent e) {
+    todoElements.forEach((TodoElement todoElement) {
+      if(todoElement.todo.complete) {
+        todoElement.element.remove();
+        todoElements.removeAt(todoElements.indexOf(todoElement));
+      }
+    });
+    updateFooterDisplay();
   });
   
-  clearCompletedElement.on.click.add((MouseEvent e) {
-    for(int i = 0 ; i < todoElements.length ; i++) {
-      if(todoElements[i].todo.complete) {
-        todoElements[i].element.remove();
-        todoElements.removeAt(i);
-      }
+  addTodo("truc", true);
+  addTodo("machin", false);
+  
+  updateFooterDisplay();
+}
+
+void addTodo(String content, [bool complete = false]) {
+  Todo todo = new Todo();
+  todo.complete = complete;
+  todo.content = content;
+
+  TodoElement todoElement = new TodoElement(todo);
+  todoElements.add(todoElement);
+  todoListElement.nodes.add(todoElement.createElement());
+}
+
+void updateFooterDisplay() {
+  if(todoElements.length == 0) {
+    checkAllCheckboxElement.style.display = "none";
+    footerElement.style.display = "none";
+  } else {
+    checkAllCheckboxElement.style.display = "block";
+    footerElement.style.display = "block";
+  }
+  updateCounts();
+}
+
+void updateCounts() {
+  int complete = 0;
+  todoElements.forEach((TodoElement todoElement) {
+    if(todoElement.todo.complete) {
+      complete++;
     }
   });
+  if(complete == 1) {
+    countElement.innerHTML = "1 item left";
+  } else {
+    countElement.innerHTML = "${todoElements.length - complete} items left";
+  }
+  if(complete == 0) {
+    clearCompletedElement.style.display = "none";
+  } else {
+    clearCompletedElement.style.display = "block";
+    clearCompletedElement.innerHTML = "Clear completed (${complete})";
+  }
 }
 
 class TodoElement {
@@ -64,6 +108,7 @@ class TodoElement {
       } else {
         element.classes.remove("completed");
       }
+      updateCounts();
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add("editing");
@@ -71,8 +116,8 @@ class TodoElement {
     });
     element.query(".destroy").on.click.add((MouseEvent e) {
       element.remove();
-      // TODO throw an event to delete global todoElements
       todoElements.removeAt(todoElements.indexOf(this));
+      updateFooterDisplay();
     });
     editElement.on.keyPress.add((KeyboardEvent e) {
       if(e.keyIdentifier == KeyName.ENTER) {
@@ -82,12 +127,6 @@ class TodoElement {
       }
     });
     return element;
-  }
-  
-  void hideIfComplete() {
-    if(todo.complete) {
-      element.classes.add("hidden");
-    }
   }
 }
 
