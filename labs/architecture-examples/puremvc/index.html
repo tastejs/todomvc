@@ -6,7 +6,7 @@
             <title>PureMVC • TodoMVC</title>
             <link rel="stylesheet" href="../../../assets/base.css">
             <!--[if IE]>
-                <script src="../../../assets/ie.js"></script>
+                <script src="assets/ie.js"></script>
             <![endif]-->
     </head>
     <body>
@@ -15,16 +15,13 @@
                 <h1>todos</h1>
                 <input id="new-todo" placeholder="What needs to be done?" autofocus>
             </header>
-            <!-- This section should be hidden by default and shown when there are todos -->
             <section id="main">
                 <input id="toggle-all" type="checkbox">
                 <label for="toggle-all">Mark all as complete</label>
                 <ul id="todo-list">
                 </ul>
             </section>
-            <!-- This footer should hidden by default and shown when there are todos -->
             <footer id="footer">
-                <!-- This should be `0 items left` by default -->
                 <span id="todo-count"><strong>1</strong> item left</span>
                 <ul id="filters">
                     <li>
@@ -46,11 +43,11 @@
             <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
         </footer>
         
-        <!-- Scripts here. Don't remove this ↓ -->
+        <!-- TODOMVC PROJECT BASE -->
         <script src="../../../assets/base.js"></script>
 
-		<!-- FLATIRION DIRECTOR ROUTING LIBRARY -->
-		<script src="../../../assets/director-1.1.6.min.js"></script>
+        <!-- FLATIRION DIRECTOR ROUTING LIBRARY -->
+        <script src="../../../assets/director.min.js"></script>
         
         <!-- PUREMVC LIBRARY -->
         <script src="js/libs/puremvc-1.0.1.min.js"></script>
@@ -82,10 +79,10 @@
         <script src="js/src/app.js"></script>
         
         <!-- START THE APPLICATION -->
-        <script language="JavaScript">
+        <script>
         document.addEventListener('DOMContentLoaded', function() 
         {
-            var app = new todomvc.Application;
+            var app = new todomvc.Application();
         });
         </script>
     </body>

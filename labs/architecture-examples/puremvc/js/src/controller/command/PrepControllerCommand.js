@@ -4,19 +4,19 @@
  * @class PrepControllerCommand
  * @link https://github.com/PureMVC/puremvc-js-demo-todomvc.git
  */
-puremvc.define
-(
-    // CLASS INFO
-    {
-        name:'todomvc.controller.command.PrepControllerCommand',
-        parent:puremvc.SimpleCommand
+puremvc.define({
+        name: 'todomvc.controller.command.PrepControllerCommand',
+        parent: puremvc.SimpleCommand
     },
   
     // INSTANCE MEMBERS
     {
-        /** @override */
-        execute: function (note)
-        {   // This registers multiple notes to a single command which performs different logic based on the note name.
+        /** 
+         * Register Commands with the Controller
+         * @override
+         */
+        execute: function (note) {   
+            // This registers multiple notes to a single command which performs different logic based on the note name.
             // In a more complex app, we'd usually be registering a different command to each notification name.
             this.facade.registerCommand( todomvc.AppConstants.ADD_TODO,                  todomvc.controller.command.TodoCommand );
             this.facade.registerCommand( todomvc.AppConstants.REMOVE_TODOS_COMPLETED,    todomvc.controller.command.TodoCommand );

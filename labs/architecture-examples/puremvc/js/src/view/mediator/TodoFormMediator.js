@@ -4,11 +4,9 @@
  * @class TodoFormMediator
  * @link https://github.com/PureMVC/puremvc-js-demo-todomvc.git
  */
-puremvc.define
-(
-    {
-        name:'todomvc.view.mediator.TodoFormMediator',
-        parent:puremvc.Mediator
+puremvc.define({
+        name: 'todomvc.view.mediator.TodoFormMediator',
+        parent: puremvc.Mediator
     },
  
     // INSTANCE MEMBERS
@@ -21,7 +19,6 @@ puremvc.define
         // Code to be executed when the Mediator instance is registered with the View
         onRegister: function() {
             this.setViewComponent( new todomvc.view.component.TodoForm );
-            
             this.viewComponent.addEventListener( todomvc.view.event.AppEvents.TOGGLE_COMPLETE, this );
             this.viewComponent.addEventListener( todomvc.view.event.AppEvents.TOGGLE_COMPLETE_ALL, this );
             this.viewComponent.addEventListener( todomvc.view.event.AppEvents.UPDATE_ITEM, this );
@@ -29,7 +26,8 @@ puremvc.define
             this.viewComponent.addEventListener( todomvc.view.event.AppEvents.ADD_ITEM, this );
             this.viewComponent.addEventListener( todomvc.view.event.AppEvents.CLEAR_COMPLETED, this );
         },
- 
+        
+        // Handle events from the view component
         handleEvent: function ( event ) {            
             switch( event.type ) {
                 case todomvc.view.event.AppEvents.TOGGLE_COMPLETE_ALL:
@@ -56,7 +54,7 @@ puremvc.define
             
         },
  
-        /** @override */
+        // Handle notifications from other PureMVC actors
         handleNotification: function( note ) {
             switch ( note.getName() ) {
                 case todomvc.AppConstants.TODOS_FILTERED:

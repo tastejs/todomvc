@@ -4,23 +4,21 @@
  * @class TodoCommand
  * @link https://github.com/PureMVC/puremvc-js-demo-todomvc.git
  */
-puremvc.define
-(
-    // CLASS INFO
-    {
-        name:'todomvc.controller.command.TodoCommand',
-        parent:puremvc.SimpleCommand
+puremvc.define ({
+        name: 'todomvc.controller.command.TodoCommand',
+        parent: puremvc.SimpleCommand
     },
   
     // INSTANCE MEMBERS
     {
-        /** @override */
-        execute: function ( note )
-        {
+        /** 
+         * Perform business logic (in this case, based on Notification name)
+         * @override
+         */
+        execute: function ( note ) {
             var proxy = this.facade.retrieveProxy( todomvc.model.proxy.TodoProxy.NAME );
             
-            switch( note.getName() ) 
-            {
+            switch( note.getName() ) {
                 case todomvc.AppConstants.ADD_TODO:
                     proxy.addTodo( note.getBody() );
                     break;
