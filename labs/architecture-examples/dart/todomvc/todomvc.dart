@@ -4,6 +4,7 @@
 
 List<TodoElement> todoElements = new List();
 Element todoListElement = query("#todo-list");
+Element mainElement = query("#main");
 InputElement checkAllCheckboxElement = query("#toggle-all");
 Element footerElement = query("#footer"); 
 Element countElement = query("#todo-count");
@@ -62,9 +63,11 @@ void addTodo(String content, [bool complete = false]) {
 void updateFooterDisplay() {
   if(todoElements.length == 0) {
     checkAllCheckboxElement.style.display = "none";
+    mainElement.style.display = "none";
     footerElement.style.display = "none";
   } else {
     checkAllCheckboxElement.style.display = "block";
+    mainElement.style.display = "block";
     footerElement.style.display = "block";
   }
   updateCounts();
