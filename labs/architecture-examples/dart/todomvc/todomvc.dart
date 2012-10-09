@@ -4,7 +4,7 @@
 
 List<TodoElement> todoElements = new List();
 Element todoListElement = query("#todo-list");
-Element checkAllCheckboxElement = query("#toggle-all");
+InputElement checkAllCheckboxElement = query("#toggle-all");
 Element footerElement = query("#footer"); 
 Element countElement = query("#todo-count");
 Element clearCompletedElement = query("#clear-completed");
@@ -77,6 +77,7 @@ void updateCounts() {
       complete++;
     }
   });
+  checkAllCheckboxElement.checked = (complete == todoElements.length);
   if(complete == 1) {
     countElement.innerHTML = "1 item left";
   } else {
@@ -116,6 +117,7 @@ class TodoElement {
     
     toggleElement.on.click.add((MouseEvent e) {
       toggle();
+      updateCounts();
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add("editing");
@@ -144,7 +146,6 @@ class TodoElement {
     } else {
       element.classes.remove("completed");
     }
-    updateCounts();
   }
 }
 
