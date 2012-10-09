@@ -27,7 +27,7 @@ void main() {
   checkAllCheckboxElement.on.click.add((Event e) {
     InputElement target = e.srcElement;
     todoElements.forEach((TodoElement todoElement) {
-      if(todoElement.todo.complete != target.checked) {
+      if(todoElement.todo.completed != target.checked) {
         todoElement.toggle();
       }
     });
@@ -35,12 +35,15 @@ void main() {
   });
 
   clearCompletedElement.on.click.add((MouseEvent e) {
+    List<TodoElement> newList = new List<TodoElement>();
     todoElements.forEach((TodoElement todoElement) {
-      if(todoElement.todo.complete) {
+      if(todoElement.todo.completed) {
         todoElement.element.remove();
-        todoElements.removeAt(todoElements.indexOf(todoElement));
+      } else {
+        newList.add(todoElement);
       }
     });
+    todoElements = newList;
     updateCounts();
   });
   
@@ -52,8 +55,8 @@ void main() {
 
 void addTodo(String content, [bool complete = false]) {
   Todo todo = new Todo();
-  todo.complete = complete;
-  todo.content = content;
+  todo.completed = complete;
+  todo.title = content;
 
   TodoElement todoElement = new TodoElement(todo);
   todoElements.add(todoElement);
@@ -76,7 +79,7 @@ void updateFooterDisplay() {
 void updateCounts() {
   int complete = 0;
   todoElements.forEach((TodoElement todoElement) {
-    if(todoElement.todo.complete) {
+    if(todoElement.todo.completed) {
       complete++;
     }
   });
@@ -104,13 +107,13 @@ class TodoElement {
   
   Element createElement() {
     element = new Element.html('''
-        <li ${todo.complete ? 'class="completed"' : ''}>
+        <li ${todo.completed ? 'class="completed"' : ''}>
         <div class="view">
-        <input class="toggle" type="checkbox" ${todo.complete ? 'checked' : ''}>
-        <label class="todo-content">${todo.content}</label>
+        <input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
+        <label class="todo-content">${todo.title}</label>
         <button class="destroy"></button>
         </div>
-        <input class="edit" value="${todo.content}">
+        <input class="edit" value="${todo.title}">
         </li>
     ''');
     Element contentElement = element.query(".todo-content");
@@ -133,18 +136,18 @@ class TodoElement {
     });
     editElement.on.keyPress.add((KeyboardEvent e) {
       if(e.keyIdentifier == KeyName.ENTER) {
-        todo.content = editElement.value.trim();
+        todo.title = editElement.value.trim();
         element.classes.remove("editing");
-        contentElement.innerHTML = todo.content;
+        contentElement.innerHTML = todo.title;
       }
     });
     return element;
   }
   
   void toggle() {
-    todo.complete = !todo.complete;
-    toggleElement.checked = todo.complete;
-    if(todo.complete) {
+    todo.completed = !todo.completed;
+    toggleElement.checked = todo.completed;
+    if(todo.completed) {
       element.classes.add("completed");
     } else {
       element.classes.remove("completed");
@@ -153,6 +156,7 @@ class TodoElement {
 }
 
 class Todo {
-  String content;
-  bool complete;
+  int id;
+  String title;
+  bool completed;
 }
