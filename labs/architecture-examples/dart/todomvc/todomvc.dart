@@ -4,7 +4,7 @@
 
 List<TodoElement> todoElements = new List();
 Element todoListElement = query("#todo-list");
-Element checkAllCheckboxElement = query("#main");
+Element checkAllCheckboxElement = query("#toggle-all");
 Element footerElement = query("#footer"); 
 Element countElement = query("#todo-count");
 Element clearCompletedElement = query("#clear-completed");
@@ -22,6 +22,16 @@ void main() {
       }
     }
   });
+  
+  checkAllCheckboxElement.on.click.add((Event e) {
+    InputElement target = e.srcElement;
+    todoElements.forEach((TodoElement todoElement) {
+      if(todoElement.todo.complete != target.checked) {
+        todoElement.toggle();
+      }
+    });
+    updateFooterDisplay();
+  });
 
   clearCompletedElement.on.click.add((MouseEvent e) {
     todoElements.forEach((TodoElement todoElement) {
@@ -30,7 +40,7 @@ void main() {
         todoElements.removeAt(todoElements.indexOf(todoElement));
       }
     });
-    updateFooterDisplay();
+    updateCounts();
   });
   
   addTodo("truc", true);
@@ -83,6 +93,7 @@ void updateCounts() {
 class TodoElement {
   Todo todo;
   Element element;
+  InputElement toggleElement;
   
   TodoElement(this.todo) {
   }
@@ -101,14 +112,10 @@ class TodoElement {
     Element contentElement = element.query(".todo-content");
     InputElement editElement = element.query(".edit");
 
-    element.query(".toggle").on.click.add((MouseEvent e) {
-      todo.toggle();
-      if(todo.complete) {
-        element.classes.add("completed");
-      } else {
-        element.classes.remove("completed");
-      }
-      updateCounts();
+    toggleElement = element.query(".toggle");
+    
+    toggleElement.on.click.add((MouseEvent e) {
+      toggle();
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add("editing");
@@ -128,13 +135,20 @@ class TodoElement {
     });
     return element;
   }
+  
+  void toggle() {
+    todo.complete = !todo.complete;
+    toggleElement.checked = todo.complete;
+    if(todo.complete) {
+      element.classes.add("completed");
+    } else {
+      element.classes.remove("completed");
+    }
+    updateCounts();
+  }
 }
 
 class Todo {
   String content;
   bool complete;
-  
-  void toggle() {
-    complete = !complete;
-  }
 }
