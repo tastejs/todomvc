@@ -47,9 +47,6 @@ void main() {
     updateFooterDisplay();
   });
   
-  addTodo("truc", true);
-  addTodo("machin", false);
-  
   updateFooterDisplay();
 }
 
