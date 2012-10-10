@@ -130,16 +130,25 @@ class TodoElement {
       editElement.selectionStart = todo.title.length;
       editElement.focus();
     });
-    element.query(".destroy").on.click.add((MouseEvent e) {
+    
+    void removeTodo() {
       element.remove();
       todoElements.removeAt(todoElements.indexOf(this));
       updateFooterDisplay();
+    }
+    
+    element.query(".destroy").on.click.add((MouseEvent e) {
+      removeTodo();
     });
     
     void doneEditing() {
       todo.title = editElement.value.trim();
-      contentElement.innerHTML = todo.title;
-      element.classes.remove("editing");
+      if(todo.title != "") {
+        contentElement.innerHTML = todo.title;
+        element.classes.remove("editing");
+      } else {
+        removeTodo();
+      }
     }
     
     editElement.on.keyPress.add((KeyboardEvent e) {
