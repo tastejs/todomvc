@@ -44,7 +44,7 @@ void main() {
       }
     });
     todoElements = newList;
-    updateCounts();
+    updateFooterDisplay();
   });
   
   addTodo("truc", true);
