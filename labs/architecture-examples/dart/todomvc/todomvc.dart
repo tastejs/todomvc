@@ -127,6 +127,7 @@ class TodoElement {
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add("editing");
+      editElement.selectionStart = todo.title.length;
       editElement.focus();
     });
     element.query(".destroy").on.click.add((MouseEvent e) {
@@ -134,12 +135,20 @@ class TodoElement {
       todoElements.removeAt(todoElements.indexOf(this));
       updateFooterDisplay();
     });
+    
+    void doneEditing() {
+      todo.title = editElement.value.trim();
+      contentElement.innerHTML = todo.title;
+      element.classes.remove("editing");
+    }
+    
     editElement.on.keyPress.add((KeyboardEvent e) {
       if(e.keyIdentifier == KeyName.ENTER) {
-        todo.title = editElement.value.trim();
-        element.classes.remove("editing");
-        contentElement.innerHTML = todo.title;
+        doneEditing();
       }
+    });
+    editElement.on.blur.add((Event e) {
+      doneEditing();
     });
     return element;
   }
