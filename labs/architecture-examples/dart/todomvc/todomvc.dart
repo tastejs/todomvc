@@ -1,7 +1,5 @@
 #import('dart:html');
 
-// TODO XSS check
-
 List<TodoElement> todoElements = new List();
 Element todoListElement = query("#todo-list");
 Element mainElement = query("#main");
