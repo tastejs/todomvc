@@ -10,68 +10,61 @@
 	<![endif]-->
 </head>
 <body>
-	<section id="todoapp">
+	<section id="todoapp" kb-inject="AppViewModel">
 		<header id="header">
 			<h1>todos</h1>
-			<input id="new-todo" type="text" data-bind="value: header.title, valueUpdate: 'afterkeydown', event: {keyup: header.onAddTodo}" placeholder="What needs to be done?" autofocus>
+			<input id="new-todo" type="text" data-bind="value: title, valueUpdate: 'afterkeydown', event: {keyup: onAddTodo}" placeholder="What needs to be done?" autofocus>
 		</header>
-		<section id="main" data-bind="block: todos.tasks_exist">
-			<input id="toggle-all" type="checkbox" data-bind="checked: todos.all_completed">
+		<section id="main" data-bind="block: tasks_exist">
+			<input id="toggle-all" type="checkbox" data-bind="checked: all_completed">
 			<label for="toggle-all">Mark all as complete</label>
-			<ul id="todo-list" data-bind="foreach: todos.todos">
-				<li data-bind="css: {completed: completed, editing: editing}, visible: visible">
-					<div class="view">
+			<ul id="todo-list" data-bind="foreach: todos">
+				<li data-bind="css: {completed: completed, editing: editing}">
+					<div class="view" data-bind="event: {dblclick: onCheckEditBegin}">
 						<input class="toggle" type="checkbox" data-bind="checked: completed" checked>
-						<label data-bind="text: title, event: {dblclick: onCheckEditBegin}"></label>
+						<label data-bind="text: title"></label>
 						<button class="destroy" data-bind="click: onDestroyTodo"></button>
 					</div>
 					<input class="edit" type="text" data-bind="value: title, selectAndFocus: editing, event: {blur: onCheckEditEnd, keyup: onCheckEditEnd}">
 				</li>
 			</ul>
 		</section>
-		<footer id="footer" data-bind="block: todos.tasks_exist">
-			<span id="todo-count" data-bind="html: footer.remaining_text"></span>
+		<footer id="footer" data-bind="block: tasks_exist">
+			<span id="todo-count" data-bind="html: loc.remaining_message"></span>
 			<ul id="filters">
 				<li>
-					<a href="#/" data-bind="css: {selected: settings.list_filter_mode()==''}">All</a>
+					<a href="#/" data-bind="css: {selected: list_filter_mode()==''}">All</a>
 				</li>
 				<li>
-					<a href="#/active" data-bind="css: {selected: settings.list_filter_mode()=='active'}">Active</a>
+					<a href="#/active" data-bind="css: {selected: list_filter_mode()=='active'}">Active</a>
 				</li>
 				<li>
-					<a href="#/completed" data-bind="css: {selected: settings.list_filter_mode()=='completed'}">Completed</a>
+					<a href="#/completed" data-bind="css: {selected: list_filter_mode()=='completed'}">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" data-bind="text: footer.clear_text, block: footer.clear_text, click: footer.onDestroyCompleted"></button>
+			<button id="clear-completed" data-bind="text: loc.clear_message, block: loc.clear_message, click: onDestroyCompleted"></button>
 		</footer>
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="https://github.com/kmalakoff">Kevin Malakoff</a>. <br/>
-		Please try out the <a href="http://kmalakoff.github.com/knockback-todos/">enhanced version</a> <br/>
+		Please try out the <a href="http://kmalakoff.github.com/knockback-todos-app/">enhanced version</a> <br/>
 		with localization, priority colors, and lazy loading <br/>
 		to see just how dynamic <a href="https://github.com/kmalakoff/knockback">Knockback.js</a> can be!</p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-	<!-- Demo Dependencies -->
+
+	<!-- App Dependencies -->
 	<script src="../../assets/base.js"></script>
 	<script src="../../assets/jquery.min.js"></script>
-	<!-- Knockback Dependencies -->
-	<script src="../../assets/lodash.min.js"></script>
-	<script src="js/lib/backbone-min.js"></script>
-	<script src="js/lib/knockout-2.1.0.js"></script>
-	<script src="js/lib/knockback.min.js"></script>
-	<!-- More Demo Dependencies -->
+	<script src="js/lib/knockback-full-stack-0.16.7.min.js"></script>
 	<script src="js/lib/backbone.localStorage-min.js"></script>
-	<!-- Demo Components -->
+
+	<!-- App and Components -->
+	<script src="js/lib/knockout-extended-bindings.js"></script>
 	<script src="js/models/todo.js"></script>
 	<script src="js/models/todo_collection.js"></script>
-	<script src="js/viewmodels/settings.js"></script>
-	<script src="js/viewmodels/header.js"></script>
-	<script src="js/viewmodels/todos.js"></script>
-	<script src="js/viewmodels/footer.js"></script>
-	<script src="js/routers/app.js"></script>
-	<!-- The Demo -->
-	<script src="js/app.js"></script>
+	<script src="js/viewmodels/todo.js"></script>
+  <script src="js/viewmodels/app.js"></script>
 </body>
 </html>

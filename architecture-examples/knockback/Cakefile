@@ -4,7 +4,9 @@
 task 'build', 'Build js/ from src/', ->
 	coffee = spawn 'coffee', ['-c', '-o', 'js', 'src']
 	coffee.stderr.on 'data', (data) ->
-		process.stderr.write data.toString()
+    message = data.toString()
+    if message.search('is now called') < 0 
+      process.stderr.write message
 	coffee.stdout.on 'data', (data) ->
 		print data.toString()
 	coffee.on 'exit', (code) ->
