@@ -59,9 +59,9 @@
 	}
 
 	function toggleAllChangeHandler( event ) {
-		for ( var i in todos ) {
-			todos[ i ].completed = event.target.checked;
-		}
+		_.each( todos, function (todo) {
+			todo.completed = event.target.checked;
+		});
 
 		refreshData();
 	}
@@ -112,46 +112,31 @@
 	}
 
 	function editTodo( todoId, text ) {
-		var i, l;
-
-		for ( i = 0, l = todos.length; i < l; i++ ) {
-			if ( todos[ i ].id === todoId ) {
-				todos[ i ].title = text;
-			}
-		}
+		var todo = _.find( todos, function ( todo ) {
+			return todo.id === todoId;
+		});
+		todo.title = text;
 
 		refreshData();
 	}
 
 	function removeTodoById( id ) {
-		var i = todos.length;
-
-		while ( i-- ) {
-			if ( todos[ i ].id === id ) {
-				todos.splice( i, 1 );
-			}
-		}
+		// Filter will return the todos that do not pass the truth test
+		todos = _.filter( todos, function ( todo ) {
+			return todo.id === id;
+		});
 	}
 
 	function removeTodosCompleted() {
-		var i = todos.length;
-
-		while ( i-- ) {
-			console.log(i);
-			if ( todos[ i ].completed ) {
-				todos.splice( i, 1 );
-			}
-	   }
+		todos = _.filter( todos, function ( todo ) {
+			return todo.completed === true;
+		});
 	}
 
 	function getTodoById( id ) {
-		var i, l;
-
-		for ( i = 0, l = todos.length; i < l; i++ ) {
-			if ( todos[ i ].id === id ) {
-				return todos[ i ];
-			}
-		}
+		return _.find( todos, function ( todo ) {
+			return todo.id === id;
+		});
 	}
 
 	function refreshData() {
@@ -167,17 +152,19 @@
 	}
 
 	function computeStats() {
-		var i, l;
-
 		stat = new Stat();
 		stat.totalTodo = todos.length;
 
-		for ( i = 0, l = todos.length; i < l; i++ ) {
-			if ( todos[ i ].completed ) {
-				stat.todoCompleted++;
+		// Reduce the todo list to a count of completed items
+		stat.todoCompleted = _.reduce( todos, function ( memo, todo ) {
+			if ( todo.completed ) {
+				return memo + 1;
 			}
-		}
 
+			return memo;
+		}, 0);
+
+		// Todos left is just the total less the completed
 		stat.todoLeft = stat.totalTodo - stat.todoCompleted;
 	}
 
@@ -192,9 +179,7 @@
 		ul.innerHTML = '';
 		document.getElementById('new-todo').value = '';
 
-		for ( i = 0, l = todos.length; i < l; i++ ) {
-			todo = todos[ i ];
-
+		_.each( todos, function ( todo, index ) {
 			// create checkbox
 			checkbox = document.createElement('input');
 			checkbox.className = 'toggle';
@@ -245,7 +230,7 @@
 			}
 
 			ul.appendChild( li );
-		}
+		});
 	}
 
 	function changeToggleAllCheckboxState() {
