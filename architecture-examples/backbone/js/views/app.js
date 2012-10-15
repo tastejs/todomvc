@@ -32,12 +32,11 @@ $(function( $ ) {
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 
-			window.app.Todos.on( 'add', this.addOne, this );
-			window.app.Todos.on( 'reset', this.addAll, this );
-			window.app.Todos.on('change:completed', this.filterOne, this);
-			window.app.Todos.on("filter", this.filterAll, this);
-
-			window.app.Todos.on( 'all', this.render, this );
+			app.Todos.on( 'add', this.addOne, this );
+			app.Todos.on( 'reset', this.addAll, this );
+			app.Todos.on( 'change:completed', this.filterOne, this );
+			app.Todos.on( 'filter', this.filterAll, this );
+			app.Todos.on( 'all', this.render, this );
 
 			app.Todos.fetch();
 		},
@@ -83,7 +82,7 @@ $(function( $ ) {
 		},
 
 		filterOne : function (todo) {
-			todo.trigger("visible");
+			todo.trigger('visible');
 		},
 
 		filterAll : function () {
@@ -112,7 +111,7 @@ $(function( $ ) {
 
 		// Clear all completed todo items, destroying their models.
 		clearCompleted: function() {
-			_.each( window.app.Todos.completed(), function( todo ) {
+			_.each( app.Todos.completed(), function( todo ) {
 				todo.destroy();
 			});
 
