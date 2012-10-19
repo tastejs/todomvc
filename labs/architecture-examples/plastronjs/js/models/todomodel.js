@@ -13,6 +13,7 @@ goog.require('mvc.Model.ValidateError');
 todomvc.todomodel = function( opt_options ) {
 	goog.base( this, opt_options );
 
+	// title must have a length, also format to remove spaces
 	this.setter( 'title', function( title ) {
 		var updated = goog.string.trim( title );
 
@@ -23,6 +24,7 @@ todomvc.todomodel = function( opt_options ) {
 		return updated;
 	});
 
+	// when a note title is no longer valid then remove it
 	this.errorHandler(function() {
 		this.dispose();
 	});
