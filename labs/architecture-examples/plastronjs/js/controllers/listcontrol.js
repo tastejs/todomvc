@@ -16,25 +16,8 @@ goog.require('todomvc.todocontrol');
  */
 todomvc.listcontrol = function( list ) {
 	goog.base( this, list );
-	this.filter_ = todomvc.listcontrol.Filter.ALL;
 };
 goog.inherits( todomvc.listcontrol, mvc.Control );
-
-
-/**
- * @enum {Function}
- */
-todomvc.listcontrol.Filter = {
-	ALL: function() {
-		return true
-	},
-	ACTIVE: function( model ) {
-		return !model.get('completed')
-	},
-	COMPLETED: function( model ) {
-		return model.get('completed')
-	}
-};
 
 
 /**
@@ -48,37 +31,27 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 	var list = /** @type {Object} */(this.getModel());
 
 	// handle new note entry
-	this.on( goog.events.EventType.KEYUP, this.handleNewInput, 'todo-entry' );
+	this.on( goog.events.EventType.KEYUP, this.handleNewInput, '.todo-entry' );
 
 	// update complete button based on completed
 	this.autobind('#clear-completed', {
 		template: 'Clear completed ({$completed})',
-		show: true
+		noClick: true, // click should not set completed
+		show: true // hide when completed == false
 	});
 
 	// Clear completed
-	this.click(function( e ) {
+	this.click( function() {
 		goog.array.forEach( list.getModels( 'completed' ),
 			function( model ) {
 				model.dispose();
 			});
-	}, 'clear-completed' );
+	}, '.clear-completed' );
 
 	// when to check the check all
 	this.autobind('.toggle-all', {
-		reqs: "allDone",
-		// don't bind on click, we'll do that next
-		noClick: true
+		reqs: 'allDone'
 	});
-
-	// Toggle completed
-	this.click(function( e ) {
-		var checked = e.target.checked;
-
-		goog.array.forEach( list.getModels(), function( model ) {
-			model.set( 'completed', checked );
-		});
-	}, 'toggle-all' );
 
 	// change classes of ULs based on filter
 	this.autobind( 'ul', {
@@ -94,23 +67,19 @@ todomvc.listcontrol.prototype.enterDocument = function() {
 
 	// show or hide based on the totals
 	this.autobind(['#main', 'footer'], {
-		show: 'total'
+		show: 'total',
+		noClick: true
 	});
 
-	// Get the saved todos
-	list.fetch();
+	// autolists on modelChange and return refresh function
+	var refresh = this.autolist( todomvc.todocontrol,
+		goog.dom.getElement('todo-list') ).fire;
 
-	// save any changes and refresh view
-	this.anyModelChange(function() {
-		list.save();
-		this.refresh();
-	}, this );
-};
+	// if filter changes refresh view
+	this.bind( 'filter', refresh );
 
-
-todomvc.listcontrol.prototype.setFilter = function( filter ) {
-	this.filter_ = filter;
-	this.refresh();
+	// if anything changes save models and refresh view
+	this.anyModelChange( refresh );
 };
 
 
@@ -137,28 +106,4 @@ todomvc.listcontrol.prototype.handleNewInput = function( e ) {
 
 	input.value = '';
 };
-
-
-/**
- * refreshes the view of the childen.
- */
-todomvc.listcontrol.prototype.refresh = function() {
-
-	// Dispose and remove all the children.
-	this.forEachChild(function( child ) {
-		child.dispose();
-	});
-	this.removeChildren( true );
-
-	// Create new controls for the models
-	goog.array.forEach( this.getModel().getModels(this.filter_),
-		function( model ) {
-			var newModelControl = new todomvc.todocontrol( model );
-
-			this.addChild( newModelControl );
-			newModelControl.render( goog.dom.getElement('todo-list') );
-		}, this );
-};
-
-
 

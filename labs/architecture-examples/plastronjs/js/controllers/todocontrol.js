@@ -46,7 +46,7 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	// Delete the model
 	this.click(function( e ) {
 		model.dispose();
-	}, 'destroy' );
+	}, '.destroy' );
 
 	// keep label inline with title
 	this.autobind( 'label', '{$title}')
@@ -56,7 +56,7 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	this.on( goog.events.EventType.DBLCLICK, function( e ) {
 		goog.dom.classes.add( this.getElement(), 'editing' );
 		inputEl.focus();
-	}, 'view' );
+	}, '.view' );
 
 	// blur on enter
 	this.on( goog.events.EventType.KEYUP, function( e ) {
