@@ -15,7 +15,6 @@ goog.require('todomvc.templates');
  */
 todomvc.todocontrol = function( model ) {
 	goog.base( this, model );
-
 };
 goog.inherits( todomvc.todocontrol, mvc.Control );
 
@@ -27,10 +26,7 @@ goog.inherits( todomvc.todocontrol, mvc.Control );
  * @inheritDoc
  */
 todomvc.todocontrol.prototype.createDom = function() {
-	var el = soy.renderAsFragment( todomvc.templates.todoItem, {
-		model: this.getModel().toJson()
-	}, null );
-
+	var el = soy.renderAsElement( todomvc.templates.todoItem, null, null );
 	this.setElementInternal(/** @type {Element} */(el));
 };
 
@@ -45,31 +41,35 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	var model = this.getModel();
 
 	// Toggle complete
-	this.click(function( e ) {
-			model.set( 'completed', e.target.checked );
-	}, 'toggle' );
+	this.autobind('.toggle', '{$completed}');
 
 	// Delete the model
 	this.click(function( e ) {
 		model.dispose();
-	}, 'destroy' );
+	}, '.destroy' );
+
+	// keep label inline with title
+	this.autobind( 'label', '{$title}')
 
 	var inputEl = this.getEls('.edit')[0];
 	// Dblclick to edit
 	this.on( goog.events.EventType.DBLCLICK, function( e ) {
 		goog.dom.classes.add( this.getElement(), 'editing' );
-		inputEl.value = model.get('title');
 		inputEl.focus();
-	}, 'view' );
+	}, '.view' );
 
-	// Save on edit
+	// blur on enter
 	this.on( goog.events.EventType.KEYUP, function( e ) {
 		if ( e.keyCode === goog.events.KeyCodes.ENTER ) {
-			model.set( 'title', inputEl.value );
+			e.target.blur();
 		}
-	}, 'edit' );
+	});
 
+	// finish editing on blur
 	this.on( goog.events.EventType.BLUR, function( e ) {
-		model.set( 'title', inputEl.value );
-	}, 'edit' );
+		goog.dom.classes.remove( this.getElement(), 'editing' );
+	});
+
+	// bind the title and the edit input
+	this.autobind('.edit', '{$title}');
 };

@@ -1,22 +1,26 @@
 {namespace todomvc.templates}
 
+
 /**
- * @param model
  */
 {template .todoItem}
-<li {if $model['completed']}class="completed"{/if}>
+<li>
 	<div class="view">
-		<input class="toggle" type="checkbox" {if $model['completed']}checked{/if}>
-		<label>{$model['title']}</label>
+		<input class="toggle" type="checkbox">
+		<label></label>
 		<button class="destroy"></button>
 	</div>
-	<input class="edit">
+	<input class="edit" type="text">
 </li>
 {/template}
 
+
 /**
- * @param left
+ * use template for the 's' logic.
+ * Used in autobind so gets data under model namespace.
+ *
+ * @param model
  */
 {template .itemsLeft}
-<strong>{$left}</strong> item{if $left != 1}s{/if} left
+<strong>{$model['active']}</strong> item{if $model['active'] != 1}s{/if} left
 {/template}
