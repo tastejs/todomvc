@@ -15,17 +15,13 @@
 			<h1>todos</h1>
 			<input id="new-todo" placeholder="What needs to be done?" autofocus>
 		</header>
-		<!-- This section should be hidden by default and shown when there are todos -->
 		<section id="main">
 			<input id="toggle-all" type="checkbox">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list"></ul>
 		</section>
-		<!-- This footer should hidden by default and shown when there are todos -->
 		<footer id="footer">
-			<!-- This should be `0 items left` by default -->
 			<span id="todo-count"><strong>1</strong> item left</span>
-			<!-- Remove this if you don't implement routing -->
 			<ul id="filters" style="display: none;">
 				<li>
 					<a class="selected" href="#/">All</a>
@@ -42,13 +38,9 @@
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-		<!-- Remove the below line ↓ -->
-		<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
-		<!-- Change this out with your name and url ↓ -->
 		<p>Created by <a href="http://mlorber.net">Mathieu Lorber</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-	<!-- Scripts here. Don't remove this ↓ -->
 	<script src="../../../assets/base.js"></script>
 	<script type="application/dart" src="dart/todoApp.dart"></script>
 	<script src="sdk/dart.js"></script>
