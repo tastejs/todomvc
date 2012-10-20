@@ -51,12 +51,6 @@ class TodoApp {
     
     window.on.hashChange.add((e) => updateFilter());
     
-    showAllElement.on.click.add((MouseEvent e) => showAll());
-    
-    showActiveElement.on.click.add((MouseEvent e) => showActive());
-    
-    showCompletedElement.on.click.add((MouseEvent e) => showCompleted());
-
     updateFooterDisplay();
   }
   
