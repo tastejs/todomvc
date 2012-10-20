@@ -80,11 +80,8 @@ void updateCounts() {
   });
   checkAllCheckboxElement.checked = (complete == todoElements.length);
   window.console.log('left : {$complete}');
-  if(complete == 1) {
-    countElement.innerHTML = '1 item left';
-  } else {
-    countElement.innerHTML = '${todoElements.length - complete} items left';
-  }
+  int left = todoElements.length - complete;
+  countElement.innerHTML = '${left} item${left != 1 ? 's' : ''} left';
   if(complete == 0) {
     clearCompletedElement.style.display = 'none';
   } else {
