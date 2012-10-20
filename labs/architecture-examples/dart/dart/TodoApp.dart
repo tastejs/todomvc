@@ -33,7 +33,7 @@ class TodoApp {
           todoElement.toggle();
         }
       });
-      updateFooterDisplay();
+      updateCounts();
     });
 
     clearCompletedElement.on.click.add((MouseEvent e) {
@@ -49,21 +49,13 @@ class TodoApp {
       updateFooterDisplay();
     });
     
-    window.on.hashChange.add((e) {
-      updateFilter();
-    });
+    window.on.hashChange.add((e) => updateFilter());
     
-    showAllElement.on.click.add((MouseEvent e) {
-      showAll();
-    });
+    showAllElement.on.click.add((MouseEvent e) => showAll());
     
-    showActiveElement.on.click.add((MouseEvent e) {
-      showActive();
-    });
+    showActiveElement.on.click.add((MouseEvent e) => showActive());
     
-    showCompletedElement.on.click.add((MouseEvent e) {
-      showCompleted();
-    });
+    showCompletedElement.on.click.add((MouseEvent e) => showCompleted());
 
     updateFooterDisplay();
   }

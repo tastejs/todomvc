@@ -41,9 +41,7 @@ class TodoElement {
       todoApp.updateFooterDisplay();
     }
     
-    element.query('.destroy').on.click.add((MouseEvent e) {
-      removeTodo();
-    });
+    element.query('.destroy').on.click.add((MouseEvent e) => removeTodo());
     
     void doneEditing() {
       todo.title = editElement.value.trim();
@@ -60,9 +58,7 @@ class TodoElement {
         doneEditing();
       }
     });
-    editElement.on.blur.add((Event e) {
-      doneEditing();
-    });
+    editElement.on.blur.add((Event e) => doneEditing());
     return element;
   }
   
