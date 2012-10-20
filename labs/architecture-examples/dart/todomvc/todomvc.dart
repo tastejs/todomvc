@@ -1,22 +1,22 @@
 #import('dart:html');
 
 List<TodoElement> todoElements = new List();
-Element todoListElement = query("#todo-list");
-Element mainElement = query("#main");
-InputElement checkAllCheckboxElement = query("#toggle-all");
-Element footerElement = query("#footer"); 
-Element countElement = query("#todo-count");
-Element clearCompletedElement = query("#clear-completed");
+Element todoListElement = query('#todo-list');
+Element mainElement = query('#main');
+InputElement checkAllCheckboxElement = query('#toggle-all');
+Element footerElement = query('#footer'); 
+Element countElement = query('#todo-count');
+Element clearCompletedElement = query('#clear-completed');
 
 void main() {
-  InputElement newTodoElement = query("#new-todo");
+  InputElement newTodoElement = query('#new-todo');
 
   newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
       String content = newTodoElement.value.trim();
-      if(content != "") {
+      if(content != '') {
         addTodo(content);
-        newTodoElement.value = "";
+        newTodoElement.value = '';
         updateFooterDisplay();
       }
     }
@@ -60,13 +60,13 @@ void addTodo(String content, [bool complete = false]) {
 
 void updateFooterDisplay() {
   if(todoElements.length == 0) {
-    checkAllCheckboxElement.style.display = "none";
-    mainElement.style.display = "none";
-    footerElement.style.display = "none";
+    checkAllCheckboxElement.style.display = 'none';
+    mainElement.style.display = 'none';
+    footerElement.style.display = 'none';
   } else {
-    checkAllCheckboxElement.style.display = "block";
-    mainElement.style.display = "block";
-    footerElement.style.display = "block";
+    checkAllCheckboxElement.style.display = 'block';
+    mainElement.style.display = 'block';
+    footerElement.style.display = 'block';
   }
   updateCounts();
 }
@@ -79,16 +79,17 @@ void updateCounts() {
     }
   });
   checkAllCheckboxElement.checked = (complete == todoElements.length);
+  window.console.log('left : {$complete}');
   if(complete == 1) {
-    countElement.innerHTML = "1 item left";
+    countElement.innerHTML = '1 item left';
   } else {
-    countElement.innerHTML = "${todoElements.length - complete} items left";
+    countElement.innerHTML = '${todoElements.length - complete} items left';
   }
   if(complete == 0) {
-    clearCompletedElement.style.display = "none";
+    clearCompletedElement.style.display = 'none';
   } else {
-    clearCompletedElement.style.display = "block";
-    clearCompletedElement.innerHTML = "Clear completed (${complete})";
+    clearCompletedElement.style.display = 'block';
+    clearCompletedElement.innerHTML = 'Clear completed (${complete})';
   }
 }
 
@@ -103,25 +104,25 @@ class TodoElement {
   Element createElement() {
     element = new Element.html('''
         <li ${todo.completed ? 'class="completed"' : ''}>
-        <div class="view">
-        <input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
-        <label class="todo-content">${todo.title}</label>
-        <button class="destroy"></button>
+        <div class='view'>
+        <input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
+        <label class='todo-content'>${todo.title}</label>
+        <button class='destroy'></button>
         </div>
-        <input class="edit" value="${todo.title}">
+        <input class='edit' value='${todo.title}'>
         </li>
     ''');
-    Element contentElement = element.query(".todo-content");
-    InputElement editElement = element.query(".edit");
+    Element contentElement = element.query('.todo-content');
+    InputElement editElement = element.query('.edit');
 
-    toggleElement = element.query(".toggle");
+    toggleElement = element.query('.toggle');
     
     toggleElement.on.click.add((MouseEvent e) {
       toggle();
       updateCounts();
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
-      element.classes.add("editing");
+      element.classes.add('editing');
       editElement.selectionStart = todo.title.length;
       editElement.focus();
     });
@@ -132,15 +133,15 @@ class TodoElement {
       updateFooterDisplay();
     }
     
-    element.query(".destroy").on.click.add((MouseEvent e) {
+    element.query('.destroy').on.click.add((MouseEvent e) {
       removeTodo();
     });
     
     void doneEditing() {
       todo.title = editElement.value.trim();
-      if(todo.title != "") {
+      if(todo.title != '') {
         contentElement.innerHTML = todo.title;
-        element.classes.remove("editing");
+        element.classes.remove('editing');
       } else {
         removeTodo();
       }
@@ -161,9 +162,9 @@ class TodoElement {
     todo.completed = !todo.completed;
     toggleElement.checked = todo.completed;
     if(todo.completed) {
-      element.classes.add("completed");
+      element.classes.add('completed');
     } else {
-      element.classes.remove("completed");
+      element.classes.remove('completed');
     }
   }
 }
