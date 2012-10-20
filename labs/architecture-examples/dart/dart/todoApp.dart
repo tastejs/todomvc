@@ -16,6 +16,7 @@ class Todo {
   int id;
   String title;
   bool completed;
+  Todo(this.title, this.completed);
 }
 
 void main() {
@@ -23,9 +24,9 @@ void main() {
 
   newTodoElement.on.keyPress.add((KeyboardEvent e) {
     if(e.keyIdentifier == KeyName.ENTER) {
-      String content = newTodoElement.value.trim();
-      if(content != '') {
-        addTodo(content);
+      String title = newTodoElement.value.trim();
+      if(title != '') {
+        addTodo(title);
         newTodoElement.value = '';
         updateFooterDisplay();
       }
@@ -58,10 +59,8 @@ void main() {
   updateFooterDisplay();
 }
 
-void addTodo(String content, [bool complete = false]) {
-  Todo todo = new Todo();
-  todo.completed = complete;
-  todo.title = content;
+void addTodo(String title, [bool completed = false]) {
+  Todo todo = new Todo(title, completed);
 
   TodoElement todoElement = new TodoElement(todo);
   todoElements.add(todoElement);
