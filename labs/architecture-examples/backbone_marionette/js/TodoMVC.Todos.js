@@ -4,7 +4,7 @@ TodoMVC.module("Todos", function(Todos, App, Backbone, Marionette, $, _){
 	// ----------
 
 	Todos.Todo = Backbone.Model.extend({
-		localStorage: new Backbone.LocalStorage('todos-backbone'),
+		localStorage: new Backbone.LocalStorage('todos-backbone-marionettejs'),
 
 		defaults: {
 			title     : '',

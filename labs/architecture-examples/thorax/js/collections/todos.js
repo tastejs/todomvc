@@ -12,7 +12,7 @@
 		model: window.app.Todo,
 
 		// Save all of the todo items under the `"todos"` namespace.
-		localStorage: new Store('todos-backbone'),
+		localStorage: new Store('todos-backbone-thorax'),
 
 		// Filter down the list of all todo items that are finished.
 		completed: function() {
