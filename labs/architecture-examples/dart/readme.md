@@ -2,7 +2,7 @@
 
 A TodoMVC sample built with Dart. It does not use a MVC framework - it's a Vanilla Dart sample.
 
-Dart targets the development of modern and large scale web apps. It's an object oriented language with a C-style syntax.
+Dart firstly targets the development of modern and large scale browser-side web apps. It's an object oriented language with a C-style syntax.
 
 ## Run
 
