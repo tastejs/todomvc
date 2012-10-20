@@ -84,7 +84,7 @@ class TodoApp {
     });
     checkAllCheckboxElement.checked = (complete == todoElements.length);
     int left = todoElements.length - complete;
-    countElement.innerHTML = '${left} item${left != 1 ? 's' : ''} left';
+    countElement.innerHTML = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
     if(complete == 0) {
       clearCompletedElement.style.display = 'none';
     } else {
