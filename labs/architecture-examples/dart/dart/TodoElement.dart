@@ -1,11 +1,12 @@
-part of todoApp;
+part of todomvc;
 
 class TodoElement {
+  TodoApp todoApp;
   Todo todo;
   Element element;
   InputElement toggleElement;
   
-  TodoElement(this.todo) {
+  TodoElement(this.todoApp, this.todo) {
   }
   
   Element createElement() {
@@ -26,7 +27,7 @@ class TodoElement {
     
     toggleElement.on.click.add((MouseEvent e) {
       toggle();
-      updateCounts();
+      todoApp.updateCounts();
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add('editing');
@@ -36,8 +37,8 @@ class TodoElement {
     
     void removeTodo() {
       element.remove();
-      todoElements.removeAt(todoElements.indexOf(this));
-      updateFooterDisplay();
+      todoApp.removeTodo(this);
+      todoApp.updateFooterDisplay();
     }
     
     element.query('.destroy').on.click.add((MouseEvent e) {
