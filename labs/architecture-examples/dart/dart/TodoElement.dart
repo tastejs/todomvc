@@ -66,6 +66,14 @@ class TodoElement {
     return element;
   }
   
+  void show() {
+    element.style.display = 'block';
+  }
+
+  void hide() {
+    element.style.display = 'none';
+  }
+
   void toggle() {
     todo.completed = !todo.completed;
     toggleElement.checked = todo.completed;

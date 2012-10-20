@@ -8,6 +8,9 @@ class TodoApp {
   Element footerElement = query('#footer'); 
   Element countElement = query('#todo-count');
   Element clearCompletedElement = query('#clear-completed');
+  Element showAllElement = query('#filters a[href="#/"]');
+  Element showActiveElement = query('#filters a[href="#/active"]');
+  Element showCompletedElement = query('#filters a[href="#/completed"]');
   
   TodoApp() {
     InputElement newTodoElement = query('#new-todo');
@@ -46,6 +49,22 @@ class TodoApp {
       updateFooterDisplay();
     });
     
+    window.on.hashChange.add((e) {
+      updateFilter();
+    });
+    
+    showAllElement.on.click.add((MouseEvent e) {
+      showAll();
+    });
+    
+    showActiveElement.on.click.add((MouseEvent e) {
+      showActive();
+    });
+    
+    showCompletedElement.on.click.add((MouseEvent e) {
+      showCompleted();
+    });
+
     updateFooterDisplay();
   }
   
@@ -86,9 +105,59 @@ class TodoApp {
       clearCompletedElement.style.display = 'block';
       clearCompletedElement.innerHTML = 'Clear completed (${complete})';
     }
+    updateFilter();
   }
   
   void removeTodo(TodoElement todoElement) {
     todoElements.removeAt(todoElements.indexOf(todoElement));
+  }
+  
+  void updateFilter() {
+    switch(window.location.hash) {
+      case '#/active':
+        showActive();
+        break;
+      case '#/completed':
+        showCompleted();
+        break;
+      default:
+        showAll();
+    }
+  }
+  
+  void showAll() {
+    setSelectedFilter(showAllElement);
+    todoElements.forEach((TodoElement todoElement) {
+      setTodoElementVisibility(todoElement, true);
+    });
+  }
+  
+  void showActive() {
+    setSelectedFilter(showActiveElement);    
+    todoElements.forEach((TodoElement todoElement) {
+      setTodoElementVisibility(todoElement, !todoElement.todo.completed);
+    });
+  }
+  
+  void showCompleted() {
+    setSelectedFilter(showCompletedElement);
+    todoElements.forEach((TodoElement todoElement) {
+      setTodoElementVisibility(todoElement, todoElement.todo.completed);
+    });
+  }
+  
+  void setSelectedFilter(Element e) {
+    showAllElement.classes.remove('selected');
+    showActiveElement.classes.remove('selected');
+    showCompletedElement.classes.remove('selected');
+    e.classes.add('selected');
+  }
+  
+  void setTodoElementVisibility(TodoElement todoElement, bool show) {
+    if(show) {
+      todoElement.show();
+    } else {
+      todoElement.hide();
+    }
   }
 }
