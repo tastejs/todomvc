@@ -28,6 +28,7 @@ class TodoElement {
     toggleElement.on.click.add((MouseEvent e) {
       toggle();
       todoApp.updateCounts();
+      todoApp.save();
     });
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add('editing');
@@ -41,7 +42,10 @@ class TodoElement {
       todoApp.updateFooterDisplay();
     }
     
-    element.query('.destroy').on.click.add((MouseEvent e) => removeTodo());
+    element.query('.destroy').on.click.add((MouseEvent e) {
+      removeTodo();
+      todoApp.save();
+    });
     
     void doneEditing() {
       todo.title = editElement.value.trim();
@@ -51,6 +55,7 @@ class TodoElement {
       } else {
         removeTodo();
       }
+      todoApp.save();
     }
     
     editElement.on.keyPress.add((KeyboardEvent e) {

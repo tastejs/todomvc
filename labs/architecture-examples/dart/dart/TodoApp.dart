@@ -2,6 +2,7 @@ part of todomvc;
 
 class TodoApp {
   List<TodoElement> todoElements = new List();
+  
   Element todoListElement = query('#todo-list');
   Element mainElement = query('#main');
   InputElement checkAllCheckboxElement = query('#toggle-all');
@@ -13,15 +14,39 @@ class TodoApp {
   Element showCompletedElement = query('#filters a[href="#/completed"]');
   
   TodoApp() {
+    initLocalStorage();
+    initElementEventListeners();
+    
+    window.on.hashChange.add((e) => updateFilter());
+    
+    updateFooterDisplay();
+  }
+  
+  void initLocalStorage() {
+    String jsonList = window.localStorage["todos-vanilladart"];
+    if(jsonList != null) {
+      try {
+        List<Map> todos = JSON.parse(jsonList);
+        todos.forEach((Map todo) {
+          addTodo(new Todo(todo['id'], todo['title'], Boolean.parse(todo['completed'])));
+        });
+      } catch (e) {
+        window.console.log("Could not load todos form local storage.");
+      }
+    }
+  }
+  
+  void initElementEventListeners() {
     InputElement newTodoElement = query('#new-todo');
 
     newTodoElement.on.keyPress.add((KeyboardEvent e) {
       if(e.keyIdentifier == KeyName.ENTER) {
         String title = newTodoElement.value.trim();
         if(title != '') {
-          addTodo(title);
+          addTodo(new Todo(UUID.get(), title));
           newTodoElement.value = '';
           updateFooterDisplay();
+          save();
         }
       }
     });
@@ -34,6 +59,7 @@ class TodoApp {
         }
       });
       updateCounts();
+      save();
     });
 
     clearCompletedElement.on.click.add((MouseEvent e) {
@@ -47,16 +73,11 @@ class TodoApp {
       });
       todoElements = newList;
       updateFooterDisplay();
+      save();
     });
-    
-    window.on.hashChange.add((e) => updateFilter());
-    
-    updateFooterDisplay();
   }
   
-  void addTodo(String title, [bool completed = false]) {
-    Todo todo = new Todo(title, completed);
-
+  void addTodo(Todo todo) {
     TodoElement todoElement = new TodoElement(this, todo);
     todoElements.add(todoElement);
     todoListElement.nodes.add(todoElement.createElement());
@@ -145,5 +166,20 @@ class TodoApp {
     } else {
       todoElement.hide();
     }
+  }
+  
+  void save() {
+    StringBuffer storage = new StringBuffer('[');
+    todoElements.forEach((TodoElement todoElement) {
+      storage.add(todoElement.todo.toJson());
+      storage.add(',');
+    });
+    String finalJson;
+    if(storage.toString() != '[') {
+      finalJson = '${storage.toString().substring(0, storage.toString().length - 1)}]';
+    } else {
+      finalJson = '[]';
+    }
+    window.localStorage["todos-vanilladart"] = finalJson;
   }
 }
