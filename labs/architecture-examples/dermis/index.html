@@ -17,7 +17,7 @@
 		</header>
 		<div id="content">
 			<section id="main" data-show=".items | length | overZero">
-				<input id="toggle-all" type="checkbox" data-on-click=":toggle" data-checked=":allCompleted < .items">
+				<input id="toggle-all" type="checkbox" data-on-click=":toggle" data-checked=":allCompleted < .items" data-show=":all < .items | length | overZero">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
 
@@ -33,7 +33,7 @@
 				</ul>
 			</section>
 
-			<footer id="footer" data-show=".items | length | overZero">
+			<footer id="footer" data-show=":all < .items | length | overZero">
 				<span id="todo-count">
 					<strong data-text=":active < .items | length"></strong>
 					 item<span data-show=":active < .items | length | plural">s</span> left
