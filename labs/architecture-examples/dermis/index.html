@@ -20,7 +20,6 @@
 				<input id="toggle-all" type="checkbox" data-on-click=":toggle" data-checked=":allCompleted < .items" data-show=":all < .items | length | overZero">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
-
 					<li data-each-todo=":todos < .items .mode" data-class-completed="todo.completed" data-class-editing="todo.editable">
 						<div class="view">
 							<input class="toggle" type="checkbox" data-checked="todo.completed">
@@ -29,10 +28,8 @@
 						</div>
 						<input class="edit" data-value="todo.title" data-on-change="todo:uneditable">
 					</li>
-
 				</ul>
 			</section>
-
 			<footer id="footer" data-show=":all < .items | length | overZero">
 				<span id="todo-count">
 					<strong data-text=":active < .items | length"></strong>
@@ -57,8 +54,8 @@
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="http://github.com/Contra">Contra</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-
 	<script src="../../../assets/base.js"></script>
 	<script src="../../../assets/jquery.min.js"></script>
 	<script src="../../../assets/require.min.js"></script>
