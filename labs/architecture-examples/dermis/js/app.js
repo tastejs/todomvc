@@ -38,8 +38,7 @@
 				.set({
 					title: title,
 					completed: false,
-					editable: false,
-					collection: Todos
+					editable: false
 				}));
 			box.val('');
 		});
