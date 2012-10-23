@@ -41,6 +41,7 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 
 We also have a number of in-progress applications in Labs:
 
+- [dermis](https://github.com/wearefractal/dermis)
 - [CanJS](http://canjs.us)
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujo.js](http://cujojs.github.com)
