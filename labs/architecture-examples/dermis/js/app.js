@@ -9,32 +9,37 @@
 		//Bind Todos to DOM
 		Todos.bind($('#content'));
 
+		$('#content').on('dblclick', '.view > label', function(){
+			$(this).parent().siblings('input').focus();
+		});
+
 		//Load previous todos
 		var todos = storage.load('todos-dermis');
 		if(todos){
 			todos.forEach(function(todo){
-				todo.editable = false;
-				Todos.push(Todo.create().set(todo));
+				Todos.push(Todo.create({collection:Todos})
+					.set(todo)
+					.set({editable:false}));
 			});
 		}
 
 		//Save when todos modified
-		Todos.on('change:items', function(){
+		var save = function(){
 			storage.save('todos-dermis', Todos.serialize());
-		});
+		};
+		Todos.on('change',save).on('change:child',save);
 
 		//Add todo when box submitted
 		var box = $('#new-todo');
 		box.change(function(){
 			var title = box.val().trim();
 			if(title.length === 0) return;
-			Todos.push(Todo.create()
-			.set({
-				title: title,
-				completed: false,
-				active: true,
-				editable: false
-			}));
+			Todos.push(Todo.create({collection:Todos})
+				.set({
+					title: title,
+					completed: false,
+					editable: false
+				}));
 			box.val('');
 		});
 	});

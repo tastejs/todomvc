@@ -24,11 +24,7 @@ define(function(Todo){
 		},
 
 		all: function(){
-			var out = [];
-			this.get('items').forEach(function(todo){
-				if (todo.get('active')) out.push(todo);
-			});
-			return out;
+			return this.get('items');
 		},
 		completed: function(){
 			var out = [];
@@ -48,7 +44,7 @@ define(function(Todo){
 		serialize: function(){
 			var out = [];
 			this.all().forEach(function(todo){
-				out.push(todo.getAll());
+				out.push(todo.serialize());
 			});
 			return out;
 		}

@@ -50,6 +50,7 @@ We also have a number of in-progress applications in Labs:
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Sammy.js](http://sammyjs.org)
 - [JavaScriptMVC](http://javascriptmvc.com)
+- [dermis](https://github.com/wearefractal/dermis)
 - [Stapes.js](http://hay.github.com/stapes)
 - [Epitome](http://dimitarchristoff.github.com/Epitome)
 - [TroopJS](https://github.com/troopjs)
