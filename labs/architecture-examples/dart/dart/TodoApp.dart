@@ -26,8 +26,9 @@ class TodoApp {
     String jsonList = window.localStorage["todos-vanilladart"];
     if(jsonList != null) {
       try {
-        List<Map> todos = JSON.parse(jsonList);
-        todos.forEach((Map todo) {
+        List<String> todos = JSON.parse(jsonList);
+        todos.forEach((String jsonTodo) {
+          Map todo = JSON.parse(jsonTodo);
           addTodo(new Todo(todo['id'], todo['title'], Boolean.parse(todo['completed'])));
         });
       } catch (e) {
@@ -170,16 +171,10 @@ class TodoApp {
   
   void save() {
     StringBuffer storage = new StringBuffer('[');
+    List<Todo> todos = new List<Todo>();
     todoElements.forEach((TodoElement todoElement) {
-      storage.add(todoElement.todo.toJson());
-      storage.add(',');
+      todos.add(todoElement.todo);
     });
-    String finalJson;
-    if(storage.toString() != '[') {
-      finalJson = '${storage.toString().substring(0, storage.toString().length - 1)}]';
-    } else {
-      finalJson = '[]';
-    }
-    window.localStorage["todos-vanilladart"] = finalJson;
+    window.localStorage["todos-vanilladart"] = JSON.stringify(todos);
   }
 }

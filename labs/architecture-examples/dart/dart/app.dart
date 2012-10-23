@@ -17,10 +17,6 @@ class Todo {
   bool completed;
   
   Todo(String this.id, String this.title, [bool this.completed = false]);
-  
-  String toJson() {
-    return '{"id": "$id", "title": "$title", "completed": "$completed"}';
-  }
 }
 
 class UUID {
