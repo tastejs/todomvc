@@ -50,7 +50,7 @@ class TodoElement {
     void doneEditing(event) {
       todo.title = editElement.value.trim();
       if(todo.title != '') {
-        contentElement.innerHTML = todo.title;
+        contentElement.text = todo.title;
         element.classes.remove('editing');
       } else {
         removeTodo();
