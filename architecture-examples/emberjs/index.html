@@ -60,6 +60,10 @@
 			{{view view.ItemEditorView contentBinding="view.content"}}
 		{{/unless}}
 	</script>
+	<script>
+	// Workaround until Ember 1.0 is released
+	var ENV = {'FORCE_JQUERY': true};
+	</script>
 	<!-- /* Handlebars templates end */ -->
 	<script src="../../assets/base.js"></script>
 	<script src="../../assets/jquery.min.js"></script>
