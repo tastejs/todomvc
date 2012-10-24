@@ -40,10 +40,3 @@ class UUID {
     return random.nextInt(65536).toRadixString(16);
   }
 }
-
-// Dart has no bool.parse for the moment,see http://code.google.com/p/dart/issues/detail?id=2870 
-class Boolean {
-  static bool parse(String s) {
-    return s == 'true';
-  }
-}
