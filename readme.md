@@ -62,6 +62,7 @@ We also have a number of in-progress applications in Labs:
 - [Dijon](https://github.com/creynders/dijon-framework)
 - [rAppid.js](http://www.rappidjs.com)
 - [o_O](http://weepy.github.com/o_O)
+- [KnockoutJS](http://knockoutjs.com) + [ClassBindingProvider](https://github.com/rniemeyer/knockout-classBindingProvider) (using Ryan Niemeyer's Class Binding Provider)
 - [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) (optimized)
