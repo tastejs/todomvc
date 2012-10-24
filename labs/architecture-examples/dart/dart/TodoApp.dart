@@ -27,9 +27,9 @@ class TodoApp {
     if(jsonList != null) {
       try {
         List<Map> todos = JSON.parse(jsonList);
-        todos.forEach((Map todo) {
+        for(Map todo in todos) {
           addTodo(new Todo.fromJson(todo));
-        });
+        }
       } catch (e) {
         window.console.log("Could not load todos form local storage.");
       }
@@ -53,24 +53,24 @@ class TodoApp {
     
     checkAllCheckboxElement.on.click.add((Event e) {
       InputElement target = e.srcElement;
-      todoElements.forEach((TodoElement todoElement) {
+      for(TodoElement todoElement in todoElements) {
         if(todoElement.todo.completed != target.checked) {
           todoElement.toggle();
         }
-      });
+      }
       updateCounts();
       save();
     });
 
     clearCompletedElement.on.click.add((MouseEvent e) {
       List<TodoElement> newList = new List<TodoElement>();
-      todoElements.forEach((TodoElement todoElement) {
+      for(TodoElement todoElement in todoElements) {
         if(todoElement.todo.completed) {
           todoElement.element.remove();
         } else {
           newList.add(todoElement);
         }
-      });
+      }
       todoElements = newList;
       updateFooterDisplay();
       save();
@@ -98,11 +98,11 @@ class TodoApp {
 
   void updateCounts() {
     int complete = 0;
-    todoElements.forEach((TodoElement todoElement) {
+    for(TodoElement todoElement in todoElements) {
       if(todoElement.todo.completed) {
         complete++;
       }
-    });
+    }
     checkAllCheckboxElement.checked = (complete == todoElements.length);
     int left = todoElements.length - complete;
     countElement.innerHTML = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
@@ -134,23 +134,23 @@ class TodoApp {
   
   void showAll() {
     setSelectedFilter(showAllElement);
-    todoElements.forEach((TodoElement todoElement) {
+    for(TodoElement todoElement in todoElements) {
       setTodoElementVisibility(todoElement, true);
-    });
+    }
   }
   
   void showActive() {
     setSelectedFilter(showActiveElement);    
-    todoElements.forEach((TodoElement todoElement) {
+    for(TodoElement todoElement in todoElements) {
       setTodoElementVisibility(todoElement, !todoElement.todo.completed);
-    });
+    }
   }
   
   void showCompleted() {
     setSelectedFilter(showCompletedElement);
-    todoElements.forEach((TodoElement todoElement) {
+    for(TodoElement todoElement in todoElements) {
       setTodoElementVisibility(todoElement, todoElement.todo.completed);
-    });
+    }
   }
   
   void setSelectedFilter(Element e) {
@@ -171,9 +171,9 @@ class TodoApp {
   void save() {
     StringBuffer storage = new StringBuffer('[');
     List<Todo> todos = new List<Todo>();
-    todoElements.forEach((TodoElement todoElement) {
+    for(TodoElement todoElement in todoElements) {
       todos.add(todoElement.todo);
-    });
+    }
     window.localStorage["todos-vanilladart"] = JSON.stringify(todos);
   }
 }
