@@ -26,10 +26,9 @@ class TodoApp {
     String jsonList = window.localStorage["todos-vanilladart"];
     if(jsonList != null) {
       try {
-        List<String> todos = JSON.parse(jsonList);
-        todos.forEach((String jsonTodo) {
-          Map todo = JSON.parse(jsonTodo);
-          addTodo(new Todo(todo['id'], todo['title'], Boolean.parse(todo['completed'])));
+        List<Map> todos = JSON.parse(jsonList);
+        todos.forEach((Map todo) {
+          addTodo(new Todo.fromJson(todo));
         });
       } catch (e) {
         window.console.log("Could not load todos form local storage.");
