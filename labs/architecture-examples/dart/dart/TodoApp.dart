@@ -43,7 +43,7 @@ class TodoApp {
       if(e.keyIdentifier == KeyName.ENTER) {
         String title = newTodoElement.value.trim();
         if(title != '') {
-          addTodo(new Todo(UUID.get(), title));
+          addTodo(new Todo(UUID.createUuid(), title));
           newTodoElement.value = '';
           updateFooterDisplay();
           save();

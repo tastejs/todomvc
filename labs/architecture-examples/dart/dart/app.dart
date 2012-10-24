@@ -32,7 +32,7 @@ class Todo {
 class UUID {
   static Random random = new Random();
 
-  static String get() {
+  static String createUuid() {
     return "${S4()}${S4()}-${S4()}-${S4()}-${S4()}-${S4()}${S4()}${S4()}";
   }
   
