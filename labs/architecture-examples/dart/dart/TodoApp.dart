@@ -27,7 +27,7 @@ class TodoApp {
     if (jsonList != null) {
       try {
         List<Map> todos = JSON.parse(jsonList);
-        for(Map todo in todos) {
+        for (Map todo in todos) {
           addTodo(new Todo.fromJson(todo));
         }
       } catch (e) {
@@ -53,7 +53,7 @@ class TodoApp {
     
     checkAllCheckboxElement.on.click.add((Event e) {
       InputElement target = e.srcElement;
-      for(TodoElement todoElement in todoElements) {
+      for (TodoElement todoElement in todoElements) {
         if (todoElement.todo.completed != target.checked) {
           todoElement.toggle();
         }
@@ -64,7 +64,7 @@ class TodoApp {
 
     clearCompletedElement.on.click.add((MouseEvent e) {
       List<TodoElement> newList = [];
-      for(TodoElement todoElement in todoElements) {
+      for (TodoElement todoElement in todoElements) {
         if (todoElement.todo.completed) {
           todoElement.element.remove();
         } else {
@@ -98,7 +98,7 @@ class TodoApp {
 
   void updateCounts() {
     int complete = 0;
-    for(TodoElement todoElement in todoElements) {
+    for (TodoElement todoElement in todoElements) {
       if (todoElement.todo.completed) {
         complete++;
       }
@@ -134,21 +134,21 @@ class TodoApp {
   
   void showAll() {
     setSelectedFilter(showAllElement);
-    for(TodoElement todoElement in todoElements) {
+    for (TodoElement todoElement in todoElements) {
       setTodoElementVisibility(todoElement, true);
     }
   }
   
   void showActive() {
     setSelectedFilter(showActiveElement);    
-    for(TodoElement todoElement in todoElements) {
+    for (TodoElement todoElement in todoElements) {
       setTodoElementVisibility(todoElement, !todoElement.todo.completed);
     }
   }
   
   void showCompleted() {
     setSelectedFilter(showCompletedElement);
-    for(TodoElement todoElement in todoElements) {
+    for (TodoElement todoElement in todoElements) {
       setTodoElementVisibility(todoElement, todoElement.todo.completed);
     }
   }
@@ -171,7 +171,7 @@ class TodoApp {
   void save() {
     StringBuffer storage = new StringBuffer('[');
     List<Todo> todos = [];
-    for(TodoElement todoElement in todoElements) {
+    for (TodoElement todoElement in todoElements) {
       todos.add(todoElement.todo);
     }
     window.localStorage["todos-vanilladart"] = JSON.stringify(todos);
