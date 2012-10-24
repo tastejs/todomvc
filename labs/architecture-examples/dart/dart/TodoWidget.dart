@@ -1,12 +1,12 @@
 part of todomvc;
 
-class TodoElement {
+class TodoWidget {
   TodoApp todoApp;
   Todo todo;
   Element element;
   InputElement toggleElement;
   
-  TodoElement(this.todoApp, this.todo) {
+  TodoWidget(this.todoApp, this.todo) {
   }
   
   Element createElement() {
@@ -20,6 +20,7 @@ class TodoElement {
         <input class='edit' value='${todo.title}'>
         </li>
     ''');
+
     Element contentElement = element.query('.todo-content');
     InputElement editElement = element.query('.edit');
 
@@ -30,6 +31,7 @@ class TodoElement {
       todoApp.updateCounts();
       todoApp.save();
     });
+
     contentElement.on.doubleClick.add((MouseEvent e) {
       element.classes.add('editing');
       editElement.selectionStart = todo.title.length;
@@ -65,14 +67,15 @@ class TodoElement {
         }
       })
       ..blur.add(doneEditing);
+
     return element;
   }
   
-  void show() {
+  void showElement() {
     element.style.display = 'block';
   }
 
-  void hide() {
+  void hideElement() {
     element.style.display = 'none';
   }
 

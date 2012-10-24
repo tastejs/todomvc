@@ -1,7 +1,7 @@
 part of todomvc;
 
 class TodoApp {
-  List<TodoElement> todoElements = [];
+  List<TodoWidget> todoWidgets = [];
   
   Element todoListElement = query('#todo-list');
   Element mainElement = query('#main');
@@ -53,9 +53,9 @@ class TodoApp {
     
     checkAllCheckboxElement.on.click.add((Event e) {
       InputElement target = e.srcElement;
-      for (TodoElement todoElement in todoElements) {
-        if (todoElement.todo.completed != target.checked) {
-          todoElement.toggle();
+      for (TodoWidget todoWidget in todoWidgets) {
+        if (todoWidget.todo.completed != target.checked) {
+          todoWidget.toggle();
         }
       }
       updateCounts();
@@ -63,28 +63,28 @@ class TodoApp {
     });
 
     clearCompletedElement.on.click.add((MouseEvent e) {
-      List<TodoElement> newList = [];
-      for (TodoElement todoElement in todoElements) {
-        if (todoElement.todo.completed) {
-          todoElement.element.remove();
+      List<TodoWidget> newList = [];
+      for (TodoWidget todoWidget in todoWidgets) {
+        if (todoWidget.todo.completed) {
+          todoWidget.element.remove();
         } else {
-          newList.add(todoElement);
+          newList.add(todoWidget);
         }
       }
-      todoElements = newList;
+      todoWidgets = newList;
       updateFooterDisplay();
       save();
     });
   }
   
   void addTodo(Todo todo) {
-    TodoElement todoElement = new TodoElement(this, todo);
-    todoElements.add(todoElement);
-    todoListElement.nodes.add(todoElement.createElement());
+    TodoWidget todoWidget = new TodoWidget(this, todo);
+    todoWidgets.add(todoWidget);
+    todoListElement.nodes.add(todoWidget.createElement());
   }
 
   void updateFooterDisplay() {
-    if (todoElements.length == 0) {
+    if (todoWidgets.length == 0) {
       checkAllCheckboxElement.style.display = 'none';
       mainElement.style.display = 'none';
       footerElement.style.display = 'none';
@@ -98,13 +98,13 @@ class TodoApp {
 
   void updateCounts() {
     int complete = 0;
-    for (TodoElement todoElement in todoElements) {
-      if (todoElement.todo.completed) {
+    for (TodoWidget todoWidget in todoWidgets) {
+      if (todoWidget.todo.completed) {
         complete++;
       }
     }
-    checkAllCheckboxElement.checked = (complete == todoElements.length);
-    int left = todoElements.length - complete;
+    checkAllCheckboxElement.checked = (complete == todoWidgets.length);
+    int left = todoWidgets.length - complete;
     countElement.innerHTML = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
     if (complete == 0) {
       clearCompletedElement.style.display = 'none';
@@ -115,8 +115,8 @@ class TodoApp {
     updateFilter();
   }
   
-  void removeTodo(TodoElement todoElement) {
-    todoElements.removeAt(todoElements.indexOf(todoElement));
+  void removeTodo(TodoWidget todoWidget) {
+    todoWidgets.removeAt(todoWidgets.indexOf(todoWidget));
   }
   
   void updateFilter() {
@@ -134,22 +134,22 @@ class TodoApp {
   
   void showAll() {
     setSelectedFilter(showAllElement);
-    for (TodoElement todoElement in todoElements) {
-      setTodoElementVisibility(todoElement, true);
+    for (TodoWidget todoWidget in todoWidgets) {
+      setTodoElementVisibility(todoWidget, true);
     }
   }
   
   void showActive() {
     setSelectedFilter(showActiveElement);    
-    for (TodoElement todoElement in todoElements) {
-      setTodoElementVisibility(todoElement, !todoElement.todo.completed);
+    for (TodoWidget todoWidget in todoWidgets) {
+      setTodoElementVisibility(todoWidget, !todoWidget.todo.completed);
     }
   }
   
   void showCompleted() {
     setSelectedFilter(showCompletedElement);
-    for (TodoElement todoElement in todoElements) {
-      setTodoElementVisibility(todoElement, todoElement.todo.completed);
+    for (TodoWidget todoWidget in todoWidgets) {
+      setTodoElementVisibility(todoWidget, todoWidget.todo.completed);
     }
   }
   
@@ -160,19 +160,19 @@ class TodoApp {
     e.classes.add('selected');
   }
   
-  void setTodoElementVisibility(TodoElement todoElement, bool show) {
+  void setTodoElementVisibility(TodoWidget todoWidget, bool show) {
     if (show) {
-      todoElement.show();
+      todoWidget.showElement();
     } else {
-      todoElement.hide();
+      todoWidget.hideElement();
     }
   }
   
   void save() {
     StringBuffer storage = new StringBuffer('[');
     List<Todo> todos = [];
-    for (TodoElement todoElement in todoElements) {
-      todos.add(todoElement.todo);
+    for (TodoWidget todoWidget in todoWidgets) {
+      todos.add(todoWidget.todo);
     }
     window.localStorage["todos-vanilladart"] = JSON.stringify(todos);
   }

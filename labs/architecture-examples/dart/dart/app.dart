@@ -4,7 +4,7 @@ import 'dart:html';
 import 'dart:math';
 import 'dart:json';
 
-part 'TodoElement.dart';
+part 'TodoWidget.dart';
 part 'TodoApp.dart';
 
 void main() {
