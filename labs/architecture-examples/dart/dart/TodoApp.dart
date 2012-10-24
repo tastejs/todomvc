@@ -1,7 +1,7 @@
 part of todomvc;
 
 class TodoApp {
-  List<TodoElement> todoElements = new List();
+  List<TodoElement> todoElements = [];
   
   Element todoListElement = query('#todo-list');
   Element mainElement = query('#main');
@@ -63,7 +63,7 @@ class TodoApp {
     });
 
     clearCompletedElement.on.click.add((MouseEvent e) {
-      List<TodoElement> newList = new List<TodoElement>();
+      List<TodoElement> newList = [];
       for(TodoElement todoElement in todoElements) {
         if(todoElement.todo.completed) {
           todoElement.element.remove();
@@ -170,7 +170,7 @@ class TodoApp {
   
   void save() {
     StringBuffer storage = new StringBuffer('[');
-    List<Todo> todos = new List<Todo>();
+    List<Todo> todos = [];
     for(TodoElement todoElement in todoElements) {
       todos.add(todoElement.todo);
     }
