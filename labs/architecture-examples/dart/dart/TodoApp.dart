@@ -24,7 +24,7 @@ class TodoApp {
   
   void initLocalStorage() {
     String jsonList = window.localStorage["todos-vanilladart"];
-    if(jsonList != null) {
+    if (jsonList != null) {
       try {
         List<Map> todos = JSON.parse(jsonList);
         for(Map todo in todos) {
@@ -40,9 +40,9 @@ class TodoApp {
     InputElement newTodoElement = query('#new-todo');
 
     newTodoElement.on.keyPress.add((KeyboardEvent e) {
-      if(e.keyIdentifier == KeyName.ENTER) {
+      if (e.keyIdentifier == KeyName.ENTER) {
         String title = newTodoElement.value.trim();
-        if(title != '') {
+        if (title != '') {
           addTodo(new Todo(UUID.createUuid(), title));
           newTodoElement.value = '';
           updateFooterDisplay();
@@ -54,7 +54,7 @@ class TodoApp {
     checkAllCheckboxElement.on.click.add((Event e) {
       InputElement target = e.srcElement;
       for(TodoElement todoElement in todoElements) {
-        if(todoElement.todo.completed != target.checked) {
+        if (todoElement.todo.completed != target.checked) {
           todoElement.toggle();
         }
       }
@@ -65,7 +65,7 @@ class TodoApp {
     clearCompletedElement.on.click.add((MouseEvent e) {
       List<TodoElement> newList = [];
       for(TodoElement todoElement in todoElements) {
-        if(todoElement.todo.completed) {
+        if (todoElement.todo.completed) {
           todoElement.element.remove();
         } else {
           newList.add(todoElement);
@@ -84,7 +84,7 @@ class TodoApp {
   }
 
   void updateFooterDisplay() {
-    if(todoElements.length == 0) {
+    if (todoElements.length == 0) {
       checkAllCheckboxElement.style.display = 'none';
       mainElement.style.display = 'none';
       footerElement.style.display = 'none';
@@ -99,14 +99,14 @@ class TodoApp {
   void updateCounts() {
     int complete = 0;
     for(TodoElement todoElement in todoElements) {
-      if(todoElement.todo.completed) {
+      if (todoElement.todo.completed) {
         complete++;
       }
     }
     checkAllCheckboxElement.checked = (complete == todoElements.length);
     int left = todoElements.length - complete;
     countElement.text = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
-    if(complete == 0) {
+    if (complete == 0) {
       clearCompletedElement.style.display = 'none';
     } else {
       clearCompletedElement.style.display = 'block';
@@ -161,7 +161,7 @@ class TodoApp {
   }
   
   void setTodoElementVisibility(TodoElement todoElement, bool show) {
-    if(show) {
+    if (show) {
       todoElement.show();
     } else {
       todoElement.hide();

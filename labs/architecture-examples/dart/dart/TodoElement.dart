@@ -49,7 +49,7 @@ class TodoElement {
     
     void doneEditing(event) {
       todo.title = editElement.value.trim();
-      if(todo.title != '') {
+      if (todo.title != '') {
         contentElement.text = todo.title;
         element.classes.remove('editing');
       } else {
@@ -60,7 +60,7 @@ class TodoElement {
     
     editElement.on
       ..keyPress.add((KeyboardEvent e) {
-        if(e.keyIdentifier == KeyName.ENTER) {
+        if (e.keyIdentifier == KeyName.ENTER) {
           doneEditing(e);
         }
       })
@@ -79,7 +79,7 @@ class TodoElement {
   void toggle() {
     todo.completed = !todo.completed;
     toggleElement.checked = todo.completed;
-    if(todo.completed) {
+    if (todo.completed) {
       element.classes.add('completed');
     } else {
       element.classes.remove('completed');
