@@ -47,7 +47,7 @@ class TodoElement {
       todoApp.save();
     });
     
-    void doneEditing() {
+    void doneEditing(event) {
       todo.title = editElement.value.trim();
       if(todo.title != '') {
         contentElement.innerHTML = todo.title;
@@ -60,10 +60,10 @@ class TodoElement {
     
     editElement.on.keyPress.add((KeyboardEvent e) {
       if(e.keyIdentifier == KeyName.ENTER) {
-        doneEditing();
+        doneEditing(e);
       }
     });
-    editElement.on.blur.add((Event e) => doneEditing());
+    editElement.on.blur.add(doneEditing);
     return element;
   }
   
