@@ -58,12 +58,13 @@ class TodoElement {
       todoApp.save();
     }
     
-    editElement.on.keyPress.add((KeyboardEvent e) {
-      if(e.keyIdentifier == KeyName.ENTER) {
-        doneEditing(e);
-      }
-    });
-    editElement.on.blur.add(doneEditing);
+    editElement.on
+      ..keyPress.add((KeyboardEvent e) {
+        if(e.keyIdentifier == KeyName.ENTER) {
+          doneEditing(e);
+        }
+      })
+      ..blur.add(doneEditing);
     return element;
   }
   
