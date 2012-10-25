@@ -56,7 +56,6 @@ We also have a number of in-progress applications in Labs:
 - [TroopJS](https://github.com/troopjs)
 - [soma.js](http://somajs.github.com/somajs)
 - [DUEL](https://bitbucket.org/mckamey/duel/wiki/Home)
-- [Fidel](https://github.com/jgallen23/fidel)
 - [Olives](https://github.com/flams/olives)
 - [PlastronJS](https://github.com/rhysbrettbowen/PlastronJS)
 - [Dijon](https://github.com/creynders/dijon-framework)
