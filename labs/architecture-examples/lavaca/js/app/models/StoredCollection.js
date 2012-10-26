@@ -1,45 +1,84 @@
-/*
-Lavaca 1.0.4
-Copyright (c) 2012 Mutual Mobile
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
 (function(ns, $, Collection, LocalStore) {
 
 /**
- * @class app.models.Collection
+ * @class app.models.StoredCollection
  * @super Lavaca.mvc.Collection
- * A Collection for todos
+ *
+ * A Collection that is saved to localstorage
+ *
+ * @constructor
+ * @params {String} The id used for namespacing in localstorage
+ * @params {Array} The array of objects or instance of [[Lavaca.mvc.Model]] that are added to the collection
+ * @params {Object} The hash of attributes to set on the collection
  */
 ns.StoredCollection = Collection.extend(function(id, models, map) {
-  this.store = new this.TStore(id);
-  var savedModels = this.store.all();
-  Collection.call(this, models ? savedModels.concat(models) : savedModels, map);
-  this
-    .on('addItem', this.onAddItem, this)
-    .on('changeItem', this.onChangeItem, this)
-    .on('removeItem', this.onRemoveItem, this);
+	// Initializes new LocalStore type
+	this.store = new this.TStore(id);
+	// Gets all models from storage
+	var savedModels = this.store.all();
+	// Calls the super class's contructor
+	Collection.call(this, models ? savedModels.concat(models) : savedModels, map);
+	// Binds listeners for events triggered on the collection
+	this
+		.on('addItem', this.onAddItem, this)
+		.on('changeItem', this.onChangeItem, this)
+		.on('removeItem', this.onRemoveItem, this);
 },{
-  TStore: LocalStore,
-  storeItem: function(model) {
-    this.store.set(model.id(), model);
-  },
-  unstoreItem: function(model) {
-    this.store.remove(model.id());
-  },
-  onAddItem: function(e) {
-    this.storeItem(e.model);
-  },
-  onChangeItem: function(e) {
-    this.storeItem(e.model);
-  },
-  onRemoveItem: function(e) {
-    this.unstoreItem(e.model);
-  }
+	/**
+	* @field {[[Lavaca.storage.LocalStore]]} The type of storage to use
+	* @default null
+	*/
+	TStore: LocalStore,
+	/**
+	* @method storeItem
+	*
+	* Sets a model to the store
+	*
+	* @params {[[Lavaca.mvc.Model]]} model The model
+	*/
+	storeItem: function(model) {
+		this.store.set(model.id(), model);
+	},
+	/**
+	* @method unstoreItem
+	*
+	* Removes a model from the store
+	*
+	* @params {[[Lavaca.mvc.Model]]} model The model
+	*/
+	unstoreItem: function(model) {
+		this.store.remove(model.id());
+	},
+	/**
+	* @method onAddItem
+	*
+	* A handler called when an item is added to the collection
+	*
+	* @params {Object} e The event
+	*/
+	onAddItem: function(e) {
+		this.storeItem(e.model);
+	},
+	/**
+	* @method onChangeItem
+	*
+	* A handler called when an item is changed in the collection
+	*
+	* @params {Object} e The event
+	*/
+	onChangeItem: function(e) {
+		this.storeItem(e.model);
+	},
+	/**
+	* @method onRemoveItem
+	*
+	* A handler called when an item is removed from the collection
+	*
+	* @params {Object} e The event
+	*/
+	onRemoveItem: function(e) {
+		this.unstoreItem(e.model);
+	}
 });
 
-})(app.models, Lavaca.$, Lavaca.mvc.Collection, Lavaca.storage.LocalStore);
+})(Lavaca.resolve('app.models', true), Lavaca.$, Lavaca.mvc.Collection, Lavaca.storage.LocalStore);
