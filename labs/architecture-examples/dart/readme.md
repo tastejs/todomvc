@@ -8,9 +8,9 @@ Dart firstly targets the development of modern and large scale browser-side web 
 
 Dart has two run modes : it can be compiled to JS, and will later run in native VM in compliant browsers.
 
-You can for the moment :
-- use a dedicated [Chromium](http://www.dartlang.org/dartium/) provided with [Dart SDK](http://dartlang.org) to run .dart files.
-- run the JS compiled version (see [dart2js](http://www.dartlang.org/docs/dart2js/)), which can be found in /compiled directory.
+For now, you can run native Dart with [Chromium](http://www.dartlang.org/dartium/) which is provided with [Dart SDK](http://dartlang.org).
+
+For testing purpose, dart/app.dart will run on any browser thanks to sdk/dart.js. First run will take time to process dart files.
 
 ## Credit
 
