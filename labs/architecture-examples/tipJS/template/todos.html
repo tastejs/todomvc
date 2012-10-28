@@ -1,0 +1,18 @@
+<@ for (var i=0; i<data.length; i++) { @>
+	<@ if (data[i].completed) { @>
+	<li class="completed" data-id="<@= data[i].id @>">
+	<@ } else { @>
+	<li data-id="<@= data[i].id @>">
+	<@ } @>
+		<div class="view">
+		<@ if (data[i].completed) { @>
+			<input class="toggle" type="checkbox" checked>
+		<@ } else { @>
+			<input class="toggle" type="checkbox">
+		<@ } @>
+			<label><@= data[i].title @></label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" value="<@= data[i].title @>">
+	</li>
+<@ } @>

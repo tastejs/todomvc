@@ -1,0 +1,4 @@
+<span id="todo-count"><strong><@= data.activeTodoCount @></strong> <@= data.activeTodoWord @> left</span>
+<@ if ( data.completedTodos ) { @>
+	<button id="clear-completed">Clear completed (<@= data.completedTodos @>)</button>
+<@ } @>
