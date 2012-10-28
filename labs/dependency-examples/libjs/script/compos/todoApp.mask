@@ -1,0 +1,28 @@
+header#header{
+    h1 > 'todos'
+    input#new-todo placeholder="What needs to be done?" autofocus="true";
+}
+
+section#main {
+    input#toggle-all type="checkbox" {
+        bind value='status.allCompleted' prop='checked';
+        visible check='status.count>0?' bind='status.count';
+    }
+    
+    label for="toggle-all" > 'Mark all as complete'
+    ul#todo-list > list value='model.tasks' > todoTask;
+}
+
+footer#footer > visible check="status.count>0?" bind='status.count' {
+
+    span#todo-count > bind value='status.todos';
+    
+    ul#filters > list value='filters' > li > a href="#/#{action}" {
+        bind value='selected' attr='class';
+        '#{title}'
+    }
+        
+    button#clear-completed > visible check='status.completed>0?' bind='status.completed' {
+        'Clear completed (' span > bind value='status.completed'; ')'
+    }
+}

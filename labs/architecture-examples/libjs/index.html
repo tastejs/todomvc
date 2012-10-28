@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>LibJS • TodoMVC</title>
+	<link rel='stylesheet' href='../../../assets/base.css'/>
+    <script type='text/javascript' src='../../../assets/jquery.min.js'></script>
+	
+	<script type='text/javascript' src='js/lib/class.js'></script>
+	<script type='text/javascript' src='js/lib/mask.js'></script>
+	<script type='text/javascript' src='js/lib/compo.js'></script>
+	
+	<script type='text/javascript' src='js/lib/compos/binding.js'></script>		
+	<script type='text/javascript' src='js/lib/ruqq/arr.js'></script>	
+	<script type='text/javascript' src='js/lib/ruqq/utils.js'></script>
+	<script type='text/javascript' src='js/lib/ruqq/routes.js'></script>
+	
+	<script type='text/javascript' src='js/model.js'></script>
+	
+	<script type='text/javascript' src='js/compos/todoApp.js'></script>
+	<script type='text/javascript' src='js/compos/todoTask.js'></script>
+	
+    <script type='text/javascript' src='js/main.js'></script>
+	
+</head>
+<body>
+    
+	
+	<script type='mask/template' id='layout'>
+		section#todoapp{
+			todoApp;
+		}
+		footer#info {
+			p > 'Double-click to edit a todo'			
+			p { 'Template by ' a href="http://github.com/sindresorhus" > 'Sindre Sorhus' }			
+			p { 'Created by ' a href="http://libjs.it" > 'tenbits' }
+			p { 'Part of ' a href="http://todomvc.com" > 'TodoMVC' }
+		}
+	</script>
+	
+	
+	<script type='mask/template' id='application'>
+				
+		header#header{
+		    h1 > 'todos'
+		    input#new-todo placeholder="What needs to be done?" autofocus="true";
+		}
+
+		section#main {
+		    input#toggle-all type="checkbox" {
+		        bind value='status.allCompleted' prop='checked';
+		        visible check='status.count>0?' bind='status.count';
+		    }
+		    
+		    label for="toggle-all" > 'Mark all as complete'
+		    ul#todo-list > list value='model.tasks' > todoTask;
+		}
+
+		footer#footer > visible check="status.count>0?" bind='status.count' {
+
+		    span#todo-count > bind value='status.todos';
+		    
+		    ul#filters > list value='filters' > li > a href="#/#{action}" {
+		        bind value='selected' attr='class';
+		        '#{title}'
+		    }
+		        
+		    button#clear-completed > visible check='status.completed>0?' bind='status.completed' {
+		        'Clear completed (' span > bind value='status.completed'; ')'
+		    }
+		}
+		
+	</script>
+
+
+	<script type='mask/template' id='todo-item'>
+	
+		li class="#{ :completed ? 'completed'}" > visible check='visible?' bind='visible' {
+			div.view {
+				input.toggle type="checkbox" checked="#{: completed ? 'true'}";
+				label > bind value='label';
+				button.destroy;
+			}
+			input.edit > bind value='label' attr='value';
+		}	
+		
+	</script>
+	
+</body>
+</html>
