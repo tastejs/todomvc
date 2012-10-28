@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	
+    
+    
+    
+    
+    
+    	
+
+    
+    	
+
+<script type="application/javascript" src="index.build/script.js"></script><link rel="stylesheet" href="index.build/style.css" /></head>
+<body>
+    
+    <script type="mask/template" id="layout">
+        section#todoapp{
+            todoApp;
+        }
+        footer#info {
+            p > 'Double-click to edit a todo'           
+            p { 'Template by ' a href="http://github.com/sindresorhus" > 'Sindre Sorhus' }          
+            p { 'Created by ' a href="http://libjs.it" > 'tenbits' }
+            p { 'Part of ' a href="http://todomvc.com" > 'TodoMVC' }
+        }
+    </script>
+    
+
+<div id="build.release.xhr" style="display: none;"><script type="include/load" data-appuri="/script/compos/todoTask.mask" data-id="/script/compos/todoTask.mask"> li class="#{ :completed ? 'completed'}" > visible check='visible?' bind='visible' {
+	div.view {
+		input.toggle type="checkbox" checked="#{: completed ? 'true'}";
+		label > bind value='label';
+		button.destroy;
+	}
+	input.edit > bind value='label' attr='value';
+}	 </script>
+<script type="include/load" data-appuri="/script/compos/todoApp.mask" data-id="appcompo.todoApp/todoApp.mask"> header#header{
+    h1 > 'todos'
+    input#new-todo placeholder="What needs to be done?" autofocus="true";
+}
+
+section#main {
+    input#toggle-all type="checkbox" {
+        bind value='status.allCompleted' prop='checked';
+        visible check='status.count>0?' bind='status.count';
+    }
+    
+    label for="toggle-all" > 'Mark all as complete'
+    ul#todo-list > list value='model.tasks' > todoTask;
+}
+
+footer#footer > visible check="status.count>0?" bind='status.count' {
+
+    span#todo-count > bind value='status.todos';
+    
+    ul#filters > list value='filters' > li > a href="#/#{action}" {
+        bind value='selected' attr='class';
+        '#{title}'
+    }
+        
+    button#clear-completed > visible check='status.completed>0?' bind='status.completed' {
+        'Clear completed (' span > bind value='status.completed'; ')'
+    }
+} </script></div></body>
+</html>
