@@ -1,0 +1,13 @@
+{
+    "root": "../js/",
+    "extends": "./dev.lmd.json",
+    "output": "../compiled/dev-cache.lmd.js",
+
+    "modules": {},
+
+    "pack": true,
+    "cache": true,
+    "warn": false,
+
+    "version": "1.0"
+}
