@@ -10,29 +10,31 @@ body {
 
 #todo-list li .date {
   color: #999;
-	font-size: 80%;
+  font-size: 60%;
+  font-style: italic;
 }
 
 #todo-list li .date.late {
   color: #900;
 }
 
-#todo-list li .destroy {
-	background: none;
-}
-
 #todo-list li .clear-date,
-#todo-list li .due-date,
-#todo-list li .destroy {
-  color: #ccc;
-	display: none;
-	position: absolute;
-	top: 20px;
-	right: 10px;
-	cursor: pointer;
-	font-size: 20px;
-	width: 20px;
-	height: 20px;
+#todo-list li .due-date {   
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  font-size: 22px;
+  color: #a88a8a;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;  
 }
 
 #todo-list li .clear-date {

@@ -2,27 +2,33 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Todo - CanJS with Dojo</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>CanJS dojo/widget • TodoMVC</title>
+
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/nihilo/nihilo.css">
 	<link rel="stylesheet" href="font/font-awesome.css">
-	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="../../../../assets/base.css">
 	<link rel="stylesheet" href="todo.css">
+	<!--[if IE]>
+	<script src="../../../../assets/ie.js"></script>
+	<![endif]-->
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
 <body class="nihilo">
-	<div id="todoapp">
-		<header>
+	<section id="todoapp">
+		<header id="header">
 			<h1>todos</h1>
-			<input id="new-todo" type="text" placeholder="What needs to be done?">
+			<input id="new-todo" type="text" placeholder="What needs to be done?" autofocus>
 		</header>
-	</div>
-	<div id="instructions">
-		Double-click to edit a todo.
-	</div>
-	<div id="credits">
-		<p>Created by <a href="http://bitovi.com/">Bitovi</a>.</p>
+	</section>
+	<div id="info">
+		<p>Double-click to edit a todo.</p>
+		<p>
+			Created by <a href="http://bitovi.com/">Bitovi</a>.<br/>
+			Upgraded by <a href="http://juristr.com">Juri Strumpflohner</a>
+		</p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a>.</p>
 	</div>
 	<div id="calendar"></div>

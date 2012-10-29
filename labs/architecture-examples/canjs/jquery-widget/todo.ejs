@@ -9,11 +9,12 @@
 				<%= (el)-> el.data('todo', todo) %>>
 				<div class="view">
 					<input class="toggle" type="checkbox" <%= todo.attr("complete") ? "checked" : "" %>>
-					<label><%= todo.attr("text") %></label>
-					<span class="date <%= todo.isLate() ? "late" : "" %>"><%= todo.prettyDate() %></span>
-					<a class="destroy icon-remove-sign"></a>
-					<a class="due-date icon-time"></a>
-					<a class="clear-date icon-ban-circle <%= todo.attr("dueDate") != null ? "show" : "" %>"></a>
+					<label><%= todo.attr("text") %> <span class="date <%= todo.isLate() ? "late" : "" %>"><%= todo.prettyDate() %></span></label>
+					
+					<!-- <a class="destroy icon-remove-sign"></a>-->
+					<button class="due-date icon-time"></button>
+					<button class="clear-date icon-ban-circle <%= todo.attr("dueDate") != null ? "show" : "" %>"></button>
+					<button class="destroy"></button>
 				</div>
 				<input class="edit" type="text" value="<%= todo.attr("text") %>">
 			</li>
