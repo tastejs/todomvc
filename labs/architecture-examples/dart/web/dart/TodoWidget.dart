@@ -6,8 +6,7 @@ class TodoWidget {
   Element element;
   InputElement toggleElement;
   
-  TodoWidget(this.todoApp, this.todo) {
-  }
+  TodoWidget(this.todoApp, this.todo);
   
   Element createElement() {
     element = new Element.html('''
