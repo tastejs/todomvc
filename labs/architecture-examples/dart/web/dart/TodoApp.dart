@@ -135,21 +135,21 @@ class TodoApp {
   void showAll() {
     setSelectedFilter(showAllElement);
     for (TodoWidget todoWidget in todoWidgets) {
-      setTodoElementVisibility(todoWidget, true);
+      todoWidget.setElementVisibility(true);
     }
   }
   
   void showActive() {
     setSelectedFilter(showActiveElement);    
     for (TodoWidget todoWidget in todoWidgets) {
-      setTodoElementVisibility(todoWidget, !todoWidget.todo.completed);
+      todoWidget.setElementVisibility(!todoWidget.todo.completed);
     }
   }
   
   void showCompleted() {
     setSelectedFilter(showCompletedElement);
     for (TodoWidget todoWidget in todoWidgets) {
-      setTodoElementVisibility(todoWidget, todoWidget.todo.completed);
+      todoWidget.setElementVisibility(todoWidget.todo.completed);
     }
   }
   
@@ -160,16 +160,7 @@ class TodoApp {
     e.classes.add('selected');
   }
   
-  void setTodoElementVisibility(TodoWidget todoWidget, bool show) {
-    if (show) {
-      todoWidget.showElement();
-    } else {
-      todoWidget.hideElement();
-    }
-  }
-  
   void save() {
-    StringBuffer storage = new StringBuffer('[');
     List<Todo> todos = new List<Todo>();
     for (TodoWidget todoWidget in todoWidgets) {
       todos.add(todoWidget.todo);

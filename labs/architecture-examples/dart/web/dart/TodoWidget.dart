@@ -70,12 +70,12 @@ class TodoWidget {
     return element;
   }
   
-  void showElement() {
-    element.style.display = 'block';
-  }
-
-  void hideElement() {
-    element.style.display = 'none';
+  void setElementVisibility(bool visible) {
+    if(visible) {
+      element.style.display = 'block';
+    } else {
+      element.style.display = 'none';
+    }
   }
 
   void toggle() {
