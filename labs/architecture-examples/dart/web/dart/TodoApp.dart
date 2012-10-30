@@ -23,10 +23,10 @@ class TodoApp {
   }
   
   void initLocalStorage() {
-    String jsonList = window.localStorage["todos-vanilladart"];
+    var jsonList = window.localStorage["todos-vanilladart"];
     if (jsonList != null) {
       try {
-        List<Map> todos = JSON.parse(jsonList);
+        var todos = JSON.parse(jsonList);
         for (Map todo in todos) {
           addTodo(new Todo.fromJson(todo));
         }
@@ -37,11 +37,11 @@ class TodoApp {
   }
   
   void initElementEventListeners() {
-    InputElement newTodoElement = query('#new-todo');
+    var newTodoElement = query('#new-todo');
 
     newTodoElement.on.keyPress.add((KeyboardEvent e) {
       if (e.keyIdentifier == KeyName.ENTER) {
-        String title = newTodoElement.value.trim();
+        var title = newTodoElement.value.trim();
         if (title != '') {
           addTodo(new Todo(UUID.createUuid(), title));
           newTodoElement.value = '';
@@ -52,7 +52,7 @@ class TodoApp {
     });
     
     checkAllCheckboxElement.on.click.add((Event e) {
-      InputElement target = e.srcElement;
+      var target = e.srcElement;
       for (TodoWidget todoWidget in todoWidgets) {
         if (todoWidget.todo.completed != target.checked) {
           todoWidget.toggle();
@@ -63,7 +63,7 @@ class TodoApp {
     });
 
     clearCompletedElement.on.click.add((MouseEvent e) {
-      List<TodoWidget> newList = new List<TodoWidget>();
+      var newList = new List<TodoWidget>();
       for (TodoWidget todoWidget in todoWidgets) {
         if (todoWidget.todo.completed) {
           todoWidget.element.remove();
@@ -78,7 +78,7 @@ class TodoApp {
   }
   
   void addTodo(Todo todo) {
-    TodoWidget todoWidget = new TodoWidget(this, todo);
+    var todoWidget = new TodoWidget(this, todo);
     todoWidgets.add(todoWidget);
     todoListElement.nodes.add(todoWidget.createElement());
   }
@@ -97,14 +97,14 @@ class TodoApp {
   }
 
   void updateCounts() {
-    int complete = 0;
+    var complete = 0;
     for (TodoWidget todoWidget in todoWidgets) {
       if (todoWidget.todo.completed) {
         complete++;
       }
     }
     checkAllCheckboxElement.checked = (complete == todoWidgets.length);
-    int left = todoWidgets.length - complete;
+    var left = todoWidgets.length - complete;
     countElement.innerHTML = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
     if (complete == 0) {
       clearCompletedElement.style.display = 'none';
@@ -161,7 +161,7 @@ class TodoApp {
   }
   
   void save() {
-    List<Todo> todos = new List<Todo>();
+    var todos = new List<Todo>();
     for (TodoWidget todoWidget in todoWidgets) {
       todos.add(todoWidget.todo);
     }

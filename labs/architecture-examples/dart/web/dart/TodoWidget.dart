@@ -20,8 +20,8 @@ class TodoWidget {
         </li>
     ''');
 
-    Element contentElement = element.query('.todo-content');
-    InputElement editElement = element.query('.edit');
+    var contentElement = element.query('.todo-content');
+    var editElement = element.query('.edit');
 
     toggleElement = element.query('.toggle');
     
