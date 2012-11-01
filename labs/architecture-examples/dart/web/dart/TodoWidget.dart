@@ -70,7 +70,7 @@ class TodoWidget {
     return element;
   }
   
-  void setElementVisibility(bool visible) {
+  void set visible(bool visible) {
     if(visible) {
       element.style.display = 'block';
     } else {

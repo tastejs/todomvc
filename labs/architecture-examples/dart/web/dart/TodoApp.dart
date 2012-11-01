@@ -135,21 +135,21 @@ class TodoApp {
   void showAll() {
     setSelectedFilter(showAllElement);
     for (TodoWidget todoWidget in todoWidgets) {
-      todoWidget.setElementVisibility(true);
+      todoWidget.visible = true;
     }
   }
   
   void showActive() {
     setSelectedFilter(showActiveElement);    
     for (TodoWidget todoWidget in todoWidgets) {
-      todoWidget.setElementVisibility(!todoWidget.todo.completed);
+      todoWidget.visible = !todoWidget.todo.completed;
     }
   }
   
   void showCompleted() {
     setSelectedFilter(showCompletedElement);
     for (TodoWidget todoWidget in todoWidgets) {
-      todoWidget.setElementVisibility(todoWidget.todo.completed);
+      todoWidget.visible = todoWidget.todo.completed;
     }
   }
   
