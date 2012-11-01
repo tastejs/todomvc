@@ -37,7 +37,7 @@ class TodoApp {
   }
   
   void initElementEventListeners() {
-    var newTodoElement = query('#new-todo');
+    InputElement newTodoElement = query('#new-todo');
 
     newTodoElement.on.keyPress.add((KeyboardEvent e) {
       if (e.keyIdentifier == KeyName.ENTER) {
@@ -52,7 +52,7 @@ class TodoApp {
     });
     
     checkAllCheckboxElement.on.click.add((Event e) {
-      var target = e.srcElement;
+      InputElement target = e.srcElement;
       for (TodoWidget todoWidget in todoWidgets) {
         if (todoWidget.todo.completed != target.checked) {
           todoWidget.toggle();
