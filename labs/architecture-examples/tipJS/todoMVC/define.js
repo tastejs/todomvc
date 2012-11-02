@@ -10,7 +10,7 @@
 tipJS.define({
 	name:"todoMVC",
 	noCache:true,
-	noCacheVersion:"1.21",
+	noCacheVersion:"1.23",
 	noCacheParam:"tipJS",
 	noCacheAuto:false,
 	controllers:[
