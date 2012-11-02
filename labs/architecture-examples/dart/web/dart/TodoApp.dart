@@ -2,26 +2,26 @@ part of todomvc;
 
 class TodoApp {
   List<TodoWidget> todoWidgets = new List<TodoWidget>();
-  
+
   Element todoListElement = query('#todo-list');
   Element mainElement = query('#main');
   InputElement checkAllCheckboxElement = query('#toggle-all');
-  Element footerElement = query('#footer'); 
+  Element footerElement = query('#footer');
   Element countElement = query('#todo-count');
   Element clearCompletedElement = query('#clear-completed');
   Element showAllElement = query('#filters a[href="#/"]');
   Element showActiveElement = query('#filters a[href="#/active"]');
   Element showCompletedElement = query('#filters a[href="#/completed"]');
-  
+
   TodoApp() {
     initLocalStorage();
     initElementEventListeners();
-    
+
     window.on.hashChange.add((e) => updateFilter());
-    
+
     updateFooterDisplay();
   }
-  
+
   void initLocalStorage() {
     var jsonList = window.localStorage["todos-vanilladart"];
     if (jsonList != null) {
@@ -35,7 +35,7 @@ class TodoApp {
       }
     }
   }
-  
+
   void initElementEventListeners() {
     InputElement newTodoElement = query('#new-todo');
 
@@ -50,7 +50,7 @@ class TodoApp {
         }
       }
     });
-    
+
     checkAllCheckboxElement.on.click.add((Event e) {
       InputElement target = e.srcElement;
       for (TodoWidget todoWidget in todoWidgets) {
@@ -76,7 +76,7 @@ class TodoApp {
       save();
     });
   }
-  
+
   void addTodo(Todo todo) {
     var todoWidget = new TodoWidget(this, todo);
     todoWidgets.add(todoWidget);
@@ -114,11 +114,11 @@ class TodoApp {
     }
     updateFilter();
   }
-  
+
   void removeTodo(TodoWidget todoWidget) {
     todoWidgets.removeAt(todoWidgets.indexOf(todoWidget));
   }
-  
+
   void updateFilter() {
     switch(window.location.hash) {
       case '#/active':
@@ -131,35 +131,35 @@ class TodoApp {
         showAll();
     }
   }
-  
+
   void showAll() {
     setSelectedFilter(showAllElement);
     for (TodoWidget todoWidget in todoWidgets) {
       todoWidget.visible = true;
     }
   }
-  
+
   void showActive() {
-    setSelectedFilter(showActiveElement);    
+    setSelectedFilter(showActiveElement);
     for (TodoWidget todoWidget in todoWidgets) {
       todoWidget.visible = !todoWidget.todo.completed;
     }
   }
-  
+
   void showCompleted() {
     setSelectedFilter(showCompletedElement);
     for (TodoWidget todoWidget in todoWidgets) {
       todoWidget.visible = todoWidget.todo.completed;
     }
   }
-  
+
   void setSelectedFilter(Element e) {
     showAllElement.classes.remove('selected');
     showActiveElement.classes.remove('selected');
     showCompletedElement.classes.remove('selected');
     e.classes.add('selected');
   }
-  
+
   void save() {
     var todos = new List<Todo>();
     for (TodoWidget todoWidget in todoWidgets) {

@@ -5,9 +5,9 @@ class TodoWidget {
   Todo todo;
   Element element;
   InputElement toggleElement;
-  
+
   TodoWidget(this.todoApp, this.todo);
-  
+
   Element createElement() {
     element = new Element.html('''
         <li ${todo.completed ? 'class="completed"' : ''}>
@@ -24,7 +24,7 @@ class TodoWidget {
     InputElement editElement = element.query('.edit');
 
     toggleElement = element.query('.toggle');
-    
+
     toggleElement.on.click.add((MouseEvent e) {
       toggle();
       todoApp.updateCounts();
@@ -36,18 +36,18 @@ class TodoWidget {
       editElement.selectionStart = todo.title.length;
       editElement.focus();
     });
-    
+
     void removeTodo() {
       element.remove();
       todoApp.removeTodo(this);
       todoApp.updateFooterDisplay();
     }
-    
+
     element.query('.destroy').on.click.add((MouseEvent e) {
       removeTodo();
       todoApp.save();
     });
-    
+
     void doneEditing(event) {
       todo.title = editElement.value.trim();
       if (todo.title != '') {
@@ -58,7 +58,7 @@ class TodoWidget {
       }
       todoApp.save();
     }
-    
+
     editElement.on
       ..keyPress.add((KeyboardEvent e) {
         if (e.keyIdentifier == KeyName.ENTER) {
@@ -69,9 +69,9 @@ class TodoWidget {
 
     return element;
   }
-  
+
   void set visible(bool visible) {
-    if(visible) {
+    if (visible) {
       element.style.display = 'block';
     } else {
       element.style.display = 'none';
