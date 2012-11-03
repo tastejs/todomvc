@@ -1,3 +1,4 @@
+/*global goog, mvc, todomvc */
 goog.provide('todomvc.listcontrol');
 
 goog.require('goog.events.KeyCodes');

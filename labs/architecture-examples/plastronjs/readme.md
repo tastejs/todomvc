@@ -42,7 +42,7 @@ and view the compiled version for the page by changing the bottom script src bac
 
 ## Need help?
 
-Message me on [twitter](https://twitter.com/#!/RhysBB)
+Message Rhys on [twitter](https://twitter.com/RhysBB)
 
 
 ## Credit
