@@ -145,7 +145,7 @@ header nav a:first-child {
 	position: relative; /* popover */
 }
 
-.applist li[data-routing]:after {
+.applist .routing::after {
 	content: 'R';
 	position: relative;
 	top: -3px;
