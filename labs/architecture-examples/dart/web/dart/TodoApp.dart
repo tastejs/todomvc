@@ -23,7 +23,7 @@ class TodoApp {
 	}
 
 	void initLocalStorage() {
-		var jsonList = window.localStorage["todos-vanilladart"];
+		var jsonList = window.localStorage['todos-vanilladart'];
 		if (jsonList != null) {
 			try {
 				var todos = JSON.parse(jsonList);
@@ -31,7 +31,7 @@ class TodoApp {
 					addTodo(new Todo.fromJson(todo));
 				}
 			} catch (e) {
-				window.console.log("Could not load todos form local storage.");
+				window.console.log('Could not load todos form local storage.');
 			}
 		}
 	}
@@ -84,15 +84,10 @@ class TodoApp {
 	}
 
 	void updateFooterDisplay() {
-		if (todoWidgets.length == 0) {
-			checkAllCheckboxElement.style.display = 'none';
-			mainElement.style.display = 'none';
-			footerElement.style.display = 'none';
-		} else {
-			checkAllCheckboxElement.style.display = 'block';
-			mainElement.style.display = 'block';
-			footerElement.style.display = 'block';
-		}
+		var display = todoWidgets.length == 0 ? 'none' : 'block';
+		checkAllCheckboxElement.style.display = display;
+		mainElement.style.display = display;
+		footerElement.style.display = display;
 		updateCounts();
 	}
 
@@ -165,6 +160,6 @@ class TodoApp {
 		for (TodoWidget todoWidget in todoWidgets) {
 			todos.add(todoWidget.todo);
 		}
-		window.localStorage["todos-vanilladart"] = JSON.stringify(todos);
+		window.localStorage['todos-vanilladart'] = JSON.stringify(todos);
 	}
 }

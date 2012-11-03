@@ -10,14 +10,14 @@ class TodoWidget {
 
 	Element createElement() {
 		element = new Element.html('''
-				<li ${todo.completed ? 'class="completed"' : ''}>
-				<div class='view'>
-				<input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
-				<label class='todo-content'>${todo.title}</label>
-				<button class='destroy'></button>
-				</div>
-				<input class='edit' value='${todo.title}'>
-				</li>
+			<li ${todo.completed ? 'class="completed"' : ''}>
+			<div class='view'>
+			<input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
+			<label class='todo-content'>${todo.title}</label>
+			<button class='destroy'></button>
+			</div>
+			<input class='edit' value='${todo.title}'>
+			</li>
 		''');
 
 		Element contentElement = element.query('.todo-content');
@@ -71,11 +71,7 @@ class TodoWidget {
 	}
 
 	void set visible(bool visible) {
-		if (visible) {
-			element.style.display = 'block';
-		} else {
-			element.style.display = 'none';
-		}
+		element.style.display = visible ? 'block' : 'none';
 	}
 
 	void toggle() {
