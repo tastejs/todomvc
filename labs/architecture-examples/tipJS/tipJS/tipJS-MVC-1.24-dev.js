@@ -1,5 +1,5 @@
 /*
- * tipJS - OpenSource Javascript MVC Framework ver.1.23
+ * tipJS - OpenSource Javascript MVC Framework ver.1.24
  *
  * Copyright 2012.07 SeungHyun PAEK
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -9,7 +9,7 @@
 
 /* tipJS initialization */
 var tipJS = tipJS || {};
-tipJS.ver = tipJS.version = "1.23";
+tipJS.ver = tipJS.version = "1.24";
 (function() {
 	/**
 	 * overwrite Object 에 존재하는 속성 이외의 항목을 base Object의 속성과 병합
@@ -177,6 +177,39 @@ tipJS.ver = tipJS.version = "1.23";
 	};
 
 	/**
+	 * Model object 의 extension
+	 *
+	 * @param modelName
+	 * @param loadType
+	 * @return commonModel Object
+	 */
+	var __extendModel__ = function(child){
+		if (!child.__extend)
+			return child;
+
+		if (typeof child.__extend === "string") {
+			var _arrExtend = child.__extend.split(".");
+			if (_arrExtend.length == 2)
+				child = __mergeObject__(child, __loadModel__(_arrExtend[1], false, _arrExtend[0]));
+			else
+				child = __mergeObject__(child, __loadCommonModel__(child.__extend));
+		} else if (child.__extend instanceof Array) {
+			var _parents = child.__extend,
+				_idx = 0,
+				_parentsLen = _parents.length;
+			for (_idx = 0; _idx < _parentsLen; _idx++) {
+				var _arrExtend = _parents[i].split(".");
+				if (_arrExtend.length == 2)
+					child = __mergeObject__(child, __loadModel__(_arrExtend[1], false, _arrExtend[0]));
+				else
+					child = __mergeObject__(child, __loadCommonModel__(_parents[i]));
+			}
+		}
+		delete child.__extend;
+		return child;
+	}
+
+	/**
 	 * tipJS 의 config file 에 정의된 commonModel 을 작성 후 반환
 	 *
 	 * @param modelName
@@ -194,30 +227,39 @@ tipJS.ver = tipJS.version = "1.23";
 			if (!_syncModels)
 				_syncModels = __TIPJS_TEMPLATE__.common.syncModels = {};
 
-			if (!_syncModels[modelName]) {
-				var _syncModel = _syncModels[modelName] = __cloneObject__(_models[modelName]);
-				if (_syncModel.__extend && typeof _syncModel.__extend === "string") {
-					_syncModel = __mergeObject__(_syncModel, __loadCommonModel__(_syncModel.__extend));
-					delete _syncModel.__extend;
-				}
-
-				if (modelName.lastIndexOf("VO") == (modelName.length - 2))
-					return _syncModel;
-
-				_syncModel.loadCommonModel = __loadCommonModel__;
-				return _syncModel;
-			} else
+			if (_syncModels[modelName])
 				return _syncModels[modelName];
-		};
-		var _ret = __cloneObject__(_models[modelName]);
-		if (_ret.__extend && typeof _ret.__extend === "string") {
-			_ret = __mergeObject__(_ret, __loadCommonModel__(_ret.__extend));
-			delete _ret.__extend;
-		}
-		if (modelName.lastIndexOf("VO") == (modelName.length - 2))
-			return _ret;
 
+			var _syncModel = _syncModels[modelName] = __extendModel__( __cloneObject__(_models[modelName]) );
+
+			if (modelName.lastIndexOf("VO") == (modelName.length - 2)){
+				if (typeof _syncModel.__init === "function") {
+					_syncModel.__init();
+					delete _syncModel.__init;
+				}
+				return _syncModel;
+			}
+			_syncModel.loadCommonModel = __loadCommonModel__;
+			if (typeof _syncModel.__init === "function") {
+				_syncModel.__init();
+				delete _syncModel.__init;
+			}
+			return _syncModel;
+		};
+		var _ret = __extendModel__( __cloneObject__(_models[modelName]) );
+
+		if (modelName.lastIndexOf("VO") == (modelName.length - 2)) {
+			if (typeof _ret.__init === "function") {
+				_ret.__init();
+				delete _ret.__init;
+			}
+			return _ret;
+		}
 		_ret.loadCommonModel = __loadCommonModel__;
+		if (typeof _ret.__init === "function") {
+			_ret.__init();
+			delete _ret.__init;
+		}
 		return _ret;
 	};
 
@@ -242,43 +284,41 @@ tipJS.ver = tipJS.version = "1.23";
 			if (!_syncModels)
 				_syncModels = __TIPJS_TEMPLATE__.department[_appName].syncModels = {};
 
-			if (!_syncModels[modelName]) {
-				var _syncModel = _syncModels[modelName] = __cloneObject__(_models[modelName]);
-				if (_syncModel.__extend && typeof _syncModel.__extend === "string") {
-					var _arrExtend = _syncModel.__extend.split(".");
-					if (_arrExtend.length == 2)
-						_syncModel = __mergeObject__(_syncModel, __loadModel__(_arrExtend[1], false, _arrExtend[0]));
-					else
-						_syncModel = __mergeObject__(_syncModel, __loadCommonModel__(_syncModel.__extend));
-
-					delete _syncModel.__extend;
-				}
-
-				if (modelName.lastIndexOf("VO") == (modelName.length - 2))
-					return _syncModel;
-
-				_syncModel.loadCommonModel = __loadCommonModel__;
-				_syncModel.loadModel = __loadModel__;
-				return _syncModel;
-			} else
+			if (_syncModels[modelName])
 				return _syncModels[modelName];
+
+			var _syncModel = _syncModels[modelName] = __extendModel__( __cloneObject__(_models[modelName]) );
+
+			if (modelName.lastIndexOf("VO") == (modelName.length - 2)) {
+				if (typeof _syncModel.__init === "function") {
+					_syncModel.__init();
+					delete _syncModel.__init;
+				}
+				return _syncModel;
+			}
+			_syncModel.loadCommonModel = __loadCommonModel__;
+			_syncModel.loadModel = __loadModel__;
+			if (typeof _syncModel.__init === "function") {
+				_syncModel.__init();
+				delete _syncModel.__init;
+			}
+			return _syncModel;
 		};
-		var _ret = __cloneObject__(_models[modelName]);
-		if (_ret.__extend && typeof _ret.__extend === "string") {
-			var _arrExtend = _ret.__extend.split(".");
-			if (_arrExtend.length == 2)
-				_ret = __mergeObject__(_ret, __loadModel__(_arrExtend[1], false, _arrExtend[0]));
-			else
-				_ret = __mergeObject__(_ret, __loadCommonModel__(_ret.__extend));
+		var _ret = __extendModel__( __cloneObject__(_models[modelName]) );
 
-			delete _ret.__extend;
-		}
-
-		if (modelName.lastIndexOf("VO") == (modelName.length - 2))
+		if (modelName.lastIndexOf("VO") == (modelName.length - 2)) {
+			if (typeof _ret.__init === "function") {
+				_ret.__init();
+				delete _ret.__init;
+			}
 			return _ret;
-
+		}
 		_ret.loadCommonModel = __loadCommonModel__;
 		_ret.loadModel = __loadModel__;
+		if (typeof _ret.__init === "function") {
+			_ret.__init();
+			delete _ret.__init;
+		}
 		return _ret;
 	};
 
@@ -383,6 +423,10 @@ tipJS.ver = tipJS.version = "1.23";
 				_ret = __mergeObject__(_ret, _loadCommonView(_ret.__extend));
 				delete _ret.__extend;
 			}
+			if (typeof _ret.__init === "function") {
+				_ret.__init();
+				delete _ret.__init;
+			}
 			return _ret;
 		};
 		var _loadView = function(viewName, appName) {
@@ -403,6 +447,10 @@ tipJS.ver = tipJS.version = "1.23";
 					_ret = __mergeObject__(_ret, _loadCommonView(_ret.__extend));
 
 				delete _ret.__extend;
+			}
+			if (typeof _ret.__init === "function") {
+				_ret.__init();
+				delete _ret.__init;
 			}
 			return _ret;
 		};
@@ -1124,7 +1172,7 @@ tipJS.ver = tipJS.version = "1.23";
 
 	for (var i = _scripts.length; i--;) {
 		_scriptSrc = _scripts[i].src;
-		_match = _scriptSrc.match(/tipJS-MVC-1\.23-dev\.js$/);
+		_match = _scriptSrc.match(/tipJS-MVC-1\.24-dev\.js$/);
 		if (_match) {
 			_filepath = _scriptSrc.substring(0, _scriptSrc.length - _match[0].length);
 			break;
