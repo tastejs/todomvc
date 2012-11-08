@@ -8,6 +8,6 @@
   @type {angular.Module}
   */
 
-  window.todomvc = angular.module("todomvc", ['']);
+  window.todomvc = angular.module("window.todomvc", ['']);
 
 }).call(this);
