@@ -10,7 +10,7 @@
 
   var TodoCtrl;
 
-  window.todomvc.controller("TodoCtrl", TodoCtrl = function($scope, $location, todoStorage, filterFilter) {
+  todomvc.controller("TodoCtrl", TodoCtrl = function($scope, $location, todoStorage, filterFilter) {
     var todos;
     todos = $scope.todos = todoStorage.get();
     $scope.newTodo = "";

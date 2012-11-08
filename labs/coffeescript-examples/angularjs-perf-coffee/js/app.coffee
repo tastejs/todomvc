@@ -5,4 +5,4 @@ The main TodoMVC app module.
 
 @type {angular.Module}
 ###
-window.todomvc = angular.module("window.todomvc", [''])
+window.todomvc = angular.module("todomvc", [])

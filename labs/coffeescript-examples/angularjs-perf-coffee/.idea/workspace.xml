@@ -1,35 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f8471dc0-d74b-4fb9-b073-7c83f9f42197" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/rabshakeh.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/controllers/todoCtrl.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/directives/todoBlur.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/directives/todoFocus.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/libs/angular/angular.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ojs/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ojs/controllers/todoCtrl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ojs/directives/todoBlur.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ojs/directives/todoFocus.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ojs/libs/angular/angular.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ojs/services/todoStorage.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/original_js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/original_js/controllers/todoCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/original_js/directives/todoBlur.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/original_js/directives/todoFocus.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/original_js/libs/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/original_js/services/todoStorage.js" afterPath="" />
+    <list default="true" id="f8471dc0-d74b-4fb9-b073-7c83f9f42197" name="Default" comment="coffescript compiled eve">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/controllers/todoCtrl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/directives/todoBlur.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/directives/todoFocus.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/libs/angular/angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/services/todoStorage.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.coffee" afterPath="$PROJECT_DIR$/js/app.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/todoCtrl.coffee" afterPath="$PROJECT_DIR$/js/controllers/todoCtrl.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/todoCtrl.js" afterPath="$PROJECT_DIR$/js/controllers/todoCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/directives/todoBlur.js" afterPath="$PROJECT_DIR$/js/directives/todoBlur.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/directives/todoFocus.js" afterPath="$PROJECT_DIR$/js/directives/todoFocus.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services/todoStorage.coffee" afterPath="$PROJECT_DIR$/js/services/todoStorage.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services/todoStorage.js" afterPath="$PROJECT_DIR$/js/services/todoStorage.js" />
     </list>
     <ignored path="angularjs-perf-coffee.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,28 +32,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="todoCtrl.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="todoBlur.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/directives/todoBlur.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="234" selection-end="234" vertical-scroll-proportion="-110.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="angular.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/libs/angular/angular.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1103" column="0" selection-start="34876" selection-end="34876" vertical-scroll-proportion="0.0">
+            <state line="1097" column="0" selection-start="34685" selection-end="34685" vertical-scroll-proportion="0.0">
               <folding>
                 <marker date="1352379989000" expanded="true" signature="578386:578401" placeholder="{...}" />
                 <marker date="1352379989000" expanded="true" signature="578410:578426" placeholder="{...}" />
@@ -79,28 +44,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file leaf-file-name="app.coffee" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/app.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="13" selection-start="649" selection-end="649" vertical-scroll-proportion="0.36161336">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="todoFocus.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/directives/todoFocus.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="todoCtrl.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="18" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
+            <state line="8" column="0" selection-start="122" selection-end="122" vertical-scroll-proportion="0.19093078">
               <folding />
             </state>
           </provider>
@@ -109,16 +56,61 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
+            <state line="13" column="0" selection-start="0" selection-end="202" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app.coffee">
+      <file leaf-file-name="todoStorage.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/services/todoStorage.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="40" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0">
+            <state line="13" column="0" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="todoFocus.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/directives/todoFocus.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="todoBlur.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/directives/todoBlur.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="0" selection-start="234" selection-end="234" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../../erik_research/todo_angular/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="6" selection-start="407" selection-end="407" vertical-scroll-proportion="-8.275862">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="54" column="12" selection-start="2365" selection-end="2365" vertical-scroll-proportion="-10.655172">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="todoCtrl.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="31" selection-start="228" selection-end="228" vertical-scroll-proportion="-5.3846154">
               <folding />
             </state>
           </provider>
@@ -141,16 +133,20 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/coffee_watch.sh" />
-        <option value="$PROJECT_DIR$/js/app.js" />
         <option value="$PROJECT_DIR$/js/coffee_watch.sh" />
-        <option value="$PROJECT_DIR$/js/services/todoStorage.coffee" />
-        <option value="$PROJECT_DIR$/js/services/todoStorage.js" />
         <option value="$PROJECT_DIR$/js/directives/todoBlur.js" />
         <option value="$PROJECT_DIR$/js/directives/todoFocus.js" />
         <option value="$PROJECT_DIR$/js/controllers/todoCtrl.js" />
         <option value="$PROJECT_DIR$/js/libs/angular/angular.js" />
-        <option value="$PROJECT_DIR$/js/app.coffee" />
+        <option value="$PROJECT_DIR$/js/services/todoStorage.coffee" />
+        <option value="$PROJECT_DIR$/js/services/todoStorage.js" />
+        <option value="$PROJECT_DIR$/js/directives/todoBlur.coffee" />
+        <option value="$PROJECT_DIR$/js/directives/todoFocus.coffee" />
+        <option value="$PROJECT_DIR$/js/app.js" />
+        <option value="$PROJECT_DIR$/ojs/app.js" />
+        <option value="$PROJECT_DIR$/js/controllers/todoCtrl.coffee" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/app.coffee" />
       </list>
     </option>
   </component>
@@ -166,7 +162,33 @@
           <State>
             <id />
           </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript function metricsJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
         </expanded-state>
+        <selected-state>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+        </selected-state>
       </profile-state>
     </entry>
   </component>
@@ -214,110 +236,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ojs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angular" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angularjs-perf-coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -327,7 +245,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="preferences.sourceCode.JavaScript" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.CoffeeScript" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/index.html" />
     <property name="FullScreen" value="false" />
@@ -404,10 +322,10 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329653" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32378003" sideWeight="0.79818684" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32997677" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13125739" sideWeight="0.60030985" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39969015" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13125739" sideWeight="0.67002326" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39969015" sideWeight="0.8975167" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -483,9 +401,44 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="4" selection-start="2378" selection-end="2378" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/services/todoStorage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="508" selection-end="508" vertical-scroll-proportion="0.0">
+        <state line="21" column="4" selection-start="497" selection-end="497" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/directives/todoFocus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="4" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/directives/todoBlur.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="4" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../erik_research/todo_angular/todo.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../erik_research/todo_angular/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="6" selection-start="407" selection-end="407" vertical-scroll-proportion="-8.275862">
           <folding />
         </state>
       </provider>
@@ -497,58 +450,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/directives/todoBlur.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/directives/todoFocus.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="18" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/directives/todoFocus.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/directives/todoBlur.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="234" selection-end="234" vertical-scroll-proportion="-110.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/app.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="40" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/libs/angular/angular.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1103" column="0" selection-start="34876" selection-end="34876" vertical-scroll-proportion="0.0">
+        <state line="1097" column="0" selection-start="34685" selection-end="34685" vertical-scroll-proportion="0.0">
           <folding>
             <marker date="1352379989000" expanded="true" signature="578386:578401" placeholder="{...}" />
             <marker date="1352379989000" expanded="true" signature="578410:578426" placeholder="{...}" />
@@ -558,14 +462,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
+        <state line="13" column="0" selection-start="0" selection-end="202" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/todoCtrl.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="31" selection-start="228" selection-end="228" vertical-scroll-proportion="-5.3846154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/directives/todoBlur.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="234" selection-end="234" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/directives/todoFocus.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="649" selection-end="649" vertical-scroll-proportion="0.36161336">
+        <state line="54" column="12" selection-start="2365" selection-end="2365" vertical-scroll-proportion="-10.655172">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="122" selection-end="122" vertical-scroll-proportion="0.19093078">
           <folding />
         </state>
       </provider>

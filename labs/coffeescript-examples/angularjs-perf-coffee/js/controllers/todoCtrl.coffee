@@ -5,7 +5,7 @@ The main controller for the app. The controller:
 - retrieves and persist the model via the todoStorage service
 - exposes the model to the template and provides event handlers
 ###
-window.todomvc.controller "TodoCtrl", TodoCtrl = ($scope, $location, todoStorage, filterFilter) ->
+todomvc.controller "TodoCtrl", TodoCtrl = ($scope, $location, todoStorage, filterFilter) ->
   todos = $scope.todos = todoStorage.get()
   $scope.newTodo = ""
   $scope.remainingCount = filterFilter(todos,
