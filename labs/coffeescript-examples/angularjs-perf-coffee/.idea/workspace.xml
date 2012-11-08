@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f8471dc0-d74b-4fb9-b073-7c83f9f42197" name="Default" comment="coffescript compiled eve">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/controllers/todoCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/directives/todoBlur.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/directives/todoFocus.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/libs/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ojs/services/todoStorage.js" afterPath="" />
+    <list default="true" id="f8471dc0-d74b-4fb9-b073-7c83f9f42197" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.coffee" afterPath="$PROJECT_DIR$/js/app.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/todoCtrl.coffee" afterPath="$PROJECT_DIR$/js/controllers/todoCtrl.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/todoCtrl.js" afterPath="$PROJECT_DIR$/js/controllers/todoCtrl.js" />
     </list>
     <ignored path="angularjs-perf-coffee.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -312,7 +302,11 @@
       <created>1352376877738</created>
       <updated>1352376877738</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="coffescript compiled everything works">
+      <created>1352383936491</created>
+      <updated>1352383936491</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -343,7 +337,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="true" />
     <option name="myTodoPanelSettings">
       <value>
@@ -373,7 +367,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="set up for coffeescript" />
+    <option name="LAST_COMMIT_MESSAGE" value="coffescript compiled everything works" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -387,6 +381,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="set up for coffeescript" />
+    <MESSAGE value="coffescript compiled everything works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
