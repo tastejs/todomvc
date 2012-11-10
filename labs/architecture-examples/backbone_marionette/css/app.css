@@ -1,9 +1,0 @@
-#todoapp.filter-active #todo-list .completed,
-#todoapp.filter-completed #todo-list .active {
-	display: none;
-}
-
-#main,
-#footer {
-	display: none;
-}
