@@ -1,4 +1,8 @@
 <!doctype html>
+<!--
+	This is a Dojo version of TodoMVC using uncompressed Dojo source.
+	To use this, place todomvc directory at the directory containing dojo/dijit/dojox.
+-->
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -26,10 +30,10 @@
 	<![endif]-->
 </head>
 <body>
-    <section id="todoapp" data-dojo-type="todo/app18"></section>
+	<section id="todoapp" data-dojo-type="todo/app18"></section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-        <p>Created by <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a></p>
+		<p>Created by <a href="http://jamesthom.as/">James Thomas</a> and <a href="https://github.com/edchat">Ed Chatelain</a></p>
 	</footer>
 
 	<script src="../../assets/base.js"></script>
@@ -39,12 +43,12 @@
 			parseOnLoad: true,
 			locale: "en",
 			paths: {
-				"dijit": "../dijit-1.8"
+				"todo": "../todomvc/architecture-examples/dojo/js/todo"
 			},
 			deps: ["dojo/parser", "dojo/domReady!"],
 			mvc: {debugBindings: true}
 		};
 	</script>
-	<script src="js/lib/dojo-1.8/dojo.js"></script>
+	<script src="../../../dojo/dojo.js"></script>
 </body>
 </html>
