@@ -1,13 +1,14 @@
 (function (namespace, undefined) {
 	var Todos = can.Control({
-
+		// Default options
+		defaults : {
+			view : 'views/todos.ejs'
+		}
+	}, {
 		// Initialize the Todos list
 		init : function () {
 			// Render the Todos
-			this.element.append(can.view('todos.ejs', this.options));
-
-			// Clear the new todo field
-			$('#new-todo').val('').focus();
+			this.element.append(can.view(this.options.view, this.options));
 		},
 
 		// Listen for when a new Todo has been entered
@@ -18,8 +19,8 @@
 					text : value,
 					complete : false
 				}).save(function () {
-						el.val('');
-					});
+					el.val('');
+				});
 			}
 		},
 
@@ -42,6 +43,9 @@
 			var value = can.trim(el.val()),
 				todo = el.closest('.todo').data('todo');
 
+			// If we don't have a todo we don't need to do anything
+			if(!todo) return;
+
 			if (value == '') {
 				todo.destroy();
 			} else {
@@ -58,9 +62,8 @@
 				this.updateTodo(el);
 			}
 		},
-		'.todo .edit focusout' : function (el, ev) {
-			this.updateTodo(el);
-		},
+
+		'.todo .edit focusout' : "updateTodo",
 
 		// Listen for the toggled completion of a Todo
 		'.todo .toggle click' : function (el, ev) {
@@ -89,8 +92,6 @@
 					todo.destroy();
 				}
 			}
-			// Reset the filter
-			this.options.state.removeAttr('filter');
 		}
 	});
 
