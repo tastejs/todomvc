@@ -40,7 +40,7 @@ class TodoApp {
 		InputElement newTodoElement = query('#new-todo');
 
 		newTodoElement.on.keyPress.add((KeyboardEvent e) {
-			if (e.keyIdentifier == KeyName.ENTER) {
+			if (e.keyCode == KeyCode.ENTER) {
 				var title = newTodoElement.value.trim();
 				if (title != '') {
 					addTodo(new Todo(UUID.createUuid(), title));

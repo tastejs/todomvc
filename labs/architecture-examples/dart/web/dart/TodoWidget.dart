@@ -61,7 +61,7 @@ class TodoWidget {
 
 		editElement.on
 			..keyPress.add((KeyboardEvent e) {
-				if (e.keyIdentifier == KeyName.ENTER) {
+				if (e.keyCode == KeyCode.ENTER) {
 					doneEditing(e);
 				}
 			})
