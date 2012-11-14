@@ -1,0 +1,6 @@
+*.suo
+*.user
+*.js
+*.map
+/bin
+/obj
