@@ -66,6 +66,7 @@ We also have a number of in-progress applications in Labs:
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) (optimized)
 - [Backbone.xmpp](https://github.com/ggozad/Backbone.xmpp)
+- [Dart](http://dartlang.org)
 
 
 ## Live demos

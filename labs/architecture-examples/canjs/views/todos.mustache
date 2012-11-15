@@ -24,15 +24,15 @@
   <span id="todo-count">
     <strong>{{todos.remaining}}</strong> {{plural "item" todos.remaining}} left
   </span>
-  <ul id="filters" class="{{state.filter}}">
+  <ul id="filters">
     <li>
-      <a class="all" href="#!">All</a>
+      <a class="selected" href="#!">All</a>
     </li>
     <li>
-      <a class="active" href="#!active">Active</a>
+      <a href="#!active">Active</a>
     </li>
     <li>
-      <a class="completed" href="#!completed">Completed</a>
+      <a href="#!completed">Completed</a>
     </li>
   </ul>
   <a href="#!" id="clear-completed" class="{{^todos.completed}}hidden{{/todos.completed}}">

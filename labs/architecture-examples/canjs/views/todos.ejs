@@ -1,6 +1,6 @@
 <header id="header">
-  <h1>todos</h1>
-  <input id="new-todo" placeholder="What needs to be done?" autofocus="">
+	<h1>todos</h1>
+	<input id="new-todo" placeholder="What needs to be done?" autofocus>
 </header>
 
 <section id="main" class="<%= todos.attr("length") > 0 ? "show" : "" %>">
@@ -8,32 +8,31 @@
     type="checkbox" <%= todos.allComplete() ? "checked" : "" %>>
 <label for="toggle-all" class="<%= todos.attr("length") === 0 ? "hidden" : "" %>">Mark all as complete</label>
 <ul id="todo-list">
-  <% todos.each(function( todo ) { %>
-    <li class="todo
-        <%= todo.matches(state.attr('filter')) ? "" : "hidden" %>
-        <%= todo.attr("complete") ? "completed" : "" %>
-        <%= todo.attr("editing") ? "editing" : "" %>"
-        <%= (el)-> el.data('todo', todo) %>>
-      <div class="view">
-        <input class="toggle" type="checkbox" <%= todo.attr("complete") ? "checked" : "" %>>
-        <label><%= todo.attr("text") %></label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" type="text" value="<%= todo.attr("text") %>">
-    </li>
-  <% }) %>
+	<% todos.each(function( todo ) { %>
+		<li class="todo
+				<%= todo.matches(state.attr('filter')) ? '' : 'hidden' %>
+				<%= todo.attr('complete') ? 'completed' : '' %>
+				<%= todo.attr('editing') ? 'editing' : '' %>"
+				<%= (el)-> el.data('todo', todo) %>>
+			<div class="view">
+				<input class="toggle" type="checkbox" <%= todo.attr('complete') ? 'checked' : '' %>>
+				<label><%= todo.attr('text') %></label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="<%= todo.attr('text') %>">
+		</li>
+	<% }) %>
 </ul>
 </section>
-
 <footer id="footer" class="<%= todos.attr('length') === 0 ? 'hidden' : '' %>">
   <span id="todo-count">
     <strong><%= todos.remaining() %></strong>
     item<%= todos.remaining() == 1 ? "" : "s" %> left
   </span>
-  <ul id="filters" class="<%= state.attr('filter') %>">
-    <li><a href="#!">All</a></li>
-    <li><a class="active" href="#!active">Active</a></li>
-    <li><a class="completed" href="#!completed">Completed</a></li>
+  <ul id="filters">
+    <li><a class="selected" href="#!">All</a></li>
+    <li><a href="#!active">Active</a></li>
+    <li><a href="#!completed">Completed</a></li>
   </ul>
   <button id="clear-completed" class="<%= todos.completed() === 0 ? 'hidden' : '' %>">
     Clear <%= todos.completed() %>

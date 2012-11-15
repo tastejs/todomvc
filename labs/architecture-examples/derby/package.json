@@ -1,0 +1,15 @@
+{
+	"name": "todomvc-derby",
+	"description": "TodoMVC todo app using Derby",
+	"version": "0.1.0",
+	"main": "server.js",
+	"dependencies": {
+		"derby": "~0.3.13",
+		"express": "~3.0.1",
+		"gzippo": "~0.2.0"
+	},
+	"devDependencies": {
+		"coffee-script": "~1.4.0"
+	},
+	"private": true
+}

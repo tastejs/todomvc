@@ -1,3 +1,4 @@
+/*global goog, mvc, soy, todomvc */
 goog.provide('todomvc.todocontrol');
 
 goog.require('goog.dom');
@@ -44,19 +45,19 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	this.autobind('.toggle', '{$completed}');
 
 	// Delete the model
-	this.click(function( e ) {
+	this.click(function() {
 		model.dispose();
-	}, '.destroy' );
+	}, '.destroy');
 
 	// keep label inline with title
-	this.autobind( 'label', '{$title}')
+	this.autobind( 'label', '{$title}' );
 
 	var inputEl = this.getEls('.edit')[0];
 	// Dblclick to edit
-	this.on( goog.events.EventType.DBLCLICK, function( e ) {
+	this.on( goog.events.EventType.DBLCLICK, function() {
 		goog.dom.classes.add( this.getElement(), 'editing' );
 		inputEl.focus();
-	}, '.view' );
+	}, '.view');
 
 	// blur on enter
 	this.on( goog.events.EventType.KEYUP, function( e ) {
@@ -66,10 +67,10 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	});
 
 	// finish editing on blur
-	this.on( goog.events.EventType.BLUR, function( e ) {
+	this.on( goog.events.EventType.BLUR, function() {
 		goog.dom.classes.remove( this.getElement(), 'editing' );
 	});
 
 	// bind the title and the edit input
-	this.autobind('.edit', '{$title}');
+	this.autobind( '.edit', '{$title}' );
 };

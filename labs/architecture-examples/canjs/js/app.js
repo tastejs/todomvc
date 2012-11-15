@@ -1,6 +1,9 @@
 (function() {
 	$(function() {
+		// Set up a route that maps to the `filter` attribute
 		can.route( ':filter' );
+		// Delay routing until we initialized everything
+		can.route.ready(false);
 
 		// View helper for pluralizing strings
 		Mustache.registerHelper('plural', function(str, count) {
@@ -15,5 +18,8 @@
 				view : 'views/todos.mustache'
 			});
 		});
-	})
+
+		// Now we can start routing
+		can.route.ready(true);
+	});
 })();

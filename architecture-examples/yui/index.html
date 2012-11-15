@@ -17,17 +17,15 @@
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list"></ul>
 		</section>
-		<footer id="footer"></div>
 	</section>
-	<div id="info">
+	<footer id="footer">
 		<p>Double-click to edit a todo</p>
-        <p>Created by
-          <a href="https://github.com/clarle">Clarence Leung</a> and
-          <a href="https://twitter.com/ericf">Eric Ferraiuolo</a>
-        </p>
+		<p>Created by
+			<a href="https://github.com/clarle">Clarence Leung</a> and
+			<a href="https://twitter.com/ericf">Eric Ferraiuolo</a>
+		</p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-
 	<script type="text/x-handlebars-template" id="item-template">
 		<div class="view">
 			<input class="toggle" type="checkbox" {{#if completed}} checked="checked" {{/if}} />
@@ -36,7 +34,6 @@
 		</div>
 		<input class="edit" type="text" value="{{title}}" />
 	</script>
-
 	<script type="text/x-handlebars-template" id="stats-template">
 		<span id="todo-count"><strong>{{remaining}}</strong> {{pluralize remaining "item"}} left</span>
 		<ul id="filters">
@@ -54,37 +51,37 @@
 		<button id="clear-completed">Clear completed ({{completed}})</button>
 		{{/if}}
 	</script>
-    <script src="http://yui.yahooapis.com/3.6.0pr4/build/yui/yui-min.js"></script>
-    <script>
-        YUI({
-            filter: 'raw',
-            allowRollup: 'false',
-            groups: {
-                'todo-mvc': {
-                    base: './js/',
-                    modules: {
-                        'todo': {
-                            path: 'models/todo.js',
-                            requires: ['gallery-model-sync-local', 'model']
-                        },
-                        'todo-list': {
-                            path: 'models/todolist.js',
-                            requires: ['gallery-model-sync-local', 'model-list', 'todo']
-                        },
-                        'todo-view': {
-                            path: 'views/todoview.js',
-                            requires: ['view', 'handlebars']
-                        },
-                        'todo-app': {
-                            path: 'app.js',
-                            requires: ['app', 'todo-list', 'todo-view']
-                        }
-                    }
-                }
-            }
-        }).use('todo-app', function (Y) {
-            var app = new Y.TodoMVC.TodoApp();
-        });
-    </script>
+	<script src="http://yui.yahooapis.com/3.6.0pr4/build/yui/yui-min.js"></script>
+	<script>
+		YUI({
+			filter: 'raw',
+			allowRollup: 'false',
+			groups: {
+				'todo-mvc': {
+					base: './js/',
+					modules: {
+						'todo': {
+							path: 'models/todo.js',
+							requires: ['gallery-model-sync-local', 'model']
+						},
+						'todo-list': {
+							path: 'models/todolist.js',
+							requires: ['gallery-model-sync-local', 'model-list', 'todo']
+						},
+						'todo-view': {
+							path: 'views/todoview.js',
+							requires: ['view', 'handlebars']
+						},
+						'todo-app': {
+							path: 'app.js',
+							requires: ['app', 'todo-list', 'todo-view']
+						}
+					}
+				}
+			}
+		}).use('todo-app', function (Y) {
+			var app = new Y.TodoMVC.TodoApp();
+		});
+	</script>
 </body>
 </html>

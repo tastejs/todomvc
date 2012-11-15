@@ -24,5 +24,3 @@ router.route( '/active', function() {
 router.route( '/completed', function() {
 	todolist.set( 'filter', 'completed' );
 });
-
-
