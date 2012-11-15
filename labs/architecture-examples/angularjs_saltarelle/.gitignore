@@ -1,0 +1,7 @@
+*.suo
+*.user
+*.map
+/bin
+/obj
+/packages
+/*.DotSettings
