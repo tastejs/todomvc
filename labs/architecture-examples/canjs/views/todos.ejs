@@ -3,26 +3,25 @@
 	<input id="new-todo" placeholder="What needs to be done?" autofocus>
 </header>
 
-<section id="main" class="<%= todos.attr("length") > 0 ? "show" : "" %>">
-<input id="toggle-all" class="<%= todos.attr("length") === 0 ? "hidden" : "" %>"
-    type="checkbox" <%= todos.allComplete() ? "checked" : "" %>>
-<label for="toggle-all" class="<%= todos.attr("length") === 0 ? "hidden" : "" %>">Mark all as complete</label>
-<ul id="todo-list">
-	<% todos.each(function( todo ) { %>
-		<li class="todo
-				<%= todo.matches(state.attr('filter')) ? '' : 'hidden' %>
-				<%= todo.attr('complete') ? 'completed' : '' %>
-				<%= todo.attr('editing') ? 'editing' : '' %>"
-				<%= (el)-> el.data('todo', todo) %>>
-			<div class="view">
-				<input class="toggle" type="checkbox" <%= todo.attr('complete') ? 'checked' : '' %>>
-				<label><%= todo.attr('text') %></label>
-				<button class="destroy"></button>
-			</div>
-			<input class="edit" value="<%= todo.attr('text') %>">
-		</li>
-	<% }) %>
-</ul>
+<section id="main" class="<%= todos.attr("length") === 0 ? "hidden" : "" %>">
+  <input id="toggle-all" type="checkbox" <%= todos.allComplete() ? "checked" : "" %>>
+  <label for="toggle-all">Mark all as complete</label>
+  <ul id="todo-list">
+    <% todos.each(function( todo ) { %>
+      <li class="todo
+          <%= todo.matches(state.attr('filter')) ? '' : 'hidden' %>
+          <%= todo.attr('complete') ? 'completed' : '' %>
+          <%= todo.attr('editing') ? 'editing' : '' %>"
+          <%= (el)-> el.data('todo', todo) %>>
+        <div class="view">
+          <input class="toggle" type="checkbox" <%= todo.attr('complete') ? 'checked' : '' %>>
+          <label><%= todo.attr('text') %></label>
+          <button class="destroy"></button>
+        </div>
+        <input class="edit" value="<%= todo.attr('text') %>">
+      </li>
+    <% }) %>
+  </ul>
 </section>
 <footer id="footer" class="<%= todos.attr('length') === 0 ? 'hidden' : '' %>">
   <span id="todo-count">

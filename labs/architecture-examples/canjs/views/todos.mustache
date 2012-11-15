@@ -3,21 +3,21 @@
   <input id="new-todo" {{ (el) -> el.val('').focus() }} placeholder="What needs to be done?" autofocus="">
 </header>
 
-<section id="main" class="{{#todos}}show{{/todos}}">
-<input id="toggle-all" class="{{^todos}}hidden{{/todos}}" type="checkbox" {{#todos.allComplete}}checked="checked"{{/todos.allComplete}}>
-<label for="toggle-all" class="{{^todos}}hidden{{/todos}}">Mark all as complete</label>
-<ul id="todo-list">
-	{{#todos}}
-    <li class="todo {{^matches}}hidden{{/matches}} {{#complete}}completed{{/complete}} {{#editing}}editing{{/editing}}" {{data 'todo'}}>
-      <div class="view">
-        <input class="toggle" type="checkbox" {{#complete}}checked="checked"{{/complete}}>
-        <label>{{text}}</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" type="text" value="{{text}}">
-    </li>
-  {{/todos}}
-</ul>
+<section id="main" class="{{^todos}}hidden{{/todos}}">
+  <input id="toggle-all" type="checkbox" {{#todos.allComplete}}checked="checked"{{/todos.allComplete}}>
+  <label for="toggle-all" >Mark all as complete</label>
+  <ul id="todo-list">
+    {{#todos}}
+      <li class="todo {{^matches}}hidden{{/matches}} {{#complete}}completed{{/complete}} {{#editing}}editing{{/editing}}" {{data 'todo'}}>
+        <div class="view">
+          <input class="toggle" type="checkbox" {{#complete}}checked="checked"{{/complete}}>
+          <label>{{text}}</label>
+          <button class="destroy"></button>
+        </div>
+        <input class="edit" type="text" value="{{text}}">
+      </li>
+    {{/todos}}
+  </ul>
 </section>
 
 <footer id="footer" class="{{^todos}}hidden{{/todos}}">
