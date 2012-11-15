@@ -15,7 +15,6 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues, 
 - **Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) thoroughly**
 - Make sure it hasn't already been submitted or declined by searching the issue tracker
 - Looking at our most recent [reference app](https://github.com/addyosmani/todomvc/tree/gh-pages/architecture-examples/backbone)
-- Test in the [supported browsers](https://github.com/addyosmani/todomvc/wiki/Home/)
 
 One of us will be happy to review your submission and discuss any changes that may be required before it can be included. Apps will typically land first in Labs, reaching the 'stable' mark once we and the community are happy with it.
 
