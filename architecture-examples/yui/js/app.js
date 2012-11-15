@@ -74,9 +74,9 @@ YUI.add('todo-app', function (Y) {
 
                 // Highlights for filters at the bottom of our Todo application.
 
-                container.one('#filters li a').removeClass('selected');
+                footer.one('#filters li a').removeClass('selected');
 
-                container.all('#filters li a')
+                footer.all('#filters li a')
                         .filter('[href="#/' + (this.get('filter') || '') + '"]')
                         .addClass('selected');
             } else {
