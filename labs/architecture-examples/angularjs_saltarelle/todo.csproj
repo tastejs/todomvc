@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B3FD45C-5098-4FD7-AD87-1F7FD552143B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>todo</RootNamespace>
+    <AssemblyName>todo</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NoStdLib>True</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin</OutputPath>
+    <BaseIntermediateOutputPath>bin\obj</BaseIntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin</OutputPath>
+    <BaseIntermediateOutputPath>bin\obj</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(SolutionDir)packages\Saltarelle.Runtime.1.6.2\tools\Assemblies\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Script.AngularJS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Saltarelle.AngularJS\Script.AngularJS.dll</HintPath>
+    </Reference>
+    <Reference Include="Script.jQuery">
+      <HintPath>packages\Saltarelle.jQuery.1.6.2\lib\Script.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Script.Linq">
+      <HintPath>packages\Saltarelle.Linq.1.6.2\lib\Script.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Script.Web">
+      <HintPath>packages\Saltarelle.Web.1.6.2\lib\Script.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cs\App.cs" />
+    <Compile Include="cs\controllers\TodoCtrl.cs" />
+    <Compile Include="cs\directives\TodoBlur.cs" />
+    <Compile Include="cs\directives\TodoFocus.cs" />
+    <Compile Include="cs\interfaces\ITodoScope.cs" />
+    <Compile Include="cs\interfaces\ITodoStorage.cs" />
+    <Compile Include="cs\models\TodoItem.cs" />
+    <Compile Include="cs\services\TodoStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="index.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.1.6.2\tools\Saltarelle.Compiler.targets')" />
+  <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.1.6.2\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.1.6.2\tools\Saltarelle.Compiler.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)\bin\todo.js $(ProjectDir)js\todo.js
+</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>copy c:\NCRDev\Fast\SaltarelleCompiler\Runtime\src\Libraries\AngularJS\bin\Debug\Script.AngularJS.dll $(SolutionDir)packages\Saltarelle.AngularJS\
+
+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
