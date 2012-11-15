@@ -9,7 +9,8 @@
 	}, {
 		// Returns if this instance matches a given filter
 		// (currently `active` and `complete`)
-		matches: function(filter) {
+		matches : function() {
+			var filter = can.route.attr('filter');
 			return !filter || (filter === 'active' && !this.attr('complete'))
 				|| (filter === 'completed' && this.attr('complete'));
 		}
