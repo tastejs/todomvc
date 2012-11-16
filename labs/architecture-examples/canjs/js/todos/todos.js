@@ -4,14 +4,15 @@
 
 	var ENTER_KEY = 13;
 	var Todos = can.Control({
-
+		// Default options
+		defaults : {
+			view : 'views/todos.ejs'
+		}
+	}, {
 		// Initialize the Todos list
 		init: function() {
 			// Render the Todos
-			this.element.append(can.view('todos.ejs', this.options));
-
-			// Clear the new todo field
-			$('#new-todo').val('').focus();
+			this.element.append(can.view(this.options.view, this.options));
 		},
 
 		// Listen for when a new Todo has been entered
@@ -22,8 +23,8 @@
 					text : value,
 					complete : false
 				}).save(function () {
-						el.val('');
-					});
+					el.val('');
+				});
 			}
 		},
 
@@ -31,7 +32,14 @@
 		'{Models.Todo} created': function(list, e, item) {
 			this.options.todos.push(item);
 			// Reset the filter so that you always see your new todo
-			this.options.state.removeAttr('filter');
+			this.options.state.attr('filter', '');
+		},
+
+		// Listener for when the route changes
+		'{state} change' : function() {
+			// Remove the `selected` class from the old link and add it to the link for the current location hash
+			this.element.find('#filters').find('a').removeClass('selected')
+				.end().find('[href="' + window.location.hash + '"]').addClass('selected');
 		},
 
 		// Listen for editing a Todo
@@ -45,6 +53,9 @@
 		updateTodo: function(el) {
 			var value = can.trim(el.val()),
 				todo = el.closest('.todo').data('todo');
+
+			// If we don't have a todo we don't need to do anything
+			if(!todo) return;
 
 			if (value === '') {
 				todo.destroy();
@@ -62,9 +73,8 @@
 				this.updateTodo(el);
 			}
 		},
-		'.todo .edit focusout': function(el) {
-			this.updateTodo(el);
-		},
+
+		'.todo .edit focusout' : "updateTodo",
 
 		// Listen for the toggled completion of a Todo
 		'.todo .toggle click': function(el) {
@@ -93,8 +103,6 @@
 					todo.destroy();
 				}
 			}
-			// Reset the filter
-			this.options.state.removeAttr('filter');
 		}
 	});
 
