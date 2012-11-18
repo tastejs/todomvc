@@ -1,5 +1,5 @@
 'use strict';
 
-define([], function () {
+define(['angular'], function (angular) {
     return angular.module('todomvc', []);
 });
