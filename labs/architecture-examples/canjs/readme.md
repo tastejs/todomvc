@@ -31,10 +31,12 @@ CanJS supports both live binding [EJS](http://canjs.us/#can_ejs) and [Mustache/H
 templates. By default the Mustache view will be used but an EJS example is available as well.
 You can easily change it by modifying the `view` option in the `js/app.js` file:
 
-		Models.Todo.findAll({}, function(todos) {
-			new Todos('#todoapp', {
-				todos: todos,
-				state : can.route,
-				view : 'views/todos.ejs'
-			});
-		});
+```js
+Models.Todo.findAll({}, function(todos) {
+	new Todos('#todoapp', {
+		todos: todos,
+		state : can.route,
+		view : 'views/todos.ejs'
+	});
+});
+```
