@@ -1,0 +1,8 @@
+{
+  "name": "todomvc-vanillajs",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.4",
+    "director": "~1.2.0"
+  }
+}
