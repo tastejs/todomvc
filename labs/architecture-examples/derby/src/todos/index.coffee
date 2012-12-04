@@ -30,11 +30,12 @@ get '/:groupName', (page, model, {groupName}) ->
 			.where('group').equals(groupName)
 			.where('completed').notEquals(true)
 
-		#model.set '_filter', 'all'
+		# model.set '_filter', 'all'
 		# model.ref '_list.shown', '_list', '_filter'
-		# Since a recent commit, the above will result in
-		# model.get('_list.shown') returning:
-		# function getter(data, pathToRef, rest, refEmitter, prevRests) {..}
+        # XXX 2012-12-04 Calling .get on keyed ref returns getter fn.
+        # We used to use the above keyed ref on _list, but when
+        # using derby master, it results in
+        # https://github.com/codeparty/derby/issues/179
 		model.ref '_list.shown', '_list.all'
 
 		page.render()
