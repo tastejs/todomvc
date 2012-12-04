@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"main": "server.js",
 	"dependencies": {
-		"derby": "git://github.com/lefnire/derby#6bf758a587",
+		"derby": "git://github.com/lefnire/derby#master",
 		"express": "~3.0.1",
 		"gzippo": "~0.2.0"
 	},
