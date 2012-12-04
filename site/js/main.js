@@ -35,28 +35,108 @@
 		});
 	};
 
+	var Quotes = {};
+	Quotes.build = function (quotes, template) {
+		var quoteContainer = document.createElement('q'),
+			quoteElemCount = 0,
+			quoteCount = quotes.length;
 
-	$.fn.quote = function( data ) {
-		var $this = this;
+		var createQuoteElems = function () {
+			var quote = quotes[quoteElemCount],
+				el = $(template).hide();
 
-		function update() {
-			var el = data[ Math.floor( Math.random() * data.length ) ];
+			el.children('p').text(quote.quote);
+			el.find('a').text(quote.person.name).attr('href', quote.link);
+			el.find('img').attr('src', quote.person.gravatar);
 
-			$this.children('p').text( el.quote );
-			$this.find('a').text( el.person.name );
-			$this.find('a').attr( 'href', el.person.link );
-			$this.find('img').attr( 'src', el.person.gravatar );
-			setTimeout( update, 25000 );
-		}
+			quoteContainer.appendChild(el[0]);
 
-		update();
+			if (quoteCount > ++quoteElemCount) {
+				createQuoteElems();
+			}
+
+			return quoteContainer.innerHTML;
+		};
+		return createQuoteElems();
+	};
+
+	Quotes.random = function (quotes) {
+		var quoteCount = quotes.length,
+			randomQuotes = [];
+
+		var randomQuote = function () {
+			var randomQuoteIndex = Math.floor(Math.random() * quoteCount);
+
+			if ($.inArray(randomQuoteIndex, randomQuotes) > -1) {
+				return randomQuote();
+			}
+
+			if (randomQuotes.length === quoteCount - 1) {
+				randomQuotes = [];
+			}
+
+			randomQuotes.push(randomQuoteIndex);
+
+			return randomQuoteIndex;
+		};
+		return randomQuote;
+	};
+
+	Quotes.animate = function (container, animSpeed) {
+		var fader = function (fadeOut, fadeIn) {
+			var fadeOutCallback = function(){
+				fadeIn.fadeIn(500, fadeInCallback);
+			};
+
+			var fadeInCallback = function(){
+				window.setTimeout(swap, animSpeed);
+			};
+
+			fadeOut.fadeOut(500, fadeOutCallback);
+		};
+
+		var quotes = container.children(),
+			selectRandomQuoteIndex = Quotes.random(quotes),
+			quoteElems = {},
+			activeQuoteIndex = selectRandomQuoteIndex(),
+			prevQuoteElem = $(quotes[activeQuoteIndex]);
+
+		var swap = function () {
+			if (!quoteElems[activeQuoteIndex]) {
+				quoteElems[activeQuoteIndex] = $(quotes[activeQuoteIndex]);
+			}
+
+			var activeQuoteElem = quoteElems[activeQuoteIndex];
+
+			fader(prevQuoteElem, activeQuoteElem);
+
+			activeQuoteIndex = selectRandomQuoteIndex();
+			prevQuoteElem = activeQuoteElem;
+		};
+		return swap();
+	};
+
+	Quotes.init = function (quotes) {
+		var container = $(this),
+			template = $(this).html(),
+			quotesHTML = Quotes.build(quotes, template);
+
+		container.html(quotesHTML);
+
+		Quotes.animate(container, 25000);
+	};
+
+	$.fn.quote = function(quotes) {
+		return this.each(function(){
+			Quotes.init.call(this, quotes);
+		});
 	};
 
 	// Apps popover
 	$('.applist a').persistantPopover();
 
 	// Quotes
-	$('.quote').quote([{
+	$('.quotes').quote([{
 		quote: 'TodoMVC is a godsend for helping developers find what well-developed frameworks match their mental model of application architecture.',
 		person: {
 			name: 'Paul Irish',
