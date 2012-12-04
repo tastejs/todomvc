@@ -35,21 +35,58 @@
 		});
 	};
 
+	var quotes = {};
+	quotes.build = function (quotes, template) {
+		var quoteContainer = $('<q>'),
+			quoteElemCount = 0,
+			quoteCount = quotes.length;
+		return (function createQuoteElems(){
+			var quote = quotes[quoteElemCount],
+				el = $(template).hide(),
+				text = el.children('p')[0],
+				link = el.find('a')[0],
+				img = el.find('img')[0];
 
-	$.fn.quote = function( data ) {
-		var $this = this;
+			text.innerText = quote.quote;
+			link.innerText = quote.person.name;
+			link.setAttribute('href', quote.link);
+			img.setAttribute('src', quote.person.gravatar);
 
-		function update() {
-			var el = data[ Math.floor( Math.random() * data.length ) ];
+			quoteContainer.append(el);
 
-			$this.children('p').text( el.quote );
-			$this.find('a').text( el.person.name );
-			$this.find('a').attr( 'href', el.person.link );
-			$this.find('img').attr( 'src', el.person.gravatar );
-			setTimeout( update, 25000 );
-		}
+			if (quoteCount > ++quoteElemCount) createQuoteElems();
+			
+			return quoteContainer[0].innerHTML;
+		})();
+	};
 
-		update();
+	quotes.animate = function (container) {
+		var quotes = container.children(),
+			quoteElems = [],
+			activeQuote = 0,
+			quoteCount = quotes.length,
+			prevQuote = $(quotes.get(0));
+		return (function swap(){
+			var quoteElem = quoteElems[activeQuote] || (quoteElems.push( $(quotes.get(activeQuote)) ), quoteElems[activeQuote]);
+			
+			prevQuote.fadeOut(500, function() {
+				quoteElem.fadeIn(500, function(){
+					window.setTimeout(swap, 25000);
+				});
+			});
+
+			++activeQuote < quoteCount? activeQuote : activeQuote = 0;
+			prevQuote = quoteElem;
+		})();
+	};
+
+	$.fn.quote = function(quoteObjects) {
+		var container = this.parent(),
+			template = this[0].outerHTML;
+	
+		container[0].innerHTML = quotes.build(quoteObjects, template);
+
+		quotes.animate(container);
 	};
 
 	// Apps popover
