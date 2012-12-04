@@ -30,21 +30,26 @@ get '/:groupName', (page, model, {groupName}) ->
 			.where('group').equals(groupName)
 			.where('completed').notEquals(true)
 
-		model.set '_filter', 'all'
-		model.ref '_list.shown', '_list', '_filter'
+		# model.set '_filter', 'all'
+		# model.ref '_list.shown', '_list', '_filter'
+        # XXX 2012-12-04 Calling .get on keyed ref returns getter fn.
+        # We used to use the above keyed ref on _list, but when
+        # using derby master, it results in
+        # https://github.com/codeparty/derby/issues/179
+		model.ref '_list.shown', '_list.all'
 
 		page.render()
 
 # Transitional route for enabling a filter
 get from: '/:groupName', to: '/:groupName/:filterName',
 	forward: (model, {filterName}) ->
-		model.set '_filter', filterName
+		model.ref '_list.shown', "_list.#{filterName}"
 	back: (model, params) ->
-		model.set '_filter', 'all'
+		model.ref '_list.shown', "_list.all"
 
 get from: '/:groupName/:filterName', to: '/:groupName/:filterName',
 	forward: (model, {filterName}) ->
-		model.set '_filter', filterName
+		model.ref '_list.shown', "_list.#{filterName}"
 
 ready (model) ->
 	todos = model.at 'todos'
