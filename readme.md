@@ -67,6 +67,7 @@ We also have a number of in-progress applications in Labs:
 - [AngularJS](http://angularjs.org) (optimized)
 - [Backbone.xmpp](https://github.com/ggozad/Backbone.xmpp)
 - [Dart](http://dartlang.org)
+- [Chaplin](http://chaplinjs.org) + [Brunch](http://brunch.io)
 
 
 ## Live demos
