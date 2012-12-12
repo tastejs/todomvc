@@ -8,6 +8,7 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues, 
 - Tab indentation
 - Single-quotes
 - Semicolon
+- Strict mode
 - No trailing whitespace
 - Variables at the top of the scope
 - Multiple variable statements
@@ -19,6 +20,8 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues, 
 Example:
 
 ```js
+'use strict';
+
 function foo(bar, fum) {
     var i, l, ret;
     var hello = 'Hello';
@@ -29,7 +32,7 @@ function foo(bar, fum) {
 
     for (i = 0, l = bar.length; i < l; i++) {
         if (bar[i] === hello) {
-            ret = fum(out);
+            ret += fum(bar[i]);
         }
     }
 
