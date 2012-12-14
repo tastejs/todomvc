@@ -30,6 +30,7 @@ TodoMVC.module('TodoList', function(TodoList, App, Backbone, Marionette, $, _) {
 			this.showFooter(this.todoList);
 			this.showTodoList(this.todoList);
 
+      App.bindTo(this.todoList, 'reset add remove', this.toggleFooter, this);
 			this.todoList.fetch();
 		},
 
@@ -52,6 +53,14 @@ TodoMVC.module('TodoList', function(TodoList, App, Backbone, Marionette, $, _) {
 				collection : todoList
 			}));
 		},
+
+    toggleFooter: function() {
+      if (this.todoList.length) {
+        App.footer.$el.show();
+      } else {
+        App.footer.$el.hide();
+      }
+    },
 
 		// Set the filter to show complete or all items
 		filterItems: function(filter) {
