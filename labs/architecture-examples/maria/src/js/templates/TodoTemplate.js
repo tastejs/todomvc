@@ -7,14 +7,11 @@
 // included here.
 //
 checkit.TodoTemplate =
-    '<li class="todo">' +
-        '<div class="display">' +
-            '<input class="check" type="checkbox">' +
-            '<span class="todo-content"></span>' +
-            '<span class="todo-destroy">delete</span>' +
+    '<li>' +
+        '<div class="view">' +
+            '<input class="toggle" type="checkbox">' +
+            '<label></label>' +
+            '<button class="destroy"></span>' +
         '</div>' +
-        '<div class="edit">' +
-            '<input class="todo-input" type="text">' +
-            '<span class="ui-tooltip-top" style="display:none;">Press enter to update this task.</span>' +
-        '</div>' +
+        '<input class="edit">' +
     '</li>';

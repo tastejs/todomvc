@@ -1,34 +1,49 @@
 maria.SetModel.subclass(checkit, 'TodosModel', {
     properties: {
-        isEmpty: function() {
-            return this.length === 0;
+        _mode: 'all',
+        getPossibleModes: function() {
+            return ['all', 'incompleted', 'completed'];
         },
-        getDone: function() {
+        getMode: function() {
+            return this._mode;
+        },
+        setMode: function(mode) {
+            if (this.getPossibleModes().some(function(m) {return m === mode;})) {
+                if (this._mode !== mode) {
+                    this._mode = mode;
+                    this.dispatchEvent({type: 'change'});
+                }
+            }
+            else {
+                throw new Error('checkit.TodosModel.prototype.setMode: unsupported mode "'+mode+'".');
+            }
+        },
+        getCompleted: function() {
             return this.filter(function(todo) {
-                return todo.isDone();
+                return todo.isCompleted();
             });
         },
-        getUndone: function() {
+        getIncompleted: function() {
             return this.filter(function(todo) {
-                return !todo.isDone();
+                return !todo.isCompleted();
             });
         },
-        isAllDone: function() {
-            return this.length > 0 &&
-                   (this.getDone().length === this.length);
+        isAllCompleted: function() {
+            return (this.length > 0) &&
+                   (this.getCompleted().length === this.length);
         },
-        markAllDone: function() {
+        markAllCompleted: function() {
             this.forEach(function(todo) {
-                todo.setDone(true);
+                todo.setCompleted(true);
             });
         },
-        markAllUndone: function() {
+        markAllIncompleted: function() {
             this.forEach(function(todo) {
-                todo.setDone(false);
+                todo.setCompleted(false);
             });
         },
-        deleteDone: function() {
-            this['delete'].apply(this, this.getDone());
+        deleteCompleted: function() {
+            this['delete'].apply(this, this.getCompleted());
         },
         toJSON: function() {
             return this.map(function(todo) {

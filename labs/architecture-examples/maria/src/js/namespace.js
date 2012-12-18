@@ -1,1 +1,1 @@
-var checkit = checkit || {};
+var checkit = {};

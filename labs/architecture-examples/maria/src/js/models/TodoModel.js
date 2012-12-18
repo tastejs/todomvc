@@ -1,34 +1,34 @@
 maria.Model.subclass(checkit, 'TodoModel', {
     properties: {
-        _content: '',
-        _isDone: false,
-        getContent: function() {
-            return this._content;
+        _title: '',
+        _completed: false,
+        getTitle: function() {
+            return this._title;
         },
-        setContent: function(content) {
-            content = ('' + content).replace(/^\s+|\s+$/g, '');
-            if (this._content !== content) {
-                this._content = content;
+        setTitle: function(title) {
+            title = checkit.trim('' + title);
+            if (this._title !== title) {
+                this._title = title;
                 this.dispatchEvent({type: 'change'});
             }
         },
-        isDone: function() {
-            return this._isDone;
+        isCompleted: function() {
+            return this._completed;
         },
-        setDone: function(isDone) {
-            isDone = !!isDone;
-            if (this._isDone !== isDone) {
-                this._isDone = isDone;
+        setCompleted: function(completed) {
+            completed = !!completed;
+            if (this._completed !== completed) {
+                this._completed = completed;
                 this.dispatchEvent({type: 'change'});
             }
         },
-        toggleDone: function() {
-            this.setDone(!this.isDone());
+        toggleCompleted: function() {
+            this.setCompleted(!this.isCompleted());
         },
         toJSON: function() {
             return {
-                content: this._content,
-                is_done: this._isDone
+                title: this._title,
+                completed: this._completed
             };
         }
     }
@@ -36,7 +36,7 @@ maria.Model.subclass(checkit, 'TodoModel', {
 
 checkit.TodoModel.fromJSON = function(todoJSON) {
     var model = new checkit.TodoModel();
-    model._content = todoJSON.content;
-    model._isDone = todoJSON.is_done;
+    model._title = todoJSON.title;
+    model._completed = todoJSON.completed;
     return model;
 };
