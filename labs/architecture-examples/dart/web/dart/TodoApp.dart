@@ -52,9 +52,8 @@ class TodoApp {
 		});
 
 		checkAllCheckboxElement.on.click.add((Event e) {
-			InputElement target = e.srcElement;
 			for (TodoWidget todoWidget in todoWidgets) {
-				if (todoWidget.todo.completed != target.checked) {
+				if (todoWidget.todo.completed != checkAllCheckboxElement.checked) {
 					todoWidget.toggle();
 				}
 			}
@@ -100,7 +99,7 @@ class TodoApp {
 		}
 		checkAllCheckboxElement.checked = (complete == todoWidgets.length);
 		var left = todoWidgets.length - complete;
-		countElement.innerHTML = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
+		countElement.innerHtml = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
 		if (complete == 0) {
 			clearCompletedElement.style.display = 'none';
 		} else {
@@ -124,6 +123,7 @@ class TodoApp {
 				break;
 			default:
 				showAll();
+				return;
 		}
 	}
 
