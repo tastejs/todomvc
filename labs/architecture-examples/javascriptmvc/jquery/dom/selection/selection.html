@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>selection</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+        </style>
+	</head>
+	<body>
+<table id="demo-html">
+	<tr>
+		<td> <a href="javascript://" id='textarea'>Select Textarea</a></td>
+		<td><textarea id=''>012
+456</textarea></td>
+	</tr>
+	<tr>
+		<td><a href="javascript://" 
+				id='input'>Select Input</a></td>
+		<td><input text='text' value='0123456789'/></td>
+	</tr>
+	<tr>
+		<td><a href="javascript://" 
+				id='p'>Select Within One Element</a></td>
+		<td><p id='1'>0123456789</p></td>
+	</tr>
+	<tr>
+		<td><a href="javascript://" 
+				id='multi'>Select Across Multiple Elements</a></td>
+		<td><div id='2'>012<div>3<span>4</span>5</div></div></td>
+	</tr>
+</table>		
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'></script>
+		<script type='text/javascript'>
+steal('jquery/dom/selection', function(){
+			
+	$('#textarea').click(function(){
+		$('textarea').selection(1,5);
+	})
+	$('#input').click(function(){
+		$('input').selection(1,5);
+	})
+	$('#p').click(function(){
+		$('#1').selection(1,5);
+	})
+	$('#multi').click(function(){
+		$('#2').selection(1,5);
+	})
+});
+		</script>
+	</body>
+</html>

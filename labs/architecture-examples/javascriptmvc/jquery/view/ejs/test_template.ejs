@@ -1,0 +1,8 @@
+<%# Test Something Produces Items%>
+<%== something(function(items){ %>
+<%== items.length%>
+<% $.each(items, function(){ %><%# Test Something Produces Items%>
+<%==  something(function(items){ %>ItemsLength<%== items.length %><% }) %>
+<% }) %>
+<% }) %>
+<% for( var i =0; i < items.length; i++) { %>for <%= items[i] %><% } %>

@@ -1,0 +1,11 @@
+steal("funcunit", function(){
+	module("<%=application_name%> test", { 
+		setup: function(){
+			S.open("//<%= path %>/<%=application_name%>.html");
+		}
+	});
+	
+	test("Copy Test", function(){
+		equals(S("h1").text(), "Welcome to JavaScriptMVC 3.2!","welcome text");
+	});
+})

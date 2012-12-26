@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>List Helper Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            li {border: solid 1px gray; padding: 5px; width: 250px;}
+			li a {color: red; font-weight: bold;}
+			p {width: 400px;}
+        </style>
+	</head>
+	<body>
+		<div id="demo-instructions">
+			<h1>Model List Helper Demo</h1>
+			<p>This demo shows how you might use Lists to implement deleting a list
+			of contacts.</p>
+		</div>
+<div id="demo-html">
+<div id='contacts'></div>
+<a href='javascript://' id='destroyAll'>DESTROY ALL</a>
+</div>
+		
+		
+<script type='text/javascript' 
+        src='../../../steal/steal.js'>   
+</script>
+<script type='text/javascript' id="demo-source">   
+steal('jquery/model',
+		'jquery/dom/fixture',
+		'jquery/model/list', 
+		function(){
+
+// =============== SETUP FIXTURES =============== 
+
+$.fixture("GET /contacts", function(){
+	return [[{'id': 1,'name' : 'Justin Meyer','birthday': 403938000000},
+			 {'id': 2,'name' : 'Brian Moschel','birthday': 437205600000},
+			 {'id': 3,'name' : 'Mihael Konjevic','birthday': 483771600000}]];
+});
+
+$.fixture("POST /contacts/destroy", function(){
+	return true;
+});
+	
+
+// =============== Contact Model =============== 
+
+$.Model("Contact",{
+	attributes : { 
+		birthday : 'date'
+	},
+	findAll : "/contacts"
+},{
+	ageThisYear : function(){
+		return new Date().getFullYear() - 
+		      this.birthday.getFullYear()
+	},
+	getBirthday : function(){
+		return ""+this.birthday.getFullYear()+
+			"-"+(this.birthday.getMonth()+1)+
+			"-"+this.birthday.getDate();
+	}
+
+});
+
+// =============== Contact List =============== 
+
+$.Model.List("Contact.List",{
+	destroy: "POST /contacts/destroy"
+},{});
+
+
+// =============== Get and List Contacts =============== 
+
+Contact.findAll({},function(contacts){
+  var contactsEl = $('#contacts');
+  $.each(contacts, function(i, contact){
+    var li = $('<li>')
+              .model(contact)
+              .html("<input type='checkbox'/> "+
+			  		contact.name+" "+
+					contact.ageThisYear() )
+              .appendTo(contactsEl);
+	
+  });
+  contacts.bind("remove", function(ev, removed){
+  	removed.elements(contactsEl).remove()
+  })
+});
+
+$("#destroyAll").click(function(){
+	//get all checked input model instances
+	$("#contacts input:checked").closest(".contact")
+		.models()
+		// destroy them
+		.destroy();
+})
+
+})
+</script>
+	</body>
+</html>

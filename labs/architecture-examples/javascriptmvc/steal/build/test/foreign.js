@@ -1,0 +1,2 @@
+a = "Miércoles";
+b = "Atenção";

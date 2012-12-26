@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <title>Pause Example</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .tabs {
+                padding: 0px; margin: 0px;
+            }
+            .tabs li {
+                float: left;
+                padding: 10px;
+                background-color: #F6F6F6;
+                list-style: none;
+                margin-left: 10px;
+            }
+            .tabs li a {
+                color: #1C94C4;
+                font-weight: bold;
+                text-decoration: none;
+            }
+            .tabs li.active a {
+                color: #F6A828;
+                cursor: default;
+            }
+            .tab {
+                border: solid 2px #F6A828;
+				width: 360px;
+				height: 100px;
+				padding: 20px;
+            }
+			.dirty {
+				border: solid 2px red;
+			}
+            /* clearfix from jQueryUI */
+            .ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+            .ui-helper-clearfix { display: inline-block; }
+            /* required comment for clearfix to work in Opera \*/
+            * html .ui-helper-clearfix { height:1%; }
+            .ui-helper-clearfix { display:block; }
+            /* end clearfix */
+			#modal {
+				position: absolute;
+				top: 0px; left: 0px;
+				height: 100%; width: 100%;
+				display: none;
+			}
+			#background {
+				background-color: gray;
+				top: 0px; left: 0px;
+				height: 100%; width: 100%;
+				opacity: 0.5;
+			}
+			#box {
+				position: absolute;
+				margin: -55px 0px 0px -105px;
+				top: 50%;
+				left: 50%;
+				border: solid 1px gray;
+				background-color: white;
+				opacity: 1;
+				width: 200px;
+				height: 100px;
+				padding: 10px;
+			}
+			span {color: Red;}
+        </style>
+    </head>
+    <body>
+<div id="demo-html">
+<ul id='tabs' class='ui-helper-clearfix''>
+  <li><a href='#tab1'>Tab 1</a></li>
+  <li><a href='#tab2'>Tab 2</a></li>
+  <li><a href='#tab3'>Tab 3</a></li>
+</ul>
+<div id='panels'>
+  <form id='tab1' class='tab'>
+		Name: <input name='name'/>
+		Age: <select name='age'><option>10</option><option>20</option></select>
+  </form>
+  <form id='tab2' class='tab'>
+  		Yard: <select name='yard'><option>1</option><option>2</option></select>
+		Team: <input name='team'/>
+  </form>
+  <form id='tab3' class='tab'>
+  		Price: <input name='price'/>
+		Comment: <textarea name='comment'></textarea>
+  </form>
+</div>
+</div>
+<div id='modal'>
+	<div id='background'></div>
+	<div id='box'><p>Do you wish to save?</p>
+		 <a href='javascript://' id='yes'>Yes</a>
+		 <a href='javascript://' id='no'>No</a>
+		 <a href='javascript://' id='cancel'>Cancel</a>
+	</div>
+</div>
+
+<script type='text/javascript' src='../../../steal/steal.js'></script>
+<script type='text/javascript' id="demo-source">
+steal("jquery/controller",'jquery/event/pause','jquery/event/default')
+	.then(function(){
+		
+$.Controller("Tabs",{
+  init : function(el){
+    $(el).children("li:first").addClass('active');
+    var tab = this.tab;
+    this.element.children("li:gt(0)").each(function(){
+      tab($(this)).hide()
+    })
+  },
+  tab : function(li){
+    return $(li.find("a").attr("href").match(/#.*/)[0])
+  },
+  "li click" : function(el, ev){
+    ev.preventDefault();
+	var active = this.find('.active')
+		old = this.tab(active),
+		cur = this.tab(el);
+	old.triggerAsync('hide', function(){
+		active.removeClass('active')
+		old.slideUp(function(){
+			el.addClass('active')
+			cur.slideDown()
+		});
+	})
+  }
+})
+  
+// adds the controller to the element
+$("#tabs").tabs();
+
+// create a widget listens for change and marks as dirty
+$.Controller("Dirtybit",{
+	listensTo : ['set']
+},{
+	init : function(){
+		this.element.data('formData',this.element.serialize())
+	},
+	"change" : function(el){
+		this.check()
+	},
+	keyup : function(el){
+		this.check()
+	},
+	click : function(el){
+		this.check()
+	},
+	check : function(){
+		var el = this.element;
+		if(el.serialize() == el.data('formData')){
+			el.removeClass('dirty')
+		}else{
+			el.addClass('dirty')
+		}
+	},
+	"set" : function(){
+		this.element.data('formData',this.element.serialize())
+			.removeClass('dirty');
+	}
+})
+
+// a modal width
+$.Controller("Modal",{
+	init : function(){
+		this.element.show();
+	},
+	"a click" : function(a){
+		this.element.hide();
+		this.options[a.attr('id')]();
+		
+		this.destroy();
+	}
+})
+
+
+// create a saver widget
+$.Controller("Saver",{
+	listensTo : ['hide']
+},{
+	"hide": function(el, ev){
+		if (el.hasClass('dirty')) {
+			ev.pause()
+			$('#modal').modal({
+				yes: function(){
+					var save = $('<span>Saving</span>').appendTo(el);
+					$.post("/update", el.serialize(), function(){
+						save.remove();
+						el.trigger('set');
+						ev.resume();
+					})
+				},
+				no: function(){
+					ev.resume();
+				},
+				cancel: function(){
+					ev.preventDefault();
+					ev.resume();
+				}
+			})
+		}
+	}
+});
+
+$("#panels .tab").dirtybit().saver();
+
+// a fake post method
+$.post = function(url,data, success){
+	setTimeout(success,500)
+};
+
+});
+</script>
+    </body>
+</html>

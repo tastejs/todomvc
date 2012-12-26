@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Grid / Encapsulate Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            
+        </style>
+	</head>
+	<body>
+<div id="demo-instructions">
+<h1>Model Encapsulate Demo</h1>
+<p>This demonstrates how encapsulating Ajax functionality in
+	models makes your code more reusable.  The same grid 
+	widget uses two different models.
+</p>
+</div>
+<div id="demo-html">
+<h2>Recipe Grid</h2>
+<div id='recipes'></div>
+<h2>Work Item Grid</h2>
+<div id='workItems'></div>
+</div>
+<script type='text/javascript' 
+        src='../../steal/steal.js'>   
+</script>
+<script type='text/ejs' id='listView'>
+	<table cellspacing='0px'>
+	<thead>
+	<tr>
+	    <% for(var attr in model.attributes){%>
+	        <% if(attr == 'id') continue;%>
+	        <th><%= attr %> </th>    
+	    <%}%>
+	    <th>Options</th>
+	</tr>
+	</thead>
+	<tbody>
+		<% for(var i =0; i < items.length;i++){ %>
+			<tr <%= items[i] %>>
+				<%== view('itemView',{item: items[i], model : model})%>
+			</tr>
+		<%} %>
+	    
+	</tbody>
+</table>
+</script>
+<script type='text/ejs' id='itemView'>
+	<%for(var attribute in model.attributes){%>
+	    <%if(attribute == 'id') continue;%>
+	    <td class='<%= attribute %>'>
+	            <input type="text" value="<%= item[attribute]%>" name="<%= attribute%>"/>
+	    </td>
+	<%}%>
+	<td>
+	    <input type='submit' value='Update' class='update'/>
+	    <a href='javascript://' class='cancel'>cancel</a>
+	</td>
+</script>
+<script type='text/javascript'>
+
+</script>
+<script type='text/javascript' id="demo-source"> 
+steal('jquery/model',
+	'jquery/controller',
+	'jquery/dom/form_params',
+	'jquery/dom/fixture',
+	'jquery/view/ejs',
+	function(){
+
+// Use fixtures to make 4 recipes
+$.fixture.make("recipe",4, function(i, messages){
+	return {
+		title: "Recipe "+i,
+		instructions: "Here are some instructions"
+	}
+})
+// Use fixtures to make 4 work items
+$.fixture.make("workitem",4, function(i, messages){
+	return {
+		task: "item "+i,
+		instructions: "Here are some instructions",
+		assignedTo : i%2? "Brian" : "Justin"
+	}
+})
+
+ 
+// A grid widget
+$.Controller("Grid",{
+	// when added to an element, use the model
+	// to find items
+	init : function(){
+		this.options.model.findAll({},this.callback('list'))
+	},
+	// draw the items in this element
+	list : function(items){
+		this.element.html("listView", {model : this.options.model, items: items})
+	},
+	// on update, get values, and update model instance
+	".update click" : function(el){
+		// get the tr that has our new model data
+		var tr =  el.closest('tr'),
+			
+			// get the model isntance
+			item = tr.model();
+		
+		// make it look like we are updating
+		el.val("updating ...").attr("disabled", true)
+		
+		// update the model instance
+		item.update(tr.formParams(), this.proxy('updated'));
+	},
+	updated : function(item){
+		// update the html
+		item.elements(this.element).html('itemView',
+			{model : this.options.model, item: item})
+	},
+	// on cancel, use the existing model to redraw html
+	".cancel click" : function(el){
+		var tr =  el.closest('tr')
+			item = tr.model();
+		tr.html('itemView',{model : this.options.model, item: item})
+	}
+})
+
+// A Recipe model that implements findAll and update
+$.Model("Recipe",{
+	findAll : "/recipes.json",
+	update : "/recipes/{id}.json"
+},{});
+
+// A WorkItem model that implements findAll and update
+$.Model("Workitem",{
+	findAll : "/workitems.json",
+	update : "/workitems/{id}.json"
+},{});
+
+// Add a grid with recipes
+$("#recipes").grid({model: Recipe});
+
+// Add a grid with workitems
+$("#workItems").grid({model: Workitem});
+
+});
+</script>
+	</body>
+</html>

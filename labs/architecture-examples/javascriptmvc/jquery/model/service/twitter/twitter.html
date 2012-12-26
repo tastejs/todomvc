@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>associations</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+        </style>
+	</head>
+	<body>
+		<h1>JavaScriptMVC Tweets</h1>
+		<ul id='tweets'></ul>
+		<script type='text/javascript' 
+                src='../../../../steal/steal.js?jquery/model/service/twitter'>   
+        </script>
+		<script type='text/javascript'>
+
+			
+			$.Model.service.twitter.findAll({where : {screen_name: "javascriptmvc"}}, function(data){
+				var txt = []
+				for(var i =0; i < data.length;i++){
+					txt.push("<li>",data[i].text,"</li>")
+				}
+				$("#tweets").html(txt.join(""))
+			})
+		</script>
+	</body>
+</html>

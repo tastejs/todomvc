@@ -1,0 +1,51 @@
+steal("funcunit/qunit", "<%= appPath %>/fixtures", "<%= appPath %>/models/<%= underscore %>.js", function(){
+	module("Model: <%= name %>")
+	
+	test("findAll", function(){
+		expect(4);
+		stop();
+		<%= name %>.findAll({}, function(<%= plural %>){
+			ok(<%= plural %>)
+	        ok(<%= plural %>.length)
+	        ok(<%= plural %>[0].name)
+	        ok(<%= plural %>[0].description)
+			start();
+		});
+		
+	})
+	
+	test("create", function(){
+		expect(3)
+		stop();
+		new <%= name %>({name: "dry cleaning", description: "take to street corner"}).save(function(<%= underscore %>){
+			ok(<%= underscore %>);
+	        ok(<%= underscore %>.id);
+	        equals(<%= underscore %>.name,"dry cleaning")
+	        <%= underscore %>.destroy()
+			start();
+		})
+	})
+	test("update" , function(){
+		expect(2);
+		stop();
+		new <%= name %>({name: "cook dinner", description: "chicken"}).
+	            save(function(<%= underscore %>){
+	            	equals(<%= underscore %>.description,"chicken");
+	        		<%= underscore %>.update({description: "steak"},function(<%= underscore %>){
+	        			equals(<%= underscore %>.description,"steak");
+	        			<%= underscore %>.destroy();
+						start();
+	        		})
+	            })
+	
+	});
+	test("destroy", function(){
+		expect(1);
+		stop();
+		new <%= name %>({name: "mow grass", description: "use riding mower"}).
+	            destroy(function(<%= underscore %>){
+	            	ok( true ,"Destroy called" )
+					start();
+	            })
+	})
+})

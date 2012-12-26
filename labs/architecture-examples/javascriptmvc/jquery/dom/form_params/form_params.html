@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Form Params</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            
+        </style>
+	</head>
+	<body>
+<p>Change the inputs to change the object</p>
+<pre>Result = <span id='result'></span></pre>
+<div id="demo-html">
+<form id='fp' action="">
+  <label>People Count</label><br/>
+  <input name='talk[peopleCount]'/><br/>
+  <label>Audience Rating</label><br/>
+  <select name='talk[audienceRating]'>
+    <option value='3'>3</option>
+    <option value='2'>2</option>
+    <option value='1'>1</option>
+  </select><br/>
+  <label>Time Left</label><br/>
+  <input type='radio' name='talk[timeLeft]' value='1'/> 1 min<br/>
+  <input type='radio' name='talk[timeLeft]' value='5'/> 5 min<br/>
+  <input type='radio' name='talk[timeLeft]' value='10'/> 10 min<br/>
+</form>
+</div>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>   
+        </script>
+<script type='text/javascript' id="demo-source">
+steal('jquery/dom/form_params','jquery/lang/json').then(function(){
+// updates the JSON text
+var update = function(){
+  
+  // get form data 
+  var json = $('#fp').formParams(),
+  
+      //convert it to JSON
+      jsonString = $.toJSON( json );
+  
+  // show JSON
+  $("#result").text( jsonString )
+}
+
+// listen for changes and update
+$('#fp').change(update);
+
+// show json right away
+update(); 
+})
+</script>
+	</body>
+</html>

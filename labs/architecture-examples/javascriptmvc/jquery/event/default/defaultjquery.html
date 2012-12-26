@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <title>Default</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+            .clickme {
+                padding: 5px; margin: 5px;
+                border: dashed 1px red;
+                width: 100px;
+            }
+            ul li {
+                float: left;
+                border: solid 1px red;
+                padding: 5px;
+                list-style: none;
+            }
+            ul { margin: 0px; padding: 0px;}
+            .tab {
+                clear: both;
+                border: solid 1px black;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        
+            <h1>Default Events</h1>
+            <p>A tabs widget that doesn't let you continue until the first part is complete.</p>
+<div id="demo-html">
+<div id='tabs'>
+  <ul>
+    <li><a href='#first'>Part 1</a></li>
+    <li><a href='#second'>Part 2</a></li>
+  </ul>
+  <div id='first' class='tab'>
+    <input type='checkbox' id='complete'/> Check to complete this part.
+  </div>
+  <div id='second' class='tab'>
+    You completed part 1
+  </div>
+</div>
+</div>
+    
+            
+<script type='text/javascript' 
+        src='../../../steal/steal.js'></script>
+<script type='text/javascript' id="demo-source">
+steal('jquery/event/default').then(function(){
+// create a tabs plugin
+// this is code written by a widget developer, and provides an event based 
+// tabs API
+$.fn.tabs = function(){
+
+  // finds the tab from the tab button
+  var sub = function(el){
+    return $(el.find("a").attr("href"))
+  }
+  
+  this.each(function(){
+    var tab = $(this);
+    
+  //set the first tab button as active
+  tab.find("li:first").addClass('active')
+  //hide all the other tabs
+  tab.find(".tab:gt(0)").hide();
+    
+  //listen for a click on a tab button
+  tab.delegate("li","click", function(ev){
+    ev.preventDefault();
+    var el = $(this);
+        
+
+    if( // not active button
+	    !el.hasClass('active')) {
+			sub(el).triggerAsync('show', function(){
+				// remove active and hide old active	
+			    sub(tab.find(".active").removeClass("active")).hide();
+				
+				//mark as active
+			    el.addClass("active");
+			})
+    }
+  })
+    
+  // show a tab if default isn't prevented
+  .delegate(".tab","default.show", function(ev){
+    $(this).show();
+  })
+})
+};
+
+// create tabs widget
+// this is code written by an application developer using the tabs API
+// this code is usually in a separate file from the tabs widget code
+$("#tabs").tabs();
+
+// listen on the second tab for show
+$("#second").bind("show",function(ev){
+  
+  //if complete isn't checked
+  if(! $("#complete")[0].checked ){
+  	
+	//prevent the default action!
+    ev.preventDefault();
+  }
+});
+})
+</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Model Convert Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            li {border: solid 1px gray; padding: 5px; width: 250px;}
+			li a {color: red; font-weight: bold;}
+			p {width: 400px;}
+        </style>
+	</head>
+	<body>
+<div id="demo-instructions">
+		<h1>Model DOM Helpers Demo</h1>
+		<p>This demo shows using models to set an instance on an element.</p>
+</div>
+<div id="demo-html">
+<ul id='contacts'></ul>
+</div>	
+<script type='text/javascript' 
+        src='../../steal/steal.js'>   
+</script>
+<script type='text/javascript'  id="demo-source">
+steal('jquery/model','jquery/dom/fixture').then(function(){
+
+$.fixture("GET /contacts.json", function(){
+	return [[{id: 1, name: 'Justin Meyer', birthday: 403938000000},
+			 {id: 2, name: 'Brian Moschel', birthday: 437205600000},
+			 {id: 3, name: 'Mihael Konjevic', birthday: 483771600000}]];
+});
+
+$.fixture("DELETE /contacts.json", function(){
+	return true;
+})
+		
+// A contact model
+$.Model.extend("Contact",{
+	attributes : { 
+		birthday : 'date'
+	},
+	findAll : "/contacts.json",
+	destroy : "/contacts.json"
+},{
+	ageThisYear : function(){
+		return new Date().getFullYear() - 
+			this.birthday.getFullYear()
+	}
+
+});
+
+Contact.findAll({},function(contacts){
+  var contactsEl = $('#contacts');
+  for(var i =0; i < contacts.length; i++){
+   $('<li>').model(contacts[i])
+            .html(contacts[i].ageThisYear()+
+                  " <a>DELETE</a>")
+            .appendTo(contactsEl)
+  }
+});
+$("#contacts a").live('click', function(){
+  //get the element for this recipe
+  var contactEl = $(this).closest('.contact')
+  
+  // get the conctact instance
+  contactEl.model()
+           // call destroy on the instance
+           .destroy(function(){
+                      // remove the element
+                      contactEl.remove();
+                    })
+		  
+});
+
+});
+</script>
+	</body>
+</html>
