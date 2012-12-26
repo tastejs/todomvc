@@ -14,22 +14,22 @@
 class TodoCtrl {
     private todos;
 
-    constructor (private $scope: ITodoScope, $location: ng.ILocationService, private todoStorage: ITodoStorage, private filterFilter) {
+    constructor(private $scope: ITodoScope, $location: ng.ILocationService, private todoStorage: ITodoStorage, private filterFilter) {
         this.todos = $scope.todos = todoStorage.get();
 
         $scope.newTodo = "";
         $scope.editedTodo = null;
 
-        $scope.addTodo = () =>this.addTodo();
-        $scope.editTodo = (t) =>this.editTodo(t);
-        $scope.doneEditing = (t) =>this.doneEditing(t);
-        $scope.removeTodo = (t) =>this.removeTodo(t);
-        $scope.clearDoneTodos = () =>this.clearDoneTodos();
-        $scope.markAll = (d) =>this.markAll(d);
+        $scope.addTodo = () => this.addTodo();
+        $scope.editTodo = (t) => this.editTodo(t);
+        $scope.doneEditing = (t) => this.doneEditing(t);
+        $scope.removeTodo = (t) => this.removeTodo(t);
+        $scope.clearDoneTodos = () => this.clearDoneTodos();
+        $scope.markAll = (d) => this.markAll(d);
 
 
-        $scope.$watch('todos', () =>this.onTodos(), true);
-        $scope.$watch('location.path()', (path) =>this.onPath(path));
+        $scope.$watch('todos', () => this.onTodos(), true);
+        $scope.$watch('location.path()', (path) => this.onPath(path));
 
         if ($location.path() === '') $location.path('/');
         $scope.location = $location;
@@ -77,13 +77,13 @@ class TodoCtrl {
     };
 
     clearDoneTodos() {
-        this.$scope.todos = this.todos = this.todos.filter(function (val) {
+        this.$scope.todos = this.todos = this.todos.filter((val) => {
             return !val.completed;
         });
     };
 
     markAll(done: bool) {
-        this.todos.forEach(function (todo: TodoItem) {
+        this.todos.forEach((todo: TodoItem) => {
             todo.completed = done;
         });
     };

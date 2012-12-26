@@ -12,7 +12,7 @@
  */
 var todomvc = angular.module('todomvc', [])
         .controller('todoCtrl', TodoCtrl)
-        .directive('todoBlur', function () { return new TodoBlur(); })
-        .directive('todoFocus', function ($timeout: ng.ITimeoutService) { return new TodoFocus($timeout); })
+        .directive('todoBlur', () => { return new TodoBlur(); })
+        .directive('todoFocus', ($timeout: ng.ITimeoutService) => { return new TodoFocus($timeout); })
         .service('todoStorage', TodoStorage)
     ;

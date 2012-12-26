@@ -8,14 +8,14 @@ class TodoFocus {
 
     public link: ($scope: ng.IScope, elem: JQuery, attrs: any) => any;
 
-    constructor (private $timeout: ng.ITimeoutService) {
-        this.link = (s, e, a) =>this.linkFn(s, e, a);
+    constructor(private $timeout: ng.ITimeoutService) {
+        this.link = (s, e, a) => this.linkFn(s, e, a);
     }
 
     linkFn($scope: ng.IScope, elem: JQuery, attrs: any): any {
-        $scope.$watch(attrs.todoFocus, function (newval) {
+        $scope.$watch(attrs.todoFocus, (newval) => {
             if (newval) {
-                this.$timeout(function () {
+                this.$timeout(() => {
                     elem[0].focus();
                 }, 0, false);
             }

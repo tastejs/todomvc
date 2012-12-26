@@ -8,12 +8,12 @@
 class TodoBlur {
     public link: ($scope: ng.IScope, elem: JQuery, attrs: any) => any;
 
-    constructor () {
-        this.link = (s, e, a) =>this.linkFn(s, e, a);
+    constructor() {
+        this.link = (s, e, a) => this.linkFn(s, e, a);
     }
 
     linkFn($scope: ng.IScope, elem: JQuery, attrs: any): any {
-        elem.bind('blur', function () {
+        elem.bind('blur', () => {
             $scope.$apply(attrs.todoBlur);
         });
     };
