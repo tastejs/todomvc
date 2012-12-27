@@ -25,16 +25,13 @@
   <input type='radio' name='talk[timeLeft]' value='1'/> 1 min<br/>
   <input type='radio' name='talk[timeLeft]' value='5'/> 5 min<br/>
   <input type='radio' name='talk[timeLeft]' value='10'/> 10 min<br/>
-  <input type='checkbox' name='talk[abool]'/> 10 min<br/>
 </form>
 </div>
 		<script type='text/javascript' 
                 src='../../../steal/steal.js'>   
         </script>
-<script type='text/javascript'>
-steal.plugins('jquery/dom/form_params','jquery/lang/json').start()
-</script>
 <script type='text/javascript' id="demo-source">
+steal('jquery/dom/form_params','jquery/lang/json').then(function(){
 // updates the JSON text
 var update = function(){
   
@@ -53,6 +50,7 @@ $('#fp').change(update);
 
 // show json right away
 update(); 
+})
 </script>
 	</body>
 </html>

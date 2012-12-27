@@ -1,4 +1,4 @@
-steal.plugins('jquery/event').then(function( $ ) {
+steal('jquery/event').then(function( $ ) {
 	/**
 	 * @add jQuery.event.special
 	 */
@@ -112,7 +112,7 @@ steal.plugins('jquery/event').then(function( $ ) {
 					// prevent others from doing what we are about to do
 					resizeCount++;
 					var where = data === false ? ev.target : this
-					console.log(where, data);
+
 					//trigger all this element's handlers
 					$.event.handle.call(where, ev);
 					if ( ev.isPropagationStopped() ) {

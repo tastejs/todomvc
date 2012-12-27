@@ -3,6 +3,46 @@
 We're happy to accept contributions in the form of new apps, bug fixes, issues, etc. If you want to help out, add a comment on the issue you want to work on and start hacking. Please open an issue for discussion before submitting framework combinations (eg. Backbone + RequireJS).
 
 
+## Code Style
+
+- Tab indentation
+- Single-quotes
+- Semicolon
+- Strict mode
+- No trailing whitespace
+- Variables at the top of the scope
+- Multiple variable statements
+- Space after keywords and between arguments and operators
+- Return early
+- JSHint valid
+- Consistency
+
+Example:
+
+```js
+'use strict';
+
+function foo(bar, fum) {
+    var i, l, ret;
+    var hello = 'Hello';
+
+    if (!bar) {
+        return;
+    }
+
+    for (i = 0, l = bar.length; i < l; i++) {
+        if (bar[i] === hello) {
+            ret += fum(bar[i]);
+        }
+    }
+
+    return ret;
+}
+```
+
+Read [idiomatic.js](https://github.com/rwldrn/idiomatic.js) for general JavaScript code style best practices.
+
+
 ## Pull Request Guidelines
 
 - Develop in a topic branch (not `master`) and submit against the `labs` folder in the default `gh-pages` branch
@@ -15,7 +55,6 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues, 
 - **Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) thoroughly**
 - Make sure it hasn't already been submitted or declined by searching the issue tracker
 - Looking at our most recent [reference app](https://github.com/addyosmani/todomvc/tree/gh-pages/architecture-examples/backbone)
-- Test in the [supported browsers](https://github.com/addyosmani/todomvc/wiki/Home/)
 
 One of us will be happy to review your submission and discuss any changes that may be required before it can be included. Apps will typically land first in Labs, reaching the 'stable' mark once we and the community are happy with it.
 

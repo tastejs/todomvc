@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit',
+steal('funcunit/qunit',
 	'jquery/model',
 	'jquery/controller',
 	'jquery/view/ejs',

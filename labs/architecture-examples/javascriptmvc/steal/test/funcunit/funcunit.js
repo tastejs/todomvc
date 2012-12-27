@@ -1,3 +1,2 @@
-steal
- .plugins("funcunit")
+steal("funcunit")
  .then("steal_test");

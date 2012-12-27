@@ -1,5 +1,4 @@
-steal
-  .plugins("funcunit/qunit", "jquery/dom/selection").then(function(){
+steal("funcunit/qunit", "jquery/dom/selection").then(function(){
   	
 module("jquery/dom/selection");
 
@@ -13,7 +12,7 @@ test("getCharElement", function(){
 	setTimeout(function(){
 		var types = ['textarea','#inp','#1','#2'];
 		for(var i =0; i< types.length; i++){
-			console.log(types[i])
+			//console.log(types[i])
 			$(types[i]).selection(1,5);
 		}
 		/*

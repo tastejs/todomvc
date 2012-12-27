@@ -22,11 +22,19 @@
 <script type='text/javascript' 
         src='../../steal/steal.js'>   
 </script>
-<script type='text/javascript'>
-steal.plugins('jquery/model').start()
-</script>
 <script type='text/javascript' id="demo-source">   
-$.Model.extend("Contact",{
+steal('jquery/model', 
+      'jquery/dom/fixture',
+      function(){
+	
+	$.fixture("/foobar.json", function( ) {
+	  return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
+	       {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
+	       {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
+	});
+	
+	
+$.Model("Contact",{
   attributes : { 
     // labels birthday a date
     birthday : 'date'
@@ -45,13 +53,7 @@ $.Model.extend("Contact",{
       }
     }
   },
-  findAll : function(params, success, error){
-    // simulates the server giving a string date
-	success(this.wrapMany(
-      [{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
-       {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
-       {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]))			
-  }
+  findAll : '/foobar.json'
 },{
   // helper function that returns age in years
   age : function(){
@@ -68,6 +70,8 @@ Contact.findAll( {}, function( contacts ){
   }
   $('#contacts').html( html.join('') );
 });
+
+})
 </script>
     </body>
 </html>

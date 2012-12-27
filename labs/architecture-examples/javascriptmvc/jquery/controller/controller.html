@@ -50,9 +50,7 @@
 </div>
 <script type='text/javascript' src='../../steal/steal.js'></script>
 <script type='text/javascript'>
-    steal.plugins("jquery/controller").start();
-</script>
-<script type='text/javascript' id="demo-source">
+steal("jquery/controller", function(){
 // create a new Tabs class
 $.Controller("Tabs",{
   
@@ -84,6 +82,7 @@ $.Controller("Tabs",{
   
 // adds the controller to the element
 $("#tabs").tabs();
+})
 </script>
     </body>
 </html>

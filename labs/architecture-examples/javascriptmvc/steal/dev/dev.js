@@ -1,4 +1,5 @@
 /*global  window: false, console: true, opera: true */
+//
 /**
  * @class steal.dev
  * @parent stealjs
@@ -50,8 +51,11 @@ steal.dev = {
 	 */
 	warn: function( out ) {
 		if(steal.options.logLevel < 2){
-			if ( window.console && console.log ) {
-				console.log("steal.js WARNING: " + out);
+			Array.prototype.unshift.call(arguments, 'steal.js WARN:');
+			if ( window.console && console.warn ) {
+				this._logger( "warn", Array.prototype.slice.call(arguments) );
+			} else if ( window.console && console.log ) {
+				this._logger( "log", Array.prototype.slice.call(arguments) );
 			} else if ( window.opera && window.opera.postError ) {
 				opera.postError("steal.js WARNING: " + out);
 			}
@@ -68,13 +72,21 @@ steal.dev = {
 	log: function( out ) {
 		if (steal.options.logLevel < 1) {
 			if (window.console && console.log) {
-				console.log("steal.js INFO: " + out);
+				Array.prototype.unshift.call(arguments, 'steal.js INFO:');
+				this._logger( "log", Array.prototype.slice.call(arguments) );
 			}
 			else if (window.opera && window.opera.postError) {
 				opera.postError("steal.js INFO: " + out);
 			}
 		}
-	}
+	},
+	_logger:function(type, arr){
+		if(console.log.apply){
+			console[type].apply(console, arr)
+		} else {
+			console[type](arr)
+		}
+	} 
 };
 
 //stuff for jmvc

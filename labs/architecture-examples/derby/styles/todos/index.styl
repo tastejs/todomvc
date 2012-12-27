@@ -1,0 +1,51 @@
+#todo-list li input.text {
+	word-break: break-word;
+	margin: 15px 15px 15px 60px;
+	line-height: 1.2;
+	-webkit-transition: color 0.4s;
+	-moz-transition: color 0.4s;
+	-ms-transition: color 0.4s;
+	-o-transition: color 0.4s;
+	transition: color 0.4s;
+	font-size: 24px;
+	color: inherit;
+	background-color: transparent;
+	display: block;
+	border: none;
+	width: 506px;
+	padding: 13px 17px 12px 17px;
+	margin: 0 0 0 43px;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+#todo-list li input.text:focus {
+	border: 1px solid #999;
+	box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	outline: none;
+}
+
+#todo-list li.completed input.text {
+	color: #a9a9a9;
+	text-decoration: line-through;
+}
+
+section.empty-list, footer.empty-list,
+section.empty-list #toggle-all,
+button#clear-completed.non-completed,
+#todo-list li.editing input.toggle,
+#todo-list li.editing button.destroy {
+	display: none;
+}

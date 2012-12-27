@@ -1,7 +1,7 @@
 //steal/js <%= path %>/scripts/compress.js
 
-load("steal/rhino/steal.js");
-steal.plugins('steal/clean',function(){
+load("steal/rhino/rhino.js");
+steal('steal/clean',function(){
 	steal.clean('<%= path %>/<%= application_name %>.html',{
 		indent_size: 1, 
 		indent_char: '\t', 

@@ -1,5 +1,5 @@
-load("steal/rhino/steal.js");
-steal.plugins('steal/build/pluginify', function () {
+load("steal/rhino/rhino.js");
+steal('steal/build/pluginify', function () {
     //check if args
     var app = _args.shift();
     

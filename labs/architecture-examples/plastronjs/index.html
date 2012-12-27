@@ -4,6 +4,13 @@
 	<meta charset="utf-8">
 	<title>PlastronJS • TodoMVC</title>
 	<link rel="stylesheet" href="../../../assets/base.css">
+	<style>
+		#filters.none li.none,
+		#filters.active li.active,
+		#filters.completed li.completed {
+			font-weight: bold;
+		}
+	</style>
 	<!--[if IE]>
 	<script src="../../../assets/ie.js"></script>
 	<![endif]-->
@@ -21,14 +28,14 @@
 		</section>
 		<footer id="footer">
 			<span id="todo-count"><strong>0</strong> item left</span>
-			<ul id="filters">
-				<li>
-					<a class="selected" href="#/">All</a>
+			<ul id="filters" class="none">
+				<li class="none">
+					<a href="#/">All</a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="#/active">Active</a>
 				</li>
-				<li>
+				<li class="completed">
 					<a href="#/completed">Completed</a>
 				</li>
 			</ul>
@@ -37,7 +44,7 @@
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
-		<p>Created by <a href="http://rhysbrettbowen.com">Rhys Brett-Bowen</a> (<a href="https://twitter.com/#!/RhysBB">RhysBB</a>)</p>
+		<p>Created by <a href="http://rhysbrettbowen.com">Rhys Brett-Bowen</a> (<a href="https://twitter.com/RhysBB">RhysBB</a>)</p>
 		<p>Using <a href="https://github.com/rhysbrettbowen/PlastronJS">PlastronJS</a> and <a href="https://developers.google.com/closure/">Closure Tools</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>

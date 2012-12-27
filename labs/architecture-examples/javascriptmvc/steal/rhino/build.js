@@ -1,4 +1,4 @@
-load('steal/rhino/steal.js')
+load('steal/rhino/rhino.js')
 
 // moves js scripts to framework
 // creates steal.production.js
@@ -8,8 +8,7 @@ new steal.File("steal/js.bat").copyTo("js.bat", [])
 new steal.File("steal/js").copyTo("js", [])
 
 // compress steal.js to steal.production.js
-load("steal/rhino/steal.js");
-steal.plugins('steal/build', 'steal/build/scripts', function() {
+steal('steal/build', 'steal/build/scripts', function() {
 	var script = readFile('steal/steal.js'),
 		text = steal.build.builders.scripts.clean(script),
 		compressed = steal.build.builders.scripts.compressors.localClosure()(text, true);

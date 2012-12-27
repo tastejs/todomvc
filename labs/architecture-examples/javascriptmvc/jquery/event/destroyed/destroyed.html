@@ -10,15 +10,15 @@
 <a id='change' href="javascript://">Click here!</div>
 </div>
 	    
-		<script type='text/javascript' src='../../../steal/steal.js?jquery/event/destroyed/destroyed.js'></script>
-		<script type='text/javascript' id='demo-source'>
+<script type='text/javascript'  id='demo-source'
+		src='../../../steal/steal.js?jquery/event/destroyed/destroyed.js'>
 $("#clickToDestroy").bind("destroyed", function(){
 	$("#change").html("destroyed with "+$(this).data("testData"))
 }).data("testData","joy :)")
 $("#change").bind("click", function(){
 	$("#clickToDestroy").remove()
 })
+</script>
 
-		</script>
 	</body>
 </html>

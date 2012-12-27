@@ -155,22 +155,11 @@ label[for='toggle-all'] {
 
 #toggle-all {
 	position: absolute;
-	top: -56px;
-	left: -15px;
-	width: 65px;
-	height: 41px;
+	top: -42px;
+	left: -4px;
+	width: 40px;
 	text-align: center;
 	border: none; /* Mobile Safari */
-	-webkit-appearance: none;
-	/*-moz-appearance: none;*/
-	-ms-appearance: none;
-	-o-appearance: none;
-	appearance: none;
-	-webkit-transform: rotate(90deg);
-	/*-moz-transform: rotate(90deg);*/
-	-ms-transform: rotate(90deg);
-	/*-o-transform: rotate(90deg);*/
-	transform: rotate(90deg);
 }
 
 #toggle-all:before {
@@ -219,7 +208,8 @@ label[for='toggle-all'] {
 #todo-list li .toggle {
 	text-align: center;
 	width: 40px;
-	height: 40px;
+	/* auto, since non-WebKit browsers doesn't support input styling */
+	height: auto;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -233,7 +223,6 @@ label[for='toggle-all'] {
 }
 
 #todo-list li .toggle:after {
-	font-size: 18px;
 	content: '✔';
 	line-height: 43px; /* 40 + a couple of pixels visual adjustment */
 	font-size: 20px;
@@ -402,6 +391,21 @@ label[for='toggle-all'] {
 	#toggle-all,
 	#todo-list li .toggle {
 		background: none;
+	}
+
+	#todo-list li .toggle {
+		height: 40px;
+	}
+
+	#toggle-all {
+		top: -56px;
+		left: -15px;
+		width: 65px;
+		height: 41px;
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
+		-webkit-appearance: none;
+		appearance: none;
 	}
 }
 

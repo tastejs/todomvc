@@ -11,5 +11,6 @@
   "mxutil" : "http://github.com/jupiterjs/mxutil",
   "jqueryui" : "https://github.com/daffl/jqueryui",
   "todo": "https://github.com/jupiterjs/todo/tree/master/todo/",
-  "player": "https://github.com/jupiterjs/playermx/tree/master/player/"
+  "player": "https://github.com/jupiterjs/playermx/tree/master/player/",
+  "contacts": "https://github.com/jupiterjs/contacts/tree/master/contacts/"
 }

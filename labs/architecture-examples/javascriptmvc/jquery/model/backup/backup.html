@@ -27,13 +27,19 @@
         src='../../../steal/steal.js'>   
 </script>
 <script type='text/javascript'>
-steal.plugins('jquery/model',
+steal('jquery/model',
 		'jquery/dom/fixture',
 		'jquery/model/list',
-		'jquery/model/backup').start()
-</script>
-<script type='text/javascript'>  
-$.Model.extend("Contact",{
+		'jquery/model/backup').then(function(){
+			
+			$.fixture("/recipes.json", function(orig, settings, headers){
+				return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
+						 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
+						 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
+			});			
+
+			
+$.Model("Contact",{
 	attributes : { 
 		birthday : 'date'
 	},
@@ -50,15 +56,7 @@ $.Model.extend("Contact",{
 		}
 	},
 	findAll : function(params, success, error){
-		$.get("/recipes.json",
-			{},
-			this.callback(['wrapMany',success]),
-			"json",
-			function(){
-				return [[{'id': 1,'name' : 'Justin Meyer','birthday': '1982-10-20'},
-					 {'id': 2,'name' : 'Brian Moschel','birthday': '1983-11-10'},
-					 {'id': 3,'name' : 'Alex Gomes','birthday': '1980-2-10'}]];
-			})
+		return $.get("/recipes.json", {}, success, "json contact.models");
 	},
 	update : function(id, attrs, success, error){
 		$.post("/recipes.json",{},success,'json',function(){
@@ -90,8 +88,6 @@ makeAgeUpdater = function(contact){
 $('#contacts').delegate("li","click", function(){
 	 makeAgeUpdater( $(this).closest('.contact').model() );
   });
-</script>
-<script type='text/javascript'>   
 Contact.findAll({},function(contacts){
   var contactsEl = $('#contacts');
   $.each(contacts, function(i, contact){
@@ -121,6 +117,7 @@ Contact.findAll({},function(contacts){
 	})
   })
 });
+})
 </script>
 	</body>
 </html>

@@ -6,10 +6,10 @@ if (_args.length < 1) {
 	quit();
 }
 
-load('steal/rhino/steal.js');
+load('steal/rhino/rhino.js');
 
-steal(	'//steal/generate/generate',
-		'//steal/generate/system',	
+steal(	'steal/generate',
+		'steal/generate/system.js',	
 function(steal){
 	var upper = function(parts){
 		for(var i =0; i < parts.length; i++){
@@ -27,7 +27,8 @@ function(steal){
 	}
 	
 	var md = steal.generate.convert(_args[0]),
-		path =  _args[0].toLowerCase().replace('.',"/");
+		path =  _args[0].toLowerCase().replace(/\./g,"/");
+
 	md.path_to_steal = new steal.File(path).pathToRoot()
 	steal.generate("jquery/generate/templates/controller",md.path+"/"+md.underscore,md)
 	

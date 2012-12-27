@@ -1,4 +1,4 @@
-steal.plugins('funcunit','funcunit/syn').then(function(){
+steal('funcunit','funcunit/syn').then(function(){
 	
 module("jquery/event/drop");
 

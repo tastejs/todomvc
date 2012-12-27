@@ -51,11 +51,7 @@
 		
 		<script type='text/javascript' 
                 src='../../steal/steal.js'>   
-        </script>
-		<script type='text/javascript'>
-			steal.plugins('jquery/model','jquery/tie','mxui/slider').start()
-		</script>
-		<script type='text/javascript'>
+			steal('jquery/model','jquery/tie','mxui/slider').then(function(){
 			
 			$.Model.extend("Person",{
 				init : function(){
@@ -112,6 +108,7 @@
 			$("#age1").mxui_slider({interval: 1, min: 1, max: 10});
 			$("#rating").rating();
 			$("#age1, #age2, #age3, #age4, #rating").tie(person,"age")
+			})
 		</script>
 	</body>
 </html>

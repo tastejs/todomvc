@@ -1,4 +1,4 @@
-steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').then(function( $ ) {
+steal('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack',function( $ ) {
 	//modify live
 	//steal the live handler ....
 	var bind = function( object, method ) {
@@ -46,12 +46,12 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 	 * Here's a quick example:
 	 * 
 	 *     //makes the drag vertical
-	 *     $(".drags").live("draginit", function(event, drag){
+	 *     $(".drags").delegate("draginit", function(event, drag){
 	 *       drag.vertical();
 	 *     })
 	 *     //gets the position of the drag and uses that to set the width
 	 *     //of an element
-	 *     $(".resize").live("dragmove",function(event, drag){
+	 *     $(".resize").delegate("dragmove",function(event, drag){
 	 *       $(this).width(drag.position.left() - $(this).offset().left   )
 	 *     })
 	 * 
@@ -104,17 +104,17 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 			//ev.preventDefault();
 			//create Drag
 			var drag = new $.Drag(),
-				delegate = ev.liveFired || element,
+				delegate = ev.delegateTarget || element,
 				selector = ev.handleObj.selector,
 				self = this;
 			this.current = drag;
 
 			drag.setup({
 				element: element,
-				delegate: ev.liveFired || element,
+				delegate: ev.delegateTarget || element,
 				selector: ev.handleObj.selector,
 				moved: false,
-				distance: this.distance,
+				_distance: this.distance,
 				callbacks: {
 					dragdown: event.find(delegate, ["dragdown"], selector),
 					draginit: event.find(delegate, ["draginit"], selector),
@@ -146,6 +146,8 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 			this._mouseup = mouseup;
 			this._distance = options.distance ? options.distance : 0;
 			
+			this.mouseStartPosition = ev.vector(); //where the mouse is located
+			
 			$(document).bind('mousemove', mousemove);
 			$(document).bind('mouseup', mouseup);
 
@@ -171,7 +173,7 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 		},
 		mousemove: function( docEl, ev ) {
 			if (!this.moved ) {
-				var dist = Math.pow( ev.pageX - this.event.pageX, 2 ) + Math.pow( ev.pageY - this.event.pageY, 2 );
+				var dist = Math.sqrt( Math.pow( ev.pageX - this.event.pageX, 2 ) + Math.pow( ev.pageY - this.event.pageY, 2 ));
 				if(dist < this._distance){
 					return false;
 				}
@@ -243,7 +245,7 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 			//if a mousemove has come after the click
 			this._cancelled = false; //if the drag has been cancelled
 			this.event = event;
-			this.mouseStartPosition = event.vector(); //where the mouse is located
+			
 			/**
 			 * @attribute mouseElementPosition
 			 * The position of start of the cursor on the element
@@ -442,7 +444,9 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 			var ghost = this.movingElement.clone().css('position', 'absolute');
 			(loc ? $(loc) : this.movingElement).after(ghost);
 			ghost.width(this.movingElement.width()).height(this.movingElement.height());
-
+			// put the ghost in the right location ...
+			ghost.offset(this.movingElement.offset())
+			
 			// store the original element and make the ghost the dragged element
 			this.movingElement = ghost;
 			this.noSelection(ghost)
@@ -482,21 +486,22 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 		 */
 		revert: function( val ) {
 			this._revert = val === undefined ? true : val;
+			return this;
 		},
 		/**
 		 * Isolates the drag to vertical movement.
 		 */
 		vertical: function() {
 			this._vertical = true;
+			return this;
 		},
 		/**
 		 * Isolates the drag to horizontal movement.
 		 */
 		horizontal: function() {
 			this._horizontal = true;
+			return true;
 		},
-
-
 		/**
 		 * Respondables will not be alerted to this drag.
 		 */
@@ -533,7 +538,7 @@ steal.plugins('jquery/event', 'jquery/lang/vector', 'jquery/event/livehack').the
 	 * within the drag element.  Typically these are input elements.</p>
 	 * <p>Drag events are covered in more detail in [jQuery.Drag].</p>
 	 * @codestart
-	 * $(".handles").live("dragdown", function(ev, drag){})
+	 * $(".handles").delegate("dragdown", function(ev, drag){})
 	 * @codeend
 	 */
 	'dragdown',

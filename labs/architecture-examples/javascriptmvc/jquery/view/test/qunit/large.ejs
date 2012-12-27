@@ -173,7 +173,7 @@ wrapMany into the success handler and make our code even shorter:</p>
 <pre><code>  findAll : function(params, success, error){
     $.get('/contacts.json',
     params, 
-    this.callback(['wrapMany', success]),
+    this.proxy(['wrapMany', success]),
     'json')
   }
 </code></pre>

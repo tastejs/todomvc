@@ -1,8 +1,12 @@
 // lets you know if your JS sucks and will try to clean it for you
 // using with jslint: js steal/cleanjs path/to/file -jslint
 
-steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint','//steal/rhino/prompt', function(steal){
-	var lintAndPrint = function(out, predefined){
+steal('steal/build').then('steal/clean/beautify.js','steal/clean/jslint.js','steal/rhino/prompt.js', function(steal){
+	var extend = function( d, s ) {
+			for ( var p in s ) d[p] = s[p];
+			return d;
+		},
+		lintAndPrint = function(out, predefined){
 		
 
 		JSLINT(out,{devel: true, forin: true, browser: true, windows: true, rhino: true, predefined : predefined});
@@ -81,7 +85,7 @@ steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint
 	 * <h2>Ignoring Files</h2>
 	 * To ignore a file from your application, mark it as clean with a comment like:
 	 * @codestart
-	 * //@steal-clean
+	 * //!steal-clean
 	 * @codeend
 	 * <h2>The steal.clean function</h2>
 	 * <p>Takes a relative path to a file on the filesystem;
@@ -93,7 +97,7 @@ steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint
 	 * 
 	 */
 	steal.clean = function(url, options){
-		options = steal.extend(
+		options = extend(
 			{indent_size: 1, 
 			 indent_char: '\t', 
 			 space_statement_expression: true,
@@ -111,7 +115,7 @@ steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint
 		//if it ends with js, just rewwrite
 		if(/\.js/.test(url)){
 			var text = readFile(url);
-			steal.print('Beautifying '+url)
+			print('Beautifying '+url)
 			var out = js_beautify(text, options);
 			if(options.print){
 				print(out)
@@ -127,36 +131,21 @@ steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint
 			}
 		}else{
 			var folder = steal.File(url).dir(),
-				clean = /\/\/@steal-clean/
+				clean = /\/\/!steal-clean/
 			//folder
 			
-			steal.build.open(url).each(function(script, text, i){
-				if(!text || !script.src){
-					return;
-				}
-				var path = steal.File(script.src).joinFrom(folder).replace(/\?.*/,"")
-				if(clean.test(text) || (options.ignore && options.ignore.test(path) ) ){
-					print("I "+path)
-				}else{
-					var out = js_beautify(text, options);
-					if(out == text){
-						print("C "+path);
-						if(options.jslint){
-							var errors = lintAndPrint(out, options.predefined || {});
-							if(errors){
-								print("quiting because of JSLint Errors");
-								quit();
-							}
-						}
-						
+			steal.build.open(url, function(files){
+				files.each(function(script, text, i){
+					if(!text || !script.src){
+						return;
+					}
+					var path = steal.File(script.src).joinFrom(folder).replace(/\?.*/,"")
+					if(clean.test(text) || (options.ignore && options.ignore.test(path) ) ){
+						print("I "+path)
 					}else{
-						if(steal.prompt.yesno("B "+path+" Overwrite? [Yn]")){
-							if(options.print){
-								print(out)
-							}else{
-								steal.File(path).save( out  )
-							}
-							
+						var out = js_beautify(text, options);
+						if(out == text){
+							print("C "+path);
 							if(options.jslint){
 								var errors = lintAndPrint(out, options.predefined || {});
 								if(errors){
@@ -164,19 +153,29 @@ steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint
 									quit();
 								}
 							}
-						}
+						
+						}else{
+							if(steal.prompt.yesno("B "+path+" Overwrite? [Yn]")){
+								if(options.print){
+									print(out)
+								}else{
+									steal.File(path).save( out  )
+								}
+							
+								if(options.jslint){
+									var errors = lintAndPrint(out, options.predefined || {});
+									if(errors){
+										print("quiting because of JSLint Errors");
+										quit();
+									}
+								}
+							}
 	
-					}
+						}
 					
-				}
+					}
+				})
 			});
 		}
-		
-		
-		
-		
 	};
-	
-
-  
 });

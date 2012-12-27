@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>PureMVC • TodoMVC</title>
+		<link rel="stylesheet" href="../../../assets/base.css">
+		<!--[if IE]>
+			<script src="assets/ie.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<section id="main">
+				<input id="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+				</ul>
+			</section>
+			<footer id="footer">
+				<span id="todo-count"><strong>1</strong> item left</span>
+				<ul id="filters">
+					<li>
+						<a id="filterAll" class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a id="filterActive" href="#/active">Active</a>
+					</li>
+					<li>
+						<a id="filterCompleted" href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<button id="clear-completed">Clear completed (1)</button>
+			</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://puremvc.org">Mike Britton and Cliff Hall for the PureMVC Project</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<!-- TODOMVC PROJECT BASE -->
+		<script src="../../../assets/base.js"></script>
+
+		<!-- FLATIRION DIRECTOR ROUTING LIBRARY -->
+		<script src="../../../assets/director.min.js"></script>
+
+		<!-- PUREMVC LIBRARY -->
+		<script src="js/lib/puremvc.min.js"></script>
+
+		<!-- APPLICATION CONSTANTS -->
+		<script src="js/AppConstants.js"></script>
+
+		<!-- PROXIES -->
+		<script src="js/model/proxy/TodoProxy.js"></script>
+
+		<!-- EVENTS -->
+		<script src="js/view/event/AppEvents.js"></script>
+
+		<!-- VIEW COMPONENTS -->
+		<script src="js/view/component/TodoForm.js"></script>
+
+		<!-- MEDIATORS -->
+		<script src="js/view/mediator/RoutesMediator.js"></script>
+		<script src="js/view/mediator/TodoFormMediator.js"></script>
+
+		<!-- COMMANDS -->
+		<script src="js/controller/command/StartupCommand.js"></script>
+		<script src="js/controller/command/PrepControllerCommand.js"></script>
+		<script src="js/controller/command/PrepModelCommand.js"></script>
+		<script src="js/controller/command/PrepViewCommand.js"></script>
+		<script src="js/controller/command/TodoCommand.js"></script>
+
+		<!-- APPLICATION -->
+		<script src="js/app.js"></script>
+
+		<!-- START THE APPLICATION -->
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var app = new todomvc.Application();
+		});
+		</script>
+	</body>
+</html>

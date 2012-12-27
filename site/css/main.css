@@ -145,7 +145,7 @@ header nav a:first-child {
 	position: relative; /* popover */
 }
 
-.applist li[data-routing]:after {
+.applist .routing::after {
 	content: 'R';
 	position: relative;
 	top: -3px;
@@ -159,6 +159,10 @@ header nav a:first-child {
 	vertical-align: middle;
 	white-space: nowrap;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.applist .labs a{
+	color:#666;
 }
 
 .applist .label,

@@ -30,33 +30,37 @@
 		<pre id='info'></pre>
 		</div>
 		<script type='text/javascript' 
-                src='../../../steal/steal.js?jquery/dom/range'>   
+                src='../../../steal/steal.js'>   
 			
         </script>
 		<script type='text/javascript'>
-			var curStart = $(),
-				curEnd = $(),
-				curParent = $(),
-				htmlEl = function(el){
-					return el.nodeType === 3 || el.nodeType === 4 ?
-						el.parentNode : el;
-				};
-			$('body').mouseup(function(){
-				var range = $.Range.current();
-				var start = range.start(),
-					end = range.end();
-				curStart.removeClass('start');
-				curEnd.removeClass('end');
-				curParent.removeClass('parent')
-				var starter = htmlEl(start.container);
-				var ender = htmlEl(end.container),
-					parenter = range.parent();
+			steal('jquery/dom/range', function(){
+				var curStart = $(),
+					curEnd = $(),
+					curParent = $(),
+					htmlEl = function(el){
+						return el.nodeType === 3 || el.nodeType === 4 ?
+							el.parentNode : el;
+					};
+				$('body').mouseup(function(){
+					var range = $.Range.current();
+					var start = range.start(),
+						end = range.end();
+					curStart.removeClass('start');
+					curEnd.removeClass('end');
+					curParent.removeClass('parent')
+					var starter = htmlEl(start.container);
+					var ender = htmlEl(end.container),
+						parenter = range.parent();
+					
+					curStart = $(starter).addClass('start');
+					curEnd = $(ender).addClass('end');
+					curParent = $(parenter).addClass('parent')
+					$("#info").html("startOffset = "+start.offset+"\nendOffset = "+end.offset)
+				})
 				
-				curStart = $(starter).addClass('start');
-				curEnd = $(ender).addClass('end');
-				curParent = $(parenter).addClass('parent')
-				$("#info").html("startOffset = "+start.offset+"\nendOffset = "+end.offset)
 			})
+			
 		</script>
 	</body>
 </html>

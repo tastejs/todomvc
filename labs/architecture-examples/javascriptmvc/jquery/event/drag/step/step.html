@@ -44,10 +44,9 @@
 	<div id='handle4' class='handle'>horizontal vertical</div>
 </div>
 </div>
-		<script type='text/javascript' 
-                src='../../../../steal/steal.js?jquery/event/drag/step'>   
-        </script>
-<script type='text/javascript' id='demo-source'>
+<script type='text/javascript' 
+        src='../../../../steal/steal.js?jquery/event/drag/step'
+		id='demo-source'>
 $("#ondoc")
   .delegate('#handle',"draginit", function(ev, drag){
 	drag.step(40,$("#ondoc"))
@@ -60,7 +59,7 @@ $("#ondoc")
   })
   .delegate('#handle4',"draginit", function(ev, drag){
 	drag.step(40,$("#ondoc"),"xy")
-  })
+  });		   
 </script>
 		
 		

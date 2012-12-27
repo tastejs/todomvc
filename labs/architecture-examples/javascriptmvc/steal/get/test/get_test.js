@@ -1,18 +1,18 @@
-load('steal/rhino/steal.js')
+load('steal/rhino/rhino.js')
 load('steal/rhino/test.js');
 
-steal('//steal/get/get',function(rhinoSteal){
+steal('steal/get',function(rhinoSteal){
 	var _S = steal.test;
 	
 	_S
 	
 	_S.module("steal/get")
-	// STEALPRINT = false;
+	STEALPRINT = false;
 	
 	_S.test("pluginList", function(t){
 		var url = rhinoSteal.get.url("mxui/util/selectable");
 		
-		t.equals(url, "http://github.com/jupiterjs/mxui/tree/master/util/selectable/", "Right url")
+		t.equals(url, "https://github.com/jupiterjs/mxui/tree/master/util/selectable/", "Right url")
 	});
 	
 	
@@ -23,33 +23,32 @@ steal('//steal/get/get',function(rhinoSteal){
 		t.equals(results.plugins.length, 4, "has other plugins")
 	});
 	
-	
-	_S.test("installDependency", function(t){
-		rhinoSteal.File("jqueryui").removeDir();
-		//t.equals( rhinoSteal.get.installDependency("jquery/controller") , false, "exists" );
-		t.equals( rhinoSteal.get.installDependency("jqueryui/draggable") , true, "doesn't exist" );
-		
-		
-	});
-	
-	_S.test("root repo" , function(t){
-		
-		rhinoSteal.get('ss/router',{});
-		
-		var license = readFile("ss/router/LICENSE");
-		
-		t.ok(license, "ss downloaded");
-		rhinoSteal.File("ss").removeDir();
-	});
-	
-	_S.test("deep repo" , function(t){		
-		rhinoSteal.get('srchr',{});
-		
-		var srchr = readFile("srchr/srchr.html");
-		
-		t.ok(srchr, "srchr downloaded");
-		rhinoSteal.File("srchr").removeDir();
-	});
+//	_S.test("installDependency", function(t){
+//		rhinoSteal.File("jqueryui").removeDir();
+//		//t.equals( rhinoSteal.get.installDependency("jquery/controller") , false, "exists" );
+//		t.equals( rhinoSteal.get.installDependency("jqueryui/draggable") , true, "doesn't exist" );
+//		
+//		
+//	});
+//	
+//	_S.test("root repo" , function(t){
+//		
+//		rhinoSteal.get('ss/router',{});
+//		
+//		var license = readFile("ss/router/LICENSE");
+//		
+//		t.ok(license, "ss downloaded");
+//		rhinoSteal.File("ss").removeDir();
+//	});
+//	
+//	_S.test("deep repo" , function(t){		
+//		rhinoSteal.get('srchr',{});
+//		
+//		var srchr = readFile("srchr/srchr.html");
+//		
+//		t.ok(srchr, "srchr downloaded");
+//		rhinoSteal.File("srchr").removeDir();
+//	});
 	
 	
 	var G = steal.get;
@@ -84,7 +83,7 @@ steal('//steal/get/get',function(rhinoSteal){
 		raw = G.git.raw("https://github.com/jupiterjs/funcunit")
 		t.equals(raw.indexOf("https://github.com/api/v2/json/tree/show/jupiterjs/funcunit/"), 0, "root");
 		
-		raw = G.git.raw("https://github.com/jupiterjs/funcunit/tree/2.0")
+		raw = G.git.raw("https://github.com/jupiterjs/funcunit/tree/v3.2.1")
 		t.equals(raw.indexOf("https://github.com/api/v2/json/tree/show/jupiterjs/funcunit/"), 0, "root");
 		
 	});

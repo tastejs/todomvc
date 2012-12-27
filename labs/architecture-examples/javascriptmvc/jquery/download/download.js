@@ -84,10 +84,12 @@
 				return [name];
 			}
 		 	for(i=0; i<dependencies.length; i++){
-				lowerDependencies = this._getDependencies(dependencies[i]);
-				for (j = 0; j < lowerDependencies.length; j++) {
-					// TODO if you find a duplicate, remove the other one first
-					totalDependencies.push(lowerDependencies[j])
+		 		if(dependencies[i] !== name) {
+					lowerDependencies = this._getDependencies(dependencies[i]);
+					for (j = 0; j < lowerDependencies.length; j++) {
+						// TODO if you find a duplicate, remove the other one first
+						totalDependencies.push(lowerDependencies[j])
+					}
 				}
 			}
 			totalDependencies.push(name)

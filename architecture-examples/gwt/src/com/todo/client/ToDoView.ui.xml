@@ -23,7 +23,7 @@
 				<span id="todo-count">
 					<strong class="number" ui:field="remainingTasksCount"></strong>
 					<span class="word" ui:field="remainingTasksLabel"></span>
-					left.
+					left
 				</span>
 				<g:Button ui:field="clearCompleted">
 					Clear completed (<span class="number-done" ui:field="clearTasksCount"></span>)
@@ -33,7 +33,6 @@
 
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
-			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
 			<p>Created by <a href="http://www.scottlogic.co.uk/blog/colin/">Colin Eberhardt</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>

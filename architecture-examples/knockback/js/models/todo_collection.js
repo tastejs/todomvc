@@ -32,16 +32,14 @@
     };
 
     TodoCollection.prototype.destroyCompleted = function() {
-      var completed_tasks, model, _i, _len, _results;
+      var completed_tasks, model, _i, _len;
       completed_tasks = this.filter(function(todo) {
         return todo.completed();
       });
-      _results = [];
       for (_i = 0, _len = completed_tasks.length; _i < _len; _i++) {
         model = completed_tasks[_i];
-        _results.push(model.destroy());
+        model.destroy();
       }
-      return _results;
     };
 
     return TodoCollection;

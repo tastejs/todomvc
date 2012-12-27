@@ -45,4 +45,4 @@ steal(function( steal ) {
 		}
 		return results;
 	}
-})
+});

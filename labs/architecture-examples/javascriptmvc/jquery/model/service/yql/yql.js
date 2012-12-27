@@ -1,4 +1,4 @@
-steal.plugins('jquery/model/service').then(function(){
+steal('jquery/model/service').then(function(){
 	
 	$.Model.service.yql = $.Model.service({
 		select : "*",

@@ -1,2 +1,4 @@
 order(2);
-steal('../three')
+inserter("three.js", function(){
+	console.log("three")
+})

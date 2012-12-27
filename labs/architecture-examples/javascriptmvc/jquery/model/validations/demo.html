@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<title>Model Validations Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            li {border: solid 1px gray; padding: 5px; width: 250px;}
+			li a {color: red; font-weight: bold;}
+			p {width: 400px;}
+        </style>
+	</head>
+	<body>
+<form>
+	
+</form>
+</div>
+<script type='text/javascript' 
+        src='../../../steal/steal.js'>   
+</script>
+<script type='text/javascript'  id="demo-source">   
+steal('jquery/model',
+		'jquery/dom/fixture',
+		'jquery/model/list',
+		'jquery/model/validations',
+		'jquery/controller').then(function(){
+
+$.Model("Contact",{
+	init : function(){
+		this.validate("birthday",function(bday){
+			if(!bday){
+				return "you must provide a birthday";
+			}
+			if(bday > new Date){
+				return "your birthday needs to be in the past";
+			}
+		})
+	},
+	attributes : { 
+		birthday : 'date'
+	},
+	convert: {
+		date: function(raw, error){
+			if (typeof raw == 'string') {
+				var matches = raw.match(/(\d+)-(\d+)-(\d+)/)
+				return matches ? new Date(+matches[1], (+matches[2]) - 1, +matches[3])
+					: null;
+			}
+			else if (raw instanceof Date) {
+				return raw;
+			}
+		}
+	},
+	serialize : {
+		date :  function(){
+			
+		}
+	}
+},{
+	ageThisYear : function(){
+		return new Date().getFullYear() - 
+		      this.birthday.getFullYear()
+	},
+	getBirthday : function(){
+		return ""+this.birthday.getFullYear()+
+			"-"+(this.birthday.getMonth()+1)+
+			"-"+this.birthday.getDate();
+	}
+
+});
+
+$.Controller("ErrorReport",
+{
+	defaults : {
+		model : null,
+		attr: null
+	}
+},{
+	init : function(){
+		this.toggle();
+	},
+	// listen to a attr be successfully set
+	"{model} {attr}" : function(){
+		this.toggle();
+	},
+	// listen to a change that produces an error
+	"{model} error.{attr}" : function(){
+		this.toggle();
+	},
+	toggle : function(){
+		var errors = this.options.model.errors(this.options.attr)
+		if(errors){
+			this.element.html(errors[0]).fadeIn()
+		} else {
+			this.element.hide()
+		}
+	}
+});
+
+})
+
+
+</script>
+	</body>
+</html>

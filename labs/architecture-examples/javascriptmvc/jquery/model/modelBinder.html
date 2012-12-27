@@ -44,10 +44,10 @@
 <script type='text/javascript' 
         src='../../steal/steal.js'>   
 </script>
-<script type='text/javascript'>
-	steal.plugins('jquery/model','mxui/slider').start()
-</script>
+
 <script type='text/javascript'>   
+steal('jquery/model','mxui/slider').then(function(){
+
 	$.fn.hookup = function(inst, attr, type){
 		
 		inst.bind(attr, {jQ : this},function(ev, val){
@@ -75,7 +75,7 @@
 	
 	
 	
-	$.Model.extend("Person",{},{});
+	$.Model("Person",{},{});
 	
 	var person = new Person({age: 1})
 	
@@ -86,7 +86,7 @@
 	$('#value, #foo, #bar').hookup(person,"age");
 	
 	
-	
+});
 </script>
 	</body>
 </html>

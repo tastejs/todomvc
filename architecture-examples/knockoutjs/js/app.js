@@ -1,4 +1,4 @@
-/*global ko, crossroads */
+/*global ko */
 (function() {
 	'use strict';
 

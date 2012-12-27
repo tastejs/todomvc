@@ -1,5 +1,5 @@
 steal
-  .plugins("funcunit/qunit", "jquery/tie",'jquery/model')
+  .then("funcunit/qunit", "jquery/tie",'jquery/model')
   .then(function(){
   	
 	

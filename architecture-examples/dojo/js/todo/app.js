@@ -129,7 +129,7 @@ define(["dojo/_base/declare",
 
         /**
          * Event fired when user selects the "Mark All" checkbox.
-         * Update selection state of all the todos based upon current
+         * Update selection state of all the todos based upon current 
          * checked value.
          */
         onMarkAll: function () {

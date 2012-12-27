@@ -1,19 +1,20 @@
-steal.plugins('jquery/controller').then(function($){
+steal( 'jquery/controller','jquery/view/ejs' )
+	.then( './views/init.ejs', function($){
 
 /**
  * @class <%= name %>
  */
 $.Controller('<%= name %>',
-/* @Static */
+/** @Static */
 {
-	defaults : {
-	
-	}
+	defaults : {}
 },
-/* @Prototype */
+/** @Prototype */
 {
 	init : function(){
-		this.element.html("Hello World!");
+		this.element.html("//<%= path %>/<%= underscore %>/views/init.ejs",{
+			message: "Hello World"
+		});
 	}
 })
 

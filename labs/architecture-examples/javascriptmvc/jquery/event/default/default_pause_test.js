@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','jquery/event/default','jquery/event/pause').then(function(){
+steal('funcunit/qunit','jquery/event/default','jquery/event/pause').then(function(){
 
 module("jquery/event/default_pause");
 
@@ -15,6 +15,7 @@ test("default and pause with delegate", function(){
 	$("#foo").delegate("#bar","show", function(ev){
 		order.push('show')
 		ev.pause();
+		
 		setTimeout(function(){
 			ev.resume();
 			
@@ -69,6 +70,7 @@ test("triggerAsync", function(){
 	$("#foo").live("default.show", function(){
 		order.push("default")
 	});
+	
 	$("#foo").live("show", function(ev){
 		order.push('show')
 		ev.pause();

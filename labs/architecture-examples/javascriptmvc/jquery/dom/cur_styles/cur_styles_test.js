@@ -1,6 +1,5 @@
-steal
- .plugins("jquery/dom/dimensions",'jquery/view/micro')  //load your app
- .plugins('funcunit/qunit').then(function(){
+steal("jquery/dom/dimensions",'jquery/view/micro')  //load your app
+ .then('funcunit/qunit').then(function(){
 
 module("jquery/dom/curStyles");
 

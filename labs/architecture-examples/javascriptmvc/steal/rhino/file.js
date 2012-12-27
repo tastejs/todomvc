@@ -1,7 +1,10 @@
 ;
 (function( steal ) {
 
-	var extend = steal.extend;
+	var extend = function( d, s ) {
+		for ( var p in s ) d[p] = s[p];
+		return d;
+	};
 
 	if (!steal.File ) {
 		steal.File = function( path ) {
@@ -11,6 +14,7 @@
 			this.path = path;
 		}
 	}
+	
 	var copy = function( jFile1, jFile2 ) {
 		var fin = new java.io.FileInputStream(jFile1);
 		var fout = new java.io.FileOutputStream(jFile2);
@@ -72,9 +76,6 @@
 			var http = this.path.match(/^(?:https?:\/\/)([^\/]*)/);
 			return http ? http[1] : null;
 		},
-		protocol: function() {
-			return this.path.match(/^(https?:|file:)/)[1]
-		},
 		/**
 		 * Joins url onto path
 		 * @param {Object} url
@@ -93,7 +94,7 @@
 		 */
 		joinFrom: function( url, expand ) {
 			if ( this.isDomainAbsolute() ) {
-				var u = new File(url);
+				var u = new steal.File(url);
 				if ( this.domain() && this.domain() == u.domain() ) return this.afterDomain();
 				else if ( this.domain() == u.domain() ) { // we are from a file
 					return this.toReferenceFromSameDomain(url);
@@ -101,7 +102,7 @@
 			} else if ( url == steal.pageDir && !expand ) {
 				return this.path;
 			} else if ( this.isLocalAbsolute() ) {
-				var u = new File(url);
+				var u = new steal.File(url);
 				if (!u.domain() ) return this.path;
 				return u.protocol() + "//" + u.domain() + this.path;
 			}
@@ -131,6 +132,9 @@
 		 */
 		after_domain: function() {
 			return this.path.match(/(?:https?:\/\/[^\/]*)(.*)/)[1];
+		},
+		afterDomain: function() {
+			return this.path.match(/https?:\/\/[^\/]*(.*)/)[1];
 		},
 		/**
 		 * 
@@ -201,6 +205,9 @@
 			copy(me, you)
 			return this;
 		},
+		moveTo: function(dest){
+			return new java.io.File(this.path).renameTo(new java.io.File(dest));
+		},
 		setExecutable: function(){
 			var me = new java.io.File(this.path)
 			me.setExecutable(true);
@@ -237,6 +244,10 @@
 		remove: function() {
 			var file = new java.io.File(this.path);
 			file["delete"]();
+		},
+		isFile: function() {
+			var file = new java.io.File(this.path);
+			return file.isFile();
 		},
 		removeDir: function() {
 			var me = new java.io.File(this.path)
@@ -300,6 +311,7 @@
 			if (!isFile ) {
 				myFolders.push('..')
 			}
+
 			return myFolders.join("/")
 		}
 	});
@@ -329,5 +341,78 @@
 	steal.File.cwd = function() {
 		return String(new java.io.File('').getAbsoluteFile().toString());
 	}
+	
+	var isArray = function( arr ) {
+		return Object.prototype.toString.call(arr) === "[object Array]"
+	}
+	
+	/**
+	 * Converts args or a string into options
+	 * @param {Object} args
+	 * @param {Object} options something like 
+	 * {
+	 * name : {
+	 * 	shortcut : "-n",
+	 * 	args: ["first","second"]
+	 * },
+	 * other : 1
+	 * }
+	 */
+	steal.opts = function( args, options ) {
+		if ( typeof args == 'string' ) {
+			args = args.split(' ')
+		}
+		if (!isArray(args) ) {
+			return args
+		}
+
+		var opts = {};
+		//normalizes options
+		(function() {
+			var name, val, helper
+			for ( name in options ) {
+				val = options[name];
+				if ( isArray(val) || typeof val == 'number' ) {
+					options[name] = {
+						args: val
+					};
+				}
+				options[name].name = name;
+				//move helper
+				helper = options[name].helper || name.substr(0, 1);
+
+				options[helper] = options[name]
+			}
+		})();
+		var latest, def;
+		for ( var i = 0; i < args.length; i++ ) {
+			if ( args[i].indexOf('-') == 0 && (def = options[args[i].substr(1)]) ) {
+				latest = def.name;
+				opts[latest] = true;
+				//opts[latest] = []
+			} else {
+				if ( opts[latest] === true ) {
+					opts[latest] = args[i]
+				} else {
+					if (!isArray(opts[latest]) ) {
+						opts[latest] = [opts[latest]]
+					}
+					opts[latest].push(args[i])
+				}
+
+			}
+		}
+
+		return opts;
+	}
+	
+	// a way to turn off printing (mostly for testing purposes)
+	steal.print = function(){
+
+		if(typeof STEALPRINT == "undefined" || STEALPRINT !== false){
+			print.apply(null, arguments)
+		}
+	}
+	
 
 })(steal);

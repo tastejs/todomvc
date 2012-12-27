@@ -3,7 +3,7 @@
  * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true.
  */
 define(['app'], function ( app ) {
-  app.directive('todoFocus', function( $timeout ) {
+  app.directive('todoFocus', ['$timeout', function( $timeout ) {
     return function( scope, elem, attrs ) {
       scope.$watch(attrs.todoFocus, function( newval ) {
         if ( newval ) {
@@ -13,5 +13,5 @@ define(['app'], function ( app ) {
         }
       });
     };
-  });
+  }]);
 });

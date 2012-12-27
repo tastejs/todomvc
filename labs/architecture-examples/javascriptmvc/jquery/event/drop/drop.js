@@ -1,8 +1,5 @@
-steal.plugins('jquery/event/drag','jquery/dom/within','jquery/dom/compare').then(function($){
-	var event = $.event, 
-		callHanders = function(){
-			
-		};
+steal('jquery/event/drag','jquery/dom/within','jquery/dom/compare',function($){
+	var event = $.event;
 	//somehow need to keep track of elements with selectors on them.  When element is removed, somehow we need to know that
 	//
 	/**
@@ -72,7 +69,7 @@ steal.plugins('jquery/event/drag','jquery/dom/within','jquery/dom/compare').then
 	 * <h2>Examples</h2>
 	 * Here's how to listen for when a drag moves over a drop:
 	 * @codestart
-	 * $('.drop').live("dropover", function(ev, drop, drag){
+	 * $('.drop').delegate("dropover", function(ev, drop, drag){
 	 *   $(this).addClass("drop-over")
 	 * })
 	 * @codeend
@@ -368,10 +365,11 @@ steal.plugins('jquery/event/drag','jquery/dom/within','jquery/dom/compare').then
 			}
 		},
 		end: function( event, moveable ) {
-			var responder, la, endName = this.lowerName+'end';
-			for(var r =0; r<this._elements.length; r++){
-				$.data(this._elements[r],"_dropData").callHandlers(endName, null, event, moveable);
-			}
+			var responder, la, 
+				endName = this.lowerName+'end',
+				dropData;
+			
+			// call dropon
 			//go through the actives ... if you are over one, call dropped on it
 			for(var i = 0; i < this.last_active.length; i++){
 				la = this.last_active[i]
@@ -379,8 +377,12 @@ steal.plugins('jquery/event/drag','jquery/dom/within','jquery/dom/compare').then
 					la.callHandlers(this.endName, null, event, moveable);
 				}
 			}
-			
-			
+			// call dropend
+			for(var r =0; r<this._elements.length; r++){
+				dropData = $.data(this._elements[r],"_dropData");
+				dropData && dropData.callHandlers(endName, null, event, moveable);
+			}
+
 			this.clear();
 		},
 		/**

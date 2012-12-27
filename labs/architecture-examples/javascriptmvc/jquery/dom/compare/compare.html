@@ -60,29 +60,31 @@
 </table>
 
 		<script type='text/javascript' 
-                src='../../../steal/steal.js?jquery/dom/compare/compare.js'>   
+                src='../../../steal/steal.js'>   
         </script>
 <script id="demo-source" type='text/javascript'>
-var placing = 'red'
-//on click, set red and green and compare positions
-$('div').click(function(ev){
-  var next = placing == 'red' ? 'green' : 'red';
-  $('.'+placing).removeClass(placing)
-  $(this).addClass(placing) 
-  placing = next
-  ev.stopPropagation();
-  //don't worry about repeat queries for simple example
-  if($('.green').length){
-    $("#result").text(  $('.red').compare($('.green')) )
-  }
-})
-</script>
-<script type='text/javascript'>
+steal('jquery/dom/compare').then(function(){
+	var placing = 'red'
+	//on click, set red and green and compare positions
+	$('div').click(function(ev){
+	  var next = placing == 'red' ? 'green' : 'red';
+	  $('.'+placing).removeClass(placing)
+	  $(this).addClass(placing) 
+	  placing = next
+	  ev.stopPropagation();
+	  //don't worry about repeat queries for simple example
+	  if($('.green').length){
+	    $("#result").text(  $('.red').compare($('.green')) )
+	  }
+	})
+	
 	$(function(){
 		if(window.parent == window){
 			$('.hide').show()
 		}
 	})
+})
+
 </script>
 	</body>
 </html>

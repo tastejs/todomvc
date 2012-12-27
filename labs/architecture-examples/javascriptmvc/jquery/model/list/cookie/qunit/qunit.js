@@ -1,4 +1,4 @@
-steal.plugins('funcunit/qunit','jquery/model/list/cookie').then(function($){
+steal('funcunit/qunit','jquery/model/list/cookie').then(function($){
 	
 module("jquery/model/list/cookie",{
 	setup: function(){
