@@ -79,7 +79,7 @@ class TodoApp extends Spine.Controller
 		text = (count) -> if count is 1 then 'item' else 'items'
 		active = Todo.active().length
 		completed = Todo.completed().length
-		@count.html "<b>#{ active }</b> #{ text active } left"
+		@count.html "<strong>#{ active }</strong> #{ text active } left"
 		@clearCompleted.text "Clear completed (#{ completed })"
 
 
