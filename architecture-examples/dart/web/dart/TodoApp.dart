@@ -99,7 +99,7 @@ class TodoApp {
 		}
 		checkAllCheckboxElement.checked = (complete == todoWidgets.length);
 		var left = todoWidgets.length - complete;
-		countElement.innerHtml = '<b>${left}</b> item${left != 1 ? 's' : ''} left';
+		countElement.innerHtml = '<strong>${left}</strong> item${left != 1 ? 's' : ''} left';
 		if (complete == 0) {
 			clearCompletedElement.style.display = 'none';
 		} else {
