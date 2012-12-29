@@ -20,7 +20,7 @@ maria.SetView.subclass(checkit, 'TodosAppView', {
             
             var incompletedLength = model.getIncompleted().length;
             this.find('#todo-count').innerHTML =
-                '<b>' + incompletedLength + '</b> ' +
+                '<strong>' + incompletedLength + '</strong> ' +
                 ((incompletedLength === 1) ? 'item' : 'items') +
                 ' left';
 
