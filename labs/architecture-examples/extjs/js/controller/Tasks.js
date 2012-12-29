@@ -126,7 +126,7 @@ Ext.define('Todo.controller.Tasks', {
 		checkedCount = totalCount - count;
 
 		if (count) {
-			info = '<strong>' + count + '</strong> item' + (count > 1 ? 's' : '') + ' left.';
+			info = '<strong>' + count + '</strong> item' + (count > 1 ? 's' : '') + ' left';
 		}
 
 		if (checkedCount) {
