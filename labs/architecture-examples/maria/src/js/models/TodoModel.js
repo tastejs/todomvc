@@ -6,7 +6,7 @@ maria.Model.subclass(checkit, 'TodoModel', {
             return this._title;
         },
         setTitle: function(title) {
-            title = checkit.trim('' + title);
+            title = ('' + title).trim();
             if (this._title !== title) {
                 this._title = title;
                 this.dispatchEvent({type: 'change'});
