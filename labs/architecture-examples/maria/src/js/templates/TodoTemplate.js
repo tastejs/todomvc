@@ -7,11 +7,11 @@
 // included here.
 //
 checkit.TodoTemplate =
-    '<li>' +
-        '<div class="view">' +
-            '<input class="toggle" type="checkbox">' +
-            '<label></label>' +
-            '<button class="destroy"></span>' +
-        '</div>' +
-        '<input class="edit">' +
-    '</li>';
+	'<li>' +
+		'<div class="view">' +
+			'<input class="toggle" type="checkbox">' +
+			'<label></label>' +
+			'<button class="destroy"></span>' +
+		'</div>' +
+		'<input class="edit">' +
+	'</li>';
