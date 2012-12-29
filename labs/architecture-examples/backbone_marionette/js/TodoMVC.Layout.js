@@ -55,7 +55,9 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			count: '#todo-count strong',
+      todoCount: '#todo-count .count',
+      todoCountLabel: '#todo-count .label',
+      clearCount: '#clear-completed .count',
 			filters: '#filters a'
 		},
 
@@ -73,8 +75,11 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 		},
 
 		updateCount: function() {
-			var count = this.collection.getActive().length;
-			this.ui.count.html(count);
+			var activeCount = this.collection.getActive().length,
+          completedCount = this.collection.getCompleted().length;
+			this.ui.todoCount.html(activeCount);
+      this.ui.todoCountLabel.html(activeCount === 1 ? 'item' : 'items');
+      this.ui.clearCount.html(completedCount === 0 ? '' : '(' + completedCount + ')');
 		},
 
 		updateFilterSelection : function(filter) {
