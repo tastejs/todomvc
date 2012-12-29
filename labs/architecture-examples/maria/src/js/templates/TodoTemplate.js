@@ -1,3 +1,5 @@
+/*global checkit */
+
 // In a full development environment this template would be expressed
 // in a file containing only HTML and be compiled to the following as part
 // of the server/build functionality.

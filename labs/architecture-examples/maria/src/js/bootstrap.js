@@ -1,3 +1,6 @@
+/*jshint strict: false */
+/*global maria, Router, checkit */
+
 maria.on(window, 'load', function() {
 	var loading = document.getElementById('loading');
 	loading.parentNode.removeChild(loading);

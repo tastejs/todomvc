@@ -1,3 +1,6 @@
+/*jshint strict: false */
+/*global maria, aristocrat, checkit */
+
 maria.ElementView.subclass(checkit, 'TodoView', {
 	uiActions: {
 		'click    .destroy': 'onClickDestroy' ,

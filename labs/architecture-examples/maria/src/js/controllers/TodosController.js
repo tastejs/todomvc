@@ -1,3 +1,6 @@
+/*jshint strict: false */
+/*global maria, checkit */
+
 maria.Controller.subclass(checkit, 'TodosAppController', {
 	properties: {
 		onKeyupNewTodo: function(evt) {

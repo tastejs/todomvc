@@ -1,5 +1,8 @@
+/*jshint strict: false */
+/*global checkit */
+
 checkit.isBlank = function(str) {
-	return /^\s*$/.test(str);
+	return (/^\s*$/).test(str);
 };
 
 checkit.escapeHTML = function(str) {

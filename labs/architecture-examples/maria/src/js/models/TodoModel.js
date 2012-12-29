@@ -1,3 +1,6 @@
+/*jshint strict: false */
+/*global maria, checkit */
+
 maria.Model.subclass(checkit, 'TodoModel', {
 	properties: {
 		_title: '',

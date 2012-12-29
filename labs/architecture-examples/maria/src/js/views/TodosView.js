@@ -1,3 +1,6 @@
+/*jshint strict: false */
+/*global maria, aristocrat, checkit */
+
 maria.SetView.subclass(checkit, 'TodosAppView', {
 	uiActions: {
 		'keyup #new-todo'       : 'onKeyupNewTodo'       ,

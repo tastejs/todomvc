@@ -1,3 +1,6 @@
+/*jshint strict: false */
+/*global maria, checkit */
+
 maria.SetModel.subclass(checkit, 'TodosModel', {
 	properties: {
 		_mode: 'all',
@@ -29,8 +32,7 @@ maria.SetModel.subclass(checkit, 'TodosModel', {
 			});
 		},
 		isAllCompleted: function() {
-			return (this.length > 0) &&
-				   (this.getCompleted().length === this.length);
+			return (this.length > 0) && (this.getCompleted().length === this.length);
 		},
 		markAllCompleted: function() {
 			this.forEach(function(todo) {
