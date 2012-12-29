@@ -11,6 +11,10 @@ maria.SetView.subclass(checkit, 'TodosAppView', {
 		buildData: function() {
 			var model = this.getModel();
 
+			var length = model.length;
+			this.find('#main').style.display = (length > 0) ? '' : 'none';
+			this.find('#footer').style.display = (length > 0) ? '' : 'none';
+
 			var checkbox = this.find('#toggle-all');
 			checkbox.checked = model.isAllCompleted();
 			checkbox.disabled = model.isEmpty();
