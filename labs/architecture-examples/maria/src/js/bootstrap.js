@@ -2,9 +2,6 @@
 /*global maria, Router, checkit */
 
 maria.on(window, 'load', function() {
-	var loading = document.getElementById('loading');
-	loading.parentNode.removeChild(loading);
-
 	var model;
 	if ((typeof localStorage === 'object') && (typeof JSON === 'object')) {
 		var store = localStorage.getItem('todos-maria');
