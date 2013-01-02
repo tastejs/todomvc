@@ -1,23 +1,28 @@
 class Alfred extends Batman.App
-	@root 'todos#all'
-	@route '/completed', 'todos#completed'
-	@route '/active', 'todos#active'
+  @root 'todos#all'
+  @route '/completed', 'todos#completed'
+  @route '/active', 'todos#active'
 
 class Alfred.TodosController extends Batman.Controller
 	constructor: ->
-		super
-		@set 'newTodo', new Alfred.Todo(completed: false)
+    super
+    @set('newTodo', new Alfred.Todo(completed: false))
 
-	all: ->
-		@set 'currentTodos', Alfred.Todo.get('all')
+  routingKey: 'todos'
+  currentTodoSet: 'all'
+
+  @accessor 'currentTodos', -> Alfred.Todo.get(@get('currentTodoSet'))
+
+  all: ->
+		@set('currentTodoSet', 'all')
 
 	completed: ->
-		@set 'currentTodos', Alfred.Todo.get('completed')
-		@render source: 'todos/all'
+		@set 'currentTodoSet', 'completed'
+		@render(source: 'todos/all')
 
 	active: ->
-		@set 'currentTodos', Alfred.Todo.get('active')
-		@render source: 'todos/all'
+		@set 'currentTodoSet', 'active'
+		@render(source: 'todos/all')
 
 	createTodo: ->
 		@get('newTodo').save (err, todo) =>
