@@ -1,5 +1,5 @@
 YUI.add('todo-view', function (Y) {
-	"use strict";
+	'use strict';
 
 	// -- Todo View -------------------
 	var TodoView = Y.Base.create('todoView', Y.View, [], {
@@ -32,15 +32,14 @@ YUI.add('todo-view', function (Y) {
 		// is updated or destroyed.
 		initializer: function () {
 			var model = this.get('model');
-
 			model.after('change', this.render, this);
 		},
 
 		// Render this view in our <li> container, and fill it with the
 		// data in our Model.
 		render: function () {
-			var container = this.get('container'),
-				model = this.get('model');
+			var container = this.get('container');
+			var model = this.get('model');
 
 			container.setHTML(this.template(model.toJSON()));
 			container.toggleClass('completed', model.get('completed'));
@@ -63,9 +62,9 @@ YUI.add('todo-view', function (Y) {
 
 		// Get the value from our input field while hiding it, and
 		// save it to our Todo when focus is lost from the field.
-		close: function (e) {
-			var value = this.get('inputNode').get('value'),
-				editedValue = Y.Escape.html(Y.Lang.trim(value));
+		close: function () {
+			var value = this.get('inputNode').get('value');
+			var editedValue = Y.Escape.html(Y.Lang.trim(value));
 
 			this.get('container').removeClass('editing');
 
@@ -85,7 +84,7 @@ YUI.add('todo-view', function (Y) {
 		},
 
 		// Destroy the model when the delete button is clicked.
-		clear: function (e) {
+		clear: function () {
 			this.get('model').clear();
 		}
 	});

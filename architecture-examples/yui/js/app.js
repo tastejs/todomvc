@@ -1,10 +1,10 @@
 YUI.add('todo-app', function (Y) {
-	"use strict";
+	'use strict';
 
 	// Dependencies from MVC namespace.
-	var TodoList = Y.TodoMVC.TodoList,
-		TodoView = Y.TodoMVC.TodoView,
-		TodoApp;
+	var TodoApp;
+	var TodoList = Y.TodoMVC.TodoList;
+	var TodoView = Y.TodoMVC.TodoView;
 
 	// -- Main Application --------------
 	TodoApp = Y.Base.create('todoApp', Y.App, [], {
@@ -45,23 +45,21 @@ YUI.add('todo-app', function (Y) {
 			list.load();
 
 			// Keep our filters on refresh by immediately dispatching route.
-			this.once('ready', function (e) {
+			this.once('ready', function () {
 				if (this.hasRoute(this.getPath())) {
 					this.dispatch();
 				}
 			});
 		},
 
-
 		// Render our application with the statistics from our TodoList,
 		// and various other stylistic elements.
 		render: function () {
-			var todoList  = this.get('todoList'),
-				completed = todoList.completed().size(),
-				remaining = todoList.remaining().size(),
-				container = this.get('container'),
-				main      = this.get('main'),
-				footer    = this.get('footer');
+			var todoList = this.get('todoList');
+			var completed = todoList.completed().size();
+			var remaining = todoList.remaining().size();
+			var main = this.get('main');
+			var footer = this.get('footer');
 
 			// If we have Todos in our TodoList, show them with statistics.
 			if (todoList.size()) {
@@ -89,26 +87,25 @@ YUI.add('todo-app', function (Y) {
 			this.addViews();
 		},
 
-
 		// Add Todo views to the DOM simultaneously, triggered when
 		// the application initially loads, or we switch filters.
 		addViews: function () {
-			var fragment = Y.one(Y.config.doc.createDocumentFragment()),
-				todoList = this.get('todoList'),
-				models;
+			var models;
+			var fragment = Y.one(Y.config.doc.createDocumentFragment());
+			var todoList = this.get('todoList');
 
 			// An Array of models is passed through when the 'reset'
 			// event is triggered through syncing through load().
 			switch (this.get('filter')) {
-			case 'active':
-				models = todoList.remaining();
-				break;
-			case 'completed':
-				models = todoList.completed();
-				break;
-			default:
-				models = todoList;
-				break;
+				case 'active':
+					models = todoList.remaining();
+					break;
+				case 'completed':
+					models = todoList.completed();
+					break;
+				default:
+					models = todoList;
+					break;
 			}
 
 			// Iterate through the (filtered) ModelList.
@@ -123,10 +120,10 @@ YUI.add('todo-app', function (Y) {
 		// Create and save a new Todo from the inputted value when the
 		// Enter key is pressed down.
 		enterCreate: function (e) {
-			var ENTER_KEY = 13,
-				todoList  = this.get('todoList'),
-				inputNode = this.get('inputNode'),
-				value     = Y.Escape.html(Y.Lang.trim(inputNode.get('value')));
+			var ENTER_KEY = 13;
+			var todoList = this.get('todoList');
+			var inputNode = this.get('inputNode');
+			var value = Y.Escape.html(Y.Lang.trim(inputNode.get('value')));
 
 			if (e.keyCode !== ENTER_KEY || !value) {
 				return;
@@ -141,9 +138,9 @@ YUI.add('todo-app', function (Y) {
 
 		// Clear all completed Todos from the TodoList. This removes the models
 		// from the list, as well as deletes them from localStorage.
-		clearCompleted: function (e) {
-			var todoList  = this.get('todoList'),
-				completed = todoList.completed();
+		clearCompleted: function () {
+			var todoList  = this.get('todoList');
+			var completed = todoList.completed();
 
 			todoList.remove(completed);
 
@@ -155,9 +152,9 @@ YUI.add('todo-app', function (Y) {
 		// Complete all non-complete Todos, or reset them all if they are
 		// all already complete.
 		completeAll: function () {
-			var todoList    = this.get('todoList'),
-				allCheckbox = this.get('allCheckbox'),
-				completed   = allCheckbox.get('checked');
+			var todoList = this.get('todoList');
+			var allCheckbox = this.get('allCheckbox');
+			var completed = allCheckbox.get('checked');
 
 			Y.Array.each(todoList.toArray(), function (todo) {
 				todo.save({completed: completed});
@@ -216,7 +213,10 @@ YUI.add('todo-app', function (Y) {
 			// The callback takes a request object, Express-style.
 			routes: {
 				value: [
-					{path: '/:filter', callback: 'handleFilter'}
+					{
+						path: '/:filter',
+						callback: 'handleFilter'
+					}
 				]
 			}
 		}

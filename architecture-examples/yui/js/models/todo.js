@@ -1,5 +1,6 @@
 YUI.add('todo', function (Y) {
-	"use strict";
+	'use strict';
+
 	// -- Todo Model -------------
 	var Todo = Y.Base.create('todo', Y.Model, [Y.ModelSync.Local], {
 		// Set up the root localStorage key we save our Model data in.
@@ -15,11 +16,10 @@ YUI.add('todo', function (Y) {
 			this.destroy({remove: true});
 		}
 	}, {
-
 		// Default attributes.
 		ATTRS: {
 			title: {
-				value: 'empty todo ...'
+				value: ''
 			},
 			completed: {
 				value: false
