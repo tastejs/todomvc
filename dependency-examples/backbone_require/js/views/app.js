@@ -112,10 +112,7 @@ define([
 
 		// Clear all completed todo items, destroying their models.
 		clearCompleted: function() {
-			_.each( Todos.completed(), function( todo ) {
-				todo.destroy();
-			});
-
+			_.invoke(Todos.completed(), 'destroy');
 			return false;
 		},
 

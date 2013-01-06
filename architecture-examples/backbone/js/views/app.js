@@ -111,10 +111,7 @@ $(function( $ ) {
 
 		// Clear all completed todo items, destroying their models.
 		clearCompleted: function() {
-			_.each( app.Todos.completed(), function( todo ) {
-				todo.destroy();
-			});
-
+			_.invoke(app.Todos.completed(), 'destroy');
 			return false;
 		},
 
