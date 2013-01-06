@@ -1,5 +1,5 @@
 /**
- * @license RequireJS text 2.0.1 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
+ * @license RequireJS text 2.0.3 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/requirejs/text for details
  */
@@ -11,7 +11,8 @@
 define(['module'], function (module) {
     'use strict';
 
-    var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+    var text, fs,
+        progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
         xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
         bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
         hasLocation = typeof location !== 'undefined' && location.href,
@@ -19,11 +20,10 @@ define(['module'], function (module) {
         defaultHostName = hasLocation && location.hostname,
         defaultPort = hasLocation && (location.port || undefined),
         buildMap = [],
-        masterConfig = (module.config && module.config()) || {},
-        text, fs;
+        masterConfig = (module.config && module.config()) || {};
 
     text = {
-        version: '2.0.1',
+        version: '2.0.3',
 
         strip: function (content) {
             //Strips <?xml ...?> declarations so that external SVG and XML
@@ -113,8 +113,8 @@ define(['module'], function (module) {
          * @returns Boolean
          */
         useXhr: function (url, protocol, hostname, port) {
-            var match = text.xdRegExp.exec(url),
-                uProtocol, uHostName, uPort;
+            var uProtocol, uHostName, uPort,
+                match = text.xdRegExp.exec(url);
             if (!match) {
                 return true;
             }
@@ -219,9 +219,10 @@ define(['module'], function (module) {
         }
     };
 
-    if (typeof process !== "undefined" &&
-             process.versions &&
-             !!process.versions.node) {
+    if (masterConfig.env === 'node' || (!masterConfig.env &&
+            typeof process !== "undefined" &&
+            process.versions &&
+            !!process.versions.node)) {
         //Using special require.nodeRequire, something added by r.js.
         fs = require.nodeRequire('fs');
 
@@ -233,7 +234,8 @@ define(['module'], function (module) {
             }
             callback(file);
         };
-    } else if (text.createXhr()) {
+    } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
+            text.createXhr())) {
         text.get = function (url, callback, errback) {
             var xhr = text.createXhr();
             xhr.open('GET', url, true);
@@ -261,14 +263,15 @@ define(['module'], function (module) {
             };
             xhr.send(null);
         };
-    } else if (typeof Packages !== 'undefined') {
+    } else if (masterConfig.env === 'rhino' || (!masterConfig.env &&
+            typeof Packages !== 'undefined' && typeof java !== 'undefined')) {
         //Why Java, why is this so awkward?
         text.get = function (url, callback) {
-            var encoding = "utf-8",
+            var stringBuffer, line,
+                encoding = "utf-8",
                 file = new java.io.File(url),
                 lineSeparator = java.lang.System.getProperty("line.separator"),
                 input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), encoding)),
-                stringBuffer, line,
                 content = '';
             try {
                 stringBuffer = new java.lang.StringBuffer();

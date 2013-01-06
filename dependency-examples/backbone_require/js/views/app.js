@@ -33,11 +33,11 @@ define([
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 
-			Todos.on( 'add', this.addOne, this );
-			Todos.on( 'reset', this.addAll, this );
-			Todos.on( 'change:completed', this.filterOne, this );
-			Todos.on( "filter", this.filterAll, this);
-			Todos.on( 'all', this.render, this );
+			this.listenTo(Todos, 'add', this.addOne);
+			this.listenTo(Todos, 'reset', this.addAll);
+			this.listenTo(Todos, 'change:completed', this.filterOne);
+			this.listenTo(Todos, 'filter', this.filterAll);
+			this.listenTo(Todos, 'all', this.render);
 
 			Todos.fetch();
 		},
