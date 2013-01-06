@@ -28,9 +28,9 @@ $(function() {
 		// a one-to-one correspondence between a **Todo** and a **TodoView** in this
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
-			this.model.on( 'change', this.render, this );
-			this.model.on( 'destroy', this.remove, this );
-			this.model.on( 'visible', this.toggleVisible, this );
+			this.listenTo(this.model, 'change', this.render);
+			this.listenTo(this.model, 'destroy', this.remove);
+			this.listenTo(this.model, 'visible', this.toggleVisible);
 		},
 
 		// Re-render the titles of the todo item.
