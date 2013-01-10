@@ -45,7 +45,7 @@ module todos {
             $scope.doneEditing = (todoItem) => this.doneEditing(todoItem);
             $scope.removeTodo = (todoItem) => this.removeTodo(todoItem);
             $scope.clearDoneTodos = () => this.clearDoneTodos();
-            $scope.markAll = (done) => this.markAll(done);
+            $scope.markAll = (completed) => this.markAll(completed);
 
             // watching for events/changes in scope, which are caused by view/user input
             // if you subscribe to scope or event with lifetime longer than this controller, make sure you unsubscribe.
@@ -102,9 +102,9 @@ module todos {
             });
         };
 
-        markAll(done: bool) {
+        markAll(completed: bool) {
             this.todos.forEach((todoItem: TodoItem) => {
-                todoItem.completed = done;
+                todoItem.completed = completed;
             });
         };
     }

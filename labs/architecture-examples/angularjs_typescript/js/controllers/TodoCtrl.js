@@ -26,8 +26,8 @@ var todos;
             $scope.clearDoneTodos = function () {
                 return _this.clearDoneTodos();
             };
-            $scope.markAll = function (done) {
-                return _this.markAll(done);
+            $scope.markAll = function (completed) {
+                return _this.markAll(completed);
             };
             $scope.$watch('todos', function () {
                 return _this.onTodos();
@@ -88,9 +88,9 @@ var todos;
                 return !todoItem.completed;
             });
         };
-        TodoCtrl.prototype.markAll = function (done) {
+        TodoCtrl.prototype.markAll = function (completed) {
             this.todos.forEach(function (todoItem) {
-                todoItem.completed = done;
+                todoItem.completed = completed;
             });
         };
         return TodoCtrl;

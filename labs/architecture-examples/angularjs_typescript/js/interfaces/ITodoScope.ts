@@ -18,6 +18,6 @@ module todos {
         doneEditing: (todoItem: TodoItem) => void;
         removeTodo: (todoItem: TodoItem) => void;
         clearDoneTodos: () => void;
-        markAll: (done: bool) => void;
+        markAll: (completed: bool) => void;
     }
 }
