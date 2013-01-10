@@ -69,9 +69,9 @@
   <ItemGroup>
     <Content Include="index.html" />
     <Content Include="js\app.js">
-      <DependentUpon>app.ts</DependentUpon>
+      <DependentUpon>Application.ts</DependentUpon>
     </Content>
-    <Content Include="js\app.ts" />
+    <Content Include="js\Application.ts" />
     <Content Include="js\controllers\TodoCtrl.js">
       <DependentUpon>TodoCtrl.ts</DependentUpon>
     </Content>
@@ -120,7 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\app.js.map">
-      <DependentUpon>app.ts</DependentUpon>
+      <DependentUpon>Application.ts</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +137,6 @@
     <Content Include="js\models\TodoItem.js.map">
       <DependentUpon>TodoItem.ts</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="compileTs.cmd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\interfaces\ITodoScope.js.map">

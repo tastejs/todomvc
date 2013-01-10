@@ -1,91 +1,112 @@
-/// <reference path='../libs/angular-1.0.d.ts' />
-/// <reference path='../services/TodoStorage.ts' />
-/// <reference path='../models/TodoItem.ts' />
-/// <reference path='../interfaces/ITodoStorage.ts' />
-/// <reference path='../interfaces/ITodoScope.ts' />
+/// <reference path='../_all.ts' />
 
-'use strict';
+module todos {
+    'use strict';
 
-/**
- * The main controller for the app. The controller:
- * - retrieves and persist the model via the todoStorage service
- * - exposes the model to the template and provides event handlers
- */
-class TodoCtrl {
-    private todos;
+    /**
+     * The main controller for the app. The controller:
+     * - retrieves and persist the model via the todoStorage service
+     * - exposes the model to the template and provides event handlers
+     */
+    export class TodoCtrl {
 
-    constructor(private $scope: ITodoScope, $location: ng.ILocationService, private todoStorage: ITodoStorage, private filterFilter) {
-        this.todos = $scope.todos = todoStorage.get();
+        private todos: TodoItem[];
 
-        $scope.newTodo = "";
-        $scope.editedTodo = null;
-
-        $scope.addTodo = () => this.addTodo();
-        $scope.editTodo = (t) => this.editTodo(t);
-        $scope.doneEditing = (t) => this.doneEditing(t);
-        $scope.removeTodo = (t) => this.removeTodo(t);
-        $scope.clearDoneTodos = () => this.clearDoneTodos();
-        $scope.markAll = (d) => this.markAll(d);
-
-
-        $scope.$watch('todos', () => this.onTodos(), true);
-        $scope.$watch('location.path()', (path) => this.onPath(path));
-
-        if ($location.path() === '') $location.path('/');
-        $scope.location = $location;
-    }
-
-    onPath(path) {
-        this.$scope.statusFilter = (path == '/active') ?
-          { completed: false } : (path == '/completed') ?
-            { completed: true } : null;
-    }
-
-    onTodos() {
-        this.$scope.remainingCount = this.filterFilter(this.todos, { completed: false }).length;
-        this.$scope.doneCount = this.todos.length - this.$scope.remainingCount;
-        this.$scope.allChecked = !this.$scope.remainingCount
-        this.todoStorage.put(this.todos);
-    }
-
-    addTodo() {
-        if (!this.$scope.newTodo.length) {
-            return;
+        // this method is called on prototype during registration into IoC container. 
+        // It provides $injector with information about dependencies to be injected into constructor
+        // it is better to have it close to the constructor, because the parameters must match in count and type.
+        public injection(): any[] {
+            return [
+                '$scope',
+                '$location',
+                'todoStorage',
+                'filterFilter',
+                TodoCtrl
+            ]
         }
 
-        this.todos.push({
-            title: this.$scope.newTodo,
-            completed: false
-        });
+        // dependencies are injected via AngularJS $injector
+        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
+        constructor(
+            private $scope: ITodoScope,
+            private $location: ng.ILocationService,
+            private todoStorage: ITodoStorage,
+            private filterFilter
+            ) {
+            this.todos = $scope.todos = todoStorage.get();
 
-        this.$scope.newTodo = '';
-    };
+            $scope.newTodo = '';
+            $scope.editedTodo = null;
 
-    editTodo(todo: TodoItem) {
-        this.$scope.editedTodo = todo;
-    };
+            // adding event handlers to the scope, so they could be bound from view/HTML
+            // these lambdas fix this keyword in JS world
+            $scope.addTodo = () => this.addTodo();
+            $scope.editTodo = (todoItem) => this.editTodo(todoItem);
+            $scope.doneEditing = (todoItem) => this.doneEditing(todoItem);
+            $scope.removeTodo = (todoItem) => this.removeTodo(todoItem);
+            $scope.clearDoneTodos = () => this.clearDoneTodos();
+            $scope.markAll = (done) => this.markAll(done);
 
-    doneEditing(todo: TodoItem) {
-        this.$scope.editedTodo = null;
-        if (!todo.title) {
-            this.$scope.removeTodo(todo);
+            // watching for events/changes in scope, which are caused by view/user input
+            // if you subscribe to scope or event with lifetime longer than this controller, make sure you unsubscribe.
+            $scope.$watch('todos', () => this.onTodos(), true);
+            $scope.$watch('location.path()', (path) => this.onPath(path))
+
+            if ($location.path() === '') $location.path('/');
+            $scope.location = $location;
         }
-    };
 
-    removeTodo(todo: TodoItem) {
-        this.todos.splice(this.todos.indexOf(todo), 1);
-    };
+        onPath(path: string) {
+            this.$scope.statusFilter = 
+                (path == '/active')
+                    ? { completed: false }
+                    : (path == '/completed')
+                        ? { completed: true }
+                        : null;
+        }
 
-    clearDoneTodos() {
-        this.$scope.todos = this.todos = this.todos.filter((val) => {
-            return !val.completed;
-        });
-    };
+        onTodos() {
+            this.$scope.remainingCount = this.filterFilter(this.todos, { completed: false }).length;
+            this.$scope.doneCount = this.todos.length - this.$scope.remainingCount;
+            this.$scope.allChecked = !this.$scope.remainingCount
+            this.todoStorage.put(this.todos);
+        }
 
-    markAll(done: bool) {
-        this.todos.forEach((todo: TodoItem) => {
-            todo.completed = done;
-        });
-    };
+        addTodo() {
+            if (!this.$scope.newTodo.length) {
+                return;
+            }
+
+            this.todos.push(new TodoItem(this.$scope.newTodo, false));
+            this.$scope.newTodo = '';
+        };
+
+        editTodo(todoItem: TodoItem) {
+            this.$scope.editedTodo = todoItem;
+        };
+
+        doneEditing(todoItem: TodoItem) {
+            this.$scope.editedTodo = null;
+            if (!todoItem.title) {
+                this.$scope.removeTodo(todoItem);
+            }
+        };
+
+        removeTodo(todoItem: TodoItem) {
+            this.todos.splice(this.todos.indexOf(todoItem), 1);
+        };
+
+        clearDoneTodos() {
+            this.$scope.todos = this.todos = this.todos.filter((todoItem) => {
+                return !todoItem.completed;
+            });
+        };
+
+        markAll(done: bool) {
+            this.todos.forEach((todoItem: TodoItem) => {
+                todoItem.completed = done;
+            });
+        };
+    }
+
 }
-

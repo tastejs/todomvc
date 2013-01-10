@@ -1,9 +1,10 @@
-/// <reference path='../libs/angular-1.0.d.ts' />
-/// <reference path='../models/TodoItem.ts' />
+/// <reference path='../_all.ts' />
 
-'use strict';
+module todos {
+    'use strict';
 
-interface ITodoStorage {
-    get(): TodoItem[];
-    put(todos: TodoItem[]);
+    export interface ITodoStorage {
+        get (): TodoItem[];
+        put(todos: TodoItem[]);
+    }
 }

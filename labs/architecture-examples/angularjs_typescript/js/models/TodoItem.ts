@@ -1,8 +1,12 @@
-/// <reference path='../libs/angular-1.0.d.ts' />
+/// <reference path='../_all.ts' />
 
-'use strict';
+module todos {
+    'use strict';
 
-class TodoItem {
-    public completed: bool;
-    public title: string;
+    export class TodoItem {
+        constructor(
+            public title: string,
+            public completed: bool
+            ) { }
+    }
 }

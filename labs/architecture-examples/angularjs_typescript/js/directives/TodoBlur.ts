@@ -1,20 +1,28 @@
-/// <reference path='../libs/angular-1.0.d.ts' />
-'use strict';
+/// <reference path='../_all.ts' />
 
+module todos {
+    'use strict';
+    
+    /**
+     * Directive that executes an expression when the element it is applied to loses focus.
+     */
+    export class TodoBlur {
+        public link: ($scope: ng.IScope, element: JQuery, attributes: any) => any;
 
-/**
- * Directive that executes an expression when the element it is applied to loses focus.
- */
-class TodoBlur {
-    public link: ($scope: ng.IScope, elem: JQuery, attrs: any) => any;
+        public injection(): any[] {
+            return [
+                () => { return new TodoBlur(); }
+            ]
+        }
 
-    constructor() {
-        this.link = (s, e, a) => this.linkFn(s, e, a);
+        constructor() {
+            this.link = ($scope, element, attributes) => this.linkFn($scope, element, attributes);
+        }
+
+        linkFn($scope: ng.IScope, element: JQuery, attributes: any): any {
+            element.bind('blur', () => {
+                $scope.$apply(attributes.todoBlur);
+            });
+        };
     }
-
-    linkFn($scope: ng.IScope, elem: JQuery, attrs: any): any {
-        elem.bind('blur', () => {
-            $scope.$apply(attrs.todoBlur);
-        });
-    };
 }

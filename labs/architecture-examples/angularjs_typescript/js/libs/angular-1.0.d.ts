@@ -79,6 +79,7 @@ module ng {
         provider(name: string, serviceProviderConstructor: Function): IModule;
         run(initializationFunction: Function): IModule;
         service(name: string, serviceConstructor: Function): IModule;
+        service(name: string, inlineAnnotadedConstructor: any[]): IModule;
         value(name: string, value: any): IModule;
 
         // Properties

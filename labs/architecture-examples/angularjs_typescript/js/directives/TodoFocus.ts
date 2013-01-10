@@ -1,24 +1,34 @@
-/// <reference path='../libs/angular-1.0.d.ts' />
-'use strict';
+/// <reference path='../_all.ts' />
 
-/**
- * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true.
- */
-class TodoFocus {
+module todos {
+    'use strict';
 
-    public link: ($scope: ng.IScope, elem: JQuery, attrs: any) => any;
+    /**
+     * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true.
+     */
+    export class TodoFocus {
 
-    constructor(private $timeout: ng.ITimeoutService) {
-        this.link = (s, e, a) => this.linkFn(s, e, a);
+        public link: ($scope: ng.IScope, element: JQuery, attributes: any) => any;
+
+        public injection(): any[] {
+            return [
+                '$timeout',
+                ($timeout) => { return new TodoFocus($timeout); }
+            ]
+        }
+
+        constructor(private $timeout: ng.ITimeoutService) {
+            this.link = ($scope, element, attributes) => this.linkFn($scope, element, attributes);
+        }
+
+        linkFn($scope: ng.IScope, element: JQuery, attributes: any): any {
+            $scope.$watch(attributes.todoFocus, (newval) => {
+                if (newval) {
+                    this.$timeout(() => {
+                        element[0].focus();
+                    }, 0, false);
+                }
+            });
+        };
     }
-
-    linkFn($scope: ng.IScope, elem: JQuery, attrs: any): any {
-        $scope.$watch(attrs.todoFocus, (newval) => {
-            if (newval) {
-                this.$timeout(() => {
-                    elem[0].focus();
-                }, 0, false);
-            }
-        });
-    };
 }

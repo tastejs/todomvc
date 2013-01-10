@@ -1,5 +1,4 @@
 *.suo
 *.user
-*.map
 /bin
 /obj
