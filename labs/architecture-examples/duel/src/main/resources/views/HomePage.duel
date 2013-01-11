@@ -6,7 +6,7 @@
 	<title>DUEL • TodoMVC</title>
 	<link rel="stylesheet" href="/css/styles.merge">
 	<!--[if IE]>
-	<script src="../../../assets/ie.js"></script>
+	<script src="../../../../assets/ie.js"></script>
 	<![endif]-->
 </head>
 <body>
@@ -15,7 +15,7 @@
 		<p>Ported to <a href="http://duelengine.org">DUEL</a> by <a href="http://mck.me">Stephen McKamey</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-	<script src="../../../assets/base.js"></script>
+	<script src="../../../../assets/base.js"></script>
 	<script src="/js/scripts.merge"></script>
 </body>
 </html>
