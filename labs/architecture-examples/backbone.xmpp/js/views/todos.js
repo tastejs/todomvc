@@ -17,7 +17,7 @@ $(function() {
 
 		// The DOM events specific to an item.
 		events: {
-			'click .toggle':	'togglecompleted',
+			'click .toggle':	'toggleCompleted',
 			'dblclick label':	'edit',
 			'click .destroy':	'clear',
 			'keypress .edit':	'updateOnEnter',
@@ -33,7 +33,7 @@ $(function() {
 			this.model.collection.on( 'remove', this.remoteRemove, this);
 		},
 
-		remoteRemove: function (model) {
+		remoteRemove: function( model ) {
 			if (model.id === this.model.id) {
 				this.remove();
 			}
@@ -44,24 +44,24 @@ $(function() {
 			this.$el.html( this.template( this.model.toJSON() ) );
 			this.$el.toggleClass( 'completed', this.model.get('completed') );
 
-			this.input = this.$('.edit');
+			this.$input = this.$('.edit');
 			return this;
 		},
 
 		// Toggle the `"completed"` state of the model.
-		togglecompleted: function() {
+		toggleCompleted: function() {
 			this.model.toggle();
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function() {
 			this.$el.addClass('editing');
-			this.input.focus();
+			this.$input.focus();
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
 		close: function() {
-			var value = this.input.val().trim();
+			var value = this.$input.val().trim();
 
 			if ( value ) {
 				this.model.save({ title: value });

@@ -28,8 +28,8 @@ define([
 		// collection, when items are added or changed. Kick things off by
 		// loading any preexisting todos that might be saved in *localStorage*.
 		initialize: function() {
-			this.input = this.$('#new-todo');
 			this.allCheckbox = this.$('#toggle-all')[0];
+			this.$input = this.$('#new-todo');
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 
@@ -82,18 +82,18 @@ define([
 			Todos.each(this.addOne, this);
 		},
 
-		filterOne : function (todo) {
+		filterOne: function( todo ) {
 			todo.trigger("visible");
 		},
 
-		filterAll : function () {
+		filterAll: function() {
 			Todos.each(this.filterOne, this);
 		},
 
 		// Generate the attributes for a new Todo item.
 		newAttributes: function() {
 			return {
-				title: this.input.val().trim(),
+				title: this.$input.val().trim(),
 				order: Todos.nextOrder(),
 				completed: false
 			};
@@ -102,12 +102,12 @@ define([
 		// If you hit return in the main input field, create new **Todo** model,
 		// persisting it to *localStorage*.
 		createOnEnter: function( e ) {
-			if ( e.which !== Common.ENTER_KEY || !this.input.val().trim() ) {
+			if ( e.which !== Common.ENTER_KEY || !this.$input.val().trim() ) {
 				return;
 			}
 
 			Todos.create( this.newAttributes() );
-			this.input.val('');
+			this.$input.val('');
 		},
 
 		// Clear all completed todo items, destroying their models.
