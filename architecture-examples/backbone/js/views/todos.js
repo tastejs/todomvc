@@ -17,7 +17,7 @@ $(function() {
 
 		// The DOM events specific to an item.
 		events: {
-			'click .toggle':	'togglecompleted',
+			'click .toggle':	'toggleCompleted',
 			'dblclick label':	'edit',
 			'click .destroy':	'clear',
 			'keypress .edit':	'updateOnEnter',
@@ -39,15 +39,15 @@ $(function() {
 			this.$el.toggleClass( 'completed', this.model.get('completed') );
 
 			this.toggleVisible();
-			this.input = this.$('.edit');
+			this.$input = this.$('.edit');
 			return this;
 		},
 
-		toggleVisible : function () {
+		toggleVisible: function() {
 			this.$el.toggleClass( 'hidden',  this.isHidden());
 		},
 
-		isHidden : function () {
+		isHidden: function() {
 			var isCompleted = this.model.get('completed');
 			return ( // hidden cases only
 				(!isCompleted && app.TodoFilter === 'completed')
@@ -56,19 +56,19 @@ $(function() {
 		},
 
 		// Toggle the `"completed"` state of the model.
-		togglecompleted: function() {
+		toggleCompleted: function() {
 			this.model.toggle();
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function() {
 			this.$el.addClass('editing');
-			this.input.focus();
+			this.$input.focus();
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
 		close: function() {
-			var value = this.input.val().trim();
+			var value = this.$input.val().trim();
 
 			if ( value ) {
 				this.model.save({ title: value });
