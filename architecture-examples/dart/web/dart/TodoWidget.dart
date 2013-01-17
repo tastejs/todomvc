@@ -13,10 +13,10 @@ class TodoWidget {
 			<li ${todo.completed ? 'class="completed"' : ''}>
 			<div class='view'>
 			<input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
-			<label class='todo-content'>${todo.title}</label>
+			<label class='todo-content'>${htmlEscape(todo.title)}</label>
 			<button class='destroy'></button>
 			</div>
-			<input class='edit' value='${todo.title}'>
+			<input class='edit' value='${htmlEscape(todo.title)}'>
 			</li>
 		''');
 
