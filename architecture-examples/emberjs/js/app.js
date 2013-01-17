@@ -7,9 +7,6 @@
 		storeNamespace: 'todos-emberjs',
 		// Extend to inherit outlet support
 		ApplicationController: Ember.Controller.extend(),
-		ready: function() {
-		//	this.initialize();
-		}
 	});
 
 })( window );
