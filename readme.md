@@ -63,6 +63,7 @@ We also have a number of in-progress applications in Labs:
 - [KnockoutJS](http://knockoutjs.com) + [ClassBindingProvider](https://github.com/rniemeyer/knockout-classBindingProvider) (using Ryan Niemeyer's Class Binding Provider)
 - [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
+- [CanJS](http://canjs.us) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) (optimized)
 - [Backbone.xmpp](https://github.com/ggozad/Backbone.xmpp)
 - [Dart](http://dartlang.org)
