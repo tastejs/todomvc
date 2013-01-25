@@ -2,7 +2,7 @@
   "name": "thorax-lumbar-todomvc",
   "version": "0.0.1",
   "devDependencies": {
-    "lumbar": "git://github.com/beastridge/lumbar.git"
+    "lumbar": "~2.0.0"
   },
   "scripts": {
     "start": "lumbar build lumbar.json public"

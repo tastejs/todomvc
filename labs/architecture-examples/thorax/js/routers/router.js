@@ -4,7 +4,7 @@
 	// Todo Router
 	// ----------
 
-	window.app.TodoRouter = new (Thorax.Router.extend({
+	window.app.TodoRouter = new (Backbone.Router.extend({
 		routes: {
 			'': 'setFilter',
 			':filter': 'setFilter'
