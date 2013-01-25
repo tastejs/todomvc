@@ -13,9 +13,9 @@ Thorax.View.extend({
     // Whenever the Todos collection changes re-render the stats
     // render() needs to be called with no arguments, otherwise calling
     // it with arguments will insert the arguments as content
-    window.app.Todos.on('all', _.debounce(function() {
+    this.listenTo(window.app.Todos, 'all', _.debounce(function() {
       this.render();
-    }), this);
+    }));
   },
 
   // Clear all completed todo items, destroying their models.

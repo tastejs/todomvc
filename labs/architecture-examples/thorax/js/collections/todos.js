@@ -6,7 +6,7 @@
 
 	// The collection of todos is backed by *localStorage* instead of a remote
 	// server.
-	var TodoList = Backbone.Collection.extend({
+	var TodoList = Thorax.Collection.extend({
 
 		// Reference to this collection's model.
 		model: window.app.Todo,
@@ -43,5 +43,8 @@
 
 	// Create our global collection of **Todos**.
 	window.app.Todos = new TodoList();
+
+  // Ensure that we always have data available
+  window.app.Todos.fetch();
 
 }());
