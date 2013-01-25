@@ -2,7 +2,9 @@ var ENTER_KEY = 13;
 
 $(function() {
 	// Kick things off by creating the **App**.
-	var view = new Thorax.Views['app']();
-  $('body').append(view.el);
+	var view = new Thorax.Views['app']({
+    collection: window.app.Todos
+  });
+  view.appendTo('body');
   Backbone.history.start();
 });
