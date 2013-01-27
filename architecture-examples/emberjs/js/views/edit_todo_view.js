@@ -1,7 +1,7 @@
 Todos.EditTodoView = Ember.TextField.extend({
 	classNames: ['edit'],
 
-  valueBinding: 'todo.title',
+	valueBinding: 'todo.title',
 
 	change: function() {
 		var value = this.get('value');
