@@ -7,10 +7,7 @@ Todos.EditTodoView = Ember.TextField.extend({
 		var value = this.get('value');
 
 		if (Ember.isEmpty(value)) {
-			var controller = this.get('controller');
-			var todo = this.get('content');
-
-			controller.removeObject(todo);
+			this.get('controller').removeTodo();
 		}
 	},
 
