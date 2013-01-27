@@ -1,53 +1,39 @@
-(function( app ) {
-	'use strict';
+Todos.Router.map(function() {
+  this.resource('todos', { path: '/' }, function() {
+    this.route('active');
+    this.route('completed');
+  });
+});
 
-	var Router = Ember.Router.extend({
+Todos.TodosRoute = Ember.Route.extend({
+  model: function() {
+    return Todos.Todo.find();
+  }
+});
 
-		root: Ember.Route.extend({
+Todos.TodosIndexRoute = Ember.Route.extend({
+  setupController: function() {
+    var todos = Todos.Todo.find();
+    this.controllerFor('todos').set('filteredTodos', todos);
+  }
+});
 
-			showAll: Ember.Route.transitionTo( 'index' ),
-			showActive: Ember.Route.transitionTo( 'active' ),
-			showCompleted: Ember.Route.transitionTo( 'completed' ),
+Todos.TodosActiveRoute = Ember.Route.extend({
+  setupController: function() {
+    var todos = Todos.Todo.filter(function(todo) {
+      if (!todo.get('isCompleted')) { return true; }
+    });
 
-			index: Ember.Route.extend({
-				route: '/',
-				connectOutlets: function( router ) {
-					var controller = router.get( 'applicationController' );
-					var context = app.entriesController;
-					context.set( 'filterBy', '' );
-					controller.connectOutlet( 'todos', context )
-				}
-			}),
+    this.controllerFor('todos').set('filteredTodos', todos);
+  }
+});
 
-			active: Ember.Route.extend({
-				route: '/active',
-				connectOutlets: function( router ) {
-					var controller = router.get( 'applicationController' );
-					var context = app.entriesController;
-					context.set( 'filterBy', 'active' );
-					controller.connectOutlet( 'todos', context )
-				}
-			}),
+Todos.TodosCompletedRoute = Ember.Route.extend({
+  setupController: function() {
+    var todos = Todos.Todo.filter(function(todo) {
+      if (todo.get('isCompleted')) { return true; }
+    });
 
-			completed: Ember.Route.extend({
-				route: '/completed',
-				connectOutlets: function( router ) {
-					var controller = router.get( 'applicationController' );
-					var context = app.entriesController;
-					context.set( 'filterBy', 'completed' );
-					controller.connectOutlet( 'todos', context )
-				}
-			}),
-
-			specs: Ember.Route.extend({
-				route: '/specs',
-				connectOutlets: function() {
-					// TODO: Write them
-				}
-			})
-		})
-	});
-
-	app.Router = Router;
-
-})( window.Todos );
+    this.controllerFor('todos').set('filteredTodos', todos);
+  }
+});
