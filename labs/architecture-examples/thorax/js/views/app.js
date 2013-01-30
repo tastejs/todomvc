@@ -25,7 +25,9 @@ $(function( $ ) {
 
 		toggleToggleAllButton: function() {
 			var toggleInput = this.$('#toggle-all')[0];
-			toggleInput && (toggleInput.checked = !this.collection.remaining().length);
+			if (toggleInput) {
+				toggleInput.checked = !this.collection.remaining().length;
+			}
 		},
 
 		// When this function is specified, items will only be shown
