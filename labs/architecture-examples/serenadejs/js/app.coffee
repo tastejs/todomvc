@@ -63,8 +63,8 @@ class TodoController
 
   loadField: (@field) ->
 
-app = new App(JSON.parse(localStorage.getItem('todomvc-serenade')))
-app.changed.bind -> localStorage.setItem('todomvc-serenade', app)
+app = new App(JSON.parse(localStorage.getItem('todos-serenade')))
+app.changed.bind -> localStorage.setItem('todos-serenade', app)
 
 router = Router
   '/': -> app.filter = 'all'
