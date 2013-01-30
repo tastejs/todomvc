@@ -24,7 +24,8 @@ $(function( $ ) {
 		},
 
 		toggleToggleAllButton: function() {
-			this.$('#toggle-all')[0].checked = !this.collection.remaining().length;
+			var toggleInput = this.$('#toggle-all')[0];
+			toggleInput && (toggleInput.checked = !this.collection.remaining().length);
 		},
 
 		// When this function is specified, items will only be shown
