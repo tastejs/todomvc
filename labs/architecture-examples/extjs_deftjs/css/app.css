@@ -1,0 +1,7 @@
+/* Add your own styles here. */
+
+.mousepointer { cursor: pointer; }
+
+*:focus {
+    outline: none;
+}
