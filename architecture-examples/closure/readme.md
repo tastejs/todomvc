@@ -6,7 +6,7 @@ An example making use of the [Closure toolkit](https://developers.google.com/clo
 
 ## Running
 
-A third party build tool called [Plovr](http://plovr.com/) is used to make running and compiling the code easier. To serve the code for development purposes (the example should run in compiled mode without using Plovr), first download the latest stable version from the [Plovr Google Code project](http://code.google.com/p/plovr/downloads/list) (at the time of writing plovr-4b3caf2b7d84.jar). Copy the file into the build folder, rename it plovr.jar and run the following command from this folder -
+A third party build tool called [Plovr](http://plovr.com/) is used to make running and compiling the code easier. To serve the code for development purposes (the example should run in compiled mode without using Plovr), first download the latest stable version from the [Plovr Google Code project](http://code.google.com/p/plovr/downloads/list) (at the time of writing plovr-eba786b34df9.jar). Copy the file into the build folder, rename it plovr.jar and run the following command from this folder -
 
 `java -jar build/plovr.jar serve plovr.json`
 

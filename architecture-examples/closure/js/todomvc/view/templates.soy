@@ -6,7 +6,7 @@
  * @param checked whether the item is checked
  */
 {template .toDoItem}
-<li>
+<li {if $checked}class="completed"{/if}>
 	<div class="view">
 		<input class="toggle" type="checkbox" {if $checked}checked{/if}>
 		<label>{$content}</label>
