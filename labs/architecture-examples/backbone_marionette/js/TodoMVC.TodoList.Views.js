@@ -18,6 +18,7 @@ TodoMVC.module('TodoList.Views', function(Views, App, Backbone, Marionette, $, _
 				'click .destroy': 'destroy',
 				'dblclick label': 'onEditClick',
 				'keypress .edit': 'onEditKeypress',
+        'blur .edit': 'onEditBlur',
 				'click .toggle' : 'toggle'
 			},
 
@@ -48,15 +49,34 @@ TodoMVC.module('TodoList.Views', function(Views, App, Backbone, Marionette, $, _
 				this.ui.edit.focus();
 			},
 
+      updateTodo : function() {
+        var todoText = this.ui.edit.val();
+        if (todoText === '') {
+          return this.destroy();
+        }
+        this.setTodoText(todoText);
+        this.completeEdit();
+      },
+
+      onEditBlur: function(e){
+        this.updateTodo();
+      },
+
 			onEditKeypress: function(e) {
 				var ENTER_KEY = 13;
-				var todoText = this.ui.edit.val().trim();
+				if (e.which === ENTER_KEY) {
+          this.updateTodo();
+        }
+			},
 
-				if ( e.which === ENTER_KEY && todoText ) {
-					this.model.set('title', todoText).save();
-					this.$el.removeClass('editing');
-				}
-			}
+      setTodoText: function(todoText){
+        if (todoText.trim() === ""){ return; }
+        this.model.set('title', todoText).save();
+      },
+
+      completeEdit: function(){
+        this.$el.removeClass('editing');
+      }
 	});
 
 	// Item List View
