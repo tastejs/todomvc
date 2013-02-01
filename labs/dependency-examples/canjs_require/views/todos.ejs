@@ -31,7 +31,6 @@
     <li><a href="#!completed">Completed</a></li>
   </ul>
   <button id="clear-completed" class="<%= todos.completed() === 0 ? 'hidden' : '' %>">
-    Clear <%= todos.completed() %>
-    completed item<%= todos.completed() == 1 ? "" : "s" %>
+    Clear completed (<%= todos.completed() %>)
   </button>
 </footer>
