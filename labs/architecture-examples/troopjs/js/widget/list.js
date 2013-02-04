@@ -1,4 +1,4 @@
-define( [ 'troopjs-core/component/widget', 'troopjs-core/store/local', 'jquery', 'template!./item.html' ], function ListModule(Widget, store, $, template) {
+define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local', 'jquery', 'template!./item.html' ], function ListModule(Escaper, Widget, store, $, template) {
 	var ENTER_KEY = 13;
 	var FILTER_ACTIVE = 'filter-active';
 	var FILTER_COMPLETED = 'filter-completed';
@@ -27,7 +27,8 @@ define( [ 'troopjs-core/component/widget', 'troopjs-core/store/local', 'jquery',
 				// Append to self
 				self.append(template, {
 					'i': i,
-					'item': item
+					'item': item,
+					'itemTitle': Escaper.escape(item.title)
 				});
 			});
 		})
@@ -57,7 +58,8 @@ define( [ 'troopjs-core/component/widget', 'troopjs-core/store/local', 'jquery',
 					// Append new item to self
 					self.append(template, {
 						'i': i,
-						'item': item
+						'item': item,
+						'itemTitle': Escaper.escape(item.title)
 					});
 
 					// Set items and resolve set
