@@ -1,20 +1,18 @@
-define( [ "troopjs-core/component/widget" ], function CreateModule(Widget) {
+define( [ 'troopjs-core/component/widget' ], function CreateModule(Widget) {
 	var ENTER_KEY = 13;
 
 	return Widget.extend({
-		"dom/keyup" : function onKeyUp(topic, $event) {
-			var self = this;
-			var $element = self.$element;
+		'dom/keyup': function onKeyUp(topic, $event) {
+			var $element = this.$element;
 			var value;
 
-			switch($event.keyCode) {
-			case ENTER_KEY:
+			if ($event.keyCode === ENTER_KEY) {
 				value = $element.val().trim();
 
-				if (value !== "") {
-					self.publish("todos/add", value);
+				if (value !== '') {
+					this.publish('todos/add', value);
 
-					$element.val("");
+					$element.val('');
 				}
 			}
 		}
