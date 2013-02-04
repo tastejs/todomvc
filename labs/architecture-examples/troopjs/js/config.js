@@ -1,3 +1,3 @@
 define({
-	"store": "todos-troopjs"
+	'store': 'todos-troopjs'
 });
