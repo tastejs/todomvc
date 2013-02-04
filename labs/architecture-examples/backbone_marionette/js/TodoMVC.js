@@ -1,3 +1,6 @@
+/*global Backbone */
+'use strict';
+
 var TodoMVC = new Backbone.Marionette.Application();
 
 TodoMVC.addRegions({
@@ -6,6 +9,6 @@ TodoMVC.addRegions({
 	footer: '#footer'
 });
 
-TodoMVC.on('initialize:after', function() {
+TodoMVC.on('initialize:after', function () {
 	Backbone.history.start();
 });
