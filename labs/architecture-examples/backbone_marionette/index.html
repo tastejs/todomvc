@@ -10,7 +10,7 @@
 		<script src="../../../assets/ie.js"></script>
 		<![endif]-->
 		<script type="text/html" id="template-footer">
-			<span id="todo-count"><strong></strong> items left</span>
+			<span id="todo-count"><strong></strong><span></span></span>
 			<ul id="filters">
 				<li>
 					<a href="#">All</a>
@@ -22,7 +22,7 @@
 					<a href="#completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed">Clear completed</button>
+			<button id="clear-completed"></button>
 		</script>
 		<script type="text/html" id="template-header">
 			<h1>todos</h1>
@@ -62,7 +62,7 @@
 		<script src="../../../assets/jquery.min.js"></script>
 		<script src="../../../assets/lodash.min.js"></script>
 		<script src="js/lib/backbone.js"></script>
-		<script src="js/lib/backbone-localStorage.js"></script>
+		<script src="js/lib/backbone.localStorage.js"></script>
 		<script src="js/lib/backbone.marionette.js"></script>
 		<!-- application -->
 		<script src="js/TodoMVC.js"></script>

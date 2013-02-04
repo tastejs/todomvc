@@ -1,10 +1,12 @@
-TodoMVC.module('Todos', function(Todos, App, Backbone, Marionette, $, _) {
+/*global TodoMVC */
+'use strict';
+
+TodoMVC.module('Todos', function (Todos, App, Backbone) {
 
 	// Todo Model
 	// ----------
 
 	Todos.Todo = Backbone.Model.extend({
-		localStorage: new Backbone.LocalStorage('todos-backbone-marionettejs'),
 
 		defaults: {
 			title: '',
@@ -12,17 +14,17 @@ TodoMVC.module('Todos', function(Todos, App, Backbone, Marionette, $, _) {
 			created: 0
 		},
 
-		initialize: function() {
+		initialize: function () {
 			if (this.isNew()) {
 				this.set('created', Date.now());
 			}
 		},
 
-		toggle: function() {
+		toggle: function () {
 			return this.set('completed', !this.isCompleted());
 		},
 
-		isCompleted: function() {
+		isCompleted: function () {
 			return this.get('completed');
 		}
 	});
@@ -33,21 +35,21 @@ TodoMVC.module('Todos', function(Todos, App, Backbone, Marionette, $, _) {
 	Todos.TodoList = Backbone.Collection.extend({
 		model: Todos.Todo,
 
-		localStorage: new Backbone.LocalStorage('todos-backbone'),
+		localStorage: new Backbone.LocalStorage('todos-backbone-marionette'),
 
-		getCompleted: function() {
+		getCompleted: function () {
 			return this.filter(this._isCompleted);
 		},
 
-		getActive: function() {
+		getActive: function () {
 			return this.reject(this._isCompleted);
 		},
 
-		comparator: function(todo) {
+		comparator: function (todo) {
 			return todo.get('created');
 		},
 
-		_isCompleted: function(todo){
+		_isCompleted: function (todo) {
 			return todo.isCompleted();
 		}
 	});
