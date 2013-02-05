@@ -1,0 +1,12 @@
+.completed li {
+	display: none;
+}
+
+.completed li.completed {
+	display: block;
+}
+
+
+.active li.completed {
+	display: none;
+}
