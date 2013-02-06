@@ -78,7 +78,6 @@
 	</li>
 </script>
 
-
 <footer id="info">
 	<p>Double-click to edit a todo</p>
 
@@ -92,28 +91,5 @@
 <script src="js/lib/jquery.ba-bbq.min.js"></script>
 <script src="js/lib/harmony.js"></script>
 <script src="js/app.js"></script>
-<script>
-	Handlebars.registerHelper( 'for', function( context, options ) {
-		var fn = options.fn, inverse = options.inverse;
-		var i = 0, ret = "", data;
-
-		if (options.data) {
-			data = Handlebars.createFrame( options.data );
-		}
-
-		if (context && typeof context === 'object') {
-			if (context instanceof Array) {
-				for (var j = context.length; i < j; i++) {
-					if (data) { data.index = i; }
-					ret = ret + fn( context[i], { data: data } );
-				}
-			} else {
-				ret = ret + fn( context, {data: data} );
-			}
-		}
-
-		return ret;
-	} );
-</script>
 </body>
 </html>
