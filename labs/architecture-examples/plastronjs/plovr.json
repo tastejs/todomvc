@@ -3,7 +3,7 @@
 	"inputs": "js/app.js",
 	"paths": ["js/", "template/"],
 	"output-wrapper": "(function(){%output%})();",
-	"mode": "ADVANCED",
+	"mode": "SIMPLE",
 	"level": "VERBOSE",
 	"output-file": "js/compiled.js"
 }
