@@ -3,8 +3,6 @@
 
 	var namespace = 'todos_harmony',
 
-		tasks = hm( namespace ).cd( "tasks" ),
-
 		todos = hm( namespace, {
 
 			tasks: hm.table( hm( namespace ).getLocal( 'tasks' ) || [] ),
@@ -39,28 +37,28 @@
 				},
 
 				addTask: function( e ) {
-					var newTask = $.trim( todos.get( 'newTask' ) );
+					var newTask = todos.cd( 'newTask' ),
+						taskName = $.trim( newTask.get() );
 
-					if (newTask) {
+					if (taskName) {
 						tasks.push( {
-							taskName: newTask,
+							taskName: taskName,
 							done: false
 						} );
-						todos.set( 'newTask', '' );
+						newTask.set( '' );
 					}
 				},
 
 				toggleAllDone: function( e ) {
 					var checked = e.publisher[0].checked;
-					tasks.each( function( i, model ) {
-						model.set( 'done', checked );
+					tasks.each( function( i, task ) {
+						task.set( 'done', checked );
 					} );
 				}
 			}
-		} );
 
-	tasks.cacheable();
-	todos.cd("showType" ).bookmarkable();
+		} ).bookmarkable( "showType" ),
 
+		tasks = todos.cd( "tasks" ).cacheable();
 
 })();
