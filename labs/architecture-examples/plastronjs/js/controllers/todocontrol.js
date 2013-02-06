@@ -2,6 +2,7 @@
 goog.provide('todomvc.todocontrol');
 
 goog.require('goog.dom');
+goog.require('goog.string');
 goog.require('goog.events.KeyCodes');
 goog.require('mvc.Control');
 goog.require('todomvc.templates');
@@ -44,13 +45,29 @@ todomvc.todocontrol.prototype.enterDocument = function() {
 	// Toggle complete
 	this.autobind('.toggle', '{$completed}');
 
+	// Change li class on completion
+	this.autobind('', {
+		reqs: ['completed'],
+		onClass: 'completed',
+		noClick: true
+	});
+
 	// Delete the model
 	this.click(function() {
 		model.dispose();
 	}, '.destroy');
 
 	// keep label inline with title
-	this.autobind( 'label', '{$title}' );
+	this.autobind( 'label', {
+		reqs: ['title'],
+		template: function (data) { return data.title; },
+		data: {
+			title: function (control) {
+				var value = control.getModel().get('title');
+				return goog.string.htmlEscape(value);
+			}
+		}
+	});
 
 	var inputEl = this.getEls('.edit')[0];
 	// Dblclick to edit
