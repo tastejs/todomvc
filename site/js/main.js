@@ -132,8 +132,18 @@
 		});
 	};
 
+	$.fn.expander = function () {
+		this.click(function (ev) {
+			ev.preventDefault();
+			$($(this).data('target')).toggleClass('expanded');
+		});
+	};
+
 	// Apps popover
 	$('.applist a').persistantPopover();
+
+	// What's new expander
+	$('.expander').expander();
 
 	// Quotes
 	$('.quotes').quote([{

@@ -118,6 +118,14 @@ header nav a:first-child {
 	left: -20px;
 }
 
+.whats-new li ul {
+	margin-left: 10px;
+}
+
+.whats-new li ul li {
+	margin-left: 20px;
+}
+
 .applist {
 	list-style: none;
 	margin: 0;
@@ -182,6 +190,20 @@ p .label {
 	-ms-columns: 2;
 	-o-columns: 2;
 	columns: 2;
+}
+
+.collapsed {
+	overflow: hidden;
+	max-height: 0;
+	-webkit-transition: max-height 1s;
+	-moz-transition: max-height 1s;
+	-ms-transition: max-height 1s;
+	-o-transition: max-height 1s;
+	transition: max-height 1s;
+}
+
+.collapsed.expanded {
+	max-height: 999px;
 }
 
 .credit a {
