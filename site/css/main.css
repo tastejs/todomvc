@@ -106,13 +106,10 @@ header nav a:first-child {
 	margin-bottom: 20px;
 }
 
-.whats-new {
-	list-style: none;
-}
-
 .whats-new li {
 	position: relative;
 	margin: 15px 0;
+	list-style: none;
 }
 
 .whats-new li:before {
