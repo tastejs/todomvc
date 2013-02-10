@@ -202,7 +202,11 @@ p .label {
 	transition: max-height 1s;
 }
 
-.collapsed.expanded {
+#news-expander {
+	display: none;
+}
+
+#news-expander:checked ~ .collapsed {
 	max-height: 999px;
 }
 
