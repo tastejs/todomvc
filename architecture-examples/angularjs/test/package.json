@@ -1,0 +1,12 @@
+{
+    "name": "todomvc-angular-tests",
+    "description": "Unit tests for the AngularJS example of TodoMVC",
+    "author": "Pascal Hartig <phartig@rdrei.net>",
+    "version": "1.0.0",
+    "devDependencies": {
+        "testacular": "~ 0.4.0"
+    },
+    "scripts": {
+        "test": "testacular start config/testacular.conf.js"
+    }
+}
