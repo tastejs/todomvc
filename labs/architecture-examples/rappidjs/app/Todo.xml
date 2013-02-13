@@ -53,7 +53,7 @@
 		</footer>
 	</section>
 	<footer id="info">
-		<p visible="{todoList.hasItems()}">Double-click to edit a todo</p>
+		<p>Double-click to edit a todo</p>
 		<p>
 			Created by <a href="http://github.com/krebbl">Marcus Krejpowicz</a> with<a href="http://rappidjs.com">&lt; rAppid:js/&gt;</a>
 			<br/>
