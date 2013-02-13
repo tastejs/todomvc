@@ -123,7 +123,7 @@ YUI.add('todo-app', function (Y) {
 			var ENTER_KEY = 13;
 			var todoList = this.get('todoList');
 			var inputNode = this.get('inputNode');
-			var value = Y.Escape.html(Y.Lang.trim(inputNode.get('value')));
+			var value = inputNode.get('value');
 
 			if (e.keyCode !== ENTER_KEY || !value) {
 				return;
