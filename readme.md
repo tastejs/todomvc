@@ -41,11 +41,13 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 
 We also have a number of in-progress applications in Labs:
 
-- [CanJS](http://canjs.us)
-- [Maria.js](https://github.com/petermichaux/maria)
-- [cujo.js](http://cujojs.github.com)
 - [Meteor](http://meteor.com)
 - [Derby](http://derbyjs.com)
+- [CanJS](http://canjs.us)
+- [Kendo UI](http://kendoui.com)
+- [Maria.js](https://github.com/petermichaux/maria)
+- [cujo.js](http://cujojs.github.com)
+- [MarionetteJS](http://marionettejs.com/)
 - [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Sammy.js](http://sammyjs.org)
@@ -60,6 +62,7 @@ We also have a number of in-progress applications in Labs:
 - [Dijon](https://github.com/creynders/dijon-framework)
 - [rAppid.js](http://www.rappidjs.com)
 - [o_O](http://weepy.github.com/o_O)
+- [Thorax](http://walmartlabs.github.com/thorax/)
 - [KnockoutJS](http://knockoutjs.com) + [ClassBindingProvider](https://github.com/rniemeyer/knockout-classBindingProvider) (using Ryan Niemeyer's Class Binding Provider)
 - [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
@@ -69,7 +72,7 @@ We also have a number of in-progress applications in Labs:
 - [Dart](http://dartlang.org)
 - [Chaplin](http://chaplinjs.org) + [Brunch](http://brunch.io)
 - [Serenade.js](https://github.com/elabs/serenade.js)
-
+- [TypeScript](http://www.typescriptlang.org/)
 
 ## Live demos
 
