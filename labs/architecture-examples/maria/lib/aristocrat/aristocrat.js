@@ -1,11 +1,11 @@
 /*
-Aristocrat version 1
+Aristocrat version 2
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/aristocrat/blob/master/LICENSE
 */
-var aristocrat = aristocrat || {};
+var aristocrat = {};
 
 (function() {
 
@@ -78,7 +78,7 @@ aristocrat.removeClass(document.body, 'king');
         var re = getRegExp(className);
         while (re.test(el.className)) { // in case multiple occurrences
             el.className = el.className.replace(re, ' ');
-        }
+        } 
     };
 
 /**
