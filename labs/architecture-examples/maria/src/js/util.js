@@ -6,7 +6,11 @@ checkit.isBlank = function(str) {
 };
 
 checkit.escapeHTML = function(str) {
-	return str.replace('&', '&amp;').replace('<', '&lt;');
+	return String(str)
+		.replace(/&(?!\w+;)/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;');
 };
 
 checkit.isEnterKeyCode = function(keyCode) {
