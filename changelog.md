@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1 - TBD
+## 1.1 - 2013-02-14
 
 - We now have 18 stable apps and 36 in labs. New since 1.0.1:
     - Dart
