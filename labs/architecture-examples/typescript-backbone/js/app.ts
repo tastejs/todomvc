@@ -143,7 +143,7 @@ class TodoList extends Backbone.Collection {
 
 	// Filter down the list to only todo items that are still not finished.
 	remaining() {
-		return this.without(this.done());
+		return this.without.apply(this, this.done());
 	}
 
 	// We keep the Todos in sequential order, despite being saved by unordered
@@ -178,6 +178,8 @@ class TodoView extends Backbone.View {
 	model: Todo;
 	input: any;
 
+	static ENTER_KEY:number = 13;
+
 	constructor (options? ) {
 		//... is a list tag.
 		this.tagName = 'li';
@@ -200,7 +202,7 @@ class TodoView extends Backbone.View {
 		this.model.bind('change', this.render);
 		this.model.bind('destroy', this.remove);
 	}
-w
+
 	// Re-render the contents of the todo item.
 	render() {
 		this.$el.html(this.template(this.model.toJSON()));
@@ -227,7 +229,7 @@ w
 
 	// If you hit `enter`, we're through editing the item.
 	updateOnEnter(e) {
-		if (e.keyCode == 13) close();
+		if (e.keyCode == TodoView.ENTER_KEY) close();
 	}
 
 	// Remove the item, destroy the model.
@@ -252,6 +254,8 @@ class AppView extends Backbone.View {
 
 	input: any;
 	allCheckbox: HTMLInputElement;
+	mainElement: HTMLElement;
+	footerElement: HTMLElement;
 	statsTemplate: (params: any) => string;
 
 	constructor () {
@@ -267,6 +271,8 @@ class AppView extends Backbone.View {
 
 		this.input = this.$('#new-todo');
 		this.allCheckbox = this.$('.mark-all-done')[0];
+		this.mainElement = this.$('#main')[0];
+		this.footerElement = this.$('#footer')[0];
 		this.statsTemplate = _.template($('#stats-template').html());
 
 		Todos.bind('add', this.addOne);
@@ -282,11 +288,19 @@ class AppView extends Backbone.View {
 		var done = Todos.done().length;
 		var remaining = Todos.remaining().length;
 
-		this.$('#todo-stats').html(this.statsTemplate({
-			total: Todos.length,
-			done: done,
-			remaining: remaining
-		}));
+		if (Todos.length) {
+			this.mainElement.style.display = 'block';
+			this.footerElement.style.display = 'block';
+
+			this.$('#todo-stats').html(this.statsTemplate({
+				total: Todos.length,
+				done: done,
+				remaining: remaining
+			}));
+		} else {
+			this.mainElement.style.display = 'none';
+			this.footerElement.style.display = 'none';
+		}
 
 		this.allCheckbox.checked = !remaining;
 	}
