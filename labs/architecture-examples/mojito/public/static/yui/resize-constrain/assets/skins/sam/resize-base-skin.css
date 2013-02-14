@@ -1,0 +1,52 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-resize-handle-inner-r,
+.yui3-resize-handle-inner-l,
+.yui3-resize-handle-inner-t,
+.yui3-resize-handle-inner-b,
+.yui3-resize-handle-inner-tr,
+.yui3-resize-handle-inner-br,
+.yui3-resize-handle-inner-tl,
+.yui3-resize-handle-inner-bl {
+	background-repeat: no-repeat;
+	background: url(arrows.png) no-repeat 0 0;
+	display: block;
+	height: 15px;
+	overflow: hidden;
+	text-indent: -99999em;
+	width: 15px;
+}
+
+.yui3-resize-handle-inner-br {
+	background-position: -30px 0;
+	bottom: -2px;
+	right: -2px;
+}
+
+.yui3-resize-handle-inner-tr {
+    background-position: -58px 0;
+    bottom: 0;
+    right: -2px;
+    
+}
+
+.yui3-resize-handle-inner-bl {
+	background-position: -75px 0;
+	bottom: -2px;
+	right: -2px;
+}
+
+.yui3-resize-handle-inner-tl {
+    background-position: -47px 0;
+    bottom: 0;
+    right: -2px;
+    
+}
+
+.yui3-resize-handle-inner-b,.yui3-resize-handle-inner-t {
+	background-position: -15px 0;
+}

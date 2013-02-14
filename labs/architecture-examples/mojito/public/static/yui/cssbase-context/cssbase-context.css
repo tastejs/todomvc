@@ -1,0 +1,82 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* base.css, part of YUI's CSS Foundation */
+.yui3-cssbase h1 {
+	/*18px via YUI Fonts CSS foundation*/
+	font-size:138.5%;  
+}
+.yui3-cssbase h2 {
+	/*16px via YUI Fonts CSS foundation*/
+	font-size:123.1%; 
+}
+.yui3-cssbase h3 {
+	/*14px via YUI Fonts CSS foundation*/
+	font-size:108%;  
+}
+.yui3-cssbase h1,.yui3-cssbase h2,.yui3-cssbase h3 {
+	/* top & bottom margin based on font size */
+	margin:1em 0;
+}
+.yui3-cssbase h1,.yui3-cssbase h2,.yui3-cssbase h3,.yui3-cssbase h4,.yui3-cssbase h5,.yui3-cssbase h6,.yui3-cssbase strong {
+	/*bringing boldness back to headers and the strong element*/
+	font-weight:bold; 
+}
+.yui3-cssbase abbr,.yui3-cssbase acronym {
+	/*indicating to users that more info is available */
+	border-bottom:1px dotted #000;
+	cursor:help;
+} 
+.yui3-cssbase em {
+	/*bringing italics back to the em element*/
+	font-style:italic;
+}
+.yui3-cssbase blockquote,.yui3-cssbase ul,.yui3-cssbase ol,.yui3-cssbase dl {
+	/*giving blockquotes and lists room to breath*/
+	margin:1em;
+}
+.yui3-cssbase ol,.yui3-cssbase ul,.yui3-cssbase dl {
+	/*bringing lists on to the page with breathing room */
+	margin-left:2em;
+}
+.yui3-cssbase ol {
+	/*giving OL's LIs generated numbers*/
+	list-style: decimal outside;	
+}
+.yui3-cssbase ul {
+	/*giving UL's LIs generated disc markers*/
+	list-style: disc outside;
+}
+.yui3-cssbase dl dd {
+	/*providing spacing for definition terms*/
+	margin-left:1em;
+}
+.yui3-cssbase th,.yui3-cssbase td {
+	/*borders and padding to make the table readable*/
+	border:1px solid #000;
+	padding:.5em;
+}
+.yui3-cssbase th {
+	/*distinguishing table headers from data cells*/
+	font-weight:bold;
+	text-align:center;
+}
+.yui3-cssbase caption {
+	/*coordinated margin to match cell's padding*/
+	margin-bottom:.5em;
+	/*centered so it doesn't blend in to other content*/
+	text-align:center;
+}
+.yui3-cssbase p,.yui3-cssbase fieldset,.yui3-cssbase table,.yui3-cssbase pre {
+	/*so things don't run into each other*/
+	margin-bottom:1em;
+}
+/* setting a consistent width, 160px; 
+   control of type=file still not possible */
+.yui3-cssbase input[type=text],.yui3-cssbase input[type=password],.yui3-cssbase textarea{width:12.25em;*width:11.9em;}
+
+/* YUI CSS Detection Stamp */
+#yui3-css-stamp.cssbase-context { display: none; }

@@ -1,0 +1,28 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-tab-panel {
+    display: none;
+}
+
+.yui3-tab-selected {
+    background: yellow;
+}
+
+.yui3-tab-selected {
+    background: yellow;
+}
+
+.yui3-tab-panel-selected {
+    background: yellow;
+    display: block;
+}
+
+.yui3-tab {
+    display: inline-block;
+    margin-right: 0.5em;
+    zoom: 1;
+};

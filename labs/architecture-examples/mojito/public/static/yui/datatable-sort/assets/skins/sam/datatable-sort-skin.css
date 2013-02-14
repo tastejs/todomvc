@@ -1,0 +1,49 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-sam .yui3-datatable-sortable-column {
+    cursor: pointer;
+}
+
+.yui3-skin-sam .yui3-datatable-columns .yui3-datatable-sorted,
+.yui3-skin-sam .yui3-datatable-sortable-column:hover {
+    *background: #c1c4c8 url(../../../../assets/skins/sam/sprite.png) repeat-x 0 -100px;
+    background-color: #f1f2f3;
+}
+
+.yui3-skin-sam .yui3-datatable-sort-liner {
+    display: block;
+    height: 100%;
+    position: relative;
+    padding-right: 15px;
+    position: relative;
+}
+
+.yui3-skin-sam .yui3-datatable-sort-indicator {
+    position: absolute;
+    right: 0;
+    bottom: .5ex;
+    width: 7px;
+    height: 10px;
+    background: url(sort-arrow-sprite.png) no-repeat 0 0;
+    _background: url(sort-arrow-sprite-ie.png) no-repeat 0 0;
+    overflow: hidden;
+}
+
+.yui3-skin-sam .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+    background-position: 0 -10px;
+}
+.yui3-skin-sam .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+    background-position: 0 -20px;
+}
+
+.yui3-skin-sam .yui3-datatable-data .yui3-datatable-even .yui3-datatable-sorted {
+    background-color: #edf5ff;
+}
+
+.yui3-skin-sam .yui3-datatable-data .yui3-datatable-odd .yui3-datatable-sorted {
+    background-color: #dbeaff;
+}

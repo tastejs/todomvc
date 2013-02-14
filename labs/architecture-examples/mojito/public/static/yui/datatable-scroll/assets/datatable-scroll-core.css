@@ -1,0 +1,77 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* foundational CSS */
+.yui3-datatable-scrollable-x {
+    _overflow-x: hidden;
+    _position: relative;
+}
+
+.yui3-datatable-scrollable-y,
+.yui3-datatable-scrollable-y .yui3-datatable-x-scroller {
+    _overflow-y: hidden;
+    _position: relative;
+}
+
+.yui3-datatable-y-scroller-container {
+    overflow-x: hidden;
+    position: relative;
+}
+
+.yui3-datatable-scrollable-y .yui3-datatable-content {
+    /* To allow absolute positioning of virtual scrollbar */
+    position: relative;
+}
+
+.yui3-datatable-scrollable-y .yui3-datatable-table .yui3-datatable-columns {
+    /* Prevent masked headers from showing during momentum scrolling */
+    visibility: hidden;
+}
+
+.yui3-datatable-scroll-columns {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.yui3-datatable-y-scroller,
+.yui3-datatable-scrollable-x .yui3-datatable-caption-table {
+    width: 100%;
+}
+
+.yui3-datatable-x-scroller {
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.yui3-datatable-scrollable-y .yui3-datatable-y-scroller {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+}
+
+.yui3-datatable-scrollbar {
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 2;
+}
+
+.yui3-datatable-scrollbar div {
+    position: absolute;
+    width: 1px;
+    visibility: hidden;
+}
+
+/* Removed because it prevented cmd + zoom resizing in Chrome (at least) */
+/*
+.yui3-datatable-header {
+    -webkit-text-size-adjust: none;
+}
+*/

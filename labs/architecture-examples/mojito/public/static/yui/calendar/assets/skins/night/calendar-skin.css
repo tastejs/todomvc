@@ -1,0 +1,13 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-night .yui3-calendar-day-highlighted {
+    background-color: #555555;
+}
+
+.yui3-skin-night .yui3-calendar-day-selected.yui3-calendar-day-highlighted {
+    background-color: #777777;
+}

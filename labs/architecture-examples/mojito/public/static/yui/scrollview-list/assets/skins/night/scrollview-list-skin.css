@@ -1,0 +1,63 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-night .yui3-scrollview {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.yui3-skin-night .yui3-scrollview{
+    color:#fff;    
+    background-color:#000;
+}
+
+.yui3-skin-night .yui3-scrollview-vert .yui3-scrollview-content {
+    /*border:1px solid #303030; If the ScrollView needs a border add it here */
+    border-top:0;
+    background-color:#000;
+    font-family: HelveticaNeue,arial,helvetica,clean,sans-serif;
+    color:#fff;
+}
+
+/* For IE 6/7 - needs a background color (above) to pick up events, and zoom, to fill the UL */
+.yui3-skin-night .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-item {
+    *zoom:1;
+}
+
+/* For IE7 - needs zoom, otherwise clipped content is not rendered */
+.yui3-skin-night .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-list {
+    *zoom:1;
+	list-style:none; /*need these since reset is not required*/
+	padding:0; /*need these since reset is not required*/
+	margin:0; /*need these since reset is not required*/
+}
+
+.yui3-skin-night .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-item {
+    border-bottom: 1px solid #303030;
+    padding: 15px 20px 16px;
+    font-size: 100%;
+    font-weight: bold;
+    background-color:#151515;
+	cursor:pointer;
+}
+
+.yui3-skin-night .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-list.selected{
+	background-color:#2C2D2E;
+	background: -moz-linear-gradient(
+		0% 100% 90deg,	
+		#252626 0%, 
+		#333434 100%
+	);
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#333434),
+        to(#252626)     
+    );
+	border-top:solid 1px #4b4b4b;
+	border-bottom:solid 1px #3e3f3f;
+	margin-top:-1px;
+}

@@ -1,0 +1,48 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/**
+ * Percents could work for IE, but for backCompat purposes, we are using keywords.
+ * x-small is for IE6/7 quirks mode.
+ */
+body {
+	font:13px/1.231 arial,helvetica,clean,sans-serif;
+	*font-size:small; /* for IE */
+	*font:x-small; /* for IE in quirks mode */
+}
+
+/**
+ * Nudge down to get to 13px equivalent for these form elements
+ */ 
+select,
+input,
+button,
+textarea {
+	font:99% arial,helvetica,clean,sans-serif;
+}
+
+/**
+ * To help tables remember to inherit
+ */
+table {
+	font-size:inherit;
+	font:100%;
+}
+
+/**
+ * Bump up IE to get to 13px equivalent for these fixed-width elements
+ */
+pre,
+code,
+kbd,
+samp,
+tt {
+	font-family:monospace;
+	*font-size:108%;
+	line-height:100%;
+}
+/* YUI CSS Detection Stamp */
+#yui3-css-stamp.cssfonts { display: none; }

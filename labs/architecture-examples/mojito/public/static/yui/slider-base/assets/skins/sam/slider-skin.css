@@ -1,0 +1,93 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* Horizontal Slider */
+
+/* Use thumbUrl /build/slider-base/assets/skins/sam/thumb-x.png */
+
+.yui3-skin-sam .yui3-slider-x .yui3-slider-rail,
+.yui3-skin-sam .yui3-slider-x .yui3-slider-rail-cap-left,
+.yui3-skin-sam .yui3-slider-x .yui3-slider-rail-cap-right {
+    background-image: url(rail-x.png);
+    background-repeat: repeat-x;
+    /* alternate: rail-x-lines.png */
+}
+
+.yui3-skin-sam .yui3-slider-x .yui3-slider-rail {
+    height: 26px;
+}
+.yui3-skin-sam .yui3-slider-x .yui3-slider-thumb {
+    height: 26px;
+    width: 15px;
+}
+
+.yui3-skin-sam .yui3-slider-x .yui3-slider-rail-cap-left {
+    background-position: 0 -20px;
+    height: 20px;
+    left: -2px;
+    width: 5px;
+}
+.yui3-skin-sam .yui3-slider-x .yui3-slider-rail-cap-right {
+    background-position: 0 -40px;
+    height: 20px;
+    right: -2px;
+    width: 5px;
+}
+
+.yui3-skin-sam .yui3-slider-x .yui3-slider-thumb-image {
+    left: 0;
+    top: -10px;
+}
+.yui3-skin-sam .yui3-slider-x .yui3-slider-thumb-shadow {
+    left: 0;
+    opacity: 0.15;
+    filter: alpha(opacity=15);
+    top: -50px;
+}
+
+/* Vertical Slider */
+
+/* Use thumbUrl /build/slider-base/assets/skins/sam/thumb-y.png */
+
+.yui3-skin-sam .yui3-slider-y .yui3-slider-rail,
+.yui3-skin-sam .yui3-slider-y .yui3-slider-rail-cap-top,
+.yui3-skin-sam .yui3-slider-y .yui3-slider-rail-cap-bottom {
+    background-image: url(rail-y.png);
+    background-repeat: repeat-y;
+    /* alternate: rail-y-lines.png */
+}
+
+.yui3-skin-sam .yui3-slider-y .yui3-slider-rail {
+    width: 26px;
+}
+.yui3-skin-sam .yui3-slider-y .yui3-slider-thumb {
+    width: 26px;
+    height: 15px;
+}
+
+.yui3-skin-sam .yui3-slider-y .yui3-slider-rail-cap-top {
+    background-position: -20px 0;
+    width: 20px;
+    top: -2px;
+    height: 5px;
+}
+.yui3-skin-sam .yui3-slider-y .yui3-slider-rail-cap-bottom {
+    background-position: -40px 0;
+    width: 20px;
+    bottom: -2px;
+    height: 5px;
+}
+
+.yui3-skin-sam .yui3-slider-y .yui3-slider-thumb-image {
+    left: -10px;
+    top: 0;
+}
+.yui3-skin-sam .yui3-slider-y .yui3-slider-thumb-shadow {
+    left: -50px;
+    opacity: 0.15;
+    filter: alpha(opacity=15);
+    top: 0;
+}

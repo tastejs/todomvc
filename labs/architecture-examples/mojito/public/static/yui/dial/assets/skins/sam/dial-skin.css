@@ -1,0 +1,81 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-sam .yui3-dial-handle{ /*container. top left corner used for trig positioning*/
+	background:#6C3A3A;
+	opacity:0.3;
+	-moz-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.9) inset;
+	/*-webkit-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.9) inset; Chrome 7/Win bug*/
+	cursor:pointer;
+	font-size:1px;
+}
+.yui3-skin-sam .yui3-dial-ring {
+    background:#BEBDB7;
+	background:-moz-linear-gradient(100% 100% 135deg, #7B7A6D, #FFFFFF);
+	background:-webkit-gradient(linear, left top, right bottom, from(#FFFFFF), to(#7B7A6D));
+	box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
+	-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4) inset; /*Chrome 7/Win bug*/
+	-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
+}
+.yui3-skin-sam .yui3-dial-center-button{
+	box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
+	/*-webkit-box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5); Chrome 7/Win bug*/
+    background:#DDDBD4;
+	background:-moz-radial-gradient(30% 30% 0deg, circle farthest-side, #FBFBF9 24%, #F2F0EA 41%, #D3D0C3 83%) repeat scroll 0 0 transparent;
+	background:-webkit-gradient(radial, 15 15, 15, 30 30, 40, from(#FBFBF9), to(#D3D0C3), color-stop(.2,#F2F0EA));
+	cursor:pointer;
+	opacity:0.7;
+	/*text-align:center;*/
+}
+.yui3-skin-sam .yui3-dial-reset-string{
+	color:#676767;
+	font-size:85%;
+	text-decoration:underline;
+}
+.yui3-skin-sam .yui3-dial-label{
+	color:#808080;
+	margin-bottom:0.8em;
+}
+.yui3-skin-sam .yui3-dial-value-string{
+	margin-left:0.5em;
+	color:#000;
+	font-size:130%;
+}
+.yui3-skin-sam .yui3-dial-value {
+	visibility:hidden;
+	position:absolute;
+	top:0;
+	left:102%;
+	width:4em;
+}
+.yui3-skin-sam .yui3-dial-north-mark{
+	position:absolute;
+	border-left:2px solid #ccc;
+	height:5px;
+	width:10px;
+	left:50%;
+	top:-7px;
+	font-size:1px;	
+}
+.yui3-skin-sam .yui3-dial-marker { 
+	background-color:#000;
+	opacity:0.2;
+	font-size:1px;
+}
+.yui3-skin-sam .yui3-dial-marker-max-min{
+	background-color:#AB3232;
+	opacity:0.6;
+}
+.yui3-skin-sam .yui3-dial-ring-vml,
+.yui3-skin-sam .yui3-dial-center-button-vml,
+.yui3-skin-sam .yui3-dial-marker v\:oval.yui3-dial-marker-max-min,
+.yui3-skin-sam v\:oval.yui3-dial-marker-max-min,
+.yui3-skin-sam .yui3-dial-marker-vml,
+.yui3-skin-sam .yui3-dial-handle-vml {
+    background: none;
+    opacity:1;
+}

@@ -1,0 +1,43 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-sam .yui3-scrollview {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+
+.yui3-skin-sam .yui3-scrollview{
+	background-color: white;
+}
+/* For IE 6/7 - needs a background color (above) to pick up events, and zoom, to fill the UL */
+.yui3-skin-sam .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-item {
+    *zoom:1;
+}
+
+/* For IE7 - needs zoom, otherwise clipped content is not rendered */
+.yui3-skin-sam .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-list {
+    *zoom:1;
+	list-style:none; /*need these since reset is not required*/
+	padding:0; /*need these since reset is not required*/
+	margin:0; /*need these since reset is not required*/
+}
+
+.yui3-skin-sam .yui3-scrollview-vert .yui3-scrollview-content {
+    /*border:1px solid #303030; If the ScrollView needs a border add it here */
+    border-top:0;
+	background-color:white;
+	font-family: HelveticaNeue,arial,helvetica,clean,sans-serif;
+	color:black;
+}
+
+.yui3-skin-sam .yui3-scrollview-vert .yui3-scrollview-content .yui3-scrollview-item {
+    border-bottom: 1px solid #303030;
+    padding: 15px 20px 16px;
+    font-size: 100%;
+    font-weight: bold;
+    background-color:white;
+	cursor:pointer;
+}
+

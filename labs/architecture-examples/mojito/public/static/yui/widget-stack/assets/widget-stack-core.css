@@ -1,0 +1,25 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-widget-stacked .yui3-widget-shim {
+    opacity:0;
+    filter:alpha(opacity=0);
+    position:absolute;
+    border:none;
+    top:0px;
+    left:0px;
+    padding:0;
+    margin:0;
+    z-index:-1;
+    width:100%;
+    height:100%;
+    /* 
+       We'll be setting these programmatically for IE6, 
+       to account for cases where height is not set 
+    */
+    _width:0;
+    _height:0;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "yui",
+  "version": "3.7.3",
+  "description": "YUI 3 Source",
+  "author": {
+    "name": "Dav Glass",
+    "email": "davglass@gmail.com"
+  },
+  "bugs": {
+    "url": "http://yuilibrary.com/projects/yui3/"
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "directories": {
+    "lib": "."
+  },
+  "main": "./index.js",
+  "dependencies": {
+    "request": "2.9.202"
+  },
+  "devDependencies": {
+    "yuidocjs": "*",
+    "shifter": "*",
+    "yogi": "*"
+  },
+  "licenses": [
+    {
+      "type": "BSD",
+      "url": "http://yuilibrary.com/license/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/yui/yui3.git"
+  },
+  "readme": "YUI 3: The Yahoo! User Interface Library\n========================================\n\nYUI is a free, open source JavaScript and CSS framework for building richly\ninteractive web applications. YUI is provided under a BSD license and is\navailable on GitHub for forking and contribution.\n\nLinks\n-----\n\n  * [Home Page](http://yuilibrary.com/)\n  * [Documentation](http://yuilibrary.com/yui/docs/)\n  * [Latest Production Release](http://yuilibrary.com/download/yui3/)\n  * [Forums](http://yuilibrary.com/forum/)\n  * [License](http://yuilibrary.com/license/)\n  * [Contributor Info](http://yuilibrary.com/contribute/)\n  * [Report a Bug](http://yuilibrary.com/yui/docs/tutorials/report-bugs/)\n  * [![Build Status](https://secure.travis-ci.org/yui/yui3.png?branch=master)](http://travis-ci.org/yui/yui3)\n  * [Shifter, for building YUI](http://yui.github.com/shifter/)\n\n\nSource Info\n-----------\n\nThis is the active working source tree for YUI 3. It contains work in progress\ntoward the next YUI 3 releases and may be unstable.\n\nWe encourage you to use the latest source for evaluation purposes, testing new\nfeatures and bug fixes, and to provide feedback on new functionality. Please\nrefer to the \"Latest Production Release\" link above if you're looking for the\nlatest stable release of YUI recommended for production use.\n\n### Branches\n\nYUI's development happens on three main branches. The following describes what\neach of these code branches represents:\n\n  * `live-docs`: Represents the latest release of YUI, plus any\n    documentation-only updates. Any tweaks or additions to the docs for the\n    latest release happen on this branch, and they are reflected on the website.\n\n  * `master`: Contains everything in `live-docs`, plus code changes that will go\n    into the next YUI release. The code changes in `master` are either bug fixes\n    or small changes which should not break API compatibility. Patch releases\n    will be cut from this branch; e.g. 3.6.x.\n\n  * `3.x`: Represents the next major YUI release; e.g. 3.7.0. This is an\n    integration branch which contains everything in `master`, plus larger code\n    changes which will go into a future YUI release. The changes in `3.x`\n    require a minor version increment before they are part of release; e.g.\n    3.7.0. Preview Releases will be cut from this branch for developers to test\n    and evaluate.\n\n### Source Tree\n\nThe YUI source tree includes the following directories:\n\n  * `build`: Built YUI source files. The built files are generated at\n    development time from the contents of the `src` directory. The build step\n    generates debug files (unminified and with full comments and logging),\n    raw files (unminified, but without debug logging), and minified files\n    (suitable for production deployment and use).\n\n  * `src` Raw unbuilt source code (JavaScript, CSS, image assets, ActionScript\n     files, etc.) for the library. Beginning with YUI 3.4.0, the `src` directory\n     also contains all module-specific documentation, tests and examples. All\n     modifications to the library and its documentation should take place in\n     this directory.\n\nTo build YUI components install [Shifter](http://yui.github.com/shifter/) (`npm -g install shifter`)\nand then simply run `shifter` in that components directory.\n\nShifter also allows you to rebuild the entire YUI src tree:\n\n    cd yui3/src && shifter --walk\n\n",
+  "_id": "yui@3.7.3",
+  "dist": {
+    "shasum": "6e7568ceab6fea2d4714b1d7e31d5e7195dfe5b2"
+  },
+  "_from": "yui@~3.7.3"
+}
