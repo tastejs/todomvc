@@ -178,6 +178,8 @@ class TodoView extends Backbone.View {
 	model: Todo;
 	input: any;
 
+	static ENTER_KEY:number = 13;
+
 	constructor (options? ) {
 		//... is a list tag.
 		this.tagName = 'li';
@@ -200,7 +202,7 @@ class TodoView extends Backbone.View {
 		this.model.bind('change', this.render);
 		this.model.bind('destroy', this.remove);
 	}
-w
+
 	// Re-render the contents of the todo item.
 	render() {
 		this.$el.html(this.template(this.model.toJSON()));
@@ -227,7 +229,7 @@ w
 
 	// If you hit `enter`, we're through editing the item.
 	updateOnEnter(e) {
-		if (e.keyCode == 13) close();
+		if (e.keyCode == TodoView.ENTER_KEY) close();
 	}
 
 	// Remove the item, destroy the model.
