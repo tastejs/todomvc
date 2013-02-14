@@ -43,7 +43,6 @@ var app = app || {};
 	// Implementation in js/lib/kendo.data.localstoragedatasource.ds
 	app.todoData = new kendo.data.extensions.LocalStorageDataSource({
 		itemBase: 'todos-kendo',
-		autoSync: true,
 		schema: {
 			model: app.Todo
 		}
@@ -77,6 +76,7 @@ var app = app || {};
 			});
 
 			todos.add(todo);
+			todos.sync();
 			newTodo.val('');
 		},
 		toggleAll: function () {
@@ -106,14 +106,17 @@ var app = app || {};
 			}
 
 			editData.set('edit', false);
+			this.todos.sync();
 		},
 		destroy: function (e) {
 			this.todos.remove(e.data);
+			this.todos.sync();
 		},
 		destroyCompleted: function () {
 			$.each(this.completedTodos(), function (index, value) {
 				this.todos.remove(value);
 			}.bind(this));
+			this.todos.sync();
 		},
 
 		// Methods for retrieving filtered todos and count values
