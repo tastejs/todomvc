@@ -16,8 +16,8 @@ require(['can/util/library', 'can/route', 'app/todos', 'app/models/todo', 'can/v
 		route.ready(false);
 
 		// View helper for pluralizing strings
-		can.Mustache.registerHelper('plural', function (str, count) {
-			return str + (count !== 1 ? 's' : '');
+		can.Mustache.registerHelper('todoPlural', function (str, attr) {
+			return str + (attr.call(this.todos) !== 1 ? 's' : '');
 		});
 
 		// Find all Todos

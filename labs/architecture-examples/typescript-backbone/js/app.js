@@ -11,20 +11,20 @@ var Todo = (function (_super) {
     }
     Todo.prototype.defaults = function () {
         return {
-            content: "empty todo...",
+            content: '',
             done: false
         };
     };
     Todo.prototype.initialize = function () {
-        if(!this.get("content")) {
+        if(!this.get('content')) {
             this.set({
-                "content": this.defaults().content
+                'content': this.defaults().content
             });
         }
     };
     Todo.prototype.toggle = function () {
         this.save({
-            done: !this.get("done")
+            done: !this.get('done')
         });
     };
     Todo.prototype.clear = function () {
@@ -38,7 +38,7 @@ var TodoList = (function (_super) {
         _super.apply(this, arguments);
 
         this.model = Todo;
-        this.localStorage = new Store("todos-backbone");
+        this.localStorage = new Store('todos-typescript-backbone');
     }
     TodoList.prototype.done = function () {
         return this.filter(function (todo) {
@@ -63,13 +63,13 @@ var Todos = new TodoList();
 var TodoView = (function (_super) {
     __extends(TodoView, _super);
     function TodoView(options) {
-        this.tagName = "li";
+        this.tagName = 'li';
         this.events = {
-            "click .check": "toggleDone",
-            "dblclick label.todo-content": "edit",
-            "click button.destroy": "clear",
-            "keypress .todo-input": "updateOnEnter",
-            "blur .todo-input": "close"
+            'click .check': 'toggleDone',
+            'dblclick label.todo-content': 'edit',
+            'click button.destroy': 'clear',
+            'keypress .todo-input': 'updateOnEnter',
+            'blur .todo-input': 'close'
         };
         _super.call(this, options);
         this.template = _.template($('#item-template').html());
@@ -77,6 +77,7 @@ var TodoView = (function (_super) {
         this.model.bind('change', this.render);
         this.model.bind('destroy', this.remove);
     }
+    TodoView.ENTER_KEY = 13;
     TodoView.prototype.render = function () {
         this.$el.html(this.template(this.model.toJSON()));
         this.input = this.$('.todo-input');
@@ -86,17 +87,17 @@ var TodoView = (function (_super) {
         this.model.toggle();
     };
     TodoView.prototype.edit = function () {
-        this.$el.addClass("editing");
+        this.$el.addClass('editing');
         this.input.focus();
     };
     TodoView.prototype.close = function () {
         this.model.save({
             content: this.input.val()
         });
-        this.$el.removeClass("editing");
+        this.$el.removeClass('editing');
     };
     TodoView.prototype.updateOnEnter = function (e) {
-        if(e.keyCode == 13) {
+        if(e.keyCode == TodoView.ENTER_KEY) {
             close();
         }
     };
@@ -110,16 +111,16 @@ var AppView = (function (_super) {
     function AppView() {
         _super.call(this);
         this.events = {
-            "keypress #new-todo": "createOnEnter",
-            "keyup #new-todo": "showTooltip",
-            "click .todo-clear button": "clearCompleted",
-            "click .mark-all-done": "toggleAllComplete"
+            'keypress #new-todo': 'createOnEnter',
+            'click .todo-clear button': 'clearCompleted',
+            'click .mark-all-done': 'toggleAllComplete'
         };
-        this.tooltipTimeout = null;
-        this.setElement($("#todoapp"), true);
+        this.setElement($('#todoapp'), true);
         _.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
-        this.input = this.$("#new-todo");
-        this.allCheckbox = this.$(".mark-all-done")[0];
+        this.input = this.$('#new-todo');
+        this.allCheckbox = this.$('.mark-all-done')[0];
+        this.mainElement = this.$('#main')[0];
+        this.footerElement = this.$('#footer')[0];
         this.statsTemplate = _.template($('#stats-template').html());
         Todos.bind('add', this.addOne);
         Todos.bind('reset', this.addAll);
@@ -129,18 +130,25 @@ var AppView = (function (_super) {
     AppView.prototype.render = function () {
         var done = Todos.done().length;
         var remaining = Todos.remaining().length;
-        this.$('#todo-stats').html(this.statsTemplate({
-            total: Todos.length,
-            done: done,
-            remaining: remaining
-        }));
+        if(Todos.length) {
+            this.mainElement.style.display = 'block';
+            this.footerElement.style.display = 'block';
+            this.$('#todo-stats').html(this.statsTemplate({
+                total: Todos.length,
+                done: done,
+                remaining: remaining
+            }));
+        } else {
+            this.mainElement.style.display = 'none';
+            this.footerElement.style.display = 'none';
+        }
         this.allCheckbox.checked = !remaining;
     };
     AppView.prototype.addOne = function (todo) {
         var view = new TodoView({
             model: todo
         });
-        this.$("#todo-list").append(view.render().el);
+        this.$('#todo-list').append(view.render().el);
     };
     AppView.prototype.addAll = function () {
         Todos.each(this.addOne);
@@ -164,20 +172,6 @@ var AppView = (function (_super) {
             return todo.clear();
         });
         return false;
-    };
-    AppView.prototype.showTooltip = function (e) {
-        var tooltip = $(".ui-tooltip-top");
-        var val = this.input.val();
-        tooltip.fadeOut();
-        if(this.tooltipTimeout) {
-            clearTimeout(this.tooltipTimeout);
-        }
-        if(val == '' || val == this.input.attr('placeholder')) {
-            return;
-        }
-        this.tooltipTimeout = _.delay(function () {
-            return tooltip.show().fadeIn();
-        }, 1000);
     };
     AppView.prototype.toggleAllComplete = function () {
         var done = this.allCheckbox.checked;

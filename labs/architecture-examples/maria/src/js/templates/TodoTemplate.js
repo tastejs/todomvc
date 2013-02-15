@@ -1,3 +1,5 @@
+/*global checkit */
+
 // In a full development environment this template would be expressed
 // in a file containing only HTML and be compiled to the following as part
 // of the server/build functionality.
@@ -7,14 +9,11 @@
 // included here.
 //
 checkit.TodoTemplate =
-    '<li class="todo">' +
-        '<div class="display">' +
-            '<input class="check" type="checkbox">' +
-            '<span class="todo-content"></span>' +
-            '<span class="todo-destroy">delete</span>' +
-        '</div>' +
-        '<div class="edit">' +
-            '<input class="todo-input" type="text">' +
-            '<span class="ui-tooltip-top" style="display:none;">Press enter to update this task.</span>' +
-        '</div>' +
-    '</li>';
+	'<li>' +
+		'<div class="view">' +
+			'<input class="toggle" type="checkbox">' +
+			'<label></label>' +
+			'<button class="destroy"></span>' +
+		'</div>' +
+		'<input class="edit">' +
+	'</li>';
