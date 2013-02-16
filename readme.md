@@ -119,7 +119,7 @@ TodoMVC 1.0 includes re-writes of almost all applications, ensuring they follow 
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-Check out our [contribution docs](todomvc/blob/gh-pages/contributing.md) for more info.
+Check out our [contribution docs](contributing.md) for more info.
 
 
 ## License
