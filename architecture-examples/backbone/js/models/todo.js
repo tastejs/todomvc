@@ -1,6 +1,7 @@
+/*global Backbone*/
 var app = app || {};
 
-(function() {
+(function () {
 	'use strict';
 
 	// Todo Model
@@ -17,7 +18,7 @@ var app = app || {};
 		},
 
 		// Toggle the `completed` state of this todo item.
-		toggle: function() {
+		toggle: function () {
 			this.save({
 				completed: !this.get('completed')
 			});
