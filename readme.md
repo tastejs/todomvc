@@ -99,6 +99,11 @@ Addy is a Developer Platform Engineer at Google who originally created TodoMVC. 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
 Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible.
 
+#### [Pascal Hartig](https://github.com/passy) - Developer
+
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
+Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
+
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 
