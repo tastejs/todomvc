@@ -45,6 +45,7 @@ We also have a number of in-progress applications in Labs:
 - [Derby](http://derbyjs.com)
 - [CanJS](http://canjs.us)
 - [Kendo UI](http://kendoui.com)
+- [Flight by Twitter](https://github.com/twitter/flight)
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujo.js](http://cujojs.github.com)
 - [MarionetteJS](http://marionettejs.com/)
