@@ -1,11 +1,14 @@
+/*global Todos Ember*/
+'use strict';
+
 Todos.TodoController = Ember.ObjectController.extend({
 	isEditing: false,
 
-	editTodo: function() {
+	editTodo: function () {
 		this.set('isEditing', true);
 	},
 
-	removeTodo: function() {
+	removeTodo: function () {
 		var todo = this.get('model');
 
 		todo.deleteRecord();
