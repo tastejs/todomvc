@@ -1,0 +1,15 @@
+{
+  "baseUrl": "./js/",
+  "libs": {
+    "jquery": "../assets/jquery.min",
+    "handlebars": "../assets/handlebars.min",
+    "ember": "lib/ember-latest.min",
+    "jasmine": "../assets/jasmine/jasmine",
+    "jasmine_html": "../assets/jasmine/jasmine-html",
+    "hbsCompiled": "app/templates/hbsCompiled"
+  },
+
+  "build": {
+    "input": "js/app.js"
+  }
+}
