@@ -1,3 +1,5 @@
+/*global YUI*/
+
 YUI.add('todo-view', function (Y) {
 	'use strict';
 
