@@ -1,3 +1,4 @@
+/*global $ kendo*/
 var app = app || {};
 
 (function ($, kendo) {
