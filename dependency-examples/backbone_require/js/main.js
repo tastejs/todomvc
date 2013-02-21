@@ -1,3 +1,6 @@
+/*global require*/
+'use strict';
+
 // Require.js allows us to configure shortcut alias
 require.config({
 	// The shim config allows us to configure dependencies for
@@ -28,9 +31,11 @@ require.config({
 });
 
 require([
+	'backbone',
 	'views/app',
 	'routers/router'
-], function( AppView, Workspace ) {
+], function (Backbone, AppView, Workspace) {
+	/*jshint nonew:false*/
 	// Initialize routing and start Backbone.history()
 	new Workspace();
 	Backbone.history.start();

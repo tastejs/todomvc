@@ -1,7 +1,9 @@
+/*global define*/
 define([
 	'underscore',
 	'backbone'
-], function( _, Backbone ) {
+], function (_, Backbone) {
+	'use strict';
 
 	var TodoModel = Backbone.Model.extend({
 		// Default attributes for the todo
@@ -12,7 +14,7 @@ define([
 		},
 
 		// Toggle the `completed` state of this todo item.
-		toggle: function() {
+		toggle: function () {
 			this.save({
 				completed: !this.get('completed')
 			});
