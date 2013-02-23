@@ -2,7 +2,7 @@ library todomvc;
 
 import 'dart:html';
 import 'dart:math';
-import 'dart:json';
+import 'dart:json' as JSON;
 
 part 'TodoWidget.dart';
 part 'TodoApp.dart';
