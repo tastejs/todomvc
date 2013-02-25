@@ -74,6 +74,7 @@ We also have a number of in-progress applications in Labs:
 - [Chaplin](http://chaplinjs.org) + [Brunch](http://brunch.io)
 - [Serenade.js](https://github.com/elabs/serenade.js)
 - [TypeScript](http://www.typescriptlang.org/)
+- [DeftJS](http://deftjs.org/)
 
 ## Live demos
 

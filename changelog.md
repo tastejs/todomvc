@@ -4,6 +4,7 @@
 
 - New since 1.1:
     - Flight
+    - DeftJS + ExtJS
 
 ## 1.1 - 2013-02-14
 
