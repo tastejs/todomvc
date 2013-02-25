@@ -75,6 +75,7 @@ We also have a number of in-progress applications in Labs:
 - [Serenade.js](https://github.com/elabs/serenade.js)
 - [TypeScript](http://www.typescriptlang.org/)
 - [DeftJS](http://deftjs.org/)
+- [Aria Templates](http://ariatemplates.com/)
 
 ## Live demos
 
