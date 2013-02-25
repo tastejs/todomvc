@@ -1,0 +1,227 @@
+{CSSTemplate {
+	$classpath: 'js.view.TodoStyle',
+	$dependencies: ['aria.core.Browser']
+}}
+
+{macro main ()}
+
+.todo-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.todo-list li {
+	position: relative;
+	font-size: 24px;
+	border-bottom: 1px dotted #ccc;
+}
+
+.todo-list li:last-child {
+	border-bottom: none;
+}
+
+.todo-list li.completed label {
+	color: #a9a9a9;
+	text-decoration: line-through;
+}
+
+.todo-list li .toggle {
+	text-align: center;
+	width: 40px;
+	/* auto, since non-WebKit browsers doesn't support input styling */
+	height: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	border: none; /* Mobile Safari */
+	-webkit-appearance: none;
+	/*-moz-appearance: none;*/
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
+
+.todo-list li .toggle:after {
+	content: '✔';
+	line-height: 43px; /* 40 + a couple of pixels visual adjustment */
+	font-size: 20px;
+	color: #d9d9d9;
+	text-shadow: 0 -1px 0 #bfbfbf;
+}
+
+.todo-list li .toggle:checked:after {
+	color: #85ada7;
+	text-shadow: 0 1px 0 #669991;
+	bottom: 1px;
+	position: relative;
+}
+
+.todo-list li label {
+	word-break: break-word;
+	padding: 15px;
+	margin-left: 45px;
+	display: block;
+	line-height: 1.2;
+	-webkit-transition: color 0.4s;
+	-moz-transition: color 0.4s;
+	-ms-transition: color 0.4s;
+	-o-transition: color 0.4s;
+	transition: color 0.4s;
+}
+
+.todo-list li.completed label {
+	color: #a9a9a9;
+	text-decoration: line-through;
+}
+
+.todo-list li .destroy {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 10px;
+	bottom: 0;
+	width: 40px;
+	height: 40px;
+	margin: auto 0;
+	font-size: 22px;
+	color: #a88a8a;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+.todo-list li .destroy:hover {
+	text-shadow: 0 0 1px #000,
+				 0 0 10px rgba(199, 107, 107, 0.8);
+	-webkit-transform: scale(1.3);
+	-moz-transform: scale(1.3);
+	-ms-transform: scale(1.3);
+	-o-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+.todo-list li .destroy:after {
+	content: '✖';
+}
+
+.todo-list li:hover .destroy {
+	display: block;
+}
+
+.todo-count {
+	float: left;
+	text-align: left;
+}
+
+#label-toggle-all {
+	display: none;
+}
+
+.toggle-all {
+	position: absolute;
+	top: -42px;
+	left: -4px;
+	width: 40px;
+	text-align: center;
+	border: none; /* Mobile Safari */
+}
+
+.toggle-all:before {
+	content: '»';
+	font-size: 28px;
+	color: #d9d9d9;
+	padding: 0 25px 7px;
+}
+
+.toggle-all:checked:before {
+	color: #737373;
+}
+
+.todo-list li.editing {
+	border-bottom: none;
+	padding: 0;
+}
+
+.todo-list li.editing .edit {
+	display: block;
+	width: 506px;
+	padding: 13px 17px 12px 17px;
+	margin: 0 0 0 43px;
+}
+
+.todo-list li.editing .view {
+	display: none;
+}
+
+.todo-list li.editing:last-child {
+	margin-bottom: -1px;
+}
+
+.filter-active li.completed {
+	display: none
+}
+
+.filter-completed li {
+	display: none
+}
+.filter-completed li.completed {
+	display: block
+}
+
+.filters {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	right: 0;
+	left: 0;
+}
+
+.filters li {
+	display: inline;
+}
+
+.filters li a {
+	color: #83756f;
+	margin: 2px;
+	text-decoration: none;
+}
+
+.filters li a.selected {
+	font-weight: bold;
+}
+
+/*
+	This replaces the original hack to remove background from Mobile Safari.
+*/
+{if aria.core.Browser.isWebkit}
+
+.toggle-all,
+.todo-list li .toggle {
+	background: none;
+}
+
+.todo-list li .toggle {
+	height: 40px;
+}
+
+.toggle-all {
+	top: -56px;
+	left: -15px;
+	width: 65px;
+	height: 41px;
+	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg);
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+{/if}
+
+{/macro}
+
+{/CSSTemplate}
