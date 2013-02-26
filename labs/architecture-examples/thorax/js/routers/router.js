@@ -1,4 +1,5 @@
-(function() {
+/*global Backbone*/
+(function () {
 	'use strict';
 
 	// Todo Router
@@ -10,7 +11,7 @@
 			':filter': 'setFilter'
 		},
 
-		setFilter: function( param ) {
+		setFilter: function (param) {
 			// Set the current filter to be used
 			window.app.TodoFilter = param ? param.trim().replace(/^\//, '') : '';
 			// Thorax listens for a `filter` event which will

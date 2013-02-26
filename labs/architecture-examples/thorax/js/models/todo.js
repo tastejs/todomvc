@@ -1,4 +1,5 @@
-(function() {
+/*global Thorax*/
+(function () {
 	'use strict';
 
 	// Todo Model
@@ -15,7 +16,7 @@
 		},
 
 		// Toggle the `completed` state of this todo item.
-		toggle: function() {
+		toggle: function () {
 			this.save({
 				completed: !this.get('completed')
 			});
