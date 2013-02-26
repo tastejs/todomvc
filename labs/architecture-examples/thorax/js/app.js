@@ -1,8 +1,8 @@
-/*global $, Thorax, Backbone*/
+/*global Thorax, Backbone*/
 /*jshint unused:false*/
 var ENTER_KEY = 13;
 
-$(function () {
+(function () {
 	'use strict';
 	// Kick things off by creating the **App**.
 	var view = new Thorax.Views.app({
@@ -10,4 +10,4 @@ $(function () {
 	});
 	view.appendTo('body');
 	Backbone.history.start();
-});
+}());

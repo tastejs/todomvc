@@ -1,5 +1,5 @@
-/*global Thorax, $, ENTER_KEY*/
-$(function () {
+/*global Thorax, ENTER_KEY*/
+(function () {
 	'use strict';
 
 	// Todo Item View
@@ -65,4 +65,4 @@ $(function () {
 			this.model.destroy();
 		}
 	});
-});
+}());
