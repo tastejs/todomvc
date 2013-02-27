@@ -1,3 +1,5 @@
+/*global angular*/
+/*jshint unused:false*/
 'use strict';
 
 /**

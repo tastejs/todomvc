@@ -1,28 +1,31 @@
+/*global define*/
+
 // It's going to be called Input
-define( 'Todos/Input',
+define('Todos/Input',
 
 // It uses the Olives' OObject and the Event Plugin to listen to dom events and connect them to methods
-[ 'Olives/OObject', 'Olives/Event-plugin' ],
+['Olives/OObject', 'Olives/Event-plugin'],
 
 // The Input UI
-function Input( OObject, EventPlugin ) {
+function Input(OObject, EventPlugin) {
+	'use strict';
 
 	// It returns an init function
-	return function InputInit( view, model ) {
+	return function InputInit(view, model) {
 		// The OObject (the controller) inits with a default model which is a simple store
 		// But it can be init'ed with any other store, like the LocalStore
-		var input = new OObject( model ),
+		var input = new OObject(model),
 
 		ENTER_KEY = 13;
 
 		// The event plugin that is added to the OObject
 		// We have to tell it where to find the methods
-		input.plugins.add( 'event', new EventPlugin(input) );
+		input.plugins.add('event', new EventPlugin(input));
 
 		// The method to add a new taks
-		input.addTask = function addTask( event, node ) {
-			if ( event.keyCode === ENTER_KEY && node.value.trim() ) {
-				model.alter( 'push', {
+		input.addTask = function addTask(event, node) {
+			if (event.keyCode === ENTER_KEY && node.value.trim()) {
+				model.alter('push', {
 					title: node.value.trim(),
 					completed: false
 				});
@@ -31,6 +34,6 @@ function Input( OObject, EventPlugin ) {
 		};
 
 		// Alive applies the plugins to the HTML view
-		input.alive( view );
+		input.alive(view);
 	};
 });

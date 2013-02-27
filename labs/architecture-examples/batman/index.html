@@ -19,7 +19,7 @@
 					<input id="new-todo" type="text" placeholder="What needs to be completed?" autofocus data-bind="todo.title">
 				</form>
 			</header>
-			<section id="main" data-showif="Todo.all.length">
+			<section id="main" class="hidden" data-removeclass-hidden="Todo.all.length">
 				<input id="toggle-all" type="checkbox" data-event-change="toggleAll" data-source="Todo.completed.length | equals Todo.all.length">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
@@ -39,7 +39,7 @@
 					</li>
 				</ul>
 			</section>
-				<footer id="footer" data-showif="Todo.all.length">
+			<footer id="footer" class="hidden" data-removeclass-hidden="Todo.all.length">
 				<span id="todo-count">
 					<strong data-bind="Todo.active.length"></strong>
 					<span data-bind="'item' | pluralize Todo.active.length, false"></span> left

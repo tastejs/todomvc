@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Aria Templates • TodoMVC</title>
+	<script src="js/lib/aria/ariatemplates-1.3.5.js"></script>
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<section id="todoapp"></section>
+
+	<script>
+		// Update the path to the Todo module here when necessary
+		aria.core.DownloadMgr.updateRootMap({
+			js: {
+			'*': './'
+			}
+		});
+		// Here be todos
+		Aria.loadTemplate({
+			div: 'todoapp',
+			classpath: 'js.view.Todo',
+			moduleCtrl: {
+				classpath: 'js.TodoCtrl'
+			}
+		});
+	</script>
+
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Written by <a href="http://ariatemplates.com">Olaf Kappes</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="../../../assets/base.js"></script>
+</body>
+</html>

@@ -1,22 +1,25 @@
-define(function(){
+/*global define dermis window*/
+define(function () {
+	'use strict';
+
 	var Todo = dermis.model({
-		setEditable: function(){
+		setEditable: function () {
 			this.set('editable', true);
 		},
-		save: function(){
+		save: function () {
 			this.set('editable', false);
 			var title = this.get('title').trim();
-			if(title.length === 0) {
+			if (title.length === 0) {
 				var todo = this;
-				setTimeout(function(){
+				window.setTimeout(function () {
 					todo.destroy();
 				}, 1);
 			}
 		},
-		destroy: function(){
+		destroy: function () {
 			this.collection.remove(this);
 		},
-		serialize: function(){
+		serialize: function () {
 			return {
 				title: this.get('title'),
 				completed: this.get('completed')

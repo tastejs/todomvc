@@ -45,6 +45,7 @@ We also have a number of in-progress applications in Labs:
 - [Derby](http://derbyjs.com)
 - [CanJS](http://canjs.us)
 - [Kendo UI](http://kendoui.com)
+- [Flight by Twitter](https://github.com/twitter/flight)
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujo.js](http://cujojs.github.com)
 - [MarionetteJS](http://marionettejs.com/)
@@ -73,6 +74,8 @@ We also have a number of in-progress applications in Labs:
 - [Chaplin](http://chaplinjs.org) + [Brunch](http://brunch.io)
 - [Serenade.js](https://github.com/elabs/serenade.js)
 - [TypeScript](http://www.typescriptlang.org/)
+- [DeftJS](http://deftjs.org/)
+- [Aria Templates](http://ariatemplates.com/)
 
 ## Live demos
 
@@ -98,6 +101,11 @@ Addy is a Developer Platform Engineer at Google who originally created TodoMVC. 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
 Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible.
 
+#### [Pascal Hartig](https://github.com/passy) - Developer
+
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
+Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
+
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 
@@ -119,7 +127,7 @@ TodoMVC 1.0 includes re-writes of almost all applications, ensuring they follow 
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-Check out our [contribution docs](todomvc/blob/gh-pages/contributing.md) for more info.
+Check out our [contribution docs](contributing.md) for more info.
 
 
 ## License

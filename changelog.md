@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2 - TBA
+
+- New since 1.1:
+    - Flight
+    - DeftJS + ExtJS
+    - Aria Templates
+
 ## 1.1 - 2013-02-14
 
 - We now have 18 stable apps and 36 in labs. New since 1.0.1:

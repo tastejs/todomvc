@@ -1,4 +1,5 @@
-$(function( $ ) {
+/*global Thorax, ENTER_KEY*/
+(function () {
 	'use strict';
 
 	// The Application
@@ -23,7 +24,7 @@ $(function( $ ) {
 			rendered: 'toggleToggleAllButton'
 		},
 
-		toggleToggleAllButton: function() {
+		toggleToggleAllButton: function () {
 			var toggleInput = this.$('#toggle-all')[0];
 			if (toggleInput) {
 				toggleInput.checked = !this.collection.remaining().length;
@@ -32,12 +33,12 @@ $(function( $ ) {
 
 		// When this function is specified, items will only be shown
 		// when this function returns true
-		itemFilter: function(model) {
+		itemFilter: function (model) {
 			return model.isVisible();
 		},
 
 		// Generate the attributes for a new Todo item.
-		newAttributes: function() {
+		newAttributes: function () {
 			return {
 				title: this.$('#new-todo').val().trim(),
 				order: this.collection.nextOrder(),
@@ -47,22 +48,22 @@ $(function( $ ) {
 
 		// If you hit return in the main input field, create new **Todo** model,
 		// persisting it to *localStorage*.
-		createOnEnter: function( e ) {
-			if ( e.which !== ENTER_KEY || !this.$('#new-todo').val().trim() ) {
+		createOnEnter: function (e) {
+			if (e.which !== ENTER_KEY || !this.$('#new-todo').val().trim()) {
 				return;
 			}
 
-			this.collection.create( this.newAttributes() );
+			this.collection.create(this.newAttributes());
 			this.$('#new-todo').val('');
 		},
 
-		toggleAllComplete: function() {
+		toggleAllComplete: function () {
 			var completed = this.$('#toggle-all')[0].checked;
-			this.collection.each(function( todo ) {
+			this.collection.each(function (todo) {
 				todo.save({
 					completed: completed
 				});
 			});
 		}
 	});
-});
+}());
