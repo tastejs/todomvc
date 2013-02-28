@@ -27,7 +27,7 @@ Ext.define('Todo.view.TaskList' , {
 	itemTpl: [ 
 		'<li class="<tpl if="completed">completed</tpl>">',
 		'<div class="view">',
-			'<input type="checkbox" class="toggle" <tpl if="completed">completed</tpl> /> ',
+			'<input type="checkbox" class="toggle" <tpl if="completed">checked</tpl> /> ',
 			'<label>{label}</label>',
 			'<a class="destroy"></a>',
 		'</div>',
