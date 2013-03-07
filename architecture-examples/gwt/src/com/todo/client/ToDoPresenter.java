@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.storage.client.Storage;
+import com.google.gwt.user.client.History;
 import com.google.gwt.view.client.AbstractDataProvider;
 import com.google.gwt.view.client.ListDataProvider;
 
@@ -53,6 +56,11 @@ public class ToDoPresenter {
 		 * Adds the handler to the events raised by the view.
 		 */
 		void addhandler(ViewEventHandler handler);
+		
+		/**
+		 * Informs the view of the current routing state.
+		 */
+		void setRouting(ToDoRouting routing);
 	}
 
 	/**
@@ -96,30 +104,79 @@ public class ToDoPresenter {
 		}
 	};
 
-	private final ListDataProvider<ToDoItem> todos = new ListDataProvider<ToDoItem>();
+	private final List<ToDoItem> todos = new ArrayList<ToDoItem>();
+	
+	private final ListDataProvider<ToDoItem> filteredTodos = new ListDataProvider<ToDoItem>();
 
 	private final View view;
-
+	
+	private ToDoRouting routing = ToDoRouting.ALL;
+	
 	private boolean suppressStateChanged = false;
 
 	public ToDoPresenter(View view) {
 		this.view = view;
 
 		loadState();
+		
+		String initialToken = History.getToken();
+		routing = parseRoutingToken(initialToken);
 
 		view.addhandler(viewHandler);
-		view.setDataProvider(todos);
+		view.setDataProvider(filteredTodos);
+		view.setRouting(routing);
+		
 		updateTaskStatistics();
+		setupHistoryHandler();
+	}
+
+	/**
+	 * Set up a the history changed handler, which provides routing.
+	 */
+	private void setupHistoryHandler() {
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
+			public void onValueChange(ValueChangeEvent<String> event) {
+				String historyToken = event.getValue();
+				routing = parseRoutingToken(historyToken);
+				view.setRouting(routing);
+				updateFilteredList();
+			}
+		});
+	}
+	
+	/**
+	 * Converts the string routing token into the equivalent enum value
+	 */
+	private ToDoRouting parseRoutingToken(String token ) {
+		if (token.equals("/active")) {
+			return ToDoRouting.ACTIVE;
+		} else if (token.equals("/completed")) {
+			return ToDoRouting.COMPLETED;
+		} else {
+			return ToDoRouting.ALL;
+		}
+	}
+	
+	/**
+	 * Updates the filtered list, which is rendered in the UI.
+	 */
+	private void updateFilteredList() {
+		filteredTodos.getList().clear();
+		for (ToDoItem task : todos) {
+			if (routing.getRoutingFunction().matches(task)) {
+				filteredTodos.getList().add(task);
+			}
+		}
 	}
 
 	/**
 	 * Computes the tasks statistics and updates the view.
 	 */
 	private void updateTaskStatistics() {
-		int totalTasks = todos.getList().size();
+		int totalTasks = todos.size();
 
 		int completeTask = 0;
-		for (ToDoItem task : todos.getList()) {
+		for (ToDoItem task : todos) {
 			if (task.isDone()) {
 				completeTask++;
 			}
@@ -132,9 +189,8 @@ public class ToDoPresenter {
 	 * Deletes the given task and updates statistics.
 	 */
 	protected void deleteTask(ToDoItem toDoItem) {
-		todos.getList().remove(toDoItem);
-		updateTaskStatistics();
-		saveState();
+		todos.remove(toDoItem);
+		taskStateChanged();
 	}
 
 	/**
@@ -148,9 +204,17 @@ public class ToDoPresenter {
 
 		// if the item has become empty, remove it
 		if (toDoItem.getTitle().trim().equals("")) {
-			todos.getList().remove(toDoItem);
+			todos.remove(toDoItem);
 		}
 
+		taskStateChanged();
+	}
+
+	/**
+	 * When the task state has changed, this method will update the UI and persist
+	 */
+	private void taskStateChanged() {
+		updateFilteredList();
 		updateTaskStatistics();
 		saveState();
 	}
@@ -162,18 +226,12 @@ public class ToDoPresenter {
 
 		// update the completed state of each item
 		suppressStateChanged = true;
-		for (ToDoItem task : todos.getList()) {
+		for (ToDoItem task : todos) {
 			task.setDone(completed);
 		}
 		suppressStateChanged = false;
 
-		// cause the view to refresh the whole list - yes, this is a bit ugly!
-		List<ToDoItem> items = new ArrayList<ToDoItem>(todos.getList());
-		todos.getList().clear();
-		todos.getList().addAll(items);
-
-		updateTaskStatistics();
-		saveState();
+		taskStateChanged();
 	}
 
 	/**
@@ -188,24 +246,24 @@ public class ToDoPresenter {
 
 		ToDoItem toDoItem = new ToDoItem(taskTitle, this);
 		view.clearTaskText();
-		todos.getList().add(toDoItem);
-		updateTaskStatistics();
-		saveState();
+		todos.add(toDoItem);
+		
+		taskStateChanged();
 	}
 
 	/**
 	 * Clears completed tasks and updates the view.
 	 */
 	private void clearCompletedTasks() {
-		Iterator<ToDoItem> iterator = todos.getList().iterator();
+		Iterator<ToDoItem> iterator = todos.iterator();
 		while (iterator.hasNext()) {
 			ToDoItem item = iterator.next();
 			if (item.isDone()) {
 				iterator.remove();
 			}
 		}
-		updateTaskStatistics();
-		saveState();
+		
+		taskStateChanged();
 	}
 
 	/**
@@ -217,8 +275,8 @@ public class ToDoPresenter {
 
 			// JSON encode the items
 			JSONArray todoItems = new JSONArray();
-			for (int i = 0; i < todos.getList().size(); i++) {
-				ToDoItem toDoItem = todos.getList().get(i);
+			for (int i = 0; i < todos.size(); i++) {
+				ToDoItem toDoItem = todos.get(i);
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("task", new JSONString(toDoItem.getTitle()));
 				jsonObject.put("complete", JSONBoolean.getInstance(toDoItem.isDone()));
@@ -245,12 +303,14 @@ public class ToDoPresenter {
 					String task = jsonObject.get("task").isString().stringValue();
 					boolean completed = jsonObject.get("complete").isBoolean().booleanValue();
 					// add a new item to our list
-					todos.getList().add(new ToDoItem(task, completed, this));
+					todos.add(new ToDoItem(task, completed, this));
 				}
 			} catch (Exception e) {
 
 			}
 		}
+		
+		updateFilteredList();
 	}
 
 }
