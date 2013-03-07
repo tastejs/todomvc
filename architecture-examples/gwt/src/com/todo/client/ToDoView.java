@@ -18,6 +18,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.AbstractDataProvider;
 import com.todo.client.ToDoPresenter.ViewEventHandler;
@@ -32,6 +33,15 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 
 	interface ToDoViewUiBinder extends UiBinder<Widget, ToDoView> {
 	}
+
+	@UiField
+	Hyperlink routingAll;
+
+	@UiField
+	Hyperlink routingActive;
+
+	@UiField
+	Hyperlink routingCompleted;
 
 	@UiField
 	TextBoxWithPlaceholder taskText;
@@ -141,6 +151,22 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 		clearTasksCount.setInnerHTML(Integer.toString(completedTasks));
 
 		toggleAll.setChecked(totalTasks == completedTasks);
+	}
+
+	@Override
+	public void setRouting(ToDoRouting routing) {
+		selectRoutingHyperlink(routingAll, ToDoRouting.ALL, routing);
+		selectRoutingHyperlink(routingActive, ToDoRouting.ACTIVE, routing);
+		selectRoutingHyperlink(routingCompleted, ToDoRouting.COMPLETED, routing);
+	}
+
+	private void selectRoutingHyperlink(Hyperlink hyperlink, ToDoRouting currentRoutingState,
+	    ToDoRouting routingStateToMatch) {
+		if (currentRoutingState == routingStateToMatch) {
+			hyperlink.getElement().addClassName("selected");
+		} else {
+			hyperlink.getElement().removeClassName("selected");
+		}
 	}
 
 	private void hideElement(Element element, boolean hide) {
