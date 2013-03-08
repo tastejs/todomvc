@@ -1,8 +1,7 @@
-var Montage = require("montage").Montage,
-	Component = require("montage/ui/component").Component;
+var Montage = require('montage').Montage;
+var Component = require('montage/ui/component').Component;
 
 exports.TodoView = Montage.create(Component, {
-
 	todo: {
 		value: null
 	},
@@ -12,37 +11,37 @@ exports.TodoView = Montage.create(Component, {
 	},
 
 	didCreate: {
-		value: function() {
-			Object.defineBinding(this, "isCompleted", {
+		value: function () {
+			Object.defineBinding(this, 'isCompleted', {
 				boundObject: this,
-				boundObjectPropertyPath: "todo.completed",
+				boundObjectPropertyPath: 'todo.completed',
 				oneway: true
 			});
 		}
 	},
 
 	prepareForDraw: {
-		value: function() {
-			this.element.addEventListener("dblclick", this, false);
-			this.element.addEventListener("blur", this, true);
-			this.element.addEventListener("submit", this, false);
+		value: function () {
+			this.element.addEventListener('dblclick', this, false);
+			this.element.addEventListener('blur', this, true);
+			this.element.addEventListener('submit', this, false);
 		}
 	},
 
 	captureDestroyButtonAction: {
-		value: function() {
+		value: function () {
 			this.dispatchDestroy();
 		}
 	},
 
 	dispatchDestroy: {
-		value: function() {
-			this.dispatchEventNamed("destroyTodo", true, true, {todo: this.todo})
+		value: function () {
+			this.dispatchEventNamed('destroyTodo', true, true, {todo: this.todo})
 		}
 	},
 
 	handleDblclick: {
-		value: function(evt) {
+		value: function () {
 			this.isEditing = true;
 		}
 	},
@@ -52,10 +51,10 @@ exports.TodoView = Montage.create(Component, {
 	},
 
 	isEditing: {
-		get: function() {
+		get: function () {
 			return this._isEditing;
 		},
-		set: function(value) {
+		set: function (value) {
 			if (value === this._isEditing) {
 				return;
 			}
@@ -70,10 +69,10 @@ exports.TodoView = Montage.create(Component, {
 	},
 
 	isCompleted: {
-		get: function() {
+		get: function () {
 			return this._isCompleted;
 		},
-		set: function(value) {
+		set: function (value) {
 			if (value === this._isCompleted) {
 				return;
 			}
@@ -84,28 +83,27 @@ exports.TodoView = Montage.create(Component, {
 	},
 
 	captureBlur: {
-		value: function(evt) {
-			if (this.isEditing && this.editInput.element === evt.target) {
+		value: function (e) {
+			if (this.isEditing && this.editInput.element === e.target) {
 				this._submitTitle();
 			}
 		}
 	},
 
 	handleSubmit: {
-		value: function(evt) {
+		value: function (e) {
 			if (this.isEditing) {
-				evt.preventDefault();
+				e.preventDefault();
 				this._submitTitle();
 			}
 		}
 	},
 
 	_submitTitle: {
-		value: function() {
-
+		value: function () {
 			var title = this.editInput.value.trim();
 
-			if ("" === title) {
+			if (title === '') {
 				this.dispatchDestroy();
 			} else {
 				this.todo.title = title;
@@ -116,21 +114,20 @@ exports.TodoView = Montage.create(Component, {
 	},
 
 	draw: {
-		value: function() {
+		value: function () {
 			if (this.isEditing) {
-				this.element.classList.add("editing");
+				this.element.classList.add('editing');
 				this.editInput.element.focus();
 			} else {
-				this.element.classList.remove("editing");
+				this.element.classList.remove('editing');
 				this.editInput.element.blur();
 			}
 
 			if (this.isCompleted) {
-				this.element.classList.add("completed");
+				this.element.classList.add('completed');
 			} else {
-				this.element.classList.remove("completed");
+				this.element.classList.remove('completed');
 			}
 		}
 	}
-
 });
