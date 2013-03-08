@@ -12,7 +12,7 @@ Ext.define('Ext.ux.DataView.LabelEditor', {
 
 	field: {
 		xtype : 'textfield',
-		selectOnFocus: true
+		selectOnFocus: false
 	}
 });
 
