@@ -96,13 +96,13 @@ Ext.define('Todo.controller.Tasks', {
 
 		this.toggleEl.setStyle('visibility', 'visible');
 
-console.log("VALUE IS [" + value + "]");
-
-    	if ( !value ) 
+    	if ( !value ) {
     		this.store.remove(editor.activeRecord)
-    	else 
+		}
+		else { 
     		editor.activeRecord.set('label', value);
-
+    	}
+    	
         this.store.sync();
 	},
 
