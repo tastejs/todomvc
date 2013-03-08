@@ -17,7 +17,7 @@ goog.inherits( todomvc.listsync, mvc.LocalSync );
 /**
  * @inheritDoc
  */
-todomvc.listsync.prototype.read = function( model ) {
+todomvc.listsync.prototype.read = function( model, opt_callback ) {
 	var id = /** @type {string} */(model.get('id'));
 	var todos = this.store_.get(id) || [];
 	goog.array.forEach(/** @type {Array} */(todos),
