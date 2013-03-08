@@ -2,7 +2,7 @@
  * ToDoMVC - ExtJS 4.1.1a
  * 
  * Date Created: November 10, 2012
- * Last Updated: December 30, 2012
+ * Last Updated: March 8, 2013
  *
  */
 
@@ -28,6 +28,7 @@ Ext.application({
 		}, this);
 
 		Ext.History.on('change', this.setRoute, this);
+		Ext.ComponentQuery.query("[name=newtask]")[0].focus();
 	},
 
 	setRoute: function(token) {
