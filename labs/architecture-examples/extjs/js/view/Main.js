@@ -19,7 +19,6 @@ Ext.define('Todo.view.Main', {
 		items: [{
 			cls: 'header',
 			height: 130,
-			style: 'padding-top: 37px',
 			html: 'todos'
 		},{
 			cls: 'todoapp',
@@ -57,72 +56,78 @@ Ext.define('Todo.view.Main', {
 			}]
 		}, {
 			xtype: 'container',
-			height: 45,
+			cls: 'footer',
+			height: 40,
+			hidden: true,
 			baseCls: null,
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
 			items: [{
-				cls: 'footer',
+				flex: 1,
 				baseCls: null,
+				style: 'text-align: left; padding: 1px;',
+				name: 'itemsLeft',
+				data: { counts: 0 },
+				tpl: [
+					'<tpl><span id="todo-count"><b>{counts}</b> item',
+						'<tpl if="counts &gt; 1">s</tpl>',
+						'<tpl if="counts == 0">s</tpl>',
+					' left</span>',
+					'</tpl>'
+				]
+			}, {
+				xtype: 'container',
+				baseCls: 'filters',
 				layout: {
 					type: 'hbox',
-					align: 'stretch'
+					pack: 'center'
+				},
+				defaults: {
+					xtype: 'button',
+					ui: 'plain',
+					height: 19,
+					style: 'padding: 0px 2px;',
+					baseCls: 'padme',
+					hrefTarget: '_self'
 				},
 				items: [{
-					flex: 1,
-					baseCls: null,
-					style: 'text-align: left;',
-					name: 'itemsLeft',
-					data: { counts: 0 },
-					tpl: [
-						'<tpl><span id="todo-count"><b>{counts}</b> item',
-							'<tpl if="counts &gt; 1">s</tpl>',
-							'<tpl if="counts == 0">s</tpl>',
-						' left</span>',
-						'</tpl>'
-					]
+					text: 'All',
+					action: 'changeView',
+					href: '#/'
 				}, {
-					flex: 1,
-					xtype: 'container',
-					baseCls: 'filters',
-					defaults: {
-						style: 'margin-left: 5px; margin-right: 5px;',
-						xtype: 'button',
-						ui: 'plain',
-						hrefTarget: '_self'
-					},
-					items: [{
-						text: 'All',
-						action: 'changeView',
-						href: '#/'
-					}, {
-						text: 'Active',
-						action: 'changeView',
-						href: '#/active'
-					}, {
-						text: 'Completed',
-						action: 'changeView',
-						href: '#/completed'
-					}]
+					text: 'Active',
+					action: 'changeView',
+					href: '#/active'
 				}, {
-					flex: 1,
-//					baseCls: null,
-					xtype: 'container',
-					items: [{
-						xtype: 'button',
-						hidden: true,
-						action: 'clearCompleted',
-						cls: 'clear-completed',
-						text: 'Clear completed'
-					}]
+					text: 'Completed',
+					action: 'changeView',
+					href: '#/completed'
+				}]	
+			}, {
+				flex: 1,
+				baseCls: 'null',
+				xtype: 'container',
+				height: 28,
+				items: [{
+					xtype: 'button',
+					hidden: true,
+					baseCls: 'padme',
+					action: 'clearCompleted',
+					cls: 'clear-completed',
+					text: 'Clear completed'
 				}]
 			}]
 		}, {
 			xtype: 'container',
 			cls: 'info',
+			baseCls: null,
 			html: [
 				'<p>Double-click to edit a todo</p>',
 				'<p>Inspired by the official <a href="https://github.com/maccman/spine.todos">Spine.Todos</a></p>',
 				'<p>Revised by Kevin Cassidy</p>'
-			].join("")
+			].join('')
 		}]
 	}
 });
