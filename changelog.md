@@ -6,6 +6,7 @@
     - Flight
     - DeftJS + ExtJS
     - Aria Templates
+- The GWT example implemented routing
 
 ## 1.1 - 2013-02-14
 
