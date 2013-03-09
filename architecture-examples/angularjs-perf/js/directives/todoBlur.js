@@ -1,8 +1,8 @@
-/*global todomvc*/
+/*global todomvc */
 'use strict';
 
 /**
- * Directive that executes an expression when the element it is applied to loses focus.
+ * Directive that executes an expression when the element it is applied to loses focus
 */
 todomvc.directive('todoBlur', function () {
 	return function (scope, elem, attrs) {
