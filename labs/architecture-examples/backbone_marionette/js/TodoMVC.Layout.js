@@ -2,10 +2,8 @@
 'use strict';
 
 TodoMVC.module('Layout', function (Layout, App, Backbone) {
-
 	// Layout Header View
 	// ------------------
-
 	Layout.Header = Backbone.Marionette.ItemView.extend({
 		template: '#template-header',
 
@@ -34,7 +32,6 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 
 	// Layout Footer View
 	// ------------------
-
 	Layout.Footer = Backbone.Marionette.Layout.extend({
 		template: '#template-footer',
 
@@ -61,12 +58,12 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		updateCount: function () {
-			var count = this.collection.getActive().length,
-				length = this.collection.length,
-				completed = length - count;
+			var count = this.collection.getActive().length;
+			var length = this.collection.length;
+			var completed = length - count;
+
 			this.ui.count.html(count);
 			this.ui.itemsString.html(' ' + (count === 1 ? 'item' : 'items') + ' left');
-
 			this.$el.parent().toggle(length > 0);
 
 			if (completed > 0) {
@@ -87,10 +84,9 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 
 		onClearClick: function () {
 			var completed = this.collection.getCompleted();
-			completed.forEach(function destroy(todo) {
+			completed.forEach(function (todo) {
 				todo.destroy();
 			});
 		}
 	});
-
 });

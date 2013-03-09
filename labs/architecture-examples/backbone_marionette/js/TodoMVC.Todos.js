@@ -2,12 +2,9 @@
 'use strict';
 
 TodoMVC.module('Todos', function (Todos, App, Backbone) {
-
 	// Todo Model
 	// ----------
-
 	Todos.Todo = Backbone.Model.extend({
-
 		defaults: {
 			title: '',
 			completed: false,
@@ -31,7 +28,6 @@ TodoMVC.module('Todos', function (Todos, App, Backbone) {
 
 	// Todo Collection
 	// ---------------
-
 	Todos.TodoList = Backbone.Collection.extend({
 		model: Todos.Todo,
 
@@ -53,5 +49,4 @@ TodoMVC.module('Todos', function (Todos, App, Backbone) {
 			return todo.isCompleted();
 		}
 	});
-
 });

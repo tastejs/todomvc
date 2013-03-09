@@ -6,6 +6,22 @@
 		<title>Marionette • TodoMVC</title>
 		<link rel="stylesheet" href="components/todomvc-common/base.css">
 		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header"></header>
+			<section id="main"></section>
+			<footer id="footer"></footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>
+				Created by <a href="http://github.com/jsoverson">Jarrod Overson</a>
+				and <a href="http://github.com/derickbailey">Derick Bailey</a>
+				using <a href="http://marionettejs.com">Backbone.Marionette</a>
+			</p>
+			<p>Further variations on the Backbone.Marionette app are also <a href="https://github.com/marionettejs/backbone.marionette/wiki/Projects-and-websites-using-marionette">available</a>.</p>
+		</footer>
 		<script type="text/html" id="template-footer">
 			<span id="todo-count"><strong></strong><span></span></span>
 			<ul id="filters">
@@ -38,22 +54,6 @@
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list"></ul>
 		</script>
-	</head>
-	<body>
-		<section id="todoapp">
-			<header id="header"></header>
-			<section id="main"></section>
-			<footer id="footer"></footer>
-		</section>
-		<footer id="info">
-			<p>Double-click to edit a todo</p>
-			<p>
-				Created by <a href="http://github.com/jsoverson">Jarrod Overson</a>
-				and <a href="http://github.com/derickbailey">Derick Bailey</a>
-				using <a href="http://marionettejs.com">Backbone.Marionette</a>
-			</p>
-			<p>Further variations on the Backbone.Marionette app are also <a href="https://github.com/marionettejs/backbone.marionette/wiki/Projects-and-websites-using-marionette">available</a>.</p>
-		</footer>
 		<!-- vendor libraries -->
 		<script src="components/todomvc-common/base.js"></script>
 		<script src="components/jquery/jquery.js"></script>
@@ -68,8 +68,8 @@
 		<script src="js/TodoMVC.TodoList.Views.js"></script>
 		<script src="js/TodoMVC.TodoList.js"></script>
 		<script>
-			$(function(){
-				// Start the TodoMVC app (defined in js/TodoMVC.js)
+			$(function () {
+				// start the TodoMVC app (defined in js/TodoMVC.js)
 				TodoMVC.start();
 			});
 		</script>
