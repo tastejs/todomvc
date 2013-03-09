@@ -1,4 +1,4 @@
-/*global todomvc*/
+/*global todomvc */
 'use strict';
 
 /**
@@ -14,7 +14,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 
 	$scope.$watch('todos', function () {
 		$scope.remainingCount = filterFilter(todos, {completed: false}).length;
-		$scope.doneCount = todos.length - $scope.remainingCount;
+		$scope.completedCount = todos.length - $scope.remainingCount;
 		$scope.allChecked = !$scope.remainingCount;
 		todoStorage.put(todos);
 	}, true);
@@ -22,6 +22,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 	if ($location.path() === '') {
 		$location.path('/');
 	}
+
 	$scope.location = $location;
 
 	$scope.$watch('location.path()', function (path) {
@@ -58,15 +59,15 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 		todos.splice(todos.indexOf(todo), 1);
 	};
 
-	$scope.clearDoneTodos = function () {
+	$scope.clearCompletedTodos = function () {
 		$scope.todos = todos = todos.filter(function (val) {
 			return !val.completed;
 		});
 	};
 
-	$scope.markAll = function (done) {
+	$scope.markAll = function (completed) {
 		todos.forEach(function (todo) {
-			todo.completed = done;
+			todo.completed = completed;
 		});
 	};
 });
