@@ -3,10 +3,10 @@
 	'use strict';
 
 	$$.adapter.localStorage = function (_params) {
-		var storageKey = (this._data.persist.baseUrl || '') + this._data.persist.collection,
-			storageStr = localStorage[storageKey],
-			items = (storageStr ? JSON.parse(storageStr) : {});
-		//
+		var storageKey = (this._data.persist.baseUrl || '') + this._data.persist.collection;
+		var storageStr = localStorage[storageKey];
+		var items = (storageStr ? JSON.parse(storageStr) : {});
+
 		if (_params.type === 'GET') {
 			if (_params.id !== undefined) {  // normal get
 				if (typeof items[_params.id] === 'object') {

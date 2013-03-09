@@ -1,15 +1,16 @@
 (function ($, $$) {
 	'use strict';
+
 	var ENTER_KEY = 13;
 
-	// Hack of taking out html elements from DOM so that agility's view can use it.
-	// We need 'outerhtml' also, as agilityjs will append DOM, so removing it.
+	// hack of taking out html elements from DOM so that agility's view can use it
+	// we need 'outerhtml' also, as agilityjs will append DOM, so removing it
 	var drawHtml = function (selector) {
 		return $(selector).remove().wrap('<div>').parent().html();
 	};
 
-	// Simple Two layer composition:
-	// individual 'todoitem' and 'app'lication which holds multiple todoitems.
+	// simple Two layer composition:
+	// individual 'todoitem' and 'app' which holds multiple todoitems
 	$(function () {
 		// todo item
 		var todoitem = $$({
@@ -52,8 +53,10 @@
 				}
 			},
 			updateTitle: function () {
-				this.view.$().removeClass('editing');
 				var title = this.model.get('title').trim();
+
+				this.view.$().removeClass('editing');
+
 				if (title) {
 					this.model.set({
 						title: title
@@ -66,7 +69,7 @@
 			collection: 'todos-agilityjs'
 		});
 
-		// The main application which holds todo items.
+		// the main application which holds todo items
 		var app = $$({
 			model: {
 				todoCount: '0',
@@ -87,14 +90,14 @@
 				'append': function () {
 					this.updateStatus();
 				},
-				'keyup #new-todo': function (event) {
+				'keyup #new-todo': function (e) {
 					var title = $('#new-todo').val().trim();
-					if (event.which === ENTER_KEY && title) {
+					if (e.which === ENTER_KEY && title) {
 						var item = $$(todoitem, {
 							title: title
 						}).save();
 						this.append(item, '#todo-list');
-						event.target.value = '';  // clear input field
+						e.target.value = '';  // clear input field
 					}
 				},
 				'click #toggle-all': function () {
@@ -116,20 +119,23 @@
 			// utility functions
 			updateStatus: function () {
 				// update counts
-				var count = this.size(),
-					completedCount = 0;
+				var count = this.size();
+				var completedCount = 0;
+
 				this.each(function (id, item) {
 					if (item.model.get('completed')) {
 						completedCount++;
 					}
 				});
+
 				this.model.set({
 					todoCount: count - completedCount + '',
-					pluralizer: (count - completedCount === 1 ? '' : 's'),
+					pluralizer: count - completedCount === 1 ? '' : 's',
 					completedCount: completedCount + '',
-					mainStyle: (count === 0 ? 'hidden' : ''),
-					clearBtnStyle: (completedCount === 0 ? 'hidden' : '')
+					mainStyle: count === 0 ? 'hidden' : '',
+					clearBtnStyle: completedCount === 0 ? 'hidden' : ''
 				});
+
 				// update toggle-all checked status
 				$('#toggle-all').prop('checked', completedCount === count);
 				// update the view according to the current filter.
@@ -156,26 +162,23 @@
 				}
 			}
 		}).persist();
+
 		$$.document.prepend(app);
 
 		// load from localStorage
 		app.gather(todoitem, 'append', '#todo-list').updateStatus();
 
-		// manual routing  (not supported by agilityjs)
+		// manual routing (not supported by agilityjs)
 		$(window).on('hashchange', function () {
 			var hash = location.hash;
 			app.applyFilter(hash);
 			$('#filters a').each(function () {
-				if (hash === $(this).attr('href')) {
-					$(this).addClass('selected');
-				} else {
-					$(this).removeClass('selected');
-				}
+				$(this).toggleClass('selected', hash === $(this).attr('href'));
 			});
 		});
+
 		if (location.hash) {
 			$(window).trigger('hashchange');
 		}
 	});
-
 })(window.jQuery, window.agility);
