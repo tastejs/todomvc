@@ -1,14 +1,13 @@
+/*global define */
 'use strict';
 
 define(
-
     [
         'flight/component',
         '../store'
     ],
 
     function (defineComponent, dataStore) {
-
         return defineComponent(stats);
 
         function stats() {
@@ -16,7 +15,7 @@ define(
                 var todos = dataStore.all();
                 var all = todos.length;
                 var remaining = todos.reduce(function (memo, each) {
-                    return memo += (each.completed) ? 0 : 1;
+                    return memo += each.completed ? 0 : 1;
                 }, 0);
 
                 this.trigger('dataStatsCounted', {
@@ -25,7 +24,7 @@ define(
                     completed: all - remaining,
                     filter: localStorage.getItem('filter') || ''
                 });
-            }
+            };
 
             this.after('initialize', function () {
                 this.on(document, 'dataTodosLoaded', this.recount);

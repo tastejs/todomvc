@@ -1,7 +1,7 @@
+/*global define */
 'use strict';
 
 define(
-
 	[
 		'flight/component',
 		'./with_filters',
@@ -10,7 +10,6 @@ define(
 	],
 
 	function (defineComponent, withFilters, statsTmpl, utils) {
-
 		return defineComponent(stats, withFilters);
 
 		function stats() {
@@ -26,11 +25,11 @@ define(
 				this.$node.html(template(data));
 				this.$node.toggle(toggle);
 				this.markSelected(data.filter);
-			}
+			};
 
 			this.clearCompleted = function (e, data) {
 				this.trigger('uiClearRequested');
-			}
+			};
 
 			this.after('initialize', function () {
 				this.$node.hide();

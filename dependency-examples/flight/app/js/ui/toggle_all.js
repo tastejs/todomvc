@@ -1,13 +1,12 @@
+/*global define */
 'use strict';
 
 define(
-
 	[
 		'flight/component'
 	],
 
 	function (defineComponent) {
-
 		return defineComponent(toggleAll);
 
 		function toggleAll() {
@@ -15,11 +14,11 @@ define(
 				this.trigger('uiToggleAllRequested', {
 					completed: this.$node.is(':checked')
 				});
-			}
+			};
 
 			this.toggleCheckbox = function (e, data) {
 				this.$node[0].checked = !data.remaining;
-			}
+			};
 
 			this.after('initialize', function () {
 				this.on('click', this.toggleAllComplete);

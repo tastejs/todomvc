@@ -1,12 +1,9 @@
+/*global define $ */
 'use strict';
 
 define(
-
-	function() {
-
-		return withFilters;
-
-		function withFilters() {
+	function () {
+		return function withFilters() {
 			this.defaultAttrs({
 				filterSelector: '#filters a'
 			});
@@ -17,15 +14,15 @@ define(
 				this.select('filterSelector').removeClass('selected');
 				$(data.el).addClass('selected');
 				this.trigger('uiFilterRequested', { filter: filter });
-			}
+			};
 
 			this.markSelected = function (filter) {
 				this.$node.find('[href="#/' + filter + '"]').addClass('selected');
-			}
+			};
 
-			this.after('initialize', function() {
+			this.after('initialize', function () {
 				this.on('click', { filterSelector: this.chooseFilter });
 			});
-		}
+		};
 	}
 );

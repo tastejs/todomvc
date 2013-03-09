@@ -1,17 +1,15 @@
+/*global define */
 'use strict';
 
 define(
-
 	[
 		'flight/component'
 	],
 
 	function (defineComponent) {
-
 		return defineComponent(newItem);
 
 		function newItem() {
-
 			var ENTER_KEY = 13;
 
 			this.createOnEnter = function (e) {
@@ -25,7 +23,7 @@ define(
 				});
 
 				this.$node.val('');
-			}
+			};
 
 			this.after('initialize', function () {
 				this.on('keydown', this.createOnEnter);

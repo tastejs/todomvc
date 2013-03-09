@@ -1,3 +1,4 @@
+/*global define */
 'use strict';
 
 // tmpl function scooped from underscore.
@@ -13,6 +14,7 @@ define(function () {
 			'<': '&lt;',
 			'>': '&gt;',
 			'"': '&quot;',
+			/*jshint quotmark:false */
 			"'": '&#x27;',
 			'/': '&#x2F;'
 		}
@@ -28,28 +30,32 @@ define(function () {
 	};
 
 	// Functions for escaping and unescaping strings to/from HTML interpolation.
-	['escape', 'unescape'].forEach(function(method) {
-		_[method] = function(string) {
-			if (string == null) return '';
-			return ('' + string).replace(entityRegexes[method], function(match) {
+	['escape', 'unescape'].forEach(function (method) {
+		_[method] = function (string) {
+			if (string === null || string === undefined) {
+				return '';
+			}
+
+			return ('' + string).replace(entityRegexes[method], function (match) {
 				return entityMap[method][match];
 			});
 		};
 	});
 
 	var settings = {
-		evaluate    : /<%([\s\S]+?)%>/g,
-		interpolate : /<%=([\s\S]+?)%>/g,
-		escape      : /<%-([\s\S]+?)%>/g
+		evaluate: /<%([\s\S]+?)%>/g,
+		interpolate: /<%=([\s\S]+?)%>/g,
+		escape: /<%-([\s\S]+?)%>/g
 	};
 
 	var noMatch = /(.)^/;
 	var escapes = {
-		"'":      "'",
-		'\\':     '\\',
-		'\r':     'r',
-		'\n':     'n',
-		'\t':     't',
+		/*jshint quotmark:false */
+		"'": "'",
+		'\\': '\\',
+		'\r': 'r',
+		'\n': 'n',
+		'\t': 't',
 		'\u2028': 'u2028',
 		'\u2029': 'u2029'
 	};
@@ -59,22 +65,24 @@ define(function () {
 	// JavaScript micro-templating, similar to John Resig's implementation.
 	// Underscore templating handles arbitrary delimiters, preserves whitespace,
 	// and correctly escapes quotes within interpolated code.
-	var template = function(text, data) {
+	var template = function (text, data) {
 		var render;
 
 		// Combine delimiters into one regular expression via alternation.
 		var matcher = new RegExp([
-					 (settings.escape || noMatch).source,
-					 (settings.interpolate || noMatch).source,
-					 (settings.evaluate || noMatch).source
+			(settings.escape || noMatch).source,
+			(settings.interpolate || noMatch).source,
+			(settings.evaluate || noMatch).source
 		].join('|') + '|$', 'g');
 
 		// Compile the template source, escaping string literals appropriately.
 		var index = 0;
 		var source = "__p+='";
-		text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+		text.replace(matcher, function (match, escape, interpolate, evaluate, offset) {
 			source += text.slice(index, offset)
-			.replace(escaper, function(match) { return '\\' + escapes[match]; });
+			.replace(escaper, function (match) {
+				return '\\' + escapes[match];
+			});
 
 			if (escape) {
 				source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
@@ -91,7 +99,9 @@ define(function () {
 		source += "';\n";
 
 		// If a variable is not specified, place data values in local scope.
-		if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+		if (!settings.variable) {
+			source = 'with(obj||{}){\n' + source + '}\n';
+		}
 
 		source = "var __t,__p='',__j=Array.prototype.join," +
 			"print=function(){__p+=__j.call(arguments,'');};\n" +
@@ -99,13 +109,16 @@ define(function () {
 
 		try {
 			render = new Function(settings.variable || 'obj', '_', source);
-		} catch (e) {
-			e.source = source;
-			throw e;
+		} catch (err) {
+			err.source = source;
+			throw err;
 		}
 
-		if (data) return render(data, _);
-		var template = function(data) {
+		if (data) {
+			return render(data, _);
+		}
+
+		var template = function (data) {
 			return render.call(this, data, _);
 		};
 

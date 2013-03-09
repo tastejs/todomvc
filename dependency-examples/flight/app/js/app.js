@@ -1,7 +1,7 @@
+/*global define */
 'use strict';
 
 define(
-
 	[
 		'./data/todos',
 		'./data/stats',
@@ -25,11 +25,11 @@ define(
 			StatsData.attachTo(document);
 			TodosData.attachTo(document);
 			NewItemUI.attachTo('#new-todo');
-			MainSelectorUI.attachTo("#main");
+			MainSelectorUI.attachTo('#main');
 			StatsUI.attachTo('#footer');
 			ToggleAllUI.attachTo('#toggle-all');
 			TodoListUI.attachTo('#todo-list');
-		}
+		};
 
 		return {
 			initialize: initialize
