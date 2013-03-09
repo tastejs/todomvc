@@ -151,20 +151,20 @@
 		// internal computed observable that fires whenever anything changes in our todos
 		ko.computed(function () {
 			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
-			localStorage.setItem('todos-knockout', ko.toJSON(self.todos));
+			localStorage.setItem('todos-knockoutjs', ko.toJSON(self.todos));
 		}).extend({
 			throttle: 500
 		}); // save at most twice per second
 	};
 
 	// check local storage for todos
-	var todos = ko.utils.parseJson(localStorage.getItem('todos-knockout'));
+	var todos = ko.utils.parseJson(localStorage.getItem('todos-knockoutjs'));
 
 	// bind a new instance of our view model to the page
 	var viewModel = new ViewModel(todos || []);
 	ko.applyBindings(viewModel);
 
 	// set up filter routing
-	/*jshint newcap:false*/
+	/*jshint newcap:false */
 	Router({'/:filter': viewModel.showMode}).init();
-}());
+})();
