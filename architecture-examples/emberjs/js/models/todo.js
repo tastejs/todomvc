@@ -1,4 +1,4 @@
-/*global Todos DS Ember*/
+/*global Todos DS Ember */
 'use strict';
 
 Todos.Todo = DS.Model.extend({

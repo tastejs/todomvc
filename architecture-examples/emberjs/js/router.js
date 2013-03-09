@@ -1,4 +1,4 @@
-/*global Todos Ember*/
+/*global Todos Ember */
 'use strict';
 
 Todos.Router.map(function () {
@@ -24,7 +24,9 @@ Todos.TodosIndexRoute = Ember.Route.extend({
 Todos.TodosActiveRoute = Ember.Route.extend({
 	setupController: function () {
 		var todos = Todos.Todo.filter(function (todo) {
-			if (!todo.get('isCompleted')) { return true; }
+			if (!todo.get('isCompleted')) {
+				return true;
+			}
 		});
 
 		this.controllerFor('todos').set('filteredTodos', todos);
@@ -34,7 +36,9 @@ Todos.TodosActiveRoute = Ember.Route.extend({
 Todos.TodosCompletedRoute = Ember.Route.extend({
 	setupController: function () {
 		var todos = Todos.Todo.filter(function (todo) {
-			if (todo.get('isCompleted')) { return true; }
+			if (todo.get('isCompleted')) {
+				return true;
+			}
 		});
 
 		this.controllerFor('todos').set('filteredTodos', todos);

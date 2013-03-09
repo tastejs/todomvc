@@ -1,4 +1,4 @@
-/*global Todos DS*/
+/*global Todos DS */
 'use strict';
 
 Todos.Store = DS.Store.extend({

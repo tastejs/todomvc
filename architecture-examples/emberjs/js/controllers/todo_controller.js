@@ -1,4 +1,4 @@
-/*global Todos Ember*/
+/*global Todos Ember */
 'use strict';
 
 Todos.TodoController = Ember.ObjectController.extend({
