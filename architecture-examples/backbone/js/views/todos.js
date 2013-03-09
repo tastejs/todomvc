@@ -1,4 +1,4 @@
-/*global Backbone _ $ ENTER_KEY*/
+/*global Backbone _ $ ENTER_KEY */
 var app = app || {};
 
 $(function () {
@@ -9,7 +9,6 @@ $(function () {
 
 	// The DOM element for a todo item...
 	app.TodoView = Backbone.View.extend({
-
 		//... is a list tag.
 		tagName:  'li',
 
@@ -18,11 +17,11 @@ $(function () {
 
 		// The DOM events specific to an item.
 		events: {
-			'click .toggle':	'toggleCompleted',
-			'dblclick label':	'edit',
-			'click .destroy':	'clear',
-			'keypress .edit':	'updateOnEnter',
-			'blur .edit':		'close'
+			'click .toggle': 'toggleCompleted',
+			'dblclick label': 'edit',
+			'click .destroy': 'clear',
+			'keypress .edit': 'updateOnEnter',
+			'blur .edit': 'close'
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since there's
@@ -38,14 +37,13 @@ $(function () {
 		render: function () {
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
-
 			this.toggleVisible();
 			this.$input = this.$('.edit');
 			return this;
 		},
 
 		toggleVisible: function () {
-			this.$el.toggleClass('hidden',  this.isHidden());
+			this.$el.toggleClass('hidden', this.isHidden());
 		},
 
 		isHidden: function () {

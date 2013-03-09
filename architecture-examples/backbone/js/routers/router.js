@@ -1,4 +1,4 @@
-/*global Backbone*/
+/*global Backbone */
 var app = app || {};
 
 (function () {
@@ -6,7 +6,6 @@ var app = app || {};
 
 	// Todo Router
 	// ----------
-
 	var Workspace = Backbone.Router.extend({
 		routes: {
 			'*filter': 'setFilter'
@@ -24,5 +23,4 @@ var app = app || {};
 
 	app.TodoRouter = new Workspace();
 	Backbone.history.start();
-
-}());
+})();
