@@ -12,7 +12,7 @@
 		var urlBase = 'https://github.com/addyosmani/todomvc/tree/gh-pages';
 
 		if (footer) {
-			sourceLink.href = urlBase + location.pathName;
+			sourceLink.href = urlBase + location.pathname;
 			sourceLink.appendChild(document.createTextNode('Check out the source'));
 			paragraph.appendChild(sourceLink);
 			footer.appendChild(paragraph);
