@@ -1,3 +1,4 @@
+/*global describe, it, beforeEach, inject, expect*/
 (function () {
 	'use strict';
 
@@ -100,7 +101,7 @@
 			it('should count Todos correctly', function () {
 				expect(scope.todos.length).toBe(5);
 				expect(scope.remainingCount).toBe(3);
-				expect(scope.doneCount).toBe(2);
+				expect(scope.completedCount).toBe(2);
 				expect(scope.allChecked).toBeFalsy();
 			});
 
@@ -116,15 +117,15 @@
 				expect(scope.todos.length).toBe(4);
 			});
 
-			it('clearDoneTodos() should clear completed Todos', function () {
-				scope.clearDoneTodos();
+			it('clearCompletedTodos() should clear completed Todos', function () {
+				scope.clearCompletedTodos();
 				expect(scope.todos.length).toBe(3);
 			});
 
 			it('markAll() should mark all Todos completed', function () {
 				scope.markAll();
 				scope.$digest();
-				expect(scope.doneCount).toBe(5);
+				expect(scope.completedCount).toBe(5);
 			});
 		});
 	});
