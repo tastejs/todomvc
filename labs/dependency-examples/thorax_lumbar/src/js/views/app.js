@@ -4,43 +4,35 @@ $(function( $ ) {
 	// The Application
 	// ---------------
 
-	// Our overall **AppView** is the top-level piece of UI.
+	// This view is the top-level piece of UI.
 	Thorax.View.extend({
-		// This will assign the template Thorax.templates['app'] to the view and
-		// create a view class at Thorax.Views['app']
+		// Setting a name will assign the template Thorax.templates['app']
+		// to the view and create a view class at Thorax.Views['app']
 		name: 'app',
 
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {
 			'keypress #new-todo': 'createOnEnter',
 			'click #toggle-all': 'toggleAllComplete',
-			// The collection helper in the template will bind the collection
-			// to the view. Any events in this hash will be bound to the
-			// collection.
+			// Any events specified in the collection hash will be bound to the
+			// collection with `listenTo`. The collection was set in js/app.js
 			collection: {
-				all: 'toggleToggleAllButton'
+				'change:completed': 'toggleToggleAllButton',
+				filter: 'toggleToggleAllButton'
 			},
 			rendered: 'toggleToggleAllButton'
 		},
 
-		// Unless the "context" method is overriden any attributes on the view
-		// will be availble to the context / scope of the template, make the
-		// global Todos collection available to the template.
-		// Load any preexisting todos that might be saved in *localStorage*.
-		initialize: function() {
-			this.todosCollection = window.app.Todos;
-			this.todosCollection.fetch();
-			this.render();
-		},
-
 		toggleToggleAllButton: function() {
-			this.$('#toggle-all').attr('checked', !this.todosCollection.remaining().length);
+			var toggleInput = this.$('#toggle-all')[0];
+			if (toggleInput) {
+				toggleInput.checked = !this.collection.remaining().length;
+			}
 		},
 
-		// This function is specified in the collection helper as the filter
-		// and will be called each time a model changes, or for each item
-		// when the collection is rendered
-		filterTodoItem: function(model) {
+		// When this function is specified, items will only be shown
+		// when this function returns true
+		itemFilter: function(model) {
 			return model.isVisible();
 		},
 
@@ -48,7 +40,7 @@ $(function( $ ) {
 		newAttributes: function() {
 			return {
 				title: this.$('#new-todo').val().trim(),
-				order: window.app.Todos.nextOrder(),
+				order: this.collection.nextOrder(),
 				completed: false
 			};
 		},
@@ -60,16 +52,15 @@ $(function( $ ) {
 				return;
 			}
 
-			window.app.Todos.create( this.newAttributes() );
+			this.collection.create( this.newAttributes() );
 			this.$('#new-todo').val('');
 		},
 
 		toggleAllComplete: function() {
 			var completed = this.$('#toggle-all')[0].checked;
-
-			window.app.Todos.each(function( todo ) {
+			this.collection.each(function( todo ) {
 				todo.save({
-					'completed': completed
+					completed: completed
 				});
 			});
 		}

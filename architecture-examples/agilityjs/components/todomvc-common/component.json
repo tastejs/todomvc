@@ -1,0 +1,12 @@
+{
+  "name": "todomvc-common",
+  "version": "0.1.0",
+  "gitHead": "63628bfbeff187f6db5bc982a0a222e66e62901e",
+  "_id": "todomvc-common@0.1.0",
+  "readme": "ERROR: No README.md file found!",
+  "description": "ERROR: No README.md file found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TasteJS/todomvc-common.git"
+  }
+}

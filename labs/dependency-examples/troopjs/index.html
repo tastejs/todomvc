@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Troop.js • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus data-weave="widget/create">
+		</header>
+		<section id="main" data-weave="widget/display">
+			<input id="toggle-all" type="checkbox" data-weave="widget/mark">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list" data-weave="widget/list"></ul>
+		</section>
+		<footer id="footer" data-weave="widget/display">
+			<span id="todo-count" data-weave="widget/count"><strong>0</strong> items left</span>
+			<ul id="filters" data-weave="widget/filters">
+				<li>
+					<a href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed" data-weave="widget/clear">Clear completed (0)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="http://github.com/mikaelkaron">Mikael Karon</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="../../../assets/base.js"></script>
+	<script type="text/javascript" data-main="js/app.js" src="../../../assets/require.min.js"></script>
+</body>
+</html>

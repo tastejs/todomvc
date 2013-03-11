@@ -11,31 +11,11 @@
           "global": true
         },
         {
-          "src": "../../../assets/jquery.min.js",
-          "global": true
-        },
-        {
-          "src": "../../../assets/lodash.min.js",
-          "global": true
-        },
-        {
-          "src": "../../../assets/handlebars.min.js",
-          "global": true
-        },
-        {
-          "src": "src/js/lib/backbone.js",
-          "global": true
-        },
-        {
-          "src": "src/js/lib/backbone.js",
+          "src": "src/js/lib/thorax.js",
           "global": true
         },
         {
           "src": "src/js/lib/backbone-localstorage.js",
-          "global": true
-        },
-        {
-          "src": "src/js/lib/thorax.js",
           "global": true
         },
         {
@@ -79,7 +59,8 @@
     }
   },
   "templates": {
-    "template": "Thorax.templates['{{{without-extension name}}}'] = '{{{data}}}';",
+    "root": "templates/",
+    "template": "Thorax.templates['{{{without-extension name}}}'] = {{handlebarsCall}}({{{data}}});",
     "src/js/views/app.js": [
       "src/templates/app.handlebars"
     ],

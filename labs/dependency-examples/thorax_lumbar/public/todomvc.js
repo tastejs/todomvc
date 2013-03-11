@@ -1,7 +1,10 @@
+
 Application['todomvc'] = (function() {
-var module = {exports: {}};
-var exports = module.exports;
-/* router : todomvc */
+  var module = {exports: {}};
+  var exports = module.exports;
+  Application['todomvc'] = exports;
+
+  /* router : todomvc */
 module.name = "todomvc";
 module.routes = {"":"setFilter",":filter":"setFilter"};
 (function() {
@@ -11,7 +14,7 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 	// ----------
 
 	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
-	window.app.Todo = Backbone.Model.extend({
+	window.app.Todo = Thorax.Model.extend({
 
 		// Default attributes for the todo
 		// and ensure that each todo created has `title` and `completed` keys.
@@ -41,6 +44,7 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 	});
 
 }());
+
 ;;
 (function() {
 	'use strict';
@@ -50,13 +54,13 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 
 	// The collection of todos is backed by *localStorage* instead of a remote
 	// server.
-	var TodoList = Backbone.Collection.extend({
+	var TodoList = Thorax.Collection.extend({
 
 		// Reference to this collection's model.
 		model: window.app.Todo,
 
 		// Save all of the todo items under the `"todos"` namespace.
-		localStorage: new Store('todos-backbone'),
+		localStorage: new Store('todos-backbone-thorax'),
 
 		// Filter down the list of all todo items that are finished.
 		completed: function() {
@@ -88,7 +92,11 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 	// Create our global collection of **Todos**.
 	window.app.Todos = new TodoList();
 
+  // Ensure that we always have data available
+  window.app.Todos.fetch();
+
 }());
+
 ;;
 $(function() {
 	'use strict';
@@ -157,6 +165,7 @@ $(function() {
 		}
 	});
 });
+
 ;;
 Thorax.View.extend({
   name: 'stats',
@@ -173,9 +182,9 @@ Thorax.View.extend({
     // Whenever the Todos collection changes re-render the stats
     // render() needs to be called with no arguments, otherwise calling
     // it with arguments will insert the arguments as content
-    window.app.Todos.on('all', _.debounce(function() {
+    this.listenTo(window.app.Todos, 'all', _.debounce(function() {
       this.render();
-    }), this);
+    }));
   },
 
   // Clear all completed todo items, destroying their models.
@@ -206,50 +215,41 @@ Thorax.View.extend({
       .filter('[href="#/' + ( window.app.TodoFilter || '' ) + '"]')
       .addClass('selected');
   }
-});;;
-Thorax.templates['src/templates/stats'] = '<span id=\"todo-count\"><strong>{{remaining}}</strong> {{itemText}} left</span>\n<ul id=\"filters\">\n  <li>\n    {{#link \"/\" class=\"selected\"}}All{{/link}}\n  </li>\n  <li>\n    {{#link \"/active\"}}Active{{/link}}\n  </li>\n  <li>\n    {{#link \"/completed\"}}Completed{{/link}}\n  </li>\n</ul>\n{{#if completed}}\n  <button id=\"clear-completed\">Clear completed ({{completed}})</button>\n{{/if}}\n';$(function( $ ) {
+});
+;;
+Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-count\"><strong>{{remaining}}</strong> {{itemText}} left</span>\n<ul id=\"filters\">\n  <li>\n    {{#link \"/\" class=\"selected\"}}All{{/link}}\n  </li>\n  <li>\n    {{#link \"/active\"}}Active{{/link}}\n  </li>\n  <li>\n    {{#link \"/completed\"}}Completed{{/link}}\n  </li>\n</ul>\n{{#if completed}}\n  <button id=\"clear-completed\">Clear completed ({{completed}})</button>\n{{/if}}\n');$(function( $ ) {
 	'use strict';
 
 	// The Application
 	// ---------------
 
-	// Our overall **AppView** is the top-level piece of UI.
+	// This view is the top-level piece of UI.
 	Thorax.View.extend({
-		// This will assign the template Thorax.templates['app'] to the view and
-		// create a view class at Thorax.Views['app']
+		// Setting a name will assign the template Thorax.templates['app']
+		// to the view and create a view class at Thorax.Views['app']
 		name: 'app',
 
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {
 			'keypress #new-todo': 'createOnEnter',
 			'click #toggle-all': 'toggleAllComplete',
-			// The collection helper in the template will bind the collection
-			// to the view. Any events in this hash will be bound to the
-			// collection.
+			// Any events specified in the collection hash will be bound to the
+			// collection with `listenTo`. The collection was set in js/app.js
 			collection: {
-				all: 'toggleToggleAllButton'
+				'change:completed': 'toggleToggleAllButton',
+				filter: 'toggleToggleAllButton'
 			},
 			rendered: 'toggleToggleAllButton'
 		},
 
-		// Unless the "context" method is overriden any attributes on the view
-		// will be availble to the context / scope of the template, make the
-		// global Todos collection available to the template.
-		// Load any preexisting todos that might be saved in *localStorage*.
-		initialize: function() {
-			this.todosCollection = window.app.Todos;
-			this.todosCollection.fetch();
-			this.render();
-		},
-
 		toggleToggleAllButton: function() {
-			this.$('#toggle-all').attr('checked', !this.todosCollection.remaining().length);
+			var toggleInput = this.$('#toggle-all')[0];
+			toggleInput && (toggleInput.checked = !this.collection.remaining().length);
 		},
 
-		// This function is specified in the collection helper as the filter
-		// and will be called each time a model changes, or for each item
-		// when the collection is rendered
-		filterTodoItem: function(model) {
+		// When this function is specified, items will only be shown
+		// when this function returns true
+		itemFilter: function(model) {
 			return model.isVisible();
 		},
 
@@ -257,7 +257,7 @@ Thorax.templates['src/templates/stats'] = '<span id=\"todo-count\"><strong>{{rem
 		newAttributes: function() {
 			return {
 				title: this.$('#new-todo').val().trim(),
-				order: window.app.Todos.nextOrder(),
+				order: this.collection.nextOrder(),
 				completed: false
 			};
 		},
@@ -269,23 +269,23 @@ Thorax.templates['src/templates/stats'] = '<span id=\"todo-count\"><strong>{{rem
 				return;
 			}
 
-			window.app.Todos.create( this.newAttributes() );
+			this.collection.create( this.newAttributes() );
 			this.$('#new-todo').val('');
 		},
 
 		toggleAllComplete: function() {
 			var completed = this.$('#toggle-all')[0].checked;
-
-			window.app.Todos.each(function( todo ) {
+			this.collection.each(function( todo ) {
 				todo.save({
-					'completed': completed
+					completed: completed
 				});
 			});
 		}
 	});
 });
+
 ;;
-Thorax.templates['src/templates/app'] = '<section id=\"todoapp\">\n  <header id=\"header\">\n    <h1>todos</h1>\n    <input id=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  {{^empty todosCollection}}\n    <section id=\"main\">\n      <input id=\"toggle-all\" type=\"checkbox\">\n      <label for=\"toggle-all\">Mark all as complete</label>\n      {{#collection todosCollection filter=\"filterTodoItem\" item-view=\"todo-item\" tag=\"ul\" id=\"todo-list\"}}\n        <div class=\"view\">\n          <input class=\"toggle\" type=\"checkbox\" {{#if completed}}checked{{/if}}>\n          <label>{{title}}</label>\n          <button class=\"destroy\"></button>\n        </div>\n        <input class=\"edit\" value=\"{{title}}\">\n      {{/collection}}\n    </section>\n    {{view \"stats\" tag=\"footer\" id=\"footer\"}}\n   {{/empty}}\n</section>\n<div id=\"info\">\n  <p>Double-click to edit a todo</p>\n  <p>Written by <a href=\"https://github.com/addyosmani\">Addy Osmani</a> &amp; <a href=\"https://github.com/beastridge\">Ryan Eastridge</a></p>\n  <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</div>\n';(function() {
+Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoapp\">\n  <header id=\"header\">\n    <h1>todos</h1>\n    <input id=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  {{^empty collection}}\n    <section id=\"main\">\n      <input id=\"toggle-all\" type=\"checkbox\">\n      <label for=\"toggle-all\">Mark all as complete</label>\n      {{#collection item-view=\"todo-item\" tag=\"ul\" id=\"todo-list\"}}\n        <div class=\"view\">\n          <input class=\"toggle\" type=\"checkbox\" {{#if completed}}checked=\"checked\"{{/if}}>\n          <label>{{title}}</label>\n          <button class=\"destroy\"></button>\n        </div>\n        <input class=\"edit\" value=\"{{title}}\">\n      {{/collection}}\n    </section>\n    {{view \"stats\" tag=\"footer\" id=\"footer\"}}\n  {{/empty}}\n</section>\n<div id=\"info\">\n  <p>Double-click to edit a todo</p>\n  <p>Written by <a href=\"https://github.com/addyosmani\">Addy Osmani</a> &amp; <a href=\"https://github.com/eastridge\">Ryan Eastridge</a></p>\n  <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</div>\n');(function() {
 	'use strict';
 
 	// Todo Router
@@ -307,14 +307,23 @@ Thorax.templates['src/templates/app'] = '<section id=\"todoapp\">\n  <header id=
 	}));
 
 }());
+
 ;;
 var ENTER_KEY = 13;
 
 $(function() {
   // Kick things off by creating the **App**.
-  var view = new Thorax.Views['app']();
-  $('body').append(view.el);
+  var view = new Thorax.Views['app']({
+    collection: window.app.Todos
+  });
+  view.appendTo('body');
 });
+
 ;;
-return module.exports;
+
+
+  if (Application['todomvc'] !== module.exports) {
+    console.warn("Application['todomvc'] internally differs from global");
+  }
+  return module.exports;
 }).call(this);

@@ -41,15 +41,17 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 
 We also have a number of in-progress applications in Labs:
 
-- [CanJS](http://canjs.us)
-- [Maria.js](https://github.com/petermichaux/maria)
-- [cujo.js](http://cujojs.github.com)
 - [Meteor](http://meteor.com)
 - [Derby](http://derbyjs.com)
+- [CanJS](http://canjs.us)
+- [Kendo UI](http://kendoui.com)
+- [Flight by Twitter](https://github.com/twitter/flight)
+- [Maria.js](https://github.com/petermichaux/maria)
+- [cujo.js](http://cujojs.github.com)
+- [MarionetteJS](http://marionettejs.com/)
 - [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
 - [Ext.js](http://www.sencha.com/products/extjs)
 - [Sammy.js](http://sammyjs.org)
-- [JavaScriptMVC](http://javascriptmvc.com)
 - [dermis](https://github.com/wearefractal/dermis)
 - [Stapes.js](http://hay.github.com/stapes)
 - [Epitome](http://dimitarchristoff.github.com/Epitome)
@@ -61,14 +63,19 @@ We also have a number of in-progress applications in Labs:
 - [Dijon](https://github.com/creynders/dijon-framework)
 - [rAppid.js](http://www.rappidjs.com)
 - [o_O](http://weepy.github.com/o_O)
+- [Thorax](http://walmartlabs.github.com/thorax/)
 - [KnockoutJS](http://knockoutjs.com) + [ClassBindingProvider](https://github.com/rniemeyer/knockout-classBindingProvider) (using Ryan Niemeyer's Class Binding Provider)
 - [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org) (using AMD)
+- [CanJS](http://canjs.us) + [RequireJS](http://requirejs.org) (using AMD)
 - [AngularJS](http://angularjs.org) (optimized)
 - [Backbone.xmpp](https://github.com/ggozad/Backbone.xmpp)
 - [Dart](http://dartlang.org)
 - [Chaplin](http://chaplinjs.org) + [Brunch](http://brunch.io)
-
+- [Serenade.js](https://github.com/elabs/serenade.js)
+- [TypeScript](http://www.typescriptlang.org/)
+- [DeftJS](http://deftjs.org/)
+- [Aria Templates](http://ariatemplates.com/)
 
 ## Live demos
 
@@ -94,6 +101,11 @@ Addy is a Developer Platform Engineer at Google who originally created TodoMVC. 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=40">
 Sindre is a Web Developer who drives core development, quality control and application design for the project. His contributions have helped us ensure consistency and best practices are enforced wherever possible.
 
+#### [Pascal Hartig](https://github.com/passy) - Developer
+
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
+Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
+
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 
@@ -115,7 +127,7 @@ TodoMVC 1.0 includes re-writes of almost all applications, ensuring they follow 
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
-Check out our [contribution docs](todomvc/blob/gh-pages/contributing.md) for more info.
+Check out our [contribution docs](contributing.md) for more info.
 
 
 ## License

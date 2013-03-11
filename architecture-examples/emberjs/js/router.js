@@ -1,53 +1,46 @@
-(function( app ) {
-	'use strict';
+/*global Todos Ember */
+'use strict';
 
-	var Router = Ember.Router.extend({
-
-		root: Ember.Route.extend({
-
-			showAll: Ember.Route.transitionTo( 'index' ),
-			showActive: Ember.Route.transitionTo( 'active' ),
-			showCompleted: Ember.Route.transitionTo( 'completed' ),
-
-			index: Ember.Route.extend({
-				route: '/',
-				connectOutlets: function( router ) {
-					var controller = router.get( 'applicationController' );
-					var context = app.entriesController;
-					context.set( 'filterBy', '' );
-					controller.connectOutlet( 'todos', context )
-				}
-			}),
-
-			active: Ember.Route.extend({
-				route: '/active',
-				connectOutlets: function( router ) {
-					var controller = router.get( 'applicationController' );
-					var context = app.entriesController;
-					context.set( 'filterBy', 'active' );
-					controller.connectOutlet( 'todos', context )
-				}
-			}),
-
-			completed: Ember.Route.extend({
-				route: '/completed',
-				connectOutlets: function( router ) {
-					var controller = router.get( 'applicationController' );
-					var context = app.entriesController;
-					context.set( 'filterBy', 'completed' );
-					controller.connectOutlet( 'todos', context )
-				}
-			}),
-
-			specs: Ember.Route.extend({
-				route: '/specs',
-				connectOutlets: function() {
-					// TODO: Write them
-				}
-			})
-		})
+Todos.Router.map(function () {
+	this.resource('todos', { path: '/' }, function () {
+		this.route('active');
+		this.route('completed');
 	});
+});
 
-	app.Router = Router;
+Todos.TodosRoute = Ember.Route.extend({
+	model: function () {
+		return Todos.Todo.find();
+	}
+});
 
-})( window.Todos );
+Todos.TodosIndexRoute = Ember.Route.extend({
+	setupController: function () {
+		var todos = Todos.Todo.find();
+		this.controllerFor('todos').set('filteredTodos', todos);
+	}
+});
+
+Todos.TodosActiveRoute = Ember.Route.extend({
+	setupController: function () {
+		var todos = Todos.Todo.filter(function (todo) {
+			if (!todo.get('isCompleted')) {
+				return true;
+			}
+		});
+
+		this.controllerFor('todos').set('filteredTodos', todos);
+	}
+});
+
+Todos.TodosCompletedRoute = Ember.Route.extend({
+	setupController: function () {
+		var todos = Todos.Todo.filter(function (todo) {
+			if (todo.get('isCompleted')) {
+				return true;
+			}
+		});
+
+		this.controllerFor('todos').set('filteredTodos', todos);
+	}
+});

@@ -1,4 +1,5 @@
-$(function() {
+/*global Thorax, ENTER_KEY*/
+(function () {
 	'use strict';
 
 	// Todo Item View
@@ -23,27 +24,27 @@ $(function() {
 			// The "rendered" event is triggered by Thorax each time render()
 			// is called and the result of the template has been appended
 			// to the View's $el
-			rendered: function() {
-				this.$el.toggleClass( 'completed', this.model.get('completed') );
+			rendered: function () {
+				this.$el.toggleClass('completed', this.model.get('completed'));
 			}
 		},
 
 		// Toggle the `"completed"` state of the model.
-		toggleCompleted: function() {
+		toggleCompleted: function () {
 			this.model.toggle();
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.
-		edit: function() {
+		edit: function () {
 			this.$el.addClass('editing');
 			this.$('.edit').focus();
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
-		close: function() {
+		close: function () {
 			var value = this.$('.edit').val().trim();
 
-			if ( value ) {
+			if (value) {
 				this.model.save({ title: value });
 			} else {
 				this.clear();
@@ -53,15 +54,15 @@ $(function() {
 		},
 
 		// If you hit `enter`, we're through editing the item.
-		updateOnEnter: function( e ) {
-			if ( e.which === ENTER_KEY ) {
+		updateOnEnter: function (e) {
+			if (e.which === ENTER_KEY) {
 				this.close();
 			}
 		},
 
 		// Remove the item, destroy the model from *localStorage* and delete its view.
-		clear: function() {
+		clear: function () {
 			this.model.destroy();
 		}
 	});
-});
+}());

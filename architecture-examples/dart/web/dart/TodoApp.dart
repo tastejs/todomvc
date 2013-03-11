@@ -17,7 +17,7 @@ class TodoApp {
 		initLocalStorage();
 		initElementEventListeners();
 
-		window.on.hashChange.add((e) => updateFilter());
+		window.onHashChange.listen((e) => updateFilter());
 
 		updateFooterDisplay();
 	}
@@ -39,7 +39,7 @@ class TodoApp {
 	void initElementEventListeners() {
 		InputElement newTodoElement = query('#new-todo');
 
-		newTodoElement.on.keyPress.add((KeyboardEvent e) {
+		newTodoElement.onKeyPress.listen((KeyboardEvent e) {
 			if (e.keyCode == KeyCode.ENTER) {
 				var title = newTodoElement.value.trim();
 				if (title != '') {
@@ -51,7 +51,7 @@ class TodoApp {
 			}
 		});
 
-		checkAllCheckboxElement.on.click.add((Event e) {
+		checkAllCheckboxElement.onClick.listen((e) {
 			for (TodoWidget todoWidget in todoWidgets) {
 				if (todoWidget.todo.completed != checkAllCheckboxElement.checked) {
 					todoWidget.toggle();
@@ -61,7 +61,7 @@ class TodoApp {
 			save();
 		});
 
-		clearCompletedElement.on.click.add((MouseEvent e) {
+		clearCompletedElement.onClick.listen((e) {
 			var newList = new List<TodoWidget>();
 			for (TodoWidget todoWidget in todoWidgets) {
 				if (todoWidget.todo.completed) {

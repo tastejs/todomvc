@@ -1,1 +1,0 @@
-steal.client.trigger('triggered');

@@ -23,7 +23,7 @@
 				<li data-model="bind:toggleClass,completed,completed;">
 					<div class="view">
 						<input class="toggle" type="checkbox" data-model="bind:checked,completed">
-						<label data-model="bind:innerHTML,title" data-event="listen:dblclick,startEdit"></label>
+						<label data-model="bind:textContent,title" data-event="listen:dblclick,startEdit"></label>
 						<button class="destroy" data-event="listen:click,remove"></button>
 					</div>
 					<input class="edit" data-model="bind:value,title" data-event="listen:keydown,stopEdit; listen:blur,stopEdit">

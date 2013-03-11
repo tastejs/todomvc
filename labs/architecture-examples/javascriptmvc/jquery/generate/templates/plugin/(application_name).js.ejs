@@ -1,3 +1,0 @@
-steal('jquery',function($){
-
-});
