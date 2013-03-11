@@ -3,7 +3,7 @@
 
 require.config({
 	paths: {
-		angular: 'libs/angular/angular.min'
+		angular: '../components/angular/angular'
 	},
 	shim: {
 		angular: {
