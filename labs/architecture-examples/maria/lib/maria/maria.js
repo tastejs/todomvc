@@ -4,7 +4,7 @@ Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/evento/blob/master/LICENSE
-*/var evento = evento || {};
+*/var evento = {};
 /**
 
 @property evento.EventTarget
@@ -186,7 +186,7 @@ et.dispatchEvent({type:'change', extraData:'abc'});
 
 */
     evento.EventTarget.prototype.dispatchEvent = function(evt) {
-        // Want to ensure we don't alter the evt object passed in as it
+        // Want to ensure we don't alter the evt object passed in as it 
         // may be a bubbling event. So clone it and then setting currentTarget
         // won't break some event that is already being dispatched.
         evt = create(evt);
@@ -204,9 +204,9 @@ et.dispatchEvent({type:'change', extraData:'abc'});
             //
             // Without making a copy, one listener removing
             // an already-called listener would result in skipping
-            // a not-yet-called listener. One listener removing
+            // a not-yet-called listener. One listener removing 
             // a not-yet-called listener would result in skipping that
-            // not-yet-called listner. The worst case scenario
+            // not-yet-called listner. The worst case scenario 
             // is a listener adding itself again which would
             // create an infinite loop.
             //
@@ -285,14 +285,14 @@ o.dispatchEvent({type:'change'});
                 (typeof pt[p] === 'function')) {
                 obj[p] = pt[p];
             }
-        }
+        } 
         evento.EventTarget.call(obj);
     };
 
 }());
 /**
 
-@property evento.addEventListener
+@property evento.on
 
 @parameter element {EventTarget} The object you'd like to observe.
 
@@ -324,27 +324,27 @@ var o = {
 };
 
 // late binding. handleEvent is found when each event is dispatched
-evento.addEventListener(document.body, 'click', o);
+evento.on(document.body, 'click', o);
 
 // late binding. handleClick is found when each event is dispatched
-evento.addEventListener(document.body, 'click', o, 'handleClick');
+evento.on(document.body, 'click', o, 'handleClick');
 
 // early binding. The supplied function is bound now
-evento.addEventListener(document.body, 'click', o, o.handleClick);
-evento.addEventListener(document.body, 'click', o, function(){});
+evento.on(document.body, 'click', o, o.handleClick);
+evento.on(document.body, 'click', o, function(){});
 
 // supplied function will be called with document.body as this object
-evento.addEventListener(document.body, 'click', function(){});
+evento.on(document.body, 'click', function(){});
 
 // The following form is supported but is not neccessary given the options
 // above and it is recommended you avoid it.
-evento.addEventListener(document.body, 'click', this.handleClick, this);
+evento.on(document.body, 'click', this.handleClick, this);
 
 */
 
 /**
 
-@property evento.removeEventListener
+@property evento.off
 
 @parameter element {EventTarget} The object you'd like to stop observing.
 
@@ -360,32 +360,32 @@ Removes added listener matching the element/type/listener/auxArg combination exa
 If this combination is not found there are no errors.
 
 var o = {handleEvent:function(){}, handleClick:function(){}};
-evento.removeEventListener(document.body, 'click', o);
-evento.removeEventListener(document.body, 'click', o, 'handleClick');
-evento.removeEventListener(document.body, 'click', o, fn);
-evento.removeEventListener(document.body, 'click', fn);
-evento.removeEventListener(document.body, 'click', this.handleClick, this);
+evento.off(document.body, 'click', o);
+evento.off(document.body, 'click', o, 'handleClick');
+evento.off(document.body, 'click', o, fn);
+evento.off(document.body, 'click', fn);
+evento.off(document.body, 'click', this.handleClick, this);
 
 */
 
 /**
 
-@property evento.purgeEventListener
+@property evento.purge
 
 @parameter listener {EventListener} The listener object that should stop listening.
 
 @description
 
-Removes all registrations of the listener added through evento.addEventListener.
+Removes all registrations of the listener added through evento.on.
 This purging should be done before your application code looses its last reference
-to listener. (This can also be done with more work using evento.removeEventListener for
+to listener. (This can also be done with more work using evento.off for
 each registeration.) If the listeners are not removed or purged, the listener
 will continue to observe the EventTarget and cannot be garbage collected. In an
 MVC application this can lead to "zombie views" if the model data cannot be
 garbage collected. Event listeners need to be removed from event targets in browsers
 with circular reference memory leak problems (i.e. old versions of Internet Explorer.)
 
-The primary motivation for this purge function is to easy cleanup in MVC View destroy
+The primary motivation for this purge function is to easy cleanup in MVC View destroy 
 methods. For example,
 
 var APP_BoxView = function(model, controller) {
@@ -397,8 +397,8 @@ var APP_BoxView = function(model, controller) {
     // implementing the EventTarget interface using listener objects
     // and specifying method name using the same subscription interface.
     //
-    evento.addEventListener(this.rootEl, 'click', this, 'handleClick');
-    evento.addEventListener(this.model, 'change', this, 'handleModelChange');
+    evento.on(this.rootEl, 'click', this, 'handleClick');
+    evento.on(this.model, 'change', this, 'handleModelChange');
 };
 
 APP_BoxView.prototype.handleClick = function() {
@@ -415,7 +415,7 @@ APP_BoxView.prototype.destroy = function() {
     // to DOM nodes, model objects, or anything else implementing
     // the EventTarget interface in one fell swoop.
     //
-    evento.purgeEventListener(this);
+    evento.purge(this);
 };
 
 */
@@ -471,7 +471,7 @@ APP_BoxView.prototype.destroy = function() {
         return -1;
     }
 
-    evento.addEventListener = function(element, type, listener, /*optional*/ auxArg) {
+    evento.on = function(element, type, listener, /*optional*/ auxArg) {
         // Want to call createBundle with the same number of arguments
         // that were passed to this function. Using apply preserves
         // the number of arguments.
@@ -480,45 +480,45 @@ APP_BoxView.prototype.destroy = function() {
             if (indexOfBundle(listener._evento_bundles, bundle) >= 0) {
                 // do not add the same listener twice
                 return;
-            }
+            }            
         }
         else {
             listener._evento_bundles = [];
         }
         if (typeof bundle.element.addEventListener === 'function') {
-            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false);
+            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false); 
         }
         else if ((typeof bundle.element.attachEvent === 'object') &&
                  (bundle.element.attachEvent !== null)) {
             bundle.element.attachEvent('on'+bundle.type, bundle.wrappedHandler);
         }
         else {
-            throw new Error('evento.addEventListener: Supported EventTarget interface not found.');
+            throw new Error('evento.on: Supported EventTarget interface not found.');
         }
         listener._evento_bundles.push(bundle);
     };
 
-    var remove = evento.removeEventListener = function(element, type, listener, /*optional*/ auxArg) {
+    var remove = evento.off = function(element, type, listener, /*optional*/ auxArg) {
         if (listener._evento_bundles) {
             var i = indexOfBundle(listener._evento_bundles, createBundle.apply(null, arguments));
             if (i >= 0) {
                 var bundle = listener._evento_bundles[i];
                 if (typeof bundle.element.removeEventListener === 'function') {
                     bundle.element.removeEventListener(bundle.type, bundle.wrappedHandler, false);
-                }
+                } 
                 else if ((typeof bundle.element.detachEvent === 'object') &&
                          (bundle.element.detachEvent !== null)) {
                     bundle.element.detachEvent('on'+bundle.type, bundle.wrappedHandler);
-                }
+                } 
                 else {
-                    throw new Error('evento.removeEventListener: Supported EventTarget interface not found.');
-                }
+                    throw new Error('evento.off: Supported EventTarget interface not found.');
+                } 
                 listener._evento_bundles.splice(i, 1);
             }
         }
     };
 
-    evento.purgeEventListener = function(listener) {
+    evento.purge = function(listener) {
         if (listener._evento_bundles) {
             var bundles = listener._evento_bundles.slice(0);
             for (var i = 0, ilen = bundles.length; i < ilen; i++) {
@@ -535,12 +535,13 @@ APP_BoxView.prototype.destroy = function() {
 
 }());
 /*
-Hijos version 0 - JavaScript classes for building tree structures and the composite design pattern
+Hijos version 2
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/hijos/blob/master/LICENSE
-*/var hijos = hijos || {};
+*/
+var hijos = {};
 /**
 
 @property hijos.Leaf
@@ -914,12 +915,12 @@ hijos.Node.mixin = function(obj) {
     hijos.Node.call(obj);
 };
 /*
-Arbutus version 1
+Arbutus version 2
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/arbutus/blob/master/LICENSE
-*/var arbutus = arbutus || {};
+*/var arbutus = {};
 (function() {
 
     var trimLeft = /^\s+/,
@@ -962,7 +963,6 @@ https://github.com/petermichaux/arbutus/blob/master/LICENSE
             var parser = doc.createElement('div');
             var fragment = doc.createDocumentFragment();
             parser.innerHTML = this.before + html + this.after;
-            // console.log(parser.innerHTML);
             var node = this.getFirstResult(parser);
             var nextNode;
             while (node) {
@@ -1025,13 +1025,13 @@ don't want to have a loop of thousands with calls to this function.
 
 }());
 /*
-Grail version 2
+Grail version 3
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/grail/blob/master/LICENSE
 */
-var grail = grail || {};
+var grail = {};
 (function() {
 
     var trimLeft = /^\s+/;
@@ -1211,13 +1211,13 @@ The rest of the details are the same as for grail.findAll.
 
 }());
 /*
-Hormigas version 1
+Hormigas version 3
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/hormigas/blob/master/LICENSE
 */
-var hormigas = hormigas || {};
+var hormigas = {};
 (function() {
 
     var nextId = 0;
@@ -1264,6 +1264,25 @@ Harmony Set proposal and the Array.prototype iterators.
         for (var i = 0, ilen = arguments.length; i < ilen; i++) {
             this.add(arguments[i]);
         }
+    };
+
+/**
+
+@property hormigas.ObjectSet.prototype.isEmpty
+
+@description
+
+Returns true if set is empty. Otherwise returns false.
+
+var alpha = {};
+var set = new hormigas.ObjectSet(alpha);
+set.isEmpty();        // false
+set['delete'](alpha);
+set.isEmpty();        // true
+
+*/
+    hormigas.ObjectSet.prototype.isEmpty = function() {
+        return this.length < 1;
     };
 
 /**
@@ -1656,12 +1675,28 @@ hormigas.ObjectSet.mixin = function(obj) {
     hormigas.ObjectSet.call(obj);
 };
 /*
-Maria release candidate 1 - an MVC framework for JavaScript applications
+Maria release candidate 5 - an MVC framework for JavaScript applications
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/maria/blob/master/LICENSE
-*/var maria = maria || {};
+*/var maria = {};
+// Not all browsers supported by Maria have Object.create
+
+maria.create = (function() {
+    function F() {}
+    return function(obj) {
+        F.prototype = obj;
+        return new F();
+    };
+}());
+maria.borrow = function(sink, source) {
+    for (var p in source) {
+        if (Object.prototype.hasOwnProperty.call(source, p)) {
+            sink[p] = source[p];
+        }
+    }
+};
 // "this" must be a constructor function
 // mix the "subclass" function into your constructor function
 //
@@ -1669,10 +1704,13 @@ maria.subclass = function(namespace, name, options) {
     options = options || {};
     var properties = options.properties;
     var SuperConstructor = this;
-    var Constructor = namespace[name] = function() {
-        SuperConstructor.apply(this, arguments);
-    };
-    var prototype = Constructor.prototype = new SuperConstructor();
+    var Constructor = namespace[name] =
+        Object.prototype.hasOwnProperty.call(options, 'constructor') ?
+            options.constructor :
+            function() {
+                SuperConstructor.apply(this, arguments);
+            };
+    var prototype = Constructor.prototype = maria.create(SuperConstructor.prototype);
     prototype.constructor = Constructor;
     if (properties) {
         maria.borrow(prototype, properties);
@@ -1681,18 +1719,17 @@ maria.subclass = function(namespace, name, options) {
         SuperConstructor.subclass.apply(this, arguments);
     };
 };
-maria.borrow = function(sink, source) {
-    for (var p in source) {
-        if (Object.prototype.hasOwnProperty.call(source, p)) {
-            sink[p] = source[p];
-        }
-    }
+maria.on = function() {
+    evento.on.apply(this, arguments);
 };
-maria.borrow(maria, evento);
-maria.borrow(maria, hijos);
-maria.borrow(maria, arbutus);
-maria.borrow(maria, grail);
-maria.borrow(maria, hormigas);
+
+maria.off = function() {
+    evento.off.apply(this, arguments);
+};
+
+maria.purge = function() {
+    evento.purge.apply(this, arguments);
+};
 /**
 
 @property maria.Model
@@ -1716,7 +1753,7 @@ when a "change" event is dispatched on the model objects.
             alert('The model changed!');
         }
     };
-    maria.addEventListener(model, 'change', view, 'update');
+    maria.on(model, 'change', view, 'update');
 
 The model can dispatch a "change" event on itself when the model
 changes.
@@ -1741,7 +1778,7 @@ including that data on the event object.
 
 An event listener can be removed from a model object.
 
-    maria.removeEventListener(model, 'change', view, 'update');
+    maria.off(model, 'change', view, 'update');
 
 A particularly useful pattern is using maria.Model as the "superclass"
 of your application's model. The following example shows how this
@@ -1751,7 +1788,7 @@ See maria.Model.subclass for a more compact way to accomplish the same.
     checkit.TodoModel = function() {
         maria.Model.apply(this, arguments);
     };
-    checkit.TodoModel.prototype = new maria.Model();
+    checkit.TodoModel.prototype = maria.create(maria.Model.prototype);
     checkit.TodoModel.prototype.constructor = checkit.TodoModel;
     checkit.TodoModel.prototype._content = '';
     checkit.TodoModel.prototype._isDone = false;
@@ -1759,7 +1796,7 @@ See maria.Model.subclass for a more compact way to accomplish the same.
         return this._content;
     };
     checkit.TodoModel.prototype.setContent = function(content) {
-        content = ('' + content).replace(/^\s+|\s+$/g, '');
+        content = checkit.trim('' + content);
         if (this._content !== content) {
             this._content = content;
             this.dispatchEvent({type: 'change'});
@@ -1779,14 +1816,6 @@ See maria.Model.subclass for a more compact way to accomplish the same.
         this.setDone(!this.isDone());
     };
 
-The above TodoModel example does not have an "initialize" method;
-however, if some special initialization is requried, maria.Model will
-automatically call your "initialize" method.
-
-    checkit.TodoModel.prototype.initialize = function() {
-        alert('Another to-do has been created. You better get busy.');
-    };
-
 When a model's "destroy" method is called, a "destroy" event is
 dispatched and all event listeners who've been added for this event
 type will be notified.
@@ -1796,13 +1825,11 @@ using "addParentEventTarget" and "removeParentEventTarget".)
 
 */
 maria.Model = function() {
-    maria.EventTarget.call(this);
-    this.initialize();
+    evento.EventTarget.call(this);
 };
 
-maria.EventTarget.mixin(maria.Model.prototype);
-
-maria.Model.prototype.initialize = function() {};
+maria.Model.prototype = maria.create(evento.EventTarget.prototype);
+maria.Model.prototype.constructor = maria.Model;
 
 maria.Model.prototype.destroy = function() {
     this.dispatchEvent({type: 'destroy'});
@@ -1829,7 +1856,7 @@ with those elements.
 
 You can create an empty set model object.
 
-    var setModel = new maria.SetModel();
+    var setModel = new maria.SetModel(); 
 
 What makes a set model object interesting in comparison to a set is
 that a set model object is a model object that dispatches "change"
@@ -1840,7 +1867,7 @@ events when elements are added or deleted from the the set.
             alert(setModel.length + ' element(s) in the set.');
         }
     };
-    maria.addEventListener(setModel, 'change', view, 'update');
+    maria.on(setModel, 'change', view, 'update');
 
 You can add elements to the set. Adding an element
 that is already in the set has no effect. The add method returns
@@ -1948,11 +1975,8 @@ to accomplish the same.
     checkit.TodosModel = function() {
         maria.SetModel.apply(this, arguments);
     };
-    checkit.TodosModel.prototype = new maria.SetModel();
+    checkit.TodosModel.prototype = maria.create(maria.SetModel.prototype);
     checkit.TodosModel.prototype.constructor = checkit.TodosModel;
-    checkit.TodosModel.prototype.isEmpty = function() {
-        return this.length === 0;
-    };
     checkit.TodosModel.prototype.getDone = function() {
         return this.filter(function(todo) {
             return todo.isDone();
@@ -1989,14 +2013,14 @@ example. This can complement well the flyweight pattern used in a view.
 
 */
 maria.SetModel = function() {
-    maria.ObjectSet.apply(this, arguments);
+    hormigas.ObjectSet.apply(this, arguments);
     maria.Model.call(this);
 };
 
-maria.SetModel.prototype = new maria.Model();
+maria.SetModel.prototype = maria.create(maria.Model.prototype);
 maria.SetModel.prototype.constructor = maria.SetModel;
 
-maria.ObjectSet.mixin(maria.SetModel.prototype);
+hormigas.ObjectSet.mixin(maria.SetModel.prototype);
 
 // Wrap the set mutator methods to dispatch events.
 
@@ -2006,11 +2030,11 @@ maria.SetModel.prototype.add = function() {
     var added = [];
     for (var i = 0, ilen = arguments.length; i < ilen; i++) {
         var argument = arguments[i];
-        if (maria.ObjectSet.prototype.add.call(this, argument)) {
+        if (hormigas.ObjectSet.prototype.add.call(this, argument)) {
             added.push(argument);
             if ((typeof argument.addEventListener === 'function') &&
                 (typeof argument.removeEventListener === 'function')) {
-                argument.addEventListener('destroy', this);
+                argument.addEventListener('destroy', this);    
             }
             if ((typeof argument.addParentEventTarget === 'function') &&
                 // want to know can remove later
@@ -2032,7 +2056,7 @@ maria.SetModel.prototype['delete'] = function() {
     var deleted = [];
     for (var i = 0, ilen = arguments.length; i < ilen; i++) {
         var argument = arguments[i];
-        if (maria.ObjectSet.prototype['delete'].call(this, argument)) {
+        if (hormigas.ObjectSet.prototype['delete'].call(this, argument)) {
             deleted.push(argument);
             if (typeof argument.removeEventListener === 'function') {
                 argument.removeEventListener('destroy', this);
@@ -2051,7 +2075,7 @@ maria.SetModel.prototype['delete'] = function() {
 
 maria.SetModel.prototype.empty = function() {
     var deleted = this.toArray();
-    var result = maria.ObjectSet.prototype.empty.call(this);
+    var result = hormigas.ObjectSet.prototype.empty.call(this);
     if (result) {
         for (var i = 0, ilen = deleted.length; i < ilen; i++) {
             var element = deleted[i];
@@ -2140,13 +2164,11 @@ A view has a controller. You can get the current controller.
     view.getController();
 
 The view's controller is created lazily the first time the
-getController method is called. The view's
+getController method is called. The view's 
 getDefaultControllerConstructor method returns the constructor function
 to create the controller object and the getDefaultController actually
 calls that constructor. Your application may redefine or override
 either of these methods.
-
-A view's initialize method is called when the view is constructed.
 
 A view has a destroy method which should be called before your
 application looses its last reference to the view.
@@ -2183,7 +2205,7 @@ accomplish the same.
     myapp.MyView = function() {
         maria.View.apply(this, arguments);
     };
-    myapp.MyView.prototype = new maria.View();
+    myapp.MyView.prototype = maria.create(maria.View.prototype);
     myapp.MyView.prototype.constructor = myapp.MyView;
     myapp.MyView.prototype.getModelActions = function() {
         return {
@@ -2204,36 +2226,24 @@ accomplish the same.
         alert('another method');
     };
 
-The above MyView example does not have an "initialize" method;
-however, if some special initialization is requried, maria.View
-will automatically call your "initialize" method.
-
-    myapp.MyView.prototype.initialize = function() {
-        alert('Another view has been created.');
-    };
-
 */
 maria.View = function(model, controller) {
-    maria.Node.call(this);
-    this.initialize();
+    hijos.Node.call(this);
     this.setModel(model);
     this.setController(controller);
 };
 
-maria.Node.mixin(maria.View.prototype);
-
-maria.View.prototype.initialize = function() {
-    // to be overridden by concrete view subclasses
-};
+maria.View.prototype = maria.create(hijos.Node.prototype);
+maria.View.prototype.constructor = maria.View;
 
 maria.View.prototype.destroy = function() {
-    maria.purgeEventListener(this);
+    maria.purge(this);
     this._model = null;
     if (this._controller) {
         this._controller.destroy();
         this._controller = null;
     }
-    maria.Node.prototype.destroy.call(this);
+    hijos.Node.prototype.destroy.call(this);
 };
 
 maria.View.prototype.update = function() {
@@ -2279,7 +2289,7 @@ maria.View.prototype._setModelAndController = function(model, controller) {
             eventMap = this._lastModelActions;
             for (type in eventMap) {
                 if (Object.prototype.hasOwnProperty.call(eventMap, type)) {
-                    maria.removeEventListener(this._model, type, this, eventMap[type]);
+                    maria.off(this._model, type, this, eventMap[type]);
                 }
             }
             delete this._lastModelActions;
@@ -2288,7 +2298,7 @@ maria.View.prototype._setModelAndController = function(model, controller) {
             eventMap = this._lastModelActions = this.getModelActions() || {};
             for (type in eventMap) {
                 if (Object.prototype.hasOwnProperty.call(eventMap, type)) {
-                    maria.addEventListener(model, type, this, eventMap[type]);
+                    maria.on(model, type, this, eventMap[type]);
                 }
             }
         }
@@ -2410,7 +2420,7 @@ the same.
     checkit.TodoView = function() {
         maria.ElementView.apply(this, arguments);
     };
-    checkit.TodoView.prototype = new maria.ElementView();
+    checkit.TodoView.prototype = maria.create(maria.ElementView.prototype);
     checkit.TodoView.prototype.constructor = checkit.TodoView;
     checkit.TodoView.prototype.getDefaultControllerConstructor = function() {
         return checkit.TodoController;
@@ -2445,8 +2455,7 @@ the same.
     checkit.TodoView.prototype.buildData = function() {
         var model = this.getModel();
         var content = model.getContent();
-        this.find('.todo-content').innerHTML =
-            content.replace('&', '&amp;').replace('<', '&lt;');
+        this.find('.todo-content').innerHTML = checkit.escapeHTML(content);
         this.find('.check').checked = model.isDone();
         aristocrat[model.isDone() ? 'addClass' : 'removeClass'](this.find('.todo'), 'done');
     };
@@ -2478,7 +2487,7 @@ maria.ElementView = function(model, controller, doc) {
     this.setDocument(doc);
 };
 
-maria.ElementView.prototype = new maria.View();
+maria.ElementView.prototype = maria.create(maria.View.prototype);
 maria.ElementView.prototype.constructor = maria.ElementView;
 
 maria.ElementView.prototype.getDocument = function() {
@@ -2513,7 +2522,7 @@ maria.ElementView.prototype.build = function() {
 
 maria.ElementView.prototype.buildTemplate = function() {
     // parseHTML returns a DocumentFragment so take firstChild as the rootEl
-    this._rootEl = maria.parseHTML(this.getTemplate(), this.getDocument()).firstChild;
+    this._rootEl = arbutus.parseHTML(this.getTemplate(), this.getDocument()).firstChild;
 };
 
 (function() {
@@ -2527,9 +2536,9 @@ maria.ElementView.prototype.buildTemplate = function() {
                     eventType = matches[1],
                     selector = matches[2],
                     methodName = uiActions[key],
-                    elements = maria.findAll(selector, this._rootEl);
+                    elements = this.findAll(selector, this._rootEl);
                 for (var i = 0, ilen = elements.length; i < ilen; i++) {
-                    maria.addEventListener(elements[i], eventType, this, methodName);
+                    maria.on(elements[i], eventType, this, methodName);
                 }
             }
         }
@@ -2546,10 +2555,6 @@ maria.ElementView.prototype.buildChildViews = function() {
     for (var i = 0, ilen = childViews.length; i < ilen; i++) {
         this.getContainerEl().appendChild(childViews[i].build());
     }
-};
-
-maria.ElementView.prototype.update = function() {
-    // to be overridden by concrete ElementView subclasses
 };
 
 maria.ElementView.prototype.getContainerEl = function() {
@@ -2571,11 +2576,11 @@ maria.ElementView.prototype.removeChild = function(oldChild) {
 };
 
 maria.ElementView.prototype.find = function(selector) {
-    return maria.find(selector, this.build());
+    return grail.find(selector, this.build());
 };
 
 maria.ElementView.prototype.findAll = function(selector) {
-    return maria.findAll(selector, this.build());
+    return grail.findAll(selector, this.build());
 };
 /**
 
@@ -2617,7 +2622,7 @@ maria.SetView.subclass for a more compact way to accomplish the same.
     checkit.TodosListView = function() {
         maria.SetView.apply(this, arguments);
     };
-    checkit.TodosListView.prototype = new maria.SetView();
+    checkit.TodosListView.prototype = maria.create(maria.SetView.prototype);
     checkit.TodosListView.prototype.constructor = checkit.TodosListView;
     checkit.TodosListView.prototype.getTemplate = function() {
         return checkit.TodosListTemplate;
@@ -2631,7 +2636,7 @@ maria.SetView = function() {
     maria.ElementView.apply(this, arguments);
 };
 
-maria.SetView.prototype = new maria.ElementView();
+maria.SetView.prototype = maria.create(maria.ElementView.prototype);
 maria.SetView.prototype.constructor = maria.SetView;
 
 maria.SetView.prototype.buildChildViews = function() {
@@ -2733,7 +2738,7 @@ to accomplish the same.
     checkit.TodoController = function() {
         maria.Controller.apply(this, arguments);
     };
-    checkit.TodoController.prototype = new maria.Controller();
+    checkit.TodoController.prototype = maria.create(maria.Controller.prototype);
     checkit.TodoController.prototype.constructor = checkit.TodoController;
     checkit.TodoController.prototype.onClickCheck = function() {
         this.getModel().toggleDone();
@@ -2743,10 +2748,10 @@ to accomplish the same.
     };
     checkit.TodoController.prototype.onKeyupInput = function() {
         var view = this.getView();
-        if (/\S/.test(view.getInputValue())) {
-            view.showToolTip();
-        } else {
+        if (checkit.isBlank(view.getInputValue())) {
             view.hideToolTip();
+        } else {
+            view.showToolTip();
         }
     };
     checkit.TodoController.prototype.onKeypressInput = function(evt) {
@@ -2759,25 +2764,13 @@ to accomplish the same.
         var value = view.getInputValue();
         view.hideToolTip();
         view.showDisplay();
-        if (!/^\s*$/.test(value)) {
+        if (!checkit.isBlank(value)) {
             this.getModel().setContent(value);
         }
     };
 
-The above TodoController example does not have an "initialize" method;
-however, if some special initialization is requried, maria.Controller
-will automatically call your "initialize" method.
-
-    checkit.TodoController.prototype.initialize = function() {
-        alert('Another to-do controller has been created.');
-    };
-
 */
-maria.Controller = function() {
-    this.initialize();
-};
-
-maria.Controller.prototype.initialize = function() {};
+maria.Controller = function() {};
 
 maria.Controller.prototype.destroy = function() {
     this._model = null;
@@ -2791,6 +2784,9 @@ maria.Controller.prototype.getModel = function() {
     return this._model;
 };
 
+// setModel is intended to be called *only* by 
+// the view _setModelAndController method.
+// Do otherwise at your own risk.
 maria.Controller.prototype.setModel = function(model) {
     this._model = model;
 };
@@ -2799,6 +2795,9 @@ maria.Controller.prototype.getView = function() {
     return this._view;
 };
 
+// setView is intended to be called *only* by
+// the view _setModelAndController method.
+// Do otherwise at your own risk.
 maria.Controller.prototype.setView = function(view) {
     this._view = view;
 };
@@ -2822,7 +2821,7 @@ for maria.Model.
                 return this._content;
             },
             setContent: function(content) {
-                content = ('' + content).replace(/^\s+|\s+$/g, '');
+                content = checkit.trim('' + content);
                 if (this._content !== content) {
                     this._content = content;
                     this.dispatchEvent({type: 'change'});
@@ -2845,7 +2844,9 @@ for maria.Model.
     });
 
 */
-maria.Model.subclass = maria.subclass;
+maria.Model.subclass = function() {
+    maria.subclass.apply(this, arguments);
+};
 /**
 
 @property maria.SetModel.subclass
@@ -2860,9 +2861,6 @@ for maria.SetModel.
 
     maria.SetModel.subclass(checkit, 'TodosModel', {
         properties: {
-            isEmpty: function() {
-                return this.length === 0;
-            },
             getDone: function() {
                 return this.filter(function(todo) {
                     return todo.isDone();
@@ -2894,7 +2892,9 @@ for maria.SetModel.
     });
 
 */
-maria.SetModel.subclass = maria.Model.subclass;
+maria.SetModel.subclass = function() {
+    maria.Model.subclass.apply(this, arguments);
+};
 /**
 
 @property maria.View.subclass
@@ -2981,8 +2981,7 @@ for maria.ElementView.
             buildData: function() {
                 var model = this.getModel();
                 var content = model.getContent();
-                this.find('.todo-content').innerHTML =
-                    content.replace('&', '&amp;').replace('<', '&lt;');
+                this.find('.todo-content').innerHTML = checkit.escapeHTML(content);
                 this.find('.check').checked = model.isDone();
                 aristocrat[model.isDone() ? 'addClass' : 'removeClass'](this.find('.todo'), 'done');
             },
@@ -3012,12 +3011,11 @@ for maria.ElementView.
 
 This subclassing function implements options following the
 "convention over configuration" philosophy. The checkit.TodoView will,
-by convention, use the checkit.TodoModel, checkit.TodoController
+by convention, use the checkit.TodoController
 and checkit.TodoTemplate objects. All of these can be configured
-explicitely if these conventions do not match your view's needs.
+explicitly if these conventions do not match your view's needs.
 
     maria.ElementView.subclass(checkit, 'TodoView', {
-        modelConstructor     : checkit.TodoModel     ,
         controllerConstructor: checkit.TodoController,
         template             : checkit.TodoTemplate  ,
         uiActions: {
@@ -3028,7 +3026,6 @@ objects in the application's namespace object (i.e. the checkit object
 in this example).
 
 maria.ElementView.subclass(checkit, 'TodoView', {
-    modelConstructorName     : 'TodoModel'     ,
     controllerConstructorName: 'TodoController',
     templateName             : 'TodoTemplate'  ,
     uiActions: {
@@ -3090,7 +3087,6 @@ function equivalent to the more verbose example shown in the
 documentation for maria.SetView.
 
     maria.SetView.subclass(checkit, 'TodosListView', {
-        modelConstructor: checkit.TodosModel,
         properties: {
             createChildView: function(todoModel) {
                 return new checkit.TodoView(todoModel);
@@ -3099,7 +3095,9 @@ documentation for maria.SetView.
     });
 
 */
-maria.SetView.subclass = maria.ElementView.subclass;
+maria.SetView.subclass = function() {
+    maria.ElementView.subclass.apply(this, arguments);
+};
 /**
 
 @property maria.Controller.subclass
@@ -3122,10 +3120,10 @@ the documentation for maria.Controller.
             },
             onKeyupInput: function() {
                 var view = this.getView();
-                if (/\S/.test(view.getInputValue())) {
-                    view.showToolTip();
-                } else {
+                if (checkit.isBlank(view.getInputValue())) {
                     view.hideToolTip();
+                } else {
+                    view.showToolTip();
                 }
             },
             onKeypressInput: function(evt) {
@@ -3138,7 +3136,7 @@ the documentation for maria.Controller.
                 var value = view.getInputValue();
                 view.hideToolTip();
                 view.showDisplay();
-                if (!/^\s*$/.test(value)) {
+                if (!checkit.isBlank(value)) {
                     this.getModel().setContent(value);
                 }
             }
@@ -3146,4 +3144,6 @@ the documentation for maria.Controller.
     });
 
 */
-maria.Controller.subclass = maria.subclass;
+maria.Controller.subclass = function() {
+    maria.subclass.apply(this, arguments);
+};

@@ -1,49 +1,56 @@
-define(function(Todo){
+/*global define dermis*/
+define(function () {
+	'use strict';
+
 	var Todos = dermis.collection({
-		toggle: function(){
+		toggle: function () {
 			var toggled = this.allCompleted();
 			this.emit('change:toggle');
 
-			this.all().forEach(function(todo){
+			this.all().forEach(function (todo) {
 				todo.set('completed', !toggled);
 			});
 		},
-		clear: function(){
-			this.completed().forEach(function(todo){
+		clear: function () {
+			this.completed().forEach(function (todo) {
 				todo.destroy();
 			});
 		},
 
 		// These can all be implemented as rivets formatters
-		allCompleted: function(){
+		allCompleted: function () {
 			return this.completed().length === this.all().length;
 		},
 
-		todos: function(){
+		todos: function () {
 			return this[this.get('mode')]();
 		},
 
-		all: function(){
+		all: function () {
 			return this.get('items');
 		},
-		completed: function(){
+		completed: function () {
 			var out = [];
-			this.all().forEach(function(todo){
-				if (todo.get('completed')) out.push(todo);
+			this.all().forEach(function (todo) {
+				if (todo.get('completed')) {
+					out.push(todo);
+				}
 			});
 			return out;
 		},
-		active: function(){
+		active: function () {
 			var out = [];
-			this.all().forEach(function(todo){
-				if (!todo.get('completed')) out.push(todo);
+			this.all().forEach(function (todo) {
+				if (!todo.get('completed')) {
+					out.push(todo);
+				}
 			});
 			return out;
 		},
 
-		serialize: function(){
+		serialize: function () {
 			var out = [];
-			this.all().forEach(function(todo){
+			this.all().forEach(function (todo) {
 				out.push(todo.serialize());
 			});
 			return out;

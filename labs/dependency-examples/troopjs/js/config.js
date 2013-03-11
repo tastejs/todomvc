@@ -1,0 +1,3 @@
+define({
+	'store': 'todos-troopjs'
+});

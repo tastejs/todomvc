@@ -1,7 +1,0 @@
-<form id='fp' action="">
-  <input type='checkbox' name='foo'  value='true'/> 
-  <input type='checkbox' name='wrong' checked="checked" value='false' />
-  <input type='checkbox' name='bar[abc]' checked="checked" value='true'/>
-  <input type='checkbox' name='bar[def]' checked="checked" value='true'/>
-  <input type='checkbox' name='bar[ghi]' value='true'/>
-</form>

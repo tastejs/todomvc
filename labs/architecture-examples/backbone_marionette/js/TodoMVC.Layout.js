@@ -1,8 +1,9 @@
-TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
+/*global TodoMVC */
+'use strict';
 
+TodoMVC.module('Layout', function (Layout, App, Backbone) {
 	// Layout Header View
 	// ------------------
-
 	Layout.Header = Backbone.Marionette.ItemView.extend({
 		template: '#template-header',
 
@@ -12,15 +13,15 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 			input: '#new-todo'
 		},
 
-		events : {
+		events: {
 			'keypress #new-todo': 'onInputKeypress'
 		},
 
-		onInputKeypress: function(e) {
-			var ENTER_KEY = 13;
-			var todoText = this.ui.input.val().trim();
+		onInputKeypress: function (e) {
+			var ENTER_KEY = 13,
+			todoText = this.ui.input.val().trim();
 
-			if ( e.which === ENTER_KEY && todoText ) {
+			if (e.which === ENTER_KEY && todoText) {
 				this.collection.create({
 					title: todoText
 				});
@@ -31,7 +32,6 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 
 	// Layout Footer View
 	// ------------------
-
 	Layout.Footer = Backbone.Marionette.Layout.extend({
 		template: '#template-footer',
 
@@ -39,41 +39,54 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 		// point to jQuery selected objects
 		ui: {
 			count: '#todo-count strong',
-			filters: '#filters a'
+			itemsString: '#todo-count span',
+			filters: '#filters a',
+			clearCompleted: '#clear-completed'
 		},
 
 		events: {
 			'click #clear-completed': 'onClearClick'
 		},
 
-		initialize : function() {
-			this.bindTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
-			this.bindTo(this.collection, 'all', this.updateCount, this);
+		initialize: function () {
+			this.listenTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
+			this.listenTo(this.collection, 'all', this.updateCount, this);
 		},
 
-		onRender: function() {
+		onRender: function () {
 			this.updateCount();
 		},
 
-		updateCount: function() {
+		updateCount: function () {
 			var count = this.collection.getActive().length;
+			var length = this.collection.length;
+			var completed = length - count;
+
 			this.ui.count.html(count);
-			this.$el.parent().toggle(count > 0);
+			this.ui.itemsString.html(' ' + (count === 1 ? 'item' : 'items') + ' left');
+			this.$el.parent().toggle(length > 0);
+
+			if (completed > 0) {
+				this.ui.clearCompleted.show();
+				this.ui.clearCompleted.html('Clear completed (' + completed + ')');
+			} else {
+				this.ui.clearCompleted.hide();
+			}
+
 		},
 
-		updateFilterSelection : function(filter) {
+		updateFilterSelection: function (filter) {
 			this.ui.filters
 				.removeClass('selected')
 				.filter('[href="#' + filter + '"]')
 				.addClass('selected');
 		},
 
-		onClearClick: function() {
+		onClearClick: function () {
 			var completed = this.collection.getCompleted();
-			completed.forEach(function destroy(todo) {
+			completed.forEach(function (todo) {
 				todo.destroy();
 			});
 		}
 	});
-
 });

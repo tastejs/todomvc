@@ -1,3 +1,5 @@
+/*global YUI*/
+
 YUI.add('todo-view', function (Y) {
 	'use strict';
 
@@ -63,8 +65,7 @@ YUI.add('todo-view', function (Y) {
 		// Get the value from our input field while hiding it, and
 		// save it to our Todo when focus is lost from the field.
 		close: function () {
-			var value = this.get('inputNode').get('value');
-			var editedValue = Y.Escape.html(Y.Lang.trim(value));
+			var editedValue = this.get('inputNode').get('value');
 
 			this.get('container').removeClass('editing');
 

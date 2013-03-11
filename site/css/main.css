@@ -106,19 +106,24 @@ header nav a:first-child {
 	margin-bottom: 20px;
 }
 
-.whats-new {
-	list-style: none;
-}
-
 .whats-new li {
 	position: relative;
 	margin: 15px 0;
+	list-style: none;
 }
 
 .whats-new li:before {
 	content: '✔';
 	position: absolute;
 	left: -20px;
+}
+
+.whats-new li ul {
+	margin-left: 10px;
+}
+
+.whats-new li ul li {
+	margin-left: 20px;
 }
 
 .applist {
@@ -162,7 +167,7 @@ header nav a:first-child {
 }
 
 .applist .labs a{
-	color:#666;
+	color:#582C42;
 }
 
 .applist .label,
@@ -185,6 +190,24 @@ p .label {
 	-ms-columns: 2;
 	-o-columns: 2;
 	columns: 2;
+}
+
+.collapsed {
+	overflow: hidden;
+	max-height: 0;
+	-webkit-transition: max-height 1s;
+	-moz-transition: max-height 1s;
+	-ms-transition: max-height 1s;
+	-o-transition: max-height 1s;
+	transition: max-height 1s;
+}
+
+#news-expander {
+	display: none;
+}
+
+#news-expander:checked ~ .collapsed {
+	max-height: 999px;
 }
 
 .credit a {

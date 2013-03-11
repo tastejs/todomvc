@@ -13,10 +13,10 @@ class TodoWidget {
 			<li ${todo.completed ? 'class="completed"' : ''}>
 			<div class='view'>
 			<input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
-			<label class='todo-content'>${todo.title}</label>
+			<label class='todo-content'>${htmlEscape(todo.title)}</label>
 			<button class='destroy'></button>
 			</div>
-			<input class='edit' value='${todo.title}'>
+			<input class='edit' value='${htmlEscape(todo.title)}'>
 			</li>
 		''');
 
@@ -25,13 +25,13 @@ class TodoWidget {
 
 		toggleElement = element.query('.toggle');
 
-		toggleElement.on.click.add((MouseEvent e) {
+		toggleElement.onClick.listen((e) {
 			toggle();
 			todoApp.updateCounts();
 			todoApp.save();
 		});
 
-		contentElement.on.doubleClick.add((MouseEvent e) {
+		contentElement.onDoubleClick.listen((e) {
 			element.classes.add('editing');
 			editElement.selectionStart = todo.title.length;
 			editElement.focus();
@@ -43,12 +43,12 @@ class TodoWidget {
 			todoApp.updateFooterDisplay();
 		}
 
-		element.query('.destroy').on.click.add((MouseEvent e) {
+		element.query('.destroy').onClick.listen((e) {
 			removeTodo();
 			todoApp.save();
 		});
 
-		void doneEditing(event) {
+		void doneEditing() {
 			todo.title = editElement.value.trim();
 			if (todo.title != '') {
 				contentElement.text = todo.title;
@@ -59,13 +59,13 @@ class TodoWidget {
 			todoApp.save();
 		}
 
-		editElement.on
-			..keyPress.add((KeyboardEvent e) {
+		editElement
+			..onKeyPress.listen((KeyboardEvent e) {
 				if (e.keyCode == KeyCode.ENTER) {
-					doneEditing(e);
+					doneEditing();
 				}
 			})
-			..blur.add(doneEditing);
+			..onBlur.listen((e) => doneEditing());
 
 		return element;
 	}

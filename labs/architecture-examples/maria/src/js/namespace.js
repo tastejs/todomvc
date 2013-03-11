@@ -1,1 +1,3 @@
-var checkit = checkit || {};
+/*jshint unused:false */
+
+var checkit = {};

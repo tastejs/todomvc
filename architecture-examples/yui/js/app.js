@@ -1,3 +1,4 @@
+/*global YUI*/
 YUI.add('todo-app', function (Y) {
 	'use strict';
 
@@ -97,15 +98,15 @@ YUI.add('todo-app', function (Y) {
 			// An Array of models is passed through when the 'reset'
 			// event is triggered through syncing through load().
 			switch (this.get('filter')) {
-				case 'active':
-					models = todoList.remaining();
-					break;
-				case 'completed':
-					models = todoList.completed();
-					break;
-				default:
-					models = todoList;
-					break;
+			case 'active':
+				models = todoList.remaining();
+				break;
+			case 'completed':
+				models = todoList.completed();
+				break;
+			default:
+				models = todoList;
+				break;
 			}
 
 			// Iterate through the (filtered) ModelList.
@@ -123,7 +124,7 @@ YUI.add('todo-app', function (Y) {
 			var ENTER_KEY = 13;
 			var todoList = this.get('todoList');
 			var inputNode = this.get('inputNode');
-			var value = Y.Escape.html(Y.Lang.trim(inputNode.get('value')));
+			var value = inputNode.get('value');
 
 			if (e.keyCode !== ENTER_KEY || !value) {
 				return;

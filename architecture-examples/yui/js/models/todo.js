@@ -1,3 +1,4 @@
+/*global YUI*/
 YUI.add('todo', function (Y) {
 	'use strict';
 

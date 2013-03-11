@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-angular-requirejs",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.0.5",
+    "todomvc-common": "~0.1.1",
+    "requirejs": "~2.1.5"
+  }
+}

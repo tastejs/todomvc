@@ -1,3 +1,6 @@
+/*global require*/
+'use strict';
+
 // Require.js allows us to configure shortcut alias
 require.config({
 	// The shim config allows us to configure dependencies for
@@ -19,18 +22,20 @@ require.config({
 		}
 	},
 	paths: {
-		jquery: '../../../assets/jquery.min',
-		underscore: '../../../assets/lodash.min',
-		backbone: 'lib/backbone/backbone',
-		backboneLocalstorage: 'lib/backbone/backbone.localStorage',
-		text: 'lib/require/text'
+		jquery: '../components/jquery/jquery',
+		underscore: '../components/underscore/underscore',
+		backbone: '../components/backbone/backbone',
+		backboneLocalstorage: '../components/backbone.localStorage/backbone.localStorage',
+		text: '../components/requirejs-text/text'
 	}
 });
 
 require([
+	'backbone',
 	'views/app',
 	'routers/router'
-], function( AppView, Workspace ) {
+], function (Backbone, AppView, Workspace) {
+	/*jshint nonew:false*/
 	// Initialize routing and start Backbone.history()
 	new Workspace();
 	Backbone.history.start();

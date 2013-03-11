@@ -1,4 +1,3 @@
-var Application;
 (function( window ) {
 	'use strict';
 
@@ -6,3023 +5,14248 @@ var Application;
 		var _gaq=[['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));
 	}
 })( window );
+
 ;;
-/*! jQuery v1.7.2 jquery.com | jquery.org/license */
-(function(a,b){function cy(a){return f.isWindow(a)?a:a.nodeType===9?a.defaultView||a.parentWindow:!1}function cu(a){if(!cj[a]){var b=c.body,d=f("<"+a+">").appendTo(b),e=d.css("display");d.remove();if(e==="none"||e===""){ck||(ck=c.createElement("iframe"),ck.frameBorder=ck.width=ck.height=0),b.appendChild(ck);if(!cl||!ck.createElement)cl=(ck.contentWindow||ck.contentDocument).document,cl.write((f.support.boxModel?"<!doctype html>":"")+"<html><body>"),cl.close();d=cl.createElement(a),cl.body.appendChild(d),e=f.css(d,"display"),b.removeChild(ck)}cj[a]=e}return cj[a]}function ct(a,b){var c={};f.each(cp.concat.apply([],cp.slice(0,b)),function(){c[this]=a});return c}function cs(){cq=b}function cr(){setTimeout(cs,0);return cq=f.now()}function ci(){try{return new a.ActiveXObject("Microsoft.XMLHTTP")}catch(b){}}function ch(){try{return new a.XMLHttpRequest}catch(b){}}function cb(a,c){a.dataFilter&&(c=a.dataFilter(c,a.dataType));var d=a.dataTypes,e={},g,h,i=d.length,j,k=d[0],l,m,n,o,p;for(g=1;g<i;g++){if(g===1)for(h in a.converters)typeof h=="string"&&(e[h.toLowerCase()]=a.converters[h]);l=k,k=d[g];if(k==="*")k=l;else if(l!=="*"&&l!==k){m=l+" "+k,n=e[m]||e["* "+k];if(!n){p=b;for(o in e){j=o.split(" ");if(j[0]===l||j[0]==="*"){p=e[j[1]+" "+k];if(p){o=e[o],o===!0?n=p:p===!0&&(n=o);break}}}}!n&&!p&&f.error("No conversion from "+m.replace(" "," to ")),n!==!0&&(c=n?n(c):p(o(c)))}}return c}function ca(a,c,d){var e=a.contents,f=a.dataTypes,g=a.responseFields,h,i,j,k;for(i in g)i in d&&(c[g[i]]=d[i]);while(f[0]==="*")f.shift(),h===b&&(h=a.mimeType||c.getResponseHeader("content-type"));if(h)for(i in e)if(e[i]&&e[i].test(h)){f.unshift(i);break}if(f[0]in d)j=f[0];else{for(i in d){if(!f[0]||a.converters[i+" "+f[0]]){j=i;break}k||(k=i)}j=j||k}if(j){j!==f[0]&&f.unshift(j);return d[j]}}function b_(a,b,c,d){if(f.isArray(b))f.each(b,function(b,e){c||bD.test(a)?d(a,e):b_(a+"["+(typeof e=="object"?b:"")+"]",e,c,d)});else if(!c&&f.type(b)==="object")for(var e in b)b_(a+"["+e+"]",b[e],c,d);else d(a,b)}function b$(a,c){var d,e,g=f.ajaxSettings.flatOptions||{};for(d in c)c[d]!==b&&((g[d]?a:e||(e={}))[d]=c[d]);e&&f.extend(!0,a,e)}function bZ(a,c,d,e,f,g){f=f||c.dataTypes[0],g=g||{},g[f]=!0;var h=a[f],i=0,j=h?h.length:0,k=a===bS,l;for(;i<j&&(k||!l);i++)l=h[i](c,d,e),typeof l=="string"&&(!k||g[l]?l=b:(c.dataTypes.unshift(l),l=bZ(a,c,d,e,l,g)));(k||!l)&&!g["*"]&&(l=bZ(a,c,d,e,"*",g));return l}function bY(a){return function(b,c){typeof b!="string"&&(c=b,b="*");if(f.isFunction(c)){var d=b.toLowerCase().split(bO),e=0,g=d.length,h,i,j;for(;e<g;e++)h=d[e],j=/^\+/.test(h),j&&(h=h.substr(1)||"*"),i=a[h]=a[h]||[],i[j?"unshift":"push"](c)}}}function bB(a,b,c){var d=b==="width"?a.offsetWidth:a.offsetHeight,e=b==="width"?1:0,g=4;if(d>0){if(c!=="border")for(;e<g;e+=2)c||(d-=parseFloat(f.css(a,"padding"+bx[e]))||0),c==="margin"?d+=parseFloat(f.css(a,c+bx[e]))||0:d-=parseFloat(f.css(a,"border"+bx[e]+"Width"))||0;return d+"px"}d=by(a,b);if(d<0||d==null)d=a.style[b];if(bt.test(d))return d;d=parseFloat(d)||0;if(c)for(;e<g;e+=2)d+=parseFloat(f.css(a,"padding"+bx[e]))||0,c!=="padding"&&(d+=parseFloat(f.css(a,"border"+bx[e]+"Width"))||0),c==="margin"&&(d+=parseFloat(f.css(a,c+bx[e]))||0);return d+"px"}function bo(a){var b=c.createElement("div");bh.appendChild(b),b.innerHTML=a.outerHTML;return b.firstChild}function bn(a){var b=(a.nodeName||"").toLowerCase();b==="input"?bm(a):b!=="script"&&typeof a.getElementsByTagName!="undefined"&&f.grep(a.getElementsByTagName("input"),bm)}function bm(a){if(a.type==="checkbox"||a.type==="radio")a.defaultChecked=a.checked}function bl(a){return typeof a.getElementsByTagName!="undefined"?a.getElementsByTagName("*"):typeof a.querySelectorAll!="undefined"?a.querySelectorAll("*"):[]}function bk(a,b){var c;b.nodeType===1&&(b.clearAttributes&&b.clearAttributes(),b.mergeAttributes&&b.mergeAttributes(a),c=b.nodeName.toLowerCase(),c==="object"?b.outerHTML=a.outerHTML:c!=="input"||a.type!=="checkbox"&&a.type!=="radio"?c==="option"?b.selected=a.defaultSelected:c==="input"||c==="textarea"?b.defaultValue=a.defaultValue:c==="script"&&b.text!==a.text&&(b.text=a.text):(a.checked&&(b.defaultChecked=b.checked=a.checked),b.value!==a.value&&(b.value=a.value)),b.removeAttribute(f.expando),b.removeAttribute("_submit_attached"),b.removeAttribute("_change_attached"))}function bj(a,b){if(b.nodeType===1&&!!f.hasData(a)){var c,d,e,g=f._data(a),h=f._data(b,g),i=g.events;if(i){delete h.handle,h.events={};for(c in i)for(d=0,e=i[c].length;d<e;d++)f.event.add(b,c,i[c][d])}h.data&&(h.data=f.extend({},h.data))}}function bi(a,b){return f.nodeName(a,"table")?a.getElementsByTagName("tbody")[0]||a.appendChild(a.ownerDocument.createElement("tbody")):a}function U(a){var b=V.split("|"),c=a.createDocumentFragment();if(c.createElement)while(b.length)c.createElement(b.pop());return c}function T(a,b,c){b=b||0;if(f.isFunction(b))return f.grep(a,function(a,d){var e=!!b.call(a,d,a);return e===c});if(b.nodeType)return f.grep(a,function(a,d){return a===b===c});if(typeof b=="string"){var d=f.grep(a,function(a){return a.nodeType===1});if(O.test(b))return f.filter(b,d,!c);b=f.filter(b,d)}return f.grep(a,function(a,d){return f.inArray(a,b)>=0===c})}function S(a){return!a||!a.parentNode||a.parentNode.nodeType===11}function K(){return!0}function J(){return!1}function n(a,b,c){var d=b+"defer",e=b+"queue",g=b+"mark",h=f._data(a,d);h&&(c==="queue"||!f._data(a,e))&&(c==="mark"||!f._data(a,g))&&setTimeout(function(){!f._data(a,e)&&!f._data(a,g)&&(f.removeData(a,d,!0),h.fire())},0)}function m(a){for(var b in a){if(b==="data"&&f.isEmptyObject(a[b]))continue;if(b!=="toJSON")return!1}return!0}function l(a,c,d){if(d===b&&a.nodeType===1){var e="data-"+c.replace(k,"-$1").toLowerCase();d=a.getAttribute(e);if(typeof d=="string"){try{d=d==="true"?!0:d==="false"?!1:d==="null"?null:f.isNumeric(d)?+d:j.test(d)?f.parseJSON(d):d}catch(g){}f.data(a,c,d)}else d=b}return d}function h(a){var b=g[a]={},c,d;a=a.split(/\s+/);for(c=0,d=a.length;c<d;c++)b[a[c]]=!0;return b}var c=a.document,d=a.navigator,e=a.location,f=function(){function J(){if(!e.isReady){try{c.documentElement.doScroll("left")}catch(a){setTimeout(J,1);return}e.ready()}}var e=function(a,b){return new e.fn.init(a,b,h)},f=a.jQuery,g=a.$,h,i=/^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,j=/\S/,k=/^\s+/,l=/\s+$/,m=/^<(\w+)\s*\/?>(?:<\/\1>)?$/,n=/^[\],:{}\s]*$/,o=/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,p=/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,q=/(?:^|:|,)(?:\s*\[)+/g,r=/(webkit)[ \/]([\w.]+)/,s=/(opera)(?:.*version)?[ \/]([\w.]+)/,t=/(msie) ([\w.]+)/,u=/(mozilla)(?:.*? rv:([\w.]+))?/,v=/-([a-z]|[0-9])/ig,w=/^-ms-/,x=function(a,b){return(b+"").toUpperCase()},y=d.userAgent,z,A,B,C=Object.prototype.toString,D=Object.prototype.hasOwnProperty,E=Array.prototype.push,F=Array.prototype.slice,G=String.prototype.trim,H=Array.prototype.indexOf,I={};e.fn=e.prototype={constructor:e,init:function(a,d,f){var g,h,j,k;if(!a)return this;if(a.nodeType){this.context=this[0]=a,this.length=1;return this}if(a==="body"&&!d&&c.body){this.context=c,this[0]=c.body,this.selector=a,this.length=1;return this}if(typeof a=="string"){a.charAt(0)!=="<"||a.charAt(a.length-1)!==">"||a.length<3?g=i.exec(a):g=[null,a,null];if(g&&(g[1]||!d)){if(g[1]){d=d instanceof e?d[0]:d,k=d?d.ownerDocument||d:c,j=m.exec(a),j?e.isPlainObject(d)?(a=[c.createElement(j[1])],e.fn.attr.call(a,d,!0)):a=[k.createElement(j[1])]:(j=e.buildFragment([g[1]],[k]),a=(j.cacheable?e.clone(j.fragment):j.fragment).childNodes);return e.merge(this,a)}h=c.getElementById(g[2]);if(h&&h.parentNode){if(h.id!==g[2])return f.find(a);this.length=1,this[0]=h}this.context=c,this.selector=a;return this}return!d||d.jquery?(d||f).find(a):this.constructor(d).find(a)}if(e.isFunction(a))return f.ready(a);a.selector!==b&&(this.selector=a.selector,this.context=a.context);return e.makeArray(a,this)},selector:"",jquery:"1.7.2",length:0,size:function(){return this.length},toArray:function(){return F.call(this,0)},get:function(a){return a==null?this.toArray():a<0?this[this.length+a]:this[a]},pushStack:function(a,b,c){var d=this.constructor();e.isArray(a)?E.apply(d,a):e.merge(d,a),d.prevObject=this,d.context=this.context,b==="find"?d.selector=this.selector+(this.selector?" ":"")+c:b&&(d.selector=this.selector+"."+b+"("+c+")");return d},each:function(a,b){return e.each(this,a,b)},ready:function(a){e.bindReady(),A.add(a);return this},eq:function(a){a=+a;return a===-1?this.slice(a):this.slice(a,a+1)},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},slice:function(){return this.pushStack(F.apply(this,arguments),"slice",F.call(arguments).join(","))},map:function(a){return this.pushStack(e.map(this,function(b,c){return a.call(b,c,b)}))},end:function(){return this.prevObject||this.constructor(null)},push:E,sort:[].sort,splice:[].splice},e.fn.init.prototype=e.fn,e.extend=e.fn.extend=function(){var a,c,d,f,g,h,i=arguments[0]||{},j=1,k=arguments.length,l=!1;typeof i=="boolean"&&(l=i,i=arguments[1]||{},j=2),typeof i!="object"&&!e.isFunction(i)&&(i={}),k===j&&(i=this,--j);for(;j<k;j++)if((a=arguments[j])!=null)for(c in a){d=i[c],f=a[c];if(i===f)continue;l&&f&&(e.isPlainObject(f)||(g=e.isArray(f)))?(g?(g=!1,h=d&&e.isArray(d)?d:[]):h=d&&e.isPlainObject(d)?d:{},i[c]=e.extend(l,h,f)):f!==b&&(i[c]=f)}return i},e.extend({noConflict:function(b){a.$===e&&(a.$=g),b&&a.jQuery===e&&(a.jQuery=f);return e},isReady:!1,readyWait:1,holdReady:function(a){a?e.readyWait++:e.ready(!0)},ready:function(a){if(a===!0&&!--e.readyWait||a!==!0&&!e.isReady){if(!c.body)return setTimeout(e.ready,1);e.isReady=!0;if(a!==!0&&--e.readyWait>0)return;A.fireWith(c,[e]),e.fn.trigger&&e(c).trigger("ready").off("ready")}},bindReady:function(){if(!A){A=e.Callbacks("once memory");if(c.readyState==="complete")return setTimeout(e.ready,1);if(c.addEventListener)c.addEventListener("DOMContentLoaded",B,!1),a.addEventListener("load",e.ready,!1);else if(c.attachEvent){c.attachEvent("onreadystatechange",B),a.attachEvent("onload",e.ready);var b=!1;try{b=a.frameElement==null}catch(d){}c.documentElement.doScroll&&b&&J()}}},isFunction:function(a){return e.type(a)==="function"},isArray:Array.isArray||function(a){return e.type(a)==="array"},isWindow:function(a){return a!=null&&a==a.window},isNumeric:function(a){return!isNaN(parseFloat(a))&&isFinite(a)},type:function(a){return a==null?String(a):I[C.call(a)]||"object"},isPlainObject:function(a){if(!a||e.type(a)!=="object"||a.nodeType||e.isWindow(a))return!1;try{if(a.constructor&&!D.call(a,"constructor")&&!D.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}var d;for(d in a);return d===b||D.call(a,d)},isEmptyObject:function(a){for(var b in a)return!1;return!0},error:function(a){throw new Error(a)},parseJSON:function(b){if(typeof b!="string"||!b)return null;b=e.trim(b);if(a.JSON&&a.JSON.parse)return a.JSON.parse(b);if(n.test(b.replace(o,"@").replace(p,"]").replace(q,"")))return(new Function("return "+b))();e.error("Invalid JSON: "+b)},parseXML:function(c){if(typeof c!="string"||!c)return null;var d,f;try{a.DOMParser?(f=new DOMParser,d=f.parseFromString(c,"text/xml")):(d=new ActiveXObject("Microsoft.XMLDOM"),d.async="false",d.loadXML(c))}catch(g){d=b}(!d||!d.documentElement||d.getElementsByTagName("parsererror").length)&&e.error("Invalid XML: "+c);return d},noop:function(){},globalEval:function(b){b&&j.test(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(w,"ms-").replace(v,x)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toUpperCase()===b.toUpperCase()},each:function(a,c,d){var f,g=0,h=a.length,i=h===b||e.isFunction(a);if(d){if(i){for(f in a)if(c.apply(a[f],d)===!1)break}else for(;g<h;)if(c.apply(a[g++],d)===!1)break}else if(i){for(f in a)if(c.call(a[f],f,a[f])===!1)break}else for(;g<h;)if(c.call(a[g],g,a[g++])===!1)break;return a},trim:G?function(a){return a==null?"":G.call(a)}:function(a){return a==null?"":(a+"").replace(k,"").replace(l,"")},makeArray:function(a,b){var c=b||[];if(a!=null){var d=e.type(a);a.length==null||d==="string"||d==="function"||d==="regexp"||e.isWindow(a)?E.call(c,a):e.merge(c,a)}return c},inArray:function(a,b,c){var d;if(b){if(H)return H.call(b,a,c);d=b.length,c=c?c<0?Math.max(0,d+c):c:0;for(;c<d;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,c){var d=a.length,e=0;if(typeof c.length=="number")for(var f=c.length;e<f;e++)a[d++]=c[e];else while(c[e]!==b)a[d++]=c[e++];a.length=d;return a},grep:function(a,b,c){var d=[],e;c=!!c;for(var f=0,g=a.length;f<g;f++)e=!!b(a[f],f),c!==e&&d.push(a[f]);return d},map:function(a,c,d){var f,g,h=[],i=0,j=a.length,k=a instanceof e||j!==b&&typeof j=="number"&&(j>0&&a[0]&&a[j-1]||j===0||e.isArray(a));if(k)for(;i<j;i++)f=c(a[i],i,d),f!=null&&(h[h.length]=f);else for(g in a)f=c(a[g],g,d),f!=null&&(h[h.length]=f);return h.concat.apply([],h)},guid:1,proxy:function(a,c){if(typeof c=="string"){var d=a[c];c=a,a=d}if(!e.isFunction(a))return b;var f=F.call(arguments,2),g=function(){return a.apply(c,f.concat(F.call(arguments)))};g.guid=a.guid=a.guid||g.guid||e.guid++;return g},access:function(a,c,d,f,g,h,i){var j,k=d==null,l=0,m=a.length;if(d&&typeof d=="object"){for(l in d)e.access(a,c,l,d[l],1,h,f);g=1}else if(f!==b){j=i===b&&e.isFunction(f),k&&(j?(j=c,c=function(a,b,c){return j.call(e(a),c)}):(c.call(a,f),c=null));if(c)for(;l<m;l++)c(a[l],d,j?f.call(a[l],l,c(a[l],d)):f,i);g=1}return g?a:k?c.call(a):m?c(a[0],d):h},now:function(){return(new Date).getTime()},uaMatch:function(a){a=a.toLowerCase();var b=r.exec(a)||s.exec(a)||t.exec(a)||a.indexOf("compatible")<0&&u.exec(a)||[];return{browser:b[1]||"",version:b[2]||"0"}},sub:function(){function a(b,c){return new a.fn.init(b,c)}e.extend(!0,a,this),a.superclass=this,a.fn=a.prototype=this(),a.fn.constructor=a,a.sub=this.sub,a.fn.init=function(d,f){f&&f instanceof e&&!(f instanceof a)&&(f=a(f));return e.fn.init.call(this,d,f,b)},a.fn.init.prototype=a.fn;var b=a(c);return a},browser:{}}),e.each("Boolean Number String Function Array Date RegExp Object".split(" "),function(a,b){I["[object "+b+"]"]=b.toLowerCase()}),z=e.uaMatch(y),z.browser&&(e.browser[z.browser]=!0,e.browser.version=z.version),e.browser.webkit&&(e.browser.safari=!0),j.test(" ")&&(k=/^[\s\xA0]+/,l=/[\s\xA0]+$/),h=e(c),c.addEventListener?B=function(){c.removeEventListener("DOMContentLoaded",B,!1),e.ready()}:c.attachEvent&&(B=function(){c.readyState==="complete"&&(c.detachEvent("onreadystatechange",B),e.ready())});return e}(),g={};f.Callbacks=function(a){a=a?g[a]||h(a):{};var c=[],d=[],e,i,j,k,l,m,n=function(b){var d,e,g,h,i;for(d=0,e=b.length;d<e;d++)g=b[d],h=f.type(g),h==="array"?n(g):h==="function"&&(!a.unique||!p.has(g))&&c.push(g)},o=function(b,f){f=f||[],e=!a.memory||[b,f],i=!0,j=!0,m=k||0,k=0,l=c.length;for(;c&&m<l;m++)if(c[m].apply(b,f)===!1&&a.stopOnFalse){e=!0;break}j=!1,c&&(a.once?e===!0?p.disable():c=[]:d&&d.length&&(e=d.shift(),p.fireWith(e[0],e[1])))},p={add:function(){if(c){var a=c.length;n(arguments),j?l=c.length:e&&e!==!0&&(k=a,o(e[0],e[1]))}return this},remove:function(){if(c){var b=arguments,d=0,e=b.length;for(;d<e;d++)for(var f=0;f<c.length;f++)if(b[d]===c[f]){j&&f<=l&&(l--,f<=m&&m--),c.splice(f--,1);if(a.unique)break}}return this},has:function(a){if(c){var b=0,d=c.length;for(;b<d;b++)if(a===c[b])return!0}return!1},empty:function(){c=[];return this},disable:function(){c=d=e=b;return this},disabled:function(){return!c},lock:function(){d=b,(!e||e===!0)&&p.disable();return this},locked:function(){return!d},fireWith:function(b,c){d&&(j?a.once||d.push([b,c]):(!a.once||!e)&&o(b,c));return this},fire:function(){p.fireWith(this,arguments);return this},fired:function(){return!!i}};return p};var i=[].slice;f.extend({Deferred:function(a){var b=f.Callbacks("once memory"),c=f.Callbacks("once memory"),d=f.Callbacks("memory"),e="pending",g={resolve:b,reject:c,notify:d},h={done:b.add,fail:c.add,progress:d.add,state:function(){return e},isResolved:b.fired,isRejected:c.fired,then:function(a,b,c){i.done(a).fail(b).progress(c);return this},always:function(){i.done.apply(i,arguments).fail.apply(i,arguments);return this},pipe:function(a,b,c){return f.Deferred(function(d){f.each({done:[a,"resolve"],fail:[b,"reject"],progress:[c,"notify"]},function(a,b){var c=b[0],e=b[1],g;f.isFunction(c)?i[a](function(){g=c.apply(this,arguments),g&&f.isFunction(g.promise)?g.promise().then(d.resolve,d.reject,d.notify):d[e+"With"](this===i?d:this,[g])}):i[a](d[e])})}).promise()},promise:function(a){if(a==null)a=h;else for(var b in h)a[b]=h[b];return a}},i=h.promise({}),j;for(j in g)i[j]=g[j].fire,i[j+"With"]=g[j].fireWith;i.done(function(){e="resolved"},c.disable,d.lock).fail(function(){e="rejected"},b.disable,d.lock),a&&a.call(i,i);return i},when:function(a){function m(a){return function(b){e[a]=arguments.length>1?i.call(arguments,0):b,j.notifyWith(k,e)}}function l(a){return function(c){b[a]=arguments.length>1?i.call(arguments,0):c,--g||j.resolveWith(j,b)}}var b=i.call(arguments,0),c=0,d=b.length,e=Array(d),g=d,h=d,j=d<=1&&a&&f.isFunction(a.promise)?a:f.Deferred(),k=j.promise();if(d>1){for(;c<d;c++)b[c]&&b[c].promise&&f.isFunction(b[c].promise)?b[c].promise().then(l(c),j.reject,m(c)):--g;g||j.resolveWith(j,b)}else j!==a&&j.resolveWith(j,d?[a]:[]);return k}}),f.support=function(){var b,d,e,g,h,i,j,k,l,m,n,o,p=c.createElement("div"),q=c.documentElement;p.setAttribute("className","t"),p.innerHTML="   <link/><table></table><a href='/a' style='top:1px;float:left;opacity:.55;'>a</a><input type='checkbox'/>",d=p.getElementsByTagName("*"),e=p.getElementsByTagName("a")[0];if(!d||!d.length||!e)return{};g=c.createElement("select"),h=g.appendChild(c.createElement("option")),i=p.getElementsByTagName("input")[0],b={leadingWhitespace:p.firstChild.nodeType===3,tbody:!p.getElementsByTagName("tbody").length,htmlSerialize:!!p.getElementsByTagName("link").length,style:/top/.test(e.getAttribute("style")),hrefNormalized:e.getAttribute("href")==="/a",opacity:/^0.55/.test(e.style.opacity),cssFloat:!!e.style.cssFloat,checkOn:i.value==="on",optSelected:h.selected,getSetAttribute:p.className!=="t",enctype:!!c.createElement("form").enctype,html5Clone:c.createElement("nav").cloneNode(!0).outerHTML!=="<:nav></:nav>",submitBubbles:!0,changeBubbles:!0,focusinBubbles:!1,deleteExpando:!0,noCloneEvent:!0,inlineBlockNeedsLayout:!1,shrinkWrapBlocks:!1,reliableMarginRight:!0,pixelMargin:!0},f.boxModel=b.boxModel=c.compatMode==="CSS1Compat",i.checked=!0,b.noCloneChecked=i.cloneNode(!0).checked,g.disabled=!0,b.optDisabled=!h.disabled;try{delete p.test}catch(r){b.deleteExpando=!1}!p.addEventListener&&p.attachEvent&&p.fireEvent&&(p.attachEvent("onclick",function(){b.noCloneEvent=!1}),p.cloneNode(!0).fireEvent("onclick")),i=c.createElement("input"),i.value="t",i.setAttribute("type","radio"),b.radioValue=i.value==="t",i.setAttribute("checked","checked"),i.setAttribute("name","t"),p.appendChild(i),j=c.createDocumentFragment(),j.appendChild(p.lastChild),b.checkClone=j.cloneNode(!0).cloneNode(!0).lastChild.checked,b.appendChecked=i.checked,j.removeChild(i),j.appendChild(p);if(p.attachEvent)for(n in{submit:1,change:1,focusin:1})m="on"+n,o=m in p,o||(p.setAttribute(m,"return;"),o=typeof p[m]=="function"),b[n+"Bubbles"]=o;j.removeChild(p),j=g=h=p=i=null,f(function(){var d,e,g,h,i,j,l,m,n,q,r,s,t,u=c.getElementsByTagName("body")[0];!u||(m=1,t="padding:0;margin:0;border:",r="position:absolute;top:0;left:0;width:1px;height:1px;",s=t+"0;visibility:hidden;",n="style='"+r+t+"5px solid #000;",q="<div "+n+"display:block;'><div style='"+t+"0;display:block;overflow:hidden;'></div></div>"+"<table "+n+"' cellpadding='0' cellspacing='0'>"+"<tr><td></td></tr></table>",d=c.createElement("div"),d.style.cssText=s+"width:0;height:0;position:static;top:0;margin-top:"+m+"px",u.insertBefore(d,u.firstChild),p=c.createElement("div"),d.appendChild(p),p.innerHTML="<table><tr><td style='"+t+"0;display:none'></td><td>t</td></tr></table>",k=p.getElementsByTagName("td"),o=k[0].offsetHeight===0,k[0].style.display="",k[1].style.display="none",b.reliableHiddenOffsets=o&&k[0].offsetHeight===0,a.getComputedStyle&&(p.innerHTML="",l=c.createElement("div"),l.style.width="0",l.style.marginRight="0",p.style.width="2px",p.appendChild(l),b.reliableMarginRight=(parseInt((a.getComputedStyle(l,null)||{marginRight:0}).marginRight,10)||0)===0),typeof p.style.zoom!="undefined"&&(p.innerHTML="",p.style.width=p.style.padding="1px",p.style.border=0,p.style.overflow="hidden",p.style.display="inline",p.style.zoom=1,b.inlineBlockNeedsLayout=p.offsetWidth===3,p.style.display="block",p.style.overflow="visible",p.innerHTML="<div style='width:5px;'></div>",b.shrinkWrapBlocks=p.offsetWidth!==3),p.style.cssText=r+s,p.innerHTML=q,e=p.firstChild,g=e.firstChild,i=e.nextSibling.firstChild.firstChild,j={doesNotAddBorder:g.offsetTop!==5,doesAddBorderForTableAndCells:i.offsetTop===5},g.style.position="fixed",g.style.top="20px",j.fixedPosition=g.offsetTop===20||g.offsetTop===15,g.style.position=g.style.top="",e.style.overflow="hidden",e.style.position="relative",j.subtractsBorderForOverflowNotVisible=g.offsetTop===-5,j.doesNotIncludeMarginInBodyOffset=u.offsetTop!==m,a.getComputedStyle&&(p.style.marginTop="1%",b.pixelMargin=(a.getComputedStyle(p,null)||{marginTop:0}).marginTop!=="1%"),typeof d.style.zoom!="undefined"&&(d.style.zoom=1),u.removeChild(d),l=p=d=null,f.extend(b,j))});return b}();var j=/^(?:\{.*\}|\[.*\])$/,k=/([A-Z])/g;f.extend({cache:{},uuid:0,expando:"jQuery"+(f.fn.jquery+Math.random()).replace(/\D/g,""),noData:{embed:!0,object:"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",applet:!0},hasData:function(a){a=a.nodeType?f.cache[a[f.expando]]:a[f.expando];return!!a&&!m(a)},data:function(a,c,d,e){if(!!f.acceptData(a)){var g,h,i,j=f.expando,k=typeof c=="string",l=a.nodeType,m=l?f.cache:a,n=l?a[j]:a[j]&&j,o=c==="events";if((!n||!m[n]||!o&&!e&&!m[n].data)&&k&&d===b)return;n||(l?a[j]=n=++f.uuid:n=j),m[n]||(m[n]={},l||(m[n].toJSON=f.noop));if(typeof c=="object"||typeof c=="function")e?m[n]=f.extend(m[n],c):m[n].data=f.extend(m[n].data,c);g=h=m[n],e||(h.data||(h.data={}),h=h.data),d!==b&&(h[f.camelCase(c)]=d);if(o&&!h[c])return g.events;k?(i=h[c],i==null&&(i=h[f.camelCase(c)])):i=h;return i}},removeData:function(a,b,c){if(!!f.acceptData(a)){var d,e,g,h=f.expando,i=a.nodeType,j=i?f.cache:a,k=i?a[h]:h;if(!j[k])return;if(b){d=c?j[k]:j[k].data;if(d){f.isArray(b)||(b in d?b=[b]:(b=f.camelCase(b),b in d?b=[b]:b=b.split(" ")));for(e=0,g=b.length;e<g;e++)delete d[b[e]];if(!(c?m:f.isEmptyObject)(d))return}}if(!c){delete j[k].data;if(!m(j[k]))return}f.support.deleteExpando||!j.setInterval?delete j[k]:j[k]=null,i&&(f.support.deleteExpando?delete a[h]:a.removeAttribute?a.removeAttribute(h):a[h]=null)}},_data:function(a,b,c){return f.data(a,b,c,!0)},acceptData:function(a){if(a.nodeName){var b=f.noData[a.nodeName.toLowerCase()];if(b)return b!==!0&&a.getAttribute("classid")===b}return!0}}),f.fn.extend({data:function(a,c){var d,e,g,h,i,j=this[0],k=0,m=null;if(a===b){if(this.length){m=f.data(j);if(j.nodeType===1&&!f._data(j,"parsedAttrs")){g=j.attributes;for(i=g.length;k<i;k++)h=g[k].name,h.indexOf("data-")===0&&(h=f.camelCase(h.substring(5)),l(j,h,m[h]));f._data(j,"parsedAttrs",!0)}}return m}if(typeof a=="object")return this.each(function(){f.data(this,a)});d=a.split(".",2),d[1]=d[1]?"."+d[1]:"",e=d[1]+"!";return f.access(this,function(c){if(c===b){m=this.triggerHandler("getData"+e,[d[0]]),m===b&&j&&(m=f.data(j,a),m=l(j,a,m));return m===b&&d[1]?this.data(d[0]):m}d[1]=c,this.each(function(){var b=f(this);b.triggerHandler("setData"+e,d),f.data(this,a,c),b.triggerHandler("changeData"+e,d)})},null,c,arguments.length>1,null,!1)},removeData:function(a){return this.each(function(){f.removeData(this,a)})}}),f.extend({_mark:function(a,b){a&&(b=(b||"fx")+"mark",f._data(a,b,(f._data(a,b)||0)+1))},_unmark:function(a,b,c){a!==!0&&(c=b,b=a,a=!1);if(b){c=c||"fx";var d=c+"mark",e=a?0:(f._data(b,d)||1)-1;e?f._data(b,d,e):(f.removeData(b,d,!0),n(b,c,"mark"))}},queue:function(a,b,c){var d;if(a){b=(b||"fx")+"queue",d=f._data(a,b),c&&(!d||f.isArray(c)?d=f._data(a,b,f.makeArray(c)):d.push(c));return d||[]}},dequeue:function(a,b){b=b||"fx";var c=f.queue(a,b),d=c.shift(),e={};d==="inprogress"&&(d=c.shift()),d&&(b==="fx"&&c.unshift("inprogress"),f._data(a,b+".run",e),d.call(a,function(){f.dequeue(a,b)},e)),c.length||(f.removeData(a,b+"queue "+b+".run",!0),n(a,b,"queue"))}}),f.fn.extend({queue:function(a,c){var d=2;typeof a!="string"&&(c=a,a="fx",d--);if(arguments.length<d)return f.queue(this[0],a);return c===b?this:this.each(function(){var b=f.queue(this,a,c);a==="fx"&&b[0]!=="inprogress"&&f.dequeue(this,a)})},dequeue:function(a){return this.each(function(){f.dequeue(this,a)})},delay:function(a,b){a=f.fx?f.fx.speeds[a]||a:a,b=b||"fx";return this.queue(b,function(b,c){var d=setTimeout(b,a);c.stop=function(){clearTimeout(d)}})},clearQueue:function(a){return this.queue(a||"fx",[])},promise:function(a,c){function m(){--h||d.resolveWith(e,[e])}typeof a!="string"&&(c=a,a=b),a=a||"fx";var d=f.Deferred(),e=this,g=e.length,h=1,i=a+"defer",j=a+"queue",k=a+"mark",l;while(g--)if(l=f.data(e[g],i,b,!0)||(f.data(e[g],j,b,!0)||f.data(e[g],k,b,!0))&&f.data(e[g],i,f.Callbacks("once memory"),!0))h++,l.add(m);m();return d.promise(c)}});var o=/[\n\t\r]/g,p=/\s+/,q=/\r/g,r=/^(?:button|input)$/i,s=/^(?:button|input|object|select|textarea)$/i,t=/^a(?:rea)?$/i,u=/^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,v=f.support.getSetAttribute,w,x,y;f.fn.extend({attr:function(a,b){return f.access(this,f.attr,a,b,arguments.length>1)},removeAttr:function(a){return this.each(function(){f.removeAttr(this,a)})},prop:function(a,b){return f.access(this,f.prop,a,b,arguments.length>1)},removeProp:function(a){a=f.propFix[a]||a;return this.each(function(){try{this[a]=b,delete this[a]}catch(c){}})},addClass:function(a){var b,c,d,e,g,h,i;if(f.isFunction(a))return this.each(function(b){f(this).addClass(a.call(this,b,this.className))});if(a&&typeof a=="string"){b=a.split(p);for(c=0,d=this.length;c<d;c++){e=this[c];if(e.nodeType===1)if(!e.className&&b.length===1)e.className=a;else{g=" "+e.className+" ";for(h=0,i=b.length;h<i;h++)~g.indexOf(" "+b[h]+" ")||(g+=b[h]+" ");e.className=f.trim(g)}}}return this},removeClass:function(a){var c,d,e,g,h,i,j;if(f.isFunction(a))return this.each(function(b){f(this).removeClass(a.call(this,b,this.className))});if(a&&typeof a=="string"||a===b){c=(a||"").split(p);for(d=0,e=this.length;d<e;d++){g=this[d];if(g.nodeType===1&&g.className)if(a){h=(" "+g.className+" ").replace(o," ");for(i=0,j=c.length;i<j;i++)h=h.replace(" "+c[i]+" "," ");g.className=f.trim(h)}else g.className=""}}return this},toggleClass:function(a,b){var c=typeof a,d=typeof b=="boolean";if(f.isFunction(a))return this.each(function(c){f(this).toggleClass(a.call(this,c,this.className,b),b)});return this.each(function(){if(c==="string"){var e,g=0,h=f(this),i=b,j=a.split(p);while(e=j[g++])i=d?i:!h.hasClass(e),h[i?"addClass":"removeClass"](e)}else if(c==="undefined"||c==="boolean")this.className&&f._data(this,"__className__",this.className),this.className=this.className||a===!1?"":f._data(this,"__className__")||""})},hasClass:function(a){var b=" "+a+" ",c=0,d=this.length;for(;c<d;c++)if(this[c].nodeType===1&&(" "+this[c].className+" ").replace(o," ").indexOf(b)>-1)return!0;return!1},val:function(a){var c,d,e,g=this[0];{if(!!arguments.length){e=f.isFunction(a);return this.each(function(d){var g=f(this),h;if(this.nodeType===1){e?h=a.call(this,d,g.val()):h=a,h==null?h="":typeof h=="number"?h+="":f.isArray(h)&&(h=f.map(h,function(a){return a==null?"":a+""})),c=f.valHooks[this.type]||f.valHooks[this.nodeName.toLowerCase()];if(!c||!("set"in c)||c.set(this,h,"value")===b)this.value=h}})}if(g){c=f.valHooks[g.type]||f.valHooks[g.nodeName.toLowerCase()];if(c&&"get"in c&&(d=c.get(g,"value"))!==b)return d;d=g.value;return typeof d=="string"?d.replace(q,""):d==null?"":d}}}}),f.extend({valHooks:{option:{get:function(a){var b=a.attributes.value;return!b||b.specified?a.value:a.text}},select:{get:function(a){var b,c,d,e,g=a.selectedIndex,h=[],i=a.options,j=a.type==="select-one";if(g<0)return null;c=j?g:0,d=j?g+1:i.length;for(;c<d;c++){e=i[c];if(e.selected&&(f.support.optDisabled?!e.disabled:e.getAttribute("disabled")===null)&&(!e.parentNode.disabled||!f.nodeName(e.parentNode,"optgroup"))){b=f(e).val();if(j)return b;h.push(b)}}if(j&&!h.length&&i.length)return f(i[g]).val();return h},set:function(a,b){var c=f.makeArray(b);f(a).find("option").each(function(){this.selected=f.inArray(f(this).val(),c)>=0}),c.length||(a.selectedIndex=-1);return c}}},attrFn:{val:!0,css:!0,html:!0,text:!0,data:!0,width:!0,height:!0,offset:!0},attr:function(a,c,d,e){var g,h,i,j=a.nodeType;if(!!a&&j!==3&&j!==8&&j!==2){if(e&&c in f.attrFn)return f(a)[c](d);if(typeof a.getAttribute=="undefined")return f.prop(a,c,d);i=j!==1||!f.isXMLDoc(a),i&&(c=c.toLowerCase(),h=f.attrHooks[c]||(u.test(c)?x:w));if(d!==b){if(d===null){f.removeAttr(a,c);return}if(h&&"set"in h&&i&&(g=h.set(a,d,c))!==b)return g;a.setAttribute(c,""+d);return d}if(h&&"get"in h&&i&&(g=h.get(a,c))!==null)return g;g=a.getAttribute(c);return g===null?b:g}},removeAttr:function(a,b){var c,d,e,g,h,i=0;if(b&&a.nodeType===1){d=b.toLowerCase().split(p),g=d.length;for(;i<g;i++)e=d[i],e&&(c=f.propFix[e]||e,h=u.test(e),h||f.attr(a,e,""),a.removeAttribute(v?e:c),h&&c in a&&(a[c]=!1))}},attrHooks:{type:{set:function(a,b){if(r.test(a.nodeName)&&a.parentNode)f.error("type property can't be changed");else if(!f.support.radioValue&&b==="radio"&&f.nodeName(a,"input")){var c=a.value;a.setAttribute("type",b),c&&(a.value=c);return b}}},value:{get:function(a,b){if(w&&f.nodeName(a,"button"))return w.get(a,b);return b in a?a.value:null},set:function(a,b,c){if(w&&f.nodeName(a,"button"))return w.set(a,b,c);a.value=b}}},propFix:{tabindex:"tabIndex",readonly:"readOnly","for":"htmlFor","class":"className",maxlength:"maxLength",cellspacing:"cellSpacing",cellpadding:"cellPadding",rowspan:"rowSpan",colspan:"colSpan",usemap:"useMap",frameborder:"frameBorder",contenteditable:"contentEditable"},prop:function(a,c,d){var e,g,h,i=a.nodeType;if(!!a&&i!==3&&i!==8&&i!==2){h=i!==1||!f.isXMLDoc(a),h&&(c=f.propFix[c]||c,g=f.propHooks[c]);return d!==b?g&&"set"in g&&(e=g.set(a,d,c))!==b?e:a[c]=d:g&&"get"in g&&(e=g.get(a,c))!==null?e:a[c]}},propHooks:{tabIndex:{get:function(a){var c=a.getAttributeNode("tabindex");return c&&c.specified?parseInt(c.value,10):s.test(a.nodeName)||t.test(a.nodeName)&&a.href?0:b}}}}),f.attrHooks.tabindex=f.propHooks.tabIndex,x={get:function(a,c){var d,e=f.prop(a,c);return e===!0||typeof e!="boolean"&&(d=a.getAttributeNode(c))&&d.nodeValue!==!1?c.toLowerCase():b},set:function(a,b,c){var d;b===!1?f.removeAttr(a,c):(d=f.propFix[c]||c,d in a&&(a[d]=!0),a.setAttribute(c,c.toLowerCase()));return c}},v||(y={name:!0,id:!0,coords:!0},w=f.valHooks.button={get:function(a,c){var d;d=a.getAttributeNode(c);return d&&(y[c]?d.nodeValue!=="":d.specified)?d.nodeValue:b},set:function(a,b,d){var e=a.getAttributeNode(d);e||(e=c.createAttribute(d),a.setAttributeNode(e));return e.nodeValue=b+""}},f.attrHooks.tabindex.set=w.set,f.each(["width","height"],function(a,b){f.attrHooks[b]=f.extend(f.attrHooks[b],{set:function(a,c){if(c===""){a.setAttribute(b,"auto");return c}}})}),f.attrHooks.contenteditable={get:w.get,set:function(a,b,c){b===""&&(b="false"),w.set(a,b,c)}}),f.support.hrefNormalized||f.each(["href","src","width","height"],function(a,c){f.attrHooks[c]=f.extend(f.attrHooks[c],{get:function(a){var d=a.getAttribute(c,2);return d===null?b:d}})}),f.support.style||(f.attrHooks.style={get:function(a){return a.style.cssText.toLowerCase()||b},set:function(a,b){return a.style.cssText=""+b}}),f.support.optSelected||(f.propHooks.selected=f.extend(f.propHooks.selected,{get:function(a){var b=a.parentNode;b&&(b.selectedIndex,b.parentNode&&b.parentNode.selectedIndex);return null}})),f.support.enctype||(f.propFix.enctype="encoding"),f.support.checkOn||f.each(["radio","checkbox"],function(){f.valHooks[this]={get:function(a){return a.getAttribute("value")===null?"on":a.value}}}),f.each(["radio","checkbox"],function(){f.valHooks[this]=f.extend(f.valHooks[this],{set:function(a,b){if(f.isArray(b))return a.checked=f.inArray(f(a).val(),b)>=0}})});var z=/^(?:textarea|input|select)$/i,A=/^([^\.]*)?(?:\.(.+))?$/,B=/(?:^|\s)hover(\.\S+)?\b/,C=/^key/,D=/^(?:mouse|contextmenu)|click/,E=/^(?:focusinfocus|focusoutblur)$/,F=/^(\w*)(?:#([\w\-]+))?(?:\.([\w\-]+))?$/,G=function(
-a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^|\\s)"+b[3]+"(?:\\s|$)"));return b},H=function(a,b){var c=a.attributes||{};return(!b[1]||a.nodeName.toLowerCase()===b[1])&&(!b[2]||(c.id||{}).value===b[2])&&(!b[3]||b[3].test((c["class"]||{}).value))},I=function(a){return f.event.special.hover?a:a.replace(B,"mouseenter$1 mouseleave$1")};f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3||a.nodeType===8||!c||!d||!(h=f._data(a)))){d.handler&&(p=d,d=p.handler,g=p.selector),d.guid||(d.guid=f.guid++),j=h.events,j||(h.events=j={}),i=h.handle,i||(h.handle=i=function(a){return typeof f!="undefined"&&(!a||f.event.triggered!==a.type)?f.event.dispatch.apply(i.elem,arguments):b},i.elem=a),c=f.trim(I(c)).split(" ");for(k=0;k<c.length;k++){l=A.exec(c[k])||[],m=l[1],n=(l[2]||"").split(".").sort(),s=f.event.special[m]||{},m=(g?s.delegateType:s.bindType)||m,s=f.event.special[m]||{},o=f.extend({type:m,origType:l[1],data:e,handler:d,guid:d.guid,selector:g,quick:g&&G(g),namespace:n.join(".")},p),r=j[m];if(!r){r=j[m]=[],r.delegateCount=0;if(!s.setup||s.setup.call(a,e,n,i)===!1)a.addEventListener?a.addEventListener(m,i,!1):a.attachEvent&&a.attachEvent("on"+m,i)}s.add&&(s.add.call(a,o),o.handler.guid||(o.handler.guid=d.guid)),g?r.splice(r.delegateCount++,0,o):r.push(o),f.event.global[m]=!0}a=null}},global:{},remove:function(a,b,c,d,e){var g=f.hasData(a)&&f._data(a),h,i,j,k,l,m,n,o,p,q,r,s;if(!!g&&!!(o=g.events)){b=f.trim(I(b||"")).split(" ");for(h=0;h<b.length;h++){i=A.exec(b[h])||[],j=k=i[1],l=i[2];if(!j){for(j in o)f.event.remove(a,j+b[h],c,d,!0);continue}p=f.event.special[j]||{},j=(d?p.delegateType:p.bindType)||j,r=o[j]||[],m=r.length,l=l?new RegExp("(^|\\.)"+l.split(".").sort().join("\\.(?:.*\\.)?")+"(\\.|$)"):null;for(n=0;n<r.length;n++)s=r[n],(e||k===s.origType)&&(!c||c.guid===s.guid)&&(!l||l.test(s.namespace))&&(!d||d===s.selector||d==="**"&&s.selector)&&(r.splice(n--,1),s.selector&&r.delegateCount--,p.remove&&p.remove.call(a,s));r.length===0&&m!==r.length&&((!p.teardown||p.teardown.call(a,l)===!1)&&f.removeEvent(a,j,g.handle),delete o[j])}f.isEmptyObject(o)&&(q=g.handle,q&&(q.elem=null),f.removeData(a,["events","handle"],!0))}},customEvent:{getData:!0,setData:!0,changeData:!0},trigger:function(c,d,e,g){if(!e||e.nodeType!==3&&e.nodeType!==8){var h=c.type||c,i=[],j,k,l,m,n,o,p,q,r,s;if(E.test(h+f.event.triggered))return;h.indexOf("!")>=0&&(h=h.slice(0,-1),k=!0),h.indexOf(".")>=0&&(i=h.split("."),h=i.shift(),i.sort());if((!e||f.event.customEvent[h])&&!f.event.global[h])return;c=typeof c=="object"?c[f.expando]?c:new f.Event(h,c):new f.Event(h),c.type=h,c.isTrigger=!0,c.exclusive=k,c.namespace=i.join("."),c.namespace_re=c.namespace?new RegExp("(^|\\.)"+i.join("\\.(?:.*\\.)?")+"(\\.|$)"):null,o=h.indexOf(":")<0?"on"+h:"";if(!e){j=f.cache;for(l in j)j[l].events&&j[l].events[h]&&f.event.trigger(c,d,j[l].handle.elem,!0);return}c.result=b,c.target||(c.target=e),d=d!=null?f.makeArray(d):[],d.unshift(c),p=f.event.special[h]||{};if(p.trigger&&p.trigger.apply(e,d)===!1)return;r=[[e,p.bindType||h]];if(!g&&!p.noBubble&&!f.isWindow(e)){s=p.delegateType||h,m=E.test(s+h)?e:e.parentNode,n=null;for(;m;m=m.parentNode)r.push([m,s]),n=m;n&&n===e.ownerDocument&&r.push([n.defaultView||n.parentWindow||a,s])}for(l=0;l<r.length&&!c.isPropagationStopped();l++)m=r[l][0],c.type=r[l][1],q=(f._data(m,"events")||{})[c.type]&&f._data(m,"handle"),q&&q.apply(m,d),q=o&&m[o],q&&f.acceptData(m)&&q.apply(m,d)===!1&&c.preventDefault();c.type=h,!g&&!c.isDefaultPrevented()&&(!p._default||p._default.apply(e.ownerDocument,d)===!1)&&(h!=="click"||!f.nodeName(e,"a"))&&f.acceptData(e)&&o&&e[h]&&(h!=="focus"&&h!=="blur"||c.target.offsetWidth!==0)&&!f.isWindow(e)&&(n=e[o],n&&(e[o]=null),f.event.triggered=h,e[h](),f.event.triggered=b,n&&(e[o]=n));return c.result}},dispatch:function(c){c=f.event.fix(c||a.event);var d=(f._data(this,"events")||{})[c.type]||[],e=d.delegateCount,g=[].slice.call(arguments,0),h=!c.exclusive&&!c.namespace,i=f.event.special[c.type]||{},j=[],k,l,m,n,o,p,q,r,s,t,u;g[0]=c,c.delegateTarget=this;if(!i.preDispatch||i.preDispatch.call(this,c)!==!1){if(e&&(!c.button||c.type!=="click")){n=f(this),n.context=this.ownerDocument||this;for(m=c.target;m!=this;m=m.parentNode||this)if(m.disabled!==!0){p={},r=[],n[0]=m;for(k=0;k<e;k++)s=d[k],t=s.selector,p[t]===b&&(p[t]=s.quick?H(m,s.quick):n.is(t)),p[t]&&r.push(s);r.length&&j.push({elem:m,matches:r})}}d.length>e&&j.push({elem:this,matches:d.slice(e)});for(k=0;k<j.length&&!c.isPropagationStopped();k++){q=j[k],c.currentTarget=q.elem;for(l=0;l<q.matches.length&&!c.isImmediatePropagationStopped();l++){s=q.matches[l];if(h||!c.namespace&&!s.namespace||c.namespace_re&&c.namespace_re.test(s.namespace))c.data=s.data,c.handleObj=s,o=((f.event.special[s.origType]||{}).handle||s.handler).apply(q.elem,g),o!==b&&(c.result=o,o===!1&&(c.preventDefault(),c.stopPropagation()))}}i.postDispatch&&i.postDispatch.call(this,c);return c.result}},props:"attrChange attrName relatedNode srcElement altKey bubbles cancelable ctrlKey currentTarget eventPhase metaKey relatedTarget shiftKey target timeStamp view which".split(" "),fixHooks:{},keyHooks:{props:"char charCode key keyCode".split(" "),filter:function(a,b){a.which==null&&(a.which=b.charCode!=null?b.charCode:b.keyCode);return a}},mouseHooks:{props:"button buttons clientX clientY fromElement offsetX offsetY pageX pageY screenX screenY toElement".split(" "),filter:function(a,d){var e,f,g,h=d.button,i=d.fromElement;a.pageX==null&&d.clientX!=null&&(e=a.target.ownerDocument||c,f=e.documentElement,g=e.body,a.pageX=d.clientX+(f&&f.scrollLeft||g&&g.scrollLeft||0)-(f&&f.clientLeft||g&&g.clientLeft||0),a.pageY=d.clientY+(f&&f.scrollTop||g&&g.scrollTop||0)-(f&&f.clientTop||g&&g.clientTop||0)),!a.relatedTarget&&i&&(a.relatedTarget=i===a.target?d.toElement:i),!a.which&&h!==b&&(a.which=h&1?1:h&2?3:h&4?2:0);return a}},fix:function(a){if(a[f.expando])return a;var d,e,g=a,h=f.event.fixHooks[a.type]||{},i=h.props?this.props.concat(h.props):this.props;a=f.Event(g);for(d=i.length;d;)e=i[--d],a[e]=g[e];a.target||(a.target=g.srcElement||c),a.target.nodeType===3&&(a.target=a.target.parentNode),a.metaKey===b&&(a.metaKey=a.ctrlKey);return h.filter?h.filter(a,g):a},special:{ready:{setup:f.bindReady},load:{noBubble:!0},focus:{delegateType:"focusin"},blur:{delegateType:"focusout"},beforeunload:{setup:function(a,b,c){f.isWindow(this)&&(this.onbeforeunload=c)},teardown:function(a,b){this.onbeforeunload===b&&(this.onbeforeunload=null)}}},simulate:function(a,b,c,d){var e=f.extend(new f.Event,c,{type:a,isSimulated:!0,originalEvent:{}});d?f.event.trigger(e,null,b):f.event.dispatch.call(b,e),e.isDefaultPrevented()&&c.preventDefault()}},f.event.handle=f.event.dispatch,f.removeEvent=c.removeEventListener?function(a,b,c){a.removeEventListener&&a.removeEventListener(b,c,!1)}:function(a,b,c){a.detachEvent&&a.detachEvent("on"+b,c)},f.Event=function(a,b){if(!(this instanceof f.Event))return new f.Event(a,b);a&&a.type?(this.originalEvent=a,this.type=a.type,this.isDefaultPrevented=a.defaultPrevented||a.returnValue===!1||a.getPreventDefault&&a.getPreventDefault()?K:J):this.type=a,b&&f.extend(this,b),this.timeStamp=a&&a.timeStamp||f.now(),this[f.expando]=!0},f.Event.prototype={preventDefault:function(){this.isDefaultPrevented=K;var a=this.originalEvent;!a||(a.preventDefault?a.preventDefault():a.returnValue=!1)},stopPropagation:function(){this.isPropagationStopped=K;var a=this.originalEvent;!a||(a.stopPropagation&&a.stopPropagation(),a.cancelBubble=!0)},stopImmediatePropagation:function(){this.isImmediatePropagationStopped=K,this.stopPropagation()},isDefaultPrevented:J,isPropagationStopped:J,isImmediatePropagationStopped:J},f.each({mouseenter:"mouseover",mouseleave:"mouseout"},function(a,b){f.event.special[a]={delegateType:b,bindType:b,handle:function(a){var c=this,d=a.relatedTarget,e=a.handleObj,g=e.selector,h;if(!d||d!==c&&!f.contains(c,d))a.type=e.origType,h=e.handler.apply(this,arguments),a.type=b;return h}}}),f.support.submitBubbles||(f.event.special.submit={setup:function(){if(f.nodeName(this,"form"))return!1;f.event.add(this,"click._submit keypress._submit",function(a){var c=a.target,d=f.nodeName(c,"input")||f.nodeName(c,"button")?c.form:b;d&&!d._submit_attached&&(f.event.add(d,"submit._submit",function(a){a._submit_bubble=!0}),d._submit_attached=!0)})},postDispatch:function(a){a._submit_bubble&&(delete a._submit_bubble,this.parentNode&&!a.isTrigger&&f.event.simulate("submit",this.parentNode,a,!0))},teardown:function(){if(f.nodeName(this,"form"))return!1;f.event.remove(this,"._submit")}}),f.support.changeBubbles||(f.event.special.change={setup:function(){if(z.test(this.nodeName)){if(this.type==="checkbox"||this.type==="radio")f.event.add(this,"propertychange._change",function(a){a.originalEvent.propertyName==="checked"&&(this._just_changed=!0)}),f.event.add(this,"click._change",function(a){this._just_changed&&!a.isTrigger&&(this._just_changed=!1,f.event.simulate("change",this,a,!0))});return!1}f.event.add(this,"beforeactivate._change",function(a){var b=a.target;z.test(b.nodeName)&&!b._change_attached&&(f.event.add(b,"change._change",function(a){this.parentNode&&!a.isSimulated&&!a.isTrigger&&f.event.simulate("change",this.parentNode,a,!0)}),b._change_attached=!0)})},handle:function(a){var b=a.target;if(this!==b||a.isSimulated||a.isTrigger||b.type!=="radio"&&b.type!=="checkbox")return a.handleObj.handler.apply(this,arguments)},teardown:function(){f.event.remove(this,"._change");return z.test(this.nodeName)}}),f.support.focusinBubbles||f.each({focus:"focusin",blur:"focusout"},function(a,b){var d=0,e=function(a){f.event.simulate(b,a.target,f.event.fix(a),!0)};f.event.special[b]={setup:function(){d++===0&&c.addEventListener(a,e,!0)},teardown:function(){--d===0&&c.removeEventListener(a,e,!0)}}}),f.fn.extend({on:function(a,c,d,e,g){var h,i;if(typeof a=="object"){typeof c!="string"&&(d=d||c,c=b);for(i in a)this.on(i,c,d,a[i],g);return this}d==null&&e==null?(e=c,d=c=b):e==null&&(typeof c=="string"?(e=d,d=b):(e=d,d=c,c=b));if(e===!1)e=J;else if(!e)return this;g===1&&(h=e,e=function(a){f().off(a);return h.apply(this,arguments)},e.guid=h.guid||(h.guid=f.guid++));return this.each(function(){f.event.add(this,a,e,d,c)})},one:function(a,b,c,d){return this.on(a,b,c,d,1)},off:function(a,c,d){if(a&&a.preventDefault&&a.handleObj){var e=a.handleObj;f(a.delegateTarget).off(e.namespace?e.origType+"."+e.namespace:e.origType,e.selector,e.handler);return this}if(typeof a=="object"){for(var g in a)this.off(g,c,a[g]);return this}if(c===!1||typeof c=="function")d=c,c=b;d===!1&&(d=J);return this.each(function(){f.event.remove(this,a,d,c)})},bind:function(a,b,c){return this.on(a,null,b,c)},unbind:function(a,b){return this.off(a,null,b)},live:function(a,b,c){f(this.context).on(a,this.selector,b,c);return this},die:function(a,b){f(this.context).off(a,this.selector||"**",b);return this},delegate:function(a,b,c,d){return this.on(b,a,c,d)},undelegate:function(a,b,c){return arguments.length==1?this.off(a,"**"):this.off(b,a,c)},trigger:function(a,b){return this.each(function(){f.event.trigger(a,b,this)})},triggerHandler:function(a,b){if(this[0])return f.event.trigger(a,b,this[0],!0)},toggle:function(a){var b=arguments,c=a.guid||f.guid++,d=0,e=function(c){var e=(f._data(this,"lastToggle"+a.guid)||0)%d;f._data(this,"lastToggle"+a.guid,e+1),c.preventDefault();return b[e].apply(this,arguments)||!1};e.guid=c;while(d<b.length)b[d++].guid=c;return this.click(e)},hover:function(a,b){return this.mouseenter(a).mouseleave(b||a)}}),f.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "),function(a,b){f.fn[b]=function(a,c){c==null&&(c=a,a=null);return arguments.length>0?this.on(b,null,a,c):this.trigger(b)},f.attrFn&&(f.attrFn[b]=!0),C.test(b)&&(f.event.fixHooks[b]=f.event.keyHooks),D.test(b)&&(f.event.fixHooks[b]=f.event.mouseHooks)}),function(){function x(a,b,c,e,f,g){for(var h=0,i=e.length;h<i;h++){var j=e[h];if(j){var k=!1;j=j[a];while(j){if(j[d]===c){k=e[j.sizset];break}if(j.nodeType===1){g||(j[d]=c,j.sizset=h);if(typeof b!="string"){if(j===b){k=!0;break}}else if(m.filter(b,[j]).length>0){k=j;break}}j=j[a]}e[h]=k}}}function w(a,b,c,e,f,g){for(var h=0,i=e.length;h<i;h++){var j=e[h];if(j){var k=!1;j=j[a];while(j){if(j[d]===c){k=e[j.sizset];break}j.nodeType===1&&!g&&(j[d]=c,j.sizset=h);if(j.nodeName.toLowerCase()===b){k=j;break}j=j[a]}e[h]=k}}}var a=/((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,d="sizcache"+(Math.random()+"").replace(".",""),e=0,g=Object.prototype.toString,h=!1,i=!0,j=/\\/g,k=/\r\n/g,l=/\W/;[0,0].sort(function(){i=!1;return 0});var m=function(b,d,e,f){e=e||[],d=d||c;var h=d;if(d.nodeType!==1&&d.nodeType!==9)return[];if(!b||typeof b!="string")return e;var i,j,k,l,n,q,r,t,u=!0,v=m.isXML(d),w=[],x=b;do{a.exec(""),i=a.exec(x);if(i){x=i[3],w.push(i[1]);if(i[2]){l=i[3];break}}}while(i);if(w.length>1&&p.exec(b))if(w.length===2&&o.relative[w[0]])j=y(w[0]+w[1],d,f);else{j=o.relative[w[0]]?[d]:m(w.shift(),d);while(w.length)b=w.shift(),o.relative[b]&&(b+=w.shift()),j=y(b,j,f)}else{!f&&w.length>1&&d.nodeType===9&&!v&&o.match.ID.test(w[0])&&!o.match.ID.test(w[w.length-1])&&(n=m.find(w.shift(),d,v),d=n.expr?m.filter(n.expr,n.set)[0]:n.set[0]);if(d){n=f?{expr:w.pop(),set:s(f)}:m.find(w.pop(),w.length===1&&(w[0]==="~"||w[0]==="+")&&d.parentNode?d.parentNode:d,v),j=n.expr?m.filter(n.expr,n.set):n.set,w.length>0?k=s(j):u=!1;while(w.length)q=w.pop(),r=q,o.relative[q]?r=w.pop():q="",r==null&&(r=d),o.relative[q](k,r,v)}else k=w=[]}k||(k=j),k||m.error(q||b);if(g.call(k)==="[object Array]")if(!u)e.push.apply(e,k);else if(d&&d.nodeType===1)for(t=0;k[t]!=null;t++)k[t]&&(k[t]===!0||k[t].nodeType===1&&m.contains(d,k[t]))&&e.push(j[t]);else for(t=0;k[t]!=null;t++)k[t]&&k[t].nodeType===1&&e.push(j[t]);else s(k,e);l&&(m(l,h,e,f),m.uniqueSort(e));return e};m.uniqueSort=function(a){if(u){h=i,a.sort(u);if(h)for(var b=1;b<a.length;b++)a[b]===a[b-1]&&a.splice(b--,1)}return a},m.matches=function(a,b){return m(a,null,null,b)},m.matchesSelector=function(a,b){return m(b,null,null,[a]).length>0},m.find=function(a,b,c){var d,e,f,g,h,i;if(!a)return[];for(e=0,f=o.order.length;e<f;e++){h=o.order[e];if(g=o.leftMatch[h].exec(a)){i=g[1],g.splice(1,1);if(i.substr(i.length-1)!=="\\"){g[1]=(g[1]||"").replace(j,""),d=o.find[h](g,b,c);if(d!=null){a=a.replace(o.match[h],"");break}}}}d||(d=typeof b.getElementsByTagName!="undefined"?b.getElementsByTagName("*"):[]);return{set:d,expr:a}},m.filter=function(a,c,d,e){var f,g,h,i,j,k,l,n,p,q=a,r=[],s=c,t=c&&c[0]&&m.isXML(c[0]);while(a&&c.length){for(h in o.filter)if((f=o.leftMatch[h].exec(a))!=null&&f[2]){k=o.filter[h],l=f[1],g=!1,f.splice(1,1);if(l.substr(l.length-1)==="\\")continue;s===r&&(r=[]);if(o.preFilter[h]){f=o.preFilter[h](f,s,d,r,e,t);if(!f)g=i=!0;else if(f===!0)continue}if(f)for(n=0;(j=s[n])!=null;n++)j&&(i=k(j,f,n,s),p=e^i,d&&i!=null?p?g=!0:s[n]=!1:p&&(r.push(j),g=!0));if(i!==b){d||(s=r),a=a.replace(o.match[h],"");if(!g)return[];break}}if(a===q)if(g==null)m.error(a);else break;q=a}return s},m.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)};var n=m.getText=function(a){var b,c,d=a.nodeType,e="";if(d){if(d===1||d===9||d===11){if(typeof a.textContent=="string")return a.textContent;if(typeof a.innerText=="string")return a.innerText.replace(k,"");for(a=a.firstChild;a;a=a.nextSibling)e+=n(a)}else if(d===3||d===4)return a.nodeValue}else for(b=0;c=a[b];b++)c.nodeType!==8&&(e+=n(c));return e},o=m.selectors={order:["ID","NAME","TAG"],match:{ID:/#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,CLASS:/\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,NAME:/\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/,ATTR:/\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/,TAG:/^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,CHILD:/:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,POS:/:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,PSEUDO:/:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/},leftMatch:{},attrMap:{"class":"className","for":"htmlFor"},attrHandle:{href:function(a){return a.getAttribute("href")},type:function(a){return a.getAttribute("type")}},relative:{"+":function(a,b){var c=typeof b=="string",d=c&&!l.test(b),e=c&&!d;d&&(b=b.toLowerCase());for(var f=0,g=a.length,h;f<g;f++)if(h=a[f]){while((h=h.previousSibling)&&h.nodeType!==1);a[f]=e||h&&h.nodeName.toLowerCase()===b?h||!1:h===b}e&&m.filter(b,a,!0)},">":function(a,b){var c,d=typeof b=="string",e=0,f=a.length;if(d&&!l.test(b)){b=b.toLowerCase();for(;e<f;e++){c=a[e];if(c){var g=c.parentNode;a[e]=g.nodeName.toLowerCase()===b?g:!1}}}else{for(;e<f;e++)c=a[e],c&&(a[e]=d?c.parentNode:c.parentNode===b);d&&m.filter(b,a,!0)}},"":function(a,b,c){var d,f=e++,g=x;typeof b=="string"&&!l.test(b)&&(b=b.toLowerCase(),d=b,g=w),g("parentNode",b,f,a,d,c)},"~":function(a,b,c){var d,f=e++,g=x;typeof b=="string"&&!l.test(b)&&(b=b.toLowerCase(),d=b,g=w),g("previousSibling",b,f,a,d,c)}},find:{ID:function(a,b,c){if(typeof b.getElementById!="undefined"&&!c){var d=b.getElementById(a[1]);return d&&d.parentNode?[d]:[]}},NAME:function(a,b){if(typeof b.getElementsByName!="undefined"){var c=[],d=b.getElementsByName(a[1]);for(var e=0,f=d.length;e<f;e++)d[e].getAttribute("name")===a[1]&&c.push(d[e]);return c.length===0?null:c}},TAG:function(a,b){if(typeof b.getElementsByTagName!="undefined")return b.getElementsByTagName(a[1])}},preFilter:{CLASS:function(a,b,c,d,e,f){a=" "+a[1].replace(j,"")+" ";if(f)return a;for(var g=0,h;(h=b[g])!=null;g++)h&&(e^(h.className&&(" "+h.className+" ").replace(/[\t\n\r]/g," ").indexOf(a)>=0)?c||d.push(h):c&&(b[g]=!1));return!1},ID:function(a){return a[1].replace(j,"")},TAG:function(a,b){return a[1].replace(j,"").toLowerCase()},CHILD:function(a){if(a[1]==="nth"){a[2]||m.error(a[0]),a[2]=a[2].replace(/^\+|\s*/g,"");var b=/(-?)(\d*)(?:n([+\-]?\d*))?/.exec(a[2]==="even"&&"2n"||a[2]==="odd"&&"2n+1"||!/\D/.test(a[2])&&"0n+"+a[2]||a[2]);a[2]=b[1]+(b[2]||1)-0,a[3]=b[3]-0}else a[2]&&m.error(a[0]);a[0]=e++;return a},ATTR:function(a,b,c,d,e,f){var g=a[1]=a[1].replace(j,"");!f&&o.attrMap[g]&&(a[1]=o.attrMap[g]),a[4]=(a[4]||a[5]||"").replace(j,""),a[2]==="~="&&(a[4]=" "+a[4]+" ");return a},PSEUDO:function(b,c,d,e,f){if(b[1]==="not")if((a.exec(b[3])||"").length>1||/^\w/.test(b[3]))b[3]=m(b[3],null,null,c);else{var g=m.filter(b[3],c,d,!0^f);d||e.push.apply(e,g);return!1}else if(o.match.POS.test(b[0])||o.match.CHILD.test(b[0]))return!0;return b},POS:function(a){a.unshift(!0);return a}},filters:{enabled:function(a){return a.disabled===!1&&a.type!=="hidden"},disabled:function(a){return a.disabled===!0},checked:function(a){return a.checked===!0},selected:function(a){a.parentNode&&a.parentNode.selectedIndex;return a.selected===!0},parent:function(a){return!!a.firstChild},empty:function(a){return!a.firstChild},has:function(a,b,c){return!!m(c[3],a).length},header:function(a){return/h\d/i.test(a.nodeName)},text:function(a){var b=a.getAttribute("type"),c=a.type;return a.nodeName.toLowerCase()==="input"&&"text"===c&&(b===c||b===null)},radio:function(a){return a.nodeName.toLowerCase()==="input"&&"radio"===a.type},checkbox:function(a){return a.nodeName.toLowerCase()==="input"&&"checkbox"===a.type},file:function(a){return a.nodeName.toLowerCase()==="input"&&"file"===a.type},password:function(a){return a.nodeName.toLowerCase()==="input"&&"password"===a.type},submit:function(a){var b=a.nodeName.toLowerCase();return(b==="input"||b==="button")&&"submit"===a.type},image:function(a){return a.nodeName.toLowerCase()==="input"&&"image"===a.type},reset:function(a){var b=a.nodeName.toLowerCase();return(b==="input"||b==="button")&&"reset"===a.type},button:function(a){var b=a.nodeName.toLowerCase();return b==="input"&&"button"===a.type||b==="button"},input:function(a){return/input|select|textarea|button/i.test(a.nodeName)},focus:function(a){return a===a.ownerDocument.activeElement}},setFilters:{first:function(a,b){return b===0},last:function(a,b,c,d){return b===d.length-1},even:function(a,b){return b%2===0},odd:function(a,b){return b%2===1},lt:function(a,b,c){return b<c[3]-0},gt:function(a,b,c){return b>c[3]-0},nth:function(a,b,c){return c[3]-0===b},eq:function(a,b,c){return c[3]-0===b}},filter:{PSEUDO:function(a,b,c,d){var e=b[1],f=o.filters[e];if(f)return f(a,c,b,d);if(e==="contains")return(a.textContent||a.innerText||n([a])||"").indexOf(b[3])>=0;if(e==="not"){var g=b[3];for(var h=0,i=g.length;h<i;h++)if(g[h]===a)return!1;return!0}m.error(e)},CHILD:function(a,b){var c,e,f,g,h,i,j,k=b[1],l=a;switch(k){case"only":case"first":while(l=l.previousSibling)if(l.nodeType===1)return!1;if(k==="first")return!0;l=a;case"last":while(l=l.nextSibling)if(l.nodeType===1)return!1;return!0;case"nth":c=b[2],e=b[3];if(c===1&&e===0)return!0;f=b[0],g=a.parentNode;if(g&&(g[d]!==f||!a.nodeIndex)){i=0;for(l=g.firstChild;l;l=l.nextSibling)l.nodeType===1&&(l.nodeIndex=++i);g[d]=f}j=a.nodeIndex-e;return c===0?j===0:j%c===0&&j/c>=0}},ID:function(a,b){return a.nodeType===1&&a.getAttribute("id")===b},TAG:function(a,b){return b==="*"&&a.nodeType===1||!!a.nodeName&&a.nodeName.toLowerCase()===b},CLASS:function(a,b){return(" "+(a.className||a.getAttribute("class"))+" ").indexOf(b)>-1},ATTR:function(a,b){var c=b[1],d=m.attr?m.attr(a,c):o.attrHandle[c]?o.attrHandle[c](a):a[c]!=null?a[c]:a.getAttribute(c),e=d+"",f=b[2],g=b[4];return d==null?f==="!=":!f&&m.attr?d!=null:f==="="?e===g:f==="*="?e.indexOf(g)>=0:f==="~="?(" "+e+" ").indexOf(g)>=0:g?f==="!="?e!==g:f==="^="?e.indexOf(g)===0:f==="$="?e.substr(e.length-g.length)===g:f==="|="?e===g||e.substr(0,g.length+1)===g+"-":!1:e&&d!==!1},POS:function(a,b,c,d){var e=b[2],f=o.setFilters[e];if(f)return f(a,c,b,d)}}},p=o.match.POS,q=function(a,b){return"\\"+(b-0+1)};for(var r in o.match)o.match[r]=new RegExp(o.match[r].source+/(?![^\[]*\])(?![^\(]*\))/.source),o.leftMatch[r]=new RegExp(/(^(?:.|\r|\n)*?)/.source+o.match[r].source.replace(/\\(\d+)/g,q));o.match.globalPOS=p;var s=function(a,b){a=Array.prototype.slice.call(a,0);if(b){b.push.apply(b,a);return b}return a};try{Array.prototype.slice.call(c.documentElement.childNodes,0)[0].nodeType}catch(t){s=function(a,b){var c=0,d=b||[];if(g.call(a)==="[object Array]")Array.prototype.push.apply(d,a);else if(typeof a.length=="number")for(var e=a.length;c<e;c++)d.push(a[c]);else for(;a[c];c++)d.push(a[c]);return d}}var u,v;c.documentElement.compareDocumentPosition?u=function(a,b){if(a===b){h=!0;return 0}if(!a.compareDocumentPosition||!b.compareDocumentPosition)return a.compareDocumentPosition?-1:1;return a.compareDocumentPosition(b)&4?-1:1}:(u=function(a,b){if(a===b){h=!0;return 0}if(a.sourceIndex&&b.sourceIndex)return a.sourceIndex-b.sourceIndex;var c,d,e=[],f=[],g=a.parentNode,i=b.parentNode,j=g;if(g===i)return v(a,b);if(!g)return-1;if(!i)return 1;while(j)e.unshift(j),j=j.parentNode;j=i;while(j)f.unshift(j),j=j.parentNode;c=e.length,d=f.length;for(var k=0;k<c&&k<d;k++)if(e[k]!==f[k])return v(e[k],f[k]);return k===c?v(a,f[k],-1):v(e[k],b,1)},v=function(a,b,c){if(a===b)return c;var d=a.nextSibling;while(d){if(d===b)return-1;d=d.nextSibling}return 1}),function(){var a=c.createElement("div"),d="script"+(new Date).getTime(),e=c.documentElement;a.innerHTML="<a name='"+d+"'/>",e.insertBefore(a,e.firstChild),c.getElementById(d)&&(o.find.ID=function(a,c,d){if(typeof c.getElementById!="undefined"&&!d){var e=c.getElementById(a[1]);return e?e.id===a[1]||typeof e.getAttributeNode!="undefined"&&e.getAttributeNode("id").nodeValue===a[1]?[e]:b:[]}},o.filter.ID=function(a,b){var c=typeof a.getAttributeNode!="undefined"&&a.getAttributeNode("id");return a.nodeType===1&&c&&c.nodeValue===b}),e.removeChild(a),e=a=null}(),function(){var a=c.createElement("div");a.appendChild(c.createComment("")),a.getElementsByTagName("*").length>0&&(o.find.TAG=function(a,b){var c=b.getElementsByTagName(a[1]);if(a[1]==="*"){var d=[];for(var e=0;c[e];e++)c[e].nodeType===1&&d.push(c[e]);c=d}return c}),a.innerHTML="<a href='#'></a>",a.firstChild&&typeof a.firstChild.getAttribute!="undefined"&&a.firstChild.getAttribute("href")!=="#"&&(o.attrHandle.href=function(a){return a.getAttribute("href",2)}),a=null}(),c.querySelectorAll&&function(){var a=m,b=c.createElement("div"),d="__sizzle__";b.innerHTML="<p class='TEST'></p>";if(!b.querySelectorAll||b.querySelectorAll(".TEST").length!==0){m=function(b,e,f,g){e=e||c;if(!g&&!m.isXML(e)){var h=/^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec(b);if(h&&(e.nodeType===1||e.nodeType===9)){if(h[1])return s(e.getElementsByTagName(b),f);if(h[2]&&o.find.CLASS&&e.getElementsByClassName)return s(e.getElementsByClassName(h[2]),f)}if(e.nodeType===9){if(b==="body"&&e.body)return s([e.body],f);if(h&&h[3]){var i=e.getElementById(h[3]);if(!i||!i.parentNode)return s([],f);if(i.id===h[3])return s([i],f)}try{return s(e.querySelectorAll(b),f)}catch(j){}}else if(e.nodeType===1&&e.nodeName.toLowerCase()!=="object"){var k=e,l=e.getAttribute("id"),n=l||d,p=e.parentNode,q=/^\s*[+~]/.test(b);l?n=n.replace(/'/g,"\\$&"):e.setAttribute("id",n),q&&p&&(e=e.parentNode);try{if(!q||p)return s(e.querySelectorAll("[id='"+n+"'] "+b),f)}catch(r){}finally{l||k.removeAttribute("id")}}}return a(b,e,f,g)};for(var e in a)m[e]=a[e];b=null}}(),function(){var a=c.documentElement,b=a.matchesSelector||a.mozMatchesSelector||a.webkitMatchesSelector||a.msMatchesSelector;if(b){var d=!b.call(c.createElement("div"),"div"),e=!1;try{b.call(c.documentElement,"[test!='']:sizzle")}catch(f){e=!0}m.matchesSelector=function(a,c){c=c.replace(/\=\s*([^'"\]]*)\s*\]/g,"='$1']");if(!m.isXML(a))try{if(e||!o.match.PSEUDO.test(c)&&!/!=/.test(c)){var f=b.call(a,c);if(f||!d||a.document&&a.document.nodeType!==11)return f}}catch(g){}return m(c,null,null,[a]).length>0}}}(),function(){var a=c.createElement("div");a.innerHTML="<div class='test e'></div><div class='test'></div>";if(!!a.getElementsByClassName&&a.getElementsByClassName("e").length!==0){a.lastChild.className="e";if(a.getElementsByClassName("e").length===1)return;o.order.splice(1,0,"CLASS"),o.find.CLASS=function(a,b,c){if(typeof b.getElementsByClassName!="undefined"&&!c)return b.getElementsByClassName(a[1])},a=null}}(),c.documentElement.contains?m.contains=function(a,b){return a!==b&&(a.contains?a.contains(b):!0)}:c.documentElement.compareDocumentPosition?m.contains=function(a,b){return!!(a.compareDocumentPosition(b)&16)}:m.contains=function(){return!1},m.isXML=function(a){var b=(a?a.ownerDocument||a:0).documentElement;return b?b.nodeName!=="HTML":!1};var y=function(a,b,c){var d,e=[],f="",g=b.nodeType?[b]:b;while(d=o.match.PSEUDO.exec(a))f+=d[0],a=a.replace(o.match.PSEUDO,"");a=o.relative[a]?a+"*":a;for(var h=0,i=g.length;h<i;h++)m(a,g[h],e,c);return m.filter(f,e)};m.attr=f.attr,m.selectors.attrMap={},f.find=m,f.expr=m.selectors,f.expr[":"]=f.expr.filters,f.unique=m.uniqueSort,f.text=m.getText,f.isXMLDoc=m.isXML,f.contains=m.contains}();var L=/Until$/,M=/^(?:parents|prevUntil|prevAll)/,N=/,/,O=/^.[^:#\[\.,]*$/,P=Array.prototype.slice,Q=f.expr.match.globalPOS,R={children:!0,contents:!0,next:!0,prev:!0};f.fn.extend({find:function(a){var b=this,c,d;if(typeof a!="string")return f(a).filter(function(){for(c=0,d=b.length;c<d;c++)if(f.contains(b[c],this))return!0});var e=this.pushStack("","find",a),g,h,i;for(c=0,d=this.length;c<d;c++){g=e.length,f.find(a,this[c],e);if(c>0)for(h=g;h<e.length;h++)for(i=0;i<g;i++)if(e[i]===e[h]){e.splice(h--,1);break}}return e},has:function(a){var b=f(a);return this.filter(function(){for(var a=0,c=b.length;a<c;a++)if(f.contains(this,b[a]))return!0})},not:function(a){return this.pushStack(T(this,a,!1),"not",a)},filter:function(a){return this.pushStack(T(this,a,!0),"filter",a)},is:function(a){return!!a&&(typeof a=="string"?Q.test(a)?f(a,this.context).index(this[0])>=0:f.filter(a,this).length>0:this.filter(a).length>0)},closest:function(a,b){var c=[],d,e,g=this[0];if(f.isArray(a)){var h=1;while(g&&g.ownerDocument&&g!==b){for(d=0;d<a.length;d++)f(g).is(a[d])&&c.push({selector:a[d],elem:g,level:h});g=g.parentNode,h++}return c}var i=Q.test(a)||typeof a!="string"?f(a,b||this.context):0;for(d=0,e=this.length;d<e;d++){g=this[d];while(g){if(i?i.index(g)>-1:f.find.matchesSelector(g,a)){c.push(g);break}g=g.parentNode;if(!g||!g.ownerDocument||g===b||g.nodeType===11)break}}c=c.length>1?f.unique(c):c;return this.pushStack(c,"closest",a)},index:function(a){if(!a)return this[0]&&this[0].parentNode?this.prevAll().length:-1;if(typeof a=="string")return f.inArray(this[0],f(a));return f.inArray(a.jquery?a[0]:a,this)},add:function(a,b){var c=typeof a=="string"?f(a,b):f.makeArray(a&&a.nodeType?[a]:a),d=f.merge(this.get(),c);return this.pushStack(S(c[0])||S(d[0])?d:f.unique(d))},andSelf:function(){return this.add(this.prevObject)}}),f.each({parent:function(a){var b=a.parentNode;return b&&b.nodeType!==11?b:null},parents:function(a){return f.dir(a,"parentNode")},parentsUntil:function(a,b,c){return f.dir(a,"parentNode",c)},next:function(a){return f.nth(a,2,"nextSibling")},prev:function(a){return f.nth(a,2,"previousSibling")},nextAll:function(a){return f.dir(a,"nextSibling")},prevAll:function(a){return f.dir(a,"previousSibling")},nextUntil:function(a,b,c){return f.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return f.dir(a,"previousSibling",c)},siblings:function(a){return f.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return f.sibling(a.firstChild)},contents:function(a){return f.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:f.makeArray(a.childNodes)}},function(a,b){f.fn[a]=function(c,d){var e=f.map(this,b,c);L.test(a)||(d=c),d&&typeof d=="string"&&(e=f.filter(d,e)),e=this.length>1&&!R[a]?f.unique(e):e,(this.length>1||N.test(d))&&M.test(a)&&(e=e.reverse());return this.pushStack(e,a,P.call(arguments).join(","))}}),f.extend({filter:function(a,b,c){c&&(a=":not("+a+")");return b.length===1?f.find.matchesSelector(b[0],a)?[b[0]]:[]:f.find.matches(a,b)},dir:function(a,c,d){var e=[],g=a[c];while(g&&g.nodeType!==9&&(d===b||g.nodeType!==1||!f(g).is(d)))g.nodeType===1&&e.push(g),g=g[c];return e},nth:function(a,b,c,d){b=b||1;var e=0;for(;a;a=a[c])if(a.nodeType===1&&++e===b)break;return a},sibling:function(a,b){var c=[];for(;a;a=a.nextSibling)a.nodeType===1&&a!==b&&c.push(a);return c}});var V="abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",W=/ jQuery\d+="(?:\d+|null)"/g,X=/^\s+/,Y=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,Z=/<([\w:]+)/,$=/<tbody/i,_=/<|&#?\w+;/,ba=/<(?:script|style)/i,bb=/<(?:script|object|embed|option|style)/i,bc=new RegExp("<(?:"+V+")[\\s/>]","i"),bd=/checked\s*(?:[^=]|=\s*.checked.)/i,be=/\/(java|ecma)script/i,bf=/^\s*<!(?:\[CDATA\[|\-\-)/,bg={option:[1,"<select multiple='multiple'>","</select>"],legend:[1,"<fieldset>","</fieldset>"],thead:[1,"<table>","</table>"],tr:[2,"<table><tbody>","</tbody></table>"],td:[3,"<table><tbody><tr>","</tr></tbody></table>"],col:[2,"<table><tbody></tbody><colgroup>","</colgroup></table>"],area:[1,"<map>","</map>"],_default:[0,"",""]},bh=U(c);bg.optgroup=bg.option,bg.tbody=bg.tfoot=bg.colgroup=bg.caption=bg.thead,bg.th=bg.td,f.support.htmlSerialize||(bg._default=[1,"div<div>","</div>"]),f.fn.extend({text:function(a){return f.access(this,function(a){return a===b?f.text(this):this.empty().append((this[0]&&this[0].ownerDocument||c).createTextNode(a))},null,a,arguments.length)},wrapAll:function(a){if(f.isFunction(a))return this.each(function(b){f(this).wrapAll(a.call(this,b))});if(this[0]){var b=f(a,this[0].ownerDocument).eq(0).clone(!0);this[0].parentNode&&b.insertBefore(this[0]),b.map(function(){var a=this;while(a.firstChild&&a.firstChild.nodeType===1)a=a.firstChild;return a}).append(this)}return this},wrapInner:function(a){if(f.isFunction(a))return this.each(function(b){f(this).wrapInner(a.call(this,b))});return this.each(function(){var b=f(this),c=b.contents();c.length?c.wrapAll(a):b.append(a)})},wrap:function(a){var b=f.isFunction(a);return this.each(function(c){f(this).wrapAll(b?a.call(this,c):a)})},unwrap:function(){return this.parent().each(function(){f.nodeName(this,"body")||f(this).replaceWith(this.childNodes)}).end()},append:function(){return this.domManip(arguments,!0,function(a){this.nodeType===1&&this.appendChild(a)})},prepend:function(){return this.domManip(arguments,!0,function(a){this.nodeType===1&&this.insertBefore(a,this.firstChild)})},before:function(){if(this[0]&&this[0].parentNode)return this.domManip(arguments,!1,function(a){this.parentNode.insertBefore(a,this)});if(arguments.length){var a=f
-.clean(arguments);a.push.apply(a,this.toArray());return this.pushStack(a,"before",arguments)}},after:function(){if(this[0]&&this[0].parentNode)return this.domManip(arguments,!1,function(a){this.parentNode.insertBefore(a,this.nextSibling)});if(arguments.length){var a=this.pushStack(this,"after",arguments);a.push.apply(a,f.clean(arguments));return a}},remove:function(a,b){for(var c=0,d;(d=this[c])!=null;c++)if(!a||f.filter(a,[d]).length)!b&&d.nodeType===1&&(f.cleanData(d.getElementsByTagName("*")),f.cleanData([d])),d.parentNode&&d.parentNode.removeChild(d);return this},empty:function(){for(var a=0,b;(b=this[a])!=null;a++){b.nodeType===1&&f.cleanData(b.getElementsByTagName("*"));while(b.firstChild)b.removeChild(b.firstChild)}return this},clone:function(a,b){a=a==null?!1:a,b=b==null?a:b;return this.map(function(){return f.clone(this,a,b)})},html:function(a){return f.access(this,function(a){var c=this[0]||{},d=0,e=this.length;if(a===b)return c.nodeType===1?c.innerHTML.replace(W,""):null;if(typeof a=="string"&&!ba.test(a)&&(f.support.leadingWhitespace||!X.test(a))&&!bg[(Z.exec(a)||["",""])[1].toLowerCase()]){a=a.replace(Y,"<$1></$2>");try{for(;d<e;d++)c=this[d]||{},c.nodeType===1&&(f.cleanData(c.getElementsByTagName("*")),c.innerHTML=a);c=0}catch(g){}}c&&this.empty().append(a)},null,a,arguments.length)},replaceWith:function(a){if(this[0]&&this[0].parentNode){if(f.isFunction(a))return this.each(function(b){var c=f(this),d=c.html();c.replaceWith(a.call(this,b,d))});typeof a!="string"&&(a=f(a).detach());return this.each(function(){var b=this.nextSibling,c=this.parentNode;f(this).remove(),b?f(b).before(a):f(c).append(a)})}return this.length?this.pushStack(f(f.isFunction(a)?a():a),"replaceWith",a):this},detach:function(a){return this.remove(a,!0)},domManip:function(a,c,d){var e,g,h,i,j=a[0],k=[];if(!f.support.checkClone&&arguments.length===3&&typeof j=="string"&&bd.test(j))return this.each(function(){f(this).domManip(a,c,d,!0)});if(f.isFunction(j))return this.each(function(e){var g=f(this);a[0]=j.call(this,e,c?g.html():b),g.domManip(a,c,d)});if(this[0]){i=j&&j.parentNode,f.support.parentNode&&i&&i.nodeType===11&&i.childNodes.length===this.length?e={fragment:i}:e=f.buildFragment(a,this,k),h=e.fragment,h.childNodes.length===1?g=h=h.firstChild:g=h.firstChild;if(g){c=c&&f.nodeName(g,"tr");for(var l=0,m=this.length,n=m-1;l<m;l++)d.call(c?bi(this[l],g):this[l],e.cacheable||m>1&&l<n?f.clone(h,!0,!0):h)}k.length&&f.each(k,function(a,b){b.src?f.ajax({type:"GET",global:!1,url:b.src,async:!1,dataType:"script"}):f.globalEval((b.text||b.textContent||b.innerHTML||"").replace(bf,"/*$0*/")),b.parentNode&&b.parentNode.removeChild(b)})}return this}}),f.buildFragment=function(a,b,d){var e,g,h,i,j=a[0];b&&b[0]&&(i=b[0].ownerDocument||b[0]),i.createDocumentFragment||(i=c),a.length===1&&typeof j=="string"&&j.length<512&&i===c&&j.charAt(0)==="<"&&!bb.test(j)&&(f.support.checkClone||!bd.test(j))&&(f.support.html5Clone||!bc.test(j))&&(g=!0,h=f.fragments[j],h&&h!==1&&(e=h)),e||(e=i.createDocumentFragment(),f.clean(a,i,e,d)),g&&(f.fragments[j]=h?e:1);return{fragment:e,cacheable:g}},f.fragments={},f.each({appendTo:"append",prependTo:"prepend",insertBefore:"before",insertAfter:"after",replaceAll:"replaceWith"},function(a,b){f.fn[a]=function(c){var d=[],e=f(c),g=this.length===1&&this[0].parentNode;if(g&&g.nodeType===11&&g.childNodes.length===1&&e.length===1){e[b](this[0]);return this}for(var h=0,i=e.length;h<i;h++){var j=(h>0?this.clone(!0):this).get();f(e[h])[b](j),d=d.concat(j)}return this.pushStack(d,a,e.selector)}}),f.extend({clone:function(a,b,c){var d,e,g,h=f.support.html5Clone||f.isXMLDoc(a)||!bc.test("<"+a.nodeName+">")?a.cloneNode(!0):bo(a);if((!f.support.noCloneEvent||!f.support.noCloneChecked)&&(a.nodeType===1||a.nodeType===11)&&!f.isXMLDoc(a)){bk(a,h),d=bl(a),e=bl(h);for(g=0;d[g];++g)e[g]&&bk(d[g],e[g])}if(b){bj(a,h);if(c){d=bl(a),e=bl(h);for(g=0;d[g];++g)bj(d[g],e[g])}}d=e=null;return h},clean:function(a,b,d,e){var g,h,i,j=[];b=b||c,typeof b.createElement=="undefined"&&(b=b.ownerDocument||b[0]&&b[0].ownerDocument||c);for(var k=0,l;(l=a[k])!=null;k++){typeof l=="number"&&(l+="");if(!l)continue;if(typeof l=="string")if(!_.test(l))l=b.createTextNode(l);else{l=l.replace(Y,"<$1></$2>");var m=(Z.exec(l)||["",""])[1].toLowerCase(),n=bg[m]||bg._default,o=n[0],p=b.createElement("div"),q=bh.childNodes,r;b===c?bh.appendChild(p):U(b).appendChild(p),p.innerHTML=n[1]+l+n[2];while(o--)p=p.lastChild;if(!f.support.tbody){var s=$.test(l),t=m==="table"&&!s?p.firstChild&&p.firstChild.childNodes:n[1]==="<table>"&&!s?p.childNodes:[];for(i=t.length-1;i>=0;--i)f.nodeName(t[i],"tbody")&&!t[i].childNodes.length&&t[i].parentNode.removeChild(t[i])}!f.support.leadingWhitespace&&X.test(l)&&p.insertBefore(b.createTextNode(X.exec(l)[0]),p.firstChild),l=p.childNodes,p&&(p.parentNode.removeChild(p),q.length>0&&(r=q[q.length-1],r&&r.parentNode&&r.parentNode.removeChild(r)))}var u;if(!f.support.appendChecked)if(l[0]&&typeof (u=l.length)=="number")for(i=0;i<u;i++)bn(l[i]);else bn(l);l.nodeType?j.push(l):j=f.merge(j,l)}if(d){g=function(a){return!a.type||be.test(a.type)};for(k=0;j[k];k++){h=j[k];if(e&&f.nodeName(h,"script")&&(!h.type||be.test(h.type)))e.push(h.parentNode?h.parentNode.removeChild(h):h);else{if(h.nodeType===1){var v=f.grep(h.getElementsByTagName("script"),g);j.splice.apply(j,[k+1,0].concat(v))}d.appendChild(h)}}}return j},cleanData:function(a){var b,c,d=f.cache,e=f.event.special,g=f.support.deleteExpando;for(var h=0,i;(i=a[h])!=null;h++){if(i.nodeName&&f.noData[i.nodeName.toLowerCase()])continue;c=i[f.expando];if(c){b=d[c];if(b&&b.events){for(var j in b.events)e[j]?f.event.remove(i,j):f.removeEvent(i,j,b.handle);b.handle&&(b.handle.elem=null)}g?delete i[f.expando]:i.removeAttribute&&i.removeAttribute(f.expando),delete d[c]}}}});var bp=/alpha\([^)]*\)/i,bq=/opacity=([^)]*)/,br=/([A-Z]|^ms)/g,bs=/^[\-+]?(?:\d*\.)?\d+$/i,bt=/^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,bu=/^([\-+])=([\-+.\de]+)/,bv=/^margin/,bw={position:"absolute",visibility:"hidden",display:"block"},bx=["Top","Right","Bottom","Left"],by,bz,bA;f.fn.css=function(a,c){return f.access(this,function(a,c,d){return d!==b?f.style(a,c,d):f.css(a,c)},a,c,arguments.length>1)},f.extend({cssHooks:{opacity:{get:function(a,b){if(b){var c=by(a,"opacity");return c===""?"1":c}return a.style.opacity}}},cssNumber:{fillOpacity:!0,fontWeight:!0,lineHeight:!0,opacity:!0,orphans:!0,widows:!0,zIndex:!0,zoom:!0},cssProps:{"float":f.support.cssFloat?"cssFloat":"styleFloat"},style:function(a,c,d,e){if(!!a&&a.nodeType!==3&&a.nodeType!==8&&!!a.style){var g,h,i=f.camelCase(c),j=a.style,k=f.cssHooks[i];c=f.cssProps[i]||i;if(d===b){if(k&&"get"in k&&(g=k.get(a,!1,e))!==b)return g;return j[c]}h=typeof d,h==="string"&&(g=bu.exec(d))&&(d=+(g[1]+1)*+g[2]+parseFloat(f.css(a,c)),h="number");if(d==null||h==="number"&&isNaN(d))return;h==="number"&&!f.cssNumber[i]&&(d+="px");if(!k||!("set"in k)||(d=k.set(a,d))!==b)try{j[c]=d}catch(l){}}},css:function(a,c,d){var e,g;c=f.camelCase(c),g=f.cssHooks[c],c=f.cssProps[c]||c,c==="cssFloat"&&(c="float");if(g&&"get"in g&&(e=g.get(a,!0,d))!==b)return e;if(by)return by(a,c)},swap:function(a,b,c){var d={},e,f;for(f in b)d[f]=a.style[f],a.style[f]=b[f];e=c.call(a);for(f in b)a.style[f]=d[f];return e}}),f.curCSS=f.css,c.defaultView&&c.defaultView.getComputedStyle&&(bz=function(a,b){var c,d,e,g,h=a.style;b=b.replace(br,"-$1").toLowerCase(),(d=a.ownerDocument.defaultView)&&(e=d.getComputedStyle(a,null))&&(c=e.getPropertyValue(b),c===""&&!f.contains(a.ownerDocument.documentElement,a)&&(c=f.style(a,b))),!f.support.pixelMargin&&e&&bv.test(b)&&bt.test(c)&&(g=h.width,h.width=c,c=e.width,h.width=g);return c}),c.documentElement.currentStyle&&(bA=function(a,b){var c,d,e,f=a.currentStyle&&a.currentStyle[b],g=a.style;f==null&&g&&(e=g[b])&&(f=e),bt.test(f)&&(c=g.left,d=a.runtimeStyle&&a.runtimeStyle.left,d&&(a.runtimeStyle.left=a.currentStyle.left),g.left=b==="fontSize"?"1em":f,f=g.pixelLeft+"px",g.left=c,d&&(a.runtimeStyle.left=d));return f===""?"auto":f}),by=bz||bA,f.each(["height","width"],function(a,b){f.cssHooks[b]={get:function(a,c,d){if(c)return a.offsetWidth!==0?bB(a,b,d):f.swap(a,bw,function(){return bB(a,b,d)})},set:function(a,b){return bs.test(b)?b+"px":b}}}),f.support.opacity||(f.cssHooks.opacity={get:function(a,b){return bq.test((b&&a.currentStyle?a.currentStyle.filter:a.style.filter)||"")?parseFloat(RegExp.$1)/100+"":b?"1":""},set:function(a,b){var c=a.style,d=a.currentStyle,e=f.isNumeric(b)?"alpha(opacity="+b*100+")":"",g=d&&d.filter||c.filter||"";c.zoom=1;if(b>=1&&f.trim(g.replace(bp,""))===""){c.removeAttribute("filter");if(d&&!d.filter)return}c.filter=bp.test(g)?g.replace(bp,e):g+" "+e}}),f(function(){f.support.reliableMarginRight||(f.cssHooks.marginRight={get:function(a,b){return f.swap(a,{display:"inline-block"},function(){return b?by(a,"margin-right"):a.style.marginRight})}})}),f.expr&&f.expr.filters&&(f.expr.filters.hidden=function(a){var b=a.offsetWidth,c=a.offsetHeight;return b===0&&c===0||!f.support.reliableHiddenOffsets&&(a.style&&a.style.display||f.css(a,"display"))==="none"},f.expr.filters.visible=function(a){return!f.expr.filters.hidden(a)}),f.each({margin:"",padding:"",border:"Width"},function(a,b){f.cssHooks[a+b]={expand:function(c){var d,e=typeof c=="string"?c.split(" "):[c],f={};for(d=0;d<4;d++)f[a+bx[d]+b]=e[d]||e[d-2]||e[0];return f}}});var bC=/%20/g,bD=/\[\]$/,bE=/\r?\n/g,bF=/#.*$/,bG=/^(.*?):[ \t]*([^\r\n]*)\r?$/mg,bH=/^(?:color|date|datetime|datetime-local|email|hidden|month|number|password|range|search|tel|text|time|url|week)$/i,bI=/^(?:about|app|app\-storage|.+\-extension|file|res|widget):$/,bJ=/^(?:GET|HEAD)$/,bK=/^\/\//,bL=/\?/,bM=/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,bN=/^(?:select|textarea)/i,bO=/\s+/,bP=/([?&])_=[^&]*/,bQ=/^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+))?)?/,bR=f.fn.load,bS={},bT={},bU,bV,bW=["*/"]+["*"];try{bU=e.href}catch(bX){bU=c.createElement("a"),bU.href="",bU=bU.href}bV=bQ.exec(bU.toLowerCase())||[],f.fn.extend({load:function(a,c,d){if(typeof a!="string"&&bR)return bR.apply(this,arguments);if(!this.length)return this;var e=a.indexOf(" ");if(e>=0){var g=a.slice(e,a.length);a=a.slice(0,e)}var h="GET";c&&(f.isFunction(c)?(d=c,c=b):typeof c=="object"&&(c=f.param(c,f.ajaxSettings.traditional),h="POST"));var i=this;f.ajax({url:a,type:h,dataType:"html",data:c,complete:function(a,b,c){c=a.responseText,a.isResolved()&&(a.done(function(a){c=a}),i.html(g?f("<div>").append(c.replace(bM,"")).find(g):c)),d&&i.each(d,[c,b,a])}});return this},serialize:function(){return f.param(this.serializeArray())},serializeArray:function(){return this.map(function(){return this.elements?f.makeArray(this.elements):this}).filter(function(){return this.name&&!this.disabled&&(this.checked||bN.test(this.nodeName)||bH.test(this.type))}).map(function(a,b){var c=f(this).val();return c==null?null:f.isArray(c)?f.map(c,function(a,c){return{name:b.name,value:a.replace(bE,"\r\n")}}):{name:b.name,value:c.replace(bE,"\r\n")}}).get()}}),f.each("ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split(" "),function(a,b){f.fn[b]=function(a){return this.on(b,a)}}),f.each(["get","post"],function(a,c){f[c]=function(a,d,e,g){f.isFunction(d)&&(g=g||e,e=d,d=b);return f.ajax({type:c,url:a,data:d,success:e,dataType:g})}}),f.extend({getScript:function(a,c){return f.get(a,b,c,"script")},getJSON:function(a,b,c){return f.get(a,b,c,"json")},ajaxSetup:function(a,b){b?b$(a,f.ajaxSettings):(b=a,a=f.ajaxSettings),b$(a,b);return a},ajaxSettings:{url:bU,isLocal:bI.test(bV[1]),global:!0,type:"GET",contentType:"application/x-www-form-urlencoded; charset=UTF-8",processData:!0,async:!0,accepts:{xml:"application/xml, text/xml",html:"text/html",text:"text/plain",json:"application/json, text/javascript","*":bW},contents:{xml:/xml/,html:/html/,json:/json/},responseFields:{xml:"responseXML",text:"responseText"},converters:{"* text":a.String,"text html":!0,"text json":f.parseJSON,"text xml":f.parseXML},flatOptions:{context:!0,url:!0}},ajaxPrefilter:bY(bS),ajaxTransport:bY(bT),ajax:function(a,c){function w(a,c,l,m){if(s!==2){s=2,q&&clearTimeout(q),p=b,n=m||"",v.readyState=a>0?4:0;var o,r,u,w=c,x=l?ca(d,v,l):b,y,z;if(a>=200&&a<300||a===304){if(d.ifModified){if(y=v.getResponseHeader("Last-Modified"))f.lastModified[k]=y;if(z=v.getResponseHeader("Etag"))f.etag[k]=z}if(a===304)w="notmodified",o=!0;else try{r=cb(d,x),w="success",o=!0}catch(A){w="parsererror",u=A}}else{u=w;if(!w||a)w="error",a<0&&(a=0)}v.status=a,v.statusText=""+(c||w),o?h.resolveWith(e,[r,w,v]):h.rejectWith(e,[v,w,u]),v.statusCode(j),j=b,t&&g.trigger("ajax"+(o?"Success":"Error"),[v,d,o?r:u]),i.fireWith(e,[v,w]),t&&(g.trigger("ajaxComplete",[v,d]),--f.active||f.event.trigger("ajaxStop"))}}typeof a=="object"&&(c=a,a=b),c=c||{};var d=f.ajaxSetup({},c),e=d.context||d,g=e!==d&&(e.nodeType||e instanceof f)?f(e):f.event,h=f.Deferred(),i=f.Callbacks("once memory"),j=d.statusCode||{},k,l={},m={},n,o,p,q,r,s=0,t,u,v={readyState:0,setRequestHeader:function(a,b){if(!s){var c=a.toLowerCase();a=m[c]=m[c]||a,l[a]=b}return this},getAllResponseHeaders:function(){return s===2?n:null},getResponseHeader:function(a){var c;if(s===2){if(!o){o={};while(c=bG.exec(n))o[c[1].toLowerCase()]=c[2]}c=o[a.toLowerCase()]}return c===b?null:c},overrideMimeType:function(a){s||(d.mimeType=a);return this},abort:function(a){a=a||"abort",p&&p.abort(a),w(0,a);return this}};h.promise(v),v.success=v.done,v.error=v.fail,v.complete=i.add,v.statusCode=function(a){if(a){var b;if(s<2)for(b in a)j[b]=[j[b],a[b]];else b=a[v.status],v.then(b,b)}return this},d.url=((a||d.url)+"").replace(bF,"").replace(bK,bV[1]+"//"),d.dataTypes=f.trim(d.dataType||"*").toLowerCase().split(bO),d.crossDomain==null&&(r=bQ.exec(d.url.toLowerCase()),d.crossDomain=!(!r||r[1]==bV[1]&&r[2]==bV[2]&&(r[3]||(r[1]==="http:"?80:443))==(bV[3]||(bV[1]==="http:"?80:443)))),d.data&&d.processData&&typeof d.data!="string"&&(d.data=f.param(d.data,d.traditional)),bZ(bS,d,c,v);if(s===2)return!1;t=d.global,d.type=d.type.toUpperCase(),d.hasContent=!bJ.test(d.type),t&&f.active++===0&&f.event.trigger("ajaxStart");if(!d.hasContent){d.data&&(d.url+=(bL.test(d.url)?"&":"?")+d.data,delete d.data),k=d.url;if(d.cache===!1){var x=f.now(),y=d.url.replace(bP,"$1_="+x);d.url=y+(y===d.url?(bL.test(d.url)?"&":"?")+"_="+x:"")}}(d.data&&d.hasContent&&d.contentType!==!1||c.contentType)&&v.setRequestHeader("Content-Type",d.contentType),d.ifModified&&(k=k||d.url,f.lastModified[k]&&v.setRequestHeader("If-Modified-Since",f.lastModified[k]),f.etag[k]&&v.setRequestHeader("If-None-Match",f.etag[k])),v.setRequestHeader("Accept",d.dataTypes[0]&&d.accepts[d.dataTypes[0]]?d.accepts[d.dataTypes[0]]+(d.dataTypes[0]!=="*"?", "+bW+"; q=0.01":""):d.accepts["*"]);for(u in d.headers)v.setRequestHeader(u,d.headers[u]);if(d.beforeSend&&(d.beforeSend.call(e,v,d)===!1||s===2)){v.abort();return!1}for(u in{success:1,error:1,complete:1})v[u](d[u]);p=bZ(bT,d,c,v);if(!p)w(-1,"No Transport");else{v.readyState=1,t&&g.trigger("ajaxSend",[v,d]),d.async&&d.timeout>0&&(q=setTimeout(function(){v.abort("timeout")},d.timeout));try{s=1,p.send(l,w)}catch(z){if(s<2)w(-1,z);else throw z}}return v},param:function(a,c){var d=[],e=function(a,b){b=f.isFunction(b)?b():b,d[d.length]=encodeURIComponent(a)+"="+encodeURIComponent(b)};c===b&&(c=f.ajaxSettings.traditional);if(f.isArray(a)||a.jquery&&!f.isPlainObject(a))f.each(a,function(){e(this.name,this.value)});else for(var g in a)b_(g,a[g],c,e);return d.join("&").replace(bC,"+")}}),f.extend({active:0,lastModified:{},etag:{}});var cc=f.now(),cd=/(\=)\?(&|$)|\?\?/i;f.ajaxSetup({jsonp:"callback",jsonpCallback:function(){return f.expando+"_"+cc++}}),f.ajaxPrefilter("json jsonp",function(b,c,d){var e=typeof b.data=="string"&&/^application\/x\-www\-form\-urlencoded/.test(b.contentType);if(b.dataTypes[0]==="jsonp"||b.jsonp!==!1&&(cd.test(b.url)||e&&cd.test(b.data))){var g,h=b.jsonpCallback=f.isFunction(b.jsonpCallback)?b.jsonpCallback():b.jsonpCallback,i=a[h],j=b.url,k=b.data,l="$1"+h+"$2";b.jsonp!==!1&&(j=j.replace(cd,l),b.url===j&&(e&&(k=k.replace(cd,l)),b.data===k&&(j+=(/\?/.test(j)?"&":"?")+b.jsonp+"="+h))),b.url=j,b.data=k,a[h]=function(a){g=[a]},d.always(function(){a[h]=i,g&&f.isFunction(i)&&a[h](g[0])}),b.converters["script json"]=function(){g||f.error(h+" was not called");return g[0]},b.dataTypes[0]="json";return"script"}}),f.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/javascript|ecmascript/},converters:{"text script":function(a){f.globalEval(a);return a}}}),f.ajaxPrefilter("script",function(a){a.cache===b&&(a.cache=!1),a.crossDomain&&(a.type="GET",a.global=!1)}),f.ajaxTransport("script",function(a){if(a.crossDomain){var d,e=c.head||c.getElementsByTagName("head")[0]||c.documentElement;return{send:function(f,g){d=c.createElement("script"),d.async="async",a.scriptCharset&&(d.charset=a.scriptCharset),d.src=a.url,d.onload=d.onreadystatechange=function(a,c){if(c||!d.readyState||/loaded|complete/.test(d.readyState))d.onload=d.onreadystatechange=null,e&&d.parentNode&&e.removeChild(d),d=b,c||g(200,"success")},e.insertBefore(d,e.firstChild)},abort:function(){d&&d.onload(0,1)}}}});var ce=a.ActiveXObject?function(){for(var a in cg)cg[a](0,1)}:!1,cf=0,cg;f.ajaxSettings.xhr=a.ActiveXObject?function(){return!this.isLocal&&ch()||ci()}:ch,function(a){f.extend(f.support,{ajax:!!a,cors:!!a&&"withCredentials"in a})}(f.ajaxSettings.xhr()),f.support.ajax&&f.ajaxTransport(function(c){if(!c.crossDomain||f.support.cors){var d;return{send:function(e,g){var h=c.xhr(),i,j;c.username?h.open(c.type,c.url,c.async,c.username,c.password):h.open(c.type,c.url,c.async);if(c.xhrFields)for(j in c.xhrFields)h[j]=c.xhrFields[j];c.mimeType&&h.overrideMimeType&&h.overrideMimeType(c.mimeType),!c.crossDomain&&!e["X-Requested-With"]&&(e["X-Requested-With"]="XMLHttpRequest");try{for(j in e)h.setRequestHeader(j,e[j])}catch(k){}h.send(c.hasContent&&c.data||null),d=function(a,e){var j,k,l,m,n;try{if(d&&(e||h.readyState===4)){d=b,i&&(h.onreadystatechange=f.noop,ce&&delete cg[i]);if(e)h.readyState!==4&&h.abort();else{j=h.status,l=h.getAllResponseHeaders(),m={},n=h.responseXML,n&&n.documentElement&&(m.xml=n);try{m.text=h.responseText}catch(a){}try{k=h.statusText}catch(o){k=""}!j&&c.isLocal&&!c.crossDomain?j=m.text?200:404:j===1223&&(j=204)}}}catch(p){e||g(-1,p)}m&&g(j,k,m,l)},!c.async||h.readyState===4?d():(i=++cf,ce&&(cg||(cg={},f(a).unload(ce)),cg[i]=d),h.onreadystatechange=d)},abort:function(){d&&d(0,1)}}}});var cj={},ck,cl,cm=/^(?:toggle|show|hide)$/,cn=/^([+\-]=)?([\d+.\-]+)([a-z%]*)$/i,co,cp=[["height","marginTop","marginBottom","paddingTop","paddingBottom"],["width","marginLeft","marginRight","paddingLeft","paddingRight"],["opacity"]],cq;f.fn.extend({show:function(a,b,c){var d,e;if(a||a===0)return this.animate(ct("show",3),a,b,c);for(var g=0,h=this.length;g<h;g++)d=this[g],d.style&&(e=d.style.display,!f._data(d,"olddisplay")&&e==="none"&&(e=d.style.display=""),(e===""&&f.css(d,"display")==="none"||!f.contains(d.ownerDocument.documentElement,d))&&f._data(d,"olddisplay",cu(d.nodeName)));for(g=0;g<h;g++){d=this[g];if(d.style){e=d.style.display;if(e===""||e==="none")d.style.display=f._data(d,"olddisplay")||""}}return this},hide:function(a,b,c){if(a||a===0)return this.animate(ct("hide",3),a,b,c);var d,e,g=0,h=this.length;for(;g<h;g++)d=this[g],d.style&&(e=f.css(d,"display"),e!=="none"&&!f._data(d,"olddisplay")&&f._data(d,"olddisplay",e));for(g=0;g<h;g++)this[g].style&&(this[g].style.display="none");return this},_toggle:f.fn.toggle,toggle:function(a,b,c){var d=typeof a=="boolean";f.isFunction(a)&&f.isFunction(b)?this._toggle.apply(this,arguments):a==null||d?this.each(function(){var b=d?a:f(this).is(":hidden");f(this)[b?"show":"hide"]()}):this.animate(ct("toggle",3),a,b,c);return this},fadeTo:function(a,b,c,d){return this.filter(":hidden").css("opacity",0).show().end().animate({opacity:b},a,c,d)},animate:function(a,b,c,d){function g(){e.queue===!1&&f._mark(this);var b=f.extend({},e),c=this.nodeType===1,d=c&&f(this).is(":hidden"),g,h,i,j,k,l,m,n,o,p,q;b.animatedProperties={};for(i in a){g=f.camelCase(i),i!==g&&(a[g]=a[i],delete a[i]);if((k=f.cssHooks[g])&&"expand"in k){l=k.expand(a[g]),delete a[g];for(i in l)i in a||(a[i]=l[i])}}for(g in a){h=a[g],f.isArray(h)?(b.animatedProperties[g]=h[1],h=a[g]=h[0]):b.animatedProperties[g]=b.specialEasing&&b.specialEasing[g]||b.easing||"swing";if(h==="hide"&&d||h==="show"&&!d)return b.complete.call(this);c&&(g==="height"||g==="width")&&(b.overflow=[this.style.overflow,this.style.overflowX,this.style.overflowY],f.css(this,"display")==="inline"&&f.css(this,"float")==="none"&&(!f.support.inlineBlockNeedsLayout||cu(this.nodeName)==="inline"?this.style.display="inline-block":this.style.zoom=1))}b.overflow!=null&&(this.style.overflow="hidden");for(i in a)j=new f.fx(this,b,i),h=a[i],cm.test(h)?(q=f._data(this,"toggle"+i)||(h==="toggle"?d?"show":"hide":0),q?(f._data(this,"toggle"+i,q==="show"?"hide":"show"),j[q]()):j[h]()):(m=cn.exec(h),n=j.cur(),m?(o=parseFloat(m[2]),p=m[3]||(f.cssNumber[i]?"":"px"),p!=="px"&&(f.style(this,i,(o||1)+p),n=(o||1)/j.cur()*n,f.style(this,i,n+p)),m[1]&&(o=(m[1]==="-="?-1:1)*o+n),j.custom(n,o,p)):j.custom(n,h,""));return!0}var e=f.speed(b,c,d);if(f.isEmptyObject(a))return this.each(e.complete,[!1]);a=f.extend({},a);return e.queue===!1?this.each(g):this.queue(e.queue,g)},stop:function(a,c,d){typeof a!="string"&&(d=c,c=a,a=b),c&&a!==!1&&this.queue(a||"fx",[]);return this.each(function(){function h(a,b,c){var e=b[c];f.removeData(a,c,!0),e.stop(d)}var b,c=!1,e=f.timers,g=f._data(this);d||f._unmark(!0,this);if(a==null)for(b in g)g[b]&&g[b].stop&&b.indexOf(".run")===b.length-4&&h(this,g,b);else g[b=a+".run"]&&g[b].stop&&h(this,g,b);for(b=e.length;b--;)e[b].elem===this&&(a==null||e[b].queue===a)&&(d?e[b](!0):e[b].saveState(),c=!0,e.splice(b,1));(!d||!c)&&f.dequeue(this,a)})}}),f.each({slideDown:ct("show",1),slideUp:ct("hide",1),slideToggle:ct("toggle",1),fadeIn:{opacity:"show"},fadeOut:{opacity:"hide"},fadeToggle:{opacity:"toggle"}},function(a,b){f.fn[a]=function(a,c,d){return this.animate(b,a,c,d)}}),f.extend({speed:function(a,b,c){var d=a&&typeof a=="object"?f.extend({},a):{complete:c||!c&&b||f.isFunction(a)&&a,duration:a,easing:c&&b||b&&!f.isFunction(b)&&b};d.duration=f.fx.off?0:typeof d.duration=="number"?d.duration:d.duration in f.fx.speeds?f.fx.speeds[d.duration]:f.fx.speeds._default;if(d.queue==null||d.queue===!0)d.queue="fx";d.old=d.complete,d.complete=function(a){f.isFunction(d.old)&&d.old.call(this),d.queue?f.dequeue(this,d.queue):a!==!1&&f._unmark(this)};return d},easing:{linear:function(a){return a},swing:function(a){return-Math.cos(a*Math.PI)/2+.5}},timers:[],fx:function(a,b,c){this.options=b,this.elem=a,this.prop=c,b.orig=b.orig||{}}}),f.fx.prototype={update:function(){this.options.step&&this.options.step.call(this.elem,this.now,this),(f.fx.step[this.prop]||f.fx.step._default)(this)},cur:function(){if(this.elem[this.prop]!=null&&(!this.elem.style||this.elem.style[this.prop]==null))return this.elem[this.prop];var a,b=f.css(this.elem,this.prop);return isNaN(a=parseFloat(b))?!b||b==="auto"?0:b:a},custom:function(a,c,d){function h(a){return e.step(a)}var e=this,g=f.fx;this.startTime=cq||cr(),this.end=c,this.now=this.start=a,this.pos=this.state=0,this.unit=d||this.unit||(f.cssNumber[this.prop]?"":"px"),h.queue=this.options.queue,h.elem=this.elem,h.saveState=function(){f._data(e.elem,"fxshow"+e.prop)===b&&(e.options.hide?f._data(e.elem,"fxshow"+e.prop,e.start):e.options.show&&f._data(e.elem,"fxshow"+e.prop,e.end))},h()&&f.timers.push(h)&&!co&&(co=setInterval(g.tick,g.interval))},show:function(){var a=f._data(this.elem,"fxshow"+this.prop);this.options.orig[this.prop]=a||f.style(this.elem,this.prop),this.options.show=!0,a!==b?this.custom(this.cur(),a):this.custom(this.prop==="width"||this.prop==="height"?1:0,this.cur()),f(this.elem).show()},hide:function(){this.options.orig[this.prop]=f._data(this.elem,"fxshow"+this.prop)||f.style(this.elem,this.prop),this.options.hide=!0,this.custom(this.cur(),0)},step:function(a){var b,c,d,e=cq||cr(),g=!0,h=this.elem,i=this.options;if(a||e>=i.duration+this.startTime){this.now=this.end,this.pos=this.state=1,this.update(),i.animatedProperties[this.prop]=!0;for(b in i.animatedProperties)i.animatedProperties[b]!==!0&&(g=!1);if(g){i.overflow!=null&&!f.support.shrinkWrapBlocks&&f.each(["","X","Y"],function(a,b){h.style["overflow"+b]=i.overflow[a]}),i.hide&&f(h).hide();if(i.hide||i.show)for(b in i.animatedProperties)f.style(h,b,i.orig[b]),f.removeData(h,"fxshow"+b,!0),f.removeData(h,"toggle"+b,!0);d=i.complete,d&&(i.complete=!1,d.call(h))}return!1}i.duration==Infinity?this.now=e:(c=e-this.startTime,this.state=c/i.duration,this.pos=f.easing[i.animatedProperties[this.prop]](this.state,c,0,1,i.duration),this.now=this.start+(this.end-this.start)*this.pos),this.update();return!0}},f.extend(f.fx,{tick:function(){var a,b=f.timers,c=0;for(;c<b.length;c++)a=b[c],!a()&&b[c]===a&&b.splice(c--,1);b.length||f.fx.stop()},interval:13,stop:function(){clearInterval(co),co=null},speeds:{slow:600,fast:200,_default:400},step:{opacity:function(a){f.style(a.elem,"opacity",a.now)},_default:function(a){a.elem.style&&a.elem.style[a.prop]!=null?a.elem.style[a.prop]=a.now+a.unit:a.elem[a.prop]=a.now}}}),f.each(cp.concat.apply([],cp),function(a,b){b.indexOf("margin")&&(f.fx.step[b]=function(a){f.style(a.elem,b,Math.max(0,a.now)+a.unit)})}),f.expr&&f.expr.filters&&(f.expr.filters.animated=function(a){return f.grep(f.timers,function(b){return a===b.elem}).length});var cv,cw=/^t(?:able|d|h)$/i,cx=/^(?:body|html)$/i;"getBoundingClientRect"in c.documentElement?cv=function(a,b,c,d){try{d=a.getBoundingClientRect()}catch(e){}if(!d||!f.contains(c,a))return d?{top:d.top,left:d.left}:{top:0,left:0};var g=b.body,h=cy(b),i=c.clientTop||g.clientTop||0,j=c.clientLeft||g.clientLeft||0,k=h.pageYOffset||f.support.boxModel&&c.scrollTop||g.scrollTop,l=h.pageXOffset||f.support.boxModel&&c.scrollLeft||g.scrollLeft,m=d.top+k-i,n=d.left+l-j;return{top:m,left:n}}:cv=function(a,b,c){var d,e=a.offsetParent,g=a,h=b.body,i=b.defaultView,j=i?i.getComputedStyle(a,null):a.currentStyle,k=a.offsetTop,l=a.offsetLeft;while((a=a.parentNode)&&a!==h&&a!==c){if(f.support.fixedPosition&&j.position==="fixed")break;d=i?i.getComputedStyle(a,null):a.currentStyle,k-=a.scrollTop,l-=a.scrollLeft,a===e&&(k+=a.offsetTop,l+=a.offsetLeft,f.support.doesNotAddBorder&&(!f.support.doesAddBorderForTableAndCells||!cw.test(a.nodeName))&&(k+=parseFloat(d.borderTopWidth)||0,l+=parseFloat(d.borderLeftWidth)||0),g=e,e=a.offsetParent),f.support.subtractsBorderForOverflowNotVisible&&d.overflow!=="visible"&&(k+=parseFloat(d.borderTopWidth)||0,l+=parseFloat(d.borderLeftWidth)||0),j=d}if(j.position==="relative"||j.position==="static")k+=h.offsetTop,l+=h.offsetLeft;f.support.fixedPosition&&j.position==="fixed"&&(k+=Math.max(c.scrollTop,h.scrollTop),l+=Math.max(c.scrollLeft,h.scrollLeft));return{top:k,left:l}},f.fn.offset=function(a){if(arguments.length)return a===b?this:this.each(function(b){f.offset.setOffset(this,a,b)});var c=this[0],d=c&&c.ownerDocument;if(!d)return null;if(c===d.body)return f.offset.bodyOffset(c);return cv(c,d,d.documentElement)},f.offset={bodyOffset:function(a){var b=a.offsetTop,c=a.offsetLeft;f.support.doesNotIncludeMarginInBodyOffset&&(b+=parseFloat(f.css(a,"marginTop"))||0,c+=parseFloat(f.css(a,"marginLeft"))||0);return{top:b,left:c}},setOffset:function(a,b,c){var d=f.css(a,"position");d==="static"&&(a.style.position="relative");var e=f(a),g=e.offset(),h=f.css(a,"top"),i=f.css(a,"left"),j=(d==="absolute"||d==="fixed")&&f.inArray("auto",[h,i])>-1,k={},l={},m,n;j?(l=e.position(),m=l.top,n=l.left):(m=parseFloat(h)||0,n=parseFloat(i)||0),f.isFunction(b)&&(b=b.call(a,c,g)),b.top!=null&&(k.top=b.top-g.top+m),b.left!=null&&(k.left=b.left-g.left+n),"using"in b?b.using.call(a,k):e.css(k)}},f.fn.extend({position:function(){if(!this[0])return null;var a=this[0],b=this.offsetParent(),c=this.offset(),d=cx.test(b[0].nodeName)?{top:0,left:0}:b.offset();c.top-=parseFloat(f.css(a,"marginTop"))||0,c.left-=parseFloat(f.css(a,"marginLeft"))||0,d.top+=parseFloat(f.css(b[0],"borderTopWidth"))||0,d.left+=parseFloat(f.css(b[0],"borderLeftWidth"))||0;return{top:c.top-d.top,left:c.left-d.left}},offsetParent:function(){return this.map(function(){var a=this.offsetParent||c.body;while(a&&!cx.test(a.nodeName)&&f.css(a,"position")==="static")a=a.offsetParent;return a})}}),f.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(a,c){var d=/Y/.test(c);f.fn[a]=function(e){return f.access(this,function(a,e,g){var h=cy(a);if(g===b)return h?c in h?h[c]:f.support.boxModel&&h.document.documentElement[e]||h.document.body[e]:a[e];h?h.scrollTo(d?f(h).scrollLeft():g,d?g:f(h).scrollTop()):a[e]=g},a,e,arguments.length,null)}}),f.each({Height:"height",Width:"width"},function(a,c){var d="client"+a,e="scroll"+a,g="offset"+a;f.fn["inner"+a]=function(){var a=this[0];return a?a.style?parseFloat(f.css(a,c,"padding")):this[c]():null},f.fn["outer"+a]=function(a){var b=this[0];return b?b.style?parseFloat(f.css(b,c,a?"margin":"border")):this[c]():null},f.fn[c]=function(a){return f.access(this,function(a,c,h){var i,j,k,l;if(f.isWindow(a)){i=a.document,j=i.documentElement[d];return f.support.boxModel&&j||i.body&&i.body[d]||j}if(a.nodeType===9){i=a.documentElement;if(i[d]>=i[e])return i[d];return Math.max(a.body[e],i[e],a.body[g],i[g])}if(h===b){k=f.css(a,c),l=parseFloat(k);return f.isNumeric(l)?l:k}f(a).css(c,h)},c,a,arguments.length,null)}}),a.jQuery=a.$=f,typeof define=="function"&&define.amd&&define.amd.jQuery&&define("jquery",[],function(){return f})})(window);;;
 /*!
- Lo-Dash 0.6.1 lodash.com/license
- Underscore.js 1.3.3 github.com/documentcloud/underscore/blob/master/LICENSE
-*/
-;(function(e,t){function s(e){return new o(e)}function o(e){if(e&&e._wrapped)return e;this._wrapped=e}function u(e,t,n){t||(t=0);var r=e.length,i=r-t>=(n||V),s=i?{}:e;if(i)for(var o=t-1;++o<r;)n=e[o]+"",(ft.call(s,n)?s[n]:s[n]=[]).push(e[o]);return function(e){if(i){var n=e+"";return ft.call(s,n)&&-1<k(s[n],e)}return-1<k(s,e,t)}}function a(){for(var e,t,n,s=-1,o=arguments.length,u={e:"",f:"",j:"",q:"",c:{d:""},m:{d:""}};++s<o;)for(t in e=arguments[s],e)n=(n=e[t])==r?"":n,/d|i/.test(t)?
-("string"==typeof n&&(n={b:n,l:n}),u.c[t]=n.b||"",u.m[t]=n.l||""):u[t]=n;e=u.a,t=/^[^,]+/.exec(e)[0],n=u.s,u.g=t,u.h=Lt,u.k=Ft,u.n=Mt,u.p=st,u.r=u.r!==i,u.s=n==r?It:n,u.o==r&&(u.o=Pt),u.f||(u.f="if(!"+t+")return u");if("d"!=t||!u.c.i)u.c=r;t="",u.s&&(t+="'use strict';"),t+="var i,A,j="+u.g+",u",u.j&&(t+="="+u.j),t+=";"+u.f+";"+u.q+";",u.c&&(t+="var l=j.length;i=-1;",u.m&&(t+="if(l>-1&&l===l>>>0){"),u.o&&(t+="if(z.call(j)==x){j=j.split('')}"),t+=u.c.d+";while(++i<l){A=j[i];"+u.c.i+"}",u.m&&(t+="}"
-));if(u.m){u.c?t+="else{":u.n&&(t+="var l=j.length;i=-1;if(l&&P(j)){while(++i<l){A=j[i+=''];"+u.m.i+"}}else{"),u.h||(t+="var v=typeof j=='function'&&r.call(j,'prototype');");if(u.k&&u.r)t+="var o=-1,p=Y[typeof j]?m(j):[],l=p.length;"+u.m.d+";while(++o<l){i=p[o];",u.h||(t+="if(!(v&&i=='prototype')){"),t+="A=j[i];"+u.m.i+"",u.h||(t+="}");else{t+=u.m.d+";for(i in j){";if(!u.h||u.r)t+="if(",u.h||(t+="!(v&&i=='prototype')"),!u.h&&u.r&&(t+="&&"),u.r&&(t+="g.call(j,i)"),t+="){";t+="A=j[i];"+u.m.i+";";if(!
-u.h||u.r)t+="}"}t+="}";if(u.h){t+="var f=j.constructor;";for(n=0;7>n;n++)t+="i='"+u.p[n]+"';if(","constructor"==u.p[n]&&(t+="!(f&&f.prototype===j)&&"),t+="g.call(j,i)){A=j[i];"+u.m.i+"}"}if(u.c||u.n)t+="}"}return t+=u.e+";return u",Function("D,E,F,I,e,K,g,h,N,P,R,T,U,k,X,Y,m,r,w,x,z","var G=function("+e+"){"+t+"};return G")(qt,q,_,f,at,un,ft,D,k,b,tn,w,E,p,xt,Wt,gt,ct,ht,Nt,pt)}function f(e,n){var r=e.b,i=n.b,e=e.a,n=n.a;return e===t?1:n===t?-1:e<n?-1:e>n?1:r<i?-1:1}function l(e,t){return ut[t]}function c
-(e){return"\\"+Xt[e]}function h(e){return Ut[e]}function p(e,t){return function(n,r,i){return e.call(t,n,r,i)}}function d(){}function v(e,t){if(e&&J.test(t))return"<e%-"+t+"%>";var n=ut.length;return ut[n]="'+__e("+t+")+'",ot+n}function m(e,t,n,i){return i?(e=ut.length,ut[e]="';"+i+";__p+='",ot+e):t?v(r,t):g(r,n)}function g(e,t){if(e&&J.test(t))return"<e%="+t+"%>";var n=ut.length;return ut[n]="'+((__t=("+t+"))==null?'':__t)+'",ot+n}function y(e){return zt[e]}function b(e){return pt.call(e)==yt}function w
-(e){return"function"==typeof e}function E(e,t){return e?e==U||e.__proto__==U&&(t||!b(e)):i}function S(e,t,s,o,u){if(e==r)return e;s&&(t=i),u||(u={d:r}),u.d==r&&(u.d=!(!R.clone&&!z.clone&&!W.clone));if(((s=Wt[typeof e])||u.d)&&e.clone&&w(e.clone))return u.d=r,e.clone(t);if(s){var a=pt.call(e);if(!Rt[a]||_t&&b(e))return e;var f=a==bt,s=f||(a==xt?E(e,n):s)}if(!s||!t)return s?f?ht.call(e):on({},e):e;s=e.constructor;switch(a){case wt:return new s(e==n);case Et:return new s(+e);case St:case Nt:return new 
-s(e);case Tt:return s(e.source,Z.exec(e))}o||(o=[]);for(a=o.length;a--;)if(o[a].c==e)return o[a].d;var a=e.length,l=f?s(a):{};o.push({d:l,c:e});if(f)for(f=-1;++f<a;)l[f]=S(e[f],t,r,o,u);else an(e,function(e,n){l[n]=S(e,t,r,o,u)});return l}function x(e,t,s,o){if(e==r||t==r)return e===t;o||(o={value:r}),o.value==r&&(o.value=!(!R.isEqual&&!z.isEqual&&!W.isEqual));if(Wt[typeof e]||Wt[typeof t]||o.value){e._chain&&(e=e._wrapped),t._chain&&(t=t._wrapped);if(e.isEqual&&w(e.isEqual))return o.value=r,e.isEqual
-(t);if(t.isEqual&&w(t.isEqual))return o.value=r,t.isEqual(e)}if(e===t)return 0!==e||1/e==1/t;var u=pt.call(e);if(u!=pt.call(t))return i;switch(u){case wt:case Et:return+e==+t;case St:return e!=+e?t!=+t:0==e?1/e==1/t:e==+t;case Tt:case Nt:return e==t+""}var a=qt[u];if(_t&&!a&&(a=b(e))&&!b(t)||!a&&(u!=xt||Ht&&("function"!=typeof e.toString&&"string"==typeof (e+"")||"function"!=typeof t.toString&&"string"==typeof (t+""))))return i;s||(s=[]);for(u=s.length;u--;)if(s[u]==e)return n;var u=-1,f=n,l=0;s.
-push(e);if(a){l=e.length;if(f=l==t.length)for(;l--&&(f=x(e[l],t[l],s,o)););return f}a=e.constructor,f=t.constructor;if(a!=f&&(!w(a)||!(a instanceof a&&w(f)&&f instanceof f)))return i;for(var c in e)if(ft.call(e,c)&&(l++,!ft.call(t,c)||!x(e[c],t[c],s,o)))return i;for(c in t)if(ft.call(t,c)&&!(l--))return i;if(Lt)for(;7>++u;)if(c=st[u],ft.call(e,c)&&(!ft.call(t,c)||!x(e[c],t[c],s,o)))return i;return n}function T(e,t,n,r){if(!e)return n;var i=e.length,s=3>arguments.length;r&&(t=p(t,r));if(-1<i&&i===
-i>>>0){var o=Pt&&pt.call(e)==Nt?e.split(""):e;for(i&&s&&(n=o[--i]);i--;)n=t(n,o[i],i,e);return n}o=cn(e);for((i=o.length)&&s&&(n=e[o[--i]]);i--;)s=o[i],n=t(n,e[s],s,e);return n}function N(e,t,n){if(e)return t==r||n?e[0]:ht.call(e,0,t)}function C(e,t){var n=[];if(!e)return n;for(var r,i=-1,s=e.length;++i<s;)r=e[i],tn(r)?lt.apply(n,t?r:C(r)):n.push(r);return n}function k(e,t,n){if(!e)return-1;var r=-1,i=e.length;if(n){if("number"!=typeof n)return r=O(e,t),e[r]===t?r:-1;r=(0>n?Math.max(0,i+n):n)-1}for(
-;++r<i;)if(e[r]===t)return r;return-1}function L(e,t,n){var r=-Infinity,i=r;if(!e)return i;var s=-1,o=e.length;if(!t){for(;++s<o;)e[s]>i&&(i=e[s]);return i}for(n&&(t=p(t,n));++s<o;)n=t(e[s],s,e),n>r&&(r=n,i=e[s]);return i}function A(e,t,n){return e?ht.call(e,t==r||n?1:t):[]}function O(e,t,n,r){if(!e)return 0;var i=0,s=e.length;if(n){r&&(n=_(n,r));for(t=n(t);i<s;)r=i+s>>>1,n(e[r])<t?i=r+1:s=r}else for(;i<s;)r=i+s>>>1,e[r]<t?i=r+1:s=r;return i}function M(e,t,n,r){var s=[];if(!e)return s;var o=-1,u=
-e.length,a=[];"function"==typeof t&&(r=n,n=t,t=i);for(n?r&&(n=p(n,r)):n=D;++o<u;)if(r=n(e[o],o,e),t?!o||a[a.length-1]!==r:0>k(a,r))a.push(r),s.push(e[o]);return s}function _(e,t){function n(){var o=arguments,u=t;return i||(e=t[r]),s.length&&(o=o.length?s.concat(ht.call(o)):s),this instanceof n?(d.prototype=e.prototype,u=new d,(o=e.apply(u,o))&&Wt[typeof o]?o:u):e.apply(u,o)}var r,i=w(e);if(i){if(jt||dt&&2<arguments.length)return dt.call.apply(dt,arguments)}else r=t,t=e;var s=ht.call(arguments,2);
-return n}function D(e){return e}function P(e){wn(fn(e),function(t){var r=s[t]=e[t];o.prototype[t]=function(){var e=[this._wrapped];return arguments.length&&lt.apply(e,arguments),e=r.apply(s,e),this._chain&&(e=new o(e),e._chain=n),e}})}var n=!0,r=null,i=!1,H,B,j,F,I="object"==typeof exports&&exports&&("object"==typeof global&&global&&global==global.global&&(e=global),exports),q=Array.prototype,R=Boolean.prototype,U=Object.prototype,z=Number.prototype,W=String.prototype,X=0,V=30,$=e._,J=/[-+=!~*%&^<>|{(\/]|\[\D|\b(?:delete|in|instanceof|new|typeof|void)\b/
-,K=/&(?:amp|lt|gt|quot|#x27);/g,Q=/\b__p\+='';/g,G=/\b(__p\+=)''\+/g,Y=/(__e\(.*?\)|\b__t\))\+'';/g,Z=/\w*$/,et=/(?:__e|__t=)\(\s*(?![\d\s"']|this\.)/g,tt=RegExp("^"+(U.valueOf+"").replace(/[.*+?^=!:${}()|[\]\/\\]/g,"\\$&").replace(/valueOf|for [^\]]+/g,".+?")+"$"),nt=/__token__(\d+)/g,rt=/[&<>"']/g,it=/['\n\r\t\u2028\u2029\\]/g,st="constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf".split(" "),ot="__token__",ut=[],at=q.concat,ft=U.hasOwnProperty,lt=q.push
-,ct=U.propertyIsEnumerable,ht=q.slice,pt=U.toString,dt=tt.test(dt=ht.bind)&&dt,vt=tt.test(vt=Array.isArray)&&vt,mt=e.isFinite,gt=tt.test(gt=Object.keys)&&gt,yt="[object Arguments]",bt="[object Array]",wt="[object Boolean]",Et="[object Date]",St="[object Number]",xt="[object Object]",Tt="[object RegExp]",Nt="[object String]",Ct=e.clearTimeout,kt=e.setTimeout,Lt,At,Ot,Mt=n;(function(){function e(){this.x=1}var t={0:1,length:1},n=[];e.prototype={valueOf:1,y:1};for(var r in new e)n.push(r);for(r in arguments
-)Mt=!r;Lt=4>(n+"").length,Ot="x"!=n[0],At=(n.splice.call(t,0,1),t[0])})(1);var _t=!b(arguments),Dt="x"!=ht.call("x")[0],Pt="xx"!="x"[0]+Object("x")[0];try{var Ht=("[object Object]",pt.call(e.document||0)==xt)}catch(Bt){}var jt=dt&&/\n|Opera/.test(dt+pt.call(e.opera)),Ft=gt&&/^.+$|true/.test(gt+!!e.attachEvent),It=!jt,qt={"[object Arguments]":n,"[object Array]":n,"[object Boolean]":i,"[object Date]":i,"[object Function]":i,"[object Number]":i,"[object Object]":i,"[object RegExp]":i,"[object String]"
-:n},Rt={"[object Arguments]":i,"[object Array]":n,"[object Boolean]":n,"[object Date]":n,"[object Function]":i,"[object Number]":n,"[object Object]":n,"[object RegExp]":n,"[object String]":n},Ut={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;"},zt={"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#x27;":"'"},Wt={"boolean":i,"function":n,object:n,number:i,string:i,"undefined":i,unknown:n},Xt={"\\":"\\","'":"'","\n":"n","\r":"r","	":"t","\u2028":"u2028","\u2029":"u2029"};s.templateSettings=
-{escape:/<%-([\s\S]+?)%>/g,evaluate:/<%([\s\S]+?)%>/g,interpolate:/<%=([\s\S]+?)%>/g,variable:""};var Vt={a:"d,c,y",j:"d",q:"if(!c)c=h;else if(y)c=k(c,y)",i:"if(c(A,i,d)===false)return u"},$t={j:"{}",q:"var q;if(typeof c!='function'){var ii=c;c=function(A){return A[ii]}}else if(y)c=k(c,y)",i:"q=c(A,i,d);(g.call(u,q)?u[q]++:u[q]=1)"},Jt={r:i,a:"n,c,y",j:"{}",q:"var S=typeof c=='function';if(!S){var t=e.apply(E,arguments)}else if(y)c=k(c,y)",i:"if(S?!c(A,i,n):N(t,i)<0)u[i]=A"},Kt={j:"true",i:"if(!c(A,i,d))return!u"
-},Qt={r:i,s:i,a:"n",j:"n",q:"for(var a=1,b=arguments.length;a<b;a++){if(j=arguments[a]){",i:"u[i]=A",e:"}}"},Gt={j:"[]",i:"c(A,i,d)&&u.push(A)"},Yt={q:"if(y)c=k(c,y)"},Zt={i:{l:Vt.i}},en={j:"",f:"if(!d)return[]",d:{b:"u=Array(l)",l:"u="+(Ft?"Array(l)":"[]")},i:{b:"u[i]=c(A,i,d)",l:"u"+(Ft?"[o]=":".push")+"(c(A,i,d))"}};_t&&(b=function(e){return!!e&&!!ft.call(e,"callee")});var tn=vt||function(e){return pt.call(e)==bt};w(/x/)&&(w=function(e){return"[object Function]"==pt.call(e)}),E(Wt)||(E=function(
-e,t){var n=i;if(!e||"object"!=typeof e||!t&&b(e))return n;var r=e.constructor;return(!Ht||"function"==typeof e.toString||"string"!=typeof (e+""))&&(!w(r)||r instanceof r)?Ot?(un(e,function(t,r){return n=!ft.call(e,r),i}),n===i):(un(e,function(e,t){n=t}),n===i||ft.call(e,n)):n});var nn=a({a:"n",j:"[]",i:"u.push(i)"}),rn=a(Qt,{i:"if(u[i]==null)"+Qt.i}),sn=a(Jt),on=a(Qt),un=a(Vt,Yt,Zt,{r:i}),an=a(Vt,Yt,Zt),fn=a({r:i,a:"n",j:"[]",i:"if(T(A))u.push(i)",e:"u.sort()"}),ln=a({a:"A",j:"true",q:"var H=z.call(A),l=A.length;if(D[H]"+
-(_t?"||P(A)":"")+"||(H==X&&l>-1&&l===l>>>0&&T(A.splice)))return!l",i:{l:"return false"}}),cn=gt?function(e){var t=typeof e;return"function"==t&&ct.call(e,"prototype")?nn(e):e&&Wt[t]?gt(e):[]}:nn,hn=a(Qt,{a:"n,ee,O,ff",q:"var J,L,Q,gg,dd=O==U;if(!dd)ff=[];for(var a=1,b=dd?2:arguments.length;a<b;a++){if(j=arguments[a]){",i:"if(A&&((Q=R(A))||U(A))){L=false;gg=ff.length;while(gg--)if(L=ff[gg].c==A)break;if(L){u[i]=ff[gg].d}else{J=(J=u[i])&&Q?(R(J)?J:[]):(U(J)?J:{});ff.push({d:J,c:A});u[i]=G(J,A,U,ff)}}else if(A!=null)u[i]=A"
-}),pn=a(Jt,{q:"if(typeof c!='function'){var q,t=e.apply(E,arguments),l=t.length;for(i=1;i<l;i++){q=t[i];if(q in n)u[q]=n[q]}}else{if(y)c=k(c,y)",i:"if(c(A,i,n))u[i]=A",e:"}"}),dn=a({a:"n",j:"[]",i:"u.push(A)"}),vn=a({a:"d,hh",j:"false",o:i,d:{b:"if(z.call(d)==x)return d.indexOf(hh)>-1"},i:"if(A===hh)return true"}),mn=a(Vt,$t),gn=a(Vt,Kt),yn=a(Vt,Gt),bn=a(Vt,Yt,{j:"",i:"if(c(A,i,d))return A"}),wn=a(Vt,Yt),En=a(Vt,$t,{i:"q=c(A,i,d);(g.call(u,q)?u[q]:u[q]=[]).push(A)"}),Sn=a(en,{a:"d,V",q:"var C=w.call(arguments,2),S=typeof V=='function'"
-,i:{b:"u[i]=(S?V:A[V]).apply(A,C)",l:"u"+(Ft?"[o]=":".push")+"((S?V:A[V]).apply(A,C))"}}),xn=a(Vt,en),Tn=a(en,{a:"d,bb",i:{b:"u[i]=A[bb]",l:"u"+(Ft?"[o]=":".push")+"(A[bb])"}}),Nn=a({a:"d,c,B,y",j:"B",q:"var W=arguments.length<3;if(y)c=k(c,y)",d:{b:"if(W)u=j[++i]"},i:{b:"u=c(u,A,i,d)",l:"u=W?(W=false,A):c(u,A,i,d)"}}),Cn=a(Vt,Gt,{i:"!"+Gt.i}),kn=a(Vt,Kt,{j:"false",i:Kt.i.replace("!","")}),Ln=a(Vt,$t,en,{i:{b:"u[i]={a:c(A,i,d),b:i,d:A}",l:"u"+(Ft?"[o]=":".push")+"({a:c(A,i,d),b:i,d:A})"},e:"u.sort(I);l=u.length;while(l--)u[l]=u[l].d"
-}),An=a(Gt,{a:"d,aa",q:"var t=[];K(aa,function(A,q){t.push(q)});var cc=t.length",i:"for(var q,Z=true,s=0;s<cc;s++){q=t[s];if(!(Z=A[q]===aa[q]))break}Z&&u.push(A)"}),On=a({r:i,s:i,a:"n",j:"n",q:"var M=arguments,l=M.length;if(l>1){for(var i=1;i<l;i++)u[M[i]]=F(u[M[i]],u);return u}",i:"if(T(u[i]))u[i]=F(u[i],u)"});s.VERSION="0.6.1",s.after=function(e,t){return 1>e?t():function(){if(1>--e)return t.apply(this,arguments)}},s.bind=_,s.bindAll=On,s.chain=function(e){return e=new o(e),e._chain=n,e},s.clone=
-S,s.compact=function(e){var t=[];if(!e)return t;for(var n=-1,r=e.length;++n<r;)e[n]&&t.push(e[n]);return t},s.compose=function(){var e=arguments;return function(){for(var t=arguments,n=e.length;n--;)t=[e[n].apply(this,t)];return t[0]}},s.contains=vn,s.countBy=mn,s.debounce=function(e,t,n){function i(){a=r,n||e.apply(u,s)}var s,o,u,a;return function(){var r=n&&!a;return s=arguments,u=this,Ct(a),a=kt(i,t),r&&(o=e.apply(u,s)),o}},s.defaults=rn,s.defer=function(e){var n=ht.call(arguments,1);return kt
-(function(){return e.apply(t,n)},1)},s.delay=function(e,n){var r=ht.call(arguments,2);return kt(function(){return e.apply(t,r)},n)},s.difference=function(e){var t=[];if(!e)return t;for(var n=-1,r=e.length,i=at.apply(t,arguments),i=u(i,r);++n<r;)i(e[n])||t.push(e[n]);return t},s.drop=sn,s.escape=function(e){return e==r?"":(e+"").replace(rt,h)},s.every=gn,s.extend=on,s.filter=yn,s.find=bn,s.first=N,s.flatten=C,s.forEach=wn,s.forIn=un,s.forOwn=an,s.functions=fn,s.groupBy=En,s.has=function(e,t){return e?
-ft.call(e,t):i},s.identity=D,s.indexOf=k,s.initial=function(e,t,n){return e?ht.call(e,0,-(t==r||n?1:t)):[]},s.intersection=function(e){var t=[];if(!e)return t;var n,r=arguments.length,i=[],s=-1,o=e.length;e:for(;++s<o;)if(n=e[s],0>k(t,n)){for(var a=1;a<r;a++)if(!(i[a]||(i[a]=u(arguments[a])))(n))continue e;t.push(n)}return t},s.invoke=Sn,s.isArguments=b,s.isArray=tn,s.isBoolean=function(e){return e===n||e===i||pt.call(e)==wt},s.isElement=function(e){return e?1===e.nodeType:i},s.isEmpty=ln,s.isEqual=
-x,s.isFinite=function(e){return mt(e)&&pt.call(e)==St},s.isFunction=w,s.isNaN=function(e){return pt.call(e)==St&&e!=+e},s.isNull=function(e){return e===r},s.isObject=function(e){return e?Wt[typeof e]:i},s.isUndefined=function(e){return e===t},s.keys=cn,s.last=function(e,t,n){if(e){var i=e.length;return t==r||n?e[i-1]:ht.call(e,-t||i)}},s.lastIndexOf=function(e,t,n){if(!e)return-1;var r=e.length;for(n&&"number"==typeof n&&(r=(0>n?Math.max(0,r+n):Math.min(n,r-1))+1);r--;)if(e[r]===t)return r;return-1
-},s.map=xn,s.max=L,s.memoize=function(e,t){var n={};return function(){var r=t?t.apply(this,arguments):arguments[0];return ft.call(n,r)?n[r]:n[r]=e.apply(this,arguments)}},s.merge=hn,s.min=function(e,t,n){var r=Infinity,i=r;if(!e)return i;var s=-1,o=e.length;if(!t){for(;++s<o;)e[s]<i&&(i=e[s]);return i}for(n&&(t=p(t,n));++s<o;)n=t(e[s],s,e),n<r&&(r=n,i=e[s]);return i},s.mixin=P,s.noConflict=function(){return e._=$,this},s.once=function(e){var t,s=i;return function(){return s?t:(s=n,t=e.apply(this,
-arguments),e=r,t)}},s.partial=function(e){var t=ht.call(arguments,1),n=t.length;return function(){var r;return r=arguments,r.length&&(t.length=n,lt.apply(t,r)),r=1==t.length?e.call(this,t[0]):e.apply(this,t),t.length=n,r}},s.pick=pn,s.pluck=Tn,s.range=function(e,t,n){e=+e||0,n=+n||1,t==r&&(t=e,e=0);for(var i=-1,t=Math.max(0,Math.ceil((t-e)/n)),s=Array(t);++i<t;)s[i]=e,e+=n;return s},s.reduce=Nn,s.reduceRight=T,s.reject=Cn,s.rest=A,s.result=function(e,t){if(!e)return r;var n=e[t];return w(n)?e[t](
-):n},s.shuffle=function(e){if(!e)return[];for(var t,n=-1,r=e.length,i=Array(r);++n<r;)t=Math.floor(Math.random()*(n+1)),i[n]=i[t],i[t]=e[n];return i},s.size=function(e){if(!e)return 0;var t=pt.call(e),n=e.length;return qt[t]||_t&&b(e)||t==xt&&-1<n&&n===n>>>0&&w(e.splice)?n:cn(e).length},s.some=kn,s.sortBy=Ln,s.sortedIndex=O,s.tap=function(e,t){return t(e),e},s.template=function(e,t,n){n||(n={});var e=e+"",o,u;o=n.escape;var a=n.evaluate,f=n.interpolate,h=s.templateSettings,p=n=n.variable||h.variable
-;o==r&&(o=h.escape),a==r&&(a=h.evaluate||i),f==r&&(f=h.interpolate),o&&(e=e.replace(o,v)),f&&(e=e.replace(f,g)),a!=H&&(H=a,F=RegExp("<e%-([\\s\\S]+?)%>|<e%=([\\s\\S]+?)%>"+(a?"|"+a.source:""),"g")),o=ut.length,e=e.replace(F,m),o=o!=ut.length,e="__p += '"+e.replace(it,c).replace(nt,l)+"';",ut.length=0,p||(n=B||"obj",o?e="with("+n+"){"+e+"}":(n!=B&&(B=n,j=RegExp("(\\(\\s*)"+n+"\\."+n+"\\b","g")),e=e.replace(et,"$&"+n+".").replace(j,"$1__d"))),e=(o?e.replace(Q,""):e).replace(G,"$1").replace(Y,"$1;")
-,e="function("+n+"){"+(p?"":n+"||("+n+"={});")+"var __t,__p='',__e=_.escape"+(o?",__j=Array.prototype.join;function print(){__p+=__j.call(arguments,'')}":(p?"":",__d="+n+"."+n+"||"+n)+";")+e+"return __p}";try{u=Function("_","return "+e)(s)}catch(d){u=function(){throw d}}return t?u(t):(u.source=e,u)},s.throttle=function(e,t){function n(){a=new Date,u=r,e.apply(o,i)}var i,s,o,u,a=0;return function(){var r=new Date,f=t-(r-a);return i=arguments,o=this,0>=f?(a=r,s=e.apply(o,i)):u||(u=kt(n,f)),s}},s.times=
-function(e,t,n){var r=-1;if(n)for(;++r<e;)t.call(n,r);else for(;++r<e;)t(r)},s.toArray=function(e){if(!e)return[];if(e.toArray&&w(e.toArray))return e.toArray();var t=e.length;return-1<t&&t===t>>>0?(Dt?pt.call(e)==Nt:"string"==typeof e)?e.split(""):ht.call(e):dn(e)},s.unescape=function(e){return e==r?"":(e+"").replace(K,y)},s.union=function(){for(var e=-1,t=[],n=at.apply(t,arguments),r=n.length;++e<r;)0>k(t,n[e])&&t.push(n[e]);return t},s.uniq=M,s.uniqueId=function(e){var t=X++;return e?e+t:t},s.values=
-dn,s.where=An,s.without=function(e){var t=[];if(!e)return t;for(var n=-1,r=e.length,i=u(arguments,1,20);++n<r;)i(e[n])||t.push(e[n]);return t},s.wrap=function(e,t){return function(){var n=[e];return arguments.length&&lt.apply(n,arguments),t.apply(this,n)}},s.zip=function(e){if(!e)return[];for(var t=-1,n=L(Tn(arguments,"length")),r=Array(n);++t<n;)r[t]=Tn(arguments,t);return r},s.zipObject=function(e,t){if(!e)return{};var n=-1,r=e.length,i={};for(t||(t=[]);++n<r;)i[e[n]]=t[n];return i},s.all=gn,s.
-any=kn,s.collect=xn,s.detect=bn,s.each=wn,s.foldl=Nn,s.foldr=T,s.head=N,s.include=vn,s.inject=Nn,s.methods=fn,s.omit=sn,s.select=yn,s.tail=A,s.take=N,s.unique=M,wn({Date:Et,Number:St,RegExp:Tt,String:Nt},function(e,t){s["is"+t]=function(t){return pt.call(t)==e}}),o.prototype=s.prototype,P(s),o.prototype.chain=function(){return this._chain=n,this},o.prototype.value=function(){return this._wrapped},wn("pop push reverse shift sort splice unshift".split(" "),function(e){var t=q[e];o.prototype[e]=function(
-){var e=this._wrapped;return t.apply(e,arguments),At&&e.length===0&&delete e[0],this._chain&&(e=new o(e),e._chain=n),e}}),wn(["concat","join","slice"],function(e){var t=q[e];o.prototype[e]=function(){var e=t.apply(this._wrapped,arguments);return this._chain&&(e=new o(e),e._chain=n),e}}),typeof define=="function"&&typeof define.amd=="object"&&define.amd?(e._=s,define(function(){return s})):I?"object"==typeof module&&module&&module.t==I?(module.t=s)._=s:I._=s:e._=s})(this);;;
-var Handlebars={};Handlebars.VERSION="1.0.beta.6",Handlebars.helpers={},Handlebars.partials={},Handlebars.registerHelper=function(a,b,c){c&&(b.not=c),this.helpers[a]=b},Handlebars.registerPartial=function(a,b){this.partials[a]=b},Handlebars.registerHelper("helperMissing",function(a){if(arguments.length===2)return undefined;throw new Error("Could not find property '"+a+"'")});var toString=Object.prototype.toString,functionType="[object Function]";Handlebars.registerHelper("blockHelperMissing",function(a,b){var c=b.inverse||function(){},d=b.fn,e="",f=toString.call(a);f===functionType&&(a=a.call(this));if(a===!0)return d(this);if(a===!1||a==null)return c(this);if(f==="[object Array]"){if(a.length>0)for(var g=0,h=a.length;g<h;g++)e+=d(a[g]);else e=c(this);return e}return d(a)}),Handlebars.registerHelper("each",function(a,b){var c=b.fn,d=b.inverse,e="";if(a&&a.length>0)for(var f=0,g=a.length;f<g;f++)e+=c(a[f]);else e=d(this);return e}),Handlebars.registerHelper("if",function(a,b){var c=toString.call(a);return c===functionType&&(a=a.call(this)),!a||Handlebars.Utils.isEmpty(a)?b.inverse(this):b.fn(this)}),Handlebars.registerHelper("unless",function(a,b){var c=b.fn,d=b.inverse;return b.fn=d,b.inverse=c,Handlebars.helpers["if"].call(this,a,b)}),Handlebars.registerHelper("with",function(a,b){return b.fn(a)}),Handlebars.registerHelper("log",function(a){Handlebars.log(a)});var handlebars=function(){var a={trace:function(){},yy:{},symbols_:{error:2,root:3,program:4,EOF:5,statements:6,simpleInverse:7,statement:8,openInverse:9,closeBlock:10,openBlock:11,mustache:12,partial:13,CONTENT:14,COMMENT:15,OPEN_BLOCK:16,inMustache:17,CLOSE:18,OPEN_INVERSE:19,OPEN_ENDBLOCK:20,path:21,OPEN:22,OPEN_UNESCAPED:23,OPEN_PARTIAL:24,params:25,hash:26,param:27,STRING:28,INTEGER:29,BOOLEAN:30,hashSegments:31,hashSegment:32,ID:33,EQUALS:34,pathSegments:35,SEP:36,$accept:0,$end:1},terminals_:{2:"error",5:"EOF",14:"CONTENT",15:"COMMENT",16:"OPEN_BLOCK",18:"CLOSE",19:"OPEN_INVERSE",20:"OPEN_ENDBLOCK",22:"OPEN",23:"OPEN_UNESCAPED",24:"OPEN_PARTIAL",28:"STRING",29:"INTEGER",30:"BOOLEAN",33:"ID",34:"EQUALS",36:"SEP"},productions_:[0,[3,2],[4,3],[4,1],[4,0],[6,1],[6,2],[8,3],[8,3],[8,1],[8,1],[8,1],[8,1],[11,3],[9,3],[10,3],[12,3],[12,3],[13,3],[13,4],[7,2],[17,3],[17,2],[17,2],[17,1],[25,2],[25,1],[27,1],[27,1],[27,1],[27,1],[26,1],[31,2],[31,1],[32,3],[32,3],[32,3],[32,3],[21,1],[35,3],[35,1]],performAction:function(b,c,d,e,f,g,h){var i=g.length-1;switch(f){case 1:return g[i-1];case 2:this.$=new e.ProgramNode(g[i-2],g[i]);break;case 3:this.$=new e.ProgramNode(g[i]);break;case 4:this.$=new e.ProgramNode([]);break;case 5:this.$=[g[i]];break;case 6:g[i-1].push(g[i]),this.$=g[i-1];break;case 7:this.$=new e.InverseNode(g[i-2],g[i-1],g[i]);break;case 8:this.$=new e.BlockNode(g[i-2],g[i-1],g[i]);break;case 9:this.$=g[i];break;case 10:this.$=g[i];break;case 11:this.$=new e.ContentNode(g[i]);break;case 12:this.$=new e.CommentNode(g[i]);break;case 13:this.$=new e.MustacheNode(g[i-1][0],g[i-1][1]);break;case 14:this.$=new e.MustacheNode(g[i-1][0],g[i-1][1]);break;case 15:this.$=g[i-1];break;case 16:this.$=new e.MustacheNode(g[i-1][0],g[i-1][1]);break;case 17:this.$=new e.MustacheNode(g[i-1][0],g[i-1][1],!0);break;case 18:this.$=new e.PartialNode(g[i-1]);break;case 19:this.$=new e.PartialNode(g[i-2],g[i-1]);break;case 20:break;case 21:this.$=[[g[i-2]].concat(g[i-1]),g[i]];break;case 22:this.$=[[g[i-1]].concat(g[i]),null];break;case 23:this.$=[[g[i-1]],g[i]];break;case 24:this.$=[[g[i]],null];break;case 25:g[i-1].push(g[i]),this.$=g[i-1];break;case 26:this.$=[g[i]];break;case 27:this.$=g[i];break;case 28:this.$=new e.StringNode(g[i]);break;case 29:this.$=new e.IntegerNode(g[i]);break;case 30:this.$=new e.BooleanNode(g[i]);break;case 31:this.$=new e.HashNode(g[i]);break;case 32:g[i-1].push(g[i]),this.$=g[i-1];break;case 33:this.$=[g[i]];break;case 34:this.$=[g[i-2],g[i]];break;case 35:this.$=[g[i-2],new e.StringNode(g[i])];break;case 36:this.$=[g[i-2],new e.IntegerNode(g[i])];break;case 37:this.$=[g[i-2],new e.BooleanNode(g[i])];break;case 38:this.$=new e.IdNode(g[i]);break;case 39:g[i-2].push(g[i]),this.$=g[i-2];break;case 40:this.$=[g[i]]}},table:[{3:1,4:2,5:[2,4],6:3,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],22:[1,13],23:[1,14],24:[1,15]},{1:[3]},{5:[1,16]},{5:[2,3],7:17,8:18,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,19],20:[2,3],22:[1,13],23:[1,14],24:[1,15]},{5:[2,5],14:[2,5],15:[2,5],16:[2,5],19:[2,5],20:[2,5],22:[2,5],23:[2,5],24:[2,5]},{4:20,6:3,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],20:[2,4],22:[1,13],23:[1,14],24:[1,15]},{4:21,6:3,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],20:[2,4],22:[1,13],23:[1,14],24:[1,15]},{5:[2,9],14:[2,9],15:[2,9],16:[2,9],19:[2,9],20:[2,9],22:[2,9],23:[2,9],24:[2,9]},{5:[2,10],14:[2,10],15:[2,10],16:[2,10],19:[2,10],20:[2,10],22:[2,10],23:[2,10],24:[2,10]},{5:[2,11],14:[2,11],15:[2,11],16:[2,11],19:[2,11],20:[2,11],22:[2,11],23:[2,11],24:[2,11]},{5:[2,12],14:[2,12],15:[2,12],16:[2,12],19:[2,12],20:[2,12],22:[2,12],23:[2,12],24:[2,12]},{17:22,21:23,33:[1,25],35:24},{17:26,21:23,33:[1,25],35:24},{17:27,21:23,33:[1,25],35:24},{17:28,21:23,33:[1,25],35:24},{21:29,33:[1,25],35:24},{1:[2,1]},{6:30,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],22:[1,13],23:[1,14],24:[1,15]},{5:[2,6],14:[2,6],15:[2,6],16:[2,6],19:[2,6],20:[2,6],22:[2,6],23:[2,6],24:[2,6]},{17:22,18:[1,31],21:23,33:[1,25],35:24},{10:32,20:[1,33]},{10:34,20:[1,33]},{18:[1,35]},{18:[2,24],21:40,25:36,26:37,27:38,28:[1,41],29:[1,42],30:[1,43],31:39,32:44,33:[1,45],35:24},{18:[2,38],28:[2,38],29:[2,38],30:[2,38],33:[2,38],36:[1,46]},{18:[2,40],28:[2,40],29:[2,40],30:[2,40],33:[2,40],36:[2,40]},{18:[1,47]},{18:[1,48]},{18:[1,49]},{18:[1,50],21:51,33:[1,25],35:24},{5:[2,2],8:18,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],20:[2,2],22:[1,13],23:[1,14],24:[1,15]},{14:[2,20],15:[2,20],16:[2,20],19:[2,20],22:[2,20],23:[2,20],24:[2,20]},{5:[2,7],14:[2,7],15:[2,7],16:[2,7],19:[2,7],20:[2,7],22:[2,7],23:[2,7],24:[2,7]},{21:52,33:[1,25],35:24},{5:[2,8],14:[2,8],15:[2,8],16:[2,8],19:[2,8],20:[2,8],22:[2,8],23:[2,8],24:[2,8]},{14:[2,14],15:[2,14],16:[2,14],19:[2,14],20:[2,14],22:[2,14],23:[2,14],24:[2,14]},{18:[2,22],21:40,26:53,27:54,28:[1,41],29:[1,42],30:[1,43],31:39,32:44,33:[1,45],35:24},{18:[2,23]},{18:[2,26],28:[2,26],29:[2,26],30:[2,26],33:[2,26]},{18:[2,31],32:55,33:[1,56]},{18:[2,27],28:[2,27],29:[2,27],30:[2,27],33:[2,27]},{18:[2,28],28:[2,28],29:[2,28],30:[2,28],33:[2,28]},{18:[2,29],28:[2,29],29:[2,29],30:[2,29],33:[2,29]},{18:[2,30],28:[2,30],29:[2,30],30:[2,30],33:[2,30]},{18:[2,33],33:[2,33]},{18:[2,40],28:[2,40],29:[2,40],30:[2,40],33:[2,40],34:[1,57],36:[2,40]},{33:[1,58]},{14:[2,13],15:[2,13],16:[2,13],19:[2,13],20:[2,13],22:[2,13],23:[2,13],24:[2,13]},{5:[2,16],14:[2,16],15:[2,16],16:[2,16],19:[2,16],20:[2,16],22:[2,16],23:[2,16],24:[2,16]},{5:[2,17],14:[2,17],15:[2,17],16:[2,17],19:[2,17],20:[2,17],22:[2,17],23:[2,17],24:[2,17]},{5:[2,18],14:[2,18],15:[2,18],16:[2,18],19:[2,18],20:[2,18],22:[2,18],23:[2,18],24:[2,18]},{18:[1,59]},{18:[1,60]},{18:[2,21]},{18:[2,25],28:[2,25],29:[2,25],30:[2,25],33:[2,25]},{18:[2,32],33:[2,32]},{34:[1,57]},{21:61,28:[1,62],29:[1,63],30:[1,64],33:[1,25],35:24},{18:[2,39],28:[2,39],29:[2,39],30:[2,39],33:[2,39],36:[2,39]},{5:[2,19],14:[2,19],15:[2,19],16:[2,19],19:[2,19],20:[2,19],22:[2,19],23:[2,19],24:[2,19]},{5:[2,15],14:[2,15],15:[2,15],16:[2,15],19:[2,15],20:[2,15],22:[2,15],23:[2,15],24:[2,15]},{18:[2,34],33:[2,34]},{18:[2,35],33:[2,35]},{18:[2,36],33:[2,36]},{18:[2,37],33:[2,37]}],defaultActions:{16:[2,1],37:[2,23],53:[2,21]},parseError:function(b,c){throw new Error(b)},parse:function(b){function o(a){d.length=d.length-2*a,e.length=e.length-a,f.length=f.length-a}function p(){var a;return a=c.lexer.lex()||1,typeof a!="number"&&(a=c.symbols_[a]||a),a}var c=this,d=[0],e=[null],f=[],g=this.table,h="",i=0,j=0,k=0,l=2,m=1;this.lexer.setInput(b),this.lexer.yy=this.yy,this.yy.lexer=this.lexer,typeof this.lexer.yylloc=="undefined"&&(this.lexer.yylloc={});var n=this.lexer.yylloc;f.push(n),typeof this.yy.parseError=="function"&&(this.parseError=this.yy.parseError);var q,r,s,t,u,v,w={},x,y,z,A;for(;;){s=d[d.length-1],this.defaultActions[s]?t=this.defaultActions[s]:(q==null&&(q=p()),t=g[s]&&g[s][q]);if(typeof t=="undefined"||!t.length||!t[0])if(!k){A=[];for(x in g[s])this.terminals_[x]&&x>2&&A.push("'"+this.terminals_[x]+"'");var B="";this.lexer.showPosition?B="Parse error on line "+(i+1)+":\n"+this.lexer.showPosition()+"\nExpecting "+A.join(", ")+", got '"+this.terminals_[q]+"'":B="Parse error on line "+(i+1)+": Unexpected "+(q==1?"end of input":"'"+(this.terminals_[q]||q)+"'"),this.parseError(B,{text:this.lexer.match,token:this.terminals_[q]||q,line:this.lexer.yylineno,loc:n,expected:A})}if(t[0]instanceof Array&&t.length>1)throw new Error("Parse Error: multiple actions possible at state: "+s+", token: "+q);switch(t[0]){case 1:d.push(q),e.push(this.lexer.yytext),f.push(this.lexer.yylloc),d.push(t[1]),q=null,r?(q=r,r=null):(j=this.lexer.yyleng,h=this.lexer.yytext,i=this.lexer.yylineno,n=this.lexer.yylloc,k>0&&k--);break;case 2:y=this.productions_[t[1]][1],w.$=e[e.length-y],w._$={first_line:f[f.length-(y||1)].first_line,last_line:f[f.length-1].last_line,first_column:f[f.length-(y||1)].first_column,last_column:f[f.length-1].last_column},v=this.performAction.call(w,h,j,i,this.yy,t[1],e,f);if(typeof v!="undefined")return v;y&&(d=d.slice(0,-1*y*2),e=e.slice(0,-1*y),f=f.slice(0,-1*y)),d.push(this.productions_[t[1]][0]),e.push(w.$),f.push(w._$),z=g[d[d.length-2]][d[d.length-1]],d.push(z);break;case 3:return!0}}return!0}},b=function(){var a={EOF:1,parseError:function(b,c){if(!this.yy.parseError)throw new Error(b);this.yy.parseError(b,c)},setInput:function(a){return this._input=a,this._more=this._less=this.done=!1,this.yylineno=this.yyleng=0,this.yytext=this.matched=this.match="",this.conditionStack=["INITIAL"],this.yylloc={first_line:1,first_column:0,last_line:1,last_column:0},this},input:function(){var a=this._input[0];this.yytext+=a,this.yyleng++,this.match+=a,this.matched+=a;var b=a.match(/\n/);return b&&this.yylineno++,this._input=this._input.slice(1),a},unput:function(a){return this._input=a+this._input,this},more:function(){return this._more=!0,this},pastInput:function(){var a=this.matched.substr(0,this.matched.length-this.match.length);return(a.length>20?"...":"")+a.substr(-20).replace(/\n/g,"")},upcomingInput:function(){var a=this.match;return a.length<20&&(a+=this._input.substr(0,20-a.length)),(a.substr(0,20)+(a.length>20?"...":"")).replace(/\n/g,"")},showPosition:function(){var a=this.pastInput(),b=(new Array(a.length+1)).join("-");return a+this.upcomingInput()+"\n"+b+"^"},next:function(){if(this.done)return this.EOF;this._input||(this.done=!0);var a,b,c,d;this._more||(this.yytext="",this.match="");var e=this._currentRules();for(var f=0;f<e.length;f++){b=this._input.match(this.rules[e[f]]);if(b){d=b[0].match(/\n.*/g),d&&(this.yylineno+=d.length),this.yylloc={first_line:this.yylloc.last_line,last_line:this.yylineno+1,first_column:this.yylloc.last_column,last_column:d?d[d.length-1].length-1:this.yylloc.last_column+b[0].length},this.yytext+=b[0],this.match+=b[0],this.matches=b,this.yyleng=this.yytext.length,this._more=!1,this._input=this._input.slice(b[0].length),this.matched+=b[0],a=this.performAction.call(this,this.yy,this,e[f],this.conditionStack[this.conditionStack.length-1]);if(a)return a;return}}if(this._input==="")return this.EOF;this.parseError("Lexical error on line "+(this.yylineno+1)+". Unrecognized text.\n"+this.showPosition(),{text:"",token:null,line:this.yylineno})},lex:function(){var b=this.next();return typeof b!="undefined"?b:this.lex()},begin:function(b){this.conditionStack.push(b)},popState:function(){return this.conditionStack.pop()},_currentRules:function(){return this.conditions[this.conditionStack[this.conditionStack.length-1]].rules},topState:function(){return this.conditionStack[this.conditionStack.length-2]},pushState:function(b){this.begin(b)}};return a.performAction=function(b,c,d,e){var f=e;switch(d){case 0:c.yytext.slice(-1)!=="\\"&&this.begin("mu"),c.yytext.slice(-1)==="\\"&&(c.yytext=c.yytext.substr(0,c.yyleng-1),this.begin("emu"));if(c.yytext)return 14;break;case 1:return 14;case 2:return this.popState(),14;case 3:return 24;case 4:return 16;case 5:return 20;case 6:return 19;case 7:return 19;case 8:return 23;case 9:return 23;case 10:return c.yytext=c.yytext.substr(3,c.yyleng-5),this.popState(),15;case 11:return 22;case 12:return 34;case 13:return 33;case 14:return 33;case 15:return 36;case 16:break;case 17:return this.popState(),18;case 18:return this.popState(),18;case 19:return c.yytext=c.yytext.substr(1,c.yyleng-2).replace(/\\"/g,'"'),28;case 20:return 30;case 21:return 30;case 22:return 29;case 23:return 33;case 24:return c.yytext=c.yytext.substr(1,c.yyleng-2),33;case 25:return"INVALID";case 26:return 5}},a.rules=[/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^[^\x00]{2,}?(?=(\{\{))/,/^\{\{>/,/^\{\{#/,/^\{\{\//,/^\{\{\^/,/^\{\{\s*else\b/,/^\{\{\{/,/^\{\{&/,/^\{\{![\s\S]*?\}\}/,/^\{\{/,/^=/,/^\.(?=[} ])/,/^\.\./,/^[\/.]/,/^\s+/,/^\}\}\}/,/^\}\}/,/^"(\\["]|[^"])*"/,/^true(?=[}\s])/,/^false(?=[}\s])/,/^[0-9]+(?=[}\s])/,/^[a-zA-Z0-9_$-]+(?=[=}\s\/.])/,/^\[[^\]]*\]/,/^./,/^$/],a.conditions={mu:{rules:[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],inclusive:!1},emu:{rules:[2],inclusive:!1},INITIAL:{rules:[0,1,26],inclusive:!0}},a}();return a.lexer=b,a}();typeof require!="undefined"&&typeof exports!="undefined"&&(exports.parser=handlebars,exports.parse=function(){return handlebars.parse.apply(handlebars,arguments)},exports.main=function(b){if(!b[1])throw new Error("Usage: "+b[0]+" FILE");if(typeof process!="undefined")var c=require("fs").readFileSync(require("path").join(process.cwd(),b[1]),"utf8");else var d=require("file").path(require("file").cwd()),c=d.join(b[1]).read({charset:"utf-8"});return exports.parser.parse(c)},typeof module!="undefined"&&require.main===module&&exports.main(typeof process!="undefined"?process.argv.slice(1):require("system").args)),Handlebars.Parser=handlebars,Handlebars.parse=function(a){return Handlebars.Parser.yy=Handlebars.AST,Handlebars.Parser.parse(a)},Handlebars.print=function(a){return(new Handlebars.PrintVisitor).accept(a)},Handlebars.logger={DEBUG:0,INFO:1,WARN:2,ERROR:3,level:3,log:function(a,b){}},Handlebars.log=function(a,b){Handlebars.logger.log(a,b)},function(){Handlebars.AST={},Handlebars.AST.ProgramNode=function(a,b){this.type="program",this.statements=a,b&&(this.inverse=new Handlebars.AST.ProgramNode(b))},Handlebars.AST.MustacheNode=function(a,b,c){this.type="mustache",this.id=a[0],this.params=a.slice(1),this.hash=b,this.escaped=!c},Handlebars.AST.PartialNode=function(a,b){this.type="partial",this.id=a,this.context=b};var a=function(a,b){if(a.original!==b.original)throw new Handlebars.Exception(a.original+" doesn't match "+b.original)};Handlebars.AST.BlockNode=function(b,c,d){a(b.id,d),this.type="block",this.mustache=b,this.program=c},Handlebars.AST.InverseNode=function(b,c,d){a(b.id,d),this.type="inverse",this.mustache=b,this.program=c},Handlebars.AST.ContentNode=function(a){this.type="content",this.string=a},Handlebars.AST.HashNode=function(a){this.type="hash",this.pairs=a},Handlebars.AST.IdNode=function(a){this.type="ID",this.original=a.join(".");var b=[],c=0;for(var d=0,e=a.length;d<e;d++){var f=a[d];f===".."?c++:f==="."||f==="this"?this.isScoped=!0:b.push(f)}this.parts=b,this.string=b.join("."),this.depth=c,this.isSimple=b.length===1&&c===0},Handlebars.AST.StringNode=function(a){this.type="STRING",this.string=a},Handlebars.AST.IntegerNode=function(a){this.type="INTEGER",this.integer=a},Handlebars.AST.BooleanNode=function(a){this.type="BOOLEAN",this.bool=a},Handlebars.AST.CommentNode=function(a){this.type="comment",this.comment=a}}(),Handlebars.Exception=function(a){var b=Error.prototype.constructor.apply(this,arguments);for(var c in b)b.hasOwnProperty(c)&&(this[c]=b[c]);this.message=b.message},Handlebars.Exception.prototype=new Error,Handlebars.SafeString=function(a){this.string=a},Handlebars.SafeString.prototype.toString=function(){return this.string.toString()},function(){var a={"<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","`":"&#x60;"},b=/&(?!\w+;)|[<>"'`]/g,c=/[&<>"'`]/,d=function(b){return a[b]||"&amp;"};Handlebars.Utils={escapeExpression:function(a){return a instanceof Handlebars.SafeString?a.toString():a==null||a===!1?"":c.test(a)?a.replace(b,d):a},isEmpty:function(a){return typeof a=="undefined"?!0:a===null?!0:a===!1?!0:Object.prototype.toString.call(a)==="[object Array]"&&a.length===0?!0:!1}}}(),Handlebars.Compiler=function(){},Handlebars.JavaScriptCompiler=function(){},function(a,b){a.OPCODE_MAP={appendContent:1,getContext:2,lookupWithHelpers:3,lookup:4,append:5,invokeMustache:6,appendEscaped:7,pushString:8,truthyOrFallback:9,functionOrFallback:10,invokeProgram:11,invokePartial:12,push:13,assignToHash:15,pushStringParam:16},a.MULTI_PARAM_OPCODES={appendContent:1,getContext:1,lookupWithHelpers:2,lookup:1,invokeMustache:3,pushString:1,truthyOrFallback:1,functionOrFallback:1,invokeProgram:3,invokePartial:1,push:1,assignToHash:1,pushStringParam:1},a.DISASSEMBLE_MAP={};for(var c in a.OPCODE_MAP){var d=a.OPCODE_MAP[c];a.DISASSEMBLE_MAP[d]=c}a.multiParamSize=function(b){return a.MULTI_PARAM_OPCODES[a.DISASSEMBLE_MAP[b]]},a.prototype={compiler:a,disassemble:function(){var b=this.opcodes,c,d,e=[],f,g,h;for(var i=0,j=b.length;i<j;i++){c=b[i];if(c==="DECLARE")g=b[++i],h=b[++i],e.push("DECLARE "+g+" = "+h);else{f=a.DISASSEMBLE_MAP[c];var k=a.multiParamSize(c),l=[];for(var m=0;m<k;m++)d=b[++i],typeof d=="string"&&(d='"'+d.replace("\n","\\n")+'"'),l.push(d);f=f+" "+l.join(" "),e.push(f)}}return e.join("\n")},guid:0,compile:function(a,b){this.children=[],this.depths={list:[]},this.options=b;var c=this.options.knownHelpers;this.options.knownHelpers={helperMissing:!0,blockHelperMissing:!0,each:!0,"if":!0,unless:!0,"with":!0,log:!0};if(c)for(var d in c)this.options.knownHelpers[d]=c[d];return this.program(a)},accept:function(a){return this[a.type](a)},program:function(a){var b=a.statements,c;this.opcodes=[];for(var d=0,e=b.length;d<e;d++)c=b[d],this[c.type](c);return this.isSimple=e===1,this.depths.list=this.depths.list.sort(function(a,b){return a-b}),this},compileProgram:function(a){var b=(new this.compiler).compile(a,this.options),c=this.guid++;this.usePartial=this.usePartial||b.usePartial,this.children[c]=b;for(var d=0,e=b.depths.list.length;d<e;d++){depth=b.depths.list[d];if(depth<2)continue;this.addDepth(depth-1)}return c},block:function(a){var b=a.mustache,c,d,e,f,g=this.setupStackForMustache(b),h=this.compileProgram(a.program);a.program.inverse&&(f=this.compileProgram(a.program.inverse),this.declare("inverse",f)),this.opcode("invokeProgram",h,g.length,!!b.hash),this.declare("inverse",null),this.opcode("append")},inverse:function(a){var b=this.setupStackForMustache(a.mustache),c=this.compileProgram(a.program);this.declare("inverse",c),this.opcode("invokeProgram",null,b.length,!!a.mustache.hash),this.declare("inverse",null),this.opcode("append")},hash:function(a){var b=a.pairs,c,d;this.opcode("push","{}");for(var e=0,f=b.length;e<f;e++)c=b[e],d=c[1],this.accept(d),this.opcode("assignToHash",c[0])},partial:function(a){var b=a.id;this.usePartial=!0,a.context?this.ID(a.context):this.opcode("push","depth0"),this.opcode("invokePartial",b.original),this.opcode("append")},content:function(a){this.opcode("appendContent",a.string)},mustache:function(a){var b=this.setupStackForMustache(a);this.opcode("invokeMustache",b.length,a.id.original,!!a.hash),a.escaped&&!this.options.noEscape?this.opcode("appendEscaped"):this.opcode("append")},ID:function(a){this.addDepth(a.depth),this.opcode("getContext",a.depth),this.opcode("lookupWithHelpers",a.parts[0]||null,a.isScoped||!1);for(var b=1,c=a.parts.length;b<c;b++)this.opcode("lookup",a.parts[b])},STRING:function(a){this.opcode("pushString",a.string)},INTEGER:function(a){this.opcode("push",a.integer)},BOOLEAN:function(a){this.opcode("push",a.bool)},comment:function(){},pushParams:function(a){var b=a.length,c;while(b--)c=a[b],this.options.stringParams?(c.depth&&this.addDepth(c.depth),this.opcode("getContext",c.depth||0),this.opcode("pushStringParam",c.string)):this[c.type](c)},opcode:function(b,c,d,e){this.opcodes.push(a.OPCODE_MAP[b]),c!==undefined&&this.opcodes.push(c),d!==undefined&&this.opcodes.push(d),e!==undefined&&this.opcodes.push(e)},declare:function(a,b){this.opcodes.push("DECLARE"),this.opcodes.push(a),this.opcodes.push(b)},addDepth:function(a){if(a===0)return;this.depths[a]||(this.depths[a]=!0,this.depths.list.push(a))},setupStackForMustache:function(a){var b=a.params;return this.pushParams(b),a.hash&&this.hash(a.hash),this.ID(a.id),b}},b.prototype={nameLookup:function(a,c,d){return/^[0-9]+$/.test(c)?a+"["+c+"]":b.isValidJavaScriptVariableName(c)?a+"."+c:a+"['"+c+"']"},appendToBuffer:function(a){return this.environment.isSimple?"return "+a+";":"buffer += "+a+";"},initializeBuffer:function(){return this.quotedString("")},namespace:"Handlebars",compile:function(a,b,c,d){this.environment=a,this.options=b||{},this.name=this.environment.name,this.isChild=!!c,this.context=c||{programs:[],aliases:{self:"this"},registers:{list:[]}},this.preamble(),this.stackSlot=0,this.stackVars=[],this.compileChildren(a,b);var e=a.opcodes,f;this.i=0;for(h=e.length;this.i<h;this.i++)f=this.nextOpcode(0),f[0]==="DECLARE"?(this.i=this.i+2,this[f[1]]=f[2]):(this.i=this.i+f[1].length,this[f[0]].apply(this,f[1]));return this.createFunctionContext(d)},nextOpcode:function(b){var c=this.environment.opcodes,d=c[this.i+b],e,f,g,h;if(d==="DECLARE")return e=c[this.i+1],f=c[this.i+2],["DECLARE",e,f];e=a.DISASSEMBLE_MAP[d],g=a.multiParamSize(d),h=[];for(var i=0;i<g;i++)h.push(c[this.i+i+1+b]);return[e,h]},eat:function(a){this.i=this.i+a.length},preamble:function(){var a=[];this.useRegister("foundHelper");if(!this.isChild){var b=this.namespace,c="helpers = helpers || "+b+".helpers;";this.environment.usePartial&&(c=c+" partials = partials || "+b+".partials;"),a.push(c)}else a.push("");this.environment.isSimple?a.push(""):a.push(", buffer = "+this.initializeBuffer()),this.lastContext=0,this.source=a},createFunctionContext:function(a){var b=this.stackVars;this.isChild||(b=b.concat(this.context.registers.list)),b.length>0&&(this.source[1]=this.source[1]+", "+b.join(", "));if(!this.isChild){var c=[];for(var d in this.context.aliases)this.source[1]=this.source[1]+", "+d+"="+this.context.aliases[d]}this.source[1]&&(this.source[1]="var "+this.source[1].substring(2)+";"),this.isChild||(this.source[1]+="\n"+this.context.programs.join("\n")+"\n"),this.environment.isSimple||this.source.push("return buffer;");var e=this.isChild?["depth0","data"]:["Handlebars","depth0","helpers","partials","data"];for(var f=0,g=this.environment.depths.list.length;f<g;f++)e.push("depth"+this.environment.depths.list[f]);if(a)return e.push(this.source.join("\n  ")),Function.apply(this,e);var h="function "+(this.name||"")+"("+e.join(",")+") {\n  "+this.source.join("\n  ")+"}";return Handlebars.log(Handlebars.logger.DEBUG,h+"\n\n"),h},appendContent:function(a){this.source.push(this.appendToBuffer(this.quotedString(a)))},append:function(){var a=this.popStack();this.source.push("if("+a+" || "+a+" === 0) { "+this.appendToBuffer(a)+" }"),this.environment.isSimple&&this.source.push("else { "+this.appendToBuffer("''")+" }")},appendEscaped:function(){var a=this.nextOpcode(1),b="";this.context.aliases.escapeExpression="this.escapeExpression",a[0]==="appendContent"&&(b=" + "+this.quotedString(a[1][0]),this.eat(a)),this.source.push(this.appendToBuffer("escapeExpression("+this.popStack()+")"+b))},getContext:function(a){this.lastContext!==a&&(this.lastContext=a)},lookupWithHelpers:function(a,b){if(a){var c=this.nextStack();this.usingKnownHelper=!1;var d;!b&&this.options.knownHelpers[a]?(d=c+" = "+this.nameLookup("helpers",a,"helper"),this.usingKnownHelper=!0):b||this.options.knownHelpersOnly?d=c+" = "+this.nameLookup("depth"+this.lastContext,a,"context"):(this.register("foundHelper",this.nameLookup("helpers",a,"helper")),d=c+" = foundHelper || "+this.nameLookup("depth"+this.lastContext,a,"context")),d+=";",this.source.push(d)}else this.pushStack("depth"+this.lastContext)},lookup:function(a){var b=this.topStack();this.source.push(b+" = ("+b+" === null || "+b+" === undefined || "+b+" === false ? "+b+" : "+this.nameLookup(b,a,"context")+");")},pushStringParam:function(a){this.pushStack("depth"+this.lastContext),this.pushString(a)},pushString:function(a){this.pushStack(this.quotedString(a))},push:function(a){this.pushStack(a)},invokeMustache:function(a,b,c){this.populateParams(a,this.quotedString(b),"{}",null,c,function(a,b,c){this.usingKnownHelper||(this.context.aliases.helperMissing="helpers.helperMissing",this.context.aliases.undef="void 0",this.source.push("else if("+c+"=== undef) { "+a+" = helperMissing.call("+b+"); }"),a!==c&&this.source.push("else { "+a+" = "+c+"; }"))})},invokeProgram:function(a,b,c){var d=this.programExpression(this.inverse),e=this.programExpression(a);this.populateParams(b,null,e,d,c,function(a,b,c){this.usingKnownHelper||(this.context.aliases.blockHelperMissing="helpers.blockHelperMissing",this.source.push("else { "+a+" = blockHelperMissing.call("+b+"); }"))})},populateParams:function(a,b,c,d,e,f){var g=e||this.options.stringParams||d||this.options.data,h=this.popStack(),i,j=[],k,l,m;g?(this.register("tmp1",c),m="tmp1"):m="{ hash: {} }";if(g){var n=e?this.popStack():"{}";this.source.push("tmp1.hash = "+n+";")}this.options.stringParams&&this.source.push("tmp1.contexts = [];");for(var o=0;o<a;o++)k=this.popStack(),j.push(k),this.options.stringParams&&this.source.push("tmp1.contexts.push("+this.popStack()+");");d&&(this.source.push("tmp1.fn = tmp1;"),this.source.push("tmp1.inverse = "+d+";")),this.options.data&&this.source.push("tmp1.data = data;"),j.push(m),this.populateCall(j,h,b||h,f,c!=="{}")},populateCall:function(a,b,c,d,e){var f=["depth0"].concat(a).join(", "),g=["depth0"].concat(c).concat(a).join(", "),h=this.nextStack();if(this.usingKnownHelper)this.source.push(h+" = "+b+".call("+f+");");else{this.context.aliases.functionType='"function"';var i=e?"foundHelper && ":"";this.source.push("if("+i+"typeof "+b+" === functionType) { "+h+" = "+b+".call("+f+"); }")}d.call(this,h,g,b),this.usingKnownHelper=!1},invokePartial:function(a){params=[this.nameLookup("partials",a,"partial"),"'"+a+"'",this.popStack(),"helpers","partials"],this.options.data&&params.push("data"),this.pushStack("self.invokePartial("+params.join(", ")+");")},assignToHash:function(a){var b=this.popStack(),c=this.topStack();this.source.push(c+"['"+a+"'] = "+b+";")},compiler:b,compileChildren:function(a,b){var c=a.children,d,e;for(var f=0,g=c.length;f<g;f++){d=c[f],e=new this.compiler,this.context.programs.push("");var h=this.context.programs.length;d.index=h,d.name="program"+h,this.context.programs[h]=e.compile(d,b,this.context)}},programExpression:function(a){if(a==null)return"self.noop";var b=this.environment.children[a],c=b.depths.list,d=[b.index,b.name,"data"];for(var e=0,f=c.length;e<f;e++)depth=c[e],depth===1?d.push("depth0"):d.push("depth"+(depth-1));return c.length===0?"self.program("+d.join(", ")+")":(d.shift(),"self.programWithDepth("+d.join(", ")+")")},register:function(a,b){this.useRegister(a),this.source.push(a+" = "+b+";")},useRegister:function(a){this.context.registers[a]||(this.context.registers[a]=!0,this.context.registers.list.push(a))},pushStack:function(a){return this.source.push(this.nextStack()+" = "+a+";"),"stack"+this.stackSlot},nextStack:function(){return this.stackSlot++,this.stackSlot>this.stackVars.length&&this.stackVars.push("stack"+this.stackSlot),"stack"+this.stackSlot},popStack:function(){return"stack"+this.stackSlot--},topStack:function(){return"stack"+this.stackSlot},quotedString:function(a){return'"'+a.replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/\n/g,"\\n").replace(/\r/g,"\\r")+'"'}};var e="break else new var case finally return void catch for switch while continue function this with default if throw delete in try do instanceof typeof abstract enum int short boolean export interface static byte extends long super char final native synchronized class float package throws const goto private transient debugger implements protected volatile double import public let yield".split(" "),f=b.RESERVED_WORDS={};for(var g=0,h=e.length;g<h;g++)f[e[g]]=!0;b.isValidJavaScriptVariableName=function(a){return!b.RESERVED_WORDS[a]&&/^[a-zA-Z_$][0-9a-zA-Z_$]+$/.test(a)?!0:!1}}(Handlebars.Compiler,Handlebars.JavaScriptCompiler),Handlebars.precompile=function(a,b){b=b||{};var c=Handlebars.parse(a),d=(new Handlebars.Compiler).compile(c,b);return(new Handlebars.JavaScriptCompiler).compile(d,b)},Handlebars.compile=function(a,b){function d(){var c=Handlebars.parse(a),d=(new Handlebars.Compiler).compile(c,b),e=(new Handlebars.JavaScriptCompiler).compile(d,b,undefined,!0);return Handlebars.template(e)}b=b||{};var c;return function(a,b){return c||(c=d()),c.call(this,a,b)}},Handlebars.VM={template:function(a){var b={escapeExpression:Handlebars.Utils.escapeExpression,invokePartial:Handlebars.VM.invokePartial,programs:[],program:function(a,b,c){var d=this.programs[a];return c?Handlebars.VM.program(b,c):d?d:(d=this.programs[a]=Handlebars.VM.program(b),d)},programWithDepth:Handlebars.VM.programWithDepth,noop:Handlebars.VM.noop};return function(c,d){return d=d||{},a.call(b,Handlebars,c,d.helpers,d.partials,d.data)}},programWithDepth:function(a,b,c){var d=Array.prototype.slice.call(arguments,2);return function(c,e){return e=e||{},a.apply(this,[c,e.data||b].concat(d))}},program:function(a,b){return function(c,d){return d=d||{},a(c,d.data||b)}},noop:function(){return""},invokePartial:function(a,b,c,d,e,f){options={helpers:d,partials:e,data:f};if(a===undefined)throw new Handlebars.Exception("The partial "+b+" could not be found");if(a instanceof Function)return a(c,options);if(!Handlebars.compile)throw new Handlebars.Exception("The partial "+b+" could not be compiled when running in runtime-only mode");return e[b]=Handlebars.compile(a),e[b](c,options)}},Handlebars.template=Handlebars.VM.template;;
-//     Backbone.js 0.9.2
+ * jQuery JavaScript Library v1.9.0
+ * http://jquery.com/
+ *
+ * Includes Sizzle.js
+ * http://sizzlejs.com/
+ *
+ * Copyright 2005, 2012 jQuery Foundation, Inc. and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ *
+ * Date: 2013-1-14
+ */
+(function( window, undefined ) {
+"use strict";
+var
+  // A central reference to the root jQuery(document)
+  rootjQuery,
 
-//     (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
-//     Backbone may be freely distributed under the MIT license.
-//     For all details and documentation:
-//     http://backbonejs.org
+  // The deferred used on DOM ready
+  readyList,
 
-(function(){
+  // Use the correct document accordingly with window argument (sandbox)
+  document = window.document,
+  location = window.location,
 
-  // Initial Setup
-  // -------------
+  // Map over jQuery in case of overwrite
+  _jQuery = window.jQuery,
 
-  // Save a reference to the global object (`window` in the browser, `global`
-  // on the server).
-  var root = this;
+  // Map over the $ in case of overwrite
+  _$ = window.$,
 
-  // Save the previous value of the `Backbone` variable, so that it can be
-  // restored later on, if `noConflict` is used.
-  var previousBackbone = root.Backbone;
+  // [[Class]] -> type pairs
+  class2type = {},
 
-  // Create a local reference to slice/splice.
-  var slice = Array.prototype.slice;
-  var splice = Array.prototype.splice;
+  // List of deleted data cache ids, so we can reuse them
+  core_deletedIds = [],
 
-  // The top-level namespace. All public Backbone classes and modules will
-  // be attached to this. Exported for both CommonJS and the browser.
-  var Backbone;
-  if (typeof exports !== 'undefined') {
-    Backbone = exports;
-  } else {
-    Backbone = root.Backbone = {};
+  core_version = "1.9.0",
+
+  // Save a reference to some core methods
+  core_concat = core_deletedIds.concat,
+  core_push = core_deletedIds.push,
+  core_slice = core_deletedIds.slice,
+  core_indexOf = core_deletedIds.indexOf,
+  core_toString = class2type.toString,
+  core_hasOwn = class2type.hasOwnProperty,
+  core_trim = core_version.trim,
+
+  // Define a local copy of jQuery
+  jQuery = function( selector, context ) {
+    // The jQuery object is actually just the init constructor 'enhanced'
+    return new jQuery.fn.init( selector, context, rootjQuery );
+  },
+
+  // Used for matching numbers
+  core_pnum = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
+
+  // Used for splitting on whitespace
+  core_rnotwhite = /\S+/g,
+
+  // Make sure we trim BOM and NBSP (here's looking at you, Safari 5.0 and IE)
+  rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
+
+  // A simple way to check for HTML strings
+  // Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+  // Strict HTML recognition (#11290: must start with <)
+  rquickExpr = /^(?:(<[\w\W]+>)[^>]*|#([\w-]*))$/,
+
+  // Match a standalone tag
+  rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+
+  // JSON RegExp
+  rvalidchars = /^[\],:{}\s]*$/,
+  rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g,
+  rvalidescape = /\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g,
+  rvalidtokens = /"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g,
+
+  // Matches dashed string for camelizing
+  rmsPrefix = /^-ms-/,
+  rdashAlpha = /-([\da-z])/gi,
+
+  // Used by jQuery.camelCase as callback to replace()
+  fcamelCase = function( all, letter ) {
+    return letter.toUpperCase();
+  },
+
+  // The ready event handler and self cleanup method
+  DOMContentLoaded = function() {
+    if ( document.addEventListener ) {
+      document.removeEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+      jQuery.ready();
+    } else if ( document.readyState === "complete" ) {
+      // we're here because readyState === "complete" in oldIE
+      // which is good enough for us to call the dom ready!
+      document.detachEvent( "onreadystatechange", DOMContentLoaded );
+      jQuery.ready();
+    }
+  };
+
+jQuery.fn = jQuery.prototype = {
+  // The current version of jQuery being used
+  jquery: core_version,
+
+  constructor: jQuery,
+  init: function( selector, context, rootjQuery ) {
+    var match, elem;
+
+    // HANDLE: $(""), $(null), $(undefined), $(false)
+    if ( !selector ) {
+      return this;
+    }
+
+    // Handle HTML strings
+    if ( typeof selector === "string" ) {
+      if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
+        // Assume that strings that start and end with <> are HTML and skip the regex check
+        match = [ null, selector, null ];
+
+      } else {
+        match = rquickExpr.exec( selector );
+      }
+
+      // Match html or make sure no context is specified for #id
+      if ( match && (match[1] || !context) ) {
+
+        // HANDLE: $(html) -> $(array)
+        if ( match[1] ) {
+          context = context instanceof jQuery ? context[0] : context;
+
+          // scripts is true for back-compat
+          jQuery.merge( this, jQuery.parseHTML(
+            match[1],
+            context && context.nodeType ? context.ownerDocument || context : document,
+            true
+          ) );
+
+          // HANDLE: $(html, props)
+          if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
+            for ( match in context ) {
+              // Properties of context are called as methods if possible
+              if ( jQuery.isFunction( this[ match ] ) ) {
+                this[ match ]( context[ match ] );
+
+              // ...and otherwise set as attributes
+              } else {
+                this.attr( match, context[ match ] );
+              }
+            }
+          }
+
+          return this;
+
+        // HANDLE: $(#id)
+        } else {
+          elem = document.getElementById( match[2] );
+
+          // Check parentNode to catch when Blackberry 4.6 returns
+          // nodes that are no longer in the document #6963
+          if ( elem && elem.parentNode ) {
+            // Handle the case where IE and Opera return items
+            // by name instead of ID
+            if ( elem.id !== match[2] ) {
+              return rootjQuery.find( selector );
+            }
+
+            // Otherwise, we inject the element directly into the jQuery object
+            this.length = 1;
+            this[0] = elem;
+          }
+
+          this.context = document;
+          this.selector = selector;
+          return this;
+        }
+
+      // HANDLE: $(expr, $(...))
+      } else if ( !context || context.jquery ) {
+        return ( context || rootjQuery ).find( selector );
+
+      // HANDLE: $(expr, context)
+      // (which is just equivalent to: $(context).find(expr)
+      } else {
+        return this.constructor( context ).find( selector );
+      }
+
+    // HANDLE: $(DOMElement)
+    } else if ( selector.nodeType ) {
+      this.context = this[0] = selector;
+      this.length = 1;
+      return this;
+
+    // HANDLE: $(function)
+    // Shortcut for document ready
+    } else if ( jQuery.isFunction( selector ) ) {
+      return rootjQuery.ready( selector );
+    }
+
+    if ( selector.selector !== undefined ) {
+      this.selector = selector.selector;
+      this.context = selector.context;
+    }
+
+    return jQuery.makeArray( selector, this );
+  },
+
+  // Start with an empty selector
+  selector: "",
+
+  // The default length of a jQuery object is 0
+  length: 0,
+
+  // The number of elements contained in the matched element set
+  size: function() {
+    return this.length;
+  },
+
+  toArray: function() {
+    return core_slice.call( this );
+  },
+
+  // Get the Nth element in the matched element set OR
+  // Get the whole matched element set as a clean array
+  get: function( num ) {
+    return num == null ?
+
+      // Return a 'clean' array
+      this.toArray() :
+
+      // Return just the object
+      ( num < 0 ? this[ this.length + num ] : this[ num ] );
+  },
+
+  // Take an array of elements and push it onto the stack
+  // (returning the new matched element set)
+  pushStack: function( elems ) {
+
+    // Build a new jQuery matched element set
+    var ret = jQuery.merge( this.constructor(), elems );
+
+    // Add the old object onto the stack (as a reference)
+    ret.prevObject = this;
+    ret.context = this.context;
+
+    // Return the newly-formed element set
+    return ret;
+  },
+
+  // Execute a callback for every element in the matched set.
+  // (You can seed the arguments with an array of args, but this is
+  // only used internally.)
+  each: function( callback, args ) {
+    return jQuery.each( this, callback, args );
+  },
+
+  ready: function( fn ) {
+    // Add the callback
+    jQuery.ready.promise().done( fn );
+
+    return this;
+  },
+
+  slice: function() {
+    return this.pushStack( core_slice.apply( this, arguments ) );
+  },
+
+  first: function() {
+    return this.eq( 0 );
+  },
+
+  last: function() {
+    return this.eq( -1 );
+  },
+
+  eq: function( i ) {
+    var len = this.length,
+      j = +i + ( i < 0 ? len : 0 );
+    return this.pushStack( j >= 0 && j < len ? [ this[j] ] : [] );
+  },
+
+  map: function( callback ) {
+    return this.pushStack( jQuery.map(this, function( elem, i ) {
+      return callback.call( elem, i, elem );
+    }));
+  },
+
+  end: function() {
+    return this.prevObject || this.constructor(null);
+  },
+
+  // For internal use only.
+  // Behaves like an Array's method, not like a jQuery method.
+  push: core_push,
+  sort: [].sort,
+  splice: [].splice
+};
+
+// Give the init function the jQuery prototype for later instantiation
+jQuery.fn.init.prototype = jQuery.fn;
+
+jQuery.extend = jQuery.fn.extend = function() {
+  var options, name, src, copy, copyIsArray, clone,
+    target = arguments[0] || {},
+    i = 1,
+    length = arguments.length,
+    deep = false;
+
+  // Handle a deep copy situation
+  if ( typeof target === "boolean" ) {
+    deep = target;
+    target = arguments[1] || {};
+    // skip the boolean and the target
+    i = 2;
   }
 
-  // Current version of the library. Keep in sync with `package.json`.
-  Backbone.VERSION = '0.9.2';
+  // Handle case when target is a string or something (possible in deep copy)
+  if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
+    target = {};
+  }
 
-  // Require Underscore, if we're on the server, and it's not already present.
-  var _ = root._;
-  if (!_ && (typeof require !== 'undefined')) _ = require('underscore');
+  // extend jQuery itself if only one argument is passed
+  if ( length === i ) {
+    target = this;
+    --i;
+  }
 
-  // For Backbone's purposes, jQuery, Zepto, or Ender owns the `$` variable.
-  var $ = root.jQuery || root.Zepto || root.ender;
+  for ( ; i < length; i++ ) {
+    // Only deal with non-null/undefined values
+    if ( (options = arguments[ i ]) != null ) {
+      // Extend the base object
+      for ( name in options ) {
+        src = target[ name ];
+        copy = options[ name ];
 
-  // Set the JavaScript library that will be used for DOM manipulation and
-  // Ajax calls (a.k.a. the `$` variable). By default Backbone will use: jQuery,
-  // Zepto, or Ender; but the `setDomLibrary()` method lets you inject an
-  // alternate JavaScript library (or a mock library for testing your views
-  // outside of a browser).
-  Backbone.setDomLibrary = function(lib) {
-    $ = lib;
-  };
+        // Prevent never-ending loop
+        if ( target === copy ) {
+          continue;
+        }
 
-  // Runs Backbone.js in *noConflict* mode, returning the `Backbone` variable
-  // to its previous owner. Returns a reference to this Backbone object.
-  Backbone.noConflict = function() {
-    root.Backbone = previousBackbone;
-    return this;
-  };
+        // Recurse if we're merging plain objects or arrays
+        if ( deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {
+          if ( copyIsArray ) {
+            copyIsArray = false;
+            clone = src && jQuery.isArray(src) ? src : [];
 
-  // Turn on `emulateHTTP` to support legacy HTTP servers. Setting this option
-  // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
-  // set a `X-Http-Method-Override` header.
-  Backbone.emulateHTTP = false;
-
-  // Turn on `emulateJSON` to support legacy servers that can't deal with direct
-  // `application/json` requests ... will encode the body as
-  // `application/x-www-form-urlencoded` instead and will send the model in a
-  // form param named `model`.
-  Backbone.emulateJSON = false;
-
-  // Backbone.Events
-  // -----------------
-
-  // Regular expression used to split event strings
-  var eventSplitter = /\s+/;
-
-  // A module that can be mixed in to *any object* in order to provide it with
-  // custom events. You may bind with `on` or remove with `off` callback functions
-  // to an event; trigger`-ing an event fires all callbacks in succession.
-  //
-  //     var object = {};
-  //     _.extend(object, Backbone.Events);
-  //     object.on('expand', function(){ alert('expanded'); });
-  //     object.trigger('expand');
-  //
-  var Events = Backbone.Events = {
-
-    // Bind one or more space separated events, `events`, to a `callback`
-    // function. Passing `"all"` will bind the callback to all events fired.
-    on: function(events, callback, context) {
-
-      var calls, event, node, tail, list;
-      if (!callback) return this;
-      events = events.split(eventSplitter);
-      calls = this._callbacks || (this._callbacks = {});
-
-      // Create an immutable callback list, allowing traversal during
-      // modification.  The tail is an empty object that will always be used
-      // as the next node.
-      while (event = events.shift()) {
-        list = calls[event];
-        node = list ? list.tail : {};
-        node.next = tail = {};
-        node.context = context;
-        node.callback = callback;
-        calls[event] = {tail: tail, next: list ? list.next : node};
-      }
-
-      return this;
-    },
-
-    // Remove one or many callbacks. If `context` is null, removes all callbacks
-    // with that function. If `callback` is null, removes all callbacks for the
-    // event. If `events` is null, removes all bound callbacks for all events.
-    off: function(events, callback, context) {
-      var event, calls, node, tail, cb, ctx;
-
-      // No events, or removing *all* events.
-      if (!(calls = this._callbacks)) return;
-      if (!(events || callback || context)) {
-        delete this._callbacks;
-        return this;
-      }
-
-      // Loop through the listed events and contexts, splicing them out of the
-      // linked list of callbacks if appropriate.
-      events = events ? events.split(eventSplitter) : _.keys(calls);
-      while (event = events.shift()) {
-        node = calls[event];
-        delete calls[event];
-        if (!node || !(callback || context)) continue;
-        // Create a new list, omitting the indicated callbacks.
-        tail = node.tail;
-        while ((node = node.next) !== tail) {
-          cb = node.callback;
-          ctx = node.context;
-          if ((callback && cb !== callback) || (context && ctx !== context)) {
-            this.on(event, cb, ctx);
+          } else {
+            clone = src && jQuery.isPlainObject(src) ? src : {};
           }
+
+          // Never move original objects, clone them
+          target[ name ] = jQuery.extend( deep, clone, copy );
+
+        // Don't bring in undefined values
+        } else if ( copy !== undefined ) {
+          target[ name ] = copy;
         }
       }
+    }
+  }
 
-      return this;
-    },
+  // Return the modified object
+  return target;
+};
 
-    // Trigger one or many events, firing all bound callbacks. Callbacks are
-    // passed the same arguments as `trigger` is, apart from the event name
-    // (unless you're listening on `"all"`, which will cause your callback to
-    // receive the true name of the event as the first argument).
-    trigger: function(events) {
-      var event, node, calls, tail, args, all, rest;
-      if (!(calls = this._callbacks)) return this;
-      all = calls.all;
-      events = events.split(eventSplitter);
-      rest = slice.call(arguments, 1);
-
-      // For each event, walk through the linked list of callbacks twice,
-      // first to trigger the event, then to trigger any `"all"` callbacks.
-      while (event = events.shift()) {
-        if (node = calls[event]) {
-          tail = node.tail;
-          while ((node = node.next) !== tail) {
-            node.callback.apply(node.context || this, rest);
-          }
-        }
-        if (node = all) {
-          tail = node.tail;
-          args = [event].concat(rest);
-          while ((node = node.next) !== tail) {
-            node.callback.apply(node.context || this, args);
-          }
-        }
-      }
-
-      return this;
+jQuery.extend({
+  noConflict: function( deep ) {
+    if ( window.$ === jQuery ) {
+      window.$ = _$;
     }
 
-  };
-
-  // Aliases for backwards compatibility.
-  Events.bind   = Events.on;
-  Events.unbind = Events.off;
-
-  // Backbone.Model
-  // --------------
-
-  // Create a new model, with defined attributes. A client id (`cid`)
-  // is automatically generated and assigned for you.
-  var Model = Backbone.Model = function(attributes, options) {
-    var defaults;
-    attributes || (attributes = {});
-    if (options && options.parse) attributes = this.parse(attributes);
-    if (defaults = getValue(this, 'defaults')) {
-      attributes = _.extend({}, defaults, attributes);
+    if ( deep && window.jQuery === jQuery ) {
+      window.jQuery = _jQuery;
     }
-    if (options && options.collection) this.collection = options.collection;
-    this.attributes = {};
-    this._escapedAttributes = {};
-    this.cid = _.uniqueId('c');
-    this.changed = {};
-    this._silent = {};
-    this._pending = {};
-    this.set(attributes, {silent: true});
-    // Reset change tracking.
-    this.changed = {};
-    this._silent = {};
-    this._pending = {};
-    this._previousAttributes = _.clone(this.attributes);
-    this.initialize.apply(this, arguments);
-  };
 
-  // Attach all inheritable methods to the Model prototype.
-  _.extend(Model.prototype, Events, {
+    return jQuery;
+  },
 
-    // A hash of attributes whose current and previous value differ.
-    changed: null,
+  // Is the DOM ready to be used? Set to true once it occurs.
+  isReady: false,
 
-    // A hash of attributes that have silently changed since the last time
-    // `change` was called.  Will become pending attributes on the next call.
-    _silent: null,
+  // A counter to track how many items to wait for before
+  // the ready event fires. See #6781
+  readyWait: 1,
 
-    // A hash of attributes that have changed since the last `'change'` event
-    // began.
-    _pending: null,
+  // Hold (or release) the ready event
+  holdReady: function( hold ) {
+    if ( hold ) {
+      jQuery.readyWait++;
+    } else {
+      jQuery.ready( true );
+    }
+  },
 
-    // The default name for the JSON `id` attribute is `"id"`. MongoDB and
-    // CouchDB users may want to set this to `"_id"`.
-    idAttribute: 'id',
+  // Handle when the DOM is ready
+  ready: function( wait ) {
 
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
+    // Abort if there are pending holds or we're already ready
+    if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
+      return;
+    }
 
-    // Return a copy of the model's `attributes` object.
-    toJSON: function(options) {
-      return _.clone(this.attributes);
-    },
+    // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
+    if ( !document.body ) {
+      return setTimeout( jQuery.ready );
+    }
 
-    // Get the value of an attribute.
-    get: function(attr) {
-      return this.attributes[attr];
-    },
+    // Remember that the DOM is ready
+    jQuery.isReady = true;
 
-    // Get the HTML-escaped value of an attribute.
-    escape: function(attr) {
-      var html;
-      if (html = this._escapedAttributes[attr]) return html;
-      var val = this.get(attr);
-      return this._escapedAttributes[attr] = _.escape(val == null ? '' : '' + val);
-    },
+    // If a normal DOM Ready event fired, decrement, and wait if need be
+    if ( wait !== true && --jQuery.readyWait > 0 ) {
+      return;
+    }
 
-    // Returns `true` if the attribute contains a value that is not null
-    // or undefined.
-    has: function(attr) {
-      return this.get(attr) != null;
-    },
+    // If there are functions bound, to execute
+    readyList.resolveWith( document, [ jQuery ] );
 
-    // Set a hash of model attributes on the object, firing `"change"` unless
-    // you choose to silence it.
-    set: function(key, value, options) {
-      var attrs, attr, val;
+    // Trigger any bound ready events
+    if ( jQuery.fn.trigger ) {
+      jQuery( document ).trigger("ready").off("ready");
+    }
+  },
 
-      // Handle both `"key", value` and `{key: value}` -style arguments.
-      if (_.isObject(key) || key == null) {
-        attrs = key;
-        options = value;
-      } else {
-        attrs = {};
-        attrs[key] = value;
-      }
+  // See test/unit/core.js for details concerning isFunction.
+  // Since version 1.3, DOM methods and functions like alert
+  // aren't supported. They return false on IE (#2968).
+  isFunction: function( obj ) {
+    return jQuery.type(obj) === "function";
+  },
 
-      // Extract attributes and options.
-      options || (options = {});
-      if (!attrs) return this;
-      if (attrs instanceof Model) attrs = attrs.attributes;
-      if (options.unset) for (attr in attrs) attrs[attr] = void 0;
+  isArray: Array.isArray || function( obj ) {
+    return jQuery.type(obj) === "array";
+  },
 
-      // Run validation.
-      if (!this._validate(attrs, options)) return false;
+  isWindow: function( obj ) {
+    return obj != null && obj == obj.window;
+  },
 
-      // Check for changes of `id`.
-      if (this.idAttribute in attrs) this.id = attrs[this.idAttribute];
+  isNumeric: function( obj ) {
+    return !isNaN( parseFloat(obj) ) && isFinite( obj );
+  },
 
-      var changes = options.changes = {};
-      var now = this.attributes;
-      var escaped = this._escapedAttributes;
-      var prev = this._previousAttributes || {};
+  type: function( obj ) {
+    if ( obj == null ) {
+      return String( obj );
+    }
+    return typeof obj === "object" || typeof obj === "function" ?
+      class2type[ core_toString.call(obj) ] || "object" :
+      typeof obj;
+  },
 
-      // For each `set` attribute...
-      for (attr in attrs) {
-        val = attrs[attr];
-
-        // If the new and current value differ, record the change.
-        if (!_.isEqual(now[attr], val) || (options.unset && _.has(now, attr))) {
-          delete escaped[attr];
-          (options.silent ? this._silent : changes)[attr] = true;
-        }
-
-        // Update or delete the current value.
-        options.unset ? delete now[attr] : now[attr] = val;
-
-        // If the new and previous value differ, record the change.  If not,
-        // then remove changes for this attribute.
-        if (!_.isEqual(prev[attr], val) || (_.has(now, attr) != _.has(prev, attr))) {
-          this.changed[attr] = val;
-          if (!options.silent) this._pending[attr] = true;
-        } else {
-          delete this.changed[attr];
-          delete this._pending[attr];
-        }
-      }
-
-      // Fire the `"change"` events.
-      if (!options.silent) this.change(options);
-      return this;
-    },
-
-    // Remove an attribute from the model, firing `"change"` unless you choose
-    // to silence it. `unset` is a noop if the attribute doesn't exist.
-    unset: function(attr, options) {
-      (options || (options = {})).unset = true;
-      return this.set(attr, null, options);
-    },
-
-    // Clear all attributes on the model, firing `"change"` unless you choose
-    // to silence it.
-    clear: function(options) {
-      (options || (options = {})).unset = true;
-      return this.set(_.clone(this.attributes), options);
-    },
-
-    // Fetch the model from the server. If the server's representation of the
-    // model differs from its current attributes, they will be overriden,
-    // triggering a `"change"` event.
-    fetch: function(options) {
-      options = options ? _.clone(options) : {};
-      var model = this;
-      var success = options.success;
-      options.success = function(resp, status, xhr) {
-        if (!model.set(model.parse(resp, xhr), options)) return false;
-        if (success) success(model, resp);
-      };
-      options.error = Backbone.wrapError(options.error, model, options);
-      return (this.sync || Backbone.sync).call(this, 'read', this, options);
-    },
-
-    // Set a hash of model attributes, and sync the model to the server.
-    // If the server returns an attributes hash that differs, the model's
-    // state will be `set` again.
-    save: function(key, value, options) {
-      var attrs, current;
-
-      // Handle both `("key", value)` and `({key: value})` -style calls.
-      if (_.isObject(key) || key == null) {
-        attrs = key;
-        options = value;
-      } else {
-        attrs = {};
-        attrs[key] = value;
-      }
-      options = options ? _.clone(options) : {};
-
-      // If we're "wait"-ing to set changed attributes, validate early.
-      if (options.wait) {
-        if (!this._validate(attrs, options)) return false;
-        current = _.clone(this.attributes);
-      }
-
-      // Regular saves `set` attributes before persisting to the server.
-      var silentOptions = _.extend({}, options, {silent: true});
-      if (attrs && !this.set(attrs, options.wait ? silentOptions : options)) {
-        return false;
-      }
-
-      // After a successful server-side save, the client is (optionally)
-      // updated with the server-side state.
-      var model = this;
-      var success = options.success;
-      options.success = function(resp, status, xhr) {
-        var serverAttrs = model.parse(resp, xhr);
-        if (options.wait) {
-          delete options.wait;
-          serverAttrs = _.extend(attrs || {}, serverAttrs);
-        }
-        if (!model.set(serverAttrs, options)) return false;
-        if (success) {
-          success(model, resp);
-        } else {
-          model.trigger('sync', model, resp, options);
-        }
-      };
-
-      // Finish configuring and sending the Ajax request.
-      options.error = Backbone.wrapError(options.error, model, options);
-      var method = this.isNew() ? 'create' : 'update';
-      var xhr = (this.sync || Backbone.sync).call(this, method, this, options);
-      if (options.wait) this.set(current, silentOptions);
-      return xhr;
-    },
-
-    // Destroy this model on the server if it was already persisted.
-    // Optimistically removes the model from its collection, if it has one.
-    // If `wait: true` is passed, waits for the server to respond before removal.
-    destroy: function(options) {
-      options = options ? _.clone(options) : {};
-      var model = this;
-      var success = options.success;
-
-      var triggerDestroy = function() {
-        model.trigger('destroy', model, model.collection, options);
-      };
-
-      if (this.isNew()) {
-        triggerDestroy();
-        return false;
-      }
-
-      options.success = function(resp) {
-        if (options.wait) triggerDestroy();
-        if (success) {
-          success(model, resp);
-        } else {
-          model.trigger('sync', model, resp, options);
-        }
-      };
-
-      options.error = Backbone.wrapError(options.error, model, options);
-      var xhr = (this.sync || Backbone.sync).call(this, 'delete', this, options);
-      if (!options.wait) triggerDestroy();
-      return xhr;
-    },
-
-    // Default URL for the model's representation on the server -- if you're
-    // using Backbone's restful methods, override this to change the endpoint
-    // that will be called.
-    url: function() {
-      var base = getValue(this, 'urlRoot') || getValue(this.collection, 'url') || urlError();
-      if (this.isNew()) return base;
-      return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
-    },
-
-    // **parse** converts a response into the hash of attributes to be `set` on
-    // the model. The default implementation is just to pass the response along.
-    parse: function(resp, xhr) {
-      return resp;
-    },
-
-    // Create a new model with identical attributes to this one.
-    clone: function() {
-      return new this.constructor(this.attributes);
-    },
-
-    // A model is new if it has never been saved to the server, and lacks an id.
-    isNew: function() {
-      return this.id == null;
-    },
-
-    // Call this method to manually fire a `"change"` event for this model and
-    // a `"change:attribute"` event for each changed attribute.
-    // Calling this will cause all objects observing the model to update.
-    change: function(options) {
-      options || (options = {});
-      var changing = this._changing;
-      this._changing = true;
-
-      // Silent changes become pending changes.
-      for (var attr in this._silent) this._pending[attr] = true;
-
-      // Silent changes are triggered.
-      var changes = _.extend({}, options.changes, this._silent);
-      this._silent = {};
-      for (var attr in changes) {
-        this.trigger('change:' + attr, this, this.get(attr), options);
-      }
-      if (changing) return this;
-
-      // Continue firing `"change"` events while there are pending changes.
-      while (!_.isEmpty(this._pending)) {
-        this._pending = {};
-        this.trigger('change', this, options);
-        // Pending and silent changes still remain.
-        for (var attr in this.changed) {
-          if (this._pending[attr] || this._silent[attr]) continue;
-          delete this.changed[attr];
-        }
-        this._previousAttributes = _.clone(this.attributes);
-      }
-
-      this._changing = false;
-      return this;
-    },
-
-    // Determine if the model has changed since the last `"change"` event.
-    // If you specify an attribute name, determine if that attribute has changed.
-    hasChanged: function(attr) {
-      if (!arguments.length) return !_.isEmpty(this.changed);
-      return _.has(this.changed, attr);
-    },
-
-    // Return an object containing all the attributes that have changed, or
-    // false if there are no changed attributes. Useful for determining what
-    // parts of a view need to be updated and/or what attributes need to be
-    // persisted to the server. Unset attributes will be set to undefined.
-    // You can also pass an attributes object to diff against the model,
-    // determining if there *would be* a change.
-    changedAttributes: function(diff) {
-      if (!diff) return this.hasChanged() ? _.clone(this.changed) : false;
-      var val, changed = false, old = this._previousAttributes;
-      for (var attr in diff) {
-        if (_.isEqual(old[attr], (val = diff[attr]))) continue;
-        (changed || (changed = {}))[attr] = val;
-      }
-      return changed;
-    },
-
-    // Get the previous value of an attribute, recorded at the time the last
-    // `"change"` event was fired.
-    previous: function(attr) {
-      if (!arguments.length || !this._previousAttributes) return null;
-      return this._previousAttributes[attr];
-    },
-
-    // Get all of the attributes of the model at the time of the previous
-    // `"change"` event.
-    previousAttributes: function() {
-      return _.clone(this._previousAttributes);
-    },
-
-    // Check if the model is currently in a valid state. It's only possible to
-    // get into an *invalid* state if you're using silent changes.
-    isValid: function() {
-      return !this.validate(this.attributes);
-    },
-
-    // Run validation against the next complete set of model attributes,
-    // returning `true` if all is well. If a specific `error` callback has
-    // been passed, call that instead of firing the general `"error"` event.
-    _validate: function(attrs, options) {
-      if (options.silent || !this.validate) return true;
-      attrs = _.extend({}, this.attributes, attrs);
-      var error = this.validate(attrs, options);
-      if (!error) return true;
-      if (options && options.error) {
-        options.error(this, error, options);
-      } else {
-        this.trigger('error', this, error, options);
-      }
+  isPlainObject: function( obj ) {
+    // Must be an Object.
+    // Because of IE, we also have to check the presence of the constructor property.
+    // Make sure that DOM nodes and window objects don't pass through, as well
+    if ( !obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
       return false;
     }
 
-  });
-
-  // Backbone.Collection
-  // -------------------
-
-  // Provides a standard collection class for our sets of models, ordered
-  // or unordered. If a `comparator` is specified, the Collection will maintain
-  // its models in sort order, as they're added and removed.
-  var Collection = Backbone.Collection = function(models, options) {
-    options || (options = {});
-    if (options.model) this.model = options.model;
-    if (options.comparator) this.comparator = options.comparator;
-    this._reset();
-    this.initialize.apply(this, arguments);
-    if (models) this.reset(models, {silent: true, parse: options.parse});
-  };
-
-  // Define the Collection's inheritable methods.
-  _.extend(Collection.prototype, Events, {
-
-    // The default model for a collection is just a **Backbone.Model**.
-    // This should be overridden in most cases.
-    model: Model,
-
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
-
-    // The JSON representation of a Collection is an array of the
-    // models' attributes.
-    toJSON: function(options) {
-      return this.map(function(model){ return model.toJSON(options); });
-    },
-
-    // Add a model, or list of models to the set. Pass **silent** to avoid
-    // firing the `add` event for every new model.
-    add: function(models, options) {
-      var i, index, length, model, cid, id, cids = {}, ids = {}, dups = [];
-      options || (options = {});
-      models = _.isArray(models) ? models.slice() : [models];
-
-      // Begin by turning bare objects into model references, and preventing
-      // invalid models or duplicate models from being added.
-      for (i = 0, length = models.length; i < length; i++) {
-        if (!(model = models[i] = this._prepareModel(models[i], options))) {
-          throw new Error("Can't add an invalid model to a collection");
-        }
-        cid = model.cid;
-        id = model.id;
-        if (cids[cid] || this._byCid[cid] || ((id != null) && (ids[id] || this._byId[id]))) {
-          dups.push(i);
-          continue;
-        }
-        cids[cid] = ids[id] = model;
-      }
-
-      // Remove duplicates.
-      i = dups.length;
-      while (i--) {
-        models.splice(dups[i], 1);
-      }
-
-      // Listen to added models' events, and index models for lookup by
-      // `id` and by `cid`.
-      for (i = 0, length = models.length; i < length; i++) {
-        (model = models[i]).on('all', this._onModelEvent, this);
-        this._byCid[model.cid] = model;
-        if (model.id != null) this._byId[model.id] = model;
-      }
-
-      // Insert models into the collection, re-sorting if needed, and triggering
-      // `add` events unless silenced.
-      this.length += length;
-      index = options.at != null ? options.at : this.models.length;
-      splice.apply(this.models, [index, 0].concat(models));
-      if (this.comparator) this.sort({silent: true});
-      if (options.silent) return this;
-      for (i = 0, length = this.models.length; i < length; i++) {
-        if (!cids[(model = this.models[i]).cid]) continue;
-        options.index = i;
-        model.trigger('add', model, this, options);
-      }
-      return this;
-    },
-
-    // Remove a model, or a list of models from the set. Pass silent to avoid
-    // firing the `remove` event for every model removed.
-    remove: function(models, options) {
-      var i, l, index, model;
-      options || (options = {});
-      models = _.isArray(models) ? models.slice() : [models];
-      for (i = 0, l = models.length; i < l; i++) {
-        model = this.getByCid(models[i]) || this.get(models[i]);
-        if (!model) continue;
-        delete this._byId[model.id];
-        delete this._byCid[model.cid];
-        index = this.indexOf(model);
-        this.models.splice(index, 1);
-        this.length--;
-        if (!options.silent) {
-          options.index = index;
-          model.trigger('remove', model, this, options);
-        }
-        this._removeReference(model);
-      }
-      return this;
-    },
-
-    // Add a model to the end of the collection.
-    push: function(model, options) {
-      model = this._prepareModel(model, options);
-      this.add(model, options);
-      return model;
-    },
-
-    // Remove a model from the end of the collection.
-    pop: function(options) {
-      var model = this.at(this.length - 1);
-      this.remove(model, options);
-      return model;
-    },
-
-    // Add a model to the beginning of the collection.
-    unshift: function(model, options) {
-      model = this._prepareModel(model, options);
-      this.add(model, _.extend({at: 0}, options));
-      return model;
-    },
-
-    // Remove a model from the beginning of the collection.
-    shift: function(options) {
-      var model = this.at(0);
-      this.remove(model, options);
-      return model;
-    },
-
-    // Get a model from the set by id.
-    get: function(id) {
-      if (id == null) return void 0;
-      return this._byId[id.id != null ? id.id : id];
-    },
-
-    // Get a model from the set by client id.
-    getByCid: function(cid) {
-      return cid && this._byCid[cid.cid || cid];
-    },
-
-    // Get the model at the given index.
-    at: function(index) {
-      return this.models[index];
-    },
-
-    // Return models with matching attributes. Useful for simple cases of `filter`.
-    where: function(attrs) {
-      if (_.isEmpty(attrs)) return [];
-      return this.filter(function(model) {
-        for (var key in attrs) {
-          if (attrs[key] !== model.get(key)) return false;
-        }
-        return true;
-      });
-    },
-
-    // Force the collection to re-sort itself. You don't need to call this under
-    // normal circumstances, as the set will maintain sort order as each item
-    // is added.
-    sort: function(options) {
-      options || (options = {});
-      if (!this.comparator) throw new Error('Cannot sort a set without a comparator');
-      var boundComparator = _.bind(this.comparator, this);
-      if (this.comparator.length == 1) {
-        this.models = this.sortBy(boundComparator);
-      } else {
-        this.models.sort(boundComparator);
-      }
-      if (!options.silent) this.trigger('reset', this, options);
-      return this;
-    },
-
-    // Pluck an attribute from each model in the collection.
-    pluck: function(attr) {
-      return _.map(this.models, function(model){ return model.get(attr); });
-    },
-
-    // When you have more items than you want to add or remove individually,
-    // you can reset the entire set with a new list of models, without firing
-    // any `add` or `remove` events. Fires `reset` when finished.
-    reset: function(models, options) {
-      models  || (models = []);
-      options || (options = {});
-      for (var i = 0, l = this.models.length; i < l; i++) {
-        this._removeReference(this.models[i]);
-      }
-      this._reset();
-      this.add(models, _.extend({silent: true}, options));
-      if (!options.silent) this.trigger('reset', this, options);
-      return this;
-    },
-
-    // Fetch the default set of models for this collection, resetting the
-    // collection when they arrive. If `add: true` is passed, appends the
-    // models to the collection instead of resetting.
-    fetch: function(options) {
-      options = options ? _.clone(options) : {};
-      if (options.parse === undefined) options.parse = true;
-      var collection = this;
-      var success = options.success;
-      options.success = function(resp, status, xhr) {
-        collection[options.add ? 'add' : 'reset'](collection.parse(resp, xhr), options);
-        if (success) success(collection, resp);
-      };
-      options.error = Backbone.wrapError(options.error, collection, options);
-      return (this.sync || Backbone.sync).call(this, 'read', this, options);
-    },
-
-    // Create a new instance of a model in this collection. Add the model to the
-    // collection immediately, unless `wait: true` is passed, in which case we
-    // wait for the server to agree.
-    create: function(model, options) {
-      var coll = this;
-      options = options ? _.clone(options) : {};
-      model = this._prepareModel(model, options);
-      if (!model) return false;
-      if (!options.wait) coll.add(model, options);
-      var success = options.success;
-      options.success = function(nextModel, resp, xhr) {
-        if (options.wait) coll.add(nextModel, options);
-        if (success) {
-          success(nextModel, resp);
-        } else {
-          nextModel.trigger('sync', model, resp, options);
-        }
-      };
-      model.save(null, options);
-      return model;
-    },
-
-    // **parse** converts a response into a list of models to be added to the
-    // collection. The default implementation is just to pass it through.
-    parse: function(resp, xhr) {
-      return resp;
-    },
-
-    // Proxy to _'s chain. Can't be proxied the same way the rest of the
-    // underscore methods are proxied because it relies on the underscore
-    // constructor.
-    chain: function () {
-      return _(this.models).chain();
-    },
-
-    // Reset all internal state. Called when the collection is reset.
-    _reset: function(options) {
-      this.length = 0;
-      this.models = [];
-      this._byId  = {};
-      this._byCid = {};
-    },
-
-    // Prepare a model or hash of attributes to be added to this collection.
-    _prepareModel: function(model, options) {
-      options || (options = {});
-      if (!(model instanceof Model)) {
-        var attrs = model;
-        options.collection = this;
-        model = new this.model(attrs, options);
-        if (!model._validate(model.attributes, options)) model = false;
-      } else if (!model.collection) {
-        model.collection = this;
-      }
-      return model;
-    },
-
-    // Internal method to remove a model's ties to a collection.
-    _removeReference: function(model) {
-      if (this == model.collection) {
-        delete model.collection;
-      }
-      model.off('all', this._onModelEvent, this);
-    },
-
-    // Internal method called every time a model in the set fires an event.
-    // Sets need to update their indexes when models change ids. All other
-    // events simply proxy through. "add" and "remove" events that originate
-    // in other collections are ignored.
-    _onModelEvent: function(event, model, collection, options) {
-      if ((event == 'add' || event == 'remove') && collection != this) return;
-      if (event == 'destroy') {
-        this.remove(model, options);
-      }
-      if (model && event === 'change:' + model.idAttribute) {
-        delete this._byId[model.previous(model.idAttribute)];
-        this._byId[model.id] = model;
-      }
-      this.trigger.apply(this, arguments);
-    }
-
-  });
-
-  // Underscore methods that we want to implement on the Collection.
-  var methods = ['forEach', 'each', 'map', 'reduce', 'reduceRight', 'find',
-    'detect', 'filter', 'select', 'reject', 'every', 'all', 'some', 'any',
-    'include', 'contains', 'invoke', 'max', 'min', 'sortBy', 'sortedIndex',
-    'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without', 'indexOf',
-    'shuffle', 'lastIndexOf', 'isEmpty', 'groupBy'];
-
-  // Mix in each Underscore method as a proxy to `Collection#models`.
-  _.each(methods, function(method) {
-    Collection.prototype[method] = function() {
-      return _[method].apply(_, [this.models].concat(_.toArray(arguments)));
-    };
-  });
-
-  // Backbone.Router
-  // -------------------
-
-  // Routers map faux-URLs to actions, and fire events when routes are
-  // matched. Creating a new one sets its `routes` hash, if not set statically.
-  var Router = Backbone.Router = function(options) {
-    options || (options = {});
-    if (options.routes) this.routes = options.routes;
-    this._bindRoutes();
-    this.initialize.apply(this, arguments);
-  };
-
-  // Cached regular expressions for matching named param parts and splatted
-  // parts of route strings.
-  var namedParam    = /:\w+/g;
-  var splatParam    = /\*\w+/g;
-  var escapeRegExp  = /[-[\]{}()+?.,\\^$|#\s]/g;
-
-  // Set up all inheritable **Backbone.Router** properties and methods.
-  _.extend(Router.prototype, Events, {
-
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
-
-    // Manually bind a single named route to a callback. For example:
-    //
-    //     this.route('search/:query/p:num', 'search', function(query, num) {
-    //       ...
-    //     });
-    //
-    route: function(route, name, callback) {
-      Backbone.history || (Backbone.history = new History);
-      if (!_.isRegExp(route)) route = this._routeToRegExp(route);
-      if (!callback) callback = this[name];
-      Backbone.history.route(route, _.bind(function(fragment) {
-        var args = this._extractParameters(route, fragment);
-        callback && callback.apply(this, args);
-        this.trigger.apply(this, ['route:' + name].concat(args));
-        Backbone.history.trigger('route', this, name, args);
-      }, this));
-      return this;
-    },
-
-    // Simple proxy to `Backbone.history` to save a fragment into the history.
-    navigate: function(fragment, options) {
-      Backbone.history.navigate(fragment, options);
-    },
-
-    // Bind all defined routes to `Backbone.history`. We have to reverse the
-    // order of the routes here to support behavior where the most general
-    // routes can be defined at the bottom of the route map.
-    _bindRoutes: function() {
-      if (!this.routes) return;
-      var routes = [];
-      for (var route in this.routes) {
-        routes.unshift([route, this.routes[route]]);
-      }
-      for (var i = 0, l = routes.length; i < l; i++) {
-        this.route(routes[i][0], routes[i][1], this[routes[i][1]]);
-      }
-    },
-
-    // Convert a route string into a regular expression, suitable for matching
-    // against the current location hash.
-    _routeToRegExp: function(route) {
-      route = route.replace(escapeRegExp, '\\$&')
-                   .replace(namedParam, '([^\/]+)')
-                   .replace(splatParam, '(.*?)');
-      return new RegExp('^' + route + '$');
-    },
-
-    // Given a route, and a URL fragment that it matches, return the array of
-    // extracted parameters.
-    _extractParameters: function(route, fragment) {
-      return route.exec(fragment).slice(1);
-    }
-
-  });
-
-  // Backbone.History
-  // ----------------
-
-  // Handles cross-browser history management, based on URL fragments. If the
-  // browser does not support `onhashchange`, falls back to polling.
-  var History = Backbone.History = function() {
-    this.handlers = [];
-    _.bindAll(this, 'checkUrl');
-  };
-
-  // Cached regex for cleaning leading hashes and slashes .
-  var routeStripper = /^[#\/]/;
-
-  // Cached regex for detecting MSIE.
-  var isExplorer = /msie [\w.]+/;
-
-  // Has the history handling already been started?
-  History.started = false;
-
-  // Set up all inheritable **Backbone.History** properties and methods.
-  _.extend(History.prototype, Events, {
-
-    // The default interval to poll for hash changes, if necessary, is
-    // twenty times a second.
-    interval: 50,
-
-    // Gets the true hash value. Cannot use location.hash directly due to bug
-    // in Firefox where location.hash will always be decoded.
-    getHash: function(windowOverride) {
-      var loc = windowOverride ? windowOverride.location : window.location;
-      var match = loc.href.match(/#(.*)$/);
-      return match ? match[1] : '';
-    },
-
-    // Get the cross-browser normalized URL fragment, either from the URL,
-    // the hash, or the override.
-    getFragment: function(fragment, forcePushState) {
-      if (fragment == null) {
-        if (this._hasPushState || forcePushState) {
-          fragment = window.location.pathname;
-          var search = window.location.search;
-          if (search) fragment += search;
-        } else {
-          fragment = this.getHash();
-        }
-      }
-      if (!fragment.indexOf(this.options.root)) fragment = fragment.substr(this.options.root.length);
-      return fragment.replace(routeStripper, '');
-    },
-
-    // Start the hash change handling, returning `true` if the current URL matches
-    // an existing route, and `false` otherwise.
-    start: function(options) {
-      if (History.started) throw new Error("Backbone.history has already been started");
-      History.started = true;
-
-      // Figure out the initial configuration. Do we need an iframe?
-      // Is pushState desired ... is it available?
-      this.options          = _.extend({}, {root: '/'}, this.options, options);
-      this._wantsHashChange = this.options.hashChange !== false;
-      this._wantsPushState  = !!this.options.pushState;
-      this._hasPushState    = !!(this.options.pushState && window.history && window.history.pushState);
-      var fragment          = this.getFragment();
-      var docMode           = document.documentMode;
-      var oldIE             = (isExplorer.exec(navigator.userAgent.toLowerCase()) && (!docMode || docMode <= 7));
-
-      if (oldIE) {
-        this.iframe = $('<iframe src="javascript:0" tabindex="-1" />').hide().appendTo('body')[0].contentWindow;
-        this.navigate(fragment);
-      }
-
-      // Depending on whether we're using pushState or hashes, and whether
-      // 'onhashchange' is supported, determine how we check the URL state.
-      if (this._hasPushState) {
-        $(window).bind('popstate', this.checkUrl);
-      } else if (this._wantsHashChange && ('onhashchange' in window) && !oldIE) {
-        $(window).bind('hashchange', this.checkUrl);
-      } else if (this._wantsHashChange) {
-        this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
-      }
-
-      // Determine if we need to change the base url, for a pushState link
-      // opened by a non-pushState browser.
-      this.fragment = fragment;
-      var loc = window.location;
-      var atRoot  = loc.pathname == this.options.root;
-
-      // If we've started off with a route from a `pushState`-enabled browser,
-      // but we're currently in a browser that doesn't support it...
-      if (this._wantsHashChange && this._wantsPushState && !this._hasPushState && !atRoot) {
-        this.fragment = this.getFragment(null, true);
-        window.location.replace(this.options.root + '#' + this.fragment);
-        // Return immediately as browser will do redirect to new url
-        return true;
-
-      // Or if we've started out with a hash-based route, but we're currently
-      // in a browser where it could be `pushState`-based instead...
-      } else if (this._wantsPushState && this._hasPushState && atRoot && loc.hash) {
-        this.fragment = this.getHash().replace(routeStripper, '');
-        window.history.replaceState({}, document.title, loc.protocol + '//' + loc.host + this.options.root + this.fragment);
-      }
-
-      if (!this.options.silent) {
-        return this.loadUrl();
-      }
-    },
-
-    // Disable Backbone.history, perhaps temporarily. Not useful in a real app,
-    // but possibly useful for unit testing Routers.
-    stop: function() {
-      $(window).unbind('popstate', this.checkUrl).unbind('hashchange', this.checkUrl);
-      clearInterval(this._checkUrlInterval);
-      History.started = false;
-    },
-
-    // Add a route to be tested when the fragment changes. Routes added later
-    // may override previous routes.
-    route: function(route, callback) {
-      this.handlers.unshift({route: route, callback: callback});
-    },
-
-    // Checks the current URL to see if it has changed, and if it has,
-    // calls `loadUrl`, normalizing across the hidden iframe.
-    checkUrl: function(e) {
-      var current = this.getFragment();
-      if (current == this.fragment && this.iframe) current = this.getFragment(this.getHash(this.iframe));
-      if (current == this.fragment) return false;
-      if (this.iframe) this.navigate(current);
-      this.loadUrl() || this.loadUrl(this.getHash());
-    },
-
-    // Attempt to load the current URL fragment. If a route succeeds with a
-    // match, returns `true`. If no defined routes matches the fragment,
-    // returns `false`.
-    loadUrl: function(fragmentOverride) {
-      var fragment = this.fragment = this.getFragment(fragmentOverride);
-      var matched = _.any(this.handlers, function(handler) {
-        if (handler.route.test(fragment)) {
-          handler.callback(fragment);
-          return true;
-        }
-      });
-      return matched;
-    },
-
-    // Save a fragment into the hash history, or replace the URL state if the
-    // 'replace' option is passed. You are responsible for properly URL-encoding
-    // the fragment in advance.
-    //
-    // The options object can contain `trigger: true` if you wish to have the
-    // route callback be fired (not usually desirable), or `replace: true`, if
-    // you wish to modify the current URL without adding an entry to the history.
-    navigate: function(fragment, options) {
-      if (!History.started) return false;
-      if (!options || options === true) options = {trigger: options};
-      var frag = (fragment || '').replace(routeStripper, '');
-      if (this.fragment == frag) return;
-
-      // If pushState is available, we use it to set the fragment as a real URL.
-      if (this._hasPushState) {
-        if (frag.indexOf(this.options.root) != 0) frag = this.options.root + frag;
-        this.fragment = frag;
-        window.history[options.replace ? 'replaceState' : 'pushState']({}, document.title, frag);
-
-      // If hash changes haven't been explicitly disabled, update the hash
-      // fragment to store history.
-      } else if (this._wantsHashChange) {
-        this.fragment = frag;
-        this._updateHash(window.location, frag, options.replace);
-        if (this.iframe && (frag != this.getFragment(this.getHash(this.iframe)))) {
-          // Opening and closing the iframe tricks IE7 and earlier to push a history entry on hash-tag change.
-          // When replace is true, we don't want this.
-          if(!options.replace) this.iframe.document.open().close();
-          this._updateHash(this.iframe.location, frag, options.replace);
-        }
-
-      // If you've told us that you explicitly don't want fallback hashchange-
-      // based history, then `navigate` becomes a page refresh.
-      } else {
-        window.location.assign(this.options.root + fragment);
-      }
-      if (options.trigger) this.loadUrl(fragment);
-    },
-
-    // Update the hash location, either replacing the current entry, or adding
-    // a new one to the browser history.
-    _updateHash: function(location, fragment, replace) {
-      if (replace) {
-        location.replace(location.toString().replace(/(javascript:|#).*$/, '') + '#' + fragment);
-      } else {
-        location.hash = fragment;
-      }
-    }
-  });
-
-  // Backbone.View
-  // -------------
-
-  // Creating a Backbone.View creates its initial element outside of the DOM,
-  // if an existing element is not provided...
-  var View = Backbone.View = function(options) {
-    this.cid = _.uniqueId('view');
-    this._configure(options || {});
-    this._ensureElement();
-    this.initialize.apply(this, arguments);
-    this.delegateEvents();
-  };
-
-  // Cached regex to split keys for `delegate`.
-  var delegateEventSplitter = /^(\S+)\s*(.*)$/;
-
-  // List of view options to be merged as properties.
-  var viewOptions = ['model', 'collection', 'el', 'id', 'attributes', 'className', 'tagName'];
-
-  // Set up all inheritable **Backbone.View** properties and methods.
-  _.extend(View.prototype, Events, {
-
-    // The default `tagName` of a View's element is `"div"`.
-    tagName: 'div',
-
-    // jQuery delegate for element lookup, scoped to DOM elements within the
-    // current view. This should be prefered to global lookups where possible.
-    $: function(selector) {
-      return this.$el.find(selector);
-    },
-
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
-
-    // **render** is the core function that your view should override, in order
-    // to populate its element (`this.el`), with the appropriate HTML. The
-    // convention is for **render** to always return `this`.
-    render: function() {
-      return this;
-    },
-
-    // Remove this view from the DOM. Note that the view isn't present in the
-    // DOM by default, so calling this method may be a no-op.
-    remove: function() {
-      this.$el.remove();
-      return this;
-    },
-
-    // For small amounts of DOM Elements, where a full-blown template isn't
-    // needed, use **make** to manufacture elements, one at a time.
-    //
-    //     var el = this.make('li', {'class': 'row'}, this.model.escape('title'));
-    //
-    make: function(tagName, attributes, content) {
-      var el = document.createElement(tagName);
-      if (attributes) $(el).attr(attributes);
-      if (content) $(el).html(content);
-      return el;
-    },
-
-    // Change the view's element (`this.el` property), including event
-    // re-delegation.
-    setElement: function(element, delegate) {
-      if (this.$el) this.undelegateEvents();
-      this.$el = (element instanceof $) ? element : $(element);
-      this.el = this.$el[0];
-      if (delegate !== false) this.delegateEvents();
-      return this;
-    },
-
-    // Set callbacks, where `this.events` is a hash of
-    //
-    // *{"event selector": "callback"}*
-    //
-    //     {
-    //       'mousedown .title':  'edit',
-    //       'click .button':     'save'
-    //       'click .open':       function(e) { ... }
-    //     }
-    //
-    // pairs. Callbacks will be bound to the view, with `this` set properly.
-    // Uses event delegation for efficiency.
-    // Omitting the selector binds the event to `this.el`.
-    // This only works for delegate-able events: not `focus`, `blur`, and
-    // not `change`, `submit`, and `reset` in Internet Explorer.
-    delegateEvents: function(events) {
-      if (!(events || (events = getValue(this, 'events')))) return;
-      this.undelegateEvents();
-      for (var key in events) {
-        var method = events[key];
-        if (!_.isFunction(method)) method = this[events[key]];
-        if (!method) throw new Error('Method "' + events[key] + '" does not exist');
-        var match = key.match(delegateEventSplitter);
-        var eventName = match[1], selector = match[2];
-        method = _.bind(method, this);
-        eventName += '.delegateEvents' + this.cid;
-        if (selector === '') {
-          this.$el.bind(eventName, method);
-        } else {
-          this.$el.delegate(selector, eventName, method);
-        }
-      }
-    },
-
-    // Clears all callbacks previously bound to the view with `delegateEvents`.
-    // You usually don't need to use this, but may wish to if you have multiple
-    // Backbone views attached to the same DOM element.
-    undelegateEvents: function() {
-      this.$el.unbind('.delegateEvents' + this.cid);
-    },
-
-    // Performs the initial configuration of a View with a set of options.
-    // Keys with special meaning *(model, collection, id, className)*, are
-    // attached directly to the view.
-    _configure: function(options) {
-      if (this.options) options = _.extend({}, this.options, options);
-      for (var i = 0, l = viewOptions.length; i < l; i++) {
-        var attr = viewOptions[i];
-        if (options[attr]) this[attr] = options[attr];
-      }
-      this.options = options;
-    },
-
-    // Ensure that the View has a DOM element to render into.
-    // If `this.el` is a string, pass it through `$()`, take the first
-    // matching element, and re-assign it to `el`. Otherwise, create
-    // an element from the `id`, `className` and `tagName` properties.
-    _ensureElement: function() {
-      if (!this.el) {
-        var attrs = getValue(this, 'attributes') || {};
-        if (this.id) attrs.id = this.id;
-        if (this.className) attrs['class'] = this.className;
-        this.setElement(this.make(this.tagName, attrs), false);
-      } else {
-        this.setElement(this.el, false);
-      }
-    }
-
-  });
-
-  // The self-propagating extend function that Backbone classes use.
-  var extend = function (protoProps, classProps) {
-    var child = inherits(this, protoProps, classProps);
-    child.extend = this.extend;
-    return child;
-  };
-
-  // Set up inheritance for the model, collection, and view.
-  Model.extend = Collection.extend = Router.extend = View.extend = extend;
-
-  // Backbone.sync
-  // -------------
-
-  // Map from CRUD to HTTP for our default `Backbone.sync` implementation.
-  var methodMap = {
-    'create': 'POST',
-    'update': 'PUT',
-    'delete': 'DELETE',
-    'read':   'GET'
-  };
-
-  // Override this function to change the manner in which Backbone persists
-  // models to the server. You will be passed the type of request, and the
-  // model in question. By default, makes a RESTful Ajax request
-  // to the model's `url()`. Some possible customizations could be:
-  //
-  // * Use `setTimeout` to batch rapid-fire updates into a single request.
-  // * Send up the models as XML instead of JSON.
-  // * Persist models via WebSockets instead of Ajax.
-  //
-  // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
-  // as `POST`, with a `_method` parameter containing the true HTTP method,
-  // as well as all requests with the body as `application/x-www-form-urlencoded`
-  // instead of `application/json` with the model in a param named `model`.
-  // Useful when interfacing with server-side languages like **PHP** that make
-  // it difficult to read the body of `PUT` requests.
-  Backbone.sync = function(method, model, options) {
-    var type = methodMap[method];
-
-    // Default options, unless specified.
-    options || (options = {});
-
-    // Default JSON-request options.
-    var params = {type: type, dataType: 'json'};
-
-    // Ensure that we have a URL.
-    if (!options.url) {
-      params.url = getValue(model, 'url') || urlError();
-    }
-
-    // Ensure that we have the appropriate request data.
-    if (!options.data && model && (method == 'create' || method == 'update')) {
-      params.contentType = 'application/json';
-      params.data = JSON.stringify(model.toJSON());
-    }
-
-    // For older servers, emulate JSON by encoding the request into an HTML-form.
-    if (Backbone.emulateJSON) {
-      params.contentType = 'application/x-www-form-urlencoded';
-      params.data = params.data ? {model: params.data} : {};
-    }
-
-    // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
-    // And an `X-HTTP-Method-Override` header.
-    if (Backbone.emulateHTTP) {
-      if (type === 'PUT' || type === 'DELETE') {
-        if (Backbone.emulateJSON) params.data._method = type;
-        params.type = 'POST';
-        params.beforeSend = function(xhr) {
-          xhr.setRequestHeader('X-HTTP-Method-Override', type);
-        };
-      }
-    }
-
-    // Don't process data on a non-GET request.
-    if (params.type !== 'GET' && !Backbone.emulateJSON) {
-      params.processData = false;
-    }
-
-    // Make the request, allowing the user to override any Ajax options.
-    return $.ajax(_.extend(params, options));
-  };
-
-  // Wrap an optional error callback with a fallback error event.
-  Backbone.wrapError = function(onError, originalModel, options) {
-    return function(model, resp) {
-      resp = model === originalModel ? resp : model;
-      if (onError) {
-        onError(originalModel, resp, options);
-      } else {
-        originalModel.trigger('error', originalModel, resp, options);
-      }
-    };
-  };
-
-  // Helpers
-  // -------
-
-  // Shared empty constructor function to aid in prototype-chain creation.
-  var ctor = function(){};
-
-  // Helper function to correctly set up the prototype chain, for subclasses.
-  // Similar to `goog.inherits`, but uses a hash of prototype properties and
-  // class properties to be extended.
-  var inherits = function(parent, protoProps, staticProps) {
-    var child;
-
-    // The constructor function for the new subclass is either defined by you
-    // (the "constructor" property in your `extend` definition), or defaulted
-    // by us to simply call the parent's constructor.
-    if (protoProps && protoProps.hasOwnProperty('constructor')) {
-      child = protoProps.constructor;
-    } else {
-      child = function(){ parent.apply(this, arguments); };
-    }
-
-    // Inherit class (static) properties from parent.
-    _.extend(child, parent);
-
-    // Set the prototype chain to inherit from `parent`, without calling
-    // `parent`'s constructor function.
-    ctor.prototype = parent.prototype;
-    child.prototype = new ctor();
-
-    // Add prototype properties (instance properties) to the subclass,
-    // if supplied.
-    if (protoProps) _.extend(child.prototype, protoProps);
-
-    // Add static properties to the constructor function, if supplied.
-    if (staticProps) _.extend(child, staticProps);
-    // Correctly set child's `prototype.constructor`.
-    child.prototype.constructor = child;
-
-    // Set a convenience property in case the parent's prototype is needed later.
-    child.__super__ = parent.prototype;
-
-    return child;
-  };
-
-  // Helper function to get a value from a Backbone object as a property
-  // or as a function.
-  var getValue = function(object, prop) {
-    if (!(object && object[prop])) return null;
-    return _.isFunction(object[prop]) ? object[prop]() : object[prop];
-  };
-
-  // Throw an error when a URL is needed, and none is supplied.
-  var urlError = function() {
-    throw new Error('A "url" property or function must be specified');
-  };
-
-}).call(this);
-;;
-//     Backbone.js 0.9.2
-
-//     (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
-//     Backbone may be freely distributed under the MIT license.
-//     For all details and documentation:
-//     http://backbonejs.org
-
-(function(){
-
-  // Initial Setup
-  // -------------
-
-  // Save a reference to the global object (`window` in the browser, `global`
-  // on the server).
-  var root = this;
-
-  // Save the previous value of the `Backbone` variable, so that it can be
-  // restored later on, if `noConflict` is used.
-  var previousBackbone = root.Backbone;
-
-  // Create a local reference to slice/splice.
-  var slice = Array.prototype.slice;
-  var splice = Array.prototype.splice;
-
-  // The top-level namespace. All public Backbone classes and modules will
-  // be attached to this. Exported for both CommonJS and the browser.
-  var Backbone;
-  if (typeof exports !== 'undefined') {
-    Backbone = exports;
-  } else {
-    Backbone = root.Backbone = {};
-  }
-
-  // Current version of the library. Keep in sync with `package.json`.
-  Backbone.VERSION = '0.9.2';
-
-  // Require Underscore, if we're on the server, and it's not already present.
-  var _ = root._;
-  if (!_ && (typeof require !== 'undefined')) _ = require('underscore');
-
-  // For Backbone's purposes, jQuery, Zepto, or Ender owns the `$` variable.
-  var $ = root.jQuery || root.Zepto || root.ender;
-
-  // Set the JavaScript library that will be used for DOM manipulation and
-  // Ajax calls (a.k.a. the `$` variable). By default Backbone will use: jQuery,
-  // Zepto, or Ender; but the `setDomLibrary()` method lets you inject an
-  // alternate JavaScript library (or a mock library for testing your views
-  // outside of a browser).
-  Backbone.setDomLibrary = function(lib) {
-    $ = lib;
-  };
-
-  // Runs Backbone.js in *noConflict* mode, returning the `Backbone` variable
-  // to its previous owner. Returns a reference to this Backbone object.
-  Backbone.noConflict = function() {
-    root.Backbone = previousBackbone;
-    return this;
-  };
-
-  // Turn on `emulateHTTP` to support legacy HTTP servers. Setting this option
-  // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
-  // set a `X-Http-Method-Override` header.
-  Backbone.emulateHTTP = false;
-
-  // Turn on `emulateJSON` to support legacy servers that can't deal with direct
-  // `application/json` requests ... will encode the body as
-  // `application/x-www-form-urlencoded` instead and will send the model in a
-  // form param named `model`.
-  Backbone.emulateJSON = false;
-
-  // Backbone.Events
-  // -----------------
-
-  // Regular expression used to split event strings
-  var eventSplitter = /\s+/;
-
-  // A module that can be mixed in to *any object* in order to provide it with
-  // custom events. You may bind with `on` or remove with `off` callback functions
-  // to an event; trigger`-ing an event fires all callbacks in succession.
-  //
-  //     var object = {};
-  //     _.extend(object, Backbone.Events);
-  //     object.on('expand', function(){ alert('expanded'); });
-  //     object.trigger('expand');
-  //
-  var Events = Backbone.Events = {
-
-    // Bind one or more space separated events, `events`, to a `callback`
-    // function. Passing `"all"` will bind the callback to all events fired.
-    on: function(events, callback, context) {
-
-      var calls, event, node, tail, list;
-      if (!callback) return this;
-      events = events.split(eventSplitter);
-      calls = this._callbacks || (this._callbacks = {});
-
-      // Create an immutable callback list, allowing traversal during
-      // modification.  The tail is an empty object that will always be used
-      // as the next node.
-      while (event = events.shift()) {
-        list = calls[event];
-        node = list ? list.tail : {};
-        node.next = tail = {};
-        node.context = context;
-        node.callback = callback;
-        calls[event] = {tail: tail, next: list ? list.next : node};
-      }
-
-      return this;
-    },
-
-    // Remove one or many callbacks. If `context` is null, removes all callbacks
-    // with that function. If `callback` is null, removes all callbacks for the
-    // event. If `events` is null, removes all bound callbacks for all events.
-    off: function(events, callback, context) {
-      var event, calls, node, tail, cb, ctx;
-
-      // No events, or removing *all* events.
-      if (!(calls = this._callbacks)) return;
-      if (!(events || callback || context)) {
-        delete this._callbacks;
-        return this;
-      }
-
-      // Loop through the listed events and contexts, splicing them out of the
-      // linked list of callbacks if appropriate.
-      events = events ? events.split(eventSplitter) : _.keys(calls);
-      while (event = events.shift()) {
-        node = calls[event];
-        delete calls[event];
-        if (!node || !(callback || context)) continue;
-        // Create a new list, omitting the indicated callbacks.
-        tail = node.tail;
-        while ((node = node.next) !== tail) {
-          cb = node.callback;
-          ctx = node.context;
-          if ((callback && cb !== callback) || (context && ctx !== context)) {
-            this.on(event, cb, ctx);
-          }
-        }
-      }
-
-      return this;
-    },
-
-    // Trigger one or many events, firing all bound callbacks. Callbacks are
-    // passed the same arguments as `trigger` is, apart from the event name
-    // (unless you're listening on `"all"`, which will cause your callback to
-    // receive the true name of the event as the first argument).
-    trigger: function(events) {
-      var event, node, calls, tail, args, all, rest;
-      if (!(calls = this._callbacks)) return this;
-      all = calls.all;
-      events = events.split(eventSplitter);
-      rest = slice.call(arguments, 1);
-
-      // For each event, walk through the linked list of callbacks twice,
-      // first to trigger the event, then to trigger any `"all"` callbacks.
-      while (event = events.shift()) {
-        if (node = calls[event]) {
-          tail = node.tail;
-          while ((node = node.next) !== tail) {
-            node.callback.apply(node.context || this, rest);
-          }
-        }
-        if (node = all) {
-          tail = node.tail;
-          args = [event].concat(rest);
-          while ((node = node.next) !== tail) {
-            node.callback.apply(node.context || this, args);
-          }
-        }
-      }
-
-      return this;
-    }
-
-  };
-
-  // Aliases for backwards compatibility.
-  Events.bind   = Events.on;
-  Events.unbind = Events.off;
-
-  // Backbone.Model
-  // --------------
-
-  // Create a new model, with defined attributes. A client id (`cid`)
-  // is automatically generated and assigned for you.
-  var Model = Backbone.Model = function(attributes, options) {
-    var defaults;
-    attributes || (attributes = {});
-    if (options && options.parse) attributes = this.parse(attributes);
-    if (defaults = getValue(this, 'defaults')) {
-      attributes = _.extend({}, defaults, attributes);
-    }
-    if (options && options.collection) this.collection = options.collection;
-    this.attributes = {};
-    this._escapedAttributes = {};
-    this.cid = _.uniqueId('c');
-    this.changed = {};
-    this._silent = {};
-    this._pending = {};
-    this.set(attributes, {silent: true});
-    // Reset change tracking.
-    this.changed = {};
-    this._silent = {};
-    this._pending = {};
-    this._previousAttributes = _.clone(this.attributes);
-    this.initialize.apply(this, arguments);
-  };
-
-  // Attach all inheritable methods to the Model prototype.
-  _.extend(Model.prototype, Events, {
-
-    // A hash of attributes whose current and previous value differ.
-    changed: null,
-
-    // A hash of attributes that have silently changed since the last time
-    // `change` was called.  Will become pending attributes on the next call.
-    _silent: null,
-
-    // A hash of attributes that have changed since the last `'change'` event
-    // began.
-    _pending: null,
-
-    // The default name for the JSON `id` attribute is `"id"`. MongoDB and
-    // CouchDB users may want to set this to `"_id"`.
-    idAttribute: 'id',
-
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
-
-    // Return a copy of the model's `attributes` object.
-    toJSON: function(options) {
-      return _.clone(this.attributes);
-    },
-
-    // Get the value of an attribute.
-    get: function(attr) {
-      return this.attributes[attr];
-    },
-
-    // Get the HTML-escaped value of an attribute.
-    escape: function(attr) {
-      var html;
-      if (html = this._escapedAttributes[attr]) return html;
-      var val = this.get(attr);
-      return this._escapedAttributes[attr] = _.escape(val == null ? '' : '' + val);
-    },
-
-    // Returns `true` if the attribute contains a value that is not null
-    // or undefined.
-    has: function(attr) {
-      return this.get(attr) != null;
-    },
-
-    // Set a hash of model attributes on the object, firing `"change"` unless
-    // you choose to silence it.
-    set: function(key, value, options) {
-      var attrs, attr, val;
-
-      // Handle both `"key", value` and `{key: value}` -style arguments.
-      if (_.isObject(key) || key == null) {
-        attrs = key;
-        options = value;
-      } else {
-        attrs = {};
-        attrs[key] = value;
-      }
-
-      // Extract attributes and options.
-      options || (options = {});
-      if (!attrs) return this;
-      if (attrs instanceof Model) attrs = attrs.attributes;
-      if (options.unset) for (attr in attrs) attrs[attr] = void 0;
-
-      // Run validation.
-      if (!this._validate(attrs, options)) return false;
-
-      // Check for changes of `id`.
-      if (this.idAttribute in attrs) this.id = attrs[this.idAttribute];
-
-      var changes = options.changes = {};
-      var now = this.attributes;
-      var escaped = this._escapedAttributes;
-      var prev = this._previousAttributes || {};
-
-      // For each `set` attribute...
-      for (attr in attrs) {
-        val = attrs[attr];
-
-        // If the new and current value differ, record the change.
-        if (!_.isEqual(now[attr], val) || (options.unset && _.has(now, attr))) {
-          delete escaped[attr];
-          (options.silent ? this._silent : changes)[attr] = true;
-        }
-
-        // Update or delete the current value.
-        options.unset ? delete now[attr] : now[attr] = val;
-
-        // If the new and previous value differ, record the change.  If not,
-        // then remove changes for this attribute.
-        if (!_.isEqual(prev[attr], val) || (_.has(now, attr) != _.has(prev, attr))) {
-          this.changed[attr] = val;
-          if (!options.silent) this._pending[attr] = true;
-        } else {
-          delete this.changed[attr];
-          delete this._pending[attr];
-        }
-      }
-
-      // Fire the `"change"` events.
-      if (!options.silent) this.change(options);
-      return this;
-    },
-
-    // Remove an attribute from the model, firing `"change"` unless you choose
-    // to silence it. `unset` is a noop if the attribute doesn't exist.
-    unset: function(attr, options) {
-      (options || (options = {})).unset = true;
-      return this.set(attr, null, options);
-    },
-
-    // Clear all attributes on the model, firing `"change"` unless you choose
-    // to silence it.
-    clear: function(options) {
-      (options || (options = {})).unset = true;
-      return this.set(_.clone(this.attributes), options);
-    },
-
-    // Fetch the model from the server. If the server's representation of the
-    // model differs from its current attributes, they will be overriden,
-    // triggering a `"change"` event.
-    fetch: function(options) {
-      options = options ? _.clone(options) : {};
-      var model = this;
-      var success = options.success;
-      options.success = function(resp, status, xhr) {
-        if (!model.set(model.parse(resp, xhr), options)) return false;
-        if (success) success(model, resp);
-      };
-      options.error = Backbone.wrapError(options.error, model, options);
-      return (this.sync || Backbone.sync).call(this, 'read', this, options);
-    },
-
-    // Set a hash of model attributes, and sync the model to the server.
-    // If the server returns an attributes hash that differs, the model's
-    // state will be `set` again.
-    save: function(key, value, options) {
-      var attrs, current;
-
-      // Handle both `("key", value)` and `({key: value})` -style calls.
-      if (_.isObject(key) || key == null) {
-        attrs = key;
-        options = value;
-      } else {
-        attrs = {};
-        attrs[key] = value;
-      }
-      options = options ? _.clone(options) : {};
-
-      // If we're "wait"-ing to set changed attributes, validate early.
-      if (options.wait) {
-        if (!this._validate(attrs, options)) return false;
-        current = _.clone(this.attributes);
-      }
-
-      // Regular saves `set` attributes before persisting to the server.
-      var silentOptions = _.extend({}, options, {silent: true});
-      if (attrs && !this.set(attrs, options.wait ? silentOptions : options)) {
+    try {
+      // Not own constructor property must be Object
+      if ( obj.constructor &&
+        !core_hasOwn.call(obj, "constructor") &&
+        !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
         return false;
       }
-
-      // After a successful server-side save, the client is (optionally)
-      // updated with the server-side state.
-      var model = this;
-      var success = options.success;
-      options.success = function(resp, status, xhr) {
-        var serverAttrs = model.parse(resp, xhr);
-        if (options.wait) {
-          delete options.wait;
-          serverAttrs = _.extend(attrs || {}, serverAttrs);
-        }
-        if (!model.set(serverAttrs, options)) return false;
-        if (success) {
-          success(model, resp);
-        } else {
-          model.trigger('sync', model, resp, options);
-        }
-      };
-
-      // Finish configuring and sending the Ajax request.
-      options.error = Backbone.wrapError(options.error, model, options);
-      var method = this.isNew() ? 'create' : 'update';
-      var xhr = (this.sync || Backbone.sync).call(this, method, this, options);
-      if (options.wait) this.set(current, silentOptions);
-      return xhr;
-    },
-
-    // Destroy this model on the server if it was already persisted.
-    // Optimistically removes the model from its collection, if it has one.
-    // If `wait: true` is passed, waits for the server to respond before removal.
-    destroy: function(options) {
-      options = options ? _.clone(options) : {};
-      var model = this;
-      var success = options.success;
-
-      var triggerDestroy = function() {
-        model.trigger('destroy', model, model.collection, options);
-      };
-
-      if (this.isNew()) {
-        triggerDestroy();
-        return false;
-      }
-
-      options.success = function(resp) {
-        if (options.wait) triggerDestroy();
-        if (success) {
-          success(model, resp);
-        } else {
-          model.trigger('sync', model, resp, options);
-        }
-      };
-
-      options.error = Backbone.wrapError(options.error, model, options);
-      var xhr = (this.sync || Backbone.sync).call(this, 'delete', this, options);
-      if (!options.wait) triggerDestroy();
-      return xhr;
-    },
-
-    // Default URL for the model's representation on the server -- if you're
-    // using Backbone's restful methods, override this to change the endpoint
-    // that will be called.
-    url: function() {
-      var base = getValue(this, 'urlRoot') || getValue(this.collection, 'url') || urlError();
-      if (this.isNew()) return base;
-      return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
-    },
-
-    // **parse** converts a response into the hash of attributes to be `set` on
-    // the model. The default implementation is just to pass the response along.
-    parse: function(resp, xhr) {
-      return resp;
-    },
-
-    // Create a new model with identical attributes to this one.
-    clone: function() {
-      return new this.constructor(this.attributes);
-    },
-
-    // A model is new if it has never been saved to the server, and lacks an id.
-    isNew: function() {
-      return this.id == null;
-    },
-
-    // Call this method to manually fire a `"change"` event for this model and
-    // a `"change:attribute"` event for each changed attribute.
-    // Calling this will cause all objects observing the model to update.
-    change: function(options) {
-      options || (options = {});
-      var changing = this._changing;
-      this._changing = true;
-
-      // Silent changes become pending changes.
-      for (var attr in this._silent) this._pending[attr] = true;
-
-      // Silent changes are triggered.
-      var changes = _.extend({}, options.changes, this._silent);
-      this._silent = {};
-      for (var attr in changes) {
-        this.trigger('change:' + attr, this, this.get(attr), options);
-      }
-      if (changing) return this;
-
-      // Continue firing `"change"` events while there are pending changes.
-      while (!_.isEmpty(this._pending)) {
-        this._pending = {};
-        this.trigger('change', this, options);
-        // Pending and silent changes still remain.
-        for (var attr in this.changed) {
-          if (this._pending[attr] || this._silent[attr]) continue;
-          delete this.changed[attr];
-        }
-        this._previousAttributes = _.clone(this.attributes);
-      }
-
-      this._changing = false;
-      return this;
-    },
-
-    // Determine if the model has changed since the last `"change"` event.
-    // If you specify an attribute name, determine if that attribute has changed.
-    hasChanged: function(attr) {
-      if (!arguments.length) return !_.isEmpty(this.changed);
-      return _.has(this.changed, attr);
-    },
-
-    // Return an object containing all the attributes that have changed, or
-    // false if there are no changed attributes. Useful for determining what
-    // parts of a view need to be updated and/or what attributes need to be
-    // persisted to the server. Unset attributes will be set to undefined.
-    // You can also pass an attributes object to diff against the model,
-    // determining if there *would be* a change.
-    changedAttributes: function(diff) {
-      if (!diff) return this.hasChanged() ? _.clone(this.changed) : false;
-      var val, changed = false, old = this._previousAttributes;
-      for (var attr in diff) {
-        if (_.isEqual(old[attr], (val = diff[attr]))) continue;
-        (changed || (changed = {}))[attr] = val;
-      }
-      return changed;
-    },
-
-    // Get the previous value of an attribute, recorded at the time the last
-    // `"change"` event was fired.
-    previous: function(attr) {
-      if (!arguments.length || !this._previousAttributes) return null;
-      return this._previousAttributes[attr];
-    },
-
-    // Get all of the attributes of the model at the time of the previous
-    // `"change"` event.
-    previousAttributes: function() {
-      return _.clone(this._previousAttributes);
-    },
-
-    // Check if the model is currently in a valid state. It's only possible to
-    // get into an *invalid* state if you're using silent changes.
-    isValid: function() {
-      return !this.validate(this.attributes);
-    },
-
-    // Run validation against the next complete set of model attributes,
-    // returning `true` if all is well. If a specific `error` callback has
-    // been passed, call that instead of firing the general `"error"` event.
-    _validate: function(attrs, options) {
-      if (options.silent || !this.validate) return true;
-      attrs = _.extend({}, this.attributes, attrs);
-      var error = this.validate(attrs, options);
-      if (!error) return true;
-      if (options && options.error) {
-        options.error(this, error, options);
-      } else {
-        this.trigger('error', this, error, options);
-      }
+    } catch ( e ) {
+      // IE8,9 Will throw exceptions on certain host objects #9897
       return false;
     }
 
+    // Own properties are enumerated firstly, so to speed up,
+    // if last one is own, then all properties are own.
+
+    var key;
+    for ( key in obj ) {}
+
+    return key === undefined || core_hasOwn.call( obj, key );
+  },
+
+  isEmptyObject: function( obj ) {
+    var name;
+    for ( name in obj ) {
+      return false;
+    }
+    return true;
+  },
+
+  error: function( msg ) {
+    throw new Error( msg );
+  },
+
+  // data: string of html
+  // context (optional): If specified, the fragment will be created in this context, defaults to document
+  // keepScripts (optional): If true, will include scripts passed in the html string
+  parseHTML: function( data, context, keepScripts ) {
+    if ( !data || typeof data !== "string" ) {
+      return null;
+    }
+    if ( typeof context === "boolean" ) {
+      keepScripts = context;
+      context = false;
+    }
+    context = context || document;
+
+    var parsed = rsingleTag.exec( data ),
+      scripts = !keepScripts && [];
+
+    // Single tag
+    if ( parsed ) {
+      return [ context.createElement( parsed[1] ) ];
+    }
+
+    parsed = jQuery.buildFragment( [ data ], context, scripts );
+    if ( scripts ) {
+      jQuery( scripts ).remove();
+    }
+    return jQuery.merge( [], parsed.childNodes );
+  },
+
+  parseJSON: function( data ) {
+    // Attempt to parse using the native JSON parser first
+    if ( window.JSON && window.JSON.parse ) {
+      return window.JSON.parse( data );
+    }
+
+    if ( data === null ) {
+      return data;
+    }
+
+    if ( typeof data === "string" ) {
+
+      // Make sure leading/trailing whitespace is removed (IE can't handle it)
+      data = jQuery.trim( data );
+
+      if ( data ) {
+        // Make sure the incoming data is actual JSON
+        // Logic borrowed from http://json.org/json2.js
+        if ( rvalidchars.test( data.replace( rvalidescape, "@" )
+          .replace( rvalidtokens, "]" )
+          .replace( rvalidbraces, "")) ) {
+
+          return ( new Function( "return " + data ) )();
+        }
+      }
+    }
+
+    jQuery.error( "Invalid JSON: " + data );
+  },
+
+  // Cross-browser xml parsing
+  parseXML: function( data ) {
+    var xml, tmp;
+    if ( !data || typeof data !== "string" ) {
+      return null;
+    }
+    try {
+      if ( window.DOMParser ) { // Standard
+        tmp = new DOMParser();
+        xml = tmp.parseFromString( data , "text/xml" );
+      } else { // IE
+        xml = new ActiveXObject( "Microsoft.XMLDOM" );
+        xml.async = "false";
+        xml.loadXML( data );
+      }
+    } catch( e ) {
+      xml = undefined;
+    }
+    if ( !xml || !xml.documentElement || xml.getElementsByTagName( "parsererror" ).length ) {
+      jQuery.error( "Invalid XML: " + data );
+    }
+    return xml;
+  },
+
+  noop: function() {},
+
+  // Evaluates a script in a global context
+  // Workarounds based on findings by Jim Driscoll
+  // http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
+  globalEval: function( data ) {
+    if ( data && jQuery.trim( data ) ) {
+      // We use execScript on Internet Explorer
+      // We use an anonymous function so that context is window
+      // rather than jQuery in Firefox
+      ( window.execScript || function( data ) {
+        window[ "eval" ].call( window, data );
+      } )( data );
+    }
+  },
+
+  // Convert dashed to camelCase; used by the css and data modules
+  // Microsoft forgot to hump their vendor prefix (#9572)
+  camelCase: function( string ) {
+    return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
+  },
+
+  nodeName: function( elem, name ) {
+    return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+  },
+
+  // args is for internal usage only
+  each: function( obj, callback, args ) {
+    var value,
+      i = 0,
+      length = obj.length,
+      isArray = isArraylike( obj );
+
+    if ( args ) {
+      if ( isArray ) {
+        for ( ; i < length; i++ ) {
+          value = callback.apply( obj[ i ], args );
+
+          if ( value === false ) {
+            break;
+          }
+        }
+      } else {
+        for ( i in obj ) {
+          value = callback.apply( obj[ i ], args );
+
+          if ( value === false ) {
+            break;
+          }
+        }
+      }
+
+    // A special, fast, case for the most common use of each
+    } else {
+      if ( isArray ) {
+        for ( ; i < length; i++ ) {
+          value = callback.call( obj[ i ], i, obj[ i ] );
+
+          if ( value === false ) {
+            break;
+          }
+        }
+      } else {
+        for ( i in obj ) {
+          value = callback.call( obj[ i ], i, obj[ i ] );
+
+          if ( value === false ) {
+            break;
+          }
+        }
+      }
+    }
+
+    return obj;
+  },
+
+  // Use native String.trim function wherever possible
+  trim: core_trim && !core_trim.call("\uFEFF\xA0") ?
+    function( text ) {
+      return text == null ?
+        "" :
+        core_trim.call( text );
+    } :
+
+    // Otherwise use our own trimming functionality
+    function( text ) {
+      return text == null ?
+        "" :
+        ( text + "" ).replace( rtrim, "" );
+    },
+
+  // results is for internal usage only
+  makeArray: function( arr, results ) {
+    var ret = results || [];
+
+    if ( arr != null ) {
+      if ( isArraylike( Object(arr) ) ) {
+        jQuery.merge( ret,
+          typeof arr === "string" ?
+          [ arr ] : arr
+        );
+      } else {
+        core_push.call( ret, arr );
+      }
+    }
+
+    return ret;
+  },
+
+  inArray: function( elem, arr, i ) {
+    var len;
+
+    if ( arr ) {
+      if ( core_indexOf ) {
+        return core_indexOf.call( arr, elem, i );
+      }
+
+      len = arr.length;
+      i = i ? i < 0 ? Math.max( 0, len + i ) : i : 0;
+
+      for ( ; i < len; i++ ) {
+        // Skip accessing in sparse arrays
+        if ( i in arr && arr[ i ] === elem ) {
+          return i;
+        }
+      }
+    }
+
+    return -1;
+  },
+
+  merge: function( first, second ) {
+    var l = second.length,
+      i = first.length,
+      j = 0;
+
+    if ( typeof l === "number" ) {
+      for ( ; j < l; j++ ) {
+        first[ i++ ] = second[ j ];
+      }
+    } else {
+      while ( second[j] !== undefined ) {
+        first[ i++ ] = second[ j++ ];
+      }
+    }
+
+    first.length = i;
+
+    return first;
+  },
+
+  grep: function( elems, callback, inv ) {
+    var retVal,
+      ret = [],
+      i = 0,
+      length = elems.length;
+    inv = !!inv;
+
+    // Go through the array, only saving the items
+    // that pass the validator function
+    for ( ; i < length; i++ ) {
+      retVal = !!callback( elems[ i ], i );
+      if ( inv !== retVal ) {
+        ret.push( elems[ i ] );
+      }
+    }
+
+    return ret;
+  },
+
+  // arg is for internal usage only
+  map: function( elems, callback, arg ) {
+    var value,
+      i = 0,
+      length = elems.length,
+      isArray = isArraylike( elems ),
+      ret = [];
+
+    // Go through the array, translating each of the items to their
+    if ( isArray ) {
+      for ( ; i < length; i++ ) {
+        value = callback( elems[ i ], i, arg );
+
+        if ( value != null ) {
+          ret[ ret.length ] = value;
+        }
+      }
+
+    // Go through every key on the object,
+    } else {
+      for ( i in elems ) {
+        value = callback( elems[ i ], i, arg );
+
+        if ( value != null ) {
+          ret[ ret.length ] = value;
+        }
+      }
+    }
+
+    // Flatten any nested arrays
+    return core_concat.apply( [], ret );
+  },
+
+  // A global GUID counter for objects
+  guid: 1,
+
+  // Bind a function to a context, optionally partially applying any
+  // arguments.
+  proxy: function( fn, context ) {
+    var tmp, args, proxy;
+
+    if ( typeof context === "string" ) {
+      tmp = fn[ context ];
+      context = fn;
+      fn = tmp;
+    }
+
+    // Quick check to determine if target is callable, in the spec
+    // this throws a TypeError, but we will just return undefined.
+    if ( !jQuery.isFunction( fn ) ) {
+      return undefined;
+    }
+
+    // Simulated bind
+    args = core_slice.call( arguments, 2 );
+    proxy = function() {
+      return fn.apply( context || this, args.concat( core_slice.call( arguments ) ) );
+    };
+
+    // Set the guid of unique handler to the same of original handler, so it can be removed
+    proxy.guid = fn.guid = fn.guid || jQuery.guid++;
+
+    return proxy;
+  },
+
+  // Multifunctional method to get and set values of a collection
+  // The value/s can optionally be executed if it's a function
+  access: function( elems, fn, key, value, chainable, emptyGet, raw ) {
+    var i = 0,
+      length = elems.length,
+      bulk = key == null;
+
+    // Sets many values
+    if ( jQuery.type( key ) === "object" ) {
+      chainable = true;
+      for ( i in key ) {
+        jQuery.access( elems, fn, i, key[i], true, emptyGet, raw );
+      }
+
+    // Sets one value
+    } else if ( value !== undefined ) {
+      chainable = true;
+
+      if ( !jQuery.isFunction( value ) ) {
+        raw = true;
+      }
+
+      if ( bulk ) {
+        // Bulk operations run against the entire set
+        if ( raw ) {
+          fn.call( elems, value );
+          fn = null;
+
+        // ...except when executing function values
+        } else {
+          bulk = fn;
+          fn = function( elem, key, value ) {
+            return bulk.call( jQuery( elem ), value );
+          };
+        }
+      }
+
+      if ( fn ) {
+        for ( ; i < length; i++ ) {
+          fn( elems[i], key, raw ? value : value.call( elems[i], i, fn( elems[i], key ) ) );
+        }
+      }
+    }
+
+    return chainable ?
+      elems :
+
+      // Gets
+      bulk ?
+        fn.call( elems ) :
+        length ? fn( elems[0], key ) : emptyGet;
+  },
+
+  now: function() {
+    return ( new Date() ).getTime();
+  }
+});
+
+jQuery.ready.promise = function( obj ) {
+  if ( !readyList ) {
+
+    readyList = jQuery.Deferred();
+
+    // Catch cases where $(document).ready() is called after the browser event has already occurred.
+    // we once tried to use readyState "interactive" here, but it caused issues like the one
+    // discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
+    if ( document.readyState === "complete" ) {
+      // Handle it asynchronously to allow scripts the opportunity to delay ready
+      setTimeout( jQuery.ready );
+
+    // Standards-based browsers support DOMContentLoaded
+    } else if ( document.addEventListener ) {
+      // Use the handy event callback
+      document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+
+      // A fallback to window.onload, that will always work
+      window.addEventListener( "load", jQuery.ready, false );
+
+    // If IE event model is used
+    } else {
+      // Ensure firing before onload, maybe late but safe also for iframes
+      document.attachEvent( "onreadystatechange", DOMContentLoaded );
+
+      // A fallback to window.onload, that will always work
+      window.attachEvent( "onload", jQuery.ready );
+
+      // If IE and not a frame
+      // continually check to see if the document is ready
+      var top = false;
+
+      try {
+        top = window.frameElement == null && document.documentElement;
+      } catch(e) {}
+
+      if ( top && top.doScroll ) {
+        (function doScrollCheck() {
+          if ( !jQuery.isReady ) {
+
+            try {
+              // Use the trick by Diego Perini
+              // http://javascript.nwbox.com/IEContentLoaded/
+              top.doScroll("left");
+            } catch(e) {
+              return setTimeout( doScrollCheck, 50 );
+            }
+
+            // and execute any waiting functions
+            jQuery.ready();
+          }
+        })();
+      }
+    }
+  }
+  return readyList.promise( obj );
+};
+
+// Populate the class2type map
+jQuery.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+  class2type[ "[object " + name + "]" ] = name.toLowerCase();
+});
+
+function isArraylike( obj ) {
+  var length = obj.length,
+    type = jQuery.type( obj );
+
+  if ( jQuery.isWindow( obj ) ) {
+    return false;
+  }
+
+  if ( obj.nodeType === 1 && length ) {
+    return true;
+  }
+
+  return type === "array" || type !== "function" &&
+    ( length === 0 ||
+    typeof length === "number" && length > 0 && ( length - 1 ) in obj );
+}
+
+// All jQuery objects should point back to these
+rootjQuery = jQuery(document);
+// String to Object options format cache
+var optionsCache = {};
+
+// Convert String-formatted options into Object-formatted ones and store in cache
+function createOptions( options ) {
+  var object = optionsCache[ options ] = {};
+  jQuery.each( options.match( core_rnotwhite ) || [], function( _, flag ) {
+    object[ flag ] = true;
   });
+  return object;
+}
 
-  // Backbone.Collection
-  // -------------------
+/*
+ * Create a callback list using the following parameters:
+ *
+ *  options: an optional list of space-separated options that will change how
+ *      the callback list behaves or a more traditional option object
+ *
+ * By default a callback list will act like an event callback list and can be
+ * "fired" multiple times.
+ *
+ * Possible options:
+ *
+ *  once:     will ensure the callback list can only be fired once (like a Deferred)
+ *
+ *  memory:     will keep track of previous values and will call any callback added
+ *          after the list has been fired right away with the latest "memorized"
+ *          values (like a Deferred)
+ *
+ *  unique:     will ensure a callback can only be added once (no duplicate in the list)
+ *
+ *  stopOnFalse:  interrupt callings when a callback returns false
+ *
+ */
+jQuery.Callbacks = function( options ) {
 
-  // Provides a standard collection class for our sets of models, ordered
-  // or unordered. If a `comparator` is specified, the Collection will maintain
-  // its models in sort order, as they're added and removed.
-  var Collection = Backbone.Collection = function(models, options) {
-    options || (options = {});
-    if (options.model) this.model = options.model;
-    if (options.comparator) this.comparator = options.comparator;
-    this._reset();
-    this.initialize.apply(this, arguments);
-    if (models) this.reset(models, {silent: true, parse: options.parse});
+  // Convert options from String-formatted to Object-formatted if needed
+  // (we check in cache first)
+  options = typeof options === "string" ?
+    ( optionsCache[ options ] || createOptions( options ) ) :
+    jQuery.extend( {}, options );
+
+  var // Last fire value (for non-forgettable lists)
+    memory,
+    // Flag to know if list was already fired
+    fired,
+    // Flag to know if list is currently firing
+    firing,
+    // First callback to fire (used internally by add and fireWith)
+    firingStart,
+    // End of the loop when firing
+    firingLength,
+    // Index of currently firing callback (modified by remove if needed)
+    firingIndex,
+    // Actual callback list
+    list = [],
+    // Stack of fire calls for repeatable lists
+    stack = !options.once && [],
+    // Fire callbacks
+    fire = function( data ) {
+      memory = options.memory && data;
+      fired = true;
+      firingIndex = firingStart || 0;
+      firingStart = 0;
+      firingLength = list.length;
+      firing = true;
+      for ( ; list && firingIndex < firingLength; firingIndex++ ) {
+        if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
+          memory = false; // To prevent further calls using add
+          break;
+        }
+      }
+      firing = false;
+      if ( list ) {
+        if ( stack ) {
+          if ( stack.length ) {
+            fire( stack.shift() );
+          }
+        } else if ( memory ) {
+          list = [];
+        } else {
+          self.disable();
+        }
+      }
+    },
+    // Actual Callbacks object
+    self = {
+      // Add a callback or a collection of callbacks to the list
+      add: function() {
+        if ( list ) {
+          // First, we save the current length
+          var start = list.length;
+          (function add( args ) {
+            jQuery.each( args, function( _, arg ) {
+              var type = jQuery.type( arg );
+              if ( type === "function" ) {
+                if ( !options.unique || !self.has( arg ) ) {
+                  list.push( arg );
+                }
+              } else if ( arg && arg.length && type !== "string" ) {
+                // Inspect recursively
+                add( arg );
+              }
+            });
+          })( arguments );
+          // Do we need to add the callbacks to the
+          // current firing batch?
+          if ( firing ) {
+            firingLength = list.length;
+          // With memory, if we're not firing then
+          // we should call right away
+          } else if ( memory ) {
+            firingStart = start;
+            fire( memory );
+          }
+        }
+        return this;
+      },
+      // Remove a callback from the list
+      remove: function() {
+        if ( list ) {
+          jQuery.each( arguments, function( _, arg ) {
+            var index;
+            while( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
+              list.splice( index, 1 );
+              // Handle firing indexes
+              if ( firing ) {
+                if ( index <= firingLength ) {
+                  firingLength--;
+                }
+                if ( index <= firingIndex ) {
+                  firingIndex--;
+                }
+              }
+            }
+          });
+        }
+        return this;
+      },
+      // Control if a given callback is in the list
+      has: function( fn ) {
+        return jQuery.inArray( fn, list ) > -1;
+      },
+      // Remove all callbacks from the list
+      empty: function() {
+        list = [];
+        return this;
+      },
+      // Have the list do nothing anymore
+      disable: function() {
+        list = stack = memory = undefined;
+        return this;
+      },
+      // Is it disabled?
+      disabled: function() {
+        return !list;
+      },
+      // Lock the list in its current state
+      lock: function() {
+        stack = undefined;
+        if ( !memory ) {
+          self.disable();
+        }
+        return this;
+      },
+      // Is it locked?
+      locked: function() {
+        return !stack;
+      },
+      // Call all callbacks with the given context and arguments
+      fireWith: function( context, args ) {
+        args = args || [];
+        args = [ context, args.slice ? args.slice() : args ];
+        if ( list && ( !fired || stack ) ) {
+          if ( firing ) {
+            stack.push( args );
+          } else {
+            fire( args );
+          }
+        }
+        return this;
+      },
+      // Call all the callbacks with the given arguments
+      fire: function() {
+        self.fireWith( this, arguments );
+        return this;
+      },
+      // To know if the callbacks have already been called at least once
+      fired: function() {
+        return !!fired;
+      }
+    };
+
+  return self;
+};
+jQuery.extend({
+
+  Deferred: function( func ) {
+    var tuples = [
+        // action, add listener, listener list, final state
+        [ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
+        [ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
+        [ "notify", "progress", jQuery.Callbacks("memory") ]
+      ],
+      state = "pending",
+      promise = {
+        state: function() {
+          return state;
+        },
+        always: function() {
+          deferred.done( arguments ).fail( arguments );
+          return this;
+        },
+        then: function( /* fnDone, fnFail, fnProgress */ ) {
+          var fns = arguments;
+          return jQuery.Deferred(function( newDefer ) {
+            jQuery.each( tuples, function( i, tuple ) {
+              var action = tuple[ 0 ],
+                fn = jQuery.isFunction( fns[ i ] ) && fns[ i ];
+              // deferred[ done | fail | progress ] for forwarding actions to newDefer
+              deferred[ tuple[1] ](function() {
+                var returned = fn && fn.apply( this, arguments );
+                if ( returned && jQuery.isFunction( returned.promise ) ) {
+                  returned.promise()
+                    .done( newDefer.resolve )
+                    .fail( newDefer.reject )
+                    .progress( newDefer.notify );
+                } else {
+                  newDefer[ action + "With" ]( this === promise ? newDefer.promise() : this, fn ? [ returned ] : arguments );
+                }
+              });
+            });
+            fns = null;
+          }).promise();
+        },
+        // Get a promise for this deferred
+        // If obj is provided, the promise aspect is added to the object
+        promise: function( obj ) {
+          return obj != null ? jQuery.extend( obj, promise ) : promise;
+        }
+      },
+      deferred = {};
+
+    // Keep pipe for back-compat
+    promise.pipe = promise.then;
+
+    // Add list-specific methods
+    jQuery.each( tuples, function( i, tuple ) {
+      var list = tuple[ 2 ],
+        stateString = tuple[ 3 ];
+
+      // promise[ done | fail | progress ] = list.add
+      promise[ tuple[1] ] = list.add;
+
+      // Handle state
+      if ( stateString ) {
+        list.add(function() {
+          // state = [ resolved | rejected ]
+          state = stateString;
+
+        // [ reject_list | resolve_list ].disable; progress_list.lock
+        }, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
+      }
+
+      // deferred[ resolve | reject | notify ]
+      deferred[ tuple[0] ] = function() {
+        deferred[ tuple[0] + "With" ]( this === deferred ? promise : this, arguments );
+        return this;
+      };
+      deferred[ tuple[0] + "With" ] = list.fireWith;
+    });
+
+    // Make the deferred a promise
+    promise.promise( deferred );
+
+    // Call given func if any
+    if ( func ) {
+      func.call( deferred, deferred );
+    }
+
+    // All done!
+    return deferred;
+  },
+
+  // Deferred helper
+  when: function( subordinate /* , ..., subordinateN */ ) {
+    var i = 0,
+      resolveValues = core_slice.call( arguments ),
+      length = resolveValues.length,
+
+      // the count of uncompleted subordinates
+      remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
+
+      // the master Deferred. If resolveValues consist of only a single Deferred, just use that.
+      deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
+
+      // Update function for both resolve and progress values
+      updateFunc = function( i, contexts, values ) {
+        return function( value ) {
+          contexts[ i ] = this;
+          values[ i ] = arguments.length > 1 ? core_slice.call( arguments ) : value;
+          if( values === progressValues ) {
+            deferred.notifyWith( contexts, values );
+          } else if ( !( --remaining ) ) {
+            deferred.resolveWith( contexts, values );
+          }
+        };
+      },
+
+      progressValues, progressContexts, resolveContexts;
+
+    // add listeners to Deferred subordinates; treat others as resolved
+    if ( length > 1 ) {
+      progressValues = new Array( length );
+      progressContexts = new Array( length );
+      resolveContexts = new Array( length );
+      for ( ; i < length; i++ ) {
+        if ( resolveValues[ i ] && jQuery.isFunction( resolveValues[ i ].promise ) ) {
+          resolveValues[ i ].promise()
+            .done( updateFunc( i, resolveContexts, resolveValues ) )
+            .fail( deferred.reject )
+            .progress( updateFunc( i, progressContexts, progressValues ) );
+        } else {
+          --remaining;
+        }
+      }
+    }
+
+    // if we're not waiting on anything, resolve the master
+    if ( !remaining ) {
+      deferred.resolveWith( resolveContexts, resolveValues );
+    }
+
+    return deferred.promise();
+  }
+});
+jQuery.support = (function() {
+
+  var support, all, a, select, opt, input, fragment, eventName, isSupported, i,
+    div = document.createElement("div");
+
+  // Setup
+  div.setAttribute( "className", "t" );
+  div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
+
+  // Support tests won't run in some limited or non-browser environments
+  all = div.getElementsByTagName("*");
+  a = div.getElementsByTagName("a")[ 0 ];
+  if ( !all || !a || !all.length ) {
+    return {};
+  }
+
+  // First batch of tests
+  select = document.createElement("select");
+  opt = select.appendChild( document.createElement("option") );
+  input = div.getElementsByTagName("input")[ 0 ];
+
+  a.style.cssText = "top:1px;float:left;opacity:.5";
+  support = {
+    // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
+    getSetAttribute: div.className !== "t",
+
+    // IE strips leading whitespace when .innerHTML is used
+    leadingWhitespace: div.firstChild.nodeType === 3,
+
+    // Make sure that tbody elements aren't automatically inserted
+    // IE will insert them into empty tables
+    tbody: !div.getElementsByTagName("tbody").length,
+
+    // Make sure that link elements get serialized correctly by innerHTML
+    // This requires a wrapper element in IE
+    htmlSerialize: !!div.getElementsByTagName("link").length,
+
+    // Get the style information from getAttribute
+    // (IE uses .cssText instead)
+    style: /top/.test( a.getAttribute("style") ),
+
+    // Make sure that URLs aren't manipulated
+    // (IE normalizes it by default)
+    hrefNormalized: a.getAttribute("href") === "/a",
+
+    // Make sure that element opacity exists
+    // (IE uses filter instead)
+    // Use a regex to work around a WebKit issue. See #5145
+    opacity: /^0.5/.test( a.style.opacity ),
+
+    // Verify style float existence
+    // (IE uses styleFloat instead of cssFloat)
+    cssFloat: !!a.style.cssFloat,
+
+    // Check the default checkbox/radio value ("" on WebKit; "on" elsewhere)
+    checkOn: !!input.value,
+
+    // Make sure that a selected-by-default option has a working selected property.
+    // (WebKit defaults to false instead of true, IE too, if it's in an optgroup)
+    optSelected: opt.selected,
+
+    // Tests for enctype support on a form (#6743)
+    enctype: !!document.createElement("form").enctype,
+
+    // Makes sure cloning an html5 element does not cause problems
+    // Where outerHTML is undefined, this still works
+    html5Clone: document.createElement("nav").cloneNode( true ).outerHTML !== "<:nav></:nav>",
+
+    // jQuery.support.boxModel DEPRECATED in 1.8 since we don't support Quirks Mode
+    boxModel: document.compatMode === "CSS1Compat",
+
+    // Will be defined later
+    deleteExpando: true,
+    noCloneEvent: true,
+    inlineBlockNeedsLayout: false,
+    shrinkWrapBlocks: false,
+    reliableMarginRight: true,
+    boxSizingReliable: true,
+    pixelPosition: false
   };
 
-  // Define the Collection's inheritable methods.
-  _.extend(Collection.prototype, Events, {
+  // Make sure checked status is properly cloned
+  input.checked = true;
+  support.noCloneChecked = input.cloneNode( true ).checked;
 
-    // The default model for a collection is just a **Backbone.Model**.
-    // This should be overridden in most cases.
-    model: Model,
+  // Make sure that the options inside disabled selects aren't marked as disabled
+  // (WebKit marks them as disabled)
+  select.disabled = true;
+  support.optDisabled = !opt.disabled;
 
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
+  // Support: IE<9
+  try {
+    delete div.test;
+  } catch( e ) {
+    support.deleteExpando = false;
+  }
 
-    // The JSON representation of a Collection is an array of the
-    // models' attributes.
-    toJSON: function(options) {
-      return this.map(function(model){ return model.toJSON(options); });
-    },
+  // Check if we can trust getAttribute("value")
+  input = document.createElement("input");
+  input.setAttribute( "value", "" );
+  support.input = input.getAttribute( "value" ) === "";
 
-    // Add a model, or list of models to the set. Pass **silent** to avoid
-    // firing the `add` event for every new model.
-    add: function(models, options) {
-      var i, index, length, model, cid, id, cids = {}, ids = {}, dups = [];
-      options || (options = {});
-      models = _.isArray(models) ? models.slice() : [models];
+  // Check if an input maintains its value after becoming a radio
+  input.value = "t";
+  input.setAttribute( "type", "radio" );
+  support.radioValue = input.value === "t";
 
-      // Begin by turning bare objects into model references, and preventing
-      // invalid models or duplicate models from being added.
-      for (i = 0, length = models.length; i < length; i++) {
-        if (!(model = models[i] = this._prepareModel(models[i], options))) {
-          throw new Error("Can't add an invalid model to a collection");
+  // #11217 - WebKit loses check when the name is after the checked attribute
+  input.setAttribute( "checked", "t" );
+  input.setAttribute( "name", "t" );
+
+  fragment = document.createDocumentFragment();
+  fragment.appendChild( input );
+
+  // Check if a disconnected checkbox will retain its checked
+  // value of true after appended to the DOM (IE6/7)
+  support.appendChecked = input.checked;
+
+  // WebKit doesn't clone checked state correctly in fragments
+  support.checkClone = fragment.cloneNode( true ).cloneNode( true ).lastChild.checked;
+
+  // Support: IE<9
+  // Opera does not clone events (and typeof div.attachEvent === undefined).
+  // IE9-10 clones events bound via attachEvent, but they don't trigger with .click()
+  if ( div.attachEvent ) {
+    div.attachEvent( "onclick", function() {
+      support.noCloneEvent = false;
+    });
+
+    div.cloneNode( true ).click();
+  }
+
+  // Support: IE<9 (lack submit/change bubble), Firefox 17+ (lack focusin event)
+  // Beware of CSP restrictions (https://developer.mozilla.org/en/Security/CSP), test/csp.php
+  for ( i in { submit: true, change: true, focusin: true }) {
+    div.setAttribute( eventName = "on" + i, "t" );
+
+    support[ i + "Bubbles" ] = eventName in window || div.attributes[ eventName ].expando === false;
+  }
+
+  div.style.backgroundClip = "content-box";
+  div.cloneNode( true ).style.backgroundClip = "";
+  support.clearCloneStyle = div.style.backgroundClip === "content-box";
+
+  // Run tests that need a body at doc ready
+  jQuery(function() {
+    var container, marginDiv, tds,
+      divReset = "padding:0;margin:0;border:0;display:block;box-sizing:content-box;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;",
+      body = document.getElementsByTagName("body")[0];
+
+    if ( !body ) {
+      // Return for frameset docs that don't have a body
+      return;
+    }
+
+    container = document.createElement("div");
+    container.style.cssText = "border:0;width:0;height:0;position:absolute;top:0;left:-9999px;margin-top:1px";
+
+    body.appendChild( container ).appendChild( div );
+
+    // Support: IE8
+    // Check if table cells still have offsetWidth/Height when they are set
+    // to display:none and there are still other visible table cells in a
+    // table row; if so, offsetWidth/Height are not reliable for use when
+    // determining if an element has been hidden directly using
+    // display:none (it is still safe to use offsets if a parent element is
+    // hidden; don safety goggles and see bug #4512 for more information).
+    div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";
+    tds = div.getElementsByTagName("td");
+    tds[ 0 ].style.cssText = "padding:0;margin:0;border:0;display:none";
+    isSupported = ( tds[ 0 ].offsetHeight === 0 );
+
+    tds[ 0 ].style.display = "";
+    tds[ 1 ].style.display = "none";
+
+    // Support: IE8
+    // Check if empty table cells still have offsetWidth/Height
+    support.reliableHiddenOffsets = isSupported && ( tds[ 0 ].offsetHeight === 0 );
+
+    // Check box-sizing and margin behavior
+    div.innerHTML = "";
+    div.style.cssText = "box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;padding:1px;border:1px;display:block;width:4px;margin-top:1%;position:absolute;top:1%;";
+    support.boxSizing = ( div.offsetWidth === 4 );
+    support.doesNotIncludeMarginInBodyOffset = ( body.offsetTop !== 1 );
+
+    // Use window.getComputedStyle because jsdom on node.js will break without it.
+    if ( window.getComputedStyle ) {
+      support.pixelPosition = ( window.getComputedStyle( div, null ) || {} ).top !== "1%";
+      support.boxSizingReliable = ( window.getComputedStyle( div, null ) || { width: "4px" } ).width === "4px";
+
+      // Check if div with explicit width and no margin-right incorrectly
+      // gets computed margin-right based on width of container. (#3333)
+      // Fails in WebKit before Feb 2011 nightlies
+      // WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
+      marginDiv = div.appendChild( document.createElement("div") );
+      marginDiv.style.cssText = div.style.cssText = divReset;
+      marginDiv.style.marginRight = marginDiv.style.width = "0";
+      div.style.width = "1px";
+
+      support.reliableMarginRight =
+        !parseFloat( ( window.getComputedStyle( marginDiv, null ) || {} ).marginRight );
+    }
+
+    if ( typeof div.style.zoom !== "undefined" ) {
+      // Support: IE<8
+      // Check if natively block-level elements act like inline-block
+      // elements when setting their display to 'inline' and giving
+      // them layout
+      div.innerHTML = "";
+      div.style.cssText = divReset + "width:1px;padding:1px;display:inline;zoom:1";
+      support.inlineBlockNeedsLayout = ( div.offsetWidth === 3 );
+
+      // Support: IE6
+      // Check if elements with layout shrink-wrap their children
+      div.style.display = "block";
+      div.innerHTML = "<div></div>";
+      div.firstChild.style.width = "5px";
+      support.shrinkWrapBlocks = ( div.offsetWidth !== 3 );
+
+      // Prevent IE 6 from affecting layout for positioned elements #11048
+      // Prevent IE from shrinking the body in IE 7 mode #12869
+      body.style.zoom = 1;
+    }
+
+    body.removeChild( container );
+
+    // Null elements to avoid leaks in IE
+    container = div = tds = marginDiv = null;
+  });
+
+  // Null elements to avoid leaks in IE
+  all = select = fragment = opt = a = input = null;
+
+  return support;
+})();
+
+var rbrace = /(?:\{[\s\S]*\}|\[[\s\S]*\])$/,
+  rmultiDash = /([A-Z])/g;
+  
+function internalData( elem, name, data, pvt /* Internal Use Only */ ){
+  if ( !jQuery.acceptData( elem ) ) {
+    return;
+  }
+
+  var thisCache, ret,
+    internalKey = jQuery.expando,
+    getByName = typeof name === "string",
+
+    // We have to handle DOM nodes and JS objects differently because IE6-7
+    // can't GC object references properly across the DOM-JS boundary
+    isNode = elem.nodeType,
+
+    // Only DOM nodes need the global jQuery cache; JS object data is
+    // attached directly to the object so GC can occur automatically
+    cache = isNode ? jQuery.cache : elem,
+
+    // Only defining an ID for JS objects if its cache already exists allows
+    // the code to shortcut on the same path as a DOM node with no cache
+    id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
+
+  // Avoid doing any more work than we need to when trying to get data on an
+  // object that has no data at all
+  if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
+    return;
+  }
+
+  if ( !id ) {
+    // Only DOM nodes need a new unique ID for each element since their data
+    // ends up in the global cache
+    if ( isNode ) {
+      elem[ internalKey ] = id = core_deletedIds.pop() || jQuery.guid++;
+    } else {
+      id = internalKey;
+    }
+  }
+
+  if ( !cache[ id ] ) {
+    cache[ id ] = {};
+
+    // Avoids exposing jQuery metadata on plain JS objects when the object
+    // is serialized using JSON.stringify
+    if ( !isNode ) {
+      cache[ id ].toJSON = jQuery.noop;
+    }
+  }
+
+  // An object can be passed to jQuery.data instead of a key/value pair; this gets
+  // shallow copied over onto the existing cache
+  if ( typeof name === "object" || typeof name === "function" ) {
+    if ( pvt ) {
+      cache[ id ] = jQuery.extend( cache[ id ], name );
+    } else {
+      cache[ id ].data = jQuery.extend( cache[ id ].data, name );
+    }
+  }
+
+  thisCache = cache[ id ];
+
+  // jQuery data() is stored in a separate object inside the object's internal data
+  // cache in order to avoid key collisions between internal data and user-defined
+  // data.
+  if ( !pvt ) {
+    if ( !thisCache.data ) {
+      thisCache.data = {};
+    }
+
+    thisCache = thisCache.data;
+  }
+
+  if ( data !== undefined ) {
+    thisCache[ jQuery.camelCase( name ) ] = data;
+  }
+
+  // Check for both converted-to-camel and non-converted data property names
+  // If a data property was specified
+  if ( getByName ) {
+
+    // First Try to find as-is property data
+    ret = thisCache[ name ];
+
+    // Test for null|undefined property data
+    if ( ret == null ) {
+
+      // Try to find the camelCased property
+      ret = thisCache[ jQuery.camelCase( name ) ];
+    }
+  } else {
+    ret = thisCache;
+  }
+
+  return ret;
+}
+
+function internalRemoveData( elem, name, pvt /* For internal use only */ ){
+  if ( !jQuery.acceptData( elem ) ) {
+    return;
+  }
+
+  var thisCache, i, l,
+
+    isNode = elem.nodeType,
+
+    // See jQuery.data for more information
+    cache = isNode ? jQuery.cache : elem,
+    id = isNode ? elem[ jQuery.expando ] : jQuery.expando;
+
+  // If there is already no cache entry for this object, there is no
+  // purpose in continuing
+  if ( !cache[ id ] ) {
+    return;
+  }
+
+  if ( name ) {
+
+    thisCache = pvt ? cache[ id ] : cache[ id ].data;
+
+    if ( thisCache ) {
+
+      // Support array or space separated string names for data keys
+      if ( !jQuery.isArray( name ) ) {
+
+        // try the string as a key before any manipulation
+        if ( name in thisCache ) {
+          name = [ name ];
+        } else {
+
+          // split the camel cased version by spaces unless a key with the spaces exists
+          name = jQuery.camelCase( name );
+          if ( name in thisCache ) {
+            name = [ name ];
+          } else {
+            name = name.split(" ");
+          }
         }
-        cid = model.cid;
-        id = model.id;
-        if (cids[cid] || this._byCid[cid] || ((id != null) && (ids[id] || this._byId[id]))) {
-          dups.push(i);
-          continue;
+      } else {
+        // If "name" is an array of keys...
+        // When data is initially created, via ("key", "val") signature,
+        // keys will be converted to camelCase.
+        // Since there is no way to tell _how_ a key was added, remove
+        // both plain key and camelCase key. #12786
+        // This will only penalize the array argument path.
+        name = name.concat( jQuery.map( name, jQuery.camelCase ) );
+      }
+
+      for ( i = 0, l = name.length; i < l; i++ ) {
+        delete thisCache[ name[i] ];
+      }
+
+      // If there is no data left in the cache, we want to continue
+      // and let the cache object itself get destroyed
+      if ( !( pvt ? isEmptyDataObject : jQuery.isEmptyObject )( thisCache ) ) {
+        return;
+      }
+    }
+  }
+
+  // See jQuery.data for more information
+  if ( !pvt ) {
+    delete cache[ id ].data;
+
+    // Don't destroy the parent cache unless the internal data object
+    // had been the only thing left in it
+    if ( !isEmptyDataObject( cache[ id ] ) ) {
+      return;
+    }
+  }
+
+  // Destroy the cache
+  if ( isNode ) {
+    jQuery.cleanData( [ elem ], true );
+
+  // Use delete when supported for expandos or `cache` is not a window per isWindow (#10080)
+  } else if ( jQuery.support.deleteExpando || cache != cache.window ) {
+    delete cache[ id ];
+
+  // When all else fails, null
+  } else {
+    cache[ id ] = null;
+  }
+}
+
+jQuery.extend({
+  cache: {},
+
+  // Unique for each copy of jQuery on the page
+  // Non-digits removed to match rinlinejQuery
+  expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),
+
+  // The following elements throw uncatchable exceptions if you
+  // attempt to add expando properties to them.
+  noData: {
+    "embed": true,
+    // Ban all objects except for Flash (which handle expandos)
+    "object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+    "applet": true
+  },
+
+  hasData: function( elem ) {
+    elem = elem.nodeType ? jQuery.cache[ elem[jQuery.expando] ] : elem[ jQuery.expando ];
+    return !!elem && !isEmptyDataObject( elem );
+  },
+
+  data: function( elem, name, data ) {
+    return internalData( elem, name, data, false );
+  },
+
+  removeData: function( elem, name ) {
+    return internalRemoveData( elem, name, false );
+  },
+
+  // For internal use only.
+  _data: function( elem, name, data ) {
+    return internalData( elem, name, data, true );
+  },
+  
+  _removeData: function( elem, name ) {
+    return internalRemoveData( elem, name, true );
+  },
+
+  // A method for determining if a DOM node can handle the data expando
+  acceptData: function( elem ) {
+    var noData = elem.nodeName && jQuery.noData[ elem.nodeName.toLowerCase() ];
+
+    // nodes accept data unless otherwise specified; rejection can be conditional
+    return !noData || noData !== true && elem.getAttribute("classid") === noData;
+  }
+});
+
+jQuery.fn.extend({
+  data: function( key, value ) {
+    var attrs, name,
+      elem = this[0],
+      i = 0,
+      data = null;
+
+    // Gets all values
+    if ( key === undefined ) {
+      if ( this.length ) {
+        data = jQuery.data( elem );
+
+        if ( elem.nodeType === 1 && !jQuery._data( elem, "parsedAttrs" ) ) {
+          attrs = elem.attributes;
+          for ( ; i < attrs.length; i++ ) {
+            name = attrs[i].name;
+
+            if ( !name.indexOf( "data-" ) ) {
+              name = jQuery.camelCase( name.substring(5) );
+
+              dataAttr( elem, name, data[ name ] );
+            }
+          }
+          jQuery._data( elem, "parsedAttrs", true );
         }
-        cids[cid] = ids[id] = model;
       }
 
-      // Remove duplicates.
-      i = dups.length;
-      while (i--) {
-        models.splice(dups[i], 1);
+      return data;
+    }
+
+    // Sets multiple values
+    if ( typeof key === "object" ) {
+      return this.each(function() {
+        jQuery.data( this, key );
+      });
+    }
+
+    return jQuery.access( this, function( value ) {
+
+      if ( value === undefined ) {
+        // Try to fetch any internally stored data first
+        return elem ? dataAttr( elem, key, jQuery.data( elem, key ) ) : null;
       }
 
-      // Listen to added models' events, and index models for lookup by
-      // `id` and by `cid`.
-      for (i = 0, length = models.length; i < length; i++) {
-        (model = models[i]).on('all', this._onModelEvent, this);
-        this._byCid[model.cid] = model;
-        if (model.id != null) this._byId[model.id] = model;
-      }
+      this.each(function() {
+        jQuery.data( this, key, value );
+      });
+    }, null, value, arguments.length > 1, null, true );
+  },
 
-      // Insert models into the collection, re-sorting if needed, and triggering
-      // `add` events unless silenced.
-      this.length += length;
-      index = options.at != null ? options.at : this.models.length;
-      splice.apply(this.models, [index, 0].concat(models));
-      if (this.comparator) this.sort({silent: true});
-      if (options.silent) return this;
-      for (i = 0, length = this.models.length; i < length; i++) {
-        if (!cids[(model = this.models[i]).cid]) continue;
-        options.index = i;
-        model.trigger('add', model, this, options);
-      }
-      return this;
-    },
+  removeData: function( key ) {
+    return this.each(function() {
+      jQuery.removeData( this, key );
+    });
+  }
+});
 
-    // Remove a model, or a list of models from the set. Pass silent to avoid
-    // firing the `remove` event for every model removed.
-    remove: function(models, options) {
-      var i, l, index, model;
-      options || (options = {});
-      models = _.isArray(models) ? models.slice() : [models];
-      for (i = 0, l = models.length; i < l; i++) {
-        model = this.getByCid(models[i]) || this.get(models[i]);
-        if (!model) continue;
-        delete this._byId[model.id];
-        delete this._byCid[model.cid];
-        index = this.indexOf(model);
-        this.models.splice(index, 1);
-        this.length--;
-        if (!options.silent) {
-          options.index = index;
-          model.trigger('remove', model, this, options);
+function dataAttr( elem, key, data ) {
+  // If nothing was found internally, try to fetch any
+  // data from the HTML5 data-* attribute
+  if ( data === undefined && elem.nodeType === 1 ) {
+
+    var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+
+    data = elem.getAttribute( name );
+
+    if ( typeof data === "string" ) {
+      try {
+        data = data === "true" ? true :
+        data === "false" ? false :
+        data === "null" ? null :
+        // Only convert to a number if it doesn't change the string
+        +data + "" === data ? +data :
+        rbrace.test( data ) ? jQuery.parseJSON( data ) :
+          data;
+      } catch( e ) {}
+
+      // Make sure we set the data so it isn't changed later
+      jQuery.data( elem, key, data );
+
+    } else {
+      data = undefined;
+    }
+  }
+
+  return data;
+}
+
+// checks a cache object for emptiness
+function isEmptyDataObject( obj ) {
+  var name;
+  for ( name in obj ) {
+
+    // if the public data object is empty, the private is still empty
+    if ( name === "data" && jQuery.isEmptyObject( obj[name] ) ) {
+      continue;
+    }
+    if ( name !== "toJSON" ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+jQuery.extend({
+  queue: function( elem, type, data ) {
+    var queue;
+
+    if ( elem ) {
+      type = ( type || "fx" ) + "queue";
+      queue = jQuery._data( elem, type );
+
+      // Speed up dequeue by getting out quickly if this is just a lookup
+      if ( data ) {
+        if ( !queue || jQuery.isArray(data) ) {
+          queue = jQuery._data( elem, type, jQuery.makeArray(data) );
+        } else {
+          queue.push( data );
         }
-        this._removeReference(model);
       }
-      return this;
-    },
+      return queue || [];
+    }
+  },
 
-    // Add a model to the end of the collection.
-    push: function(model, options) {
-      model = this._prepareModel(model, options);
-      this.add(model, options);
-      return model;
-    },
+  dequeue: function( elem, type ) {
+    type = type || "fx";
 
-    // Remove a model from the end of the collection.
-    pop: function(options) {
-      var model = this.at(this.length - 1);
-      this.remove(model, options);
-      return model;
-    },
+    var queue = jQuery.queue( elem, type ),
+      startLength = queue.length,
+      fn = queue.shift(),
+      hooks = jQuery._queueHooks( elem, type ),
+      next = function() {
+        jQuery.dequeue( elem, type );
+      };
 
-    // Add a model to the beginning of the collection.
-    unshift: function(model, options) {
-      model = this._prepareModel(model, options);
-      this.add(model, _.extend({at: 0}, options));
-      return model;
-    },
+    // If the fx queue is dequeued, always remove the progress sentinel
+    if ( fn === "inprogress" ) {
+      fn = queue.shift();
+      startLength--;
+    }
 
-    // Remove a model from the beginning of the collection.
-    shift: function(options) {
-      var model = this.at(0);
-      this.remove(model, options);
-      return model;
-    },
+    hooks.cur = fn;
+    if ( fn ) {
 
-    // Get a model from the set by id.
-    get: function(id) {
-      if (id == null) return void 0;
-      return this._byId[id.id != null ? id.id : id];
-    },
+      // Add a progress sentinel to prevent the fx queue from being
+      // automatically dequeued
+      if ( type === "fx" ) {
+        queue.unshift( "inprogress" );
+      }
 
-    // Get a model from the set by client id.
-    getByCid: function(cid) {
-      return cid && this._byCid[cid.cid || cid];
-    },
+      // clear up the last queue stop function
+      delete hooks.stop;
+      fn.call( elem, next, hooks );
+    }
 
-    // Get the model at the given index.
-    at: function(index) {
-      return this.models[index];
-    },
+    if ( !startLength && hooks ) {
+      hooks.empty.fire();
+    }
+  },
 
-    // Return models with matching attributes. Useful for simple cases of `filter`.
-    where: function(attrs) {
-      if (_.isEmpty(attrs)) return [];
-      return this.filter(function(model) {
-        for (var key in attrs) {
-          if (attrs[key] !== model.get(key)) return false;
+  // not intended for public consumption - generates a queueHooks object, or returns the current one
+  _queueHooks: function( elem, type ) {
+    var key = type + "queueHooks";
+    return jQuery._data( elem, key ) || jQuery._data( elem, key, {
+      empty: jQuery.Callbacks("once memory").add(function() {
+        jQuery._removeData( elem, type + "queue" );
+        jQuery._removeData( elem, key );
+      })
+    });
+  }
+});
+
+jQuery.fn.extend({
+  queue: function( type, data ) {
+    var setter = 2;
+
+    if ( typeof type !== "string" ) {
+      data = type;
+      type = "fx";
+      setter--;
+    }
+
+    if ( arguments.length < setter ) {
+      return jQuery.queue( this[0], type );
+    }
+
+    return data === undefined ?
+      this :
+      this.each(function() {
+        var queue = jQuery.queue( this, type, data );
+
+        // ensure a hooks for this queue
+        jQuery._queueHooks( this, type );
+
+        if ( type === "fx" && queue[0] !== "inprogress" ) {
+          jQuery.dequeue( this, type );
         }
+      });
+  },
+  dequeue: function( type ) {
+    return this.each(function() {
+      jQuery.dequeue( this, type );
+    });
+  },
+  // Based off of the plugin by Clint Helfers, with permission.
+  // http://blindsignals.com/index.php/2009/07/jquery-delay/
+  delay: function( time, type ) {
+    time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
+    type = type || "fx";
+
+    return this.queue( type, function( next, hooks ) {
+      var timeout = setTimeout( next, time );
+      hooks.stop = function() {
+        clearTimeout( timeout );
+      };
+    });
+  },
+  clearQueue: function( type ) {
+    return this.queue( type || "fx", [] );
+  },
+  // Get a promise resolved when queues of a certain type
+  // are emptied (fx is the type by default)
+  promise: function( type, obj ) {
+    var tmp,
+      count = 1,
+      defer = jQuery.Deferred(),
+      elements = this,
+      i = this.length,
+      resolve = function() {
+        if ( !( --count ) ) {
+          defer.resolveWith( elements, [ elements ] );
+        }
+      };
+
+    if ( typeof type !== "string" ) {
+      obj = type;
+      type = undefined;
+    }
+    type = type || "fx";
+
+    while( i-- ) {
+      tmp = jQuery._data( elements[ i ], type + "queueHooks" );
+      if ( tmp && tmp.empty ) {
+        count++;
+        tmp.empty.add( resolve );
+      }
+    }
+    resolve();
+    return defer.promise( obj );
+  }
+});
+var nodeHook, boolHook,
+  rclass = /[\t\r\n]/g,
+  rreturn = /\r/g,
+  rfocusable = /^(?:input|select|textarea|button|object)$/i,
+  rclickable = /^(?:a|area)$/i,
+  rboolean = /^(?:checked|selected|autofocus|autoplay|async|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped)$/i,
+  ruseDefault = /^(?:checked|selected)$/i,
+  getSetAttribute = jQuery.support.getSetAttribute,
+  getSetInput = jQuery.support.input;
+
+jQuery.fn.extend({
+  attr: function( name, value ) {
+    return jQuery.access( this, jQuery.attr, name, value, arguments.length > 1 );
+  },
+
+  removeAttr: function( name ) {
+    return this.each(function() {
+      jQuery.removeAttr( this, name );
+    });
+  },
+
+  prop: function( name, value ) {
+    return jQuery.access( this, jQuery.prop, name, value, arguments.length > 1 );
+  },
+
+  removeProp: function( name ) {
+    name = jQuery.propFix[ name ] || name;
+    return this.each(function() {
+      // try/catch handles cases where IE balks (such as removing a property on window)
+      try {
+        this[ name ] = undefined;
+        delete this[ name ];
+      } catch( e ) {}
+    });
+  },
+
+  addClass: function( value ) {
+    var classes, elem, cur, clazz, j,
+      i = 0,
+      len = this.length,
+      proceed = typeof value === "string" && value;
+
+    if ( jQuery.isFunction( value ) ) {
+      return this.each(function( j ) {
+        jQuery( this ).addClass( value.call( this, j, this.className ) );
+      });
+    }
+
+    if ( proceed ) {
+      // The disjunction here is for better compressibility (see removeClass)
+      classes = ( value || "" ).match( core_rnotwhite ) || [];
+
+      for ( ; i < len; i++ ) {
+        elem = this[ i ];
+        cur = elem.nodeType === 1 && ( elem.className ?
+          ( " " + elem.className + " " ).replace( rclass, " " ) :
+          " "
+        );
+
+        if ( cur ) {
+          j = 0;
+          while ( (clazz = classes[j++]) ) {
+            if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
+              cur += clazz + " ";
+            }
+          }
+          elem.className = jQuery.trim( cur );
+
+        }
+      }
+    }
+
+    return this;
+  },
+
+  removeClass: function( value ) {
+    var classes, elem, cur, clazz, j,
+      i = 0,
+      len = this.length,
+      proceed = arguments.length === 0 || typeof value === "string" && value;
+
+    if ( jQuery.isFunction( value ) ) {
+      return this.each(function( j ) {
+        jQuery( this ).removeClass( value.call( this, j, this.className ) );
+      });
+    }
+    if ( proceed ) {
+      classes = ( value || "" ).match( core_rnotwhite ) || [];
+
+      for ( ; i < len; i++ ) {
+        elem = this[ i ];
+        // This expression is here for better compressibility (see addClass)
+        cur = elem.nodeType === 1 && ( elem.className ?
+          ( " " + elem.className + " " ).replace( rclass, " " ) :
+          ""
+        );
+
+        if ( cur ) {
+          j = 0;
+          while ( (clazz = classes[j++]) ) {
+            // Remove *all* instances
+            while ( cur.indexOf( " " + clazz + " " ) >= 0 ) {
+              cur = cur.replace( " " + clazz + " ", " " );
+            }
+          }
+          elem.className = value ? jQuery.trim( cur ) : "";
+        }
+      }
+    }
+
+    return this;
+  },
+
+  toggleClass: function( value, stateVal ) {
+    var type = typeof value,
+      isBool = typeof stateVal === "boolean";
+
+    if ( jQuery.isFunction( value ) ) {
+      return this.each(function( i ) {
+        jQuery( this ).toggleClass( value.call(this, i, this.className, stateVal), stateVal );
+      });
+    }
+
+    return this.each(function() {
+      if ( type === "string" ) {
+        // toggle individual class names
+        var className,
+          i = 0,
+          self = jQuery( this ),
+          state = stateVal,
+          classNames = value.match( core_rnotwhite ) || [];
+
+        while ( (className = classNames[ i++ ]) ) {
+          // check each className given, space separated list
+          state = isBool ? state : !self.hasClass( className );
+          self[ state ? "addClass" : "removeClass" ]( className );
+        }
+
+      // Toggle whole class name
+      } else if ( type === "undefined" || type === "boolean" ) {
+        if ( this.className ) {
+          // store className if set
+          jQuery._data( this, "__className__", this.className );
+        }
+
+        // If the element has a class name or if we're passed "false",
+        // then remove the whole classname (if there was one, the above saved it).
+        // Otherwise bring back whatever was previously saved (if anything),
+        // falling back to the empty string if nothing was stored.
+        this.className = this.className || value === false ? "" : jQuery._data( this, "__className__" ) || "";
+      }
+    });
+  },
+
+  hasClass: function( selector ) {
+    var className = " " + selector + " ",
+      i = 0,
+      l = this.length;
+    for ( ; i < l; i++ ) {
+      if ( this[i].nodeType === 1 && (" " + this[i].className + " ").replace(rclass, " ").indexOf( className ) >= 0 ) {
         return true;
+      }
+    }
+
+    return false;
+  },
+
+  val: function( value ) {
+    var hooks, ret, isFunction,
+      elem = this[0];
+
+    if ( !arguments.length ) {
+      if ( elem ) {
+        hooks = jQuery.valHooks[ elem.type ] || jQuery.valHooks[ elem.nodeName.toLowerCase() ];
+
+        if ( hooks && "get" in hooks && (ret = hooks.get( elem, "value" )) !== undefined ) {
+          return ret;
+        }
+
+        ret = elem.value;
+
+        return typeof ret === "string" ?
+          // handle most common string cases
+          ret.replace(rreturn, "") :
+          // handle cases where value is null/undef or number
+          ret == null ? "" : ret;
+      }
+
+      return;
+    }
+
+    isFunction = jQuery.isFunction( value );
+
+    return this.each(function( i ) {
+      var val,
+        self = jQuery(this);
+
+      if ( this.nodeType !== 1 ) {
+        return;
+      }
+
+      if ( isFunction ) {
+        val = value.call( this, i, self.val() );
+      } else {
+        val = value;
+      }
+
+      // Treat null/undefined as ""; convert numbers to string
+      if ( val == null ) {
+        val = "";
+      } else if ( typeof val === "number" ) {
+        val += "";
+      } else if ( jQuery.isArray( val ) ) {
+        val = jQuery.map(val, function ( value ) {
+          return value == null ? "" : value + "";
+        });
+      }
+
+      hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
+
+      // If set returns undefined, fall back to normal setting
+      if ( !hooks || !("set" in hooks) || hooks.set( this, val, "value" ) === undefined ) {
+        this.value = val;
+      }
+    });
+  }
+});
+
+jQuery.extend({
+  valHooks: {
+    option: {
+      get: function( elem ) {
+        // attributes.value is undefined in Blackberry 4.7 but
+        // uses .value. See #6932
+        var val = elem.attributes.value;
+        return !val || val.specified ? elem.value : elem.text;
+      }
+    },
+    select: {
+      get: function( elem ) {
+        var value, option,
+          options = elem.options,
+          index = elem.selectedIndex,
+          one = elem.type === "select-one" || index < 0,
+          values = one ? null : [],
+          max = one ? index + 1 : options.length,
+          i = index < 0 ?
+            max :
+            one ? index : 0;
+
+        // Loop through all the selected options
+        for ( ; i < max; i++ ) {
+          option = options[ i ];
+
+          // oldIE doesn't update selected after form reset (#2551)
+          if ( ( option.selected || i === index ) &&
+              // Don't return options that are disabled or in a disabled optgroup
+              ( jQuery.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null ) &&
+              ( !option.parentNode.disabled || !jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+
+            // Get the specific value for the option
+            value = jQuery( option ).val();
+
+            // We don't need an array for one selects
+            if ( one ) {
+              return value;
+            }
+
+            // Multi-Selects return an array
+            values.push( value );
+          }
+        }
+
+        return values;
+      },
+
+      set: function( elem, value ) {
+        var values = jQuery.makeArray( value );
+
+        jQuery(elem).find("option").each(function() {
+          this.selected = jQuery.inArray( jQuery(this).val(), values ) >= 0;
+        });
+
+        if ( !values.length ) {
+          elem.selectedIndex = -1;
+        }
+        return values;
+      }
+    }
+  },
+
+  attr: function( elem, name, value ) {
+    var ret, hooks, notxml,
+      nType = elem.nodeType;
+
+    // don't get/set attributes on text, comment and attribute nodes
+    if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
+      return;
+    }
+
+    // Fallback to prop when attributes are not supported
+    if ( typeof elem.getAttribute === "undefined" ) {
+      return jQuery.prop( elem, name, value );
+    }
+
+    notxml = nType !== 1 || !jQuery.isXMLDoc( elem );
+
+    // All attributes are lowercase
+    // Grab necessary hook if one is defined
+    if ( notxml ) {
+      name = name.toLowerCase();
+      hooks = jQuery.attrHooks[ name ] || ( rboolean.test( name ) ? boolHook : nodeHook );
+    }
+
+    if ( value !== undefined ) {
+
+      if ( value === null ) {
+        jQuery.removeAttr( elem, name );
+
+      } else if ( hooks && notxml && "set" in hooks && (ret = hooks.set( elem, value, name )) !== undefined ) {
+        return ret;
+
+      } else {
+        elem.setAttribute( name, value + "" );
+        return value;
+      }
+
+    } else if ( hooks && notxml && "get" in hooks && (ret = hooks.get( elem, name )) !== null ) {
+      return ret;
+
+    } else {
+
+      // In IE9+, Flash objects don't have .getAttribute (#12945)
+      // Support: IE9+
+      if ( typeof elem.getAttribute !== "undefined" ) {
+        ret =  elem.getAttribute( name );
+      }
+
+      // Non-existent attributes return null, we normalize to undefined
+      return ret == null ?
+        undefined :
+        ret;
+    }
+  },
+
+  removeAttr: function( elem, value ) {
+    var name, propName,
+      i = 0,
+      attrNames = value && value.match( core_rnotwhite );
+
+    if ( attrNames && elem.nodeType === 1 ) {
+      while ( (name = attrNames[i++]) ) {
+        propName = jQuery.propFix[ name ] || name;
+
+        // Boolean attributes get special treatment (#10870)
+        if ( rboolean.test( name ) ) {
+          // Set corresponding property to false for boolean attributes
+          // Also clear defaultChecked/defaultSelected (if appropriate) for IE<8
+          if ( !getSetAttribute && ruseDefault.test( name ) ) {
+            elem[ jQuery.camelCase( "default-" + name ) ] =
+              elem[ propName ] = false;
+          } else {
+            elem[ propName ] = false;
+          }
+
+        // See #9699 for explanation of this approach (setting first, then removal)
+        } else {
+          jQuery.attr( elem, name, "" );
+        }
+
+        elem.removeAttribute( getSetAttribute ? name : propName );
+      }
+    }
+  },
+
+  attrHooks: {
+    type: {
+      set: function( elem, value ) {
+        if ( !jQuery.support.radioValue && value === "radio" && jQuery.nodeName(elem, "input") ) {
+          // Setting the type on a radio button after the value resets the value in IE6-9
+          // Reset value to default in case type is set after value during creation
+          var val = elem.value;
+          elem.setAttribute( "type", value );
+          if ( val ) {
+            elem.value = val;
+          }
+          return value;
+        }
+      }
+    }
+  },
+
+  propFix: {
+    tabindex: "tabIndex",
+    readonly: "readOnly",
+    "for": "htmlFor",
+    "class": "className",
+    maxlength: "maxLength",
+    cellspacing: "cellSpacing",
+    cellpadding: "cellPadding",
+    rowspan: "rowSpan",
+    colspan: "colSpan",
+    usemap: "useMap",
+    frameborder: "frameBorder",
+    contenteditable: "contentEditable"
+  },
+
+  prop: function( elem, name, value ) {
+    var ret, hooks, notxml,
+      nType = elem.nodeType;
+
+    // don't get/set properties on text, comment and attribute nodes
+    if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
+      return;
+    }
+
+    notxml = nType !== 1 || !jQuery.isXMLDoc( elem );
+
+    if ( notxml ) {
+      // Fix name and attach hooks
+      name = jQuery.propFix[ name ] || name;
+      hooks = jQuery.propHooks[ name ];
+    }
+
+    if ( value !== undefined ) {
+      if ( hooks && "set" in hooks && (ret = hooks.set( elem, value, name )) !== undefined ) {
+        return ret;
+
+      } else {
+        return ( elem[ name ] = value );
+      }
+
+    } else {
+      if ( hooks && "get" in hooks && (ret = hooks.get( elem, name )) !== null ) {
+        return ret;
+
+      } else {
+        return elem[ name ];
+      }
+    }
+  },
+
+  propHooks: {
+    tabIndex: {
+      get: function( elem ) {
+        // elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
+        // http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+        var attributeNode = elem.getAttributeNode("tabindex");
+
+        return attributeNode && attributeNode.specified ?
+          parseInt( attributeNode.value, 10 ) :
+          rfocusable.test( elem.nodeName ) || rclickable.test( elem.nodeName ) && elem.href ?
+            0 :
+            undefined;
+      }
+    }
+  }
+});
+
+// Hook for boolean attributes
+boolHook = {
+  get: function( elem, name ) {
+    var
+      // Use .prop to determine if this attribute is understood as boolean
+      prop = jQuery.prop( elem, name ),
+
+      // Fetch it accordingly
+      attr = typeof prop === "boolean" && elem.getAttribute( name ),
+      detail = typeof prop === "boolean" ?
+
+        getSetInput && getSetAttribute ?
+          attr != null :
+          // oldIE fabricates an empty string for missing boolean attributes
+          // and conflates checked/selected into attroperties
+          ruseDefault.test( name ) ?
+            elem[ jQuery.camelCase( "default-" + name ) ] :
+            !!attr :
+
+        // fetch an attribute node for properties not recognized as boolean
+        elem.getAttributeNode( name );
+
+    return detail && detail.value !== false ?
+      name.toLowerCase() :
+      undefined;
+  },
+  set: function( elem, value, name ) {
+    if ( value === false ) {
+      // Remove boolean attributes when set to false
+      jQuery.removeAttr( elem, name );
+    } else if ( getSetInput && getSetAttribute || !ruseDefault.test( name ) ) {
+      // IE<8 needs the *property* name
+      elem.setAttribute( !getSetAttribute && jQuery.propFix[ name ] || name, name );
+
+    // Use defaultChecked and defaultSelected for oldIE
+    } else {
+      elem[ jQuery.camelCase( "default-" + name ) ] = elem[ name ] = true;
+    }
+
+    return name;
+  }
+};
+
+// fix oldIE value attroperty
+if ( !getSetInput || !getSetAttribute ) {
+  jQuery.attrHooks.value = {
+    get: function( elem, name ) {
+      var ret = elem.getAttributeNode( name );
+      return jQuery.nodeName( elem, "input" ) ?
+
+        // Ignore the value *property* by using defaultValue
+        elem.defaultValue :
+
+        ret && ret.specified ? ret.value : undefined;
+    },
+    set: function( elem, value, name ) {
+      if ( jQuery.nodeName( elem, "input" ) ) {
+        // Does not return so that setAttribute is also used
+        elem.defaultValue = value;
+      } else {
+        // Use nodeHook if defined (#1954); otherwise setAttribute is fine
+        return nodeHook && nodeHook.set( elem, value, name );
+      }
+    }
+  };
+}
+
+// IE6/7 do not support getting/setting some attributes with get/setAttribute
+if ( !getSetAttribute ) {
+
+  // Use this for any attribute in IE6/7
+  // This fixes almost every IE6/7 issue
+  nodeHook = jQuery.valHooks.button = {
+    get: function( elem, name ) {
+      var ret = elem.getAttributeNode( name );
+      return ret && ( name === "id" || name === "name" || name === "coords" ? ret.value !== "" : ret.specified ) ?
+        ret.value :
+        undefined;
+    },
+    set: function( elem, value, name ) {
+      // Set the existing or create a new attribute node
+      var ret = elem.getAttributeNode( name );
+      if ( !ret ) {
+        elem.setAttributeNode(
+          (ret = elem.ownerDocument.createAttribute( name ))
+        );
+      }
+
+      ret.value = value += "";
+
+      // Break association with cloned elements by also using setAttribute (#9646)
+      return name === "value" || value === elem.getAttribute( name ) ?
+        value :
+        undefined;
+    }
+  };
+
+  // Set contenteditable to false on removals(#10429)
+  // Setting to empty string throws an error as an invalid value
+  jQuery.attrHooks.contenteditable = {
+    get: nodeHook.get,
+    set: function( elem, value, name ) {
+      nodeHook.set( elem, value === "" ? false : value, name );
+    }
+  };
+
+  // Set width and height to auto instead of 0 on empty string( Bug #8150 )
+  // This is for removals
+  jQuery.each([ "width", "height" ], function( i, name ) {
+    jQuery.attrHooks[ name ] = jQuery.extend( jQuery.attrHooks[ name ], {
+      set: function( elem, value ) {
+        if ( value === "" ) {
+          elem.setAttribute( name, "auto" );
+          return value;
+        }
+      }
+    });
+  });
+}
+
+
+// Some attributes require a special call on IE
+// http://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
+if ( !jQuery.support.hrefNormalized ) {
+  jQuery.each([ "href", "src", "width", "height" ], function( i, name ) {
+    jQuery.attrHooks[ name ] = jQuery.extend( jQuery.attrHooks[ name ], {
+      get: function( elem ) {
+        var ret = elem.getAttribute( name, 2 );
+        return ret == null ? undefined : ret;
+      }
+    });
+  });
+
+  // href/src property should get the full normalized URL (#10299/#12915)
+  jQuery.each([ "href", "src" ], function( i, name ) {
+    jQuery.propHooks[ name ] = {
+      get: function( elem ) {
+        return elem.getAttribute( name, 4 );
+      }
+    };
+  });
+}
+
+if ( !jQuery.support.style ) {
+  jQuery.attrHooks.style = {
+    get: function( elem ) {
+      // Return undefined in the case of empty string
+      // Note: IE uppercases css property names, but if we were to .toLowerCase()
+      // .cssText, that would destroy case senstitivity in URL's, like in "background"
+      return elem.style.cssText || undefined;
+    },
+    set: function( elem, value ) {
+      return ( elem.style.cssText = value + "" );
+    }
+  };
+}
+
+// Safari mis-reports the default selected property of an option
+// Accessing the parent's selectedIndex property fixes it
+if ( !jQuery.support.optSelected ) {
+  jQuery.propHooks.selected = jQuery.extend( jQuery.propHooks.selected, {
+    get: function( elem ) {
+      var parent = elem.parentNode;
+
+      if ( parent ) {
+        parent.selectedIndex;
+
+        // Make sure that it also works with optgroups, see #5701
+        if ( parent.parentNode ) {
+          parent.parentNode.selectedIndex;
+        }
+      }
+      return null;
+    }
+  });
+}
+
+// IE6/7 call enctype encoding
+if ( !jQuery.support.enctype ) {
+  jQuery.propFix.enctype = "encoding";
+}
+
+// Radios and checkboxes getter/setter
+if ( !jQuery.support.checkOn ) {
+  jQuery.each([ "radio", "checkbox" ], function() {
+    jQuery.valHooks[ this ] = {
+      get: function( elem ) {
+        // Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
+        return elem.getAttribute("value") === null ? "on" : elem.value;
+      }
+    };
+  });
+}
+jQuery.each([ "radio", "checkbox" ], function() {
+  jQuery.valHooks[ this ] = jQuery.extend( jQuery.valHooks[ this ], {
+    set: function( elem, value ) {
+      if ( jQuery.isArray( value ) ) {
+        return ( elem.checked = jQuery.inArray( jQuery(elem).val(), value ) >= 0 );
+      }
+    }
+  });
+});
+var rformElems = /^(?:input|select|textarea)$/i,
+  rkeyEvent = /^key/,
+  rmouseEvent = /^(?:mouse|contextmenu)|click/,
+  rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
+  rtypenamespace = /^([^.]*)(?:\.(.+)|)$/;
+
+function returnTrue() {
+  return true;
+}
+
+function returnFalse() {
+  return false;
+}
+
+/*
+ * Helper functions for managing events -- not part of the public interface.
+ * Props to Dean Edwards' addEvent library for many of the ideas.
+ */
+jQuery.event = {
+
+  global: {},
+
+  add: function( elem, types, handler, data, selector ) {
+
+    var handleObjIn, eventHandle, tmp,
+      events, t, handleObj,
+      special, handlers, type, namespaces, origType,
+      // Don't attach events to noData or text/comment nodes (but allow plain objects)
+      elemData = elem.nodeType !== 3 && elem.nodeType !== 8 && jQuery._data( elem );
+
+    if ( !elemData ) {
+      return;
+    }
+
+    // Caller can pass in an object of custom data in lieu of the handler
+    if ( handler.handler ) {
+      handleObjIn = handler;
+      handler = handleObjIn.handler;
+      selector = handleObjIn.selector;
+    }
+
+    // Make sure that the handler has a unique ID, used to find/remove it later
+    if ( !handler.guid ) {
+      handler.guid = jQuery.guid++;
+    }
+
+    // Init the element's event structure and main handler, if this is the first
+    if ( !(events = elemData.events) ) {
+      events = elemData.events = {};
+    }
+    if ( !(eventHandle = elemData.handle) ) {
+      eventHandle = elemData.handle = function( e ) {
+        // Discard the second event of a jQuery.event.trigger() and
+        // when an event is called after a page has unloaded
+        return typeof jQuery !== "undefined" && (!e || jQuery.event.triggered !== e.type) ?
+          jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
+          undefined;
+      };
+      // Add elem as a property of the handle fn to prevent a memory leak with IE non-native events
+      eventHandle.elem = elem;
+    }
+
+    // Handle multiple events separated by a space
+    // jQuery(...).bind("mouseover mouseout", fn);
+    types = ( types || "" ).match( core_rnotwhite ) || [""];
+    t = types.length;
+    while ( t-- ) {
+      tmp = rtypenamespace.exec( types[t] ) || [];
+      type = origType = tmp[1];
+      namespaces = ( tmp[2] || "" ).split( "." ).sort();
+
+      // If event changes its type, use the special event handlers for the changed type
+      special = jQuery.event.special[ type ] || {};
+
+      // If selector defined, determine special event api type, otherwise given type
+      type = ( selector ? special.delegateType : special.bindType ) || type;
+
+      // Update special based on newly reset type
+      special = jQuery.event.special[ type ] || {};
+
+      // handleObj is passed to all event handlers
+      handleObj = jQuery.extend({
+        type: type,
+        origType: origType,
+        data: data,
+        handler: handler,
+        guid: handler.guid,
+        selector: selector,
+        needsContext: selector && jQuery.expr.match.needsContext.test( selector ),
+        namespace: namespaces.join(".")
+      }, handleObjIn );
+
+      // Init the event handler queue if we're the first
+      if ( !(handlers = events[ type ]) ) {
+        handlers = events[ type ] = [];
+        handlers.delegateCount = 0;
+
+        // Only use addEventListener/attachEvent if the special events handler returns false
+        if ( !special.setup || special.setup.call( elem, data, namespaces, eventHandle ) === false ) {
+          // Bind the global event handler to the element
+          if ( elem.addEventListener ) {
+            elem.addEventListener( type, eventHandle, false );
+
+          } else if ( elem.attachEvent ) {
+            elem.attachEvent( "on" + type, eventHandle );
+          }
+        }
+      }
+
+      if ( special.add ) {
+        special.add.call( elem, handleObj );
+
+        if ( !handleObj.handler.guid ) {
+          handleObj.handler.guid = handler.guid;
+        }
+      }
+
+      // Add to the element's handler list, delegates in front
+      if ( selector ) {
+        handlers.splice( handlers.delegateCount++, 0, handleObj );
+      } else {
+        handlers.push( handleObj );
+      }
+
+      // Keep track of which events have ever been used, for event optimization
+      jQuery.event.global[ type ] = true;
+    }
+
+    // Nullify elem to prevent memory leaks in IE
+    elem = null;
+  },
+
+  // Detach an event or set of events from an element
+  remove: function( elem, types, handler, selector, mappedTypes ) {
+
+    var j, origCount, tmp,
+      events, t, handleObj,
+      special, handlers, type, namespaces, origType,
+      elemData = jQuery.hasData( elem ) && jQuery._data( elem );
+
+    if ( !elemData || !(events = elemData.events) ) {
+      return;
+    }
+
+    // Once for each type.namespace in types; type may be omitted
+    types = ( types || "" ).match( core_rnotwhite ) || [""];
+    t = types.length;
+    while ( t-- ) {
+      tmp = rtypenamespace.exec( types[t] ) || [];
+      type = origType = tmp[1];
+      namespaces = ( tmp[2] || "" ).split( "." ).sort();
+
+      // Unbind all events (on this namespace, if provided) for the element
+      if ( !type ) {
+        for ( type in events ) {
+          jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
+        }
+        continue;
+      }
+
+      special = jQuery.event.special[ type ] || {};
+      type = ( selector ? special.delegateType : special.bindType ) || type;
+      handlers = events[ type ] || [];
+      tmp = tmp[2] && new RegExp( "(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)" );
+
+      // Remove matching events
+      origCount = j = handlers.length;
+      while ( j-- ) {
+        handleObj = handlers[ j ];
+
+        if ( ( mappedTypes || origType === handleObj.origType ) &&
+          ( !handler || handler.guid === handleObj.guid ) &&
+          ( !tmp || tmp.test( handleObj.namespace ) ) &&
+          ( !selector || selector === handleObj.selector || selector === "**" && handleObj.selector ) ) {
+          handlers.splice( j, 1 );
+
+          if ( handleObj.selector ) {
+            handlers.delegateCount--;
+          }
+          if ( special.remove ) {
+            special.remove.call( elem, handleObj );
+          }
+        }
+      }
+
+      // Remove generic event handler if we removed something and no more handlers exist
+      // (avoids potential for endless recursion during removal of special event handlers)
+      if ( origCount && !handlers.length ) {
+        if ( !special.teardown || special.teardown.call( elem, namespaces, elemData.handle ) === false ) {
+          jQuery.removeEvent( elem, type, elemData.handle );
+        }
+
+        delete events[ type ];
+      }
+    }
+
+    // Remove the expando if it's no longer used
+    if ( jQuery.isEmptyObject( events ) ) {
+      delete elemData.handle;
+
+      // removeData also checks for emptiness and clears the expando if empty
+      // so use it instead of delete
+      jQuery._removeData( elem, "events" );
+    }
+  },
+
+  trigger: function( event, data, elem, onlyHandlers ) {
+
+    var i, cur, tmp, bubbleType, ontype, handle, special,
+      eventPath = [ elem || document ],
+      type = event.type || event,
+      namespaces = event.namespace ? event.namespace.split(".") : [];
+
+    cur = tmp = elem = elem || document;
+
+    // Don't do events on text and comment nodes
+    if ( elem.nodeType === 3 || elem.nodeType === 8 ) {
+      return;
+    }
+
+    // focus/blur morphs to focusin/out; ensure we're not firing them right now
+    if ( rfocusMorph.test( type + jQuery.event.triggered ) ) {
+      return;
+    }
+
+    if ( type.indexOf(".") >= 0 ) {
+      // Namespaced trigger; create a regexp to match event type in handle()
+      namespaces = type.split(".");
+      type = namespaces.shift();
+      namespaces.sort();
+    }
+    ontype = type.indexOf(":") < 0 && "on" + type;
+
+    // Caller can pass in a jQuery.Event object, Object, or just an event type string
+    event = event[ jQuery.expando ] ?
+      event :
+      new jQuery.Event( type, typeof event === "object" && event );
+
+    event.isTrigger = true;
+    event.namespace = namespaces.join(".");
+    event.namespace_re = event.namespace ?
+      new RegExp( "(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)" ) :
+      null;
+
+    // Clean up the event in case it is being reused
+    event.result = undefined;
+    if ( !event.target ) {
+      event.target = elem;
+    }
+
+    // Clone any incoming data and prepend the event, creating the handler arg list
+    data = data == null ?
+      [ event ] :
+      jQuery.makeArray( data, [ event ] );
+
+    // Allow special events to draw outside the lines
+    special = jQuery.event.special[ type ] || {};
+    if ( !onlyHandlers && special.trigger && special.trigger.apply( elem, data ) === false ) {
+      return;
+    }
+
+    // Determine event propagation path in advance, per W3C events spec (#9951)
+    // Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
+    if ( !onlyHandlers && !special.noBubble && !jQuery.isWindow( elem ) ) {
+
+      bubbleType = special.delegateType || type;
+      if ( !rfocusMorph.test( bubbleType + type ) ) {
+        cur = cur.parentNode;
+      }
+      for ( ; cur; cur = cur.parentNode ) {
+        eventPath.push( cur );
+        tmp = cur;
+      }
+
+      // Only add window if we got to document (e.g., not plain obj or detached DOM)
+      if ( tmp === (elem.ownerDocument || document) ) {
+        eventPath.push( tmp.defaultView || tmp.parentWindow || window );
+      }
+    }
+
+    // Fire handlers on the event path
+    i = 0;
+    while ( (cur = eventPath[i++]) && !event.isPropagationStopped() ) {
+
+      event.type = i > 1 ?
+        bubbleType :
+        special.bindType || type;
+
+      // jQuery handler
+      handle = ( jQuery._data( cur, "events" ) || {} )[ event.type ] && jQuery._data( cur, "handle" );
+      if ( handle ) {
+        handle.apply( cur, data );
+      }
+
+      // Native handler
+      handle = ontype && cur[ ontype ];
+      if ( handle && jQuery.acceptData( cur ) && handle.apply && handle.apply( cur, data ) === false ) {
+        event.preventDefault();
+      }
+    }
+    event.type = type;
+
+    // If nobody prevented the default action, do it now
+    if ( !onlyHandlers && !event.isDefaultPrevented() ) {
+
+      if ( (!special._default || special._default.apply( elem.ownerDocument, data ) === false) &&
+        !(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
+
+        // Call a native DOM method on the target with the same name name as the event.
+        // Can't use an .isFunction() check here because IE6/7 fails that test.
+        // Don't do default actions on window, that's where global variables be (#6170)
+        if ( ontype && elem[ type ] && !jQuery.isWindow( elem ) ) {
+
+          // Don't re-trigger an onFOO event when we call its FOO() method
+          tmp = elem[ ontype ];
+
+          if ( tmp ) {
+            elem[ ontype ] = null;
+          }
+
+          // Prevent re-triggering of the same event, since we already bubbled it above
+          jQuery.event.triggered = type;
+          try {
+            elem[ type ]();
+          } catch ( e ) {
+            // IE<9 dies on focus/blur to hidden element (#1486,#12518)
+            // only reproducible on winXP IE8 native, not IE9 in IE8 mode
+          }
+          jQuery.event.triggered = undefined;
+
+          if ( tmp ) {
+            elem[ ontype ] = tmp;
+          }
+        }
+      }
+    }
+
+    return event.result;
+  },
+
+  dispatch: function( event ) {
+
+    // Make a writable jQuery.Event from the native event object
+    event = jQuery.event.fix( event );
+
+    var i, j, ret, matched, handleObj,
+      handlerQueue = [],
+      args = core_slice.call( arguments ),
+      handlers = ( jQuery._data( this, "events" ) || {} )[ event.type ] || [],
+      special = jQuery.event.special[ event.type ] || {};
+
+    // Use the fix-ed jQuery.Event rather than the (read-only) native event
+    args[0] = event;
+    event.delegateTarget = this;
+
+    // Call the preDispatch hook for the mapped type, and let it bail if desired
+    if ( special.preDispatch && special.preDispatch.call( this, event ) === false ) {
+      return;
+    }
+
+    // Determine handlers
+    handlerQueue = jQuery.event.handlers.call( this, event, handlers );
+
+    // Run delegates first; they may want to stop propagation beneath us
+    i = 0;
+    while ( (matched = handlerQueue[ i++ ]) && !event.isPropagationStopped() ) {
+      event.currentTarget = matched.elem;
+
+      j = 0;
+      while ( (handleObj = matched.handlers[ j++ ]) && !event.isImmediatePropagationStopped() ) {
+
+        // Triggered event must either 1) have no namespace, or
+        // 2) have namespace(s) a subset or equal to those in the bound event (both can have no namespace).
+        if ( !event.namespace_re || event.namespace_re.test( handleObj.namespace ) ) {
+
+          event.handleObj = handleObj;
+          event.data = handleObj.data;
+
+          ret = ( (jQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler )
+              .apply( matched.elem, args );
+
+          if ( ret !== undefined ) {
+            if ( (event.result = ret) === false ) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          }
+        }
+      }
+    }
+
+    // Call the postDispatch hook for the mapped type
+    if ( special.postDispatch ) {
+      special.postDispatch.call( this, event );
+    }
+
+    return event.result;
+  },
+
+  handlers: function( event, handlers ) {
+    var i, matches, sel, handleObj,
+      handlerQueue = [],
+      delegateCount = handlers.delegateCount,
+      cur = event.target;
+
+    // Find delegate handlers
+    // Black-hole SVG <use> instance trees (#13180)
+    // Avoid non-left-click bubbling in Firefox (#3861)
+    if ( delegateCount && cur.nodeType && (!event.button || event.type !== "click") ) {
+
+      for ( ; cur != this; cur = cur.parentNode || this ) {
+
+        // Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+        if ( cur.disabled !== true || event.type !== "click" ) {
+          matches = [];
+          for ( i = 0; i < delegateCount; i++ ) {
+            handleObj = handlers[ i ];
+
+            // Don't conflict with Object.prototype properties (#13203)
+            sel = handleObj.selector + " ";
+
+            if ( matches[ sel ] === undefined ) {
+              matches[ sel ] = handleObj.needsContext ?
+                jQuery( sel, this ).index( cur ) >= 0 :
+                jQuery.find( sel, this, null, [ cur ] ).length;
+            }
+            if ( matches[ sel ] ) {
+              matches.push( handleObj );
+            }
+          }
+          if ( matches.length ) {
+            handlerQueue.push({ elem: cur, handlers: matches });
+          }
+        }
+      }
+    }
+
+    // Add the remaining (directly-bound) handlers
+    if ( delegateCount < handlers.length ) {
+      handlerQueue.push({ elem: this, handlers: handlers.slice( delegateCount ) });
+    }
+
+    return handlerQueue;
+  },
+
+  fix: function( event ) {
+    if ( event[ jQuery.expando ] ) {
+      return event;
+    }
+
+    // Create a writable copy of the event object and normalize some properties
+    var i, prop,
+      originalEvent = event,
+      fixHook = jQuery.event.fixHooks[ event.type ] || {},
+      copy = fixHook.props ? this.props.concat( fixHook.props ) : this.props;
+
+    event = new jQuery.Event( originalEvent );
+
+    i = copy.length;
+    while ( i-- ) {
+      prop = copy[ i ];
+      event[ prop ] = originalEvent[ prop ];
+    }
+
+    // Support: IE<9
+    // Fix target property (#1925)
+    if ( !event.target ) {
+      event.target = originalEvent.srcElement || document;
+    }
+
+    // Support: Chrome 23+, Safari?
+    // Target should not be a text node (#504, #13143)
+    if ( event.target.nodeType === 3 ) {
+      event.target = event.target.parentNode;
+    }
+
+    // Support: IE<9
+    // For mouse/key events, metaKey==false if it's undefined (#3368, #11328)
+    event.metaKey = !!event.metaKey;
+
+    return fixHook.filter ? fixHook.filter( event, originalEvent ) : event;
+  },
+
+  // Includes some event props shared by KeyEvent and MouseEvent
+  props: "altKey bubbles cancelable ctrlKey currentTarget eventPhase metaKey relatedTarget shiftKey target timeStamp view which".split(" "),
+
+  fixHooks: {},
+
+  keyHooks: {
+    props: "char charCode key keyCode".split(" "),
+    filter: function( event, original ) {
+
+      // Add which for key events
+      if ( event.which == null ) {
+        event.which = original.charCode != null ? original.charCode : original.keyCode;
+      }
+
+      return event;
+    }
+  },
+
+  mouseHooks: {
+    props: "button buttons clientX clientY fromElement offsetX offsetY pageX pageY screenX screenY toElement".split(" "),
+    filter: function( event, original ) {
+      var eventDoc, doc, body,
+        button = original.button,
+        fromElement = original.fromElement;
+
+      // Calculate pageX/Y if missing and clientX/Y available
+      if ( event.pageX == null && original.clientX != null ) {
+        eventDoc = event.target.ownerDocument || document;
+        doc = eventDoc.documentElement;
+        body = eventDoc.body;
+
+        event.pageX = original.clientX + ( doc && doc.scrollLeft || body && body.scrollLeft || 0 ) - ( doc && doc.clientLeft || body && body.clientLeft || 0 );
+        event.pageY = original.clientY + ( doc && doc.scrollTop  || body && body.scrollTop  || 0 ) - ( doc && doc.clientTop  || body && body.clientTop  || 0 );
+      }
+
+      // Add relatedTarget, if necessary
+      if ( !event.relatedTarget && fromElement ) {
+        event.relatedTarget = fromElement === event.target ? original.toElement : fromElement;
+      }
+
+      // Add which for click: 1 === left; 2 === middle; 3 === right
+      // Note: button is not normalized, so don't use it
+      if ( !event.which && button !== undefined ) {
+        event.which = ( button & 1 ? 1 : ( button & 2 ? 3 : ( button & 4 ? 2 : 0 ) ) );
+      }
+
+      return event;
+    }
+  },
+
+  special: {
+    load: {
+      // Prevent triggered image.load events from bubbling to window.load
+      noBubble: true
+    },
+    click: {
+      // For checkbox, fire native event so checked state will be right
+      trigger: function() {
+        if ( jQuery.nodeName( this, "input" ) && this.type === "checkbox" && this.click ) {
+          this.click();
+          return false;
+        }
+      }
+    },
+    focus: {
+      // Fire native event if possible so blur/focus sequence is correct
+      trigger: function() {
+        if ( this !== document.activeElement && this.focus ) {
+          try {
+            this.focus();
+            return false;
+          } catch ( e ) {
+            // Support: IE<9
+            // If we error on focus to hidden element (#1486, #12518),
+            // let .trigger() run the handlers
+          }
+        }
+      },
+      delegateType: "focusin"
+    },
+    blur: {
+      trigger: function() {
+        if ( this === document.activeElement && this.blur ) {
+          this.blur();
+          return false;
+        }
+      },
+      delegateType: "focusout"
+    },
+
+    beforeunload: {
+      postDispatch: function( event ) {
+
+        // Even when returnValue equals to undefined Firefox will still show alert
+        if ( event.result !== undefined ) {
+          event.originalEvent.returnValue = event.result;
+        }
+      }
+    }
+  },
+
+  simulate: function( type, elem, event, bubble ) {
+    // Piggyback on a donor event to simulate a different one.
+    // Fake originalEvent to avoid donor's stopPropagation, but if the
+    // simulated event prevents default then we do the same on the donor.
+    var e = jQuery.extend(
+      new jQuery.Event(),
+      event,
+      { type: type,
+        isSimulated: true,
+        originalEvent: {}
+      }
+    );
+    if ( bubble ) {
+      jQuery.event.trigger( e, null, elem );
+    } else {
+      jQuery.event.dispatch.call( elem, e );
+    }
+    if ( e.isDefaultPrevented() ) {
+      event.preventDefault();
+    }
+  }
+};
+
+jQuery.removeEvent = document.removeEventListener ?
+  function( elem, type, handle ) {
+    if ( elem.removeEventListener ) {
+      elem.removeEventListener( type, handle, false );
+    }
+  } :
+  function( elem, type, handle ) {
+    var name = "on" + type;
+
+    if ( elem.detachEvent ) {
+
+      // #8545, #7054, preventing memory leaks for custom events in IE6-8
+      // detachEvent needed property on element, by name of that event, to properly expose it to GC
+      if ( typeof elem[ name ] === "undefined" ) {
+        elem[ name ] = null;
+      }
+
+      elem.detachEvent( name, handle );
+    }
+  };
+
+jQuery.Event = function( src, props ) {
+  // Allow instantiation without the 'new' keyword
+  if ( !(this instanceof jQuery.Event) ) {
+    return new jQuery.Event( src, props );
+  }
+
+  // Event object
+  if ( src && src.type ) {
+    this.originalEvent = src;
+    this.type = src.type;
+
+    // Events bubbling up the document may have been marked as prevented
+    // by a handler lower down the tree; reflect the correct value.
+    this.isDefaultPrevented = ( src.defaultPrevented || src.returnValue === false ||
+      src.getPreventDefault && src.getPreventDefault() ) ? returnTrue : returnFalse;
+
+  // Event type
+  } else {
+    this.type = src;
+  }
+
+  // Put explicitly provided properties onto the event object
+  if ( props ) {
+    jQuery.extend( this, props );
+  }
+
+  // Create a timestamp if incoming event doesn't have one
+  this.timeStamp = src && src.timeStamp || jQuery.now();
+
+  // Mark it as fixed
+  this[ jQuery.expando ] = true;
+};
+
+// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
+// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+jQuery.Event.prototype = {
+  isDefaultPrevented: returnFalse,
+  isPropagationStopped: returnFalse,
+  isImmediatePropagationStopped: returnFalse,
+
+  preventDefault: function() {
+    var e = this.originalEvent;
+
+    this.isDefaultPrevented = returnTrue;
+    if ( !e ) {
+      return;
+    }
+
+    // If preventDefault exists, run it on the original event
+    if ( e.preventDefault ) {
+      e.preventDefault();
+
+    // Support: IE
+    // Otherwise set the returnValue property of the original event to false
+    } else {
+      e.returnValue = false;
+    }
+  },
+  stopPropagation: function() {
+    var e = this.originalEvent;
+
+    this.isPropagationStopped = returnTrue;
+    if ( !e ) {
+      return;
+    }
+    // If stopPropagation exists, run it on the original event
+    if ( e.stopPropagation ) {
+      e.stopPropagation();
+    }
+
+    // Support: IE
+    // Set the cancelBubble property of the original event to true
+    e.cancelBubble = true;
+  },
+  stopImmediatePropagation: function() {
+    this.isImmediatePropagationStopped = returnTrue;
+    this.stopPropagation();
+  }
+};
+
+// Create mouseenter/leave events using mouseover/out and event-time checks
+jQuery.each({
+  mouseenter: "mouseover",
+  mouseleave: "mouseout"
+}, function( orig, fix ) {
+  jQuery.event.special[ orig ] = {
+    delegateType: fix,
+    bindType: fix,
+
+    handle: function( event ) {
+      var ret,
+        target = this,
+        related = event.relatedTarget,
+        handleObj = event.handleObj;
+
+      // For mousenter/leave call the handler if related is outside the target.
+      // NB: No relatedTarget if the mouse left/entered the browser window
+      if ( !related || (related !== target && !jQuery.contains( target, related )) ) {
+        event.type = handleObj.origType;
+        ret = handleObj.handler.apply( this, arguments );
+        event.type = fix;
+      }
+      return ret;
+    }
+  };
+});
+
+// IE submit delegation
+if ( !jQuery.support.submitBubbles ) {
+
+  jQuery.event.special.submit = {
+    setup: function() {
+      // Only need this for delegated form submit events
+      if ( jQuery.nodeName( this, "form" ) ) {
+        return false;
+      }
+
+      // Lazy-add a submit handler when a descendant form may potentially be submitted
+      jQuery.event.add( this, "click._submit keypress._submit", function( e ) {
+        // Node name check avoids a VML-related crash in IE (#9807)
+        var elem = e.target,
+          form = jQuery.nodeName( elem, "input" ) || jQuery.nodeName( elem, "button" ) ? elem.form : undefined;
+        if ( form && !jQuery._data( form, "submitBubbles" ) ) {
+          jQuery.event.add( form, "submit._submit", function( event ) {
+            event._submit_bubble = true;
+          });
+          jQuery._data( form, "submitBubbles", true );
+        }
+      });
+      // return undefined since we don't need an event listener
+    },
+
+    postDispatch: function( event ) {
+      // If form was submitted by the user, bubble the event up the tree
+      if ( event._submit_bubble ) {
+        delete event._submit_bubble;
+        if ( this.parentNode && !event.isTrigger ) {
+          jQuery.event.simulate( "submit", this.parentNode, event, true );
+        }
+      }
+    },
+
+    teardown: function() {
+      // Only need this for delegated form submit events
+      if ( jQuery.nodeName( this, "form" ) ) {
+        return false;
+      }
+
+      // Remove delegated handlers; cleanData eventually reaps submit handlers attached above
+      jQuery.event.remove( this, "._submit" );
+    }
+  };
+}
+
+// IE change delegation and checkbox/radio fix
+if ( !jQuery.support.changeBubbles ) {
+
+  jQuery.event.special.change = {
+
+    setup: function() {
+
+      if ( rformElems.test( this.nodeName ) ) {
+        // IE doesn't fire change on a check/radio until blur; trigger it on click
+        // after a propertychange. Eat the blur-change in special.change.handle.
+        // This still fires onchange a second time for check/radio after blur.
+        if ( this.type === "checkbox" || this.type === "radio" ) {
+          jQuery.event.add( this, "propertychange._change", function( event ) {
+            if ( event.originalEvent.propertyName === "checked" ) {
+              this._just_changed = true;
+            }
+          });
+          jQuery.event.add( this, "click._change", function( event ) {
+            if ( this._just_changed && !event.isTrigger ) {
+              this._just_changed = false;
+            }
+            // Allow triggered, simulated change events (#11500)
+            jQuery.event.simulate( "change", this, event, true );
+          });
+        }
+        return false;
+      }
+      // Delegated event; lazy-add a change handler on descendant inputs
+      jQuery.event.add( this, "beforeactivate._change", function( e ) {
+        var elem = e.target;
+
+        if ( rformElems.test( elem.nodeName ) && !jQuery._data( elem, "changeBubbles" ) ) {
+          jQuery.event.add( elem, "change._change", function( event ) {
+            if ( this.parentNode && !event.isSimulated && !event.isTrigger ) {
+              jQuery.event.simulate( "change", this.parentNode, event, true );
+            }
+          });
+          jQuery._data( elem, "changeBubbles", true );
+        }
       });
     },
 
-    // Force the collection to re-sort itself. You don't need to call this under
-    // normal circumstances, as the set will maintain sort order as each item
-    // is added.
-    sort: function(options) {
-      options || (options = {});
-      if (!this.comparator) throw new Error('Cannot sort a set without a comparator');
-      var boundComparator = _.bind(this.comparator, this);
-      if (this.comparator.length == 1) {
-        this.models = this.sortBy(boundComparator);
-      } else {
-        this.models.sort(boundComparator);
+    handle: function( event ) {
+      var elem = event.target;
+
+      // Swallow native change events from checkbox/radio, we already triggered them above
+      if ( this !== elem || event.isSimulated || event.isTrigger || (elem.type !== "radio" && elem.type !== "checkbox") ) {
+        return event.handleObj.handler.apply( this, arguments );
       }
-      if (!options.silent) this.trigger('reset', this, options);
-      return this;
     },
 
-    // Pluck an attribute from each model in the collection.
-    pluck: function(attr) {
-      return _.map(this.models, function(model){ return model.get(attr); });
-    },
+    teardown: function() {
+      jQuery.event.remove( this, "._change" );
 
-    // When you have more items than you want to add or remove individually,
-    // you can reset the entire set with a new list of models, without firing
-    // any `add` or `remove` events. Fires `reset` when finished.
-    reset: function(models, options) {
-      models  || (models = []);
-      options || (options = {});
-      for (var i = 0, l = this.models.length; i < l; i++) {
-        this._removeReference(this.models[i]);
-      }
-      this._reset();
-      this.add(models, _.extend({silent: true}, options));
-      if (!options.silent) this.trigger('reset', this, options);
-      return this;
-    },
-
-    // Fetch the default set of models for this collection, resetting the
-    // collection when they arrive. If `add: true` is passed, appends the
-    // models to the collection instead of resetting.
-    fetch: function(options) {
-      options = options ? _.clone(options) : {};
-      if (options.parse === undefined) options.parse = true;
-      var collection = this;
-      var success = options.success;
-      options.success = function(resp, status, xhr) {
-        collection[options.add ? 'add' : 'reset'](collection.parse(resp, xhr), options);
-        if (success) success(collection, resp);
-      };
-      options.error = Backbone.wrapError(options.error, collection, options);
-      return (this.sync || Backbone.sync).call(this, 'read', this, options);
-    },
-
-    // Create a new instance of a model in this collection. Add the model to the
-    // collection immediately, unless `wait: true` is passed, in which case we
-    // wait for the server to agree.
-    create: function(model, options) {
-      var coll = this;
-      options = options ? _.clone(options) : {};
-      model = this._prepareModel(model, options);
-      if (!model) return false;
-      if (!options.wait) coll.add(model, options);
-      var success = options.success;
-      options.success = function(nextModel, resp, xhr) {
-        if (options.wait) coll.add(nextModel, options);
-        if (success) {
-          success(nextModel, resp);
-        } else {
-          nextModel.trigger('sync', model, resp, options);
-        }
-      };
-      model.save(null, options);
-      return model;
-    },
-
-    // **parse** converts a response into a list of models to be added to the
-    // collection. The default implementation is just to pass it through.
-    parse: function(resp, xhr) {
-      return resp;
-    },
-
-    // Proxy to _'s chain. Can't be proxied the same way the rest of the
-    // underscore methods are proxied because it relies on the underscore
-    // constructor.
-    chain: function () {
-      return _(this.models).chain();
-    },
-
-    // Reset all internal state. Called when the collection is reset.
-    _reset: function(options) {
-      this.length = 0;
-      this.models = [];
-      this._byId  = {};
-      this._byCid = {};
-    },
-
-    // Prepare a model or hash of attributes to be added to this collection.
-    _prepareModel: function(model, options) {
-      options || (options = {});
-      if (!(model instanceof Model)) {
-        var attrs = model;
-        options.collection = this;
-        model = new this.model(attrs, options);
-        if (!model._validate(model.attributes, options)) model = false;
-      } else if (!model.collection) {
-        model.collection = this;
-      }
-      return model;
-    },
-
-    // Internal method to remove a model's ties to a collection.
-    _removeReference: function(model) {
-      if (this == model.collection) {
-        delete model.collection;
-      }
-      model.off('all', this._onModelEvent, this);
-    },
-
-    // Internal method called every time a model in the set fires an event.
-    // Sets need to update their indexes when models change ids. All other
-    // events simply proxy through. "add" and "remove" events that originate
-    // in other collections are ignored.
-    _onModelEvent: function(event, model, collection, options) {
-      if ((event == 'add' || event == 'remove') && collection != this) return;
-      if (event == 'destroy') {
-        this.remove(model, options);
-      }
-      if (model && event === 'change:' + model.idAttribute) {
-        delete this._byId[model.previous(model.idAttribute)];
-        this._byId[model.id] = model;
-      }
-      this.trigger.apply(this, arguments);
+      return !rformElems.test( this.nodeName );
     }
+  };
+}
 
-  });
+// Create "bubbling" focus and blur events
+if ( !jQuery.support.focusinBubbles ) {
+  jQuery.each({ focus: "focusin", blur: "focusout" }, function( orig, fix ) {
 
-  // Underscore methods that we want to implement on the Collection.
-  var methods = ['forEach', 'each', 'map', 'reduce', 'reduceRight', 'find',
-    'detect', 'filter', 'select', 'reject', 'every', 'all', 'some', 'any',
-    'include', 'contains', 'invoke', 'max', 'min', 'sortBy', 'sortedIndex',
-    'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without', 'indexOf',
-    'shuffle', 'lastIndexOf', 'isEmpty', 'groupBy'];
+    // Attach a single capturing handler while someone wants focusin/focusout
+    var attaches = 0,
+      handler = function( event ) {
+        jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ), true );
+      };
 
-  // Mix in each Underscore method as a proxy to `Collection#models`.
-  _.each(methods, function(method) {
-    Collection.prototype[method] = function() {
-      return _[method].apply(_, [this.models].concat(_.toArray(arguments)));
+    jQuery.event.special[ fix ] = {
+      setup: function() {
+        if ( attaches++ === 0 ) {
+          document.addEventListener( orig, handler, true );
+        }
+      },
+      teardown: function() {
+        if ( --attaches === 0 ) {
+          document.removeEventListener( orig, handler, true );
+        }
+      }
     };
   });
+}
 
-  // Backbone.Router
-  // -------------------
+jQuery.fn.extend({
 
-  // Routers map faux-URLs to actions, and fire events when routes are
-  // matched. Creating a new one sets its `routes` hash, if not set statically.
-  var Router = Backbone.Router = function(options) {
-    options || (options = {});
-    if (options.routes) this.routes = options.routes;
-    this._bindRoutes();
-    this.initialize.apply(this, arguments);
-  };
+  on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
+    var origFn, type;
 
-  // Cached regular expressions for matching named param parts and splatted
-  // parts of route strings.
-  var namedParam    = /:\w+/g;
-  var splatParam    = /\*\w+/g;
-  var escapeRegExp  = /[-[\]{}()+?.,\\^$|#\s]/g;
-
-  // Set up all inheritable **Backbone.Router** properties and methods.
-  _.extend(Router.prototype, Events, {
-
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
-
-    // Manually bind a single named route to a callback. For example:
-    //
-    //     this.route('search/:query/p:num', 'search', function(query, num) {
-    //       ...
-    //     });
-    //
-    route: function(route, name, callback) {
-      Backbone.history || (Backbone.history = new History);
-      if (!_.isRegExp(route)) route = this._routeToRegExp(route);
-      if (!callback) callback = this[name];
-      Backbone.history.route(route, _.bind(function(fragment) {
-        var args = this._extractParameters(route, fragment);
-        callback && callback.apply(this, args);
-        this.trigger.apply(this, ['route:' + name].concat(args));
-        Backbone.history.trigger('route', this, name, args);
-      }, this));
+    // Types can be a map of types/handlers
+    if ( typeof types === "object" ) {
+      // ( types-Object, selector, data )
+      if ( typeof selector !== "string" ) {
+        // ( types-Object, data )
+        data = data || selector;
+        selector = undefined;
+      }
+      for ( type in types ) {
+        this.on( type, selector, data, types[ type ], one );
+      }
       return this;
-    },
-
-    // Simple proxy to `Backbone.history` to save a fragment into the history.
-    navigate: function(fragment, options) {
-      Backbone.history.navigate(fragment, options);
-    },
-
-    // Bind all defined routes to `Backbone.history`. We have to reverse the
-    // order of the routes here to support behavior where the most general
-    // routes can be defined at the bottom of the route map.
-    _bindRoutes: function() {
-      if (!this.routes) return;
-      var routes = [];
-      for (var route in this.routes) {
-        routes.unshift([route, this.routes[route]]);
-      }
-      for (var i = 0, l = routes.length; i < l; i++) {
-        this.route(routes[i][0], routes[i][1], this[routes[i][1]]);
-      }
-    },
-
-    // Convert a route string into a regular expression, suitable for matching
-    // against the current location hash.
-    _routeToRegExp: function(route) {
-      route = route.replace(escapeRegExp, '\\$&')
-                   .replace(namedParam, '([^\/]+)')
-                   .replace(splatParam, '(.*?)');
-      return new RegExp('^' + route + '$');
-    },
-
-    // Given a route, and a URL fragment that it matches, return the array of
-    // extracted parameters.
-    _extractParameters: function(route, fragment) {
-      return route.exec(fragment).slice(1);
     }
 
-  });
+    if ( data == null && fn == null ) {
+      // ( types, fn )
+      fn = selector;
+      data = selector = undefined;
+    } else if ( fn == null ) {
+      if ( typeof selector === "string" ) {
+        // ( types, selector, fn )
+        fn = data;
+        data = undefined;
+      } else {
+        // ( types, data, fn )
+        fn = data;
+        data = selector;
+        selector = undefined;
+      }
+    }
+    if ( fn === false ) {
+      fn = returnFalse;
+    } else if ( !fn ) {
+      return this;
+    }
 
-  // Backbone.History
-  // ----------------
+    if ( one === 1 ) {
+      origFn = fn;
+      fn = function( event ) {
+        // Can use an empty set, since event contains the info
+        jQuery().off( event );
+        return origFn.apply( this, arguments );
+      };
+      // Use same guid so caller can remove using origFn
+      fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
+    }
+    return this.each( function() {
+      jQuery.event.add( this, types, fn, data, selector );
+    });
+  },
+  one: function( types, selector, data, fn ) {
+    return this.on( types, selector, data, fn, 1 );
+  },
+  off: function( types, selector, fn ) {
+    var handleObj, type;
+    if ( types && types.preventDefault && types.handleObj ) {
+      // ( event )  dispatched jQuery.Event
+      handleObj = types.handleObj;
+      jQuery( types.delegateTarget ).off(
+        handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
+        handleObj.selector,
+        handleObj.handler
+      );
+      return this;
+    }
+    if ( typeof types === "object" ) {
+      // ( types-object [, selector] )
+      for ( type in types ) {
+        this.off( type, selector, types[ type ] );
+      }
+      return this;
+    }
+    if ( selector === false || typeof selector === "function" ) {
+      // ( types [, fn] )
+      fn = selector;
+      selector = undefined;
+    }
+    if ( fn === false ) {
+      fn = returnFalse;
+    }
+    return this.each(function() {
+      jQuery.event.remove( this, types, fn, selector );
+    });
+  },
 
-  // Handles cross-browser history management, based on URL fragments. If the
-  // browser does not support `onhashchange`, falls back to polling.
-  var History = Backbone.History = function() {
-    this.handlers = [];
-    _.bindAll(this, 'checkUrl');
+  bind: function( types, data, fn ) {
+    return this.on( types, null, data, fn );
+  },
+  unbind: function( types, fn ) {
+    return this.off( types, null, fn );
+  },
+
+  delegate: function( selector, types, data, fn ) {
+    return this.on( types, selector, data, fn );
+  },
+  undelegate: function( selector, types, fn ) {
+    // ( namespace ) or ( selector, types [, fn] )
+    return arguments.length === 1 ? this.off( selector, "**" ) : this.off( types, selector || "**", fn );
+  },
+
+  trigger: function( type, data ) {
+    return this.each(function() {
+      jQuery.event.trigger( type, data, this );
+    });
+  },
+  triggerHandler: function( type, data ) {
+    var elem = this[0];
+    if ( elem ) {
+      return jQuery.event.trigger( type, data, elem, true );
+    }
+  },
+
+  hover: function( fnOver, fnOut ) {
+    return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
+  }
+});
+
+jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
+  "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
+  "change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
+
+  // Handle event binding
+  jQuery.fn[ name ] = function( data, fn ) {
+    return arguments.length > 0 ?
+      this.on( name, null, data, fn ) :
+      this.trigger( name );
   };
 
-  // Cached regex for cleaning leading hashes and slashes .
-  var routeStripper = /^[#\/]/;
+  if ( rkeyEvent.test( name ) ) {
+    jQuery.event.fixHooks[ name ] = jQuery.event.keyHooks;
+  }
 
-  // Cached regex for detecting MSIE.
-  var isExplorer = /msie [\w.]+/;
+  if ( rmouseEvent.test( name ) ) {
+    jQuery.event.fixHooks[ name ] = jQuery.event.mouseHooks;
+  }
+});
+/*!
+ * Sizzle CSS Selector Engine
+ * Copyright 2012 jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://sizzlejs.com/
+ */
+(function( window, undefined ) {
 
-  // Has the history handling already been started?
-  History.started = false;
+var i,
+  cachedruns,
+  Expr,
+  getText,
+  isXML,
+  compile,
+  hasDuplicate,
+  outermostContext,
 
-  // Set up all inheritable **Backbone.History** properties and methods.
-  _.extend(History.prototype, Events, {
+  // Local document vars
+  setDocument,
+  document,
+  docElem,
+  documentIsXML,
+  rbuggyQSA,
+  rbuggyMatches,
+  matches,
+  contains,
+  sortOrder,
 
-    // The default interval to poll for hash changes, if necessary, is
-    // twenty times a second.
-    interval: 50,
+  // Instance-specific data
+  expando = "sizzle" + -(new Date()),
+  preferredDoc = window.document,
+  support = {},
+  dirruns = 0,
+  done = 0,
+  classCache = createCache(),
+  tokenCache = createCache(),
+  compilerCache = createCache(),
 
-    // Gets the true hash value. Cannot use location.hash directly due to bug
-    // in Firefox where location.hash will always be decoded.
-    getHash: function(windowOverride) {
-      var loc = windowOverride ? windowOverride.location : window.location;
-      var match = loc.href.match(/#(.*)$/);
-      return match ? match[1] : '';
-    },
+  // General-purpose constants
+  strundefined = typeof undefined,
+  MAX_NEGATIVE = 1 << 31,
 
-    // Get the cross-browser normalized URL fragment, either from the URL,
-    // the hash, or the override.
-    getFragment: function(fragment, forcePushState) {
-      if (fragment == null) {
-        if (this._hasPushState || forcePushState) {
-          fragment = window.location.pathname;
-          var search = window.location.search;
-          if (search) fragment += search;
+  // Array methods
+  arr = [],
+  pop = arr.pop,
+  push = arr.push,
+  slice = arr.slice,
+  // Use a stripped-down indexOf if we can't use a native one
+  indexOf = arr.indexOf || function( elem ) {
+    var i = 0,
+      len = this.length;
+    for ( ; i < len; i++ ) {
+      if ( this[i] === elem ) {
+        return i;
+      }
+    }
+    return -1;
+  },
+
+
+  // Regular expressions
+
+  // Whitespace characters http://www.w3.org/TR/css3-selectors/#whitespace
+  whitespace = "[\\x20\\t\\r\\n\\f]",
+  // http://www.w3.org/TR/css3-syntax/#characters
+  characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",
+
+  // Loosely modeled on CSS identifier characters
+  // An unquoted value should be a CSS identifier http://www.w3.org/TR/css3-selectors/#attribute-selectors
+  // Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
+  identifier = characterEncoding.replace( "w", "w#" ),
+
+  // Acceptable operators http://www.w3.org/TR/selectors/#attribute-selectors
+  operators = "([*^$|!~]?=)",
+  attributes = "\\[" + whitespace + "*(" + characterEncoding + ")" + whitespace +
+    "*(?:" + operators + whitespace + "*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|(" + identifier + ")|)|)" + whitespace + "*\\]",
+
+  // Prefer arguments quoted,
+  //   then not containing pseudos/brackets,
+  //   then attribute selectors/non-parenthetical expressions,
+  //   then anything else
+  // These preferences are here to reduce the number of selectors
+  //   needing tokenize in the PSEUDO preFilter
+  pseudos = ":(" + characterEncoding + ")(?:\\(((['\"])((?:\\\\.|[^\\\\])*?)\\3|((?:\\\\.|[^\\\\()[\\]]|" + attributes.replace( 3, 8 ) + ")*)|.*)\\)|)",
+
+  // Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
+  rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
+
+  rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
+  rcombinators = new RegExp( "^" + whitespace + "*([\\x20\\t\\r\\n\\f>+~])" + whitespace + "*" ),
+  rpseudo = new RegExp( pseudos ),
+  ridentifier = new RegExp( "^" + identifier + "$" ),
+
+  matchExpr = {
+    "ID": new RegExp( "^#(" + characterEncoding + ")" ),
+    "CLASS": new RegExp( "^\\.(" + characterEncoding + ")" ),
+    "NAME": new RegExp( "^\\[name=['\"]?(" + characterEncoding + ")['\"]?\\]" ),
+    "TAG": new RegExp( "^(" + characterEncoding.replace( "w", "w*" ) + ")" ),
+    "ATTR": new RegExp( "^" + attributes ),
+    "PSEUDO": new RegExp( "^" + pseudos ),
+    "CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
+      "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
+      "*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
+    // For use in libraries implementing .is()
+    // We use this for POS matching in `select`
+    "needsContext": new RegExp( "^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
+      whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
+  },
+
+  rsibling = /[\x20\t\r\n\f]*[+~]/,
+
+  rnative = /\{\s*\[native code\]\s*\}/,
+
+  // Easily-parseable/retrievable ID or TAG or CLASS selectors
+  rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
+
+  rinputs = /^(?:input|select|textarea|button)$/i,
+  rheader = /^h\d$/i,
+
+  rescape = /'|\\/g,
+  rattributeQuotes = /\=[\x20\t\r\n\f]*([^'"\]]*)[\x20\t\r\n\f]*\]/g,
+
+  // CSS escapes http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+  runescape = /\\([\da-fA-F]{1,6}[\x20\t\r\n\f]?|.)/g,
+  funescape = function( _, escaped ) {
+    var high = "0x" + escaped - 0x10000;
+    // NaN means non-codepoint
+    return high !== high ?
+      escaped :
+      // BMP codepoint
+      high < 0 ?
+        String.fromCharCode( high + 0x10000 ) :
+        // Supplemental Plane codepoint (surrogate pair)
+        String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
+  };
+
+// Use a stripped-down slice if we can't use a native one
+try {
+  slice.call( docElem.childNodes, 0 )[0].nodeType;
+} catch ( e ) {
+  slice = function( i ) {
+    var elem,
+      results = [];
+    for ( ; (elem = this[i]); i++ ) {
+      results.push( elem );
+    }
+    return results;
+  };
+}
+
+/**
+ * For feature detection
+ * @param {Function} fn The function to test for native support
+ */
+function isNative( fn ) {
+  return rnative.test( fn + "" );
+}
+
+/**
+ * Create key-value caches of limited size
+ * @returns {Function(string, Object)} Returns the Object data after storing it on itself with
+ *  property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
+ *  deleting the oldest entry
+ */
+function createCache() {
+  var cache,
+    keys = [];
+
+  return (cache = function( key, value ) {
+    // Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
+    if ( keys.push( key += " " ) > Expr.cacheLength ) {
+      // Only keep the most recent entries
+      delete cache[ keys.shift() ];
+    }
+    return (cache[ key ] = value);
+  });
+}
+
+/**
+ * Mark a function for special use by Sizzle
+ * @param {Function} fn The function to mark
+ */
+function markFunction( fn ) {
+  fn[ expando ] = true;
+  return fn;
+}
+
+/**
+ * Support testing using an element
+ * @param {Function} fn Passed the created div and expects a boolean result
+ */
+function assert( fn ) {
+  var div = document.createElement("div");
+
+  try {
+    return fn( div );
+  } catch (e) {
+    return false;
+  } finally {
+    // release memory in IE
+    div = null;
+  }
+}
+
+function Sizzle( selector, context, results, seed ) {
+  var match, elem, m, nodeType,
+    // QSA vars
+    i, groups, old, nid, newContext, newSelector;
+
+  if ( ( context ? context.ownerDocument || context : preferredDoc ) !== document ) {
+    setDocument( context );
+  }
+
+  context = context || document;
+  results = results || [];
+
+  if ( !selector || typeof selector !== "string" ) {
+    return results;
+  }
+
+  if ( (nodeType = context.nodeType) !== 1 && nodeType !== 9 ) {
+    return [];
+  }
+
+  if ( !documentIsXML && !seed ) {
+
+    // Shortcuts
+    if ( (match = rquickExpr.exec( selector )) ) {
+      // Speed-up: Sizzle("#ID")
+      if ( (m = match[1]) ) {
+        if ( nodeType === 9 ) {
+          elem = context.getElementById( m );
+          // Check parentNode to catch when Blackberry 4.6 returns
+          // nodes that are no longer in the document #6963
+          if ( elem && elem.parentNode ) {
+            // Handle the case where IE, Opera, and Webkit return items
+            // by name instead of ID
+            if ( elem.id === m ) {
+              results.push( elem );
+              return results;
+            }
+          } else {
+            return results;
+          }
         } else {
-          fragment = this.getHash();
+          // Context is not a document
+          if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( m )) &&
+            contains( context, elem ) && elem.id === m ) {
+            results.push( elem );
+            return results;
+          }
+        }
+
+      // Speed-up: Sizzle("TAG")
+      } else if ( match[2] ) {
+        push.apply( results, slice.call(context.getElementsByTagName( selector ), 0) );
+        return results;
+
+      // Speed-up: Sizzle(".CLASS")
+      } else if ( (m = match[3]) && support.getByClassName && context.getElementsByClassName ) {
+        push.apply( results, slice.call(context.getElementsByClassName( m ), 0) );
+        return results;
+      }
+    }
+
+    // QSA path
+    if ( support.qsa && !rbuggyQSA.test(selector) ) {
+      old = true;
+      nid = expando;
+      newContext = context;
+      newSelector = nodeType === 9 && selector;
+
+      // qSA works strangely on Element-rooted queries
+      // We can work around this by specifying an extra ID on the root
+      // and working up from there (Thanks to Andrew Dupont for the technique)
+      // IE 8 doesn't work on object elements
+      if ( nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
+        groups = tokenize( selector );
+
+        if ( (old = context.getAttribute("id")) ) {
+          nid = old.replace( rescape, "\\$&" );
+        } else {
+          context.setAttribute( "id", nid );
+        }
+        nid = "[id='" + nid + "'] ";
+
+        i = groups.length;
+        while ( i-- ) {
+          groups[i] = nid + toSelector( groups[i] );
+        }
+        newContext = rsibling.test( selector ) && context.parentNode || context;
+        newSelector = groups.join(",");
+      }
+
+      if ( newSelector ) {
+        try {
+          push.apply( results, slice.call( newContext.querySelectorAll(
+            newSelector
+          ), 0 ) );
+          return results;
+        } catch(qsaError) {
+        } finally {
+          if ( !old ) {
+            context.removeAttribute("id");
+          }
         }
       }
-      if (!fragment.indexOf(this.options.root)) fragment = fragment.substr(this.options.root.length);
-      return fragment.replace(routeStripper, '');
-    },
+    }
+  }
 
-    // Start the hash change handling, returning `true` if the current URL matches
-    // an existing route, and `false` otherwise.
-    start: function(options) {
-      if (History.started) throw new Error("Backbone.history has already been started");
-      History.started = true;
+  // All others
+  return select( selector.replace( rtrim, "$1" ), context, results, seed );
+}
 
-      // Figure out the initial configuration. Do we need an iframe?
-      // Is pushState desired ... is it available?
-      this.options          = _.extend({}, {root: '/'}, this.options, options);
-      this._wantsHashChange = this.options.hashChange !== false;
-      this._wantsPushState  = !!this.options.pushState;
-      this._hasPushState    = !!(this.options.pushState && window.history && window.history.pushState);
-      var fragment          = this.getFragment();
-      var docMode           = document.documentMode;
-      var oldIE             = (isExplorer.exec(navigator.userAgent.toLowerCase()) && (!docMode || docMode <= 7));
+/**
+ * Detect xml
+ * @param {Element|Object} elem An element or a document
+ */
+isXML = Sizzle.isXML = function( elem ) {
+  // documentElement is verified for cases where it doesn't yet exist
+  // (such as loading iframes in IE - #4833)
+  var documentElement = elem && (elem.ownerDocument || elem).documentElement;
+  return documentElement ? documentElement.nodeName !== "HTML" : false;
+};
 
-      if (oldIE) {
-        this.iframe = $('<iframe src="javascript:0" tabindex="-1" />').hide().appendTo('body')[0].contentWindow;
-        this.navigate(fragment);
+/**
+ * Sets document-related variables once based on the current document
+ * @param {Element|Object} [doc] An element or document object to use to set the document
+ * @returns {Object} Returns the current document
+ */
+setDocument = Sizzle.setDocument = function( node ) {
+  var doc = node ? node.ownerDocument || node : preferredDoc;
+
+  // If no document and documentElement is available, return
+  if ( doc === document || doc.nodeType !== 9 || !doc.documentElement ) {
+    return document;
+  }
+
+  // Set our document
+  document = doc;
+  docElem = doc.documentElement;
+
+  // Support tests
+  documentIsXML = isXML( doc );
+
+  // Check if getElementsByTagName("*") returns only elements
+  support.tagNameNoComments = assert(function( div ) {
+    div.appendChild( doc.createComment("") );
+    return !div.getElementsByTagName("*").length;
+  });
+
+  // Check if attributes should be retrieved by attribute nodes
+  support.attributes = assert(function( div ) {
+    div.innerHTML = "<select></select>";
+    var type = typeof div.lastChild.getAttribute("multiple");
+    // IE8 returns a string for some attributes even when not present
+    return type !== "boolean" && type !== "string";
+  });
+
+  // Check if getElementsByClassName can be trusted
+  support.getByClassName = assert(function( div ) {
+    // Opera can't find a second classname (in 9.6)
+    div.innerHTML = "<div class='hidden e'></div><div class='hidden'></div>";
+    if ( !div.getElementsByClassName || !div.getElementsByClassName("e").length ) {
+      return false;
+    }
+
+    // Safari 3.2 caches class attributes and doesn't catch changes
+    div.lastChild.className = "e";
+    return div.getElementsByClassName("e").length === 2;
+  });
+
+  // Check if getElementById returns elements by name
+  // Check if getElementsByName privileges form controls or returns elements by ID
+  support.getByName = assert(function( div ) {
+    // Inject content
+    div.id = expando + 0;
+    div.innerHTML = "<a name='" + expando + "'></a><div name='" + expando + "'></div>";
+    docElem.insertBefore( div, docElem.firstChild );
+
+    // Test
+    var pass = doc.getElementsByName &&
+      // buggy browsers will return fewer than the correct 2
+      doc.getElementsByName( expando ).length === 2 +
+      // buggy browsers will return more than the correct 0
+      doc.getElementsByName( expando + 0 ).length;
+    support.getIdNotName = !doc.getElementById( expando );
+
+    // Cleanup
+    docElem.removeChild( div );
+
+    return pass;
+  });
+
+  // IE6/7 return modified attributes
+  Expr.attrHandle = assert(function( div ) {
+    div.innerHTML = "<a href='#'></a>";
+    return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
+      div.firstChild.getAttribute("href") === "#";
+  }) ?
+    {} :
+    {
+      "href": function( elem ) {
+        return elem.getAttribute( "href", 2 );
+      },
+      "type": function( elem ) {
+        return elem.getAttribute("type");
+      }
+    };
+
+  // ID find and filter
+  if ( support.getIdNotName ) {
+    Expr.find["ID"] = function( id, context ) {
+      if ( typeof context.getElementById !== strundefined && !documentIsXML ) {
+        var m = context.getElementById( id );
+        // Check parentNode to catch when Blackberry 4.6 returns
+        // nodes that are no longer in the document #6963
+        return m && m.parentNode ? [m] : [];
+      }
+    };
+    Expr.filter["ID"] = function( id ) {
+      var attrId = id.replace( runescape, funescape );
+      return function( elem ) {
+        return elem.getAttribute("id") === attrId;
+      };
+    };
+  } else {
+    Expr.find["ID"] = function( id, context ) {
+      if ( typeof context.getElementById !== strundefined && !documentIsXML ) {
+        var m = context.getElementById( id );
+
+        return m ?
+          m.id === id || typeof m.getAttributeNode !== strundefined && m.getAttributeNode("id").value === id ?
+            [m] :
+            undefined :
+          [];
+      }
+    };
+    Expr.filter["ID"] =  function( id ) {
+      var attrId = id.replace( runescape, funescape );
+      return function( elem ) {
+        var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
+        return node && node.value === attrId;
+      };
+    };
+  }
+
+  // Tag
+  Expr.find["TAG"] = support.tagNameNoComments ?
+    function( tag, context ) {
+      if ( typeof context.getElementsByTagName !== strundefined ) {
+        return context.getElementsByTagName( tag );
+      }
+    } :
+    function( tag, context ) {
+      var elem,
+        tmp = [],
+        i = 0,
+        results = context.getElementsByTagName( tag );
+
+      // Filter out possible comments
+      if ( tag === "*" ) {
+        for ( ; (elem = results[i]); i++ ) {
+          if ( elem.nodeType === 1 ) {
+            tmp.push( elem );
+          }
+        }
+
+        return tmp;
+      }
+      return results;
+    };
+
+  // Name
+  Expr.find["NAME"] = support.getByName && function( tag, context ) {
+    if ( typeof context.getElementsByName !== strundefined ) {
+      return context.getElementsByName( name );
+    }
+  };
+
+  // Class
+  Expr.find["CLASS"] = support.getByClassName && function( className, context ) {
+    if ( typeof context.getElementsByClassName !== strundefined && !documentIsXML ) {
+      return context.getElementsByClassName( className );
+    }
+  };
+
+  // QSA and matchesSelector support
+
+  // matchesSelector(:active) reports false when true (IE9/Opera 11.5)
+  rbuggyMatches = [];
+
+  // qSa(:focus) reports false when true (Chrome 21),
+  // no need to also add to buggyMatches since matches checks buggyQSA
+  // A support test would require too much code (would include document ready)
+  rbuggyQSA = [ ":focus" ];
+
+  if ( (support.qsa = isNative(doc.querySelectorAll)) ) {
+    // Build QSA regex
+    // Regex strategy adopted from Diego Perini
+    assert(function( div ) {
+      // Select is set to empty string on purpose
+      // This is to test IE's treatment of not explictly
+      // setting a boolean content attribute,
+      // since its presence should be enough
+      // http://bugs.jquery.com/ticket/12359
+      div.innerHTML = "<select><option selected=''></option></select>";
+
+      // IE8 - Some boolean attributes are not treated correctly
+      if ( !div.querySelectorAll("[selected]").length ) {
+        rbuggyQSA.push( "\\[" + whitespace + "*(?:checked|disabled|ismap|multiple|readonly|selected|value)" );
       }
 
-      // Depending on whether we're using pushState or hashes, and whether
-      // 'onhashchange' is supported, determine how we check the URL state.
-      if (this._hasPushState) {
-        $(window).bind('popstate', this.checkUrl);
-      } else if (this._wantsHashChange && ('onhashchange' in window) && !oldIE) {
-        $(window).bind('hashchange', this.checkUrl);
-      } else if (this._wantsHashChange) {
-        this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
+      // Webkit/Opera - :checked should return selected option elements
+      // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+      // IE8 throws error here and will not see later tests
+      if ( !div.querySelectorAll(":checked").length ) {
+        rbuggyQSA.push(":checked");
+      }
+    });
+
+    assert(function( div ) {
+
+      // Opera 10-12/IE8 - ^= $= *= and empty values
+      // Should not select anything
+      div.innerHTML = "<input type='hidden' i=''/>";
+      if ( div.querySelectorAll("[i^='']").length ) {
+        rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:\"\"|'')" );
       }
 
-      // Determine if we need to change the base url, for a pushState link
-      // opened by a non-pushState browser.
-      this.fragment = fragment;
-      var loc = window.location;
-      var atRoot  = loc.pathname == this.options.root;
-
-      // If we've started off with a route from a `pushState`-enabled browser,
-      // but we're currently in a browser that doesn't support it...
-      if (this._wantsHashChange && this._wantsPushState && !this._hasPushState && !atRoot) {
-        this.fragment = this.getFragment(null, true);
-        window.location.replace(this.options.root + '#' + this.fragment);
-        // Return immediately as browser will do redirect to new url
-        return true;
-
-      // Or if we've started out with a hash-based route, but we're currently
-      // in a browser where it could be `pushState`-based instead...
-      } else if (this._wantsPushState && this._hasPushState && atRoot && loc.hash) {
-        this.fragment = this.getHash().replace(routeStripper, '');
-        window.history.replaceState({}, document.title, loc.protocol + '//' + loc.host + this.options.root + this.fragment);
+      // FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
+      // IE8 throws error here and will not see later tests
+      if ( !div.querySelectorAll(":enabled").length ) {
+        rbuggyQSA.push( ":enabled", ":disabled" );
       }
 
-      if (!this.options.silent) {
-        return this.loadUrl();
+      // Opera 10-11 does not throw on post-comma invalid pseudos
+      div.querySelectorAll("*,:x");
+      rbuggyQSA.push(",.*:");
+    });
+  }
+
+  if ( (support.matchesSelector = isNative( (matches = docElem.matchesSelector ||
+    docElem.mozMatchesSelector ||
+    docElem.webkitMatchesSelector ||
+    docElem.oMatchesSelector ||
+    docElem.msMatchesSelector) )) ) {
+
+    assert(function( div ) {
+      // Check to see if it's possible to do matchesSelector
+      // on a disconnected node (IE 9)
+      support.disconnectedMatch = matches.call( div, "div" );
+
+      // This should fail with an exception
+      // Gecko does not error, returns false instead
+      matches.call( div, "[s!='']:x" );
+      rbuggyMatches.push( "!=", pseudos );
+    });
+  }
+
+  rbuggyQSA = new RegExp( rbuggyQSA.join("|") );
+  rbuggyMatches = new RegExp( rbuggyMatches.join("|") );
+
+  // Element contains another
+  // Purposefully does not implement inclusive descendent
+  // As in, an element does not contain itself
+  contains = isNative(docElem.contains) || docElem.compareDocumentPosition ?
+    function( a, b ) {
+      var adown = a.nodeType === 9 ? a.documentElement : a,
+        bup = b && b.parentNode;
+      return a === bup || !!( bup && bup.nodeType === 1 && (
+        adown.contains ?
+          adown.contains( bup ) :
+          a.compareDocumentPosition && a.compareDocumentPosition( bup ) & 16
+      ));
+    } :
+    function( a, b ) {
+      if ( b ) {
+        while ( (b = b.parentNode) ) {
+          if ( b === a ) {
+            return true;
+          }
+        }
       }
+      return false;
+    };
+
+  // Document order sorting
+  sortOrder = docElem.compareDocumentPosition ?
+  function( a, b ) {
+    var compare;
+
+    if ( a === b ) {
+      hasDuplicate = true;
+      return 0;
+    }
+
+    if ( (compare = b.compareDocumentPosition && a.compareDocumentPosition && a.compareDocumentPosition( b )) ) {
+      if ( compare & 1 || a.parentNode && a.parentNode.nodeType === 11 ) {
+        if ( a === doc || contains( preferredDoc, a ) ) {
+          return -1;
+        }
+        if ( b === doc || contains( preferredDoc, b ) ) {
+          return 1;
+        }
+        return 0;
+      }
+      return compare & 4 ? -1 : 1;
+    }
+
+    return a.compareDocumentPosition ? -1 : 1;
+  } :
+  function( a, b ) {
+    var cur,
+      i = 0,
+      aup = a.parentNode,
+      bup = b.parentNode,
+      ap = [ a ],
+      bp = [ b ];
+
+    // The nodes are identical, we can exit early
+    if ( a === b ) {
+      hasDuplicate = true;
+      return 0;
+
+    // Fallback to using sourceIndex (in IE) if it's available on both nodes
+    } else if ( a.sourceIndex && b.sourceIndex ) {
+      return ( ~b.sourceIndex || MAX_NEGATIVE ) - ( contains( preferredDoc, a ) && ~a.sourceIndex || MAX_NEGATIVE );
+
+    // Parentless nodes are either documents or disconnected
+    } else if ( !aup || !bup ) {
+      return a === doc ? -1 :
+        b === doc ? 1 :
+        aup ? -1 :
+        bup ? 1 :
+        0;
+
+    // If the nodes are siblings, we can do a quick check
+    } else if ( aup === bup ) {
+      return siblingCheck( a, b );
+    }
+
+    // Otherwise we need full lists of their ancestors for comparison
+    cur = a;
+    while ( (cur = cur.parentNode) ) {
+      ap.unshift( cur );
+    }
+    cur = b;
+    while ( (cur = cur.parentNode) ) {
+      bp.unshift( cur );
+    }
+
+    // Walk down the tree looking for a discrepancy
+    while ( ap[i] === bp[i] ) {
+      i++;
+    }
+
+    return i ?
+      // Do a sibling check if the nodes have a common ancestor
+      siblingCheck( ap[i], bp[i] ) :
+
+      // Otherwise nodes in our document sort first
+      ap[i] === preferredDoc ? -1 :
+      bp[i] === preferredDoc ? 1 :
+      0;
+  };
+
+  // Always assume the presence of duplicates if sort doesn't
+  // pass them to our comparison function (as in Google Chrome).
+  hasDuplicate = false;
+  [0, 0].sort( sortOrder );
+  support.detectDuplicates = hasDuplicate;
+
+  return document;
+};
+
+Sizzle.matches = function( expr, elements ) {
+  return Sizzle( expr, null, null, elements );
+};
+
+Sizzle.matchesSelector = function( elem, expr ) {
+  // Set document vars if needed
+  if ( ( elem.ownerDocument || elem ) !== document ) {
+    setDocument( elem );
+  }
+
+  // Make sure that attribute selectors are quoted
+  expr = expr.replace( rattributeQuotes, "='$1']" );
+
+  // rbuggyQSA always contains :focus, so no need for an existence check
+  if ( support.matchesSelector && !documentIsXML && (!rbuggyMatches || !rbuggyMatches.test(expr)) && !rbuggyQSA.test(expr) ) {
+    try {
+      var ret = matches.call( elem, expr );
+
+      // IE 9's matchesSelector returns false on disconnected nodes
+      if ( ret || support.disconnectedMatch ||
+          // As well, disconnected nodes are said to be in a document
+          // fragment in IE 9
+          elem.document && elem.document.nodeType !== 11 ) {
+        return ret;
+      }
+    } catch(e) {}
+  }
+
+  return Sizzle( expr, document, null, [elem] ).length > 0;
+};
+
+Sizzle.contains = function( context, elem ) {
+  // Set document vars if needed
+  if ( ( context.ownerDocument || context ) !== document ) {
+    setDocument( context );
+  }
+  return contains( context, elem );
+};
+
+Sizzle.attr = function( elem, name ) {
+  var val;
+
+  // Set document vars if needed
+  if ( ( elem.ownerDocument || elem ) !== document ) {
+    setDocument( elem );
+  }
+
+  if ( !documentIsXML ) {
+    name = name.toLowerCase();
+  }
+  if ( (val = Expr.attrHandle[ name ]) ) {
+    return val( elem );
+  }
+  if ( documentIsXML || support.attributes ) {
+    return elem.getAttribute( name );
+  }
+  return ( (val = elem.getAttributeNode( name )) || elem.getAttribute( name ) ) && elem[ name ] === true ?
+    name :
+    val && val.specified ? val.value : null;
+};
+
+Sizzle.error = function( msg ) {
+  throw new Error( "Syntax error, unrecognized expression: " + msg );
+};
+
+// Document sorting and removing duplicates
+Sizzle.uniqueSort = function( results ) {
+  var elem,
+    duplicates = [],
+    i = 1,
+    j = 0;
+
+  // Unless we *know* we can detect duplicates, assume their presence
+  hasDuplicate = !support.detectDuplicates;
+  results.sort( sortOrder );
+
+  if ( hasDuplicate ) {
+    for ( ; (elem = results[i]); i++ ) {
+      if ( elem === results[ i - 1 ] ) {
+        j = duplicates.push( i );
+      }
+    }
+    while ( j-- ) {
+      results.splice( duplicates[ j ], 1 );
+    }
+  }
+
+  return results;
+};
+
+function siblingCheck( a, b ) {
+  var cur = a && b && a.nextSibling;
+
+  for ( ; cur; cur = cur.nextSibling ) {
+    if ( cur === b ) {
+      return -1;
+    }
+  }
+
+  return a ? 1 : -1;
+}
+
+// Returns a function to use in pseudos for input types
+function createInputPseudo( type ) {
+  return function( elem ) {
+    var name = elem.nodeName.toLowerCase();
+    return name === "input" && elem.type === type;
+  };
+}
+
+// Returns a function to use in pseudos for buttons
+function createButtonPseudo( type ) {
+  return function( elem ) {
+    var name = elem.nodeName.toLowerCase();
+    return (name === "input" || name === "button") && elem.type === type;
+  };
+}
+
+// Returns a function to use in pseudos for positionals
+function createPositionalPseudo( fn ) {
+  return markFunction(function( argument ) {
+    argument = +argument;
+    return markFunction(function( seed, matches ) {
+      var j,
+        matchIndexes = fn( [], seed.length, argument ),
+        i = matchIndexes.length;
+
+      // Match elements found at the specified indexes
+      while ( i-- ) {
+        if ( seed[ (j = matchIndexes[i]) ] ) {
+          seed[j] = !(matches[j] = seed[j]);
+        }
+      }
+    });
+  });
+}
+
+/**
+ * Utility function for retrieving the text value of an array of DOM nodes
+ * @param {Array|Element} elem
+ */
+getText = Sizzle.getText = function( elem ) {
+  var node,
+    ret = "",
+    i = 0,
+    nodeType = elem.nodeType;
+
+  if ( !nodeType ) {
+    // If no nodeType, this is expected to be an array
+    for ( ; (node = elem[i]); i++ ) {
+      // Do not traverse comment nodes
+      ret += getText( node );
+    }
+  } else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+    // Use textContent for elements
+    // innerText usage removed for consistency of new lines (see #11153)
+    if ( typeof elem.textContent === "string" ) {
+      return elem.textContent;
+    } else {
+      // Traverse its children
+      for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+        ret += getText( elem );
+      }
+    }
+  } else if ( nodeType === 3 || nodeType === 4 ) {
+    return elem.nodeValue;
+  }
+  // Do not include comment or processing instruction nodes
+
+  return ret;
+};
+
+Expr = Sizzle.selectors = {
+
+  // Can be adjusted by the user
+  cacheLength: 50,
+
+  createPseudo: markFunction,
+
+  match: matchExpr,
+
+  find: {},
+
+  relative: {
+    ">": { dir: "parentNode", first: true },
+    " ": { dir: "parentNode" },
+    "+": { dir: "previousSibling", first: true },
+    "~": { dir: "previousSibling" }
+  },
+
+  preFilter: {
+    "ATTR": function( match ) {
+      match[1] = match[1].replace( runescape, funescape );
+
+      // Move the given value to match[3] whether quoted or unquoted
+      match[3] = ( match[4] || match[5] || "" ).replace( runescape, funescape );
+
+      if ( match[2] === "~=" ) {
+        match[3] = " " + match[3] + " ";
+      }
+
+      return match.slice( 0, 4 );
     },
 
-    // Disable Backbone.history, perhaps temporarily. Not useful in a real app,
-    // but possibly useful for unit testing Routers.
-    stop: function() {
-      $(window).unbind('popstate', this.checkUrl).unbind('hashchange', this.checkUrl);
-      clearInterval(this._checkUrlInterval);
-      History.started = false;
+    "CHILD": function( match ) {
+      /* matches from matchExpr["CHILD"]
+        1 type (only|nth|...)
+        2 what (child|of-type)
+        3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
+        4 xn-component of xn+y argument ([+-]?\d*n|)
+        5 sign of xn-component
+        6 x of xn-component
+        7 sign of y-component
+        8 y of y-component
+      */
+      match[1] = match[1].toLowerCase();
+
+      if ( match[1].slice( 0, 3 ) === "nth" ) {
+        // nth-* requires argument
+        if ( !match[3] ) {
+          Sizzle.error( match[0] );
+        }
+
+        // numeric x and y parameters for Expr.filter.CHILD
+        // remember that false/true cast respectively to 0/1
+        match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
+        match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
+
+      // other types prohibit arguments
+      } else if ( match[3] ) {
+        Sizzle.error( match[0] );
+      }
+
+      return match;
     },
 
-    // Add a route to be tested when the fragment changes. Routes added later
-    // may override previous routes.
-    route: function(route, callback) {
-      this.handlers.unshift({route: route, callback: callback});
+    "PSEUDO": function( match ) {
+      var excess,
+        unquoted = !match[5] && match[2];
+
+      if ( matchExpr["CHILD"].test( match[0] ) ) {
+        return null;
+      }
+
+      // Accept quoted arguments as-is
+      if ( match[4] ) {
+        match[2] = match[4];
+
+      // Strip excess characters from unquoted arguments
+      } else if ( unquoted && rpseudo.test( unquoted ) &&
+        // Get excess from tokenize (recursively)
+        (excess = tokenize( unquoted, true )) &&
+        // advance to the next closing parenthesis
+        (excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
+
+        // excess is a negative index
+        match[0] = match[0].slice( 0, excess );
+        match[2] = unquoted.slice( 0, excess );
+      }
+
+      // Return only captures needed by the pseudo filter method (type and argument)
+      return match.slice( 0, 3 );
+    }
+  },
+
+  filter: {
+
+    "TAG": function( nodeName ) {
+      if ( nodeName === "*" ) {
+        return function() { return true; };
+      }
+
+      nodeName = nodeName.replace( runescape, funescape ).toLowerCase();
+      return function( elem ) {
+        return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
+      };
     },
 
-    // Checks the current URL to see if it has changed, and if it has,
-    // calls `loadUrl`, normalizing across the hidden iframe.
-    checkUrl: function(e) {
-      var current = this.getFragment();
-      if (current == this.fragment && this.iframe) current = this.getFragment(this.getHash(this.iframe));
-      if (current == this.fragment) return false;
-      if (this.iframe) this.navigate(current);
-      this.loadUrl() || this.loadUrl(this.getHash());
+    "CLASS": function( className ) {
+      var pattern = classCache[ className + " " ];
+
+      return pattern ||
+        (pattern = new RegExp( "(^|" + whitespace + ")" + className + "(" + whitespace + "|$)" )) &&
+        classCache( className, function( elem ) {
+          return pattern.test( elem.className || (typeof elem.getAttribute !== strundefined && elem.getAttribute("class")) || "" );
+        });
     },
 
-    // Attempt to load the current URL fragment. If a route succeeds with a
-    // match, returns `true`. If no defined routes matches the fragment,
-    // returns `false`.
-    loadUrl: function(fragmentOverride) {
-      var fragment = this.fragment = this.getFragment(fragmentOverride);
-      var matched = _.any(this.handlers, function(handler) {
-        if (handler.route.test(fragment)) {
-          handler.callback(fragment);
+    "ATTR": function( name, operator, check ) {
+      return function( elem ) {
+        var result = Sizzle.attr( elem, name );
+
+        if ( result == null ) {
+          return operator === "!=";
+        }
+        if ( !operator ) {
           return true;
         }
-      });
-      return matched;
+
+        result += "";
+
+        return operator === "=" ? result === check :
+          operator === "!=" ? result !== check :
+          operator === "^=" ? check && result.indexOf( check ) === 0 :
+          operator === "*=" ? check && result.indexOf( check ) > -1 :
+          operator === "$=" ? check && result.substr( result.length - check.length ) === check :
+          operator === "~=" ? ( " " + result + " " ).indexOf( check ) > -1 :
+          operator === "|=" ? result === check || result.substr( 0, check.length + 1 ) === check + "-" :
+          false;
+      };
     },
 
-    // Save a fragment into the hash history, or replace the URL state if the
-    // 'replace' option is passed. You are responsible for properly URL-encoding
-    // the fragment in advance.
-    //
-    // The options object can contain `trigger: true` if you wish to have the
-    // route callback be fired (not usually desirable), or `replace: true`, if
-    // you wish to modify the current URL without adding an entry to the history.
-    navigate: function(fragment, options) {
-      if (!History.started) return false;
-      if (!options || options === true) options = {trigger: options};
-      var frag = (fragment || '').replace(routeStripper, '');
-      if (this.fragment == frag) return;
+    "CHILD": function( type, what, argument, first, last ) {
+      var simple = type.slice( 0, 3 ) !== "nth",
+        forward = type.slice( -4 ) !== "last",
+        ofType = what === "of-type";
 
-      // If pushState is available, we use it to set the fragment as a real URL.
-      if (this._hasPushState) {
-        if (frag.indexOf(this.options.root) != 0) frag = this.options.root + frag;
-        this.fragment = frag;
-        window.history[options.replace ? 'replaceState' : 'pushState']({}, document.title, frag);
+      return first === 1 && last === 0 ?
 
-      // If hash changes haven't been explicitly disabled, update the hash
-      // fragment to store history.
-      } else if (this._wantsHashChange) {
-        this.fragment = frag;
-        this._updateHash(window.location, frag, options.replace);
-        if (this.iframe && (frag != this.getFragment(this.getHash(this.iframe)))) {
-          // Opening and closing the iframe tricks IE7 and earlier to push a history entry on hash-tag change.
-          // When replace is true, we don't want this.
-          if(!options.replace) this.iframe.document.open().close();
-          this._updateHash(this.iframe.location, frag, options.replace);
-        }
+        // Shortcut for :nth-*(n)
+        function( elem ) {
+          return !!elem.parentNode;
+        } :
 
-      // If you've told us that you explicitly don't want fallback hashchange-
-      // based history, then `navigate` becomes a page refresh.
-      } else {
-        window.location.assign(this.options.root + fragment);
-      }
-      if (options.trigger) this.loadUrl(fragment);
-    },
+        function( elem, context, xml ) {
+          var cache, outerCache, node, diff, nodeIndex, start,
+            dir = simple !== forward ? "nextSibling" : "previousSibling",
+            parent = elem.parentNode,
+            name = ofType && elem.nodeName.toLowerCase(),
+            useCache = !xml && !ofType;
 
-    // Update the hash location, either replacing the current entry, or adding
-    // a new one to the browser history.
-    _updateHash: function(location, fragment, replace) {
-      if (replace) {
-        location.replace(location.toString().replace(/(javascript:|#).*$/, '') + '#' + fragment);
-      } else {
-        location.hash = fragment;
-      }
-    }
-  });
+          if ( parent ) {
 
-  // Backbone.View
-  // -------------
+            // :(first|last|only)-(child|of-type)
+            if ( simple ) {
+              while ( dir ) {
+                node = elem;
+                while ( (node = node[ dir ]) ) {
+                  if ( ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1 ) {
+                    return false;
+                  }
+                }
+                // Reverse direction for :only-* (if we haven't yet done so)
+                start = dir = type === "only" && !start && "nextSibling";
+              }
+              return true;
+            }
 
-  // Creating a Backbone.View creates its initial element outside of the DOM,
-  // if an existing element is not provided...
-  var View = Backbone.View = function(options) {
-    this.cid = _.uniqueId('view');
-    this._configure(options || {});
-    this._ensureElement();
-    this.initialize.apply(this, arguments);
-    this.delegateEvents();
-  };
+            start = [ forward ? parent.firstChild : parent.lastChild ];
 
-  // Cached regex to split keys for `delegate`.
-  var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+            // non-xml :nth-child(...) stores cache data on `parent`
+            if ( forward && useCache ) {
+              // Seek `elem` from a previously-cached index
+              outerCache = parent[ expando ] || (parent[ expando ] = {});
+              cache = outerCache[ type ] || [];
+              nodeIndex = cache[0] === dirruns && cache[1];
+              diff = cache[0] === dirruns && cache[2];
+              node = nodeIndex && parent.childNodes[ nodeIndex ];
 
-  // List of view options to be merged as properties.
-  var viewOptions = ['model', 'collection', 'el', 'id', 'attributes', 'className', 'tagName'];
+              while ( (node = ++nodeIndex && node && node[ dir ] ||
 
-  // Set up all inheritable **Backbone.View** properties and methods.
-  _.extend(View.prototype, Events, {
+                // Fallback to seeking `elem` from the start
+                (diff = nodeIndex = 0) || start.pop()) ) {
 
-    // The default `tagName` of a View's element is `"div"`.
-    tagName: 'div',
+                // When found, cache indexes on `parent` and break
+                if ( node.nodeType === 1 && ++diff && node === elem ) {
+                  outerCache[ type ] = [ dirruns, nodeIndex, diff ];
+                  break;
+                }
+              }
 
-    // jQuery delegate for element lookup, scoped to DOM elements within the
-    // current view. This should be prefered to global lookups where possible.
-    $: function(selector) {
-      return this.$el.find(selector);
-    },
+            // Use previously-cached element index if available
+            } else if ( useCache && (cache = (elem[ expando ] || (elem[ expando ] = {}))[ type ]) && cache[0] === dirruns ) {
+              diff = cache[1];
 
-    // Initialize is an empty function by default. Override it with your own
-    // initialization logic.
-    initialize: function(){},
+            // xml :nth-child(...) or :nth-last-child(...) or :nth(-last)?-of-type(...)
+            } else {
+              // Use the same loop as above to seek `elem` from the start
+              while ( (node = ++nodeIndex && node && node[ dir ] ||
+                (diff = nodeIndex = 0) || start.pop()) ) {
 
-    // **render** is the core function that your view should override, in order
-    // to populate its element (`this.el`), with the appropriate HTML. The
-    // convention is for **render** to always return `this`.
-    render: function() {
-      return this;
-    },
+                if ( ( ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1 ) && ++diff ) {
+                  // Cache the index of each encountered element
+                  if ( useCache ) {
+                    (node[ expando ] || (node[ expando ] = {}))[ type ] = [ dirruns, diff ];
+                  }
 
-    // Remove this view from the DOM. Note that the view isn't present in the
-    // DOM by default, so calling this method may be a no-op.
-    remove: function() {
-      this.$el.remove();
-      return this;
-    },
+                  if ( node === elem ) {
+                    break;
+                  }
+                }
+              }
+            }
 
-    // For small amounts of DOM Elements, where a full-blown template isn't
-    // needed, use **make** to manufacture elements, one at a time.
-    //
-    //     var el = this.make('li', {'class': 'row'}, this.model.escape('title'));
-    //
-    make: function(tagName, attributes, content) {
-      var el = document.createElement(tagName);
-      if (attributes) $(el).attr(attributes);
-      if (content) $(el).html(content);
-      return el;
-    },
-
-    // Change the view's element (`this.el` property), including event
-    // re-delegation.
-    setElement: function(element, delegate) {
-      if (this.$el) this.undelegateEvents();
-      this.$el = (element instanceof $) ? element : $(element);
-      this.el = this.$el[0];
-      if (delegate !== false) this.delegateEvents();
-      return this;
-    },
-
-    // Set callbacks, where `this.events` is a hash of
-    //
-    // *{"event selector": "callback"}*
-    //
-    //     {
-    //       'mousedown .title':  'edit',
-    //       'click .button':     'save'
-    //       'click .open':       function(e) { ... }
-    //     }
-    //
-    // pairs. Callbacks will be bound to the view, with `this` set properly.
-    // Uses event delegation for efficiency.
-    // Omitting the selector binds the event to `this.el`.
-    // This only works for delegate-able events: not `focus`, `blur`, and
-    // not `change`, `submit`, and `reset` in Internet Explorer.
-    delegateEvents: function(events) {
-      if (!(events || (events = getValue(this, 'events')))) return;
-      this.undelegateEvents();
-      for (var key in events) {
-        var method = events[key];
-        if (!_.isFunction(method)) method = this[events[key]];
-        if (!method) throw new Error('Method "' + events[key] + '" does not exist');
-        var match = key.match(delegateEventSplitter);
-        var eventName = match[1], selector = match[2];
-        method = _.bind(method, this);
-        eventName += '.delegateEvents' + this.cid;
-        if (selector === '') {
-          this.$el.bind(eventName, method);
-        } else {
-          this.$el.delegate(selector, eventName, method);
-        }
-      }
-    },
-
-    // Clears all callbacks previously bound to the view with `delegateEvents`.
-    // You usually don't need to use this, but may wish to if you have multiple
-    // Backbone views attached to the same DOM element.
-    undelegateEvents: function() {
-      this.$el.unbind('.delegateEvents' + this.cid);
-    },
-
-    // Performs the initial configuration of a View with a set of options.
-    // Keys with special meaning *(model, collection, id, className)*, are
-    // attached directly to the view.
-    _configure: function(options) {
-      if (this.options) options = _.extend({}, this.options, options);
-      for (var i = 0, l = viewOptions.length; i < l; i++) {
-        var attr = viewOptions[i];
-        if (options[attr]) this[attr] = options[attr];
-      }
-      this.options = options;
-    },
-
-    // Ensure that the View has a DOM element to render into.
-    // If `this.el` is a string, pass it through `$()`, take the first
-    // matching element, and re-assign it to `el`. Otherwise, create
-    // an element from the `id`, `className` and `tagName` properties.
-    _ensureElement: function() {
-      if (!this.el) {
-        var attrs = getValue(this, 'attributes') || {};
-        if (this.id) attrs.id = this.id;
-        if (this.className) attrs['class'] = this.className;
-        this.setElement(this.make(this.tagName, attrs), false);
-      } else {
-        this.setElement(this.el, false);
-      }
-    }
-
-  });
-
-  // The self-propagating extend function that Backbone classes use.
-  var extend = function (protoProps, classProps) {
-    var child = inherits(this, protoProps, classProps);
-    child.extend = this.extend;
-    return child;
-  };
-
-  // Set up inheritance for the model, collection, and view.
-  Model.extend = Collection.extend = Router.extend = View.extend = extend;
-
-  // Backbone.sync
-  // -------------
-
-  // Map from CRUD to HTTP for our default `Backbone.sync` implementation.
-  var methodMap = {
-    'create': 'POST',
-    'update': 'PUT',
-    'delete': 'DELETE',
-    'read':   'GET'
-  };
-
-  // Override this function to change the manner in which Backbone persists
-  // models to the server. You will be passed the type of request, and the
-  // model in question. By default, makes a RESTful Ajax request
-  // to the model's `url()`. Some possible customizations could be:
-  //
-  // * Use `setTimeout` to batch rapid-fire updates into a single request.
-  // * Send up the models as XML instead of JSON.
-  // * Persist models via WebSockets instead of Ajax.
-  //
-  // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
-  // as `POST`, with a `_method` parameter containing the true HTTP method,
-  // as well as all requests with the body as `application/x-www-form-urlencoded`
-  // instead of `application/json` with the model in a param named `model`.
-  // Useful when interfacing with server-side languages like **PHP** that make
-  // it difficult to read the body of `PUT` requests.
-  Backbone.sync = function(method, model, options) {
-    var type = methodMap[method];
-
-    // Default options, unless specified.
-    options || (options = {});
-
-    // Default JSON-request options.
-    var params = {type: type, dataType: 'json'};
-
-    // Ensure that we have a URL.
-    if (!options.url) {
-      params.url = getValue(model, 'url') || urlError();
-    }
-
-    // Ensure that we have the appropriate request data.
-    if (!options.data && model && (method == 'create' || method == 'update')) {
-      params.contentType = 'application/json';
-      params.data = JSON.stringify(model.toJSON());
-    }
-
-    // For older servers, emulate JSON by encoding the request into an HTML-form.
-    if (Backbone.emulateJSON) {
-      params.contentType = 'application/x-www-form-urlencoded';
-      params.data = params.data ? {model: params.data} : {};
-    }
-
-    // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
-    // And an `X-HTTP-Method-Override` header.
-    if (Backbone.emulateHTTP) {
-      if (type === 'PUT' || type === 'DELETE') {
-        if (Backbone.emulateJSON) params.data._method = type;
-        params.type = 'POST';
-        params.beforeSend = function(xhr) {
-          xhr.setRequestHeader('X-HTTP-Method-Override', type);
+            // Incorporate the offset, then check against cycle size
+            diff -= last;
+            return diff === first || ( diff % first === 0 && diff / first >= 0 );
+          }
         };
+    },
+
+    "PSEUDO": function( pseudo, argument ) {
+      // pseudo-class names are case-insensitive
+      // http://www.w3.org/TR/selectors/#pseudo-classes
+      // Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
+      // Remember that setFilters inherits from pseudos
+      var args,
+        fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerCase() ] ||
+          Sizzle.error( "unsupported pseudo: " + pseudo );
+
+      // The user may use createPseudo to indicate that
+      // arguments are needed to create the filter function
+      // just as Sizzle does
+      if ( fn[ expando ] ) {
+        return fn( argument );
+      }
+
+      // But maintain support for old signatures
+      if ( fn.length > 1 ) {
+        args = [ pseudo, pseudo, "", argument ];
+        return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
+          markFunction(function( seed, matches ) {
+            var idx,
+              matched = fn( seed, argument ),
+              i = matched.length;
+            while ( i-- ) {
+              idx = indexOf.call( seed, matched[i] );
+              seed[ idx ] = !( matches[ idx ] = matched[i] );
+            }
+          }) :
+          function( elem ) {
+            return fn( elem, 0, args );
+          };
+      }
+
+      return fn;
+    }
+  },
+
+  pseudos: {
+    // Potentially complex pseudos
+    "not": markFunction(function( selector ) {
+      // Trim the selector passed to compile
+      // to avoid treating leading and trailing
+      // spaces as combinators
+      var input = [],
+        results = [],
+        matcher = compile( selector.replace( rtrim, "$1" ) );
+
+      return matcher[ expando ] ?
+        markFunction(function( seed, matches, context, xml ) {
+          var elem,
+            unmatched = matcher( seed, null, xml, [] ),
+            i = seed.length;
+
+          // Match elements unmatched by `matcher`
+          while ( i-- ) {
+            if ( (elem = unmatched[i]) ) {
+              seed[i] = !(matches[i] = elem);
+            }
+          }
+        }) :
+        function( elem, context, xml ) {
+          input[0] = elem;
+          matcher( input, null, xml, results );
+          return !results.pop();
+        };
+    }),
+
+    "has": markFunction(function( selector ) {
+      return function( elem ) {
+        return Sizzle( selector, elem ).length > 0;
+      };
+    }),
+
+    "contains": markFunction(function( text ) {
+      return function( elem ) {
+        return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( text ) > -1;
+      };
+    }),
+
+    // "Whether an element is represented by a :lang() selector
+    // is based solely on the element's language value
+    // being equal to the identifier C,
+    // or beginning with the identifier C immediately followed by "-".
+    // The matching of C against the element's language value is performed case-insensitively.
+    // The identifier C does not have to be a valid language name."
+    // http://www.w3.org/TR/selectors/#lang-pseudo
+    "lang": markFunction( function( lang ) {
+      // lang value must be a valid identifider
+      if ( !ridentifier.test(lang || "") ) {
+        Sizzle.error( "unsupported lang: " + lang );
+      }
+      lang = lang.replace( runescape, funescape ).toLowerCase();
+      return function( elem ) {
+        var elemLang;
+        do {
+          if ( (elemLang = documentIsXML ?
+            elem.getAttribute("xml:lang") || elem.getAttribute("lang") :
+            elem.lang) ) {
+
+            elemLang = elemLang.toLowerCase();
+            return elemLang === lang || elemLang.indexOf( lang + "-" ) === 0;
+          }
+        } while ( (elem = elem.parentNode) && elem.nodeType === 1 );
+        return false;
+      };
+    }),
+
+    // Miscellaneous
+    "target": function( elem ) {
+      var hash = window.location && window.location.hash;
+      return hash && hash.slice( 1 ) === elem.id;
+    },
+
+    "root": function( elem ) {
+      return elem === docElem;
+    },
+
+    "focus": function( elem ) {
+      return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
+    },
+
+    // Boolean properties
+    "enabled": function( elem ) {
+      return elem.disabled === false;
+    },
+
+    "disabled": function( elem ) {
+      return elem.disabled === true;
+    },
+
+    "checked": function( elem ) {
+      // In CSS3, :checked should return both checked and selected elements
+      // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+      var nodeName = elem.nodeName.toLowerCase();
+      return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
+    },
+
+    "selected": function( elem ) {
+      // Accessing this property makes selected-by-default
+      // options in Safari work properly
+      if ( elem.parentNode ) {
+        elem.parentNode.selectedIndex;
+      }
+
+      return elem.selected === true;
+    },
+
+    // Contents
+    "empty": function( elem ) {
+      // http://www.w3.org/TR/selectors/#empty-pseudo
+      // :empty is only affected by element nodes and content nodes(including text(3), cdata(4)),
+      //   not comment, processing instructions, or others
+      // Thanks to Diego Perini for the nodeName shortcut
+      //   Greater than "@" means alpha characters (specifically not starting with "#" or "?")
+      for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+        if ( elem.nodeName > "@" || elem.nodeType === 3 || elem.nodeType === 4 ) {
+          return false;
+        }
+      }
+      return true;
+    },
+
+    "parent": function( elem ) {
+      return !Expr.pseudos["empty"]( elem );
+    },
+
+    // Element/input types
+    "header": function( elem ) {
+      return rheader.test( elem.nodeName );
+    },
+
+    "input": function( elem ) {
+      return rinputs.test( elem.nodeName );
+    },
+
+    "button": function( elem ) {
+      var name = elem.nodeName.toLowerCase();
+      return name === "input" && elem.type === "button" || name === "button";
+    },
+
+    "text": function( elem ) {
+      var attr;
+      // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
+      // use getAttribute instead to test this case
+      return elem.nodeName.toLowerCase() === "input" &&
+        elem.type === "text" &&
+        ( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === elem.type );
+    },
+
+    // Position-in-collection
+    "first": createPositionalPseudo(function() {
+      return [ 0 ];
+    }),
+
+    "last": createPositionalPseudo(function( matchIndexes, length ) {
+      return [ length - 1 ];
+    }),
+
+    "eq": createPositionalPseudo(function( matchIndexes, length, argument ) {
+      return [ argument < 0 ? argument + length : argument ];
+    }),
+
+    "even": createPositionalPseudo(function( matchIndexes, length ) {
+      var i = 0;
+      for ( ; i < length; i += 2 ) {
+        matchIndexes.push( i );
+      }
+      return matchIndexes;
+    }),
+
+    "odd": createPositionalPseudo(function( matchIndexes, length ) {
+      var i = 1;
+      for ( ; i < length; i += 2 ) {
+        matchIndexes.push( i );
+      }
+      return matchIndexes;
+    }),
+
+    "lt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+      var i = argument < 0 ? argument + length : argument;
+      for ( ; --i >= 0; ) {
+        matchIndexes.push( i );
+      }
+      return matchIndexes;
+    }),
+
+    "gt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+      var i = argument < 0 ? argument + length : argument;
+      for ( ; ++i < length; ) {
+        matchIndexes.push( i );
+      }
+      return matchIndexes;
+    })
+  }
+};
+
+// Add button/input type pseudos
+for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
+  Expr.pseudos[ i ] = createInputPseudo( i );
+}
+for ( i in { submit: true, reset: true } ) {
+  Expr.pseudos[ i ] = createButtonPseudo( i );
+}
+
+function tokenize( selector, parseOnly ) {
+  var matched, match, tokens, type,
+    soFar, groups, preFilters,
+    cached = tokenCache[ selector + " " ];
+
+  if ( cached ) {
+    return parseOnly ? 0 : cached.slice( 0 );
+  }
+
+  soFar = selector;
+  groups = [];
+  preFilters = Expr.preFilter;
+
+  while ( soFar ) {
+
+    // Comma and first run
+    if ( !matched || (match = rcomma.exec( soFar )) ) {
+      if ( match ) {
+        // Don't consume trailing commas as valid
+        soFar = soFar.slice( match[0].length ) || soFar;
+      }
+      groups.push( tokens = [] );
+    }
+
+    matched = false;
+
+    // Combinators
+    if ( (match = rcombinators.exec( soFar )) ) {
+      matched = match.shift();
+      tokens.push( {
+        value: matched,
+        // Cast descendant combinators to space
+        type: match[0].replace( rtrim, " " )
+      } );
+      soFar = soFar.slice( matched.length );
+    }
+
+    // Filters
+    for ( type in Expr.filter ) {
+      if ( (match = matchExpr[ type ].exec( soFar )) && (!preFilters[ type ] ||
+        (match = preFilters[ type ]( match ))) ) {
+        matched = match.shift();
+        tokens.push( {
+          value: matched,
+          type: type,
+          matches: match
+        } );
+        soFar = soFar.slice( matched.length );
       }
     }
 
-    // Don't process data on a non-GET request.
-    if (params.type !== 'GET' && !Backbone.emulateJSON) {
-      params.processData = false;
+    if ( !matched ) {
+      break;
     }
+  }
 
-    // Make the request, allowing the user to override any Ajax options.
-    return $.ajax(_.extend(params, options));
-  };
+  // Return the length of the invalid excess
+  // if we're just parsing
+  // Otherwise, throw an error or return tokens
+  return parseOnly ?
+    soFar.length :
+    soFar ?
+      Sizzle.error( selector ) :
+      // Cache the tokens
+      tokenCache( selector, groups ).slice( 0 );
+}
 
-  // Wrap an optional error callback with a fallback error event.
-  Backbone.wrapError = function(onError, originalModel, options) {
-    return function(model, resp) {
-      resp = model === originalModel ? resp : model;
-      if (onError) {
-        onError(originalModel, resp, options);
+function toSelector( tokens ) {
+  var i = 0,
+    len = tokens.length,
+    selector = "";
+  for ( ; i < len; i++ ) {
+    selector += tokens[i].value;
+  }
+  return selector;
+}
+
+function addCombinator( matcher, combinator, base ) {
+  var dir = combinator.dir,
+    checkNonElements = base && combinator.dir === "parentNode",
+    doneName = done++;
+
+  return combinator.first ?
+    // Check against closest ancestor/preceding element
+    function( elem, context, xml ) {
+      while ( (elem = elem[ dir ]) ) {
+        if ( elem.nodeType === 1 || checkNonElements ) {
+          return matcher( elem, context, xml );
+        }
+      }
+    } :
+
+    // Check against all ancestor/preceding elements
+    function( elem, context, xml ) {
+      var data, cache, outerCache,
+        dirkey = dirruns + " " + doneName;
+
+      // We can't set arbitrary data on XML nodes, so they don't benefit from dir caching
+      if ( xml ) {
+        while ( (elem = elem[ dir ]) ) {
+          if ( elem.nodeType === 1 || checkNonElements ) {
+            if ( matcher( elem, context, xml ) ) {
+              return true;
+            }
+          }
+        }
       } else {
-        originalModel.trigger('error', originalModel, resp, options);
+        while ( (elem = elem[ dir ]) ) {
+          if ( elem.nodeType === 1 || checkNonElements ) {
+            outerCache = elem[ expando ] || (elem[ expando ] = {});
+            if ( (cache = outerCache[ dir ]) && cache[0] === dirkey ) {
+              if ( (data = cache[1]) === true || data === cachedruns ) {
+                return data === true;
+              }
+            } else {
+              cache = outerCache[ dir ] = [ dirkey ];
+              cache[1] = matcher( elem, context, xml ) || cachedruns;
+              if ( cache[1] === true ) {
+                return true;
+              }
+            }
+          }
+        }
       }
     };
-  };
+}
 
-  // Helpers
-  // -------
+function elementMatcher( matchers ) {
+  return matchers.length > 1 ?
+    function( elem, context, xml ) {
+      var i = matchers.length;
+      while ( i-- ) {
+        if ( !matchers[i]( elem, context, xml ) ) {
+          return false;
+        }
+      }
+      return true;
+    } :
+    matchers[0];
+}
 
-  // Shared empty constructor function to aid in prototype-chain creation.
-  var ctor = function(){};
+function condense( unmatched, map, filter, context, xml ) {
+  var elem,
+    newUnmatched = [],
+    i = 0,
+    len = unmatched.length,
+    mapped = map != null;
 
-  // Helper function to correctly set up the prototype chain, for subclasses.
-  // Similar to `goog.inherits`, but uses a hash of prototype properties and
-  // class properties to be extended.
-  var inherits = function(parent, protoProps, staticProps) {
-    var child;
+  for ( ; i < len; i++ ) {
+    if ( (elem = unmatched[i]) ) {
+      if ( !filter || filter( elem, context, xml ) ) {
+        newUnmatched.push( elem );
+        if ( mapped ) {
+          map.push( i );
+        }
+      }
+    }
+  }
 
-    // The constructor function for the new subclass is either defined by you
-    // (the "constructor" property in your `extend` definition), or defaulted
-    // by us to simply call the parent's constructor.
-    if (protoProps && protoProps.hasOwnProperty('constructor')) {
-      child = protoProps.constructor;
-    } else {
-      child = function(){ parent.apply(this, arguments); };
+  return newUnmatched;
+}
+
+function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postSelector ) {
+  if ( postFilter && !postFilter[ expando ] ) {
+    postFilter = setMatcher( postFilter );
+  }
+  if ( postFinder && !postFinder[ expando ] ) {
+    postFinder = setMatcher( postFinder, postSelector );
+  }
+  return markFunction(function( seed, results, context, xml ) {
+    var temp, i, elem,
+      preMap = [],
+      postMap = [],
+      preexisting = results.length,
+
+      // Get initial elements from seed or context
+      elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
+
+      // Prefilter to get matcher input, preserving a map for seed-results synchronization
+      matcherIn = preFilter && ( seed || !selector ) ?
+        condense( elems, preMap, preFilter, context, xml ) :
+        elems,
+
+      matcherOut = matcher ?
+        // If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
+        postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
+
+          // ...intermediate processing is necessary
+          [] :
+
+          // ...otherwise use results directly
+          results :
+        matcherIn;
+
+    // Find primary matches
+    if ( matcher ) {
+      matcher( matcherIn, matcherOut, context, xml );
     }
 
-    // Inherit class (static) properties from parent.
-    _.extend(child, parent);
+    // Apply postFilter
+    if ( postFilter ) {
+      temp = condense( matcherOut, postMap );
+      postFilter( temp, [], context, xml );
 
-    // Set the prototype chain to inherit from `parent`, without calling
-    // `parent`'s constructor function.
-    ctor.prototype = parent.prototype;
-    child.prototype = new ctor();
+      // Un-match failing elements by moving them back to matcherIn
+      i = temp.length;
+      while ( i-- ) {
+        if ( (elem = temp[i]) ) {
+          matcherOut[ postMap[i] ] = !(matcherIn[ postMap[i] ] = elem);
+        }
+      }
+    }
 
-    // Add prototype properties (instance properties) to the subclass,
-    // if supplied.
-    if (protoProps) _.extend(child.prototype, protoProps);
+    if ( seed ) {
+      if ( postFinder || preFilter ) {
+        if ( postFinder ) {
+          // Get the final matcherOut by condensing this intermediate into postFinder contexts
+          temp = [];
+          i = matcherOut.length;
+          while ( i-- ) {
+            if ( (elem = matcherOut[i]) ) {
+              // Restore matcherIn since elem is not yet a final match
+              temp.push( (matcherIn[i] = elem) );
+            }
+          }
+          postFinder( null, (matcherOut = []), temp, xml );
+        }
 
-    // Add static properties to the constructor function, if supplied.
-    if (staticProps) _.extend(child, staticProps);
-    // Correctly set child's `prototype.constructor`.
-    child.prototype.constructor = child;
+        // Move matched elements from seed to results to keep them synchronized
+        i = matcherOut.length;
+        while ( i-- ) {
+          if ( (elem = matcherOut[i]) &&
+            (temp = postFinder ? indexOf.call( seed, elem ) : preMap[i]) > -1 ) {
 
-    // Set a convenience property in case the parent's prototype is needed later.
-    child.__super__ = parent.prototype;
+            seed[temp] = !(results[temp] = elem);
+          }
+        }
+      }
 
-    return child;
-  };
+    // Add elements to results, through postFinder if defined
+    } else {
+      matcherOut = condense(
+        matcherOut === results ?
+          matcherOut.splice( preexisting, matcherOut.length ) :
+          matcherOut
+      );
+      if ( postFinder ) {
+        postFinder( null, results, matcherOut, xml );
+      } else {
+        push.apply( results, matcherOut );
+      }
+    }
+  });
+}
 
-  // Helper function to get a value from a Backbone object as a property
-  // or as a function.
-  var getValue = function(object, prop) {
-    if (!(object && object[prop])) return null;
-    return _.isFunction(object[prop]) ? object[prop]() : object[prop];
-  };
+function matcherFromTokens( tokens ) {
+  var checkContext, matcher, j,
+    len = tokens.length,
+    leadingRelative = Expr.relative[ tokens[0].type ],
+    implicitRelative = leadingRelative || Expr.relative[" "],
+    i = leadingRelative ? 1 : 0,
 
-  // Throw an error when a URL is needed, and none is supplied.
-  var urlError = function() {
-    throw new Error('A "url" property or function must be specified');
-  };
+    // The foundational matcher ensures that elements are reachable from top-level context(s)
+    matchContext = addCombinator( function( elem ) {
+      return elem === checkContext;
+    }, implicitRelative, true ),
+    matchAnyContext = addCombinator( function( elem ) {
+      return indexOf.call( checkContext, elem ) > -1;
+    }, implicitRelative, true ),
+    matchers = [ function( elem, context, xml ) {
+      return ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
+        (checkContext = context).nodeType ?
+          matchContext( elem, context, xml ) :
+          matchAnyContext( elem, context, xml ) );
+    } ];
 
-}).call(this);
-;;
-// A simple module to replace `Backbone.sync` with *localStorage*-based
-// persistence. Models are given GUIDS, and saved into a JSON object. Simple
-// as that.
+  for ( ; i < len; i++ ) {
+    if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
+      matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
+    } else {
+      matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
 
-// Generate four random hex digits.
-function S4() {
-   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+      // Return special upon seeing a positional matcher
+      if ( matcher[ expando ] ) {
+        // Find the next relative operator (if any) for proper handling
+        j = ++i;
+        for ( ; j < len; j++ ) {
+          if ( Expr.relative[ tokens[j].type ] ) {
+            break;
+          }
+        }
+        return setMatcher(
+          i > 1 && elementMatcher( matchers ),
+          i > 1 && toSelector( tokens.slice( 0, i - 1 ) ).replace( rtrim, "$1" ),
+          matcher,
+          i < j && matcherFromTokens( tokens.slice( i, j ) ),
+          j < len && matcherFromTokens( (tokens = tokens.slice( j )) ),
+          j < len && toSelector( tokens )
+        );
+      }
+      matchers.push( matcher );
+    }
+  }
+
+  return elementMatcher( matchers );
+}
+
+function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
+  // A counter to specify which element is currently being matched
+  var matcherCachedRuns = 0,
+    bySet = setMatchers.length > 0,
+    byElement = elementMatchers.length > 0,
+    superMatcher = function( seed, context, xml, results, expandContext ) {
+      var elem, j, matcher,
+        setMatched = [],
+        matchedCount = 0,
+        i = "0",
+        unmatched = seed && [],
+        outermost = expandContext != null,
+        contextBackup = outermostContext,
+        // We must always have either seed elements or context
+        elems = seed || byElement && Expr.find["TAG"]( "*", expandContext && context.parentNode || context ),
+        // Nested matchers should use non-integer dirruns
+        dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.E);
+
+      if ( outermost ) {
+        outermostContext = context !== document && context;
+        cachedruns = matcherCachedRuns;
+      }
+
+      // Add elements passing elementMatchers directly to results
+      for ( ; (elem = elems[i]) != null; i++ ) {
+        if ( byElement && elem ) {
+          for ( j = 0; (matcher = elementMatchers[j]); j++ ) {
+            if ( matcher( elem, context, xml ) ) {
+              results.push( elem );
+              break;
+            }
+          }
+          if ( outermost ) {
+            dirruns = dirrunsUnique;
+            cachedruns = ++matcherCachedRuns;
+          }
+        }
+
+        // Track unmatched elements for set filters
+        if ( bySet ) {
+          // They will have gone through all possible matchers
+          if ( (elem = !matcher && elem) ) {
+            matchedCount--;
+          }
+
+          // Lengthen the array for every element, matched or not
+          if ( seed ) {
+            unmatched.push( elem );
+          }
+        }
+      }
+
+      // Apply set filters to unmatched elements
+      // `i` starts as a string, so matchedCount would equal "00" if there are no elements
+      matchedCount += i;
+      if ( bySet && i !== matchedCount ) {
+        for ( j = 0; (matcher = setMatchers[j]); j++ ) {
+          matcher( unmatched, setMatched, context, xml );
+        }
+
+        if ( seed ) {
+          // Reintegrate element matches to eliminate the need for sorting
+          if ( matchedCount > 0 ) {
+            while ( i-- ) {
+              if ( !(unmatched[i] || setMatched[i]) ) {
+                setMatched[i] = pop.call( results );
+              }
+            }
+          }
+
+          // Discard index placeholder values to get only actual matches
+          setMatched = condense( setMatched );
+        }
+
+        // Add matches to results
+        push.apply( results, setMatched );
+
+        // Seedless set matches succeeding multiple successful matchers stipulate sorting
+        if ( outermost && !seed && setMatched.length > 0 &&
+          ( matchedCount + setMatchers.length ) > 1 ) {
+
+          Sizzle.uniqueSort( results );
+        }
+      }
+
+      // Override manipulation of globals by nested matchers
+      if ( outermost ) {
+        dirruns = dirrunsUnique;
+        outermostContext = contextBackup;
+      }
+
+      return unmatched;
+    };
+
+  return bySet ?
+    markFunction( superMatcher ) :
+    superMatcher;
+}
+
+compile = Sizzle.compile = function( selector, group /* Internal Use Only */ ) {
+  var i,
+    setMatchers = [],
+    elementMatchers = [],
+    cached = compilerCache[ selector + " " ];
+
+  if ( !cached ) {
+    // Generate a function of recursive functions that can be used to check each element
+    if ( !group ) {
+      group = tokenize( selector );
+    }
+    i = group.length;
+    while ( i-- ) {
+      cached = matcherFromTokens( group[i] );
+      if ( cached[ expando ] ) {
+        setMatchers.push( cached );
+      } else {
+        elementMatchers.push( cached );
+      }
+    }
+
+    // Cache the compiled function
+    cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
+  }
+  return cached;
 };
 
-// Generate a pseudo-GUID by concatenating random hexadecimal.
-function guid() {
-   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-};
+function multipleContexts( selector, contexts, results ) {
+  var i = 0,
+    len = contexts.length;
+  for ( ; i < len; i++ ) {
+    Sizzle( selector, contexts[i], results );
+  }
+  return results;
+}
 
-// Our Store is represented by a single JS object in *localStorage*. Create it
-// with a meaningful name, like the name you'd give a table.
-var Store = function(name) {
-  this.name = name;
-  var store = localStorage.getItem(this.name);
-  this.data = (store && JSON.parse(store)) || {};
-};
+function select( selector, context, results, seed ) {
+  var i, tokens, token, type, find,
+    match = tokenize( selector );
 
-_.extend(Store.prototype, {
+  if ( !seed ) {
+    // Try to minimize operations if there is only one group
+    if ( match.length === 1 ) {
 
-  // Save the current state of the **Store** to *localStorage*.
-  save: function() {
-    localStorage.setItem(this.name, JSON.stringify(this.data));
+      // Take a shortcut and set the context if the root selector is an ID
+      tokens = match[0] = match[0].slice( 0 );
+      if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
+          context.nodeType === 9 && !documentIsXML &&
+          Expr.relative[ tokens[1].type ] ) {
+
+        context = Expr.find["ID"]( token.matches[0].replace( runescape, funescape ), context )[0];
+        if ( !context ) {
+          return results;
+        }
+
+        selector = selector.slice( tokens.shift().value.length );
+      }
+
+      // Fetch a seed set for right-to-left matching
+      for ( i = matchExpr["needsContext"].test( selector ) ? -1 : tokens.length - 1; i >= 0; i-- ) {
+        token = tokens[i];
+
+        // Abort if we hit a combinator
+        if ( Expr.relative[ (type = token.type) ] ) {
+          break;
+        }
+        if ( (find = Expr.find[ type ]) ) {
+          // Search, expanding context for leading sibling combinators
+          if ( (seed = find(
+            token.matches[0].replace( runescape, funescape ),
+            rsibling.test( tokens[0].type ) && context.parentNode || context
+          )) ) {
+
+            // If seed is empty or no tokens remain, we can return early
+            tokens.splice( i, 1 );
+            selector = seed.length && toSelector( tokens );
+            if ( !selector ) {
+              push.apply( results, slice.call( seed, 0 ) );
+              return results;
+            }
+
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  // Compile and execute a filtering function
+  // Provide `match` to avoid retokenization if we modified the selector above
+  compile( selector, match )(
+    seed,
+    context,
+    documentIsXML,
+    results,
+    rsibling.test( selector )
+  );
+  return results;
+}
+
+// Deprecated
+Expr.pseudos["nth"] = Expr.pseudos["eq"];
+
+// Easy API for creating new setFilters
+function setFilters() {}
+Expr.filters = setFilters.prototype = Expr.pseudos;
+Expr.setFilters = new setFilters();
+
+// Initialize with the default document
+setDocument();
+
+// Override sizzle attribute retrieval
+Sizzle.attr = jQuery.attr;
+jQuery.find = Sizzle;
+jQuery.expr = Sizzle.selectors;
+jQuery.expr[":"] = jQuery.expr.pseudos;
+jQuery.unique = Sizzle.uniqueSort;
+jQuery.text = Sizzle.getText;
+jQuery.isXMLDoc = Sizzle.isXML;
+jQuery.contains = Sizzle.contains;
+
+
+})( window );
+var runtil = /Until$/,
+  rparentsprev = /^(?:parents|prev(?:Until|All))/,
+  isSimple = /^.[^:#\[\.,]*$/,
+  rneedsContext = jQuery.expr.match.needsContext,
+  // methods guaranteed to produce a unique set when starting from a unique set
+  guaranteedUnique = {
+    children: true,
+    contents: true,
+    next: true,
+    prev: true
+  };
+
+jQuery.fn.extend({
+  find: function( selector ) {
+    var i, ret, self;
+
+    if ( typeof selector !== "string" ) {
+      self = this;
+      return this.pushStack( jQuery( selector ).filter(function() {
+        for ( i = 0; i < self.length; i++ ) {
+          if ( jQuery.contains( self[ i ], this ) ) {
+            return true;
+          }
+        }
+      }) );
+    }
+
+    ret = [];
+    for ( i = 0; i < this.length; i++ ) {
+      jQuery.find( selector, this[ i ], ret );
+    }
+
+    // Needed because $( selector, context ) becomes $( context ).find( selector )
+    ret = this.pushStack( jQuery.unique( ret ) );
+    ret.selector = ( this.selector ? this.selector + " " : "" ) + selector;
+    return ret;
   },
 
-  // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
-  // have an id of it's own.
-  create: function(model) {
-    if (!model.id) model.id = model.attributes.id = guid();
-    this.data[model.id] = model;
-    this.save();
-    return model;
+  has: function( target ) {
+    var i,
+      targets = jQuery( target, this ),
+      len = targets.length;
+
+    return this.filter(function() {
+      for ( i = 0; i < len; i++ ) {
+        if ( jQuery.contains( this, targets[i] ) ) {
+          return true;
+        }
+      }
+    });
   },
 
-  // Update a model by replacing its copy in `this.data`.
-  update: function(model) {
-    this.data[model.id] = model;
-    this.save();
-    return model;
+  not: function( selector ) {
+    return this.pushStack( winnow(this, selector, false) );
   },
 
-  // Retrieve a model from `this.data` by id.
-  find: function(model) {
-    return this.data[model.id];
+  filter: function( selector ) {
+    return this.pushStack( winnow(this, selector, true) );
   },
 
-  // Return the array of all models currently in storage.
-  findAll: function() {
-    return _.values(this.data);
+  is: function( selector ) {
+    return !!selector && (
+      typeof selector === "string" ?
+        // If this is a positional/relative selector, check membership in the returned set
+        // so $("p:first").is("p:last") won't return true for a doc with two "p".
+        rneedsContext.test( selector ) ?
+          jQuery( selector, this.context ).index( this[0] ) >= 0 :
+          jQuery.filter( selector, this ).length > 0 :
+        this.filter( selector ).length > 0 );
   },
 
-  // Delete a model from `this.data`, returning it.
-  destroy: function(model) {
-    delete this.data[model.id];
-    this.save();
-    return model;
+  closest: function( selectors, context ) {
+    var cur,
+      i = 0,
+      l = this.length,
+      ret = [],
+      pos = rneedsContext.test( selectors ) || typeof selectors !== "string" ?
+        jQuery( selectors, context || this.context ) :
+        0;
+
+    for ( ; i < l; i++ ) {
+      cur = this[i];
+
+      while ( cur && cur.ownerDocument && cur !== context && cur.nodeType !== 11 ) {
+        if ( pos ? pos.index(cur) > -1 : jQuery.find.matchesSelector(cur, selectors) ) {
+          ret.push( cur );
+          break;
+        }
+        cur = cur.parentNode;
+      }
+    }
+
+    return this.pushStack( ret.length > 1 ? jQuery.unique( ret ) : ret );
+  },
+
+  // Determine the position of an element within
+  // the matched set of elements
+  index: function( elem ) {
+
+    // No argument, return index in parent
+    if ( !elem ) {
+      return ( this[0] && this[0].parentNode ) ? this.first().prevAll().length : -1;
+    }
+
+    // index in selector
+    if ( typeof elem === "string" ) {
+      return jQuery.inArray( this[0], jQuery( elem ) );
+    }
+
+    // Locate the position of the desired element
+    return jQuery.inArray(
+      // If it receives a jQuery object, the first element is used
+      elem.jquery ? elem[0] : elem, this );
+  },
+
+  add: function( selector, context ) {
+    var set = typeof selector === "string" ?
+        jQuery( selector, context ) :
+        jQuery.makeArray( selector && selector.nodeType ? [ selector ] : selector ),
+      all = jQuery.merge( this.get(), set );
+
+    return this.pushStack( jQuery.unique(all) );
+  },
+
+  addBack: function( selector ) {
+    return this.add( selector == null ?
+      this.prevObject : this.prevObject.filter(selector)
+    );
+  }
+});
+
+jQuery.fn.andSelf = jQuery.fn.addBack;
+
+function sibling( cur, dir ) {
+  do {
+    cur = cur[ dir ];
+  } while ( cur && cur.nodeType !== 1 );
+
+  return cur;
+}
+
+jQuery.each({
+  parent: function( elem ) {
+    var parent = elem.parentNode;
+    return parent && parent.nodeType !== 11 ? parent : null;
+  },
+  parents: function( elem ) {
+    return jQuery.dir( elem, "parentNode" );
+  },
+  parentsUntil: function( elem, i, until ) {
+    return jQuery.dir( elem, "parentNode", until );
+  },
+  next: function( elem ) {
+    return sibling( elem, "nextSibling" );
+  },
+  prev: function( elem ) {
+    return sibling( elem, "previousSibling" );
+  },
+  nextAll: function( elem ) {
+    return jQuery.dir( elem, "nextSibling" );
+  },
+  prevAll: function( elem ) {
+    return jQuery.dir( elem, "previousSibling" );
+  },
+  nextUntil: function( elem, i, until ) {
+    return jQuery.dir( elem, "nextSibling", until );
+  },
+  prevUntil: function( elem, i, until ) {
+    return jQuery.dir( elem, "previousSibling", until );
+  },
+  siblings: function( elem ) {
+    return jQuery.sibling( ( elem.parentNode || {} ).firstChild, elem );
+  },
+  children: function( elem ) {
+    return jQuery.sibling( elem.firstChild );
+  },
+  contents: function( elem ) {
+    return jQuery.nodeName( elem, "iframe" ) ?
+      elem.contentDocument || elem.contentWindow.document :
+      jQuery.merge( [], elem.childNodes );
+  }
+}, function( name, fn ) {
+  jQuery.fn[ name ] = function( until, selector ) {
+    var ret = jQuery.map( this, fn, until );
+
+    if ( !runtil.test( name ) ) {
+      selector = until;
+    }
+
+    if ( selector && typeof selector === "string" ) {
+      ret = jQuery.filter( selector, ret );
+    }
+
+    ret = this.length > 1 && !guaranteedUnique[ name ] ? jQuery.unique( ret ) : ret;
+
+    if ( this.length > 1 && rparentsprev.test( name ) ) {
+      ret = ret.reverse();
+    }
+
+    return this.pushStack( ret );
+  };
+});
+
+jQuery.extend({
+  filter: function( expr, elems, not ) {
+    if ( not ) {
+      expr = ":not(" + expr + ")";
+    }
+
+    return elems.length === 1 ?
+      jQuery.find.matchesSelector(elems[0], expr) ? [ elems[0] ] : [] :
+      jQuery.find.matches(expr, elems);
+  },
+
+  dir: function( elem, dir, until ) {
+    var matched = [],
+      cur = elem[ dir ];
+
+    while ( cur && cur.nodeType !== 9 && (until === undefined || cur.nodeType !== 1 || !jQuery( cur ).is( until )) ) {
+      if ( cur.nodeType === 1 ) {
+        matched.push( cur );
+      }
+      cur = cur[dir];
+    }
+    return matched;
+  },
+
+  sibling: function( n, elem ) {
+    var r = [];
+
+    for ( ; n; n = n.nextSibling ) {
+      if ( n.nodeType === 1 && n !== elem ) {
+        r.push( n );
+      }
+    }
+
+    return r;
+  }
+});
+
+// Implement the identical functionality for filter and not
+function winnow( elements, qualifier, keep ) {
+
+  // Can't pass null or undefined to indexOf in Firefox 4
+  // Set to 0 to skip string check
+  qualifier = qualifier || 0;
+
+  if ( jQuery.isFunction( qualifier ) ) {
+    return jQuery.grep(elements, function( elem, i ) {
+      var retVal = !!qualifier.call( elem, i, elem );
+      return retVal === keep;
+    });
+
+  } else if ( qualifier.nodeType ) {
+    return jQuery.grep(elements, function( elem ) {
+      return ( elem === qualifier ) === keep;
+    });
+
+  } else if ( typeof qualifier === "string" ) {
+    var filtered = jQuery.grep(elements, function( elem ) {
+      return elem.nodeType === 1;
+    });
+
+    if ( isSimple.test( qualifier ) ) {
+      return jQuery.filter(qualifier, filtered, !keep);
+    } else {
+      qualifier = jQuery.filter( qualifier, filtered );
+    }
+  }
+
+  return jQuery.grep(elements, function( elem ) {
+    return ( jQuery.inArray( elem, qualifier ) >= 0 ) === keep;
+  });
+}
+function createSafeFragment( document ) {
+  var list = nodeNames.split( "|" ),
+    safeFrag = document.createDocumentFragment();
+
+  if ( safeFrag.createElement ) {
+    while ( list.length ) {
+      safeFrag.createElement(
+        list.pop()
+      );
+    }
+  }
+  return safeFrag;
+}
+
+var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
+    "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
+  rinlinejQuery = / jQuery\d+="(?:null|\d+)"/g,
+  rnoshimcache = new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"),
+  rleadingWhitespace = /^\s+/,
+  rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,
+  rtagName = /<([\w:]+)/,
+  rtbody = /<tbody/i,
+  rhtml = /<|&#?\w+;/,
+  rnoInnerhtml = /<(?:script|style|link)/i,
+  manipulation_rcheckableType = /^(?:checkbox|radio)$/i,
+  // checked="checked" or checked
+  rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
+  rscriptType = /^$|\/(?:java|ecma)script/i,
+  rscriptTypeMasked = /^true\/(.*)/,
+  rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,
+
+  // We have to close these tags to support XHTML (#13200)
+  wrapMap = {
+    option: [ 1, "<select multiple='multiple'>", "</select>" ],
+    legend: [ 1, "<fieldset>", "</fieldset>" ],
+    area: [ 1, "<map>", "</map>" ],
+    param: [ 1, "<object>", "</object>" ],
+    thead: [ 1, "<table>", "</table>" ],
+    tr: [ 2, "<table><tbody>", "</tbody></table>" ],
+    col: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
+    td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
+
+    // IE6-8 can't serialize link, script, style, or any html5 (NoScope) tags,
+    // unless wrapped in a div with non-breaking characters in front of it.
+    _default: jQuery.support.htmlSerialize ? [ 0, "", "" ] : [ 1, "X<div>", "</div>"  ]
+  },
+  safeFragment = createSafeFragment( document ),
+  fragmentDiv = safeFragment.appendChild( document.createElement("div") );
+
+wrapMap.optgroup = wrapMap.option;
+wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
+wrapMap.th = wrapMap.td;
+
+jQuery.fn.extend({
+  text: function( value ) {
+    return jQuery.access( this, function( value ) {
+      return value === undefined ?
+        jQuery.text( this ) :
+        this.empty().append( ( this[0] && this[0].ownerDocument || document ).createTextNode( value ) );
+    }, null, value, arguments.length );
+  },
+
+  wrapAll: function( html ) {
+    if ( jQuery.isFunction( html ) ) {
+      return this.each(function(i) {
+        jQuery(this).wrapAll( html.call(this, i) );
+      });
+    }
+
+    if ( this[0] ) {
+      // The elements to wrap the target around
+      var wrap = jQuery( html, this[0].ownerDocument ).eq(0).clone(true);
+
+      if ( this[0].parentNode ) {
+        wrap.insertBefore( this[0] );
+      }
+
+      wrap.map(function() {
+        var elem = this;
+
+        while ( elem.firstChild && elem.firstChild.nodeType === 1 ) {
+          elem = elem.firstChild;
+        }
+
+        return elem;
+      }).append( this );
+    }
+
+    return this;
+  },
+
+  wrapInner: function( html ) {
+    if ( jQuery.isFunction( html ) ) {
+      return this.each(function(i) {
+        jQuery(this).wrapInner( html.call(this, i) );
+      });
+    }
+
+    return this.each(function() {
+      var self = jQuery( this ),
+        contents = self.contents();
+
+      if ( contents.length ) {
+        contents.wrapAll( html );
+
+      } else {
+        self.append( html );
+      }
+    });
+  },
+
+  wrap: function( html ) {
+    var isFunction = jQuery.isFunction( html );
+
+    return this.each(function(i) {
+      jQuery( this ).wrapAll( isFunction ? html.call(this, i) : html );
+    });
+  },
+
+  unwrap: function() {
+    return this.parent().each(function() {
+      if ( !jQuery.nodeName( this, "body" ) ) {
+        jQuery( this ).replaceWith( this.childNodes );
+      }
+    }).end();
+  },
+
+  append: function() {
+    return this.domManip(arguments, true, function( elem ) {
+      if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+        this.appendChild( elem );
+      }
+    });
+  },
+
+  prepend: function() {
+    return this.domManip(arguments, true, function( elem ) {
+      if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+        this.insertBefore( elem, this.firstChild );
+      }
+    });
+  },
+
+  before: function() {
+    return this.domManip( arguments, false, function( elem ) {
+      if ( this.parentNode ) {
+        this.parentNode.insertBefore( elem, this );
+      }
+    });
+  },
+
+  after: function() {
+    return this.domManip( arguments, false, function( elem ) {
+      if ( this.parentNode ) {
+        this.parentNode.insertBefore( elem, this.nextSibling );
+      }
+    });
+  },
+
+  // keepData is for internal use only--do not document
+  remove: function( selector, keepData ) {
+    var elem,
+      i = 0;
+
+    for ( ; (elem = this[i]) != null; i++ ) {
+      if ( !selector || jQuery.filter( selector, [ elem ] ).length > 0 ) {
+        if ( !keepData && elem.nodeType === 1 ) {
+          jQuery.cleanData( getAll( elem ) );
+        }
+
+        if ( elem.parentNode ) {
+          if ( keepData && jQuery.contains( elem.ownerDocument, elem ) ) {
+            setGlobalEval( getAll( elem, "script" ) );
+          }
+          elem.parentNode.removeChild( elem );
+        }
+      }
+    }
+
+    return this;
+  },
+
+  empty: function() {
+    var elem,
+      i = 0;
+
+    for ( ; (elem = this[i]) != null; i++ ) {
+      // Remove element nodes and prevent memory leaks
+      if ( elem.nodeType === 1 ) {
+        jQuery.cleanData( getAll( elem, false ) );
+      }
+
+      // Remove any remaining nodes
+      while ( elem.firstChild ) {
+        elem.removeChild( elem.firstChild );
+      }
+
+      // If this is a select, ensure that it displays empty (#12336)
+      // Support: IE<9
+      if ( elem.options && jQuery.nodeName( elem, "select" ) ) {
+        elem.options.length = 0;
+      }
+    }
+
+    return this;
+  },
+
+  clone: function( dataAndEvents, deepDataAndEvents ) {
+    dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
+    deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
+
+    return this.map( function () {
+      return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
+    });
+  },
+
+  html: function( value ) {
+    return jQuery.access( this, function( value ) {
+      var elem = this[0] || {},
+        i = 0,
+        l = this.length;
+
+      if ( value === undefined ) {
+        return elem.nodeType === 1 ?
+          elem.innerHTML.replace( rinlinejQuery, "" ) :
+          undefined;
+      }
+
+      // See if we can take a shortcut and just use innerHTML
+      if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
+        ( jQuery.support.htmlSerialize || !rnoshimcache.test( value )  ) &&
+        ( jQuery.support.leadingWhitespace || !rleadingWhitespace.test( value ) ) &&
+        !wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerCase() ] ) {
+
+        value = value.replace( rxhtmlTag, "<$1></$2>" );
+
+        try {
+          for (; i < l; i++ ) {
+            // Remove element nodes and prevent memory leaks
+            elem = this[i] || {};
+            if ( elem.nodeType === 1 ) {
+              jQuery.cleanData( getAll( elem, false ) );
+              elem.innerHTML = value;
+            }
+          }
+
+          elem = 0;
+
+        // If using innerHTML throws an exception, use the fallback method
+        } catch(e) {}
+      }
+
+      if ( elem ) {
+        this.empty().append( value );
+      }
+    }, null, value, arguments.length );
+  },
+
+  replaceWith: function( value ) {
+    var isFunc = jQuery.isFunction( value );
+
+    // Make sure that the elements are removed from the DOM before they are inserted
+    // this can help fix replacing a parent with child elements
+    if ( !isFunc && typeof value !== "string" ) {
+      value = jQuery( value ).not( this ).detach();
+    }
+
+    return this.domManip( [ value ], true, function( elem ) {
+      var next = this.nextSibling,
+        parent = this.parentNode;
+
+      if ( parent && this.nodeType === 1 || this.nodeType === 11 ) {
+
+        jQuery( this ).remove();
+
+        if ( next ) {
+          next.parentNode.insertBefore( elem, next );
+        } else {
+          parent.appendChild( elem );
+        }
+      }
+    });
+  },
+
+  detach: function( selector ) {
+    return this.remove( selector, true );
+  },
+
+  domManip: function( args, table, callback ) {
+
+    // Flatten any nested arrays
+    args = core_concat.apply( [], args );
+
+    var fragment, first, scripts, hasScripts, node, doc,
+      i = 0,
+      l = this.length,
+      set = this,
+      iNoClone = l - 1,
+      value = args[0],
+      isFunction = jQuery.isFunction( value );
+
+    // We can't cloneNode fragments that contain checked, in WebKit
+    if ( isFunction || !( l <= 1 || typeof value !== "string" || jQuery.support.checkClone || !rchecked.test( value ) ) ) {
+      return this.each(function( index ) {
+        var self = set.eq( index );
+        if ( isFunction ) {
+          args[0] = value.call( this, index, table ? self.html() : undefined );
+        }
+        self.domManip( args, table, callback );
+      });
+    }
+
+    if ( l ) {
+      fragment = jQuery.buildFragment( args, this[ 0 ].ownerDocument, false, this );
+      first = fragment.firstChild;
+
+      if ( fragment.childNodes.length === 1 ) {
+        fragment = first;
+      }
+
+      if ( first ) {
+        table = table && jQuery.nodeName( first, "tr" );
+        scripts = jQuery.map( getAll( fragment, "script" ), disableScript );
+        hasScripts = scripts.length;
+
+        // Use the original fragment for the last item instead of the first because it can end up
+        // being emptied incorrectly in certain situations (#8070).
+        for ( ; i < l; i++ ) {
+          node = fragment;
+
+          if ( i !== iNoClone ) {
+            node = jQuery.clone( node, true, true );
+
+            // Keep references to cloned scripts for later restoration
+            if ( hasScripts ) {
+              jQuery.merge( scripts, getAll( node, "script" ) );
+            }
+          }
+
+          callback.call(
+            table && jQuery.nodeName( this[i], "table" ) ?
+              findOrAppend( this[i], "tbody" ) :
+              this[i],
+            node,
+            i
+          );
+        }
+
+        if ( hasScripts ) {
+          doc = scripts[ scripts.length - 1 ].ownerDocument;
+
+          // Reenable scripts
+          jQuery.map( scripts, restoreScript );
+
+          // Evaluate executable scripts on first document insertion
+          for ( i = 0; i < hasScripts; i++ ) {
+            node = scripts[ i ];
+            if ( rscriptType.test( node.type || "" ) &&
+              !jQuery._data( node, "globalEval" ) && jQuery.contains( doc, node ) ) {
+
+              if ( node.src ) {
+                // Hope ajax is available...
+                jQuery.ajax({
+                  url: node.src,
+                  type: "GET",
+                  dataType: "script",
+                  async: false,
+                  global: false,
+                  "throws": true
+                });
+              } else {
+                jQuery.globalEval( ( node.text || node.textContent || node.innerHTML || "" ).replace( rcleanScript, "" ) );
+              }
+            }
+          }
+        }
+
+        // Fix #11809: Avoid leaking memory
+        fragment = first = null;
+      }
+    }
+
+    return this;
+  }
+});
+
+function findOrAppend( elem, tag ) {
+  return elem.getElementsByTagName( tag )[0] || elem.appendChild( elem.ownerDocument.createElement( tag ) );
+}
+
+// Replace/restore the type attribute of script elements for safe DOM manipulation
+function disableScript( elem ) {
+  var attr = elem.getAttributeNode("type");
+  elem.type = ( attr && attr.specified ) + "/" + elem.type;
+  return elem;
+}
+function restoreScript( elem ) {
+  var match = rscriptTypeMasked.exec( elem.type );
+  if ( match ) {
+    elem.type = match[1];
+  } else {
+    elem.removeAttribute("type");
+  }
+  return elem;
+}
+
+// Mark scripts as having already been evaluated
+function setGlobalEval( elems, refElements ) {
+  var elem,
+    i = 0;
+  for ( ; (elem = elems[i]) != null; i++ ) {
+    jQuery._data( elem, "globalEval", !refElements || jQuery._data( refElements[i], "globalEval" ) );
+  }
+}
+
+function cloneCopyEvent( src, dest ) {
+
+  if ( dest.nodeType !== 1 || !jQuery.hasData( src ) ) {
+    return;
+  }
+
+  var type, i, l,
+    oldData = jQuery._data( src ),
+    curData = jQuery._data( dest, oldData ),
+    events = oldData.events;
+
+  if ( events ) {
+    delete curData.handle;
+    curData.events = {};
+
+    for ( type in events ) {
+      for ( i = 0, l = events[ type ].length; i < l; i++ ) {
+        jQuery.event.add( dest, type, events[ type ][ i ] );
+      }
+    }
+  }
+
+  // make the cloned public data object a copy from the original
+  if ( curData.data ) {
+    curData.data = jQuery.extend( {}, curData.data );
+  }
+}
+
+function fixCloneNodeIssues( src, dest ) {
+  var nodeName, data, e;
+
+  // We do not need to do anything for non-Elements
+  if ( dest.nodeType !== 1 ) {
+    return;
+  }
+
+  nodeName = dest.nodeName.toLowerCase();
+
+  // IE6-8 copies events bound via attachEvent when using cloneNode.
+  if ( !jQuery.support.noCloneEvent && dest[ jQuery.expando ] ) {
+    data = jQuery._data( dest );
+
+    for ( e in data.events ) {
+      jQuery.removeEvent( dest, e, data.handle );
+    }
+
+    // Event data gets referenced instead of copied if the expando gets copied too
+    dest.removeAttribute( jQuery.expando );
+  }
+
+  // IE blanks contents when cloning scripts, and tries to evaluate newly-set text
+  if ( nodeName === "script" && dest.text !== src.text ) {
+    disableScript( dest ).text = src.text;
+    restoreScript( dest );
+
+  // IE6-10 improperly clones children of object elements using classid.
+  // IE10 throws NoModificationAllowedError if parent is null, #12132.
+  } else if ( nodeName === "object" ) {
+    if ( dest.parentNode ) {
+      dest.outerHTML = src.outerHTML;
+    }
+
+    // This path appears unavoidable for IE9. When cloning an object
+    // element in IE9, the outerHTML strategy above is not sufficient.
+    // If the src has innerHTML and the destination does not,
+    // copy the src.innerHTML into the dest.innerHTML. #10324
+    if ( jQuery.support.html5Clone && ( src.innerHTML && !jQuery.trim(dest.innerHTML) ) ) {
+      dest.innerHTML = src.innerHTML;
+    }
+
+  } else if ( nodeName === "input" && manipulation_rcheckableType.test( src.type ) ) {
+    // IE6-8 fails to persist the checked state of a cloned checkbox
+    // or radio button. Worse, IE6-7 fail to give the cloned element
+    // a checked appearance if the defaultChecked value isn't also set
+
+    dest.defaultChecked = dest.checked = src.checked;
+
+    // IE6-7 get confused and end up setting the value of a cloned
+    // checkbox/radio button to an empty string instead of "on"
+    if ( dest.value !== src.value ) {
+      dest.value = src.value;
+    }
+
+  // IE6-8 fails to return the selected option to the default selected
+  // state when cloning options
+  } else if ( nodeName === "option" ) {
+    dest.defaultSelected = dest.selected = src.defaultSelected;
+
+  // IE6-8 fails to set the defaultValue to the correct value when
+  // cloning other types of input fields
+  } else if ( nodeName === "input" || nodeName === "textarea" ) {
+    dest.defaultValue = src.defaultValue;
+  }
+}
+
+jQuery.each({
+  appendTo: "append",
+  prependTo: "prepend",
+  insertBefore: "before",
+  insertAfter: "after",
+  replaceAll: "replaceWith"
+}, function( name, original ) {
+  jQuery.fn[ name ] = function( selector ) {
+    var elems,
+      i = 0,
+      ret = [],
+      insert = jQuery( selector ),
+      last = insert.length - 1;
+
+    for ( ; i <= last; i++ ) {
+      elems = i === last ? this : this.clone(true);
+      jQuery( insert[i] )[ original ]( elems );
+
+      // Modern browsers can apply jQuery collections as arrays, but oldIE needs a .get()
+      core_push.apply( ret, elems.get() );
+    }
+
+    return this.pushStack( ret );
+  };
+});
+
+function getAll( context, tag ) {
+  var elems, elem,
+    i = 0,
+    found = typeof context.getElementsByTagName !== "undefined" ? context.getElementsByTagName( tag || "*" ) :
+      typeof context.querySelectorAll !== "undefined" ? context.querySelectorAll( tag || "*" ) :
+      undefined;
+
+  if ( !found ) {
+    for ( found = [], elems = context.childNodes || context; (elem = elems[i]) != null; i++ ) {
+      if ( !tag || jQuery.nodeName( elem, tag ) ) {
+        found.push( elem );
+      } else {
+        jQuery.merge( found, getAll( elem, tag ) );
+      }
+    }
+  }
+
+  return tag === undefined || tag && jQuery.nodeName( context, tag ) ?
+    jQuery.merge( [ context ], found ) :
+    found;
+}
+
+// Used in buildFragment, fixes the defaultChecked property
+function fixDefaultChecked( elem ) {
+  if ( manipulation_rcheckableType.test( elem.type ) ) {
+    elem.defaultChecked = elem.checked;
+  }
+}
+
+jQuery.extend({
+  clone: function( elem, dataAndEvents, deepDataAndEvents ) {
+    var destElements, srcElements, node, i, clone,
+      inPage = jQuery.contains( elem.ownerDocument, elem );
+
+    if ( jQuery.support.html5Clone || jQuery.isXMLDoc(elem) || !rnoshimcache.test( "<" + elem.nodeName + ">" ) ) {
+      clone = elem.cloneNode( true );
+
+    // IE<=8 does not properly clone detached, unknown element nodes
+    } else {
+      fragmentDiv.innerHTML = elem.outerHTML;
+      fragmentDiv.removeChild( clone = fragmentDiv.firstChild );
+    }
+
+    if ( (!jQuery.support.noCloneEvent || !jQuery.support.noCloneChecked) &&
+        (elem.nodeType === 1 || elem.nodeType === 11) && !jQuery.isXMLDoc(elem) ) {
+
+      // We eschew Sizzle here for performance reasons: http://jsperf.com/getall-vs-sizzle/2
+      destElements = getAll( clone );
+      srcElements = getAll( elem );
+
+      // Fix all IE cloning issues
+      for ( i = 0; (node = srcElements[i]) != null; ++i ) {
+        // Ensure that the destination node is not null; Fixes #9587
+        if ( destElements[i] ) {
+          fixCloneNodeIssues( node, destElements[i] );
+        }
+      }
+    }
+
+    // Copy the events from the original to the clone
+    if ( dataAndEvents ) {
+      if ( deepDataAndEvents ) {
+        srcElements = srcElements || getAll( elem );
+        destElements = destElements || getAll( clone );
+
+        for ( i = 0; (node = srcElements[i]) != null; i++ ) {
+          cloneCopyEvent( node, destElements[i] );
+        }
+      } else {
+        cloneCopyEvent( elem, clone );
+      }
+    }
+
+    // Preserve script evaluation history
+    destElements = getAll( clone, "script" );
+    if ( destElements.length > 0 ) {
+      setGlobalEval( destElements, !inPage && getAll( elem, "script" ) );
+    }
+
+    destElements = srcElements = node = null;
+
+    // Return the cloned set
+    return clone;
+  },
+
+  buildFragment: function( elems, context, scripts, selection ) {
+    var contains, elem, tag, tmp, wrap, tbody, j,
+      l = elems.length,
+
+      // Ensure a safe fragment
+      safe = createSafeFragment( context ),
+
+      nodes = [],
+      i = 0;
+
+    for ( ; i < l; i++ ) {
+      elem = elems[ i ];
+
+      if ( elem || elem === 0 ) {
+
+        // Add nodes directly
+        if ( jQuery.type( elem ) === "object" ) {
+          jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
+
+        // Convert non-html into a text node
+        } else if ( !rhtml.test( elem ) ) {
+          nodes.push( context.createTextNode( elem ) );
+
+        // Convert html into DOM nodes
+        } else {
+          tmp = tmp || safe.appendChild( context.createElement("div") );
+
+          // Deserialize a standard representation
+          tag = ( rtagName.exec( elem ) || ["", ""] )[1].toLowerCase();
+          wrap = wrapMap[ tag ] || wrapMap._default;
+
+          tmp.innerHTML = wrap[1] + elem.replace( rxhtmlTag, "<$1></$2>" ) + wrap[2];
+
+          // Descend through wrappers to the right content
+          j = wrap[0];
+          while ( j-- ) {
+            tmp = tmp.lastChild;
+          }
+
+          // Manually add leading whitespace removed by IE
+          if ( !jQuery.support.leadingWhitespace && rleadingWhitespace.test( elem ) ) {
+            nodes.push( context.createTextNode( rleadingWhitespace.exec( elem )[0] ) );
+          }
+
+          // Remove IE's autoinserted <tbody> from table fragments
+          if ( !jQuery.support.tbody ) {
+
+            // String was a <table>, *may* have spurious <tbody>
+            elem = tag === "table" && !rtbody.test( elem ) ?
+              tmp.firstChild :
+
+              // String was a bare <thead> or <tfoot>
+              wrap[1] === "<table>" && !rtbody.test( elem ) ?
+                tmp :
+                0;
+
+            j = elem && elem.childNodes.length;
+            while ( j-- ) {
+              if ( jQuery.nodeName( (tbody = elem.childNodes[j]), "tbody" ) && !tbody.childNodes.length ) {
+                elem.removeChild( tbody );
+              }
+            }
+          }
+
+          jQuery.merge( nodes, tmp.childNodes );
+
+          // Fix #12392 for WebKit and IE > 9
+          tmp.textContent = "";
+
+          // Fix #12392 for oldIE
+          while ( tmp.firstChild ) {
+            tmp.removeChild( tmp.firstChild );
+          }
+
+          // Remember the top-level container for proper cleanup
+          tmp = safe.lastChild;
+        }
+      }
+    }
+
+    // Fix #11356: Clear elements from fragment
+    if ( tmp ) {
+      safe.removeChild( tmp );
+    }
+
+    // Reset defaultChecked for any radios and checkboxes
+    // about to be appended to the DOM in IE 6/7 (#8060)
+    if ( !jQuery.support.appendChecked ) {
+      jQuery.grep( getAll( nodes, "input" ), fixDefaultChecked );
+    }
+
+    i = 0;
+    while ( (elem = nodes[ i++ ]) ) {
+
+      // #4087 - If origin and destination elements are the same, and this is
+      // that element, do not do anything
+      if ( selection && jQuery.inArray( elem, selection ) !== -1 ) {
+        continue;
+      }
+
+      contains = jQuery.contains( elem.ownerDocument, elem );
+
+      // Append to fragment
+      tmp = getAll( safe.appendChild( elem ), "script" );
+
+      // Preserve script evaluation history
+      if ( contains ) {
+        setGlobalEval( tmp );
+      }
+
+      // Capture executables
+      if ( scripts ) {
+        j = 0;
+        while ( (elem = tmp[ j++ ]) ) {
+          if ( rscriptType.test( elem.type || "" ) ) {
+            scripts.push( elem );
+          }
+        }
+      }
+    }
+
+    tmp = null;
+
+    return safe;
+  },
+
+  cleanData: function( elems, /* internal */ acceptData ) {
+    var data, id, elem, type,
+      i = 0,
+      internalKey = jQuery.expando,
+      cache = jQuery.cache,
+      deleteExpando = jQuery.support.deleteExpando,
+      special = jQuery.event.special;
+
+    for ( ; (elem = elems[i]) != null; i++ ) {
+
+      if ( acceptData || jQuery.acceptData( elem ) ) {
+
+        id = elem[ internalKey ];
+        data = id && cache[ id ];
+
+        if ( data ) {
+          if ( data.events ) {
+            for ( type in data.events ) {
+              if ( special[ type ] ) {
+                jQuery.event.remove( elem, type );
+
+              // This is a shortcut to avoid jQuery.event.remove's overhead
+              } else {
+                jQuery.removeEvent( elem, type, data.handle );
+              }
+            }
+          }
+
+          // Remove cache only if it was not already removed by jQuery.event.remove
+          if ( cache[ id ] ) {
+
+            delete cache[ id ];
+
+            // IE does not allow us to delete expando properties from nodes,
+            // nor does it have a removeAttribute function on Document nodes;
+            // we must handle all of these cases
+            if ( deleteExpando ) {
+              delete elem[ internalKey ];
+
+            } else if ( typeof elem.removeAttribute !== "undefined" ) {
+              elem.removeAttribute( internalKey );
+
+            } else {
+              elem[ internalKey ] = null;
+            }
+
+            core_deletedIds.push( id );
+          }
+        }
+      }
+    }
+  }
+});
+var curCSS, getStyles, iframe,
+  ralpha = /alpha\([^)]*\)/i,
+  ropacity = /opacity\s*=\s*([^)]*)/,
+  rposition = /^(top|right|bottom|left)$/,
+  // swappable if display is none or starts with table except "table", "table-cell", or "table-caption"
+  // see here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
+  rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+  rmargin = /^margin/,
+  rnumsplit = new RegExp( "^(" + core_pnum + ")(.*)$", "i" ),
+  rnumnonpx = new RegExp( "^(" + core_pnum + ")(?!px)[a-z%]+$", "i" ),
+  rrelNum = new RegExp( "^([+-])=(" + core_pnum + ")", "i" ),
+  elemdisplay = { BODY: "block" },
+
+  cssShow = { position: "absolute", visibility: "hidden", display: "block" },
+  cssNormalTransform = {
+    letterSpacing: 0,
+    fontWeight: 400
+  },
+
+  cssExpand = [ "Top", "Right", "Bottom", "Left" ],
+  cssPrefixes = [ "Webkit", "O", "Moz", "ms" ];
+
+// return a css property mapped to a potentially vendor prefixed property
+function vendorPropName( style, name ) {
+
+  // shortcut for names that are not vendor prefixed
+  if ( name in style ) {
+    return name;
+  }
+
+  // check for vendor prefixed names
+  var capName = name.charAt(0).toUpperCase() + name.slice(1),
+    origName = name,
+    i = cssPrefixes.length;
+
+  while ( i-- ) {
+    name = cssPrefixes[ i ] + capName;
+    if ( name in style ) {
+      return name;
+    }
+  }
+
+  return origName;
+}
+
+function isHidden( elem, el ) {
+  // isHidden might be called from jQuery#filter function;
+  // in that case, element will be second argument
+  elem = el || elem;
+  return jQuery.css( elem, "display" ) === "none" || !jQuery.contains( elem.ownerDocument, elem );
+}
+
+function showHide( elements, show ) {
+  var elem,
+    values = [],
+    index = 0,
+    length = elements.length;
+
+  for ( ; index < length; index++ ) {
+    elem = elements[ index ];
+    if ( !elem.style ) {
+      continue;
+    }
+    values[ index ] = jQuery._data( elem, "olddisplay" );
+    if ( show ) {
+      // Reset the inline display of this element to learn if it is
+      // being hidden by cascaded rules or not
+      if ( !values[ index ] && elem.style.display === "none" ) {
+        elem.style.display = "";
+      }
+
+      // Set elements which have been overridden with display: none
+      // in a stylesheet to whatever the default browser style is
+      // for such an element
+      if ( elem.style.display === "" && isHidden( elem ) ) {
+        values[ index ] = jQuery._data( elem, "olddisplay", css_defaultDisplay(elem.nodeName) );
+      }
+    } else if ( !values[ index ] && !isHidden( elem ) ) {
+      jQuery._data( elem, "olddisplay", jQuery.css( elem, "display" ) );
+    }
+  }
+
+  // Set the display of most of the elements in a second loop
+  // to avoid the constant reflow
+  for ( index = 0; index < length; index++ ) {
+    elem = elements[ index ];
+    if ( !elem.style ) {
+      continue;
+    }
+    if ( !show || elem.style.display === "none" || elem.style.display === "" ) {
+      elem.style.display = show ? values[ index ] || "" : "none";
+    }
+  }
+
+  return elements;
+}
+
+jQuery.fn.extend({
+  css: function( name, value ) {
+    return jQuery.access( this, function( elem, name, value ) {
+      var styles, len,
+        map = {},
+        i = 0;
+
+      if ( jQuery.isArray( name ) ) {
+        styles = getStyles( elem );
+        len = name.length;
+
+        for ( ; i < len; i++ ) {
+          map[ name[ i ] ] = jQuery.css( elem, name[ i ], false, styles );
+        }
+
+        return map;
+      }
+
+      return value !== undefined ?
+        jQuery.style( elem, name, value ) :
+        jQuery.css( elem, name );
+    }, name, value, arguments.length > 1 );
+  },
+  show: function() {
+    return showHide( this, true );
+  },
+  hide: function() {
+    return showHide( this );
+  },
+  toggle: function( state ) {
+    var bool = typeof state === "boolean";
+
+    return this.each(function() {
+      if ( bool ? state : isHidden( this ) ) {
+        jQuery( this ).show();
+      } else {
+        jQuery( this ).hide();
+      }
+    });
+  }
+});
+
+jQuery.extend({
+  // Add in style property hooks for overriding the default
+  // behavior of getting and setting a style property
+  cssHooks: {
+    opacity: {
+      get: function( elem, computed ) {
+        if ( computed ) {
+          // We should always get a number back from opacity
+          var ret = curCSS( elem, "opacity" );
+          return ret === "" ? "1" : ret;
+        }
+      }
+    }
+  },
+
+  // Exclude the following css properties to add px
+  cssNumber: {
+    "columnCount": true,
+    "fillOpacity": true,
+    "fontWeight": true,
+    "lineHeight": true,
+    "opacity": true,
+    "orphans": true,
+    "widows": true,
+    "zIndex": true,
+    "zoom": true
+  },
+
+  // Add in properties whose names you wish to fix before
+  // setting or getting the value
+  cssProps: {
+    // normalize float css property
+    "float": jQuery.support.cssFloat ? "cssFloat" : "styleFloat"
+  },
+
+  // Get and set the style property on a DOM Node
+  style: function( elem, name, value, extra ) {
+    // Don't set styles on text and comment nodes
+    if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
+      return;
+    }
+
+    // Make sure that we're working with the right name
+    var ret, type, hooks,
+      origName = jQuery.camelCase( name ),
+      style = elem.style;
+
+    name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( style, origName ) );
+
+    // gets hook for the prefixed version
+    // followed by the unprefixed version
+    hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+
+    // Check if we're setting a value
+    if ( value !== undefined ) {
+      type = typeof value;
+
+      // convert relative number strings (+= or -=) to relative numbers. #7345
+      if ( type === "string" && (ret = rrelNum.exec( value )) ) {
+        value = ( ret[1] + 1 ) * ret[2] + parseFloat( jQuery.css( elem, name ) );
+        // Fixes bug #9237
+        type = "number";
+      }
+
+      // Make sure that NaN and null values aren't set. See: #7116
+      if ( value == null || type === "number" && isNaN( value ) ) {
+        return;
+      }
+
+      // If a number was passed in, add 'px' to the (except for certain CSS properties)
+      if ( type === "number" && !jQuery.cssNumber[ origName ] ) {
+        value += "px";
+      }
+
+      // Fixes #8908, it can be done more correctly by specifing setters in cssHooks,
+      // but it would mean to define eight (for every problematic property) identical functions
+      if ( !jQuery.support.clearCloneStyle && value === "" && name.indexOf("background") === 0 ) {
+        style[ name ] = "inherit";
+      }
+
+      // If a hook was provided, use that value, otherwise just set the specified value
+      if ( !hooks || !("set" in hooks) || (value = hooks.set( elem, value, extra )) !== undefined ) {
+
+        // Wrapped to prevent IE from throwing errors when 'invalid' values are provided
+        // Fixes bug #5509
+        try {
+          style[ name ] = value;
+        } catch(e) {}
+      }
+
+    } else {
+      // If a hook was provided get the non-computed value from there
+      if ( hooks && "get" in hooks && (ret = hooks.get( elem, false, extra )) !== undefined ) {
+        return ret;
+      }
+
+      // Otherwise just get the value from the style object
+      return style[ name ];
+    }
+  },
+
+  css: function( elem, name, extra, styles ) {
+    var val, num, hooks,
+      origName = jQuery.camelCase( name );
+
+    // Make sure that we're working with the right name
+    name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( elem.style, origName ) );
+
+    // gets hook for the prefixed version
+    // followed by the unprefixed version
+    hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+
+    // If a hook was provided get the computed value from there
+    if ( hooks && "get" in hooks ) {
+      val = hooks.get( elem, true, extra );
+    }
+
+    // Otherwise, if a way to get the computed value exists, use that
+    if ( val === undefined ) {
+      val = curCSS( elem, name, styles );
+    }
+
+    //convert "normal" to computed value
+    if ( val === "normal" && name in cssNormalTransform ) {
+      val = cssNormalTransform[ name ];
+    }
+
+    // Return, converting to number if forced or a qualifier was provided and val looks numeric
+    if ( extra ) {
+      num = parseFloat( val );
+      return extra === true || jQuery.isNumeric( num ) ? num || 0 : val;
+    }
+    return val;
+  },
+
+  // A method for quickly swapping in/out CSS properties to get correct calculations
+  swap: function( elem, options, callback, args ) {
+    var ret, name,
+      old = {};
+
+    // Remember the old values, and insert the new ones
+    for ( name in options ) {
+      old[ name ] = elem.style[ name ];
+      elem.style[ name ] = options[ name ];
+    }
+
+    ret = callback.apply( elem, args || [] );
+
+    // Revert the old values
+    for ( name in options ) {
+      elem.style[ name ] = old[ name ];
+    }
+
+    return ret;
+  }
+});
+
+// NOTE: we've included the "window" in window.getComputedStyle
+// because jsdom on node.js will break without it.
+if ( window.getComputedStyle ) {
+  getStyles = function( elem ) {
+    return window.getComputedStyle( elem, null );
+  };
+
+  curCSS = function( elem, name, _computed ) {
+    var width, minWidth, maxWidth,
+      computed = _computed || getStyles( elem ),
+
+      // getPropertyValue is only needed for .css('filter') in IE9, see #12537
+      ret = computed ? computed.getPropertyValue( name ) || computed[ name ] : undefined,
+      style = elem.style;
+
+    if ( computed ) {
+
+      if ( ret === "" && !jQuery.contains( elem.ownerDocument, elem ) ) {
+        ret = jQuery.style( elem, name );
+      }
+
+      // A tribute to the "awesome hack by Dean Edwards"
+      // Chrome < 17 and Safari 5.0 uses "computed value" instead of "used value" for margin-right
+      // Safari 5.1.7 (at least) returns percentage for a larger set of values, but width seems to be reliably pixels
+      // this is against the CSSOM draft spec: http://dev.w3.org/csswg/cssom/#resolved-values
+      if ( rnumnonpx.test( ret ) && rmargin.test( name ) ) {
+
+        // Remember the original values
+        width = style.width;
+        minWidth = style.minWidth;
+        maxWidth = style.maxWidth;
+
+        // Put in the new values to get a computed value out
+        style.minWidth = style.maxWidth = style.width = ret;
+        ret = computed.width;
+
+        // Revert the changed values
+        style.width = width;
+        style.minWidth = minWidth;
+        style.maxWidth = maxWidth;
+      }
+    }
+
+    return ret;
+  };
+} else if ( document.documentElement.currentStyle ) {
+  getStyles = function( elem ) {
+    return elem.currentStyle;
+  };
+
+  curCSS = function( elem, name, _computed ) {
+    var left, rs, rsLeft,
+      computed = _computed || getStyles( elem ),
+      ret = computed ? computed[ name ] : undefined,
+      style = elem.style;
+
+    // Avoid setting ret to empty string here
+    // so we don't default to auto
+    if ( ret == null && style && style[ name ] ) {
+      ret = style[ name ];
+    }
+
+    // From the awesome hack by Dean Edwards
+    // http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
+
+    // If we're not dealing with a regular pixel number
+    // but a number that has a weird ending, we need to convert it to pixels
+    // but not position css attributes, as those are proportional to the parent element instead
+    // and we can't measure the parent instead because it might trigger a "stacking dolls" problem
+    if ( rnumnonpx.test( ret ) && !rposition.test( name ) ) {
+
+      // Remember the original values
+      left = style.left;
+      rs = elem.runtimeStyle;
+      rsLeft = rs && rs.left;
+
+      // Put in the new values to get a computed value out
+      if ( rsLeft ) {
+        rs.left = elem.currentStyle.left;
+      }
+      style.left = name === "fontSize" ? "1em" : ret;
+      ret = style.pixelLeft + "px";
+
+      // Revert the changed values
+      style.left = left;
+      if ( rsLeft ) {
+        rs.left = rsLeft;
+      }
+    }
+
+    return ret === "" ? "auto" : ret;
+  };
+}
+
+function setPositiveNumber( elem, value, subtract ) {
+  var matches = rnumsplit.exec( value );
+  return matches ?
+    // Guard against undefined "subtract", e.g., when used as in cssHooks
+    Math.max( 0, matches[ 1 ] - ( subtract || 0 ) ) + ( matches[ 2 ] || "px" ) :
+    value;
+}
+
+function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
+  var i = extra === ( isBorderBox ? "border" : "content" ) ?
+    // If we already have the right measurement, avoid augmentation
+    4 :
+    // Otherwise initialize for horizontal or vertical properties
+    name === "width" ? 1 : 0,
+
+    val = 0;
+
+  for ( ; i < 4; i += 2 ) {
+    // both box models exclude margin, so add it if we want it
+    if ( extra === "margin" ) {
+      val += jQuery.css( elem, extra + cssExpand[ i ], true, styles );
+    }
+
+    if ( isBorderBox ) {
+      // border-box includes padding, so remove it if we want content
+      if ( extra === "content" ) {
+        val -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
+      }
+
+      // at this point, extra isn't border nor margin, so remove border
+      if ( extra !== "margin" ) {
+        val -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+      }
+    } else {
+      // at this point, extra isn't content, so add padding
+      val += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
+
+      // at this point, extra isn't content nor padding, so add border
+      if ( extra !== "padding" ) {
+        val += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+      }
+    }
+  }
+
+  return val;
+}
+
+function getWidthOrHeight( elem, name, extra ) {
+
+  // Start with offset property, which is equivalent to the border-box value
+  var valueIsBorderBox = true,
+    val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
+    styles = getStyles( elem ),
+    isBorderBox = jQuery.support.boxSizing && jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+
+  // some non-html elements return undefined for offsetWidth, so check for null/undefined
+  // svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
+  // MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
+  if ( val <= 0 || val == null ) {
+    // Fall back to computed then uncomputed css if necessary
+    val = curCSS( elem, name, styles );
+    if ( val < 0 || val == null ) {
+      val = elem.style[ name ];
+    }
+
+    // Computed unit is not pixels. Stop here and return.
+    if ( rnumnonpx.test(val) ) {
+      return val;
+    }
+
+    // we need the check for style in case a browser which returns unreliable values
+    // for getComputedStyle silently falls back to the reliable elem.style
+    valueIsBorderBox = isBorderBox && ( jQuery.support.boxSizingReliable || val === elem.style[ name ] );
+
+    // Normalize "", auto, and prepare for extra
+    val = parseFloat( val ) || 0;
+  }
+
+  // use the active box-sizing model to add/subtract irrelevant styles
+  return ( val +
+    augmentWidthOrHeight(
+      elem,
+      name,
+      extra || ( isBorderBox ? "border" : "content" ),
+      valueIsBorderBox,
+      styles
+    )
+  ) + "px";
+}
+
+// Try to determine the default display value of an element
+function css_defaultDisplay( nodeName ) {
+  var doc = document,
+    display = elemdisplay[ nodeName ];
+
+  if ( !display ) {
+    display = actualDisplay( nodeName, doc );
+
+    // If the simple way fails, read from inside an iframe
+    if ( display === "none" || !display ) {
+      // Use the already-created iframe if possible
+      iframe = ( iframe ||
+        jQuery("<iframe frameborder='0' width='0' height='0'/>")
+        .css( "cssText", "display:block !important" )
+      ).appendTo( doc.documentElement );
+
+      // Always write a new HTML skeleton so Webkit and Firefox don't choke on reuse
+      doc = ( iframe[0].contentWindow || iframe[0].contentDocument ).document;
+      doc.write("<!doctype html><html><body>");
+      doc.close();
+
+      display = actualDisplay( nodeName, doc );
+      iframe.detach();
+    }
+
+    // Store the correct default display
+    elemdisplay[ nodeName ] = display;
+  }
+
+  return display;
+}
+
+// Called ONLY from within css_defaultDisplay
+function actualDisplay( name, doc ) {
+  var elem = jQuery( doc.createElement( name ) ).appendTo( doc.body ),
+    display = jQuery.css( elem[0], "display" );
+  elem.remove();
+  return display;
+}
+
+jQuery.each([ "height", "width" ], function( i, name ) {
+  jQuery.cssHooks[ name ] = {
+    get: function( elem, computed, extra ) {
+      if ( computed ) {
+        // certain elements can have dimension info if we invisibly show them
+        // however, it must have a current display style that would benefit from this
+        return elem.offsetWidth === 0 && rdisplayswap.test( jQuery.css( elem, "display" ) ) ?
+          jQuery.swap( elem, cssShow, function() {
+            return getWidthOrHeight( elem, name, extra );
+          }) :
+          getWidthOrHeight( elem, name, extra );
+      }
+    },
+
+    set: function( elem, value, extra ) {
+      var styles = extra && getStyles( elem );
+      return setPositiveNumber( elem, value, extra ?
+        augmentWidthOrHeight(
+          elem,
+          name,
+          extra,
+          jQuery.support.boxSizing && jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+          styles
+        ) : 0
+      );
+    }
+  };
+});
+
+if ( !jQuery.support.opacity ) {
+  jQuery.cssHooks.opacity = {
+    get: function( elem, computed ) {
+      // IE uses filters for opacity
+      return ropacity.test( (computed && elem.currentStyle ? elem.currentStyle.filter : elem.style.filter) || "" ) ?
+        ( 0.01 * parseFloat( RegExp.$1 ) ) + "" :
+        computed ? "1" : "";
+    },
+
+    set: function( elem, value ) {
+      var style = elem.style,
+        currentStyle = elem.currentStyle,
+        opacity = jQuery.isNumeric( value ) ? "alpha(opacity=" + value * 100 + ")" : "",
+        filter = currentStyle && currentStyle.filter || style.filter || "";
+
+      // IE has trouble with opacity if it does not have layout
+      // Force it by setting the zoom level
+      style.zoom = 1;
+
+      // if setting opacity to 1, and no other filters exist - attempt to remove filter attribute #6652
+      // if value === "", then remove inline opacity #12685
+      if ( ( value >= 1 || value === "" ) &&
+          jQuery.trim( filter.replace( ralpha, "" ) ) === "" &&
+          style.removeAttribute ) {
+
+        // Setting style.filter to null, "" & " " still leave "filter:" in the cssText
+        // if "filter:" is present at all, clearType is disabled, we want to avoid this
+        // style.removeAttribute is IE Only, but so apparently is this code path...
+        style.removeAttribute( "filter" );
+
+        // if there is no filter style applied in a css rule or unset inline opacity, we are done
+        if ( value === "" || currentStyle && !currentStyle.filter ) {
+          return;
+        }
+      }
+
+      // otherwise, set new filter values
+      style.filter = ralpha.test( filter ) ?
+        filter.replace( ralpha, opacity ) :
+        filter + " " + opacity;
+    }
+  };
+}
+
+// These hooks cannot be added until DOM ready because the support test
+// for it is not run until after DOM ready
+jQuery(function() {
+  if ( !jQuery.support.reliableMarginRight ) {
+    jQuery.cssHooks.marginRight = {
+      get: function( elem, computed ) {
+        if ( computed ) {
+          // WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
+          // Work around by temporarily setting element display to inline-block
+          return jQuery.swap( elem, { "display": "inline-block" },
+            curCSS, [ elem, "marginRight" ] );
+        }
+      }
+    };
+  }
+
+  // Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
+  // getComputedStyle returns percent when specified for top/left/bottom/right
+  // rather than make the css module depend on the offset module, we just check for it here
+  if ( !jQuery.support.pixelPosition && jQuery.fn.position ) {
+    jQuery.each( [ "top", "left" ], function( i, prop ) {
+      jQuery.cssHooks[ prop ] = {
+        get: function( elem, computed ) {
+          if ( computed ) {
+            computed = curCSS( elem, prop );
+            // if curCSS returns percentage, fallback to offset
+            return rnumnonpx.test( computed ) ?
+              jQuery( elem ).position()[ prop ] + "px" :
+              computed;
+          }
+        }
+      };
+    });
   }
 
 });
 
-// Override `Backbone.sync` to use delegate to the model or collection's
-// *localStorage* property, which should be an instance of `Store`.
-Backbone.sync = function(method, model, options) {
+if ( jQuery.expr && jQuery.expr.filters ) {
+  jQuery.expr.filters.hidden = function( elem ) {
+    return ( elem.offsetWidth === 0 && elem.offsetHeight === 0 ) || (!jQuery.support.reliableHiddenOffsets && ((elem.style && elem.style.display) || jQuery.css( elem, "display" )) === "none");
+  };
 
-  var resp;
-  var store = model.localStorage || model.collection.localStorage;
+  jQuery.expr.filters.visible = function( elem ) {
+    return !jQuery.expr.filters.hidden( elem );
+  };
+}
 
-  switch (method) {
-    case "read":    resp = model.id ? store.find(model) : store.findAll(); break;
-    case "create":  resp = store.create(model);                            break;
-    case "update":  resp = store.update(model);                            break;
-    case "delete":  resp = store.destroy(model);                           break;
+// These hooks are used by animate to expand properties
+jQuery.each({
+  margin: "",
+  padding: "",
+  border: "Width"
+}, function( prefix, suffix ) {
+  jQuery.cssHooks[ prefix + suffix ] = {
+    expand: function( value ) {
+      var i = 0,
+        expanded = {},
+
+        // assumes a single number if not a string
+        parts = typeof value === "string" ? value.split(" ") : [ value ];
+
+      for ( ; i < 4; i++ ) {
+        expanded[ prefix + cssExpand[ i ] + suffix ] =
+          parts[ i ] || parts[ i - 2 ] || parts[ 0 ];
+      }
+
+      return expanded;
+    }
+  };
+
+  if ( !rmargin.test( prefix ) ) {
+    jQuery.cssHooks[ prefix + suffix ].set = setPositiveNumber;
+  }
+});
+var r20 = /%20/g,
+  rbracket = /\[\]$/,
+  rCRLF = /\r?\n/g,
+  rsubmitterTypes = /^(?:submit|button|image|reset)$/i,
+  rsubmittable = /^(?:input|select|textarea|keygen)/i;
+
+jQuery.fn.extend({
+  serialize: function() {
+    return jQuery.param( this.serializeArray() );
+  },
+  serializeArray: function() {
+    return this.map(function(){
+      // Can add propHook for "elements" to filter or add form elements
+      var elements = jQuery.prop( this, "elements" );
+      return elements ? jQuery.makeArray( elements ) : this;
+    })
+    .filter(function(){
+      var type = this.type;
+      // Use .is(":disabled") so that fieldset[disabled] works
+      return this.name && !jQuery( this ).is( ":disabled" ) &&
+        rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
+        ( this.checked || !manipulation_rcheckableType.test( type ) );
+    })
+    .map(function( i, elem ){
+      var val = jQuery( this ).val();
+
+      return val == null ?
+        null :
+        jQuery.isArray( val ) ?
+          jQuery.map( val, function( val ){
+            return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+          }) :
+          { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+    }).get();
+  }
+});
+
+//Serialize an array of form elements or a set of
+//key/values into a query string
+jQuery.param = function( a, traditional ) {
+  var prefix,
+    s = [],
+    add = function( key, value ) {
+      // If value is a function, invoke it and return its value
+      value = jQuery.isFunction( value ) ? value() : ( value == null ? "" : value );
+      s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+    };
+
+  // Set traditional to true for jQuery <= 1.3.2 behavior.
+  if ( traditional === undefined ) {
+    traditional = jQuery.ajaxSettings && jQuery.ajaxSettings.traditional;
   }
 
-  if (resp) {
-    options.success(resp);
+  // If an array was passed in, assume that it is an array of form elements.
+  if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+    // Serialize the form elements
+    jQuery.each( a, function() {
+      add( this.name, this.value );
+    });
+
   } else {
-    options.error("Record not found");
+    // If traditional, encode the "old" way (the way 1.3.2 or older
+    // did it), otherwise encode params recursively.
+    for ( prefix in a ) {
+      buildParams( prefix, a[ prefix ], traditional, add );
+    }
+  }
+
+  // Return the resulting serialization
+  return s.join( "&" ).replace( r20, "+" );
+};
+
+function buildParams( prefix, obj, traditional, add ) {
+  var name;
+
+  if ( jQuery.isArray( obj ) ) {
+    // Serialize array item.
+    jQuery.each( obj, function( i, v ) {
+      if ( traditional || rbracket.test( prefix ) ) {
+        // Treat each array item as a scalar.
+        add( prefix, v );
+
+      } else {
+        // Item is non-scalar (array or object), encode its numeric index.
+        buildParams( prefix + "[" + ( typeof v === "object" ? i : "" ) + "]", v, traditional, add );
+      }
+    });
+
+  } else if ( !traditional && jQuery.type( obj ) === "object" ) {
+    // Serialize object item.
+    for ( name in obj ) {
+      buildParams( prefix + "[" + name + "]", obj[ name ], traditional, add );
+    }
+
+  } else {
+    // Serialize scalar item.
+    add( prefix, obj );
+  }
+}
+var
+  // Document location
+  ajaxLocParts,
+  ajaxLocation,
+  
+  ajax_nonce = jQuery.now(),
+
+  ajax_rquery = /\?/,
+  rhash = /#.*$/,
+  rts = /([?&])_=[^&]*/,
+  rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg, // IE leaves an \r character at EOL
+  // #7653, #8125, #8152: local protocol detection
+  rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
+  rnoContent = /^(?:GET|HEAD)$/,
+  rprotocol = /^\/\//,
+  rurl = /^([\w.+-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
+
+  // Keep a copy of the old load method
+  _load = jQuery.fn.load,
+
+  /* Prefilters
+   * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
+   * 2) These are called:
+   *    - BEFORE asking for a transport
+   *    - AFTER param serialization (s.data is a string if s.processData is true)
+   * 3) key is the dataType
+   * 4) the catchall symbol "*" can be used
+   * 5) execution will start with transport dataType and THEN continue down to "*" if needed
+   */
+  prefilters = {},
+
+  /* Transports bindings
+   * 1) key is the dataType
+   * 2) the catchall symbol "*" can be used
+   * 3) selection will start with transport dataType and THEN go to "*" if needed
+   */
+  transports = {},
+
+  // Avoid comment-prolog char sequence (#10098); must appease lint and evade compression
+  allTypes = "*/".concat("*");
+
+// #8138, IE may throw an exception when accessing
+// a field from window.location if document.domain has been set
+try {
+  ajaxLocation = location.href;
+} catch( e ) {
+  // Use the href attribute of an A element
+  // since IE will modify it given document.location
+  ajaxLocation = document.createElement( "a" );
+  ajaxLocation.href = "";
+  ajaxLocation = ajaxLocation.href;
+}
+
+// Segment location into parts
+ajaxLocParts = rurl.exec( ajaxLocation.toLowerCase() ) || [];
+
+// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
+function addToPrefiltersOrTransports( structure ) {
+
+  // dataTypeExpression is optional and defaults to "*"
+  return function( dataTypeExpression, func ) {
+
+    if ( typeof dataTypeExpression !== "string" ) {
+      func = dataTypeExpression;
+      dataTypeExpression = "*";
+    }
+
+    var dataType,
+      i = 0,
+      dataTypes = dataTypeExpression.toLowerCase().match( core_rnotwhite ) || [];
+
+    if ( jQuery.isFunction( func ) ) {
+      // For each dataType in the dataTypeExpression
+      while ( (dataType = dataTypes[i++]) ) {
+        // Prepend if requested
+        if ( dataType[0] === "+" ) {
+          dataType = dataType.slice( 1 ) || "*";
+          (structure[ dataType ] = structure[ dataType ] || []).unshift( func );
+
+        // Otherwise append
+        } else {
+          (structure[ dataType ] = structure[ dataType ] || []).push( func );
+        }
+      }
+    }
+  };
+}
+
+// Base inspection function for prefilters and transports
+function inspectPrefiltersOrTransports( structure, options, originalOptions, jqXHR ) {
+
+  var inspected = {},
+    seekingTransport = ( structure === transports );
+
+  function inspect( dataType ) {
+    var selected;
+    inspected[ dataType ] = true;
+    jQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
+      var dataTypeOrTransport = prefilterOrFactory( options, originalOptions, jqXHR );
+      if( typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[ dataTypeOrTransport ] ) {
+        options.dataTypes.unshift( dataTypeOrTransport );
+        inspect( dataTypeOrTransport );
+        return false;
+      } else if ( seekingTransport ) {
+        return !( selected = dataTypeOrTransport );
+      }
+    });
+    return selected;
+  }
+
+  return inspect( options.dataTypes[ 0 ] ) || !inspected[ "*" ] && inspect( "*" );
+}
+
+// A special extend for ajax options
+// that takes "flat" options (not to be deep extended)
+// Fixes #9887
+function ajaxExtend( target, src ) {
+  var key, deep,
+    flatOptions = jQuery.ajaxSettings.flatOptions || {};
+
+  for ( key in src ) {
+    if ( src[ key ] !== undefined ) {
+      ( flatOptions[ key ] ? target : ( deep || (deep = {}) ) )[ key ] = src[ key ];
+    }
+  }
+  if ( deep ) {
+    jQuery.extend( true, target, deep );
+  }
+
+  return target;
+}
+
+jQuery.fn.load = function( url, params, callback ) {
+  if ( typeof url !== "string" && _load ) {
+    return _load.apply( this, arguments );
+  }
+
+  var selector, type, response,
+    self = this,
+    off = url.indexOf(" ");
+
+  if ( off >= 0 ) {
+    selector = url.slice( off, url.length );
+    url = url.slice( 0, off );
+  }
+
+  // If it's a function
+  if ( jQuery.isFunction( params ) ) {
+
+    // We assume that it's the callback
+    callback = params;
+    params = undefined;
+
+  // Otherwise, build a param string
+  } else if ( params && typeof params === "object" ) {
+    type = "POST";
+  }
+
+  // If we have elements to modify, make the request
+  if ( self.length > 0 ) {
+    jQuery.ajax({
+      url: url,
+
+      // if "type" variable is undefined, then "GET" method will be used
+      type: type,
+      dataType: "html",
+      data: params
+    }).done(function( responseText ) {
+
+      // Save response for use in complete callback
+      response = arguments;
+
+      self.html( selector ?
+
+        // If a selector was specified, locate the right elements in a dummy div
+        // Exclude scripts to avoid IE 'Permission Denied' errors
+        jQuery("<div>").append( jQuery.parseHTML( responseText ) ).find( selector ) :
+
+        // Otherwise use the full result
+        responseText );
+
+    }).complete( callback && function( jqXHR, status ) {
+      self.each( callback, response || [ jqXHR.responseText, status, jqXHR ] );
+    });
+  }
+
+  return this;
+};
+
+// Attach a bunch of functions for handling common AJAX events
+jQuery.each( [ "ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend" ], function( i, type ){
+  jQuery.fn[ type ] = function( fn ){
+    return this.on( type, fn );
+  };
+});
+
+jQuery.each( [ "get", "post" ], function( i, method ) {
+  jQuery[ method ] = function( url, data, callback, type ) {
+    // shift arguments if data argument was omitted
+    if ( jQuery.isFunction( data ) ) {
+      type = type || callback;
+      callback = data;
+      data = undefined;
+    }
+
+    return jQuery.ajax({
+      url: url,
+      type: method,
+      dataType: type,
+      data: data,
+      success: callback
+    });
+  };
+});
+
+jQuery.extend({
+
+  // Counter for holding the number of active queries
+  active: 0,
+
+  // Last-Modified header cache for next request
+  lastModified: {},
+  etag: {},
+
+  ajaxSettings: {
+    url: ajaxLocation,
+    type: "GET",
+    isLocal: rlocalProtocol.test( ajaxLocParts[ 1 ] ),
+    global: true,
+    processData: true,
+    async: true,
+    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+    /*
+    timeout: 0,
+    data: null,
+    dataType: null,
+    username: null,
+    password: null,
+    cache: null,
+    throws: false,
+    traditional: false,
+    headers: {},
+    */
+
+    accepts: {
+      "*": allTypes,
+      text: "text/plain",
+      html: "text/html",
+      xml: "application/xml, text/xml",
+      json: "application/json, text/javascript"
+    },
+
+    contents: {
+      xml: /xml/,
+      html: /html/,
+      json: /json/
+    },
+
+    responseFields: {
+      xml: "responseXML",
+      text: "responseText"
+    },
+
+    // Data converters
+    // Keys separate source (or catchall "*") and destination types with a single space
+    converters: {
+
+      // Convert anything to text
+      "* text": window.String,
+
+      // Text to html (true = no transformation)
+      "text html": true,
+
+      // Evaluate text as a json expression
+      "text json": jQuery.parseJSON,
+
+      // Parse text as xml
+      "text xml": jQuery.parseXML
+    },
+
+    // For options that shouldn't be deep extended:
+    // you can add your own custom options here if
+    // and when you create one that shouldn't be
+    // deep extended (see ajaxExtend)
+    flatOptions: {
+      url: true,
+      context: true
+    }
+  },
+
+  // Creates a full fledged settings object into target
+  // with both ajaxSettings and settings fields.
+  // If target is omitted, writes into ajaxSettings.
+  ajaxSetup: function( target, settings ) {
+    return settings ?
+
+      // Building a settings object
+      ajaxExtend( ajaxExtend( target, jQuery.ajaxSettings ), settings ) :
+
+      // Extending ajaxSettings
+      ajaxExtend( jQuery.ajaxSettings, target );
+  },
+
+  ajaxPrefilter: addToPrefiltersOrTransports( prefilters ),
+  ajaxTransport: addToPrefiltersOrTransports( transports ),
+
+  // Main method
+  ajax: function( url, options ) {
+
+    // If url is an object, simulate pre-1.5 signature
+    if ( typeof url === "object" ) {
+      options = url;
+      url = undefined;
+    }
+
+    // Force options to be an object
+    options = options || {};
+
+    var transport,
+      // URL without anti-cache param
+      cacheURL,
+      // Response headers
+      responseHeadersString,
+      responseHeaders,
+      // timeout handle
+      timeoutTimer,
+      // Cross-domain detection vars
+      parts,
+      // To know if global events are to be dispatched
+      fireGlobals,
+      // Loop variable
+      i,
+      // Create the final options object
+      s = jQuery.ajaxSetup( {}, options ),
+      // Callbacks context
+      callbackContext = s.context || s,
+      // Context for global events is callbackContext if it is a DOM node or jQuery collection
+      globalEventContext = s.context && ( callbackContext.nodeType || callbackContext.jquery ) ?
+        jQuery( callbackContext ) :
+        jQuery.event,
+      // Deferreds
+      deferred = jQuery.Deferred(),
+      completeDeferred = jQuery.Callbacks("once memory"),
+      // Status-dependent callbacks
+      statusCode = s.statusCode || {},
+      // Headers (they are sent all at once)
+      requestHeaders = {},
+      requestHeadersNames = {},
+      // The jqXHR state
+      state = 0,
+      // Default abort message
+      strAbort = "canceled",
+      // Fake xhr
+      jqXHR = {
+        readyState: 0,
+
+        // Builds headers hashtable if needed
+        getResponseHeader: function( key ) {
+          var match;
+          if ( state === 2 ) {
+            if ( !responseHeaders ) {
+              responseHeaders = {};
+              while ( (match = rheaders.exec( responseHeadersString )) ) {
+                responseHeaders[ match[1].toLowerCase() ] = match[ 2 ];
+              }
+            }
+            match = responseHeaders[ key.toLowerCase() ];
+          }
+          return match == null ? null : match;
+        },
+
+        // Raw string
+        getAllResponseHeaders: function() {
+          return state === 2 ? responseHeadersString : null;
+        },
+
+        // Caches the header
+        setRequestHeader: function( name, value ) {
+          var lname = name.toLowerCase();
+          if ( !state ) {
+            name = requestHeadersNames[ lname ] = requestHeadersNames[ lname ] || name;
+            requestHeaders[ name ] = value;
+          }
+          return this;
+        },
+
+        // Overrides response content-type header
+        overrideMimeType: function( type ) {
+          if ( !state ) {
+            s.mimeType = type;
+          }
+          return this;
+        },
+
+        // Status-dependent callbacks
+        statusCode: function( map ) {
+          var code;
+          if ( map ) {
+            if ( state < 2 ) {
+              for ( code in map ) {
+                // Lazy-add the new callback in a way that preserves old ones
+                statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
+              }
+            } else {
+              // Execute the appropriate callbacks
+              jqXHR.always( map[ jqXHR.status ] );
+            }
+          }
+          return this;
+        },
+
+        // Cancel the request
+        abort: function( statusText ) {
+          var finalText = statusText || strAbort;
+          if ( transport ) {
+            transport.abort( finalText );
+          }
+          done( 0, finalText );
+          return this;
+        }
+      };
+
+    // Attach deferreds
+    deferred.promise( jqXHR ).complete = completeDeferred.add;
+    jqXHR.success = jqXHR.done;
+    jqXHR.error = jqXHR.fail;
+
+    // Remove hash character (#7531: and string promotion)
+    // Add protocol if not provided (#5866: IE7 issue with protocol-less urls)
+    // Handle falsy url in the settings object (#10093: consistency with old signature)
+    // We also use the url parameter if available
+    s.url = ( ( url || s.url || ajaxLocation ) + "" ).replace( rhash, "" ).replace( rprotocol, ajaxLocParts[ 1 ] + "//" );
+
+    // Alias method option to type as per ticket #12004
+    s.type = options.method || options.type || s.method || s.type;
+
+    // Extract dataTypes list
+    s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().match( core_rnotwhite ) || [""];
+
+    // A cross-domain request is in order when we have a protocol:host:port mismatch
+    if ( s.crossDomain == null ) {
+      parts = rurl.exec( s.url.toLowerCase() );
+      s.crossDomain = !!( parts &&
+        ( parts[ 1 ] !== ajaxLocParts[ 1 ] || parts[ 2 ] !== ajaxLocParts[ 2 ] ||
+          ( parts[ 3 ] || ( parts[ 1 ] === "http:" ? 80 : 443 ) ) !=
+            ( ajaxLocParts[ 3 ] || ( ajaxLocParts[ 1 ] === "http:" ? 80 : 443 ) ) )
+      );
+    }
+
+    // Convert data if not already a string
+    if ( s.data && s.processData && typeof s.data !== "string" ) {
+      s.data = jQuery.param( s.data, s.traditional );
+    }
+
+    // Apply prefilters
+    inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
+
+    // If request was aborted inside a prefilter, stop there
+    if ( state === 2 ) {
+      return jqXHR;
+    }
+
+    // We can fire global events as of now if asked to
+    fireGlobals = s.global;
+
+    // Watch for a new set of requests
+    if ( fireGlobals && jQuery.active++ === 0 ) {
+      jQuery.event.trigger("ajaxStart");
+    }
+
+    // Uppercase the type
+    s.type = s.type.toUpperCase();
+
+    // Determine if request has content
+    s.hasContent = !rnoContent.test( s.type );
+
+    // Save the URL in case we're toying with the If-Modified-Since
+    // and/or If-None-Match header later on
+    cacheURL = s.url;
+
+    // More options handling for requests with no content
+    if ( !s.hasContent ) {
+
+      // If data is available, append data to url
+      if ( s.data ) {
+        cacheURL = ( s.url += ( ajax_rquery.test( cacheURL ) ? "&" : "?" ) + s.data );
+        // #9682: remove data so that it's not used in an eventual retry
+        delete s.data;
+      }
+
+      // Add anti-cache in url if needed
+      if ( s.cache === false ) {
+        s.url = rts.test( cacheURL ) ?
+
+          // If there is already a '_' parameter, set its value
+          cacheURL.replace( rts, "$1_=" + ajax_nonce++ ) :
+
+          // Otherwise add one to the end
+          cacheURL + ( ajax_rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ajax_nonce++;
+      }
+    }
+
+    // Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+    if ( s.ifModified ) {
+      if ( jQuery.lastModified[ cacheURL ] ) {
+        jqXHR.setRequestHeader( "If-Modified-Since", jQuery.lastModified[ cacheURL ] );
+      }
+      if ( jQuery.etag[ cacheURL ] ) {
+        jqXHR.setRequestHeader( "If-None-Match", jQuery.etag[ cacheURL ] );
+      }
+    }
+
+    // Set the correct header, if data is being sent
+    if ( s.data && s.hasContent && s.contentType !== false || options.contentType ) {
+      jqXHR.setRequestHeader( "Content-Type", s.contentType );
+    }
+
+    // Set the Accepts header for the server, depending on the dataType
+    jqXHR.setRequestHeader(
+      "Accept",
+      s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[0] ] ?
+        s.accepts[ s.dataTypes[0] ] + ( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
+        s.accepts[ "*" ]
+    );
+
+    // Check for headers option
+    for ( i in s.headers ) {
+      jqXHR.setRequestHeader( i, s.headers[ i ] );
+    }
+
+    // Allow custom headers/mimetypes and early abort
+    if ( s.beforeSend && ( s.beforeSend.call( callbackContext, jqXHR, s ) === false || state === 2 ) ) {
+      // Abort if not done already and return
+      return jqXHR.abort();
+    }
+
+    // aborting is no longer a cancellation
+    strAbort = "abort";
+
+    // Install callbacks on deferreds
+    for ( i in { success: 1, error: 1, complete: 1 } ) {
+      jqXHR[ i ]( s[ i ] );
+    }
+
+    // Get transport
+    transport = inspectPrefiltersOrTransports( transports, s, options, jqXHR );
+
+    // If no transport, we auto-abort
+    if ( !transport ) {
+      done( -1, "No Transport" );
+    } else {
+      jqXHR.readyState = 1;
+
+      // Send global event
+      if ( fireGlobals ) {
+        globalEventContext.trigger( "ajaxSend", [ jqXHR, s ] );
+      }
+      // Timeout
+      if ( s.async && s.timeout > 0 ) {
+        timeoutTimer = setTimeout(function() {
+          jqXHR.abort("timeout");
+        }, s.timeout );
+      }
+
+      try {
+        state = 1;
+        transport.send( requestHeaders, done );
+      } catch ( e ) {
+        // Propagate exception as error if not done
+        if ( state < 2 ) {
+          done( -1, e );
+        // Simply rethrow otherwise
+        } else {
+          throw e;
+        }
+      }
+    }
+
+    // Callback for when everything is done
+    function done( status, nativeStatusText, responses, headers ) {
+      var isSuccess, success, error, response, modified,
+        statusText = nativeStatusText;
+
+      // Called once
+      if ( state === 2 ) {
+        return;
+      }
+
+      // State is "done" now
+      state = 2;
+
+      // Clear timeout if it exists
+      if ( timeoutTimer ) {
+        clearTimeout( timeoutTimer );
+      }
+
+      // Dereference transport for early garbage collection
+      // (no matter how long the jqXHR object will be used)
+      transport = undefined;
+
+      // Cache response headers
+      responseHeadersString = headers || "";
+
+      // Set readyState
+      jqXHR.readyState = status > 0 ? 4 : 0;
+
+      // Get response data
+      if ( responses ) {
+        response = ajaxHandleResponses( s, jqXHR, responses );
+      }
+
+      // If successful, handle type chaining
+      if ( status >= 200 && status < 300 || status === 304 ) {
+
+        // Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+        if ( s.ifModified ) {
+          modified = jqXHR.getResponseHeader("Last-Modified");
+          if ( modified ) {
+            jQuery.lastModified[ cacheURL ] = modified;
+          }
+          modified = jqXHR.getResponseHeader("etag");
+          if ( modified ) {
+            jQuery.etag[ cacheURL ] = modified;
+          }
+        }
+
+        // If not modified
+        if ( status === 304 ) {
+          isSuccess = true;
+          statusText = "notmodified";
+
+        // If we have data
+        } else {
+          isSuccess = ajaxConvert( s, response );
+          statusText = isSuccess.state;
+          success = isSuccess.data;
+          error = isSuccess.error;
+          isSuccess = !error;
+        }
+      } else {
+        // We extract error from statusText
+        // then normalize statusText and status for non-aborts
+        error = statusText;
+        if ( status || !statusText ) {
+          statusText = "error";
+          if ( status < 0 ) {
+            status = 0;
+          }
+        }
+      }
+
+      // Set data for the fake xhr object
+      jqXHR.status = status;
+      jqXHR.statusText = ( nativeStatusText || statusText ) + "";
+
+      // Success/Error
+      if ( isSuccess ) {
+        deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
+      } else {
+        deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
+      }
+
+      // Status-dependent callbacks
+      jqXHR.statusCode( statusCode );
+      statusCode = undefined;
+
+      if ( fireGlobals ) {
+        globalEventContext.trigger( isSuccess ? "ajaxSuccess" : "ajaxError",
+          [ jqXHR, s, isSuccess ? success : error ] );
+      }
+
+      // Complete
+      completeDeferred.fireWith( callbackContext, [ jqXHR, statusText ] );
+
+      if ( fireGlobals ) {
+        globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
+        // Handle the global AJAX counter
+        if ( !( --jQuery.active ) ) {
+          jQuery.event.trigger("ajaxStop");
+        }
+      }
+    }
+
+    return jqXHR;
+  },
+
+  getScript: function( url, callback ) {
+    return jQuery.get( url, undefined, callback, "script" );
+  },
+
+  getJSON: function( url, data, callback ) {
+    return jQuery.get( url, data, callback, "json" );
+  }
+});
+
+/* Handles responses to an ajax request:
+ * - sets all responseXXX fields accordingly
+ * - finds the right dataType (mediates between content-type and expected dataType)
+ * - returns the corresponding response
+ */
+function ajaxHandleResponses( s, jqXHR, responses ) {
+
+  var ct, type, finalDataType, firstDataType,
+    contents = s.contents,
+    dataTypes = s.dataTypes,
+    responseFields = s.responseFields;
+
+  // Fill responseXXX fields
+  for ( type in responseFields ) {
+    if ( type in responses ) {
+      jqXHR[ responseFields[type] ] = responses[ type ];
+    }
+  }
+
+  // Remove auto dataType and get content-type in the process
+  while( dataTypes[ 0 ] === "*" ) {
+    dataTypes.shift();
+    if ( ct === undefined ) {
+      ct = s.mimeType || jqXHR.getResponseHeader("Content-Type");
+    }
+  }
+
+  // Check if we're dealing with a known content-type
+  if ( ct ) {
+    for ( type in contents ) {
+      if ( contents[ type ] && contents[ type ].test( ct ) ) {
+        dataTypes.unshift( type );
+        break;
+      }
+    }
+  }
+
+  // Check to see if we have a response for the expected dataType
+  if ( dataTypes[ 0 ] in responses ) {
+    finalDataType = dataTypes[ 0 ];
+  } else {
+    // Try convertible dataTypes
+    for ( type in responses ) {
+      if ( !dataTypes[ 0 ] || s.converters[ type + " " + dataTypes[0] ] ) {
+        finalDataType = type;
+        break;
+      }
+      if ( !firstDataType ) {
+        firstDataType = type;
+      }
+    }
+    // Or just use first one
+    finalDataType = finalDataType || firstDataType;
+  }
+
+  // If we found a dataType
+  // We add the dataType to the list if needed
+  // and return the corresponding response
+  if ( finalDataType ) {
+    if ( finalDataType !== dataTypes[ 0 ] ) {
+      dataTypes.unshift( finalDataType );
+    }
+    return responses[ finalDataType ];
+  }
+}
+
+// Chain conversions given the request and the original response
+function ajaxConvert( s, response ) {
+
+  var conv, conv2, current, tmp,
+    converters = {},
+    i = 0,
+    // Work with a copy of dataTypes in case we need to modify it for conversion
+    dataTypes = s.dataTypes.slice(),
+    prev = dataTypes[ 0 ];
+
+  // Apply the dataFilter if provided
+  if ( s.dataFilter ) {
+    response = s.dataFilter( response, s.dataType );
+  }
+
+  // Create converters map with lowercased keys
+  if ( dataTypes[ 1 ] ) {
+    for ( conv in s.converters ) {
+      converters[ conv.toLowerCase() ] = s.converters[ conv ];
+    }
+  }
+
+  // Convert to each sequential dataType, tolerating list modification
+  for ( ; (current = dataTypes[++i]); ) {
+
+    // There's only work to do if current dataType is non-auto
+    if ( current !== "*" ) {
+
+      // Convert response if prev dataType is non-auto and differs from current
+      if ( prev !== "*" && prev !== current ) {
+
+        // Seek a direct converter
+        conv = converters[ prev + " " + current ] || converters[ "* " + current ];
+
+        // If none found, seek a pair
+        if ( !conv ) {
+          for ( conv2 in converters ) {
+
+            // If conv2 outputs current
+            tmp = conv2.split(" ");
+            if ( tmp[ 1 ] === current ) {
+
+              // If prev can be converted to accepted input
+              conv = converters[ prev + " " + tmp[ 0 ] ] ||
+                converters[ "* " + tmp[ 0 ] ];
+              if ( conv ) {
+                // Condense equivalence converters
+                if ( conv === true ) {
+                  conv = converters[ conv2 ];
+
+                // Otherwise, insert the intermediate dataType
+                } else if ( converters[ conv2 ] !== true ) {
+                  current = tmp[ 0 ];
+                  dataTypes.splice( i--, 0, current );
+                }
+
+                break;
+              }
+            }
+          }
+        }
+
+        // Apply converter (if not an equivalence)
+        if ( conv !== true ) {
+
+          // Unless errors are allowed to bubble, catch and return them
+          if ( conv && s["throws"] ) {
+            response = conv( response );
+          } else {
+            try {
+              response = conv( response );
+            } catch ( e ) {
+              return { state: "parsererror", error: conv ? e : "No conversion from " + prev + " to " + current };
+            }
+          }
+        }
+      }
+
+      // Update prev for next iteration
+      prev = current;
+    }
+  }
+
+  return { state: "success", data: response };
+}
+// Install script dataType
+jQuery.ajaxSetup({
+  accepts: {
+    script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
+  },
+  contents: {
+    script: /(?:java|ecma)script/
+  },
+  converters: {
+    "text script": function( text ) {
+      jQuery.globalEval( text );
+      return text;
+    }
+  }
+});
+
+// Handle cache's special case and global
+jQuery.ajaxPrefilter( "script", function( s ) {
+  if ( s.cache === undefined ) {
+    s.cache = false;
+  }
+  if ( s.crossDomain ) {
+    s.type = "GET";
+    s.global = false;
+  }
+});
+
+// Bind script tag hack transport
+jQuery.ajaxTransport( "script", function(s) {
+
+  // This transport only deals with cross domain requests
+  if ( s.crossDomain ) {
+
+    var script,
+      head = document.head || jQuery("head")[0] || document.documentElement;
+
+    return {
+
+      send: function( _, callback ) {
+
+        script = document.createElement("script");
+
+        script.async = true;
+
+        if ( s.scriptCharset ) {
+          script.charset = s.scriptCharset;
+        }
+
+        script.src = s.url;
+
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function( _, isAbort ) {
+
+          if ( isAbort || !script.readyState || /loaded|complete/.test( script.readyState ) ) {
+
+            // Handle memory leak in IE
+            script.onload = script.onreadystatechange = null;
+
+            // Remove the script
+            if ( script.parentNode ) {
+              script.parentNode.removeChild( script );
+            }
+
+            // Dereference the script
+            script = null;
+
+            // Callback if not abort
+            if ( !isAbort ) {
+              callback( 200, "success" );
+            }
+          }
+        };
+
+        // Circumvent IE6 bugs with base elements (#2709 and #4378) by prepending
+        // Use native DOM manipulation to avoid our domManip AJAX trickery
+        head.insertBefore( script, head.firstChild );
+      },
+
+      abort: function() {
+        if ( script ) {
+          script.onload( undefined, true );
+        }
+      }
+    };
+  }
+});
+var oldCallbacks = [],
+  rjsonp = /(=)\?(?=&|$)|\?\?/;
+
+// Default jsonp settings
+jQuery.ajaxSetup({
+  jsonp: "callback",
+  jsonpCallback: function() {
+    var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( ajax_nonce++ ) );
+    this[ callback ] = true;
+    return callback;
+  }
+});
+
+// Detect, normalize options and install callbacks for jsonp requests
+jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
+
+  var callbackName, overwritten, responseContainer,
+    jsonProp = s.jsonp !== false && ( rjsonp.test( s.url ) ?
+      "url" :
+      typeof s.data === "string" && !( s.contentType || "" ).indexOf("application/x-www-form-urlencoded") && rjsonp.test( s.data ) && "data"
+    );
+
+  // Handle iff the expected data type is "jsonp" or we have a parameter to set
+  if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
+
+    // Get callback name, remembering preexisting value associated with it
+    callbackName = s.jsonpCallback = jQuery.isFunction( s.jsonpCallback ) ?
+      s.jsonpCallback() :
+      s.jsonpCallback;
+
+    // Insert callback into url or form data
+    if ( jsonProp ) {
+      s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
+    } else if ( s.jsonp !== false ) {
+      s.url += ( ajax_rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
+    }
+
+    // Use data converter to retrieve json after script execution
+    s.converters["script json"] = function() {
+      if ( !responseContainer ) {
+        jQuery.error( callbackName + " was not called" );
+      }
+      return responseContainer[ 0 ];
+    };
+
+    // force json dataType
+    s.dataTypes[ 0 ] = "json";
+
+    // Install callback
+    overwritten = window[ callbackName ];
+    window[ callbackName ] = function() {
+      responseContainer = arguments;
+    };
+
+    // Clean-up function (fires after converters)
+    jqXHR.always(function() {
+      // Restore preexisting value
+      window[ callbackName ] = overwritten;
+
+      // Save back as free
+      if ( s[ callbackName ] ) {
+        // make sure that re-using the options doesn't screw things around
+        s.jsonpCallback = originalSettings.jsonpCallback;
+
+        // save the callback name for future use
+        oldCallbacks.push( callbackName );
+      }
+
+      // Call if it was a function and we have a response
+      if ( responseContainer && jQuery.isFunction( overwritten ) ) {
+        overwritten( responseContainer[ 0 ] );
+      }
+
+      responseContainer = overwritten = undefined;
+    });
+
+    // Delegate to script
+    return "script";
+  }
+});
+var xhrCallbacks, xhrSupported,
+  xhrId = 0,
+  // #5280: Internet Explorer will keep connections alive if we don't abort on unload
+  xhrOnUnloadAbort = window.ActiveXObject && function() {
+    // Abort all pending requests
+    var key;
+    for ( key in xhrCallbacks ) {
+      xhrCallbacks[ key ]( undefined, true );
+    }
+  };
+
+// Functions to create xhrs
+function createStandardXHR() {
+  try {
+    return new window.XMLHttpRequest();
+  } catch( e ) {}
+}
+
+function createActiveXHR() {
+  try {
+    return new window.ActiveXObject("Microsoft.XMLHTTP");
+  } catch( e ) {}
+}
+
+// Create the request object
+// (This is still attached to ajaxSettings for backward compatibility)
+jQuery.ajaxSettings.xhr = window.ActiveXObject ?
+  /* Microsoft failed to properly
+   * implement the XMLHttpRequest in IE7 (can't request local files),
+   * so we use the ActiveXObject when it is available
+   * Additionally XMLHttpRequest can be disabled in IE7/IE8 so
+   * we need a fallback.
+   */
+  function() {
+    return !this.isLocal && createStandardXHR() || createActiveXHR();
+  } :
+  // For all other browsers, use the standard XMLHttpRequest object
+  createStandardXHR;
+
+// Determine support properties
+xhrSupported = jQuery.ajaxSettings.xhr();
+jQuery.support.cors = !!xhrSupported && ( "withCredentials" in xhrSupported );
+xhrSupported = jQuery.support.ajax = !!xhrSupported;
+
+// Create transport if the browser can provide an xhr
+if ( xhrSupported ) {
+
+  jQuery.ajaxTransport(function( s ) {
+    // Cross domain only allowed if supported through XMLHttpRequest
+    if ( !s.crossDomain || jQuery.support.cors ) {
+
+      var callback;
+
+      return {
+        send: function( headers, complete ) {
+
+          // Get a new xhr
+          var handle, i,
+            xhr = s.xhr();
+
+          // Open the socket
+          // Passing null username, generates a login popup on Opera (#2865)
+          if ( s.username ) {
+            xhr.open( s.type, s.url, s.async, s.username, s.password );
+          } else {
+            xhr.open( s.type, s.url, s.async );
+          }
+
+          // Apply custom fields if provided
+          if ( s.xhrFields ) {
+            for ( i in s.xhrFields ) {
+              xhr[ i ] = s.xhrFields[ i ];
+            }
+          }
+
+          // Override mime type if needed
+          if ( s.mimeType && xhr.overrideMimeType ) {
+            xhr.overrideMimeType( s.mimeType );
+          }
+
+          // X-Requested-With header
+          // For cross-domain requests, seeing as conditions for a preflight are
+          // akin to a jigsaw puzzle, we simply never set it to be sure.
+          // (it can always be set on a per-request basis or even using ajaxSetup)
+          // For same-domain requests, won't change header if already provided.
+          if ( !s.crossDomain && !headers["X-Requested-With"] ) {
+            headers["X-Requested-With"] = "XMLHttpRequest";
+          }
+
+          // Need an extra try/catch for cross domain requests in Firefox 3
+          try {
+            for ( i in headers ) {
+              xhr.setRequestHeader( i, headers[ i ] );
+            }
+          } catch( err ) {}
+
+          // Do send the request
+          // This may raise an exception which is actually
+          // handled in jQuery.ajax (so no try/catch here)
+          xhr.send( ( s.hasContent && s.data ) || null );
+
+          // Listener
+          callback = function( _, isAbort ) {
+
+            var status,
+              statusText,
+              responseHeaders,
+              responses,
+              xml;
+
+            // Firefox throws exceptions when accessing properties
+            // of an xhr when a network error occurred
+            // http://helpful.knobs-dials.com/index.php/Component_returned_failure_code:_0x80040111_(NS_ERROR_NOT_AVAILABLE)
+            try {
+
+              // Was never called and is aborted or complete
+              if ( callback && ( isAbort || xhr.readyState === 4 ) ) {
+
+                // Only called once
+                callback = undefined;
+
+                // Do not keep as active anymore
+                if ( handle ) {
+                  xhr.onreadystatechange = jQuery.noop;
+                  if ( xhrOnUnloadAbort ) {
+                    delete xhrCallbacks[ handle ];
+                  }
+                }
+
+                // If it's an abort
+                if ( isAbort ) {
+                  // Abort it manually if needed
+                  if ( xhr.readyState !== 4 ) {
+                    xhr.abort();
+                  }
+                } else {
+                  responses = {};
+                  status = xhr.status;
+                  xml = xhr.responseXML;
+                  responseHeaders = xhr.getAllResponseHeaders();
+
+                  // Construct response list
+                  if ( xml && xml.documentElement /* #4958 */ ) {
+                    responses.xml = xml;
+                  }
+
+                  // When requesting binary data, IE6-9 will throw an exception
+                  // on any attempt to access responseText (#11426)
+                  if ( typeof xhr.responseText === "string" ) {
+                    responses.text = xhr.responseText;
+                  }
+
+                  // Firefox throws an exception when accessing
+                  // statusText for faulty cross-domain requests
+                  try {
+                    statusText = xhr.statusText;
+                  } catch( e ) {
+                    // We normalize with Webkit giving an empty statusText
+                    statusText = "";
+                  }
+
+                  // Filter status for non standard behaviors
+
+                  // If the request is local and we have data: assume a success
+                  // (success with no data won't get notified, that's the best we
+                  // can do given current implementations)
+                  if ( !status && s.isLocal && !s.crossDomain ) {
+                    status = responses.text ? 200 : 404;
+                  // IE - #1450: sometimes returns 1223 when it should be 204
+                  } else if ( status === 1223 ) {
+                    status = 204;
+                  }
+                }
+              }
+            } catch( firefoxAccessException ) {
+              if ( !isAbort ) {
+                complete( -1, firefoxAccessException );
+              }
+            }
+
+            // Call complete if needed
+            if ( responses ) {
+              complete( status, statusText, responses, responseHeaders );
+            }
+          };
+
+          if ( !s.async ) {
+            // if we're in sync mode we fire the callback
+            callback();
+          } else if ( xhr.readyState === 4 ) {
+            // (IE6 & IE7) if it's in cache and has been
+            // retrieved directly we need to fire the callback
+            setTimeout( callback );
+          } else {
+            handle = ++xhrId;
+            if ( xhrOnUnloadAbort ) {
+              // Create the active xhrs callbacks list if needed
+              // and attach the unload handler
+              if ( !xhrCallbacks ) {
+                xhrCallbacks = {};
+                jQuery( window ).unload( xhrOnUnloadAbort );
+              }
+              // Add to list of active xhrs callbacks
+              xhrCallbacks[ handle ] = callback;
+            }
+            xhr.onreadystatechange = callback;
+          }
+        },
+
+        abort: function() {
+          if ( callback ) {
+            callback( undefined, true );
+          }
+        }
+      };
+    }
+  });
+}
+var fxNow, timerId,
+  rfxtypes = /^(?:toggle|show|hide)$/,
+  rfxnum = new RegExp( "^(?:([+-])=|)(" + core_pnum + ")([a-z%]*)$", "i" ),
+  rrun = /queueHooks$/,
+  animationPrefilters = [ defaultPrefilter ],
+  tweeners = {
+    "*": [function( prop, value ) {
+      var end, unit,
+        tween = this.createTween( prop, value ),
+        parts = rfxnum.exec( value ),
+        target = tween.cur(),
+        start = +target || 0,
+        scale = 1,
+        maxIterations = 20;
+
+      if ( parts ) {
+        end = +parts[2];
+        unit = parts[3] || ( jQuery.cssNumber[ prop ] ? "" : "px" );
+
+        // We need to compute starting value
+        if ( unit !== "px" && start ) {
+          // Iteratively approximate from a nonzero starting point
+          // Prefer the current property, because this process will be trivial if it uses the same units
+          // Fallback to end or a simple constant
+          start = jQuery.css( tween.elem, prop, true ) || end || 1;
+
+          do {
+            // If previous iteration zeroed out, double until we get *something*
+            // Use a string for doubling factor so we don't accidentally see scale as unchanged below
+            scale = scale || ".5";
+
+            // Adjust and apply
+            start = start / scale;
+            jQuery.style( tween.elem, prop, start + unit );
+
+          // Update scale, tolerating zero or NaN from tween.cur()
+          // And breaking the loop if scale is unchanged or perfect, or if we've just had enough
+          } while ( scale !== (scale = tween.cur() / target) && scale !== 1 && --maxIterations );
+        }
+
+        tween.unit = unit;
+        tween.start = start;
+        // If a +=/-= token was provided, we're doing a relative animation
+        tween.end = parts[1] ? start + ( parts[1] + 1 ) * end : end;
+      }
+      return tween;
+    }]
+  };
+
+// Animations created synchronously will run synchronously
+function createFxNow() {
+  setTimeout(function() {
+    fxNow = undefined;
+  });
+  return ( fxNow = jQuery.now() );
+}
+
+function createTweens( animation, props ) {
+  jQuery.each( props, function( prop, value ) {
+    var collection = ( tweeners[ prop ] || [] ).concat( tweeners[ "*" ] ),
+      index = 0,
+      length = collection.length;
+    for ( ; index < length; index++ ) {
+      if ( collection[ index ].call( animation, prop, value ) ) {
+
+        // we're done with this property
+        return;
+      }
+    }
+  });
+}
+
+function Animation( elem, properties, options ) {
+  var result,
+    stopped,
+    index = 0,
+    length = animationPrefilters.length,
+    deferred = jQuery.Deferred().always( function() {
+      // don't match elem in the :animated selector
+      delete tick.elem;
+    }),
+    tick = function() {
+      if ( stopped ) {
+        return false;
+      }
+      var currentTime = fxNow || createFxNow(),
+        remaining = Math.max( 0, animation.startTime + animation.duration - currentTime ),
+        // archaic crash bug won't allow us to use 1 - ( 0.5 || 0 ) (#12497)
+        temp = remaining / animation.duration || 0,
+        percent = 1 - temp,
+        index = 0,
+        length = animation.tweens.length;
+
+      for ( ; index < length ; index++ ) {
+        animation.tweens[ index ].run( percent );
+      }
+
+      deferred.notifyWith( elem, [ animation, percent, remaining ]);
+
+      if ( percent < 1 && length ) {
+        return remaining;
+      } else {
+        deferred.resolveWith( elem, [ animation ] );
+        return false;
+      }
+    },
+    animation = deferred.promise({
+      elem: elem,
+      props: jQuery.extend( {}, properties ),
+      opts: jQuery.extend( true, { specialEasing: {} }, options ),
+      originalProperties: properties,
+      originalOptions: options,
+      startTime: fxNow || createFxNow(),
+      duration: options.duration,
+      tweens: [],
+      createTween: function( prop, end ) {
+        var tween = jQuery.Tween( elem, animation.opts, prop, end,
+            animation.opts.specialEasing[ prop ] || animation.opts.easing );
+        animation.tweens.push( tween );
+        return tween;
+      },
+      stop: function( gotoEnd ) {
+        var index = 0,
+          // if we are going to the end, we want to run all the tweens
+          // otherwise we skip this part
+          length = gotoEnd ? animation.tweens.length : 0;
+        if ( stopped ) {
+          return this;
+        }
+        stopped = true;
+        for ( ; index < length ; index++ ) {
+          animation.tweens[ index ].run( 1 );
+        }
+
+        // resolve when we played the last frame
+        // otherwise, reject
+        if ( gotoEnd ) {
+          deferred.resolveWith( elem, [ animation, gotoEnd ] );
+        } else {
+          deferred.rejectWith( elem, [ animation, gotoEnd ] );
+        }
+        return this;
+      }
+    }),
+    props = animation.props;
+
+  propFilter( props, animation.opts.specialEasing );
+
+  for ( ; index < length ; index++ ) {
+    result = animationPrefilters[ index ].call( animation, elem, props, animation.opts );
+    if ( result ) {
+      return result;
+    }
+  }
+
+  createTweens( animation, props );
+
+  if ( jQuery.isFunction( animation.opts.start ) ) {
+    animation.opts.start.call( elem, animation );
+  }
+
+  jQuery.fx.timer(
+    jQuery.extend( tick, {
+      elem: elem,
+      anim: animation,
+      queue: animation.opts.queue
+    })
+  );
+
+  // attach callbacks from options
+  return animation.progress( animation.opts.progress )
+    .done( animation.opts.done, animation.opts.complete )
+    .fail( animation.opts.fail )
+    .always( animation.opts.always );
+}
+
+function propFilter( props, specialEasing ) {
+  var index, name, easing, value, hooks;
+
+  // camelCase, specialEasing and expand cssHook pass
+  for ( index in props ) {
+    name = jQuery.camelCase( index );
+    easing = specialEasing[ name ];
+    value = props[ index ];
+    if ( jQuery.isArray( value ) ) {
+      easing = value[ 1 ];
+      value = props[ index ] = value[ 0 ];
+    }
+
+    if ( index !== name ) {
+      props[ name ] = value;
+      delete props[ index ];
+    }
+
+    hooks = jQuery.cssHooks[ name ];
+    if ( hooks && "expand" in hooks ) {
+      value = hooks.expand( value );
+      delete props[ name ];
+
+      // not quite $.extend, this wont overwrite keys already present.
+      // also - reusing 'index' from above because we have the correct "name"
+      for ( index in value ) {
+        if ( !( index in props ) ) {
+          props[ index ] = value[ index ];
+          specialEasing[ index ] = easing;
+        }
+      }
+    } else {
+      specialEasing[ name ] = easing;
+    }
+  }
+}
+
+jQuery.Animation = jQuery.extend( Animation, {
+
+  tweener: function( props, callback ) {
+    if ( jQuery.isFunction( props ) ) {
+      callback = props;
+      props = [ "*" ];
+    } else {
+      props = props.split(" ");
+    }
+
+    var prop,
+      index = 0,
+      length = props.length;
+
+    for ( ; index < length ; index++ ) {
+      prop = props[ index ];
+      tweeners[ prop ] = tweeners[ prop ] || [];
+      tweeners[ prop ].unshift( callback );
+    }
+  },
+
+  prefilter: function( callback, prepend ) {
+    if ( prepend ) {
+      animationPrefilters.unshift( callback );
+    } else {
+      animationPrefilters.push( callback );
+    }
+  }
+});
+
+function defaultPrefilter( elem, props, opts ) {
+  /*jshint validthis:true */
+  var index, prop, value, length, dataShow, toggle, tween, hooks, oldfire,
+    anim = this,
+    style = elem.style,
+    orig = {},
+    handled = [],
+    hidden = elem.nodeType && isHidden( elem );
+
+  // handle queue: false promises
+  if ( !opts.queue ) {
+    hooks = jQuery._queueHooks( elem, "fx" );
+    if ( hooks.unqueued == null ) {
+      hooks.unqueued = 0;
+      oldfire = hooks.empty.fire;
+      hooks.empty.fire = function() {
+        if ( !hooks.unqueued ) {
+          oldfire();
+        }
+      };
+    }
+    hooks.unqueued++;
+
+    anim.always(function() {
+      // doing this makes sure that the complete handler will be called
+      // before this completes
+      anim.always(function() {
+        hooks.unqueued--;
+        if ( !jQuery.queue( elem, "fx" ).length ) {
+          hooks.empty.fire();
+        }
+      });
+    });
+  }
+
+  // height/width overflow pass
+  if ( elem.nodeType === 1 && ( "height" in props || "width" in props ) ) {
+    // Make sure that nothing sneaks out
+    // Record all 3 overflow attributes because IE does not
+    // change the overflow attribute when overflowX and
+    // overflowY are set to the same value
+    opts.overflow = [ style.overflow, style.overflowX, style.overflowY ];
+
+    // Set display property to inline-block for height/width
+    // animations on inline elements that are having width/height animated
+    if ( jQuery.css( elem, "display" ) === "inline" &&
+        jQuery.css( elem, "float" ) === "none" ) {
+
+      // inline-level elements accept inline-block;
+      // block-level elements need to be inline with layout
+      if ( !jQuery.support.inlineBlockNeedsLayout || css_defaultDisplay( elem.nodeName ) === "inline" ) {
+        style.display = "inline-block";
+
+      } else {
+        style.zoom = 1;
+      }
+    }
+  }
+
+  if ( opts.overflow ) {
+    style.overflow = "hidden";
+    if ( !jQuery.support.shrinkWrapBlocks ) {
+      anim.done(function() {
+        style.overflow = opts.overflow[ 0 ];
+        style.overflowX = opts.overflow[ 1 ];
+        style.overflowY = opts.overflow[ 2 ];
+      });
+    }
+  }
+
+
+  // show/hide pass
+  for ( index in props ) {
+    value = props[ index ];
+    if ( rfxtypes.exec( value ) ) {
+      delete props[ index ];
+      toggle = toggle || value === "toggle";
+      if ( value === ( hidden ? "hide" : "show" ) ) {
+        continue;
+      }
+      handled.push( index );
+    }
+  }
+
+  length = handled.length;
+  if ( length ) {
+    dataShow = jQuery._data( elem, "fxshow" ) || jQuery._data( elem, "fxshow", {} );
+    if ( "hidden" in dataShow ) {
+      hidden = dataShow.hidden;
+    }
+
+    // store state if its toggle - enables .stop().toggle() to "reverse"
+    if ( toggle ) {
+      dataShow.hidden = !hidden;
+    }
+    if ( hidden ) {
+      jQuery( elem ).show();
+    } else {
+      anim.done(function() {
+        jQuery( elem ).hide();
+      });
+    }
+    anim.done(function() {
+      var prop;
+      jQuery._removeData( elem, "fxshow" );
+      for ( prop in orig ) {
+        jQuery.style( elem, prop, orig[ prop ] );
+      }
+    });
+    for ( index = 0 ; index < length ; index++ ) {
+      prop = handled[ index ];
+      tween = anim.createTween( prop, hidden ? dataShow[ prop ] : 0 );
+      orig[ prop ] = dataShow[ prop ] || jQuery.style( elem, prop );
+
+      if ( !( prop in dataShow ) ) {
+        dataShow[ prop ] = tween.start;
+        if ( hidden ) {
+          tween.end = tween.start;
+          tween.start = prop === "width" || prop === "height" ? 1 : 0;
+        }
+      }
+    }
+  }
+}
+
+function Tween( elem, options, prop, end, easing ) {
+  return new Tween.prototype.init( elem, options, prop, end, easing );
+}
+jQuery.Tween = Tween;
+
+Tween.prototype = {
+  constructor: Tween,
+  init: function( elem, options, prop, end, easing, unit ) {
+    this.elem = elem;
+    this.prop = prop;
+    this.easing = easing || "swing";
+    this.options = options;
+    this.start = this.now = this.cur();
+    this.end = end;
+    this.unit = unit || ( jQuery.cssNumber[ prop ] ? "" : "px" );
+  },
+  cur: function() {
+    var hooks = Tween.propHooks[ this.prop ];
+
+    return hooks && hooks.get ?
+      hooks.get( this ) :
+      Tween.propHooks._default.get( this );
+  },
+  run: function( percent ) {
+    var eased,
+      hooks = Tween.propHooks[ this.prop ];
+
+    if ( this.options.duration ) {
+      this.pos = eased = jQuery.easing[ this.easing ](
+        percent, this.options.duration * percent, 0, 1, this.options.duration
+      );
+    } else {
+      this.pos = eased = percent;
+    }
+    this.now = ( this.end - this.start ) * eased + this.start;
+
+    if ( this.options.step ) {
+      this.options.step.call( this.elem, this.now, this );
+    }
+
+    if ( hooks && hooks.set ) {
+      hooks.set( this );
+    } else {
+      Tween.propHooks._default.set( this );
+    }
+    return this;
   }
 };
-;;
-// Copyright (c) 2011-2012 @WalmartLabs
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-// DEALINGS IN THE SOFTWARE.
-// 
+
+Tween.prototype.init.prototype = Tween.prototype;
+
+Tween.propHooks = {
+  _default: {
+    get: function( tween ) {
+      var result;
+
+      if ( tween.elem[ tween.prop ] != null &&
+        (!tween.elem.style || tween.elem.style[ tween.prop ] == null) ) {
+        return tween.elem[ tween.prop ];
+      }
+
+      // passing a non empty string as a 3rd parameter to .css will automatically
+      // attempt a parseFloat and fallback to a string if the parse fails
+      // so, simple values such as "10px" are parsed to Float.
+      // complex values such as "rotate(1rad)" are returned as is.
+      result = jQuery.css( tween.elem, tween.prop, "auto" );
+      // Empty strings, null, undefined and "auto" are converted to 0.
+      return !result || result === "auto" ? 0 : result;
+    },
+    set: function( tween ) {
+      // use step hook for back compat - use cssHook if its there - use .style if its
+      // available and use plain properties where available
+      if ( jQuery.fx.step[ tween.prop ] ) {
+        jQuery.fx.step[ tween.prop ]( tween );
+      } else if ( tween.elem.style && ( tween.elem.style[ jQuery.cssProps[ tween.prop ] ] != null || jQuery.cssHooks[ tween.prop ] ) ) {
+        jQuery.style( tween.elem, tween.prop, tween.now + tween.unit );
+      } else {
+        tween.elem[ tween.prop ] = tween.now;
+      }
+    }
+  }
+};
+
+// Remove in 2.0 - this supports IE8's panic based approach
+// to setting things on disconnected nodes
+
+Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+  set: function( tween ) {
+    if ( tween.elem.nodeType && tween.elem.parentNode ) {
+      tween.elem[ tween.prop ] = tween.now;
+    }
+  }
+};
+
+jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
+  var cssFn = jQuery.fn[ name ];
+  jQuery.fn[ name ] = function( speed, easing, callback ) {
+    return speed == null || typeof speed === "boolean" ?
+      cssFn.apply( this, arguments ) :
+      this.animate( genFx( name, true ), speed, easing, callback );
+  };
+});
+
+jQuery.fn.extend({
+  fadeTo: function( speed, to, easing, callback ) {
+
+    // show any hidden elements after setting opacity to 0
+    return this.filter( isHidden ).css( "opacity", 0 ).show()
+
+      // animate to the value specified
+      .end().animate({ opacity: to }, speed, easing, callback );
+  },
+  animate: function( prop, speed, easing, callback ) {
+    var empty = jQuery.isEmptyObject( prop ),
+      optall = jQuery.speed( speed, easing, callback ),
+      doAnimation = function() {
+        // Operate on a copy of prop so per-property easing won't be lost
+        var anim = Animation( this, jQuery.extend( {}, prop ), optall );
+        doAnimation.finish = function() {
+          anim.stop( true );
+        };
+        // Empty animations, or finishing resolves immediately
+        if ( empty || jQuery._data( this, "finish" ) ) {
+          anim.stop( true );
+        }
+      };
+      doAnimation.finish = doAnimation;
+
+    return empty || optall.queue === false ?
+      this.each( doAnimation ) :
+      this.queue( optall.queue, doAnimation );
+  },
+  stop: function( type, clearQueue, gotoEnd ) {
+    var stopQueue = function( hooks ) {
+      var stop = hooks.stop;
+      delete hooks.stop;
+      stop( gotoEnd );
+    };
+
+    if ( typeof type !== "string" ) {
+      gotoEnd = clearQueue;
+      clearQueue = type;
+      type = undefined;
+    }
+    if ( clearQueue && type !== false ) {
+      this.queue( type || "fx", [] );
+    }
+
+    return this.each(function() {
+      var dequeue = true,
+        index = type != null && type + "queueHooks",
+        timers = jQuery.timers,
+        data = jQuery._data( this );
+
+      if ( index ) {
+        if ( data[ index ] && data[ index ].stop ) {
+          stopQueue( data[ index ] );
+        }
+      } else {
+        for ( index in data ) {
+          if ( data[ index ] && data[ index ].stop && rrun.test( index ) ) {
+            stopQueue( data[ index ] );
+          }
+        }
+      }
+
+      for ( index = timers.length; index--; ) {
+        if ( timers[ index ].elem === this && (type == null || timers[ index ].queue === type) ) {
+          timers[ index ].anim.stop( gotoEnd );
+          dequeue = false;
+          timers.splice( index, 1 );
+        }
+      }
+
+      // start the next in the queue if the last step wasn't forced
+      // timers currently will call their complete callbacks, which will dequeue
+      // but only if they were gotoEnd
+      if ( dequeue || !gotoEnd ) {
+        jQuery.dequeue( this, type );
+      }
+    });
+  },
+  finish: function( type ) {
+    if ( type !== false ) {
+      type = type || "fx";
+    }
+    return this.each(function() {
+      var index,
+        data = jQuery._data( this ),
+        queue = data[ type + "queue" ],
+        hooks = data[ type + "queueHooks" ],
+        timers = jQuery.timers,
+        length = queue ? queue.length : 0;
+
+      // enable finishing flag on private data
+      data.finish = true;
+
+      // empty the queue first
+      jQuery.queue( this, type, [] );
+
+      if ( hooks && hooks.cur && hooks.cur.finish ) {
+        hooks.cur.finish.call( this );
+      }
+
+      // look for any active animations, and finish them
+      for ( index = timers.length; index--; ) {
+        if ( timers[ index ].elem === this && timers[ index ].queue === type ) {
+          timers[ index ].anim.stop( true );
+          timers.splice( index, 1 );
+        }
+      }
+
+      // look for any animations in the old queue and finish them
+      for ( index = 0; index < length; index++ ) {
+        if ( queue[ index ] && queue[ index ].finish ) {
+          queue[ index ].finish.call( this );
+        }
+      }
+
+      // turn off finishing flag
+      delete data.finish;
+    });
+  }
+});
+
+// Generate parameters to create a standard animation
+function genFx( type, includeWidth ) {
+  var which,
+    attrs = { height: type },
+    i = 0;
+
+  // if we include width, step value is 1 to do all cssExpand values,
+  // if we don't include width, step value is 2 to skip over Left and Right
+  includeWidth = includeWidth? 1 : 0;
+  for( ; i < 4 ; i += 2 - includeWidth ) {
+    which = cssExpand[ i ];
+    attrs[ "margin" + which ] = attrs[ "padding" + which ] = type;
+  }
+
+  if ( includeWidth ) {
+    attrs.opacity = attrs.width = type;
+  }
+
+  return attrs;
+}
+
+// Generate shortcuts for custom animations
+jQuery.each({
+  slideDown: genFx("show"),
+  slideUp: genFx("hide"),
+  slideToggle: genFx("toggle"),
+  fadeIn: { opacity: "show" },
+  fadeOut: { opacity: "hide" },
+  fadeToggle: { opacity: "toggle" }
+}, function( name, props ) {
+  jQuery.fn[ name ] = function( speed, easing, callback ) {
+    return this.animate( props, speed, easing, callback );
+  };
+});
+
+jQuery.speed = function( speed, easing, fn ) {
+  var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
+    complete: fn || !fn && easing ||
+      jQuery.isFunction( speed ) && speed,
+    duration: speed,
+    easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
+  };
+
+  opt.duration = jQuery.fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
+    opt.duration in jQuery.fx.speeds ? jQuery.fx.speeds[ opt.duration ] : jQuery.fx.speeds._default;
+
+  // normalize opt.queue - true/undefined/null -> "fx"
+  if ( opt.queue == null || opt.queue === true ) {
+    opt.queue = "fx";
+  }
+
+  // Queueing
+  opt.old = opt.complete;
+
+  opt.complete = function() {
+    if ( jQuery.isFunction( opt.old ) ) {
+      opt.old.call( this );
+    }
+
+    if ( opt.queue ) {
+      jQuery.dequeue( this, opt.queue );
+    }
+  };
+
+  return opt;
+};
+
+jQuery.easing = {
+  linear: function( p ) {
+    return p;
+  },
+  swing: function( p ) {
+    return 0.5 - Math.cos( p*Math.PI ) / 2;
+  }
+};
+
+jQuery.timers = [];
+jQuery.fx = Tween.prototype.init;
+jQuery.fx.tick = function() {
+  var timer,
+    timers = jQuery.timers,
+    i = 0;
+
+  fxNow = jQuery.now();
+
+  for ( ; i < timers.length; i++ ) {
+    timer = timers[ i ];
+    // Checks the timer has not already been removed
+    if ( !timer() && timers[ i ] === timer ) {
+      timers.splice( i--, 1 );
+    }
+  }
+
+  if ( !timers.length ) {
+    jQuery.fx.stop();
+  }
+  fxNow = undefined;
+};
+
+jQuery.fx.timer = function( timer ) {
+  if ( timer() && jQuery.timers.push( timer ) ) {
+    jQuery.fx.start();
+  }
+};
+
+jQuery.fx.interval = 13;
+
+jQuery.fx.start = function() {
+  if ( !timerId ) {
+    timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+  }
+};
+
+jQuery.fx.stop = function() {
+  clearInterval( timerId );
+  timerId = null;
+};
+
+jQuery.fx.speeds = {
+  slow: 600,
+  fast: 200,
+  // Default speed
+  _default: 400
+};
+
+// Back Compat <1.8 extension point
+jQuery.fx.step = {};
+
+if ( jQuery.expr && jQuery.expr.filters ) {
+  jQuery.expr.filters.animated = function( elem ) {
+    return jQuery.grep(jQuery.timers, function( fn ) {
+      return elem === fn.elem;
+    }).length;
+  };
+}
+jQuery.fn.offset = function( options ) {
+  if ( arguments.length ) {
+    return options === undefined ?
+      this :
+      this.each(function( i ) {
+        jQuery.offset.setOffset( this, options, i );
+      });
+  }
+
+  var docElem, win,
+    box = { top: 0, left: 0 },
+    elem = this[ 0 ],
+    doc = elem && elem.ownerDocument;
+
+  if ( !doc ) {
+    return;
+  }
+
+  docElem = doc.documentElement;
+
+  // Make sure it's not a disconnected DOM node
+  if ( !jQuery.contains( docElem, elem ) ) {
+    return box;
+  }
+
+  // If we don't have gBCR, just use 0,0 rather than error
+  // BlackBerry 5, iOS 3 (original iPhone)
+  if ( typeof elem.getBoundingClientRect !== "undefined" ) {
+    box = elem.getBoundingClientRect();
+  }
+  win = getWindow( doc );
+  return {
+    top: box.top  + ( win.pageYOffset || docElem.scrollTop )  - ( docElem.clientTop  || 0 ),
+    left: box.left + ( win.pageXOffset || docElem.scrollLeft ) - ( docElem.clientLeft || 0 )
+  };
+};
+
+jQuery.offset = {
+
+  setOffset: function( elem, options, i ) {
+    var position = jQuery.css( elem, "position" );
+
+    // set position first, in-case top/left are set even on static elem
+    if ( position === "static" ) {
+      elem.style.position = "relative";
+    }
+
+    var curElem = jQuery( elem ),
+      curOffset = curElem.offset(),
+      curCSSTop = jQuery.css( elem, "top" ),
+      curCSSLeft = jQuery.css( elem, "left" ),
+      calculatePosition = ( position === "absolute" || position === "fixed" ) && jQuery.inArray("auto", [curCSSTop, curCSSLeft]) > -1,
+      props = {}, curPosition = {}, curTop, curLeft;
+
+    // need to be able to calculate position if either top or left is auto and position is either absolute or fixed
+    if ( calculatePosition ) {
+      curPosition = curElem.position();
+      curTop = curPosition.top;
+      curLeft = curPosition.left;
+    } else {
+      curTop = parseFloat( curCSSTop ) || 0;
+      curLeft = parseFloat( curCSSLeft ) || 0;
+    }
+
+    if ( jQuery.isFunction( options ) ) {
+      options = options.call( elem, i, curOffset );
+    }
+
+    if ( options.top != null ) {
+      props.top = ( options.top - curOffset.top ) + curTop;
+    }
+    if ( options.left != null ) {
+      props.left = ( options.left - curOffset.left ) + curLeft;
+    }
+
+    if ( "using" in options ) {
+      options.using.call( elem, props );
+    } else {
+      curElem.css( props );
+    }
+  }
+};
+
+
+jQuery.fn.extend({
+
+  position: function() {
+    if ( !this[ 0 ] ) {
+      return;
+    }
+
+    var offsetParent, offset,
+      parentOffset = { top: 0, left: 0 },
+      elem = this[ 0 ];
+
+    // fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is it's only offset parent
+    if ( jQuery.css( elem, "position" ) === "fixed" ) {
+      // we assume that getBoundingClientRect is available when computed position is fixed
+      offset = elem.getBoundingClientRect();
+    } else {
+      // Get *real* offsetParent
+      offsetParent = this.offsetParent();
+
+      // Get correct offsets
+      offset = this.offset();
+      if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
+        parentOffset = offsetParent.offset();
+      }
+
+      // Add offsetParent borders
+      parentOffset.top  += jQuery.css( offsetParent[ 0 ], "borderTopWidth", true );
+      parentOffset.left += jQuery.css( offsetParent[ 0 ], "borderLeftWidth", true );
+    }
+
+    // Subtract parent offsets and element margins
+    // note: when an element has margin: auto the offsetLeft and marginLeft
+    // are the same in Safari causing offset.left to incorrectly be 0
+    return {
+      top:  offset.top  - parentOffset.top - jQuery.css( elem, "marginTop", true ),
+      left: offset.left - parentOffset.left - jQuery.css( elem, "marginLeft", true)
+    };
+  },
+
+  offsetParent: function() {
+    return this.map(function() {
+      var offsetParent = this.offsetParent || document.documentElement;
+      while ( offsetParent && ( !jQuery.nodeName( offsetParent, "html" ) && jQuery.css( offsetParent, "position") === "static" ) ) {
+        offsetParent = offsetParent.offsetParent;
+      }
+      return offsetParent || document.documentElement;
+    });
+  }
+});
+
+
+// Create scrollLeft and scrollTop methods
+jQuery.each( {scrollLeft: "pageXOffset", scrollTop: "pageYOffset"}, function( method, prop ) {
+  var top = /Y/.test( prop );
+
+  jQuery.fn[ method ] = function( val ) {
+    return jQuery.access( this, function( elem, method, val ) {
+      var win = getWindow( elem );
+
+      if ( val === undefined ) {
+        return win ? (prop in win) ? win[ prop ] :
+          win.document.documentElement[ method ] :
+          elem[ method ];
+      }
+
+      if ( win ) {
+        win.scrollTo(
+          !top ? val : jQuery( win ).scrollLeft(),
+          top ? val : jQuery( win ).scrollTop()
+        );
+
+      } else {
+        elem[ method ] = val;
+      }
+    }, method, val, arguments.length, null );
+  };
+});
+
+function getWindow( elem ) {
+  return jQuery.isWindow( elem ) ?
+    elem :
+    elem.nodeType === 9 ?
+      elem.defaultView || elem.parentWindow :
+      false;
+}
+// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
+  jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name }, function( defaultExtra, funcName ) {
+    // margin is only for outerHeight, outerWidth
+    jQuery.fn[ funcName ] = function( margin, value ) {
+      var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
+        extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
+
+      return jQuery.access( this, function( elem, type, value ) {
+        var doc;
+
+        if ( jQuery.isWindow( elem ) ) {
+          // As of 5/8/2012 this will yield incorrect results for Mobile Safari, but there
+          // isn't a whole lot we can do. See pull request at this URL for discussion:
+          // https://github.com/jquery/jquery/pull/764
+          return elem.document.documentElement[ "client" + name ];
+        }
+
+        // Get document width or height
+        if ( elem.nodeType === 9 ) {
+          doc = elem.documentElement;
+
+          // Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height], whichever is greatest
+          // unfortunately, this causes bug #3838 in IE6/8 only, but there is currently no good, small way to fix it.
+          return Math.max(
+            elem.body[ "scroll" + name ], doc[ "scroll" + name ],
+            elem.body[ "offset" + name ], doc[ "offset" + name ],
+            doc[ "client" + name ]
+          );
+        }
+
+        return value === undefined ?
+          // Get width or height on the element, requesting but not forcing parseFloat
+          jQuery.css( elem, type, extra ) :
+
+          // Set width or height on the element
+          jQuery.style( elem, type, value, extra );
+      }, type, chainable ? margin : undefined, chainable, null );
+    };
+  });
+});
+// Limit scope pollution from any deprecated API
+// (function() {
+
+// })();
+// Expose jQuery to the global object
+window.jQuery = window.$ = jQuery;
+
+// Expose jQuery as an AMD module, but only for AMD loaders that
+// understand the issues with loading multiple versions of jQuery
+// in a page that all might call define(). The loader will indicate
+// they have special allowances for multiple jQuery versions by
+// specifying define.amd.jQuery = true. Register as a named module,
+// since jQuery can be concatenated with other files that may use define,
+// but not use a proper concatenation script that understands anonymous
+// AMD modules. A named AMD is safest and most robust way to register.
+// Lowercase jquery is used because AMD module names are derived from
+// file names, and jQuery is normally delivered in a lowercase file name.
+// Do this after creating the global so that if an AMD module wants to call
+// noConflict to hide this version of jQuery, it will work.
+if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
+  define( "jquery", [], function () { return jQuery; } );
+}
+
+})( window );
+// lib/handlebars/base.js
+
+/*jshint eqnull:true*/
+this.Handlebars = {};
+
+(function(Handlebars) {
+
+Handlebars.VERSION = "1.0.rc.1";
+
+Handlebars.helpers  = {};
+Handlebars.partials = {};
+
+Handlebars.registerHelper = function(name, fn, inverse) {
+  if(inverse) { fn.not = inverse; }
+  this.helpers[name] = fn;
+};
+
+Handlebars.registerPartial = function(name, str) {
+  this.partials[name] = str;
+};
+
+Handlebars.registerHelper('helperMissing', function(arg) {
+  if(arguments.length === 2) {
+    return undefined;
+  } else {
+    throw new Error("Could not find property '" + arg + "'");
+  }
+});
+
+var toString = Object.prototype.toString, functionType = "[object Function]";
+
+Handlebars.registerHelper('blockHelperMissing', function(context, options) {
+  var inverse = options.inverse || function() {}, fn = options.fn;
+
+
+  var ret = "";
+  var type = toString.call(context);
+
+  if(type === functionType) { context = context.call(this); }
+
+  if(context === true) {
+    return fn(this);
+  } else if(context === false || context == null) {
+    return inverse(this);
+  } else if(type === "[object Array]") {
+    if(context.length > 0) {
+      return Handlebars.helpers.each(context, options);
+    } else {
+      return inverse(this);
+    }
+  } else {
+    return fn(context);
+  }
+});
+
+Handlebars.K = function() {};
+
+Handlebars.createFrame = Object.create || function(object) {
+  Handlebars.K.prototype = object;
+  var obj = new Handlebars.K();
+  Handlebars.K.prototype = null;
+  return obj;
+};
+
+Handlebars.registerHelper('each', function(context, options) {
+  var fn = options.fn, inverse = options.inverse;
+  var ret = "", data;
+
+  if (options.data) {
+    data = Handlebars.createFrame(options.data);
+  }
+
+  if(context && context.length > 0) {
+    for(var i=0, j=context.length; i<j; i++) {
+      if (data) { data.index = i; }
+      ret = ret + fn(context[i], { data: data });
+    }
+  } else {
+    ret = inverse(this);
+  }
+  return ret;
+});
+
+Handlebars.registerHelper('if', function(context, options) {
+  var type = toString.call(context);
+  if(type === functionType) { context = context.call(this); }
+
+  if(!context || Handlebars.Utils.isEmpty(context)) {
+    return options.inverse(this);
+  } else {
+    return options.fn(this);
+  }
+});
+
+Handlebars.registerHelper('unless', function(context, options) {
+  var fn = options.fn, inverse = options.inverse;
+  options.fn = inverse;
+  options.inverse = fn;
+
+  return Handlebars.helpers['if'].call(this, context, options);
+});
+
+Handlebars.registerHelper('with', function(context, options) {
+  return options.fn(context);
+});
+
+Handlebars.registerHelper('log', function(context) {
+  Handlebars.log(context);
+});
+
+}(this.Handlebars));
+;
+// lib/handlebars/compiler/parser.js
+/* Jison generated parser */
+var handlebars = (function(){
+var parser = {trace: function trace() { },
+yy: {},
+symbols_: {"error":2,"root":3,"program":4,"EOF":5,"statements":6,"simpleInverse":7,"statement":8,"openInverse":9,"closeBlock":10,"openBlock":11,"mustache":12,"partial":13,"CONTENT":14,"COMMENT":15,"OPEN_BLOCK":16,"inMustache":17,"CLOSE":18,"OPEN_INVERSE":19,"OPEN_ENDBLOCK":20,"path":21,"OPEN":22,"OPEN_UNESCAPED":23,"OPEN_PARTIAL":24,"params":25,"hash":26,"DATA":27,"param":28,"STRING":29,"INTEGER":30,"BOOLEAN":31,"hashSegments":32,"hashSegment":33,"ID":34,"EQUALS":35,"pathSegments":36,"SEP":37,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",14:"CONTENT",15:"COMMENT",16:"OPEN_BLOCK",18:"CLOSE",19:"OPEN_INVERSE",20:"OPEN_ENDBLOCK",22:"OPEN",23:"OPEN_UNESCAPED",24:"OPEN_PARTIAL",27:"DATA",29:"STRING",30:"INTEGER",31:"BOOLEAN",34:"ID",35:"EQUALS",37:"SEP"},
+productions_: [0,[3,2],[4,3],[4,1],[4,0],[6,1],[6,2],[8,3],[8,3],[8,1],[8,1],[8,1],[8,1],[11,3],[9,3],[10,3],[12,3],[12,3],[13,3],[13,4],[7,2],[17,3],[17,2],[17,2],[17,1],[17,1],[25,2],[25,1],[28,1],[28,1],[28,1],[28,1],[28,1],[26,1],[32,2],[32,1],[33,3],[33,3],[33,3],[33,3],[33,3],[21,1],[36,3],[36,1]],
+performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
+
+var $0 = $$.length - 1;
+switch (yystate) {
+case 1: return $$[$0-1]; 
+break;
+case 2: this.$ = new yy.ProgramNode($$[$0-2], $$[$0]); 
+break;
+case 3: this.$ = new yy.ProgramNode($$[$0]); 
+break;
+case 4: this.$ = new yy.ProgramNode([]); 
+break;
+case 5: this.$ = [$$[$0]]; 
+break;
+case 6: $$[$0-1].push($$[$0]); this.$ = $$[$0-1]; 
+break;
+case 7: this.$ = new yy.BlockNode($$[$0-2], $$[$0-1].inverse, $$[$0-1], $$[$0]); 
+break;
+case 8: this.$ = new yy.BlockNode($$[$0-2], $$[$0-1], $$[$0-1].inverse, $$[$0]); 
+break;
+case 9: this.$ = $$[$0]; 
+break;
+case 10: this.$ = $$[$0]; 
+break;
+case 11: this.$ = new yy.ContentNode($$[$0]); 
+break;
+case 12: this.$ = new yy.CommentNode($$[$0]); 
+break;
+case 13: this.$ = new yy.MustacheNode($$[$0-1][0], $$[$0-1][1]); 
+break;
+case 14: this.$ = new yy.MustacheNode($$[$0-1][0], $$[$0-1][1]); 
+break;
+case 15: this.$ = $$[$0-1]; 
+break;
+case 16: this.$ = new yy.MustacheNode($$[$0-1][0], $$[$0-1][1]); 
+break;
+case 17: this.$ = new yy.MustacheNode($$[$0-1][0], $$[$0-1][1], true); 
+break;
+case 18: this.$ = new yy.PartialNode($$[$0-1]); 
+break;
+case 19: this.$ = new yy.PartialNode($$[$0-2], $$[$0-1]); 
+break;
+case 20: 
+break;
+case 21: this.$ = [[$$[$0-2]].concat($$[$0-1]), $$[$0]]; 
+break;
+case 22: this.$ = [[$$[$0-1]].concat($$[$0]), null]; 
+break;
+case 23: this.$ = [[$$[$0-1]], $$[$0]]; 
+break;
+case 24: this.$ = [[$$[$0]], null]; 
+break;
+case 25: this.$ = [[new yy.DataNode($$[$0])], null]; 
+break;
+case 26: $$[$0-1].push($$[$0]); this.$ = $$[$0-1]; 
+break;
+case 27: this.$ = [$$[$0]]; 
+break;
+case 28: this.$ = $$[$0]; 
+break;
+case 29: this.$ = new yy.StringNode($$[$0]); 
+break;
+case 30: this.$ = new yy.IntegerNode($$[$0]); 
+break;
+case 31: this.$ = new yy.BooleanNode($$[$0]); 
+break;
+case 32: this.$ = new yy.DataNode($$[$0]); 
+break;
+case 33: this.$ = new yy.HashNode($$[$0]); 
+break;
+case 34: $$[$0-1].push($$[$0]); this.$ = $$[$0-1]; 
+break;
+case 35: this.$ = [$$[$0]]; 
+break;
+case 36: this.$ = [$$[$0-2], $$[$0]]; 
+break;
+case 37: this.$ = [$$[$0-2], new yy.StringNode($$[$0])]; 
+break;
+case 38: this.$ = [$$[$0-2], new yy.IntegerNode($$[$0])]; 
+break;
+case 39: this.$ = [$$[$0-2], new yy.BooleanNode($$[$0])]; 
+break;
+case 40: this.$ = [$$[$0-2], new yy.DataNode($$[$0])]; 
+break;
+case 41: this.$ = new yy.IdNode($$[$0]); 
+break;
+case 42: $$[$0-2].push($$[$0]); this.$ = $$[$0-2]; 
+break;
+case 43: this.$ = [$$[$0]]; 
+break;
+}
+},
+table: [{3:1,4:2,5:[2,4],6:3,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],22:[1,13],23:[1,14],24:[1,15]},{1:[3]},{5:[1,16]},{5:[2,3],7:17,8:18,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,19],20:[2,3],22:[1,13],23:[1,14],24:[1,15]},{5:[2,5],14:[2,5],15:[2,5],16:[2,5],19:[2,5],20:[2,5],22:[2,5],23:[2,5],24:[2,5]},{4:20,6:3,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],20:[2,4],22:[1,13],23:[1,14],24:[1,15]},{4:21,6:3,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],20:[2,4],22:[1,13],23:[1,14],24:[1,15]},{5:[2,9],14:[2,9],15:[2,9],16:[2,9],19:[2,9],20:[2,9],22:[2,9],23:[2,9],24:[2,9]},{5:[2,10],14:[2,10],15:[2,10],16:[2,10],19:[2,10],20:[2,10],22:[2,10],23:[2,10],24:[2,10]},{5:[2,11],14:[2,11],15:[2,11],16:[2,11],19:[2,11],20:[2,11],22:[2,11],23:[2,11],24:[2,11]},{5:[2,12],14:[2,12],15:[2,12],16:[2,12],19:[2,12],20:[2,12],22:[2,12],23:[2,12],24:[2,12]},{17:22,21:23,27:[1,24],34:[1,26],36:25},{17:27,21:23,27:[1,24],34:[1,26],36:25},{17:28,21:23,27:[1,24],34:[1,26],36:25},{17:29,21:23,27:[1,24],34:[1,26],36:25},{21:30,34:[1,26],36:25},{1:[2,1]},{6:31,8:4,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],22:[1,13],23:[1,14],24:[1,15]},{5:[2,6],14:[2,6],15:[2,6],16:[2,6],19:[2,6],20:[2,6],22:[2,6],23:[2,6],24:[2,6]},{17:22,18:[1,32],21:23,27:[1,24],34:[1,26],36:25},{10:33,20:[1,34]},{10:35,20:[1,34]},{18:[1,36]},{18:[2,24],21:41,25:37,26:38,27:[1,45],28:39,29:[1,42],30:[1,43],31:[1,44],32:40,33:46,34:[1,47],36:25},{18:[2,25]},{18:[2,41],27:[2,41],29:[2,41],30:[2,41],31:[2,41],34:[2,41],37:[1,48]},{18:[2,43],27:[2,43],29:[2,43],30:[2,43],31:[2,43],34:[2,43],37:[2,43]},{18:[1,49]},{18:[1,50]},{18:[1,51]},{18:[1,52],21:53,34:[1,26],36:25},{5:[2,2],8:18,9:5,11:6,12:7,13:8,14:[1,9],15:[1,10],16:[1,12],19:[1,11],20:[2,2],22:[1,13],23:[1,14],24:[1,15]},{14:[2,20],15:[2,20],16:[2,20],19:[2,20],22:[2,20],23:[2,20],24:[2,20]},{5:[2,7],14:[2,7],15:[2,7],16:[2,7],19:[2,7],20:[2,7],22:[2,7],23:[2,7],24:[2,7]},{21:54,34:[1,26],36:25},{5:[2,8],14:[2,8],15:[2,8],16:[2,8],19:[2,8],20:[2,8],22:[2,8],23:[2,8],24:[2,8]},{14:[2,14],15:[2,14],16:[2,14],19:[2,14],20:[2,14],22:[2,14],23:[2,14],24:[2,14]},{18:[2,22],21:41,26:55,27:[1,45],28:56,29:[1,42],30:[1,43],31:[1,44],32:40,33:46,34:[1,47],36:25},{18:[2,23]},{18:[2,27],27:[2,27],29:[2,27],30:[2,27],31:[2,27],34:[2,27]},{18:[2,33],33:57,34:[1,58]},{18:[2,28],27:[2,28],29:[2,28],30:[2,28],31:[2,28],34:[2,28]},{18:[2,29],27:[2,29],29:[2,29],30:[2,29],31:[2,29],34:[2,29]},{18:[2,30],27:[2,30],29:[2,30],30:[2,30],31:[2,30],34:[2,30]},{18:[2,31],27:[2,31],29:[2,31],30:[2,31],31:[2,31],34:[2,31]},{18:[2,32],27:[2,32],29:[2,32],30:[2,32],31:[2,32],34:[2,32]},{18:[2,35],34:[2,35]},{18:[2,43],27:[2,43],29:[2,43],30:[2,43],31:[2,43],34:[2,43],35:[1,59],37:[2,43]},{34:[1,60]},{14:[2,13],15:[2,13],16:[2,13],19:[2,13],20:[2,13],22:[2,13],23:[2,13],24:[2,13]},{5:[2,16],14:[2,16],15:[2,16],16:[2,16],19:[2,16],20:[2,16],22:[2,16],23:[2,16],24:[2,16]},{5:[2,17],14:[2,17],15:[2,17],16:[2,17],19:[2,17],20:[2,17],22:[2,17],23:[2,17],24:[2,17]},{5:[2,18],14:[2,18],15:[2,18],16:[2,18],19:[2,18],20:[2,18],22:[2,18],23:[2,18],24:[2,18]},{18:[1,61]},{18:[1,62]},{18:[2,21]},{18:[2,26],27:[2,26],29:[2,26],30:[2,26],31:[2,26],34:[2,26]},{18:[2,34],34:[2,34]},{35:[1,59]},{21:63,27:[1,67],29:[1,64],30:[1,65],31:[1,66],34:[1,26],36:25},{18:[2,42],27:[2,42],29:[2,42],30:[2,42],31:[2,42],34:[2,42],37:[2,42]},{5:[2,19],14:[2,19],15:[2,19],16:[2,19],19:[2,19],20:[2,19],22:[2,19],23:[2,19],24:[2,19]},{5:[2,15],14:[2,15],15:[2,15],16:[2,15],19:[2,15],20:[2,15],22:[2,15],23:[2,15],24:[2,15]},{18:[2,36],34:[2,36]},{18:[2,37],34:[2,37]},{18:[2,38],34:[2,38]},{18:[2,39],34:[2,39]},{18:[2,40],34:[2,40]}],
+defaultActions: {16:[2,1],24:[2,25],38:[2,23],55:[2,21]},
+parseError: function parseError(str, hash) {
+    throw new Error(str);
+},
+parse: function parse(input) {
+    var self = this, stack = [0], vstack = [null], lstack = [], table = this.table, yytext = "", yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
+    this.lexer.setInput(input);
+    this.lexer.yy = this.yy;
+    this.yy.lexer = this.lexer;
+    this.yy.parser = this;
+    if (typeof this.lexer.yylloc == "undefined")
+        this.lexer.yylloc = {};
+    var yyloc = this.lexer.yylloc;
+    lstack.push(yyloc);
+    var ranges = this.lexer.options && this.lexer.options.ranges;
+    if (typeof this.yy.parseError === "function")
+        this.parseError = this.yy.parseError;
+    function popStack(n) {
+        stack.length = stack.length - 2 * n;
+        vstack.length = vstack.length - n;
+        lstack.length = lstack.length - n;
+    }
+    function lex() {
+        var token;
+        token = self.lexer.lex() || 1;
+        if (typeof token !== "number") {
+            token = self.symbols_[token] || token;
+        }
+        return token;
+    }
+    var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
+    while (true) {
+        state = stack[stack.length - 1];
+        if (this.defaultActions[state]) {
+            action = this.defaultActions[state];
+        } else {
+            if (symbol === null || typeof symbol == "undefined") {
+                symbol = lex();
+            }
+            action = table[state] && table[state][symbol];
+        }
+        if (typeof action === "undefined" || !action.length || !action[0]) {
+            var errStr = "";
+            if (!recovering) {
+                expected = [];
+                for (p in table[state])
+                    if (this.terminals_[p] && p > 2) {
+                        expected.push("'" + this.terminals_[p] + "'");
+                    }
+                if (this.lexer.showPosition) {
+                    errStr = "Parse error on line " + (yylineno + 1) + ":\n" + this.lexer.showPosition() + "\nExpecting " + expected.join(", ") + ", got '" + (this.terminals_[symbol] || symbol) + "'";
+                } else {
+                    errStr = "Parse error on line " + (yylineno + 1) + ": Unexpected " + (symbol == 1?"end of input":"'" + (this.terminals_[symbol] || symbol) + "'");
+                }
+                this.parseError(errStr, {text: this.lexer.match, token: this.terminals_[symbol] || symbol, line: this.lexer.yylineno, loc: yyloc, expected: expected});
+            }
+        }
+        if (action[0] instanceof Array && action.length > 1) {
+            throw new Error("Parse Error: multiple actions possible at state: " + state + ", token: " + symbol);
+        }
+        switch (action[0]) {
+        case 1:
+            stack.push(symbol);
+            vstack.push(this.lexer.yytext);
+            lstack.push(this.lexer.yylloc);
+            stack.push(action[1]);
+            symbol = null;
+            if (!preErrorSymbol) {
+                yyleng = this.lexer.yyleng;
+                yytext = this.lexer.yytext;
+                yylineno = this.lexer.yylineno;
+                yyloc = this.lexer.yylloc;
+                if (recovering > 0)
+                    recovering--;
+            } else {
+                symbol = preErrorSymbol;
+                preErrorSymbol = null;
+            }
+            break;
+        case 2:
+            len = this.productions_[action[1]][1];
+            yyval.$ = vstack[vstack.length - len];
+            yyval._$ = {first_line: lstack[lstack.length - (len || 1)].first_line, last_line: lstack[lstack.length - 1].last_line, first_column: lstack[lstack.length - (len || 1)].first_column, last_column: lstack[lstack.length - 1].last_column};
+            if (ranges) {
+                yyval._$.range = [lstack[lstack.length - (len || 1)].range[0], lstack[lstack.length - 1].range[1]];
+            }
+            r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
+            if (typeof r !== "undefined") {
+                return r;
+            }
+            if (len) {
+                stack = stack.slice(0, -1 * len * 2);
+                vstack = vstack.slice(0, -1 * len);
+                lstack = lstack.slice(0, -1 * len);
+            }
+            stack.push(this.productions_[action[1]][0]);
+            vstack.push(yyval.$);
+            lstack.push(yyval._$);
+            newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
+            stack.push(newState);
+            break;
+        case 3:
+            return true;
+        }
+    }
+    return true;
+}
+};
+/* Jison generated lexer */
+var lexer = (function(){
+var lexer = ({EOF:1,
+parseError:function parseError(str, hash) {
+        if (this.yy.parser) {
+            this.yy.parser.parseError(str, hash);
+        } else {
+            throw new Error(str);
+        }
+    },
+setInput:function (input) {
+        this._input = input;
+        this._more = this._less = this.done = false;
+        this.yylineno = this.yyleng = 0;
+        this.yytext = this.matched = this.match = '';
+        this.conditionStack = ['INITIAL'];
+        this.yylloc = {first_line:1,first_column:0,last_line:1,last_column:0};
+        if (this.options.ranges) this.yylloc.range = [0,0];
+        this.offset = 0;
+        return this;
+    },
+input:function () {
+        var ch = this._input[0];
+        this.yytext += ch;
+        this.yyleng++;
+        this.offset++;
+        this.match += ch;
+        this.matched += ch;
+        var lines = ch.match(/(?:\r\n?|\n).*/g);
+        if (lines) {
+            this.yylineno++;
+            this.yylloc.last_line++;
+        } else {
+            this.yylloc.last_column++;
+        }
+        if (this.options.ranges) this.yylloc.range[1]++;
+
+        this._input = this._input.slice(1);
+        return ch;
+    },
+unput:function (ch) {
+        var len = ch.length;
+        var lines = ch.split(/(?:\r\n?|\n)/g);
+
+        this._input = ch + this._input;
+        this.yytext = this.yytext.substr(0, this.yytext.length-len-1);
+        //this.yyleng -= len;
+        this.offset -= len;
+        var oldLines = this.match.split(/(?:\r\n?|\n)/g);
+        this.match = this.match.substr(0, this.match.length-1);
+        this.matched = this.matched.substr(0, this.matched.length-1);
+
+        if (lines.length-1) this.yylineno -= lines.length-1;
+        var r = this.yylloc.range;
+
+        this.yylloc = {first_line: this.yylloc.first_line,
+          last_line: this.yylineno+1,
+          first_column: this.yylloc.first_column,
+          last_column: lines ?
+              (lines.length === oldLines.length ? this.yylloc.first_column : 0) + oldLines[oldLines.length - lines.length].length - lines[0].length:
+              this.yylloc.first_column - len
+          };
+
+        if (this.options.ranges) {
+            this.yylloc.range = [r[0], r[0] + this.yyleng - len];
+        }
+        return this;
+    },
+more:function () {
+        this._more = true;
+        return this;
+    },
+less:function (n) {
+        this.unput(this.match.slice(n));
+    },
+pastInput:function () {
+        var past = this.matched.substr(0, this.matched.length - this.match.length);
+        return (past.length > 20 ? '...':'') + past.substr(-20).replace(/\n/g, "");
+    },
+upcomingInput:function () {
+        var next = this.match;
+        if (next.length < 20) {
+            next += this._input.substr(0, 20-next.length);
+        }
+        return (next.substr(0,20)+(next.length > 20 ? '...':'')).replace(/\n/g, "");
+    },
+showPosition:function () {
+        var pre = this.pastInput();
+        var c = new Array(pre.length + 1).join("-");
+        return pre + this.upcomingInput() + "\n" + c+"^";
+    },
+next:function () {
+        if (this.done) {
+            return this.EOF;
+        }
+        if (!this._input) this.done = true;
+
+        var token,
+            match,
+            tempMatch,
+            index,
+            col,
+            lines;
+        if (!this._more) {
+            this.yytext = '';
+            this.match = '';
+        }
+        var rules = this._currentRules();
+        for (var i=0;i < rules.length; i++) {
+            tempMatch = this._input.match(this.rules[rules[i]]);
+            if (tempMatch && (!match || tempMatch[0].length > match[0].length)) {
+                match = tempMatch;
+                index = i;
+                if (!this.options.flex) break;
+            }
+        }
+        if (match) {
+            lines = match[0].match(/(?:\r\n?|\n).*/g);
+            if (lines) this.yylineno += lines.length;
+            this.yylloc = {first_line: this.yylloc.last_line,
+                           last_line: this.yylineno+1,
+                           first_column: this.yylloc.last_column,
+                           last_column: lines ? lines[lines.length-1].length-lines[lines.length-1].match(/\r?\n?/)[0].length : this.yylloc.last_column + match[0].length};
+            this.yytext += match[0];
+            this.match += match[0];
+            this.matches = match;
+            this.yyleng = this.yytext.length;
+            if (this.options.ranges) {
+                this.yylloc.range = [this.offset, this.offset += this.yyleng];
+            }
+            this._more = false;
+            this._input = this._input.slice(match[0].length);
+            this.matched += match[0];
+            token = this.performAction.call(this, this.yy, this, rules[index],this.conditionStack[this.conditionStack.length-1]);
+            if (this.done && this._input) this.done = false;
+            if (token) return token;
+            else return;
+        }
+        if (this._input === "") {
+            return this.EOF;
+        } else {
+            return this.parseError('Lexical error on line '+(this.yylineno+1)+'. Unrecognized text.\n'+this.showPosition(),
+                    {text: "", token: null, line: this.yylineno});
+        }
+    },
+lex:function lex() {
+        var r = this.next();
+        if (typeof r !== 'undefined') {
+            return r;
+        } else {
+            return this.lex();
+        }
+    },
+begin:function begin(condition) {
+        this.conditionStack.push(condition);
+    },
+popState:function popState() {
+        return this.conditionStack.pop();
+    },
+_currentRules:function _currentRules() {
+        return this.conditions[this.conditionStack[this.conditionStack.length-1]].rules;
+    },
+topState:function () {
+        return this.conditionStack[this.conditionStack.length-2];
+    },
+pushState:function begin(condition) {
+        this.begin(condition);
+    }});
+lexer.options = {};
+lexer.performAction = function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
+
+var YYSTATE=YY_START
+switch($avoiding_name_collisions) {
+case 0:
+                                   if(yy_.yytext.slice(-1) !== "\\") this.begin("mu");
+                                   if(yy_.yytext.slice(-1) === "\\") yy_.yytext = yy_.yytext.substr(0,yy_.yyleng-1), this.begin("emu");
+                                   if(yy_.yytext) return 14;
+                                 
+break;
+case 1: return 14; 
+break;
+case 2:
+                                   if(yy_.yytext.slice(-1) !== "\\") this.popState();
+                                   if(yy_.yytext.slice(-1) === "\\") yy_.yytext = yy_.yytext.substr(0,yy_.yyleng-1);
+                                   return 14;
+                                 
+break;
+case 3: return 24; 
+break;
+case 4: return 16; 
+break;
+case 5: return 20; 
+break;
+case 6: return 19; 
+break;
+case 7: return 19; 
+break;
+case 8: return 23; 
+break;
+case 9: return 23; 
+break;
+case 10: yy_.yytext = yy_.yytext.substr(3,yy_.yyleng-5); this.popState(); return 15; 
+break;
+case 11: return 22; 
+break;
+case 12: return 35; 
+break;
+case 13: return 34; 
+break;
+case 14: return 34; 
+break;
+case 15: return 37; 
+break;
+case 16: /*ignore whitespace*/ 
+break;
+case 17: this.popState(); return 18; 
+break;
+case 18: this.popState(); return 18; 
+break;
+case 19: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2).replace(/\\"/g,'"'); return 29; 
+break;
+case 20: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2).replace(/\\"/g,'"'); return 29; 
+break;
+case 21: yy_.yytext = yy_.yytext.substr(1); return 27; 
+break;
+case 22: return 31; 
+break;
+case 23: return 31; 
+break;
+case 24: return 30; 
+break;
+case 25: return 34; 
+break;
+case 26: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); return 34; 
+break;
+case 27: return 'INVALID'; 
+break;
+case 28: return 5; 
+break;
+}
+};
+lexer.rules = [/^(?:[^\x00]*?(?=(\{\{)))/,/^(?:[^\x00]+)/,/^(?:[^\x00]{2,}?(?=(\{\{|$)))/,/^(?:\{\{>)/,/^(?:\{\{#)/,/^(?:\{\{\/)/,/^(?:\{\{\^)/,/^(?:\{\{\s*else\b)/,/^(?:\{\{\{)/,/^(?:\{\{&)/,/^(?:\{\{![\s\S]*?\}\})/,/^(?:\{\{)/,/^(?:=)/,/^(?:\.(?=[} ]))/,/^(?:\.\.)/,/^(?:[\/.])/,/^(?:\s+)/,/^(?:\}\}\})/,/^(?:\}\})/,/^(?:"(\\["]|[^"])*")/,/^(?:'(\\[']|[^'])*')/,/^(?:@[a-zA-Z]+)/,/^(?:true(?=[}\s]))/,/^(?:false(?=[}\s]))/,/^(?:[0-9]+(?=[}\s]))/,/^(?:[a-zA-Z0-9_$-]+(?=[=}\s\/.]))/,/^(?:\[[^\]]*\])/,/^(?:.)/,/^(?:$)/];
+lexer.conditions = {"mu":{"rules":[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],"inclusive":false},"emu":{"rules":[2],"inclusive":false},"INITIAL":{"rules":[0,1,28],"inclusive":true}};
+return lexer;})()
+parser.lexer = lexer;
+function Parser () { this.yy = {}; }Parser.prototype = parser;parser.Parser = Parser;
+return new Parser;
+})();
+if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
+exports.parser = handlebars;
+exports.Parser = handlebars.Parser;
+exports.parse = function () { return handlebars.parse.apply(handlebars, arguments); }
+exports.main = function commonjsMain(args) {
+    if (!args[1])
+        throw new Error('Usage: '+args[0]+' FILE');
+    var source, cwd;
+    if (typeof process !== 'undefined') {
+        source = require('fs').readFileSync(require('path').resolve(args[1]), "utf8");
+    } else {
+        source = require("file").path(require("file").cwd()).join(args[1]).read({charset: "utf-8"});
+    }
+    return exports.parser.parse(source);
+}
+if (typeof module !== 'undefined' && require.main === module) {
+  exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
+}
+};
+;
+// lib/handlebars/compiler/base.js
+Handlebars.Parser = handlebars;
+
+Handlebars.parse = function(string) {
+  Handlebars.Parser.yy = Handlebars.AST;
+  return Handlebars.Parser.parse(string);
+};
+
+Handlebars.print = function(ast) {
+  return new Handlebars.PrintVisitor().accept(ast);
+};
+
+Handlebars.logger = {
+  DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3, level: 3,
+
+  // override in the host environment
+  log: function(level, str) {}
+};
+
+Handlebars.log = function(level, str) { Handlebars.logger.log(level, str); };
+;
+// lib/handlebars/compiler/ast.js
 (function() {
 
-var Thorax;
+  Handlebars.AST = {};
+
+  Handlebars.AST.ProgramNode = function(statements, inverse) {
+    this.type = "program";
+    this.statements = statements;
+    if(inverse) { this.inverse = new Handlebars.AST.ProgramNode(inverse); }
+  };
+
+  Handlebars.AST.MustacheNode = function(rawParams, hash, unescaped) {
+    this.type = "mustache";
+    this.escaped = !unescaped;
+    this.hash = hash;
+
+    var id = this.id = rawParams[0];
+    var params = this.params = rawParams.slice(1);
+
+    // a mustache is an eligible helper if:
+    // * its id is simple (a single part, not `this` or `..`)
+    var eligibleHelper = this.eligibleHelper = id.isSimple;
+
+    // a mustache is definitely a helper if:
+    // * it is an eligible helper, and
+    // * it has at least one parameter or hash segment
+    this.isHelper = eligibleHelper && (params.length || hash);
+
+    // if a mustache is an eligible helper but not a definite
+    // helper, it is ambiguous, and will be resolved in a later
+    // pass or at runtime.
+  };
+
+  Handlebars.AST.PartialNode = function(id, context) {
+    this.type    = "partial";
+
+    // TODO: disallow complex IDs
+
+    this.id      = id;
+    this.context = context;
+  };
+
+  var verifyMatch = function(open, close) {
+    if(open.original !== close.original) {
+      throw new Handlebars.Exception(open.original + " doesn't match " + close.original);
+    }
+  };
+
+  Handlebars.AST.BlockNode = function(mustache, program, inverse, close) {
+    verifyMatch(mustache.id, close);
+    this.type = "block";
+    this.mustache = mustache;
+    this.program  = program;
+    this.inverse  = inverse;
+
+    if (this.inverse && !this.program) {
+      this.isInverse = true;
+    }
+  };
+
+  Handlebars.AST.ContentNode = function(string) {
+    this.type = "content";
+    this.string = string;
+  };
+
+  Handlebars.AST.HashNode = function(pairs) {
+    this.type = "hash";
+    this.pairs = pairs;
+  };
+
+  Handlebars.AST.IdNode = function(parts) {
+    this.type = "ID";
+    this.original = parts.join(".");
+
+    var dig = [], depth = 0;
+
+    for(var i=0,l=parts.length; i<l; i++) {
+      var part = parts[i];
+
+      if(part === "..") { depth++; }
+      else if(part === "." || part === "this") { this.isScoped = true; }
+      else { dig.push(part); }
+    }
+
+    this.parts    = dig;
+    this.string   = dig.join('.');
+    this.depth    = depth;
+
+    // an ID is simple if it only has one part, and that part is not
+    // `..` or `this`.
+    this.isSimple = parts.length === 1 && !this.isScoped && depth === 0;
+  };
+
+  Handlebars.AST.DataNode = function(id) {
+    this.type = "DATA";
+    this.id = id;
+  };
+
+  Handlebars.AST.StringNode = function(string) {
+    this.type = "STRING";
+    this.string = string;
+  };
+
+  Handlebars.AST.IntegerNode = function(integer) {
+    this.type = "INTEGER";
+    this.integer = integer;
+  };
+
+  Handlebars.AST.BooleanNode = function(bool) {
+    this.type = "BOOLEAN";
+    this.bool = bool;
+  };
+
+  Handlebars.AST.CommentNode = function(comment) {
+    this.type = "comment";
+    this.comment = comment;
+  };
+
+})();;
+// lib/handlebars/utils.js
+Handlebars.Exception = function(message) {
+  var tmp = Error.prototype.constructor.apply(this, arguments);
+
+  for (var p in tmp) {
+    if (tmp.hasOwnProperty(p)) { this[p] = tmp[p]; }
+  }
+
+  this.message = tmp.message;
+};
+Handlebars.Exception.prototype = new Error();
+
+// Build out our basic SafeString type
+Handlebars.SafeString = function(string) {
+  this.string = string;
+};
+Handlebars.SafeString.prototype.toString = function() {
+  return this.string.toString();
+};
+
+(function() {
+  var escape = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "`": "&#x60;"
+  };
+
+  var badChars = /[&<>"'`]/g;
+  var possible = /[&<>"'`]/;
+
+  var escapeChar = function(chr) {
+    return escape[chr] || "&amp;";
+  };
+
+  Handlebars.Utils = {
+    escapeExpression: function(string) {
+      // don't escape SafeStrings, since they're already safe
+      if (string instanceof Handlebars.SafeString) {
+        return string.toString();
+      } else if (string == null || string === false) {
+        return "";
+      }
+
+      if(!possible.test(string)) { return string; }
+      return string.replace(badChars, escapeChar);
+    },
+
+    isEmpty: function(value) {
+      if (typeof value === "undefined") {
+        return true;
+      } else if (value === null) {
+        return true;
+      } else if (value === false) {
+        return true;
+      } else if(Object.prototype.toString.call(value) === "[object Array]" && value.length === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+})();;
+// lib/handlebars/compiler/compiler.js
+
+/*jshint eqnull:true*/
+Handlebars.Compiler = function() {};
+Handlebars.JavaScriptCompiler = function() {};
+
+(function(Compiler, JavaScriptCompiler) {
+  // the foundHelper register will disambiguate helper lookup from finding a
+  // function in a context. This is necessary for mustache compatibility, which
+  // requires that context functions in blocks are evaluated by blockHelperMissing,
+  // and then proceed as if the resulting value was provided to blockHelperMissing.
+
+  Compiler.prototype = {
+    compiler: Compiler,
+
+    disassemble: function() {
+      var opcodes = this.opcodes, opcode, out = [], params, param;
+
+      for (var i=0, l=opcodes.length; i<l; i++) {
+        opcode = opcodes[i];
+
+        if (opcode.opcode === 'DECLARE') {
+          out.push("DECLARE " + opcode.name + "=" + opcode.value);
+        } else {
+          params = [];
+          for (var j=0; j<opcode.args.length; j++) {
+            param = opcode.args[j];
+            if (typeof param === "string") {
+              param = "\"" + param.replace("\n", "\\n") + "\"";
+            }
+            params.push(param);
+          }
+          out.push(opcode.opcode + " " + params.join(" "));
+        }
+      }
+
+      return out.join("\n");
+    },
+
+    guid: 0,
+
+    compile: function(program, options) {
+      this.children = [];
+      this.depths = {list: []};
+      this.options = options;
+
+      // These changes will propagate to the other compiler components
+      var knownHelpers = this.options.knownHelpers;
+      this.options.knownHelpers = {
+        'helperMissing': true,
+        'blockHelperMissing': true,
+        'each': true,
+        'if': true,
+        'unless': true,
+        'with': true,
+        'log': true
+      };
+      if (knownHelpers) {
+        for (var name in knownHelpers) {
+          this.options.knownHelpers[name] = knownHelpers[name];
+        }
+      }
+
+      return this.program(program);
+    },
+
+    accept: function(node) {
+      return this[node.type](node);
+    },
+
+    program: function(program) {
+      var statements = program.statements, statement;
+      this.opcodes = [];
+
+      for(var i=0, l=statements.length; i<l; i++) {
+        statement = statements[i];
+        this[statement.type](statement);
+      }
+      this.isSimple = l === 1;
+
+      this.depths.list = this.depths.list.sort(function(a, b) {
+        return a - b;
+      });
+
+      return this;
+    },
+
+    compileProgram: function(program) {
+      var result = new this.compiler().compile(program, this.options);
+      var guid = this.guid++, depth;
+
+      this.usePartial = this.usePartial || result.usePartial;
+
+      this.children[guid] = result;
+
+      for(var i=0, l=result.depths.list.length; i<l; i++) {
+        depth = result.depths.list[i];
+
+        if(depth < 2) { continue; }
+        else { this.addDepth(depth - 1); }
+      }
+
+      return guid;
+    },
+
+    block: function(block) {
+      var mustache = block.mustache,
+          program = block.program,
+          inverse = block.inverse;
+
+      if (program) {
+        program = this.compileProgram(program);
+      }
+
+      if (inverse) {
+        inverse = this.compileProgram(inverse);
+      }
+
+      var type = this.classifyMustache(mustache);
+
+      if (type === "helper") {
+        this.helperMustache(mustache, program, inverse);
+      } else if (type === "simple") {
+        this.simpleMustache(mustache);
+
+        // now that the simple mustache is resolved, we need to
+        // evaluate it by executing `blockHelperMissing`
+        this.opcode('pushProgram', program);
+        this.opcode('pushProgram', inverse);
+        this.opcode('pushLiteral', '{}');
+        this.opcode('blockValue');
+      } else {
+        this.ambiguousMustache(mustache, program, inverse);
+
+        // now that the simple mustache is resolved, we need to
+        // evaluate it by executing `blockHelperMissing`
+        this.opcode('pushProgram', program);
+        this.opcode('pushProgram', inverse);
+        this.opcode('pushLiteral', '{}');
+        this.opcode('ambiguousBlockValue');
+      }
+
+      this.opcode('append');
+    },
+
+    hash: function(hash) {
+      var pairs = hash.pairs, pair, val;
+
+      this.opcode('push', '{}');
+
+      for(var i=0, l=pairs.length; i<l; i++) {
+        pair = pairs[i];
+        val  = pair[1];
+
+        this.accept(val);
+        this.opcode('assignToHash', pair[0]);
+      }
+    },
+
+    partial: function(partial) {
+      var id = partial.id;
+      this.usePartial = true;
+
+      if(partial.context) {
+        this.ID(partial.context);
+      } else {
+        this.opcode('push', 'depth0');
+      }
+
+      this.opcode('invokePartial', id.original);
+      this.opcode('append');
+    },
+
+    content: function(content) {
+      this.opcode('appendContent', content.string);
+    },
+
+    mustache: function(mustache) {
+      var options = this.options;
+      var type = this.classifyMustache(mustache);
+
+      if (type === "simple") {
+        this.simpleMustache(mustache);
+      } else if (type === "helper") {
+        this.helperMustache(mustache);
+      } else {
+        this.ambiguousMustache(mustache);
+      }
+
+      if(mustache.escaped && !options.noEscape) {
+        this.opcode('appendEscaped');
+      } else {
+        this.opcode('append');
+      }
+    },
+
+    ambiguousMustache: function(mustache, program, inverse) {
+      var id = mustache.id, name = id.parts[0];
+
+      this.opcode('getContext', id.depth);
+
+      this.opcode('pushProgram', program);
+      this.opcode('pushProgram', inverse);
+
+      this.opcode('invokeAmbiguous', name);
+    },
+
+    simpleMustache: function(mustache, program, inverse) {
+      var id = mustache.id;
+
+      if (id.type === 'DATA') {
+        this.DATA(id);
+      } else if (id.parts.length) {
+        this.ID(id);
+      } else {
+        // Simplified ID for `this`
+        this.addDepth(id.depth);
+        this.opcode('getContext', id.depth);
+        this.opcode('pushContext');
+      }
+
+      this.opcode('resolvePossibleLambda');
+    },
+
+    helperMustache: function(mustache, program, inverse) {
+      var params = this.setupFullMustacheParams(mustache, program, inverse),
+          name = mustache.id.parts[0];
+
+      if (this.options.knownHelpers[name]) {
+        this.opcode('invokeKnownHelper', params.length, name);
+      } else if (this.knownHelpersOnly) {
+        throw new Error("You specified knownHelpersOnly, but used the unknown helper " + name);
+      } else {
+        this.opcode('invokeHelper', params.length, name);
+      }
+    },
+
+    ID: function(id) {
+      this.addDepth(id.depth);
+      this.opcode('getContext', id.depth);
+
+      var name = id.parts[0];
+      if (!name) {
+        this.opcode('pushContext');
+      } else {
+        this.opcode('lookupOnContext', id.parts[0]);
+      }
+
+      for(var i=1, l=id.parts.length; i<l; i++) {
+        this.opcode('lookup', id.parts[i]);
+      }
+    },
+
+    DATA: function(data) {
+      this.options.data = true;
+      this.opcode('lookupData', data.id);
+    },
+
+    STRING: function(string) {
+      this.opcode('pushString', string.string);
+    },
+
+    INTEGER: function(integer) {
+      this.opcode('pushLiteral', integer.integer);
+    },
+
+    BOOLEAN: function(bool) {
+      this.opcode('pushLiteral', bool.bool);
+    },
+
+    comment: function() {},
+
+    // HELPERS
+    opcode: function(name) {
+      this.opcodes.push({ opcode: name, args: [].slice.call(arguments, 1) });
+    },
+
+    declare: function(name, value) {
+      this.opcodes.push({ opcode: 'DECLARE', name: name, value: value });
+    },
+
+    addDepth: function(depth) {
+      if(isNaN(depth)) { throw new Error("EWOT"); }
+      if(depth === 0) { return; }
+
+      if(!this.depths[depth]) {
+        this.depths[depth] = true;
+        this.depths.list.push(depth);
+      }
+    },
+
+    classifyMustache: function(mustache) {
+      var isHelper   = mustache.isHelper;
+      var isEligible = mustache.eligibleHelper;
+      var options    = this.options;
+
+      // if ambiguous, we can possibly resolve the ambiguity now
+      if (isEligible && !isHelper) {
+        var name = mustache.id.parts[0];
+
+        if (options.knownHelpers[name]) {
+          isHelper = true;
+        } else if (options.knownHelpersOnly) {
+          isEligible = false;
+        }
+      }
+
+      if (isHelper) { return "helper"; }
+      else if (isEligible) { return "ambiguous"; }
+      else { return "simple"; }
+    },
+
+    pushParams: function(params) {
+      var i = params.length, param;
+
+      while(i--) {
+        param = params[i];
+
+        if(this.options.stringParams) {
+          if(param.depth) {
+            this.addDepth(param.depth);
+          }
+
+          this.opcode('getContext', param.depth || 0);
+          this.opcode('pushStringParam', param.string);
+        } else {
+          this[param.type](param);
+        }
+      }
+    },
+
+    setupMustacheParams: function(mustache) {
+      var params = mustache.params;
+      this.pushParams(params);
+
+      if(mustache.hash) {
+        this.hash(mustache.hash);
+      } else {
+        this.opcode('pushLiteral', '{}');
+      }
+
+      return params;
+    },
+
+    // this will replace setupMustacheParams when we're done
+    setupFullMustacheParams: function(mustache, program, inverse) {
+      var params = mustache.params;
+      this.pushParams(params);
+
+      this.opcode('pushProgram', program);
+      this.opcode('pushProgram', inverse);
+
+      if(mustache.hash) {
+        this.hash(mustache.hash);
+      } else {
+        this.opcode('pushLiteral', '{}');
+      }
+
+      return params;
+    }
+  };
+
+  var Literal = function(value) {
+    this.value = value;
+  };
+
+  JavaScriptCompiler.prototype = {
+    // PUBLIC API: You can override these methods in a subclass to provide
+    // alternative compiled forms for name lookup and buffering semantics
+    nameLookup: function(parent, name, type) {
+      if (/^[0-9]+$/.test(name)) {
+        return parent + "[" + name + "]";
+      } else if (JavaScriptCompiler.isValidJavaScriptVariableName(name)) {
+        return parent + "." + name;
+      }
+      else {
+        return parent + "['" + name + "']";
+      }
+    },
+
+    appendToBuffer: function(string) {
+      if (this.environment.isSimple) {
+        return "return " + string + ";";
+      } else {
+        return "buffer += " + string + ";";
+      }
+    },
+
+    initializeBuffer: function() {
+      return this.quotedString("");
+    },
+
+    namespace: "Handlebars",
+    // END PUBLIC API
+
+    compile: function(environment, options, context, asObject) {
+      this.environment = environment;
+      this.options = options || {};
+
+      Handlebars.log(Handlebars.logger.DEBUG, this.environment.disassemble() + "\n\n");
+
+      this.name = this.environment.name;
+      this.isChild = !!context;
+      this.context = context || {
+        programs: [],
+        aliases: { }
+      };
+
+      this.preamble();
+
+      this.stackSlot = 0;
+      this.stackVars = [];
+      this.registers = { list: [] };
+      this.compileStack = [];
+
+      this.compileChildren(environment, options);
+
+      var opcodes = environment.opcodes, opcode;
+
+      this.i = 0;
+
+      for(l=opcodes.length; this.i<l; this.i++) {
+        opcode = opcodes[this.i];
+
+        if(opcode.opcode === 'DECLARE') {
+          this[opcode.name] = opcode.value;
+        } else {
+          this[opcode.opcode].apply(this, opcode.args);
+        }
+      }
+
+      return this.createFunctionContext(asObject);
+    },
+
+    nextOpcode: function() {
+      var opcodes = this.environment.opcodes, opcode = opcodes[this.i + 1];
+      return opcodes[this.i + 1];
+    },
+
+    eat: function(opcode) {
+      this.i = this.i + 1;
+    },
+
+    preamble: function() {
+      var out = [];
+
+      if (!this.isChild) {
+        var namespace = this.namespace;
+        var copies = "helpers = helpers || " + namespace + ".helpers;";
+        if (this.environment.usePartial) { copies = copies + " partials = partials || " + namespace + ".partials;"; }
+        if (this.options.data) { copies = copies + " data = data || {};"; }
+        out.push(copies);
+      } else {
+        out.push('');
+      }
+
+      if (!this.environment.isSimple) {
+        out.push(", buffer = " + this.initializeBuffer());
+      } else {
+        out.push("");
+      }
+
+      // track the last context pushed into place to allow skipping the
+      // getContext opcode when it would be a noop
+      this.lastContext = 0;
+      this.source = out;
+    },
+
+    createFunctionContext: function(asObject) {
+      var locals = this.stackVars.concat(this.registers.list);
+
+      if(locals.length > 0) {
+        this.source[1] = this.source[1] + ", " + locals.join(", ");
+      }
+
+      // Generate minimizer alias mappings
+      if (!this.isChild) {
+        var aliases = [];
+        for (var alias in this.context.aliases) {
+          this.source[1] = this.source[1] + ', ' + alias + '=' + this.context.aliases[alias];
+        }
+      }
+
+      if (this.source[1]) {
+        this.source[1] = "var " + this.source[1].substring(2) + ";";
+      }
+
+      // Merge children
+      if (!this.isChild) {
+        this.source[1] += '\n' + this.context.programs.join('\n') + '\n';
+      }
+
+      if (!this.environment.isSimple) {
+        this.source.push("return buffer;");
+      }
+
+      var params = this.isChild ? ["depth0", "data"] : ["Handlebars", "depth0", "helpers", "partials", "data"];
+
+      for(var i=0, l=this.environment.depths.list.length; i<l; i++) {
+        params.push("depth" + this.environment.depths.list[i]);
+      }
+
+      if (asObject) {
+        params.push(this.source.join("\n  "));
+
+        return Function.apply(this, params);
+      } else {
+        var functionSource = 'function ' + (this.name || '') + '(' + params.join(',') + ') {\n  ' + this.source.join("\n  ") + '}';
+        Handlebars.log(Handlebars.logger.DEBUG, functionSource + "\n\n");
+        return functionSource;
+      }
+    },
+
+    // [blockValue]
+    //
+    // On stack, before: hash, inverse, program, value
+    // On stack, after: return value of blockHelperMissing
+    //
+    // The purpose of this opcode is to take a block of the form
+    // `{{#foo}}...{{/foo}}`, resolve the value of `foo`, and
+    // replace it on the stack with the result of properly
+    // invoking blockHelperMissing.
+    blockValue: function() {
+      this.context.aliases.blockHelperMissing = 'helpers.blockHelperMissing';
+
+      var params = ["depth0"];
+      this.setupParams(0, params);
+
+      this.replaceStack(function(current) {
+        params.splice(1, 0, current);
+        return current + " = blockHelperMissing.call(" + params.join(", ") + ")";
+      });
+    },
+
+    // [ambiguousBlockValue]
+    //
+    // On stack, before: hash, inverse, program, value
+    // Compiler value, before: lastHelper=value of last found helper, if any
+    // On stack, after, if no lastHelper: same as [blockValue]
+    // On stack, after, if lastHelper: value
+    ambiguousBlockValue: function() {
+      this.context.aliases.blockHelperMissing = 'helpers.blockHelperMissing';
+
+      var params = ["depth0"];
+      this.setupParams(0, params);
+
+      var current = this.topStack();
+      params.splice(1, 0, current);
+
+      this.source.push("if (!" + this.lastHelper + ") { " + current + " = blockHelperMissing.call(" + params.join(", ") + "); }");
+    },
+
+    // [appendContent]
+    //
+    // On stack, before: ...
+    // On stack, after: ...
+    //
+    // Appends the string value of `content` to the current buffer
+    appendContent: function(content) {
+      this.source.push(this.appendToBuffer(this.quotedString(content)));
+    },
+
+    // [append]
+    //
+    // On stack, before: value, ...
+    // On stack, after: ...
+    //
+    // Coerces `value` to a String and appends it to the current buffer.
+    //
+    // If `value` is truthy, or 0, it is coerced into a string and appended
+    // Otherwise, the empty string is appended
+    append: function() {
+      var local = this.popStack();
+      this.source.push("if(" + local + " || " + local + " === 0) { " + this.appendToBuffer(local) + " }");
+      if (this.environment.isSimple) {
+        this.source.push("else { " + this.appendToBuffer("''") + " }");
+      }
+    },
+
+    // [appendEscaped]
+    //
+    // On stack, before: value, ...
+    // On stack, after: ...
+    //
+    // Escape `value` and append it to the buffer
+    appendEscaped: function() {
+      var opcode = this.nextOpcode(), extra = "";
+      this.context.aliases.escapeExpression = 'this.escapeExpression';
+
+      if(opcode && opcode.opcode === 'appendContent') {
+        extra = " + " + this.quotedString(opcode.args[0]);
+        this.eat(opcode);
+      }
+
+      this.source.push(this.appendToBuffer("escapeExpression(" + this.popStack() + ")" + extra));
+    },
+
+    // [getContext]
+    //
+    // On stack, before: ...
+    // On stack, after: ...
+    // Compiler value, after: lastContext=depth
+    //
+    // Set the value of the `lastContext` compiler value to the depth
+    getContext: function(depth) {
+      if(this.lastContext !== depth) {
+        this.lastContext = depth;
+      }
+    },
+
+    // [lookupOnContext]
+    //
+    // On stack, before: ...
+    // On stack, after: currentContext[name], ...
+    //
+    // Looks up the value of `name` on the current context and pushes
+    // it onto the stack.
+    lookupOnContext: function(name) {
+      this.pushStack(this.nameLookup('depth' + this.lastContext, name, 'context'));
+    },
+
+    // [pushContext]
+    //
+    // On stack, before: ...
+    // On stack, after: currentContext, ...
+    //
+    // Pushes the value of the current context onto the stack.
+    pushContext: function() {
+      this.pushStackLiteral('depth' + this.lastContext);
+    },
+
+    // [resolvePossibleLambda]
+    //
+    // On stack, before: value, ...
+    // On stack, after: resolved value, ...
+    //
+    // If the `value` is a lambda, replace it on the stack by
+    // the return value of the lambda
+    resolvePossibleLambda: function() {
+      this.context.aliases.functionType = '"function"';
+
+      this.replaceStack(function(current) {
+        return "typeof " + current + " === functionType ? " + current + "() : " + current;
+      });
+    },
+
+    // [lookup]
+    //
+    // On stack, before: value, ...
+    // On stack, after: value[name], ...
+    //
+    // Replace the value on the stack with the result of looking
+    // up `name` on `value`
+    lookup: function(name) {
+      this.replaceStack(function(current) {
+        return current + " == null || " + current + " === false ? " + current + " : " + this.nameLookup(current, name, 'context');
+      });
+    },
+
+    // [lookupData]
+    //
+    // On stack, before: ...
+    // On stack, after: data[id], ...
+    //
+    // Push the result of looking up `id` on the current data
+    lookupData: function(id) {
+      this.pushStack(this.nameLookup('data', id, 'data'));
+    },
+
+    // [pushStringParam]
+    //
+    // On stack, before: ...
+    // On stack, after: string, currentContext, ...
+    //
+    // This opcode is designed for use in string mode, which
+    // provides the string value of a parameter along with its
+    // depth rather than resolving it immediately.
+    pushStringParam: function(string) {
+      this.pushStackLiteral('depth' + this.lastContext);
+      this.pushString(string);
+    },
+
+    // [pushString]
+    //
+    // On stack, before: ...
+    // On stack, after: quotedString(string), ...
+    //
+    // Push a quoted version of `string` onto the stack
+    pushString: function(string) {
+      this.pushStackLiteral(this.quotedString(string));
+    },
+
+    // [push]
+    //
+    // On stack, before: ...
+    // On stack, after: expr, ...
+    //
+    // Push an expression onto the stack
+    push: function(expr) {
+      this.pushStack(expr);
+    },
+
+    // [pushLiteral]
+    //
+    // On stack, before: ...
+    // On stack, after: value, ...
+    //
+    // Pushes a value onto the stack. This operation prevents
+    // the compiler from creating a temporary variable to hold
+    // it.
+    pushLiteral: function(value) {
+      this.pushStackLiteral(value);
+    },
+
+    // [pushProgram]
+    //
+    // On stack, before: ...
+    // On stack, after: program(guid), ...
+    //
+    // Push a program expression onto the stack. This takes
+    // a compile-time guid and converts it into a runtime-accessible
+    // expression.
+    pushProgram: function(guid) {
+      if (guid != null) {
+        this.pushStackLiteral(this.programExpression(guid));
+      } else {
+        this.pushStackLiteral(null);
+      }
+    },
+
+    // [invokeHelper]
+    //
+    // On stack, before: hash, inverse, program, params..., ...
+    // On stack, after: result of helper invocation
+    //
+    // Pops off the helper's parameters, invokes the helper,
+    // and pushes the helper's return value onto the stack.
+    //
+    // If the helper is not found, `helperMissing` is called.
+    invokeHelper: function(paramSize, name) {
+      this.context.aliases.helperMissing = 'helpers.helperMissing';
+
+      var helper = this.lastHelper = this.setupHelper(paramSize, name);
+      this.register('foundHelper', helper.name);
+
+      this.pushStack("foundHelper ? foundHelper.call(" +
+        helper.callParams + ") " + ": helperMissing.call(" +
+        helper.helperMissingParams + ")");
+    },
+
+    // [invokeKnownHelper]
+    //
+    // On stack, before: hash, inverse, program, params..., ...
+    // On stack, after: result of helper invocation
+    //
+    // This operation is used when the helper is known to exist,
+    // so a `helperMissing` fallback is not required.
+    invokeKnownHelper: function(paramSize, name) {
+      var helper = this.setupHelper(paramSize, name);
+      this.pushStack(helper.name + ".call(" + helper.callParams + ")");
+    },
+
+    // [invokeAmbiguous]
+    //
+    // On stack, before: hash, inverse, program, params..., ...
+    // On stack, after: result of disambiguation
+    //
+    // This operation is used when an expression like `{{foo}}`
+    // is provided, but we don't know at compile-time whether it
+    // is a helper or a path.
+    //
+    // This operation emits more code than the other options,
+    // and can be avoided by passing the `knownHelpers` and
+    // `knownHelpersOnly` flags at compile-time.
+    invokeAmbiguous: function(name) {
+      this.context.aliases.functionType = '"function"';
+
+      this.pushStackLiteral('{}');
+      var helper = this.setupHelper(0, name);
+
+      var helperName = this.lastHelper = this.nameLookup('helpers', name, 'helper');
+      this.register('foundHelper', helperName);
+
+      var nonHelper = this.nameLookup('depth' + this.lastContext, name, 'context');
+      var nextStack = this.nextStack();
+
+      this.source.push('if (foundHelper) { ' + nextStack + ' = foundHelper.call(' + helper.callParams + '); }');
+      this.source.push('else { ' + nextStack + ' = ' + nonHelper + '; ' + nextStack + ' = typeof ' + nextStack + ' === functionType ? ' + nextStack + '() : ' + nextStack + '; }');
+    },
+
+    // [invokePartial]
+    //
+    // On stack, before: context, ...
+    // On stack after: result of partial invocation
+    //
+    // This operation pops off a context, invokes a partial with that context,
+    // and pushes the result of the invocation back.
+    invokePartial: function(name) {
+      var params = [this.nameLookup('partials', name, 'partial'), "'" + name + "'", this.popStack(), "helpers", "partials"];
+
+      if (this.options.data) {
+        params.push("data");
+      }
+
+      this.context.aliases.self = "this";
+      this.pushStack("self.invokePartial(" + params.join(", ") + ");");
+    },
+
+    // [assignToHash]
+    //
+    // On stack, before: value, hash, ...
+    // On stack, after: hash, ...
+    //
+    // Pops a value and hash off the stack, assigns `hash[key] = value`
+    // and pushes the hash back onto the stack.
+    assignToHash: function(key) {
+      var value = this.popStack();
+      var hash = this.topStack();
+
+      this.source.push(hash + "['" + key + "'] = " + value + ";");
+    },
+
+    // HELPERS
+
+    compiler: JavaScriptCompiler,
+
+    compileChildren: function(environment, options) {
+      var children = environment.children, child, compiler;
+
+      for(var i=0, l=children.length; i<l; i++) {
+        child = children[i];
+        compiler = new this.compiler();
+
+        this.context.programs.push('');     // Placeholder to prevent name conflicts for nested children
+        var index = this.context.programs.length;
+        child.index = index;
+        child.name = 'program' + index;
+        this.context.programs[index] = compiler.compile(child, options, this.context);
+      }
+    },
+
+    programExpression: function(guid) {
+      this.context.aliases.self = "this";
+
+      if(guid == null) {
+        return "self.noop";
+      }
+
+      var child = this.environment.children[guid],
+          depths = child.depths.list, depth;
+
+      var programParams = [child.index, child.name, "data"];
+
+      for(var i=0, l = depths.length; i<l; i++) {
+        depth = depths[i];
+
+        if(depth === 1) { programParams.push("depth0"); }
+        else { programParams.push("depth" + (depth - 1)); }
+      }
+
+      if(depths.length === 0) {
+        return "self.program(" + programParams.join(", ") + ")";
+      } else {
+        programParams.shift();
+        return "self.programWithDepth(" + programParams.join(", ") + ")";
+      }
+    },
+
+    register: function(name, val) {
+      this.useRegister(name);
+      this.source.push(name + " = " + val + ";");
+    },
+
+    useRegister: function(name) {
+      if(!this.registers[name]) {
+        this.registers[name] = true;
+        this.registers.list.push(name);
+      }
+    },
+
+    pushStackLiteral: function(item) {
+      this.compileStack.push(new Literal(item));
+      return item;
+    },
+
+    pushStack: function(item) {
+      this.source.push(this.incrStack() + " = " + item + ";");
+      this.compileStack.push("stack" + this.stackSlot);
+      return "stack" + this.stackSlot;
+    },
+
+    replaceStack: function(callback) {
+      var item = callback.call(this, this.topStack());
+
+      this.source.push(this.topStack() + " = " + item + ";");
+      return "stack" + this.stackSlot;
+    },
+
+    nextStack: function(skipCompileStack) {
+      var name = this.incrStack();
+      this.compileStack.push("stack" + this.stackSlot);
+      return name;
+    },
+
+    incrStack: function() {
+      this.stackSlot++;
+      if(this.stackSlot > this.stackVars.length) { this.stackVars.push("stack" + this.stackSlot); }
+      return "stack" + this.stackSlot;
+    },
+
+    popStack: function() {
+      var item = this.compileStack.pop();
+
+      if (item instanceof Literal) {
+        return item.value;
+      } else {
+        this.stackSlot--;
+        return item;
+      }
+    },
+
+    topStack: function() {
+      var item = this.compileStack[this.compileStack.length - 1];
+
+      if (item instanceof Literal) {
+        return item.value;
+      } else {
+        return item;
+      }
+    },
+
+    quotedString: function(str) {
+      return '"' + str
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '\\r') + '"';
+    },
+
+    setupHelper: function(paramSize, name) {
+      var params = [];
+      this.setupParams(paramSize, params);
+      var foundHelper = this.nameLookup('helpers', name, 'helper');
+
+      return {
+        params: params,
+        name: foundHelper,
+        callParams: ["depth0"].concat(params).join(", "),
+        helperMissingParams: ["depth0", this.quotedString(name)].concat(params).join(", ")
+      };
+    },
+
+    // the params and contexts arguments are passed in arrays
+    // to fill in
+    setupParams: function(paramSize, params) {
+      var options = [], contexts = [], param, inverse, program;
+
+      options.push("hash:" + this.popStack());
+
+      inverse = this.popStack();
+      program = this.popStack();
+
+      // Avoid setting fn and inverse if neither are set. This allows
+      // helpers to do a check for `if (options.fn)`
+      if (program || inverse) {
+        if (!program) {
+          this.context.aliases.self = "this";
+          program = "self.noop";
+        }
+
+        if (!inverse) {
+         this.context.aliases.self = "this";
+          inverse = "self.noop";
+        }
+
+        options.push("inverse:" + inverse);
+        options.push("fn:" + program);
+      }
+
+      for(var i=0; i<paramSize; i++) {
+        param = this.popStack();
+        params.push(param);
+
+        if(this.options.stringParams) {
+          contexts.push(this.popStack());
+        }
+      }
+
+      if (this.options.stringParams) {
+        options.push("contexts:[" + contexts.join(",") + "]");
+      }
+
+      if(this.options.data) {
+        options.push("data:data");
+      }
+
+      params.push("{" + options.join(",") + "}");
+      return params.join(", ");
+    }
+  };
+
+  var reservedWords = (
+    "break else new var" +
+    " case finally return void" +
+    " catch for switch while" +
+    " continue function this with" +
+    " default if throw" +
+    " delete in try" +
+    " do instanceof typeof" +
+    " abstract enum int short" +
+    " boolean export interface static" +
+    " byte extends long super" +
+    " char final native synchronized" +
+    " class float package throws" +
+    " const goto private transient" +
+    " debugger implements protected volatile" +
+    " double import public let yield"
+  ).split(" ");
+
+  var compilerWords = JavaScriptCompiler.RESERVED_WORDS = {};
+
+  for(var i=0, l=reservedWords.length; i<l; i++) {
+    compilerWords[reservedWords[i]] = true;
+  }
+
+  JavaScriptCompiler.isValidJavaScriptVariableName = function(name) {
+    if(!JavaScriptCompiler.RESERVED_WORDS[name] && /^[a-zA-Z_$][0-9a-zA-Z_$]+$/.test(name)) {
+      return true;
+    }
+    return false;
+  };
+
+})(Handlebars.Compiler, Handlebars.JavaScriptCompiler);
+
+Handlebars.precompile = function(string, options) {
+  options = options || {};
+  if (!('data' in options)) {
+    options.data = true;
+  }
+  var ast = Handlebars.parse(string);
+  var environment = new Handlebars.Compiler().compile(ast, options);
+  return new Handlebars.JavaScriptCompiler().compile(environment, options);
+};
+
+Handlebars.compile = function(string, options) {
+  options = options || {};
+  if (!('data' in options)) {
+    options.data = true;
+  }
+  var compiled;
+  function compile() {
+    var ast = Handlebars.parse(string);
+    var environment = new Handlebars.Compiler().compile(ast, options);
+    var templateSpec = new Handlebars.JavaScriptCompiler().compile(environment, options, undefined, true);
+    return Handlebars.template(templateSpec);
+  }
+
+  // Template is only compiled on first use and cached after that point.
+  return function(context, options) {
+    if (!compiled) {
+      compiled = compile();
+    }
+    return compiled.call(this, context, options);
+  };
+};
+;
+// lib/handlebars/runtime.js
+Handlebars.VM = {
+  template: function(templateSpec) {
+    // Just add water
+    var container = {
+      escapeExpression: Handlebars.Utils.escapeExpression,
+      invokePartial: Handlebars.VM.invokePartial,
+      programs: [],
+      program: function(i, fn, data) {
+        var programWrapper = this.programs[i];
+        if(data) {
+          programWrapper = Handlebars.VM.program(fn, data);
+          programWrapper.program = i;
+        } else if (!programWrapper) {
+          programWrapper = this.programs[i] = Handlebars.VM.program(fn);
+          programWrapper.program = i;
+        }
+        return programWrapper;
+      },
+      programWithDepth: Handlebars.VM.programWithDepth,
+      noop: Handlebars.VM.noop
+    };
+
+    return function(context, options) {
+      options = options || {};
+      return templateSpec.call(container, Handlebars, context, options.helpers, options.partials, options.data);
+    };
+  },
+
+  programWithDepth: function(fn, data, $depth) {
+    var args = Array.prototype.slice.call(arguments, 2);
+
+    return function(context, options) {
+      options = options || {};
+
+      return fn.apply(this, [context, options.data || data].concat(args));
+    };
+  },
+  program: function(fn, data) {
+    return function(context, options) {
+      options = options || {};
+
+      return fn(context, options.data || data);
+    };
+  },
+  noop: function() { return ""; },
+  invokePartial: function(partial, name, context, helpers, partials, data) {
+    var options = { helpers: helpers, partials: partials, data: data };
+
+    if(partial === undefined) {
+      throw new Handlebars.Exception("The partial " + name + " could not be found");
+    } else if(partial instanceof Function) {
+      return partial(context, options);
+    } else if (!Handlebars.compile) {
+      throw new Handlebars.Exception("The partial " + name + " could not be compiled when running in runtime-only mode");
+    } else {
+      partials[name] = Handlebars.compile(partial, {data: data !== undefined});
+      return partials[name](context, options);
+    }
+  }
+};
+
+Handlebars.template = Handlebars.VM.template;
+;
+
+//     Underscore.js 1.4.2
+//     http://underscorejs.org
+//     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
+//     Underscore may be freely distributed under the MIT license.
+
+(function() {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `global` on the server.
+  var root = this;
+
+  // Save the previous value of the `_` variable.
+  var previousUnderscore = root._;
+
+  // Establish the object that gets returned to break out of a loop iteration.
+  var breaker = {};
+
+  // Save bytes in the minified (but not gzipped) version:
+  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
+
+  // Create quick reference variables for speed access to core prototypes.
+  var push             = ArrayProto.push,
+      slice            = ArrayProto.slice,
+      concat           = ArrayProto.concat,
+      unshift          = ArrayProto.unshift,
+      toString         = ObjProto.toString,
+      hasOwnProperty   = ObjProto.hasOwnProperty;
+
+  // All **ECMAScript 5** native function implementations that we hope to use
+  // are declared here.
+  var
+    nativeForEach      = ArrayProto.forEach,
+    nativeMap          = ArrayProto.map,
+    nativeReduce       = ArrayProto.reduce,
+    nativeReduceRight  = ArrayProto.reduceRight,
+    nativeFilter       = ArrayProto.filter,
+    nativeEvery        = ArrayProto.every,
+    nativeSome         = ArrayProto.some,
+    nativeIndexOf      = ArrayProto.indexOf,
+    nativeLastIndexOf  = ArrayProto.lastIndexOf,
+    nativeIsArray      = Array.isArray,
+    nativeKeys         = Object.keys,
+    nativeBind         = FuncProto.bind;
+
+  // Create a safe reference to the Underscore object for use below.
+  var _ = function(obj) {
+    if (obj instanceof _) return obj;
+    if (!(this instanceof _)) return new _(obj);
+    this._wrapped = obj;
+  };
+
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `_` as a global object via a string identifier,
+  // for Closure Compiler "advanced" mode.
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  } else {
+    root['_'] = _;
+  }
+
+  // Current version.
+  _.VERSION = '1.4.2';
+
+  // Collection Functions
+  // --------------------
+
+  // The cornerstone, an `each` implementation, aka `forEach`.
+  // Handles objects with the built-in `forEach`, arrays, and raw objects.
+  // Delegates to **ECMAScript 5**'s native `forEach` if available.
+  var each = _.each = _.forEach = function(obj, iterator, context) {
+    if (obj == null) return;
+    if (nativeForEach && obj.forEach === nativeForEach) {
+      obj.forEach(iterator, context);
+    } else if (obj.length === +obj.length) {
+      for (var i = 0, l = obj.length; i < l; i++) {
+        if (iterator.call(context, obj[i], i, obj) === breaker) return;
+      }
+    } else {
+      for (var key in obj) {
+        if (_.has(obj, key)) {
+          if (iterator.call(context, obj[key], key, obj) === breaker) return;
+        }
+      }
+    }
+  };
+
+  // Return the results of applying the iterator to each element.
+  // Delegates to **ECMAScript 5**'s native `map` if available.
+  _.map = _.collect = function(obj, iterator, context) {
+    var results = [];
+    if (obj == null) return results;
+    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
+    each(obj, function(value, index, list) {
+      results[results.length] = iterator.call(context, value, index, list);
+    });
+    return results;
+  };
+
+  // **Reduce** builds up a single result from a list of values, aka `inject`,
+  // or `foldl`. Delegates to **ECMAScript 5**'s native `reduce` if available.
+  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
+    var initial = arguments.length > 2;
+    if (obj == null) obj = [];
+    if (nativeReduce && obj.reduce === nativeReduce) {
+      if (context) iterator = _.bind(iterator, context);
+      return initial ? obj.reduce(iterator, memo) : obj.reduce(iterator);
+    }
+    each(obj, function(value, index, list) {
+      if (!initial) {
+        memo = value;
+        initial = true;
+      } else {
+        memo = iterator.call(context, memo, value, index, list);
+      }
+    });
+    if (!initial) throw new TypeError('Reduce of empty array with no initial value');
+    return memo;
+  };
+
+  // The right-associative version of reduce, also known as `foldr`.
+  // Delegates to **ECMAScript 5**'s native `reduceRight` if available.
+  _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
+    var initial = arguments.length > 2;
+    if (obj == null) obj = [];
+    if (nativeReduceRight && obj.reduceRight === nativeReduceRight) {
+      if (context) iterator = _.bind(iterator, context);
+      return arguments.length > 2 ? obj.reduceRight(iterator, memo) : obj.reduceRight(iterator);
+    }
+    var length = obj.length;
+    if (length !== +length) {
+      var keys = _.keys(obj);
+      length = keys.length;
+    }
+    each(obj, function(value, index, list) {
+      index = keys ? keys[--length] : --length;
+      if (!initial) {
+        memo = obj[index];
+        initial = true;
+      } else {
+        memo = iterator.call(context, memo, obj[index], index, list);
+      }
+    });
+    if (!initial) throw new TypeError('Reduce of empty array with no initial value');
+    return memo;
+  };
+
+  // Return the first value which passes a truth test. Aliased as `detect`.
+  _.find = _.detect = function(obj, iterator, context) {
+    var result;
+    any(obj, function(value, index, list) {
+      if (iterator.call(context, value, index, list)) {
+        result = value;
+        return true;
+      }
+    });
+    return result;
+  };
+
+  // Return all the elements that pass a truth test.
+  // Delegates to **ECMAScript 5**'s native `filter` if available.
+  // Aliased as `select`.
+  _.filter = _.select = function(obj, iterator, context) {
+    var results = [];
+    if (obj == null) return results;
+    if (nativeFilter && obj.filter === nativeFilter) return obj.filter(iterator, context);
+    each(obj, function(value, index, list) {
+      if (iterator.call(context, value, index, list)) results[results.length] = value;
+    });
+    return results;
+  };
+
+  // Return all the elements for which a truth test fails.
+  _.reject = function(obj, iterator, context) {
+    var results = [];
+    if (obj == null) return results;
+    each(obj, function(value, index, list) {
+      if (!iterator.call(context, value, index, list)) results[results.length] = value;
+    });
+    return results;
+  };
+
+  // Determine whether all of the elements match a truth test.
+  // Delegates to **ECMAScript 5**'s native `every` if available.
+  // Aliased as `all`.
+  _.every = _.all = function(obj, iterator, context) {
+    iterator || (iterator = _.identity);
+    var result = true;
+    if (obj == null) return result;
+    if (nativeEvery && obj.every === nativeEvery) return obj.every(iterator, context);
+    each(obj, function(value, index, list) {
+      if (!(result = result && iterator.call(context, value, index, list))) return breaker;
+    });
+    return !!result;
+  };
+
+  // Determine if at least one element in the object matches a truth test.
+  // Delegates to **ECMAScript 5**'s native `some` if available.
+  // Aliased as `any`.
+  var any = _.some = _.any = function(obj, iterator, context) {
+    iterator || (iterator = _.identity);
+    var result = false;
+    if (obj == null) return result;
+    if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
+    each(obj, function(value, index, list) {
+      if (result || (result = iterator.call(context, value, index, list))) return breaker;
+    });
+    return !!result;
+  };
+
+  // Determine if the array or object contains a given value (using `===`).
+  // Aliased as `include`.
+  _.contains = _.include = function(obj, target) {
+    var found = false;
+    if (obj == null) return found;
+    if (nativeIndexOf && obj.indexOf === nativeIndexOf) return obj.indexOf(target) != -1;
+    found = any(obj, function(value) {
+      return value === target;
+    });
+    return found;
+  };
+
+  // Invoke a method (with arguments) on every item in a collection.
+  _.invoke = function(obj, method) {
+    var args = slice.call(arguments, 2);
+    return _.map(obj, function(value) {
+      return (_.isFunction(method) ? method : value[method]).apply(value, args);
+    });
+  };
+
+  // Convenience version of a common use case of `map`: fetching a property.
+  _.pluck = function(obj, key) {
+    return _.map(obj, function(value){ return value[key]; });
+  };
+
+  // Convenience version of a common use case of `filter`: selecting only objects
+  // with specific `key:value` pairs.
+  _.where = function(obj, attrs) {
+    if (_.isEmpty(attrs)) return [];
+    return _.filter(obj, function(value) {
+      for (var key in attrs) {
+        if (attrs[key] !== value[key]) return false;
+      }
+      return true;
+    });
+  };
+
+  // Return the maximum element or (element-based computation).
+  // Can't optimize arrays of integers longer than 65,535 elements.
+  // See: https://bugs.webkit.org/show_bug.cgi?id=80797
+  _.max = function(obj, iterator, context) {
+    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
+      return Math.max.apply(Math, obj);
+    }
+    if (!iterator && _.isEmpty(obj)) return -Infinity;
+    var result = {computed : -Infinity};
+    each(obj, function(value, index, list) {
+      var computed = iterator ? iterator.call(context, value, index, list) : value;
+      computed >= result.computed && (result = {value : value, computed : computed});
+    });
+    return result.value;
+  };
+
+  // Return the minimum element (or element-based computation).
+  _.min = function(obj, iterator, context) {
+    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
+      return Math.min.apply(Math, obj);
+    }
+    if (!iterator && _.isEmpty(obj)) return Infinity;
+    var result = {computed : Infinity};
+    each(obj, function(value, index, list) {
+      var computed = iterator ? iterator.call(context, value, index, list) : value;
+      computed < result.computed && (result = {value : value, computed : computed});
+    });
+    return result.value;
+  };
+
+  // Shuffle an array.
+  _.shuffle = function(obj) {
+    var rand;
+    var index = 0;
+    var shuffled = [];
+    each(obj, function(value) {
+      rand = _.random(index++);
+      shuffled[index - 1] = shuffled[rand];
+      shuffled[rand] = value;
+    });
+    return shuffled;
+  };
+
+  // An internal function to generate lookup iterators.
+  var lookupIterator = function(value) {
+    return _.isFunction(value) ? value : function(obj){ return obj[value]; };
+  };
+
+  // Sort the object's values by a criterion produced by an iterator.
+  _.sortBy = function(obj, value, context) {
+    var iterator = lookupIterator(value);
+    return _.pluck(_.map(obj, function(value, index, list) {
+      return {
+        value : value,
+        index : index,
+        criteria : iterator.call(context, value, index, list)
+      };
+    }).sort(function(left, right) {
+      var a = left.criteria;
+      var b = right.criteria;
+      if (a !== b) {
+        if (a > b || a === void 0) return 1;
+        if (a < b || b === void 0) return -1;
+      }
+      return left.index < right.index ? -1 : 1;
+    }), 'value');
+  };
+
+  // An internal function used for aggregate "group by" operations.
+  var group = function(obj, value, context, behavior) {
+    var result = {};
+    var iterator = lookupIterator(value);
+    each(obj, function(value, index) {
+      var key = iterator.call(context, value, index, obj);
+      behavior(result, key, value);
+    });
+    return result;
+  };
+
+  // Groups the object's values by a criterion. Pass either a string attribute
+  // to group by, or a function that returns the criterion.
+  _.groupBy = function(obj, value, context) {
+    return group(obj, value, context, function(result, key, value) {
+      (_.has(result, key) ? result[key] : (result[key] = [])).push(value);
+    });
+  };
+
+  // Counts instances of an object that group by a certain criterion. Pass
+  // either a string attribute to count by, or a function that returns the
+  // criterion.
+  _.countBy = function(obj, value, context) {
+    return group(obj, value, context, function(result, key, value) {
+      if (!_.has(result, key)) result[key] = 0;
+      result[key]++;
+    });
+  };
+
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  _.sortedIndex = function(array, obj, iterator, context) {
+    iterator = iterator == null ? _.identity : lookupIterator(iterator);
+    var value = iterator.call(context, obj);
+    var low = 0, high = array.length;
+    while (low < high) {
+      var mid = (low + high) >>> 1;
+      iterator.call(context, array[mid]) < value ? low = mid + 1 : high = mid;
+    }
+    return low;
+  };
+
+  // Safely convert anything iterable into a real, live array.
+  _.toArray = function(obj) {
+    if (!obj) return [];
+    if (obj.length === +obj.length) return slice.call(obj);
+    return _.values(obj);
+  };
+
+  // Return the number of elements in an object.
+  _.size = function(obj) {
+    return (obj.length === +obj.length) ? obj.length : _.keys(obj).length;
+  };
+
+  // Array Functions
+  // ---------------
+
+  // Get the first element of an array. Passing **n** will return the first N
+  // values in the array. Aliased as `head` and `take`. The **guard** check
+  // allows it to work with `_.map`.
+  _.first = _.head = _.take = function(array, n, guard) {
+    return (n != null) && !guard ? slice.call(array, 0, n) : array[0];
+  };
+
+  // Returns everything but the last entry of the array. Especially useful on
+  // the arguments object. Passing **n** will return all the values in
+  // the array, excluding the last N. The **guard** check allows it to work with
+  // `_.map`.
+  _.initial = function(array, n, guard) {
+    return slice.call(array, 0, array.length - ((n == null) || guard ? 1 : n));
+  };
+
+  // Get the last element of an array. Passing **n** will return the last N
+  // values in the array. The **guard** check allows it to work with `_.map`.
+  _.last = function(array, n, guard) {
+    if ((n != null) && !guard) {
+      return slice.call(array, Math.max(array.length - n, 0));
+    } else {
+      return array[array.length - 1];
+    }
+  };
+
+  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
+  // Especially useful on the arguments object. Passing an **n** will return
+  // the rest N values in the array. The **guard**
+  // check allows it to work with `_.map`.
+  _.rest = _.tail = _.drop = function(array, n, guard) {
+    return slice.call(array, (n == null) || guard ? 1 : n);
+  };
+
+  // Trim out all falsy values from an array.
+  _.compact = function(array) {
+    return _.filter(array, function(value){ return !!value; });
+  };
+
+  // Internal implementation of a recursive `flatten` function.
+  var flatten = function(input, shallow, output) {
+    each(input, function(value) {
+      if (_.isArray(value)) {
+        shallow ? push.apply(output, value) : flatten(value, shallow, output);
+      } else {
+        output.push(value);
+      }
+    });
+    return output;
+  };
+
+  // Return a completely flattened version of an array.
+  _.flatten = function(array, shallow) {
+    return flatten(array, shallow, []);
+  };
+
+  // Return a version of the array that does not contain the specified value(s).
+  _.without = function(array) {
+    return _.difference(array, slice.call(arguments, 1));
+  };
+
+  // Produce a duplicate-free version of the array. If the array has already
+  // been sorted, you have the option of using a faster algorithm.
+  // Aliased as `unique`.
+  _.uniq = _.unique = function(array, isSorted, iterator, context) {
+    var initial = iterator ? _.map(array, iterator, context) : array;
+    var results = [];
+    var seen = [];
+    each(initial, function(value, index) {
+      if (isSorted ? (!index || seen[seen.length - 1] !== value) : !_.contains(seen, value)) {
+        seen.push(value);
+        results.push(array[index]);
+      }
+    });
+    return results;
+  };
+
+  // Produce an array that contains the union: each distinct element from all of
+  // the passed-in arrays.
+  _.union = function() {
+    return _.uniq(concat.apply(ArrayProto, arguments));
+  };
+
+  // Produce an array that contains every item shared between all the
+  // passed-in arrays.
+  _.intersection = function(array) {
+    var rest = slice.call(arguments, 1);
+    return _.filter(_.uniq(array), function(item) {
+      return _.every(rest, function(other) {
+        return _.indexOf(other, item) >= 0;
+      });
+    });
+  };
+
+  // Take the difference between one array and a number of other arrays.
+  // Only the elements present in just the first array will remain.
+  _.difference = function(array) {
+    var rest = concat.apply(ArrayProto, slice.call(arguments, 1));
+    return _.filter(array, function(value){ return !_.contains(rest, value); });
+  };
+
+  // Zip together multiple lists into a single array -- elements that share
+  // an index go together.
+  _.zip = function() {
+    var args = slice.call(arguments);
+    var length = _.max(_.pluck(args, 'length'));
+    var results = new Array(length);
+    for (var i = 0; i < length; i++) {
+      results[i] = _.pluck(args, "" + i);
+    }
+    return results;
+  };
+
+  // Converts lists into objects. Pass either a single array of `[key, value]`
+  // pairs, or two parallel arrays of the same length -- one of keys, and one of
+  // the corresponding values.
+  _.object = function(list, values) {
+    var result = {};
+    for (var i = 0, l = list.length; i < l; i++) {
+      if (values) {
+        result[list[i]] = values[i];
+      } else {
+        result[list[i][0]] = list[i][1];
+      }
+    }
+    return result;
+  };
+
+  // If the browser doesn't supply us with indexOf (I'm looking at you, **MSIE**),
+  // we need this function. Return the position of the first occurrence of an
+  // item in an array, or -1 if the item is not included in the array.
+  // Delegates to **ECMAScript 5**'s native `indexOf` if available.
+  // If the array is large and already in sort order, pass `true`
+  // for **isSorted** to use binary search.
+  _.indexOf = function(array, item, isSorted) {
+    if (array == null) return -1;
+    var i = 0, l = array.length;
+    if (isSorted) {
+      if (typeof isSorted == 'number') {
+        i = (isSorted < 0 ? Math.max(0, l + isSorted) : isSorted);
+      } else {
+        i = _.sortedIndex(array, item);
+        return array[i] === item ? i : -1;
+      }
+    }
+    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
+    for (; i < l; i++) if (array[i] === item) return i;
+    return -1;
+  };
+
+  // Delegates to **ECMAScript 5**'s native `lastIndexOf` if available.
+  _.lastIndexOf = function(array, item, from) {
+    if (array == null) return -1;
+    var hasIndex = from != null;
+    if (nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) {
+      return hasIndex ? array.lastIndexOf(item, from) : array.lastIndexOf(item);
+    }
+    var i = (hasIndex ? from : array.length);
+    while (i--) if (array[i] === item) return i;
+    return -1;
+  };
+
+  // Generate an integer Array containing an arithmetic progression. A port of
+  // the native Python `range()` function. See
+  // [the Python documentation](http://docs.python.org/library/functions.html#range).
+  _.range = function(start, stop, step) {
+    if (arguments.length <= 1) {
+      stop = start || 0;
+      start = 0;
+    }
+    step = arguments[2] || 1;
+
+    var len = Math.max(Math.ceil((stop - start) / step), 0);
+    var idx = 0;
+    var range = new Array(len);
+
+    while(idx < len) {
+      range[idx++] = start;
+      start += step;
+    }
+
+    return range;
+  };
+
+  // Function (ahem) Functions
+  // ------------------
+
+  // Reusable constructor function for prototype setting.
+  var ctor = function(){};
+
+  // Create a function bound to a given object (assigning `this`, and arguments,
+  // optionally). Binding with arguments is also known as `curry`.
+  // Delegates to **ECMAScript 5**'s native `Function.bind` if available.
+  // We check for `func.bind` first, to fail fast when `func` is undefined.
+  _.bind = function bind(func, context) {
+    var bound, args;
+    if (func.bind === nativeBind && nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
+    if (!_.isFunction(func)) throw new TypeError;
+    args = slice.call(arguments, 2);
+    return bound = function() {
+      if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
+      ctor.prototype = func.prototype;
+      var self = new ctor;
+      var result = func.apply(self, args.concat(slice.call(arguments)));
+      if (Object(result) === result) return result;
+      return self;
+    };
+  };
+
+  // Bind all of an object's methods to that object. Useful for ensuring that
+  // all callbacks defined on an object belong to it.
+  _.bindAll = function(obj) {
+    var funcs = slice.call(arguments, 1);
+    if (funcs.length == 0) funcs = _.functions(obj);
+    each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
+    return obj;
+  };
+
+  // Memoize an expensive function by storing its results.
+  _.memoize = function(func, hasher) {
+    var memo = {};
+    hasher || (hasher = _.identity);
+    return function() {
+      var key = hasher.apply(this, arguments);
+      return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
+    };
+  };
+
+  // Delays a function for the given number of milliseconds, and then calls
+  // it with the arguments supplied.
+  _.delay = function(func, wait) {
+    var args = slice.call(arguments, 2);
+    return setTimeout(function(){ return func.apply(null, args); }, wait);
+  };
+
+  // Defers a function, scheduling it to run after the current call stack has
+  // cleared.
+  _.defer = function(func) {
+    return _.delay.apply(_, [func, 1].concat(slice.call(arguments, 1)));
+  };
+
+  // Returns a function, that, when invoked, will only be triggered at most once
+  // during a given window of time.
+  _.throttle = function(func, wait) {
+    var context, args, timeout, throttling, more, result;
+    var whenDone = _.debounce(function(){ more = throttling = false; }, wait);
+    return function() {
+      context = this; args = arguments;
+      var later = function() {
+        timeout = null;
+        if (more) {
+          result = func.apply(context, args);
+        }
+        whenDone();
+      };
+      if (!timeout) timeout = setTimeout(later, wait);
+      if (throttling) {
+        more = true;
+      } else {
+        throttling = true;
+        result = func.apply(context, args);
+      }
+      whenDone();
+      return result;
+    };
+  };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  _.debounce = function(func, wait, immediate) {
+    var timeout, result;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) result = func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) result = func.apply(context, args);
+      return result;
+    };
+  };
+
+  // Returns a function that will be executed at most one time, no matter how
+  // often you call it. Useful for lazy initialization.
+  _.once = function(func) {
+    var ran = false, memo;
+    return function() {
+      if (ran) return memo;
+      ran = true;
+      memo = func.apply(this, arguments);
+      func = null;
+      return memo;
+    };
+  };
+
+  // Returns the first function passed as an argument to the second,
+  // allowing you to adjust arguments, run code before and after, and
+  // conditionally execute the original function.
+  _.wrap = function(func, wrapper) {
+    return function() {
+      var args = [func];
+      push.apply(args, arguments);
+      return wrapper.apply(this, args);
+    };
+  };
+
+  // Returns a function that is the composition of a list of functions, each
+  // consuming the return value of the function that follows.
+  _.compose = function() {
+    var funcs = arguments;
+    return function() {
+      var args = arguments;
+      for (var i = funcs.length - 1; i >= 0; i--) {
+        args = [funcs[i].apply(this, args)];
+      }
+      return args[0];
+    };
+  };
+
+  // Returns a function that will only be executed after being called N times.
+  _.after = function(times, func) {
+    if (times <= 0) return func();
+    return function() {
+      if (--times < 1) {
+        return func.apply(this, arguments);
+      }
+    };
+  };
+
+  // Object Functions
+  // ----------------
+
+  // Retrieve the names of an object's properties.
+  // Delegates to **ECMAScript 5**'s native `Object.keys`
+  _.keys = nativeKeys || function(obj) {
+    if (obj !== Object(obj)) throw new TypeError('Invalid object');
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys[keys.length] = key;
+    return keys;
+  };
+
+  // Retrieve the values of an object's properties.
+  _.values = function(obj) {
+    var values = [];
+    for (var key in obj) if (_.has(obj, key)) values.push(obj[key]);
+    return values;
+  };
+
+  // Convert an object into a list of `[key, value]` pairs.
+  _.pairs = function(obj) {
+    var pairs = [];
+    for (var key in obj) if (_.has(obj, key)) pairs.push([key, obj[key]]);
+    return pairs;
+  };
+
+  // Invert the keys and values of an object. The values must be serializable.
+  _.invert = function(obj) {
+    var result = {};
+    for (var key in obj) if (_.has(obj, key)) result[obj[key]] = key;
+    return result;
+  };
+
+  // Return a sorted list of the function names available on the object.
+  // Aliased as `methods`
+  _.functions = _.methods = function(obj) {
+    var names = [];
+    for (var key in obj) {
+      if (_.isFunction(obj[key])) names.push(key);
+    }
+    return names.sort();
+  };
+
+  // Extend a given object with all the properties in passed-in object(s).
+  _.extend = function(obj) {
+    each(slice.call(arguments, 1), function(source) {
+      for (var prop in source) {
+        obj[prop] = source[prop];
+      }
+    });
+    return obj;
+  };
+
+  // Return a copy of the object only containing the whitelisted properties.
+  _.pick = function(obj) {
+    var copy = {};
+    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
+    each(keys, function(key) {
+      if (key in obj) copy[key] = obj[key];
+    });
+    return copy;
+  };
+
+   // Return a copy of the object without the blacklisted properties.
+  _.omit = function(obj) {
+    var copy = {};
+    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
+    for (var key in obj) {
+      if (!_.contains(keys, key)) copy[key] = obj[key];
+    }
+    return copy;
+  };
+
+  // Fill in a given object with default properties.
+  _.defaults = function(obj) {
+    each(slice.call(arguments, 1), function(source) {
+      for (var prop in source) {
+        if (obj[prop] == null) obj[prop] = source[prop];
+      }
+    });
+    return obj;
+  };
+
+  // Create a (shallow-cloned) duplicate of an object.
+  _.clone = function(obj) {
+    if (!_.isObject(obj)) return obj;
+    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
+  };
+
+  // Invokes interceptor with the obj, and then returns obj.
+  // The primary purpose of this method is to "tap into" a method chain, in
+  // order to perform operations on intermediate results within the chain.
+  _.tap = function(obj, interceptor) {
+    interceptor(obj);
+    return obj;
+  };
+
+  // Internal recursive comparison function for `isEqual`.
+  var eq = function(a, b, aStack, bStack) {
+    // Identical objects are equal. `0 === -0`, but they aren't identical.
+    // See the Harmony `egal` proposal: http://wiki.ecmascript.org/doku.php?id=harmony:egal.
+    if (a === b) return a !== 0 || 1 / a == 1 / b;
+    // A strict comparison is necessary because `null == undefined`.
+    if (a == null || b == null) return a === b;
+    // Unwrap any wrapped objects.
+    if (a instanceof _) a = a._wrapped;
+    if (b instanceof _) b = b._wrapped;
+    // Compare `[[Class]]` names.
+    var className = toString.call(a);
+    if (className != toString.call(b)) return false;
+    switch (className) {
+      // Strings, numbers, dates, and booleans are compared by value.
+      case '[object String]':
+        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+        // equivalent to `new String("5")`.
+        return a == String(b);
+      case '[object Number]':
+        // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
+        // other numeric values.
+        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
+      case '[object Date]':
+      case '[object Boolean]':
+        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+        // millisecond representations. Note that invalid dates with millisecond representations
+        // of `NaN` are not equivalent.
+        return +a == +b;
+      // RegExps are compared by their source patterns and flags.
+      case '[object RegExp]':
+        return a.source == b.source &&
+               a.global == b.global &&
+               a.multiline == b.multiline &&
+               a.ignoreCase == b.ignoreCase;
+    }
+    if (typeof a != 'object' || typeof b != 'object') return false;
+    // Assume equality for cyclic structures. The algorithm for detecting cyclic
+    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+    var length = aStack.length;
+    while (length--) {
+      // Linear search. Performance is inversely proportional to the number of
+      // unique nested structures.
+      if (aStack[length] == a) return bStack[length] == b;
+    }
+    // Add the first object to the stack of traversed objects.
+    aStack.push(a);
+    bStack.push(b);
+    var size = 0, result = true;
+    // Recursively compare objects and arrays.
+    if (className == '[object Array]') {
+      // Compare array lengths to determine if a deep comparison is necessary.
+      size = a.length;
+      result = size == b.length;
+      if (result) {
+        // Deep compare the contents, ignoring non-numeric properties.
+        while (size--) {
+          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
+        }
+      }
+    } else {
+      // Objects with different constructors are not equivalent, but `Object`s
+      // from different frames are.
+      var aCtor = a.constructor, bCtor = b.constructor;
+      if (aCtor !== bCtor && !(_.isFunction(aCtor) && (aCtor instanceof aCtor) &&
+                               _.isFunction(bCtor) && (bCtor instanceof bCtor))) {
+        return false;
+      }
+      // Deep compare objects.
+      for (var key in a) {
+        if (_.has(a, key)) {
+          // Count the expected number of properties.
+          size++;
+          // Deep compare each member.
+          if (!(result = _.has(b, key) && eq(a[key], b[key], aStack, bStack))) break;
+        }
+      }
+      // Ensure that both objects contain the same number of properties.
+      if (result) {
+        for (key in b) {
+          if (_.has(b, key) && !(size--)) break;
+        }
+        result = !size;
+      }
+    }
+    // Remove the first object from the stack of traversed objects.
+    aStack.pop();
+    bStack.pop();
+    return result;
+  };
+
+  // Perform a deep comparison to check if two objects are equal.
+  _.isEqual = function(a, b) {
+    return eq(a, b, [], []);
+  };
+
+  // Is a given array, string, or object empty?
+  // An "empty" object has no enumerable own-properties.
+  _.isEmpty = function(obj) {
+    if (obj == null) return true;
+    if (_.isArray(obj) || _.isString(obj)) return obj.length === 0;
+    for (var key in obj) if (_.has(obj, key)) return false;
+    return true;
+  };
+
+  // Is a given value a DOM element?
+  _.isElement = function(obj) {
+    return !!(obj && obj.nodeType === 1);
+  };
+
+  // Is a given value an array?
+  // Delegates to ECMA5's native Array.isArray
+  _.isArray = nativeIsArray || function(obj) {
+    return toString.call(obj) == '[object Array]';
+  };
+
+  // Is a given variable an object?
+  _.isObject = function(obj) {
+    return obj === Object(obj);
+  };
+
+  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp.
+  each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
+    _['is' + name] = function(obj) {
+      return toString.call(obj) == '[object ' + name + ']';
+    };
+  });
+
+  // Define a fallback version of the method in browsers (ahem, IE), where
+  // there isn't any inspectable "Arguments" type.
+  if (!_.isArguments(arguments)) {
+    _.isArguments = function(obj) {
+      return !!(obj && _.has(obj, 'callee'));
+    };
+  }
+
+  // Optimize `isFunction` if appropriate.
+  if (typeof (/./) !== 'function') {
+    _.isFunction = function(obj) {
+      return typeof obj === 'function';
+    };
+  }
+
+  // Is a given object a finite number?
+  _.isFinite = function(obj) {
+    return _.isNumber(obj) && isFinite(obj);
+  };
+
+  // Is the given value `NaN`? (NaN is the only number which does not equal itself).
+  _.isNaN = function(obj) {
+    return _.isNumber(obj) && obj != +obj;
+  };
+
+  // Is a given value a boolean?
+  _.isBoolean = function(obj) {
+    return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
+  };
+
+  // Is a given value equal to null?
+  _.isNull = function(obj) {
+    return obj === null;
+  };
+
+  // Is a given variable undefined?
+  _.isUndefined = function(obj) {
+    return obj === void 0;
+  };
+
+  // Shortcut function for checking if an object has a given property directly
+  // on itself (in other words, not on a prototype).
+  _.has = function(obj, key) {
+    return hasOwnProperty.call(obj, key);
+  };
+
+  // Utility Functions
+  // -----------------
+
+  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
+  // previous owner. Returns a reference to the Underscore object.
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+
+  // Keep the identity function around for default iterators.
+  _.identity = function(value) {
+    return value;
+  };
+
+  // Run a function **n** times.
+  _.times = function(n, iterator, context) {
+    for (var i = 0; i < n; i++) iterator.call(context, i);
+  };
+
+  // Return a random integer between min and max (inclusive).
+  _.random = function(min, max) {
+    if (max == null) {
+      max = min;
+      min = 0;
+    }
+    return min + (0 | Math.random() * (max - min + 1));
+  };
+
+  // List of HTML entities for escaping.
+  var entityMap = {
+    escape: {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      '/': '&#x2F;'
+    }
+  };
+  entityMap.unescape = _.invert(entityMap.escape);
+
+  // Regexes containing the keys and values listed immediately above.
+  var entityRegexes = {
+    escape:   new RegExp('[' + _.keys(entityMap.escape).join('') + ']', 'g'),
+    unescape: new RegExp('(' + _.keys(entityMap.unescape).join('|') + ')', 'g')
+  };
+
+  // Functions for escaping and unescaping strings to/from HTML interpolation.
+  _.each(['escape', 'unescape'], function(method) {
+    _[method] = function(string) {
+      if (string == null) return '';
+      return ('' + string).replace(entityRegexes[method], function(match) {
+        return entityMap[method][match];
+      });
+    };
+  });
+
+  // If the value of the named property is a function then invoke it;
+  // otherwise, return it.
+  _.result = function(object, property) {
+    if (object == null) return null;
+    var value = object[property];
+    return _.isFunction(value) ? value.call(object) : value;
+  };
+
+  // Add your own custom functions to the Underscore object.
+  _.mixin = function(obj) {
+    each(_.functions(obj), function(name){
+      var func = _[name] = obj[name];
+      _.prototype[name] = function() {
+        var args = [this._wrapped];
+        push.apply(args, arguments);
+        return result.call(this, func.apply(_, args));
+      };
+    });
+  };
+
+  // Generate a unique integer id (unique within the entire client session).
+  // Useful for temporary DOM ids.
+  var idCounter = 0;
+  _.uniqueId = function(prefix) {
+    var id = idCounter++;
+    return prefix ? prefix + id : id;
+  };
+
+  // By default, Underscore uses ERB-style template delimiters, change the
+  // following template settings to use alternative delimiters.
+  _.templateSettings = {
+    evaluate    : /<%([\s\S]+?)%>/g,
+    interpolate : /<%=([\s\S]+?)%>/g,
+    escape      : /<%-([\s\S]+?)%>/g
+  };
+
+  // When customizing `templateSettings`, if you don't want to define an
+  // interpolation, evaluation or escaping regex, we need one that is
+  // guaranteed not to match.
+  var noMatch = /(.)^/;
+
+  // Certain characters need to be escaped so that they can be put into a
+  // string literal.
+  var escapes = {
+    "'":      "'",
+    '\\':     '\\',
+    '\r':     'r',
+    '\n':     'n',
+    '\t':     't',
+    '\u2028': 'u2028',
+    '\u2029': 'u2029'
+  };
+
+  var escaper = /\\|'|\r|\n|\t|\u2028|\u2029/g;
+
+  // JavaScript micro-templating, similar to John Resig's implementation.
+  // Underscore templating handles arbitrary delimiters, preserves whitespace,
+  // and correctly escapes quotes within interpolated code.
+  _.template = function(text, data, settings) {
+    settings = _.defaults({}, settings, _.templateSettings);
+
+    // Combine delimiters into one regular expression via alternation.
+    var matcher = new RegExp([
+      (settings.escape || noMatch).source,
+      (settings.interpolate || noMatch).source,
+      (settings.evaluate || noMatch).source
+    ].join('|') + '|$', 'g');
+
+    // Compile the template source, escaping string literals appropriately.
+    var index = 0;
+    var source = "__p+='";
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+      source += text.slice(index, offset)
+        .replace(escaper, function(match) { return '\\' + escapes[match]; });
+      source +=
+        escape ? "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'" :
+        interpolate ? "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'" :
+        evaluate ? "';\n" + evaluate + "\n__p+='" : '';
+      index = offset + match.length;
+    });
+    source += "';\n";
+
+    // If a variable is not specified, place data values in local scope.
+    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+
+    source = "var __t,__p='',__j=Array.prototype.join," +
+      "print=function(){__p+=__j.call(arguments,'');};\n" +
+      source + "return __p;\n";
+
+    try {
+      var render = new Function(settings.variable || 'obj', '_', source);
+    } catch (e) {
+      e.source = source;
+      throw e;
+    }
+
+    if (data) return render(data, _);
+    var template = function(data) {
+      return render.call(this, data, _);
+    };
+
+    // Provide the compiled function source as a convenience for precompilation.
+    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
+
+    return template;
+  };
+
+  // Add a "chain" function, which will delegate to the wrapper.
+  _.chain = function(obj) {
+    return _(obj).chain();
+  };
+
+  // OOP
+  // ---------------
+  // If Underscore is called as a function, it returns a wrapped object that
+  // can be used OO-style. This wrapper holds altered versions of all the
+  // underscore functions. Wrapped objects may be chained.
+
+  // Helper function to continue chaining intermediate results.
+  var result = function(obj) {
+    return this._chain ? _(obj).chain() : obj;
+  };
+
+  // Add all of the Underscore functions to the wrapper object.
+  _.mixin(_);
+
+  // Add all mutator Array functions to the wrapper.
+  each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      var obj = this._wrapped;
+      method.apply(obj, arguments);
+      if ((name == 'shift' || name == 'splice') && obj.length === 0) delete obj[0];
+      return result.call(this, obj);
+    };
+  });
+
+  // Add all accessor Array functions to the wrapper.
+  each(['concat', 'join', 'slice'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      return result.call(this, method.apply(this._wrapped, arguments));
+    };
+  });
+
+  _.extend(_.prototype, {
+
+    // Start chaining a wrapped Underscore object.
+    chain: function() {
+      this._chain = true;
+      return this;
+    },
+
+    // Extracts the result from a wrapped and chained object.
+    value: function() {
+      return this._wrapped;
+    }
+
+  });
+
+}).call(this);
+
+//     Backbone.js 0.9.9
+
+//     (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
+//     Backbone may be freely distributed under the MIT license.
+//     For all details and documentation:
+//     http://backbonejs.org
+
+(function(){
+
+  // Initial Setup
+  // -------------
+
+  // Save a reference to the global object (`window` in the browser, `exports`
+  // on the server).
+  var root = this;
+
+  // Save the previous value of the `Backbone` variable, so that it can be
+  // restored later on, if `noConflict` is used.
+  var previousBackbone = root.Backbone;
+
+  // Create a local reference to array methods.
+  var array = [];
+  var push = array.push;
+  var slice = array.slice;
+  var splice = array.splice;
+
+  // The top-level namespace. All public Backbone classes and modules will
+  // be attached to this. Exported for both CommonJS and the browser.
+  var Backbone;
+  if (typeof exports !== 'undefined') {
+    Backbone = exports;
+  } else {
+    Backbone = root.Backbone = {};
+  }
+
+  // Current version of the library. Keep in sync with `package.json`.
+  Backbone.VERSION = '0.9.9';
+
+  // Require Underscore, if we're on the server, and it's not already present.
+  var _ = root._;
+  if (!_ && (typeof require !== 'undefined')) _ = require('underscore');
+
+  // For Backbone's purposes, jQuery, Zepto, or Ender owns the `$` variable.
+  Backbone.$ = root.jQuery || root.Zepto || root.ender;
+
+  // Runs Backbone.js in *noConflict* mode, returning the `Backbone` variable
+  // to its previous owner. Returns a reference to this Backbone object.
+  Backbone.noConflict = function() {
+    root.Backbone = previousBackbone;
+    return this;
+  };
+
+  // Turn on `emulateHTTP` to support legacy HTTP servers. Setting this option
+  // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
+  // set a `X-Http-Method-Override` header.
+  Backbone.emulateHTTP = false;
+
+  // Turn on `emulateJSON` to support legacy servers that can't deal with direct
+  // `application/json` requests ... will encode the body as
+  // `application/x-www-form-urlencoded` instead and will send the model in a
+  // form param named `model`.
+  Backbone.emulateJSON = false;
+
+  // Backbone.Events
+  // ---------------
+
+  // Regular expression used to split event strings.
+  var eventSplitter = /\s+/;
+
+  // Implement fancy features of the Events API such as multiple event
+  // names `"change blur"` and jQuery-style event maps `{change: action}`
+  // in terms of the existing API.
+  var eventsApi = function(obj, action, name, rest) {
+    if (!name) return true;
+    if (typeof name === 'object') {
+      for (var key in name) {
+        obj[action].apply(obj, [key, name[key]].concat(rest));
+      }
+    } else if (eventSplitter.test(name)) {
+      var names = name.split(eventSplitter);
+      for (var i = 0, l = names.length; i < l; i++) {
+        obj[action].apply(obj, [names[i]].concat(rest));
+      }
+    } else {
+      return true;
+    }
+  };
+
+  // Optimized internal dispatch function for triggering events. Tries to
+  // keep the usual cases speedy (most Backbone events have 3 arguments).
+  var triggerEvents = function(obj, events, args) {
+    var ev, i = -1, l = events.length;
+    switch (args.length) {
+    case 0: while (++i < l) (ev = events[i]).callback.call(ev.ctx);
+    return;
+    case 1: while (++i < l) (ev = events[i]).callback.call(ev.ctx, args[0]);
+    return;
+    case 2: while (++i < l) (ev = events[i]).callback.call(ev.ctx, args[0], args[1]);
+    return;
+    case 3: while (++i < l) (ev = events[i]).callback.call(ev.ctx, args[0], args[1], args[2]);
+    return;
+    default: while (++i < l) (ev = events[i]).callback.apply(ev.ctx, args);
+    }
+  };
+
+  // A module that can be mixed in to *any object* in order to provide it with
+  // custom events. You may bind with `on` or remove with `off` callback
+  // functions to an event; `trigger`-ing an event fires all callbacks in
+  // succession.
+  //
+  //     var object = {};
+  //     _.extend(object, Backbone.Events);
+  //     object.on('expand', function(){ alert('expanded'); });
+  //     object.trigger('expand');
+  //
+  var Events = Backbone.Events = {
+
+    // Bind one or more space separated events, or an events map,
+    // to a `callback` function. Passing `"all"` will bind the callback to
+    // all events fired.
+    on: function(name, callback, context) {
+      if (!(eventsApi(this, 'on', name, [callback, context]) && callback)) return this;
+      this._events || (this._events = {});
+      var list = this._events[name] || (this._events[name] = []);
+      list.push({callback: callback, context: context, ctx: context || this});
+      return this;
+    },
+
+    // Bind events to only be triggered a single time. After the first time
+    // the callback is invoked, it will be removed.
+    once: function(name, callback, context) {
+      if (!(eventsApi(this, 'once', name, [callback, context]) && callback)) return this;
+      var self = this;
+      var once = _.once(function() {
+        self.off(name, once);
+        callback.apply(this, arguments);
+      });
+      once._callback = callback;
+      this.on(name, once, context);
+      return this;
+    },
+
+    // Remove one or many callbacks. If `context` is null, removes all
+    // callbacks with that function. If `callback` is null, removes all
+    // callbacks for the event. If `events` is null, removes all bound
+    // callbacks for all events.
+    off: function(name, callback, context) {
+      var list, ev, events, names, i, l, j, k;
+      if (!this._events || !eventsApi(this, 'off', name, [callback, context])) return this;
+      if (!name && !callback && !context) {
+        this._events = {};
+        return this;
+      }
+
+      names = name ? [name] : _.keys(this._events);
+      for (i = 0, l = names.length; i < l; i++) {
+        name = names[i];
+        if (list = this._events[name]) {
+          events = [];
+          if (callback || context) {
+            for (j = 0, k = list.length; j < k; j++) {
+              ev = list[j];
+              if ((callback && callback !== (ev.callback._callback || ev.callback)) ||
+                  (context && context !== ev.context)) {
+                events.push(ev);
+              }
+            }
+          }
+          this._events[name] = events;
+        }
+      }
+
+      return this;
+    },
+
+    // Trigger one or many events, firing all bound callbacks. Callbacks are
+    // passed the same arguments as `trigger` is, apart from the event name
+    // (unless you're listening on `"all"`, which will cause your callback to
+    // receive the true name of the event as the first argument).
+    trigger: function(name) {
+      if (!this._events) return this;
+      var args = slice.call(arguments, 1);
+      if (!eventsApi(this, 'trigger', name, args)) return this;
+      var events = this._events[name];
+      var allEvents = this._events.all;
+      if (events) triggerEvents(this, events, args);
+      if (allEvents) triggerEvents(this, allEvents, arguments);
+      return this;
+    },
+
+    // An inversion-of-control version of `on`. Tell *this* object to listen to
+    // an event in another object ... keeping track of what it's listening to.
+    listenTo: function(object, events, callback) {
+      var listeners = this._listeners || (this._listeners = {});
+      var id = object._listenerId || (object._listenerId = _.uniqueId('l'));
+      listeners[id] = object;
+      object.on(events, callback || this, this);
+      return this;
+    },
+
+    // Tell this object to stop listening to either specific events ... or
+    // to every object it's currently listening to.
+    stopListening: function(object, events, callback) {
+      var listeners = this._listeners;
+      if (!listeners) return;
+      if (object) {
+        object.off(events, callback, this);
+        if (!events && !callback) delete listeners[object._listenerId];
+      } else {
+        for (var id in listeners) {
+          listeners[id].off(null, null, this);
+        }
+        this._listeners = {};
+      }
+      return this;
+    }
+  };
+
+  // Aliases for backwards compatibility.
+  Events.bind   = Events.on;
+  Events.unbind = Events.off;
+
+  // Allow the `Backbone` object to serve as a global event bus, for folks who
+  // want global "pubsub" in a convenient place.
+  _.extend(Backbone, Events);
+
+  // Backbone.Model
+  // --------------
+
+  // Create a new model, with defined attributes. A client id (`cid`)
+  // is automatically generated and assigned for you.
+  var Model = Backbone.Model = function(attributes, options) {
+    var defaults;
+    var attrs = attributes || {};
+    this.cid = _.uniqueId('c');
+    this.changed = {};
+    this.attributes = {};
+    this._changes = [];
+    if (options && options.collection) this.collection = options.collection;
+    if (options && options.parse) attrs = this.parse(attrs);
+    if (defaults = _.result(this, 'defaults')) _.defaults(attrs, defaults);
+    this.set(attrs, {silent: true});
+    this._currentAttributes = _.clone(this.attributes);
+    this._previousAttributes = _.clone(this.attributes);
+    this.initialize.apply(this, arguments);
+  };
+
+  // Attach all inheritable methods to the Model prototype.
+  _.extend(Model.prototype, Events, {
+
+    // A hash of attributes whose current and previous value differ.
+    changed: null,
+
+    // The default name for the JSON `id` attribute is `"id"`. MongoDB and
+    // CouchDB users may want to set this to `"_id"`.
+    idAttribute: 'id',
+
+    // Initialize is an empty function by default. Override it with your own
+    // initialization logic.
+    initialize: function(){},
+
+    // Return a copy of the model's `attributes` object.
+    toJSON: function(options) {
+      return _.clone(this.attributes);
+    },
+
+    // Proxy `Backbone.sync` by default.
+    sync: function() {
+      return Backbone.sync.apply(this, arguments);
+    },
+
+    // Get the value of an attribute.
+    get: function(attr) {
+      return this.attributes[attr];
+    },
+
+    // Get the HTML-escaped value of an attribute.
+    escape: function(attr) {
+      return _.escape(this.get(attr));
+    },
+
+    // Returns `true` if the attribute contains a value that is not null
+    // or undefined.
+    has: function(attr) {
+      return this.get(attr) != null;
+    },
+
+    // Set a hash of model attributes on the object, firing `"change"` unless
+    // you choose to silence it.
+    set: function(key, val, options) {
+      var attr, attrs;
+      if (key == null) return this;
+
+      // Handle both `"key", value` and `{key: value}` -style arguments.
+      if (_.isObject(key)) {
+        attrs = key;
+        options = val;
+      } else {
+        (attrs = {})[key] = val;
+      }
+
+      // Extract attributes and options.
+      var silent = options && options.silent;
+      var unset = options && options.unset;
+
+      // Run validation.
+      if (!this._validate(attrs, options)) return false;
+
+      // Check for changes of `id`.
+      if (this.idAttribute in attrs) this.id = attrs[this.idAttribute];
+
+      var now = this.attributes;
+
+      // For each `set` attribute...
+      for (attr in attrs) {
+        val = attrs[attr];
+
+        // Update or delete the current value, and track the change.
+        unset ? delete now[attr] : now[attr] = val;
+        this._changes.push(attr, val);
+      }
+
+      // Signal that the model's state has potentially changed, and we need
+      // to recompute the actual changes.
+      this._hasComputed = false;
+
+      // Fire the `"change"` events.
+      if (!silent) this.change(options);
+      return this;
+    },
+
+    // Remove an attribute from the model, firing `"change"` unless you choose
+    // to silence it. `unset` is a noop if the attribute doesn't exist.
+    unset: function(attr, options) {
+      return this.set(attr, void 0, _.extend({}, options, {unset: true}));
+    },
+
+    // Clear all attributes on the model, firing `"change"` unless you choose
+    // to silence it.
+    clear: function(options) {
+      var attrs = {};
+      for (var key in this.attributes) attrs[key] = void 0;
+      return this.set(attrs, _.extend({}, options, {unset: true}));
+    },
+
+    // Fetch the model from the server. If the server's representation of the
+    // model differs from its current attributes, they will be overriden,
+    // triggering a `"change"` event.
+    fetch: function(options) {
+      options = options ? _.clone(options) : {};
+      if (options.parse === void 0) options.parse = true;
+      var model = this;
+      var success = options.success;
+      options.success = function(resp, status, xhr) {
+        if (!model.set(model.parse(resp), options)) return false;
+        if (success) success(model, resp, options);
+      };
+      return this.sync('read', this, options);
+    },
+
+    // Set a hash of model attributes, and sync the model to the server.
+    // If the server returns an attributes hash that differs, the model's
+    // state will be `set` again.
+    save: function(key, val, options) {
+      var attrs, current, done;
+
+      // Handle both `"key", value` and `{key: value}` -style arguments.
+      if (key == null || _.isObject(key)) {
+        attrs = key;
+        options = val;
+      } else if (key != null) {
+        (attrs = {})[key] = val;
+      }
+      options = options ? _.clone(options) : {};
+
+      // If we're "wait"-ing to set changed attributes, validate early.
+      if (options.wait) {
+        if (attrs && !this._validate(attrs, options)) return false;
+        current = _.clone(this.attributes);
+      }
+
+      // Regular saves `set` attributes before persisting to the server.
+      var silentOptions = _.extend({}, options, {silent: true});
+      if (attrs && !this.set(attrs, options.wait ? silentOptions : options)) {
+        return false;
+      }
+
+      // Do not persist invalid models.
+      if (!attrs && !this._validate(null, options)) return false;
+
+      // After a successful server-side save, the client is (optionally)
+      // updated with the server-side state.
+      var model = this;
+      var success = options.success;
+      options.success = function(resp, status, xhr) {
+        done = true;
+        var serverAttrs = model.parse(resp);
+        if (options.wait) serverAttrs = _.extend(attrs || {}, serverAttrs);
+        if (!model.set(serverAttrs, options)) return false;
+        if (success) success(model, resp, options);
+      };
+
+      // Finish configuring and sending the Ajax request.
+      var method = this.isNew() ? 'create' : (options.patch ? 'patch' : 'update');
+      if (method == 'patch') options.attrs = attrs;
+      var xhr = this.sync(method, this, options);
+
+      // When using `wait`, reset attributes to original values unless
+      // `success` has been called already.
+      if (!done && options.wait) {
+        this.clear(silentOptions);
+        this.set(current, silentOptions);
+      }
+
+      return xhr;
+    },
+
+    // Destroy this model on the server if it was already persisted.
+    // Optimistically removes the model from its collection, if it has one.
+    // If `wait: true` is passed, waits for the server to respond before removal.
+    destroy: function(options) {
+      options = options ? _.clone(options) : {};
+      var model = this;
+      var success = options.success;
+
+      var destroy = function() {
+        model.trigger('destroy', model, model.collection, options);
+      };
+
+      options.success = function(resp) {
+        if (options.wait || model.isNew()) destroy();
+        if (success) success(model, resp, options);
+      };
+
+      if (this.isNew()) {
+        options.success();
+        return false;
+      }
+
+      var xhr = this.sync('delete', this, options);
+      if (!options.wait) destroy();
+      return xhr;
+    },
+
+    // Default URL for the model's representation on the server -- if you're
+    // using Backbone's restful methods, override this to change the endpoint
+    // that will be called.
+    url: function() {
+      var base = _.result(this, 'urlRoot') || _.result(this.collection, 'url') || urlError();
+      if (this.isNew()) return base;
+      return base + (base.charAt(base.length - 1) === '/' ? '' : '/') + encodeURIComponent(this.id);
+    },
+
+    // **parse** converts a response into the hash of attributes to be `set` on
+    // the model. The default implementation is just to pass the response along.
+    parse: function(resp) {
+      return resp;
+    },
+
+    // Create a new model with identical attributes to this one.
+    clone: function() {
+      return new this.constructor(this.attributes);
+    },
+
+    // A model is new if it has never been saved to the server, and lacks an id.
+    isNew: function() {
+      return this.id == null;
+    },
+
+    // Call this method to manually fire a `"change"` event for this model and
+    // a `"change:attribute"` event for each changed attribute.
+    // Calling this will cause all objects observing the model to update.
+    change: function(options) {
+      var changing = this._changing;
+      this._changing = true;
+
+      // Generate the changes to be triggered on the model.
+      var triggers = this._computeChanges(true);
+
+      this._pending = !!triggers.length;
+
+      for (var i = triggers.length - 2; i >= 0; i -= 2) {
+        this.trigger('change:' + triggers[i], this, triggers[i + 1], options);
+      }
+
+      if (changing) return this;
+
+      // Trigger a `change` while there have been changes.
+      while (this._pending) {
+        this._pending = false;
+        this.trigger('change', this, options);
+        this._previousAttributes = _.clone(this.attributes);
+      }
+
+      this._changing = false;
+      return this;
+    },
+
+    // Determine if the model has changed since the last `"change"` event.
+    // If you specify an attribute name, determine if that attribute has changed.
+    hasChanged: function(attr) {
+      if (!this._hasComputed) this._computeChanges();
+      if (attr == null) return !_.isEmpty(this.changed);
+      return _.has(this.changed, attr);
+    },
+
+    // Return an object containing all the attributes that have changed, or
+    // false if there are no changed attributes. Useful for determining what
+    // parts of a view need to be updated and/or what attributes need to be
+    // persisted to the server. Unset attributes will be set to undefined.
+    // You can also pass an attributes object to diff against the model,
+    // determining if there *would be* a change.
+    changedAttributes: function(diff) {
+      if (!diff) return this.hasChanged() ? _.clone(this.changed) : false;
+      var val, changed = false, old = this._previousAttributes;
+      for (var attr in diff) {
+        if (_.isEqual(old[attr], (val = diff[attr]))) continue;
+        (changed || (changed = {}))[attr] = val;
+      }
+      return changed;
+    },
+
+    // Looking at the built up list of `set` attribute changes, compute how
+    // many of the attributes have actually changed. If `loud`, return a
+    // boiled-down list of only the real changes.
+    _computeChanges: function(loud) {
+      this.changed = {};
+      var already = {};
+      var triggers = [];
+      var current = this._currentAttributes;
+      var changes = this._changes;
+
+      // Loop through the current queue of potential model changes.
+      for (var i = changes.length - 2; i >= 0; i -= 2) {
+        var key = changes[i], val = changes[i + 1];
+        if (already[key]) continue;
+        already[key] = true;
+
+        // Check if the attribute has been modified since the last change,
+        // and update `this.changed` accordingly. If we're inside of a `change`
+        // call, also add a trigger to the list.
+        if (current[key] !== val) {
+          this.changed[key] = val;
+          if (!loud) continue;
+          triggers.push(key, val);
+          current[key] = val;
+        }
+      }
+      if (loud) this._changes = [];
+
+      // Signals `this.changed` is current to prevent duplicate calls from `this.hasChanged`.
+      this._hasComputed = true;
+      return triggers;
+    },
+
+    // Get the previous value of an attribute, recorded at the time the last
+    // `"change"` event was fired.
+    previous: function(attr) {
+      if (attr == null || !this._previousAttributes) return null;
+      return this._previousAttributes[attr];
+    },
+
+    // Get all of the attributes of the model at the time of the previous
+    // `"change"` event.
+    previousAttributes: function() {
+      return _.clone(this._previousAttributes);
+    },
+
+    // Run validation against the next complete set of model attributes,
+    // returning `true` if all is well. If a specific `error` callback has
+    // been passed, call that instead of firing the general `"error"` event.
+    _validate: function(attrs, options) {
+      if (!this.validate) return true;
+      attrs = _.extend({}, this.attributes, attrs);
+      var error = this.validate(attrs, options);
+      if (!error) return true;
+      if (options && options.error) options.error(this, error, options);
+      this.trigger('error', this, error, options);
+      return false;
+    }
+
+  });
+
+  // Backbone.Collection
+  // -------------------
+
+  // Provides a standard collection class for our sets of models, ordered
+  // or unordered. If a `comparator` is specified, the Collection will maintain
+  // its models in sort order, as they're added and removed.
+  var Collection = Backbone.Collection = function(models, options) {
+    options || (options = {});
+    if (options.model) this.model = options.model;
+    if (options.comparator !== void 0) this.comparator = options.comparator;
+    this._reset();
+    this.initialize.apply(this, arguments);
+    if (models) this.reset(models, _.extend({silent: true}, options));
+  };
+
+  // Define the Collection's inheritable methods.
+  _.extend(Collection.prototype, Events, {
+
+    // The default model for a collection is just a **Backbone.Model**.
+    // This should be overridden in most cases.
+    model: Model,
+
+    // Initialize is an empty function by default. Override it with your own
+    // initialization logic.
+    initialize: function(){},
+
+    // The JSON representation of a Collection is an array of the
+    // models' attributes.
+    toJSON: function(options) {
+      return this.map(function(model){ return model.toJSON(options); });
+    },
+
+    // Proxy `Backbone.sync` by default.
+    sync: function() {
+      return Backbone.sync.apply(this, arguments);
+    },
+
+    // Add a model, or list of models to the set. Pass **silent** to avoid
+    // firing the `add` event for every new model.
+    add: function(models, options) {
+      var i, args, length, model, existing, needsSort;
+      var at = options && options.at;
+      var sort = ((options && options.sort) == null ? true : options.sort);
+      models = _.isArray(models) ? models.slice() : [models];
+
+      // Turn bare objects into model references, and prevent invalid models
+      // from being added.
+      for (i = models.length - 1; i >= 0; i--) {
+        if(!(model = this._prepareModel(models[i], options))) {
+          this.trigger("error", this, models[i], options);
+          models.splice(i, 1);
+          continue;
+        }
+        models[i] = model;
+
+        existing = model.id != null && this._byId[model.id];
+        // If a duplicate is found, prevent it from being added and
+        // optionally merge it into the existing model.
+        if (existing || this._byCid[model.cid]) {
+          if (options && options.merge && existing) {
+            existing.set(model.attributes, options);
+            needsSort = sort;
+          }
+          models.splice(i, 1);
+          continue;
+        }
+
+        // Listen to added models' events, and index models for lookup by
+        // `id` and by `cid`.
+        model.on('all', this._onModelEvent, this);
+        this._byCid[model.cid] = model;
+        if (model.id != null) this._byId[model.id] = model;
+      }
+
+      // See if sorting is needed, update `length` and splice in new models.
+      if (models.length) needsSort = sort;
+      this.length += models.length;
+      args = [at != null ? at : this.models.length, 0];
+      push.apply(args, models);
+      splice.apply(this.models, args);
+
+      // Sort the collection if appropriate.
+      if (needsSort && this.comparator && at == null) this.sort({silent: true});
+
+      if (options && options.silent) return this;
+
+      // Trigger `add` events.
+      while (model = models.shift()) {
+        model.trigger('add', model, this, options);
+      }
+
+      return this;
+    },
+
+    // Remove a model, or a list of models from the set. Pass silent to avoid
+    // firing the `remove` event for every model removed.
+    remove: function(models, options) {
+      var i, l, index, model;
+      options || (options = {});
+      models = _.isArray(models) ? models.slice() : [models];
+      for (i = 0, l = models.length; i < l; i++) {
+        model = this.get(models[i]);
+        if (!model) continue;
+        delete this._byId[model.id];
+        delete this._byCid[model.cid];
+        index = this.indexOf(model);
+        this.models.splice(index, 1);
+        this.length--;
+        if (!options.silent) {
+          options.index = index;
+          model.trigger('remove', model, this, options);
+        }
+        this._removeReference(model);
+      }
+      return this;
+    },
+
+    // Add a model to the end of the collection.
+    push: function(model, options) {
+      model = this._prepareModel(model, options);
+      this.add(model, _.extend({at: this.length}, options));
+      return model;
+    },
+
+    // Remove a model from the end of the collection.
+    pop: function(options) {
+      var model = this.at(this.length - 1);
+      this.remove(model, options);
+      return model;
+    },
+
+    // Add a model to the beginning of the collection.
+    unshift: function(model, options) {
+      model = this._prepareModel(model, options);
+      this.add(model, _.extend({at: 0}, options));
+      return model;
+    },
+
+    // Remove a model from the beginning of the collection.
+    shift: function(options) {
+      var model = this.at(0);
+      this.remove(model, options);
+      return model;
+    },
+
+    // Slice out a sub-array of models from the collection.
+    slice: function(begin, end) {
+      return this.models.slice(begin, end);
+    },
+
+    // Get a model from the set by id.
+    get: function(obj) {
+      if (obj == null) return void 0;
+      return this._byId[obj.id != null ? obj.id : obj] || this._byCid[obj.cid || obj];
+    },
+
+    // Get the model at the given index.
+    at: function(index) {
+      return this.models[index];
+    },
+
+    // Return models with matching attributes. Useful for simple cases of `filter`.
+    where: function(attrs) {
+      if (_.isEmpty(attrs)) return [];
+      return this.filter(function(model) {
+        for (var key in attrs) {
+          if (attrs[key] !== model.get(key)) return false;
+        }
+        return true;
+      });
+    },
+
+    // Force the collection to re-sort itself. You don't need to call this under
+    // normal circumstances, as the set will maintain sort order as each item
+    // is added.
+    sort: function(options) {
+      if (!this.comparator) {
+        throw new Error('Cannot sort a set without a comparator');
+      }
+
+      if (_.isString(this.comparator) || this.comparator.length === 1) {
+        this.models = this.sortBy(this.comparator, this);
+      } else {
+        this.models.sort(_.bind(this.comparator, this));
+      }
+
+      if (!options || !options.silent) this.trigger('sort', this, options);
+      return this;
+    },
+
+    // Pluck an attribute from each model in the collection.
+    pluck: function(attr) {
+      return _.invoke(this.models, 'get', attr);
+    },
+
+    // Smartly update a collection with a change set of models, adding,
+    // removing, and merging as necessary.
+    update: function(models, options) {
+      var model, i, l, existing;
+      var add = [], remove = [], modelMap = {};
+      var idAttr = this.model.prototype.idAttribute;
+      options = _.extend({add: true, merge: true, remove: true}, options);
+      if (options.parse) models = this.parse(models);
+
+      // Allow a single model (or no argument) to be passed.
+      if (!_.isArray(models)) models = models ? [models] : [];
+
+      // Proxy to `add` for this case, no need to iterate...
+      if (options.add && !options.remove) return this.add(models, options);
+
+      // Determine which models to add and merge, and which to remove.
+      for (i = 0, l = models.length; i < l; i++) {
+        model = models[i];
+        existing = this.get(model.id || model.cid || model[idAttr]);
+        if (options.remove && existing) modelMap[existing.cid] = true;
+        if ((options.add && !existing) || (options.merge && existing)) {
+          add.push(model);
+        }
+      }
+      if (options.remove) {
+        for (i = 0, l = this.models.length; i < l; i++) {
+          model = this.models[i];
+          if (!modelMap[model.cid]) remove.push(model);
+        }
+      }
+
+      // Remove models (if applicable) before we add and merge the rest.
+      if (remove.length) this.remove(remove, options);
+      if (add.length) this.add(add, options);
+      return this;
+    },
+
+    // When you have more items than you want to add or remove individually,
+    // you can reset the entire set with a new list of models, without firing
+    // any `add` or `remove` events. Fires `reset` when finished.
+    reset: function(models, options) {
+      options || (options = {});
+      if (options.parse) models = this.parse(models);
+      for (var i = 0, l = this.models.length; i < l; i++) {
+        this._removeReference(this.models[i]);
+      }
+      options.previousModels = this.models;
+      this._reset();
+      if (models) this.add(models, _.extend({silent: true}, options));
+      if (!options.silent) this.trigger('reset', this, options);
+      return this;
+    },
+
+    // Fetch the default set of models for this collection, resetting the
+    // collection when they arrive. If `add: true` is passed, appends the
+    // models to the collection instead of resetting.
+    fetch: function(options) {
+      options = options ? _.clone(options) : {};
+      if (options.parse === void 0) options.parse = true;
+      var collection = this;
+      var success = options.success;
+      options.success = function(resp, status, xhr) {
+        var method = options.update ? 'update' : 'reset';
+        collection[method](resp, options);
+        if (success) success(collection, resp, options);
+      };
+      return this.sync('read', this, options);
+    },
+
+    // Create a new instance of a model in this collection. Add the model to the
+    // collection immediately, unless `wait: true` is passed, in which case we
+    // wait for the server to agree.
+    create: function(model, options) {
+      var collection = this;
+      options = options ? _.clone(options) : {};
+      model = this._prepareModel(model, options);
+      if (!model) return false;
+      if (!options.wait) collection.add(model, options);
+      var success = options.success;
+      options.success = function(model, resp, options) {
+        if (options.wait) collection.add(model, options);
+        if (success) success(model, resp, options);
+      };
+      model.save(null, options);
+      return model;
+    },
+
+    // **parse** converts a response into a list of models to be added to the
+    // collection. The default implementation is just to pass it through.
+    parse: function(resp) {
+      return resp;
+    },
+
+    // Create a new collection with an identical list of models as this one.
+    clone: function() {
+      return new this.constructor(this.models);
+    },
+
+    // Proxy to _'s chain. Can't be proxied the same way the rest of the
+    // underscore methods are proxied because it relies on the underscore
+    // constructor.
+    chain: function() {
+      return _(this.models).chain();
+    },
+
+    // Reset all internal state. Called when the collection is reset.
+    _reset: function() {
+      this.length = 0;
+      this.models = [];
+      this._byId  = {};
+      this._byCid = {};
+    },
+
+    // Prepare a model or hash of attributes to be added to this collection.
+    _prepareModel: function(attrs, options) {
+      if (attrs instanceof Model) {
+        if (!attrs.collection) attrs.collection = this;
+        return attrs;
+      }
+      options || (options = {});
+      options.collection = this;
+      var model = new this.model(attrs, options);
+      if (!model._validate(attrs, options)) return false;
+      return model;
+    },
+
+    // Internal method to remove a model's ties to a collection.
+    _removeReference: function(model) {
+      if (this === model.collection) delete model.collection;
+      model.off('all', this._onModelEvent, this);
+    },
+
+    // Internal method called every time a model in the set fires an event.
+    // Sets need to update their indexes when models change ids. All other
+    // events simply proxy through. "add" and "remove" events that originate
+    // in other collections are ignored.
+    _onModelEvent: function(event, model, collection, options) {
+      if ((event === 'add' || event === 'remove') && collection !== this) return;
+      if (event === 'destroy') this.remove(model, options);
+      if (model && event === 'change:' + model.idAttribute) {
+        delete this._byId[model.previous(model.idAttribute)];
+        if (model.id != null) this._byId[model.id] = model;
+      }
+      this.trigger.apply(this, arguments);
+    }
+
+  });
+
+  // Underscore methods that we want to implement on the Collection.
+  var methods = ['forEach', 'each', 'map', 'collect', 'reduce', 'foldl',
+    'inject', 'reduceRight', 'foldr', 'find', 'detect', 'filter', 'select',
+    'reject', 'every', 'all', 'some', 'any', 'include', 'contains', 'invoke',
+    'max', 'min', 'sortedIndex', 'toArray', 'size', 'first', 'head', 'take',
+    'initial', 'rest', 'tail', 'last', 'without', 'indexOf', 'shuffle',
+    'lastIndexOf', 'isEmpty'];
+
+  // Mix in each Underscore method as a proxy to `Collection#models`.
+  _.each(methods, function(method) {
+    Collection.prototype[method] = function() {
+      var args = slice.call(arguments);
+      args.unshift(this.models);
+      return _[method].apply(_, args);
+    };
+  });
+
+  // Underscore methods that take a property name as an argument.
+  var attributeMethods = ['groupBy', 'countBy', 'sortBy'];
+
+  // Use attributes instead of properties.
+  _.each(attributeMethods, function(method) {
+    Collection.prototype[method] = function(value, context) {
+      var iterator = _.isFunction(value) ? value : function(model) {
+        return model.get(value);
+      };
+      return _[method](this.models, iterator, context);
+    };
+  });
+
+  // Backbone.Router
+  // ---------------
+
+  // Routers map faux-URLs to actions, and fire events when routes are
+  // matched. Creating a new one sets its `routes` hash, if not set statically.
+  var Router = Backbone.Router = function(options) {
+    options || (options = {});
+    if (options.routes) this.routes = options.routes;
+    this._bindRoutes();
+    this.initialize.apply(this, arguments);
+  };
+
+  // Cached regular expressions for matching named param parts and splatted
+  // parts of route strings.
+  var optionalParam = /\((.*?)\)/g;
+  var namedParam    = /:\w+/g;
+  var splatParam    = /\*\w+/g;
+  var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g;
+
+  // Set up all inheritable **Backbone.Router** properties and methods.
+  _.extend(Router.prototype, Events, {
+
+    // Initialize is an empty function by default. Override it with your own
+    // initialization logic.
+    initialize: function(){},
+
+    // Manually bind a single named route to a callback. For example:
+    //
+    //     this.route('search/:query/p:num', 'search', function(query, num) {
+    //       ...
+    //     });
+    //
+    route: function(route, name, callback) {
+      if (!_.isRegExp(route)) route = this._routeToRegExp(route);
+      if (!callback) callback = this[name];
+      Backbone.history.route(route, _.bind(function(fragment) {
+        var args = this._extractParameters(route, fragment);
+        callback && callback.apply(this, args);
+        this.trigger.apply(this, ['route:' + name].concat(args));
+        Backbone.history.trigger('route', this, name, args);
+      }, this));
+      return this;
+    },
+
+    // Simple proxy to `Backbone.history` to save a fragment into the history.
+    navigate: function(fragment, options) {
+      Backbone.history.navigate(fragment, options);
+      return this;
+    },
+
+    // Bind all defined routes to `Backbone.history`. We have to reverse the
+    // order of the routes here to support behavior where the most general
+    // routes can be defined at the bottom of the route map.
+    _bindRoutes: function() {
+      if (!this.routes) return;
+      var route, routes = _.keys(this.routes);
+      while ((route = routes.pop()) != null) {
+        this.route(route, this.routes[route]);
+      }
+    },
+
+    // Convert a route string into a regular expression, suitable for matching
+    // against the current location hash.
+    _routeToRegExp: function(route) {
+      route = route.replace(escapeRegExp, '\\$&')
+                   .replace(optionalParam, '(?:$1)?')
+                   .replace(namedParam, '([^\/]+)')
+                   .replace(splatParam, '(.*?)');
+      return new RegExp('^' + route + '$');
+    },
+
+    // Given a route, and a URL fragment that it matches, return the array of
+    // extracted parameters.
+    _extractParameters: function(route, fragment) {
+      return route.exec(fragment).slice(1);
+    }
+
+  });
+
+  // Backbone.History
+  // ----------------
+
+  // Handles cross-browser history management, based on URL fragments. If the
+  // browser does not support `onhashchange`, falls back to polling.
+  var History = Backbone.History = function() {
+    this.handlers = [];
+    _.bindAll(this, 'checkUrl');
+
+    // Ensure that `History` can be used outside of the browser.
+    if (typeof window !== 'undefined') {
+      this.location = window.location;
+      this.history = window.history;
+    }
+  };
+
+  // Cached regex for stripping a leading hash/slash and trailing space.
+  var routeStripper = /^[#\/]|\s+$/g;
+
+  // Cached regex for stripping leading and trailing slashes.
+  var rootStripper = /^\/+|\/+$/g;
+
+  // Cached regex for detecting MSIE.
+  var isExplorer = /msie [\w.]+/;
+
+  // Cached regex for removing a trailing slash.
+  var trailingSlash = /\/$/;
+
+  // Has the history handling already been started?
+  History.started = false;
+
+  // Set up all inheritable **Backbone.History** properties and methods.
+  _.extend(History.prototype, Events, {
+
+    // The default interval to poll for hash changes, if necessary, is
+    // twenty times a second.
+    interval: 50,
+
+    // Gets the true hash value. Cannot use location.hash directly due to bug
+    // in Firefox where location.hash will always be decoded.
+    getHash: function(window) {
+      var match = (window || this).location.href.match(/#(.*)$/);
+      return match ? match[1] : '';
+    },
+
+    // Get the cross-browser normalized URL fragment, either from the URL,
+    // the hash, or the override.
+    getFragment: function(fragment, forcePushState) {
+      if (fragment == null) {
+        if (this._hasPushState || !this._wantsHashChange || forcePushState) {
+          fragment = this.location.pathname;
+          var root = this.root.replace(trailingSlash, '');
+          if (!fragment.indexOf(root)) fragment = fragment.substr(root.length);
+        } else {
+          fragment = this.getHash();
+        }
+      }
+      return fragment.replace(routeStripper, '');
+    },
+
+    // Start the hash change handling, returning `true` if the current URL matches
+    // an existing route, and `false` otherwise.
+    start: function(options) {
+      if (History.started) throw new Error("Backbone.history has already been started");
+      History.started = true;
+
+      // Figure out the initial configuration. Do we need an iframe?
+      // Is pushState desired ... is it available?
+      this.options          = _.extend({}, {root: '/'}, this.options, options);
+      this.root             = this.options.root;
+      this._wantsHashChange = this.options.hashChange !== false;
+      this._wantsPushState  = !!this.options.pushState;
+      this._hasPushState    = !!(this.options.pushState && this.history && this.history.pushState);
+      var fragment          = this.getFragment();
+      var docMode           = document.documentMode;
+      var oldIE             = (isExplorer.exec(navigator.userAgent.toLowerCase()) && (!docMode || docMode <= 7));
+
+      // Normalize root to always include a leading and trailing slash.
+      this.root = ('/' + this.root + '/').replace(rootStripper, '/');
+
+      if (oldIE && this._wantsHashChange) {
+        this.iframe = Backbone.$('<iframe src="javascript:0" tabindex="-1" />').hide().appendTo('body')[0].contentWindow;
+        this.navigate(fragment);
+      }
+
+      // Depending on whether we're using pushState or hashes, and whether
+      // 'onhashchange' is supported, determine how we check the URL state.
+      if (this._hasPushState) {
+        Backbone.$(window).bind('popstate', this.checkUrl);
+      } else if (this._wantsHashChange && ('onhashchange' in window) && !oldIE) {
+        Backbone.$(window).bind('hashchange', this.checkUrl);
+      } else if (this._wantsHashChange) {
+        this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
+      }
+
+      // Determine if we need to change the base url, for a pushState link
+      // opened by a non-pushState browser.
+      this.fragment = fragment;
+      var loc = this.location;
+      var atRoot = loc.pathname.replace(/[^\/]$/, '$&/') === this.root;
+
+      // If we've started off with a route from a `pushState`-enabled browser,
+      // but we're currently in a browser that doesn't support it...
+      if (this._wantsHashChange && this._wantsPushState && !this._hasPushState && !atRoot) {
+        this.fragment = this.getFragment(null, true);
+        this.location.replace(this.root + this.location.search + '#' + this.fragment);
+        // Return immediately as browser will do redirect to new url
+        return true;
+
+      // Or if we've started out with a hash-based route, but we're currently
+      // in a browser where it could be `pushState`-based instead...
+      } else if (this._wantsPushState && this._hasPushState && atRoot && loc.hash) {
+        this.fragment = this.getHash().replace(routeStripper, '');
+        this.history.replaceState({}, document.title, this.root + this.fragment + loc.search);
+      }
+
+      if (!this.options.silent) return this.loadUrl();
+    },
+
+    // Disable Backbone.history, perhaps temporarily. Not useful in a real app,
+    // but possibly useful for unit testing Routers.
+    stop: function() {
+      Backbone.$(window).unbind('popstate', this.checkUrl).unbind('hashchange', this.checkUrl);
+      clearInterval(this._checkUrlInterval);
+      History.started = false;
+    },
+
+    // Add a route to be tested when the fragment changes. Routes added later
+    // may override previous routes.
+    route: function(route, callback) {
+      this.handlers.unshift({route: route, callback: callback});
+    },
+
+    // Checks the current URL to see if it has changed, and if it has,
+    // calls `loadUrl`, normalizing across the hidden iframe.
+    checkUrl: function(e) {
+      var current = this.getFragment();
+      if (current === this.fragment && this.iframe) {
+        current = this.getFragment(this.getHash(this.iframe));
+      }
+      if (current === this.fragment) return false;
+      if (this.iframe) this.navigate(current);
+      this.loadUrl() || this.loadUrl(this.getHash());
+    },
+
+    // Attempt to load the current URL fragment. If a route succeeds with a
+    // match, returns `true`. If no defined routes matches the fragment,
+    // returns `false`.
+    loadUrl: function(fragmentOverride) {
+      var fragment = this.fragment = this.getFragment(fragmentOverride);
+      var matched = _.any(this.handlers, function(handler) {
+        if (handler.route.test(fragment)) {
+          handler.callback(fragment);
+          return true;
+        }
+      });
+      return matched;
+    },
+
+    // Save a fragment into the hash history, or replace the URL state if the
+    // 'replace' option is passed. You are responsible for properly URL-encoding
+    // the fragment in advance.
+    //
+    // The options object can contain `trigger: true` if you wish to have the
+    // route callback be fired (not usually desirable), or `replace: true`, if
+    // you wish to modify the current URL without adding an entry to the history.
+    navigate: function(fragment, options) {
+      if (!History.started) return false;
+      if (!options || options === true) options = {trigger: options};
+      fragment = this.getFragment(fragment || '');
+      if (this.fragment === fragment) return;
+      this.fragment = fragment;
+      var url = this.root + fragment;
+
+      // If pushState is available, we use it to set the fragment as a real URL.
+      if (this._hasPushState) {
+        this.history[options.replace ? 'replaceState' : 'pushState']({}, document.title, url);
+
+      // If hash changes haven't been explicitly disabled, update the hash
+      // fragment to store history.
+      } else if (this._wantsHashChange) {
+        this._updateHash(this.location, fragment, options.replace);
+        if (this.iframe && (fragment !== this.getFragment(this.getHash(this.iframe)))) {
+          // Opening and closing the iframe tricks IE7 and earlier to push a
+          // history entry on hash-tag change.  When replace is true, we don't
+          // want this.
+          if(!options.replace) this.iframe.document.open().close();
+          this._updateHash(this.iframe.location, fragment, options.replace);
+        }
+
+      // If you've told us that you explicitly don't want fallback hashchange-
+      // based history, then `navigate` becomes a page refresh.
+      } else {
+        return this.location.assign(url);
+      }
+      if (options.trigger) this.loadUrl(fragment);
+    },
+
+    // Update the hash location, either replacing the current entry, or adding
+    // a new one to the browser history.
+    _updateHash: function(location, fragment, replace) {
+      if (replace) {
+        var href = location.href.replace(/(javascript:|#).*$/, '');
+        location.replace(href + '#' + fragment);
+      } else {
+        // Some browsers require that `hash` contains a leading #.
+        location.hash = '#' + fragment;
+      }
+    }
+
+  });
+
+  // Create the default Backbone.history.
+  Backbone.history = new History;
+
+  // Backbone.View
+  // -------------
+
+  // Creating a Backbone.View creates its initial element outside of the DOM,
+  // if an existing element is not provided...
+  var View = Backbone.View = function(options) {
+    this.cid = _.uniqueId('view');
+    this._configure(options || {});
+    this._ensureElement();
+    this.initialize.apply(this, arguments);
+    this.delegateEvents();
+  };
+
+  // Cached regex to split keys for `delegate`.
+  var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+
+  // List of view options to be merged as properties.
+  var viewOptions = ['model', 'collection', 'el', 'id', 'attributes', 'className', 'tagName', 'events'];
+
+  // Set up all inheritable **Backbone.View** properties and methods.
+  _.extend(View.prototype, Events, {
+
+    // The default `tagName` of a View's element is `"div"`.
+    tagName: 'div',
+
+    // jQuery delegate for element lookup, scoped to DOM elements within the
+    // current view. This should be prefered to global lookups where possible.
+    $: function(selector) {
+      return this.$el.find(selector);
+    },
+
+    // Initialize is an empty function by default. Override it with your own
+    // initialization logic.
+    initialize: function(){},
+
+    // **render** is the core function that your view should override, in order
+    // to populate its element (`this.el`), with the appropriate HTML. The
+    // convention is for **render** to always return `this`.
+    render: function() {
+      return this;
+    },
+
+    // Remove this view by taking the element out of the DOM, and removing any
+    // applicable Backbone.Events listeners.
+    remove: function() {
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+
+    // For small amounts of DOM Elements, where a full-blown template isn't
+    // needed, use **make** to manufacture elements, one at a time.
+    //
+    //     var el = this.make('li', {'class': 'row'}, this.model.escape('title'));
+    //
+    make: function(tagName, attributes, content) {
+      var el = document.createElement(tagName);
+      if (attributes) Backbone.$(el).attr(attributes);
+      if (content != null) Backbone.$(el).html(content);
+      return el;
+    },
+
+    // Change the view's element (`this.el` property), including event
+    // re-delegation.
+    setElement: function(element, delegate) {
+      if (this.$el) this.undelegateEvents();
+      this.$el = element instanceof Backbone.$ ? element : Backbone.$(element);
+      this.el = this.$el[0];
+      if (delegate !== false) this.delegateEvents();
+      return this;
+    },
+
+    // Set callbacks, where `this.events` is a hash of
+    //
+    // *{"event selector": "callback"}*
+    //
+    //     {
+    //       'mousedown .title':  'edit',
+    //       'click .button':     'save'
+    //       'click .open':       function(e) { ... }
+    //     }
+    //
+    // pairs. Callbacks will be bound to the view, with `this` set properly.
+    // Uses event delegation for efficiency.
+    // Omitting the selector binds the event to `this.el`.
+    // This only works for delegate-able events: not `focus`, `blur`, and
+    // not `change`, `submit`, and `reset` in Internet Explorer.
+    delegateEvents: function(events) {
+      if (!(events || (events = _.result(this, 'events')))) return;
+      this.undelegateEvents();
+      for (var key in events) {
+        var method = events[key];
+        if (!_.isFunction(method)) method = this[events[key]];
+        if (!method) throw new Error('Method "' + events[key] + '" does not exist');
+        var match = key.match(delegateEventSplitter);
+        var eventName = match[1], selector = match[2];
+        method = _.bind(method, this);
+        eventName += '.delegateEvents' + this.cid;
+        if (selector === '') {
+          this.$el.bind(eventName, method);
+        } else {
+          this.$el.delegate(selector, eventName, method);
+        }
+      }
+    },
+
+    // Clears all callbacks previously bound to the view with `delegateEvents`.
+    // You usually don't need to use this, but may wish to if you have multiple
+    // Backbone views attached to the same DOM element.
+    undelegateEvents: function() {
+      this.$el.unbind('.delegateEvents' + this.cid);
+    },
+
+    // Performs the initial configuration of a View with a set of options.
+    // Keys with special meaning *(model, collection, id, className)*, are
+    // attached directly to the view.
+    _configure: function(options) {
+      if (this.options) options = _.extend({}, _.result(this, 'options'), options);
+      _.extend(this, _.pick(options, viewOptions));
+      this.options = options;
+    },
+
+    // Ensure that the View has a DOM element to render into.
+    // If `this.el` is a string, pass it through `$()`, take the first
+    // matching element, and re-assign it to `el`. Otherwise, create
+    // an element from the `id`, `className` and `tagName` properties.
+    _ensureElement: function() {
+      if (!this.el) {
+        var attrs = _.extend({}, _.result(this, 'attributes'));
+        if (this.id) attrs.id = _.result(this, 'id');
+        if (this.className) attrs['class'] = _.result(this, 'className');
+        this.setElement(this.make(_.result(this, 'tagName'), attrs), false);
+      } else {
+        this.setElement(_.result(this, 'el'), false);
+      }
+    }
+
+  });
+
+  // Backbone.sync
+  // -------------
+
+  // Map from CRUD to HTTP for our default `Backbone.sync` implementation.
+  var methodMap = {
+    'create': 'POST',
+    'update': 'PUT',
+    'patch':  'PATCH',
+    'delete': 'DELETE',
+    'read':   'GET'
+  };
+
+  // Override this function to change the manner in which Backbone persists
+  // models to the server. You will be passed the type of request, and the
+  // model in question. By default, makes a RESTful Ajax request
+  // to the model's `url()`. Some possible customizations could be:
+  //
+  // * Use `setTimeout` to batch rapid-fire updates into a single request.
+  // * Send up the models as XML instead of JSON.
+  // * Persist models via WebSockets instead of Ajax.
+  //
+  // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
+  // as `POST`, with a `_method` parameter containing the true HTTP method,
+  // as well as all requests with the body as `application/x-www-form-urlencoded`
+  // instead of `application/json` with the model in a param named `model`.
+  // Useful when interfacing with server-side languages like **PHP** that make
+  // it difficult to read the body of `PUT` requests.
+  Backbone.sync = function(method, model, options) {
+    var type = methodMap[method];
+
+    // Default options, unless specified.
+    _.defaults(options || (options = {}), {
+      emulateHTTP: Backbone.emulateHTTP,
+      emulateJSON: Backbone.emulateJSON
+    });
+
+    // Default JSON-request options.
+    var params = {type: type, dataType: 'json'};
+
+    // Ensure that we have a URL.
+    if (!options.url) {
+      params.url = _.result(model, 'url') || urlError();
+    }
+
+    // Ensure that we have the appropriate request data.
+    if (options.data == null && model && (method === 'create' || method === 'update' || method === 'patch')) {
+      params.contentType = 'application/json';
+      params.data = JSON.stringify(options.attrs || model.toJSON(options));
+    }
+
+    // For older servers, emulate JSON by encoding the request into an HTML-form.
+    if (options.emulateJSON) {
+      params.contentType = 'application/x-www-form-urlencoded';
+      params.data = params.data ? {model: params.data} : {};
+    }
+
+    // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
+    // And an `X-HTTP-Method-Override` header.
+    if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
+      params.type = 'POST';
+      if (options.emulateJSON) params.data._method = type;
+      var beforeSend = options.beforeSend;
+      options.beforeSend = function(xhr) {
+        xhr.setRequestHeader('X-HTTP-Method-Override', type);
+        if (beforeSend) return beforeSend.apply(this, arguments);
+      };
+    }
+
+    // Don't process data on a non-GET request.
+    if (params.type !== 'GET' && !options.emulateJSON) {
+      params.processData = false;
+    }
+
+    var success = options.success;
+    options.success = function(resp, status, xhr) {
+      if (success) success(resp, status, xhr);
+      model.trigger('sync', model, resp, options);
+    };
+
+    var error = options.error;
+    options.error = function(xhr, status, thrown) {
+      if (error) error(model, xhr, options);
+      model.trigger('error', model, xhr, options);
+    };
+
+    // Make the request, allowing the user to override any Ajax options.
+    var xhr = Backbone.ajax(_.extend(params, options));
+    model.trigger('request', model, xhr, options);
+    return xhr;
+  };
+
+  // Set the default implementation of `Backbone.ajax` to proxy through to `$`.
+  Backbone.ajax = function() {
+    return Backbone.$.ajax.apply(Backbone.$, arguments);
+  };
+
+  // Helpers
+  // -------
+
+  // Helper function to correctly set up the prototype chain, for subclasses.
+  // Similar to `goog.inherits`, but uses a hash of prototype properties and
+  // class properties to be extended.
+  var extend = function(protoProps, staticProps) {
+    var parent = this;
+    var child;
+
+    // The constructor function for the new subclass is either defined by you
+    // (the "constructor" property in your `extend` definition), or defaulted
+    // by us to simply call the parent's constructor.
+    if (protoProps && _.has(protoProps, 'constructor')) {
+      child = protoProps.constructor;
+    } else {
+      child = function(){ parent.apply(this, arguments); };
+    }
+
+    // Add static properties to the constructor function, if supplied.
+    _.extend(child, parent, staticProps);
+
+    // Set the prototype chain to inherit from `parent`, without calling
+    // `parent`'s constructor function.
+    var Surrogate = function(){ this.constructor = child; };
+    Surrogate.prototype = parent.prototype;
+    child.prototype = new Surrogate;
+
+    // Add prototype properties (instance properties) to the subclass,
+    // if supplied.
+    if (protoProps) _.extend(child.prototype, protoProps);
+
+    // Set a convenience property in case the parent's prototype is needed
+    // later.
+    child.__super__ = parent.prototype;
+
+    return child;
+  };
+
+  // Set up inheritance for the model, collection, router, view and history.
+  Model.extend = Collection.extend = Router.extend = View.extend = History.extend = extend;
+
+  // Throw an error when a URL is needed, and none is supplied.
+  var urlError = function() {
+    throw new Error('A "url" property or function must be specified');
+  };
+
+}).call(this);
+/*
+Copyright (c) 2011-2013 @WalmartLabs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to
+deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+*/
+
+;;
+(function() {
+
+/*global cloneInheritVars, createInheritVars, createRegistryWrapper, getValue, inheritVars */
 
 //support zepto.forEach on jQuery
 if (!$.fn.forEach) {
@@ -3030,29 +14254,19 @@ if (!$.fn.forEach) {
     $.fn.each.call(this, function(index) {
       iterator.call(context || this, this, index);
     });
-  }
+  };
 }
 
-if (typeof exports !== 'undefined') {
-  Thorax = exports;
-} else {
-  Thorax = this.Thorax = {};
-}
-
-Thorax.VERSION = '2.0.0b3';
-
-var handlebarsExtension = 'handlebars',
-    handlebarsExtensionRegExp = new RegExp('\\.' + handlebarsExtension + '$'),
-    viewNameAttributeName = 'data-view-name',
+var viewNameAttributeName = 'data-view-name',
     viewCidAttributeName = 'data-view-cid',
-    viewPlaceholderAttributeName = 'data-view-tmp',
-    viewHelperAttributeName = 'data-view-helper',
-    elementPlaceholderAttributeName = 'data-element-tmp';
+    viewHelperAttributeName = 'data-view-helper';
 
-_.extend(Thorax, {
+//view instances
+var viewsIndexedByCid = {};
+
+var Thorax = this.Thorax = {
+  VERSION: '2.0.0rc1',
   templatePathPrefix: '',
-  //view instances
-  _viewsIndexedByCid: {},
   templates: {},
   //view classes
   Views: {},
@@ -3064,80 +14278,465 @@ _.extend(Thorax, {
   onException: function(name, err) {
     throw err;
   }
-});
+};
 
-Thorax.Util = {
-  createRegistryWrapper: function(klass, hash) {
-    var $super = klass.extend;
-    klass.extend = function() {
-      var child = $super.apply(this, arguments);
-      if (child.prototype.name) {
-        hash[child.prototype.name] = child;
+Thorax.View = Backbone.View.extend({
+  constructor: function() {
+    var response = Backbone.View.apply(this, arguments);
+    _.each(inheritVars, function(obj) {
+      if (obj.ctor) {
+        obj.ctor.call(this, response);
       }
-      return child;
+    }, this);
+    return response;
+  },
+  _configure: function(options) {
+    var self = this;
+
+    this._objectOptionsByCid = {};
+    this._boundDataObjectsByCid = {};
+
+    // Setup object event tracking
+    _.each(inheritVars, function(obj) {
+      self[obj.name] = [];
+    });
+
+    viewsIndexedByCid[this.cid] = this;
+    this.children = {};
+    this._renderCount = 0;
+
+    //this.options is removed in Thorax.View, we merge passed
+    //properties directly with the view and template context
+    _.extend(this, options || {});
+
+    // Setup helpers
+    bindHelpers.call(this);
+
+    //compile a string if it is set as this.template
+    if (typeof this.template === 'string') {
+      this.template = Handlebars.compile(this.template, {data: true});
+    } else if (this.name && !this.template) {
+      //fetch the template
+      this.template = Thorax.Util.getTemplate(this.name, true);
+    }
+
+    _.each(inheritVars, function(obj) {
+      if (obj.configure) {
+        obj.configure.call(this);
+      }
+    }, this);
+  },
+
+  setElement : function() {
+    var response = Backbone.View.prototype.setElement.apply(this, arguments);
+    this.name && this.$el.attr(viewNameAttributeName, this.name);
+    this.$el.attr(viewCidAttributeName, this.cid);
+    return response;
+  },
+
+  _addChild: function(view) {
+    this.children[view.cid] = view;
+    if (!view.parent) {
+      view.parent = this;
+    }
+    this.trigger('child', view);
+    return view;
+  },
+
+  _removeChild: function(view) {
+    delete this.children[view.cid];
+    view.parent = null;
+    return view;
+  },
+
+  destroy: function(options) {
+    options = _.defaults(options || {}, {
+      children: true
+    });
+    _.each(this._boundDataObjectsByCid, this.unbindDataObject, this);
+    this.trigger('destroyed');
+    delete viewsIndexedByCid[this.cid];
+    _.each(this.children, function(child) {
+      this._removeChild(child);
+      if (options.children) {
+        child.destroy();
+      }
+    }, this);
+    if (this.parent) {
+      this.parent._removeChild(this);
+    }
+    this.remove(); // Will call stopListening()
+  },
+
+  render: function(output) {
+    this._previousHelpers = _.filter(this.children, function(child) { return child._helperOptions; });
+
+    var children = {};
+    _.each(this.children, function(child, key) {
+      if (!child._helperOptions) {
+        children[key] = child;
+      }
+    });
+    this.children = children;
+
+    if (typeof output === 'undefined' || (!_.isElement(output) && !Thorax.Util.is$(output) && !(output && output.el) && typeof output !== 'string' && typeof output !== 'function')) {
+      if (!this.template) {
+        //if the name was set after the view was created try one more time to fetch a template
+        if (this.name) {
+          this.template = Thorax.Util.getTemplate(this.name, true);
+        }
+        if (!this.template) {
+          throw new Error('View ' + (this.name || this.cid) + '.render() was called with no content and no template set on the view.');
+        }
+      }
+      output = this.renderTemplate(this.template);
+    } else if (typeof output === 'function') {
+      output = this.renderTemplate(output);
+    }
+
+    // Destroy any helpers that may be lingering
+    _.each(this._previousHelpers, function(child) {
+      child.destroy();
+      child.parent = undefined;
+    });
+    this._previousHelpers = undefined;
+
+    //accept a view, string, Handlebars.SafeString or DOM element
+    this.html((output && output.el) || (output && output.string) || output);
+    ++this._renderCount;
+    this.trigger('rendered');
+    return output;
+  },
+
+  context: function() {
+    return (this.model && this.model.attributes) || {};
+  },
+
+  _getContext: function() {
+    return _.extend({}, this, getValue(this, 'context') || {});
+  },
+
+  // Private variables in handlebars / options.data in template helpers
+  _getData: function(data) {
+    return {
+      view: this,
+      cid: _.uniqueId('t'),
+      yield: function() {
+        // fn is seeded by template helper passing context to data
+        return data.fn && data.fn(data);
+      }
     };
   },
-  registryGet: function(object, type, name, ignoreErrors) {
-    if (type === 'templates') {
-      //append the template path prefix if it is missing
-      var pathPrefix = Thorax.templatePathPrefix;
-      if (pathPrefix && pathPrefix.length && name && name.substr(0, pathPrefix.length) !== pathPrefix) {
-        name = pathPrefix + name;
-      }
+
+  _getHelpers: function() {
+    if (this.helpers) {
+      return _.extend({}, Handlebars.helpers, this.helpers);
+    } else {
+      return Handlebars.helpers;
     }
-    var target = object[type],
-        value;
-    if (name.match(/\./)) {
-      var bits = name.split(/\./);
-      name = bits.pop();
-      bits.forEach(function(key) {
-        target = target[key];
+
+  },
+
+  renderTemplate: function(file, context, ignoreErrors) {
+    var template;
+    context = context || this._getContext();
+    if (typeof file === 'function') {
+      template = file;
+    } else {
+      template = Thorax.Util.getTemplate(file);
+    }
+    if (!template) {
+      if (ignoreErrors) {
+        return '';
+      } else {
+        throw new Error('Unable to find template ' + file);
+      }
+    } else {
+      return template(context, {
+        helpers: this._getHelpers(),
+        data: this._getData(context)
       });
-    } else {
-      value = target[name];
-    }
-    if (!target && !ignoreErrors) {
-      throw new Error(type + ': ' + name + ' does not exist.');
-    } else {
-      var value = target[name];
-      if (type === 'templates' && typeof value === 'string') {
-        value = target[name] = Handlebars.compile(value);
-      }
-      return value;
     }
   },
+
+  ensureRendered: function() {
+    !this._renderCount && this.render();
+  },
+
+  appendTo: function(el) {
+    this.ensureRendered();
+    $(el).append(this.el);
+    this.trigger('ready', {target: this});
+  },
+
+  html: function(html) {
+
+    function replaceHTML(view) {
+      view.el.innerHTML = "";
+      return view.$el.append(html);
+    }
+
+    if (typeof html === 'undefined') {
+      return this.el.innerHTML;
+    } else {
+      // Event for IE element fixes
+      this.trigger('before:append');
+      var element;
+      if (this.collection && this._objectOptionsByCid[this.collection.cid] && this._renderCount) {
+        // preserve collection element if it was not created with {{collection}} helper
+        var oldCollectionElement = this.getCollectionElement();
+        element = replaceHTML(this);
+        if (!oldCollectionElement.attr('data-view-cid')) {
+          this.getCollectionElement().replaceWith(oldCollectionElement);
+        }
+      } else {
+        element = replaceHTML(this);
+      }
+      this.trigger('append');
+      return element;
+    }
+  },
+
+  _anchorClick: function(event) {
+    var target = $(event.currentTarget),
+        href = target.attr('href');
+    // Route anything that starts with # or / (excluding //domain urls)
+    if (href && (href[0] === '#' || (href[0] === '/' && href[1] !== '/'))) {
+      Backbone.history.navigate(href, {
+        trigger: true
+      });
+      return false;
+    }
+    return true;
+  }
+});
+
+Thorax.View.extend = function() {
+  createInheritVars(this);
+
+  var child = Backbone.View.extend.apply(this, arguments);
+  child.__parent__ = this;
+
+  resetInheritVars(child);
+
+  return child;
+};
+
+createRegistryWrapper(Thorax.View, Thorax.Views);
+
+function bindHelpers() {
+  if (this.helpers) {
+    _.each(this.helpers, function(helper, name) {
+      var view = this;
+      this.helpers[name] = function() {
+        var args = _.toArray(arguments),
+            options = _.last(args);
+        options.context = this;
+        return helper.apply(view, args);
+      };
+    }, this);
+  }
+}
+
+//$(selector).view() helper
+$.fn.view = function(options) {
+  options = _.defaults(options || {}, {
+    helper: true
+  });
+  var selector = '[' + viewCidAttributeName + ']';
+  if (!options.helper) {
+    selector += ':not([' + viewHelperAttributeName + '])';
+  }
+  var el = $(this).closest(selector);
+  return (el && viewsIndexedByCid[el.attr(viewCidAttributeName)]) || false;
+};
+
+;;
+/*global createRegistryWrapper:true, cloneEvents: true */
+function createRegistryWrapper(klass, hash) {
+  var $super = klass.extend;
+  klass.extend = function() {
+    var child = $super.apply(this, arguments);
+    if (child.prototype.name) {
+      hash[child.prototype.name] = child;
+    }
+    return child;
+  };
+}
+function registryGet(object, type, name, ignoreErrors) {
+  var target = object[type],
+      value;
+  if (name.indexOf('.') >= 0) {
+    var bits = name.split(/\./);
+    name = bits.pop();
+    _.each(bits, function(key) {
+      target = target[key];
+    });
+  }
+  target && (value = target[name]);
+  if (!value && !ignoreErrors) {
+    throw new Error(type + ': ' + name + ' does not exist.');
+  } else {
+    return value;
+  }
+}
+
+// getValue is used instead of _.result because we
+// need an extra scope parameter, and will minify
+// better than _.result
+function getValue(object, prop, scope) {
+  if (!(object && object[prop])) {
+    return null;
+  }
+  return _.isFunction(object[prop])
+    ? object[prop].call(scope || object)
+    : object[prop];
+}
+
+var inheritVars = {};
+function createInheritVars(self) {
+  // Ensure that we have our static event objects
+  _.each(inheritVars, function(obj) {
+    if (!self[obj.name]) {
+      self[obj.name] = [];
+    }
+  });
+}
+function resetInheritVars(self) {
+  // Ensure that we have our static event objects
+  _.each(inheritVars, function(obj) {
+    self[obj.name] = [];
+  });
+}
+function walkInheritTree(source, fieldName, isStatic, callback) {
+  var tree = [];
+  if (_.has(source, fieldName)) {
+    tree.push(source);
+  }
+  var iterate = source;
+  if (isStatic) {
+    while (iterate = iterate.__parent__) {
+      if (_.has(iterate, fieldName)) {
+        tree.push(iterate);
+      }
+    }
+  } else {
+    iterate = iterate.constructor;
+    while (iterate) {
+      if (iterate.prototype && _.has(iterate.prototype, fieldName)) {
+        tree.push(iterate.prototype);
+      }
+      iterate = iterate.__super__ && iterate.__super__.constructor;
+    }
+  }
+
+  var i = tree.length;
+  while (i--) {
+    _.each(getValue(tree[i], fieldName, source), callback);
+  }
+}
+
+function objectEvents(target, eventName, callback, context) {
+  if (_.isObject(callback)) {
+    var spec = inheritVars[eventName];
+    if (spec && spec.event) {
+      addEvents(target['_' + eventName + 'Events'], callback, context);
+      return true;
+    }
+  }
+}
+function addEvents(target, source, context) {
+  _.each(source, function(callback, eventName) {
+    if (_.isArray(callback)) {
+      _.each(callback, function(cb) {
+        target.push([eventName, cb, context]);
+      });
+    } else {
+      target.push([eventName, callback, context]);
+    }
+  });
+}
+
+function getOptionsData(options) {
+  if (!options || !options.data) {
+    throw new Error('Handlebars template compiled without data, use: Handlebars.compile(template, {data: true})');
+  }
+  return options.data;
+}
+
+// These whitelisted attributes will be the only ones passed
+// from the options hash to Thorax.Util.tag
+var htmlAttributesToCopy = ['id', 'className', 'tagName'];
+
+// In helpers "tagName" or "tag" may be specified, as well
+// as "class" or "className". Normalize to "tagName" and
+// "className" to match the property names used by Backbone
+// jQuery, etc. Special case for "className" in
+// Thorax.Util.tag: will be rewritten as "class" in
+// generated HTML.
+function normalizeHTMLAttributeOptions(options) {
+  if (options.tag) {
+    options.tagName = options.tag;
+    delete options.tag;
+  }
+  if (options['class']) {
+    options.className = options['class'];
+    delete options['class'];
+  }
+}
+
+Thorax.Util = {
   getViewInstance: function(name, attributes) {
-    attributes['class'] && (attributes.className = attributes['class']);
-    attributes.tag && (attributes.tagName = attributes.tag);
+    attributes = attributes || {};
     if (typeof name === 'string') {
-      var klass = Thorax.Util.registryGet(Thorax, 'Views', name, false);
-      return klass.cid ? _.extend(klass, attributes || {}) : new klass(attributes);
+      var Klass = registryGet(Thorax, 'Views', name, false);
+      return Klass.cid ? _.extend(Klass, attributes || {}) : new Klass(attributes);
     } else if (typeof name === 'function') {
       return new name(attributes);
     } else {
       return name;
     }
   },
-  getValue: function (object, prop) {
-    if (!(object && object[prop])) {
-      return null;
+
+  getTemplate: function(file, ignoreErrors) {
+    //append the template path prefix if it is missing
+    var pathPrefix = Thorax.templatePathPrefix,
+        template;
+    if (pathPrefix && file.substr(0, pathPrefix.length) !== pathPrefix) {
+      file = pathPrefix + file;
     }
-    return _.isFunction(object[prop])
-      ? object[prop].apply(object, Array.prototype.slice.call(arguments, 2))
-      : object[prop];
+
+    // Without extension
+    file = file.replace(/\.handlebars$/, '');
+    template = Thorax.templates[file];
+    if (!template) {
+      // With extension
+      file = file + '.handlebars';
+      template = Thorax.templates[file];
+    }
+
+    if (template && typeof template === 'string') {
+      template = Thorax.templates[file] = Handlebars.compile(template, {data: true});
+    } else if (!template && !ignoreErrors) {
+      throw new Error('templates: ' + file + ' does not exist.');
+    }
+    return template;
   },
+
   //'selector' is not present in $('<p></p>')
   //TODO: investigage a better detection method
   is$: function(obj) {
     return typeof obj === 'object' && ('length' in obj);
   },
   expandToken: function(input, scope) {
-    
-    if (input && input.indexOf && input.indexOf('{' + '{') >= 0) {
+    if (input && input.indexOf && input.indexOf('{{') >= 0) {
       var re = /(?:\{?[^{]+)|(?:\{\{([^}]+)\}\})/g,
           match,
           ret = [];
       function deref(token, scope) {
+        if (token.match(/^("|')/) && token.match(/("|')$/)) {
+          return token.replace(/(^("|')|('|")$)/g, '');
+        }
         var segments = token.split('.'),
             len = segments.length;
         for (var i = 0; scope && i < len; i++) {
@@ -3152,7 +14751,7 @@ Thorax.Util = {
           var params = match[1].split(/\s+/);
           if (params.length > 1) {
             var helper = params.shift();
-            params = params.map(function(param) { return deref(param, scope); });
+            params = _.map(params, function(param) { return deref(param, scope); });
             if (Handlebars.helpers[helper]) {
               ret.push(Handlebars.helpers[helper].apply(scope, params));
             } else {
@@ -3171,433 +14770,90 @@ Thorax.Util = {
     return input;
   },
   tag: function(attributes, content, scope) {
-    var htmlAttributes = _.clone(attributes),
-        tag = htmlAttributes.tag || htmlAttributes.tagName || 'div';
-    if (htmlAttributes.tag) {
-      delete htmlAttributes.tag;
-    }
-    if (htmlAttributes.tagName) {
-      delete htmlAttributes.tagName;
-    }
+    var htmlAttributes = _.omit(attributes, 'tagName'),
+        tag = attributes.tagName || 'div';
     return '<' + tag + ' ' + _.map(htmlAttributes, function(value, key) {
-      if (typeof value === 'undefined') {
+      if (typeof value === 'undefined' || key === 'expand-tokens') {
         return '';
       }
       var formattedValue = value;
       if (scope) {
         formattedValue = Thorax.Util.expandToken(value, scope);
       }
-      return key + '="' + Handlebars.Utils.escapeExpression(formattedValue) + '"';
+      return (key === 'className' ? 'class' : key) + '="' + Handlebars.Utils.escapeExpression(formattedValue) + '"';
     }).join(' ') + '>' + (typeof content === 'undefined' ? '' : content) + '</' + tag + '>';
-  },
-  htmlAttributesFromOptions: function(options) {
-    var htmlAttributes = {};
-    if (options.tag) {
-      htmlAttributes.tag = options.tag;
-    }
-    if (options.tagName) {
-      htmlAttributes.tagName = options.tagName;
-    }
-    if (options['class']) {
-      htmlAttributes['class'] = options['class'];
-    }
-    if (options.id) {
-      htmlAttributes.id = options.id;
-    }
-    return htmlAttributes;
-  },
-  _cloneEvents: function(source, target, key) {
-    source[key] = _.clone(target[key]);
-    //need to deep clone events array
-    _.each(source[key], function(value, _key) {
-      if (_.isArray(value)) {
-        target[key][_key] = _.clone(value);
-      }
-    });
   }
 };
 
-Thorax.View = Backbone.View.extend({
-  constructor: function() {
-    var response = Thorax.View.__super__.constructor.apply(this, arguments);
-    
-  if (this.model) {
-    //need to null this.model so setModel will not treat
-    //it as the old model and immediately return
-    var model = this.model;
-    this.model = null;
-    this.setModel(model);
+;;
+/*global createInheritVars, inheritVars */
+Thorax.Mixins = {};
+
+inheritVars.mixins = {
+  name: 'mixins',
+  configure: function() {
+    _.each(this.constructor.mixins, this.mixin, this);
+    _.each(this.mixins, this.mixin, this);
   }
-
-    return response;
-  },
-  _configure: function(options) {
-    
-  this._modelEvents = [];
-
-  this._collectionEvents = [];
-
-
-    Thorax._viewsIndexedByCid[this.cid] = this;
-    this.children = {};
-    this._renderCount = 0;
-
-    //this.options is removed in Thorax.View, we merge passed
-    //properties directly with the view and template context
-    _.extend(this, options || {});
-
-    //compile a string if it is set as this.template
-    if (typeof this.template === 'string') {
-      this.template = Handlebars.compile(this.template);
-    } else if (this.name && !this.template) {
-      //fetch the template 
-      this.template = Thorax.Util.registryGet(Thorax, 'templates', this.name, true);
-    }
-    
-  //HelperView will not have mixins so need to check
-  this.constructor.mixins && _.each(this.constructor.mixins, applyMixin, this);
-  this.mixins && _.each(this.mixins, applyMixin, this);
-
-  //_events not present on HelperView
-  this.constructor._events && this.constructor._events.forEach(function(event) {
-    this.on.apply(this, event);
-  }, this);
-  if (this.events) {
-    _.each(Thorax.Util.getValue(this, 'events'), function(handler, eventName) {
-      this.on(eventName, handler, this);
-    }, this);
-  }
-
-  },
-
-  _ensureElement : function() {
-    Backbone.View.prototype._ensureElement.call(this);
-    if (this.name) {
-      this.$el.attr(viewNameAttributeName, this.name);
-    }
-    this.$el.attr(viewCidAttributeName, this.cid);      
-  },
-
-  _addChild: function(view) {
-    this.children[view.cid] = view;
-    if (!view.parent) {
-      view.parent = this;
-    }
-    return view;
-  },
-
-  destroy: function(options) {
-    options = _.defaults(options || {}, {
-      children: true
-    });
-    this.trigger('destroyed');
-    delete Thorax._viewsIndexedByCid[this.cid];
-    _.each(this.children, function(child) {
-      if (options.children) {
-        child.parent = null;
-        child.destroy();
-      }
-    });
-    if (options.children) {
-      this.children = {};
-    }
-  },
-
-  render: function(output) {
-    if (typeof output === 'undefined' || (!_.isElement(output) && !Thorax.Util.is$(output) && !(output && output.el) && typeof output !== 'string' && typeof output !== 'function')) {
-      if (!this.template) {
-        //if the name was set after the view was created try one more time to fetch a template
-        if (this.name) {
-          this.template = Thorax.Util.registryGet(Thorax, 'templates', this.name, true);
-        }
-        if (!this.template) {
-          throw new Error('View ' + (this.name || this.cid) + '.render() was called with no content and no template set on the view.');
-        }
-      }
-      output = this.renderTemplate(this.template);
-    } else if (typeof output === 'function') {
-      output = this.renderTemplate(output);
-    }
-    //accept a view, string, Handlebars.SafeString or DOM element
-    this.html((output && output.el) || (output && output.string) || output);
-    ++this._renderCount;
-    this.trigger('rendered');
-    return output;
-  },
-
-  context: function() {
-    return this;
-  },
-
-  _getContext: function(attributes) {
-    var data = _.extend({}, Thorax.Util.getValue(this, 'context'), attributes || {}, {
-      cid: _.uniqueId('t'),
-      yield: function() {
-        return data.fn && data.fn(data);
-      },
-      _view: this
-    });
-    return data;
-  },
-
-  renderTemplate: function(file, data, ignoreErrors) {
-    var template;
-    data = this._getContext(data);
-    if (typeof file === 'function') {
-      template = file;
-    } else {
-      template = this._loadTemplate(file);
-    }
-    if (!template) {
-      if (ignoreErrors) {
-        return ''
-      } else {
-        throw new Error('Unable to find template ' + file);
-      }
-    } else {
-      return template(data);
-    }
-  },
-  
-  _loadTemplate: function(file, ignoreErrors) {
-    return Thorax.Util.registryGet(Thorax, 'templates', file, ignoreErrors);
-  },
-
-  ensureRendered: function() {
-    !this._renderCount && this.render();
-  },
-  
-  html: function(html) {
-    if (typeof html === 'undefined') {
-      return this.el.innerHTML;
-    } else {
-      var element = this.$el.html(html);
-      this._appendViews();
-      this._appendElements();
-      return element;
-    }
-  }
-});
-
-Thorax.View.extend = function() {
-  var child = Backbone.View.extend.apply(this, arguments);
-  
-  child.mixins = _.clone(this.mixins);
-
-  Thorax.Util._cloneEvents(this, child, '_events');
-
-  Thorax.Util._cloneEvents(this, child, '_modelEvents');
-
-  Thorax.Util._cloneEvents(this, child, '_collectionEvents');
-
-  return child;
 };
-
-Thorax.Util.createRegistryWrapper(Thorax.View, Thorax.Views);
-
-//helpers
-Handlebars.registerHelper('super', function() {
-  var parent = this._view.constructor && this._view.constructor.__super__;
-  if (parent) {
-    var template = parent.template;
-    if (!template) { 
-      if (!parent.name) {
-        throw new Error('Cannot use super helper when parent has no name or template.');
-      }
-      template = Thorax.Util.registryGet(Thorax, 'templates', parent.name, false);
-    }
-    if (typeof template === 'string') {
-      template = Handlebars.compile(template);
-    }
-    return new Handlebars.SafeString(template(this));
-  } else {
-    return '';
-  }
-});
-
-Handlebars.registerHelper('template', function(name, options) {
-  var context = _.extend({fn: options && options.fn}, this, options ? options.hash : {});
-  var output = Thorax.View.prototype.renderTemplate.call(this._view, name, context);
-  return new Handlebars.SafeString(output);
-});
-
-//view helper
-var viewTemplateOverrides = {};
-Handlebars.registerHelper('view', function(view, options) {
-  if (arguments.length === 1) {
-    options = view;
-    view = Thorax.View;
-  }
-  var instance = Thorax.Util.getViewInstance(view, options ? options.hash : {}),
-      placeholder_id = instance.cid + '-' + _.uniqueId('placeholder');
-  this._view._addChild(instance);
-  this._view.trigger('child', instance);
-  if (options.fn) {
-    viewTemplateOverrides[placeholder_id] = options.fn;
-  }
-  var htmlAttributes = Thorax.Util.htmlAttributesFromOptions(options.hash);
-  htmlAttributes[viewPlaceholderAttributeName] = placeholder_id;
-  return new Handlebars.SafeString(Thorax.Util.tag.call(this, htmlAttributes));
-});
-
-Thorax.HelperView = Thorax.View.extend({
-  _ensureElement: function() {
-    Thorax.View.prototype._ensureElement.apply(this, arguments);
-    this.$el.attr(viewHelperAttributeName, this._helperName);
-  },
-  context: function() {
-    return this.parent.context.apply(this.parent, arguments);
-  }
-});
-
-//ensure nested inline helpers will always have this.parent
-//set to the view containing the template
-function getParent(parent) {
-  while (parent._helperName) {
-    parent = parent.parent;
-  }
-  return parent;
-}
-
-Handlebars.registerViewHelper = function(name, viewClass, callback) {
-  if (arguments.length === 2) {
-    options = {};
-    callback = arguments[1];
-    viewClass = Thorax.HelperView;
-  }
-  Handlebars.registerHelper(name, function() {
-    var args = _.toArray(arguments),
-        options = args.pop(),
-        viewOptions = {
-          template: options.fn,
-          inverse: options.inverse,
-          options: options.hash,
-          parent: getParent(this._view),
-          _helperName: name
-        };
-    options.hash.id && (viewOptions.id = options.hash.id);
-    options.hash['class'] && (viewOptions.className = options.hash['class']);
-    options.hash.className && (viewOptions.className = options.hash.className);
-    options.hash.tag && (viewOptions.tagName = options.hash.tag);
-    options.hash.tagName && (viewOptions.tagName = options.hash.tagName);
-    var instance = new viewClass(viewOptions);
-    args.push(instance);
-    this._view.children[instance.cid] = instance;
-    this._view.trigger.apply(this._view, ['helper', name].concat(args));
-    this._view.trigger.apply(this._view, ['helper:' + name].concat(args));
-    var htmlAttributes = Thorax.Util.htmlAttributesFromOptions(options.hash);
-    htmlAttributes[viewPlaceholderAttributeName] = instance.cid;
-    callback.apply(this, args);
-    return new Handlebars.SafeString(Thorax.Util.tag(htmlAttributes, ''));
-  });
-  var helper = Handlebars.helpers[name];
-  return helper;
-};
-  
-//called from View.prototype.html()
-Thorax.View.prototype._appendViews = function(scope, callback) {
-  (scope || this.$el).find('[' + viewPlaceholderAttributeName + ']').forEach(function(el) {
-    var placeholder_id = el.getAttribute(viewPlaceholderAttributeName),
-        cid = placeholder_id.replace(/\-placeholder\d+$/, ''),
-        view = this.children[cid];
-    //if was set with a helper
-    if (_.isFunction(view)) {
-      view = view.call(this._view);
-    }
-    if (view) {
-      //see if the view helper declared an override for the view
-      //if not, ensure the view has been rendered at least once
-      if (viewTemplateOverrides[placeholder_id]) {
-        view.render(viewTemplateOverrides[placeholder_id](view._getContext()));
-      } else {
-        view.ensureRendered();
-      }
-      $(el).replaceWith(view.el);
-      //TODO: jQuery has trouble with delegateEvents() when
-      //the child dom node is detached then re-attached
-      if (typeof jQuery !== 'undefined' && $ === jQuery) {
-        if (this._renderCount > 1) {
-          view.delegateEvents();
-        }
-      }
-      callback && callback(view.el);
-    }
-  }, this);
-};
-
-//element helper
-Handlebars.registerHelper('element', function(element, options) {
-  var cid = _.uniqueId('element'),
-      htmlAttributes = Thorax.Util.htmlAttributesFromOptions(options.hash);
-  htmlAttributes[elementPlaceholderAttributeName] = cid;
-  this._view._elementsByCid || (this._view._elementsByCid = {});
-  this._view._elementsByCid[cid] = element;
-  return new Handlebars.SafeString(Thorax.Util.tag.call(this, htmlAttributes));
-});
-
-Thorax.View.prototype._appendElements = function(scope, callback) {
-  (scope || this.$el).find('[' + elementPlaceholderAttributeName + ']').forEach(function(el) {
-    var cid = el.getAttribute(elementPlaceholderAttributeName),
-        element = this._elementsByCid[cid];
-    if (_.isFunction(element)) {
-      element = element.call(this._view);
-    }
-    $(el).replaceWith(element);
-    callback && callback(element);
-  }, this);
-};
-
-//$(selector).view() helper
-$.fn.view = function(options) {
-  options = _.defaults(options || {}, {
-    helper: true
-  });
-  var selector = '[' + viewCidAttributeName + ']';
-  if (!options.helper) {
-    selector += ':not([' + viewHelperAttributeName + '])';
-  }
-  var el = $(this).closest(selector);
-  return (el && Thorax._viewsIndexedByCid[el.attr(viewCidAttributeName)]) || false;
-};
-
-
-
-
 
 _.extend(Thorax.View, {
-  mixins: [],
   mixin: function(mixin) {
+    createInheritVars(this);
     this.mixins.push(mixin);
+  },
+  registerMixin: function(name, callback, methods) {
+    Thorax.Mixins[name] = [callback, methods];
   }
 });
 
-function applyMixin(mixin) {
-  if (_.isArray(mixin)) {
-    this.mixin.apply(this, mixin);
-  } else {
-    this.mixin(mixin);
+Thorax.View.prototype.mixin = function(name) {
+  if (!this._appliedMixins) {
+    this._appliedMixins = [];
   }
-}
+  if (this._appliedMixins.indexOf(name) === -1) {
+    this._appliedMixins.push(name);
+    if (typeof name === 'function') {
+      name.call(this);
+    } else {
+      var mixin = Thorax.Mixins[name];
+      _.extend(this, mixin[1]);
+      //mixin callback may be an array of [callback, arguments]
+      if (_.isArray(mixin[0])) {
+        mixin[0][0].apply(this, mixin[0][1]);
+      } else {
+        mixin[0].apply(this, _.toArray(arguments).slice(1));
+      }
+    }
+  }
+};
 
-var _destroy = Thorax.View.prototype.destroy,
-    _on = Thorax.View.prototype.on,
-    _delegateEvents = Thorax.View.prototype.delegateEvents;
+;;
+/*global createInheritVars, inheritVars, objectEvents, walkInheritTree */
+// Save a copy of the _on method to call as a $super method
+var _on = Thorax.View.prototype.on;
 
+inheritVars.event = {
+  name: '_events',
 
-
-
+  configure: function() {
+    var self = this;
+    walkInheritTree(this.constructor, '_events', true, function(event) {
+      self.on.apply(self, event);
+    });
+    walkInheritTree(this, 'events', false, function(handler, eventName) {
+      self.on(eventName, handler, self);
+    });
+  }
+};
 
 _.extend(Thorax.View, {
-  _events: [],
   on: function(eventName, callback) {
-    
-  if (eventName === 'model' && typeof callback === 'object') {
-    return addEvents(this._modelEvents, callback);
-  }
+    createInheritVars(this);
 
-  if (eventName === 'collection' && typeof callback === 'object') {
-    return addEvents(this._collectionEvents, callback);
-  }
+    if (objectEvents(this, eventName, callback)) {
+      return this;
+    }
 
     //accept on({"rendered": handler})
     if (typeof eventName === 'object') {
@@ -3607,7 +14863,7 @@ _.extend(Thorax.View, {
     } else {
       //accept on({"rendered": [handler, handler]})
       if (_.isArray(callback)) {
-        callback.forEach(function(cb) {
+        _.each(callback, function(cb) {
           this._events.push([eventName, cb]);
         }, this);
       //accept on("rendered", handler)
@@ -3620,64 +14876,20 @@ _.extend(Thorax.View, {
 });
 
 _.extend(Thorax.View.prototype, {
-  freeze: function(options) {
-    
-  this.model && this._unbindModelEvents();
-
-    options = _.defaults(options || {}, {
-      dom: true,
-      children: true
-    });
-    this._eventArgumentsToUnbind && this._eventArgumentsToUnbind.forEach(function(args) {
-      args[0].off(args[1], args[2], args[3]);
-    });
-    this._eventArgumentsToUnbind = [];
-    this.off();
-    if (options.dom) {
-      this.undelegateEvents();
-    }
-    this.trigger('freeze');
-    if (options.children) {
-      _.each(this.children, function(child, id) {
-        child.freeze(options);
-      }, this);
-    }
-  },
-  destroy: function() {
-    var response = _destroy.apply(this, arguments);
-    this.freeze();
-    return response;
-  },
   on: function(eventName, callback, context) {
-    
-  if (eventName === 'model' && typeof callback === 'object') {
-    return addEvents(this._modelEvents, callback);
-  }
+    if (objectEvents(this, eventName, callback, context)) {
+      return this;
+    }
 
-  if (eventName === 'collection' && typeof callback === 'object') {
-    return addEvents(this._collectionEvents, callback);
-  }
-
-    if (typeof eventName === 'object') {
+    if (typeof eventName === 'object' && arguments.length < 3) {
       //accept on({"rendered": callback})
-      if (arguments.length === 1) {
-        _.each(eventName, function(value, key) {
-          this.on(key, value, this);
-        }, this);
-      //events on other objects to auto dispose of when view frozen
-      //on(targetObj, 'eventName', callback, context)
-      } else if (arguments.length > 1) {
-        if (!this._eventArgumentsToUnbind) {
-          this._eventArgumentsToUnbind = [];
-        }
-        var args = Array.prototype.slice.call(arguments);
-        this._eventArgumentsToUnbind.push(args);
-        args[0].on.apply(args[0], args.slice(1));
-      }
+      _.each(eventName, function(value, key) {
+        this.on(key, value, callback || this);    // callback is context in this form of the call
+      }, this);
     } else {
       //accept on("rendered", callback, context)
       //accept on("click a", callback, context)
-      (_.isArray(callback) ? callback : [callback]).forEach(function(callback) {
+      _.each((_.isArray(callback) ? callback : [callback]), function(callback) {
         var params = eventParamsFromEventItem.call(this, eventName, callback, context || this);
         if (params.type === 'DOM') {
           //will call _addEvent during delegateEvents()
@@ -3701,7 +14913,7 @@ _.extend(Thorax.View.prototype, {
       this._eventsToDelegate = [];
       this.on(events);
     }
-    this._eventsToDelegate && this._eventsToDelegate.forEach(this._addEvent, this);
+    this._eventsToDelegate && _.each(this._eventsToDelegate, this._addEvent, this);
   },
   //params may contain:
   //- name
@@ -3711,53 +14923,71 @@ _.extend(Thorax.View.prototype, {
   //- handler
   _addEvent: function(params) {
     if (params.type === 'view') {
-      params.name.split(/\s+/).forEach(function(name) {
-        _on.call(this, name, bindEventHandler.call(this, 'view-event:' + params.name, params.handler), params.context || this);
+      _.each(params.name.split(/\s+/), function(name) {
+        _on.call(this, name, bindEventHandler.call(this, 'view-event:', params));
       }, this);
     } else {
-      var boundHandler = containHandlerToCurentView(bindEventHandler.call(this, 'dom-event:' + params.name, params.handler), this.cid);
+      var boundHandler = bindEventHandler.call(this, 'dom-event:', params);
+      if (!params.nested) {
+        boundHandler = containHandlerToCurentView(boundHandler, this.cid);
+      }
       if (params.selector) {
-        //TODO: determine why collection views and some nested views
-        //need defered event delegation
         var name = params.name + '.delegateEvents' + this.cid;
-        if (typeof jQuery !== 'undefined' && $ === jQuery) {
-          _.defer(_.bind(function() {
-            this.$el.on(name, params.selector, boundHandler);
-          }, this));
-        } else {
-          this.$el.on(name, params.selector, boundHandler);
-        }
+        this.$el.on(name, params.selector, boundHandler);
       } else {
-        this.$el.on(name, boundHandler);
+        this.$el.on(params.name, boundHandler);
       }
     }
   }
 });
 
-var eventSplitter = /^(\S+)(?:\s+(.+))?/;
+// When view is ready trigger ready event on all
+// children that are present, then register an
+// event that will trigger ready on new children
+// when they are added
+Thorax.View.on('ready', function(options) {
+  if (!this._isReady) {
+    this._isReady = true;
+    function triggerReadyOnChild(child) {
+      child.trigger('ready', options);
+    }
+    _.each(this.children, triggerReadyOnChild);
+    this.on('child', triggerReadyOnChild);
+  }
+});
 
-var domEvents = [
+var eventSplitter = /^(nested\s+)?(\S+)(?:\s+(.+))?/;
+
+var domEvents = [],
+    domEventRegexp;
+function pushDomEvents(events) {
+  domEvents.push.apply(domEvents, events);
+  domEventRegexp = new RegExp('^(nested\\s+)?(' + domEvents.join('|') + ')(?:\\s|$)');
+}
+pushDomEvents([
   'mousedown', 'mouseup', 'mousemove', 'mouseover', 'mouseout',
   'touchstart', 'touchend', 'touchmove',
   'click', 'dblclick',
   'keyup', 'keydown', 'keypress',
   'submit', 'change',
   'focus', 'blur'
-  
-];
-var domEventRegexp = new RegExp('^(' + domEvents.join('|') + ')');
+]);
 
 function containHandlerToCurentView(handler, cid) {
   return function(event) {
     var view = $(event.target).view({helper: false});
-    if (view && view.cid == cid) {
+    if (view && view.cid === cid) {
+      event.originalContext = this;
       handler(event);
     }
-  }
+  };
 }
 
-function bindEventHandler(eventName, callback) {
-  var method = typeof callback === 'function' ? callback : this[callback];
+function bindEventHandler(eventName, params) {
+  eventName += params.originalName;
+
+  var callback = params.handler,
+      method = typeof callback === 'function' ? callback : this[callback];
   if (!method) {
     throw new Error('Event "' + callback + '" does not exist ' + (this.name || this.cid) + ':' + eventName);
   }
@@ -3767,7 +14997,7 @@ function bindEventHandler(eventName, callback) {
     } catch (e) {
       Thorax.onException('thorax-exception: ' + (this.name || this.cid) + ':' + eventName, e);
     }
-  }, this);
+  }, params.context || this);
 }
 
 function eventParamsFromEventItem(name, handler, context) {
@@ -3777,9 +15007,10 @@ function eventParamsFromEventItem(name, handler, context) {
   };
   if (name.match(domEventRegexp)) {
     var match = eventSplitter.exec(name);
-    params.name = match[1];
+    params.nested = !!match[1];
+    params.name = match[2];
     params.type = 'DOM';
-    params.selector = match[2];
+    params.selector = match[3];
   } else {
     params.name = name;
     params.type = 'view';
@@ -3788,121 +15019,290 @@ function eventParamsFromEventItem(name, handler, context) {
   return params;
 }
 
-var modelCidAttributeName = 'data-model-cid',
-    modelNameAttributeName = 'data-model-name';
+;;
+/*global getOptionsData, viewHelperAttributeName */
+var viewPlaceholderAttributeName = 'data-view-tmp';
+var viewTemplateOverrides = {};
 
-Thorax.Model = Backbone.Model.extend({
-  isEmpty: function() {
-    return this.isPopulated();
+Thorax.HelperView = Thorax.View.extend({
+  _ensureElement: function() {
+    Thorax.View.prototype._ensureElement.apply(this, arguments);
+    this.$el.attr(viewHelperAttributeName, this._helperName);
   },
-  isPopulated: function() {
-    // We are populated if we have attributes set
-    var attributes = _.clone(this.attributes);
-    var defaults = _.isFunction(this.defaults) ? this.defaults() : (this.defaults || {});
-    for (var default_key in defaults) {
-      if (attributes[default_key] != defaults[default_key]) {
-        return true;
-      }
-      delete attributes[default_key];
-    }
-    var keys = _.keys(attributes);
-    return keys.length > 1 || (keys.length === 1 && keys[0] !== 'id');
-  }
+  _getContext: function() {
+    return this.parent._getContext.apply(this.parent, arguments);
+  },
 });
 
-Thorax.Models = {};
-Thorax.Util.createRegistryWrapper(Thorax.Model, Thorax.Models);
+// Ensure nested inline helpers will always have this.parent
+// set to the view containing the template
+function getParent(parent) {
+  // The `view` helper is a special case as it embeds
+  // a view instead of creating a new one
+  while (parent._helperName && parent._helperName !== 'view') {
+    parent = parent.parent;
+  }
+  return parent;
+}
 
-
-
-
-
-
-
-
-
-
-
-Thorax.View._modelEvents = [];
-
-function addEvents(target, source) {
-  _.each(source, function(callback, eventName) {
-    if (_.isArray(callback)) {
-      callback.forEach(function(cb) {
-        target.push([eventName, cb]);
-      }, this);
+Handlebars.registerViewHelper = function(name, ViewClass, callback) {
+  if (arguments.length === 2) {
+    if (ViewClass.factory) {
+      callback = ViewClass.callback;
     } else {
-      target.push([eventName, callback]);
+      callback = ViewClass;
+      ViewClass = Thorax.HelperView;
     }
+  }
+  Handlebars.registerHelper(name, function() {
+    var args = _.toArray(arguments),
+        options = args.pop(),
+        declaringView = getOptionsData(options).view;
+
+    var viewOptions = {
+      template: options.fn || Handlebars.VM.noop,
+      inverse: options.inverse,
+      options: options.hash,
+      declaringView: declaringView,
+      parent: getParent(declaringView),
+      _helperName: name,
+      _helperOptions: {
+        options: cloneHelperOptions(options),
+        args: _.clone(args)
+      }
+    };
+
+    normalizeHTMLAttributeOptions(options.hash);
+    _.extend(viewOptions, _.pick(options.hash, htmlAttributesToCopy));
+
+    // Check to see if we have an existing instance that we can reuse
+    var instance = _.find(declaringView._previousHelpers, function(child) {
+      return compareHelperOptions(viewOptions, child);
+    });
+
+    // Create the instance if we don't already have one
+    if (!instance) {
+      if (ViewClass.factory) {
+        instance = ViewClass.factory(args, viewOptions);
+        if (!instance) {
+          return '';
+        }
+
+        instance._helperName = viewOptions._helperName;
+        instance._helperOptions = viewOptions._helperOptions;
+      } else {
+        instance = new ViewClass(viewOptions);
+      }
+
+      args.push(instance);
+      declaringView._addChild(instance);
+      declaringView.trigger.apply(declaringView, ['helper', name].concat(args));
+      declaringView.trigger.apply(declaringView, ['helper:' + name].concat(args));
+
+      callback && callback.apply(this, args);
+    } else {
+      declaringView._previousHelpers = _.without(declaringView._previousHelpers, instance);
+      declaringView.children[instance.cid] = instance;
+    }
+
+    var htmlAttributes = _.pick(options.hash, htmlAttributesToCopy);
+    htmlAttributes[viewPlaceholderAttributeName] = instance.cid;
+
+    var expandTokens = options.hash['expand-tokens'];
+    return new Handlebars.SafeString(Thorax.Util.tag(htmlAttributes, '', expandTokens ? this : null));
   });
+  var helper = Handlebars.helpers[name];
+  return helper;
+};
+
+Thorax.View.on('append', function(scope, callback) {
+  (scope || this.$el).find('[' + viewPlaceholderAttributeName + ']').forEach(function(el) {
+    var placeholderId = el.getAttribute(viewPlaceholderAttributeName),
+        view = this.children[placeholderId];
+    if (view) {
+      //see if the view helper declared an override for the view
+      //if not, ensure the view has been rendered at least once
+      if (viewTemplateOverrides[placeholderId]) {
+        view.render(viewTemplateOverrides[placeholderId]);
+        delete viewTemplateOverrides[placeholderId];
+      } else {
+        view.ensureRendered();
+      }
+      $(el).replaceWith(view.el);
+      callback && callback(view.el);
+    }
+  }, this);
+});
+
+
+/**
+ * Clones the helper options, dropping items that are known to change
+ * between rendering cycles as appropriate.
+ */
+function cloneHelperOptions(options) {
+  var ret = _.pick(options, 'fn', 'inverse', 'hash', 'data');
+  ret.data = _.omit(options.data, 'cid', 'view', 'yield');
+  return ret;
+}
+
+/**
+ * Checks for basic equality between two sets of parameters for a helper view.
+ *
+ * Checked fields include:
+ *  - _helperName
+ *  - All args
+ *  - Hash
+ *  - Data
+ *  - Function and Invert (id based if possible)
+ *
+ * This method allows us to determine if the inputs to a given view are the same. If they
+ * are then we make the assumption that the rendering will be the same (or the child view will
+ * otherwise rerendering it by monitoring it's parameters as necessary) and reuse the view on
+ * rerender of the parent view.
+ */
+function compareHelperOptions(a, b) {
+  function compareValues(a, b) {
+    return _.every(a, function(value, key) {
+      return b[key] === value;
+    });
+  }
+
+  if (a._helperName !== b._helperName) {
+    return false;
+  }
+
+  a = a._helperOptions;
+  b = b._helperOptions;
+
+  // Implements a first level depth comparison
+  return a.args.length === b.args.length
+      && compareValues(a.args, b.args)
+      && _.isEqual(_.keys(a.options), _.keys(b.options))
+      && _.every(a.options, function(value, key) {
+          if (key === 'data' || key === 'hash') {
+            return compareValues(a.options[key], b.options[key]);
+          } else if (key === 'fn' || key === 'inverse') {
+            return b.options[key] === value
+                || (value && _.has(value, 'program') && ((b.options[key] || {}).program === value.program));
+          }
+          return b.options[key] === value;
+        });
+}
+
+;;
+/*global getValue, inheritVars, walkInheritTree */
+
+function dataObject(type, spec) {
+  spec = inheritVars[type] = _.defaults({
+    name: '_' + type + 'Events',
+    event: true
+  }, spec);
+
+  // Add a callback in the view constructor
+  spec.ctor = function() {
+    if (this[type]) {
+      // Need to null this.model/collection so setModel/Collection will
+      // not treat it as the old model/collection and immediately return
+      var object = this[type];
+      this[type] = null;
+      this[spec.set](object);
+    }
+  };
+
+  function setObject(dataObject, options) {
+    var old = this[type],
+        $el = getValue(this, spec.$el);
+
+    if (dataObject === old) {
+      return this;
+    }
+    if (old) {
+      this.unbindDataObject(old);
+    }
+
+    if (dataObject) {
+      this[type] = dataObject;
+
+      if (spec.loading) {
+        spec.loading.call(this);
+      }
+
+      this.bindDataObject(type, dataObject, _.extend({}, this.options, options));
+      $el.attr(spec.cidAttrName, dataObject.cid);
+      dataObject.trigger('set', dataObject, old);
+    } else {
+      this[type] = false;
+      if (spec.change) {
+        spec.change.call(this, false);
+      }
+      $el.removeAttr(spec.cidAttrName);
+    }
+    this.trigger('change:data-object', type, dataObject, old);
+    return this;
+  }
+
+  Thorax.View.prototype[spec.set] = setObject;
 }
 
 _.extend(Thorax.View.prototype, {
-  context: function() {
-    return _.extend({}, this, (this.model && this.model.attributes) || {});
-  },
-  _bindModelEvents: function() {
-    bindModelEvents.call(this, this.constructor._modelEvents);
-    bindModelEvents.call(this, this._modelEvents);
-  },
-  _unbindModelEvents: function() {
-    this.model.trigger('freeze');
-    unbindModelEvents.call(this, this.constructor._modelEvents);
-    unbindModelEvents.call(this, this._modelEvents);
-  },
-  setModel: function(model, options) {
-    var oldModel = this.model;
-    if (model === oldModel) {
-      return this;
+  bindDataObject: function(type, dataObject, options) {
+    if (this._boundDataObjectsByCid[dataObject.cid]) {
+      return false;
     }
-    oldModel && this._unbindModelEvents();
-    if (model) {
-      this.$el.attr(modelCidAttributeName, model.cid);
-      if (model.name) {
-        this.$el.attr(modelNameAttributeName, model.name);
-      }
-      this.model = model;
-      this._setModelOptions(options);
-      this._bindModelEvents(options);
-      this.model.trigger('set', this.model, oldModel);
-      if (Thorax.Util.shouldFetch(this.model, this._modelOptions)) {
-        var success = this._modelOptions.success;
-        this._loadModel(this.model, this._modelOptions);
-      } else {
-        //want to trigger built in event handler (render() + populate())
-        //without triggering event on model
-        this._onModelChange();
-      }
-    } else {
-      this._modelOptions = false;
-      this.model = false;
-      this._onModelChange();
-      this.$el.removeAttr(modelCidAttributeName);
-      this.$el.attr(modelNameAttributeName);
+    this._boundDataObjectsByCid[dataObject.cid] = dataObject;
+
+    var options = this._modifyDataObjectOptions(dataObject, _.extend({}, inheritVars[type].defaultOptions, options));
+    this._objectOptionsByCid[dataObject.cid] = options;
+
+    bindEvents.call(this, type, dataObject, this.constructor);
+    bindEvents.call(this, type, dataObject, this);
+
+    var spec = inheritVars[type];
+    spec.bindCallback && spec.bindCallback.call(this, dataObject, options);
+
+    if (dataObject.shouldFetch && dataObject.shouldFetch(options)) {
+      loadObject(dataObject, options);
+    } else if (inheritVars[type].change) {
+      // want to trigger built in rendering without triggering event on model
+      inheritVars[type].change.call(this, dataObject, options);
     }
-    return this;
+
+    return true;
   },
-  _onModelChange: function() {
-    if (!this._modelOptions || (this._modelOptions && this._modelOptions.render)) {
-      this.render();
+
+  unbindDataObject: function (dataObject) {
+    if (!this._boundDataObjectsByCid[dataObject.cid]) {
+      return false;
     }
+    delete this._boundDataObjectsByCid[dataObject.cid];
+    this.stopListening(dataObject);
+    delete this._objectOptionsByCid[dataObject.cid];
+    return true;
   },
-  _loadModel: function(model, options) {
-    model.fetch(options);
-  },
-  _setModelOptions: function(options) {
-    if (!this._modelOptions) {
-      this._modelOptions = {
-        fetch: true,
-        success: false,
-        render: true,
-        errors: true
-      };
-    }
-    _.extend(this._modelOptions, options || {});
-    return this._modelOptions;
+
+  _modifyDataObjectOptions: function(dataObject, options) {
+    return options;
   }
 });
+
+function bindEvents(type, target, source) {
+  var context = this;
+  walkInheritTree(source, '_' + type + 'Events', true, function(event) {
+    // getEventCallback will resolve if it is a string or a method
+    // and return a method
+    context.listenTo(target, event[0], _.bind(getEventCallback(event[1], context), event[2] || context));
+  });
+}
+
+function loadObject(dataObject, options) {
+  if (dataObject.load) {
+    dataObject.load(function() {
+      options && options.success && options.success(dataObject);
+    }, options);
+  } else {
+    dataObject.fetch(options);
+  }
+}
 
 function getEventCallback(callback, context) {
   if (typeof callback === 'function') {
@@ -3912,78 +15312,109 @@ function getEventCallback(callback, context) {
   }
 }
 
-function bindModelEvents(events) {
-  events.forEach(function(event) {
-    //getEventCallback will resolve if it is a string or a method
-    //and return a method
-    this.model.on(event[0], getEventCallback(event[1], this), event[2] || this);
-  }, this);
-}
+;;
+/*global createRegistryWrapper, dataObject, getValue */
+var modelCidAttributeName = 'data-model-cid';
 
-function unbindModelEvents(events) {
-  events.forEach(function(event) {
-    this.model.off(event[0], getEventCallback(event[1], this), event[2] || this);
-  }, this);
+Thorax.Model = Backbone.Model.extend({
+  isEmpty: function() {
+    return !this.isPopulated();
+  },
+  isPopulated: function() {
+    // We are populated if we have attributes set
+    var attributes = _.clone(this.attributes),
+        defaults = getValue(this, 'defaults') || {};
+    for (var default_key in defaults) {
+      if (attributes[default_key] != defaults[default_key]) {
+        return true;
+      }
+      delete attributes[default_key];
+    }
+    var keys = _.keys(attributes);
+    return keys.length > 1 || (keys.length === 1 && keys[0] !== this.idAttribute);
+  },
+  shouldFetch: function(options) {
+    // url() will throw if model has no `urlRoot` and no `collection`
+    // or has `collection` and `collection` has no `url`
+    var url;
+    try {
+      url = getValue(this, 'url');
+    } catch(e) {
+      url = false;
+    }
+    return options.fetch && !!url && !this.isPopulated();
+  }
+});
+
+Thorax.Models = {};
+createRegistryWrapper(Thorax.Model, Thorax.Models);
+
+dataObject('model', {
+  set: 'setModel',
+  defaultOptions: {
+    render: true,
+    fetch: true,
+    success: false,
+    errors: true
+  },
+  change: onModelChange,
+  $el: '$el',
+  cidAttrName: modelCidAttributeName
+});
+
+function onModelChange(model) {
+  var modelOptions = model && this._objectOptionsByCid[model.cid];
+  // !modelOptions will be true when setModel(false) is called
+  if (!modelOptions || (modelOptions && modelOptions.render)) {
+    this.render();
+  }
 }
 
 Thorax.View.on({
   model: {
-    error: function(model, errors){
-      if (this._modelOptions.errors) {
-        this.trigger('error', errors);
+    error: function(model, errors) {
+      if (this._objectOptionsByCid[model.cid].errors) {
+        this.trigger('error', errors, model);
       }
     },
-    change: function() {
-      this._onModelChange();
+    change: function(model) {
+      onModelChange.call(this, model);
     }
   }
 });
 
-Thorax.Util.shouldFetch = function(modelOrCollection, options) {
-  var getValue = Thorax.Util.getValue,
-      isCollection = !modelOrCollection.collection && modelOrCollection._byCid && modelOrCollection._byId;
-      url = (
-        (!modelOrCollection.collection && getValue(modelOrCollection, 'urlRoot')) ||
-        (modelOrCollection.collection && getValue(modelOrCollection.collection, 'url')) ||
-        (isCollection && getValue(modelOrCollection, 'url'))
-      );
-  return url && options.fetch && !(
-    (modelOrCollection.isPopulated && modelOrCollection.isPopulated()) ||
-    (isCollection
-      ? Thorax.Collection && Thorax.Collection.prototype.isPopulated.call(modelOrCollection)
-      : Thorax.Model.prototype.isPopulated.call(modelOrCollection)
-    )
-  );
-};
-
-$.fn.model = function() {
+$.fn.model = function(view) {
   var $this = $(this),
       modelElement = $this.closest('[' + modelCidAttributeName + ']'),
       modelCid = modelElement && modelElement.attr(modelCidAttributeName);
   if (modelCid) {
-    var view = $this.view();
+    var view = view || $this.view();
     if (view && view.model && view.model.cid === modelCid) {
       return view.model || false;
     }
     var collection = $this.collection(view);
     if (collection) {
-      return collection._byCid[modelCid] || false;
+      return collection.get(modelCid);
     }
   }
   return false;
 };
 
+;;
+/*global createRegistryWrapper, dataObject, getEventCallback, getValue, modelCidAttributeName, viewCidAttributeName */
 var _fetch = Backbone.Collection.prototype.fetch,
     _reset = Backbone.Collection.prototype.reset,
     collectionCidAttributeName = 'data-collection-cid',
-    collectionNameAttributeName = 'data-collection-name',
     collectionEmptyAttributeName = 'data-collection-empty',
-    modelCidAttributeName = 'data-model-cid',
-    modelNameAttributeName = 'data-model-name',
+    collectionElementAttributeName = 'data-collection-element',
     ELEMENT_NODE_TYPE = 1;
 
 Thorax.Collection = Backbone.Collection.extend({
   model: Thorax.Model || Backbone.Model,
+  initialize: function() {
+    this.cid = _.uniqueId('collection');
+    return Backbone.Collection.prototype.initialize.apply(this, arguments);
+  },
   isEmpty: function() {
     if (this.length > 0) {
       return false;
@@ -3992,7 +15423,10 @@ Thorax.Collection = Backbone.Collection.extend({
     }
   },
   isPopulated: function() {
-    return this._fetched || this.length > 0 || (!this.length && !Thorax.Util.getValue(this, 'url'));
+    return this._fetched || this.length > 0 || (!this.length && !getValue(this, 'url'));
+  },
+  shouldFetch: function(options) {
+    return options.fetch && !!getValue(this, 'url') && !this.isPopulated();
   },
   fetch: function(options) {
     options = options || {};
@@ -4010,63 +15444,24 @@ Thorax.Collection = Backbone.Collection.extend({
 });
 
 Thorax.Collections = {};
-Thorax.Util.createRegistryWrapper(Thorax.Collection, Thorax.Collections);
+createRegistryWrapper(Thorax.Collection, Thorax.Collections);
 
-
-
-
-
-
-
-Thorax.View._collectionEvents = [];
-
-//collection view is meant to be initialized via the collection
-//helper but can alternatively be initialized programatically
-//constructor function handles this case, no logic except for
-//super() call will be exectued when initialized via collection helper
-
-Thorax.CollectionView = Thorax.HelperView.extend({
-  constructor: function(options) {
-    Thorax.CollectionView.__super__.constructor.call(this, options);
-    //collection helper will initialize this.options, so need to mimic
-    this.options || (this.options = {});
-    this.collection && this.setCollection(this.collection);
-    Thorax.CollectionView._optionNames.forEach(function(optionName) {
-      options[optionName] && (this.options[optionName] = options[optionName]);
-    }, this);
+dataObject('collection', {
+  set: 'setCollection',
+  bindCallback: onSetCollection,
+  defaultOptions: {
+    render: true,
+    fetch: true,
+    success: false,
+    errors: true
   },
-  _setCollectionOptions: function(collection, options) {
-    return _.extend({
-      fetch: true,
-      success: false,
-      errors: true
-    }, options || {});
-  },
-  setCollection: function(collection, options) {
-    this.collection = collection;
-    if (collection) {
-      collection.cid = collection.cid || _.uniqueId('collection');
-      this.$el.attr(collectionCidAttributeName, collection.cid);
-      if (collection.name) {
-        this.$el.attr(collectionNameAttributeName, collection.name);
-      }
-      this.options = this._setCollectionOptions(collection, _.extend({}, this.options, options));
-      bindCollectionEvents.call(this, collection, this.parent._collectionEvents);
-      bindCollectionEvents.call(this, collection, this.parent.constructor._collectionEvents);
-      collection.trigger('set', collection);
-      if (Thorax.Util.shouldFetch(collection, this.options)) {
-        this._loadCollection(collection);
-      } else {
-        //want to trigger built in event handler (render())
-        //without triggering event on collection
-        this.reset();
-      }
-    }
-    return this;
-  },
-  _loadCollection: function(collection) {
-    collection.fetch(this.options);
-  },
+  change: onCollectionReset,
+  $el: 'getCollectionElement',
+  cidAttrName: collectionCidAttributeName
+});
+
+_.extend(Thorax.View.prototype, {
+  _collectionSelector: '[' + collectionElementAttributeName + ']',
   //appendItem(model [,index])
   //appendItem(html_string, index)
   //appendItem(view, index)
@@ -4075,12 +15470,13 @@ Thorax.CollectionView = Thorax.HelperView.extend({
     if (!model) {
       return;
     }
-    var itemView;
-    options = options || {};
+    var itemView,
+        $el = this.getCollectionElement();
+    options = _.defaults(options || {}, {
+      filter: true
+    });
     //if index argument is a view
-    if (index && index.el) {
-      index = this.$el.children().indexOf(index.el) + 1;
-    }
+    index && index.el && (index = $el.children().indexOf(index.el) + 1);
     //if argument is a view, or html string
     if (model.el || typeof model === 'string') {
       itemView = model;
@@ -4090,184 +15486,190 @@ Thorax.CollectionView = Thorax.HelperView.extend({
       itemView = this.renderItem(model, index);
     }
     if (itemView) {
-      if (itemView.cid) {
-        this._addChild(itemView);
-      }
+      itemView.cid && this._addChild(itemView);
       //if the renderer's output wasn't contained in a tag, wrap it in a div
       //plain text, or a mixture of top level text nodes and element nodes
       //will get wrapped
-      if (typeof itemView === 'string' && !itemView.match(/^\s*\</m)) {
-        itemView = '<div>' + itemView + '</div>'
+      if (typeof itemView === 'string' && !itemView.match(/^\s*</m)) {
+        itemView = '<div>' + itemView + '</div>';
       }
       var itemElement = itemView.el ? [itemView.el] : _.filter($(itemView), function(node) {
         //filter out top level whitespace nodes
         return node.nodeType === ELEMENT_NODE_TYPE;
       });
-      if (model) {
-        $(itemElement).attr(modelCidAttributeName, model.cid);
-      }
+      model && $(itemElement).attr(modelCidAttributeName, model.cid);
       var previousModel = index > 0 ? this.collection.at(index - 1) : false;
       if (!previousModel) {
-        this.$el.prepend(itemElement);
+        $el.prepend(itemElement);
       } else {
         //use last() as appendItem can accept multiple nodes from a template
-        var last = this.$el.find('[' + modelCidAttributeName + '="' + previousModel.cid + '"]').last();
+        var last = $el.find('[' + modelCidAttributeName + '="' + previousModel.cid + '"]').last();
         last.after(itemElement);
       }
-      this._appendViews(null, function(el) {
+
+      this.trigger('append', null, function(el) {
         el.setAttribute(modelCidAttributeName, model.cid);
       });
-      this._appendElements(null, function(el) {
-        el.setAttribute(modelCidAttributeName, model.cid);
-      });
-      if (!options.silent) {
-        this.parent.trigger('rendered:item', this, this.collection, model, itemElement, index);
-      }
-      applyItemVisiblityFilter.call(this, model);
+
+      !options.silent && this.trigger('rendered:item', this, this.collection, model, itemElement, index);
+      options.filter && applyItemVisiblityFilter.call(this, model);
     }
     return itemView;
   },
-  //updateItem only useful if there is no item view, otherwise
-  //itemView.render() provideds the same functionality
+  // updateItem only useful if there is no item view, otherwise
+  // itemView.render() provides the same functionality
   updateItem: function(model) {
     this.removeItem(model);
     this.appendItem(model);
   },
   removeItem: function(model) {
-    var viewEl = this.$('[' + modelCidAttributeName + '="' + model.cid + '"]');
+    var $el = this.getCollectionElement(),
+        viewEl = $el.find('[' + modelCidAttributeName + '="' + model.cid + '"]');
     if (!viewEl.length) {
       return false;
     }
-    var viewCid = viewEl.attr(viewCidAttributeName);
-    if (this.children[viewCid]) {
-      delete this.children[viewCid];
-    }
     viewEl.remove();
+    var viewCid = viewEl.attr(viewCidAttributeName),
+        child = this.children[viewCid];
+    if (child) {
+      this._removeChild(child);
+      child.destroy();
+    }
     return true;
   },
-  reset: function() {
-    this.render();
-  },
-  render: function() {
-    this.$el.empty();
+  renderCollection: function() {
+    this.ensureRendered();
+    if (!this.collectionRenderer) {
+      return;
+    }
     if (this.collection) {
       if (this.collection.isEmpty()) {
-        this.$el.attr(collectionEmptyAttributeName, true);
-        this.appendEmpty();
+        handleChangeFromNotEmptyToEmpty.call(this);
       } else {
-        this.$el.removeAttr(collectionEmptyAttributeName);
+        handleChangeFromEmptyToNotEmpty.call(this);
         this.collection.forEach(function(item, i) {
           this.appendItem(item, i);
         }, this);
       }
-      this.parent.trigger('rendered:collection', this, this.collection);
+      this.trigger('rendered:collection', this, this.collection);
       applyVisibilityFilter.call(this);
-    }
-    ++this._renderCount;
-  },
-  renderEmpty: function() {
-    var viewOptions = {};
-    if (this.options['empty-view']) {
-      if (this.options['empty-context']) {
-        viewOptions.context = _.bind(function() {
-          return (_.isFunction(this.options['empty-context'])
-            ? this.options['empty-context']
-            : this.parent[this.options['empty-context']]
-          ).call(this.parent);
-        }, this);
-      }
-      var view = Thorax.Util.getViewInstance(this.options['empty-view'], viewOptions);
-      if (this.options['empty-template']) {
-        view.render(this.renderTemplate(this.options['empty-template'], viewOptions.context ? viewOptions.context() : {}));
-      } else {
-        view.render();
-      }
-      return view;
     } else {
-      var emptyTemplate = this.options['empty-template'] || (this.parent.name && this._loadTemplate(this.parent.name + '-empty', true));
-      var context;
-      if (this.options['empty-context']) {
-        context = (_.isFunction(this.options['empty-context'])
-          ? this.options['empty-context']
-          : this.parent[this.options['empty-context']]
-        ).call(this.parent);
-      } else {
-        context = {};
-      }
-      return emptyTemplate && this.renderTemplate(emptyTemplate, context);
+      handleChangeFromNotEmptyToEmpty.call(this);
     }
   },
-  renderItem: function(model, i) {
-    if (this.options['item-view']) {
-      var viewOptions = {
-        model: model
-      };
-      //itemContext deprecated
-      if (this.options['item-context']) {
-        viewOptions.context = _.bind(function() {
-          return (_.isFunction(this.options['item-context'])
-            ? this.options['item-context']
-            : this.parent[this.options['item-context']]
-          ).call(this.parent, model, i);
-        }, this);
+  emptyClass: 'empty',
+  renderEmpty: function() {
+    if (this.emptyView) {
+      var viewOptions = {};
+      if (this.emptyTemplate) {
+        viewOptions.template = this.emptyTemplate;
       }
-      if (this.options['item-template']) {
-        viewOptions.template = this.options['item-template'];
-      }
-      var view = Thorax.Util.getViewInstance(this.options['item-view'], viewOptions);
+      var view = Thorax.Util.getViewInstance(this.emptyView, viewOptions);
       view.ensureRendered();
       return view;
     } else {
-      var itemTemplate = this.options['item-template'] || (this.parent.name && this.parent._loadTemplate(this.parent.name + '-item', true));
-      if (!itemTemplate) {
-        throw new Error('collection helper in View: ' + (this.parent.name || this.parent.cid) + ' requires an item template.');
+      if (!this.emptyTemplate) {
+        this.emptyTemplate = Thorax.Util.getTemplate(this.name + '-empty', true);
       }
-      var context;
-      if (this.options['item-context']) {
-        context = (_.isFunction(this.options['item-context'])
-          ? this.options['item-context']
-          : this.parent[this.options['item-context']]
-        ).call(this.parent, model, i);
-      } else {
-        context = model.attributes;
-      }
-      return this.renderTemplate(itemTemplate, context);
+      return this.emptyTemplate && this.renderTemplate(this.emptyTemplate);
     }
   },
+  renderItem: function(model, i) {
+    if (this.itemView) {
+      var viewOptions = {
+        model: model
+      };
+      if (this.itemTemplate) {
+        viewOptions.template = this.itemTemplate;
+      }
+      var view = Thorax.Util.getViewInstance(this.itemView, viewOptions);
+      view.ensureRendered();
+      return view;
+    } else {
+      if (!this.itemTemplate) {
+        this.itemTemplate = Thorax.Util.getTemplate(this.name + '-item');
+      }
+      return this.renderTemplate(this.itemTemplate, this.itemContext(model, i));
+    }
+  },
+  itemContext: function(model /*, i */) {
+    return model.attributes;
+  },
   appendEmpty: function() {
-    this.$el.empty();
+    var $el = this.getCollectionElement();
+    $el.empty();
     var emptyContent = this.renderEmpty();
     emptyContent && this.appendItem(emptyContent, 0, {
-      silent: true
+      silent: true,
+      filter: false
     });
-    this.parent.trigger('rendered:empty', this, this.collection);
+    this.trigger('rendered:empty', this, this.collection);
+  },
+  getCollectionElement: function() {
+    var element = this.$(this._collectionSelector);
+    return element.length === 0 ? this.$el : element;
+  },
+  // Events that will only be bound to "this.collection"
+  _collectionRenderingEvents: {
+    reset: onCollectionReset,
+    sort: onCollectionReset,
+    filter: function() {
+      applyVisibilityFilter.call(this);
+    },
+    change: function(model) {
+      // If we rendered with item views, model changes will be observed
+      // by the generated item view but if we rendered with templates
+      // then model changes need to be bound as nothing is watching
+      !this.itemView && this.updateItem(model);
+      applyItemVisiblityFilter.call(this, model);
+    },
+    add: function(model) {
+      var $el = this.getCollectionElement();
+      this.collection.length === 1 && $el.length && handleChangeFromEmptyToNotEmpty.call(this);
+      if ($el.length) {
+        var index = this.collection.indexOf(model);
+        this.appendItem(model, index);
+      }
+    },
+    remove: function(model) {
+      var $el = this.getCollectionElement();
+      this.removeItem(model);
+      this.collection.length === 0 && $el.length && handleChangeFromNotEmptyToEmpty.call(this);
+    }
   }
 });
 
-Thorax.CollectionView._optionNames = [
-  'item-template',
-  'empty-template',
-  'item-view',
-  'empty-view',
-  'item-context',
-  'empty-context',
-  'filter'
-];
+Thorax.View.on({
+  collection: {
+    error: function(collection, message) {
+      if (this._objectOptionsByCid[collection.cid].errors) {
+        this.trigger('error', message, collection);
+      }
+    }
+  }
+});
 
-function bindCollectionEvents(collection, events) {
-  events.forEach(function(event) {
-    this.on(collection, event[0], function() {
-      //getEventCallback will resolve if it is a string or a method
-      //and return a method
-      var args = _.toArray(arguments);
-      args.unshift(this);
-      return getEventCallback(event[1], this.parent).apply(this.parent, args);
+function onCollectionReset(collection) {
+  var options = collection && this._objectOptionsByCid[collection.cid];
+  // we would want to still render in the case that the
+  // collection has transitioned to being falsy
+  if (!collection || (options && options.render)) {
+    this.renderCollection();
+  }
+}
+
+function onSetCollection(collection) {
+  if (this.collectionRenderer && collection) {
+    _.each(this._collectionRenderingEvents, function(callback, eventName) {
+      // getEventCallback will resolve if it is a string or a method
+      // and return a method
+      this.listenTo(collection, eventName, getEventCallback(callback, this));
     }, this);
-  }, this);
+  }
 }
 
 function applyVisibilityFilter() {
-  if (this.options.filter) {
+  if (this.itemFilter) {
     this.collection.forEach(function(model) {
       applyItemVisiblityFilter.call(this, model);
     }, this);
@@ -4275,155 +15677,38 @@ function applyVisibilityFilter() {
 }
 
 function applyItemVisiblityFilter(model) {
-  if (this.options.filter) {
-    $('[' + modelCidAttributeName + '="' + model.cid + '"]')[itemShouldBeVisible.call(this, model) ? 'show' : 'hide']();
-  }
+  var $el = this.getCollectionElement();
+  this.itemFilter && $el.find('[' + modelCidAttributeName + '="' + model.cid + '"]')[itemShouldBeVisible.call(this, model) ? 'show' : 'hide']();
 }
 
-function itemShouldBeVisible(model, i) {
-  return (typeof this.options.filter === 'string'
-    ? this.parent[this.options.filter]
-    : this.options.filter).call(this.parent, model, this.collection.indexOf(model))
-  ;
+function itemShouldBeVisible(model) {
+  return this.itemFilter(model, this.collection.indexOf(model));
 }
 
 function handleChangeFromEmptyToNotEmpty() {
-  if (this.collection.length === 1) {
-    if(this.$el.length) {
-      this.$el.removeAttr(collectionEmptyAttributeName);
-      this.$el.empty();
-    }
-  }
+  var $el = this.getCollectionElement();
+  this.emptyClass && $el.removeClass(this.emptyClass);
+  $el.removeAttr(collectionEmptyAttributeName);
+  $el.empty();
 }
 
 function handleChangeFromNotEmptyToEmpty() {
-  if (this.collection.length === 0) {
-    if (this.$el.length) {
-      this.$el.attr(collectionEmptyAttributeName, true);
-      this.appendEmpty();
-    }
-  }
+  var $el = this.getCollectionElement();
+  this.emptyClass && $el.addClass(this.emptyClass);
+  $el.attr(collectionEmptyAttributeName, true);
+  this.appendEmpty();
 }
-
-Thorax.View.on({
-  collection: {
-    filter: function(collectionView) {
-      applyVisibilityFilter.call(collectionView);
-    },
-    change: function(collectionView, model) {
-      //if we rendered with item views, model changes will be observed
-      //by the generated item view but if we rendered with templates
-      //then model changes need to be bound as nothing is watching
-      if (!collectionView.options['item-view']) {
-        collectionView.updateItem(model);
-      }
-      applyItemVisiblityFilter.call(collectionView, model);
-    },
-    add: function(collectionView, model, collection) {
-      handleChangeFromEmptyToNotEmpty.call(collectionView);
-      if (collectionView.$el.length) {
-        var index = collection.indexOf(model);
-        collectionView.appendItem(model, index);
-      }
-    },
-    remove: function(collectionView, model, collection) {
-      collectionView.$el.find('[' + modelCidAttributeName + '="' + model.cid + '"]').remove();
-      for (var cid in collectionView.children) {
-        if (collectionView.children[cid].model && collectionView.children[cid].model.cid === model.cid) {
-          collectionView.children[cid].destroy();
-          delete collectionView.children[cid];
-          break;
-        }
-      }
-      handleChangeFromNotEmptyToEmpty.call(collectionView);
-    },
-    reset: function(collectionView, collection) {
-      collectionView.reset();
-    },
-    error: function(collectionView, message) {
-      if (collectionView.options.errors) {
-        collectionView.trigger('error', message);
-        this.trigger('error', message);
-      }
-    }
-  }
-});
-
-Handlebars.registerViewHelper('collection', Thorax.CollectionView, function(collection, view) {
-  if (arguments.length === 1) {
-    view = collection;
-    collection = this._view.collection;
-  }
-  if (collection) {
-    //item-view and empty-view may also be passed, but have no defaults
-    _.extend(view.options, {
-      'item-template': view.template && view.template !== Handlebars.VM.noop ? view.template : view.options['item-template'],
-      'empty-template': view.inverse && view.inverse !== Handlebars.VM.noop ? view.inverse : view.options['empty-template'],
-      'item-context': view.options['item-context'] || view.parent.itemContext,
-      'empty-context': view.options['empty-context'] || view.parent.emptyContext,
-      filter: view.options['filter']
-    });
-    view.setCollection(collection);
-  }
-});
-
-//empty helper
-Handlebars.registerViewHelper('empty', function(collection, view) {
-  var empty, noArgument;
-  if (arguments.length === 1) {
-    view = collection;
-    collection = false;
-    noArgument = true;
-  }
-
-  var _render = view.render;
-  view.render = function() {
-    if (noArgument) {
-      empty = !this.parent.model || (this.parent.model && !this.parent.model.isEmpty());
-    } else if (!collection) {
-      empty = true;
-    } else {
-      empty = collection.isEmpty();
-    }
-    if (empty) {
-      this.parent.trigger('rendered:empty', this, collection);
-      return _render.call(this, this.template);
-    } else {
-      return _render.call(this, this.inverse);
-    }
-  };
-
-  //no model binding is necessary as model.set() will cause re-render
-  if (collection) {
-    function collectionRemoveCallback() {
-      if (collection.length === 0) {
-        view.render();
-      }
-    }
-    function collectionAddCallback() {
-      if (collection.length === 1) {
-        view.render();
-      }
-    }
-    function collectionResetCallback() {
-      view.render();
-    }
-
-    view.on(collection, 'remove', collectionRemoveCallback);
-    view.on(collection, 'add', collectionAddCallback);
-    view.on(collection, 'reset', collectionResetCallback);
-  }
-  
-  view.render();
-});
 
 //$(selector).collection() helper
 $.fn.collection = function(view) {
+  if (view && view.collection) {
+    return view.collection;
+  }
   var $this = $(this),
       collectionElement = $this.closest('[' + collectionCidAttributeName + ']'),
       collectionCid = collectionElement && collectionElement.attr(collectionCidAttributeName);
   if (collectionCid) {
-    view = view || $this.view();
+    view = $this.view();
     if (view) {
       return view.collection;
     }
@@ -4431,79 +15716,21 @@ $.fn.collection = function(view) {
   return false;
 };
 
-var paramMatcher = /:(\w+)/g,
-    callMethodAttributeName = 'data-call-method';
+;;
+/*global inheritVars */
 
-Handlebars.registerHelper('url', function(url) {
-  var matches = url.match(paramMatcher),
-      context = this;
-  if (matches) {
-    url = url.replace(paramMatcher, function(match, key) {
-      return context[key] ? Thorax.Util.getValue(context, key) : match;
-    });
-  }
-  url = Thorax.Util.expandToken(url, context);
-  return (Backbone.history._hasPushState ? Backbone.history.options.root : '#') + url;
-});
+inheritVars.model.defaultOptions.populate = true;
 
-Handlebars.registerHelper('button', function(method, options) {
-  options.hash.tag = options.hash.tag || options.hash.tagName || 'button';
-  options.hash[callMethodAttributeName] = method;
-  return new Handlebars.SafeString(Thorax.Util.tag.call(this, options.hash, options.fn ? options.fn(this) : '', this));
-});
-
-Handlebars.registerHelper('link', function(url, options) {
-  options.hash.tag = options.hash.tag || options.hash.tagName || 'a';
-  options.hash.href = Handlebars.helpers.url.call(this, url);
-  options.hash[callMethodAttributeName] = '_anchorClick';
-  return new Handlebars.SafeString(Thorax.Util.tag.call(this, options.hash, options.fn ? options.fn(this) : '', this));
-});
-
-$(function() {
-  $(document).on('click', '[' + callMethodAttributeName + ']', function(event) {
-    var target = $(event.target),
-        view = target.view({helper: false}),
-        methodName = target.attr(callMethodAttributeName);
-    view[methodName].call(view, event);
-  });
-});
-
-Thorax.View.prototype._anchorClick = function(event) {
-  var target = $(event.currentTarget),
-      href = target.attr('href');
-  // Route anything that starts with # or / (excluding //domain urls)
-  if (href && (href[0] === '#' || (href[0] === '/' && href[1] !== '/'))) {
-    Backbone.history.navigate(href, {
-      trigger: true
-    });
-    event.preventDefault();
+var oldModelChange = inheritVars.model.change;
+inheritVars.model.change = function() {
+  oldModelChange.apply(this, arguments);
+  // TODO : What can we do to remove this duplication?
+  var modelOptions = this.model && this._objectOptionsByCid[this.model.cid];
+  if (modelOptions && modelOptions.populate) {
+    this.populate(this.model.attributes, modelOptions.populate === true ? {} : modelOptions.populate);
   }
 };
-
-if (Thorax.View.prototype._setModelOptions) {
-  (function() {
-    var _onModelChange = Thorax.View.prototype._onModelChange,
-      _setModelOptions = Thorax.View.prototype._setModelOptions;
-    _.extend(Thorax.View.prototype, {
-      _onModelChange: function() {
-        var response = _onModelChange.call(this);
-        if (this._modelOptions.populate) {
-          this.populate(this.model.attributes);
-        }
-        return response;
-      },
-      _setModelOptions: function(options) {
-        if (!options) {
-          options = {};
-        }
-        if (!('populate' in options)) {
-          options.populate = true;
-        }
-        return _setModelOptions.call(this, options);
-      }
-    });
-  })();
-}
+inheritVars.model.defaultOptions.populate = true;
 
 _.extend(Thorax.View.prototype, {
   //serializes a form present in the view, returning the serialized data
@@ -4531,11 +15758,13 @@ _.extend(Thorax.View.prototype, {
 
     options = _.extend({
       set: true,
-      validate: true
-    },options || {});
+      validate: true,
+      children: true,
+      silent: true
+    }, options || {});
 
     var attributes = options.attributes || {};
-    
+
     //callback has context of element
     var view = this;
     var errors = [];
@@ -4569,11 +15798,11 @@ _.extend(Thorax.View.prototype, {
     }
 
     if (options.set && this.model) {
-      if (!this.model.set(attributes, {silent: true})) {
+      if (!this.model.set(attributes, {silent: options.silent})) {
         return false;
-      };
+      }
     }
-    
+
     callback && callback.call(this, attributes, _.bind(resetSubmitState, this));
     return attributes;
   },
@@ -4599,10 +15828,13 @@ _.extend(Thorax.View.prototype, {
   },
 
   //populate a form from the passed attributes or this.model if present
-  populate: function(attributes) {
-    var value, attributes = attributes || this._getContext(this.model);
+  populate: function(attributes, options) {
+    options = _.extend({
+      children: true
+    }, options || {});
+    var value, attributes = attributes || this._getContext();
     //callback has context of element
-    eachNamedInput.call(this, {}, function() {
+    eachNamedInput.call(this, options, function() {
       objectAndKeyFromAttributesAndName.call(this, attributes, this.name, {mode: 'populate'}, function(object, key) {
         if (object && typeof (value = object[key]) !== 'undefined') {
           //will only execute if we have a name that matches the structure in attributes
@@ -4621,16 +15853,16 @@ _.extend(Thorax.View.prototype, {
   },
 
   //perform form validation, implemented by child class
-  validateInput: function(attributes, options, errors) {},
+  validateInput: function(/* attributes, options, errors */) {},
 
-  _getInputValue: function(input, options, errors) {
+  _getInputValue: function(input /* , options, errors */) {
     if (input.type === 'checkbox' || input.type === 'radio') {
       if (input.checked) {
         return input.value;
       }
     } else if (input.multiple === true) {
       var values = [];
-      $('option',input).each(function(){
+      $('option', input).each(function() {
         if (this.selected) {
           values.push(this.value);
         }
@@ -4643,9 +15875,9 @@ _.extend(Thorax.View.prototype, {
 });
 
 Thorax.View.on({
-  error: function() {  
+  error: function() {
     resetSubmitState.call(this);
-  
+
     // If we errored with a model we want to reset the content but leave the UI
     // intact. If the user updates the data and serializes any overwritten data
     // will be restored.
@@ -4658,11 +15890,18 @@ Thorax.View.on({
   deactivated: function() {
     resetSubmitState.call(this);
   }
-})
+});
 
 function eachNamedInput(options, iterator, context) {
-  var i = 0;
+  var i = 0,
+      self = this;
+
   this.$('select,input,textarea', options.root || this.el).each(function() {
+    if (!options.children) {
+      if (self !== $(this).view({helper: false})) {
+        return;
+      }
+    }
     if (this.type !== 'button' && this.type !== 'cancel' && this.type !== 'submit' && this.name && this.name !== '') {
       iterator.call(context || this, i, this);
       ++i;
@@ -4672,11 +15911,15 @@ function eachNamedInput(options, iterator, context) {
 
 //calls a callback with the correct object fragment and key from a compound name
 function objectAndKeyFromAttributesAndName(attributes, name, options, callback) {
-  var key, i, object = attributes, keys = name.split('['), mode = options.mode;
-  for(i = 0; i < keys.length - 1; ++i) {
-    key = keys[i].replace(']','');
+  var key,
+      object = attributes,
+      keys = name.split('['),
+      mode = options.mode;
+
+  for (var i = 0; i < keys.length - 1; ++i) {
+    key = keys[i].replace(']', '');
     if (!object[key]) {
-      if (mode == 'serialize') {
+      if (mode === 'serialize') {
         object[key] = {};
       } else {
         return callback.call(this, false, key);
@@ -4692,42 +15935,7 @@ function resetSubmitState() {
   this.$('form').removeAttr('data-submit-wait');
 }
 
-//Router
-function initializeRouter() {
-  Backbone.history || (Backbone.history = new Backbone.History);
-  Backbone.history.on('route', onRoute, this);
-  //router does not have a built in destroy event
-  //but ViewController does
-  this.on('destroyed', function() {
-    Backbone.history.off('route', onRoute, this);
-  });
-}
-
-Thorax.Router = Backbone.Router.extend({
-  constructor: function() {
-    var response = Thorax.Router.__super__.constructor.apply(this, arguments);
-    initializeRouter.call(this);
-    return response;
-  },
-  route: function(route, name, callback) {
-    //add a route:before event that is fired before the callback is called
-    return Backbone.Router.prototype.route.call(this, route, name, function() {
-      this.trigger.apply(this, ['route:before', name].concat(Array.prototype.slice.call(arguments)));
-      return callback.apply(this, arguments);
-    });
-  }
-});
-
-Thorax.Routers = {};
-Thorax.Util.createRegistryWrapper(Thorax.Router, Thorax.Routers);
-
-function onRoute(router, name) {
-  if (this === router) {
-    this.trigger.apply(this, ['route'].concat(Array.prototype.slice.call(arguments, 1)));
-  }
-}
-
-//layout
+;;
 var layoutCidAttributeName = 'data-layout-cid';
 
 Thorax.LayoutView = Thorax.View.extend({
@@ -4737,7 +15945,7 @@ Thorax.LayoutView = Thorax.View.extend({
     //so need to put this here so the template will be picked up
     var layoutTemplate;
     if (this.name) {
-      layoutTemplate = Thorax.Util.registryGet(Thorax, 'templates', this.name, true);
+      layoutTemplate = Thorax.Util.getTemplate(this.name, true);
     }
     //a template is optional in a layout
     if (output || this.template || layoutTemplate) {
@@ -4755,30 +15963,38 @@ Thorax.LayoutView = Thorax.View.extend({
       destroy: true
     }, options || {});
     if (typeof view === 'string') {
-      view = new (Thorax.Util.registryGet(Thorax, 'Views', view, false));
+      view = new (Thorax.Util.registryGet(Thorax, 'Views', view, false))();
     }
     this.ensureRendered();
     var oldView = this._view;
-    if (view == oldView){
+    if (view === oldView) {
       return false;
     }
     if (options.destroy && view) {
       view._shouldDestroyOnNextSetView = true;
     }
+
     this.trigger('change:view:start', view, oldView, options);
-    oldView && oldView.trigger('deactivated', options);
-    view && view.trigger('activated', options);
-    if (oldView && oldView.el && oldView.el.parentNode) {
+
+    if (oldView) {
+      this._removeChild(oldView);
       oldView.$el.remove();
+      triggerLifecycleEvent.call(oldView, 'deactivated', options);
+      if (oldView._shouldDestroyOnNextSetView) {
+        oldView.destroy();
+      }
     }
-    //make sure the view has been rendered at least once
-    view && this._addChild(view);
-    view && view.ensureRendered();
-    view && getLayoutViewsTargetElement.call(this).appendChild(view.el);
-    this._view = view;
-    oldView && (delete this.children[oldView.cid]);
-    oldView && oldView._shouldDestroyOnNextSetView && oldView.destroy();
-    this._view && this._view.trigger('ready', options);
+
+    if (view) {
+      triggerLifecycleEvent.call(this, 'activated', options);
+      view.trigger('activated', options);
+      this._addChild(view);
+      this._view = view;
+      this._view.appendTo(getLayoutViewsTargetElement.call(this));
+    } else {
+      this._view = undefined;
+    }
+
     this.trigger('change:view:end', view, oldView, options);
     return view;
   },
@@ -4789,9 +16005,18 @@ Thorax.LayoutView = Thorax.View.extend({
 });
 
 Handlebars.registerHelper('layout', function(options) {
-  options.hash[layoutCidAttributeName] = this._view.cid;
+  options.hash[layoutCidAttributeName] = getOptionsData(options).view.cid;
   return new Handlebars.SafeString(Thorax.Util.tag.call(this, options.hash, '', this));
 });
+
+function triggerLifecycleEvent(eventName, options) {
+  options = options || {};
+  options.target = this;
+  this.trigger(eventName, options);
+  _.each(this.children, function(child) {
+    child.trigger(eventName, options);
+  });
+}
 
 function ensureLayoutCid() {
   ++this._renderCount;
@@ -4809,27 +16034,370 @@ function getLayoutViewsTargetElement() {
   return this.$('[' + layoutCidAttributeName + '="' + this.cid + '"]')[0] || this.el[0] || this.el;
 }
 
-//ViewController
-Thorax.ViewController = Thorax.LayoutView.extend({
+;;
+/*global createRegistryWrapper */
+
+//Router
+function initializeRouter() {
+  Backbone.history || (Backbone.history = new Backbone.History());
+  Backbone.history.on('route', onRoute, this);
+  //router does not have a built in destroy event
+  //but ViewController does
+  this.on('destroyed', function() {
+    Backbone.history.off('route', onRoute, this);
+  });
+}
+
+Thorax.Router = Backbone.Router.extend({
   constructor: function() {
-    var response = Thorax.ViewController.__super__.constructor.apply(this, arguments);
-    this._bindRoutes();
+    var response = Thorax.Router.__super__.constructor.apply(this, arguments);
     initializeRouter.call(this);
-    //set the ViewController as the view on the parent
-    //if a parent was specified
-    this.on('route:before', function(router, name) {
-      if (this.parent && this.parent.getView) {
-        if (this.parent.getView() !== this) {
-          this.parent.setView(this, {
-            destroy: false
-          });
-        }
-      }
-    }, this);
     return response;
+  },
+  route: function(route, name, callback) {
+    if (!callback) {
+      callback = this[name];
+    }
+    //add a route:before event that is fired before the callback is called
+    return Backbone.Router.prototype.route.call(this, route, name, function() {
+      this.trigger.apply(this, ['route:before', route, name].concat(Array.prototype.slice.call(arguments)));
+      return callback.apply(this, arguments);
+    });
   }
 });
-_.extend(Thorax.ViewController.prototype, Thorax.Router.prototype);
+
+Thorax.Routers = {};
+createRegistryWrapper(Thorax.Router, Thorax.Routers);
+
+function onRoute(router /* , name */) {
+  if (this === router) {
+    this.trigger.apply(this, ['route'].concat(Array.prototype.slice.call(arguments, 1)));
+  }
+}
+
+;;
+Thorax.CollectionHelperView = Thorax.HelperView.extend({
+  // Forward render events to the parent
+  events: {
+    'rendered:item': forwardRenderEvent('rendered:item'),
+    'rendered:collection': forwardRenderEvent('rendered:collection'),
+    'rendered:empty': forwardRenderEvent('rendered:empty')
+  },
+  collectionRenderer: true,
+
+  constructor: function(options) {
+    _.each(collectionOptionNames, function(viewAttributeName, helperOptionName) {
+      if (options.options[helperOptionName]) {
+        var value = options.options[helperOptionName];
+        if (viewAttributeName === 'itemTemplate' || viewAttributeName === 'emptyTemplate') {
+          value = Thorax.Util.getTemplate(value);
+        }
+        options[viewAttributeName] = value;
+      }
+    });
+    // Handlebars.VM.noop is passed in the handlebars options object as
+    // a default for fn and inverse, if a block was present. Need to
+    // check to ensure we don't pick the empty / null block up.
+    if (!options.itemTemplate && options.template && options.template !== Handlebars.VM.noop) {
+      options.itemTemplate = options.template;
+      options.template = Handlebars.VM.noop;
+    }
+    if (!options.emptyTemplate && options.inverse && options.inverse !== Handlebars.VM.noop) {
+      options.emptyTemplate = options.inverse;
+      options.inverse = Handlebars.VM.noop;
+    }
+    !options.template && (options.template = Handlebars.VM.noop);
+    var response = Thorax.HelperView.call(this, options);
+    if (this.parent.name) {
+      if (!this.emptyTemplate) {
+        this.emptyTemplate = Thorax.Util.getTemplate(this.parent.name + '-empty', true);
+      }
+      if (!this.itemTemplate) {
+        this.itemTemplate = Thorax.Util.getTemplate(this.parent.name + '-item', true);
+      }
+    }
+    return response;
+  },
+  itemContext: function() {
+    return this.parent.itemContext.apply(this.parent, arguments);
+  },
+  setAsPrimaryCollectionHelper: function() {
+    _.each(forwardableProperties, function(propertyName) {
+      forwardMissingProperty.call(this, propertyName);
+    }, this);
+    if (this.parent.itemFilter && !this.itemFilter) {
+      this.itemFilter = function() {
+        return this.parent.itemFilter.apply(this.parent, arguments);
+      };
+    }
+  }
+});
+
+var collectionOptionNames = {
+  'item-template': 'itemTemplate',
+  'empty-template': 'emptyTemplate',
+  'item-view': 'itemView',
+  'empty-view': 'emptyView',
+  'empty-class': 'emptyClass'
+};
+
+function forwardRenderEvent(eventName) {
+  return function() {
+    var args = _.toArray(arguments);
+    args.unshift(eventName);
+    this.parent.trigger.apply(this.parent, args);
+  }
+}
+
+var forwardableProperties = [
+  'itemTemplate',
+  'itemView',
+  'emptyTemplate',
+  'emptyView'
+];
+
+function forwardMissingProperty(propertyName) {
+  var parent = getParent(this);
+  if (!this[propertyName]) {
+    var prop = parent[propertyName];
+    if (prop){
+      this[propertyName] = prop;
+    }
+  }
+}
+
+Handlebars.registerViewHelper('collection', Thorax.CollectionHelperView, function(collection, view) {
+  if (arguments.length === 1) {
+    view = collection;
+    collection = view.parent.collection;
+    collection && view.setAsPrimaryCollectionHelper();
+    view.$el.attr(collectionElementAttributeName, 'true');
+    // propagate future changes to the parent's collection object
+    // to the helper view
+    view.listenTo(view.parent, 'change:data-object', function(type, dataObject) {
+      if (type === 'collection') {
+        view.setAsPrimaryCollectionHelper();
+        view.setCollection(dataObject);
+      }
+    });
+  }
+  collection && view.setCollection(collection);
+});
+
+Handlebars.registerHelper('collection-element', function(options) {
+  var hash = options.hash;
+  normalizeHTMLAttributeOptions(hash);
+  hash.tagName = hash.tagName || 'div';
+  hash[collectionElementAttributeName] = true;
+  return new Handlebars.SafeString(Thorax.Util.tag.call(this, hash, '', this));
+});
+
+;;
+Handlebars.registerHelper('empty', function(dataObject, options) {
+  if (arguments.length === 1) {
+    options = dataObject;
+  }
+  var view = getOptionsData(options).view;
+  if (arguments.length === 1) {
+    dataObject = view.model;
+  }
+  // listeners for the empty helper rather than listeners
+  // that are themselves empty
+  if (!view._emptyListeners) {
+    view._emptyListeners = {};
+  }
+  // duck type check for collection
+  if (dataObject && !view._emptyListeners[dataObject.cid] && dataObject.models && ('length' in dataObject)) {
+    view._emptyListeners[dataObject.cid] = true;
+    view.listenTo(dataObject, 'remove', function() {
+      if (dataObject.length === 0) {
+        view.render();
+      }
+    });
+    view.listenTo(dataObject, 'add', function() {
+      if (dataObject.length === 1) {
+        view.render();
+      }
+    });
+    view.listenTo(dataObject, 'reset', function() {
+      view.render();
+    });
+  }
+  return !dataObject || dataObject.isEmpty() ? options.fn(this) : options.inverse(this);
+});
+
+;;
+Handlebars.registerHelper('template', function(name, options) {
+  var context = _.extend({fn: options && options.fn}, this, options ? options.hash : {});
+  var output = getOptionsData(options).view.renderTemplate(name, context);
+  return new Handlebars.SafeString(output);
+});
+
+Handlebars.registerHelper('yield', function(options) {
+  return getOptionsData(options).yield && options.data.yield();
+});
+
+;;
+Handlebars.registerHelper('url', function(url) {
+  var fragment;
+  if (arguments.length > 2) {
+    fragment = _.map(_.head(arguments, arguments.length - 1), encodeURIComponent).join('/');
+  } else {
+    var options = arguments[1],
+        hash = (options && options.hash) || options;
+    if (hash && hash['expand-tokens']) {
+      fragment = Thorax.Util.expandToken(url, this);
+    } else {
+      fragment = url;
+    }
+  }
+  return (Backbone.history._hasPushState ? Backbone.history.options.root : '#') + fragment;
+});
+
+;;
+/*global viewTemplateOverrides */
+Handlebars.registerViewHelper('view', {
+  factory: function(args, options) {
+    var View = args.length >= 1 ? args[0] : Thorax.View;
+    return Thorax.Util.getViewInstance(View, options.options);
+  },
+  callback: function() {
+    var instance = arguments[arguments.length-1],
+        options = instance._helperOptions.options,
+        placeholderId = instance.cid;
+
+    if (options.fn) {
+      viewTemplateOverrides[placeholderId] = options.fn;
+    }
+  }
+});
+
+;;
+var callMethodAttributeName = 'data-call-method',
+    triggerEventAttributeName = 'data-trigger-event';
+
+Handlebars.registerHelper('button', function(method, options) {
+  if (arguments.length === 1) {
+    options = method;
+    method = options.hash.method;
+  }
+  var hash = options.hash,
+      expandTokens = hash['expand-tokens'];
+  delete hash['expand-tokens'];
+  if (!method && !options.hash.trigger) {
+    throw new Error("button helper must have a method name as the first argument or a 'trigger', or a 'method' attribute specified.");
+  }
+  normalizeHTMLAttributeOptions(hash);
+  hash.tagName = hash.tagName || 'button';
+  hash.trigger && (hash[triggerEventAttributeName] = hash.trigger);
+  delete hash.trigger;
+  method && (hash[callMethodAttributeName] = method);
+  return new Handlebars.SafeString(Thorax.Util.tag(hash, options.fn ? options.fn(this) : '', expandTokens ? this : null));
+});
+
+Handlebars.registerHelper('link', function() {
+  var args = _.toArray(arguments),
+      options = args.pop(),
+      hash = options.hash,
+      // url is an array that will be passed to the url helper
+      url = args.length === 0 ? [hash.href] : args,
+      expandTokens = hash['expand-tokens'];
+  delete hash['expand-tokens'];
+  if (!url[0] && url[0] !== '') {
+    throw new Error("link helper requires an href as the first argument or an 'href' attribute");
+  }
+  normalizeHTMLAttributeOptions(hash);
+  url.push(options);
+  hash.href = Handlebars.helpers.url.apply(this, url);
+  hash.tagName = hash.tagName || 'a';
+  hash.trigger && (hash[triggerEventAttributeName] = options.hash.trigger);
+  delete hash.trigger;
+  hash[callMethodAttributeName] = '_anchorClick';
+  return new Handlebars.SafeString(Thorax.Util.tag(hash, options.fn ? options.fn(this) : '', expandTokens ? this : null));
+});
+
+var clickSelector = '[' + callMethodAttributeName + '], [' + triggerEventAttributeName + ']';
+
+function handleClick(event) {
+  var target = $(event.target),
+      view = target.view({helper: false}),
+      methodName = target.attr(callMethodAttributeName),
+      eventName = target.attr(triggerEventAttributeName),
+      methodResponse = false;
+  methodName && (methodResponse = view[methodName].call(view, event));
+  eventName && view.trigger(eventName, event);
+  target.tagName === "A" && methodResponse === false && event.preventDefault();
+}
+
+var lastClickHandlerEventName;
+
+function registerClickHandler() {
+  unregisterClickHandler();
+  lastClickHandlerEventName = Thorax._fastClickEventName || 'click';
+  $(document).on(lastClickHandlerEventName, clickSelector, handleClick);
+}
+
+function unregisterClickHandler() {
+  lastClickHandlerEventName && $(document).off(lastClickHandlerEventName, clickSelector, handleClick);
+}
+
+$(document).ready(function() {
+  if (!Thorax._fastClickEventName) {
+    registerClickHandler();
+  }
+});
+
+;;
+var elementPlaceholderAttributeName = 'data-element-tmp';
+
+Handlebars.registerHelper('element', function(element, options) {
+  normalizeHTMLAttributeOptions(options.hash);
+  var cid = _.uniqueId('element'),
+      declaringView = getOptionsData(options).view,
+      htmlAttributes = _.pick(options.hash, htmlAttributesToCopy);
+  htmlAttributes[elementPlaceholderAttributeName] = cid;
+  declaringView._elementsByCid || (declaringView._elementsByCid = {});
+  declaringView._elementsByCid[cid] = element;
+  return new Handlebars.SafeString(Thorax.Util.tag(htmlAttributes));
+});
+
+Thorax.View.on('append', function(scope, callback) {
+  (scope || this.$el).find('[' + elementPlaceholderAttributeName + ']').forEach(function(el) {
+    var $el = $(el),
+        cid = $el.attr(elementPlaceholderAttributeName),
+        element = this._elementsByCid[cid];
+    // A callback function may be specified as the value
+    if (_.isFunction(element)) {
+      element = element.call(this);
+    }
+    $el.replaceWith(element);
+    callback && callback(element);
+  }, this);
+});
+
+;;
+Handlebars.registerHelper('super', function(options) {
+  var declaringView = getOptionsData(options).view,
+      parent = declaringView.constructor && declaringView.constructor.__super__;
+  if (parent) {
+    var template = parent.template;
+    if (!template) {
+      if (!parent.name) {
+        throw new Error('Cannot use super helper when parent has no name or template.');
+      }
+      template = Thorax.Util.getTemplate(parent.name, false);
+    }
+    if (typeof template === 'string') {
+      template = Handlebars.compile(template, {data: true});
+    }
+    return new Handlebars.SafeString(template(this, options));
+  } else {
+    return '';
+  }
+});
+
+;;
+/*global collectionOptionNames, inheritVars */
 
 var loadStart = 'load:start',
     loadEnd = 'load:end',
@@ -4839,31 +16407,36 @@ Thorax.setRootObject = function(obj) {
   rootObject = obj;
 };
 
-Thorax.loadHandler = function(start, end) {
+Thorax.loadHandler = function(start, end, context) {
+  var loadCounter = _.uniqueId();
   return function(message, background, object) {
-    var self = this;
+    var self = context || this;
+    self._loadInfo = self._loadInfo || [];
+    var loadInfo = self._loadInfo[loadCounter];
 
     function startLoadTimeout() {
-      clearTimeout(self._loadStart.timeout);
-      self._loadStart.timeout = setTimeout(function() {
-          try {
-            self._loadStart.run = true;
-            start.call(self, self._loadStart.message, self._loadStart.background, self._loadStart);
-          } catch(e) {
-            Thorax.onException('loadStart', e);
-          }
-        },
-        loadingTimeout*1000);
-    }
 
-    if (!self._loadStart) {
-      var loadingTimeout = self._loadingTimeoutDuration;
-      if (loadingTimeout === void 0) {
-        // If we are running on a non-view object pull the default timeout
-        loadingTimeout = Thorax.View.prototype._loadingTimeoutDuration;
+      // If the timeout has been set already but has not triggered yet do nothing
+      // Otherwise set a new timeout (either initial or for going from background to
+      // non-background loading)
+      if (loadInfo.timeout && !loadInfo.run) {
+        return;
       }
 
-      self._loadStart = _.extend({
+      var loadingTimeout = self._loadingTimeoutDuration !== undefined ?
+        self._loadingTimeoutDuration : Thorax.View.prototype._loadingTimeoutDuration;
+      loadInfo.timeout = setTimeout(function() {
+          try {
+            loadInfo.run = true;
+            start.call(self, loadInfo.message, loadInfo.background, loadInfo);
+          } catch (e) {
+            Thorax.onException('loadStart', e);
+          }
+        }, loadingTimeout * 1000);
+    }
+
+    if (!loadInfo) {
+      loadInfo = self._loadInfo[loadCounter] = _.extend({
         events: [],
         timeout: 0,
         message: message,
@@ -4871,47 +16444,60 @@ Thorax.loadHandler = function(start, end) {
       }, Backbone.Events);
       startLoadTimeout();
     } else {
-      clearTimeout(self._loadStart.endTimeout);
+      clearTimeout(loadInfo.endTimeout);
 
-      self._loadStart.message = message;
-      if (!background && self._loadStart.background) {
-        self._loadStart.background = false;
+      loadInfo.message = message;
+      if (!background && loadInfo.background) {
+        loadInfo.background = false;
         startLoadTimeout();
       }
     }
 
-    self._loadStart.events.push(object);
-    object.bind(loadEnd, function endCallback() {
-      object.off(loadEnd, endCallback);
+    // Prevent binds to the same object multiple times as this can cause very bad things
+    // to happen for the load;load;end;end execution flow.
+    if (loadInfo.events.indexOf(object) >= 0) {
+      loadInfo.events.push(object);
+      return;
+    }
 
+    loadInfo.events.push(object);
+
+    object.on(loadEnd, function endCallback() {
       var loadingEndTimeout = self._loadingTimeoutEndDuration;
       if (loadingEndTimeout === void 0) {
         // If we are running on a non-view object pull the default timeout
         loadingEndTimeout = Thorax.View.prototype._loadingTimeoutEndDuration;
       }
 
-      var events = self._loadStart.events,
+      var events = loadInfo.events,
           index = events.indexOf(object);
       if (index >= 0) {
         events.splice(index, 1);
+
+        if (events.indexOf(object) < 0) {
+          // Last callback for this particlar object, remove the bind
+          object.off(loadEnd, endCallback);
+        }
       }
+
       if (!events.length) {
-        self._loadStart.endTimeout = setTimeout(function() {
+        clearTimeout(loadInfo.endTimeout);
+        loadInfo.endTimeout = setTimeout(function() {
           try {
             if (!events.length) {
-              var run = self._loadStart.run;
-  
+              var run = loadInfo.run;
+
               if (run) {
                 // Emit the end behavior, but only if there is a paired start
-                end.call(self, self._loadStart.background, self._loadStart);
-                self._loadStart.trigger(loadEnd, self._loadStart);
+                end.call(self, loadInfo.background, loadInfo);
+                loadInfo.trigger(loadEnd, loadInfo);
               }
-  
+
               // If stopping make sure we don't run a start
-              clearTimeout(self._loadStart.timeout);
-              self._loadStart = undefined;
+              clearTimeout(loadInfo.timeout);
+              loadInfo = self._loadInfo[loadCounter] = undefined;
             }
-          } catch(e) {
+          } catch (e) {
             Thorax.onException('loadEnd', e);
           }
         }, loadingEndTimeout * 1000);
@@ -4948,32 +16534,44 @@ Thorax.forwardLoadEvents = function(source, dest, once) {
  * Mixing for generating load:start and load:end events.
  */
 Thorax.mixinLoadable = function(target, useParent) {
-  _.extend(target, {  
+  _.extend(target, {
     //loading config
     _loadingClassName: 'loading',
     _loadingTimeoutDuration: 0.33,
     _loadingTimeoutEndDuration: 0.10,
-  
+
     // Propagates loading view parameters to the AJAX layer
     onLoadStart: function(message, background, object) {
       var that = useParent ? this.parent : this;
-      if (!that.nonBlockingLoad && !background && rootObject) {
+
+      // Protect against race conditions
+      if (!that || !that.el) {
+        return;
+      }
+
+      if (!that.nonBlockingLoad && !background && rootObject && rootObject !== this) {
         rootObject.trigger(loadStart, message, background, object);
       }
       $(that.el).addClass(that._loadingClassName);
       //used by loading helpers
       if (that._loadingCallbacks) {
-        that._loadingCallbacks.forEach(function(callback) {
+        _.each(that._loadingCallbacks, function(callback) {
           callback();
         });
       }
     },
-    onLoadEnd: function(background, object) {
+    onLoadEnd: function(/* background, object */) {
       var that = useParent ? this.parent : this;
+
+      // Protect against race conditions
+      if (!that || !that.el) {
+        return;
+      }
+
       $(that.el).removeClass(that._loadingClassName);
       //used by loading helpers
       if (that._loadingCallbacks) {
-        that._loadingCallbacks.forEach(function(callback) {
+        _.each(that._loadingCallbacks, function(callback) {
           callback();
         });
       }
@@ -4997,6 +16595,12 @@ Thorax.mixinLoadableEvents = function(target, useParent) {
 Thorax.mixinLoadable(Thorax.View.prototype);
 Thorax.mixinLoadableEvents(Thorax.View.prototype);
 
+
+if (Thorax.HelperView) {
+  Thorax.mixinLoadable(Thorax.HelperView.prototype, true);
+  Thorax.mixinLoadableEvents(Thorax.HelperView.prototype, true);
+}
+
 Thorax.sync = function(method, dataObj, options) {
   var self = this,
       complete = options.complete;
@@ -5009,44 +16613,37 @@ Thorax.sync = function(method, dataObj, options) {
   };
   this._request = Backbone.sync.apply(this, arguments);
 
-  // TODO : Reevaluate this event... Seems too indepth to expose as an API
-  this.trigger('request', this._request);
   return this._request;
 };
 
 function bindToRoute(callback, failback) {
   var fragment = Backbone.history.getFragment(),
-      completed;
+      routeChanged = false;
 
-  function finalizer(isCanceled) {
-    var same = fragment === Backbone.history.getFragment();
-
-    if (completed) {
-      // Prevent multiple execution, i.e. we were canceled but the success callback still runs
+  function routeHandler() {
+    if (fragment === Backbone.history.getFragment()) {
       return;
     }
+    routeChanged = true;
+    res.cancel();
+    failback && failback();
+  }
 
-    if (isCanceled && same) {
-      // Ignore the first route event if we are running in newer versions of backbone
-      // where the route operation is a postfix operation.
-      return;
-    }
+  Backbone.history.on('route', routeHandler);
 
-    completed = true;
-    Backbone.history.off('route', resetLoader);
-
-    var args = Array.prototype.slice.call(arguments, 1);
-    if (!isCanceled && same) {
-      callback.apply(this, args);
-    } else {
-      failback && failback.apply(this, args);
+  function finalizer() {
+    Backbone.history.off('route', routeHandler);
+    if (!routeChanged) {
+      callback.apply(this, arguments);
     }
   }
 
-  var resetLoader = _.bind(finalizer, this, true);
-  Backbone.history.on('route', resetLoader);
+  var res = _.bind(finalizer, this);
+  res.cancel = function() {
+    Backbone.history.off('route', routeHandler);
+  };
 
-  return _.bind(finalizer, this, false);
+  return res;
 }
 
 function loadData(callback, failback, options) {
@@ -5059,9 +16656,27 @@ function loadData(callback, failback, options) {
     failback = false;
   }
 
+  var self = this,
+      routeChanged = false,
+      successCallback = bindToRoute(_.bind(callback, self), function() {
+        routeChanged = true;
+        if (self._request) {
+          self._aborted = true;
+          self._request.abort();
+        }
+        failback && failback.call(self, false);
+      });
+
   this.fetch(_.defaults({
-    success: bindToRoute(callback, failback && _.bind(failback, this, false)),
-    error: failback && _.bind(failback, this, true)
+    success: successCallback,
+    error: failback && function() {
+      if (!routeChanged) {
+        failback.apply(self, [true].concat(_.toArray(arguments)));
+      }
+    },
+    complete: function() {
+      successCallback.cancel();
+    }
   }, options));
 }
 
@@ -5093,7 +16708,7 @@ function flushQueue(self, fetchQueue, handler) {
 
     // Flush the queue. Executes any callback handlers that
     // may have been passed in the fetch options.
-    fetchQueue.forEach(function(options) {
+    _.each(fetchQueue, function(options) {
       if (options[handler]) {
         options[handler].apply(this, args);
       }
@@ -5103,7 +16718,7 @@ function flushQueue(self, fetchQueue, handler) {
     if (self.fetchQueue === fetchQueue) {
       self.fetchQueue = undefined;
     }
-  }
+  };
 }
 
 var klasses = [];
@@ -5135,6 +16750,7 @@ _.each(klasses, function(DataClass) {
         options = failback;
         failback = false;
       }
+
       options = options || {};
       if (!options.background && !this.isPopulated() && rootObject) {
         // Make sure that the global scope sees the proper load events here
@@ -5142,20 +16758,7 @@ _.each(klasses, function(DataClass) {
         Thorax.forwardLoadEvents(this, rootObject, true);
       }
 
-      var self = this;
-      loadData.call(this, callback,
-        function(isError) {
-          // Route changed, kill it
-          if (!isError) {
-            if (self._request) {
-              self._aborted = true;
-              self._request.abort();
-            }
-          }
-
-          failback && failback.apply && failback.apply(this, arguments);
-        },
-        options);
+      loadData.call(this, callback, failback, options);
     }
   });
 });
@@ -5166,55 +16769,61 @@ if (Thorax.Router) {
   Thorax.Router.bindToRoute = Thorax.Router.prototype.bindToRoute = bindToRoute;
 }
 
-//
-// View load event handling
-//
+// Propagates loading view parameters to the AJAX layer
+Thorax.View.prototype._modifyDataObjectOptions = function(dataObject, options) {
+  options.ignoreErrors = this.ignoreFetchError;
+  options.background = this.nonBlockingLoad;
+  return options;
+};
 
-if (Thorax.Model) {
-  (function() {
-    // Propagates loading view parameters to the AJAX layer
-    var _setModelOptions = Thorax.View.prototype._setModelOptions;
-    Thorax.View.prototype._setModelOptions = function(options) {
-      return _setModelOptions.call(this, _.defaults({
-        ignoreErrors: this.ignoreFetchError,
-        background: this.nonBlockingLoad
-      }, options || {}));
-    };
-  })();
+Thorax.HelperView.prototype._modifyDataObjectOptions = function(dataObject, options) {
+  options.ignoreErrors = this.parent.ignoreFetchError;
+  options.background = this.parent.nonBlockingLoad;
+  return options;
+};
 
-  Thorax.View.prototype._loadModel = function(model, options) {
-    if (model.load) {
-      model.load(function() {
-        options.success && options.success(model);
-      }, options);
-    } else {
-      model.fetch(options);
-    }
-  };
-}
+inheritVars.collection.loading = function() {
+  var loadingView = this.loadingView,
+      loadingTemplate = this.loadingTemplate,
+      loadingPlacement = this.loadingPlacement;
+  //add "loading-view" and "loading-template" options to collection helper
+  if (loadingView || loadingTemplate) {
+    var callback = Thorax.loadHandler(_.bind(function() {
+      var item;
+      if (this.collection.length === 0) {
+        this.$el.empty();
+      }
+      if (loadingView) {
+        var instance = Thorax.Util.getViewInstance(loadingView);
+        this._addChild(instance);
+        if (loadingTemplate) {
+          instance.render(loadingTemplate);
+        } else {
+          instance.render();
+        }
+        item = instance;
+      } else {
+        item = this.renderTemplate(loadingTemplate);
+      }
+      var index = loadingPlacement
+        ? loadingPlacement.call(this)
+        : this.collection.length
+      ;
+      this.appendItem(item, index);
+      this.$el.children().eq(index).attr('data-loading-element', this.collection.cid);
+    }, this), _.bind(function() {
+      this.$el.find('[data-loading-element="' + this.collection.cid + '"]').remove();
+    }, this),
+    this.collection);
 
-if (Thorax.Collection) {
-  Thorax.mixinLoadable(Thorax.CollectionView.prototype);
-  Thorax.mixinLoadableEvents(Thorax.CollectionView.prototype);
+    this.listenTo(this.collection, 'load:start', callback);
+  }
+};
 
-  // Propagates loading view parameters to the AJAX layer
-  var _setCollectionOptions = Thorax.CollectionView.prototype._setCollectionOptions;
-  Thorax.CollectionView.prototype._setCollectionOptions = function(collection, options) {
-    return _setCollectionOptions.call(this, collection, _.defaults({
-      ignoreErrors: this.ignoreFetchError,
-      background: this.nonBlockingLoad
-    }, options || {}));
-  };
-
-  Thorax.CollectionView.prototype._loadCollection = function(collection, options) {
-    if (collection.load) {
-      collection.load(function(){
-        options.success && options.success(collection);
-      }, options);
-    } else {
-      collection.fetch(options);
-    }
-  };
+if (typeof collectionOptionNames !== 'undefined') {
+  collectionOptionNames['loading-template'] = 'loadingTemplate';
+  collectionOptionNames['loading-view'] = 'loadingView';
+  collectionOptionNames['loading-placement'] = 'loadingPlacement';
 }
 
 Thorax.View.on({
@@ -5227,9 +16836,7 @@ Thorax.View.on({
       }),
 
   collection: {
-    'load:start': function(collectionView, message, background, object) {
-      //this refers to the collection view, we want to trigger on
-      //the parent view which originally bound the collection
+    'load:start': function(message, background, object) {
       this.trigger(loadStart, message, background, object);
     }
   },
@@ -5240,10 +16847,9 @@ Thorax.View.on({
   }
 });
 
-// Helpers
-
+;;
 Handlebars.registerViewHelper('loading', function(view) {
-  _render = view.render;
+  var _render = view.render;
   view.render = function() {
     if (view.parent.$el.hasClass(view.parent._loadingClassName)) {
       return _render.call(this, view.fn);
@@ -5254,59 +16860,169 @@ Handlebars.registerViewHelper('loading', function(view) {
   var callback = _.bind(view.render, view);
   view.parent._loadingCallbacks = view.parent._loadingCallbacks || [];
   view.parent._loadingCallbacks.push(callback);
-  view.on('freeze', function() {
+  view.on('destroyed', function() {
     view.parent._loadingCallbacks = _.without(view.parent._loadingCallbacks, callback);
   });
   view.render();
 });
 
-//add "loading-view" and "loading-template" options to collection helper
-Thorax.View.on('helper:collection', function(view) {
-  if (arguments.length === 2) {
-    view = arguments[1];
-  }
-  if (!view.collection) {
-    view.collection = view.parent.collection;
-  }
-  if (view.options['loading-view'] || view.options['loading-template']) {
-    var item;
-    var callback = Thorax.loadHandler(_.bind(function() {
-      if (view.collection.length === 0) {
-        view.$el.empty();
-      }
-      if (view.options['loading-view']) {
-        var instance = Thorax.Util.getViewInstance(view.options['loading-view'], {
-          collection: view.collection
-        });
-        view._addChild(instance);
-        if (view.options['loading-template']) {
-          instance.render(view.options['loading-template']);
-        } else {
-          instance.render();
-        }
-        item = instance;
-      } else {
-        item = view.renderTemplate(view.options['loading-template'], {
-          collection: view.collection
-        });
-      }
-      view.appendItem(item, view.collection.length);
-      view.$el.children().last().attr('data-loading-element', view.collection.cid);
-    }, this), _.bind(function() {
-      view.$el.find('[data-loading-element="' + view.collection.cid + '"]').remove();
-    }, this));
-    view.on(view.collection, 'load:start', callback);
-  }
-});
+;;
+var isIE = (/msie [\w.]+/).exec(navigator.userAgent.toLowerCase());
 
-if (Thorax.CollectionView) {
-  Thorax.CollectionView._optionNames.push('loading-template');
-  Thorax.CollectionView._optionNames.push('loading-view');
+// IE will lose a reference to the elements if view.el.innerHTML = '';
+// If they are removed one by one the references are not lost.
+// For instance a view's childrens' `el`s will be lost if the view
+// sets it's `el.innerHTML`.
+if (isIE) {
+  Thorax.View.on('before:append', function() {
+    if (this._renderCount > 0) {
+      _.each(this._elementsByCid, function(element) {
+        $(element).remove();
+      });
+      _.each(this.children, function(child) {
+        child.$el.remove();
+      });
+    }
+  });
 }
 
+;;
 
 
 })();
+
+
+;;
+/**
+ * Backbone localStorage Adapter
+ * https://github.com/jeromegn/Backbone.localStorage
+ */
+
+(function(_, Backbone) {
+// A simple module to replace `Backbone.sync` with *localStorage*-based
+// persistence. Models are given GUIDS, and saved into a JSON object. Simple
+// as that.
+
+// Hold reference to Underscore.js and Backbone.js in the closure in order
+// to make things work even if they are removed from the global namespace
+
+// Generate four random hex digits.
+function S4() {
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+};
+
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+function guid() {
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+};
+
+// Our Store is represented by a single JS object in *localStorage*. Create it
+// with a meaningful name, like the name you'd give a table.
+// window.Store is deprectated, use Backbone.LocalStorage instead
+Backbone.LocalStorage = window.Store = function(name) {
+  this.name = name;
+  var store = this.localStorage().getItem(this.name);
+  this.records = (store && store.split(",")) || [];
+};
+
+_.extend(Backbone.LocalStorage.prototype, {
+
+  // Save the current state of the **Store** to *localStorage*.
+  save: function() {
+    this.localStorage().setItem(this.name, this.records.join(","));
+  },
+
+  // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
+  // have an id of it's own.
+  create: function(model) {
+    if (!model.id) {
+        model.id = guid();
+        model.set(model.idAttribute, model.id);
+    }
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    this.records.push(model.id.toString());
+    this.save();
+    return model.toJSON();
+  },
+
+  // Update a model by replacing its copy in `this.data`.
+  update: function(model) {
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    if (!_.include(this.records, model.id.toString())) this.records.push(model.id.toString()); this.save();
+    return model.toJSON();
+  },
+
+  // Retrieve a model from `this.data` by id.
+  find: function(model) {
+    return JSON.parse(this.localStorage().getItem(this.name+"-"+model.id));
+  },
+
+  // Return the array of all models currently in storage.
+  findAll: function() {
+    return _(this.records).chain()
+        .map(function(id){return JSON.parse(this.localStorage().getItem(this.name+"-"+id));}, this)
+        .compact()
+        .value();
+  },
+
+  // Delete a model from `this.data`, returning it.
+  destroy: function(model) {
+    this.localStorage().removeItem(this.name+"-"+model.id);
+    this.records = _.reject(this.records, function(record_id){return record_id == model.id.toString();});
+    this.save();
+    return model;
+  },
+
+  localStorage: function() {
+      return localStorage;
+  }
+
+});
+
+// localSync delegate to the model or collection's
+// *localStorage* property, which should be an instance of `Store`.
+// window.Store.sync and Backbone.localSync is deprectated, use Backbone.LocalStorage.sync instead
+Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
+  var store = model.localStorage || model.collection.localStorage;
+
+  var resp, syncDfd = $.Deferred && $.Deferred(); //If $ is having Deferred - use it. 
+
+  switch (method) {
+    case "read":    resp = model.id != undefined ? store.find(model) : store.findAll(); break;
+    case "create":  resp = store.create(model);                            break;
+    case "update":  resp = store.update(model);                            break;
+    case "delete":  resp = store.destroy(model);                           break;
+  }
+
+  if (resp) {
+    if (options && options.success) options.success(resp);
+    if (syncDfd) syncDfd.resolve();
+  } else {
+    if (options && options.error) options.error("Record not found");
+    if (syncDfd) syncDfd.reject();
+  }
+
+  return syncDfd && syncDfd.promise();
+};
+
+Backbone.ajaxSync = Backbone.sync;
+
+Backbone.getSyncMethod = function(model) {
+  if(model.localStorage || (model.collection && model.collection.localStorage))
+  {
+    return Backbone.localSync;
+  }
+
+  return Backbone.ajaxSync;
+};
+
+// Override 'Backbone.sync' to default to localSync,
+// the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
+Backbone.sync = function(method, model, options) {
+  return Backbone.getSyncMethod(model).apply(this, [method, model, options]);
+};
+
+})(_, Backbone);
 ;;
 /*!
   * $script.js Async loader & dependency manager
@@ -5425,11 +17141,15 @@ if (Thorax.CollectionView) {
   }
 
   return $script
-});;
+})
+;;
+var Application;
 Application = (function() {
-var module = {exports: {}};
-var exports = module.exports;
-var lumbarLoader = exports.loader = {
+  var module = {exports: {}};
+  var exports = module.exports;
+  var Application = exports;
+
+  var lumbarLoader = exports.loader = {
   loadPrefix: typeof lumbarLoadPrefix === 'undefined' ? '' : lumbarLoadPrefix,
 
   isLoaded: function(moduleName) {
@@ -5553,6 +17273,7 @@ exports.moduleMap = function(map, loadPrefix) {
   lumbarLoader.modules = map.modules;
   lumbarLoader.loadPrefix = loadPrefix || lumbarLoader.loadPrefix;
 };
+
 ;;
 (function() {
   lumbarLoader.initEvents = function() {
@@ -5577,6 +17298,7 @@ exports.moduleMap = function(map, loadPrefix) {
     }, options);
   };
 })();
+
 ;;
 lumbarLoader.loadJS = function(moduleName, callback) {
   var loaded = loadResources(moduleName, 'js', callback, function(href, callback) {
@@ -5611,6 +17333,7 @@ lumbarLoader.loadCSS = function(moduleName, callback) {
   }
   return loaded.length;
 };
+
 ;;
 module.exports.initBackboneLoader = function(loaderModule, failure) {
   var lumbarLoader = (loaderModule || module.exports).loader;
@@ -5661,6 +17384,7 @@ module.exports.initBackboneLoader = function(loaderModule, failure) {
 if (module.exports.loader && module.exports.loader.map && window.Backbone) {
   module.exports.initBackboneLoader();
 }
+
 ;;
 //all templates are assumed to be in the templates directory
 Thorax.templatePathPrefix = 'src/templates/';
@@ -5671,8 +17395,14 @@ $(function() {
   app.initBackboneLoader();
   Backbone.history.start();
 });
+
 ;;
 /* lumbar module map */
 module.exports.moduleMap({"base":{"js":"base.js"},"modules":{"todomvc":{"js":"todomvc.js"}},"routes":{"":"todomvc",":filter":"todomvc"}});
-return module.exports;
+
+
+  if (Application !== module.exports) {
+    console.warn("Application internally differs from global");
+  }
+  return module.exports;
 }).call(this);
