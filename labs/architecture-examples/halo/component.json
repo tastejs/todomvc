@@ -1,0 +1,8 @@
+{
+  "name": "todomvc-halo",
+  "version": "0.1.0",
+  "dependencies": {
+    "jqueryp": "~1.0.4",
+    "todomvc-common": "~0.1.4"
+  }
+}

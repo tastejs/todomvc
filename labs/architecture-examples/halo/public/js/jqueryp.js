@@ -1,0 +1,4 @@
+/*! jqueryp - v1.0.2 - 2012-12-07
+* https://github.com/Ensighten/jqueryp
+* Copyright (c) 2012 Ensighten; Licensed MIT */
+define(["jquery"],function(e){return e.exportModule=function(t,n){var r="jqueryp_"+t;e.fn[t]=function(i){var s=[].slice.call(arguments,1),o=this;return this.each(function(u){var a=e(this),f=a.data(r);f===undefined&&(f=new n(a),a.data(r,f));if(i)if(i===!0)u===0&&(o=f);else{var l=f[i];if(l===undefined){var c=window.console;c&&c.error&&c.error(t+"."+i+" not found!")}else if(typeof l!="function")u===0&&(o=l);else{var h=l.apply(f,s);u===0&&h!==undefined&&(o=h)}}}),o}},{load:function(t,n,r,i){t=t||"";var s=t.split(/!/g);n(s,function(){r(e)})},jquery:e}});
