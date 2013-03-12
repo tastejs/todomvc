@@ -1,5 +1,6 @@
 Ext.define('Todo.store.Tasks', {
-	autoLoad: true,
+	extend: 'Ext.data.Store',
 	model: 'Todo.model.Task',
-	extend: 'Ext.data.Store'
+
+	autoSync: false
 });
