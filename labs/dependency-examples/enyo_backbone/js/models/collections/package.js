@@ -1,0 +1,1 @@
+enyo.depends('TaskCollection.js');
