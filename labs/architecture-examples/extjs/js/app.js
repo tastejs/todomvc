@@ -6,6 +6,8 @@
  *
  */
 
+/* global Ext */
+
 Ext.Loader.setConfig({
     enabled: true
 });
@@ -17,13 +19,14 @@ Ext.application({
     stores: ['Tasks'],
     controllers: ['Tasks'],
 
-    launch: function() {
+    launch: function () {
+        'use strict';
 
         Ext.create('Todo.view.Main');
 
         this.getTasksStore().load();
 
-        Ext.History.init(function(history) {
+        Ext.History.init(function (history) {
             this.setRoute(history.getToken());
         }, this);
 
@@ -31,19 +34,22 @@ Ext.application({
         Ext.ComponentQuery.query('[name=newtask]')[0].focus();
     },
 
-    setRoute: function(token) {
+    setRoute: function (token) {
+        'use strict';
+
         var store = this.getTasksStore(),
-            token = token || '/',
             btns  = Ext.ComponentQuery.query('button[action=changeView]');
 
-        Ext.each(btns, function(btn) {
-            btn.getEl().down('span').applyStyles({'text-align':'center', 'font-weight': (btn.href == '#' + token) ? 'bold' : 'normal'});
+        token = token || '/';
+
+        Ext.each(btns, function (btn) {
+            btn.getEl().down('span').applyStyles({'text-align': 'center', 'font-weight': (btn.href === '#' + token) ? 'bold' : 'normal'});
         });
 
         store.clearFilter();
 
-        if (token != '/') {
-            store.filter('completed', token == '/completed');
+        if (token !== '/') {
+            store.filter('completed', token === '/completed');
         }
     }
 });

@@ -1,9 +1,11 @@
+/* global Ext */
+
 Ext.define('Todo.model.Task', {
     extend: 'Ext.data.Model',
 
     fields: [
-        'id', 
-        'label', 
+        'id',
+        'label',
         { name: 'completed', type: 'boolean' }
     ],
 

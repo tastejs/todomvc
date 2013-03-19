@@ -1,3 +1,5 @@
+/* global Ext */
+
 Ext.define('Todo.controller.Tasks', {
     extend: 'Ext.app.Controller',
 
@@ -13,7 +15,8 @@ Ext.define('Todo.controller.Tasks', {
         { ref: 'todoeditor', selector: 'todoeditor', xtype: 'todoeditor', autoCreate: true }
     ],
 
-    init: function() {
+    init: function () {
+        'use strict';
 
         this.control({
             'todoeditor' : {
@@ -45,7 +48,9 @@ Ext.define('Todo.controller.Tasks', {
         });
     },
 
-    onTaskFieldKeyup: function(field, event) {
+    onTaskFieldKeyup: function (field, event) {
+        'use strict';
+
         var ENTER_KEY_CODE = 13,
             value = field.getValue().trim();
 
@@ -57,16 +62,18 @@ Ext.define('Todo.controller.Tasks', {
         }
     },
 
-    onItemClick: function(dv, record, item, index, event, eOpts) {
+    onItemClick: function (dv, record, item, index, event) {
+        'use strict';
+
         var eventTarget = Ext.getDom(event).target.nodeName;
 
-        if (eventTarget == 'A') {
+        if (eventTarget === 'A') {
             this.store.remove(record);
         }
-        else if (eventTarget == 'INPUT') {
-            record.set('completed', !record.get('completed'))
+        else if (eventTarget === 'INPUT') {
+            record.set('completed', !record.get('completed'));
         }
-        else { 
+        else {
             return;
         }
 
@@ -74,10 +81,12 @@ Ext.define('Todo.controller.Tasks', {
         this.store.filter();
     },
 
-    onItemDblClicked: function (dv, record, item, index, event, eOpts) {
+    onItemDblClicked: function (dv, record, item, index, event) {
+        'use strict';
+
         var eventTarget = Ext.getDom(event).target.nodeName;
 
-        if (eventTarget == 'LABEL') {
+        if (eventTarget === 'LABEL') {
             var editor  = this.getTodoeditor(),
                 label   = Ext.get(item).down('label');
 
@@ -85,33 +94,39 @@ Ext.define('Todo.controller.Tasks', {
             this.toggleEl.setStyle('visibility', 'hidden');
 
             editor.activeRecord = record;
-            editor.startEdit(label, record.data['label']);
+            editor.startEdit(label, record.data.label);
         }
     },
 
-    onCancelEdit: function(editor, value) {
+    onCancelEdit: function () {
+        'use strict';
+
         this.toggleEl.setStyle('visibility', 'visible');
     },
 
-    onCompleteEdit: function(editor, value) {
-        var value = value.trim();
+    onCompleteEdit: function (editor, value) {
+        'use strict';
+
+        value = value.trim();
 
         this.toggleEl.setStyle('visibility', 'visible');
 
         if (!value) {
-            this.store.remove(editor.activeRecord)
+            this.store.remove(editor.activeRecord);
         }
-        else { 
+        else {
             editor.activeRecord.set('label', value);
         }
-        
+
         this.store.sync();
     },
 
-    onClearButtonClick: function() {
+    onClearButtonClick: function () {
+        'use strict';
+
         var records = [];
 
-        this.store.each(function(record) {
+        this.store.each(function (record) {
             if (record.get('completed')) {
                 records.push(record);
             }
@@ -120,10 +135,11 @@ Ext.define('Todo.controller.Tasks', {
         this.store.sync();
     },
 
-    onCheckAllClick: function(cb, newValue, oldValue, opts) {
+    onCheckAllClick: function (cb, newValue) {
+        'use strict';
 
         this.store.suspendEvents();
-        this.store.each(function(record) {
+        this.store.each(function (record) {
             record.set('completed', newValue);
         });
         this.store.resumeEvents();
@@ -131,23 +147,25 @@ Ext.define('Todo.controller.Tasks', {
         this.store.filter();
     },
 
-    onStoreDataChanged: function(store) {
+    onStoreDataChanged: function () {
+        'use strict';
+
         var filteredCount = this.store.getCount(),
 
-        totalCount = this.store.queryBy(function(record) {
+        totalCount = this.store.queryBy(function () {
             return true;
         }).getCount(),
 
-        completedCount  = this.store.queryBy(function(record) {
+        completedCount  = this.store.queryBy(function (record) {
             return record.get('completed');
         }).getCount(),
 
         text    = completedCount ? 'Clear completed (' + completedCount + ')' : '',
         token   = Ext.History.getToken();
 
-        this.getToggleAll().setVisible(totalCount).toggle((token == '/completed' && filteredCount > 0) || completedCount == totalCount, true);
+        this.getToggleAll().setVisible(totalCount).toggle((token === '/completed' && filteredCount > 0) || completedCount === totalCount, true);
         this.getClearButton().setText(text).setVisible(completedCount);
         this.getItemsLeft().update({ counts: totalCount - completedCount });
-        this.getToolBar().setVisible(totalCount);   
+        this.getToolBar().setVisible(totalCount);
     }
 });

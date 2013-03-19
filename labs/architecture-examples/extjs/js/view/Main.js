@@ -1,3 +1,5 @@
+/* global Ext */
+
 Ext.define('Todo.view.Main', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.mainview',
@@ -20,19 +22,19 @@ Ext.define('Todo.view.Main', {
             cls: 'header',
             height: 130,
             html: 'todos'
-        },{
+        }, {
             cls: 'todoapp',
             id: 'todoapp',
             items: [{
                 baseCls: null,
                 xtype: 'container',
-                cls: 'new-todo', 
-                layout: 'hbox', 
+                cls: 'new-todo',
+                layout: 'hbox',
                 height: 80,
                 items: [{
                     xtype: 'container',
                     baseCls: null,
-                    width: 40, 
+                    width: 40,
                     items: [{
                         xtype: 'button',
                         ui: 'plain',
@@ -42,10 +44,10 @@ Ext.define('Todo.view.Main', {
                         action: 'toggleAll'
                     }]
                 }, {
-                    flex:1,
+                    flex: 1,
                     cls: 'edit',
                     xtype: 'textfield',
-                    height: 64, 
+                    height: 64,
                     name: 'newtask',
                     enableKeyEvents: true,
                     emptyText: 'What needs to be done?'
@@ -72,8 +74,8 @@ Ext.define('Todo.view.Main', {
                 data: { counts: 0 },
                 tpl: [
                     '<tpl><span id="todo-count"><strong>{counts}</strong> item',
-                        '<tpl if="counts &gt; 1">s</tpl>',
-                        '<tpl if="counts == 0">s</tpl>',
+                    '<tpl if="counts &gt; 1">s</tpl>',
+                    '<tpl if="counts == 0">s</tpl>',
                     ' left</span>',
                     '</tpl>'
                 ]
@@ -104,7 +106,7 @@ Ext.define('Todo.view.Main', {
                     text: 'Completed',
                     action: 'changeView',
                     href: '#/completed'
-                }]  
+                }]
             }, {
                 flex: 1,
                 baseCls: 'null',
