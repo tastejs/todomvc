@@ -6,31 +6,31 @@ Ext.define('Ext.ux.DataView.LabelEditor', {
     renderTo: 'todoapp', 
 
     autoSize: {
-		width: 'boundEl',
+        width: 'boundEl',
         height: 'boundEl'
     },
 
-	field: {
-		xtype : 'textfield',
-		selectOnFocus: false
-	}
+    field: {
+        xtype : 'textfield',
+        selectOnFocus: false
+    }
 });
 
 Ext.define('Todo.view.TaskList' , {
-	extend: 'Ext.view.View',
-	alias: 'widget.taskList',
+    extend: 'Ext.view.View',
+    alias: 'widget.taskList',
 
-	store: 'Tasks',
-	loadMask: false,
-	itemSelector: 'li',
+    store: 'Tasks',
+    loadMask: false,
+    itemSelector: 'li',
 
-	itemTpl: [ 
-		'<li class="<tpl if="completed">completed</tpl>">',
-		'<div class="view">',
-			'<input type="checkbox" class="toggle" <tpl if="completed">checked</tpl> /> ',
-			'<label>{label}</label>',
-			'<a class="destroy"></a>',
-		'</div>',
-		'</li>'
-	]
+    itemTpl: [ 
+        '<li class="<tpl if="completed">completed</tpl>">',
+        '<div class="view">',
+            '<input type="checkbox" class="toggle" <tpl if="completed">checked</tpl>/>',
+            '<label>{label}</label>',
+            '<a class="destroy"></a>',
+        '</div>',
+        '</li>'
+    ]
 });

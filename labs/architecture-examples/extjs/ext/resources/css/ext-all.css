@@ -1,0 +1,1 @@
+@import '../ext-theme-classic/ext-theme-classic-all.css';
