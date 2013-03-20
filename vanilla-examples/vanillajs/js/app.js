@@ -240,7 +240,7 @@
 
 
 			if (todo.completed) {
-				li.className += 'complete';
+				li.className += 'completed';
 				checkbox.checked = true;
 			}
 
