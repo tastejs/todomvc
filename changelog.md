@@ -6,6 +6,10 @@
     - Flight
     - DeftJS + ExtJS
     - Aria Templates
+
+- Updates since 1.1:
+    - Backbone 1.0
+
 - The GWT example implemented routing
 
 ## 1.1 - 2013-02-14
