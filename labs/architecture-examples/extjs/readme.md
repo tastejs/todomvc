@@ -37,4 +37,3 @@ today.
 ## About Sencha
 
 For more information about our company, please visit http://www.sencha.com/company/
-

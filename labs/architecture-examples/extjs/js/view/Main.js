@@ -127,7 +127,6 @@ Ext.define('Todo.view.Main', {
             baseCls: null,
             html: [
                 '<p>Double-click to edit a todo</p>',
-                '<p>Inspired by the official <a href="https://github.com/maccman/spine.todos">Spine.Todos</a></p>',
                 '<p>Revised by Kevin Cassidy</p>'
             ].join('')
         }]

@@ -43,7 +43,7 @@ Ext.application({
         token = token || '/';
 
         Ext.each(btns, function (btn) {
-            btn.getEl().down('span').applyStyles({'text-align': 'center', 'font-weight': (btn.href === '#' + token) ? 'bold' : 'normal'});
+            btn.getEl().down('span').applyStyles({'text-align': 'center', 'font-weight': (btn.href === '#' + token) ? 'bold': 'normal'});
         });
 
         store.clearFilter();
