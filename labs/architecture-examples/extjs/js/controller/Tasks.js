@@ -55,6 +55,7 @@ Ext.define('Todo.controller.Tasks', {
             value = field.getValue().trim();
 
         if (event.keyCode === ENTER_KEY_CODE && value !== '') {
+            value = Ext.String.htmlEncode(value);
             this.store.add({label: value, completed: false});
             this.store.sync();
             this.store.filter();
@@ -69,10 +70,10 @@ Ext.define('Todo.controller.Tasks', {
 
         if (eventTarget === 'A') {
             this.store.remove(record);
-        }
+        } 
         else if (eventTarget === 'INPUT') {
             record.set('completed', !record.get('completed'));
-        }
+        } 
         else {
             return;
         }
@@ -94,7 +95,7 @@ Ext.define('Todo.controller.Tasks', {
             this.toggleEl.setStyle('visibility', 'hidden');
 
             editor.activeRecord = record;
-            editor.startEdit(label, record.data.label);
+            editor.startEdit(label, Ext.String.htmlDecode(record.data.label));
         }
     },
 
@@ -107,7 +108,7 @@ Ext.define('Todo.controller.Tasks', {
     onCompleteEdit: function (editor, value) {
         'use strict';
 
-        value = value.trim();
+        value = Ext.String.htmlEncode(value.trim());
 
         this.toggleEl.setStyle('visibility', 'visible');
 

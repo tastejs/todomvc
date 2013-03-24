@@ -6,7 +6,7 @@ Ext.define('Todo.model.Task', {
     fields: [
         'id',
         'label',
-        { name: 'completed', type: 'boolean' }
+        {name: 'completed', type: 'boolean'}
     ],
 
     proxy: {

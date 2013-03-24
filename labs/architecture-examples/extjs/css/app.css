@@ -120,11 +120,12 @@ button {
         background-color: transparent;
         background-image: none;
         font: 24px 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-        line-height: 1.4em;
+/*        line-height: 1.4em; */
         border: none;
         outline: none;
         color: inherit;
-        padding: 0px 0px 0px 20px;
+        /* padding for input - may need to be adjusted */
+        padding: 0px 0px 0px 15px;
         -webkit-font-smoothing: antialiased;
         -moz-font-smoothing: antialiased;
         -ms-font-smoothing: antialiased;
