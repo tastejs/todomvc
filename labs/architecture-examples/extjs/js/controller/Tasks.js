@@ -70,10 +70,10 @@ Ext.define('Todo.controller.Tasks', {
 
         if (eventTarget === 'A') {
             this.store.remove(record);
-        } 
+        }
         else if (eventTarget === 'INPUT') {
             record.set('completed', !record.get('completed'));
-        } 
+        }
         else {
             return;
         }
