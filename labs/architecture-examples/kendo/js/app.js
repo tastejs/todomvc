@@ -109,6 +109,9 @@ var app = app || {};
 			editData.set('edit', false);
 			this.todos.sync();
 		},
+		sync: function () {
+			this.todos.sync();
+		},
 		destroy: function (e) {
 			this.todos.remove(e.data);
 			this.todos.sync();
