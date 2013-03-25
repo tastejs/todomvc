@@ -28,5 +28,12 @@
 		}
 	}
 
+	function redirect() {
+		if (location.hostname === 'addyosmani.github.com') {
+			location.hostname = 'todomvc.com';
+		}
+	}
+
 	appendSourceLink();
+	redirect();
 })();
