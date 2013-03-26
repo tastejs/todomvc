@@ -52,7 +52,7 @@
 	<script type="text/template" id="item-template">
 		<li data-bind="attr: { class: todoItemClass }">
 			<div class="view">
-				<input class="toggle" type="checkbox" data-bind="checked: completed">
+				<input class="toggle" type="checkbox" data-bind="checked: completed, events: { change: sync }">
 				<label data-bind="text: title, events: { dblclick: startEdit } "></label>
 				<button class="destroy" data-bind="click: destroy">
 				</button>
@@ -62,7 +62,7 @@
 	</script>
 	<script src="../../../assets/base.js"></script>
 	<script src="../../../assets/jquery.min.js"></script>
-	<script src="js/lib/kendo.all.min.js"></script>
+	<script src="js/lib/kendo.web.js"></script>
 	<script src="js/lib/kendo.bindings.custom.js"></script>
 	<script src="js/lib/kendo.data.localstoragedatasource.js"></script>
 	<script src="js/app.js"></script>
