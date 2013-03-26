@@ -9,6 +9,7 @@
 
 - Updates since 1.1:
     - Backbone 1.0
+    - Kendo UI Spring 2013 release
 
 - The GWT example implemented routing
 
