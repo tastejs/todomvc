@@ -34,9 +34,4 @@ checkit.TodosAppTemplate =
 			'</ul>' +
 			'<button id="clear-completed"></button>' +
 		'</footer>' +
-	'</section>' +
-	'<footer id="info">' +
-		'<p>Double-click to edit a todo</p>' +
-		'<p>Inspired by the official <a href="https://github.com/maccman/spine.todos">Spine.Todos</a></p>' +
-		'<p>Created by <a href="http://github.com/petermichaux">Peter Michaux</a></p>' +
-	'</footer>';
+	'</section>';

@@ -30,5 +30,5 @@ maria.on(window, 'load', function() {
 	router.init();
 
 	var view = new checkit.TodosAppView(model);
-	document.body.appendChild(view.build());
+	document.body.insertBefore(view.build(), document.body.firstChild);
 });
