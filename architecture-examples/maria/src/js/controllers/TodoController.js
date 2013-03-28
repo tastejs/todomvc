@@ -13,8 +13,14 @@ maria.Controller.subclass(checkit, 'TodoController', {
 			this.getView().showEdit();
 		},
 		onKeyupEdit: function(evt) {
-			if (checkit.isEnterKeyCode(evt.keyCode)) {
+			var keyCode = evt.keyCode;
+			if (checkit.isEnterKeyCode(keyCode)) {
 				this.onBlurEdit();
+			}
+			else if (checkit.isEscapeKeyCode(keyCode)) {
+				var view = this.getView();
+				view.resetEdit();
+				view.showDisplay();
 			}
 		},
 		onBlurEdit: function() {

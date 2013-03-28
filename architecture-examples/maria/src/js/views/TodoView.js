@@ -24,9 +24,13 @@ maria.ElementView.subclass(checkit, 'TodoView', {
 		update: function() {
 			this.buildData();
 		},
-		showEdit: function() {
+		resetEdit: function() {
 			var input = this.find('.edit');
 			input.value = this.getModel().getTitle();
+		},
+		showEdit: function() {
+			this.resetEdit();
+			var input = this.find('.edit');
 			aristocrat.addClass(this.find('li'), 'editing');
 			input.focus();
 		},
