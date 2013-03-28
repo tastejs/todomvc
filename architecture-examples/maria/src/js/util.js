@@ -16,3 +16,7 @@ checkit.escapeHTML = function(str) {
 checkit.isEnterKeyCode = function(keyCode) {
 	return keyCode === 13;
 };
+
+checkit.isEscapeKeyCode = function(keyCode) {
+	return keyCode === 27;
+};
