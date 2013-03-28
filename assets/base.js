@@ -30,7 +30,8 @@
 
 	function redirect() {
 		if (location.hostname === 'addyosmani.github.com') {
-			location.hostname = 'todomvc.com';
+			location.href = location.href.replace('addyosmani.github.com/todomvc',
+												  'todomvc.com');
 		}
 	}
 
