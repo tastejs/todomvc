@@ -11,11 +11,6 @@
   // adapted from: http://ejohn.org/blog/javascript-micro-templating/
   // originally $.srender by Greg Borenstein http://ideasfordozens.com in Feb 2009
   // modified for Sammy by Aaron Quint for caching templates by name
-  // Backport of escapeHTML from sammy.js 0.7
-  var _escapeHTML = function(s) {
-    return String(s).replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  };
-
   var srender_cache = {};
   var srender = function(name, template, data, options) {
     var fn, escaped_string;
@@ -137,7 +132,7 @@
       if (typeof options == 'undefined' && typeof name == 'object') {
         options = name; name = template;
       }
-      return srender(name, template, $.extend({h: _escapeHTML}, this, data), options);
+      return srender(name, template, $.extend({}, this, data), options);
     };
 
     // set the default method name/extension
