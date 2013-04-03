@@ -13,6 +13,7 @@
     - Maria graduated from labs
 
 - The GWT example implemented routing
+- The sammy.js example implemented routing
 
 ## 1.1 - 2013-02-14
 
