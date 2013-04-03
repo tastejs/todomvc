@@ -194,7 +194,7 @@ puremvc.define({
 					li.appendChild( divDisplay );
 					li.appendChild( inputEditTodo );
 					if ( todo.completed ) {
-						li.className += 'complete';
+						li.className += 'completed';
 						checkbox.checked = true;
 					}
 					this.todoList.appendChild( li );
