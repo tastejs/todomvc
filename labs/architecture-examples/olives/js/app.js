@@ -1,11 +1,15 @@
-/*jshint newcap:false*/
 /*global require*/
-
 (function () {
 	'use strict';
 
 	// These are the UIs that compose the Todo application
-	require(['Todos/Input', 'Todos/List', 'Todos/Controls', 'Olives/LocalStore', 'Store'],
+	require([
+		'Todos/Input',
+		'Todos/List',
+		'Todos/Controls',
+		'components/olives/src/LocalStore',
+		'Store'
+	],
 
 	// The application
 	function Todos(Input, List, Controls, LocalStore, Store) {
@@ -13,10 +17,10 @@
 		// so tasks are indexed by a number
 		// This store is shared among several UIs of this application
 		// that's why it's created here
-		var tasks = new LocalStore([]),
+		var tasks = new LocalStore([]);
 
 		// Also create a shared stats store
-		stats = new Store({
+		var stats = new Store({
 			nbItems: 0,
 			nbLeft: 0,
 			nbCompleted: 0,
@@ -34,7 +38,5 @@
 
 		// Same goes for the control UI
 		Controls(document.querySelector('#footer'), tasks, stats);
-
 	});
-
-}());
+})();
