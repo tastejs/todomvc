@@ -2,7 +2,7 @@
 	"name": "todomvc-puremvc",
 	"version": "0.0.0",
 	"dependencies": {
-		"puremvc": "latest",
+		"puremvc": "~1.0.1",
 		"director": "~1.2.0",
 		"todomvc-common": "~0.1.2"
 	}
