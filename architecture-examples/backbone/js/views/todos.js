@@ -1,7 +1,7 @@
 /*global Backbone _ $ ENTER_KEY */
 var app = app || {};
 
-$(function () {
+(function ($) {
 	'use strict';
 
 	// Todo Item View
@@ -90,4 +90,4 @@ $(function () {
 			this.model.destroy();
 		}
 	});
-});
+})(jQuery);

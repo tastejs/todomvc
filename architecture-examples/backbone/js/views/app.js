@@ -1,7 +1,7 @@
 /*global Backbone _ $ ENTER_KEY */
 var app = app || {};
 
-$(function ($) {
+(function ($) {
 	'use strict';
 
 	// The Application
@@ -126,4 +126,4 @@ $(function ($) {
 			});
 		}
 	});
-});
+})(jQuery);
