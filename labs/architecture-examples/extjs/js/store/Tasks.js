@@ -1,5 +1,11 @@
-Ext.define('Todo.store.Tasks', {
-	autoLoad: true,
-	model: 'Todo.model.Task',
-	extend: 'Ext.data.Store'
-});
+(function () {
+	'use strict';
+
+	Ext.define('Todo.store.Tasks', {
+		autoLoad: true,
+
+		model: 'Todo.model.Task',
+
+		extend: 'Ext.data.Store'
+	});
+})();

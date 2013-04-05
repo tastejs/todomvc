@@ -1,27 +1,35 @@
-Ext.Loader.setConfig({enabled:true});
+(function () {
+	'use strict';
 
-Ext.application({
-        name: 'Todo',
-        appFolder: 'js',
-        controllers: ['Tasks'],
-        launch: function() {
+	Ext.Loader.setConfig({
+		enabled: true
+	});
 
-                Ext.create('Todo.view.TaskField', {
-                        renderTo: Ext.select('header').first(),
-                        contentEl: 'new-todo'
-                });
+	Ext.application({
+		name: 'Todo',
 
-                Ext.create('Todo.view.CheckAllBox', {
-                        renderTo: 'main'
-                });
+		appFolder: 'js',
 
-                Ext.create('Todo.view.TaskList', {
-                        renderTo: 'main'
-                });
+		models: ['Task'],
+		controllers: ['Tasks'],
 
-                Ext.create('Todo.view.TaskToolbar', {
-                        renderTo: 'todoapp'
-                });
+		launch: function () {
+			Ext.create('Todo.view.TaskField', {
+				renderTo: Ext.select('header').first(),
+				contentEl: 'new-todo'
+			});
 
-        }
-});
+			Ext.create('Todo.view.CheckAllBox', {
+				renderTo: 'main'
+			});
+
+			Ext.create('Todo.view.TaskList', {
+				renderTo: 'main'
+			});
+
+			Ext.create('Todo.view.TaskToolbar', {
+				renderTo: 'todoapp'
+			});
+		}
+	});
+})();
