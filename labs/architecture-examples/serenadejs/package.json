@@ -1,0 +1,15 @@
+{
+	"name": "todomvc-serenadejs",
+	"description": "TodoMVC todo app using Serenade.js",
+	"version": "0.0.0",
+	"dependencies": {
+	},
+	"devDependencies": {
+		"serenade": "~0.4.0",
+		"coffee-script": "~1.6.2"
+	},
+	"scripts": {
+		"compile": "coffee -co js/ js/"
+	},
+	"private": true
+}
