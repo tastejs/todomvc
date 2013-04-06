@@ -30,6 +30,8 @@ get '/:groupName', (page, model, {groupName}) ->
 			.where('group').equals(groupName)
 			.where('completed').notEquals(true)
 
+		model.set '_list.filterName', 'all'
+
 		# model.set '_filter', 'all'
 		# model.ref '_list.shown', '_list', '_filter'
         # XXX 2012-12-04 Calling .get on keyed ref returns getter fn.
@@ -43,12 +45,15 @@ get '/:groupName', (page, model, {groupName}) ->
 # Transitional route for enabling a filter
 get from: '/:groupName', to: '/:groupName/:filterName',
 	forward: (model, {filterName}) ->
+		model.set '_list.filterName', filterName
 		model.ref '_list.shown', "_list.#{filterName}"
 	back: (model, params) ->
+		model.set '_list.filterName', filterName
 		model.ref '_list.shown', "_list.all"
 
 get from: '/:groupName/:filterName', to: '/:groupName/:filterName',
 	forward: (model, {filterName}) ->
+		model.set '_list.filterName', filterName
 		model.ref '_list.shown', "_list.#{filterName}"
 
 ready (model) ->
@@ -81,6 +86,10 @@ ready (model) ->
 	exports.startEdit = (e, el) ->
 		item = model.at(el)
 		item.set '_editing', true
+
+		input =	el.parentElement.parentElement.lastChild.firstChild
+		input.value = item.get('text')
+		input.focus()
 
 	exports.endEdit = (e, el) ->
 		item = model.at(el)
