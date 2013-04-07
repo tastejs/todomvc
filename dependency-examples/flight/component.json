@@ -6,6 +6,7 @@
     "es5-shim": "git://github.com/kriskowal/es5-shim.git#2.0.0",
     "flight": "~1.0.3",
     "jquery": "1.8.3",
-    "requirejs": "~2.1.5"
+    "requirejs": "~2.1.5",
+    "todomvc-common": "~0.1.4"
   }
 }
