@@ -36,9 +36,8 @@
 	};
 
 	function redirect() {
-		if (location.hostname === 'addyosmani.github.com') {
-			location.href = location.href.replace('addyosmani.github.com/todomvc',
-												  'todomvc.com');
+		if (location.hostname === 'addyosmani.github.io') {
+			location.href = location.href.replace('addyosmani.github.io/todomvc', 'todomvc.com');
 		}
 	}
 
