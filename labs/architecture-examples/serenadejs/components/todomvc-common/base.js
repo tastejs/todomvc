@@ -6,9 +6,8 @@
 	}
 
 	function getSourcePath() {
-		// If accessed via addyosmani.github.com/todomvc/, strip the project
-		// path.
-		if (location.hostname.indexOf('github.com') > 0) {
+		// If accessed via addyosmani.github.io/todomvc/, strip the project path.
+		if (location.hostname.indexOf('github.io') > 0) {
 			return location.pathname.replace(/todomvc\//, '');
 		}
 		return location.pathname;
@@ -29,9 +28,8 @@
 	}
 
 	function redirect() {
-		if (location.hostname === 'addyosmani.github.com') {
-			location.href = location.href.replace('addyosmani.github.com/todomvc',
-												  'todomvc.com');
+		if (location.hostname === 'addyosmani.github.io') {
+			location.href = location.href.replace('addyosmani.github.io/todomvc', 'todomvc.com');
 		}
 	}
 
