@@ -1,0 +1,11 @@
+{
+  "name": "emberjs_require",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.4",
+    "ember": "~1.0.0-rc.1",
+    "requirejs": "~2.1.5",
+    "ember-data": "latest",
+    "ember-localstorage-adapter": "latest"
+  }
+}
