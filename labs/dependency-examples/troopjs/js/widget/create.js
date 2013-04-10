@@ -1,4 +1,9 @@
-define( [ 'troopjs-core/component/widget' ], function CreateModule(Widget) {
+/*global define*/
+define([
+	'troopjs-core/component/widget'
+], function CreateModule(Widget) {
+	'use strict';
+
 	var ENTER_KEY = 13;
 
 	return Widget.extend({
