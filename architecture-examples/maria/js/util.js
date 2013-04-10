@@ -1,11 +1,11 @@
 /*jshint strict: false */
 /*global checkit */
 
-checkit.isBlank = function(str) {
+checkit.isBlank = function (str) {
 	return (/^\s*$/).test(str);
 };
 
-checkit.escapeHTML = function(str) {
+checkit.escapeHTML = function (str) {
 	return String(str)
 		.replace(/&(?!\w+;)/g, '&amp;')
 		.replace(/</g, '&lt;')
@@ -13,10 +13,10 @@ checkit.escapeHTML = function(str) {
 		.replace(/"/g, '&quot;');
 };
 
-checkit.isEnterKeyCode = function(keyCode) {
+checkit.isEnterKeyCode = function (keyCode) {
 	return keyCode === 13;
 };
 
-checkit.isEscapeKeyCode = function(keyCode) {
+checkit.isEscapeKeyCode = function (keyCode) {
 	return keyCode === 27;
 };
