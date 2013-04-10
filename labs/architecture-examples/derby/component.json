@@ -1,0 +1,7 @@
+{
+  "name": "todomvc-derby",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.3"
+  }
+}
