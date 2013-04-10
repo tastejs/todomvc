@@ -3,35 +3,41 @@
 
 maria.Controller.subclass(checkit, 'TodoController', {
 	properties: {
-		onClickDestroy: function() {
+		onClickDestroy: function () {
 			this.getModel().destroy();
 		},
-		onClickToggle: function() {
+
+		onClickToggle: function () {
 			this.getModel().toggleCompleted();
 		},
-		onDblclickLabel: function() {
+
+		onDblclickLabel: function () {
 			this.getView().showEdit();
 		},
-		onKeyupEdit: function(evt) {
+
+		onKeyupEdit: function (evt) {
 			var keyCode = evt.keyCode;
+
 			if (checkit.isEnterKeyCode(keyCode)) {
 				this.onBlurEdit();
-			}
-			else if (checkit.isEscapeKeyCode(keyCode)) {
+			} else if (checkit.isEscapeKeyCode(keyCode)) {
 				var view = this.getView();
+
 				view.resetEdit();
 				view.showDisplay();
 			}
 		},
-		onBlurEdit: function() {
+
+		onBlurEdit: function () {
 			var model = this.getModel();
 			var view = this.getView();
 			var value = view.getInputValue();
+
 			view.showDisplay();
+
 			if (checkit.isBlank(value)) {
 				model.destroy();
-			}
-			else {
+			} else {
 				model.setTitle(value);
 			}
 		}

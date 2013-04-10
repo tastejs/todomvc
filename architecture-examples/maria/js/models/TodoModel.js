@@ -5,30 +5,40 @@ maria.Model.subclass(checkit, 'TodoModel', {
 	properties: {
 		_title: '',
 		_completed: false,
-		getTitle: function() {
+
+		getTitle: function () {
 			return this._title;
 		},
-		setTitle: function(title) {
+
+		setTitle: function (title) {
 			title = ('' + title).trim();
+
 			if (this._title !== title) {
 				this._title = title;
-				this.dispatchEvent({type: 'change'});
+
+				this.dispatchEvent({ type: 'change' });
 			}
 		},
-		isCompleted: function() {
+
+		isCompleted: function () {
 			return this._completed;
 		},
-		setCompleted: function(completed) {
+
+		setCompleted: function (completed) {
 			completed = !!completed;
+
 			if (this._completed !== completed) {
 				this._completed = completed;
-				this.dispatchEvent({type: 'change'});
+
+				this.dispatchEvent({ type: 'change' });
 			}
 		},
-		toggleCompleted: function() {
+
+		toggleCompleted: function () {
 			this.setCompleted(!this.isCompleted());
 		},
-		toJSON: function() {
+
+		toJSON: function () {
 			return {
 				title: this._title,
 				completed: this._completed
@@ -37,9 +47,11 @@ maria.Model.subclass(checkit, 'TodoModel', {
 	}
 });
 
-checkit.TodoModel.fromJSON = function(todoJSON) {
+checkit.TodoModel.fromJSON = function (todoJSON) {
 	var model = new checkit.TodoModel();
+
 	model._title = todoJSON.title;
 	model._completed = todoJSON.completed;
+
 	return model;
 };

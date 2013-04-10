@@ -4,18 +4,24 @@ Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/evento/blob/master/LICENSE
-*/var evento = {};
+*/
 /**
 
-@property evento.EventTarget
+The root namespace for the Evento library.
 
-@description
+@namespace
+
+*/
+var evento = {};
+/**
 
 A constructor function for creating event target objects.
 
-var et = new evento.EventTarget();
+    var et = new evento.EventTarget();
 
 The methods of an event target object are inspired by the DOM2 standard.
+
+@constructor
 
 */
 evento.EventTarget = function() {};
@@ -36,25 +42,21 @@ evento.EventTarget = function() {};
 
 /**
 
-@property evento.EventTarget.prototype.addEventListener
-
-@parameter type {string} The name of the event.
-
-@parameter listener {object|function} The listener object or callback function.
-
-@description
-
 If the listener is an object then when a matching event type is dispatched on
-the event target, the listener object's handleEvent method will be called.
+the event target, the listener object's `handleEvent` method will be called.
 
 If the listener is a function then when a matching event type is dispatched on
 the event target, the listener function is called with event target object set as
-the "this" object.
+the `this` object.
 
 One listener (or type/listener pair to be more precise) can be added only once.
 
-et.addEventListener('change', {handleEvent:function(){}});
-et.addEventListener('change', function(){});
+    et.addEventListener('change', {handleEvent:function(){}});
+    et.addEventListener('change', function(){});
+
+@param {string} type The name of the event.
+
+@param {(Object|function)} listener The listener object or callback function.
 
 */
     evento.EventTarget.prototype.addEventListener = function(type, listener) {
@@ -72,20 +74,16 @@ et.addEventListener('change', function(){});
 
 /**
 
-@property evento.EventTarget.prototype.removeEventListener
-
-@parameter type {string} The name of the event.
-
-@parameter listener {object|function} The listener object or callback function.
-
-@description
-
 Removes added listener matching the type/listener combination exactly.
 If this combination is not found there are no errors.
 
-var o = {handleEvent:function(){}};
-et.removeEventListener('change', o);
-et.removeEventListener('change', fn);
+    var o = {handleEvent:function(){}};
+    et.removeEventListener('change', o);
+    et.removeEventListener('change', fn);
+
+@param {string} type The name of the event.
+
+@param {(Object|function)} listener The listener object or callback function.
 
 */
     evento.EventTarget.prototype.removeEventListener = function(type, listener) {
@@ -105,20 +103,16 @@ et.removeEventListener('change', fn);
 
 /**
 
-@property evento.EventTarget.prototype.addParentEventTarget
-
-@parameter parent {EventTarget} A parent to call when bubbling an event.
-
-@description
-
 When an event is dispatched on an event target, if that event target has parents
 then the event is also dispatched on the parents as long as bubbling has not
 been canceled on the event.
 
 One parent can be added only once.
 
-var o = new evento.EventTarget();
-et.addParentEventTarget(o);
+    var o = new evento.EventTarget();
+    et.addParentEventTarget(o);
+
+@param {EventTarget} parent A parent to call when bubbling an event.
 
 */
     evento.EventTarget.prototype.addParentEventTarget = function(parent) {
@@ -138,17 +132,13 @@ et.addParentEventTarget(o);
 
 /**
 
-@property evento.EventTarget.prototype.removeParentEventTarget
+Removes parent added with addParentEventTarget. If the parent is
+not found, there are no errors.
 
-@parameter parent {EventTarget} The parent to remove.
+    var o = {handleEvent:function(){}};
+    et.removeParentEventTarget(o);
 
-@description
-
-Removes parent added with addParentEventTarget. If the listener is
-not found there are no errors.
-
-var o = {handleEvent:function(){}};
-et.removeParentEventTarget(o);
+@param {EventTarget} parent The parent to remove.
 
 */
     evento.EventTarget.prototype.removeParentEventTarget = function(parent) {
@@ -166,27 +156,23 @@ et.removeParentEventTarget(o);
 
 /**
 
-@property evento.EventTarget.prototype.dispatchEvent
+The `event.type` property is required. All listeners registered for this
+event type are called with `event` passed as an argument to the listeners.
 
-@parameter evt {object} The event object to dispatch to all listeners.
+If not set, the `event.target` property will be set to be this event target.
 
-@description
+The `evt.currentTarget` will be set to be this event target.
 
-The evt.type property is required. All listeners registered for this
-event type are called with evt passed as an argument to the listeners.
+Call `evt.stopPropagation()` to stop bubbling to parents.
 
-If not set, the evt.target property will be set to be the event target.
+    et.dispatchEvent({type:'change'});
+    et.dispatchEvent({type:'change', extraData:'abc'});
 
-The evt.currentTarget will be set to be the event target.
-
-Call evt.stopPropagation() to stop bubbling to parents.
-
-et.dispatchEvent({type:'change'});
-et.dispatchEvent({type:'change', extraData:'abc'});
+@param {Object} event The event object to dispatch to all listeners.
 
 */
     evento.EventTarget.prototype.dispatchEvent = function(evt) {
-        // Want to ensure we don't alter the evt object passed in as it 
+        // Want to ensure we don't alter the evt object passed in as it
         // may be a bubbling event. So clone it and then setting currentTarget
         // won't break some event that is already being dispatched.
         evt = create(evt);
@@ -204,10 +190,10 @@ et.dispatchEvent({type:'change', extraData:'abc'});
             //
             // Without making a copy, one listener removing
             // an already-called listener would result in skipping
-            // a not-yet-called listener. One listener removing 
+            // a not-yet-called listener. One listener removing
             // a not-yet-called listener would result in skipping that
-            // not-yet-called listner. The worst case scenario 
-            // is a listener adding itself again which would
+            // not-yet-called listner. The worst case scenario
+            // is a listener removing and adding itself again which would
             // create an infinite loop.
             //
             var listeners = this._evento_listeners[evt.type].slice(0);
@@ -235,43 +221,39 @@ et.dispatchEvent({type:'change', extraData:'abc'});
 
 /**
 
-@property evento.EventTarget.mixin
-
-@parameter obj {object} The object to be made into an event target.
-
-@description
-
 Mixes in the event target methods into any object.
 
-// Example 1
+Example 1
 
-app.Person = function(name) {
-    evento.EventTarget.call(this);
-    this.setName(name);
-};
-evento.EventTarget.mixin(app.Person.prototype);
-app.Person.prototype.setName = function(newName) {
-    var oldName = this.name;
-    this.name = newName;
-    this.dispatchEvent({
-        type: "change",
-        oldName: oldName,
-        newName: newName
+    app.Person = function(name) {
+        evento.EventTarget.call(this);
+        this.setName(name);
+    };
+    evento.EventTarget.mixin(app.Person.prototype);
+    app.Person.prototype.setName = function(newName) {
+        var oldName = this.name;
+        this.name = newName;
+        this.dispatchEvent({
+            type: "change",
+            oldName: oldName,
+            newName: newName
+        });
+    };
+
+    var person = new app.Person('David');
+    person.addEventListener('change', function(evt) {
+        alert('"' + evt.oldName + '" is now called "' + evt.newName + '".');
     });
-};
+    person.setName('Dave');
 
-var person = new app.Person('David');
-person.addEventListener('change', function(evt) {
-    alert('"' + evt.oldName + '" is now called "' + evt.newName + '".');
-});
-person.setName('Dave');
+Example 2
 
-// Example 2
+    var o = {};
+    evento.EventTarget.mixin(o);
+    o.addEventListener('change', function(){alert('change');});
+    o.dispatchEvent({type:'change'});
 
-var o = {};
-evento.EventTarget.mixin(o);
-o.addEventListener('change', function(){alert('change');});
-o.dispatchEvent({type:'change'});
+@param {Object} obj The object to be made into an event target.
 
 */
     evento.EventTarget.mixin = function(obj) {
@@ -285,138 +267,132 @@ o.dispatchEvent({type:'change'});
                 (typeof pt[p] === 'function')) {
                 obj[p] = pt[p];
             }
-        } 
+        }
         evento.EventTarget.call(obj);
     };
 
 }());
 /**
 
-@property evento.on
-
-@parameter element {EventTarget} The object you'd like to observe.
-
-@parameter type {string} The name of the event.
-
-@parameter listener {object|function} The listener object or callback function.
-
-@parameter auxArg {string|object} Optional. See description.
-
-@description
-
 If the listener is an object then when a matching event type is dispatched on
-the event target, the listener object's handleEvent method will be called.
-By supplying a string value for auxArg you can specify the name of
-the method to be called. You can also supply a function object for auxArg for
+the event target, the listener object's `handleEvent` method will be called.
+By supplying a string value for `auxArg`, you can specify the name of
+the method to be called. You can also supply a function object for `auxArg` for
 early binding.
 
 If the listener is a function then when a matching event type is dispatched on
 the event target, the listener function is called with event target object set as
-the "this" object. Using the auxArg you can specifiy a different object to be
-the "this" object.
+the `this` object. Using the `auxArg`, you can specifiy a different object to be
+the `this` object.
 
 One listener (or type/listener/auxArg pair to be more precise) can be added
 only once.
 
-var o = {
-    handleEvent: function(){},
-    handleClick: function(){}
-};
+    var o = {
+        handleEvent: function(){},
+        handleClick: function(){}
+    };
 
-// late binding. handleEvent is found when each event is dispatched
-evento.on(document.body, 'click', o);
+    // late binding. handleEvent is found when each event is dispatched
+    evento.on(document.body, 'click', o);
 
-// late binding. handleClick is found when each event is dispatched
-evento.on(document.body, 'click', o, 'handleClick');
+    // late binding. handleClick is found when each event is dispatched
+    evento.on(document.body, 'click', o, 'handleClick');
 
-// early binding. The supplied function is bound now
-evento.on(document.body, 'click', o, o.handleClick);
-evento.on(document.body, 'click', o, function(){});
+    // early binding. The supplied function is bound now
+    evento.on(document.body, 'click', o, o.handleClick);
+    evento.on(document.body, 'click', o, function(){});
 
-// supplied function will be called with document.body as this object
-evento.on(document.body, 'click', function(){});
+    // supplied function will be called with document.body as this object
+    evento.on(document.body, 'click', function(){});
 
-// The following form is supported but is not neccessary given the options
-// above and it is recommended you avoid it.
-evento.on(document.body, 'click', this.handleClick, this);
+    // The following form is supported but is not neccessary given the options
+    // above and it is recommended you avoid it.
+    evento.on(document.body, 'click', this.handleClick, this);
+
+@method evento.on
+
+@param {EventTarget} element The object you'd like to observe.
+
+@param {string} type The name of the event.
+
+@param {(Object|function)} listener The listener object or callback function.
+
+@param {(string|Object)} [auxArg] See description.
 
 */
 
 /**
-
-@property evento.off
-
-@parameter element {EventTarget} The object you'd like to stop observing.
-
-@parameter type {string} The name of the event.
-
-@parameter listener {object|function} The listener object or callback function.
-
-@parameter auxArg {string|object} Optional.
-
-@description
 
 Removes added listener matching the element/type/listener/auxArg combination exactly.
 If this combination is not found there are no errors.
 
-var o = {handleEvent:function(){}, handleClick:function(){}};
-evento.off(document.body, 'click', o);
-evento.off(document.body, 'click', o, 'handleClick');
-evento.off(document.body, 'click', o, fn);
-evento.off(document.body, 'click', fn);
-evento.off(document.body, 'click', this.handleClick, this);
+    var o = {handleEvent:function(){}, handleClick:function(){}};
+    evento.off(document.body, 'click', o);
+    evento.off(document.body, 'click', o, 'handleClick');
+    evento.off(document.body, 'click', o, fn);
+    evento.off(document.body, 'click', fn);
+    evento.off(document.body, 'click', this.handleClick, this);
+
+@method evento.off
+
+@param {EventTarget} element The object you'd like to stop observing.
+
+@param {string} type The name of the event.
+
+@param {(Object|function)} listener The listener object or callback function.
+
+@param {(string|Object)} [auxArg] See description.
 
 */
 
 /**
 
-@property evento.purge
-
-@parameter listener {EventListener} The listener object that should stop listening.
-
-@description
-
-Removes all registrations of the listener added through evento.on.
+Removes all registrations of the listener added through `evento.on`.
 This purging should be done before your application code looses its last reference
-to listener. (This can also be done with more work using evento.off for
+to listener. (This can also be done with more work using `evento.off` for
 each registeration.) If the listeners are not removed or purged, the listener
-will continue to observe the EventTarget and cannot be garbage collected. In an
+will continue to observe the `EventTarget` and cannot be garbage collected. In an
 MVC application this can lead to "zombie views" if the model data cannot be
 garbage collected. Event listeners need to be removed from event targets in browsers
 with circular reference memory leak problems (i.e. old versions of Internet Explorer.)
 
-The primary motivation for this purge function is to easy cleanup in MVC View destroy 
+The primary motivation for this `purge` function is to ease cleanup in MVC View destroy
 methods. For example,
 
-var APP_BoxView = function(model, controller) {
-    this.model = model || new APP_BoxModel();
-    this.controller = controller || new APP_BoxController();
-    this.rootEl = document.createElement('div');
+    var APP_BoxView = function(model, controller) {
+        this.model = model || new APP_BoxModel();
+        this.controller = controller || new APP_BoxController();
+        this.rootEl = document.createElement('div');
 
-    // subscribe to DOM node(s) and model object(s) or anything else
-    // implementing the EventTarget interface using listener objects
-    // and specifying method name using the same subscription interface.
-    //
-    evento.on(this.rootEl, 'click', this, 'handleClick');
-    evento.on(this.model, 'change', this, 'handleModelChange');
-};
+        // subscribe to DOM node(s) and model object(s) or anything else
+        // implementing the EventTarget interface using listener objects
+        // and specifying method name using the same subscription interface.
+        //
+        evento.on(this.rootEl, 'click', this, 'handleClick');
+        evento.on(this.model, 'change', this, 'handleModelChange');
+    };
 
-APP_BoxView.prototype.handleClick = function() {
-    // might subscribe/unsubscribe to more DOM nodes or models here
-};
+    APP_BoxView.prototype.handleClick = function() {
+        // might subscribe/unsubscribe to more DOM nodes or models here
+    };
 
-APP_BoxView.prototype.handleModelChange = function() {
-    // might subscribe/unsubscribe to more DOM nodes or models here
-};
+    APP_BoxView.prototype.handleModelChange = function() {
+        // might subscribe/unsubscribe to more DOM nodes or models here
+    };
 
-APP_BoxView.prototype.destroy = function() {
+    APP_BoxView.prototype.destroy = function() {
 
-    // Programmer doesn't need to remember anything. Purge all subscriptions
-    // to DOM nodes, model objects, or anything else implementing
-    // the EventTarget interface in one fell swoop.
-    //
-    evento.purge(this);
-};
+        // Programmer doesn't need to remember anything. Purge all subscriptions
+        // to DOM nodes, model objects, or anything else implementing
+        // the EventTarget interface in one fell swoop.
+        //
+        evento.purge(this);
+    };
+
+@method evento.purge
+
+@param {EventListener} listener The listener object that should stop listening.
 
 */
 
@@ -480,13 +456,13 @@ APP_BoxView.prototype.destroy = function() {
             if (indexOfBundle(listener._evento_bundles, bundle) >= 0) {
                 // do not add the same listener twice
                 return;
-            }            
+            }
         }
         else {
             listener._evento_bundles = [];
         }
         if (typeof bundle.element.addEventListener === 'function') {
-            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false); 
+            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false);
         }
         else if ((typeof bundle.element.attachEvent === 'object') &&
                  (bundle.element.attachEvent !== null)) {
@@ -505,14 +481,14 @@ APP_BoxView.prototype.destroy = function() {
                 var bundle = listener._evento_bundles[i];
                 if (typeof bundle.element.removeEventListener === 'function') {
                     bundle.element.removeEventListener(bundle.type, bundle.wrappedHandler, false);
-                } 
+                }
                 else if ((typeof bundle.element.detachEvent === 'object') &&
                          (bundle.element.detachEvent !== null)) {
                     bundle.element.detachEvent('on'+bundle.type, bundle.wrappedHandler);
-                } 
+                }
                 else {
                     throw new Error('evento.off: Supported EventTarget interface not found.');
-                } 
+                }
                 listener._evento_bundles.splice(i, 1);
             }
         }
@@ -535,36 +511,32 @@ APP_BoxView.prototype.destroy = function() {
 
 }());
 /*
-Hijos version 2
-Copyright (c) 2012, Peter Michaux
+Hijos version 3
+Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/hijos/blob/master/LICENSE
 */
+/**
+
+The root namespace for the Hijos library.
+
+@namespace
+
+*/
 var hijos = {};
 /**
 
-@property hijos.Leaf
-
-@description
-
-A constructor function for creating Leaf objects to be used as part
+A constructor function for creating `Leaf` objects to be used as part
 of the composite design pattern.
 
-Leaf objects have three read-only properties describing the Leaf object's
-relationships to other Leaf and Node objects participating in
-the composite pattern.
+    var leaf = new hijos.Leaf();
 
-    1. parentNode
-    2. previousSibling
-    3. nextSibling
+To attach a `Leaf` to a `Node`, use the `Node`'s child
+manipulation methods: `appendChild`, `insertBefore`, `replaceChild`.
+To remove a `Leaf` from a `Node` use the `Node`'s `removeChild` method.
 
-These properties will be null when the Leaf is not a child
-of a Node object. To attach a Leaf to a Node, use the Node's child
-manipulation methods: appendChild, insertBefore, replaceChild.
-To remove a Leaf from a Node use the Node's removeChild method.
-
-var leaf = new hijos.Leaf();
+@constructor
 
 */
 hijos.Leaf = function() {
@@ -575,13 +547,48 @@ hijos.Leaf = function() {
 
 /**
 
-@property hijos.Leaf.prototype.destroy
+The parent `Node` of this object. Null if this object is not the child of
+any `Node`.
 
-@description
+@member hijos.Leaf.prototype.parentNode
+
+@type {hijos.Leaf}
+
+@readonly
+
+*/
+
+/**
+
+The previous sibling `Leaf` of this object. Null if this object is not the child of
+any `Node` or this object is the first child of a `Node`.
+
+@member hijos.Leaf.prototype.previousSibling
+
+@type {hijos.Leaf}
+
+@readonly
+
+*/
+
+/**
+
+The next sibling `Leaf` of this object. Null if this object is not the child of
+any `Node` or this object is the last child of a `Node`.
+
+@member hijos.Leaf.prototype.nextSibling
+
+@type {hijos.Leaf}
+
+@readonly
+
+*/
+
+/**
 
 Call before your application code looses its last reference to the object.
 Generally this will be called for you by the destroy method of the containing
-Node object unless this Leaf object is not contained by a Node.
+`Node` object unless this `Leaf` object is not contained by a `Node`.
 
 */
 hijos.Leaf.prototype.destroy = function() {
@@ -596,19 +603,15 @@ hijos.Leaf.call(hijos.Leaf.prototype);
 
 /**
 
-@property hijos.Leaf.mixin
+Mixes in the `Leaf` methods into any object. Be sure to call the `hijos.Leaf`
+constructor to initialize the `Leaf`'s properties.
 
-@parameter obj {object} The object to become a Leaf.
+    app.MyView = function() {
+        hijos.Leaf.call(this);
+    };
+    hijos.Leaf.mixin(app.MyView.prototype);
 
-@description
-
-Mixes in the Leaf methods into any object. Be sure to call the hijos.Leaf
-constructor to initialize the Leaf's properties.
-
-app.MyView = function() {
-    hijos.Leaf.call(this);
-};
-hijos.Leaf.mixin(app.MyView.prototype);
+@param {Object} obj The object to become a `Leaf`.
 
 */
 hijos.Leaf.mixin = function(obj) {
@@ -617,33 +620,18 @@ hijos.Leaf.mixin = function(obj) {
 };
 /**
 
-@property hijos.Node
-
-@description
-
-A constructor function for creating Node objects with ordered children
+A constructor function for creating `Node` objects with ordered children
 to be used as part of the composite design pattern.
 
-Node objects have six read-only properties describing the Node's
-relationships to other Leaf and Node objects participating in
-the composite pattern.
-
-    1. childNodes
-    2. firstChild
-    3. lastChild
-    4. parentNode
-    5. previousSibling
-    6. nextSibling
-
-The firstChild and lastChild properties will be null when the Node has
-no children. Do not mutate the elements of the childNodes array directly.
-Instead use the appendChild, insertBefore, replaceChild, and removeChild
+Do not mutate the elements of the `childNodes` array directly.
+Instead use the `appendChild`, `insertBefore`, `replaceChild`, and `removeChild`
 methods to manage the children.
 
-The parentNode, previousSibling, and nextSibling properties will be null
-when the Node object is not a child of another Node object.
+    var node = new hijos.Node();
 
-var node = new hijos.Node();
+@constructor
+
+@extends hijos.Leaf
 
 */
 hijos.Node = function() {
@@ -653,17 +641,59 @@ hijos.Node = function() {
     this.lastChild = null;
 };
 
-hijos.Leaf.mixin(hijos.Node.prototype);
+// Inherit from hijos.Leaf. Not all browsers have Object.create
+// so write out the equivalent inline.
+hijos.Node.prototype = (function() {
+    function F() {}
+    F.prototype = hijos.Leaf.prototype;
+    return new F();
+}());
+hijos.Node.prototype.constructor = hijos.Node;
 
 /**
 
-@property hijos.Node.prototype.destroy
+The array of child objects.
 
-@description
+@member hijos.Node.prototype.childNodes
+
+@type {Array}
+
+@readonly
+
+*/
+
+/**
+
+The first child of this object. Null if this object has no children.
+
+@member hijos.Node.prototype.firstChild
+
+@type {hijos.Leaf}
+
+@readonly
+
+*/
+
+/**
+
+The last child of this object. Null if this object has no children.
+
+@member hijos.Node.prototype.lastChild
+
+@type {hijos.Leaf}
+
+@readonly
+
+*/
+
+
+/**
 
 Call before your application code looses its last reference to the object.
 Generally this will be called for you by the destroy method of the containing
-Node object unless this object is not contained by another Node.
+`Node` object unless this object is not contained by another `Node`.
+
+@override
 
 */
 hijos.Node.prototype.destroy = function() {
@@ -681,11 +711,9 @@ hijos.Node.prototype.destroy = function() {
 
 /**
 
-@property hijos.Node.prototype.hasChildNodes
+Does this `Node` have any children?
 
-@description
-
-Returns true if this Node has children. Otherwise returns false.
+@return {boolean} `true` if this `Node` has children. Otherwise `false`.
 
 */
 hijos.Node.prototype.hasChildNodes = function() {
@@ -694,23 +722,19 @@ hijos.Node.prototype.hasChildNodes = function() {
 
 /**
 
-@property hijos.Node.prototype.insertBefore
+Inserts `newChild` before `oldChild`. If `oldChild` is `null` then this is equivalent
+to appending `newChild`. If `newChild` is a child of another `Node` then `newChild` is
+removed from that other `Node` before appending to this `Node`.
 
-@parameter newChild {object} The Leaf or Node object to insert.
+    var parent = new hijos.Node();
+    var child0 = new hijos.Leaf();
+    parent.insertBefore(child0, null);
+    var child1 = new hijos.Node();
+    parent.insertBefore(child1, child0);
 
-@parameter oldChild {object|null} The child object to insert before.
+@param {Object} newChild The Leaf or Node object to insert.
 
-@description
-
-Inserts newChild before oldChild. If oldChild is null then this is equivalent
-to appending newChild. If newChild is a child of another Node then newChild is
-removed from that other Node before appending to this Node.
-
-var parent = new hijos.Node();
-var child0 = new hijos.Leaf();
-parent.insertBefore(child0, null);
-var child1 = new hijos.Node();
-parent.insertBefore(child1, child0);
+@param {(Object|null)} [oldChild] The child object to insert before.
 
 */
 hijos.Node.prototype.insertBefore = function(newChild, oldChild) {
@@ -776,21 +800,17 @@ hijos.Node.prototype.insertBefore = function(newChild, oldChild) {
 
 /**
 
-@property hijos.Node.prototype.appendChild
+Adds `newChild` as the last child of this `Node`. If `newChild` is a child of
+another `Node` then `newChild` is removed from that other `Node` before appending
+to this `Node`.
 
-@parameter newChild {object} The Leaf or Node object to append.
+    var parent = new hijos.Node();
+    var child = new hijos.Leaf();
+    parent.appendChild(child);
+    var child = new hijos.Node();
+    parent.appendChild(child);
 
-@description
-
-Adds newChild as the last child of this Node. If newChild is a child of
-another Node then newChild is removed from that other Node before appending
-to this Node.
-
-var parent = new hijos.Node();
-var child = new hijos.Leaf();
-parent.appendChild(child);
-var child = new hijos.Node();
-parent.appendChild(child);
+@param {Object} newChild The Leaf or Node object to append.
 
 */
 hijos.Node.prototype.appendChild = function(newChild) {
@@ -802,22 +822,18 @@ hijos.Node.prototype.appendChild = function(newChild) {
 
 /**
 
-@property hijos.Node.prototype.replaceChild
+Replaces `oldChild` with `newChild`. If `newChild` is a child of another `Node`
+then `newChild` is removed from that other `Node` before appending to this `Node`.
 
-@parameter newChild {object} The Leaf or Node object to insert.
+    var parent = new hijos.Node();
+    var child0 = new hijos.Leaf();
+    parent.appendChild(child0);
+    var child1 = new hijos.Node();
+    parent.replaceChild(child1, child0);
 
-@parameter oldChild {object} The child object to remove/replace.
+@param {Object} newChild The Leaf or Node object to insert.
 
-@description
-
-Replaces oldChild with newChild. If newChild is a child of another Node
-then newChild is removed from that other Node before appending to this Node.
-
-var parent = new hijos.Node();
-var child0 = new hijos.Leaf();
-parent.appendChild(child0);
-var child1 = new hijos.Node();
-parent.replaceChild(child1, child0);
+@param {Object} oldChild The child object to remove/replace.
 
 */
 hijos.Node.prototype.replaceChild = function(newChild, oldChild) {
@@ -838,18 +854,14 @@ hijos.Node.prototype.replaceChild = function(newChild, oldChild) {
 
 /**
 
-@property hijos.Node.prototype.removeChild
+Removes `oldChild`.
 
-@parameter oldChild {object} The child object to remove.
+    var parent = new hijos.Node();
+    var child = new hijos.Leaf();
+    parent.appendChild(child);
+    parent.removeChild(child);
 
-@description
-
-Removes oldChild.
-
-var parent = new hijos.Node();
-var child = new hijos.Leaf();
-parent.appendChild(child);
-parent.removeChild(child);
+@param {Object} oldChild The child object to remove.
 
 */
 hijos.Node.prototype.removeChild = function(oldChild) {
@@ -884,25 +896,21 @@ hijos.Node.call(hijos.Node.prototype);
 
 /**
 
-@property hijos.Node.mixin
-
-@parameter obj {object} The object to become a Node.
-
-@description
-
 Mixes in the Node methods into any object.
 
-// Example 1
+Example 1
 
-app.MyView = function() {
-    hijos.Node.call(this);
-};
-hijos.Node.mixin(app.MyView.prototype);
+    app.MyView = function() {
+        hijos.Node.call(this);
+    };
+    hijos.Node.mixin(app.MyView.prototype);
 
-// Example 2
+Example 2
 
-var obj = {};
-hijos.Node.mixin(obj);
+    var obj = {};
+    hijos.Node.mixin(obj);
+
+@param {Object} obj The object to become a `Node`.
 
 */
 hijos.Node.mixin = function(obj) {
@@ -915,12 +923,20 @@ hijos.Node.mixin = function(obj) {
     hijos.Node.call(obj);
 };
 /*
-Arbutus version 2
-Copyright (c) 2012, Peter Michaux
+Arbutus version 4
+Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/arbutus/blob/master/LICENSE
-*/var arbutus = {};
+*/
+/**
+
+The root namespace for the Arbutus library.
+
+@namespace
+
+*/
+var arbutus = {};
 (function() {
 
     var trimLeft = /^\s+/,
@@ -945,25 +961,12 @@ https://github.com/petermichaux/arbutus/blob/master/LICENSE
         return element.firstChild.firstChild.firstChild.firstChild;
     }
 
-    function Parser(before, after, getFirstResult) {
-        if (before) {
-            this.before = before;
-        }
-        if (after) {
-            this.after = after;
-        }
-        if (getFirstResult) {
-            this.getFirstResult = getFirstResult;
-        }
-    };
-    Parser.prototype = {
-        before: '',
-        after: '',
-        parse: function(html, doc) {
+    function makeParser(before, after, getFirstResult) {
+        return function(html, doc) {
             var parser = doc.createElement('div');
             var fragment = doc.createDocumentFragment();
-            parser.innerHTML = this.before + html + this.after;
-            var node = this.getFirstResult(parser);
+            parser.innerHTML = before + html + after;
+            var node = getFirstResult(parser);
             var nextNode;
             while (node) {
                 nextNode = node.nextSibling;
@@ -971,17 +974,18 @@ https://github.com/petermichaux/arbutus/blob/master/LICENSE
                 node = nextNode;
             }
             return fragment;
-        },
-        getFirstResult: getFirstChild
-    };
+        };
+    }
+
+    var defaultParser = makeParser('', '', getFirstChild);
 
     var parsers = {
-        'td': new Parser('<table><tbody><tr>', '</tr></tbody></table>', getFirstGreatGreatGrandChild),
-        'tr': new Parser('<table><tbody>', '</tbody></table>', getFirstGreatGrandChild),
-        'tbody': new Parser('<table>', '</table>', getFirstGrandChild),
-        'col': new Parser('<table><colgroup>', '</colgroup></table>', getFirstGreatGrandChild),
+        'td': makeParser('<table><tbody><tr>', '</tr></tbody></table>', getFirstGreatGreatGrandChild),
+        'tr': makeParser('<table><tbody>', '</tbody></table>', getFirstGreatGrandChild),
+        'tbody': makeParser('<table>', '</table>', getFirstGrandChild),
+        'col': makeParser('<table><colgroup>', '</colgroup></table>', getFirstGreatGrandChild),
         // Without the option in the next line, the parsed option will always be selected.
-        'option': new Parser('<select><option>a</option>', '</select>', getSecondGrandChild)
+        'option': makeParser('<select><option>a</option>', '</select>', getSecondGrandChild)
     };
     parsers.th = parsers.td;
     parsers.thead = parsers.tbody;
@@ -993,43 +997,51 @@ https://github.com/petermichaux/arbutus/blob/master/LICENSE
 
 /**
 
-@property arbutus.parseHTML
-
-@parameter html {string} The string of HTML to be parsed.
-
-@parameter doc {Document} Optional document object to create the new DOM nodes.
-
-@return {DocumentFragment}
-
-@description
-
 The html string will be trimmed.
 
 Returns a document fragment that has the children defined by the html string.
 
-var fragment = arbutus.parseHTML('<p>alpha beta</p>');
-document.body.appendChild(fragment);
+    var fragment = arbutus.parseHTML('<p>alpha beta</p>');
+    document.body.appendChild(fragment);
 
 Note that a call to this function is relatively expensive and you probably
 don't want to have a loop of thousands with calls to this function.
+
+@param {string} html The string of HTML to be parsed.
+
+@param {Document} [doc] The document object to create the new DOM nodes.
+
+@return {DocumentFragment}
 
 */
     arbutus.parseHTML = function(html, doc) {
         // IE will trim when setting innerHTML so unify for all browsers
         html = trim(html);
-        var matches = html.match(tagRegExp),
-            parser = (matches && parsers[matches[1].toLowerCase()]) ||
-                     Parser.prototype;
-        return parser.parse(html, doc || document);
+        var parser = defaultParser;
+        var matches = html.match(tagRegExp);
+        if (matches) {
+            var name = matches[1].toLowerCase();
+            if (Object.prototype.hasOwnProperty.call(parsers, name)) {
+                parser = parsers[name];
+            }
+        }
+        return parser(html, doc || document);
     };
 
 }());
 /*
-Grail version 3
+Grail version 4
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/grail/blob/master/LICENSE
+*/
+/**
+
+The root namespace for the Grail library.
+
+@namespace
+
 */
 var grail = {};
 (function() {
@@ -1069,7 +1081,7 @@ var grail = {};
         }
         return function(element) {
             return (((tagName === '*') ||
-                    (element.tagName && (element.tagName.toUpperCase() === tagName))) &&
+                     (element.tagName && (element.tagName.toUpperCase() === tagName))) &&
                     ((!className) ||
                      regExp.test(element.className)));
         }
@@ -1110,14 +1122,6 @@ var grail = {};
 
 /**
 
-@property grail.findAll
-
-@parameter selector {string} The CSS selector for the search.
-
-@parameter root {Document|Element} Optional element to use as the search start point.
-
-@description
-
 Search for all elements matching the CSS selector. Returns an array of the elements.
 
 Acceptable simple selectors are of the following forms only.
@@ -1131,13 +1135,19 @@ In the case of a #myId selector, the returned array will always have
 zero or one elements. It is more likely that you want to call grail.find when
 using an id selector.
 
-If the root element is supplied it is used as the starting point for the search.
+If the root element is supplied then it is used as the starting point for the search.
 The root element will be in the results if it matches the selector.
 If the root element is not supplied then the current document is used
 as the search starting point.
 
-grail.findAll('#alpha');
-grail.findAll('div.gamma', document.body);
+    grail.findAll('#alpha');
+    grail.findAll('div.gamma', document.body);
+
+@param {string} selector The CSS selector for the search.
+
+@param {Document|Element} [root] The element to use as the search start point.
+
+@return {Array} An array of matching `Element` objects.
 
 */
     grail.findAll = function(selector, root) {
@@ -1173,19 +1183,17 @@ grail.findAll('div.gamma', document.body);
 
 /**
 
-@property grail.find
-
-@parameter selector {string} The CSS selector for the search.
-
-@parameter root {Document|Element} Optional element to use as the search start point.
-
-@description
-
 Search for the first element matching the CSS selector. If the element is
 found then it is returned. If no matching element is found then
 null or undefined is returned.
 
 The rest of the details are the same as for grail.findAll.
+
+@param {string} [selector] The CSS selector for the search.
+
+@param {Document|Element} [root] The element to use as the search start point.
+
+@return {Element} The found `Element`.
 
 */
     grail.find = function(selector, root) {
@@ -1211,11 +1219,18 @@ The rest of the details are the same as for grail.findAll.
 
 }());
 /*
-Hormigas version 3
+Hormigas version 4
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/hormigas/blob/master/LICENSE
+*/
+/**
+
+The root namespace for the Hormigas library.
+
+@namespace
+
 */
 var hormigas = {};
 (function() {
@@ -1233,30 +1248,35 @@ var hormigas = {};
 
 /**
 
-@property hormigas.ObjectSet
+A constructor function for creating set objects. A set can only contain
+a particular object once. That means all objects in a set are unique. This
+is different from an array where one object can be in the array in
+multiple positions.
 
-@description
-
-A constructor function for creating set objects. ObjectSets are designed
+`ObjectSet` objects are designed
 to hold JavaScript objects. They cache a marker on the objects.
-Do not attempt to add primitives or host objects in a ObjectSet. This
-is a compromise to make ObjectSet objects efficient for use in the model
-layer of your application.
+Do not attempt to add primitives or host objects in a `ObjectSet`. This
+is a compromise to make `ObjectSet` objects efficient for use in the model
+layer of your MVC-style application.
 
-When using the set iterators (e.g. forEach, map) do not depend
-on the order of iteration of the set's elements. ObjectSets are unordered.
+When using the set iterators (e.g. `forEach`, `map`) do not depend
+on the order of iteration of the set's elements. `ObjectSet` objects are unordered.
 
-var set = new hormigas.ObjectSet();                         // an empty set
+    var set = new hormigas.ObjectSet();                     // an empty set
 
-ObjectSets have a length property that is the number of elements in the set.
+`ObjectSet` objects have a `length` property that is the number of elements in the set.
 
-var alpha = {};
-var beta = {};
-var set = new hormigas.ObjectSet(alpha, beta, alpha);
-set.length; // 2
+    var alpha = {};
+    var beta = {};
+    var set = new hormigas.ObjectSet(alpha, beta, alpha);
+    set.length; // 2
 
-The methods of an event target object are inspired by the incomplete
-Harmony Set proposal and the Array.prototype iterators.
+The methods of an `ObjectSet` object are inspired by the incomplete
+Harmony Set proposal and the `Array.prototype` iterators.
+
+@constructor
+
+@param {...Object} [item] An object to add to the set.
 
 */
     hormigas.ObjectSet = function() {
@@ -1268,17 +1288,22 @@ Harmony Set proposal and the Array.prototype iterators.
 
 /**
 
-@property hormigas.ObjectSet.prototype.isEmpty
+The number of elements in the set.
 
-@description
+*/
+hormigas.ObjectSet.prototype.length = 0;
 
-Returns true if set is empty. Otherwise returns false.
+/**
 
-var alpha = {};
-var set = new hormigas.ObjectSet(alpha);
-set.isEmpty();        // false
-set['delete'](alpha);
-set.isEmpty();        // true
+Use to determine if the set has any elements or not.
+
+    var alpha = {};
+    var set = new hormigas.ObjectSet(alpha);
+    set.isEmpty();        // false
+    set['delete'](alpha);
+    set.isEmpty();        // true
+
+@return {boolean} `true` if set is empty. Otherwise `false`.
 
 */
     hormigas.ObjectSet.prototype.isEmpty = function() {
@@ -1287,19 +1312,17 @@ set.isEmpty();        // true
 
 /**
 
-@property hormigas.ObjectSet.prototype.has
+Is a particular object in the set or not?
 
-@parameter element
+    var alpha = {};
+    var beta = {};
+    var set = new hormigas.ObjectSet(alpha);
+    set.has(alpha); // true
+    set.has(beta); // false
 
-@description
+@param {Object} element The item in question.
 
-Returns true if element is in the set. Otherwise returns false.
-
-var alpha = {};
-var beta = {};
-var set = new hormigas.ObjectSet(alpha);
-set.has(alpha); // true
-set.has(beta); // false
+@return `true` if `element` is in the set. Otherwise `false`.
 
 */
     hormigas.ObjectSet.prototype.has = function(element) {
@@ -1309,19 +1332,16 @@ set.has(beta); // false
 
 /**
 
-@property hormigas.ObjectSet.prototype.add
+If `element` is not already in the set then adds element to the set.
 
-@parameter element
+    var alpha = {};
+    var set = new hormigas.ObjectSet();
+    set.add(alpha); // true
+    set.has(alpha); // false
 
-@description
+@param {Object} element The item to add to the set.
 
-If element is not already in the set then adds element to the set
-and returns true. Otherwise returns false.
-
-var alpha = {};
-var set = new hormigas.ObjectSet();
-set.add(alpha); // true
-set.has(alpha); // false
+@return {boolean} `true` if `element` is added to the set as a result of this call. Otherwise `false` because `element` was already in the set.
 
 */
     hormigas.ObjectSet.prototype.add = function(element) {
@@ -1341,23 +1361,20 @@ set.has(alpha); // false
 
 /**
 
-@property hormigas.ObjectSet.prototype.delete
+If `element` is in the set then removes `element` from the set.
 
-@parameter element
-
-@description
-
-If element is in the set then removes element from the set
-and returns true. Otherwise returns false.
-
-"delete" is a reserved word and older implementations
+`delete` is a reserved word and older implementations
 did not allow bare reserved words in property name
-position so quote "delete".
+position so quote `delete`.
 
-var alpha = {};
-var set = new hormigas.ObjectSet(alpha);
-set['delete'](alpha); // true
-set['delete'](alpha); // false
+    var alpha = {};
+    var set = new hormigas.ObjectSet(alpha);
+    set['delete'](alpha); // true
+    set['delete'](alpha); // false
+
+@param {Object} element The item to delete from the set.
+
+@return {boolean} `true` if `element` is deleted from the set as a result of this call. Otherwise `false` because `element` was not in the set.
 
 */
     hormigas.ObjectSet.prototype['delete'] = function(element) {
@@ -1373,17 +1390,14 @@ set['delete'](alpha); // false
 
 /**
 
-@property hormigas.ObjectSet.prototype.empty
+If the set has elements then removes all the elements.
 
-@description
+    var alpha = {};
+    var set = new hormigas.ObjectSet(alpha);
+    set.empty(); // true
+    set.empty(); // false
 
-If the set has elements then removes all the elements and
-returns true. Otherwise returns false.
-
-var alpha = {};
-var set = new hormigas.ObjectSet(alpha);
-set.empty(); // true
-set.empty(); // false
+@return {boolean} `true` if elements were deleted from the set as the result of this call. Otherwise `false` because no elements were in the set.
 
 */
     hormigas.ObjectSet.prototype.empty = function() {
@@ -1398,11 +1412,9 @@ set.empty(); // false
 
 /**
 
-@property hormigas.ObjectSet.prototype.toArray
+Convert the set to an array.
 
-@description
-
-Returns the elements of the set in a new array.
+@return {Array} The elements of the set in a new array.
 
 */
     hormigas.ObjectSet.prototype.toArray = function() {
@@ -1417,23 +1429,19 @@ Returns the elements of the set in a new array.
 
 /**
 
-@property hormigas.ObjectSet.prototype.forEach
+Calls `callbackfn` for each element of the set.
 
-@parameter callbackfn {function} The function to call for each element in the set.
+    var alpha = {value: 0};
+    var beta = {value: 1};
+    var gamma = {value: 2};
+    var set = new hormigas.ObjectSet(alpha, beta, gamma);
+    set.forEach(function(element, set) {
+        console.log(element.value);
+    });
 
-@parameter thisArg {object} The optional object to use as the this object in calls to callbackfn.
+@param {function} callbackfn The function to call for each element in the set.
 
-@description
-
-Calls callbackfn for each element of the set.
-
-var alpha = {value: 0};
-var beta = {value: 1};
-var gamma = {value: 2};
-var set = new hormigas.ObjectSet(alpha, beta, gamma);
-set.forEach(function(element, set) {
-    console.log(element.value);
-});
+@parameter {Object} [thisArg] The object to use as the `this` object in calls to `callbackfn`.
 
 */
     hormigas.ObjectSet.prototype.forEach = function(callbackfn /*, thisArg */) {
@@ -1447,24 +1455,21 @@ set.forEach(function(element, set) {
 
 /**
 
-@property hormigas.ObjectSet.prototype.every
+Calls `callbackfn` for each element of the set.
 
-@parameter callbackfn {function} The function to call for each element in the set.
+    var one = {value: 1};
+    var two = {value: 2};
+    var three = {value: 3};
+    var set = new hormigas.ObjectSet(one, two, three);
+    set.every(function(element, set) {
+        return element.value < 2;
+    }); // false
 
-@parameter thisArg {object} The optional object to use as the this object in calls to callbackfn.
+@param {function} callbackfn The function to call for each element in the set.
 
-@description
+@param {Object} [thisArg] The object to use as the this object in calls to callbackfn.
 
-Calls callbackfn for each element of the set. If callbackfn returns a truthy value
-for all elements then every returns true. Otherwise returns false.
-
-var one = {value: 1};
-var two = {value: 2};
-var three = {value: 3};
-var set = new hormigas.ObjectSet(one, two, three);
-set.every(function(element, set) {
-    return element.value < 2;
-}); // false
+@return {boolean} `true` if `callbackfn` returns a truthy value for all elements in the set. Otherwise `false`.
 
 */
     hormigas.ObjectSet.prototype.every = function(callbackfn /*, thisArg */) {
@@ -1480,24 +1485,21 @@ set.every(function(element, set) {
 
 /**
 
-@property hormigas.ObjectSet.prototype.some
+Calls `callbackfn` for each element of the set.
 
-@parameter callbackfn {function} The function to call for each element in the set.
+    var one = {value: 1};
+    var two = {value: 2};
+    var three = {value: 3};
+    var set = new hormigas.ObjectSet(one, two, three);
+    set.some(function(element, set) {
+        return element.value < 2;
+    }); // true
 
-@parameter thisArg {object} The optional object to use as the this object in calls to callbackfn.
+@param {function} callbackfn The function to call for each element in the set.
 
-@description
+@param {Object} [thisArg] The object to use as the this object in calls to callbackfn.
 
-Calls callbackfn for each element of the set. If callbackfn returns a truthy value
-for at least one element then some returns true. Otherwise returns false.
-
-var one = {value: 1};
-var two = {value: 2};
-var three = {value: 3};
-var set = new hormigas.ObjectSet(one, two, three);
-set.some(function(element, set) {
-    return element.value < 2;
-}); // true
+@return {boolean} `true` if `callbackfn` returns a truthy value for at least one element in the set. Otherwise `false`.
 
 */
     hormigas.ObjectSet.prototype.some = function(callbackfn /*, thisArg */) {
@@ -1513,36 +1515,34 @@ set.some(function(element, set) {
 
 /**
 
-@property hormigas.ObjectSet.prototype.reduce
+Calls `callbackfn` for each element of the set.
 
-@parameter callbackfn {function} The function to call for each element in the set.
-
-@parameter initialValue {object} The optional starting value for accumulation.
-
-@description
-
-Calls callbackfn for each element of the set.
-
-For the first call to callbackfn, if initialValue is supplied then initalValue is
-the first argument passed to callbackfn and the second argument is the first
+For the first call to `callbackfn`, if `initialValue` is supplied then `initalValue` is
+the first argument passed to `callbackfn` and the second argument is the first
 element in the set to be iterated. Otherwise the first argument is
 the first element to be iterated in the set and the second argument is
 the next element to be iterated in the set.
 
-For subsequent calls to callbackfn, the first argument is the value returned
-by the last call to callbackfn. The second argument is the next value to be
+For subsequent calls to `callbackfn`, the first argument is the value returned
+by the last call to `callbackfn`. The second argument is the next value to be
 iterated in the set.
 
-var one = {value: 1};
-var two = {value: 2};
-var three = {value: 3};
-var set = new hormigas.ObjectSet(one, two, three);
-set.reduce(function(accumulator, element) {
-    return {value: accumulator.value + element.value};
-}); // {value:6}
-set.reduce(function(accumulator, element) {
-    return accumulator + element.value;
-}, 4); // 10
+    var one = {value: 1};
+    var two = {value: 2};
+    var three = {value: 3};
+    var set = new hormigas.ObjectSet(one, two, three);
+    set.reduce(function(accumulator, element) {
+        return {value: accumulator.value + element.value};
+    }); // {value:6}
+    set.reduce(function(accumulator, element) {
+        return accumulator + element.value;
+    }, 4); // 10
+
+@param {function} callbackfn The function to call for each element in the set.
+
+@param {*} initialValue The optional starting value for accumulation.
+
+@return {*} The value returned by the final call to `callbackfn`.
 
 */
     hormigas.ObjectSet.prototype.reduce = function(callbackfn /*, initialValue */) {
@@ -1569,24 +1569,22 @@ set.reduce(function(accumulator, element) {
 
 /**
 
-@property hormigas.ObjectSet.prototype.map
-
-@parameter callbackfn {function} The function to call for each element in the set.
-
-@parameter thisArg {object} The optional object to use as the this object in calls to callbackfn.
-
-@description
-
-Calls callbackfn for each element of the set. The values returned by callbackfn
+Calls `callbackfn` for each element of the set. The values returned by `callbackfn`
 are added to a new array. This new array is the value returned by map.
 
-var alpha = {length: 5};
-var beta = {length: 4};
-var gamma = {length: 5};
-var set = new hormigas.ObjectSet(alpha, beta, gamma);
-set.map(function(element) {
-    return element.length;
-}); // [5,5,4] or [5,4,5] or [4,5,5]
+    var alpha = {length: 5};
+    var beta = {length: 4};
+    var gamma = {length: 5};
+    var set = new hormigas.ObjectSet(alpha, beta, gamma);
+    set.map(function(element) {
+        return element.length;
+    }); // [5,5,4] or [5,4,5] or [4,5,5]
+
+@param {function} callbackfn The function to call for each element in the set.
+
+@param {Object} [thisArg] The object to use as the this object in calls to `callbackfn`.
+
+@return {Array} The mapped values.
 
 */
     hormigas.ObjectSet.prototype.map = function(callbackfn /*, thisArg */) {
@@ -1602,25 +1600,23 @@ set.map(function(element) {
 
 /**
 
-@property hormigas.ObjectSet.prototype.filter
-
-@parameter callbackfn {function} The function to call for each element in the set.
-
-@parameter thisArg {object} The optional object to use as the this object in calls to callbackfn.
-
-@description
-
 Calls callbackfn for each element of the set. If callbackfn returns true
 for an element then that element is added to a new array. This new array
 is the value returned by filter.
 
-var alpha = {length: 5};
-var beta = {length: 4};
-var gamma = {length: 5};
-var set = new hormigas.ObjectSet(alpha, beta, gamma);
-set.filter(function(element) {
-    return element.length > 4;
-}); // [alpha, gamma] or [gamma, alpha]
+    var alpha = {length: 5};
+    var beta = {length: 4};
+    var gamma = {length: 5};
+    var set = new hormigas.ObjectSet(alpha, beta, gamma);
+    set.filter(function(element) {
+        return element.length > 4;
+    }); // [alpha, gamma] or [gamma, alpha]
+
+@param {function} callbackfn The function to call for each element in the set.
+
+@param {object} [thisArg] The object to use as the this object in calls to `callbackfn`.
+
+@return {Array} The filtered values.
 
 */
     hormigas.ObjectSet.prototype.filter = function(callbackfn /*, thisArg */) {
@@ -1644,25 +1640,21 @@ hormigas.ObjectSet.call(hormigas.ObjectSet.prototype);
 
 /**
 
-@property hormigas.ObjectSet.mixin
+Mixes in the `ObjectSet` methods into any object.
 
-@parameter obj {object} The object to become a ObjectSet.
+Example 1
 
-@description
+    app.MyModel = function() {
+        hormigas.ObjectSet.call(this);
+    };
+    hormigas.ObjectSet.mixin(app.MyModel.prototype);
 
-Mixes in the ObjectSet methods into any object.
+Example 2
 
-// Example 1
+    var obj = {};
+    hormigas.ObjectSet.mixin(obj);
 
-app.MyModel = function() {
-    hormigas.ObjectSet.call(this);
-};
-hormigas.ObjectSet.mixin(app.MyModel.prototype);
-
-// Example 2
-
-var obj = {};
-hormigas.ObjectSet.mixin(obj);
+@param {Object} obj The object to become an `ObjectSet`.
 
 */
 hormigas.ObjectSet.mixin = function(obj) {
@@ -1674,15 +1666,32 @@ hormigas.ObjectSet.mixin = function(obj) {
     }
     hormigas.ObjectSet.call(obj);
 };
-/*
-Maria release candidate 5 - an MVC framework for JavaScript applications
-Copyright (c) 2012, Peter Michaux
+/**
+@license
+Maria release candidate 6 - an MVC framework for JavaScript applications
+Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/maria/blob/master/LICENSE
-*/var maria = {};
-// Not all browsers supported by Maria have Object.create
 
+*/
+/**
+
+Root namespace
+
+@namespace
+
+*/
+var maria = {};
+/**
+
+Not all browsers supported by Maria have the native `Object.create` from ECMAScript 5.
+
+@method
+
+@param {Object} obj The object to be the prototype of the new object
+
+*/
 maria.create = (function() {
     function F() {}
     return function(obj) {
@@ -1690,6 +1699,15 @@ maria.create = (function() {
         return new F();
     };
 }());
+/**
+
+Copy properties from the source to the sink.
+
+@param {Object} sink The destination object.
+
+@param {Object} source The source object.
+
+*/
 maria.borrow = function(sink, source) {
     for (var p in source) {
         if (Object.prototype.hasOwnProperty.call(source, p)) {
@@ -1697,9 +1715,19 @@ maria.borrow = function(sink, source) {
         }
     }
 };
-// "this" must be a constructor function
-// mix the "subclass" function into your constructor function
-//
+/**
+
+When executing, `this` must be a constructor function.
+
+Mix the "subclass" function into your constructor function.
+
+@param {Object} namespace
+
+@param {string} name
+
+@param {Object} [options]
+
+*/
 maria.subclass = function(namespace, name, options) {
     options = options || {};
     var properties = options.properties;
@@ -1719,22 +1747,39 @@ maria.subclass = function(namespace, name, options) {
         SuperConstructor.subclass.apply(this, arguments);
     };
 };
+/**
+
+Add an event listener.
+
+See evento.on for description.
+
+*/
 maria.on = function() {
     evento.on.apply(this, arguments);
 };
 
+/**
+
+Remove an event listener.
+
+See evento.off for description.
+
+*/
 maria.off = function() {
     evento.off.apply(this, arguments);
 };
 
+/**
+
+Purge an event listener of all its subscriptions.
+
+See evento.purge for description.
+
+*/
 maria.purge = function() {
     evento.purge.apply(this, arguments);
 };
 /**
-
-@property maria.Model
-
-@description
 
 A constructor function to create new model objects.
 
@@ -1823,6 +1868,10 @@ type will be notified.
 (See evento.EventTarget for advanced information about event bubbling
 using "addParentEventTarget" and "removeParentEventTarget".)
 
+@constructor
+
+@extends evento.EventTarget
+
 */
 maria.Model = function() {
     evento.EventTarget.call(this);
@@ -1831,14 +1880,17 @@ maria.Model = function() {
 maria.Model.prototype = maria.create(evento.EventTarget.prototype);
 maria.Model.prototype.constructor = maria.Model;
 
+/**
+
+When a model is destroyed, it dispatches a `destroy` event to let
+listeners (especially containing `maria.SetModel` objects) that
+this particular model is no longer useful/reliable.
+
+*/
 maria.Model.prototype.destroy = function() {
     this.dispatchEvent({type: 'destroy'});
 };
 /**
-
-@property maria.SetModel
-
-@description
 
 A constructor function to create new set model objects. A set model
 object is a collection of elements. An element can only be included
@@ -1856,7 +1908,7 @@ with those elements.
 
 You can create an empty set model object.
 
-    var setModel = new maria.SetModel(); 
+    var setModel = new maria.SetModel();
 
 What makes a set model object interesting in comparison to a set is
 that a set model object is a model object that dispatches "change"
@@ -2011,6 +2063,11 @@ set model object. This makes it possible to observe only the set model
 object and still know when elements in the set are changing, for
 example. This can complement well the flyweight pattern used in a view.
 
+@constructor
+
+@extends maria.Model
+@extends hormigas.ObjectSet
+
 */
 maria.SetModel = function() {
     hormigas.ObjectSet.apply(this, arguments);
@@ -2024,8 +2081,25 @@ hormigas.ObjectSet.mixin(maria.SetModel.prototype);
 
 // Wrap the set mutator methods to dispatch events.
 
-// takes multiple arguments so that only one event will be fired
-//
+/**
+
+Takes multiple arguments each to be added to the set.
+
+  setModel.add(item1)
+  setModel.add(item1, item2)
+  ...
+
+If the set is modified as a result of the add request then a `change`
+event is dispatched on the set model object. If all of the arguments
+are already in the set then this event will not be dispatched.
+
+@param {Object} item The item to be added to the set.
+
+@return {boolean} True if the set was modified. Otherwise false.
+
+@override
+
+*/
 maria.SetModel.prototype.add = function() {
     var added = [];
     for (var i = 0, ilen = arguments.length; i < ilen; i++) {
@@ -2034,7 +2108,7 @@ maria.SetModel.prototype.add = function() {
             added.push(argument);
             if ((typeof argument.addEventListener === 'function') &&
                 (typeof argument.removeEventListener === 'function')) {
-                argument.addEventListener('destroy', this);    
+                argument.addEventListener('destroy', this);
             }
             if ((typeof argument.addParentEventTarget === 'function') &&
                 // want to know can remove later
@@ -2050,8 +2124,25 @@ maria.SetModel.prototype.add = function() {
     return modified;
 };
 
-// takes multiple arguments so that only one event will be fired
-//
+/**
+
+Takes multiple arguments each to be deleted from the set.
+
+  setModel['delete'](item1)
+  setModel['delete'](item1, item2)
+  ...
+
+If the set is modified as a result of the delete request then a `change`
+event is dispatched on the set model object. If all of the arguments
+were already not in the set then this event will not be dispatched.
+
+@param {Object} item The item to be removed from the set.
+
+@return {boolean} True if the set was modified. Otherwise false.
+
+@override
+
+*/
 maria.SetModel.prototype['delete'] = function() {
     var deleted = [];
     for (var i = 0, ilen = arguments.length; i < ilen; i++) {
@@ -2073,6 +2164,18 @@ maria.SetModel.prototype['delete'] = function() {
     return modified;
 };
 
+/**
+
+Deletes all elements of the set.
+
+If the set is modified as a result of this empty request then a `change`
+event is dispatched on the set model object.
+
+@override
+
+@return {boolean} True if the set was modified. Otherwise false.
+
+*/
 maria.SetModel.prototype.empty = function() {
     var deleted = this.toArray();
     var result = hormigas.ObjectSet.prototype.empty.call(this);
@@ -2091,6 +2194,14 @@ maria.SetModel.prototype.empty = function() {
     return result;
 };
 
+/**
+
+If a member of the set fires a `destroy` event then that member
+must be deleted from this set. This handler will do the delete.
+
+@param {Object} event The event object.
+
+*/
 maria.SetModel.prototype.handleEvent = function(ev) {
 
     // If it is a destroy event being dispatched on the
@@ -2103,14 +2214,6 @@ maria.SetModel.prototype.handleEvent = function(ev) {
 
 };
 /**
-
-@property maria.View
-
-@parameter model {Object} Optional
-
-@parameter controller {Object} Optional
-
-@description
 
 A constructor function to create new view objects.
 
@@ -2164,7 +2267,7 @@ A view has a controller. You can get the current controller.
     view.getController();
 
 The view's controller is created lazily the first time the
-getController method is called. The view's 
+getController method is called. The view's
 getDefaultControllerConstructor method returns the constructor function
 to create the controller object and the getDefaultController actually
 calls that constructor. Your application may redefine or override
@@ -2226,6 +2329,14 @@ accomplish the same.
         alert('another method');
     };
 
+@constructor
+
+@extends hijos.Node
+
+@param {maria.Model} [model]
+
+@param {maria.Controller} [controller]
+
 */
 maria.View = function(model, controller) {
     hijos.Node.call(this);
@@ -2236,6 +2347,14 @@ maria.View = function(model, controller) {
 maria.View.prototype = maria.create(hijos.Node.prototype);
 maria.View.prototype.constructor = maria.View;
 
+/*
+
+Call before your application looses its last reference to this view.
+
+This will unsubcribe this view from its model so that this view
+does not become a zombie view.
+
+*/
 maria.View.prototype.destroy = function() {
     maria.purge(this);
     this._model = null;
@@ -2246,27 +2365,77 @@ maria.View.prototype.destroy = function() {
     hijos.Node.prototype.destroy.call(this);
 };
 
+/**
+
+By default, a view will observe its model for `change` events. When
+a `change` event is dispatched on the model then this `update` method
+is the handler. (The "change" and "update" names are inherited directly
+from Smalltalk implementations.)
+
+To be overridden by subclasses.
+
+@param {object} event The event object.
+
+*/
 maria.View.prototype.update = function() {
     // to be overridden by concrete view subclasses
 };
 
+/**
+
+Returns the current model object of this view.
+
+@return {maria.Model} The model object.
+
+*/
 maria.View.prototype.getModel = function() {
     return this._model;
 };
 
+/**
+
+Set the current model object of this view.
+
+@param {maria.Model} model The model object.
+
+*/
 maria.View.prototype.setModel = function(model) {
     this._setModelAndController(model, this._controller);
 };
 
+/**
+
+Returns a controller constructor function to be used to create
+a controller for this view.
+
+@return {function} The controller constructor function.
+
+*/
 maria.View.prototype.getDefaultControllerConstructor = function() {
     return maria.Controller;
 };
 
+/**
+
+Creates a new default controller for this view.
+
+@return {maria.Controller} The controller object.
+
+*/
 maria.View.prototype.getDefaultController = function() {
     var constructor = this.getDefaultControllerConstructor();
     return new constructor();
 };
 
+
+/**
+
+If this view has not yet had its controller set then this method
+creates a controller and sets it as this view's controller.
+
+@return {maria.Controller} The controller object.
+
+*/
 maria.View.prototype.getController = function() {
     if (!this._controller) {
         this.setController(this.getDefaultController());
@@ -2274,10 +2443,33 @@ maria.View.prototype.getController = function() {
     return this._controller;
 };
 
+/**
+
+Set the current controller for this view.
+
+@param {maria.Controller} The controller object.
+
+*/
 maria.View.prototype.setController = function(controller) {
     this._setModelAndController(this._model, controller);
 };
 
+
+/**
+
+When the model is set for this view, the view will automatically
+observe the events which are keys of the returned object. The values
+for each key is the view's handler method to be called when the corresponding
+event is dispatched on the model.
+
+By default, a view will observe the model for `change` events and handle
+those events with the view's `update` method.
+
+You can override this method but, beware, doing so can lead to the dark side.
+
+@return {Object} The map of model events and view handers.
+
+*/
 maria.View.prototype.getModelActions = function() {
     return {'change': 'update'};
 };
@@ -2311,16 +2503,6 @@ maria.View.prototype._setModelAndController = function(model, controller) {
     this._controller = controller;
 };
 /**
-
-@property maria.ElementView
-
-@parameter model {Object} Optional
-
-@parameter controller {Object} Optional
-
-@parameter document {Document} Optional
-
-@description
 
 A constructor function to create new element view objects.
 
@@ -2481,6 +2663,16 @@ the same.
         this.find('.ui-tooltip-top').style.display = 'none';
     };
 
+@constructor
+
+@param {maria.Model} [model]
+
+@param {maria.Controller} [controller]
+
+@param {Document} [document]
+
+@extends maria.View
+
 */
 maria.ElementView = function(model, controller, doc) {
     maria.View.call(this, model, controller);
@@ -2490,10 +2682,26 @@ maria.ElementView = function(model, controller, doc) {
 maria.ElementView.prototype = maria.create(maria.View.prototype);
 maria.ElementView.prototype.constructor = maria.ElementView;
 
+/**
+
+Returns the web page document for the view. This document
+is the one used to create elements to be added to the page,
+for example.
+
+@return {Document} The document object.
+
+*/
 maria.ElementView.prototype.getDocument = function() {
     return this._doc || document;
 };
 
+/**
+
+Set the web page document for the view. This document
+is the one used to create elements to be added to the page,
+for example.
+
+*/
 maria.ElementView.prototype.setDocument = function(doc) {
     this._doc = doc;
     var childViews = this.childNodes;
@@ -2502,14 +2710,43 @@ maria.ElementView.prototype.setDocument = function(doc) {
     }
 };
 
+/**
+
+Returns the template for this view used during the build process.
+
+@return {string} The template HTML string.
+
+*/
 maria.ElementView.prototype.getTemplate = function() {
     return '<div></div>';
 };
 
+/**
+
+The UI actions object maps a UI action like a click
+on a button with a handler method name. By default,
+the handler will be called on the controller of the view.
+
+@return {Object} The UI actions map.
+
+*/
 maria.ElementView.prototype.getUIActions = function() {
     return {};
 };
 
+/**
+
+Builds the root DOM element for the view from the view's template
+returned by `getTemplate`, attaches event handlers to the root
+and its descendents as specified by the UI actions map returned
+by `getUIActions`, calls the `buildData` method to allow model
+values to be inserted into the root DOM element and its descendents,
+and calls `buildChildViews`. This construction of the root DOM element
+is lazy and only done when this method is called.
+
+@return {Element} The root DOM Element of the view.
+
+*/
 maria.ElementView.prototype.build = function() {
     if (!this._rootEl) {
         this.buildTemplate();
@@ -2520,6 +2757,14 @@ maria.ElementView.prototype.build = function() {
     return this._rootEl;
 };
 
+/**
+
+Parses the HTML template string returned by `getTemplate` to create a
+`DocumentFragment`. The first child of that `DocumentFragment` is set
+as the root element of this view. All other sibling elements of the
+`DocumentFragment` are discarded.
+
+*/
 maria.ElementView.prototype.buildTemplate = function() {
     // parseHTML returns a DocumentFragment so take firstChild as the rootEl
     this._rootEl = arbutus.parseHTML(this.getTemplate(), this.getDocument()).firstChild;
@@ -2528,6 +2773,12 @@ maria.ElementView.prototype.buildTemplate = function() {
 (function() {
     var actionRegExp = /^(\S+)\s*(.*)$/;
 
+/**
+
+Attaches event handlers to the root and its descendents as specified
+by the UI actions map returned by `getUIActions`.
+
+*/
     maria.ElementView.prototype.buildUIActions = function() {
         var uiActions = this.getUIActions();
         for (var key in uiActions) {
@@ -2546,10 +2797,25 @@ maria.ElementView.prototype.buildTemplate = function() {
 
 }());
 
+/**
+
+Does nothing by default. To be overridden by subclasses.
+
+The intended use of this method is to populate the built root DOM element
+and its descendents with model data.
+
+*/
 maria.ElementView.prototype.buildData = function() {
     // to be overridden by concrete ElementView subclasses
 };
 
+/*
+
+Used as part of the initial building of the view. If child views have
+been added to the view, then these children also built and appened
+to the element returned by `getContainerEl`.
+
+*/
 maria.ElementView.prototype.buildChildViews = function() {
     var childViews = this.childNodes;
     for (var i = 0, ilen = childViews.length; i < ilen; i++) {
@@ -2557,10 +2823,27 @@ maria.ElementView.prototype.buildChildViews = function() {
     }
 };
 
+/**
+
+See `buildChildViews` for more details.
+
+@return {Element} The DOM Element to which child view's should be attached.
+
+*/
 maria.ElementView.prototype.getContainerEl = function() {
     return this.build();
 };
 
+/**
+
+Add a new child view before an existing child view. If the `oldChild`
+parameter is not supplied then the `newChild` is appened as the last child.
+
+@param {maria.ElementView} newChild The child to be inserted.
+
+@param {maria.ElementView} oldChild The child to insert before.
+
+*/
 maria.ElementView.prototype.insertBefore = function(newChild, oldChild) {
     maria.View.prototype.insertBefore.call(this, newChild, oldChild);
     if (this._rootEl) {
@@ -2568,6 +2851,13 @@ maria.ElementView.prototype.insertBefore = function(newChild, oldChild) {
     }
 };
 
+/**
+
+Remove an existing child view.
+
+@param {maria.ElementView} oldChild The child to be removed.
+
+*/
 maria.ElementView.prototype.removeChild = function(oldChild) {
     maria.View.prototype.removeChild.call(this, oldChild);
     if (this._rootEl) {
@@ -2575,24 +2865,53 @@ maria.ElementView.prototype.removeChild = function(oldChild) {
     }
 };
 
+/**
+
+Find the first element in this view that matches the CSS `selector`. The
+view's root element can be the result.
+
+By default Maria uses the Grail library as its DOM query engine. This is
+to support older browsers that do not have `querySelector`. The Grail
+engine only a limited set of simple selectors.
+
+  .class
+  tag
+  tag.class
+  #id
+
+If your application only needs to work in newer browsers you can create
+a Maria plugin to use `querySelector` but ensure the root element will
+be returned if it matches `selector`.
+
+If your application needs to work in older browsers but you need more
+complex CSS `selector` strings then you can create a Maria plugin
+to use some libray other than Grail.
+
+@param {string} selector A CSS selector.
+
+@return {Element} The first DOM element matching `selector`.
+
+*/
 maria.ElementView.prototype.find = function(selector) {
     return grail.find(selector, this.build());
 };
 
+/**
+
+Find all the elements in this view that matches the CSS `selector`. The
+view's root element can be in the result set.
+
+See `find` for more details.
+
+@param {string} selector A CSS selector.
+
+@return {Array} An array of the DOM elements matching `selector`.
+
+*/
 maria.ElementView.prototype.findAll = function(selector) {
     return grail.findAll(selector, this.build());
 };
 /**
-
-@property maria.SetView
-
-@parameter model {Object} Optional
-
-@parameter controller {Object} Optional
-
-@parameter document {Document} Optional
-
-@description
 
 A constructor function to create new set view objects.
 
@@ -2631,6 +2950,16 @@ maria.SetView.subclass for a more compact way to accomplish the same.
         return new checkit.TodoView(todoModel);
     };
 
+@constructor
+
+@param {maria.Model} [model]
+
+@param {maria.Controller} [controller]
+
+@param {Document} [document]
+
+@extends maria.ElementView
+
 */
 maria.SetView = function() {
     maria.ElementView.apply(this, arguments);
@@ -2639,6 +2968,15 @@ maria.SetView = function() {
 maria.SetView.prototype = maria.create(maria.ElementView.prototype);
 maria.SetView.prototype.constructor = maria.SetView;
 
+/**
+
+The model of the view is a `maria.SetModel`. A new view will be created
+for each model in that set model and the view will be appended as a child
+view of this set view.
+
+@override
+
+*/
 maria.SetView.prototype.buildChildViews = function() {
     var childModels = this.getModel().toArray();
     for (var i = 0, ilen = childModels.length; i < ilen; i++) {
@@ -2646,10 +2984,26 @@ maria.SetView.prototype.buildChildViews = function() {
     }
 };
 
+/**
+
+Creates a child view for a model. To be overridden by subclasses.
+
+@param {maria.Model} model The model for the child view.
+
+*/
 maria.SetView.prototype.createChildView = function(model) {
     return new maria.ElementView(model);
 };
 
+/**
+
+The handler for `change` events on this view's set model object.
+
+@param {Object} event The event object.
+
+@override
+
+*/
 maria.SetView.prototype.update = function(evt) {
     // Don't update for bubbling events.
     if (evt.target === this.getModel()) {
@@ -2662,6 +3016,16 @@ maria.SetView.prototype.update = function(evt) {
     }
 };
 
+
+/**
+
+When a `change` event is fired on this view's set model because
+some models were added to the set model, this method
+will create child views and append them as children of this set view.
+
+@param {Object} event The event object.
+
+*/
 maria.SetView.prototype.handleAdd = function(evt) {
     var childModels = evt.addedTargets;
     for (var i = 0, ilen = childModels.length; i < ilen; i++) {
@@ -2669,6 +3033,16 @@ maria.SetView.prototype.handleAdd = function(evt) {
     }
 };
 
+/**
+
+When a `change` event is fired on this view's set model because
+some models were deleted from the set model, this method
+will find, remove, and destroy the corresponding child views
+of this set view.
+
+@param {Object} event The event object.
+
+*/
 maria.SetView.prototype.handleDelete = function(evt) {
     var childModels = evt.deletedTargets;
     for (var i = 0, ilen = childModels.length; i < ilen; i++) {
@@ -2685,10 +3059,6 @@ maria.SetView.prototype.handleDelete = function(evt) {
     }
 };
 /**
-
-@property maria.Controller
-
-@description
 
 A constructor function to create new controller objects.
 
@@ -2769,9 +3139,16 @@ to accomplish the same.
         }
     };
 
+@constructor
+
 */
 maria.Controller = function() {};
 
+/**
+
+The destroy method.
+
+*/
 maria.Controller.prototype.destroy = function() {
     this._model = null;
     if (this._view) {
@@ -2780,32 +3157,54 @@ maria.Controller.prototype.destroy = function() {
     }
 };
 
+/**
+
+Returns the current model object of the controller.
+
+@return {maria.Model} The model object.
+
+*/
 maria.Controller.prototype.getModel = function() {
     return this._model;
 };
 
-// setModel is intended to be called *only* by 
-// the view _setModelAndController method.
-// Do otherwise at your own risk.
+/**
+
+`setModel` is intended to be called **only** by
+the view `_setModelAndController` method. **Do otherwise
+at your own risk!**
+
+@param {maria.Model} model The model object.
+
+*/
 maria.Controller.prototype.setModel = function(model) {
     this._model = model;
 };
 
+/**
+
+Returns the current view object of the controller.
+
+@return {maria.View} The view object.
+
+*/
 maria.Controller.prototype.getView = function() {
     return this._view;
 };
 
-// setView is intended to be called *only* by
-// the view _setModelAndController method.
-// Do otherwise at your own risk.
+/**
+
+`setView` is intended to be called **only** by
+the view `_setModelAndController` method. **Do otherwise
+at your own risk!**
+
+@param {maria.View} view The view object.
+
+*/
 maria.Controller.prototype.setView = function(view) {
     this._view = view;
 };
 /**
-
-@property maria.Model.subclass
-
-@description
 
 A function that makes subclassing maria.Model more compact.
 
@@ -2848,10 +3247,6 @@ maria.Model.subclass = function() {
     maria.subclass.apply(this, arguments);
 };
 /**
-
-@property maria.SetModel.subclass
-
-@description
 
 A function that makes subclassing maria.SetModel more compact.
 
@@ -2896,10 +3291,6 @@ maria.SetModel.subclass = function() {
     maria.Model.subclass.apply(this, arguments);
 };
 /**
-
-@property maria.View.subclass
-
-@description
 
 A function that makes subclassing maria.View more compact.
 
@@ -2958,10 +3349,6 @@ maria.View.subclass = function(namespace, name, options) {
     maria.subclass.call(this, namespace, name, options);
 };
 /**
-
-@property maria.ElementView.subclass
-
-@description
 
 A function that makes subclassing maria.ElementView more compact.
 
@@ -3074,10 +3461,6 @@ maria.ElementView.subclass = function(namespace, name, options) {
 };
 /**
 
-@property maria.SetView.subclass
-
-@description
-
 The same as maria.ElementView.
 
 You will likely want to specify a createChildView method.
@@ -3099,10 +3482,6 @@ maria.SetView.subclass = function() {
     maria.ElementView.subclass.apply(this, arguments);
 };
 /**
-
-@property maria.Controller.subclass
-
-@description
 
 A function that makes subclassing maria.Controller more compact.
 
