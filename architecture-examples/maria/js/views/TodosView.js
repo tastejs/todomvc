@@ -3,12 +3,13 @@
 
 maria.SetView.subclass(checkit, 'TodosAppView', {
 	uiActions: {
-		'keyup #new-todo'       : 'onKeyupNewTodo'       ,
-		'click #toggle-all'     : 'onClickToggleAll'     ,
+		'keyup #new-todo': 'onKeyupNewTodo',
+		'click #toggle-all': 'onClickToggleAll',
 		'click #clear-completed': 'onClickClearCompleted'
 	},
+
 	properties: {
-		buildData: function() {
+		buildData: function () {
 			var model = this.getModel();
 
 			var length = model.length;
@@ -20,11 +21,11 @@ maria.SetView.subclass(checkit, 'TodosAppView', {
 			checkbox.disabled = model.isEmpty();
 
 			var todoList = this.find('#todo-list');
-			model.getPossibleModes().forEach(function(mode) {
+			model.getPossibleModes().forEach(function (mode) {
 				aristocrat.removeClass(todoList, mode);
 			});
 			aristocrat.addClass(todoList, model.getMode());
-			
+
 			var incompletedLength = model.getIncompleted().length;
 			this.find('#todo-count').innerHTML =
 				'<strong>' + incompletedLength + '</strong> ' +
@@ -42,21 +43,27 @@ maria.SetView.subclass(checkit, 'TodosAppView', {
 			clearButton.style.display = (completedLength > 0) ? '' : 'none';
 			clearButton.innerHTML = 'Clear completed (' + completedLength + ')';
 		},
-		update: function(evt) {
+
+		update: function (evt) {
 			maria.SetView.prototype.update.call(this, evt);
+
 			this.buildData();
 		},
-		getContainerEl: function() {
+
+		getContainerEl: function () {
 			// child views will be appended to this element
 			return this.find('#todo-list');
 		},
-		createChildView: function(todoModel) {
+
+		createChildView: function (todoModel) {
 			return new checkit.TodoView(todoModel);
 		},
-		getInputValue: function() {
+
+		getInputValue: function () {
 			return this.find('#new-todo').value;
 		},
-		clearInput: function() {
+
+		clearInput: function () {
 			this.find('#new-todo').value = '';
 		}
 	}

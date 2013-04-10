@@ -1,17 +1,20 @@
-# Template • [TodoMVC](http://todomvc.com)
+# Framework Name TodoMVC Example
 
+This is a todo app built using [framework](https://example.com/framework).
 
+## Framework
 
-## Getting Started
+Short description of the framework. Which components are used (Backbone,
+Handlebars, ...)? What makes it different? What's the most awesome feature it
+has? Where can I find more information on it?
 
-Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) before touching the template.
+## Implementation
 
+How is the app structured? Are there deviations from the spec? If so, why?
 
-## Need help?
+## Running
 
-Feel free to [contact us](https://github.com/sindresorhus) if you have any questions or need help with the template.
+If there is a build step required to get the example working, explain it here.
 
-
-## Credit
-
-Created by [Sindre Sorhus](http://sindresorhus.com)
+To run the app, spin up an HTTP server and visit
+http://localhost/.../myexample/.

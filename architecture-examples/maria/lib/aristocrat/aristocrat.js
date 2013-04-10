@@ -78,7 +78,7 @@ aristocrat.removeClass(document.body, 'king');
         var re = getRegExp(className);
         while (re.test(el.className)) { // in case multiple occurrences
             el.className = el.className.replace(re, ' ');
-        } 
+        }
     };
 
 /**

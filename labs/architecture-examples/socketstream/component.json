@@ -1,0 +1,8 @@
+{
+	"name": "todomvc-socketstream",
+	"version": "0.0.0",
+	"dependencies": {
+		"jquery": "~1.9.1",
+		"todomvc-common": "~0.1.3"
+	}
+}

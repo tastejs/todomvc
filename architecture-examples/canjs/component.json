@@ -4,6 +4,7 @@
   "dependencies": {
     "jquery": "~1.9.1",
     "canjs": "~1.1.4",
-    "canjs-localstorage": "~0.1.0"
+    "canjs-localstorage": "~0.1.0",
+    "todomvc-common": "~0.1.4"
   }
 }
