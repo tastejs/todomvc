@@ -23,3 +23,9 @@ the demo server for you.
 In one window, run `make` which will continue to compile the CoffeScript as
 you save changes. In a separate window run `node server.js` and open up the
 shown URL.
+
+
+### Deploy on Heroku
+
+Run `make deploy-setup` once to setup a git repository in this subdirectory and
+setup Heroku. Running `make heroku` will put it on Heroku.
