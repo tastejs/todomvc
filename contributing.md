@@ -5,42 +5,7 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues, 
 
 ## Code Style
 
-- Tab indentation
-- Single-quotes
-- Semicolon
-- Strict mode
-- No trailing whitespace
-- Variables at the top of the scope
-- Multiple variable statements
-- Space after keywords and between arguments and operators
-- Return early
-- JSHint valid
-- Consistency
-
-Example:
-
-```js
-'use strict';
-
-function foo(bar, fum) {
-    var i, l, ret;
-    var hello = 'Hello';
-
-    if (!bar) {
-        return;
-    }
-
-    for (i = 0, l = bar.length; i < l; i++) {
-        if (bar[i] === hello) {
-            ret += fum(bar[i]);
-        }
-    }
-
-    return ret;
-}
-```
-
-Read [idiomatic.js](https://github.com/rwldrn/idiomatic.js) for general JavaScript code style best practices.
+We think it's best for the project if the code you write looks like the code the last developer wrote, so we've put together [some guidelines we ask that you follow](https://github.com/addyosmani/todomvc/tree/gh-pages/codestyle.md). We greatly appreciate your cooperation and contribution.
 
 
 ## Pull Request Guidelines
