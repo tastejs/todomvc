@@ -43,16 +43,16 @@
 
 	var Quotes = {};
 	Quotes.build = function (quotes, template) {
-		var quoteContainer = document.createElement('q'),
-			quoteElemCount = 0,
-			quoteCount = quotes.length;
+		var quoteContainer = document.createElement('q');
+		var quoteElemCount = 0;
+		var quoteCount = quotes.length;
 
 		var createQuoteElems = function () {
-			var quote = quotes[quoteElemCount],
-				el = $(template).hide();
+			var quote = quotes[quoteElemCount];
+			var el = $(template).hide();
 
 			el.children('p').text(quote.quote);
-			el.find('a').text(quote.person.name).attr('href', quote.link);
+			el.find('a').text(quote.person.name).attr('href', quote.person.link);
 			el.find('img').attr('src', quote.person.gravatar);
 
 			quoteContainer.appendChild(el[0]);
@@ -67,8 +67,8 @@
 	};
 
 	Quotes.random = function (quotes) {
-		var quoteCount = quotes.length,
-			randomQuotes = [];
+		var quoteCount = quotes.length;
+		var randomQuotes = [];
 
 		var randomQuote = function () {
 			var randomQuoteIndex = Math.floor(Math.random() * quoteCount);
@@ -101,11 +101,11 @@
 			fadeOut.fadeOut(500, fadeOutCallback);
 		};
 
-		var quotes = container.children(),
-			selectRandomQuoteIndex = Quotes.random(quotes),
-			quoteElems = {},
-			activeQuoteIndex = selectRandomQuoteIndex(),
-			prevQuoteElem = $(quotes[activeQuoteIndex]);
+		var quotes = container.children();
+		var selectRandomQuoteIndex = Quotes.random(quotes);
+		var quoteElems = {};
+		var activeQuoteIndex = selectRandomQuoteIndex();
+		var prevQuoteElem = $(quotes[activeQuoteIndex]);
 
 		var swap = function () {
 			if (!quoteElems[activeQuoteIndex]) {
@@ -123,9 +123,9 @@
 	};
 
 	Quotes.init = function (quotes) {
-		var container = $(this),
-			template = $(this).html(),
-			quotesHTML = Quotes.build(quotes, template);
+		var container = $(this);
+		var template = $(this).html();
+		var quotesHTML = Quotes.build(quotes, template);
 
 		container.html(quotesHTML);
 
