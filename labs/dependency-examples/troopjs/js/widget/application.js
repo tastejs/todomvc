@@ -1,7 +1,14 @@
-define( [ 'troopjs-core/widget/application', 'troopjs-core/route/router', 'jquery' ], function ApplicationModule(Application, Router, $) {
+/*global define*/
+/*jshint newcap:false*/
+define([
+	'troopjs-core/widget/application',
+	'troopjs-core/route/router',
+	'jquery'
+], function ApplicationModule(Application, Router, $) {
+	'use strict';
 
-	function forward(signal, deferred) {
-		var services = $.map(this.services, function map(service, index) {
+	function Forward(signal, deferred) {
+		var services = $.map(this.services, function map(service) {
 			return $.Deferred(function deferredSignal(deferSignal) {
 				service.signal(signal, deferSignal);
 			});
@@ -13,11 +20,11 @@ define( [ 'troopjs-core/widget/application', 'troopjs-core/route/router', 'jquer
 	}
 
 	return Application.extend({
-		'sig/initialize': forward,
-		'sig/finalize': forward,
-		'sig/start': forward,
-		'sif/stop': forward,
+		'sig/initialize': Forward,
+		'sig/finalize': Forward,
+		'sig/start': Forward,
+		'sif/stop': Forward,
 
-		services: [ Router($(window)) ]
+		services: [Router($(window))]
 	});
 });

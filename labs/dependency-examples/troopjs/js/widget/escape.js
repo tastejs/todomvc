@@ -1,37 +1,52 @@
-define( ['jquery'], function EscapeModule($) {
-	var entityMap = {
-		escape: {
-			'&': '&amp;',
-			'<': '&lt;',
-			'>': '&gt;',
-			'"': '&quot;',
-			"'": '&#x27;',
-			'/': '&#x2F;'
+/*global define*/
+/*jshint quotmark:false*/
+define([
+	'jquery'
+], function EscapeModule($) {
+	'use strict';
+
+	var invert = function (obj) {
+		var result = {};
+		var key;
+
+		for (key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				result[obj[key]] = key;
+			}
 		}
-	},
-		invert = function(obj) {
-			var result = {};
-			for (var key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					result[obj[key]] = key;
-				}
+
+		return result;
+	};
+
+	var fallbackKeys = function (obj) {
+		var keys = [];
+		var key;
+
+		if (obj !== Object(obj)) {
+			throw new TypeError('Invalid object');
+		}
+
+		for (key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				keys[keys.length] = key;
 			}
-			return result;
-		},
-		nativeKeys = Object.keys,
-		keys = nativeKeys || function(obj) {
-			if (obj !== Object(obj)) {
-				throw new TypeError('Invalid object');
-			}
-			var keys = [];
-			for (var key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					keys[keys.length] = key;
-				}
-			}
-			return keys;
-		};
-		exports = {};
+		}
+
+		return keys;
+	};
+
+	var keys = Object.keys || fallbackKeys;
+
+	var entityMap = {};
+
+	entityMap.escape = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#x27;',
+		'/': '&#x2F;'
+	};
 
 	entityMap.unescape = invert(entityMap.escape);
 
@@ -40,12 +55,15 @@ define( ['jquery'], function EscapeModule($) {
 		unescape: new RegExp('(' + keys(entityMap.unescape).join('|') + ')', 'g')
 	};
 
-	$.each(['escape', 'unescape'], function(i, method) {
-		exports[method] = function(string) {
-			if (string == null) {
+	var exports = {};
+
+	$.each(['escape', 'unescape'], function (i, method) {
+		exports[method] = function (string) {
+			if (string === null) {
 				return '';
 			}
-			return ('' + string).replace(entityRegexes[method], function(match) {
+
+			return ('' + string).replace(entityRegexes[method], function (match) {
 				return entityMap[method][match];
 			});
 		};

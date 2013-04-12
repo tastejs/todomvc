@@ -1,13 +1,23 @@
-define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local', 'jquery', 'template!./item.html' ], function ListModule(Escaper, Widget, store, $, template) {
+/*global define*/
+define([
+	'./escape',
+	'troopjs-core/component/widget',
+	'troopjs-core/store/local',
+	'jquery',
+	'troopjs-requirejs/template!./item.html'
+], function ListModule(Escaper, Widget, store, $, template) {
+	'use strict';
+
 	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
 	var FILTER_ACTIVE = 'filter-active';
 	var FILTER_COMPLETED = 'filter-completed';
 
-	function filter(item, index) {
+	function filter(item) {
 		return item === null;
 	}
 
-	return Widget.extend(function ListWidget(element, name) {
+	return Widget.extend(function ListWidget() {
 		var self = this;
 
 		// Defer initialization
@@ -26,9 +36,9 @@ define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local
 			$.each(items, function itemIterator(i, item) {
 				// Append to self
 				self.append(template, {
-					'i': i,
-					'item': item,
-					'itemTitle': Escaper.escape(item.title)
+					i: i,
+					item: item,
+					itemTitle: Escaper.escape(item.title)
 				});
 			});
 		})
@@ -51,15 +61,15 @@ define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local
 
 					// Create new item, store in items
 					var item = items[i] = {
-						'completed': false,
-						'title': title
+						completed: false,
+						title: title
 					};
 
 					// Append new item to self
 					self.append(template, {
-						'i': i,
-						'item': item,
-						'itemTitle': Escaper.escape(item.title)
+						i: i,
+						item: item,
+						itemTitle: Escaper.escape(item.title)
 					});
 
 					// Set items and resolve set
@@ -75,7 +85,7 @@ define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local
 			this.$element.find(':checkbox').prop('checked', value).change();
 		},
 
-		'hub/todos/clear': function onClear(topic) {
+		'hub/todos/clear': function onClear() {
 			this.$element.find('.completed .destroy').click();
 		},
 
@@ -96,7 +106,7 @@ define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local
 				break;
 
 			default:
-				$element.removeClass([FILTER_ACTIVE, FILTER_COMPLETED].join(' '));
+				$element.removeClass(FILTER_ACTIVE + ' ' + FILTER_COMPLETED);
 			}
 		},
 
@@ -191,8 +201,19 @@ define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local
 		},
 
 		'dom/action/commit.keyup': function onCommitKeyUp(topic, $event) {
-			if ($event.originalEvent.keyCode === ENTER_KEY) {
-				$($event.target).focusout();
+			var $target = $($event.target);
+			var keyCode = $event.originalEvent.keyCode;
+
+			if (keyCode === ENTER_KEY) {
+				$target.focusout();
+			}
+
+			if (keyCode === ESCAPE_KEY) {
+				$target
+					.closest('li.editing')
+					.removeClass('editing');
+
+				$target.val(store.get(this.config.store));
 			}
 		},
 
@@ -207,8 +228,7 @@ define( [ './escape', 'troopjs-core/component/widget', 'troopjs-core/store/local
 					.removeClass('editing')
 					.find('.destroy')
 					.click();
-			}
-			else {
+			} else {
 				// Defer set
 				$.Deferred(function deferredSet(deferSet) {
 					// Disable

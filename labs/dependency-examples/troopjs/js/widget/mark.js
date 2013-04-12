@@ -1,4 +1,9 @@
-define( [ 'troopjs-core/component/widget' ], function MarkModule(Widget) {
+/*global define*/
+define([
+	'jquery',
+	'troopjs-core/component/widget'
+], function MarkModule($, Widget) {
+	'use strict';
 
 	return Widget.extend({
 		'hub:memory/todos/change': function onChange(topic, items) {
@@ -18,21 +23,9 @@ define( [ 'troopjs-core/component/widget' ], function MarkModule(Widget) {
 				total++;
 			});
 
-			if (count === 0) {
-				$element
-					.prop('indeterminate', false)
-					.prop('checked', false);
-			}
-			else if (count === total) {
-				$element
-					.prop('indeterminate', false)
-					.prop('checked', true);
-			}
-			else {
-				$element
-					.prop('indeterminate', true)
-					.prop('checked', false);
-			}
+			$element
+				.prop('indeterminate', count !== 0 && count !== total)
+				.prop('checked', count === total);
 		},
 
 		'dom/change': function onMark(topic, $event) {

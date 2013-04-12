@@ -1,3 +1,4 @@
+/*global define*/
 define({
-	'store': 'todos-troopjs'
+	store: 'todos-troopjs'
 });

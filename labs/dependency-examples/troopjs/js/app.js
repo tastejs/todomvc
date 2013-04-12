@@ -1,9 +1,16 @@
+/*newcap false*/
+/*jshint newcap:false*/
 require({
-	'paths': {
-		'jquery': '../../../../assets/jquery.min',
-		'troopjs-bundle': 'lib/troopjs-bundle.min'
+	paths: {
+		jquery: '../components/jquery/jquery',
+		'troopjs-bundle': 'lib/troopjs-bundle'
 	}
-}, [ 'require', 'jquery', 'troopjs-bundle' ], function Deps(parentRequire, jQuery) {
+}, [
+	'require',
+	'jquery',
+	'troopjs-bundle'
+], function Deps(parentRequire, $) {
+	'use strict';
 
 	// Application and plug-ins
 	parentRequire([
@@ -11,10 +18,11 @@ require({
 		'troopjs-jquery/weave',
 		'troopjs-jquery/destroy',
 		'troopjs-jquery/hashchange',
-		'troopjs-jquery/action' ], function App(Application) {
+		'troopjs-jquery/action'
+	], function App(Application) {
 
 		// Hook ready
-		jQuery(document).ready(function ready($) {
+		$(document).ready(function () {
 			Application($(this.body), 'app/todos').start();
 		});
 	});
