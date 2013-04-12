@@ -1,4 +1,9 @@
-define( [ 'troopjs-core/component/widget', 'jquery' ], function FiltersModule(Widget, $) {
+/*global define*/
+define([
+	'troopjs-core/component/widget',
+	'jquery'
+], function FiltersModule(Widget, $) {
+	'use strict';
 
 	return Widget.extend({
 		'hub:memory/route': function onRoute(topic, uri) {

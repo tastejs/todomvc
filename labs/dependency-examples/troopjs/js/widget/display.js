@@ -1,12 +1,19 @@
-define( [ 'troopjs-core/component/widget', 'jquery' ], function DisplayModule(Widget, $) {
+/*global define*/
+define([
+	'troopjs-core/component/widget',
+	'jquery'
+], function DisplayModule(Widget, $) {
+	'use strict';
 
-	function filter(item, index) {
+	function filter(item) {
 		return item === null;
 	}
 
 	return Widget.extend({
 		'hub:memory/todos/change': function onChange(topic, items) {
-			this.$element[$.grep(items, filter, true).length > 0 ? 'show' : 'hide']();
+			var count = $.grep(items, filter, true).length;
+
+			this.$element.toggle(count > 0);
 		}
 	});
 });

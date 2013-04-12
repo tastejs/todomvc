@@ -1,6 +1,11 @@
-define( [ 'troopjs-core/component/widget', 'jquery' ], function CountModule(Widget, $) {
+/*global define*/
+define([
+	'troopjs-core/component/widget',
+	'jquery'
+], function CountModule(Widget, $) {
+	'use strict';
 
-	function filter(item, index) {
+	function filter(item) {
 		return item === null || item.completed;
 	}
 
