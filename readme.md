@@ -76,6 +76,7 @@ We also have a number of in-progress applications in Labs:
 - [TypeScript](http://www.typescriptlang.org/)
 - [DeftJS](http://deftjs.org/)
 - [Aria Templates](http://ariatemplates.com/)
+- [Enyo + Backbone.js](http://enyojs.com/)
 
 ## Live demos
 

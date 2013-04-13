@@ -6,6 +6,7 @@
     - Flight
     - DeftJS + ExtJS
     - Aria Templates
+    - Enyo + Backbone.js
 
 - Updates since 1.1:
     - Backbone 1.0
