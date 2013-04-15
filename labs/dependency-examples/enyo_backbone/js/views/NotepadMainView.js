@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false, ENTER_KEY:false, ESC_KEY:false*/
+﻿/*jshint strict:false */
+/*global enyo:false, ENTER_KEY:false, ESC_KEY:false */
 // The main task list view
 enyo.kind({
 	name: 'ToDo.NotepadMainView',

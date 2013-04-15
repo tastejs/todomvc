@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false*/
+﻿/*jshint strict:false */
+/*global enyo:false */
 enyo.kind({
 	name: 'ToDo.NotepadFooterView',
 	tag: 'footer',

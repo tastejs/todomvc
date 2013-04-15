@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false*/
+﻿/*jshint strict:false */
+/*global enyo:false */
 // This is the notepad area
 enyo.kind({
 	name: 'ToDo.NotepadView',

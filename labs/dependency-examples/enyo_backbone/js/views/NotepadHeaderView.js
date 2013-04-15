@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false, ENTER_KEY:false*/
+﻿/*jshint strict:false */
+/*global enyo:false, ENTER_KEY:false */
 // Header section for adding a new task.
 enyo.kind({
 	name: 'ToDo.NotepadHeaderView',
