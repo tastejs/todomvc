@@ -9,20 +9,19 @@ The latest release of Serenade.js is included in the `js/lib/` folder. The only 
 
 If you wish to compile it yourself, instructions are be available at [Serenade's website](http://serenadejs.org/development.html).
 
-### CoffeeScript
-The source code for the TodoMVC app was written in CoffeeScript. If you would like to re-compile the code, follow these instructions.
+### Build
+This app is written in [CoffeeScript](http://coffeescript.org/). If you wish to make changes, follow these steps to re-compile the code.
 
-If you already have CoffeeScript globally installed, just run:
-
-	coffee -co js/ js/
-
-If you don't have CoffeeScript globally installed, you may either install it globally...
+If you would like to install CoffeeScript globally:
 
 	npm install -g coffee-script
-	coffee -co js/ js/
 
-...or if you wish to install it just for the purposes of this app...
+If you wish to install CoffeeScript just for the purposes of this app:
 
-	cd to todomvc/labs/architecture-examples/serenadejs
+	# from labs/architecture-examples/batman:
 	npm install
+
+Once CoffeeScript is installed:
+
+	# from labs/architecture-examples/batman:
 	npm run-script compile
