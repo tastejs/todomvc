@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-batman",
+  "description": "TodoMVC todo app using batman.js",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "~1.6.2"
+  },
+  "scripts": {
+    "compile": "coffee -c app.coffee"
+  },
+  "private": true
+}
