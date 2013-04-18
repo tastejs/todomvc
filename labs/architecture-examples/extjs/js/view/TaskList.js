@@ -1,62 +1,85 @@
-Ext.define('Todo.view.TaskList' , {
-	store: 'Tasks',
-	loadMask: false,
-	itemSelector: 'li',
-	extend: 'Ext.view.View',
-	alias : 'widget.taskList',
-	autoEl: 'ul',
-	id: 'todo-list',
-	tpl: Ext.create('Ext.XTemplate',
-		'<tpl for=".">',
-		'<li class="<tpl if="checked">done</tpl> <tpl if="editing">editing</tpl>">',
-		'<div class="view">',
-		'<input type="checkbox" <tpl if="checked">checked</tpl> /> ',
-		'<label>{label}</label>',
-		'<a class="destroy"></a>',
-		'</div>',
-		'<input class="edit" type="text" value="{label}">',
-		'</li>',
-		'</tpl>',
-		{compiled: true}
-	),
-	listeners: {
-		render: function () {
-			this.el.on('click', function (clickEvent, el) {
-				var extEl = Ext.get(el)
-				  , parent;
-				if(extEl.getAttribute('type') === 'checkbox') {
-					parent = extEl.parent('li');
+(function () {
+	'use strict';
+
+	Ext.define('Todo.view.TaskList' , {
+		extend: 'Ext.view.View',
+
+		alias: 'widget.taskList',
+
+		store: 'Tasks',
+
+		loadMask: false,
+
+		autoEl: 'ul',
+
+		itemSelector: 'li',
+
+		id: 'todo-list',
+
+		tpl: new Ext.XTemplate(
+			'<tpl for=".">',
+			'<li class="<tpl if="checked">completed</tpl> <tpl if="editing">editing</tpl>">',
+			'<div class="view">',
+			'<input class="toggle" type="checkbox" <tpl if="checked">checked</tpl>>',
+			'<label>{label}</label>',
+			'<button class="destroy"></button>',
+			'</div>',
+			'<input class="edit" value="{label}">',
+			'</li>',
+			'</tpl>'
+		),
+
+		listeners: {
+			render: function () {
+				this.el.on('click', function (clickEvent, el) {
+					var extEl = Ext.get(el);
+					var parent = extEl.parent('li');
+
 					this.fireEvent('todoChecked', this.getRecord(parent));
-				}
-			}, this, {
-				// TODO I can't get this to delegate using something like div.view input or input[type="checkbox"]
-				// So this will have a bug with teh input.edit field... I need to figure that out so I don't have to
-				// do the if logic above.
-				delegate: 'input'
-			});
+				}, this, {
+					delegate: '.toggle'
+				});
 
-			this.el.on('keyup', function (keyEvent, el) {
-				var extEl = Ext.get(el)
-				  , parent;
-				if(extEl.getAttribute('type') === 'text') {
-					parent = extEl.parent('li');
+				this.el.on('keyup', function (keyEvent, el) {
+					var extEl = Ext.get(el);
+					var parent = extEl.parent('li');
+
 					this.fireEvent('onTaskEditKeyup', keyEvent, this.getRecord(parent), extEl);
-				}
-			}, this, {
-				delegate: 'input'
-			});
+				}, this, {
+					delegate: '.edit'
+				});
 
-			this.el.on('click', function (clickEvent, el) {
-				var extEl = Ext.get(el)
-				  , record = this.getRecord(extEl.parent('li'))
-				  , self = this;
+				this.el.on('click', function (clickEvent, el) {
+					var extEl = Ext.get(el);
+					var record = this.getRecord(extEl.parent('li'));
 
-				  // Todo this is clearly not the best way to do this, but without this we get an error when
-				  // the item that was clicked is removed.
-				  setTimeout(function () { self.fireEvent('todoRemoveSelected', record); }, 1);
-			}, this, {
-				delegate: 'a'
-			});
+					this.fireEvent('todoRemoveSelected', record);
+				}, this, {
+					delegate: 'button'
+				});
+			},
+
+			afterRender: function () {
+				this.el.dom.removeAttribute('tabindex');
+
+				this.el.on('dblclick', function (event, el) {
+					var extEl = this.getEl();
+					var input = extEl.child('.x-item-selected').child('input');
+					var value = input.getValue().trim();
+
+					var record = this.getRecord(Ext.get(el).parent('li'));
+
+					input.dom.value = '';
+					input.dom.focus();
+					input.dom.value = value;
+
+					input.on('blur', function () {
+						this.fireEvent('onTaskEditBlur', input, record);
+					}, this);
+				}, this, {
+					delegate: 'label'
+				});
+			}
 		}
-	}
-});
+	});
+})();
