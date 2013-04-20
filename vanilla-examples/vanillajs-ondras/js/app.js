@@ -13,10 +13,13 @@ var App = function() {
 	}
 
 	this._load();
+	this._syncLocation();
+	this.refresh();
 
 	this._dom.newTodo.addEventListener("keypress", this);
 	this._dom.toggleAll.addEventListener("change", this);
 	this._dom.clearCompleted.addEventListener("click", this);
+	window.addEventListener("hashchange", this);
 }
 
 App.prototype.handleEvent = function(e) {
@@ -41,6 +44,11 @@ App.prototype.handleEvent = function(e) {
 				this._todos.splice(i, 1);
 				i--;
 			}
+			this._dom.newTodo.focus();
+		break;
+		
+		case "hashchange":
+			this._syncLocation();
 		break;
 	}
 
@@ -58,24 +66,23 @@ App.prototype.refresh = function() {
 		if (todo.isCompleted()) { completedCount++; }
 
 		if (this._filterCompleted !== null) {
-			/* FIXME */
+			if (todo.isCompleted() != this._filterCompleted) { continue; }
 		}
-
+		
 		this._dom.todoList.appendChild(todo.getNode());
 	}
 
-	this._dom.toggleAll.checked = (this._todos.length && completedCount == this._todos.length);
+	this._dom.toggleAll.checked = (completedCount == this._todos.length);
 	this._dom.toggleAll.style.display = (this._todos.length ? "" : "none");
 	this._dom.footer.style.display = (this._todos.length ? "" : "none");
 
-	this._dom.clearCompleted.innerHTML = "Clear completed (" + (completedCount) + ")";
+	this._dom.clearCompleted.innerHTML = "Clear completed (" + completedCount + ")";
 	this._dom.clearCompleted.style.display = (completedCount ? "" : "none");
 
 	var activeCount = this._todos.length - completedCount;
 	var str = "<strong>" + activeCount + "</strong> ";
 	str += (activeCount == 1 ? "item" : "items") + " left";
 	this._dom.todoCount.innerHTML = str;
-
 }
 
 App.prototype.remove = function(todo) {
@@ -90,14 +97,12 @@ App.prototype.remove = function(todo) {
 
 App.prototype._load = function() {
 	var data = localStorage.getItem(this._storageKey);
-	if (data) {
-		var items = JSON.parse(data);
-		while (items.length) {
-			var todo = Todo.fromJSON(this, items.shift());
-			this._todos.push(todo);
-		}
+	if (!data) { return; }
+	var items = JSON.parse(data);
+	while (items.length) {
+		var todo = Todo.fromJSON(this, items.shift());
+		this._todos.push(todo);
 	}
-	this.refresh();
 }
 
 App.prototype._save = function() {
@@ -106,4 +111,17 @@ App.prototype._save = function() {
 		data.push(this._todos[i].toJSON());
 	}
 	localStorage.setItem(this._storageKey, JSON.stringify(data));
+}
+
+App.prototype._syncLocation = function() {
+	var hash = location.hash || "#/";
+	var oldLink = document.querySelector("#footer a.selected");
+	if (oldLink) { oldLink.className = ""; }
+	var newLink = document.querySelector("#footer a[href='" + hash + "']");
+	if (!newLink) { return; } /* non-supported hash */
+	
+	newLink.className = "selected";
+	this._filterCompleted = null;
+	if (hash.indexOf("completed") != -1) { this._filterCompleted = true; }
+	if (hash.indexOf("active") != -1) { this._filterCompleted = false; }
 }
