@@ -2,6 +2,13 @@
 (function () {
 	'use strict';
 
+	$.fn.gittip = function (username) {
+		var $this = $(this);
+		$.getJSON('https://www.gittip.com/' + username + '/public.json', function (response) {
+			$this.text(response.receiving);
+		});
+	};
+
 	$.fn.persistantPopover = function () {
 		var popoverTimeout;
 
@@ -143,6 +150,8 @@
 
 	// Apps popover
 	$('.applist a').persistantPopover();
+
+	$('.gittip-amount').gittip('tastejs');
 
 	// Quotes
 	$('.quotes').quote([{
