@@ -2,7 +2,7 @@
 /*jshint newcap:false*/
 require({
 	paths: {
-		jquery: '../components/jquery/jquery',
+		jquery: '../bower_components/jquery/jquery',
 		'troopjs-bundle': 'lib/troopjs-bundle'
 	}
 }, [

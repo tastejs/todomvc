@@ -3,9 +3,9 @@
 	'use strict';
 
 	define('Todos/List', [
-		'components/olives/src/OObject',
-		'components/olives/src/Event.plugin',
-		'components/olives/src/Bind.plugin',
+		'bower_components/olives/src/OObject',
+		'bower_components/olives/src/Event.plugin',
+		'bower_components/olives/src/Bind.plugin',
 		'Todos/Tools'
 	],
 

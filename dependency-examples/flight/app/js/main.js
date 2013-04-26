@@ -3,23 +3,23 @@
 require.config({
 	baseUrl: './',
 	paths: {
-		jquery: 'components/jquery/jquery',
-		es5shim: 'components/es5-shim/es5-shim',
-		es5sham: 'components/es5-shim/es5-sham',
-		text: 'components/requirejs/plugins/text'
+		jquery: 'bower_components/jquery/jquery',
+		es5shim: 'bower_components/es5-shim/es5-shim',
+		es5sham: 'bower_components/es5-shim/es5-sham',
+		text: 'bower_components/requirejs/plugins/text'
 	},
 	map: {
 		'*': {
-			'flight/component': 'components/flight/lib/component',
-			'depot': 'components/depot/depot'
+			'flight/component': 'bower_components/flight/lib/component',
+			'depot': 'bower_components/depot/depot'
 		}
 	},
 	shim: {
-		'components/flight/lib/index': {
+		'bower_components/flight/lib/index': {
 			deps: ['jquery', 'es5shim', 'es5sham']
 		},
 		'app/js/app': {
-			deps: ['components/flight/lib/index']
+			deps: ['bower_components/flight/lib/index']
 		}
 	}
 });
