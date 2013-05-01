@@ -83,19 +83,16 @@
 		var title = title || '';
 
 		if (e.keyCode === this.ENTER_KEY) {
+			if (e.target.value.trim() === '') {
+				return;
+			}
+
 			this.model.create(e.target.value, function (data) {
-				// We want to make sure we don't add incomplete
-				// items to the completed tab when you go to
-				// add an item and you're viewing the completed
-				// items
-				if (this._getCurrentPage() !== 'completed') {
-					this.$todoList.innerHTML = this.$todoList.innerHTML + this.view.show(data);
-				}
 				input.value = '';
+				this._filter(true);
 			}.bind(this));
 		}
 
-		this._filter();
 	};
 
 	/**
@@ -290,8 +287,9 @@
 
 	/**
 	 * Re-filters the todo items, based on the active route.
+	 * @param {boolean|undefined} force  forces a re-painting of todo items.
 	 */
-	Controller.prototype._filter = function () {
+	Controller.prototype._filter = function (force) {
 		var activeRoute = this._activeRoute.charAt(0).toUpperCase() + this._activeRoute.substr(1);
 
 		// Update the elements on the page, which change with each completed todo
@@ -300,7 +298,7 @@
 		// If the last active route isn't "All", or we're switching routes, we
 		// re-create the todo item elements, calling:
 		//   this.show[All|Active|Completed]();
-		if (this._lastActiveRoute !== 'All' || this._lastActiveRoute !== activeRoute) {
+		if (force || this._lastActiveRoute !== 'All' || this._lastActiveRoute !== activeRoute) {
 			this['show' + activeRoute]();
 		}
 

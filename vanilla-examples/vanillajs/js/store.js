@@ -43,28 +43,17 @@
 	 * });
 	 */
 	Store.prototype.find = function (query, callback) {
-		var data = JSON.parse(localStorage[this._dbName]).todos;
-		var items = [];
-		var found;
-
-		callback = callback || function () {};
-
-		for (var i = 0; i < data.length; i++) {
-			for (var q in query) {
-				if (query[q] !== data[i][q]) {
-					found = false;
-					break;
-				} else {
-					found = true;
-				}
-			}
-
-			if (found) {
-				items.push(data[i]);
-			}
+		if (!callback) {
+			return;
 		}
 
-		callback.call(this, items);
+		var todos = JSON.parse(localStorage[this._dbName]).todos;
+
+		callback.call(this, todos.filter(function (todo) {
+			for (var q in query) {
+				return query[q] === todo[q];
+			}
+		}));
 	};
 
 	/**
