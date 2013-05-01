@@ -48,9 +48,12 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 			'click #clear-completed': 'onClearClick'
 		},
 
+		collectionEvents: {
+			'all': 'updateCount'
+		},
+
 		initialize: function () {
 			this.listenTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
-			this.listenTo(this.collection, 'all', this.updateCount, this);
 		},
 
 		onRender: function () {
