@@ -338,5 +338,5 @@
 	};
 
 	// Export to window
-	window.Controller = Controller;
+	window.app.Controller = Controller;
 })(window);

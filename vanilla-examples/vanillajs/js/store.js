@@ -138,5 +138,5 @@
 	};
 
 	// Export to window
-	window.Store = Store;
+	window.app.Store = Store;
 })(window);

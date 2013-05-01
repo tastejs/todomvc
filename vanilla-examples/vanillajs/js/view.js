@@ -87,5 +87,5 @@
 	};
 
 	// Export to window
-	window.View = View;
+	window.app.View = View;
 })(window);

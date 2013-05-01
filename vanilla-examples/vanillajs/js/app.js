@@ -8,10 +8,10 @@
 	 * @param {string} name The name of your new to do list.
 	 */
 	function Todo(name) {
-		this.storage = new Store(name);
-		this.model = new Model(this.storage);
-		this.view = new View();
-		this.controller = new Controller(this.model, this.view);
+		this.storage = new app.Store(name);
+		this.model = new app.Model(this.storage);
+		this.view = new app.View();
+		this.controller = new app.Controller(this.model, this.view);
 	}
 
 	var todo = new Todo('todos-vanillajs');
