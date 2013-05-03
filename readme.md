@@ -26,10 +26,10 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
 
 
-###### Non MV*
+###### Non-framework Implementations
 
 - [jQuery](http://jquery.com)
-- Vanilla JS
+- [Vanilla JS](http://todomvc.com/vanilla-examples/vanillajs/)
 
 ###### RequireJS
 
