@@ -1,13 +1,7 @@
 # Ember.js + Require.js • [TodoMVC](http://todomvc.com)
 
+This example was removed, because the Ember.js dependency injection architecture
+does not provide appropriate hooks for asynchronous module loading yet and thus
+the use of Require.js with Ember.js is not advised.
 
-## Running tests
-
-To fire specs runner, append `#specs` to the url in address bar, and reload the webpage.
-
-
-## Credit
-
-Initial release by @tomdale.
-
-Refactoring and maintenance by @stas.
+For more information, [read the discussion](https://github.com/addyosmani/todomvc/pull/528).
