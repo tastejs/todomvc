@@ -34,8 +34,6 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 ###### RequireJS
 
 - [Backbone.js](http://documentcloud.github.com/backbone) + [RequireJS](http://requirejs.org) (using AMD)
-- [Ember.js](http://emberjs.com) + [RequireJS](http://requirejs.org) (using AMD)
-
 
 #### Labs
 
