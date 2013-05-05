@@ -1,13 +1,15 @@
-# Ember.js + Require.js • [TodoMVC](http://todomvc.com)
+# Ember + RequireJS TodoMVC Example
 
+This is a todo app built using [Ember](http://emberjs.com) and [RequireJS](http://requirejs.org).
 
-## Running tests
+### Ember
 
-To fire specs runner, append `#specs` to the url in address bar, and reload the webpage.
+> More productive out of the box. A framework for creating ambitions web applications.
 
+### RequireJS
 
-## Credit
+> RequireJS is a JavaScript file and module loader. Using a modular script loader like RequireJS will improve the speed and quality of your code.
 
-Initial release by @tomdale.
+## Implementation
 
-Refactoring and maintenance by @stas.
+The Ember code behind this application is almost an exact duplicate of the [example without RequireJS](http://todomvc.com/architecture-examples/emberjs). The code has been split into multiple files, using RequireJS to load them on demand.
