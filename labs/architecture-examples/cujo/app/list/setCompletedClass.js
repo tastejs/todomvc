@@ -1,4 +1,6 @@
-define(function() {
+/*global define */
+define(function () {
+	'use strict';
 
 	/**
 	 * Custom data linking handler for setting the "completed" class.
@@ -6,9 +8,8 @@ define(function() {
 	 * handlers for data/dom linking to do anything that isn't provided
 	 * by default.
 	 */
-	return function(node, data, info) {
+	return function (node, data, info) {
 		// Simple-minded implementation just to show custom data linking handler
 		node.className = data[info.prop] ? 'completed' : '';
 	};
-
 });

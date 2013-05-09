@@ -1,5 +1,5 @@
+/*global define */
 define({
-
 	// Cujo uses OOCSS principles and thus separates theme (skin)
 	// from structure CSS.
 	theme: { module: 'css!theme/base.css' },
@@ -174,7 +174,7 @@ define({
 	},
 
 	plugins: [
-//		{ module: 'wire/debug', trace: true },
+		// { module: 'wire/debug', trace: true },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dom/render' },
 		{ module: 'wire/on' },
