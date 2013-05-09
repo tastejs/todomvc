@@ -1,5 +1,5 @@
+/*global define */
 define({
-	// TODO: Deal with singular vs. plural
 	itemsLeft: {
 		zero: '<strong></strong> items left',
 		one: '<strong></strong> item left',
