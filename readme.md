@@ -45,7 +45,7 @@ We also have a number of in-progress applications in Labs:
 - [Kendo UI](http://kendoui.com)
 - [Flight by Twitter](https://github.com/twitter/flight)
 - [Maria.js](https://github.com/petermichaux/maria)
-- [cujo.js](http://cujojs.github.com)
+- [cujoJS](http://cujojs.com)
 - [MarionetteJS](http://marionettejs.com/)
 - [SocketStream](http://www.socketstream.org) + [jQuery](http://jquery.com)
 - [Ext.js](http://www.sencha.com/products/extjs)

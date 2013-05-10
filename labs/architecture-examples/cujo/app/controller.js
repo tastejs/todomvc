@@ -2,25 +2,25 @@
 define(function () {
 	'use strict';
 
-	var textProp;
+	var textProp, updateRemainingCount;
 
 	/**
 	 * Self-optimizing function to set the text of a node
 	 */
-	var updateRemainingCount = function () {
+	updateRemainingCount = function (nodes, value) {
 		// sniff for proper textContent property
 		textProp = 'textContent' in document.documentElement ? 'textContent' : 'innerText';
 
 		// resume normally
 		updateRemainingCount = setTextProp;
-		updateRemainingCount(arguments);
+		updateRemainingCount(nodes, value);
 	};
 
-	var setTextProp = function (nodes, value) {
+	function setTextProp(nodes, value) {
 		for (var i = 0; i < nodes.length; i++) {
 			nodes[i][textProp] = '' + value;
 		}
-	};
+	}
 
 	return {
 		/**
@@ -84,8 +84,10 @@ define(function () {
 		 * Check/uncheck all todos
 		 */
 		toggleAll: function () {
-			var todos = this.todos;
-			var complete = this.masterCheckbox.checked;
+			var todos, complete;
+
+			todos = this.todos;
+			complete = this.masterCheckbox.checked;
 
 			todos.forEach(function (todo) {
 				todo.complete = complete;
@@ -99,8 +101,10 @@ define(function () {
 		 * checked or unchecked.
 		 */
 		updateCount: function () {
-			var total = 0;
-			var checked = 0;
+			var total, checked;
+
+			total = 0;
+			checked = 0;
 
 			this.todos.forEach(function (todo) {
 				total++;
@@ -128,4 +132,5 @@ define(function () {
 			updateRemainingCount(this.remainingNodes, remaining);
 		}
 	};
+
 });
