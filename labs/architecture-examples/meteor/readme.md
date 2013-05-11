@@ -1,6 +1,6 @@
 # Meteor TodoMVC app
 
-A todo app built using [Meteor](http://meteor.com), inspired by [TodoMVC](https://github.com/addyosmani/todomvc).
+A todo app built using [Meteor](http://meteor.com), inspired by [TodoMVC](https://todomvc.com)
 
 [Demo](http://todomvcapp.meteor.com)
 

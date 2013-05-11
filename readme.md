@@ -1,4 +1,4 @@
-# ![TodoMVC](https://raw.github.com/addyosmani/todomvc/gh-pages/media/logo.png)
+# ![TodoMVC](https://raw.github.com/tastejs/todomvc/gh-pages/media/logo.png)
 
 ## Helping you select an MV\* framework
 
@@ -83,12 +83,12 @@ Live demos are available on our [website](http://todomvc.com)
 
 ## Screenshot
 
-![screenshot](https://raw.github.com/addyosmani/todomvc/gh-pages/screenshot.png)
+![screenshot](https://raw.github.com/tastejs/todomvc/gh-pages/screenshot.png)
 
 
 ## Team
 
-TodoMVC would not be possible without a strong team of [contributors](https://github.com/addyosmani/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
+TodoMVC would not be possible without a strong team of [contributors](https://github.com/tastejs/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
 
 #### [Addy Osmani](http://github.com/addyosmani) - Founder/Lead
 
@@ -110,7 +110,7 @@ Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency
 
 ## Disclaimer
 
-<img align="right" width="230" height="230" src="https://raw.github.com/addyosmani/todomvc/gh-pages/media/icon-small.png">
+<img align="right" width="230" height="230" src="https://raw.github.com/tastejs/todomvc/gh-pages/media/icon-small.png">
 
 TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV* frameworks. Whilst we hope that this project is able to offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of what a framework may be capable of.
 

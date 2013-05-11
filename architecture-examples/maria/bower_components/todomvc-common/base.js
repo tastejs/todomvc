@@ -6,7 +6,7 @@
 	}
 
 	function getSourcePath() {
-		// If accessed via addyosmani.github.io/todomvc/, strip the project path.
+		// If accessed via tastejs.github.io/todomvc/, strip the project path.
 		if (location.hostname.indexOf('github.io') > 0) {
 			return location.pathname.replace(/todomvc\//, '');
 		}
@@ -17,7 +17,7 @@
 		var sourceLink = document.createElement('a');
 		var paragraph = document.createElement('p');
 		var footer = document.getElementById('info');
-		var urlBase = 'https://github.com/addyosmani/todomvc/tree/gh-pages';
+		var urlBase = 'https://github.com/tastejs/todomvc/tree/gh-pages';
 
 		if (footer) {
 			sourceLink.href = urlBase + getSourcePath();
@@ -28,8 +28,8 @@
 	}
 
 	function redirect() {
-		if (location.hostname === 'addyosmani.github.io') {
-			location.href = location.href.replace('addyosmani.github.io/todomvc', 'todomvc.com');
+		if (location.hostname === 'tastejs.github.io') {
+			location.href = location.href.replace('tastejs.github.io/todomvc', 'todomvc.com');
 		}
 	}
 
