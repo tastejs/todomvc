@@ -33,7 +33,10 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 
 ###### RequireJS
 
-- [Backbone.js](http://documentcloud.github.com/backbone) + [RequireJS](http://requirejs.org) (using AMD)
+- [Backbone.js](http://documentcloud.github.com/backbone) + [RequireJS](http://requirejs.org)
+- [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org)
+- [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org)
+- [CanJS](http://canjs.us) + [RequireJS](http://requirejs.org)
 
 #### Labs
 
@@ -107,6 +110,8 @@ Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency
 
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/4b0209ae3652cc5a7d53545e759fbe39.png?s=40">
+Gianni is a programmer and designer currently working as the Chief Rigger at MetaLab.
 
 ## Disclaimer
 
@@ -132,4 +137,4 @@ Check out our [contribution docs](contributing.md) for more info.
 ## License
 
 MIT License  
-Copyright (c) Addy Osmani & Sindre Sorhus
+Copyright (c) Addy Osmani, Sindre Sorhus & Pascal Hartig
