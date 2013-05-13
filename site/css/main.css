@@ -36,7 +36,7 @@ h2 {
 
 a {
 	color: #B83F45;
-	font-weight:bold;
+	font-weight: bold;
 }
 
 a:hover {
@@ -54,6 +54,10 @@ hr {
 	border-bottom: 1px dashed #F7F7F7;
 }
 
+var {
+	font-style: normal;
+}
+
 header p {
 	font-size: 30px;
 	line-height: 1.2;
@@ -64,7 +68,7 @@ header nav {
 	margin-top: 20px;
 }
 
-header nav a:first-child {
+header nav a:not(:last-child) {
 	margin-right: 5px;
 	margin-bottom: 5px;
 }
@@ -304,6 +308,15 @@ p .label {
 
 .zocial.gray {
 	background-color: rgba(0, 0, 0, .5);
+}
+
+.zocial.ltgray {
+	color: inherit;
+	text-shadow: none;
+}
+
+.zocial.ltgray strong {
+	color: #B83F45;
 }
 
 .zocial.small {

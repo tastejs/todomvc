@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false*/
+﻿/*jshint strict:false */
+/*global enyo:false */
 // Top level window
 enyo.kind({
 	name: 'ToDo.WindowView',

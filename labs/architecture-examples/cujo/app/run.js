@@ -1,4 +1,6 @@
-(function( curl ) {
+/*global curl */
+(function (curl) {
+	'use strict';
 
 	var config = {
 		baseUrl: 'app',
@@ -17,5 +19,4 @@
 	};
 
 	curl(config, ['poly/string', 'poly/array']).next(['wire!main']);
-
-})( curl );
+})(curl);

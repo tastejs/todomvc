@@ -1,4 +1,4 @@
-/*global enyo:false*/
+/*global enyo:false */
 enyo.depends(
 	'controllers',
 	'models',

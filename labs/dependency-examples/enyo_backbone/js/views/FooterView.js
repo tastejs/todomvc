@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false*/
+﻿/*jshint strict:false */
+/*global enyo:false */
 // The footer section
 enyo.kind({
 	name: 'ToDo.FooterView',

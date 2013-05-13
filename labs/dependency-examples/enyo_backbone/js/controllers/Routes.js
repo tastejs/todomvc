@@ -1,5 +1,5 @@
-﻿/*jshint strict:false*/
-/*global enyo:false, ToDo:false*/
+﻿/*jshint strict:false */
+/*global enyo:false, ToDo:false */
 enyo.kind({
 	kind: 'enyo.Router',
 	name: 'ToDo.Routes',

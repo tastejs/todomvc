@@ -15,6 +15,7 @@
 
 - The GWT example implemented routing
 - The sammy.js example implemented routing
+- Removed Ember.js + require.js example
 
 ## 1.1 - 2013-02-14
 

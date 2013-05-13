@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) before touching the template.
+Read the [App Specification](https://github.com/tastejs/todomvc/wiki/App-Specification) before touching the template.
 
 
 ## Need help?

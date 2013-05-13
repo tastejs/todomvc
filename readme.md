@@ -1,4 +1,4 @@
-# ![TodoMVC](https://raw.github.com/addyosmani/todomvc/gh-pages/media/logo.png)
+# ![TodoMVC](https://raw.github.com/tastejs/todomvc/gh-pages/media/logo.png)
 
 ## Helping you select an MV\* framework
 
@@ -26,16 +26,17 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
 
 
-###### Non MV*
+###### Non-framework Implementations
 
 - [jQuery](http://jquery.com)
-- Vanilla JS
+- [Vanilla JS](http://todomvc.com/vanilla-examples/vanillajs/)
 
 ###### RequireJS
 
-- [Backbone.js](http://documentcloud.github.com/backbone) + [RequireJS](http://requirejs.org) (using AMD)
-- [Ember.js](http://emberjs.com) + [RequireJS](http://requirejs.org) (using AMD)
-
+- [Backbone.js](http://documentcloud.github.com/backbone) + [RequireJS](http://requirejs.org)
+- [AngularJS](http://angularjs.org) + [RequireJS](http://requirejs.org)
+- [KnockoutJS](http://knockoutjs.com) + [RequireJS](http://requirejs.org)
+- [CanJS](http://canjs.us) + [RequireJS](http://requirejs.org)
 
 #### Labs
 
@@ -85,12 +86,12 @@ Live demos are available on our [website](http://todomvc.com)
 
 ## Screenshot
 
-![screenshot](https://raw.github.com/addyosmani/todomvc/gh-pages/screenshot.png)
+![screenshot](https://raw.github.com/tastejs/todomvc/gh-pages/screenshot.png)
 
 
 ## Team
 
-TodoMVC would not be possible without a strong team of [contributors](https://github.com/addyosmani/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
+TodoMVC would not be possible without a strong team of [contributors](https://github.com/tastejs/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
 
 #### [Addy Osmani](http://github.com/addyosmani) - Founder/Lead
 
@@ -109,10 +110,12 @@ Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency
 
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
+<img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/4b0209ae3652cc5a7d53545e759fbe39.png?s=40">
+Gianni is a programmer and designer currently working as the Chief Rigger at MetaLab.
 
 ## Disclaimer
 
-<img align="right" width="230" height="230" src="https://raw.github.com/addyosmani/todomvc/gh-pages/media/icon-small.png">
+<img align="right" width="230" height="230" src="https://raw.github.com/tastejs/todomvc/gh-pages/media/icon-small.png">
 
 TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV* frameworks. Whilst we hope that this project is able to offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of what a framework may be capable of.
 
@@ -134,4 +137,4 @@ Check out our [contribution docs](contributing.md) for more info.
 ## License
 
 MIT License  
-Copyright (c) Addy Osmani & Sindre Sorhus
+Copyright (c) Addy Osmani, Sindre Sorhus & Pascal Hartig

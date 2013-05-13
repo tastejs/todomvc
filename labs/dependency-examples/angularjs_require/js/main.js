@@ -3,7 +3,7 @@
 
 require.config({
 	paths: {
-		angular: '../components/angular/angular'
+		angular: '../bower_components/angular/angular'
 	},
 	shim: {
 		angular: {
