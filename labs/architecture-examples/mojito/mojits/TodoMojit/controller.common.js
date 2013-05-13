@@ -5,133 +5,147 @@ YUI.add('TodoMojit', function(Y, NAME) {
 	Y.namespace('mojito.controllers')[NAME] = {
 
 		index: function(ac) {
-			ac.assets.addBlob('<meta charset="utf-8">\n<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">', 'top');
-			ac.assets.addBlob('<link href="/static/' + ac.type + '/assets/base.css" rel="stylesheet" type="text/css" />', 'top');
+			ac.assets.addCss('./base.css');
 			ac.assets.addBlob('<!--[if IE]>\n<script src="/static/' + ac.type + '/assets/ie.js"></script>\n<![endif]-->', 'top');
 			ac.done({});
 		},
 
-		operate: function(ac) {
-			var op = ac.params.getFromBody('op'),
-				data = ac.params.getFromBody('data'),
-				todo = ac.models.get('Todo');
+		'getAll': function(ac) {
+			var todo = ac.models.get('Todo');
+			todo.getAll(function(err, items) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done({ "items": items }, 'items');
+				}
+			});
+		},
 
-			Y.log('operate called: op = ' + op + ', todo: ' + todo);
-			switch(op) {
-				case 'get':
-					if(data) {
-						data = String(data);
-						switch(data) {
-							case 'completed':
-							case 'incomplete':
-								todo.getFiltered((data == 'completed'), function(err, items) {
-									if(err) {
-										ac.error(err);
-									} else {
-										ac.done({ "items": items.reverse(), "count": items.length }, 'items');
-									}
-								});
-								break;
-							default:
-								todo.get(data, function(err, item) {
-									if(err) {
-										ac.error(err);
-									} else {
-										ac.done(item, 'item');
-									}
-								});
-								break;
-						}
+		'getCompleted': function(ac) {
+			var todo = ac.models.get('Todo');
+
+			todo.getFiltered(true, function(err, items) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done({ "items": items, "count": items.length }, 'items');
+				}
+			});
+		},
+
+		'getIncomplete': function(ac) {
+			var todo = ac.models.get('Todo');
+
+			todo.getFiltered(false, function(err, items) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done({ "items": items, "count": items.length }, 'items');
+				}
+			});
+		},
+
+		'getById': function(ac) {
+			var id = ac.params.getFromBody('id'),
+			todo = ac.models.get('Todo');
+
+			todo.get(id, function(err, item) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done(item, 'item');
+				}
+			});
+		},
+
+		'add': function(ac) {
+			var data = ac.params.getFromBody('data'),
+			todo = ac.models.get('Todo');
+
+			data = Y.JSON.parse(data);
+			todo.add(data, function(err, items) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done({ "items": items, "count": items.length }, 'items');
+				}
+			});
+		},
+
+		'delete': function(ac) {
+			var id = ac.params.getFromBody('id'),
+			todo = ac.models.get('Todo');
+
+			todo.remove(id, function(err, item) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done('success');
+				}
+			});
+		},
+
+		'update': function(ac) {
+			var item = ac.params.getFromBody('data'),
+			todo = ac.models.get('Todo');
+
+			item = Y.JSON.parse(item);
+			if(!item.title) {
+				todo.remove(item.id, function(err, item) {
+					if(err) {
+						ac.error(err);
 					} else {
-						todo.getAll(function(err, items) {
-							//Y.log('getAll => ' + Y.JSON.stringify(items), 'warn', NAME);
-							if(err) {
-								ac.error(err);
-							} else {
-								ac.done({ "items": items.reverse() }, 'items');
-							}
-						});
+						ac.done('success');
 					}
-					break;
-				case 'add':
-					data = Y.JSON.parse(data);
-					todo.add(data, function(err, items) {
-						if(err) {
-							ac.error(err);
-						} else {
-							ac.done({ "items": items.reverse(), "count": items.length }, 'items');
-						}
-					});
-					break;
-				case 'delete':
-					todo.remove(data, function(err, item) {
-						if(err) {
-							ac.error(err);
-						} else {
-							ac.done('success');
-						}
-					});
-					break;
-				case 'update':
-					data = Y.JSON.parse(data);
-					if(!data.title) {
-						todo.remove(data.id, function(err, item) {
-							if(err) {
-								ac.error(err);
-							} else {
-								ac.done('success');
-							}
-						});
+				});
+			} else {
+				todo.update(item, function(err, item) {
+					if(err) {
+						ac.error(err);
 					} else {
-						todo.update(data, function(err, item) {
-							if(err) {
-								ac.error(err);
-							} else {
-								ac.done(item, 'item');
-							}
-						});
+						ac.done(item, 'item');
 					}
-					break;
-				case 'clear':
-					if(data) {
-						switch(data) {
-							case 'completed':
-								break;
-						}
-					} else {
-						todo.removeAll(function(err, items) {
-							if(err) {
-								ac.error(err);
-							} else {
-								ac.done({ "items": items, "count": items.length }, 'items');
-							}
-						});
-					}
-					break;
-				case 'toggle':
-					todo.toggle(data, function(err, item) {
-						if(err) {
-							ac.error(err);
-						} else {
-							ac.done(item, 'item');
-						}
-					});
-					break;
-				case 'batchMark':
-					data = Y.JSON.parse(data);
-					todo.batchMark(!!data, function(err, response) {
-						if(err) {
-							ac.error(err);
-						} else {
-							ac.done('successful');
-						}
-					});
-					break;
-				default:
-					Y.log('ac.done[default/no-op]', 'error', NAME);
-					ac.done('noop');
-					break;
+				});
 			}
+		},
+
+		'clear': function(ac) {
+			var todo = ac.models.get('Todo');
+
+			todo.removeAll(function(err, items) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done({ "items": items, "count": items.length }, 'items');
+				}
+			});
+		},
+
+		batchMark: function(ac) {
+			var complete = ac.params.getFromBody('complete'),
+			todo = ac.models.get('Todo');
+
+			complete = Y.JSON.parse(complete);
+			todo.batchMark(!!complete, function(err, response) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done('successful');
+				}
+			});
+		},
+
+		'toggle': function(ac) {
+			var id = ac.params.getFromBody('id'),
+			todo = ac.models.get('Todo');
+
+			todo.toggle(id, function(err, item) {
+				if(err) {
+					ac.error(err);
+				} else {
+					ac.done(item, 'item');
+				}
+			});
 		}
 	};
 

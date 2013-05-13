@@ -1,23 +1,17 @@
+/*jslint anon:true, sloppy:true, nomen:true*/
+
+process.chdir(__dirname);
+
 /*
- * Copyright (c) 2011-2012, Yahoo! Inc.  All rights reserved.
- * Copyrights licensed under the New BSD License.
- * See the accompanying LICENSE file for terms.
+ * Create the MojitoServer instance we'll interact with. Options can be passed
+ * using an object with the desired key/value pairs.
  */
+var Mojito = require('mojito');
+var app = Mojito.createServer();
 
+// ---------------------------------------------------------------------------
+// Different hosting environments require different approaches to starting the
+// server. Adjust below to match the requirements of your hosting environment.
+// ---------------------------------------------------------------------------
 
-/*jslint anon:true, sloppy:true*/
-
-
-/**
- * Returns a new Mojito server instance.
- */
-//module.exports = require('mojito').createServer();
-var mojito = require('mojito');
-new mojito.constructor().createServer().listen(process.env.PORT || 6789, null, function(err) {
-	if(err) {
-		console.log('Failed to start Mojito...');
-		console.log('error: ' + err);
-	} else {
-		console.log('Server started...');
-	}
-});
+module.exports = app.listen();

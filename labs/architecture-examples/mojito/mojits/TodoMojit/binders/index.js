@@ -9,8 +9,6 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 		},
 
 		bind: function(node) {
-			var self = this;
-
 			this.node = node;
 			this.inputNode = node.one('#new-todo');
 			this.listNode = node.one('#todo-list');
@@ -19,13 +17,12 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 
 			this.addHandlers();
 
-			self.resync();
+			this.resync();
 		},
 
 		resync: function() {
 			var self = this;
-			//Y.log('resync called', 'warn', NAME);
-			self.mp.invoke('operate',  { 'params': { 'body': { 'op': 'get' } }}, function(err, response) {
+			self.mp.invoke('getAll',  function(err, response) {
 				if(!err) {
 					self.listNode.set('innerHTML', '');
 					if(response) {
@@ -43,7 +40,6 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 				allSel = true,
 				i;
 
-			//Y.log('Size: ' + size, 'warn', NAME);
 			for(i = 0; i < size; i++) {
 				if(!toggles.item(i).get('checked')) {
 					allSel = false;
@@ -87,7 +83,7 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 		},
 
 		batchMark: function() {
-			var allCompleted = this.toggleAll.get('checked'),
+			var allCompleted = !!this.toggleAll.get('checked'),
 				self = this;
 
 			this.listNode.all('li').each(function(liNode) {
@@ -95,13 +91,13 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 				liNode.one('.toggle').set('checked', allCompleted);
 			});
 
-			this.mp.invoke('operate', {
+			this.mp.invoke('batchMark', {
 				'params': {
-					'body': { 'op': 'batchMark', 'data': allCompleted }
+					'body': { 'complete': allCompleted }
 				}
 			}, function(err, response) {
 				if(err) {
-					alert('Error updating: ' + err);
+					Y.log('Error updating: ' + err, 'warn', NAME);
 				} else {
 					self.resync();
 				}
@@ -115,13 +111,12 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 				id = li.get('id'),
 				self = this;
 
-			this.mp.invoke('operate', { 'params': {
-				'body': { 'op': 'toggle', 'data': id }
+			this.mp.invoke('toggle', { 'params': {
+				'body': { 'id': id }
 			}}, function(err, response) {
 				if(err) {
-					alert('Error: ' + err);
+					Y.log('Error: ' + err, 'warn', NAME);
 				} else {
-					//li[complete ? 'addClass' : 'removeClass']('completed');
 					self.resync();
 				}
 			});
@@ -136,7 +131,6 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 		},
 
 		stopEdit: function(e) {
-			//alert('value: ' + e.currentTarget.get("value"));
 			var input = e.currentTarget,
 				li = input.ancestor('li'),
 				lbl = li.one('label'),
@@ -158,11 +152,11 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 		updateItem: function(id, value, completed) {
 			var self = this,
 				itemObj = { "id": id, "title": value, "completed": completed };
-			this.mp.invoke('operate', {
-				'params': { 'body': { 'op': 'update', 'data': Y.JSON.stringify(itemObj) }}
+			this.mp.invoke('update', {
+				'params': { 'body': { 'data': Y.JSON.stringify(itemObj) }}
 			}, function(err, response) {
 				if(err) {
-					alert('Error while updating: ' + err);
+					Y.log('Error while updating: ' + err, 'warn', NAME);
 				} else {
 					self.resync();
 				}
@@ -175,13 +169,12 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 				itemId = li.get('id'),
 				self = this;
 
-			this.mp.invoke('operate', { 'params':
-				{ 'body': { 'op': 'delete', 'data': itemId }}
+			this.mp.invoke('delete', { 'params':
+				{ 'body': { 'id': itemId }}
 			}, function(err, response) {
 				if(err) {
-					alert('Error while deleting: ' + err);
+					Y.log('Error while deleting: ' + err, 'warn', NAME);
 				} else {
-					//li.get('parentNode').removeChild(li);
 					self.resync();
 				}
 			});
@@ -195,16 +188,15 @@ YUI.add('TodoMojitBinderIndex', function(Y, NAME) {
 				return;
 			}
 
-			this.mp.invoke('operate', {
+			this.mp.invoke('add', {
 				params: {
 					'body': {
-						'op': 'add',
 						'data': Y.JSON.stringify({ 'title': value })
 					}
 				}
 			}, function(err, response) {
 				if(err) {
-					alert('Error occurred: ' + err);
+					Y.log('Error occurred: ' + err, 'warn', NAME);
 				} else {
 					self.inputNode.set('value', '');
 					self.resync();
