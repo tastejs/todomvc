@@ -11,6 +11,9 @@
 	"engines": {
 		"node": ">=0.6.0"
 	},
+	"scripts": {
+		"start": "node app.js"
+	},
 	"dependencies": {
 		"socketstream": "0.3.x",
 		"ss-stylus": "0.1.x",

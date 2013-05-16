@@ -1,13 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framework="backbonejs">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Backbone.js • TodoMVC</title>
-	<link rel="stylesheet" href="../../../assets/base.css">
-	<!--[if IE]>
-	<script src="../../assets/ie.js"></script>
-	<![endif]-->
+	<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 </head>
 <body>
 	<section id="todoapp">
@@ -22,14 +19,14 @@
 		</section>
 		<footer id="footer"></footer>
 	</section>
-	<div id="info">
+	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>Written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
 		<p>Adapted for
 			<a href="https://github.com/ggozad/Backbone.xmpp">Backbone.xmpp</a>
 			by <a href="https://github.com/ggozad">Yiorgis Gozadinos</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-	</div>
+	</footer>
 	<script type="text/template" id="item-template">
 		<div class="view">
 			<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
@@ -55,11 +52,11 @@
 		<button id="clear-completed">Clear completed (<%= completed %>)</button>
 		<% } %>
 	</script>
-	<script src="../../../assets/base.js"></script>
-	<script src="../../../assets/jquery.min.js"></script>
-	<script src="../../../assets/lodash.min.js"></script>
-	<script src="../../../architecture-examples/backbone/js/lib/backbone.js"></script>
-	<script src="js/lib/strophe.js"></script>
+	<script src="bower_components/todomvc-common/base.js"></script>
+	<script src="bower_components/jquery/jquery.js"></script>
+	<script src="bower_components/lodash/lodash.js"></script>
+	<script src="bower_components/backbone/backbone.js"></script>
+	<script src="bower_components/Strophe.js/strophe.js"></script>
 	<script src="js/lib/strophe.forms.js"></script>
 	<script src="js/lib/strophe.pubsub.js"></script>
 	<script src="js/lib/backbone.xmpp.storage.js"></script>

@@ -1,8 +1,39 @@
-# TodoMVC Closure Architecture Example
+# Closure Tools TodoMVC Example
 
-## Introduction
+> The Closure Tools project is an effort by Google engineers to open source the tools used in many of Google's sites and web applications for use by the wider Web development community.
 
-An example making use of the [Closure toolkit](https://developers.google.com/closure/). Note this project breaks with the convention of the others and uses spaces in place of tabs within JavaScript files. This is to comply with the Google style guidelines which the Closure Linter enforces (see Linting below).
+> _[Closure Tools - developers.google.com/closure](https://developers.google.com/closure)_
+
+
+## Learning Closure Tools
+
+The [Closure Tools website](https://developers.google.com/closure) is a great resource for getting started.
+
+Here are some links you may find helpful:
+
+* [Documentation](https://developers.google.com/closure/library/docs/overview)
+* [API Reference](http://docs.closure-library.googlecode.com/git/index.html)
+* [Blog](http://closuretools.blogspot.com)
+* [FAQ](https://developers.google.com/closure/faq)
+
+Articles and guides from the community:
+
+* [Examples, walkthroughs, and articles](http://www.googleclosure.com)
+* [First Adventure in Google Closure](http://www.codeproject.com/Articles/265364/First-Adventures-in-Google-Closure)
+
+Get help from other Closure Tools users:
+
+* [Google Groups mailing list](https://groups.google.com/group/closure-library-discuss)
+* [Closure Tools on Twitter](http://twitter.com/closuretools)
+* [Closure Tools on Google +](https://plus.google.com/communities/113969319608324762672)
+
+_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+
+## Implementation
+
+Note this project breaks with the convention of the others and uses spaces in place of tabs within JavaScript files. This is to comply with the Google style guidelines which the Closure Linter enforces (see [Linting](#linting) below).
+
 
 ## Running
 
@@ -29,6 +60,7 @@ The linter must be installed before use, the installation package is included in
 
 (or whatever floats your OSs boat)
 
+
 ## Compiling
 
 To compile the code from the command line run Plovr like so -
@@ -37,14 +69,7 @@ To compile the code from the command line run Plovr like so -
 
 This will overwrite the js/compiled.js file with the new version, be sure to change the script tag reference in the HTML page.
 
+
 ## Credits
 
-Template by [Sindre Sorhus](http://github.com/sindresorhus)
-
-Created by [Chris Price](http://www.scottlogic.co.uk/blog/chris/)
-
-Part of [TodoMVC](http://todomvc.com)
-
-## License
-
-Public Domain
+This TodoMVC application was created by [Chris Price](http://www.scottlogic.co.uk/blog/chris/).

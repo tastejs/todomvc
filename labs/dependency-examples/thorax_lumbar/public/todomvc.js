@@ -167,7 +167,7 @@ $(function() {
 });
 
 ;;
-Thorax.View.extend({
+Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-count\"><strong>{{remaining}}</strong> {{itemText}} left</span>\n<ul id=\"filters\">\n  <li>\n    {{#link \"/\" class=\"selected\"}}All{{/link}}\n  </li>\n  <li>\n    {{#link \"/active\"}}Active{{/link}}\n  </li>\n  <li>\n    {{#link \"/completed\"}}Completed{{/link}}\n  </li>\n</ul>\n{{#if completed}}\n  <button id=\"clear-completed\">Clear completed ({{completed}})</button>\n{{/if}}\n');Thorax.View.extend({
   name: 'stats',
 
   events: {
@@ -217,7 +217,7 @@ Thorax.View.extend({
   }
 });
 ;;
-Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-count\"><strong>{{remaining}}</strong> {{itemText}} left</span>\n<ul id=\"filters\">\n  <li>\n    {{#link \"/\" class=\"selected\"}}All{{/link}}\n  </li>\n  <li>\n    {{#link \"/active\"}}Active{{/link}}\n  </li>\n  <li>\n    {{#link \"/completed\"}}Completed{{/link}}\n  </li>\n</ul>\n{{#if completed}}\n  <button id=\"clear-completed\">Clear completed ({{completed}})</button>\n{{/if}}\n');$(function( $ ) {
+Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoapp\">\n  <header id=\"header\">\n    <h1>todos</h1>\n    <input id=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  {{^empty collection}}\n    <section id=\"main\">\n      <input id=\"toggle-all\" type=\"checkbox\">\n      <label for=\"toggle-all\">Mark all as complete</label>\n      {{#collection item-view=\"todo-item\" tag=\"ul\" id=\"todo-list\"}}\n        <div class=\"view\">\n          <input class=\"toggle\" type=\"checkbox\" {{#if completed}}checked=\"checked\"{{/if}}>\n          <label>{{title}}</label>\n          <button class=\"destroy\"></button>\n        </div>\n        <input class=\"edit\" value=\"{{title}}\">\n      {{/collection}}\n    </section>\n    {{view \"stats\" tag=\"footer\" id=\"footer\"}}\n  {{/empty}}\n</section>\n<div id=\"info\">\n  <p>Double-click to edit a todo</p>\n  <p>Written by <a href=\"https://github.com/addyosmani\">Addy Osmani</a> &amp; <a href=\"https://github.com/eastridge\">Ryan Eastridge</a></p>\n  <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</div>\n');$(function( $ ) {
 	'use strict';
 
 	// The Application
@@ -244,7 +244,9 @@ Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-co
 
 		toggleToggleAllButton: function() {
 			var toggleInput = this.$('#toggle-all')[0];
-			toggleInput && (toggleInput.checked = !this.collection.remaining().length);
+			if (toggleInput) {
+				toggleInput.checked = !this.collection.remaining().length;
+			}
 		},
 
 		// When this function is specified, items will only be shown
@@ -285,7 +287,7 @@ Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-co
 });
 
 ;;
-Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoapp\">\n  <header id=\"header\">\n    <h1>todos</h1>\n    <input id=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  {{^empty collection}}\n    <section id=\"main\">\n      <input id=\"toggle-all\" type=\"checkbox\">\n      <label for=\"toggle-all\">Mark all as complete</label>\n      {{#collection item-view=\"todo-item\" tag=\"ul\" id=\"todo-list\"}}\n        <div class=\"view\">\n          <input class=\"toggle\" type=\"checkbox\" {{#if completed}}checked=\"checked\"{{/if}}>\n          <label>{{title}}</label>\n          <button class=\"destroy\"></button>\n        </div>\n        <input class=\"edit\" value=\"{{title}}\">\n      {{/collection}}\n    </section>\n    {{view \"stats\" tag=\"footer\" id=\"footer\"}}\n  {{/empty}}\n</section>\n<div id=\"info\">\n  <p>Double-click to edit a todo</p>\n  <p>Written by <a href=\"https://github.com/addyosmani\">Addy Osmani</a> &amp; <a href=\"https://github.com/eastridge\">Ryan Eastridge</a></p>\n  <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</div>\n');(function() {
+(function() {
 	'use strict';
 
 	// Todo Router

@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-dermis",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "jquery": "~2.0.0",
+    "requirejs": "~2.1.6"
+  }
+}

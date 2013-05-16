@@ -1,15 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framework="knockoutjs">
 <head>
-  <!-- To move this project from labs to replace in this page "../../../assets" with "../../assets" -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Knockout.js • TodoMVC</title>
-	<link rel="stylesheet" href="../../../assets/base.css">
-	<!--[if IE]>
-	<script src="../../../assets/ie.js"></script>
-	<![endif]-->
-	<script data-main="js/main" src="../../../assets/require.min.js"></script>
+	<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 </head>
 <body>
 	<section id="todoapp">
@@ -41,12 +36,23 @@
 		</footer>
 	</section>
 	<footer id="info">
-		<p>Double-click to edit a todo</p>
-		<p>Original Knockout version from <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a></p>
-		<p>Rewritten to use Knockout 2.0 and standard template by <a href="http://knockmeout.net">Ryan Niemeyer</a></p>
-		<p>Patches/fixes for cross-browser compat: <a href="http://twitter.com/addyosmani">Addy Osmani</a></p>
-		<p>Adapt app with require.js modules: <a href="https://twitter.com/loicknuchel">Loïc Knuchel</a></p>
+		<p>
+			Double-click to edit a todo
+		</p>
+		<p>
+			Original Knockout version from <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a>
+		</p>
+		<p>
+			Rewritten to use Knockout 2.0 and standard template by <a href="http://knockmeout.net">Ryan Niemeyer</a>
+		</p>
+		<p>
+			Patches/fixes for cross-browser compat: <a href="http://twitter.com/addyosmani">Addy Osmani</a>
+		</p>
+		<p>
+			Adapt app with require.js modules: <a href="https://twitter.com/loicknuchel">Loïc Knuchel</a>
+		</p>
 	</footer>
-	<script src="../../../assets/base.js"></script>
+	<script src="bower_components/todomvc-common/base.js"></script>
+	<script data-main="js/main" src="bower_components/requirejs/require.js"></script>
 </body>
 </html>

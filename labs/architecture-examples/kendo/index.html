@@ -1,13 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framework="kendo">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Kendo UI • TodoMVC</title>
-	<link rel="stylesheet" href="../../../assets/base.css">
-	<!--[if IE]>
-	<script src="../../../assets/ie.js"></script>
-	<![endif]-->
+	<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 </head>
 <body>
 	<section id="todoapp">
@@ -60,8 +57,8 @@
 			<input class="edit" data-bind="value: title, events: { change: endEdit, blur: endEdit }, enter: endEdit">
 		</li>
 	</script>
-	<script src="../../../assets/base.js"></script>
-	<script src="../../../assets/jquery.min.js"></script>
+	<script src="bower_components/todomvc-common/base.js"></script>
+	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="js/lib/kendo.web.js"></script>
 	<script src="js/lib/kendo.bindings.custom.js"></script>
 	<script src="js/lib/kendo.data.localstoragedatasource.js"></script>

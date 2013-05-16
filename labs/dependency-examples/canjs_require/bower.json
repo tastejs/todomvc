@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-canjs_require",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "requirejs": "~2.1.6",
+    "CanJS": "~1.1.5"
+  }
+}
