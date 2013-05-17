@@ -38,10 +38,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			count: '#todo-count strong',
-			itemsString: '#todo-count span',
-			filters: '#filters a',
-			clearCompleted: '#clear-completed'
+			filters: '#filters a'
 		},
 
 		events: {
@@ -49,33 +46,32 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		collectionEvents: {
-			'all': 'updateCount'
+			'all': 'render'
+		},
+
+		templateHelpers: {
+			activeCountLabel : function(){
+				return (this.activeCount === 1 ? 'item' : 'items') + ' left';
+			}
 		},
 
 		initialize: function () {
 			this.listenTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
 		},
 
-		onRender: function () {
-			this.updateCount();
+		serializeData : function(){
+			var active = this.collection.getActive().length;
+			var total = this.collection.length;
+
+			return {
+				activeCount : active,
+				totalCount : total,
+				completedCount : total - active
+			};
 		},
 
-		updateCount: function () {
-			var count = this.collection.getActive().length;
-			var length = this.collection.length;
-			var completed = length - count;
-
-			this.ui.count.html(count);
-			this.ui.itemsString.html(' ' + (count === 1 ? 'item' : 'items') + ' left');
-			this.$el.parent().toggle(length > 0);
-
-			if (completed > 0) {
-				this.ui.clearCompleted.show();
-				this.ui.clearCompleted.html('Clear completed (' + completed + ')');
-			} else {
-				this.ui.clearCompleted.hide();
-			}
-
+		onRender: function () {
+			this.$el.parent().toggle(this.collection.length > 0);
 		},
 
 		updateFilterSelection: function (filter) {
