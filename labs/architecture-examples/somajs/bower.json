@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-somajs",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "jquery": "~2.0.0",
+    "handlebars.js": "~1.0.0-rc.3"
+  }
+}

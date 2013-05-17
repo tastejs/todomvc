@@ -1,0 +1,11 @@
+{
+  "name": "todomvc-stapes_require",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "stapes": "0.2.1",
+    "handlebars.js": "~1.0.0-rc.3",
+    "zepto": "~1.0.0",
+    "requirejs": "~2.1.6"
+  }
+}

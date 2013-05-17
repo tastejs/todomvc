@@ -1,8 +1,8 @@
 /*global require*/
 require.config({
 	paths: {
-		jquery: '../../../../assets/jquery.min',
-		can: 'lib/can'
+		jquery: '../bower_components/jquery/jquery',
+		can: '../bower_components/CanJS/amd/can'
 	}
 });
 

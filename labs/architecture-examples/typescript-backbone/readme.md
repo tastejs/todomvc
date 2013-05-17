@@ -1,59 +1,50 @@
-﻿# TypeScript TodoMVC app
+# TypeScript & Backbone.js TodoMVC Example
+
+> TypeScript is a language for application-scale JavaScript development. TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. Any browser. Any host. Any OS. Open Source.
+
+> _[TypeScript - typescriptlang.org](http://typescriptlang.org)_
 
 
-## Overview
+## Learning TypeScript
 
-TypeScript integration points are highlighted:
-- Backbone.js: Using TypeScript classes to create Backbone models and views
-- jQuery: Using jQuery for all DOM manipulation
+The [TypeScript website](http://typescriptlang.org) is a great resource for getting started.
+
+Here are some links you may find helpful:
+
+* [Tutorial](http://www.typescriptlang.org/Tutorial)
+* [Code Playground](http://www.typescriptlang.org/Playground)
+* [Documentation](http://typescript.codeplex.com/documentation)
+* [Applications built with TypeScript](http://www.typescriptlang.org/Samples)
+* [Blog](http://blogs.msdn.com/b/typescript)
+* [Source Code](http://typescript.codeplex.com/sourcecontrol/latest#README.txt)
+
+Articles and guides from the community:
+
+* [Thoughts on TypeScript](http://www.nczonline.net/blog/2012/10/04/thoughts-on-typescript)
+* [ScreenCast - Why I Like TypeScript](http://www.leebrimelow.com/why-i-like-typescripts)
+
+Get help from other TypeScript users:
+
+* [TypeScript on StackOverflow](http://stackoverflow.com/questions/tagged/typescript)
+* [Forums](http://typescript.codeplex.com/discussions)
+* [TypeScript on Twitter](http://twitter.com/typescriptlang)
+
+_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+
+## Implementation
+
+This application uses TypeScript classes to create Backbone.js models and views, and jQuery for all DOM manipulation.
 
 
 ## Running
-```shell
-tsc js\app.ts
-open index.html
-```
 
-## Caveats
+A standalone TypeScript compiler is available on NPM.
 
-This sample uses localStorage and will not run properly on Internet Explore if run from the local filesystem. Instead, run the app from a web server.
+	npm install -g typescript
 
+To compile the TypeScript in this project:
 
-## License
-
-Microsoft grants you the right to use these script files under the Apache 2.0 license. 
-Microsoft reserves all other rights to the files not expressly granted by Microsoft, 
-whether by implication, estoppel or otherwise. The copyright notices and MIT licenses 
-below are for informational purposes only.
-
-Portions Copyright © Microsoft Corporation
-Apache 2.0 License
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
-file except in compliance with the License. You may obtain a copy of the License at
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under 
-the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
-ANY KIND, either express or implied.
-
-See the License for the specific language governing permissions and limitations 
-under the License.
-------------------------------------------------------------------------------------------
-Provided for Informational Purposes Only
-MIT License
-Permission is hereby granted, free of charge, to any person obtaining a copy of this 
-software and associated documentation files (the "Software"), to deal in the Software 
-without restriction, including without limitation the rights to use, copy, modify, merge, 
-publish, distribute, sublicense, and/or sell copies of the Software, and to permit 
-persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies 
-or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
-PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
-OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-DEALINGS IN THE SOFTWARE.
+	# from labs/architecture-examples/typescript-backbone
+	tsc js/app.ts
+	open index.html

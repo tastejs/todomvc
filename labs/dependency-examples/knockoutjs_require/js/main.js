@@ -3,9 +3,8 @@
 // Require.js allows us to configure shortcut alias
 require.config({
   paths: {
-    knockout: 'libs/knockout-2.1.0'
+    knockout: '../bower_components/knockout.js/knockout'
   }
-
 });
 
 require([

@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framework="stapes">
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Stapes.js • TodoMVC</title>
-	<link rel="stylesheet" href="../../../assets/base.css">
+	<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 </head>
 <body>
 	<section id="todoapp">
@@ -50,10 +51,9 @@
 		{{/todos}}
 	</script>
 
-	<script src="../../../assets/handlebars.min.js"></script>
-	<script src="js/lib/stapes.js"></script>
-	<script src="js/lib/zepto.js"></script>
-
-	<script src="js/lib/require.js" data-main="js/app"></script>
+	<script src="bower_components/todomvc-common/base.js"></script>
+	<script src="bower_components/handlebars.js/handlebars.js"></script>
+	<script src="bower_components/zepto/zepto.js"></script>
+	<script src="bower_components/requirejs/require.js" data-main="js/app"></script>
 </body>
 </html>

@@ -1,13 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framework="epitome">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Epitome • TodoMVC</title>
-	<link rel="stylesheet" href="../../../assets/base.css">
-	<!--[if IE]>
-	<script src="../../../assets/ie.js"></script>
-	<![endif]-->
+	<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 </head>
 <body>
 	<section id="todoapp">
@@ -25,16 +22,16 @@
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="https://github.com/DimitarChristoff/">Dimitar Christoff</a></p>
-        <p>Powered by <a href="http://dimitarchristoff.github.com/Epitome">Epitome for MooTools</a></p>
+    <p>Powered by <a href="http://dimitarchristoff.github.com/Epitome">Epitome for MooTools</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
 	<script type="text/template" id="item-template">
 		<div class="view">
-            <input class="toggle" type="checkbox" <%=completedCheckbox%>>
+      <input class="toggle" type="checkbox" <%=completedCheckbox%>>
 			<label><%-title%></label>
 			<button class="destroy"></button>
 		</div>
-        <input class="edit" value="<%=title%>">
+    <input class="edit" value="<%=title%>">
 	</script>
 	<script type="text/template" id="stats-template">
 		<span id="todo-count"><strong><%=remaining%></strong> item<% if (obj.remaining !== 1) { %>s<% } %> left</span>
@@ -53,11 +50,11 @@
 		<button id="clear-completed">Clear completed (<%=completed%>)</button>
 		<% } %>
 	</script>
-	<script src="../../../assets/base.js"></script>
+	<script src="bower_components/todomvc-common/base.js"></script>
 	<!-- mootools -->
 	<script src="js/lib/mootools-yui-compressed.js"></script>
 	<!-- epitome pre-compiled -->
-	<script src="js/lib/Epitome-min.js"></script>
+	<script src="bower_components/epitome/Epitome-min.js"></script>
 	<!-- todo app -->
 	<script src="js/models/todo-model.js"></script>
 	<script src="js/collections/todo-collection.js"></script>

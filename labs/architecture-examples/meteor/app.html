@@ -1,10 +1,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Meteor • TodoMVC</title>
+	<title>Meteor • TodoMVC</title>
 </head>
 <body>
-	<section id="todoapp">
+	<section id="todoapp" data-framework="meteor">
 		{{> todoapp}}
 	</section>
 	<footer id="info">
@@ -50,7 +50,7 @@
 
 <template name="footer">
 	<footer id="footer">
-		<span id="todo-count"><strong>{{todos_not_completed}}</strong> 
+		<span id="todo-count"><strong>{{todos_not_completed}}</strong>
 			{{#if todos_one_not_completed}}item{{else}}items{{/if}} left</span>
 		<ul id="filters">
 					{{#each filters}}

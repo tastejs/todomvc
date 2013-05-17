@@ -1,12 +1,10 @@
-
-
 ({
   baseUrl: "js/",
   mainConfigFile: 'js/main.js',
   out: "js/main.built.js",
   include : 'main',
 
-  optimize: "uglify",
+  optimize: 'uglify',
 
   uglify: {
     toplevel: true,

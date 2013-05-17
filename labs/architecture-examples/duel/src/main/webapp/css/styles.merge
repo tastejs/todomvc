@@ -1,5 +1,2 @@
-# template styles
-/css/base.css
-
-# app overrides (not used)
-#/css/app.css
+# todomvc base file
+/bower_components/todomvc-common/base.css

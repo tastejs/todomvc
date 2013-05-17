@@ -1,9 +1,9 @@
 require.config({
   paths : {
-    underscore : 'lib/underscore',
+    underscore : '../bower_components/underscore/underscore',
     backbone   : 'lib/backbone',
     marionette : 'lib/backbone.marionette',
-    jquery     : '../../../../assets/jquery.min',
+    jquery     : '../bower_components/jquery/jquery',
     tpl        : 'lib/tpl'
   },
   shim : {

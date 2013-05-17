@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-knockoutjs_classBindingProvider",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "knockout.js": "~2.2.0rc",
+    "director": "~1.2.0"
+  }
+}
