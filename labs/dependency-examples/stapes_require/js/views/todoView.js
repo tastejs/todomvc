@@ -1,5 +1,5 @@
 'use strict';
-define(['lib/stapes'], function(Stapes) {
+define(['Stapes'], function(Stapes) {
 	var todoView = Stapes.create(),
 		todoTmpl,
 		ENTER_KEY_KEYCODE = 13;

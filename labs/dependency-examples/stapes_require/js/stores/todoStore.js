@@ -1,5 +1,5 @@
 'use strict';
-define(['lib/stapes'], function(Stapes) {
+define(['Stapes'], function(Stapes) {
 	return Stapes.create().extend({
 		'init': function() {
 			if (!'localStorage' in window) return;

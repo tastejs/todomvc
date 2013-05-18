@@ -1,6 +1,6 @@
 'use strict';
 define(
-['lib/stapes', 'models/todoModel', 'views/todoView', 'stores/todoStore'],
+['Stapes', 'models/todoModel', 'views/todoView', 'stores/todoStore'],
 function(Stapes, TodoModel, TodoView, TodoStore) {
 	return Stapes.create().extend({
 		'bindEventHandlers': function() {

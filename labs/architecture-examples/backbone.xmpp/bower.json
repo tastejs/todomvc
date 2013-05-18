@@ -1,0 +1,11 @@
+{
+  "name": "backbone.xmpp",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "jquery": "~2.0.0",
+    "lodash": "~1.2.1",
+    "backbone": "~1.0.0",
+    "Strophe.js": "~1.0.2"
+  }
+}
