@@ -1,10 +1,32 @@
-# cujoJS TodoMVC
+# cujoJS TodoMVC Example
 
-[cujoJS](http://cujojs.com) is an *architectural framework* for building highly modular, scalable, maintainable applications in Javascript.  It provides architectural plumbing, such as modules (AMD and CommonJS), declarative application composition, declarative connections, and aspect oriented programming.
+> cujo is an architectural toolkit for next generation JavaScript applications. It encourages highly modular development, declarative application assembly, and embraces the asynchronous nature of JavaScript and its fusion of object-oriented and functional programming styles.
 
-It is not a typical MV\* framework, although it does provide MV\* building blocks, such as templating and data binding.
+> _[cujoJS - cujojs.com](http://cujojs.com)_
 
-## Highlights:
+
+## Learning cujoJS
+
+The [cujoJS website](http://cujojs.com) is a great resource for getting started.
+
+Here are some links you may find helpful:
+
+* [know cujoJS](http://know.cujojs.com/)
+* [cujoJS on GitHub](https://github.com/cujojs)
+
+Articles and guides from the community:
+
+* [An introductory presentation](http://www.youtube.com/watch?v=TqX-CqYYwEc)
+
+Get help from other cujoJS users:
+
+* [Google Groups mailing list](https://groups.google.com/forum/#!forum/cujojs)
+* [cujoJS on Twitter](http://twitter.com/cujojs)
+
+_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+
+## Implementation
 
 Some things we feel are interesting about cujoJS's TodoMVC as compared to other implementations:
 
