@@ -10,6 +10,7 @@
 
 - Updates since 1.1:
     - Backbone 1.0
+    - cujoJS got updated
     - Kendo UI Spring 2013 release
     - Maria graduated from labs
 
