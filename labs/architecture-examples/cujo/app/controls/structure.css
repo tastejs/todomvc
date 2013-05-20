@@ -21,21 +21,21 @@
 }
 
 .completed-zero #clear-completed {
-  opacity: 0;
+	opacity: 0;
 }
 
 .todos-one #main,
 .todos-many #main,
 .todos-one #footer,
 .todos-many #footer {
-  display: block;
+	display: block;
 }
 
 #main,
 #footer,
 .todos-zero #main,
 .todos-zero #footer {
-  display: none;
+	display: none;
 }
 
 /* TODO: Reinstate once we add routing */
