@@ -1,0 +1,8 @@
+{
+  "name": "when",
+  "version": "2.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cujojs/when.git"
+  }
+}

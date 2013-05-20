@@ -1,12 +1,12 @@
-# Cujojs TodoMVC
+# cujoJS TodoMVC
 
-[Cujojs](http://cujojs.com) is an *architectural framework* for building highly modular, scalable, maintainable applications in Javascript.  It provides architectural plumbing, such as modules (AMD and CommonJS), declarative application composition, declarative connections, and aspect oriented programming.
+[cujoJS](http://cujojs.com) is an *architectural framework* for building highly modular, scalable, maintainable applications in Javascript.  It provides architectural plumbing, such as modules (AMD and CommonJS), declarative application composition, declarative connections, and aspect oriented programming.
 
 It is not a typical MV\* framework, although it does provide MV\* building blocks, such as templating and data binding.
 
 ## Highlights:
 
-Some things we feel are interesting about cujojs's TodoMVC as compared to other implementations:
+Some things we feel are interesting about cujoJS's TodoMVC as compared to other implementations:
 
 * Application composition is separate from application logic
 * Code is *highly* modular and organized into components, each consisting of

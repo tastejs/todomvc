@@ -1,0 +1,15 @@
+node_modules/
+experiments/
+.npmignore
+experiments/
+*~
+.idea/
+tools/
+curl/
+test/lib
+!test/dojo
+!wire/dojo
+dijit/
+dojo.js
+bin/
+jquery.js

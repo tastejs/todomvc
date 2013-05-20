@@ -1,12 +1,12 @@
 {
-  "name": "todomvc-cujo",
+  "name": "todomvc-cujoJS",
   "version": "0.0.0",
   "dependencies": {
     "todomvc-common": "~0.1.4",
     "curl": "~0.7.3",
     "cola": "latest",
     "poly": "~0.5.1",
-    "when": "~2.0.1",
+    "when": "~2.1.0",
     "wire": "~0.9.4",
     "meld": "~1.3.0"
   }

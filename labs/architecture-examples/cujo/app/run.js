@@ -2,21 +2,20 @@
 (function (curl) {
 	'use strict';
 
-	var config = {
-		baseUrl: 'app',
-		paths: {
-			theme: '../theme',
-			curl: '../lib/curl/src/curl'
-		},
-		pluginPath: 'curl/plugin',
+	curl({
+		main: 'wire!app/main',
 		packages: [
-			{ name: 'wire', location: '../lib/wire', main: 'wire' },
-			{ name: 'when', location: '../lib/when', main: 'when' },
-			{ name: 'aop',  location: '../lib/aop',  main: 'aop' },
-			{ name: 'cola', location: '../lib/cola', main: 'cola' },
-			{ name: 'poly', location: '../lib/poly', main: 'poly' }
-		]
-	};
+			{ name: 'curl', location: 'bower_components/curl/src/curl' },
+			{ name: 'wire', location: 'bower_components/wire', main: 'wire' },
+			{ name: 'when', location: 'bower_components/when', main: 'when' },
+			{ name: 'meld', location: 'bower_components/meld', main: 'meld' },
+			{ name: 'cola', location: 'bower_components/cola', main: 'cola' },
+			{ name: 'poly', location: 'bower_components/poly', main: 'poly' }
+		],
+		preloads: ['poly/string', 'poly/array'],
+		// Turn off i18n locale sniffing. Change or remove this line if you want to
+		// test specific locales or try automatic locale-sniffing.
+		locale: false
+	});
 
-	curl(config, ['poly/string', 'poly/array']).next(['wire!main']);
 })(curl);

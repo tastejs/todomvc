@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - 0.8
+script: npm run-script ci
+branches:
+  only:
+    - dev
+    - master
+env:
+  global:
+    - SELENIUM_USERNAME="cujojs-when"
+    - secure: "Vja3i39gQE7KnDMbIvblwJAfQK5ydeA6NKsAULQ//nvuV9muNeKgIxIMMPDw\nttjS6CY75how9tt87WSJQur/8PaSx+dj6RPvok4sf8DWgMMz97oI8e2l72wI\nIiHK1+btvI4/KG3QHLGCOJ8IxJA3Oluzo6ZDvRKXAvJoIrjmJjY="
