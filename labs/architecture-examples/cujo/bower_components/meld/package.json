@@ -1,0 +1,54 @@
+{
+	"name": "meld",
+	"version": "1.3.0",
+	"description": "AOP for JS with before, around, on, afterReturning, afterThrowing, after advice, and pointcut support",
+	"keywords": ["aop", "aspect", "cujo"],
+	"homepage": "http://cujojs.com",
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/cujojs/meld"
+		}
+	],
+	"bugs": "https://github.com/cujojs/meld/issues",
+	"maintainers": [
+		{
+			"name": "Brian Cavalier",
+			"web": "http://hovercraftstudios.com"
+		},
+		{
+			"name": "John Hann",
+			"web": "http://unscriptable.com"
+		}
+	],
+	"contributors": [
+		{
+			"name": "Brian Cavalier",
+			"web": "http://hovercraftstudios.com"
+		},
+		{
+			"name": "John Hann",
+			"web": "http://unscriptable.com"
+		},
+		{
+			"name": "Scott Andrews"
+		}
+	],
+	"devDependencies": {
+		"buster": "~0.6",
+		"jshint": "~1"
+	},
+	"main": "meld",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "jshint . && buster test -e node"
+	}
+}
