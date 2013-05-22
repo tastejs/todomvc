@@ -173,7 +173,7 @@
 		aside.className = 'learn';
 
 		document.body.className = (document.body.className + ' learn-bar').trim();
-		document.body.insertAdjacentElement('afterBegin', aside);
+		document.body.insertAdjacentHTML('afterBegin', aside.outerHTML);
 	};
 
 	appendSourceLink();
