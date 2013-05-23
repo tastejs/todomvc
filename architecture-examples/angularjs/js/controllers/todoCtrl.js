@@ -13,7 +13,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 	$scope.editedTodo = null;
 
 	$scope.$watch('todos', function () {
-		$scope.remainingCount = filterFilter(todos, {completed: false}).length;
+		$scope.remainingCount = filterFilter(todos, { completed: false }).length;
 		$scope.completedCount = todos.length - $scope.remainingCount;
 		$scope.allChecked = !$scope.remainingCount;
 		todoStorage.put(todos);
@@ -32,12 +32,13 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 	});
 
 	$scope.addTodo = function () {
-		if (!$scope.newTodo.length) {
+		var newTodo = $scope.newTodo.trim();
+		if (!newTodo.length) {
 			return;
 		}
 
 		todos.push({
-			title: $scope.newTodo,
+			title: newTodo,
 			completed: false
 		});
 
@@ -50,6 +51,8 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 
 	$scope.doneEditing = function (todo) {
 		$scope.editedTodo = null;
+		todo.title = todo.title.trim();
+
 		if (!todo.title) {
 			$scope.removeTodo(todo);
 		}
