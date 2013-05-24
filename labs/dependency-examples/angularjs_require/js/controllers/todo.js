@@ -16,7 +16,7 @@ define(['app', 'services/todoStorage'], function (app) {
 			$scope.editedTodo = null;
 
 			$scope.$watch('todos', function () {
-				$scope.remainingCount = filterFilter(todos, {completed: false}).length;
+				$scope.remainingCount = filterFilter(todos, { completed: false }).length;
 				$scope.doneCount = todos.length - $scope.remainingCount;
 				$scope.allChecked = !$scope.remainingCount;
 				todoStorage.put(todos);
@@ -36,12 +36,13 @@ define(['app', 'services/todoStorage'], function (app) {
 
 
 			$scope.addTodo = function () {
-				if (!$scope.newTodo.length) {
+				var newTodo = $scope.newTodo.trim();
+				if (!newTodo.length) {
 					return;
 				}
 
 				todos.push({
-					title: $scope.newTodo,
+					title: newTodo,
 					completed: false
 				});
 
@@ -56,6 +57,8 @@ define(['app', 'services/todoStorage'], function (app) {
 
 			$scope.doneEditing = function (todo) {
 				$scope.editedTodo = null;
+				todo.title = todo.title.trim();
+
 				if (!todo.title) {
 					$scope.removeTodo(todo);
 				}
