@@ -108,6 +108,11 @@ Sindre is a Web Developer who drives core development, quality control and appli
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
 Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
 
+#### [Stephen Sawchuk](https://github.com/stephenplusplus) - Developer
+
+<img align="left" width="40" height="40" src="https://secure.gravatar.com/avatar/098cfe2d360e77c3229f2cd5298354c4?s=40">
+Stephen is a Front-end Engineer at Quicken Loans that cares about improving the maintainability and developer experience of open-source projects. His recent contributions include helping us move all apps over to using Bower and implementing the new information bar.
+
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/4b0209ae3652cc5a7d53545e759fbe39.png?s=40">
