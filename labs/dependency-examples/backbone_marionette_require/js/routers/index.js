@@ -1,10 +1,13 @@
-define(['marionette'],function(marionette) {
-  'use strict';
+/*global define */
 
-  return marionette.AppRouter.extend({
-    appRoutes:{
-      '*filter': 'setFilter'
-    }
-  });
+define([
+	'marionette'
+], function (Marionette) {
+	'use strict';
 
+	return Marionette.AppRouter.extend({
+		appRoutes: {
+			'*filter': 'setFilter'
+		}
+	});
 });
