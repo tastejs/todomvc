@@ -1694,11 +1694,14 @@
 		"homepage": "troopjs.com",
 		"examples": [{
 			"name": "Dependency Example",
-			"url": "labs/dependency-examples/troopjs"
+			"url": "labs/dependency-examples/troopjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
+				"name": "TODOs Application (latest)",
+				"url": "https://github.com/troopjs/troopjs-todos"
+			}, {
 				"name": "TroopJS on GitHub",
 				"url": "https://github.com/troopjs"
 			}]
