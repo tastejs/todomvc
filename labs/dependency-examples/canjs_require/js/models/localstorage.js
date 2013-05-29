@@ -1,17 +1,23 @@
-/*global define*/
-define(['can/util/library', 'can/model'], function (can, Model) {
+/*global define, window */
+/*jshint newcap:false */
+define([
+	'can/util/library',
+	'can/model'
+], function (can, Model) {
 	'use strict';
 
 	var LocalStorage = Model({
 		// Implement local storage handling
 		localStore: function (cb) {
-			var name = this.name,
-				data = JSON.parse(window.localStorage[name] || (window.localStorage[name] = '[]')),
-				res = cb.call(this, data);
+			var name = this.name;
+			var data = JSON.parse(window.localStorage[name] || (window.localStorage[name] = '[]'));
+			var res = cb.call(this, data);
+
 			if (res !== false) {
 				can.each(data, function (todo) {
 					delete todo.editing;
 				});
+
 				window.localStorage[name] = JSON.stringify(data);
 			}
 		},
@@ -19,8 +25,8 @@ define(['can/util/library', 'can/model'], function (can, Model) {
 		findAll: function () {
 			var def = new can.Deferred();
 			this.localStore(function (todos) {
-				var instances = [],
-					self = this;
+				var instances = [];
+				var self = this;
 				can.each(todos, function (todo) {
 					instances.push(new self(todo));
 				});
@@ -54,7 +60,8 @@ define(['can/util/library', 'can/model'], function (can, Model) {
 		},
 
 		update: function (id, attrs) {
-			var def = new can.Deferred(), todo;
+			var def = new can.Deferred();
+			var todo;
 			this.localStore(function (todos) {
 				for (var i = 0; i < todos.length; i++) {
 					if (todos[i].id === id) {
@@ -70,5 +77,4 @@ define(['can/util/library', 'can/model'], function (can, Model) {
 	}, {});
 
 	return LocalStorage;
-
 });

@@ -1,5 +1,10 @@
-/*global define*/
-define(['can/util/library', 'can/observe', 'app/models/localstorage'], function (can, Observe, LocalStorage) {
+/*global define */
+/*jshint newcap:false */
+define([
+	'can/util/library',
+	'can/observe',
+	'models/localstorage'
+], function (can, Observe, LocalStorage) {
 	'use strict';
 
 	// Basic Todo entry model
@@ -37,10 +42,10 @@ define(['can/util/library', 'can/observe', 'app/models/localstorage'], function 
 
 		// Returns a new can.Observe.List that contains only the Todos
 		// matching the current filter
-		byFilter: function(filter) {
+		byFilter: function (filter) {
 			var filtered = new Observe.List();
-			can.each(this, function(todo) {
-				if(todo.matches(filter)) {
+			can.each(this, function (todo) {
+				if (todo.matches(filter)) {
 					filtered.push(todo);
 				}
 			});
@@ -48,7 +53,7 @@ define(['can/util/library', 'can/observe', 'app/models/localstorage'], function 
 		},
 
 		// Returns the list to display based on the currently set `filter`
-		displayList: function() {
+		displayList: function () {
 			return this.byFilter(this.attr('filter'));
 		}
 	});
