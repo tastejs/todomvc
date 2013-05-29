@@ -1,5 +1,9 @@
-/*global define*/
-define(['can/util/library', 'can/control'], function (can, Control) {
+/*global define, window */
+/*jshint newcap:false */
+define([
+	'can/util/library',
+	'can/control'
+], function (can, Control) {
 	'use strict';
 
 	var ENTER_KEY = 13;
@@ -26,8 +30,8 @@ define(['can/util/library', 'can/control'], function (can, Control) {
 					text: value,
 					complete: false
 				}).save(function () {
-						el.val('');
-					});
+					el.val('');
+				});
 			}
 		},
 
