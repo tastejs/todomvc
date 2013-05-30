@@ -45,10 +45,7 @@
 				App.router.showActiveFilter();
 			};
 
-			this.addEvents({
-				'add:collection': proxy,
-				'change:collection': proxy
-			});
+			this.on('add:collection change:collection', proxy);
 		}
 	});
 
