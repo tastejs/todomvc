@@ -1443,6 +1443,31 @@
 			}]
 		}]
 	},
+	"react": {
+		"name": "React",
+		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
+		"homepage": "facebook.github.io/react",
+		"examples": [{
+			"name": "Architecture Examples",
+			"url": "labs/architecture-examples/react"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Tutorial",
+				"url": "http://facebook.github.io/react/docs/tutorial.html"
+			}, {
+				"name": "Philosophy",
+				"url": "http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood"
+			}, {
+				"name": "Common Questions",
+				"url": "http://facebook.github.io/react/docs/common-questions.html"
+			}, {
+				"name": "Support",
+				"url": "http://facebook.github.io/react/support.html"
+			}]
+		}]
+	},
 	"sammyjs": {
 		"name": "Sammy.js",
 		"description": "A small web framework with class.",
