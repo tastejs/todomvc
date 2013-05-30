@@ -13,6 +13,7 @@
     - cujoJS got updated
     - Kendo UI Spring 2013 release
     - Maria graduated from labs
+    - TroopJS 2.0
 
 - The GWT example implemented routing
 - The sammy.js example implemented routing
