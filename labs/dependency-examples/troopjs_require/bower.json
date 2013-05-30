@@ -1,0 +1,11 @@
+{
+	"name" : "todomvc-troopjs",
+	"version" : "2.0.0-SNAPSHOT",
+	"main" : "index.html",
+	"dependencies" : {
+		"todomvc-common" : "*",
+		"requirejs" : "~2.1",
+		"jquery" : "~2.0",
+		"troopjs-bundle" : "https://github.com/troopjs/troopjs-bundle/archive/build/2.x.zip"
+	}
+}
