@@ -2,7 +2,7 @@
   "name": "todomvc-epitome",
   "version": "0.0.0",
   "dependencies": {
-    "epitome": "0.2.2",
+    "epitome": "0.3.1",
     "todomvc-common": "~0.1.6"
   }
 }
