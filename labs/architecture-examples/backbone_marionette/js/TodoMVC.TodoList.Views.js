@@ -94,7 +94,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		},
 
 		collectionEvents: {
-			'all' : 'update'
+			'all': 'update'
 		},
 
 		onRender: function () {

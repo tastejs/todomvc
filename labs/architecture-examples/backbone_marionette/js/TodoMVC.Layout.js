@@ -50,7 +50,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		templateHelpers: {
-			activeCountLabel : function(){
+			activeCountLabel: function () {
 				return (this.activeCount === 1 ? 'item' : 'items') + ' left';
 			}
 		},
@@ -59,25 +59,26 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 			this.listenTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
 		},
 
-		serializeData : function(){
+		serializeData: function () {
 			var active = this.collection.getActive().length;
 			var total = this.collection.length;
 
 			return {
-				activeCount : active,
-				totalCount : total,
-				completedCount : total - active
+				activeCount: active,
+				totalCount: total,
+				completedCount: total - active
 			};
 		},
 
 		onRender: function () {
 			this.$el.parent().toggle(this.collection.length > 0);
+			this.updateFilterSelection();
 		},
 
-		updateFilterSelection: function (filter) {
+		updateFilterSelection: function () {
 			this.ui.filters
 				.removeClass('selected')
-				.filter('[href="#' + filter + '"]')
+				.filter('[href="' + (location.hash || '#') + '"]')
 				.addClass('selected');
 		},
 
