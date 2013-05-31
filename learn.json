@@ -1556,6 +1556,9 @@
 		"examples": [{
 			"name": "Architecture Example",
 			"url": "labs/architecture-examples/somajs"
+		}, {
+			"name": "Dependency Example",
+			"url": "labs/dependency-examples/somajs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
