@@ -44,5 +44,5 @@ var app = app || {};
 	});
 
 	// Create our global collection of **Todos**.
-	app.Todos = new TodoList();
+	app.todos = new TodoList();
 })();
