@@ -30,19 +30,31 @@ maria.SetModel.subclass(checkit, 'TodosModel', {
 		},
 
 		getCompleted: function () {
-			return this.filter(function (todo) {
-				return todo.isCompleted();
+			var completeTodos = [];
+			this.forEach(function (todo) {
+				if (todo.isCompleted()) {
+					completeTodos.push(todo);
+				}
 			});
+			return completeTodos;
 		},
 
 		getIncompleted: function () {
-			return this.filter(function (todo) {
-				return !todo.isCompleted();
+			var incompleteTodos = [];
+			this.forEach(function (todo) {
+				if (!todo.isCompleted()) {
+					incompleteTodos.push(todo);
+				}
 			});
+			return incompleteTodos;
 		},
 
 		isAllCompleted: function () {
-			return (this.length > 0) && (this.getCompleted().length === this.length);
+			return (this.size > 0) && (this.getCompleted().length === this.size);
+		},
+
+		isEmpty: function () {
+			return this.size === 0;
 		},
 
 		markAllCompleted: function () {
@@ -62,9 +74,11 @@ maria.SetModel.subclass(checkit, 'TodosModel', {
 		},
 
 		toJSON: function () {
-			return this.map(function (todo) {
-				return todo.toJSON();
+			var todoJSON = [];
+			this.forEach(function (todo) {
+				todoJSON.push(todo.toJSON());
 			});
+			return todoJSON;
 		}
 	}
 });

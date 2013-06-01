@@ -1,6 +1,7 @@
+var maria = (function() { // IIFE
 /*
-Evento version 0 - JavaScript libraries for working with the observer pattern
-Copyright (c) 2012, Peter Michaux
+Evento version 1
+Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/evento/blob/master/LICENSE
@@ -172,7 +173,7 @@ Call `evt.stopPropagation()` to stop bubbling to parents.
 
 */
     evento.EventTarget.prototype.dispatchEvent = function(evt) {
-        // Want to ensure we don't alter the evt object passed in as it
+        // Want to ensure we don't alter the evt object passed in as it 
         // may be a bubbling event. So clone it and then setting currentTarget
         // won't break some event that is already being dispatched.
         evt = create(evt);
@@ -190,9 +191,9 @@ Call `evt.stopPropagation()` to stop bubbling to parents.
             //
             // Without making a copy, one listener removing
             // an already-called listener would result in skipping
-            // a not-yet-called listener. One listener removing
+            // a not-yet-called listener. One listener removing 
             // a not-yet-called listener would result in skipping that
-            // not-yet-called listner. The worst case scenario
+            // not-yet-called listner. The worst case scenario 
             // is a listener removing and adding itself again which would
             // create an infinite loop.
             //
@@ -267,7 +268,7 @@ Example 2
                 (typeof pt[p] === 'function')) {
                 obj[p] = pt[p];
             }
-        }
+        } 
         evento.EventTarget.call(obj);
     };
 
@@ -357,7 +358,7 @@ MVC application this can lead to "zombie views" if the model data cannot be
 garbage collected. Event listeners need to be removed from event targets in browsers
 with circular reference memory leak problems (i.e. old versions of Internet Explorer.)
 
-The primary motivation for this `purge` function is to ease cleanup in MVC View destroy
+The primary motivation for this `purge` function is to ease cleanup in MVC View destroy 
 methods. For example,
 
     var APP_BoxView = function(model, controller) {
@@ -456,13 +457,13 @@ methods. For example,
             if (indexOfBundle(listener._evento_bundles, bundle) >= 0) {
                 // do not add the same listener twice
                 return;
-            }
+            }            
         }
         else {
             listener._evento_bundles = [];
         }
         if (typeof bundle.element.addEventListener === 'function') {
-            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false);
+            bundle.element.addEventListener(bundle.type, bundle.wrappedHandler, false); 
         }
         else if ((typeof bundle.element.attachEvent === 'object') &&
                  (bundle.element.attachEvent !== null)) {
@@ -481,14 +482,14 @@ methods. For example,
                 var bundle = listener._evento_bundles[i];
                 if (typeof bundle.element.removeEventListener === 'function') {
                     bundle.element.removeEventListener(bundle.type, bundle.wrappedHandler, false);
-                }
+                } 
                 else if ((typeof bundle.element.detachEvent === 'object') &&
                          (bundle.element.detachEvent !== null)) {
                     bundle.element.detachEvent('on'+bundle.type, bundle.wrappedHandler);
-                }
+                } 
                 else {
                     throw new Error('evento.off: Supported EventTarget interface not found.');
-                }
+                } 
                 listener._evento_bundles.splice(i, 1);
             }
         }
@@ -511,7 +512,7 @@ methods. For example,
 
 }());
 /*
-Hijos version 3
+Hijos version 1.0.3
 Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
@@ -759,6 +760,11 @@ hijos.Node.prototype.insertBefore = function(newChild, oldChild) {
         }
         node = node.parentNode;
     }
+    // remove from previous composite
+    var parent = newChild.parentNode;
+    if (parent) {
+        parent.removeChild(newChild);
+    }
     // continue with insertion
     var children = this.childNodes;
     // find index for newChild
@@ -777,11 +783,6 @@ hijos.Node.prototype.insertBefore = function(newChild, oldChild) {
         if (typeof indexForNewChild !== 'number') {
             throw new Error('hijos.Node.prototype.insertBefore: Node was not found.');
         }
-    }
-    // remove from previous composite
-    var parent = newChild.parentNode;
-    if (parent) {
-        parent.removeChild(newChild);
     }
     // add to this composite
     children.splice(indexForNewChild, 0, newChild);
@@ -1018,7 +1019,7 @@ don't want to have a loop of thousands with calls to this function.
         // IE will trim when setting innerHTML so unify for all browsers
         html = trim(html);
         var parser = defaultParser;
-        var matches = html.match(tagRegExp);
+        var matches = html.match(tagRegExp);        
         if (matches) {
             var name = matches[1].toLowerCase();
             if (Object.prototype.hasOwnProperty.call(parsers, name)) {
@@ -1219,8 +1220,8 @@ The rest of the details are the same as for grail.findAll.
 
 }());
 /*
-Hormigas version 4
-Copyright (c) 2012, Peter Michaux
+Hormigas version 5
+Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
 https://github.com/petermichaux/hormigas/blob/master/LICENSE
@@ -1243,7 +1244,7 @@ var hormigas = {};
 
     function initSet(set) {
         set._hormigas_ObjectSet_elements = {};
-        set.length = 0;
+        set.size = 0;
     }
 
 /**
@@ -1259,17 +1260,17 @@ Do not attempt to add primitives or host objects in a `ObjectSet`. This
 is a compromise to make `ObjectSet` objects efficient for use in the model
 layer of your MVC-style application.
 
-When using the set iterators (e.g. `forEach`, `map`) do not depend
+When using the set iterators (e.g. `forEach`) do not depend
 on the order of iteration of the set's elements. `ObjectSet` objects are unordered.
 
     var set = new hormigas.ObjectSet();                     // an empty set
 
-`ObjectSet` objects have a `length` property that is the number of elements in the set.
+`ObjectSet` objects have a `size` property that is the number of elements in the set.
 
     var alpha = {};
     var beta = {};
     var set = new hormigas.ObjectSet(alpha, beta, alpha);
-    set.length; // 2
+    set.size; // 2
 
 The methods of an `ObjectSet` object are inspired by the incomplete
 Harmony Set proposal and the `Array.prototype` iterators.
@@ -1290,25 +1291,11 @@ Harmony Set proposal and the `Array.prototype` iterators.
 
 The number of elements in the set.
 
-*/
-hormigas.ObjectSet.prototype.length = 0;
+@member hormigas.ObjectSet.prototype.size
 
-/**
-
-Use to determine if the set has any elements or not.
-
-    var alpha = {};
-    var set = new hormigas.ObjectSet(alpha);
-    set.isEmpty();        // false
-    set['delete'](alpha);
-    set.isEmpty();        // true
-
-@return {boolean} `true` if set is empty. Otherwise `false`.
+@readonly
 
 */
-    hormigas.ObjectSet.prototype.isEmpty = function() {
-        return this.length < 1;
-    };
 
 /**
 
@@ -1354,7 +1341,7 @@ If `element` is not already in the set then adds element to the set.
                 element._hormigas_ObjectSet_id = getId();
             }
             this._hormigas_ObjectSet_elements[element._hormigas_ObjectSet_id] = element;
-            this.length++;
+            this.size++;
             return true;
         }
     };
@@ -1380,7 +1367,7 @@ position so quote `delete`.
     hormigas.ObjectSet.prototype['delete'] = function(element) {
         if (this.has(element)) {
             delete this._hormigas_ObjectSet_elements[element._hormigas_ObjectSet_id];
-            this.length--;
+            this.size--;
             return true;
         }
         else {
@@ -1394,14 +1381,14 @@ If the set has elements then removes all the elements.
 
     var alpha = {};
     var set = new hormigas.ObjectSet(alpha);
-    set.empty(); // true
-    set.empty(); // false
+    set.clear(); // true
+    set.clear(); // false
 
 @return {boolean} `true` if elements were deleted from the set as the result of this call. Otherwise `false` because no elements were in the set.
 
 */
-    hormigas.ObjectSet.prototype.empty = function() {
-        if (this.length > 0) {
+    hormigas.ObjectSet.prototype.clear = function() {
+        if (this.size > 0) {
             initSet(this);
             return true;
         }
@@ -1435,7 +1422,7 @@ Calls `callbackfn` for each element of the set.
     var beta = {value: 1};
     var gamma = {value: 2};
     var set = new hormigas.ObjectSet(alpha, beta, gamma);
-    set.forEach(function(element, set) {
+    set.forEach(function(element) {
         console.log(element.value);
     });
 
@@ -1448,7 +1435,7 @@ Calls `callbackfn` for each element of the set.
         var thisArg = arguments[1];
         for (var p in this._hormigas_ObjectSet_elements) {
             if (Object.prototype.hasOwnProperty.call(this._hormigas_ObjectSet_elements, p)) {
-                callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p], this);
+                callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p]);
             }
         }
     };
@@ -1461,7 +1448,7 @@ Calls `callbackfn` for each element of the set.
     var two = {value: 2};
     var three = {value: 3};
     var set = new hormigas.ObjectSet(one, two, three);
-    set.every(function(element, set) {
+    set.every(function(element) {
         return element.value < 2;
     }); // false
 
@@ -1476,7 +1463,7 @@ Calls `callbackfn` for each element of the set.
         var thisArg = arguments[1];
         for (var p in this._hormigas_ObjectSet_elements) {
             if (Object.prototype.hasOwnProperty.call(this._hormigas_ObjectSet_elements, p) &&
-                !callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p], this)) {
+                !callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p])) {
                 return false;
             }
         }
@@ -1491,7 +1478,7 @@ Calls `callbackfn` for each element of the set.
     var two = {value: 2};
     var three = {value: 3};
     var set = new hormigas.ObjectSet(one, two, three);
-    set.some(function(element, set) {
+    set.some(function(element) {
         return element.value < 2;
     }); // true
 
@@ -1506,7 +1493,7 @@ Calls `callbackfn` for each element of the set.
         var thisArg = arguments[1];
         for (var p in this._hormigas_ObjectSet_elements) {
             if (Object.prototype.hasOwnProperty.call(this._hormigas_ObjectSet_elements, p) &&
-                callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p], this)) {
+                callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p])) {
                 return true;
             }
         }
@@ -1561,76 +1548,10 @@ iterated in the set.
             accumulator = elements[0];
         }
         while (i < ilen) {
-            accumulator = callbackfn.call(undefined, accumulator, elements[i], this);
+            accumulator = callbackfn.call(undefined, accumulator, elements[i]);
             i++;
         }
         return accumulator;
-    };
-
-/**
-
-Calls `callbackfn` for each element of the set. The values returned by `callbackfn`
-are added to a new array. This new array is the value returned by map.
-
-    var alpha = {length: 5};
-    var beta = {length: 4};
-    var gamma = {length: 5};
-    var set = new hormigas.ObjectSet(alpha, beta, gamma);
-    set.map(function(element) {
-        return element.length;
-    }); // [5,5,4] or [5,4,5] or [4,5,5]
-
-@param {function} callbackfn The function to call for each element in the set.
-
-@param {Object} [thisArg] The object to use as the this object in calls to `callbackfn`.
-
-@return {Array} The mapped values.
-
-*/
-    hormigas.ObjectSet.prototype.map = function(callbackfn /*, thisArg */) {
-        var thisArg = arguments[1];
-        var result = [];
-        for (var p in this._hormigas_ObjectSet_elements) {
-            if (Object.prototype.hasOwnProperty.call(this._hormigas_ObjectSet_elements, p)) {
-                result.push(callbackfn.call(thisArg, this._hormigas_ObjectSet_elements[p], this));
-            }
-        }
-        return result;
-    };
-
-/**
-
-Calls callbackfn for each element of the set. If callbackfn returns true
-for an element then that element is added to a new array. This new array
-is the value returned by filter.
-
-    var alpha = {length: 5};
-    var beta = {length: 4};
-    var gamma = {length: 5};
-    var set = new hormigas.ObjectSet(alpha, beta, gamma);
-    set.filter(function(element) {
-        return element.length > 4;
-    }); // [alpha, gamma] or [gamma, alpha]
-
-@param {function} callbackfn The function to call for each element in the set.
-
-@param {object} [thisArg] The object to use as the this object in calls to `callbackfn`.
-
-@return {Array} The filtered values.
-
-*/
-    hormigas.ObjectSet.prototype.filter = function(callbackfn /*, thisArg */) {
-        var thisArg = arguments[1];
-        var result = [];
-        for (var p in this._hormigas_ObjectSet_elements) {
-            if (Object.prototype.hasOwnProperty.call(this._hormigas_ObjectSet_elements, p)) {
-                var element = this._hormigas_ObjectSet_elements[p];
-                if (callbackfn.call(thisArg, element, this)) {
-                    result.push(element);
-                }
-            }
-        }
-        return result;
     };
 
 }());
@@ -1668,12 +1589,11 @@ hormigas.ObjectSet.mixin = function(obj) {
 };
 /**
 @license
-Maria release candidate 6 - an MVC framework for JavaScript applications
+Maria 1.0.0
 Copyright (c) 2013, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
-https://github.com/petermichaux/maria/blob/master/LICENSE
-
+http://peter.michaux.ca/downloads/maria/1.0.0/LICENSE
 */
 /**
 
@@ -1696,7 +1616,9 @@ maria.create = (function() {
     function F() {}
     return function(obj) {
         F.prototype = obj;
-        return new F();
+        obj = new F();
+        F.prototype = null;
+        return obj;
     };
 }());
 /**
@@ -1754,9 +1676,7 @@ Add an event listener.
 See evento.on for description.
 
 */
-maria.on = function() {
-    evento.on.apply(this, arguments);
-};
+maria.on = evento.on;
 
 /**
 
@@ -1765,9 +1685,7 @@ Remove an event listener.
 See evento.off for description.
 
 */
-maria.off = function() {
-    evento.off.apply(this, arguments);
-};
+maria.off = evento.off;
 
 /**
 
@@ -1776,9 +1694,20 @@ Purge an event listener of all its subscriptions.
 See evento.purge for description.
 
 */
-maria.purge = function() {
-    evento.purge.apply(this, arguments);
-};
+maria.purge = evento.purge;
+/**
+
+See hijos.Leaf for description.
+
+*/
+maria.Leaf = hijos.Leaf;
+
+/**
+
+See hijos.Node for description.
+
+*/
+maria.Node = hijos.Node;
 /**
 
 A constructor function to create new model objects.
@@ -1908,7 +1837,7 @@ with those elements.
 
 You can create an empty set model object.
 
-    var setModel = new maria.SetModel();
+    var setModel = new maria.SetModel(); 
 
 What makes a set model object interesting in comparison to a set is
 that a set model object is a model object that dispatches "change"
@@ -1916,7 +1845,7 @@ events when elements are added or deleted from the the set.
 
     var view = {
         update: function(evt) {
-            alert(setModel.length + ' element(s) in the set.');
+            alert(setModel.size + ' element(s) in the set.');
         }
     };
     maria.on(setModel, 'change', view, 'update');
@@ -1945,7 +1874,7 @@ You can check if an element is in the set.
 
 You can get the number of elements in the set.
 
-    setModel.length; // returns 2
+    setModel.size; // returns 2
 
 An element can be deleted from the set. Removing it multiple times
 has no effect. The delete method returns true if the element is
@@ -1970,9 +1899,9 @@ setModel.delete if old browsers are not supported by your application.
 You can empty a set in one call. The method returns true if any
 elements are removed from the set model object.
 
-    setModel.empty(); // returns false, alpha and beta removed above.
+    setModel.clear(); // returns false, alpha and beta removed above.
 
-If the call to empty does delete elements from the set, all "change"
+If the call to `clear` does delete elements from the set, all "change"
 event listeners are passed an event object with deletedTargets just
 as for the delete method.
 
@@ -2005,14 +1934,6 @@ A set model object has some other handy methods.
         return accumulator + element.name.length;
     }, 0); // returns 9
 
-    setModel.map(function(element) {
-        return element.name.length;
-    }); // returns [4, 5] or [5, 4]
-
-    setModel.filter(function(element) {
-        return element.name.length > 4;
-    }); // returns [alpha]
-
 The order of the elements returned by toArray and the order of
 iteration of the other methods is undefined as a set is an unordered
 collection. Do not depend on any ordering that the current
@@ -2029,19 +1950,16 @@ to accomplish the same.
     };
     checkit.TodosModel.prototype = maria.create(maria.SetModel.prototype);
     checkit.TodosModel.prototype.constructor = checkit.TodosModel;
-    checkit.TodosModel.prototype.getDone = function() {
-        return this.filter(function(todo) {
-            return todo.isDone();
-        });
-    };
-    checkit.TodosModel.prototype.getUndone = function() {
-        return this.filter(function(todo) {
-            return !todo.isDone();
-        });
-    };
     checkit.TodosModel.prototype.isAllDone = function() {
-        return this.length > 0 &&
-               (this.getDone().length === this.length);
+        return (this.size > 0) &&
+               this.every(function(todo) {
+                   return todo.isDone();
+               });
+    };
+    checkit.TodosModel.prototype.isAllUndone = function() {
+        return this.every(function(todo) {
+                   return !todo.isDone();
+               });
     };
     checkit.TodosModel.prototype.markAllDone = function() {
         this.forEach(function(todo) {
@@ -2054,7 +1972,13 @@ to accomplish the same.
         });
     };
     checkit.TodosModel.prototype.deleteDone = function() {
-        this['delete'].apply(this, this.getDone());
+        var doneTodos = [];
+        this.forEach(function(todo) {
+            if (todo.isDone()) {
+                doneTodos.push(todo);
+            }
+        });
+        this['delete'].apply(this, doneTodos);
     };
 
 Another feature of set model objects is that events dispatched on
@@ -2108,7 +2032,7 @@ maria.SetModel.prototype.add = function() {
             added.push(argument);
             if ((typeof argument.addEventListener === 'function') &&
                 (typeof argument.removeEventListener === 'function')) {
-                argument.addEventListener('destroy', this);
+                argument.addEventListener('destroy', this);    
             }
             if ((typeof argument.addParentEventTarget === 'function') &&
                 // want to know can remove later
@@ -2168,7 +2092,7 @@ maria.SetModel.prototype['delete'] = function() {
 
 Deletes all elements of the set.
 
-If the set is modified as a result of this empty request then a `change`
+If the set is modified as a result of this `clear` request then a `change`
 event is dispatched on the set model object.
 
 @override
@@ -2176,9 +2100,9 @@ event is dispatched on the set model object.
 @return {boolean} True if the set was modified. Otherwise false.
 
 */
-maria.SetModel.prototype.empty = function() {
+maria.SetModel.prototype.clear = function() {
     var deleted = this.toArray();
-    var result = hormigas.ObjectSet.prototype.empty.call(this);
+    var result = hormigas.ObjectSet.prototype.clear.call(this);
     if (result) {
         for (var i = 0, ilen = deleted.length; i < ilen; i++) {
             var element = deleted[i];
@@ -2202,14 +2126,14 @@ must be deleted from this set. This handler will do the delete.
 @param {Object} event The event object.
 
 */
-maria.SetModel.prototype.handleEvent = function(ev) {
+maria.SetModel.prototype.handleEvent = function(evt) {
 
     // If it is a destroy event being dispatched on the
     // destroyed element then we want to remove it from
     // this set.
-    if ((ev.type === 'destroy') &&
-        (ev.currentTarget === ev.target)) {
-        this['delete'](ev.target);
+    if ((evt.type === 'destroy') &&
+        (evt.currentTarget === evt.target)) {
+        this['delete'](evt.target);
     }
 
 };
@@ -2258,6 +2182,19 @@ getModelActions method.
         };
     };
 
+By overriding the `getModelActions` method, the view will only observe
+the model's `change` event if you explicitely list it which is not done
+above. If you want to observe the `squashed`, `squished`, *and* `change`
+events then you need to write the following.
+
+    maria.View.prototype.getModelActions = function() {
+        return {
+            'change'  : 'update'    ,
+            'squashed': 'onSquashed',
+            'squished': 'onSquished'
+        };
+    };
+
 When the model is set, if the view had a previous model then the view
 will unsubscribe from the events it subscribed to on the prevous model
 when the previous model was set.
@@ -2267,7 +2204,7 @@ A view has a controller. You can get the current controller.
     view.getController();
 
 The view's controller is created lazily the first time the
-getController method is called. The view's
+getController method is called. The view's 
 getDefaultControllerConstructor method returns the constructor function
 to create the controller object and the getDefaultController actually
 calls that constructor. Your application may redefine or override
@@ -2331,7 +2268,7 @@ accomplish the same.
 
 @constructor
 
-@extends hijos.Node
+@extends maria.Node
 
 @param {maria.Model} [model]
 
@@ -2339,12 +2276,12 @@ accomplish the same.
 
 */
 maria.View = function(model, controller) {
-    hijos.Node.call(this);
+    maria.Node.call(this);
     this.setModel(model);
     this.setController(controller);
 };
 
-maria.View.prototype = maria.create(hijos.Node.prototype);
+maria.View.prototype = maria.create(maria.Node.prototype);
 maria.View.prototype.constructor = maria.View;
 
 /*
@@ -2362,7 +2299,7 @@ maria.View.prototype.destroy = function() {
         this._controller.destroy();
         this._controller = null;
     }
-    hijos.Node.prototype.destroy.call(this);
+    maria.Node.prototype.destroy.call(this);
 };
 
 /**
@@ -2408,7 +2345,7 @@ maria.View.prototype.setModel = function(model) {
 Returns a controller constructor function to be used to create
 a controller for this view.
 
-@return {function} The controller constructor function.
+@return {function} The controller constructor function. 
 
 */
 maria.View.prototype.getDefaultControllerConstructor = function() {
@@ -2495,6 +2432,10 @@ maria.View.prototype._setModelAndController = function(model, controller) {
             }
         }
         this._model = model;
+    }
+    if ((this._controller !== controller) && this._controller) {
+        this._controller.setView(null);
+        this._controller.setModel(null);
     }
     if (controller) {
         controller.setView(this);
@@ -2874,14 +2815,14 @@ By default Maria uses the Grail library as its DOM query engine. This is
 to support older browsers that do not have `querySelector`. The Grail
 engine only a limited set of simple selectors.
 
-  .class
-  tag
-  tag.class
-  #id
+    .class
+    tag
+    tag.class
+    #id
 
-If your application only needs to work in newer browsers you can create
-a Maria plugin to use `querySelector` but ensure the root element will
-be returned if it matches `selector`.
+If your application only needs to work in newer browsers then you can create
+a Maria plugin to use `querySelector`. Consider if you want the root element
+to be returned if it matches `selector`.
 
 If your application needs to work in older browsers but you need more
 complex CSS `selector` strings then you can create a Maria plugin
@@ -3170,7 +3111,8 @@ maria.Controller.prototype.getModel = function() {
 
 /**
 
-`setModel` is intended to be called **only** by
+**Pretend you do not know that this method even exists.**
+`setModel` is intended to be called **only** by 
 the view `_setModelAndController` method. **Do otherwise
 at your own risk!**
 
@@ -3194,7 +3136,8 @@ maria.Controller.prototype.getView = function() {
 
 /**
 
-`setView` is intended to be called **only** by
+**Pretend you do not know that this method even exists.**
+`setView` is intended to be called **only** by 
 the view `_setModelAndController` method. **Do otherwise
 at your own risk!**
 
@@ -3256,19 +3199,16 @@ for maria.SetModel.
 
     maria.SetModel.subclass(checkit, 'TodosModel', {
         properties: {
-            getDone: function() {
-                return this.filter(function(todo) {
-                    return todo.isDone();
-                });
-            },
-            getUndone: function() {
-                return this.filter(function(todo) {
-                    return !todo.isDone();
-                });
-            },
             isAllDone: function() {
-                return this.length > 0 &&
-                       (this.getDone().length === this.length);
+                return (this.size > 0) &&
+                       this.every(function(todo) {
+                           return todo.isDone();
+                       });
+            },
+            isAllUndone: function() {
+                return this.every(function(todo) {
+                           return !todo.isDone();
+                       });
             },
             markAllDone: function() {
                 this.forEach(function(todo) {
@@ -3281,7 +3221,13 @@ for maria.SetModel.
                 });
             },
             deleteDone: function() {
-                this['delete'].apply(this, this.getDone());
+                var doneTodos = [];
+                this.forEach(function(todo) {
+                    if (todo.isDone()) {
+                        doneTodos.push(todo);
+                    }
+                });
+                this['delete'].apply(this, doneTodos);
             }
         }
     });
@@ -3526,3 +3472,5 @@ the documentation for maria.Controller.
 maria.Controller.subclass = function() {
     maria.subclass.apply(this, arguments);
 };
+
+return maria;}()); // IIFE

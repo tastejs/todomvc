@@ -1,5 +1,5 @@
 /*
-Aristocrat version 2
+Aristocrat version 1.0.1
 Copyright (c) 2012, Peter Michaux
 All rights reserved.
 Licensed under the Simplified BSD License.
@@ -78,7 +78,7 @@ aristocrat.removeClass(document.body, 'king');
         var re = getRegExp(className);
         while (re.test(el.className)) { // in case multiple occurrences
             el.className = el.className.replace(re, ' ');
-        }
+        } 
     };
 
 /**
