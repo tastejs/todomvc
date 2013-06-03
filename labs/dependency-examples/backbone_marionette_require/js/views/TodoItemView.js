@@ -1,54 +1,83 @@
-/*global define*/
+/*global define */
 
-define(['marionette','templates'], function (Marionette,templates) {
-  "use strict";
+define([
+	'marionette',
+	'templates'
+], function (Marionette, templates) {
+	'use strict';
 
-  return Marionette.CompositeView.extend({
-    tagName : 'li',
-    template : templates.todoItemView,
+	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
 
-    ui : {
-      edit : '.edit'
-    },
+	return Marionette.CompositeView.extend({
+		tagName: 'li',
 
-    events : {
-      'click .destroy' : 'destroy',
-      'dblclick label' : 'onEditClick',
-      'keypress .edit' : 'onEditKeypress',
-      'click .toggle'  : 'toggle'
-    },
+		template: templates.todoItemView,
 
-    initialize : function() {
-      this.bindTo(this.model, 'change', this.render, this);
-    },
+		value: '',
 
-    onRender : function() {
-      this.$el.removeClass('active completed');
-      if (this.model.get('completed')) this.$el.addClass('completed');
-      else this.$el.addClass('active');
-    },
+		ui: {
+			edit: '.edit'
+		},
 
-    destroy : function() {
-      this.model.destroy();
-    },
+		events: {
+			'click .toggle': 'toggle',
+			'click .destroy': 'destroy',
+			'dblclick label': 'onEditDblclick',
+			'keypress .edit': 'onEditKeypress',
+			'blur .edit': 'onEditBlur'
+		},
 
-    toggle  : function() {
-      this.model.toggle().save();
-    },
+		initialize: function () {
+			this.value = this.model.get('title');
 
-    onEditClick : function() {
-      this.$el.addClass('editing');
-      this.ui.edit.focus();
-    },
+			this.listenTo(this.model, 'change', this.render, this);
+		},
 
-    onEditKeypress : function(evt) {
-      var ENTER_KEY = 13;
-      var todoText = this.ui.edit.val().trim();
+		onRender: function () {
+			this.$el
+				.removeClass('active completed')
+				.addClass(this.model.get('completed') ? 'completed' : 'active');
+		},
 
-      if ( evt.which === ENTER_KEY && todoText ) {
-        this.model.set('title', todoText).save();
-        this.$el.removeClass('editing');
-      }
-    }
-  });
+		destroy: function () {
+			this.model.destroy();
+		},
+
+		toggle: function () {
+			this.model.toggle().save();
+		},
+
+		toggleEditingMode: function () {
+			this.$el.toggleClass('editing');
+		},
+
+		onEditDblclick: function () {
+			this.toggleEditingMode();
+
+			this.ui.edit.focus().val(this.value);
+		},
+
+		onEditKeypress: function (event) {
+			if (event.which === ENTER_KEY) {
+				this.ui.edit.trigger('blur');
+			}
+
+			if (event.which === ESCAPE_KEY) {
+				this.toggleEditingMode();
+			}
+		},
+
+		onEditBlur: function (event) {
+			this.value = event.target.value.trim();
+
+			if (this.value) {
+				this.model.set('title', this.value).save();
+			} else {
+				this.destroy();
+			}
+
+			this.toggleEditingMode();
+		}
+	});
 });

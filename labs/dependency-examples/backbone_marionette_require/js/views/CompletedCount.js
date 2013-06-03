@@ -12,12 +12,13 @@ define([
 		},
 
 		render: function () {
-			this.$el = $('#todo-count');
+			this.$el = $('#clear-completed');
 
-			var itemsLeft = this.collection.getActive().length;
-			var itemsWord = itemsLeft < 1 || itemsLeft > 1 ? 'items' : 'item';
+			var completedTodos = this.collection.getCompleted();
 
-			this.$el.html('<strong>' + itemsLeft + '</strong> ' + itemsWord + ' left');
+			this.$el
+				.toggle(completedTodos.length > 0)
+				.html('Clear completed (' + completedTodos.length + ')');
 		}
 	});
 });
