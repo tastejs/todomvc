@@ -1,41 +1,49 @@
-/*global define*/
+/*global define */
 
-define(['marionette','templates','vent','views/TodoItemView'], function (Marionette,templates,vent,ItemView) {
-  "use strict";
+define([
+	'marionette',
+	'templates',
+	'views/TodoItemView'
+], function (Marionette, templates, ItemView) {
+	'use strict';
 
-  return Marionette.CompositeView.extend({
-    template : templates.todosCompositeView,
-    itemView : ItemView,
-    itemViewContainer : '#todo-list',
+	return Marionette.CompositeView.extend({
+		template: templates.todosCompositeView,
 
-    ui : {
-      toggle : '#toggle-all'
-    },
+		itemView: ItemView,
 
-    events : {
-      'click #toggle-all' : 'onToggleAllClick'
-    },
+		itemViewContainer: '#todo-list',
 
-    initialize : function() {
-      this.bindTo(this.collection, 'all', this.updateToggleCheckbox, this);
-    },
+		ui: {
+			toggle: '#toggle-all'
+		},
 
-    onRender : function() {
-      this.updateToggleCheckbox();
-    },
+		events: {
+			'click #toggle-all': 'onToggleAllClick'
+		},
 
-    updateToggleCheckbox : function() {
-      function reduceCompleted(left, right) { return left && right.get('completed'); }
-      var allCompleted = this.collection.reduce(reduceCompleted,true);
-      this.ui.toggle.prop('checked', allCompleted);
-    },
+		initialize: function () {
+			this.listenTo(this.collection, 'all', this.updateToggleCheckbox, this);
+		},
 
-    onToggleAllClick : function(evt) {
-      var isChecked = evt.currentTarget.checked;
-      this.collection.each(function(todo){
-        todo.save({'completed': isChecked});
-      });
-    }
-  });
+		onRender: function () {
+			this.updateToggleCheckbox();
+		},
+
+		updateToggleCheckbox: function () {
+			var allCompleted = this.collection.reduce(function (lastModel, thisModel) {
+				return lastModel && thisModel.get('completed');
+			}, true);
+
+			this.ui.toggle.prop('checked', allCompleted);
+		},
+
+		onToggleAllClick: function (event) {
+			var isChecked = event.currentTarget.checked;
+
+			this.collection.each(function (todo) {
+				todo.save({ completed: isChecked });
+			});
+		}
+	});
 });
-

@@ -4,6 +4,8 @@
   "dependencies": {
     "todomvc-common": "~0.1.6",
     "requirejs": "~2.1.6",
-    "backbone.marionette": "~1.0.2"
+    "underscore": "~1.4.4",
+    "backbone.marionette": "~1.0.3",
+    "backbone.localStorage": "~1.1.4"
   }
 }
