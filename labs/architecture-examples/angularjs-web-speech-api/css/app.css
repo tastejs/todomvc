@@ -1,0 +1,8 @@
+#todoapp h1.listening {
+	color: #f00;
+}
+
+#todo-list li label .index {
+	border: 1px solid red;
+	color: #f00 !important;
+}
