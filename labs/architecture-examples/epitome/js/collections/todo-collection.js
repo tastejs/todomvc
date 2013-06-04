@@ -1,6 +1,6 @@
 /*global Epitome, App */
 /*jshint mootools:true */
-(function(window) {
+(function (window) {
 	'use strict';
 
 	window.App = window.App || {};
@@ -21,9 +21,9 @@
 			completed: 1
 		},
 
-		todoFilter: function( model ) {
+		todoFilter: function (model) {
 			// references the filterType which the controller sets
-			return this.filterType === false ? true : this.map[this.filterType] === +model.get( 'completed' );
+			return this.filterType === false ? true : this.map[this.filterType] === +model.get('completed');
 		}
 	});
-}( window ));
+})(window);
