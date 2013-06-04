@@ -34,7 +34,9 @@
     <input class="edit" value="<%=title%>">
 	</script>
 	<script type="text/template" id="stats-template">
-		<span id="todo-count"><strong><%=remaining%></strong> item<% if (obj.remaining !== 1) { %>s<% } %> left</span>
+		<span id="todo-count">
+			<strong><%=remaining%></strong> item<% if (obj.remaining !== 1) { %>s<% } %> left
+		</span>
 		<ul id="filters">
 			<li>
 				<a class="selected" href="#!/">All</a>
@@ -54,7 +56,7 @@
 	<!-- mootools -->
 	<script src="js/lib/mootools-yui-compressed.js"></script>
 	<!-- epitome pre-compiled -->
-	<script src="bower_components/epitome/Epitome-min.js"></script>
+	<script src="bower_components/Epitome/Epitome-min.js"></script>
 	<!-- todo app -->
 	<script src="js/models/todo-model.js"></script>
 	<script src="js/collections/todo-collection.js"></script>
