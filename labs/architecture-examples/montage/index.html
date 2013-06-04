@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" id="montage-todomvc">
+<html lang="en" data-framework="montage" id="montage-todomvc">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
+	<div id="todo-container"></div>
 	<script src="bower_components/todomvc-common/base.js"></script>
 	<script src="bundle-0-d67ccde.js"
 		data-montage="packages/montage@4763f06/"
@@ -16,7 +17,12 @@
 	<script type="text/montage-serialization">
 		{
 			"owner": {
-				"prototype": "montage/ui/loader.reel"
+				"prototype": "montage/ui/loader.reel",
+				"properties": {
+					"element": {
+						"#": "todo-container"
+					}
+				}
 			}
 		}
 	</script>
