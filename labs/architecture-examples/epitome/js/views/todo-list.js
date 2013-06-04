@@ -110,7 +110,6 @@
 
 				// the render method stores the model into the element, get it and remove
 				this.collection.removeModel(el.getParent('li').retrieve('model'));
-				window.App.mainView.render();
 			}
 		},
 

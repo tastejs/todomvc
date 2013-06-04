@@ -25,6 +25,8 @@
 
 			footer: 'footer',
 
+			main: 'main',
+
 			filters: '#filters li a',
 
 			toggleAll: 'toggle-all',
@@ -65,6 +67,10 @@
 				this.render();
 			},
 
+			'onRemove:collection': function () {
+				this.render();
+			},
+
 			'onAdd:collection': function () {
 				// when adding, re-render.
 				this.render();
@@ -79,6 +85,7 @@
 			this.newTodo = document.id(this.options.newTodo);
 			this.footer = document.id(this.options.footer);
 			this.toggleAll = document.id(this.options.toggleAll);
+			this.main = document.id(this.options.main);
 
 			// draw it.
 			this.render();
@@ -115,15 +122,15 @@
 				return status;
 			}).length;
 
-			// toggle display of #main and #footer
-			document.id('main').className = (remaining || completed) ? '' : 'hidden';
-			document.id('footer').className = (remaining || completed) ? '' : 'hidden';
+			var visibleClass = remaining || completed ? '' : 'hidden';
 
 			// output footer
 			this.footer.set('html', this.template({
 				completed: completed,
-				remaining: remaining
-			}));
+				remaining: remaining,
+			})).set('class', visibleClass);
+
+			this.main.set('class', visibleClass);
 
 			// auto-correct the toggle-all checkbox with the new stats.
 			this.toggleAll.set('checked', this.collection.length ? !remaining : false);
