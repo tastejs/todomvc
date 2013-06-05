@@ -7,9 +7,9 @@
 		baseUrl: './js',
 		paths: {
 			// libs
-			soma: '../components/soma.js/build/soma',
-			template: '../components/soma-template/build/soma-template',
-			director: '../components/director/build/director',
+			soma: '../bower_components/soma.js/build/soma',
+			template: '../bower_components/soma-template/build/soma-template',
+			director: '../bower_components/director/build/director',
 			// app paths
 			views: './views',
 			models: './models'
