@@ -8,8 +8,7 @@
 	var Todo = o_O.model.extend({
 			title: '',
 			completed: false
-		},
-		{
+		}, {
 			initialize: function () {
 				this.editing = o_O(false);
 			},
@@ -164,8 +163,8 @@
 
 	// a custom binding to handle the enter key
 	o_O.bindings.enterKey = function (func, $el) {
-		var ENTER_KEY = 13,
-			context = this;
+		var ENTER_KEY = 13;
+		var context = this;
 
 		$el.keyup(function (e) {
 			if (e.which === ENTER_KEY) {
