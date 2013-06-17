@@ -1276,7 +1276,7 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Quick Start",
-				"url": "http://montagejs.org/docs/Quick-Start"
+				"url": "http://montagejs.org/docs/quick-start.html"
 			}, {
 				"name": "Documentation",
 				"url": "http://montagejs.org/docs"
