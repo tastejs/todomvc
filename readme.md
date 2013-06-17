@@ -42,6 +42,7 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 
 We also have a number of in-progress applications in Labs:
 
+- [React](http://facebook.github.io/react)
 - [Meteor](http://meteor.com)
 - [Derby](http://derbyjs.com)
 - [CanJS](http://canjs.us)
