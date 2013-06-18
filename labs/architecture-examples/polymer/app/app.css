@@ -20,14 +20,14 @@ body {
 	font-smoothing: antialiased;
 }
 
-body > header {
-  padding-top: 22px;
-  margin-bottom: -5px;
+body > section {
+	position: relative;
+	margin: 130px 0 40px 0;
 }
 
 h1 {
-  /*	position: absolute;
-	top: -120px;*/
+	position: absolute;
+	top: -120px;
 	width: 100%;
 	font-size: 70px;
 	font-weight: bold;
@@ -193,7 +193,7 @@ hr {
 	/**body*/.learn-bar > .learn {
 		left: 8px;
 	}
-	/**body*/.learn-bar #todoapp {
+	/**body*/.learn-bar > section {
 		width: 550px;
 		margin: 130px auto 40px auto;
 	}
