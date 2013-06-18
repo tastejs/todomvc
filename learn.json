@@ -1366,6 +1366,52 @@
 			}]
 		}]
 	},
+	"polymer": {
+			"name": "Polymer",
+			"description": "Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.",
+			"homepage": "http://www.polymer-project.org",
+			"source_path": [{
+				"name": "Architecture Example",
+				"url": "labs/architecture-examples/polymer"
+			}],
+			"link_groups": [{
+				"heading": "Official Resources",
+				"links": [{
+					"name": "Documentation",
+					"url": "http://www.polymer-project.org/getting-started.html"
+				}, {
+					"name": "API Reference",
+					"url": "http://www.polymer-project.org/polymer.html"
+				}, {
+					"name": "Tools And Testing",
+					"url": "http://www.polymer-project.org/tooling-strategy.html"
+				}, {
+					"name": "FAQ",
+					"url": "http://www.polymer-project.org/faq.html"
+				}, {
+					"name": "Polymer on GitHub",
+					"url": "https://github.com/polymer"
+				}]
+			}, {
+				"heading": "Videos",
+				"links": [{
+					"name": "Web Components - A Tectonic Shift For Web Development",
+					"url": "http://www.youtube.com/watch?v=fqULJBBEVQE"
+				}, {
+					"name": "Web Components In Action",
+					"url": "http://www.youtube.com/watch?v=0g0oOOT86NY"
+				}]
+			}, {
+				"heading": "Community",
+				"links": [{
+					"name": "Mailing list on Google Groups",
+					"url": "https://groups.google.com/forum/#!msg/polymer-dev/"
+				}, {
+					"name": "Web Components on Google +",
+					"url": "https://plus.google.com/103330502635338602217/"
+				}]
+			}]
+	},
 	"puremvc": {
 		"name": "PureMVC",
 		"description": "PureMVC is a lightweight framework for creating applications based upon the classic Model, View and Controller concept.",
