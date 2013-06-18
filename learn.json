@@ -1369,7 +1369,7 @@
 	"polymer": {
 			"name": "Polymer",
 			"description": "Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.",
-			"homepage": "http://www.polymer-project.org",
+			"homepage": "polymer-project.org",
 			"source_path": [{
 				"name": "Architecture Example",
 				"url": "labs/architecture-examples/polymer"
