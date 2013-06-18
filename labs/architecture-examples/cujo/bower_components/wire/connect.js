@@ -44,62 +44,48 @@
 define(['when', 'meld', './lib/functional', './lib/connection'],
 function(when, meld, functional, connection) {
 
-	return {
-        wire$plugin: function eventsPlugin(ready, destroyed /*, options */) {
+	return function eventsPlugin(/* options */) {
 
-            var connectHandles = [];
+		var connectHandles = [];
 
-            /**
-             * Create a single connection from source[event] to target[method] so that
-             * when source[event] is invoked, target[method] will be invoked afterward
-             * with the same params.
-             *
-             * @param source source object
-             * @param event source method
-             * @param handler {Function} function to invoke
-             */
-            function doConnectOne(source, event, handler) {
-                return meld.on(source, event, handler);
-            }
+		function handleConnection(instance, methodName, handler) {
+			connectHandles.push(meld.on(instance, methodName, handler));
+		}
 
-			function handleConnection(source, eventName, handler) {
-				connectHandles.push(doConnectOne(source, eventName, handler));
+		function doConnect(proxy, connect, options, wire) {
+			return connection.parse(proxy, connect, options, wire, handleConnection);
+		}
+
+		function connectFacet(wire, facet) {
+			var promises, connects;
+
+			connects = facet.options;
+			promises = Object.keys(connects).map(function(key) {
+				return doConnect(facet, key, connects[key], wire);
+			});
+
+			return when.all(promises);
+		}
+
+		return {
+			context: {
+				destroy: function(resolver) {
+					connectHandles.forEach(function(handle) {
+						handle.remove();
+					});
+					resolver.resolve();
+				}
+			},
+			facets: {
+				// A facet named "connect" that runs during the connect
+				// lifecycle phase
+				connect: {
+					connect: function(resolver, facet, wire) {
+						resolver.resolve(connectFacet(wire, facet));
+					}
+				}
 			}
-
-            function doConnect(proxy, connect, options, wire) {
-				return connection.parse(proxy, connect, options, wire, handleConnection);
-            }
-
-            function connectFacet(wire, facet) {
-                var connect, promises, connects;
-
-				connects = facet.options;
-
-                promises = [];
-
-                for(connect in connects) {
-                    promises.push(doConnect(facet, connect, connects[connect], wire));
-                }
-
-                return when.all(promises);
-            }
-
-            destroyed.then(function onContextDestroy() {
-                for (var i = connectHandles.length - 1; i >= 0; i--){
-                    connectHandles[i].remove();
-                }
-            });
-
-            return {
-                facets: {
-                    connect: {
-                        connect: function(resolver, facet, wire) {
-							resolver.resolve(connectFacet(wire, facet));
-                        }
-                    }
-                }
-            };
-        }
+		};
     };
 });
 })(typeof define == 'function'

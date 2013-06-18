@@ -8,10 +8,10 @@
  * Licensed under the MIT License at:
  * http://www.opensource.org/licenses/mit-license.php
  */
-define(['wire/domReady', 'when', '../dom/base'], function(domReady, when, base) {
+define(['wire/domReady', 'when', '../dom/base', '../object'], function(domReady, when, base, object) {
 
-	function getElementFactory (resolver, spec, wire) {
-		when(wire(spec.element), function (element) {
+	function getElementFactory (resolver, componentDef, wire) {
+		when(wire(componentDef.options), function (element) {
 
 			if (!element || !element.nodeType || !element.tagName) {
 				throw new Error('dom: non-element reference provided to element factory');
@@ -23,13 +23,12 @@ define(['wire/domReady', 'when', '../dom/base'], function(domReady, when, base) 
 
 	return function createDomPlugin(options) {
 
-		var getById, query, first, init, addClass, removeClass, placeAt,
+		var getById, query, first, addClass, removeClass, placeAt,
 			doById, doPlaceAt, resolveQuery;
 
 		getById = options.byId || base.byId;
 		query = options.query || base.querySelectorAll;
 		first = options.first || base.querySelector;
-		init = options.init;
 		addClass = options.addClass;
 		placeAt = options.placeAt || base.placeAt;
 		removeClass = options.removeClass;
@@ -85,7 +84,7 @@ define(['wire/domReady', 'when', '../dom/base'], function(domReady, when, base) 
 
 			// get first property and use it as the operation
 			for (var p in options) {
-				if (options.hasOwnProperty(p)) {
+				if (object.hasOwn(options, p)) {
 					operation = p;
 					break;
 				}
@@ -194,73 +193,84 @@ define(['wire/domReady', 'when', '../dom/base'], function(domReady, when, base) 
 			}
 		}
 
-		return {
-			wire$plugin: function(ready, destroyed, options) {
-				var classes, resolvers, facets, factories;
+		/**
+		 * DOM plugin factory
+		 */
+		return function(options) {
+			var classes, resolvers, facets, factories, context, htmlElement;
 
-				options.at = makeQueryRoot(options.at);
+			options.at = makeQueryRoot(options.at);
+			classes = options.classes;
+			context = {};
 
-				if (init) {
-					init(ready, destroyed, options);
-				}
+			if(classes) {
+				domReady(function() {
+					htmlElement = document.getElementsByTagName('html')[0];
+				});
 
-				classes = options.classes;
-
-				// Add/remove lifecycle classes if specified
-				if (classes) {
+				context.initialize = function (resolver) {
 					domReady(function () {
-						var node = document.getElementsByTagName('html')[0];
-
-						// Add classes for wiring start
-						handleClasses(node, classes.init);
-
-						// Add/remove classes for context ready
-						ready.then(function () {
-							handleClasses(node, classes.ready, classes.init);
-						});
-
-						if (classes.ready) {
-							// Remove classes for context destroyed
-							destroyed.then(function () {
-								handleClasses(node, null, classes.ready);
-							});
-						}
+						handleClasses(htmlElement, classes.init);
+						resolver.resolve();
 					});
+				};
+				context.ready = function (resolver) {
+					domReady(function () {
+						handleClasses(htmlElement, classes.ready, classes.init);
+						resolver.resolve();
+					});
+				};
+				if(classes.ready) {
+					context.destroy = function (resolver) {
+						domReady(function () {
+							handleClasses(htmlElement, null, classes.ready);
+							resolver.resolve();
+						});
+					};
 				}
-
-				resolvers = {
-					'dom': doById
-				};
-
-				facets = {
-					'insert': {
-						initialize: doPlaceAt
-					}
-				};
-
-				factories = {
-					'element': getElementFactory
-				};
-
-				if (query) {
-					resolvers['dom.first'] = createResolver(resolveFirst, options);
-
-					// dom.all and dom.query are synonyms
-					resolvers['dom.all']
-						= resolvers['dom.query'] = createResolver(resolveQuery, options);
-				}
-
-				return {
-					resolvers: resolvers,
-					facets: facets,
-					factories: factories,
-					proxies: [
-						// this allows base.nodeProxy to be overridden
-						function (node) { return base.nodeProxy(node); }
-					]
-				};
-
 			}
+
+			factories = {
+				element: getElementFactory
+			};
+
+			facets = {
+				insert: {
+					initialize: doPlaceAt
+				}
+			};
+
+			resolvers = {};
+			// id and dom are synonyms
+			// dom is deprecated and for backward compat only
+			resolvers.id = resolvers.dom = doById;
+
+			if (query) {
+				// dom.first is deprecated
+				resolvers.first = createResolver(resolveFirst, options);
+				resolvers['dom.first'] = function() {
+					// TODO: Deprecation warning
+					resolvers.first.apply(resolvers, arguments);
+				};
+
+				// all and query are synonyms
+				resolvers.all = resolvers.query = createResolver(resolveQuery, options);
+				resolvers['dom.all'] = resolvers['dom.query'] = function() {
+					// TODO: Deprecation warning
+					resolvers.query.apply(resolvers, arguments);
+				};
+			}
+
+			return {
+				context: context,
+				resolvers: resolvers,
+				facets: facets,
+				factories: factories,
+				proxies: [
+					base.proxyNode
+				]
+			};
+
 		};
 	};
 });

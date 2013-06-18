@@ -14,7 +14,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-define(['./lib/plugin-base/dom', './lib/dom/base', './domReady'], function(createDomPlugin, base, domReady) {
+define(['./lib/plugin-base/dom', './lib/dom/base'], function(createDomPlugin, base) {
 
 	return createDomPlugin({
 		addClass: base.addClass,

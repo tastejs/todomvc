@@ -79,9 +79,11 @@
  */
 (function(global, define) {
 define(['meld'], function(meld) {
-	var timer, defaultTimeout, logger, createTracer;
+	var timer, defaultTimeout, logger, createTracer, ownProp;
 
 	function noop() {}
+
+	ownProp = Object.prototype.hasOwnProperty.call.bind(Object.prototype.hasOwnProperty);
 
 	// Setup console for node, sane browsers, or IE
 	logger = typeof console != 'undefined'
@@ -234,7 +236,7 @@ define(['meld'], function(meld) {
 
 		/** Default pointcut query to match methods that will be traced */
 		defaultPointcut = /^[^_]/;
-		
+
 		function logAfter(context, tag, start, val) {
 			console.log(context + tag + (new Date().getTime() - start.getTime()) + 'ms): ', val);
 		}
@@ -247,7 +249,7 @@ define(['meld'], function(meld) {
 			return {
 				around:function (joinpoint) {
 					var val, context, start, indent;
-					
+
 					// Setup current indent level
 					indent = padding.substr(0, depth);
 					// Form full path to invoked method
@@ -355,168 +357,200 @@ define(['meld'], function(meld) {
 		logger.log('---------------------------------------------------');
 	}
 
-	return {
-		wire$plugin:function debugPlugin(ready, destroyed, options) {
+	return function wireDebug(options) {
 
-			var contextTimer, timeout, paths, count, tag, logCreated, logDestroyed, checkPathsTimeout,
-				verbose, filter, plugin, tracer;
+		var contextTimer, timeout, paths, count, tag,
+			logCreated, logDestroyed, checkPathsTimeout,
+			verbose, filter, plugin, context, tracer;
 
-			verbose = options.verbose;
-			contextTimer = createTimer();
+		verbose = options.verbose;
+		contextTimer = createTimer();
 
-			count = 0;
-			tag = "WIRING";
+		count = 0;
+		tag = "WIRING";
 
-			tracer = { trace: noop, untrace: noop };
+		tracer = { trace: noop, untrace: noop };
 
-			filter = createPathFilter(options.filter);
+		filter = createPathFilter(options.filter);
 
-			function contextTime(msg) {
-				return time(msg, contextTimer);
-			}
-
-			logger.log(contextTime("Context init"));
-
-			ready.then(
-				function onContextReady(context) {
-					cancelPathsTimeout();
-					logger.log(contextTime("Context ready"), context);
-				},
-				function onContextError(err) {
-					cancelPathsTimeout();
-					console.error(contextTime("Context ERROR: ") + err, err);
-					logStack(err);
-				}
-			);
-
-			destroyed.then(
-				function onContextDestroyed() {
-					tracer.untrace();
-					logger.log(contextTime("Context destroyed"));
-				},
-				function onContextDestroyError(err) {
-					tracer.untrace();
-					logger.error(contextTime("Context destroy ERROR") + err, err);
-					logStack(err);
-				}
-			);
-
-			function makeListener(step, verbose) {
-				return function (promise, proxy /*, wire */) {
-					cancelPathsTimeout();
-
-					var path = proxy.path;
-
-					if (paths[path]) {
-						paths[path].status = step;
-					}
-
-					if (verbose && filter(path)) {
-						var message = time(step + ' ' + (path || proxy.id || ''), contextTimer);
-						if (proxy.target) {
-							logger.log(message, proxy.target, proxy.spec);
-						} else {
-							logger.log(message, proxy);
-						}
-					}
-
-					if(count) {
-						checkPathsTimeout = setTimeout(checkPaths, timeout);
-					}
-
-					promise.resolve();
-				};
-			}
-
-			paths = {};
-			timeout = options.timeout || defaultTimeout;
-			logCreated = makeListener('created', verbose);
-			logDestroyed = makeListener('destroyed', true);
-
-			function cancelPathsTimeout() {
-				clearTimeout(checkPathsTimeout);
-				checkPathsTimeout = null;
-			}
-
-			function checkPaths() {
-				if (!checkPathsTimeout) {
-					return;
-				}
-
-				var p, component, msg, ready, notReady;
-
-				logSeparator();
-				if(count) {
-					ready = [];
-					notReady = [];
-					logger.error(tag + ': No progress in ' + timeout + 'ms, status:');
-
-					for (p in paths) {
-						component = paths[p];
-						msg = p + ': ' + component.status;
-
-						(component.status == 'ready' ? ready : notReady).push(
-							{ msg: msg, spec: component.spec }
-						);
-					}
-
-					if(notReady.length > 0) {
-						logSeparator();
-						logger.log('Components that DID NOT finish wiring');
-						for(p = notReady.length-1; p >= 0; --p) {
-							component = notReady[p];
-							logger.error(component.msg, component.spec);
-						}
-					}
-
-					if(ready.length > 0) {
-						logSeparator();
-						logger.log('Components that finished wiring');
-						for(p = ready.length-1; p >= 0; --p) {
-							component = ready[p];
-							logger.log(component.msg, component.spec);
-						}
-					}
-				} else {
-					logger.error(tag + ': No components created after ' + timeout + 'ms');
-				}
-
-				logSeparator();
-			}
-
-			plugin = {
-				create:function (promise, proxy) {
-					var path = proxy.path;
-
-					count++;
-					paths[path || ('(unnamed-' + count + ')')] = {
-						spec:proxy.spec
-					};
-
-					logCreated(promise, proxy);
-				},
-				configure:  makeListener('configured', verbose),
-				initialize: makeListener('initialized', verbose),
-				ready:      makeListener('ready', true),
-				destroy:    function(promise, proxy) {
-					// stop tracking destroyed components, since we don't
-					// care anymore
-					delete paths[proxy.path];
-					count--;
-					tag = "DESTROY";
-
-					logDestroyed(promise, proxy);
-				}
-			};
-
-			if (options.trace) {
-				tracer = createTracer(options, plugin, filter);
-			}
-
-			checkPathsTimeout = setTimeout(checkPaths, timeout);
-
-			return plugin;
+		function contextTime(msg) {
+			return time(msg, contextTimer);
 		}
+
+		logger.log(contextTime("Context debug"));
+
+		context = {
+			initialize: function(resolver) {
+				logger.log(contextTime("Context init"));
+				resolver.resolve();
+			},
+			ready: function(resolver) {
+				cancelPathsTimeout();
+				logger.log(contextTime("Context ready"));
+				resolver.resolve();
+			},
+			destroy: function(resolver) {
+				tracer.untrace();
+				logger.log(contextTime("Context destroyed"));
+				resolver.resolve();
+			},
+			error: function(resolver, api, err) {
+				cancelPathsTimeout();
+				console.error(contextTime("Context ERROR: ") + err, err);
+				logStack(err);
+				resolver.reject(err);
+			}
+		};
+
+		function makeListener(step, verbose) {
+			return function (promise, proxy /*, wire */) {
+				cancelPathsTimeout();
+
+				var path = proxy.path;
+
+				if (paths[path]) {
+					paths[path].status = step;
+				}
+
+				if (verbose && filter(path)) {
+					var message = time(step + ' ' + (path || proxy.id || ''), contextTimer);
+					if (proxy.target) {
+						logger.log(message, proxy.target, proxy.metadata);
+					} else {
+						logger.log(message, proxy);
+					}
+				}
+
+				if(count) {
+					checkPathsTimeout = setTimeout(checkPaths, timeout);
+				}
+
+				promise.resolve();
+			};
+		}
+
+		paths = {};
+		timeout = options.timeout || defaultTimeout;
+		logCreated = makeListener('created', verbose);
+		logDestroyed = makeListener('destroyed', true);
+
+		function cancelPathsTimeout() {
+			clearTimeout(checkPathsTimeout);
+			checkPathsTimeout = null;
+		}
+
+		function checkPaths() {
+			if (!checkPathsTimeout) {
+				return;
+			}
+
+			var p, component, msg, ready, notReady;
+
+			logSeparator();
+			if(count) {
+				ready = [];
+				notReady = [];
+				logger.error(tag + ': No progress in ' + timeout + 'ms, status:');
+
+				for (p in paths) {
+					component = paths[p];
+					msg = p + ': ' + component.status;
+
+					(component.status == 'ready' ? ready : notReady).push(
+						{ msg: msg, metadata: component.metadata }
+					);
+				}
+
+				if(notReady.length > 0) {
+					logSeparator();
+					logger.log('Components that DID NOT finish wiring');
+					for(p = notReady.length-1; p >= 0; --p) {
+						component = notReady[p];
+						logger.error(component.msg, component.metadata);
+					}
+				}
+
+				if(ready.length > 0) {
+					logSeparator();
+					logger.log('Components that finished wiring');
+					for(p = ready.length-1; p >= 0; --p) {
+						component = ready[p];
+						logger.log(component.msg, component.metadata);
+					}
+				}
+			} else {
+				logger.error(tag + ': No components created after ' + timeout + 'ms');
+			}
+
+			logSeparator();
+		}
+
+		/**
+		 * Adds a named constructor function property to the supplied component
+		 * so that the name shows up in debug inspectors.  Squelches all errors.
+		 */
+		function makeConstructor(name, component) {
+			/*jshint evil:true*/
+			var ctor;
+			try {
+				// Generate a named function to use as the constructor
+				name = name.replace(/^[^a-zA-Z$_]|[^a-zA-Z0-9$_]+/g, '_');
+				eval('ctor = function ' + name + ' () {}');
+
+				// Be friendly and make configurable and writable just in case
+				// some other library or application code tries to set constructor.
+				Object.defineProperty(component, 'constructor', {
+					configurable: true,
+					writable: true,
+					value: ctor
+				});
+
+			} catch(e) {
+				// Oh well, ignore.
+			}
+		}
+
+		plugin = {
+			context: context,
+			create:function (promise, proxy) {
+				var path, component;
+
+				path = proxy.path;
+				component = proxy.target;
+
+				count++;
+				paths[path || ('(unnamed-' + count + ')')] = {
+					metadata: proxy.metadata
+				};
+
+				if(component && typeof component == 'object'
+					&& !ownProp(component, 'constructor')) {
+					makeConstructor(proxy.id, component);
+				}
+
+				logCreated(promise, proxy);
+			},
+			configure:  makeListener('configured', verbose),
+			initialize: makeListener('initialized', verbose),
+			ready:      makeListener('ready', true),
+			destroy:    function(promise, proxy) {
+				// stop tracking destroyed components, since we don't
+				// care anymore
+				delete paths[proxy.path];
+				count--;
+				tag = "DESTROY";
+
+				logDestroyed(promise, proxy);
+			}
+		};
+
+		if (options.trace) {
+			tracer = createTracer(options, plugin, filter);
+		}
+
+		checkPathsTimeout = setTimeout(checkPaths, timeout);
+
+		return plugin;
 	};
 
 });

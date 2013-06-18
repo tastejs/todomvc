@@ -5,13 +5,18 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-(function(define){
+(function(define){ 'use strict';
 define(function() {
-"use strict";
+
+	var hasOwn;
+
+	hasOwn = Object.prototype.hasOwnProperty.call.bind(Object.prototype.hasOwnProperty);
 
 	return {
+		hasOwn: hasOwn,
 		isObject: isObject,
-		inherit: inherit
+		inherit: inherit,
+		mixin: mixin
 	};
 
 	function isObject(it) {
@@ -23,6 +28,24 @@ define(function() {
 
 	function inherit(parent) {
 		return parent ? Object.create(parent) : {};
+	}
+
+	/**
+	 * Brute force copy own properties from -> to. Effectively an
+	 * ES6 Object.assign polyfill, usable with Array.prototype.reduce.
+	 * @param {object} to
+	 * @param {object} from
+	 * @returns {object} to
+	 */
+	function mixin(to, from) {
+		if(!from) {
+			return to;
+		}
+
+		return Object.keys(from).reduce(function(to, key) {
+			to[key] = from[key];
+			return to;
+		}, to);
 	}
 
 });

@@ -11,12 +11,12 @@
  * Licensed under the MIT License at:
  * http://www.opensource.org/licenses/mit-license.php
  */
-(function (define) {
-define(['when'], function (when) {
-"use strict";
+(function (define) { 'use strict';
+define(function (require) {
 
-	var slice, undef;
+	var when, slice;
 
+	when = require('when');
 	slice = [].slice;
 
 	/**
@@ -45,43 +45,6 @@ define(['when'], function (when) {
 	}
 
 	/**
-	 * Creates a partial function that weaves arguments into returned function
-	 * @param f {Function}
-	 * @param weaves {Object} sparse array-like object (with length property)
-	 *   These weaves are spliced into the run-time arguments.  Each property
-	 *   whose is a positive integer describes a point at which to splice
-	 *   an argument.
-	 * @return {Function}
-	 */
-	function weave (f, weaves) {
-		return function () {
-			var length = Math.max(weaves.length || 0, arguments.length, f.length);
-			return f.apply(this, injectArgs(weaves, length, arguments));
-		};
-	}
-
-	/**
-	 * @private
-	 * @param weaves {Object} sparse array-like object (with length property)
-	 * @param length {Number} how long the resulting arguments list should be
-	 * @param args {Arguments} run-time arguments
-	 * @return {Array} interwoven arguments
-	 */
-	function injectArgs (weaves, length, args) {
-		var woven = [], i;
-		args = slice.call(args); // copy
-		for (i = 0; i < length; i++) {
-			if (i in weaves) {
-				woven.push(weaves[i]);
-			}
-			if (args.length > 0) {
-				woven.push(args.shift());
-			}
-		}
-		return woven;
-	}
-
-	/**
 	 * Compose functions
 	 * @param funcs {Array} array of functions to compose
 	 * @return {Function} composed function
@@ -95,7 +58,9 @@ define(['when'], function (when) {
 		return function composed() {
 			var context = this;
 			return funcs.reduce(function(result, f) {
-				return f.call(context, result);
+				return conditionalWhen(result, function(result) {
+					return f.call(context, result);
+				});
 			}, first.apply(this, arguments));
 		};
 	}
@@ -106,8 +71,9 @@ define(['when'], function (when) {
 	 * @param proxy {Object} wire proxy on which to invoke the final method of the composition
 	 * @param composeString {String} function composition string
 	 *  of the form: 'transform1 | transform2 | ... | methodOnProxyTarget"
-	 * @param wire.resolveRef {Function} function to use is resolving references, returns a promise
-	 * @param wire.getProxy {Function} function used to obtain a proxy for a component
+	 *  @param {function} wire
+	 * @param {function} wire.resolveRef function to use is resolving references, returns a promise
+	 * @param {function} wire.getProxy function used to obtain a proxy for a component
 	 * @return {Promise} a promise for the composed function
 	 */
 	compose.parse = function parseCompose(proxy, composeString, wire) {
@@ -115,7 +81,7 @@ define(['when'], function (when) {
 		var bindSpecs, resolveRef, getProxy;
 
 		if(typeof composeString != 'string') {
-			return wire(composeString, function(func) {
+			return wire(composeString).then(function(func) {
 				return createProxyInvoker(proxy, func);
 			});
 		}
@@ -130,7 +96,7 @@ define(['when'], function (when) {
 			};
 		}
 
-		function createBound(bindSpec) {
+		function createBound(proxy, bindSpec) {
 			var target, method;
 
 			target = bindSpec.split('.');
@@ -151,12 +117,11 @@ define(['when'], function (when) {
 					return createProxyInvoker(proxy, method);
 				});
 			} else {
-				return when(resolveRef(bindSpec),
-					null,
-					function() {
-						return createProxyInvoker(proxy, bindSpec);
-					}
-				);
+				if(proxy && typeof proxy.get(bindSpec) == 'function') {
+					return createProxyInvoker(proxy, bindSpec);
+				} else {
+					return resolveRef(bindSpec);
+				}
 			}
 
 		}
@@ -166,7 +131,7 @@ define(['when'], function (when) {
 		// Then add the final context[method] to the array of funcs and
 		// return the composition.
 		return when.reduce(bindSpecs, function(funcs, bindSpec) {
-			return when(createBound(bindSpec), function(func) {
+			return when(createBound(proxy, bindSpec), function(func) {
 				funcs.push(func);
 				return funcs;
 			});
@@ -178,10 +143,15 @@ define(['when'], function (when) {
 		);
 	};
 
+	function conditionalWhen(promiseOrValue, onFulfill, onReject) {
+		return when.isPromise(promiseOrValue)
+			? when(promiseOrValue, onFulfill, onReject)
+			: onFulfill(promiseOrValue);
+	}
+
 	return {
 		compose: compose,
-		partial: partial,
-		weave: weave
+		partial: partial
 	};
 
 });
@@ -189,9 +159,5 @@ define(['when'], function (when) {
 	// AMD
 	? define
 	// CommonJS
-	: function(deps, factory) {
-		module.exports = factory.apply(this, deps.map(function(x) {
-			return require(x);
-		}));
-	}
+	: function(factory) { module.exports = factory(require); }
 );

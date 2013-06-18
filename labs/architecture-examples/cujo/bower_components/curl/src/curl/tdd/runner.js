@@ -1,4 +1,4 @@
-/** MIT License (c) copyright B Cavalier & J Hann */
+/** MIT License (c) copyright 2010-2013 B Cavalier & J Hann */
 
 /**
  * curl createContext module
@@ -266,6 +266,7 @@ define(['curl', 'curl/_privileged', './undefine'], function (curl, priv, undefin
 
 	function createTrackedRequire (require, modulesAllFetched) {
 		var callCount = 0;
+
 		function trackedRequire (idOrArray, callback) {
 			var cb;
 
@@ -277,12 +278,14 @@ define(['curl', 'curl/_privileged', './undefine'], function (curl, priv, undefin
 				if (--callCount == 0) modulesAllFetched();
 			};
 
-			// preserve AMD API
-			trackedRequire.toUrl = require.toUrl;
-
 			return require(idOrArray, cb);
 		}
+
+		// preserve AMD API
+		trackedRequire.toUrl = require.toUrl;
+		// helpful
 		trackedRequire.notAsync = function () { return callCount == 0; };
+
 		return trackedRequire;
 	}
 

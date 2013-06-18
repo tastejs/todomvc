@@ -42,7 +42,7 @@ define(['../lib/plugin-base/on', 'dojo/on', 'dojo/query'], function(createOnPlug
 
 	on.wire$plugin = createOnPlugin({
 		on: on
-	}).wire$plugin;
+	});
 
 	return on;
 

@@ -1,5 +1,5 @@
 (function(define) {
-define(function(require) {
+define(function() {
 
 	return function(methodName, args) {
 		return function(target) {
@@ -8,4 +8,4 @@ define(function(require) {
 	};
 
 });
-})(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); });
+})(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); });

@@ -3,7 +3,7 @@
 
 	ES5-ish Date shims for older browsers.
 
-	(c) copyright 2011-2012 Brian Cavalier and John Hann
+	(c) copyright 2011-2013 Brian Cavalier and John Hann
 
 	This module is part of the cujo.js family of libraries (http://cujojs.com/).
 
@@ -20,10 +20,13 @@ define(['./lib/_base'], function (base) {
 		invalidDate,
 		isoCompat,
 		isoParseRx,
+		ownProp,
 		undef;
 
 	origProto = origDate.prototype;
 	origParse = origDate.parse;
+
+	ownProp = Object.prototype.hasOwnProperty;
 
 	maxDate = 8.64e15;
 	invalidDate = NaN;
@@ -119,6 +122,7 @@ define(['./lib/_base'], function (base) {
 	}
 
 	if (!has('date-tojson')) {
+
 		origProto.toJSON = function toJSON (key) {
 			// key arg is ignored by Date objects, but since this function
 			// is generic, other Date-like objects could use the key arg.
@@ -129,39 +133,42 @@ define(['./lib/_base'], function (base) {
 	}
 
 	function checkIsoCompat () {
-		if (!isoCompat()) {
+		// fix Date constructor
 
-			// fix Date constructor
-
-			function Date_ (y, m, d, h, mn, s, ms) {
+		var newDate = (function () {
+			// Replacement Date constructor
+			return function Date (y, m, d, h, mn, s, ms) {
 				var len, result;
 
-				// Date_ called as function, not constructor
-				if (!(this instanceof Date_)) return origDate.apply(this, arguments);
+				// Date called as function, not constructor
+				if (!(this instanceof newDate)) return origDate.apply(this, arguments);
 
 				len = arguments.length;
 
-				if (len == 0) {
+				if (len === 0) {
 					result = new origDate();
 				}
-				else if (len == 1) {
-					result = new origDate(base.isString(y) ? Date.parse(y) : y);
+				else if (len === 1) {
+					result = new origDate(base.isString(y) ? newDate.parse(y) : y);
 				}
 				else {
 					result = new origDate(y, m, d == undef ? 1 : d, h || 0, mn || 0, s || 0, ms || 0);
 				}
 
-				result.constructor = Date_;
+				result.constructor = newDate;
 
 				return result;
-			}
+			};
+		}());
 
-			Date_.now = origDate.now;
-			Date_.UTC = origDate.UTC;
-			Date_.prototype = origProto;
-			Date_.prototype.constructor = Date_;
+		if (!isoCompat()) {
 
-			Date_.parse = function parse (str) {
+			newDate.now = origDate.now;
+			newDate.UTC = origDate.UTC;
+			newDate.prototype = origProto;
+			newDate.prototype.constructor = newDate;
+
+			newDate.parse = function parse (str) {
 				var result;
 
 				// check for iso date
@@ -175,10 +182,24 @@ define(['./lib/_base'], function (base) {
 				return result;
 			};
 
-			Date = Date_;
+			// Unfortunate. See cujojs/poly#11
+			// Copy any owned props that may have been previously added to
+			// the Date constructor by 3rd party libs.
+			copyPropsSafely(newDate, origDate);
+
+			Date = newDate;
 		}
 		else if (Date != origDate) {
 			Date = origDate;
+		}
+
+	}
+
+	function copyPropsSafely(dst, src) {
+		for (var p in src) {
+			if (ownProp.call(src, p) && !ownProp.call(dst, p)) {
+				dst[p] = src[p];
+			}
 		}
 	}
 

@@ -25,7 +25,7 @@ define(function(require) {
 	return function list(generator, condition, seed) {
 		var result = [];
 
-		return unfold(generator, condition, append, seed).yield(result);
+		return unfold(generator, condition, append, seed)['yield'](result);
 
 		function append(value, newSeed) {
 			result.push(value);

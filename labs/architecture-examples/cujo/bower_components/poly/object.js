@@ -1,7 +1,7 @@
 /**
  * Object polyfill / shims
  *
- * (c) copyright 2011-2012 Brian Cavalier and John Hann
+ * (c) copyright 2011-2013 Brian Cavalier and John Hann
  *
  * This module is part of the cujo.js family of libraries (http://cujojs.com/).
  *
@@ -52,24 +52,45 @@
  * IE missing enum properties fixes copied from kangax:
  * https://github.com/kangax/protolicious/blob/master/experimental/object.for_in.js
  *
+ * TODO: fix Object#propertyIsEnumerable for IE's non-enumerable props to match Object.keys()
  */
 define(['./lib/_base'], function (base) {
 "use strict";
 
 	var refObj,
 		refProto,
+		has__proto__,
+		hasNonEnumerableProps,
 		getPrototypeOf,
 		keys,
 		featureMap,
 		shims,
+		secrets,
+		protoSecretProp,
+		hasOwnProp = 'hasOwnProperty',
 		undef;
 
 	refObj = Object;
 	refProto = refObj.prototype;
 
-	getPrototypeOf = typeof {}.__proto__ == 'object'
-		? function (object) { return object.__proto__; }
-		: function (object) { return object.constructor ? object.constructor.prototype : refProto; };
+	has__proto__ = typeof {}.__proto__ == 'object';
+
+	hasNonEnumerableProps = (function () {
+		for (var p in { valueOf: 1 }) return false;
+		return true;
+	}());
+
+	// TODO: this still doesn't work for IE6-8 since object.constructor && object.constructor.prototype are clobbered/replaced when using `new` on a constructor that has a prototype. srsly.
+	// devs will have to do the following if they want this to work in IE6-8:
+	// Ctor.prototype.constructor = Ctor
+	getPrototypeOf = has__proto__
+		? function (object) { assertIsObject(object); return object.__proto__; }
+		: function (object) {
+			assertIsObject(object);
+			return protoSecretProp && object[protoSecretProp](secrets)
+				? object[protoSecretProp](secrets.proto)
+				: object.constructor ? object.constructor.prototype : refProto;
+		};
 
 	keys = !hasNonEnumerableProps
 		? _keys
@@ -81,7 +102,7 @@ define(['./lib/_base'], function (base) {
 				}
 				return result;
 			}
-		}([ 'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toString', 'toLocaleString', 'valueOf' ]));
+		}([ 'constructor', hasOwnProp, 'isPrototypeOf', 'propertyIsEnumerable', 'toString', 'toLocaleString', 'valueOf' ]));
 
 	featureMap = {
 		'object-create': 'create',
@@ -101,10 +122,11 @@ define(['./lib/_base'], function (base) {
 
 	shims = {};
 
-	function hasNonEnumerableProps () {
-		for (var p in { toString: 1 }) return false;
-		return true;
-	}
+	secrets = {
+		proto: {}
+	};
+
+	protoSecretProp = !has('object-getprototypeof') && !has__proto__ && hasNonEnumerableProps && hasOwnProp;
 
 	function createFlameThrower (feature) {
 		return function () {
@@ -134,6 +156,15 @@ define(['./lib/_base'], function (base) {
 		return result;
 	}
 
+	// we might create an owned property to hold the secrets, but make it look
+	// like it's not an owned property.  (affects getOwnPropertyNames, too)
+	if (protoSecretProp) (function (_hop) {
+		refProto[hasOwnProp] = function (name) {
+			if (name == protoSecretProp) return false;
+			return _hop.call(this, name);
+		};
+	}(refProto[hasOwnProp]));
+
 	if (!has('object-create')) {
 		Object.create = shims.create = function create (proto, props) {
 			var obj;
@@ -141,11 +172,21 @@ define(['./lib/_base'], function (base) {
 			if (typeof proto != 'object') throw new TypeError('prototype is not of type Object or Null.');
 
 			PolyBase.prototype = proto;
-			obj = new PolyBase(props);
+			obj = new PolyBase();
 			PolyBase.prototype = null;
 
+			// provide a mechanism for retrieving the prototype in IE 6-8
+			if (protoSecretProp) {
+				var orig = obj[protoSecretProp];
+				obj[protoSecretProp] = function (name) {
+					if (name == secrets) return true; // yes, we're using secrets
+					if (name == secrets.proto) return proto;
+					return orig.call(this, name);
+				};
+			}
+
 			if (arguments.length > 1) {
-				// defineProperties could throw depending on `shouldThrow`
+				// defineProperties could throw depending on `failIfShimmed`
 				Object.defineProperties(obj, props);
 			}
 
@@ -264,8 +305,7 @@ define(['./lib/_base'], function (base) {
 		}
 	}
 
-	// this is effectively a no-op, so why execute it?
-	//failIfShimmed(false);
+	function assertIsObject (o) { if (typeof o != 'object') throw new TypeError('Object.getPrototypeOf called on non-object'); }
 
 	return {
 		failIfShimmed: failIfShimmed

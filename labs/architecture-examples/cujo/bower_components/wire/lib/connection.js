@@ -29,9 +29,14 @@
  *
  */
 
-(function(define){
-define(['when', './array', './functional'], function(when, array, functional) {
-	"use strict";
+(function(define){ 'use strict';
+define(function(require) {
+
+	var when, array, functional;
+
+	when = require('when');
+	array = require('./array');
+	functional = require('./functional');
 
 	return {
 		parse: parse,
@@ -201,9 +206,5 @@ define(['when', './array', './functional'], function(when, array, functional) {
 	// AMD
 	? define
 	// CommonJS
-	: function(deps, factory) {
-		module.exports = factory.apply(this, deps.map(function(x) {
-			return require(x);
-		}));
-	}
+	: function(factory) { module.exports = factory(require); }
 );

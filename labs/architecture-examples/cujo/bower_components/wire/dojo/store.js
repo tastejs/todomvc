@@ -15,6 +15,8 @@
 
 define([], function() {
 
+	var pluginInstance;
+
 	/**
 	 * If wait === true, waits for dataPromise to complete and resolves
 	 * the reference to the resulting concrete data.  If wait !== true,
@@ -74,15 +76,15 @@ define([], function() {
 	/**
 	 * The plugin instance.  Can be the same for all wiring runs
 	 */
-	var plugin = {
+	pluginInstance = {
 		resolvers: {
 			resource: resolveResource
 		}
 	};
 
 	return {
-		wire$plugin: function restPlugin(/* ready, destroyed, options */) {
-			return plugin;
+		wire$plugin: function restPlugin(/* options */) {
+			return pluginInstance;
 		}
 	};
 });

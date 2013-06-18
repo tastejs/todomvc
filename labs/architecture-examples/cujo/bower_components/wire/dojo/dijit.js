@@ -14,8 +14,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-define(['dojo', 'dojo/parser', 'dijit', 'dijit/_Widget'], function(dojo, parser, dijit, Widget) {
-    var parsed, isArray, loadTheme, placeAtFacet;
+define(['dojo', 'dojo/parser', 'dijit', 'dijit/_Widget', '../lib/WireProxy'], function(dojo, parser, dijit, Widget, WireProxy) {
+    var parsed, isArray, loadTheme, placeAtFacet, pluginInstance;
 
     parsed = false;
 
@@ -47,44 +47,33 @@ define(['dojo', 'dojo/parser', 'dijit', 'dijit/_Widget'], function(dojo, parser,
         return it instanceof Widget;
     }
 
-    function createDijitProxy(object /*, spec */) {
-        var proxy;
+	var dijitProxy = {
+		get: function(name) {
+			return this.target.get(name);
+		},
+		set: function(name, val) {
+			return this.target.set(name, val);
+		},
+		destroy: function() {
+			return destroyDijit(this.target);
+		},
+		clone: function() {
+			return dojo.clone(this.target);
+		}
+	};
 
-        if (isDijit(object)) {
-            proxy = {
-                get:function(property) {
-                    return object.get(property);
-                },
-                set:function(property, value) {
-                    return object.set(property, value);
-                },
-                invoke:function(method, args) {
-                    if (typeof method === 'string') {
-                        method = object[method];
-                    }
-
-                    return method.apply(object, args);
-                },
-                destroy:function() {
-                    destroyDijit(object);
-                },
-				clone: function (options) {
-					return dojo.clone(object);
-				}
-            };
+    function proxyDijit(proxy) {
+        if (isDijit(proxy.target)) {
+			return WireProxy.extend(proxy, dijitProxy);
         }
-
-        return proxy;
     }
 
     function destroyDijit(target) {
         // Prefer destroyRecursive over destroy
         if (typeof target.destroyRecursive == 'function') {
             target.destroyRecursive(false);
-
         } else if (typeof target.destroy == 'function') {
             target.destroy(false);
-
         }
     }
 
@@ -131,8 +120,20 @@ define(['dojo', 'dojo/parser', 'dijit', 'dijit/_Widget'], function(dojo, parser,
         }
     };
 
+	pluginInstance = {
+		resolvers:{
+			dijit:dijitById
+		},
+		proxies:[
+			proxyDijit
+		],
+		facets: {
+			placeAt: placeAtFacet
+		}
+	};
+
     return {
-        wire$plugin:function(ready, destroy, options) {
+        wire$plugin:function(options) {
             // Only ever parse the page once, even if other child
             // contexts are created with this plugin present.
             if (options.parse && !parsed) {
@@ -147,17 +148,7 @@ define(['dojo', 'dojo/parser', 'dijit', 'dijit/_Widget'], function(dojo, parser,
             if (theme) loadTheme(theme);
 
             // Return plugin
-            return {
-                resolvers:{
-                    dijit:dijitById
-                },
-                proxies:[
-                    createDijitProxy
-                ],
-                facets: {
-                    placeAt: placeAtFacet
-                }
-            };
+            return pluginInstance;
         }
     };
 });
