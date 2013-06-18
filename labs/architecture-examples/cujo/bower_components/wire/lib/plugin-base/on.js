@@ -30,141 +30,141 @@ function (when, apply, functional, connection) {
 
 		on = options.on;
 
-		return {
-			wire$plugin: function eventsPlugin (ready, destroyed, options) {
+		return function eventsPlugin (options) {
 
-				var removers = [];
+			var removers = [];
 
-				if (!options) {
-					options = {};
-				}
-
-				function createConnection(source, eventsString, handler) {
-					var events, prevent, stop;
-
-					events = splitEventSelectorString(eventsString);
-					prevent = options.preventDefault;
-					stop = options.stopPropagation;
-
-					removers = removers.concat(
-						registerHandlers(events, source, handler, prevent, stop)
-					);
-				}
-
-				function parseIncomingOn(source, targetProxy, connections, wire) {
-
-					// NOTE: Custom parsing for incoming connections
-
-					// target is the node to which to connect, and
-					// right hand side is a specification of an event
-					// and a handler method on the current component
-					//
-					//	component: {
-					//		on: {
-					//			otherComponent: {
-					//				selector: 'a.nav',
-					//				transform: { $ref: 'myTransformFunc' }, // optional
-					//				click: 'handlerMethodOnComponent',
-					//				keypress: 'anotherHandlerOnComponent'
-					//			}
-					//		}
-					//	}
-					var target, event, events, selector, prevent, stop, method, transform, promises;
-
-					target = targetProxy.target;
-					promises = [];
-
-					// Extract options
-					selector = connections.selector;
-					transform = connections.transform;
-					prevent = connections.preventDefault || options.preventDefault;
-					stop = connections.stopPropagation || options.stopPropagation;
-
-					/**
-					 * Compose a transform pipeline and then pass it to addConnection
-					 */
-					function createTransformedConnection(events, targetMethod, transformPromise) {
-						return when(transformPromise, function(transform) {
-							var composed = functional.compose([transform, targetMethod]).bind(targetProxy.target);
-							removers = removers.concat(
-								registerHandlers(events, source, function() {
-									return targetProxy.invoke(composed, arguments);
-								}, prevent, stop)
-							);
-						});
-					}
-
-					for (event in connections) {
-						// Skip reserved names, such as 'selector'
-						if (!(event in theseAreNotEvents)) {
-							// If there's an explicit transform, compose a transform pipeline manually,
-							// Otherwise, let the connection lib do it's thing
-							if(transform) {
-								// TODO: Remove this long form?  It'd simplify the code a lot
-								events = splitEventSelectorString(event, selector);
-								method = connections[event];
-								promises.push(createTransformedConnection(events, target[method], wire(transform)));
-							} else {
-								promises.push(connection.parseIncoming(source, event, targetProxy, options, connections[event], wire, createConnection));
-							}
-						}
-					}
-
-					return when.all(promises);
-				}
-
-				function parseOn (proxy, refName, connections, wire) {
-					// First, figure out if the left-hand-side is a ref to
-					// another component, or an event/delegation string
-					return when(wire.resolveRef(refName),
-						function (source) {
-							// It's an incoming connection, parse it as such
-							return parseIncomingOn(source, proxy, connections, wire);
-						},
-						function () {
-							// Failed to resolve refName as a reference, assume it
-							// is an outgoing event with the current component (which
-							// must be a Node) as the source
-							return connection.parseOutgoing(proxy, refName, connections, wire, createConnection);
-						}
-					);
-
-				}
-
-				function onFacet (wire, facet) {
-					var promises, connections;
-
-					connections = facet.options;
-					promises = [];
-
-					for (var ref in connections) {
-						promises.push(parseOn(facet, ref, connections[ref], wire));
-					}
-
-					return when.all(promises);
-				}
-
-				destroyed.then(function onContextDestroy () {
-					for (var i = removers.length - 1; i >= 0; i--) {
-						removers[i]();
-					}
-				});
-
-				return {
-					facets: {
-						on: {
-							connect: function (resolver, facet, wire) {
-								resolver.resolve(onFacet(wire, facet));
-							}
-						}
-					},
-					resolvers: {
-						on: function(resolver, name /*, refObj, wire*/) {
-							resolver.resolve(name ? createOnResolver(name) : on);
-						}
-					}
-				};
+			if (!options) {
+				options = {};
 			}
+
+			function createConnection(source, eventsString, handler) {
+				var events, prevent, stop;
+
+				events = splitEventSelectorString(eventsString);
+				prevent = options.preventDefault;
+				stop = options.stopPropagation;
+
+				removers = removers.concat(
+					registerHandlers(events, source, handler, prevent, stop)
+				);
+			}
+
+			function parseIncomingOn(source, targetProxy, connections, wire) {
+
+				// NOTE: Custom parsing for incoming connections
+
+				// target is the node to which to connect, and
+				// right hand side is a specification of an event
+				// and a handler method on the current component
+				//
+				//	component: {
+				//		on: {
+				//			otherComponent: {
+				//				selector: 'a.nav',
+				//				transform: { $ref: 'myTransformFunc' }, // optional
+				//				click: 'handlerMethodOnComponent',
+				//				keypress: 'anotherHandlerOnComponent'
+				//			}
+				//		}
+				//	}
+				var target, event, events, selector, prevent, stop, method, transform, promises;
+
+				target = targetProxy.target;
+				promises = [];
+
+				// Extract options
+				selector = connections.selector;
+				transform = connections.transform;
+				prevent = connections.preventDefault || options.preventDefault;
+				stop = connections.stopPropagation || options.stopPropagation;
+
+				/**
+				 * Compose a transform pipeline and then pass it to addConnection
+				 */
+				function createTransformedConnection(events, targetMethod, transformPromise) {
+					return when(transformPromise, function(transform) {
+						var composed = functional.compose([transform, targetMethod]).bind(targetProxy.target);
+						removers = removers.concat(
+							registerHandlers(events, source, function() {
+								return targetProxy.invoke(composed, arguments);
+							}, prevent, stop)
+						);
+					});
+				}
+
+				for (event in connections) {
+					// Skip reserved names, such as 'selector'
+					if (!(event in theseAreNotEvents)) {
+						// If there's an explicit transform, compose a transform pipeline manually,
+						// Otherwise, let the connection lib do it's thing
+						if(transform) {
+							// TODO: Remove this long form?  It'd simplify the code a lot
+							events = splitEventSelectorString(event, selector);
+							method = connections[event];
+							promises.push(createTransformedConnection(events, target[method], wire(transform)));
+						} else {
+							promises.push(connection.parseIncoming(source, event, targetProxy, options, connections[event], wire, createConnection));
+						}
+					}
+				}
+
+				return when.all(promises);
+			}
+
+			function parseOn (proxy, refName, connections, wire) {
+				// First, figure out if the left-hand-side is a ref to
+				// another component, or an event/delegation string
+				return when(wire.resolveRef(refName),
+					function (source) {
+						// It's an incoming connection, parse it as such
+						return parseIncomingOn(source, proxy, connections, wire);
+					},
+					function () {
+						// Failed to resolve refName as a reference, assume it
+						// is an outgoing event with the current component (which
+						// must be a Node) as the source
+						return connection.parseOutgoing(proxy, refName, connections, wire, createConnection);
+					}
+				);
+
+			}
+
+			function onFacet (wire, facet) {
+				var promises, connections;
+
+				connections = facet.options;
+				promises = [];
+
+				for (var ref in connections) {
+					promises.push(parseOn(facet, ref, connections[ref], wire));
+				}
+
+				return when.all(promises);
+			}
+
+			return {
+				context: {
+					destroy: function(resolver) {
+						removers.forEach(function(remover) {
+							remover();
+						});
+						resolver.resolve();
+					}
+				},
+				facets: {
+					on: {
+						connect: function (resolver, facet, wire) {
+							resolver.resolve(onFacet(wire, facet));
+						}
+					}
+				},
+				resolvers: {
+					on: function(resolver, name /*, refObj, wire*/) {
+						resolver.resolve(name ? createOnResolver(name) : on);
+					}
+				}
+			};
 		};
 
 		function registerHandlers (events, node, callback, prevent, stop) {
@@ -256,7 +256,7 @@ function (when, apply, functional, connection) {
 		return function (e) {
 			preventer(e);
 			stopper(e);
-			return handler(e);
+			return handler.apply(this, arguments);
 		};
 	}
 

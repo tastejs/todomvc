@@ -1,7 +1,7 @@
 /**
  * polyfill / shim plugin for AMD loaders
  *
- * (c) copyright 2011-2012 Brian Cavalier and John Hann
+ * (c) copyright 2011-2013 Brian Cavalier and John Hann
  *
  * poly is part of the cujo.js family of libraries (http://cujojs.com/)
  *
@@ -9,7 +9,7 @@
  * 		http://www.opensource.org/licenses/mit-license.php
  */
 
-define(['./object', './string', './date', './array', './function', './json', './xhr'], function (object, string, date) {
+define(['./object', './string', './date', './array', './function', './json', './xhr', './setImmediate'], function (object, string, date) {
 
 	return {
 		failIfShimmed: object.failIfShimmed,

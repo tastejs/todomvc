@@ -9,7 +9,7 @@
  *
  * @author Brian Cavalier
  * @author John Hann
- * @version 2.1.0
+ * @version 2.1.1
  */
 (function(define, global) { 'use strict';
 define(function () {
@@ -88,7 +88,7 @@ define(function () {
 		 * @returns {Promise}
 		 */
 		ensure: function(onFulfilledOrRejected) {
-			return this.then(injectHandler, injectHandler).yield(this);
+			return this.then(injectHandler, injectHandler)['yield'](this);
 
 			function injectHandler() {
 				return resolve(onFulfilledOrRejected());

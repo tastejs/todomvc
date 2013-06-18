@@ -14,7 +14,7 @@
 define(['./../lib/dom/base', 'when'], function (base, when) {
 
 	var parentTypes, parseTemplateRx, getFirstTagNameRx, isPlainTagNameRx,
-		undef;
+		pluginInstance, undef;
 
 	// elements that could be used as root nodes and their natural parent type
 	parentTypes = {
@@ -42,10 +42,9 @@ define(['./../lib/dom/base', 'when'], function (base, when) {
 	 * @param template {String} html template
 	 * @param hashmap {Object} string replacements hash
 	 * @param optRefNode {HTMLElement} node to replace with root node of rendered template
-	 * @param optCss {Object} unused
 	 * @returns {HTMLElement}
 	 */
-	function render (template, hashmap, optRefNode, optCss) {
+	function render (template, hashmap, optRefNode /*, optCss */) {
 		var node;
 
 		// replace tokens (before attempting to find top tag name)
@@ -67,15 +66,17 @@ define(['./../lib/dom/base', 'when'], function (base, when) {
 		return node;
 	}
 
-	render.wire$plugin = function (/*ready, destroyed, options*/) {
-		return {
-			factories: {
-				render: domRenderFactory
-			},
-			proxies: [
-				base.nodeProxy
-			]
-		};
+	pluginInstance = {
+		factories: {
+			render: domRenderFactory
+		},
+		proxies: [
+			base.proxyNode
+		]
+	};
+
+	render.wire$plugin = function (/* options */) {
+		return pluginInstance;
 	};
 
 	/**
@@ -143,11 +144,11 @@ define(['./../lib/dom/base', 'when'], function (base, when) {
 	/**
 	 * Creates rendered dom trees for the "render" factory.
 	 * @param resolver
-	 * @param spec
+	 * @param componentDef
 	 * @param wire
 	 */
-	function domRenderFactory (resolver, spec, wire) {
-		when(wire(spec.render), function (options) {
+	function domRenderFactory (resolver, componentDef, wire) {
+		when(wire(componentDef.options), function (options) {
 			var template;
 			template = options.template || options;
 			return render(template, options.replace, options.at, options.css);
@@ -205,7 +206,7 @@ define(['./../lib/dom/base', 'when'], function (base, when) {
 		if (!missing) {
 			missing = blankIfMissing;
 		}
-
+		
 		return template.replace(parseTemplateRx, function (m, token) {
 			return missing(findProperty(hashmap, token));
 		});

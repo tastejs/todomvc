@@ -44,7 +44,7 @@ define(['./lib/plugin-base/on', './lib/dom/base'], function (createOnPlugin, bas
 
 	on.wire$plugin = createOnPlugin({
 		on: on
-	}).wire$plugin;
+	});
 
 	if (document && document.compareDocumentPosition) {
 		contains = function w3cContains (refNode, testNode) {

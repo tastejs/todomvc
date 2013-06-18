@@ -1,4 +1,4 @@
-/** @license MIT License (c) copyright B Cavalier & J Hann */
+/** @license MIT License (c) copyright 2010-2013 B Cavalier & J Hann */
 
 /**
  * curl (cujo resource loader)
@@ -13,9 +13,10 @@
 (function (global) {
 //"use strict"; don't restore this until the config routine is refactored
 	var
-		version = '0.7.3',
+		version = '0.7.4',
 		curlName = 'curl',
 		defineName = 'define',
+		runModuleAttr = 'data-curl-run',
 		userCfg,
 		prevCurl,
 		prevDefine,
@@ -49,8 +50,9 @@
 		dontAddExtRx = /\?|\.js\b/,
 		absUrlRx = /^\/|^[^:]+:\/\//,
 		findDotsRx = /(\.)(\.?)(?:$|\/([^\.\/]+.*)?)/g,
-		removeCommentsRx = /\/\*[\s\S]*?\*\/|(?:[^\\])\/\/.*?[\n\r]/g,
-		findRValueRequiresRx = /require\s*\(\s*["']([^"']+)["']\s*\)|(?:[^\\]?)(["'])/g,
+		removeCommentsRx = /\/\*[\s\S]*?\*\/|\/\/.*?[\n\r]/g,
+		findRValueRequiresRx = /require\s*\(\s*(["'])(.*?[^\\])\1\s*\)|[^\\]?(["'])/g,
+		splitMainDirectives = /\s*,\s*/,
 		cjsGetters,
 		core;
 
@@ -202,7 +204,7 @@
 	}
 
 	function isPromise (o) {
-		return o instanceof Promise;
+		return o instanceof Promise || o instanceof CurlApi;
 	}
 
 	function when (promiseOrValue, callback, errback, progback) {
@@ -637,18 +639,6 @@
 
 		},
 
-		checkPreloads: function (cfg) {
-			var preloads;
-			preloads = cfg && cfg['preloads'];
-			if (preloads && preloads.length > 0) {
-				// chain from previous preload, if any.
-				when(preload, function () {
-					preload = core.getDeps(core.createContext(userCfg, undef, preloads, true));
-				});
-			}
-
-		},
-
 		resolvePathInfo: function (absId, cfg) {
 			// searches through the configured path mappings and packages
 			var pathMap, pathInfo, path, pkgCfg;
@@ -744,8 +734,8 @@
 					 defFunc :
 					 defFunc.toSource ? defFunc.toSource() : defFunc.toString();
 			// remove comments, then look for require() or quotes
-			source.replace(removeCommentsRx, '').replace(findRValueRequiresRx, function (m, id, qq) {
-				// if we encounter a quote
+			source.replace(removeCommentsRx, '').replace(findRValueRequiresRx, function (m, rq, id, qq) {
+				// if we encounter a string in the source, don't look for require()
 				if (qq) {
 					currQuote = currQuote == qq ? undef : currQuote;
 				}
@@ -971,35 +961,44 @@
 		},
 
 		fetchDep: function (depName, parentDef) {
-			var toAbsId, isPreload, cfg, parts, mainId, loaderId, pluginId,
+			var toAbsId, isPreload, cfg, parts, absId, mainId, loaderId, pluginId,
 				resId, pathInfo, def, tempDef, resCfg;
 
 			toAbsId = parentDef.toAbsId;
 			isPreload = parentDef.isPreload;
 			cfg = parentDef.config || userCfg; // is this fallback necessary?
 
-			// check for plugin loaderId
-			// TODO: this runs pluginParts() twice. how to run it just once?
-			parts = pluginParts(toAbsId(depName));
-			resId = parts.resourceId;
-			// get id of first resource to load (which could be a plugin)
-			mainId = parts.pluginId || resId;
-			pathInfo = core.resolvePathInfo(mainId, cfg);
+			absId = toAbsId(depName);
 
-			// get custom module loader from package config if not a plugin
-			if (parts.pluginId) {
-				loaderId = mainId;
+			if (absId in cache) {
+				// module already exists in cache
+				mainId = absId;
 			}
 			else {
-				// TODO: move config.moduleLoader to config.transform
-				loaderId = pathInfo.config['moduleLoader'] || pathInfo.config.moduleLoader;
-				if (loaderId) {
-					// TODO: allow transforms to have relative module ids?
-					// (we could do this by returning package location from
-					// resolvePathInfo. why not return all package info?)
-					resId = mainId;
-					mainId = loaderId;
-					pathInfo = core.resolvePathInfo(loaderId, cfg);
+				// check for plugin loaderId
+				parts = pluginParts(absId);
+				resId = parts.resourceId;
+				// get id of first resource to load (which could be a plugin)
+				mainId = parts.pluginId || resId;
+				pathInfo = core.resolvePathInfo(mainId, cfg);
+			}
+
+			// get custom module loader from package config if not a plugin
+			if (parts) {
+				if (parts.pluginId) {
+					loaderId = mainId;
+				}
+				else {
+					// TODO: move config.moduleLoader to config.transform
+					loaderId = pathInfo.config['moduleLoader'] || pathInfo.config.moduleLoader;
+					if (loaderId) {
+						// TODO: allow transforms to have relative module ids?
+						// (we could do this by returning package location from
+						// resolvePathInfo. why not return all package info?)
+						resId = mainId;
+						mainId = loaderId;
+						pathInfo = core.resolvePathInfo(loaderId, cfg);
+					}
 				}
 			}
 
@@ -1070,8 +1069,8 @@
 						// but to be compatible with AMD spec, we have to
 						// piggy-back on the callback function parameter:
 						var loaded = function (res) {
-							normalizedDef.resolve(res);
 							if (!dynamic) cache[fullId] = res;
+							normalizedDef.resolve(res);
 						};
 						loaded['resolve'] = loaded;
 						loaded['reject'] = loaded['error'] = normalizedDef.reject;
@@ -1110,6 +1109,34 @@
 				}
 			}
 			return def;
+		},
+
+		findScript: function (predicate) {
+			var i = 0, script;
+			while (doc && (script = doc.scripts[i++])) {
+				if (predicate(script)) return script;
+			}
+		},
+
+		extractDataAttrConfig: function (cfg) {
+			var script;
+			script = core.findScript(function (script) {
+				var main;
+				// find main module(s) in data-curl-run attr on script element
+				// TODO: extract baseUrl, too?
+				main = script.getAttribute(runModuleAttr);
+				if (main) cfg.main = main;
+				return main;
+			});
+			// removeAttribute is wonky (in IE6?) but this works
+			if (script) {
+				script.setAttribute(runModuleAttr, '');
+			}
+			return cfg;
+		},
+
+		nextTurn: function (task) {
+			setTimeout(task, 0);
 		}
 
 	};
@@ -1118,42 +1145,57 @@
 	cjsGetters = {'require': core.getCjsRequire, 'exports': core.getCjsExports, 'module': core.getCjsModule};
 
 	function _curl (/* various */) {
+		var args, promise, cfg;
 
-		var args = [].slice.call(arguments), cfg;
+		args = [].slice.call(arguments);
 
 		// extract config, if it's specified
 		if (isType(args[0], 'Object')) {
 			cfg = args.shift();
-			_config(cfg);
+			promise = _config(cfg);
 		}
 
-		return new CurlApi(args[0], args[1], args[2]);
-
+		return new CurlApi(args[0], args[1], args[2], promise);
 	}
 
-	function _config (cfg) {
+	function _config (cfg, callback, errback) {
+		var pPromise, mPromise, main, devmain, fallback;
+
 		if (cfg) {
 			core.setApi(cfg);
 			userCfg = core.config(cfg);
 			// check for preloads
-			core.checkPreloads(cfg);
-			// check for main module(s)
-			if ('main' in cfg) {
-				// start in next turn to wait for other modules in current file
-				setTimeout(function () {
-					var ctx;
-					ctx = core.createContext(userCfg, undef, [].concat(cfg['main']));
-					core.getDeps(ctx);
-				}, 0);
+			if ('preloads' in cfg) {
+				pPromise = new CurlApi(cfg['preloads'], undef, errback, preload, true);
+				// yes, this is hacky and embarrassing. now that we've got that
+				// settled... until curl has deferred factory execution, this
+				// is the only way to stop preloads from dead-locking when
+				// they have dependencies inside a bundle.
+				core.nextTurn(function () { preload = pPromise; });
+			}
+			// check for main module(s). all modules wait for preloads implicitly.
+			main = cfg['main'];
+			main = main && String(main).split(splitMainDirectives);
+			if (main) {
+				mPromise = new Promise();
+				mPromise.then(callback, errback);
+				// figure out if we are using a dev-time fallback
+				fallback = main[1]
+					? function () { new CurlApi(main[1], mPromise.resolve, mPromise.reject); }
+					: mPromise.reject;
+				new CurlApi(main[0], mPromise.resolve, fallback);
+				return mPromise;
 			}
 		}
 	}
 
 	// thanks to Joop Ringelberg for helping troubleshoot the API
-	function CurlApi (ids, callback, errback, waitFor) {
+	function CurlApi (ids, callback, errback, waitFor, isPreload) {
 		var then, ctx;
-		ctx = core.createContext(userCfg, undef, [].concat(ids));
-		this['then'] = then = function (resolved, rejected) {
+
+		ctx = core.createContext(userCfg, undef, [].concat(ids), isPreload);
+
+		this['then'] = this.then = then = function (resolved, rejected) {
 			when(ctx,
 				// return the dependencies as arguments, not an array
 				function (deps) {
@@ -1166,13 +1208,22 @@
 			);
 			return this;
 		};
+
 		this['next'] = function (ids, cb, eb) {
 			// chain api
 			return new CurlApi(ids, cb, eb, ctx);
 		};
+
 		this['config'] = _config;
+
 		if (callback || errback) then(callback, errback);
-		when(waitFor, function () { core.getDeps(ctx); });
+
+		// ensure next-turn so inline code can execute first
+		core.nextTurn(function () {
+			when(isPreload || preload, function () {
+				when(waitFor, function () { core.getDeps(ctx); }, errback);
+			});
+		});
 	}
 
 	_curl['version'] = version;
@@ -1232,18 +1283,23 @@
 		pathRx: /$^/
 	};
 
+	// look for "data-curl-run" directive, and override config
+	userCfg = core.extractDataAttrConfig(userCfg);
+
 	// handle pre-existing global
 	prevCurl = global[curlName];
 	prevDefine = global[defineName];
-	if (!prevCurl || isType(prevCurl, 'Function')) {
-		// set default api
-		core.setApi();
-	}
-	else {
+
+	// only run config if there is something to config (perf saver?)
+	if (prevCurl && isType(prevCurl, 'Object') || userCfg.main) {
 		// remove global curl object
 		global[curlName] = undef; // can't use delete in IE 6-8
 		// configure curl
-		_config(prevCurl);
+		_config(prevCurl || userCfg);
+	}
+	else {
+		// set default api
+		core.setApi();
 	}
 
 	// allow curl to be a dependency

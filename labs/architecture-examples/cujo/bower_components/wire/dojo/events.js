@@ -17,7 +17,7 @@ define(['when', '../lib/connection', 'dojo', 'dojo/_base/event'],
 function(when, connection, events) {
 
 	return {
-		wire$plugin: function eventsPlugin(ready, destroyed /*, options*/) {
+		wire$plugin: function eventsPlugin(/*, options*/) {
 			
 			var connectHandles = [];
 
@@ -69,13 +69,15 @@ function(when, connection, events) {
                 return when.all(promises);
 			}
 			
-			destroyed.then(function onContextDestroy() {
-				for (var i = connectHandles.length - 1; i >= 0; i--){
-					events.disconnect(connectHandles[i]);
-				}
-			});
-
 			return {
+				context: {
+					destroy: function(resolver) {
+						for (var i = connectHandles.length - 1; i >= 0; i--){
+							events.disconnect(connectHandles[i]);
+						}
+						resolver.resolve();
+					}
+				},
 				facets: {
 					connect: {
 						connect: function(resolver, facet, wire) {

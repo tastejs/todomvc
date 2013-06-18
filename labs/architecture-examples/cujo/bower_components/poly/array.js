@@ -2,7 +2,7 @@
 	Array -- a stand-alone module for using Javascript 1.6 array features
 	in lame-o browsers that don't support Javascript 1.6
 
-	(c) copyright 2011-2012 Brian Cavalier and John Hann
+	(c) copyright 2011-2013 Brian Cavalier and John Hann
 
 	This module is part of the cujo.js family of libraries (http://cujojs.com/).
 

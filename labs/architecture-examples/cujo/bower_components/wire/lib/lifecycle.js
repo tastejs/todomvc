@@ -5,91 +5,98 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-(function(define){
-define(['when'], function(when) {
+(function(define){ 'use strict';
+define(function(require) {
 
-	"use strict";
+	var when, safeNonFacetNames;
 
-	var lifecyclePhases, phase;
-
-	lifecyclePhases = {
-		init: generateSteps(['create', 'configure', 'initialize']),
-		startup: generateSteps(['connect', 'ready']),
-		shutdown: generateSteps(['destroy'])
+	when = require('when');
+	safeNonFacetNames = {
+		id: { value: 1 }
 	};
 
-	function Lifecycle(config) {
-		this._config = config;
+	function Lifecycle(plugins, pluginApi) {
+		this._plugins = plugins;
+		this._pluginApi = pluginApi;
 	}
 
-	// Generate prototype from lifecyclePhases
-	for(phase in lifecyclePhases) {
-		Lifecycle.prototype[phase] = createLifecyclePhase(phase);
-	}
+	Lifecycle.prototype = {
+		init: createLifecyclePhase(['create', 'configure', 'initialize']),
+		startup: createLifecyclePhase(['connect', 'ready']),
+		shutdown: createLifecyclePhase(['destroy'])
+	};
 
 	return Lifecycle;
 
 	/**
 	 * Generate a method to process all steps in a lifecycle phase
-	 * @param phase
 	 * @return {Function}
 	 */
-	function createLifecyclePhase(phase) {
-		var steps = lifecyclePhases[phase];
+	function createLifecyclePhase(steps) {
+		steps = generateSteps(steps);
 
 		return function(proxy) {
-			var self = this;
+			var plugins, pluginApi;
+
+			plugins = this._plugins;
+			pluginApi = this._pluginApi.contextualize(proxy.id);
+
 			return when.reduce(steps, function (unused, step) {
-				return processFacets(step, proxy, self._config);
+				return processFacets(step, proxy, pluginApi, plugins);
 			}, proxy);
 		};
 	}
 
-	function processFacets(step, proxy, config) {
-		var promises, options, name, spec, facets;
-		
+	function processFacets(step, proxy, api, plugins) {
+		var promises, metadata, options, name, spec, facets, safeNames, unprocessed;
+
 		promises = [];
-		spec = proxy.spec;
+		metadata = proxy.metadata;
+		spec = metadata.spec;
+		facets = plugins.facets;
+		safeNames = Object.create(plugins.factories, safeNonFacetNames);
+		unprocessed = [];
 
-		facets = config.facets;
-
-		for (name in facets) {
-			options = spec[name];
-			if (options) {
-				processStep(promises, facets[name], step, proxy, options, config.pluginApi);
+		for(name in spec) {
+			if(name in facets) {
+				options = spec[name];
+				if (options) {
+					processStep(promises, facets[name], step, proxy, options, api);
+				}
+			} else if (!(name in safeNames)) {
+				unprocessed.push(name);
 			}
 		}
 
-		return when.all(promises).then(function () {
-			return processListeners(step, proxy, config);
-		}).then(function() {
-			return proxy;
-		});
+		if(unprocessed.length) {
+			return when.reject(unrecognizedFacets(proxy, unprocessed, spec));
+		} else {
+			return when.all(promises).then(function () {
+				return processListeners(step, proxy, api, plugins.listeners);
+			}).yield(proxy);
+		}
 	}
 
-	function processListeners(step, proxy, config) {
-		var listeners, listenerPromises;
-
-		listeners = config.listeners;
-		listenerPromises = [];
+	function processListeners(step, proxy, api, listeners) {
+		var listenerPromises = [];
 
 		for (var i = 0; i < listeners.length; i++) {
-			processStep(listenerPromises, listeners[i], step, proxy, {}, config.pluginApi);
+			processStep(listenerPromises, listeners[i], step, proxy, {}, api);
 		}
 
 		return when.all(listenerPromises);
 	}
 
-	function processStep(promises, processor, step, proxy, options, pluginApi) {
-		var facet, facetPromise;
+	function processStep(promises, processor, step, proxy, options, api) {
+		var facet, pendingFacet;
 
 		if (processor && processor[step]) {
-			facetPromise = when.defer();
-			promises.push(facetPromise.promise);
+			pendingFacet = when.defer();
+			promises.push(pendingFacet.promise);
 
 			facet = Object.create(proxy);
 			facet.options = options;
-			processor[step](facetPromise.resolver, facet, pluginApi);
+			processor[step](pendingFacet.resolver, facet, api);
 		}
 	}
 
@@ -103,14 +110,15 @@ define(['when'], function(when) {
 		lifecycle.push(step + ':after');
 		return lifecycle;
 	}
+
+	function unrecognizedFacets(proxy, unprocessed, spec) {
+		return new Error('unrecognized facets in ' + proxy.id + ', maybe you forgot a plugin? ' + unprocessed.join(', ') + '\n' + JSON.stringify(spec));
+	}
+
 });
 })(typeof define == 'function'
 	// AMD
 	? define
 	// CommonJS
-	: function(deps, factory) {
-		module.exports = factory.apply(this, deps.map(function(x) {
-			return require(x);
-		}));
-	}
+	: function(factory) { module.exports = factory(require); }
 );

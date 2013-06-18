@@ -16,7 +16,7 @@
 define(['dojo', 'meld', 'dojo/_base/connect'], function(pubsub, meld) {
 
 	return {
-		wire$plugin: function pubsubPlugin(ready, destroyed /*, options */) {
+		wire$plugin: function pubsubPlugin(/*, options */) {
 
 			var destroyHandlers = [];
 
@@ -73,15 +73,17 @@ define(['dojo', 'meld', 'dojo/_base/connect'], function(pubsub, meld) {
 				}
 			}
 
-			// When the context is destroyed, remove all publish and
-			// subscribe hooks created in this context
-			destroyed.then(function onContextDestroy() {
-				for (var i = destroyHandlers.length - 1; i >= 0; --i){
-					destroyHandlers[i]();
-				}
-			});
-
 			return {
+				context: {
+					destroy: function(resolver) {
+						// When the context is destroyed, remove all publish and
+						// subscribe hooks created in this context
+						for (var i = destroyHandlers.length - 1; i >= 0; --i){
+							destroyHandlers[i]();
+						}
+						resolver.resolve();
+					}
+				},
 				facets: {
 					publish: {
 						connect: function(promise, facet, wire) {

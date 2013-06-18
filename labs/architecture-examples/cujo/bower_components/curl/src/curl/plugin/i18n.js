@@ -1,4 +1,4 @@
-/** MIT License (c) copyright B Cavalier & J Hann */
+/** MIT License (c) copyright 2010-2013 B Cavalier & J Hann */
 
 /**
  * curl i18n plugin
@@ -85,7 +85,7 @@
  *
  */
 
-(function (global) {
+(function (window) {
 
 define(/*=='curl/plugin/i18n',==*/ function () {
 
@@ -96,6 +96,7 @@ define(/*=='curl/plugin/i18n',==*/ function () {
 	appendLocaleRx = /(\.js)?$/;
 
 	return {
+
 		load: function (absId, require, loaded, config) {
 			var eb, toFile, locale, bundles, fetched, id, ids, specifiers, i;
 
@@ -160,7 +161,10 @@ define(/*=='curl/plugin/i18n',==*/ function () {
 				}
 			}
 
-		}
+		},
+
+		'cramPlugin': '../cram/i18n'
+
 	};
 
 	function fetch (require, id, i, cb, eb) {
@@ -177,7 +181,9 @@ define(/*=='curl/plugin/i18n',==*/ function () {
 	}
 
 	function getLocale () {
-		var ci = global['clientInformation'] || global.navigator;
+		var ci;
+		if (!window) return false;
+		ci = window['clientInformation'] || window.navigator;
 		return ci.language || ci['userLanguage'];
 	}
 
@@ -187,4 +193,4 @@ define(/*=='curl/plugin/i18n',==*/ function () {
 
 });
 
-}(this));
+}(typeof window != 'undefined' && window));
