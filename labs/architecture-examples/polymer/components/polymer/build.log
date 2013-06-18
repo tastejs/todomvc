@@ -1,0 +1,41 @@
+BUILD LOG
+---------
+Build Time: 2013-06-17T12:21:13
+
+NODEJS INFORMATION
+==================
+nodejs: v0.10.4
+chai: 1.6.1
+grunt: 0.4.1
+grunt-audit: 0.0.0
+grunt-contrib-uglify: 0.2.2
+grunt-contrib-yuidoc: 0.4.0
+grunt-karma-0.9.1: 0.4.3
+karma: 0.9.2
+karma-chrome-launcher: 0.0.1
+karma-coffee-preprocessor: 0.0.1
+karma-crbot-reporter: 0.0.3
+karma-firefox-launcher: 0.0.2
+karma-jasmine: 0.0.1
+karma-mocha: 0.0.1
+karma-phantomjs-launcher: 0.0.2
+karma-requirejs: 0.0.1
+karma-script-launcher: 0.0.1
+mocha: 1.10.0
+
+REPO REVISIONS
+==============
+polymer: 24689e70b7ebb122909d4ed17b53a2b2a455a2e5
+platform: 569a80ae565a0ecbe01d3a79128021fdf1caaff7
+ShadowDOM: 7a50b20542a559a0ffccb9e3a9330246a1f9fb5f
+HTMLImports: 7960a892cd4461333809605c3806ba4da699b1f0
+CustomElements: 76bfa07e8bfd5ed75c0c14682a66c40600e6baa0
+PointerEvents: 9bab6b80e74fcbbdb4145286aae264ae54175419
+PointerGestures: d6328b1e65daf111720f76b70f6d469a91a96335
+mdv: aaa18dc0069764ec9f25654c949e4a1071f551f2
+
+BUILD HASHES
+============
+polymer.min.js: 434cd0b3e8d81699760c75043ab6f7c5676db006
+polymer.native.min.js: 4f966c0f59a909dd3ac28068f1164016551ec179
+polymer.sandbox.min.js: 7444aba9341f62aeb0d89538ee033c77c16cd0e0
