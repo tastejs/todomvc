@@ -46,14 +46,14 @@ define(['../lib/plugin-base/on', 'jquery'], function(createOnPlugin, jquery) {
 
 	on.wire$plugin = createOnPlugin({
 		on: on
-	}).wire$plugin;
+	});
 
 	return on;
 
 	function makeEventHandler (handler, selector) {
-		return function (e) {
+		return function (e, o) {
 			if (selector) e.selectorTarget = this;
-			handler(e);
+			handler(e, o);
 		}
 	}
 

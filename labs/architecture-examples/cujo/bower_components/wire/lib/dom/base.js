@@ -10,9 +10,12 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 (function (define) {
-define(function () {
+define(function (require) {
 
-	var classRx, trimLeadingRx, splitClassNamesRx, nodeProxyInvoke;
+	var WireProxy, priority, classRx, trimLeadingRx, splitClassNamesRx, nodeProxyInvoke;
+
+	WireProxy = require('../WireProxy');
+	priority = require('../plugin/priority');
 
 	classRx = '(\\s+|^)(classNames)(\\b(?![\\-_])|$)';
 	trimLeadingRx = /^\s+/;
@@ -211,58 +214,74 @@ define(function () {
 		parent.appendChild(node);
 	}
 
-	function nodeProxy (node) {
+	function isNode(it) {
+		return typeof Node === "object"
+			? it instanceof Node
+			: it && typeof it === "object" && typeof it.nodeType === "number" && typeof it.nodeName==="string";
+	}
 
-		if (!node || !node.nodeType || !node.setAttribute || !node.getAttribute) {
-			return;
+	function NodeProxy() {}
+
+	NodeProxy.prototype = {
+		get: function (name) {
+			var node = this.target;
+
+			if (name in node) {
+				return node[name];
+			}
+			else {
+				return node.getAttribute(name);
+			}
+		},
+
+		set: function (name, value) {
+			var node = this.target;
+
+			if (name in node) {
+				return node[name] = value;
+			}
+			else {
+				return node.setAttribute(name, value);
+			}
+		},
+
+		invoke: function (method, args) {
+			return nodeProxyInvoke(this.target, method, args);
+		},
+
+		destroy: function () {
+			var node = this.target;
+
+			// if we added a destroy method on the node, call it.
+			// TODO: find a better way to release events instead of using this mechanism
+			if (node.destroy) {
+				node.destroy();
+			}
+			// removal from document will destroy node as soon as all
+			// references to it go out of scope.
+			var parent = node.parentNode;
+			if (parent) {
+				parent.removeChild(node);
+			}
+		},
+
+		clone: function (options) {
+			if (!options) {
+				options = {};
+			}
+			// default is to clone deep (when would anybody not want deep?)
+			return this.target.cloneNode(!('deep' in options) || options.deep);
+		}
+	};
+
+	proxyNode.priority = priority.basePriority;
+	function proxyNode (proxy) {
+
+		if (!isNode(proxy.target)) {
+			return proxy;
 		}
 
-		return {
-
-			get: function (name) {
-				if (name in node) {
-					return node[name];
-				}
-				else {
-					return node.getAttribute(name);
-				}
-			},
-
-			set: function (name, value) {
-				if (name in node) {
-					return node[name] = value;
-				}
-				else {
-					return node.setAttribute(name, value);
-				}
-			},
-
-			invoke: function (method, args) {
-				return nodeProxyInvoke(node, method, args);
-			},
-
-			destroy: function () {
-				// if we added a destroy method on the node, call it.
-				// TODO: find a better way to release events instead of using this mechanism
-				if (node.destroy) {
-					node.destroy();
-				}
-				// removal from document will destroy node as soon as all
-				// references to it go out of scope.
-				var parent = node.parentNode;
-				if (parent) {
-					parent.removeChild(node);
-				}
-			},
-
-			clone: function (options) {
-				if (!options) {
-					options = {};
-				}
-				// default is to clone deep (when would anybody not want deep?)
-				return node.cloneNode(!('deep' in options) || options.deep);
-			}
-		};
+		return WireProxy.extend(proxy, NodeProxy.prototype);
 	}
 
 	return {
@@ -274,7 +293,7 @@ define(function () {
 		addClass: addClass,
 		removeClass: removeClass,
 		toggleClass: toggleClass,
-		nodeProxy: nodeProxy
+		proxyNode: proxyNode
 
 	};
 
@@ -282,5 +301,5 @@ define(function () {
 }(
 	typeof define == 'function' && define.amd
 		? define
-		: function (factory) { module.exports = factory(); }
+		: function (factory) { module.exports = factory(require); }
 ));

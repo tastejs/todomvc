@@ -1,7 +1,7 @@
-/** @license MIT License (c) copyright B Cavalier & J Hann */
+/** @license MIT License (c) copyright 2011-2013 original author or authors */
 
 /**
- * wire/domReady plugin
+ * wire/domReady
  * A base wire/domReady module that plugins can use if they need domReady.  Simply
  * add 'wire/domReady' to your plugin module dependencies
  * (e.g. require(['wire/domReady', ...], function(domReady, ...) { ... })) and you're
@@ -21,6 +21,9 @@
  *  paths: {
  *      'wire/domReady': 'path/to/my/domReady'
  *  }
+ *
+ * @author Brian Cavalier
+ * @author John Hann
  */
 
 (function(global) {

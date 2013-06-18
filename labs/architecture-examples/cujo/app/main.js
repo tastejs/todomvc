@@ -174,13 +174,8 @@ define({
 		}
 	},
 
-	plugins: [
-		// { module: 'wire/debug', trace: true },
-		{ module: 'wire/dom' },
-		{ module: 'wire/dom/render' },
-		{ module: 'wire/on' },
-		{ module: 'wire/aop' },
-		{ module: 'wire/connect' },
-		{ module: 'cola' }
+	plugins: [ //'wire/debug',
+		'wire/dom', 'wire/dom/render', 'wire/on',
+		'wire/aop', 'wire/connect', 'cola'
 	]
 });

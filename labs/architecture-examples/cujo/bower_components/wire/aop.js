@@ -10,10 +10,15 @@
  * Licensed under the MIT License at:
  * http://www.opensource.org/licenses/mit-license.php
  */
-(function(define) {
-define(['meld', 'when', './lib/async', './lib/connection'], function(meld, when, async, connection) {
+(function(define) { 'use strict';
+define(function(require) {
 
-	var adviceTypes, adviceStep, undef;
+	var meld, when, sequence, connection, adviceTypes, adviceStep, undef;
+
+	meld = require('meld');
+	when = require('when');
+	sequence = require('when/sequence');
+	connection = require('./lib/connection');
 
 	// "after" is not included in these standard advice types because
 	// it is created as promise-aware advice.
@@ -24,13 +29,13 @@ define(['meld', 'when', './lib/async', './lib/connection'], function(meld, when,
     // Decoration
     //
 
-	function applyDecorator(target, Decorator, args) {
-		args = args ? [target].concat(args) : [target];
+    function applyDecorator(target, Decorator, args) {
+        args = args ? [target].concat(args) : [target];
 
-		Decorator.apply(null, args);
-	}
+        Decorator.apply(null, args);
+    }
 
-	function makeDecorator(decorator, args, wire) {
+    function makeDecorator(decorator, args, wire) {
 		return function(target) {
 			function apply(Decorator) {
 				return args
@@ -42,21 +47,21 @@ define(['meld', 'when', './lib/async', './lib/connection'], function(meld, when,
 
 			return when(wire.resolveRef(decorator), apply);
 		};
-	}
+    }
 
-	function decorateFacet(resolver, facet, wire) {
-		var target, options, tasks;
+    function decorateFacet(resolver, facet, wire) {
+        var target, options, tasks;
 
-		target = facet.target;
-		options = facet.options;
-		tasks = [];
+        target = facet.target;
+        options = facet.options;
+        tasks = [];
 
-		for(var decoratorRefName in options) {
-			tasks.push(makeDecorator(decoratorRefName, options[decoratorRefName], wire));
-		}
+        for(var decoratorRefName in options) {
+            tasks.push(makeDecorator(decoratorRefName, options[decoratorRefName], wire));
+        }
 
-		resolver.resolve(async.sequence(tasks, target));
-	}
+		resolver.resolve(sequence(tasks, target));
+    }
 
 	//
 	// Simple advice
@@ -65,10 +70,17 @@ define(['meld', 'when', './lib/async', './lib/connection'], function(meld, when,
 	function addSingleAdvice(addAdviceFunc, advices, proxy, advice, options, wire) {
 
 		function handleAopConnection(srcObject, srcMethod, adviceHandler) {
+			checkAdvisable(srcObject, srcMethod);
 			advices.push(addAdviceFunc(srcObject, srcMethod, adviceHandler));
 		}
 
 		return connection.parse(proxy, advice, options, wire, handleAopConnection);
+	}
+
+	function checkAdvisable(source, method) {
+		if (!(typeof method == 'function' || typeof source[method] == 'function')) {
+			throw new TypeError('Cannot add advice to non-method: ' + method);
+		}
 	}
 
 	function makeSingleAdviceAdd(adviceType) {
@@ -180,83 +192,74 @@ define(['meld', 'when', './lib/async', './lib/connection'], function(meld, when,
         }, target));
     }
 
-    return {
-        /**
-         * Creates wire/aop plugin instances.
-         *
-         * @param ready {Promise} promise that will be resolved when the context has been wired,
-         *  rejected if there is an error during the wiring process, and will receive progress
-         *  events for object creation, property setting, and initialization.
-         * @param destroyed {Promise} promise that will be resolved when the context has been destroyed,
-         *  rejected if there is an error while destroying the context, and will receive progress
-         *  events for objects being destroyed.
-         * @param options {Object}
-         */
-        wire$plugin: function(ready, destroyed, options) {
+	/**
+	 * Creates wire/aop plugin instances.
+	 *
+	 * @param options {Object} options passed to the plugin
+	 */
+    return function(options) {
 
-            // Track aspects so they can be removed when the context is destroyed
-            var woven, plugin, i, len, adviceType;
+		// Track aspects so they can be removed when the context is destroyed
+		var woven, plugin, i, len, adviceType;
 
-			woven = [];
+		woven = [];
 
-            // Remove all aspects that we added in this context
-            when(destroyed, function() {
-                for(var i = woven.length - 1; i >= 0; --i) {
-                    woven[i].remove();
-                }
-            });
+		/**
+		 * Function to add an aspect and remember it in the current context
+		 * so that it can be removed when the context is destroyed.
+		 * @param target
+		 * @param pointcut
+		 * @param aspect
+		 */
+		function add(target, pointcut, aspect) {
+			woven.push(meld.add(target, pointcut, aspect));
+		}
 
-            /**
-             * Function to add an aspect and remember it in the current context
-             * so that it can be removed when the context is destroyed.
-             * @param target
-             * @param pointcut
-             * @param aspect
-             */
-            function add(target, pointcut, aspect) {
-                woven.push(meld.add(target, pointcut, aspect));
-            }
+		function makeFacet(step, callback) {
+			var facet = {};
 
-            function makeFacet(step, callback) {
-                var facet = {};
+			facet[step] = function(resolver, proxy, wire) {
+				callback(resolver, proxy, wire);
+			};
 
-                facet[step] = function(resolver, proxy, wire) {
-                    callback(resolver, proxy, wire);
-                };
+			return facet;
+		}
 
-                return facet;
-            }
-
-            // Plugin
-            plugin = {
-                facets: {
-                    decorate:       makeFacet('configure:after', decorateFacet),
-					afterFulfilling: makeFacet(adviceStep, makeAdviceFacet(addAfterFulfillingAdvice, woven)),
-					afterRejecting:  makeFacet(adviceStep, makeAdviceFacet(addAfterRejectingAdvice, woven)),
-					after: makeFacet(adviceStep, makeAdviceFacet(addAfterPromiseAdvice, woven))
-                }
-            };
-
-			if(options.aspects) {
-				plugin.create = function(resolver, proxy, wire) {
-					weave(resolver, proxy, wire, options, add);
-				};
+		// Plugin
+		plugin = {
+			context: {
+				destroy: function(resolver) {
+					woven.forEach(function(aspect) {
+						aspect.remove();
+					});
+					resolver.resolve();
+				}
+			},
+			facets: {
+				decorate:       makeFacet('configure:after', decorateFacet),
+				afterFulfilling: makeFacet(adviceStep, makeAdviceFacet(addAfterFulfillingAdvice, woven)),
+				afterRejecting:  makeFacet(adviceStep, makeAdviceFacet(addAfterRejectingAdvice, woven)),
+				after: makeFacet(adviceStep, makeAdviceFacet(addAfterPromiseAdvice, woven))
 			}
+		};
 
-			// Add all regular single advice facets
-			for(i = 0, len = adviceTypes.length; i<len; i++) {
-				adviceType = adviceTypes[i];
-				plugin.facets[adviceType] = makeFacet(adviceStep, makeAdviceFacet(makeSingleAdviceAdd(adviceType), woven));
-			}
+		if(options.aspects) {
+			plugin.create = function(resolver, proxy, wire) {
+				weave(resolver, proxy, wire, options, add);
+			};
+		}
 
-			return plugin;
-        }
-    };
+		// Add all regular single advice facets
+		for(i = 0, len = adviceTypes.length; i<len; i++) {
+			adviceType = adviceTypes[i];
+			plugin.facets[adviceType] = makeFacet(adviceStep, makeAdviceFacet(makeSingleAdviceAdd(adviceType), woven));
+		}
+
+		return plugin;
+};
 });
 })(typeof define == 'function'
 	// use define for AMD if available
 	? define
-    : function(deps, factory) {
-        module.exports = factory.apply(this, deps.map(require));
-    }
+    : function(factory) { module.exports = factory(require); }
 );
