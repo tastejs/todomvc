@@ -1,0 +1,77 @@
+<link rel="import" href="../lib-elements/polymer-selector.html">
+<link rel="import" href="../lib-elements/flatiron-director.html">
+<link rel="import" href="../lib-elements/polymer-localstorage.html">
+<link rel="import" href="td-item.html">
+<link rel="import" href="td-model.html">
+
+<element name="td-todos" attributes="route">
+	<link rel="stylesheet" href="td-todos.css">
+	<template>
+		<flatiron-director route="{{route}}"></flatiron-director>
+		<polymer-localstorage id="storage" name="todos-polymer" value="{{items}}"></polymer-localstorage>
+		<td-model id="model" items="{{items}}" filter="{{route}}" on-td-model-changed="modelChangedAction"></td-model>
+		<section id="todoapp">
+			<header id="header">
+				<input id="new-todo" placeholder="What needs to be done?" autofocus on-keyup="keyAction">
+			</header>
+			<section id="main" hidden?="{{$.model.items.length == 0}}">
+				<input id="toggle-all" type="checkbox" on-change="toggleAllCompletedAction" checked="{{$.model.allCompleted}}">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list" on-td-item-changed="itemChangedAction" on-td-destroy-item="destroyItemAction">
+					<template repeat="{{$.model.filtered}}">
+						<li is="td-item" item="{{}}"></li>
+					</template>
+				</ul>
+			</section>
+			<footer id="footer" hidden?="{{$.model.items.length == 0}}">
+				<span id="todo-count"><strong>{{$.model.activeCount}}</strong> {{$.model.activeCount == 1 ? 'item' : 'items'}} left</span>
+				<polymer-selector id="filters" selected="{{route || 'all'}}">
+					<li name="all">
+						<a href="../#/">All</a>
+					</li>
+					<li name="active">
+						<a href="../#/active">Active</a>
+					</li>
+					<li name="completed">
+						<a href="../#/completed">Completed</a>
+					</li>
+				</polymer-selector>
+				<button hidden?="{{$.model.completedCount == 0}}" id="clear-completed" on-click="clearCompletedAction">Clear completed ({{$.model.completedCount}})</button>
+			</footer>
+		</section>
+	</template>
+
+	<script>
+		var ENTER_KEY = 13;
+		var ESC_KEY = 27;
+		Polymer.register(this, {
+			keyAction: function (e, detail, sender) {
+				switch (e.keyCode) {
+					case ENTER_KEY:
+						this.$.model.newItem(sender.value);
+						// when polyfilling Object.observe, make sure we update immediately
+						Platform.flush();
+					case ESC_KEY:
+						sender.value = '';
+						break;
+				}
+			},
+ 			modelChangedAction: function () {
+				this.$.storage.save();
+			},
+			itemChangedAction: function () {
+				this.$.model.itemsChanged();
+			},
+			destroyItemAction: function (e, detail) {
+				this.$.model.destroyItem(detail);
+			},
+			toggleAllCompletedAction: function (e, detail, sender) {
+				this.$.model.setItemsCompleted(sender.checked);
+			},
+			clearCompletedAction: function () {
+				this.$.model.clearItems();
+			}
+		});
+	</script>
+
+</element>
