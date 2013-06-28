@@ -191,7 +191,13 @@ if (Meteor.is_client) {
 	// Register click events for clearing completed todos
 	Template.footer.events = {
 		'click button#clear-completed': function() {
-			Todos.remove({completed: true});
+            Meteor.call('clearCompleted');
 		}
 	};
 }
+
+Meteor.methods({
+    clearCompleted: function () {
+        Todos.remove({completed: true});
+    }
+});
