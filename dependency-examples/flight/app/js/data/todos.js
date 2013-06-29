@@ -77,11 +77,10 @@ define([
 		};
 
 		this.clearCompleted = function () {
-			var todos;
-
 			dataStore.destroyAll({ completed: true });
-			todos = dataStore.all();
-			this.trigger('dataClearedCompleted', { todos: todos });
+
+			this.trigger('uiFilterRequested', { filter: filter });
+			this.trigger('dataClearedCompleted');
 		};
 
 		this.after('initialize', function () {

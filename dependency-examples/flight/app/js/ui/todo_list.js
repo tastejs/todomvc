@@ -86,7 +86,6 @@ define([
 			this.on(document, 'dataTodoAdded', this.render);
 			this.on(document, 'dataTodosLoaded', this.renderAll);
 			this.on(document, 'dataTodosFiltered', this.renderAll);
-			this.on(document, 'dataClearedCompleted', this.renderAll);
 			this.on(document, 'dataTodoToggledAll', this.renderAll);
 			this.on(document, 'dataTodoRemoved', this.remove);
 
