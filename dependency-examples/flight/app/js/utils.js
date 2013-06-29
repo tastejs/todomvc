@@ -4,7 +4,6 @@
 // tmpl function scooped from underscore.
 // http://documentcloud.github.com/underscore/#template
 define(function () {
-
 	var _ = {};
 
 	// List of HTML entities for escaping.
@@ -128,5 +127,7 @@ define(function () {
 		return template;
 	};
 
-	return { tmpl: template };
+	return {
+		tmpl: template
+	};
 });

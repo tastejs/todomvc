@@ -1,4 +1,6 @@
-<span id="todo-count"><strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left</span>
+<span id="todo-count">
+	<strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left
+</span>
 <ul id="filters">
 	<li>
 		<a href="#/">All</a>
@@ -11,5 +13,5 @@
 	</li>
 </ul>
 <% if (completed) { %>
-	<button id="clear-completed">Clear completed (<%= completed %>)</button>
+<button id="clear-completed">Clear completed (<%= completed %>)</button>
 <% } %>
