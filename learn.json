@@ -988,6 +988,9 @@
 				"name": "Try jQuery",
 				"url": "http://try.jquery.com"
 			}, {
+				"name": "jQuery Annotated Source",
+				"url": "http://robflaherty.github.io/jquery-annotated-source/"
+			}, {
 				"name": "10 Things I Learned From the jQuery Source",
 				"url": "http://paulirish.com/2010/10-things-i-learned-from-the-jquery-source"
 			}]
