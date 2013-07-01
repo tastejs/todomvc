@@ -20,6 +20,7 @@ Here are some links you may find helpful:
 Articles and guides from the community:
 
 * [Try jQuery](http://try.jquery.com)
+* [jQuery Annotated Source](http://github.com/robflaherty/jquery-annotated-source)
 * [10 Things I Learned From the jQuery Source](http://paulirish.com/2010/10-things-i-learned-from-the-jquery-source)
 
 Get help from other jQuery users:
