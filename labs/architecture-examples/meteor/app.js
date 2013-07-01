@@ -196,6 +196,33 @@ if (Meteor.is_client) {
 	};
 }
 
+//Publish and subscribe setting
+if (Meteor.is_server) {
+	Meteor.publish('todos', function () {
+		return Todos.find();
+	});
+}
+
+if (Meteor.is_client) {
+	Meteor.subscribe('todos');
+}
+
+//Allow users to write directly to this collection from client code, subject to limitations you define.
+if (Meteor.is_server) {
+	Todos.allow({
+		insert: function () {
+			return true;
+		},
+		update: function () {
+			return true;
+		},
+		remove: function () {
+			return true;
+		}
+	});
+}
+
+//Defines functions that can be invoked over the network by clients.
 Meteor.methods({
 	clearCompleted: function () {
 		Todos.remove({completed: true});
