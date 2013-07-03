@@ -8,6 +8,7 @@
     - Aria Templates
     - Enyo + Backbone.js
     - React
+    - SAPUI5
 
 - Updates since 1.1:
     - Backbone 1.0
