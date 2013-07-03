@@ -10,7 +10,7 @@
 		this.name = aName;
 	};
 
-	todo.TodoPersistency.prototype = function () {
+	todo.TodoPersistency.prototype = (function () {
 		var storage = window.localStorage;
 
 		return {
@@ -29,5 +29,5 @@
 				return !(this.get());
 			}
 		};
-	}();
+	}());
 })();
