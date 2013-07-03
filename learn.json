@@ -1560,6 +1560,22 @@
 			}]
 		}]
 	},
+	"sapui5": {
+		"name": "SAPUI5",
+		"description": "SAP's HTML5-based UI technology that allows you to build rich, interactive Web applications.",
+		"homepage": "scn.sap.com/community/developer-center/front-end",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/sapui5"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Introduction",
+				"url": "http://scn.sap.com/community/developer-center/front-end/blog/2013/03/19/how-to-build-testable-sapui5-applications"
+			}]
+		}]
+	},
 	"serenadejs": {
 		"name": "Serenade.js",
 		"description": "Serenade.js is a client side framework built on the MVC pattern. It makes it simple to create rich client side applications by freeing you from having to keep the DOM up to date with your data through powerful data bindings.",
