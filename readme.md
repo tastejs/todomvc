@@ -79,6 +79,7 @@ We also have a number of in-progress applications in Labs:
 - [DeftJS](http://deftjs.org/)
 - [Aria Templates](http://ariatemplates.com/)
 - [Enyo + Backbone.js](http://enyojs.com/)
+- [SAPUI5](http://scn.sap.com/community/developer-center/front-end)
 
 ## Live demos
 
