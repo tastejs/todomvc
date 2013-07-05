@@ -48,6 +48,13 @@
 			}
 		},
 		onfocusout: function (e) {
+			this.stopEditing(e);
+		},
+		onsapenter: function (e) {
+			this.stopEditing(e);
+		},
+		stopEditing: function (e) {
+			this._checkChange(e);
 			if (this.getProperty('strongediting')) {
 				if (!this.getEditable()) {
 					return;
