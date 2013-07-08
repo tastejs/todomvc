@@ -107,6 +107,7 @@ define(function () {
 			source + "return __p;\n";
 
 		try {
+			/*jshint evil:true */
 			render = new Function(settings.variable || 'obj', '_', source);
 		} catch (err) {
 			err.source = source;
