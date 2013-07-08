@@ -863,7 +863,7 @@
 	"flight": {
 		"name": "Flight",
 		"description": "Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.",
-		"homepage": "twitter.github.io/flight",
+		"homepage": "flightjs.github.io",
 		"examples": [{
 			"name": "Dependency Example",
 			"url": "dependency-examples/flight"
@@ -872,13 +872,13 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "GitHub",
-				"url": "https://github.com/twitter/flight"
+				"url": "https://github.com/flightjs/flight"
 			}, {
 				"name": "Demo Application",
-				"url": "http://twitter.github.com/flight/demo"
+				"url": "http://twitter.github.io/flight/demo/"
 			}, {
 				"name": "Installation",
-				"url": "https://github.com/twitter/flight/blob/master/README.md#installation"
+				"url": "https://github.com/flightjs/flight/blob/master/README.md#installation"
 			}, {
 				"name": "Flight on Twitter",
 				"url": "http://twitter.com/flight"
