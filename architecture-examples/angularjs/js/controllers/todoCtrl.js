@@ -1,4 +1,4 @@
-/*global todomvc */
+/*global todomvc, angular */
 'use strict';
 
 /**
@@ -47,6 +47,8 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 
 	$scope.editTodo = function (todo) {
 		$scope.editedTodo = todo;
+		// Clone the original todo to restore it on demand.
+		$scope.originalTodo = angular.extend({}, todo);
 	};
 
 	$scope.doneEditing = function (todo) {
@@ -56,6 +58,11 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 		if (!todo.title) {
 			$scope.removeTodo(todo);
 		}
+	};
+
+	$scope.revertEditing = function (todo) {
+		todos[todos.indexOf(todo)] = $scope.originalTodo;
+		$scope.doneEditing($scope.originalTodo);
 	};
 
 	$scope.removeTodo = function (todo) {
