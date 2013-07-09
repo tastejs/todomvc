@@ -172,6 +172,15 @@
 				scope.$digest();
 				expect(scope.completedCount).toBe(5);
 			});
+
+			it('revertTodo() get a Todo to its previous state', function () {
+				var todo = todoList[0];
+				scope.editTodo(todo);
+				todo.title = 'Unicorn sparkly skypuffles.';
+				scope.revertEditing(todo);
+				scope.$digest();
+				expect(scope.todos[0].title).toBe('Uncompleted Item 0');
+			});
 		});
 	});
 }());
