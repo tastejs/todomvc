@@ -95,6 +95,7 @@ YUI.add('todo-view', function (Y) {
 }, '@VERSION@', {
 	requires: [
 		'view',
-		'handlebars'
+		'handlebars',
+		'event-focus'
 	]
 });

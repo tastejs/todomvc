@@ -54,7 +54,7 @@
 		{{/if}}
 	</script>
 	<script src="../../assets/base.js"></script>
-	<script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
+	<script src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
 	<script>
 		YUI({
 			groups: {
@@ -62,26 +62,22 @@
 					base: './js/',
 					modules: {
 						'todo': {
-							path: 'models/todo.js',
-							requires: ['gallery-model-sync-local', 'model']
+							path: 'models/todo.js'
 						},
 						'todo-list': {
-							path: 'models/todolist.js',
-							requires: ['gallery-model-sync-local', 'model-list', 'todo']
+							path: 'models/todolist.js'
 						},
 						'todo-view': {
-							path: 'views/todoview.js',
-							requires: ['view', 'handlebars']
+							path: 'views/todoview.js'
 						},
 						'todo-app': {
-							path: 'app.js',
-							requires: ['app', 'todo-list', 'todo-view']
+							path: 'app.js'
 						}
 					}
 				}
 			}
 		}).use('todo-app', function (Y) {
-			var app = new Y.TodoMVC.TodoApp();
+			new Y.TodoMVC.TodoApp();
 		});
 	</script>
 </body>
