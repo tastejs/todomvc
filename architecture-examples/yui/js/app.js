@@ -157,7 +157,7 @@ YUI.add('todo-app', function (Y) {
 			var allCheckbox = this.get('allCheckbox');
 			var completed = allCheckbox.get('checked');
 
-			Y.Array.each(todoList.toArray(), function (todo) {
+			todoList.each(function (todo) {
 				todo.save({completed: completed});
 			});
 		},
@@ -230,7 +230,6 @@ YUI.add('todo-app', function (Y) {
 		'app',
 		'todo-list',
 		'todo-view',
-		'node',
-		'event-focus'
+		'node'
 	]
 });
