@@ -65,11 +65,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 	};
 
 	$scope.todoCompleted = function (todo) {
-		if (todo.completed) {
-			$scope.remainingCount--;
-		} else {
-			$scope.remainingCount++;
-		}
+		$scope.remainingCount += todo.completed ? -1 : 1;
 		todoStorage.put(todos);
 	};
 
