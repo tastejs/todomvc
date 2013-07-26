@@ -150,7 +150,10 @@ jQuery(function ($) {
 			App.render();
 		},
 		edit: function () {
-			$(this).closest('li').addClass('editing').find('.edit').focus();
+			var $input = $(this).closest('li').addClass('editing').find('.edit');
+			var val = $input.val();
+
+			$input.val(val).focus();
 		},
 		blurOnEnter: function (e) {
 			if (e.which === App.ENTER_KEY) {
