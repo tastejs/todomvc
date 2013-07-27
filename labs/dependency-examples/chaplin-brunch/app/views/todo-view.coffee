@@ -2,17 +2,18 @@ View = require 'views/base/view'
 template = require 'views/templates/todo'
 
 module.exports = class TodoView extends View
+  events:
+    'click .toggle': 'toggle'
+    'dblclick label': 'edit'
+    'keypress .edit': 'save'
+    'blur .edit': 'save'
+    'click .destroy': 'destroy'
+
+  listen:
+    'change model': 'render'
+
   template: template
   tagName: 'li'
-
-  initialize: ->
-    super
-    @modelBind 'change', @render
-    @delegate 'click', '.destroy', @destroy
-    @delegate 'dblclick', 'label', @edit
-    @delegate 'keypress', '.edit', @save
-    @delegate 'click', '.toggle', @toggle
-    @delegate 'blur', '.edit', @save
 
   render: =>
     super

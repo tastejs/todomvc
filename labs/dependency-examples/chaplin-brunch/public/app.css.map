@@ -1,0 +1,1 @@
+{"version":3,"file":"public/app.css","sources":["app/views/filters.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA","sourcesContent":["#todoapp.filter-active #todo-list .completed {\n  display: none; }\n\n#todoapp.filter-completed #todo-list .active {\n  display: none; }\n"]}

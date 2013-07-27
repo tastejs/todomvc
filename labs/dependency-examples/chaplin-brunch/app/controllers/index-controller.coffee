@@ -1,7 +1,5 @@
-Controller = require 'controllers/base/controller'
+Controller = require './base/controller'
 
 module.exports = class IndexController extends Controller
-  title: 'Todo list'
-
-  list: (options) ->
-    @publishEvent 'todos:filter', options.filterer?.trim() ? 'all'
+  list: (params) ->
+    @publishEvent 'todos:filter', params.filterer?.trim() ? 'all'
