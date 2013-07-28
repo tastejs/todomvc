@@ -19,8 +19,7 @@ module.exports = class TodoView extends View
     super
     # Reset classes, re-add the appropriate ones.
     @$el.removeClass 'active completed'
-    className = if @model.get('completed') then 'completed' else 'active'
-    @$el.addClass className
+    @$el.toggle @model.get('completed')
 
   destroy: =>
     @model.destroy()

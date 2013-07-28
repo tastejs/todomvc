@@ -15470,11 +15470,9 @@ module.exports = TodoView = (function(_super) {
   TodoView.prototype.tagName = 'li';
 
   TodoView.prototype.render = function() {
-    var className;
     TodoView.__super__.render.apply(this, arguments);
     this.$el.removeClass('active completed');
-    className = this.model.get('completed') ? 'completed' : 'active';
-    return this.$el.addClass(className);
+    return this.$el.toggle(this.model.get('completed'));
   };
 
   TodoView.prototype.destroy = function() {
