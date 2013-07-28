@@ -1,8 +1,8 @@
-View = require 'views/base/view'
-template = require 'views/templates/footer'
+View = require './base/view'
+template = require './templates/footer'
 
 module.exports = class FooterView extends View
-  autoRender: yes
+  autoRender: true
   el: '#footer'
   events:
     'click #clear-completed': 'clearCompleted'
@@ -16,7 +16,6 @@ module.exports = class FooterView extends View
     @renderCounter()
 
   updateFilterer: (filterer) ->
-    console.log 'updateFilterer'
     filterer = '' if filterer is 'all'
     @$('#filters a')
       .removeClass('selected')

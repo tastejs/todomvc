@@ -14841,15 +14841,13 @@ Handlebars.template = Handlebars.VM.template;
 ;
 
 require.register("application", function(exports, require, module) {
-var Application, Layout, Todos, mediator, _ref,
+var Application, Todos, mediator, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 mediator = require('mediator');
 
 Todos = require('models/todos');
-
-Layout = require('views/layout');
 
 module.exports = Application = (function(_super) {
   __extends(Application, _super);
@@ -14860,12 +14858,6 @@ module.exports = Application = (function(_super) {
   }
 
   Application.prototype.title = 'Chaplin • TodoMVC';
-
-  Application.prototype.initLayout = function() {
-    return this.layout = new Layout({
-      title: this.title
-    });
-  };
 
   Application.prototype.initMediator = function() {
     mediator.user = null;
@@ -14879,8 +14871,8 @@ module.exports = Application = (function(_super) {
 })(Chaplin.Application);
 });
 
-require.register("controllers/base/controller", function(exports, require, module) {
-var Controller, FooterView, HeaderView, TodosView, mediator, _ref,
+require.register("controllers/index-controller", function(exports, require, module) {
+var FooterView, HeaderView, IndexController, TodosView, mediator, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -14892,38 +14884,6 @@ TodosView = require('views/todos-view');
 
 mediator = require('mediator');
 
-module.exports = Controller = (function(_super) {
-  __extends(Controller, _super);
-
-  function Controller() {
-    _ref = Controller.__super__.constructor.apply(this, arguments);
-    return _ref;
-  }
-
-  Controller.prototype.beforeAction = function() {
-    return this.compose('footer', function() {
-      var params;
-      params = {
-        collection: mediator.todos
-      };
-      this.header = new HeaderView(params);
-      this.footer = new FooterView(params);
-      return this.todos = new TodosView(params);
-    });
-  };
-
-  return Controller;
-
-})(Chaplin.Controller);
-});
-
-require.register("controllers/index-controller", function(exports, require, module) {
-var Controller, IndexController, _ref,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Controller = require('./base/controller');
-
 module.exports = IndexController = (function(_super) {
   __extends(IndexController, _super);
 
@@ -14932,14 +14892,39 @@ module.exports = IndexController = (function(_super) {
     return _ref;
   }
 
+  IndexController.prototype.beforeAction = function() {
+    return this.compose('structure', function() {
+      var params;
+      params = {
+        collection: mediator.todos
+      };
+      this.header = new HeaderView(params);
+      return this.footer = new FooterView(params);
+    });
+  };
+
   IndexController.prototype.list = function(params) {
-    var _ref1, _ref2;
-    return this.publishEvent('todos:filter', (_ref1 = (_ref2 = params.filterer) != null ? _ref2.trim() : void 0) != null ? _ref1 : 'all');
+    var filterer, _ref1, _ref2;
+    filterer = (_ref1 = (_ref2 = params.filterer) != null ? _ref2.trim() : void 0) != null ? _ref1 : 'all';
+    this.publishEvent('todos:filter', filterer);
+    return this.view = new TodosView({
+      collection: mediator.todos,
+      filterer: function(model) {
+        switch (filterer) {
+          case 'completed':
+            return model.get('completed');
+          case 'active':
+            return !model.get('completed');
+          default:
+            return true;
+        }
+      }
+    });
   };
 
   return IndexController;
 
-})(Controller);
+})(Chaplin.Controller);
 });
 
 require.register("initialize", function(exports, require, module) {
@@ -14958,102 +14943,14 @@ $(function() {
 });
 });
 
-require.register("lib/utils", function(exports, require, module) {
-var utils;
-
-utils = Chaplin.utils.beget(Chaplin.utils);
-
-module.exports = utils;
-});
-
-require.register("lib/view-helper", function(exports, require, module) {
-var mediator, utils;
-
-mediator = require('mediator');
-
-utils = require('./utils');
-
-Handlebars.registerHelper('if_logged_in', function(options) {
-  if (mediator.user) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-});
-
-Handlebars.registerHelper('with', function(context, options) {
-  if (!context || Handlebars.Utils.isEmpty(context)) {
-    return options.inverse(this);
-  } else {
-    return options.fn(context);
-  }
-});
-
-Handlebars.registerHelper('without', function(context, options) {
-  var inverse;
-  inverse = options.inverse;
-  options.inverse = options.fn;
-  options.fn = inverse;
-  return Handlebars.helpers["with"].call(this, context, options);
-});
-
-Handlebars.registerHelper('with_user', function(options) {
-  var context, _ref;
-  context = ((_ref = mediator.user) != null ? _ref.serialize() : void 0) || {};
-  return Handlebars.helpers["with"].call(this, context, options);
-});
-});
-
 require.register("mediator", function(exports, require, module) {
 module.exports = Chaplin.mediator;
 });
 
-require.register("models/base/collection", function(exports, require, module) {
-var Collection, Model, _ref,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Model = require('models/base/model');
-
-module.exports = Collection = (function(_super) {
-  __extends(Collection, _super);
-
-  function Collection() {
-    _ref = Collection.__super__.constructor.apply(this, arguments);
-    return _ref;
-  }
-
-  Collection.prototype.model = Model;
-
-  return Collection;
-
-})(Chaplin.Collection);
-});
-
-require.register("models/base/model", function(exports, require, module) {
-var Model, _ref,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-module.exports = Model = (function(_super) {
-  __extends(Model, _super);
-
-  function Model() {
-    _ref = Model.__super__.constructor.apply(this, arguments);
-    return _ref;
-  }
-
-  return Model;
-
-})(Chaplin.Model);
-});
-
 require.register("models/todo", function(exports, require, module) {
-var Model, Todo, _ref,
+var Todo, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Model = require('models/base/model');
 
 module.exports = Todo = (function(_super) {
   __extends(Todo, _super);
@@ -15088,15 +14985,13 @@ module.exports = Todo = (function(_super) {
 
   return Todo;
 
-})(Model);
+})(Chaplin.Model);
 });
 
 require.register("models/todos", function(exports, require, module) {
-var Collection, Todo, Todos, _ref,
+var Todo, Todos, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Collection = require('models/base/collection');
 
 Todo = require('models/todo');
 
@@ -15134,7 +15029,7 @@ module.exports = Todos = (function(_super) {
 
   return Todos;
 
-})(Collection);
+})(Chaplin.Collection);
 });
 
 require.register("routes", function(exports, require, module) {
@@ -15161,6 +15056,8 @@ module.exports = CollectionView = (function(_super) {
 
   CollectionView.prototype.getTemplateFunction = View.prototype.getTemplateFunction;
 
+  CollectionView.prototype.useCssAnimation = true;
+
   return CollectionView;
 
 })(Chaplin.CollectionView);
@@ -15170,8 +15067,6 @@ require.register("views/base/view", function(exports, require, module) {
 var View, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-require('lib/view-helper');
 
 module.exports = View = (function(_super) {
   __extends(View, _super);
@@ -15195,9 +15090,9 @@ var FooterView, View, template, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-View = require('views/base/view');
+View = require('./base/view');
 
-template = require('views/templates/footer');
+template = require('./templates/footer');
 
 module.exports = FooterView = (function(_super) {
   __extends(FooterView, _super);
@@ -15228,7 +15123,6 @@ module.exports = FooterView = (function(_super) {
   };
 
   FooterView.prototype.updateFilterer = function(filterer) {
-    console.log('updateFilterer');
     if (filterer === 'all') {
       filterer = '';
     }
@@ -15263,9 +15157,9 @@ var HeaderView, View, template, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-View = require('views/base/view');
+View = require('./base/view');
 
-template = require('views/templates/header');
+template = require('./templates/header');
 
 module.exports = HeaderView = (function(_super) {
   __extends(HeaderView, _super);
@@ -15302,35 +15196,6 @@ module.exports = HeaderView = (function(_super) {
   return HeaderView;
 
 })(View);
-});
-
-require.register("views/layout", function(exports, require, module) {
-var Layout, _ref,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-module.exports = Layout = (function(_super) {
-  __extends(Layout, _super);
-
-  function Layout() {
-    _ref = Layout.__super__.constructor.apply(this, arguments);
-    return _ref;
-  }
-
-  Layout.prototype.listen = {
-    'todos:filter mediator': 'changeFilterer'
-  };
-
-  Layout.prototype.changeFilterer = function(filterer) {
-    if (filterer == null) {
-      filterer = 'all';
-    }
-    return $('#todoapp').attr('class', "filter-" + filterer);
-  };
-
-  return Layout;
-
-})(Chaplin.Layout);
 });
 
 require.register("views/templates/footer", function(exports, require, module) {
@@ -15436,9 +15301,9 @@ var TodoView, View, template, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-View = require('views/base/view');
+View = require('./base/view');
 
-template = require('views/templates/todo');
+template = require('./templates/todo');
 
 module.exports = TodoView = (function(_super) {
   __extends(TodoView, _super);
@@ -15448,7 +15313,6 @@ module.exports = TodoView = (function(_super) {
     this.edit = __bind(this.edit, this);
     this.toggle = __bind(this.toggle, this);
     this.destroy = __bind(this.destroy, this);
-    this.render = __bind(this.render, this);
     _ref = TodoView.__super__.constructor.apply(this, arguments);
     return _ref;
   }
@@ -15468,12 +15332,6 @@ module.exports = TodoView = (function(_super) {
   TodoView.prototype.template = template;
 
   TodoView.prototype.tagName = 'li';
-
-  TodoView.prototype.render = function() {
-    TodoView.__super__.render.apply(this, arguments);
-    this.$el.removeClass('active completed');
-    return this.$el.toggle(this.model.get('completed'));
-  };
 
   TodoView.prototype.destroy = function() {
     return this.model.destroy();
@@ -15515,11 +15373,11 @@ var CollectionView, TodoView, TodosView, template, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-CollectionView = require('views/base/collection-view');
+CollectionView = require('./base/collection-view');
 
-template = require('views/templates/todos');
+template = require('./templates/todos');
 
-TodoView = require('views/todo-view');
+TodoView = require('./todo-view');
 
 module.exports = TodosView = (function(_super) {
   __extends(TodosView, _super);
@@ -15532,7 +15390,7 @@ module.exports = TodosView = (function(_super) {
     return _ref;
   }
 
-  TodosView.prototype.el = '#main';
+  TodosView.prototype.container = '#main';
 
   TodosView.prototype.events = {
     'click #toggle-all': 'toggleCompleted'

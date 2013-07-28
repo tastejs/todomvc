@@ -1,5 +1,5 @@
-View = require 'views/base/view'
-template = require 'views/templates/todo'
+View = require './base/view'
+template = require './templates/todo'
 
 module.exports = class TodoView extends View
   events:
@@ -14,12 +14,6 @@ module.exports = class TodoView extends View
 
   template: template
   tagName: 'li'
-
-  render: =>
-    super
-    # Reset classes, re-add the appropriate ones.
-    @$el.removeClass 'active completed'
-    @$el.toggle @model.get('completed')
 
   destroy: =>
     @model.destroy()

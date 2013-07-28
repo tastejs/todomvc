@@ -1,9 +1,9 @@
-CollectionView = require 'views/base/collection-view'
-template = require 'views/templates/todos'
-TodoView = require 'views/todo-view'
+CollectionView = require './base/collection-view'
+template = require './templates/todos'
+TodoView = require './todo-view'
 
 module.exports = class TodosView extends CollectionView
-  el: '#main'
+  container: '#main'
   events:
     'click #toggle-all': 'toggleCompleted'
   itemView: TodoView

@@ -1,8 +1,8 @@
-View = require 'views/base/view'
-template = require 'views/templates/header'
+View = require './base/view'
+template = require './templates/header'
 
 module.exports = class HeaderView extends View
-  autoRender: yes
+  autoRender: true
   el: '#header'
   events:
     'keypress #new-todo': 'createOnEnter'
