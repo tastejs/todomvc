@@ -1,5 +1,5 @@
 bower_components/
-!bower_components/todomvc-common
+!bower_components/todomvc-common/
 
 # NPM packages folder.
 node_modules/
