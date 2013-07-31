@@ -1,7 +1,6 @@
-Collection = require 'models/base/collection'
 Todo = require 'models/todo'
 
-module.exports = class Todos extends Collection
+module.exports = class Todos extends Chaplin.Collection
   model: Todo
   localStorage: new Store 'todos-chaplin'
 

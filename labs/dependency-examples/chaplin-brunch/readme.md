@@ -40,7 +40,7 @@ If you haven't already installed [Brunch](http://brunch.io), run:
 Once you have Brunch, install this application's dependencies:
 
 	# from labs/dependency-examples/chaplin-brunch
-	npm install
+	npm install & bower install
 
 To build the app, run:
 

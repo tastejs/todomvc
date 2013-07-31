@@ -1,18 +1,17 @@
-CollectionView = require 'views/base/collection-view'
-template = require 'views/templates/todos'
-TodoView = require 'views/todo-view'
+CollectionView = require './base/collection-view'
+template = require './templates/todos'
+TodoView = require './todo-view'
 
 module.exports = class TodosView extends CollectionView
-  el: '#main'
+  container: '#main'
+  events:
+    'click #toggle-all': 'toggleCompleted'
   itemView: TodoView
   listSelector: '#todo-list'
+  listen:
+    'all collection': 'renderCheckbox'
+    'todos:clear mediator': 'clear'
   template: template
-
-  initialize: ->
-    super
-    @subscribeEvent 'todos:clear', @clear
-    @modelBind 'all', @renderCheckbox
-    @delegate 'click', '#toggle-all', @toggleCompleted
 
   render: =>
     super
