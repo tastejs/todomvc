@@ -70,6 +70,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 			}
 
 			if (e.which === ESC_KEY) {
+				this.ui.edit.val(this.model.get('title'));
 				this.$el.removeClass('editing');
 			}
 		}
