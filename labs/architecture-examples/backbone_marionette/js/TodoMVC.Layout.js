@@ -32,7 +32,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 
 	// Layout Footer View
 	// ------------------
-	Layout.Footer = Backbone.Marionette.Layout.extend({
+	Layout.Footer = Backbone.Marionette.ItemView.extend({
 		template: '#template-footer',
 
 		// UI bindings create cached attributes that
