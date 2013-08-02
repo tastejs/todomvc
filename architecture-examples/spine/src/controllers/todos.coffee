@@ -29,7 +29,7 @@ class window.Todos extends Spine.Controller
 
 	edit: ->
 		@el.addClass 'editing'
-		@editElem.focus()
+		@editElem.val(@editElem.val()).focus()
 
 	finishEdit: ->
 		@el.removeClass 'editing'
