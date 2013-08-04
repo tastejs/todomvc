@@ -12,7 +12,8 @@
 				if (i === 8 || i === 12 || i === 16 || i === 20) {
 					uuid += '-';
 				}
-				uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
+				uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
+					.toString(16);
 			}
 
 			return uuid;
@@ -29,19 +30,20 @@
 
 			var store = localStorage.getItem(namespace);
 			return (store && JSON.parse(store)) || [];
-		}
-	};
+		},
 
-	window.cx = function (obj) {
-		var s = '';
-		var key;
+		stringifyObjKeys: function (obj) {
+			var s = '';
+			var key;
 
-		for (key in obj) {
-			if (obj.hasOwnProperty(key) && obj[key]) {
-				s += key + ' ';
+			for (key in obj) {
+				if (obj.hasOwnProperty(key) && obj[key]) {
+					s += key + ' ';
+				}
 			}
-		}
 
-		return s;
+			return s.trim();
+		}
 	};
+
 })(window);
