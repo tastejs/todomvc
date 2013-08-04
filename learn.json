@@ -860,6 +860,49 @@
 			}]
 		}]
 	},
+	"firebase": {
+		"name": "Firebase",
+		"description": "Firebase is a scalable realtime backend that lets you build apps fast without managing servers.",
+		"homepage": "firebase.com",
+		"examples": [{
+			"name": "Firebase + AngularJS Realtime Example",
+			"url": "labs/architecture-examples/firebase-angular"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Tutorial",
+				"url": "https://www.firebase.com/tutorial/"
+			}, {
+				"name": "Documentation & Examples",
+				"url": "https://www.firebase.com/docs/"
+			}, {
+				"name": "Blog",
+				"url": "https://www.firebase.com/blog/"
+			}, {
+				"name": "Firebase on GitHub",
+				"url": "http://firebase.github.io"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Firebase on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/firebase"
+			}, {
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/?fromgroups#!forum/firebase-talk"
+			}, {
+				"name": "Firebase on Twitter",
+				"url": "http://twitter.com/Firebase"
+			}, {
+				"name": "Firebase on Facebook",
+				"url": "http://facebook.com/Firebase"
+			}, {
+				"name": "Firebase on Google +",
+				"url": "https://plus.google.com/115330003035930967645/posts"
+			}]
+		}]
+	},
 	"flight": {
 		"name": "Flight",
 		"description": "Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.",
