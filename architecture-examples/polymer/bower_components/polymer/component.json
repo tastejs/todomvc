@@ -1,0 +1,17 @@
+{
+  "name": "platform",
+  "repo": "components/platform",
+  "description": "Leverage the future of the web platform today.",
+  "homepage": "http://www.polymer-project.org/",
+  "keywords": [
+    "util",
+    "client",
+    "browser"
+  ],
+  "author": "Polymer Authors <polymer-dev@googlegroups.com>",
+  "version": "0.0.20130801",
+  "main": "polymer.min.js",
+  "scripts": [
+    "polymer.min.js"
+  ]
+}

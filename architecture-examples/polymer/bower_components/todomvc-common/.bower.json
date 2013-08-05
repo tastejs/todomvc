@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-common",
+  "version": "0.1.7",
+  "homepage": "https://github.com/tastejs/todomvc-common",
+  "_release": "0.1.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.7",
+    "commit": "e5b3251c95f29d872636b761e32a2296dc97c3e0"
+  },
+  "_source": "git://github.com/tastejs/todomvc-common.git",
+  "_target": "~0.1.4"
+}

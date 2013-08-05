@@ -1,0 +1,23 @@
+{
+  "name": "polymer",
+  "description": "Leverage the future of the web platform today.",
+  "homepage": "http://www.polymer-project.org/",
+  "keywords": [
+    "util",
+    "client",
+    "browser"
+  ],
+  "author": "Polymer Authors <polymer-dev@googlegroups.com>",
+  "version": "0.0.20130801",
+  "main": [
+    "polymer.min.js"
+  ],
+  "_release": "0.0.20130801",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.20130801",
+    "commit": "79ca6036d943d77335c273a742f9ce649a8bedac"
+  },
+  "_source": "git://github.com/components/polymer.git",
+  "_target": "*"
+}
