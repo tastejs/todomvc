@@ -67,10 +67,11 @@ var app = app || {};
 
 		// Close the `"editing"` mode, saving changes to the todo.
 		close: function () {
-			var value = this.$input.val().trim();
+			var trimmedValue = this.$input.val().trim();
+			this.$input.val(trimmedValue);
 
-			if (value) {
-				this.model.save({ title: value });
+			if (trimmedValue) {
+				this.model.save({ title: trimmedValue });
 			} else {
 				this.clear();
 			}
