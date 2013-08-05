@@ -124,8 +124,7 @@ label {
 }
 
 .destroy:hover {
-	text-shadow: 0 0 1px #000,
-				 0 0 10px rgba(199, 107, 107, 0.8);
+	text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
 	-webkit-transform: scale(1.3);
 	-moz-transform: scale(1.3);
 	-ms-transform: scale(1.3);
@@ -148,11 +147,11 @@ label {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.toggle {
 		background: none;
-    /* 
-      ShadowDOM Polyfill work around for webkit/blink bug 
-      https://code.google.com/p/chromium/issues/detail?id=251510
-    */
-    background-color: transparent;
+	/*
+	  ShadowDOM Polyfill work around for webkit/blink bug
+	  https://code.google.com/p/chromium/issues/detail?id=251510
+	*/
+	background-color: transparent;
 	}
 
 	.toggle {
