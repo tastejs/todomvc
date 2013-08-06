@@ -10,6 +10,7 @@
     - Enyo + Backbone.js
     - React
     - SAPUI5
+    - AngularJS + Firebase
 
 - Updates since 1.1:
     - Backbone 1.0
