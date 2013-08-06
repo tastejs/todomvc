@@ -928,25 +928,6 @@
 			}]
 		}]
 	},
-	"funnyfacejs": {
-		"name": "Funnyface.js",
-		"description": "O_o: HTML binding for teh lulz.",
-		"homepage": "weepy.github.io/o_O",
-		"examples": [{
-			"name": "Architecture Example",
-			"url": "labs/architecture-examples/o_O"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Examples",
-				"url": "http://weepy.github.io/o_O/examples/guide/index.html"
-			}, {
-				"name": "Funnyface.js on GitHub",
-				"url": "https://github.com/weepy/o_O"
-			}]
-		}]
-	},
 	"gwt": {
 		"name": "Google Web Toolkit",
 		"description": "Google Web Toolkit (GWT) is a development toolkit for building and optimizing complex browser-based applications. GWT is used by many products at Google, including Google AdWords and Orkut. It's open source, completely free, and used by thousands of developers around the world.",
