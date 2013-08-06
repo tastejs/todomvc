@@ -1,7 +1,10 @@
 # Code Style
+
 We think it's best for the project if the code you write looks like the code the last developer wrote. Please read this document in its entirety, and be sure to refer back to it throughout the development of your contribution. We greatly appreciate your cooperation.
 
+
 ## General Rules
+
 - Tab indentation
 - Single-quotes
 - Semicolon
@@ -20,26 +23,28 @@ Example:
 'use strict';
 
 function foo(bar, fum) {
-    var i, l, ret;
-    var hello = 'Hello';
+	var i, l, ret;
+	var hello = 'Hello';
 
-    if (!bar) {
-        return;
-    }
+	if (!bar) {
+		return;
+	}
 
-    for (i = 0, l = bar.length; i < l; i++) {
-        if (bar[i] === hello) {
-            ret += fum(bar[i]);
-        }
-    }
+	for (i = 0, l = bar.length; i < l; i++) {
+		if (bar[i] === hello) {
+			ret += fum(bar[i]);
+		}
+	}
 
-    return ret;
+	return ret;
 }
 ```
 
 Read [idiomatic.js](https://github.com/rwldrn/idiomatic.js) for general JavaScript code style best practices.
 
+
 ## Anonymous Functions
+
 When using anonymous functions, leave a space between the function name and opening parenthesis.
 
 Example:
@@ -52,7 +57,9 @@ Example:
 })
 ```
 
+
 ## Comments
+
 Inline comments are a great way of giving new users a better understanding of what you're doing and why.
 
 It's also helpful to let your functions breathe, by leaving additional lines between statements.
@@ -81,6 +88,7 @@ var removeTodo = function (todoItem) {
 ```
 
 ## RequireJS
+
 When using RequireJS, please format your code to these specifications:
 
 ```js
@@ -95,6 +103,7 @@ define('Block', [
 ```
 
 ## JSHint
+
 When you submit your pull request, one of the first things we will do is run JSHint against your code.
 
 You can help speed the process by running it yourself:
