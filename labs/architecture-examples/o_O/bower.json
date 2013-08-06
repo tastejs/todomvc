@@ -1,8 +1,0 @@
-{
-  "name": "todomvc-o_O",
-  "version": "0.0.0",
-  "dependencies": {
-    "todomvc-common": "~0.1.6",
-    "jquery": "~1.8.0"
-  }
-}
