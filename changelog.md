@@ -3,6 +3,7 @@
 ## 1.2 - TBA
 
 - New since 1.1:
+    - Polymer
     - Flight
     - DeftJS + ExtJS
     - Aria Templates
