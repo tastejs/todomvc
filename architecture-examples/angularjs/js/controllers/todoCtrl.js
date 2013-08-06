@@ -12,11 +12,13 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 	$scope.newTodo = '';
 	$scope.editedTodo = null;
 
-	$scope.$watch('todos', function () {
+	$scope.$watch('todos', function (newValue, oldValue) {
 		$scope.remainingCount = filterFilter(todos, { completed: false }).length;
 		$scope.completedCount = todos.length - $scope.remainingCount;
 		$scope.allChecked = !$scope.remainingCount;
-		todoStorage.put(todos);
+		if (newValue !== oldValue) { // This prevents unneeded calls to the local storage
+			todoStorage.put(todos);
+		}
 	}, true);
 
 	if ($location.path() === '') {
