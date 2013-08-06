@@ -58,8 +58,12 @@ YUI.add('todo-view', function (Y) {
 
 		// Turn on editing mode for the Todo by exposing the input field.
 		edit: function () {
+			var input = this.get('inputNode');
+
 			this.get('container').addClass('editing');
-			this.get('inputNode').focus();
+			// place cursor at the end of the line
+			input._node.value = input._node.value;
+			input.focus();
 		},
 
 		// Get the value from our input field while hiding it, and
