@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2 - TBA
+## 1.2 - 2013-08-06
 
 - New since 1.1:
     - Polymer

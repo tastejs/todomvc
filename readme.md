@@ -130,7 +130,7 @@ It is meant to be used as a gateway to reviewing how a basic application using a
 
 ## Project Status
 
-TodoMVC 1.0 includes re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We've also addressed framework author concerns about routing by adding this to many of the more mainstream applications in the project.
+TodoMVC 1.x includes re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We've also addressed framework author concerns about routing by adding this to many of the more mainstream applications in the project.
 
 
 ## Getting Involved
