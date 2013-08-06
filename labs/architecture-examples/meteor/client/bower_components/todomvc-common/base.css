@@ -61,7 +61,7 @@ body {
 	font-style: italic;
 }
 
-#todoapp input:-moz-placeholder {
+#todoapp input::-moz-placeholder {
 	font-style: italic;
 	color: #a9a9a9;
 }
