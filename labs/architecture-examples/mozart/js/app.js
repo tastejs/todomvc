@@ -1,7 +1,5 @@
 (function() {
-  var Todo;
-
-  window.Todo = this.Todo = Todo = {};
+  window.Todo = {};
 
   Todo.log = function(status) {
     if (typeof console !== "undefined" && console !== null) {
