@@ -1,7 +1,7 @@
 /* base.css overrides */
 
-@host { 
-	* { 
+@host {
+	* {
 		display: block;
 		position: relative;
 	}
@@ -17,7 +17,6 @@ button {
 	font-family: inherit;
 	color: inherit;
 	-webkit-appearance: none;
-	/*-moz-appearance: none;*/
 	-ms-appearance: none;
 	-o-appearance: none;
 	appearance: none;
@@ -27,7 +26,12 @@ input::-webkit-input-placeholder {
 	font-style: italic;
 }
 
-input:-moz-placeholder {
+input::-moz-placeholder {
+	font-style: italic;
+	color: #a9a9a9;
+}
+
+input:-ms-input-placeholder, #new-todo:-ms-input-placeholder {
 	font-style: italic;
 	color: #a9a9a9;
 }
@@ -35,7 +39,6 @@ input:-moz-placeholder {
 #todoapp {
 	background: #fff;
 	background: rgba(255, 255, 255, 0.9);
-	/*margin: 130px 0 40px 0;*/
 	margin: 0 0 40px 0;
 	border: 1px solid #ccc;
 	position: relative;
@@ -218,7 +221,7 @@ label[for='toggle-all'] {
 	text-decoration: none;
 }
 
-#filters li.selected a {
+#filters li.polymer-selected a {
 	font-weight: bold;
 }
 
@@ -242,6 +245,11 @@ label[for='toggle-all'] {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#toggle-all {
 		background: none;
+	/*
+	  ShadowDOM Polyfill work around for webkit/blink bug
+	  https://code.google.com/p/chromium/issues/detail?id=251510
+	*/
+	background-color: transparent;
 	}
 
 	#toggle-all {

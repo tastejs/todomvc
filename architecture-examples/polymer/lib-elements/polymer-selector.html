@@ -10,31 +10,31 @@ license that can be found in the LICENSE file.
 /**
  * polymer-selector is used to display a list of elements that can be selected.
  * The attribute "selected" indicates which element is being selected.
- * Tapping on the element to change selection would fire "activate"
+ * Tapping on the element to change selection would fire "polymer-activate"
  * event.
  *
  * Example:
  *
- *		 <polymer-selector selected="0" on-activate="activateHandler">
- *			 <div>Item 1</div>
- *			 <div>Item 2</div>
- *			 <div>Item 3</div>
- *		 </polymer-selector>
+ *     <polymer-selector selected="0" on-polymer-activate="activateAction">
+ *       <div>Item 1</div>
+ *       <div>Item 2</div>
+ *       <div>Item 3</div>
+ *     </polymer-selector>
  *
- * polymer-selector is not styled.	So one needs to use "selected" CSS class
+ * polymer-selector is not styled.  So one needs to use "selected" CSS class
  * to style the selected element.
  *
- *		 <style>
- *			 .item.selected {
- *				 background: #eee;
- *			 }
- *		 </style>
- *		 ...
- *		 <polymer-selector>
- *			 <div class="item">Item 1</div>
- *			 <div class="item">Item 2</div>
- *			 <div class="item">Item 3</div>
- *		 </polymer-selector>
+ *     <style>
+ *       .item.polymer-selected {
+ *         background: #eee;
+ *       }
+ *     </style>
+ *     ...
+ *     <polymer-selector>
+ *       <div class="item">Item 1</div>
+ *       <div class="item">Item 2</div>
+ *       <div class="item">Item 3</div>
+ *     </polymer-selector>
  *
  * @class polymer-selector
  */
@@ -42,18 +42,20 @@ license that can be found in the LICENSE file.
  * Fired when an element is selected via tap.
  *
  * @event activate
- * @param {Object} inDetail
- *	 @param {Object} inDetail.item the selected element
+ * @param {Object} detail
+ *   @param {Object} detail.item the selected element
  */
 -->
 <link rel="import" href="polymer-selection.html">
-<element name="polymer-selector" on-tap="activateHandler" attributes="selected selectedClass selectedModel multi valueattr notap">
+
+<polymer-element name="polymer-selector" on-tap="activateHandler" touch-action="none"
+		attributes="selected multi valueattr selectedClass setectedProperty selectedModel notap">
 	<template>
-		<polymer-selection id="selection" multi="{{multi}}" on-select="selectionSelect"></polymer-selection>
+		<polymer-selection id="selection" multi="{{multi}}" on-polymer-select="selectionSelect"></polymer-selection>
 		<content id="items" select="*"></content>
 	</template>
 	<script>
-		Polymer.register(this, {
+		Polymer('polymer-selector', {
 			/**
 			 * Gets or sets the selected element.  Default is to use the index
 			 * of the currently selected element.
@@ -63,11 +65,11 @@ license that can be found in the LICENSE file.
 			 *
 			 * Example:
 			 *
-			 *		 <polymer-selector valueattr="label" selected="foo">
-			 *			 <div label="foo"></div>
-			 *			 <div label="bar"></div>
-			 *			 <div label="zot"></div>
-			 *		 </polymer-selector>
+			 *     <polymer-selector valueattr="label" selected="foo">
+			 *       <div label="foo"></div>
+			 *       <div label="bar"></div>
+			 *       <div label="zot"></div>
+			 *     </polymer-selector>
 			 *
 			 * @attribute selected
 			 * @type string
@@ -95,9 +97,18 @@ license that can be found in the LICENSE file.
 			 *
 			 * @attribute selectedClass
 			 * @type string
-			 * @default 'selected'
+			 * @default 'polymer-selected'
 			 */
-			selectedClass: 'selected',
+			selectedClass: 'polymer-selected',
+			/**
+			 * Specifies the property to be used to set on the selected element
+			 * to indicate its active state.
+			 *
+			 * @attribute selectedProperty
+			 * @type string
+			 * @default 'active'
+			 */
+			setectedProperty: 'active',
 			/**
 			 * Returns the model associated with the selected element.
 			 *
@@ -106,67 +117,82 @@ license that can be found in the LICENSE file.
 			 * @default null
 			 */
 			selectedModel: null,
-			ready: function () {
-				this.setAttribute('touch-action', 'none');
-			},
 			get items() {
-				return this.$.items.getDistributedNodes();
+				var nodes = this.$.items.getDistributedNodes();
+				return Array.prototype.filter.call(nodes, function(n) {
+					return n && n.localName !== 'template';
+				});
 			},
 			get selection() {
 				return this.$.selection.getSelection();
 			},
-			selectedChanged: function () {
+			selectedChanged: function() {
 				this.valueToSelection(this.selected);
 			},
-			valueToSelection: function (inValue) {
-				var item = this.items[this.valueToIndex(inValue)];
-				var template;
-				if (item) {
-					this.$.selection.select(item);
-					template = item.templateInstance;
-					this.selectedModel = template ? template.model : undefined;
+			valueToSelection: function(value) {
+				var item = this.items[this.valueToIndex(value)];
+				this.selectedItem = item;
+				this.$.selection.select(item);
+				this.updateSelectedModel();
+			},
+			updateSelectedModel: function() {
+				if (this.selectedItem) {
+					var t = this.selectedItem.templateInstance;
+					this.selectedModel = t ? t.model : undefined;
 				} else {
 					this.selectedModel = null;
 				}
 			},
-			valueToIndex: function (inValue) {
-				// find an item with value == inValue and return it's index
-				var i, items, c;
-				for (i = 0, items = this.items, c; (c = items[i]); i++) {
-					if (this.valueForNode(c) == inValue) {
+			valueToIndex: function(value) {
+				// find an item with value == value and return it's index
+				for (var i=0, items=this.items, c; (c=items[i]); i++) {
+					if (this.valueForNode(c) == value) {
 						return i;
 					}
 				}
 				// if no item found, the value itself is probably the index
-				return inValue;
+				return value;
 			},
-			valueForNode: function (inNode) {
-				return inNode[this.valueattr] || inNode.getAttribute(this.valueattr);
+			valueForNode: function(node) {
+				return node[this.valueattr] || node.getAttribute(this.valueattr);
 			},
 			// events fired from <polymer-selection> object
-			selectionSelect: function (inEvent, inInfo) {
-				if (inInfo.item && this.selectedClass) {
-					inInfo.item.classList.toggle(this.selectedClass, inInfo.isSelected);
+			selectionSelect: function(e, detail) {
+				if (detail.item) {
+					if (this.selectedClass) {
+						detail.item.classList.toggle(this.selectedClass, detail.isSelected);
+					}
+					if (this.setectedProperty) {
+						detail.item[this.setectedProperty] = detail.isSelected;
+					}
 				}
 			},
 			// event fired from host
-			activateHandler: function (inEvent) {
-				if (this.notap) {
-					return;
-				}
-				var items = this.items;
-				var i = Polymer.findDistributedTarget(inEvent.target, items);
-				var selected;
-				if (i >= 0) {
-					selected = this.valueForNode(items[i]) || i;
-					if (this.multi) {
-						this.valueToSelection(selected);
-					} else {
-						this.selected = selected;
+			activateHandler: function(e) {
+				if (!this.notap) {
+					var i = this.findDistributedTarget(e.target, this.items);
+					if (i >= 0) {
+						var selected = this.valueForNode(this.items[i]) || i;
+						if (this.multi) {
+							this.valueToSelection(selected);
+						} else {
+							this.selected = selected;
+						}
+						this.asyncFire('polymer-activate', {item: this.items[i]});
 					}
-					this.asend('activate', { item: items[i] });
+				}
+			},
+			findDistributedTarget: function(target, nodes) {
+				// find first ancestor of target (including itself) that
+				// is in inNodes, if any
+				while (target && target != this) {
+					var i = Array.prototype.indexOf.call(nodes, target);
+					if (i >= 0) {
+						return i;
+					}
+					target = target.parentNode;
 				}
 			}
 		});
 	</script>
-</element>
+</polymer-element>
