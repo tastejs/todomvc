@@ -9,9 +9,10 @@
 	 * @param {object} model The model constructor
 	 * @param {object} view The view constructor
 	 */
-	function Controller(model, view) {
+	function Controller(model, view, template) {
 		this.model = model;
 		this.view = view;
+		this.template = template;
 
 		this.ENTER_KEY = 13;
 		this.ESCAPE_KEY = 27;
@@ -38,7 +39,7 @@
 	 */
 	Controller.prototype.showAll = function () {
 		this.model.read(function (data) {
-			this.$todoList.innerHTML = this.view.show(data);
+			this.view.render('showEntries', data);
 		}.bind(this));
 	};
 
@@ -47,7 +48,7 @@
 	 */
 	Controller.prototype.showActive = function () {
 		this.model.read({ completed: 0 }, function (data) {
-			this.$todoList.innerHTML = this.view.show(data);
+			this.$todoList.innerHTML = this.template.show(data);
 		}.bind(this));
 	};
 
@@ -56,7 +57,7 @@
 	 */
 	Controller.prototype.showCompleted = function () {
 		this.model.read({ completed: 1 }, function (data) {
-			this.$todoList.innerHTML = this.view.show(data);
+			this.$todoList.innerHTML = this.template.show(data);
 		}.bind(this));
 	};
 
@@ -246,9 +247,9 @@
 	Controller.prototype._updateCount = function () {
 		var todos = this.model.getCount();
 
-		this.$todoItemCounter.innerHTML = this.view.itemCounter(todos.active);
+		this.$todoItemCounter.innerHTML = this.template.itemCounter(todos.active);
 
-		this.$clearCompleted.innerHTML = this.view.clearCompletedButton(todos.completed);
+		this.$clearCompleted.innerHTML = this.template.clearCompletedButton(todos.completed);
 		this.$clearCompleted.style.display = todos.completed > 0 ? 'block' : 'none';
 
 		this.$toggleAll.checked = todos.completed === todos.total;
