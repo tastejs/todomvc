@@ -694,6 +694,56 @@
 			}]
 		}]
 	},
+	"durandal": {
+		"name": "Durandal",
+		"description": "Single Page Apps Done Right..",
+		"homepage": "http://durandaljs.com",
+		"examples": [{
+			"name": "Dependency Example",
+			"url": "labs/dependency-examples/durandal/index.html"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "http://durandaljs.com/pages/get-started/"
+			}, {
+				"name": "Documentation",
+				"url": "http://durandaljs.com/pages/docs"
+			}, {
+				"name": "Videos",
+				"url": "http://durandaljs.com/pages/videos/"
+			}, {
+				"name": "Durandal on GitHub",
+				"url": "https://github.com/BlueSpire/Durandal"
+			}]
+		}
+		, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "HotTowel Template - Durandal with ASP.Net MVC",
+				"url": "http://www.johnpapa.net/hottowel/"
+			}, {
+				"name": "Using Durandal to Create Single Page Apps",
+				"url": "http://stephenwalther.com/archive/2013/02/08/using-durandal-to-create-single-page-apps"
+			},{
+				"name": "nuGet Download",
+				"url": "http://www.nuget.org/packages/Durandal/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Durandal on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/durandal"
+			}, {
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/#!forum/durandaljs"
+			}, {
+				"name": "Durandal on Twitter",
+				"url": "http://twitter.com/durandaljs"
+			}]
+		}]
+	},
 	"emberjs": {
 		"name": "Ember.js",
 		"description": "A framework for creating ambitious web applications.",
