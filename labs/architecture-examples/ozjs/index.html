@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OzJS • TodoMVC</title>
+    <link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<section id="todoapp">
+    <header id="header">
+        <h1>todos</h1>
+        <input id="new-todo" placeholder="What needs to be done?" disabled>
+    </header>
+    <section id="main">
+        <input id="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list"></ul>
+    </section>
+    <footer id="footer"></footer>
+</section>
+<footer id="info">
+    <p>Double-click to edit a todo</p>
+    <p>Written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
+
+<script type="text/template" id="item-template">
+<div class="view">
+    <input class="toggle" type="checkbox" {%= (completed ? 'checked' : '') %}>
+    <label>{%= title %}</label>
+    <button class="destroy"></button>
+</div>
+<input class="edit" value="{%= title %}">
+</script>
+
+<script type="text/template" id="stats-template">
+<span id="todo-count"><strong>{%= remaining %}</strong> {%= (remaining === 1 ? 'item' : 'items') %} left</span>
+<ul id="filters" data-ignore-repeat="true">
+    <li>
+        <a class="todo-option enabled" href="#/">All</a>
+    </li>
+    <li>
+        <a class="todo-option" href="#/active">Active</a>
+    </li>
+    <li>
+        <a class="todo-option" href="#/completed">Completed</a>
+    </li>
+</ul>
+{% if (completed) { %}
+<button id="clear-completed">Clear completed ({%= completed %})</button>
+{% } %}
+</script>
+
+<script src="bower_components/ozjs/oz.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

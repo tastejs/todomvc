@@ -1,0 +1,16 @@
+{
+    "name": "todomvc-ozjs",
+    "version": "0.0.0",
+    "dependencies": {
+        "ozjs": "~2.5.3",
+        "mo": "~1.5.2",
+        "dollar": "~1.2.3",
+        "nerv": "~0.3.0",
+        "eventmaster": "~2.1.0",
+        "urlkit": "~1.0.2",
+        "soviet": "~1.0.0",
+        "moui": "~2.0.3",
+        "todomvc-common": "~0.1.7"
+    },
+    "ignore": []
+}
