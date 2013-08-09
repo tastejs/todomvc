@@ -7,7 +7,7 @@ define([
 	
 	return {
 		router: router,
-		filter: '', // this is used as the global cache to figure out the filter in effect.
+		filter: undefined, // this is used as the global cache to figure out the filter in effect.
 		activate: function () {
 			return router.activate('todoapp');
 		}

@@ -18,7 +18,13 @@ define([
 
 		self.activate = function () {
 			//initialize the show mode 
-			self.showMode(shell.filter);
+			var filter = shell.filter;
+
+			if ( filter === undefined){
+				filter = 'all';
+			}
+
+			self.showMode(filter);
 
 			// // check local storage for todos
 			var todosFromlocalStorage = ko.utils.parseJson(localStorage.getItem('todos-durandal'));
