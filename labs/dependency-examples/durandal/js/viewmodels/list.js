@@ -90,7 +90,11 @@ define([
 		self.stopEditing = function (item) {
 			item.editing(false);
 
-			if (!item.title().trim()) {
+			//trim and save back
+			var trimmed = item.title().trim();
+			item.title(trimmed);
+
+			if (!trimmed) {
 				self.remove(item);
 			}
 		};
