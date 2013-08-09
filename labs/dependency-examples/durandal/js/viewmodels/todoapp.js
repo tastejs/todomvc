@@ -1,8 +1,8 @@
 define(function () {
-    'use strict';
+	'use strict';
 
-    var ViewModel = function () {
-    };
+	var ViewModel = function () {
+	};
 
-    return ViewModel;
+	return ViewModel;
 });
