@@ -72,7 +72,7 @@ define(['bower_components/durandal/app',
 			//configure routing
 			router.useConvention('js/viewmodels');
 			router.mapNav('todoapp');
-			// router.mapNav('flickr');
+			router.mapNav('#/:filter', 'js/viewmodels/todoapp');
 
 			app.adaptToDevice();
 

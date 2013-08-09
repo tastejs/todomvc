@@ -1,7 +1,8 @@
 /*global define, ko */
 define([
-	'bower_components/durandal/app'
-], function (app) {
+	'bower_components/durandal/app',
+	'js/viewmodels/shell'
+], function (app, shell) {
 
 	'use strict';
 	// represent a single todo item
@@ -16,6 +17,9 @@ define([
 		var self = this;
 
 		self.activate = function () {
+			//initialize the show mode 
+			self.showMode(shell.filter);
+
 			// // check local storage for todos
 			var todosFromlocalStorage = ko.utils.parseJson(localStorage.getItem('todos-durandal'));
 

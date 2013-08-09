@@ -21,13 +21,13 @@
 		</span>
 		<ul id="filters">
 				<li>
-				<a data-bind="css: { selected: showMode() == 'all' }, click: function() {  showMode('all');}" href="#" >All</a>
+				<a data-bind="css: { selected: showMode() == 'all' }" href="#/all" >All</a>
 				</li>
 				<li>
-						<a data-bind="css: { selected: showMode() == 'active' }, click: function() {  showMode('active');}" href="#">Active</a>
+						<a data-bind="css: { selected: showMode() == 'active' }" href="#/active">Active</a>
 				</li>
 				<li>
-						<a data-bind="css: { selected: showMode() == 'completed' },click: function() {  showMode('completed');}" href="#">Completed</a>
+						<a data-bind="css: { selected: showMode() == 'completed' }" href="#/completed">Completed</a>
 				</li>
 		</ul>
 		<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">
