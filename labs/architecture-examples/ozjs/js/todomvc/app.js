@@ -16,7 +16,7 @@ define([
 
     var list = listModel(),
         url = urlkit({
-            baseUrl: location.href
+            baseUrl: location.href.replace(/#.*/, '')
         }),
         actions = view.event;
 
@@ -47,9 +47,7 @@ define([
     });
 
     actions.on('todo:switch', function (href) {
-        url.nav(0, urlkit.parse(href)[1] || false, {
-            route: false
-        });
+        url.nav(0, urlkit.parse(href)[1] || false);
     });
 
     list.observer.on('change', function (changes) {
