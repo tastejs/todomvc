@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Ractive.js • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+		<section id="todoapp"></section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			
+			<p>Created by <a href="http://rich-harris.co.uk">Rich Harris</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<!-- Templates -->
+		<script id="main" type="text/ractive">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" on-enter="new_todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			
+			{{#items.length}}
+				<section id="main">
+					<input id="toggle-all" type="checkbox" on-change="toggle_all" checked='{{ items.length === items.filter( completed ).length }}'>
+					<label for="toggle-all">Mark all as complete</label>
+					<ul id="todo-list">
+						{{#items:i}}
+							{{>item}}
+						{{/items}}
+					</ul>
+				</section>
+
+				<footer id="footer">
+					<span id="todo-count">
+						<strong>{{ items.filter( active ).length }}</strong> {{ items.filter( active ).length === 1 ? 'item' : 'items' }} left
+					</span>
+					
+					<ul id="filters">
+						<li>
+							<a class="{{ currentFilter === 'all' ? 'selected' : '' }}" href="#/">All</a>
+						</li>
+						<li>
+							<a class="{{ currentFilter === 'active' ? 'selected' : '' }}" href="#/active">Active</a>
+						</li>
+						<li>
+							<a class="{{ currentFilter === 'completed' ? 'selected' : '' }}" href="#/completed">Completed</a>
+						</li>
+					</ul>
+
+					{{# items.filter( completed ).length }}
+						<button id="clear-completed" on-tap="clear_completed">
+							Clear completed ({{ items.filter( completed ).length }})
+						</button>
+					{{/ end of filter }}
+				</footer>
+			{{/items.length}}
+		</script>
+
+		<script id="item" type="text/ractive">
+			{{# filter( this, currentFilter ) }}
+				<li class="{{ completed ? 'completed' : '' }} {{ editing ? 'editing' : '' }}">
+					<div class="view">
+						<input class="toggle" type="checkbox" checked="{{completed}}">
+						<label on-dblclick="edit">{{description}}</label>
+						<button on-tap="remove:{{i}}" class="destroy"></button>
+					</div>
+
+					{{#.editing}}
+						<input id="edit" class="edit" intro="select" on-blur-enter="submit" on-escape="cancel">
+					{{/.editing}}
+				</li>
+			{{/ end of filter }}
+		</script>
+		
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/ractive/build/Ractive-legacy.min.js"></script>
+		<script src="bower_components/director/build/director.min.js"></script>
+
+		<script src="js/app.js"></script>
+		<script src="js/persistence.js"></script>
+		<script src="js/routes.js"></script>
+	</body>
+</html>
