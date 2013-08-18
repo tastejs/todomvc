@@ -128,11 +128,6 @@ TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta St
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
 
-## Project Status
-
-TodoMVC 1.x includes re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We've also addressed framework author concerns about routing by adding this to many of the more mainstream applications in the project.
-
-
 ## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
@@ -142,5 +137,4 @@ Check out our [contribution docs](contributing.md) for more info.
 
 ## License
 
-MIT License  
-Copyright (c) Addy Osmani, Sindre Sorhus & Pascal Hartig
+MIT © Addy Osmani, Sindre Sorhus, Pascal Hartig, Stephen Sawchuk
