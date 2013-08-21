@@ -5,23 +5,21 @@ define([
 ], function (app, shell) {
 
 	'use strict';
+
 	// represent a single todo item
-	
 	var Todo = function (title, completed) {
 		this.title = ko.observable(title);
 		this.completed = ko.observable(completed);
-		this.editTitle = ko.observable(title) //we use this as a shadow for the title so that if the user exits without saving, it is not persisted.
-		this.editing = ko.observable(false);
 	};
 
 	var ViewModel = function () {
 		var self = this;
 
 		self.activate = function () {
-			//initialize the show mode 
+			//initialize the show mode
 			var filter = shell.filter;
 
-			if ( filter === undefined){
+			if (filter === undefined) {
 				filter = 'all';
 			}
 
@@ -70,6 +68,8 @@ define([
 			}
 		});
 
+		self.itemBeingEdited = ko.observable(undefined);
+
 		// remove a single todo
 		self.remove = function (todo) {
 			self.todos.remove(todo);
@@ -82,17 +82,21 @@ define([
 			});
 		};
 
+		self.isThisItemBeingEdited = function (todo) {
+			return (todo === self.itemBeingEdited());
+		};
+
 		// edit an item
 		self.editItem = function (item) {
-			item.editing(true);
+			self.itemBeingEdited(item);
 		};
 
 		// stop editing an item.  Remove the item, if it is now empty
 		self.stopEditing = function (item) {
-			item.editing(false);
+			self.itemBeingEdited(undefined);
 
 			//trim and save back
-			var trimmed = item.editTitle().trim();
+			var trimmed = item.title().trim();
 			item.title(trimmed);
 
 			if (!trimmed) {
