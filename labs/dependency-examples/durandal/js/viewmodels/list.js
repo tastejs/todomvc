@@ -10,6 +10,7 @@ define([
 	var Todo = function (title, completed) {
 		this.title = ko.observable(title);
 		this.completed = ko.observable(completed);
+		this.editTitle = ko.observable(title) //we use this as a shadow for the title so that if the user exits without saving, it is not persisted.
 		this.editing = ko.observable(false);
 	};
 
@@ -91,7 +92,7 @@ define([
 			item.editing(false);
 
 			//trim and save back
-			var trimmed = item.title().trim();
+			var trimmed = item.editTitle().trim();
 			item.title(trimmed);
 
 			if (!trimmed) {
