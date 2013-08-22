@@ -75,6 +75,9 @@ define([
 			self.todos.remove(todo);
 		};
 
+		self.editTitle = ko.observable(''); // shadow variable so that the edit can be discarded on escape
+		self.cancelEdit = false;
+
 		// remove all completed todos
 		self.removeCompleted = function () {
 			self.todos.remove(function (todo) {
@@ -86,21 +89,30 @@ define([
 			return (todo === self.itemBeingEdited());
 		};
 
+		self.cancelEditing = function () {
+			self.itemBeingEdited(undefined);
+			self.cancelEdit = true;
+		};
+
 		// edit an item
 		self.editItem = function (item) {
 			self.itemBeingEdited(item);
+			self.editTitle(item.title());
+			self.cancelEdit = false;
 		};
 
 		// stop editing an item.  Remove the item, if it is now empty
 		self.stopEditing = function (item) {
-			self.itemBeingEdited(undefined);
+			if (!self.cancelEdit) {
+				self.itemBeingEdited(undefined);
 
-			//trim and save back
-			var trimmed = item.title().trim();
-			item.title(trimmed);
+				//trim and save back
+				var trimmed = self.editTitle().trim();
+				item.title(trimmed);
 
-			if (!trimmed) {
-				self.remove(item);
+				if (!trimmed) {
+					self.remove(item);
+				}
 			}
 		};
 
