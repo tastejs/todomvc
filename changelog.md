@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3 - TBD
+
+- New since 1.2:
+    - Durandal
+
 ## 1.2 - 2013-08-06
 
 - New since 1.1:
