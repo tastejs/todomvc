@@ -696,8 +696,8 @@
 	},
 	"durandal": {
 		"name": "Durandal",
-		"description": "Single Page Apps Done Right..",
-		"homepage": "http://durandaljs.com",
+		"description": "Single Page Apps Done Right.",
+		"homepage": "durandaljs.com",
 		"examples": [{
 			"name": "Dependency Example",
 			"url": "labs/dependency-examples/durandal/index.html"

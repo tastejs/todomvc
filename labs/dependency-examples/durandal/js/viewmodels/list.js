@@ -50,7 +50,7 @@ define([
 
 		// map array of passed in todos to an observableArray of Todo objects
 		self.todos = ko.observableArray();
-		
+
 		self.showMode = ko.observable('all');
 
 		self.filteredTodos = ko.computed(function () {
@@ -150,6 +150,6 @@ define([
 
 	};
 
-	
+
 	return ViewModel;
 });
