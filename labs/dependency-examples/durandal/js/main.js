@@ -87,20 +87,30 @@
 		system.debug(true);
 		//>>excludeEnd("build");
 
-		app.title = 'Durandal Starter Kit';
+		app.title = 'Durandal';
 		app.start().then(function () {
-			//Replace 'viewmodels' in the moduleId with 'views' to locate the view.
-			//Look for partial views in a 'views' folder in the root.
+			// Replace 'viewmodels' in the moduleId with 'views' to locate the view.
+			// Look for partial views in a 'views' folder in the root.
 			viewLocator.useConvention();
 
-			//configure routing
+			// configure routing
 			router.useConvention('js/viewmodels');
-			router.mapNav('todoapp');
-			router.mapNav('#/:filter', 'js/viewmodels/todoapp');
+			router.mapNav({
+				url: '/',
+				moduleId: 'js/viewmodels/todoapp',
+				name: 'TodoMVC',
+			});
+			
+			router.mapNav({
+				url: '#/:filter',
+				moduleId: 'js/viewmodels/todoapp',
+				name: 'TodoMVC',
+				hash: '#/filter'
+			});
 
 			app.adaptToDevice();
 
-			//Show the app by setting the root view model for our application with a transition.
+			// Show the app by setting the root view model for our application with a transition.
 			app.setRoot('js/viewmodels/shell');
 		});
 	});
