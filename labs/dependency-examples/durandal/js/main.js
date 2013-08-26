@@ -69,19 +69,21 @@
 			});
 		},
 		update: function (element, valueAccessor) {
-				ko.utils.unwrapObservable(valueAccessor()); // for dependency
-				// ensure that element is visible before trying to focus
-				setTimeout(function () {
-					ko.bindingHandlers.hasfocus.update(element, valueAccessor);
-				}, 0);
-			}
+			ko.utils.unwrapObservable(valueAccessor()); // for dependency
+
+			// ensure that element is visible before trying to focus
+			setTimeout(function () {
+				ko.bindingHandlers.hasfocus.update(element, valueAccessor);
+			}, 0);
+		}
 	};
 
-	define(['bower_components/durandal/app',
+	define([
+		'bower_components/durandal/app',
 		'bower_components/durandal/viewLocator',
 		'bower_components/durandal/system',
-		'bower_components/durandal/plugins/router'],
-		function (app, viewLocator, system, router) {
+		'bower_components/durandal/plugins/router'
+	], function (app, viewLocator, system, router) {
 
 		//>>excludeStart("build", true);
 		system.debug(true);
@@ -89,6 +91,7 @@
 
 		// this ensures that the title is simply the caption provided on the route
 		app.title = undefined;
+
 		app.start().then(function () {
 			// Replace 'viewmodels' in the moduleId with 'views' to locate the view.
 			// Look for partial views in a 'views' folder in the root.
@@ -96,13 +99,14 @@
 
 			// configure routing
 			router.useConvention('js/viewmodels');
+
 			router.mapNav({
 				url: '/',
 				moduleId: 'js/viewmodels/todoapp',
 				name: 'TodoMVC',
 				caption: 'Durandal • TodoMVC'
 			});
-			
+
 			router.mapNav({
 				url: '#/:filter',
 				moduleId: 'js/viewmodels/todoapp',
@@ -117,4 +121,4 @@
 			app.setRoot('js/viewmodels/shell');
 		});
 	});
-}());
+})();

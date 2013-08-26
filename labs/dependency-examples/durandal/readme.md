@@ -31,4 +31,4 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 ## Credit
 
-This Durandal TodoMVC application was created by [Abhinav Gujjar](https://github.com/abhinavgujjar).
+This TodoMVC application was created by [Abhinav Gujjar](https://github.com/abhinavgujjar).

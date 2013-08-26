@@ -3,7 +3,6 @@ define([
 	'bower_components/durandal/app',
 	'js/viewmodels/shell'
 ], function (app, shell) {
-
 	'use strict';
 
 	// represent a single todo item
@@ -34,13 +33,16 @@ define([
 
 			self.todos(todosFromlocalStorage);
 
-			// internal computed observable that fires whenever anything changes in our todos
+			// internal computed observable that fires whenever anything changes in
+			// our todos
 			ko.computed(function () {
-				// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
+				// store a clean copy to local storage, which also creates a dependency
+				// on the observableArray and all observables in each item
 				localStorage.setItem('todos-durandal', ko.toJSON(self.todos()));
 			}).extend({
+				// save at most twice per second
 				throttle: 500
-			}); // save at most twice per second
+			});
 
 		};
 
@@ -55,16 +57,16 @@ define([
 
 		self.filteredTodos = ko.computed(function () {
 			switch (self.showMode()) {
-			case 'active':
-				return self.todos().filter(function (todo) {
-					return !todo.completed();
-				});
-			case 'completed':
-				return self.todos().filter(function (todo) {
-					return todo.completed();
-				});
-			default:
-				return self.todos();
+				case 'active':
+					return self.todos().filter(function (todo) {
+						return !todo.completed();
+					});
+				case 'completed':
+					return self.todos().filter(function (todo) {
+						return todo.completed();
+					});
+				default:
+					return self.todos();
 			}
 		});
 
@@ -75,7 +77,8 @@ define([
 			self.todos.remove(todo);
 		};
 
-		self.editTitle = ko.observable(''); // shadow variable so that the edit can be discarded on escape
+		// shadow variable so that the edit can be discarded on escape
+		self.editTitle = ko.observable('');
 		self.cancelEdit = false;
 
 		// remove all completed todos
@@ -106,7 +109,7 @@ define([
 			if (!self.cancelEdit) {
 				self.itemBeingEdited(undefined);
 
-				//trim and save back
+				// trim and save back
 				var trimmed = self.editTitle().trim();
 				item.title(trimmed);
 
@@ -130,14 +133,16 @@ define([
 
 		// writeable computed observable to handle marking all complete/incomplete
 		self.allCompleted = ko.computed({
-			//always return true/false based on the done flag of all todos
+			// always return true/false based on the done flag of all todos
 			read: function () {
 				return !self.remainingCount();
 			},
+
 			// set all todos to the written value (true/false)
 			write: function (newValue) {
 				ko.utils.arrayForEach(self.todos(), function (todo) {
-					// set even if value is the same, as subscribers are not notified in that case
+					// set even if value is the same, as subscribers are not notified in
+					// that case
 					todo.completed(newValue);
 				});
 			}
@@ -147,9 +152,7 @@ define([
 		self.getLabel = function (count) {
 			return ko.utils.unwrapObservable(count) === 1 ? 'item' : 'items';
 		};
-
 	};
-
 
 	return ViewModel;
 });
