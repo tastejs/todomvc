@@ -16,7 +16,7 @@ define([
 		var self = this;
 
 		self.activate = function () {
-			//initialize the show mode
+			// initialize the show mode
 			var filter = shell.filter;
 
 			if (filter === undefined) {
@@ -25,7 +25,7 @@ define([
 
 			self.showMode(filter);
 
-			// // check local storage for todos
+			// check local storage for todos
 			var todosFromlocalStorage = ko.utils.parseJson(localStorage.getItem('todos-durandal'));
 
 			todosFromlocalStorage = ko.utils.arrayMap(todosFromlocalStorage, function (todo) {
