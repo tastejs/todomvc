@@ -39,7 +39,7 @@ var app = app || {};
 			this.listenTo(app.todos, 'filter', this.filterAll);
 			this.listenTo(app.todos, 'all', this.render);
 
-			app.todos.fetch();
+			app.todos.fetch({reset: true});
 		},
 
 		// Re-rendering the App just means refreshing the statistics -- the rest
