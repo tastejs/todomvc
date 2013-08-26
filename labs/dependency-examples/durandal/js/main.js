@@ -87,7 +87,8 @@
 		system.debug(true);
 		//>>excludeEnd("build");
 
-		app.title = 'Durandal';
+		// this ensures that the title is simply the caption provided on the route
+		app.title = undefined;
 		app.start().then(function () {
 			// Replace 'viewmodels' in the moduleId with 'views' to locate the view.
 			// Look for partial views in a 'views' folder in the root.
@@ -99,13 +100,15 @@
 				url: '/',
 				moduleId: 'js/viewmodels/todoapp',
 				name: 'TodoMVC',
+				caption: 'Durandal • TodoMVC'
 			});
 			
 			router.mapNav({
 				url: '#/:filter',
 				moduleId: 'js/viewmodels/todoapp',
 				name: 'TodoMVC',
-				hash: '#/filter'
+				hash: '#/filter',
+				caption: 'Durandal • TodoMVC'
 			});
 
 			app.adaptToDevice();
