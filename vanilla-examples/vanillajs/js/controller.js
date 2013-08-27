@@ -318,9 +318,9 @@
 		$$('#filters [href="#/' + currentPage + '"]').className = 'selected';
 	};
 
-	 /**
-		* A getter for getting the current page
-		*/
+	/**
+	 * A getter for getting the current page
+	 */
 	Controller.prototype._getCurrentPage = function () {
 		return document.location.hash.split('/')[1];
 	};
