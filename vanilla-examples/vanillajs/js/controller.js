@@ -1,4 +1,4 @@
-/*global Router, $$, $ */
+/*global $$, $ */
 (function (window) {
 	'use strict';
 
@@ -23,25 +23,13 @@
 		this.$clearCompleted = $$('#clear-completed');
 		this.$footer = $$('#footer');
 
-		this.router = new Router();
-		this.router.init();
-
 		window.addEventListener('load', function () {
 			this._updateFilterState();
 		}.bind(this));
 
-		// Couldn't figure out how to get flatiron to run some code on all pages. I
-		// tried '*', but then it overwrites ALL handlers for all the other pages
-		// and only runs this.
 		window.addEventListener('hashchange', function () {
 			this._updateFilterState();
 		}.bind(this));
-
-		// Make sure on page load we start with a hash to trigger the flatiron and
-		// onhashchange routes
-		if (window.location.href.indexOf('#') === -1) {
-			window.location.hash = '#/';
-		}
 	}
 
 	/**
