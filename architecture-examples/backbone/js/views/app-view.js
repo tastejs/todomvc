@@ -39,6 +39,9 @@ var app = app || {};
 			this.listenTo(app.todos, 'filter', this.filterAll);
 			this.listenTo(app.todos, 'all', this.render);
 
+			//suppresses 'add' events with {reset: true} and prevents the app view 
+			//from being re-rendered for every model.
+			//Only renders when the 'reset' event is triggered at the end of the fetch.
 			app.todos.fetch({reset: true});
 		},
 
