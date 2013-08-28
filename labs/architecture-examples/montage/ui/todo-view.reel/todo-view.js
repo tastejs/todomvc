@@ -1,133 +1,139 @@
-var Montage = require('montage').Montage;
-var Component = require('montage/ui/component').Component;
+var Component = require("montage/ui/component").Component;
 
-exports.TodoView = Montage.create(Component, {
-	todo: {
-		value: null
-	},
+exports.TodoView = Component.specialize({
 
-	editInput: {
-		value: null
-	},
+    todo: {
+        value: null
+    },
 
-	didCreate: {
-		value: function () {
-			Object.defineBinding(this, 'isCompleted', {
-				boundObject: this,
-				boundObjectPropertyPath: 'todo.completed',
-				oneway: true
-			});
-		}
-	},
+    editInput: {
+        value: null
+    },
 
-	prepareForDraw: {
-		value: function () {
-			this.element.addEventListener('dblclick', this, false);
-			this.element.addEventListener('blur', this, true);
-			this.element.addEventListener('submit', this, false);
-		}
-	},
+    constructor: {
+        value: function TodoView() {
+            this.defineBinding("isCompleted", {
+                "<-": "todo.completed"
+            });
+        }
+    },
 
-	captureDestroyButtonAction: {
-		value: function () {
-			this.dispatchDestroy();
-		}
-	},
+    enterDocument: {
+        value: function(firstTime) {
+            if (firstTime) {
+                this.element.addEventListener("dblclick", this, false);
+                this.element.addEventListener("blur", this, true);
+                this.element.addEventListener("submit", this, false);
+            }
+        }
+    },
 
-	dispatchDestroy: {
-		value: function () {
-			this.dispatchEventNamed('destroyTodo', true, true, {todo: this.todo})
-		}
-	},
+    captureDestroyButtonAction: {
+        value: function() {
+            this.dispatchDestroy();
+        }
+    },
 
-	handleDblclick: {
-		value: function () {
-			this.isEditing = true;
-		}
-	},
+    dispatchDestroy: {
+        value: function() {
+            this.dispatchEventNamed("destroyTodo", true, true, {todo: this.todo})
+        }
+    },
 
-	_isEditing: {
-		value: false
-	},
+    handleDblclick: {
+        value: function(evt) {
+            this.isEditing = true;
+        }
+    },
 
-	isEditing: {
-		get: function () {
-			return this._isEditing;
-		},
-		set: function (value) {
-			if (value === this._isEditing) {
-				return;
-			}
+    _isEditing: {
+        value: false
+    },
 
-			this._isEditing = value;
-			this.needsDraw = true;
-		}
-	},
+    isEditing: {
+        get: function() {
+            return this._isEditing;
+        },
+        set: function(value) {
+            if (value === this._isEditing) {
+                return;
+            }
 
-	_isCompleted: {
-		value: false
-	},
+            if (value) {
+                this.classList.add("editing");
+            } else {
+                this.classList.remove("editing");
+            }
 
-	isCompleted: {
-		get: function () {
-			return this._isCompleted;
-		},
-		set: function (value) {
-			if (value === this._isCompleted) {
-				return;
-			}
+            this._isEditing = value;
+            this.needsDraw = true;
+        }
+    },
 
-			this._isCompleted = value;
-			this.needsDraw = true;
-		}
-	},
+    _isCompleted: {
+        value: false
+    },
 
-	captureBlur: {
-		value: function (e) {
-			if (this.isEditing && this.editInput.element === e.target) {
-				this._submitTitle();
-			}
-		}
-	},
+    isCompleted: {
+        get: function() {
+            return this._isCompleted;
+        },
+        set: function(value) {
+            if (value === this._isCompleted) {
+                return;
+            }
 
-	handleSubmit: {
-		value: function (e) {
-			if (this.isEditing) {
-				e.preventDefault();
-				this._submitTitle();
-			}
-		}
-	},
+            if (value) {
+                this.classList.add("completed");
+            } else {
+                this.classList.remove("completed");
+            }
 
-	_submitTitle: {
-		value: function () {
-			var title = this.editInput.value.trim();
+            this._isCompleted = value;
+            this.needsDraw = true;
+        }
+    },
 
-			if (title === '') {
-				this.dispatchDestroy();
-			} else {
-				this.todo.title = title;
-			}
+    captureBlur: {
+        value: function(evt) {
+            if (this.isEditing && this.editInput.element === evt.target) {
+                this._submitTitle();
+            }
+        }
+    },
 
-			this.isEditing = false;
-		}
-	},
+    handleSubmit: {
+        value: function(evt) {
+            if (this.isEditing) {
+                evt.preventDefault();
+                this._submitTitle();
+            }
+        }
+    },
 
-	draw: {
-		value: function () {
-			if (this.isEditing) {
-				this.element.classList.add('editing');
-				this.editInput.element.focus();
-			} else {
-				this.element.classList.remove('editing');
-				this.editInput.element.blur();
-			}
+    _submitTitle: {
+        value: function() {
 
-			if (this.isCompleted) {
-				this.element.classList.add('completed');
-			} else {
-				this.element.classList.remove('completed');
-			}
-		}
-	}
+            var title = this.editInput.value.trim();
+
+            if ("" === title) {
+                this.dispatchDestroy();
+            } else {
+                this.todo.title = title;
+            }
+
+            this.isEditing = false;
+        }
+    },
+
+    draw: {
+        value: function() {
+            if (this.isEditing) {
+                this.editInput.element.focus();
+            } else {
+                this.editInput.element.blur();
+            }
+        }
+    }
+
 });
