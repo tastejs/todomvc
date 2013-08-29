@@ -16,18 +16,18 @@ define(
 
     function parseEventArgs(instance, args) {
       var element, type, callback;
+      var end = args.length;
 
-      args = util.toArray(args);
-
-      if (typeof args[args.length-1] === 'function') {
-        callback = args.pop();
+      if (typeof args[end - 1] === 'function') {
+        end -= 1;
+        callback = args[end];
       }
 
-      if (typeof args[args.length-1] === 'object') {
-        args.pop();
+      if (typeof args[end - 1] === 'object') {
+        end -= 1;
       }
 
-      if (args.length == 2) {
+      if (end == 2) {
         element = args[0];
         type = args[1];
       } else {
@@ -56,52 +56,42 @@ define(
 
       (this.reset = function() {
         this.components = [];
-        this.allInstances = [];
+        this.allInstances = {};
         this.events = [];
       }).call(this);
 
       function ComponentInfo(component) {
         this.component = component;
-        this.instances = [];
+        this.attachedTo = [];
+        this.instances = {};
 
         this.addInstance = function(instance) {
-          this.throwIfInstanceExistsOnNode(instance);
-
           var instanceInfo = new InstanceInfo(instance);
-          this.instances.push(instanceInfo);
+          this.instances[instance.identity] = instanceInfo;
+          this.attachedTo.push(instance.node);
 
           return instanceInfo;
         }
 
-        this.throwIfInstanceExistsOnNode = function(instance) {
-          this.instances.forEach(function (instanceInfo) {
-            if (instanceInfo.instance.$node[0] === instance.$node[0]) {
-              throw new Error('Instance of ' + instance.constructor + ' already exists on node ' + instance.$node[0]);
-            }
-          });
-        }
-
         this.removeInstance = function(instance) {
-          var instanceInfo = this.instances.filter(function(instanceInfo) {
-            return instanceInfo.instance == instance;
-          })[0];
+          delete this.instances[instance.identity];
+          var indexOfNode = this.attachedTo.indexOf(instance.node);
+          (indexOfNode > -1) && this.attachedTo.splice(indexOfNode, 1);
 
-          var index = this.instances.indexOf(instanceInfo);
-
-          (index > -1)  && this.instances.splice(index, 1);
-
-          if (!this.instances.length) {
+          if (!Object.keys(this.instances).length) {
             //if I hold no more instances remove me from registry
             registry.removeComponentInfo(this);
           }
+        }
+
+        this.isAttachedTo = function(node) {
+          return this.attachedTo.indexOf(node) > -1;
         }
       }
 
       function InstanceInfo(instance) {
         this.instance = instance;
         this.events = [];
-
-        this.addTrigger = function() {};
 
         this.addBind = function(event) {
           this.events.push(event);
@@ -127,7 +117,7 @@ define(
 
         var inst = component.addInstance(instance);
 
-        this.allInstances.push(inst);
+        this.allInstances[instance.identity] = inst;
 
         return component;
       };
@@ -137,11 +127,10 @@ define(
 
         //remove from component info
         var componentInfo = this.findComponentInfo(instance);
-        componentInfo.removeInstance(instance);
+        componentInfo && componentInfo.removeInstance(instance);
 
         //remove from registry
-        var index = this.allInstances.indexOf(instInfo);
-        (index > -1)  && this.allInstances.splice(index, 1);
+        delete this.allInstances[instance.identity];
       };
 
       this.removeComponentInfo = function(componentInfo) {
@@ -161,41 +150,32 @@ define(
         return null;
       };
 
-      this.findInstanceInfo = function(which) {
-        var testFn;
-
-        if (which.node) {
-          //by instance (returns matched instance)
-          testFn = function(inst) {return inst.instance === which};
-        } else {
-          //by node (returns array of matches)
-          testFn = function(inst) {return inst.instance.node === which};
-        }
-
-        var matches = this.allInstances.filter(testFn);
-        if (!matches.length) {
-          return which.node ? null : [];
-        }
-        return which.node ? matches[0] : matches;
+      this.findInstanceInfo = function(instance) {
+          return this.allInstances[instance.identity] || null;
       };
 
-      this.trigger = function() {
-        var event = parseEventArgs(this, arguments),
-            instance = registry.findInstanceInfo(this);
-
-        if (instance) {
-          instance.addTrigger(event);
-        }
+      this.findInstanceInfoByNode = function(node) {
+          var result = [];
+          Object.keys(this.allInstances).forEach(function(k) {
+            var thisInstanceInfo = this.allInstances[k];
+            if(thisInstanceInfo.instance.node === node) {
+              result.push(thisInstanceInfo);
+            }
+          }, this);
+          return result;
       };
 
       this.on = function(componentOn) {
-        var otherArgs = util.toArray(arguments, 1);
-        var instance = registry.findInstanceInfo(this);
-        var boundCallback;
+        var instance = registry.findInstanceInfo(this), boundCallback;
+
+        // unpacking arguments by hand benchmarked faster
+        var l = arguments.length, i = 1;
+        var otherArgs = new Array(l - 1);
+        for (; i < l; i++) otherArgs[i - 1] = arguments[i];
 
         if (instance) {
           boundCallback = componentOn.apply(null, otherArgs);
-          if(boundCallback) {
+          if (boundCallback) {
             otherArgs[otherArgs.length-1] = boundCallback;
           }
           var event = parseEventArgs(this, otherArgs);
@@ -210,7 +190,17 @@ define(
         if (instance) {
           instance.removeBind(event);
         }
+
+        //remove from global event registry
+        for (var i = 0, e; e = registry.events[i]; i++) {
+          if (matchEvent(e, event)) {
+            registry.events.splice(i, 1);
+          }
+        }
       };
+
+      //debug tools may want to add advice to trigger
+      registry.trigger = new Function;
 
       this.teardown = function() {
         registry.removeInstance(this);
@@ -221,9 +211,10 @@ define(
           registry.addInstance(this);
         });
 
-        this.after('trigger', registry.trigger);
         this.around('on', registry.on);
         this.after('off', registry.off);
+        //debug tools may want to add advice to trigger
+        window.DEBUG && DEBUG.enabled && this.after('trigger', registry.trigger);
         this.after('teardown', {obj:registry, fnName:'teardown'});
       };
 

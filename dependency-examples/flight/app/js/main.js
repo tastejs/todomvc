@@ -6,7 +6,7 @@ require.config({
 		jquery: 'bower_components/jquery/jquery',
 		es5shim: 'bower_components/es5-shim/es5-shim',
 		es5sham: 'bower_components/es5-shim/es5-sham',
-		text: 'bower_components/requirejs/plugins/text'
+		text: 'bower_components/requirejs-text/text'
 	},
 	map: {
 		'*': {

@@ -93,8 +93,8 @@ define([
 			this.on('click', { 'toggleSelector': this.toggle });
 			this.on('dblclick', { 'labelSelector': this.edit });
 
-			this.$node.on('blur', '.edit', this.bind(this.requestUpdate));
-			this.$node.on('keydown', '.edit', this.bind(this.requestUpdateOnEnter));
+			this.$node.on('blur', '.edit', this.requestUpdate.bind(this));
+			this.$node.on('keydown', '.edit', this.requestUpdateOnEnter.bind(this));
 
 			// these don't work
 			// this.on(this.attr.editSelector, 'blur', this.requestUpdate);

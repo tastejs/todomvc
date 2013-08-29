@@ -32,8 +32,6 @@
 // ES-5 15.3.4.5
 // http://es5.github.com/#x15.3.4.5
 
-function Empty() {}
-
 if (!Function.prototype.bind) {
     Function.prototype.bind = function bind(that) { // .length is 1
         // 1. Let Target be the this value.
@@ -74,14 +72,18 @@ if (!Function.prototype.bind) {
                 // 5. Return the result of calling the [[Construct]] internal
                 //   method of target providing args as the arguments.
 
+                var F = function(){};
+                F.prototype = target.prototype;
+                var self = new F;
+
                 var result = target.apply(
-                    this,
+                    self,
                     args.concat(slice.call(arguments))
                 );
                 if (Object(result) === result) {
                     return result;
                 }
-                return this;
+                return self;
 
             } else {
                 // 15.3.4.5.1 [[Call]]
@@ -111,12 +113,6 @@ if (!Function.prototype.bind) {
             }
 
         };
-        if(target.prototype) {
-            Empty.prototype = target.prototype;
-            bound.prototype = new Empty();
-            // Clean up dangling references.
-            Empty.prototype = null;
-        }
         // XXX bound.length is never writable, so don't even try
         //
         // 15. If the [[Class]] internal property of Target is "Function", then
@@ -182,38 +178,6 @@ if ((supportsAccessors = owns(prototypeOfObject, "__defineGetter__"))) {
 // =====
 //
 
-// ES5 15.4.4.12
-// http://es5.github.com/#x15.4.4.12
-// Default value for second param
-// [bugfix, ielt9, old browsers]
-// IE < 9 bug: [1,2].splice(0).join("") == "" but should be "12"
-if ([1,2].splice(0).length != 2) {
-    var array_splice = Array.prototype.splice;
-    Array.prototype.splice = function(start, deleteCount) {
-        if (!arguments.length) {
-            return [];
-        } else {
-            return array_splice.apply(this, [
-                start === void 0 ? 0 : start,
-                deleteCount === void 0 ? (this.length - start) : deleteCount
-            ].concat(slice.call(arguments, 2)))
-        }
-    };
-}
-
-// ES5 15.4.4.12
-// http://es5.github.com/#x15.4.4.13
-// Return len+argCount.
-// [bugfix, ielt8]
-// IE < 8 bug: [].unshift(0) == undefined but should be "1"
-if ([].unshift(0) != 1) {
-    var array_unshift = Array.prototype.unshift;
-    Array.prototype.unshift = function() {
-        array_unshift.apply(this, arguments);
-        return this.length;
-    };
-}
-
 // ES5 15.4.3.2
 // http://es5.github.com/#x15.4.3.2
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/isArray
@@ -238,18 +202,9 @@ if (!Array.isArray) {
 // ES5 15.4.4.18
 // http://es5.github.com/#x15.4.4.18
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/forEach
-
-// Check failure of by-index access of string characters (IE < 9)
-// and failure of `0 in boxedString` (Rhino)
-var boxedString = Object("a"),
-    splitString = boxedString[0] != "a" || !(0 in boxedString);
-
 if (!Array.prototype.forEach) {
     Array.prototype.forEach = function forEach(fun /*, thisp*/) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                object,
+        var self = toObject(this),
             thisp = arguments[1],
             i = -1,
             length = self.length >>> 0;
@@ -262,9 +217,8 @@ if (!Array.prototype.forEach) {
         while (++i < length) {
             if (i in self) {
                 // Invoke the callback function with call, passing arguments:
-                // context, property value, property key, thisArg object
-                // context
-                fun.call(thisp, self[i], i, object);
+                // context, property value, property key, thisArg object context
+                fun.call(thisp, self[i], i, self);
             }
         }
     };
@@ -275,10 +229,7 @@ if (!Array.prototype.forEach) {
 // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/map
 if (!Array.prototype.map) {
     Array.prototype.map = function map(fun /*, thisp*/) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                object,
+        var self = toObject(this),
             length = self.length >>> 0,
             result = Array(length),
             thisp = arguments[1];
@@ -290,7 +241,7 @@ if (!Array.prototype.map) {
 
         for (var i = 0; i < length; i++) {
             if (i in self)
-                result[i] = fun.call(thisp, self[i], i, object);
+                result[i] = fun.call(thisp, self[i], i, self);
         }
         return result;
     };
@@ -301,10 +252,7 @@ if (!Array.prototype.map) {
 // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/filter
 if (!Array.prototype.filter) {
     Array.prototype.filter = function filter(fun /*, thisp */) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                    object,
+        var self = toObject(this),
             length = self.length >>> 0,
             result = [],
             value,
@@ -318,7 +266,7 @@ if (!Array.prototype.filter) {
         for (var i = 0; i < length; i++) {
             if (i in self) {
                 value = self[i];
-                if (fun.call(thisp, value, i, object)) {
+                if (fun.call(thisp, value, i, self)) {
                     result.push(value);
                 }
             }
@@ -332,10 +280,7 @@ if (!Array.prototype.filter) {
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/every
 if (!Array.prototype.every) {
     Array.prototype.every = function every(fun /*, thisp */) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                object,
+        var self = toObject(this),
             length = self.length >>> 0,
             thisp = arguments[1];
 
@@ -345,7 +290,7 @@ if (!Array.prototype.every) {
         }
 
         for (var i = 0; i < length; i++) {
-            if (i in self && !fun.call(thisp, self[i], i, object)) {
+            if (i in self && !fun.call(thisp, self[i], i, self)) {
                 return false;
             }
         }
@@ -358,10 +303,7 @@ if (!Array.prototype.every) {
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/some
 if (!Array.prototype.some) {
     Array.prototype.some = function some(fun /*, thisp */) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                object,
+        var self = toObject(this),
             length = self.length >>> 0,
             thisp = arguments[1];
 
@@ -371,7 +313,7 @@ if (!Array.prototype.some) {
         }
 
         for (var i = 0; i < length; i++) {
-            if (i in self && fun.call(thisp, self[i], i, object)) {
+            if (i in self && fun.call(thisp, self[i], i, self)) {
                 return true;
             }
         }
@@ -384,10 +326,7 @@ if (!Array.prototype.some) {
 // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/reduce
 if (!Array.prototype.reduce) {
     Array.prototype.reduce = function reduce(fun /*, initial*/) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                object,
+        var self = toObject(this),
             length = self.length >>> 0;
 
         // If no callback function or if callback is not a callable function
@@ -397,7 +336,7 @@ if (!Array.prototype.reduce) {
 
         // no value to return if no initial value and an empty array
         if (!length && arguments.length == 1) {
-            throw new TypeError("reduce of empty array with no initial value");
+            throw new TypeError('reduce of empty array with no initial value');
         }
 
         var i = 0;
@@ -413,14 +352,14 @@ if (!Array.prototype.reduce) {
 
                 // if array contains no values, no initial value to return
                 if (++i >= length) {
-                    throw new TypeError("reduce of empty array with no initial value");
+                    throw new TypeError('reduce of empty array with no initial value');
                 }
             } while (true);
         }
 
         for (; i < length; i++) {
             if (i in self) {
-                result = fun.call(void 0, result, self[i], i, object);
+                result = fun.call(void 0, result, self[i], i, self);
             }
         }
 
@@ -433,10 +372,7 @@ if (!Array.prototype.reduce) {
 // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/reduceRight
 if (!Array.prototype.reduceRight) {
     Array.prototype.reduceRight = function reduceRight(fun /*, initial*/) {
-        var object = toObject(this),
-            self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                object,
+        var self = toObject(this),
             length = self.length >>> 0;
 
         // If no callback function or if callback is not a callable function
@@ -446,7 +382,7 @@ if (!Array.prototype.reduceRight) {
 
         // no value to return if no initial value, empty array
         if (!length && arguments.length == 1) {
-            throw new TypeError("reduceRight of empty array with no initial value");
+            throw new TypeError('reduceRight of empty array with no initial value');
         }
 
         var result, i = length - 1;
@@ -461,14 +397,14 @@ if (!Array.prototype.reduceRight) {
 
                 // if array contains no values, no initial value to return
                 if (--i < 0) {
-                    throw new TypeError("reduceRight of empty array with no initial value");
+                    throw new TypeError('reduceRight of empty array with no initial value');
                 }
             } while (true);
         }
 
         do {
             if (i in this) {
-                result = fun.call(void 0, result, self[i], i, object);
+                result = fun.call(void 0, result, self[i], i, self);
             }
         } while (i--);
 
@@ -479,11 +415,9 @@ if (!Array.prototype.reduceRight) {
 // ES5 15.4.4.14
 // http://es5.github.com/#x15.4.4.14
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
-if (!Array.prototype.indexOf || ([0, 1].indexOf(1, 2) != -1)) {
+if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function indexOf(sought /*, fromIndex */ ) {
-        var self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                toObject(this),
+        var self = toObject(this),
             length = self.length >>> 0;
 
         if (!length) {
@@ -509,11 +443,9 @@ if (!Array.prototype.indexOf || ([0, 1].indexOf(1, 2) != -1)) {
 // ES5 15.4.4.15
 // http://es5.github.com/#x15.4.4.15
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/lastIndexOf
-if (!Array.prototype.lastIndexOf || ([0, 1].lastIndexOf(0, -3) != -1)) {
+if (!Array.prototype.lastIndexOf) {
     Array.prototype.lastIndexOf = function lastIndexOf(sought /*, fromIndex */) {
-        var self = splitString && _toString(this) == "[object String]" ?
-                this.split("") :
-                toObject(this),
+        var self = toObject(this),
             length = self.length >>> 0;
 
         if (!length) {
@@ -561,10 +493,7 @@ if (!Object.keys) {
 
     Object.keys = function keys(object) {
 
-        if (
-            (typeof object != "object" && typeof object != "function") ||
-            object === null
-        ) {
+        if ((typeof object != "object" && typeof object != "function") || object === null) {
             throw new TypeError("Object.keys called on a non-object");
         }
 
@@ -600,96 +529,64 @@ if (!Object.keys) {
 // string format defined in 15.9.1.15. All fields are present in the String.
 // The time zone is always UTC, denoted by the suffix Z. If the time value of
 // this object is not a finite Number a RangeError exception is thrown.
-var negativeDate = -62198755200000,
-    negativeYearString = "-000001";
-if (
-    !Date.prototype.toISOString ||
-    (new Date(negativeDate).toISOString().indexOf(negativeYearString) === -1)
-) {
+if (!Date.prototype.toISOString || (new Date(-62198755200000).toISOString().indexOf('-000001') === -1)) {
     Date.prototype.toISOString = function toISOString() {
-        var result, length, value, year, month;
+        var result, length, value, year;
         if (!isFinite(this)) {
             throw new RangeError("Date.prototype.toISOString called on non-finite value.");
         }
 
-        year = this.getUTCFullYear();
-
-        month = this.getUTCMonth();
-        // see https://github.com/kriskowal/es5-shim/issues/111
-        year += Math.floor(month / 12);
-        month = (month % 12 + 12) % 12;
-
         // the date time string format is specified in 15.9.1.15.
-        result = [month + 1, this.getUTCDate(),
+        result = [this.getUTCMonth() + 1, this.getUTCDate(),
             this.getUTCHours(), this.getUTCMinutes(), this.getUTCSeconds()];
-        year = (
-            (year < 0 ? "-" : (year > 9999 ? "+" : "")) +
-            ("00000" + Math.abs(year))
-            .slice(0 <= year && year <= 9999 ? -4 : -6)
-        );
+        year = this.getUTCFullYear();
+        year = (year < 0 ? '-' : (year > 9999 ? '+' : '')) + ('00000' + Math.abs(year)).slice(0 <= year && year <= 9999 ? -4 : -6);
 
         length = result.length;
         while (length--) {
             value = result[length];
-            // pad months, days, hours, minutes, and seconds to have two
-            // digits.
+            // pad months, days, hours, minutes, and seconds to have two digits.
             if (value < 10) {
                 result[length] = "0" + value;
             }
         }
         // pad milliseconds to have three digits.
-        return (
-            year + "-" + result.slice(0, 2).join("-") +
-            "T" + result.slice(2).join(":") + "." +
-            ("000" + this.getUTCMilliseconds()).slice(-3) + "Z"
-        );
-    };
+        return year + "-" + result.slice(0, 2).join("-") + "T" + result.slice(2).join(":") + "." +
+            ("000" + this.getUTCMilliseconds()).slice(-3) + "Z";
+    }
 }
 
+// ES5 15.9.4.4
+// http://es5.github.com/#x15.9.4.4
+if (!Date.now) {
+    Date.now = function now() {
+        return new Date().getTime();
+    };
+}
 
 // ES5 15.9.5.44
 // http://es5.github.com/#x15.9.5.44
 // This function provides a String representation of a Date object for use by
 // JSON.stringify (15.12.3).
-var dateToJSONIsSupported = false;
-try {
-    dateToJSONIsSupported = (
-        Date.prototype.toJSON &&
-        new Date(NaN).toJSON() === null &&
-        new Date(negativeDate).toJSON().indexOf(negativeYearString) !== -1 &&
-        Date.prototype.toJSON.call({ // generic
-            toISOString: function () {
-                return true;
-            }
-        })
-    );
-} catch (e) {
-}
-if (!dateToJSONIsSupported) {
+if (!Date.prototype.toJSON) {
     Date.prototype.toJSON = function toJSON(key) {
         // When the toJSON method is called with argument key, the following
         // steps are taken:
 
         // 1.  Let O be the result of calling ToObject, giving it the this
         // value as its argument.
-        // 2. Let tv be toPrimitive(O, hint Number).
-        var o = Object(this),
-            tv = toPrimitive(o),
-            toISO;
+        // 2. Let tv be ToPrimitive(O, hint Number).
         // 3. If tv is a Number and is not finite, return null.
-        if (typeof tv === "number" && !isFinite(tv)) {
-            return null;
-        }
+        // XXX
         // 4. Let toISO be the result of calling the [[Get]] internal method of
         // O with argument "toISOString".
-        toISO = o.toISOString;
         // 5. If IsCallable(toISO) is false, throw a TypeError exception.
-        if (typeof toISO != "function") {
-            throw new TypeError("toISOString property is not callable");
+        if (typeof this.toISOString != "function") {
+            throw new TypeError('toISOString property is not callable');
         }
         // 6. Return the result of calling the [[Call]] internal method of
         //  toISO with O as the this value and an empty argument list.
-        return toISO.call(o);
+        return this.toISOString();
 
         // NOTE 1 The argument is ignored.
 
@@ -706,13 +603,13 @@ if (!dateToJSONIsSupported) {
 // http://es5.github.com/#x15.9.4.2
 // based on work shared by Daniel Friesen (dantman)
 // http://gist.github.com/303249
-if (!Date.parse || "Date.parse is buggy") {
+if (!Date.parse || Date.parse("+275760-09-13T00:00:00.000Z") !== 8.64e15) {
     // XXX global assignment won't work in embeddings that use
     // an alternate object for the context.
     Date = (function(NativeDate) {
 
         // Date.length === 7
-        function Date(Y, M, D, h, m, s, ms) {
+        var Date = function Date(Y, M, D, h, m, s, ms) {
             var length = arguments.length;
             if (this instanceof NativeDate) {
                 var date = length == 1 && String(Y) === Y ? // isString(Y)
@@ -737,8 +634,7 @@ if (!Date.parse || "Date.parse is buggy") {
 
         // 15.9.1.15 Date Time String Format.
         var isoDateExpression = new RegExp("^" +
-            "(\\d{4}|[\+\-]\\d{6})" + // four-digit year capture or sign +
-                                      // 6-digit extended year
+            "(\\d{4}|[\+\-]\\d{6})" + // four-digit year capture or sign + 6-digit extended year
             "(?:-(\\d{2})" + // optional month capture
             "(?:-(\\d{2})" + // optional day capture
             "(?:" + // capture hours:minutes:seconds.milliseconds
@@ -748,7 +644,7 @@ if (!Date.parse || "Date.parse is buggy") {
                     ":(\\d{2})" + // seconds capture
                     "(?:\\.(\\d{3}))?" + // milliseconds capture
                 ")?" +
-            "(" + // capture UTC offset component
+            "(?:" + // capture UTC offset component
                 "Z|" + // UTC capture
                 "(?:" + // offset specifier +/-hours:minutes
                     "([-+])" + // sign capture
@@ -757,21 +653,6 @@ if (!Date.parse || "Date.parse is buggy") {
                 ")" +
             ")?)?)?)?" +
         "$");
-
-        var months = [
-            0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365
-        ];
-
-        function dayFromMonth(year, month) {
-            var t = month > 1 ? 1 : 0;
-            return (
-                months[month] +
-                Math.floor((year - 1969 + t) / 4) -
-                Math.floor((year - 1901 + t) / 100) +
-                Math.floor((year - 1601 + t) / 400) +
-                365 * (year - 1970)
-            );
-        }
 
         // Copy any custom methods a 3rd party library may have added
         for (var key in NativeDate) {
@@ -788,53 +669,47 @@ if (!Date.parse || "Date.parse is buggy") {
         Date.parse = function parse(string) {
             var match = isoDateExpression.exec(string);
             if (match) {
+                match.shift(); // kill match[0], the full match
                 // parse months, days, hours, minutes, seconds, and milliseconds
-                // provide default values if necessary
-                // parse the UTC offset component
-                var year = Number(match[1]),
-                    month = Number(match[2] || 1) - 1,
-                    day = Number(match[3] || 1) - 1,
-                    hour = Number(match[4] || 0),
-                    minute = Number(match[5] || 0),
-                    second = Number(match[6] || 0),
-                    millisecond = Number(match[7] || 0),
-                    // When time zone is missed, local offset should be used
-                    // (ES 5.1 bug)
-                    // see https://bugs.ecmascript.org/show_bug.cgi?id=112
-                    offset = !match[4] || match[8] ?
-                        0 : Number(new NativeDate(1970, 0)),
-                    signOffset = match[9] === "-" ? 1 : -1,
-                    hourOffset = Number(match[10] || 0),
-                    minuteOffset = Number(match[11] || 0),
-                    result;
-                if (
-                    hour < (
-                        minute > 0 || second > 0 || millisecond > 0 ?
-                        24 : 25
-                    ) &&
-                    minute < 60 && second < 60 && millisecond < 1000 &&
-                    month > -1 && month < 12 && hourOffset < 24 &&
-                    minuteOffset < 60 && // detect invalid offsets
-                    day > -1 &&
-                    day < (
-                        dayFromMonth(year, month + 1) -
-                        dayFromMonth(year, month)
-                    )
-                ) {
-                    result = (
-                        (dayFromMonth(year, month) + day) * 24 +
-                        hour +
-                        hourOffset * signOffset
-                    ) * 60;
-                    result = (
-                        (result + minute + minuteOffset * signOffset) * 60 +
-                        second
-                    ) * 1000 + millisecond + offset;
-                    if (-8.64e15 <= result && result <= 8.64e15) {
-                        return result;
+                for (var i = 1; i < 7; i++) {
+                    // provide default values if necessary
+                    match[i] = +(match[i] || (i < 3 ? 1 : 0));
+                    // match[1] is the month. Months are 0-11 in JavaScript
+                    // `Date` objects, but 1-12 in ISO notation, so we
+                    // decrement.
+                    if (i == 1) {
+                        match[i]--;
                     }
                 }
-                return NaN;
+
+                // parse the UTC offset component
+                var minuteOffset = +match.pop(), hourOffset = +match.pop(), sign = match.pop();
+
+                // compute the explicit time zone offset if specified
+                var offset = 0;
+                if (sign) {
+                    // detect invalid offsets and return early
+                    if (hourOffset > 23 || minuteOffset > 59) {
+                        return NaN;
+                    }
+
+                    // express the provided time zone offset in minutes. The offset is
+                    // negative for time zones west of UTC; positive otherwise.
+                    offset = (hourOffset * 60 + minuteOffset) * 6e4 * (sign == "+" ? -1 : 1);
+                }
+
+                // Date.UTC for years between 0 and 99 converts year to 1900 + year
+                // The Gregorian calendar has a 400-year cycle, so
+                // to Date.UTC(year + 400, .... ) - 12622780800000 == Date.UTC(year, ...),
+                // where 12622780800000 - number of milliseconds in Gregorian calendar 400 years
+                var year = +match[0];
+                if (0 <= year && year <= 99) {
+                    match[0] = year + 400;
+                    return NativeDate.UTC.apply(this, match) + offset - 12622780800000;
+                }
+
+                // compute a new UTC date value, accounting for the optional offset
+                return NativeDate.UTC.apply(this, match) + offset;
             }
             return NativeDate.parse.apply(this, arguments);
         };
@@ -843,58 +718,10 @@ if (!Date.parse || "Date.parse is buggy") {
     })(Date);
 }
 
-// ES5 15.9.4.4
-// http://es5.github.com/#x15.9.4.4
-if (!Date.now) {
-    Date.now = function now() {
-        return new Date().getTime();
-    };
-}
-
-
 //
 // String
 // ======
 //
-
-
-// ES5 15.5.4.14
-// http://es5.github.com/#x15.5.4.14
-// [bugfix, chrome]
-// If separator is undefined, then the result array contains just one String,
-// which is the this value (converted to a String). If limit is not undefined,
-// then the output array is truncated so that it contains no more than limit
-// elements.
-// "0".split(undefined, 0) -> []
-if("0".split(void 0, 0).length) {
-    var string_split = String.prototype.split;
-    String.prototype.split = function(separator, limit) {
-        if(separator === void 0 && limit === 0)return [];
-        return string_split.apply(this, arguments);
-    }
-}
-
-// ECMA-262, 3rd B.2.3
-// Note an ECMAScript standart, although ECMAScript 3rd Edition has a
-// non-normative section suggesting uniform semantics and it should be
-// normalized across all browsers
-// [bugfix, IE lt 9] IE < 9 substr() with negative value not working in IE
-if("".substr && "0b".substr(-1) !== "b") {
-    var string_substr = String.prototype.substr;
-    /**
-     *  Get the substring of a string
-     *  @param  {integer}  start   where to start the substring
-     *  @param  {integer}  length  how many characters to return
-     *  @return {string}
-     */
-    String.prototype.substr = function(start, length) {
-        return string_substr.call(
-            this,
-            start < 0 ? ((start = this.length + start) < 0 ? 0 : start) : start,
-            length
-        );
-    }
-}
 
 // ES5 15.5.4.20
 // http://es5.github.com/#x15.5.4.20
@@ -911,9 +738,7 @@ if (!String.prototype.trim || ws.trim()) {
         if (this === undefined || this === null) {
             throw new TypeError("can't convert "+this+" to object");
         }
-        return String(this)
-            .replace(trimBeginRegexp, "")
-            .replace(trimEndRegexp, "");
+        return String(this).replace(trimBeginRegexp, "").replace(trimEndRegexp, "");
     };
 }
 
@@ -925,8 +750,7 @@ if (!String.prototype.trim || ws.trim()) {
 // ES5 9.4
 // http://es5.github.com/#x9.4
 // http://jsperf.com/to-integer
-
-function toInteger(n) {
+var toInteger = function (n) {
     n = +n;
     if (n !== n) { // isNaN
         n = 0;
@@ -934,46 +758,19 @@ function toInteger(n) {
         n = (n > 0 || -1) * Math.floor(Math.abs(n));
     }
     return n;
-}
+};
 
-function isPrimitive(input) {
-    var type = typeof input;
-    return (
-        input === null ||
-        type === "undefined" ||
-        type === "boolean" ||
-        type === "number" ||
-        type === "string"
-    );
-}
-
-function toPrimitive(input) {
-    var val, valueOf, toString;
-    if (isPrimitive(input)) {
-        return input;
-    }
-    valueOf = input.valueOf;
-    if (typeof valueOf === "function") {
-        val = valueOf.call(input);
-        if (isPrimitive(val)) {
-            return val;
-        }
-    }
-    toString = input.toString;
-    if (typeof toString === "function") {
-        val = toString.call(input);
-        if (isPrimitive(val)) {
-            return val;
-        }
-    }
-    throw new TypeError();
-}
-
-// ES5 9.9
-// http://es5.github.com/#x9.9
+var prepareString = "a"[0] != "a";
+    // ES5 9.9
+    // http://es5.github.com/#x9.9
 var toObject = function (o) {
     if (o == null) { // this matches both null and undefined
         throw new TypeError("can't convert "+o+" to object");
+    }
+    // If the implementation doesn't support by-index access of
+    // string characters (ex. IE < 9), split the string
+    if (prepareString && typeof o == "string" && o) {
+        return o.split("");
     }
     return Object(o);
 };

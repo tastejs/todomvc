@@ -1,20 +1,19 @@
-/* ----------------------------------
- * depot.js v0.1.0
- * Licensed under The MIT License
- * http://opensource.org/licenses/MIT
- * ---------------------------------- */
+// depot.js v0.1.6
 
-// commonjs, amd, global
+// (c) 2013 Michal Kuklis
+// Licensed under The MIT License
+// http://opensource.org/licenses/MIT
+
 (function (name, root, factory) {
-  if (typeof exports === 'object') {
+  if (typeof exports == 'object') {
     module.exports = factory();
-  } else if (typeof define === 'function' && define.amd) {
+  } else if (typeof define == 'function' && define.amd) {
     define(factory);
   } else {
     root[name] = factory();
   }
 }("depot", this, function () {
-  
+
   "use strict";
 
   // depot api
@@ -28,17 +27,30 @@
         record[this.idAttribute] = guid();
       }
 
-      id = record[this.idAttribute];
+      id = record[this.idAttribute] + '';
 
-      if (this.ids.indexOf(id) >= 0) {
-        record = extend(this.get(id), record);
-      }
-      else {
+      if (this.ids.indexOf(id) < 0) {
         this.ids.push(id);
-        localStorage.setItem(this.name, this.ids.join(","));
+        this.storageAdaptor.setItem(this.name, this.ids.join(","));
       }
 
-      localStorage.setItem(getKey(this.name, id), JSON.stringify(record));
+      this.storageAdaptor.setItem(getKey(this.name, id), JSON.stringify(record));
+
+      return record;
+    },
+
+    update: function (id, data) {
+      if (typeof data == 'undefined') {
+        data = id;
+        id = data[this.idAttribute];
+      }
+
+      var record = this.get(id);
+
+      if (record) {
+        record = extend(record, data);
+        this.save(record);
+      }
 
       return record;
     },
@@ -57,11 +69,12 @@
     find: function (criteria) {
       var key, match, record;
       var name = this.name;
+      var self = this;
 
       if (!criteria) return this.all();
 
       return this.ids.reduce(function (memo, id) {
-        record = jsonData(localStorage.getItem(getKey(name, id)));
+        record = jsonData(self.storageAdaptor.getItem(getKey(name, id)));
         match = findMatch(criteria, record);
 
         if (match) {
@@ -73,14 +86,14 @@
     },
 
     get: function (id) {
-      return jsonData(localStorage.getItem(getKey(this.name, id))); 
+      return jsonData(this.storageAdaptor.getItem(getKey(this.name, id)));
     },
 
     all: function () {
-      var record, name = this.name;
+      var record, self = this, name = this.name;
 
       return this.ids.reduce(function (memo, id) {
-        record = localStorage.getItem(getKey(name, id));
+        record = self.storageAdaptor.getItem(getKey(name, id));
 
         if (record) {
           memo.push(jsonData(record));
@@ -95,12 +108,12 @@
       var id = (record[this.idAttribute]) ? record[this.idAttribute] : record;
       var key = getKey(this.name, id);
 
-      record = jsonData(localStorage.getItem(key));
-      localStorage.removeItem(key);
+      record = jsonData(this.storageAdaptor.getItem(key));
+      this.storageAdaptor.removeItem(key);
 
       index = this.ids.indexOf(id);
-      if (index != -1) this.ids.splice(index, 1); 
-      localStorage.setItem(this.name, this.ids.join(","));
+      if (index != -1) this.ids.splice(index, 1);
+      this.storageAdaptor.setItem(this.name, this.ids.join(","));
 
       return record;
     },
@@ -114,27 +127,31 @@
 
         if (criteria) {
 
-          record = jsonData(localStorage.getItem(key));
+          record = jsonData(this.storageAdaptor.getItem(key));
           match = findMatch(criteria, record);
 
           if (match) {
-            localStorage.removeItem(key);
+            this.storageAdaptor.removeItem(key);
             this.ids.splice(i, 1);
           }
 
         }
         else {
-          localStorage.removeItem(key);
+          this.storageAdaptor.removeItem(key);
         }
       }
 
       if (criteria) {
-        localStorage.setItem(this.name, this.ids.join(","));
+        this.storageAdaptor.setItem(this.name, this.ids.join(","));
       }
       else {
-        localStorage.removeItem(this.name);
+        this.storageAdaptor.removeItem(this.name);
         this.ids = [];
       }
+    },
+
+    size: function () {
+      return this.ids.length;
     }
   };
 
@@ -170,7 +187,7 @@
   }
 
   function guid() {
-    return s4() + s4() + '-' + s4() + '-' + s4() + 
+    return s4() + s4() + '-' + s4() + '-' + s4() +
       '-' +s4() + '-' + s4() + s4() + s4();
   }
 
@@ -187,17 +204,22 @@
   function depot(name, options) {
     var store, ids;
 
-    if (!localStorage) throw new Error("localStorage not found");
+    options = extend({
+      idAttribute: '_id',
+      storageAdaptor: localStorage
+    }, options);
 
-    store = localStorage.getItem(name);
+    if (!options.storageAdaptor) throw new Error("No storage adaptor was found");
+
+    store = options.storageAdaptor.getItem(name);
     ids = (store && store.split(",")) || [];
-    options = options || {};
 
-    return Object.create(api, { 
+    return Object.create(api, {
       name: { value: name },
       store: { value: store },
       ids: { value: ids, writable: true },
-      idAttribute: { value: options.idAttribute || '_id' }
+      idAttribute: { value: options.idAttribute },
+      storageAdaptor: { value: options.storageAdaptor }
     });
   }
 

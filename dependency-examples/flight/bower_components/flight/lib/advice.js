@@ -18,37 +18,31 @@ define(
     var advice = {
 
       around: function(base, wrapped) {
-        return function() {
-          var args = util.toArray(arguments);
-          return wrapped.apply(this, [base.bind(this)].concat(args));
+        return function composedAround() {
+          // unpacking arguments by hand benchmarked faster
+          var i = 0, l = arguments.length, args = new Array(l + 1);
+          args[0] = base.bind(this);
+          for (; i < l; i++) args[i + 1] = arguments[i];
+
+          return wrapped.apply(this, args);
         }
       },
 
       before: function(base, before) {
-        return this.around(base, function() {
-          var args = util.toArray(arguments),
-              orig = args.shift(),
-              beforeFn;
-
-          beforeFn = (typeof before == 'function') ? before : before.obj[before.fnName];
-          beforeFn.apply(this, args);
-          return (orig).apply(this, args);
-        });
+        var beforeFn = (typeof before == 'function') ? before : before.obj[before.fnName];
+        return function composedBefore() {
+          beforeFn.apply(this, arguments);
+          return base.apply(this, arguments);
+        }
       },
 
       after: function(base, after) {
-        return this.around(base, function() {
-          var args = util.toArray(arguments),
-              orig = args.shift(),
-              afterFn;
-
-          // this is a separate statement for debugging purposes.
-          var res = (orig.unbound || orig).apply(this, args);
-
-          afterFn = (typeof after == 'function') ? after : after.obj[after.fnName];
-          afterFn.apply(this, args);
+        var afterFn = (typeof after == 'function') ? after : after.obj[after.fnName];
+        return function composedAfter() {
+          var res = (base.unbound || base).apply(this, arguments);
+          afterFn.apply(this, arguments);
           return res;
-        });
+        }
       },
 
       // a mixin that allows other mixins to augment existing functions by adding additional
