@@ -1,5 +1,5 @@
-// Version: v1.0.0-rc.8
-// Last commit: 6f952f4 (2013-08-28 22:40:31 -0700)
+// Version: v1.0.0-rc.7-205-ga347ce2
+// Last commit: a347ce2 (2013-08-28 22:01:01 -0700)
 
 
 (function() {
@@ -158,8 +158,8 @@ Ember.deprecateFunc = function(message, func) {
 
 })();
 
-// Version: v1.0.0-rc.8
-// Last commit: 6f952f4 (2013-08-28 22:40:31 -0700)
+// Version: v1.0.0-rc.7-205-ga347ce2
+// Last commit: a347ce2 (2013-08-28 22:01:01 -0700)
 
 
 (function() {
