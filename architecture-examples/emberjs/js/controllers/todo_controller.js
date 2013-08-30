@@ -5,6 +5,10 @@ Todos.TodoController = Ember.ObjectController.extend({
 	isEditing: false,
 
   actions: {
+    endEditing: function () {
+      this.set('isEditing', false);
+    },
+
     editTodo: function () {
       this.set('isEditing', true);
     },
