@@ -22,7 +22,7 @@ Todos.EditTodoView = Ember.TextField.extend({
 		this.set('controller.isEditing', false);
 	},
 
-	didInsertElement: function () {
+	focusTodo: function () {
 		this.$().focus();
-	}
+	}.on('didInsertElement')
 });

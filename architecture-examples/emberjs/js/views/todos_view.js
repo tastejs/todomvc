@@ -2,7 +2,7 @@
 'use strict';
 
 Todos.TodosView = Ember.View.extend({
-  didInsertElement: function () {
+  focusTodo: function () {
     this.$('#new-todo').focus();
-  }
+  }.on('didInsertElement')
 });
