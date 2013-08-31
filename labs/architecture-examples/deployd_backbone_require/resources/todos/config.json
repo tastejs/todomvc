@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"title": {
+			"name": "title",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "title",
+			"order": 0
+		},
+		"completed": {
+			"name": "completed",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "completed",
+			"order": 1
+		},
+		"uuid": {
+			"name": "uuid",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "uuid",
+			"order": 2
+		}
+	}
+}

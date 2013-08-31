@@ -1,0 +1,14 @@
+{
+  "name": "todomvc-deployd",
+  "version": "0.0.1",
+  "authors": [
+    "Yuanyi Zhang <zhangyuanyi@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "todomvc-common": "~0.1.8",
+    "handlebars": "~1.0.0",
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.1"
+  }
+}
