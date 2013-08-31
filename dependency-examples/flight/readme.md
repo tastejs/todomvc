@@ -17,3 +17,17 @@ Here are some links you may find helpful:
 * [Flight on Twitter](http://twitter.com/flight)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+
+## Running the Tests
+
+To run the tests, you need to install additional helpers via bower and npm and
+run `npm test` afterwards:
+
+```bash
+bower install & npm install
+npm test
+```
+
+You can also run `karma start` after the dependencies are installed to
+automatically watch for changes and re-run the test suite.
