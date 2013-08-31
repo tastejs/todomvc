@@ -2,7 +2,7 @@
 'use strict';
 
 define([
-	'flight/component'
+	'flight/lib/component'
 ], function (defineComponent) {
 	function newItem() {
 		var ENTER_KEY = 13;
