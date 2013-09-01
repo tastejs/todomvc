@@ -2,7 +2,7 @@
 'use strict';
 
 define([
-	'flight/component',
+	'flight/lib/component',
 	'text!app/templates/todo.html',
 	'../utils'
 ], function (defineComponent, todoTmpl, utils) {

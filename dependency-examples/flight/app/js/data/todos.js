@@ -2,14 +2,17 @@
 'use strict';
 
 define([
-	'flight/component',
+	'flight/lib/component',
 	'../store'
 ], function (defineComponent, dataStore) {
 	function todos() {
 		var filter;
+		this.defaultAttrs({
+			dataStore: dataStore
+		});
 
 		this.add = function (e, data) {
-			var todo = dataStore.save({
+			var todo = this.attr.dataStore.save({
 				title: data.title,
 				completed: false
 			});
@@ -18,7 +21,7 @@ define([
 		};
 
 		this.remove = function (e, data) {
-			var todo = dataStore.destroy(data.id);
+			var todo = this.attr.dataStore.destroy(data.id);
 
 			this.trigger('dataTodoRemoved', todo);
 		};
@@ -32,15 +35,15 @@ define([
 		};
 
 		this.update = function (e, data) {
-			dataStore.save(data);
+			this.attr.dataStore.save(data);
 		};
 
 		this.toggleCompleted = function (e, data) {
 			var eventType;
-			var todo = dataStore.get(data.id);
+			var todo = this.attr.dataStore.get(data.id);
 
 			todo.completed = !todo.completed;
-			dataStore.save(todo);
+			this.attr.dataStore.save(todo);
 
 			eventType = filter ? 'dataTodoRemoved' : 'dataTodoToggled';
 
@@ -48,7 +51,7 @@ define([
 		};
 
 		this.toggleAllCompleted = function (e, data) {
-			dataStore.updateAll({ completed: data.completed });
+			this.attr.dataStore.updateAll({ completed: data.completed });
 			this.trigger('dataTodoToggledAll', { todos: this.find(filter) });
 		};
 
@@ -66,18 +69,18 @@ define([
 			var todos;
 
 			if (filter) {
-				todos = dataStore.find(function (each) {
+				todos = this.attr.dataStore.find(function (each) {
 					return (typeof each[filter] !== 'undefined') ? each.completed : !each.completed;
 				});
 			} else {
-				todos = dataStore.all();
+				todos = this.attr.dataStore.all();
 			}
 
 			return todos;
 		};
 
 		this.clearCompleted = function () {
-			dataStore.destroyAll({ completed: true });
+			this.attr.dataStore.destroyAll({ completed: true });
 
 			this.trigger('uiFilterRequested', { filter: filter });
 			this.trigger('dataClearedCompleted');
