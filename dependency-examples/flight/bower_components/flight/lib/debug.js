@@ -1,13 +1,6 @@
 "use strict";
 
-define(
-
-  [
-    '../../lib/registry',
-    '../../lib/utils'
-  ],
-
-  function(registry, utils) {
+define([], function() {
 
     var logFilter;
 

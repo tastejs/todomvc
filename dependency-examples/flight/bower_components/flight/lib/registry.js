@@ -207,7 +207,7 @@ define(
       };
 
       this.withRegistration = function() {
-        this.before('initialize', function() {
+        this.after('initialize', function() {
           registry.addInstance(this);
         });
 

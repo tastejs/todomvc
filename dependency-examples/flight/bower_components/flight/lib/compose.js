@@ -10,7 +10,7 @@ define(
 
   [
     './utils',
-    '../tools/debug/debug'
+    './debug'
   ],
 
   function(util, debug) {

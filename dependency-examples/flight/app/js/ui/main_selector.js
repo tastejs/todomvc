@@ -2,7 +2,7 @@
 'use strict';
 
 define([
-	'flight/component'
+	'flight/lib/component'
 ], function (defineComponent) {
 	function mainSelector() {
 		this.toggle = function (e, data) {
