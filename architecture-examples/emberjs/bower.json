@@ -4,8 +4,8 @@
   "dependencies": {
     "todomvc-common": "~0.1.4",
     "jquery": "~1.9.1",
-    "handlebars": "~1.0.0-rc.3",
-    "ember": "~1.0.0-rc.1",
+    "handlebars": "~1.0.0",
+    "ember": "~1.0.0-rc.8",
     "ember-localstorage-adapter": "latest"
   }
 }
