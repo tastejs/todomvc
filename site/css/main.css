@@ -143,15 +143,15 @@ header nav a:not(:last-child) {
 .applist li {
 	white-space: nowrap;
 	padding-bottom: 20px;
+}
+
+.applist a {
+	position: relative; /* popover */
 	-webkit-column-break-inside: avoid;
 	-moz-column-break-inside: avoid;
 	-ms-column-break-inside: avoid;
 	-o-column-break-inside: avoid;
 	column-break-inside: avoid;
-}
-
-.applist a {
-	position: relative; /* popover */
 }
 
 .applist .routing::after {
