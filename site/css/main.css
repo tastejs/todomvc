@@ -74,11 +74,11 @@ header nav a:not(:last-child) {
 }
 
 .logo {
-	margin-top:70px;
+	margin-top: 70px;
 }
 
 .nav-tabs > li,
-.nav-pills > li{
+.nav-pills > li {
 	clear: both;
 }
 
@@ -170,7 +170,8 @@ header nav a:not(:last-child) {
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.applist .labs a, .labs-example {
+.applist .labs a,
+.labs-example {
 	color: #582C42;
 }
 
@@ -205,6 +206,7 @@ header nav a:not(:last-child) {
 .legend li {
 	margin-bottom: 0.5em;
 }
+
 .legend li:last-child {
 	margin-bottom: 0;
 }
@@ -217,9 +219,7 @@ header nav a:not(:last-child) {
 	overflow: hidden;
 	max-height: 0;
 	-webkit-transition: max-height 1s;
-	-moz-transition: max-height 1s;
 	-ms-transition: max-height 1s;
-	-o-transition: max-height 1s;
 	transition: max-height 1s;
 }
 
@@ -360,16 +360,14 @@ a.zocial {
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 	-moz-user-select: none;
 	-webkit-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 	position: relative;
 	border-radius: .3em;
 	background-image: -webkit-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
-	background-image:    -moz-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
-	background-image:     -ms-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
-	background-image:      -o-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
-	background-image:         linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
+	background-image: -ms-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
+	background-image: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
 }
-
 
 @media (max-width: 480px) {
 	body .applist {
@@ -382,10 +380,8 @@ a.zocial {
 
 	.credit a {
 		display: block;
-	}
+	};
 }
-
-@media (min-width: 768px) and (max-width: 980px) {}
 
 @media (max-width: 768px) {
 	h2 {
@@ -417,7 +413,7 @@ a.zocial {
 		-ms-columns: 2 !important;
 		-o-columns: 2 !important;
 		columns: 2 !important;
-	}
+	};
 }
 
 @media (max-width: 980px) {
@@ -427,7 +423,5 @@ a.zocial {
 		-ms-columns: 3;
 		-o-columns: 3;
 		columns: 3;
-	}
+	};
 }
-
-@media (max-width: 1200px) {}
