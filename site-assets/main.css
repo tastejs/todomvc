@@ -380,7 +380,7 @@ a.zocial {
 
 	.credit a {
 		display: block;
-	};
+	}
 }
 
 @media (max-width: 768px) {
@@ -413,7 +413,7 @@ a.zocial {
 		-ms-columns: 2 !important;
 		-o-columns: 2 !important;
 		columns: 2 !important;
-	};
+	}
 }
 
 @media (max-width: 980px) {
@@ -423,5 +423,5 @@ a.zocial {
 		-ms-columns: 3;
 		-o-columns: 3;
 		columns: 3;
-	};
+	}
 }
