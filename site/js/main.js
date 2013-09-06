@@ -17,6 +17,7 @@
 				trigger: 'manual',
 				placement: 'right',
 				animation: false,
+				html: true,
 				title: this.firstChild.textContent + '<a href="' + $this.data('source') + '">Website</a>'
 			});
 		})
