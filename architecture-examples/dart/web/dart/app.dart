@@ -2,7 +2,7 @@ library todomvc;
 
 import 'dart:html';
 import 'dart:math';
-import 'dart:json' as JSON;
+import 'dart:json';
 
 part 'TodoWidget.dart';
 part 'TodoApp.dart';
@@ -14,7 +14,7 @@ void main() {
 class Todo {
 	String id;
 	String title;
-  bool completed;
+	bool completed;
 
 	Todo(String this.id, String this.title, {bool this.completed : false});
 

@@ -25,13 +25,13 @@ class TodoWidget {
 
 		toggleElement = element.query('.toggle');
 
-		toggleElement.onClick.listen((MouseEvent e) {
+		toggleElement.on.click.add((MouseEvent e) {
 			toggle();
 			todoApp.updateCounts();
 			todoApp.save();
 		});
 
-		contentElement.onDoubleClick.listen((MouseEvent e) {
+		contentElement.on.doubleClick.add((MouseEvent e) {
 			element.classes.add('editing');
 			editElement.selectionStart = todo.title.length;
 			editElement.focus();
@@ -43,7 +43,7 @@ class TodoWidget {
 			todoApp.updateFooterDisplay();
 		}
 
-		element.query('.destroy').onClick.listen((MouseEvent e) {
+		element.query('.destroy').on.click.add((MouseEvent e) {
 			removeTodo();
 			todoApp.save();
 		});
@@ -59,13 +59,13 @@ class TodoWidget {
 			todoApp.save();
 		}
 
-		editElement
-			..onKeyPress.listen((KeyboardEvent e) {
+		editElement.on
+			..keyPress.add((KeyboardEvent e) {
 				if (e.keyCode == KeyCode.ENTER) {
 					doneEditing(e);
 				}
 			})
-			..onBlur.listen(doneEditing);
+			..blur.add(doneEditing);
 
 		return element;
 	}
