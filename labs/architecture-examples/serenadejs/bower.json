@@ -1,0 +1,8 @@
+{
+  "name": "todomvc-serenadejs",
+  "version": "0.0.0",
+  "dependencies": {
+    "director": "~1.2.0",
+    "todomvc-common": "~0.1.4"
+  }
+}

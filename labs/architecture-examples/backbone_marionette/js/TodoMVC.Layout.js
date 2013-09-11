@@ -1,8 +1,9 @@
-TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
+/*global TodoMVC */
+'use strict';
 
+TodoMVC.module('Layout', function (Layout, App, Backbone) {
 	// Layout Header View
 	// ------------------
-
 	Layout.Header = Backbone.Marionette.ItemView.extend({
 		template: '#template-header',
 
@@ -12,15 +13,15 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 			input: '#new-todo'
 		},
 
-		events : {
+		events: {
 			'keypress #new-todo': 'onInputKeypress'
 		},
 
-		onInputKeypress: function(e) {
-			var ENTER_KEY = 13;
-			var todoText = this.ui.input.val().trim();
+		onInputKeypress: function (e) {
+			var ENTER_KEY = 13,
+			todoText = this.ui.input.val().trim();
 
-			if ( e.which === ENTER_KEY && todoText ) {
+			if (e.which === ENTER_KEY && todoText) {
 				this.collection.create({
 					title: todoText
 				});
@@ -31,14 +32,12 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 
 	// Layout Footer View
 	// ------------------
-
-	Layout.Footer = Backbone.Marionette.Layout.extend({
+	Layout.Footer = Backbone.Marionette.ItemView.extend({
 		template: '#template-footer',
 
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			count: '#todo-count strong',
 			filters: '#filters a'
 		},
 
@@ -46,34 +45,48 @@ TodoMVC.module('Layout', function(Layout, App, Backbone, Marionette, $, _) {
 			'click #clear-completed': 'onClearClick'
 		},
 
-		initialize : function() {
-			this.bindTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
-			this.bindTo(this.collection, 'all', this.updateCount, this);
+		collectionEvents: {
+			'all': 'render'
 		},
 
-		onRender: function() {
-			this.updateCount();
+		templateHelpers: {
+			activeCountLabel: function () {
+				return (this.activeCount === 1 ? 'item' : 'items') + ' left';
+			}
 		},
 
-		updateCount: function() {
-			var count = this.collection.getActive().length;
-			this.ui.count.html(count);
-			this.$el.parent().toggle(count > 0);
+		initialize: function () {
+			this.listenTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
 		},
 
-		updateFilterSelection : function(filter) {
+		serializeData: function () {
+			var active = this.collection.getActive().length;
+			var total = this.collection.length;
+
+			return {
+				activeCount: active,
+				totalCount: total,
+				completedCount: total - active
+			};
+		},
+
+		onRender: function () {
+			this.$el.parent().toggle(this.collection.length > 0);
+			this.updateFilterSelection();
+		},
+
+		updateFilterSelection: function () {
 			this.ui.filters
 				.removeClass('selected')
-				.filter('[href="#' + filter + '"]')
+				.filter('[href="' + (location.hash || '#') + '"]')
 				.addClass('selected');
 		},
 
-		onClearClick: function() {
+		onClearClick: function () {
 			var completed = this.collection.getCompleted();
-			completed.forEach(function destroy(todo) {
+			completed.forEach(function (todo) {
 				todo.destroy();
 			});
 		}
 	});
-
 });

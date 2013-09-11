@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-angular-tests",
+  "description": "Unit tests for the AngularJS example of TodoMVC",
+  "author": "Pascal Hartig <phartig@rdrei.net>",
+  "version": "1.0.0",
+  "devDependencies": {
+    "karma": "~0.8.5"
+  },
+  "scripts": {
+    "test": "karma start config/testacular.conf.js"
+  },
+  "dependencies": {}
+}

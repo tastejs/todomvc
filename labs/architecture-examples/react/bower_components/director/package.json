@@ -1,0 +1,42 @@
+{
+  "name": "director",
+  "description": "A client Side/Server Side Router",
+  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "version": "1.2.0",
+  "maintainers": [
+    "hij1nx <paolo@nodejitsu.com>",
+    "indexzero <charlie@nodejitsu.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/flatiron/director.git"
+  },
+  "keywords": [
+    "URL",
+    "router",
+    "http",
+    "cli",
+    "flatiron",
+    "client side",
+    "ender"
+  ],
+  "devDependencies": {
+    "codesurgeon": "https://github.com/hij1nx/codesurgeon/tarball/master",
+    "colors": "0.5.x",
+    "api-easy": "0.3.x",
+    "uglify-js": "1.0.6",
+    "request": "2.9.x",
+    "qunitjs": "1.9.x",
+    "vows": "0.6.x"
+  },
+  "ender": "./build/ender.js",
+  "browserify": "./build/director",
+  "main": "./lib/director",
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "scripts": {
+    "test": "vows test/server/*/*-test.js --spec"
+  }
+}
+

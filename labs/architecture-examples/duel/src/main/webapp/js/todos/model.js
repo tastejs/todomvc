@@ -1,6 +1,9 @@
+/*global window */
+
 var todos = todos || {};
 
-(function( todos, localStorage, KEY ) {
+(function (todos, localStorage, KEY) {
+	'use strict';
 
 	/*-- private members -------------------------------*/
 
@@ -8,22 +11,22 @@ var todos = todos || {};
 
 	// model uses localStorage as the underlying data store
 	// this creates a poor man's localStorage polyfill
-	localStorage = localStorage || (function() {
+	localStorage = localStorage || (function () {
 		var storage = {};
 		return {
-			getItem: function( key ) {
-				return storage[ key ];
+			getItem: function (key) {
+				return storage[key];
 			},
-			setItem: function( key, value ) {
-				storage[ key ] = value;
+			setItem: function (key, value) {
+				storage[key] = value;
 			}
 		};
 	})();
 
-	function create( title, completed ) {
+	function create(title, completed) {
 		return {
 			// fast, compact, non-repeating, unique ID: e.g., 'c2wwu0vz.pz4zpvi'
-			id: (new Date().getTime() + Math.random()).toString( 36 ),
+			id: (new Date().getTime() + Math.random()).toString(36),
 			title: title,
 			completed: !!completed
 		};
@@ -31,16 +34,15 @@ var todos = todos || {};
 
 	function save() {
 		// if doesn't support JSON then will be directly stored in polyfill
-		var value = typeof JSON !== 'undefined' ? JSON.stringify( tasks ) : tasks;
-		localStorage.setItem( KEY, value );
+		var value = typeof JSON !== 'undefined' ? JSON.stringify(tasks) : tasks;
+		localStorage.setItem(KEY, value);
 	}
 
 	// initialize storage
-	var value = localStorage.getItem( KEY );
-	if ( value ) {
+	var value = localStorage.getItem(KEY);
+	if (value) {
 		// if doesn't support JSON then will be directly stored in polyfill
-		tasks = typeof JSON !== 'undefined' ? JSON.parse( value ) : value;
-
+		tasks = typeof JSON !== 'undefined' ? JSON.parse(value) : value;
 	} else {
 		tasks = [];
 	}
@@ -48,90 +50,77 @@ var todos = todos || {};
 	/*-- export public interface -------------------------------*/
 
 	todos.model = {
-
-		tasks: function() {
+		tasks: function () {
 			return tasks;
 		},
 
-		stats: function() {
-			var stats = {
-				total: tasks.length,
-				active: tasks.length,
-				completed: 0
-			};
+		stats: function () {
+			var stats = {};
 
-			var i = tasks.length;
-			while ( i-- ) {
-				if ( tasks[i].completed ) {
-					stats.completed++;
-				}
-			}
-			stats.active -= stats.completed;
+			stats.total = tasks.length;
+
+			stats.completed = tasks.filter(function (task) {
+				return task.completed;
+			}).length;
+
+			stats.active = stats.total - stats.completed;
 
 			return stats;
 		},
 
-		add: function( title ) {
-			var task = create( title, false );
+		add: function (title) {
+			var task = create(title, false);
 
-			tasks.push( task );
+			tasks.push(task);
 			save();
 
 			return task;
 		},
 
-		edit: function( id, title ) {
-			var i = tasks.length;
-			while ( i-- ) {
-				if ( tasks[i].id === id ) {
-					tasks[i].title = title;
-					save();
-					return;
-				}
-			}
+		edit: function (id, title) {
+			tasks.filter(function (task) {
+				return task.id === id;
+			})[0].title = title;
+
+			save();
 		},
 
 		// toggle completion of task
-		toggle: function( id, completed ) {
-			var i = tasks.length;
-			while ( i-- ) {
-				if ( tasks[i].id === id ) {
-					tasks[i].completed = completed;
-					save();
-					return;
-				}
-			}
+		toggle: function (id, completed) {
+			tasks.filter(function (task) {
+				return task.id === id;
+			})[0].completed = completed;
+
+			save();
 		},
 
 		// toggle completion of all tasks
-		toggleAll: function( completed ) {
-			var i = tasks.length;
-			while ( i-- ) {
-				tasks[i].completed = completed;
-			}
+		toggleAll: function (completed) {
+			tasks.forEach(function (task) {
+				task.completed = completed;
+			});
+
 			save();
 		},
 
-		remove: function( id ) {
-			var i = tasks.length;
-			while ( i-- ) {
-				if ( tasks[i].id === id ) {
-					tasks.splice( i, 1 );
-					save();
-					return;
+		remove: function (id) {
+			tasks.forEach(function (task, index) {
+				if (task.id === id) {
+					tasks.splice(index, 1);
 				}
-			}
+			});
+
+			save();
 		},
 
-		expunge: function() {
-			var i = tasks.length;
-			while ( i-- ) {
-				if ( tasks[i].completed ) {
-					tasks.splice( i, 1 );
+		expunge: function () {
+			tasks.forEach(function (task, index) {
+				if (task.completed) {
+					tasks.splice(index, 1);
 				}
-			}
+			});
+
 			save();
 		}
 	};
-
-})( todos, window.localStorage, 'todos-duel' );
+})(todos, window.localStorage, 'todos-duel');

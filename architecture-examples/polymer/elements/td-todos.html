@@ -1,0 +1,81 @@
+<link rel="import" href="../lib-elements/polymer-selector.html">
+<link rel="import" href="../lib-elements/flatiron-director.html">
+<link rel="import" href="td-input.html">
+<link rel="import" href="td-item.html">
+
+<polymer-element name="td-todos" attributes="route modelId">
+	<template>
+		<link rel="stylesheet" href="td-todos.css">
+		<flatiron-director route="{{route}}"></flatiron-director>
+		<section id="todoapp">
+			<header id="header">
+				<input is="td-input" id="new-todo" placeholder="What needs to be done?" autofocus on-td-input-commit="addTodoAction" on-td-input-cancel="cancelAddTodoAction">
+			</header>
+			<section id="main" hidden?="{{model.items.length == 0}}">
+				<input id="toggle-all" type="checkbox" on-change="toggleAllCompletedAction" checked="{{model.allCompleted}}">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list" on-td-item-changed="itemChangedAction" on-td-destroy-item="destroyItemAction">
+					<template repeat="{{model.filtered}}">
+						<li is="td-item" item="{{}}"></li>
+					</template>
+				</ul>
+			</section>
+			<footer id="footer" hidden?="{{model.items.length == 0}}">
+				<span id="todo-count"><strong>{{model.activeCount}}</strong> {{model.activeCount == 1 ? 'item' : 'items'}} left</span>
+				<polymer-selector id="filters" selected="{{route || 'all'}}">
+					<li name="all">
+						<a href="../#/">All</a>
+					</li>
+					<li name="active">
+						<a href="../#/active">Active</a>
+					</li>
+					<li name="completed">
+						<a href="../#/completed">Completed</a>
+					</li>
+				</polymer-selector>
+				<button hidden?="{{model.completedCount == 0}}" id="clear-completed" on-click="clearCompletedAction">Clear completed ({{model.completedCount}})</button>
+			</footer>
+		</section>
+	</template>
+
+	<script>
+		(function () {
+			var ENTER_KEY = 13;
+			var ESC_KEY = 27;
+			Polymer('td-todos', {
+				modelIdChanged: function () {
+					this.model = document.querySelector('#' + this.modelId);
+				},
+				routeChanged: function () {
+					if (this.model) {
+						this.model.filter = this.route;
+					}
+				},
+				addTodoAction: function () {
+					this.model.newItem(this.$['new-todo'].value);
+					// when polyfilling Object.observe, make sure we update immediately
+					Platform.flush();
+					this.$['new-todo'].value = '';
+				},
+				cancelAddTodoAction: function () {
+					this.$['new-todo'].value = '';
+				},
+				itemChangedAction: function () {
+					if (this.model) {
+						this.model.itemsChanged();
+					}
+				},
+				destroyItemAction: function (e, detail) {
+					this.model.destroyItem(detail);
+				},
+				toggleAllCompletedAction: function (e, detail, sender) {
+					this.model.setItemsCompleted(sender.checked);
+				},
+				clearCompletedAction: function () {
+					this.model.clearItems();
+				}
+			});
+		})();
+	</script>
+
+</polymer-element>

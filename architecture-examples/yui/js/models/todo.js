@@ -1,38 +1,39 @@
+/*global YUI*/
 YUI.add('todo', function (Y) {
-    "use strict";
-    // -- Todo Model -------------
-    var Todo = Y.Base.create('todo', Y.Model, [Y.ModelSync.Local], {
-        // Set up the root localStorage key we save our Model data in.
-        root: 'todos-yui',
+	'use strict';
 
-        // Toggle the completed state of the Todo.
-        toggle: function () {
-            this.save({completed: !this.get('completed')});
-        },
+	// -- Todo Model -------------
+	var Todo = Y.Base.create('todo', Y.Model, [Y.ModelSync.Local], {
+		// Set up the root localStorage key we save our Model data in.
+		root: 'todos-yui',
 
-        // Destroy this Todo and remove it from localStorage.
-        clear: function () {
-            this.destroy({remove: true});
-        }
-    }, {
+		// Toggle the completed state of the Todo.
+		toggle: function () {
+			this.save({completed: !this.get('completed')});
+		},
 
-        // Default attributes.
-        ATTRS: {
-            title: {
-                value: 'empty todo ...'
-            },
-            completed: {
-                value: false
-            }
-        }
-    });
+		// Destroy this Todo and remove it from localStorage.
+		clear: function () {
+			this.destroy({remove: true});
+		}
+	}, {
+		// Default attributes.
+		ATTRS: {
+			title: {
+				value: ''
+			},
+			completed: {
+				value: false
+			}
+		}
+	});
 
-    // Set this Model under our custom Y.MVC namespace.
-    Y.namespace('TodoMVC').Todo = Todo;
+	// Set this Model under our custom Y.MVC namespace.
+	Y.namespace('TodoMVC').Todo = Todo;
 
 }, '@VERSION@', {
-    requires: [
-        'gallery-model-sync-local',
-        'model'
-    ]
+	requires: [
+		'gallery-model-sync-local',
+		'model'
+	]
 });

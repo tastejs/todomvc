@@ -1,0 +1,206 @@
+/* base.css overrides */
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #eaeaea url('../bower_components/todomvc-common/bg.png');
+	color: #4d4d4d;
+	width: 550px;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+body > header {
+  padding-top: 22px;
+  margin-bottom: -5px;
+}
+
+h1 {
+  /*	position: absolute;
+	top: -120px;*/
+	width: 100%;
+	font-size: 70px;
+	font-weight: bold;
+	text-align: center;
+	color: #b3b3b3;
+	color: rgba(255, 255, 255, 0.3);
+	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+	-webkit-text-rendering: optimizeLegibility;
+	-moz-text-rendering: optimizeLegibility;
+	-ms-text-rendering: optimizeLegibility;
+	-o-text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
+}
+
+#info {
+	margin: 65px auto 0;
+	color: #a6a6a6;
+	font-size: 12px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+	text-align: center;
+}
+
+#info a {
+	color: inherit;
+}
+
+.hidden{
+	display:none;
+}
+
+hr {
+	margin: 20px 0;
+	border: 0;
+	border-top: 1px dashed #C5C5C5;
+	border-bottom: 1px dashed #F7F7F7;
+}
+
+.learn a {
+	font-weight: normal;
+	text-decoration: none;
+	color: #b83f45;
+}
+
+.learn a:hover {
+	text-decoration: underline;
+	color: #787e7e;
+}
+
+.learn h3,
+.learn h4,
+.learn h5 {
+	margin: 10px 0;
+	font-weight: 500;
+	line-height: 1.2;
+	color: #000;
+}
+
+.learn h3 {
+	font-size: 24px;
+}
+
+.learn h4 {
+	font-size: 18px;
+}
+
+.learn h5 {
+	margin-bottom: 0;
+	font-size: 14px;
+}
+
+.learn ul {
+	padding: 0;
+	margin: 0 0 30px 25px;
+}
+
+.learn li {
+	line-height: 20px;
+}
+
+.learn p {
+	font-size: 15px;
+	font-weight: 300;
+	line-height: 1.3;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.quote {
+	border: none;
+	margin: 20px 0 60px 0;
+}
+
+.quote p {
+	font-style: italic;
+}
+
+.quote p:before {
+	content: '“';
+	font-size: 50px;
+	opacity: .15;
+	position: absolute;
+	top: -20px;
+	left: 3px;
+}
+
+.quote p:after {
+	content: '”';
+	font-size: 50px;
+	opacity: .15;
+	position: absolute;
+	bottom: -42px;
+	right: 3px;
+}
+
+.quote footer {
+	position: absolute;
+	bottom: -40px;
+	right: 0;
+}
+
+.quote footer img {
+	border-radius: 3px;
+}
+
+.quote footer a {
+	margin-left: 5px;
+	vertical-align: middle;
+}
+
+.speech-bubble {
+	position: relative;
+	padding: 10px;
+	background: rgba(0, 0, 0, .04);
+	border-radius: 5px;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	right: 30px;
+	border: 13px solid transparent;
+	border-top-color: rgba(0, 0, 0, .04);
+}
+
+/**body*/.learn-bar > .learn {
+	position: absolute;
+	width: 272px;
+	top: 8px;
+	left: -300px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, .6);
+	transition-property: left;
+	transition-duration: 500ms;
+}
+
+
+/* IE doesn't support the hidden attribute */
+[hidden] {
+	display: none;
+}
+
+@media (min-width: 899px) {
+	/**body*/.learn-bar {
+		width: auto;
+		margin: 0 0 0 300px;
+	}
+	/**body*/.learn-bar > .learn {
+		left: 8px;
+	}
+	/**body*/.learn-bar #todoapp {
+		width: 550px;
+		margin: 130px auto 40px auto;
+	}
+}

@@ -1,0 +1,64 @@
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!--
+/**
+ * @module Polymer Elements
+ */
+-->
+<polymer-element name="polymer-selection" attributes="multi">
+	<template>
+		<style>
+			@host {
+				* {
+					display: none !important;
+				}
+			}
+		</style>
+	</template>
+	<script>
+		Polymer('polymer-selection', {
+			multi: false,
+			ready: function() {
+				this.clear();
+			},
+			clear: function() {
+				this.selection = [];
+			},
+			getSelection: function() {
+				return this.multi ? this.selection : this.selection[0];
+			},
+			isSelected: function(item) {
+				return this.selection.indexOf(item) >= 0;
+			},
+			setItemSelected: function(item, isSelected) {
+				if (item) {
+					if (isSelected) {
+						this.selection.push(item);
+					} else {
+						var i = this.selection.indexOf(item);
+						if (i >= 0) {
+							this.selection.splice(i, 1);
+						}
+					}
+					// TODO(sjmiles): consider replacing with summary
+					// notifications (asynchronous job)
+					this.asyncFire("polymer-select", {isSelected: isSelected, item: item});
+				}
+			},
+			select: function(item) {
+				if (this.multi) {
+					this.toggle(item);
+				} else if (this.getSelection() !== item) {
+					this.setItemSelected(this.getSelection(), false);
+					this.setItemSelected(item, true);
+				}
+			},
+			toggle: function(item) {
+				this.setItemSelected(item, !this.isSelected(item));
+			}
+		});
+	</script>
+</polymer-element>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-framework="polymer">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Polymer • TodoMVC</title>
+		<link rel="stylesheet" href="app/app.css">
+		<link rel="import" href="lib-elements/polymer-localstorage.html">
+		<link rel="import" href="elements/td-model.html">
+		<link rel="import" href="elements/td-todos.html">
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+			</header>
+			<polymer-localstorage id="storage" name="todos-polymer"></polymer-localstorage>
+			<td-model id="model" storageId="storage"></td-model>
+			<td-todos modelId="model"></td-todos>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://www.polymer-project.org">The Polymer Authors</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/polymer/polymer.min.js"></script>
+	</body>
+</html>

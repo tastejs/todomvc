@@ -1,5 +1,18 @@
-#todo-count span.word {
-	font-weight: normal;
+/* The CSS that is common to all TodoMVC implementations, base.css, styles the selected routing filter using the
+   following selector:
+
+   #filters li a.selected
+
+   In the GWT implementation, a Hyperlink widget is used for the routing filters. This widget allows you to
+   specify a history - and will handle the clicks accordingly. The HTML for this widget is as follows:
+
+   <div><a ...></a></div>
+
+   Where the 'div' element represents the hyperlink GWT widget. This results in the following GWT
+   specific style. */
+
+#filters li div.selected a {
+  font-weight: bold;
 }
 
 /* The GWT TodoMVC uses a CellList - a framework widget for rendering a list of cells - to

@@ -1,235 +1,235 @@
+/*global YUI*/
 YUI.add('todo-app', function (Y) {
-    "use strict";
+	'use strict';
 
-    // Dependencies from MVC namespace.
-    var TodoList = Y.TodoMVC.TodoList,
-        TodoView = Y.TodoMVC.TodoView,
-        TodoApp;
+	// Dependencies from MVC namespace.
+	var TodoApp;
+	var TodoList = Y.TodoMVC.TodoList;
+	var TodoView = Y.TodoMVC.TodoView;
 
-    // -- Main Application --------------
-    TodoApp = Y.Base.create('todoApp', Y.App, [], {
-        // Set container to bind to the existing '#todoapp' element
-        containerTemplate: '#todoapp',
+	// -- Main Application --------------
+	TodoApp = Y.Base.create('todoApp', Y.App, [], {
+		// Set container to bind to the existing '#todoapp' element
+		containerTemplate: '#todoapp',
 
-        // Compile statistics template with Handlebars.
-        template: Y.Handlebars.compile(Y.one('#stats-template').getHTML()),
+		// Compile statistics template with Handlebars.
+		template: Y.Handlebars.compile(Y.one('#stats-template').getHTML()),
 
-        // DOM events for creating new Todos and clearing out old ones.
-        events: {
-            '#new-todo': {
-                keypress: 'enterCreate'
-            },
-            '#clear-completed': {
-                click: 'clearCompleted'
-            },
-            '#toggle-all': {
-                click: 'completeAll'
-            }
-        },
+		// DOM events for creating new Todos and clearing out old ones.
+		events: {
+			'#new-todo': {
+				keypress: 'enterCreate'
+			},
+			'#clear-completed': {
+				click: 'clearCompleted'
+			},
+			'#toggle-all': {
+				click: 'completeAll'
+			}
+		},
 
-        // Initialize our TodoList, and bind any events that occur
-        // when new Todos are added, changed, or removed within it.
-        // Also, fetch any Todos that are found within localStorage.
-        initializer: function () {
-            this.set('todoList', new TodoList());
+		// Initialize our TodoList, and bind any events that occur
+		// when new Todos are added, changed, or removed within it.
+		// Also, fetch any Todos that are found within localStorage.
+		initializer: function () {
+			this.set('todoList', new TodoList());
 
-            var list = this.get('todoList');
+			var list = this.get('todoList');
 
-            Y.Handlebars.registerHelper('pluralize', function (context, word) {
-                return (context === 1) ? word : word + 's';
-            });
+			Y.Handlebars.registerHelper('pluralize', function (context, word) {
+				return (context === 1) ? word : word + 's';
+			});
 
-            list.after(['add', 'remove', 'reset', 'todo:completedChange'],
-                this.render, this);
+			list.after(['add', 'remove', 'reset', 'todo:completedChange'],
+				this.render, this);
 
-            list.load();
+			list.load();
 
-            // Keep our filters on refresh by immediately dispatching route.
-            this.once('ready', function (e) {
-                if (this.hasRoute(this.getPath())) {
-                    this.dispatch();
-                }
-            });
-        },
+			// Keep our filters on refresh by immediately dispatching route.
+			this.once('ready', function () {
+				if (this.hasRoute(this.getPath())) {
+					this.dispatch();
+				}
+			});
+		},
 
+		// Render our application with the statistics from our TodoList,
+		// and various other stylistic elements.
+		render: function () {
+			var todoList = this.get('todoList');
+			var completed = todoList.completed().size();
+			var remaining = todoList.remaining().size();
+			var main = this.get('main');
+			var footer = this.get('footer');
 
-        // Render our application with the statistics from our TodoList,
-        // and various other stylistic elements.
-        render: function () {
-            var todoList  = this.get('todoList'),
-                completed = todoList.completed().size(),
-                remaining = todoList.remaining().size(),
-                container = this.get('container'),
-                main      = this.get('main'),
-                footer    = this.get('footer');
+			// If we have Todos in our TodoList, show them with statistics.
+			if (todoList.size()) {
+				main.show();
+				footer.show();
+				footer.setHTML(this.template({
+					completed: completed,
+					remaining: remaining
+				}));
 
-            // If we have Todos in our TodoList, show them with statistics.
-            if (todoList.size()) {
-                main.show();
-                footer.show();
-                footer.setHTML(this.template({
-                    completed: completed,
-                    remaining: remaining
-                }));
+				// Highlights for filters at the bottom of our Todo application.
 
-                // Highlights for filters at the bottom of our Todo application.
+				footer.one('#filters li a').removeClass('selected');
 
-                footer.one('#filters li a').removeClass('selected');
+				footer.all('#filters li a')
+						.filter('[href="#/' + (this.get('filter') || '') + '"]')
+						.addClass('selected');
+			} else {
+				main.hide();
+				footer.hide();
+			}
 
-                footer.all('#filters li a')
-                        .filter('[href="#/' + (this.get('filter') || '') + '"]')
-                        .addClass('selected');
-            } else {
-                main.hide();
-                footer.hide();
-            }
+			// Set the checkbox only if all Todos have been completed.
+			this.get('allCheckbox').set('checked', !remaining);
+			this.addViews();
+		},
 
-            // Set the checkbox only if all Todos have been completed.
-            this.get('allCheckbox').set('checked', !remaining);
-            this.addViews();
-        },
+		// Add Todo views to the DOM simultaneously, triggered when
+		// the application initially loads, or we switch filters.
+		addViews: function () {
+			var models;
+			var fragment = Y.one(Y.config.doc.createDocumentFragment());
+			var todoList = this.get('todoList');
 
+			// An Array of models is passed through when the 'reset'
+			// event is triggered through syncing through load().
+			switch (this.get('filter')) {
+			case 'active':
+				models = todoList.remaining();
+				break;
+			case 'completed':
+				models = todoList.completed();
+				break;
+			default:
+				models = todoList;
+				break;
+			}
 
-        // Add Todo views to the DOM simultaneously, triggered when
-        // the application initially loads, or we switch filters.
-        addViews: function () {
-            var fragment = Y.one(Y.config.doc.createDocumentFragment()),
-                todoList = this.get('todoList'),
-                models;
+			// Iterate through the (filtered) ModelList.
+			models.each(function (model) {
+				var view = new TodoView({model: model});
+				fragment.append(view.render().get('container'));
+			});
 
-            // An Array of models is passed through when the 'reset'
-            // event is triggered through syncing through load().
-            switch (this.get('filter')) {
-            case 'active':
-                models = todoList.remaining();
-                break;
-            case 'completed':
-                models = todoList.completed();
-                break;
-            default:
-                models = todoList;
-                break;
-            }
+			this.get('container').one('#todo-list').setContent(fragment);
+		},
 
-            // Iterate through the (filtered) ModelList.
-            models.each(function (model) {
-                var view = new TodoView({model: model});
-                fragment.append(view.render().get('container'));
-            });
+		// Create and save a new Todo from the inputted value when the
+		// Enter key is pressed down.
+		enterCreate: function (e) {
+			var ENTER_KEY = 13;
+			var todoList = this.get('todoList');
+			var inputNode = this.get('inputNode');
+			var value = inputNode.get('value');
 
-            this.get('container').one('#todo-list').setContent(fragment);
-        },
+			if (e.keyCode !== ENTER_KEY || !value) {
+				return;
+			}
 
-        // Create and save a new Todo from the inputted value when the
-        // Enter key is pressed down.
-        enterCreate: function (e) {
-            var ENTER_KEY = 13,
-                todoList  = this.get('todoList'),
-                inputNode = this.get('inputNode'),
-                value     = Y.Escape.html(Y.Lang.trim(inputNode.get('value')));
+			todoList.create({
+				title: value
+			});
 
-            if (e.keyCode !== ENTER_KEY || !value) {
-                return;
-            }
+			inputNode.set('value', '');
+		},
 
-            todoList.create({
-                title: value
-            });
+		// Clear all completed Todos from the TodoList. This removes the models
+		// from the list, as well as deletes them from localStorage.
+		clearCompleted: function () {
+			var todoList  = this.get('todoList');
+			var completed = todoList.completed();
 
-            inputNode.set('value', '');
-        },
+			todoList.remove(completed);
 
-        // Clear all completed Todos from the TodoList. This removes the models
-        // from the list, as well as deletes them from localStorage.
-        clearCompleted: function (e) {
-            var todoList  = this.get('todoList'),
-                completed = todoList.completed();
+			completed.each(function (todo) {
+				todo.clear();
+			});
+		},
 
-            todoList.remove(completed);
+		// Complete all non-complete Todos, or reset them all if they are
+		// all already complete.
+		completeAll: function () {
+			var todoList = this.get('todoList');
+			var allCheckbox = this.get('allCheckbox');
+			var completed = allCheckbox.get('checked');
 
-            completed.each(function (todo) {
-                todo.clear();
-            });
-        },
+			todoList.each(function (todo) {
+				todo.save({completed: completed});
+			});
+		},
 
-        // Complete all non-complete Todos, or reset them all if they are
-        // all already complete.
-        completeAll: function () {
-            var todoList    = this.get('todoList'),
-                allCheckbox = this.get('allCheckbox'),
-                completed   = allCheckbox.get('checked');
+		// Set the filter for our application from the route that is passed
+		// in (see below).
+		handleFilter: function (req) {
+			this.set('filter', req.params.filter);
+			this.get('todoList').load();
+		}
+	}, {
+		ATTRS: {
+			// Significant DOM elements that relate to our application that
+			// we would like to keep as attributes.
+			container: {
+				valueFn: function () {
+					return Y.one('#todoapp');
+				}
+			},
+			inputNode: {
+				valueFn: function () {
+					return Y.one('#new-todo');
+				}
+			},
+			allCheckbox: {
+				valueFn: function () {
+					return Y.one('#toggle-all');
+				}
+			},
+			main: {
+				valueFn: function () {
+					return Y.one('#main');
+				}
+			},
+			footer: {
+				valueFn: function () {
+					return Y.one('#footer');
+				}
+			},
 
-            Y.Array.each(todoList.toArray(), function (todo) {
-                todo.save({completed: completed});
-            });
-        },
+			// This can be set to fall back on server-side routing when
+			// HTML5 pushState is not available. For this application,
+			// we are only using hash-based URLs though.
+			serverRouting: {
+				value: false
+			},
 
-        // Set the filter for our application from the route that is passed
-        // in (see below).
-        handleFilter: function (req) {
-            this.set('filter', req.params.filter);
-            this.get('todoList').load();
-        }
-    }, {
-        ATTRS: {
-            // Significant DOM elements that relate to our application that
-            // we would like to keep as attributes.
-            container: {
-                valueFn: function () {
-                    return Y.one('#todoapp');
-                }
-            },
-            inputNode: {
-                valueFn: function () {
-                    return Y.one('#new-todo');
-                }
-            },
-            allCheckbox: {
-                valueFn: function () {
-                    return Y.one('#toggle-all');
-                }
-            },
-            main: {
-                valueFn: function () {
-                    return Y.one('#main');
-                }
-            },
-            footer: {
-                valueFn: function () {
-                    return Y.one('#footer');
-                }
-            },
+			// Our initial filter for the application.
+			filter: {
+				value: null
+			},
 
-            // This can be set to fall back on server-side routing when
-            // HTML5 pushState is not available. For this application,
-            // we are only using hash-based URLs though.
-            serverRouting: {
-                value: false
-            },
+			// Routing for the application, to determine the filter.
+			// The callback takes a request object, Express-style.
+			routes: {
+				value: [
+					{
+						path: '/:filter',
+						callback: 'handleFilter'
+					}
+				]
+			}
+		}
+	});
 
-            // Our initial filter for the application.
-            filter: {
-                value: null
-            },
-
-            // Routing for the application, to determine the filter.
-            // The callback takes a request object, Express-style.
-            routes: {
-                value: [
-                    {path: '/:filter', callback: 'handleFilter'}
-                ]
-            }
-        }
-    });
-
-    // Namespace this application under our custom Y.MVC namespace.
-    Y.namespace('TodoMVC').TodoApp = TodoApp;
+	// Namespace this application under our custom Y.MVC namespace.
+	Y.namespace('TodoMVC').TodoApp = TodoApp;
 }, '@VERSION@', {
-    requires: [
-        'app',
-        'todo-list',
-        'todo-view',
-        'node',
-        'event-focus'
-    ]
+	requires: [
+		'app',
+		'todo-list',
+		'todo-view',
+		'node'
+	]
 });

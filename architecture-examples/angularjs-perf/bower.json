@@ -1,0 +1,8 @@
+{
+  "name": "todomvc-angular-perf",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.0.7",
+    "todomvc-common": "~0.1.4"
+  }
+}

@@ -1,13 +1,29 @@
-# soma.js TodoMVC app
+# soma.js TodoMVC Example
 
-[soma.js](http://somajs.github.com/somajs) is a JavaScript Model-View-Controller (MVC) framework that is meant to help developers to write loosely-coupled applications to increase scalability and maintainability.
+> soma.js is a framework created to build scalable and maintainable javascript applications.
 
-The main idea behind the MVC pattern is to separate the data (model), the user interface (view) and the logic of the application (controller). They must be independent and should not know about each other in order to increase the scalability of the application.
+> _[soma.js - somajs.github.io/somajs](http://somajs.github.io/somajs)_
 
-soma.js is providing tools to make the three parts "talk" to each other, keeping the view and the model free of framework code, using only native events that can be dispatched from either the framework or the DOM itself.
 
-## Credits
+## Learning soma.js
 
-Created by [Romuald Quantin](http://soundstep.com)
+The [soma.js website](http://somajs.github.io/somajs) is a great resource for getting started.
 
-Part of [TodoMVC](http://todomvc.com)
+Here are some links you may find helpful:
+
+* [Slides: Introduction](http://somajs.github.io/somajs/#/1)
+* [Quick Start](http://somajs.github.io/somajs/site/#quick-start)
+* [Demos](http://somajs.github.io/somajs/site/#demos)
+* [Blog](http://www.soundstep.com/blog)
+* [soma.js on GitHub](https://github.com/somajs/somajs)
+
+Get help from other soma.js users:
+
+* [Mailing list on Google Groups](https://groups.google.com/forum/#!forum/somajs)
+* [soma.js on Twitter](http://twitter.com/soundstep)
+_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+
+## Credit
+
+This TodoMVC application was created by [Romuald Quantin](http://soundstep.com).

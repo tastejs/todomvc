@@ -1,17 +1,17 @@
 <Head:>
-	<link href="/base.css" rel="stylesheet">
+	<link href="/components/todomvc-common/base.css" rel="stylesheet">
 
 <Title:>
-  DerbyJS • TodoMVC
+	DerbyJS • TodoMVC
 
 <Header:>
 	<ui:connectionAlert>
 
 <Body:>
-	<section id="todoapp">
+	<section id="todoapp" data-framework="derby">
 		<app:todoHeader>
 
-		<section id="main" class="{#unless _list.shown}empty-list{/}">
+		<section id="main" class="{#unless _list.shown}hidden{/}">
 			<input id="toggle-all" type="checkbox" checked="{noItems(_list.active)}" x-bind=click:clickToggleAll>
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">{#each _list.shown}<app:todo>{/}</ul>
@@ -29,27 +29,28 @@
 
 <todo:>
 	<li data-id={{id}} class="{#if .completed}completed{else}active{/}{#if ._editing} editing{/}">
-		<div>
+		<div class="view">
 			<input class="toggle" type="checkbox" checked="{.completed}">
-			<form x-bind=submit:submitEdit>
-				<input class="text" x-bind="focus:startEdit, blur:endEdit" value="{.text}">
-			</form>
+			<label x-bind=dblclick:startEdit>{.text}</label>
 			<button class="destroy" x-bind=click:del></button>
 		</div>
-  </li>
+		<form x-bind=submit:submitEdit>
+			<input class="edit" x-bind=blur:endEdit value="{.text}">
+		</form>
+	</li>
 
 <todoFooter:>
-	<footer id="footer" class="{#unless _list.all}empty-list{/}">
-	<span id="todo-count"><strong>{_list.active.length}</strong> item{#unless oneItem(_list.active)}s{/} left</span>
+	<footer id="footer" class="{#unless _list.all}hidden{/}">
+		<span id="todo-count"><strong>{_list.active.length}</strong> item{#unless oneItem(_list.active)}s{/} left</span>
 		<ul id="filters">
-			<li class="all">
-				<a href="/{{_groupName}}" class="{#if equal(_filter, 'all')}selected{/}">All</a>
+			<li>
+				<a href="/{{_groupName}}" class="{#if equal(_list.filterName, 'all')}selected{/}">All</a>
 			</li>
-			<li class="active">
-				<a href="/{{_groupName}}/active" class="{#if equal(_filter, 'active')}selected{/}">Active</a>
+			<li>
+				<a href="/{{_groupName}}/active" class="{#if equal(_list.filterName, 'active')}selected{/}">Active</a>
 			</li>
-			<li class="completed">
-				<a href="/{{_groupName}}/completed" class="{#if equal(_filter, 'completed')}selected{/}">Completed</a>
+			<li>
+				<a href="/{{_groupName}}/completed" class="{#if equal(_list.filterName, 'completed')}selected{/}">Completed</a>
 			</li>
 		</ul>
 		<button x-bind=click:clearCompleted id="clear-completed" class="{#unless _list.completed}non-completed{/}">

@@ -1,17 +1,16 @@
-/*global Epitome */
 /*jshint mootools:true */
-(function( window ) {
+(function (window) {
 	'use strict';
 
 	var App = window.App;
 
-	var todos = new App.TodoCollection( null, {
+	var todos = new App.TodoCollection(null, {
 		// a consistent collection if is needed if you want to use storage for a collection
 		id: 'todos'
 	});
 
 	// populate from storage if available
-	todos.setUp( todos.retrieve() );
+	todos.setUp(todos.retrieve());
 
 	// instantiate the todo list view
 	App.todoView = new App.TodoView({
@@ -20,10 +19,10 @@
 		collection: todos,
 
 		// encapsulating element to bind to
-		element: document.id( 'todo-list' ),
+		element: document.id('todo-list'),
 
 		// template to use
-		template: document.id( 'item-template' ).get( 'text' )
+		template: document.id('item-template').get('text')
 
 	});
 
@@ -37,18 +36,15 @@
 		element: document.id('todoapp'),
 
 		// stats template from DOM
-		template: document.id( 'stats-template' ).get( 'text' ),
+		template: document.id('stats-template').get('text'),
 
-		onReady: function() {
+		onReady: function () {
 			// need to work with controller that sets the current state of filtering
-			var proxy = function() {
+			var proxy = function () {
 				App.router.showActiveFilter();
 			};
 
-			this.addEvents({
-				'add:collection': proxy,
-				'change:collection': proxy
-			});
+			this.on('add:collection change:collection', proxy);
 		}
 	});
 
@@ -60,12 +56,12 @@
 			'#!/:filter': 'applyFilter'
 		},
 
-		onInit: function() {
+		onInit: function () {
 			// we want to always have a state
-			this.navigate( '#!/' );
+			this.navigate('#!/');
 		},
 
-		onApplyFilter: function( filter ) {
+		onApplyFilter: function (filter) {
 			// the filter is being used by the todo collection and view.
 			// when false, the whole collection is being passed.
 			todos.filterType = filter || false;
@@ -76,4 +72,4 @@
 			this.showActiveFilter();
 		}
 	});
-}( window ));
+})(window);

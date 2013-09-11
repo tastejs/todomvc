@@ -1,0 +1,56 @@
+<link rel="import" href="td-input.html">
+<polymer-element name="td-item" extends="li" attributes="item editing" on-blur="commitAction">
+	<template>
+		<link rel="stylesheet" href="td-item.css">
+		<div class="view {{completed: item.completed; editing: editing}}" hidden?="{{editing}}" on-dblclick="editAction">
+			<input type="checkbox" class="toggle" checked="{{item.completed}}" on-click="itemChangeAction">
+			<label>{{item.title}}</label>
+			<button class="destroy" on-click="destroyAction"></button>
+		</div>
+		<input is="td-input" id="edit" class="edit" value="{{title}}" hidden?="{{!editing}}" on-td-input-commit="commitAction" on-td-input-cancel="cancelAction">
+	</template>
+	<script>
+		(function () {
+			var ENTER_KEY = 13;
+			var ESC_KEY = 27;
+			Polymer('td-item', {
+				editing: false,
+				editAction: function () {
+					this.editing = true;
+					// FIXME: Custom elements extended from <input> don't have
+					// <input> binding behavior.
+					// https://github.com/Polymer/polymer/issues/186
+					this.$.edit.value = this.title = this.item.title;
+					// schedule focus for the end of microtask, when the input will be visible
+					Platform.flush();
+					this.asyncMethod(function () {
+						this.$.edit.focus();
+					});
+				},
+				commitAction: function () {
+					// FIXME: Custom elements extended from <input> don't have
+					// <input> binding behavior.
+					// https://github.com/Polymer/polymer/issues/186
+					this.title = this.$.edit.value;
+					if (this.editing) {
+						this.editing = false;
+						this.item.title = this.title.trim();
+						if (this.item.title === '') {
+							this.destroyAction();
+						}
+						this.fire('td-item-changed');
+					}
+				},
+				cancelAction: function() {
+					this.editing = false;
+				},
+				itemChangeAction: function() {
+					this.fire('td-item-changed');
+				},
+				destroyAction: function() {
+					this.fire('td-destroy-item', this.item);
+				}
+			});
+		})();
+	</script>
+</polymer-element>

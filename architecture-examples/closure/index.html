@@ -1,51 +1,48 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Closure • TodoMVC</title>
-	<link rel="stylesheet" href="../../assets/base.css">
-	<!--[if IE]>
-	<script src="../../assets/ie.js"></script>
-	<![endif]-->
-</head>
-<body>
-	<section id="todoapp">
-		<header id="header">
-			<h1>todos</h1>
-			<input id="new-todo" placeholder="What needs to be done?" autofocus>
-		</header>
-		<section id="main">
-			<input id="toggle-all" type="checkbox">
-			<label for="toggle-all">Mark all as complete</label>
-			<ul id="todo-list">
-			</ul>
+<html lang="en" data-framework="closure">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Closure • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<section id="main">
+				<input id="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+				</ul>
+			</section>
+			<footer id="footer">
+				<ul id="filters">
+					<li>
+						<a class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a href="#/active">Active</a>
+					</li>
+					<li>
+						<a href="#/completed">Completed</a>
+					</li>
+				</ul>
+			</footer>
 		</section>
-		<footer id="footer">
-			<ul id="filters">
-				<li>
-					<a class="selected" href="#/">All</a>
-				</li>
-				<li>
-					<a href="#/active">Active</a>
-				</li>
-				<li>
-					<a href="#/completed">Completed</a>
-				</li>
-			</ul>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://www.scottlogic.co.uk/blog/chris/">Chris Price</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
-	</section>
-	<footer id="info">
-		<p>Double-click to edit a todo</p>
-		<p>Created by <a href="http://www.scottlogic.co.uk/blog/chris/">Chris Price</a></p>
-		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-	</footer>
-	<script src="../../assets/base.js"></script>
-	<!-- The compiled version (to update run java -jar build/plovr.jar build plovr.json > js/compiled.js) -->
-	<script type="text/javascript" src="js/compiled.js"></script>
-	<!-- The RAW development version (to serve the files run java -jar build/plovr.jar serve plovr.json) -->
-	<!-- <script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=RAW"></script> -->
-	<!-- The COMPILED development version (to serve the files run java -jar build/plovr.jar serve plovr.json) -->
-	<!-- <script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=ADVANCED"></script> -->
-</body>
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<!-- The compiled version (to update run java -jar build/plovr.jar build plovr.json > js/compiled.js) -->
+		<script type="text/javascript" src="js/compiled.js"></script>
+		<!-- The RAW development version (to serve the files run java -jar build/plovr.jar serve plovr.json) -->
+		<!-- <script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=RAW"></script> -->
+		<!-- The COMPILED development version (to serve the files run java -jar build/plovr.jar serve plovr.json) -->
+		<!-- <script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=ADVANCED"></script> -->
+	</body>
 </html>

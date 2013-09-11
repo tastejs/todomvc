@@ -1,1 +1,0 @@
-packagesStolen = null;

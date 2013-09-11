@@ -1,0 +1,74 @@
+<polymer-element name="td-model" attributes="filter items storageId">
+	<script>
+		Polymer('td-model', {
+			filtered: null,
+			completedCount: 0,
+			activeCount: 0,
+			allCompleted: false,
+			ready: function () {
+				this.asyncMethod(function () {
+					this.items = this.items || [];
+				});
+			},
+			filterChanged: function () {
+				this.filterItems();
+			},
+			itemsChanged: function () {
+				this.completedCount =
+					this.items.filter(this.filters.completed).length;
+				this.activeCount = this.items.length - this.completedCount;
+				this.allCompleted = this.completedCount && !this.activeCount;
+				this.filterItems();
+				if (this.storage) {
+					this.storage.value = this.items;
+					this.storage.save();
+				}
+			},
+			storageIdChanged: function () {
+				this.storage = document.querySelector('#' + this.storageId);
+				if (this.storage) {
+					this.items = this.storage.value;
+				}
+			},
+			filterItems: function () {
+				var fn = this.filters[this.filter];
+				this.filtered = fn ? this.items.filter(fn) : this.items;
+			},
+			newItem: function (title) {
+				title = String(title).trim();
+				if (title) {
+					var item = {
+						title: title,
+						completed: false
+					};
+					this.items.push(item);
+					this.itemsChanged();
+				}
+			},
+			destroyItem: function (item) {
+				var i = this.items.indexOf(item);
+				if (i >= 0) {
+					this.items.splice(i, 1);
+				}
+				this.itemsChanged();
+			},
+			clearItems: function () {
+				this.items = this.items.filter(this.filters.active);
+			},
+			setItemsCompleted: function (completed) {
+				this.items.forEach(function (item) {
+					item.completed = completed;
+				});
+				this.itemsChanged();
+			},
+			filters: {
+				active: function (item) {
+					return !item.completed;
+				},
+				completed: function (item) {
+					return item.completed;
+				}
+			}
+	 });
+	</script>
+</polymer-element>

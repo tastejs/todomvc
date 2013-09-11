@@ -23,7 +23,7 @@
 		<input id="toggle-all" type="checkbox"
 		 data-dojo-type="dijit/form/CheckBox"
 		 data-dojo-props="checked: at(${id}_ctrl, 'incomplete').transform(LessThanOrEqualToConverter),
-		                  onClick: function(e){ ${id}_listCtrl.markAll(e.target.checked); }">
+						  onClick: function(e){ ${id}_listCtrl.markAll(e.target.checked); }">
 		<label for="toggle-all">Mark all as complete</label>
 		<ul id="todo-list"
 		 data-dojo-type="todo/TodoList"
@@ -56,37 +56,36 @@
 			<span class="word">item<!--
 				--><span data-dojo-type="todo/CssToggleWidget"
 				 data-dojo-props="_setSingleAttr: {type: 'classExists', className: 'plural'},
-				                  constraints: {lessThanOrEqualTo: 1},
-				                  single: at(${id}_ctrl, 'incomplete').transform(LessThanOrEqualToConverter)">s</span></span>
-			left.
+								  constraints: {lessThanOrEqualTo: 1},
+								  single: at(${id}_ctrl, 'incomplete').transform(LessThanOrEqualToConverter)">s</span></span>
+			left
 		</span>
-		<!-- Remove this if you don't implement routing -->
 		<ul id="filters">
 			<li>
 				<a href="#/"
 				 data-dojo-type="todo/CssToggleWidget"
 				 data-dojo-props="_setSelectedAttr: {type: 'classExists', className: 'selected'},
-				                  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">All</a>
+								  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">All</a>
 			</li>
 			<li>
 				<a href="#/active"
 				 data-dojo-type="todo/CssToggleWidget"
 				 data-dojo-props="_setSelectedAttr: {type: 'classExists', className: 'selected'},
-				                  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">Active</a>
+								  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">Active</a>
 			</li>
 			<li>
 				<a href="#/completed"
 				 data-dojo-type="todo/CssToggleWidget"
 				 data-dojo-props="_setSelectedAttr: {type: 'classExists', className: 'selected'},
-				                  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">Completed</a>
+								  selected: at(${id}_routeCtl, 'hash').transform(HashSelectedConverter)">Completed</a>
 			</li>
 		</ul>
 		<button id="clear-completed" onclick="${id}_listCtrl.removeCompletedItems();">
-			Clear completed (
-			<span class="number-done"
+			Clear completed (<!--
+			--><span class="number-done"
 			 data-dojo-type="dijit/_WidgetBase"
-			 data-dojo-props="_setValueAttr: {type: 'innerText', node: 'domNode'}, value: at(${id}_ctrl, 'complete')"></span>
-			)
-		</button>
+			 data-dojo-props="_setValueAttr: {type: 'innerText', node:
+							  'domNode'}, value: at(${id}_ctrl, 'complete')"></span><!--
+		-->)</button>
 	</footer>
 </section>

@@ -1,3 +1,6 @@
+# todomvc base file
+/bower_components/todomvc-common/base.js
+
 # libraries
 /js/lib/duel.js
 

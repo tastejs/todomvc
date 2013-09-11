@@ -1,3 +1,0 @@
-define({
-	"store": "todos-troopjs"
-});

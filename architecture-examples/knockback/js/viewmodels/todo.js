@@ -2,7 +2,9 @@
 (function() {
 
   window.TodoViewModel = function(model) {
-    var _this = this;
+    var ENTER_KEY,
+      _this = this;
+    ENTER_KEY = 13;
     this.editing = ko.observable(false);
     this.completed = kb.observable(model, {
       key: 'completed',
@@ -32,13 +34,13 @@
       return model.destroy();
     };
     this.onCheckEditBegin = function() {
-      if (!_this.editing() && !_this.completed()) {
+      if (!_this.editing()) {
         _this.editing(true);
         return $('.todo-input').focus();
       }
     };
     this.onCheckEditEnd = function(view_model, event) {
-      if ((event.keyCode === 13) || (event.type === 'blur')) {
+      if ((event.keyCode === ENTER_KEY) || (event.type === 'blur')) {
         $('.todo-input').blur();
         return _this.editing(false);
       }

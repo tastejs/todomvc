@@ -2,7 +2,7 @@
 
 <%-- could have embedded in 'tasks' for-loop, but this allows us to add single tasks --%>
 
-<li class="<%= data.completed ? 'complete' : '' %>">
+<li class="<%= data.completed ? 'completed' : '' %>">
 
 	<div class="view">
 		<input class="toggle" type="checkbox" checked="<%= data.completed %>"

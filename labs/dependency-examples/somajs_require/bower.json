@@ -1,0 +1,11 @@
+{
+  "name": "todomvc-somajs",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "director": "~1.2.0",
+    "requirejs": "~2.1.5",
+    "soma.js": "~2.0.0",
+    "soma-template": "~0.1.8"
+  }
+}

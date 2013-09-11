@@ -1,6 +1,6 @@
 /*global Epitome, App */
 /*jshint mootools:true */
-(function(window) {
+(function (window) {
 	'use strict';
 
 	window.App = window.App || {};
@@ -28,4 +28,4 @@
 		model: App.Todo
 
 	});
-}( window ));
+})(window);

@@ -1,0 +1,198 @@
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!--
+/**
+ * @module Polymer Elements
+ */
+/**
+ * polymer-selector is used to display a list of elements that can be selected.
+ * The attribute "selected" indicates which element is being selected.
+ * Tapping on the element to change selection would fire "polymer-activate"
+ * event.
+ *
+ * Example:
+ *
+ *     <polymer-selector selected="0" on-polymer-activate="activateAction">
+ *       <div>Item 1</div>
+ *       <div>Item 2</div>
+ *       <div>Item 3</div>
+ *     </polymer-selector>
+ *
+ * polymer-selector is not styled.  So one needs to use "selected" CSS class
+ * to style the selected element.
+ *
+ *     <style>
+ *       .item.polymer-selected {
+ *         background: #eee;
+ *       }
+ *     </style>
+ *     ...
+ *     <polymer-selector>
+ *       <div class="item">Item 1</div>
+ *       <div class="item">Item 2</div>
+ *       <div class="item">Item 3</div>
+ *     </polymer-selector>
+ *
+ * @class polymer-selector
+ */
+/**
+ * Fired when an element is selected via tap.
+ *
+ * @event activate
+ * @param {Object} detail
+ *   @param {Object} detail.item the selected element
+ */
+-->
+<link rel="import" href="polymer-selection.html">
+
+<polymer-element name="polymer-selector" on-tap="activateHandler" touch-action="none"
+		attributes="selected multi valueattr selectedClass setectedProperty selectedModel notap">
+	<template>
+		<polymer-selection id="selection" multi="{{multi}}" on-polymer-select="selectionSelect"></polymer-selection>
+		<content id="items" select="*"></content>
+	</template>
+	<script>
+		Polymer('polymer-selector', {
+			/**
+			 * Gets or sets the selected element.  Default is to use the index
+			 * of the currently selected element.
+			 *
+			 * If you want a specific attribute value of the selected element to be
+			 * used instead of index, set "valueattr" to that attribute name.
+			 *
+			 * Example:
+			 *
+			 *     <polymer-selector valueattr="label" selected="foo">
+			 *       <div label="foo"></div>
+			 *       <div label="bar"></div>
+			 *       <div label="zot"></div>
+			 *     </polymer-selector>
+			 *
+			 * @attribute selected
+			 * @type string
+			 * @default null
+			 */
+			selected: null,
+			/**
+			 * If true, multiple selections are allowed.
+			 *
+			 * @attribute multi
+			 * @type boolean
+			 * @default false
+			 */
+			multi: false,
+			/**
+			 * Specifies the attribute to be used for "selected" attribute.
+			 *
+			 * @attribute valueattr
+			 * @type string
+			 * @default 'name'
+			 */
+			valueattr: 'name',
+			/**
+			 * Specifies the CSS class to be used to add to the selected element.
+			 *
+			 * @attribute selectedClass
+			 * @type string
+			 * @default 'polymer-selected'
+			 */
+			selectedClass: 'polymer-selected',
+			/**
+			 * Specifies the property to be used to set on the selected element
+			 * to indicate its active state.
+			 *
+			 * @attribute selectedProperty
+			 * @type string
+			 * @default 'active'
+			 */
+			setectedProperty: 'active',
+			/**
+			 * Returns the model associated with the selected element.
+			 *
+			 * @attribute selectedModel
+			 * @type Object
+			 * @default null
+			 */
+			selectedModel: null,
+			get items() {
+				var nodes = this.$.items.getDistributedNodes();
+				return Array.prototype.filter.call(nodes, function(n) {
+					return n && n.localName !== 'template';
+				});
+			},
+			get selection() {
+				return this.$.selection.getSelection();
+			},
+			selectedChanged: function() {
+				this.valueToSelection(this.selected);
+			},
+			valueToSelection: function(value) {
+				var item = this.items[this.valueToIndex(value)];
+				this.selectedItem = item;
+				this.$.selection.select(item);
+				this.updateSelectedModel();
+			},
+			updateSelectedModel: function() {
+				if (this.selectedItem) {
+					var t = this.selectedItem.templateInstance;
+					this.selectedModel = t ? t.model : undefined;
+				} else {
+					this.selectedModel = null;
+				}
+			},
+			valueToIndex: function(value) {
+				// find an item with value == value and return it's index
+				for (var i=0, items=this.items, c; (c=items[i]); i++) {
+					if (this.valueForNode(c) == value) {
+						return i;
+					}
+				}
+				// if no item found, the value itself is probably the index
+				return value;
+			},
+			valueForNode: function(node) {
+				return node[this.valueattr] || node.getAttribute(this.valueattr);
+			},
+			// events fired from <polymer-selection> object
+			selectionSelect: function(e, detail) {
+				if (detail.item) {
+					if (this.selectedClass) {
+						detail.item.classList.toggle(this.selectedClass, detail.isSelected);
+					}
+					if (this.setectedProperty) {
+						detail.item[this.setectedProperty] = detail.isSelected;
+					}
+				}
+			},
+			// event fired from host
+			activateHandler: function(e) {
+				if (!this.notap) {
+					var i = this.findDistributedTarget(e.target, this.items);
+					if (i >= 0) {
+						var selected = this.valueForNode(this.items[i]) || i;
+						if (this.multi) {
+							this.valueToSelection(selected);
+						} else {
+							this.selected = selected;
+						}
+						this.asyncFire('polymer-activate', {item: this.items[i]});
+					}
+				}
+			},
+			findDistributedTarget: function(target, nodes) {
+				// find first ancestor of target (including itself) that
+				// is in inNodes, if any
+				while (target && target != this) {
+					var i = Array.prototype.indexOf.call(nodes, target);
+					if (i >= 0) {
+						return i;
+					}
+					target = target.parentNode;
+				}
+			}
+		});
+	</script>
+</polymer-element>

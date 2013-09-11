@@ -1,0 +1,26 @@
+{
+  "name": "todomvc-chaplin-brunch",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.1.6",
+    "chaplin": "~0.10.0",
+    "underscore": "~1.4.4",
+    "backbone.localStorage": "~1.1.0",
+    "jquery": "~2.0.0"
+  },
+  "overrides": {
+    "todomvc-common": {
+      "main": "bg.png"
+    },
+    "backbone": {
+      "main": "backbone.js",
+      "dependencies": {
+        "underscore": "*",
+        "jquery": "*"
+      }
+    },
+    "underscore": {
+      "main": "underscore.js"
+    }
+  }
+}

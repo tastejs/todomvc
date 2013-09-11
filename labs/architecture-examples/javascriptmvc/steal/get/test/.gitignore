@@ -1,5 +1,0 @@
-.tmp*
-*.log
-docs/*
-dist
-synthetic/dist

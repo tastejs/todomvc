@@ -1,1 +1,3 @@
-#montage-todomvc .visible {display: block;}
+#montage-todomvc .visible {
+	display: block;
+}

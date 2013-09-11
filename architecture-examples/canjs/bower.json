@@ -1,0 +1,10 @@
+{
+  "name": "todomvc-canjs",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~1.9.1",
+    "canjs": "~1.1.5",
+    "canjs-localstorage": "~0.1.0",
+    "todomvc-common": "~0.1.6"
+  }
+}

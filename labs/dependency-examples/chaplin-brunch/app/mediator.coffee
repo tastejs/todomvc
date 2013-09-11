@@ -1,1 +1,1 @@
-module.exports = require('chaplin').mediator
+module.exports = Chaplin.mediator

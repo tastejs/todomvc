@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-framework="troopjs">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>TroopJS • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus data-weave="troopjs-todos/widget/create">
+		</header>
+		<section id="main" data-weave="troopjs-todos/widget/display">
+			<input id="toggle-all" type="checkbox" data-weave="troopjs-todos/widget/mark">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list" data-weave="troopjs-todos/widget/list"></ul>
+		</section>
+		<footer id="footer" data-weave="troopjs-todos/widget/display">
+			<span id="todo-count" data-weave="troopjs-todos/widget/count"><strong>1</strong> item left</span>
+			<ul id="filters" data-weave="troopjs-todos/widget/filters">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed" data-weave="troopjs-todos/widget/clear">Clear completed (1)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="https://github.com/mikaelkaron">Mikael Karon</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="bower_components/todomvc-common/base.js"></script>
+	<script>
+		'use strict';
+		var require = {
+			packages: [{
+				name: 'jquery',
+				location: 'bower_components/jquery',
+				main: 'jquery'
+			}, {
+				name: 'troopjs-bundle',
+				location: 'bower_components/troopjs-bundle',
+				main: 'maxi'
+			}, {
+				name: 'troopjs-todos',
+				location: 'js'
+			}],
+
+			map: {
+				'*': {
+					template: 'troopjs-requirejs/template'
+				}
+			},
+
+			deps: [ 'require', 'jquery', 'troopjs-bundle' ],
+
+			callback: function Boot (contextRequire, jQuery) {
+				contextRequire([ 'troopjs-browser/application/widget', 'troopjs-browser/route/widget' ], function Strap (Application, RouteWidget) {
+					jQuery(function ($) {
+						Application($('html'), 'bootstrap', RouteWidget($(window), 'route')).start();
+					});
+				});
+			}
+		};
+	</script>
+	<script src="bower_components/requirejs/require.js" async="async"></script>
+	</body>
+</html>

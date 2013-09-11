@@ -1,17 +1,50 @@
-# Template • [TodoMVC](http://todomvc.com)
+# Framework Name TodoMVC Example
+
+> Short description of the framework provided by the official website.
+
+> _[Framework Name - framework.com](link-to-framework)_
 
 
+## Learning Framework Name
 
-## Getting Started
+The [Framework Name website]() is a great resource for getting started.
 
-Read the [App Specification](https://github.com/addyosmani/todomvc/wiki/App-Specification) before touching the template.
+Here are some links you may find helpful:
+
+* [Documentation]()
+* [API Reference]()
+* [Applications built with Framework Name]()
+* [Blog]()
+* [FAQ]()
+* [Framework Name on GitHub]()
+
+Articles and guides from the community:
+
+* [Article 1]()
+* [Article 2]()
+
+Get help from other Framework Name users:
+
+* [Framework Name on StackOverflow](http://stackoverflow.com/questions/tagged/____)
+* [Mailing list on Google Groups]()
+* [Framework Name on Twitter](http://twitter.com/____)
+* [Framework Name on Google +]()
+
+_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
 
 
-## Need help?
+## Implementation
 
-Feel free to [contact us](https://github.com/sindresorhus) if you have any questions or need help with the template.
+How is the app structured? Are there deviations from the spec? If so, why?
+
+
+## Running
+
+If there is a build step required to get the example working, explain it here.
+
+To run the app, spin up an HTTP server and visit http://localhost/.../myexample/.
 
 
 ## Credit
 
-Created by [Sindre Sorhus](http://sindresorhus.com)
+This TodoMVC application was created by [you]().

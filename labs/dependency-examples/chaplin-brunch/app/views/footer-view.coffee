@@ -1,29 +1,28 @@
-View = require 'views/base/view'
-template = require 'views/templates/footer'
+View = require './base/view'
+template = require './templates/footer'
 
 module.exports = class FooterView extends View
-  autoRender: yes
+  autoRender: true
   el: '#footer'
+  events:
+    'click #clear-completed': 'clearCompleted'
+  listen:
+    'todos:filter mediator': 'updateFilterer'
+    'all collection': 'renderCounter'
   template: template
 
-  initialize: ->
-    super
-    @subscribeEvent 'todos:filter', @updateFilterer
-    @modelBind 'all', @renderCounter
-    @delegate 'click', '#clear-completed', @clearCompleted
-
-  render: =>
+  render: ->
     super
     @renderCounter()
 
-  updateFilterer: (filterer) =>
+  updateFilterer: (filterer) ->
     filterer = '' if filterer is 'all'
     @$('#filters a')
       .removeClass('selected')
       .filter("[href='#/#{filterer}']")
       .addClass('selected')
 
-  renderCounter: =>
+  renderCounter: ->
     total = @collection.length
     active = @collection.getActive().length
     completed = @collection.getCompleted().length

@@ -1,0 +1,31 @@
+<script src="../bower_components/director/build/director.min.js"></script>
+<polymer-element name="flatiron-director" attributes="route">
+	<script>
+		(function() {
+			var private_router;
+			Polymer('flatiron-director', {
+				ready: function() {
+					this.router.on(/(\w*)/, function(route) {
+						this.route = route;
+					}.bind(this));
+					this.asyncMethod(function() {
+						var initialRoute = this.router.getRoute(0);
+						this.route = initialRoute || '';
+						// flush to here to render the initial route synchronously.
+						Platform.flush();
+					});
+				},
+				get router() {
+					if (!private_router) {
+						private_router = new Router();
+						private_router.init();
+					}
+					return private_router;
+				},
+				routeChanged: function() {
+					this.fire('route', this.route);
+				}
+			});
+		})();
+	</script>
+</polymer-element>

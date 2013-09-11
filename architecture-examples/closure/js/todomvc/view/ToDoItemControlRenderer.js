@@ -47,7 +47,6 @@ todomvc.view.ToDoItemControlRenderer.prototype.setState =
     if (element) {
         switch (state) {
         case goog.ui.Component.State.CHECKED:
-            this.enableClassName(control, 'done', enable);
             this.getCheckboxElement(element).checked = enable;
             break;
         case goog.ui.Component.State.SELECTED:

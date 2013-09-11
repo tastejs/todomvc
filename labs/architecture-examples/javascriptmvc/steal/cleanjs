@@ -1,5 +1,0 @@
-load("steal/rhino/rhino.js");
-steal('steal/clean', function () {
-    var url = _args.shift();
-    steal.clean(url, _args);
-});
