@@ -921,8 +921,8 @@
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Tutorial",
-				"url": "https://www.firebase.com/tutorial/"
+				"name": "AngularFire Site",
+				"url": "http://angularfire.com/"
 			}, {
 				"name": "Documentation & Examples",
 				"url": "https://www.firebase.com/docs/"
@@ -932,15 +932,18 @@
 			}, {
 				"name": "Firebase on GitHub",
 				"url": "http://firebase.github.io"
+			}, {
+				"name": "Tutorial",
+				"url": "https://www.firebase.com/tutorial/"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Firebase + Angular Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/#!forum/firebase-angular"
+			}, {
 				"name": "Firebase on StackOverflow",
 				"url": "http://stackoverflow.com/questions/tagged/firebase"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/firebase-talk"
 			}, {
 				"name": "Firebase on Twitter",
 				"url": "http://twitter.com/Firebase"
