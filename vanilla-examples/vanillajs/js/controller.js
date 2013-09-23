@@ -164,7 +164,7 @@
 	Controller.prototype.removeItem = function (id) {
 		this.model.remove(id, function () {
       var elem = $$('[data-id="' + id + '"]');
-			if(elem){
+			if (elem) {
         this.$todoList.removeChild(elem);
       }
 		}.bind(this));
