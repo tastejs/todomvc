@@ -75,7 +75,7 @@
 				return;
 			}
 
-			this.model.create(e.target.value, function (data) {
+			this.model.create(e.target.value, function () {
 				input.value = '';
 				this._filter(true);
 			}.bind(this));

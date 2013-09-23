@@ -1,4 +1,4 @@
-/*global Store, Model, View, Controller, $$ */
+/*global $$, app */
 (function () {
 	'use strict';
 
