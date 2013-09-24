@@ -1,32 +1,34 @@
-/*global Todos Ember */
+/*global Todos, Ember */
 'use strict';
 
 Todos.TodosController = Ember.ArrayController.extend({
-	createTodo: function () {
-		// Get the todo title set by the "New Todo" text field
-		var title = this.get('newTitle');
-		if (!title.trim()) {
-			return;
-		}
+	actions: {
 
-		// Create the new Todo model
-		Todos.Todo.createRecord({
-			title: title,
-			isCompleted: false
-		});
+		createTodo: function () {
+			var title, todo;
 
-		// Clear the "New Todo" text field
-		this.set('newTitle', '');
+			// Get the todo title set by the "New Todo" text field
+			title = this.get('newTitle');
+			if (!title.trim()) {
+				return;
+			}
 
-		// Save the new model
-		this.get('store').commit();
-	},
+			// Create the new Todo model
+			todo = this.store.createRecord('todo', {
+				title: title,
+				isCompleted: false
+			});
+			todo.save();
 
-	clearCompleted: function () {
-		var completed = this.filterProperty('isCompleted', true);
-		completed.invoke('deleteRecord');
+			// Clear the "New Todo" text field
+			this.set('newTitle', '');
+		},
 
-		this.get('store').commit();
+		clearCompleted: function () {
+			var completed = this.filterProperty('isCompleted', true);
+			completed.invoke('deleteRecord');
+			completed.invoke('save');
+		},
 	},
 
 	remaining: function () {
