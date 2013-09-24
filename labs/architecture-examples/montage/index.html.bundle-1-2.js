@@ -738,7 +738,7 @@ exports.DynamicElement = Component.specialize(/** @lends module:"matte/ui/dynami
 }})
 ;
 //*/
-montageDefine("b5d6359","ui/main.reel/main",{dependencies:["montage/ui/component","montage/core/range-controller","core/todo","montage/core/serialization"],factory:function(require,exports,module){var Component = require("montage/ui/component").Component,
+montageDefine("235eda6","ui/main.reel/main",{dependencies:["montage/ui/component","montage/core/range-controller","core/todo","montage/core/serialization"],factory:function(require,exports,module){var Component = require("montage/ui/component").Component,
     RangeController = require("montage/core/range-controller").RangeController,
     Todo = require("core/todo").Todo,
     Serializer = require("montage/core/serialization").Serializer,

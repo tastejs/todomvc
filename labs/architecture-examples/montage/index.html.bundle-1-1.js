@@ -982,7 +982,7 @@ exports.Composer = Target.specialize( /** @lends Composer# */ {
 }})
 ;
 //*/
-montageDefine("b5d6359","ui/todo-view.reel/todo-view",{dependencies:["montage/ui/component"],factory:function(require,exports,module){var Component = require("montage/ui/component").Component;
+montageDefine("235eda6","ui/todo-view.reel/todo-view",{dependencies:["montage/ui/component"],factory:function(require,exports,module){var Component = require("montage/ui/component").Component;
 
 exports.TodoView = Component.specialize({
 
