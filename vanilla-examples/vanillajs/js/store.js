@@ -50,9 +50,13 @@
 		var todos = JSON.parse(localStorage[this._dbName]).todos;
 
 		callback.call(this, todos.filter(function (todo) {
+			var match = true;
 			for (var q in query) {
-				return query[q] === todo[q];
+				if (query[q] !== todo[q]) {
+					match = false;
+				}
 			}
+			return match;
 		}));
 	};
 
