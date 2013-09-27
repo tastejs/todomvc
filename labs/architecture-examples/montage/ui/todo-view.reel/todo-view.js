@@ -1,4 +1,4 @@
-var Component = require("montage/ui/component").Component;
+var Component = require('montage/ui/component').Component;
 
 exports.TodoView = Component.specialize({
 
@@ -12,36 +12,36 @@ exports.TodoView = Component.specialize({
 
     constructor: {
         value: function TodoView() {
-            this.defineBinding("isCompleted", {
-                "<-": "todo.completed"
+            this.defineBinding('isCompleted', {
+                '<-': 'todo.completed'
             });
         }
     },
 
     enterDocument: {
-        value: function(firstTime) {
+        value: function (firstTime) {
             if (firstTime) {
-                this.element.addEventListener("dblclick", this, false);
-                this.element.addEventListener("blur", this, true);
-                this.element.addEventListener("submit", this, false);
+                this.element.addEventListener('dblclick', this, false);
+                this.element.addEventListener('blur', this, true);
+                this.element.addEventListener('submit', this, false);
             }
         }
     },
 
     captureDestroyButtonAction: {
-        value: function() {
+        value: function () {
             this.dispatchDestroy();
         }
     },
 
     dispatchDestroy: {
-        value: function() {
-            this.dispatchEventNamed("destroyTodo", true, true, {todo: this.todo})
+        value: function () {
+            this.dispatchEventNamed('destroyTodo', true, true, {todo: this.todo});
         }
     },
 
     handleDblclick: {
-        value: function(evt) {
+        value: function () {
             this.isEditing = true;
         }
     },
@@ -51,18 +51,18 @@ exports.TodoView = Component.specialize({
     },
 
     isEditing: {
-        get: function() {
+        get: function () {
             return this._isEditing;
         },
-        set: function(value) {
+        set: function (value) {
             if (value === this._isEditing) {
                 return;
             }
 
             if (value) {
-                this.classList.add("editing");
+                this.classList.add('editing');
             } else {
-                this.classList.remove("editing");
+                this.classList.remove('editing');
             }
 
             this._isEditing = value;
@@ -75,18 +75,18 @@ exports.TodoView = Component.specialize({
     },
 
     isCompleted: {
-        get: function() {
+        get: function () {
             return this._isCompleted;
         },
-        set: function(value) {
+        set: function (value) {
             if (value === this._isCompleted) {
                 return;
             }
 
             if (value) {
-                this.classList.add("completed");
+                this.classList.add('completed');
             } else {
-                this.classList.remove("completed");
+                this.classList.remove('completed');
             }
 
             this._isCompleted = value;
@@ -95,7 +95,7 @@ exports.TodoView = Component.specialize({
     },
 
     captureBlur: {
-        value: function(evt) {
+        value: function (evt) {
             if (this.isEditing && this.editInput.element === evt.target) {
                 this._submitTitle();
             }
@@ -103,7 +103,7 @@ exports.TodoView = Component.specialize({
     },
 
     handleSubmit: {
-        value: function(evt) {
+        value: function (evt) {
             if (this.isEditing) {
                 evt.preventDefault();
                 this._submitTitle();
@@ -112,11 +112,11 @@ exports.TodoView = Component.specialize({
     },
 
     _submitTitle: {
-        value: function() {
+        value: function () {
 
             var title = this.editInput.value.trim();
 
-            if ("" === title) {
+            if ('' === title) {
                 this.dispatchDestroy();
             } else {
                 this.todo.title = title;
@@ -127,7 +127,7 @@ exports.TodoView = Component.specialize({
     },
 
     draw: {
-        value: function() {
+        value: function () {
             if (this.isEditing) {
                 this.editInput.element.focus();
             } else {

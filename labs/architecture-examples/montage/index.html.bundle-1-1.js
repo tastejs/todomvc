@@ -982,7 +982,7 @@ exports.Composer = Target.specialize( /** @lends Composer# */ {
 }})
 ;
 //*/
-montageDefine("235eda6","ui/todo-view.reel/todo-view",{dependencies:["montage/ui/component"],factory:function(require,exports,module){var Component = require("montage/ui/component").Component;
+montageDefine("37bb2cd","ui/todo-view.reel/todo-view",{dependencies:["montage/ui/component"],factory:function(require,exports,module){var Component = require('montage/ui/component').Component;
 
 exports.TodoView = Component.specialize({
 
@@ -996,36 +996,36 @@ exports.TodoView = Component.specialize({
 
     constructor: {
         value: function TodoView() {
-            this.defineBinding("isCompleted", {
-                "<-": "todo.completed"
+            this.defineBinding('isCompleted', {
+                '<-': 'todo.completed'
             });
         }
     },
 
     enterDocument: {
-        value: function(firstTime) {
+        value: function (firstTime) {
             if (firstTime) {
-                this.element.addEventListener("dblclick", this, false);
-                this.element.addEventListener("blur", this, true);
-                this.element.addEventListener("submit", this, false);
+                this.element.addEventListener('dblclick', this, false);
+                this.element.addEventListener('blur', this, true);
+                this.element.addEventListener('submit', this, false);
             }
         }
     },
 
     captureDestroyButtonAction: {
-        value: function() {
+        value: function () {
             this.dispatchDestroy();
         }
     },
 
     dispatchDestroy: {
-        value: function() {
-            this.dispatchEventNamed("destroyTodo", true, true, {todo: this.todo})
+        value: function () {
+            this.dispatchEventNamed('destroyTodo', true, true, {todo: this.todo});
         }
     },
 
     handleDblclick: {
-        value: function(evt) {
+        value: function () {
             this.isEditing = true;
         }
     },
@@ -1035,18 +1035,18 @@ exports.TodoView = Component.specialize({
     },
 
     isEditing: {
-        get: function() {
+        get: function () {
             return this._isEditing;
         },
-        set: function(value) {
+        set: function (value) {
             if (value === this._isEditing) {
                 return;
             }
 
             if (value) {
-                this.classList.add("editing");
+                this.classList.add('editing');
             } else {
-                this.classList.remove("editing");
+                this.classList.remove('editing');
             }
 
             this._isEditing = value;
@@ -1059,18 +1059,18 @@ exports.TodoView = Component.specialize({
     },
 
     isCompleted: {
-        get: function() {
+        get: function () {
             return this._isCompleted;
         },
-        set: function(value) {
+        set: function (value) {
             if (value === this._isCompleted) {
                 return;
             }
 
             if (value) {
-                this.classList.add("completed");
+                this.classList.add('completed');
             } else {
-                this.classList.remove("completed");
+                this.classList.remove('completed');
             }
 
             this._isCompleted = value;
@@ -1079,7 +1079,7 @@ exports.TodoView = Component.specialize({
     },
 
     captureBlur: {
-        value: function(evt) {
+        value: function (evt) {
             if (this.isEditing && this.editInput.element === evt.target) {
                 this._submitTitle();
             }
@@ -1087,7 +1087,7 @@ exports.TodoView = Component.specialize({
     },
 
     handleSubmit: {
-        value: function(evt) {
+        value: function (evt) {
             if (this.isEditing) {
                 evt.preventDefault();
                 this._submitTitle();
@@ -1096,11 +1096,11 @@ exports.TodoView = Component.specialize({
     },
 
     _submitTitle: {
-        value: function() {
+        value: function () {
 
             var title = this.editInput.value.trim();
 
-            if ("" === title) {
+            if ('' === title) {
                 this.dispatchDestroy();
             } else {
                 this.todo.title = title;
@@ -1111,7 +1111,7 @@ exports.TodoView = Component.specialize({
     },
 
     draw: {
-        value: function() {
+        value: function () {
             if (this.isEditing) {
                 this.editInput.element.focus();
             } else {
@@ -1125,7 +1125,107 @@ exports.TodoView = Component.specialize({
 }})
 ;
 //*/
-montageDefine("5bf8252","package.json",{exports: {"name":"native","version":"0.1.2","repository":{"type":"git","url":"https://github.com/montagejs/native.git"},"dependencies":{"montage":"~0.13.0"},"devDependencies":{"montage-testing":"~0.2.0"},"exclude":["overview.html","overview","run-tests.html","test"],"readme":"montage-native\n==============\n\nThis is the Montage package template.\n\nNote: Before working on your package you will need to add montage to it.\n\n```\nnpm install .\n```\n\nLayout\n------\n\nThe template contains the following files and directories:\n\n* `ui/` – Directory containing all the UI .reel directories.\n* `package.json` – Describes your app and its dependencies\n* `README.md` – This readme. Replace the current content with a description of your app\n* `overview.html`\n* `overview/` – Directory that contains the files for the overview page. This is a different package so you will need to require the component using montage-native/*.\n  * `main.reel` – The main interface component where you can add the components to show.\n* `node_modules/` – Directory containing all npm packages needed, including Montage. Any packages here must be included as `dependencies` in `package.json` for the Montage require to find them.\n* `test/` – Directory containing tests for your package.\n  * `all.js` – Module that point the test runner to all your jasmine specs.\n* `run-tests.html` – Page to run jasmine tests manually in your browser\n* `testacular.conf.js` – This is the testacular configuration file. You can start testacular by running `node_modules/testacular/bin/testacular start`\n\nCreate the following directories if you need them:\n\n* `locale/` – Directory containing localized content.\n* `scripts/` – Directory containing other JS libraries. If a library doesn’t support the CommonJS \"exports\" object it will need to be loaded through a `<script>` tag.\n\n","readmeFilename":"README.md","description":"montage-native ==============","bugs":{"url":"https://github.com/montagejs/native/issues"},"_id":"native@0.1.2","_from":"native@~0.1.2","directories":{"lib":"./"},"hash":"5bf8252","mappings":{"montage":{"name":"montage","hash":"6364dae","location":"../montage@6364dae/"}},"production":true,"useScriptInjection":true}})
+montageDefine("6364dae","ui/text.reel/text",{dependencies:["montage","ui/component"],factory:function(require,exports,module){/**
+    @module montage/ui/text.reel
+    @requires montage
+    @requires montage/ui/component
+*/
+var Montage = require("montage").Montage,
+    Component = require("ui/component").Component;
+
+/**
+ @class Text
+ @extends Component
+ */
+exports.Text = Component.specialize( /** @lends Text# */ {
+
+    constructor: {
+        value: function Text() {
+            this.super();
+        }
+    },
+
+    hasTemplate: {
+        value: false
+    },
+
+    _value: {
+        value: null
+    },
+
+    /**
+        Description TODO
+        @type {Property}
+        @default null
+    */
+    value: {
+        get: function() {
+            return this._value;
+        },
+        set: function(value) {
+            if (this._value !== value) {
+                this._value = value;
+                this.needsDraw = true;
+            }
+        }
+    },
+
+    /**
+        The Montage converted used to convert or format values displayed by this Text instance.
+        @type {Property}
+        @default null
+    */
+    converter: {
+        value: null
+    },
+
+    /**
+        The default string value assigned to the Text instance.
+        @type {Property}
+        @default {String} ""
+    */
+    defaultValue: {
+        value: ""
+    },
+
+    _valueNode: {
+        value: null
+    },
+
+    _RANGE: {
+        value: document.createRange()
+    },
+
+    enterDocument: {
+        value: function(firstTime) {
+            if (firstTime) {
+                var range = this._RANGE;
+                range.selectNodeContents(this.element);
+                range.deleteContents();
+                this._valueNode = document.createTextNode("");
+                range.insertNode(this._valueNode);
+                this.element.classList.add("montage-Text");
+            }
+        }
+    },
+
+    draw: {
+        value: function() {
+            // get correct value
+            var value = this._value, displayValue = (value || 0 === value ) ? value : this.defaultValue;
+
+            if (this.converter) {
+                displayValue = this.converter.convert(displayValue);
+            }
+
+            //push to DOM
+            this._valueNode.data = displayValue;
+        }
+    }
+
+});
+
+}})
 ;
 //*/
 montageDefine("5bf8252","ui/input-text.reel/input-text",{dependencies:["ui/text-input"],factory:function(require,exports,module){/**
@@ -1148,6 +1248,36 @@ exports.InputText = TextInput.specialize({
 
 });
 
+
+}})
+;
+//*/
+montageDefine("37bb2cd","core/todo",{dependencies:["montage"],factory:function(require,exports,module){var Montage = require('montage').Montage;
+
+exports.Todo = Montage.specialize({
+
+    constructor: {
+        value: function Todo() {
+            this.super();
+        }
+    },
+
+    initWithTitle: {
+        value: function (title) {
+            this.title = title;
+            return this;
+        }
+    },
+
+    title: {
+        value: null
+    },
+
+    completed: {
+        value: false
+    }
+
+});
 
 }})
 bundleLoaded("index.html.bundle-1-1.js")

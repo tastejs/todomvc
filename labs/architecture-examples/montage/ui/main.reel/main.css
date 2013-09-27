@@ -1,1 +1,5 @@
-#main,#footer,#clear-completed-container{display:none}
+#main,
+#footer,
+#clear-completed-container {
+    display: none;
+}

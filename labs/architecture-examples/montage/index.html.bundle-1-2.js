@@ -559,191 +559,15 @@ var PressEvent = (function(){
 }})
 ;
 //*/
-montageDefine("262b1a4","ui/dynamic-element.reel/dynamic-element",{dependencies:["montage/ui/component"],factory:function(require,exports,module){/* <copyright>
-Copyright (c) 2012, Motorola Mobility LLC.
-All Rights Reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of Motorola Mobility LLC nor the names of its
-  contributors may be used to endorse or promote products derived from this
-  software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-</copyright> */
-/**
-    module:"matte/ui/dynamic-element.reel"
-*/
-var Component = require("montage/ui/component").Component;
-
-
-/**
-    The DynamicElement is a general purpose component that aims to expose all the properties of the element as a component.
-    @class module:"matte/ui/dynamic-element.reel".DynamicElement
-    @extends module:montage/ui/component.Component
-*/
-exports.DynamicElement = Component.specialize(/** @lends module:"matte/ui/dynamic-element.reel".DynamicElement# */ {
-
-    hasTemplate: {
-        value: false
-    },
-
-    _innerHTML: {
-        value: null
-    },
-
-    _usingInnerHTML: {
-        value: null
-    },
-
-    /**
-        The innerHTML displayed as the content of the DynamicElement
-        @type {Property}
-        @default null
-    */
-    innerHTML: {
-        get: function() {
-            return this._innerHTML;
-        },
-        set: function(value) {
-            this._usingInnerHTML = true;
-            if (this._innerHTML !== value) {
-                this._innerHTML = value;
-                this.needsDraw = true;
-            }
-        }
-    },
-
-    /**
-        The default html displayed if innerHTML is falsy.
-        @type {Property}
-        @default {String} ""
-    */
-    defaultHTML: {
-        value: ""
-    },
-
-    _allowedTagNames: {
-        value: null
-    },
-
-    /**
-        White list of allowed tags in the innerHTML
-        @type {Property}
-        @default null
-    */
-    allowedTagNames: {
-        get: function() {
-            return this._allowedTagNames;
-        },
-        set: function(value) {
-            if (this._allowedTagNames !== value) {
-                this._allowedTagNames = value;
-                this.needsDraw = true;
-            }
-        }
-    },
-
-
-
-    _range: {
-        value: null
-    },
-
-    enterDocument: {
-        value: function(firstTime) {
-            if (firstTime) {
-                var range = document.createRange(),
-                    className = this.element.className;
-                range.selectNodeContents(this.element);
-                this._range = range;
-            }
-        }
-    },
-
-    _contentNode: {
-        value: null
-    },
-
-    draw: {
-        value: function() {
-            // get correct value
-            var displayValue = (this.innerHTML || 0 === this.innerHTML ) ? this.innerHTML : this.defaultHTML,
-                content, allowedTagNames = this.allowedTagNames, range = this._range, elements;
-
-            //push to DOM
-            if(this._usingInnerHTML) {
-                if (allowedTagNames !== null) {
-                    //cleanup
-                    this._contentNode = null;
-                    range.deleteContents();
-                    //test for tag white list
-                    content = range.createContextualFragment( displayValue );
-                    if(allowedTagNames.length !== 0) {
-                        elements = content.querySelectorAll("*:not(" + allowedTagNames.join("):not(") + ")");
-                    } else {
-                        elements = content.childNodes;
-                    }
-                    if (elements.length === 0) {
-                        range.insertNode(content);
-                        if(range.endOffset === 0) {
-                            // according to https://bugzilla.mozilla.org/show_bug.cgi?id=253609 Firefox keeps a collapsed
-                            // range collapsed after insertNode
-                            range.selectNodeContents(this.element);
-                        }
-
-                    } else {
-                        console.warn("Some Elements Not Allowed " , elements);
-                    }
-                } else {
-                    content = this._contentNode;
-                    if(content === null) {
-                        //cleanup
-                        range.deleteContents();
-                        this._contentNode = content = document.createTextNode(displayValue);
-                        range.insertNode(content);
-                        if(range.endOffset === 0) {
-                            // according to https://bugzilla.mozilla.org/show_bug.cgi?id=253609 Firefox keeps a collapsed
-                            // range collapsed after insert
-                            range.selectNodeContents(this.element);
-                        }
-
-                    } else {
-                        content.data = displayValue;
-                    }
-                }
-            }
-        }
-    }
-});
-
-}})
+montageDefine("37bb2cd","ui/main.reel/main.html",{text:'<!doctype html>\n<html>\n    <head>\n        <meta charset=utf-8>\n        <title>Main</title>\n\n        <link rel=stylesheet href=main.css>\n\n        <script type="text/montage-serialization">\n        {\n            "owner": {\n                "properties": {\n                    "element": {"#": "mainComponent"},\n                    "_newTodoForm": {"#": "newTodoForm"},\n                    "_newTodoInput": {"#": "newTodoField"}\n                }\n            },\n\n            "todoRepetition": {\n                "prototype": "montage/ui/repetition.reel",\n                "properties": {\n                    "element": {"#": "todo-list"}\n                },\n                "bindings": {\n                    "contentController": {"<-": "@owner.todoListController"}\n                }\n            },\n\n            "todoView": {\n                "prototype": "ui/todo-view.reel",\n                "properties": {\n                    "element": {"#": "todoView"}\n                },\n                "bindings": {\n                    "todo": {"<-": "@todoRepetition.objectAtCurrentIteration"}\n                }\n            },\n\n            "main": {\n                "prototype": "matte/ui/dynamic-element.reel",\n                "properties": {\n                    "element": {"#": "main"}\n                },\n                "bindings": {\n                    "classList.has(\'visible\')": {\n                        "<-": "@owner.todos.length > 0"\n                    }\n                }\n            },\n\n            "footer": {\n                "prototype": "matte/ui/dynamic-element.reel",\n                "properties": {\n                    "element": {"#": "footer"}\n                },\n                "bindings": {\n                    "classList.has(\'visible\')": {\n                        "<-": "@owner.todos.length > 0"\n                    }\n                }\n            },\n\n            "toggleAllCheckbox": {\n                "prototype": "native/ui/input-checkbox.reel",\n                "properties": {\n                    "element": {"#": "toggle-all"}\n                },\n                "bindings": {\n                    "checked": {"<->": "@owner.allCompleted"}\n                }\n            },\n\n            "todoCount": {\n                "prototype": "montage/ui/text.reel",\n                "properties": {\n                    "element": {"#": "todo-count"}\n                },\n                "bindings": {\n                    "value": {\n                        "<-": "@owner.todosLeft.length"\n                    }\n                }\n            },\n\n            "todoCountWording": {\n                "prototype": "montage/ui/text.reel",\n                "properties": {\n                    "element": {"#": "todo-count-wording"}\n                },\n                "bindings": {\n                    "value": {"<-": "@owner.todosLeft.length == 1 ? \'item\' : \'items\'"}\n                }\n            },\n\n            "completedCount": {\n                "prototype": "montage/ui/text.reel",\n                "properties": {\n                    "element": {"#": "completed-count"}\n                },\n                "bindings": {\n                    "value": {\n                        "<-": "@owner.todosCompleted.length"\n                    }\n                }\n            },\n\n            "clearCompletedContainer": {\n                "prototype": "matte/ui/dynamic-element.reel",\n                "properties": {\n                    "element": {"#": "clear-completed-container"}\n                },\n                "bindings": {\n                    "classList.has(\'visible\')": {\n                        "<-": "@owner.todosCompleted.length"\n                    }\n                }\n            },\n\n            "clearCompletedButton": {\n                "prototype": "native/ui/button.reel",\n                "properties": {\n                    "element": {"#": "clear-completed"}\n                },\n                "listeners": [\n                    {\n                        "type": "action",\n                        "listener": {"@": "owner"},\n                        "capture": false\n                    }\n                ]\n            }\n        }\n        </script>\n    </head>\n    <body>\n        <div data-montage-id=mainComponent>\n\n            <section id=todoapp>\n                    <header id=header>\n                        <h1>todos</h1>\n                        <form data-montage-id=newTodoForm>\n                            <input data-montage-id=newTodoField id=new-todo placeholder="What needs to be done?" autofocus="">\n                        </form>\n                    </header>\n                    <section data-montage-id=main id=main>\n                        <input type=checkbox data-montage-id=toggle-all id=toggle-all>\n                        <label for=toggle-all>Mark all as complete</label>\n                        <ul data-montage-id=todo-list id=todo-list>\n                            <li data-montage-id=todoView></li>\n                        </ul>\n                    </section>\n                    <footer data-montage-id=footer id=footer>\n                        <span id=todo-count><strong data-montage-id=todo-count>0</strong> <span data-montage-id=todo-count-wording>items</span> left</span>\n                        <div data-montage-id=clear-completed-container id=clear-completed-container>\n                            <button data-montage-id=clear-completed id=clear-completed>Clear completed (<span data-montage-id=completed-count>0</span>)</button>\n                        </div>\n                    </footer>\n                </section>\n                <footer id=info>\n                    <p>Double-click to edit a todo</p>\n                    <p>Created with <a href="http://github.com/montagejs/montage">Montage</a> </p>\n                    <p>Source available at <a href="http://github.com/montagejs/todo-mvc">Montage-TodoMVC</a> </p>\n                    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>\n                </footer>\n        </div>\n    </body>\n</html>'});
 ;
 //*/
-montageDefine("235eda6","ui/main.reel/main",{dependencies:["montage/ui/component","montage/core/range-controller","core/todo","montage/core/serialization"],factory:function(require,exports,module){var Component = require("montage/ui/component").Component,
-    RangeController = require("montage/core/range-controller").RangeController,
-    Todo = require("core/todo").Todo,
-    Serializer = require("montage/core/serialization").Serializer,
-    Deserializer = require("montage/core/serialization").Deserializer,
-    LOCAL_STORAGE_KEY = "todos-montage";
+montageDefine("37bb2cd","ui/main.reel/main",{dependencies:["montage/ui/component","montage/core/range-controller","core/todo","montage/core/serialization"],factory:function(require,exports,module){var Component = require('montage/ui/component').Component;
+var RangeController = require('montage/core/range-controller').RangeController;
+var Todo = require('core/todo').Todo;
+var Serializer = require('montage/core/serialization').Serializer;
+var Deserializer = require('montage/core/serialization').Deserializer;
+var LOCAL_STORAGE_KEY = 'todos-montage';
 
 exports.Main = Component.specialize({
 
@@ -760,26 +584,26 @@ exports.Main = Component.specialize({
     },
 
     constructor: {
-        value: function Main () {
+        value: function Main() {
             this.todoListController = new RangeController();
-            this.addPathChangeListener("todos.every{completed}", this, "handleTodosCompletedChanged");
+            this.addPathChangeListener('todos.every{completed}', this, 'handleTodosCompletedChanged');
 
             this.defineBindings({
-                "todos": {"<-": "todoListController.organizedContent"},
-                "todosLeft": {"<-": "todos.filter{!completed}"},
-                "todosCompleted": {"<-": "todos.filter{completed}"}
+                'todos': {'<-': 'todoListController.organizedContent'},
+                'todosLeft': {'<-': 'todos.filter{!completed}'},
+                'todosCompleted': {'<-': 'todos.filter{completed}'}
             });
         }
     },
 
     templateDidLoad: {
-        value: function() {
+        value: function () {
             this.load();
         }
     },
 
     load: {
-        value: function() {
+        value: function () {
             if (localStorage) {
                 var todoSerialization = localStorage.getItem(LOCAL_STORAGE_KEY);
 
@@ -789,12 +613,12 @@ exports.Main = Component.specialize({
 
                     deserializer.init(todoSerialization, require)
                     .deserializeObject()
-                    .then(function(todos) {
+                    .then(function (todos) {
                         self.todoListController.content = todos;
-                    }).fail(function() {
-                        console.error("Could not load saved tasks.");
-                        console.debug("Could not deserialize", todoSerialization);
-                        console.log(e.stack);
+                    }).fail(function (error) {
+                        console.error('Could not load saved tasks.');
+                        console.debug('Could not deserialize', todoSerialization);
+                        console.log(error.stack);
                     });
                 }
             }
@@ -802,7 +626,7 @@ exports.Main = Component.specialize({
     },
 
     save: {
-        value: function() {
+        value: function () {
             if (localStorage) {
                 var todos = this.todoListController.content,
                     serializer = new Serializer().initWithRequire(require);
@@ -813,26 +637,26 @@ exports.Main = Component.specialize({
     },
 
     enterDocument: {
-        value: function(firstTime) {
+        value: function (firstTime) {
             if (firstTime) {
-                this._newTodoForm.identifier = "newTodoForm";
-                this._newTodoForm.addEventListener("submit", this, false);
+                this._newTodoForm.identifier = 'newTodoForm';
+                this._newTodoForm.addEventListener('submit', this, false);
 
-                this.addEventListener("destroyTodo", this, true);
+                this.addEventListener('destroyTodo', this, true);
 
-                window.addEventListener("beforeunload", this, true);
+                window.addEventListener('beforeunload', this, true);
             }
         }
     },
 
     captureDestroyTodo: {
-        value: function(evt) {
+        value: function (evt) {
             this.destroyTodo(evt.detail.todo);
         }
     },
 
     createTodo: {
-        value: function(title) {
+        value: function (title) {
             var todo = new Todo().initWithTitle(title);
             this.todoListController.add(todo);
             return todo;
@@ -840,7 +664,7 @@ exports.Main = Component.specialize({
     },
 
     destroyTodo: {
-        value: function(todo) {
+        value: function (todo) {
             this.todoListController.delete(todo);
             return todo;
         }
@@ -851,12 +675,12 @@ exports.Main = Component.specialize({
     },
 
     allCompleted: {
-        get: function() {
+        get: function () {
             return this._allCompleted;
         },
-        set: function(value) {
+        set: function (value) {
             this._allCompleted = value;
-            this.todoListController.organizedContent.forEach(function(member) {
+            this.todoListController.organizedContent.forEach(function (member) {
                 member.completed = value;
             });
         }
@@ -877,12 +701,12 @@ exports.Main = Component.specialize({
     // Handlers
 
     handleNewTodoFormSubmit: {
-        value: function(evt) {
+        value: function (evt) {
             evt.preventDefault();
 
             var title = this._newTodoInput.value.trim();
 
-            if ("" === title) {
+            if (title === '') {
                 return;
             }
 
@@ -892,15 +716,15 @@ exports.Main = Component.specialize({
     },
 
     handleTodosCompletedChanged: {
-        value: function(value) {
+        value: function (value) {
             this._allCompleted = value;
-            this.dispatchOwnPropertyChange("allCompleted", value);
+            this.dispatchOwnPropertyChange('allCompleted', value);
         }
     },
 
     handleClearCompletedButtonAction: {
-        value: function(evt) {
-            var completedTodos = this.todoListController.organizedContent.filter(function(todo) {
+        value: function () {
+            var completedTodos = this.todoListController.organizedContent.filter(function (todo) {
                 return todo.completed;
             });
 
@@ -911,7 +735,7 @@ exports.Main = Component.specialize({
     },
 
     captureBeforeunload: {
-        value: function() {
+        value: function () {
             this.save();
         }
     }
@@ -1041,107 +865,7 @@ exports.CheckInput =  NativeControl.specialize({
 }})
 ;
 //*/
-montageDefine("6364dae","ui/text.reel/text",{dependencies:["montage","ui/component"],factory:function(require,exports,module){/**
-    @module montage/ui/text.reel
-    @requires montage
-    @requires montage/ui/component
-*/
-var Montage = require("montage").Montage,
-    Component = require("ui/component").Component;
-
-/**
- @class Text
- @extends Component
- */
-exports.Text = Component.specialize( /** @lends Text# */ {
-
-    constructor: {
-        value: function Text() {
-            this.super();
-        }
-    },
-
-    hasTemplate: {
-        value: false
-    },
-
-    _value: {
-        value: null
-    },
-
-    /**
-        Description TODO
-        @type {Property}
-        @default null
-    */
-    value: {
-        get: function() {
-            return this._value;
-        },
-        set: function(value) {
-            if (this._value !== value) {
-                this._value = value;
-                this.needsDraw = true;
-            }
-        }
-    },
-
-    /**
-        The Montage converted used to convert or format values displayed by this Text instance.
-        @type {Property}
-        @default null
-    */
-    converter: {
-        value: null
-    },
-
-    /**
-        The default string value assigned to the Text instance.
-        @type {Property}
-        @default {String} ""
-    */
-    defaultValue: {
-        value: ""
-    },
-
-    _valueNode: {
-        value: null
-    },
-
-    _RANGE: {
-        value: document.createRange()
-    },
-
-    enterDocument: {
-        value: function(firstTime) {
-            if (firstTime) {
-                var range = this._RANGE;
-                range.selectNodeContents(this.element);
-                range.deleteContents();
-                this._valueNode = document.createTextNode("");
-                range.insertNode(this._valueNode);
-                this.element.classList.add("montage-Text");
-            }
-        }
-    },
-
-    draw: {
-        value: function() {
-            // get correct value
-            var value = this._value, displayValue = (value || 0 === value ) ? value : this.defaultValue;
-
-            if (this.converter) {
-                displayValue = this.converter.convert(displayValue);
-            }
-
-            //push to DOM
-            this._valueNode.data = displayValue;
-        }
-    }
-
-});
-
-}})
+montageDefine("262b1a4","package.json",{exports: {"name":"matte","version":"0.1.3","repository":{"type":"git","url":"https://github.com/montagejs/matte.git"},"dependencies":{"montage":"~0.13.0","native":"~0.1.1"},"devDependencies":{"montage-testing":"~0.2.0"},"exclude":["overview.html","overview","run-tests.html","test"],"readme":"matte\n==============\n\nThis is the Montage package template.\n\nNote: Before working on your package you will need to add montage to it.\n\n```\nnpm install .\n```\n\nLayout\n------\n\nThe template contains the following files and directories:\n\n* `ui/` – Directory containing all the UI .reel directories.\n* `package.json` – Describes your app and its dependencies\n* `README.md` – This readme. Replace the current content with a description of your app\n* `overview.html`\n* `overview/` – Directory that contains the files for the overview page. This is a different package so you will need to require the component using matte/*.\n  * `main.reel` – The main interface component where you can add the components to show.\n* `node_modules/` – Directory containing all npm packages needed, including Montage. Any packages here must be included as `dependencies` in `package.json` for the Montage require to find them.\n* `test/` – Directory containing tests for your package.\n  * `all.js` – Module that point the test runner to all your jasmine specs.\n* `run-tests.html` – Page to run jasmine tests manually in your browser\n* `testacular.conf.js` – This is the testacular configuration file. You can start testacular by running `node_modules/testacular/bin/testacular start`\n\nCreate the following directories if you need them:\n\n* `locale/` – Directory containing localized content.\n* `scripts/` – Directory containing other JS libraries. If a library doesn’t support the CommonJS \"exports\" object it will need to be loaded through a `<script>` tag.\n\n","readmeFilename":"README.md","description":"matte ==============","bugs":{"url":"https://github.com/montagejs/matte/issues"},"_id":"matte@0.1.3","_from":"matte@~0.1.3","directories":{"lib":"./"},"hash":"262b1a4","mappings":{"montage":{"name":"montage","hash":"6364dae","location":"../montage@6364dae/"},"native":{"name":"native","hash":"5bf8252","location":"../native@5bf8252/"}},"production":true,"useScriptInjection":true}})
 ;
 //*/
 montageDefine("5bf8252","ui/input-checkbox.reel/input-checkbox",{dependencies:["ui/check-input"],factory:function(require,exports,module){/**

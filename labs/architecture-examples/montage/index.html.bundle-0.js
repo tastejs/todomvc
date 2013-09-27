@@ -3653,7 +3653,7 @@ return Q;
 
 ;
 //*/
-montageDefine("235eda6","package.json",{exports: {"name":"todo-mvc","version":"1.2.3","dependencies":{"montage":"~0.13.5","matte":"~0.1.3","native":"~0.1.2"},"bundle":["ui/main.reel"],"shard":4,"directories":{"lib":"./"},"hash":"235eda6","mappings":{"montage":{"name":"montage","hash":"6364dae","location":"packages/montage@6364dae/"},"matte":{"name":"matte","hash":"262b1a4","location":"packages/matte@262b1a4/"},"native":{"name":"native","hash":"5bf8252","location":"packages/native@5bf8252/"}},"production":true,"useScriptInjection":true}})
+montageDefine("37bb2cd","package.json",{exports: {"name":"todo-mvc","version":"1.2.3","dependencies":{"montage":"~0.13.5","matte":"~0.1.3","native":"~0.1.2"},"bundle":["ui/main.reel"],"shard":4,"directories":{"lib":"./"},"hash":"37bb2cd","mappings":{"montage":{"name":"montage","hash":"6364dae","location":"packages/montage@6364dae/"},"matte":{"name":"matte","hash":"262b1a4","location":"packages/matte@262b1a4/"},"native":{"name":"native","hash":"5bf8252","location":"packages/native@5bf8252/"}},"production":true,"useScriptInjection":true}})
 ;
 //*/
 montageDefine("6364dae","package.json",{exports: {"name":"montage","version":"0.13.5","description":"A UI Framework","repository":{"type":"git","url":"https://github.com/montagejs/montage.git"},"main":"core/core","dependencies":{"collections":"~0.1.23","frb":"~0.2.10","mousse":"~0.1.2","htmlparser2":"~3.0.5"},"devDependencies":{"montage-testing":"~0.2.0","mr":"~0.13.0","q":"0.9.6","q-io":"~1.7.2","jshint":"~2.0.1"},"scripts":{"test":"node test/node/node-spec.js","jsdoc":"node ../montagejs.org/build/jsdoc/jsdoc.js -out $PWD/builds/jsdoc/ montage@npm-link"},"exclude":["etc","lab","node.js","test","tools"],"readme":"#MontageJS Readme\nMontageJS is a new type of application framework powered by standard web technologies. Designed with an eye toward maintainability and performance, MontageJS simplifies the development of rich HTML5 applications by providing modular components, real-time two-way data binding, object serialization with DOM mapping, event handling, a managed component draw cycle, CommonJS dependency management, and many more conveniences to help build robust single-page web applications.\n\n> **Note**: MontageJS is still in alpha.\n \n##Encapsulated Components\nMontageJS has a clean interface for creating custom user interface components. Each component can stand alone or be composed of other components. Each component is modeled as a stand-alone web application with its own HTML template, JavaScript, CSS, serialized component object model, and resources. With few exceptions, a component can stand on the web platform like any other web page. There are no fully JavaScript-driven templates in MontageJS. This separation of concerns allows designers to use the technologies they are comfortable with (without having to dig into the JavaScript) and developers to isolate and test individual components using familiar techniques.\n\n##Declarative Data Binding\nMontageJS makes it easier to manage your application and UI state with data bindings. A UI component or MontageJS object can establish a simple or bi-directional binding with another component or object. When the bound property, or deeper property path, of the bound object is updated then the source object is kept in sync.\n\nMontageJS uses functional reactive bindings ([FRB](https://github.com/montagejs/frb)). Unlike “traditional” bindings, FRB can gracefully bind long property paths and the contents of collections. They can also incrementally update the results of chains of queries including maps, flattened arrays, sums, and averages as well as add and remove elements from sets based on the changes to a flag. FRB makes it easy to incrementally ensure consistent state. FRB is built from a combination of powerful functional and generic building blocks, making it reliable, easy to extend, and easy to maintain.\n\nFor more information, see [FRB](https://github.com/montagejs/frb).\n\n##CommonJS\nMontageJS fully supports [CommonJS](http://www.commonjs.org/) modules and is a part of the Node and NPM package ecosystem.\n\nFor more information, see [CommonJS](https://github.com/montagejs/...[TBD]).\n\n#Requirements\nTo get started with MontageJS, you will need the following:\n\n* Node.js and npm. MontageJS application development depends on npm, the Node package manager, which is distributed with Node.js.\n* A recent stable release of Chrome, Safari or Firefox. MontageJS is intended to leverage the evolving web platform of modern browsers.\n* To contribute: A Git client and public SSH key. For details on installing Git and creating your key, see the setup guides on github.com.\n\n#Quick Setup\nTo start using MontageJS, follow these steps:\n\n1. [Download](http://nodejs.org/download/) and run the prebuilt Node.js installer for your platform from the Node.js website.\n\n2. Install `minit`, the MontageJS Initializer.\n\n    `minit` is a command line utility that will help kickstart your MontageJS project by generating prebuilt MontageJS application templates and components and placing the associated files inside the proper directories of your project.\n\n    **Mac OS X / Linux**\n\n    ```\n    $ mkdir -p ~/.npm\n    $ sudo npm install -gq minit@latest\n    ```\n\n    **Windows**\n\n    Run the \"Node.js command prompt\"\n\n    ```\n    $ npm install -gq minit@latest\n    ```\n\n3. Use `minit` to create your MontageJS project:\n\n    ```\n    $ minit create:app -n yourappname\n    ```\n\n    **Note**: If you get an EACCES warning when trying to run `minit:create`, use `sudo chown -R <username> ~/.npm` and then use `$ minit create:app -n hello`. This is a workaround due to a bug in npm.\n\n    This generates a new directory—yourappname, which contains the default MontageJS application template, including the production dependencies—in your current directory.\n\n4. To verify your installation, switch to yourappname directory and serve your new MontageJS project using `minit`:\n\n    ```\n    $ cd yourappname\n    $ minit serve &\n    ```\n\n5. Point your browser to http://localhost:8083/.\n\n    You should see the contents of the Welcome component—a simple single-page application, which is explicitly loaded to accompany our [Quick Start](http://montagejs.org/docs/quick-start.html) tutorial.\n\n##Where to Go from Here\nFor a quick introduction on how to assemble MontageJS components into a user interface, refer to the section [“Say Hello to MontageJS”](http://montagejs.org/docs/quick-start.html) in our Quick Start tutorial.\nFor more information on MontageJS components, bindings, event handling, serialization etc. refer to the [documentation](http://montagejs.org/docs/) (be patient: we are currently in the process of updating the docs).\n","readmeFilename":"README.md","bugs":{"url":"https://github.com/montagejs/montage/issues"},"_id":"montage@0.13.5","_from":"montage@~0.13.5","mappings":{"mr":{"name":"mr","hash":"f64f623","location":"../mr@f64f623/"},"q":{"name":"q","hash":"2847ee2","location":"../q@2847ee2/"},"collections":{"name":"collections","hash":"5ea2535","location":"../collections@5ea2535/"},"frb":{"name":"frb","hash":"73de13b","location":"../frb@73de13b/"},"mousse":{"name":"mousse","hash":"3343e6d","location":"../mousse@3343e6d/"},"htmlparser2":{"name":"htmlparser2","hash":"be0ede4","location":"../htmlparser2@be0ede4/"}},"directories":{"lib":"./"},"hash":"6364dae","production":true,"useScriptInjection":true}})
@@ -3674,7 +3674,7 @@ montageDefine("7aba37c","package.json",{exports: {"name":"weak-map","version":"1
 montageDefine("2847ee2","package.json",{exports: {"name":"q","version":"0.9.6","description":"A library for promises (CommonJS/Promises/A,B,D)","homepage":"https://github.com/kriskowal/q","author":"Kris Kowal <kris@cixar.com> (https://github.com/kriskowal)","keywords":["q","promise","promises","promises-a","promises-aplus","deferred","future","async","flow control","fluent","browser","node"],"contributors":["Kris Kowal <kris@cixar.com> (https://github.com/kriskowal)","Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)","Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)"],"bugs":{"mail":"kris@cixar.com","url":"http://github.com/kriskowal/q/issues"},"licenses":[{"type":"MIT","url":"http://github.com/kriskowal/q/raw/master/LICENSE"}],"main":"q.js","repository":{"type":"git","url":"git://github.com/kriskowal/q.git"},"engines":{"node":">=0.6.0","teleport":">=0.2.0"},"dependencies":{},"devDependencies":{"jshint":"~2.1.3","cover":"*","jasmine-node":"1.2.2","opener":"*","promises-aplus-tests":"1.x","grunt":"~0.4.1","grunt-cli":"~0.1.9","grunt-contrib-uglify":"~0.2.2"},"scripts":{"test":"jasmine-node spec && promises-aplus-tests spec/aplus-adapter","test-browser":"opener spec/q-spec.html","lint":"jshint q.js","cover":"cover run node_modules/jasmine-node/bin/jasmine-node spec && cover report html && opener cover_html/index.html","minify":"grunt","prepublish":"grunt"},"directories":{"test":"./spec","lib":"./"},"hash":"2847ee2","mappings":{},"production":true,"useScriptInjection":true}})
 ;
 //*/
-montageDefine("235eda6","index.html",{text:'<!doctype html>\n<html lang=en data-framework=montage id=montage-todomvc>\n    <head>\n        <meta charset=utf-8>\n        <meta http-equiv=X-UA-Compatible content="IE=edge">\n        <title>Montage • TodoMVC</title>\n\n        <link rel=stylesheet href="bower_components/todomvc-common/base.css">\n        <link rel=stylesheet href="assets/app.css">\n    </head>\n    <body>\n        <div data-montage-id=todo-container id=todo-container></div>\n\n        <script src="bower_components/todomvc-common/base.js"></script>\n        <script src="packages/montage@6364dae/montage.js"></script>\n        <script type="text/montage-serialization">\n            {\n                "owner": {\n                    "prototype": "montage/ui/loader.reel",\n                    "properties": {\n                        "element": {"#": "todo-container"}\n                    }\n                }\n            }\n        </script>\n    </body>\n</html>'});
+montageDefine("37bb2cd","index.html",{text:'<!doctype html>\n<html lang=en data-framework=montage id=montage-todomvc>\n    <head>\n        <meta charset=utf-8>\n        <meta http-equiv=X-UA-Compatible content="IE=edge">\n        <title>Montage • TodoMVC</title>\n\n        <link rel=stylesheet href="bower_components/todomvc-common/base.css">\n        <link rel=stylesheet href="assets/app.css">\n    </head>\n    <body>\n        <div data-montage-id=todo-container id=todo-container></div>\n\n        <script src="bower_components/todomvc-common/base.js"></script>\n        <script src="packages/montage@6364dae/montage.js"></script>\n        <script type="text/montage-serialization">\n            {\n                "owner": {\n                    "prototype": "montage/ui/loader.reel",\n                    "properties": {\n                        "element": {"#": "todo-container"}\n                    }\n                }\n            }\n        </script>\n    </body>\n</html>'});
 ;
 //*/
 montageDefine("6364dae","core/core",{dependencies:["collections/shim","core/shim/object","core/shim/array","core/shim/string","core/extras/object","core/extras/date","core/extras/element","core/extras/function","core/extras/regexp","core/extras/string","core/uuid","collections/listen/property-changes","core/bindings","core/paths","core/serialization/bindings","core/promise"],factory:function(require,exports,module){/* <copyright>
@@ -9101,238 +9101,6 @@ Deserializer.defineDeserializationUnit("bindings", function (deserializer, objec
 }})
 ;
 //*/
-montageDefine("6364dae","core/event/mutable-event",{dependencies:["montage"],factory:function(require,exports,module){/* <copyright>
-Copyright (c) 2012, Motorola Mobility LLC.
-All Rights Reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of Motorola Mobility LLC nor the names of its
-  contributors may be used to endorse or promote products derived from this
-  software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-</copyright> */
-/**
- @module montage/core/event/mutable-event
- @requires montage
- */
-var Montage = require("montage").Montage;
-
-// XXX Does not presently function server-side
-if (typeof window !== "undefined") {
-
-var _eventConstructorsByType = {};
-var nullDescriptor = {value: null};
-
-var wrapProperty = function(obj, key) {
-
-    var storageKey = "_" + key;
-
-    Montage.defineProperty(obj, storageKey, {value: undefined});
-
-    Montage.defineProperty(obj, key, {
-        get:(function(key, storageKey) {
-            return function() {
-                return this.hasOwnProperty(storageKey) ? this[storageKey] : (this._event ? this._event[key] : undefined);
-            };
-        })(key, storageKey),
-
-        set: (function(storageKey) {
-            return function(value) {
-                this[storageKey] = value;
-            };
-        })(storageKey)
-    });
-};
-/**
-    @class MutableEvent
-*/
-var MutableEvent = exports.MutableEvent = Montage.specialize(/** @lends MutableEvent# */ {
-
-/**
-  @private
-*/
-    _initPrototypeWithEvent: {
-        value: function(event) {
-            var key;
-
-            for (key in event) {
-
-                //  Don't overwrite keys we have installed
-                if (this[key]) {
-                    continue;
-                }
-
-                // Skip methods, the ones we care about have been wrapped already
-                // TODO actually wrap all known functions generically
-                //if (typeof this[key] === "function") {
-                // continue;
-                //}
-
-                // TODO ok, maybe it would be quicker to not make this a function, but I really hate duplicated code
-                wrapProperty(this, key);
-            }
-
-            wrapProperty(this, "replayed");
-
-            return this;
-        }
-    },
-/**
-  @private
-*/
-    _initWithEvent: {
-        value: function(event) {
-            this._event = event;
-            return this;
-        }
-    },
-/**
-    @function
-    */
-    preventDefault: {
-        value: function() {
-            this._event.preventDefault();
-        }
-    },
-/**
-    @function
-    */
-    stopImmediatePropagation: {
-        value: function() {
-            this._event.stopImmediatePropagation();
-            // TODO only if the event is cancellable?
-            this.propagationStopped = true;
-            this.immediatePropagationStopped = true;
-        }
-    },
-/**
-            @type {Property}
-        @default {Boolean} false
-    */
-    propagationStopped: {
-        value: false
-    },
-/**
-            @type {Property}
-        @default {Boolean} false
-    */
-    immediatePropagationStopped: {
-        value: false
-    },
-/**
-            @type {Property}
-        @default {Boolean} true
-    */
-    mutable: {
-        value: true
-    },
-/**
-            @type {Property}
-        @default {Element} null
-    */
-    target: {
-        value: null
-    },
-/**
-    @function
-    */
-    stopPropagation: {
-        value: function() {
-            this._event.stopPropagation();
-            // TODO only if the event is cancellable?
-            this.propagationStopped = true;
-        }
-    },
-/**
-    @function
-    */
-    stop: {
-        value: function() {
-            this.preventDefault();
-            this.stopPropagation();
-        }
-    }
-}, {
-    /**
-     @function
-     @param {Event} event The original event.
-     @returns newEvent
-     */
-    fromEvent: {
-        value: function(event) {
-            var type = event.type,
-                constructor = _eventConstructorsByType[type],
-                newEvent;
-            if (!constructor) {
-                constructor = function MutableEvent() {
-                };
-                constructor.prototype = new exports.MutableEvent()._initPrototypeWithEvent(event);
-                _eventConstructorsByType[type] = constructor;
-            }
-            newEvent = new constructor();
-            newEvent._initWithEvent(event);
-            return newEvent;
-        }
-    },
-
-    //    Same arguments as initEvent & initCustomEvent
-
-    /**
-    @function
-    @param {Event} type TODO
-    @param {Event} canBubbleArg TODO
-    @param {Event} cancelableArg TODO
-    @param {Event} data TODO
-    @returns this.fromEvent(anEvent)
-    */
-    fromType: {
-        value: function(type, canBubbleArg, cancelableArg, detail) {
-            var anEvent = document.createEvent("CustomEvent");
-            anEvent.initCustomEvent(type, canBubbleArg, cancelableArg, detail);
-            return this.fromEvent(anEvent);
-        }
-    }
-
-});
-
-} // client-side
-
-}})
-;
-//*/
-montageDefine("6364dae","core/serialization",{dependencies:["./serialization/serializer/montage-serializer","./serialization/deserializer/montage-deserializer"],factory:function(require,exports,module){var Serializer = require("./serialization/serializer/montage-serializer").MontageSerializer,
-    serialize = require("./serialization/serializer/montage-serializer").serialize,
-    Deserializer = require("./serialization/deserializer/montage-deserializer").MontageDeserializer,
-    deserialize = require("./serialization/deserializer/montage-deserializer").deserialize;
-
-exports.Serializer = Serializer;
-exports.serialize = serialize;
-
-exports.Deserializer = Deserializer;
-exports.deserialize = deserialize;
-}})
-;
-//*/
 montageDefine("6364dae","core/serialization/deserializer/properties-deserializer",{dependencies:["core/core","core/promise"],factory:function(require,exports,module){var Montage = require("core/core").Montage;
 var Promise = require("core/promise").Promise;
 
@@ -9625,6 +9393,238 @@ exports.ModuleReference = Montage.specialize({
     }
 });
 
+}})
+;
+//*/
+montageDefine("6364dae","core/event/mutable-event",{dependencies:["montage"],factory:function(require,exports,module){/* <copyright>
+Copyright (c) 2012, Motorola Mobility LLC.
+All Rights Reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of Motorola Mobility LLC nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+</copyright> */
+/**
+ @module montage/core/event/mutable-event
+ @requires montage
+ */
+var Montage = require("montage").Montage;
+
+// XXX Does not presently function server-side
+if (typeof window !== "undefined") {
+
+var _eventConstructorsByType = {};
+var nullDescriptor = {value: null};
+
+var wrapProperty = function(obj, key) {
+
+    var storageKey = "_" + key;
+
+    Montage.defineProperty(obj, storageKey, {value: undefined});
+
+    Montage.defineProperty(obj, key, {
+        get:(function(key, storageKey) {
+            return function() {
+                return this.hasOwnProperty(storageKey) ? this[storageKey] : (this._event ? this._event[key] : undefined);
+            };
+        })(key, storageKey),
+
+        set: (function(storageKey) {
+            return function(value) {
+                this[storageKey] = value;
+            };
+        })(storageKey)
+    });
+};
+/**
+    @class MutableEvent
+*/
+var MutableEvent = exports.MutableEvent = Montage.specialize(/** @lends MutableEvent# */ {
+
+/**
+  @private
+*/
+    _initPrototypeWithEvent: {
+        value: function(event) {
+            var key;
+
+            for (key in event) {
+
+                //  Don't overwrite keys we have installed
+                if (this[key]) {
+                    continue;
+                }
+
+                // Skip methods, the ones we care about have been wrapped already
+                // TODO actually wrap all known functions generically
+                //if (typeof this[key] === "function") {
+                // continue;
+                //}
+
+                // TODO ok, maybe it would be quicker to not make this a function, but I really hate duplicated code
+                wrapProperty(this, key);
+            }
+
+            wrapProperty(this, "replayed");
+
+            return this;
+        }
+    },
+/**
+  @private
+*/
+    _initWithEvent: {
+        value: function(event) {
+            this._event = event;
+            return this;
+        }
+    },
+/**
+    @function
+    */
+    preventDefault: {
+        value: function() {
+            this._event.preventDefault();
+        }
+    },
+/**
+    @function
+    */
+    stopImmediatePropagation: {
+        value: function() {
+            this._event.stopImmediatePropagation();
+            // TODO only if the event is cancellable?
+            this.propagationStopped = true;
+            this.immediatePropagationStopped = true;
+        }
+    },
+/**
+            @type {Property}
+        @default {Boolean} false
+    */
+    propagationStopped: {
+        value: false
+    },
+/**
+            @type {Property}
+        @default {Boolean} false
+    */
+    immediatePropagationStopped: {
+        value: false
+    },
+/**
+            @type {Property}
+        @default {Boolean} true
+    */
+    mutable: {
+        value: true
+    },
+/**
+            @type {Property}
+        @default {Element} null
+    */
+    target: {
+        value: null
+    },
+/**
+    @function
+    */
+    stopPropagation: {
+        value: function() {
+            this._event.stopPropagation();
+            // TODO only if the event is cancellable?
+            this.propagationStopped = true;
+        }
+    },
+/**
+    @function
+    */
+    stop: {
+        value: function() {
+            this.preventDefault();
+            this.stopPropagation();
+        }
+    }
+}, {
+    /**
+     @function
+     @param {Event} event The original event.
+     @returns newEvent
+     */
+    fromEvent: {
+        value: function(event) {
+            var type = event.type,
+                constructor = _eventConstructorsByType[type],
+                newEvent;
+            if (!constructor) {
+                constructor = function MutableEvent() {
+                };
+                constructor.prototype = new exports.MutableEvent()._initPrototypeWithEvent(event);
+                _eventConstructorsByType[type] = constructor;
+            }
+            newEvent = new constructor();
+            newEvent._initWithEvent(event);
+            return newEvent;
+        }
+    },
+
+    //    Same arguments as initEvent & initCustomEvent
+
+    /**
+    @function
+    @param {Event} type TODO
+    @param {Event} canBubbleArg TODO
+    @param {Event} cancelableArg TODO
+    @param {Event} data TODO
+    @returns this.fromEvent(anEvent)
+    */
+    fromType: {
+        value: function(type, canBubbleArg, cancelableArg, detail) {
+            var anEvent = document.createEvent("CustomEvent");
+            anEvent.initCustomEvent(type, canBubbleArg, cancelableArg, detail);
+            return this.fromEvent(anEvent);
+        }
+    }
+
+});
+
+} // client-side
+
+}})
+;
+//*/
+montageDefine("6364dae","core/serialization",{dependencies:["./serialization/serializer/montage-serializer","./serialization/deserializer/montage-deserializer"],factory:function(require,exports,module){var Serializer = require("./serialization/serializer/montage-serializer").MontageSerializer,
+    serialize = require("./serialization/serializer/montage-serializer").serialize,
+    Deserializer = require("./serialization/deserializer/montage-deserializer").MontageDeserializer,
+    deserialize = require("./serialization/deserializer/montage-deserializer").deserialize;
+
+exports.Serializer = Serializer;
+exports.serialize = serialize;
+
+exports.Deserializer = Deserializer;
+exports.deserialize = deserialize;
 }})
 ;
 //*/
