@@ -605,180 +605,165 @@ var RangeController = exports.RangeController = Montage.specialize( {
 }})
 ;
 //*/
-montageDefine("262b1a4","ui/dynamic-element.reel/dynamic-element",{dependencies:["montage/ui/component"],factory:function(require,exports,module){/* <copyright>
-Copyright (c) 2012, Motorola Mobility LLC.
-All Rights Reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of Motorola Mobility LLC nor the names of its
-  contributors may be used to endorse or promote products derived from this
-  software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-</copyright> */
+montageDefine("6364dae","composer/composer",{dependencies:["montage","core/target"],factory:function(require,exports,module){/**
+ * @module montage/composer/composer
+ * @requires montage/core/core
+ */
+var Montage = require("montage").Montage,
+    Target = require("core/target").Target;
 /**
-    module:"matte/ui/dynamic-element.reel"
-*/
-var Component = require("montage/ui/component").Component;
+ * @class Composer
+ * @extends Target
+ * @summary The Composer prototype is the base class for all composers in Montage. There are two types of composers. One type, called _gesture_ composers listen for and aggregrate low-level events into higher order events (for example, [PressComposer]{@link PressComposer}. The second type of composer is called _calculation_ composers
+ */
+exports.Composer = Target.specialize( /** @lends Composer# */ {
 
+    _component: {
+        value: null
+    },
 
 /**
-    The DynamicElement is a general purpose component that aims to expose all the properties of the element as a component.
-    @class module:"matte/ui/dynamic-element.reel".DynamicElement
-    @extends module:montage/ui/component.Component
+    The Montage component that the composer will listen for mouse events on.
+    @type {Component}
+    @default null
 */
-exports.DynamicElement = Component.specialize(/** @lends module:"matte/ui/dynamic-element.reel".DynamicElement# */ {
+    component: {
+        get: function() {
+            return this._component;
+        },
+        set: function(component) {
+            this._component = component;
+        }
+    },
 
-    hasTemplate: {
+    _element: {
+        value: null
+    },
+
+/**
+    The DOM element that the composer will listen for events on. If no element is specified then the composer will use the element associated with its <code>component</code> property.
+    @type {Component}
+    @default null
+*/
+    element: {
+        get: function() {
+            return this._element;
+        },
+        set: function(element) {
+            this._element = element;
+        }
+    },
+
+
+    /**
+     * This property controls when a composer's <code>load()</code> method is called, which is where the composer create event listeners. If `false`
+     * the composer's <code>load()</code> method is called immediately as part of the next draw
+     * cycle after <code>addComposer()</code> has been called on its associated component.  If
+     * `true`, the loading of the composer is delayed until its associated component
+     * has had its <code>prepareForActivationEvents()</code> called. Delaying the creation of event listeners until necessary can improve performance.
+     * @default false
+     */
+    lazyLoad: {
         value: false
     },
 
-    _innerHTML: {
-        value: null
-    },
-
-    _usingInnerHTML: {
-        value: null
+    _needsFrame: {
+        value: false
     },
 
     /**
-        The innerHTML displayed as the content of the DynamicElement
-        @type {Property}
-        @default null
-    */
-    innerHTML: {
-        get: function() {
-            return this._innerHTML;
-        },
+        This property should be set to 'true' when the composer wants to have its <code>frame()</code> method executed during the next draw cycle.Setting this property to 'true' will cause Montage to schedule a new draw cycle if one has not already been.
+        @type {boolean}
+        @default false
+     */
+    needsFrame: {
         set: function(value) {
-            this._usingInnerHTML = true;
-            if (this._innerHTML !== value) {
-                this._innerHTML = value;
-                this.needsDraw = true;
-            }
-        }
-    },
-
-    /**
-        The default html displayed if innerHTML is falsy.
-        @type {Property}
-        @default {String} ""
-    */
-    defaultHTML: {
-        value: ""
-    },
-
-    _allowedTagNames: {
-        value: null
-    },
-
-    /**
-        White list of allowed tags in the innerHTML
-        @type {Property}
-        @default null
-    */
-    allowedTagNames: {
-        get: function() {
-            return this._allowedTagNames;
-        },
-        set: function(value) {
-            if (this._allowedTagNames !== value) {
-                this._allowedTagNames = value;
-                this.needsDraw = true;
-            }
-        }
-    },
-
-
-
-    _range: {
-        value: null
-    },
-
-    enterDocument: {
-        value: function(firstTime) {
-            if (firstTime) {
-                var range = document.createRange(),
-                    className = this.element.className;
-                range.selectNodeContents(this.element);
-                this._range = range;
-            }
-        }
-    },
-
-    _contentNode: {
-        value: null
-    },
-
-    draw: {
-        value: function() {
-            // get correct value
-            var displayValue = (this.innerHTML || 0 === this.innerHTML ) ? this.innerHTML : this.defaultHTML,
-                content, allowedTagNames = this.allowedTagNames, range = this._range, elements;
-
-            //push to DOM
-            if(this._usingInnerHTML) {
-                if (allowedTagNames !== null) {
-                    //cleanup
-                    this._contentNode = null;
-                    range.deleteContents();
-                    //test for tag white list
-                    content = range.createContextualFragment( displayValue );
-                    if(allowedTagNames.length !== 0) {
-                        elements = content.querySelectorAll("*:not(" + allowedTagNames.join("):not(") + ")");
-                    } else {
-                        elements = content.childNodes;
-                    }
-                    if (elements.length === 0) {
-                        range.insertNode(content);
-                        if(range.endOffset === 0) {
-                            // according to https://bugzilla.mozilla.org/show_bug.cgi?id=253609 Firefox keeps a collapsed
-                            // range collapsed after insertNode
-                            range.selectNodeContents(this.element);
-                        }
-
-                    } else {
-                        console.warn("Some Elements Not Allowed " , elements);
-                    }
-                } else {
-                    content = this._contentNode;
-                    if(content === null) {
-                        //cleanup
-                        range.deleteContents();
-                        this._contentNode = content = document.createTextNode(displayValue);
-                        range.insertNode(content);
-                        if(range.endOffset === 0) {
-                            // according to https://bugzilla.mozilla.org/show_bug.cgi?id=253609 Firefox keeps a collapsed
-                            // range collapsed after insert
-                            range.selectNodeContents(this.element);
-                        }
-
-                    } else {
-                        content.data = displayValue;
+            if (this._needsFrame !== value) {
+                this._needsFrame = value;
+                if (this._component) {
+                    if (value) {
+                        this._component.scheduleComposer(this);
                     }
                 }
             }
+        },
+        get: function() {
+            return this._needsFrame;
+        }
+    },
+
+    /**
+        This method will be invoked by the framework at the beginning of a draw cycle. This is where a composer implement its update logic.
+        @function
+        @param {Date} timestamp The time that the draw cycle started
+     */
+    frame: {
+        value: function(timestamp) {
+
+        }
+    },
+
+
+    /*
+        Invoked by the framework to default the composer's element to the component's element if necessary.
+        @private
+     */
+    _resolveDefaults: {
+        value: function() {
+            if (this.element == null && this.component != null) {
+                this.element = this.component.element;
+            }
+        }
+    },
+
+    /*
+        Invoked by the framework to load this composer
+        @private
+     */
+    _load: {
+        value: function() {
+            if (!this.element) {
+                this._resolveDefaults();
+            }
+            this.load();
+        }
+    },
+
+    /**
+        Called when a composer should be loaded.  Any event listeners that the composer needs to install should
+        be installed in this method.
+        @function
+     */
+    load: {
+        value: function() {
+
+        }
+    },
+
+    /**
+        Called when a component removes a composer.  Any event listeners that the composer needs to remove should
+        be removed in this method and any additional cleanup should be performed.
+        @function
+     */
+    unload: {
+        value: function() {
+
+        }
+    },
+
+    /*
+        Called when a composer is part of a template serialization.  It's responsible for calling addComposer on
+        the component.
+        @private
+     */
+    deserializedFromTemplate: {
+        value: function() {
+            if (this.component) {
+                this.component.addComposer(this);
+            }
         }
     }
+
 });
 
 }})
@@ -910,8 +895,81 @@ NativeControl.addAttributes( /** @lends module:montage/ui/native-control.NativeC
 }})
 ;
 //*/
-montageDefine("37bb2cd","ui/todo-view.reel/todo-view.html",{text:'<!doctype html>\n<html>\n    <head>\n        <meta charset=utf-8>\n        <title>TodoView</title>\n\n        <script type="text/montage-serialization">\n        {\n            "owner": {\n                "properties": {\n                    "element": {"#": "todoView"},\n                    "editInput": {"@": "editInput"}\n                }\n            },\n\n            "todoTitle": {\n                "prototype": "montage/ui/text.reel",\n                "properties": {\n                    "element": {"#": "todoTitle"}\n                },\n                "bindings": {\n                    "value": {"<-": "@owner.todo.title"}\n                }\n            },\n\n            "todoCompletedCheckbox": {\n                "prototype": "native/ui/input-checkbox.reel",\n                "properties": {\n                    "element": {"#": "todoCompletedCheckbox"}\n                },\n                "bindings": {\n                    "checked": {"<->": "@owner.todo.completed"}\n                }\n            },\n\n            "destroyButton": {\n                "prototype": "native/ui/button.reel",\n                "properties": {\n                    "element": {"#": "destroyButton"}\n                },\n                "listeners": [\n                    {\n                        "type": "action",\n                        "listener": {"@": "owner"},\n                        "capture": true\n                    }\n                ]\n            },\n\n            "editInput": {\n                "prototype": "native/ui/input-text.reel",\n                "properties": {\n                    "element": {"#": "edit-input"}\n                },\n                "bindings": {\n                    "value": {"<-": "@owner.todo.title"}\n                }\n            }\n        }\n        </script>\n    </head>\n    <body>\n        <li data-montage-id=todoView>\n            <div class=view>\n                <input type=checkbox data-montage-id=todoCompletedCheckbox class=toggle>\n                <label data-montage-id=todoTitle></label>\n                <button data-montage-id=destroyButton class=destroy></button>\n            </div>\n            <form data-montage-id=edit>\n                <input data-montage-id=edit-input class=edit value="Rule the web">\n            </form>\n        </li>\n    </body>\n</html>'});
+montageDefine("262b1a4","package.json",{exports: {"name":"matte","version":"0.1.3","repository":{"type":"git","url":"https://github.com/montagejs/matte.git"},"dependencies":{"montage":"~0.13.0","native":"~0.1.1"},"devDependencies":{"montage-testing":"~0.2.0"},"exclude":["overview.html","overview","run-tests.html","test"],"readme":"matte\n==============\n\nThis is the Montage package template.\n\nNote: Before working on your package you will need to add montage to it.\n\n```\nnpm install .\n```\n\nLayout\n------\n\nThe template contains the following files and directories:\n\n* `ui/` – Directory containing all the UI .reel directories.\n* `package.json` – Describes your app and its dependencies\n* `README.md` – This readme. Replace the current content with a description of your app\n* `overview.html`\n* `overview/` – Directory that contains the files for the overview page. This is a different package so you will need to require the component using matte/*.\n  * `main.reel` – The main interface component where you can add the components to show.\n* `node_modules/` – Directory containing all npm packages needed, including Montage. Any packages here must be included as `dependencies` in `package.json` for the Montage require to find them.\n* `test/` – Directory containing tests for your package.\n  * `all.js` – Module that point the test runner to all your jasmine specs.\n* `run-tests.html` – Page to run jasmine tests manually in your browser\n* `testacular.conf.js` – This is the testacular configuration file. You can start testacular by running `node_modules/testacular/bin/testacular start`\n\nCreate the following directories if you need them:\n\n* `locale/` – Directory containing localized content.\n* `scripts/` – Directory containing other JS libraries. If a library doesn’t support the CommonJS \"exports\" object it will need to be loaded through a `<script>` tag.\n\n","readmeFilename":"README.md","description":"matte ==============","bugs":{"url":"https://github.com/montagejs/matte/issues"},"_id":"matte@0.1.3","_from":"matte@~0.1.3","directories":{"lib":"./"},"hash":"262b1a4","mappings":{"montage":{"name":"montage","hash":"6364dae","location":"../montage@6364dae/"},"native":{"name":"native","hash":"5bf8252","location":"../native@5bf8252/"}},"production":true,"useScriptInjection":true}})
 ;
 //*/
-montageDefine("5bf8252","package.json",{exports: {"name":"native","version":"0.1.2","repository":{"type":"git","url":"https://github.com/montagejs/native.git"},"dependencies":{"montage":"~0.13.0"},"devDependencies":{"montage-testing":"~0.2.0"},"exclude":["overview.html","overview","run-tests.html","test"],"readme":"montage-native\n==============\n\nThis is the Montage package template.\n\nNote: Before working on your package you will need to add montage to it.\n\n```\nnpm install .\n```\n\nLayout\n------\n\nThe template contains the following files and directories:\n\n* `ui/` – Directory containing all the UI .reel directories.\n* `package.json` – Describes your app and its dependencies\n* `README.md` – This readme. Replace the current content with a description of your app\n* `overview.html`\n* `overview/` – Directory that contains the files for the overview page. This is a different package so you will need to require the component using montage-native/*.\n  * `main.reel` – The main interface component where you can add the components to show.\n* `node_modules/` – Directory containing all npm packages needed, including Montage. Any packages here must be included as `dependencies` in `package.json` for the Montage require to find them.\n* `test/` – Directory containing tests for your package.\n  * `all.js` – Module that point the test runner to all your jasmine specs.\n* `run-tests.html` – Page to run jasmine tests manually in your browser\n* `testacular.conf.js` – This is the testacular configuration file. You can start testacular by running `node_modules/testacular/bin/testacular start`\n\nCreate the following directories if you need them:\n\n* `locale/` – Directory containing localized content.\n* `scripts/` – Directory containing other JS libraries. If a library doesn’t support the CommonJS \"exports\" object it will need to be loaded through a `<script>` tag.\n\n","readmeFilename":"README.md","description":"montage-native ==============","bugs":{"url":"https://github.com/montagejs/native/issues"},"_id":"native@0.1.2","_from":"native@~0.1.2","directories":{"lib":"./"},"hash":"5bf8252","mappings":{"montage":{"name":"montage","hash":"6364dae","location":"../montage@6364dae/"}},"production":true,"useScriptInjection":true}})
+montageDefine("5bf8252","ui/input-checkbox.reel/input-checkbox",{dependencies:["ui/check-input"],factory:function(require,exports,module){/**
+    @module "montage/ui/native/input-checkbox.reel"
+    @requires montage/core/core
+    @requires montage/ui/check-input
+*/
+var CheckInput = require("ui/check-input").CheckInput;
+
+/**
+
+    @class module:"montage/ui/native/input-checkbox.reel".InputCheckbox
+    @extends module:montage/ui/check-input.CheckInput
+*/
+var InputCheckbox = exports.InputCheckbox = CheckInput.specialize({
+
+});
+InputCheckbox.addAttributes( /** @lends module:"montage/ui/native/input-checkbox.reel".InputCheckbox# */ {
+
+/**
+    Specifies if the checkbox control should receive focus when the document loads. Because Montage components are loaded asynchronously after the document has loaded, setting this property has no effect on the element's focus state.
+    @type {boolean}
+    @default false
+*/
+    autofocus: {value: false, dataType: 'boolean'},
+
+/**
+    Specifies if the checkbox control is disabled.
+    @type {boolean}
+    @default false
+*/
+    disabled: {value: false, dataType: 'boolean'},
+
+/**
+    Specifies if the checkbox is in it checked state or not.
+    @type {boolean}
+    @default false
+*/
+    checked: {value: false, dataType: 'boolean'},
+
+/**
+    The value of the id attribute of the form with which to associate the element.
+    @type {string}
+    @default null
+*/
+    form: null,
+
+/**
+    The name part of the name/value pair associated with this element for the purposes of form submission.
+    @type {string}
+    @default null
+*/
+    name: null,
+
+/**
+    Specifies if this control is readonly.
+    @type {boolean}
+    @default false
+*/
+    readonly: {value: false, dataType: 'boolean'},
+
+/**
+    A string the browser displays in a tooltip when the user hovers their mouse over the element.
+    @type {string}
+    @default null
+*/
+    title: null,
+    /*
+    The value associated with the checkbox. Per the WC3 specification, if the element has a <code>value</code> attribute then the value of that attribute's value is returned; otherwise, it returns "on".
+    @type {string}
+    @default "on"
+    */
+    value: {value: 'on'}
+});
+
+}})
 bundleLoaded("index.html.bundle-1-0.js")
