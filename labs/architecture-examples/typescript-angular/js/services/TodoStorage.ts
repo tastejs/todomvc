@@ -8,15 +8,6 @@ module todos {
      */
     export class TodoStorage implements ITodoStorage {
 
-        public injection(): any[] {
-            return [
-                TodoStorage
-            ]
-        }
-
-        constructor() {
-        }
-
         STORAGE_ID = 'todos-angularjs-typescript';
 
         get (): TodoItem[] {

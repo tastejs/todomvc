@@ -1,5 +1,5 @@
-/// <reference path='libs/jquery-1.8.d.ts' />
-/// <reference path='libs/angular-1.0.d.ts' />
+/// <reference path='libs/jquery.d.ts' />
+/// <reference path='libs/angular.d.ts' />
 /// <reference path='models/TodoItem.ts' />
 /// <reference path='interfaces/ITodoScope.ts' />
 /// <reference path='interfaces/ITodoStorage.ts' />
