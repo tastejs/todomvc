@@ -23,6 +23,7 @@
 			}
 			return false;
 		},
+
 		handleEdit: function () {
 			// react optimizes renders by batching them. This means you can't call
 			// parent's `onEdit` (which in this case triggeres a re-render), and
@@ -58,6 +59,15 @@
 			if (nextProps.todo.title !== this.props.todo.title) {
 				this.setState(this.getInitialState());
 			}
+		},
+
+		componentShouldUpdate: function (nextProps, nextState) {
+			return (
+				nextProps.todo.title !== this.props.todo.title ||
+				nextProps.todo.completed !== this.props.todo.completed ||
+				nextProps.editing !== this.props.editing ||
+				nextState.editText !== this.state.editText
+			);
 		},
 
 		render: function () {
