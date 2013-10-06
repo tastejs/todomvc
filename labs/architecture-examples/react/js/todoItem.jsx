@@ -23,6 +23,7 @@
 			}
 			return false;
 		},
+
 		handleEdit: function () {
 			// react optimizes renders by batching them. This means you can't call
 			// parent's `onEdit` (which in this case triggeres a re-render), and
@@ -33,6 +34,7 @@
 				node.focus();
 				node.setSelectionRange(node.value.length, node.value.length);
 			}.bind(this));
+			this.setState({editText: this.props.todo.title});
 		},
 
 		handleKeyDown: function (event) {
@@ -41,8 +43,6 @@
 				this.props.onCancel();
 			} else if (event.keyCode === ENTER_KEY) {
 				this.handleSubmit();
-			} else {
-				this.setState({editText: event.target.value});
 			}
 		},
 
@@ -54,21 +54,24 @@
 			return {editText: this.props.todo.title};
 		},
 
-		componentWillReceiveProps: function (nextProps) {
-			if (nextProps.todo.title !== this.props.todo.title) {
-				this.setState(this.getInitialState());
-			}
+		shouldComponentUpdate: function (nextProps, nextState) {
+			return (
+				nextProps.todo.id !== this.props.todo.id ||
+				nextProps.todo !== this.props.todo ||
+				nextProps.editing !== this.props.editing ||
+				nextState.editText !== this.state.editText
+			);
 		},
 
 		render: function () {
 			return (
-				<li class={Utils.stringifyObjKeys({
+				<li className={Utils.stringifyObjKeys({
 					completed: this.props.todo.completed,
 					editing: this.props.editing
 				})}>
-					<div class="view">
+					<div className="view">
 						<input
-							class="toggle"
+							className="toggle"
 							type="checkbox"
 							checked={this.props.todo.completed ? 'checked' : null}
 							onChange={this.props.onToggle}
@@ -76,11 +79,11 @@
 						<label onDoubleClick={this.handleEdit}>
 							{this.props.todo.title}
 						</label>
-						<button class='destroy' onClick={this.props.onDestroy} />
+						<button className="destroy" onClick={this.props.onDestroy} />
 					</div>
 					<input
 						ref="editField"
-						class="edit"
+						className="edit"
 						value={this.state.editText}
 						onBlur={this.handleSubmit}
 						onChange={this.handleChange}
