@@ -161,6 +161,40 @@
 			}]
 		}]
 	},
+	"atmajs": {
+		"name": "Atma.js",
+		"description": "HMVC and the component-based architecture for building client, server or hybrid applications",
+		"homepage": "atmajs.com",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/atmajs/"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Get Started",
+				"url": "http://atmajs.com/get/github"
+			}, {
+				"name": "Atma.js on GitHub",
+				"url": "https://github.com/atmajs"
+			}]
+		}, {
+			"heading": "Overview",
+			"links": [{
+				"name": "Libraries",
+				"url": "https://github.com/tastejs/todomvc/blob/gh-pages/labs/architecture-examples/atmajs/readme.md"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Atma.js on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/atmajs"
+			}, {
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/?fromgroups#!forum/atmajs"
+			}]
+		}]
+	},
 	"backbonejs": {
 		"name": "Backbone.js",
 		"description": "Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.",
