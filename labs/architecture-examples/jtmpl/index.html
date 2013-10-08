@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>jtmpl • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus 
+					value="{{todo}}" onkeypress="{{add}}">
+			</header>
+
+			{{#itemsLength}}
+			<section id="main">
+				<input id="toggle-all" type="checkbox" checked="{{toggleAll}}" onclick="{{toggleAllChange}}">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+					{{#filtered}}
+					<li class="{{completed}} {{editing}}">
+						<div class="view">
+							<input class="toggle" type="checkbox" checked="{{completed}}" onclick="{{update}}">
+							<label ondblclick="{{edit}}">{{title}}</label>
+							<button class="destroy" onclick="{{destroy}}"></button>
+						</div>
+						<input class="edit" value="{{title}}" onkeypress="{{save}}">
+					</li>
+					{{/filtered}}
+				</ul>
+			</section>
+			{{/itemsLength}}
+
+			{{#itemsLength}}
+			<footer id="footer">
+				<span id="todo-count"><strong>{{todosLeft}}</strong> {{itemText}} left</span>
+
+				<ul id="filters">
+				{{#filters}}
+					<li><a href="{{href}}" onclick="{{applyFilter}}" class="{{selected}}">{{title}}</a></li>
+				{{/filters}}
+				</ul>
+
+				{{#completedItemsLength}}
+				<span>
+					<button id="clear-completed" onclick="{{clear}}">
+						Clear completed ({{completedItemsLength}})</button>
+				</span>
+				{{/completedItemsLength}}
+			</footer>
+			{{/itemsLength}}
+
+		</section>
+
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://atmin.me">Atanas Minev</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/jtmpl/js/jtmpl.min.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
