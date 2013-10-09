@@ -1,50 +1,68 @@
-# Montage TodoMVC Example
+# MontageJS TodoMVC Example
 
-> The Montage framework lets you develop rich HTML5 applications optimized for today and tomorrow’s range of connected devices. You can build rich client-side UI’s, sharing packages and modules with your NodeJS server. Montage opens a new world of opportunity for web developers.
+> MontageJS is a client-side HTML5 framework for building rich single-page applications. It offers time-tested patterns and principles, a modular architecture, and a friendly method to achieve a clean separation of concerns.
+> 
+> _[MontageJS - montagejs.org](http://montagejs.org)_
 
-> _[Montage - montagejs.org](http://montagejs.org)_
-
-
-## Learning Montage
-
-The [Montage website](http://montagejs.org) is a great resource for getting started.
+## Learning MontageJS
+The [MontageJS](http://montagejs.org) website is a great resource for getting started.
 
 Here are some links you may find helpful:
 
-* [Quick Start](http://montagejs.org/docs/Quick-Start)
-* [Documentation](http://montagejs.org/docs)
-* [API Reference](http://montagejs.org/apis)
-* [Applications built with Montage](http://montagejs.org/apps)
-* [Montage on GitHub](https://github.com/montagejs/montage)
-* [Minit - Montage Initializer](https://github.com/montagejs/minit)
-* [MOP - Montage Optimizer](https://github.com/montagejs/mop)
+* [Quick Start](http://montagejs.org/docs/montagejs-setup.html)
+* [Demos](http://montagejs.org/docs/montagejs-examples.html)
+* [API Reference](http://montagejs.org/api/)
+* [Applications built with MontageJS](http://montagejs.org/apps/)
+* [Blog](http://montagejs.org/blog/)
+* [FAQ](http://montagejs.org/docs/faq.html)
+* [MontageJS on GitHub](https://github.com/montagejs/montage)
 
 Articles and guides from the community:
 
 * [YouTube - Getting Started](http://www.youtube.com/watch?v=JfT1ML200JI)
+* [My First MontageJS Application](http://renaun.com/blog/2013/05/my-first-montagejs-application/)
 
 Get help from other Montage users:
 
 * [IRC](http://webchat.freenode.net/?channels=montage)
-* [Mailing list on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/montagejs)
-* [Montage on Twitter](http://twitter.com/montage_js)
-* [Montage on Google +](https://plus.google.com/116915300739108010954)
-
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+* [MontageJS on Google Groups](https://groups.google.com/forum/?hl=en&fromgroups#!forum/montagejs)
+* [MontageJS on Twitter](http://twitter.com/montagejs)
+* [MontageJS on Google +](https://plus.google.com/116915300739108010954)
 
 
-## Implementation
+## Application Structure
+MontageJS applications follow a unified directory structure that makes it easy to look for and add files. The following table provides a brief description of the TodoMVC application's directory structure.
 
-TL;DR: The unbundled application code included is for reference only; it is not being executed.
+Folder / File | Description |
+------------ | ------------- 
+assets | Contains global styles and the background image for the TodoMVC application.
+core | Contains the data model.
+index.html | Is the entry-point HTML document.  
+LICENSE.md | Contains copyright information.
+package.json | Describes your app and its dependencies.  
+README.md | Describes the TodoMVC application. 
+ui | Contains the user interface components of the TodoMVC application, main.reel and todo-view.reel.
 
-The [source code for this application is available](https://github.com/mczepiel/montage-todomvc), but in an effort to not include an unminified version of Montage itself in TodoMVC we have run the application through our build tool, [mop](https://github.com/Motorola-Mobility/montage/tree/master/tools/mop).
+## Running the TodoMVC Example
 
-Montage applications are authored as CommonJS modules using our own XHR-based dependency management,
-enabling us to write pure-HTML templates and boiler-plate-free JavaScript.
+MontageJS application development depends on npm, the Node package manager, which is distributed with Node.js. If you haven't done so already, be sure to [download](http://nodejs.org/download/) and run the prebuilt Node.js installer for your platform from the Node.js website. Then, to run the TodoMVC example locally, follow these steps:
 
-Mopping bundles the framework, application code, and HTML templates together into a handful of files
-formatted using AMD-style dependency management.
+1. Clone the todo-mvc [GitHub repo](https://github.com/montagejs/todo-mvc) in your desktop.
+2. Use your command line tool to navigate to the cloned todo-mvc directory and install the modules required to run the demo:
 
-While it would be technically possible to bundle the framework and manually wrap unminified application code in an AMD-compatible manner for the purposes of this example, it would not give an accurate impression of how to author Montage applications.
+   ```
+   cd todo-mvc
+   npm update
+   ```
+   
+3. Spin up your preferred HTTP server and point your browser to the associated port.
 
-In the future we hope to aid debugging deployed applications with sourcemaps.
+    > During development MontageJS applications rely on XHR to load their various components and modules, which is why you will need a web server to serve the demo.
+    > If you happen to have [minit](https://github.com/montagejs/minit), the Montage Initializer, installed (`npm install minit -g`) you can run `minit serve` from within the demo directory to set up a server on demand.
+    
+## A Note about the Source
+You are looking at the nonminified source code of the application. MontageJS application development is divided into a development (creating the app) phase and a production (compiling the app) phase. During production—before submitting the application to the TodoMVC site—we use the Montage Optimizer (Mop) to minify the source code and create "bundles" (files) that consist of the application code and its dependencies, ready for deployment.
+
+## Credit
+
+This TodoMVC application was created by [Montagejs](http://montagejs.org).
