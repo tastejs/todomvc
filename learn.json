@@ -1345,8 +1345,8 @@
 		}]
 	},
 	"montage": {
-		"name": "Montage",
-		"description": "The Montage framework lets you develop rich HTML5 applications optimized for today and tomorrow’s range of connected devices. You can build rich client-side UI’s, sharing packages and modules with your NodeJS server. Montage opens a new world of opportunity for web developers.",
+		"name": "MontageJS",
+		"description": "MontageJS is a framework for building rich HTML5 applications optimized for today and tomorrow’s range of connected devices. It offers time-tested design patterns and software principles, a modular architecture, a friendly method to achieve a clean separation of concerns, and supports sharing packages and modules with your NodeJS server.",
 		"homepage": "montagejs.org",
 		"examples": [{
 			"name": "Architecture Example",
@@ -1356,24 +1356,24 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Quick Start",
-				"url": "http://montagejs.org/docs/quick-start.html"
+				"url": "http://montagejs.org/docs/montagejs-setup.html"
 			}, {
 				"name": "Documentation",
 				"url": "http://montagejs.org/docs"
 			}, {
 				"name": "API Reference",
-				"url": "http://montagejs.org/apis"
+				"url": "http://montagejs.org/api"
 			}, {
-				"name": "Applications built with Montage",
+				"name": "Applications built with MontageJS",
 				"url": "http://montagejs.org/apps"
 			}, {
-				"name": "Montage on GitHub",
+				"name": "MontageJS on GitHub",
 				"url": "https://github.com/montagejs/montage"
 			}, {
-				"name": "Minit - Montage Initializer",
+				"name": "Minit - MontageJS Initializer",
 				"url": "https://github.com/montagejs/minit"
 			}, {
-				"name": "MOP - Montage Optimizer",
+				"name": "MOP - MontageJS Optimizer",
 				"url": "https://github.com/montagejs/mop"
 			}]
 		}, {
@@ -1381,6 +1381,9 @@
 			"links": [{
 				"name": "YouTube - Getting Started",
 				"url": "http://www.youtube.com/watch?v=JfT1ML200JI"
+			}, {
+				"name": "My First MontageJS Application",
+				"url": "http://renaun.com/blog/2013/05/my-first-montagejs-application/"
 			}]
 		}, {
 			"heading": "Community",
@@ -1392,7 +1395,7 @@
 				"url": "https://groups.google.com/forum/?fromgroups#!forum/montagejs"
 			}, {
 				"name": "Montage on Twitter",
-				"url": "http://twitter.com/montage_js"
+				"url": "http://twitter.com/montagejs"
 			}, {
 				"name": "Montage on Google +",
 				"url": "https://plus.google.com/116915300739108010954"

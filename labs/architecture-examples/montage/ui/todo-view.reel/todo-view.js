@@ -1,7 +1,7 @@
-var Montage = require('montage').Montage;
 var Component = require('montage/ui/component').Component;
 
-exports.TodoView = Montage.create(Component, {
+exports.TodoView = Component.specialize({
+
 	todo: {
 		value: null
 	},
@@ -10,21 +10,21 @@ exports.TodoView = Montage.create(Component, {
 		value: null
 	},
 
-	didCreate: {
-		value: function () {
-			Object.defineBinding(this, 'isCompleted', {
-				boundObject: this,
-				boundObjectPropertyPath: 'todo.completed',
-				oneway: true
+	constructor: {
+		value: function TodoView() {
+			this.defineBinding('isCompleted', {
+				'<-': 'todo.completed'
 			});
 		}
 	},
 
-	prepareForDraw: {
-		value: function () {
-			this.element.addEventListener('dblclick', this, false);
-			this.element.addEventListener('blur', this, true);
-			this.element.addEventListener('submit', this, false);
+	enterDocument: {
+		value: function (firstTime) {
+			if (firstTime) {
+				this.element.addEventListener('dblclick', this, false);
+				this.element.addEventListener('blur', this, true);
+				this.element.addEventListener('submit', this, false);
+			}
 		}
 	},
 
@@ -36,7 +36,7 @@ exports.TodoView = Montage.create(Component, {
 
 	dispatchDestroy: {
 		value: function () {
-			this.dispatchEventNamed('destroyTodo', true, true, {todo: this.todo})
+			this.dispatchEventNamed('destroyTodo', true, true, {todo: this.todo});
 		}
 	},
 
@@ -59,6 +59,12 @@ exports.TodoView = Montage.create(Component, {
 				return;
 			}
 
+			if (value) {
+				this.classList.add('editing');
+			} else {
+				this.classList.remove('editing');
+			}
+
 			this._isEditing = value;
 			this.needsDraw = true;
 		}
@@ -77,23 +83,29 @@ exports.TodoView = Montage.create(Component, {
 				return;
 			}
 
+			if (value) {
+				this.classList.add('completed');
+			} else {
+				this.classList.remove('completed');
+			}
+
 			this._isCompleted = value;
 			this.needsDraw = true;
 		}
 	},
 
 	captureBlur: {
-		value: function (e) {
-			if (this.isEditing && this.editInput.element === e.target) {
+		value: function (evt) {
+			if (this.isEditing && this.editInput.element === evt.target) {
 				this._submitTitle();
 			}
 		}
 	},
 
 	handleSubmit: {
-		value: function (e) {
+		value: function (evt) {
 			if (this.isEditing) {
-				e.preventDefault();
+				evt.preventDefault();
 				this._submitTitle();
 			}
 		}
@@ -101,9 +113,10 @@ exports.TodoView = Montage.create(Component, {
 
 	_submitTitle: {
 		value: function () {
+
 			var title = this.editInput.value.trim();
 
-			if (title === '') {
+			if ('' === title) {
 				this.dispatchDestroy();
 			} else {
 				this.todo.title = title;
@@ -116,18 +129,11 @@ exports.TodoView = Montage.create(Component, {
 	draw: {
 		value: function () {
 			if (this.isEditing) {
-				this.element.classList.add('editing');
 				this.editInput.element.focus();
 			} else {
-				this.element.classList.remove('editing');
 				this.editInput.element.blur();
-			}
-
-			if (this.isCompleted) {
-				this.element.classList.add('completed');
-			} else {
-				this.element.classList.remove('completed');
 			}
 		}
 	}
+
 });

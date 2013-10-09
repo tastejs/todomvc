@@ -1,69 +1,73 @@
 <!doctype html>
-<html lang="en">
+<html>
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>TodoView</title>
+
 		<script type="text/montage-serialization">
-			{
-				"owner": {
-					"properties": {
-						"element": {"#": "todoView"},
-						"editInput": {"@": "editInput"}
-					}
+		{
+			"owner": {
+				"properties": {
+					"element": {"#": "todoView"},
+					"editInput": {"@": "editInput"}
+				}
+			},
+
+			"todoTitle": {
+				"prototype": "montage/ui/text.reel",
+				"properties": {
+					"element": {"#": "todoTitle"}
 				},
-				"todoTitle": {
-					"prototype": "montage/ui/dynamic-text.reel",
-					"properties": {
-						"element": {"#": "todoTitle"}
-					},
-					"bindings": {
-						"value": {"<-": "@owner.todo.title"}
-					}
+				"bindings": {
+					"value": {"<-": "@owner.todo.title"}
+				}
+			},
+
+			"todoCompletedCheckbox": {
+				"prototype": "native/ui/input-checkbox.reel",
+				"properties": {
+					"element": {"#": "todoCompletedCheckbox"}
 				},
-				"todoCompletedCheckbox": {
-					"prototype": "montage/ui/native/input-checkbox.reel",
-					"properties": {
-						"element": {"#": "todoCompletedCheckbox"}
-					},
-					"bindings": {
-						"checked": {"<->": "@owner.todo.completed"}
-					}
+				"bindings": {
+					"checked": {"<->": "@owner.todo.completed"}
+				}
+			},
+
+			"destroyButton": {
+				"prototype": "native/ui/button.reel",
+				"properties": {
+					"element": {"#": "destroyButton"}
 				},
-				"destroyButton": {
-					"prototype": "montage/ui/native/button.reel",
-					"properties": {
-						"element": {"#": "destroyButton"}
-					},
-					"listeners": [
-						{
-							"type": "action",
-							"listener": {"@": "owner"},
-							"capture": true
-						}
-					]
-				},
-				"editInput": {
-					"prototype": "montage/ui/native/input-text.reel",
-					"properties": {
-						"element": {"#": "edit-input"}
-					},
-					"bindings": {
-						"value": {"<-": "@owner.todo.title"}
+				"listeners": [
+					{
+						"type": "action",
+						"listener": {"@": "owner"},
+						"capture": true
 					}
+				]
+			},
+
+			"editInput": {
+				"prototype": "native/ui/input-text.reel",
+				"properties": {
+					"element": {"#": "edit-input"}
+				},
+				"bindings": {
+					"value": {"<-": "@owner.todo.title"}
 				}
 			}
+		}
 		</script>
 	</head>
 	<body>
 		<li data-montage-id="todoView">
 			<div class="view">
-				<input data-montage-id="todoCompletedCheckbox" class="toggle" type="checkbox">
+				<input type="checkbox" data-montage-id="todoCompletedCheckbox" class="toggle">
 				<label data-montage-id="todoTitle"></label>
 				<button data-montage-id="destroyButton" class="destroy"></button>
 			</div>
 			<form data-montage-id="edit">
-				<input data-montage-id="edit-input" class="edit" value="Rule the web">
+				<input type="text" data-montage-id="edit-input" class="edit" value="Rule the web">
 			</form>
 		</li>
 	</body>
