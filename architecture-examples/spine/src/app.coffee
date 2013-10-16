@@ -14,7 +14,7 @@ class TodoApp extends Spine.Controller
 	events:
 		'keyup #new-todo':        'new'
 		'click #toggle-all':      'toggleAll'
-		'click #clear-completed': 'clearCompleted'
+		'click #clear-completed': 'clearCompletedItem'
 
 	constructor: ->
 		super
@@ -65,7 +65,7 @@ class TodoApp extends Spine.Controller
 			todo.updateAttribute 'completed', e.target.checked
 			todo.trigger 'update', todo
 
-	clearCompleted: ->
+	clearCompletedItem: ->
 		Todo.destroyCompleted()
 
 	toggleElems: =>
