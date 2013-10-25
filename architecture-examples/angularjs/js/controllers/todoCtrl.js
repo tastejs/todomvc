@@ -17,7 +17,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 		$scope.completedCount = todos.length - $scope.remainingCount;
 		$scope.allChecked = !$scope.remainingCount;
 		if (newValue !== oldValue) { // This prevents unneeded calls to the local storage
-			todoStorage.put(todos);
+			todoStorage.put(angular.copy(this.todos));
 		}
 	}, true);
 
