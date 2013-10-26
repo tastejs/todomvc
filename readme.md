@@ -86,7 +86,7 @@ Live demos are available on our [website](http://todomvc.com)
 
 ## View & Run in Web IDE
 
-Click on the button below to view the code in a Web IDE. Feel free to edit the code then run it from Tools->Preview->Project.
+Click on the button below to view the code in a Web IDE. Feel free to edit the code and then run it all from your browser.
 
 [![IDE](https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/editcloud9.png)](https://c9.io/open/git/?url=git://github.com/tastejs/todomvc.git)
 [![IDE](https://codio-public.s3.amazonaws.com/sharing/demo-in-ide.png)](https://codio.com/p/create/?from_github=tastejs/todomvc)
