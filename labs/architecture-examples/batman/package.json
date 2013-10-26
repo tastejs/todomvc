@@ -7,7 +7,8 @@
     "coffee-script": "~1.6.2"
   },
   "scripts": {
-    "compile": "coffee -c app.coffee"
+    "compile": "coffee -c app.coffee",
+    "watch": "coffee -wc app.coffee"
   },
   "private": true
 }
