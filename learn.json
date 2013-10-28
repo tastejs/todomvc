@@ -874,35 +874,35 @@
 		}]
 	},
 	"exoskeleton": {
-	  "name": "Exoskeleton",
-	  "description": "A faster and leaner Backbone for your HTML5 apps.",
-	  "homepage": "http://exosjs.com",
-	  "source_path": [{
-	    "name": "Architecture Example",
-	    "url": "labs/architecture-examples/exoskeleton"
-	  }],
-	  "link_groups": [{
-	    "heading": "Official Resources",
-	    "links": [{
-	      "name": "Documentation",
-	      "url": "http://backbonejs.org"
-	    }, {
-	      "name": "Exoskeleton on GitHub",
-	      "url": "https://github.com/paulmillr/exoskeleton"
-	    }]
-	  }, {
-	    "heading": "Community",
-	    "links": [{
-	      "name": "Exoskeleton on StackOverflow",
-	      "url": "http://stackoverflow.com/questions/tagged/exoskeleton"
-	    }, {
-	      "name": "Backbone on StackOverflow",
-	      "url": "http://stackoverflow.com/questions/tagged/backbone.js"
-	    }, {
-	      "name": "Exoskeleton's author on Twitter",
-	      "url": "http://twitter.com/paulmillr"
-	    }]
-	  }]
+		"name": "Exoskeleton",
+		"description": "A faster and leaner Backbone for your HTML5 apps.",
+		"homepage": "exosjs.com",
+		"source_path": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/exoskeleton"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://backbonejs.org"
+			}, {
+				"name": "Exoskeleton on GitHub",
+				"url": "https://github.com/paulmillr/exoskeleton"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Exoskeleton on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/exoskeleton"
+			}, {
+				"name": "Backbone on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/backbone.js"
+			}, {
+				"name": "Exoskeleton's author on Twitter",
+				"url": "http://twitter.com/paulmillr"
+			}]
+		}]
 	},
 	"extjs": {
 		"name": "Ext JS",

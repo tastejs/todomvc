@@ -4,6 +4,7 @@
 
 - New since 1.2:
     - Durandal
+    - Exoskeleton
 
 ## 1.2 - 2013-08-06
 
