@@ -68,12 +68,9 @@
 			this.setState({todos: newTodos});
 		},
 
-		toggle: function (todo) {
-			var newTodos = this.state.todos.map(function (t) {
-				if (t !== todo) {
-					return t;
-				}
-				return Utils.extend({}, t, {completed: !todo.completed});
+		toggle: function (todoToToggle) {
+			var newTodos = this.state.todos.map(function (todo) {
+        return todo !== todoToToggle ? todo : Utils.extend({}, todo, {completed: !todo.completed});
 			});
 
 			this.setState({todos: newTodos});
@@ -95,12 +92,9 @@
 			});
 		},
 
-		save: function (todo, text) {
-			var newTodos = this.state.todos.map(function (t) {
-				if (t !== todo) {
-					return t;
-				}
-				return Utils.extend({}, t, {title: text});
+		save: function (todoToSave, text) {
+			var newTodos = this.state.todos.map(function (todo) {
+        return todo !== todoToSave ? todo : Utils.extend({}, todo, {title: text});
 			});
 
 			this.setState({todos: newTodos, editing: null});
@@ -152,9 +146,9 @@
 				);
 			}, this);
 
-			var activeTodoCount = this.state.todos.filter(function (todo) {
-				return !todo.completed;
-			}).length;
+      var activeTodoCount = this.state.todos.reduce(function(accum, todo) {
+        return todo.completed ? accum : accum + 1;
+      }, 0);
 
 			var completedCount = this.state.todos.length - activeTodoCount;
 
