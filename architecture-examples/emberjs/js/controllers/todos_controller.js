@@ -8,8 +8,8 @@ Todos.TodosController = Ember.ArrayController.extend({
 			var title, todo;
 
 			// Get the todo title set by the "New Todo" text field
-			title = this.get('newTitle');
-			if (!title.trim()) {
+			title = this.get('newTitle').trim();
+			if (!title) {
 				return;
 			}
 
