@@ -1,10 +1,11 @@
+/*global define */
+
 define(function (require) {
 	'use strict';
 
 	var View = require('lavaca/mvc/View');
 	var Promise = require('lavaca/util/Promise');
 	var $ = require('$');
-
 	var _UNDEFINED;
 
 	/**
@@ -15,8 +16,10 @@ define(function (require) {
 	var CollectionView = View.extend(function CollectionView() {
 		// Call the super class' constructor
 		View.apply(this, arguments);
+
 		this.el.empty();
 		this.collectionViews = [];
+
 		this.mapEvent({
 			model: {
 				'addItem': this.onItemEvent.bind(this),
@@ -32,23 +35,25 @@ define(function (require) {
 		 * @type String
 		 */
 		className: 'collection-view',
+
 		/**
-		 * A function that should return a jQuery element
-		 * that will be used as the `el` for a particular
-		 * item in the collection. The function is passed
-		 * two parameters, the model and the index.
+		 * A function that should return a jQuery element that will be used as the
+		 * `el` for a particular item in the collection. The function is passed two
+		 * parameters, the model and the index.
 		 * @property itemEl
 		 * @type jQuery
 		 */
 		itemEl: function () {
 			return $('<div/>'); // default to <li>?
 		},
+
 		/**
 		 * The view type used for each item view
 		 * @property TView
 		 * @type lavaca.mvc.View
 		 */
 		TView: View,
+
 		/**
 		 * Initializes and renders all item views to be shown
 		 * @method render
@@ -57,13 +62,17 @@ define(function (require) {
 			var models = this.model.filter(this.modelFilter.bind(this));
 			var fragment = document.createDocumentFragment();
 			var view;
+
 			models.forEach(function (item) {
 				view = this.addItemView(item);
 				fragment.appendChild(view.el[0]);
 			}.bind(this));
+
 			this.trigger('rendersuccess', {html: fragment});
+
 			return new Promise().resolve();
 		},
+
 		/**
 		 * Creates a new view and inserts it into the DOM at the
 		 * provided index
@@ -79,10 +88,12 @@ define(function (require) {
 			if (insertIndex < 0 || insertIndex > count) {
 				throw 'Invalid item view insertion index';
 			}
+
 			view = new this.TView(this.itemEl(model, index), model, this);
 			this.childViews.set(view.id, view);
 			this.collectionViews.splice(insertIndex, 0, view);
 			this.applyChildViewEvent(view);
+
 			if (insertIndex === 0) {
 				this.el.prepend(view.el[0]);
 			} else if (insertIndex === count) {
@@ -93,10 +104,12 @@ define(function (require) {
 					.eq(insertIndex - 1)
 					.after(view.el[0]);
 			}
+
 			return view;
 		},
+
 		/**
-     * adds listeners for a specific child view 
+     * adds listeners for a specific child view
      * @method applyChildViewEvent
      * @param {Object} [view] the view to add listeners to
      */
@@ -109,6 +122,7 @@ define(function (require) {
 				}
 			}
 		},
+
 		/**
 		 * Remove and disposes a view
 		 * @method removeItemView
@@ -120,6 +134,7 @@ define(function (require) {
 			view.el.remove();
 			view.dispose();
 		},
+
 		/**
 		 * Returns the index of a view
 		 * @method getViewIndexByModel
@@ -136,6 +151,7 @@ define(function (require) {
 			});
 			return collectionViewIndex;
 		},
+
 		/**
 		 * The filter to run against the collection
 		 * @method modelFilter
@@ -145,8 +161,10 @@ define(function (require) {
 		modelFilter: function () {
 			return true;
 		},
+
 		/**
-		 * Event handler for all collection events that produces all add, remove, and move actions
+		 * Event handler for all collection events that produces all add, remove,
+		 * and move actions
 		 * @method modelFilter
 		 * @param {Obejct} [e] the event
 		 */
@@ -154,25 +172,31 @@ define(function (require) {
 			var models = this.model.filter(this.modelFilter.bind(this));
 			var i = -1;
 			var model, view, viewIndex, oldIndex, modelIndex, temp;
+
 			// Add new views
 			while (model = models[++i]) {
 				viewIndex = this.getViewIndexByModel(model);
+
 				if (viewIndex === -1) {
 					this.addItemView(model, i);
 				}
 			}
+
 			// Remove Old Views
 			i = -1;
 			while (view = this.collectionViews[++i]) {
 				modelIndex = models.indexOf(view.model);
+
 				if (modelIndex === -1) {
 					this.removeItemView(i);
 				}
 			}
+
 			// Move any existing views
 			i = -1;
 			while (model = models[++i]) {
 				oldIndex = this.getViewIndexByModel(model);
+
 				if (oldIndex !== i) {
 					this.swapViews(this.collectionViews[i], this.collectionViews[oldIndex]);
 					temp = this.collectionViews[oldIndex];
@@ -181,6 +205,7 @@ define(function (require) {
 				}
 			}
 		},
+
 		/**
 		 * Swaps two views in the DOM
 		 * @method swapViews
@@ -192,12 +217,11 @@ define(function (require) {
 			var b = viewB.el[0];
 			var aParent = a.parentNode;
 			var aSibling = a.nextSibling === b ? a : a.nextSibling;
+
 			b.parentNode.insertBefore(a, b);
 			aParent.insertBefore(b, aSibling);
 		}
-
 	});
 
 	return CollectionView;
-
 });

@@ -1,3 +1,5 @@
+/*global define */
+
 define(function (require) {
 	'use strict';
 
@@ -13,6 +15,7 @@ define(function (require) {
 	var TodosCollectionView = CollectionView.extend(function TodosCollectionView() {
 		CollectionView.apply(this, arguments);
 		this.mapChildViewEvent('removeView', this.onRemoveView.bind(this), this.TView);
+
 		this.render();
 	}, {
 		/**
@@ -21,29 +24,32 @@ define(function (require) {
 		 * @type String
 		 */
 		className: 'todos-collection-view',
+
 		/**
-		 * A function that should return a jQuery element
-		 * that will be used as the `el` for a particular
-		 * item in the collection. The function is passed
-		 * two parameters, the model and the index.
+		 * A function that should return a jQuery element that will be used as the
+		 * `el` for a particular item in the collection. The function is passed two
+		 * parameters, the model and the index.
 		 * @property itemEl
 		 * @type jQuery
 		 */
 		itemEl: function () {
 			return $('<li/>');
 		},
+
 		/**
 		 * The view type used for each item view
 		 * @property itemEl
 		 * @type lavaca.mvc.View
 		 */
 		TView: TodoItemView,
+
 		/**
 		 * Executes when the template renders successfully
 		 * @method onRenderSuccess
 		 *
-		 * @param {Event} e  The render event. This object should have a string property named "html"
-		 *   that contains the template's rendered HTML output.
+		 * @param {Event} e  The render event. This object should have a string
+		 *                   property named "html" that contains the template's
+		 *                   rendered HTML output.
 		 */
 		onRenderSuccess: function (e) {
 			this.el.html(e.html);
@@ -54,6 +60,7 @@ define(function (require) {
 			this.el.attr('data-view-id', this.id);
 			this.hasRendered = true;
 		},
+
 		/**
 		 * The filter to run against the collection
 		 * @method modelFilter
@@ -68,6 +75,7 @@ define(function (require) {
 				return true;
 			}
 		},
+
 		/**
 		 * Removes a view when removeView event it triggered
 		 * @method swapViews
@@ -77,9 +85,7 @@ define(function (require) {
 		onRemoveView: function (e) {
 			this.model.remove(e.model);
 		}
-
 	});
 
 	return TodosCollectionView;
-
 });

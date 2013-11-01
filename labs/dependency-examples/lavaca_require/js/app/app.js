@@ -1,3 +1,5 @@
+/*global define */
+
 define(function (require) {
 	'use strict';
 
@@ -7,12 +9,13 @@ define(function (require) {
 	var $ = require('$');
 	require('lavaca/ui/DustTemplate');
 
-	// Uncomment this section to use hash-based browser history instead of HTML5 history.
-	// You should use hash-based history if there's no server-side component supporting your app's routes.
+	// Uncomment this section to use hash-based browser history instead of HTML5
+	// history. You should use hash-based history if there's no server-side
+	// component supporting your app's routes.
 	History.overrideStandardsMode();
 
-	// Override Lavaca's default view-root selector to match
-	// the TodoMVC template file better
+	// Override Lavaca's default view-root selector to match the TodoMVC template
+	// file better
 	Application.prototype.viewRootSelector = '#todoapp';
 
 	/**
@@ -27,10 +30,10 @@ define(function (require) {
 			'/active': [TodosController, 'home', {filter: 'active'}],
 			'/completed': [TodosController, 'home', {filter: 'completed'}]
 		});
+
 		// Patch learn sidebar links so they get ignored by the router
 		$(document.body).find('aside.learn a').addClass('ignore');
 	});
 
 	return app;
-
 });

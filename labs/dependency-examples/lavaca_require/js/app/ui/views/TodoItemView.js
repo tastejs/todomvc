@@ -1,3 +1,5 @@
+/*global define */
+
 define(function (require) {
 	'use strict';
 
@@ -16,6 +18,7 @@ define(function (require) {
 	var TodosView = View.extend(function TodosView() {
 		// Call the super class' constructor
 		View.apply(this, arguments);
+
 		this.mapEvent({
 			'input.toggle': {
 				change: toggleComplete.bind(this)
@@ -34,6 +37,7 @@ define(function (require) {
 				'change': this.onModelChange.bind(this)
 			}
 		});
+
 		this.render();
 	}, {
 		/**
@@ -42,12 +46,14 @@ define(function (require) {
 		 * @type String
 		 */
 		template: 'templates/todo-item',
+
 		/**
 		 * A class name added to the view container
 		 * @property className
 		 * @type String
 		 */
 		className: 'todo-item',
+
 		/**
 		 * Executes when the template renders successfully
 		 * @method onRenderSuccess
@@ -56,6 +62,7 @@ define(function (require) {
 			View.prototype.onRenderSuccess.apply(this, arguments);
 			this.checkIfCompleted();
 		},
+
 		/**
 		 * Redraws template with model
 		 * @method redraw
@@ -64,9 +71,10 @@ define(function (require) {
 			View.prototype.redraw.apply(this, arguments)
 				.then(this.checkIfCompleted.bind(this));
 		},
+
 		/**
-		 * Adds/Removes a completed class to view element,
-		 * this wouldnt be needed if we restructured some DOM or CSS
+		 * Adds/Removes a completed class to view element, this wouldnt be needed if
+		 * we restructured some DOM or CSS
 		 * @method checkIfCompleted
 		 */
 		checkIfCompleted: function () {
@@ -77,6 +85,7 @@ define(function (require) {
 				this.el.removeClass('completed');
 			}
 		},
+
 		/**
 		 * Redraws template when model changes
 		 * @method onModelChange
@@ -86,7 +95,6 @@ define(function (require) {
 				this.redraw();
 			}
 		}
-
 	});
 
 	// Set the completion state of a single model
@@ -97,12 +105,14 @@ define(function (require) {
 	// Start editing a Todo
 	function startEditing() {
 		this.el.addClass('editing');
+
 		this.$input.focus();
-		this.$input.val(this.model.get('title')); // resetting value fixes text selection on focus
+
+		// resetting value fixes text selection on focus
+		this.$input.val(this.model.get('title'));
 	}
 
-	// Commit the edit when the ENTER key
-	// is pressed
+	// Commit the edit when the ENTER key is pressed
 	function editTodo(e) {
 		if (e.which === ENTER_KEY) {
 			endEditing.call(this);
@@ -114,7 +124,9 @@ define(function (require) {
 
 	function endEditing() {
 		var trimmedValue = this.$input.val().trim();
+
 		this.el.removeClass('editing');
+
 		if (trimmedValue) {
 			this.model.set('title', trimmedValue);
 		} else {
@@ -128,5 +140,4 @@ define(function (require) {
 	}
 
 	return TodosView;
-
 });

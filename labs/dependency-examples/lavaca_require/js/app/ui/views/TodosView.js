@@ -1,3 +1,5 @@
+/*global define */
+
 define(function (require) {
 	'use strict';
 
@@ -16,10 +18,11 @@ define(function (require) {
 	var TodosView = PageView.extend(function TodosView() {
 		// Call the super class' constructor
 		PageView.apply(this, arguments);
+
 		// Map collection view to #todo-list
 		this.mapChildView('#todo-list', TodosCollectionView, this.model);
-		// Map DOM and model events to event handler
-		// functions declared below
+
+		// Map DOM and model events to event handler functions declared below
 		this.mapEvent({
 			'#new-todo': {
 				keypress: addTodo.bind(this)
@@ -46,27 +49,27 @@ define(function (require) {
 		 * The name of the template used by the view
 		 */
 		template: 'templates/todos',
+
 		/**
 		 * @field {String} className
 		 * @default 'example'
 		 * A class name added to the view container
 		 */
 		className: 'todos'
-
 	});
 
 	/* ---- Event Handlers ---- */
 
-	// Whenever the model changes, set a timeout
-	// that will re-render the view's template
-	// and update the DOM. Clear the timeout with
-	// every call to make sure that the redraw
-	// only happens once even if multiple changes
-	// are made in the same run loop
+	// Whenever the model changes, set a timeout that will re-render the view's
+	// template and update the DOM. Clear the timeout with every call to make sure
+	// that the redraw only happens once even if multiple changes are made in the
+	// same run loop
 	function modelChange() {
 		clearTimeout(this.redrawTimeout);
+
 		this.redrawTimeout = setTimeout(function () {
 			var count = this.model.count();
+
 			if (count === 0) {
 				this.countIsZero = true;
 				this.redraw();
@@ -84,16 +87,20 @@ define(function (require) {
 	function addTodo(e) {
 		var input = e.currentTarget;
 		var val;
+
 		if (e.which === ENTER_KEY) {
 			val = input.value.trim();
+
 			if (val) {
 				this.model.add({
 					id: Date.now(),
 					title: val,
 					completed: false
 				});
+
 				input.value = '';
 			}
+
 			e.preventDefault();
 		}
 	}
@@ -111,5 +118,4 @@ define(function (require) {
 	}
 
 	return TodosView;
-
 });
