@@ -1245,6 +1245,40 @@
 			}]
 		}]
 	},
+	"lavaca": {
+		"name": "Lavaca",
+		"description": "A curated collection of tools for building mobile web applications.",
+		"homepage": "getlavaca.com",
+		"examples": [{
+			"name": "Dependency Example",
+			"url": "labs/dependency-examples/lavaca_require"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Guide",
+				"url": "http://getlavaca.com/#/guide"
+			}, {
+				"name": "API Reference",
+				"url": "http://getlavaca.com/#/apidoc"
+			}, {
+				"name": "Live examples",
+				"url": "http://getlavaca.com/#/examples"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "Why Lavaca is the only sane HTML5 mobile development framework out there",
+				"url": "http://povolotski.me/2013/09/20/lavaca-intro/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Lavaca on Twitter",
+				"url": "http://twitter.com/getlavaca"
+			}]
+		}]
+	},
 	"maria": {
 		"name": "Maria",
 		"description": "The MVC framework for JavaScript applications. The real MVC. The Smalltalk MVC. The Gang of Four MVC.",

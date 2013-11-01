@@ -79,6 +79,7 @@ We also have a number of in-progress applications in Labs:
 - [Aria Templates](http://ariatemplates.com/)
 - [Enyo + Backbone.js](http://enyojs.com/)
 - [SAPUI5](http://scn.sap.com/community/developer-center/front-end)
+- [Lavaca](http://getlavaca.com) + [RequireJS](http://requirejs.org) (using AMD)
 
 ## Live demos
 
