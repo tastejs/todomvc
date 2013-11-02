@@ -61,9 +61,9 @@
 		toggleAll: function (event) {
 			var checked = event.target.checked;
 
-      // Note: it's usually better to use immutable data structures since they're easier to
-      // reason about and React works very well with them. That's why we use map() and filter()
-      // everywhere instead of mutating the array or todo items themselves.
+			// Note: it's usually better to use immutable data structures since they're easier to
+			// reason about and React works very well with them. That's why we use map() and filter()
+			// everywhere instead of mutating the array or todo items themselves.
 			var newTodos = this.state.todos.map(function (todo) {
 				return Utils.extend({}, todo, {completed: checked});
 			});
@@ -73,7 +73,7 @@
 
 		toggle: function (todoToToggle) {
 			var newTodos = this.state.todos.map(function (todo) {
-        return todo !== todoToToggle ? todo : Utils.extend({}, todo, {completed: !todo.completed});
+				return todo !== todoToToggle ? todo : Utils.extend({}, todo, {completed: !todo.completed});
 			});
 
 			this.setState({todos: newTodos});
@@ -97,7 +97,7 @@
 
 		save: function (todoToSave, text) {
 			var newTodos = this.state.todos.map(function (todo) {
-        return todo !== todoToSave ? todo : Utils.extend({}, todo, {title: text});
+				return todo !== todoToSave ? todo : Utils.extend({}, todo, {title: text});
 			});
 
 			this.setState({todos: newTodos, editing: null});
@@ -149,9 +149,9 @@
 				);
 			}, this);
 
-      var activeTodoCount = this.state.todos.reduce(function(accum, todo) {
-        return todo.completed ? accum : accum + 1;
-      }, 0);
+			var activeTodoCount = this.state.todos.reduce(function(accum, todo) {
+				return todo.completed ? accum : accum + 1;
+			}, 0);
 
 			var completedCount = this.state.todos.length - activeTodoCount;
 
