@@ -2,7 +2,7 @@ library todomvc;
 
 import 'dart:html';
 import 'dart:math';
-import 'dart:json' as JSON;
+import 'dart:convert';
 
 part 'TodoWidget.dart';
 part 'TodoApp.dart';
@@ -19,11 +19,12 @@ class Todo {
 	Todo(String this.id, String this.title, {bool this.completed : false});
 
 	Todo.fromJson(Map json) {
-		id = json['id'];
-		title = json['title'];
-		completed = json['completed'];
-	}
+	    id = json['id'];
+	    title = json['title'];
+	    completed = json['completed'];
+	  }
 
+	// this is automatically called by JSON.encode
 	Map toJson() {
 		return {'id': id, 'title': title, 'completed': completed};
 	}
