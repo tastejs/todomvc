@@ -115,7 +115,7 @@ Sindre is a Web Developer who drives core development, quality control and appli
 #### [Pascal Hartig](https://github.com/passy) - Developer
 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
-Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
+Pascal is a Front-end Engineer at Twitter with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
 
 #### [Stephen Sawchuk](https://github.com/stephenplusplus) - Developer
 
