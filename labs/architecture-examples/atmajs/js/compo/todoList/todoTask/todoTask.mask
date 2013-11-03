@@ -1,0 +1,38 @@
+li.~[bind:completed ? 'completed'].~[bind:state]
+	// emit `edit` on `dblclick` event
+	x-signal = 'dblclick: edit'
+	// bind to `completed` status and parent's `action` + change display property
+	xx-visible = '_isVisible(completed, closest(":todoList").action)' {
+
+		.view {
+			input.toggle type = 'checkbox' {
+				:dualbind
+					value = 'completed'
+					// emit signal when INPUTs state changes via user input
+					x-signal = 'dom: taskChanged'
+					;
+			}
+
+			label > '~[bind:title]';
+			button.destroy x-signal = 'click: taskRemoved';
+		}
+
+		// custom `todo:input` control
+		todo:input.edit
+			preserve
+
+			// emit signal on custom event `cancel`
+			// Note: we could also listen direct for the `cancel` event in the
+			//		controller
+			x-signal = 'cancel: inputCanceled' {
+
+				:dualbind
+					value = 'title'
+					// change model on custom event `enter` defined in the control
+					change-event = 'enter'
+					// emit `taskChange` signal each time model is changed
+					// via user input
+					x-signal = 'dom: taskChanged'
+					;
+			}
+}
