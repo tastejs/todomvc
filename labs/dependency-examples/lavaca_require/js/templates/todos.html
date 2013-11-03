@@ -1,0 +1,26 @@
+<header id="header">
+	<h1>todos</h1>
+	<input id="new-todo" placeholder="What needs to be done?" autofocus>
+</header>
+{?items}
+	<section id="main">
+		<input id="toggle-all" type="checkbox" {?allComplete}checked{/allComplete}>
+		<label for="toggle-all">Mark all as complete</label>
+		<ul id="todo-list" {@eq key=filter value="active"}class="active"{/eq}{@eq key=filter value="completed"}class="completed"{/eq}></ul>
+	</section>
+	<footer id="footer">
+		<span id="todo-count"><strong>{itemsLeft}</strong> item{@ne key=itemsLeft value="1" type="number"}s{/ne} left</span>
+		<ul id="filters">
+			<li>
+				<a {@eq key=filter value="all"}class="selected"{/eq} href="/">All</a>
+			</li>
+			<li>
+				<a {@eq key=filter value="active"}class="selected"{/eq} href="/active">Active</a>
+			</li>
+			<li>
+				<a {@eq key=filter value="completed"}class="selected"{/eq} href="/completed">Completed</a>
+			</li>
+		</ul>
+		{@gt key=itemsCompleted value="0"}<button id="clear-completed">Clear completed ({itemsCompleted})</button>{/gt}
+	</footer>
+{/items}

@@ -1,0 +1,10 @@
+{
+  "name": "todomvc-exoskeleton",
+  "version": "0.0.0",
+  "dependencies": {
+    "exoskeleton": "~0.3.0",
+    "microtemplates": "~0.1.0",
+    "todomvc-common": "~0.1.4",
+    "backbone.localStorage": "git://github.com/paulmillr/Backbone.localStorage.git#9c225b37bdea4ac21d4b2445fa8962fe74e3175b"
+  }
+}

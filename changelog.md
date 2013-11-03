@@ -4,6 +4,8 @@
 
 - New since 1.2:
     - Durandal
+    - Exoskeleton
+    - Atma.js
 
 ## 1.2 - 2013-08-06
 

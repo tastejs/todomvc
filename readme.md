@@ -79,10 +79,18 @@ We also have a number of in-progress applications in Labs:
 - [Aria Templates](http://ariatemplates.com/)
 - [Enyo + Backbone.js](http://enyojs.com/)
 - [SAPUI5](http://scn.sap.com/community/developer-center/front-end)
+- [Lavaca](http://getlavaca.com) + [RequireJS](http://requirejs.org) (using AMD)
 
 ## Live demos
 
 Live demos are available on our [website](http://todomvc.com)
+
+## View & Run in Web IDE
+
+Click on the button below to view the code in a Web IDE. Feel free to edit the code and then run it all from your browser.
+
+[![IDE](https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/editcloud9.png)](https://c9.io/open/git/?url=git://github.com/tastejs/todomvc.git)
+[![IDE](https://codio-public.s3.amazonaws.com/sharing/demo-in-ide.png)](https://codio.com/p/create/?from_github=tastejs/todomvc)
 
 
 ## Screenshot
@@ -107,7 +115,7 @@ Sindre is a Web Developer who drives core development, quality control and appli
 #### [Pascal Hartig](https://github.com/passy) - Developer
 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
-Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
+Pascal is a Front-end Engineer at Twitter with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
 
 #### [Stephen Sawchuk](https://github.com/stephenplusplus) - Developer
 

@@ -9,8 +9,8 @@ module todos {
     'use strict';
 
     var todomvc = angular.module('todomvc', [])
-            .controller('todoCtrl', TodoCtrl.prototype.injection())
-            .directive('todoBlur', TodoBlur.prototype.injection())
-            .directive('todoFocus', TodoFocus.prototype.injection())
-            .service('todoStorage', TodoStorage.prototype.injection());
+            .controller('todoCtrl', TodoCtrl)
+            .directive('todoBlur', todoBlur)
+            .directive('todoFocus', todoFocus)
+            .service('todoStorage', TodoStorage);
 }

@@ -26,7 +26,7 @@
     TodoApp.prototype.events = {
       'keyup #new-todo': 'new',
       'click #toggle-all': 'toggleAll',
-      'click #clear-completed': 'clearCompleted'
+      'click #clear-completed': 'clearCompletedItem'
     };
 
     function TodoApp() {
@@ -107,7 +107,7 @@
       });
     };
 
-    TodoApp.prototype.clearCompleted = function() {
+    TodoApp.prototype.clearCompletedItem = function() {
       return Todo.destroyCompleted();
     };
 

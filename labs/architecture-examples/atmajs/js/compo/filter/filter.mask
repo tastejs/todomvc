@@ -1,0 +1,6 @@
+ul #filters >
+	// take each filter item from the array model
+	% each = '.' >
+		li >
+			a.~[bind:selected] href = '#~[action]' >
+				'~[title]'

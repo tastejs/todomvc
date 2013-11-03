@@ -75,7 +75,7 @@
 				return;
 			}
 
-			this.model.create(e.target.value, function (data) {
+			this.model.create(e.target.value, function () {
 				input.value = '';
 				this._filter(true);
 			}.bind(this));
@@ -163,7 +163,11 @@
 	 */
 	Controller.prototype.removeItem = function (id) {
 		this.model.remove(id, function () {
-			this.$todoList.removeChild($$('[data-id="' + id + '"]'));
+			var elem = $$('[data-id="' + id + '"]');
+
+			if (elem) {
+				this.$todoList.removeChild(elem);
+			}
 		}.bind(this));
 
 		this._filter();

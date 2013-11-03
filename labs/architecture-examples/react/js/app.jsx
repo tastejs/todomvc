@@ -43,17 +43,15 @@
 			}
 
 			var val = this.refs.newField.getDOMNode().value.trim();
-			var todos;
 			var newTodo;
 
 			if (val) {
-				todos = this.state.todos;
 				newTodo = {
 					id: Utils.uuid(),
 					title: val,
 					completed: false
 				};
-				this.setState({todos: todos.concat([newTodo])});
+				this.setState({todos: this.state.todos.concat([newTodo])});
 				this.refs.newField.getDOMNode().value = '';
 			}
 
@@ -63,16 +61,22 @@
 		toggleAll: function (event) {
 			var checked = event.target.checked;
 
-			this.state.todos.forEach(function (todo) {
-				todo.completed = checked;
+			// Note: it's usually better to use immutable data structures since they're easier to
+			// reason about and React works very well with them. That's why we use map() and filter()
+			// everywhere instead of mutating the array or todo items themselves.
+			var newTodos = this.state.todos.map(function (todo) {
+				return Utils.extend({}, todo, {completed: checked});
 			});
 
-			this.setState({todos: this.state.todos});
+			this.setState({todos: newTodos});
 		},
 
-		toggle: function (todo) {
-			todo.completed = !todo.completed;
-			this.setState({todos: this.state.todos});
+		toggle: function (todoToToggle) {
+			var newTodos = this.state.todos.map(function (todo) {
+				return todo !== todoToToggle ? todo : Utils.extend({}, todo, {completed: !todo.completed});
+			});
+
+			this.setState({todos: newTodos});
 		},
 
 		destroy: function (todo) {
@@ -91,9 +95,12 @@
 			});
 		},
 
-		save: function (todo, text) {
-			todo.title = text;
-			this.setState({todos: this.state.todos, editing: null});
+		save: function (todoToSave, text) {
+			var newTodos = this.state.todos.map(function (todo) {
+				return todo !== todoToSave ? todo : Utils.extend({}, todo, {title: text});
+			});
+
+			this.setState({todos: newTodos, editing: null});
 		},
 
 		cancel: function () {
@@ -115,9 +122,6 @@
 		render: function () {
 			var footer = null;
 			var main = null;
-			var todoItems = {};
-			var activeTodoCount;
-			var completedCount;
 
 			var shownTodos = this.state.todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
@@ -128,11 +132,12 @@
 				default:
 					return true;
 				}
-			}.bind(this));
+			}, this);
 
-			shownTodos.forEach(function (todo) {
-				todoItems[todo.id] = (
+			var todoItems = shownTodos.map(function (todo) {
+				return (
 					<TodoItem
+						key={todo.id}
 						todo={todo}
 						onToggle={this.toggle.bind(this, todo)}
 						onDestroy={this.destroy.bind(this, todo)}
@@ -142,13 +147,13 @@
 						onCancel={this.cancel}
 					/>
 				);
-			}.bind(this));
+			}, this);
 
-			activeTodoCount = this.state.todos.filter(function (todo) {
-				return !todo.completed;
-			}).length;
+			var activeTodoCount = this.state.todos.reduce(function(accum, todo) {
+				return todo.completed ? accum : accum + 1;
+			}, 0);
 
-			completedCount = this.state.todos.length - activeTodoCount;
+			var completedCount = this.state.todos.length - activeTodoCount;
 
 			if (activeTodoCount || completedCount) {
 				footer =

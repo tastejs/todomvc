@@ -1,5 +1,5 @@
 class Alfred extends Batman.App
-	@root 'todos#all'
+	@root 'todos#index', as: "all"
 	@route '/completed', 'todos#completed'
 	@route '/active', 'todos#active'
 
@@ -9,32 +9,27 @@ class Alfred.TodosController extends Batman.Controller
 		@set('newTodo', new Alfred.Todo(completed: false))
 
 	routingKey: 'todos'
-	currentTodoSet: 'all'
 
-	@accessor 'currentTodos', -> Alfred.Todo.get(@get('currentTodoSet'))
-
-	all: ->
+	index: ->
 		@set('currentTodoSet', 'all')
 
 	completed: ->
 		@set 'currentTodoSet', 'completed'
-		@render(source: 'todos/all')
+		@render(source: 'todos/index') # uses the same template
 
 	active: ->
 		@set 'currentTodoSet', 'active'
-		@render(source: 'todos/all')
+		@render(source: 'todos/index')
 
-	createTodo: ->
-		@get('newTodo').save (err, todo) =>
-			if err
-				throw err unless err instanceof Batman.ErrorsSet
-			else
-				@set 'newTodo', new Alfred.Todo(completed: false, title: "")
-
-	todoDoneChanged: (node, event, context) ->
-		todo = context.get('todo')
-		todo.save (err) ->
-			throw err if err && !err instanceof Batman.ErrorsSet
+class Alfred.TodosIndexView extends Batman.View
+	createTodo: (node, event, context) ->
+		event.preventDefault()
+		title = node[0].value
+		if title
+			newTodo = new Alfred.Todo(title: title, completed: false)
+			newTodo.save (err) ->
+				if not err
+					node[0].value = null
 
 	destroyTodo: (node, event, context) ->
 		todo = context.get('todo')
@@ -43,8 +38,6 @@ class Alfred.TodosController extends Batman.Controller
 	toggleAll: (node, context) ->
 		Alfred.Todo.get('all').forEach (todo) ->
 			todo.set('completed', !!node.checked)
-			todo.save (err) ->
-				throw err if err && !err instanceof Batman.ErrorsSet
 
 	clearCompleted: ->
 		Alfred.Todo.get('completed').forEach (todo) ->
@@ -56,22 +49,35 @@ class Alfred.TodosController extends Batman.Controller
 		if editing
 			input = document.getElementById("todo-input-#{todo.get('id')}")
 			input.focus()
-		else
-			if todo.get('title')?.length > 0
-				todo.save (err, todo) ->
-					throw err if err && !err instanceof Batman.ErrorsSet
-			else
-				todo.destroy (err, todo) ->
-					throw err if err
 
-	disableEditingUponSubmit: (node, event, context) ->
+	disableEditingOnEnter: (node, event, context) ->
 		node.blur() if Batman.DOM.events.isEnter(event)
 
+# These views get instantiated by name. Extend TodosIndex so they have the same methods.
+class Alfred.TodosActiveView extends Alfred.TodosIndexView
+class Alfred.TodosCompletedView extends Alfred.TodosIndexView
+
+
 class Alfred.Todo extends Batman.Model
-	@encode 'title', 'completed'
 	@persist Batman.LocalStorage
-	@validate 'title', presence: true
 	@storageKey: 'todos-batman'
+
+	constructor: ->
+		super # instantiate the record
+		# set up some observers on the record's attributes:
+		@observe 'completed', (newValue, oldValue) ->
+			@save()
+		@observe 'editing', (newValue, oldValue) ->
+			if newValue == false
+				if @get('title').length > 0
+					@set('title', @get('title').trim())
+					@save()
+				else
+					@destroy()
+		@
+
+	@encode 'title', 'completed'
+	@validate 'title', presence: true
 
 	@classAccessor 'active', ->
 		@get('all').filter (todo) -> !todo.get('completed')
@@ -79,8 +85,4 @@ class Alfred.Todo extends Batman.Model
 	@classAccessor 'completed', ->
 		@get('all').filter (todo) -> todo.get('completed')
 
-	@wrapAccessor 'title', (core) ->
-		set: (key, value) -> core.set.call(@, key, value?.trim())
-
-window.Alfred = Alfred
-Alfred.run()
+@Alfred = Alfred

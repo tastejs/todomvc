@@ -55,8 +55,8 @@ Unless it conflicts with the project's best practices, your example should use [
   "name": "todomvc-sample",
   "version": "0.0.0",
   "dependencies": {
-    "underscore": "~1.4.4",
-    "jquery": "~1.9.1",
+    "underscore": "~1.5.0",
+    "jquery": "~2.0.0",
     "todomvc-common": "~0.1.0"
   }
 }
