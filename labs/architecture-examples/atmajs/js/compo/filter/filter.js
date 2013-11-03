@@ -10,6 +10,7 @@
 include
 	.load('filter.mask::Template')
 	.done(function (resp) {
+		'use strict';
 
 		// `Compo` function creates components constructor,
 		// but it doesnt have ClassJS features, like inhertince and
@@ -46,7 +47,7 @@ include
 			},
 
 			Self: {
-				applyFilter: function (route){
+				applyFilter: function (route) {
 
 					this.action = _setSelectedFilter(route.current, this.model);
 

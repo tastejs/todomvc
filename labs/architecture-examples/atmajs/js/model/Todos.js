@@ -1,4 +1,5 @@
-/*global Class, ruqq */
+/*jshint newcap:false */
+/*global Class, ruqq, include */
 
 (function () {
 	'use strict';

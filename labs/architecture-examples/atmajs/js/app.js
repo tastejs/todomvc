@@ -1,4 +1,5 @@
-/*global include, mask, Compo*/
+/*jshint newcap:false */
+/*global include, Compo */
 
 'use strict';
 

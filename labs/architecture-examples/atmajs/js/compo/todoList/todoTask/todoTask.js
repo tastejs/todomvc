@@ -1,3 +1,4 @@
+/*jshint newcap:false */
 /*global include, mask, Compo */
 
 /**
@@ -17,14 +18,14 @@ include
 	.done(function (response) {
 	'use strict';
 
-	var state_VIEW = '';
-	var state_EDIT = 'editing';
+	var STATE_VIEW = '';
+	var STATE_EDIT = 'editing';
 
 	mask.registerHandler(':todoTask', Compo({
 
 		//= Properties
 
-		state: state_VIEW,
+		state: STATE_VIEW,
 
 		//= Component Definition
 
@@ -52,9 +53,9 @@ include
 				return [this.model];
 			},
 
-			edit: function (){
+			edit: function () {
 
-				this.state = state_EDIT;
+				this.state = STATE_EDIT;
 				this.compos.input.focus();
 
 				// stop signal propagation (example purpose)
@@ -66,11 +67,10 @@ include
 			input: 'compo: todo:input'
 		},
 
-
 		//= Private Methods
 
 		_editEnd: function () {
-			this.state = state_VIEW;
+			this.state = STATE_VIEW;
 		},
 
 		_isVisible: function (completed, action) {
@@ -85,6 +85,4 @@ include
 			return true;
 		}
 	}));
-
-
 });

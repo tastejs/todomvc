@@ -1,10 +1,11 @@
-/*global include, mask, Compo */
+/*jshint newcap:false */
+/*global mask, Compo */
 
 /**
  *	Extend INPUT tag to edit a todo's title
  *		- format string
  *		- complete edit on ENTER
- *		- cancel edit on BLUR
+ *		- complete edit on BLUR
  *
  *	Used as
  *		- a main application's input
@@ -33,32 +34,33 @@
 		},
 		events: {
 			'keydown': function (event) {
-
 				switch (event.which) {
-					case ENTER_KEY:
-						var value = this.$.val().trim();
+				case ENTER_KEY:
+					this.save();
 
-						this.$.trigger('enter', value);
-						this.afterEdit();
-
-						// prevent IE from button click - `Clear Completed`
-						event.preventDefault();
-						break;
-					case ESCAPE_KEY:
-						this.cancel();
-						break;
+					// prevent IE from button click - `Clear Completed`
+					event.preventDefault();
+					break;
+				case ESCAPE_KEY:
+					this.cancel();
+					break;
 				}
 			},
-			'blur': 'cancel'
+			'blur': 'save'
 		},
-		focus: function () {
-
+		focus: function focus() {
 			this.$.focus();
 		},
 
-		cancel: function () {
-
+		cancel: function cancel() {
 			this.$.trigger('cancel');
+			this.afterEdit();
+		},
+
+		save: function save() {
+			var value = this.$.val().trim();
+
+			this.$.trigger('enter', value);
 			this.afterEdit();
 		},
 

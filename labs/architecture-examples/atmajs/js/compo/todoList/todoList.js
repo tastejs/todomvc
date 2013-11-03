@@ -1,3 +1,4 @@
+/*jshint newcap:false */
 /*global include, mask, Compo*/
 
 /*
@@ -16,9 +17,7 @@ include
 	mask.registerHandler(':todoList', Compo({
 		template: response.load.todoList,
 
-
 		action: '',
-
 
 		pipes: {
 
@@ -41,7 +40,6 @@ include
 			// defined in the template and in a single tasks's template
 
 			toggleAll: function (event) {
-
 				this
 					.model
 					.each(function (task) {
@@ -51,15 +49,12 @@ include
 			},
 
 			taskChanged: function () {
-
 				this.model.save();
 			},
 
 			taskRemoved: function (event, task) {
-
 				this.model.del(task);
 			}
 		}
 	}));
-
 });
