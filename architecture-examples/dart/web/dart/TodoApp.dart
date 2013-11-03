@@ -3,15 +3,15 @@ part of todomvc;
 class TodoApp {
 	List<TodoWidget> todoWidgets = new List<TodoWidget>();
 
-	Element todoListElement = query('#todo-list');
-	Element mainElement = query('#main');
-	InputElement checkAllCheckboxElement = query('#toggle-all');
-	Element footerElement = query('#footer');
-	Element countElement = query('#todo-count');
-	Element clearCompletedElement = query('#clear-completed');
-	Element showAllElement = query('#filters a[href="#/"]');
-	Element showActiveElement = query('#filters a[href="#/active"]');
-	Element showCompletedElement = query('#filters a[href="#/completed"]');
+	Element todoListElement = querySelector('#todo-list');
+	Element mainElement = querySelector('#main');
+	InputElement checkAllCheckboxElement = querySelector('#toggle-all');
+	Element footerElement = querySelector('#footer');
+	Element countElement = querySelector('#todo-count');
+	Element clearCompletedElement = querySelector('#clear-completed');
+	Element showAllElement = querySelector('#filters a[href="#/"]');
+	Element showActiveElement = querySelector('#filters a[href="#/active"]');
+	Element showCompletedElement = querySelector('#filters a[href="#/completed"]');
 
 	TodoApp() {
 		initLocalStorage();
@@ -26,7 +26,7 @@ class TodoApp {
 		var jsonList = window.localStorage['todos-vanilladart'];
 		if (jsonList != null) {
 			try {
-				var todos = JSON.parse(jsonList);
+				var todos = JSON.decode(jsonList);
 				for (Map todo in todos) {
 					addTodo(new Todo.fromJson(todo));
 				}
@@ -37,7 +37,7 @@ class TodoApp {
 	}
 
 	void initElementEventListeners() {
-		InputElement newTodoElement = query('#new-todo');
+		InputElement newTodoElement = querySelector('#new-todo');
 
 		newTodoElement.onKeyPress.listen((KeyboardEvent e) {
 			if (e.keyCode == KeyCode.ENTER) {
@@ -160,6 +160,6 @@ class TodoApp {
 		for (TodoWidget todoWidget in todoWidgets) {
 			todos.add(todoWidget.todo);
 		}
-		window.localStorage['todos-vanilladart'] = JSON.stringify(todos);
+		window.localStorage['todos-vanilladart'] = JSON.encode(todos);
 	}
 }
