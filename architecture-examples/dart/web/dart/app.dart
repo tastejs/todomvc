@@ -19,10 +19,10 @@ class Todo {
 	Todo(String this.id, String this.title, {bool this.completed : false});
 
 	Todo.fromJson(Map json) {
-	    id = json['id'];
-	    title = json['title'];
-	    completed = json['completed'];
-	  }
+		id = json['id'];
+		title = json['title'];
+		completed = json['completed'];
+	}
 
 	// this is automatically called by JSON.encode
 	Map toJson() {
