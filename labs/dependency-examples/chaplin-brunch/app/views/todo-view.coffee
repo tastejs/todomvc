@@ -4,8 +4,8 @@ module.exports = class TodoView extends View
   events:
     'click .toggle': 'toggle'
     'dblclick label': 'edit'
-    'keypress .edit': 'save'
-    'blur .edit': 'save'
+    'keyup .edit': 'save'
+    'focusout .edit': 'save'
     'click .destroy': 'clear'
 
   listen:
@@ -21,13 +21,13 @@ module.exports = class TodoView extends View
     @model.toggle().save()
 
   edit: ->
-    @$el.addClass 'editing'
-    @$('.edit').focus()
+    @el.classList.add 'editing'
+    @find('.edit').focus()
 
   save: (event) ->
     ENTER_KEY = 13
-    title = $(event.currentTarget).val().trim()
+    title = event.delegateTarget.value.trim()
     return @model.destroy() unless title
-    return if event.type is 'keypress' and event.keyCode isnt ENTER_KEY
+    return if event.type is 'keyup' and event.keyCode isnt ENTER_KEY
     @model.save {title}
-    @$el.removeClass 'editing'
+    @el.classList.remove 'editing'

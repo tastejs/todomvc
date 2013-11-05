@@ -9,7 +9,7 @@ module.exports = class HeaderView extends View
 
   createOnEnter: (event) ->
     ENTER_KEY = 13
-    title = $(event.currentTarget).val().trim()
+    title = event.delegateTarget.value.trim()
     return if event.keyCode isnt ENTER_KEY or not title
     @collection.create {title}
-    @$('#new-todo').val ''
+    @find('#new-todo').value = ''
