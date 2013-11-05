@@ -1,5 +1,4 @@
 View = require './base/view'
-template = require './templates/footer'
 
 module.exports = class FooterView extends View
   autoRender: true
@@ -9,7 +8,7 @@ module.exports = class FooterView extends View
   listen:
     'todos:filter mediator': 'updateFilterer'
     'all collection': 'renderCounter'
-  template: template
+  template: require './templates/footer'
 
   render: ->
     super

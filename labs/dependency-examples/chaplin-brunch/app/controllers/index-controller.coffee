@@ -1,6 +1,6 @@
-HeaderView = require 'views/header-view'
-FooterView = require 'views/footer-view'
-TodosView = require 'views/todos-view'
+HeaderView = require '../views/header-view'
+FooterView = require '../views/footer-view'
+TodosView = require '../views/todos-view'
 mediator = require 'mediator'
 
 module.exports = class IndexController extends Chaplin.Controller

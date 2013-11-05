@@ -1,5 +1,4 @@
 View = require './base/view'
-template = require './templates/todo'
 
 module.exports = class TodoView extends View
   events:
@@ -7,25 +6,25 @@ module.exports = class TodoView extends View
     'dblclick label': 'edit'
     'keypress .edit': 'save'
     'blur .edit': 'save'
-    'click .destroy': 'destroy'
+    'click .destroy': 'clear'
 
   listen:
     'change model': 'render'
 
-  template: template
+  template: require './templates/todo'
   tagName: 'li'
 
-  destroy: =>
+  clear: ->
     @model.destroy()
 
-  toggle: =>
+  toggle: ->
     @model.toggle().save()
 
-  edit: =>
+  edit: ->
     @$el.addClass 'editing'
     @$('.edit').focus()
 
-  save: (event) =>
+  save: (event) ->
     ENTER_KEY = 13
     title = $(event.currentTarget).val().trim()
     return @model.destroy() unless title
