@@ -1,6 +1,6 @@
 /*global define, ko */
 define([
-	'bower_components/durandal/app'
+	'durandal/app'
 ], function (app) {
 
 	'use strict';

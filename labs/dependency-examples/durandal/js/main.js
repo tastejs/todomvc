@@ -4,10 +4,15 @@
 
 	requirejs.config({
 		paths: {
-			'text': 'bower_components/durandal/amd/text'
+			'text': 'bower_components/requirejs/text',
+			'jquery': 'bower_components/jquery/jquery',
+			'durandal':'bower_components/durandal',
+			'plugins' : 'bower_components/durandal/plugins'
 		},
 		baseUrl: './'
 	});
+
+	define('knockout', ko);
 
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
@@ -77,11 +82,11 @@
 			}
 	};
 
-	define(['bower_components/durandal/app',
-		'bower_components/durandal/viewLocator',
-		'bower_components/durandal/system',
-		'bower_components/durandal/plugins/router'],
-		function (app, viewLocator, system, router) {
+	define(['durandal/app',
+		'durandal/viewLocator',
+		'durandal/system',
+		],
+		function (app, viewLocator, system) {
 
 		//>>excludeStart("build", true);
 		system.debug(true);
@@ -89,29 +94,24 @@
 
 		// this ensures that the title is simply the caption provided on the route
 		app.title = undefined;
+
+		app.configurePlugins({
+        router:true,
+        dialog: true,
+        widget: true
+    });
+
+
 		app.start().then(function () {
 			// Replace 'viewmodels' in the moduleId with 'views' to locate the view.
 			// Look for partial views in a 'views' folder in the root.
 			viewLocator.useConvention();
 
 			// configure routing
-			router.useConvention('js/viewmodels');
-			router.mapNav({
-				url: '/',
-				moduleId: 'js/viewmodels/todoapp',
-				name: 'TodoMVC',
-				caption: 'Durandal • TodoMVC'
-			});
 			
-			router.mapNav({
-				url: '#/:filter',
-				moduleId: 'js/viewmodels/todoapp',
-				name: 'TodoMVC',
-				hash: '#/filter',
-				caption: 'Durandal • TodoMVC'
-			});
 
-			app.adaptToDevice();
+			
+			//app.adaptToDevice();
 
 			// Show the app by setting the root view model for our application with a transition.
 			app.setRoot('js/viewmodels/shell');

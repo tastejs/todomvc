@@ -1,6 +1,6 @@
 /*global define, ko */
 define([
-	'bower_components/durandal/app',
+	'durandal/app',
 	'js/viewmodels/shell'
 ], function (app, shell) {
 
