@@ -1,0 +1,7 @@
+{
+  "name": "components-jquery",
+  "version": "1.9.1",
+  "description": "jQuery component",
+  "keywords": ["jquery"],
+  "main": "./jquery.js"
+}

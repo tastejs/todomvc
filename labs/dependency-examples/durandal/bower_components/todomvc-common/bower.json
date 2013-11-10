@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-common",
+  "version": "0.1.9",
+  "gitHead": "7dd61b0ebf56c020e719a69444442cc7ae7242ff",
+  "readme": "# todomvc-common\r\n\r\n> Bower component for some common utilities we use in every app\r\n\r\n\r\n## License\r\n\r\nMIT\r\n",
+  "readmeFilename": "readme.md",
+  "_id": "todomvc-common@0.1.9",
+  "description": "> Bower component for some common utilities we use in every app",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tastejs/todomvc-common.git"
+  }
+}

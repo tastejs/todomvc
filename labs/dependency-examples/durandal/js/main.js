@@ -4,10 +4,11 @@
 
 	requirejs.config({
 		paths: {
-			'text': 'bower_components/requirejs/text',
+			'text': 'bower_components/requirejs-text/text',
 			'jquery': 'bower_components/jquery/jquery',
-			'durandal':'bower_components/durandal',
-			'plugins' : 'bower_components/durandal/plugins'
+			'durandal':'bower_components/durandal/js',
+			'plugins' : 'bower_components/durandal/js/plugins',
+			'transitions' : 'bower_components/durandal/js/transitions'
 		},
 		baseUrl: './'
 	});
@@ -82,38 +83,25 @@
 			}
 	};
 
-	define(['durandal/app',
+	define(['durandal/app', 
 		'durandal/viewLocator',
 		'durandal/system',
 		],
 		function (app, viewLocator, system) {
 
-		//>>excludeStart("build", true);
 		system.debug(true);
-		//>>excludeEnd("build");
 
 		// this ensures that the title is simply the caption provided on the route
 		app.title = undefined;
 
 		app.configurePlugins({
-        router:true,
-        dialog: true,
-        widget: true
-    });
-
+	        router:true,
+	        dialog: true,
+	        widget: true
+	    });
 
 		app.start().then(function () {
-			// Replace 'viewmodels' in the moduleId with 'views' to locate the view.
-			// Look for partial views in a 'views' folder in the root.
 			viewLocator.useConvention();
-
-			// configure routing
-			
-
-			
-			//app.adaptToDevice();
-
-			// Show the app by setting the root view model for our application with a transition.
 			app.setRoot('js/viewmodels/shell');
 		});
 	});

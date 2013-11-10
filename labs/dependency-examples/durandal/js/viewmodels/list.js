@@ -1,9 +1,5 @@
 /*global define, ko */
-define([
-	'durandal/app',
-	'js/viewmodels/shell'
-], function (app, shell) {
-
+define(['durandal/app', 'js/viewmodels/shell'], function (app, shell) {
 	'use strict';
 
 	// represent a single todo item
@@ -147,9 +143,7 @@ define([
 		self.getLabel = function (count) {
 			return ko.utils.unwrapObservable(count) === 1 ? 'item' : 'items';
 		};
-
 	};
 
-	
 	return ViewModel;
 });

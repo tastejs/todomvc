@@ -1,20 +1,20 @@
 /*global define */
-define([
-	'js/viewmodels/shell'
-], function (shell) {
+define(['js/viewmodels/shell', 'js/viewmodels/list'], function (shell, List) {
 	'use strict';
 
 	var ViewModel = function () {
 		var self = this;
+		self.list = new List();
 
 		self.activate = function (filter) {
-			console.log('filter');
 			shell.filter = filter;
+			self.list.showMode(filter || 'all');
+
 			return true;
 		};
 
-		self.canReuseForRoute = function(arg1, arg2){
-			return false;
+		self.canReuseForRoute = function(){
+			return true;
 		}
 	};
 

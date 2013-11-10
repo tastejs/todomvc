@@ -1,0 +1,19 @@
+{
+  "name": "durandal",
+  "version": "2.0.1",
+  "dependencies": {
+    "jquery": "1.9.1",
+    "requirejs": "2.1.8",
+    "requirejs-text": "2.0.3",
+    "knockout.js": "2.3.0"
+  },
+  "gitHead": "040c54dd24efabe0312eac3d898cb6242680ebdd",
+  "readme": "![Durandal](http://durandaljs.com/media/DURANDAL-FINAL-HI-RES-LOGO-HOR-WEB.png)\r\n\r\nDurandal is a cross-device, cross-platform client framework written in JavaScript and designed to make Single Page Applications (SPAs) easy to create and maintain. We've used it to build apps for PC, Mac, Linux, iOS and Android...and now it's your turn...\r\n\r\n[![Build Status](https://travis-ci.org/BlueSpire/Durandal.png?branch=master)](https://travis-ci.org/BlueSpire/Durandal)\r\n\r\n## Features\r\n\r\n* Clean MV* Architecture\r\n* JS & HTML Modularity\r\n* Simple App Lifecycle\r\n* Eventing, Modals, Message Boxes, etc.\r\n* Navigation & Screen State Management\r\n* Consistent Async Programming w/ Promises\r\n* App Bundling and Optimization\r\n* Use any Backend Technology\r\n* Built on top of [jQuery](http://jquery.com/), [Knockout](http://knockoutjs.com/) & [RequireJS](http://requirejs.org/).\r\n* Integrates with popular CSS libraries such as [Bootstrap](http://twitter.github.com/bootstrap/) and [Foundation](http://foundation.zurb.com/).\r\n* Make your own templatable and data-bindable widgets.\r\n* Fully Testable\r\n\r\n## Documentation\r\n\r\nAll the documentation is located on [the official site](http://durandaljs.com/), so have a look there for help on how to [get started](http://durandaljs.com/pages/get-started/), [read tutorials](http://durandaljs.com/pages/docs/), [view sample descriptions](http://durandaljs.com/documentation/Understanding-the-Samples/) and peruse the module reference docs.\r\nIf you want to keep up to date with the activity that is happening on the master branch, you can [subscribe to the commit feed](https://github.com/BlueSpire/durandal/commits/master.atom).\r\n\r\n## Community & Support\r\n\r\nNeed help with something that the docs aren't providing an answer to? \r\nVisit our [google group](https://groups.google.com/forum/?fromgroups#!forum/durandaljs) and join in the conversation. We also provide [full commercial support](http://durandaljs.com/pages/support/) no matter how large or small your team is. Additionally, we offer both [on-site and remote training](http://durandaljs.com/pages/training/).\r\n\r\n## License\r\n\r\nThe MIT License\r\n\r\nCopyright (c) 2012 Blue Spire Consulting, Inc.\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in\r\nall copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\r\nTHE SOFTWARE.\r\n",
+  "readmeFilename": "README.md",
+  "_id": "Durandal@2.0.1",
+  "description": "![Durandal](http://durandaljs.com/media/DURANDAL-FINAL-HI-RES-LOGO-HOR-WEB.png)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/BlueSpire/Durandal-Bower"
+  }
+}
