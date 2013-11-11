@@ -1,8 +1,5 @@
 /*global define, ko */
-define([
-	'durandal/app'
-], function (app) {
-
+define(['durandal/app'], function (app) {
 	'use strict';
 
 	var ViewModel = function () {

@@ -1,0 +1,71 @@
+/*!
+ * Durandal 2.0.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
+ * Available via the MIT license.
+ * see: http://durandaljs.com or https://github.com/BlueSpire/Durandal for details
+ */
+
+.modalBlockout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    
+    pointer-events: auto;
+    
+    -webkit-backface-visibility: hidden;
+    
+    -webkit-transition: opacity 0.1s linear; 
+	-moz-transition: opacity 0.1s linear; 
+	-o-transition: opacity 0.1s linear;
+	transition: opacity 0.1s linear; 
+}
+
+.modalHost {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    opacity: 0;
+    
+    -webkit-backface-visibility: hidden;
+
+    -webkit-transition: opacity 0.1s linear; 
+	-moz-transition: opacity 0.1s linear; 
+	-o-transition: opacity 0.1s linear;
+	transition: opacity 0.1s linear;
+}
+
+.messageBox {
+    background-color: white;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    min-width: 300px;
+}
+
+.durandal-view-404 {
+    color: red;
+    margin: 8px 0;
+    padding: 8px;
+
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}

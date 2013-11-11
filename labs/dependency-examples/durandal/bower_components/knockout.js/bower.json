@@ -1,0 +1,23 @@
+{
+  "name": "knockout.js",
+  "version": "2.3.0",
+  "main": "knockout.js",
+  "scripts": [
+    "knockout.js"
+  ],
+  "dependencies": {},
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "gitHead": "fa1ec192621dab9b1d4ee1107ec83b0b61baa380",
+  "readme": "knockout\r\n========\r\n\r\ncompiled knockout libs for bowerjs\r\n",
+  "readmeFilename": "README.md",
+  "_id": "knockout@2.3.0",
+  "description": "knockout\r ========",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bowerjs/knockout.git"
+  }
+}
