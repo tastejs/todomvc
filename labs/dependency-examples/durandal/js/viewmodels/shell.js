@@ -7,10 +7,10 @@ define(['plugins/router'], function (router) {
 		filter: undefined, // this is used as the global cache to figure out the filter in effect.
 		activate: function () {
 			router.map([
- 				{ route: '(:filter)', title:'Welcome', moduleId: 'js/viewmodels/todoapp' },
-            ]).buildNavigationModel();
+				{ route: '(:filter)', title: 'Durandal • TodoMVC', moduleId: 'js/viewmodels/todoapp' },
+			]).buildNavigationModel();
 
-            return router.activate();
+			return router.activate();
 		}
 	};
 });

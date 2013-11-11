@@ -4,9 +4,9 @@
 	"dependencies": {
 		"todomvc-common": "~0.1.4",
 		"jquery":"1.9.1",
-        "requirejs":"2.1.8",
-        "requirejs-text":"2.0.3",
-        "knockout.js":"2.3.0",
+		"requirejs":"2.1.8",
+		"requirejs-text":"2.0.3",
+		"knockout.js":"2.3.0",
 		"durandal": "~2.0.1"
 	}
 }

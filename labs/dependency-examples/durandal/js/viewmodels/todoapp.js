@@ -12,10 +12,6 @@ define(['js/viewmodels/shell', 'js/viewmodels/list'], function (shell, List) {
 
 			return true;
 		};
-
-		self.canReuseForRoute = function(){
-			return true;
-		}
 	};
 
 	return ViewModel;

@@ -6,7 +6,7 @@
 		paths: {
 			'text': 'bower_components/requirejs-text/text',
 			'jquery': 'bower_components/jquery/jquery',
-			'durandal':'bower_components/durandal/js',
+			'durandal': 'bower_components/durandal/js',
 			'plugins' : 'bower_components/durandal/js/plugins',
 			'transitions' : 'bower_components/durandal/js/transitions'
 		},
@@ -83,7 +83,7 @@
 			}
 	};
 
-	define(['durandal/app', 
+	define(['durandal/app',
 		'durandal/viewLocator',
 		'durandal/system',
 		],
@@ -95,10 +95,10 @@
 		app.title = undefined;
 
 		app.configurePlugins({
-	        router:true,
-	        dialog: true,
-	        widget: true
-	    });
+			router: true,
+			dialog: true,
+			widget: true
+		});
 
 		app.start().then(function () {
 			viewLocator.useConvention();
