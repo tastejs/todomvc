@@ -1,5 +1,0 @@
-define("epsilon",
-    {
-        name: "epsilon"
-    }
-);

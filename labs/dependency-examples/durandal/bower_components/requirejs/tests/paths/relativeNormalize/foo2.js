@@ -1,3 +1,0 @@
-define({
-    name: 'foo2'
-});

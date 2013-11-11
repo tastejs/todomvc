@@ -1,1 +1,0 @@
-log("seven.js script");

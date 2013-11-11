@@ -1,1 +1,0 @@
-log("one.js script");

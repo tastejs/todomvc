@@ -1,3 +1,0 @@
-define('person', [], {
-        name: 'person'
-});

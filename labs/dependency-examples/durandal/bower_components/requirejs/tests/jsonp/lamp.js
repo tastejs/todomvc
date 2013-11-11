@@ -1,3 +1,0 @@
-define("lamp", {
-    color: "blue"
-});

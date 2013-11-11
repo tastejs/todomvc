@@ -1,4 +1,0 @@
-window.legacy = {
-    name: 'legacy'
-};
-

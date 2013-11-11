@@ -1,9 +1,0 @@
-define(['refine!d'], function(d) {
-    function e() {
-        return e.name + require('refine!d').name;
-    }
-
-    e.name = 'e';
-
-    return e;
-});

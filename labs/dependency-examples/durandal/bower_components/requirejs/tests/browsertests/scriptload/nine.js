@@ -1,1 +1,0 @@
-log("nine.js script");

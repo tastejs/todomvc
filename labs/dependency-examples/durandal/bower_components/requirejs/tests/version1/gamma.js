@@ -1,3 +1,0 @@
-gamma = {
-  color: "green"
-}

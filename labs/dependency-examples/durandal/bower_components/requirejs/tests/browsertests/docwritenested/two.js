@@ -1,3 +1,0 @@
-two = {
-    name: "two"
-};
