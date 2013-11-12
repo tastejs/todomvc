@@ -7,7 +7,7 @@
     "karma": "~0.8.5"
   },
   "scripts": {
-    "test": "karma start config/testacular.conf.js"
+    "test": "karma start config/karma.conf.js"
   },
   "dependencies": {}
 }

@@ -9,6 +9,8 @@ files = [
   'test/unit/**/*.js'
 ];
 
-autoWatch = true;
+autoWatch = false;
 
-browsers = ['Chrome'];
+singleRun = true;
+
+browsers = ['Chrome', 'Firefox'];
