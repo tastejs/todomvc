@@ -2,6 +2,9 @@
 
 > Chaplin is an architecture for JavaScript applications using the Backbone.js library. Chaplin addresses Backbone’s limitations by providing a lightweight and flexible structure that features well-proven design patterns and best practices.
 
+In this case, Backbone is replaced with [Exoskeleton](http://exosjs.com),
+faster and leaner Backbone without dependencies on jQuery and underscore.
+
 > _[Chaplin - chaplinjs.org](http://chaplinjs.org)_
 
 

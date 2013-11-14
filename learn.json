@@ -357,19 +357,16 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Getting Started",
-				"url": "https://github.com/chaplinjs/chaplin/blob/master/docs/getting_started.md"
+				"url": "http://docs.chaplinjs.org/getting_started.html"
 			}, {
 				"name": "Documentation",
-				"url": "https://github.com/chaplinjs/chaplin/tree/master/docs"
-			}, {
-				"name": "API Reference",
-				"url": "https://github.com/chaplinjs/chaplin/tree/master/docs#api-docs"
+				"url": "http://docs.chaplinjs.org"
 			}, {
 				"name": "Annotated Source Code",
 				"url": "http://chaplinjs.org/annotated/chaplin.html"
 			}, {
 				"name": "Applications built with Chaplin",
-				"url": "https://github.com/chaplinjs/chaplin/wiki/Projects-and-companies-using-Chaplin"
+				"url": "http://chaplinjs.org/examples.html"
 			}, {
 				"name": "Cookbook",
 				"url": "https://github.com/chaplinjs/chaplin/wiki/Cookbook"
@@ -386,6 +383,9 @@
 		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Support forum on ost.io",
+				"url": "http://ost.io/@chaplinjs/chaplin"
+			}, {
 				"name": "Chaplin on StackOverflow",
 				"url": "http://stackoverflow.com/questions/tagged/chaplinjs"
 			}, {
@@ -911,7 +911,7 @@
 		"name": "Exoskeleton",
 		"description": "A faster and leaner Backbone for your HTML5 apps.",
 		"homepage": "exosjs.com",
-		"source_path": [{
+		"examples": [{
 			"name": "Architecture Example",
 			"url": "labs/architecture-examples/exoskeleton"
 		}],

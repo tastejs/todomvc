@@ -3,24 +3,18 @@
   "version": "0.0.0",
   "dependencies": {
     "todomvc-common": "~0.1.6",
-    "chaplin": "~0.10.0",
-    "underscore": "~1.4.4",
-    "backbone.localStorage": "~1.1.0",
-    "jquery": "~2.0.0"
+    "chaplin": "~0.11.3",
+    "exoskeleton": "~0.5.1",
+    "backbone.localStorage": "git://github.com/paulmillr/Backbone.localStorage.git#9c225b37bdea4ac21d4b2445fa8962fe74e3175b"
   },
   "overrides": {
     "todomvc-common": {
       "main": "bg.png"
     },
-    "backbone": {
-      "main": "backbone.js",
+    "chaplin": {
       "dependencies": {
-        "underscore": "*",
-        "jquery": "*"
+        "exoskeleton": "*"
       }
-    },
-    "underscore": {
-      "main": "underscore.js"
     }
   }
 }

@@ -1,5 +1,5 @@
 View = require './base/view'
-template = require './templates/footer'
+utils = require 'lib/utils'
 
 module.exports = class FooterView extends View
   autoRender: true
@@ -9,7 +9,7 @@ module.exports = class FooterView extends View
   listen:
     'todos:filter mediator': 'updateFilterer'
     'all collection': 'renderCounter'
-  template: template
+  template: require './templates/footer'
 
   render: ->
     super
@@ -17,23 +17,24 @@ module.exports = class FooterView extends View
 
   updateFilterer: (filterer) ->
     filterer = '' if filterer is 'all'
-    @$('#filters a')
-      .removeClass('selected')
-      .filter("[href='#/#{filterer}']")
-      .addClass('selected')
+    selector = "[href='#/#{filterer}']"
+    cls = 'selected'
+    @findAll('#filters a').forEach (link) =>
+      link.classList.remove cls
+      link.classList.add cls if Backbone.utils.matchesSelector link, selector
 
   renderCounter: ->
     total = @collection.length
     active = @collection.getActive().length
     completed = @collection.getCompleted().length
 
-    @$('#todo-count > strong').html active
+    @find('#todo-count > strong').textContent = active
     countDescription = (if active is 1 then 'item' else 'items')
-    @$('.todo-count-title').text countDescription
+    @find('.todo-count-title').textContent = countDescription
 
-    @$('#completed-count').html "(#{completed})"
-    @$('#clear-completed').toggle(completed > 0)
-    @$el.toggle(total > 0)
+    @find('#completed-count').textContent = "(#{completed})"
+    utils.toggle @find('#clear-completed'), completed > 0
+    utils.toggle @el, total > 0
 
   clearCompleted: ->
     @publishEvent 'todos:clear'
