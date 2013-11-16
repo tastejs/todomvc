@@ -3,30 +3,40 @@
 	'use strict';
 
 	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
 
-	// a custom binding to handle the enter key (could go in a separate library)
-	ko.bindingHandlers.enterKey = {
-		init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
-			var wrappedHandler, newValueAccessor;
+	// A factory function we can use to create binding handlers for specific
+	// keycodes.
+	function keyhandlerBindingFactory(keyCode) {
+		return {
+			init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
+				var wrappedHandler, newValueAccessor;
 
-			// wrap the handler with a check for the enter key
-			wrappedHandler = function (data, event) {
-				if (event.keyCode === ENTER_KEY) {
-					valueAccessor().call(this, data, event);
-				}
-			};
-
-			// create a valueAccessor with the options that we would want to pass to the event binding
-			newValueAccessor = function () {
-				return {
-					keyup: wrappedHandler
+				// wrap the handler with a check for the enter key
+				wrappedHandler = function (data, event) {
+					if (event.keyCode === keyCode) {
+						valueAccessor().call(this, data, event);
+					}
 				};
-			};
 
-			// call the real event binding's init function
-			ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
-		}
-	};
+				// create a valueAccessor with the options that we would want to pass to the event binding
+				newValueAccessor = function () {
+					return {
+						keyup: wrappedHandler
+					};
+				};
+
+				// call the real event binding's init function
+				ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
+			}
+		};
+	}
+
+	// a custom binding to handle the enter key
+	ko.bindingHandlers.enterKey = keyhandlerBindingFactory(ENTER_KEY);
+
+	// another custom binding, this time to handle the escape key
+	ko.bindingHandlers.escapeKey = keyhandlerBindingFactory(ESCAPE_KEY);
 
 	// wrapper to hasFocus that also selects text and applies focus async
 	ko.bindingHandlers.selectAndFocus = {
@@ -103,10 +113,11 @@
 		// edit an item
 		this.editItem = function (item) {
 			item.editing(true);
+			item.previousTitle = item.title();
 		}.bind(this);
 
 		// stop editing an item.  Remove the item, if it is now empty
-		this.stopEditing = function (item) {
+		this.saveEditing = function (item) {
 			item.editing(false);
 
 			var title = item.title();
@@ -122,6 +133,12 @@
 			if (!trimmedTitle) {
 				this.remove(item);
 			}
+		}.bind(this);
+
+		// cancel editing an item and revert to the previous content
+		this.cancelEditing = function (item) {
+			item.editing(false);
+			item.title(item.previousTitle);
 		}.bind(this);
 
 		// count of all completed todos
