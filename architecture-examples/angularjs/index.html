@@ -26,7 +26,7 @@
 							<button class="destroy" ng-click="removeTodo(todo)"></button>
 						</div>
 						<form ng-submit="doneEditing(todo)">
-							<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEditing(todo)" todo-blur="doneEditing(todo)" todo-focus="todo == editedTodo">
+							<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEditing(todo)" ng-blur="doneEditing(todo)" todo-focus="todo == editedTodo">
 						</form>
 					</li>
 				</ul>
@@ -65,7 +65,6 @@
 		<script src="js/controllers/todoCtrl.js"></script>
 		<script src="js/services/todoStorage.js"></script>
 		<script src="js/directives/todoFocus.js"></script>
-		<script src="js/directives/todoBlur.js"></script>
 		<script src="js/directives/todoEscape.js"></script>
 	</body>
 </html>
