@@ -24,6 +24,7 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 - [Agility.js](http://agilityjs.com)
 - [Knockback.js](http://kmalakoff.github.com/knockback)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
+- [Flight by Twitter](https://github.com/twitter/flight)
 
 
 ###### Non-framework Implementations
@@ -47,7 +48,6 @@ We also have a number of in-progress applications in Labs:
 - [Derby](http://derbyjs.com)
 - [CanJS](http://canjs.us)
 - [Kendo UI](http://kendoui.com)
-- [Flight by Twitter](https://github.com/twitter/flight)
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujoJS](http://cujojs.com)
 - [MarionetteJS](http://marionettejs.com/)
