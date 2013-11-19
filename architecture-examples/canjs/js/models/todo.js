@@ -1,39 +1,47 @@
 /*global can */
-(function (namespace, undefined) {
+(function (namespace) {
 	'use strict';
 
 	// Basic Todo entry model
-	// { text: 'todo', complete: false }
-	var Todo = can.Model.LocalStorage({
+	var Todo = can.Model.LocalStorage.extend({
 		storageName: 'todos-canjs'
 	}, {
-		// Returns if this instance matches a given filter
-		// (currently `active` and `complete`)
-		matches : function () {
-			var filter = can.route.attr('filter');
-			return !filter || (filter === 'active' && !this.attr('complete')) ||
-				(filter === 'completed' && this.attr('complete'));
+		init: function () {
+			// Autosave when changing the text or completing the todo
+			this.on('change', function (ev, prop) {
+				if (prop === 'text' || prop === 'complete') {
+					ev.target.save();
+				}
+			});
 		}
 	});
 
 	// List for Todos
-	Todo.List = can.Model.List({
-		completed: function () {
-			var completed = 0;
+	Todo.List = Todo.List.extend({
+		filter: function (check) {
+			var list = [];
 
 			this.each(function (todo) {
-				completed += todo.attr('complete') ? 1 : 0;
+				if (check(todo)) {
+					list.push(todo);
+				}
 			});
 
-			return completed;
+			return list;
+		},
+
+		completed: function () {
+			return this.filter(function (todo) {
+				return todo.attr('complete');
+			});
 		},
 
 		remaining: function () {
-			return this.attr('length') - this.completed();
+			return this.attr('length') - this.completed().length;
 		},
 
 		allComplete: function () {
-			return this.attr('length') === this.completed();
+			return this.attr('length') === this.completed().length;
 		}
 	});
 
