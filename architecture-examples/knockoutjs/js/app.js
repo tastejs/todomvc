@@ -1,37 +1,47 @@
-/*global ko Router */
+/*global ko, Router */
 (function () {
 	'use strict';
 
 	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
 
-	// a custom binding to handle the enter key (could go in a separate library)
-	ko.bindingHandlers.enterKey = {
-		init: function (element, valueAccessor, allBindingsAccessor, data) {
-			var wrappedHandler, newValueAccessor;
+	// A factory function we can use to create binding handlers for specific
+	// keycodes.
+	function keyhandlerBindingFactory(keyCode) {
+		return {
+			init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
+				var wrappedHandler, newValueAccessor;
 
-			// wrap the handler with a check for the enter key
-			wrappedHandler = function (data, event) {
-				if (event.keyCode === ENTER_KEY) {
-					valueAccessor().call(this, data, event);
-				}
-			};
-
-			// create a valueAccessor with the options that we would want to pass to the event binding
-			newValueAccessor = function () {
-				return {
-					keyup: wrappedHandler
+				// wrap the handler with a check for the enter key
+				wrappedHandler = function (data, event) {
+					if (event.keyCode === keyCode) {
+						valueAccessor().call(this, data, event);
+					}
 				};
-			};
 
-			// call the real event binding's init function
-			ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data);
-		}
-	};
+				// create a valueAccessor with the options that we would want to pass to the event binding
+				newValueAccessor = function () {
+					return {
+						keyup: wrappedHandler
+					};
+				};
 
-	// wrapper to hasfocus that also selects text and applies focus async
+				// call the real event binding's init function
+				ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
+			}
+		};
+	}
+
+	// a custom binding to handle the enter key
+	ko.bindingHandlers.enterKey = keyhandlerBindingFactory(ENTER_KEY);
+
+	// another custom binding, this time to handle the escape key
+	ko.bindingHandlers.escapeKey = keyhandlerBindingFactory(ESCAPE_KEY);
+
+	// wrapper to hasFocus that also selects text and applies focus async
 	ko.bindingHandlers.selectAndFocus = {
-		init: function (element, valueAccessor, allBindingsAccessor) {
-			ko.bindingHandlers.hasfocus.init(element, valueAccessor, allBindingsAccessor);
+		init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+			ko.bindingHandlers.hasFocus.init(element, valueAccessor, allBindingsAccessor, bindingContext);
 			ko.utils.registerEventHandler(element, 'focus', function () {
 				element.focus();
 			});
@@ -40,7 +50,7 @@
 			ko.utils.unwrapObservable(valueAccessor()); // for dependency
 			// ensure that element is visible before trying to focus
 			setTimeout(function () {
-				ko.bindingHandlers.hasfocus.update(element, valueAccessor);
+				ko.bindingHandlers.hasFocus.update(element, valueAccessor);
 			}, 0);
 		}
 	};
@@ -54,61 +64,60 @@
 
 	// our main view model
 	var ViewModel = function (todos) {
-		var self = this;
-
 		// map array of passed in todos to an observableArray of Todo objects
-		self.todos = ko.observableArray(ko.utils.arrayMap(todos, function (todo) {
+		this.todos = ko.observableArray(todos.map(function (todo) {
 			return new Todo(todo.title, todo.completed);
 		}));
 
 		// store the new todo value being entered
-		self.current = ko.observable();
+		this.current = ko.observable();
 
-		self.showMode = ko.observable('all');
+		this.showMode = ko.observable('all');
 
-		self.filteredTodos = ko.computed(function () {
-			switch (self.showMode()) {
+		this.filteredTodos = ko.computed(function () {
+			switch (this.showMode()) {
 			case 'active':
-				return self.todos().filter(function (todo) {
+				return this.todos().filter(function (todo) {
 					return !todo.completed();
 				});
 			case 'completed':
-				return self.todos().filter(function (todo) {
+				return this.todos().filter(function (todo) {
 					return todo.completed();
 				});
 			default:
-				return self.todos();
+				return this.todos();
 			}
-		});
+		}.bind(this));
 
 		// add a new todo, when enter key is pressed
-		self.add = function () {
-			var current = self.current().trim();
+		this.add = function () {
+			var current = this.current().trim();
 			if (current) {
-				self.todos.push(new Todo(current));
-				self.current('');
+				this.todos.push(new Todo(current));
+				this.current('');
 			}
-		};
+		}.bind(this);
 
 		// remove a single todo
-		self.remove = function (todo) {
-			self.todos.remove(todo);
-		};
+		this.remove = function (todo) {
+			this.todos.remove(todo);
+		}.bind(this);
 
 		// remove all completed todos
-		self.removeCompleted = function () {
-			self.todos.remove(function (todo) {
+		this.removeCompleted = function () {
+			this.todos.remove(function (todo) {
 				return todo.completed();
 			});
-		};
+		}.bind(this);
 
 		// edit an item
-		self.editItem = function (item) {
+		this.editItem = function (item) {
 			item.editing(true);
-		};
+			item.previousTitle = item.title();
+		}.bind(this);
 
 		// stop editing an item.  Remove the item, if it is now empty
-		self.stopEditing = function (item) {
+		this.saveEditing = function (item) {
 			item.editing(false);
 
 			var title = item.title();
@@ -122,47 +131,53 @@
 			}
 
 			if (!trimmedTitle) {
-				self.remove(item);
+				this.remove(item);
 			}
-		};
+		}.bind(this);
+
+		// cancel editing an item and revert to the previous content
+		this.cancelEditing = function (item) {
+			item.editing(false);
+			item.title(item.previousTitle);
+		}.bind(this);
 
 		// count of all completed todos
-		self.completedCount = ko.computed(function () {
-			return ko.utils.arrayFilter(self.todos(), function (todo) {
+		this.completedCount = ko.computed(function () {
+			return this.todos().filter(function (todo) {
 				return todo.completed();
 			}).length;
-		});
+		}.bind(this));
 
 		// count of todos that are not complete
-		self.remainingCount = ko.computed(function () {
-			return self.todos().length - self.completedCount();
-		});
+		this.remainingCount = ko.computed(function () {
+			return this.todos().length - this.completedCount();
+		}.bind(this));
 
 		// writeable computed observable to handle marking all complete/incomplete
-		self.allCompleted = ko.computed({
+		this.allCompleted = ko.computed({
 			//always return true/false based on the done flag of all todos
 			read: function () {
-				return !self.remainingCount();
-			},
+				return !this.remainingCount();
+			}.bind(this),
 			// set all todos to the written value (true/false)
 			write: function (newValue) {
-				ko.utils.arrayForEach(self.todos(), function (todo) {
+				this.todos().forEach(function (todo) {
 					// set even if value is the same, as subscribers are not notified in that case
 					todo.completed(newValue);
 				});
-			}
+			}.bind(this)
 		});
 
 		// helper function to keep expressions out of markup
-		self.getLabel = function (count) {
+		this.getLabel = function (count) {
 			return ko.utils.unwrapObservable(count) === 1 ? 'item' : 'items';
-		};
+		}.bind(this);
 
 		// internal computed observable that fires whenever anything changes in our todos
 		ko.computed(function () {
 			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
-			localStorage.setItem('todos-knockoutjs', ko.toJSON(self.todos));
-		}).extend({
+			localStorage.setItem('todos-knockoutjs', ko.toJSON(this.todos));
+		}.bind(this)).extend({
 			throttle: 500
 		}); // save at most twice per second
 	};
@@ -176,5 +191,5 @@
 
 	// set up filter routing
 	/*jshint newcap:false */
-	Router({'/:filter': viewModel.showMode}).init();
-})();
+	Router({ '/:filter': viewModel.showMode }).init();
+}());
