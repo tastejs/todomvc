@@ -26,6 +26,10 @@ class Todo {
 
 	// this is automatically called by JSON.encode
 	Map toJson() {
-		return {'id': id, 'title': title, 'completed': completed};
+		return {
+			'id': id,
+			'title': title,
+			'completed': completed
+		};
 	}
 }
