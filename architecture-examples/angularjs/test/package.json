@@ -4,7 +4,7 @@
   "author": "Pascal Hartig <phartig@rdrei.net>",
   "version": "1.0.0",
   "devDependencies": {
-    "karma": "~0.8.5"
+    "karma": "~0.10.0"
   },
   "scripts": {
     "test": "karma start config/karma.conf.js"
