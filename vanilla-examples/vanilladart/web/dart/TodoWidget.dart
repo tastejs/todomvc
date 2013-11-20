@@ -1,6 +1,9 @@
 part of todomvc;
 
 class TodoWidget {
+
+	static const HtmlEscape htmlEscape = const HtmlEscape();
+
 	TodoApp todoApp;
 	Todo todo;
 	Element element;
@@ -13,25 +16,25 @@ class TodoWidget {
 			<li ${todo.completed ? 'class="completed"' : ''}>
 			<div class='view'>
 			<input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
-			<label class='todo-content'>${htmlEscape(todo.title)}</label>
+			<label class='todo-content'>${htmlEscape.convert(todo.title)}</label>
 			<button class='destroy'></button>
 			</div>
-			<input class='edit' value='${htmlEscape(todo.title)}'>
+			<input class='edit' value='${htmlEscape.convert(todo.title)}'>
 			</li>
 		''');
 
-		Element contentElement = element.query('.todo-content');
-		InputElement editElement = element.query('.edit');
+		Element contentElement = element.querySelector('.todo-content');
+		InputElement editElement = element.querySelector('.edit');
 
-		toggleElement = element.query('.toggle');
+		toggleElement = element.querySelector('.toggle');
 
-		toggleElement.onClick.listen((e) {
+		toggleElement.onClick.listen((_) {
 			toggle();
 			todoApp.updateCounts();
 			todoApp.save();
 		});
 
-		contentElement.onDoubleClick.listen((e) {
+		contentElement.onDoubleClick.listen((_) {
 			element.classes.add('editing');
 			editElement.selectionStart = todo.title.length;
 			editElement.focus();
@@ -43,14 +46,15 @@ class TodoWidget {
 			todoApp.updateFooterDisplay();
 		}
 
-		element.query('.destroy').onClick.listen((e) {
+		element.querySelector('.destroy').onClick.listen((_) {
 			removeTodo();
 			todoApp.save();
 		});
 
 		void doneEditing() {
-			todo.title = editElement.value.trim();
-			if (todo.title != '') {
+			editElement.value = editElement.value.trim();
+			todo.title = editElement.value;
+			if (todo.title.isNotEmpty) {
 				contentElement.text = todo.title;
 				element.classes.remove('editing');
 			} else {
@@ -59,13 +63,23 @@ class TodoWidget {
 			todoApp.save();
 		}
 
+		void undoEditing() {
+		  element.classes.remove('editing');
+		  editElement.value = todo.title;
+		}
+
 		editElement
-			..onKeyPress.listen((KeyboardEvent e) {
-				if (e.keyCode == KeyCode.ENTER) {
-					doneEditing();
+			..onKeyDown.listen((KeyboardEvent e) {
+			  switch (e.keyCode) {
+			    case KeyCode.ENTER:
+					  doneEditing();
+					  break;
+			    case KeyCode.ESC:
+			      undoEditing();
+			      break;
 				}
 			})
-			..onBlur.listen((e) => doneEditing());
+			..onBlur.listen((_) => doneEditing());
 
 		return element;
 	}

@@ -1,0 +1,6 @@
+name: todomvc_vanilladart
+version: 1.0.0
+description: TodoMVC built with Dart. Simple, vanilla Dart.
+dependencies:
+  browser: any
+  uuid: 0.2.0
