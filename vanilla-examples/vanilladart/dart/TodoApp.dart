@@ -12,6 +12,8 @@ class TodoApp {
 	Element showAllElement = querySelector('#filters a[href="#/"]');
 	Element showActiveElement = querySelector('#filters a[href="#/active"]');
 	Element showCompletedElement = querySelector('#filters a[href="#/completed"]');
+	
+	var uuid = new Uuid();
 
 	TodoApp() {
 		initLocalStorage();
@@ -43,7 +45,7 @@ class TodoApp {
 			if (e.keyCode == KeyCode.ENTER) {
 				var title = newTodoElement.value.trim();
 				if (title != '') {
-					addTodo(new Todo(UUID.createUuid(), title));
+					addTodo(new Todo(uuid.v4(), title));
 					newTodoElement.value = '';
 					updateFooterDisplay();
 					save();
