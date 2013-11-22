@@ -1,0 +1,36 @@
+{
+  "name": "magix",
+  "version": "1.1.0",
+  "description": "A framework for large web app engineering.",
+  "homepage": "http://thx.github.io/magix",
+  "authors": [
+    "Li Mu <limu@taobao.com>",
+    "Li Xinglie <xinglie.lkf@alibaba-inc.com>"
+  ],
+  "contributors": [
+    "Ma Huoyong <huoyong.msb@alibaba-inc.com>",
+    "Zhang Sifei <sifei.zm@alibaba-inc.com>"
+  ],
+  "license": "MIT",
+  "main": [
+    "dist/1.1"
+  ],
+  "ignore": [
+    "**/.*",
+    "combos",
+    "docs",
+    "src",
+    "tools",
+    "**/*-min.js",
+    "dist/1.0"
+  ],
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.0",
+    "commit": "4c33bd910e93f9145064830a170ad574ecb307ec"
+  },
+  "_source": "git://github.com/thx/magix.git",
+  "_target": "~1.1.0",
+  "_originalSource": "magix"
+}
