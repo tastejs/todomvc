@@ -1,0 +1,8 @@
+{
+  "name": "angular-route",
+  "version": "1.2.2",
+  "main": "./angular-route.js",
+  "dependencies": {
+    "angular": "1.2.2"
+  }
+}
