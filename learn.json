@@ -311,10 +311,10 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://donejs.com/docs.html#!canjs"
+				"url": "http://canjs.com/docs/index.html"
 			}, {
-				"name": "Why CanJS",
-				"url": "http://canjs.com/#why_canjs"
+				"name": "Getting started",
+				"url": "http://canjs.com/guides/Tutorial.html"
 			}, {
 				"name": "Applications built with CanJS",
 				"url": "http://canjs.com/#examples"
@@ -342,6 +342,9 @@
 			}, {
 				"name": "CanJS on Twitter",
 				"url": "http://twitter.com/canjs"
+			}, {
+				"name": "#canjs IRC",
+				"url": "http://webchat.freenode.net/?channels=canjs"
 			}]
 		}]
 	},
