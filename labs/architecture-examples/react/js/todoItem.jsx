@@ -71,7 +71,7 @@
 
 		render: function () {
 			return (
-				<li className={Utils.stringifyObjKeys({
+				<li className={React.addons.classSet({
 					completed: this.props.todo.completed,
 					editing: this.props.editing
 				})}>
