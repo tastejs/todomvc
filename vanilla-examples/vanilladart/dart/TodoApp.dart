@@ -13,7 +13,7 @@ class TodoApp {
 	Element showActiveElement = querySelector('#filters a[href="#/active"]');
 	Element showCompletedElement = querySelector('#filters a[href="#/completed"]');
 	
-	var uuid = new Uuid();
+	static final uuid = new Uuid();
 
 	TodoApp() {
 		initLocalStorage();

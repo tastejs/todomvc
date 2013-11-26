@@ -8,7 +8,7 @@ class TodoWidget {
 
 	TodoWidget(this.todoApp, this.todo);
 
-	var htmlEscape = new HtmlEscape();
+	static final htmlEscape = new HtmlEscape();
 	
 	Element createElement() {
 		element = new Element.html('''
