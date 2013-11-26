@@ -43,19 +43,6 @@
 				}
 			}
 			return newObj;
-		},
-
-		stringifyObjKeys: function (obj) {
-			var s = '';
-			var key;
-
-			for (key in obj) {
-				if (obj.hasOwnProperty(key) && obj[key]) {
-					s += key + ' ';
-				}
-			}
-
-			return s.trim();
 		}
 	};
 
