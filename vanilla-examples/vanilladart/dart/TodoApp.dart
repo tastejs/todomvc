@@ -1,6 +1,9 @@
 part of todomvc;
 
 class TodoApp {
+
+	static final uuid = new Uuid();
+
 	List<TodoWidget> todoWidgets = new List<TodoWidget>();
 
 	Element todoListElement = querySelector('#todo-list');
@@ -12,8 +15,6 @@ class TodoApp {
 	Element showAllElement = querySelector('#filters a[href="#/"]');
 	Element showActiveElement = querySelector('#filters a[href="#/active"]');
 	Element showCompletedElement = querySelector('#filters a[href="#/completed"]');
-	
-	static final uuid = new Uuid();
 
 	TodoApp() {
 		initLocalStorage();

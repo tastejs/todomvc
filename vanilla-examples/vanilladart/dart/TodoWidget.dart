@@ -1,6 +1,9 @@
 part of todomvc;
 
 class TodoWidget {
+
+	static final htmlEscape = new HtmlEscape();
+
 	TodoApp todoApp;
 	Todo todo;
 	Element element;
@@ -8,8 +11,6 @@ class TodoWidget {
 
 	TodoWidget(this.todoApp, this.todo);
 
-	static final htmlEscape = new HtmlEscape();
-	
 	Element createElement() {
 		element = new Element.html('''
 			<li ${todo.completed ? 'class="completed"' : ''}>
