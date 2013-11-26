@@ -1,60 +1,47 @@
 /*global define */
-/*jshint newcap:false */
-define([
-	'can/util/library',
-	'can/observe',
-	'models/localstorage'
-], function (can, Observe, LocalStorage) {
+define(['localstorage'], function(LocalStorage) {
 	'use strict';
 
 	// Basic Todo entry model
-	// { text: 'todo', complete: false }
-	var Todo = LocalStorage({
-		storageName: 'todos-canjs-requirejs'
+	var Todo = LocalStorage.extend({
+		storageName: 'todos-canjs'
 	}, {
-		// Returns if this instance matches a given filter
-		// (currently `active` and `complete`)
-		matches: function (state) {
-			return !state || (state === 'active' && !this.attr('complete')) ||
-				(state === 'completed' && this.attr('complete'));
+		init: function () {
+			// Autosave when changing the text or completing the todo
+			this.on('change', function (ev, prop) {
+				if (prop === 'text' || prop === 'complete') {
+					ev.target.save();
+				}
+			});
 		}
 	});
 
-	// Extend the existing Todo.List to add some helper methods
-	Todo.List = Todo.List({
-		completed: function () {
-			var completed = 0;
+	// List for Todos
+	Todo.List = Todo.List.extend({
+		filter: function (check) {
+			var list = [];
 
 			this.each(function (todo) {
-				completed += todo.attr('complete') ? 1 : 0;
+				if (check(todo)) {
+					list.push(todo);
+				}
 			});
 
-			return completed;
+			return list;
+		},
+
+		completed: function () {
+			return this.filter(function (todo) {
+				return todo.attr('complete');
+			});
 		},
 
 		remaining: function () {
-			return this.attr('length') - this.completed();
+			return this.attr('length') - this.completed().length;
 		},
 
 		allComplete: function () {
-			return this.attr('length') === this.completed();
-		},
-
-		// Returns a new can.Observe.List that contains only the Todos
-		// matching the current filter
-		byFilter: function (filter) {
-			var filtered = new Observe.List();
-			can.each(this, function (todo) {
-				if (todo.matches(filter)) {
-					filtered.push(todo);
-				}
-			});
-			return filtered;
-		},
-
-		// Returns the list to display based on the currently set `filter`
-		displayList: function () {
-			return this.byFilter(this.attr('filter'));
+			return this.attr('length') === this.completed().length;
 		}
 	});
 
