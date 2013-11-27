@@ -20,6 +20,7 @@ var app = app || {};
 		toggle: function () {
 			this.save({
 				completed: !this.get('completed')
+				//this always return false, so what is the point in having call get method
 			});
 		}
 	});
