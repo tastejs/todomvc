@@ -9,7 +9,7 @@ var app = app || {};
 
 	// The collection of todos is backed by *localStorage* instead of a remote
 	// server.
-	var Todos = Backbone.Collection.extend({
+	app.Todos = Backbone.Collection.extend({
 		// Reference to this collection's model.
 		model: app.Todo,
 
@@ -44,5 +44,5 @@ var app = app || {};
 	});
 
 	// Create our global collection of **Todos**.
-	app.todos = new Todos();
+	app.todos = new app.Todos();
 })();
