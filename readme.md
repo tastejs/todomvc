@@ -80,6 +80,7 @@ We also have a number of in-progress applications in Labs:
 - [Enyo + Backbone.js](http://enyojs.com/)
 - [SAPUI5](http://scn.sap.com/community/developer-center/front-end)
 - [Lavaca](http://getlavaca.com) + [RequireJS](http://requirejs.org) (using AMD)
+- [ComponentJS](http://componentjs.com)
 
 ## Live demos
 
