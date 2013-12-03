@@ -262,13 +262,6 @@
 		this.view.render('setFilter', currentPage);
 	};
 
-	/**
-	 * A getter for getting the current page
-	 */
-	Controller.prototype._getCurrentPage = function () {
-		return document.location.hash.split('/')[1];
-	};
-
 	// Export to window
 	window.app.Controller = Controller;
 })(window);
