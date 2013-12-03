@@ -6,22 +6,11 @@ describe('controller', function () {
     var subject, model, view;
 
     var setUpModel = function (todos) {
-        model.read.andCallFake(function (callback) {
-            callback(todos);
-        });
-
-        finalizeModelSetup(todos);
-    };
-
-    var setUpModelWithQuery = function (todos) {
         model.read.andCallFake(function (query, callback) {
+            callback = callback || query;
             callback(todos);
         });
 
-        finalizeModelSetup(todos);
-    };
-
-    var finalizeModelSetup = function (todos) {
         model.getCount.andReturn({
             active: todos.filter(function (todo) {
                     return !todo.completed;
@@ -62,7 +51,7 @@ describe('controller', function () {
 
     it('should show active entries', function () {
         var todo = {title: 'my todo', completed: false};
-        setUpModelWithQuery([todo]);
+        setUpModel([todo]);
 
         subject.showActive();
 
@@ -72,7 +61,7 @@ describe('controller', function () {
 
     it('should show completed entries', function () {
         var todo = {title: 'my todo', completed: true};
-        setUpModelWithQuery([todo]);
+        setUpModel([todo]);
 
         subject.showCompleted();
 
@@ -131,7 +120,7 @@ describe('controller', function () {
     });
 
     it('should highlight "Active" filter when switching to active view', function () {
-        setUpModelWithQuery([]);
+        setUpModel([]);
 
         subject.setView('active');
 
