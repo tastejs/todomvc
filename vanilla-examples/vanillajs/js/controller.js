@@ -1,4 +1,3 @@
-/*global $$ */
 (function (window) {
 	'use strict';
 
@@ -178,21 +177,13 @@
 	 *                          or not
 	 * @param {boolean|undefined} silent Prevent re-filtering the todo items
 	 */
-	Controller.prototype.toggleComplete = function (id, checkbox, silent) {
-		var completed = checkbox.checked ? 1 : 0;
-
+	Controller.prototype.toggleComplete = function (id, completed, silent) {
 		this.model.update(id, { completed: completed }, function () {
-			var listItem = $$('[data-id="' + id + '"]');
-
-			if (!listItem) {
-				return;
-			}
-
-			listItem.className = completed ? 'completed' : '';
-
-			// In case it was toggled from an event and not by clicking the checkbox
-			listItem.querySelector('input').checked = completed;
-		});
+			this.view.render('elementComplete', {
+				id: id,
+				completed: completed
+			});
+		}.bind(this));
 
 		if (!silent) {
 			this._filter();
@@ -206,16 +197,11 @@
 	 * @param {object} e The event object
 	 */
 	Controller.prototype.toggleAll = function (e) {
-		var completed = e.target.checked ? 1 : 0;
-		var query = 0;
+		var completed = e.target.checked;
 
-		if (completed === 0) {
-			query = 1;
-		}
-
-		this.model.read({ completed: query }, function (data) {
+		this.model.read({ completed: !completed }, function (data) {
 			data.forEach(function (item) {
-				this.toggleComplete(item.id, e.target, true);
+				this.toggleComplete(item.id, completed, true);
 			}.bind(this));
 		}.bind(this));
 

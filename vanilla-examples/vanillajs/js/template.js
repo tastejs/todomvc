@@ -44,7 +44,7 @@
 			var completed = '';
 			var checked = '';
 
-			if (data[i].completed === 1) {
+			if (data[i].completed) {
 				completed = 'completed';
 				checked = 'checked';
 			}

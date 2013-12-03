@@ -40,6 +40,19 @@
         });
     };
 
+    View.prototype._elementComplete = function (id, completed) {
+        var listItem = $$('[data-id="' + id + '"]');
+
+        if (!listItem) {
+            return;
+        }
+
+        listItem.className = completed ? 'completed' : '';
+
+        // In case it was toggled from an event and not by clicking the checkbox
+        listItem.querySelector('input').checked = completed;
+    };
+
     View.prototype.render = function (viewCmd, parameter) {
         if (viewCmd === 'showEntries') {
             this.$todoList.innerHTML = this.template.show(parameter);
@@ -57,6 +70,8 @@
             this._setFilter(parameter);
         } else if (viewCmd === 'clearNewTodo') {
             this.$newTodo.value = '';
+        } else if (viewCmd === 'elementComplete') {
+            this._elementComplete(parameter.id, parameter.completed);
         }
     };
 

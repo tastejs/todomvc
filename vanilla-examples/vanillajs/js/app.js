@@ -45,7 +45,8 @@
 	// A delegation event. Will check what item was clicked whenever you click on any
 	// part of a list item.
 	$$('#todo-list').addEventListener('click', function (e) {
-		var target = e.target;
+		var target = e.target,
+			completed;
 
 		// If you click a destroy button
 		if (target.className.indexOf('destroy') > -1) {
@@ -54,7 +55,8 @@
 
 		// If you click the checkmark
 		if (target.className.indexOf('toggle') > -1) {
-			todo.controller.toggleComplete(lookupId(target), target);
+			completed = target.checked;
+			todo.controller.toggleComplete(lookupId(target), completed);
 		}
 
 	});
