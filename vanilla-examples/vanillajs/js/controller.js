@@ -19,8 +19,6 @@
 
 		this.$main = $$('#main');
 		this.$toggleAll = $$('#toggle-all');
-		this.$todoItemCounter = $$('#todo-count');
-		this.$clearCompleted = $$('#clear-completed');
 		this.$footer = $$('#footer');
 
 		window.addEventListener('hashchange', function () {
@@ -242,10 +240,11 @@
 	Controller.prototype._updateCount = function () {
 		var todos = this.model.getCount();
 
-		this.$todoItemCounter.innerHTML = this.template.itemCounter(todos.active);
-
-		this.$clearCompleted.innerHTML = this.template.clearCompletedButton(todos.completed);
-		this.$clearCompleted.style.display = todos.completed > 0 ? 'block' : 'none';
+		this.view.render('updateElementCount', todos.active);
+		this.view.render('clearCompletedButton', {
+			completed: todos.completed,
+			visible: todos.completed > 0
+		});
 
 		this.$toggleAll.checked = todos.completed === todos.total;
 

@@ -50,7 +50,7 @@ describe('controller', function () {
             document.body.appendChild(fake);
         }
 
-        fake.innerHTML = elementify(['todo-count', 'clear-completed', 'toggle-all', 'main', 'footer', 'filters']);
+        fake.innerHTML = elementify(['toggle-all', 'main', 'footer', 'filters']);
         fake.querySelector('#filters').innerHTML = ['', 'active', 'completed'].map(function (page) {
             return '<a href="#/' + page + '"/>';
         }).join('');
@@ -103,23 +103,47 @@ describe('controller', function () {
         expect(view.render).toHaveBeenCalledWith("showEntries", [todo]);
     });
 
-    it("should remove an entry from model", function () {
+    it("should set the 'clear completed' button", function () {
         var todo = {id: 42, title: 'my todo', completed: true};
         setUpModel([todo]);
 
         subject.init();
-        subject.removeItem(42);
 
-        expect(model.remove).toHaveBeenCalledWith(42, jasmine.any(Function));
+        expect(view.render).toHaveBeenCalledWith('clearCompletedButton', {
+            completed: 1,
+            visible: true
+        });
     });
 
-    it("should remove an entry from the view", function () {
-        var todo = {id: 42, title: 'my todo', completed: true};
-        setUpModel([todo]);
+    describe("element removal", function () {
+        it("should remove an entry from model", function () {
+            var todo = {id: 42, title: 'my todo', completed: true};
+            setUpModel([todo]);
 
-        subject.init();
-        subject.removeItem(42);
+            subject.init();
+            subject.removeItem(42);
 
-        expect(view.render).toHaveBeenCalledWith('removeItem', 42);
+            expect(model.remove).toHaveBeenCalledWith(42, jasmine.any(Function));
+        });
+
+        it("should remove an entry from the view", function () {
+            var todo = {id: 42, title: 'my todo', completed: true};
+            setUpModel([todo]);
+
+            subject.init();
+            subject.removeItem(42);
+
+            expect(view.render).toHaveBeenCalledWith('removeItem', 42);
+        });
+
+        it("should update the element count", function () {
+            var todo = {id: 42, title: 'my todo', completed: true};
+            setUpModel([todo]);
+
+            subject.init();
+            subject.removeItem(42);
+
+            expect(view.render).toHaveBeenCalledWith('updateElementCount', 0);
+        });
     });
 });
