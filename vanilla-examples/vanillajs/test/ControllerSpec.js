@@ -50,7 +50,7 @@ describe('controller', function () {
             document.body.appendChild(fake);
         }
 
-        fake.innerHTML = elementify(['toggle-all', 'main', 'footer', 'filters']);
+        fake.innerHTML = elementify(['filters']);
         fake.querySelector('#filters').innerHTML = ['', 'active', 'completed'].map(function (page) {
             return '<a href="#/' + page + '"/>';
         }).join('');
@@ -61,8 +61,7 @@ describe('controller', function () {
 
         model = jasmine.createSpyObj('model', ['read', 'getCount', 'remove']);
         view = jasmine.createSpyObj('view', ['render']);
-        template = jasmine.createSpyObj('template', ['itemCounter', 'clearCompletedButton', 'show']);
-        subject = new app.Controller(model, view, template);
+        subject = new app.Controller(model, view);
     });
 
     it("should show entries on start-up", function () {
@@ -85,7 +84,6 @@ describe('controller', function () {
     it("should show active entries", function () {
         var todo = {title: 'my todo', completed: false};
         setUpModelWithQuery([todo]);
-        template.show.andReturn('the html');
 
         subject.showActive();
 
@@ -101,6 +99,36 @@ describe('controller', function () {
 
         expect(model.read).toHaveBeenCalledWith({completed: 1}, jasmine.any(Function));
         expect(view.render).toHaveBeenCalledWith("showEntries", [todo]);
+    });
+
+    it("should show the content block when todos exists", function () {
+        setUpModel([{title: 'my todo', completed: true}]);
+
+        subject.init();
+
+        expect(view.render).toHaveBeenCalledWith('contentBlockVisibility', {
+            visible: true
+        });
+    });
+
+    it("should hide the content block when no todos exists", function () {
+        setUpModel([]);
+
+        subject.init();
+
+        expect(view.render).toHaveBeenCalledWith('contentBlockVisibility', {
+            visible: false
+        });
+    });
+
+    it("should check the toggle all button, if all todos are completed", function () {
+        setUpModel([{title: 'my todo', completed: true}]);
+
+        subject.init();
+
+        expect(view.render).toHaveBeenCalledWith('toggleAll', {
+            checked: true
+        });
     });
 
     it("should set the 'clear completed' button", function () {

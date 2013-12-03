@@ -9,17 +9,12 @@
 	 * @param {object} model The model constructor
 	 * @param {object} view The view constructor
 	 */
-	function Controller(model, view, template) {
+	function Controller(model, view) {
 		this.model = model;
 		this.view = view;
-		this.template = template;
 
 		this.ENTER_KEY = 13;
 		this.ESCAPE_KEY = 27;
-
-		this.$main = $$('#main');
-		this.$toggleAll = $$('#toggle-all');
-		this.$footer = $$('#footer');
 
 		window.addEventListener('hashchange', function () {
 			this._updateFilterState();
@@ -246,30 +241,8 @@
 			visible: todos.completed > 0
 		});
 
-		this.$toggleAll.checked = todos.completed === todos.total;
-
-		this._toggleFrame(todos);
-	};
-
-	/**
-	 * The main body and footer elements should not be visible when there are no
-	 * todos left.
-	 *
-	 * @param {object} todos Contains a count of all todos, and their statuses.
-	 */
-	Controller.prototype._toggleFrame = function (todos) {
-		var frameDisplay = this.$main.style.display;
-		var frameVisible = frameDisplay === 'block' || frameDisplay === '';
-
-		if (todos.total === 0 && frameVisible) {
-			this.$main.style.display = 'none';
-			this.$footer.style.display = 'none';
-		}
-
-		if (todos.total > 0 && !frameVisible) {
-			this.$main.style.display = 'block';
-			this.$footer.style.display = 'block';
-		}
+		this.view.render('toggleAll', {checked: todos.completed === todos.total});
+		this.view.render('contentBlockVisibility', {visible: todos.total > 0});
 	};
 
 	/**

@@ -5,6 +5,10 @@
         this.$todoList = $$('#todo-list');
         this.$todoItemCounter = $$('#todo-count');
         this.$clearCompleted = $$('#clear-completed');
+        this.$main = $$('#main');
+        this.$footer = $$('#footer');
+        this.$toggleAll = $$('#toggle-all');
+
     }
 
     View.prototype._removeItem = function (id) {
@@ -29,6 +33,10 @@
             this.$todoItemCounter.innerHTML = this.template.itemCounter(parameter);
         } else if (viewCmd === 'clearCompletedButton') {
             this._clearCompletedButton(parameter.completed, parameter.visible);
+        } else if (viewCmd === 'contentBlockVisibility') {
+            this.$main.style.display = this.$footer.style.display = parameter.visible ? 'block' : 'none';
+        } else if (viewCmd === 'toggleAll') {
+            this.$toggleAll.checked = parameter.checked;
         }
     };
 
