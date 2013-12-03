@@ -15,14 +15,10 @@
 
 		this.ENTER_KEY = 13;
 		this.ESCAPE_KEY = 27;
-
-		window.addEventListener('hashchange', function () {
-			this._updateFilterState();
-		}.bind(this));
 	}
 
-	Controller.prototype.init = function () {
-		this._updateFilterState();
+	Controller.prototype.setView = function (page) {
+		this._updateFilterState(page);
 	};
 
 	/**
@@ -268,9 +264,7 @@
 	/**
 	 * Simply updates the filter nav's selected states
 	 */
-	Controller.prototype._updateFilterState = function () {
-		var currentPage = this._getCurrentPage() || '';
-
+	Controller.prototype._updateFilterState = function (currentPage) {
 		// Store a reference to the active route, allowing us to re-filter todo
 		// items as they are marked complete or incomplete.
 		this._activeRoute = currentPage;
@@ -281,13 +275,7 @@
 
 		this._filter();
 
-		// Remove all other selected states. We loop through all of them in case the
-		// UI gets in a funky state with two selected.
-		$('#filters .selected').each(function (item) {
-			item.className = '';
-		});
-
-		$$('#filters [href="#/' + currentPage + '"]').className = 'selected';
+		this.view.render('setFilter', currentPage);
 	};
 
 	/**

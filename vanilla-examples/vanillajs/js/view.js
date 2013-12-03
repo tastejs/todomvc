@@ -12,7 +12,6 @@
         this.$main = $$('#main');
         this.$footer = $$('#footer');
         this.$toggleAll = $$('#toggle-all');
-
     }
 
     View.prototype._removeItem = function (id) {
@@ -28,6 +27,18 @@
         this.$clearCompleted.style.display = visible ? 'block' : 'none';
     };
 
+    View.prototype._setFilter = function (currentPage) {
+        // Remove all other selected states. We loop through all of them in case the
+        // UI gets in a funky state with two selected.
+        $('#filters .selected').each(function (item) {
+            item.className = '';
+        });
+
+        $('#filters [href="#/' + currentPage + '"]').each(function (item) {
+            item.className = 'selected';
+        });
+    };
+
     View.prototype.render = function (viewCmd, parameter) {
         if (viewCmd === 'showEntries') {
             this.$todoList.innerHTML = this.template.show(parameter);
@@ -41,6 +52,8 @@
             this.$main.style.display = this.$footer.style.display = parameter.visible ? 'block' : 'none';
         } else if (viewCmd === 'toggleAll') {
             this.$toggleAll.checked = parameter.checked;
+        } else if (viewCmd === 'setFilter') {
+            this._setFilter(parameter);
         }
     };
 

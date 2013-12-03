@@ -18,7 +18,12 @@
 	var todo = new Todo('todos-vanillajs');
 
 	window.addEventListener('load', function () {
-		todo.controller.init();
+		var page = document.location.hash.split('/')[1];
+		todo.controller.setView(page);
+	}.bind(this));
+	window.addEventListener('hashchange', function () {
+		var page = document.location.hash.split('/')[1];
+		todo.controller.setView(page);
 	}.bind(this));
 
 	/**

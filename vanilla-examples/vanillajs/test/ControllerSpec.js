@@ -37,32 +37,7 @@ describe('controller', function () {
         });
     };
 
-    var elementify = function (ids) {
-        return ids.map(function (id) {
-            return '<span id="' + id + '"></span>';
-        }).join('');
-    };
-
-    var fakeDOM = function () {
-        var fakeContainerId = 'jasmineTestFake',
-            fake = document.querySelector('#' + fakeContainerId) || document.createElement('div');
-
-        fake.id = fakeContainerId;
-        fake.style.visibility = 'hidden';
-
-        if (!fake.parentNode) {
-            document.body.appendChild(fake);
-        }
-
-        fake.innerHTML = elementify(['filters']);
-        fake.querySelector('#filters').innerHTML = ['', 'active', 'completed'].map(function (page) {
-            return '<a href="#/' + page + '"/>';
-        }).join('');
-    };
-
     beforeEach(function () {
-        fakeDOM();
-
         model = jasmine.createSpyObj('model', ['read', 'getCount', 'remove']);
         view = jasmine.createSpyObj('view', ['render']);
         subject = new app.Controller(model, view);
@@ -71,7 +46,7 @@ describe('controller', function () {
     it('should show entries on start-up', function () {
         setUpModel([]);
 
-        subject.init();
+        subject.setView('');
 
         expect(view.render).toHaveBeenCalledWith('showEntries', []);
     });
@@ -108,7 +83,7 @@ describe('controller', function () {
     it('should show the content block when todos exists', function () {
         setUpModel([{title: 'my todo', completed: true}]);
 
-        subject.init();
+        subject.setView('');
 
         expect(view.render).toHaveBeenCalledWith('contentBlockVisibility', {
             visible: true
@@ -118,7 +93,7 @@ describe('controller', function () {
     it('should hide the content block when no todos exists', function () {
         setUpModel([]);
 
-        subject.init();
+        subject.setView('');
 
         expect(view.render).toHaveBeenCalledWith('contentBlockVisibility', {
             visible: false
@@ -128,7 +103,7 @@ describe('controller', function () {
     it('should check the toggle all button, if all todos are completed', function () {
         setUpModel([{title: 'my todo', completed: true}]);
 
-        subject.init();
+        subject.setView('');
 
         expect(view.render).toHaveBeenCalledWith('toggleAll', {
             checked: true
@@ -139,7 +114,7 @@ describe('controller', function () {
         var todo = {id: 42, title: 'my todo', completed: true};
         setUpModel([todo]);
 
-        subject.init();
+        subject.setView('');
 
         expect(view.render).toHaveBeenCalledWith('clearCompletedButton', {
             completed: 1,
@@ -147,12 +122,28 @@ describe('controller', function () {
         });
     });
 
+    it('should highlight "All" filter by default', function () {
+        setUpModel([]);
+
+        subject.setView('');
+
+        expect(view.render).toHaveBeenCalledWith('setFilter', '');
+    });
+
+    it('should highlight "Active" filter when switching to active view', function () {
+        setUpModelWithQuery([]);
+
+        subject.setView('active');
+
+        expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
+    });
+
     describe('element removal', function () {
         it('should remove an entry from model', function () {
             var todo = {id: 42, title: 'my todo', completed: true};
             setUpModel([todo]);
 
-            subject.init();
+            subject.setView('');
             subject.removeItem(42);
 
             expect(model.remove).toHaveBeenCalledWith(42, jasmine.any(Function));
@@ -162,7 +153,7 @@ describe('controller', function () {
             var todo = {id: 42, title: 'my todo', completed: true};
             setUpModel([todo]);
 
-            subject.init();
+            subject.setView('');
             subject.removeItem(42);
 
             expect(view.render).toHaveBeenCalledWith('removeItem', 42);
@@ -172,7 +163,7 @@ describe('controller', function () {
             var todo = {id: 42, title: 'my todo', completed: true};
             setUpModel([todo]);
 
-            subject.init();
+            subject.setView('');
             subject.removeItem(42);
 
             expect(view.render).toHaveBeenCalledWith('updateElementCount', 0);
