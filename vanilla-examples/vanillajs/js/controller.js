@@ -19,7 +19,6 @@
 
 		this.$main = $$('#main');
 		this.$toggleAll = $$('#toggle-all');
-		this.$todoList = $$('#todo-list');
 		this.$todoItemCounter = $$('#todo-count');
 		this.$clearCompleted = $$('#clear-completed');
 		this.$footer = $$('#footer');
@@ -48,7 +47,7 @@
 	 */
 	Controller.prototype.showActive = function () {
 		this.model.read({ completed: 0 }, function (data) {
-			this.$todoList.innerHTML = this.template.show(data);
+			this.view.render('showEntries', data);
 		}.bind(this));
 	};
 
@@ -57,7 +56,7 @@
 	 */
 	Controller.prototype.showCompleted = function () {
 		this.model.read({ completed: 1 }, function (data) {
-			this.$todoList.innerHTML = this.template.show(data);
+			this.view.render('showEntries', data);
 		}.bind(this));
 	};
 
@@ -164,11 +163,7 @@
 	 */
 	Controller.prototype.removeItem = function (id) {
 		this.model.remove(id, function () {
-			var elem = $$('[data-id="' + id + '"]');
-
-			if (elem) {
-				this.$todoList.removeChild(elem);
-			}
+			this.view.render('removeItem', id);
 		}.bind(this));
 
 		this._filter();
