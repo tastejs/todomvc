@@ -15,6 +15,10 @@
 
 		this.ENTER_KEY = 13;
 		this.ESCAPE_KEY = 27;
+
+		this.view.bind('newTodo', function (title) {
+			this.addItem(title);
+		}.bind(this));
 	}
 
 	Controller.prototype.setView = function (page) {
@@ -55,16 +59,13 @@
 	 *
 	 * @param {object} e The event object
 	 */
-	Controller.prototype.addItem = function () {
-		var input = $$('#new-todo'),
-			title = input.value;
-
+	Controller.prototype.addItem = function (title) {
 		if (title.trim() === '') {
 			return;
 		}
 
 		this.model.create(title, function () {
-			input.value = '';
+			this.view.render('clearNewTodo');
 			this._filter(true);
 		}.bind(this));
 	};

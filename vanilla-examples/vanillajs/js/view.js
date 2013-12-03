@@ -12,6 +12,7 @@
         this.$main = $$('#main');
         this.$footer = $$('#footer');
         this.$toggleAll = $$('#toggle-all');
+        this.$newTodo = $$('#new-todo');
     }
 
     View.prototype._removeItem = function (id) {
@@ -54,6 +55,16 @@
             this.$toggleAll.checked = parameter.checked;
         } else if (viewCmd === 'setFilter') {
             this._setFilter(parameter);
+        } else if (viewCmd === 'clearNewTodo') {
+            this.$newTodo.value = '';
+        }
+    };
+
+    View.prototype.bind = function (event, handler) {
+        if (event === 'newTodo') {
+            this.$newTodo.addEventListener('change', function () {
+                handler(this.$newTodo.value);
+            }.bind(this));
         }
     };
 

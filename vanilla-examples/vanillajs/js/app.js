@@ -42,11 +42,6 @@
 		return lookup.dataset.id;
 	}
 
-	// When the enter key is pressed fire the addItem method.
-	$$('#new-todo').addEventListener('change', function () {
-		todo.controller.addItem();
-	});
-
 	// A delegation event. Will check what item was clicked whenever you click on any
 	// part of a list item.
 	$$('#todo-list').addEventListener('click', function (e) {

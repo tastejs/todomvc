@@ -24,11 +24,28 @@ describe('controller', function () {
         model.remove.andCallFake(function (id, callback) {
             callback();
         });
+
+        model.create.andCallFake(function (title, callback) {
+            callback();
+        });
+    };
+
+    var createViewStub = function () {
+        var eventRegistry = {};
+        return {
+            render: jasmine.createSpy('render'),
+            bind: function (event, handler) {
+                    eventRegistry[event] = handler;
+                },
+            trigger: function (event, parameter) {
+                eventRegistry[event](parameter);
+            }
+        };
     };
 
     beforeEach(function () {
-        model = jasmine.createSpyObj('model', ['read', 'getCount', 'remove']);
-        view = jasmine.createSpyObj('view', ['render']);
+        model = jasmine.createSpyObj('model', ['read', 'getCount', 'remove', 'create']);
+        view = createViewStub();
         subject = new app.Controller(model, view);
     });
 
@@ -125,6 +142,52 @@ describe('controller', function () {
         subject.setView('active');
 
         expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
+    });
+
+    describe('new todo', function () {
+        it('should add a new todo to the model', function () {
+            setUpModel([]);
+
+            subject.setView('');
+
+            view.trigger('newTodo', 'a new todo');
+
+            expect(model.create).toHaveBeenCalledWith('a new todo', jasmine.any(Function));
+        });
+
+        it('should add a new todo to the view', function () {
+            setUpModel([]);
+
+            subject.setView('');
+
+            view.render.reset();
+            model.read.reset();
+            model.read.andCallFake(function (callback) {
+                callback([{
+                    title: 'a new todo',
+                    completed: false
+                }]);
+            });
+
+            view.trigger('newTodo', 'a new todo');
+
+            expect(model.read).toHaveBeenCalled();
+
+            expect(view.render).toHaveBeenCalledWith('showEntries', [{
+                title: 'a new todo',
+                completed: false
+            }]);
+        });
+
+        it('should clear the input field when a new todo is added', function () {
+            setUpModel([]);
+
+            subject.setView('');
+
+            view.trigger('newTodo', 'a new todo');
+
+            expect(view.render).toHaveBeenCalledWith('clearNewTodo');
+        });
     });
 
     describe('element removal', function () {
