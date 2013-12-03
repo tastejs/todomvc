@@ -16,9 +16,6 @@
         this.$footer = $$('#footer');
         this.$toggleAll = $$('#toggle-all');
         this.$newTodo = $$('#new-todo');
-
-        this.itemEvents = {};
-        this.itemEditingEvents = {};
     }
 
     View.prototype._removeItem = function (id) {
@@ -74,8 +71,6 @@
         listItem.appendChild(input);
         input.focus();
         input.value = title;
-
-        this._bindItemEditing();
     };
 
     View.prototype._editItemDone = function (id, title) {
@@ -98,7 +93,6 @@
     View.prototype.render = function (viewCmd, parameter) {
         if (viewCmd === 'showEntries') {
             this.$todoList.innerHTML = this.template.show(parameter);
-            this._bindItems();
         } else if (viewCmd === 'removeItem') {
             this._removeItem(parameter);
         } else if (viewCmd === 'updateElementCount') {
@@ -122,73 +116,57 @@
         }
     };
 
-    View.prototype._bindItems = function () {
-        Object.keys(this.itemEvents).forEach(function (event) {
-            var handler = this.itemEvents[event];
-
-            if (event === 'itemEdit') {
-                $('#todo-list li').each(function (li) {
-                    li.querySelectorAll('label').each(function (label) {
-                        label.addEventListener('dblclick', function () {
-                            handler({id: li.dataset.id});
-                        });
-                    });
-                });
-            }
-        }.bind(this));
-    };
-
-    View.prototype._bindItemEditing = function () {
-        Object.keys(this.itemEditingEvents).forEach(function (event) {
-            var handler = this.itemEditingEvents[event];
-
-            if (event === 'itemEditDone') {
-                $('#todo-list li').each(function (li) {
-                    li.querySelectorAll('input').each(function (input) {
-                        input.addEventListener('blur', function (e) {
-                            if (!input.dataset.iscanceled) {
-                                handler({
-                                    id: li.dataset.id,
-                                    title: input.value
-                                });
-                            }
-                        }.bind(this));
-                        input.addEventListener('keypress', function (e) {
-                            if (e.keyCode === this.ENTER_KEY) {
-                                // Remove the cursor from the input when you hit enter just like if it
-                                // were a real form
-                                input.blur();
-                            }
-                        }.bind(this));
-                    }.bind(this));
-                }.bind(this));
-            } else if (event === 'itemEditCancel') {
-                $('#todo-list li').each(function (li) {
-                    li.querySelectorAll('input').each(function (input) {
-                        input.addEventListener('keypress', function (e) {
-                            if (e.keyCode === this.ESCAPE_KEY) {
-
-                                input.dataset.iscanceled = true;
-                                input.blur();
-
-                                handler({id: li.dataset.id});
-                            }
-                        }.bind(this));
-                    }.bind(this));
-                }.bind(this));
-            }
-        }.bind(this));
-    };
-
     View.prototype.bind = function (event, handler) {
         if (event === 'newTodo') {
             this.$newTodo.addEventListener('change', function () {
                 handler(this.$newTodo.value);
             }.bind(this));
+
         } else if (event === 'itemEdit') {
-            this.itemEvents[event] = handler;
-        } else if (event === 'itemEditDone' || event === 'itemEditCancel') {
-            this.itemEditingEvents[event] = handler;
+            $live('#todo-list li label', 'dblclick', function (e) {
+                var label = e.target,
+                    li = $parent(label, 'li'),
+                    id = li.dataset.id;
+
+                handler({id: id});
+            });
+
+        } else if (event === 'itemEditDone') {
+            $live('#todo-list li .edit', 'blur', function (e) {
+                var input = e.target,
+                    li = $parent(input, 'li'),
+                    id = li.dataset.id;
+                if (!input.dataset.iscanceled) {
+                    handler({
+                        id: li.dataset.id,
+                        title: input.value
+                    });
+                }
+            }.bind(this));
+
+            $live('#todo-list li .edit', 'keypress', function (e) {
+                var input = e.target;
+                if (e.keyCode === this.ENTER_KEY) {
+                    // Remove the cursor from the input when you hit enter just like if it
+                    // were a real form
+                    input.blur();
+                }
+            }.bind(this));
+
+        } else if (event === 'itemEditCancel') {
+            $live('#todo-list li .edit', 'keypress', function (e) {
+                var input = e.target,
+                    li = $parent(input, 'li'),
+                    id = li.dataset.id;
+
+                    if (e.keyCode === this.ESCAPE_KEY) {
+
+                        input.dataset.iscanceled = true;
+                        input.blur();
+
+                        handler({id: id});
+                    }
+            }.bind(this));
         }
     };
 
