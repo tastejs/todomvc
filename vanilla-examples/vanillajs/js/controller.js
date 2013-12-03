@@ -55,21 +55,18 @@
 	 *
 	 * @param {object} e The event object
 	 */
-	Controller.prototype.addItem = function (e) {
-		var input = $$('#new-todo');
-		var title = title || '';
+	Controller.prototype.addItem = function () {
+		var input = $$('#new-todo'),
+			title = input.value;
 
-		if (e.keyCode === this.ENTER_KEY) {
-			if (e.target.value.trim() === '') {
-				return;
-			}
-
-			this.model.create(e.target.value, function () {
-				input.value = '';
-				this._filter(true);
-			}.bind(this));
+		if (title.trim() === '') {
+			return;
 		}
 
+		this.model.create(title, function () {
+			input.value = '';
+			this._filter(true);
+		}.bind(this));
 	};
 
 	/**
