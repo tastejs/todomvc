@@ -12,11 +12,20 @@
 		this.model = model;
 		this.view = view;
 
-		this.ENTER_KEY = 13;
-		this.ESCAPE_KEY = 27;
-
 		this.view.bind('newTodo', function (title) {
 			this.addItem(title);
+		}.bind(this));
+
+		this.view.bind('itemEdit', function (item) {
+			this.editItem(item.id);
+		}.bind(this));
+
+		this.view.bind('itemEditDone', function (item) {
+			this.editItemSave(item.id, item.title);
+		}.bind(this));
+
+		this.view.bind('itemEditCancel', function (item) {
+			this.editItemCancel(item.id);
 		}.bind(this));
 	}
 
@@ -69,75 +78,22 @@
 		}.bind(this));
 	};
 
-	/**
-	 * Hides the label text and creates an input to edit the title of the item.
-	 * When you hit enter or blur out of the input it saves it and updates the UI
-	 * with the new name.
-	 *
-	 * @param {number} id The id of the item to edit
-	 * @param {object} label The label you want to edit the text of
-	 */
-	Controller.prototype.editItem = function (id, label) {
-		var li =  label;
-
-		// This finds the <label>'s parent <li>
-		while (li.nodeName !== 'LI') {
-			li = li.parentNode;
-		}
-
-		var onSaveHandler = function () {
-			var value = input.value.trim();
-			var discarding = input.dataset.discard;
-
-			if (value.length && !discarding) {
-				this.model.update(id, { title: input.value });
-
-				// Instead of re-rendering the whole view just update
-				// this piece of it
-				label.innerHTML = value;
-			} else if (value.length === 0) {
-				// No value was entered in the input. We'll remove the todo item.
-				this.removeItem(id);
-			}
-
-			// Remove the input since we no longer need it
-			// Less DOM means faster rendering
-			li.removeChild(input);
-
-			// Remove the editing class
-			li.className = li.className.replace('editing', '');
-		}.bind(this);
-
-		// Append the editing class
-		li.className = li.className + ' editing';
-
-		var input = document.createElement('input');
-		input.className = 'edit';
-
-		// Get the innerHTML of the label instead of requesting the data from the
-		// ORM. If this were a real DB this would save a lot of time and would avoid
-		// a spinner gif.
-		input.value = label.innerHTML;
-
-		li.appendChild(input);
-
-		input.addEventListener('blur', onSaveHandler);
-
-		input.addEventListener('keypress', function (e) {
-			if (e.keyCode === this.ENTER_KEY) {
-				// Remove the cursor from the input when you hit enter just like if it
-				// were a real form
-				input.blur();
-			}
-
-			if (e.keyCode === this.ESCAPE_KEY) {
-				// Discard the changes
-				input.dataset.discard = true;
-				input.blur();
-			}
+	Controller.prototype.editItem = function (id) {
+		this.model.read(id, function (data) {
+			this.view.render('editItem', {id: id, title: data[0].title});
 		}.bind(this));
+	};
 
-		input.focus();
+	Controller.prototype.editItemSave = function (id, title) {
+		this.model.update(id, {title: title}, function () {
+			this.view.render('editItemDone', {id: id, title: title});
+		}.bind(this));
+	};
+
+	Controller.prototype.editItemCancel = function (id) {
+		this.model.read(id, function (data) {
+			this.view.render('editItemDone', {id: id, title: data[0].title});
+		}.bind(this));
 	};
 
 	/**

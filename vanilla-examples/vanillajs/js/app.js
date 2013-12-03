@@ -61,14 +61,6 @@
 
 	});
 
-	$$('#todo-list').addEventListener('dblclick', function (e) {
-		var target = e.target;
-
-		if (target.nodeName === 'LABEL') {
-			todo.controller.editItem(lookupId(target), target);
-		}
-	});
-
 	$$('#toggle-all').addEventListener('click', function (e) {
 		todo.controller.toggleAll(e);
 	});

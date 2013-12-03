@@ -249,4 +249,61 @@ describe('controller', function () {
             expect(view.render).toHaveBeenCalledWith('elementComplete', {id: 42, completed: completed});
         });
     });
+
+    describe('edit item', function () {
+        it('should switch to edit mode', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEdit', {id: 21});
+
+            expect(view.render).toHaveBeenCalledWith('editItem', {id: 21, title: 'my todo'});
+        });
+
+        it('should leave edit mode on done', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEditDone', {id: 21, title: 'new title'});
+
+            expect(view.render).toHaveBeenCalledWith('editItemDone', {id: 21, title: 'new title'});
+        });
+
+        it('should persist the changes on done', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEditDone', {id: 21, title: 'new title'});
+
+            expect(model.update).toHaveBeenCalledWith(21, {title: 'new title'}, jasmine.any(Function));
+        });
+
+        it('should leave edit mode on cancel', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEditCancel', {id: 21});
+
+            expect(view.render).toHaveBeenCalledWith('editItemDone', {id: 21, title: 'my todo'});
+        });
+
+        it('should not persist the changes on cancel', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEditCancel', {id: 21});
+
+            expect(model.update).not.toHaveBeenCalled();
+        });
+    });
 });
