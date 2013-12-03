@@ -1,4 +1,8 @@
-(function () {
+/*global $$ */
+
+(function (window) {
+    'use strict';
+
     function View(template) {
         this.template = template;
 
@@ -41,4 +45,4 @@
     };
 
     window.app.View = View;
-}())
+}(window));

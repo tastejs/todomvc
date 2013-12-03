@@ -1,4 +1,8 @@
+/*global app, jasmine, describe, it, beforeEach, expect */
+
 describe('controller', function () {
+    'use strict';
+
     var subject, model, view;
 
     var setUpModel = function (todos) {
@@ -64,44 +68,44 @@ describe('controller', function () {
         subject = new app.Controller(model, view);
     });
 
-    it("should show entries on start-up", function () {
+    it('should show entries on start-up', function () {
         setUpModel([]);
 
         subject.init();
 
-        expect(view.render).toHaveBeenCalledWith("showEntries", []);
+        expect(view.render).toHaveBeenCalledWith('showEntries', []);
     });
 
-    it("should show all entries", function () {
+    it('should show all entries', function () {
         var todo = {title: 'my todo'};
         setUpModel([todo]);
 
         subject.showAll();
 
-        expect(view.render).toHaveBeenCalledWith("showEntries", [todo]);
+        expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
     });
 
-    it("should show active entries", function () {
+    it('should show active entries', function () {
         var todo = {title: 'my todo', completed: false};
         setUpModelWithQuery([todo]);
 
         subject.showActive();
 
         expect(model.read).toHaveBeenCalledWith({completed: 0}, jasmine.any(Function));
-        expect(view.render).toHaveBeenCalledWith("showEntries", [todo]);
+        expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
     });
 
-    it("should show completed entries", function () {
+    it('should show completed entries', function () {
         var todo = {title: 'my todo', completed: true};
         setUpModelWithQuery([todo]);
 
         subject.showCompleted();
 
         expect(model.read).toHaveBeenCalledWith({completed: 1}, jasmine.any(Function));
-        expect(view.render).toHaveBeenCalledWith("showEntries", [todo]);
+        expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
     });
 
-    it("should show the content block when todos exists", function () {
+    it('should show the content block when todos exists', function () {
         setUpModel([{title: 'my todo', completed: true}]);
 
         subject.init();
@@ -111,7 +115,7 @@ describe('controller', function () {
         });
     });
 
-    it("should hide the content block when no todos exists", function () {
+    it('should hide the content block when no todos exists', function () {
         setUpModel([]);
 
         subject.init();
@@ -121,7 +125,7 @@ describe('controller', function () {
         });
     });
 
-    it("should check the toggle all button, if all todos are completed", function () {
+    it('should check the toggle all button, if all todos are completed', function () {
         setUpModel([{title: 'my todo', completed: true}]);
 
         subject.init();
@@ -131,7 +135,7 @@ describe('controller', function () {
         });
     });
 
-    it("should set the 'clear completed' button", function () {
+    it('should set the "clear completed" button', function () {
         var todo = {id: 42, title: 'my todo', completed: true};
         setUpModel([todo]);
 
@@ -143,8 +147,8 @@ describe('controller', function () {
         });
     });
 
-    describe("element removal", function () {
-        it("should remove an entry from model", function () {
+    describe('element removal', function () {
+        it('should remove an entry from model', function () {
             var todo = {id: 42, title: 'my todo', completed: true};
             setUpModel([todo]);
 
@@ -154,7 +158,7 @@ describe('controller', function () {
             expect(model.remove).toHaveBeenCalledWith(42, jasmine.any(Function));
         });
 
-        it("should remove an entry from the view", function () {
+        it('should remove an entry from the view', function () {
             var todo = {id: 42, title: 'my todo', completed: true};
             setUpModel([todo]);
 
@@ -164,7 +168,7 @@ describe('controller', function () {
             expect(view.render).toHaveBeenCalledWith('removeItem', 42);
         });
 
-        it("should update the element count", function () {
+        it('should update the element count', function () {
             var todo = {id: 42, title: 'my todo', completed: true};
             setUpModel([todo]);
 
