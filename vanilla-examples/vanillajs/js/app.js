@@ -17,6 +17,10 @@
 
 	var todo = new Todo('todos-vanillajs');
 
+	window.addEventListener('load', function () {
+		todo.controller.init();
+	}.bind(this));
+
 	/**
 	 * Finds the model ID of the clicked DOM element
 	 *

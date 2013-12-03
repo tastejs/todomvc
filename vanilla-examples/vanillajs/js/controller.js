@@ -24,14 +24,14 @@
 		this.$clearCompleted = $$('#clear-completed');
 		this.$footer = $$('#footer');
 
-		window.addEventListener('load', function () {
-			this._updateFilterState();
-		}.bind(this));
-
 		window.addEventListener('hashchange', function () {
 			this._updateFilterState();
 		}.bind(this));
 	}
+
+	Controller.prototype.init = function () {
+		this._updateFilterState();
+	};
 
 	/**
 	 * An event to fire on load. Will get all items and display them in the

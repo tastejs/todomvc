@@ -1,21 +1,70 @@
 describe('controller', function () {
     var subject, model, view;
 
+    var setupModel = function (todos) {
+        model.read.andCallFake(function (callback) {
+            callback(todos);
+        });
+
+        model.getCount.andReturn({
+            active: todos.filter(function (todo) {
+                    return !todo.completed;
+                }).length,
+            completed: todos.filter(function (todo) {
+                    return !!todo.completed;
+                }).length,
+            total: todos.length
+        });
+    };
+
+    var elementify = function (ids) {
+        return ids.map(function (id) {
+            return '<span id="' + id + '"></span>';
+        }).join('');
+    };
+
+    var fakeDOM = function () {
+        var fakeContainerId = 'jasmineTestFake',
+            fake = document.querySelector('#' + fakeContainerId) || document.createElement('div');
+
+        fake.id = fakeContainerId;
+        fake.style.visibility = 'hidden';
+
+        if (!fake.parentNode) {
+            document.body.appendChild(fake);
+        }
+
+        fake.innerHTML = elementify(['todo-list', 'todo-count', 'clear-completed', 'toggle-all', 'main', 'footer', 'filters']);
+        fake.querySelector('#filters').innerHTML = ['', 'active', 'completed'].map(function (page) {
+            return '<a href="#/' + page + '"/>';
+        }).join('');
+    };
+
     beforeEach(function () {
-        model = jasmine.createSpyObj('model', ['read']);
+        fakeDOM();
+
+        model = jasmine.createSpyObj('model', ['read', 'getCount']);
         view = jasmine.createSpyObj('view', ['render']);
-        subject = new app.Controller(model, view, null);
+        template = jasmine.createSpyObj('template', ['itemCounter', 'clearCompletedButton']);
+        subject = new app.Controller(model, view, template);
+    });
+
+    it("should show entries on start-up", function () {
+        setupModel([]);
+
+        subject.init();
+
+        expect(view.render).toHaveBeenCalledWith("showEntries", []);
     });
 
     it('should show all entries', function () {
-        var theEntries = "the entries";
+        var todo = {title: 'my todo'};
+        setupModel([todo]);
 
-        model.read.andCallFake(function (callback) {
-            callback(theEntries);
-        });
+        subject = new app.Controller(model, view, null);
 
         subject.showAll();
 
-        expect(view.render).toHaveBeenCalledWith("showEntries", theEntries);
+        expect(view.render).toHaveBeenCalledWith("showEntries", [todo]);
     });
 });
