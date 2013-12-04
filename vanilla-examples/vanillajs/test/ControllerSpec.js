@@ -151,9 +151,13 @@ describe('controller', function () {
     describe('toggle all', function () {
         it('should toggle all todos to completed', function () {
             var todos = [{
-                    id: 42, title: 'my todo', completed: false
+                    id: 42,
+                    title: 'my todo',
+                    completed: false
                 }, {
-                    id: 21, title: 'another todo', completed: false
+                    id: 21,
+                    title: 'another todo',
+                    completed: false
                 }];
             setUpModel(todos);
             subject.setView('');
@@ -166,7 +170,9 @@ describe('controller', function () {
 
         it('should update the view', function () {
             var todos = [{
-                    id: 42, title: 'my todo', completed: true
+                    id: 42,
+                    title: 'my todo',
+                    completed: true
                 }];
             setUpModel(todos);
             subject.setView('');

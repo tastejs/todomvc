@@ -1,4 +1,4 @@
-/*global $, $$ */
+/*global $, $$, $parent, $live */
 
 (function (window) {
     'use strict';
@@ -191,13 +191,13 @@
                 var input = e.target,
                     id = this._itemIdForEvent(e);
 
-                    if (e.keyCode === this.ESCAPE_KEY) {
+                if (e.keyCode === this.ESCAPE_KEY) {
 
-                        input.dataset.iscanceled = true;
-                        input.blur();
+                    input.dataset.iscanceled = true;
+                    input.blur();
 
-                        handler({id: id});
-                    }
+                    handler({id: id});
+                }
             }.bind(this));
         }
     };

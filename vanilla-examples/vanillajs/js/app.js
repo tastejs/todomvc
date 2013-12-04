@@ -1,4 +1,4 @@
-/*global $$, app */
+/*global app */
 (function () {
 	'use strict';
 
