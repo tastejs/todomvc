@@ -63,7 +63,7 @@
 	 * Renders all active tasks
 	 */
 	Controller.prototype.showActive = function () {
-		this.model.read({ completed: 0 }, function (data) {
+		this.model.read({ completed: false }, function (data) {
 			this.view.render('showEntries', data);
 		}.bind(this));
 	};
@@ -72,7 +72,7 @@
 	 * Renders all completed tasks
 	 */
 	Controller.prototype.showCompleted = function () {
-		this.model.read({ completed: 1 }, function (data) {
+		this.model.read({ completed: true }, function (data) {
 			this.view.render('showEntries', data);
 		}.bind(this));
 	};

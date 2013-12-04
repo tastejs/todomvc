@@ -76,7 +76,7 @@ describe('controller', function () {
 
         subject.showActive();
 
-        expect(model.read).toHaveBeenCalledWith({completed: 0}, jasmine.any(Function));
+        expect(model.read).toHaveBeenCalledWith({completed: false}, jasmine.any(Function));
         expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
     });
 
@@ -86,7 +86,7 @@ describe('controller', function () {
 
         subject.showCompleted();
 
-        expect(model.read).toHaveBeenCalledWith({completed: 1}, jasmine.any(Function));
+        expect(model.read).toHaveBeenCalledWith({completed: true}, jasmine.any(Function));
         expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
     });
 
