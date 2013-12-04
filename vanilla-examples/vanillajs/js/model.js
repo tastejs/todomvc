@@ -101,7 +101,7 @@
 		};
 
 		this.storage.findAll(function (data) {
-			data.each(function (todo) {
+			data.forEach(function (todo) {
 				if (todo.completed) {
 					todos.completed++;
 				} else {
@@ -116,5 +116,6 @@
 	};
 
 	// Export to window
+	window.app = window.app || {};
 	window.app.Model = Model;
 })(window);

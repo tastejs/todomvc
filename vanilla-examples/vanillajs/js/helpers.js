@@ -1,3 +1,4 @@
+/*global NodeList */
 (function (window) {
 	'use strict';
 
@@ -5,6 +6,8 @@
 	window.$ = document.querySelectorAll.bind(document);
 	window.$$ = document.querySelector.bind(document);
 
+	// Register events on elements that may or may not exist yet:
+	// $live('div a', 'click', function (e) {});
 	window.$live = (function () {
 		var eventRegistry = {};
 
@@ -37,6 +40,8 @@
 		};
 	}());
 
+	// Find the element's parent with the given tag name:
+	// $parent($$('a'), 'div');
 	window.$parent = function (element, tagName) {
 		if (!element.parentNode) {
 			return;
@@ -47,13 +52,7 @@
 		return window.$parent(element.parentNode, tagName);
 	};
 
-	// Allow for looping on Objects by chaining:
-	// $('.foo').each(function () {})
-	Object.prototype.each = function (callback) {
-		for (var x in this) {
-			if (this.hasOwnProperty(x)) {
-				callback.call(this, this[x]);
-			}
-		}
-	};
+	// Allow for looping on nodes by chaining:
+	// $('.foo').forEach(function () {})
+	NodeList.prototype.forEach = Array.prototype.forEach;
 })(window);

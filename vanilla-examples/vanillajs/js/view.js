@@ -34,11 +34,11 @@
     View.prototype._setFilter = function (currentPage) {
         // Remove all other selected states. We loop through all of them in case the
         // UI gets in a funky state with two selected.
-        $('#filters .selected').each(function (item) {
+        $('#filters .selected').forEach(function (item) {
             item.className = '';
         });
 
-        $('#filters [href="#/' + currentPage + '"]').each(function (item) {
+        $('#filters [href="#/' + currentPage + '"]').forEach(function (item) {
             item.className = 'selected';
         });
     };
@@ -85,7 +85,7 @@
 
         listItem.className = listItem.className.replace('editing', '');
 
-        listItem.querySelectorAll('label').each(function (label) {
+        listItem.querySelectorAll('label').forEach(function (label) {
             label.textContent = title;
         });
     };
@@ -202,5 +202,7 @@
         }
     };
 
+    // Export to window
+    window.app = window.app || {};
     window.app.View = View;
 }(window));
