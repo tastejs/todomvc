@@ -187,7 +187,7 @@
             }.bind(this));
 
         } else if (event === 'itemEditCancel') {
-            $live('#todo-list li .edit', 'keypress', function (e) {
+            $live('#todo-list li .edit', 'keyup', function (e) {
                 var input = e.target,
                     id = this._itemIdForEvent(e);
 
