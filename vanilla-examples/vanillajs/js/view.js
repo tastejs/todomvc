@@ -130,6 +130,18 @@
                 handler(this.$newTodo.value);
             }.bind(this));
 
+        } else if (event === 'removeCompleted') {
+            this.$clearCompleted.addEventListener('click', function () {
+                handler();
+            }.bind(this));
+
+        } else if (event === 'toggleAll') {
+            this.$toggleAll.addEventListener('click', function (e) {
+                var input = e.target;
+
+                handler({completed: input.checked});
+            }.bind(this));
+
         } else if (event === 'itemEdit') {
             $live('#todo-list li label', 'dblclick', function (e) {
                 var id = this._itemIdForEvent(e);

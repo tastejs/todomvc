@@ -148,6 +148,35 @@ describe('controller', function () {
         expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
     });
 
+    describe('toggle all', function () {
+        it('should toggle all todos to completed', function () {
+            var todos = [{
+                    id: 42, title: 'my todo', completed: false
+                }, {
+                    id: 21, title: 'another todo', completed: false
+                }];
+            setUpModel(todos);
+            subject.setView('');
+
+            view.trigger('toggleAll', {completed: true});
+
+            expect(model.update).toHaveBeenCalledWith(42, {completed: true}, jasmine.any(Function));
+            expect(model.update).toHaveBeenCalledWith(21, {completed: true}, jasmine.any(Function));
+        });
+
+        it('should update the view', function () {
+            var todos = [{
+                    id: 42, title: 'my todo', completed: true
+                }];
+            setUpModel(todos);
+            subject.setView('');
+
+            view.trigger('toggleAll', {completed: false});
+
+            expect(view.render).toHaveBeenCalledWith('elementComplete', {id : 42, completed : false});
+        });
+    });
+
     describe('new todo', function () {
         it('should add a new todo to the model', function () {
             setUpModel([]);
@@ -232,7 +261,7 @@ describe('controller', function () {
             setUpModel([todo]);
 
             subject.setView('');
-            subject.removeCompletedItems();
+            view.trigger('removeCompleted');
 
             expect(model.read).toHaveBeenCalledWith({completed: true}, jasmine.any(Function));
             expect(model.remove).toHaveBeenCalledWith(42, jasmine.any(Function));
@@ -243,11 +272,11 @@ describe('controller', function () {
             setUpModel([todo]);
 
             subject.setView('');
-            subject.removeCompletedItems();
+            view.trigger('removeCompleted');
 
             expect(view.render).toHaveBeenCalledWith('removeItem', 42);
         });
-});
+    });
 
     describe('element complete toggle', function () {
         it('should update the model', function () {

@@ -35,6 +35,14 @@
 		this.view.bind('itemToggle', function (item) {
 			this.toggleComplete(item.id, item.completed);
 		}.bind(this));
+
+		this.view.bind('removeCompleted', function () {
+			this.removeCompletedItems();
+		}.bind(this));
+
+		this.view.bind('toggleAll', function (status) {
+			this.toggleAll(status.completed);
+		}.bind(this));
 	}
 
 	Controller.prototype.setView = function (page) {
@@ -72,8 +80,6 @@
 	/**
 	 * An event to fire whenever you want to add an item. Simply pass in the event
 	 * object and it'll handle the DOM insertion and saving of the new item.
-	 *
-	 * @param {object} e The event object
 	 */
 	Controller.prototype.addItem = function (title) {
 		if (title.trim() === '') {
@@ -157,12 +163,8 @@
 	/**
 	 * Will toggle ALL checkboxe's on/off state and completeness of models.
 	 * Just pass in the event object.
-	 *
-	 * @param {object} e The event object
 	 */
-	Controller.prototype.toggleAll = function (e) {
-		var completed = e.target.checked;
-
+	Controller.prototype.toggleAll = function (completed) {
 		this.model.read({ completed: !completed }, function (data) {
 			data.forEach(function (item) {
 				this.toggleComplete(item.id, completed, true);
