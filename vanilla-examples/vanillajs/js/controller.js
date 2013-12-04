@@ -27,6 +27,14 @@
 		this.view.bind('itemEditCancel', function (item) {
 			this.editItemCancel(item.id);
 		}.bind(this));
+
+		this.view.bind('itemRemove', function (item) {
+			this.removeItem(item.id);
+		}.bind(this));
+
+		this.view.bind('itemToggle', function (item) {
+			this.toggleComplete(item.id, item.completed);
+		}.bind(this));
 	}
 
 	Controller.prototype.setView = function (page) {
@@ -115,7 +123,7 @@
 	 * Will remove all completed items from the DOM and storage.
 	 */
 	Controller.prototype.removeCompletedItems = function () {
-		this.model.read({ completed: 1 }, function (data) {
+		this.model.read({ completed: true }, function (data) {
 			data.forEach(function (item) {
 				this.removeItem(item.id);
 			}.bind(this));

@@ -116,6 +116,14 @@
         }
     };
 
+    View.prototype._itemIdForEvent = function (e) {
+        var element = e.target,
+            li = $parent(element, 'li'),
+            id = li.dataset.id;
+
+        return id;
+    };
+
     View.prototype.bind = function (event, handler) {
         if (event === 'newTodo') {
             this.$newTodo.addEventListener('change', function () {
@@ -124,21 +132,34 @@
 
         } else if (event === 'itemEdit') {
             $live('#todo-list li label', 'dblclick', function (e) {
-                var label = e.target,
-                    li = $parent(label, 'li'),
-                    id = li.dataset.id;
+                var id = this._itemIdForEvent(e);
 
                 handler({id: id});
-            });
+            }.bind(this));
+
+        } else if (event === 'itemRemove') {
+            $live('#todo-list .destroy', 'click', function (e) {
+                var id = this._itemIdForEvent(e);
+
+                handler({id: id});
+            }.bind(this));
+
+        } else if (event === 'itemToggle') {
+            $live('#todo-list .toggle', 'click', function (e) {
+                var input = e.target,
+                    id = this._itemIdForEvent(e);
+
+                handler({id: id, completed: input.checked});
+            }.bind(this));
 
         } else if (event === 'itemEditDone') {
             $live('#todo-list li .edit', 'blur', function (e) {
                 var input = e.target,
-                    li = $parent(input, 'li'),
-                    id = li.dataset.id;
+                    id = this._itemIdForEvent(e);
+
                 if (!input.dataset.iscanceled) {
                     handler({
-                        id: li.dataset.id,
+                        id: id,
                         title: input.value
                     });
                 }
@@ -156,8 +177,7 @@
         } else if (event === 'itemEditCancel') {
             $live('#todo-list li .edit', 'keypress', function (e) {
                 var input = e.target,
-                    li = $parent(input, 'li'),
-                    id = li.dataset.id;
+                    id = this._itemIdForEvent(e);
 
                     if (e.keyCode === this.ESCAPE_KEY) {
 
