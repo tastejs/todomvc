@@ -5,8 +5,8 @@
 	 * Takes a model and view and acts as the controller between them
 	 *
 	 * @constructor
-	 * @param {object} model The model constructor
-	 * @param {object} view The view constructor
+	 * @param {object} model The model instance
+	 * @param {object} view The view instance
 	 */
 	function Controller(model, view) {
 		this.model = model;
@@ -45,6 +45,11 @@
 		}.bind(this));
 	}
 
+	/**
+	 * Loads and initialises the view
+	 *
+	 * @param {string} '' | 'active' | 'completed'
+	 */
 	Controller.prototype.setView = function (page) {
 		this._updateFilterState(page);
 	};
@@ -92,18 +97,27 @@
 		}.bind(this));
 	};
 
+	/*
+	 * Triggers the item editing mode.
+	 */
 	Controller.prototype.editItem = function (id) {
 		this.model.read(id, function (data) {
 			this.view.render('editItem', {id: id, title: data[0].title});
 		}.bind(this));
 	};
 
+	/*
+	 * Finishes the item editing mode successfully.
+	 */
 	Controller.prototype.editItemSave = function (id, title) {
 		this.model.update(id, {title: title}, function () {
 			this.view.render('editItemDone', {id: id, title: title});
 		}.bind(this));
 	};
 
+	/*
+	 * Cancels the item editing mode.
+	 */
 	Controller.prototype.editItemCancel = function (id) {
 		this.model.read(id, function (data) {
 			this.view.render('editItemDone', {id: id, title: data[0].title});
