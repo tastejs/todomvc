@@ -4,6 +4,8 @@
   "dependencies": {
     "todomvc-common": "~0.1.6",
     "requirejs": "~2.1.6",
-    "CanJS": "~1.1.5"
+	  "canjs": "~2.0.0",
+	  "canjs-localstorage": "~0.2.0",
+	  "jquery": "~1.10.0"
   }
 }

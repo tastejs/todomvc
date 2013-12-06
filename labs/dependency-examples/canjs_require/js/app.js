@@ -2,45 +2,27 @@
 require.config({
 	paths: {
 		jquery: '../bower_components/jquery/jquery',
-		can: '../bower_components/CanJS/amd/can'
+		can: '../bower_components/canjs/amd/can',
+		localstorage: '../bower_components/canjs-localstorage/can.localstorage'
 	}
 });
 
 require([
-	'can/util/library',
+	'jquery',
+	'can/view',
 	'can/route',
-	'controls/todos',
-	'models/todo',
-	'can/view/ejs',
-	'can/view/mustache'
-], function (can, route, Todos, Model) {
+	'./components/todo-app'
+], function ($, can, route) {
 	'use strict';
 
-	// Set up a route that maps to the `filter` attribute
-	route(':filter');
-	// Delay routing until we initialized everything
-	route.ready(false);
+	$(function () {
+		// Set up a route that maps to the `filter` attribute
+		route(':filter');
 
-	// View helper for pluralizing strings
-	can.Mustache.registerHelper('todoPlural', function (str, attr) {
-		return str + (attr.call(this.todos) !== 1 ? 's' : '');
+		// Render #app-template
+		$('#todoapp').html(can.view('app-template', {}));
+
+		// Start the router
+		route.ready();
 	});
-
-	// Find all Todos
-	Model.findAll({}, function (todos) {
-		// Wire it up. Instantiate a new Todos control
-		new Todos('#todoapp', {
-			// The (Todo) model that the control should use
-			Model: Model,
-			// The list of Todos retrieved from the model
-			todos: todos,
-			// The control state for filtering the view (in our case the router)
-			state: can.route,
-			// The view to render
-			view: 'views/todos.mustache'
-		});
-	});
-
-	// Now we can start routing
-	route.ready(true);
 });
