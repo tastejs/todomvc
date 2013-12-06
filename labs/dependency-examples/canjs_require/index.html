@@ -7,8 +7,7 @@
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 	</head>
 	<body>
-		<section id="todoapp">
-		</section>
+		<section id="todoapp"></section>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
 			<p>Written by <a href="http://bitovi.com">Bitovi</a></p>
@@ -37,7 +36,6 @@
 						{{/each}}
 					</ul>
 				</section>
-
 				<footer id="footer" class="{{^if todos.length}}hidden{{/if}}">
 					<span id="todo-count">
 						<strong>{{todos.remaining}}</strong> {{plural "item" todos.remaining}} left
@@ -52,7 +50,7 @@
 					</button>
 				</footer>
 			</todo-app>
-		</script>		
+		</script>
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script data-main="js/app" src="bower_components/requirejs/require.js"></script>
 	</body>

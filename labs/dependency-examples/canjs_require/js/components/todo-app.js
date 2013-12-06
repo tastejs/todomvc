@@ -1,11 +1,16 @@
 /* global define */
-define(['can/util/library', 'can/component', '../models/Todo', 'can/route'], function (can, Component, Todo, route) {
+define([
+	'can/util/library',
+	'can/component',
+	'../models/Todo',
+	'can/route'
+], function (can, Component, Todo, route) {
 	'use strict';
 
 	var ESCAPE_KEY = 27;
 
 	return Component.extend({
-		// Create this component on a tag  like `<todo-app>`.
+		// Create this component on a tag  like `<todo-app>`
 		tag: 'todo-app',
 		scope: {
 			// Store the Todo model in the scope
@@ -17,8 +22,8 @@ define(['can/util/library', 'can/component', '../models/Todo', 'can/route'], fun
 				todo.attr('editing', true);
 				el.parents('.todo').find('.edit').focus();
 			},
-			cancelEditing: function (todo, el, ev) {
-				if (ev.which === ESCAPE_KEY) {
+			cancelEditing: function (todo, el, e) {
+				if (e.which === ESCAPE_KEY) {
 					el.val(todo.attr('text'));
 					todo.attr('editing', false);
 				}
