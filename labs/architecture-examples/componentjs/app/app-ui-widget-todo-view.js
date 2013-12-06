@@ -79,8 +79,15 @@ cs.ns("app.ui.widget.todo").view = cs.clazz({
                         if (takeTitle) {
                             var items  = cs(self).value("data:item-list")
                             var item = _.find(items, function (item) { return item.id === id })
-                            item.title = $(el).val()
-                            cs(self).value("event:item-list-item-modified", item)
+                            var title = $(el).val().trim()
+                            if (title === "") {
+                                cs(self).value("data:item-list", _.without(items, item))
+                                cs(self).value("event:item-list-item-removed", item, true)
+                            }
+                            else {
+                                item.title = title
+                                cs(self).value("event:item-list-item-modified", item)
+                            }
                             cs(self).value("cmd:item-list-updated", true, true)
                         }
                     }
