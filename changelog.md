@@ -10,6 +10,7 @@
 - Updates since 1.2:
     - CanJS 2.0
     - CanJS 2.0 + RequireJS
+    - VanillaJS refactored, tests, bug fixes
 
 ## 1.2 - 2013-08-06
 
