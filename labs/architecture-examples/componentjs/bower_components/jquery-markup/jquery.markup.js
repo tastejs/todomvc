@@ -46,11 +46,11 @@
     $.markup = function (id, data) {
         if (typeof markup[id] === "undefined")
             throw new Error("jquery: markup: ERROR: no such markup with id '" + id + "' found");
-        return $($.parseHTML(markup[id](data)));
+        return $($.parseHTML($.markup.render(id, data)));
     };
 
     /*  plugin version number  */
-    $.markup.version = "1.0.25";
+    $.markup.version = "1.0.26";
 
     /*  debug level  */
     $.markup.debug = 0;
@@ -76,7 +76,7 @@
     };
 
     /*  compile a markup into an expansion function  */
-    var compile = function (type, id, txt) {
+    $.markup.compile = function (type, id, txt) {
         debug(1, "compile: type=" + type + " id=" + id);
         debug(4, "compile: txt=" + esctxt(txt));
 
@@ -175,7 +175,7 @@
                     s.txt = dst;
                     debug(4, "post-process: trimmed markup: " + esctxt(s.txt));
                 }
-                compile(s.attr.type, s.attr.id, s.txt);
+                $.markup.compile(s.attr.type, s.attr.id, s.txt);
                 if (s.attr.include)
                     section[section.length - 1].txt += s.txt;
                 txt = txt.substr(m[0].length);
@@ -221,6 +221,13 @@
                     onDone();
             });
         }
+    };
+
+    /*  render a compiled markup and return the textual result  */
+    $.markup.render = function (id, data) {
+        if (typeof markup[id] === "undefined")
+            throw new Error("jquery: markup: ERROR: no such markup with id '" + id + "' found");
+        return markup[id](data);
     };
 
     /*  automatically process all <link> tags  */
