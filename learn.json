@@ -1237,9 +1237,6 @@
 		}, {
 			"name": "Dependency Example",
 			"url": "labs/dependency-examples/knockoutjs_require"
-		}, {
-			"name": "Knockout.js & Class Binding Provider",
-			"url": "labs/architecture-examples/knockoutjs_classBindingProvider"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

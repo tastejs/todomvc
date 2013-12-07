@@ -11,6 +11,7 @@
     - CanJS 2.0
     - CanJS 2.0 + RequireJS
     - VanillaJS refactored, tests, bug fixes
+    - knockoutjs_classBindingProvider example has been removed
 
 ## 1.2 - 2013-08-06
 
