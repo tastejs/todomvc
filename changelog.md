@@ -7,6 +7,7 @@
     - Exoskeleton
     - Atma.js
     - ComponentJS
+    - AngularDart
 
 - Updates since 1.2:
     - CanJS 2.0
