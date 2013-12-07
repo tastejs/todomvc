@@ -352,6 +352,28 @@ describe('controller', function () {
             expect(model.update).toHaveBeenCalledWith(21, {title: 'new title'}, jasmine.any(Function));
         });
 
+        it('should remove the element from the model when persisting an empty title', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEditDone', {id: 21, title: ''});
+
+            expect(model.remove).toHaveBeenCalledWith(21, jasmine.any(Function));
+        });
+
+        it('should remove the element from the view when persisting an empty title', function () {
+            var todo = {id: 21, title: 'my todo', completed: false};
+            setUpModel([todo]);
+
+            subject.setView('');
+
+            view.trigger('itemEditDone', {id: 21, title: ''});
+
+            expect(view.render).toHaveBeenCalledWith('removeItem', 21);
+        });
+
         it('should leave edit mode on cancel', function () {
             var todo = {id: 21, title: 'my todo', completed: false};
             setUpModel([todo]);

@@ -112,9 +112,13 @@
 	 * Finishes the item editing mode successfully.
 	 */
 	Controller.prototype.editItemSave = function (id, title) {
-		this.model.update(id, {title: title}, function () {
-			this.view.render('editItemDone', {id: id, title: title});
-		}.bind(this));
+		if (title.trim()) {
+			this.model.update(id, {title: title}, function () {
+				this.view.render('editItemDone', {id: id, title: title});
+			}.bind(this));
+		} else {
+			this.removeItem(id);
+		}
 	};
 
 	/*
