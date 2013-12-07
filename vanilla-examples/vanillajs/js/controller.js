@@ -50,7 +50,9 @@
 	 *
 	 * @param {string} '' | 'active' | 'completed'
 	 */
-	Controller.prototype.setView = function (page) {
+	Controller.prototype.setView = function (locationHash) {
+		var route = locationHash.split('/')[1];
+		var page = route || '';
 		this._updateFilterState(page);
 	};
 
