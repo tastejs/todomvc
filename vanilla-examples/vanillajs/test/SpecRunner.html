@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+  <link rel="stylesheet" type="text/css" href="../bower_components/jasmine/lib/jasmine-core/jasmine.css">
+  <script type="text/javascript" src="../bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+  <script type="text/javascript" src="../bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="ControllerSpec.js"></script>
+
+  <!-- include source files here... -->
+  <script>
+    // Bootstrap app data
+    window.app = {};
+  </script>
+  <script src="../js/helpers.js"></script>
+  <script src="../js/view.js"></script>
+  <script src="../js/controller.js"></script>
+
+  <script type="text/javascript">
+        (function() {
+            var jasmineEnv = jasmine.getEnv();
+
+            var htmlReporter = new jasmine.HtmlReporter();
+            jasmineEnv.addReporter(htmlReporter);
+            jasmineEnv.specFilter = function(spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function() {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                jasmineEnv.execute();
+            };
+        })();
+  </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,4 +1,3 @@
-/*global $$, $ */
 (function (window) {
 	'use strict';
 
@@ -6,31 +5,56 @@
 	 * Takes a model and view and acts as the controller between them
 	 *
 	 * @constructor
-	 * @param {object} model The model constructor
-	 * @param {object} view The view constructor
+	 * @param {object} model The model instance
+	 * @param {object} view The view instance
 	 */
 	function Controller(model, view) {
 		this.model = model;
 		this.view = view;
 
-		this.ENTER_KEY = 13;
-		this.ESCAPE_KEY = 27;
-
-		this.$main = $$('#main');
-		this.$toggleAll = $$('#toggle-all');
-		this.$todoList = $$('#todo-list');
-		this.$todoItemCounter = $$('#todo-count');
-		this.$clearCompleted = $$('#clear-completed');
-		this.$footer = $$('#footer');
-
-		window.addEventListener('load', function () {
-			this._updateFilterState();
+		this.view.bind('newTodo', function (title) {
+			this.addItem(title);
 		}.bind(this));
 
-		window.addEventListener('hashchange', function () {
-			this._updateFilterState();
+		this.view.bind('itemEdit', function (item) {
+			this.editItem(item.id);
+		}.bind(this));
+
+		this.view.bind('itemEditDone', function (item) {
+			this.editItemSave(item.id, item.title);
+		}.bind(this));
+
+		this.view.bind('itemEditCancel', function (item) {
+			this.editItemCancel(item.id);
+		}.bind(this));
+
+		this.view.bind('itemRemove', function (item) {
+			this.removeItem(item.id);
+		}.bind(this));
+
+		this.view.bind('itemToggle', function (item) {
+			this.toggleComplete(item.id, item.completed);
+		}.bind(this));
+
+		this.view.bind('removeCompleted', function () {
+			this.removeCompletedItems();
+		}.bind(this));
+
+		this.view.bind('toggleAll', function (status) {
+			this.toggleAll(status.completed);
 		}.bind(this));
 	}
+
+	/**
+	 * Loads and initialises the view
+	 *
+	 * @param {string} '' | 'active' | 'completed'
+	 */
+	Controller.prototype.setView = function (locationHash) {
+		var route = locationHash.split('/')[1];
+		var page = route || '';
+		this._updateFilterState(page);
+	};
 
 	/**
 	 * An event to fire on load. Will get all items and display them in the
@@ -38,7 +62,7 @@
 	 */
 	Controller.prototype.showAll = function () {
 		this.model.read(function (data) {
-			this.$todoList.innerHTML = this.view.show(data);
+			this.view.render('showEntries', data);
 		}.bind(this));
 	};
 
@@ -46,8 +70,8 @@
 	 * Renders all active tasks
 	 */
 	Controller.prototype.showActive = function () {
-		this.model.read({ completed: 0 }, function (data) {
-			this.$todoList.innerHTML = this.view.show(data);
+		this.model.read({ completed: false }, function (data) {
+			this.view.render('showEntries', data);
 		}.bind(this));
 	};
 
@@ -55,103 +79,55 @@
 	 * Renders all completed tasks
 	 */
 	Controller.prototype.showCompleted = function () {
-		this.model.read({ completed: 1 }, function (data) {
-			this.$todoList.innerHTML = this.view.show(data);
+		this.model.read({ completed: true }, function (data) {
+			this.view.render('showEntries', data);
 		}.bind(this));
 	};
 
 	/**
 	 * An event to fire whenever you want to add an item. Simply pass in the event
 	 * object and it'll handle the DOM insertion and saving of the new item.
-	 *
-	 * @param {object} e The event object
 	 */
-	Controller.prototype.addItem = function (e) {
-		var input = $$('#new-todo');
-		var title = title || '';
-
-		if (e.keyCode === this.ENTER_KEY) {
-			if (e.target.value.trim() === '') {
-				return;
-			}
-
-			this.model.create(e.target.value, function () {
-				input.value = '';
-				this._filter(true);
-			}.bind(this));
+	Controller.prototype.addItem = function (title) {
+		if (title.trim() === '') {
+			return;
 		}
 
+		this.model.create(title, function () {
+			this.view.render('clearNewTodo');
+			this._filter(true);
+		}.bind(this));
 	};
 
-	/**
-	 * Hides the label text and creates an input to edit the title of the item.
-	 * When you hit enter or blur out of the input it saves it and updates the UI
-	 * with the new name.
-	 *
-	 * @param {number} id The id of the item to edit
-	 * @param {object} label The label you want to edit the text of
+	/*
+	 * Triggers the item editing mode.
 	 */
-	Controller.prototype.editItem = function (id, label) {
-		var li =  label;
-
-		// This finds the <label>'s parent <li>
-		while (li.nodeName !== 'LI') {
-			li = li.parentNode;
-		}
-
-		var onSaveHandler = function () {
-			var value = input.value.trim();
-			var discarding = input.dataset.discard;
-
-			if (value.length && !discarding) {
-				this.model.update(id, { title: input.value });
-
-				// Instead of re-rendering the whole view just update
-				// this piece of it
-				label.innerHTML = value;
-			} else if (value.length === 0) {
-				// No value was entered in the input. We'll remove the todo item.
-				this.removeItem(id);
-			}
-
-			// Remove the input since we no longer need it
-			// Less DOM means faster rendering
-			li.removeChild(input);
-
-			// Remove the editing class
-			li.className = li.className.replace('editing', '');
-		}.bind(this);
-
-		// Append the editing class
-		li.className = li.className + ' editing';
-
-		var input = document.createElement('input');
-		input.className = 'edit';
-
-		// Get the innerHTML of the label instead of requesting the data from the
-		// ORM. If this were a real DB this would save a lot of time and would avoid
-		// a spinner gif.
-		input.value = label.innerHTML;
-
-		li.appendChild(input);
-
-		input.addEventListener('blur', onSaveHandler);
-
-		input.addEventListener('keypress', function (e) {
-			if (e.keyCode === this.ENTER_KEY) {
-				// Remove the cursor from the input when you hit enter just like if it
-				// were a real form
-				input.blur();
-			}
-
-			if (e.keyCode === this.ESCAPE_KEY) {
-				// Discard the changes
-				input.dataset.discard = true;
-				input.blur();
-			}
+	Controller.prototype.editItem = function (id) {
+		this.model.read(id, function (data) {
+			this.view.render('editItem', {id: id, title: data[0].title});
 		}.bind(this));
+	};
 
-		input.focus();
+	/*
+	 * Finishes the item editing mode successfully.
+	 */
+	Controller.prototype.editItemSave = function (id, title) {
+		if (title.trim()) {
+			this.model.update(id, {title: title}, function () {
+				this.view.render('editItemDone', {id: id, title: title});
+			}.bind(this));
+		} else {
+			this.removeItem(id);
+		}
+	};
+
+	/*
+	 * Cancels the item editing mode.
+	 */
+	Controller.prototype.editItemCancel = function (id) {
+		this.model.read(id, function (data) {
+			this.view.render('editItemDone', {id: id, title: data[0].title});
+		}.bind(this));
 	};
 
 	/**
@@ -163,11 +139,7 @@
 	 */
 	Controller.prototype.removeItem = function (id) {
 		this.model.remove(id, function () {
-			var elem = $$('[data-id="' + id + '"]');
-
-			if (elem) {
-				this.$todoList.removeChild(elem);
-			}
+			this.view.render('removeItem', id);
 		}.bind(this));
 
 		this._filter();
@@ -177,7 +149,7 @@
 	 * Will remove all completed items from the DOM and storage.
 	 */
 	Controller.prototype.removeCompletedItems = function () {
-		this.model.read({ completed: 1 }, function (data) {
+		this.model.read({ completed: true }, function (data) {
 			data.forEach(function (item) {
 				this.removeItem(item.id);
 			}.bind(this));
@@ -195,21 +167,13 @@
 	 *                          or not
 	 * @param {boolean|undefined} silent Prevent re-filtering the todo items
 	 */
-	Controller.prototype.toggleComplete = function (id, checkbox, silent) {
-		var completed = checkbox.checked ? 1 : 0;
-
+	Controller.prototype.toggleComplete = function (id, completed, silent) {
 		this.model.update(id, { completed: completed }, function () {
-			var listItem = $$('[data-id="' + id + '"]');
-
-			if (!listItem) {
-				return;
-			}
-
-			listItem.className = completed ? 'completed' : '';
-
-			// In case it was toggled from an event and not by clicking the checkbox
-			listItem.querySelector('input').checked = completed;
-		});
+			this.view.render('elementComplete', {
+				id: id,
+				completed: completed
+			});
+		}.bind(this));
 
 		if (!silent) {
 			this._filter();
@@ -219,20 +183,11 @@
 	/**
 	 * Will toggle ALL checkboxe's on/off state and completeness of models.
 	 * Just pass in the event object.
-	 *
-	 * @param {object} e The event object
 	 */
-	Controller.prototype.toggleAll = function (e) {
-		var completed = e.target.checked ? 1 : 0;
-		var query = 0;
-
-		if (completed === 0) {
-			query = 1;
-		}
-
-		this.model.read({ completed: query }, function (data) {
+	Controller.prototype.toggleAll = function (completed) {
+		this.model.read({ completed: !completed }, function (data) {
 			data.forEach(function (item) {
-				this.toggleComplete(item.id, e.target, true);
+				this.toggleComplete(item.id, completed, true);
 			}.bind(this));
 		}.bind(this));
 
@@ -246,35 +201,14 @@
 	Controller.prototype._updateCount = function () {
 		var todos = this.model.getCount();
 
-		this.$todoItemCounter.innerHTML = this.view.itemCounter(todos.active);
+		this.view.render('updateElementCount', todos.active);
+		this.view.render('clearCompletedButton', {
+			completed: todos.completed,
+			visible: todos.completed > 0
+		});
 
-		this.$clearCompleted.innerHTML = this.view.clearCompletedButton(todos.completed);
-		this.$clearCompleted.style.display = todos.completed > 0 ? 'block' : 'none';
-
-		this.$toggleAll.checked = todos.completed === todos.total;
-
-		this._toggleFrame(todos);
-	};
-
-	/**
-	 * The main body and footer elements should not be visible when there are no
-	 * todos left.
-	 *
-	 * @param {object} todos Contains a count of all todos, and their statuses.
-	 */
-	Controller.prototype._toggleFrame = function (todos) {
-		var frameDisplay = this.$main.style.display;
-		var frameVisible = frameDisplay === 'block' || frameDisplay === '';
-
-		if (todos.total === 0 && frameVisible) {
-			this.$main.style.display = 'none';
-			this.$footer.style.display = 'none';
-		}
-
-		if (todos.total > 0 && !frameVisible) {
-			this.$main.style.display = 'block';
-			this.$footer.style.display = 'block';
-		}
+		this.view.render('toggleAll', {checked: todos.completed === todos.total});
+		this.view.render('contentBlockVisibility', {visible: todos.total > 0});
 	};
 
 	/**
@@ -300,9 +234,7 @@
 	/**
 	 * Simply updates the filter nav's selected states
 	 */
-	Controller.prototype._updateFilterState = function () {
-		var currentPage = this._getCurrentPage() || '';
-
+	Controller.prototype._updateFilterState = function (currentPage) {
 		// Store a reference to the active route, allowing us to re-filter todo
 		// items as they are marked complete or incomplete.
 		this._activeRoute = currentPage;
@@ -313,22 +245,10 @@
 
 		this._filter();
 
-		// Remove all other selected states. We loop through all of them in case the
-		// UI gets in a funky state with two selected.
-		$('#filters .selected').each(function (item) {
-			item.className = '';
-		});
-
-		$$('#filters [href="#/' + currentPage + '"]').className = 'selected';
-	};
-
-	/**
-	 * A getter for getting the current page
-	 */
-	Controller.prototype._getCurrentPage = function () {
-		return document.location.hash.split('/')[1];
+		this.view.render('setFilter', currentPage);
 	};
 
 	// Export to window
+	window.app = window.app || {};
 	window.app.Controller = Controller;
 })(window);
