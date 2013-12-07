@@ -118,6 +118,46 @@
 			}]
 		}]
 	},
+	"angulardart": {
+		"name": "AngularDart",
+		"description": "Dart is a class-based, object-oriented language with lexical scoping, closures, and optional static typing. AngularDart is a port of Angular to Dart.",
+		"homepage": "github.com/angular/angular.dart",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/angular-dart"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "API Reference",
+				"url": "http://ci.angularjs.org/view/Dart/job/angular.dart-master/javadoc/"
+			}, {
+				"name": "Tutorial",
+				"url": "https://github.com/angular/angular.dart.tutorial"
+			}, {
+				"name": "A Tour of the Dart Language",
+				"url": "http://www.dartlang.org/docs/dart-up-and-running/contents/ch02.html"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "AngularDart Mailing List",
+				"url": "https://groups.google.com/forum/#!forum/angular-dart"
+			}, {
+				"name": "AngularDart on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/angulardart"
+			}, {
+				"name": "+AngularDart on Google+",
+				"url": "https://plus.google.com/+AngularJS"
+			}, {
+				"name": "@angularjs on Twitter",
+				"url": "https://twitter.com/angularjs"
+			}, {
+				"name": "Bugtracker on GitHub",
+				"url": "https://github.com/angular/angular.dart/issues?state=open"
+			}]
+		}]
+	},
 	"ariatemplates": {
 		"name": "Aria Templates",
 		"description": "Aria Templates (aka AT) is an application framework written in JavaScript for building rich and large-scaled enterprise web applications.",
