@@ -23,7 +23,7 @@
 
 		var newItem = {
 			title: title.trim(),
-			completed: 0
+			completed: false
 		};
 
 		this.storage.save(newItem, callback);
@@ -52,6 +52,7 @@
 			callback = query;
 			return this.storage.findAll(callback);
 		} else if (queryType === 'string' || queryType === 'number') {
+			query = parseInt(query, 10);
 			this.storage.find({ id: query }, callback);
 		} else {
 			this.storage.find(query, callback);
@@ -100,8 +101,8 @@
 		};
 
 		this.storage.findAll(function (data) {
-			data.each(function (todo) {
-				if (todo.completed === 1) {
+			data.forEach(function (todo) {
+				if (todo.completed) {
 					todos.completed++;
 				} else {
 					todos.active++;
@@ -115,5 +116,6 @@
 	};
 
 	// Export to window
+	window.app = window.app || {};
 	window.app.Model = Model;
 })(window);
