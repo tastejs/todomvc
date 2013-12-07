@@ -100,8 +100,8 @@
     };
 
     View.prototype.render = function (viewCmd, parameter) {
-        var that = this,
-            viewCommands = {
+        var that = this;
+        var viewCommands = {
                 showEntries: function () {
                     that.$todoList.innerHTML = that.template.show(parameter);
                 },
@@ -141,17 +141,17 @@
     };
 
     View.prototype._itemIdForEvent = function (e) {
-        var element = e.target,
-            li = $parent(element, 'li'),
-            id = li.dataset.id;
+        var element = e.target;
+        var li = $parent(element, 'li');
+        var id = li.dataset.id;
 
         return id;
     };
 
     View.prototype._bindItemEditDone = function (handler) {
         $live('#todo-list li .edit', 'blur', function (e) {
-            var input = e.target,
-                id = this._itemIdForEvent(e);
+            var input = e.target;
+            var id = this._itemIdForEvent(e);
 
             if (!input.dataset.iscanceled) {
                 handler({
@@ -173,8 +173,8 @@
 
     View.prototype._bindItemEditCancel = function (handler) {
         $live('#todo-list li .edit', 'keyup', function (e) {
-            var input = e.target,
-                id = this._itemIdForEvent(e);
+            var input = e.target;
+            var id = this._itemIdForEvent(e);
 
             if (e.keyCode === this.ESCAPE_KEY) {
 
@@ -220,8 +220,8 @@
 
         } else if (event === 'itemToggle') {
             $live('#todo-list .toggle', 'click', function (e) {
-                var input = e.target,
-                    id = this._itemIdForEvent(e);
+                var input = e.target;
+                var id = this._itemIdForEvent(e);
 
                 handler({id: id, completed: input.checked});
             }.bind(this));
