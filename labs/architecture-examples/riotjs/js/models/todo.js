@@ -1,6 +1,6 @@
+"use strict";
 
 /* The model */
-
 function Todo(db) {
 
   db = db || DB("todo-riot");
@@ -9,7 +9,7 @@ function Todo(db) {
     items = db.get();
 
   self.add = function(name) {
-    var item = { id: "_" + ("" + Math.random()).slice(2), name: name }
+    var item = { id: "_" + ("" + Math.random()).slice(2), name: name };
     items[item.id] = item;
     self.trigger("add", item);
   }
@@ -22,7 +22,7 @@ function Todo(db) {
   self.remove = function(filter) {
     var els = self.items(filter);
     $.each(els, function() {
-      delete items[this.id]
+      delete items[this.id];
     })
     self.trigger("remove", els);
   }
@@ -37,10 +37,10 @@ function Todo(db) {
   self.items = function(filter) {
     var ret = [];
     $.each(items, function(id, item) {
-      if (!filter || filter == id || filter == (item.done ? "completed" : "active")) ret.push(item)
-    })
+      if (!filter || filter === id || filter === (item.done ? "completed": "active")) ret.push(item);
+    });
     return ret;
-  }
+  };
 
   // sync database
   self.on("add remove toggle edit", function() {
