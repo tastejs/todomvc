@@ -1,6 +1,4 @@
-
 /* The presenter */
-
 (function() { 'use strict';
   /*
     A Model instance exposed to global space so you can
@@ -14,8 +12,6 @@
   var template = $("[type='html/todo']").html(),
     root = $("#todo-list"),
     nav = $("#filters a");
-
-
 
   /* Listen to user events */
 
@@ -37,8 +33,6 @@
     todo.remove("completed");
   })
 
-
-
   /* Listen to model events */
 
   todo.on("add", add).on("remove", function(items) {
@@ -57,10 +51,7 @@
   // counts
   }).on("add remove toggle", counts)
 
-
-
   /* Routing */
-
   nav.click(function() {
     return $.route($(this).attr("href"))
   })
@@ -76,8 +67,6 @@
     // update counts
     counts()
   })
-
-
 
   /* Private functions */
 
@@ -135,4 +124,4 @@
     $("#footer").toggle(active + done > 0)
   }
 
-})()
+})();
