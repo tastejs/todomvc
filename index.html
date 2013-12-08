@@ -11,14 +11,13 @@
 		<meta property="og:image" content="https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png">
 		<meta property="og:description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, Spine and many more">
 		<link rel="shortcut icon" href="site-assets/favicon.ico">
-		<link rel="stylesheet" href="bower_components/bootstrap/docs/assets/css/bootstrap.css">
-		<link rel="stylesheet" href="bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css">
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="site-assets/main.css">
 	</head>
 	<body>
 		<div class="container">
 			<header class="row">
-				<div class="span8">
+				<div class="col-md-8">
 					<img class="logo" src="site-assets/logo.svg" width="500" height="86" alt="TodoMVC">
 					<p>Helping you <strong>select</strong> an MV* framework</p>
 					<nav>
@@ -26,12 +25,12 @@
 						<a href="https://github.com/tastejs/todomvc" class="zocial red">View project on GitHub</a>
 					</nav>
 				</div>
-				<div class="span4">
+				<div class="col-md-4">
 					<img class="logo-icon" src="site-assets/logo-icon.png" width="330" height="330" alt="TodoMVC">
 				</div>
 			</header>
 			<div class="row">
-				<div class="span4">
+				<div class="col-md-4">
 					<h2>Introduction</h2>
 					<p>Developers these days are spoiled with choice when it comes to <a href="http://coding.smashingmagazine.com/2012/07/27/journey-through-the-javascript-mvc-jungle/">selecting</a> an <strong>MV* framework</strong> for structuring and organizing their JavaScript web apps.</p>
 					<p>Backbone, Ember, AngularJS, Spine... the list of new and stable solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
@@ -40,7 +39,7 @@
 					<a href="https://twitter.com/share" class="twitter-share-button" data-via="tastejs" data-url="http://todomvc.com" data-text="TodoMVC - Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, and more"></a>
 					<div class="g-plusone" data-size="medium" data-annotation="none" data-href="http://todomvc.com"></div>
 				</div>
-				<div class="span8">
+				<div class="col-md-8">
 					<h2>JavaScript Apps</h2>
 					<ul class="applist">
 						<li class="routing">
@@ -255,7 +254,7 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="span6 quotes">
+				<div class="col-md-6 quotes">
 					<blockquote class="quote speech-bubble">
 						<p></p>
 						<footer>
@@ -264,13 +263,13 @@
 						</footer>
 					</blockquote>
 				</div>
-				<div class="span6">
+				<div class="col-md-6">
 					<img class="screenshot" src="site-assets/screenshot.png" width="558" height="246" alt="Todo app screenshot">
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="span4">
+				<div class="col-md-4">
 					<h2>New in 1.2 - 2013-08-06</h2>
 					<ul class="whats-new">
 						<li>We now have 21 stable apps and 45 in labs.
@@ -291,13 +290,13 @@
 						<li>Many app frameworks and libraries have been upgraded to the latest version</li>
 					</ul>
 				</div>
-				<div class="span4">
+				<div class="col-md-4">
 					<h2>Selecting a Framework</h2>
 					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.</p>
 					<p>Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
 					<p>Please ensure that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
 				</div>
-				<div class="span4">
+				<div class="col-md-4">
 					<h2>Getting Involved</h2>
 					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
 					<p>If so, feel free to fork the repo, read our <a href="https://github.com/tastejs/todomvc/wiki">contribution guidelines</a>, and submit a pull request &mdash; we'll be happy to review it for inclusion.</p>
@@ -318,7 +317,7 @@
 			</footer>
 		</div>
 		<script src="bower_components/jquery/jquery.min.js"></script>
-		<script src="bower_components/bootstrap/docs/assets/js/bootstrap.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="site-assets/main.js"></script>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<script>(function(){var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script>
