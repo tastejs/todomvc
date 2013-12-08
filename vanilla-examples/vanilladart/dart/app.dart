@@ -16,7 +16,7 @@ class Todo {
 	String title;
 	bool completed;
 
-	Todo(String this.id, String this.title, {bool this.completed : false});
+	Todo(this.id, this.title, {this.completed : false});
 
 	Todo.fromJson(Map json) {
 		id = json['id'];
