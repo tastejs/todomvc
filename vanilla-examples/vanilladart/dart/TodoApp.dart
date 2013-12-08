@@ -2,7 +2,7 @@ part of todomvc;
 
 class TodoApp {
 
-	static final uuid = new Uuid();
+	static final Uuid uuid = new Uuid();
 
 	List<TodoWidget> todoWidgets = new List<TodoWidget>();
 

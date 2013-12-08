@@ -2,7 +2,7 @@ part of todomvc;
 
 class TodoWidget {
 
-	static final htmlEscape = new HtmlEscape();
+	static final HtmlEscape htmlEscape = new HtmlEscape();
 
 	TodoApp todoApp;
 	Todo todo;
