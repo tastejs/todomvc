@@ -133,6 +133,7 @@ header nav a:not(:last-child) {
 .applist {
 	list-style: none;
 	margin: 0;
+	padding: 0;
 	-webkit-columns: 4;
 	-moz-columns: 4;
 	-ms-columns: 4;
