@@ -69,7 +69,7 @@ class TodoController {
 		_storageService = storage;
 
 		// Save all items if one got inserted or removed.
-		scope.$watchCollection('todo.items', save);
+		scope.$watch((Scope scope) => convert.JSON.encode(items), save);
 	}
 
 	void save() {
@@ -135,10 +135,6 @@ class TodoController {
 		editedItem.normalize();
 		editedItem = null;
 		previousItem = null;
-
-		// Our $watchCollection listener from above isn't notified when an
-		// item is edit, so we manually trigger the saving here.
-		save();
 	}
 
 	void revertEditing(Item item) {
