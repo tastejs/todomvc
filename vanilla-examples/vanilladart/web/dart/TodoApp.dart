@@ -29,12 +29,10 @@ class TodoApp {
 		var jsonList = window.localStorage['todos-vanilladart'];
 		if (jsonList != null) {
 			try {
-				var todos = JSON.decode(jsonList);
-				for (Map todo in todos) {
-					addTodo(new Todo.fromJson(todo));
-				}
+				List<Map> todos = JSON.decode(jsonList);
+				todos.forEach((todo) => addTodo(new Todo.fromJson(todo)));
 			} catch (e) {
-				window.console.log('Could not load todos form local storage.');
+				print('Could not load todos form local storage.');
 			}
 		}
 	}
@@ -45,7 +43,7 @@ class TodoApp {
 		newTodoElement.onKeyPress.listen((KeyboardEvent e) {
 			if (e.keyCode == KeyCode.ENTER) {
 				var title = newTodoElement.value.trim();
-				if (title != '') {
+				if (title.isNotEmpty) {
 					addTodo(new Todo(uuid.v4(), title));
 					newTodoElement.value = '';
 					updateFooterDisplay();
@@ -55,7 +53,7 @@ class TodoApp {
 		});
 
 		checkAllCheckboxElement.onClick.listen((e) {
-			for (TodoWidget todoWidget in todoWidgets) {
+			for (var todoWidget in todoWidgets) {
 				if (todoWidget.todo.completed != checkAllCheckboxElement.checked) {
 					todoWidget.toggle();
 				}
@@ -64,7 +62,7 @@ class TodoApp {
 			save();
 		});
 
-		clearCompletedElement.onClick.listen((e) {
+		clearCompletedElement.onClick.listen((_) {
 			var newList = new List<TodoWidget>();
 			for (TodoWidget todoWidget in todoWidgets) {
 				if (todoWidget.todo.completed) {
@@ -94,20 +92,15 @@ class TodoApp {
 	}
 
 	void updateCounts() {
-		var complete = 0;
-		for (TodoWidget todoWidget in todoWidgets) {
-			if (todoWidget.todo.completed) {
-				complete++;
-			}
-		}
+	  var complete = todoWidgets.where((w) => w.todo.completed).length;
 		checkAllCheckboxElement.checked = (complete == todoWidgets.length);
 		var left = todoWidgets.length - complete;
-		countElement.innerHtml = '<strong>${left}</strong> item${left != 1 ? 's' : ''} left';
+		countElement.innerHtml = '<strong>$left</strong> item${left != 1 ? 's' : ''} left';
 		if (complete == 0) {
 			clearCompletedElement.style.display = 'none';
 		} else {
 			clearCompletedElement.style.display = 'block';
-			clearCompletedElement.text = 'Clear completed (${complete})';
+			clearCompletedElement.text = 'Clear completed ($complete)';
 		}
 		updateFilter();
 	}
@@ -132,21 +125,21 @@ class TodoApp {
 
 	void showAll() {
 		setSelectedFilter(showAllElement);
-		for (TodoWidget todoWidget in todoWidgets) {
+		for (var todoWidget in todoWidgets) {
 			todoWidget.visible = true;
 		}
 	}
 
 	void showActive() {
 		setSelectedFilter(showActiveElement);
-		for (TodoWidget todoWidget in todoWidgets) {
+		for (var todoWidget in todoWidgets) {
 			todoWidget.visible = !todoWidget.todo.completed;
 		}
 	}
 
 	void showCompleted() {
 		setSelectedFilter(showCompletedElement);
-		for (TodoWidget todoWidget in todoWidgets) {
+		for (var todoWidget in todoWidgets) {
 			todoWidget.visible = todoWidget.todo.completed;
 		}
 	}
@@ -160,7 +153,7 @@ class TodoApp {
 
 	void save() {
 		var todos = new List<Todo>();
-		for (TodoWidget todoWidget in todoWidgets) {
+		for (var todoWidget in todoWidgets) {
 			todos.add(todoWidget.todo);
 		}
 		window.localStorage['todos-vanilladart'] = JSON.encode(todos);

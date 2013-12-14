@@ -2,7 +2,7 @@ part of todomvc;
 
 class TodoWidget {
 
-	static final HtmlEscape htmlEscape = new HtmlEscape();
+	static const HtmlEscape htmlEscape = const HtmlEscape();
 
 	TodoApp todoApp;
 	Todo todo;
@@ -11,6 +11,7 @@ class TodoWidget {
 
 	TodoWidget(this.todoApp, this.todo);
 
+	// TODO check, not sure we need to escapes here. Dart should do this.
 	Element createElement() {
 		element = new Element.html('''
 			<li ${todo.completed ? 'class="completed"' : ''}>
@@ -28,13 +29,13 @@ class TodoWidget {
 
 		toggleElement = element.querySelector('.toggle');
 
-		toggleElement.onClick.listen((e) {
+		toggleElement.onClick.listen((_) {
 			toggle();
 			todoApp.updateCounts();
 			todoApp.save();
 		});
 
-		contentElement.onDoubleClick.listen((e) {
+		contentElement.onDoubleClick.listen((_) {
 			element.classes.add('editing');
 			editElement.selectionStart = todo.title.length;
 			editElement.focus();
@@ -46,14 +47,14 @@ class TodoWidget {
 			todoApp.updateFooterDisplay();
 		}
 
-		element.querySelector('.destroy').onClick.listen((e) {
+		element.querySelector('.destroy').onClick.listen((_) {
 			removeTodo();
 			todoApp.save();
 		});
 
 		void doneEditing() {
 			todo.title = editElement.value.trim();
-			if (todo.title != '') {
+			if (todo.title.isNotEmpty) {
 				contentElement.text = todo.title;
 				element.classes.remove('editing');
 			} else {
@@ -68,7 +69,7 @@ class TodoWidget {
 					doneEditing();
 				}
 			})
-			..onBlur.listen((e) => doneEditing());
+			..onBlur.listen((_) => doneEditing());
 
 		return element;
 	}
