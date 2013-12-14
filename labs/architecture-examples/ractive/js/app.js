@@ -1,103 +1,179 @@
 /*global window, Ractive */
-/*jslint white: true */
 
-var todoList = (function( window, Ractive ) {
+(function (window, Ractive) {
 	
 	'use strict';
 
-	// create our app view
+	// Create some filter functions, which we'll need later
+	var filters = {
+		completed: function (item) { return  item.completed; },
+		active:    function (item) { return !item.completed; }
+	};
+
+	// The keycode for the 'enter' and 'escape' keys
+	var ENTER_KEY = 13, ESCAPE_KEY = 27;
+
+	// Create our Ractive instance
 	var todoList = new Ractive({
+		
+		// Specify a target element - an ID, a CSS selector, or the element itself
 		el: 'todoapp',
+
+		// Specify a template, or the ID of a script tag containing the template
 		template: '#main',
 
+		// This is our viewmodel - as well as our list of tasks (which gets added
+		// later from localStorage - see persistence.js), it includes helper
+		// functions and computed values
 		data: {
-			filter: function ( item, currentFilter ) {
-				var filter = this.get( currentFilter );
+			filter: function (item) {
+				// Because we're doing `this.get('currentFilter')`, Ractive understands
+				// that this function needs to be re-executed reactively when the value of
+				// `currentFilter` changes
+				var currentFilter = this.get('currentFilter');
 
-				if ( !filter ) {
+				if (currentFilter === 'all') {
 					return true;
 				}
 
-				return filter( item );
+				return filters[currentFilter](item);
 			},
 
-			// define our filters
-			completed: function ( item ) { return  item.completed; },
-			active:    function ( item ) { return !item.completed; },
+			// completedTasks() and activeTasks() are computed values, that will update
+			// our app view reactively whenever `items` changes (including changes to
+			// child properties like `items[1].completed`)
+			completedTasks: function () {
+				return this.get('items').filter(filters.completed);
+			},
 
+			activeTasks: function () {
+				return this.get('items').filter(filters.active);
+			},
+
+			// By default, show all tasks. This value changes when the route changes
+			// (see routes.js)
 			currentFilter: 'all'
 		},
 
 		// We can define 'transitions', which are applied to elements on render
-		// and teardown
+		// and teardown. Normally these are used for animated intro and outro
+		// effects, but they can be put to many other uses.
 		transitions: {
-			// When the edit <input> renders, select its contents
-			select: function ( node, complete ) {
-				setTimeout( function () {
-					node.select();
-					complete();
-				}, 0 );
+			// When the edit <input> renders, select its contents. (In some browsers
+			// we need to wait a beat, hence the setTimeout.)
+			select: function (transition) {
+				setTimeout(function () {
+					transition.node.select();
+					transition.complete();
+				}, 0);
 			}
-		}
+		},
+
+		// We can also define custom events. Here, we're defining an `enter` event,
+		// and an `escape` event, which fire when the user hits those keys while
+		// an input is focused
+		events: (function () {
+			var makeCustomEvent = function (keyCode) {
+				return function (node, fire) {
+					var keydownHandler = function (event) {
+						if (event.which === keyCode) {
+							fire({
+								node: node,
+								original: event
+							});
+						}
+					};
+
+					node.addEventListener('keydown', keydownHandler, false);
+
+					return {
+						teardown: function () {
+							node.removeEventListener('keydown', keydownHandler, false);
+						}
+					};
+				};
+			};
+
+			return {
+				enter: makeCustomEvent(ENTER_KEY),
+				escape: makeCustomEvent(ESCAPE_KEY)
+			};
+		}())
 	});
 
-	// Event handlers
+
+	// Here, we're defining how to respond to user interactions. Unlike many
+	// libraries, where you use CSS selectors to dictate what event corresponds
+	// to what action, in Ractive the 'meaning' of the event is baked into the
+	// template itself (e.g. <button on-click='remove'>Remove</button>).
 	todoList.on({
-		remove: function ( event, index ) {
-			this.get( 'items' ).splice( index, 1 );
+		
+		// Removing a todo is as straightforward as splicing it out of the array -
+		// Ractive intercepts calls to array mutator methods and updates the view
+		// accordingly. The DOM is updated in the most efficient manner possible.
+		remove: function (event, index) {
+			this.get('items').splice(index, 1);
 		},
-		new_todo: function ( event ) {
+
+		// The `event` object contains useful properties for (e.g.) retrieving
+		// data from the DOM
+		newTodo: function (event) {
 			var description = event.node.value.trim();
 
-			if ( !description ) {
+			if (!description) {
 				return;
 			}
 
-			this.get( 'items' ).push({
+			this.get('items').push({
 				description: description,
 				completed: false
 			});
 
 			event.node.value = '';
 		},
-		edit: function ( event ) {
-			this.set( event.keypath + '.editing', true );
+
+		edit: function (event) {
+			this.set(event.keypath + '.editing', true);
 			this.nodes.edit.value = event.context.description;
 		},
-		submit: function ( event ) {
+
+		submit: function (event) {
 			var description = event.node.value.trim();
 
-			if ( !description ) {
-				this.get( 'items' ).splice( event.index.i, 1 );
+			if (!description) {
+				this.get('items').splice(event.index.i, 1);
 				return;
 			}
 
-			this.set( event.keypath + '.description', description );
-			this.set( event.keypath + '.editing', false );
+			this.set(event.keypath + '.description', description);
+			this.set(event.keypath + '.editing', false);
 		},
-		cancel: function ( event ) {
-			this.set( event.keypath + '.editing', false );
-		},
-		clear_completed: function () {
-			var items = this.get( 'items' ), i = items.length;
 
-			while ( i-- ) {
-				if ( items[i].completed ) {
-					items.splice( i, 1 );
+		cancel: function (event) {
+			this.set(event.keypath + '.editing', false);
+		},
+
+		clearCompleted: function () {
+			var items = this.get('items'), i = items.length;
+
+			while (i--) {
+				if (items[i].completed) {
+					items.splice(i, 1);
 				}
 			}
 		},
-		toggle_all: function ( event ) {
-			var i = this.get( 'items' ).length, completed = event.node.checked, changeHash = {};
 
-			while ( i-- ) {
-				changeHash[ 'items[' + i + '].completed' ] = completed;
+		toggleAll: function (event) {
+			var i = this.get('items').length, completed = event.node.checked, changeHash = {};
+
+			while (i--) {
+				changeHash['items[' + i + '].completed'] = completed;
 			}
 
-			this.set( changeHash );
+			this.set(changeHash);
 		}
 	});
 
-	return todoList;
+	window.todoList = todoList;
 
-})( window, Ractive );
+})(window, Ractive);

@@ -1,26 +1,27 @@
-/*global window, todoList */
-/*jslint white: true */
+/*global window, Router, todoList */
 
-(function ( window, Router, todoList ) {
+(function (window, Router, todoList) {
 
 	'use strict';
 
+	// We're using https://github.com/flatiron/director for routing
+
 	var router = new Router({
 		'/active': function () {
-			todoList.set( 'currentFilter', 'active' );
+			todoList.set('currentFilter', 'active');
 		},
 		'/completed': function () {
-			todoList.set( 'currentFilter', 'completed' );
+			todoList.set('currentFilter', 'completed');
 		}
 	});
 
 	router.configure({
 		notfound: function () {
 			window.location.hash = '';
-			todoList.set( 'currentFilter', 'all' );
+			todoList.set('currentFilter', 'all');
 		}
 	});
 
 	router.init();
 
-}( window, Router, todoList ));
+}(window, Router, todoList));
