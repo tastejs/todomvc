@@ -11,7 +11,6 @@ class TodoWidget {
 
 	TodoWidget(this.todoApp, this.todo);
 
-	// TODO check, not sure we need to escapes here. Dart should do this.
 	Element createElement() {
 		element = new Element.html('''
 			<li ${todo.completed ? 'class="completed"' : ''}>
