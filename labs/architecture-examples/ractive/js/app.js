@@ -1,21 +1,19 @@
 /*global window, Ractive */
-
 (function (window, Ractive) {
-
 	'use strict';
 
 	// Create some filter functions, which we'll need later
 	var filters = {
-		completed: function (item) { return  item.completed; },
-		active:    function (item) { return !item.completed; }
+		completed: function (item) { return item.completed; },
+		active: function (item) { return !item.completed; }
 	};
 
 	// The keycode for the 'enter' and 'escape' keys
-	var ENTER_KEY = 13, ESCAPE_KEY = 27;
+	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
 
 	// Create our Ractive instance
 	var todoList = new Ractive({
-
 		// Specify a target element - an ID, a CSS selector, or the element itself
 		el: 'todoapp',
 

@@ -11,7 +11,6 @@
 		<section id="todoapp"></section>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
-
 			<p>Created by <a href="http://rich-harris.co.uk">Rich Harris</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
@@ -21,19 +20,16 @@
 			<header id="header">
 				<h1>todos</h1>
 
-				<!-- In app.js, we define a custom `enter` event, which fires when the user
-				     hits the enter key, submitting a new todo -->
+				<!-- In app.js, we define a custom `enter` event, which fires when the user hits the enter key, submitting a new todo. -->
 				<input id="new-todo" on-enter="newTodo" placeholder="What needs to be done?" autofocus>
 			</header>
 
-			<!-- We only render the main section and the footer if we have one or more todos -
-			     in other words, `items.length` is not falsy -->
+			<!--
+			We only render the main section and the footer if we have one or more todos - in other words, `items.length` is not falsy.
+			-->
 			{{#items.length}}
 				<section id="main">
-					<!-- Here, we compare the total number of tasks (`items.length`) with the number of
-					     completed tasks (`completedTasks().length`). This calculation happens reactively,
-					     so we never need to manually trigger an update. When the `change` event fires
-					     on the input, the `toggleAll` event fires on the Ractive instance. -->
+					<!-- Here, we compare the total number of tasks (`items.length`) with the number of completed tasks (`completedTasks().length`). This calculation happens reactively, so we never need to manually trigger an update. When the `change` event fires on the input, the `toggleAll` event fires on the Ractive instance. -->
 					<input id="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
 					<label for="toggle-all">Mark all as complete</label>
 
@@ -75,10 +71,8 @@
 		</script>
 
 		<script id="item" type="text/ractive">
-			<!-- This is the {{>item}} partial. It is rendered for each task in the array
-			     (`this` corresponds to the current task). But we only want to actually show
-			     those tasks that pass the current filter. -->
-			{{# filter( this ) }}
+			<!-- This is the {{>item}} partial. It is rendered for each task in the array (`this` corresponds to the current task). But we only want to actually show those tasks that pass the current filter. -->
+			{{# filter(this) }}
 				<li class="{{ completed ? 'completed' : '' }} {{ editing ? 'editing' : '' }}">
 					<div class="view">
 						<input class="toggle" type="checkbox" checked="{{completed}}">
@@ -88,8 +82,7 @@
 
 					<!-- This section only exists in the DOM when editing is taking place -->
 					{{#.editing}}
-						<!-- Here, we use custom events (`enter`) alongside standard DOM events
-						     (`blur`) to handle user interaction -->
+						<!-- Here, we use custom events (`enter`) alongside standard DOM events (`blur`) to handle user interaction -->
 						<input id="edit" class="edit" on-blur-enter="submit" on-escape="cancel" autofocus>
 					{{/.editing}}
 				</li>

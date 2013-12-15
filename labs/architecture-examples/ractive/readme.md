@@ -1,4 +1,4 @@
-# Ractive.js TodoMVC Example
+# Ractive.js TodoMVC app
 
 > Ractive.js solves some of the biggest headaches in web development – data binding, efficient DOM updates, event handling – and does so with almost no learning curve.
 
@@ -23,6 +23,7 @@ Ractive.js isn't an MVC framework in the traditional sense. There are no Model c
 This is because Ractive is optimised for developer sanity (as well as performance!). It was initially developed to create interactive news apps at [theguardian.com](http://theguardian.com), which have to be built against punishing deadlines and moving goalposts. Because it embraces reactive programming principles, the developer has less to worry about. Ractive's API is totally straightforward - you can learn it in 5 minutes and master it in a few hours.
 
 It has a number of innovative features: animations, easier event handling, declarative transitions, first-class SVG support, logical expressions in templates with sophisticated dependency tracking. For many developers, it hits the sweet spot between the flexibility of a library like Backbone and the power of a framework like Angular.
+
 
 ## Credit
 

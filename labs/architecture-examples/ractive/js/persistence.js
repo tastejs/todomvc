@@ -1,7 +1,5 @@
 /*global window, todoList */
-
 (function (window, todoList) {
-
 	'use strict';
 
 	// In Ractive, 'models' are usually just POJOs - plain old JavaScript objects.
@@ -34,16 +32,14 @@
 		// Whenever the model changes (including child properties like
 		// `items[1].completed`)...
 		todoList.observe('items', function (items) {
-			
+
 			// ...we persist it to localStorage
 			localStorage.setItem('todos-ractive', JSON.stringify(items.map(removeEditingState)));
 		});
-	}
-
-	else {
+	} else {
 		items = [];
 	}
 
 	todoList.set('items', items);
 
-}(window, todoList));
+})(window, todoList);

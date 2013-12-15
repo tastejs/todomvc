@@ -1,7 +1,5 @@
 /*global window, Router, todoList */
-
 (function (window, Router, todoList) {
-
 	'use strict';
 
 	// We're using https://github.com/flatiron/director for routing
@@ -24,4 +22,4 @@
 
 	router.init();
 
-}(window, Router, todoList));
+})(window, Router, todoList);
