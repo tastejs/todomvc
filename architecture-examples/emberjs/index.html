@@ -11,41 +11,40 @@
 			<section id="todoapp">
 				<header id="header">
 					<h1>todos</h1>
-					{{view Ember.TextField id="new-todo" placeholder="What needs to be done?"
-								 valueBinding="newTitle" action="createTodo"}}
+					{{input id="new-todo" type="text" value=newTitle action="createTodo" placeholder="What needs to be done?"}}
 				</header>
 				{{#if length}}
 					<section id="main">
 						<ul id="todo-list">
 							{{#each filteredTodos itemController="todo"}}
-								<li {{bindAttr class="isCompleted:completed isEditing:editing"}}>
+								<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
 									{{#if isEditing}}
-										{{view Todos.EditTodoView todoBinding="this"}}
+										{{edit-todo class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
 									{{else}}
-										{{view Ember.Checkbox checkedBinding="isCompleted" class="toggle"}}
+										{{input type="checkbox" class="toggle" checked=isCompleted}}
 										<label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
 										<button {{action "removeTodo"}} class="destroy"></button>
 									{{/if}}
 									</li>
 							{{/each}}
 						</ul>
-						{{view Ember.Checkbox id="toggle-all" checkedBinding="allAreDone"}}
+						{{input type="checkbox" id="toggle-all" checked=allAreDone}}
 					</section>
 					<footer id="footer">
 						<span id="todo-count">{{{remainingFormatted}}}</span>
 						<ul id="filters">
 							<li>
-								{{#linkTo todos.index activeClass="selected"}}All{{/linkTo}}
+								{{#link-to "todos.index" activeClass="selected"}}All{{/link-to}}
 							</li>
 							<li>
-								{{#linkTo todos.active activeClass="selected"}}Active{{/linkTo}}
+								{{#link-to "todos.active" activeClass="selected"}}Active{{/link-to}}
 							</li>
 							<li>
-								{{#linkTo todos.completed activeClass="selected"}}Completed{{/linkTo}}
+								{{#link-to "todos.completed" activeClass="selected"}}Completed{{/link-to}}
 							</li>
 						</ul>
 						{{#if hasCompleted}}
-							<button id="clear-completed" {{action "clearCompleted"}} {{bindAttr class="buttonClass:hidden"}}>
+							<button id="clear-completed" {{action "clearCompleted"}}>
 								Clear completed ({{completed}})
 							</button>
 						{{/if}}
@@ -66,13 +65,11 @@
 		<script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/handlebars/handlebars.js"></script>
 		<script src="bower_components/ember/ember.js"></script>
-		<!-- TODO: change out with a component when a built one is available on Bower -->
-		<script src="js/libs/ember-data.js"></script>
+		<script src="bower_components/ember-data/ember-data.js"></script>
 		<script src="bower_components/ember-localstorage-adapter/localstorage_adapter.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/router.js"></script>
 		<script src="js/models/todo.js"></script>
-		<script src="js/models/store.js"></script>
 		<script src="js/controllers/todos_controller.js"></script>
 		<script src="js/controllers/todo_controller.js"></script>
 		<script src="js/views/edit_todo_view.js"></script>

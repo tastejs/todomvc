@@ -17,7 +17,7 @@ We think it's best for the project if the code you write looks like the code the
 
 ## Submitting a New App
 
-- **Read the [App Specification](https://github.com/tastejs/todomvc/wiki/App-Specification) thoroughly**
+- **Read the [App Specification](app-spec.md) thoroughly**
 - Make sure it hasn't already been submitted or declined by searching the issue tracker
 - Looking at our most recent [reference app](https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/backbone)
 

@@ -38,7 +38,7 @@ You can read more about the implementation on [my blog](http://www.scottlogic.co
 
 ## Folder Structure
 
-- `css` - includes GWT specific `app.css`, most styling is taken from the base CSS file `../../assets/base.css`
+- `css` - includes GWT specific `app.css`, most styling is taken from the base CSS file
 - `gwttodo` - the GWT compiled output, this includes various HTML files, which contain the JavaScript
 code for each <a href "http://code.google.com/webtoolkit/doc/latest/tutorial/compile.html">GWT permutation</a>. This
 folder also includes some redundant files, see the issue <a href="https://github.com/ColinEberhardt/todomvc/issues/9">

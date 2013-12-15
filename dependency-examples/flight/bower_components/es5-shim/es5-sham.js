@@ -1,5 +1,6 @@
 // Copyright 2009-2012 by contributors, MIT License
 // vim: ts=4 sts=4 sw=4 expandtab
+
 // Module systems magic dance
 (function (definition) {
     // RequireJS
@@ -95,63 +96,15 @@ if (!Object.getOwnPropertyNames) {
 // ES5 15.2.3.5
 // http://es5.github.com/#x15.2.3.5
 if (!Object.create) {
-
-    // Contributed by Brandon Benvie, October, 2012
-    var createEmpty;
-    var supportsProto = Object.prototype.__proto__ === null;
-    if (supportsProto || typeof document == 'undefined') {
-        createEmpty = function () {
-            return { "__proto__": null };
-        };
-    } else {
-        // In old IE __proto__ can't be used to manually set `null`, nor does
-        // any other method exist to make an object that inherits from nothing,
-        // aside from Object.prototype itself. Instead, create a new global
-        // object and *steal* its Object.prototype and strip it bare. This is
-        // used as the prototype to create nullary objects.
-        createEmpty = (function () {
-            var iframe = document.createElement('iframe');
-            var parent = document.body || document.documentElement;
-            iframe.style.display = 'none';
-            parent.appendChild(iframe);
-            iframe.src = 'javascript:';
-            var empty = iframe.contentWindow.Object.prototype;
-            parent.removeChild(iframe);
-            iframe = null;
-            delete empty.constructor;
-            delete empty.hasOwnProperty;
-            delete empty.propertyIsEnumerable;
-            delete empty.isPrototypeOf;
-            delete empty.toLocaleString;
-            delete empty.toString;
-            delete empty.valueOf;
-            empty.__proto__ = null;
-
-            function Empty() {}
-            Empty.prototype = empty;
-
-            return function () {
-                return new Empty();
-            };
-        })();
-    }
-
     Object.create = function create(prototype, properties) {
-
         var object;
-        function Type() {}  // An empty constructor.
-
         if (prototype === null) {
-            object = createEmpty();
+            object = { "__proto__": null };
         } else {
-            if (typeof prototype !== "object" && typeof prototype !== "function") {
-                // In the native implementation `parent` can be `null`
-                // OR *any* `instanceof Object`  (Object|Function|Array|RegExp|etc)
-                // Use `typeof` tho, b/c in old IE, DOM elements are not `instanceof Object`
-                // like they are in modern browsers. Using `Object.create` on DOM elements
-                // is...err...probably inappropriate, but the native version allows for it.
-                throw new TypeError("Object prototype may only be an Object or null"); // same msg as Chrome
+            if (typeof prototype != "object") {
+                throw new TypeError("typeof prototype["+(typeof prototype)+"] != 'object'");
             }
+            var Type = function () {};
             Type.prototype = prototype;
             object = new Type();
             // IE has no built-in implementation of `Object.getPrototypeOf`
@@ -160,11 +113,9 @@ if (!Object.create) {
             // objects created using `Object.create`
             object.__proto__ = prototype;
         }
-
         if (properties !== void 0) {
             Object.defineProperties(object, properties);
         }
-
         return object;
     };
 }
@@ -197,8 +148,7 @@ if (Object.defineProperty) {
     var definePropertyWorksOnDom = typeof document == "undefined" ||
         doesDefinePropertyWork(document.createElement("div"));
     if (!definePropertyWorksOnObject || !definePropertyWorksOnDom) {
-        var definePropertyFallback = Object.defineProperty,
-            definePropertiesFallback = Object.defineProperties;
+        var definePropertyFallback = Object.defineProperty;
     }
 }
 
@@ -278,17 +228,8 @@ if (!Object.defineProperty || definePropertyFallback) {
 
 // ES5 15.2.3.7
 // http://es5.github.com/#x15.2.3.7
-if (!Object.defineProperties || definePropertiesFallback) {
+if (!Object.defineProperties) {
     Object.defineProperties = function defineProperties(object, properties) {
-        // make a valiant attempt to use the real defineProperties
-        if (definePropertiesFallback) {
-            try {
-                return definePropertiesFallback.call(Object, object, properties);
-            } catch (exception) {
-                // try the shim if the real one doesn't work
-            }
-        }
-        
         for (var property in properties) {
             if (owns(properties, property) && property != "__proto__") {
                 Object.defineProperty(object, property, properties[property]);

@@ -1,4 +1,3 @@
-
 Application['todomvc'] = (function() {
   var module = {exports: {}};
   var exports = module.exports;
@@ -13,7 +12,7 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 	// Todo Model
 	// ----------
 
-	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
+	// Our basic **Todo** model has `title` and `completed` attributes.
 	window.app.Todo = Thorax.Model.extend({
 
 		// Default attributes for the todo

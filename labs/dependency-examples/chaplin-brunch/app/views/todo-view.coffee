@@ -1,34 +1,33 @@
 View = require './base/view'
-template = require './templates/todo'
 
 module.exports = class TodoView extends View
   events:
     'click .toggle': 'toggle'
     'dblclick label': 'edit'
-    'keypress .edit': 'save'
-    'blur .edit': 'save'
-    'click .destroy': 'destroy'
+    'keyup .edit': 'save'
+    'focusout .edit': 'save'
+    'click .destroy': 'clear'
 
   listen:
     'change model': 'render'
 
-  template: template
+  template: require './templates/todo'
   tagName: 'li'
 
-  destroy: =>
+  clear: ->
     @model.destroy()
 
-  toggle: =>
+  toggle: ->
     @model.toggle().save()
 
-  edit: =>
-    @$el.addClass 'editing'
-    @$('.edit').focus()
+  edit: ->
+    @el.classList.add 'editing'
+    @find('.edit').focus()
 
-  save: (event) =>
+  save: (event) ->
     ENTER_KEY = 13
-    title = $(event.currentTarget).val().trim()
+    title = event.delegateTarget.value.trim()
     return @model.destroy() unless title
-    return if event.type is 'keypress' and event.keyCode isnt ENTER_KEY
+    return if event.type is 'keyup' and event.keyCode isnt ENTER_KEY
     @model.save {title}
-    @$el.removeClass 'editing'
+    @el.classList.remove 'editing'

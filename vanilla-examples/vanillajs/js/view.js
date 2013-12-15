@@ -1,91 +1,240 @@
-/*jshint laxbreak:true */
+/*global $, $$, $parent, $live */
+
 (function (window) {
-	'use strict';
+    'use strict';
 
-	/**
-	 * Sets up defaults for all the View methods such as a default template
-	 *
-	 * @constructor
-	 */
-	function View() {
-		this.defaultTemplate
-		=	'<li data-id="{{id}}" class="{{completed}}">'
-		+		'<div class="view">'
-		+			'<input class="toggle" type="checkbox" {{checked}}>'
-		+			'<label>{{title}}</label>'
-		+			'<button class="destroy"></button>'
-		+		'</div>'
-		+	'</li>';
-	}
+    /**
+     * View that abstracts away the browser's DOM completely.
+     * It has two simple entry points:
+     *
+     *   - bind(eventName, handler)
+     *     Takes a todo application event and registers the handler
+     *   - render(command, parameterObject)
+     *     Renders the given command with the options
+     */
+    function View(template) {
+        this.template = template;
 
-	/**
-	 * Creates an <li> HTML string and returns it for placement in your app.
-	 *
-	 * NOTE: In real life you should be using a templating engine such as Mustache
-	 * or Handlebars, however, this is a vanilla JS example.
-	 *
-	 * @param {object} data The object containing keys you want to find in the
-	 *                      template to replace.
-	 * @returns {string} HTML String of an <li> element
-	 *
-	 * @example
-	 * view.show({
-	 *	id: 1,
-	 *	title: "Hello World",
-	 *	completed: 0,
-	 * });
-	 */
-	View.prototype.show = function (data) {
-		var i, l;
-		var view = '';
+        this.ENTER_KEY = 13;
+        this.ESCAPE_KEY = 27;
 
-		for (i = 0, l = data.length; i < l; i++) {
-			var template = this.defaultTemplate;
-			var completed = '';
-			var checked = '';
+        this.$todoList = $$('#todo-list');
+        this.$todoItemCounter = $$('#todo-count');
+        this.$clearCompleted = $$('#clear-completed');
+        this.$main = $$('#main');
+        this.$footer = $$('#footer');
+        this.$toggleAll = $$('#toggle-all');
+        this.$newTodo = $$('#new-todo');
+    }
 
-			if (data[i].completed === 1) {
-				completed = 'completed';
-				checked = 'checked';
-			}
+    View.prototype._removeItem = function (id) {
+        var elem = $$('[data-id="' + id + '"]');
 
-			template = template.replace('{{id}}', data[i].id);
-			template = template.replace('{{title}}', data[i].title);
-			template = template.replace('{{completed}}', completed);
-			template = template.replace('{{checked}}', checked);
+        if (elem) {
+            this.$todoList.removeChild(elem);
+        }
+    };
 
-			view = view + template;
-		}
+    View.prototype._clearCompletedButton = function (completedCount, visible) {
+        this.$clearCompleted.innerHTML = this.template.clearCompletedButton(completedCount);
+        this.$clearCompleted.style.display = visible ? 'block' : 'none';
+    };
 
-		return view;
-	};
+    View.prototype._setFilter = function (currentPage) {
+        // Remove all other selected states. We loop through all of them in case the
+        // UI gets in a funky state with two selected.
+        $('#filters .selected').forEach(function (item) {
+            item.className = '';
+        });
 
-	/**
-	 * Displays a counter of how many to dos are left to complete
-	 *
-	 * @param {number} activeTodos The number of active todos.
-	 * @returns {string} String containing the count
-	 */
-	View.prototype.itemCounter = function (activeTodos) {
-		var plural = activeTodos === 1 ? '' : 's';
+        $('#filters [href="#/' + currentPage + '"]').forEach(function (item) {
+            item.className = 'selected';
+        });
+    };
 
-		return '<strong>' + activeTodos + '</strong> item' + plural + ' left';
-	};
+    View.prototype._elementComplete = function (id, completed) {
+        var listItem = $$('[data-id="' + id + '"]');
 
-	/**
-	 * Updates the text within the "Clear completed" button
-	 *
-	 * @param  {[type]} completedTodos The number of completed todos.
-	 * @returns {string} String containing the count
-	 */
-	View.prototype.clearCompletedButton = function (completedTodos) {
-		if (completedTodos > 0) {
-			return 'Clear completed (' + completedTodos + ')';
-		} else {
-			return '';
-		}
-	};
+        if (!listItem) {
+            return;
+        }
 
-	// Export to window
-	window.app.View = View;
-})(window);
+        listItem.className = completed ? 'completed' : '';
+
+        // In case it was toggled from an event and not by clicking the checkbox
+        listItem.querySelector('input').checked = completed;
+    };
+
+    View.prototype._editItem = function (id, title) {
+        var listItem = $$('[data-id="' + id + '"]');
+
+        if (!listItem) {
+            return;
+        }
+
+        listItem.className = listItem.className + ' editing';
+
+        var input = document.createElement('input');
+        input.className = 'edit';
+
+        listItem.appendChild(input);
+        input.focus();
+        input.value = title;
+    };
+
+    View.prototype._editItemDone = function (id, title) {
+        var listItem = $$('[data-id="' + id + '"]');
+
+        if (!listItem) {
+            return;
+        }
+
+        var input = listItem.querySelector('input.edit');
+        listItem.removeChild(input);
+
+        listItem.className = listItem.className.replace('editing', '');
+
+        listItem.querySelectorAll('label').forEach(function (label) {
+            label.textContent = title;
+        });
+    };
+
+    View.prototype.render = function (viewCmd, parameter) {
+        var that = this;
+        var viewCommands = {
+                showEntries: function () {
+                    that.$todoList.innerHTML = that.template.show(parameter);
+                },
+                removeItem: function () {
+                    that._removeItem(parameter);
+                },
+                updateElementCount: function () {
+                    that.$todoItemCounter.innerHTML = that.template.itemCounter(parameter);
+                },
+                clearCompletedButton: function () {
+                    that._clearCompletedButton(parameter.completed, parameter.visible);
+                },
+                contentBlockVisibility: function () {
+                    that.$main.style.display = that.$footer.style.display = parameter.visible ? 'block' : 'none';
+                },
+                toggleAll: function () {
+                    that.$toggleAll.checked = parameter.checked;
+                },
+                setFilter: function () {
+                    that._setFilter(parameter);
+                },
+                clearNewTodo: function () {
+                    that.$newTodo.value = '';
+                },
+                elementComplete: function () {
+                    that._elementComplete(parameter.id, parameter.completed);
+                },
+                editItem: function () {
+                    that._editItem(parameter.id, parameter.title);
+                },
+                editItemDone: function () {
+                    that._editItemDone(parameter.id, parameter.title);
+                }
+            };
+
+        viewCommands[viewCmd]();
+    };
+
+    View.prototype._itemIdForEvent = function (e) {
+        var element = e.target;
+        var li = $parent(element, 'li');
+        var id = li.dataset.id;
+
+        return id;
+    };
+
+    View.prototype._bindItemEditDone = function (handler) {
+        $live('#todo-list li .edit', 'blur', function (e) {
+            var input = e.target;
+            var id = this._itemIdForEvent(e);
+
+            if (!input.dataset.iscanceled) {
+                handler({
+                    id: id,
+                    title: input.value
+                });
+            }
+        }.bind(this));
+
+        $live('#todo-list li .edit', 'keypress', function (e) {
+            var input = e.target;
+            if (e.keyCode === this.ENTER_KEY) {
+                // Remove the cursor from the input when you hit enter just like if it
+                // were a real form
+                input.blur();
+            }
+        }.bind(this));
+    };
+
+    View.prototype._bindItemEditCancel = function (handler) {
+        $live('#todo-list li .edit', 'keyup', function (e) {
+            var input = e.target;
+            var id = this._itemIdForEvent(e);
+
+            if (e.keyCode === this.ESCAPE_KEY) {
+
+                input.dataset.iscanceled = true;
+                input.blur();
+
+                handler({id: id});
+            }
+        }.bind(this));
+    };
+
+    View.prototype.bind = function (event, handler) {
+        if (event === 'newTodo') {
+            this.$newTodo.addEventListener('change', function () {
+                handler(this.$newTodo.value);
+            }.bind(this));
+
+        } else if (event === 'removeCompleted') {
+            this.$clearCompleted.addEventListener('click', function () {
+                handler();
+            }.bind(this));
+
+        } else if (event === 'toggleAll') {
+            this.$toggleAll.addEventListener('click', function (e) {
+                var input = e.target;
+
+                handler({completed: input.checked});
+            }.bind(this));
+
+        } else if (event === 'itemEdit') {
+            $live('#todo-list li label', 'dblclick', function (e) {
+                var id = this._itemIdForEvent(e);
+
+                handler({id: id});
+            }.bind(this));
+
+        } else if (event === 'itemRemove') {
+            $live('#todo-list .destroy', 'click', function (e) {
+                var id = this._itemIdForEvent(e);
+
+                handler({id: id});
+            }.bind(this));
+
+        } else if (event === 'itemToggle') {
+            $live('#todo-list .toggle', 'click', function (e) {
+                var input = e.target;
+                var id = this._itemIdForEvent(e);
+
+                handler({id: id, completed: input.checked});
+            }.bind(this));
+
+        } else if (event === 'itemEditDone') {
+            this._bindItemEditDone(handler);
+
+        } else if (event === 'itemEditCancel') {
+            this._bindItemEditCancel(handler);
+        }
+    };
+
+    // Export to window
+    window.app = window.app || {};
+    window.app.View = View;
+}(window));

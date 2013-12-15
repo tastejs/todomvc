@@ -161,6 +161,40 @@
 			}]
 		}]
 	},
+	"atmajs": {
+		"name": "Atma.js",
+		"description": "HMVC and the component-based architecture for building client, server or hybrid applications",
+		"homepage": "atmajs.com",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/atmajs/"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Get Started",
+				"url": "http://atmajs.com/get/github"
+			}, {
+				"name": "Atma.js on GitHub",
+				"url": "https://github.com/atmajs"
+			}]
+		}, {
+			"heading": "Overview",
+			"links": [{
+				"name": "Libraries",
+				"url": "https://github.com/tastejs/todomvc/blob/gh-pages/labs/architecture-examples/atmajs/readme.md"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Atma.js on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/atmajs"
+			}, {
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/?fromgroups#!forum/atmajs"
+			}]
+		}]
+	},
 	"backbonejs": {
 		"name": "Backbone.js",
 		"description": "Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.",
@@ -277,10 +311,10 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://donejs.com/docs.html#!canjs"
+				"url": "http://canjs.com/docs/index.html"
 			}, {
-				"name": "Why CanJS",
-				"url": "http://canjs.com/#why_canjs"
+				"name": "Getting started",
+				"url": "http://canjs.com/guides/Tutorial.html"
 			}, {
 				"name": "Applications built with CanJS",
 				"url": "http://canjs.com/#examples"
@@ -308,6 +342,9 @@
 			}, {
 				"name": "CanJS on Twitter",
 				"url": "http://twitter.com/canjs"
+			}, {
+				"name": "#canjs IRC",
+				"url": "http://webchat.freenode.net/?channels=canjs"
 			}]
 		}]
 	},
@@ -323,19 +360,16 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Getting Started",
-				"url": "https://github.com/chaplinjs/chaplin/blob/master/docs/getting_started.md"
+				"url": "http://docs.chaplinjs.org/getting_started.html"
 			}, {
 				"name": "Documentation",
-				"url": "https://github.com/chaplinjs/chaplin/tree/master/docs"
-			}, {
-				"name": "API Reference",
-				"url": "https://github.com/chaplinjs/chaplin/tree/master/docs#api-docs"
+				"url": "http://docs.chaplinjs.org"
 			}, {
 				"name": "Annotated Source Code",
 				"url": "http://chaplinjs.org/annotated/chaplin.html"
 			}, {
 				"name": "Applications built with Chaplin",
-				"url": "https://github.com/chaplinjs/chaplin/wiki/Projects-and-companies-using-Chaplin"
+				"url": "http://chaplinjs.org/examples.html"
 			}, {
 				"name": "Cookbook",
 				"url": "https://github.com/chaplinjs/chaplin/wiki/Cookbook"
@@ -352,6 +386,9 @@
 		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Support forum on ost.io",
+				"url": "http://ost.io/@chaplinjs/chaplin"
+			}, {
 				"name": "Chaplin on StackOverflow",
 				"url": "http://stackoverflow.com/questions/tagged/chaplinjs"
 			}, {
@@ -694,6 +731,56 @@
 			}]
 		}]
 	},
+	"durandal": {
+		"name": "Durandal",
+		"description": "Single Page Apps Done Right.",
+		"homepage": "durandaljs.com",
+		"examples": [{
+			"name": "Dependency Example",
+			"url": "labs/dependency-examples/durandal/index.html"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "http://durandaljs.com/pages/get-started/"
+			}, {
+				"name": "Documentation",
+				"url": "http://durandaljs.com/pages/docs"
+			}, {
+				"name": "Videos",
+				"url": "http://durandaljs.com/pages/videos/"
+			}, {
+				"name": "Durandal on GitHub",
+				"url": "https://github.com/BlueSpire/Durandal"
+			}]
+		}
+		, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "HotTowel Template - Durandal with ASP.Net MVC",
+				"url": "http://www.johnpapa.net/hottowel/"
+			}, {
+				"name": "Using Durandal to Create Single Page Apps",
+				"url": "http://stephenwalther.com/archive/2013/02/08/using-durandal-to-create-single-page-apps"
+			},{
+				"name": "nuGet Download",
+				"url": "http://www.nuget.org/packages/Durandal/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Durandal on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/durandal"
+			}, {
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/#!forum/durandaljs"
+			}, {
+				"name": "Durandal on Twitter",
+				"url": "http://twitter.com/durandaljs"
+			}]
+		}]
+	},
 	"emberjs": {
 		"name": "Ember.js",
 		"description": "A framework for creating ambitious web applications.",
@@ -823,6 +910,37 @@
 			}]
 		}]
 	},
+	"exoskeleton": {
+		"name": "Exoskeleton",
+		"description": "A faster and leaner Backbone for your HTML5 apps.",
+		"homepage": "exosjs.com",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/exoskeleton"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://backbonejs.org"
+			}, {
+				"name": "Exoskeleton on GitHub",
+				"url": "https://github.com/paulmillr/exoskeleton"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Exoskeleton on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/exoskeleton"
+			}, {
+				"name": "Backbone on StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/backbone.js"
+			}, {
+				"name": "Exoskeleton's author on Twitter",
+				"url": "http://twitter.com/paulmillr"
+			}]
+		}]
+	},
 	"extjs": {
 		"name": "Ext JS",
 		"description": "Sencha Ext JS is the industry's most powerful desktop application development platform with unparalleled cross-browser compatibility, advanced MVC architecture, plugin-free charting, and modern UI widgets.",
@@ -871,8 +989,8 @@
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Tutorial",
-				"url": "https://www.firebase.com/tutorial/"
+				"name": "AngularFire Site",
+				"url": "http://angularfire.com/"
 			}, {
 				"name": "Documentation & Examples",
 				"url": "https://www.firebase.com/docs/"
@@ -882,15 +1000,18 @@
 			}, {
 				"name": "Firebase on GitHub",
 				"url": "http://firebase.github.io"
+			}, {
+				"name": "Tutorial",
+				"url": "https://www.firebase.com/tutorial/"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Firebase + Angular Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/#!forum/firebase-angular"
+			}, {
 				"name": "Firebase on StackOverflow",
 				"url": "http://stackoverflow.com/questions/tagged/firebase"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/firebase-talk"
 			}, {
 				"name": "Firebase on Twitter",
 				"url": "http://twitter.com/Firebase"
@@ -1116,9 +1237,6 @@
 		}, {
 			"name": "Dependency Example",
 			"url": "labs/dependency-examples/knockoutjs_require"
-		}, {
-			"name": "Knockout.js & Class Binding Provider",
-			"url": "labs/architecture-examples/knockoutjs_classBindingProvider"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1158,6 +1276,40 @@
 			}, {
 				"name": "Knockout.js on Google +",
 				"url": "https://plus.google.com/communities/106789046312204355684/stream/c5bfcfdf-3690-44a6-b015-35aad4f4e42e"
+			}]
+		}]
+	},
+	"lavaca": {
+		"name": "Lavaca",
+		"description": "A curated collection of tools for building mobile web applications.",
+		"homepage": "getlavaca.com",
+		"examples": [{
+			"name": "Dependency Example",
+			"url": "labs/dependency-examples/lavaca_require"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Guide",
+				"url": "http://getlavaca.com/#/guide"
+			}, {
+				"name": "API Reference",
+				"url": "http://getlavaca.com/#/apidoc"
+			}, {
+				"name": "Live examples",
+				"url": "http://getlavaca.com/#/examples"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "Why Lavaca is the only sane HTML5 mobile development framework out there",
+				"url": "http://povolotski.me/2013/09/20/lavaca-intro/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Lavaca on Twitter",
+				"url": "http://twitter.com/getlavaca"
 			}]
 		}]
 	},
@@ -1292,8 +1444,8 @@
 		}]
 	},
 	"montage": {
-		"name": "Montage",
-		"description": "The Montage framework lets you develop rich HTML5 applications optimized for today and tomorrow’s range of connected devices. You can build rich client-side UI’s, sharing packages and modules with your NodeJS server. Montage opens a new world of opportunity for web developers.",
+		"name": "MontageJS",
+		"description": "MontageJS is a framework for building rich HTML5 applications optimized for today and tomorrow’s range of connected devices. It offers time-tested design patterns and software principles, a modular architecture, a friendly method to achieve a clean separation of concerns, and supports sharing packages and modules with your NodeJS server.",
 		"homepage": "montagejs.org",
 		"examples": [{
 			"name": "Architecture Example",
@@ -1303,24 +1455,24 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Quick Start",
-				"url": "http://montagejs.org/docs/quick-start.html"
+				"url": "http://montagejs.org/docs/montagejs-setup.html"
 			}, {
 				"name": "Documentation",
 				"url": "http://montagejs.org/docs"
 			}, {
 				"name": "API Reference",
-				"url": "http://montagejs.org/apis"
+				"url": "http://montagejs.org/api"
 			}, {
-				"name": "Applications built with Montage",
+				"name": "Applications built with MontageJS",
 				"url": "http://montagejs.org/apps"
 			}, {
-				"name": "Montage on GitHub",
+				"name": "MontageJS on GitHub",
 				"url": "https://github.com/montagejs/montage"
 			}, {
-				"name": "Minit - Montage Initializer",
+				"name": "Minit - MontageJS Initializer",
 				"url": "https://github.com/montagejs/minit"
 			}, {
-				"name": "MOP - Montage Optimizer",
+				"name": "MOP - MontageJS Optimizer",
 				"url": "https://github.com/montagejs/mop"
 			}]
 		}, {
@@ -1328,6 +1480,9 @@
 			"links": [{
 				"name": "YouTube - Getting Started",
 				"url": "http://www.youtube.com/watch?v=JfT1ML200JI"
+			}, {
+				"name": "My First MontageJS Application",
+				"url": "http://renaun.com/blog/2013/05/my-first-montagejs-application/"
 			}]
 		}, {
 			"heading": "Community",
@@ -1339,7 +1494,7 @@
 				"url": "https://groups.google.com/forum/?fromgroups#!forum/montagejs"
 			}, {
 				"name": "Montage on Twitter",
-				"url": "http://twitter.com/montage_js"
+				"url": "http://twitter.com/montagejs"
 			}, {
 				"name": "Montage on Google +",
 				"url": "https://plus.google.com/116915300739108010954"
@@ -1394,50 +1549,50 @@
 		}]
 	},
 	"polymer": {
-			"name": "Polymer",
-			"description": "Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.",
-			"homepage": "polymer-project.org",
-			"source_path": [{
-				"name": "Architecture Example",
-				"url": "labs/architecture-examples/polymer"
-			}],
-			"link_groups": [{
-				"heading": "Official Resources",
-				"links": [{
-					"name": "Documentation",
-					"url": "http://www.polymer-project.org/getting-started.html"
-				}, {
-					"name": "API Reference",
-					"url": "http://www.polymer-project.org/polymer.html"
-				}, {
-					"name": "Tools And Testing",
-					"url": "http://www.polymer-project.org/tooling-strategy.html"
-				}, {
-					"name": "FAQ",
-					"url": "http://www.polymer-project.org/faq.html"
-				}, {
-					"name": "Polymer on GitHub",
-					"url": "https://github.com/polymer"
-				}]
+		"name": "Polymer",
+		"description": "Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.",
+		"homepage": "polymer-project.org",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/polymer"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://www.polymer-project.org/getting-started.html"
 			}, {
-				"heading": "Videos",
-				"links": [{
-					"name": "Web Components - A Tectonic Shift For Web Development",
-					"url": "http://www.youtube.com/watch?v=fqULJBBEVQE"
-				}, {
-					"name": "Web Components In Action",
-					"url": "http://www.youtube.com/watch?v=0g0oOOT86NY"
-				}]
+				"name": "API Reference",
+				"url": "http://www.polymer-project.org/polymer.html"
 			}, {
-				"heading": "Community",
-				"links": [{
-					"name": "Mailing list on Google Groups",
-					"url": "https://groups.google.com/forum/#!msg/polymer-dev/"
-				}, {
-					"name": "Web Components on Google +",
-					"url": "https://plus.google.com/103330502635338602217/"
-				}]
+				"name": "Tools And Testing",
+				"url": "http://www.polymer-project.org/tooling-strategy.html"
+			}, {
+				"name": "FAQ",
+				"url": "http://www.polymer-project.org/faq.html"
+			}, {
+				"name": "Polymer on GitHub",
+				"url": "https://github.com/polymer"
 			}]
+		}, {
+			"heading": "Videos",
+			"links": [{
+				"name": "Web Components - A Tectonic Shift For Web Development",
+				"url": "http://www.youtube.com/watch?v=fqULJBBEVQE"
+			}, {
+				"name": "Web Components In Action",
+				"url": "http://www.youtube.com/watch?v=0g0oOOT86NY"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/#!msg/polymer-dev/"
+			}, {
+				"name": "Web Components on Google +",
+				"url": "https://plus.google.com/103330502635338602217/"
+			}]
+		}]
 	},
 	"puremvc": {
 		"name": "PureMVC",

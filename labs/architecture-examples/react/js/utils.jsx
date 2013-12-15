@@ -32,17 +32,17 @@
 			return (store && JSON.parse(store)) || [];
 		},
 
-		stringifyObjKeys: function (obj) {
-			var s = '';
-			var key;
-
-			for (key in obj) {
-				if (obj.hasOwnProperty(key) && obj[key]) {
-					s += key + ' ';
+		extend: function () {
+			var newObj = {};
+			for (var i = 0; i < arguments.length; i++) {
+				var obj = arguments[i];
+				for (var key in obj) {
+					if (obj.hasOwnProperty(key)) {
+						newObj[key] = obj[key];
+					}
 				}
 			}
-
-			return s.trim();
+			return newObj;
 		}
 	};
 

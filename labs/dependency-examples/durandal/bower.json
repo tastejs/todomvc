@@ -1,0 +1,12 @@
+{
+	"name": "todomvc-durandal",
+	"version": "0.0.0",
+	"dependencies": {
+		"durandal": "~1.2.0",
+		"sammy": "~0.7.4",
+		"jquery": "~1.9.1",
+		"knockout": "~2.2.1",
+		"todomvc-common": "~0.1.4",
+		"requirejs": "~2.1.6"
+	}
+}

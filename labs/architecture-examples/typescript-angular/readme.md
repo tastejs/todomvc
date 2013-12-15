@@ -80,4 +80,6 @@ A standalone TypeScript compiler is available on NPM.
 To compile the TypeScript in this project:
 
 	# from labs/architecture-examples/typescript-angular
-	tsc -sourcemap js/_all.ts
+	tsc --sourcemap --out js/Application.js js/_all.ts
+
+Or use Visual Studio with the TypeScript plugin.

@@ -49,7 +49,7 @@ define(
         name = eventArgs[0];
       }
 
-      if (window.DEBUG) {
+      if (window.DEBUG && window.DEBUG.enabled) {
         logFilter = DEBUG.events.logFilter;
 
         // no regex for you, actions...
@@ -68,13 +68,11 @@ define(
             action,
             '[' + name + ']',
             elemToString(elem),
-            component.constructor.describe,
-            fn && (fnName = fn.name || fn.displayName) && '->  ' + fnName
+            component.constructor.describe.split(' ').slice(0,3).join(' ') //two mixins only
           );
         }
       }
     }
-
 
     function withLogging() {
       this.before('trigger', function() {

@@ -1,28 +1,39 @@
-var Montage = require('montage').Montage;
 var Component = require('montage/ui/component').Component;
-var ArrayController = require('montage/ui/controller/array-controller').ArrayController;
+var RangeController = require('montage/core/range-controller').RangeController;
 var Todo = require('core/todo').Todo;
-var Serializer = require('montage/core/serializer').Serializer;
-var Deserializer = require('montage/core/deserializer').Deserializer;
+var Serializer = require('montage/core/serialization').Serializer;
+var Deserializer = require('montage/core/serialization').Deserializer;
 var LOCAL_STORAGE_KEY = 'todos-montage';
 
-exports.Main = Montage.create(Component, {
-	newTodoForm: {
+exports.Main = Component.specialize({
+
+	_newTodoForm: {
 		value: null
 	},
 
-	newTodoInput: {
+	_newTodoInput: {
 		value: null
 	},
 
 	todoListController: {
-		serializable: false,
 		value: null
 	},
 
-	didCreate: {
+	constructor: {
+		value: function Main() {
+			this.todoListController = new RangeController();
+			this.addPathChangeListener('todos.every{completed}', this, 'handleTodosCompletedChanged');
+
+			this.defineBindings({
+				'todos': {'<-': 'todoListController.organizedContent'},
+				'todosLeft': {'<-': 'todos.filter{!completed}'},
+				'todosCompleted': {'<-': 'todos.filter{completed}'}
+			});
+		}
+	},
+
+	templateDidLoad: {
 		value: function () {
-			this.todoListController = ArrayController.create();
 			this.load();
 		}
 	},
@@ -33,18 +44,18 @@ exports.Main = Montage.create(Component, {
 				var todoSerialization = localStorage.getItem(LOCAL_STORAGE_KEY);
 
 				if (todoSerialization) {
-					var deserializer = Deserializer.create();
-					var self = this;
+					var deserializer = new Deserializer(),
+						self = this;
 
-					try {
-						deserializer.initWithStringAndRequire(todoSerialization, require).deserializeObject(function (todos) {
-							self.todoListController.initWithContent(todos);
-						}, require);
-					} catch (err) {
+					deserializer.init(todoSerialization, require)
+					.deserializeObject()
+					.then(function (todos) {
+						self.todoListController.content = todos;
+					}).fail(function (error) {
 						console.error('Could not load saved tasks.');
 						console.debug('Could not deserialize', todoSerialization);
-						console.log(err.stack);
-					}
+						console.log(error.stack);
+					});
 				}
 			}
 		}
@@ -53,103 +64,108 @@ exports.Main = Montage.create(Component, {
 	save: {
 		value: function () {
 			if (localStorage) {
-				var todos = this.todoListController.content;
-				var serializer = Serializer.create().initWithRequire(require);
+				var todos = this.todoListController.content,
+					serializer = new Serializer().initWithRequire(require);
 
 				localStorage.setItem(LOCAL_STORAGE_KEY, serializer.serializeObject(todos));
 			}
 		}
 	},
 
-	prepareForDraw: {
-		value: function () {
-			this.newTodoForm.identifier = 'newTodoForm';
-			this.newTodoForm.addEventListener('submit', this, false);
-			this.addEventListener('destroyTodo', this, true);
-			window.addEventListener('beforeunload', this, true);
+	enterDocument: {
+		value: function (firstTime) {
+			if (firstTime) {
+				this._newTodoForm.identifier = 'newTodoForm';
+				this._newTodoForm.addEventListener('submit', this, false);
+
+				this.addEventListener('destroyTodo', this, true);
+
+				window.addEventListener('beforeunload', this, true);
+			}
 		}
 	},
 
 	captureDestroyTodo: {
-		value: function (e) {
-			this.destroyTodo(e.detail.todo);
-		}
-	},
-
-	handleNewTodoFormSubmit: {
-		value: function (e) {
-			e.preventDefault();
-
-			var title = this.newTodoInput.value.trim();
-
-			if (title === '') {
-				return;
-			}
-
-			this.createTodo(title);
-			this.newTodoInput.value = null;
+		value: function (evt) {
+			this.destroyTodo(evt.detail.todo);
 		}
 	},
 
 	createTodo: {
 		value: function (title) {
-			var todo = Todo.create().initWithTitle(title);
-			this.todoListController.addObjects(todo);
+			var todo = new Todo().initWithTitle(title);
+			this.todoListController.add(todo);
 			return todo;
 		}
 	},
 
 	destroyTodo: {
 		value: function (todo) {
-			this.todoListController.removeObjects(todo);
+			this.todoListController.delete(todo);
 			return todo;
 		}
 	},
 
+	_allCompleted: {
+		value: null
+	},
+
 	allCompleted: {
-		dependencies: ['todoListController.organizedObjects.completed'],
 		get: function () {
-			return this.todoListController.organizedObjects.getProperty('completed').all();
+			return this._allCompleted;
 		},
 		set: function (value) {
-			this.todoListController.organizedObjects.forEach(function (member) {
+			this._allCompleted = value;
+			this.todoListController.organizedContent.forEach(function (member) {
 				member.completed = value;
 			});
 		}
 	},
 
+	todos: {
+		value: null
+	},
+
 	todosLeft: {
-		dependencies: ['todoListController.organizedObjects.completed'],
-		get: function () {
-			if (this.todoListController.organizedObjects) {
-				var todos = this.todoListController.organizedObjects;
-				return todos.filter(function (member) {
-					return !member.completed;
-				});
+		value: null
+	},
+
+	todosCompleted: {
+		value: null
+	},
+
+	// Handlers
+
+	handleNewTodoFormSubmit: {
+		value: function (evt) {
+			evt.preventDefault();
+
+			var title = this._newTodoInput.value.trim();
+
+			if (title === '') {
+				return;
 			}
+
+			this.createTodo(title);
+			this._newTodoInput.value = null;
 		}
 	},
 
-	completedTodos: {
-		dependencies: ['todoListController.organizedObjects.completed'],
-		get: function () {
-			if (this.todoListController.organizedObjects) {
-				var todos = this.todoListController.organizedObjects;
-				return todos.filter(function (member) {
-					return member.completed;
-				});
-			}
+	handleTodosCompletedChanged: {
+		value: function (value) {
+			this._allCompleted = value;
+			this.dispatchOwnPropertyChange('allCompleted', value);
 		}
 	},
 
 	handleClearCompletedButtonAction: {
 		value: function () {
-			var completedTodos = this.todoListController.organizedObjects.filter(function (todo) {
+			var completedTodos = this.todoListController.organizedContent.filter(function (todo) {
 				return todo.completed;
 			});
 
 			if (completedTodos.length > 0) {
-				this.todoListController.removeObjects.apply(this.todoListController, completedTodos);
+				this.todoListController.deleteEach(completedTodos);
 			}
 		}
 	},

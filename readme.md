@@ -24,6 +24,7 @@ To help solve this problem, we created TodoMVC - a project which offers the same
 - [Agility.js](http://agilityjs.com)
 - [Knockback.js](http://kmalakoff.github.com/knockback)
 - [Google Web Toolkit](https://developers.google.com/web-toolkit/)
+- [Flight by Twitter](https://github.com/twitter/flight)
 
 
 ###### Non-framework Implementations
@@ -48,7 +49,6 @@ We also have a number of in-progress applications in Labs:
 - [Derby](http://derbyjs.com)
 - [CanJS](http://canjs.us)
 - [Kendo UI](http://kendoui.com)
-- [Flight by Twitter](https://github.com/twitter/flight)
 - [Maria.js](https://github.com/petermichaux/maria)
 - [cujoJS](http://cujojs.com)
 - [MarionetteJS](http://marionettejs.com/)
@@ -80,15 +80,23 @@ We also have a number of in-progress applications in Labs:
 - [Aria Templates](http://ariatemplates.com/)
 - [Enyo + Backbone.js](http://enyojs.com/)
 - [SAPUI5](http://scn.sap.com/community/developer-center/front-end)
+- [Lavaca](http://getlavaca.com) + [RequireJS](http://requirejs.org) (using AMD)
 
 ## Live demos
 
 Live demos are available on our [website](http://todomvc.com)
 
+## View & Run in Web IDE
+
+Click on the button below to view the code in a Web IDE. Feel free to edit the code and then run it all from your browser.
+
+[![IDE](https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/editcloud9.png)](https://c9.io/open/git/?url=git://github.com/tastejs/todomvc.git)
+[![IDE](https://codio-public.s3.amazonaws.com/sharing/demo-in-ide.png)](https://codio.com/p/create/?from_github=tastejs/todomvc)
+
 
 ## Screenshot
 
-![screenshot](https://raw.github.com/tastejs/todomvc/gh-pages/screenshot.png)
+![screenshot](https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png)
 
 
 ## Team
@@ -108,7 +116,7 @@ Sindre is a Web Developer who drives core development, quality control and appli
 #### [Pascal Hartig](https://github.com/passy) - Developer
 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=40">
-Pascal is a Software Engineer at weluse GmbH with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
+Pascal is a Front-end Engineer at Twitter with a deep passion for consistency. He watches pull requests and helps developers getting their contributions integrated with TodoMVC.
 
 #### [Stephen Sawchuk](https://github.com/stephenplusplus) - Developer
 
@@ -129,11 +137,6 @@ TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta St
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
 
-## Project Status
-
-TodoMVC 1.x includes re-writes of almost all applications, ensuring they follow a consistent set of specifications and are using the latest versions of all libraries and frameworks in use. We've also addressed framework author concerns about routing by adding this to many of the more mainstream applications in the project.
-
-
 ## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
@@ -143,5 +146,6 @@ Check out our [contribution docs](contributing.md) for more info.
 
 ## License
 
-MIT License  
-Copyright (c) Addy Osmani, Sindre Sorhus & Pascal Hartig
+Everything in this repo is MIT License unless otherwise specified.
+
+MIT © Addy Osmani, Sindre Sorhus, Pascal Hartig, Stephen Sawchuk.

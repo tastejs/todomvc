@@ -1,0 +1,17 @@
+{
+  "name": "flight-todomvc",
+  "version": "0.0.0",
+  "devDependencies": {
+    "karma": "~0.10.1",
+    "karma-jasmine": "~0.1.0",
+    "karma-requirejs": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-ie-launcher": "~0.1.1",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma-safari-launcher": "~0.1.1"
+  },
+  "scripts": {
+    "test": "karma start --browsers Firefox --single-run"
+  }
+}

@@ -2,7 +2,7 @@
 'use strict';
 
 define([
-	'flight/component',
+	'flight/lib/component',
 	'./with_filters',
 	'text!app/templates/stats.html',
 	'../utils'

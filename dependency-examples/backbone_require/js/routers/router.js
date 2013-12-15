@@ -7,14 +7,14 @@ define([
 ], function ($, Backbone, Todos, Common) {
 	'use strict';
 
-	var Workspace = Backbone.Router.extend({
+	var TodoRouter = Backbone.Router.extend({
 		routes: {
 			'*filter': 'setFilter'
 		},
 
 		setFilter: function (param) {
 			// Set the current filter to be used
-			Common.TodoFilter = param.trim() || '';
+			Common.TodoFilter = param || '';
 
 			// Trigger a collection filter event, causing hiding/unhiding
 			// of the Todo view items
@@ -22,5 +22,5 @@ define([
 		}
 	});
 
-	return Workspace;
+	return TodoRouter;
 });

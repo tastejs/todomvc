@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-framework="atmajs">
+	<head>
+		<meta charset="utf-8">
+		<title>Atma.js • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+
+		<script type="mask/template" id="layout">
+			/*
+
+				TodoMVC Atma.js Application
+
+				1. Read readme.md - you will get basic information about the libraries
+				2. Hint: Viewing *.mask files enable javascript or less syntax highlighting in your IDE
+
+
+				The application structure guide:
+
+				Controls Overview:
+					todo:input;
+
+				Components Overview:
+					:app\
+						:filter;
+						:todoList\
+							:todoTask;
+
+
+				Scripts overview (sorted from the most atomic parts up to the application component):
+					js/
+						model/Todos.js
+						cntrl/input.js
+						filter/filter.js
+						todoList/
+							todoTask/todoTask.js
+							todoList.js
+						app.js
+
+				_If the controller loads a template, do not forget to review that._
+			 */
+
+
+			// Application Template
+
+			section #todoapp {
+				header #header {
+					h1 > 'todos'
+
+					todo:input #new-todo
+						autofocus
+						x-signal = 'enter: newTask'
+						placeholder = 'What needs to be done?'
+						;
+
+				}
+
+				section #main >
+					:todoList;
+
+				footer #footer xx-visible = 'status.count' {
+
+					span #todo-count {
+						strong > '~[bind: status.todoCount]'
+						span > ' item~[bind: status.todoCount != 1 ? "s"] left'
+					}
+
+					:filter;
+
+					button #clear-completed
+						xx-visible = 'status.completedCount > 0'
+						x-signal = 'click: removeAllCompleted' {
+
+							'Clear completed (~[bind:status.completedCount])'
+					}
+				}
+			}
+			footer #info {
+				p { 'Double-click to edit a todo' }
+				p { 'Created by ' a href='http://github.com/tenbits' > 'tenbits' }
+				p { 'Part of ' a href='http://todomvc.com' > 'TodoMVC' }
+			}
+		</script>
+
+
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/jquery/jquery.js"></script>
+
+		<script src="lib/atma-globals-dev.js"></script>
+		<script src="js/app.js"></script>
+
+	</body>
+</html>

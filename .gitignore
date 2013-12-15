@@ -1,2 +1,2 @@
-.DS_Store
-tasks/node_modules
+node_modules
+bower_components

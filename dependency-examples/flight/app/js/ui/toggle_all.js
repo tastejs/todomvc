@@ -2,7 +2,7 @@
 'use strict';
 
 define([
-	'flight/component'
+	'flight/lib/component'
 ], function (defineComponent) {
 	function toggleAll() {
 		this.toggleAllComplete = function () {
@@ -12,7 +12,7 @@ define([
 		};
 
 		this.toggleCheckbox = function (e, data) {
-			this.$node[0].checked = !data.remaining;
+			this.node.checked = !data.remaining;
 		};
 
 		this.after('initialize', function () {
