@@ -1,0 +1,8 @@
+{
+	"name": "todomvc-ractive",
+	"dependencies": {
+		"todomvc-common": "~0.1.4",
+		"ractive": "~0.3.5",
+		"director": "~1.2.0"
+	}
+}
