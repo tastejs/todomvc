@@ -1,8 +1,8 @@
 
 
 //
-// Generated on Sun Dec 16 2012 22:47:05 GMT-0500 (EST) by Nodejitsu, Inc (Using Codesurgeon).
-// Version 1.1.9
+// Generated on Wed Jun 05 2013 13:48:29 GMT-0400 (EDT) by Nodejitsu, Inc (Using Codesurgeon).
+// Version 1.2.0
 //
 
 (function (exports) {
@@ -201,7 +201,7 @@ Router.prototype.init = function (r) {
   this.handler = function(onChangeEvent) {
     var newURL = onChangeEvent && onChangeEvent.newURL || window.location.hash;
     var url = self.history === true ? self.getPath() : newURL.replace(/.*#/, '');
-    self.dispatch('on', url);
+    self.dispatch('on', url[0] === '/' ? url : '/' + url);
   };
 
   listener.init(this.handler, this.history);
@@ -210,7 +210,7 @@ Router.prototype.init = function (r) {
     if (dlocHashEmpty() && r) {
       dloc.hash = r;
     } else if (!dlocHashEmpty()) {
-      self.dispatch('on', dloc.hash.replace(/^#/, ''));
+      self.dispatch('on', '/' + dloc.hash.replace(/^#/, ''));
     }
   }
   else {
@@ -363,11 +363,16 @@ function regifyString(str, params) {
     out += str.substr(0, matches.index) + matches[0];
   }
   str = out += str.substr(last);
-  var captures = str.match(/:([^\/]+)/ig), length;
+  var captures = str.match(/:([^\/]+)/ig), capture, length;
   if (captures) {
     length = captures.length;
     for (var i = 0; i < length; i++) {
-      str = str.replace(captures[i], paramifyString(captures[i], params));
+      capture = captures[i];
+      if (capture.slice(0, 2) === "::") {
+        str = capture.slice(1);
+      } else {
+        str = str.replace(capture, paramifyString(capture, params));
+      }
     }
   }
   return str;
@@ -686,7 +691,7 @@ Router.prototype.mount = function(routes, path) {
   function insertOrMount(route, local) {
     var rename = route, parts = route.split(self.delimiter), routeType = typeof routes[route], isRoute = parts[0] === "" || !self._methods[parts[0]], event = isRoute ? "on" : rename;
     if (isRoute) {
-      rename = rename.slice((rename.match(new RegExp(self.delimiter)) || [ "" ])[0].length);
+      rename = rename.slice((rename.match(new RegExp("^" + self.delimiter)) || [ "" ])[0].length);
       parts.shift();
     }
     if (isRoute && routeType === "object" && !Array.isArray(routes[route])) {
