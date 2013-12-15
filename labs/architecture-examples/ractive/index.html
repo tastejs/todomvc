@@ -5,12 +5,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Ractive.js • TodoMVC</title>
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
 		<section id="todoapp"></section>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
-			
+
 			<p>Created by <a href="http://rich-harris.co.uk">Rich Harris</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
@@ -19,13 +20,13 @@
 		<script id="main" type="text/ractive">
 			<header id="header">
 				<h1>todos</h1>
-				
+
 				<!-- In app.js, we define a custom `enter` event, which fires when the user
 				     hits the enter key, submitting a new todo -->
 				<input id="new-todo" on-enter="newTodo" placeholder="What needs to be done?" autofocus>
 			</header>
-			
-			<!-- We only render the main section and the footer if we have one or more todos - 
+
+			<!-- We only render the main section and the footer if we have one or more todos -
 			     in other words, `items.length` is not falsy -->
 			{{#items.length}}
 				<section id="main">
@@ -35,7 +36,7 @@
 					     on the input, the `toggleAll` event fires on the Ractive instance. -->
 					<input id="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
 					<label for="toggle-all">Mark all as complete</label>
-					
+
 					<ul id="todo-list">
 						{{#items:i}}
 							<!-- The {{>item}} partial is defined in the script tag below -->
@@ -49,7 +50,7 @@
 						<!-- The number of active tasks updates reactively -->
 						<strong>{{ activeTasks().length }}</strong> {{ activeTasks().length === 1 ? 'item' : 'items' }} left
 					</span>
-					
+
 					<ul id="filters">
 						<li>
 							<a class="{{ currentFilter === 'all' ? 'selected' : '' }}" href="#/">All</a>
@@ -89,12 +90,12 @@
 					{{#.editing}}
 						<!-- Here, we use custom events (`enter`) alongside standard DOM events
 						     (`blur`) to handle user interaction -->
-						<input id="edit" class="edit" intro="select" on-blur-enter="submit" on-escape="cancel">
+						<input id="edit" class="edit" on-blur-enter="submit" on-escape="cancel" autofocus>
 					{{/.editing}}
 				</li>
 			{{/ end of filter }}
 		</script>
-		
+
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script src="bower_components/ractive/Ractive.js"></script>
 		<script src="bower_components/director/director.js"></script>

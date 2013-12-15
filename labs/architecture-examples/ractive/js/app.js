@@ -1,7 +1,7 @@
 /*global window, Ractive */
 
 (function (window, Ractive) {
-	
+
 	'use strict';
 
 	// Create some filter functions, which we'll need later
@@ -15,7 +15,7 @@
 
 	// Create our Ractive instance
 	var todoList = new Ractive({
-		
+
 		// Specify a target element - an ID, a CSS selector, or the element itself
 		el: 'todoapp',
 
@@ -55,23 +55,11 @@
 			currentFilter: 'all'
 		},
 
-		// We can define 'transitions', which are applied to elements on render
-		// and teardown. Normally these are used for animated intro and outro
-		// effects, but they can be put to many other uses.
-		transitions: {
-			// When the edit <input> renders, select its contents. (In some browsers
-			// we need to wait a beat, hence the setTimeout.)
-			select: function (transition) {
-				setTimeout(function () {
-					transition.node.select();
-					transition.complete();
-				}, 0);
-			}
-		},
-
-		// We can also define custom events. Here, we're defining an `enter` event,
+		// We can define custom events. Here, we're defining an `enter` event,
 		// and an `escape` event, which fire when the user hits those keys while
-		// an input is focused
+		// an input is focused:
+		//
+		// <input id="edit" class="edit" on-blur-enter="submit" on-escape="cancel" autofocus>
 		events: (function () {
 			var makeCustomEvent = function (keyCode) {
 				return function (node, fire) {
@@ -107,7 +95,7 @@
 	// to what action, in Ractive the 'meaning' of the event is baked into the
 	// template itself (e.g. <button on-click='remove'>Remove</button>).
 	todoList.on({
-		
+
 		// Removing a todo is as straightforward as splicing it out of the array -
 		// Ractive intercepts calls to array mutator methods and updates the view
 		// accordingly. The DOM is updated in the most efficient manner possible.
@@ -154,7 +142,8 @@
 		},
 
 		clearCompleted: function () {
-			var items = this.get('items'), i = items.length;
+			var items = this.get('items');
+			var i = items.length;
 
 			while (i--) {
 				if (items[i].completed) {
@@ -164,7 +153,9 @@
 		},
 
 		toggleAll: function (event) {
-			var i = this.get('items').length, completed = event.node.checked, changeHash = {};
+			var i = this.get('items').length;
+			var completed = event.node.checked;
+			var changeHash = {};
 
 			while (i--) {
 				changeHash['items[' + i + '].completed'] = completed;
