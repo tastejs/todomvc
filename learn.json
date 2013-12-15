@@ -1637,6 +1637,43 @@
 			}]
 		}]
 	},
+	"ractive": {
+		"name": "Ractive.js",
+		"description": "Ractive is a next-generation DOM manipulation library for creating reactive user interfaces, optimised for developer sanity. It was originally developed to create interactive news applications at theguardian.com.",
+		"homepage": "ractivejs.org",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/ractive"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Ractive.js on GitHub",
+				"url": "https://github.com/RactiveJS/Ractive"
+			}, {
+				"name": "Wiki",
+				"url": "https://github.com/RactiveJS/Ractive/wiki"
+			}, {
+				"name": "60-second setup",
+				"url": "https://github.com/Rich-Harris/Ractive/wiki/60-second-setup"
+			}, {
+				"name": "Interactive tutorials",
+				"url": "http://learn.ractivejs.org"
+			}, {
+				"name": "Examples",
+				"url": "http://ractivejs.org/examples"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Ractive.js on Twitter",
+				"url": "http://twitter.com/RactiveJS"
+			}, {
+				"name": "Ractive.js on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/ractivejs"
+			}]
+		}]
+	},
 	"rappidjs": {
 		"name": "rAppid.js",
 		"description": "The declarative Rich Internet Application Javascript MVC Framework.",
