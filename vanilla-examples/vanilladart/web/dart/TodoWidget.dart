@@ -62,10 +62,20 @@ class TodoWidget {
 			todoApp.save();
 		}
 
+		void undoEditing() {
+		  element.classes.remove('editing');
+		  editElement.value = todo.title;
+		}
+
 		editElement
-			..onKeyPress.listen((KeyboardEvent e) {
-				if (e.keyCode == KeyCode.ENTER) {
-					doneEditing();
+			..onKeyDown.listen((KeyboardEvent e) {
+			  switch (e.keyCode) {
+			    case KeyCode.ENTER:
+					  doneEditing();
+					  break;
+			    case KeyCode.ESC:
+			      undoEditing();
+			      break;
 				}
 			})
 			..onBlur.listen((_) => doneEditing());

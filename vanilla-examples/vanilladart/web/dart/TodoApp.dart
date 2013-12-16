@@ -41,19 +41,14 @@ class TodoApp {
 		InputElement newTodoElement = querySelector('#new-todo');
 
 		newTodoElement.onKeyDown.listen((KeyboardEvent e) {
-		  switch (e.keyCode){
-		    case KeyCode.ENTER:
-	        var title = newTodoElement.value.trim();
-	        if (title.isNotEmpty) {
-	          addTodo(new Todo(uuid.v4(), title));
-	          newTodoElement.value = '';
-	          updateFooterDisplay();
-	          save();
-	        }
-	        break;
-		    case KeyCode.ESC:
-		      newTodoElement.value = '';
-		      break;
+		  if (e.keyCode == KeyCode.ENTER) {
+        var title = newTodoElement.value.trim();
+        if (title.isNotEmpty) {
+          addTodo(new Todo(uuid.v4(), title));
+          newTodoElement.value = '';
+          updateFooterDisplay();
+          save();
+        }
 		  }
 		});
 

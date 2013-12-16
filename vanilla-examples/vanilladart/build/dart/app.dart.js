@@ -5647,17 +5647,14 @@ $is_aB:true},
 f1:{
 "":"Tp;a,b",
 call$1:function(a){var z,y,x,w
-switch(J.Zm(a)){case 13:z=this.b
+if(J.Zm(a)===13){z=this.b
 y=J.RE(z)
 x=J.rr(y.gP(z))
 if(x.length!==0){w=this.a
 w.To(new M.GX($.qK().eq(),x,!1))
 y.sP(z,"")
 w.xG()
-w.vn()}break
-case 27:J.Fc(this.b,"")
-break
-default:}},
+w.vn()}}},
 $is_aB:true},
 pz:{
 "":"Tp;c",
@@ -5716,10 +5713,10 @@ H.VM(x,[H.Kp(t,0)])
 x.Zz()
 z=new Y.Wk(this,w,v,z)
 v.toString
-x=C.fW.Ph
+x=C.rl.Ph
 t=new W.eu(v,x,!1)
 H.VM(t,[null])
-x=new W.xC(0,v,x,W.VF(new Y.Dr(z)),!1)
+x=new W.xC(0,v,x,W.VF(new Y.Dr(z,new Y.oV(this,v))),!1)
 H.VM(x,[H.Kp(t,0)])
 x.Zz()
 x=J.r8(v)
@@ -5785,13 +5782,24 @@ if(C.xB.gor(x)){this.bK.textContent=y.mk
 y=J.pP(z.FL)
 y.Rz(y,"editing")}else this.Rm.call$0()
 z.D6.vn()}},
+oV:{
+"":"Tp;w3,HZ",
+call$0:function(){var z,y
+z=this.w3
+y=J.pP(z.FL)
+y.Rz(y,"editing")
+J.Fc(this.HZ,z.AK.mk)}},
 Dr:{
-"":"Tp;w3",
-call$1:function(a){if(J.Zm(a)===13)this.w3.call$0()},
+"":"Tp;mG,xC",
+call$1:function(a){switch(J.Zm(a)){case 13:this.mG.call$0()
+break
+case 27:this.xC.call$0()
+break
+default:}},
 $is_aB:true},
 H3:{
-"":"Tp;HZ",
-call$1:function(a){return this.HZ.call$0()},
+"":"Tp;cj",
+call$1:function(a){return this.cj.call$0()},
 $is_aB:true}},1],])
 I.$finishClasses($$,$,null)
 $$=null
@@ -5992,7 +6000,6 @@ C.T1=H.VM(new W.e0("click"),[W.Aj])
 C.kI=H.VM(new W.e0("dblclick"),[W.ea])
 C.GS=H.VM(new W.e0("hashchange"),[W.ea])
 C.rl=H.VM(new W.e0("keydown"),[W.vn])
-C.fW=H.VM(new W.e0("keypress"),[W.vn])
 C.Hw=new P.fU("unknown",!0,!0,!0,!0)
 C.oW=new P.Rc(C.Hw)
 C.X7=new V.jq(0)
