@@ -4479,7 +4479,7 @@ if(z==null){y=$.Ss
 $.Ss=y+1
 z="expando$key$"+y
 H.aw(this,"expando$key",z)}return z},
-static:{"":"bZ,rl,Ss"}},
+static:{"":"bZ,rt,Ss"}},
 EH:{
 "":"a;"},
 An:{
@@ -5547,7 +5547,7 @@ P.JS("Could not load todos form local storage.")}},
 XY:function(){var z,y,x,w
 z=document.querySelector("#new-todo")
 z.toString
-y=C.fW.Ph
+y=C.rl.Ph
 x=new W.eu(z,y,!1)
 H.VM(x,[null])
 y=new W.xC(0,z,y,W.VF(new Y.f1(this,z)),!1)
@@ -5647,14 +5647,17 @@ $is_aB:true},
 f1:{
 "":"Tp;a,b",
 call$1:function(a){var z,y,x,w
-if(J.Zm(a)===13){z=this.b
+switch(J.Zm(a)){case 13:z=this.b
 y=J.RE(z)
 x=J.rr(y.gP(z))
 if(x.length!==0){w=this.a
 w.To(new M.GX($.qK().eq(),x,!1))
 y.sP(z,"")
 w.xG()
-w.vn()}}},
+w.vn()}break
+case 27:J.Fc(this.b,"")
+break
+default:}},
 $is_aB:true},
 pz:{
 "":"Tp;c",
@@ -5912,6 +5915,7 @@ J.Ae=function(a,b){return J.RE(a).sd4(a,b)}
 J.Bg=function(a,b){return J.U6(a).Et(a,b)}
 J.C9=function(a){return J.RE(a).goc(a)}
 J.Eh=function(a,b){return J.Wx(a).O(a,b)}
+J.Fc=function(a,b){return J.RE(a).sP(a,b)}
 J.Fo=function(a,b,c,d){return J.w1(a).vg(a,b,c,d)}
 J.GJ=function(a,b,c,d){return J.RE(a).Y9(a,b,c,d)}
 J.GP=function(a){return J.w1(a).gA(a)}
@@ -5987,6 +5991,7 @@ C.Zl=H.VM(new W.e0("blur"),[W.ea])
 C.T1=H.VM(new W.e0("click"),[W.Aj])
 C.kI=H.VM(new W.e0("dblclick"),[W.ea])
 C.GS=H.VM(new W.e0("hashchange"),[W.ea])
+C.rl=H.VM(new W.e0("keydown"),[W.vn])
 C.fW=H.VM(new W.e0("keypress"),[W.vn])
 C.Hw=new P.fU("unknown",!0,!0,!0,!0)
 C.oW=new P.Rc(C.Hw)
