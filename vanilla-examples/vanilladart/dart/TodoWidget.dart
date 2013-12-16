@@ -1,6 +1,9 @@
 part of todomvc;
 
 class TodoWidget {
+
+	static final htmlEscape = new HtmlEscape();
+
 	TodoApp todoApp;
 	Todo todo;
 	Element element;
@@ -13,17 +16,17 @@ class TodoWidget {
 			<li ${todo.completed ? 'class="completed"' : ''}>
 			<div class='view'>
 			<input class='toggle' type='checkbox' ${todo.completed ? 'checked' : ''}>
-			<label class='todo-content'>${htmlEscape(todo.title)}</label>
+			<label class='todo-content'>${htmlEscape.convert(todo.title)}</label>
 			<button class='destroy'></button>
 			</div>
-			<input class='edit' value='${htmlEscape(todo.title)}'>
+			<input class='edit' value='${htmlEscape.convert(todo.title)}'>
 			</li>
 		''');
 
-		Element contentElement = element.query('.todo-content');
-		InputElement editElement = element.query('.edit');
+		Element contentElement = element.querySelector('.todo-content');
+		InputElement editElement = element.querySelector('.edit');
 
-		toggleElement = element.query('.toggle');
+		toggleElement = element.querySelector('.toggle');
 
 		toggleElement.onClick.listen((e) {
 			toggle();
@@ -43,7 +46,7 @@ class TodoWidget {
 			todoApp.updateFooterDisplay();
 		}
 
-		element.query('.destroy').onClick.listen((e) {
+		element.querySelector('.destroy').onClick.listen((e) {
 			removeTodo();
 			todoApp.save();
 		});
