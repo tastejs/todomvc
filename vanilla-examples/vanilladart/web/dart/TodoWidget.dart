@@ -52,7 +52,8 @@ class TodoWidget {
 		});
 
 		void doneEditing() {
-			todo.title = editElement.value.trim();
+			editElement.value = editElement.value.trim();
+			todo.title = editElement.value;
 			if (todo.title.isNotEmpty) {
 				contentElement.text = todo.title;
 				element.classes.remove('editing');
