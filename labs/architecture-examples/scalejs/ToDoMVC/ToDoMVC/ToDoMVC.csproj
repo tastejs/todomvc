@@ -18,6 +18,11 @@
     <StartArguments>/site:ToDoMVC</StartArguments>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app\todo\bindings\todoBindings.js" />
+    <Content Include="app\todo\styles\todo.css" />
+    <Content Include="app\todo\todoModule.js" />
+    <Content Include="app\todo\viewmodels\todoViewModel.js" />
+    <Content Include="app\todo\views\todo.html" />
     <Content Include="css\jasmine.css" />
     <Content Include="README.txt" />
     <Content Include="index.debug.html" />

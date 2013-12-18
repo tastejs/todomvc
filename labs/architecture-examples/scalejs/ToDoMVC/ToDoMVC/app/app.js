@@ -1,6 +1,6 @@
 ﻿/*global require*/
 require([
-    'scalejs!application/main'
+    'scalejs!application/main,todo'
 ], function (
     application
 ) {
