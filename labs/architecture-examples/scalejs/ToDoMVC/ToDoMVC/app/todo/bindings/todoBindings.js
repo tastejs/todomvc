@@ -1,9 +1,9 @@
 ﻿/*global define */
 /*jslint sloppy: true*/
 define({
-    'todo-text': function () {
+    'todo-visible': function () {
         return {
-            text: this.text
+            visible: this.items().length > 0
         };
     }
 });
