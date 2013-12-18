@@ -10,10 +10,12 @@ define([
         var // imports
             observable = sandbox.mvvm.observable,
             // properties
-            text = observable('Hello World');
+            todoItems = observable(),
+            todoInput = observable();
 
         return {
-            text: text
+            todoItems: todoItems,
+            todoInput: todoInput
         };
     };
 });
