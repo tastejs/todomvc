@@ -1,6 +1,6 @@
 ﻿<div id="todo_items_template">
     <section id="main" data-class="todo-visible">
-        <input id="toggle-all" type="checkbox">
+        <input id="toggle-all" type="checkbox" data-bind="checked: checkAll">
         <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list" data-bind="foreach: items">
             <li data-bind="css: { completed: completed }">

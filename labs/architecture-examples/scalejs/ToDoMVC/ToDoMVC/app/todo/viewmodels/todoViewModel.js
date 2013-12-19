@@ -10,9 +10,11 @@ define([
         var observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
+            computed = sandbox.mvvm.computed,
             //properties
             items = observableArray(),
-            newItem = observable();
+            newItem = observable(),
+            checkAll;
 
         function addItem() {
             var item = newItem();
@@ -25,10 +27,20 @@ define([
             newItem("");
         }
 
+        checkAll = computed({
+            read: function () {
+                return items().all("$.completed()");
+            },
+            write: function (value) {
+                items().forEach(function (item) { item.completed(value); });
+            }
+        });
+
         return {
             items: items,
             newItem: newItem,
-            addItem: addItem
+            addItem: addItem,
+            checkAll: checkAll
         };
     };
 });
