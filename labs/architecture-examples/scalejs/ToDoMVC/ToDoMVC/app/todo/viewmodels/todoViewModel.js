@@ -21,7 +21,7 @@ define([
         function addItem() {
             var item = newItem();
             if (has(item, "trim") && item.trim()) {
-                items.push(itemViewModel({ title: item, completed: false }));
+                items.push(itemViewModel({ title: item, completed: false }, items));
             }
             newItem("");
         }
