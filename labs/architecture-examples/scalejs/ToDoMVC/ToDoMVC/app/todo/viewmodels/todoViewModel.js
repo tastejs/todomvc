@@ -8,10 +8,24 @@ define([
 
     return function () {
         var observableArray = sandbox.mvvm.observableArray,
-            items = observableArray();
+            observable = sandbox.mvvm.observable,
+            has = sandbox.object.has,
+            //properties
+            items = observableArray(),
+            newItem = observable();
+
+        function addItem() {
+            var item = newItem();
+            if (has(item, "trim") && item.trim()) {
+                items.push(item.trim());
+            }
+            newItem("");
+        }
 
         return {
-            items: items
+            items: items,
+            newItem: newItem,
+            addItem: addItem
         };
     };
 });
