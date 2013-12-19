@@ -37,7 +37,7 @@
     TodosController.prototype.routingKey = 'todos';
 
     TodosController.prototype.index = function() {
-      return this.set('currentTodoSet', 'all');
+      return this.set('currentTodoSet', 'default');
     };
 
     TodosController.prototype.completed = function() {
@@ -182,6 +182,12 @@
 
     Todo.validate('title', {
       presence: true
+    });
+
+    Todo.classAccessor('default', function() {
+      return this.get('all').filter(function(todo) {
+        return true;
+      });
     });
 
     Todo.classAccessor('active', function() {

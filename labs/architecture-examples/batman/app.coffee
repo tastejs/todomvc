@@ -11,7 +11,7 @@ class Alfred.TodosController extends Batman.Controller
 	routingKey: 'todos'
 
 	index: ->
-		@set('currentTodoSet', 'all')
+		@set('currentTodoSet', 'default')
 
 	completed: ->
 		@set 'currentTodoSet', 'completed'
@@ -78,6 +78,9 @@ class Alfred.Todo extends Batman.Model
 
 	@encode 'title', 'completed'
 	@validate 'title', presence: true
+
+  @classAccessor 'default', ->
+    @get('all').filter (todo) -> true
 
 	@classAccessor 'active', ->
 		@get('all').filter (todo) -> !todo.get('completed')
