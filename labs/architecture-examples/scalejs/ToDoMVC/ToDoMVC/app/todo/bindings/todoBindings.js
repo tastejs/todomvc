@@ -52,6 +52,11 @@ define(function () {
                 },
                 hasFocus: this.editMode
             };
+        },
+        'todo-count-text': function () {
+            return {
+                text: (this.items().length === 1 ? 'item' : 'items') + ' left'
+            };
         }
     };
 });

@@ -15,8 +15,11 @@
     </section>
 
     <footer id="footer" data-class="todo-visible">
-        <!-- This should be `0 items left` by default -->
-        <span id="todo-count"><strong>1</strong> item left</span>
+        <span id="todo-count">
+            <strong data-bind="text: items().length"></strong>
+            <!-- ko class:todo-count-text -->
+            <!-- /ko -->
+        </span>
         <!-- Remove this if you don't implement routing -->
         <ul id="filters">
             <li>
