@@ -21,6 +21,33 @@ define(function () {
                     }
                 }
             };
+        },
+        'todo-item': function () {
+            return {
+                css: {
+                    completed: this.completed,
+                    editing: this.editMode
+                },
+                event: {
+                    dblclick: this.beginEdit
+                }
+            };
+        },
+        'todo-edit': function () {
+            var item = this;
+
+            return {
+                value: this.title,
+                valueUpdate: 'afterkeydown',
+                event: {
+                    keyup: function (data, e) {
+                        if (e.keyCode === ENTER_KEY) {
+                            item.endEdit();
+                        }
+                    }
+                },
+                hasFocus: this.editMode
+            };
         }
     };
 });

@@ -3,13 +3,13 @@
         <input id="toggle-all" type="checkbox" data-bind="checked: checkAll">
         <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list" data-bind="foreach: items">
-            <li data-bind="css: { completed: completed }">
+            <li data-class="todo-item">
                 <div class="view">
                     <input class="toggle" type="checkbox" data-bind="checked: completed">
                     <label data-bind="text: title"></label>
                     <button class="destroy"></button>
                 </div>
-                <input class="edit" value="Create a TodoMVC template">
+                <input class="edit" data-class="todo-edit">
             </li>
         </ul>
     </section>

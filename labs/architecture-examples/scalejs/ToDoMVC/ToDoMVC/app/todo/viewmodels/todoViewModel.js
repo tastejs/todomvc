@@ -1,8 +1,10 @@
 ﻿/*global define */
 define([
-    'sandbox!todo'
+    'sandbox!todo',
+    'app/todo/viewmodels/itemViewModel'
 ], function (
-    sandbox
+    sandbox,
+    itemViewModel
 ) {
     'use strict';
 
@@ -19,10 +21,7 @@ define([
         function addItem() {
             var item = newItem();
             if (has(item, "trim") && item.trim()) {
-                items.push({
-                    title: item.trim(),
-                    completed: observable(false)
-                });
+                items.push(itemViewModel({ title: item, completed: false }));
             }
             newItem("");
         }
