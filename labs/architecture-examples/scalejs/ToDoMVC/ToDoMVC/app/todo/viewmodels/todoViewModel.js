@@ -17,7 +17,10 @@ define([
         function addItem() {
             var item = newItem();
             if (has(item, "trim") && item.trim()) {
-                items.push(item.trim());
+                items.push({
+                    title: item.trim(),
+                    completed: observable(false)
+                });
             }
             newItem("");
         }
