@@ -16,7 +16,8 @@ define([
             //properties
             items = observableArray(),
             newItem = observable(),
-            checkAll;
+            checkAll,
+            completedItems;
 
         function addItem() {
             var item = newItem();
@@ -24,6 +25,12 @@ define([
                 items.push(itemViewModel({ title: item, completed: false }, items));
             }
             newItem("");
+        }
+
+        function removeCompletedItems() {
+            completedItems().forEach(function (item) {
+                item.remove();
+            });
         }
 
         checkAll = computed({
@@ -35,11 +42,17 @@ define([
             }
         });
 
+        completedItems = computed(function () {
+            return items().where("$.completed()").toArray();
+        });
+
         return {
             items: items,
             newItem: newItem,
             addItem: addItem,
-            checkAll: checkAll
+            checkAll: checkAll,
+            completedItems: completedItems,
+            removeCompletedItems: removeCompletedItems
         };
     };
 });

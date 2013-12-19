@@ -57,6 +57,13 @@ define(function () {
             return {
                 text: (this.items().length === 1 ? 'item' : 'items') + ' left'
             };
+        },
+        'todo-clear-completed': function () {
+            return {
+                visible: this.completedItems().length > 0,
+                text: 'Clear completed (' + this.completedItems().length + ')',
+                click: this.removeCompletedItems
+            };
         }
     };
 });
