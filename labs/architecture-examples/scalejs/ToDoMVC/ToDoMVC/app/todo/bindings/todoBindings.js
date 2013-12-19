@@ -44,6 +44,9 @@ define(function () {
                         if (e.keyCode === ENTER_KEY) {
                             item.endEdit();
                         }
+                    },
+                    blur: function () {
+                        item.endEdit();
                     }
                 },
                 hasFocus: this.editMode
