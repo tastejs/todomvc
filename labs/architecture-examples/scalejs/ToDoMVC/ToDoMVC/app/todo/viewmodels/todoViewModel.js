@@ -1,4 +1,4 @@
-﻿/*global define */
+﻿/*global define,localStorage */
 define([
     'sandbox!todo',
     'app/todo/viewmodels/itemViewModel'
@@ -19,10 +19,21 @@ define([
             checkAll,
             completedItems;
 
+        function toItem(itemVM) {
+            return {
+                title: itemVM.title(),
+                completed: itemVM.completed()
+            };
+        }
+
+        function toItemViewModel(item) {
+            return itemViewModel(item, items);
+        }
+
         function addItem() {
             var item = newItem();
             if (has(item, "trim") && item.trim()) {
-                items.push(itemViewModel({ title: item, completed: false }, items));
+                items.push(toItemViewModel({ title: item, completed: false }));
             }
             newItem("");
         }
@@ -44,6 +55,14 @@ define([
 
         completedItems = computed(function () {
             return items().where("$.completed()").toArray();
+        });
+
+        if (has(localStorage['todos-scalejs'])) {
+            items(JSON.parse(localStorage['todos-scalejs']).map(toItemViewModel));
+        }
+
+        computed(function () {
+            localStorage['todos-scalejs'] = JSON.stringify(items().map(toItem));
         });
 
         return {
