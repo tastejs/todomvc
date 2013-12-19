@@ -1,7 +1,9 @@
 ﻿/*global define */
 /*jslint sloppy: true,unparam: true*/
 define(function () {
-    var ENTER_KEY = 13;
+    var ENTER_KEY = 13,
+        ESCAPE_KEY = 27;
+
     return {
         'todo-visible': function () {
             return {
@@ -43,6 +45,8 @@ define(function () {
                     keyup: function (data, e) {
                         if (e.keyCode === ENTER_KEY) {
                             item.endEdit();
+                        } else if (e.keyCode === ESCAPE_KEY) {
+                            item.cancelEdit();
                         }
                     }
                 },
