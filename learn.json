@@ -483,7 +483,7 @@
 		"homepage": "dartlang.org",
 		"examples": [{
 			"name": "Architecture Example",
-			"url": "architecture-examples/dart/web"
+			"url": "vanilla-examples/vanilladart/web"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
