@@ -32,6 +32,7 @@ var app = app || {};
 			this.$input = this.$('#new-todo');
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
+			this.$list = $('#todo-list');
 
 			this.listenTo(app.todos, 'add', this.addOne);
 			this.listenTo(app.todos, 'reset', this.addAll);
@@ -39,7 +40,7 @@ var app = app || {};
 			this.listenTo(app.todos, 'filter', this.filterAll);
 			this.listenTo(app.todos, 'all', this.render);
 
-			// Suppresses 'add' events with {reset: true} and prevents the app view 
+			// Suppresses 'add' events with {reset: true} and prevents the app view
 			// from being re-rendered for every model. Only renders when the 'reset'
 			// event is triggered at the end of the fetch.
 			app.todos.fetch({reset: true});
@@ -76,12 +77,12 @@ var app = app || {};
 		// appending its element to the `<ul>`.
 		addOne: function (todo) {
 			var view = new app.TodoView({ model: todo });
-			$('#todo-list').append(view.render().el);
+			this.$list.append(view.render().el);
 		},
 
 		// Add all items in the **Todos** collection at once.
 		addAll: function () {
-			this.$('#todo-list').html('');
+			this.$list.html('');
 			app.todos.each(this.addOne, this);
 		},
 
