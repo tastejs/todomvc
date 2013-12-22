@@ -4,16 +4,14 @@
 // http://opensource.org/licenses/MIT
 // ==========================================
 
-"use strict";
-
 define(
 
   [
-    './utils',
     './compose'
   ],
 
-  function (util, compose) {
+  function(compose) {
+    'use strict';
 
     var advice = {
 
@@ -25,7 +23,7 @@ define(
           for (; i < l; i++) args[i + 1] = arguments[i];
 
           return wrapped.apply(this, args);
-        }
+        };
       },
 
       before: function(base, before) {
@@ -33,7 +31,7 @@ define(
         return function composedBefore() {
           beforeFn.apply(this, arguments);
           return base.apply(this, arguments);
-        }
+        };
       },
 
       after: function(base, after) {
@@ -42,7 +40,7 @@ define(
           var res = (base.unbound || base).apply(this, arguments);
           afterFn.apply(this, arguments);
           return res;
-        }
+        };
       },
 
       // a mixin that allows other mixins to augment existing functions by adding additional
@@ -53,10 +51,12 @@ define(
 
             compose.unlockProperty(this, method, function() {
               if (typeof this[method] == 'function') {
-                return this[method] = advice[m](this[method], fn);
+                this[method] = advice[m](this[method], fn);
               } else {
-                return this[method] = fn;
+                this[method] = fn;
               }
+
+              return this[method];
             });
 
           };

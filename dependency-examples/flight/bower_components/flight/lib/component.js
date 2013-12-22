@@ -4,8 +4,6 @@
 // http://opensource.org/licenses/MIT
 // ==========================================
 
-"use strict";
-
 define(
 
   [
@@ -19,10 +17,11 @@ define(
   ],
 
   function(advice, utils, compose, withBase, registry, withLogging, debug) {
+    'use strict';
 
     var functionNameRegEx = /function (.*?)\s?\(/;
 
-    //teardown for all instances of this constructor
+    // teardown for all instances of this constructor
     function teardownAll() {
       var componentInfo = registry.findComponentInfo(this);
 
@@ -38,7 +37,7 @@ define(
       } catch(e) {
         console.log('unserializable data for event',type,':',data);
         throw new Error(
-          ["The event", type, "on component", this.toString(), "was triggered with non-serializable data"].join(" ")
+          ['The event', type, 'on component', this.toString(), 'was triggered with non-serializable data'].join(' ')
         );
       }
     }
@@ -50,16 +49,15 @@ define(
       for (var i = 1; i < l; i++) args[i - 1] = arguments[i];
 
       if (!selector) {
-        throw new Error("Component needs to be attachTo'd a jQuery object, native node or selector string");
+        throw new Error('Component needs to be attachTo\'d a jQuery object, native node or selector string');
       }
 
       var options = utils.merge.apply(utils, args);
+      var componentInfo = registry.findComponentInfo(this);
 
       $(selector).each(function(i, node) {
-        var rawNode = node.jQuery ? node[0] : node;
-        var componentInfo = registry.findComponentInfo(this)
-        if (componentInfo && componentInfo.isAttachedTo(rawNode)) {
-          //already attached
+        if (componentInfo && componentInfo.isAttachedTo(node)) {
+          // already attached
           return;
         }
 
@@ -73,7 +71,8 @@ define(
     function define(/*mixins*/) {
       // unpacking arguments by hand benchmarked faster
       var l = arguments.length;
-      var mixins = new Array(l + 3); //add three for common mixins
+      // add three for common mixins
+      var mixins = new Array(l + 3);
       for (var i = 0; i < l; i++) mixins[i] = arguments[i];
 
       var Component = function() {};
@@ -81,11 +80,11 @@ define(
       Component.toString = Component.prototype.toString = function() {
         var prettyPrintMixins = mixins.map(function(mixin) {
           if (mixin.name == null) {
-            //function name property not supported by this browser, use regex
+            // function name property not supported by this browser, use regex
             var m = mixin.toString().match(functionNameRegEx);
-            return (m && m[1]) ? m[1] : "";
+            return (m && m[1]) ? m[1] : '';
           } else {
-            return (mixin.name != "withBase") ? mixin.name : "";
+            return (mixin.name != 'withBase') ? mixin.name : '';
           }
         }).filter(Boolean).join(', ');
         return prettyPrintMixins;
@@ -95,7 +94,7 @@ define(
         Component.describe = Component.prototype.describe = Component.toString();
       }
 
-      //'options' is optional hash to be merged with 'defaults' in the component definition
+      // 'options' is optional hash to be merged with 'defaults' in the component definition
       Component.attachTo = attachTo;
       Component.teardownAll = teardownAll;
 

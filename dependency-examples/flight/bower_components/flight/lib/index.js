@@ -15,7 +15,8 @@ define(
     './utils'
   ],
 
-  function (advice, component, compose, logger, registry, utils) {
+  function(advice, component, compose, logger, registry, utils) {
+    'use strict';
 
     return {
       advice: advice,

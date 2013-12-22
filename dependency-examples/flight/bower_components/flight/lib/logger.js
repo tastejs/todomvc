@@ -4,41 +4,38 @@
 // http://opensource.org/licenses/MIT
 // ==========================================
 
-"use strict";
-
 define(
 
   [
-    './compose',
     './utils'
   ],
 
-  function (compose, util) {
+  function(utils) {
+    'use strict';
 
     var actionSymbols = {
-      on:'<-',
+      on: '<-',
       trigger: '->',
       off: 'x '
     };
 
     function elemToString(elem) {
       var tagStr = elem.tagName ? elem.tagName.toLowerCase() : elem.toString();
-      var classStr = elem.className ? "." + (elem.className) : "";
+      var classStr = elem.className ? '.' + (elem.className) : '';
       var result = tagStr + classStr;
       return elem.tagName ? ['\'', '\''].join(result) : result;
     }
 
     function log(action, component, eventArgs) {
-
-      var name, elem, fn, fnName, logFilter, toRegExp, actionLoggable, nameLoggable;
+      var name, elem, fn, logFilter, toRegExp, actionLoggable, nameLoggable;
 
       if (typeof eventArgs[eventArgs.length-1] == 'function') {
         fn = eventArgs.pop();
-        fn = fn.unbound || fn; //use unbound version if any (better info)
+        fn = fn.unbound || fn; // use unbound version if any (better info)
       }
 
       if (typeof eventArgs[eventArgs.length - 1] == 'object') {
-        eventArgs.pop(); //trigger data arg - not logged right now
+        eventArgs.pop(); // trigger data arg - not logged right now
       }
 
       if (eventArgs.length == 2) {
@@ -53,14 +50,14 @@ define(
         logFilter = DEBUG.events.logFilter;
 
         // no regex for you, actions...
-        actionLoggable = logFilter.actions=="all" || (logFilter.actions.indexOf(action) > -1);
+        actionLoggable = logFilter.actions == 'all' || (logFilter.actions.indexOf(action) > -1);
         // event name filter allow wildcards or regex...
         toRegExp = function(expr) {
-          return expr.test ? expr : new RegExp("^" + expr.replace(/\*/g, ".*") + "$");
+          return expr.test ? expr : new RegExp('^' + expr.replace(/\*/g, '.*') + '$');
         };
         nameLoggable =
-          logFilter.eventNames=="all" ||
-          logFilter.eventNames.some(function(e) {return toRegExp(e).test(name)});
+          logFilter.eventNames == 'all' ||
+          logFilter.eventNames.some(function(e) {return toRegExp(e).test(name);});
 
         if (actionLoggable && nameLoggable) {
           console.info(
@@ -68,7 +65,7 @@ define(
             action,
             '[' + name + ']',
             elemToString(elem),
-            component.constructor.describe.split(' ').slice(0,3).join(' ') //two mixins only
+            component.constructor.describe.split(' ').slice(0,3).join(' ') // two mixins only
           );
         }
       }
@@ -76,13 +73,13 @@ define(
 
     function withLogging() {
       this.before('trigger', function() {
-        log('trigger', this, util.toArray(arguments));
+        log('trigger', this, utils.toArray(arguments));
       });
       this.before('on', function() {
-        log('on', this, util.toArray(arguments));
+        log('on', this, utils.toArray(arguments));
       });
-      this.before('off', function(eventArgs) {
-        log('off', this, util.toArray(arguments));
+      this.before('off', function() {
+        log('off', this, utils.toArray(arguments));
       });
     }
 

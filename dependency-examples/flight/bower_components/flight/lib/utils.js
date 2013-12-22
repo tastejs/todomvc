@@ -4,13 +4,12 @@
 // http://opensource.org/licenses/MIT
 // ==========================================
 
-"use strict";
-
 define(
 
   [],
 
-  function () {
+  function() {
+    'use strict';
 
     var arry = [];
     var DEFAULT_INTERVAL = 100;
@@ -92,14 +91,14 @@ define(
         if (base) {
           Object.keys(extra || {}).forEach(function(key) {
             if (base[key] && protect) {
-              throw Error("utils.push attempted to overwrite '" + key + "' while running in protected mode");
+              throw new Error('utils.push attempted to overwrite "' + key + '" while running in protected mode');
             }
 
-            if (typeof base[key] == "object" && typeof extra[key] == "object") {
-              //recurse
+            if (typeof base[key] == 'object' && typeof extra[key] == 'object') {
+              // recurse
               this.push(base[key], extra[key]);
             } else {
-              //no protect, so extra wins
+              // no protect, so extra wins
               base[key] = extra[key];
             }
           }, this);
@@ -112,9 +111,9 @@ define(
         return Object.keys(obj).indexOf(property) > -1;
       },
 
-      //build a function from other function(s)
-      //util.compose(a,b,c) -> a(b(c()));
-      //implementation lifted from underscore.js (c) 2009-2012 Jeremy Ashkenas
+      // build a function from other function(s)
+      // utils.compose(a,b,c) -> a(b(c()));
+      // implementation lifted from underscore.js (c) 2009-2012 Jeremy Ashkenas
       compose: function() {
         var funcs = arguments;
 
