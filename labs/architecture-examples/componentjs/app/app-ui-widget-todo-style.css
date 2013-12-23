@@ -117,6 +117,10 @@
 				0 44px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
+.todo__main.hidden {
+	display: none;
+}
+
 .todo__footer.hidden {
 	display: none;
 }
