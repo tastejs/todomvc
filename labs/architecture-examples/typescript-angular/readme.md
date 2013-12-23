@@ -42,7 +42,7 @@ It's attractive to people with a background in strongly typed languages, who are
 ### Editors
 A great editor for TypeScript is Visual Studio 2012 with [TypeScript](http://go.microsoft.com/fwlink/?LinkID=266563) and  [Web Essentials 2012](http://visualstudiogallery.msdn.microsoft.com/07d54d12-7133-4e15-becb-6f451ea3bea6) plugins.
 
-Webstorm is [coming soon](http://joeriks.com/2012/11/20/a-first-look-at-the-typescript-support-in-webstorm-6-eap/).
+Webstorm has [support for TypeScript](http://blog.jetbrains.com/webstorm/2013/11/enjoy-typescript-in-webstorm/) as well.
 
 
 ### Ambient declarations
