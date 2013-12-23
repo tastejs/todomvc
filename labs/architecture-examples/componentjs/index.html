@@ -5,8 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>ComponentJS • TodoMVC</title>
 
-        <!-- load required todomvc.com integration functions  -->
-
         <!-- load third-party libraries -->
         <script src="bower_components/lodash/dist/lodash.js"></script>
         <script src="bower_components/uuid-js/lib/uuid.js"></script>
@@ -41,9 +39,11 @@
         <link href="app/app-ui-widget-todo-mask.html" rel="markup" type="text/x-markup-nunjucks">
         <link href="app/app-ui-widget-todo-style.css" rel="stylesheet" type="text/css">
 
-        <!-- call application main code -->
+        <!-- load required todomvc.com integration functions  -->
         <link href="bower_components/todomvc-common/base.css" rel="stylesheet" type="text/css">
         <script src="bower_components/todomvc-common/base.js"></script>
+
+        <!-- call application main code -->
         <script type="text/javascript">app.boot.main()</script>
     </head>
     <body>
