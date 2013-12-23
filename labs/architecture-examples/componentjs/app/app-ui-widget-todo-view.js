@@ -27,7 +27,7 @@
 					cs(self).value('data:new-item-text', $('.todo__new', ui).val());
 				}).change(function (/* ev */) {
 					var value = $('.todo__new', ui).val().trim();
-                    if (value !== "") {
+                    if (value !== '') {
                         cs(self).value('data:new-item-text', value);
                         cs(self).value('event:new-item-create', true, true);
                     }
