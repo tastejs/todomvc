@@ -27,10 +27,10 @@
 					cs(self).value('data:new-item-text', $('.todo__new', ui).val());
 				}).change(function (/* ev */) {
 					var value = $('.todo__new', ui).val().trim();
-                    if (value !== '') {
-                        cs(self).value('data:new-item-text', value);
-                        cs(self).value('event:new-item-create', true, true);
-                    }
+					if (value !== '') {
+						cs(self).value('data:new-item-text', value);
+						cs(self).value('event:new-item-create', true, true);
+					}
 				});
 				cs(self).observe({
 					name: 'data:new-item-text',
@@ -83,13 +83,12 @@
 							$(el).parent().removeClass('editing');
 							if (takeTitle) {
 								var items = cs(self).value('data:item-list');
-								var item = _.find(items, function (item) { return item.id === id; });
+								var item = _.find(items, { id: id });
 								var title = $(el).val().trim();
 								if (title === '') {
 									cs(self).value('data:item-list', _.without(items, item));
 									cs(self).value('event:item-list-item-removed', item, true);
-								}
-								else {
+								} else {
 									item.title = title;
 									cs(self).value('event:item-list-item-modified', item);
 								}
@@ -99,8 +98,7 @@
 						$('.todo__item--edit', ui).keyup(function (ev) {
 							if (ev.which === app.ui.constants.KEY_ENTER) {
 								blur(ev.target, true);
-							}
-							else if (ev.which === app.ui.constants.KEY_ESCAPE) {
+							} else if (ev.which === app.ui.constants.KEY_ESCAPE) {
 								blur(ev.target, false);
 							}
 						}).blur(function (ev) {
@@ -113,7 +111,7 @@
 						$('.todo__toggle', ui).click(function (ev) {
 							var id = $(ev.target).parent().parent().data('id') + '';
 							var items = cs(self).value('data:item-list');
-							var item = _.find(items, function (item) { return item.id === id; });
+							var item = _.find(items, { id: id });
 							item.completed = !item.completed;
 							cs(self).value('event:item-list-item-modified', item, true);
 							cs(self).value('cmd:item-list-updated', true, true);
@@ -123,7 +121,7 @@
 						$('.todo__destroy', ui).click(function (ev) {
 							var id = $(ev.target).parent().parent().data('id') + '';
 							var items = cs(self).value('data:item-list');
-							var item = _.find(items, function (item) { return item.id === id; });
+							var item = _.find(items, { id: id });
 							cs(self).value('data:item-list', _.without(items, item));
 							cs(self).value('event:item-list-item-removed', item, true);
 							cs(self).value('cmd:item-list-updated', true, true);

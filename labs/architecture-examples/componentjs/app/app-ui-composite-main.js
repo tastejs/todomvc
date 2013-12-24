@@ -37,6 +37,22 @@
 				}});
 				router.init();
 
+				// transfer business model into presentation model
+				var bm2pm = function () {
+					var pmItems = [];
+					var bmTodoList = app.sv.todo();
+					_.forEach(bmTodoList.items, function (bmTodoItem) {
+						pmItems.push({
+							id: bmTodoItem.id,
+							title: bmTodoItem.title,
+							completed: bmTodoItem.completed,
+							editing: false
+						});
+					});
+					todoModel.value('data:item-list', pmItems);
+					todoModel.value('cmd:item-list-updated', true);
+				};
+
 				// react on item CRUD model event value changes
 				todoModel.observe({ name: 'event:new-item-create', func: function (/* ev, value */) {
 					var text = todoModel.value('data:new-item-text');
@@ -62,22 +78,6 @@
 					app.sv.save();
 					bm2pm();
 				}});
-
-				// transfer business model into presentation model
-				var bm2pm = function () {
-					var pmItems = [];
-					var bmTodoList = app.sv.todo();
-					_.forEach(bmTodoList.items, function (bmTodoItem) {
-						pmItems.push({
-							id: bmTodoItem.id,
-							title: bmTodoItem.title,
-							completed: bmTodoItem.completed,
-							editing: false
-						});
-					});
-					todoModel.value('data:item-list', pmItems);
-					todoModel.value('cmd:item-list-updated', true);
-				};
 
 				// initially load business model and trigger transfer into presentation model
 				app.sv.load();

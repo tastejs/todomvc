@@ -44,10 +44,7 @@
 					touch: true,
 					func: function (/* ev, value */) {
 						var items = cs(self).value('data:item-list');
-						var completed = _.countBy(items, function (item) { return item.completed; }).true;
-						if (!_.isNumber(completed)) {
-							completed = 0;
-						}
+						var completed = _.filter(items, 'completed').length;
 						var remaining = items.length - completed;
 						cs(self).value('data:status-items-completed', completed);
 						cs(self).value('data:status-items-remaining', remaining);
