@@ -39,15 +39,14 @@
 
 				// transfer business model into presentation model
 				var bm2pm = function () {
-					var pmItems = [];
 					var bmTodoList = app.sv.todo();
-					_.forEach(bmTodoList.items, function (bmTodoItem) {
-						pmItems.push({
+					var pmItems = bmTodoList.items.map(function (bmTodoItem) {
+						return {
 							id: bmTodoItem.id,
 							title: bmTodoItem.title,
 							completed: bmTodoItem.completed,
 							editing: false
-						});
+						};
 					});
 					todoModel.value('data:item-list', pmItems);
 					todoModel.value('cmd:item-list-updated', true);
