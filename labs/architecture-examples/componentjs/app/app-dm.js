@@ -13,7 +13,7 @@
 		protos: {
 			itemAdd: function (item) { this.items.push(item); },
 			itemDel: function (item) { this.items = _.without(this.items, item); },
-			itemById: function (id) { return _.find(this.items, { id: id }); },
+			itemById: function (id) { return _.find(this.items, { id: id }); }
 		}
 	});
 
