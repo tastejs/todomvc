@@ -6,6 +6,7 @@
     - Durandal
     - Exoskeleton
     - Atma.js
+    - ComponentJS
 
 - Updates since 1.2:
     - CanJS 2.0
