@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "todomvc-common": "~0.1.6",
-    "knockout.js": "~2.2.0rc",
+    "knockout.js": "~3.0.0",
     "requirejs": "~2.1.6"
   }
 }
