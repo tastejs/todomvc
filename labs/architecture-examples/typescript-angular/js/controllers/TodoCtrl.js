@@ -3,89 +3,6 @@ var todos;
 (function (todos) {
     'use strict';
 
-    var TodoItem = (function () {
-        function TodoItem(title, completed) {
-            this.title = title;
-            this.completed = completed;
-        }
-        return TodoItem;
-    })();
-    todos.TodoItem = TodoItem;
-})(todos || (todos = {}));
-/// <reference path='../_all.ts' />
-/// <reference path='../_all.ts' />
-/// <reference path='../_all.ts' />
-var todos;
-(function (todos) {
-    'use strict';
-
-    /**
-    * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true.
-    */
-    function todoFocus($timeout) {
-        return {
-            link: function ($scope, element, attributes) {
-                $scope.$watch(attributes.todoFocus, function (newval) {
-                    if (newval) {
-                        $timeout(function () {
-                            return element[0].focus();
-                        }, 0, false);
-                    }
-                });
-            }
-        };
-    }
-    todos.todoFocus = todoFocus;
-
-    todoFocus.$inject = ['$timeout'];
-})(todos || (todos = {}));
-/// <reference path='../_all.ts' />
-var todos;
-(function (todos) {
-    'use strict';
-
-    /**
-    * Directive that executes an expression when the element it is applied to loses focus.
-    */
-    function todoBlur() {
-        return {
-            link: function ($scope, element, attributes) {
-                element.bind('blur', function () {
-                    $scope.$apply(attributes.todoBlur);
-                });
-            }
-        };
-    }
-    todos.todoBlur = todoBlur;
-})(todos || (todos = {}));
-/// <reference path='../_all.ts' />
-var todos;
-(function (todos) {
-    'use strict';
-
-    /**
-    * Services that persists and retrieves TODOs from localStorage.
-    */
-    var TodoStorage = (function () {
-        function TodoStorage() {
-            this.STORAGE_ID = 'todos-angularjs-typescript';
-        }
-        TodoStorage.prototype.get = function () {
-            return JSON.parse(localStorage.getItem(this.STORAGE_ID) || '[]');
-        };
-
-        TodoStorage.prototype.put = function (todos) {
-            localStorage.setItem(this.STORAGE_ID, JSON.stringify(todos));
-        };
-        return TodoStorage;
-    })();
-    todos.TodoStorage = TodoStorage;
-})(todos || (todos = {}));
-/// <reference path='../_all.ts' />
-var todos;
-(function (todos) {
-    'use strict';
-
     /**
     * The main controller for the app. The controller:
     * - retrieves and persists the model via the todoStorage service
@@ -134,12 +51,11 @@ var todos;
         };
 
         TodoCtrl.prototype.addTodo = function () {
-            var newTodo = this.$scope.newTodo.trim();
-            if (!newTodo.length) {
+            if (!this.$scope.newTodo.length) {
                 return;
             }
 
-            this.todos.push(new todos.TodoItem(newTodo, false));
+            this.todos.push(new todos.TodoItem(this.$scope.newTodo, false));
             this.$scope.newTodo = '';
         };
 
@@ -149,7 +65,6 @@ var todos;
 
         TodoCtrl.prototype.doneEditing = function (todoItem) {
             this.$scope.editedTodo = null;
-            todoItem.title = todoItem.title.trim();
             if (!todoItem.title) {
                 this.removeTodo(todoItem);
             }
@@ -180,16 +95,3 @@ var todos;
     })();
     todos.TodoCtrl = TodoCtrl;
 })(todos || (todos = {}));
-/// <reference path='_all.ts' />
-/**
-* The main TodoMVC app module.
-*
-* @type {angular.Module}
-*/
-var todos;
-(function (todos) {
-    'use strict';
-
-    var todomvc = angular.module('todomvc', []).controller('todoCtrl', todos.TodoCtrl).directive('todoBlur', todos.todoBlur).directive('todoFocus', todos.todoFocus).service('todoStorage', todos.TodoStorage);
-})(todos || (todos = {}));
-//# sourceMappingURL=Application.js.map

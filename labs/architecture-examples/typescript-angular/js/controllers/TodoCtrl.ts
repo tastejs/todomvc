@@ -63,11 +63,12 @@ module todos {
 		}
 
 		addTodo() {
-			if (!this.$scope.newTodo.length) {
+			var newTodo : string = this.$scope.newTodo.trim();
+			if (!newTodo.length) {
 				return;
 			}
 
-			this.todos.push(new TodoItem(this.$scope.newTodo, false));
+			this.todos.push(new TodoItem(newTodo, false));
 			this.$scope.newTodo = '';
 		}
 
@@ -77,6 +78,7 @@ module todos {
 
 		doneEditing(todoItem: TodoItem) {
 			this.$scope.editedTodo = null;
+			todoItem.title = todoItem.title.trim();
 			if (!todoItem.title) {
 				this.removeTodo(todoItem);
 			}
