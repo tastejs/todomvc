@@ -76,7 +76,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, todoStora
 
 	$scope.markAll = function (completed) {
 		todos.forEach(function (todo) {
-			todo.completed = completed;
+			todo.completed = !completed;
 		});
 	};
 });
