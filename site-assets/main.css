@@ -143,7 +143,7 @@ header nav a:not(:last-child) {
 
 .applist li {
 	white-space: nowrap;
-	padding-bottom: 20px;
+	padding: 10px 0;
 }
 
 .applist a {
@@ -220,7 +220,6 @@ header nav a:not(:last-child) {
 	overflow: hidden;
 	max-height: 0;
 	-webkit-transition: max-height 1s;
-	-ms-transition: max-height 1s;
 	transition: max-height 1s;
 }
 
@@ -366,7 +365,6 @@ a.zocial {
 	position: relative;
 	border-radius: .3em;
 	background-image: -webkit-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
-	background-image: -ms-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
 	background-image: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
 }
 
