@@ -1,0 +1,12 @@
+{
+  "name": "todomvc-metajs-angular",
+  "description": "TodoMVC todo app using Angular + MetaJS",
+  "version": "0.1.0",
+  "main": "app.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "metajs": "~0.2.1"
+  },
+  "private": true
+}
