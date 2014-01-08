@@ -1823,6 +1823,12 @@
 			"links": [{
 				"name": "Introduction",
 				"url": "http://scn.sap.com/community/developer-center/front-end/blog/2013/03/19/how-to-build-testable-sapui5-applications"
+			}, {
+				"name": "Getting Started",
+				"url": "https://sapui5.netweaver.ondemand.com/"
+			}, {
+				"name": "API Reference",
+				"url": "https://sapui5.netweaver.ondemand.com/sdk/#content/Overview.html"
 			}]
 		}]
 	},
