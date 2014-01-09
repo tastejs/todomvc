@@ -1838,6 +1838,9 @@
 			}, {
 				"name": "API Reference",
 				"url": "https://sapui5.netweaver.ondemand.com/sdk/#content/Overview.html"
+			}, {
+				"name": "Twitter",
+				"url": "https://twitter.com/search?q=%23reactjs"
 			}]
 		}]
 	},
