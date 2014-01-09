@@ -1759,11 +1759,20 @@
 				"name": "Philosophy",
 				"url": "http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood"
 			}, {
-				"name": "Common Questions",
-				"url": "http://facebook.github.io/react/docs/common-questions.html"
-			}, {
 				"name": "Support",
 				"url": "http://facebook.github.io/react/support.html"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Stack Overflow",
+				"url": "https://stackoverflow.com/questions/tagged/reactjs"
+			}, {
+				"name": "Google Groups Mailing List",
+				"url": "https://groups.google.com/group/reactjs"
+			}, {
+				"name": "IRC",
+				"url": "irc://chat.freenode.net/reactjs"
 			}]
 		}]
 	},
