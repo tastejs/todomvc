@@ -78,7 +78,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
 
 	$scope.markAll = function (completed) {
 		todos.forEach(function (todo) {
-			todo.completed = completed;
+			todo.completed = !completed;
 		});
 		$scope.remainingCount = completed ? 0 : todos.length;
 		todoStorage.put(todos);
