@@ -11,10 +11,7 @@ if (navigator.userAgent.indexOf('(Dart)') === -1) {
 
   // Fall back to compiled JS. Run through all the scripts and
   // replace them if they have a type that indicate that they source
-  // in Dart code.
-  //
-  //   <script type="application/dart" src="..."></script>
-  //
+  // in Dart code (type="application/dart").
   var scripts = document.getElementsByTagName("script");
   var length = scripts.length;
   for (var i = 0; i < length; ++i) {
