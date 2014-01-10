@@ -2,16 +2,6 @@ import 'dart:html' as dom;
 import 'package:angular/angular.dart';
 
 @NgDirective(
-	// ng-submit is eventually going to be added, using `todo-` as prefix will
-	// avoid future name clashes.
-	selector: '[todo-submit]',
-	map: const {'todo-submit': '&onSubmit'}
-)
-@NgDirective(
-	selector: '[todo-dblclick]',
-	map: const {'todo-dblclick': '&onDblclick'}
-)
-@NgDirective(
 	selector: '[todo-escape]',
 	map: const {'todo-escape': '&onEscape'}
 )
@@ -39,10 +29,6 @@ class TodoDOMEventDirective {
 			}));
 		}
 	}
-
-	set onSubmit(value) => initHandler(element.onSubmit, value);
-
-	set onDblclick(value) => initHandler(element.onDoubleClick, value);
 
 	set onEscape(value) {
 		initHandler(element.onKeyDown, value, (event) => event.keyCode ==
