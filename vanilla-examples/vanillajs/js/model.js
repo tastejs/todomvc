@@ -93,7 +93,7 @@
 	/**
 	 * Returns a count of all todos
 	 */
-	Model.prototype.getCount = function () {
+	Model.prototype.getCount = function (callback) {
 		var todos = {
 			active: 0,
 			completed: 0,
@@ -110,9 +110,8 @@
 
 				todos.total++;
 			});
+			callback(todos);
 		});
-
-		return todos;
 	};
 
 	// Export to window
