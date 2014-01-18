@@ -199,16 +199,16 @@
 	 * number of todos.
 	 */
 	Controller.prototype._updateCount = function () {
-		var todos = this.model.getCount();
+		this.model.getCount((function(todos) {
+			this.view.render('updateElementCount', todos.active);
+			this.view.render('clearCompletedButton', {
+				completed: todos.completed,
+				visible: todos.completed > 0
+			});
 
-		this.view.render('updateElementCount', todos.active);
-		this.view.render('clearCompletedButton', {
-			completed: todos.completed,
-			visible: todos.completed > 0
-		});
-
-		this.view.render('toggleAll', {checked: todos.completed === todos.total});
-		this.view.render('contentBlockVisibility', {visible: todos.total > 0});
+			this.view.render('toggleAll', {checked: todos.completed === todos.total});
+			this.view.render('contentBlockVisibility', {visible: todos.total > 0});
+		}).bind(this);
 	};
 
 	/**
