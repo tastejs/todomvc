@@ -116,10 +116,6 @@ class TodoController {
 		items.forEach((i) => i.completed = value);
 	}
 
-	String get itemsLeftText {
-		return 'item' + (remaining() != 1 ? 's' : '') + ' left';
-	}
-
 	void editTodo(Item item) {
 		editedItem = item;
 		previousItem = item.clone();

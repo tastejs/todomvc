@@ -36,7 +36,9 @@
 				</ul>
 			</section>
 			<footer id="footer" ng-hide="!todo.total()" ng-cloak>
-				<span id="todo-count"><strong>{{todo.remaining()}}</strong> {{todo.itemsLeftText}}</span>
+				<span id="todo-count"><strong>{{todo.remaining()}}</strong>
+					<ng-pluralize count="todo.remaining()" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+				</span>
 				<button id="clear-completed" ng-click="todo.clearCompleted()" ng-if="todo.completed() > 0">Clear completed ({{todo.completed()}})</button>
 			</footer>
 		</section>

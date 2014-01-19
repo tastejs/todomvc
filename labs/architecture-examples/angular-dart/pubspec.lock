@@ -8,7 +8,7 @@ packages:
   angular:
     description: angular
     source: hosted
-    version: "0.9.3"
+    version: "0.9.4"
   args:
     description: args
     source: hosted
@@ -20,7 +20,7 @@ packages:
   collection:
     description: collection
     source: hosted
-    version: "0.9.0"
+    version: "0.9.1"
   di:
     description: di
     source: hosted
@@ -64,7 +64,7 @@ packages:
   unittest:
     description: unittest
     source: hosted
-    version: "0.9.2+1"
+    version: "0.9.3"
   unmodifiable_collection:
     description: unmodifiable_collection
     source: hosted
