@@ -1,80 +1,70 @@
 'use strict';
 
-function todoPresenter(todo) {
+function todoPresenter($element, options) {
 
-    var template = $("[type='html/todo']").html(),
-        root = $("#todo-list"),
-        nav = $("#filters a");
+    var template = options.template,
+        todo = options.model,
+        $list = $element.find("#todo-list");
 
     /* Listen to user events */
 
-    $("#new-todo").keyup(function(e) {
+    $element.on("keyup", '#new-todo', function(e) {
         var val = $.trim(this.value);
-        if (e.which == 13 && val) {
+        if (val && e.which === 13) {
             todo.add(val);
-            this.value = "";
+            this.value = '';
         }
-    });
 
-    $("#toggle-all").click(function() {
+    }).on("click", '#toggle-all', function() {
         todo.toggle();
-    });
 
-    $("#clear-completed").click(function() {
-        todo.remove("completed");
+    }).on("click", '#clear-completed', function() {
+        todo.remove('completed');
     });
 
     /* Listen to model events */
 
-    todo.on("add", add).on("remove", function(items) {
-        $.each(items, function() {
-            $("#" + this.id).remove();
-        });
-    }).on("toggle", function(item) {
-        toggle($("#" + item.id), !!item.done);
-    }).on("edit", function(item) {
-        var el = $("#" + item.id);
-        el.removeClass("editing");
-        $("label, .edit", el).text(item.name).val(item.name);
+    // Reload the list
+    todo.on('reload', function(items) {
+        $list.empty() && $.each(items, add);
 
-        // counts
-    }).on("add remove toggle", counts);
+    // Remove an item
+    }).on('remove', function(items) {
+        items.forEach(function(item) { $('#' + item.id).remove(); });
 
-    /* Routing */
-    nav.click(function() {
-        return $.route($(this).attr("href"))
-    })
-    $.route(function(hash) {
+    // Toggle items
+    }).on('toggle', function(item) {
+        toggle($('#' + item.id), !!item.done);
 
-        // clear list and add new ones
-        root.empty() && $.each(todo.items(hash.slice(2)), add);
+    // Add, edit and update counts
+    }).on('add', add).on('edit', edit).on('add remove toggle reload', counts);
 
-        // selected class
-        nav.removeClass("selected").filter("[href='" + hash + "']").addClass("selected");
-
-        // update counts
-        counts()
-    })
 
     /* Private functions */
 
     function toggle(el, flag) {
-        el.toggleClass("completed", flag);
-        $(":checkbox", el).prop("checked", flag);
+        el.toggleClass('completed', flag);
+        $(':checkbox', el).prop('checked', flag);
+    }
+
+    function edit(item) {
+        var el = $('#' + item.id);
+        el.removeClass('editing');
+        $('label, .edit', el).text(item.name).val(item.name);
     }
 
     function add(item) {
         if (this.id) item = this;
 
-        var el = $($.render(template, item)).appendTo(root),
-            input = $(".edit", el);
+        var el = $list.prepend($.render(template, item)),
+            input = $('.edit', el);
 
-        $(".toggle", el).click(function() {
+        $('.toggle', el).click(function() {
             todo.toggle(item.id);
         });
 
         function blur() {
-            el.removeClass("editing");
+            el.removeClass('editing');
         }
 
         toggle(el, !!item.done);
@@ -82,33 +72,33 @@ function todoPresenter(todo) {
         // edit
         input.blur(blur).keydown(function(e) {
             var val = $.trim(this.value);
-            if (e.which == 13 && val) {
+            console.log(e.which)
+            if (val && e.which === 13) {
                 item.name = val;
                 todo.edit(item);
             }
 
-            if (e.which == 27) blur()
-        })
+            if (e.which === 27) blur();
+        });
 
-        $("label", el).dblclick(function() {
-            el.addClass("editing");
+        $('label', el).dblclick(function() {
+            el.addClass('editing');
             input.focus()[0].select();
-        })
+        });
 
         // remove
-        $(".destroy", el).click(function() {
+        $('.destroy', el).click(function() {
             todo.remove(item.id);
-        })
-
+        });
     }
 
     function counts() {
-        var active = todo.items("active").length,
-            done = todo.items("completed").length;
+        var active = todo.items('active').length,
+            plural = (active === 1 ? '' : 's'),
+            done = todo.items('completed').length;
 
-        $("#todo-count").html("<strong>" +active+ "</strong> item" +(active == 1 ? "" : "s")+ " left")
-            $("#clear-completed").toggle(done > 0).text("Clear completed (" + done + ")")
-            $("#footer").toggle(active + done > 0)
+        $('#todo-count').html('<strong>' + active + '</strong> item' + plural + ' left')
+        $('#clear-completed').toggle(done > 0).text('Clear completed (' + done + ')')
+        $('#footer').toggle(active + done > 0);
     }
-
 }

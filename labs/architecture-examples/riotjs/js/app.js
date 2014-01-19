@@ -1,10 +1,12 @@
-(function() { 'use strict';
-    /*
-       A Model instance exposed to global space so you can
-       use the Todo APi from the console. For example:
+'use strict';
 
-       todo.add("My task");
-   */
-    window.todo = new Todo();
-    todoPresenter(todo);
-})();
+window.todo = new Todo();
+
+todoPresenter($("#todoapp"), {
+    model: todo,
+    template: $('[type="html/todo"]').html(),
+});
+
+filtersPresenter($("#filters a"));
+
+routes({todo: todo});
