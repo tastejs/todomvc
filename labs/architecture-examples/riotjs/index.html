@@ -44,10 +44,10 @@
     </footer>
 
     <script type="html/todo">
-      <li id="{id}">
-        <div class="view">
+      <li id="task_{id}" data-task="{id}">
+        <div class="view todo-task">
           <input class="toggle" type="checkbox">
-          <label>{name}</label>
+          <label >{name}</label>
           <button class="destroy"/>
         </div>
         <input class="edit" value="{name}">
