@@ -1,42 +1,37 @@
-(function() { "use strict";
-  // The route only works in the browser
-  if(typeof window === "undefined") return;
-  window.$ = window.$ || {};
 
-  (function(win, $){
-    if($.route) return;
+/* Cross browser popstate */
 
-    // cross browser popstate
-    var currentHash,
-      fn = $.observable({}),
-      listen = win.addEventListener,
-      doc = document;
+// for browsers only
+if (typeof top != "object") return;
 
-    function pop(hash) {
-      hash = hash.type ? location.hash : hash;
-      if (hash != currentHash) fn.trigger("pop", hash);
-      currentHash = hash;
-    }
+var currentHash,
+  pops = $.observable({}),
+  listen = window.addEventListener,
+  doc = document;
 
-    if (listen) {
-      listen("popstate", pop, false);
-      doc.addEventListener("DOMContentLoaded", pop, false);
+function pop(hash) {
+  hash = hash.type ? location.hash : hash;
+  if (hash != currentHash) pops.trigger("pop", hash);
+  currentHash = hash;
+}
 
-    } else {
-      doc.attachEvent("onreadystatechange", function() {
-        if (doc.readyState === "complete") pop("");
-      });
-    }
+if (listen) {
+  listen("popstate", pop, false);
+  doc.addEventListener("DOMContentLoaded", pop, false);
 
-    // Change the browser URL or listen to changes on the URL
-    $.route = function(to) {
-      // listen
-      if (typeof to === "function") return fn.on("pop", to);
+} else {
+  doc.attachEvent("onreadystatechange", function() {
+    if (doc.readyState === "complete") pop("");
+  });
+}
 
-      // fire
-      if (history.pushState) history.pushState(0, 0, to);
-      pop(to);
-    };
+// Change the browser URL or listen to changes on the URL
+$.route = function(to) {
+  // listen
+  if (typeof to === "function") return pops.on("pop", to);
 
-  })(window, window.$);
-})();
+  // fire
+  if (history.pushState) history.pushState(0, 0, to);
+  pop(to);
+
+};

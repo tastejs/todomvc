@@ -4,8 +4,14 @@ init:
 jshint:
 	jshint lib/*.js
 
-min: jshint
-	uglifyjs license.js lib/observable.js lib/render.js lib/route.js --comments --mangle -o riot.js
+riot:
+	@ cat license.js > riot.js
+	@ echo '(function($$) { "use strict";' >> riot.js
+	@ cat lib/* >> riot.js
+	@ echo '})(typeof top == "object" ? window.$$ || (window.$$ = {}) : exports);' >> riot.js
+
+min: riot
+	uglifyjs riot.js --comments --mangle -o riot.min.js
 
 test: min
 	node test/node.js

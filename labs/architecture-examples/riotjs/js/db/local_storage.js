@@ -1,3 +1,4 @@
+"use strict";
 
 function DB(key) {
   var store = window.localStorage;
@@ -10,5 +11,5 @@ function DB(key) {
     put: function(data) {
       store[key] = JSON.stringify(data)
     }
-  }
-}
+  };
+};

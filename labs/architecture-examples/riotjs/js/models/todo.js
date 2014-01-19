@@ -1,50 +1,60 @@
-"use strict";
+'use strict';
 
-/* The model */
-function Todo(db) {
+function Todo() {
+    var self = $.observable(this),
+        db = DB('riot-todo'),
+        items = db.get();
 
-  db = db || DB("todo-riot");
+    self.add = function(name) {
+        var item = { id: generateId(), name: name };
+        items[item.id] = item;
+        self.trigger('add', item);
+    };
 
-  var self = $.observable(this),
-    items = db.get();
+    self.edit = function(item) {
+        items[item.id] = item;
+        self.trigger('edit', item);
+    };
 
-  self.add = function(name) {
-    var item = { id: "_" + ("" + Math.random()).slice(2), name: name };
-    items[item.id] = item;
-    self.trigger("add", item);
-  }
+    self.remove = function(filter) {
+        var removedItems = self.items(filter).map(function(item) {
+            delete items[item.id];
+            return item;
+        });
+        self.trigger('remove', removedItems);
+    };
 
-  self.edit = function(item) {
-    items[item.id] = item;
-    self.trigger("edit", item);
-  }
+    self.toggle = function(filter) {
+        var toggledItems = self.items(filter).map(function(item) {
+            item.done = !item.done;
+            return item;
+        });
+        self.trigger('toggle', toggledItems);
+    };
 
-  self.remove = function(filter) {
-    var els = self.items(filter);
-    $.each(els, function() {
-      delete items[this.id];
-    })
-    self.trigger("remove", els);
-  }
+    // @param filter: <empty>, id, 'active', 'completed'
+    self.items = function(filter) {
+        return Object.keys(items).filter(function(id) {
+            return matchFilter(items[id], filter);
+        }).map(function(id) {
+            return items[id];
+        });
+    }
 
-  self.toggle = function(id) {
-    var item = items[id];
-    item.done = !item.done;
-    self.trigger("toggle", item);
-  }
-
-  // @param filter: <empty>, id, "active", "completed"
-  self.items = function(filter) {
-    var ret = [];
-    $.each(items, function(id, item) {
-      if (!filter || filter === id || filter === (item.done ? "completed": "active")) ret.push(item);
+    // sync database
+    self.on('add remove toggle edit', function() {
+        db.put(items);
     });
-    return ret;
-  };
 
-  // sync database
-  self.on("add remove toggle edit", function() {
-    db.put(items);
-  })
+    // Private methods
+    function generateId() {
+        var keys = Object.keys(items), i = keys.length;
+        return (i ? items[keys[i - 1]].id + 1 : i + 1);
+    }
 
-}
+    function matchFilter(item, filter) {
+        return !filter ||
+            filter.toString() === item.id.toString() ||
+            filter === (item.done ? 'completed' : 'active');
+    }
+};

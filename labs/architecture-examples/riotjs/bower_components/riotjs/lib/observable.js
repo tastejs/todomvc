@@ -1,59 +1,45 @@
-(function($) { "use strict";
-  if ($.observable) return;
 
-  $.observable = function(el) {
-    var callbacks = {}, slice = [].slice;
+$.observable = function(el) {
+  var callbacks = {}, slice = [].slice;
 
-    el.on = function(events, fn) {
+  el.on = function(events, fn) {
+    if (typeof fn === "function") {
+      events.replace(/[^\s]+/g, function(name, pos) {
+        (callbacks[name] = callbacks[name] || []).push(fn);
+        fn.typed = pos > 0;
+      });
+    }
+    return el;
+  };
 
-      if (typeof fn === "function") {
-        events = events.split(/\s+/);
+  el.off = function(events) {
+    events.replace(/[^\s]+/g, function(name) {
+      callbacks[name] = [];
+    });
+    if (events == "*") callbacks = {};
+    return el;
+  };
 
-        for (var i = 0, len = events.length, type; i < len; i++) {
-          type = events[i];
-          (callbacks[type] = callbacks[type] || []).push(fn);
-          if (len > 1) fn.typed = true;
-        }
-      }
-      return el;
-    };
+  // only single event supported
+  el.one = function(name, fn) {
+    if (fn) fn.one = true;
+    return el.on(name, fn);
+  };
 
-    el.off = function(events) {
-      events = events.split(/\s+/);
+  el.trigger = function(name) {
+    var args = slice.call(arguments, 1),
+      fns = callbacks[name] || [];
 
-      for (var i = 0; i < events.length; i++) {
-        callbacks[events[i]] = [];
-      }
-
-      return el;
-    };
-
-    // only single event supported
-    el.one = function(type, fn) {
-      if (fn) fn.one = true;
-      return el.on(type, fn);
-
-    };
-
-    el.trigger = function(type) {
-
-      var args = slice.call(arguments, 1),
-        fns = callbacks[type] || [];
-
-      for (var i = 0, fn; i < fns.length; ++i) {
-        fn = fns[i];
-
-        if (fn.one && fn.done) continue;
-
-        // add event argument when multiple listeners
-        fn.apply(el, fn.typed ? [type].concat(args) : args);
-
+    for (var i = 0, fn; fn = fns[i]; ++i) {
+      if (!fn.one || !fn.done) {
+        fn.apply(el, fn.typed ? [name].concat(args) : args);
         fn.done = true;
       }
-
-      return el;
-    };
+    }
 
     return el;
   };
-})(typeof exports !== "undefined" ? exports : window.$ || (window.$ = {}));
+
+  return el;
+
+};
