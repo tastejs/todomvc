@@ -199,7 +199,7 @@
 	 * number of todos.
 	 */
 	Controller.prototype._updateCount = function () {
-		this.model.getCount((function(todos) {
+		this.model.getCount(function(todos) {
 			this.view.render('updateElementCount', todos.active);
 			this.view.render('clearCompletedButton', {
 				completed: todos.completed,
