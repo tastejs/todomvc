@@ -43,10 +43,9 @@
 			}
 
 			var val = this.refs.newField.getDOMNode().value.trim();
-			var newTodo;
 
 			if (val) {
-				newTodo = {
+				var newTodo = {
 					id: Utils.uuid(),
 					title: val,
 					completed: false
