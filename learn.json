@@ -1628,7 +1628,7 @@
 		"homepage": "polymer-project.org",
 		"examples": [{
 			"name": "Architecture Example",
-			"url": "labs/architecture-examples/polymer"
+			"url": "architecture-examples/polymer"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
