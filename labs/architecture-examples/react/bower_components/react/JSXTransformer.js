@@ -10245,7 +10245,7 @@ var load = exports.load = function(url, callback) {
 
 runScripts = function() {
   var scripts = document.getElementsByTagName('script');
-
+  
   // Array.prototype.slice cannot be used on NodeList on IE8
   var jsxScripts = [];
   for (var i = 0; i < scripts.length; i++) {
@@ -10253,7 +10253,7 @@ runScripts = function() {
       jsxScripts.push(scripts.item(i));
     }
   }
-
+  
   console.warn("You are using the in-browser JSX transformer. Be sure to precompile your JSX for production - http://facebook.github.io/react/docs/tooling-integration.html#jsx");
 
   jsxScripts.forEach(function(script) {

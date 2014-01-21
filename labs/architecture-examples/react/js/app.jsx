@@ -5,8 +5,8 @@
 /*jshint white:false */
 /*jshint trailing:false */
 /*jshint newcap:false */
-/*global Utils, ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS,
-	TodoItem, TodoFooter, React, Router*/
+/*global Utils, TodoModel, ALL_TODOS, ACTIVE_TODOS,
+	COMPLETED_TODOS, TodoItem, TodoFooter, React, Router*/
 
 (function (window, React) {
 	'use strict';
@@ -19,9 +19,7 @@
 
 	var TodoApp = React.createClass({
 		getInitialState: function () {
-			var todos = Utils.store('react-todos');
 			return {
-				todos: todos,
 				nowShowing: ALL_TODOS,
 				editing: null
 			};
@@ -34,6 +32,7 @@
 				'/completed': this.setState.bind(this, {nowShowing: COMPLETED_TODOS})
 			});
 			router.init();
+
 			this.refs.newField.getDOMNode().focus();
 		},
 
@@ -43,15 +42,9 @@
 			}
 
 			var val = this.refs.newField.getDOMNode().value.trim();
-			var newTodo;
 
 			if (val) {
-				newTodo = {
-					id: Utils.uuid(),
-					title: val,
-					completed: false
-				};
-				this.setState({todos: this.state.todos.concat([newTodo])});
+				this.props.model.addTodo(val);
 				this.refs.newField.getDOMNode().value = '';
 			}
 
@@ -60,31 +53,15 @@
 
 		toggleAll: function (event) {
 			var checked = event.target.checked;
-
-			// Note: it's usually better to use immutable data structures since they're easier to
-			// reason about and React works very well with them. That's why we use map() and filter()
-			// everywhere instead of mutating the array or todo items themselves.
-			var newTodos = this.state.todos.map(function (todo) {
-				return Utils.extend({}, todo, {completed: checked});
-			});
-
-			this.setState({todos: newTodos});
+			this.props.model.toggleAll(checked);
 		},
 
 		toggle: function (todoToToggle) {
-			var newTodos = this.state.todos.map(function (todo) {
-				return todo !== todoToToggle ? todo : Utils.extend({}, todo, {completed: !todo.completed});
-			});
-
-			this.setState({todos: newTodos});
+			this.props.model.toggle(todoToToggle);
 		},
 
 		destroy: function (todo) {
-			var newTodos = this.state.todos.filter(function (candidate) {
-				return candidate.id !== todo.id;
-			});
-
-			this.setState({todos: newTodos});
+			this.props.model.destroy(todo);
 		},
 
 		edit: function (todo, callback) {
@@ -96,11 +73,8 @@
 		},
 
 		save: function (todoToSave, text) {
-			var newTodos = this.state.todos.map(function (todo) {
-				return todo !== todoToSave ? todo : Utils.extend({}, todo, {title: text});
-			});
-
-			this.setState({todos: newTodos, editing: null});
+			this.props.model.save(todoToSave, text);
+			this.setState({editing: null});
 		},
 
 		cancel: function () {
@@ -108,22 +82,14 @@
 		},
 
 		clearCompleted: function () {
-			var newTodos = this.state.todos.filter(function (todo) {
-				return !todo.completed;
-			});
-
-			this.setState({todos: newTodos});
-		},
-
-		componentDidUpdate: function () {
-			Utils.store('react-todos', this.state.todos);
+			this.props.model.clearCompleted();
 		},
 
 		render: function () {
 			var footer = null;
 			var main = null;
 
-			var shownTodos = this.state.todos.filter(function (todo) {
+			var shownTodos = this.props.model.todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
 				case ACTIVE_TODOS:
 					return !todo.completed;
@@ -149,11 +115,11 @@
 				);
 			}, this);
 
-			var activeTodoCount = this.state.todos.reduce(function(accum, todo) {
+			var activeTodoCount = this.props.model.todos.reduce(function(accum, todo) {
 				return todo.completed ? accum : accum + 1;
 			}, 0);
 
-			var completedCount = this.state.todos.length - activeTodoCount;
+			var completedCount = this.props.model.todos.length - activeTodoCount;
 
 			if (activeTodoCount || completedCount) {
 				footer =
@@ -165,7 +131,7 @@
 					/>;
 			}
 
-			if (this.state.todos.length) {
+			if (this.props.model.todos.length) {
 				main = (
 					<section id="main">
 						<input
@@ -199,7 +165,18 @@
 		}
 	});
 
-	React.renderComponent(<TodoApp />, document.getElementById('todoapp'));
+	var model = new TodoModel('react-todos');
+
+	function render() {
+		React.renderComponent(
+			<TodoApp model={model}/>,
+			document.getElementById('todoapp')
+		);
+	}
+
+	model.subscribe(render);
+	render();
+
 	React.renderComponent(
 		<div>
 			<p>Double-click to edit a todo</p>
