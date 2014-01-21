@@ -2,6 +2,6 @@
 
 function routes(models) {
     $.route(function(hash) {
-        models.todo.trigger("reload", models.todo.items(hash.slice(2)));
+        models.todo.trigger("reload", hash.slice(2));
     });
 }

@@ -45,8 +45,8 @@ function todoPresenter($element, options) {
     /* Listen to model events */
 
     // Reload the list
-    todo.on('reload', function(items) {
-        $list.empty() && $.each(items, add);
+    todo.on('reload', function(filter) {
+        $list.empty() && $.each(todo.items(filter), add);
 
     // Remove an item
     }).on('remove', function(items) {
