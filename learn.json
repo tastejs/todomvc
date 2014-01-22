@@ -1788,7 +1788,7 @@
 		"homepage": "facebook.github.io/react",
 		"examples": [{
 			"name": "Architecture Examples",
-			"url": "labs/architecture-examples/react"
+			"url": "architecture-examples/react"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

@@ -17,6 +17,7 @@
     - Backbone 1.1
     - Backbone 1.1 + RequireJS
     - Dart 1.0
+    - React graduated from Labs
 
 ## 1.2 - 2013-08-06
 
