@@ -1,12 +1,14 @@
 'use strict';
 
-window.todo = new Todo();
+(function ($) {
+  var todo = new Todo();
+  routes({todo: todo});
 
-todoPresenter($("#todoapp"), {
-    model: todo,
-    template: $('[type="html/todo"]').html(),
-});
+  todoPresenter($("#todoapp"), {
+      model: todo,
+      template: $('template[name="task"]').html(),
+  });
 
-filtersPresenter($("#filters a"));
-
-routes({todo: todo});
+  filtersPresenter($("#filters a"));
+  footerPresenter($("#footer"), {model: todo});
+})(jQuery);
