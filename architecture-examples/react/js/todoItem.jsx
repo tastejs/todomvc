@@ -62,7 +62,6 @@
 		 */
 		shouldComponentUpdate: function (nextProps, nextState) {
 			return (
-				nextProps.todo.id !== this.props.todo.id ||
 				nextProps.todo !== this.props.todo ||
 				nextProps.editing !== this.props.editing ||
 				nextState.editText !== this.state.editText
