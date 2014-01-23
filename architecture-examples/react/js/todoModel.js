@@ -61,7 +61,7 @@
 
 	window.TodoModel.prototype.destroy = function (todo) {
 		this.todos = this.todos.filter(function (candidate) {
-			return candidate.id !== todo.id;
+			return candidate !== todo;
 		});
 
 		this.inform();
