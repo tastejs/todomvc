@@ -23,7 +23,7 @@ module.exports = class TodosView extends CollectionView
 
   toggleCompleted: (event) ->
     isChecked = event.delegateTarget.checked
-    @collection.each (todo) -> todo.save completed: isChecked
+    @collection.forEach (todo) -> todo.save completed: isChecked
 
   clear: ->
     @collection.getCompleted().forEach (model) ->

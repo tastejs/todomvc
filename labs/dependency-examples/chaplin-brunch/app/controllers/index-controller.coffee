@@ -7,7 +7,7 @@ module.exports = class IndexController extends Chaplin.Controller
   # The method is executed before any controller actions.
   # We compose structure in order for it to be rendered only once.
   beforeAction: ->
-    @compose 'structure', ->
+    @reuse 'structure', ->
       params = collection: mediator.todos
       @header = new HeaderView params
       @footer = new FooterView params

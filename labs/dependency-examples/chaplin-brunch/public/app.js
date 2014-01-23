@@ -1,7 +1,7 @@
-(function() {
+(function(/*! Brunch !*/) {
   'use strict';
 
-  var globals = typeof window === 'undefined' ? global : window;
+  var globals = typeof window !== 'undefined' ? window : global;
   if (typeof globals.require === 'function') return;
 
   var modules = {};
@@ -91,7 +91,7 @@
   globals.require.brunch = true;
 })();
 /*!
- * Exoskeleton.js 0.5.1
+ * Exoskeleton.js 0.6.3
  * (c) 2013 Paul Miller <http://paulmillr.com>
  * Based on Backbone.js
  * (c) 2010-2013 Jeremy Ashkenas, DocumentCloud
@@ -99,45 +99,31 @@
  * For all details and documentation: <http://exosjs.com>
  */
 
-(function(factory) {
+(function(root, factory) {
+  // Set up Backbone appropriately for the environment.
   if (typeof define === 'function' && define.amd) {
-    define(['underscore', 'jquery'], factory);
-  } else if (typeof exports === 'object') {
-    var _, jquery;
-    try {
-      _ = require('underscore');
-    } catch(e) { }
-    try {
-      jquery = require('jquery');
-    } catch(e) { }
-
-    factory(_, jquery);
+    define(['underscore', 'jquery', 'exports'], function(_, $, exports) {
+      root.Backbone = root.Exoskeleton = factory(root, exports, _, $);
+    });
+  } else if (typeof exports !== 'undefined') {
+    var _, $;
+    try { _ = require('underscore'); } catch(e) { }
+    try { $ = require('jquery'); } catch(e) { }
+    factory(root, exports, _, $);
   } else {
-    factory(this._, this.jQuery || this.Zepto || this.ender || this.$);
+    root.Backbone = root.Exoskeleton = factory(root, {}, root._, (root.jQuery || root.Zepto || root.ender || root.$));
   }
-})(function(_, $) {
+
+})(this, function(root, Backbone, _, $) {
   'use strict';
 
   // Initial Setup
   // -------------
 
-  // Check whether we are in common.js (e.g. node.js) environment.
-  var isCommonJs = (typeof exports === 'object');
-
-  // Save a reference to the global object (`window` in the browser, `exports`
-  // on the server).
-  var root = isCommonJs ? exports : window;
-
   // Save the previous value of the `Backbone` variable, so that it can be
   // restored later on, if `noConflict` is used.
   var previousBackbone = root.Backbone;
   var previousExoskeleton = root.Exoskeleton;
-
-  // The top-level namespace. All public Backbone classes and modules will
-  // be attached to this. Exported for both the browser and the server.
-  var Backbone = isCommonJs ?
-    exports :
-    (root.Exoskeleton = root.Backbone = {});
 
   // Underscore replacement.
   var utils = Backbone.utils = _ = (_ || {});
@@ -410,6 +396,66 @@ utils.matchesSelector = (function() {
   };
 })();
 
+utils.delegate = function(view, eventName, selector, callback) {
+  if (typeof selector === 'function') {
+    callback = selector;
+    selector = null;
+  }
+
+  if (typeof callback !== 'function') {
+    throw new TypeError('View#delegate expects callback function');
+  }
+
+  var root = view.el;
+  var bound = callback.bind(view);
+  var handler = selector ? function(event) {
+    for (var el = event.target; el && el !== root; el = el.parentNode) {
+      if (utils.matchesSelector(el, selector)) {
+        // event.currentTarget or event.target are read-only.
+        event.delegateTarget = el;
+        return bound(event);
+      }
+    }
+  } : bound;
+
+  root.addEventListener(eventName, handler, false);
+  view._handlers.push({
+    eventName: eventName, selector: selector,
+    callback: callback, handler: handler
+  });
+  return handler;
+};
+
+utils.undelegate = function(view, eventName, selector, callback) {
+  if (typeof selector === 'function') {
+    callback = selector;
+    selector = null;
+  }
+
+  var handlers = view._handlers;
+  var removeListener = function(item) {
+    view.el.removeEventListener(item.eventName, item.handler, false);
+  };
+
+  // Remove all handlers.
+  if (!eventName && !selector && !callback) {
+    handlers.forEach(removeListener);
+    view._handlers = [];
+  } else {
+    // Remove some handlers.
+    handlers
+      .filter(function(item) {
+        return item.eventName === eventName &&
+          (callback ? item.callback === callback : true) &&
+          (selector ? item.selector === selector : true);
+      })
+      .forEach(function(item) {
+        removeListener(item);
+        handlers.splice(handlers.indexOf(item), 1);
+      });
+  }
+};
+
 // Make AJAX request to the server.
 // Usage:
 //   var callback = function(error, data) {console.log('Done.', error, data);};
@@ -465,6 +511,25 @@ utils.ajax = (function() {
       if (options.headers == null) options.headers = {};
       options.headers['Content-Type'] = options.contentType;
     }
+
+    // Stringify GET query params.
+    if (options.type === 'GET' && typeof options.data === 'object') {
+      var query = '';
+      var stringifyKeyValuePair = function(key, value) {
+        return value == null ? '' :
+          '&' + encodeURIComponent(key) +
+          '=' + encodeURIComponent(value);
+      };
+      for (var key in options.data) {
+        query += stringifyKeyValuePair(key, options.data[key]);
+      }
+
+      if (query) {
+        var sep = (options.url.indexOf('?') === -1) ? '?' : '&';
+        options.url += sep + query.substring(1);
+      }
+    }
+
     if (options.credentials) options.withCredentials = true;
     xhr.addEventListener('readystatechange', end(xhr, options, deferred));
     xhr.open(options.type, options.url, true);
@@ -1327,7 +1392,7 @@ _.extend(Collection.prototype, Events, {
   _reset: function() {
     this.length = 0;
     this.models = [];
-    this._byId  = {};
+    this._byId  = Object.create(null);
   },
 
   // Prepare a hash of attributes (or other model) to be added to this
@@ -1402,11 +1467,22 @@ if (utilExists('each')) {
 } else {
   ['forEach', 'map', 'filter', 'some', 'every', 'reduce', 'reduceRight',
     'indexOf', 'lastIndexOf'].forEach(function(method) {
-    var fn = Array.prototype[method];
     Collection.prototype[method] = function(arg, context) {
-      return fn.call(this.models, arg, context);
+      return this.models[method](arg, context);
     };
   });
+
+  // Exoskeleton-specific:
+  Collection.prototype.find = function(iterator, context) {
+    var result;
+    this.some(function(value, index, list) {
+      if (iterator.call(context, value, index, list)) {
+        result = value;
+        return true;
+      }
+    });
+    return result;
+  };
 
   // Underscore methods that take a property name as an argument.
   ['sortBy'].forEach(function(method) {
@@ -1454,6 +1530,9 @@ var View = Backbone.View = function(options) {
 
 // Set up all inheritable **Backbone.View** properties and methods.
 _.extend(View.prototype, Events, {
+  // In case you want to include jQuery with your app
+  // for *some* views and use native methods for other views.
+  useNative: false,
 
   // The default `tagName` of a View's element is `"div"`.
   tagName: 'div',
@@ -1461,7 +1540,7 @@ _.extend(View.prototype, Events, {
   // jQuery delegate for element lookup, scoped to DOM elements within the
   // current view. This should be preferred to global lookups where possible.
   $: function(selector) {
-    return Backbone.$ ? this.$el.find(selector) : this.findAll(selector);
+    return Backbone.$ && !this.useNative ? this.$el.find(selector) : this.findAll(selector);
   },
 
   // Exoskeleton-related DOM methods.
@@ -1487,10 +1566,11 @@ _.extend(View.prototype, Events, {
   // Remove this view by taking the element out of the DOM, and removing any
   // applicable Backbone.Events listeners.
   remove: function() {
-    if (Backbone.$) {
+    var parent;
+    if (Backbone.$ && !this.useNative) {
       this.$el.remove();
-    } else if (this.el.parentNode) {
-      this.el.parentNode.removeChild(this.el);
+    } else if (parent = this.el.parentNode) {
+      parent.removeChild(this.el);
     }
     this.stopListening();
     return this;
@@ -1499,79 +1579,17 @@ _.extend(View.prototype, Events, {
   // Change the view's element (`this.el` property), including event
   // re-delegation.
   setElement: function(element, delegate) {
-    if (Backbone.$) {
+    if (Backbone.$ && !this.useNative) {
       if (this.$el) this.undelegateEvents();
       this.$el = element instanceof Backbone.$ ? element : Backbone.$(element);
       this.el = this.$el[0];
     } else {
       if (this.el) this.undelegateEvents();
-      var el = (typeof element === 'string') ?
+      this.el = (typeof element === 'string') ?
         document.querySelector(element) : element;
-      this.el = el;
     }
     if (delegate !== false) this.delegateEvents();
     return this;
-  },
-
-  delegate: function(eventName, selector, callback) {
-    if (typeof selector === 'function') {
-      callback = selector;
-      selector = null;
-    }
-
-    if (typeof callback !== 'function') {
-      throw new TypeError('View#delegate expects callback function');
-    }
-
-    var root = this.el;
-    var bound = callback.bind(this);
-    var handler = selector ? function(event) {
-      for (var el = event.target; el && el !== root; el = el.parentNode) {
-        if (utils.matchesSelector(el, selector)) {
-          // event.currentTarget or event.target are read-only.
-          event.delegateTarget = el;
-          return bound(event);
-        }
-      }
-    } : bound;
-
-    root.addEventListener(eventName, handler, false);
-    this._handlers.push({
-      eventName: eventName, selector: selector,
-      callback: callback, handler: handler
-    });
-    return handler;
-  },
-
-  undelegate: function(eventName, selector, callback) {
-    if (typeof selector === 'function') {
-      callback = selector;
-      selector = null;
-    }
-
-    var root = this.el;
-    var handlers = this._handlers;
-    var removeListener = function(item) {
-      root.removeEventListener(item.eventName, item.handler, false);
-    };
-
-    // Remove all handlers.
-    if (!eventName && !selector && !callback) {
-      handlers.forEach(removeListener);
-      this._handlers = [];
-    } else {
-      // Remove some handlers.
-      handlers
-        .filter(function(item) {
-          return item.eventName === eventName &&
-            (callback ? item.callback === callback : true) &&
-            (selector ? item.selector === selector : true);
-        })
-        .forEach(function(item) {
-          removeListener(item);
-          handlers.splice(handlers.indexOf(item), 1);
-        });
-    }
   },
 
   // Set callbacks, where `this.events` is a hash of
@@ -1600,12 +1618,12 @@ _.extend(View.prototype, Events, {
       var match = key.match(delegateEventSplitter);
       var eventName = match[1], selector = match[2];
 
-      if (Backbone.$) {
+      if (Backbone.$ && !this.useNative) {
         eventName += '.delegateEvents' + this.cid;
         method = method.bind(this);
         this.$el.on(eventName, (selector ? selector : null), method);
       } else {
-        this.delegate(eventName, selector, method);
+        utils.delegate(this, eventName, selector, method);
       }
     }
     return this;
@@ -1615,10 +1633,10 @@ _.extend(View.prototype, Events, {
   // You usually don't need to use this, but may wish to if you have multiple
   // Backbone views attached to the same DOM element.
   undelegateEvents: function() {
-    if (Backbone.$) {
+    if (Backbone.$ && !this.useNative) {
       this.$el.off('.delegateEvents' + this.cid);
     } else {
-      this.undelegate();
+      utils.undelegate(this);
     }
     return this;
   },
@@ -2033,8 +2051,253 @@ _.extend(History.prototype, Events, {
   return Backbone;
 });
 
+;/**
+ * Backbone localStorage Adapter
+ * Version 1.1.7
+ *
+ * https://github.com/jeromegn/Backbone.localStorage
+ */
+(function (root, factory) {
+   if (typeof exports === 'object' && typeof require === 'function') {
+     module.exports = factory(require("backbone"));
+   } else if (typeof define === "function" && define.amd) {
+      // AMD. Register as an anonymous module.
+      define(["backbone"], function(Backbone) {
+        // Use global variables if the locals are undefined.
+        return factory(Backbone || root.Backbone);
+      });
+   } else {
+      // RequireJS isn't being used. Assume underscore and backbone are loaded in <script> tags
+      factory(Backbone);
+   }
+}(this, function(Backbone) {
+// A simple module to replace `Backbone.sync` with *localStorage*-based
+// persistence. Models are given GUIDS, and saved into a JSON object. Simple
+// as that.
+
+// Hold reference to Underscore.js and Backbone.js in the closure in order
+// to make things work even if they are removed from the global namespace
+
+// Generate four random hex digits.
+function S4() {
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+};
+
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+function guid() {
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+};
+
+function contains(array, item) {
+  var i = array.length;
+  while (i--) if (array[i] === obj) return true;
+  return false;
+}
+
+function extend(obj, props) {
+  for (var key in props) obj[key] = props[key]
+  return obj;
+}
+
+// Our Store is represented by a single JS object in *localStorage*. Create it
+// with a meaningful name, like the name you'd give a table.
+// window.Store is deprectated, use Backbone.LocalStorage instead
+Backbone.LocalStorage = window.Store = function(name) {
+  if( !this.localStorage ) {
+    throw "Backbone.localStorage: Environment does not support localStorage."
+  }
+  this.name = name;
+  var store = this.localStorage().getItem(this.name);
+  this.records = (store && store.split(",")) || [];
+};
+
+extend(Backbone.LocalStorage.prototype, {
+
+  // Save the current state of the **Store** to *localStorage*.
+  save: function() {
+    this.localStorage().setItem(this.name, this.records.join(","));
+  },
+
+  // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
+  // have an id of it's own.
+  create: function(model) {
+    if (!model.id) {
+      model.id = guid();
+      model.set(model.idAttribute, model.id);
+    }
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    this.records.push(model.id.toString());
+    this.save();
+    return this.find(model);
+  },
+
+  // Update a model by replacing its copy in `this.data`.
+  update: function(model) {
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    var modelId = model.id.toString();
+    if (!contains(this.records, modelId)) {
+      this.records.push(modelId);
+      this.save();
+    }
+    return this.find(model);
+  },
+
+  // Retrieve a model from `this.data` by id.
+  find: function(model) {
+    return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
+  },
+
+  // Return the array of all models currently in storage.
+  findAll: function() {
+    var result = [];
+    for (var i = 0, id, data; i < this.records.length; i++) {
+      id = this.records[i];
+      data = this.jsonData(this.localStorage().getItem(this.name+"-"+id));
+      if (data != null) result.push(data);
+    }
+    return result;
+  },
+
+  // Delete a model from `this.data`, returning it.
+  destroy: function(model) {
+    if (model.isNew())
+      return false
+    this.localStorage().removeItem(this.name+"-"+model.id);
+    var modelId = model.id.toString();
+    for (var i = 0, id; i < this.records.length; i++) {
+      if (this.records[i] === modelId) {
+        this.records.splice(i, 1);
+      }
+    }
+    this.save();
+    return model;
+  },
+
+  localStorage: function() {
+    return localStorage;
+  },
+
+  // fix for "illegal access" error on Android when JSON.parse is passed null
+  jsonData: function (data) {
+      return data && JSON.parse(data);
+  },
+
+  // Clear localStorage for specific collection.
+  _clear: function() {
+    var local = this.localStorage(),
+      itemRe = new RegExp("^" + this.name + "-");
+
+    // Remove id-tracking item (e.g., "foo").
+    local.removeItem(this.name);
+
+    // Match all data items (e.g., "foo-ID") and remove.
+    for (var k in local) {
+      if (itemRe.test(k)) {
+        local.removeItem(k);
+      }
+    }
+
+    this.records.length = 0;
+  },
+
+  // Size of localStorage.
+  _storageSize: function() {
+    return this.localStorage().length;
+  }
+
+});
+
+// localSync delegate to the model or collection's
+// *localStorage* property, which should be an instance of `Store`.
+// window.Store.sync and Backbone.localSync is deprecated, use Backbone.LocalStorage.sync instead
+Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
+  var store = model.localStorage || model.collection.localStorage;
+
+  var resp, errorMessage;
+  //If $ is having Deferred - use it.
+  var syncDfd = Backbone.$ ?
+    (Backbone.$.Deferred && Backbone.$.Deferred()) :
+    (Backbone.Deferred && Backbone.Deferred());
+
+  try {
+
+    switch (method) {
+      case "read":
+        resp = model.id != undefined ? store.find(model) : store.findAll();
+        break;
+      case "create":
+        resp = store.create(model);
+        break;
+      case "update":
+        resp = store.update(model);
+        break;
+      case "delete":
+        resp = store.destroy(model);
+        break;
+    }
+
+  } catch(error) {
+    if (error.code === 22 && store._storageSize() === 0)
+      errorMessage = "Private browsing is unsupported";
+    else
+      errorMessage = error.message;
+  }
+
+  if (resp) {
+    if (options && options.success) {
+      if (Backbone.VERSION === "0.9.10") {
+        options.success(model, resp, options);
+      } else {
+        options.success(resp);
+      }
+    }
+    if (syncDfd) {
+      syncDfd.resolve(resp);
+    }
+
+  } else {
+    errorMessage = errorMessage ? errorMessage
+                                : "Record Not Found";
+
+    if (options && options.error)
+      if (Backbone.VERSION === "0.9.10") {
+        options.error(model, errorMessage, options);
+      } else {
+        options.error(errorMessage);
+      }
+
+    if (syncDfd)
+      syncDfd.reject(errorMessage);
+  }
+
+  // add compatibility with $.ajax
+  // always execute callback for success and error
+  if (options && options.complete) options.complete(resp);
+
+  return syncDfd && syncDfd.promise();
+};
+
+Backbone.ajaxSync = Backbone.sync;
+
+Backbone.getSyncMethod = function(model) {
+  if(model.localStorage || (model.collection && model.collection.localStorage)) {
+    return Backbone.localSync;
+  }
+
+  return Backbone.ajaxSync;
+};
+
+// Override 'Backbone.sync' to default to localSync,
+// the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
+Backbone.sync = function(method, model, options) {
+  return Backbone.getSyncMethod(model).apply(this, [method, model, options]);
+};
+
+return Backbone.LocalStorage;
+}));
+
 ;/*!
- * Chaplin 0.11.3
+ * Chaplin 1.0.0
  *
  * Chaplin may be freely distributed under the MIT license.
  * For all details and documentation:
@@ -2076,8 +2339,6 @@ _ = loader('underscore');
 
 Backbone = loader('backbone');
 
-mediator = loader('chaplin/mediator');
-
 Dispatcher = loader('chaplin/dispatcher');
 
 Layout = loader('chaplin/views/layout');
@@ -2087,6 +2348,8 @@ Composer = loader('chaplin/composer');
 Router = loader('chaplin/lib/router');
 
 EventBroker = loader('chaplin/lib/event_broker');
+
+mediator = loader('chaplin/mediator');
 
 module.exports = Application = (function() {
 
@@ -2168,20 +2431,15 @@ module.exports = Application = (function() {
   Application.prototype.disposed = false;
 
   Application.prototype.dispose = function() {
-    var frozen, prop, properties, _i, _len;
+    var prop, properties, _i, _len;
     if (this.disposed) {
       return;
     }
-    frozen = typeof Object.isFrozen === "function" ? Object.isFrozen(this) : void 0;
     properties = ['dispatcher', 'layout', 'router', 'composer'];
     for (_i = 0, _len = properties.length; _i < _len; _i++) {
       prop = properties[_i];
-      if (!(this[prop] != null)) {
-        continue;
-      }
-      this[prop].dispose();
-      if (!frozen) {
-        delete this[prop];
+      if (this[prop] != null) {
+        this[prop].dispose();
       }
     }
     this.disposed = true;
@@ -2329,9 +2587,6 @@ module.exports = Dispatcher = (function() {
     if (!(options.query != null)) {
       options.query = {};
     }
-    if (options.changeURL !== false) {
-      options.changeURL = true;
-    }
     if (options.forceStartup !== true) {
       options.forceStartup = false;
     }
@@ -2344,24 +2599,36 @@ module.exports = Dispatcher = (function() {
   };
 
   Dispatcher.prototype.loadController = function(name, handler) {
-    var fileName, moduleName;
+    var fileName, moduleName,
+      _this = this;
     fileName = name + this.settings.controllerSuffix;
     moduleName = this.settings.controllerPath + fileName;
     if (typeof define !== "undefined" && define !== null ? define.amd : void 0) {
       return require([moduleName], handler);
     } else {
-      return handler(require(moduleName));
+      return setTimeout(function() {
+        return handler(require(moduleName));
+      }, 0);
     }
   };
 
   Dispatcher.prototype.controllerLoaded = function(route, params, options, Controller) {
-    var controller;
-    this.previousRoute = this.currentRoute;
-    this.currentRoute = _.extend({}, route, {
-      previous: utils.beget(this.previousRoute)
-    });
-    controller = new Controller(params, this.currentRoute, options);
-    return this.executeBeforeAction(controller, this.currentRoute, params, options);
+    var controller, prev, previous;
+    if (this.nextPreviousRoute = this.currentRoute) {
+      previous = _.extend({}, this.nextPreviousRoute);
+      if (this.currentParams != null) {
+        previous.params = this.currentParams;
+      }
+      if (previous.previous) {
+        delete previous.previous;
+      }
+      prev = {
+        previous: previous
+      };
+    }
+    this.nextCurrentRoute = _.extend({}, route, prev);
+    controller = new Controller(params, this.nextCurrentRoute, options);
+    return this.executeBeforeAction(controller, this.nextCurrentRoute, params, options);
   };
 
   Dispatcher.prototype.executeAction = function(controller, route, params, options) {
@@ -2376,7 +2643,6 @@ module.exports = Dispatcher = (function() {
     if (controller.redirected) {
       return;
     }
-    this.adjustURL(route, params, options);
     return this.publishEvent('dispatcher:dispatch', this.currentController, params, route, options);
   };
 
@@ -2385,10 +2651,14 @@ module.exports = Dispatcher = (function() {
       _this = this;
     before = controller.beforeAction;
     executeAction = function() {
-      if (controller.redirected || _this.currentRoute && route !== _this.currentRoute) {
+      if (controller.redirected || _this.currentRoute && route === _this.currentRoute) {
+        _this.nextPreviousRoute = _this.nextCurrentRoute = null;
         controller.dispose();
         return;
       }
+      _this.previousRoute = _this.nextPreviousRoute;
+      _this.currentRoute = _this.nextCurrentRoute;
+      _this.nextPreviousRoute = _this.nextCurrentRoute = null;
       return _this.executeAction(controller, route, params, options);
     };
     if (!before) {
@@ -2403,17 +2673,6 @@ module.exports = Dispatcher = (function() {
       return promise.then(executeAction);
     } else {
       return executeAction();
-    }
-  };
-
-  Dispatcher.prototype.adjustURL = function(route, params, options) {
-    var url;
-    if (route.path == null) {
-      return;
-    }
-    url = route.path + (route.query ? "?" + route.query : "");
-    if (options.changeURL) {
-      return mediator.execute('router:changeURL', url, options);
     }
   };
 
@@ -2589,7 +2848,7 @@ module.exports = Composer = (function() {
 });;loader.register('chaplin/controllers/controller', function(e, r, module) {
 'use strict';
 
-var Backbone, Controller, EventBroker, helpers, mediator, _,
+var Backbone, Controller, EventBroker, mediator, utils, _,
   __slice = [].slice,
   __hasProp = {}.hasOwnProperty;
 
@@ -2599,7 +2858,7 @@ Backbone = loader('backbone');
 
 EventBroker = loader('chaplin/lib/event_broker');
 
-helpers = loader('chaplin/lib/helpers');
+utils = loader('chaplin/lib/utils');
 
 mediator = loader('chaplin/mediator');
 
@@ -2627,15 +2886,19 @@ module.exports = Controller = (function() {
     return mediator.execute('adjustTitle', subtitle);
   };
 
-  Controller.prototype.compose = function(name) {
+  Controller.prototype.reuse = function(name) {
     var method;
     method = arguments.length === 1 ? 'retrieve' : 'compose';
     return mediator.execute.apply(mediator, ["composer:" + method].concat(__slice.call(arguments)));
   };
 
+  Controller.prototype.compose = function() {
+    throw new Error('Controller#compose was moved to Controller#reuse');
+  };
+
   Controller.prototype.redirectTo = function(pathDesc, params, options) {
     this.redirected = true;
-    return helpers.redirectTo(pathDesc, params, options);
+    return utils.redirectTo(pathDesc, params, options);
   };
 
   Controller.prototype.disposed = false;
@@ -2818,7 +3081,7 @@ module.exports = Model = (function(_super) {
 });;loader.register('chaplin/views/layout', function(e, r, module) {
 'use strict';
 
-var $, Backbone, EventBroker, Layout, View, helpers, mediator, utils, _,
+var $, Backbone, EventBroker, Layout, View, mediator, utils, _,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -2828,8 +3091,6 @@ _ = loader('underscore');
 Backbone = loader('backbone');
 
 mediator = loader('chaplin/mediator');
-
-helpers = loader('chaplin/lib/helpers');
 
 utils = loader('chaplin/lib/utils');
 
@@ -2888,7 +3149,7 @@ module.exports = Layout = (function(_super) {
     }
   }
 
-  Layout.prototype.scroll = function(controller) {
+  Layout.prototype.scroll = function() {
     var position;
     position = this.settings.scrollTo;
     if (position) {
@@ -2967,7 +3228,7 @@ module.exports = Layout = (function(_super) {
       }
       return;
     }
-    helpers.redirectTo({
+    utils.redirectTo({
       url: href
     });
     event.preventDefault();
@@ -3235,8 +3496,8 @@ module.exports = View = (function(_super) {
 
   View.prototype.delegate = function(eventName, second, third) {
     var bound, event, events, handler, list, selector;
-    if (Backbone.View.prototype.delegate) {
-      return View.__super__.delegate.apply(this, arguments);
+    if (Backbone.utils) {
+      return Backbone.utils.delegate(this, eventName, second, third);
     }
     if (typeof eventName !== 'string') {
       throw new TypeError('View#delegate: first argument must be a string');
@@ -3280,7 +3541,7 @@ module.exports = View = (function(_super) {
       value = events[key];
       handler = typeof value === 'function' ? value : this[value];
       if (!handler) {
-        throw new Error("Method '" + handler + "' does not exist");
+        throw new Error("Method '" + value + "' does not exist");
       }
       match = key.match(/^(\S+)\s*(.*)$/);
       eventName = "" + match[1] + ".delegateEvents" + this.cid;
@@ -3310,8 +3571,8 @@ module.exports = View = (function(_super) {
 
   View.prototype.undelegate = function(eventName, second, third) {
     var event, events, handler, list, selector;
-    if (Backbone.View.prototype.undelegate) {
-      return View.__super__.undelegate.apply(this, arguments);
+    if (Backbone.utils) {
+      return Backbone.utils.undelegate(this, eventName, second, third);
     }
     if (eventName) {
       if (typeof eventName !== 'string') {
@@ -3772,11 +4033,13 @@ module.exports = CollectionView = (function(_super) {
   CollectionView.prototype.getTemplateFunction = function() {};
 
   CollectionView.prototype.render = function() {
+    var listSelector;
     CollectionView.__super__.render.apply(this, arguments);
+    listSelector = _.result(this, 'listSelector');
     if ($) {
-      this.$list = this.listSelector ? this.$(this.listSelector) : this.$el;
+      this.$list = listSelector ? this.$(listSelector) : this.$el;
     } else {
-      this.list = this.listSelector ? this.find(this.listSelector) : this.el;
+      this.list = listSelector ? this.find(this.listSelector) : this.el;
     }
     this.initFallback();
     this.initLoadingIndicator();
@@ -3854,12 +4117,11 @@ module.exports = CollectionView = (function(_super) {
   CollectionView.prototype.filter = function(filterer, filterCallback) {
     var hasItemViews, included, index, item, view, _i, _len, _ref,
       _this = this;
-    this.filterer = filterer;
-    if (filterCallback) {
-      this.filterCallback = filterCallback;
+    if (typeof filterer === 'function' || filterer === null) {
+      this.filterer = filterer;
     }
-    if (filterCallback == null) {
-      filterCallback = this.filterCallback;
+    if (typeof filterCallback === 'function' || filterCallback === null) {
+      this.filterCallback = filterCallback;
     }
     hasItemViews = (function() {
       var name;
@@ -3876,7 +4138,7 @@ module.exports = CollectionView = (function(_super) {
       _ref = this.collection.models;
       for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
         item = _ref[index];
-        included = typeof filterer === 'function' ? filterer(item, index) : true;
+        included = typeof this.filterer === 'function' ? this.filterer(item, index) : true;
         view = this.subview("itemView:" + item.cid);
         if (!view) {
           throw new Error('CollectionView#filter: ' + ("no view found for " + item.cid));
@@ -4042,13 +4304,32 @@ Controller = loader('chaplin/controllers/controller');
 utils = loader('chaplin/lib/utils');
 
 module.exports = Route = (function() {
-  var escapeRegExp;
+  var escapeRegExp, optionalRegExp, paramRegExp, processTrailingSlash;
 
   Route.extend = Backbone.Model.extend;
 
   _.extend(Route.prototype, EventBroker);
 
-  escapeRegExp = /[-[\]{}()+?.,\\^$|#\s]/g;
+  escapeRegExp = /[\-{}\[\]+?.,\\\^$|#\s]/g;
+
+  optionalRegExp = /\((.*?)\)/g;
+
+  paramRegExp = /(?::|\*)(\w+)/g;
+
+  processTrailingSlash = function(path, trailing) {
+    switch (trailing) {
+      case true:
+        if (path.slice(-1) !== '/') {
+          path += '/';
+        }
+        break;
+      case false:
+        if (path.slice(-1) === '/') {
+          path = path.slice(0, -1);
+        }
+    }
+    return path;
+  };
 
   function Route(pattern, controller, action, options) {
     var _ref;
@@ -4057,7 +4338,9 @@ module.exports = Route = (function() {
     this.action = action;
     this.handler = __bind(this.handler, this);
 
-    this.addParamName = __bind(this.addParamName, this);
+    this.replaceParams = __bind(this.replaceParams, this);
+
+    this.parseOptionalPortion = __bind(this.parseOptionalPortion, this);
 
     if (typeof this.pattern !== 'string') {
       throw new Error('Route: RegExps are not supported.\
@@ -4073,7 +4356,9 @@ module.exports = Route = (function() {
     if ((_ref = this.name) == null) {
       this.name = this.controller + '#' + this.action;
     }
-    this.paramNames = [];
+    this.allParams = [];
+    this.requiredParams = [];
+    this.optionalParams = [];
     if (this.action in Controller.prototype) {
       throw new Error('Route: You should not use existing controller ' + 'properties as action names');
     }
@@ -4104,18 +4389,33 @@ module.exports = Route = (function() {
   };
 
   Route.prototype.reverse = function(params, query) {
-    var name, queryString, url, value, _i, _len, _ref;
+    var name, queryString, raw, url, value, _i, _j, _len, _len1, _ref, _ref1;
     params = this.normalizeParams(params);
     if (params === false) {
       return false;
     }
     url = this.pattern;
-    _ref = this.paramNames;
+    _ref = this.requiredParams;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       name = _ref[_i];
       value = params[name];
       url = url.replace(RegExp("[:*]" + name, "g"), value);
     }
+    _ref1 = this.optionalParams;
+    for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+      name = _ref1[_j];
+      if (value = params[name]) {
+        url = url.replace(RegExp("[:*]" + name, "g"), value);
+      }
+    }
+    raw = url.replace(optionalRegExp, function(match, portion) {
+      if (portion.match(/[:*]/g)) {
+        return "";
+      } else {
+        return portion;
+      }
+    });
+    url = processTrailingSlash(raw, this.options.trailing);
     if (!query) {
       return url;
     }
@@ -4130,11 +4430,11 @@ module.exports = Route = (function() {
   Route.prototype.normalizeParams = function(params) {
     var paramIndex, paramName, paramsHash, _i, _len, _ref;
     if (utils.isArray(params)) {
-      if (params.length < this.paramNames.length) {
+      if (params.length < this.requiredParams.length) {
         return false;
       }
       paramsHash = {};
-      _ref = this.paramNames;
+      _ref = this.requiredParams;
       for (paramIndex = _i = 0, _len = _ref.length; _i < _len; paramIndex = ++_i) {
         paramName = _ref[paramIndex];
         paramsHash[paramName] = params[paramIndex];
@@ -4171,7 +4471,7 @@ module.exports = Route = (function() {
 
   Route.prototype.testParams = function(params) {
     var paramName, _i, _len, _ref;
-    _ref = this.paramNames;
+    _ref = this.requiredParams;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       paramName = _ref[_i];
       if (params[paramName] === void 0) {
@@ -4182,14 +4482,37 @@ module.exports = Route = (function() {
   };
 
   Route.prototype.createRegExp = function() {
-    var pattern;
-    pattern = this.pattern.replace(escapeRegExp, '\\$&').replace(/(?::|\*)(\w+)/g, this.addParamName);
-    return this.regExp = RegExp("^" + pattern + "(?=\\?|$)");
+    var pattern,
+      _this = this;
+    pattern = this.pattern;
+    pattern = pattern.replace(escapeRegExp, '\\$&');
+    this.replaceParams(pattern, function(match, param) {
+      return _this.allParams.push(param);
+    });
+    pattern = pattern.replace(optionalRegExp, this.parseOptionalPortion);
+    pattern = this.replaceParams(pattern, function(match, param) {
+      _this.requiredParams.push(param);
+      return _this.paramCapturePattern(match);
+    });
+    return this.regExp = RegExp("^" + pattern + "(?=\\/?(?=\\?|$))");
   };
 
-  Route.prototype.addParamName = function(match, paramName) {
-    this.paramNames.push(paramName);
-    if (match.charAt(0) === ':') {
+  Route.prototype.parseOptionalPortion = function(match, optionalPortion) {
+    var portion,
+      _this = this;
+    portion = this.replaceParams(optionalPortion, function(match, param) {
+      _this.optionalParams.push(param);
+      return _this.paramCapturePattern(match);
+    });
+    return "(?:" + portion + ")?";
+  };
+
+  Route.prototype.replaceParams = function(s, callback) {
+    return s.replace(paramRegExp, callback);
+  };
+
+  Route.prototype.paramCapturePattern = function(param) {
+    if (param.charAt(0) === ':') {
       return '([^\/\?]+)';
     } else {
       return '(.*?)';
@@ -4224,6 +4547,7 @@ module.exports = Route = (function() {
         options.query = utils.queryParams.parse(query);
       }
       params = this.extractParams(path);
+      path = processTrailingSlash(path, this.options.trailing);
     }
     actionParams = _.extend({}, params, this.options.params);
     route = {
@@ -4243,7 +4567,7 @@ module.exports = Route = (function() {
     _ref = matches.slice(1);
     for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
       match = _ref[index];
-      paramName = this.paramNames.length ? this.paramNames[index] : index;
+      paramName = this.allParams.length ? this.allParams[index] : index;
       params[paramName] = match;
     }
     return params;
@@ -4287,26 +4611,26 @@ module.exports = Router = (function() {
     isWebFile = window.location.protocol !== 'file:';
     _.defaults(this.options, {
       pushState: isWebFile,
-      root: '/'
+      root: '/',
+      trailing: false
     });
     this.removeRoot = new RegExp('^' + utils.escapeRegExp(this.options.root) + '(#)?');
     this.subscribeEvent('!router:route', this.oldEventError);
     this.subscribeEvent('!router:routeByName', this.oldEventError);
     this.subscribeEvent('!router:changeURL', this.oldURLEventError);
+    this.subscribeEvent('dispatcher:dispatch', this.changeURL);
     mediator.setHandler('router:route', this.route, this);
     mediator.setHandler('router:reverse', this.reverse, this);
-    mediator.setHandler('router:changeURL', this.changeURL, this);
     this.createHistory();
   }
 
   Router.prototype.oldEventError = function() {
     throw new Error('!router:route and !router:routeByName events were removed.\
-  Use `Chaplin.helpers.redirectTo`');
+  Use `Chaplin.utils.redirectTo`');
   };
 
   Router.prototype.oldURLEventError = function() {
-    throw new Error('!router:changeURL event was removed.\
-  Use mediator.execute("router:changeURL")');
+    throw new Error('!router:changeURL event was removed.');
   };
 
   Router.prototype.createHistory = function() {
@@ -4352,6 +4676,9 @@ module.exports = Router = (function() {
       }
       _ref = target.split('#'), controller = _ref[0], action = _ref[1];
     }
+    _.defaults(options, {
+      trailing: this.options.trailing
+    });
     route = new Route(pattern, controller, action, options);
     Backbone.history.handlers.push({
       route: route,
@@ -4362,10 +4689,13 @@ module.exports = Router = (function() {
 
   Router.prototype.route = function(pathDesc, params, options) {
     var handler, path;
-    params = params ? utils.isArray(params) ? params.slice() : _.extend({}, params) : {};
     if (typeof pathDesc === 'object') {
       path = pathDesc.url;
+      if (!params && pathDesc.params) {
+        params = pathDesc.params;
+      }
     }
+    params = params ? utils.isArray(params) ? params.slice() : _.extend({}, params) : {};
     if (path != null) {
       path = path.replace(this.removeRoot, '');
       handler = this.findHandler(function(handler) {
@@ -4417,11 +4747,12 @@ module.exports = Router = (function() {
     throw new Error('Router#reverse: invalid route specified');
   };
 
-  Router.prototype.changeURL = function(url, options) {
-    var navigateOptions;
-    if (options == null) {
-      options = {};
+  Router.prototype.changeURL = function(controller, params, route, options) {
+    var navigateOptions, url;
+    if (!((route.path != null) && options.changeURL)) {
+      return;
     }
+    url = route.path + (route.query ? "?" + route.query : "");
     navigateOptions = {
       trigger: options.trigger === true,
       replace: options.replace === true
@@ -4528,90 +4859,53 @@ History = (function(_super) {
     }
   };
 
+  History.prototype.navigate = function(fragment, options) {
+    var historyMethod, isSameFragment, url;
+    if (fragment == null) {
+      fragment = '';
+    }
+    if (!Backbone.History.started) {
+      return false;
+    }
+    if (!options || options === true) {
+      options = {
+        trigger: options
+      };
+    }
+    fragment = this.getFragment(fragment);
+    url = this.root + fragment;
+    if (this.fragment === fragment) {
+      return false;
+    }
+    this.fragment = fragment;
+    if (fragment.length === 0 && url !== '/') {
+      url = url.slice(0, -1);
+    }
+    if (this._hasPushState) {
+      historyMethod = options.replace ? 'replaceState' : 'pushState';
+      this.history[historyMethod]({}, document.title, url);
+    } else if (this._wantsHashChange) {
+      this._updateHash(this.location, fragment, options.replace);
+      isSameFragment = fragment !== this.getFragment(this.getHash(this.iframe));
+      if ((this.iframe != null) && isSameFragment) {
+        if (!options.replace) {
+          this.iframe.document.open().close();
+        }
+        this._updateHash(this.iframe.location, fragment, options.replace);
+      }
+    } else {
+      return this.location.assign(url);
+    }
+    if (options.trigger) {
+      return this.loadUrl(fragment);
+    }
+  };
+
   return History;
 
 })(Backbone.History);
 
 module.exports = Backbone.$ ? History : Backbone.History;
-
-});;loader.register('chaplin/lib/delayer', function(e, r, module) {
-'use strict';
-
-var Delayer;
-
-Delayer = {
-  setTimeout: function(name, time, handler) {
-    var handle, wrappedHandler, _ref,
-      _this = this;
-    if ((_ref = this.timeouts) == null) {
-      this.timeouts = {};
-    }
-    this.clearTimeout(name);
-    wrappedHandler = function() {
-      delete _this.timeouts[name];
-      return handler();
-    };
-    handle = setTimeout(wrappedHandler, time);
-    this.timeouts[name] = handle;
-    return handle;
-  },
-  clearTimeout: function(name) {
-    if (!(this.timeouts && (this.timeouts[name] != null))) {
-      return;
-    }
-    clearTimeout(this.timeouts[name]);
-    delete this.timeouts[name];
-  },
-  clearAllTimeouts: function() {
-    var handle, name, _ref;
-    if (!this.timeouts) {
-      return;
-    }
-    _ref = this.timeouts;
-    for (name in _ref) {
-      handle = _ref[name];
-      this.clearTimeout(name);
-    }
-  },
-  setInterval: function(name, time, handler) {
-    var handle, _ref;
-    this.clearInterval(name);
-    if ((_ref = this.intervals) == null) {
-      this.intervals = {};
-    }
-    handle = setInterval(handler, time);
-    this.intervals[name] = handle;
-    return handle;
-  },
-  clearInterval: function(name) {
-    if (!(this.intervals && this.intervals[name])) {
-      return;
-    }
-    clearInterval(this.intervals[name]);
-    delete this.intervals[name];
-  },
-  clearAllIntervals: function() {
-    var handle, name, _ref;
-    if (!this.intervals) {
-      return;
-    }
-    _ref = this.intervals;
-    for (name in _ref) {
-      handle = _ref[name];
-      this.clearInterval(name);
-    }
-  },
-  clearDelayed: function() {
-    this.clearAllTimeouts();
-    this.clearAllIntervals();
-  }
-};
-
-if (typeof Object.freeze === "function") {
-  Object.freeze(Delayer);
-}
-
-module.exports = Delayer;
 
 });;loader.register('chaplin/lib/event_broker', function(e, r, module) {
 'use strict';
@@ -4960,6 +5254,12 @@ utils = {
   modifierKeyPressed: function(event) {
     return event.shiftKey || event.altKey || event.ctrlKey || event.metaKey;
   },
+  reverse: function(criteria, params, query) {
+    return loader('chaplin/mediator').execute('router:reverse', criteria, params, query);
+  },
+  redirectTo: function(pathDesc, params, options) {
+    return loader('chaplin/mediator').execute('router:route', pathDesc, params, options);
+  },
   queryParams: {
     stringify: function(queryParams) {
       var arrParam, encodedKey, key, query, stringifyKeyValuePair, value, _i, _len;
@@ -5026,24 +5326,6 @@ if (typeof Object.seal === "function") {
 
 module.exports = utils;
 
-});;loader.register('chaplin/lib/helpers', function(e, r, module) {
-'use strict';
-
-var helpers, mediator;
-
-mediator = loader('chaplin/mediator');
-
-helpers = {
-  reverse: function(criteria, params, query) {
-    return mediator.execute('router:reverse', criteria, params, query);
-  },
-  redirectTo: function(pathDesc, params, options) {
-    return mediator.execute('router:route', pathDesc, params, options);
-  }
-};
-
-module.exports = helpers;
-
 });;loader.register('chaplin', function(e, r, module) {
 
 module.exports = {
@@ -5060,9 +5342,7 @@ module.exports = {
   CollectionView: loader('chaplin/views/collection_view'),
   Route: loader('chaplin/lib/route'),
   Router: loader('chaplin/lib/router'),
-  Delayer: loader('chaplin/lib/delayer'),
   EventBroker: loader('chaplin/lib/event_broker'),
-  helpers: loader('chaplin/lib/helpers'),
   support: loader('chaplin/lib/support'),
   SyncMachine: loader('chaplin/lib/sync_machine'),
   utils: loader('chaplin/lib/utils')
@@ -5094,614 +5374,6 @@ if (typeof define === 'function' && define.amd) {
 }
 
 })();
-;/**
- * Backbone localStorage Adapter
- * Version 1.1.7
- *
- * https://github.com/jeromegn/Backbone.localStorage
- */
-(function (root, factory) {
-   if (typeof exports === 'object' && typeof require === 'function') {
-     module.exports = factory(require("backbone"));
-   } else if (typeof define === "function" && define.amd) {
-      // AMD. Register as an anonymous module.
-      define(["backbone"], function(Backbone) {
-        // Use global variables if the locals are undefined.
-        return factory(Backbone || root.Backbone);
-      });
-   } else {
-      // RequireJS isn't being used. Assume underscore and backbone are loaded in <script> tags
-      factory(Backbone);
-   }
-}(this, function(Backbone) {
-// A simple module to replace `Backbone.sync` with *localStorage*-based
-// persistence. Models are given GUIDS, and saved into a JSON object. Simple
-// as that.
-
-// Hold reference to Underscore.js and Backbone.js in the closure in order
-// to make things work even if they are removed from the global namespace
-
-// Generate four random hex digits.
-function S4() {
-   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-};
-
-// Generate a pseudo-GUID by concatenating random hexadecimal.
-function guid() {
-   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-};
-
-function contains(array, item) {
-  var i = array.length;
-  while (i--) if (array[i] === obj) return true;
-  return false;
-}
-
-function extend(obj, props) {
-  for (var key in props) obj[key] = props[key]
-  return obj;
-}
-
-// Our Store is represented by a single JS object in *localStorage*. Create it
-// with a meaningful name, like the name you'd give a table.
-// window.Store is deprectated, use Backbone.LocalStorage instead
-Backbone.LocalStorage = window.Store = function(name) {
-  if( !this.localStorage ) {
-    throw "Backbone.localStorage: Environment does not support localStorage."
-  }
-  this.name = name;
-  var store = this.localStorage().getItem(this.name);
-  this.records = (store && store.split(",")) || [];
-};
-
-extend(Backbone.LocalStorage.prototype, {
-
-  // Save the current state of the **Store** to *localStorage*.
-  save: function() {
-    this.localStorage().setItem(this.name, this.records.join(","));
-  },
-
-  // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
-  // have an id of it's own.
-  create: function(model) {
-    if (!model.id) {
-      model.id = guid();
-      model.set(model.idAttribute, model.id);
-    }
-    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
-    this.records.push(model.id.toString());
-    this.save();
-    return this.find(model);
-  },
-
-  // Update a model by replacing its copy in `this.data`.
-  update: function(model) {
-    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
-    var modelId = model.id.toString();
-    if (!contains(this.records, modelId)) {
-      this.records.push(modelId);
-      this.save();
-    }
-    return this.find(model);
-  },
-
-  // Retrieve a model from `this.data` by id.
-  find: function(model) {
-    return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
-  },
-
-  // Return the array of all models currently in storage.
-  findAll: function() {
-    var result = [];
-    for (var i = 0, id, data; i < this.records.length; i++) {
-      id = this.records[i];
-      data = this.jsonData(this.localStorage().getItem(this.name+"-"+id));
-      if (data != null) result.push(data);
-    }
-    return result;
-  },
-
-  // Delete a model from `this.data`, returning it.
-  destroy: function(model) {
-    if (model.isNew())
-      return false
-    this.localStorage().removeItem(this.name+"-"+model.id);
-    var modelId = model.id.toString();
-    for (var i = 0, id; i < this.records.length; i++) {
-      if (this.records[i] === modelId) {
-        this.records.splice(i, 1);
-      }
-    }
-    this.save();
-    return model;
-  },
-
-  localStorage: function() {
-    return localStorage;
-  },
-
-  // fix for "illegal access" error on Android when JSON.parse is passed null
-  jsonData: function (data) {
-      return data && JSON.parse(data);
-  },
-
-  // Clear localStorage for specific collection.
-  _clear: function() {
-    var local = this.localStorage(),
-      itemRe = new RegExp("^" + this.name + "-");
-
-    // Remove id-tracking item (e.g., "foo").
-    local.removeItem(this.name);
-
-    // Match all data items (e.g., "foo-ID") and remove.
-    for (var k in local) {
-      if (itemRe.test(k)) {
-        local.removeItem(k);
-      }
-    }
-
-    this.records.length = 0;
-  },
-
-  // Size of localStorage.
-  _storageSize: function() {
-    return this.localStorage().length;
-  }
-
-});
-
-// localSync delegate to the model or collection's
-// *localStorage* property, which should be an instance of `Store`.
-// window.Store.sync and Backbone.localSync is deprecated, use Backbone.LocalStorage.sync instead
-Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
-  var store = model.localStorage || model.collection.localStorage;
-
-  var resp, errorMessage;
-  //If $ is having Deferred - use it.
-  var syncDfd = Backbone.$ ?
-    (Backbone.$.Deferred && Backbone.$.Deferred()) :
-    (Backbone.Deferred && Backbone.Deferred());
-
-  try {
-
-    switch (method) {
-      case "read":
-        resp = model.id != undefined ? store.find(model) : store.findAll();
-        break;
-      case "create":
-        resp = store.create(model);
-        break;
-      case "update":
-        resp = store.update(model);
-        break;
-      case "delete":
-        resp = store.destroy(model);
-        break;
-    }
-
-  } catch(error) {
-    if (error.code === 22 && store._storageSize() === 0)
-      errorMessage = "Private browsing is unsupported";
-    else
-      errorMessage = error.message;
-  }
-
-  if (resp) {
-    if (options && options.success) {
-      if (Backbone.VERSION === "0.9.10") {
-        options.success(model, resp, options);
-      } else {
-        options.success(resp);
-      }
-    }
-    if (syncDfd) {
-      syncDfd.resolve(resp);
-    }
-
-  } else {
-    errorMessage = errorMessage ? errorMessage
-                                : "Record Not Found";
-
-    if (options && options.error)
-      if (Backbone.VERSION === "0.9.10") {
-        options.error(model, errorMessage, options);
-      } else {
-        options.error(errorMessage);
-      }
-
-    if (syncDfd)
-      syncDfd.reject(errorMessage);
-  }
-
-  // add compatibility with $.ajax
-  // always execute callback for success and error
-  if (options && options.complete) options.complete(resp);
-
-  return syncDfd && syncDfd.promise();
-};
-
-Backbone.ajaxSync = Backbone.sync;
-
-Backbone.getSyncMethod = function(model) {
-  if(model.localStorage || (model.collection && model.collection.localStorage)) {
-    return Backbone.localSync;
-  }
-
-  return Backbone.ajaxSync;
-};
-
-// Override 'Backbone.sync' to default to localSync,
-// the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
-Backbone.sync = function(method, model, options) {
-  return Backbone.getSyncMethod(model).apply(this, [method, model, options]);
-};
-
-return Backbone.LocalStorage;
-}));
-
-;/*
-
-Copyright (C) 2011 by Yehuda Katz
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-
-// lib/handlebars/browser-prefix.js
-var Handlebars = {};
-
-(function(Handlebars, undefined) {
-;
-// lib/handlebars/base.js
-
-Handlebars.VERSION = "1.0.0";
-Handlebars.COMPILER_REVISION = 4;
-
-Handlebars.REVISION_CHANGES = {
-  1: '<= 1.0.rc.2', // 1.0.rc.2 is actually rev2 but doesn't report it
-  2: '== 1.0.0-rc.3',
-  3: '== 1.0.0-rc.4',
-  4: '>= 1.0.0'
-};
-
-Handlebars.helpers  = {};
-Handlebars.partials = {};
-
-var toString = Object.prototype.toString,
-    functionType = '[object Function]',
-    objectType = '[object Object]';
-
-Handlebars.registerHelper = function(name, fn, inverse) {
-  if (toString.call(name) === objectType) {
-    if (inverse || fn) { throw new Handlebars.Exception('Arg not supported with multiple helpers'); }
-    Handlebars.Utils.extend(this.helpers, name);
-  } else {
-    if (inverse) { fn.not = inverse; }
-    this.helpers[name] = fn;
-  }
-};
-
-Handlebars.registerPartial = function(name, str) {
-  if (toString.call(name) === objectType) {
-    Handlebars.Utils.extend(this.partials,  name);
-  } else {
-    this.partials[name] = str;
-  }
-};
-
-Handlebars.registerHelper('helperMissing', function(arg) {
-  if(arguments.length === 2) {
-    return undefined;
-  } else {
-    throw new Error("Missing helper: '" + arg + "'");
-  }
-});
-
-Handlebars.registerHelper('blockHelperMissing', function(context, options) {
-  var inverse = options.inverse || function() {}, fn = options.fn;
-
-  var type = toString.call(context);
-
-  if(type === functionType) { context = context.call(this); }
-
-  if(context === true) {
-    return fn(this);
-  } else if(context === false || context == null) {
-    return inverse(this);
-  } else if(type === "[object Array]") {
-    if(context.length > 0) {
-      return Handlebars.helpers.each(context, options);
-    } else {
-      return inverse(this);
-    }
-  } else {
-    return fn(context);
-  }
-});
-
-Handlebars.K = function() {};
-
-Handlebars.createFrame = Object.create || function(object) {
-  Handlebars.K.prototype = object;
-  var obj = new Handlebars.K();
-  Handlebars.K.prototype = null;
-  return obj;
-};
-
-Handlebars.logger = {
-  DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3, level: 3,
-
-  methodMap: {0: 'debug', 1: 'info', 2: 'warn', 3: 'error'},
-
-  // can be overridden in the host environment
-  log: function(level, obj) {
-    if (Handlebars.logger.level <= level) {
-      var method = Handlebars.logger.methodMap[level];
-      if (typeof console !== 'undefined' && console[method]) {
-        console[method].call(console, obj);
-      }
-    }
-  }
-};
-
-Handlebars.log = function(level, obj) { Handlebars.logger.log(level, obj); };
-
-Handlebars.registerHelper('each', function(context, options) {
-  var fn = options.fn, inverse = options.inverse;
-  var i = 0, ret = "", data;
-
-  var type = toString.call(context);
-  if(type === functionType) { context = context.call(this); }
-
-  if (options.data) {
-    data = Handlebars.createFrame(options.data);
-  }
-
-  if(context && typeof context === 'object') {
-    if(context instanceof Array){
-      for(var j = context.length; i<j; i++) {
-        if (data) { data.index = i; }
-        ret = ret + fn(context[i], { data: data });
-      }
-    } else {
-      for(var key in context) {
-        if(context.hasOwnProperty(key)) {
-          if(data) { data.key = key; }
-          ret = ret + fn(context[key], {data: data});
-          i++;
-        }
-      }
-    }
-  }
-
-  if(i === 0){
-    ret = inverse(this);
-  }
-
-  return ret;
-});
-
-Handlebars.registerHelper('if', function(conditional, options) {
-  var type = toString.call(conditional);
-  if(type === functionType) { conditional = conditional.call(this); }
-
-  if(!conditional || Handlebars.Utils.isEmpty(conditional)) {
-    return options.inverse(this);
-  } else {
-    return options.fn(this);
-  }
-});
-
-Handlebars.registerHelper('unless', function(conditional, options) {
-  return Handlebars.helpers['if'].call(this, conditional, {fn: options.inverse, inverse: options.fn});
-});
-
-Handlebars.registerHelper('with', function(context, options) {
-  var type = toString.call(context);
-  if(type === functionType) { context = context.call(this); }
-
-  if (!Handlebars.Utils.isEmpty(context)) return options.fn(context);
-});
-
-Handlebars.registerHelper('log', function(context, options) {
-  var level = options.data && options.data.level != null ? parseInt(options.data.level, 10) : 1;
-  Handlebars.log(level, context);
-});
-;
-// lib/handlebars/utils.js
-
-var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
-
-Handlebars.Exception = function(message) {
-  var tmp = Error.prototype.constructor.apply(this, arguments);
-
-  // Unfortunately errors are not enumerable in Chrome (at least), so `for prop in tmp` doesn't work.
-  for (var idx = 0; idx < errorProps.length; idx++) {
-    this[errorProps[idx]] = tmp[errorProps[idx]];
-  }
-};
-Handlebars.Exception.prototype = new Error();
-
-// Build out our basic SafeString type
-Handlebars.SafeString = function(string) {
-  this.string = string;
-};
-Handlebars.SafeString.prototype.toString = function() {
-  return this.string.toString();
-};
-
-var escape = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#x27;",
-  "`": "&#x60;"
-};
-
-var badChars = /[&<>"'`]/g;
-var possible = /[&<>"'`]/;
-
-var escapeChar = function(chr) {
-  return escape[chr] || "&amp;";
-};
-
-Handlebars.Utils = {
-  extend: function(obj, value) {
-    for(var key in value) {
-      if(value.hasOwnProperty(key)) {
-        obj[key] = value[key];
-      }
-    }
-  },
-
-  escapeExpression: function(string) {
-    // don't escape SafeStrings, since they're already safe
-    if (string instanceof Handlebars.SafeString) {
-      return string.toString();
-    } else if (string == null || string === false) {
-      return "";
-    }
-
-    // Force a string conversion as this will be done by the append regardless and
-    // the regex test will do this transparently behind the scenes, causing issues if
-    // an object's to string has escaped characters in it.
-    string = string.toString();
-
-    if(!possible.test(string)) { return string; }
-    return string.replace(badChars, escapeChar);
-  },
-
-  isEmpty: function(value) {
-    if (!value && value !== 0) {
-      return true;
-    } else if(toString.call(value) === "[object Array]" && value.length === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-};
-;
-// lib/handlebars/runtime.js
-
-Handlebars.VM = {
-  template: function(templateSpec) {
-    // Just add water
-    var container = {
-      escapeExpression: Handlebars.Utils.escapeExpression,
-      invokePartial: Handlebars.VM.invokePartial,
-      programs: [],
-      program: function(i, fn, data) {
-        var programWrapper = this.programs[i];
-        if(data) {
-          programWrapper = Handlebars.VM.program(i, fn, data);
-        } else if (!programWrapper) {
-          programWrapper = this.programs[i] = Handlebars.VM.program(i, fn);
-        }
-        return programWrapper;
-      },
-      merge: function(param, common) {
-        var ret = param || common;
-
-        if (param && common) {
-          ret = {};
-          Handlebars.Utils.extend(ret, common);
-          Handlebars.Utils.extend(ret, param);
-        }
-        return ret;
-      },
-      programWithDepth: Handlebars.VM.programWithDepth,
-      noop: Handlebars.VM.noop,
-      compilerInfo: null
-    };
-
-    return function(context, options) {
-      options = options || {};
-      var result = templateSpec.call(container, Handlebars, context, options.helpers, options.partials, options.data);
-
-      var compilerInfo = container.compilerInfo || [],
-          compilerRevision = compilerInfo[0] || 1,
-          currentRevision = Handlebars.COMPILER_REVISION;
-
-      if (compilerRevision !== currentRevision) {
-        if (compilerRevision < currentRevision) {
-          var runtimeVersions = Handlebars.REVISION_CHANGES[currentRevision],
-              compilerVersions = Handlebars.REVISION_CHANGES[compilerRevision];
-          throw "Template was precompiled with an older version of Handlebars than the current runtime. "+
-                "Please update your precompiler to a newer version ("+runtimeVersions+") or downgrade your runtime to an older version ("+compilerVersions+").";
-        } else {
-          // Use the embedded version info since the runtime doesn't know about this revision yet
-          throw "Template was precompiled with a newer version of Handlebars than the current runtime. "+
-                "Please update your runtime to a newer version ("+compilerInfo[1]+").";
-        }
-      }
-
-      return result;
-    };
-  },
-
-  programWithDepth: function(i, fn, data /*, $depth */) {
-    var args = Array.prototype.slice.call(arguments, 3);
-
-    var program = function(context, options) {
-      options = options || {};
-
-      return fn.apply(this, [context, options.data || data].concat(args));
-    };
-    program.program = i;
-    program.depth = args.length;
-    return program;
-  },
-  program: function(i, fn, data) {
-    var program = function(context, options) {
-      options = options || {};
-
-      return fn(context, options.data || data);
-    };
-    program.program = i;
-    program.depth = 0;
-    return program;
-  },
-  noop: function() { return ""; },
-  invokePartial: function(partial, name, context, helpers, partials, data) {
-    var options = { helpers: helpers, partials: partials, data: data };
-
-    if(partial === undefined) {
-      throw new Handlebars.Exception("The partial " + name + " could not be found");
-    } else if(partial instanceof Function) {
-      return partial(context, options);
-    } else if (!Handlebars.compile) {
-      throw new Handlebars.Exception("The partial " + name + " could not be compiled when running in runtime-only mode");
-    } else {
-      partials[name] = Handlebars.compile(partial, {data: data !== undefined});
-      return partials[name](context, options);
-    }
-  }
-};
-
-Handlebars.template = Handlebars.VM.template;
-;
-// lib/handlebars/browser-suffix.js
-})(Handlebars);
-;
-
 ;require.register("application", function(exports, require, module) {
 var Application, Todos, mediator, _ref,
   __hasProp = {}.hasOwnProperty,
@@ -5758,7 +5430,7 @@ module.exports = IndexController = (function(_super) {
   }
 
   IndexController.prototype.beforeAction = function() {
-    return this.compose('structure', function() {
+    return this.reuse('structure', function() {
       var params;
       params = {
         collection: mediator.todos
@@ -6130,7 +5802,7 @@ if (typeof define === 'function' && define.amd) {
 var __templateData = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, self=this, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, helper, self=this, functionType="function", escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
   
@@ -6139,15 +5811,15 @@ function program1(depth0,data) {
   }
 
   buffer += "<div class=\"view\">\n  <input class=\"toggle\" type=\"checkbox\"";
-  stack1 = helpers['if'].call(depth0, depth0.completed, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.completed), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += ">\n  <label>";
-  if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "</label>\n  <button class=\"destroy\"></button>\n</div>\n<input class=\"edit\" value=\"";
-  if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (helper = helpers.title) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.title); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\">\n";
   return buffer;
@@ -6297,7 +5969,7 @@ module.exports = TodosView = (function(_super) {
   TodosView.prototype.toggleCompleted = function(event) {
     var isChecked;
     isChecked = event.delegateTarget.checked;
-    return this.collection.each(function(todo) {
+    return this.collection.forEach(function(todo) {
       return todo.save({
         completed: isChecked
       });
@@ -6314,6 +5986,537 @@ module.exports = TodosView = (function(_super) {
 
 })(CollectionView);
 });
+
+;/*!
+
+ handlebars v1.3.0
+
+Copyright (C) 2011 by Yehuda Katz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@license
+*/
+/* exported Handlebars */
+var Handlebars = (function() {
+// handlebars/safe-string.js
+var __module3__ = (function() {
+  "use strict";
+  var __exports__;
+  // Build out our basic SafeString type
+  function SafeString(string) {
+    this.string = string;
+  }
+
+  SafeString.prototype.toString = function() {
+    return "" + this.string;
+  };
+
+  __exports__ = SafeString;
+  return __exports__;
+})();
+
+// handlebars/utils.js
+var __module2__ = (function(__dependency1__) {
+  "use strict";
+  var __exports__ = {};
+  /*jshint -W004 */
+  var SafeString = __dependency1__;
+
+  var escape = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "`": "&#x60;"
+  };
+
+  var badChars = /[&<>"'`]/g;
+  var possible = /[&<>"'`]/;
+
+  function escapeChar(chr) {
+    return escape[chr] || "&amp;";
+  }
+
+  function extend(obj, value) {
+    for(var key in value) {
+      if(Object.prototype.hasOwnProperty.call(value, key)) {
+        obj[key] = value[key];
+      }
+    }
+  }
+
+  __exports__.extend = extend;var toString = Object.prototype.toString;
+  __exports__.toString = toString;
+  // Sourced from lodash
+  // https://github.com/bestiejs/lodash/blob/master/LICENSE.txt
+  var isFunction = function(value) {
+    return typeof value === 'function';
+  };
+  // fallback for older versions of Chrome and Safari
+  if (isFunction(/x/)) {
+    isFunction = function(value) {
+      return typeof value === 'function' && toString.call(value) === '[object Function]';
+    };
+  }
+  var isFunction;
+  __exports__.isFunction = isFunction;
+  var isArray = Array.isArray || function(value) {
+    return (value && typeof value === 'object') ? toString.call(value) === '[object Array]' : false;
+  };
+  __exports__.isArray = isArray;
+
+  function escapeExpression(string) {
+    // don't escape SafeStrings, since they're already safe
+    if (string instanceof SafeString) {
+      return string.toString();
+    } else if (!string && string !== 0) {
+      return "";
+    }
+
+    // Force a string conversion as this will be done by the append regardless and
+    // the regex test will do this transparently behind the scenes, causing issues if
+    // an object's to string has escaped characters in it.
+    string = "" + string;
+
+    if(!possible.test(string)) { return string; }
+    return string.replace(badChars, escapeChar);
+  }
+
+  __exports__.escapeExpression = escapeExpression;function isEmpty(value) {
+    if (!value && value !== 0) {
+      return true;
+    } else if (isArray(value) && value.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  __exports__.isEmpty = isEmpty;
+  return __exports__;
+})(__module3__);
+
+// handlebars/exception.js
+var __module4__ = (function() {
+  "use strict";
+  var __exports__;
+
+  var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
+
+  function Exception(message, node) {
+    var line;
+    if (node && node.firstLine) {
+      line = node.firstLine;
+
+      message += ' - ' + line + ':' + node.firstColumn;
+    }
+
+    var tmp = Error.prototype.constructor.call(this, message);
+
+    // Unfortunately errors are not enumerable in Chrome (at least), so `for prop in tmp` doesn't work.
+    for (var idx = 0; idx < errorProps.length; idx++) {
+      this[errorProps[idx]] = tmp[errorProps[idx]];
+    }
+
+    if (line) {
+      this.lineNumber = line;
+      this.column = node.firstColumn;
+    }
+  }
+
+  Exception.prototype = new Error();
+
+  __exports__ = Exception;
+  return __exports__;
+})();
+
+// handlebars/base.js
+var __module1__ = (function(__dependency1__, __dependency2__) {
+  "use strict";
+  var __exports__ = {};
+  var Utils = __dependency1__;
+  var Exception = __dependency2__;
+
+  var VERSION = "1.3.0";
+  __exports__.VERSION = VERSION;var COMPILER_REVISION = 4;
+  __exports__.COMPILER_REVISION = COMPILER_REVISION;
+  var REVISION_CHANGES = {
+    1: '<= 1.0.rc.2', // 1.0.rc.2 is actually rev2 but doesn't report it
+    2: '== 1.0.0-rc.3',
+    3: '== 1.0.0-rc.4',
+    4: '>= 1.0.0'
+  };
+  __exports__.REVISION_CHANGES = REVISION_CHANGES;
+  var isArray = Utils.isArray,
+      isFunction = Utils.isFunction,
+      toString = Utils.toString,
+      objectType = '[object Object]';
+
+  function HandlebarsEnvironment(helpers, partials) {
+    this.helpers = helpers || {};
+    this.partials = partials || {};
+
+    registerDefaultHelpers(this);
+  }
+
+  __exports__.HandlebarsEnvironment = HandlebarsEnvironment;HandlebarsEnvironment.prototype = {
+    constructor: HandlebarsEnvironment,
+
+    logger: logger,
+    log: log,
+
+    registerHelper: function(name, fn, inverse) {
+      if (toString.call(name) === objectType) {
+        if (inverse || fn) { throw new Exception('Arg not supported with multiple helpers'); }
+        Utils.extend(this.helpers, name);
+      } else {
+        if (inverse) { fn.not = inverse; }
+        this.helpers[name] = fn;
+      }
+    },
+
+    registerPartial: function(name, str) {
+      if (toString.call(name) === objectType) {
+        Utils.extend(this.partials,  name);
+      } else {
+        this.partials[name] = str;
+      }
+    }
+  };
+
+  function registerDefaultHelpers(instance) {
+    instance.registerHelper('helperMissing', function(arg) {
+      if(arguments.length === 2) {
+        return undefined;
+      } else {
+        throw new Exception("Missing helper: '" + arg + "'");
+      }
+    });
+
+    instance.registerHelper('blockHelperMissing', function(context, options) {
+      var inverse = options.inverse || function() {}, fn = options.fn;
+
+      if (isFunction(context)) { context = context.call(this); }
+
+      if(context === true) {
+        return fn(this);
+      } else if(context === false || context == null) {
+        return inverse(this);
+      } else if (isArray(context)) {
+        if(context.length > 0) {
+          return instance.helpers.each(context, options);
+        } else {
+          return inverse(this);
+        }
+      } else {
+        return fn(context);
+      }
+    });
+
+    instance.registerHelper('each', function(context, options) {
+      var fn = options.fn, inverse = options.inverse;
+      var i = 0, ret = "", data;
+
+      if (isFunction(context)) { context = context.call(this); }
+
+      if (options.data) {
+        data = createFrame(options.data);
+      }
+
+      if(context && typeof context === 'object') {
+        if (isArray(context)) {
+          for(var j = context.length; i<j; i++) {
+            if (data) {
+              data.index = i;
+              data.first = (i === 0);
+              data.last  = (i === (context.length-1));
+            }
+            ret = ret + fn(context[i], { data: data });
+          }
+        } else {
+          for(var key in context) {
+            if(context.hasOwnProperty(key)) {
+              if(data) { 
+                data.key = key; 
+                data.index = i;
+                data.first = (i === 0);
+              }
+              ret = ret + fn(context[key], {data: data});
+              i++;
+            }
+          }
+        }
+      }
+
+      if(i === 0){
+        ret = inverse(this);
+      }
+
+      return ret;
+    });
+
+    instance.registerHelper('if', function(conditional, options) {
+      if (isFunction(conditional)) { conditional = conditional.call(this); }
+
+      // Default behavior is to render the positive path if the value is truthy and not empty.
+      // The `includeZero` option may be set to treat the condtional as purely not empty based on the
+      // behavior of isEmpty. Effectively this determines if 0 is handled by the positive path or negative.
+      if ((!options.hash.includeZero && !conditional) || Utils.isEmpty(conditional)) {
+        return options.inverse(this);
+      } else {
+        return options.fn(this);
+      }
+    });
+
+    instance.registerHelper('unless', function(conditional, options) {
+      return instance.helpers['if'].call(this, conditional, {fn: options.inverse, inverse: options.fn, hash: options.hash});
+    });
+
+    instance.registerHelper('with', function(context, options) {
+      if (isFunction(context)) { context = context.call(this); }
+
+      if (!Utils.isEmpty(context)) return options.fn(context);
+    });
+
+    instance.registerHelper('log', function(context, options) {
+      var level = options.data && options.data.level != null ? parseInt(options.data.level, 10) : 1;
+      instance.log(level, context);
+    });
+  }
+
+  var logger = {
+    methodMap: { 0: 'debug', 1: 'info', 2: 'warn', 3: 'error' },
+
+    // State enum
+    DEBUG: 0,
+    INFO: 1,
+    WARN: 2,
+    ERROR: 3,
+    level: 3,
+
+    // can be overridden in the host environment
+    log: function(level, obj) {
+      if (logger.level <= level) {
+        var method = logger.methodMap[level];
+        if (typeof console !== 'undefined' && console[method]) {
+          console[method].call(console, obj);
+        }
+      }
+    }
+  };
+  __exports__.logger = logger;
+  function log(level, obj) { logger.log(level, obj); }
+
+  __exports__.log = log;var createFrame = function(object) {
+    var obj = {};
+    Utils.extend(obj, object);
+    return obj;
+  };
+  __exports__.createFrame = createFrame;
+  return __exports__;
+})(__module2__, __module4__);
+
+// handlebars/runtime.js
+var __module5__ = (function(__dependency1__, __dependency2__, __dependency3__) {
+  "use strict";
+  var __exports__ = {};
+  var Utils = __dependency1__;
+  var Exception = __dependency2__;
+  var COMPILER_REVISION = __dependency3__.COMPILER_REVISION;
+  var REVISION_CHANGES = __dependency3__.REVISION_CHANGES;
+
+  function checkRevision(compilerInfo) {
+    var compilerRevision = compilerInfo && compilerInfo[0] || 1,
+        currentRevision = COMPILER_REVISION;
+
+    if (compilerRevision !== currentRevision) {
+      if (compilerRevision < currentRevision) {
+        var runtimeVersions = REVISION_CHANGES[currentRevision],
+            compilerVersions = REVISION_CHANGES[compilerRevision];
+        throw new Exception("Template was precompiled with an older version of Handlebars than the current runtime. "+
+              "Please update your precompiler to a newer version ("+runtimeVersions+") or downgrade your runtime to an older version ("+compilerVersions+").");
+      } else {
+        // Use the embedded version info since the runtime doesn't know about this revision yet
+        throw new Exception("Template was precompiled with a newer version of Handlebars than the current runtime. "+
+              "Please update your runtime to a newer version ("+compilerInfo[1]+").");
+      }
+    }
+  }
+
+  __exports__.checkRevision = checkRevision;// TODO: Remove this line and break up compilePartial
+
+  function template(templateSpec, env) {
+    if (!env) {
+      throw new Exception("No environment passed to template");
+    }
+
+    // Note: Using env.VM references rather than local var references throughout this section to allow
+    // for external users to override these as psuedo-supported APIs.
+    var invokePartialWrapper = function(partial, name, context, helpers, partials, data) {
+      var result = env.VM.invokePartial.apply(this, arguments);
+      if (result != null) { return result; }
+
+      if (env.compile) {
+        var options = { helpers: helpers, partials: partials, data: data };
+        partials[name] = env.compile(partial, { data: data !== undefined }, env);
+        return partials[name](context, options);
+      } else {
+        throw new Exception("The partial " + name + " could not be compiled when running in runtime-only mode");
+      }
+    };
+
+    // Just add water
+    var container = {
+      escapeExpression: Utils.escapeExpression,
+      invokePartial: invokePartialWrapper,
+      programs: [],
+      program: function(i, fn, data) {
+        var programWrapper = this.programs[i];
+        if(data) {
+          programWrapper = program(i, fn, data);
+        } else if (!programWrapper) {
+          programWrapper = this.programs[i] = program(i, fn);
+        }
+        return programWrapper;
+      },
+      merge: function(param, common) {
+        var ret = param || common;
+
+        if (param && common && (param !== common)) {
+          ret = {};
+          Utils.extend(ret, common);
+          Utils.extend(ret, param);
+        }
+        return ret;
+      },
+      programWithDepth: env.VM.programWithDepth,
+      noop: env.VM.noop,
+      compilerInfo: null
+    };
+
+    return function(context, options) {
+      options = options || {};
+      var namespace = options.partial ? options : env,
+          helpers,
+          partials;
+
+      if (!options.partial) {
+        helpers = options.helpers;
+        partials = options.partials;
+      }
+      var result = templateSpec.call(
+            container,
+            namespace, context,
+            helpers,
+            partials,
+            options.data);
+
+      if (!options.partial) {
+        env.VM.checkRevision(container.compilerInfo);
+      }
+
+      return result;
+    };
+  }
+
+  __exports__.template = template;function programWithDepth(i, fn, data /*, $depth */) {
+    var args = Array.prototype.slice.call(arguments, 3);
+
+    var prog = function(context, options) {
+      options = options || {};
+
+      return fn.apply(this, [context, options.data || data].concat(args));
+    };
+    prog.program = i;
+    prog.depth = args.length;
+    return prog;
+  }
+
+  __exports__.programWithDepth = programWithDepth;function program(i, fn, data) {
+    var prog = function(context, options) {
+      options = options || {};
+
+      return fn(context, options.data || data);
+    };
+    prog.program = i;
+    prog.depth = 0;
+    return prog;
+  }
+
+  __exports__.program = program;function invokePartial(partial, name, context, helpers, partials, data) {
+    var options = { partial: true, helpers: helpers, partials: partials, data: data };
+
+    if(partial === undefined) {
+      throw new Exception("The partial " + name + " could not be found");
+    } else if(partial instanceof Function) {
+      return partial(context, options);
+    }
+  }
+
+  __exports__.invokePartial = invokePartial;function noop() { return ""; }
+
+  __exports__.noop = noop;
+  return __exports__;
+})(__module2__, __module4__, __module1__);
+
+// handlebars.runtime.js
+var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__) {
+  "use strict";
+  var __exports__;
+  /*globals Handlebars: true */
+  var base = __dependency1__;
+
+  // Each of these augment the Handlebars object. No need to setup here.
+  // (This is done to easily share code between commonjs and browse envs)
+  var SafeString = __dependency2__;
+  var Exception = __dependency3__;
+  var Utils = __dependency4__;
+  var runtime = __dependency5__;
+
+  // For compatibility and usage outside of module systems, make the Handlebars object a namespace
+  var create = function() {
+    var hb = new base.HandlebarsEnvironment();
+
+    Utils.extend(hb, base);
+    hb.SafeString = SafeString;
+    hb.Exception = Exception;
+    hb.Utils = Utils;
+
+    hb.VM = runtime;
+    hb.template = function(spec) {
+      return runtime.template(spec, hb);
+    };
+
+    return hb;
+  };
+
+  var Handlebars = create();
+  Handlebars.create = create;
+
+  __exports__ = Handlebars;
+  return __exports__;
+})(__module1__, __module3__, __module4__, __module2__, __module5__);
+
+  return __module0__;
+})();
 
 ;
 //# sourceMappingURL=app.js.map
