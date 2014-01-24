@@ -1,7 +1,7 @@
 'use strict';
 
-describe('todoPresenter', function(){
-    it('loads a list of items', function(){
+describe('todoPresenter', function() {
+    it('loads a list of items', function() {
         assertLoadItems([{id: 1, name: 'Hardcore Mocks'}]);
         assertLoadItems([
             {id: 1, name: 'Hardcore Mocks'},
@@ -9,17 +9,17 @@ describe('todoPresenter', function(){
         ]);
     });
 
-    it("adds a new item", function(){
-        assertAddItem("", 13, undefined);
-        assertAddItem("Call Me", 13, "Call Me");
-        assertAddItem("Call Me", 14, undefined);
+    it('adds a new item', function() {
+        assertAddItem('', 13, undefined);
+        assertAddItem('Call Me', 13, 'Call Me');
+        assertAddItem('Call Me', 14, undefined);
     });
 
     function assertAddItem(name, key, expected) {
-        var added, model = new Todo()
+        var added, model = new Todo();
         loadPresenter(model, function(element) {
-            model.on("add", function (item) { added = item.name; })
-            $('#new-todo', element).val(name).trigger($.Event("keyup", {
+            model.on('add', function (item) { added = item.name; });
+            $('#new-todo', element).val(name).trigger($.Event('keyup', {
                 which: key, keyCode: key
             }));
 
@@ -31,7 +31,7 @@ describe('todoPresenter', function(){
     function assertLoadItems(items) {
         var model = $.observable({ items: function () { return items; } });
         loadPresenter(model, function(element) {
-            model.trigger('load', 'all')
+            model.trigger('load', 'all');
             items.forEach(function(item) {
                 assertMatch(element.text(), item.name);
             });

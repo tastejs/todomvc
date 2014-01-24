@@ -6,7 +6,7 @@ describe('FiltersPresenter', function() {
         assertLinkRoute('<a href="/somepage">all</a>', '/somepage');
     });
 
-    it('sets the target', function(){
+    it('sets the target', function() {
         var $body = $(
             '<div>' +
             '<a href="/first">first</a>' +
@@ -15,26 +15,26 @@ describe('FiltersPresenter', function() {
             ), links = filtersPresenter($body.find('a'));
 
         mockRoute(function() {
-            links.first().click()
-            assert.equal($body.find(".selected").text(), 'first')
+            links.first().click();
+            assert.equal($body.find('.selected').text(), 'first');
 
-            links.last().click()
-            assert.equal($body.find(".selected").text(), 'last')
+            links.last().click();
+            assert.equal($body.find('.selected').text(), 'last');
         });
     });
 
     function mockRoute(callback) {
         var current, route = $.route;
-        $.route = function(hash) { current = hash };
-        callback(function(){ return current; });
+        $.route = function(hash) { current = hash; };
+        callback(function() { return current; });
         $.route = route;
     }
 
     function assertLinkRoute(element, expectedRoute) {
-        mockRoute(function(currentRoute){
+        mockRoute(function(currentRoute) {
             element = $(element);
             filtersPresenter(element);
-            element.click()
+            element.click();
             assert.equal(currentRoute(), expectedRoute);
         });
     }

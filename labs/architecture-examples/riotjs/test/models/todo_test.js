@@ -46,7 +46,7 @@ describe('Todo', function() {
         it('toggles all items', function () {
             var subject = createTodos('finish 1', 'finish 2', 'finish 3');
 
-            subject.toggle("active");
+            subject.toggle('active');
             assertItems(subject.items(), [
                 {id: 1, name: 'finish 1', done: true},
                 {id: 2, name: 'finish 2', done: true},
