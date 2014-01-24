@@ -8,15 +8,25 @@ var testSuite = require('./test.js'),
 var list = fs.readdirSync("../architecture-examples/")
         .map(function(folderName) { return { name : folderName, path : "architecture-examples/" + folderName} });
 
-/*list = list.concat(fs.readdirSync("../labs/architecture-examples/")
+list = list.concat(fs.readdirSync("../labs/architecture-examples/")
         .map(function(folderName) { return { name : folderName, path: "labs/architecture-examples/" + folderName} }));
 
 list = list.concat(fs.readdirSync("../labs/dependency-examples/")
         .map(function(folderName) { return { name : folderName, path: "labs/dependency-examples/" + folderName} }));
 
 list = list.concat(fs.readdirSync("../dependency-examples/")
-        .map(function(folderName) { return { name : folderName, path: "dependency-examples/" + folderName} }));*/
+        .map(function(folderName) { return { name : folderName, path: "dependency-examples/" + folderName} }));
 
+// apps that are not hosted at the root of their folder
+var exceptions = [
+    { name : "chaplin-brunch", path : "labs/dependency-examples/chaplin-brunch/public" }
+];
+list = list.map(function(framework) {
+    var exception = exceptions.filter(function(exFramework) { return exFramework.name === framework.name});
+    return exception.length > 0 ? exception[0] : framework;
+});
+
+console.log(list);
 
 // filter out any folders that are not frameworks (.e.g  hidden files)
 list = list.filter(function(framework) { return frameworkNamePattern.test(framework.name); });
