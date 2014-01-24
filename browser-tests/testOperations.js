@@ -113,7 +113,9 @@ function TestOperations(page) {
     this.assertItemAtIndexIsNotCompleted = function(index) {
         page.getItemElements().then(function(toDoItems) {
             toDoItems[index].getAttribute("class").then(function(cssClass) {
-                assert(cssClass.indexOf("completed") === -1);
+                // the maria implementation uses an 'incompleted' CSS class which is redundant
+                // TODO: this should really be moved into the pageLaxMode
+                assert(cssClass.indexOf("completed") === -1 || cssClass.indexOf("incompleted") !== -1);
             });
         });
     }

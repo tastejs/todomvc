@@ -1,8 +1,10 @@
 var webdriver = require('selenium-webdriver');
 
-function Page(browser) {
+function Page(browser, laxMode) {
 
-    function xPathForItemAtIndex(index) {
+    // ----------------- utility methods
+
+    this.xPathForItemAtIndex = function(index) {
         // why is XPath the only language silly enough to be 1-indexed?
         return "//ul[@id='todo-list']/li[" + (index + 1) + "]";
     }
@@ -27,14 +29,20 @@ function Page(browser) {
     }
 
     this.tryGetToggleForItemAtIndex = function(index) {
-        return browser.findElements(webdriver.By.xpath(xPathForItemAtIndex(index) + "//input[contains(@class,'toggle')]"));
+        var xpath = this.xPathForItemAtIndex(index) + "//input[contains(@class,'toggle')]";
+        return browser.findElements(webdriver.By.xpath(xpath));
     }
 
     this.tryGetItemLabelAtIndex = function(index) {
-        return browser.findElements(webdriver.By.xpath(xPathForItemAtIndex(index) + "//label"));
+        return browser.findElements(webdriver.By.xpath(this.xPathForItemAtIndex(index) + "//label"));
     }
 
     // ----------------- DOM element access methods
+
+    this.getEditInputForItemAtIndex = function(index) {
+        var xpath = this.xPathForItemAtIndex(index) + "//input[contains(@class,'edit')]";
+        return browser.findElement(webdriver.By.xpath(xpath));
+    }
 
     this.getItemInputField = function() {
         return browser.findElement(webdriver.By.xpath("//input[@id='new-todo']"));
@@ -57,7 +65,7 @@ function Page(browser) {
     }
 
     this.getItemLabelAtIndex = function(index) {
-        return browser.findElement(webdriver.By.xpath(xPathForItemAtIndex(index) + "//label"));
+        return browser.findElement(webdriver.By.xpath(this.xPathForItemAtIndex(index) + "//label"));
     }
 
     this.getFilterElements = function() {
@@ -93,7 +101,7 @@ function Page(browser) {
     }
 
     this.editItemAtIndex = function(index, itemText) {
-        return browser.findElement(webdriver.By.xpath(xPathForItemAtIndex(index) + "//input[contains(@class,'edit')]"))
+        return this.getEditInputForItemAtIndex(index)
             .then(function(itemEditField) {
 
                 // send 50 delete keypresses, just to be sure the item text is deleted

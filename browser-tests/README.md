@@ -37,7 +37,7 @@ In order to run tests for a single TodoMVC implementation, supply a framework ar
     
 It can be useful send the results to the console and a file:
 
-    mocha allTests.js  -R spec 2>&1 | tee test.txt
+    mocha allTests.js  -R spec 	
     
 Failed tests can be found using grep:
 
@@ -104,12 +104,20 @@ In order to keep each test case fully isolated, the browser is closed then re-op
 	
 Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
 
+##Lax mode
+
+There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
+
+	mocha allTests.js  -R spec --laxMode
+	
+
 ##Test design
 
 Very briefly, the tests are designed as follows:
 
- + `ToDoPage.js` - provides an abstraction layer for the HTML template. All the code required to access elements from the DOM is found within this file. The XPaths used to locate elements are based on the TodoMVC specification, using the required element classes / ids.
- + `TestOperations.js` - provides common assertions and operations.
+ + `page.js` - provides an abstraction layer for the HTML template. All the code required to access elements from the DOM is found within this file. The XPaths used to locate elements are based on the TodoMVC specification, using the required element classes / ids.
+ + `pageLaxMode.js` - extends the above in order to relax the XPath constraints.
+ + `testOperations.js` - provides common assertions and operations.
  + `test.js` - Erm … the tests! These are written to closely match the TodoMVC spec.
  + `allTest.js` - A simple file that locates all of the framework examples, and runs the tests for each.
  
