@@ -8,7 +8,7 @@ var testSuite = require('./test.js'),
 var list = fs.readdirSync("../architecture-examples/")
         .map(function(folderName) { return { name : folderName, path : "architecture-examples/" + folderName} });
 
-/*list = list.concat(fs.readdirSync("../labs/architecture-examples/")
+list = list.concat(fs.readdirSync("../labs/architecture-examples/")
         .map(function(folderName) { return { name : folderName, path: "labs/architecture-examples/" + folderName} }));
 
 list = list.concat(fs.readdirSync("../labs/dependency-examples/")
@@ -16,8 +16,8 @@ list = list.concat(fs.readdirSync("../labs/dependency-examples/")
 
 list = list.concat(fs.readdirSync("../dependency-examples/")
         .map(function(folderName) { return { name : folderName, path: "dependency-examples/" + folderName} }));
-*/
-// apps that are not hosted at the root of their folder need to b ehandled explicitly
+
+// apps that are not hosted at the root of their folder need to be handled explicitly
 var exceptions = [
     { name : "chaplin-brunch", path : "labs/dependency-examples/chaplin-brunch/public" }
 ];
@@ -30,7 +30,7 @@ list = list.map(function(framework) {
 list = list.filter(function(framework) { return frameworkNamePattern.test(framework.name); });
 
 // if a specific framework has been named, just run this one
-if (argv.framework) {
+if (argv.framework) {       
     list = list.filter(function(framework) { return framework.name === argv.framework});
 }
 

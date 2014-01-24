@@ -84,7 +84,6 @@ exports.todoMVCTest = function(frameworkName, baseUrl, speedMode, laxMode) {
                 testOps.assertItemText(0, TODO_ITEM_ONE);
 
                 page.enterItem(TODO_ITEM_TWO);
-                browser.sleep(1000);
                 testOps.assertItemCount(2);
                 testOps.assertItemText(1, TODO_ITEM_TWO);
                 testOps.assertItemText(0, TODO_ITEM_ONE);
@@ -149,13 +148,12 @@ exports.todoMVCTest = function(frameworkName, baseUrl, speedMode, laxMode) {
                 page.enterItem(TODO_ITEM_TWO);
 
                 page.toggleItemAtIndex(0);
-                browser.sleep(1000);
-             //   testOps.assertItemAtIndexIsCompleted(0);
+                testOps.assertItemAtIndexIsCompleted(0);
                 testOps.assertItemAtIndexIsNotCompleted(1);
 
-            //    page.toggleItemAtIndex(1);
-             //   testOps.assertItemAtIndexIsCompleted(0);
-               // testOps.assertItemAtIndexIsCompleted(1);
+                page.toggleItemAtIndex(1);
+                testOps.assertItemAtIndexIsCompleted(0);
+                testOps.assertItemAtIndexIsCompleted(1);
             });
 
             test.it('should allow me to un-mark items as complete', function () {
@@ -327,8 +325,8 @@ exports.todoMVCTest = function(frameworkName, baseUrl, speedMode, laxMode) {
                 page.filterByActiveItems();
 
                 testOps.assertItemCount(2);
-              //  testOps.assertItemText(1, TODO_ITEM_THREE);
-                //testOps.assertItemText(0, TODO_ITEM_ONE);
+                testOps.assertItemText(1, TODO_ITEM_THREE);
+                testOps.assertItemText(0, TODO_ITEM_ONE);
             });
 
             test.it('should allow me to display completed items', function () {
