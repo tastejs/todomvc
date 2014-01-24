@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "todomvc-common": "~0.1.6",
-    "chaplin": "~0.11.3",
-    "exoskeleton": "~0.5.1",
+    "chaplin": "~1.0.0",
+    "exoskeleton": "~0.6.3",
     "backbone.localStorage": "git://github.com/paulmillr/Backbone.localStorage.git#9c225b37bdea4ac21d4b2445fa8962fe74e3175b"
   },
   "overrides": {
