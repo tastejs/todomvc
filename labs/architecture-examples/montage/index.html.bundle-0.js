@@ -3674,7 +3674,7 @@ montageDefine("7aba37c","package.json",{exports: {"name":"weak-map","version":"1
 montageDefine("2847ee2","package.json",{exports: {"name":"q","version":"0.9.6","description":"A library for promises (CommonJS/Promises/A,B,D)","homepage":"https://github.com/kriskowal/q","author":"Kris Kowal <kris@cixar.com> (https://github.com/kriskowal)","keywords":["q","promise","promises","promises-a","promises-aplus","deferred","future","async","flow control","fluent","browser","node"],"contributors":["Kris Kowal <kris@cixar.com> (https://github.com/kriskowal)","Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)","Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)"],"bugs":{"mail":"kris@cixar.com","url":"http://github.com/kriskowal/q/issues"},"licenses":[{"type":"MIT","url":"http://github.com/kriskowal/q/raw/master/LICENSE"}],"main":"q.js","repository":{"type":"git","url":"git://github.com/kriskowal/q.git"},"engines":{"node":">=0.6.0","teleport":">=0.2.0"},"dependencies":{},"devDependencies":{"jshint":"~2.1.3","cover":"*","jasmine-node":"1.2.2","opener":"*","promises-aplus-tests":"1.x","grunt":"~0.4.1","grunt-cli":"~0.1.9","grunt-contrib-uglify":"~0.2.2"},"scripts":{"test":"jasmine-node spec && promises-aplus-tests spec/aplus-adapter","test-browser":"opener spec/q-spec.html","lint":"jshint q.js","cover":"cover run node_modules/jasmine-node/bin/jasmine-node spec && cover report html && opener cover_html/index.html","minify":"grunt","prepublish":"grunt"},"directories":{"test":"./spec","lib":"./"},"hash":"2847ee2","mappings":{},"production":true,"useScriptInjection":true}})
 ;
 //*/
-montageDefine("6607c26","index.html",{text:'<!doctype html>\n<html lang=en data-framework=montage id=montage-todomvc>\n	<head>\n		<meta charset=utf-8>\n		<meta http-equiv=X-UA-Compatible content="IE=edge">\n		<title>Montage • TodoMVC</title>\n\n		<link rel=stylesheet href="bower_components/todomvc-common/base.css">\n		<link rel=stylesheet href="assets/app.css">\n	</head>\n	<body>\n		<div data-montage-id=todo-container id=todo-container></div>\n\n		<script src="bower_components/todomvc-common/base.js"></script>\n		<script src="packages/montage@6364dae/montage.js"></script>\n		<script type="text/montage-serialization">\n			{\n				"owner": {\n					"prototype": "montage/ui/loader.reel",\n					"properties": {\n						"element": {"#": "todo-container"}\n					}\n				}\n			}\n		</script>\n	</body>\n</html>'});
+montageDefine("6607c26","index.html",{text:'<!doctype html>\n<html lang=en data-framework=montage id=montage-todomvc>\n	<head>\n		<meta charset=utf-8>\n		<title>Montage • TodoMVC</title>\n\n		<link rel=stylesheet href="bower_components/todomvc-common/base.css">\n		<link rel=stylesheet href="assets/app.css">\n	</head>\n	<body>\n		<div data-montage-id=todo-container id=todo-container></div>\n\n		<script src="bower_components/todomvc-common/base.js"></script>\n		<script src="packages/montage@6364dae/montage.js"></script>\n		<script type="text/montage-serialization">\n			{\n				"owner": {\n					"prototype": "montage/ui/loader.reel",\n					"properties": {\n						"element": {"#": "todo-container"}\n					}\n				}\n			}\n		</script>\n	</body>\n</html>'});
 ;
 //*/
 montageDefine("6364dae","core/core",{dependencies:["collections/shim","core/shim/object","core/shim/array","core/shim/string","core/extras/object","core/extras/date","core/extras/element","core/extras/function","core/extras/regexp","core/extras/string","core/uuid","collections/listen/property-changes","core/bindings","core/paths","core/serialization/bindings","core/promise"],factory:function(require,exports,module){/* <copyright>
@@ -18045,7 +18045,7 @@ var RootComponent = Component.specialize( /** @lends RootComponent# */{
      * @function
      */
     requestAnimationFrame: {
-        value: (window.requestAnimationFrame || window.webkitRequestAnimationFrame 
+        value: (window.requestAnimationFrame || window.webkitRequestAnimationFrame
              || window.mozRequestAnimationFrame ||  window.msRequestAnimationFrame),
         enumerable: false
     },
@@ -18055,7 +18055,7 @@ var RootComponent = Component.specialize( /** @lends RootComponent# */{
      * @function
      */
     cancelAnimationFrame: {
-        value: (window.cancelAnimationFrame ||  window.webkitCancelAnimationFrame 
+        value: (window.cancelAnimationFrame ||  window.webkitCancelAnimationFrame
              || window.mozCancelAnimationFrame || window.msCancelAnimationFrame),
         enumerable: false
     },

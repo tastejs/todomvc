@@ -2,7 +2,6 @@
 <html lang="en" data-framework="duel">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>DUEL &bull; TodoMVC</title>
 	<link rel="stylesheet" href="/css/styles.merge">
 </head>
