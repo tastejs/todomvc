@@ -5,15 +5,17 @@
 /*jshint white:false */
 /*jshint trailing:false */
 /*jshint newcap:false */
-/*global Utils, ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS,
-	TodoItem, TodoFooter, React, Router*/
+/*global React, Backbone */
+var app = app || {};
 
-(function (window, React) {
+(function () {
 	'use strict';
 
-	window.ALL_TODOS = 'all';
-	window.ACTIVE_TODOS = 'active';
-	window.COMPLETED_TODOS = 'completed';
+	app.ALL_TODOS = 'all';
+	app.ACTIVE_TODOS = 'active';
+	app.COMPLETED_TODOS = 'completed';
+	var TodoFooter = app.TodoFooter;
+	var TodoItem = app.TodoItem;
 
 	var ENTER_KEY = 13;
 
@@ -29,7 +31,10 @@
 		componentDidMount: function () {
 			// Whenever there may be a change in the Backbone data, trigger a
 			// reconcile.
-			this.getBackboneCollections().forEach(function (collection, i) {
+			this.getBackboneCollections().forEach(function (collection) {
+				// explicitly bind `null` to `forceUpdate`, as it demands a callback and
+				// React validates that it's a function. `collection` events passes
+				// additional arguments that are not functions
 				collection.on('add remove change', this.forceUpdate.bind(this, null));
 			}, this);
 		},
@@ -60,9 +65,9 @@
 					'active': 'active',
 					'completed': 'completed'
 				},
-				all: this.setState.bind(this, {nowShowing: ALL_TODOS}),
-				active: this.setState.bind(this, {nowShowing: ACTIVE_TODOS}),
-				completed: this.setState.bind(this, {nowShowing: COMPLETED_TODOS})
+				all: this.setState.bind(this, {nowShowing: app.ALL_TODOS}),
+				active: this.setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
+				completed: this.setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
 			});
 
 			var router = new Router();
@@ -112,7 +117,7 @@
 		},
 
 		save: function (todo, text) {
-			todo.save({'title': text});
+			todo.save({title: text});
 			this.setState({editing: null});
 		},
 
@@ -127,15 +132,15 @@
 		},
 
 		render: function () {
-			var footer = null;
-			var main = null;
+			var footer;
+			var main;
 			var todos = this.props.todos;
 
 			var shownTodos = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
-				case ACTIVE_TODOS:
+				case app.ACTIVE_TODOS:
 					return !todo.get('completed');
-				case COMPLETED_TODOS:
+				case app.COMPLETED_TODOS:
 					return todo.get('completed');
 				default:
 					return true;
@@ -208,17 +213,7 @@
 	});
 
 	React.renderComponent(
-		<TodoApp todos={new Todos()} />,
+		<TodoApp todos={app.todos} />,
 		document.getElementById('todoapp')
 	);
-
-	React.renderComponent(
-		<div>
-			<p>Double-click to edit a todo</p>
-			<p>Created by{' '}
-				<a href="http://github.com/petehunt/">petehunt</a>
-			</p>
-			<p>Part of{' '}<a href="http://todomvc.com">TodoMVC</a></p>
-		</div>,
-		document.getElementById('info'));
-})(window, React);
+})();

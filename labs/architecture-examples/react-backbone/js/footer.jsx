@@ -5,11 +5,13 @@
 /*jshint white:false */
 /*jshint trailing:false */
 /*jshint newcap:false */
-/*global React, ALL_TODOS, ACTIVE_TODOS, Utils, COMPLETED_TODOS */
-(function (window) {
+/*global React */
+var app = app || {};
+
+(function () {
 	'use strict';
 
-	window.TodoFooter = React.createClass({
+	app.TodoFooter = React.createClass({
 		render: function () {
 			var activeTodoWord = this.props.count === 1 ? 'item' : 'items';
 			var clearButton = null;
@@ -24,13 +26,9 @@
 				);
 			}
 
-			var show = {
-				ALL_TODOS: '',
-				ACTIVE_TODOS: '',
-				COMPLETED_TODOS: ''
-			};
-			show[this.props.nowShowing] = 'selected';
-
+			// React idiom for shortcutting to `classSet` since it'll be used often
+			var cx = React.addons.classSet;
+			var nowShowing = this.props.nowShowing;
 			return (
 				<footer id="footer">
 					<span id="todo-count">
@@ -39,15 +37,27 @@
 					</span>
 					<ul id="filters">
 						<li>
-							<a href="#/" className={show[ALL_TODOS]}>All</a>
+							<a
+								href="#/"
+								className={cx({selected: nowShowing === app.ALL_TODOS})}>
+									All
+							</a>
 						</li>
 						{' '}
 						<li>
-							<a href="#/active" className={show[ACTIVE_TODOS]}>Active</a>
+							<a
+								href="#/active"
+								className={cx({selected: nowShowing === app.ACTIVE_TODOS})}>
+									Active
+							</a>
 						</li>
 						{' '}
 						<li>
-							<a href="#/completed" className={show[COMPLETED_TODOS]}>Completed</a>
+							<a
+								href="#/completed"
+								className={cx({selected: nowShowing === app.COMPLETED_TODOS})}>
+									Completed
+							</a>
 						</li>
 					</ul>
 					{clearButton}
@@ -55,4 +65,4 @@
 			);
 		}
 	});
-})(window);
+})();

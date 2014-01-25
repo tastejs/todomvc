@@ -3,13 +3,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>React • TodoMVC</title>
+		<title>React + Backbone • TodoMVC</title>
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 	</head>
 	<body>
 		<section id="todoapp"></section>
-		<footer id="info"></footer>
-		<div id="benchmark"></div>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://github.com/petehunt/">petehunt</a></p>
+			<p>Part of<a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
 
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script src="bower_components/react/react-with-addons.js"></script>
@@ -21,6 +24,9 @@
 
 		<script src="js/todo.js"></script>
 		<script src="js/todos.js"></script>
+		<!-- jsx is an optional syntactic sugar that transforms methods in React's
+		`render` into an HTML-looking format. Since the two models above are
+		unrelated to React, we didn't need those transforms. -->
 		<script type="text/jsx" src="js/todoItem.jsx"></script>
 		<script type="text/jsx" src="js/footer.jsx"></script>
 		<script type="text/jsx" src="js/app.jsx"></script>

@@ -5,14 +5,16 @@
 /*jshint white: false */
 /*jshint trailing: false */
 /*jshint newcap: false */
-/*global React, Utils */
-(function (window) {
+/*global React */
+var app = app || {};
+
+(function () {
 	'use strict';
 
 	var ESCAPE_KEY = 27;
 	var ENTER_KEY = 13;
 
-	window.TodoItem = React.createClass({
+	app.TodoItem = React.createClass({
 		getInitialState: function () {
 			return {editText: this.props.todo.get('title')};
 		},
@@ -42,10 +44,10 @@
 		},
 
 		handleKeyDown: function (event) {
-			if (event.keyCode === ESCAPE_KEY) {
+			if (event.which === ESCAPE_KEY) {
 				this.setState({editText: this.props.todo.get('title')});
 				this.props.onCancel();
-			} else if (event.keyCode === ENTER_KEY) {
+			} else if (event.which === ENTER_KEY) {
 				this.handleSubmit();
 			}
 		},
@@ -84,4 +86,4 @@
 			);
 		}
 	});
-})(window);
+})();
