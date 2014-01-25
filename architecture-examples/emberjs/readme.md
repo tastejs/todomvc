@@ -21,6 +21,7 @@ Articles and guides from the community:
 
 * [Getting Into Ember.js](http://net.tutsplus.com/tutorials/javascript-ajax/getting-into-ember-js)
 * [EmberWatch](http://emberwatch.com)
+* [CodeSchool course Warming Up With Ember.js](https://www.codeschool.com/courses/warming-up-with-emberjs)
 
 Get help from other Ember.js users:
 
