@@ -2,7 +2,7 @@
 Todos = new Meteor.Collection('todos');
 
 // JS code for the client (browser)
-if (Meteor.is_client) {
+if (Meteor.isClient) {
 
 	// Session var to keep current filter type ("all", "active", "completed")
 	Session.set('filter', 'all');
@@ -197,18 +197,18 @@ if (Meteor.is_client) {
 }
 
 //Publish and subscribe setting
-if (Meteor.is_server) {
+if (Meteor.isServer) {
 	Meteor.publish('todos', function () {
 		return Todos.find();
 	});
 }
 
-if (Meteor.is_client) {
+if (Meteor.isClient) {
 	Meteor.subscribe('todos');
 }
 
 //Allow users to write directly to this collection from client code, subject to limitations you define.
-if (Meteor.is_server) {
+if (Meteor.isServer) {
 	Todos.allow({
 		insert: function () {
 			return true;
