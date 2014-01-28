@@ -37,6 +37,6 @@ if (argv.framework) {
 // run the tests for each framework
 var testIndex = 1;
 list.forEach(function(framework) {
-    testSuite.todoMVCTest(framework.name + " (" + testIndex++ + "/" + list.length + ")",
+    testSuite.todoMVCTest(framework.name,
         rootUrl + framework.path + "/index.html", argv.speedMode, argv.laxMode);
 });
