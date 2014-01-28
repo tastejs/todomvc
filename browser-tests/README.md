@@ -1,15 +1,13 @@
 #Overview
 
-The TodoMVC project has a great many implementations of exactly the same app using different MV* frameworks. The apps should be functionally identical. The goal of these tests is to provide a fully automated browser-based test that can be used to ensure that the specification is being followed by each and every TodoMVC app.
+The TodoMVC project has a great many implementations of exactly the same app using different MV* frameworks. Each app should be functionally identical. The goal of these tests is to provide a fully automated browser-based test that can be used to ensure that the specification is being followed by each and every TodoMVC app.
 
 ##Todo
 
  + Complete the test implementation (27 out of 28 are now complete). The only test that I am struggling with is to test that the delete button becomes visible on hover.
  + Find a more elegant solution for TodoMVC apps that use RequireJS, currently there is a short 'sleep' statement in order to give the browser time to load dependencies. Yuck!
  + Run JSHint over my code ;-)
- + Find a mechanism for indicating which implementations have routing so that those that do not can be skipped.
  + Make it work with PhantomJS. In practice, Phantom is only a little bit faster, but it should work. Currently there are a few Phantom specific failures.
- + There are still a number of false negatives, with GWT, Dojo, Polymer and YUI being problematic. The tests are in a state where they certainly add value, but ideally they should not have any false positive or negative results.
 
 ##Running the tests
 
@@ -27,22 +25,59 @@ You need to run a local server at the root of the TodoMVC project. On Mac OSX, y
     
 To run the tests for all TodoMVC implementations, run the following:
 
-    mocha allTests.js  -R spec
+    mocha allTests.js  --reporter spec
     
-Note that `-R spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reported.
+Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reported.
     
 In order to run tests for a single TodoMVC implementation, supply a framework argument as follows:
     
-    mocha allTests.js  -R spec --framework=angularjs
+    mocha allTests.js  --reporter spec --framework=angularjs
     
-It can be useful send the results to the console and a file:
+In order to run a specific test, using the mocha 'grep' function. For example:
 
-    mocha allTests.js  -R spec 	
+    $ mocha allTests.js --reporter spec --framework=jquery \
+                                 --grep 'should trim entered text'
+
+	  TodoMVC - jquery
+	    Editing
+	      ✓ should trim entered text (1115ms)
+	
+	
+	  1 passing (3s)
+  
+	
+##Reporting against known issues
+
+The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these  issues using the `mocha-known-issues-reporter`. This reported is a separate npm module, as a result the easier way to run it using the supplied gruntfile:
+
+    grunt test --framework=angularjs
     
-Failed tests can be found using grep:
+When run via grunt the suite supports exactly the same command line arguments.
 
-	grep " [0-9]*)"  test.txt
+An example output with the known issues reporter is shown below:
 
+	$ grunt test --framework=jquery
+	Running "simplemocha:files" (simplemocha) task
+	(1 of 27) pass: TodoMVC - jquery, No Todos, should hide #main and #footer
+	[...]
+	(17 of 27) pass: TodoMVC - jquery, Editing, should remove the item if an empty text string was entered
+	(18 of 27) known issue: TodoMVC - jquery, Editing, should cancel edits on escape -- error: undefined
+	(19 of 27) pass: TodoMVC - jquery, Counter, should display the current number of todo items
+	(20 of 27) pass: TodoMVC - jquery, Clear completed button, should display the number of completed items
+	(21 of 27) pass: TodoMVC - jquery, Clear completed button, should remove completed items when clicked
+	(22 of 27) pass: TodoMVC - jquery, Clear completed button, should be hidden when there are no items that are completed
+	(23 of 27) pass: TodoMVC - jquery, Persistence, should persist its data
+	(24 of 27) known issue: TodoMVC - jquery, Routing, should allow me to display active items -- error: Cannot call method 'click' of undefined
+	(25 of 27) known issue: TodoMVC - jquery, Routing, should allow me to display completed items -- error: Cannot call method 'click' of undefined
+	(26 of 27) known issue: TodoMVC - jquery, Routing, should allow me to display all items -- error: Cannot call method 'click' of undefined
+	(27 of 27) known issue: TodoMVC - jquery, Routing, should highlight the currently applied filter -- error: Cannot call method 'getAttribute' of undefined
+	
+	passed: 22/27
+	failed: 5/27
+	new issues: 0
+	resolved issues: 0
+	
+The reporter indicates the number of passes, failed, new and resolved issues. This makes it ideal for regression testing.
     
 ###Chrome
 
@@ -50,9 +85,9 @@ In order to run the tests using the Chrome browser, you need to install ChromeDr
 
 ###Example output
 
-A test run should look something like the following:
+A test run with the 'spec' reporter look something like the following:
 
-    $ mocha allTests.js  -R spec --framework=angularjs
+    $ mocha allTests.js  --reporter spec --framework=angularjs
     
 	  angularjs
 	    TodoMVC
@@ -100,7 +135,7 @@ A test run should look something like the following:
 
 In order to keep each test case fully isolated, the browser is closed then re-opened in between each test. This does mean that the tests can take quite a long time to run. If you don't mind the risk of side-effects you can run the tests in speed mode by adding the `--speedMode` argument.
 
-	mocha allTests.js  -R spec --speedMode
+	mocha allTests.js  --reporter spec --speedMode
 	
 Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
 
@@ -108,7 +143,7 @@ Before each test all the todo items are checked as completed and the 'clear comp
 
 There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
 
-	mocha allTests.js  -R spec --laxMode
+	mocha allTests.js  --reporter spec --laxMode
 	
 
 ##Test design

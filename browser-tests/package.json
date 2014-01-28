@@ -6,6 +6,8 @@
     "grunt": "0.4.1",
     "mocha": "1.14.0",
     "selenium-webdriver": "2.37.0",
-    "optimist" : "0.6.0"
+    "optimist" : "0.6.0",
+    "grunt-simple-mocha": "~0.4.0",
+    "mocha-known-issues-reporter" : "git://github.com/ColinEberhardt/mocha-known-issues-reporter.git#v0.0.0"
   }
 }
