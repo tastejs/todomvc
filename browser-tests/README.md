@@ -13,45 +13,45 @@ The TodoMVC project has a great many implementations of exactly the same app usi
 
 These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests you will need to install the dependencies. Run the following command from within the `browser-tests` folder:
 
-    npm install
-    
+	npm install
+
 The tests use mocha, which must be installed as a command line module:
 
-    sudo npm install -g mocha
-    
+	sudo npm install -g mocha
+
 You need to run a local server at the root of the TodoMVC project. On Mac OSX, you can do the following:
 
 	python -m SimpleHTTPServer 8000
-    
+
 To run the tests for all TodoMVC implementations, run the following:
 
-    mocha allTests.js  --reporter spec
-    
+	mocha allTests.js  --reporter spec
+
 Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reported.
-    
+
 In order to run tests for a single TodoMVC implementation, supply a framework argument as follows:
-    
-    mocha allTests.js  --reporter spec --framework=angularjs
-    
+
+	mocha allTests.js  --reporter spec --framework=angularjs
+
 In order to run a specific test, using the mocha 'grep' function. For example:
 
-    $ mocha allTests.js --reporter spec --framework=jquery \
-                                 --grep 'should trim entered text'
+	$ mocha allTests.js --reporter spec --framework=jquery \
+		--grep 'should trim entered text'
 
 	  TodoMVC - jquery
 	    Editing
 	      ✓ should trim entered text (1115ms)
-	
-	
+
+
 	  1 passing (3s)
-  
-	
+
+
 ##Reporting against known issues
 
 The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these  issues using the `mocha-known-issues-reporter`. This reported is a separate npm module, as a result the easier way to run it using the supplied gruntfile:
 
-    grunt test --framework=angularjs
-    
+	grunt test --framework=angularjs
+
 When run via grunt the suite supports exactly the same command line arguments.
 
 An example output with the known issues reporter is shown below:
@@ -71,14 +71,14 @@ An example output with the known issues reporter is shown below:
 	(25 of 27) known issue: TodoMVC - jquery, Routing, should allow me to display completed items -- error: Cannot call method 'click' of undefined
 	(26 of 27) known issue: TodoMVC - jquery, Routing, should allow me to display all items -- error: Cannot call method 'click' of undefined
 	(27 of 27) known issue: TodoMVC - jquery, Routing, should highlight the currently applied filter -- error: Cannot call method 'getAttribute' of undefined
-	
+
 	passed: 22/27
 	failed: 5/27
 	new issues: 0
 	resolved issues: 0
-	
+
 The reporter indicates the number of passes, failed, new and resolved issues. This makes it ideal for regression testing.
-    
+
 ###Chrome
 
 In order to run the tests using the Chrome browser, you need to install ChromeDriver. Instructions for download and installation can be found on the [ChromeDriver homepage](http://code.google.com/p/selenium/wiki/ChromeDriver), or a simpler set of instructions is available [here](http://damien.co/resources/how-to-install-chromedriver-mac-os-x-selenium-python-7406).
@@ -88,7 +88,7 @@ In order to run the tests using the Chrome browser, you need to install ChromeDr
 A test run with the 'spec' reporter look something like the following:
 
     $ mocha allTests.js  --reporter spec --framework=angularjs
-    
+
 	  angularjs
 	    TodoMVC
 	      No Todos
@@ -106,7 +106,7 @@ A test run with the 'spec' reporter look something like the following:
 	        ✓ should allow me to mark items as complete (843ms)
 	        ✓ should allow me to un-mark items as complete (978ms)
 	        ✓ should allow me to edit an item (1155ms)
-	        ✓ should show the remove button on hover 
+	        ✓ should show the remove button on hover
 	      Editing
 	        ✓ should hide other controls when editing (718ms)
 	        ✓ should save edits on enter (1093ms)
@@ -127,16 +127,16 @@ A test run with the 'spec' reporter look something like the following:
 	        ✓ should allow me to display completed items (960ms)
 	        ✓ should allow me to display all items (1192ms)
 	        ✓ should highlight the currently applied filter (1095ms)
-	
-	
+
+
 	  27 passing (1m)
-    
+
 ##Speed mode
 
 In order to keep each test case fully isolated, the browser is closed then re-opened in between each test. This does mean that the tests can take quite a long time to run. If you don't mind the risk of side-effects you can run the tests in speed mode by adding the `--speedMode` argument.
 
 	mocha allTests.js  --reporter spec --speedMode
-	
+
 Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
 
 ##Lax mode
@@ -144,7 +144,7 @@ Before each test all the todo items are checked as completed and the 'clear comp
 There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
 
 	mocha allTests.js  --reporter spec --laxMode
-	
+
 
 ##Test design
 
@@ -155,9 +155,5 @@ Very briefly, the tests are designed as follows:
  + `testOperations.js` - provides common assertions and operations.
  + `test.js` - Erm … the tests! These are written to closely match the TodoMVC spec.
  + `allTest.js` - A simple file that locates all of the framework examples, and runs the tests for each.
- 
-**NOTE:** All of the WebdriverJS methods return promises and are executed asynchronously. However, you do not have to 'chain' then using `then`, they are instead automagically added to a queue, then executed. This means that if you add non-WebdriverJS operations (asserts, log messages) these will not be executed at the point you might expect. This is why `TestOperations.js` uses an explicit `then` each time it asserts.
 
-	
- 
-  
+**NOTE:** All of the WebdriverJS methods return promises and are executed asynchronously. However, you do not have to 'chain' then using `then`, they are instead automagically added to a queue, then executed. This means that if you add non-WebdriverJS operations (asserts, log messages) these will not be executed at the point you might expect. This is why `TestOperations.js` uses an explicit `then` each time it asserts.
