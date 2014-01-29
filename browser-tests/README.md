@@ -17,7 +17,7 @@ These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  I
 
 The tests use mocha, which must be installed as a command line module:
 
-	sudo npm install -g mocha
+	npm install -g mocha
 
 You need to run a local server at the root of the TodoMVC project. On Mac OSX, you can do the following:
 
