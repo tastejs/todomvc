@@ -124,6 +124,11 @@ Pascal is a Front-end Engineer at Twitter with a deep passion for consistency. H
 <img align="left" width="40" height="40" src="https://secure.gravatar.com/avatar/098cfe2d360e77c3229f2cd5298354c4?s=40">
 Stephen is a Front-end Engineer at Quicken Loans that cares about improving the maintainability and developer experience of open-source projects. His recent contributions include helping us move all apps over to using Bower and implementing the new information bar.
 
+#### [Colin Eberhardt](https://github.com/colineberhardt) - Developer
+
+<img align="left" width="40" height="40" src="https://secure.gravatar.com/avatar/73bba00b41ff1c9ecc3ee29487bace7d?s=40">
+Colin is a software consultant at Scott Logic who is passionate about all software - from JavaScript to Java, and C# to Objective-C. His recent contribution to the project has been a fully automated test suite.
+
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/4b0209ae3652cc5a7d53545e759fbe39.png?s=40">
