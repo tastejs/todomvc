@@ -1,19 +1,18 @@
 module.exports = function (grunt) {
-  
-    grunt.loadNpmTasks('grunt-simple-mocha');
+	'use strict';
+	grunt.loadNpmTasks('grunt-simple-mocha');
 
-    var gruntConfig = {
-        simplemocha: {
-            options: {
-                reporter: 'mocha-known-issues-reporter'            
-            },
-            files: {
-              src: 'allTests.js'
-            }
-        }
-    };
-    grunt.initConfig(gruntConfig);
+	grunt.initConfig({
+		simplemocha: {
+			options: {
+				reporter: 'mocha-known-issues-reporter'
+			},
+			files: {
+				src: 'allTests.js'
+			}
+		}
+	});
 
-     // build tasks  
-    grunt.registerTask('test', ['simplemocha']);
+	// build tasks
+	grunt.registerTask('test', ['simplemocha']);
 };
