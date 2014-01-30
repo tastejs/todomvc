@@ -1,6 +1,7 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('assert'),
+	Q = require('q');
 
 function TestOperations(page) {
 
@@ -95,6 +96,26 @@ function TestOperations(page) {
 	this.assertItemText = function (itemIndex, textToAssert) {
 		page.getItemLabelAtIndex(itemIndex).getText().then(function (text) {
 			assert.equal(textToAssert, text.trim());
+		});
+	};
+
+	// tests that the list contains the following items, independant of order
+	this.assertItems = function (textArray) {
+		page.getItemLabels().then(function (labels) {
+			assert.equal(textArray.length, labels.length);
+			// create an array of promises which check the presence of the
+			// label text within the 'textArray'
+			var tests = [];
+			for(var i=0;i<labels.length;i++) {
+				tests.push(labels[i].getText().then(function (text) {
+					var index = textArray.indexOf(text);
+					assert(index !== -1, 'A todo item with text \'' + text + '\' was not found');
+					// remove this item when found
+					textArray.splice(index, 1);
+				}));
+			}
+			// execute all the tests
+			return Q.all(tests);
 		});
 	};
 
