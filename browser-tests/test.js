@@ -81,18 +81,23 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		test.describe('New Todo', function () {
 			test.it('should allow me to add todo items', function () {
 				page.enterItem(TODO_ITEM_ONE);
-				testOps.assertItemCount(1);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
+				testOps.assertItems([TODO_ITEM_ONE]);
 
 				page.enterItem(TODO_ITEM_TWO);
-				testOps.assertItemCount(2);
-				testOps.assertItemText(1, TODO_ITEM_TWO);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO]);
 			});
 
 			test.it('should clear text input field when an item is added', function () {
 				page.enterItem(TODO_ITEM_ONE);
 				testOps.assertItemInputFieldText('');
+			});
+
+			test.it('should append new items to the bottom of the list', function () {
+				createStandardItems();
+				testOps.assertItemCount(3);
+				testOps.assertItemText(0, TODO_ITEM_ONE);
+				testOps.assertItemText(1, TODO_ITEM_TWO);
+				testOps.assertItemText(2, TODO_ITEM_THREE);
 			});
 
 			test.it('should trim text input', function () {
@@ -176,9 +181,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 				page.editItemAtIndex(1, 'buy some sausages' + webdriver.Key.ENTER);
 
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, 'buy some sausages');
-				testOps.assertItemText(2, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
 
 			test.it('should show the remove button on hover', function () {
@@ -201,9 +204,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 				page.editItemAtIndex(1, 'buy some sausages' + webdriver.Key.ENTER);
 
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, 'buy some sausages');
-				testOps.assertItemText(2, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
 
 			test.it('should save edits on blur', function () {
@@ -215,9 +216,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				// click a toggle button so that the blur() event is fired
 				page.toggleItemAtIndex(0);
 
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, 'buy some sausages');
-				testOps.assertItemText(2, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
 
 			test.it('should trim entered text', function () {
@@ -226,9 +225,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 				page.editItemAtIndex(1, '    buy some sausages  ' + webdriver.Key.ENTER);
 
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, 'buy some sausages');
-				testOps.assertItemText(2, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
 
 			test.it('should remove the item if an empty text string was entered', function () {
@@ -237,9 +234,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 				page.editItemAtIndex(1, webdriver.Key.ENTER);
 
-				testOps.assertItemCount(2);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
 			});
 
 			test.it('should cancel edits on escape', function () {
@@ -248,10 +243,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 				page.editItemAtIndex(1, 'foo' + webdriver.Key.ESCAPE);
 
-				testOps.assertItemCount(3);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, TODO_ITEM_TWO);
-				testOps.assertItemText(2, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]);
 			});
 		});
 
@@ -279,8 +271,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 				page.clickClearCompleteButton();
 				testOps.assertItemCount(2);
-				testOps.assertItemText(1, TODO_ITEM_THREE);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
 			});
 
 			test.it('should be hidden when there are no items that are completed', function () {
@@ -300,9 +291,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 
 				function stateTest() {
-					testOps.assertItemCount(2);
-					testOps.assertItemText(1, TODO_ITEM_TWO);
-					testOps.assertItemText(0, TODO_ITEM_ONE);
+					testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO]);
 					testOps.assertItemAtIndexIsCompleted(1);
 					testOps.assertItemAtIndexIsNotCompleted(0);
 				}
@@ -325,9 +314,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 				page.filterByActiveItems();
 
-				testOps.assertItemCount(2);
-				testOps.assertItemText(1, TODO_ITEM_THREE);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
 			});
 
 			test.it('should allow me to display completed items', function () {
@@ -335,8 +322,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 				page.filterByCompletedItems();
 
-				testOps.assertItemCount(1);
-				testOps.assertItemText(0, TODO_ITEM_TWO);
+				testOps.assertItems([TODO_ITEM_TWO]);
 			});
 
 			test.it('should allow me to display all items', function () {
@@ -348,10 +334,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.filterByCompletedItems();
 				page.filterByAllItems();
 
-				testOps.assertItemCount(3);
-				testOps.assertItemText(0, TODO_ITEM_ONE);
-				testOps.assertItemText(1, TODO_ITEM_TWO);
-				testOps.assertItemText(2, TODO_ITEM_THREE);
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]);
 			});
 
 			test.it('should highlight the currently applied filter', function () {

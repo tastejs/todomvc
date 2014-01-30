@@ -74,6 +74,10 @@ module.exports = function Page(browser) {
 		return browser.findElements(webdriver.By.xpath('//ul[@id="filters"]//a'));
 	};
 
+	this.getItemLabels = function () {
+		return browser.findElements(webdriver.By.xpath('//ul[@id="todo-list"]/li//label'));
+	};
+
 	// ----------------- page actions
 
 	this.clickMarkAllCompletedCheckBox = function () {
