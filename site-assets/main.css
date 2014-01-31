@@ -77,6 +77,10 @@ header nav a:not(:last-child) {
 	margin-top: 70px;
 }
 
+.logo-icon {
+	display: none;
+}
+
 .nav-tabs > li,
 .nav-pills > li {
 	clear: both;
@@ -134,16 +138,20 @@ header nav a:not(:last-child) {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	-webkit-columns: 4;
-	-moz-columns: 4;
-	-ms-columns: 4;
-	-o-columns: 4;
-	columns: 4;
+	-webkit-columns: 1;
+	-moz-columns: 1;
+	-ms-columns: 1;
+	-o-columns: 1;
+	columns: 1;
 }
 
 .applist li {
-	white-space: nowrap;
 	padding: 10px 0;
+	-webkit-column-break-inside: avoid;
+	-moz-column-break-inside: avoid;
+	-ms-column-break-inside: avoid;
+	-o-column-break-inside: avoid;
+	column-break-inside: avoid;
 }
 
 .applist a {
@@ -188,14 +196,6 @@ header nav a:not(:last-child) {
 .applist a:hover .label {
 	text-decoration: none !important;
 	color: red;
-}
-
-.applist.amd {
-	-webkit-columns: 2;
-	-moz-columns: 2;
-	-ms-columns: 2;
-	-o-columns: 2;
-	columns: 2;
 }
 
 .legend {
@@ -382,7 +382,7 @@ a.zocial {
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: 770px) {
 	h2 {
 		margin-top: 20px;
 	}
@@ -398,29 +398,45 @@ a.zocial {
 		margin-top: 0;
 	}
 
-	.logo-icon {
-		display: none;
-	}
-
 	.container {
 		margin: auto;
 	}
+}
 
+@media (min-width: 480px) {
 	.applist {
-		-webkit-columns: 2 !important;
-		-moz-columns: 2 !important;
-		-ms-columns: 2 !important;
-		-o-columns: 2 !important;
-		columns: 2 !important;
+		-webkit-columns: 2;
+		-moz-columns: 2;
+		-ms-columns: 2;
+		-o-columns: 2;
+		columns: 2;
 	}
 }
 
-@media (max-width: 980px) {
+@media (min-width: 640px) and (max-width: 770px) {
 	.applist {
 		-webkit-columns: 3;
 		-moz-columns: 3;
 		-ms-columns: 3;
 		-o-columns: 3;
 		columns: 3;
+	}
+}
+
+
+@media (min-width: 771px) {
+	.js,
+	.ctojs {
+		-webkit-columns: 4;
+		-moz-columns: 4;
+		-ms-columns: 4;
+		-o-columns: 4;
+		columns: 4;
+	}
+}
+
+@media (min-width: 992px) {
+	.logo-icon {
+		display: block;
 	}
 }
