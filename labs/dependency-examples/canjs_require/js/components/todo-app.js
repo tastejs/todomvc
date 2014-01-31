@@ -2,7 +2,7 @@
 define([
 	'can/util/library',
 	'can/component',
-	'../models/Todo',
+	'../models/todo',
 	'can/route'
 ], function (can, Component, Todo, route) {
 	'use strict';
