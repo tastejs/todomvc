@@ -227,7 +227,7 @@ YUI.add('todo-app', function (Y) {
 	Y.namespace('TodoMVC').TodoApp = TodoApp;
 }, '@VERSION@', {
 	requires: [
-		'app',
+		'app-base',
 		'todo-list',
 		'todo-view',
 		'node'
