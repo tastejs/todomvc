@@ -34,14 +34,16 @@ h2 {
 	font-size: 24px;
 }
 
-a, .link {
+a,
+.link {
 	color: #9f3c3c;
 	font-weight: 500;
 	cursor: pointer;
 }
 
 
-a:hover, .link:hover {
+a:hover,
+.link:hover {
 	color: #431919;
 	text-decoration: underline;
 }
@@ -50,11 +52,6 @@ p {
 	font-size: 16px;
 	line-height: 1.5;
 	font-weight: 300;
-}
-
-hr {
-	border-top: 1px dashed #C5C5C5;
-	border-bottom: 1px dashed #F7F7F7;
 }
 
 var {
@@ -87,15 +84,6 @@ header nav a:not(:last-child) {
 
 .logo-icon {
 	display: none;
-}
-
-.nav-tabs > li,
-.nav-pills > li {
-	clear: both;
-}
-
-.nav-pills {
-	margin-left: -10px;
 }
 
 .row {
@@ -132,14 +120,6 @@ header nav a:not(:last-child) {
 	content: '✔';
 	position: absolute;
 	left: -20px;
-}
-
-.whats-new li ul {
-	margin-left: 10px;
-}
-
-.whats-new li ul li {
-	margin-left: 20px;
 }
 
 .applist {
@@ -215,15 +195,11 @@ header nav a:not(:last-child) {
 	margin-bottom: 0;
 }
 
-.labs-example {
-	font-weight: bold;
-}
-
 .collapsed {
 	overflow: hidden;
 	max-height: 0;
-	-webkit-transition: max-height 1s;
-	transition: max-height 1s;
+	-webkit-transition: max-height 0.7s ease-out;
+	transition: max-height 0.7s ease-out;
 }
 
 #news-expander {
@@ -232,6 +208,8 @@ header nav a:not(:last-child) {
 
 #news-expander:checked ~ .collapsed {
 	max-height: 999px;
+	-webkit-transition: max-height 0.7s ease-in;
+	transition: max-height 0.7s ease-in;
 }
 
 .credit a {
