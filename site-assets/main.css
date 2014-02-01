@@ -9,7 +9,7 @@ body {
 	font-weight: 300;
 	line-height: 1.5;
 	width: auto;
-	background: #f7f7f7;
+	background: #fafafa;
 	color: #353535;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
@@ -40,7 +40,7 @@ a {
 }
 
 a:hover {
-	color: #787e7e;
+	color: #431919;
 }
 
 p {
