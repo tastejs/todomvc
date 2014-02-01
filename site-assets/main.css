@@ -34,13 +34,16 @@ h2 {
 	font-size: 24px;
 }
 
-a {
+a, .link {
 	color: #9f3c3c;
 	font-weight: 500;
+	cursor: pointer;
 }
 
-a:hover {
+
+a:hover, .link:hover {
 	color: #431919;
+	text-decoration: underline;
 }
 
 p {
