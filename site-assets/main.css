@@ -5,12 +5,12 @@ body {
 }
 
 body {
-	font: 15px 'Helvetica Neue', Helvetica, Arial;
+	font: 16px 'Helvetica Neue', Helvetica, Arial;
 	font-weight: 300;
 	line-height: 1.5;
 	width: auto;
-	background: #EAEAEA url('../site-assets/bg.png');
-	color: #4D4D4D;
+	background: #f7f7f7;
+	color: #353535;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
 	-ms-font-smoothing: antialiased;
@@ -24,19 +24,19 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1.2;
 	color: #000;
 }
 
 h2 {
 	margin: 10px 0;
-	font-size: 20px;
+	font-size: 24px;
 }
 
 a {
-	color: #B83F45;
-	font-weight: bold;
+	color: #9f3c3c;
+	font-weight: 500;
 }
 
 a:hover {
@@ -44,7 +44,7 @@ a:hover {
 }
 
 p {
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.5;
 	font-weight: 300;
 }
@@ -66,6 +66,11 @@ header p {
 
 header nav {
 	margin-top: 20px;
+	font-size: 20px;
+}
+
+header nav a {
+	font-weight: 200;
 }
 
 header nav a:not(:last-child) {
@@ -143,6 +148,7 @@ header nav a:not(:last-child) {
 	-ms-columns: 1;
 	-o-columns: 1;
 	columns: 1;
+	font-size: 17px;
 }
 
 .applist li {
@@ -163,34 +169,27 @@ header nav a:not(:last-child) {
 	column-break-inside: avoid;
 }
 
-.applist .routing::after {
+.applist .routing::after,
+.applist .label,
+.legend .label {
 	content: 'R';
 	position: relative;
 	top: -3px;
 	font-size: 9px;
 	padding: 1px 3px 1px;
-	background-color: rgba(0, 0, 0, .2);
+	background-color: rgba(0, 0, 0, .1);
 	border-radius: 3px;
 	font-weight: bold;
 	line-height: 13px;
-	color: white;
+	color: #777;
 	vertical-align: middle;
 	white-space: nowrap;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .applist .labs a,
 .labs-example {
 	color: #582C42;
-}
-
-.applist .label,
-.legend .label {
-	position: relative;
-	top: -3px;
-	font-size: 9px;
-	padding: 1px 3px 1px;
-	background-color: rgba(0, 0, 0, .2);
 }
 
 .applist a:hover .label {
@@ -201,6 +200,7 @@ header nav a:not(:last-child) {
 .legend {
 	margin-top: 20px;
 	margin-left: 0;
+	padding: 0;
 	list-style-type: none;
 }
 
@@ -232,7 +232,7 @@ header nav a:not(:last-child) {
 }
 
 .credit a {
-	margin: 0 5px;
+	margin: 5px;
 	white-space: nowrap;
 }
 
@@ -320,7 +320,7 @@ header nav a:not(:last-child) {
 }
 
 .zocial.red {
-	background-color: #a82400;
+	background-color: #b12d2b;
 }
 
 .zocial.gray {
@@ -343,18 +343,15 @@ header nav a:not(:last-child) {
 
 .zocial,
 a.zocial {
+	background: #f4f4f4;
 	border: 1px solid #777;
 	border-color: rgba(0, 0, 0, 0.2);
 	border-bottom-color: #333;
 	border-bottom-color: rgba(0, 0, 0, 0.4);
 	color: white;
-	box-shadow: inset 0 0.08em 0 rgba(255, 255, 255, 0.3),
-				inset 0 0 0.1em rgba(255, 255, 255, 0.9),
-				0 1px 3px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
 	display: inline-block;
-	font: bold 100%/2.1 "Helvetica Neue", Helvetica, Arial;
-	padding: 5px 10px;
+	padding: 6px 10px;
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -364,8 +361,6 @@ a.zocial {
 	user-select: none;
 	position: relative;
 	border-radius: .3em;
-	background-image: -webkit-linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
-	background-image: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .05) 49%, rgba(0, 0, 0, .05) 51%, rgba(0, 0, 0, .1));
 }
 
 @media (max-width: 480px) {
