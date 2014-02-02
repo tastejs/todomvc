@@ -6,9 +6,21 @@ module.exports = function Page(browser) {
 
 	// ----------------- utility methods
 
+	this.tryFindByXpath = function(xpath) {
+		return browser.findElements(webdriver.By.xpath(xpath));
+	}
+
+	this.findByXpath = function(xpath) {
+		return browser.findElement(webdriver.By.xpath(xpath));
+	}
+
+	this.getTodoListXpath = function() {
+		return '//ul[@id="todo-list"]';
+	}
+
 	this.xPathForItemAtIndex = function (index) {
 		// why is XPath the only language silly enough to be 1-indexed?
-		return '//ul[@id="todo-list"]/li[' + (index + 1) + ']';
+		return this.getTodoListXpath() + '/li[' + (index + 1) + ']';
 	};
 
 	// ----------------- try / get methods
@@ -19,63 +31,64 @@ module.exports = function Page(browser) {
 	// elements which *might* be present in the DOM, hence the try/get name.
 
 	this.tryGetMainSectionElement = function () {
-		return browser.findElements(webdriver.By.xpath('//section[@id="main"]'));
+		return this.tryFindByXpath('//section[@id="main"]');
 	};
 
 	this.tryGetFooterElement = function () {
-		return browser.findElements(webdriver.By.xpath('//footer[@id="footer"]'));
+		return this.tryFindByXpath('//footer[@id="footer"]');
 	};
 
 	this.tryGetClearCompleteButton = function () {
-		return browser.findElements(webdriver.By.xpath('//button[@id="clear-completed"]'));
+		return this.tryFindByXpath('//button[@id="clear-completed"]');
 	};
 
 	this.tryGetToggleForItemAtIndex = function (index) {
 		var xpath = this.xPathForItemAtIndex(index) + '//input[contains(@class,"toggle")]';
-		return browser.findElements(webdriver.By.xpath(xpath));
+		return this.tryFindByXpath(xpath);
 	};
 
 	this.tryGetItemLabelAtIndex = function (index) {
-		return browser.findElements(webdriver.By.xpath(this.xPathForItemAtIndex(index) + '//label'));
+		return this.tryFindByXpath(this.xPathForItemAtIndex(index) + '//label');
 	};
 
 	// ----------------- DOM element access methods
 
 	this.getEditInputForItemAtIndex = function (index) {
 		var xpath = this.xPathForItemAtIndex(index) + '//input[contains(@class,"edit")]';
-		return browser.findElement(webdriver.By.xpath(xpath));
+		return this.findByXpath(xpath);
 	};
 
 	this.getItemInputField = function () {
-		return browser.findElement(webdriver.By.xpath('//input[@id="new-todo"]'));
+		return this.findByXpath('//input[@id="new-todo"]');
 	};
 
 	this.getMarkAllCompletedCheckBox = function () {
-		return browser.findElement(webdriver.By.xpath('//input[@id="toggle-all"]'));
+		return this.findByXpath('//input[@id="toggle-all"]');
 	};
 
 	this.getItemElements = function () {
-		return browser.findElements(webdriver.By.xpath('//ul[@id="todo-list"]/li'));
+		return this.tryFindByXpath(this.getTodoListXpath() + '/li');
 	};
 
 	this.getNonCompletedItemElements = function () {
-		return browser.findElements(webdriver.By.xpath('//ul[@id="todo-list"]/li[not(contains(@class,"completed"))]'));
+		return this.tryFindByXpath(this.getTodoListXpath() + '/li[not(contains(@class,"completed"))]');
 	};
 
 	this.getItemsCountElement = function () {
-		return browser.findElement(webdriver.By.id('todo-count'));
+		return this.findByXpath('//span[@id="todo-count"]');
 	};
 
 	this.getItemLabelAtIndex = function (index) {
-		return browser.findElement(webdriver.By.xpath(this.xPathForItemAtIndex(index) + '//label'));
+		return this.findByXpath(this.xPathForItemAtIndex(index) + '//label');
 	};
 
 	this.getFilterElements = function () {
-		return browser.findElements(webdriver.By.xpath('//ul[@id="filters"]//a'));
+		return this.tryFindByXpath('//ul[@id="filters"]//a');
 	};
 
 	this.getItemLabels = function () {
-		return browser.findElements(webdriver.By.xpath('//ul[@id="todo-list"]/li//label'));
+		var xpath = this.getTodoListXpath() + '/li//label';
+		return this.tryFindByXpath(xpath);
 	};
 
 	// ----------------- page actions
