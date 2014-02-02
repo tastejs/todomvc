@@ -690,31 +690,6 @@
 			}]
 		}]
 	},
-	"dermis": {
-		"name": "Dermis",
-		"description": "Dermis is a lightweight MVVM framework with built-in data binding (via rivets).",
-		"homepage": "wearefractal.com/dermis",
-		"examples": [{
-			"name": "Architecture Example",
-			"url": "labs/architecture-examples/dermis"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://wearefractal.com/dermis"
-			}, {
-				"name": "Dermis on GitHub",
-				"url": "https://github.com/wearefractal/dermis"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Dermis in Easy Steps",
-				"url": "http://contra.io/2013/03/28/dermis-in-easy-steps"
-			}]
-		}]
-	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",
