@@ -17,10 +17,8 @@
 	ss.server.on('ready', function () {
 		// Wait for the DOM to finish loading
 		$(function () {
-
 			// Load app
 			require('/app');
-
 		});
 	});
 })();

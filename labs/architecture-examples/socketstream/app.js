@@ -1,13 +1,14 @@
 var http = require('http');
 var ss = require('socketstream');
+var PORT = process.env.PORT || 3000;
 
 // Define a single-page client
 ss.client.define('main', {
 	view: 'app.html',
 	css: ['base.css'],
 	code: [
-		'libs/jquery/jquery.js',
 		'libs/todomvc-common/base.js',
+		'libs/jquery/jquery.js',
 		'app'
 	],
 	tmpl: '*'
@@ -28,7 +29,8 @@ if (ss.env === 'production') {
 
 // Start web server
 var server = http.Server(ss.http.middleware);
-server.listen(3000);
+server.listen(PORT);
 
 // Start SocketStream
 ss.start(server);
+console.log('Started server on http://localhost:' + PORT);

@@ -1,7 +1,6 @@
 {
-	"name": "todos",
+	"name": "todomvc-socketstream",
 	"description": "SocketStream TodoMVC app",
-	"version": "1.0.0",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
@@ -9,14 +8,14 @@
 	},
 	"private": true,
 	"engines": {
-		"node": ">=0.6.0"
+		"node": ">=0.10.0"
 	},
 	"scripts": {
 		"start": "node app.js"
 	},
 	"dependencies": {
-		"socketstream": "0.3.x",
-		"ss-stylus": "0.1.x",
-		"ss-hogan": "0.1.x"
+		"socketstream": "~0.3.10",
+		"ss-stylus": "~0.1.8",
+		"ss-hogan": "~0.1.3"
 	}
 }
