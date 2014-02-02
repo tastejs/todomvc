@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "todomvc-common": "~0.1.6",
-    "jquery": "~1.9.1",
+    "jquery": "~2.1.0",
     "kendo-ui": "~2013.3.1119"
   }
 }
