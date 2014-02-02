@@ -58,7 +58,7 @@ var app = app || {};
 
 		// Main element visibility handler
 		isVisible: function () {
-			return this.get('todos').data().length;
+			return this.get('todos').data().length ? '' : 'hidden';
 		},
 
 		// new todo value
@@ -70,7 +70,7 @@ var app = app || {};
 			var newTodo = this.get('newTodo');
 
 			var todo = new app.Todo({
-				title: $.trim(newTodo),
+				title: newTodo.trim(),
 				completed: false,
 				edit: false
 			});
