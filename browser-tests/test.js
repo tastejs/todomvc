@@ -194,8 +194,8 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				createStandardItems();
 				page.doubleClickItemAtIndex(1);
 
-				testOps.assertItemToggleIsHidden();
-				testOps.assertItemLabelIsHidden();
+				testOps.assertItemToggleIsHidden(1);
+				testOps.assertItemLabelIsHidden(1);
 			});
 
 			test.it('should save edits on enter', function () {

@@ -6,6 +6,10 @@ var argv = require('optimist').default('laxMode', false).argv;
 var rootUrl = 'http://localhost:8000/';
 var frameworkNamePattern = /^[a-z-_]+$/;
 
+// these implementations deviate from the specification to such an extent that they are 
+// not worth testing via a generic mecanism
+var excludedFrameworks = ['gwt', 'polymer'];
+
 // collect together the framework names from each of the subfolders
 var list = fs.readdirSync('../architecture-examples/')
 	.map(function (folderName) {
@@ -31,7 +35,6 @@ var list = fs.readdirSync('../architecture-examples/')
 var exceptions = [
 	{ name: 'chaplin-brunch', path: 'labs/dependency-examples/chaplin-brunch/public' }
 ];
-
 list = list.map(function (framework) {
 	var exception = exceptions.filter(function (exFramework) {
 		return exFramework.name === framework.name;
@@ -44,11 +47,20 @@ list = list.filter(function (framework) {
 	return frameworkNamePattern.test(framework.name);
 });
 
+// filter out un-supported implementations
+list = list.filter(function (framework) {
+	return excludedFrameworks.indexOf(framework.name) === -1;
+});
+
 // if a specific framework has been named, just run this one
 if (argv.framework) {
 	list = list.filter(function (framework) {
 		return framework.name === argv.framework;
 	});
+
+	if(list.length === 0) {
+		console.log('You have either requested an unknown or an un-supported framework');
+	}
 }
 
 // run the tests for each framework
