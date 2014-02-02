@@ -107,7 +107,7 @@ function TestOperations(page) {
 	this.assertItems = function (textArray) {
 		page.getItemLabels().then(function (labels) {
 			assert.equal(textArray.length, labels.length,
-				textArray.length, + ' items expected in the todo list, ' + labels.length + ' items observed');
+				textArray.length + ' items expected in the todo list, ' + labels.length + ' items observed');
 			// create an array of promises which check the presence of the
 			// label text within the 'textArray'
 			var tests = [];

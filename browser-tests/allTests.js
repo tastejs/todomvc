@@ -10,6 +10,15 @@ var frameworkNamePattern = /^[a-z-_]+$/;
 // not worth testing via a generic mecanism
 var excludedFrameworks = ['gwt', 'polymer'];
 
+// these implementations cannot be run offline, because they are hosted
+excludedFrameworks = excludedFrameworks.concat(['derby', 'firebase-angular', 'meteor', 'socketstream',
+	// YUI is a special case here, it is not hosted, but fetches JS files dynamically 
+	'yui',
+	// these frameworks take a long time to start-up, and there is no easy way to determine when they are ready
+	'cujo', 'montage',
+	// this example has been removed (see the readme in the framework folder)
+	'emberjs_require']);
+
 // collect together the framework names from each of the subfolders
 var list = fs.readdirSync('../architecture-examples/')
 	.map(function (folderName) {
@@ -33,7 +42,10 @@ var list = fs.readdirSync('../architecture-examples/')
 
 // apps that are not hosted at the root of their folder need to be handled explicitly
 var exceptions = [
-	{ name: 'chaplin-brunch', path: 'labs/dependency-examples/chaplin-brunch/public' }
+	{ name: 'chaplin-brunch', path: 'labs/dependency-examples/chaplin-brunch/public' },
+	{ name: 'angular-dart', path: 'labs/architecture-examples/angular-dart/web' },
+	{ name: 'duel', path: 'labs/architecture-examples/duel/www' },
+	{ name: 'thorax_lumbar', path: 'labs/dependency-examples/thorax_lumbar/public' },
 ];
 list = list.map(function (framework) {
 	var exception = exceptions.filter(function (exFramework) {
