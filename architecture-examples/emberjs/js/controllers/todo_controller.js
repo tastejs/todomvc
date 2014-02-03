@@ -22,15 +22,15 @@ Todos.TodoController = Ember.ObjectController.extend({
 				// enter (once via 'insert-newline' and once via 'focus-out').
 				//
 				// We debounce our call to 'removeTodo' so that it only gets
-				// sent once.
-				Ember.run.debounce(this, this.send, 'removeTodo', 0);
+				// made once.
+				Ember.run.debounce(this, 'removeTodo', 0);
 			} else {
 				var todo = this.get('model');
 				todo.set('title', bufferedTitle);
 				todo.save();
 			}
 
-			// Re-set our newly edited title to persist it's trimmed version
+			// Re-set our newly edited title to persist its trimmed version
 			this.set('bufferedTitle', bufferedTitle);
 			this.set('isEditing', false);
 		},
@@ -41,10 +41,18 @@ Todos.TodoController = Ember.ObjectController.extend({
 		},
 
 		removeTodo: function () {
-			var todo = this.get('model');
-
-			todo.deleteRecord();
-			todo.save();
+			this.removeTodo();
 		}
-	}
+	},
+
+	removeTodo: function () {
+		var todo = this.get('model');
+
+		todo.deleteRecord();
+		todo.save();
+	},
+
+	saveWhenCompleted: function () {
+		this.get('model').save();
+	}.observes('isCompleted')
 });
