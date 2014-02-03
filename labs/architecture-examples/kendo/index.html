@@ -13,7 +13,7 @@
 						 placeholder="What needs to be done?" autofocus>
 			</header>
 			<section id="main" data-bind="attr: { class : isVisible }">
-				<input id="toggle-all" type="checkbox" data-bind="click: toggleAll, checked: allCompleted">
+				<input id="toggle-all" type="checkbox" data-bind="events: { click: toggleAll }, checked: allCompleted">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list" data-template="item-template" data-bind="source: todos"></ul>
 			</section>
@@ -53,7 +53,7 @@
 					<button class="destroy" data-bind="click: destroy">
 					</button>
 				</div>
-				<input class="edit" data-bind="value: title, events: { change: endEdit, blur: endEdit }, enter: endEdit">
+				<input class="edit" data-bind="value: title, events: { blur: endEdit, change: endEdit }, enter: endEdit, escape: cancelEdit">
 			</li>
 		</script>
 		<script src="bower_components/todomvc-common/base.js"></script>
