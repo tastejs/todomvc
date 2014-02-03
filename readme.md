@@ -2,7 +2,7 @@
 
 > Helping you select an MV\* framework
 
-### [Website](http://todomvc.com)&nbsp;&nbsp;&nbsp;&nbsp;[Blog](http://tastejs.roon.io)&nbsp;&nbsp;&nbsp;&nbsp;[TasteJS](http://tastejs.com)
+### [Website](http://todomvc.com)&nbsp;&nbsp;&nbsp;&nbsp;[Blog](http://blog.tastejs.com)&nbsp;&nbsp;&nbsp;&nbsp;[TasteJS](http://tastejs.com)
 
 
 Developers these days are spoiled with choice when it comes to selecting an MV\* framework for structuring and organizing JavaScript web apps.
