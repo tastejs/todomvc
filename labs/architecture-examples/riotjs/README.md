@@ -4,7 +4,7 @@
 
 > _[Riot.js - moot.it/riotjs](https://moot.it/riotjs)_
 
-## Learning Framework Name
+## Learning Riot.js
 
 The [Riot.js website](https://moot.it/riotjs) is a great resource for getting started.
 

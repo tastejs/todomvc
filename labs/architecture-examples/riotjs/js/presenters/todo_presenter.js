@@ -77,7 +77,7 @@ function todoPresenter(element, options) {
 
     function add(item) {
         var element = $($.render(template, item));
-        $list.prepend(element);
+        $list.append(element);
         toggle(element, !!item.done);
     }
 
