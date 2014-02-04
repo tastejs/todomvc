@@ -7,6 +7,14 @@ module.exports = function PageLaxMode(browser) {
 	Page.apply(this, [browser]);
 
 
+	this.tryGetMainSectionElement = function () {
+		return this.tryFindByXpath('//section//section');
+	};
+
+	this.tryGetFooterElement = function () {
+		return this.tryFindByXpath('//section//footer');
+	};
+
 	this.getTodoListXpath = function() {
 		return '(//section/ul | //section/div/ul | //ul[@id="todo-list"])';
 	}
