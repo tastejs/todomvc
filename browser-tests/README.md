@@ -8,6 +8,7 @@ The TodoMVC project has a great many implementations of exactly the same app usi
  + Find a more elegant solution for TodoMVC apps that use RequireJS, currently there is a short 'sleep' statement in order to give the browser time to load dependencies. Yuck!
  + Run JSHint over my code ;-)
  + Make it work with PhantomJS. In practice, Phantom is only a little bit faster, but it should work. Currently there are a few Phantom specific failures.
+ + Allow testing of apps that require a server (see: https://github.com/tastejs/todomvc/pull/821/files#r9377070) 
 
 ##Running the tests
 

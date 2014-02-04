@@ -1,5 +1,22 @@
 module.exports = [
 
+	// https://github.com/tastejs/todomvc/issues/824
+	// this implementation has numerous edit experience issues
+	'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
+	'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
+	'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+
+	// https://github.com/tastejs/todomvc/issues/824
+	// this implementation has numerous edit experience issues
+	'TodoMVC - typescript-backbone, Editing, should save edits on enter',
+	'TodoMVC - typescript-backbone, Editing, should trim entered text',
+	'TodoMVC - typescript-backbone, Editing, should remove the item if an empty text string was entered',
+	'TodoMVC - typescript-backbone, Editing, should cancel edits on escape',
+
+	// https://github.com/tastejs/todomvc/issues/823
+	// prepends new items rather than appends
+	'TodoMVC - puremvc, New Todo, should append new items to the bottom of the list',
+
 	// https://github.com/tastejs/todomvc/issues/815
 	// does not hide other controls while editing
 	'TodoMVC - dojo, Editing, should hide other controls when editing',
@@ -11,6 +28,7 @@ module.exports = [
 	// https://github.com/tastejs/todomvc/issues/817
 	// batman does not trim input
 	'TodoMVC - batman, New Todo, should trim text input',
+	'TodoMVC - typescript-backbone, New Todo, should trim text input',
 
 	// https://github.com/tastejs/todomvc/issues/818
 	// does not trim edited text
@@ -22,6 +40,8 @@ module.exports = [
 	// the edit experience with soma is quite broken. You can 
 	// get multiple elements into an edit state
 	'TodoMVC - somajs, Editing, should remove the item if an empty text string was entered',
+	'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
+	'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
 	// the following are covered by the following issue:
 	// https://github.com/tastejs/todomvc/issues/789
@@ -32,6 +52,25 @@ module.exports = [
 	'TodoMVC - knockback, Editing, should cancel edits on escape',
 	'TodoMVC - spine, Editing, should cancel edits on escape',
 	'TodoMVC - yui, Editing, should cancel edits on escape',
+	'TodoMVC - ariatemplates, Editing, should cancel edits on escape',
+	'TodoMVC - dermis, Editing, should cancel edits on escape',
+	'TodoMVC - duel, Editing, should cancel edits on escape',
+	'TodoMVC - epitome, Editing, should cancel edits on escape',
+	'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
+	'TodoMVC - kendo, Editing, should cancel edits on escape',
+	'TodoMVC - olives, Editing, should cancel edits on escape',
+	'TodoMVC - plastronjs, Editing, should cancel edits on escape',
+	'TodoMVC - puremvc, Editing, should cancel edits on escape',
+	'TodoMVC - rappidjs, Editing, should cancel edits on escape',
+	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
+	'TodoMVC - somajs, Editing, should cancel edits on escape',
+	'TodoMVC - thorax, Editing, should cancel edits on escape',
+	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
+	'TodoMVC - angularjs_require, Editing, should cancel edits on escape',
+	'TodoMVC - backbone_marionette_require, Editing, should cancel edits on escape',
+	'TodoMVC - flight, Editing, should cancel edits on escape',
+	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
+	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
 
 	// all the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/790
@@ -58,12 +97,17 @@ module.exports = [
 	'TodoMVC - troopjs_require, Routing, should allow me to display completed items',
 	'TodoMVC - backbone_require, Routing, should allow me to display active items',
 	'TodoMVC - backbone_require, Routing, should allow me to display completed items',
+	'TodoMVC - ariatemplates, Routing, should allow me to display active items',
+	'TodoMVC - ariatemplates, Routing, should allow me to display completed items',
+	'TodoMVC - backbone_marionette_require, Routing, should allow me to display active items',
+	'TodoMVC - backbone_marionette_require, Routing, should allow me to display completed items',
 
 
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
 	'TodoMVC - spine, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
 	'TodoMVC - angularjs-perf, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+	'TodoMVC - kendo, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
 
 	// the following implementations do not support routing
 	'TodoMVC - jquery, Routing, should allow me to display active items',
@@ -78,6 +122,7 @@ module.exports = [
 	'TodoMVC - olives, Routing, should allow me to display completed items',
 	'TodoMVC - olives, Routing, should allow me to display all items',
 	'TodoMVC - olives, Routing, should highlight the currently applied filter',
+	'TodoMVC - dijon, Routing, should allow me to display active items',
 	'TodoMVC - dijon, Routing, should allow me to display completed items',
 	'TodoMVC - dijon, Routing, should allow me to display all items',
 	'TodoMVC - dijon, Routing, should highlight the currently applied filter',
@@ -89,7 +134,14 @@ module.exports = [
 	'TodoMVC - knockoutjs_require, Routing, should allow me to display completed items',
 	'TodoMVC - knockoutjs_require, Routing, should allow me to display all items',
 	'TodoMVC - knockoutjs_require, Routing, should highlight the currently applied filter',
-
+	'TodoMVC - angular-dart, Routing, should allow me to display active items',
+	'TodoMVC - angular-dart, Routing, should allow me to display completed items',
+	'TodoMVC - angular-dart, Routing, should allow me to display all items',
+	'TodoMVC - angular-dart, Routing, should highlight the currently applied filter',
+	'TodoMVC - typescript-backbone, Routing, should allow me to display active items',
+	'TodoMVC - typescript-backbone, Routing, should allow me to display completed items',
+	'TodoMVC - typescript-backbone, Routing, should allow me to display all items',
+	'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
 
 	// EXTJS is not spec compliant (by a long way!)
 	'TodoMVC - extjs, New Todo, should show #main and #footer when items added',
@@ -131,6 +183,33 @@ module.exports = [
 	'TodoMVC - stapes, Routing, should allow me to display active items',
 	'TodoMVC - stapes, Routing, should allow me to display completed items',
 	'TodoMVC - stapes, Routing, should allow me to display all items',
+	'TodoMVC - stapes_require, No Todos, should hide #main and #footer',
+	'TodoMVC - stapes_require, New Todo, should allow me to add todo items',
+	'TodoMVC - stapes_require, New Todo, should append new items to the bottom of the list',
+	'TodoMVC - stapes_require, New Todo, should trim text input',
+	'TodoMVC - stapes_require, Mark all as completed, should allow me to mark all items as completed',
+	'TodoMVC - stapes_require, Mark all as completed, should allow me to clear the completion state of all items',
+	'TodoMVC - stapes_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+	'TodoMVC - stapes_require, Item, should allow me to mark items as complete',
+	'TodoMVC - stapes_require, Item, should allow me to un-mark items as complete',
+	'TodoMVC - stapes_require, Item, should allow me to edit an item',
+	'TodoMVC - stapes_require, Editing, should hide other controls when editing',
+	'TodoMVC - stapes_require, Editing, should save edits on enter',
+	'TodoMVC - stapes_require, Editing, should save edits on blur',
+	'TodoMVC - stapes_require, Editing, should trim entered text',
+	'TodoMVC - stapes_require, Editing, should remove the item if an empty text string was entered',
+	'TodoMVC - stapes_require, Editing, should cancel edits on escape',
+	'TodoMVC - stapes_require, Counter, should display the current number of todo items',
+	'TodoMVC - stapes_require, Clear completed button, should display the number of completed items',
+	'TodoMVC - stapes_require, Clear completed button, should remove completed items when clicked',
+	'TodoMVC - stapes_require, Clear completed button, should be hidden when there are no items that are completed',
+	'TodoMVC - stapes_require, Routing, should allow me to display active items',
+	'TodoMVC - stapes_require, Routing, should allow me to display completed items',
+	'TodoMVC - stapes_require, Routing, should allow me to display all items',
+
+	// mozart is not on the public website
+	'TodoMVC - mozart, New Todo, should allow me to add todo items',
+	'TodoMVC - mozart, New Todo, should trim text input',
 
 	// ----------------- Test framework issues -----------
 
