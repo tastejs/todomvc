@@ -10,22 +10,24 @@ var app = app || {};
 	};
 
 	// Route object to manage filtering the todo item list
-	var routes = {
-		'/': function () {
-			app.todoData.filter({});
-			app.todoViewModel.set('filter', '');
-		},
-		'/active': function () {
-			filterBase.value = false;
-			app.todoData.filter(filterBase);
-			app.todoViewModel.set('filter', 'active');
-		},
-		'/completed': function () {
-			filterBase.value = true;
-			app.todoData.filter(filterBase);
-			app.todoViewModel.set('filter', 'completed');
-		}
-	};
+	var router = new kendo.Router();
+
+	router.route('/', function () {
+		app.todoData.filter({});
+		app.todoViewModel.set('filter', '');
+	});
+
+	router.route('/active', function () {
+		filterBase.value = false;
+		app.todoData.filter(filterBase);
+		app.todoViewModel.set('filter', 'active');
+	});
+	
+	router.route('/completed', function () {
+		filterBase.value = true;
+		app.todoData.filter(filterBase);
+		app.todoViewModel.set('filter', 'completed');
+	});
 
 	// Todo Model Object
 	app.Todo = kendo.data.Model.define({
@@ -46,6 +48,13 @@ var app = app || {};
 		itemBase: 'todos-kendo',
 		schema: {
 			model: app.Todo
+		},
+		change: function () {
+			var completed = $.grep(this.data(), function (el) {
+				return el.get('completed');
+			});
+
+			app.todoViewModel.set('allCompleted', completed.length === this.data().length);
 		}
 	});
 
@@ -54,63 +63,71 @@ var app = app || {};
 		todos: app.todoData,
 		filter: null,
 
-		// Handle route changes and direct to the appropriate handler in our
-		// local routes object.
-		routeChanged: function (url) {
-			routes[url || '/'].call(this);
-		},
-
 		// Main element visibility handler
 		isVisible: function () {
-			return this.get('todos').data().length;
+			return this.get('todos').data().length ? '' : 'hidden';
 		},
+
+		// new todo value
+		newTodo: null,
 		
 		// Core CRUD Methods
 		saveTodo: function () {
 			var todos = this.get('todos');
-			var newTodo = $('#new-todo');
+			var newTodo = this.get('newTodo');
 
 			var todo = new app.Todo({
-				title: newTodo.val().trim(),
+				title: newTodo.trim(),
 				completed: false,
 				edit: false
 			});
 
 			todos.add(todo);
 			todos.sync();
-			newTodo.val('');
+			this.set('newTodo', null);
 		},
-		toggleAll: function () {
-			var completed = this.completedTodos().length === this.get('todos').data().length;
 
+		toggleAll: function () {
+			
+			var completed = this.completedTodos().length === this.get('todos').data().length;
+			
 			$.grep(this.get('todos').data(), function (el) {
 				el.set('completed', !completed);
 			});
 		},
 		startEdit: function (e) {
 			e.data.set('edit', true);
-			$('li[data-uid=' + e.data.uid + ']').find('input').focus();
+			this.set('titleCache', e.data.get('title'));
+			$(e.target).closest('li').find('input').focus();
 		},
 		endEdit: function (e) {
-			var editData = e;
+			var editData = e,
+				title;
 
 			if (e.data) {
 				editData = e.data;
+				title = e.data.get('title');
 
 				// If the todo has a title, set it's edit property
 				// to false. Otherwise, delete it.
 				if (editData.title.trim()) {
-					editData.set('edit', false);
+					editData.set('title', title.trim());
 				} else {
 					this.destroy(e);
 				}
 			}
 
+			this.todos.sync();
 			editData.set('edit', false);
+		},
+		cancelEdit: function (e) {
+			e.set('title', this.get('titleCache'));
+			e.set('edit', false);
 			this.todos.sync();
 		},
+
 		sync: function () {
-			this.todos.sync();
+			this.get('todos').sync();
 		},
 		destroy: function (e) {
 			this.todos.remove(e.data);
@@ -140,9 +157,8 @@ var app = app || {};
 		completedCount: function () {
 			return this.completedTodos().length;
 		},
-		allCompleted: function () {
-			return this.completedTodos().length === this.get('todos').data().length;
-		},
+
+		allCompleted: false,
 		
 		// Text value bound methods
 		activeCountText: function () {
@@ -172,18 +188,9 @@ var app = app || {};
 
 	});
 
-	// Kendo History object for capturing hash changes and triggering
-	// our route-changed handler
-	kendo.history.start({
-		ready: function (e) {
-			app.todoViewModel.routeChanged(e.url);
-		},
-		change: function (e) {
-			app.todoViewModel.routeChanged(e.url);
-		}
-	});
-
 	// Bind the ViewModel to the todoapp DOM element
 	kendo.bind($('#todoapp'), app.todoViewModel);
+
+	router.start();
 
 }($, kendo));
