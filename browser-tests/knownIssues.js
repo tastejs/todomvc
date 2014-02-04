@@ -1,5 +1,41 @@
 module.exports = [
 
+	// see: https://github.com/tastejs/todomvc/issues/832
+	// chapling brunch does not mark items as completed via the completed CSS class
+	'TodoMVC - chaplin-brunch, No Todos, should hide #main and #footer',
+	'TodoMVC - chaplin-brunch, Mark all as completed, should allow me to mark all items as completed',
+	'TodoMVC - chaplin-brunch, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+	'TodoMVC - chaplin-brunch, Item, should allow me to mark items as complete',
+	'TodoMVC - chaplin-brunch, Item, should allow me to un-mark items as complete',
+	'TodoMVC - chaplin-brunch, Item, should allow me to edit an item',
+
+
+	// durandal routing is very very slow.
+	// see: https://github.com/tastejs/todomvc/issues/831
+	'TodoMVC - durandal, Routing, should allow me to display active items',
+	'TodoMVC - durandal, Routing, should allow me to display completed items',
+	'TodoMVC - durandal, Routing, should allow me to display all items',
+	'TodoMVC - durandal, Routing, should highlight the currently applied filter',
+
+	// see: https://github.com/tastejs/todomvc/issues/830
+	// typescript-backbone has a nested div within the li element, and sets /li/div[@class=done]
+	'TodoMVC - typescript-backbone, Mark all as completed, should allow me to mark all items as completed / cleared',
+	'TodoMVC - typescript-backbone, Item, should allow me to mark items as complete',
+	'TodoMVC - typescript-backbone, Item, should allow me to un-mark items as complete',
+	'TodoMVC - typescript-backbone, Item, should allow me to edit an item',
+
+	// https://github.com/tastejs/todomvc/issues/829
+	// checkbox state is inverted
+	'TodoMVC - typescript-angular, Mark all as completed, should allow me to mark all items as completed',
+	'TodoMVC - typescript-angular, Mark all as completed, should allow me to clear the completion state of all items',
+	'TodoMVC - typescript-angular, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+
+	// https://github.com/tastejs/todomvc/issues/828
+	// routing should default to all
+	'TodoMVC - batman, Routing, should highlight the currently applied filter',
+	'TodoMVC - plastronjs, Routing, should highlight the currently applied filter',
+	'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
+
 	// https://github.com/tastejs/todomvc/issues/824
 	// this implementation has numerous edit experience issues
 	'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
@@ -71,6 +107,9 @@ module.exports = [
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
+	'TodoMVC - batman, Editing, should cancel edits on escape',
+	'TodoMVC - dijon, Editing, should cancel edits on escape',
+	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
 	// all the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/790
@@ -101,6 +140,8 @@ module.exports = [
 	'TodoMVC - ariatemplates, Routing, should allow me to display completed items',
 	'TodoMVC - backbone_marionette_require, Routing, should allow me to display active items',
 	'TodoMVC - backbone_marionette_require, Routing, should allow me to display completed items',
+	'TodoMVC - chaplin-brunch, Routing, should allow me to display active items',
+	'TodoMVC - chaplin-brunch, Routing, should allow me to display completed items',
 
 
 	// the following are covered by this issue:
@@ -216,5 +257,13 @@ module.exports = [
 	// for some reason the persistence test fails for knockout, even though persistence is working
 	// just fine. Perhaps there is something asynchronous going on that is causing the assert
 	// to be executed early?
-	'TodoMVC - knockoutjs, Persistence, should persist its data'
+	'TodoMVC - knockoutjs, Persistence, should persist its data',
+
+	// chaplin edit tests fail with the following:
+	// StaleElementReferenceError: stale element reference: element is not attached to the page document
+	'TodoMVC - chaplin-brunch, Editing, should save edits on enter',
+	'TodoMVC - chaplin-brunch, Editing, should save edits on blur',
+	'TodoMVC - chaplin-brunch, Editing, should trim entered text',
+	'TodoMVC - chaplin-brunch, Editing, should remove the item if an empty text string was entered',
+	'TodoMVC - chaplin-brunch, Editing, should cancel edits on escape'
 ];

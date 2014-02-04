@@ -6,18 +6,22 @@ var argv = require('optimist').default('laxMode', false).argv;
 var rootUrl = 'http://localhost:8000/';
 var frameworkNamePattern = /^[a-z-_]+$/;
 
-// these implementations deviate from the specification to such an extent that they are 
-// not worth testing via a generic mecanism
-var excludedFrameworks = ['gwt', 'polymer'];
-
-// these implementations cannot be run offline, because they are hosted
-excludedFrameworks = excludedFrameworks.concat(['derby', 'firebase-angular', 'meteor', 'socketstream',
+var excludedFrameworks = [
+	// this implementation deviates from the specification to such an extent that they are 
+	// not worth testing via a generic mecanism
+	'gwt',
+	// selenium webdriver cannot see the shadow dom
+	'polymer',
+	// these implementations cannot be run offline, because they are hosted
+	'derby', 'firebase-angular', 'meteor', 'socketstream',
 	// YUI is a special case here, it is not hosted, but fetches JS files dynamically 
 	'yui',
 	// these frameworks take a long time to start-up, and there is no easy way to determine when they are ready
 	'cujo', 'montage',
-	// this example has been removed (see the readme in the framework folder)
-	'emberjs_require']);
+	// sammyjs fails intermittently, it would appear that its state is sometimes updated asynchronously?
+	'sammyjs',
+	// these are examples that have been removed or are empty folders
+	'emberjs_require', 'dermis', 'react-backbone'];
 
 // collect together the framework names from each of the subfolders
 var list = fs.readdirSync('../architecture-examples/')
