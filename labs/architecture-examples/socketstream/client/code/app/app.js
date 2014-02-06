@@ -1,10 +1,26 @@
-/*global $, ss*/
-(function () {
+/*global jQuery */
+jQuery(function ($) {
 	'use strict';
 
-	var Utils = {
-		// https://gist.github.com/1308368
-		uuid: function(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b},
+	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
+
+	var util = {
+		uuid: function () {
+			/*jshint bitwise:false */
+			var i, random;
+			var uuid = '';
+
+			for (i = 0; i < 32; i++) {
+				random = Math.random() * 16 | 0;
+				if (i === 8 || i === 12 || i === 16 || i === 20) {
+					uuid += '-';
+				}
+				uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
+			}
+
+			return uuid;
+		},
 		pluralize: function (count, word) {
 			return count === 1 ? word : word + 's';
 		}
@@ -12,188 +28,186 @@
 
 	var App = {
 		init: function () {
-			var self = this;
-			this.ENTER_KEY = 13;
-
 			ss.rpc('todos.getAll', function (todos) {
-				self.todos = todos;
-				self.cacheElements();
-				self.bindEvents();
-				self.render();
-			});
-		},
+				this.todos = todos;
+				this.cacheElements();
+				this.bindEvents();
 
+				Router({
+					'/:filter': function (filter) {
+						this.filter = filter;
+						this.render();
+					}.bind(this)
+				}).init('/all');
+			}.bind(this));
+		},
 		cacheElements: function () {
 			this.$todoApp = $('#todoapp');
-			this.$newTodo = $('#new-todo');
-			this.$toggleAll = $('#toggle-all');
-			this.$main = $('#main');
-			this.$todoList = $('#todo-list');
+			this.$header = this.$todoApp.find('#header');
+			this.$main = this.$todoApp.find('#main');
 			this.$footer = this.$todoApp.find('#footer');
-			this.$count = $('#todo-count');
-			this.$clearBtn = $('#clear-completed');
+			this.$newTodo = this.$header.find('#new-todo');
+			this.$toggleAll = this.$main.find('#toggle-all');
+			this.$todoList = this.$main.find('#todo-list');
+			this.$count = this.$footer.find('#todo-count');
+			this.$clearBtn = this.$footer.find('#clear-completed');
 		},
-
 		bindEvents: function () {
 			var list = this.$todoList;
+			this.$newTodo.on('keyup', this.create.bind(this));
+			this.$toggleAll.on('change', this.toggleAll.bind(this));
+			this.$footer.on('click', '#clear-completed', this.destroyCompleted.bind(this));
+			list.on('change', '.toggle', this.toggle.bind(this));
+			list.on('dblclick', 'label', this.edit.bind(this));
+			list.on('keyup', '.edit', this.editKeyup.bind(this));
+			list.on('focusout', '.edit', this.update.bind(this));
+			list.on('click', '.destroy', this.destroy.bind(this));
 
-			this.$newTodo.on('keyup', this.create);
-			this.$toggleAll.on('change', this.toggleAll);
-			this.$footer.on('click', '#clear-completed', this.destroyCompleted);
-
-			list.on('change', '.toggle', this.toggle);
-			list.on('dblclick', 'label', this.edit);
-			list.on('keypress', '.edit', this.blurOnEnter);
-			list.on('blur', '.edit', this.update);
-			list.on('click', '.destroy', this.destroy);
-
-			ss.event.on('updateTodos', this.updateTodos);
+			ss.event.on('updateTodos', function (todos) {
+				this.todos = todos;
+				this.render(true);
+			}.bind(this));
 		},
-
-		updateTodos: function (todos) {
-			App.todos = todos;
-
-			App.render(true);
-		},
-
 		render: function (preventRpc) {
-			var html = this.todos.map(function (el) {
+			var todos = this.getFilteredTodos();
+
+			this.$todoList.html(todos.map(function (el) {
 				return ss.tmpl.todo.render(el);
-			}).join('');
+			}).join(''));
 
-			this.$todoList.html(html);
-			this.$main.toggle(!!this.todos.length);
-			this.$toggleAll.prop('checked', !this.activeTodoCount());
-
+			this.$main.toggle(todos.length > 0);
+			this.$toggleAll.prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
+			this.$newTodo.focus();
 
 			if (!preventRpc) {
 				ss.rpc('todos.update', this.todos);
 			}
 		},
-
 		renderFooter: function () {
 			var todoCount = this.todos.length;
-
-			var activeTodoCount = this.activeTodoCount();
-
+			var activeTodoCount = this.getActiveTodos().length;
 			var footer = {
 				activeTodoCount: activeTodoCount,
-				activeTodoWord: Utils.pluralize(activeTodoCount, 'item'),
-				completedTodos: todoCount - activeTodoCount
+				activeTodoWord: util.pluralize(activeTodoCount, 'item'),
+				completedTodos: todoCount - activeTodoCount,
+				filterAll: this.filter === 'all',
+				filterActive: this.filter === 'active',
+				filterCompleted: this.filter === 'completed'
 			};
 
-			this.$footer.toggle(!!todoCount);
-
-			this.$footer.html( ss.tmpl.footer.render(footer) );
+			this.$footer.toggle(todoCount > 0).html(ss.tmpl.footer.render(footer));
 		},
+		toggleAll: function (e) {
+			var isChecked = $(e.target).prop('checked');
 
-		toggleAll: function () {
-			var isChecked = $(this).prop('checked');
-
-			$.each(App.todos, function (i, val) {
-				val.completed = isChecked;
+			this.todos.forEach(function (todo) {
+				todo.completed = isChecked;
 			});
 
-			App.render();
+			this.render();
 		},
-
-		activeTodoCount: function () {
-			var count = 0;
-
-			$.each(this.todos, function (i, val) {
-				if (!val.completed) {
-					count++;
-				}
+		getActiveTodos: function () {
+			return this.todos.filter(function (todo) {
+				return !todo.completed;
 			});
-
-			return count;
 		},
-
-		destroyCompleted: function () {
-			var todos = App.todos;
-			var l = todos.length;
-
-			while (l--) {
-				if (todos[l].completed) {
-					todos.splice(l, 1);
-				}
+		getCompletedTodos: function () {
+			return this.todos.filter(function (todo) {
+				return todo.completed;
+			});
+		},
+		getFilteredTodos: function () {
+			if (this.filter === 'active') {
+				return this.getActiveTodos();
 			}
 
-			App.render();
+			if (this.filter === 'completed') {
+				return this.getCompletedTodos();
+			}
+
+			return this.todos;
 		},
+		destroyCompleted: function () {
+			this.todos = this.getActiveTodos();
+			this.filter = 'all';
+			this.render();
+		},
+		// accepts an element from inside the `.item` div and
+		// returns the corresponding index in the `todos` array
+		indexFromEl: function (el) {
+			var id = $(el).closest('li').data('id');
+			var todos = this.todos;
+			var i = todos.length;
 
-		// Accepts an element from inside the ".item" div and
-		// returns the corresponding todo in the todos array
-		getTodo: function (elem, callback) {
-			var id = $(elem).closest('li').data('id');
-
-			$.each(this.todos, function (i, val) {
-				if (val.id === id) {
-					callback.apply(App, arguments);
-
-					return false;
+			while (i--) {
+				if (todos[i].id === id) {
+					return i;
 				}
-			});
+			}
 		},
-
 		create: function (e) {
-			var $input = $(this);
-			var val = $.trim($input.val());
+			var $input = $(e.target);
+			var val = $input.val().trim();
 
-			if (e.which !== App.ENTER_KEY || !val) {
+			if (e.which !== ENTER_KEY || !val) {
 				return;
 			}
 
-			App.todos.push({
-				id: Utils.uuid(),
+			this.todos.push({
+				id: util.uuid(),
 				title: val,
 				completed: false
 			});
 
 			$input.val('');
 
-			App.render();
+			this.render();
 		},
-
-		toggle: function () {
-			App.getTodo(this, function (i, val) {
-				val.completed = !val.completed;
-			});
-
-			App.render();
+		toggle: function (e) {
+			var i = this.indexFromEl(e.target);
+			this.todos[i].completed = !this.todos[i].completed;
+			this.render();
 		},
-
-		edit: function () {
-			$(this).closest('li').addClass('editing').find('.edit').focus();
+		edit: function (e) {
+			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
+			$input.val($input.val()).focus();
 		},
-
-		blurOnEnter: function (e) {
-			if (e.keyCode === App.ENTER_KEY) {
+		editKeyup: function (e) {
+			if (e.which === ENTER_KEY) {
 				e.target.blur();
 			}
+
+			if (e.which === ESCAPE_KEY) {
+				$(e.target).data('abort', true).blur();
+			}
 		},
+		update: function (e) {
+			var el = e.target;
+			var $el = $(el);
+			var val = $el.val().trim();
 
-		update: function () {
-			var val = $.trim($(this).removeClass('editing').val());
-			App.getTodo(this, function (i) {
-				if (val) {
-					this.todos[i].title = val;
-				} else {
-					this.todos.splice(i, 1);
-				}
-
+			if ($el.data('abort')) {
+				$el.data('abort', false);
 				this.render();
-			});
-		},
+				return;
+			}
 
-		destroy: function () {
-			App.getTodo(this, function (i) {
+			var i = this.indexFromEl(el);
+
+			if (val) {
+				this.todos[i].title = val;
+			} else {
 				this.todos.splice(i, 1);
-				this.render();
-			});
+			}
+
+			this.render();
+		},
+		destroy: function (e) {
+			this.todos.splice(this.indexFromEl(e.target), 1);
+			this.render();
 		}
 	};
 
 	App.init();
-})();
+});

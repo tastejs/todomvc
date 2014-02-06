@@ -9,6 +9,7 @@ ss.client.define('main', {
 	code: [
 		'libs/todomvc-common/base.js',
 		'libs/jquery/jquery.js',
+		'libs/director/build/director.js',
 		'app'
 	],
 	tmpl: '*'
