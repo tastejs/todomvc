@@ -35,3 +35,11 @@ Running this app requires [Node.js](http://nodejs.org).
 	npm start
 
 Open http://localhost:3000 in two side-by-side browser windows, add a todo, and see the magic.
+
+
+## Internal
+
+How to publish to our Heroku remote:
+
+- `git remote add heroku-todomvc-socketstream master` *(first time only)*
+- `git subtree push --prefix labs/architecture-examples/socketstream heroku-todomvc-socketstream master`
