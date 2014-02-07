@@ -1,0 +1,34 @@
+!!!
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    %title Vienna • TodoMVC
+    %link(href="assets/base.css" rel="stylesheet")
+  %body
+    %section#todoapp
+      %header#header
+        %h1 todos
+        %input#new-todo(placeholder="What needs to be done?" autofocus)
+
+      %section#main
+        %input#toggle-all(type="checkbox")
+        %label(for="toggle-all") Mark all as complete
+        %ul#todo-list
+
+      %footer#footer
+
+    %footer#info
+      %p Double-click to edit a todo
+
+      %p
+        Created by
+        %a(href="https://github.com/adambeynon") Adam Beynon
+        with
+        %a(href="://opalrb.org") Opal
+      %p
+        Part of
+        %a(href="http://todomvc.com") TodoMVC
+
+    %script(src="assets/base.js")
+    %script(src="assets/application.js")

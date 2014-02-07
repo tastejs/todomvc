@@ -1,0 +1,4 @@
+.DS_Store
+Gemfile.lock
+/build
+bower_components

@@ -1,0 +1,6 @@
+.view
+  %input.toggle{type: "checkbox", checked: @todo.completed}
+  %label= @todo.title
+  %button.destroy
+
+%input.edit{value: @todo.title}
