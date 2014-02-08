@@ -2,7 +2,8 @@
 'use strict';
 
 /**
- * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true
+ * Directive that places focus on the element it is applied to when the
+ * expression it binds to evaluates to true
  */
 todomvc.directive('todoFocus', function todoFocus($timeout) {
 	return function (scope, elem, attrs) {

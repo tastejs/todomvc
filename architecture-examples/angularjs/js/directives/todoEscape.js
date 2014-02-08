@@ -15,4 +15,3 @@ todomvc.directive('todoEscape', function () {
 		});
 	};
 });
-

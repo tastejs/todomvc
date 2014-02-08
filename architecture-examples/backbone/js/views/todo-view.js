@@ -25,9 +25,10 @@ var app = app || {};
 			'blur .edit': 'close'
 		},
 
-		// The TodoView listens for changes to its model, re-rendering. Since there's
-		// a one-to-one correspondence between a **Todo** and a **TodoView** in this
-		// app, we set a direct reference on the model for convenience.
+		// The TodoView listens for changes to its model, re-rendering. Since
+		// there's a one-to-one correspondence between a **Todo** and a
+		// **TodoView** in this app, we set a direct reference on the model for
+		// convenience.
 		initialize: function () {
 			this.listenTo(this.model, 'change', this.render);
 			this.listenTo(this.model, 'destroy', this.remove);
@@ -36,10 +37,12 @@ var app = app || {};
 
 		// Re-render the titles of the todo item.
 		render: function () {
-			// Backbone LocalStorage is adding `id` attribute instantly after creating a model.
-			// This causes our TodoView to render twice. Once after creating a model and once on `id` change.
-			// We want to filter out the second redundant render, which is caused by this `id` change.
-			// It's known Backbone LocalStorage bug, therefore we've to create a workaround.
+			// Backbone LocalStorage is adding `id` attribute instantly after
+			// creating a model.  This causes our TodoView to render twice. Once
+			// after creating a model and once on `id` change.  We want to
+			// filter out the second redundant render, which is caused by this
+			// `id` change.  It's known Backbone LocalStorage bug, therefore
+			// we've to create a workaround.
 			// https://github.com/tastejs/todomvc/issues/469
 			if (this.model.changed.id !== undefined) {
 				return;
@@ -92,8 +95,10 @@ var app = app || {};
 				this.model.save({ title: trimmedValue });
 
 				if (value !== trimmedValue) {
-					// Model values changes consisting of whitespaces only are not causing change to be triggered
-					// Therefore we've to compare untrimmed version with a trimmed one to chech whether anything changed
+					// Model values changes consisting of whitespaces only are
+					// not causing change to be triggered Therefore we've to
+					// compare untrimmed version with a trimmed one to chech
+					// whether anything changed
 					// And if yes, we've to trigger change event ourselves
 					this.model.trigger('change');
 				}
