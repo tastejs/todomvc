@@ -123,7 +123,7 @@ var app = app || {};
 
 			app.todos.each(function (todo) {
 				todo.save({
-					'completed': completed
+					completed: completed
 				});
 			});
 		}
