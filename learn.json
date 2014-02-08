@@ -2138,6 +2138,43 @@
 			}]
 		}]
 	},
+	"vue": {
+		"name": "Vue.js",
+		"description": "Vue.js provides efficient MVVM data bindings with a simple and flexible API. It uses plain JavaScript object models, DOM-based templating and extendable directives and filters.",
+		"homepage": "vuejs.org",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "labs/architecture-examples/vue"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://vuejs.org/guide/"
+			}, {
+				"name": "API Reference",
+				"url": "http://vuejs.org/api/"
+			}, {
+				"name": "Examples",
+				"url": "http://vuejs.org/examples/"
+			}, {
+				"name": "Vue.js on GitHub",
+				"url": "https://github.com/yyx990803/vue"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Twitter",
+				"url": "http://twitter.com/vuejs"
+			}, {
+				"name": "Google+ Community",
+				"url": "https://plus.google.com/communities/112229843610661683911"
+			}, {
+				"name": "IRC Channel: #vuejs",
+				"url": "http://freenode.net/faq.shtml#whatwhy"
+			}]
+		}]
+	},
 	"yui": {
 		"name": "YUI",
 		"description": "YUI is a free, open source JavaScript and CSS library for building richly interactive web applications.",
