@@ -8,15 +8,15 @@ module.exports = function Page(browser) {
 
 	this.tryFindByXpath = function(xpath) {
 		return browser.findElements(webdriver.By.xpath(xpath));
-	}
+	};
 
 	this.findByXpath = function(xpath) {
 		return browser.findElement(webdriver.By.xpath(xpath));
-	}
+	};
 
 	this.getTodoListXpath = function() {
 		return '//ul[@id="todo-list"]';
-	}
+	};
 
 	this.xPathForItemAtIndex = function (index) {
 		// why is XPath the only language silly enough to be 1-indexed?
@@ -121,18 +121,19 @@ module.exports = function Page(browser) {
 
 	this.editItemAtIndex = function (index, itemText) {
 		return this.getEditInputForItemAtIndex(index)
-		.then(function (itemEditField) {
-			// send 50 delete keypresses, just to be sure the item text is deleted
-			var deleteKeyPresses = '';
-			for (var i = 0; i < 50; i++) {
-				deleteKeyPresses += webdriver.Key.BACK_SPACE;
-			}
+					.then(function (itemEditField) {
+						// send 50 delete keypresses, just to be sure the item text is deleted
+						var deleteKeyPresses = '',
+							i;
+						for (i = 0; i < 50; i++) {
+							deleteKeyPresses += webdriver.Key.BACK_SPACE;
+						}
 
-			itemEditField.sendKeys(deleteKeyPresses);
+						itemEditField.sendKeys(deleteKeyPresses);
 
-			// update the item with the new text.
-			itemEditField.sendKeys(itemText);
-		});
+						// update the item with the new text.
+						itemEditField.sendKeys(itemText);
+					});
 	};
 
 	this.doubleClickItemAtIndex = function (index) {

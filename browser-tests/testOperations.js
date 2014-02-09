@@ -110,8 +110,11 @@ function TestOperations(page) {
 				textArray.length + ' items expected in the todo list, ' + labels.length + ' items observed');
 			// create an array of promises which check the presence of the
 			// label text within the 'textArray'
-			var tests = [];
-			for(var i=0;i<labels.length;i++) {
+			var tests = [],
+				i;
+			for(i=0;i<labels.length;i++) {
+				// suppressing JSHint - the loop variable is not being used in the function.
+				/* jshint -W083 */
 				tests.push(labels[i].getText().then(function (text) {
 					var index = textArray.indexOf(text);
 					assert(index !== -1, 'A todo item with text \'' + text + '\' was not found');
@@ -134,7 +137,7 @@ function TestOperations(page) {
 	this.assertItemAtIndexIsCompleted = function (index) {
 		page.getItemElements().then(function (toDoItems) {
 			toDoItems[index].getAttribute('class').then(function (cssClass) {
-				assert(cssClass.indexOf('completed') !== -1, 
+				assert(cssClass.indexOf('completed') !== -1,
 					'the item at index ' + index + ' should have been marked as completed');
 			});
 		});
@@ -159,7 +162,8 @@ function TestOperations(page) {
 		page.getFilterElements().then(function (filterElements) {
 
 			// create an array of promises, each one holding a test
-			var tests = [];
+			var tests = [],
+				i;
 
 			// push a test into the array, avoiding the classic JS for loops + closures issue!
 			function pushTest(itemIndex) {
@@ -169,9 +173,9 @@ function TestOperations(page) {
 				}));
 			}
 
-			for (var i=0; i<3;i++) {
+			for (i=0; i<3; i++) {
 				pushTest(i);
-			};
+			}
 
 			// execute all the tests
 			return Q.all(tests);

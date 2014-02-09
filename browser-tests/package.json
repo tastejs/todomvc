@@ -9,6 +9,7 @@
     "optimist" : "0.6.0",
     "grunt-simple-mocha": "~0.4.0",
     "mocha-known-issues-reporter" : "git://github.com/ColinEberhardt/mocha-known-issues-reporter.git#v0.0.0",
-    "q" : "1.0.0"
+    "q" : "1.0.0",
+    "grunt-contrib-jshint" : "~0.8.0"
   }
 }

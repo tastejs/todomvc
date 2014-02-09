@@ -8,7 +8,7 @@ var frameworkNamePattern = /^[a-z-_]+$/;
 
 var excludedFrameworks = [
 	// this implementation deviates from the specification to such an extent that they are 
-	// not worth testing via a generic mecanism
+	// not worth testing via a generic mechanism
 	'gwt',
 	// selenium webdriver cannot see the shadow dom
 	'polymer',

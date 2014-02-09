@@ -17,7 +17,7 @@ module.exports = function PageLaxMode(browser) {
 
 	this.getTodoListXpath = function() {
 		return '(//section/ul | //section/div/ul | //ul[@id="todo-list"])';
-	}
+	};
 
 	this.getMarkAllCompletedCheckBox = function () {
 		var xpath = '(//section/input[@type="checkbox"] | //section/*/input[@type="checkbox"] | //input[@id="toggle-all"])';

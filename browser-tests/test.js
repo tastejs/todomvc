@@ -8,12 +8,12 @@ var TestOperations = require('./testOperations');
 
 module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode) {
 	test.describe('TodoMVC - ' + frameworkName, function () {
-		var otherUrl = 'http://localhost:8000/';
-		var TODO_ITEM_ONE = 'buy some cheese';
-		var TODO_ITEM_TWO = 'feed the cat';
-		var TODO_ITEM_THREE = 'book a doctors appointment';
-
-		var browser, testOps, page;
+		var TODO_ITEM_ONE = 'buy some cheese',
+			TODO_ITEM_TWO = 'feed the cat',
+			TODO_ITEM_THREE = 'book a doctors appointment',
+			browser,
+			testOps,
+			page;
 
 		// a number of tests use this set of ToDo items.
 		function createStandardItems() {
