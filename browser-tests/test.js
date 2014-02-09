@@ -6,7 +6,7 @@ var Page = require('./page');
 var PageLaxMode = require('./pageLaxMode');
 var TestOperations = require('./testOperations');
 
-module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode) {
+module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode, browserName) {
 	test.describe('TodoMVC - ' + frameworkName, function () {
 		var TODO_ITEM_ONE = 'buy some cheese',
 			TODO_ITEM_TWO = 'feed the cat',
@@ -24,8 +24,8 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 		function launchBrowser() {
 			browser = new webdriver.Builder()
-			.withCapabilities({browserName : 'chrome' })
-			.build();
+									.withCapabilities({browserName : browserName})
+									.build();
 
 			browser.get(baseUrl);
 

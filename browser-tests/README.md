@@ -45,6 +45,16 @@ In order to run a specific test, using the mocha 'grep' function. For example:
 
 
 	  1 passing (3s)
+	  
+###Specifying the browser
+
+You can also specify the browser that will be used to execute the tests via the `---browser` argument. The tests default to using Chrome (see the instructions below for installing ChromeDriver). For example, to run against phantomjs, use the following:
+
+	mocha allTests.js  --reporter spec --browser=phantomjs
+	
+You must install phantomjs first of course!
+
+Valid browser names can be found within webdriver via the `webdriver.Browser` enumeration. 
 
 
 ##Reporting against known issues
