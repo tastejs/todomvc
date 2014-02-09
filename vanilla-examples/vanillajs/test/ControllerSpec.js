@@ -11,14 +11,19 @@ describe('controller', function () {
             callback(todos);
         });
 
-        model.getCount.andReturn({
-            active: todos.filter(function (todo) {
-                    return !todo.completed;
-                }).length,
-            completed: todos.filter(function (todo) {
-                    return !!todo.completed;
-                }).length,
-            total: todos.length
+        model.getCount.andCallFake(function (callback) {
+
+            var todoCounts = {
+                active: todos.filter(function (todo) {
+                        return !todo.completed;
+                    }).length,
+                completed: todos.filter(function (todo) {
+                        return !!todo.completed;
+                    }).length,
+                total: todos.length
+            };
+
+            callback(todoCounts);
         });
 
         model.remove.andCallFake(function (id, callback) {
