@@ -59,7 +59,7 @@
 		// http://vuejs.org/guide/computed.html
 		computed: {
 			remaining: function () {
-				return this.todos.filter(this.filters.active).length
+				return this.todos.filter(this.filters.active).length;
 			},
 			allDone: {
 				$get: function () {
@@ -98,7 +98,7 @@
 				todoStorage.save();
 			},
 
-			toggleTodo: function (todo) {
+			toggleTodo: function () {
 				todoStorage.save();
 			},
 
