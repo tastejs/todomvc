@@ -67,6 +67,13 @@ define(function () {
                 text: 'Clear completed (' + this.completedItems().length + ')',
                 click: this.removeCompletedItems
             };
+        },
+        'todo-view': function (ctx) {
+            return {
+                text: this.name,
+                click: this.raiseEvent,
+                css: { selected: ctx.$parent.currentView() === this.name }
+            };
         }
     };
 });
