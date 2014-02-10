@@ -2,7 +2,7 @@
     <section id="main" data-class="todo-visible">
         <input id="toggle-all" type="checkbox" data-bind="checked: checkAll">
         <label for="toggle-all">Mark all as complete</label>
-        <ul id="todo-list" data-bind="foreach: items">
+        <ul id="todo-list" data-bind="foreach: viewableItems">
             <li data-class="todo-item">
                 <div class="view">
                     <input class="toggle" type="checkbox" data-bind="checked: completed">
@@ -20,19 +20,11 @@
             <!-- ko class:todo-count-text -->
             <!-- /ko -->
         </span>
-        <!-- Remove this if you don't implement routing -->
-        <ul id="filters">
+        <ul id="filters" data-bind="foreach: viewableOptions">
             <li>
-                <a class="selected" href="#/">All</a>
-            </li>
-            <li>
-                <a href="#/active">Active</a>
-            </li>
-            <li>
-                <a href="#/completed">Completed</a>
+                <a href="#" data-class="todo-view"></a>
             </li>
         </ul>
-        <!-- Hidden if no completed items are left -->
         <button id="clear-completed" data-class="todo-clear-completed"></button>
     </footer>
 </div>
