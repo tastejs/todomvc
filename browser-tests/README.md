@@ -24,6 +24,10 @@ You need to run a local server at the root of the TodoMVC project. On Mac OSX, y
 
 	python -m SimpleHTTPServer 8000
 
+or its Ruby equivalent:
+
+	ruby -run -e httpd . -p 8000
+
 To run the tests for all TodoMVC implementations, run the following:
 
 	mocha allTests.js  --reporter spec
