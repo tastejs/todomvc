@@ -990,43 +990,6 @@
 			}]
 		}]
 	},
-	"extjs": {
-		"name": "Ext JS",
-		"description": "Sencha Ext JS is the industry's most powerful desktop application development platform with unparalleled cross-browser compatibility, advanced MVC architecture, plugin-free charting, and modern UI widgets.",
-		"homepage": "sencha.com/products/extjs",
-		"examples": [{
-			"name": "Architecture Example",
-			"url": "labs/architecture-examples/extjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://docs.sencha.com/extjs/4.2.0"
-			}, {
-				"name": "API Reference",
-				"url": "http://docs.sencha.com/extjs/4.1.3"
-			}, {
-				"name": "Tutorials, Screencasts, Guides, FAQs",
-				"url": "http://www.sencha.com/learn/extjs"
-			}, {
-				"name": "Applications built with Ext JS",
-				"url": "http://docs.sencha.com/extjs/4.2.0/extjs-build/examples"
-			}, {
-				"name": "Sencha Blog",
-				"url": "http://www.sencha.com/blog"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Ext JS on StackOverflow",
-				"url": "http://stackoverflow.com/questions/tagged/extjs"
-			}, {
-				"name": "Ext JS on Twitter",
-				"url": "http://twitter.com/extjs"
-			}]
-		}]
-	},
 	"firebase": {
 		"name": "Firebase",
 		"description": "Firebase is a scalable realtime backend that lets you build apps fast without managing servers.",
@@ -1857,7 +1820,7 @@
 				"name": "Twitter Search",
 				"url": "https://twitter.com/search?q=%23sapui5"
 			}, {
-				"name": "OpenUI5 Twitter", 
+				"name": "OpenUI5 Twitter",
 				"url": "https://twitter.com/OpenUI5"
 			}]
 		}]
