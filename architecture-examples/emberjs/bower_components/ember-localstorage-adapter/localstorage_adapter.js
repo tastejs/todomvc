@@ -127,4 +127,4 @@
 			namespace.records[data.id] = data;
 		}
 	});
-}());
+})();

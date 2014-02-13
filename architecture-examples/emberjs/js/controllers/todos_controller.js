@@ -48,4 +48,4 @@
 			}
 		}.property('length', 'completed.length')
 	});
-}());
+})();

@@ -7,4 +7,4 @@
 			this.$('#new-todo').focus();
 		}.on('didInsertElement')
 	});
-}());
+})();

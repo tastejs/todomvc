@@ -11,4 +11,4 @@
 	});
 
 	Ember.Handlebars.helper('edit-todo', Todos.EditTodoView);
-}());
+})();

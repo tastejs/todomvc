@@ -40,4 +40,4 @@
 			this.controllerFor('todos').set('filteredTodos', todos);
 		}
 	});
-}());
+})();

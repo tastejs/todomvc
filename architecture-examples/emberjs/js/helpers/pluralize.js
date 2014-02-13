@@ -8,4 +8,4 @@
 
 		return count === 1 ? singular : inflector.pluralize(singular);
 	});
-}());
+})();

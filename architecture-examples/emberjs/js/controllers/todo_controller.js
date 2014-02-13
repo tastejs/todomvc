@@ -56,4 +56,4 @@
 			this.get('model').save();
 		}.observes('isCompleted')
 	});
-}());
+})();
