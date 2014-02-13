@@ -57,6 +57,11 @@ Example:
 })
 ```
 
+## Strict mode
+
+Strict mode should be used whereever possible, but must never be globally
+applied. Instead, use it inside an IIFE as shown above.
+
 
 ## Comments
 
