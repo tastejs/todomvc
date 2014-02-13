@@ -1,7 +1,9 @@
 /*global Todos, DS */
-'use strict';
+(function () {
+	'use strict';
 
-Todos.Todo = DS.Model.extend({
-	title: DS.attr('string'),
-	isCompleted: DS.attr('boolean')
-});
+	Todos.Todo = DS.Model.extend({
+		title: DS.attr('string'),
+		isCompleted: DS.attr('boolean')
+	});
+})();
