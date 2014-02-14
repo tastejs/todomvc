@@ -36,21 +36,24 @@
 			expect(scope.allChecked).toBeTruthy();
 		});
 
-		describe('the path', function () {
-			it('should default to "/"', function () {
-				expect(scope.location.path()).toBe('/');
+		describe('the filter', function () {
+			it('should default to ""', function () {
+				scope.$emit('$routeChangeSuccess');
+
+				expect(scope.status).toBe('');
+				expect(scope.statusFilter).toBeNull();
 			});
 
 			describe('being at /active', function () {
 				it('should filter non-completed', inject(function ($controller) {
 					ctrl = $controller('TodoCtrl', {
 						$scope: scope,
-						$location: {
-							path: function () { return '/active'; }
+						$routeParams: {
+							status: 'active'
 						}
 					});
 
-					scope.$digest();
+					scope.$emit('$routeChangeSuccess');
 					expect(scope.statusFilter.completed).toBeFalsy();
 				}));
 			});
@@ -59,12 +62,12 @@
 				it('should filter completed', inject(function ($controller) {
 					ctrl = $controller('TodoCtrl', {
 						$scope: scope,
-						$location: {
-							path: function () { return '/completed'; }
+						$routeParams: {
+							status: 'completed'
 						}
 					});
 
-					scope.$digest();
+					scope.$emit('$routeChangeSuccess');
 					expect(scope.statusFilter.completed).toBeTruthy();
 				}));
 			});
