@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.10
+ * @license AngularJS v1.2.12
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -350,17 +350,17 @@ function $RouteProvider(){
          }
        </file>
 
-       <file name="scenario.js">
+       <file name="protractorTest.js">
          it('should load and compile correct template', function() {
-           element('a:contains("Moby: Ch1")').click();
-           var content = element('.doc-example-live [ng-view]').text();
+           element(by.linkText('Moby: Ch1')).click();
+           var content = element(by.css('.doc-example-live [ng-view]')).getText();
            expect(content).toMatch(/controller\: ChapterCntl/);
            expect(content).toMatch(/Book Id\: Moby/);
            expect(content).toMatch(/Chapter Id\: 1/);
 
-           element('a:contains("Scarlet")').click();
-           sleep(2); // promises are not part of scenario waiting
-           content = element('.doc-example-live [ng-view]').text();
+           element(by.partialLinkText('Scarlet')).click();
+
+           content = element(by.css('.doc-example-live [ng-view]')).getText();
            expect(content).toMatch(/controller\: BookCntl/);
            expect(content).toMatch(/Book Id\: Scarlet/);
          });
@@ -794,16 +794,17 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
         }
       </file>
 
-      <file name="scenario.js">
+      <file name="protractorTest.js">
         it('should load and compile correct template', function() {
-          element('a:contains("Moby: Ch1")').click();
-          var content = element('.doc-example-live [ng-view]').text();
+          element(by.linkText('Moby: Ch1')).click();
+          var content = element(by.css('.doc-example-live [ng-view]')).getText();
           expect(content).toMatch(/controller\: ChapterCntl/);
           expect(content).toMatch(/Book Id\: Moby/);
           expect(content).toMatch(/Chapter Id\: 1/);
 
-          element('a:contains("Scarlet")').click();
-          content = element('.doc-example-live [ng-view]').text();
+          element(by.partialLinkText('Scarlet')).click();
+
+          content = element(by.css('.doc-example-live [ng-view]')).getText();
           expect(content).toMatch(/controller\: BookCntl/);
           expect(content).toMatch(/Book Id\: Scarlet/);
         });
