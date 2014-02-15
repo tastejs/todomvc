@@ -15,7 +15,7 @@ module.exports = function PageLaxMode(browser) {
 		return this.tryFindByXpath('//section//footer');
 	};
 
-	this.getTodoListXpath = function() {
+	this.getTodoListXpath = function () {
 		return '(//section/ul | //section/div/ul | //ul[@id="todo-list"])';
 	};
 

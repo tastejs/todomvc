@@ -112,7 +112,7 @@ function TestOperations(page) {
 			// label text within the 'textArray'
 			var tests = [],
 				i;
-			for(i=0;i<labels.length;i++) {
+			for (i = 0; i < labels.length; i++) {
 				// suppressing JSHint - the loop variable is not being used in the function.
 				/* jshint -W083 */
 				tests.push(labels[i].getText().then(function (text) {
@@ -173,7 +173,7 @@ function TestOperations(page) {
 				}));
 			}
 
-			for (i=0; i<3; i++) {
+			for (i = 0; i < 3; i++) {
 				pushTest(i);
 			}
 

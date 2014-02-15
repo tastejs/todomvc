@@ -11,29 +11,6 @@ module.exports = function (grunt) {
 			files: {
 				src: 'allTests.js'
 			}
-		},
-		jshint : {
-			options: {
-				globals: {
-					require: true,
-					console: true,
-					module: true
-				},
-				curly: true,
-				eqeqeq: true,
-				eqnull: true,
-				expr: true,
-				latedef: true,
-				onevar: true,
-				noarg: true,
-				node: true,
-				trailing: true,
-				undef: true,
-				unused: true
-			},
-			files: {
-				src: ['*.js']
-			},
 		}
 	});
 

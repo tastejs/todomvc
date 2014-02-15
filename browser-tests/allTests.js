@@ -2,9 +2,7 @@
 
 var testSuite = require('./test.js'),
 	fs = require('fs'),
-	argv = require('optimist').
-			default('laxMode', false).
-			default('browser', 'chrome').argv,
+	argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv,
 	rootUrl = 'http://localhost:8000/',
 	frameworkNamePattern = /^[a-z-_]+$/;
 
@@ -23,7 +21,8 @@ var excludedFrameworks = [
 	// sammyjs fails intermittently, it would appear that its state is sometimes updated asynchronously?
 	'sammyjs',
 	// these are examples that have been removed or are empty folders
-	'emberjs_require', 'dermis', 'react-backbone'];
+	'emberjs_require', 'dermis', 'react-backbone'
+];
 
 // collect together the framework names from each of the subfolders
 var list = fs.readdirSync('../architecture-examples/')
@@ -76,7 +75,7 @@ if (argv.framework) {
 		return framework.name === argv.framework;
 	});
 
-	if(list.length === 0) {
+	if (list.length === 0) {
 		console.log('You have either requested an unknown or an un-supported framework');
 	}
 }
