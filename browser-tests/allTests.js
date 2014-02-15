@@ -1,10 +1,10 @@
 'use strict';
 
-var testSuite = require('./test.js'),
-	fs = require('fs'),
-	argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv,
-	rootUrl = 'http://localhost:8000/',
-	frameworkNamePattern = /^[a-z-_]+$/;
+var testSuite = require('./test.js');
+var fs = require('fs');
+var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
+var rootUrl = 'http://localhost:8000/';
+var frameworkNamePattern = /^[a-z-_]+$/;
 
 var excludedFrameworks = [
 	// this implementation deviates from the specification to such an extent that they are 

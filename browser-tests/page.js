@@ -121,19 +121,19 @@ module.exports = function Page(browser) {
 
 	this.editItemAtIndex = function (index, itemText) {
 		return this.getEditInputForItemAtIndex(index)
-					.then(function (itemEditField) {
-						// send 50 delete keypresses, just to be sure the item text is deleted
-						var deleteKeyPresses = '',
-							i;
-						for (i = 0; i < 50; i++) {
-							deleteKeyPresses += webdriver.Key.BACK_SPACE;
-						}
+		.then(function (itemEditField) {
+			// send 50 delete keypresses, just to be sure the item text is deleted
+			var deleteKeyPresses = '',
+				i;
+			for (i = 0; i < 50; i++) {
+				deleteKeyPresses += webdriver.Key.BACK_SPACE;
+			}
 
-						itemEditField.sendKeys(deleteKeyPresses);
+			itemEditField.sendKeys(deleteKeyPresses);
 
-						// update the item with the new text.
-						itemEditField.sendKeys(itemText);
-					});
+			// update the item with the new text.
+			itemEditField.sendKeys(itemText);
+		});
 	};
 
 	this.doubleClickItemAtIndex = function (index) {
