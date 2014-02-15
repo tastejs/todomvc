@@ -1,6 +1,8 @@
 # Contribute
 
-We're happy to accept contributions in the form of new apps, bug fixes, issues, etc. If you want to help out, add a comment on the issue you want to work on and start hacking. Please open an issue for discussion before submitting framework combinations (eg. Backbone + RequireJS).
+We're happy to accept contributions in the form of new apps, bug fixes, issues and so on. If you want to help out, add a comment on the issue you want to work on and hack way!. 
+
+Note: Before starting work on an app intended for submission, please open an issue to discuss it with the team. This will allow us to review the framework being used to determine if a spec-compatible app is likely to be accepted. 
 
 
 ## Code Style
