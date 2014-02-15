@@ -485,7 +485,7 @@
 	},
 	"componentjs": {
 		"name": "ComponentJS",
-		"description": "ComponentJS is a stand-alone MPL-licensed Open Source library for JavaScript, providing a powerful run-time Component System for hierarchically structuring the User-Interface (UI) dialogs of complex HTML5-based Rich Clients (aka Single-Page-Apps) — under maximum applied Separation of Concerns (SoC) architecture principle, through optional Model, View and Controller component roles, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms, and fully independent and agnostic of the particular UI widget toolkit.",
+		"description": "Provides a powerful run-time Component System for hierarchically structuring the UI dialogs of complex HTML5-based Clients.  Fully isolates each UI segment, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms.",
 		"homepage": "componentjs.com/",
 		"source_path": [{
 			"name": "Architecture Example",
