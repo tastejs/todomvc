@@ -1,7 +1,7 @@
 'use strict';
 
-var assert = require('assert'),
-	Q = require('q');
+var assert = require('assert');
+var Q = require('q');
 
 function TestOperations(page) {
 
@@ -110,9 +110,8 @@ function TestOperations(page) {
 				textArray.length + ' items expected in the todo list, ' + labels.length + ' items observed');
 			// create an array of promises which check the presence of the
 			// label text within the 'textArray'
-			var tests = [],
-				i;
-			for (i = 0; i < labels.length; i++) {
+			var tests = [];
+			for (var i = 0; i < labels.length; i++) {
 				// suppressing JSHint - the loop variable is not being used in the function.
 				/* jshint -W083 */
 				tests.push(labels[i].getText().then(function (text) {
@@ -162,8 +161,7 @@ function TestOperations(page) {
 		page.getFilterElements().then(function (filterElements) {
 
 			// create an array of promises, each one holding a test
-			var tests = [],
-				i;
+			var tests = [];
 
 			// push a test into the array, avoiding the classic JS for loops + closures issue!
 			function pushTest(itemIndex) {
@@ -173,7 +171,7 @@ function TestOperations(page) {
 				}));
 			}
 
-			for (i = 0; i < 3; i++) {
+			for (var i = 0; i < 3; i++) {
 				pushTest(i);
 			}
 

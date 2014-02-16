@@ -123,9 +123,8 @@ module.exports = function Page(browser) {
 		return this.getEditInputForItemAtIndex(index)
 		.then(function (itemEditField) {
 			// send 50 delete keypresses, just to be sure the item text is deleted
-			var deleteKeyPresses = '',
-				i;
-			for (i = 0; i < 50; i++) {
+			var deleteKeyPresses = '';
+			for (var i = 0; i < 50; i++) {
 				deleteKeyPresses += webdriver.Key.BACK_SPACE;
 			}
 
