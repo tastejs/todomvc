@@ -6,13 +6,11 @@ var Page = require('./page');
 var PageLaxMode = require('./pageLaxMode');
 var TestOperations = require('./testOperations');
 
-module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode) {
+module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode, browserName) {
 	test.describe('TodoMVC - ' + frameworkName, function () {
-		var otherUrl = 'http://localhost:8000/';
 		var TODO_ITEM_ONE = 'buy some cheese';
 		var TODO_ITEM_TWO = 'feed the cat';
 		var TODO_ITEM_THREE = 'book a doctors appointment';
-
 		var browser, testOps, page;
 
 		// a number of tests use this set of ToDo items.
@@ -24,7 +22,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 		function launchBrowser() {
 			browser = new webdriver.Builder()
-			.withCapabilities({browserName : 'chrome' })
+			.withCapabilities({browserName : browserName})
 			.build();
 
 			browser.get(baseUrl);

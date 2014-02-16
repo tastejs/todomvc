@@ -1,7 +1,7 @@
 'use strict';
 
-var assert = require('assert'),
-	Q = require('q');
+var assert = require('assert');
+var Q = require('q');
 
 function TestOperations(page) {
 
@@ -111,7 +111,9 @@ function TestOperations(page) {
 			// create an array of promises which check the presence of the
 			// label text within the 'textArray'
 			var tests = [];
-			for(var i=0;i<labels.length;i++) {
+			for (var i = 0; i < labels.length; i++) {
+				// suppressing JSHint - the loop variable is not being used in the function.
+				/* jshint -W083 */
 				tests.push(labels[i].getText().then(function (text) {
 					var index = textArray.indexOf(text);
 					assert(index !== -1, 'A todo item with text \'' + text + '\' was not found');
@@ -134,7 +136,7 @@ function TestOperations(page) {
 	this.assertItemAtIndexIsCompleted = function (index) {
 		page.getItemElements().then(function (toDoItems) {
 			toDoItems[index].getAttribute('class').then(function (cssClass) {
-				assert(cssClass.indexOf('completed') !== -1, 
+				assert(cssClass.indexOf('completed') !== -1,
 					'the item at index ' + index + ' should have been marked as completed');
 			});
 		});
@@ -169,9 +171,9 @@ function TestOperations(page) {
 				}));
 			}
 
-			for (var i=0; i<3;i++) {
+			for (var i = 0; i < 3; i++) {
 				pushTest(i);
-			};
+			}
 
 			// execute all the tests
 			return Q.all(tests);
