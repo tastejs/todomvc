@@ -6,17 +6,17 @@ module.exports = function Page(browser) {
 
 	// ----------------- utility methods
 
-	this.tryFindByXpath = function(xpath) {
+	this.tryFindByXpath = function (xpath) {
 		return browser.findElements(webdriver.By.xpath(xpath));
-	}
+	};
 
-	this.findByXpath = function(xpath) {
+	this.findByXpath = function (xpath) {
 		return browser.findElement(webdriver.By.xpath(xpath));
-	}
+	};
 
-	this.getTodoListXpath = function() {
+	this.getTodoListXpath = function () {
 		return '//ul[@id="todo-list"]';
-	}
+	};
 
 	this.xPathForItemAtIndex = function (index) {
 		// why is XPath the only language silly enough to be 1-indexed?

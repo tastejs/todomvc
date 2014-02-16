@@ -2,13 +2,13 @@
 
 var testSuite = require('./test.js');
 var fs = require('fs');
-var argv = require('optimist').default('laxMode', false).argv;
+var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
 var rootUrl = 'http://localhost:8000/';
 var frameworkNamePattern = /^[a-z-_]+$/;
 
 var excludedFrameworks = [
 	// this implementation deviates from the specification to such an extent that they are 
-	// not worth testing via a generic mecanism
+	// not worth testing via a generic mechanism
 	'gwt',
 	// selenium webdriver cannot see the shadow dom
 	'polymer',
@@ -21,7 +21,8 @@ var excludedFrameworks = [
 	// sammyjs fails intermittently, it would appear that its state is sometimes updated asynchronously?
 	'sammyjs',
 	// these are examples that have been removed or are empty folders
-	'emberjs_require', 'dermis', 'react-backbone'];
+	'emberjs_require', 'dermis', 'react-backbone'
+];
 
 // collect together the framework names from each of the subfolders
 var list = fs.readdirSync('../architecture-examples/')
@@ -74,7 +75,7 @@ if (argv.framework) {
 		return framework.name === argv.framework;
 	});
 
-	if(list.length === 0) {
+	if (list.length === 0) {
 		console.log('You have either requested an unknown or an un-supported framework');
 	}
 }
@@ -84,6 +85,5 @@ list.forEach(function (framework) {
 	testSuite.todoMVCTest(
 		framework.name,
 		rootUrl + framework.path + '/index.html', argv.speedMode,
-		argv.laxMode
-	);
+		argv.laxMode, argv.browser);
 });
