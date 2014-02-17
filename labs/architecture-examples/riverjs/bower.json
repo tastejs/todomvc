@@ -1,0 +1,7 @@
+{
+  "name": "todomvc-vue",
+  "dependencies": {
+    "riverjs": "~1.0.5",
+    "todomvc-common": "~0.1.9"
+  }
+}
