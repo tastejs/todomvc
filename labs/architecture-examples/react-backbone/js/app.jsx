@@ -70,7 +70,7 @@ var app = app || {};
 				completed: this.setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
 			});
 
-			var router = new Router();
+			new Router();
 			Backbone.history.start();
 
 			this.props.todos.fetch();
