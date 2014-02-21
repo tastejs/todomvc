@@ -23,6 +23,12 @@ module.exports = function Page(browser) {
 		return this.getTodoListXpath() + '/li[' + (index + 1) + ']';
 	};
 
+	// ----------------- navigation methods
+
+	this.back = function() {
+		return browser.navigate().back();
+	}
+
 	// ----------------- try / get methods
 
 	// unfortunately webdriver does not have a decent API for determining if an
