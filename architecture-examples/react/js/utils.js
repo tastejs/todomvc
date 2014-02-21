@@ -1,7 +1,9 @@
-(function (window) {
+var app = app || {};
+
+(function () {
 	'use strict';
 
-	window.Utils = {
+	app.Utils = {
 		uuid: function () {
 			/*jshint bitwise:false */
 			var i, random;
@@ -45,5 +47,4 @@
 			return newObj;
 		}
 	};
-
-})(window);
+})();
