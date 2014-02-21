@@ -74,7 +74,6 @@ var app = app || {};
 			Backbone.history.start();
 
 			this.props.todos.fetch();
-			this.refs.newField.getDOMNode().focus();
 		},
 
 		componentDidUpdate: function () {
@@ -203,6 +202,7 @@ var app = app || {};
 							id="new-todo"
 							placeholder="What needs to be done?"
 							onKeyDown={this.handleNewTodoKeyDown}
+							autoFocus={true}
 						/>
 					</header>
 					{main}

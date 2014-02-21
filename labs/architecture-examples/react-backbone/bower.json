@@ -2,11 +2,11 @@
   "name": "todomvc-react-backbone",
   "version": "0.0.0",
   "dependencies": {
-    "react": "~0.8.0",
-    "todomvc-common": "~0.1.9",
-    "backbone": "~1.1.0",
+    "react": "~0.9.0",
+    "backbone": "~1.1.2",
     "backbone.localstorage": "~1.1.7",
-    "jquery": "~2.0.3",
-    "underscore": "~1.5.2"
+    "jquery": "~2.1.0",
+    "todomvc-common": "~0.1.9",
+    "underscore": "~1.6.0"
   }
 }

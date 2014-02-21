@@ -21,7 +21,7 @@ var app = app || {};
 					<button
 						id="clear-completed"
 						onClick={this.props.onClearCompleted}>
-						{''}Clear completed ({this.props.completedCount}){''}
+						Clear completed ({this.props.completedCount})
 					</button>
 				);
 			}
@@ -32,8 +32,7 @@ var app = app || {};
 			return (
 				<footer id="footer">
 					<span id="todo-count">
-						<strong>{this.props.count}</strong>
-						{' '}{activeTodoWord}{' '}left{''}
+						<strong>{this.props.count}</strong> {activeTodoWord} left
 					</span>
 					<ul id="filters">
 						<li>
