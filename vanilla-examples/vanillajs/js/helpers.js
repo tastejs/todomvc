@@ -7,30 +7,27 @@
 	window.$$ = document.querySelector.bind(document);
 
 	// Register events on elements that may or may not exist yet:
-	// $live('div a', 'click', function (e) {});
+	// $live('div a', 'click', function (event) {});
 	window.$live = (function () {
 		var eventRegistry = {};
 
-		var globalEventDispatcher = function (e) {
-			var targetElement = e.target;
+		function dispatchEvent(event) {
+			var targetElement = event.target;
 
-			if (eventRegistry[e.type]) {
-				eventRegistry[e.type].forEach(function (entry) {
-					var potentialElements = document.querySelectorAll(entry.selector),
-						hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
+			eventRegistry[event.type].forEach(function (entry) {
+				var potentialElements = document.querySelectorAll(entry.selector);
+				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
-					if (hasMatch) {
-						entry.handler(e);
-					}
-				});
-			}
-		};
+				if (hasMatch) {
+					entry.handler(event);
+				}
+			});
+		}
 
 		return function (selector, event, handler) {
 			if (!eventRegistry[event]) {
-				document.documentElement.addEventListener(event, globalEventDispatcher, true);
-
 				eventRegistry[event] = [];
+				document.documentElement.addEventListener(event, dispatchEvent, true);
 			}
 
 			eventRegistry[event].push({
