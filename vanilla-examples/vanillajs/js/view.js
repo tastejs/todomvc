@@ -159,7 +159,7 @@
                     title: input.value
                 });
             }
-        }.bind(this));
+        }, this);
 
         $live('#todo-list li .edit', 'keypress', function (e) {
             var input = e.target;
@@ -168,7 +168,7 @@
                 // were a real form
                 input.blur();
             }
-        }.bind(this));
+        }, this);
     };
 
     View.prototype._bindItemEditCancel = function (handler) {
@@ -183,7 +183,7 @@
 
                 handler({id: id});
             }
-        }.bind(this));
+        }, this);
     };
 
     View.prototype.bind = function (event, handler) {
@@ -209,14 +209,14 @@
                 var id = this._itemIdForEvent(e);
 
                 handler({id: id});
-            }.bind(this));
+            }, this);
 
         } else if (event === 'itemRemove') {
             $live('#todo-list .destroy', 'click', function (e) {
                 var id = this._itemIdForEvent(e);
 
                 handler({id: id});
-            }.bind(this));
+            }, this);
 
         } else if (event === 'itemToggle') {
             $live('#todo-list .toggle', 'click', function (e) {
@@ -224,7 +224,7 @@
                 var id = this._itemIdForEvent(e);
 
                 handler({id: id, completed: input.checked});
-            }.bind(this));
+            }, this);
 
         } else if (event === 'itemEditDone') {
             this._bindItemEditDone(handler);

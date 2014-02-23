@@ -19,12 +19,12 @@
 				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
 				if (hasMatch) {
-					entry.handler(event);
+					entry.handler.call(entry.handlerScope || targetElement, event);
 				}
 			});
 		}
 
-		return function (selector, event, handler) {
+		return function (selector, event, handler, handlerScope) {
 			if (!eventRegistry[event]) {
 				eventRegistry[event] = [];
 				document.documentElement.addEventListener(event, dispatchEvent, true);
@@ -32,7 +32,8 @@
 
 			eventRegistry[event].push({
 				selector: selector,
-				handler: handler
+				handler: handler,
+				handlerScope: handlerScope
 			});
 		};
 	}());
