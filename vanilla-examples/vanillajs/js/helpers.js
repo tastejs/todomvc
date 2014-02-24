@@ -10,6 +10,11 @@
 		return (scope || document).querySelectorAll(selector);
 	};
 
+	// addEventListener wrapper:
+	window.$on = function (target, type, callback, useCapture) {
+		target.addEventListener(type, callback, !!useCapture);
+	};
+
 	// Register events on elements that may or may not exist yet:
 	// $live('div a', 'click', function (event) {});
 	window.$live = (function () {
@@ -31,7 +36,7 @@
 		return function (selector, event, handler) {
 			if (!eventRegistry[event]) {
 				eventRegistry[event] = [];
-				document.documentElement.addEventListener(event, dispatchEvent, true);
+				window.$on(document.documentElement, event, dispatchEvent, true);
 			}
 
 			eventRegistry[event].push({

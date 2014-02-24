@@ -1,4 +1,4 @@
-/*global qs, qsa, $parent, $live */
+/*global qs, qsa, $on, $parent, $live */
 
 (function (window) {
     'use strict';
@@ -135,7 +135,7 @@
 
     View.prototype._itemId = function (element) {
         var li = $parent(element, 'li');
-        return li.dataset.id;
+        return parseInt(li.dataset.id, 10);
     };
 
     View.prototype._bindItemEditDone = function (handler) {
@@ -173,17 +173,17 @@
     View.prototype.bind = function (event, handler) {
         var that = this;
         if (event === 'newTodo') {
-            that.$newTodo.addEventListener('change', function () {
+            $on(that.$newTodo, 'change', function () {
                 handler(that.$newTodo.value);
             });
 
         } else if (event === 'removeCompleted') {
-            that.$clearCompleted.addEventListener('click', function () {
+            $on(that.$clearCompleted, 'click', function () {
                 handler();
             });
 
         } else if (event === 'toggleAll') {
-            that.$toggleAll.addEventListener('click', function () {
+            $on(that.$toggleAll, 'click', function () {
                 handler({completed: this.checked});
             });
 

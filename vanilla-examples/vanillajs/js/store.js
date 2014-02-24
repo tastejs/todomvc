@@ -11,22 +11,19 @@
 	 * real life you probably would be making AJAX calls
 	 */
 	function Store(name, callback) {
-		var data;
-		var dbName;
-
 		callback = callback || function () {};
 
-		dbName = this._dbName = name;
+		this._dbName = name;
 
-		if (!localStorage[dbName]) {
-			data = {
+		if (!localStorage[name]) {
+			var data = {
 				todos: []
 			};
 
-			localStorage[dbName] = JSON.stringify(data);
+			localStorage[name] = JSON.stringify(data);
 		}
 
-		callback.call(this, JSON.parse(localStorage[dbName]));
+		callback.call(this, JSON.parse(localStorage[name]));
 	}
 
 	/**
@@ -50,13 +47,12 @@
 		var todos = JSON.parse(localStorage[this._dbName]).todos;
 
 		callback.call(this, todos.filter(function (todo) {
-			var match = true;
 			for (var q in query) {
 				if (query[q] !== todo[q]) {
-					match = false;
+					return false;
 				}
 			}
-			return match;
+			return true;
 		}));
 	};
 
@@ -74,33 +70,30 @@
 	 * Will save the given data to the DB. If no item exists it will create a new
 	 * item, otherwise it'll simply update an existing item's properties
 	 *
-	 * @param {number} id An optional param to enter an ID of an item to update
-	 * @param {object} data The data to save back into the DB
+	 * @param {object} updateData The data to save back into the DB
 	 * @param {function} callback The callback to fire after saving
+	 * @param {number} id An optional param to enter an ID of an item to update
 	 */
-	Store.prototype.save = function (id, updateData, callback) {
+	Store.prototype.save = function (updateData, callback, id) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 
 		callback = callback || function () {};
 
 		// If an ID was actually given, find the item and update each property
-		if (typeof id !== 'object') {
+		if (id) {
 			for (var i = 0; i < todos.length; i++) {
-				if (todos[i].id == id) {
-					for (var x in updateData) {
-						todos[i][x] = updateData[x];
+				if (todos[i].id === id) {
+					for (var key in updateData) {
+						todos[i][key] = updateData[key];
 					}
+					break;
 				}
 			}
 
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
 		} else {
-			callback = updateData;
-
-			updateData = id;
-
 			// Generate an ID
 			updateData.id = new Date().getTime();
 

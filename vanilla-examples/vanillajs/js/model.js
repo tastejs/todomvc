@@ -68,7 +68,7 @@
 	 * @param {function} callback The callback to fire when the update is complete.
 	 */
 	Model.prototype.update = function (id, data, callback) {
-		this.storage.save(id, data, callback);
+		this.storage.save(data, callback, id);
 	};
 
 	/**
