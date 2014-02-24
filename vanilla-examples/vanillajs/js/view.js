@@ -55,7 +55,7 @@
         listItem.className = completed ? 'completed' : '';
 
         // In case it was toggled from an event and not by clicking the checkbox
-        listItem.querySelector('input').checked = completed;
+        $$('input', listItem).checked = completed;
     };
 
     View.prototype._editItem = function (id, title) {
@@ -82,12 +82,12 @@
             return;
         }
 
-        var input = listItem.querySelector('input.edit');
+        var input = $$('input.edit', listItem);
         listItem.removeChild(input);
 
         listItem.className = listItem.className.replace('editing', '');
 
-        listItem.querySelectorAll('label').forEach(function (label) {
+        $('label', listItem).forEach(function (label) {
             label.textContent = title;
         });
     };

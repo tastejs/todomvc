@@ -2,9 +2,13 @@
 (function (window) {
 	'use strict';
 
-	// Cache the querySelector/All for easier and faster reuse
-	window.$ = document.querySelectorAll.bind(document);
-	window.$$ = document.querySelector.bind(document);
+	// Get element(s) by CSS selector:
+	window.$$ = function (selector, scope) {
+		return (scope || document).querySelector(selector);
+	};
+	window.$ = function (selector, scope) {
+		return (scope || document).querySelectorAll(selector);
+	};
 
 	// Register events on elements that may or may not exist yet:
 	// $live('div a', 'click', function (event) {});
@@ -15,7 +19,7 @@
 			var targetElement = event.target;
 
 			eventRegistry[event.type].forEach(function (entry) {
-				var potentialElements = document.querySelectorAll(entry.selector);
+				var potentialElements = window.$(entry.selector);
 				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
 				if (hasMatch) {
