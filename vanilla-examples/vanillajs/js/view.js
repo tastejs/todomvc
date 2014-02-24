@@ -133,97 +133,83 @@
         viewCommands[viewCmd]();
     };
 
-    View.prototype._itemIdForEvent = function (e) {
-        var element = e.target;
+    View.prototype._itemId = function (element) {
         var li = $parent(element, 'li');
-        var id = li.dataset.id;
-
-        return id;
+        return li.dataset.id;
     };
 
     View.prototype._bindItemEditDone = function (handler) {
-        $live('#todo-list li .edit', 'blur', function (e) {
-            var input = e.target;
-            var id = this._itemIdForEvent(e);
-
-            if (!input.dataset.iscanceled) {
+        var that = this;
+        $live('#todo-list li .edit', 'blur', function () {
+            if (!this.dataset.iscanceled) {
                 handler({
-                    id: id,
-                    title: input.value
+                    id: that._itemId(this),
+                    title: this.value
                 });
             }
-        }, this);
+        });
 
-        $live('#todo-list li .edit', 'keypress', function (e) {
-            var input = e.target;
-            if (e.keyCode === this.ENTER_KEY) {
+        $live('#todo-list li .edit', 'keypress', function (event) {
+            if (event.keyCode === that.ENTER_KEY) {
                 // Remove the cursor from the input when you hit enter just like if it
                 // were a real form
-                input.blur();
+                this.blur();
             }
-        }, this);
+        });
     };
 
     View.prototype._bindItemEditCancel = function (handler) {
-        $live('#todo-list li .edit', 'keyup', function (e) {
-            var input = e.target;
-            var id = this._itemIdForEvent(e);
+        var that = this;
+        $live('#todo-list li .edit', 'keyup', function (event) {
+            if (event.keyCode === that.ESCAPE_KEY) {
+                this.dataset.iscanceled = true;
+                this.blur();
 
-            if (e.keyCode === this.ESCAPE_KEY) {
-
-                input.dataset.iscanceled = true;
-                input.blur();
-
-                handler({id: id});
+                handler({id: that._itemId(this)});
             }
-        }, this);
+        });
     };
 
     View.prototype.bind = function (event, handler) {
+        var that = this;
         if (event === 'newTodo') {
-            this.$newTodo.addEventListener('change', function () {
-                handler(this.$newTodo.value);
-            }.bind(this));
+            that.$newTodo.addEventListener('change', function () {
+                handler(that.$newTodo.value);
+            });
 
         } else if (event === 'removeCompleted') {
-            this.$clearCompleted.addEventListener('click', function () {
+            that.$clearCompleted.addEventListener('click', function () {
                 handler();
-            }.bind(this));
+            });
 
         } else if (event === 'toggleAll') {
-            this.$toggleAll.addEventListener('click', function (e) {
-                var input = e.target;
-
-                handler({completed: input.checked});
-            }.bind(this));
+            that.$toggleAll.addEventListener('click', function () {
+                handler({completed: this.checked});
+            });
 
         } else if (event === 'itemEdit') {
-            $live('#todo-list li label', 'dblclick', function (e) {
-                var id = this._itemIdForEvent(e);
-
-                handler({id: id});
-            }, this);
+            $live('#todo-list li label', 'dblclick', function () {
+                handler({id: that._itemId(this)});
+            });
 
         } else if (event === 'itemRemove') {
-            $live('#todo-list .destroy', 'click', function (e) {
-                var id = this._itemIdForEvent(e);
-
-                handler({id: id});
-            }, this);
+            $live('#todo-list .destroy', 'click', function () {
+                handler({id: that._itemId(this)});
+            });
 
         } else if (event === 'itemToggle') {
-            $live('#todo-list .toggle', 'click', function (e) {
-                var input = e.target;
-                var id = this._itemIdForEvent(e);
-
-                handler({id: id, completed: input.checked});
-            }, this);
+            $live('#todo-list .toggle', 'click', function () {
+                handler({
+                    id: that._itemId(this),
+                    completed: this.checked
+                });
+            });
 
         } else if (event === 'itemEditDone') {
-            this._bindItemEditDone(handler);
+            that._bindItemEditDone(handler);
 
         } else if (event === 'itemEditCancel') {
-            this._bindItemEditCancel(handler);
+            that._bindItemEditCancel(handler);
         }
     };
 

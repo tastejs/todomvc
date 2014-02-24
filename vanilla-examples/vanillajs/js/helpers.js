@@ -23,12 +23,12 @@
 				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
 				if (hasMatch) {
-					entry.handler.call(entry.handlerScope || targetElement, event);
+					entry.handler.call(targetElement, event);
 				}
 			});
 		}
 
-		return function (selector, event, handler, handlerScope) {
+		return function (selector, event, handler) {
 			if (!eventRegistry[event]) {
 				eventRegistry[event] = [];
 				document.documentElement.addEventListener(event, dispatchEvent, true);
@@ -36,8 +36,7 @@
 
 			eventRegistry[event].push({
 				selector: selector,
-				handler: handler,
-				handlerScope: handlerScope
+				handler: handler
 			});
 		};
 	}());
