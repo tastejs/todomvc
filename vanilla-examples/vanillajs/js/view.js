@@ -41,15 +41,8 @@
     };
 
     View.prototype._setFilter = function (currentPage) {
-        // Remove all other selected states. We loop through all of them in case the
-        // UI gets in a funky state with two selected.
-        $('#filters .selected').forEach(function (item) {
-            item.className = '';
-        });
-
-        $('#filters [href="#/' + currentPage + '"]').forEach(function (item) {
-            item.className = 'selected';
-        });
+        $$('#filters .selected').className = '';
+        $$('#filters [href="#/' + currentPage + '"]').className = 'selected';
     };
 
     View.prototype._elementComplete = function (id, completed) {
