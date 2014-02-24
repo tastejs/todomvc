@@ -102,40 +102,40 @@
     View.prototype.render = function (viewCmd, parameter) {
         var that = this;
         var viewCommands = {
-                showEntries: function () {
-                    that.$todoList.innerHTML = that.template.show(parameter);
-                },
-                removeItem: function () {
-                    that._removeItem(parameter);
-                },
-                updateElementCount: function () {
-                    that.$todoItemCounter.innerHTML = that.template.itemCounter(parameter);
-                },
-                clearCompletedButton: function () {
-                    that._clearCompletedButton(parameter.completed, parameter.visible);
-                },
-                contentBlockVisibility: function () {
-                    that.$main.style.display = that.$footer.style.display = parameter.visible ? 'block' : 'none';
-                },
-                toggleAll: function () {
-                    that.$toggleAll.checked = parameter.checked;
-                },
-                setFilter: function () {
-                    that._setFilter(parameter);
-                },
-                clearNewTodo: function () {
-                    that.$newTodo.value = '';
-                },
-                elementComplete: function () {
-                    that._elementComplete(parameter.id, parameter.completed);
-                },
-                editItem: function () {
-                    that._editItem(parameter.id, parameter.title);
-                },
-                editItemDone: function () {
-                    that._editItemDone(parameter.id, parameter.title);
-                }
-            };
+            showEntries: function () {
+                that.$todoList.innerHTML = that.template.show(parameter);
+            },
+            removeItem: function () {
+                that._removeItem(parameter);
+            },
+            updateElementCount: function () {
+                that.$todoItemCounter.innerHTML = that.template.itemCounter(parameter);
+            },
+            clearCompletedButton: function () {
+                that._clearCompletedButton(parameter.completed, parameter.visible);
+            },
+            contentBlockVisibility: function () {
+                that.$main.style.display = that.$footer.style.display = parameter.visible ? 'block' : 'none';
+            },
+            toggleAll: function () {
+                that.$toggleAll.checked = parameter.checked;
+            },
+            setFilter: function () {
+                that._setFilter(parameter);
+            },
+            clearNewTodo: function () {
+                that.$newTodo.value = '';
+            },
+            elementComplete: function () {
+                that._elementComplete(parameter.id, parameter.completed);
+            },
+            editItem: function () {
+                that._editItem(parameter.id, parameter.title);
+            },
+            editItemDone: function () {
+                that._editItemDone(parameter.id, parameter.title);
+            }
+        };
 
         viewCommands[viewCmd]();
     };
