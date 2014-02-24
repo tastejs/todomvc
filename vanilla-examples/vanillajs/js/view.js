@@ -1,4 +1,4 @@
-/*global $, $$, $parent, $live */
+/*global qs, qsa, $parent, $live */
 
 (function (window) {
     'use strict';
@@ -18,17 +18,17 @@
         this.ENTER_KEY = 13;
         this.ESCAPE_KEY = 27;
 
-        this.$todoList = $$('#todo-list');
-        this.$todoItemCounter = $$('#todo-count');
-        this.$clearCompleted = $$('#clear-completed');
-        this.$main = $$('#main');
-        this.$footer = $$('#footer');
-        this.$toggleAll = $$('#toggle-all');
-        this.$newTodo = $$('#new-todo');
+        this.$todoList = qs('#todo-list');
+        this.$todoItemCounter = qs('#todo-count');
+        this.$clearCompleted = qs('#clear-completed');
+        this.$main = qs('#main');
+        this.$footer = qs('#footer');
+        this.$toggleAll = qs('#toggle-all');
+        this.$newTodo = qs('#new-todo');
     }
 
     View.prototype._removeItem = function (id) {
-        var elem = $$('[data-id="' + id + '"]');
+        var elem = qs('[data-id="' + id + '"]');
 
         if (elem) {
             this.$todoList.removeChild(elem);
@@ -41,12 +41,12 @@
     };
 
     View.prototype._setFilter = function (currentPage) {
-        $$('#filters .selected').className = '';
-        $$('#filters [href="#/' + currentPage + '"]').className = 'selected';
+        qs('#filters .selected').className = '';
+        qs('#filters [href="#/' + currentPage + '"]').className = 'selected';
     };
 
     View.prototype._elementComplete = function (id, completed) {
-        var listItem = $$('[data-id="' + id + '"]');
+        var listItem = qs('[data-id="' + id + '"]');
 
         if (!listItem) {
             return;
@@ -55,11 +55,11 @@
         listItem.className = completed ? 'completed' : '';
 
         // In case it was toggled from an event and not by clicking the checkbox
-        $$('input', listItem).checked = completed;
+        qs('input', listItem).checked = completed;
     };
 
     View.prototype._editItem = function (id, title) {
-        var listItem = $$('[data-id="' + id + '"]');
+        var listItem = qs('[data-id="' + id + '"]');
 
         if (!listItem) {
             return;
@@ -76,18 +76,18 @@
     };
 
     View.prototype._editItemDone = function (id, title) {
-        var listItem = $$('[data-id="' + id + '"]');
+        var listItem = qs('[data-id="' + id + '"]');
 
         if (!listItem) {
             return;
         }
 
-        var input = $$('input.edit', listItem);
+        var input = qs('input.edit', listItem);
         listItem.removeChild(input);
 
         listItem.className = listItem.className.replace('editing', '');
 
-        $('label', listItem).forEach(function (label) {
+        qsa('label', listItem).forEach(function (label) {
             label.textContent = title;
         });
     };

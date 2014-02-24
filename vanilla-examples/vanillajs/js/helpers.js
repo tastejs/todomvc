@@ -3,10 +3,10 @@
 	'use strict';
 
 	// Get element(s) by CSS selector:
-	window.$$ = function (selector, scope) {
+	window.qs = function (selector, scope) {
 		return (scope || document).querySelector(selector);
 	};
-	window.$ = function (selector, scope) {
+	window.qsa = function (selector, scope) {
 		return (scope || document).querySelectorAll(selector);
 	};
 
@@ -19,7 +19,7 @@
 			var targetElement = event.target;
 
 			eventRegistry[event.type].forEach(function (entry) {
-				var potentialElements = window.$(entry.selector);
+				var potentialElements = window.qsa(entry.selector);
 				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
 				if (hasMatch) {
@@ -43,7 +43,7 @@
 	}());
 
 	// Find the element's parent with the given tag name:
-	// $parent($$('a'), 'div');
+	// $parent(qs('a'), 'div');
 	window.$parent = function (element, tagName) {
 		if (!element.parentNode) {
 			return;
@@ -55,6 +55,6 @@
 	};
 
 	// Allow for looping on nodes by chaining:
-	// $('.foo').forEach(function () {})
+	// qsa('.foo').forEach(function () {})
 	NodeList.prototype.forEach = Array.prototype.forEach;
 })(window);
