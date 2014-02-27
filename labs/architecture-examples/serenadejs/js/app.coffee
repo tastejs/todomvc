@@ -56,6 +56,7 @@ class TodoController
 
 	edited: ->
 		if @todo.title.trim()
+			@todo.title = @todo.title.trim()
 			@todo.edit = false if @todo.edit
 		else
 			@todo.remove()
