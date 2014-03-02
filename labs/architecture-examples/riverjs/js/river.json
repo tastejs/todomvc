@@ -1,0 +1,9 @@
+{
+ "version": "1.0.73",
+ "dist": "./build",
+ "alias": {
+  "river.grammer": "tag"
+ },
+ "sourcemap": true,
+ "minify": true
+}

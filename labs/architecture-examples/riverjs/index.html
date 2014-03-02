@@ -1,52 +1,74 @@
 <!doctype html>
-<html data-framework="vue">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>river.js • TodoMVC</title>
+		<title>RiverJS • TodoMVC</title>
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<!-- CSS overrides - remove if you don't need it -->
+		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
-		<section id="todoapp">
+		<section id="todoapp" scope="controller.todo">
 			<header id="header">
 				<h1>todos</h1>
-				<input id="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" v-on="keyup:addTodo | key enter">
+				<input id="new-todo" placeholder="What needs to be done?" autofocus jbind="newtodo" jon="keydown:add">
 			</header>
-			<section id="main" v-show="todos.length">
-				<input id="toggle-all" type="checkbox" v-model="allDone">
+			<!-- This section should be hidden by default and shown when there are todos -->
+			<section id="main">
+				<input id="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
-					<li class="todo" v-repeat="todos" v-if="filterTodo(this)" v-class="completed: completed, editing: this == editedTodo">
+					<!-- These are here just to show the structure of the list items -->
+					<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+					<li class="completed" repeat="todo in todos">
 						<div class="view">
-							<input class="toggle" type="checkbox" v-model="completed" v-on="change: toggleTodo">
-							<label v-text="title" v-on="dblclick: editTodo(this)"></label>
-							<button class="destroy" v-on="click: removeTodo(this)"></button>
+							<input class="toggle" type="checkbox" checked>
+              <label>{{ todo.desc }}</label>
+							<button class="destroy" jclick="remove"></button>
 						</div>
-						<input class="edit" type="text" v-model="title" v-todo-focus="this == editedTodo" v-on="blur: doneEdit(this), keyup: doneEdit(this) | key enter, keyup: cancelEdit(this) | key esc">
+            <input class="edit" jbind="todo.desc">
 					</li>
+					<!--<li>
+						<div class="view">
+							<input class="toggle" type="checkbox">
+							<label>Rule the web</label>
+							<button class="destroy"></button>
+						</div>
+						<input class="edit" value="Rule the web">
+          </li>-->
 				</ul>
 			</section>
-			<footer id="footer" v-show="todos.length">
-				<span id="todo-count">
-					<strong v-text="remaining"></strong> {{remaining | pluralize item}} left
-				</span>
+			<!-- This footer should hidden by default and shown when there are todos -->
+			<footer id="footer">
+				<!-- This should be `0 items left` by default -->
+				<span id="todo-count"><strong>1</strong> item left</span>
+				<!-- Remove this if you don't implement routing -->
 				<ul id="filters">
-					<li><a href="#/all" v-class="selected:filter=='all'">All</a></li>
-					<li><a href="#/active" v-class="selected:filter=='active'">Active</a></li>
-					<li><a href="#/completed" v-class="selected:filter=='completed'">Completed</a></li>
+					<li>
+						<a class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a href="#/active">Active</a>
+					</li>
+					<li>
+						<a href="#/completed">Completed</a>
+					</li>
 				</ul>
-				<button id="clear-completed" v-on="click:removeCompleted" v-show="todos.length > remaining">
-					Clear completed ({{todos.length - remaining}})
-				</button>
+				<!-- Hidden if no completed items are left ↓ -->
+				<button id="clear-completed">Clear completed (1)</button>
 			</footer>
 		</section>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
-			<p>Written by <a href="http://evanyou.me">Evan You</a></p>
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+			<!-- Remove the below line ↓ -->
+			<p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://besideriver.com">Jonathan</a></p>
+			<p>Part of <a href="http://besideriver.com/RiverJS">RiverJS TodoMVC</a></p>
 		</footer>
+		<!-- Scripts here. Don't remove this ↓ -->
 		<script src="bower_components/todomvc-common/base.js"></script>
-		<script src="bower_components/riverjs/dist/river.js"></script>
-		<script src="js/store.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/routes.js"></script>
+		<script src="js/build/river.js"></script>
+		<script src="js/build/app.js"></script>
 	</body>
 </html>

@@ -1,30 +1,9 @@
-/*global define */
+var STORAGE_ID = 'todos-riverjs';
 
-/*jshint unused:false */
+exports.get = function(){
+  return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+};
 
-(function (exports) {
-
-	'use strict';
-
-    define(function () {
-
-    });
-  var mm = function (argument) {
-    
-  }
-	var STORAGE_KEY = 'todos-vuejs';
-	var todos = null;
-
-	exports.todoStorage = {
-		fetch: function () {
-			if (!todos) {
-				todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-			}
-			return todos;
-		},
-		save: function () {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-		}
-	};
-
-})(window);
+exports.put = function(){
+  localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
+};

@@ -17,18 +17,28 @@ var _$river = {
         var context = {
           need: function(key) {
             key = key.toLowerCase();
-            return boxes[key] && boxes[key].call(context) || undefined;
-          }
+            var mod = Object.create(context);
+            mod.exports = {}; //reset,
+            var api = boxes[key] && boxes[key].call(mod,mod.exports,mod.need,mod) || undefined;
+            api = typeof mod.exports === 'function' ? mod.exports : Object.keys(mod.exports).length ? mod.exports : api;
+            return api;
+          },
+          exports: {}
         };
-        fn.call(context);
+        fn.call(context,context.exports,context.need,context);
       }
     };
   }
 };
 _$river.module = _$river.sandbox();
 
-/*jshint unused:false */
+Object.create = Object.create || function(source){
+  var F = function () {}
+  F.prototype = source;
+  return new F();
+}
 
+/*jshint unused:false */
 
 /**
  *@name define
@@ -108,7 +118,16 @@ define('river.engine',function() {
         element: doc,
         expression: doc.nodeValue
       });
-      doc.nodeValue = doc.nodeValue.replace(/\r|\n/g,'').replace(/{{.*}}/, context.scope[key]);
+      //'a.b.c.d'
+      var ns = key.split('.');
+      var value = {};
+      for(var i=0;i<ns.length;i++){
+        if(typeof value === 'object'){
+          value = value[ns[i]] || context.scope[ns[i]] 
+        }
+      }
+      value = typeof value == 'object' ? JSON.stringify(value) : value;
+      doc.nodeValue = doc.nodeValue.replace(/\r|\n/g,'').replace(/{{.*}}/, value);
     }
   }
 
@@ -163,15 +182,30 @@ define('river.scenario',function(){
    * in the future
    */
   function _trigger (type,element){
-
     //to-do , cross IE < 9
     var event = document.createEvent('MouseEvents');
     event.initEvent(type,true,true);
     element.dispatchEvent(event);
   }
 
+  function _keyboard (type, keycode,charCode, element){
+    //to-do , cross IE < 9
+    var evt = document.createEvent('Events');
+    evt.initEvent(type, true, true);
+    evt.view = null;
+    evt.altKey = false;
+    evt.ctrlKey = false;
+    evt.shiftKey = false;
+    evt.metaKey = false;
+    evt.keyCode = keycode;
+    evt.charCode = charCode;
+
+    element.dispatchEvent(evt);
+  }
+
   return {
-    trigger:_trigger
+    trigger:_trigger,
+    key:_keyboard
   };
 });
 define('river.core.Date', function() {
@@ -238,20 +272,15 @@ define('river.core.model', function() { //@sourceURL=../lib/core/model.js
       if(eom && eom[key]){
         loop(eom[key], function(ele, i) {
           ele.element.nodeValue = ele.expression.replace(/{{.*}}/, value);
+          if(ele.element.nodeName == 'INPUT'){
+            ele.element.value = ele.expression.replace(/{{.*}}/, value);
+          }
           //ele.element.parent.innerHTML = ele.expression.replace(/{{.*}}/, value);
         });
-      }else if(eom && !eom[key]){
-        each(eom,function(d,i){
-          loop(d, function(ele, i) {
-            ele.element.nodeValue = ele.expression.replace(/{{.*}}/, value);
-            //ele.element.parent.innerHTML = ele.expression.replace(/{{.*}}/, value);
-          });
-        })
       }
     } else if (isArray(value)) {
       oldvalue = oldvalue ? oldvalue : [];
-      var info = getRepeatTemp(eom[key]);
-      var children = info.ele.parent.children;
+      var children = eom[key].repeatContainer.children;
       var length = value.length - children.length
         , len = Math.abs(length)
         , addItems = length > 0
@@ -259,7 +288,7 @@ define('river.core.model', function() { //@sourceURL=../lib/core/model.js
       if(addItems){
         var vv = value.slice(value.length-len,value.length);
         for(var i = 0;i<len;i++){
-          addEom.call(scope,eom[key],info.eom,info.ele,vv[i]);
+          buildNewEom(eom[key],vv);
         }
       }else if(removeItems){
         Array.prototype.splice.call(eom[key],0,len);
@@ -268,6 +297,7 @@ define('river.core.model', function() { //@sourceURL=../lib/core/model.js
         }
       }
       loop(value, function(item, index) {
+        updateGrammar(eom[key][index],item);
         update.call(scope,item, index, eom[key][index],oldvalue[index]);
       });
     } else if (isObject(value)) {
@@ -279,56 +309,33 @@ define('river.core.model', function() { //@sourceURL=../lib/core/model.js
   }
 
 
-  function getRepeatTemp(eom) {
-    var neweom = tools.clone(eom[0]);
-    var newele;
-    each(neweom,function(d,i){
-      if(!newele){
-        loop(d,function(data,index){
-          if(!newele){
-            newele = data;
-          }
-        });
-      }
-    })
-    return {
-      eom : neweom,
-      ele : newele
-    }
-  }
-
-  function addEom(eom,neweom,newele,value) {
-    eom.push(neweom);
-    var newnode = newele.repeat.cloneNode(true);
-    newele.parent.appendChild(newnode);
-    newele.element = getTextNode.call(this,newnode,value)[0];
-  }
-
-  function getTextNode(node,value,texts){
-    texts = texts || [];
-    var scope = this;
-    if(node.attributes){
-      executeGrammer(node,scope,value);
-    }
-    if(node.childNodes && node.childNodes.length){
-      loop(node.childNodes,function(d,i){
-        getTextNode.call(scope,d,value,texts);
+  function buildNewEom(eom,data) {
+    var trans = eom.trans;
+    var node = eom.repeatNode;
+    var _r = eom.reg;
+    var key = eom.key;
+    var parentNode = eom.repeatContainer;
+    var frg = document.createDocumentFragment();
+    if (data && data.length) {
+      data.forEach(function(d,i) {
+        var _n = node.cloneNode(true);
+        var m = {};
+        var grammars = [];
+        trans(_r, _n, d, key, m,grammars);
+        m.grammars = grammars;
+        eom.push(m);
+        frg.appendChild(_n);
       });
-    }else{
-      texts.push(node);
+      parentNode.appendChild(frg);
     }
-    return texts;
   }
 
-  function executeGrammer(node,scope,data){
-    var attrs = node.attributes;
-    for(var i=0;i<attrs.length;i++){
-      var attr = attrs[i];
-      var grammer= me.need('river.grammer.' + attr.nodeName);
-      if(grammer){
-        grammer.call({scope:scope,node:node},attr.nodeValue,scope,node,data);
-      }
-    }
+  function updateGrammar(eom,data){
+    var grammars = eom.grammars;
+    if(!grammars) return;
+    grammars.forEach(function(d,i){
+      d.grammar.call(d.context,d.str,d.rootScope,d.context.node,data);
+    });
   }
 
   function Model(ns, eom) {
@@ -522,20 +529,25 @@ define('river.core.tools', function() {
 });
 define('river.grammer.jbind',function(){
 
-  function jbind (str){
-    var scope = this.scope;
-    var oldValue = this.node.value = scope[str];
+  function jbind (str,scope,element,repeatscope){
+    scope = repeatscope || scope;
+    var oldValue = element.value = scope[str] || '';
+    this.eom[str] = this.eom[str] || [];
+    this.eom[str].push({
+      element:element,
+      expression:"{{"+str+"}}"
+    });
 
     var interval;
 
-    this.node.onfocus = function(){
+    element.onfocus = function(){
       var ele = this;
       interval = setInterval(function(){
         watch(ele.value);
       },30);
     };
 
-    this.node.onblur = function(){
+    element.onblur = function(){
       clearInterval(interval);
     };
 
@@ -564,7 +576,7 @@ define('river.grammer.jChange', function() {
   return change;
 });
 define('river.grammer.jclick', function() {
-  function click (str,scope,element,data) {
+  function click (str,scope,element,repeatscope) {
     var key = str.replace(/\(.*\)/,'');
     var fn = scope[key];
 
@@ -577,9 +589,20 @@ define('river.grammer.jclick', function() {
       //Array.prototype.indexOf.call(this.node.parentNode,this.node);
     }
 
+    var argsdata = [];
+    for (var i = 0, len = args; i < len; i++) {
+      var item = scope[args[i]] ? scope[args[i]] : args[i];
+      argsdata.push(item);
+    }
+
+    //to-do hot-fix
+    if(repeatscope){
+      argsdata = [repeatscope];
+    }
+
     var eom = this.eom;
-    element.onclick = function(){
-      fn.apply({},[data]);
+    element.onclick = function(e){
+      fn.apply(element,argsdata);
       scope.apply();
     };
   }
@@ -598,12 +621,51 @@ define('river.grammer.jcompile',function(){
 //    console.log(this.eom.msg);
   };
 });
+define('river.grammer.jon', function() {
+  function on (str,scope,element,repeatscope) {
+    var expression = str.replace(/\(.*\)/,'');
+
+    var type = expression.replace(/\s*[\||:].*/,'');
+    var key  = expression.replace(/.*[\||:]\s*/,'');
+    var fn = scope[key];
+
+    var param = /\((.*)\)/;
+    var target = str.match(param);
+    var args = [];
+
+    if(target && target.length){
+      args = target[1].split(',');
+      //Array.prototype.indexOf.call(this.node.parentNode,this.node);
+    }
+
+
+
+    var eom = this.eom;
+    var event = 'on' + type;
+
+    element[event] = function(e){
+      var argsdata = [];
+      for (var i = 0, len = args.length; i < len; i++) {
+        var item = scope[args[i]] ? scope[args[i]] : '';//args[i];
+        argsdata.push(item);
+      }
+
+      //to-do hot-fix
+      if(repeatscope){
+        argsdata = [repeatscope];
+      }
+      fn.apply(element,[e].concat(argsdata));
+      scope.apply();
+    };
+  }
+  return on;
+});
 define("river.grammer.repeat", function() {
   var $tool = this.need('river.core.tools')
     , $scan = this.need('river.engine').scan
     , me    = this;
 
-    function loadGrammer(key) {
+    function loadGrammar(key) {
       return me.need('river.grammer.' + key);
     }
 
@@ -637,15 +699,24 @@ define("river.grammer.repeat", function() {
     rootScope = this.scope;
 
 
+
     node.removeAttribute('repeat');
     repeatNode = node;
     repeatContainer = parentNode;
+
+    eom.repeatNode = node; 
+    eom.repeatContainer = parentNode;
+    eom.trans = trans;
+    eom.key = key;
+    eom.reg = _r;
 
     if (data && data.length) {
       data.forEach(function(d,i) {
         var _n = node.cloneNode(true);
         var m = {};
-        trans(_r, _n, d, key, m,i);
+        var grammars=[];
+        trans(_r, _n, d, key, m,grammars);
+        m.grammars = grammars;
         eom.push(m);
         frg.appendChild(_n);
       });
@@ -656,7 +727,7 @@ define("river.grammer.repeat", function() {
   var context = {};
 
 
-  function trans(reg, doc, scope, key, eom) {
+  function trans(reg, doc, scope, key, eom,grammars) {
     var hasRepeat = false;
     if (doc.attributes && doc.attributes.length) {
       Array.prototype.forEach.call(doc.attributes, function(attr) {
@@ -668,9 +739,7 @@ define("river.grammer.repeat", function() {
           }
           eom[k].push({
             element: attr,
-            expression: attr.nodeValue,
-            repeat:repeatNode,
-            parent:repeatContainer
+            expression: attr.nodeValue
           });
           attr.nodeValue = attr.nodeValue.replace(/{{.*}}/, scope[k]);
         }
@@ -683,10 +752,18 @@ define("river.grammer.repeat", function() {
           hasRepeat = true;
           repeat.call(context, attr.nodeValue.replace(reg, ''));
         }else{
-          var grammer = loadGrammer(attr.nodeName);
+          var grammer = loadGrammar(attr.nodeName);
           if($tool.isFunction(grammer)){
             //context.scope = rootScope;
-            grammer.call(context, attr.nodeValue.replace(reg, ''),rootScope,context.node,scope);
+            var str = attr.nodeValue.replace(reg, '');
+            grammars.push({
+              grammar : grammer,
+              context : context,
+              str : str,
+              rootScope:rootScope
+            });
+            //todo : scope should inherit from rootScope
+            grammer.call(context,str,rootScope,context.node,context.scope);
           }
         }
       });
@@ -698,9 +775,7 @@ define("river.grammer.repeat", function() {
       }
       eom[k].push({
         element: doc,
-        expression: doc.nodeValue,
-        repeat:repeatNode,
-        parent:repeatContainer
+        expression: doc.nodeValue
       });
       //this change is for identify two case: 
       //  1. scope = {}
@@ -710,7 +785,7 @@ define("river.grammer.repeat", function() {
     }
     if (doc.childNodes && doc.childNodes.length && !hasRepeat) {
       Array.prototype.forEach.call(doc.childNodes, function(child) {
-        trans(reg, child, scope, key, eom,scope);
+        trans(reg, child, scope, key, eom,grammars);
       });
     }
   }
@@ -724,10 +799,16 @@ define('river.grammer.scope', function() {
   var tools = me.need('river.core.tools');
 
   function _scope(str) {
-    //this.node.removeAttribute('scope');
+    this.node.removeAttribute('scope');
     var source = me.need(str);
     if (tools.isObject(source)) {
+      var mod = new model(str, this.eom);
       //source.watch(this.eom);
+      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+      //as the __proto__ is deprecated,I have to do this
+      for(var x in mod){
+         source[x] = mod[x]
+      }
       this.scope = source;
     } else if (tools.isFunction(source)) {
       var m = new model(str, this.eom);
