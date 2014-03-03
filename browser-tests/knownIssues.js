@@ -66,12 +66,6 @@ module.exports = [
 	'TodoMVC - batman, New Todo, should trim text input',
 	'TodoMVC - typescript-backbone, New Todo, should trim text input',
 
-	// https://github.com/tastejs/todomvc/issues/818
-	// does not trim edited text
-	'TodoMVC - dermis, Editing, should trim entered text',
-	'TodoMVC - kendo, Editing, should trim entered text',
-	'TodoMVC - serenadejs, Editing, should trim entered text',
-
 	// https://github.com/tastejs/todomvc/issues/819
 	// the edit experience with soma is quite broken. You can 
 	// get multiple elements into an edit state
