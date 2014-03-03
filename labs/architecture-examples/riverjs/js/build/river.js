@@ -323,6 +323,7 @@ define('river.core.model', function(exports,require,module) { //@sourceURL=../li
         var grammars = [];
         trans(_r, _n, d, key, m,grammars,true);
         m.grammars = grammars;
+        m.repeat = _n;
         eom.push(m);
         frg.appendChild(_n);
       });
@@ -726,6 +727,7 @@ define("river.grammer.repeat", function() {
         var grammars=[];
         trans(_r, _n, d, key, m,grammars);
         m.grammars = grammars;
+        m.repeat = _n;
         eom.push(m);
         frg.appendChild(_n);
       });
