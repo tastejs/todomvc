@@ -2,12 +2,16 @@
 (function (window) {
 	'use strict';
 
-	// Get element(s) by CSS selector:
-	window.qs = function (selector, scope) {
-		return (scope || document).querySelector(selector);
+	// A wrapper for the native DOM querying methods:
+	var methods = {
+		'#': 'getElementById',
+		'*': 'querySelector',
+		'$': 'querySelectorAll',
+		'.': 'getElementsByClassName',
+		'=': 'getElementsByTagName'
 	};
-	window.qsa = function (selector, scope) {
-		return (scope || document).querySelectorAll(selector);
+	window.$ = function (selector, scope) {
+		return (scope || document)[methods[selector[0]]](selector.slice(1));
 	};
 
 	// addEventListener wrapper:
@@ -16,7 +20,7 @@
 	};
 
 	// Register events on elements that may or may not exist yet:
-	// $live('div a', 'click', function (event) {});
+	// $live($('.edit', todoList), 'click', function (event) {});
 	window.$live = (function () {
 		var eventRegistry = {};
 
@@ -24,8 +28,7 @@
 			var targetElement = event.target;
 
 			eventRegistry[event.type].forEach(function (entry) {
-				var potentialElements = window.qsa(entry.selector);
-				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
+				var hasMatch = Array.prototype.indexOf.call(entry.liveNodes, targetElement) >= 0;
 
 				if (hasMatch) {
 					entry.handler.call(targetElement, event);
@@ -33,21 +36,21 @@
 			});
 		}
 
-		return function (selector, event, handler) {
+		return function (liveNodes, event, handler) {
 			if (!eventRegistry[event]) {
 				eventRegistry[event] = [];
 				window.$on(document.documentElement, event, dispatchEvent, true);
 			}
 
 			eventRegistry[event].push({
-				selector: selector,
+				liveNodes: liveNodes,
 				handler: handler
 			});
 		};
 	}());
 
 	// Find the element's parent with the given tag name:
-	// $parent(qs('a'), 'div');
+	// $parent($('=a'), 'div');
 	window.$parent = function (element, tagName) {
 		if (!element.parentNode) {
 			return;
@@ -59,6 +62,6 @@
 	};
 
 	// Allow for looping on nodes by chaining:
-	// qsa('.foo').forEach(function () {})
+	// $('.foo').forEach(function () {})
 	NodeList.prototype.forEach = Array.prototype.forEach;
 })(window);

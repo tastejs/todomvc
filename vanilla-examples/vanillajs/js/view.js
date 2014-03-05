@@ -1,4 +1,4 @@
-/*global qs, qsa, $on, $parent, $live */
+/*global $, $on, $parent, $live */
 
 (function (window) {
     'use strict';
@@ -18,17 +18,23 @@
         this.ENTER_KEY = 13;
         this.ESCAPE_KEY = 27;
 
-        this.$todoList = qs('#todo-list');
-        this.$todoItemCounter = qs('#todo-count');
-        this.$clearCompleted = qs('#clear-completed');
-        this.$main = qs('#main');
-        this.$footer = qs('#footer');
-        this.$toggleAll = qs('#toggle-all');
-        this.$newTodo = qs('#new-todo');
+        this.$todoList = $('#todo-list');
+        this.$todoItemCounter = $('#todo-count');
+        this.$clearCompleted = $('#clear-completed');
+        this.$main = $('#main');
+        this.$footer = $('#footer');
+        this.$toggleAll = $('#toggle-all');
+        this.$newTodo = $('#new-todo');
+
+        // Must be live collections:
+        this.$todoEditFields  = $('.edit', this.$todoList);
+        this.$todoLabels  = $('=label', this.$todoList);
+        this.$todoDestroyers  = $('.destroy', this.$todoList);
+        this.$todoToggles  = $('.toggle', this.$todoList);
     }
 
     View.prototype._removeItem = function (id) {
-        var elem = qs('[data-id="' + id + '"]');
+        var elem = $('*[data-id="' + id + '"]');
 
         if (elem) {
             this.$todoList.removeChild(elem);
@@ -41,12 +47,12 @@
     };
 
     View.prototype._setFilter = function (currentPage) {
-        qs('#filters .selected').className = '';
-        qs('#filters [href="#/' + currentPage + '"]').className = 'selected';
+        $('*#filters .selected').className = '';
+        $('*#filters [href="#/' + currentPage + '"]').className = 'selected';
     };
 
     View.prototype._elementComplete = function (id, completed) {
-        var listItem = qs('[data-id="' + id + '"]');
+        var listItem = $('*[data-id="' + id + '"]');
 
         if (!listItem) {
             return;
@@ -55,11 +61,11 @@
         listItem.className = completed ? 'completed' : '';
 
         // In case it was toggled from an event and not by clicking the checkbox
-        qs('input', listItem).checked = completed;
+        $('=input', listItem).checked = completed;
     };
 
     View.prototype._editItem = function (id, title) {
-        var listItem = qs('[data-id="' + id + '"]');
+        var listItem = $('*[data-id="' + id + '"]');
 
         if (!listItem) {
             return;
@@ -76,18 +82,18 @@
     };
 
     View.prototype._editItemDone = function (id, title) {
-        var listItem = qs('[data-id="' + id + '"]');
+        var listItem = $('*[data-id="' + id + '"]');
 
         if (!listItem) {
             return;
         }
 
-        var input = qs('input.edit', listItem);
+        var input = $('*input.edit', listItem);
         listItem.removeChild(input);
 
         listItem.className = listItem.className.replace('editing', '');
 
-        qsa('label', listItem).forEach(function (label) {
+        $('=label', listItem).forEach(function (label) {
             label.textContent = title;
         });
     };
@@ -140,7 +146,7 @@
 
     View.prototype._bindItemEditDone = function (handler) {
         var that = this;
-        $live('#todo-list li .edit', 'blur', function () {
+        $live(that.$todoEditFields, 'blur', function () {
             if (!this.dataset.iscanceled) {
                 handler({
                     id: that._itemId(this),
@@ -149,7 +155,7 @@
             }
         });
 
-        $live('#todo-list li .edit', 'keypress', function (event) {
+        $live(that.$todoEditFields, 'keypress', function (event) {
             if (event.keyCode === that.ENTER_KEY) {
                 // Remove the cursor from the input when you hit enter just like if it
                 // were a real form
@@ -160,7 +166,7 @@
 
     View.prototype._bindItemEditCancel = function (handler) {
         var that = this;
-        $live('#todo-list li .edit', 'keyup', function (event) {
+        $live(that.$todoEditFields, 'keyup', function (event) {
             if (event.keyCode === that.ESCAPE_KEY) {
                 this.dataset.iscanceled = true;
                 this.blur();
@@ -188,17 +194,17 @@
             });
 
         } else if (event === 'itemEdit') {
-            $live('#todo-list li label', 'dblclick', function () {
+            $live(this.$todoLabels, 'dblclick', function () {
                 handler({id: that._itemId(this)});
             });
 
         } else if (event === 'itemRemove') {
-            $live('#todo-list .destroy', 'click', function () {
+            $live(this.$todoDestroyers, 'click', function () {
                 handler({id: that._itemId(this)});
             });
 
         } else if (event === 'itemToggle') {
-            $live('#todo-list .toggle', 'click', function () {
+            $live(this.$todoToggles, 'click', function () {
                 handler({
                     id: that._itemId(this),
                     completed: this.checked
