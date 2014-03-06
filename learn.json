@@ -1762,8 +1762,11 @@
 		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
 		"homepage": "facebook.github.io/react",
 		"examples": [{
-			"name": "Architecture Examples",
+			"name": "Architecture Example",
 			"url": "architecture-examples/react"
+		}, {
+			"name": "React & Backbone.js",
+			"url": "labs/architecture-examples/react-backbone"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1857,7 +1860,7 @@
 				"name": "Twitter Search",
 				"url": "https://twitter.com/search?q=%23sapui5"
 			}, {
-				"name": "OpenUI5 Twitter", 
+				"name": "OpenUI5 Twitter",
 				"url": "https://twitter.com/OpenUI5"
 			}]
 		}]
