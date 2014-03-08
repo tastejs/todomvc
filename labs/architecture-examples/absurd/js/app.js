@@ -24,8 +24,8 @@
 				footer.update(2);
 			})
 			.add(function() {
-				main.update();
-				footer.update();
+				main.update('all');
+				footer.update('all');
 			})
 			.listen();
 		}

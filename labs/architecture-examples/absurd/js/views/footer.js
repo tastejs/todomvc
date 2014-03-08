@@ -17,7 +17,7 @@
 			this.model.on('updated', this.bind(this.update));
 		},
 		update: function(filterIndex) {
-			this.filterIndex = typeof filterIndex != 'undefined' ? filterIndex : 0;
+			this.filterIndex = typeof filterIndex != 'undefined' ? filterIndex : this.filterIndex;
 			this.styles(this.model.all() > 0);
 			this.populate();
 			return this;

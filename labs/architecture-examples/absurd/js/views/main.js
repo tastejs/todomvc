@@ -11,7 +11,7 @@
 			model.on('updated', this.bind(this.update));
 		},
 		update: function(filter) {
-			this.filter = filter || 'all';
+			this.filter = filter || this.filter;
 			this.css['#main'].display = this.model.all() == 0 ? 'none' : 'block';
 			this.todos = this.model.todos(this.filter);
 			this.populate();
