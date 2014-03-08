@@ -1,0 +1,38 @@
+{
+  "name": "absurd",
+  "main": "client-side/build/absurd.js",
+  "license": "MIT",
+  "ignore": [
+    "client-side/lib",
+    "client-side/lib-organic",
+    "client-side/tests",
+    "lib",
+    "tasks",
+    "tests",
+    "*.md",
+    "*.json",
+    "Gruntfile.js",
+    "index.js",
+    ".travis.yml",
+    ".gitignore",
+    "benchmarks"
+  ],
+  "devDependencies": {},
+  "keywords": [
+    "absurd",
+    "absurdjs",
+    "preprocessor",
+    "javascript",
+    "library"
+  ],
+  "homepage": "https://github.com/krasimir/absurd",
+  "_release": "e6ab189299",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e6ab1892998587cdf6b24644f63192a95e63edef"
+  },
+  "_source": "git://github.com/krasimir/absurd.git",
+  "_target": "*",
+  "_originalSource": "absurd"
+}
