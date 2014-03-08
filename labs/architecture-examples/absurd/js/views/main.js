@@ -20,7 +20,10 @@
 			this.model.remove(index);
 		},
 		toggleToDo: function(e, index) {
-			this.model.toggle(index);
+			this.model.toggle(index, e.target.checked);
+		},
+		toggleAll: function(e) {
+			this.model.toggleAll(e.target.checked);
 		},
 		edit: function(e, index) {
 			var editInput = this.qs('.edit', e.currentTarget);
@@ -35,6 +38,13 @@
 		},
 		save: function(e, index) {
 			this.model.changeTitle(e.target.value, index);
+		},
+		populated: function() {
+			var checkboxes = this.qsa('.toggle');
+			for(var i=0; i<checkboxes.length; i++) {
+				checkboxes[i].checked = this.todos[i].completed;
+			}
+			this.qs('#toggle-all').checked = this.model.areAllCompleted();
 		}
 	});
 

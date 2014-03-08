@@ -9,13 +9,16 @@
 	</head>
 	<body>
 		<section id="todoapp">
+
+
 			<header id="header">
 				<h1>todos</h1>
 				<input id="new-todo" placeholder="What needs to be done?" data-absurd-event="keyup:onInputChanged" autofocus>
 			</header>
-			<!-- This section should be hidden by default and shown when there are todos -->
+			
+
 			<section id="main">
-				<input id="toggle-all" type="checkbox">
+				<input id="toggle-all" type="checkbox" data-absurd-event="click:toggleAll">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
 					<% for(var i=0; todo = this.todos[i]; i++) { %>
@@ -30,14 +33,14 @@
 					<% } %>
 				</ul>
 			</section>
-			<!-- This footer should hidden by default and shown when there are todos -->
+
+
+			
 			<footer id="footer">
-				<!-- This should be `0 items left` by default -->
 				<span id="todo-count">
 					<strong><% this.model.left() %></strong> 
 					item<% this.model.left() == 1 ? '' : 's' %> left
 				</span>
-				<!-- Remove this if you don't implement routing -->
 				<ul id="filters">
 					<li>
 						<a href="#/">All</a>
@@ -49,11 +52,12 @@
 						<a href="#/completed">Completed</a>
 					</li>
 				</ul>
-				<!-- Hidden if no completed items are left ↓ -->
 				<% if(this.model.completed() > 0) { %>
 				<button id="clear-completed" data-absurd-event="click:clearCompleted">Clear completed (<% this.model.completed() %>)</button>
 				<% } %>
 			</footer>
+
+
 		</section>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
@@ -71,5 +75,6 @@
 		<script src="js/views/header.js"></script>
 		<script src="js/views/main.js"></script>
 		<script src="js/views/footer.js"></script>
+		
 	</body>
 </html>

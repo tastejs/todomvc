@@ -13,8 +13,14 @@
 			});
 			this.dispatch('updated');
 		},
-		toggle: function(index) {
-			this.data[index] ? this.data[index].completed = !this.data[index].completed : null;
+		toggle: function(index, completed) {
+			this.data[index].completed = completed;
+			this.dispatch('updated');
+		},
+		toggleAll: function(completed) {
+			for(var i=0; i<this.data.length; i++) {
+				this.data[i].completed = completed;
+			}
 			this.dispatch('updated');
 		},
 		remove: function(index) {
@@ -33,6 +39,9 @@
 		},
 		completed: function() {
 			return this.todos('completed').length;
+		},
+		areAllCompleted: function() {
+			return this.todos('completed').length == this.todos().length;
 		},
 		todo: function(index) {
 			return this.data[index];
