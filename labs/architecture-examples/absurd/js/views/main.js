@@ -3,7 +3,10 @@
 
 	App.Main = absurd.component('Main', {
 		// CSS styles injected into the page
-		css: { '#main': {} },
+		css: { 
+			'.todo-removed': { animate: 'bounce' },
+			'#main': { '#todo-list li': { animate: 'fadeInRight' } } 
+		},
 		// That's the DOM element which the component will operate on.
 		html: '#main',
 		// all | active | completed
@@ -15,6 +18,9 @@
 			this.model = model;
 			model.on('updated', this.bind(this.update));
 			this.update();
+			this.onAnimationEnd(function() {
+				this.removeClass('todo-removed');
+			})
 		},
 		// Updating the DOM element connected with the component
 		// and the dynamic CSS styles.
@@ -27,6 +33,7 @@
 		// Event handler.
 		removeToDo: function(e, index) {
 			this.model.remove(index);
+			this.addClass('todo-removed');
 		},
 		// Event handler.
 		toggleToDo: function(e, index) {
