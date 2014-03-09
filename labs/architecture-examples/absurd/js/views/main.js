@@ -47,13 +47,16 @@
 		// Event handler.
 		edit: function(e, index) {
 			var editInput = this.qs('.edit', e.currentTarget);
-			editInput.value = this.model.todo(index).title;
+			editInput.value = this.currentTitle = this.model.todo(index).title;
 			this.addClass('editing', e.currentTarget);
 			editInput.focus();
 		},
 		// Event handler.
 		onInputChanged: function(e, index) {
 			if(e.keyCode == 13) {
+				this.save(e, index);
+			} else if(e.keyCode == 27) {
+				e.target.value = this.currentTitle;
 				this.save(e, index);
 			}
 		},
