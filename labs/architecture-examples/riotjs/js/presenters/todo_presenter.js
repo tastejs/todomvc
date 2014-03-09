@@ -4,7 +4,9 @@ function todoPresenter(element, options) {
     element = $(element);
     var template = options.template,
         todo = options.model,
-        $list = element.find('#todo-list');
+        $list = element.find('#todo-list'),
+        ENTER_KEY = 13,
+        ESC_KEY = 27;
 
     /* Listen to user events */
 
@@ -25,13 +27,22 @@ function todoPresenter(element, options) {
         todo.toggle(getTaskId(e.target));
 
     }).on('blur', '.edit', function(e) {
-        getTaskElement(e.target).removeClass('editing');
+        var el = $(e.target), val = $.trim(this.value);
+        if (!getTaskElement(el).hasClass('editing')) return;
+        todo.edit({ name: val, id: getTaskId(el) });
+        getTaskElement(el).removeClass('editing');
 
     }).on('keydown', '.edit', function(e) {
         var el = $(e.target), val = $.trim(this.value);
-        if (val && e.which === 13) {
+        switch(e.which) {
+          case ENTER_KEY:
             todo.edit({ name: val, id: getTaskId(el) });
-        } else if (e.which === 27) el.blur();
+            break;
+
+          case ESC_KEY:
+            getTaskElement(el).removeClass('editing');
+            break;
+        }
 
     }).on('dblclick', '.todo-task label', function(e) {
         var el = getTaskElement(e.target);

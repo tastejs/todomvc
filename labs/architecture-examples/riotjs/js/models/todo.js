@@ -12,6 +12,10 @@ function Todo() {
     };
 
     self.edit = function(item) {
+        if (!item.name) {
+          return self.remove(item.id);
+        }
+
         items[item.id] = item;
         self.trigger('edit', item);
     };

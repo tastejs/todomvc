@@ -20,6 +20,14 @@ describe('Todo', function() {
                 {id: 2, name: 'promote Riot'}
             ]);
         });
+
+        it('removes an item when value is blank', function() {
+            var subject = createTodos('finish the todoMVC', 'promote Riot');
+            subject.edit({id: 1, name: ''});
+            assertItems(subject.items(), [
+                {id: 2, name: 'promote Riot'}
+            ]);
+        });
     });
 
     describe('#remove', function() {
