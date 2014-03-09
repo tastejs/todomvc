@@ -37,6 +37,7 @@
 		},
 		// Event handler.
 		toggleToDo: function(e, index) {
+			this.addClass('completed', this.qsa('#todo-list li:nth-child(' + (index + 1) + ')'));
 			this.model.toggle(index, e.target.checked);
 		},
 		// Event handler.

@@ -7,7 +7,7 @@
 		// Event handler.
 		onInputChanged: function(e) {
 			if(e.keyCode == 13 && e.target.value.toString().trim() != '') {
-				this.model.add(e.target.value);
+				this.model.add(e.target.value.trim());
 				e.target.value = '';
 			}
 		},
