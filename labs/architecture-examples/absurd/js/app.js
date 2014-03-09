@@ -4,6 +4,9 @@
 	window.absurd = Absurd(); // AbsurdJS API
 	window.App = {}; // namespace
 
+	// Defininf a simple class which acts as a wrapper
+	// around the local storage's API. It is registered as
+	// dependency ready for inejction.
 	absurd.di.register('storage', {
 		key: 'todos-absurdjs',
 		put: function(todos) {
@@ -18,16 +21,18 @@
 		}
 	});
 
+	// The main class of the application.
 	absurd.component('Application', {
-		todos: [],
+		// Called when the current page is fully loaded.
 		ready: function(router) {
 
-			var self = this,
-				model = App.Model(),
+			// Definition of the model and views/controllers. 
+			var model = App.Model(),
 				header = App.Header(model),
 				main = App.Main(model),
 				footer = App.Footer(model);
 
+			// Setting up the router.
 			router
 			.add(/active\/?$/, function() {
 				main.update('active');
@@ -41,8 +46,8 @@
 				main.update('all');
 				footer.update(0);
 			})
-			.listen()
-			.check();
+			.listen() // listening for route changes
+			.check(); // bootstrapping
 		}
 	})();
 
