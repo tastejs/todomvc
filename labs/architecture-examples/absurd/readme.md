@@ -1,50 +1,40 @@
-# Framework Name TodoMVC Example
+# AbsurdJS TodoMVC Example
 
-> Short description of the framework provided by the official website.
+> AbsurdJS is a JavaScript library available for [Node.js and the browser](http://absurdjs.com/pages/builds). It acts as a [CSS](http://absurdjs.com/pages/css-preprocessing) and [HTML](http://absurdjs.com/pages/html-preprocessing) preprocessor. There are a lot of build-in [mixins](http://absurdjs.com/pages/css-preprocessing/variables-and-mixins) called [atoms](http://absurdjs.com/pages/css-preprocessing/organic-css/atoms/) and [molecules](http://absurdjs.com/pages/css-preprocessing/organic-css/molecules/). Having both, CSS and HTML preprocessing, you are able to create cutting edge [web components](http://absurdjs.com/pages/client-side-components/). All for JavaScript and JavaScript for all.
 
-> _[Framework Name - framework.com](link-to-framework)_
+> _[AbsurdJS - absurdjs.com](http://absurdjs.com)_
 
 
-## Learning Framework Name
+## Learning AbsurdJS
 
-The [Framework Name website]() is a great resource for getting started.
+The [AbsurdJS site](http://absurdjs.com) is a great resource for getting started.
 
 Here are some links you may find helpful:
 
-* [Documentation]()
-* [API Reference]()
-* [Applications built with Framework Name]()
-* [Blog]()
-* [FAQ]()
-* [Framework Name on GitHub]()
+* [Documentation](http://absurdjs.com/pages/documentation/)
+* [API Reference](http://absurdjs.com/pages/api/)
+* [Blog](http://krasimirtsonev.com/blog/search?search_for=absurdjs)
+* [AbsurdJS on GitHub](https://github.com/krasimir/absurd)
 
 Articles and guides from the community:
 
-* [Article 1]()
-* [Article 2]()
+* [AbsurdJS fundamentals](http://krasimirtsonev.com/blog/article/AbsurdJS-fundamentals)
+* [Write Your CSS with JavaScript](http://davidwalsh.name/write-css-javascript)
+* [AbsurdJS or Why I Wrote My Own CSS Preprocessor](http://code.tutsplus.com/tutorials/absurdjs-or-why-i-wrote-my-own-css-preprocessor--net-36003)
 
-Get help from other Framework Name users:
+Get help from the AbsurdJS users:
 
-* [Framework Name on StackOverflow](http://stackoverflow.com/questions/tagged/____)
-* [Mailing list on Google Groups]()
-* [Framework Name on Twitter](http://twitter.com/____)
-* [Framework Name on Google +]()
-
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+* [AbsurdJS GitHub issues](https://github.com/krasimir/absurd/issues)
 
 
 ## Implementation
 
-How is the app structured? Are there deviations from the spec? If so, why?
-
+The application is build on top of [AbsurdJS components](http://absurdjs.com/pages/client-side-components/). The views(controllers) are placed in `/js/views`. There is one model defined in `/js/model/model.js`. The entry point of the example is the component called `Application` saved in `/js/app.js`. The routing is also defined there. AbsurdJS doesn't have internal mechanisms handling the local storage. There is vanilla JavaScript class registered as dependency for injecting. It's again in `app.js` file.
 
 ## Running
 
-If there is a build step required to get the example working, explain it here.
-
-To run the app, spin up an HTTP server and visit http://localhost/.../myexample/.
-
+To run the app, spin up an HTTP server and visit folder of the example.
 
 ## Credit
 
-This TodoMVC application was created by [you]().
+This TodoMVC application was created by [Krasimir Tsonev](http://krasimirtsonev.com/).

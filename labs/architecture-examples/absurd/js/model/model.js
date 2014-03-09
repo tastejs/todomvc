@@ -3,8 +3,11 @@
 
 	App.Model = absurd.component('Model', {
 		data: [],
-		constructor: function() {
-			
+		constructor: function(storage) {
+			this.data = storage.get();
+		},
+		updated: function(storage) {
+			storage.put(this.data);
 		},
 		add: function(text) {
 			this.data.push({

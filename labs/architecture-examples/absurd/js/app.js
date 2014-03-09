@@ -4,6 +4,20 @@
 	window.absurd = Absurd(); // AbsurdJS API
 	window.App = {}; // namespace
 
+	absurd.di.register('storage', {
+		key: 'todos-absurdjs',
+		put: function(todos) {
+			window.localStorage.setItem(this.key, JSON.stringify(todos));
+		},
+		get: function() {
+			if(window.localStorage) {
+				var value = window.localStorage.getItem(this.key);
+				return value != null ? JSON.parse(value) : [];
+			}
+			return [];
+		}
+	});
+
 	absurd.component('Application', {
 		todos: [],
 		ready: function(router) {

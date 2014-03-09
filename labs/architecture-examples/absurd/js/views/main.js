@@ -9,6 +9,7 @@
 		constructor: function(model, router) {
 			this.model = model;
 			model.on('updated', this.bind(this.update));
+			this.update();
 		},
 		update: function(filter) {
 			this.filter = filter || this.filter;
@@ -32,12 +33,12 @@
 			editInput.focus();
 		},
 		onInputChanged: function(e, index) {
-			if(e.keyCode == 13 && e.target.value.toString().trim() != '') {
+			if(e.keyCode == 13 && e.target.value.trim() != '') {
 				this.save(e, index);
 			}
 		},
 		save: function(e, index) {
-			this.model.changeTitle(e.target.value, index);
+			this.model.changeTitle(e.target.value.trim(), index);
 		},
 		populated: function() {
 			var checkboxes = this.qsa('.toggle');
