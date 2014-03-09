@@ -53,7 +53,7 @@
 		},
 		// Event handler.
 		onInputChanged: function(e, index) {
-			if(e.keyCode == 13 && e.target.value.trim() != '') {
+			if(e.keyCode == 13) {
 				this.save(e, index);
 			}
 		},

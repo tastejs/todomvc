@@ -27,7 +27,11 @@
 		},
 		// Changing the title of ToDo item.
 		changeTitle: function(title, index) {
-			this.data[index].title = title;
+			if(title === '') {
+				this.remove(index);
+			} else {
+				this.data[index].title = title;	
+			}
 			this.dispatch('updated');
 		},
 		// Changing the status of all the ToDos.
