@@ -4,7 +4,6 @@
 
 > _[AbsurdJS - absurdjs.com](http://absurdjs.com)_
 
-
 ## Learning AbsurdJS
 
 The [AbsurdJS site](http://absurdjs.com) is a great resource for getting started.
@@ -25,7 +24,6 @@ Articles and guides from the community:
 Get help from the AbsurdJS users:
 
 * [AbsurdJS GitHub issues](https://github.com/krasimir/absurd/issues)
-
 
 ## Implementation
 

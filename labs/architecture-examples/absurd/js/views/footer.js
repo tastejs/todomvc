@@ -15,6 +15,7 @@
 		constructor: function(model, router) {
 			this.model = model;
 			this.model.on('updated', this.bind(this.update));
+			this.update();
 		},
 		update: function(filterIndex) {
 			this.filterIndex = typeof filterIndex != 'undefined' ? filterIndex : this.filterIndex;

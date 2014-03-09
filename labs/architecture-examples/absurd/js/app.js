@@ -39,9 +39,10 @@
 			})
 			.add(function() {
 				main.update('all');
-				footer.update('all');
+				footer.update(0);
 			})
-			.listen();
+			.listen()
+			.check();
 		}
 	})();
 
