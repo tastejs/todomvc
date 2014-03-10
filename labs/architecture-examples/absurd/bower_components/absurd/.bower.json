@@ -26,11 +26,11 @@
     "library"
   ],
   "homepage": "https://github.com/krasimir/absurd",
-  "_release": "e6ab189299",
+  "_release": "81499deb89",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "e6ab1892998587cdf6b24644f63192a95e63edef"
+    "commit": "81499deb898d360961903134fdeb642b204ec520"
   },
   "_source": "git://github.com/krasimir/absurd.git",
   "_target": "*",

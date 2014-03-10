@@ -1,4 +1,4 @@
-/* version: 0.3.144, born: 8-2-2014 15:35 */
+/* version: 0.3.145, born: 10-2-2014 14:23 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -663,7 +663,7 @@ absurd.di.register('router', {
 		this.root = options && options.root ? '/' + this.clearSlashes(options.root) + '/' : '/';
 		return this;
 	},
-	listen: function() {
+	listen: function(loopInterval) {
 		var self = this;
 		var current = self.getFragment();
 		var fn = function() {
@@ -673,7 +673,7 @@ absurd.di.register('router', {
 			}
 		}
 		clearInterval(this.interval);
-		this.interval = setInterval(fn, 50);
+		this.interval = setInterval(fn, loopInterval || 50);
 		return this;
 	},
 	check: function(f) {

@@ -43,13 +43,13 @@
 				</span>
 				<ul id="filters">
 					<li>
-						<a href="#/">All</a>
+						<a class="<% this.filterIndex === 0 ? 'selected' : '' %>" href="#/">All</a>
 					</li>
 					<li>
-						<a href="#/active">Active</a>
+						<a class="<% this.filterIndex === 1 ? 'selected' : '' %>" href="#/active">Active</a>
 					</li>
 					<li>
-						<a href="#/completed">Completed</a>
+						<a class="<% this.filterIndex === 2 ? 'selected' : '' %>" href="#/completed">Completed</a>
 					</li>
 				</ul>
 				<% if(this.model.completed() > 0) { %>

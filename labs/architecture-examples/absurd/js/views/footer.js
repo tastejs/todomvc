@@ -15,7 +15,6 @@
 					display: shown ? 'block' : 'none'
 				} 
 			}
-			this.css['#footer']['#filters li:nth-child(' + (this.filterIndex + 1) + ') a'] = { fontWeight: 'bold' };
 		},
 		// The entry point of the component.
 		constructor: function(model) {
@@ -26,7 +25,7 @@
 		// The method calls the `populate` function which 
 		// updates the DOM element and the CSS styles.
 		update: function(filterIndex) {
-			this.filterIndex = typeof filterIndex != 'undefined' ? filterIndex : this.filterIndex;
+			this.filterIndex = typeof filterIndex != 'undefined' ? filterIndex : this.filterIndex;			
 			this.styles(this.model.all() > 0);
 			this.populate();
 			return this;

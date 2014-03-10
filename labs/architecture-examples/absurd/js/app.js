@@ -26,6 +26,10 @@
 		// Called when the current page is fully loaded.
 		ready: function(router) {
 
+ 			// May be required during the testing because
+ 			// Phantomjs keeps the localStorage data.
+			window.localStorage.clear();
+
 			// Definition of the model and views/controllers. 
 			var model = App.Model(),
 				header = App.Header(model),
@@ -46,7 +50,7 @@
 				main.update('all');
 				footer.update(0);
 			})
-			.listen() // listening for route changes
+			.listen(10) // listening for route changes
 			.check(); // bootstrapping
 		}
 	})();
