@@ -1,4 +1,4 @@
-/* version: 0.3.145, born: 10-2-2014 14:23 */
+/* version: 0.3.145, born: 10-2-2014 16:20 */
 var Absurd = (function(w) {
 var lib = { 
     api: {},
@@ -612,6 +612,10 @@ absurd.di.register('is', {
 	appended: function(selector) {
 		if(typeof selector == 'undefined') selector = this.host.html;
 		return qs(selector) ? true : false;
+	},
+	hidden: function(el) {
+		el = el || this.host.el;
+		return el.offsetParent === null;
 	}
 });
 absurd.di.register('router', {

@@ -61,11 +61,13 @@
 			}
 		},
 		// Updating the data in the model.
-		save: function(e, index) {
-			this.model.changeTitle(e.target.value.trim(), index);
+		save: function(e, index, is) {
+			if(!is.hidden(e.target)) {
+				this.model.changeTitle(e.target.value.trim(), index);
+			}
 		},
 		// Updating the state of the checkboxes.
-		populated: function() {
+		populated: function() {			
 			var checkboxes = this.qsa('.toggle');
 			for(var i=0; i<checkboxes.length; i++) {
 				checkboxes[i].checked = this.todos[i].completed;
