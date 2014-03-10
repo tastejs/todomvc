@@ -28,7 +28,7 @@
 
  			// May be required during the testing because
  			// Phantomjs keeps the localStorage data.
-			window.localStorage.clear();
+			// window.localStorage.clear();
 
 			// Definition of the model and views/controllers. 
 			var model = App.Model(),
