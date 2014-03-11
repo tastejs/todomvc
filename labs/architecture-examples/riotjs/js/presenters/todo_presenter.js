@@ -18,7 +18,7 @@ function todoPresenter(element, options) {
         }
 
     }).on('click', '#toggle-all', function() {
-        todo.toggle();
+        todo.toggleAll();
 
     }).on('click', '#clear-completed', function() {
         todo.remove('completed');
@@ -69,6 +69,10 @@ function todoPresenter(element, options) {
         items.forEach(function(item) {
             toggle($('#task_' + item.id, $list), !!item.done);
         });
+
+    // Toggle All
+    }).on('toggle-all', function(done) {
+      $('#toggle-all', element).prop('checked', done);
 
     // Add & edit
     }).on('add', add).on('edit', edit);

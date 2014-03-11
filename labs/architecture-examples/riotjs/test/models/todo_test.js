@@ -50,6 +50,41 @@ describe('Todo', function() {
         });
     });
 
+    describe('#toggleAll', function() {
+        it('sets all items to done all are undone', function() {
+            var subject = new Todo();
+            subject.add("task 1", false);
+            subject.add("task 2", false);
+            subject.toggleAll();
+            assertItems(subject.items(), [
+                {id: 1, name: 'task 1', done: true},
+                {id: 2, name: 'task 2', done: true}
+            ]);
+        });
+
+        it('sets all items to done when some are undone', function() {
+            var subject = new Todo();
+            subject.add("task 1", false);
+            subject.add("task 2", true);
+            subject.toggleAll();
+            assertItems(subject.items(), [
+                {id: 1, name: 'task 1', done: true},
+                {id: 2, name: 'task 2', done: true}
+            ]);
+        });
+
+        it('undone all items when they are done', function() {
+            var subject = new Todo();
+            subject.add("task 1", true);
+            subject.add("task 2", true);
+            subject.toggleAll();
+            assertItems(subject.items(), [
+                {id: 1, name: 'task 1', done: false},
+                {id: 2, name: 'task 2', done: false}
+            ]);
+        });
+    });
+
     describe('#toggle', function() {
         it('toggles all items', function () {
             var subject = createTodos('finish 1', 'finish 2', 'finish 3');

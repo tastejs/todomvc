@@ -5,8 +5,11 @@ function Todo() {
         db = DB('riot-todo'),
         items = db.get();
 
-    self.add = function(name) {
-        var item = { id: generateId(), name: name };
+    self.add = function(name, done) {
+        var item = {
+          id: generateId(), name: name, done: done
+        };
+
         items[item.id] = item;
         self.trigger('add', item);
     };
@@ -28,12 +31,23 @@ function Todo() {
         self.trigger('remove', removedItems);
     };
 
-    self.toggle = function(filter) {
+    self.toggle = function(filter, done) {
         var toggledItems = self.items(filter).map(function(item) {
             item.done = !item.done;
             return item;
         });
         self.trigger('toggle', toggledItems);
+        self.trigger('toggle-all', isDone());
+    };
+
+    self.toggleAll = function() {
+        var hasActive = !isDone();
+        if (hasActive) {
+          self.toggle('active');
+        } else {
+          self.toggle('completed');
+        }
+        self.trigger('toggle-all', hasActive);
     };
 
     // @param filter: <empty>, id, 'active', 'completed'
@@ -54,6 +68,10 @@ function Todo() {
     function generateId() {
         var keys = Object.keys(items), i = keys.length;
         return (i ? items[keys[i - 1]].id + 1 : i + 1);
+    }
+
+    function isDone(){
+        return self.items('active').length == 0;
     }
 
     function matchFilter(item, filter) {
