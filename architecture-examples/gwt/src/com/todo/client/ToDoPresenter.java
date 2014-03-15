@@ -65,7 +65,6 @@ public class ToDoPresenter {
 
 	/**
 	 * The interface that handles interactions from the view.
-	 *
 	 */
 	public interface ViewEventHandler {
 		/**
@@ -79,7 +78,7 @@ public class ToDoPresenter {
 		void clearCompletedTasks();
 
 		/**
-		 * Sets the completed state of all tasks to the given state
+		 * Sets the completed state of all tasks to the given state.
 		 */
 		void markAllCompleted(boolean completed);
 	}
@@ -131,7 +130,7 @@ public class ToDoPresenter {
 	}
 
 	/**
-	 * Set up a the history changed handler, which provides routing.
+	 * Set up the history changed handler, which provides routing.
 	 */
 	private void setupHistoryHandler() {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -145,7 +144,7 @@ public class ToDoPresenter {
 	}
 	
 	/**
-	 * Converts the string routing token into the equivalent enum value
+	 * Converts the string routing token into the equivalent enum value.
 	 */
 	private ToDoRouting parseRoutingToken(String token ) {
 		if (token.equals("/active")) {
@@ -211,7 +210,7 @@ public class ToDoPresenter {
 	}
 
 	/**
-	 * When the task state has changed, this method will update the UI and persist
+	 * When the task state has changed, this method will update the UI and persist.
 	 */
 	private void taskStateChanged() {
 		updateFilteredList();
@@ -220,7 +219,7 @@ public class ToDoPresenter {
 	}
 
 	/**
-	 * Sets the completed state of all tasks
+	 * Sets the completed state of all tasks.
 	 */
 	private void markAllCompleted(boolean completed) {
 
@@ -235,7 +234,7 @@ public class ToDoPresenter {
 	}
 
 	/**
-	 * Adds a new task based on the user input field
+	 * Adds a new task based on the user input field.
 	 */
 	private void addTask() {
 		String taskTitle = view.getTaskText().trim();
@@ -267,7 +266,7 @@ public class ToDoPresenter {
 	}
 
 	/**
-	 * Saves the current to-do items to local storage
+	 * Saves the current to-do items to local storage.
 	 */
 	private void saveState() {
 		Storage storage = Storage.getLocalStorageIfSupported();
