@@ -163,7 +163,7 @@ public class ToDoPresenter {
 	private void updateFilteredList() {
 		filteredTodos.getList().clear();
 		for (ToDoItem task : todos) {
-			if (routing.getRoutingFunction().matches(task)) {
+			if (routing.getMatcher().matches(task)) {
 				filteredTodos.getList().add(task);
 			}
 		}
