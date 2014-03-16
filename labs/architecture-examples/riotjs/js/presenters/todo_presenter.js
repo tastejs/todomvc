@@ -56,7 +56,9 @@ function todoPresenter(element, options) {
 
     // Reload the list
     todo.on('load', function(filter) {
-        $list.empty() && todo.items(filter).forEach(add);
+        var items = todo.items(filter);
+        $('#main', element).toggle(items.length > 0);
+        $list.empty() && items.forEach(add);
 
     // Remove an item
     }).on('remove', function(items) {
@@ -65,23 +67,17 @@ function todoPresenter(element, options) {
         });
 
     // Toggle items
-    }).on('toggle', function(items) {
-        items.forEach(function(item) {
-            toggle($('#task_' + item.id, $list), !!item.done);
-        });
-
-    // Toggle All
-    }).on('toggle-all', function(done) {
-      $('#toggle-all', element).prop('checked', done);
+    }).on('toggle', function(item) {
+      toggle($('#task_' + item.id, $list), !!item.done);
 
     // Add & edit
     }).on('add', add).on('edit', edit);
 
     /* Private functions */
-
-    function toggle(element, flag) {
-        element.toggleClass('completed', flag);
-        element.find(':checkbox').prop('checked', flag);
+    function toggle(task, flag) {
+        task.toggleClass('completed', flag);
+        task.find(':checkbox').prop('checked', flag);
+        element.find('#toggle-all').prop('checked', todo.isDone());
     }
 
     function edit(item) {
@@ -91,9 +87,10 @@ function todoPresenter(element, options) {
     }
 
     function add(item) {
-        var element = $($.render(template, item));
-        $list.append(element);
-        toggle(element, !!item.done);
+        $("#main", element).show();
+        var task = $($.render(template, item));
+        $list.append(task);
+        toggle(task, !!item.done);
     }
 
     function getTaskElement(element) {

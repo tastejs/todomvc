@@ -31,23 +31,16 @@ function Todo() {
         self.trigger('remove', removedItems);
     };
 
-    self.toggle = function(filter, done) {
-        var toggledItems = self.items(filter).map(function(item) {
-            item.done = !item.done;
-            return item;
-        });
-        self.trigger('toggle', toggledItems);
-        self.trigger('toggle-all', isDone());
+    self.toggle = function(id) {
+        items[id].done = !items[id].done;
+        self.trigger('toggle', items[id]);
     };
 
     self.toggleAll = function() {
-        var hasActive = !isDone();
-        if (hasActive) {
-          self.toggle('active');
-        } else {
-          self.toggle('completed');
-        }
-        self.trigger('toggle-all', hasActive);
+        var filter = self.isDone() ? 'completed' : 'active';
+        self.items(filter).forEach(function(item) {
+          self.toggle(item.id);
+        });
     };
 
     // @param filter: <empty>, id, 'active', 'completed'
@@ -57,6 +50,10 @@ function Todo() {
         }).map(function(id) {
             return items[id];
         });
+    }
+
+    self.isDone = function(){
+        return self.items('active').length == 0;
     }
 
     // sync database
@@ -70,9 +67,6 @@ function Todo() {
         return (i ? items[keys[i - 1]].id + 1 : i + 1);
     }
 
-    function isDone(){
-        return self.items('active').length == 0;
-    }
 
     function matchFilter(item, filter) {
         return !filter ||

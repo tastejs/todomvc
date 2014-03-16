@@ -1,14 +1,18 @@
 'use strict';
 
 (function ($) {
-  var todo = new Todo();
-  routes({todo: todo});
+    var todo = new Todo();
+    routes({todo: todo});
 
-  todoPresenter($("#todoapp"), {
-      model: todo,
-      template: $('template[name="task"]').html(),
-  });
+    // Binds the Todo Presenter
+    todoPresenter($("#todoapp"), {
+        model: todo,
+        template: $('#task-template').html(),
+    });
 
-  filtersPresenter($("#filters a"));
-  footerPresenter($("#footer"), {model: todo});
+    // Binds the Footer Presenter
+    footerPresenter($("#footer"), {
+        model: todo,
+        template: $('#footer-template').html(),
+    });
 })(jQuery);

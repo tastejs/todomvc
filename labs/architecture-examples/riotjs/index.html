@@ -20,21 +20,7 @@
         <ul id="todo-list"></ul>
       </section>
 
-      <footer id="footer">
-        <span id="todo-count"></span>
-        <ul id="filters">
-          <li>
-            <a class="selected" href="#/">All</a>
-          </li>
-          <li>
-            <a href="#/active">Active</a>
-          </li>
-          <li>
-            <a href="#/completed">Completed</a>
-          </li>
-        </ul>
-        <button id="clear-completed"></button>
-      </footer>
+      <footer id="footer"></footer>
     </section>
 
     <footer id="info">
@@ -46,7 +32,7 @@
       <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
 
-    <template name="task">
+    <template id="task-template">
       <li id="task_{id}" data-task="{id}">
         <div class="view todo-task">
           <input class="toggle" type="checkbox">
@@ -57,6 +43,16 @@
       </li>
     </template>
 
+    <template id="footer-template">
+      <span id="todo-count"><strong>{active}</strong> {items} left</span>
+      <ul id="filters">
+        <li><a href="#/">All</a></li>
+        <li><a href="#/active">Active</a></li>
+        <li><a href="#/completed">Completed</a></li>
+      </ul>
+      <button id="clear-completed">Clear completed ({completed})</button>
+    </template>
+
     <script src="bower_components/todomvc-common/base.js"></script>
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/riotjs/riot.js"></script>
@@ -64,7 +60,6 @@
     <script src="js/models/todo.js"></script>
     <script src="js/presenters/todo_presenter.js"></script>
     <script src="js/presenters/footer_presenter.js"></script>
-    <script src="js/presenters/filters_presenter.js"></script>
     <script src="js/routes.js"></script>
     <script src="js/app.js"></script>
   </body>

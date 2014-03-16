@@ -23,7 +23,7 @@ describe('footerPresenter', function() {
     });
 
     function assertClearCompeatedDisplay(items, expected) {
-        var expectedText = 'Clear completed (' + items.completed.length + ')';
+        var expectedText = items.completed.length + '';
         assertFooter(items, function(element, model) {
             model.trigger('load');
             assert.equal($('#clear-completed', element).css('display'), expected);
@@ -47,20 +47,28 @@ describe('footerPresenter', function() {
 
     function assertFooter(items, callback) {
         var model = $.observable({
-            items: function(filter) { return items[filter]; }
+            items: function(filter) {
+              return items[filter];
+            }
         });
 
         loadPresenter(model, function(element) { callback(element, model); });
     }
 
     function loadPresenter(model, callback) {
-        var body = (
-            '<footer>' +
-                '<span id="todo-count"></span>' +
-                '<button id="clear-completed"></button>' +
-            '</footer>'
-            ), template;
+        var body = $('<footer></footer>'),
+            template = (
+            '<span id="todo-count">{active} {items} left</span>' +
+            '<ul id="filters">' +
+              '<li><a class="selected" href="#/">All</a></li>' +
+              '<li><a href="#/active">Active</a></li>' +
+              '<li><a href="#/completed">Completed</a></li>' +
+            '</ul>' +
+            '<button id="clear-completed">{completed}</button>');
 
-        callback(footerPresenter(body, {model: model}));
+        callback(footerPresenter(body, {
+          model: model,
+          template: template
+        }));
     }
 });

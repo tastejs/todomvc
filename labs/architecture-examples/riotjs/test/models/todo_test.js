@@ -86,17 +86,6 @@ describe('Todo', function() {
     });
 
     describe('#toggle', function() {
-        it('toggles all items', function () {
-            var subject = createTodos('finish 1', 'finish 2', 'finish 3');
-
-            subject.toggle('active');
-            assertItems(subject.items(), [
-                {id: 1, name: 'finish 1', done: true},
-                {id: 2, name: 'finish 2', done: true},
-                {id: 3, name: 'finish 3', done: true}
-            ]);
-        });
-
         it('toggles an item', function() {
             var subject = createTodos('finish the todoMVC');
 
@@ -115,8 +104,8 @@ describe('Todo', function() {
             var subject = createTodos('finish the todoMVC'),
                 toggled = {count: 0, id: null};
 
-            subject.on('toggle', function(items) {
-                toggled.id = items[0].id;
+            subject.on('toggle', function(item) {
+                toggled.id = item.id;
                 toggled.count++;
             });
 

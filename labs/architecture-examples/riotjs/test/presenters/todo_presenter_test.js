@@ -29,7 +29,10 @@ describe('todoPresenter', function() {
     }
 
     function assertLoadItems(items) {
-        var model = $.observable({ items: function () { return items; } });
+        var model = $.observable({
+          items: function () { return items; },
+          isDone: function () { return true; }
+        });
         loadPresenter(model, function(element) {
             model.trigger('load', 'all');
             items.forEach(function(item) {
@@ -39,7 +42,7 @@ describe('todoPresenter', function() {
     }
 
     function loadPresenter(model, callback) {
-        var body = (
+        var body = $(
             '<div>' +
                 '<input id="toggle-all" type="checkbox">' +
                 '<input id="new-todo" type="text">' +
