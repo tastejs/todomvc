@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <title>polymer-selector-basic</title>
+  <script src="../../../platform/platform.js"></script>
+  <script src="../../../tools/test/htmltest.js"></script>
+  <script src="../../../tools/test/chai/chai.js"></script>
+  <link rel="import" href="../../polymer-selector.html">
+  <style>
+    .polymer-selected {
+      background: #ccc;
+    }
+    
+    .my-selected {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+
+  <polymer-selector id="selector1">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+    <div>Item 4</div>
+    <div>Item 5</div>
+  </polymer-selector>
+  
+  <br><br>
+  
+  <polymer-selector id="selector2" selected="item3" selectedClass="my-selected" valueattr="id">
+    <div id="item1">Item 1</div>
+    <div id="item2">Item 2</div>
+    <div id="item3">Item 3</div>
+    <div id="item4">Item 4</div>
+    <div id="item5">Item 5</div>
+  </polymer-selector>
+  
+  <script>
+    var assert = chai.assert;
+    var async = requestAnimationFrame;
+    
+    function oneMutation(node, options, cb) {
+      var o = new MutationObserver(function() {
+        cb();
+        o.disconnect();
+      });
+      o.observe(node, options);
+    }
+    
+    document.addEventListener('polymer-ready', function() {
+      // selector1
+      var s = document.querySelector('#selector1');
+      assert.equal(s.selected, null);
+      assert.equal(s.selectedClass, 'polymer-selected');
+      assert.isFalse(s.multi);
+      assert.equal(s.valueattr, 'name');
+      assert.equal(s.items.length, 5);
+      // selector2
+      s = document.querySelector('#selector2');
+      assert.equal(s.selected, "item3");
+      assert.equal(s.selectedClass, 'my-selected');
+      // setup listener for polymer-select event
+      var selectEventCounter = 0;
+      s.addEventListener('polymer-select', function(e) {
+        if (e.detail.isSelected) {
+          selectEventCounter++;
+          // selectedItem and detail.item should be the same
+          assert.equal(e.detail.item, s.selectedItem);
+        }
+      });
+      // set selected
+      s.selected = 'item5';
+      Platform.flush();
+      oneMutation(s, {attributes: true}, function() {
+        // check polymer-select event
+        assert.equal(selectEventCounter, 1);
+        // check selected class
+        assert.isTrue(s.children[4].classList.contains('my-selected'));
+        // check selectedItem
+        assert.equal(s.selectedItem, s.children[4]);
+        // selecting the same value shouldn't fire polymer-select
+        selectEventCounter = 0;
+        s.selected = 'item5';
+        Platform.flush();
+        // TODO(ffu): would be better to wait for something to happen
+        // instead of not to happen
+        setTimeout(function() {
+          assert.equal(selectEventCounter, 0);
+          done();
+        }, 50);
+      });
+    });
+  </script>
+</body>
+</html>

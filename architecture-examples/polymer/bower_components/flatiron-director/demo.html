@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+  <head>
+    <title>Director</title>
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="flatiron-director.html">
+  </head>
+  <body>
+    <polymer-element name="x-test">
+      <template>
+        <flatiron-director route="{{route}}" autoHash></flatiron-director>
+        hash: <input value="{{route}}">
+        <a href="#barnacle">Relocate</a>
+      </template>
+      <script>
+        Polymer('x-test', {
+          route: 'hello'
+        });
+      </script>
+    </polymer-element>
+    
+    <x-test></x-test>
+  </body>
+</html>
