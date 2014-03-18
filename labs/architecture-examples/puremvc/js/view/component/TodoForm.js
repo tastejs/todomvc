@@ -49,7 +49,8 @@ puremvc.define({
 
 	// INSTANCE MEMBERS
 	{
-			ENTER_KEY: 13,
+			ENTER_KEY: 13, 
+			ESC_KEY: 27,
 
 			addEventListener: function ( type, listener, useCapture ){
 				todomvc.view.event.AppEvents.addEventListener ( this.todoApp, type, listener, useCapture );
@@ -62,6 +63,18 @@ puremvc.define({
 			dispatchEvent: function( event ) {
 			   todomvc.view.event.AppEvents.dispatchEvent( this.todoApp, event );
 			},
+
+			abandonEditTodo: function( event ) {
+				var todo, todoId, div, inputEditTodo;
+				inputEditTodo = event.target;
+				todoId = inputEditTodo.getAttribute( 'data-todo-id' )
+				todo = this.getTodoById( todoId );
+				inputEditTodo.value = todo.title;
+				inputEditTodo.completed = todo.completed;
+				div = document.getElementById( 'li_' + todoId );
+				div.className = 'view';
+				this.newTodoField.focus();
+                        },
 
 			dispatchToggleComplete: function( event ) {
 			   var todo, toggleItemCompleteEvent;
@@ -167,6 +180,7 @@ puremvc.define({
 						todoId = this.getAttribute( 'data-todo-id' );
 						div = document.getElementById( 'li_' + todoId );
 						inputEditTodo = document.getElementById( 'input_' + todoId );
+						inputEditTodo.setAttribute( 'data-todo-id', todoId );
 						div.className = 'editing';
 						inputEditTodo.focus();
 
@@ -184,6 +198,13 @@ puremvc.define({
 							this.component.dispatchUpdateTodo( event );
 						}
 					});
+
+					todomvc.view.event.AppEvents.addEventListener( inputEditTodo, 'keydown', function( event ) {
+						if ( event.keyCode === this.component.ESC_KEY ) {
+							this.component.abandonEditTodo( event );
+						}
+					});
+
 					todomvc.view.event.AppEvents.addEventListener( inputEditTodo, 'blur', function( event ) {
 						this.component.dispatchUpdateTodo( event );
 					});

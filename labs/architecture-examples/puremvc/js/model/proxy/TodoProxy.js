@@ -110,7 +110,7 @@ puremvc.define({
 
 		addTodo: function( newTodo ) {
 			newTodo.id = this.getUuid();
-			this.todos.push( newTodo );
+			this.todos.unshift( newTodo );
 			this.todosModified();
 		},
 

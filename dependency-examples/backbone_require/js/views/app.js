@@ -42,7 +42,7 @@ define([
 			this.listenTo(Todos, 'filter', this.filterAll);
 			this.listenTo(Todos, 'all', this.render);
 
-			Todos.fetch();
+			Todos.fetch({reset:true});
 		},
 
 		// Re-rendering the App just means refreshing the statistics -- the rest

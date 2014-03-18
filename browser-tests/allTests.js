@@ -21,7 +21,7 @@ var excludedFrameworks = [
 	// sammyjs fails intermittently, it would appear that its state is sometimes updated asynchronously?
 	'sammyjs',
 	// these are examples that have been removed or are empty folders
-	'emberjs_require', 'dermis', 'react-backbone'
+	'emberjs_require', 'dermis'
 ];
 
 // collect together the framework names from each of the subfolders

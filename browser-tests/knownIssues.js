@@ -66,12 +66,6 @@ module.exports = [
 	'TodoMVC - batman, New Todo, should trim text input',
 	'TodoMVC - typescript-backbone, New Todo, should trim text input',
 
-	// https://github.com/tastejs/todomvc/issues/818
-	// does not trim edited text
-	'TodoMVC - dermis, Editing, should trim entered text',
-	'TodoMVC - kendo, Editing, should trim entered text',
-	'TodoMVC - serenadejs, Editing, should trim entered text',
-
 	// https://github.com/tastejs/todomvc/issues/819
 	// the edit experience with soma is quite broken. You can 
 	// get multiple elements into an edit state
@@ -112,32 +106,56 @@ module.exports = [
 	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
 	// all the following are covered by this issue:
+	// https://github.com/tastejs/todomvc/issues/856
+	'TodoMVC - knockoutjs, Routing, should respect the back button',
+	'TodoMVC - spine, Routing, should respect the back button',
+	'TodoMVC - componentjs, Routing, should respect the back button',
+	'TodoMVC - react, Routing, should respect the back button',
+	'TodoMVC - serenadejs, Routing, should respect the back button',
+	'TodoMVC - somajs, Routing, should respect the back button',
+	'TodoMVC - flight, Routing, should respect the back button',
+	'TodoMVC - lavaca_require, Routing, should respect the back button',
+	'TodoMVC - somajs_require, Routing, should respect the back button',
+
+	// all the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/790
 	// these implementations filter the view rather than the model when routing
 	'TodoMVC - agilityjs, Routing, should allow me to display active items',
 	'TodoMVC - agilityjs, Routing, should allow me to display completed items',
+	'TodoMVC - agilityjs, Routing, should respect the back button',
 	'TodoMVC - backbone, Routing, should allow me to display active items',
 	'TodoMVC - backbone, Routing, should allow me to display completed items',
+	'TodoMVC - backbone, Routing, should respect the back button',
 	'TodoMVC - maria, Routing, should allow me to display active items',
 	'TodoMVC - maria, Routing, should allow me to display completed items',
+	'TodoMVC - maria, Routing, should respect the back button',
 	'TodoMVC - dojo, Routing, should allow me to display active items',
 	'TodoMVC - dojo, Routing, should allow me to display completed items',
+	'TodoMVC - dojo, Routing, should respect the back button',
 	'TodoMVC - atmajs, Routing, should allow me to display active items',
 	'TodoMVC - atmajs, Routing, should allow me to display completed items',
+	'TodoMVC - atmajs, Routing, should respect the back button',
 	'TodoMVC - backbone_marionette, Routing, should allow me to display active items',
 	'TodoMVC - backbone_marionette, Routing, should allow me to display completed items',
+	'TodoMVC - backbone_marionette, Routing, should respect the back button',
 	'TodoMVC - exoskeleton, Routing, should allow me to display active items',
 	'TodoMVC - exoskeleton, Routing, should allow me to display completed items',
+	'TodoMVC - exoskeleton, Routing, should respect the back button',
 	'TodoMVC - thorax, Routing, should allow me to display active items',
 	'TodoMVC - thorax, Routing, should allow me to display completed items',
+	'TodoMVC - thorax, Routing, should respect the back button',
 	'TodoMVC - thorax_lumbar, Routing, should allow me to display active items',
 	'TodoMVC - thorax_lumbar, Routing, should allow me to display completed items',
+	'TodoMVC - thorax_lumbar, Routing, should respect the back button',
 	'TodoMVC - troopjs_require, Routing, should allow me to display active items',
 	'TodoMVC - troopjs_require, Routing, should allow me to display completed items',
+	'TodoMVC - troopjs_require, Routing, should respect the back button',
 	'TodoMVC - backbone_require, Routing, should allow me to display active items',
 	'TodoMVC - backbone_require, Routing, should allow me to display completed items',
+	'TodoMVC - backbone_require, Routing, should respect the back button',
 	'TodoMVC - ariatemplates, Routing, should allow me to display active items',
 	'TodoMVC - ariatemplates, Routing, should allow me to display completed items',
+	'TodoMVC - ariatemplates, Routing, should respect the back button',
 	'TodoMVC - backbone_marionette_require, Routing, should allow me to display active items',
 	'TodoMVC - backbone_marionette_require, Routing, should allow me to display completed items',
 	'TodoMVC - chaplin-brunch, Routing, should allow me to display active items',
@@ -159,26 +177,32 @@ module.exports = [
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display completed items',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display all items',
 	'TodoMVC - extjs_deftjs, Routing, should highlight the currently applied filter',
+	'TodoMVC - extjs_deftjs, Routing, should respect the back button',
 	'TodoMVC - olives, Routing, should allow me to display active items',
 	'TodoMVC - olives, Routing, should allow me to display completed items',
 	'TodoMVC - olives, Routing, should allow me to display all items',
 	'TodoMVC - olives, Routing, should highlight the currently applied filter',
+	'TodoMVC - olives, Routing, should respect the back button',
 	'TodoMVC - dijon, Routing, should allow me to display active items',
 	'TodoMVC - dijon, Routing, should allow me to display completed items',
 	'TodoMVC - dijon, Routing, should allow me to display all items',
 	'TodoMVC - dijon, Routing, should highlight the currently applied filter',
+	'TodoMVC - dijon, Routing, should respect the back button',
 	'TodoMVC - duel, Routing, should allow me to display active items',
 	'TodoMVC - duel, Routing, should allow me to display completed items',
 	'TodoMVC - duel, Routing, should allow me to display all items',
 	'TodoMVC - duel, Routing, should highlight the currently applied filter',
+	'TodoMVC - duel, Routing, should respect the back button',
 	'TodoMVC - knockoutjs_require, Routing, should allow me to display active items',
 	'TodoMVC - knockoutjs_require, Routing, should allow me to display completed items',
 	'TodoMVC - knockoutjs_require, Routing, should allow me to display all items',
 	'TodoMVC - knockoutjs_require, Routing, should highlight the currently applied filter',
+	'TodoMVC - knockoutjs_require, Routing, should respect the back button',
 	'TodoMVC - angular-dart, Routing, should allow me to display active items',
 	'TodoMVC - angular-dart, Routing, should allow me to display completed items',
 	'TodoMVC - angular-dart, Routing, should allow me to display all items',
 	'TodoMVC - angular-dart, Routing, should highlight the currently applied filter',
+	'TodoMVC - angular-dart, Routing, should respect the back button',
 	'TodoMVC - typescript-backbone, Routing, should allow me to display active items',
 	'TodoMVC - typescript-backbone, Routing, should allow me to display completed items',
 	'TodoMVC - typescript-backbone, Routing, should allow me to display all items',
@@ -201,6 +225,7 @@ module.exports = [
 	'TodoMVC - extjs, Routing, should allow me to display completed items',
 	'TodoMVC - extjs, Routing, should allow me to display all items',
 	'TodoMVC - extjs, Routing, should highlight the currently applied filter',
+	'TodoMVC - extjs, Routing, should respect the back button',
 
 	// stapes is completely broken!
 	// see: https://github.com/tastejs/todomvc/issues/808
@@ -224,6 +249,7 @@ module.exports = [
 	'TodoMVC - stapes, Routing, should allow me to display active items',
 	'TodoMVC - stapes, Routing, should allow me to display completed items',
 	'TodoMVC - stapes, Routing, should allow me to display all items',
+	'TodoMVC - stapes, Routing, should respect the back button',
 	'TodoMVC - stapes_require, No Todos, should hide #main and #footer',
 	'TodoMVC - stapes_require, New Todo, should allow me to add todo items',
 	'TodoMVC - stapes_require, New Todo, should append new items to the bottom of the list',
@@ -247,6 +273,7 @@ module.exports = [
 	'TodoMVC - stapes_require, Routing, should allow me to display active items',
 	'TodoMVC - stapes_require, Routing, should allow me to display completed items',
 	'TodoMVC - stapes_require, Routing, should allow me to display all items',
+	'TodoMVC - stapes_require, Routing, should respect the back button',
 
 	// mozart is not on the public website
 	'TodoMVC - mozart, New Todo, should allow me to add todo items',

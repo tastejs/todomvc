@@ -5,35 +5,36 @@
 /*jshint white:false */
 /*jshint trailing:false */
 /*jshint newcap:false */
-/*global Utils, TodoModel, ALL_TODOS, ACTIVE_TODOS,
-	COMPLETED_TODOS, TodoItem, TodoFooter, React, Router*/
+/*global React, Router*/
+var app = app || {};
 
-(function (window, React) {
+(function () {
 	'use strict';
 
-	window.ALL_TODOS = 'all';
-	window.ACTIVE_TODOS = 'active';
-	window.COMPLETED_TODOS = 'completed';
+	app.ALL_TODOS = 'all';
+	app.ACTIVE_TODOS = 'active';
+	app.COMPLETED_TODOS = 'completed';
+	var TodoFooter = app.TodoFooter;
+	var TodoItem = app.TodoItem;
 
 	var ENTER_KEY = 13;
 
 	var TodoApp = React.createClass({
 		getInitialState: function () {
 			return {
-				nowShowing: ALL_TODOS,
+				nowShowing: app.ALL_TODOS,
 				editing: null
 			};
 		},
 
 		componentDidMount: function () {
+			var setState = this.setState;
 			var router = Router({
-				'/': this.setState.bind(this, {nowShowing: ALL_TODOS}),
-				'/active': this.setState.bind(this, {nowShowing: ACTIVE_TODOS}),
-				'/completed': this.setState.bind(this, {nowShowing: COMPLETED_TODOS})
+				'/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
+				'/active': setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
+				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
 			});
-			router.init();
-
-			this.refs.newField.getDOMNode().focus();
+			router.init('/');
 		},
 
 		handleNewTodoKeyDown: function (event) {
@@ -86,14 +87,15 @@
 		},
 
 		render: function () {
-			var footer = null;
-			var main = null;
+			var footer;
+			var main;
+			var todos = this.props.model.todos;
 
-			var shownTodos = this.props.model.todos.filter(function (todo) {
+			var shownTodos = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
-				case ACTIVE_TODOS:
+				case app.ACTIVE_TODOS:
 					return !todo.completed;
-				case COMPLETED_TODOS:
+				case app.COMPLETED_TODOS:
 					return todo.completed;
 				default:
 					return true;
@@ -115,11 +117,11 @@
 				);
 			}, this);
 
-			var activeTodoCount = this.props.model.todos.reduce(function(accum, todo) {
+			var activeTodoCount = todos.reduce(function (accum, todo) {
 				return todo.completed ? accum : accum + 1;
 			}, 0);
 
-			var completedCount = this.props.model.todos.length - activeTodoCount;
+			var completedCount = todos.length - activeTodoCount;
 
 			if (activeTodoCount || completedCount) {
 				footer =
@@ -131,7 +133,7 @@
 					/>;
 			}
 
-			if (this.props.model.todos.length) {
+			if (todos.length) {
 				main = (
 					<section id="main">
 						<input
@@ -156,6 +158,7 @@
 							id="new-todo"
 							placeholder="What needs to be done?"
 							onKeyDown={this.handleNewTodoKeyDown}
+							autoFocus={true}
 						/>
 					</header>
 					{main}
@@ -165,7 +168,7 @@
 		}
 	});
 
-	var model = new TodoModel('react-todos');
+	var model = new app.TodoModel('react-todos');
 
 	function render() {
 		React.renderComponent(
@@ -176,14 +179,4 @@
 
 	model.subscribe(render);
 	render();
-
-	React.renderComponent(
-		<div>
-			<p>Double-click to edit a todo</p>
-			<p>Created by{' '}
-				<a href="http://github.com/petehunt/">petehunt</a>
-			</p>
-			<p>Part of{' '}<a href="http://todomvc.com">TodoMVC</a></p>
-		</div>,
-		document.getElementById('info'));
-})(window, React);
+})();

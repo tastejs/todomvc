@@ -315,6 +315,25 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
 			});
 
+			test.it('should respect the back button', function () {
+				createStandardItems();
+				page.toggleItemAtIndex(1);
+
+				page.filterByActiveItems();
+				page.filterByCompletedItems();
+
+				// should show completed items
+				testOps.assertItems([TODO_ITEM_TWO]);
+
+				// then active items
+				page.back();
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
+
+				// then all items
+				page.back();
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]);
+			});
+
 			test.it('should allow me to display completed items', function () {
 				createStandardItems();
 				page.toggleItemAtIndex(1);

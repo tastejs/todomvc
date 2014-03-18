@@ -1,4 +1,4 @@
-/*global app */
+/*global app, $on */
 (function () {
 	'use strict';
 
@@ -17,10 +17,9 @@
 
 	var todo = new Todo('todos-vanillajs');
 
-	window.addEventListener('load', function () {
+	function setView() {
 		todo.controller.setView(document.location.hash);
-	}.bind(this));
-	window.addEventListener('hashchange', function () {
-		todo.controller.setView(document.location.hash);
-	}.bind(this));
+	}
+	$on(window, 'load', setView);
+	$on(window, 'hashchange', setView);
 })();
