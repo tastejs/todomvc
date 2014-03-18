@@ -1,50 +1,69 @@
 # Framework Name TodoMVC Example
 
-> Short description of the framework provided by the official website.
+> River.js is a small framework focus on module enclosure and data binding, borrows scope, directive ideas from AngulaJS but keep same style with node module definition
+It provides efficient data bindings with a simple and flexible API.
 
-> _[Framework Name - framework.com](link-to-framework)_
+> _[RiverJS - besideriver.com/RiverJS](http://besideriver.com/RiverJS)_
 
 
 ## Learning Framework Name
 
-The [Framework Name website]() is a great resource for getting started.
+The [RiverJS website](http://besideriver.com/RiverJS) is a great resource for getting started.
 
 Here are some links you may find helpful:
 
-* [Documentation]()
-* [API Reference]()
-* [Applications built with Framework Name]()
-* [Blog]()
-* [FAQ]()
-* [Framework Name on GitHub]()
-
-Articles and guides from the community:
-
-* [Article 1]()
-* [Article 2]()
+* [Official Guide](http://besideriver.com/RiverJS/guide/)
+* [API Reference](http://besideriver.com/RiverJS/api/)
+* [Examples](http://besideriver.com/examples/)
 
 Get help from other Framework Name users:
 
-* [Framework Name on StackOverflow](http://stackoverflow.com/questions/tagged/____)
-* [Mailing list on Google Groups]()
-* [Framework Name on Twitter](http://twitter.com/____)
-* [Framework Name on Google +]()
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
 
 
 ## Implementation
 
-How is the app structured? Are there deviations from the spec? If so, why?
+the code is structured by MVC patten
+
+├── controller
+│   └── todos.js
+├── model
+│   └── local.js
+├── river.json
+├── util
+│   └── route.js
+└── view
+    ├── footer.js
+    └── todo.js
 
 
 ## Running
 
-If there is a build step required to get the example working, explain it here.
+First 
 
-To run the app, spin up an HTTP server and visit http://localhost/.../myexample/.
+```
+npm install riverjs -g
+```
 
+then
 
+```
+cd js
+```
+
+and then run
+
+```
+riverjs build .
+```
+
+at last open index.html,add
+
+```
+<script src="js/build/river.min.js"></script>
+<script src="js/build/app.js"></script>
+```
 ## Credit
 
-This TodoMVC application was created by [you]().
+This TodoMVC application was created by [Jonathan Zhang](http://besideriver.com).
