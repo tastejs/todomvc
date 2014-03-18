@@ -1,8 +1,8 @@
 {
- "version": "1.0.73",
+ "version": "1.0.74",
  "dist": "./build",
  "alias": {
-  "river.grammer": "tag"
+  "river.grammer": "view"
  },
  "sourcemap": true,
  "minify": true

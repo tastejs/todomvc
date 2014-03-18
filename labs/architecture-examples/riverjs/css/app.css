@@ -1,1 +1,15 @@
 /* base.css overrides */
+#todo-list li{
+  -webkit-user-select:none;
+}
+#todo-list li.completed .toggle:after {
+  color: #85ada7;
+  text-shadow: 0 1px 0 #669991;
+  bottom: 1px;
+  position: relative;
+}
+
+#todo-list li.active .toggle:checked:after {
+  color: #d9d9d9;
+  text-shadow: 0 -1px 0 #bfbfbf;
+}

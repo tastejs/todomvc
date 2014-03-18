@@ -6,44 +6,38 @@
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 		<!-- CSS overrides - remove if you don't need it -->
 		<link rel="stylesheet" href="css/app.css">
+		<script src="js/build/river.js"></script>
+		<script src="js/build/app.js"></script>
 	</head>
 	<body>
-		<section id="todoapp" scope="controller.todo">
+		<section id="todoapp" scope="controller.todos">
 			<header id="header">
 				<h1>todos</h1>
 				<input id="new-todo" placeholder="What needs to be done?" autofocus jbind="newtodo" jon="keydown:add">
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
 			<section id="main">
-				<input id="toggle-all" type="checkbox">
+				<input id="toggle-all" type="checkbox" jclick="toggleall">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
 					<!-- These are here just to show the structure of the list items -->
 					<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-					<li repeat="todo in todos" checkstatus>
+          <li repeat="todo in todos" todo class="{{todo.status}}">
 						<div class="view">
-							<input class="toggle" type="checkbox">
+							<input class="toggle" type="checkbox" jclick="toggleStatus(todo)">
               <label>{{ todo.desc }}</label>
-							<button class="destroy" jclick="remove"></button>
+							<button class="destroy" jclick="remove(todo)"></button>
 						</div>
             <input class="edit" jbind="todo.desc">
 					</li>
-					<!--<li>
-						<div class="view">
-							<input class="toggle" type="checkbox">
-							<label>Rule the web</label>
-							<button class="destroy"></button>
-						</div>
-						<input class="edit" value="Rule the web">
-          </li>-->
 				</ul>
 			</section>
 			<!-- This footer should hidden by default and shown when there are todos -->
 			<footer id="footer">
 				<!-- This should be `0 items left` by default -->
-				<span id="todo-count"><strong>1</strong> item left</span>
+        <span id="todo-count"><strong>{{ activenum }}</strong> item left</span>
 				<!-- Remove this if you don't implement routing -->
-				<ul id="filters" filter>
+				<ul id="filters" footer>
 					<li>
 						<a class="selected" href="#/">All</a>
 					</li>
@@ -55,7 +49,7 @@
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
-				<button id="clear-completed">Clear completed (1)</button>
+        <button id="clear-completed" jclick="removeCompleted">Clear completed ({{ completednum }})</button>
 			</footer>
 		</section>
 		<footer id="info">
@@ -68,7 +62,5 @@
 		</footer>
 		<!-- Scripts here. Don't remove this ↓ -->
 		<script src="bower_components/todomvc-common/base.js"></script>
-		<script src="js/build/river.js"></script>
-		<script src="js/build/app.js"></script>
 	</body>
 </html>

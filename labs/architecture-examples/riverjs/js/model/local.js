@@ -4,6 +4,6 @@ exports.get = function(){
   return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
 };
 
-exports.put = function(){
+exports.save = function(todos){
   localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
 };
