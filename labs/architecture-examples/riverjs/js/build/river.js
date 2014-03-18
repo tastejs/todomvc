@@ -20,7 +20,8 @@ var _$river = {
             var mod = Object.create(context);
             mod.exports = {}; //reset,
             var api = boxes[key] && boxes[key].call(mod,mod.exports,mod.need,mod) || undefined;
-            api = typeof mod.exports === 'function' ? mod.exports : Object.keys(mod.exports).length ? mod.exports : api;
+//            api = typeof mod.exports === 'function' ? mod.exports : Object.keys(mod.exports).length ? mod.exports : api;
+            api = api || mod.exports;
             return api;
           },
           exports: {}
@@ -113,16 +114,10 @@ define('river.engine',function() {
   function checkText(doc, context) {
     if (reg.test(doc.nodeValue)) {
       var key = doc.nodeValue.replace(/\r|\n/g,'').replace(reg, '');
-      if (!context.eom[key]) {
-        context.eom[key] = [];
-      }
-      context.eom[key].push({
-        element: doc,
-        expression: doc.nodeValue
-      });
       //'a.b.c.d'
       var ns = key.split('.');
       var value = {};
+      var eom = {};
       for(var i=0;i<ns.length;i++){
         if(typeof value === 'object'){
           value = value[ns[i]] || context.scope[ns[i]] 
@@ -130,6 +125,13 @@ define('river.engine',function() {
       }
       value = typeof value == 'object' ? JSON.stringify(value) : value;
       if(typeof value == 'undefined') value = '';
+      tool.buildobj(key,'.',context.eom,function(obj,key){
+        obj[key] = obj[key] || [];
+        obj[key].push({
+          element: doc,
+          expression: doc.nodeValue
+        });
+      });
       doc.nodeValue = doc.nodeValue.replace(/\r|\n/g,'').replace(/{{.*}}/, value);
     }
   }
@@ -535,6 +537,24 @@ define('river.core.tools', function() {
     return window.Object.prototype.toString.call(item) === '[object '+ name +']';
   }
 
+  /*
+   * build a object from a.b.c string
+   */
+  function buildobj(str,symble,obj,fn){
+    var arr = str.split(symble);
+    var name = arr.shift();
+    obj = obj || {};
+    if(arr.length){
+      obj[name] = obj[name] || {};
+      buildobj(arr.join(symble),symble,obj[name],fn);
+    }else{
+      if(typeof fn == 'function'){
+        fn(obj,name);
+      }
+    }
+    return obj;
+  }
+
 
   /**
    * clone in deep
@@ -621,7 +641,8 @@ define('river.core.tools', function() {
     isObject   : function(obj) { return type('Object',obj);},
     isFunction : function(obj) { return type('Function',obj); },
     isString   : function(str) { return type('String',str); },
-    isNumber   : function(no) { return type('Number',no); }
+    isNumber   : function(no) { return type('Number',no); },
+    buildobj   : buildobj
   };
 
   return exports;
@@ -887,6 +908,14 @@ define("river.grammer.repeat", function(exports,require,module) {
     }
     if (reg.test(doc.nodeValue)) {
       var k = doc.nodeValue.replace(reg, '').replace(key + '.', '');
+      $tool.buildobj(k,'.',eom,function(obj,key){
+        obj[key] = obj[key] || [];
+        obj[key].push({
+          element: doc,
+          expression: doc.nodeValue
+        });
+      });
+      /*
       if (!eom[k]) {
         eom[k] = [];
       }
@@ -894,10 +923,16 @@ define("river.grammer.repeat", function(exports,require,module) {
         element: doc,
         expression: doc.nodeValue
       });
+      */
       //this change is for identify two case: 
       //  1. scope = {}
       //  2. scope = "string" or number
       var value  = typeof scope[key] == 'object' ? scope[key][k] : scope[key];
+      if(typeof scope[key] === 'object'){
+        $tool.buildobj(k,'.',scope[key],function(obj,key){
+          value = obj[key];
+        });
+      }
       doc.nodeValue = doc.nodeValue.replace(/{{.*}}/, value);
     }
     if (doc.childNodes && doc.childNodes.length && !hasRepeat) {
@@ -922,11 +957,11 @@ define('river.grammer.scope', function() {
       var mod = new model();
       //make source inherit from mod
       //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+      source.__last__ = tools.clone(source);
+      source.__eom__  = this.eom;
       for(var x in mod){
          source[x] = mod[x]
       }
-      source.__last__ = tools.clone(source);
-      source.__eom__  = this.eom;
       this.scope = source;
     } else if (tools.isFunction(source)) {
       var m = new model();

@@ -1,9 +1,9 @@
 {
- "version": "1.0.74",
- "dist": "./build",
- "alias": {
-  "river.grammer": "view"
- },
- "sourcemap": true,
- "minify": true
+    "version": "1.0.82",
+    "dist": "./build",
+    "alias": {
+        "river.grammer": "view"
+    },
+    "sourcemap": false,
+    "minify": false
 }

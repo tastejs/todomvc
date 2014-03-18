@@ -1,1 +1,186 @@
-define("app",function(){!function(){"use strict"}(window)});define("controller.todos",function(e,t,n){var o=t("model.local"),c=e.todos=o.get();e.newtodo="";function i(){e.activenum=0;e.completednum=0;for(var t=0,n=c.length;t<n;t++){if(c[t].status=="active"){e.activenum++}else{e.completednum++}}}function a(e){i();o.save(e)}e.save=a;i();e.add=function(t){if(t.keyCode==13&&e.newtodo){c.unshift({desc:e.newtodo,status:"active"});e.newtodo="";a(c)}};e.remove=function(e){var t=c.indexOf(e);c.splice(t,1);a(c)};e.toggleall=function(){c.forEach(function(t,n){if(e.completednum>=0&&e.completednum<c.length){t.status="completed"}else{t.status="active"}});a(c)};e.toggleStatus=function(e){if(e.status=="active"){e.status="completed"}else{e.status="active"}a(c)};e.removeCompleted=function(){e.completednum=0;c=e.todos=c.filter(function(e,t){if(e.status!="completed"){return true}});a(c)}});define("model.local",function(e,t,n){var o="todos-riverjs";e.get=function(){return JSON.parse(localStorage.getItem(o)||"[]")};e.save=function(e){localStorage.setItem(o,JSON.stringify(e))}});define("river.grammer.footer",function(e,t,n){var o=t("util.route"),c="selected";e=n.exports=i;function i(e,t,n){o.when("#/",function(){var e=n.querySelectorAll("#filters a");a(e);e[0].className=c}).when("#/active",function(){var e=n.querySelectorAll("#filters a");a(e);e[1].className=c}).when("#/completed",function(){var e=n.querySelectorAll("#filters a");a(e);e[2].className=c});o.nav()}function a(e){for(var t=0,n=e.length;t<n;t++){e[t].className=""}}});define("util.route",function(e,t,n){var o={};function c(){var e=location.hash;if(o[e]&&typeof o[e]=="function")o[e]()}window.addEventListener("hashchange",function(){c()});e.nav=function(){c()};e.when=function(e,t){o[e]=t;return this}});define("river.grammer.todo",function(exports,require,module){var route=require("util.route"),ctrl=require("controller.todos");exports=module.exports=todo;function todo(str,scope,element){var checkbox=element.querySelector("[type=checkbox]");var editinput=element.querySelector(".edit");var label=element.querySelector("label");route.when("#/",function(){element.style.display="block"}).when("#/active",function(){var sta=status(scope);if(sta=="active"){element.style.display="block"}else if(sta=="completed"){element.style.display="none"}}).when("#/completed",function(){var sta=status(scope);if(sta=="active"){element.style.display="none"}else if(sta=="completed"){element.style.display="block"}});route.nav();scope.onchange("status",function(newvalue,oldvalue){route.nav()});label.ondblclick=function(){writeView(element)};editinput.addEventListener("blur",function(){readView(element,scope)});editinput.onkeydown=function(event){var enter=event.keyCode===13||false;var esc=event.keyCode===27||false;if(enter||esc){readView(element,scope)}}}function status(scope){return scope.todo.status}function writeView(element){var t=element.className;element.className=t+" editing";element.querySelector(".edit").focus()}function readView(element,scope){var t=element.className;element.className=t.replace(/\sediting/,"");ctrl.save(scope.todos)}});//# sourceMappingURL=app.map
+define("app", function(exports, require, module) {
+  (function(window) {
+    "use strict";
+  })(window);
+});
+
+define("controller.todos", function(exports, require, module) {
+  "use strict";
+  var model = require("model.local"), todos = exports.todos = model.get();
+  exports.newtodo = "";
+  function calStatus() {
+    exports.activenum = 0;
+    exports.completednum = 0;
+    for (var i = 0, len = todos.length; i < len; i++) {
+      if (todos[i].status === "active") {
+        exports.activenum++;
+      } else {
+        exports.completednum++;
+      }
+    }
+  }
+  function save(todos) {
+    calStatus();
+    model.save(todos);
+  }
+  exports.save = save;
+  calStatus();
+  exports.add = function(event) {
+    if (event.keyCode === 13 && exports.newtodo) {
+      todos.unshift({
+        desc: exports.newtodo,
+        status: "active"
+      });
+      exports.newtodo = "";
+      save(todos);
+    }
+  };
+  exports.remove = function(todo) {
+    var index = todos.indexOf(todo);
+    todos.splice(index, 1);
+    save(todos);
+  };
+  exports.toggleall = function() {
+    todos.forEach(function(d) {
+      if (exports.completednum >= 0 && exports.completednum < todos.length) {
+        d.status = "completed";
+      } else {
+        d.status = "active";
+      }
+    });
+    save(todos);
+  };
+  exports.toggleStatus = function(todo) {
+    if (todo.status === "active") {
+      todo.status = "completed";
+    } else {
+      todo.status = "active";
+    }
+    save(todos);
+  };
+  exports.removeCompleted = function() {
+    exports.completednum = 0;
+    todos = exports.todos = todos.filter(function(d) {
+      if (d.status !== "completed") {
+        return true;
+      }
+    });
+    save(todos);
+  };
+});
+
+define("model.local", function(exports, require, module) {
+  "use strict";
+  var STORAGE_ID = "todos-riverjs";
+  exports.get = function() {
+    return JSON.parse(localStorage.getItem(STORAGE_ID) || "[]");
+  };
+  exports.save = function(todos) {
+    localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
+  };
+});
+
+define("util.route", function(exports, require, module) {
+  "use strict";
+  var pages = {};
+  function route() {
+    var addr = location.hash;
+    if (pages[addr] && typeof pages[addr] === "function") {
+      pages[addr]();
+    }
+  }
+  window.addEventListener("hashchange", function() {
+    route();
+  });
+  exports.nav = function() {
+    route();
+  };
+  exports.when = function(id, fn) {
+    pages[id] = fn;
+    return this;
+  };
+});
+
+define("river.grammer.footer", function(exports, require, module) {
+  "use strict";
+  var route = require("util.route"), active = "selected";
+  function clear(btns) {
+    for (var i = 0, len = btns.length; i < len; i++) {
+      btns[i].className = "";
+    }
+  }
+  function footer(str, scope, element) {
+    route.when("#/", function() {
+      var btns = element.querySelectorAll("#filters a");
+      clear(btns);
+      btns[0].className = active;
+    }).when("#/active", function() {
+      var btns = element.querySelectorAll("#filters a");
+      clear(btns);
+      btns[1].className = active;
+    }).when("#/completed", function() {
+      var btns = element.querySelectorAll("#filters a");
+      clear(btns);
+      btns[2].className = active;
+    });
+    route.nav();
+  }
+  exports = module.exports = footer;
+});
+
+define("river.grammer.todo", function(exports, require, module) {
+  "use strict";
+  var route = require("util.route"), ctrl = require("controller.todos");
+  function status(scope) {
+    return scope.todo.status;
+  }
+  function writeView(element) {
+    var t = element.className;
+    element.className = t + " editing";
+    element.querySelector(".edit").focus();
+  }
+  function readView(element, scope) {
+    var t = element.className;
+    element.className = t.replace(/\sediting/, "");
+    ctrl.save(scope.todos);
+  }
+  function todo(str, scope, element) {
+    var editinput = element.querySelector(".edit");
+    var label = element.querySelector("label");
+    route.when("#/", function() {
+      element.style.display = "block";
+    }).when("#/active", function() {
+      var sta = status(scope);
+      if (sta === "active") {
+        element.style.display = "block";
+      } else if (sta === "completed") {
+        element.style.display = "none";
+      }
+    }).when("#/completed", function() {
+      var sta = status(scope);
+      if (sta === "active") {
+        element.style.display = "none";
+      } else if (sta === "completed") {
+        element.style.display = "block";
+      }
+    });
+    route.nav();
+    scope.onchange("status", function() {
+      route.nav();
+    });
+    label.ondblclick = function() {
+      writeView(element);
+    };
+    editinput.addEventListener("blur", function() {
+      readView(element, scope);
+    });
+    editinput.onkeydown = function(event) {
+      var enter = event.keyCode === 13 || false;
+      var esc = event.keyCode === 27 || false;
+      if (enter || esc) {
+        readView(element, scope);
+      }
+    };
+  }
+  exports = module.exports = todo;
+});
