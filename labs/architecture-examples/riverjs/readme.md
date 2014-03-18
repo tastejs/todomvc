@@ -26,6 +26,7 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 the code is structured by MVC patten
 
+```
 ├── controller
 │   └── todos.js
 ├── model
@@ -36,6 +37,8 @@ the code is structured by MVC patten
 └── view
     ├── footer.js
     └── todo.js
+
+```
 
 
 ## Running
