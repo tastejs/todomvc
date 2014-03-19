@@ -324,27 +324,32 @@ define('river.core.model', function(exports,require,module) { //@sourceURL=../li
       if(eom && eom[key]){
         loop(eom[key], function(ele, i) {
           ele.element.nodeValue = ele.expression.replace(/{{.*}}/, value);
-          if(ele.element.nodeName == 'INPUT'){
+          if(ele.element.nodeName == 'INPUT' && ele.element.value !== value){
             ele.element.value = ele.expression.replace(/{{.*}}/, value);
           }
           //ele.element.parent.innerHTML = ele.expression.replace(/{{.*}}/, value);
         });
-        var fns = scope.__listeners__ && scope.__listeners__[key] ;
-        if(fns){
-          for (var i = 0, len = fns.length; i < len; i++) {
-            fns[i](value,last[key]);
-          }
-        }
+        pub(scope,key,value,last);
       }
       last[key] = value;
     } else if (isArray(value)) {
       last[key] = oldvalue ? oldvalue : [];
       diff(value,last[key],eom[key],scope,key,last);
+      pub(scope,key,value,last);
     } else if (isObject(value)) {
       oldvalue = oldvalue ? oldvalue : {};
       each(value, function(item, index) {
         update.call(scope,item, index, eom[key], oldvalue);
       });
+    }
+  }
+
+  function pub(scope,key,value,last){
+    var fns = scope.__listeners__ && scope.__listeners__[key] ;
+    if(fns){
+      for (var i = 0, len = fns.length; i < len; i++) {
+        fns[i](value,last[key]);
+      }
     }
   }
 
@@ -649,18 +654,19 @@ define('river.core.tools', function() {
 });
 define('river.grammer.jbind',function(exports,require,module){
 
+  var tool = require('river.core.tools');
+
   function jbind (str,scope,element){
     var value = getValue(str,scope);
     var oldValue = element.value = value || '';
-    
-    // todo:still have bugs
-    var ns = str.split('.');
-    this.eom[str] = this.eom[str] || [];
-    this.eom[str].push({
-      element:element,
-      expression:"{{"+str+"}}"
+
+    tool.buildobj(str,'.',scope.__eom__,function(obj,key){
+      obj[key] = obj[key] || [];
+      obj[key].push({
+        element: element,
+        expression: "{{"+str+"}}"
+      });
     });
-    
 
     var interval;
 
@@ -750,17 +756,15 @@ define('river.grammer.jclick', function(exports,require,module) {
 
   exports = module.exports = click;
 });
-define('river.grammer.jcompile',function(){
-  return function(){
+define('river.grammer.jcompile',function(exports,require,module){
+  return function(str,scope,element){
     //jcompile should never be used when sub tag structutor contain any other grammer tag,cause it will be totally replace by innnerHTML.
-
-    var element = this.node;
-    var scope = this.scope;
-    var reg = this.reg;
-
-    var key = element.textContent.replace(reg,'');
-    //element.innerHTML = scope[key];
-//    console.log(this.eom.msg);
+    var key = element.textContent.replace(/.*{{\s*|\s*}}.*/g,'');
+    var before = element.textContent.replace(/{{.*/,'');
+    var after = element.textContent.replace(/.*}}/,'');
+    scope.onchange(key,function(value){
+      element.innerHTML = before + value + after;
+    });
   };
 });
 define('river.grammer.jon', function() {
@@ -951,7 +955,8 @@ define('river.grammer.scope', function() {
   var tools = me.need('river.core.tools');
 
   function _scope(str) {
-    this.node.removeAttribute('scope');
+    //this.node.removeAttribute('scope');
+    this.node.setAttribute('scope','');
     var source = me.need(str);
     if (tools.isObject(source)) {
       var mod = new model();

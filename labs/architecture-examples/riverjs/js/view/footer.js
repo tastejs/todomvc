@@ -14,7 +14,19 @@ function clear(btns) {
     }
 }
 
+function show(element, todos) {
+    if (!todos.length) {
+        element.style.display = 'none';
+    } else {
+        element.style.display = 'block';
+    }
+}
+
 function footer(str, scope, element) {
+    show(element, scope.todos);
+    scope.onchange('todos', function (todos) {
+        show(element, todos);
+    });
     route
     .when('#/', function () {
         var btns = element.querySelectorAll('#filters a');

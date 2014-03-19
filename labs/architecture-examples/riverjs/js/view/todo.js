@@ -18,10 +18,9 @@ function writeView(element) {
     element.querySelector('.edit').focus();
 }
 
-function readView(element, scope) {
+function readView(element) {
     var t = element.className;
     element.className = t.replace(/\sediting/, '');
-    ctrl.save(scope.todos);
 }
 
 function todo(str, scope, element) {
@@ -58,19 +57,34 @@ function todo(str, scope, element) {
 
     //db click on label show writeView
     label.ondblclick = function () {
+        editinput.value = scope.todo.desc;
         writeView(element);
     };
 
+    var byEsc = false;
+    var byEnter = false;
+
     //blur on input.edit show readView
-    editinput.addEventListener('blur', function () {
-        readView(element, scope);
-    });
+    editinput.onblur = function () {
+        if (byEsc) { return; }
+        ctrl.update(scope.todo, editinput.value);
+//        scope.apply();
+        readView(element);
+    };
 
     //when user stroke enter or esc key show readView
     editinput.onkeydown = function (event) {
+        byEsc = false;
+        byEnter = false;
         var enter = event.keyCode === 13 || false;
         var esc = event.keyCode === 27 || false;
-        if (enter || esc) {
+        if (enter) {
+            byEnter = true;
+            ctrl.update(scope.todo, editinput.value);
+            scope.apply();
+            readView(element, scope);
+        } else if (esc) {
+            byEsc = true;
             readView(element, scope);
         }
     };

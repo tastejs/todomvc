@@ -16,7 +16,7 @@
 				<input id="new-todo" placeholder="What needs to be done?" autofocus jbind="newtodo" jon="keydown:add">
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
-			<section id="main">
+			<section id="main" main>
 				<input id="toggle-all" type="checkbox" jclick="toggleall">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
@@ -28,16 +28,16 @@
               <label>{{ todo.desc }}</label>
 							<button class="destroy" jclick="remove(todo)"></button>
 						</div>
-            <input class="edit" jbind="todo.desc">
+            <input class="edit">
 					</li>
 				</ul>
 			</section>
 			<!-- This footer should hidden by default and shown when there are todos -->
-			<footer id="footer">
+			<footer id="footer" footer>
 				<!-- This should be `0 items left` by default -->
         <span id="todo-count"><strong>{{ activenum }}</strong> item left</span>
 				<!-- Remove this if you don't implement routing -->
-				<ul id="filters" footer>
+				<ul id="filters" >
 					<li>
 						<a class="selected" href="#/">All</a>
 					</li>

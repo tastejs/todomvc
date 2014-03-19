@@ -35,9 +35,10 @@ calStatus();
 
 //add new todo
 exports.add = function (event) {
-    if (event.keyCode === 13 && exports.newtodo) {
-        todos.unshift({
-            desc: exports.newtodo,
+    var newtodo = exports.newtodo.trim();
+    if (event.keyCode === 13 && newtodo) {
+        todos.push({
+            desc: newtodo,
             status: 'active'
         });
         exports.newtodo = '';
@@ -45,12 +46,28 @@ exports.add = function (event) {
     }
 };
 
-//remove todo from todo list
-exports.remove = function (todo) {
+function remove(todo) {
     var index = todos.indexOf(todo);
     todos.splice(index, 1);
     save(todos);
+}
+//remove todo from todo list
+exports.remove = remove;
+
+//update todo
+exports.update = function (todo, value) {
+    value = value.trim();
+    if (!value) {
+        remove(todo);
+    } else {
+        //trim entered text
+        todo.desc = value;
+        save(todos);
+    }
 };
+
+
+
 
 //toggle all todo items status
 exports.toggleall = function () {
