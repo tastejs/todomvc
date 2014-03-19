@@ -15,38 +15,13 @@ define("model.local", function(exports, require, module) {
   };
 });
 
-define("util.route", function(exports, require, module) {
-  "use strict";
-  var pages = {};
-  function route() {
-    var addr = location.hash;
-    if (pages[addr] && typeof pages[addr] === "function") {
-      pages[addr]();
-    }
-  }
-  window.addEventListener("hashchange", function() {
-    route();
-  });
-  exports.nav = function() {
-    route();
-  };
-  exports.when = function(id, fn) {
-    pages[id] = fn;
-    return this;
-  };
-});
-
 define("controller.todos", function(exports, require, module) {
   "use strict";
   var model = require("model.local"), todos = exports.todos = model.get();
-  exports.newtodo = "";
   function calStatus() {
-    exports.activenum = 0;
     exports.completednum = 0;
     for (var i = 0, len = todos.length; i < len; i++) {
-      if (todos[i].status === "active") {
-        exports.activenum++;
-      } else {
+      if (todos[i].status !== "active") {
         exports.completednum++;
       }
     }
@@ -57,16 +32,16 @@ define("controller.todos", function(exports, require, module) {
   }
   exports.save = save;
   calStatus();
-  exports.add = function(event) {
-    var newtodo = exports.newtodo.trim();
-    if (event.keyCode === 13 && newtodo) {
-      todos.push({
-        desc: newtodo,
-        status: "active"
-      });
-      exports.newtodo = "";
-      save(todos);
+  exports.add = function(value) {
+    value = value.trim();
+    if (!value) {
+      return;
     }
+    todos.push({
+      desc: value,
+      status: "active"
+    });
+    save(todos);
   };
   function remove(todo) {
     var index = todos.indexOf(todo);
@@ -112,6 +87,27 @@ define("controller.todos", function(exports, require, module) {
   };
 });
 
+define("util.route", function(exports, require, module) {
+  "use strict";
+  var pages = {};
+  function route() {
+    var addr = location.hash;
+    if (pages[addr] && typeof pages[addr] === "function") {
+      pages[addr]();
+    }
+  }
+  window.addEventListener("hashchange", function() {
+    route();
+  });
+  exports.nav = function() {
+    route();
+  };
+  exports.when = function(id, fn) {
+    pages[id] = fn;
+    return this;
+  };
+});
+
 define("river.grammer.footer", function(exports, require, module) {
   "use strict";
   var route = require("util.route"), active = "selected";
@@ -127,10 +123,31 @@ define("river.grammer.footer", function(exports, require, module) {
       element.style.display = "block";
     }
   }
+  function hidecomplete(element, num, all) {
+    var btn = element.querySelector("#clear-completed");
+    if (num > 0) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+    var todocont = element.querySelector("#todo-count");
+    var len = all - num || 0;
+    if (len > 1) {
+      todocont.innerHTML = "<strong>" + len + "</strong> items left";
+    } else if (len === 1) {
+      todocont.innerHTML = "<strong>1</strong> item left";
+    } else if (len === 0) {
+      todocont.innerHTML = "<strong>0</strong> items left";
+    }
+  }
   function footer(str, scope, element) {
     show(element, scope.todos);
+    hidecomplete(element, scope.completednum, scope.todos.length);
     scope.onchange("todos", function(todos) {
       show(element, todos);
+    });
+    scope.onchange("completednum", function(value) {
+      hidecomplete(element, value, scope.todos.length);
     });
     route.when("#/", function() {
       var btns = element.querySelectorAll("#filters a");
@@ -150,27 +167,24 @@ define("river.grammer.footer", function(exports, require, module) {
   exports = module.exports = footer;
 });
 
-define("river.grammer.main", function(exports, require, module) {
+define("river.grammer.header", function(exports, require, module) {
   "use strict";
-  function show(element, todos) {
-    if (!todos.length) {
-      element.style.display = "none";
-    } else {
-      element.style.display = "block";
-    }
+  function header(str, scope, element) {
+    var newtodo = element.querySelector("#new-todo");
+    newtodo.onkeypress = function(event) {
+      if (event.keyCode === 13) {
+        scope.add(newtodo.value);
+        scope.apply();
+        newtodo.value = "";
+      }
+    };
   }
-  function main(str, scope, element) {
-    show(element, scope.todos);
-    scope.onchange("todos", function(todos) {
-      show(element, todos);
-    });
-  }
-  exports = module.exports = main;
+  exports = module.exports = header;
 });
 
-define("river.grammer.todo", function(exports, require, module) {
+define("river.grammer.item", function(exports, require, module) {
   "use strict";
-  var route = require("util.route"), ctrl = require("controller.todos");
+  var route = require("util.route");
   function status(scope) {
     return scope.todo.status;
   }
@@ -214,10 +228,11 @@ define("river.grammer.todo", function(exports, require, module) {
     var byEsc = false;
     var byEnter = false;
     editinput.onblur = function() {
-      if (byEsc) {
+      if (byEsc || byEnter) {
         return;
       }
-      ctrl.update(scope.todo, editinput.value);
+      scope.update(scope.todo, editinput.value);
+      scope.apply();
       readView(element);
     };
     editinput.onkeydown = function(event) {
@@ -227,14 +242,33 @@ define("river.grammer.todo", function(exports, require, module) {
       var esc = event.keyCode === 27 || false;
       if (enter) {
         byEnter = true;
-        ctrl.update(scope.todo, editinput.value);
+        scope.update(scope.todo, editinput.value);
         scope.apply();
         readView(element, scope);
       } else if (esc) {
+        event.preventDefault();
         byEsc = true;
         readView(element, scope);
       }
     };
   }
   exports = module.exports = todo;
+});
+
+define("river.grammer.main", function(exports, require, module) {
+  "use strict";
+  function show(element, todos) {
+    if (!todos.length) {
+      element.style.display = "none";
+    } else {
+      element.style.display = "block";
+    }
+  }
+  function main(str, scope, element) {
+    show(element, scope.todos);
+    scope.onchange("todos", function(todos) {
+      show(element, todos);
+    });
+  }
+  exports = module.exports = main;
 });

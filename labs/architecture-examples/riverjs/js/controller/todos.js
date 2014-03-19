@@ -6,16 +6,11 @@
 var model = require('model.local'),
     todos = exports.todos = model.get();
 
-exports.newtodo = '';
-
 //caculate current active items number and completed number
 function calStatus() {
-    exports.activenum = 0;
     exports.completednum = 0;
     for (var i = 0, len = todos.length; i < len; i++) {
-        if (todos[i].status === 'active') {
-            exports.activenum++;
-        } else {
+        if (todos[i].status !== 'active') {
             exports.completednum++;
         }
     }
@@ -34,16 +29,14 @@ calStatus();
 
 
 //add new todo
-exports.add = function (event) {
-    var newtodo = exports.newtodo.trim();
-    if (event.keyCode === 13 && newtodo) {
-        todos.push({
-            desc: newtodo,
-            status: 'active'
-        });
-        exports.newtodo = '';
-        save(todos);
-    }
+exports.add = function (value) {
+    value = value.trim();
+    if (!value) { return; }
+    todos.push({
+        desc: value,
+        status: 'active'
+    });
+    save(todos);
 };
 
 function remove(todo) {

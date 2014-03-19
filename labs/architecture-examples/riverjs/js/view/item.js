@@ -4,8 +4,7 @@
  * module dependence
  */
 
-var route = require('util.route'),
-    ctrl = require('controller.todos');
+var route = require('util.route');
 
 
 function status(scope) {
@@ -66,9 +65,9 @@ function todo(str, scope, element) {
 
     //blur on input.edit show readView
     editinput.onblur = function () {
-        if (byEsc) { return; }
-        ctrl.update(scope.todo, editinput.value);
-//        scope.apply();
+        if (byEsc || byEnter) { return; }
+        scope.update(scope.todo, editinput.value);
+        scope.apply();
         readView(element);
     };
 
@@ -80,10 +79,11 @@ function todo(str, scope, element) {
         var esc = event.keyCode === 27 || false;
         if (enter) {
             byEnter = true;
-            ctrl.update(scope.todo, editinput.value);
+            scope.update(scope.todo, editinput.value);
             scope.apply();
             readView(element, scope);
         } else if (esc) {
+            event.preventDefault();
             byEsc = true;
             readView(element, scope);
         }

@@ -11,9 +11,9 @@
 	</head>
 	<body>
 		<section id="todoapp" scope="controller.todos">
-			<header id="header">
+			<header id="header" header>
 				<h1>todos</h1>
-				<input id="new-todo" placeholder="What needs to be done?" autofocus jbind="newtodo" jon="keydown:add">
+				<input id="new-todo" placeholder="What needs to be done?" autofocus>
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
 			<section id="main" main>
@@ -22,7 +22,7 @@
 				<ul id="todo-list">
 					<!-- These are here just to show the structure of the list items -->
 					<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-          <li repeat="todo in todos" todo class="{{todo.status}}">
+          <li repeat="todo in todos" item class="{{todo.status}}">
 						<div class="view">
 							<input class="toggle" type="checkbox" jclick="toggleStatus(todo)">
               <label>{{ todo.desc }}</label>
@@ -35,7 +35,7 @@
 			<!-- This footer should hidden by default and shown when there are todos -->
 			<footer id="footer" footer>
 				<!-- This should be `0 items left` by default -->
-        <span id="todo-count"><strong>{{ activenum }}</strong> item left</span>
+        <span id="todo-count"></span>
 				<!-- Remove this if you don't implement routing -->
 				<ul id="filters" >
 					<li>
