@@ -44,7 +44,13 @@ public class ToDoItem {
 	}
 
 	public void setTitle(String title) {
+		setTitle(title, true);
+	}
+
+	public void setTitle(String title, boolean notify) {
 		this.title = title;
-		presenter.itemStateChanged(this);
+		if (notify) {
+			presenter.itemStateChanged(this);
+		}
 	}
 }

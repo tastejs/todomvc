@@ -201,8 +201,10 @@ public class ToDoPresenter {
 			return;
 		}
 
-		// if the item has become empty, remove it
-		if (toDoItem.getTitle().trim().equals("")) {
+		boolean notify = false;
+		toDoItem.setTitle(toDoItem.getTitle().trim(), notify);
+
+		if (toDoItem.getTitle().isEmpty()) {
 			todos.remove(toDoItem);
 		}
 
