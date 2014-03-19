@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -142,9 +143,9 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 	public void setTaskStatistics(int totalTasks, int completedTasks) {
 		int remainingTasks = totalTasks - completedTasks;
 
-		hideElement(mainSection, totalTasks == 0);
-		hideElement(todoStatsContainer, totalTasks == 0);
-		hideElement(clearCompleted.getElement(), completedTasks == 0);
+		displayOrHide(mainSection, totalTasks == 0);
+		displayOrHide(todoStatsContainer, totalTasks == 0);
+		displayOrHide(clearCompleted.getElement(), completedTasks == 0);
 
 		remainingTasksCount.setInnerText(Integer.toString(remainingTasks));
 		remainingTasksLabel.setInnerText(remainingTasks > 1 || remainingTasks == 0 ? "items" : "item");
@@ -169,11 +170,11 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 		}
 	}
 
-	private void hideElement(Element element, boolean hide) {
+	private void displayOrHide(Element element, boolean hide) {
 		if (hide) {
-			element.setAttribute("style", "display:none;");
+			element.getStyle().setDisplay(Display.NONE);
 		} else {
-			element.setAttribute("style", "display:block;");
+			element.getStyle().setDisplay(Display.BLOCK);
 		}
 	}
 }
