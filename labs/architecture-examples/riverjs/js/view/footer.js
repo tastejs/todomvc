@@ -20,10 +20,9 @@ function show(element, todos) {
     } else {
         element.style.display = 'block';
     }
-
 }
 
-function hidecomplete(element, num, all) {
+function completnum(element, num) {
 
     var btn = element.querySelector('#clear-completed');
     if (num > 0) {
@@ -31,9 +30,10 @@ function hidecomplete(element, num, all) {
     } else {
         btn.style.display = 'none';
     }
+}
 
+function activenum(element, len) {
     var todocont = element.querySelector('#todo-count');
-    var len = all - num || 0;
     if (len > 1) {
         todocont.innerHTML = '<strong>' + len + '</strong> items left';
     } else if (len === 1) {
@@ -45,14 +45,19 @@ function hidecomplete(element, num, all) {
 
 function footer(str, scope, element) {
     show(element, scope.todos);
-    hidecomplete(element, scope.completednum, scope.todos.length);
+    completnum(element, scope.completednum, scope.todos.length);
+    activenum(element, scope.activenum);
 
     scope.onchange('todos', function (todos) {
         show(element, todos);
     });
 
     scope.onchange('completednum', function (value) {
-        hidecomplete(element, value, scope.todos.length);
+        completnum(element, value, scope.todos.length);
+    });
+
+    scope.onchange('activenum', function (value) {
+        activenum(element, value);
     });
 
     route

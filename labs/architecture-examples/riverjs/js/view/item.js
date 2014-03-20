@@ -26,6 +26,8 @@ function todo(str, scope, element) {
     var editinput = element.querySelector('.edit');
     var label = element.querySelector('label');
 
+    //var parent;
+
     route
     .when('#/', function () {
         element.style.display = 'block';
@@ -36,6 +38,12 @@ function todo(str, scope, element) {
             element.style.display = 'block';
         } else if (sta === 'completed') {
             element.style.display = 'none';
+            /*
+            if (element.parentNode) {
+                parent =  element.parentNode;
+                parent.removeChild(element);
+            }
+            */
         }
     })
     .when('#/completed', function () {

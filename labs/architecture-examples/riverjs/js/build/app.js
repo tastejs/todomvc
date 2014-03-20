@@ -4,24 +4,16 @@ define("app", function(exports, require, module) {
   })(window);
 });
 
-define("model.local", function(exports, require, module) {
-  "use strict";
-  var STORAGE_ID = "todos-riverjs";
-  exports.get = function() {
-    return JSON.parse(localStorage.getItem(STORAGE_ID) || "[]");
-  };
-  exports.save = function(todos) {
-    localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
-  };
-});
-
 define("controller.todos", function(exports, require, module) {
   "use strict";
   var model = require("model.local"), todos = exports.todos = model.get();
   function calStatus() {
+    exports.activenum = 0;
     exports.completednum = 0;
     for (var i = 0, len = todos.length; i < len; i++) {
-      if (todos[i].status !== "active") {
+      if (todos[i].status === "active") {
+        exports.activenum++;
+      } else {
         exports.completednum++;
       }
     }
@@ -87,6 +79,17 @@ define("controller.todos", function(exports, require, module) {
   };
 });
 
+define("model.local", function(exports, require, module) {
+  "use strict";
+  var STORAGE_ID = "todos-riverjs";
+  exports.get = function() {
+    return JSON.parse(localStorage.getItem(STORAGE_ID) || "[]");
+  };
+  exports.save = function(todos) {
+    localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
+  };
+});
+
 define("util.route", function(exports, require, module) {
   "use strict";
   var pages = {};
@@ -123,15 +126,16 @@ define("river.grammer.footer", function(exports, require, module) {
       element.style.display = "block";
     }
   }
-  function hidecomplete(element, num, all) {
+  function completnum(element, num) {
     var btn = element.querySelector("#clear-completed");
     if (num > 0) {
       btn.style.display = "block";
     } else {
       btn.style.display = "none";
     }
+  }
+  function activenum(element, len) {
     var todocont = element.querySelector("#todo-count");
-    var len = all - num || 0;
     if (len > 1) {
       todocont.innerHTML = "<strong>" + len + "</strong> items left";
     } else if (len === 1) {
@@ -142,12 +146,16 @@ define("river.grammer.footer", function(exports, require, module) {
   }
   function footer(str, scope, element) {
     show(element, scope.todos);
-    hidecomplete(element, scope.completednum, scope.todos.length);
+    completnum(element, scope.completednum, scope.todos.length);
+    activenum(element, scope.activenum);
     scope.onchange("todos", function(todos) {
       show(element, todos);
     });
     scope.onchange("completednum", function(value) {
-      hidecomplete(element, value, scope.todos.length);
+      completnum(element, value, scope.todos.length);
+    });
+    scope.onchange("activenum", function(value) {
+      activenum(element, value);
     });
     route.when("#/", function() {
       var btns = element.querySelectorAll("#filters a");

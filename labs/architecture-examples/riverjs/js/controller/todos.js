@@ -8,9 +8,12 @@ var model = require('model.local'),
 
 //caculate current active items number and completed number
 function calStatus() {
+    exports.activenum = 0;
     exports.completednum = 0;
     for (var i = 0, len = todos.length; i < len; i++) {
-        if (todos[i].status !== 'active') {
+        if (todos[i].status === 'active') {
+            exports.activenum++;
+        } else {
             exports.completednum++;
         }
     }
@@ -58,8 +61,6 @@ exports.update = function (todo, value) {
         save(todos);
     }
 };
-
-
 
 
 //toggle all todo items status
