@@ -329,8 +329,8 @@ define('river.core.model', function(exports,require,module) { //@sourceURL=../li
           }
           //ele.element.parent.innerHTML = ele.expression.replace(/{{.*}}/, value);
         });
+        pub(scope,key,value,last);
       }
-      pub(scope,key,value,last);
       last[key] = value;
     } else if (isArray(value)) {
       last[key] = oldvalue ? oldvalue : [];
@@ -449,7 +449,7 @@ define('river.core.model', function(exports,require,module) { //@sourceURL=../li
 
     each(this, function(val, index) {
       if(/__/.test(index)) return;
-      if (!tools.expect(last[index]).toEqual(val)) {
+      if (_eom[index] && !tools.expect(last[index]).toEqual(val)) {
         update.call(scope,val, index, _eom,last);
         //last[index] = tools.clone(val);
       }
