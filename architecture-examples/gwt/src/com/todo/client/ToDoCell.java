@@ -11,10 +11,14 @@ import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.todo.client.events.ToDoEvent;
+import com.todo.client.events.ToDoRemovedEvent;
+import com.todo.client.events.ToDoUpdatedEvent;
 
 /**
  * A cell that renders {@link ToDoItem} instances. This cell is rendered in both view and edit modes
@@ -69,8 +73,11 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 	 */
 	private boolean beginningEdit = false;
 
+	private EventBus eventBus;
+
 	public ToDoCell() {
 		super("click", "keyup", "blur", "dblclick");
+		eventBus = ToDoEvent.getGlobalEventBus();
 	}
 
 	@Override
@@ -81,8 +88,8 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 			sb.append(rendered);
 		} else {
 			SafeHtml rendered =
-					templates.view(value.isDone() ? templates.inputChecked() : templates.inputClear(),
-							SafeHtmlUtils.fromString(value.getTitle()), value.isDone() ? "listItem view completed"
+					templates.view(value.isCompleted() ? templates.inputChecked() : templates.inputClear(),
+							SafeHtmlUtils.fromString(value.getTitle()), value.isCompleted() ? "listItem view completed"
 									: "listItem view",
 							// NOTE: The addition of a timestamp here is a bit of a HACK! The problem
 							// is that the CellList uses a HasDataPresenter for rendering. This class
@@ -152,9 +159,10 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 				// check whether the checkbox was clicked
 				if (tagName.equals("INPUT")) {
 
-					// if so, synchronise the model state
+					// if so, synchronize the model state
 					InputElement input = clickedElement.cast();
-					value.setDone(input.isChecked());
+					value.setCompleted(input.isChecked());
+					eventBus.fireEvent(new ToDoUpdatedEvent(value));
 
 					// update the 'row' style
 					if (input.isChecked()) {
@@ -165,7 +173,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 
 				} else if (tagName.equals("BUTTON")) {
 					// if the delete anchor was clicked - delete the item
-					value.delete();
+					eventBus.fireEvent(new ToDoRemovedEvent(value));
 				}
 			}
 		}
@@ -178,6 +186,7 @@ public class ToDoCell extends AbstractCell<ToDoItem> {
 	private void commitEdit(Element parent, ToDoItem value) {
 		InputElement input = getInputElement(parent);
 		value.setTitle(input.getValue());
+		eventBus.fireEvent(new ToDoUpdatedEvent(value));
 	}
 
 	/**
