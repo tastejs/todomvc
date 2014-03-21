@@ -37,51 +37,17 @@ define("controller.todo", function(exports, require, module) {
     model.remove(todo);
     route.nav();
   };
-  exports.update = function(todo, title) {
-    title = title.trim();
-    if (!title) {
+  exports.update = function(todo) {
+    todo.title = todo.title.trim();
+    if (!todo.title) {
       exports.remove(todo);
     } else {
-      todo.title = title;
+      model.update(todo);
+      route.nav();
     }
-    model.update(todo);
   };
   exports.get = function() {
     return model.get();
-  };
-});
-
-define("util.route", function(exports, require, module) {
-  "use strict";
-  var scope, pages = {};
-  function route() {
-    var addr = location.hash;
-    if (pages[addr] && typeof pages[addr] === "function") {
-      pages[addr]();
-    } else if (pages.__defaults && typeof pages.__defaults === "function") {
-      pages.__defaults();
-    }
-  }
-  window.addEventListener("hashchange", function() {
-    route();
-    if (scope) {
-      scope.apply();
-    }
-  });
-  exports.nav = function() {
-    route();
-  };
-  exports.when = function(id, fn) {
-    pages[id] = fn;
-    return this;
-  };
-  exports.others = function(fn) {
-    pages.__defaults = fn;
-    return this;
-  };
-  exports.look = function(s) {
-    scope = s;
-    return this;
   };
 });
 
@@ -124,6 +90,40 @@ define("model.todo", function(exports, require, module) {
       }
     }
     save(todos);
+  };
+});
+
+define("util.route", function(exports, require, module) {
+  "use strict";
+  var scope, pages = {};
+  function route() {
+    var addr = location.hash;
+    if (pages[addr] && typeof pages[addr] === "function") {
+      pages[addr]();
+    } else if (pages.__defaults && typeof pages.__defaults === "function") {
+      pages.__defaults();
+    }
+  }
+  window.addEventListener("hashchange", function() {
+    route();
+    if (scope) {
+      scope.apply();
+    }
+  });
+  exports.nav = function() {
+    route();
+  };
+  exports.when = function(id, fn) {
+    pages[id] = fn;
+    return this;
+  };
+  exports.others = function(fn) {
+    pages.__defaults = fn;
+    return this;
+  };
+  exports.look = function(s) {
+    scope = s;
+    return this;
   };
 });
 
@@ -202,7 +202,42 @@ define("river.grammer.header", function(exports, require, module) {
   exports = module.exports = header;
 });
 
-define("river.grammer.item", function(exports, require, module) {});
+define("river.grammer.item", function(exports, require, module) {
+  "use strict";
+  function item(str, scope, element) {
+    var cbx = element.querySelector(".toggle"), edit = element.querySelector(".edit"), byEnter = false, byEsc = false;
+    cbx.onclick = function() {
+      scope.todo.completed = !scope.todo.completed;
+      scope.update(scope.todo);
+      scope.apply();
+    };
+    element.ondblclick = function() {
+      element.className = element.className + " editing";
+      edit.value = scope.todo.title;
+      edit.focus();
+    };
+    edit.onblur = function() {
+      element.className = element.className.replace(/\sediting/, "");
+      if (byEsc) {
+        return;
+      }
+      scope.todo.title = this.value;
+      scope.update(scope.todo);
+      scope.apply();
+    };
+    edit.onkeydown = function(event) {
+      byEnter = event.keyCode === 13;
+      byEsc = event.keyCode === 27;
+      if (byEnter || byEsc) {
+        element.className = element.className.replace(/\sediting/, "");
+      }
+    };
+    var isCompleted = scope.todo.completed;
+    element.className = isCompleted ? "completed" : "";
+    cbx.checked = isCompleted ? true : false;
+  }
+  exports = module.exports = item;
+});
 
 define("river.grammer.main", function(exports, require, module) {
   "use strict";

@@ -38,14 +38,14 @@ exports.remove = function (todo) {
     route.nav();
 };
 
-exports.update = function (todo, title) {
-    title = title.trim();
+exports.update = function (todo) {
+    todo.title = todo.title.trim();
     //if user input blank string,remove it.
-    if (!title) { exports.remove(todo); }
+    if (!todo.title) { exports.remove(todo); }
     else {
-        todo.title = title;
+        model.update(todo);
+        route.nav();
     }
-    model.update(todo);
 };
 
 exports.get = function () {
