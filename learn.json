@@ -2184,6 +2184,79 @@
 			}]
 		}]
 	},
+	"metajs-angular": {
+		"name": "MetaJS & AngularJS",
+		"description": "MetaJS is Lisp compiled to Javascript. Final code runs in browser or on NodeJs plaform without runtime dependencies. Lisp syntax allows to write less code to express same idea. To see the difference between MetaJS and Javascript approaches please use the links above to compare code of main Angular controller (TodoCtrl) written on plain Javascript and on MetaJS.",
+		"homepage": "metajs.coect.net",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "architecture-examples/angularjs"
+		}, {
+			"name": "Dependency Example",
+			"url": "labs/dependency-examples/angularjs_require"
+		}, {
+			"name": "AngularJS Optimized",
+			"url": "architecture-examples/angularjs-perf"
+		}, {
+			"name": "TypeScript & AngularJS",
+			"url": "labs/architecture-examples/typescript-angular"
+		}, {
+			"name": "MetaJS & AngularJS",
+			"url": "labs/architecture-examples/metajs-angular"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "AngularJS Tutorial",
+				"url": "http://docs.angularjs.org/tutorial"
+			}, {
+				"name": "AngularJS API Reference",
+				"url": "http://docs.angularjs.org/api"
+			}, {
+				"name": "AngularJS Developer Guide",
+				"url": "http://docs.angularjs.org/guide"
+			}, {
+				"name": "MetaJS tutorial",
+				"url": "http://metajs.coect.net/"
+			}, {
+				"name": "MetaJS overview",
+				"url": "http://www.coect.net/metajs/"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "Code School AngularJS course",
+				"url": "http://www.codeschool.com/code_tv/angularjs-part-1"
+			}, {
+				"name": "5 Awesome AngularJS Features",
+				"url": "http://net.tutsplus.com/tutorials/javascript-ajax/5-awesome-angularjs-features"
+			}, {
+				"name": "Using Yeoman with AngularJS",
+				"url": "http://briantford.com/blog/angular-yeoman.html"
+			}, {
+				"name": "me&ngular - an introduction to MVW",
+				"url": "http://stephenplusplus.github.io/meangular"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Walkthroughs and Tutorials on YouTube",
+				"url": "http://www.youtube.com/playlist?list=PL1w1q3fL4pmgqpzb-XhG7Clgi67d_OHXz"
+			}, {
+				"name": "Google Groups mailing list",
+				"url": "https://groups.google.com/forum/?fromgroups#!forum/angular"
+			}, {
+				"name": "angularjs on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/angularjs"
+			}, {
+				"name": "AngularJS on Twitter",
+				"url": "https://twitter.com/angularjs"
+			}, {
+				"name": "MetaJS on Twitter",
+				"url": "https://twitter.com/meta_js"
+			}]
+		}]
+	},
 	"templates": {
 		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" href=\"<%= example.url %>\">Demo</a>, <% } %> <a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\">Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>"
 	}
