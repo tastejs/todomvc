@@ -1,0 +1,7 @@
+{
+	"name": "todomvc-riverjs",
+	"dependencies": {
+    "riverjs": "~1.0.83",
+		"todomvc-common": "~0.1.4"
+	}
+}
