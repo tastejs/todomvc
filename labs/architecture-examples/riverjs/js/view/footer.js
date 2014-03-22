@@ -2,7 +2,7 @@
 
 var route = require('util.route');
 
-function label(filters, index) {
+function highlightNavigator(filters, index) {
     for (var i = 0, len = filters.length; i < len; i++) {
         if (i === index) {
             filters[i].className = 'selected';
@@ -12,14 +12,7 @@ function label(filters, index) {
     }
 }
 
-function todoCount(element, todos) {
-    var count = 0;
-    for (var i = 0, len = todos.length; i < len; i++) {
-        if (!todos[i].completed) {
-            count++;
-        }
-    }
-
+function todoCount(element, count) {
     if (count === 0) {
         element.innerHTML = '<strong>0</strong> items left';
     } else if (count === 1) {
@@ -29,14 +22,7 @@ function todoCount(element, todos) {
     }
 }
 
-function completeCount(element, todos) {
-    var count = 0;
-    for (var i = 0, len = todos.length; i < len; i++) {
-        if (todos[i].completed) {
-            count++;
-        }
-        
-    }
+function completeCount(element, count) {
     element.innerHTML = 'Clear completed (' + count + ')';
     if (count === 0) {
         element.style.display = 'none';
@@ -45,25 +31,40 @@ function completeCount(element, todos) {
     }
 }
 
+function hideFooter(element, scope) {
+    if (!scope.get().length) {
+        element.style.display = 'none';
+    } else {
+        element.style.display = 'block';
+    }
+}
+
 function footer(str, scope, element) {
+    var tc = element.querySelector('#todo-count');
+    var cc = element.querySelector('#clear-completed');
+    var navs = element.querySelectorAll('#filters li a');
+
+    todoCount(tc, scope.getTodoCount());
+    completeCount(cc, scope.getCompleteCount());
+    hideFooter(element, scope);
+
     route
     .when('#/active', function () {
-        label(element.querySelectorAll('#filters li a'), 1);
+        highlightNavigator(navs, 1);
     })
     .when('#/completed', function () {
-        label(element.querySelectorAll('#filters li a'), 2);
+        highlightNavigator(navs, 2);
     })
     .others(function () {
-        label(element.querySelectorAll('#filters li a'), 0);
+        highlightNavigator(navs, 0);
     });
     route.nav();
 
-    scope.onchange('todos', function () {
-        todoCount(element.querySelector('#todo-count'), scope.get());
-        completeCount(element.querySelector('#clear-completed'), scope.get());
+    scope.onchange(function () {
+        todoCount(tc, scope.getTodoCount());
+        completeCount(cc, scope.getCompleteCount());
+        hideFooter(element, scope);
     });
-    todoCount(element.querySelector('#todo-count'), scope.get());
-    completeCount(element.querySelector('#clear-completed'), scope.get());
 }
 
 exports = module.exports = footer;

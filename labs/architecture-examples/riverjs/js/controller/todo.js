@@ -51,3 +51,21 @@ exports.update = function (todo) {
 exports.get = function () {
     return model.get();
 };
+
+exports.getCompleteCount = function () {
+    return model.getCount(true);
+};
+
+exports.getTodoCount = function () {
+    return model.getCount(false);
+};
+
+exports.toggleAll = function () {
+    model.toggleAll();
+    route.nav();
+};
+
+exports.clearCompleted = function () {
+    model.clearCompleted();
+    route.nav();
+};

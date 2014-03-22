@@ -44,3 +44,37 @@ exports.update = function (todo) {
     }
     save(todos);
 };
+
+exports.getCount = function (completed) {
+    var todos = exports.get();
+    var count = 0;
+    for (var i = 0, len = todos.length; i < len; i++) {
+        if (todos[i].completed === completed) {
+            count++;
+        }
+    }
+    return count;
+};
+
+exports.toggleAll = function () {
+    var todos = exports.get();
+    var completedCount = exports.getCount(true);
+    for (var i = 0, len = todos.length; i < len; i++) {
+        if (todos.length === completedCount) {
+            todos[i].completed = false;
+        } else {
+            todos[i].completed = true;
+        }
+    }
+    save(todos);
+};
+
+
+exports.clearCompleted = function () {
+    var todos = exports.get().filter(function (d) {
+        if (!d.completed) {
+            return d;
+        }
+    });
+    save(todos);
+};

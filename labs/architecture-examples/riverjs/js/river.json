@@ -4,6 +4,6 @@
  "alias": {
   "river.grammer": "view"
  },
- "sourcemap": false,
- "minify": false
+ "sourcemap": true,
+ "minify": true
 }

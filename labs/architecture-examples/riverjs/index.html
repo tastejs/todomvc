@@ -17,7 +17,7 @@
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
 			<section id="main" main>
-				<input id="toggle-all" type="checkbox" jclick="toggleall">
+				<input id="toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
 					<!-- These are here just to show the structure of the list items -->
@@ -49,7 +49,7 @@
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
-        <button id="clear-completed" jclick="removeCompleted">Clear completed ({{ completednum }})</button>
+        <button id="clear-completed" jclick="clearCompleted"></button>
 			</footer>
 		</section>
 		<footer id="info">
