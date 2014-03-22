@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONObject;
@@ -15,12 +16,18 @@ import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.History;
 import com.google.gwt.view.client.AbstractDataProvider;
 import com.google.gwt.view.client.ListDataProvider;
+import com.todo.client.ToDoItem;
+import com.todo.client.ToDoRouting;
+import com.todo.client.events.ToDoEvent;
+import com.todo.client.events.ToDoRemovedEvent;
+import com.todo.client.events.ToDoUpdatedEvent;
 
 /**
  * The presenter for the ToDo application. This class is responsible for the lifecycle of the
  * {@link ToDoItem} instances.
  *
  * @author ceberhardt
+ * @author dprotti
  *
  */
 public class ToDoPresenter {
@@ -111,7 +118,7 @@ public class ToDoPresenter {
 	
 	private ToDoRouting routing = ToDoRouting.ALL;
 	
-	private boolean suppressStateChanged = false;
+	private EventBus eventBus;
 
 	public ToDoPresenter(View view) {
 		this.view = view;
@@ -127,6 +134,25 @@ public class ToDoPresenter {
 		
 		updateTaskStatistics();
 		setupHistoryHandler();
+		eventBus = ToDoEvent.getGlobalEventBus();
+		// listen to edits on individual items
+		eventBus.addHandler(ToDoUpdatedEvent.TYPE, new ToDoUpdatedEvent.Handler() {
+
+			@Override
+			public void onEvent(ToDoUpdatedEvent event) {
+				itemStateChanged(event.getToDo());
+			}
+
+		});
+		// listen to removals
+		eventBus.addHandler(ToDoRemovedEvent.TYPE, new ToDoRemovedEvent.Handler() {
+
+			@Override
+			public void onEvent(ToDoRemovedEvent event) {
+				deleteTask(event.getToDo());
+			}
+
+		});
 	}
 
 	/**
@@ -176,7 +202,7 @@ public class ToDoPresenter {
 
 		int completeTask = 0;
 		for (ToDoItem task : todos) {
-			if (task.isDone()) {
+			if (task.isCompleted()) {
 				completeTask++;
 			}
 		}
@@ -197,12 +223,7 @@ public class ToDoPresenter {
 	 */
 	protected void itemStateChanged(ToDoItem toDoItem) {
 
-		if (suppressStateChanged) {
-			return;
-		}
-
-		boolean notify = false;
-		toDoItem.setTitle(toDoItem.getTitle().trim(), notify);
+		toDoItem.setTitle(toDoItem.getTitle().trim());
 
 		if (toDoItem.getTitle().isEmpty()) {
 			todos.remove(toDoItem);
@@ -225,12 +246,9 @@ public class ToDoPresenter {
 	 */
 	private void markAllCompleted(boolean completed) {
 
-		// update the completed state of each item
-		suppressStateChanged = true;
 		for (ToDoItem task : todos) {
-			task.setDone(completed);
+			task.setCompleted(completed);
 		}
-		suppressStateChanged = false;
 
 		taskStateChanged();
 	}
@@ -245,7 +263,7 @@ public class ToDoPresenter {
 		if (taskTitle.equals(""))
 			return;
 
-		ToDoItem toDoItem = new ToDoItem(taskTitle, this);
+		ToDoItem toDoItem = new ToDoItem(taskTitle);
 		view.clearTaskText();
 		todos.add(toDoItem);
 		
@@ -259,7 +277,7 @@ public class ToDoPresenter {
 		Iterator<ToDoItem> iterator = todos.iterator();
 		while (iterator.hasNext()) {
 			ToDoItem item = iterator.next();
-			if (item.isDone()) {
+			if (item.isCompleted()) {
 				iterator.remove();
 			}
 		}
@@ -280,7 +298,7 @@ public class ToDoPresenter {
 				ToDoItem toDoItem = todos.get(i);
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("task", new JSONString(toDoItem.getTitle()));
-				jsonObject.put("complete", JSONBoolean.getInstance(toDoItem.isDone()));
+				jsonObject.put("complete", JSONBoolean.getInstance(toDoItem.isCompleted()));
 				todoItems.set(i, jsonObject);
 			}
 
@@ -304,7 +322,7 @@ public class ToDoPresenter {
 					String task = jsonObject.get("task").isString().stringValue();
 					boolean completed = jsonObject.get("complete").isBoolean().booleanValue();
 					// add a new item to our list
-					todos.add(new ToDoItem(task, completed, this));
+					todos.add(new ToDoItem(task, completed));
 				}
 			} catch (Exception e) {
 

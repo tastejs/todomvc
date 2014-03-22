@@ -4,39 +4,30 @@ package com.todo.client;
  * An individual ToDo item.
  *
  * @author ceberhardt
+ * @author dprotti
  *
  */
 public class ToDoItem {
 
-	private final ToDoPresenter presenter;
-
 	private String title;
 
-	private boolean done;
+	private boolean completed;
 
-	public ToDoItem(String text, ToDoPresenter presenter) {
-		this.title = text;
-		this.done = false;
-		this.presenter = presenter;
+	public ToDoItem(String title) {
+		this(title, false);
 	}
 
-	public ToDoItem(String title, boolean done, ToDoPresenter presenter) {
+	public ToDoItem(String title, boolean completed) {
 		this.title = title;
-		this.done = done;
-		this.presenter = presenter;
+		this.completed = completed;
 	}
 
-	public boolean isDone() {
-		return done;
+	public boolean isCompleted() {
+		return completed;
 	}
 
-	public void setDone(boolean done) {
-		this.done = done;
-		presenter.itemStateChanged(this);
-	}
-
-	public void delete() {
-		presenter.deleteTask(this);
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
 
 	public String getTitle() {
@@ -44,13 +35,7 @@ public class ToDoItem {
 	}
 
 	public void setTitle(String title) {
-		setTitle(title, true);
+		this.title = title;
 	}
 
-	public void setTitle(String title, boolean notify) {
-		this.title = title;
-		if (notify) {
-			presenter.itemStateChanged(this);
-		}
-	}
 }

@@ -40,7 +40,7 @@ public enum ToDoRouting {
 	private static class MatchActive implements Matcher {
 		@Override
 		public boolean matches(ToDoItem item) {
-			return !item.isDone();
+			return !item.isCompleted();
 		}
 	}
 
@@ -50,7 +50,7 @@ public enum ToDoRouting {
 	private static class MatchCompleted implements Matcher {
 		@Override
 		public boolean matches(ToDoItem item) {
-			return item.isDone();
+			return item.isCompleted();
 		}
 	}
 
