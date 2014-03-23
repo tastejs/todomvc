@@ -4,7 +4,19 @@
 
 	'use strict';
 
-	exports.app = new Vue({
+	var filters = {
+		all: function () {
+			return true;
+		},
+		active: function (todo) {
+			return !todo.completed;
+		},
+		completed: function (todo) {
+			return todo.completed;
+		}
+	};
+
+	var app = exports.app = new Vue({
 
 		// the root element that will be compiled
 		el: '#todoapp',
@@ -13,7 +25,15 @@
 		data: {
 			todos: todoStorage.fetch(),
 			newTodo: '',
-			editedTodo: null
+			editedTodo: null,
+			filter: 'all'
+		},
+
+		// ready hook, watch todos change for data persistence
+		ready: function () {
+			this.$watch('todos', function (todos) {
+				todoStorage.save(todos);
+			});
 		},
 
 		// a custom directive to wait for the DOM to be updated
@@ -31,35 +51,17 @@
 			}
 		},
 
-		// the `created` lifecycle hook.
-		// this is where we do the initialization work.
-		// http://vuejs.org/api/instantiation-options.html#created
-		created: function () {
-			// setup filters
-			this.filters = {
-				all: function (todo) {
-					// collect dependency.
-					// http://vuejs.org/guide/computed.html#Dependency_Collection_Gotcha
-					/* jshint expr:true */
-					todo.completed;
-					return true;
-				},
-				active: function (todo) {
-					return !todo.completed;
-				},
-				completed: function (todo) {
-					return todo.completed;
-				}
-			};
-			// default filter
-			this.setFilter('all');
+		filters: {
+			filterTodos: function (todos) {
+				return todos.filter(filters[this.filter]);
+			}
 		},
 
 		// computed property
 		// http://vuejs.org/guide/computed.html
 		computed: {
 			remaining: function () {
-				return this.todos.filter(this.filters.active).length;
+				return this.todos.filter(filters.active).length;
 			},
 			allDone: {
 				$get: function () {
@@ -69,7 +71,6 @@
 					this.todos.forEach(function (todo) {
 						todo.completed = value;
 					});
-					todoStorage.save();
 				}
 			}
 		},
@@ -78,11 +79,6 @@
 		// note there's no DOM manipulation here at all.
 		methods: {
 
-			setFilter: function (filter) {
-				this.filter = filter;
-				this.filterTodo = this.filters[filter];
-			},
-
 			addTodo: function () {
 				var value = this.newTodo && this.newTodo.trim();
 				if (!value) {
@@ -90,16 +86,10 @@
 				}
 				this.todos.push({ title: value, completed: false });
 				this.newTodo = '';
-				todoStorage.save();
 			},
 
 			removeTodo: function (todo) {
-				this.todos.remove(todo.$data);
-				todoStorage.save();
-			},
-
-			toggleTodo: function () {
-				todoStorage.save();
+				this.todos.$remove(todo.$data);
 			},
 
 			editTodo: function (todo) {
@@ -116,7 +106,6 @@
 				if (!todo.title) {
 					this.removeTodo(todo);
 				}
-				todoStorage.save();
 			},
 
 			cancelEdit: function (todo) {
@@ -125,12 +114,11 @@
 			},
 			
 			removeCompleted: function () {
-				this.todos.remove(function (todo) {
-					return todo.completed;
-				});
-				todoStorage.save();
+				this.todos = this.todos.filter(filters.active);
 			}
 		}
 	});
+
+	app.filters = filters;
 
 })(window);
