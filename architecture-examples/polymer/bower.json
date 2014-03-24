@@ -3,8 +3,8 @@
 	"version": "0.0.0",
 	"dependencies": {
 		"todomvc-common": "~0.1.4",
-        "polymer-selector": "Polymer/polymer-selector",
-        "flatiron-director": "Polymer/flatiron-director",
-        "polymer-localstorage": "Polymer/polymer-localstorage"
+		"polymer-selector": "Polymer/polymer-selector",
+		"flatiron-director": "Polymer/flatiron-director",
+		"polymer-localstorage": "Polymer/polymer-localstorage"
 	}
 }

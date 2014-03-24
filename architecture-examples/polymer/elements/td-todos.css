@@ -247,11 +247,11 @@ label[for='toggle-all'] {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	#toggle-all {
 		background: none;
-    /* 
-      ShadowDOM Polyfill work around for webkit/blink bug 
-      https://code.google.com/p/chromium/issues/detail?id=251510
-    */
-    background-color: transparent;
+	    /* 
+	      ShadowDOM Polyfill work around for webkit/blink bug 
+	      https://code.google.com/p/chromium/issues/detail?id=251510
+	    */
+	    background-color: transparent;
 	}
 
 	#toggle-all {

@@ -49,7 +49,9 @@
 					this.model = document.querySelector('#' + this.modelId);
 				},
 				routeChanged: function() {
-					this.model && (this.model.filter = this.route);
+					if (this.model) {
+						this.model.filter = this.route;
+					}
 				},
 				addTodoAction: function() {
 					this.model.newItem(this.$['new-todo'].value);

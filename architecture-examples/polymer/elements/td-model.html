@@ -28,7 +28,9 @@
 			},
 			storageIdChanged: function() {
 				this.storage = document.querySelector('#' + this.storageId);
-				this.storage && (this.items = this.storage.value);
+				if (this.storage) {
+					this.items = this.storage.value;
+				}
 			},
 			filterItems: function() {
 				var fn = this.filters[this.filter];
@@ -52,7 +54,7 @@
 				}
 				this.itemsChanged();
 			},
-			clearItems: function(){
+			clearItems: function (){
 				this.items = this.items.filter(this.filters.active);
 			},
 			setItemsCompleted: function(completed) {
