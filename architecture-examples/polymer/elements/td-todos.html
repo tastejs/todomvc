@@ -63,7 +63,9 @@
 					this.$['new-todo'].value = '';
 				},
 				itemChangedAction: function() {
-					this.model && this.model.itemsChanged();
+					if (this.model) {
+						this.model.itemsChanged();
+					}
 				},
 				destroyItemAction: function(e, detail) {
 					this.model.destroyItem(detail);
