@@ -10,9 +10,9 @@ The [Polymer website](http://www.polymer-project.org) is a great resource for ge
 
 Here are some links you may find helpful:
 
-* [Getting Started](http://www.polymer-project.org/getting-started.html)
-* [FAQ](http://www.polymer-project.org/faq.html)
-* [Browser Compatibility](http://www.polymer-project.org/compatibility.html)
+* [Getting Started](http://www.polymer-project.org/docs/start/everything.html)
+* [FAQ](http://www.polymer-project.org/resources/faq.html)
+* [Browser Compatibility](http://www.polymer-project.org/resources/compatibility.html)
 
 Get help from Polymer devs and users:
 
@@ -23,13 +23,13 @@ Get help from Polymer devs and users:
 
 The Polymer implementation of TodoMVC has a few key differences with other implementations:
 
-* Since [Web Components](https://dvcs.w3.org/hg/webcomponents/raw-file/tip/explainer/index.html) allow you to create new types of DOM elements, the DOM tree is very different from other implementations.
+* Since [Web Components](http://w3c.github.io/webcomponents/explainer/) allow you to create new types of DOM elements, the DOM tree is very different from other implementations.
 * The template, styling, and behavior are fully encapsulated in each custom element. Instead of having an overall stylesheet (`base.css` or `app.css`), each element that needs styling has its own stylesheet.
 * Non-visual elements such as the router and the model are also implemented as custom elements and appear in the DOM. Implementing them as custom elements instead of plain objects allows you to take advantage of Polymer data binding and event handling throughout the app.
 
 ## Compatibility
 
-Polymer and its polyfills are intended to work in the latest version of [evergreen browsers](http://tomdale.net/2013/05/evergreen-browsers/). IE9 is not supported. Please refer to [Browser Compatibility](http://www.polymer-project.org/compatibility.html) for more details.
+Polymer and its polyfills are intended to work in the latest version of [evergreen browsers](http://tomdale.net/2013/05/evergreen-browsers/). IE9 is not supported. Please refer to [Browser Compatibility](http://www.polymer-project.org/resources/compatibility.html) for more details.
 
 ## Running this sample
 

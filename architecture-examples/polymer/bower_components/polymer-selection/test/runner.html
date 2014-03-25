@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+  <head>
+    <title>polymer-selection Test Runner (Mocha)</title>
+    <meta charset="UTF-8">
+    <!-- -->
+    <link rel="stylesheet" href="../../tools/test/mocha/mocha.css" />
+    <script src="../../tools/test/mocha/mocha.js"></script>
+    <script src="../../tools/test/chai/chai.js"></script>
+    <script src="../../tools/test/mocha-htmltest.js"></script>
+    <!-- -->
+    <script src="../../platform/platform.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+      mocha.setup({ui: 'tdd', slow: 1000, htmlbase: ''});
+    </script>
+    <!-- -->
+    <script src="js/polymer-selection.js"></script>
+    <!-- -->
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>

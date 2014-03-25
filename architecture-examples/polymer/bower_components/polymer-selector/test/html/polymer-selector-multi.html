@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <title>polymer-selector-multi</title>
+  <script src="../../../platform/platform.js"></script>
+  <script src="../../../tools/test/htmltest.js"></script>
+  <script src="../../../tools/test/chai/chai.js"></script>
+  <link rel="import" href="../../polymer-selector.html">
+  <style>
+    .polymer-selected {
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <polymer-selector id="selector" multi>
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+    <div>Item 4</div>
+    <div>Item 5</div>
+  </polymer-selector>
+  
+  <script>
+    var assert = chai.assert;
+    
+    function oneMutation(node, options, cb) {
+      var o = new MutationObserver(function() {
+        cb();
+        o.disconnect();
+      });
+      o.observe(node, options);
+    }
+    
+    document.addEventListener('polymer-ready', function() {
+      //
+      var s = document.querySelector('#selector');
+      assert.equal(s.selected, null);
+      assert.equal(s.selectedClass, 'polymer-selected');
+      assert.isTrue(s.multi);
+      assert.equal(s.valueattr, 'name');
+      assert.equal(s.items.length, 5);
+      // setup listener for polymer-select event
+      var selectEventCounter = 0;
+      s.addEventListener('polymer-select', function(e) {
+        if (e.detail.isSelected) {
+          selectEventCounter++;
+        } else {
+          selectEventCounter--;
+        }
+        // check selectedItem in polymer-select event
+        assert.equal(this.selectedItem.length, selectEventCounter);
+      });
+      // set selected
+      s.selected = [0, 2];
+      Platform.flush();
+      oneMutation(s, {attributes: true}, function() {
+        // check polymer-select event
+        assert.equal(selectEventCounter, 2);
+        // check selected class
+        assert.isTrue(s.children[0].classList.contains('polymer-selected'));
+        assert.isTrue(s.children[2].classList.contains('polymer-selected'));
+        // check selectedItem
+        assert.equal(s.selectedItem.length, 2);
+        assert.equal(s.selectedItem[0], s.children[0]);
+        assert.equal(s.selectedItem[1], s.children[2]);
+        // tap on already selected element should unselect it
+        s.children[0].dispatchEvent(new CustomEvent('tap', {bubbles: true}));
+        // check selected
+        assert.equal(s.selected.length, 1);
+        assert.isFalse(s.children[0].classList.contains('polymer-selected'));
+        done();
+      });
+    });
+  </script>
+</body>
+</html>

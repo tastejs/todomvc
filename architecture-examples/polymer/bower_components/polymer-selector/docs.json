@@ -1,0 +1,224 @@
+{
+    "project": {
+        "name": "Docs",
+        "description": "Docs"
+    },
+    "files": {
+        "../../polymer-selector/polymer-selector.html": {
+            "name": "../../polymer-selector/polymer-selector.html",
+            "modules": {
+                "Polymer Elements": 1
+            },
+            "classes": {
+                "polymer-selector": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Polymer Elements": {
+            "name": "Polymer Elements",
+            "submodules": {},
+            "classes": {
+                "polymer-selector": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 10
+        }
+    },
+    "classes": {
+        "polymer-selector": {
+            "name": "polymer-selector",
+            "shortname": "polymer-selector",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Polymer Elements",
+            "namespace": "",
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 10,
+            "description": "polymer-selector is used to manage a list of elements that can be selected.\nThe attribute \"selected\" indicates which item element is being selected.\nThe attribute \"multi\" indicates if multiple items can be selected at once.\nTapping on the item element would fire \"polymer-activate\" event. Use\n\"polymer-select\" event to listen for selection changes.\n\nExample:\n\n    <polymer-selector selected=\"0\">\n      <div>Item 1</div>\n      <div>Item 2</div>\n      <div>Item 3</div>\n    </polymer-selector>\n\npolymer-selector is not styled.  So one needs to use \"polymer-selected\" CSS\nclass to style the selected element.\n\n    <style>\n      .item.polymer-selected {\n        background: #eee;\n      }\n    </style>\n    ...\n    <polymer-selector>\n      <div class=\"item\">Item 1</div>\n      <div class=\"item\">Item 2</div>\n      <div class=\"item\">Item 3</div>\n    </polymer-selector>"
+        }
+    },
+    "classitems": [
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 42,
+            "description": "Fired when an item's selection state is changed. This event is fired both\nwhen an item is selected or deselected. The `isSelected` detail property\ncontains the selection state.",
+            "itemtype": "event",
+            "name": "polymer-select",
+            "params": [
+                {
+                    "name": "detail",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "isSelected",
+                            "description": "true for selection and false for deselection",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "item",
+                            "description": "the item element",
+                            "type": "Object"
+                        }
+                    ]
+                }
+            ],
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 52,
+            "description": "Fired when an item element is tapped.",
+            "itemtype": "event",
+            "name": "polymer-activate",
+            "params": [
+                {
+                    "name": "detail",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "item",
+                            "description": "the item element",
+                            "type": "Object"
+                        }
+                    ]
+                }
+            ],
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 71,
+            "description": "Gets or sets the selected element.  Default to use the index\nof the item element.\n\nIf you want a specific attribute value of the element to be\nused instead of index, set \"valueattr\" to that attribute name.\n\nExample:\n\n    <polymer-selector valueattr=\"label\" selected=\"foo\">\n      <div label=\"foo\"></div>\n      <div label=\"bar\"></div>\n      <div label=\"zot\"></div>\n    </polymer-selector>\n\nIn multi-selection this should be an array of values.\n\nExample:\n\n    <polymer-selector id=\"selector\" valueattr=\"label\" multi>\n      <div label=\"foo\"></div>\n      <div label=\"bar\"></div>\n      <div label=\"zot\"></div>\n    </polymer-selector>\n\n    this.$.selector.selected = ['foo', 'zot'];",
+            "itemtype": "attribute",
+            "name": "selected",
+            "type": "Object",
+            "default": "null",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 103,
+            "description": "If true, multiple selections are allowed.",
+            "itemtype": "attribute",
+            "name": "multi",
+            "type": "boolean",
+            "default": "false",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 111,
+            "description": "Specifies the attribute to be used for \"selected\" attribute.",
+            "itemtype": "attribute",
+            "name": "valueattr",
+            "type": "string",
+            "default": "'name'",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 119,
+            "description": "Specifies the CSS class to be used to add to the selected element.",
+            "itemtype": "attribute",
+            "name": "selectedClass",
+            "type": "string",
+            "default": "'polymer-selected'",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 127,
+            "description": "Specifies the property to be used to set on the selected element\nto indicate its active state.",
+            "itemtype": "attribute",
+            "name": "selectedProperty",
+            "type": "string",
+            "default": "'active'",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 136,
+            "description": "Returns the currently selected element. In multi-selection this returns\nan array of selected elements.",
+            "itemtype": "attribute",
+            "name": "selectedItem",
+            "type": "Object",
+            "default": "null",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 145,
+            "description": "In single selection, this returns the model associated with the\nselected element.",
+            "itemtype": "attribute",
+            "name": "selectedModel",
+            "type": "Object",
+            "default": "null",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 154,
+            "description": "In single selection, this returns the selected index.",
+            "itemtype": "attribute",
+            "name": "selectedIndex",
+            "type": "number",
+            "default": "-1",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 162,
+            "description": "The target element that contains items.  If this is not set \npolymer-selector is the container.",
+            "itemtype": "attribute",
+            "name": "target",
+            "type": "Object",
+            "default": "null",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 171,
+            "description": "This can be used to query nodes from the target node to be used for \nselection items.  Note this only works if the 'target' property is set.\n\nExample:\n\n    <polymer-selector target=\"{{$.myForm}}\" itemsSelector=\"input[type=radio]\"></polymer-selector>\n    <form id=\"myForm\">\n      <label><input type=\"radio\" name=\"color\" value=\"red\"> Red</label> <br>\n      <label><input type=\"radio\" name=\"color\" value=\"green\"> Green</label> <br>\n      <label><input type=\"radio\" name=\"color\" value=\"blue\"> Blue</label> <br>\n      <p>color = {{color}}</p>\n    </form>",
+            "itemtype": "attribute",
+            "name": "itemSelector",
+            "type": "string",
+            "default": "''",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        },
+        {
+            "file": "../../polymer-selector/polymer-selector.html",
+            "line": 190,
+            "description": "The event that would be fired from the item element to indicate\nit is being selected.",
+            "itemtype": "attribute",
+            "name": "activateEvent",
+            "type": "string",
+            "default": "'tap'",
+            "class": "polymer-selector",
+            "module": "Polymer Elements"
+        }
+    ],
+    "warnings": []
+}

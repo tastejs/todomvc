@@ -1,5 +1,7 @@
-<link rel="import" href="../lib-elements/polymer-selector.html">
-<link rel="import" href="../lib-elements/flatiron-director.html">
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-selector/polymer-selector.html">
+<link rel="import" href="../bower_components/flatiron-director/flatiron-director.html">
 <link rel="import" href="td-input.html">
 <link rel="import" href="td-item.html">
 
@@ -9,12 +11,12 @@
 		<flatiron-director route="{{route}}"></flatiron-director>
 		<section id="todoapp">
 			<header id="header">
-				<input is="td-input" id="new-todo" placeholder="What needs to be done?" autofocus on-td-input-commit="addTodoAction" on-td-input-cancel="cancelAddTodoAction">
+				<input is="td-input" id="new-todo" placeholder="What needs to be done?" autofocus on-td-input-commit="{{addTodoAction}}" on-td-input-cancel="{{cancelAddTodoAction}}">
 			</header>
 			<section id="main" hidden?="{{model.items.length == 0}}">
-				<input id="toggle-all" type="checkbox" on-change="toggleAllCompletedAction" checked="{{model.allCompleted}}">
+				<input id="toggle-all" type="checkbox" on-change="{{toggleAllCompletedAction}}" checked="{{model.allCompleted}}">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list" on-td-item-changed="itemChangedAction" on-td-destroy-item="destroyItemAction">
+				<ul id="todo-list" on-td-item-changed="{{itemChangedAction}}" on-td-destroy-item="{{destroyItemAction}}">
 					<template repeat="{{model.filtered}}">
 						<li is="td-item" item="{{}}"></li>
 					</template>
@@ -33,45 +35,41 @@
 						<a href="../#/completed">Completed</a>
 					</li>
 				</polymer-selector>
-				<button hidden?="{{model.completedCount == 0}}" id="clear-completed" on-click="clearCompletedAction">Clear completed ({{model.completedCount}})</button>
+				<button hidden?="{{model.completedCount == 0}}" id="clear-completed" on-click="{{clearCompletedAction}}">Clear completed ({{model.completedCount}})</button>
 			</footer>
 		</section>
 	</template>
 
 	<script>
-		(function () {
+		(function() {
 			var ENTER_KEY = 13;
 			var ESC_KEY = 27;
 			Polymer('td-todos', {
-				modelIdChanged: function () {
+				modelIdChanged: function() {
 					this.model = document.querySelector('#' + this.modelId);
 				},
-				routeChanged: function () {
-					if (this.model) {
-						this.model.filter = this.route;
-					}
+				routeChanged: function() {
+					this.model && (this.model.filter = this.route);
 				},
-				addTodoAction: function () {
+				addTodoAction: function() {
 					this.model.newItem(this.$['new-todo'].value);
 					// when polyfilling Object.observe, make sure we update immediately
 					Platform.flush();
 					this.$['new-todo'].value = '';
 				},
-				cancelAddTodoAction: function () {
+				cancelAddTodoAction: function() {
 					this.$['new-todo'].value = '';
 				},
-				itemChangedAction: function () {
-					if (this.model) {
-						this.model.itemsChanged();
-					}
+				itemChangedAction: function() {
+					this.model && this.model.itemsChanged();
 				},
-				destroyItemAction: function (e, detail) {
+				destroyItemAction: function(e, detail) {
 					this.model.destroyItem(detail);
 				},
-				toggleAllCompletedAction: function (e, detail, sender) {
+				toggleAllCompletedAction: function(e, detail, sender) {
 					this.model.setItemsCompleted(sender.checked);
 				},
-				clearCompletedAction: function () {
+				clearCompletedAction: function() {
 					this.model.clearItems();
 				}
 			});

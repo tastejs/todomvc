@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>polymer-localstorage</title>
+  <script src="../platform/platform.js"></script>
+  <link rel="import" href="polymer-localstorage.html">
+  <link rel="import" href="../polymer-ui-toggle-button/polymer-ui-toggle-button.html">
+</head>
+<body>
+  <polymer-element name="x-test1">
+    <template>
+      string entered below will be stored in localStorage and automatically retrived from localStorage when the page is reloaded<br>
+      <input value="{{value}}">
+      <polymer-localstorage name="polymer-localstorage-x-test1" value="{{value}}"></polymer-localstorage>
+    </template>
+    <script>
+      Polymer('x-test1');
+    </script>
+  </polymer-element>
+  
+  <x-test1></x-test1>
+  <br><br>
+  
+  <polymer-element name="x-test2">
+    <template>
+      <polymer-ui-toggle-button value="{{mode}}"></polymer-ui-toggle-button>
+      <polymer-localstorage name="polymer-localstorage-x-test2" value="{{mode}}"></polymer-localstorage>
+    </template>
+    <script>
+      Polymer('x-test2', {
+        mode: false
+      });
+    </script>
+  </polymer-element>
+  
+  <x-test2></x-test2>
+</body>
+</html>
