@@ -1,5 +1,5 @@
 /* base.css overrides */
-@host {
+:host {
 	.editing {
 		border-bottom: none;
 		padding: 0;
@@ -147,11 +147,11 @@ label {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.toggle {
 		background: none;
-	/*
-	  ShadowDOM Polyfill work around for webkit/blink bug
-	  https://code.google.com/p/chromium/issues/detail?id=251510
-	*/
-	background-color: transparent;
+	    /* 
+	      ShadowDOM Polyfill work around for webkit/blink bug 
+	      https://code.google.com/p/chromium/issues/detail?id=251510
+	    */
+	    background-color: transparent;
 	}
 
 	.toggle {
