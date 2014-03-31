@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>MooVeeStar • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<section id="todoapp" data-bind="completed" data-bind-completed="data-completed">
+
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+
+			<section id="main">
+				<input id="toggle-all" type="checkbox" data-action="toggle-all">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list"></ul>
+			</section>
+
+			<footer id="footer">
+				<span id="todo-count"><strong data-bind="active"></strong> <span data-bind="active-label">items left</span></span>
+				<ul id="filters">
+					<li><a class="selected" href="#/">All</a></li>
+					<li><a href="#/active">Active</a></li>
+					<li><a href="#/completed">Completed</a></li>
+				</ul>
+				<button id="clear-completed" data-action="clear-completed">Clear completed (<span data-bind="completed"></span>)</button>
+			</footer>
+
+		</section>
+
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://regisgaughan.com/">Regis Gaughan, III</a></p>
+			<p>Powered by <a href="http://rgthree.github.io/mooveestar/">MooVeeStar for MooTools</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<template id="todo">
+			<li data-bind="id:data-id completed:data-completed">
+				<div class="view">
+					<input class="toggle" type="checkbox" data-bind="completed:checked" data-action="toggle-completed">
+					<label data-bind="title"></label>
+					<button class="destroy" data-action="delete"></button>
+				</div>
+				<input class="edit" data-bind="title">
+			</li>
+		</template>
+
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="js/lib/mootools-1.4.5.js"></script>
+		<script src="bower_components/mooveestar/mooveestar-min.js"></script>
+		<script src="js/views/AppView.js"></script>
+		<script src="js/views/TodoView.js"></script>
+		<script src="js/models/AppViewModel.js"></script>
+		<script src="js/models/TodoModel.js"></script>
+		<script src="js/collections/Todos.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
