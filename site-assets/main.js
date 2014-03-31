@@ -2,6 +2,13 @@
 (function () {
 	'use strict';
 
+	var date = new Date();
+	if (date.getDate() === 1 && date.getMonth() === 3) {
+		['', '-webkit-', '-moz-'].forEach(function (prefix) {
+			document.body.style[prefix + 'filter'] = 'blur(1px)';
+		});
+	}
+
 	$.fn.persistantPopover = function () {
 		var popoverTimeout;
 
