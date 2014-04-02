@@ -171,4 +171,4 @@ Very briefly, the tests are designed as follows:
  + `test.js` - Erm … the tests! These are written to closely match the TodoMVC spec.
  + `allTest.js` - A simple file that locates all of the framework examples, and runs the tests for each.
 
-**NOTE:** All of the WebdriverJS methods return promises and are executed asynchronously. However, you do not have to 'chain' then using `then`, they are instead automagically added to a queue, then executed. This means that if you add non-WebdriverJS operations (asserts, log messages) these will not be executed at the point you might expect. This is why `TestOperations.js` uses an explicit `then` each time it asserts.
+**NOTE:** All of the WebdriverJS methods return promises and are executed asynchronously. However, you do not have to 'chain' them using `then`, they are instead automagically added to a queue, then executed. This means that if you add non-WebdriverJS operations (asserts, log messages) these will not be executed at the point you might expect. This is why `TestOperations.js` uses an explicit `then` each time it asserts.
