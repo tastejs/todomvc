@@ -1,0 +1,41 @@
+require 'bundler'
+Bundler.require
+
+require 'opal/rspec/rake_task'
+Opal::RSpec::RakeTask.new(:default) do |s|
+  s.append_path 'js'
+  s.append_path 'css'
+end
+
+PATHS = [
+  'index.html',
+  'assets/application.js',
+  'assets/base.css',
+  'assets/base.js',
+  'assets/bg.png',
+]
+
+task :build do
+  require 'rack/test'
+
+  def self.app
+    @app ||= Rack::Builder.parse_file('config.ru').first
+  end
+
+  extend Rack::Test::Methods
+
+  PATHS.each do |path|
+    target_path = "../#{path}"
+    FileUtils.mkdir_p File.dirname(target_path)
+    puts "Downloading #{path}..."
+    File.open(target_path, 'w') { |f| f << get(path).body }
+    # system "curl localhost:9292/#{path} > #{target_path}"
+  end
+end
+
+task :clobber do
+  PATHS.each do |path|
+    puts "Deleting #{path}..."
+    FileUtils.rm "../#{path}"
+  end
+end

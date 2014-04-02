@@ -1,0 +1,16 @@
+%span#todo-count
+  %strong= @active_count
+  = @active_count == 1 ? 'item' : 'items'
+  left
+
+%ul#filters
+  %li
+    %a(href="#/") All
+  %li
+    %a(href="#/active") Active
+  %li
+    %a(href="#/completed") Completed
+
+- if show_completed?
+  %button#clear-completed
+    Clear completed (#{@completed_count})
