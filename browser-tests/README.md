@@ -32,13 +32,13 @@ To run the tests for all TodoMVC implementations, run the following:
 
 	mocha allTests.js  --reporter spec
 
-Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reported.
+Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reporter.
 
 In order to run tests for a single TodoMVC implementation, supply a framework argument as follows:
 
 	mocha allTests.js  --reporter spec --framework=angularjs
 
-In order to run a specific test, using the mocha 'grep' function. For example:
+In order to run a specific test, use the mocha 'grep' function. For example:
 
 	$ mocha allTests.js --reporter spec --framework=jquery \
 		--grep 'should trim entered text'
@@ -63,7 +63,7 @@ Valid browser names can be found within webdriver via the `webdriver.Browser` en
 
 ##Reporting against known issues
 
-The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these  issues using the `mocha-known-issues-reporter`. This reported is a separate npm module, as a result the easier way to run it using the supplied gruntfile:
+The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these  issues using the `mocha-known-issues-reporter`. This reporter is a separate npm module, as a result the easier way to run it using the supplied gruntfile:
 
 	grunt test --framework=angularjs
 
@@ -100,7 +100,7 @@ In order to run the tests using the Chrome browser, you need to install ChromeDr
 
 ###Example output
 
-A test run with the 'spec' reporter look something like the following:
+A test run with the 'spec' reporter looks something like the following:
 
     $ mocha allTests.js  --reporter spec --framework=angularjs
 
