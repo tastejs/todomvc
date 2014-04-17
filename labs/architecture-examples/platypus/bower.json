@@ -1,0 +1,7 @@
+{
+  "name": "todomvc-platypus",
+  "version": "0.0.1.5",
+  "dependencies": {
+    "todomvc-common": "~0.1.6"
+  }
+}

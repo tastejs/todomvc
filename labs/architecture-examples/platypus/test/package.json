@@ -1,0 +1,16 @@
+{
+  "name": "todomvc-platypus-tests",
+  "description": "Unit tests for the PlatypusTS example of TodoMVC",
+  "version": "1.0.0",
+  "devDependencies": {
+    "karma": "~0.12.0",
+    "karma-cli": "~0.0.4",
+    "karma-jasmine": "~0.2.2",
+    "karma-chrome-launcher": "~0.1.3",
+    "karma-firefox-launcher": "~0.1.3"
+  },
+  "scripts": {
+    "test": "karma start config/karma.conf.js"
+  },
+  "dependencies": {}
+}
