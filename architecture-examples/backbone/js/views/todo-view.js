@@ -121,6 +121,8 @@ var app = app || {};
 		revertOnEscape: function (e) {
 			if (e.which === ESC_KEY) {
 				this.$el.removeClass('editing');
+				// Also reset the hidden input back to the original value.
+				this.$input.val(this.model.get('title'));
 			}
 		},
 
