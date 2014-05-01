@@ -1742,6 +1742,9 @@
 			}, {
 				"name": "Support",
 				"url": "http://facebook.github.io/react/support.html"
+			}, {
+				"name": "Flux architecture example",
+				"url": "https://github.com/facebook/react/tree/master/examples/todomvc-flux"
 			}]
 		}, {
 			"heading": "Community",
