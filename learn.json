@@ -80,8 +80,8 @@
 				"name": "FAQ",
 				"url": "http://docs.angularjs.org/misc/faq"
 			}, {
-				"name": "AngularJS Meetups",
-				"url": "http://www.youtube.com/angularjs"
+				"name": "Videos",
+				"url": "https://www.youtube.com/user/angularjs"
 			}]
 		}, {
 			"heading": "Articles and Guides",
