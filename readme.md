@@ -1,5 +1,10 @@
 # ![TodoMVC](media/logo.png)
 
+
+Lot of samples here.
+There is one on angularJS and Firebase ... under labs/architectural examples... somewhere there
+
+
 > Helping you select an MV\* framework
 
 ### [Website](http://todomvc.com)&nbsp;&nbsp;&nbsp;&nbsp;[Blog](http://blog.tastejs.com)&nbsp;&nbsp;&nbsp;&nbsp;[TasteJS](http://tastejs.com)
