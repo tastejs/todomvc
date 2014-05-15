@@ -6,13 +6,13 @@
 		<title>jQuery.my • TodoMVC</title>
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 	</head>
-	<body>
+	<body style="background-position:center center; padding: 0 100px;">
 		<section id="todoapp">
 			<header id="header">
 				<h1>todos</h1>
 				<input id="new-todo" placeholder="What needs to be done?" autofocus>
 			</header>
-			<section id="main">
+			<section id="main" class="hidden">
 				<input id="toggle-all" type="checkbox" value="done">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
@@ -26,7 +26,7 @@
 					</li>
 				</ul>
 			</section>
-			<footer id="footer">
+			<footer id="footer" class="hidden">
 				<span id="todo-count"></span>
 				<ul id="filters">
 					<li>
@@ -39,7 +39,7 @@
 						<a href="#/completed">Completed</a>
 					</li>
 				</ul>
-				<span><button id="clear-completed">Clear completed (1)</button></span>
+				<span class="hidden"><button id="clear-completed"></button></span>
 			</footer>
 		</section>
 		<footer id="info">
@@ -47,13 +47,16 @@
 			<p>Created by <a href="https://github.com/ermouth">ermouth</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
+		
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script src="bower_components/sugar/release/sugar.min.js"></script>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/jquerymy/jquerymy.js"></script>
 		<script src="bower_components/director/build/director.min.js"></script>
+		
 		<script src="js/views/view-app.js"></script>
 		<script src="js/views/view-todo.js"></script>
 		<script src="js/app.js"></script>
+		
 	</body>
 </html>

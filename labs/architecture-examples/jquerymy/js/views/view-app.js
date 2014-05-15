@@ -66,7 +66,7 @@ $.my.cache({
 		
 		'#main,#footer': {
 			css:{ 
-				'hide': function (d) { return !d.list.length; } 
+				'hidden': function (d) { return !d.list.length; } 
 			},
 			watch: '#todo-list'	
 		},
@@ -109,8 +109,8 @@ $.my.cache({
 			watch: '#todo-count',
 			recalcDepth: 3,
 			recalc: '#todo-list',
-			css:{ 
-				'hide': function (d) { return !d.done; } 
+			css: { 
+				'hidden': function (d) { return !d.done; } 
 			}
 		},
 		
@@ -118,7 +118,7 @@ $.my.cache({
 			bind: function (d, v) {
 				if (null != v) {
 					d.list.forEach(function (e, i, a) {
-						a[i]={
+						a[i] = {
 							completed: !!v[0], 
 							title: e.title, 
 							id: e.id
@@ -128,7 +128,7 @@ $.my.cache({
 				}
 				return d.all;
 			},
-			watch: '#todo-count',
+			watch:  '#todo-count',
 			recalc: '#todo-list',
 			events: 'click.my'
 		},
@@ -141,14 +141,13 @@ $.my.cache({
 	},
 	
 	style:{
-		' .hide': 				'display:none;',
-		' .Active .completed':	'display:none;',
-		' input,button': 		'outline:none!important;',
-		' #todo-list .edit': 	'padding:12px 16px!important;',
+		' .Active .completed':	'display: none;',
+		' input,button': 		'outline: none!important;',
+		' .edit': 				'padding: 12px 16px!important;',
 		' .Completed': {
-			' li': 				'display:none',
-			' li.completed': 	'display:block'
+			' li': 				'display: none;',
+			' li.completed': 	'display: block;'
 		},
-		' label': 				'padding: 16px 60px 15px 15px;'
+		' label': 				'padding-right: 50px!important;'
 	}
 });
