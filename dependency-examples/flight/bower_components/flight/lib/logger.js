@@ -27,47 +27,54 @@ define(
     }
 
     function log(action, component, eventArgs) {
-      var name, elem, fn, logFilter, toRegExp, actionLoggable, nameLoggable;
+      if (!window.DEBUG || !window.DEBUG.enabled) return;
+      var name, eventType, elem, fn, payload, logFilter, toRegExp, actionLoggable, nameLoggable, info;
 
       if (typeof eventArgs[eventArgs.length-1] == 'function') {
         fn = eventArgs.pop();
         fn = fn.unbound || fn; // use unbound version if any (better info)
       }
 
-      if (typeof eventArgs[eventArgs.length - 1] == 'object') {
-        eventArgs.pop(); // trigger data arg - not logged right now
-      }
-
-      if (eventArgs.length == 2) {
-        elem = eventArgs[0];
-        name = eventArgs[1];
-      } else {
+      if (eventArgs.length == 1) {
         elem = component.$node[0];
-        name = eventArgs[0];
+        eventType = eventArgs[0];
+      } else if ((eventArgs.length == 2) && typeof eventArgs[1] == 'object' && !eventArgs[1].type) {
+        //2 args, first arg is not elem
+        elem = component.$node[0];
+        eventType = eventArgs[0];
+        if (action == "trigger") {
+          payload = eventArgs[1];
+        }
+      } else {
+        //2+ args, first arg is elem
+        elem = eventArgs[0];
+        eventType = eventArgs[1];
+        if (action == "trigger") {
+          payload = eventArgs[2];
+        }
       }
 
-      if (window.DEBUG && window.DEBUG.enabled) {
-        logFilter = DEBUG.events.logFilter;
+      name = typeof eventType == 'object' ? eventType.type : eventType;
 
-        // no regex for you, actions...
-        actionLoggable = logFilter.actions == 'all' || (logFilter.actions.indexOf(action) > -1);
-        // event name filter allow wildcards or regex...
-        toRegExp = function(expr) {
-          return expr.test ? expr : new RegExp('^' + expr.replace(/\*/g, '.*') + '$');
-        };
-        nameLoggable =
-          logFilter.eventNames == 'all' ||
-          logFilter.eventNames.some(function(e) {return toRegExp(e).test(name);});
+      logFilter = DEBUG.events.logFilter;
 
-        if (actionLoggable && nameLoggable) {
-          console.info(
-            actionSymbols[action],
-            action,
-            '[' + name + ']',
-            elemToString(elem),
-            component.constructor.describe.split(' ').slice(0,3).join(' ') // two mixins only
-          );
-        }
+      // no regex for you, actions...
+      actionLoggable = logFilter.actions == 'all' || (logFilter.actions.indexOf(action) > -1);
+      // event name filter allow wildcards or regex...
+      toRegExp = function(expr) {
+        return expr.test ? expr : new RegExp('^' + expr.replace(/\*/g, '.*') + '$');
+      };
+      nameLoggable =
+        logFilter.eventNames == 'all' ||
+        logFilter.eventNames.some(function(e) {return toRegExp(e).test(name);});
+
+      if (actionLoggable && nameLoggable) {
+        info = [actionSymbols[action], action, '[' + name + ']'];
+        payload && info.push(payload);
+        info.push(elemToString(elem));
+        info.push(component.constructor.describe.split(' ').slice(0,3).join(' '));
+        console.groupCollapsed && action == 'trigger' && console.groupCollapsed(action, name);
+        console.info.apply(console, info);
       }
     }
 
@@ -75,6 +82,11 @@ define(
       this.before('trigger', function() {
         log('trigger', this, utils.toArray(arguments));
       });
+      if (console.groupCollapsed) {
+        this.after('trigger', function() {
+          console.groupEnd();
+        });
+      }
       this.before('on', function() {
         log('on', this, utils.toArray(arguments));
       });

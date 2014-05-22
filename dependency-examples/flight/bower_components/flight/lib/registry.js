@@ -151,6 +151,12 @@ define(
         return this.allInstances[instance.identity] || null;
       };
 
+      this.getBoundEventNames = function(instance) {
+        return this.findInstanceInfo(instance).events.map(function(ev) {
+          return ev.type;
+        });
+      };
+
       this.findInstanceInfoByNode = function(node) {
         var result = [];
         Object.keys(this.allInstances).forEach(function(k) {

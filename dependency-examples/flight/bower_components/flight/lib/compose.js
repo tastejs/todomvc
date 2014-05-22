@@ -65,13 +65,13 @@ define(
     function mixin(base, mixins) {
       base.mixedIn = base.hasOwnProperty('mixedIn') ? base.mixedIn : [];
 
-      mixins.forEach(function(mixin) {
-        if (base.mixedIn.indexOf(mixin) == -1) {
+      for (var i=0; i<mixins.length; i++) {
+        if (base.mixedIn.indexOf(mixins[i]) == -1) {
           setPropertyWritability(base, false);
-          mixin.call(base);
-          base.mixedIn.push(mixin);
+          mixins[i].call(base);
+          base.mixedIn.push(mixins[i]);
         }
-      });
+      }
 
       setPropertyWritability(base, true);
     }

@@ -219,12 +219,40 @@ define(
           var target = $(e.target), parent;
 
           Object.keys(rules).forEach(function(selector) {
-            if ((parent = target.closest(selector)).length) {
+            if (!e.isPropagationStopped() && (parent = target.closest(selector)).length) {
               data = data || {};
               data.el = parent[0];
               return rules[selector].apply(this, [e, data]);
             }
           }, this);
+        };
+      },
+
+      // ensures that a function will only be called once.
+      // usage:
+      // will only create the application once
+      //   var initialize = utils.once(createApplication)
+      //     initialize();
+      //     initialize();
+      //
+      // will only delete a record once
+      //   var myHanlder = function () {
+      //     $.ajax({type: 'DELETE', url: 'someurl.com', data: {id: 1}});
+      //   };
+      //   this.on('click', utils.once(myHandler));
+      //
+      once: function(func) {
+        var ran, result;
+
+        return function() {
+          if (ran) {
+            return result;
+          }
+
+          ran = true;
+          result = func.apply(this, arguments);
+
+          return result;
         };
       }
 

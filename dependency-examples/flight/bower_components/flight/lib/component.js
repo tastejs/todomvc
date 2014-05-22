@@ -27,7 +27,11 @@ define(
 
       componentInfo && Object.keys(componentInfo.instances).forEach(function(k) {
         var info = componentInfo.instances[k];
-        info.instance.teardown();
+        // It's possible that a previous teardown caused another component to teardown,
+        // so we can't assume that the instances object is as it was.
+        if (info && info.instance) {
+          info.instance.teardown();
+        }
       });
     }
 
@@ -65,37 +69,49 @@ define(
       }.bind(this));
     }
 
+    function prettyPrintMixins() {
+      //could be called from constructor or constructor.prototype
+      var mixedIn = this.mixedIn || this.prototype.mixedIn || [];
+      return mixedIn.map(function(mixin) {
+        if (mixin.name == null) {
+          // function name property not supported by this browser, use regex
+          var m = mixin.toString().match(functionNameRegEx);
+          return (m && m[1]) ? m[1] : '';
+        } else {
+          return (mixin.name != 'withBase') ? mixin.name : '';
+        }
+      }).filter(Boolean).join(', ');
+    };
+
+
     // define the constructor for a custom component type
     // takes an unlimited number of mixin functions as arguments
     // typical api call with 3 mixins: define(timeline, withTweetCapability, withScrollCapability);
     function define(/*mixins*/) {
       // unpacking arguments by hand benchmarked faster
       var l = arguments.length;
-      // add three for common mixins
-      var mixins = new Array(l + 3);
+      var mixins = new Array(l);
       for (var i = 0; i < l; i++) mixins[i] = arguments[i];
 
       var Component = function() {};
 
-      Component.toString = Component.prototype.toString = function() {
-        var prettyPrintMixins = mixins.map(function(mixin) {
-          if (mixin.name == null) {
-            // function name property not supported by this browser, use regex
-            var m = mixin.toString().match(functionNameRegEx);
-            return (m && m[1]) ? m[1] : '';
-          } else {
-            return (mixin.name != 'withBase') ? mixin.name : '';
-          }
-        }).filter(Boolean).join(', ');
-        return prettyPrintMixins;
-      };
-
+      Component.toString = Component.prototype.toString = prettyPrintMixins;
       if (debug.enabled) {
         Component.describe = Component.prototype.describe = Component.toString();
       }
 
       // 'options' is optional hash to be merged with 'defaults' in the component definition
       Component.attachTo = attachTo;
+      // enables extension of existing "base" Components
+      Component.mixin = function() {
+        var newComponent = define(); //TODO: fix pretty print
+        var newPrototype = Object.create(Component.prototype);
+        newPrototype.mixedIn = [].concat(Component.prototype.mixedIn);
+        compose.mixin(newPrototype, arguments);
+        newComponent.prototype = newPrototype;
+        newComponent.prototype.constructor = newComponent;
+        return newComponent;
+      };
       Component.teardownAll = teardownAll;
 
       // prepend common mixins to supplied list, then mixin all flavors

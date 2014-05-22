@@ -11,9 +11,9 @@ define(
   function() {
     'use strict';
 
-    //******************************************************************************************
+    // ==========================================
     // Search object model
-    //******************************************************************************************
+    // ==========================================
 
     function traverse(util, searchTerm, options) {
       options = options || {};
@@ -53,17 +53,17 @@ define(
     function byValueCoerced(searchTerm, options) {search('valueCoerced', null, searchTerm, options);}
     function custom(fn, options) {traverse(fn, null, options);}
 
-    //******************************************************************************************
+    // ==========================================
     // Event logging
-    //******************************************************************************************
+    // ==========================================
 
     var ALL = 'all'; //no filter
 
-    //no logging by default
-    var defaultEventNamesFilter = [];
-    var defaultActionsFilter = [];
-
-    var logFilter = retrieveLogFilter();
+    //log nothing by default
+    var logFilter = {
+      eventNames: [],
+      actions: []
+    }
 
     function filterEventLogsByAction(/*actions*/) {
       var actions = [].slice.call(arguments);
@@ -94,26 +94,32 @@ define(
     }
 
     function saveLogFilter() {
-      if (window.localStorage) {
-        localStorage.setItem('logFilter_eventNames', logFilter.eventNames);
-        localStorage.setItem('logFilter_actions', logFilter.actions);
-      }
+      try {
+        if (window.localStorage) {
+          localStorage.setItem('logFilter_eventNames', logFilter.eventNames);
+          localStorage.setItem('logFilter_actions', logFilter.actions);
+        }
+      } catch (ignored) {};
     }
 
     function retrieveLogFilter() {
-      var result = {
-        eventNames: (window.localStorage && localStorage.getItem('logFilter_eventNames')) || defaultEventNamesFilter,
-        actions: (window.localStorage && localStorage.getItem('logFilter_actions')) || defaultActionsFilter
-      };
+      var eventNames, actions;
+      try {
+        eventNames = (window.localStorage && localStorage.getItem('logFilter_eventNames'));
+        actions = (window.localStorage && localStorage.getItem('logFilter_actions'));
+      } catch(ignored) {
+        return;
+      }
+      eventNames && (logFilter.eventNames = eventNames);
+      actions && (logFilter.actions = actions);
 
-      // reconstitute arrays
-      Object.keys(result).forEach(function(k) {
-        var thisProp = result[k];
+      // reconstitute arrays in place
+      Object.keys(logFilter).forEach(function(k) {
+        var thisProp = logFilter[k];
         if (typeof thisProp == 'string' && thisProp !== ALL) {
-          result[k] = thisProp.split(',');
+          logFilter[k] = thisProp ? thisProp.split(',') : [];
         }
       });
-      return result;
     }
 
     return {
@@ -125,6 +131,8 @@ define(
           console.info('Booting in DEBUG mode');
           console.info('You can configure event logging with DEBUG.events.logAll()/logNone()/logByName()/logByAction()');
         }
+
+        retrieveLogFilter();
 
         window.DEBUG = this;
       },

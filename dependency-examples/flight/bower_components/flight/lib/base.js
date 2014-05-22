@@ -41,6 +41,12 @@ define(
       }
     }
 
+    function proxyEventTo(targetEvent) {
+      return function(e, data) {
+        $(e.target).trigger(targetEvent, data);
+      };
+    }
+
     function withBase() {
 
       // delegate trigger, bind and unbind to an element
@@ -99,6 +105,8 @@ define(
           originalCb = utils.delegate(
             this.resolveDelegateRules(origin)
           );
+        } else if (typeof origin == 'string') {
+          originalCb = proxyEventTo(origin);
         } else {
           originalCb = origin;
         }
@@ -117,16 +125,13 @@ define(
 
         callback = originalCb.bind(this);
         callback.target = originalCb;
-
-        // if the original callback is already branded by jQuery's guid, copy it to the context-bound version
-        if (originalCb.guid) {
-          callback.guid = originalCb.guid;
-        }
+        callback.context = this;
 
         $element.on(type, callback);
 
-        // get jquery's guid from our bound fn, so unbinding will work
-        originalCb.guid = callback.guid;
+        // store every bound version of the callback
+        originalCb.bound || (originalCb.bound = []);
+        originalCb.bound.push(callback);
 
         return callback;
       };
@@ -148,6 +153,19 @@ define(
           type = arguments[0];
         }
 
+        if (callback) {
+          //this callback may be the original function or a bound version
+          var boundFunctions = callback.target ? callback.target.bound : callback.bound || [];
+          //set callback to version bound against this instance
+          boundFunctions && boundFunctions.some(function(fn, i, arr) {
+            if (fn.context && (this.identity == fn.context.identity)) {
+              arr.splice(i, 1);
+              callback = fn;
+              return true;
+            }
+          }, this);
+        }
+
         return $element.off(type, callback);
       };
 
@@ -158,7 +176,7 @@ define(
           if (!(r in this.attr)) {
             throw new Error('Component "' + this.toString() + '" wants to listen on "' + r + '" but no such attribute was defined.');
           }
-          rules[this.attr[r]] = ruleInfo[r];
+          rules[this.attr[r]] = (typeof ruleInfo[r] == 'string') ? proxyEventTo(ruleInfo[r]) : ruleInfo[r];
         }, this);
 
         return rules;
