@@ -3,7 +3,7 @@
 	'use strict';
 
 	soma.template = soma.template || {};
-	soma.template.version = '0.2.7';
+	soma.template.version = '0.2.8';
 
 	soma.template.errors = {
 		TEMPLATE_STRING_NO_ELEMENT: 'Error in soma.template, a string template requirement a second parameter: an element target - soma.template.create(\'string\', element)',
@@ -1053,6 +1053,7 @@
 			if (this.name === attributes.checked) {
 				renderSpecialAttribute(this.value, 'checked');
 				renderAttribute(this.name, normalizeBoolean(this.value) ? true : false, this.node);
+                element.checked = normalizeBoolean(this.value) ? true : false;
 			}
 			// disabled
 			if (this.name === attributes.disabled) {
