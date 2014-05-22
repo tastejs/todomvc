@@ -26,7 +26,6 @@
 
 			// template function: set all items to either completed or not completed
 			scope.toggleAll = function (event) {
-				console.log(items);
 				items.forEach(function (item) {
 					item.completed = event.currentTarget.checked;
 				});
