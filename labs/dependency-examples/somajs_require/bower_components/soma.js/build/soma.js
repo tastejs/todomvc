@@ -1,5 +1,5 @@
 /*
-Copyright (c) | 2012 | infuse.js | Romuald Quantin | www.soundstep.com | romu@soundstep.com
+Copyright (c) | 2013 | infuse.js | Romuald Quantin | www.soundstep.com | romu@soundstep.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -17,10 +17,11 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-;(function(infuse, undefined) {
-    "use strict";
+(function(infuse) {
 
-	infuse.version = "0.6.3";
+    'use strict';
+
+	infuse.version = '0.7.0';
 
 	// regex from angular JS (https://github.com/angular/angular.js)
 	var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
@@ -28,26 +29,26 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
 	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 
-	if(!Array.prototype.contains) {
-	    Array.prototype.contains = function(value) {
-	        var i = this.length;
-	        while (i--) {
-	            if (this[i] === value) return true;
-	        }
-	        return false;
-	    };
+	function contains(arr, value) {
+		var i = arr.length;
+		while (i--) {
+			if (arr[i] === value) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	infuse.InjectorError = {
-		MAPPING_BAD_PROP: "[Error infuse.Injector.mapClass/mapValue] the first parameter is invalid, a string is expected",
-		MAPPING_BAD_VALUE: "[Error infuse.Injector.mapClass/mapValue] the second parameter is invalid, it can't null or undefined, with property: ",
-		MAPPING_BAD_CLASS: "[Error infuse.Injector.mapClass/mapValue] the second parameter is invalid, a function is expected, with property: ",
-		MAPPING_BAD_SINGLETON: "[Error infuse.Injector.mapClass] the third parameter is invalid, a boolean is expected, with property: ",
-		MAPPING_ALREADY_EXISTS: "[Error infuse.Injector.mapClass/mapValue] this mapping already exists, with property: ",
-		CREATE_INSTANCE_INVALID_PARAM: "[Error infuse.Injector.createInstance] invalid parameter, a function is expected",
-		NO_MAPPING_FOUND: "[Error infuse.Injector.getInstance] no mapping found",
-		INJECT_INSTANCE_IN_ITSELF_PROPERTY: "[Error infuse.Injector.getInjectedValue] A matching property has been found in the target, you can't inject an instance in itself",
-		INJECT_INSTANCE_IN_ITSELF_CONSTRUCTOR: "[Error infuse.Injector.getInjectedValue] A matching constructor parameter has been found in the target, you can't inject an instance in itself"
+		MAPPING_BAD_PROP: '[Error infuse.Injector.mapClass/mapValue] the first parameter is invalid, a string is expected',
+		MAPPING_BAD_VALUE: '[Error infuse.Injector.mapClass/mapValue] the second parameter is invalid, it can\'t null or undefined, with property: ',
+		MAPPING_BAD_CLASS: '[Error infuse.Injector.mapClass/mapValue] the second parameter is invalid, a function is expected, with property: ',
+		MAPPING_BAD_SINGLETON: '[Error infuse.Injector.mapClass] the third parameter is invalid, a boolean is expected, with property: ',
+		MAPPING_ALREADY_EXISTS: '[Error infuse.Injector.mapClass/mapValue] this mapping already exists, with property: ',
+		CREATE_INSTANCE_INVALID_PARAM: '[Error infuse.Injector.createInstance] invalid parameter, a function is expected',
+		NO_MAPPING_FOUND: '[Error infuse.Injector.getInstance] no mapping found',
+		INJECT_INSTANCE_IN_ITSELF_PROPERTY: '[Error infuse.Injector.getInjectedValue] A matching property has been found in the target, you can\'t inject an instance in itself',
+		INJECT_INSTANCE_IN_ITSELF_CONSTRUCTOR: '[Error infuse.Injector.getInjectedValue] A matching constructor parameter has been found in the target, you can\'t inject an instance in itself'
 	};
 
 	var MappingVO = function(prop, value, cl, singleton) {
@@ -58,7 +59,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	var validateProp = function(prop) {
-		if (typeof prop !== "string") {
+		if (typeof prop !== 'string') {
 			throw new Error(infuse.InjectorError.MAPPING_BAD_PROP);
 		}
 	};
@@ -70,20 +71,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	var validateClass = function(prop, val) {
-		if (typeof val !== "function") {
+		if (typeof val !== 'function') {
 			throw new Error(infuse.InjectorError.MAPPING_BAD_CLASS + prop);
 		}
 	};
 
 	var validateBooleanSingleton = function(prop, singleton) {
-		if (typeof singleton !== "boolean") {
+		if (typeof singleton !== 'boolean') {
 			throw new Error(infuse.InjectorError.MAPPING_BAD_SINGLETON + prop);
 		}
 	};
 
 	var validateConstructorInjectionLoop = function(name, cl) {
 		var params = infuse.getConstructorParams(cl);
-		if (params.contains(name)) {
+		if (contains(params, name)) {
 			throw new Error(infuse.InjectorError.INJECT_INSTANCE_IN_ITSELF_CONSTRUCTOR);
 		}
 	};
@@ -94,33 +95,29 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		}
 	};
 
-	var instantiateIgnoringConstructor = function() {
-		if (typeof arguments[0] !== "function") {
-			throw new Error(infuse.InjectorError.CREATE_INSTANCE_INVALID_PARAM);
-		}
-		var TargetClass = arguments[0];
-		var args = [null];
-		for (var i=1; i<arguments.length; i++) {
-			args.push(arguments[i]);
-		}
-		return new (Function.prototype.bind.apply(TargetClass, args));
-	};
-
 	infuse.Injector = function() {
 		this.mappings = {};
 		this.parent = null;
 	};
 
 	infuse.getConstructorParams = function(cl) {
-		var args = [];
+		var args = [],
+		    inject;
+		function extractName(all, underscore, name) {
+			args.push(name);
+		}
+
+		// Override arg name with inject array values if present
+		if( cl.hasOwnProperty('inject') && toString.call(cl.inject) === '[object Array]' && cl.inject.length > 0)
+		  inject = cl.inject;
+
 		var clStr = cl.toString().replace(STRIP_COMMENTS, '');
 		var argsFlat = clStr.match(FN_ARGS);
 		var spl = argsFlat[1].split(FN_ARG_SPLIT);
 		for (var i=0; i<spl.length; i++) {
-			var arg = spl[i];
-			arg.replace(FN_ARG, function(all, underscore, name){
-				args.push(name);
-			});
+		  // Only override arg with non-falsey inject value at same key
+			var arg = (inject && inject[i]) ? inject[i] : spl[i];
+			arg.replace(FN_ARG, extractName);
 		}
 		return args;
 	};
@@ -134,9 +131,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		},
 
 		getMappingVo: function(prop) {
-			if (!this.mappings) return null;
-			if (this.mappings[prop]) return this.mappings[prop];
-			if (this.parent) return this.parent.getMappingVo(prop);
+			if (!this.mappings) {
+				return null;
+			}
+			if (this.mappings[prop]) {
+				return this.mappings[prop];
+			}
+			if (this.parent) {
+				return this.parent.getMappingVo(prop);
+			}
 			return null;
 		},
 
@@ -146,7 +149,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			}
 			validateProp(prop);
 			validateValue(prop, val);
-			this.mappings[prop] = new MappingVO(prop, val);
+			this.mappings[prop] = new MappingVO(prop, val, undefined, undefined);
 			return this;
 		},
 
@@ -156,7 +159,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			}
 			validateProp(prop);
 			validateClass(prop, cl);
-			if (singleton) validateBooleanSingleton(prop, singleton);
+			if (singleton) {
+				validateBooleanSingleton(prop, singleton);
+			}
 			this.mappings[prop] = new MappingVO(prop, null, cl, singleton);
 			return this;
 		},
@@ -177,22 +182,38 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 		getMapping: function(value) {
 			for (var name in this.mappings) {
-				var vo = this.mappings[name];
-				if (vo.value === value || vo.cl === value) {
-					return vo.prop;
+				if (this.mappings.hasOwnProperty(name)) {
+					var vo = this.mappings[name];
+					if (vo.value === value || vo.cl === value) {
+						return vo.prop;
+					}
 				}
 			}
+			return undefined;
 		},
 
 		getValue: function(prop) {
 			var vo = this.mappings[prop];
 			if (!vo) {
-				if (this.parent) return this.parent.getValue.apply(this.parent, arguments);
-				else throw new Error(infuse.InjectorError.NO_MAPPING_FOUND);
+				if (this.parent) {
+					return this.parent.getValue.apply(this.parent, arguments);
+				}
+				else {
+					throw new Error(infuse.InjectorError.NO_MAPPING_FOUND);
+				}
 			}
 			if (vo.cl) {
-				arguments[0] = vo.cl;
-				return this.getValueFromClass.apply(this, arguments);
+				var args = Array.prototype.slice.call(arguments);
+				args[0] = vo.cl;
+				if (vo.singleton) {
+					if (!vo.value) {
+						vo.value = this.createInstance.apply(this, args);
+					}
+					return vo.value;
+				}
+				else {
+					return this.createInstance.apply(this, args);
+				}
 			}
 			return vo.value;
 		},
@@ -200,20 +221,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		getClass: function(prop) {
 			var vo = this.mappings[prop];
 			if (!vo) {
-				if (this.parent) return this.parent.getClass(prop);
-				else return undefined;
+				if (this.parent) {
+					return this.parent.getClass(prop);
+				}
+				else {
+					return undefined;
+				}
 			}
-			if (vo.cl) return vo.cl;
+			if (vo.cl) {
+				return vo.cl;
+			}
 			return undefined;
 		},
 
 		instantiate: function(TargetClass) {
-			if (typeof TargetClass !== "function") {
+			if (typeof TargetClass !== 'function') {
 				throw new Error(infuse.InjectorError.CREATE_INSTANCE_INVALID_PARAM);
 			}
-			var TargetClass = arguments[0];
 			var args = [null];
-			var params = infuse.getConstructorParams(TargetClass, this.mappings);
+			var params = infuse.getConstructorParams(TargetClass);
 			for (var i=0; i<params.length; i++) {
 				if (arguments[i+1] !== undefined && arguments[i+1] !== null) {
 					// argument found
@@ -234,7 +260,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					}
 				}
 			}
-			return new (Function.prototype.bind.apply(TargetClass, args));
+			return new (Function.prototype.bind.apply(TargetClass, args))();
 		},
 
 		inject: function (target, isParent) {
@@ -242,10 +268,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				this.parent.inject(target, true);
 			}
 			for (var name in this.mappings) {
-				var vo = this.getMappingVo(name);
-				if (target.hasOwnProperty(vo.prop)) {
-					var val = this.getInjectedValue(vo, name);
-					target[name] = val;
+				if (this.mappings.hasOwnProperty(name)) {
+					var vo = this.getMappingVo(name);
+					if (target.hasOwnProperty(vo.prop) || (target.constructor && target.constructor.prototype && target.constructor.prototype.hasOwnProperty(vo.prop)) ) {
+						target[name] = this.getInjectedValue(vo, name);
+					}
 				}
 			}
 			if (typeof target.postConstruct === 'function' && !isParent) {
@@ -258,7 +285,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			var val = vo.value;
 			var injectee;
 			if (vo.cl) {
-				var params = infuse.getConstructorParams(vo.cl);
 				if (vo.singleton) {
 					if (!vo.value) {
 						validateConstructorInjectionLoop(name, vo.cl);
@@ -288,14 +314,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 		getValueFromClass: function(cl) {
 			for (var name in this.mappings) {
-				var vo = this.mappings[name];
-				if (vo.cl == cl) {
-					if (vo.singleton) {
-						if (!vo.value) vo.value = this.createInstance.apply(this, arguments);
-						return vo.value;
-					}
-					else {
-						return this.createInstance.apply(this, arguments);
+				if (this.mappings.hasOwnProperty(name)) {
+					var vo = this.mappings[name];
+					if (vo.cl === cl) {
+						if (vo.singleton) {
+							if (!vo.value) {
+								vo.value = this.createInstance.apply(this, arguments);
+							}
+							return vo.value;
+						}
+						else {
+							return this.createInstance.apply(this, arguments);
+						}
 					}
 				}
 			}
@@ -315,15 +345,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	if (!Function.prototype.bind) {
 		Function.prototype.bind = function bind(that) {
 			var target = this;
-			if (typeof target != "function") {
-				throw new Error("Error, you must bind a function.");
+			if (typeof target !== 'function') {
+				throw new Error('Error, you must bind a function.');
 			}
 			var args = Array.prototype.slice.call(arguments, 1); // for normal call
 			var bound = function () {
 				if (this instanceof bound) {
 					var F = function(){};
 					F.prototype = target.prototype;
-					var self = new F;
+					var self = new F();
 					var result = target.apply(
 						self,
 						args.concat(Array.prototype.slice.call(arguments))
@@ -344,73 +374,72 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	}
 
 	// register for AMD module
-	if (typeof define === 'function' && define.amd) {
-	    define("infuse", infuse);
+	if (typeof define === 'function' && typeof define.amd !== 'undefined') {
+		define("infuse", infuse);
 	}
-	
+
 	// export for node.js
+	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+		module.exports = infuse;
+	}
 	if (typeof exports !== 'undefined') {
-		if (typeof module !== 'undefined' && module.exports) {
-			exports = module.exports = infuse;
-		}
 		exports = infuse;
 	}
 
 })(this['infuse'] = this['infuse'] || {});
-
-
 /*
- Copyright (c) | 2012 | soma-events | Romuald Quantin | www.soundstep.com
+Copyright (c) | 2013 | soma-events | Romuald Quantin | www.soundstep.com
 
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
- files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
- modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
- is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following conditions:
 
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
- IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
-;(function (soma, undefined) {
-	"use strict";
+(function (soma) {
+
+	'use strict';
 
 	soma.events = {};
-	soma.events.version = "0.5.2";
+	soma.events.version = '0.5.6';
 
-	if (!Function.prototype.bind) {
-		Function.prototype.bind = function bind(that) {
-			var target = this;
-			if (typeof target != "function") {
-				throw new Error("Error, you must bind a function.");
-			}
-			var args = Array.prototype.slice.call(arguments, 1); // for normal call
-			var bound = function () {
-				if (this instanceof bound) {
-					var F = function(){};
-					F.prototype = target.prototype;
-					var self = new F;
-					var result = target.apply(
-						self,
-						args.concat(Array.prototype.slice.call(arguments))
-					);
-					if (Object(result) === result) {
-						return result;
-					}
-					return self;
-				} else {
-					return target.apply(
-						that,
-						args.concat(Array.prototype.slice.call(arguments))
-					);
-				}
-			};
-			return bound;
-		};
-	};
+    if (!Function.prototype.bind) {
+        Function.prototype.bind = function bind(that) {
+            var target = this;
+            if (typeof target !== 'function') {
+                throw new Error('Error, you must bind a function.');
+            }
+            var args = Array.prototype.slice.call(arguments, 1); // for normal call
+            var bound = function () {
+                if (this instanceof bound) {
+                    var F = function(){};
+                    F.prototype = target.prototype;
+                    var self = new F();
+                    var result = target.apply(
+                        self,
+                        args.concat(Array.prototype.slice.call(arguments))
+                    );
+                    if (Object(result) === result) {
+                        return result;
+                    }
+                    return self;
+                } else {
+                    return target.apply(
+                        that,
+                        args.concat(Array.prototype.slice.call(arguments))
+                    );
+                }
+            };
+            return bound;
+        };
+    }
 
 	soma.Event = function (type, params, bubbles, cancelable) {
 		var e = soma.Event.createGenericEvent(type, bubbles, cancelable);
@@ -419,12 +448,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		}
 		e.isCloned = false;
 		e.clone = this.clone.bind(e);
-		e.isIE9 = this.isIE9;
+		e.isIE9orIE10 = this.isIE9orIE10;
 		e.isDefaultPrevented = this.isDefaultPrevented;
-		if (this.isIE9() || !e.preventDefault || (e.getDefaultPrevented === undefined && e.defaultPrevented === undefined )) {
+		if (this.isIE9orIE10() || !e.preventDefault || (e.getDefaultPrevented === undefined && e.defaultPrevented === undefined )) {
 			e.preventDefault = this.preventDefault.bind(e);
 		}
-		if (this.isIE9()) e.IE9PreventDefault = false;
+		if (this.isIE9orIE10()) {
+			e.IE9or10PreventDefault = false;
+		}
 		return e;
 	};
 
@@ -434,22 +465,32 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		e.isCloned = true;
 		e.clone = this.clone;
 		e.isDefaultPrevented = this.isDefaultPrevented;
-		e.isIE9 = this.isIE9;
-		if (this.isIE9()) e.IE9PreventDefault = this.IE9PreventDefault;
+		e.isIE9orIE10 = this.isIE9orIE10;
+		if (this.isIE9orIE10()) {
+			e.IE9or10PreventDefault = this.IE9or10PreventDefault;
+		}
 		return e;
 	};
 
 	soma.Event.prototype.preventDefault = function () {
-		if (!this.cancelable) return false;
-		this.defaultPrevented = true;
-		if (this.isIE9()) this.IE9PreventDefault = true;
+		if (!this.cancelable) {
+			return false;
+		}
+		if (this.isIE9orIE10()) {
+			this.IE9or10PreventDefault = true;
+		}
+		else {
+			this.defaultPrevented = true;
+		}
 		return this;
 	};
 
 	soma.Event.prototype.isDefaultPrevented = function () {
-		if (!this.cancelable) return false;
-		if (this.isIE9()) {
-			return this.IE9PreventDefault;
+		if (!this.cancelable) {
+			return false;
+		}
+		if (this.isIE9orIE10()) {
+			return this.IE9or10PreventDefault;
 		}
 		if (this.defaultPrevented !== undefined) {
 			return this.defaultPrevented;
@@ -462,10 +503,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	soma.Event.createGenericEvent = function (type, bubbles, cancelable) {
 		var event;
 		bubbles = bubbles !== undefined ? bubbles : true;
-		if (typeof document === "object" && document.createEvent) {
-			event = document.createEvent("Event");
+		if (typeof document === 'object' && document.createEvent) {
+			event = document.createEvent('Event');
 			event.initEvent(type, !!bubbles, !!cancelable);
-		} else if (typeof document === "object" && document.createEventObject) {
+		} else if (typeof document === 'object' && document.createEventObject) {
 			event = document.createEventObject();
 			event.type = type;
 			event.bubbles = !!bubbles;
@@ -476,13 +517,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		return event;
 	};
 
-	soma.Event.prototype.isIE9 = function() {
-		if (typeof document !== "object") return false;
-		return document.body.style.scrollbar3dLightColor !== undefined && document.body.style.opacity !== undefined;
-	};
+	soma.Event.prototype.isIE9orIE10 = function() {
+        if (typeof document !== 'object') {
+			return false;
+        }
+		return (document.body.style.scrollbar3dLightColor !== undefined && document.body.style.opacity !== undefined) || document.body.style.msTouchAction !== undefined;
+    };
 
 	soma.Event.prototype.toString = function() {
-		return "[soma.Event]";
+		return '[soma.Event]';
 	};
 
 	var EventObject = function(type, bubbles, cancelable) {
@@ -499,8 +542,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	soma.EventDispatcher.prototype.addEventListener = function(type, listener, priority) {
-		if (!this.listeners || !type || !listener) return;
-		if (isNaN(priority)) priority = 0;
+		if (!this.listeners || !type || !listener) {
+			return;
+		}
+		if (isNaN(priority)) {
+			priority = 0;
+		}
 		for (var i=0; i<this.listeners.length; i++) {
 			var eventObj = this.listeners[i];
 			if (eventObj.type === type && eventObj.listener === listener) {
@@ -511,7 +558,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	soma.EventDispatcher.prototype.removeEventListener = function(type, listener) {
-		if (!this.listeners || !type || !listener) return;
+		if (!this.listeners || !type || !listener) {
+			return;
+		}
 		var i = this.listeners.length;
 		while(i-- > 0) {
 			var eventObj = this.listeners[i];
@@ -522,7 +571,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	soma.EventDispatcher.prototype.hasEventListener = function(type) {
-		if (!this.listeners || !type) return false;
+		if (!this.listeners || !type) {
+			return false;
+		}
 		var i = 0;
 		var l = this.listeners.length;
 		for (; i < l; ++i) {
@@ -535,7 +586,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	soma.EventDispatcher.prototype.dispatchEvent = function(event) {
-		if (!this.listeners || !event) throw new Error("Error in EventDispatcher (dispatchEvent), one of the parameters is null or undefined.");
+		if (!this.listeners || !event) {
+			throw new Error('Error in EventDispatcher (dispatchEvent), one of the parameters is null or undefined.');
+		}
 		var events = [];
 		var i;
 		for (i = 0; i < this.listeners.length; i++) {
@@ -554,7 +607,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	soma.EventDispatcher.prototype.dispatch = function(type, params, bubbles, cancelable) {
-		if (!this.listeners || !type || type === "") throw new Error("Error in EventDispatcher (dispatch), one of the parameters is null or undefined.");
+		if (!this.listeners || !type || type === '') {
+			throw new Error('Error in EventDispatcher (dispatch), one of the parameters is null or undefined.');
+		}
 		var event = new soma.Event(type, params, bubbles, cancelable);
 		this.dispatchEvent(event);
 		return event;
@@ -565,30 +620,30 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	};
 
 	soma.EventDispatcher.prototype.toString = function() {
-		return "[soma.EventDispatcher]";
+		return '[soma.EventDispatcher]';
 	};
 
 	// register for AMD module
-	if (typeof define === 'function' && define.amd) {
+	if (typeof define === 'function' && typeof define.amd !== 'undefined') {
 		define("soma-events", soma);
-	};
+	}
 
 	// export for node.js
+	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+		module.exports = soma;
+	}
 	if (typeof exports !== 'undefined') {
-		if (typeof module !== 'undefined' && module.exports) {
-			exports = module.exports = soma;
-		}
 		exports = soma;
-	};
+	}
 
 })(this['soma'] = this['soma'] || {});
 
 
-;(function (soma, infuse, undefined) {
+(function (soma, infuse) {
 
 	'use strict';
 
-	soma.version = "2.0.0";
+	soma.version = '2.1.0';
 
 	soma.applyProperties = function(target, extension, bindToExtension, list) {
 		if (Object.prototype.toString.apply(list) === '[object Array]') {
@@ -651,7 +706,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		Chain.prototype = parent.prototype;
 		Subclass.prototype = new Chain();
 		// add obj properties
-		if (obj) soma.applyProperties(Subclass.prototype, obj);
+		if (obj) {
+			soma.applyProperties(Subclass.prototype, obj);
+		}
 		// point constructor to the Subclass
 		Subclass.prototype.constructor = Subclass;
 		// set super class reference
@@ -685,35 +742,38 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	// framework
 	soma.Application = soma.extend({
 		constructor: function() {
+
+			var self = this;
+
+			function setup() {
+				// injector
+				self.injector = new infuse.Injector(self.dispatcher);
+				// dispatcher
+				self.dispatcher = new soma.EventDispatcher();
+				// mapping
+				self.injector.mapValue('injector', self.injector);
+				self.injector.mapValue('instance', self);
+				self.injector.mapValue('dispatcher', self.dispatcher);
+				// mediator
+				self.injector.mapClass('mediators', Mediators, true);
+				self.mediators = self.injector.getValue('mediators');
+				// commands
+				self.injector.mapClass('commands', Commands, true);
+				self.commands = self.injector.getValue('commands');
+				// plugins
+				for (var i = 0, l = plugins.length; i < l; i++) {
+					self.createPlugin(plugins[i]);
+				}
+			}
+
 			setup.bind(this)();
 			this.init();
 			this.start();
 
-			function setup() {
-				// injector
-				this.injector = new infuse.Injector(this.dispatcher);
-				// dispatcher
-				this.dispatcher = new soma.EventDispatcher();
-				// mapping
-				this.injector.mapValue('injector', this.injector);
-				this.injector.mapValue('instance', this);
-				this.injector.mapValue('dispatcher', this.dispatcher);
-				// mediator
-				this.injector.mapClass('mediators', Mediators, true);
-				this.mediators = this.injector.getValue('mediators');
-				// commands
-				this.injector.mapClass('commands', Commands, true);
-				this.commands = this.injector.getValue('commands');
-				// plugins
-				for (var i = 0, l = plugins.length; i < l; i++) {
-					this.createPlugin(plugins[i]);
-				}
-			}
-
 		},
 		createPlugin: function() {
-			if (arguments.length == 0 || !arguments[0]) {
-				throw new Error("Error creating a plugin, plugin class is missing.");
+			if (arguments.length === 0 || !arguments[0]) {
+				throw new Error('Error creating a plugin, plugin class is missing.');
 			}
 			var params = infuse.getConstructorParams(arguments[0]);
 			var args = [arguments[0]];
@@ -769,11 +829,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			this.dispatcher = null;
 		},
 		create: function(cl, target) {
-			if (!cl || typeof cl !== "function") {
-				throw new Error("Error creating a mediator, the first parameter must be a function.");
+			if (!cl || typeof cl !== 'function') {
+				throw new Error('Error creating a mediator, the first parameter must be a function.');
 			}
 			if (target === undefined || target === null) {
-				throw new Error("Error creating a mediator, the second parameter cannot be undefined or null.");
+				throw new Error('Error creating a mediator, the second parameter cannot be undefined or null.');
 			}
 			var targets = [];
 			var meds = [];
@@ -785,11 +845,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			}
 			for (var i= 0, l=targets.length; i<l; i++) {
 				var injector = this.injector.createChild();
-				injector.mapValue("target", targets[i]);
-				//var mediator = injector.createInstance.apply(this.injector, params);
+				injector.mapValue('target', targets[i]);
 				var mediator = injector.createInstance(cl);
-	//			soma.applyProperties(mediator, this.dispatcher, true, ['dispatch', 'dispatchEvent', 'addEventListener', 'removeEventListener', 'hasEventListener']);
-				if (targets.length === 1) return mediator;
+				if (targets.length === 1) {
+					return mediator;
+				}
 				meds.push(mediator);
 			}
 			return meds;
@@ -819,19 +879,21 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		getAll: function() {
 			var copy = {};
 			for (var cmd in this.list) {
-				copy[cmd] = this.list[cmd];
+				if (this.list.hasOwnProperty(cmd)) {
+					copy[cmd] = this.list[cmd];
+				}
 			}
 			return copy;
 		},
 		add: function(commandName, command) {
 			if (typeof commandName !== 'string') {
-				throw new Error("Error adding a command, the first parameter must be a string.");
+				throw new Error('Error adding a command, the first parameter must be a string.');
 			}
 			if (typeof command !== 'function') {
-				throw new Error("Error adding a command with the name \"" + command + "\", the second parameter must be a function, and must contain an \"execute\" public method.");
+				throw new Error('Error adding a command with the name "' + command + '", the second parameter must be a function, and must contain an "execute" public method.');
 			}
 			if (this.has(commandName)) {
-				throw new Error("Error adding a command with the name: \"" + commandName + "\", already registered.");
+				throw new Error('Error adding a command with the name: "' + commandName + '", already registered.');
 			}
 			this.list[ commandName ] = command;
 			this.addInterceptor(commandName);
@@ -860,15 +922,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			if (this.has(commandName)) {
 				var command = this.injector.createInstance(this.list[commandName]);
 				if (!command.hasOwnProperty('execute') && command['execute'] === 'function') {
-					throw new Error("Error in " + this + " Command \"" + command + "\" must contain an execute public method.");
+					throw new Error('Error in ' + this + ' Command ' + command + ' must contain an execute public method.');
 				}
-	//			soma.applyProperties(command, this.dispatcher, true, ['dispatch', 'dispatchEvent', 'addEventListener', 'removeEventListener', 'hasEventListener']);
 				command.execute(event);
 			}
 		},
 		dispose: function() {
 			for (var cmd in this.list) {
-				this.remove(cmd);
+				if (this.list.hasOwnProperty(cmd)) {
+					this.remove(cmd);
+				}
 			}
 			this.boundHandler = undefined;
 			this.dispatcher = undefined;
@@ -893,16 +956,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 	// register for AMD module
-	if (typeof define === 'function' && define.amd) {
-		define("soma", soma);
+	/* globals define:false */
+	if (typeof define === 'function' && typeof define.amd !== 'undefined') {
+		define('soma', soma);
 	}
 
 	// export for node.js
-	if (typeof exports !== 'undefined') {
-		if (typeof module !== 'undefined' && module.exports) {
-			exports = module.exports = soma;
-		}
-		exports = soma;
+	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+		module.exports = soma;
+	}
+	else {
+		window.soma = soma;
 	}
 
 })(this['soma'] = this['soma'] || {}, this['infuse']);

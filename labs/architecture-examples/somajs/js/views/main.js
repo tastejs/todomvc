@@ -98,7 +98,6 @@
 			scope.active = model.getActive();
 			scope.isVisible = scope.items().length > 0 ? true : false;
 			scope.allCompleted = items.length > 0 && scope.active === 0 ? true : false;
-            console.log('scope.allCompleted', scope.allCompleted, scope.active);
 			template.render();
 		});
 
