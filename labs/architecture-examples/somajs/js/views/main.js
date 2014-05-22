@@ -23,7 +23,7 @@
 
 		// template function: set all items to either completed or not completed
 		scope.toggleAll = function (event) {
-            console.log(items);
+			console.log(items);
 			items.forEach(function (item) {
 				item.completed = event.currentTarget.checked;
 			});
@@ -53,14 +53,14 @@
 		scope.edit = function (event, item) {
 			item.editing = 'editing';
 			template.render();
-            template.element.querySelector('.edit').focus();
+			template.element.querySelector('.edit').focus();
 		};
 
 		// template function: during edit mode, changes the value of an item after an enter key press
 		scope.update = function (event, item) {
-            if (cancelEditing(event, item)) {
-                return;
-            }
+			if (cancelEditing(event, item)) {
+				return;
+			}
 			var value = event.currentTarget.value.trim();
 			if (event.which === ENTER_KEY || event.type === 'blur') {
 				if (value) {
@@ -75,16 +75,18 @@
 			}
 		};
 
-        // escape has been pressed, revert the value of the input
-        function cancelEditing(event, item) {
-            if (event.which === ESCAPE_KEY) {
-                event.currentTarget.value = item.title;
-                event.currentTarget.blur();
-                update();
-                return true;
-            }
-            else return false;
-        }
+		// escape has been pressed, revert the value of the input
+		function cancelEditing(event, item) {
+			if (event.which === ESCAPE_KEY) {
+				event.currentTarget.value = item.title;
+				event.currentTarget.blur();
+				update();
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 
 		// save the changes to the model and dispatch a custom event to render the templates
 		function update() {

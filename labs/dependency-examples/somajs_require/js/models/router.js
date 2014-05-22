@@ -7,17 +7,17 @@
 
 		var RouterModel = function (dispatcher) {
 
-            // create the router (director.js)
-            var router = new Router().init().configure({
-                notfound: render
-            });
+			// create the router (director.js)
+			var router = new Router().init().configure({
+				notfound: render
+			});
 
-            // dispatch a custom event to render the template on a route change
-            router.on(/.*/, render);
+			// dispatch a custom event to render the template on a route change
+			router.on(/.*/, render);
 
-            function render() {
-                dispatcher.dispatch('render');
-            }
+			function render() {
+				dispatcher.dispatch('render');
+			}
 
 			return {
 				getRoute: function () {
