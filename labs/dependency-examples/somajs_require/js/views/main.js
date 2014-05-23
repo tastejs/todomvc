@@ -5,6 +5,7 @@
 	define([], function () {
 
 		var ENTER_KEY = 13;
+		var ESCAPE_KEY = 27;
 
 		var MainView = function (scope, template, model, router, dispatcher) {
 
@@ -54,10 +55,14 @@
 			scope.edit = function (event, item) {
 				item.editing = 'editing';
 				template.render();
+				template.element.querySelector('.edit').focus();
 			};
 
 			// template function: during edit mode, changes the value of an item after an enter key press
 			scope.update = function (event, item) {
+				if (cancelEditing(event, item)) {
+					return;
+				}
 				var value = event.currentTarget.value.trim();
 				if (event.which === ENTER_KEY || event.type === 'blur') {
 					if (value) {
@@ -71,6 +76,19 @@
 					update();
 				}
 			};
+
+			// escape has been pressed, revert the value of the input
+			function cancelEditing(event, item) {
+				if (event.which === ESCAPE_KEY) {
+					event.currentTarget.value = item.title;
+					event.currentTarget.blur();
+					update();
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
 
 			// save the changes to the model and dispatch a custom event to render the templates
 			function update() {
