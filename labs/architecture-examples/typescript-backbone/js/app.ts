@@ -79,7 +79,7 @@ declare module Backbone {
 		remove(): void;
 		delegateEvents: any;
 		make(tagName: string, attrs? , opts? ): View;
-		setElement(element: HTMLElement, delegate?: bool): void;
+		setElement(element: HTMLElement, delegate?: boolean): void;
 		tagName: string;
 		events: any;
 
@@ -102,7 +102,7 @@ class Todo extends Backbone.Model {
 			content: '',
 			done: false
 		}
-	};
+	}
 
 	// Ensure that each todo created has `content`.
 	initialize() {
