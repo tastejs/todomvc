@@ -6,6 +6,6 @@
     "director": "~1.2.0",
     "requirejs": "~2.1.5",
     "soma.js": "~2.1.0",
-    "soma-template": "0.2.8"
+    "soma-template": "~0.2.8"
   }
 }

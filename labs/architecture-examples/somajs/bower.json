@@ -5,6 +5,6 @@
     "todomvc-common": "~0.1.6",
     "director": "~1.2.0",
     "soma.js": "~2.1.0",
-    "soma-template": "0.2.8"
+    "soma-template": "~0.2.8"
   }
 }
