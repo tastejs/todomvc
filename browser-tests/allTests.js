@@ -49,6 +49,7 @@ var list = fs.readdirSync('../architecture-examples/')
 var exceptions = [
 	{ name: 'chaplin-brunch', path: 'labs/dependency-examples/chaplin-brunch/public' },
 	{ name: 'angular-dart', path: 'labs/architecture-examples/angular-dart/web' },
+	{ name: 'react-coffee', path: 'labs/architecture-examples/react-coffee/out' },
 	{ name: 'duel', path: 'labs/architecture-examples/duel/www' },
 	{ name: 'thorax_lumbar', path: 'labs/dependency-examples/thorax_lumbar/public' },
 ];
