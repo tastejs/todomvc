@@ -238,13 +238,13 @@ class TodoView extends Backbone.View {
 
 	// If you hit `enter`, we're through editing the item.
 	updateOnEnter(e) {
-		if (e.which == TodoView.ENTER_KEY) this.close();
+		if (e.which === TodoView.ENTER_KEY) this.close();
 	}
 
 	// If you're pressing `escape` we revert your change by simply leaving
 	// the `editing` state.
 	revertOnEscape(e) {
-		if (e.which == TodoView.ESC_KEY) {
+		if (e.which === TodoView.ESC_KEY) {
 			this.$el.removeClass('editing');
 			// Also reset the hidden input back to the original value.
 			this.input.val(this.model.get('content'));
@@ -348,7 +348,7 @@ class AppView extends Backbone.View {
 	// If you hit return in the main input field, create new **Todo** model,
 	// persisting it to *localStorage*.
 	createOnEnter(e) {
-		if (e.keyCode == 13 && this.input.val().trim()) {
+		if (e.which === 13 && this.input.val().trim()) {
 			Todos.create(this.newAttributes());
 			this.input.val('');
 		}
