@@ -132,8 +132,9 @@ var TodoView = (function (_super) {
             'click .check': 'toggleDone',
             'dblclick label.todo-content': 'edit',
             'click button.destroy': 'clear',
-            'keypress .todo-input': 'updateOnEnter',
-            'blur .todo-input': 'close'
+            'keypress .edit': 'updateOnEnter',
+            'keydown .edit': 'revertOnEscape',
+            'blur .edit': 'close'
         };
 
         _super.call(this, options);
@@ -165,14 +166,32 @@ var TodoView = (function (_super) {
 
     // Close the `'editing'` mode, saving changes to the todo.
     TodoView.prototype.close = function () {
-        this.model.save({ content: this.input.val() });
+        var trimmedValue = this.input.val().trim();
+
+        if (trimmedValue) {
+            this.model.save({ content: trimmedValue });
+        } else {
+            this.clear();
+        }
+
         this.$el.removeClass('editing');
     };
 
     // If you hit `enter`, we're through editing the item.
     TodoView.prototype.updateOnEnter = function (e) {
-        if (e.keyCode == TodoView.ENTER_KEY)
-            close();
+        if (e.which == TodoView.ENTER_KEY)
+            this.close();
+    };
+
+    // If you're pressing `escape` we revert your change by simply leaving
+    // the `editing` state.
+    TodoView.prototype.revertOnEscape = function (e) {
+        if (e.which == TodoView.ESC_KEY) {
+            this.$el.removeClass('editing');
+
+            // Also reset the hidden input back to the original value.
+            this.input.val(this.model.get('content'));
+        }
     };
 
     // Remove the item, destroy the model.
@@ -180,6 +199,7 @@ var TodoView = (function (_super) {
         this.model.clear();
     };
     TodoView.ENTER_KEY = 13;
+    TodoView.ESC_KEY = 27;
     return TodoView;
 })(Backbone.View);
 
