@@ -24,7 +24,7 @@ class Alfred.TodosController extends Batman.Controller
 class Alfred.TodosIndexView extends Batman.View
 	createTodo: (node, event, context) ->
 		event.preventDefault()
-		title = node[0].value
+		title = node[0].value.trim()
 		if title
 			newTodo = new Alfred.Todo(title: title, completed: false)
 			newTodo.save (err) ->
@@ -79,8 +79,8 @@ class Alfred.Todo extends Batman.Model
 	@encode 'title', 'completed'
 	@validate 'title', presence: true
 
-  @classAccessor 'default', ->
-    @get('all').filter (todo) -> true
+	@classAccessor 'default', ->
+		@get('all').filter (todo) -> true
 
 	@classAccessor 'active', ->
 		@get('all').filter (todo) -> !todo.get('completed')
