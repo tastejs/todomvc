@@ -320,7 +320,7 @@ class AppView extends Backbone.View {
 	// Generate the attributes for a new Todo item.
 	newAttributes() {
 		return {
-			content: this.input.val(),
+			content: this.input.val().trim(),
 			order: Todos.nextOrder(),
 			done: false
 		};
