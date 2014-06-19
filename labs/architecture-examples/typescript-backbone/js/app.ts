@@ -348,7 +348,7 @@ class AppView extends Backbone.View {
 	// If you hit return in the main input field, create new **Todo** model,
 	// persisting it to *localStorage*.
 	createOnEnter(e) {
-		if (e.which === 13 && this.input.val().trim()) {
+		if (e.which === TodoView.ENTER_KEY && this.input.val().trim()) {
 			Todos.create(this.newAttributes());
 			this.input.val('');
 		}

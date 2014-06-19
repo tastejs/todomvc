@@ -285,7 +285,7 @@ var AppView = (function (_super) {
     // If you hit return in the main input field, create new **Todo** model,
     // persisting it to *localStorage*.
     AppView.prototype.createOnEnter = function (e) {
-        if (e.which === 13 && this.input.val().trim()) {
+        if (e.which === TodoView.ENTER_KEY && this.input.val().trim()) {
             Todos.create(this.newAttributes());
             this.input.val('');
         }
