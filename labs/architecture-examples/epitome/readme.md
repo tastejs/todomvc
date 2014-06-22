@@ -1,6 +1,6 @@
 # Epitome TodoMVC Example
 
-> Epitome is a new extensible and modular open-source MVC* framework, built out of MooTools Classes and Events.
+> Epitome is a new extensible and modular open-source MVC framework, built out of MooTools Classes and Events.
 
 > _[Epitome - dimitarchristoff.github.io/Epitome](http://dimitarchristoff.github.io/Epitome)_
 
