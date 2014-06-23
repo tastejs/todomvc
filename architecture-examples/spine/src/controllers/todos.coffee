@@ -1,5 +1,6 @@
 class window.Todos extends Spine.Controller
 	ENTER_KEY = 13
+	ESCAPE_KEY = 27
 	TPL = Handlebars.compile $('#todo-template').html()
 
 	elements:
@@ -9,6 +10,7 @@ class window.Todos extends Spine.Controller
 		'click    .destroy': 'remove'
 		'click    .toggle':  'toggleStatus'
 		'dblclick label':    'edit'
+		'keydown  .edit':    'revertEditOnEscape'
 		'keyup    .edit':    'finishEditOnEnter'
 		'blur     .edit':    'finishEdit'
 
@@ -38,3 +40,11 @@ class window.Todos extends Spine.Controller
 
 	finishEditOnEnter: (e) ->
 		@finishEdit() if e.which is ENTER_KEY
+
+	revertEdit: ->
+		@el.removeClass 'editing'
+		@editElem.val(@todo.title)
+
+	revertEditOnEscape: (e) ->
+		@revertEdit() if e.which is ESCAPE_KEY
+
