@@ -10,6 +10,7 @@
     __extends(Todos, _super);
 
     ENTER_KEY = 13;
+    ESCAPE_KEY = 27;
 
     TPL = Handlebars.compile($('#todo-template').html());
 
@@ -21,6 +22,7 @@
       'click    .destroy': 'remove',
       'click    .toggle': 'toggleStatus',
       'dblclick label': 'edit',
+      'keydown  .edit': 'revertEditOnEscape',
       'keyup    .edit': 'finishEditOnEnter',
       'blur     .edit': 'finishEdit'
     };
@@ -64,6 +66,17 @@
     Todos.prototype.finishEditOnEnter = function(e) {
       if (e.which === ENTER_KEY) {
         return this.finishEdit();
+      }
+    };
+
+    Todos.prototype.revertEdit = function() {
+      this.el.removeClass('editing');
+      return this.editElem.val(this.todo.title);
+    };
+
+    Todos.prototype.revertEditOnEscape = function(e) {
+      if (e.which === ESCAPE_KEY) {
+        return this.revertEdit();
       }
     };
 
