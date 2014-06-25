@@ -7,6 +7,7 @@ define([], function () {
 		TodoFilter: '', // empty, active, completed
 
 		// What is the enter key constant?
-		ENTER_KEY: 13
+		ENTER_KEY: 13,
+		ESCAPE_KEY: 27
 	};
 });

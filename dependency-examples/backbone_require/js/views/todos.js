@@ -20,6 +20,7 @@ define([
 			'dblclick label':	'edit',
 			'click .destroy':	'clear',
 			'keypress .edit':	'updateOnEnter',
+			'keydown .edit':	'revertOnEscape',
 			'blur .edit':		'close'
 		},
 
@@ -90,6 +91,16 @@ define([
 		updateOnEnter: function (e) {
 			if (e.keyCode === Common.ENTER_KEY) {
 				this.close();
+			}
+		},
+
+		// If you're pressing `escape` we revert your change by simply leaving
+		// the `editing` state.
+		revertOnEscape: function (e) {
+			if (e.which === Common.ESCAPE_KEY) {
+				this.$el.removeClass('editing');
+				// Also reset the hidden input back to the original value.
+				this.$input.val(this.model.get('title'));
 			}
 		},
 
