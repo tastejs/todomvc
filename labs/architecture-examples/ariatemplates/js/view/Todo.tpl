@@ -107,7 +107,7 @@
 			<input class="edit" value="${iter.item.title|escapeForHTML}"
 				{id "editbox"/}
 				{on blur {fn: "stopEdit", scope: this, args: iter}/}
-				{on keydown {fn: "confirmEdit", scope: this, args: iter}/}>
+				{on keydown {fn: "confirmOrRevertEdit", scope: this, args: iter}/}>
 		{else/}
 			<div class="view">
 				{@html:CheckBox {
