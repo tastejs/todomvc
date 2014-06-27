@@ -24,7 +24,7 @@ define([
 			'click .toggle': 'toggle',
 			'click .destroy': 'destroy',
 			'dblclick label': 'onEditDblclick',
-			'keypress .edit': 'onEditKeypress',
+			'keydown .edit': 'onEditKeyDown',
 			'blur .edit': 'onEditBlur'
 		},
 
@@ -58,13 +58,14 @@ define([
 			this.ui.edit.focus().val(this.value);
 		},
 
-		onEditKeypress: function (event) {
+		onEditKeyDown: function (event) {
 			if (event.which === ENTER_KEY) {
 				this.ui.edit.trigger('blur');
 			}
 
 			if (event.which === ESCAPE_KEY) {
-				this.toggleEditingMode();
+				this.ui.edit.val(this.model.get('title'));
+				this.ui.edit.trigger('blur');
 			}
 		},
 
