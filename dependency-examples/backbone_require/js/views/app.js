@@ -35,6 +35,7 @@ define([
 			this.$input = this.$('#new-todo');
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
+			this.$todoList = this.$('#todo-list');
 
 			this.listenTo(Todos, 'add', this.addOne);
 			this.listenTo(Todos, 'reset', this.addAll);
@@ -76,12 +77,12 @@ define([
 		// appending its element to the `<ul>`.
 		addOne: function (todo) {
 			var view = new TodoView({ model: todo });
-			$('#todo-list').append(view.render().el);
+			this.$todoList.append(view.render().el);
 		},
 
 		// Add all items in the **Todos** collection at once.
 		addAll: function () {
-			this.$('#todo-list').html('');
+			this.$todoList.empty();
 			Todos.each(this.addOne, this);
 		},
 
@@ -124,7 +125,7 @@ define([
 
 			Todos.each(function (todo) {
 				todo.save({
-					'completed': completed
+					completed: completed
 				});
 			});
 		}
