@@ -16,14 +16,12 @@ define([
 
 		// Filter down the list of all todo items that are finished.
 		completed: function () {
-			return this.filter(function (todo) {
-				return todo.get('completed');
-			});
+			return this.where({completed:true});
 		},
 
 		// Filter down the list to only todo items that are still not finished.
 		remaining: function () {
-			return this.without.apply(this, this.completed());
+			return this.where({completed:false});
 		},
 
 		// We keep the Todos in sequential order, despite being saved by unordered
