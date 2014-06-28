@@ -1,4 +1,4 @@
-/*global define*/
+/*global define */
 define([
 	'underscore',
 	'backbone',
@@ -16,12 +16,12 @@ define([
 
 		// Filter down the list of all todo items that are finished.
 		completed: function () {
-			return this.where({completed:true});
+			return this.where({completed: true});
 		},
 
 		// Filter down the list to only todo items that are still not finished.
 		remaining: function () {
-			return this.where({completed:false});
+			return this.where({completed: false});
 		},
 
 		// We keep the Todos in sequential order, despite being saved by unordered
@@ -30,6 +30,7 @@ define([
 			if (!this.length) {
 				return 1;
 			}
+
 			return this.last().get('order') + 1;
 		},
 
