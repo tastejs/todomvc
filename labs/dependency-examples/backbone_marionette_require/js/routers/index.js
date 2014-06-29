@@ -1,5 +1,4 @@
 /*global define */
-
 define([
 	'marionette'
 ], function (Marionette) {

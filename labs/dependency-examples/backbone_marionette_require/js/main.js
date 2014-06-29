@@ -7,23 +7,19 @@ require.config({
 		localStorage: '../bower_components/backbone.localStorage/backbone.localStorage',
 		tpl: 'lib/tpl'
 	},
-
 	shim: {
 		underscore: {
 			exports: '_'
 		},
-
 		backbone: {
 			exports: 'Backbone',
 			deps: ['jquery', 'underscore']
 		},
-
 		marionette: {
 			exports: 'Backbone.Marionette',
 			deps: ['backbone']
 		}
 	},
-
 	deps: ['jquery', 'underscore']
 });
 

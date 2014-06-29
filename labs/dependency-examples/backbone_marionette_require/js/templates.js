@@ -1,5 +1,4 @@
 /*global define */
-
 define(function (require) {
 	'use strict';
 
@@ -10,4 +9,3 @@ define(function (require) {
 		header: require('tpl!templates/header.tmpl')
 	};
 });
-

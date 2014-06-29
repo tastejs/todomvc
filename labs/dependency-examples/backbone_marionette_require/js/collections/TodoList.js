@@ -1,5 +1,4 @@
 /*global define */
-
 define([
 	'backbone',
 	'models/Todo',
@@ -13,11 +12,11 @@ define([
 		localStorage: new Backbone.LocalStorage('todos-backbone'),
 
 		getCompleted: function () {
-			return this.where({completed:true});
+			return this.where({completed: true});
 		},
 
 		getActive: function () {
-			return this.where({completed:false});
+			return this.where({completed: false});
 		},
 
 		comparator: function (todo) {
