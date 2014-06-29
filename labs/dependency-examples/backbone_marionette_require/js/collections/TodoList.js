@@ -19,8 +19,6 @@ define([
 			return this.where({completed: false});
 		},
 
-		comparator: function (todo) {
-			return todo.get('created');
-		}
+		comparator: 'created'
 	});
 });
