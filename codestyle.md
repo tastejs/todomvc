@@ -54,7 +54,7 @@ Example:
 	'use strict';
 
 	var thanks = 'mate';
-})
+}())
 ```
 
 ## Strict mode
