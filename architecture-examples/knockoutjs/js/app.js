@@ -178,7 +178,7 @@
 			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
 			localStorage.setItem('todos-knockoutjs', ko.toJSON(this.todos));
 		}.bind(this)).extend({
-			throttle: 500
+			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' }
 		}); // save at most twice per second
 	};
 

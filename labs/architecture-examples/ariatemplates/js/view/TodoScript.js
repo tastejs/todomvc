@@ -83,8 +83,9 @@ Aria.tplScriptDefinition({
 			this.$focus('editbox');
 		},
 
-		confirmEdit: function (evt, e) {
+		confirmOrRevertEdit: function (evt, e) {
 			if (evt.keyCode === evt.KC_ENTER) { this.stopEdit(evt, e); }
+			if (evt.keyCode === evt.KC_ESCAPE) { this.revertEdit(evt, e); }
 		},
 
 		stopEdit: function (evt, e) {
@@ -106,6 +107,15 @@ Aria.tplScriptDefinition({
 			}
 		},
 
+		revertEdit: function (evt, e) {
+			var el;
+			this.data.editedTask = null;
+			el = this.$getElementById(e.sectionId);
+			if (el) { el.classList.remove('editing'); }
+			this.$refresh({outputSection: e.sectionId});
+			this.$json.setValue(e.item, 'title', e.item.title);
+		},
+			
 		todolistUpdateHandler: function () {
 			var size;
 			if (this.pauselistener) { return; }

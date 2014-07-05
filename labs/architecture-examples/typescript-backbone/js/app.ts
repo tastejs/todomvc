@@ -179,6 +179,7 @@ class TodoView extends Backbone.View {
 	input: any;
 
 	static ENTER_KEY:number = 13;
+	static ESC_KEY:number = 27;
 
 	constructor (options? ) {
 		//... is a list tag.
@@ -189,8 +190,9 @@ class TodoView extends Backbone.View {
 			'click .check': 'toggleDone',
 			'dblclick label.todo-content': 'edit',
 			'click button.destroy': 'clear',
-			'keypress .todo-input': 'updateOnEnter',
-			'blur .todo-input': 'close'
+			'keypress .edit': 'updateOnEnter',
+			'keydown .edit': 'revertOnEscape',
+			'blur .edit': 'close'
 		};
 
 		super(options);
@@ -223,13 +225,30 @@ class TodoView extends Backbone.View {
 
 	// Close the `'editing'` mode, saving changes to the todo.
 	close() {
-		this.model.save({ content: this.input.val() });
+		var trimmedValue = this.input.val().trim();
+
+		if (trimmedValue) {
+			this.model.save({ content: trimmedValue });
+		} else {
+			this.clear();
+		}
+
 		this.$el.removeClass('editing');
 	}
 
 	// If you hit `enter`, we're through editing the item.
 	updateOnEnter(e) {
-		if (e.keyCode == TodoView.ENTER_KEY) close();
+		if (e.which === TodoView.ENTER_KEY) this.close();
+	}
+
+	// If you're pressing `escape` we revert your change by simply leaving
+	// the `editing` state.
+	revertOnEscape(e) {
+		if (e.which === TodoView.ESC_KEY) {
+			this.$el.removeClass('editing');
+			// Also reset the hidden input back to the original value.
+			this.input.val(this.model.get('content'));
+		}
 	}
 
 	// Remove the item, destroy the model.
@@ -320,7 +339,7 @@ class AppView extends Backbone.View {
 	// Generate the attributes for a new Todo item.
 	newAttributes() {
 		return {
-			content: this.input.val(),
+			content: this.input.val().trim(),
 			order: Todos.nextOrder(),
 			done: false
 		};
@@ -329,9 +348,10 @@ class AppView extends Backbone.View {
 	// If you hit return in the main input field, create new **Todo** model,
 	// persisting it to *localStorage*.
 	createOnEnter(e) {
-		if (e.keyCode != 13) return;
-		Todos.create(this.newAttributes());
-		this.input.val('');
+		if (e.which === TodoView.ENTER_KEY && this.input.val().trim()) {
+			Todos.create(this.newAttributes());
+			this.input.val('');
+		}
 	}
 
 	// Clear all done todo items, destroying their models.

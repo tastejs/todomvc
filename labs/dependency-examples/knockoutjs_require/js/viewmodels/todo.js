@@ -102,7 +102,7 @@ define([
 			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
 			window.localStorage.setItem(g.localStorageItem, ko.toJSON(self.todos));
 		}).extend({
-			throttle: 500
+			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' }
 		}); // save at most twice per second
 	};
 

@@ -38,7 +38,11 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			filters: '#filters a'
+			filters: '#filters a',
+			completed: '.completed a',
+			active: '.active a',
+			all: '.all a',
+			summary: '#todo-count'
 		},
 
 		events: {

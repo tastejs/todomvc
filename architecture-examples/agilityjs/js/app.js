@@ -2,6 +2,7 @@
 	'use strict';
 
 	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
 
 	// hack of taking out html elements from DOM so that agility's view can use it
 	// we need 'outerhtml' also, as agilityjs will append DOM, so removing it
@@ -49,7 +50,10 @@
 				'keyup input': function () {
 					if (event.which === ENTER_KEY) {
 						this.updateTitle();
+					} else if (event.which === ESCAPE_KEY) {
+						this.revertTitleEdit();
 					}
+
 				}
 			},
 			updateTitle: function () {
@@ -64,6 +68,11 @@
 				} else {
 					this.destroy();
 				}
+			},
+			revertTitleEdit: function() {
+				this.view.$().removeClass('editing');
+				// restore title
+				this.view.$(".edit").val(this.model.get('title'));
 			}
 		}).persist($$.adapter.localStorage, {
 			collection: 'todos-agilityjs'

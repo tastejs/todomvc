@@ -1,5 +1,6 @@
 window.TodoViewModel = (model) ->
 	ENTER_KEY = 13
+	ESCAPE_KEY = 27
 
 	@editing = ko.observable(false)
 	@completed = kb.observable(model, {key: 'completed', read: (-> return model.completed()), write: ((completed) -> model.completed(completed)) }, @)
@@ -20,6 +21,8 @@ window.TodoViewModel = (model) ->
 			$('.todo-input').focus()
 
 	@onCheckEditEnd = (view_model, event) =>
+		if (event.keyCode == ESCAPE_KEY)
+			@editing(false)
 		if (event.keyCode == ENTER_KEY) or (event.type == 'blur')
 			$('.todo-input').blur()
 			@editing(false)

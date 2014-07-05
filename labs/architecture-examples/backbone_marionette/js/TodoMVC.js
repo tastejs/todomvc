@@ -1,7 +1,9 @@
 /*global Backbone */
 'use strict';
 
-var TodoMVC = new Backbone.Marionette.Application();
+// TodoMVC is global for developing in the console
+// and functional testing.
+window.TodoMVC = new Backbone.Marionette.Application();
 
 TodoMVC.addRegions({
 	header: '#header',
