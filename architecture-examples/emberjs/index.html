@@ -6,27 +6,29 @@
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 	</head>
 	<body>
+		<script type="text/x-handlebars" data-template-name="todo-list">
+			<ul id="todo-list">
+				{{#each itemController="todo"}}
+					<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+						{{#if isEditing}}
+							{{edit-todo class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
+						{{else}}
+							{{input type="checkbox" class="toggle" checked=isCompleted}}
+							<label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+							<button {{action "removeTodo"}} class="destroy"></button>
+						{{/if}}
+						</li>
+				{{/each}}
+			</ul>
+		</script>
 		<script type="text/x-handlebars" data-template-name="todos">
 			<section id="todoapp">
 				<header id="header">
 					<h1>todos</h1>
 					{{input id="new-todo" type="text" value=newTitle action="createTodo" placeholder="What needs to be done?"}}
 				</header>
-				{{#if length}}
 					<section id="main">
-						<ul id="todo-list">
-							{{#each filteredTodos itemController="todo"}}
-								<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
-									{{#if isEditing}}
-										{{edit-todo class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
-									{{else}}
-										{{input type="checkbox" class="toggle" checked=isCompleted}}
-										<label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
-										<button {{action "removeTodo"}} class="destroy"></button>
-									{{/if}}
-									</li>
-							{{/each}}
-						</ul>
+						{{outlet}}
 						{{input type="checkbox" id="toggle-all" checked=allAreDone}}
 					</section>
 					<footer id="footer">
@@ -48,7 +50,6 @@
 							</button>
 						{{/if}}
 					</footer>
-				{{/if}}
 			</section>
 			<footer id="info">
 				<p>Double-click to edit a todo</p>
@@ -75,7 +76,7 @@
 		<script src="js/models/todo.js"></script>
 		<script src="js/controllers/todos_controller.js"></script>
 		<script src="js/controllers/todo_controller.js"></script>
-		<script src="js/views/edit_todo_view.js"></script>
+		<script src="js/views/edit_todo_component.js"></script>
 		<script src="js/views/todos_view.js"></script>
 		<script src="js/helpers/pluralize.js"></script>
 	</body>
