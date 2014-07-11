@@ -27,7 +27,7 @@
 		}
 	});
 
-	Todos.TodosCompletedRoute = Todos.TodosRoute.extend({
+	Todos.TodosCompletedRoute = Todos.TodosIndexRoute.extend({
 		model: function(){
 			return this.store.filter('todo', function (todo) {
 				return todo.get('isCompleted');
