@@ -28,28 +28,32 @@
 					{{todo-input id="new-todo" type="text" value=newTitle action="createTodo" placeholder="What needs to be done?"}}
 				</header>
 					<section id="main">
-						{{outlet}}
-						{{input type="checkbox" id="toggle-all" checked=allAreDone}}
-					</section>
-					<footer id="footer">
-						<span id="todo-count"><strong>{{remaining.length}}</strong> {{pluralize 'item' remaining.length}} left</span>
-						<ul id="filters">
-							<li>
-								{{#link-to "todos.index" activeClass="selected"}}All{{/link-to}}
-							</li>
-							<li>
-								{{#link-to "todos.active" activeClass="selected"}}Active{{/link-to}}
-							</li>
-							<li>
-								{{#link-to "todos.completed" activeClass="selected"}}Completed{{/link-to}}
-							</li>
-						</ul>
-						{{#if completed.length}}
-							<button id="clear-completed" {{action "clearCompleted"}}>
-								Clear completed ({{completed.length}})
-							</button>
+						{{#if length}}
+							{{input type="checkbox" id="toggle-all" checked=allAreDone}}
 						{{/if}}
-					</footer>
+						{{outlet}}
+					</section>
+					{{#if length}}
+						<footer id="footer">
+							<span id="todo-count"><strong>{{remaining.length}}</strong> {{pluralize 'item' remaining.length}} left</span>
+							<ul id="filters">
+								<li>
+									{{#link-to "todos.index" activeClass="selected"}}All{{/link-to}}
+								</li>
+								<li>
+									{{#link-to "todos.active" activeClass="selected"}}Active{{/link-to}}
+								</li>
+								<li>
+									{{#link-to "todos.completed" activeClass="selected"}}Completed{{/link-to}}
+								</li>
+							</ul>
+							{{#if completed.length}}
+								<button id="clear-completed" {{action "clearCompleted"}}>
+									Clear completed ({{completed.length}})
+								</button>
+							{{/if}}
+						</footer>
+					{{/if}}
 			</section>
 			<footer id="info">
 				<p>Double-click to edit a todo</p>
