@@ -183,4 +183,27 @@
 		}
 	}]);
 
+	function AppTabs() {
+		document.querySelector(AppTabs.selectors.tabs).addEventListener(
+			'core-select', this.onSelect.bind(this));
+	}
+
+	AppTabs.selectors = {
+		'tabs': '.js-app-tabs',
+		'list': '.js-app-list'
+	};
+
+	AppTabs.prototype.onSelect = function (e) {
+		var selected = e.target.selected;
+		[].slice.call(document.querySelectorAll(AppTabs.selectors.list)).forEach(
+			function (e) {
+				var isSelected = e.dataset.appList === selected;
+				e.style.display = isSelected ? 'block' : 'none';
+				e.classList.toggle('anim-swoosh-in', isSelected);
+			}
+		);
+	};
+
+	new AppTabs();
+
 }());

@@ -118,6 +118,10 @@ header nav a:not(:last-child) {
 	left: -20px;
 }
 
+.app-lists {
+	overflow: hidden;
+}
+
 .applist {
 	list-style: none;
 	margin: 0;
@@ -134,6 +138,11 @@ header nav a:not(:last-child) {
 .applist a {
 	position: relative; /* popover */
 	column-break-inside: avoid;
+}
+
+.applist-intro {
+	margin: 10px 0 10px;
+	font-style: italic;
 }
 
 .applist .routing::after,
@@ -321,6 +330,15 @@ a.zocial {
 	user-select: none;
 	position: relative;
 	border-radius: .3em;
+}
+
+@keyframes swoosh-in {
+	from { opacity: 0; transform: translateX(-500px); }
+	to { opacity: 1; transform: translateX(0); }
+}
+
+.anim-swoosh-in {
+	animation: swoosh-in 0.5s;
 }
 
 @media (max-width: 480px) {
