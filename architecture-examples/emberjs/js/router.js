@@ -16,7 +16,8 @@
 	});
 
 	Todos.TodosIndexRoute = Todos.TodosRoute.extend({
-		templateName: 'todo-list'
+		templateName: 'todo-list',
+		controllerName: 'todos-list'
 	});
 
 	Todos.TodosActiveRoute = Todos.TodosIndexRoute.extend({

@@ -7,19 +7,26 @@
 	</head>
 	<body>
 		<script type="text/x-handlebars" data-template-name="todo-list">
-			<ul id="todo-list">
-				{{#each itemController="todo"}}
-					<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
-						{{#if isEditing}}
-							{{todo-input type="text" class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
-						{{else}}
-							{{input type="checkbox" class="toggle" checked=isCompleted}}
-							<label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
-							<button {{action "removeTodo"}} class="destroy"></button>
-						{{/if}}
-						</li>
-				{{/each}}
-			</ul>
+			{{#if length}}
+				<section id="main">
+					{{#if canToggle}}
+						{{input type="checkbox" id="toggle-all" checked=allTodos.allAreDone}}
+					{{/if}}
+					<ul id="todo-list">
+						{{#each}}
+							<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+								{{#if isEditing}}
+									{{todo-input type="text" class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
+								{{else}}
+									{{input type="checkbox" class="toggle" checked=isCompleted}}
+									<label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+									<button {{action "removeTodo"}} class="destroy"></button>
+								{{/if}}
+								</li>
+						{{/each}}
+					</ul>
+				</section>
+			{{/if}}
 		</script>
 		<script type="text/x-handlebars" data-template-name="todos">
 			<section id="todoapp">
@@ -27,12 +34,7 @@
 					<h1>todos</h1>
 					{{todo-input id="new-todo" type="text" value=newTitle action="createTodo" placeholder="What needs to be done?"}}
 				</header>
-					<section id="main">
-						{{#if length}}
-							{{input type="checkbox" id="toggle-all" checked=allAreDone}}
-						{{/if}}
-						{{outlet}}
-					</section>
+					{{outlet}}
 					{{#if length}}
 						<footer id="footer">
 							<span id="todo-count"><strong>{{remaining.length}}</strong> {{pluralize 'item' remaining.length}} left</span>
@@ -79,6 +81,7 @@
 		<script src="js/router.js"></script>
 		<script src="js/models/todo.js"></script>
 		<script src="js/controllers/todos_controller.js"></script>
+		<script src="js/controllers/todos_list_controller.js"></script>
 		<script src="js/controllers/todo_controller.js"></script>
 		<script src="js/views/todo_input_component.js"></script>
 		<script src="js/helpers/pluralize.js"></script>
