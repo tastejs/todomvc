@@ -15,29 +15,24 @@
 		}
 	});
 
-	Todos.TodosIndexRoute = Ember.Route.extend({
-		setupController: function () {
-			this.controllerFor('todos').set('filteredTodos', this.modelFor('todos'));
-		}
+	Todos.TodosIndexRoute = Todos.TodosRoute.extend({
+		templateName: 'todo-list',
+		controllerName: 'todos-list'
 	});
 
-	Todos.TodosActiveRoute = Ember.Route.extend({
-		setupController: function () {
-			var todos = this.store.filter('todo', function (todo) {
+	Todos.TodosActiveRoute = Todos.TodosIndexRoute.extend({
+		model: function () {
+			return this.store.filter('todo', function (todo) {
 				return !todo.get('isCompleted');
 			});
-
-			this.controllerFor('todos').set('filteredTodos', todos);
 		}
 	});
 
-	Todos.TodosCompletedRoute = Ember.Route.extend({
-		setupController: function () {
-			var todos = this.store.filter('todo', function (todo) {
+	Todos.TodosCompletedRoute = Todos.TodosIndexRoute.extend({
+		model: function () {
+			return this.store.filter('todo', function (todo) {
 				return todo.get('isCompleted');
 			});
-
-			this.controllerFor('todos').set('filteredTodos', todos);
 		}
 	});
 })();

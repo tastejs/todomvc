@@ -33,8 +33,8 @@
 
 		/* properties */
 
-		remaining: Ember.computed.filterBy('content', 'isCompleted', false),
-		completed: Ember.computed.filterBy('content', 'isCompleted', true),
+		remaining: Ember.computed.filterBy('model', 'isCompleted', false),
+		completed: Ember.computed.filterBy('model', 'isCompleted', true),
 
 		allAreDone: function (key, value) {
 			if (value !== undefined) {
