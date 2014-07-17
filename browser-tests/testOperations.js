@@ -106,23 +106,43 @@ function TestOperations(page) {
 	// tests that the list contains the following items, independant of order
 	this.assertItems = function (textArray) {
 		page.getItemLabels().then(function (labels) {
-			assert.equal(textArray.length, labels.length,
-				textArray.length + ' items expected in the todo list, ' + labels.length + ' items observed');
-			// create an array of promises which check the presence of the
-			// label text within the 'textArray'
+
+			// obtain all the visible items
+			var visibleLabels = [];
 			var tests = [];
 			for (var i = 0; i < labels.length; i++) {
-				// suppressing JSHint - the loop variable is not being used in the function.
-				/* jshint -W083 */
-				tests.push(labels[i].getText().then(function (text) {
-					var index = textArray.indexOf(text);
-					assert(index !== -1, 'A todo item with text \'' + text + '\' was not found');
-					// remove this item when found
-					textArray.splice(index, 1);
-				}));
+				(function(index) {
+					// suppressing JSHint - the loop variable is not being used in the function.
+					/* jshint -W083 */
+					tests.push(labels[index].isDisplayed().then(function (isDisplayed) {						
+						if (isDisplayed) {
+							visibleLabels.push(labels[index]);
+						}
+					}));
+				})(i);
 			}
-			// execute all the tests
-			return Q.all(tests);
+
+			// check that they match the supplied text
+			return Q.all(tests).then(function () {
+
+				assert.equal(textArray.length, visibleLabels.length,
+					textArray.length + ' items expected in the todo list, ' + visibleLabels.length + ' items observed');
+				// create an array of promises which check the presence of the
+				// label text within the 'textArray'
+				tests = [];
+				for (var i = 0; i < visibleLabels.length; i++) {
+					// suppressing JSHint - the loop variable is not being used in the function.
+					/* jshint -W083 */
+					tests.push(visibleLabels[i].getText().then(function (text) {
+						var index = textArray.indexOf(text);
+						assert(index !== -1, 'A todo item with text \'' + text + '\' was not expected');
+						// remove this item when found
+						textArray.splice(index, 1);
+					}));
+				}
+				// execute all the tests
+				return Q.all(tests);
+			})
 		});
 	};
 

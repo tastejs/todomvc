@@ -28,6 +28,8 @@ or its Ruby equivalent:
 
 	ruby -run -e httpd . -p 8000
 
+And for Windows, the node [http-server](https://github.com/nodeapps/http-server) is a simple, zero-configuration alternative.
+
 To run the tests for all TodoMVC implementations, run the following:
 
 	mocha allTests.js  --reporter spec
