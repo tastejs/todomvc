@@ -65,7 +65,7 @@ Valid browser names can be found within webdriver via the `webdriver.Browser` en
 
 ##Reporting against known issues
 
-The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these  issues using the `mocha-known-issues-reporter`. This reporter is a separate npm module, as a result the easier way to run it using the supplied gruntfile:
+The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these  issues using the `mocha-known-issues-reporter`. This reporter is a separate npm module, as a result the easiest way to run it using the supplied gruntfile:
 
 	grunt test --framework=angularjs
 

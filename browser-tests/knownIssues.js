@@ -49,10 +49,6 @@ module.exports = [
 	'TodoMVC - typescript-backbone, Editing, should remove the item if an empty text string was entered',
 	'TodoMVC - typescript-backbone, Editing, should cancel edits on escape',
 
-	// https://github.com/tastejs/todomvc/issues/823
-	// prepends new items rather than appends
-	'TodoMVC - puremvc, New Todo, should append new items to the bottom of the list',
-
 	// https://github.com/tastejs/todomvc/issues/815
 	// does not hide other controls while editing
 	'TodoMVC - dojo, Editing, should hide other controls when editing',
@@ -90,7 +86,6 @@ module.exports = [
 	'TodoMVC - kendo, Editing, should cancel edits on escape',
 	'TodoMVC - olives, Editing, should cancel edits on escape',
 	'TodoMVC - plastronjs, Editing, should cancel edits on escape',
-	'TodoMVC - puremvc, Editing, should cancel edits on escape',
 	'TodoMVC - rappidjs, Editing, should cancel edits on escape',
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
 	'TodoMVC - somajs, Editing, should cancel edits on escape',
@@ -110,57 +105,12 @@ module.exports = [
 	'TodoMVC - knockoutjs, Routing, should respect the back button',
 	'TodoMVC - spine, Routing, should respect the back button',
 	'TodoMVC - componentjs, Routing, should respect the back button',
-	'TodoMVC - react, Routing, should respect the back button',
 	'TodoMVC - serenadejs, Routing, should respect the back button',
-	'TodoMVC - somajs, Routing, should respect the back button',
 	'TodoMVC - flight, Routing, should respect the back button',
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
 	'TodoMVC - somajs_require, Routing, should respect the back button',
-
-	// all the following are covered by this issue:
-	// https://github.com/tastejs/todomvc/issues/790
-	// these implementations filter the view rather than the model when routing
-	'TodoMVC - agilityjs, Routing, should allow me to display active items',
-	'TodoMVC - agilityjs, Routing, should allow me to display completed items',
 	'TodoMVC - agilityjs, Routing, should respect the back button',
-	'TodoMVC - backbone, Routing, should allow me to display active items',
-	'TodoMVC - backbone, Routing, should allow me to display completed items',
-	'TodoMVC - backbone, Routing, should respect the back button',
-	'TodoMVC - maria, Routing, should allow me to display active items',
-	'TodoMVC - maria, Routing, should allow me to display completed items',
 	'TodoMVC - maria, Routing, should respect the back button',
-	'TodoMVC - dojo, Routing, should allow me to display active items',
-	'TodoMVC - dojo, Routing, should allow me to display completed items',
-	'TodoMVC - dojo, Routing, should respect the back button',
-	'TodoMVC - atmajs, Routing, should allow me to display active items',
-	'TodoMVC - atmajs, Routing, should allow me to display completed items',
-	'TodoMVC - atmajs, Routing, should respect the back button',
-	'TodoMVC - backbone_marionette, Routing, should allow me to display active items',
-	'TodoMVC - backbone_marionette, Routing, should allow me to display completed items',
-	'TodoMVC - backbone_marionette, Routing, should respect the back button',
-	'TodoMVC - exoskeleton, Routing, should allow me to display active items',
-	'TodoMVC - exoskeleton, Routing, should allow me to display completed items',
-	'TodoMVC - exoskeleton, Routing, should respect the back button',
-	'TodoMVC - thorax, Routing, should allow me to display active items',
-	'TodoMVC - thorax, Routing, should allow me to display completed items',
-	'TodoMVC - thorax, Routing, should respect the back button',
-	'TodoMVC - thorax_lumbar, Routing, should allow me to display active items',
-	'TodoMVC - thorax_lumbar, Routing, should allow me to display completed items',
-	'TodoMVC - thorax_lumbar, Routing, should respect the back button',
-	'TodoMVC - troopjs_require, Routing, should allow me to display active items',
-	'TodoMVC - troopjs_require, Routing, should allow me to display completed items',
-	'TodoMVC - troopjs_require, Routing, should respect the back button',
-	'TodoMVC - backbone_require, Routing, should allow me to display active items',
-	'TodoMVC - backbone_require, Routing, should allow me to display completed items',
-	'TodoMVC - backbone_require, Routing, should respect the back button',
-	'TodoMVC - ariatemplates, Routing, should allow me to display active items',
-	'TodoMVC - ariatemplates, Routing, should allow me to display completed items',
-	'TodoMVC - ariatemplates, Routing, should respect the back button',
-	'TodoMVC - backbone_marionette_require, Routing, should allow me to display active items',
-	'TodoMVC - backbone_marionette_require, Routing, should allow me to display completed items',
-	'TodoMVC - chaplin-brunch, Routing, should allow me to display active items',
-	'TodoMVC - chaplin-brunch, Routing, should allow me to display completed items',
-
 
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
@@ -169,10 +119,6 @@ module.exports = [
 	'TodoMVC - kendo, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
 
 	// the following implementations do not support routing
-	'TodoMVC - jquery, Routing, should allow me to display active items',
-	'TodoMVC - jquery, Routing, should allow me to display completed items',
-	'TodoMVC - jquery, Routing, should allow me to display all items',
-	'TodoMVC - jquery, Routing, should highlight the currently applied filter',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display active items',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display completed items',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display all items',
@@ -207,6 +153,7 @@ module.exports = [
 	'TodoMVC - typescript-backbone, Routing, should allow me to display completed items',
 	'TodoMVC - typescript-backbone, Routing, should allow me to display all items',
 	'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
+	'TodoMVC - typescript-backbone, Routing, should respect the back button',
 
 	// EXTJS is not spec compliant (by a long way!)
 	'TodoMVC - extjs, New Todo, should show #main and #footer when items added',
