@@ -50,6 +50,9 @@ var exceptions = [
 	{ name: 'chaplin-brunch', path: 'labs/dependency-examples/chaplin-brunch/public' },
 	{ name: 'angular-dart', path: 'labs/architecture-examples/angular-dart/web' },
 	{ name: 'duel', path: 'labs/architecture-examples/duel/www' },
+	{ name: 'dart', path: 'vanilla-examples/vanilladart/build/' },
+	{ name: 'canjs_require', path: 'labs/dependency-examples/canjs_require/' },	
+	{ name: 'troopjs', path: 'labs/dependency-examples/troopjs_require/' },	
 	{ name: 'thorax_lumbar', path: 'labs/dependency-examples/thorax_lumbar/public' },
 ];
 list = list.map(function (framework) {
