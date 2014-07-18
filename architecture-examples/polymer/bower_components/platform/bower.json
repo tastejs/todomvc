@@ -12,6 +12,5 @@
     "components"
   ],
   "license": "BSD",
-  "private": true,
-  "version": "0.2.1"
+  "private": true
 }

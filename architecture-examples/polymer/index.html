@@ -5,7 +5,7 @@
 		<title>Polymer • TodoMVC</title>
 		<link rel="stylesheet" href="app/app.css">
 		<script src="bower_components/platform/platform.js"></script>
-		<link rel="import" href="bower_components/polymer-localstorage/polymer-localstorage.html">
+		<link rel="import" href="bower_components/core-localstorage/core-localstorage.html">
 		<link rel="import" href="elements/td-model.html">
 		<link rel="import" href="elements/td-todos.html">
 	</head>
@@ -13,7 +13,7 @@
 		<header>
 			<h1>todos</h1>
 		</header>
-		<polymer-localstorage id="storage" name="todos-polymer"></polymer-localstorage>
+		<core-localstorage id="storage" name="todos-polymer"></core-localstorage>
 		<td-model id="model" storageId="storage"></td-model>
 		<td-todos modelId="model"></td-todos>
 		<footer id="info">
