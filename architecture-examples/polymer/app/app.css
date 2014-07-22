@@ -185,6 +185,10 @@ hr {
 	transition-duration: 500ms;
 }
 
+body /deep/ #todoapp {
+	width: 550px;
+	margin: 0 auto;
+}
 
 /* IE doesn't support the hidden attribute */
 [hidden] {
