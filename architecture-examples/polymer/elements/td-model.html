@@ -9,15 +9,16 @@
 			allCompleted: false,
 			ready: function() {
 				this.asyncMethod(function() {
-					this.items = this.items || [];
+					this.items = this.storage.value || [];
 				});
 			},
 			filterChanged: function() {
-				this.filterItems();
+				this.asyncMethod(function() {
+					this.filterItems();
+				});
 			},
 			itemsChanged: function() {
-				this.completedCount =
-					this.items.filter(this.filters.completed).length;
+				this.completedCount = this.items.filter(this.filters.completed).length;
 				this.activeCount = this.items.length - this.completedCount;
 				this.allCompleted = this.completedCount && !this.activeCount;
 				this.filterItems();
