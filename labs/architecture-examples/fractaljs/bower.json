@@ -1,0 +1,10 @@
+{
+	"name": "todomvc-fractaljs",
+	"version": "0.0.0",
+	"dependencies": {
+		"todomvc-common": "~0.1.4",
+		"fractaljs": "~1.0.0",
+		"jquery": "~2.1.1",
+		"hogan": "~3.0.2"
+	}
+}
