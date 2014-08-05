@@ -5,7 +5,7 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-simple-mocha": "^0.4.0",
-    "mocha": "*",
+    "mocha": "~1.20.1",
     "optimist": "^0.6.1",
     "q": "^1.0.1",
     "selenium-webdriver": "^2.42.1",
