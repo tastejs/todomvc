@@ -6,7 +6,8 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		simplemocha: {
 			options: {
-				reporter: 'mocha-known-issues-reporter'
+				reporter: 'mocha-known-issues-reporter',
+				timeout: Infinity,
 			},
 			files: {
 				src: 'allTests.js'
