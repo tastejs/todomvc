@@ -43,7 +43,7 @@ And for Windows, the node [http-server](https://github.com/nodeapps/http-server)
 To run the tests for all TodoMVC implementations, run the following:
 
 ```sh
-$ mocha allTests.js  --reporter spec
+$ mocha allTests.js --no-timeouts --reporter spec
 ```
 
 Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reporter.
@@ -51,13 +51,13 @@ Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite infor
 In order to run tests for a single TodoMVC implementation, supply a framework argument as follows:
 
 ```sh
-$ mocha allTests.js  --reporter spec --framework=angularjs
+$ mocha allTests.js --no-timeouts --reporter spec --framework=angularjs
 ```
 
 In order to run a specific test, use the mocha 'grep' function. For example:
 
 ```
-	$ mocha allTests.js --reporter spec --framework=jquery \
+	$ mocha allTests.js --no-timeouts --reporter spec --framework=jquery \
 		--grep 'should trim entered text'
 
 	  TodoMVC - jquery
@@ -73,7 +73,7 @@ In order to run a specific test, use the mocha 'grep' function. For example:
 You can also specify the browser that will be used to execute the tests via the `---browser` argument. The tests default to using Chrome (see the instructions below for installing ChromeDriver). For example, to run against phantomjs, use the following:
 
 ```sh
-$ mocha allTests.js  --reporter spec --browser=phantomjs
+$ mocha allTests.js --no-timeouts --reporter spec --browser=phantomjs
 ```
 
 You must install phantomjs first of course!
@@ -127,7 +127,7 @@ In order to run the tests using the Chrome browser, you need to install ChromeDr
 A test run with the 'spec' reporter looks something like the following:
 
 ```
-$ mocha allTests.js  --reporter spec --framework=angularjs
+$ mocha allTests.js --no-timeouts --reporter spec --framework=angularjs
 
   angularjs
     TodoMVC
@@ -178,7 +178,7 @@ $ mocha allTests.js  --reporter spec --framework=angularjs
 In order to keep each test case fully isolated, the browser is closed then re-opened in between each test. This does mean that the tests can take quite a long time to run. If you don't mind the risk of side-effects you can run the tests in speed mode by adding the `--speedMode` argument.
 
 ```sh
-$ mocha allTests.js  --reporter spec --speedMode
+$ mocha allTests.js --no-timeouts --reporter spec --speedMode
 ```
 
 Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
@@ -190,7 +190,7 @@ There are certain implementations (e.g. GWT and Dojo) where the constraints of t
 
 
 ```sh
-$ mocha allTests.js  --reporter spec --laxMode
+$ mocha allTests.js --no-timeouts --reporter spec --laxMode
 ```
 
 

@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 		simplemocha: {
 			options: {
 				reporter: 'mocha-known-issues-reporter',
-				timeout: Infinity,
+				enableTimeouts: false,
 			},
 			files: {
 				src: 'allTests.js'
