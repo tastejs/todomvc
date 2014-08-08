@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Pragma" content="no-cache">
+        <title>Dragome • TodoMVC</title>
+        <link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+    </head>
+    <body>
+        <section id="todoapp"> 
+            <header id="header">
+                <h1>todos</h1>
+                <input id="new-todo" data-template="new-todo" placeholder="What needs to be done?" autofocus>
+            </header>
+            <section id="main" data-template="main-section">
+                <input id="toggle-all" type="checkbox" data-template="toggle-all">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul id="todo-list">
+                    <li class="to-be-removed" data-template="completed-todo">
+                        <div class="view">
+                            <input  data-template="completed" class="toggle" type="checkbox" checked>
+                            <label data-template="title">Create a TodoMVC template</label>
+                            <button class="destroy"  data-template="destroy"></button>
+                        </div>
+                        <input class="edit" value="Create a TodoMVC template" data-template="todo-input">
+                    </li>
+                </ul>
+            </section>
+            <footer id="footer" data-template="footer-section">
+                <span id="todo-count"><strong  data-template="items-count">1</strong> <span  data-template="items-label">item</span> left</span>
+                <ul id="filters">
+                    <li>
+                        <a class="selected" href="#/" data-template="filter:/">All</a>
+                    </li>
+                    <li>
+                        <a href="#/active" data-template="filter:/active">Active</a>
+                    </li>
+                    <li>
+                        <a href="#/completed" data-template="filter:/completed">Completed</a>
+                    </li>
+                </ul>
+                <button id="clear-completed"  data-template="clear-completed">Clear completed (<span  data-template="clear-completed-number">item</span>)</button>
+            </footer>
+        </section>
+        <footer id="info">
+            <p>Double-click to edit a todo</p>
+            <p>Created by <a href="http://www.dragome.com">Fernando Petrola</a></p>
+            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+        </footer>
+        <script src="bower_components/todomvc-common/base.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
