@@ -223,7 +223,7 @@ label[for='toggle-all'] {
 	text-decoration: none;
 }
 
-#filters li.polymer-selected a {
+#filters li.core-selected a {
 	font-weight: bold;
 }
 
