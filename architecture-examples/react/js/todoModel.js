@@ -1,6 +1,3 @@
-/**
- * @jsx React.DOM
- */
 /*jshint quotmark:false */
 /*jshint white:false */
 /*jshint trailing:false */
