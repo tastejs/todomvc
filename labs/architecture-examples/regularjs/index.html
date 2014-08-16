@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+		<section id="todoapp">
+		</section>
+		
+		<script id="template" type="text/regular">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus on-enter={{this.newTodo(title)}} r-model={{title}}>
+			</header>
+
+			<section id="main" r-hide="items.length == 0">
+				<input id="toggle-all" type="checkbox" r-model={{allCompleted}}>
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+					{{#list items|current:selected as item}}
+						<li r-class="{completed: item.completed, editing: item.editing}">
+							<div class="view">
+								<input class="toggle" type="checkbox" r-model={{item.completed}}>
+								<label on-dblclick={{this.dblClick(item)}}>{{item.title}}</label>
+								<button class="destroy" on-click={{this.destroyTodo(item_index)}}></button>
+							</div>
+							<input type="text" class="edit" r-model={{item.newVal}} on-blur={{this.updateTitle(item_index)}} on-keyup={{this.keyup(item, $event)}} r-focus={{item.editing}}>
+						</li>
+					{{/list}}
+				</ul>
+			</section>
+
+			<footer id="footer"  r-hide="items.length == 0">
+				<span id="todo-count"><strong>{{active}}</strong> item{{#if active !== 1}}s{{/if}} left</span>
+				<ul id="filters">
+					<li>
+						<a class={{selected=='all' ? 'selected' : ''}} href="#/">All</a>
+					</li>
+					<li>
+						<a class={{selected=='active' ? 'selected' : ''}} href="#/active">Active</a>
+					</li>
+					<li>
+						<a class={{selected=='completed' ? 'selected' : ''}} href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<button id="clear-completed" r-hide={{items.length === active}} on-click={{this.clearComplete()}}>Clear completed ({{items.length - active}})</button>
+			</footer>
+		</script>
+
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="https://github.com/cubika">cubika</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="https://rawgit.com/regularjs/regular/master/dist/regular.js"></script>
+		<script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
