@@ -28,7 +28,7 @@ var app = app || {};
 		
 		// Return last item on list if any. Otherwise return null.
 		last: function () {
-			return this.length > 0 ? this.at(this.length-1) : null;
+			return this.length > 0 ? this.at(this.length - 1) : null;
 		},
 
 		// We keep the Todos in sequential order, despite being saved by unordered
