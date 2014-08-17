@@ -27,7 +27,7 @@ var app = app || {};
 		},
 		
 		// Return last item on list if any. Otherwise return null.
-		last:function(){
+		last: function () {
 			return this.length > 0 ? this.at(this.length-1) : null;
 		},
 
