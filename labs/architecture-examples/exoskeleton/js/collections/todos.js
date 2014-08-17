@@ -26,8 +26,7 @@ var app = app || {};
 			return this.where({completed: false});
 		},
 		
-		//not using underscore. create the last function. 
-		//return last item on list if any. otherwise return null
+		// Return last item on list if any. Otherwise return null.
 		last:function(){
 			return this.length > 0 ? this.at(this.length-1) : null;
 		},
