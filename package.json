@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "del": "^0.1.1",
+    "gulp": "^3.8.5",
+    "gulp-autoprefixer": "^0.0.8",
+    "gulp-cache": "^0.2.0",
+    "gulp-csso": "^0.2.9",
+    "gulp-if": "^1.2.1",
+    "gulp-imagemin": "^1.0.0",
+    "gulp-jshint": "^1.6.3",
+    "gulp-load-plugins": "^0.5.3",
+    "gulp-minify-html": "^0.1.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.4.0",
+    "gulp-size": "^1.0.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-uncss": "^0.4.4",
+    "gulp-useref": "^0.6.0",
+    "jshint-stylish": "^0.4.0",
+    "psi": "^0.1.1",
+    "run-sequence": "^0.3.6"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "private": true
+}
