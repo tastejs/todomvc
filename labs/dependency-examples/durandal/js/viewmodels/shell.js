@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 define([
 	'bower_components/durandal/plugins/router',
 ], function (router) {

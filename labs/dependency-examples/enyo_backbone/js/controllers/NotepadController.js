@@ -1,4 +1,4 @@
-﻿/*jshint strict:false */
+/*jshint strict:false */
 /*global enyo:false, $:false */
 /*exported ENTER_KEY, ESC_KEY */
 // This is based on Enyo 2.1.1.  The next version (2.3) of Enyo will more tightly integrate MVC and should require less custom code.

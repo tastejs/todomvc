@@ -1,4 +1,4 @@
-﻿/*global requirejs, define, ko */
+/*global requirejs, define, ko */
 (function () {
 	'use strict';
 

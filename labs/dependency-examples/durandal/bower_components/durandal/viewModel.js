@@ -1,4 +1,4 @@
-﻿define(['./system'], function (system) {
+define(['./system'], function (system) {
     var viewModel;
 
     function ensureSettings(settings) {

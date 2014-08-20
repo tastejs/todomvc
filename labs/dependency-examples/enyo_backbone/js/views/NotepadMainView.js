@@ -1,4 +1,4 @@
-﻿/*jshint strict:false */
+/*jshint strict:false */
 /*global enyo:false, ENTER_KEY:false, ESC_KEY:false */
 // The main task list view
 enyo.kind({

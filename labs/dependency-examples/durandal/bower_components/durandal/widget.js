@@ -1,4 +1,4 @@
-﻿define(['./system', './composition'], function (system, composition) {
+define(['./system', './composition'], function (system, composition) {
 
     var widgetPartAttribute = 'data-part',
         widgetPartSelector = '[' + widgetPartAttribute + ']';

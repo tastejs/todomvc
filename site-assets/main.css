@@ -122,7 +122,9 @@ header nav a:not(:last-child) {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	columns: 1;
+	-webkit-columns: 1;
+	   -moz-columns: 1;
+	        columns: 1;
 	font-size: 17px;
 }
 
@@ -182,7 +184,8 @@ header nav a:not(:last-child) {
 .collapsed {
 	overflow: hidden;
 	max-height: 0;
-	transition: max-height 0.7s ease-out;
+	-webkit-transition: max-height 0.7s ease-out;
+	        transition: max-height 0.7s ease-out;
 }
 
 #news-expander {
@@ -191,7 +194,8 @@ header nav a:not(:last-child) {
 
 #news-expander:checked ~ .collapsed {
 	max-height: 999px;
-	transition: max-height 0.7s ease-in;
+	-webkit-transition: max-height 0.7s ease-in;
+	        transition: max-height 0.7s ease-in;
 }
 
 .credit a {
@@ -318,14 +322,19 @@ a.zocial {
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-	user-select: none;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
 	position: relative;
 	border-radius: .3em;
 }
 
 @media (max-width: 480px) {
 	body .applist {
-		columns: auto !important;
+		-webkit-columns: auto !important;
+		   -moz-columns: auto !important;
+		        columns: auto !important;
 	}
 
 	.credit a {
@@ -356,13 +365,17 @@ a.zocial {
 
 @media (min-width: 480px) {
 	.applist {
-		columns: 2;
+		-webkit-columns: 2;
+		   -moz-columns: 2;
+		        columns: 2;
 	}
 }
 
 @media (min-width: 640px) and (max-width: 770px) {
 	.applist {
-		columns: 3;
+		-webkit-columns: 3;
+		   -moz-columns: 3;
+		        columns: 3;
 	}
 }
 
@@ -370,7 +383,9 @@ a.zocial {
 @media (min-width: 771px) {
 	.js,
 	.ctojs {
-		columns: 4;
+		-webkit-columns: 4;
+		   -moz-columns: 4;
+		        columns: 4;
 	}
 }
 

@@ -1,4 +1,4 @@
-﻿define(['./system', './viewEngine', './composition', './widget', './modalDialog', './events'], 
+define(['./system', './viewEngine', './composition', './widget', './modalDialog', './events'], 
     function(system, viewEngine, composition, widget, modalDialog, Events) {
 
     var app = {

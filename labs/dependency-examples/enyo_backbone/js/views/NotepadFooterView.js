@@ -1,4 +1,4 @@
-﻿/*jshint strict:false */
+/*jshint strict:false */
 /*global enyo:false */
 enyo.kind({
 	name: 'ToDo.NotepadFooterView',

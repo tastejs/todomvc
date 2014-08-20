@@ -1,4 +1,4 @@
-﻿define(['../system', '../viewModel', '../app'], function (system, viewModel, app) {
+define(['../system', '../viewModel', '../app'], function (system, viewModel, app) {
 
     //NOTE: Sammy.js is not required by the core of Durandal. 
     //However, this plugin leverages it to enable navigation.

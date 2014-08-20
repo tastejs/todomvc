@@ -1,4 +1,4 @@
-﻿/*jshint strict:false */
+/*jshint strict:false */
 /*global enyo:false */
 // This is the notepad area
 enyo.kind({
