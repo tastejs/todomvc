@@ -4,7 +4,7 @@ We have created this short spec to help you create awesome and consistent todo a
 
 ## Template Application
 
-Our [template](https://github.com/tastejs/todomvc/tree/gh-pages/template) should be used as the base when implementing a todo app. Before implementing, we recommend you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/architecture-examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
+Our [template](https://github.com/tastejs/todomvc/tree/master/template) should be used as the base when implementing a todo app. Before implementing, we recommend you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/architecture-examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
 
 ## Structure
 
@@ -44,7 +44,7 @@ Keep in mind that framework best practices on how to structure your app comes fi
 
 ### README
 
-All examples should include a README describing the framework, the general implementation and the build process if required. There is an [example readme](https://github.com/tastejs/todomvc/blob/gh-pages/template/readme.md) included in the [template](https://github.com/tastejs/todomvc/tree/gh-pages/template).
+All examples should include a README describing the framework, the general implementation and the build process if required. There is an [example readme](https://github.com/tastejs/todomvc/blob/master/template/readme.md) included in the [template](https://github.com/tastejs/todomvc/tree/master/template).
 
 ### Dependency Management
 
@@ -70,13 +70,13 @@ Please try to keep the HTML as close to the template as possible. Remove the com
 
 Make sure to follow these:
 
-- Follow our [code style](https://github.com/tastejs/todomvc/blob/gh-pages/contributing.md#code-style)
+- Follow our [code style](https://github.com/tastejs/todomvc/blob/master/contributing.md#code-style)
 - Use double-quotes in HTML and single-quotes in JS and CSS.
 - Use bower components for your third-party dependencies and manually remove files that aren't required for your app to run.
 - Use a constant instead of the keyCode directly: `var ENTER_KEY = 13;`
 - Apps should be written without any preprocessors (Sass/CoffeeScript/..) to reach the largest audience.
 - To make it easy to compare frameworks, the app should look and behave exactly like the template and the other examples.
-- We require apps to work in every browser we [support](https://github.com/tastejs/todomvc/blob/gh-pages/contributing.md#browser-compatibility).
+- We require apps to work in every browser we [support](https://github.com/tastejs/todomvc/blob/master/contributing.md#browser-compatibility).
 
 ## Functionality
 
