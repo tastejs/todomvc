@@ -122,9 +122,9 @@ header nav a:not(:last-child) {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	-webkit-columns: 1;
-	   -moz-columns: 1;
-	        columns: 1;
+	-webkit-column-count: 1;
+	   -moz-column-count: 1;
+	        column-count: 1;
 	font-size: 17px;
 }
 
@@ -332,9 +332,9 @@ a.zocial {
 
 @media (max-width: 480px) {
 	body .applist {
-		-webkit-columns: auto !important;
-		   -moz-columns: auto !important;
-		        columns: auto !important;
+		-webkit-column-count: auto !important;
+		   -moz-column-count: auto !important;
+		        column-count: auto !important;
 	}
 
 	.credit a {
@@ -365,17 +365,17 @@ a.zocial {
 
 @media (min-width: 480px) {
 	.applist {
-		-webkit-columns: 2;
-		   -moz-columns: 2;
-		        columns: 2;
+		-webkit-column-count: 2;
+		   -moz-column-count: 2;
+		        column-count: 2;
 	}
 }
 
 @media (min-width: 640px) and (max-width: 770px) {
 	.applist {
-		-webkit-columns: 3;
-		   -moz-columns: 3;
-		        columns: 3;
+		-webkit-column-count: 3;
+		   -moz-column-count: 3;
+		        column-count: 3;
 	}
 }
 
@@ -383,9 +383,9 @@ a.zocial {
 @media (min-width: 771px) {
 	.js,
 	.ctojs {
-		-webkit-columns: 4;
-		   -moz-columns: 4;
-		        columns: 4;
+		-webkit-column-count: 4;
+		   -moz-column-count: 4;
+		        column-count: 4;
 	}
 }
 
