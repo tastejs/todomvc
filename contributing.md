@@ -7,7 +7,7 @@ Note: Before starting work on an app intended for submission, please open an iss
 
 ## Code Style
 
-We think it's best for the project if the code you write looks like the code the last developer wrote, so we've put together [some guidelines we ask that you follow](https://github.com/tastejs/todomvc/tree/gh-pages/codestyle.md). We greatly appreciate your cooperation and contribution.
+We think it's best for the project if the code you write looks like the code the last developer wrote, so we've put together [some guidelines we ask that you follow](https://github.com/tastejs/todomvc/blob/master/codestyle.md). We greatly appreciate your cooperation and contribution.
 
 
 ## Pull Request Guidelines
