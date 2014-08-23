@@ -21,7 +21,7 @@
 		items = JSON.parse(localStorage.getItem('todos-ractive')) || [];
 
 		// Editing state should not be persisted, so we remove it
-		// (https://github.com/tastejs/todomvc/blob/gh-pages/app-spec.md#persistence)
+		// (https://github.com/tastejs/todomvc/blob/master/app-spec.md#persistence)
 		removeEditingState = function (item) {
 			return {
 				description: item.description,

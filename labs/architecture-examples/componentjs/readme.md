@@ -39,7 +39,7 @@ This ComponentJS TodoMVC Example uses the following libraries and frameworks
 ## Hints about the ComponentJS TodoMVC Example
 
 This ComponentJS TodoMVC Example tries to
-closely follow the official [TodoMVC App Specification](https://github.com/tastejs/todomvc/blob/gh-pages/app-spec.md)
+closely follow the official [TodoMVC App Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md)
 as long as there are no conflicting ComponentJS best practices.
 The known resolved conflicts were:
 
@@ -121,5 +121,5 @@ Here are some links you may find helpful:
 For more details about the TodoMVC initiative and the idea behind the TodoMVC applications see:
 
 * [TodoMVC Initiative](https://todomvc.com/)
-* [App Specification](https://github.com/tastejs/todomvc/blob/gh-pages/app-spec.md)
+* [App Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md)
 
