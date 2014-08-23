@@ -122,7 +122,7 @@ header nav a:not(:last-child) {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	columns: 1;
+	column-count: 1;
 	font-size: 17px;
 }
 
@@ -325,7 +325,7 @@ a.zocial {
 
 @media (max-width: 480px) {
 	body .applist {
-		columns: auto !important;
+		column-count: auto !important;
 	}
 
 	.credit a {
@@ -356,13 +356,13 @@ a.zocial {
 
 @media (min-width: 480px) {
 	.applist {
-		columns: 2;
+		column-count: 2;
 	}
 }
 
 @media (min-width: 640px) and (max-width: 770px) {
 	.applist {
-		columns: 3;
+		column-count: 3;
 	}
 }
 
@@ -370,7 +370,7 @@ a.zocial {
 @media (min-width: 771px) {
 	.js,
 	.ctojs {
-		columns: 4;
+		column-count: 4;
 	}
 }
 
