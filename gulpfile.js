@@ -43,6 +43,7 @@ gulp.task('copy', function () {
     'architecture-examples/**',
     'dependency-examples/**',
     'vanilla-examples/**',
+    'bower_components/**',
     'labs/**',
     'learn.json',
     'CNAME',
@@ -78,10 +79,12 @@ gulp.task('html', function () {
     .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
     .pipe($.useref())
-    // Minify Any HTML
-    .pipe($.if('*.html', $.minifyHtml()))
     // Output Files
     .pipe(gulp.dest('dist'))
+    // Running vulcanize over the written output
+    // because it requires access to the written
+    // CSS and JS.
+    .pipe($.vulcanize({ dest: 'dist', strip: true }))
     .pipe($.size({title: 'html'}));
 });
 
@@ -90,7 +93,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['jshint', 'html', 'images', 'copy'], cb);
+  runSequence(['styles', 'copy'], ['jshint', 'html', 'images'], cb);
 });
 
 // Run PageSpeed Insights
