@@ -1,0 +1,128 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+`paper-tabs` is a `core-selector` styled to look like tabs. Tabs make it easy to 
+explore and switch between different views or functional aspects of an app, or 
+to browse categorized data sets.
+
+Use `selected` property to get or set the selected tab.
+
+Example:
+
+    <paper-tabs selected="0">
+      <paper-tab>TAB 1</paper-tab>
+      <paper-tab>TAB 2</paper-tab>
+      <paper-tab>TAB 3</paper-tab>
+    </paper-tabs>
+
+See <a href="#paper-tab">paper-tab</a> for more information about 
+`paper-tab`.
+
+Styling tabs:
+
+To change the sliding bar color:
+
+    paper-tabs.pink::shadow #selectionBar {
+      background-color: #ff4081;
+    }
+
+@group Paper Elements
+@element paper-tabs
+@extends core-selector
+@homepage github.io
+-->
+
+<link rel="import" href="../core-selector/core-selector.html">
+<link rel="import" href="paper-tab.html">
+
+<polymer-element name="paper-tabs" extends="core-selector" attributes="noink nobar" role="tablist">
+<template>
+
+  <link rel="stylesheet" href="paper-tabs.css">
+  
+  <div id="tabsContainer" horizontal layout>
+  
+    <shadow></shadow>
+    <div id="selectionBar" hidden?="{{nobar}}" on-transitionend="{{barTransitionEnd}}"></div>
+    
+  </div>
+    
+</template>
+<script>
+
+  Polymer('paper-tabs', {
+    
+    /**
+     * If true, ink effect is disabled.
+     *
+     * @attribute noink
+     * @type boolean
+     * @default false
+     */
+    noink: false,
+    
+    /**
+     * If true, the bottom bar to indicate the selected tab will not be shown.
+     *
+     * @attribute nobar
+     * @type boolean
+     * @default false
+     */
+    nobar: false,
+    
+    activateEvent: 'down',
+    
+    nostretch: false,
+    
+    selectedIndexChanged: function(old) {
+      var s = this.$.selectionBar.style;
+      
+      if (!this.selectedItem) {
+        s.width = 0;
+        s.left = 0;
+        return;
+      } 
+      
+      var w = 100 / this.items.length;
+      
+      if (this.nostretch || old === null || old === -1) {
+        s.width = w + '%';
+        s.left = this.selectedIndex * w + '%';
+        return;
+      }
+      
+      var m = 5;
+      this.$.selectionBar.classList.add('expand');
+      if (old < this.selectedIndex) {
+        s.width = w + w * (this.selectedIndex - old) - m + '%';
+      } else {
+        s.width = w + w * (old - this.selectedIndex) - m + '%';
+        s.left = this.selectedIndex * w + m + '%';
+      }
+    },
+    
+    barTransitionEnd: function() {
+      var cl = this.$.selectionBar.classList;
+      if (cl.contains('expand')) {
+        cl.remove('expand');
+        cl.add('contract');
+        var s = this.$.selectionBar.style;
+        var w = 100 / this.items.length;
+        s.width = w + '%';
+        s.left = this.selectedIndex * w + '%';
+      } else if (cl.contains('contract')) {
+        cl.remove('contract');
+      }
+    }
+    
+  });
+  
+</script>
+</polymer-element>

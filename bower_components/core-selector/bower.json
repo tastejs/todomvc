@@ -1,0 +1,8 @@
+{
+  "name": "core-selector",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#>=0.3.0 <1.0.0",
+    "core-selection": "Polymer/core-selection#>=0.3.0 <1.0.0"
+  }
+}
