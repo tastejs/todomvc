@@ -3,7 +3,7 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "bootstrap": "~3.2.0",
-    "paper-tabs": "Polymer/paper-tabs#~0.3.5"
+    "paper-tabs": "Polymer/paper-tabs#~0.4.0"
   },
   "devDependencies": {
     "prefixfree": "91790e8aff6d807cd62018479db2307e1972b92a"
