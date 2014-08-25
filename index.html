@@ -71,7 +71,7 @@
 					</style>
 					<paper-tabs selected="js" class="js-app-tabs">
 						<paper-tab name="js">JavaScript</paper-tab>
-						<paper-tab name="c2js">Compile-to-JS</paper-tab>
+						<paper-tab name="ctojs">Compile-to-JS</paper-tab>
 						<paper-tab name="labs">Labs</paper-tab>
 					</paper-tabs>
 
@@ -105,14 +105,6 @@
 								<li class="routing">
 									<a href="architecture-examples/knockback/" data-source="http://kmalakoff.github.com/knockback/" data-content="Knockback.js provides Knockout.js magic for Backbone.js Models and Collections.">Knockback.js</a>
 								</li>
-							</ul>
-						</div>
-						<div class="js-app-list" data-app-list="c2js">
-							<p class="applist-intro">
-								These are applications written in programming
-								languages that compile to JavaScript.
-							</p>
-							<ul class="applist js">
 								<li class="routing">
 									<a href="architecture-examples/canjs/" data-source="http://canjs.us" data-content="CanJS with jQuery. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS</a>
 								</li>
@@ -125,80 +117,91 @@
 								<li class="routing">
 									<a href="architecture-examples/react/" data-source="http://facebook.github.io/react/" data-content="React is a JavaScript library for building user interfaces.">React</a>
 								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/cujo/index.html" data-source="http://cujojs.com" data-content="cujoJS is an architectural framework for building highly modular, scalable, maintainable applications in Javascript.  It provides architectural plumbing, such as modules (AMD and CommonJS), declarative application composition, declarative connections, and aspect oriented programming.">cujoJS</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/montage/" data-source="http://montagejs.org" data-content="Montage simplifies the development of rich HTML5 applications by providing modular components, real-time two-way data binding, CommonJS dependency management, and many more conveniences.">Montage</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/sammyjs/" data-source="http://sammyjs.org" data-content="Sammy.js is a tiny JavaScript framework developed to ease the pain and provide a basic structure for developing JavaScript applications.">Sammy.js</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/stapes/" data-source="http://hay.github.com/stapes" data-content="Stapes is a (really) tiny Javascript MVC micro-framework (1.7kb) that has all the building blocks you need when writing an MVC app. It includes a powerful event system, support for inheritance, use with AMD, plugin support and more. A RequireJS Todo application is <a href='labs/dependency-examples/stapes_require/index.html'>also</a> available.">Stapes</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/epitome/" data-source="http://dimitarchristoff.github.com/Epitome" data-content="Epitome is a new extensible and modular open-source MVC framework, built out of MooTools Classes and Events.">Epitome</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/somajs/" data-source="http://somajs.github.com/somajs" data-content="soma.js is a framework created to build scalable and maintainable javascript applications.">soma.js</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/duel/www/" data-source="https://bitbucket.org/mckamey/duel/wiki/Home" data-content="DUEL is a dual-side templating engine using HTML for layout and 100% pure JavaScript as the binding language. The same views may be executed both directly in the browser (client-side template) and on the server (server-side template).">DUEL</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/kendo/" data-source="http://www.kendoui.com/" data-content="Kendo UI is a comprehensive HTML5, JavaScript framework for modern web and mobile app development">Kendo UI</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/puremvc/" data-source="http://puremvc.github.com" data-content="PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern.">PureMVC</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/olives/" data-source="https://github.com/flams/olives" data-content="Olives is a JS MVC framework that helps you create realtime UIs. It includes a set of AMD/CommonJS modules that are easily extensive, a high level of abstraction to reduce boilerplate and is based on socket.io, to provide a powerful means to communicate with node.js.">Olives</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/plastronjs/" data-source="https://github.com/rhysbrettbowen/PlastronJS" data-content="PlastronJS is an mvc framework built on top of the Closure Library and built to compile with projects that use the Closure Compiler.">PlastronJS</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/dijon/" data-source="https://github.com/creynders/dijon-framework" data-content="Dijon is an IOC and DI micro-framework for Javascript. Originally it was meant to be a port of Robotlegs, but deviated to something quite different. It remains however heavily inspired by Robotlegs, and more specifically Swiftsuspenders.">Dijon</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/rappidjs/" data-source="http://www.rappidjs.com" data-content="rAppid.js is a declarative JavaScript framework for rapid web application development. It supports dependency loading, Model-View binding, View-Model binding, dependency injection and i18n.">rAppid.js</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/extjs_deftjs/" data-source="http://deftjs.org/" data-content="Essential extensions for enterprise web and mobile application development with Ext JS and Sencha Touch">DeftJS + ExtJS</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/ariatemplates/" data-source="http://ariatemplates.com/" data-content="Aria Templates has been designed for web apps that are used 8+ hours a day, and that need to display and process high amount of data with a minimum of bandwidth consumption.">Aria Templates</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/dependency-examples/enyo_backbone/" data-source="http://enyojs.com/" data-content="Enyo is a simple but powerful encapsulation model, which helps you factor application functionality into self-contained building blocks that are easy to reuse and maintain.">Enyo +<br>Backbone.js</a>
-								</li>
-								<li class="routing labs">
-									<a href="architecture-examples/angularjs-perf/" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps. A version with several performance optimizations.">AngularJS <br>(optimized)</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/sapui5/" data-source="http://scn.sap.com/community/developer-center/front-end" data-content="SAPUI5 is SAP's HTML5-based UI technology that allows you to build rich, interactive Web applications.">SAPUI5</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/exoskeleton/" data-source="http://exosjs.com/" data-content="A faster and leaner Backbone for your HTML5 apps.">Exoskeleton</a>
-								</li>
-								<li class="routing labs">
-									<a href="labs/architecture-examples/atmajs/" data-source="http://atmajs.com/" data-content="HMVC and the component-based architecture for building client, server or hybrid applications">Atma.js</a>
-								</li>
-								<li class="labs">
-									<a href="labs/architecture-examples/ractive/" data-source="http://ractivejs.org" data-content="Ractive.js is a next-generation DOM manipulation library, optimised for developer sanity.">Ractive.js</a>
-								</li>
-								<li class="labs routing">
-									<a href="labs/architecture-examples/componentjs/" data-source="http://componentjs.com" data-content="ComponentJS is a stand-alone MPL-licensed Open Source library for JavaScript, providing a powerful run-time Component System for hierarchically structuring the User-Interface (UI) dialogs of complex HTML5-based Rich Clients (aka Single-Page-Apps) — under maximum applied Separation of Concerns (SoC) architecture principle, through optional Model, View and Controller component roles, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms, and fully independent and agnostic of the particular UI widget toolkit.">ComponentJS</a>
-								</li>
-								<li class="labs routing">
-									<a href="labs/architecture-examples/vue/" data-source="http://vuejs.org" data-content="Vue.js provides the benefits of MVVM data binding and a composable component system with an extremely simple and flexible API.">Vue.js</a>
-								</li>
-								<li class="labs routing">
-									<a href="labs/architecture-examples/react-backbone/" data-source="http://facebook.github.io/react/" data-content="This React example integrates Backbone for its model and router. It is a showcase of third-party library integration for developers wishing to use React together with a different JavaScript framework.">React + <br>Backbone.js</a>
+								<li class="routing">
+									<a href="dependency-examples/flight/" data-source="http://twitter.github.com/flight" data-content="Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes. Twitter uses it for their web applications.">Flight</a>
 								</li>
 							</ul>
 						</div>
+						<div class="js-app-list" data-app-list="ctojs">
+							<p class="applist-intro">
+								These are applications written in programming
+								languages that compile to JavaScript.
+							</p>
+							<ul class="applist js">
+								<li class="routing">
+									<a href="architecture-examples/spine/" data-source="http://spinejs.com" data-content="Spine is a lightweight framework for building JavaScript web applications. Spine gives you an MVC structure and then gets out of your way, allowing you to concentrate on the fun stuff, building awesome web applications.">Spine</a>
+								</li>
+								<li class="routing">
+									<a href="vanilla-examples/vanilladart/build/" data-source="http://dartlang.org" data-content="Dart firstly targets the development of modern and large scale browser-side web apps. It's an object oriented language with a C-style syntax. It has two run modes : it can be compiled to JS, and will later run in native VM in compliant browsers (just in a dedicated Chromium provided with Dart SDK for the moment).">Dart</a>
+								</li>
+								<li class="routing">
+									<a href="architecture-examples/gwt/" data-source="https://developers.google.com/web-toolkit/" data-content="Google Web Toolkit (GWT) is an MVP development toolkit for building and optimizing complex browser-based applications. GWT is used by many products at Google, including Google AdWords.">GWT</a>
+								</li>
+								<li class="routing">
+									<a href="architecture-examples/closure/" data-source="http://code.google.com/closure/library/" data-content="The Closure Library is a broad, well-tested, modular, and cross-browser JavaScript library. You can pull just what you need from a large set of reusable UI widgets and controls, and from lower-level utilities for DOM manipulation, server communication, animation, data structures, unit testing, rich-text editing, and more.">Closure</a>
+								</li>
+								<li>
+									<a href="labs/architecture-examples/angular-dart/web/" data-source="https://github.com/angular/angular.dart" data-content="Dart firstly targets the development of modern and large scale browser-side web apps. It's an object oriented language with a C-style syntax. AngularDart is a port of Angular to Dart.">AngularDart</a>
+								</li>
+								<li>
+									<a href="labs/architecture-examples/batman/" data-source="http://batmanjs.org" data-content="Batman.js is a framework for building rich web applications with CoffeeScript or JavaScript. App code is concise and declarative, thanks to a powerful system of view bindings and observable properties. The API is designed with developer and designer happiness as its first priority.">Batman.js</a>
+								</li>
+								<li>
+									<a href="labs/architecture-examples/typescript-backbone/" data-source="http://typescriptlang.org" data-content="TypeScript is a language for application-scale JavaScript development. It offers classes, modules, interfaces and type-checking at compile time to help you build robust components.">TypeScript <br>+ Backbone.js</a>
+								</li>
+								<li>
+									<a href="labs/architecture-examples/typescript-angular/" data-source="http://typescriptlang.org" data-content="An AngularJS + TypeScript implementation of TodoMVC. The only significant difference between this and the vanilla Angular app is that dependency injection is done via annotated constructors, which allows minification of JavaScript.">TypeScript <br>+ AngularJS</a>
+								</li>
+								<li>
+									<a href="labs/architecture-examples/serenadejs/" data-source="https://github.com/elabs/serenade.js" data-content="Serenade.js is yet another MVC client side JavaScript framework. Why do we indulge in recreating the wheel? We believe that Serenade.js more closely follows the ideas of classical MVC than competing frameworks.">Serenade.js</a>
+								</li>
+							</ul>
+						</div>
+						<div class="js-app-list" data-app-list="labs">
+							<p class="applist-intro">
+								These are examples written in JavaScript that
+								we are still evaluating.
+							</p>
+							<ul class="applist js">
+								<li class="routing">
+									<a href="labs/architecture-examples/backbone_marionette/" data-source="http://marionettejs.com" data-content="Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.">MarionetteJS</a>
+								</li>
+								<li class="routing">
+									<a href="labs/architecture-examples/thorax/" data-source="http://thoraxjs.org" data-content="An opinionated, battle tested Backbone + Handlebars framework to build large scale web applications.">Thorax</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/chaplin-brunch/public/" data-source="http://chaplinjs.org" data-content="Chaplin is an architecture for JavaScript applications using the Backbone.js library. Chaplin addresses Backbone’s limitations by providing a lightweight and flexible structure that features well-proven design patterns and best practises.">Chaplin + Brunch</a>
+								</li>
+								<li class="routing">
+									<a href="dependency-examples/backbone_require/" data-source="http://requirejs.org" data-content="RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.">Backbone.js + RequireJS</a>
+								</li>
+								<li>
+									<a href="labs/dependency-examples/knockoutjs_require/" data-source="http://knockoutjs.com" data-content="This project is an adaptation of /architecture-examples/knockoutjs with require.js.">KnockoutJS + RequireJS</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/angularjs_require/" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps. This is an example of using it with AMD modules.">AngularJS + RequireJS</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/canjs_require/" data-source="http://canjs.us" data-content="CanJS is a client-side, JavaScript framework that makes building rich web applications easy. The AMD version lets you use the framework in a fully modular fashion and will only what you actually need.">CanJS + RequireJS</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/troopjs_require/" data-source="https://github.com/troopjs/" data-content="TroopJS attempts to package popular front-end technologies and bind them with minimal effort for the developer. It includes jQuery for DOM manipulation, When.js for promises, RequireJS for modularity and Has.js for feature detection. On top, it includes Pub/Sub support, templating, weaving (widgets to DOM) and auto-wiring.">TroopJS + RequireJS</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/thorax_lumbar/public/" data-source="http://walmartlabs.github.com/lumbar" data-content="An opinionated, battle tested Backbone + Handlebars framework to build large scale web applications. This implementation uses Lumbar, a route based module loader.">Thorax + Lumbar</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/somajs_require/" data-source="http://somajs.github.com/somajs" data-content="soma.js is a framework created to build scalable and maintainable javascript applications.">soma.js + RequireJS</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/durandal/" data-source="http://durandaljs.com/" data-content="Single Page Apps Done Right">Durandal</a>
+								</li>
+								<li class="routing">
+									<a href="labs/dependency-examples/lavaca_require/" data-source="http://getlavaca.com" data-content="A curated collection of tools for building mobile web applications.">Lavaca + RequireJS</a>
+								</li>
+							</ul>
+						</div>
+
 					</div>
 					<ul class="legend">
 						<li><span class="label">R</span> = App also demonstrates routing</li>
@@ -206,16 +209,16 @@
 					<hr>
 					<h2>Real-time</h2>
 					<ul class="applist">
-						<li class="labs">
+						<li>
 							<a href="http://todomvcapp.meteor.com" data-source="http://meteor.com" data-content="Meteor is an ultra-simple environment for building modern websites. A Meteor application is a mix of JavaScript that runs inside a client web browser, JavaScript that runs on the Meteor server inside a Node.js container, and all the supporting HTML fragments, CSS rules, and static assets. Meteor automates the packaging and transmission of these different components. And, it is quite flexible about how you choose to structure those components in your file tree.">Meteor</a>
 						</li>
-						<li class="labs">
+						<li>
 							<a href="http://todomvc.derbyjs.com" data-source="http://derbyjs.com" data-content="MVC framework making it easy to write realtime, collaborative applications that run in both Node.js and browsers.">Derby</a>
 						</li>
-						<li class="routing labs">
+						<li class="routing">
 							<a href="http://todomvc-socketstream.herokuapp.com" data-source="http://www.socketstream.org" data-content="SocketStream is a fast, modular Node.js web framework dedicated to building realtime single-page apps">SocketStream</a>
 						</li>
-						<li class="routing labs">
+						<li class="routing">
 							<a href="labs/architecture-examples/firebase-angular/" data-source="https://www.firebase.com" data-content="Firebase is a scalable realtime backend that lets you build apps without managing servers. Firebase persists and updates JSON data in realtime and is best used in combination with a JavaScript MV* framework such as AngularJS or Backbone.">Firebase + AngularJS</a>
 						</li>
 					</ul>
