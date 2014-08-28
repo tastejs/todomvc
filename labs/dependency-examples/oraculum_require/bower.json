@@ -1,0 +1,8 @@
+{
+	"name": "oraculum-todomvc",
+	"version": "0.0.0",
+	"dependencies": {
+		"oraculum": "~0.0.6",
+		"todomvc-common": "~0.1.4"
+	}
+}
