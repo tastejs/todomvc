@@ -98,6 +98,18 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 			'all': 'update'
 		},
 
+		initialize: function () {
+			this.listenTo(App.request('filterState'), 'change:filter', this.render, this);
+		},
+
+		addChild: function (child) {
+			var filteredOn = App.request('filterState').get('filter');
+
+			if (child.matchesFilter(filteredOn)) {
+				Backbone.Marionette.CompositeView.prototype.addChild.apply(this, arguments);
+			}
+		},
+
 		onRender: function () {
 			this.update();
 		},
@@ -120,15 +132,5 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 				todo.save({ 'completed': isChecked });
 			});
 		}
-	});
-
-	// Application Event Handlers
-	// --------------------------
-	//
-	// Handler for filtering the list of items by showing and
-	// hiding through the use of various CSS classes
-	App.vent.on('todoList:filter', function (filter) {
-		filter = filter || 'all';
-		$('#todoapp').attr('class', 'filter-' + filter);
 	});
 });
