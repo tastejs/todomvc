@@ -16,7 +16,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		},
 
 		events: {
-			'click .destroy': 'destroy',
+			'click .destroy': 'deleteModel',
 			'dblclick label': 'onEditClick',
 			'keydown .edit': 'onEditKeypress',
 			'focusout .edit': 'onEditFocusout',
@@ -37,7 +37,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 			}
 		},
 
-		destroy: function () {
+		deleteModel: function () {
 			this.model.destroy();
 		},
 
@@ -83,8 +83,8 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 	// filtering of activs vs completed items for display.
 	Views.ListView = Backbone.Marionette.CompositeView.extend({
 		template: '#template-todoListCompositeView',
-		itemView: Views.ItemView,
-		itemViewContainer: '#todo-list',
+		childView: Views.ItemView,
+		childViewContainer: '#todo-list',
 
 		ui: {
 			toggle: '#toggle-all'

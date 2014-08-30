@@ -11,6 +11,6 @@ TodoMVC.addRegions({
 	footer: '#footer'
 });
 
-TodoMVC.on('initialize:after', function () {
+TodoMVC.on('start', function () {
 	Backbone.history.start();
 });
