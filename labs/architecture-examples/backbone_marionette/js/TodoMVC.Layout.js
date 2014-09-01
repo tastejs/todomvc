@@ -60,7 +60,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		initialize: function () {
-			this.listenTo(App.vent, 'todoList:filter', this.updateFilterSelection, this);
+			this.listenTo(App.request('filterState'), 'change:filter', this.updateFilterSelection, this);
 		},
 
 		serializeData: function () {
@@ -80,10 +80,9 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		updateFilterSelection: function () {
-			this.ui.filters
-				.removeClass('selected')
-				.filter('[href="' + (location.hash || '#') + '"]')
-				.addClass('selected');
+			this.ui.filters.removeClass('selected');
+			this.ui[App.request('filterState').get('filter')]
+			.addClass('selected');
 		},
 
 		onClearClick: function () {

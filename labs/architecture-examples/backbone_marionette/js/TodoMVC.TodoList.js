@@ -53,7 +53,8 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette, $, _) 
 
 		// Set the filter to show complete or all items
 		filterItems: function (filter) {
-			App.vent.trigger('todoList:filter', (filter && filter.trim()) || '');
+			var newFilter = filter && filter.trim() || 'all';
+			App.request('filterState').set('filter', newFilter);
 		}
 	});
 
