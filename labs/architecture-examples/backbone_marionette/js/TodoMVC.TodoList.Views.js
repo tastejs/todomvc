@@ -16,7 +16,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		},
 
 		events: {
-			'click .destroy': 'destroy',
+			'click .destroy': 'deleteModel',
 			'dblclick label': 'onEditClick',
 			'keydown .edit': 'onEditKeypress',
 			'focusout .edit': 'onEditFocusout',
@@ -37,7 +37,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 			}
 		},
 
-		destroy: function () {
+		deleteModel: function () {
 			this.model.destroy();
 		},
 
@@ -83,8 +83,8 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 	// filtering of activs vs completed items for display.
 	Views.ListView = Backbone.Marionette.CompositeView.extend({
 		template: '#template-todoListCompositeView',
-		itemView: Views.ItemView,
-		itemViewContainer: '#todo-list',
+		childView: Views.ItemView,
+		childViewContainer: '#todo-list',
 
 		ui: {
 			toggle: '#toggle-all'
@@ -96,6 +96,18 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 
 		collectionEvents: {
 			'all': 'update'
+		},
+
+		initialize: function () {
+			this.listenTo(App.request('filterState'), 'change:filter', this.render, this);
+		},
+
+		addChild: function (child) {
+			var filteredOn = App.request('filterState').get('filter');
+
+			if (child.matchesFilter(filteredOn)) {
+				Backbone.Marionette.CompositeView.prototype.addChild.apply(this, arguments);
+			}
 		},
 
 		onRender: function () {
@@ -120,15 +132,5 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 				todo.save({ 'completed': isChecked });
 			});
 		}
-	});
-
-	// Application Event Handlers
-	// --------------------------
-	//
-	// Handler for filtering the list of items by showing and
-	// hiding through the use of various CSS classes
-	App.vent.on('todoList:filter', function (filter) {
-		filter = filter || 'all';
-		$('#todoapp').attr('class', 'filter-' + filter);
 	});
 });

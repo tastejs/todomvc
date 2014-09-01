@@ -23,6 +23,18 @@ TodoMVC.module('Todos', function (Todos, App, Backbone) {
 
 		isCompleted: function () {
 			return this.get('completed');
+		},
+
+		matchesFilter: function (filter) {
+			if (filter == 'all') {
+				return true;
+			}
+
+			if (filter == 'active') {
+				return !this.isCompleted();
+			}
+
+			return this.isCompleted();
 		}
 	});
 
