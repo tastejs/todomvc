@@ -1,0 +1,21 @@
+{
+	"name": "firebrick",
+	"description": "A JavaScript MVC Framework powered with jQuery and Rivets JS",
+	"licence": "MIT",
+	"homepage": "http://firebrickjs.com",
+	"main": "firebrick.js",
+	"authors": [
+		"Steven Masala"
+	],
+	"keywords" : [ 
+		"mvc",
+		"mvvm",
+		"framework",
+		"javascript"
+	],
+	"version": "1.0.0",
+	"dependencies": {
+		"jquery": "~2.0.0",
+		"rivets": "~0.6.10"
+	}
+}
