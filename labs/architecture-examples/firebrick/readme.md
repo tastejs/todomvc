@@ -2,7 +2,7 @@
 
 > A powerful event based JavaScript Framework powered by jQuery and Rivets JS Template
 
-> [Firebrick - firebrickjs.com](http://firebrickjs.com)_
+> [Firebrick - firebrickjs.com](http://firebrickjs.com)
 
 
 ## Learning Firebrick JS
