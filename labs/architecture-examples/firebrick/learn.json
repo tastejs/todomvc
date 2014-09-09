@@ -1,0 +1,23 @@
+{
+	"firebrick": {
+		"name": "Firebrick JS",
+		"description": "A JavaScript MVC Framework powered with jQuery and Rivets JS",
+		"homepage": "http://firebrickjs.com",
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "https://github.com/smasala/firebrick"
+			}, {
+				"name": "API Reference",
+				"url": "https://github.com/smasala/firebrick"
+			}, {
+				"name": "Applications built with Firebrick",
+				"url": "https://github.com/smasala/firebrick-todomvc"
+			},{
+				"name": "Firebrick on GitHub",
+				"url": "https://github.com/smasala/firebrick"
+			}]
+		}]
+	}
+}
