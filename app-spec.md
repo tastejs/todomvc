@@ -40,7 +40,7 @@ js/
     └── todo.js
 ```
 
-Keep in mind that framework best practices on how to structure your app comes first.
+Keep in mind that framework best practices on how to structure your app come first.
 
 ### README
 
