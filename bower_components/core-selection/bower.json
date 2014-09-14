@@ -1,7 +1,0 @@
-{
-  "name": "core-selection",
-  "private": true,
-  "dependencies": {
-    "polymer": "Polymer/polymer#>=0.3.0 <1.0.0"
-  }
-}
