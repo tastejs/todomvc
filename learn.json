@@ -563,7 +563,7 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://www.dartlang.org/docs/technical-overview"
+				"url": "https://www.dartlang.org/docs/dart-up-and-running/contents/ch01.html"
 			}, {
 				"name": "API Reference",
 				"url": "http://api.dartlang.org/docs/releases/latest"
