@@ -144,7 +144,7 @@
 				"name": "AngularDart Mailing List",
 				"url": "https://groups.google.com/forum/#!forum/angular-dart"
 			}, {
-				"name": "AngularDart on StackOverflow",
+				"name": "AngularDart on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/angulardart"
 			}, {
 				"name": "+AngularDart on Google+",
@@ -190,7 +190,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Aria Templates on StackOverflow",
+				"name": "Aria Templates on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ariatemplates"
 			}, {
 				"name": "Forums",
@@ -227,7 +227,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Atma.js on StackOverflow",
+				"name": "Atma.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/atmajs"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -276,7 +276,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Backbone.js on StackOverflow",
+				"name": "Backbone.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/backbone.js"
 			}, {
 				"name": "Google Groups mailing list",
@@ -325,7 +325,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Batman.js on StackOverflow",
+				"name": "Batman.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/batman.js"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -374,7 +374,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "CanJS on StackOverflow",
+				"name": "CanJS on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/canjs"
 			}, {
 				"name": "CanJS Forums",
@@ -429,7 +429,7 @@
 				"name": "Support forum on ost.io",
 				"url": "http://ost.io/@chaplinjs/chaplin"
 			}, {
-				"name": "Chaplin on StackOverflow",
+				"name": "Chaplin on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/chaplinjs"
 			}, {
 				"name": "Chaplin on Twitter",
@@ -563,7 +563,7 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://www.dartlang.org/docs/technical-overview"
+				"url": "https://www.dartlang.org/docs/dart-up-and-running/contents/ch01.html"
 			}, {
 				"name": "API Reference",
 				"url": "http://api.dartlang.org/docs/releases/latest"
@@ -589,7 +589,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Dart on StackOverflow",
+				"name": "Dart on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/dart"
 			}, {
 				"name": "Dart on Twitter",
@@ -626,7 +626,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "DeftJS on StackOverflow",
+				"name": "DeftJS on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/deftjs"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -679,7 +679,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Derby on StackOverflow",
+				"name": "Derby on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/derbyjs"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -747,7 +747,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Dojo on StackOverflow",
+				"name": "Dojo on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/dojo"
 			}, {
 				"name": "Mailing list",
@@ -819,7 +819,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Durandal on StackOverflow",
+				"name": "Durandal on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/durandal"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -871,7 +871,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Ember.js on StackOverflow",
+				"name": "Ember.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ember.js"
 			}, {
 				"name": "Ember.js on Twitter",
@@ -914,7 +914,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Enyo on StackOverflow",
+				"name": "Enyo on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/enyo"
 			}, {
 				"name": "Forums",
@@ -979,10 +979,10 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Exoskeleton on StackOverflow",
+				"name": "Exoskeleton on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/exoskeleton"
 			}, {
-				"name": "Backbone on StackOverflow",
+				"name": "Backbone on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/backbone.js"
 			}, {
 				"name": "Exoskeleton's author on Twitter",
@@ -1022,7 +1022,7 @@
 				"name": "Firebase + Angular Mailing list on Google Groups",
 				"url": "https://groups.google.com/forum/#!forum/firebase-angular"
 			}, {
-				"name": "Firebase on StackOverflow",
+				"name": "Firebase on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/firebase"
 			}, {
 				"name": "Firebase on Twitter",
@@ -1093,7 +1093,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Google Web Toolkit on StackOverflow",
+				"name": "Google Web Toolkit on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/gwt"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -1154,7 +1154,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "jQuery on StackOverflow",
+				"name": "jQuery on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/jquery"
 			}, {
 				"name": "Forums",
@@ -1200,7 +1200,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Kendo UI on StackOverflow",
+				"name": "Kendo UI on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/kendo-ui"
 			}, {
 				"name": "Kendo UI on Twitter",
@@ -1277,7 +1277,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Knockout.js on StackOverflow",
+				"name": "Knockout.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/knockout"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -1388,7 +1388,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Backbone.Marionette on StackOverflow",
+				"name": "Backbone.Marionette on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/backbone.marionette"
 			}, {
 				"name": "Backbone.Marionette on Twitter",
@@ -1444,7 +1444,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Meteor on StackOverflow",
+				"name": "Meteor on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/meteor"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -1579,6 +1579,9 @@
 			}, {
 				"name": "Polymer on GitHub",
 				"url": "https://github.com/polymer"
+			}, {
+				"name": "Polymer on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/polymer"
 			}]
 		}, {
 			"heading": "Videos",
@@ -1632,7 +1635,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "PureMVC on StackOverflow",
+				"name": "PureMVC on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/puremvc"
 			}, {
 				"name": "PureMVC on Twitter",
@@ -1743,7 +1746,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Stack Overflow",
+				"name": "ReactJS on Stack Overflow",
 				"url": "https://stackoverflow.com/questions/tagged/reactjs"
 			}, {
 				"name": "Google Groups Mailing List",
@@ -1880,7 +1883,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "SocketStream on StackOverflow",
+				"name": "SocketStream on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/socketstream"
 			}, {
 				"name": "SocketStream on Twitter",
@@ -1957,7 +1960,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Spine on StackOverflow",
+				"name": "Spine on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/spine.js"
 			}, {
 				"name": "Mailing list on Google Groups",
@@ -2093,7 +2096,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "TypeScript on StackOverflow",
+				"name": "TypeScript on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/typescript"
 			}, {
 				"name": "Forums",
@@ -2170,7 +2173,7 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "YUI on StackOverflow",
+				"name": "YUI on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/yui"
 			}, {
 				"name": "Forums",
