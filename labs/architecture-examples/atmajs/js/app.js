@@ -1,5 +1,5 @@
 /*jshint newcap:false */
-/*global include, Compo */
+/*global include, mask, Compo, ruta */
 
 'use strict';
 
@@ -31,32 +31,41 @@ include
 		compo: ['todoList', 'filter']
 	})
 
+	.load('./app.mask::Template')
+
 	.ready(function (resp) {
 
-		/* Initialize and load the model from the Store */
-		var todos = resp.Todos.fetch();
-
-		var Application = Compo({
-			template: '#layout',
+		mask.registerHandler(':app', Compo({
+			template: resp.load.Template,
+			model: resp.Todos.fetch(),
+			scope: {
+				action: ''
+			},
 			slots: {
-
 				newTask: function (event, title) {
-
 					if (title) {
 						this.model.create(title);
 					}
 				},
-
 				removeAllCompleted: function () {
-
-					this
-						.model
-						.del(function (x) {
-							return x.completed === true;
-						});
+					this.model.del(function (x) {
+						return x.completed === true;
+					});
 				}
+			},
+			onRenderStart: function () {
+				// (RutaJS) Default router is the History API,
+				// but for this app spec enable hashes
+				ruta
+					.setRouterType('hash')
+					.add('/?:action', this.applyFilter.bind(this))
+					.notifyCurrent()
+					;
+			},
+			applyFilter: function (route, params) {
+				this.scope.action = params.action || '';
 			}
-		});
+		}));
 
-		Compo.initialize(Application, todos, document.body);
+		Compo.initialize(':app', document.body);
 	});

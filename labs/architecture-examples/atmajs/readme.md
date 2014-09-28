@@ -109,7 +109,7 @@ navigate to ``` http://localhost:5777/ ```
 
 ### Build
 
-To build the application for release, run ``` $ atma ```. We provide also a compiled version in 'build/' directory, so you
+To build the application for release, run ``` $ atma build --file index.html --output release/```. We provide also a compiled version in 'build/' directory, so you
 can see how the application looks like for production.
 
 

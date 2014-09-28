@@ -1,29 +1,19 @@
-li.~[bind:completed ? 'completed'].~[bind:state]
-	// emit `edit` on `dblclick` event
-	x-signal = 'dblclick: edit'
-	// bind to `completed` status and parent's `action` + change display property
-	xx-visible = '_isVisible(completed, closest(":todoList").action)' {
-
-		.view {
-			input.toggle type = 'checkbox' {
-				:dualbind
-					value = 'completed'
-					// emit signal when INPUTs state changes via user input
-					x-signal = 'dom: taskChanged'
-					;
-			}
-
-			label > '~[bind:title]';
-			button.destroy x-signal = 'click: taskRemoved';
-		}
-
-		// custom `todo:input` control
-		todo:input.edit
+define :todoTask:view > .view{
+	input.toggle type=checkbox {
+		:dualbind
+			value = 'completed'
+			// emit signal when INPUTs state changes via user input
+			x-signal = 'dom: taskChanged'
+			;
+	}
+	label > '~[bind:title]';	
+	button.destroy x-signal = 'click: taskRemoved';
+}
+define :todoTask:edit >
+	todo:input.edit
+			// do not clear input after edit
 			preserve
-
 			// emit signal on custom event `cancel`
-			// Note: we could also listen direct for the `cancel` event in the
-			//		controller
 			x-signal = 'cancel: inputCanceled' {
 
 				:dualbind
@@ -35,4 +25,14 @@ li.~[bind:completed ? 'completed'].~[bind:state]
 					x-signal = 'dom: taskChanged'
 					;
 			}
-}
+
++if($c._isVisible(completed, action)) >
+	li
+		.~[bind:completed ? 'completed']
+		.~[bind:state]
+		// emit `edit` on `dblclick` event
+		x-signal = 'dblclick: edit'
+		{
+			:todoTask:view;
+			:todoTask:edit;
+		}
