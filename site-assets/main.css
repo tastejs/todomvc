@@ -126,18 +126,18 @@ header nav a:not(:last-child) {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	column-count: 1;
 	font-size: 17px;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .applist li {
 	padding: 10px 0;
-	column-break-inside: avoid;
+	width: 160px;
 }
 
 .applist a {
 	position: relative; /* popover */
-	column-break-inside: avoid;
 }
 
 .applist-intro {
@@ -342,10 +342,6 @@ a.zocial {
 }
 
 @media (max-width: 480px) {
-	body .applist {
-		column-count: auto !important;
-	}
-
 	.credit a {
 		display: block;
 	}
@@ -369,26 +365,6 @@ a.zocial {
 
 	.container {
 		margin: auto;
-	}
-}
-
-@media (min-width: 480px) {
-	.applist {
-		column-count: 2;
-	}
-}
-
-@media (min-width: 640px) and (max-width: 770px) {
-	.applist {
-		column-count: 3;
-	}
-}
-
-
-@media (min-width: 771px) {
-	.js,
-	.ctojs {
-		column-count: 4;
 	}
 }
 
