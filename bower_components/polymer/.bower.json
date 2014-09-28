@@ -1,0 +1,19 @@
+{
+  "name": "polymer",
+  "private": true,
+  "dependencies": {
+    "platform": "Polymer/platform#>=0.3.0 <1.0.0",
+    "core-component-page": "Polymer/core-component-page#>=0.3.0 <1.0.0"
+  },
+  "homepage": "https://github.com/Polymer/polymer",
+  "version": "0.3.5",
+  "_release": "0.3.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.5",
+    "commit": "a09a0e689fdeab11b53b41eaed033781733bf1eb"
+  },
+  "_source": "git://github.com/Polymer/polymer.git",
+  "_target": ">=0.3.0 <1.0.0",
+  "_originalSource": "Polymer/polymer"
+}

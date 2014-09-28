@@ -118,24 +118,38 @@ header nav a:not(:last-child) {
 	left: -20px;
 }
 
+.app-lists {
+	overflow: hidden;
+}
+
 .applist {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	-webkit-column-count: 1;
-	   -moz-column-count: 1;
-	        column-count: 1;
 	font-size: 17px;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
 }
 
 .applist li {
 	padding: 10px 0;
-	column-break-inside: avoid;
+	width: 150px;
 }
 
 .applist a {
 	position: relative; /* popover */
-	column-break-inside: avoid;
+}
+
+.applist-intro {
+	margin: 10px 0 10px;
+	font-style: italic;
 }
 
 .applist .routing::after,
@@ -330,13 +344,22 @@ a.zocial {
 	border-radius: .3em;
 }
 
-@media (max-width: 480px) {
-	body .applist {
-		-webkit-column-count: auto !important;
-		   -moz-column-count: auto !important;
-		        column-count: auto !important;
-	}
+@-webkit-keyframes swoosh-in {
+	from { opacity: 0; -webkit-transform: translateX(-500px); transform: translateX(-500px); }
+	to { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
+}
 
+@keyframes swoosh-in {
+	from { opacity: 0; -webkit-transform: translateX(-500px); transform: translateX(-500px); }
+	to { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
+}
+
+.anim-swoosh-in {
+	-webkit-animation: swoosh-in 0.5s;
+	        animation: swoosh-in 0.5s;
+}
+
+@media (max-width: 480px) {
 	.credit a {
 		display: block;
 	}
@@ -360,32 +383,6 @@ a.zocial {
 
 	.container {
 		margin: auto;
-	}
-}
-
-@media (min-width: 480px) {
-	.applist {
-		-webkit-column-count: 2;
-		   -moz-column-count: 2;
-		        column-count: 2;
-	}
-}
-
-@media (min-width: 640px) and (max-width: 770px) {
-	.applist {
-		-webkit-column-count: 3;
-		   -moz-column-count: 3;
-		        column-count: 3;
-	}
-}
-
-
-@media (min-width: 771px) {
-	.js,
-	.ctojs {
-		-webkit-column-count: 4;
-		   -moz-column-count: 4;
-		        column-count: 4;
 	}
 }
 
