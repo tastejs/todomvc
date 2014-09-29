@@ -202,6 +202,8 @@ jQuery(function ($) {
 			this.render();
 		},
 		destroy: function (e) {
+			alert("complete");
+			var checkTodo = todos.splice(this.indexFromEl(e.target), 1);
 			this.todos.splice(this.indexFromEl(e.target), 1);
 			this.render();
 		}
