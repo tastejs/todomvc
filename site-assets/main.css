@@ -118,22 +118,32 @@ header nav a:not(:last-child) {
 	left: -20px;
 }
 
+.app-lists {
+	overflow: hidden;
+}
+
 .applist {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	column-count: 1;
 	font-size: 17px;
+	display: flex;
+	flex-wrap: wrap;
+	transition: height .5s ease-in-out;
 }
 
 .applist li {
 	padding: 10px 0;
-	column-break-inside: avoid;
+	width: 160px;
 }
 
 .applist a {
 	position: relative; /* popover */
-	column-break-inside: avoid;
+}
+
+.applist-intro {
+	margin: 10px 0 10px;
+	font-style: italic;
 }
 
 .applist .routing::after,
@@ -323,11 +333,16 @@ a.zocial {
 	border-radius: .3em;
 }
 
-@media (max-width: 480px) {
-	body .applist {
-		column-count: auto !important;
-	}
+@keyframes swoosh-in {
+	from { opacity: 0; transform: translateX(-500px); }
+	to { opacity: 1; transform: translateX(0); }
+}
 
+.anim-swoosh-in {
+	animation: swoosh-in 0.5s;
+}
+
+@media (max-width: 480px) {
 	.credit a {
 		display: block;
 	}
@@ -351,26 +366,6 @@ a.zocial {
 
 	.container {
 		margin: auto;
-	}
-}
-
-@media (min-width: 480px) {
-	.applist {
-		column-count: 2;
-	}
-}
-
-@media (min-width: 640px) and (max-width: 770px) {
-	.applist {
-		column-count: 3;
-	}
-}
-
-
-@media (min-width: 771px) {
-	.js,
-	.ctojs {
-		column-count: 4;
 	}
 }
 

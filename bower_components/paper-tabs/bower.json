@@ -1,0 +1,12 @@
+{
+  "name": "paper-tabs",
+  "private": true,
+  "dependencies": {
+    "core-icons": "Polymer/core-icons#^0.4.0",
+    "core-selector": "Polymer/core-selector#^0.4.0",
+    "core-toolbar": "Polymer/core-toolbar#^0.4.0",
+    "font-roboto": "Polymer/font-roboto#^0.4.0",
+    "paper-icon-button": "Polymer/paper-icon-button#^0.4.0",
+    "paper-ripple": "Polymer/paper-ripple#^0.4.0"
+  }
+}

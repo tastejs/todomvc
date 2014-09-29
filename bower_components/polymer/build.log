@@ -1,0 +1,33 @@
+BUILD LOG
+---------
+Build Time: 2014-09-18T12:47:15
+
+NODEJS INFORMATION
+==================
+nodejs: v0.10.32
+chai: 1.9.1
+grunt: 0.4.5
+grunt-audit: 0.0.3
+grunt-concat-sourcemap: 0.4.3
+grunt-contrib-concat: 0.4.0
+grunt-contrib-uglify: 0.5.1
+grunt-karma: 0.8.3
+grunt-string-replace: 0.2.7
+karma: 0.12.23
+karma-crbot-reporter: 0.0.4
+karma-ie-launcher: 0.1.5
+karma-mocha: 0.1.9
+karma-firefox-launcher: 0.1.3
+karma-safari-launcher: 0.1.1
+karma-script-launcher: 0.1.0
+mocha: 1.21.4
+
+REPO REVISIONS
+==============
+polymer-expressions: a1c43d70986be0031206b68f3e17cbf11dbc56e2
+polymer-gestures: 1257576a2fe1d7bb507b0c491d30b464eb03311e
+polymer-dev: 1d45ec8e7de4495d26610f2dd73b81bfad2a381f
+
+BUILD HASHES
+============
+build/polymer.js: c80909695c132ccf1700bae8e9c51e78ede0cc74
