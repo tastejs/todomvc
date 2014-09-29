@@ -129,6 +129,7 @@ header nav a:not(:last-child) {
 	font-size: 17px;
 	display: flex;
 	flex-wrap: wrap;
+	transition: height .5s ease-in-out;
 }
 
 .applist li {
