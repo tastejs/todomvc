@@ -1,5 +1,5 @@
 /*jshint newcap:false */
-/*global Class, ruqq, include */
+/*global Class, include */
 
 (function () {
 	'use strict';
@@ -15,7 +15,6 @@
 
 	include.exports = Class.Collection(Todo, {
 		Store: Class.LocalStore('todos-atmajs'),
-
 		create: function (title) {
 			// `push` initilizes the `Task` instance. It does the same
 			// as if we would do this via `new Task({title: title})`
@@ -25,16 +24,21 @@
 				})
 				.save();
 		},
-
+		toggleAll: function (completed) {
+			this
+				.forEach(function (task) {
+					task.completed = completed;
+				})
+				.save();
+		},
 		status: {
 			count: 0,
 			todoCount: 0,
 			completedCount: 0,
 		},
-
 		Override: {
 			// Override mutators and recalculate status,
-			// which will be use lately in M-V bindings
+			// which will be used lately in M-V bindings
 			save: function () {
 				return this
 					.super(arguments)
@@ -52,10 +56,15 @@
 			}
 		},
 		calcStatus: function () {
+			var todos = 0;
+			var completed = 0;
+			this.forEach(function(todo){
+				todo.completed && ++completed || ++todos;
+			});
 
 			this.status.count = this.length;
-			this.status.todoCount = ruqq.arr.count(this, 'completed', '==', false);
-			this.status.completedCount = ruqq.arr.count(this, 'completed', '==', true);
+			this.status.todoCount = todos;
+			this.status.completedCount = completed;
 			return this;
 		}
 	});

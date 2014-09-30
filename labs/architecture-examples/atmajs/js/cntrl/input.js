@@ -48,24 +48,22 @@
 			},
 			'blur': 'save'
 		},
-		focus: function focus() {
+		focus: function () {
 			this.$.focus();
 		},
 
-		cancel: function cancel() {
+		cancel: function () {
 			this.$.trigger('cancel');
 			this.afterEdit();
 		},
 
-		save: function save() {
+		save: function () {
 			var value = this.$.val().trim();
-
 			this.$.trigger('enter', value);
 			this.afterEdit();
 		},
 
 		afterEdit: function () {
-
 			this.$.val(this.attr.preserve ? this.model.title : '');
 		}
 

@@ -22,12 +22,9 @@ include
 	var STATE_EDIT = 'editing';
 
 	mask.registerHandler(':todoTask', Compo({
-
-		//= Properties
-
-		state: STATE_VIEW,
-
-		//= Component Definition
+		scope: {
+			state: STATE_VIEW
+		},
 
 		template: response.load.Template,
 		slots: {
@@ -54,12 +51,8 @@ include
 			},
 
 			edit: function () {
-
-				this.state = STATE_EDIT;
+				this.scope.state = STATE_EDIT;
 				this.compos.input.focus();
-
-				// stop signal propagation (example purpose)
-				return false;
 			}
 
 		},
@@ -70,18 +63,16 @@ include
 		//= Private Methods
 
 		_editEnd: function () {
-			this.state = STATE_VIEW;
+			this.scope.state = STATE_VIEW;
 		},
 
 		_isVisible: function (completed, action) {
 			if ('completed' === action && !completed) {
 				return false;
 			}
-
 			if ('active' === action && completed) {
 				return false;
 			}
-
 			return true;
 		}
 	}));
