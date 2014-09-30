@@ -217,6 +217,9 @@
 			}, {
 				"name": "Atma.js on GitHub",
 				"url": "https://github.com/atmajs"
+			}, {
+				"name": "Atma.js DevTool",
+				"url": "https://chrome.google.com/webstore/detail/atmajs-devtool/bpaepkmcmoablpdahclhdceapndfhdpo"
 			}]
 		}, {
 			"heading": "Overview",
