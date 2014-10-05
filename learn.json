@@ -1458,6 +1458,43 @@
 			}]
 		}]
 	},
+	"mithril": {
+		"name": "Mithril",
+		"description": "Mithril is a client-side MVC framework - a tool to organize code in a way that is easy to think about and to maintain.",
+		"homepage": "lhorie.github.io/mithril/",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "architecture-examples/mithril"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://lhorie.github.io/mithril/getting-started.html"
+			}, {
+				"name": "API Reference",
+				"url": "http://lhorie.github.io/mithril/mithril.html"
+			}, {
+				"name": "Tutorials",
+				"url": "http://lhorie.github.io/mithril-blog/"
+			}, {
+				"name": "Mithril on Github",
+				"url": "https://github.com/lhorie/mithril.js"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Mailing list on Google Groups",
+				"url": "https://groups.google.com/forum/#!forum/mithriljs"
+			}, {
+				"name": "StackOverflow",
+				"url": "http://stackoverflow.com/questions/tagged/mithril.js"
+			}, {
+				"name": "Projects and Snippets",
+				"url": "https://github.com/lhorie/mithril.js/wiki/Community-Projects-and-Snippets"
+			}]
+		}]
+	},
 	"montage": {
 		"name": "MontageJS",
 		"description": "MontageJS is a framework for building rich HTML5 applications optimized for today and tomorrow’s range of connected devices. It offers time-tested design patterns and software principles, a modular architecture, a friendly method to achieve a clean separation of concerns, and supports sharing packages and modules with your NodeJS server.",
