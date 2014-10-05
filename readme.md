@@ -43,7 +43,7 @@ Pascal is a Front-end Engineer at Twitter with a deep passion for consistency. H
 
 #### [Stephen Sawchuk](https://github.com/stephenplusplus) - Developer
 
-<img align="left" width="40" height="40" src="https://secure.gravatar.com/avatar/098cfe2d360e77c3229f2cd5298354c4?s=40">
+<img align="left" width="40" height="40" src="https://avatars3.githubusercontent.com/u/723048?v=2&s=40">
 Stephen is a Front-end Engineer at Quicken Loans that cares about improving the maintainability and developer experience of open-source projects. His recent contributions include helping us move all apps over to using Bower and implementing the new information bar.
 
 #### [Colin Eberhardt](https://github.com/colineberhardt) - Developer
