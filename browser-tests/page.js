@@ -132,6 +132,7 @@ module.exports = function Page(browser) {
 			var deleteKeyPresses = '';
 			for (var i = 0; i < 50; i++) {
 				deleteKeyPresses += webdriver.Key.BACK_SPACE;
+				deleteKeyPresses += webdriver.Key.DELETE;
 			}
 
 			itemEditField.sendKeys(deleteKeyPresses);
