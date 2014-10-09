@@ -27,6 +27,12 @@ window.app = {
 window.app.init();
 
 },{"./models/me":2,"./router":5,"./views/main":7}],2:[function(require,module,exports){
+// typically we us a 'me' model to represent state for the
+// user of the app. So in an app where you have a logged in
+// user this is where we'd store username, etc.
+// We also use it to store session properties, which is the
+// non-persisted state that we use to track application
+// state for this user in this session.
 'use strict';
 
 var State = require('ampersand-state');
@@ -48,14 +54,25 @@ module.exports = State.extend({
 	collections: {
 		todos: Todos
 	},
+	// We used only session properties here because there's
+	// no API or persistance layer for these in this app.
 	session: {
-		activeCount: ['number', true, 0],
-		completedCount: ['number', true, 0],
-		totalCount: ['number', true, 0],
-		allCompleted: ['boolean', true, false],
-		// This is a more explicit property declaration
-		// `mode` can only be one of those 3 values.
-		// This drastically improves readability.
+		activeCount: {
+			type: 'number',
+			default: 0
+		},
+		completedCount: {
+			type: 'number',
+			default: 0
+		},
+		totalCount:{
+			type: 'number',
+			default: 0
+		},
+		allCompleted: {
+			type: 'boolean',
+			default: false
+		},
 		mode: {
 			type: 'string',
 			values: [
@@ -113,19 +130,23 @@ var State = require('ampersand-state');
 
 module.exports = State.extend({
 	// Properties this model will store
-	// At minimum we have to provide a type
-	// but we can also specify as follows:
-	// [{type}, {is required}, {default value}]
-	// if no default is given they are `undefined`
-	// until set.
 	props: {
-		title: 'string',
-		completed: ['boolean', true, false]
+		title: {
+			type: 'string',
+			default: ''
+		},
+		completed: {
+			type: 'boolean',
+			default: false
+		}
 	},
 	// session properties work the same way as `props`
 	// but will not be included when serializing.
 	session: {
-		editing: 'boolean'
+		editing: {
+			type: 'boolean',
+			default: false
+		}
 	},
 	destroy: function () {
 		if (this.collection) {

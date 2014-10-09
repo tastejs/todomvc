@@ -1,3 +1,9 @@
+// typically we us a 'me' model to represent state for the
+// user of the app. So in an app where you have a logged in
+// user this is where we'd store username, etc.
+// We also use it to store session properties, which is the
+// non-persisted state that we use to track application
+// state for this user in this session.
 'use strict';
 
 var State = require('ampersand-state');
@@ -19,14 +25,25 @@ module.exports = State.extend({
 	collections: {
 		todos: Todos
 	},
+	// We used only session properties here because there's
+	// no API or persistance layer for these in this app.
 	session: {
-		activeCount: ['number', true, 0],
-		completedCount: ['number', true, 0],
-		totalCount: ['number', true, 0],
-		allCompleted: ['boolean', true, false],
-		// This is a more explicit property declaration
-		// `mode` can only be one of those 3 values.
-		// This drastically improves readability.
+		activeCount: {
+			type: 'number',
+			default: 0
+		},
+		completedCount: {
+			type: 'number',
+			default: 0
+		},
+		totalCount:{
+			type: 'number',
+			default: 0
+		},
+		allCompleted: {
+			type: 'boolean',
+			default: false
+		},
 		mode: {
 			type: 'string',
 			values: [

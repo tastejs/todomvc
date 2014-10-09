@@ -17,9 +17,7 @@
                 <ul id="todo-list" data-hook="todo-container"></ul>
             </section>
             <footer id="footer">
-                <!-- This should be `0 items left` by default -->
                 <span id="todo-count" data-hook="todo-count"></span>
-                <!-- Remove this if you don't implement routing -->
                 <ul id="filters">
                     <li>
                         <a class="selected" href="#/" data-hook="all-mode">All</a>
@@ -31,7 +29,6 @@
                         <a href="#/completed" data-hook="completed-mode">Completed</a>
                     </li>
                 </ul>
-                <!-- Hidden if no completed items are left ↓ -->
                 <button id="clear-completed" data-hook="clear-completed">Clear completed (<span data-hook="completed-count">1</span>)</button>
             </footer>
         </section>
