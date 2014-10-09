@@ -20,7 +20,7 @@
 			<footer id="footer"></footer>
 		</section>
 		<footer id="info">
-			<p>Double-click to edit a todo</p>
+			<p>Double-click or select and press ENTER to edit a todo</p>
 			<p>Written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
@@ -28,7 +28,7 @@
 			<div class="view">
 				<input class="toggle" type="checkbox" tabindex="0" <%= completed ? 'checked' : '' %>>
 				<span tabindex="0"><%- title %></span	>
-				<button class="destroy"></button>
+				<button class="destroy" title="Delete this to-do item"></button>
 			</div>
 			<input class="edit" value="<%- title %>">
 		</script>
