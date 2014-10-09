@@ -18,8 +18,8 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		events: {
 			'click .destroy': 'deleteModel',
 			'dblclick label': 'onEditClick',
-			'keydown .edit': 'onEditKeypress',
-			'focusout .edit': 'onEditFocusout',
+			'keydown @ui.edit': 'onEditKeypress',
+			'focusout @ui.edit': 'onEditFocusout',
 			'click .toggle': 'toggle'
 		},
 
