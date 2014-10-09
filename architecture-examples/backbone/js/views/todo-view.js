@@ -63,7 +63,6 @@ var app = app || {};
 			return this.model.get('completed') ?
 				app.TodoFilter === 'active' :
 				app.TodoFilter === 'completed';
-			);
 		},
 
 		// Toggle the `"completed"` state of the model.
