@@ -14,7 +14,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		events: {
-			'keypress #new-todo': 'onInputKeypress'
+			'keypress @ui.input': 'onInputKeypress'
 		},
 
 		onInputKeypress: function (e) {
