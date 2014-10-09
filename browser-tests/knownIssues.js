@@ -23,13 +23,7 @@ module.exports = [
 	'TodoMVC - typescript-backbone, Item, should allow me to mark items as complete',
 	'TodoMVC - typescript-backbone, Item, should allow me to un-mark items as complete',
 	'TodoMVC - typescript-backbone, Item, should allow me to edit an item',
-
-	// https://github.com/tastejs/todomvc/issues/829
-	// checkbox state is inverted
-	'TodoMVC - typescript-angular, Mark all as completed, should allow me to mark all items as completed',
-	'TodoMVC - typescript-angular, Mark all as completed, should allow me to clear the completion state of all items',
-	'TodoMVC - typescript-angular, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-
+	
 	// https://github.com/tastejs/todomvc/issues/828
 	// routing should default to all
 	'TodoMVC - batman, Routing, should highlight the currently applied filter',
@@ -42,13 +36,6 @@ module.exports = [
 	'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
 	'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
 
-	// https://github.com/tastejs/todomvc/issues/824
-	// this implementation has numerous edit experience issues
-	'TodoMVC - typescript-backbone, Editing, should save edits on enter',
-	'TodoMVC - typescript-backbone, Editing, should trim entered text',
-	'TodoMVC - typescript-backbone, Editing, should remove the item if an empty text string was entered',
-	'TodoMVC - typescript-backbone, Editing, should cancel edits on escape',
-
 	// https://github.com/tastejs/todomvc/issues/815
 	// does not hide other controls while editing
 	'TodoMVC - dojo, Editing, should hide other controls when editing',
@@ -57,38 +44,25 @@ module.exports = [
 	// atma does not hide the main section, instead it hides the toggle-all checkbox
 	'TodoMVC - atmajs, No Todos, should hide #main and #footer',
 
-	// https://github.com/tastejs/todomvc/issues/817
-	// batman does not trim input
-	'TodoMVC - batman, New Todo, should trim text input',
-	'TodoMVC - typescript-backbone, New Todo, should trim text input',
-
 	// https://github.com/tastejs/todomvc/issues/819
 	// the edit experience with soma is quite broken. You can 
 	// get multiple elements into an edit state
-	'TodoMVC - somajs, Editing, should remove the item if an empty text string was entered',
 	'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
 	'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
 	// the following are covered by the following issue:
 	// https://github.com/tastejs/todomvc/issues/789
-	'TodoMVC - agilityjs, Editing, should cancel edits on escape',
-	'TodoMVC - angularjs-perf, Editing, should cancel edits on escape',
 	'TodoMVC - closure, Editing, should cancel edits on escape',
-	'TodoMVC - jquery, Editing, should cancel edits on escape',
-	'TodoMVC - knockback, Editing, should cancel edits on escape',
-	'TodoMVC - spine, Editing, should cancel edits on escape',
 	'TodoMVC - yui, Editing, should cancel edits on escape',
 	'TodoMVC - ariatemplates, Editing, should cancel edits on escape',
 	'TodoMVC - dermis, Editing, should cancel edits on escape',
 	'TodoMVC - duel, Editing, should cancel edits on escape',
 	'TodoMVC - epitome, Editing, should cancel edits on escape',
 	'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
-	'TodoMVC - kendo, Editing, should cancel edits on escape',
 	'TodoMVC - olives, Editing, should cancel edits on escape',
 	'TodoMVC - plastronjs, Editing, should cancel edits on escape',
 	'TodoMVC - rappidjs, Editing, should cancel edits on escape',
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
-	'TodoMVC - somajs, Editing, should cancel edits on escape',
 	'TodoMVC - thorax, Editing, should cancel edits on escape',
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
 	'TodoMVC - angularjs_require, Editing, should cancel edits on escape',
@@ -115,9 +89,7 @@ module.exports = [
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
 	'TodoMVC - spine, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-	'TodoMVC - angularjs-perf, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-	'TodoMVC - kendo, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-
+	
 	// the following implementations do not support routing
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display active items',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display completed items',
@@ -221,10 +193,6 @@ module.exports = [
 	'TodoMVC - stapes_require, Routing, should allow me to display completed items',
 	'TodoMVC - stapes_require, Routing, should allow me to display all items',
 	'TodoMVC - stapes_require, Routing, should respect the back button',
-
-	// mozart is not on the public website
-	'TodoMVC - mozart, New Todo, should allow me to add todo items',
-	'TodoMVC - mozart, New Todo, should trim text input',
 
 	// ----------------- Test framework issues -----------
 

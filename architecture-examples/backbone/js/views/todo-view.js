@@ -60,11 +60,9 @@ var app = app || {};
 		},
 
 		isHidden: function () {
-			var isCompleted = this.model.get('completed');
-			return (// hidden cases only
-				(!isCompleted && app.TodoFilter === 'completed') ||
-				(isCompleted && app.TodoFilter === 'active')
-			);
+			return this.model.get('completed') ?
+				app.TodoFilter === 'active' :
+				app.TodoFilter === 'completed';
 		},
 
 		// Toggle the `"completed"` state of the model.
