@@ -290,6 +290,46 @@
 			}]
 		}]
 	},
+	"ampersand": {
+		"name": "Ampersand.js",
+		"description": "A highly modular, loosely coupled, non-frameworky framework for building advanced JavaScript apps.",
+		"homepage": "http://ampersandjs.com",
+		"examples": [{
+			"name": "Architecture Example",
+			"url": "architecture-examples/ampersand"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Project Site",
+				"url": "http://ampersandjs.com"
+			}, {
+				"name": "Guides",
+				"url": "http://ampersandjs.com/learn"
+			}, {
+				"name": "API Reference",
+				"url": "http://ampersandjs.com/docs"
+			}, {
+				"name": "Curated Front-end Modules",
+				"url": "http://tools.ampersandjs.com"
+			}, {
+				"name": "#&yet IRC Channel on Freenode",
+				"url": "https://botbot.me/freenode/andyet/"
+			}]
+		}, {
+			"heading": "Related Materials",
+			"links": [{
+				"name": "Human JavaScript (free online book)",
+				"url": "http://learn.humanjavascript.com"
+			}, {
+				"name": "Introducing Ampersand Blogpost",
+				"url": "http://blog.andyet.com/2014/06/25/introducing-ampersand-js/"
+			}, {
+				"name": "&yet – The team behind Ampersand.js",
+				"url": "http://andyet.com"
+			}]
+		}]
+	},
 	"batman": {
 		"name": "Batman.js",
 		"description": "A client-side framework for Rails developers. Batman.js is a framework for building rich web applications with CoffeeScript.",
