@@ -122,16 +122,7 @@
 	}
 
 	function findRoot() {
-		var base;
-
-		[/labs/, /\w*-examples/].forEach(function (href) {
-			var match = location.href.match(href);
-
-			if (!base && match) {
-				base = location.href.indexOf(match);
-			}
-		});
-
+		var base = location.href.indexOf('examples/');
 		return location.href.substr(0, base);
 	}
 
@@ -177,7 +168,7 @@
 		}
 
 		if (!framework && document.querySelector('[data-framework]')) {
-			framework = document.querySelector('[data-framework]').getAttribute('data-framework');
+			framework = document.querySelector('[data-framework]').dataset.framework;
 		}
 
 

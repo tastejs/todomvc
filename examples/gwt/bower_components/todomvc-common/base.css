@@ -274,7 +274,6 @@ label[for='toggle-all'] {
 	text-shadow: 0 0 1px #000,
 				 0 0 10px rgba(199, 107, 107, 0.8);
 	-webkit-transform: scale(1.3);
-	-ms-transform: scale(1.3);
 	transform: scale(1.3);
 }
 
@@ -399,7 +398,6 @@ label[for='toggle-all'] {
 		width: 65px;
 		height: 41px;
 		-webkit-transform: rotate(90deg);
-		-ms-transform: rotate(90deg);
 		transform: rotate(90deg);
 		-webkit-appearance: none;
 		appearance: none;
