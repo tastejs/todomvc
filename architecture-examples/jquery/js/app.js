@@ -26,7 +26,7 @@ jQuery(function ($) {
 			return uuid;
 		},
 		pluralize: function (count, word) {
-			return count === 1 ? word : word + 's';
+			return count <= 1 ? word : word + 's';
 		},
 		store: function (namespace, data) {
 			if (arguments.length > 1) {
