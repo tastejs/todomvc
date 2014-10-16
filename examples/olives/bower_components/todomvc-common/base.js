@@ -121,6 +121,23 @@
 		}
 	}
 
+	function fetchIssueCount() {
+        var buttons = document.getElementsByClassName('github-issue-count');
+        for (var i = 0, button = buttons[i]; i < buttons.length; button = buttons[++i]) {
+            var url = button.href
+                    .replace(/https:\/\/github\.com/, 'https://api.github.com/repos')
+                    .replace(/per_page=[0-9]+/g, '');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function(e) {
+                var count = JSON.parse(e.target.responseText).length;
+                var label = count < 30 ? count : '30+';
+                this.innerHTML += ' <span>(' + label + ')</span>';
+            }.bind(button);
+            xhr.send();
+        }
+    };
+
 	function findRoot() {
 		var base = location.href.indexOf('examples/');
 		return location.href.substr(0, base);
@@ -193,6 +210,8 @@
 
 		document.body.className = (document.body.className + ' learn-bar').trim();
 		document.body.insertAdjacentHTML('afterBegin', aside.outerHTML);
+
+		fetchIssueCount();
 	};
 
 	redirect();
