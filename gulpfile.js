@@ -40,11 +40,8 @@ gulp.task('images', function () {
 // Copy All Files At The Root Level (app)
 gulp.task('copy', function () {
   return gulp.src([
-    'architecture-examples/**',
-    'dependency-examples/**',
-    'vanilla-examples/**',
+    'examples/**',
     'bower_components/**',
-    'labs/**',
     'learn.json',
     'CNAME',
     '.nojekyll'

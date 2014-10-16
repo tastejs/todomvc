@@ -12,7 +12,7 @@ We think it's best for the project if the code you write looks like the code the
 
 ## Pull Request Guidelines
 
-- Develop in a topic branch (not `master`) and submit against the `labs` folder in the default `master` branch
+- Develop in a topic branch (not `master`) and submit against the `examples` folder in the default `master` branch
 - Squash your commits
 - Write a convincing description of your PR and why we should land it
 
@@ -22,10 +22,9 @@ We think it's best for the project if the code you write looks like the code the
 - **Read the [App Specification](app-spec.md) thoroughly**
 - Use the [automated browser tests](/browser-tests) to ensure that your app meets the app specification requirements. For bonus points add the test output to your pull request!
 - Make sure it hasn't already been submitted or declined by searching the issue tracker
-- Looking at our most recent [reference app](https://github.com/tastejs/todomvc/tree/master/architecture-examples/backbone)
+- Looking at our most recent [reference app](https://github.com/tastejs/todomvc/tree/master/examples/backbone)
 
-One of us will be happy to review your submission and discuss any changes that may be required before it can be included. Apps will typically land first in Labs, reaching the 'stable' mark once we and the community are happy with it.
-
+One of us will be happy to review your submission and discuss any changes that may be required before it can be included.
 
 ## Browser Compatibility
 

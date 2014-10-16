@@ -1,0 +1,12 @@
+input #toggle-all
+	type = checkbox
+	checked = '~[bind: status.todoCount == 0 ? "checked" ]'
+	x-signal = 'click: toggleAll'
+	;
+
+label for='toggle-all' > 'Mark all as complete'
+
+ul #todo-list {
+	// bind todos collection
+	+each (.) > :todoTask;
+}
