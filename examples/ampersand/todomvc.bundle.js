@@ -180,6 +180,10 @@ module.exports = Collection.extend({
 		// be called in rapid succession.
 		this.writeToLocalStorage = debounce(this.writeToLocalStorage, 100);
 
+		// Listen for storage events on the window to keep multiple
+		// tabs in sync
+		window.addEventListener('storage', this.handleStorageEvent.bind(this));
+
 		// We listen for changes to the collection
 		// and persist on change
 		this.on('all', this.writeToLocalStorage, this);
@@ -194,13 +198,14 @@ module.exports = Collection.extend({
 	// Updates the collection to the appropriate mode.
 	// mode can 'all', 'completed', or 'active'
 	setMode: function (mode) {
-		this.subset.clearFilters();
-		if (mode !== 'all') {
+		if (mode === 'all') {
+			this.subset.clearFilters();
+		} else {
 			this.subset.configure({
 				where: {
 					completed: mode === 'completed'
 				}
-			});
+			}, true);
 		}
 	},
 	// The following two methods are all we need in order
@@ -211,7 +216,14 @@ module.exports = Collection.extend({
 	readFromLocalStorage: function () {
 		var existingData = localStorage[STORAGE_KEY];
 		if (existingData) {
-			this.add(JSON.parse(existingData));
+			this.set(JSON.parse(existingData));
+		}
+	},
+	// Handles events from localStorage. Browsers will fire
+	// this event in other tabs on the same domain.
+	handleStorageEvent: function (e) {
+		if (e.key === STORAGE_KEY) {
+			this.readFromLocalStorage();
 		}
 	}
 });
@@ -1506,13 +1518,13 @@ Router.extend = classExtend;
 
 },{"./ampersand-history":15,"ampersand-class-extend":17,"backbone-events-standalone":20,"underscore":21}],17:[function(require,module,exports){
 module.exports=require(10)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/ampersand-class-extend/ampersand-class-extend.js":10,"extend-object":18}],18:[function(require,module,exports){
+},{"extend-object":18}],18:[function(require,module,exports){
 module.exports=require(13)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/extend-object/extend-object.js":13}],19:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports=require(11)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/backbone-events-standalone.js":11}],20:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports=require(12)
-},{"./backbone-events-standalone":19,"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/index.js":12}],21:[function(require,module,exports){
+},{"./backbone-events-standalone":19}],21:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3637,9 +3649,9 @@ module.exports = function arrayNext(array, currentItem) {
 
 },{}],24:[function(require,module,exports){
 module.exports=require(11)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/backbone-events-standalone.js":11}],25:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 module.exports=require(12)
-},{"./backbone-events-standalone":24,"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/index.js":12}],26:[function(require,module,exports){
+},{"./backbone-events-standalone":24}],26:[function(require,module,exports){
 function KeyTreeStore() {
     this.storage = {};
 }
@@ -5146,7 +5158,7 @@ _.extend(SubCollection.prototype, Events, underscoreMixins, {
     //   limit: 20
     // }
     configure: function (opts, clear) {
-        if (clear) this._reset();
+        if (clear) this._resetFilters();
         this._parseFilters(opts);
         this._runFilters();
     },
@@ -5172,9 +5184,14 @@ _.extend(SubCollection.prototype, Events, underscoreMixins, {
 
     // clear all filters, reset everything
     _reset: function () {
+        this.models = [];
+        this._resetFilters();
+    },
+
+    // just reset filters, no model changes
+    _resetFilters: function () {
         this._filters = [];
         this._watched = [];
-        this.models = [];
         this.limit = undefined;
         this.offset = undefined;
     },
@@ -5243,6 +5260,9 @@ _.extend(SubCollection.prototype, Events, underscoreMixins, {
         toAdd = _.difference(newModels, existingModels);
         toRemove = _.difference(existingModels, newModels);
 
+        // save 'em
+        this.models = newModels;
+        
         _.each(toRemove, function (model) {
             this.trigger('remove', model, this);
         }, this);
@@ -5250,9 +5270,6 @@ _.extend(SubCollection.prototype, Events, underscoreMixins, {
         _.each(toAdd, function (model) {
             this.trigger('add', model, this);
         }, this);
-
-        // save 'em
-        this.models = newModels;
 
         // if they contain the same models, but in new order, trigger sort
         if (!_.isEqual(existingModels, newModels)) {
@@ -5290,9 +5307,9 @@ module.exports = SubCollection;
 
 },{"ampersand-class-extend":29,"ampersand-collection-underscore-mixin":31,"backbone-events-standalone":33,"underscore":34}],29:[function(require,module,exports){
 module.exports=require(10)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/ampersand-class-extend/ampersand-class-extend.js":10,"extend-object":30}],30:[function(require,module,exports){
+},{"extend-object":30}],30:[function(require,module,exports){
 module.exports=require(13)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/extend-object/extend-object.js":13}],31:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 var _ = require('underscore');
 var slice = [].slice;
 var mixins = {};
@@ -5360,11 +5377,11 @@ module.exports = mixins;
 
 },{"underscore":34}],32:[function(require,module,exports){
 module.exports=require(11)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/backbone-events-standalone.js":11}],33:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 module.exports=require(12)
-},{"./backbone-events-standalone":32,"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/index.js":12}],34:[function(require,module,exports){
+},{"./backbone-events-standalone":32}],34:[function(require,module,exports){
 module.exports=require(27)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-state/node_modules/underscore/underscore.js":27}],35:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 var State = require('ampersand-state');
 var CollectionView = require('ampersand-collection-view');
 var domify = require('domify');
@@ -5883,9 +5900,9 @@ module.exports = CollectionView;
 
 },{"ampersand-class-extend":37,"backbone-events-standalone":40,"underscore":52}],37:[function(require,module,exports){
 module.exports=require(10)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/ampersand-class-extend/ampersand-class-extend.js":10,"extend-object":38}],38:[function(require,module,exports){
+},{"extend-object":38}],38:[function(require,module,exports){
 module.exports=require(13)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/extend-object/extend-object.js":13}],39:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /**
  * Standalone extraction of Backbone.Events, no external dependency required.
  * Degrades nicely when Backone/underscore are already available in the current
@@ -6166,7 +6183,7 @@ module.exports=require(13)
 
 },{}],40:[function(require,module,exports){
 arguments[4][12][0].apply(exports,arguments)
-},{"./backbone-events-standalone":39,"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-collection/node_modules/backbone-events-standalone/index.js":12}],41:[function(require,module,exports){
+},{"./backbone-events-standalone":39}],41:[function(require,module,exports){
 var Store = require('key-tree-store');
 var dom = require('ampersand-dom');
 var matchesSelector = require('matches-selector');
@@ -6216,6 +6233,7 @@ function makeArray(val) {
 
 function getBindingFunc(binding) {
     var type = binding.type || 'text';
+    var isCustomBinding = typeof type === 'function';
     var selector = (function () {
         if (typeof binding.selector === 'string') {
             return binding.selector;
@@ -6227,9 +6245,16 @@ function getBindingFunc(binding) {
     })();
 
     // storage variable for previous if relevant
-    var previousValue = '';
+    var previousValue;
 
-    if (type === 'text') {
+    if (isCustomBinding) {
+        return function (el, value) {
+            getMatches(el, selector).forEach(function (match) {
+                type(match, value, previousValue);
+            });
+            previousValue = value;
+        };
+    } else if (type === 'text') {
         return function (el, value) {
             getMatches(el, selector).forEach(function (match) {
                 dom.text(match, value);
@@ -7025,7 +7050,7 @@ function match(el, selector) {
 }
 },{}],52:[function(require,module,exports){
 module.exports=require(21)
-},{"/Users/henrik/Sites/todomvc/architecture-examples/ampersand/node_modules/ampersand-router/node_modules/underscore/underscore.js":21}],53:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 
 /**
  * Module dependencies.
