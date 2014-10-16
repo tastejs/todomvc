@@ -1,9 +1,9 @@
 {
   "name": "todomvc-jquery",
   "dependencies": {
-    "todomvc-common": "~0.1.9",
-    "jquery": "~2.1.0",
+    "todomvc-common": "~0.1.11",
     "handlebars": "~1.3.0",
+    "jquery": "~2.1.1",
     "director": "~1.2.2"
   }
 }
