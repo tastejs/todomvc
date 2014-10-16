@@ -1,3 +1,4 @@
+
 Application['todomvc'] = (function() {
   var module = {exports: {}};
   var exports = module.exports;
@@ -12,7 +13,7 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 	// Todo Model
 	// ----------
 
-	// Our basic **Todo** model has `title` and `completed` attributes.
+	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
 	window.app.Todo = Thorax.Model.extend({
 
 		// Default attributes for the todo
@@ -62,18 +63,18 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 		localStorage: new Store('todos-backbone-thorax'),
 
 		// Filter down the list of all todo items that are finished.
-		completed: function() {
+		completed: function () {
 			return this.where({completed: true});
 		},
 
 		// Filter down the list to only todo items that are still not finished.
-		remaining: function() {
+		remaining: function () {
 			return this.where({completed: false});
 		},
 
 		// We keep the Todos in sequential order, despite being saved by unordered
 		// GUID in the database. This generates the next order number for new items.
-		nextOrder: function() {
+		nextOrder: function () {
 			return this.length ? this.last().get('order') + 1 : 1;
 		},
 
