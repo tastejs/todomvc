@@ -68,6 +68,12 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 		}
 
+		test.describe('When page is initially opened', function () {
+			test.it('should focus on the todo input field', function () {
+				testOps.assertFocussedElementId("new-todo");
+			});
+		});
+
 		test.describe('No Todos', function () {
 			test.it('should hide #main and #footer', function () {
 				testOps.assertItemCount(0);
