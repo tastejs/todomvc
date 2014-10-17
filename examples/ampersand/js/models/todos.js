@@ -22,6 +22,10 @@ module.exports = Collection.extend({
 		// be called in rapid succession.
 		this.writeToLocalStorage = debounce(this.writeToLocalStorage, 100);
 
+		// Listen for storage events on the window to keep multiple
+		// tabs in sync
+		window.addEventListener('storage', this.handleStorageEvent.bind(this));
+
 		// We listen for changes to the collection
 		// and persist on change
 		this.on('all', this.writeToLocalStorage, this);
@@ -36,13 +40,14 @@ module.exports = Collection.extend({
 	// Updates the collection to the appropriate mode.
 	// mode can 'all', 'completed', or 'active'
 	setMode: function (mode) {
-		this.subset.clearFilters();
-		if (mode !== 'all') {
+		if (mode === 'all') {
+			this.subset.clearFilters();
+		} else {
 			this.subset.configure({
 				where: {
 					completed: mode === 'completed'
 				}
-			});
+			}, true);
 		}
 	},
 	// The following two methods are all we need in order
@@ -53,7 +58,14 @@ module.exports = Collection.extend({
 	readFromLocalStorage: function () {
 		var existingData = localStorage[STORAGE_KEY];
 		if (existingData) {
-			this.add(JSON.parse(existingData));
+			this.set(JSON.parse(existingData));
+		}
+	},
+	// Handles events from localStorage. Browsers will fire
+	// this event in other tabs on the same domain.
+	handleStorageEvent: function (e) {
+		if (e.key === STORAGE_KEY) {
+			this.readFromLocalStorage();
 		}
 	}
 });
