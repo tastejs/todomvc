@@ -5,6 +5,24 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues a
 Note: Before starting work on an app intended for submission, please open an issue to discuss it with the team. This will allow us to review the framework being used to determine if a spec-compatible app is likely to be accepted.
 
 
+## Considerations before submitting a new app
+
+TodoMVC is a curation, not a collection. We want make it easier for people to
+find a base for their web applications, not harder. This is why we can't accept
+all submissions. However, we're always open to look at novel ways to solve
+existing problems.
+
+It doesn't matter whether your app is written in plain JavaScript and HTML or is cross-compiled to
+something a modern browser can execute. We care about bold ideas
+that bring something truly new to the table, but minor variations of existing
+frameworks or languages only add to [Frontend Choice
+Paralysis](http://addyosmani.com/blog/front-end-choice-paralysis/).
+
+Please bear in mind that your project should have reached a certain level of
+maturity before we can include it. If you haven't settled on a relatively stable
+API, you should probably wait a bit longer before submitting your example.
+
+
 ## Code Style
 
 We think it's best for the project if the code you write looks like the code the last developer wrote, so we've put together [some guidelines we ask that you follow](https://github.com/tastejs/todomvc/blob/master/codestyle.md). We greatly appreciate your cooperation and contribution.
