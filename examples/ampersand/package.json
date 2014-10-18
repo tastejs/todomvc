@@ -8,12 +8,12 @@
     "ampersand-collection": "^1.3.16",
     "ampersand-router": "^1.0.5",
     "ampersand-state": "^4.3.12",
-    "ampersand-subcollection": "^1.4.3",
+    "ampersand-subcollection": "^1.4.5",
     "ampersand-view": "^7.1.4",
     "debounce": "^1.0.0"
   },
   "devDependencies": {
-    "browserify": "^6.0.3",
+    "browserify": "5.10.1",
     "jade": "^1.7.0",
     "jadeify": "^2.7.0",
     "watchify": "^2.0.0"
