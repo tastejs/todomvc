@@ -40,11 +40,11 @@ js/
     └── todo.js
 ```
 
-Keep in mind that framework best practices on how to structure your app come first.
+Keep in mind that framework’s best practices on how to structure your app come first.
 
 ### README
 
-All examples should include a README describing the framework, the general implementation and the build process if required. There is an [example readme](template/readme.md) included in the [template](template).
+All examples must include a README describing the framework, the general implementation and the build process if required. There is an [example readme](template/readme.md) included in the [template](template).
 
 ### Dependency Management
 
@@ -70,7 +70,7 @@ Please try to keep the HTML as close to the template as possible. Remove the com
 
 Make sure to follow these:
 
-- Follow our [code style](contributing.md#code-style)
+- Follow our [code style](contributing.md#code-style).
 - Use double-quotes in HTML and single-quotes in JS and CSS.
 - Use bower components for your third-party dependencies and manually remove files that aren't required for your app to run.
 - Use a constant instead of the keyCode directly: `var ENTER_KEY = 13;`
