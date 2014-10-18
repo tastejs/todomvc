@@ -1,8 +1,8 @@
 # Contribute
 
-We're happy to accept contributions in the form of new apps, bug fixes, issues and so on. If you want to help out, add a comment on the issue you want to work on and hack way!. 
+We're happy to accept contributions in the form of new apps, bug fixes, issues and so on. If you want to help out, add a comment on the issue you want to work on and hack away!
 
-Note: Before starting work on an app intended for submission, please open an issue to discuss it with the team. This will allow us to review the framework being used to determine if a spec-compatible app is likely to be accepted. 
+Note: Before starting work on an app intended for submission, please open an issue to discuss it with the team. This will allow us to review the framework being used to determine if a spec-compatible app is likely to be accepted.
 
 
 ## Code Style
@@ -12,9 +12,9 @@ We think it's best for the project if the code you write looks like the code the
 
 ## Pull Request Guidelines
 
-- Develop in a topic branch (not `master`) and submit against the `examples` folder in the default `master` branch
-- Squash your commits
-- Write a convincing description of your PR and why we should land it
+- Develop in a topic branch (not `master`) and submit against the `examples` folder in the default `master` branch.
+- Squash your commits.
+- Write a convincing description of your PR and why we should land it and what the framework or library you are proposing does differently.
 
 
 ## Submitting a New App
@@ -42,6 +42,6 @@ If you are a library author or contributor wishing to start work on writing test
 
 ## A Final Note
 
-Note that due to the current number of MVC/MVVM/MV* frameworks in circulation, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision :)
+Note that due to the current number of MVC/MVVM/MV* frameworks in circulation, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. :)
 
 For applications that we feel don't quite match the goals of the project, but which we feel still offer value, we're happy to include references to them in our official [wiki](https://github.com/tastejs/todomvc/wiki/Other-implementations).
