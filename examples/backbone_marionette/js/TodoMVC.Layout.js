@@ -42,11 +42,12 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 			completed: '.completed a',
 			active: '.active a',
 			all: '.all a',
-			summary: '#todo-count'
+			summary: '#todo-count',
+			clear: '#clear-completed'
 		},
 
 		events: {
-			'click #clear-completed': 'onClearClick'
+			'click @ui.clear': 'onClearClick'
 		},
 
 		collectionEvents: {
