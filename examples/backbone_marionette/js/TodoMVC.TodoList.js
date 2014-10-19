@@ -1,7 +1,7 @@
 /*global TodoMVC */
 'use strict';
 
-TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette, $, _) {
+TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette, $) {
 	// TodoList Router
 	// ---------------
 	//
@@ -17,11 +17,10 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette, $, _) 
 	//
 	// Control the workflow and logic that exists at the application
 	// level, above the implementation detail of views and models
-	TodoList.Controller = function () {
-		this.todoList = new App.Todos.TodoList();
-	};
-
-	_.extend(TodoList.Controller.prototype, {
+    TodoList.Controller = Marionette.Controller.extend({
+        initialize: function () {
+            this.todoList = new App.Todos.TodoList();
+        },
 		// Start the app by showing the appropriate views
 		// and fetching the list of todo items, if there are any
 		start: function () {
