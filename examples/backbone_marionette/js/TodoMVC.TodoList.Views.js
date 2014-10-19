@@ -12,15 +12,18 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		template: '#template-todoItemView',
 
 		ui: {
-			edit: '.edit'
+			edit: '.edit',
+			destroy: '.destroy',
+			label: 'label',
+			toggle: '.toggle'
 		},
 
 		events: {
-			'click .destroy': 'deleteModel',
-			'dblclick label': 'onEditClick',
+			'click @ui.destroy': 'deleteModel',
+			'dblclick @ui.label': 'onEditClick',
 			'keydown @ui.edit': 'onEditKeypress',
 			'focusout @ui.edit': 'onEditFocusout',
-			'click .toggle': 'toggle'
+			'click @ui.toggle': 'toggle'
 		},
 
 		modelEvents: {
@@ -91,7 +94,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		},
 
 		events: {
-			'click #toggle-all': 'onToggleAllClick'
+			'click @ui.toggle': 'onToggleAllClick'
 		},
 
 		collectionEvents: {
