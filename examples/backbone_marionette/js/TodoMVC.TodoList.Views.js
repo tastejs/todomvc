@@ -94,7 +94,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette, $) 
 		},
 
 		events: {
-			'click #toggle-all': 'onToggleAllClick'
+			'click @ui.toggle': 'onToggleAllClick'
 		},
 
 		collectionEvents: {
