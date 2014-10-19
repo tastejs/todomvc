@@ -64,8 +64,10 @@ module.exports = View.extend({
 		// Render this with template provided.
 		// Note that unlike backbone this includes the root element.
 		this.renderWithTemplate();
-		// cache reference to `input` for speed/convenience
-		this.input = this.queryByHook('input');
+		// cache reference to `input` for speed/convenience. Will be available as this.input
+		this.cacheElements({
+			input: '[data-hook=input]'
+		});
 	},
 	handleCheckboxChange: function (e) {
 		this.model.completed = e.target.checked;
