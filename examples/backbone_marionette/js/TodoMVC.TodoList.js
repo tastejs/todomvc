@@ -1,7 +1,7 @@
 /*global TodoMVC */
 'use strict';
 
-TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette, $) {
+TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 	// TodoList Router
 	// ---------------
 	//
