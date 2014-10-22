@@ -115,6 +115,24 @@
 		window._gaq = [['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));
 	}
 
+	function fetchIssueCount() {
+		var issueLink = document.getElementById('issue-count-link');
+
+		var url = issueLink.href.replace(/https:\/\/github\.com/, 'https://api.github.com/repos');
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', url, true);
+		xhr.onload = function(e) {
+			var count = JSON.parse(e.target.responseText).length;
+			if (count === 0) {
+				issueLink.style.display = 'none';
+				document.getElementById('issue-count-header').style.display = 'none';
+			} else {
+				issueLink.innerHTML = issueLink.innerHTML.replace(/open issues/, 'has (' + count + ') open issues');
+			}
+		}
+		xhr.send();
+	}
+
 	function redirect() {
 		if (location.hostname === 'tastejs.github.io') {
 			location.href = location.href.replace('tastejs.github.io/todomvc', 'todomvc.com');
@@ -174,6 +192,7 @@
 
 		if (template && learnJSON[framework]) {
 			this.frameworkJSON = learnJSON[framework];
+			this.frameworkJSON.issueLabel = document.URL.match(/([a-z-_]+)\/$/)[1];
 			this.template = template;
 
 			this.append();
@@ -193,6 +212,8 @@
 
 		document.body.className = (document.body.className + ' learn-bar').trim();
 		document.body.insertAdjacentHTML('afterBegin', aside.outerHTML);
+
+		fetchIssueCount();
 	};
 
 	redirect();
