@@ -26,11 +26,11 @@ TodoMVC.module('Todos', function (Todos, App, Backbone) {
 		},
 
 		matchesFilter: function (filter) {
-			if (filter == 'all') {
+			if (filter === 'all') {
 				return true;
 			}
 
-			if (filter == 'active') {
+			if (filter === 'active') {
 				return !this.isCompleted();
 			}
 
