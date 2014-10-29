@@ -100,7 +100,9 @@ module.exports = State.extend({
 	// where needed.
 	handleTodosUpdate: function () {
 		var total = this.todos.length;
-		var completed = this.todos.countCompleted();
+		// use a method we defined on the collection itself
+		// to count how many todos are completed
+		var completed = this.todos.getCompletedCount();
 		// We use `set` here in order to update multiple attributes at once
 		// It's possible to set directely using `this.completedCount = completed` ...
 		this.set({
@@ -184,7 +186,7 @@ module.exports = Collection.extend({
 		// and persist on change
 		this.on('all', this.writeToLocalStorage, this);
 	},
-	countCompleted: function() {
+	getCompletedCount: function() {
 		return this.reduce(function(total, todo){
 			return todo.completed ? ++total : total;
 		}, 0);
@@ -533,7 +535,7 @@ extend(Collection.prototype, BackboneEvents, {
             } else if (targetProto.generateId) {
                 id = targetProto.generateId(attrs);
             } else {
-                id = attrs[targetProto.idAttribute || 'id'];
+                id = attrs[targetProto.idAttribute || this.mainIndex];
             }
 
             // If a duplicate is found, prevent it from being added and
@@ -1403,6 +1405,7 @@ _.extend(History.prototype, Events, {
 module.exports = new History();
 
 },{"backbone-events-standalone":20,"underscore":21}],16:[function(require,module,exports){
+;window.ampersand = window.ampersand || {};window.ampersand["ampersand-router"] = window.ampersand["ampersand-router"] || [];window.ampersand["ampersand-router"].push("1.0.6");
 var classExtend = require('ampersand-class-extend');
 var Events = require('backbone-events-standalone');
 var ampHistory = require('./ampersand-history');
@@ -2871,6 +2874,7 @@ module.exports=require(12)
 }).call(this);
 
 },{}],22:[function(require,module,exports){
+;window.ampersand = window.ampersand || {};window.ampersand["ampersand-state"] = window.ampersand["ampersand-state"] || [];window.ampersand["ampersand-state"].push("4.3.14");
 var _ = require('underscore');
 var BBEvents = require('backbone-events-standalone');
 var KeyTree = require('key-tree-store');
@@ -6244,6 +6248,9 @@ function getBindingFunc(binding) {
             return '';
         }
     })();
+    var yes = binding.yes;
+    var no = binding.no;
+    var hasYesNo = !!(yes || no);
 
     // storage variable for previous if relevant
     var previousValue;
@@ -6290,10 +6297,10 @@ function getBindingFunc(binding) {
         };
     } else if (type === 'booleanClass') {
         // if there's a `no` case this is actually a switch
-        if (binding.no) {
-            return function (el, value, keyName) {
-                var yes = makeArray(binding.name || binding.yes || keyName);
-                var no = makeArray(binding.no);
+        if (hasYesNo) {
+            yes = makeArray(yes || '');
+            no = makeArray(no || '');
+            return function (el, value) {
                 var prevClass = value ? no : yes;
                 var newClass = value ? yes : no;
                 getMatches(el, selector).forEach(function (match) {
@@ -6326,17 +6333,17 @@ function getBindingFunc(binding) {
         };
     } else if (type === 'toggle') {
         // this doesn't require a selector since we can pass yes/no selectors
-        if (binding.yes && binding.no) {
+        if (hasYesNo) {
             return function (el, value) {
-                getMatches(el, binding.yes).forEach(function (match) {
+                getMatches(el, yes).forEach(function (match) {
                     dom[value ? 'show' : 'hide'](match);
                 });
-                getMatches(el, binding.no).forEach(function (match) {
+                getMatches(el, no).forEach(function (match) {
                     dom[value ? 'hide' : 'show'](match);
                 });
             };
         } else {
-                return function (el, value) {
+            return function (el, value) {
                 getMatches(el, selector).forEach(function (match) {
                     dom[value ? 'show' : 'hide'](match);
                 });
@@ -6375,6 +6382,7 @@ function getBindingFunc(binding) {
 }
 
 },{"ampersand-dom":42,"key-tree-store":43,"matches-selector":51}],42:[function(require,module,exports){
+;window.ampersand = window.ampersand || {};window.ampersand["ampersand-dom"] = window.ampersand["ampersand-dom"] || [];window.ampersand["ampersand-dom"].push("1.2.6");
 var dom = module.exports = {
     text: function (el, val) {
         el.textContent = getString(val);
@@ -6397,7 +6405,8 @@ var dom = module.exports = {
     },
     removeClass: function (el, cls) {
         if (el.classList) {
-            el.classList.remove(getString(cls));
+            cls = getString(cls);
+            if (cls) el.classList.remove(cls);
         } else {
             // may be faster to not edit unless we know we have it?
             el.className = el.className.replace(new RegExp('(^|\\b)' + cls.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');

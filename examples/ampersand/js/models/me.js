@@ -71,7 +71,9 @@ module.exports = State.extend({
 	// where needed.
 	handleTodosUpdate: function () {
 		var total = this.todos.length;
-		var completed = this.todos.countCompleted();
+		// use a method we defined on the collection itself
+		// to count how many todos are completed
+		var completed = this.todos.getCompletedCount();
 		// We use `set` here in order to update multiple attributes at once
 		// It's possible to set directely using `this.completedCount = completed` ...
 		this.set({
