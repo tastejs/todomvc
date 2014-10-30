@@ -116,7 +116,7 @@ Displays the number of completed todos, and when clicked, removes them. Should b
 
 ### Persistence
 
-Your app should dynamically persist the todos to localStorage. If the framework has capabilities for persisting data (i.e. Backbone.sync), use that, otherwise vanilla localStorage. If possible, use the keys `id`, `title`, `completed` for each item. Make sure to use this format for the localStorage name: `todos-[framework]`. Editing mode should not be persisted.
+Your app should dynamically persist the todos to localStorage. If the framework has capabilities for persisting data (e.g. Backbone.sync), use that, otherwise vanilla localStorage. If possible, use the keys `id`, `title`, `completed` for each item. Make sure to use this format for the localStorage name: `todos-[framework]`. Editing mode should not be persisted.
 
 ### Routing
 
