@@ -1,6 +1,3 @@
-/**
- * @jsx React.DOM
- */
 /*jshint quotmark: false */
 /*jshint white: false */
 /*jshint trailing: false */
@@ -15,7 +12,7 @@ var app = app || {};
 	var ENTER_KEY = 13;
 
 	app.TodoItem = React.createClass({
-		handleSubmit: function () {
+		handleSubmit: function (event) {
 			var val = this.state.editText.trim();
 			if (val) {
 				this.props.onSave(val);
@@ -23,7 +20,6 @@ var app = app || {};
 			} else {
 				this.props.onDestroy();
 			}
-			return false;
 		},
 
 		handleEdit: function () {
@@ -42,9 +38,9 @@ var app = app || {};
 		handleKeyDown: function (event) {
 			if (event.which === ESCAPE_KEY) {
 				this.setState({editText: this.props.todo.title});
-				this.props.onCancel();
+				this.props.onCancel(event);
 			} else if (event.which === ENTER_KEY) {
-				this.handleSubmit();
+				this.handleSubmit(event);
 			}
 		},
 
