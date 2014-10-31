@@ -5,7 +5,7 @@
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   1.6.0
+ * @version   1.6.1
  */
 
 
@@ -2410,7 +2410,7 @@ define("ember-metal/computed",
       });
     };
 
-
+    
     /**
       Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
       a readOnly one way binding. Very often when using `computed.oneWay` one does
@@ -2518,7 +2518,7 @@ define("ember-metal/core",
 
       @class Ember
       @static
-      @version 1.6.0
+      @version 1.6.1
     */
 
     if ('undefined' === typeof Ember) {
@@ -2545,10 +2545,10 @@ define("ember-metal/core",
     /**
       @property VERSION
       @type String
-      @default '1.6.0'
+      @default '1.6.1'
       @static
     */
-    Ember.VERSION = '1.6.0';
+    Ember.VERSION = '1.6.1';
 
     /**
       Standard environmental variables. You can define these in a global `EmberENV`
@@ -3451,7 +3451,7 @@ define("ember-metal/expand_properties",
       var match, prefix, list;
 
       if (pattern.indexOf(' ') > -1) {
-        throw new EmberError('Brace expanded properties cannot contain spaces, ' +
+        throw new EmberError('Brace expanded properties cannot contain spaces, ' + 
           'e.g. `user.{firstName, lastName}` should be `user.{firstName,lastName}`');
       }
 
@@ -5290,7 +5290,7 @@ define("ember-metal/mixin",
       });
 
       var goodGuy = App.Person.create();
-
+      
       goodGuy.name();    // 'Tomhuda Katzdale'
       goodGuy.moniker(); // 'Tomhuda Katzdale'
       ```
@@ -13659,12 +13659,12 @@ define("ember-runtime/computed/reduce_computed_macros",
         })
       });
 
-      var hamster = Hamster.create({
+      var hamster = Hamster.create({ 
         chores: [
           { name: 'cook', done: true },
           { name: 'clean', done: true },
           { name: 'write more unit tests', done: false }
-        ]
+        ] 
       });
 
       hamster.get('remainingChores'); // [{name: 'write more unit tests', done: false}]
@@ -14686,7 +14686,7 @@ define("ember-runtime/core",
       if (a && 'function'===typeof a.isEqual) return a.isEqual(b);
       if (a instanceof Date && b instanceof Date) {
         return a.getTime() === b.getTime();
-      }
+      } 
       return a === b;
     };
 
@@ -25819,10 +25819,10 @@ define("ember-views/views/view",
       ```html
       <a id="ember1" class="ember-view" href="http://google.com"></a>
       ```
-
-      One property can be mapped on to another by placing a ":" between
+      
+      One property can be mapped on to another by placing a ":" between 
       the source property and the destination property:
-
+      
       ```javascript
       AnchorView = Ember.View.extend({
         tagName: 'a',
@@ -25830,13 +25830,13 @@ define("ember-views/views/view",
         url: 'http://google.com'
       });
       ```
-
+      
       Will result in view instances with an HTML representation of:
 
       ```html
       <a id="ember1" class="ember-view" href="http://google.com"></a>
       ```
-
+      
       If the return value of an `attributeBindings` monitored property is a boolean
       the property will follow HTML's pattern of repeating the attribute's name as
       its value:
@@ -27811,9 +27811,9 @@ define("ember-views/views/view",
       */
       _classStringForValue: function(path, val, className, falsyClassName) {
         if(isArray(val)) {
-          val = get(val, 'length') !== 0;
+          val = get(val, 'length') !== 0;  
         }
-
+        
         // When using the colon syntax, evaluate the truthiness or falsiness
         // of the value to determine which className to return
         if (className || falsyClassName) {
@@ -29073,7 +29073,7 @@ define("ember-handlebars/controls",
       Internally, `{{textarea}}` creates an instance of `Ember.TextArea`, passing
       arguments from the helper to `Ember.TextArea`'s `create` method. You can
       extend the capabilities of text areas in your application by reopening this
-      class. For example, if you are building a Bootstrap project where `data-*`
+      class. For example, if you are building a Bootstrap project where `data-*` 
       attributes are used, you can globally add support for a `data-*` attribute
       on all `{{textarea}}`s' in your app by reopening `Ember.TextArea` or
       `Ember.TextSupport` and adding it to the `attributeBindings` concatenated
@@ -29534,7 +29534,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-
+  
   var buffer = '', stack1;
   data.buffer.push("<option value=\"\">");
   stack1 = helpers._triageMustache.call(depth0, "view.prompt", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -29544,15 +29544,15 @@ function program1(depth0,data) {
   }
 
 function program3(depth0,data) {
-
+  
   var stack1;
   stack1 = helpers.each.call(depth0, "view.groupedContent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
 function program4(depth0,data) {
-
-
+  
+  
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.groupView", {hash:{
     'content': ("content"),
     'label': ("label")
@@ -29560,15 +29560,15 @@ function program4(depth0,data) {
   }
 
 function program6(depth0,data) {
-
+  
   var stack1;
   stack1 = helpers.each.call(depth0, "view.content", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
 function program7(depth0,data) {
-
-
+  
+  
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.optionView", {hash:{
     'content': ("")
   },hashTypes:{'content': "ID"},hashContexts:{'content': depth0},contexts:[depth0],types:["ID"],data:data})));
@@ -29579,7 +29579,7 @@ function program7(depth0,data) {
   stack1 = helpers['if'].call(depth0, "view.optionGroupPath", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
-
+  
 }),
       attributeBindings: ['multiple', 'disabled', 'tabindex', 'name', 'required', 'autofocus',
                           'form', 'size'],
@@ -30308,7 +30308,7 @@ define("ember-handlebars/ext",
           normalizedPath = normalizePath(root, path, data),
           value;
 
-
+      
         root = normalizedPath.root;
         path = normalizedPath.path;
 
@@ -30317,7 +30317,7 @@ define("ember-handlebars/ext",
         if (value === undefined && root !== Ember.lookup && isGlobalPath(path)) {
           value = get(Ember.lookup, path);
         }
-
+      
 
       return value;
     }
@@ -32602,7 +32602,7 @@ define("ember-handlebars/helpers/loc",
       Take note that `"welcome"` is a string and not an object
       reference.
 
-      See [Ember.String.loc](/api/classes/Ember.String.html#method_loc) for how to
+      See [Ember.String.loc](/api/classes/Ember.String.html#method_loc) for how to 
       set up localized string references.
 
       @method loc
@@ -34353,7 +34353,7 @@ define("ember-routing/ext/controller",
       }
     });
 
-
+    
     __exports__["default"] = ControllerMixin;
   });
 define("ember-routing/ext/run_loop",
@@ -35431,7 +35431,7 @@ define("ember-routing/helpers/link_to",
           }
         }
 
-
+        
         return resolvedParams;
       }).property('resolvedParams', 'queryParams'),
 
@@ -35459,7 +35459,7 @@ define("ember-routing/helpers/link_to",
           return get(this, 'loadingHref');
         }
 
-
+        
         return router.generate.apply(router, routeArgs);
       }).property('routeArgs'),
 
@@ -35777,7 +35777,7 @@ define("ember-routing/helpers/link_to",
     };
 
 
-
+    
     /**
       See [link-to](/api/classes/Ember.Handlebars.helpers.html#method_link-to)
 
@@ -36975,7 +36975,7 @@ define("ember-routing/location/history_location",
         baseURL = baseURL.replace(/\/$/, '');
         var url = path.replace(baseURL, '').replace(rootURL, '');
 
-
+        
         return url;
       },
 
@@ -38093,15 +38093,15 @@ define("ember-routing/system/route",
         // referenced in action handlers
         this.controller = controller;
 
-
+        
         if (this.setupControllers) {
           Ember.deprecate("Ember.Route.setupControllers is deprecated. Please use Ember.Route.setupController(controller, model) instead.");
           this.setupControllers(controller, context);
         } else {
 
-
+          
             this.setupController(controller, context);
-
+          
         }
 
         if (this.renderTemplates) {
@@ -38343,9 +38343,9 @@ define("ember-routing/system/route",
         Router.js hook.
        */
       deserialize: function(params, transition) {
-
+        
           return this.model(params, transition);
-
+        
       },
 
       /**
@@ -38851,7 +38851,7 @@ define("ember-routing/system/route",
     });
 
 
-
+    
     function parentRoute(route) {
       var handlerInfos = route.router.router.state.handlerInfos;
 
@@ -39333,7 +39333,7 @@ define("ember-routing/system/router",
         var name = args[0], self = this,
           isQueryParamsOnly = false, queryParams;
 
-
+        
         if (!isQueryParamsOnly && name.charAt(0) !== '/') {
           Ember.assert("The route " + name + " was not found", this.router.hasRoute(name));
         }
@@ -39379,7 +39379,7 @@ define("ember-routing/system/router",
           } else if (error.name === 'TransitionAborted') {
             // just ignore TransitionAborted here
           } else {
-            throw error;
+            logError(error);
           }
 
           return error;
@@ -39522,16 +39522,7 @@ define("ember-routing/system/router",
           return;
         }
 
-        var errorArgs = ['Error while processing route: ' + transition.targetName];
-
-        if (error) {
-          if (error.message) { errorArgs.push(error.message); }
-          if (error.stack)   { errorArgs.push(error.stack); }
-
-          if (typeof error === "string") { errorArgs.push(error); }
-        }
-
-        Ember.Logger.error.apply(this, errorArgs);
+        logError(error, 'Error while processing route: ' + transition.targetName);
       },
 
       loading: function(transition, originRoute) {
@@ -39562,13 +39553,28 @@ define("ember-routing/system/router",
       }
     };
 
+    function logError(error, initialMessage) {
+      var errorArgs = [];
+
+      if (initialMessage) { errorArgs.push(initialMessage); }
+
+      if (error) {
+        if (error.message) { errorArgs.push(error.message); }
+        if (error.stack)   { errorArgs.push(error.stack); }
+
+        if (typeof error === "string") { errorArgs.push(error); }
+      }
+
+      Ember.Logger.error.apply(this, errorArgs);
+    }
+
     function findChildRouteName(parentRoute, originatingChildRoute, name) {
       var router = parentRoute.router,
           childName,
           targetChildRouteName = originatingChildRoute.routeName.split('.').pop(),
           namespace = parentRoute.routeName === 'application' ? '' : parentRoute.routeName + '.';
 
-
+      
       // Second, try general loading state, e.g. 'loading'
       childName = namespace + name;
       if (routeHasBeenDefined(router, childName)) {
@@ -40333,7 +40339,7 @@ define("route-recognizer",
     };
   });
 
-define("router/handler-info",
+define("router/handler-info", 
   ["./utils","rsvp/promise","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -40510,7 +40516,7 @@ define("router/handler-info",
 
     __exports__["default"] = HandlerInfo;
   });
-define("router/handler-info/factory",
+define("router/handler-info/factory", 
   ["router/handler-info/resolved-handler-info","router/handler-info/unresolved-handler-info-by-object","router/handler-info/unresolved-handler-info-by-param","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -40533,7 +40539,7 @@ define("router/handler-info/factory",
 
     __exports__["default"] = handlerInfoFactory;
   });
-define("router/handler-info/resolved-handler-info",
+define("router/handler-info/resolved-handler-info", 
   ["../handler-info","router/utils","rsvp/promise","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -40564,7 +40570,7 @@ define("router/handler-info/resolved-handler-info",
 
     __exports__["default"] = ResolvedHandlerInfo;
   });
-define("router/handler-info/unresolved-handler-info-by-object",
+define("router/handler-info/unresolved-handler-info-by-object", 
   ["../handler-info","router/utils","rsvp/promise","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -40626,7 +40632,7 @@ define("router/handler-info/unresolved-handler-info-by-object",
 
     __exports__["default"] = UnresolvedHandlerInfoByObject;
   });
-define("router/handler-info/unresolved-handler-info-by-param",
+define("router/handler-info/unresolved-handler-info-by-param", 
   ["../handler-info","router/utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -40658,7 +40664,7 @@ define("router/handler-info/unresolved-handler-info-by-param",
 
     __exports__["default"] = UnresolvedHandlerInfoByParam;
   });
-define("router/router",
+define("router/router", 
   ["route-recognizer","rsvp/promise","./utils","./transition-state","./transition","./transition-intent/named-transition-intent","./transition-intent/url-transition-intent","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __exports__) {
     "use strict";
@@ -41382,7 +41388,7 @@ define("router/router",
 
     __exports__["default"] = Router;
   });
-define("router/transition-intent",
+define("router/transition-intent", 
   ["./utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -41402,7 +41408,7 @@ define("router/transition-intent",
 
     __exports__["default"] = TransitionIntent;
   });
-define("router/transition-intent/named-transition-intent",
+define("router/transition-intent/named-transition-intent", 
   ["../transition-intent","../transition-state","../handler-info/factory","../utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -41604,7 +41610,7 @@ define("router/transition-intent/named-transition-intent",
       }
     });
   });
-define("router/transition-intent/url-transition-intent",
+define("router/transition-intent/url-transition-intent", 
   ["../transition-intent","../transition-state","../handler-info/factory","../utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -41674,7 +41680,7 @@ define("router/transition-intent/url-transition-intent",
       this.name = "UnrecognizedURLError";
     }
   });
-define("router/transition-state",
+define("router/transition-state", 
   ["./handler-info","./utils","rsvp/promise","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -41791,7 +41797,7 @@ define("router/transition-state",
 
     __exports__["default"] = TransitionState;
   });
-define("router/transition",
+define("router/transition", 
   ["rsvp/promise","./handler-info","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -42052,7 +42058,7 @@ define("router/transition",
     __exports__.logAbort = logAbort;
     __exports__.TransitionAborted = TransitionAborted;
   });
-define("router/utils",
+define("router/utils", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -42249,7 +42255,7 @@ define("router/utils",
     __exports__.isParam = isParam;
     __exports__.coerceQueryParamsToString = coerceQueryParamsToString;
   });
-define("router",
+define("router", 
   ["./router/router","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
