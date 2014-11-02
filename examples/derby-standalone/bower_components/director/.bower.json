@@ -1,0 +1,14 @@
+{
+  "name": "director",
+  "homepage": "https://github.com/flatiron/director",
+  "version": "1.1.10",
+  "_release": "1.1.10",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.10",
+    "commit": "44705517dbd32a7864c1f4cae577c77d72f3e201"
+  },
+  "_source": "git://github.com/flatiron/director.git",
+  "_target": "~1.1.9",
+  "_originalSource": "director"
+}
