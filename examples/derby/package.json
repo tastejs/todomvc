@@ -1,16 +1,25 @@
 {
-	"name": "todomvc-derby",
-	"description": "TodoMVC todo app using Derby",
-	"version": "0.1.0",
-	"main": "server.js",
-	"dependencies": {
-		"derby": "git://github.com/codeparty/derby#d1ac9c0fcd",
-		"racer": "git://github.com/codeparty/racer#8d3357582e",
-		"express": "~3.0.1",
-		"gzippo": "~0.2.0"
-	},
-	"devDependencies": {
-		"coffee-script": "~1.4.0"
-	},
-	"private": true
+  "name": "todomvc-derbyjs",
+  "private": true,
+  "description": "TodoMVC example for the DerbyJS framework",
+  "version": "0.0.0",
+  "homepage": "http://derbyjs.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tastejs/todomvc.git"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "derby": "^0.6",
+    "derby-starter": "^0.2.3",
+    "express": "~3.18.0",
+    "todomvc-common": "~0.1.11"
+  },
+  "optionalDependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "0.10.x"
+  }
 }

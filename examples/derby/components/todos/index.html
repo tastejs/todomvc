@@ -1,0 +1,50 @@
+<index:>
+  <form on-submit="add()">
+    <input id="new-todo" placeholder="What needs to be done?" value="{{newTodo}}" autofocus>
+  </form>
+  {{if stats.total}}
+    <section id="main">
+      <input id="toggle-all" type="checkbox" checked="{{allChecked(stats.remaining)}}">
+      <label for="toggle-all">Mark all as complete</label>
+      <view is="list"></view>
+    </section>
+    <footer id="footer">
+      <view is="stats"></view>
+    </footer>
+  {{/if}}
+
+<list:>
+  <ul id="todo-list">
+    {{each items as #item}}
+      <li class="{{if #item.completed}}completed{{/if}}
+        {{if #item === editing}}editing{{/if}}">
+        <div class="view">
+          <input class="toggle" type="checkbox" checked="{{#item.completed}}">
+          <label on-dblclick="edit(#item, $element)">{{#item.title}}</label>
+          <button class="destroy" on-click="del(#item)"></button>
+        </div>
+        <input class="edit" value="{{#item.title}}" on-blur="close()">
+      </li>
+    {{/each}}
+  </ul>
+
+<stats:>
+  <span id="todo-count">
+    <strong>{{stats.remaining}}</strong>&sp;
+    {{stats.remaining === 1 ? 'item' : 'items'}} left
+  </span>
+  <ul id="filters">
+    <view is="filter">All</view>
+    <view is="filter" value="active">Active</view>
+    <view is="filter" value="completed">Completed</view>
+  </ul>
+  {{if stats.completed}}
+    <button id="clear-completed" on-click="clearCompleted()">
+      Clear completed ({{stats.completed}})
+    </button>
+  {{/if}}
+
+<filter:>
+  <li>
+    <a class="{{if @value === mode}}selected{{/if}}" href="/{{@value}}">{{@content}}</a>
+  </li>

@@ -1,0 +1,33 @@
+{
+  "name": "todomvc-common",
+  "description": "Common TodoMVC utilities used by our apps",
+  "license": "MIT",
+  "authors": [
+    "TasteJS team"
+  ],
+  "main": [
+    "base.js",
+    "base.css"
+  ],
+  "keywords": [
+    "todomvc",
+    "tastejs",
+    "util",
+    "utilities"
+  ],
+  "ignore": [
+    "package.json",
+    "readme.md"
+  ],
+  "homepage": "https://github.com/tastejs/todomvc-common",
+  "version": "0.1.11",
+  "_release": "0.1.11",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.11",
+    "commit": "6b9bc130916c55d31e424041709dbb90a8247a3e"
+  },
+  "_source": "git://github.com/tastejs/todomvc-common.git",
+  "_target": "~0.1.4",
+  "_originalSource": "todomvc-common"
+}
