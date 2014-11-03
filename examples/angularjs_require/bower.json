@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "1.2.8",
-    "todomvc-common": "~0.1.9",
+    "todomvc-common": "~0.3.0",
     "requirejs": "~2.1.9"
   }
 }

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~2.0.0",
-    "todomvc-common": "~0.1.6",
+    "todomvc-common": "~0.3.0",
     "Backbone.localStorage": "~1.1.3"
   }
 }

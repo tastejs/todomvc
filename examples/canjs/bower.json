@@ -5,6 +5,6 @@
     "jquery": "~2.0.0",
     "canjs": "~2.0.0",
     "canjs-localstorage": "~0.2.0",
-    "todomvc-common": "~0.1.6"
+    "todomvc-common": "~0.3.0"
   }
 }

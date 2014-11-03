@@ -6,7 +6,7 @@
     "flight": "~1.1.0",
     "jquery": "1.8.3",
     "requirejs": "~2.1.5",
-    "todomvc-common": "~0.1.4",
+    "todomvc-common": "~0.3.0",
     "requirejs-text": "~2.0.10"
   },
   "devDependencies": {

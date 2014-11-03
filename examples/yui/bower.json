@@ -1,6 +1,6 @@
 {
   "name": "todomvc-yui",
   "dependencies": {
-    "todomvc-common": "~0.1.6"
+    "todomvc-common": "~0.3.0"
   }
 }

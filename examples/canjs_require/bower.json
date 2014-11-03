@@ -2,7 +2,7 @@
 	"name": "todomvc-canjs-require",
 	"version": "0.0.0",
 	"dependencies": {
-		"todomvc-common": "~0.1.6",
+		"todomvc-common": "~0.3.0",
 		"requirejs": "~2.1.6",
 		"canjs": "~2.0.0",
 		"canjs-localstorage": "~0.2.0",

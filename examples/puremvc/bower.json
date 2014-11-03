@@ -4,6 +4,6 @@
   "dependencies": {
     "puremvc": "~1.0.1",
     "director": "~1.2.0",
-    "todomvc-common": "~0.1.4"
+    "todomvc-common": "~0.3.0"
   }
 }
