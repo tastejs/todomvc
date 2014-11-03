@@ -465,6 +465,10 @@ hr {
 	margin-bottom: 0;
 }
 
+#issue-count {
+	display: none;
+}
+
 .quote {
 	border: none;
 	margin: 20px 0 60px 0;
