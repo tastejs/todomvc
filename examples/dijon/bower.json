@@ -4,6 +4,6 @@
   "dependencies": {
     "jquery": "~2.0.0",
     "handlebars.js": "~1.0.0-rc.3",
-    "todomvc-common": "~0.1.6"
+    "todomvc-common": "~0.3.0"
   }
 }

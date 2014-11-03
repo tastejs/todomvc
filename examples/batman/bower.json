@@ -2,7 +2,7 @@
   "name": "todomvc-batman",
   "version": "0.0.0",
   "dependencies": {
-    "todomvc-common": "~0.1.4",
+    "todomvc-common": "~0.3.0",
     "batman": "~0.14.1"
   }
 }

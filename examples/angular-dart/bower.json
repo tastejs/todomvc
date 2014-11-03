@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "todomvc-common": "~0.1.9"
+    "todomvc-common": "~0.3.0"
   }
 }

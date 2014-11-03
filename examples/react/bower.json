@@ -2,7 +2,7 @@
   "name": "todomvc-react",
   "version": "0.0.0",
   "dependencies": {
-    "todomvc-common": "~0.1.7",
+    "todomvc-common": "~0.3.0",
     "director": "~1.2.0",
     "react": "~0.11.0"
   }

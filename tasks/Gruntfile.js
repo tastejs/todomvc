@@ -15,8 +15,8 @@ module.exports = function (grunt) {
 		// I also added Bower up top for in the future, as that might come in handy
 		// to correctly fetch and install the latest todomvc-common, without relying
 		// on this weird Batman system.
-		var sourceTodoMvcCommon = 'examples/batman/bower_components/todomvc-common';
-		var sourceIdentifierRegex = /batman/;
+		var sourceTodoMvcCommon = 'examples/angularjs/bower_components/todomvc-common';
+		var sourceIdentifierRegex = /angularjs/;
 
 		grunt.file.setBase('../');
 

@@ -2,7 +2,7 @@
   "name": "todomvc-atmajs",
   "version": "0.1.0",
   "dependencies": {
-    "todomvc-common": "~0.1.4",
+    "todomvc-common": "~0.3.0",
     "jquery": "~2.0.2",
     "maskjs": "~0.10.1",
     "includejs": "~0.9.10",
