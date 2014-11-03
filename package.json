@@ -1,4 +1,19 @@
 {
+  "name": "todomvc",
+  "version": "0.0.0",
+  "main": "server.js",
+  "files": [
+    "license.md",
+    "server.js",
+    "examples",
+    "media",
+    "site-assets",
+    "index.html",
+    "learn.json"
+  ],
+  "dependencies": {
+    "express": "^4.10.0"
+  },
   "devDependencies": {
     "del": "^0.1.1",
     "gulp": "^3.8.5",
@@ -19,9 +34,5 @@
     "jshint-stylish": "^1.0.0",
     "psi": "^0.1.1",
     "run-sequence": "^1.0.1"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "private": true
+  }
 }

@@ -3,24 +3,28 @@
 	'use strict';
 
 	describe('Todo Controller', function () {
-		var ctrl, scope;
-		var todoList;
-		var todoStorage = {
-			storage: {},
-			get: function () {
-				return this.storage;
-			},
-			put: function (value) {
-				this.storage = value;
-			}
-		};
+		var ctrl, scope, store;
 
-			// Load the module containing the app, only 'ng' is loaded by default.
+		// Load the module containing the app, only 'ng' is loaded by default.
 		beforeEach(module('todomvc'));
 
-		beforeEach(inject(function ($controller, $rootScope) {
+		beforeEach(inject(function ($controller, $rootScope, localStorage) {
 			scope = $rootScope.$new();
-			ctrl = $controller('TodoCtrl', { $scope: scope });
+
+			store = localStorage;
+
+			localStorage.todos = [];
+			localStorage._getFromLocalStorage = function () {
+				return [];
+			};
+			localStorage._saveToLocalStorage = function (todos) {
+				localStorage.todos = todos;
+			};
+
+			ctrl = $controller('TodoCtrl', {
+				$scope: scope,
+				store: store
+			});
 		}));
 
 		it('should not have an edited Todo on start', function () {
@@ -48,6 +52,7 @@
 				it('should filter non-completed', inject(function ($controller) {
 					ctrl = $controller('TodoCtrl', {
 						$scope: scope,
+						store: store,
 						$routeParams: {
 							status: 'active'
 						}
@@ -64,7 +69,8 @@
 						$scope: scope,
 						$routeParams: {
 							status: 'completed'
-						}
+						},
+						store: store
 					});
 
 					scope.$emit('$routeChangeSuccess');
@@ -77,10 +83,9 @@
 			var ctrl;
 
 			beforeEach(inject(function ($controller) {
-				todoStorage.storage = [];
 				ctrl = $controller('TodoCtrl', {
 					$scope: scope,
-					todoStorage: todoStorage
+					store: store
 				});
 				scope.$digest();
 			}));
@@ -113,28 +118,16 @@
 			var ctrl;
 
 			beforeEach(inject(function ($controller) {
-				todoList = [{
-						'title': 'Uncompleted Item 0',
-						'completed': false
-					}, {
-						'title': 'Uncompleted Item 1',
-						'completed': false
-					}, {
-						'title': 'Uncompleted Item 2',
-						'completed': false
-					}, {
-						'title': 'Completed Item 0',
-						'completed': true
-					}, {
-						'title': 'Completed Item 1',
-						'completed': true
-					}];
-
-				todoStorage.storage = todoList;
 				ctrl = $controller('TodoCtrl', {
 					$scope: scope,
-					todoStorage: todoStorage
+					store: store
 				});
+
+				store.insert({ title: 'Uncompleted Item 0', completed: false });
+				store.insert({ title: 'Uncompleted Item 1', completed: false });
+				store.insert({ title: 'Uncompleted Item 2', completed: false });
+				store.insert({ title: 'Completed Item 0', completed: true })
+				store.insert({ title: 'Completed Item 1', completed: true })
 				scope.$digest();
 			}));
 
@@ -146,22 +139,22 @@
 			});
 
 			it('should save Todos to local storage', function () {
-				expect(todoStorage.storage.length).toBe(5);
+				expect(scope.todos.length).toBe(5);
 			});
 
 			it('should remove Todos w/o title on saving', function () {
-				var todo = todoList[2];
+				var todo = store.todos[2];
+				scope.editTodo(todo);
 				todo.title = '';
-
-				scope.doneEditing(todo);
+				scope.saveEdits(todo);
 				expect(scope.todos.length).toBe(4);
 			});
 
 			it('should trim Todos on saving', function () {
-				var todo = todoList[0];
+				var todo = store.todos[0];
+				scope.editTodo(todo);
 				todo.title = ' buy moar unicorns  ';
-
-				scope.doneEditing(todo);
+				scope.saveEdits(todo);
 				expect(scope.todos[0].title).toBe('buy moar unicorns');
 			});
 
@@ -171,16 +164,16 @@
 			});
 
 			it('markAll() should mark all Todos completed', function () {
-				scope.markAll();
+				scope.markAll(true);
 				scope.$digest();
 				expect(scope.completedCount).toBe(5);
 			});
 
 			it('revertTodo() get a Todo to its previous state', function () {
-				var todo = todoList[0];
+				var todo = store.todos[0];
 				scope.editTodo(todo);
 				todo.title = 'Unicorn sparkly skypuffles.';
-				scope.revertEditing(todo);
+				scope.revertEdits(todo);
 				scope.$digest();
 				expect(scope.todos[0].title).toBe('Uncompleted Item 0');
 			});
