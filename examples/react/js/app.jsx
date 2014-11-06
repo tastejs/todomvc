@@ -1,6 +1,3 @@
-/**
- * @jsx React.DOM
- */
 /*jshint quotmark:false */
 /*jshint white:false */
 /*jshint trailing:false */
@@ -42,14 +39,14 @@ var app = app || {};
 				return;
 			}
 
+			event.preventDefault();
+
 			var val = this.refs.newField.getDOMNode().value.trim();
 
 			if (val) {
 				this.props.model.addTodo(val);
 				this.refs.newField.getDOMNode().value = '';
 			}
-
-			return false;
 		},
 
 		toggleAll: function (event) {
@@ -171,7 +168,7 @@ var app = app || {};
 	var model = new app.TodoModel('react-todos');
 
 	function render() {
-		React.renderComponent(
+		React.render(
 			<TodoApp model={model}/>,
 			document.getElementById('todoapp')
 		);
