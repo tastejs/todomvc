@@ -164,12 +164,6 @@ header nav a:not(:last-child) {
 	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
 }
 
-.applist .platform-logo {
-        width: 16px;
-        height: 16px;
-        margin-left: 4px;
-}
-
 .applist .labs a,
 .labs-example {
 	color: #582C42;

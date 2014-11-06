@@ -105,6 +105,6 @@ gulp.task('pagespeed', pagespeed.bind(null, {
   strategy: 'mobile'
 }));
 
-gulp.task('serve', function(cb) {
+gulp.task('serve', function (cb) {
   app.listen(8080, cb);
 });
