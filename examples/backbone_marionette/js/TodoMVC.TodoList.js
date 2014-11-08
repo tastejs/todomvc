@@ -20,16 +20,11 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
     TodoList.Controller = Marionette.Controller.extend({
         initialize: function () {
             this.todoList = new App.Todos.TodoList();
-        },
-		// Start the app by showing the appropriate views
-		// and fetching the list of todo items, if there are any
-		start: function () {
 			this.showHeader(this.todoList);
 			this.showFooter(this.todoList);
 			this.showTodoList(this.todoList);
 			this.todoList.fetch();
-		},
-
+        },
 		showHeader: function (todoList) {
 			var header = new App.Layout.Header({
 				collection: todoList
@@ -64,11 +59,8 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 	// when the the application is started, pulling in all of the
 	// existing Todo items and displaying them.
 	TodoList.addInitializer(function () {
-		var controller = new TodoList.Controller();
-		controller.router = new TodoList.Router({
-			controller: controller
+		new TodoList.Router({
+			controller: new TodoList.Controller()
 		});
-
-		controller.start();
 	});
 });
