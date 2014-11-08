@@ -75,11 +75,10 @@ angular.module('todomvc')
 			insert: function (todo) {
 				var originalTodos = store.todos.slice(0);
 
-				store.todos.push(todo);
-
 				return $http.post('/api/todos', todo)
 					.then(function success(resp) {
 						todo.id = resp.data.id;
+						store.todos.push(todo);
 						return store.todos;
 					}, function error() {
 						angular.copy(originalTodos, store.todos);
