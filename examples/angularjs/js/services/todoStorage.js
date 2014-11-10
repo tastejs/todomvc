@@ -28,18 +28,18 @@ angular.module('todomvc')
 			todos: [],
 
 			clearCompleted: function () {
-                                function update() {
-                                         var completeTodos = [], incompleteTodos = [];
-                                         store.todos.forEach(function (todo) {
-                                                 if (todo.completed) {
-                                                         completeTodos.push(todo);
-                                                 } else {
-                                                         incompleteTodos.push(todo);
-                                                 }
-                                         });
+				function update() {
+					var completeTodos = [], incompleteTodos = [];
+					store.todos.forEach(function (todo) {
+					    if (todo.completed) {
+						   completeTodos.push(todo);
+					    } else {
+						   incompleteTodos.push(todo);
+					    }
+					});
 
-                                         angular.copy(incompleteTodos, store.todos);
-                                }
+					angular.copy(incompleteTodos, store.todos);
+				}
 
 				return $http.delete('/api/todos')
 					.then(function success() {
