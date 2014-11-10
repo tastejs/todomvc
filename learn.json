@@ -58,6 +58,11 @@
 		}, {
 			"name": "TypeScript & AngularJS",
 			"url": "examples/typescript-angular"
+		}, {
+			"name": "Google Cloud Platform + Express",
+			"url": "http://gcloud-todos.appspot.com",
+			"source_url": "https://github.com/GoogleCloudPlatform/gcloud-node-todos",
+			"type": "backend"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
