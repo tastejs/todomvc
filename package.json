@@ -12,7 +12,10 @@
     "learn.json"
   ],
   "dependencies": {
-    "express": "^4.10.0"
+    "express": "^4.10.0",
+    "github-markdown-css": "^1.2.0",
+    "marked": "^0.3.2",
+    "todomvc-api": "^0.1.1"
   },
   "devDependencies": {
     "del": "^0.1.1",
