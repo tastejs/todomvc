@@ -1,10 +1,9 @@
 /*global define*/
 define([
-	'jquery',
 	'backbone',
 	'collections/todos',
 	'common'
-], function ($, Backbone, Todos, Common) {
+], function (Backbone, Todos, Common) {
 	'use strict';
 
 	var TodoRouter = Backbone.Router.extend({
