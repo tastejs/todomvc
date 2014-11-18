@@ -232,12 +232,22 @@ label[for='toggle-all'] {
 	text-shadow: 0 -1px 0 #bfbfbf;
 }
 
+#todo-list li .toggle:focus:after {
+	color: #b0b0b0;
+	text-shadow: 0 -1px 0 #aaaaaa;
+}
+
 #todo-list li .toggle:checked:after {
 	color: #85ada7;
 	text-shadow: 0 1px 0 #669991;
 	bottom: 1px;
 	position: relative;
 }
+
+#todo-list li .toggle:focus:checked:after {
+	text-shadow-color: #192826;
+}
+
 
 #todo-list li span {
 	white-space: pre;
