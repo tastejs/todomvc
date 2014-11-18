@@ -6,6 +6,7 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
 var pagespeed = require('psi');
+var app = require('./server');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -40,11 +41,8 @@ gulp.task('images', function () {
 // Copy All Files At The Root Level (app)
 gulp.task('copy', function () {
   return gulp.src([
-    'architecture-examples/**',
-    'dependency-examples/**',
-    'vanilla-examples/**',
+    'examples/**',
     'bower_components/**',
-    'labs/**',
     'learn.json',
     'CNAME',
     '.nojekyll'
@@ -106,3 +104,7 @@ gulp.task('pagespeed', pagespeed.bind(null, {
   url: 'https://todomvc.com',
   strategy: 'mobile'
 }));
+
+gulp.task('serve', function (cb) {
+  app.listen(8080, cb);
+});

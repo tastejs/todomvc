@@ -1,7 +1,0 @@
-{
-  "name": "todomvc-vue",
-  "dependencies": {
-    "vue": "~0.10.0",
-    "todomvc-common": "~0.1.9"
-  }
-}

@@ -1,8 +1,0 @@
-{
-    "name": "todomvc-mithril",
-    "version": "0.0.0",
-    "dependencies": {
-        "mithril": "0.1.20",
-        "todomvc-common": "~0.1.4"
-    }
-}

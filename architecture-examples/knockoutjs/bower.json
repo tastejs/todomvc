@@ -1,9 +1,0 @@
-{
-  "name": "todomvc-knockoutjs",
-  "version": "0.0.0",
-  "dependencies": {
-    "todomvc-common": "~0.1.4",
-    "component-knockout-passy": "~3.1.0",
-    "director": "~1.2.0"
-  }
-}

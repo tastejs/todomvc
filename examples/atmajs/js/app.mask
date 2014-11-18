@@ -1,0 +1,36 @@
+section #todoapp {
+	header #header {
+		h1 > 'todos'
+
+		todo:input #new-todo
+			autofocus
+			placeholder = 'What needs to be done?'
+			x-signal = 'enter: newTask'
+			;
+	}
+
+	+if (status.count) {
+		section #main >
+			:todoList;
+
+		footer #footer {
+
+			span #todo-count {
+				strong > '~[bind: status.todoCount]'
+				span > ' item~[bind: status.todoCount != 1 ? "s"] left'
+			}
+
+			:filter;
+
+			+if (status.completedCount > 0) {
+				button #clear-completed x-signal = 'click: removeAllCompleted' >
+					'Clear completed (~[bind:status.completedCount])'
+			}
+		}
+	}
+}
+footer #info {
+	p { 'Double-click to edit a todo' }
+	p { 'Created by ' a href='http://github.com/tenbits' > 'tenbits' }
+	p { 'Part of ' a href='http://todomvc.com' > 'TodoMVC' }
+}

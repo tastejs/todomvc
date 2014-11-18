@@ -4,7 +4,7 @@ We have created this short spec to help you create awesome and consistent todo a
 
 ## Template Application
 
-Our [template](https://github.com/tastejs/todomvc/tree/master/template) should be used as the base when implementing a todo app. Before implementing, we recommend you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/architecture-examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
+Our [template](template) should be used as the base when implementing a todo app. Before implementing, we recommend you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
 
 ## Structure
 
@@ -40,15 +40,15 @@ js/
     └── todo.js
 ```
 
-Keep in mind that framework best practices on how to structure your app come first.
+Keep in mind that framework’s best practices on how to structure your app come first.
 
 ### README
 
-All examples should include a README describing the framework, the general implementation and the build process if required. There is an [example readme](https://github.com/tastejs/todomvc/blob/master/template/readme.md) included in the [template](https://github.com/tastejs/todomvc/tree/master/template).
+All examples must include a README describing the framework, the general implementation and the build process if required. There is an [example readme](template/readme.md) included in the [template](template).
 
 ### Dependency Management
 
-Unless it conflicts with the project's best practices, your example should use [bower](http://bower.io/) for package management. Specify your dependencies in a `bower.json` file in the root directory of your app. The name of the component must follow the schema `todomvc-[framework]` and must include `todomvc-common` as dependency. An example `bower.json` could look like this:
+Unless it conflicts with the project's best practices, your example should use [bower](http://bower.io) for package management. Specify your dependencies in a `bower.json` file in the root directory of your app. The name of the component must follow the schema `todomvc-[framework]` and must include `todomvc-common` as dependency. An example `bower.json` could look like this:
 
 ```json
 {
@@ -70,13 +70,13 @@ Please try to keep the HTML as close to the template as possible. Remove the com
 
 Make sure to follow these:
 
-- Follow our [code style](https://github.com/tastejs/todomvc/blob/master/contributing.md#code-style)
+- Follow our [code style](contributing.md#code-style).
 - Use double-quotes in HTML and single-quotes in JS and CSS.
 - Use bower components for your third-party dependencies and manually remove files that aren't required for your app to run.
 - Use a constant instead of the keyCode directly: `var ENTER_KEY = 13;`
 - Apps should be written without any preprocessors (Sass/CoffeeScript/..) to reach the largest audience.
 - To make it easy to compare frameworks, the app should look and behave exactly like the template and the other examples.
-- We require apps to work in every browser we [support](https://github.com/tastejs/todomvc/blob/master/contributing.md#browser-compatibility).
+- We require apps to work in every browser we [support](contributing.md#browser-compatibility).
 
 ## Functionality
 
@@ -86,7 +86,7 @@ When there are no todos, `#main` and `#footer` should be hidden.
 
 ### New todo
 
-New todos are entered in the input at the top of the app. Pressing Enter creates the todo, appends it to the todo list and clears the input. Make sure to `.trim()` the input and then check that it's not empty before creating a new todo.
+New todos are entered in the input at the top of the app. The input element should be focused when the page is loaded preferably using the `autofocus` input attribute. Pressing Enter creates the todo, appends it to the todo list and clears the input. Make sure to `.trim()` the input and then check that it's not empty before creating a new todo.
 
 ### Mark all as complete
 
@@ -116,7 +116,7 @@ Displays the number of completed todos, and when clicked, removes them. Should b
 
 ### Persistence
 
-Your app should dynamically persist the todos to localStorage. If the framework has capabilities for persisting data (i.e. Backbone.sync), use that, otherwise vanilla localStorage. If possible, use the keys `id`, `title`, `completed` for each item. Make sure to use this format for the localStorage name: `todos-[framework]`. Editing mode should not be persisted.
+Your app should dynamically persist the todos to localStorage. If the framework has capabilities for persisting data (e.g. Backbone.sync), use that, otherwise vanilla localStorage. If possible, use the keys `id`, `title`, `completed` for each item. Make sure to use this format for the localStorage name: `todos-[framework]`. Editing mode should not be persisted.
 
 ### Routing
 

@@ -1,8 +1,0 @@
-{
-  "name": "todomvc-meteor",
-  "version": "0.0.0",
-  "dependencies": {
-    "todomvc-common": "~0.1.6",
-    "director": "~1.2.0"
-  }
-}
