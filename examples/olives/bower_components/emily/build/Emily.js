@@ -26,10 +26,10 @@ function Tools(){
 	     * @returns {Object} the global object
 	     */
 		getGlobal: function getGlobal() {
-		var func = function() {
-			return this;
-		};
-		return func.call(null);
+	    	var func = function() {
+	    		return this;
+	    	};
+	    	return func.call(null);
 	    },
 
 		/**
@@ -822,43 +822,43 @@ function Promise(Observable, StateMachine) {
          * @returns {Promise} the new promise
          */
         this.then = function then() {
-		var promise = new PromiseConstructor;
+        	var promise = new PromiseConstructor;
 
-		// If a fulfillment callback is given
-		if (arguments[0] instanceof Function) {
-			// If the second argument is also a function, then no scope is given
-		if (arguments[1] instanceof Function) {
-			_stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0]));
-		} else {
-			// If the second argument is not a function, it's the scope
-			_stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0], arguments[1]));
-		}
-		} else {
-			// If no fulfillment callback given, give a default one
-			_stateMachine.event("toFulfill", this.makeResolver(promise, function () {
-				promise.fulfill(_value);
-			}));
-		}
+        	// If a fulfillment callback is given
+          	if (arguments[0] instanceof Function) {
+          		// If the second argument is also a function, then no scope is given
+            	if (arguments[1] instanceof Function) {
+                	_stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0]));
+              	} else {
+              		// If the second argument is not a function, it's the scope
+                	_stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0], arguments[1]));
+              	}
+         	} else {
+         		// If no fulfillment callback given, give a default one
+         		_stateMachine.event("toFulfill", this.makeResolver(promise, function () {
+         			promise.fulfill(_value);
+         		}));
+         	}
 
-		// if the second arguments is a callback, it's the rejection one, and the next argument is the scope
-		if (arguments[1] instanceof Function) {
-		_stateMachine.event("toReject", this.makeResolver(promise, arguments[1], arguments[2]));
-		}
+         	// if the second arguments is a callback, it's the rejection one, and the next argument is the scope
+          	if (arguments[1] instanceof Function) {
+            	_stateMachine.event("toReject", this.makeResolver(promise, arguments[1], arguments[2]));
+          	}
 
-		// if the third arguments is a callback, it's the rejection one, and the next arguments is the sopce
-		if (arguments[2] instanceof Function) {
+          	// if the third arguments is a callback, it's the rejection one, and the next arguments is the sopce
+          	if (arguments[2] instanceof Function) {
                 _stateMachine.event("toReject", this.makeResolver(promise, arguments[2], arguments[3]));
-		}
+          	}
 
-		// If no rejection callback is given, give a default one
-		if (!(arguments[1] instanceof Function) &&
-			!(arguments[2] instanceof Function)) {
-			_stateMachine.event("toReject", this.makeResolver(promise, function () {
-				promise.reject(_reason);
-			}));
-		}
+          	// If no rejection callback is given, give a default one
+          	if (!(arguments[1] instanceof Function) &&
+          		!(arguments[2] instanceof Function)) {
+          		_stateMachine.event("toReject", this.makeResolver(promise, function () {
+          			promise.reject(_reason);
+          		}));
+          	}
 
-		return promise;
+          	return promise;
         };
 
         /**
@@ -912,7 +912,7 @@ function Promise(Observable, StateMachine) {
          * @private
          */
         this.getReason = function getReason() {
-		return _reason;
+        	return _reason;
         };
 
         /**
@@ -921,7 +921,7 @@ function Promise(Observable, StateMachine) {
          * @private
          */
         this.getValue = function getValue() {
-		return _value;
+        	return _value;
         };
 
 		/**
