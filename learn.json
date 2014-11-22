@@ -298,7 +298,7 @@
 	"ampersand": {
 		"name": "Ampersand.js",
 		"description": "A highly modular, loosely coupled, non-frameworky framework for building advanced JavaScript apps.",
-		"homepage": "http://ampersandjs.com",
+		"homepage": "ampersandjs.com",
 		"examples": [{
 			"name": "Architecture Example",
 			"url": "examples/ampersand"
