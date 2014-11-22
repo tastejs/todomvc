@@ -6,6 +6,8 @@
 
 define(["Tools"], function (Tools) {
 
+	"use strict";
+
 	return {
 		/**
 		 * Returns a NodeList including the given dom node,
