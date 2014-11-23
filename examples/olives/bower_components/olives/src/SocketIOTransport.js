@@ -12,6 +12,8 @@ define(["Observable", "Tools"],
  */
 function SocketIOTransport(Observable, Tools) {
 
+	"use strict";
+
 	/**
 	 * Defines the SocketIOTransport
 	 * @private
@@ -47,7 +49,7 @@ function SocketIOTransport(Observable, Tools) {
 		 */
 		this.getSocket = function getSocket() {
 			return _socket;
-		},
+		};
 
 		/**
 		 * Subscribe to a socket event
@@ -56,7 +58,7 @@ function SocketIOTransport(Observable, Tools) {
 		 */
 		this.on = function on(event, func) {
 			return _socket.on(event, func);
-		},
+		};
 
 		/**
 		 * Subscribe to a socket event but disconnect as soon as it fires.
@@ -95,15 +97,17 @@ function SocketIOTransport(Observable, Tools) {
 		 * @param {Object} scope the scope in which to execute the callback
 		 */
 		this.request = function request(channel, data, func, scope) {
-			if (typeof channel == "string"
-					&& typeof data != "undefined") {
+			if (typeof channel == "string" &&
+					typeof data != "undefined") {
 
 				var reqData = {
 						eventId: Date.now() + Math.floor(Math.random()*1e6),
 						data: data
 					},
 					boundCallback = function () {
-						func && func.apply(scope || null, arguments);
+						if (func) {
+							func.apply(scope || null, arguments);
+						}
 					};
 
 				this.once(reqData.eventId, boundCallback);
@@ -125,9 +129,9 @@ function SocketIOTransport(Observable, Tools) {
 		 * @returns
 		 */
 		this.listen = function listen(channel, data, func, scope) {
-			if (typeof channel == "string"
-					&& typeof data != "undefined"
-					&& typeof func == "function") {
+			if (typeof channel == "string" &&
+					typeof data != "undefined" &&
+					typeof func == "function") {
 
 				var reqData = {
 						eventId: Date.now() + Math.floor(Math.random()*1e6),
@@ -135,7 +139,9 @@ function SocketIOTransport(Observable, Tools) {
 						keepAlive: true
 					},
 					boundCallback = function () {
-						func && func.apply(scope || null, arguments);
+						if (func) {
+							func.apply(scope || null, arguments);
+						}
 					},
 					that = this;
 
