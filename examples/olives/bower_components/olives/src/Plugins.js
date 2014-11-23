@@ -17,6 +17,8 @@ define(["Tools", "DomUtils"],
  */
 function Plugins(Tools, DomUtils) {
 
+	"use strict";
+
 	return function PluginsConstructor($plugins) {
 
 		/**
