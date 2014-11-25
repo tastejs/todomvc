@@ -1,0 +1,13 @@
+<span id="todo-count"><strong>{{remaining}}</strong> item left</span>
+<ul id="filters">
+    <li>
+        <a class="{{allSelected}}" href="?filter=all" lazo-navigate>All</a>
+    </li>
+    <li>
+        <a class="{{activeSelected}}" href="?filter=active" lazo-navigate>Active</a>
+    </li>
+    <li>
+        <a  class="{{completedSelected}}" href="?filter=completed" lazo-navigate>Completed</a>
+    </li>
+</ul>
+<button id="clear-completed" class="{{hideCompletedBtn}}">Clear completed ({{completed}})</button>

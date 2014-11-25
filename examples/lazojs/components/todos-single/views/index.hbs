@@ -1,0 +1,34 @@
+<section id="todoapp">
+    <header id="header">
+        <h1>todos</h1>
+        <input id="new-todo" placeholder="What needs to be done?" autofocus>
+    </header>
+    <section id="main">
+        <input id="toggle-all" type="checkbox" {{allChecked}}>
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list" lazo-collection-target="collection"></ul>
+    </section>
+    <footer id="footer">
+        <span id="todo-count"><strong>{{remaining}}</strong> item left</span>
+        <ul id="filters">
+            <li>
+                <a class="{{allSelected}}" href="?filter=all" lazo-navigate>All</a>
+            </li>
+            <li>
+                <a class="{{activeSelected}}" href="?filter=active" lazo-navigate>Active</a>
+            </li>
+            <li>
+                <a  class="{{completedSelected}}" href="?filter=completed" lazo-navigate>Completed</a>
+            </li>
+        </ul>
+        <button id="clear-completed" class="{{hideCompletedBtn}}">Clear completed ({{completed}})</button>
+    </footer>
+</section>
+<footer id="info">
+    <p>Double-click to edit a todo</p>
+    <p>
+        Created by <a href="https://github.com/jstrimpel">Jason Strimpel</a> using
+        <a href="https://github.com/walmartlabs/lazojs">Lazo</a>
+    </p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
