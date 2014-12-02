@@ -113,18 +113,13 @@ function TestOperations(page) {
 
 			// obtain all the visible items
 			var visibleLabels = [];
-			var tests = [];
-			for (var i = 0; i < labels.length; i++) {
-				(function (index) {
-					// suppressing JSHint - the loop variable is not being used in the function.
-					/* jshint -W083 */
-					tests.push(labels[index].isDisplayed().then(function (isDisplayed) {
+			var tests = labels.map(function (label) {
+					return label.isDisplayed().then(function (isDisplayed) {
 						if (isDisplayed) {
-							visibleLabels.push(labels[index]);
+							visibleLabels.push(label);
 						}
-					}));
-				})(i);
-			}
+					});
+				});
 
 			// check that they match the supplied text
 			return Q.all(tests).then(function () {
