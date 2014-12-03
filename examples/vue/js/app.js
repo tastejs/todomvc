@@ -4,36 +4,35 @@
 
 	'use strict';
 
-	var filters = {
-		all: function () {
-			return true;
-		},
-		active: function (todo) {
-			return !todo.completed;
-		},
-		completed: function (todo) {
-			return todo.completed;
-		}
-	};
-
-	var app = exports.app = new Vue({
+	exports.app = new Vue({
 
 		// the root element that will be compiled
 		el: '#todoapp',
 
-		// data
+		// app state data
 		data: {
 			todos: todoStorage.fetch(),
 			newTodo: '',
 			editedTodo: null,
-			filter: 'all'
+			activeFilter: 'all',
+			filters: {
+				all: function () {
+					return true;
+				},
+				active: function (todo) {
+					return !todo.completed;
+				},
+				completed: function (todo) {
+					return todo.completed;
+				}
+			}
 		},
 
 		// ready hook, watch todos change for data persistence
 		ready: function () {
 			this.$watch('todos', function (todos) {
 				todoStorage.save(todos);
-			});
+			}, true);
 		},
 
 		// a custom directive to wait for the DOM to be updated
@@ -51,23 +50,24 @@
 			}
 		},
 
+		// a custom filter that filters the displayed todos array
 		filters: {
 			filterTodos: function (todos) {
-				return todos.filter(filters[this.filter]);
+				return todos.filter(this.filters[this.activeFilter]);
 			}
 		},
 
-		// computed property
+		// computed properties
 		// http://vuejs.org/guide/computed.html
 		computed: {
 			remaining: function () {
-				return this.todos.filter(filters.active).length;
+				return this.todos.filter(this.filters.active).length;
 			},
 			allDone: {
-				$get: function () {
+				get: function () {
 					return this.remaining === 0;
 				},
-				$set: function (value) {
+				set: function (value) {
 					this.todos.forEach(function (todo) {
 						todo.completed = value;
 					});
@@ -114,11 +114,9 @@
 			},
 
 			removeCompleted: function () {
-				this.todos = this.todos.filter(filters.active);
+				this.todos = this.todos.filter(this.filters.active);
 			}
 		}
 	});
-
-	app.filters = filters;
 
 })(window);
