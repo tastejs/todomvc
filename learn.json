@@ -2221,11 +2221,11 @@
 				"name": "Twitter",
 				"url": "http://twitter.com/vuejs"
 			}, {
-				"name": "Google+ Community",
-				"url": "https://plus.google.com/communities/112229843610661683911"
+				"name": "Gitter Channel",
+				"url": "https://gitter.im/yyx990803/vue"
 			}, {
-				"name": "IRC Channel: #vuejs",
-				"url": "http://freenode.net/faq.shtml#whatwhy"
+				"name": "Discussions on GitHub",
+				"url": "https://github.com/vuejs/Discussion/issues"
 			}]
 		}]
 	},
