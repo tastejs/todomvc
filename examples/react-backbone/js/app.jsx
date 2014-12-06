@@ -14,10 +14,6 @@ var app = app || {};
 	app.ALL_TODOS = 'all';
 	app.ACTIVE_TODOS = 'active';
 	app.COMPLETED_TODOS = 'completed';
-	var TodoFooter = app.TodoFooter;
-	var TodoItem = app.TodoItem;
-
-	var ENTER_KEY = 13;
 
 	// An example generic Mixin that you can add to any component that should
 	// react to changes in a Backbone component. The use cases we've identified
@@ -35,7 +31,7 @@ var app = app || {};
 				// explicitly bind `null` to `forceUpdate`, as it demands a callback and
 				// React validates that it's a function. `collection` events passes
 				// additional arguments that are not functions
-				collection.on('add remove change', this.forceUpdate.bind(this, null));
+				collection.on('add remove change destroy', this.forceUpdate.bind(this, null));
 			}, this);
 		},
 
@@ -48,6 +44,13 @@ var app = app || {};
 		}
 	};
 
+	var ToggleAllCheckbox = app.ToggleAllCheckbox;
+	var NewTodoInput = app.NewTodoInput;
+	var TodoList = app.TodoList;
+	var TodosLeftCount = app.TodosLeftCount;
+	var Filters = app.Filters;
+	var ClearButton = app.ClearButton;
+
 	var TodoApp = React.createClass({
 		mixins: [BackboneMixin],
 		getBackboneCollections: function () {
@@ -55,15 +58,15 @@ var app = app || {};
 		},
 
 		getInitialState: function () {
-			return {editing: null};
+			return {nowShowing: app.ALL_TODOS};
 		},
 
 		componentDidMount: function () {
 			var Router = Backbone.Router.extend({
 				routes: {
 					'': 'all',
-					'active': 'active',
-					'completed': 'completed'
+					active: 'active',
+					completed: 'completed'
 				},
 				all: this.setState.bind(this, {nowShowing: app.ALL_TODOS}),
 				active: this.setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
@@ -73,138 +76,50 @@ var app = app || {};
 			new Router();
 			Backbone.history.start();
 
+      // fetch the todos when the
 			this.props.todos.fetch();
 		},
 
-		componentDidUpdate: function () {
-			// If saving were expensive we'd listen for mutation events on Backbone and
-			// do this manually. however, since saving isn't expensive this is an
-			// elegant way to keep it reactively up-to-date.
-			this.props.todos.forEach(function (todo) {
-				todo.save();
-			});
-		},
-
-		handleNewTodoKeyDown: function (event) {
-			if (event.which !== ENTER_KEY) {
-				return;
-			}
-
-			var val = this.refs.newField.getDOMNode().value.trim();
-			if (val) {
-				this.props.todos.create({
-					title: val,
-					completed: false,
-					order: this.props.todos.nextOrder()
-				});
-				this.refs.newField.getDOMNode().value = '';
-			}
-
-			return false;
-		},
-
-		toggleAll: function (event) {
-			var checked = event.target.checked;
-			this.props.todos.forEach(function (todo) {
-				todo.set('completed', checked);
-			});
-		},
-
-		edit: function (todo, callback) {
-			// refer to todoItem.jsx `handleEdit` for the reason behind the callback
-			this.setState({editing: todo.get('id')}, callback);
-		},
-
-		save: function (todo, text) {
-			todo.save({title: text});
-			this.setState({editing: null});
-		},
-
-		cancel: function () {
-			this.setState({editing: null});
-		},
-
-		clearCompleted: function () {
-			this.props.todos.completed().forEach(function (todo) {
-				todo.destroy();
-			});
-		},
-
 		render: function () {
-			var footer;
+			var header;
 			var main;
+			var footer;
 			var todos = this.props.todos;
 
-			var shownTodos = todos.filter(function (todo) {
-				switch (this.state.nowShowing) {
-				case app.ACTIVE_TODOS:
-					return !todo.get('completed');
-				case app.COMPLETED_TODOS:
-					return todo.get('completed');
-				default:
-					return true;
-				}
-			}, this);
-
-			var todoItems = shownTodos.map(function (todo) {
-				return (
-					<TodoItem
-						key={todo.get('id')}
-						todo={todo}
-						onToggle={todo.toggle.bind(todo)}
-						onDestroy={todo.destroy.bind(todo)}
-						onEdit={this.edit.bind(this, todo)}
-						editing={this.state.editing === todo.get('id')}
-						onSave={this.save.bind(this, todo)}
-						onCancel={this.cancel}
-					/>
-				);
-			}, this);
-
-			var activeTodoCount = todos.reduce(function (accum, todo) {
-				return todo.get('completed') ? accum : accum + 1;
-			}, 0);
-
+			var activeTodoCount = todos.activeTodoCount();
 			var completedCount = todos.length - activeTodoCount;
+			var shownTodos = this.props.todos.filterByShowing(this.state.nowShowing);
 
-			if (activeTodoCount || completedCount) {
-				footer =
-					<TodoFooter
-						count={activeTodoCount}
-						completedCount={completedCount}
-						nowShowing={this.state.nowShowing}
-						onClearCompleted={this.clearCompleted}
-					/>;
-			}
+			// always show the header
+			header =
+				<header id="header">
+					<h1>todos</h1>
+					<NewTodoInput todos={todos} />
+				</header>;
 
-			if (todos.length) {
-				main = (
+			// only show the main list items if there are items to show
+			if(shownTodos.length > 0)
+				main =
 					<section id="main">
-						<input
-							id="toggle-all"
-							type="checkbox"
-							onChange={this.toggleAll}
-							checked={activeTodoCount === 0}
-						/>
-						<ul id="todo-list">
-							{todoItems}
-						</ul>
-					</section>
-				);
-			}
+						<ToggleAllCheckbox
+							todos={todos}
+							activeTodoCount={activeTodoCount} />
+						<TodoList
+							shownTodos={shownTodos} />
+					</section>;
+
+			// only show the footer if there are any todos
+			if(todos.length > 0)
+				footer =
+					<footer id="footer">
+						<TodosLeftCount count={activeTodoCount} />
+						<Filters nowShowing={this.state.nowShowing} />
+						<ClearButton todos={todos} completedCount={completedCount} />
+					</footer>;
 
 			return (
 				<div>
-					<header id="header">
-						<h1>todos</h1>
-						<input
-							ref="newField"
-							id="new-todo"
-							placeholder="What needs to be done?"
-							onKeyDown={this.handleNewTodoKeyDown}
-							autoFocus={true}
-						/>
-					</header>
+					{header}
 					{main}
 					{footer}
 				</div>

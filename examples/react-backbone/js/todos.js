@@ -32,6 +32,22 @@ var app = app || {};
 			return this.length ? this.last().get('order') + 1 : 1;
 		},
 
+		filterByShowing: function (nowShowing) {
+			return this.filter(function (todo) {
+				switch (nowShowing) {
+				case app.ACTIVE_TODOS:
+					return !todo.get('completed');
+				case app.COMPLETED_TODOS:
+					return todo.get('completed');
+				default:
+					return true;
+				}
+			});
+		},
+
+		activeTodoCount: function () {
+			return this.where({completed:false}).length;
+		},
 		// Todos are sorted by their original insertion order.
 		comparator: 'order'
 	});

@@ -16,17 +16,24 @@ var app = app || {};
 
 	app.TodoItem = React.createClass({
 		getInitialState: function () {
-			return {editText: this.props.todo.get('title')};
+			return {
+				editText: this.props.todo.get('title'),
+			};
 		},
 
 		handleSubmit: function () {
-			var val = this.state.editText.trim();
-			if (val) {
-				this.props.onSave(val);
-				this.setState({editText: val});
+			var trimmedTitle = this.state.editText.trim();
+			var todo = this.props.todo;
+
+			if (trimmedTitle) {
+				todo.set({'title':trimmedTitle});
+				todo.save();
+				this.setState({editText: trimmedTitle});
 			} else {
-				this.props.onDestroy();
+				todo.destroy();
 			}
+			this.props.onEditComplete();
+
 			return false;
 		},
 
@@ -35,25 +42,49 @@ var app = app || {};
 			// parent's `onEdit` (which in this case triggeres a re-render), and
 			// immediately manipulate the DOM as if the rendering's over. Put it as a
 			// callback. Refer to app.jsx' `edit` method
-			this.props.onEdit(function () {
-				var node = this.refs.editField.getDOMNode();
-				node.focus();
-				node.setSelectionRange(node.value.length, node.value.length);
-			}.bind(this));
-			this.setState({editText: this.props.todo.get('title')});
+			this.props.onEdit(this.props.todo);
 		},
 
-		handleKeyDown: function (event) {
-			if (event.which === ESCAPE_KEY) {
-				this.setState({editText: this.props.todo.get('title')});
-				this.props.onCancel();
-			} else if (event.which === ENTER_KEY) {
-				this.handleSubmit();
-			}
+		handleDestroy: function () {
+			this.props.todo.destroy();
 		},
 
 		handleChange: function (event) {
 			this.setState({editText: event.target.value});
+		},
+
+		handleCancel: function () {
+			this.setState({
+				editText: this.props.todo.get('title')
+			});
+			this.props.onEditComplete();
+		},
+
+		handleKeyDown: function (event) {
+			if (event.which === ESCAPE_KEY) {
+				this.handleCancel();
+			} else if (event.which === ENTER_KEY) {
+				this.handleSubmit();
+			} else return;
+		},
+
+		handleToggle: function(event) {
+			var checked = event.target.checked;
+
+			this.props.todo.set('completed', checked);
+			this.props.todo.save();
+		},
+
+		// This is called after the properties are updated.
+		// If now we are switched to the edit mode, then focus
+		// on the field
+		componentDidUpdate: function() {
+			if(this.props.editing) {
+				var node = this.refs.editField.getDOMNode();
+
+				node.focus();
+				node.setSelectionRange(node.value.length, node.value.length);
+			}
 		},
 
 		render: function () {
@@ -67,20 +98,21 @@ var app = app || {};
 							className="toggle"
 							type="checkbox"
 							checked={this.props.todo.get('completed')}
-							onChange={this.props.onToggle}
+							onChange={this.handleToggle}
 						/>
 						<label onDoubleClick={this.handleEdit}>
 							{this.props.todo.get('title')}
 						</label>
-						<button className="destroy" onClick={this.props.onDestroy} />
+						<button className="destroy" onClick={this.handleDestroy} />
 					</div>
 					<input
+						type="text"
 						ref="editField"
 						className="edit"
 						value={this.state.editText}
 						onBlur={this.handleSubmit}
-						onChange={this.handleChange}
 						onKeyDown={this.handleKeyDown}
+						onChange={this.handleChange}
 					/>
 				</li>
 			);
