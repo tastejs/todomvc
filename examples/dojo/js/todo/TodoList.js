@@ -19,6 +19,7 @@ define([
 			onEditBoxChange: function(){
 				if(!this.editBox.value){
 					this.parent.listCtrl.removeItem(this.uniqueId);
+                    this.destroyRecursive();
 				}
 			}
 		})
