@@ -13,11 +13,11 @@
                 <h1>todos</h1>
                 <input id="new-todo" data-template="new-todo" placeholder="What needs to be done?" autofocus>
             </header>
-            <section id="main" data-template="main-section">
+            <section id="main" data-template="main-section" class="dragome-hide">
                 <input id="toggle-all" type="checkbox" data-template="toggle-all">
                 <label for="toggle-all">Mark all as complete</label>
                 <ul id="todo-list">
-                    <li class="to-be-removed" data-template="completed-todo">
+                    <li data-template="completed-todo" class="dragome-hide">
                         <div class="view">
                             <input  data-template="completed" class="toggle" type="checkbox" checked>
                             <label data-template="title">Create a TodoMVC template</label>
@@ -27,7 +27,7 @@
                     </li>
                 </ul>
             </section>
-            <footer id="footer" data-template="footer-section">
+            <footer id="footer" data-template="footer-section" class="dragome-hide">
                 <span id="todo-count"><strong  data-template="items-count">1</strong> <span  data-template="items-label">item</span> left</span>
                 <ul id="filters">
                     <li>

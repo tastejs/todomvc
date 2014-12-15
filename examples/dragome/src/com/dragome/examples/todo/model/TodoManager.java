@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2011-2014 Fernando Petrola
+ * 
+ *  This file is part of Dragome SDK.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ ******************************************************************************/
 package com.dragome.examples.todo.model;
 
 import java.util.ArrayList;
@@ -6,203 +16,221 @@ import java.util.stream.Collectors;
 
 import com.dragome.forms.bindings.builders.LocalStorage;
 import com.dragome.forms.bindings.builders.Tester;
+import com.dragome.html.dom.Window;
+import com.dragome.services.ServiceLocator;
 
 public class TodoManager
 {
-    private List<Todo> todos= new ArrayList<Todo>();
-    private String newTodo= "";
-    private Todo editedTodo;
-    private String location= "/";
-    private Todo originalTodo;
-    private Tester<Todo> statusFilter;
-    private boolean allChecked;
-    private long completedCount;
-    private long remainingCount;
-    private LocalStorage localStorage;
+	private List<Todo> todos= new ArrayList<Todo>();
+	private String newTodo= "";
+	private Todo editedTodo;
+	private String location= "/";
+	private Todo originalTodo;
+	private Tester<Todo> statusFilter;
+	private boolean allChecked;
+	private long completedCount;
+	private long remainingCount;
+	private LocalStorage localStorage;
 
-    public TodoManager()
-    {
-    }
-
-    public TodoManager(String location, LocalStorage localStorage)
-    {
-	this.localStorage= localStorage;
-	setTodos(localStorage.load("todos-dragome"));
-	setLocation(location);
-    }
-
-    public void addTodo()
-    {
-	String tempNewTodo= getNewTodo().trim();
-	if (tempNewTodo.length() == 0)
-	    return;
-
-	getTodos().add(new Todo(tempNewTodo, false));
-	setNewTodo("");
-
-	update();
-    }
-
-    private void update()
-    {
-	calculate();
-	setTodos(getTodos());
-    }
-
-    private void calculate()
-    {
-	if (getTodos() != null)
+	public TodoManager()
 	{
-	    setRemainingCount(getTodos().stream().filter(t -> !t.isCompleted()).count());
-	    setCompletedCount(getTodos().size() - remainingCount);
-	    allChecked= remainingCount == 0;
 	}
-    }
-    public void clearCompletedTodos()
-    {
-	setTodos(getTodos().stream().filter(t -> !t.isCompleted()).collect(Collectors.toList()));
-	update();
-    }
 
-    public void doneEditing(Todo todo)
-    {
-	setEditedTodo(null);
-	todo.setTitle(todo.getTitle().trim());
+	public TodoManager(String location, LocalStorage localStorage)
+	{
+		Window.getInstance().onHashChange(new Runnable()
+		{
+			public void run()
+			{
+				String fragment= ServiceLocator.getInstance().getParametersHandler().getFragment();
+				setLocation(fragment);
+			}
+		});
+		
+		this.localStorage= localStorage;
+		setTodos(localStorage.load("todos-dragome"));
+		setLocation(location);
+	}
 
-	if (todo.getTitle().length() == 0)
-	    removeTodo(todo);
-    }
-    public void editTodo(Todo todo)
-    {
-	setEditedTodo(todo);
-	originalTodo= new Todo(todo);
-	setTodos(todos);
-    }
-    public long getCompletedCount()
-    {
-	return completedCount;
-    }
-    public Todo getEditedTodo()
-    {
-	return editedTodo;
-    }
-    public String getLocation()
-    {
-	return location;
-    }
+	public void addTodo()
+	{
+		String tempNewTodo= getNewTodo().trim();
+		if (tempNewTodo.length() == 0)
+			return;
 
-    public String getNewTodo()
-    {
-	return newTodo;
-    }
+		getTodos().add(new Todo(tempNewTodo, false));
+		setNewTodo("");
 
-    public Todo getOriginalTodo()
-    {
-	return originalTodo;
-    }
+		update();
+	}
 
-    public long getRemainingCount()
-    {
-	return remainingCount;
-    }
+	private void update()
+	{
+		calculate();
+		setTodos(getTodos());
+	}
 
-    public Tester<Todo> getStatusFilter()
-    {
-	return statusFilter;
-    }
+	private void calculate()
+	{
+		if (getTodos() != null)
+		{
+			setRemainingCount(getTodos().stream().filter(t -> !t.isCompleted()).count());
+			setCompletedCount(getTodos().size() - remainingCount);
+			setAllChecked(remainingCount == 0);
+		}
+	}
+	public void clearCompletedTodos()
+	{
+		setTodos(getTodos().stream().filter(t -> !t.isCompleted()).collect(Collectors.toList()));
+		update();
+	}
 
-    public List<Todo> getTodos()
-    {
-	return todos;
-    }
+	public void doneEditing(Todo todo, boolean cancel)
+	{
+		if (cancel)
+		{
+			todo.copyFrom(originalTodo);
+		}
 
-    public boolean isAllChecked()
-    {
-	return allChecked;
-    }
+		setEditedTodo(null);
+		todo.setTitle(todo.getTitle().trim());
 
-    public void markAll(boolean completed)
-    {
-	getTodos().stream().forEach(t -> t.setCompleted(completed));
-    }
+		if (todo.getTitle().length() == 0)
+			removeTodo(todo);
+	}
+	public void editTodo(Todo todo)
+	{
+		setEditedTodo(todo);
+		originalTodo= new Todo(todo);
+		setTodos(todos);
+	}
+	public long getCompletedCount()
+	{
+		return completedCount;
+	}
+	public Todo getEditedTodo()
+	{
+		return editedTodo;
+	}
+	public String getLocation()
+	{
+		return location;
+	}
 
-    public void removeTodo(Todo todo)
-    {
-	getTodos().remove(todo);
-	update();
-    }
+	public String getNewTodo()
+	{
+		return newTodo;
+	}
 
-    public void revertEditing(Todo todo)
-    {
-	getTodos().set(getTodos().indexOf(todo), originalTodo);
-	doneEditing(originalTodo);
-    }
+	public Todo getOriginalTodo()
+	{
+		return originalTodo;
+	}
 
-    public void setAllChecked(boolean allChecked)
-    {
-	this.allChecked= allChecked;
-	update();
-    }
+	public long getRemainingCount()
+	{
+		return remainingCount;
+	}
 
-    public void setCompletedCount(long completedCount)
-    {
-	this.completedCount= completedCount;
-	setTodos(todos);
-    }
+	public Tester<Todo> getStatusFilter()
+	{
+		return statusFilter;
+	}
 
-    public void setEditedTodo(Todo editedTodo)
-    {
-	this.editedTodo= editedTodo;
-    }
+	public List<Todo> getTodos()
+	{
+		return todos;
+	}
 
-    public void setLocation(String location)
-    {
-	this.location= location != null ? location : "/";
+	public boolean isAllChecked()
+	{
+		return allChecked;
+	}
 
-	if (this.location.equals("/"))
-	    setStatusFilter(t -> true);
-	else if (this.location.equals("/active"))
-	    setStatusFilter(t -> !t.isCompleted());
-	else if (this.location.equals("/completed"))
-	    setStatusFilter(t -> t.isCompleted());
+	public void markAll(boolean completed)
+	{
+		getTodos().stream().forEach(t -> t.setCompleted(completed));
+		setAllChecked(completed);
+		update();
+	}
 
-	update();
-    }
+	public void removeTodo(Todo todo)
+	{
+		getTodos().remove(todo);
+		update();
+	}
 
-    public void setNewTodo(String newTodo)
-    {
-	this.newTodo= newTodo;
-    }
+	public void revertEditing(Todo todo)
+	{
+		getTodos().set(getTodos().indexOf(todo), originalTodo);
+		doneEditing(originalTodo, false);
+	}
 
-    public void setOriginalTodo(Todo originalTodo)
-    {
-	this.originalTodo= originalTodo;
-    }
+	public void setAllChecked(boolean allChecked)
+	{
+		this.allChecked= allChecked;
+	}
 
-    public void setRemainingCount(long remainingCount)
-    {
-	this.remainingCount= remainingCount;
-    }
+	public void setCompletedCount(long completedCount)
+	{
+		this.completedCount= completedCount;
+		setTodos(todos);
+	}
 
-    public void setStatusFilter(Tester<Todo> statusFilter)
-    {
-	this.statusFilter= statusFilter;
-	update();
-    }
+	public void setEditedTodo(Todo editedTodo)
+	{
+		this.editedTodo= editedTodo;
+	}
 
-    public void setTodos(List<Todo> todos)
-    {
-	if (todos == null)
-	    todos= new ArrayList<Todo>();
+	public void setLocation(String location)
+	{
+		this.location= location != null ? location : "/";
 
-	this.todos= todos;
-	localStorage.save("todos-dragome", todos);
-    }
+		if (this.location.equals("/"))
+			setStatusFilter(t -> true);
+		else if (this.location.equals("/active"))
+			setStatusFilter(t -> !t.isCompleted());
+		else if (this.location.equals("/completed"))
+			setStatusFilter(t -> t.isCompleted());
 
-    public void todoCompleted(Todo todo)
-    {
-	int i= todo.isCompleted() ? -1 : 1;
-	setRemainingCount(remainingCount + i);
-	setCompletedCount(completedCount + (i * -1));
-    }
+		update();
+	}
+
+	public void setNewTodo(String newTodo)
+	{
+		this.newTodo= newTodo;
+	}
+
+	public void setOriginalTodo(Todo originalTodo)
+	{
+		this.originalTodo= originalTodo;
+	}
+
+	public void setRemainingCount(long remainingCount)
+	{
+		this.remainingCount= remainingCount;
+	}
+
+	public void setStatusFilter(Tester<Todo> statusFilter)
+	{
+		this.statusFilter= statusFilter;
+		update();
+	}
+
+	public void setTodos(List<Todo> todos)
+	{
+		if (todos == null)
+			todos= new ArrayList<Todo>();
+
+		this.todos= todos;
+		localStorage.save("todos-dragome", todos);
+	}
+
+	public void todoCompleted(Todo todo)
+	{
+		int i= todo.isCompleted() ? -1 : 1;
+		setRemainingCount(remainingCount + i);
+		setCompletedCount(completedCount + (i * -1));
+		update();
+	}
 }

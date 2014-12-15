@@ -18,9 +18,9 @@ import com.dragome.methodlogger.MethodLoggerConfigurator;
 @DragomeConfiguratorImplementor
 public class TodoMVCApplicationConfigurator extends ChainedInstrumentationDragomeConfigurator
 {
-    public TodoMVCApplicationConfigurator()
-    {
-	MethodLoggerConfigurator methodLoggerConfigurator= new MethodLoggerConfigurator(Todo.class.getPackage().getName());
-	init(methodLoggerConfigurator);
-    }
+	public TodoMVCApplicationConfigurator()
+	{
+		MethodLoggerConfigurator methodLoggerConfigurator= new MethodLoggerConfigurator(Todo.class.getPackage().getName());
+		init(methodLoggerConfigurator);
+	}
 }

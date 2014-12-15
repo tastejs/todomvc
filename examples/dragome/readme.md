@@ -11,7 +11,7 @@ The [Dragome](http://www.dragome.com/) is a great resource for getting started.
 
 Here are some links you may find helpful:
 
-* [2' tutorial](http://dragome.sourceforge.net/two-minutes-tutorial.html)
+* [Binding Tutorial](http://dragome.sourceforge.net/simple-examples.html)
 * [Examples](http://dragome.sourceforge.net/examples.html)
 * [Features](http://dragome.sourceforge.net/features.html)
 
@@ -26,12 +26,12 @@ It's not required the use of any explicit mechanism to detect changes over the m
 
 ## Folder Structure
 
-- `dragome` - includes Dragome specific `dragome.css` and the compiled application in `dragome.js`
+- `dragome` - includes Dragome specific `dragome.css` and the compiled application in `app.js` is located inside js folder.
 - `src` - the Java source for this application
 - `index.html` - the same HTML template provided in TodoMVC specification with few data-template attributes added.
 
 
 ## Building this application
 
-The Dragome TodoMVC application was built with Java 1.8 (because it makes use of lambda expressions and stream API) and Dragome 0.95-beta1. The easiest way to build this application
+The Dragome TodoMVC application was built with Java 1.8 (because it makes use of lambda expressions and stream API) and Dragome 0.95-2-beta1. The easiest way to build this application
 is to clone examples repository with "git clone https://github.com/dragome/dragome-examples.git" and execute "mvn clean install".
