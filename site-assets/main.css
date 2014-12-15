@@ -11,10 +11,6 @@ body {
 	width: auto;
 	background: #fafafa;
 	color: #353535;
-	-webkit-font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-ms-font-smoothing: antialiased;
-	-o-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
 
@@ -122,34 +118,32 @@ header nav a:not(:last-child) {
 	left: -20px;
 }
 
+.app-lists {
+	overflow: hidden;
+}
+
 .applist {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	-webkit-columns: 1;
-	-moz-columns: 1;
-	-ms-columns: 1;
-	-o-columns: 1;
-	columns: 1;
 	font-size: 17px;
+	display: flex;
+	flex-wrap: wrap;
+	transition: height .5s ease-in-out;
 }
 
 .applist li {
 	padding: 10px 0;
-	-webkit-column-break-inside: avoid;
-	-moz-column-break-inside: avoid;
-	-ms-column-break-inside: avoid;
-	-o-column-break-inside: avoid;
-	column-break-inside: avoid;
+	width: 160px;
 }
 
 .applist a {
 	position: relative; /* popover */
-	-webkit-column-break-inside: avoid;
-	-moz-column-break-inside: avoid;
-	-ms-column-break-inside: avoid;
-	-o-column-break-inside: avoid;
-	column-break-inside: avoid;
+}
+
+.applist-intro {
+	margin: 10px 0 10px;
+	font-style: italic;
 }
 
 .applist .routing::after,
@@ -198,7 +192,6 @@ header nav a:not(:last-child) {
 .collapsed {
 	overflow: hidden;
 	max-height: 0;
-	-webkit-transition: max-height 0.7s ease-out;
 	transition: max-height 0.7s ease-out;
 }
 
@@ -208,7 +201,6 @@ header nav a:not(:last-child) {
 
 #news-expander:checked ~ .collapsed {
 	max-height: 999px;
-	-webkit-transition: max-height 0.7s ease-in;
 	transition: max-height 0.7s ease-in;
 }
 
@@ -336,23 +328,21 @@ a.zocial {
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	position: relative;
 	border-radius: .3em;
 }
 
-@media (max-width: 480px) {
-	body .applist {
-		-webkit-columns: auto !important;
-		-moz-columns: auto !important;
-		-ms-columns: auto !important;
-		-o-columns: auto !important;
-		columns: auto !important;
-	}
+@keyframes swoosh-in {
+	from { opacity: 0; transform: translateX(-500px); }
+	to { opacity: 1; transform: translateX(0); }
+}
 
+.anim-swoosh-in {
+	animation: swoosh-in 0.5s;
+}
+
+@media (max-width: 480px) {
 	.credit a {
 		display: block;
 	}
@@ -376,38 +366,6 @@ a.zocial {
 
 	.container {
 		margin: auto;
-	}
-}
-
-@media (min-width: 480px) {
-	.applist {
-		-webkit-columns: 2;
-		-moz-columns: 2;
-		-ms-columns: 2;
-		-o-columns: 2;
-		columns: 2;
-	}
-}
-
-@media (min-width: 640px) and (max-width: 770px) {
-	.applist {
-		-webkit-columns: 3;
-		-moz-columns: 3;
-		-ms-columns: 3;
-		-o-columns: 3;
-		columns: 3;
-	}
-}
-
-
-@media (min-width: 771px) {
-	.js,
-	.ctojs {
-		-webkit-columns: 4;
-		-moz-columns: 4;
-		-ms-columns: 4;
-		-o-columns: 4;
-		columns: 4;
 	}
 }
 

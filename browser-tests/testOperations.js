@@ -22,6 +22,12 @@ function TestOperations(page) {
 		});
 	}
 
+	this.assertFocussedElementId = function(expectedId) {
+		page.getFocussedElementId().then(function(id) {
+			assert.equal(id, expectedId, 'The focused element did not have the expected id ' + expectedId);
+		});
+	};
+
 	this.assertClearCompleteButtonIsHidden = function () {
 		page.tryGetClearCompleteButton().then(function (element) {
 			testIsHidden(element, 'clear completed items button');
@@ -141,7 +147,7 @@ function TestOperations(page) {
 
 				// execute all the tests
 				return Q.all(tests);
-			})
+			});
 		});
 	};
 

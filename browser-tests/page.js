@@ -27,7 +27,7 @@ module.exports = function Page(browser) {
 
 	this.back = function() {
 		return browser.navigate().back();
-	}
+	};
 
 	// ----------------- try / get methods
 
@@ -58,6 +58,12 @@ module.exports = function Page(browser) {
 	};
 
 	// ----------------- DOM element access methods
+
+	this.getFocussedElementId = function () {
+		return browser.switchTo().activeElement().getAttribute('id').then(function(id) {
+			return id;
+		});
+	};
 
 	this.getEditInputForItemAtIndex = function (index) {
 		var xpath = this.xPathForItemAtIndex(index) + '//input[contains(@class,"edit")]';
@@ -132,6 +138,7 @@ module.exports = function Page(browser) {
 			var deleteKeyPresses = '';
 			for (var i = 0; i < 50; i++) {
 				deleteKeyPresses += webdriver.Key.BACK_SPACE;
+				deleteKeyPresses += webdriver.Key.DELETE;
 			}
 
 			itemEditField.sendKeys(deleteKeyPresses);

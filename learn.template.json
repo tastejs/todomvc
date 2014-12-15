@@ -31,7 +31,7 @@
 		}, {
 			"heading": "Articles and Guides",
 			// Search blogs on google to help dig up articles.
-			//   https://www.google.com/search?q=Framework Name&tbm=blg
+			// https://www.google.com/search?q=Framework Name&tbm=blg
 			"links": [{
 				"name": "Article 1",
 				"url": ""
@@ -52,7 +52,7 @@
 				"url": "http://twitter.com/__"
 			}, {
 				"name": "Framework Name on Google +",
-				"url": ""
+				"url": "http://google.com/+__"
 			}]
 		}]
 	}

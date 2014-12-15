@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-framework="atmajs">
+	<head>
+		<meta charset="utf-8">
+		<title>Atma.js • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+	<!--
+
+		TodoMVC Atma.js Application
+
+		1. Read readme.md - you will get basic information about the libraries
+		2. Hint: Viewing *.mask files enable javascript or less syntax highlighting in your IDE
+
+
+		The application structure guide:
+
+		- Controls
+			todo:input;
+
+		- Components
+			:app\
+				:filter;
+				:todoList\
+					:todoTask;
+
+
+		Scripts overview (sorted from the most atomic parts up to the application component):
+			js/
+				model/Todos.js
+				cntrl/input.js
+				filter/filter.js
+				todoList/
+					todoTask/todoTask.js
+					todoList.js
+				app.js
+
+		_If the controller loads a template, do not forget to review that._
+	 -->
+
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/jquery/jquery.js"></script>
+
+		<script src="bower_components/includejs/lib/include.js"></script>
+		<script src="bower_components/atma-class/lib/class.js"></script>
+		<script src="bower_components/maskjs/lib/mask.js"></script>
+		<script src="bower_components/ruta/lib/ruta.js"></script>
+
+		<script src="js/app.js"></script>
+
+	</body>
+</html>

@@ -183,4 +183,53 @@
 		}
 	}]);
 
+	function AppTabs() {
+		document.querySelector(AppTabs.selectors.tabs).addEventListener(
+			'core-select', this.onSelect.bind(this));
+		this.listHeight = 0;
+	}
+
+	AppTabs.selectors = {
+		tabs: '.js-app-tabs',
+		list: '.js-app-list',
+		innerList: '.js-app-list-inner'
+	};
+
+	AppTabs.prototype.onSelect = function (e) {
+		var selected = e.target.selected;
+		[].slice.call(document.querySelectorAll(AppTabs.selectors.list)).forEach(
+			function (el) {
+				if (!e.detail.isSelected) {
+					// Don't handle unselection events.
+					return;
+				}
+
+				var isSelected = el.dataset.appList === selected;
+				el.style.display = isSelected ? 'block' : 'none';
+				el.classList.toggle('anim-swoosh-in', isSelected);
+				if (isSelected) {
+					this.adjustHeight(el);
+				}
+			}.bind(this)
+		);
+	};
+
+	AppTabs.prototype.adjustHeight = function (e) {
+		var list = e.querySelector(AppTabs.selectors.innerList);
+		list.style.height = this.listHeight + 'px';
+		var $clone = $(list)
+			.clone()
+			.css({ visibility: 'hidden' })
+			.height('auto')
+			.appendTo(list.parentElement);
+
+		window.requestAnimationFrame(function () {
+			var naturalHeight = this.listHeight = $clone.outerHeight();
+			$clone.remove();
+			list.style.height = naturalHeight + 'px';
+		}.bind(this));
+	};
+
+	new AppTabs();
+
 }());

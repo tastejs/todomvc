@@ -66,6 +66,8 @@ applied. Instead, use it inside an IIFE as shown above.
 ## Comments
 
 Inline comments are a great way of giving new users a better understanding of what you're doing and why.
+Prefer stand-alone comments over inline comments. Inline comments should be separated by only one space
+with the code and an additional single space after the `//`.
 
 It's also helpful to let your functions breathe, by leaving additional lines between statements.
 

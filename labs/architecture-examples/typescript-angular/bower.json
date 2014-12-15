@@ -1,8 +1,0 @@
-{
-  "name": "todomvc-typescript-angular",
-  "version": "0.0.0",
-  "dependencies": {
-    "angular": "1.2.8",
-    "todomvc-common": "~0.1.6"
-  }
-}

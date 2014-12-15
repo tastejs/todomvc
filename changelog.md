@@ -10,14 +10,21 @@
     - AngularDart
 
 - Updates since 1.2:
+    - VanillaJS refactored, tests, bug fixes
+    - AngularJS perf
+    - AngularJS
+    - Ember
+    - GWT
+    - Spine
     - CanJS 2.0
     - CanJS 2.0 + RequireJS
-    - VanillaJS refactored, tests, bug fixes
     - knockoutjs_classBindingProvider example has been removed
     - Backbone 1.1
     - Backbone 1.1 + RequireJS
     - Dart 1.0
     - React graduated from Labs
+    - Agility
+    - jQuery
 
 - Removed since 1.2:
     - Dermis.js

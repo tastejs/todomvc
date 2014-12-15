@@ -7,14 +7,14 @@ var rootUrl = 'http://localhost:8000/';
 var frameworkNamePattern = /^[a-z-_]+$/;
 
 var excludedFrameworks = [
-	// this implementation deviates from the specification to such an extent that they are 
+	// this implementation deviates from the specification to such an extent that they are
 	// not worth testing via a generic mechanism
 	'gwt',
 	// selenium webdriver cannot see the shadow dom
 	'polymer',
 	// these implementations cannot be run offline, because they are hosted
 	'derby', 'firebase-angular', 'meteor', 'socketstream',
-	// YUI is a special case here, it is not hosted, but fetches JS files dynamically 
+	// YUI is a special case here, it is not hosted, but fetches JS files dynamically
 	'yui',
 	// these frameworks take a long time to start-up, and there is no easy way to determine when they are ready
 	'cujo', 'montage',
@@ -25,35 +25,20 @@ var excludedFrameworks = [
 ];
 
 // collect together the framework names from each of the subfolders
-var list = fs.readdirSync('../architecture-examples/')
+var list = fs.readdirSync('../examples/')
 	.map(function (folderName) {
-		return { name: folderName, path: 'architecture-examples/' + folderName };
-	})
-	.concat(fs.readdirSync('../labs/architecture-examples/')
-		.map(function (folderName) {
-			return { name: folderName, path: 'labs/architecture-examples/' + folderName };
-		})
-	)
-	.concat(fs.readdirSync('../labs/dependency-examples/')
-		.map(function (folderName) {
-			return { name: folderName, path: 'labs/dependency-examples/' + folderName };
-		})
-	)
-	.concat(fs.readdirSync('../dependency-examples/')
-		.map(function (folderName) {
-			return { name: folderName, path: 'dependency-examples/' + folderName };
-		})
-	);
+		return { name: folderName, path: 'examples/' + folderName };
+	});
 
 // apps that are not hosted at the root of their folder need to be handled explicitly
 var exceptions = [
-	{ name: 'chaplin-brunch', path: 'labs/dependency-examples/chaplin-brunch/public' },
-	{ name: 'angular-dart', path: 'labs/architecture-examples/angular-dart/web' },
-	{ name: 'duel', path: 'labs/architecture-examples/duel/www' },
-	{ name: 'dart', path: 'vanilla-examples/vanilladart/build/' },
-	{ name: 'canjs_require', path: 'labs/dependency-examples/canjs_require/' },	
-	{ name: 'troopjs', path: 'labs/dependency-examples/troopjs_require/' },	
-	{ name: 'thorax_lumbar', path: 'labs/dependency-examples/thorax_lumbar/public' },
+	{ name: 'chaplin-brunch', path: 'examples/chaplin-brunch/public' },
+	{ name: 'angular-dart', path: 'examples/angular-dart/web' },
+	{ name: 'duel', path: 'examples/duel/www' },
+	{ name: 'dart', path: 'examples/vanilladart/build/' },
+	{ name: 'canjs_require', path: 'examples/canjs_require/' },
+	{ name: 'troopjs', path: 'examples/troopjs_require/' },
+	{ name: 'thorax_lumbar', path: 'examples/thorax_lumbar/public' },
 ];
 list = list.map(function (framework) {
 	var exception = exceptions.filter(function (exFramework) {

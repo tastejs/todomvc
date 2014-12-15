@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 		// For some reason, I began trusting Batman to be my test directory for
 		// `todomvc-common`.  If you work on changes in ...
 		//
-		//   labs/architecture-examples/batman/bower_components/todomvc-common
+		//   examples/batman/bower_components/todomvc-common
 		//
 		// ... or even just drop the latest `todomvc-common` there, this task will
 		// find all of the other `bower_components/todomvc-common` directories, and
@@ -15,8 +15,8 @@ module.exports = function (grunt) {
 		// I also added Bower up top for in the future, as that might come in handy
 		// to correctly fetch and install the latest todomvc-common, without relying
 		// on this weird Batman system.
-		var sourceTodoMvcCommon = 'labs/architecture-examples/batman/bower_components/todomvc-common';
-		var sourceIdentifierRegex = /batman/;
+		var sourceTodoMvcCommon = 'examples/angularjs/bower_components/todomvc-common';
+		var sourceIdentifierRegex = /angularjs/;
 
 		grunt.file.setBase('../');
 

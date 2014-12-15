@@ -1,0 +1,8 @@
+{
+  "name": "polymer",
+  "private": true,
+  "dependencies": {
+    "platform": "Polymer/platform#^0.4.0",
+    "core-component-page": "Polymer/core-component-page#^0.4.0"
+  }
+}
