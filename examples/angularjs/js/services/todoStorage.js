@@ -30,7 +30,8 @@ angular.module('todomvc')
 			clearCompleted: function () {
 				var originalTodos = store.todos.slice(0);
 
-				var completeTodos = [], incompleteTodos = [];
+				var completeTodos = [];
+				var incompleteTodos = [];
 				store.todos.forEach(function (todo) {
 					if (todo.completed) {
 						completeTodos.push(todo);
@@ -121,7 +122,8 @@ angular.module('todomvc')
 			clearCompleted: function () {
 				var deferred = $q.defer();
 
-				var completeTodos = [], incompleteTodos = [];
+				var completeTodos = [];
+				var incompleteTodos = [];
 				store.todos.forEach(function (todo) {
 					if (todo.completed) {
 						completeTodos.push(todo);
