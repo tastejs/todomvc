@@ -9,7 +9,7 @@ Note: Before starting work on an app intended for submission, please open an iss
 
 TodoMVC is a curation, not a collection. We want make it easier for people to
 find a base for their web applications, not harder. This is why we can't accept
-all submissions. However, we're always open to look at novel ways to solve
+every submission. However, we're always open to looking at novel ways to solve
 existing problems.
 
 It doesn't matter whether your app is written in plain JavaScript and HTML or is cross-compiled to
