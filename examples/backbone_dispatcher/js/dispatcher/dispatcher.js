@@ -1,11 +1,11 @@
-/*global Backbone */
+/*global Backbone, ENTER_KEY */
 var app = app || {};
 
 (function () {
 	'use strict';
 
 	var Dispatcher = Backbone.Dispatcher.extend({
-		initialize: function(actions) {
+		initialize: function (actions) {
 			this.createActions(actions);
 		}
 	});
@@ -14,7 +14,7 @@ var app = app || {};
 		{
 			name: 'createOnEnter',
 
-			shouldEmit: function(payload) {
+			shouldEmit: function (payload) {
 
 				if (payload.event.which === ENTER_KEY && payload.val) {
 					return true;
@@ -23,7 +23,7 @@ var app = app || {};
 				return false;
 			},
 
-			beforeEmit: function(payload, next) {
+			beforeEmit: function (payload, next) {
 				next(payload.title);
 			}
 		},
