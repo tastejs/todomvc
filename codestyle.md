@@ -10,11 +10,11 @@ We think it's best for the project if the code you write looks like the code the
 - Semicolon
 - Strict mode
 - No trailing whitespace
-- Variables at the top of the scope
+- Variable declaration at the top of the scope when used by both outer and inner scope
 - Multiple variable statements
 - Space after keywords and between arguments and operators
 - Return early
-- JSHint valid
+- JSHint and JSCS valid
 - Consistency
 
 Example:
@@ -23,14 +23,14 @@ Example:
 'use strict';
 
 function foo(bar, fum) {
-	var i, l, ret;
+	var ret;
 	var hello = 'Hello';
 
 	if (!bar) {
 		return;
 	}
 
-	for (i = 0, l = bar.length; i < l; i++) {
+	for (var i = 0; i < bar.length; i++) {
 		if (bar[i] === hello) {
 			ret += fum(bar[i]);
 		}
