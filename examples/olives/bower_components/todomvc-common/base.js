@@ -174,27 +174,46 @@
 			framework = document.querySelector('[data-framework]').dataset.framework;
 		}
 
+		this.template = template;
 
-		if (template && learnJSON[framework]) {
+		if (learnJSON.backend) {
+			this.frameworkJSON = learnJSON.backend;
+			this.frameworkJSON.issueLabel = framework;
+			this.append({
+				backend: true
+			});
+		} else if (learnJSON[framework]) {
 			this.frameworkJSON = learnJSON[framework];
-			this.frameworkJSON.issueLabel = document.URL.match(/([a-z-_]+)\/$/)[1];
-			this.template = template;
-
+			this.frameworkJSON.issueLabel = framework;
 			this.append();
-			this.fetchIssueCount();
 		}
+
+		this.fetchIssueCount();
 	}
 
-	Learn.prototype.append = function () {
+	Learn.prototype.append = function (opts) {
 		var aside = document.createElement('aside');
 		aside.innerHTML = _.template(this.template, this.frameworkJSON);
 		aside.className = 'learn';
 
-		// Localize demo links
-		var demoLinks = aside.querySelectorAll('.demo-link');
-		Array.prototype.forEach.call(demoLinks, function (demoLink) {
-			demoLink.setAttribute('href', findRoot() + demoLink.getAttribute('href'));
-		});
+		if (opts && opts.backend) {
+			// Remove demo link
+			var sourceLinks = aside.querySelector('.source-links');
+			var heading = sourceLinks.firstElementChild;
+			var sourceLink = sourceLinks.lastElementChild;
+			// Correct link path
+			var href = sourceLink.getAttribute('href');
+			sourceLink.setAttribute('href', href.substr(href.lastIndexOf('http')));
+			sourceLinks.innerHTML = heading.outerHTML + sourceLink.outerHTML;
+		} else {
+			// Localize demo links
+			var demoLinks = aside.querySelectorAll('.demo-link');
+			Array.prototype.forEach.call(demoLinks, function (demoLink) {
+				if (demoLink.getAttribute('href').substr(0, 4) !== 'http') {
+					demoLink.setAttribute('href', findRoot() + demoLink.getAttribute('href'));
+				}
+			});
+		}
 
 		document.body.className = (document.body.className + ' learn-bar').trim();
 		document.body.insertAdjacentHTML('afterBegin', aside.outerHTML);
@@ -203,14 +222,17 @@
 	Learn.prototype.fetchIssueCount = function () {
 		var issueLink = document.getElementById('issue-count-link');
 		if (issueLink) {
-			var url = issueLink.href.replace(/https:\/\/github\.com/, 'https://api.github.com/repos');
+			var url = issueLink.href.replace('https://github.com', 'https://api.github.com/repos');
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', url, true);
 			xhr.onload = function (e) {
-				var count = JSON.parse(e.target.responseText).length;
-				if (count !== 0) {
-					issueLink.innerHTML = issueLink.innerHTML.replace(/open issues/, 'has (' + count + ') open issues');
-					document.getElementById('issue-count').style.display = 'inline';
+				var parsedResponse = JSON.parse(e.target.responseText);
+				if (parsedResponse instanceof Array) {
+					var count = parsedResponse.length
+					if (count !== 0) {
+						issueLink.innerHTML = issueLink.innerHTML.replace(/open issues/, 'has (' + count + ') open issues');
+						document.getElementById('issue-count').style.display = 'inline';
+					}
 				}
 			};
 			xhr.send();
