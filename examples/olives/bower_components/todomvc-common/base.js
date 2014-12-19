@@ -230,7 +230,7 @@
 				if (parsedResponse instanceof Array) {
 					var count = parsedResponse.length
 					if (count !== 0) {
-						issueLink.innerHTML = issueLink.innerHTML.replace(/open issues/, 'has (' + count + ') open issues');
+						issueLink.innerHTML = 'This app has ' + count + ' open issues';
 						document.getElementById('issue-count').style.display = 'inline';
 					}
 				}
