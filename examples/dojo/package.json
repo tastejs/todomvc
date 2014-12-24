@@ -1,0 +1,8 @@
+{
+	"devDependencies": {
+		"intern": "^2.2.2"
+	},
+	"scripts": {
+		"test": "node node_modules/intern/bin/intern-runner.js config=test/intern reporters=runner reporters=lcovhtml"
+	}
+}

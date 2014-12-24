@@ -1,7 +1,13 @@
 {
-  "name": "todmvc-dojo",
-  "version": "0.0.0",
-  "dependencies": {
-    "todomvc-common": "~0.3.0"
-  }
+	"name": "todomvc-dojo",
+	"dependencies": {
+		"todomvc-common": "~0.3.0"
+	},
+	"devDependencies": {
+		"dojo": "~1.10.0",
+		"dijit": "~1.10.0",
+		"dojox": "~1.10.0",
+		"util": "dojo/util#~1.10.0"
+	},
+	"private": true
 }
