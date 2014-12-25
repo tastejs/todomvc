@@ -3,11 +3,11 @@
 
 define([
 	'flight/lib/component',
-	'../store'
+	'app/store'
 ], function (defineComponent, dataStore) {
 	function todos() {
 		var filter;
-		this.defaultAttrs({
+		this.attributes({
 			dataStore: dataStore
 		});
 

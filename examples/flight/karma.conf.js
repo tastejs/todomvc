@@ -17,12 +17,13 @@ module.exports = function (config) {
 			// loaded without require
 			'bower_components/es5-shim/es5-shim.js',
 			'bower_components/es5-shim/es5-sham.js',
-			'bower_components/jquery/jquery.js',
-			'bower_components/jasmine-flight/lib/jasmine-flight.js',
+
+			'bower_components/jquery/dist/jquery.js',
 			'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+			'bower_components/jasmine-flight/lib/jasmine-flight.js',
 
 			// hack to load RequireJS after the shim libs
-			'node_modules/karma-requirejs/lib/require.js',
+			'node_modules/requirejs/require.js',
 			'node_modules/karma-requirejs/lib/adapter.js',
 
 			// loaded with require

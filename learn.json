@@ -1099,13 +1099,64 @@
 				"url": "https://github.com/flightjs/flight"
 			}, {
 				"name": "Demo Application",
-				"url": "http://twitter.github.io/flight/demo/"
+				"url": "http://flightjs.github.io/example-app/"
 			}, {
 				"name": "Installation",
 				"url": "https://github.com/flightjs/flight/blob/master/README.md#installation"
 			}, {
+				"name": "Collection of Flight components",
+				"url": "http://flight-components.jit.su/"
+			}, {
 				"name": "Flight on Twitter",
-				"url": "http://twitter.com/flight"
+				"url": "https://twitter.com/flightjs"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "Introducing Flight: a web application framework",
+				"url": "https://blog.twitter.com/2013/introducing-flight-a-web-application-framework"
+			}, {
+				"name": "Building Web Applications with Flight",
+				"url": "http://simplebutgood.net/building-web-applications-with-flight-part-1/"
+			}, {
+				"name": "Building a chat app with @flight",
+				"url": "http://blog.stefanritter.com/post/81767869139/building-a-chat-app-with-flight-part-1"
+			}, {
+				"name": "Redesigning Search at Airbnb",
+				"url": "http://nerds.airbnb.com/redesigning-search/"
+			}, {
+				"name": "Flight Mixins",
+				"url": "http://kenneth.kufluk.com/blog/2014/01/flight-mixins/"
+			}, {
+				"name": "Flight at TweetDeck",
+				"url": "https://blog.twitter.com/2013/flight-at-tweetdeck"
+			}, {
+				"name": "How Flight Plays Well With non-Flight JS",
+				"url": "http://www.retailmenot.com/corp/eng/posts/2014/08/28/how-flight-plays-well-with-non-flight-js/"
+			}, {
+				"name": "Learning to Fly — Twitter Flight and Mixins",
+				"url": "https://speakerdeck.com/anguscroll/learning-to-fly-twitter-flight-and-mixins-1"
+			}]
+		}, {
+			"heading":"Videos",
+			"links":[{
+				"name": "Dan Webb: Flight.js [JSConfUS 2013]",
+				"url": "https://www.youtube.com/watch?v=4WRmFp8jZjc"
+			}, {
+				"name": "MountainWest JavaScript 2014",
+				"url": "https://www.youtube.com/watch?v=PrcvUZGuUa8"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/twitter-flight"
+			}, {
+				"name": "Flight's Google Group",
+				"url": "https://groups.google.com/forum/?fromgroups#!forum/twitter-flight"
+			}, {
+				"name": "Flight on Freenode IRC (#flightjs)",
+				"url": "http://webchat.freenode.net/?channels=flightjs"
 			}]
 		}]
 	},
