@@ -1,18 +1,27 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
-  [],
+  ['./debug'],
 
-  function() {
+  function(debug) {
     'use strict';
 
-    var arry = [];
     var DEFAULT_INTERVAL = 100;
+
+    function canWriteProtect() {
+      var writeProtectSupported = debug.enabled && !Object.propertyIsEnumerable('getOwnPropertyDescriptor');
+      if (writeProtectSupported) {
+        //IE8 getOwnPropertyDescriptor is built-in but throws exeption on non DOM objects
+        try {
+          Object.getOwnPropertyDescriptor(Object, 'keys');
+        } catch (e) {
+         return false;
+        }
+      }
+
+      return writeProtectSupported;
+    }
 
     var utils = {
 
@@ -21,7 +30,12 @@ define(
       },
 
       toArray: function(obj, from) {
-        return arry.slice.call(obj, from);
+        from = from || 0;
+        var len = obj.length, arr = new Array(len - from);
+        for (var i = from; i < len; i++) {
+          arr[i - from] = obj[i];
+        }
+        return arr;
       },
 
       // returns new object representing multiple objects merged together
@@ -48,12 +62,14 @@ define(
       merge: function(/*obj1, obj2,....deepCopy*/) {
         // unpacking arguments by hand benchmarked faster
         var l = arguments.length,
-            i = 0,
             args = new Array(l + 1);
-        for (; i < l; i++) args[i + 1] = arguments[i];
 
         if (l === 0) {
           return {};
+        }
+
+        for (var i = 0; i < l; i++) {
+          args[i + 1] = arguments[i];
         }
 
         //start with empty object so a copy is created
@@ -107,8 +123,10 @@ define(
         return base;
       },
 
-      isEnumerable: function(obj, property) {
-        return Object.keys(obj).indexOf(property) > -1;
+      // If obj.key points to an enumerable property, return its value
+      // If obj.key points to a non-enumerable property, return undefined
+      getEnumerableProperty: function(obj, key) {
+        return obj.propertyIsEnumerable(key) ? obj[key] : undefined;
       },
 
       // build a function from other function(s)
@@ -120,7 +138,7 @@ define(
         return function() {
           var args = arguments;
 
-          for (var i = funcs.length-1; i >= 0; i--) {
+          for (var i = funcs.length - 1; i >= 0; i--) {
             args = [funcs[i].apply(this, args)];
           }
 
@@ -161,7 +179,7 @@ define(
           };
           var callNow = immediate && !timeout;
 
-          clearTimeout(timeout);
+          timeout && clearTimeout(timeout);
           timeout = setTimeout(later, wait);
 
           if (callNow) {
@@ -178,7 +196,7 @@ define(
         }
 
         var context, args, timeout, throttling, more, result;
-        var whenDone = this.debounce(function(){
+        var whenDone = this.debounce(function() {
           more = throttling = false;
         }, wait);
 
@@ -254,6 +272,29 @@ define(
 
           return result;
         };
+      },
+
+      propertyWritability: function(obj, prop, writable) {
+        if (canWriteProtect() && obj.hasOwnProperty(prop)) {
+          Object.defineProperty(obj, prop, { writable: writable });
+        }
+      },
+
+      // Property locking/unlocking
+      mutateProperty: function(obj, prop, op) {
+        var writable;
+
+        if (!canWriteProtect() || !obj.hasOwnProperty(prop)) {
+          op.call(obj);
+          return;
+        }
+
+        writable = Object.getOwnPropertyDescriptor(obj, prop).writable;
+
+        Object.defineProperty(obj, prop, { writable: true });
+        op.call(obj);
+        Object.defineProperty(obj, prop, { writable: writable });
+
       }
 
     };

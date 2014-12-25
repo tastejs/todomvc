@@ -1,8 +1,4 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
@@ -19,7 +15,7 @@ define(
     // callback context is bound to component
     var componentId = 0;
 
-    function teardownInstance(instanceInfo){
+    function teardownInstance(instanceInfo) {
       instanceInfo.events.slice().forEach(function(event) {
         var args = [event.type];
 
@@ -33,12 +29,70 @@ define(
     function checkSerializable(type, data) {
       try {
         window.postMessage(data, '*');
-      } catch(e) {
+      } catch (e) {
         console.log('unserializable data for event',type,':',data);
         throw new Error(
           ['The event', type, 'on component', this.toString(), 'was triggered with non-serializable data'].join(' ')
         );
       }
+    }
+
+    function initAttributes(attrs) {
+      var definedKeys = [], incomingKeys;
+
+      this.attr = new this.attrDef;
+
+      if (debug.enabled && window.console) {
+        for (var key in this.attrDef.prototype) {
+          definedKeys.push(key);
+        }
+        incomingKeys = Object.keys(attrs);
+
+        for (var i = incomingKeys.length - 1; i >= 0; i--) {
+          if (definedKeys.indexOf(incomingKeys[i]) == -1) {
+            console.warn('Passed unused attributes including "' + incomingKeys[i] +
+                         '" to component "' + this.toString() + '".');
+            break;
+          }
+        }
+      }
+
+      for (var key in this.attrDef.prototype) {
+        if (typeof attrs[key]  == 'undefined') {
+          if (this.attr[key] === null) {
+            throw new Error('Required attribute "' + key +
+                            '" not specified in attachTo for component "' + this.toString() + '".');
+          }
+        } else {
+          this.attr[key] = attrs[key];
+        }
+
+        if (typeof this.attr[key] == 'function') {
+          this.attr[key] = this.attr[key].call(this);
+        }
+      }
+
+    }
+
+    function initDeprecatedAttributes(attrs) {
+      // merge defaults with supplied options
+      // put options in attr.__proto__ to avoid merge overhead
+      var attr = Object.create(attrs);
+
+      for (var key in this.defaults) {
+        if (!attrs.hasOwnProperty(key)) {
+          attr[key] = this.defaults[key];
+        }
+      }
+
+      this.attr = attr;
+
+      Object.keys(this.defaults || {}).forEach(function(key) {
+        if (this.defaults[key] === null && this.attr[key] === null) {
+          throw new Error('Required attribute "' + key +
+                          '" not specified in attachTo for component "' + this.toString() + '".');
+        }
+      }, this);
     }
 
     function proxyEventTo(targetEvent) {
@@ -90,11 +144,12 @@ define(
         $element.trigger((event || type), data);
 
         if (defaultFn && !event.isDefaultPrevented()) {
-          (this[defaultFn] || defaultFn).call(this);
+          (this[defaultFn] || defaultFn).call(this, event, data);
         }
 
         return $element;
       };
+
 
       this.on = function() {
         var $element, type, callback, originalCb;
@@ -120,7 +175,8 @@ define(
         }
 
         if (typeof originalCb != 'function' && typeof originalCb != 'object') {
-          throw new Error('Unable to bind to "' + type + '" because the given callback is not a function or an object');
+          throw new Error('Unable to bind to "' + type +
+                          '" because the given callback is not a function or an object');
         }
 
         callback = originalCb.bind(this);
@@ -164,9 +220,18 @@ define(
               return true;
             }
           }, this);
+          $element.off(type, callback);
+        } else {
+          // Loop through the events of `this` instance
+          // and unbind using the callback
+          registry.findInstanceInfo(this).events.forEach(function (event) {
+            if (type == event.type) {
+              $element.off(type, event.callback);
+            }
+          });
         }
 
-        return $element.off(type, callback);
+        return $element;
       };
 
       this.resolveDelegateRules = function(ruleInfo) {
@@ -182,17 +247,35 @@ define(
         return rules;
       };
 
-      this.defaultAttrs = function(defaults) {
-        utils.push(this.defaults, defaults, true) || (this.defaults = defaults);
-      };
-
       this.select = function(attributeKey) {
         return this.$node.find(this.attr[attributeKey]);
       };
 
+      // New-style attributes
+
+      this.attributes = function(attrs) {
+
+        var Attributes = function() {};
+
+        if (this.attrDef) {
+          Attributes.prototype = new this.attrDef;
+        }
+
+        for (var name in attrs) {
+          Attributes.prototype[name] = attrs[name];
+        }
+
+        this.attrDef = Attributes;
+      };
+
+      // Deprecated attributes
+
+      this.defaultAttrs = function(defaults) {
+        utils.push(this.defaults, defaults, true) || (this.defaults = defaults);
+      };
+
       this.initialize = function(node, attrs) {
-        attrs || (attrs = {});
-        //only assign identity if there isn't one (initialize can be called multiple times)
+        attrs = attrs || {};
         this.identity || (this.identity = componentId++);
 
         if (!node) {
@@ -207,22 +290,11 @@ define(
           this.$node = $(node);
         }
 
-        // merge defaults with supplied options
-        // put options in attr.__proto__ to avoid merge overhead
-        var attr = Object.create(attrs);
-        for (var key in this.defaults) {
-          if (!attrs.hasOwnProperty(key)) {
-            attr[key] = this.defaults[key];
-          }
+        if (this.attrDef) {
+          initAttributes.call(this, attrs);
+        } else {
+          initDeprecatedAttributes.call(this, attrs);
         }
-
-        this.attr = attr;
-
-        Object.keys(this.defaults || {}).forEach(function(key) {
-          if (this.defaults[key] === null && this.attr[key] === null) {
-            throw new Error('Required attribute "' + key + '" not specified in attachTo for component "' + this.toString() + '".');
-          }
-        }, this);
 
         return this;
       };

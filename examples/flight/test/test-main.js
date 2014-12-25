@@ -15,7 +15,11 @@ requirejs.config({
 	paths: {
 		flight: 'bower_components/flight',
 		depot: 'bower_components/depot/depot',
-		text: 'bower_components/requirejs-text/text'
+		text: 'bower_components/requirejs-text/text',
+		ui: 'app/js/ui',
+		data: 'app/js/data',
+		app: 'app/js',
+		templates: 'app/templates'
 	},
 
 	// ask Require.js to load these files (all our tests)

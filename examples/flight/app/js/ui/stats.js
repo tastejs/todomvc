@@ -4,13 +4,13 @@
 define([
 	'flight/lib/component',
 	'./with_filters',
-	'text!app/templates/stats.html',
-	'../utils'
+	'text!templates/stats.html',
+	'app/utils'
 ], function (defineComponent, withFilters, statsTmpl, utils) {
 	function stats() {
 		var template = utils.tmpl(statsTmpl);
 
-		this.defaultAttrs({
+		this.attributes({
 			clearCompletedSelector: '#clear-completed'
 		});
 

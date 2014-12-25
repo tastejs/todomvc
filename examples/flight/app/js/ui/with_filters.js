@@ -3,7 +3,7 @@
 
 define(function () {
 	return function withFilters() {
-		this.defaultAttrs({
+		this.attributes({
 			filterSelector: '#filters a'
 		});
 

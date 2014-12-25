@@ -1,14 +1,10 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
-  [],
+  ['./registry'],
 
-  function() {
+  function(registry) {
     'use strict';
 
     // ==========================================
@@ -18,10 +14,10 @@ define(
     function traverse(util, searchTerm, options) {
       options = options || {};
       var obj = options.obj || window;
-      var path = options.path || ((obj==window) ? 'window' : '');
+      var path = options.path || ((obj == window) ? 'window' : '');
       var props = Object.keys(obj);
       props.forEach(function(prop) {
-        if ((tests[util] || util)(searchTerm, obj, prop)){
+        if ((tests[util] || util)(searchTerm, obj, prop)) {
           console.log([path, '.', prop].join(''), '->', ['(', typeof obj[prop], ')'].join(''), obj[prop]);
         }
         if (Object.prototype.toString.call(obj[prop]) == '[object Object]' && (obj[prop] != obj) && path.split('.').indexOf(prop) == -1) {
@@ -107,7 +103,7 @@ define(
       try {
         eventNames = (window.localStorage && localStorage.getItem('logFilter_eventNames'));
         actions = (window.localStorage && localStorage.getItem('logFilter_actions'));
-      } catch(ignored) {
+      } catch (ignored) {
         return;
       }
       eventNames && (logFilter.eventNames = eventNames);
@@ -136,6 +132,8 @@ define(
 
         window.DEBUG = this;
       },
+
+      registry: registry,
 
       find: {
         byName: byName,

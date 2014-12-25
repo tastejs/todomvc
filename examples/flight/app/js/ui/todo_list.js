@@ -3,14 +3,14 @@
 
 define([
 	'flight/lib/component',
-	'text!app/templates/todo.html',
-	'../utils'
+	'text!templates/todo.html',
+	'app/utils'
 ], function (defineComponent, todoTmpl, utils) {
 	function todoList() {
 		var ENTER_KEY = 13;
 		var template = utils.tmpl(todoTmpl);
 
-		this.defaultAttrs({
+		this.attributes({
 			destroySelector: 'button.destroy',
 			toggleSelector: 'input.toggle',
 			labelSelector: 'label',

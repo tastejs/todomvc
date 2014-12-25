@@ -1,8 +1,8 @@
-describeComponent('app/js/ui/toggle_all', function () {
+describeComponent('ui/toggle_all', function () {
 	'use strict';
 
 	beforeEach(function () {
-		setupComponent(readFixtures('toggle_all.html'));
+		this.setupComponent(readFixtures('toggle_all.html'));
 	});
 
 	it('check the checkbox w/o remaining', function () {
