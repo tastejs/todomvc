@@ -12,18 +12,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 The `<core-selection>` element is used to manage selection state. It has no
 visual appearance and is typically used in conjunction with another element.
 For example, [core-selector](#core-selector)
-use a `<core-selection>` to manage selection.
+uses a `<core-selection>` to manage selection.
 
-To mark an item as selected, call the `select(item)` method on
+To mark an item as selected, call the `select(item)` method on 
 `<core-selection>`. The item itself is an argument to this method.
 
 The `<core-selection>`element manages selection state for any given set of
 items. When an item is selected, the `core-select` event is fired.
 
 The attribute `multi` indicates if multiple items can be selected at once.
-
+  
 Example:
-
+ 
     <polymer-element name="selection-example">
        <template>
          <style>
@@ -56,7 +56,7 @@ Example:
       <li>Green</li>
       <li>Blue</li>
     </selection-example>
-
+ 
 @element core-selection
 -->
 
@@ -93,7 +93,7 @@ contains the selection state.
        * Retrieves the selected item(s).
        * @method getSelection
        * @returns Returns the selected item(s). If the multi property is true,
-       * getSelection will return an array, otherwise it will return
+       * getSelection will return an array, otherwise it will return 
        * the selected item or undefined if there is no selection.
       */
       getSelection: function() {
