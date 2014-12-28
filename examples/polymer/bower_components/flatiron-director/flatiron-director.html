@@ -6,7 +6,7 @@ license that can be found in the LICENSE file.
 <link rel="import" href="../polymer/polymer.html">
 <script src="director/director.min.js"></script>
 
-<polymer-element name="flatiron-director" attributes="route autoHash">
+<polymer-element name="flatiron-director" attributes="route autoHash" hidden>
   <script>
     (function() {
       var private_router;
@@ -16,7 +16,8 @@ license that can be found in the LICENSE file.
           this.router.on(/(.*)/, function(route) {
             this.route = route;
           }.bind(this));
-          this.route = this.router.getRoute(0) || '';
+          this.route = this.router.getRoute() ? 
+            this.router.getRoute().join(this.router.delimiter): '';
         },
         routeChanged: function() {
           if (this.autoHash) {
