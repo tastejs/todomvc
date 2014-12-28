@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
   <title>Selector</title>
-  <script src="../platform/platform.js"></script>
+  <script src="../webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="core-selector.html">
 </head>
 <body unresolved>
@@ -27,29 +27,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           margin: 0;
           padding: 0;
         }
-
+        
         .list > * {
           height: 40px;
           line-height: 40px;
           padding: 0 20px;
           border-bottom: 1px solid #ccc;
         }
-
+        
         .list > *.core-selected {
           background: #333;
         }
-
+        
         li {
           height: 30px;
         }
-
+        
         li.core-selected:after {
           content: "\2713";
           position: absolute;
           padding-left: 10px;
         }
       </style>
-
+      
       <h2>basic</h2>
       <core-selector class="list" selected="0">
         <div>Item 0</div>
@@ -58,7 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>Item 3</div>
         <div>Item 4</div>
       </core-selector>
-
+      
       <h2>multi-selection</h2>
       <core-selector class="list" selected="{{multiSelected}}" multi>
         <div>Item 0</div>
@@ -67,7 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>Item 3</div>
         <div>Item 4</div>
       </core-selector>
-
+      
       <h2>list</h2>
       <core-selector target="{{$.list}}" selected="0"></core-selector>
       <ul id="list">
@@ -77,10 +77,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <li>Item 3</li>
         <li>Item 4</li>
       </ul>
-
+      
       <h2>binding of a group of radio buttons to a variable</h2>
-      <core-selector target="{{$.myForm}}" itemsSelector="input[type=radio]"
-          selected="{{color}}" valueattr="value" selectedProperty="checked"
+      <core-selector target="{{$.myForm}}" itemsSelector="input[type=radio]" 
+          selected="{{color}}" valueattr="value" selectedProperty="checked" 
           activateEvent="change"></core-selector>
       <form id="myForm">
         <label><input type="radio" name="color" value="red"> Red</label> <br>
@@ -88,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <label><input type="radio" name="color" value="blue"> Blue</label> <br>
         <p>color = {{color}}</p>
       </form>
-
+      
     </template>
 
     <script>
@@ -100,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     </script>
   </polymer-element>
-
+  
   <selector-examples></selector-examples>
 </body>
 </html>
