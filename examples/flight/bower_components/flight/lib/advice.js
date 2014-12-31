@@ -1,16 +1,12 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
   [
-    './compose'
+    './utils'
   ],
 
-  function(compose) {
+  function(utils) {
     'use strict';
 
     var advice = {
@@ -20,8 +16,9 @@ define(
           // unpacking arguments by hand benchmarked faster
           var i = 0, l = arguments.length, args = new Array(l + 1);
           args[0] = base.bind(this);
-          for (; i < l; i++) args[i + 1] = arguments[i];
-
+          for (; i < l; i++) {
+            args[i + 1] = arguments[i];
+          }
           return wrapped.apply(this, args);
         };
       },
@@ -49,7 +46,7 @@ define(
         ['before', 'after', 'around'].forEach(function(m) {
           this[m] = function(method, fn) {
 
-            compose.unlockProperty(this, method, function() {
+            utils.mutateProperty(this, method, function() {
               if (typeof this[method] == 'function') {
                 this[method] = advice[m](this[method], fn);
               } else {

@@ -1,8 +1,4 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
@@ -120,8 +116,6 @@ define(
       };
 
       this.removeInstance = function(instance) {
-        var index, instInfo = this.findInstanceInfo(instance);
-
         //remove from component info
         var componentInfo = this.findComponentInfo(instance);
         componentInfo && componentInfo.removeInstance(instance);
@@ -174,12 +168,14 @@ define(
         // unpacking arguments by hand benchmarked faster
         var l = arguments.length, i = 1;
         var otherArgs = new Array(l - 1);
-        for (; i < l; i++) otherArgs[i - 1] = arguments[i];
+        for (; i < l; i++) {
+          otherArgs[i - 1] = arguments[i];
+        }
 
         if (instance) {
           boundCallback = componentOn.apply(null, otherArgs);
           if (boundCallback) {
-            otherArgs[otherArgs.length-1] = boundCallback;
+            otherArgs[otherArgs.length - 1] = boundCallback;
           }
           var event = parseEventArgs(this, otherArgs);
           instance.addBind(event);

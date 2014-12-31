@@ -1,8 +1,8 @@
-describeComponent('app/js/ui/stats', function () {
+describeComponent('ui/stats', function () {
 	'use strict';
 
 	beforeEach(function () {
-		setupComponent(readFixtures('footer.html'));
+		this.setupComponent(readFixtures('footer.html'));
 	});
 
 	it('renders when stats change', function () {

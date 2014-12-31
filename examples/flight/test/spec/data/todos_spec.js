@@ -1,10 +1,10 @@
-describeComponent('app/js/data/todos', function () {
+describeComponent('data/todos', function () {
 	'use strict';
 
 	describe('without datastore', function () {
 		beforeEach(function () {
 			this.dataStore = new mocks.DataStore([]);
-			setupComponent({
+			this.setupComponent({
 				dataStore: this.dataStore
 			});
 		});
@@ -26,7 +26,7 @@ describeComponent('app/js/data/todos', function () {
 	describe('with datastore', function () {
 		beforeEach(function () {
 			this.dataStore = new mocks.DataStore();
-			setupComponent({
+			this.setupComponent({
 				dataStore: this.dataStore
 			});
 		});
