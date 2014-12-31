@@ -1,8 +1,4 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
@@ -27,10 +23,12 @@ define(
     }
 
     function log(action, component, eventArgs) {
-      if (!window.DEBUG || !window.DEBUG.enabled) return;
+      if (!window.DEBUG || !window.DEBUG.enabled) {
+        return;
+      }
       var name, eventType, elem, fn, payload, logFilter, toRegExp, actionLoggable, nameLoggable, info;
 
-      if (typeof eventArgs[eventArgs.length-1] == 'function') {
+      if (typeof eventArgs[eventArgs.length - 1] == 'function') {
         fn = eventArgs.pop();
         fn = fn.unbound || fn; // use unbound version if any (better info)
       }

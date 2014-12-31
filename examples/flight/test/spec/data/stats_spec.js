@@ -1,9 +1,9 @@
-describeComponent('app/js/data/stats', function () {
+describeComponent('data/stats', function () {
 	'use strict';
 
 	describe('recount without datastore', function () {
 		beforeEach(function () {
-			setupComponent({
+			this.setupComponent({
 				dataStore: new mocks.DataStore([])
 			});
 		});
@@ -38,7 +38,7 @@ describeComponent('app/js/data/stats', function () {
 
 	describe('recount with datastore', function () {
 		beforeEach(function () {
-			setupComponent({
+			this.setupComponent({
 				dataStore: new mocks.DataStore()
 			});
 		});

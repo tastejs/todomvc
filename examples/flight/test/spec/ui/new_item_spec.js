@@ -1,10 +1,10 @@
-describeComponent('app/js/ui/new_item', function () {
+describeComponent('ui/new_item', function () {
 	'use strict';
 
 	var ENTER_KEY = 13;
 
 	beforeEach(function () {
-		setupComponent(readFixtures('new_todo.html'));
+		this.setupComponent(readFixtures('new_todo.html'));
 	});
 
 	it('triggers uiAddRequested on enter', function () {

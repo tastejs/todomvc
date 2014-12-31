@@ -1,8 +1,4 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
 define(
 
@@ -35,22 +31,13 @@ define(
       });
     }
 
-    function checkSerializable(type, data) {
-      try {
-        window.postMessage(data, '*');
-      } catch(e) {
-        console.log('unserializable data for event',type,':',data);
-        throw new Error(
-          ['The event', type, 'on component', this.toString(), 'was triggered with non-serializable data'].join(' ')
-        );
-      }
-    }
-
     function attachTo(selector/*, options args */) {
       // unpacking arguments by hand benchmarked faster
       var l = arguments.length;
       var args = new Array(l - 1);
-      for (var i = 1; i < l; i++) args[i - 1] = arguments[i];
+      for (var i = 1; i < l; i++) {
+        args[i - 1] = arguments[i];
+      }
 
       if (!selector) {
         throw new Error('Component needs to be attachTo\'d a jQuery object, native node or selector string');
@@ -91,7 +78,9 @@ define(
       // unpacking arguments by hand benchmarked faster
       var l = arguments.length;
       var mixins = new Array(l);
-      for (var i = 0; i < l; i++) mixins[i] = arguments[i];
+      for (var i = 0; i < l; i++) {
+        mixins[i] = arguments[i];
+      }
 
       var Component = function() {};
 
@@ -107,6 +96,8 @@ define(
         var newComponent = define(); //TODO: fix pretty print
         var newPrototype = Object.create(Component.prototype);
         newPrototype.mixedIn = [].concat(Component.prototype.mixedIn);
+        newPrototype.defaults = utils.merge(Component.prototype.defaults);
+        newPrototype.attrDef = Component.prototype.attrDef;
         compose.mixin(newPrototype, arguments);
         newComponent.prototype = newPrototype;
         newComponent.prototype.constructor = newComponent;
