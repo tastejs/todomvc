@@ -13,10 +13,10 @@ Here are some links you may find helpful:
 
 * [Tutorial](https://www.firebase.com/tutorial/)
 * [Documentation & Examples](https://www.firebase.com/docs/)
-* [API Reference](https://www.firebase.com/docs/javascript/firebase/)
+* [API Reference](https://www.firebase.com/docs/web)
 * [Blog](https://www.firebase.com/blog/)
 * [Firebase on Github](http://firebase.github.io)
-* [AngularJS bindings for Firebase](http://github.com/firebase/angularFire)
+* [AngularJS bindings for Firebase](https://www.firebase.com/docs/web/libraries/angular/)
 
 Get help from other AngularJS users:
 
