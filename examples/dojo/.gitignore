@@ -1,0 +1,8 @@
+bower_components
+html-report
+node_modules
+out
+js/lib/*
+!js/lib/dojo
+js/lib/dojo/*
+!js/lib/dojo/dojo.js
