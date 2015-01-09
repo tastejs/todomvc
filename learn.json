@@ -778,7 +778,7 @@
 				"url": "http://dojotoolkit.org/documentation"
 			}, {
 				"name": "Getting started guide",
-				"url": "https://dojotoolkit.org/reference-guide/1.8/quickstart"
+				"url": "https://dojotoolkit.org/reference-guide/quickstart"
 			}, {
 				"name": "API Reference",
 				"url": "http://dojotoolkit.org/api"
@@ -795,8 +795,8 @@
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Dojo on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/dojo"
+				"name": "Dojo/MVC on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/dojo+model-view-controller"
 			}, {
 				"name": "Mailing list",
 				"url": "http://dojotoolkit.org/community"
