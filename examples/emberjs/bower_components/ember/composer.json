@@ -1,0 +1,28 @@
+{
+  "name": "components/ember",
+  "description": "A framework for creating ambitious web applications.",
+  "type": "component",
+  "license": "MIT",
+  "require": {
+    "components/jquery": ">=1.7.0, < 2.2.0"
+  },
+  "extra": {
+    "component": {
+      "scripts": [
+        "ember.debug.js"
+      ],
+      "files": [
+        "ember.debug.js",
+        "ember.prod.js",
+        "ember.min.js"
+      ],
+      "shim": {
+        "exports": "Ember",
+        "deps": [
+          "jquery"
+        ]
+      }
+    }
+  },
+  "version": "1.10.0-beta.3"
+}
