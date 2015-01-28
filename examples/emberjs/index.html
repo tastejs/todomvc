@@ -14,6 +14,7 @@
 					{{/if}}
 					<ul id="todo-list">
 						{{#each}}
+						  {{debug}}
 							<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
 								{{#if isEditing}}
 									{{todo-input type="text" class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"}}
@@ -85,5 +86,6 @@
 		<script src="js/controllers/todo_controller.js"></script>
 		<script src="js/views/todo_input_component.js"></script>
 		<script src="js/helpers/pluralize.js"></script>
+		<script src="js/helpers/debug.js"></script>
 	</body>
 </html>
