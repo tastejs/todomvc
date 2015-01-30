@@ -4,7 +4,7 @@ We have created this short spec to help you create awesome and consistent todo a
 
 ## Template Application
 
-Our [template](template) should be used as the base when implementing a todo app. Before implementing, we recommend you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
+Our [template](https://github.com/tastejs/todomvc-app-template/) should be used as the base when implementing a todo app. Before implementing, we recommend you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
 
 ## Structure
 
@@ -14,8 +14,8 @@ Recommended file structure:
 
 ```
 index.html
-bower.json
-bower_components/
+package.json
+node_modules/
 css
 └── app.css
 js/
@@ -48,21 +48,20 @@ All examples must include a README describing the framework, the general impleme
 
 ### Dependency Management
 
-Unless it conflicts with the project's best practices, your example should use [bower](http://bower.io) for package management. Specify your dependencies in a `bower.json` file in the root directory of your app. The name of the component must follow the schema `todomvc-[framework]` and must include `todomvc-common` as dependency. An example `bower.json` could look like this:
+Unless it conflicts with the project's best practices, your example should use [npm](https://npmjs.com) for package management. Specify your dependencies in a `package.json` file in the root directory of your app. The file must include `todomvc-common` and `todomvc-app-css` as dependencies. An example `package.json` could look like this:
 
 ```json
 {
-  "name": "todomvc-sample",
-  "version": "0.0.0",
+  "private": true,
   "dependencies": {
-    "underscore": "~1.5.0",
-    "jquery": "~2.0.0",
-    "todomvc-common": "~0.1.0"
+    "backbone": "^1.1.2",
+    "todomvc-app-css": "^1.0.0",
+    "todomvc-common": "^1.0.1"
   }
 }
 ```
 
-The files in `bower_components/` should be limited to the files actually used by your example. That means documentation, READMEs and tests should not be included in the pull request.
+You should `.gitignore` everything in `node_modules` except the files actually used by your example. That means documentation, READMEs and tests should not be included in the pull request.
 
 ### Code
 
@@ -72,7 +71,7 @@ Make sure to follow these:
 
 - Follow our [code style](contributing.md#code-style).
 - Use double-quotes in HTML and single-quotes in JS and CSS.
-- Use bower components for your third-party dependencies and manually remove files that aren't required for your app to run.
+- Use npm packages for your third-party dependencies and manually remove files that aren't required for your app to run.
 - Use a constant instead of the keyCode directly: `var ENTER_KEY = 13;`
 - Apps should be written without any preprocessors (Sass/CoffeeScript/..) to reach the largest audience.
 - To make it easy to compare frameworks, the app should look and behave exactly like the template and the other examples.
