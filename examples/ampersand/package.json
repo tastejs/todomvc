@@ -10,7 +10,9 @@
     "ampersand-state": "^4.3.12",
     "ampersand-subcollection": "^1.4.5",
     "ampersand-view": "^7.1.4",
-    "debounce": "^1.0.0"
+    "debounce": "^1.0.0",
+    "todomvc-app-css": "^1.0.1",
+    "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
     "browserify": "5.10.1",
