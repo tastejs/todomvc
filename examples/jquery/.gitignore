@@ -1,1 +1,15 @@
-/bower_components
+bower_components/jquery
+!bower_components/jquery/dist/jquery.js
+
+bower_components/director
+!bower_components/director/build/director.js
+
+bower_components/handlebars
+!bower_components/handlebars/handlebars.js
+
+bower_components/todomvc-app-css
+!bower_components/todomvc-app-css/index.css
+
+bower_components/todomvc-common
+!bower_components/todomvc-common/base.js
+!bower_components/todomvc-common/base.css
