@@ -1,0 +1,8 @@
+{
+	"name": "todomvc-foam",
+	"version": "0.0.0",
+	"dependencies": {
+		"foam": "0.3.1",
+		"todomvc-common": "~0.3.0"
+	}
+}
