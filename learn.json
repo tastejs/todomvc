@@ -243,6 +243,25 @@
 			}]
 		}]
 	},
+	"Avalon": {
+		"name": "Avalon",
+		"description": "avalon是一个简单易用迷你的MVVM框架，它最早发布于2012.09.15，为解决同一业务逻辑存在各种视图呈现而开发出来的。 事实上，这问题其实也可以简单地利用一般的前端模板加jQuery 事件委托 搞定，但随着业务的膨胀， 代码就充满了各种选择器与事件回调，难以维护。因此彻底的将业务与逻辑分离，就只能求助于架构。 最初想到的是MVC，尝试过backbone，但代码不降反升，很偶尔的机会，碰上微软的WPF， 优雅的MVVM架构立马吸引住我，我觉得这就是我一直寻找的解决之道。",
+		"homepage": "avalonjs.github.io",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/avalon"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://avalonjs.github.io"
+			}, {
+				"name": "Quick Start",
+				"url": "http://avalonjs.github.io"
+			}]
+		}]
+	},
 	"backbonejs": {
 		"name": "Backbone.js",
 		"description": "Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.",

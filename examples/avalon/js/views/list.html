@@ -1,0 +1,18 @@
+<li ms-repeat-todo="todos" 
+	ms-if-loop="filter(todo)"
+	ms-class="{{getClass(todo)}}">
+	<div class="view">
+		<input class="toggle" type="checkbox" 
+			   ms-change="checkAll($event)" 
+		       ms-duplex-checkall="todo.completed">
+		<label ms-dblclick="editTodo(todo)">{{todo.title}}</label>
+		<button class="destroy" ms-click="removeTodo(todo)"></button>
+	</div>
+	<form 
+		ms-submit="saveEdits(todo, 'submit', $event)">
+		<input class="edit" 
+		 	ms-duplex="todo.title" 
+		 	ms-on-keyup="revertEdits(todo, $event)"
+		 	ms-blur="saveEdits(todo, 'blur')">
+	</form>
+</li>

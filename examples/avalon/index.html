@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-framework="Avalon">
+	<head>
+		<meta charset="utf-8">
+		<title>Avalon • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="bower_components/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<section id="todoapp" 
+		         ms-controller="todos">
+				<header id="header">
+					<h1>todos</h1>
+					<form id="todo-form" ms-submit="addTodo($event)">
+						<input id="new-todo" placeholder="What needs to be done?" 
+						       ms-duplex="newTodo" 
+						       ms-attr-disabled="saving" autofocus>
+					</form>
+				</header>
+				<section id="main" ms-visible="todos.length" ms-cloak>
+					<input id="toggle-all" type="checkbox" 
+					       ms-duplex="allChecked" 
+					       ms-click="markAll(allChecked)">
+					<label for="toggle-all">Mark all as complete</label>
+					<ul id="todo-list" ms-view="list">
+					</ul>
+				</section>
+				<footer id="footer" ms-visible="todos.length" ms-view="footer">
+				</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/oniui/avalon.js"></script>
+		<script>
+			require(["mmRouter/mmState"], function () {
+				require(["../../js/app"], function() {
+
+				})
+			})
+		</script>
+	</body>
+</html>
