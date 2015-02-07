@@ -1,0 +1,17 @@
+<span id="todo-count"><strong>{{remainingCount}}</strong>
+	{{remainingCount == 1 ? "item" : "items"}} left
+</span>
+<ul id="filters">
+	<li>
+		<a ms-class="selected: status == '' " href="#/">All</a>
+	</li>
+	<li>
+		<a ms-class="selected: status == 'active'" href="#/active">Active</a>
+	</li>
+	<li>
+		<a ms-class="selected: status == 'completed'" href="#/completed">Completed</a>
+	</li>
+</ul>
+<button id="clear-completed" 
+	ms-click="clearCompletedTodos()" 
+	ms-visible="completedCount">Clear completed ({{completedCount}})</button>
