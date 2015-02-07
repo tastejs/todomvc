@@ -1,0 +1,35 @@
+<!--
+This is bundled version of index_raw
+-->
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>LiquidLava • TodoMVC</title>
+		<link rel="stylesheet" href="css/app.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+		<script src="bundle.min.js"></script>
+
+		<script>
+
+			Lava.init();
+			Lava.focus_manager.enable();
+
+			window.addEvent('load', function() {
+
+				var constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),
+					widget;
+
+				if (Lava.schema.DEBUG && !constructor) Lava.t('Class not found: ' + page_config['class']);
+				widget = new constructor(page_config);
+				widget.injectIntoExistingElement(document.body);
+
+			});
+		</script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+	</head>
+	<body>
+	</body>
+</html>
