@@ -21,7 +21,9 @@
   var api = {
 
     save: function (record) {
-      var id;
+      var id, ids;
+
+      this.refresh();
 
       if (!record[this.idAttribute]) {
         record[this.idAttribute] = guid();
@@ -31,7 +33,9 @@
 
       if (this.ids.indexOf(id) < 0) {
         this.ids.push(id);
-        this.storageAdaptor.setItem(this.name, this.ids.join(","));
+        ids = this.ids.join(",");
+        this.storageAdaptor.setItem(this.name, ids);
+        this.store = ids;
       }
 
       this.storageAdaptor.setItem(getKey(this.name, id), JSON.stringify(record));
@@ -73,6 +77,8 @@
 
       if (!criteria) return this.all();
 
+      this.refresh();
+
       return this.ids.reduce(function (memo, id) {
         record = jsonData(self.storageAdaptor.getItem(getKey(name, id)));
         match = findMatch(criteria, record);
@@ -91,6 +97,8 @@
 
     all: function () {
       var record, self = this, name = this.name;
+
+      this.refresh();
 
       return this.ids.reduce(function (memo, id) {
         record = self.storageAdaptor.getItem(getKey(name, id));
@@ -120,6 +128,8 @@
 
     destroyAll: function (criteria) {
       var attr, id, match, record, key;
+
+      this.refresh();
 
       for (var i = this.ids.length - 1; i >= 0; i--) {
         id = this.ids[i];
@@ -151,7 +161,20 @@
     },
 
     size: function () {
+      this.refresh();
+
       return this.ids.length;
+    },
+
+    refresh: function () {
+      var store = this.storageAdaptor.getItem(this.name);
+
+      if (this.store && this.store === store) {
+        return;
+      }
+
+      this.ids = (store && store.split(",")) || [];
+      this.store = store;
     }
   };
 
@@ -202,7 +225,7 @@
   }
 
   function depot(name, options) {
-    var store, ids;
+    var instance;
 
     options = extend({
       idAttribute: '_id',
@@ -211,16 +234,15 @@
 
     if (!options.storageAdaptor) throw new Error("No storage adaptor was found");
 
-    store = options.storageAdaptor.getItem(name);
-    ids = (store && store.split(",")) || [];
-
-    return Object.create(api, {
+    instance = Object.create(api, {
       name: { value: name },
-      store: { value: store },
-      ids: { value: ids, writable: true },
       idAttribute: { value: options.idAttribute },
       storageAdaptor: { value: options.storageAdaptor }
     });
+
+    instance.refresh();
+
+    return instance;
   }
 
   return depot;
