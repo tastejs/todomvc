@@ -14,8 +14,8 @@ requirejs.config({
 
 	paths: {
 		flight: 'bower_components/flight',
-		depot: 'bower_components/depot/depot',
-		text: 'bower_components/requirejs-text/text',
+		depot: 'node_modules/depot/depot',
+		text: 'node_modules/requirejs-text/text',
 		ui: 'app/js/ui',
 		data: 'app/js/data',
 		app: 'app/js',
