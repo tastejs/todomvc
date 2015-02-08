@@ -13,6 +13,7 @@ node_modules/jquery/dist/*
 !node_modules/jquery/dist/jquery.js
 
 node_modules/flightjs/*
+!node_modules/flightjs/lib
 
 node_modules/requirejs/*
 !node_modules/requirejs/require.js
@@ -35,4 +36,5 @@ node_modules/karma-ie-launcher/*
 node_modules/karma-jasmine/*
 node_modules/karma-phantomjs-launcher/*
 node_modules/jasmine-jquery/*
+node_modules/jasmine-flight/*
 node_modules/karma-safari-jasmine/*

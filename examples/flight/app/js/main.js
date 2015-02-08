@@ -8,7 +8,7 @@ require.config({
 		es5shim: 'node_modules/es5-shim/es5-shim',
 		es5sham: 'node_modules/es5-shim/es5-sham',
 		text: 'node_modules/requirejs-text/text',
-		flight: 'bower_components/flight',
+		flight: 'node_modules/flight',
 		depot: 'node_modules/depot/depot',
 		app: 'app/js',
 		templates: 'app/templates',

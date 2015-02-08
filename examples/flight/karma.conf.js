@@ -20,14 +20,15 @@ module.exports = function (config) {
 
 			'node_modules/jquery/dist/jquery.js',
 			'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-			'bower_components/jasmine-flight/lib/jasmine-flight.js',
+			'node_modules/jasmine-flight/lib/jasmine-flight.js',
 
 			// hack to load RequireJS after the shim libs
 			'node_modules/requirejs/require.js',
 			'node_modules/karma-requirejs/lib/adapter.js',
 
 			// loaded with require
-			{ pattern: 'bower_components/flight/**/*.js', included: false },
+			{ pattern: 'node_modules/flight/lib/*.js', included: false },
+			{ pattern: 'node_modules/flight/index.js', included: false },
 			{ pattern: 'node_modules/depot/depot.js', included: false },
 			{ pattern: 'node_modules/requirejs-text/text.js', included: false },
 			{ pattern: 'app/**/*.js', included: false },

@@ -13,7 +13,7 @@ requirejs.config({
 	baseUrl: '/base',
 
 	paths: {
-		flight: 'bower_components/flight',
+		flight: 'node_modules/flight',
 		depot: 'node_modules/depot/depot',
 		text: 'node_modules/requirejs-text/text',
 		ui: 'app/js/ui',
