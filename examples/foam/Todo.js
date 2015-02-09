@@ -53,7 +53,7 @@
 			choiceToHTML: function (id, choice) {
 				var self = this;
 				this.setClass('selected', function () { return self.label === choice[1]; }, id);
-				return '<li><a id="' + id + '" class="choice" href="javascript:;">' + choice[1] + '</a></li>';
+				return '<li><a id="' + id + '" class="choice" href="">' + choice[1] + '</a></li>';
 			}
 		}
 	});
@@ -148,9 +148,10 @@
 					function (memento) {
 						var s = memento && memento.substring(1);
 						var t = s ? s.capitalize() : 'All';
+                                                console.log('memento->label', memento, s, t);
                                                 return t;
 					},
-					function (label) { var s = '/' + label.toLowerCase(); console.log('label->memento', label, s); return s; });
+                                        function (label) { var s = '/' + label.toLowerCase(); console.log('label->memento', label, s); return s; });
 				this.addInitializer(function () {
 					$('new-todo').focus();
 				});
