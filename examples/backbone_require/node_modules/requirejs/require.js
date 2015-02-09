@@ -1,5 +1,5 @@
 /** vim: et:ts=4:sw=4:sts=4
- * @license RequireJS 2.1.9 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
+ * @license RequireJS 2.1.15 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/requirejs for details
  */
@@ -12,7 +12,7 @@ var requirejs, require, define;
 (function (global) {
     var req, s, head, baseElement, dataMain, src,
         interactiveScript, currentlyAddingScript, mainScript, subPath,
-        version = '2.1.9',
+        version = '2.1.15',
         commentRegExp = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg,
         cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/g,
         jsSuffixRegExp = /\.js$/,
@@ -108,7 +108,10 @@ var requirejs, require, define;
         if (source) {
             eachProp(source, function (value, prop) {
                 if (force || !hasProp(target, prop)) {
-                    if (deepStringMixin && typeof value !== 'string') {
+                    if (deepStringMixin && typeof value === 'object' && value &&
+                        !isArray(value) && !isFunction(value) &&
+                        !(value instanceof RegExp)) {
+
                         if (!target[prop]) {
                             target[prop] = {};
                         }
@@ -138,7 +141,7 @@ var requirejs, require, define;
         throw err;
     }
 
-    //Allow getting a global that expressed in
+    //Allow getting a global that is expressed in
     //dot notation, like 'a.b.c'.
     function getGlobal(value) {
         if (!value) {
@@ -177,7 +180,7 @@ var requirejs, require, define;
 
     if (typeof requirejs !== 'undefined') {
         if (isFunction(requirejs)) {
-            //Do not overwrite and existing requirejs instance.
+            //Do not overwrite an existing requirejs instance.
             return;
         }
         cfg = requirejs;
@@ -201,6 +204,7 @@ var requirejs, require, define;
                 waitSeconds: 7,
                 baseUrl: './',
                 paths: {},
+                bundles: {},
                 pkgs: {},
                 shim: {},
                 config: {}
@@ -214,6 +218,7 @@ var requirejs, require, define;
             defQueue = [],
             defined = {},
             urlFetched = {},
+            bundlesMap = {},
             requireCounter = 1,
             unnormalizedCounter = 1;
 
@@ -228,20 +233,19 @@ var requirejs, require, define;
          */
         function trimDots(ary) {
             var i, part;
-            for (i = 0; ary[i]; i += 1) {
+            for (i = 0; i < ary.length; i++) {
                 part = ary[i];
                 if (part === '.') {
                     ary.splice(i, 1);
                     i -= 1;
                 } else if (part === '..') {
-                    if (i === 1 && (ary[2] === '..' || ary[0] === '..')) {
-                        //End of the line. Keep at least one non-dot
-                        //path segment at the front so it can be mapped
-                        //correctly to disk. Otherwise, there is likely
-                        //no path mapping for a path starting with '..'.
-                        //This can still fail, but catches the most reasonable
-                        //uses of ..
-                        break;
+                    // If at the start, or previous value is still ..,
+                    // keep them so that when converted to a path it may
+                    // still work when converted to a path, even though
+                    // as an ID it is less than ideal. In larger point
+                    // releases, may be better to just kick out an error.
+                    if (i === 0 || (i == 1 && ary[2] === '..') || ary[i - 1] === '..') {
+                        continue;
                     } else if (i > 0) {
                         ary.splice(i - 1, 2);
                         i -= 2;
@@ -261,54 +265,45 @@ var requirejs, require, define;
          * @returns {String} normalized name
          */
         function normalize(name, baseName, applyMap) {
-            var pkgName, pkgConfig, mapValue, nameParts, i, j, nameSegment,
-                foundMap, foundI, foundStarMap, starI,
-                baseParts = baseName && baseName.split('/'),
-                normalizedBaseParts = baseParts,
+            var pkgMain, mapValue, nameParts, i, j, nameSegment, lastIndex,
+                foundMap, foundI, foundStarMap, starI, normalizedBaseParts,
+                baseParts = (baseName && baseName.split('/')),
                 map = config.map,
                 starMap = map && map['*'];
 
             //Adjust any relative paths.
-            if (name && name.charAt(0) === '.') {
-                //If have a base name, try to normalize against it,
-                //otherwise, assume it is a top-level require that will
-                //be relative to baseUrl in the end.
-                if (baseName) {
-                    if (getOwn(config.pkgs, baseName)) {
-                        //If the baseName is a package name, then just treat it as one
-                        //name to concat the name with.
-                        normalizedBaseParts = baseParts = [baseName];
-                    } else {
-                        //Convert baseName to array, and lop off the last part,
-                        //so that . matches that 'directory' and not name of the baseName's
-                        //module. For instance, baseName of 'one/two/three', maps to
-                        //'one/two/three.js', but we want the directory, 'one/two' for
-                        //this normalization.
-                        normalizedBaseParts = baseParts.slice(0, baseParts.length - 1);
-                    }
+            if (name) {
+                name = name.split('/');
+                lastIndex = name.length - 1;
 
-                    name = normalizedBaseParts.concat(name.split('/'));
-                    trimDots(name);
-
-                    //Some use of packages may use a . path to reference the
-                    //'main' module name, so normalize for that.
-                    pkgConfig = getOwn(config.pkgs, (pkgName = name[0]));
-                    name = name.join('/');
-                    if (pkgConfig && name === pkgName + '/' + pkgConfig.main) {
-                        name = pkgName;
-                    }
-                } else if (name.indexOf('./') === 0) {
-                    // No baseName, so this is ID is resolved relative
-                    // to baseUrl, pull off the leading dot.
-                    name = name.substring(2);
+                // If wanting node ID compatibility, strip .js from end
+                // of IDs. Have to do this here, and not in nameToUrl
+                // because node allows either .js or non .js to map
+                // to same file.
+                if (config.nodeIdCompat && jsSuffixRegExp.test(name[lastIndex])) {
+                    name[lastIndex] = name[lastIndex].replace(jsSuffixRegExp, '');
                 }
+
+                // Starts with a '.' so need the baseName
+                if (name[0].charAt(0) === '.' && baseParts) {
+                    //Convert baseName to array, and lop off the last part,
+                    //so that . matches that 'directory' and not name of the baseName's
+                    //module. For instance, baseName of 'one/two/three', maps to
+                    //'one/two/three.js', but we want the directory, 'one/two' for
+                    //this normalization.
+                    normalizedBaseParts = baseParts.slice(0, baseParts.length - 1);
+                    name = normalizedBaseParts.concat(name);
+                }
+
+                trimDots(name);
+                name = name.join('/');
             }
 
             //Apply map config if available.
             if (applyMap && map && (baseParts || starMap)) {
                 nameParts = name.split('/');
 
-                for (i = nameParts.length; i > 0; i -= 1) {
+                outerLoop: for (i = nameParts.length; i > 0; i -= 1) {
                     nameSegment = nameParts.slice(0, i).join('/');
 
                     if (baseParts) {
@@ -325,14 +320,10 @@ var requirejs, require, define;
                                     //Match, update name to the new value.
                                     foundMap = mapValue;
                                     foundI = i;
-                                    break;
+                                    break outerLoop;
                                 }
                             }
                         }
-                    }
-
-                    if (foundMap) {
-                        break;
                     }
 
                     //Check for a star map match, but just hold on to it,
@@ -355,7 +346,11 @@ var requirejs, require, define;
                 }
             }
 
-            return name;
+            // If the name points to a package's name, use
+            // the package main instead.
+            pkgMain = getOwn(config.pkgs, name);
+
+            return pkgMain ? pkgMain : name;
         }
 
         function removeScript(name) {
@@ -377,7 +372,13 @@ var requirejs, require, define;
                 //retry
                 pathConfig.shift();
                 context.require.undef(id);
-                context.require([id]);
+
+                //Custom require that does not do map translation, since
+                //ID is "absolute", already mapped/resolved.
+                context.makeRequire(null, {
+                    skipMap: true
+                })([id]);
+
                 return true;
             }
         }
@@ -443,7 +444,16 @@ var requirejs, require, define;
                             return normalize(name, parentName, applyMap);
                         });
                     } else {
-                        normalizedName = normalize(name, parentName, applyMap);
+                        // If nested plugin references, then do not try to
+                        // normalize, as it will not normalize correctly. This
+                        // places a restriction on resourceIds, and the longer
+                        // term solution is not to normalize until plugins are
+                        // loaded and all normalizations to allow for async
+                        // loading of a loader plugin. But for now, fixes the
+                        // common uses. Details in #1131
+                        normalizedName = name.indexOf('!') === -1 ?
+                                         normalize(name, parentName, applyMap) :
+                                         name;
                     }
                 } else {
                     //A regular module.
@@ -548,7 +558,7 @@ var requirejs, require, define;
                 //local var ref to defQueue, so cannot just reassign the one
                 //on context.
                 apsp.apply(defQueue,
-                           [defQueue.length - 1, 0].concat(globalDefQueue));
+                           [defQueue.length, 0].concat(globalDefQueue));
                 globalDefQueue = [];
             }
         }
@@ -565,7 +575,7 @@ var requirejs, require, define;
                 mod.usingExports = true;
                 if (mod.map.isDefine) {
                     if (mod.exports) {
-                        return mod.exports;
+                        return (defined[mod.map.id] = mod.exports);
                     } else {
                         return (mod.exports = defined[mod.map.id] = {});
                     }
@@ -579,15 +589,9 @@ var requirejs, require, define;
                         id: mod.map.id,
                         uri: mod.map.url,
                         config: function () {
-                            var c,
-                                pkg = getOwn(config.pkgs, mod.map.id);
-                            // For packages, only support config targeted
-                            // at the main module.
-                            c = pkg ? getOwn(config.config, mod.map.id + '/' + pkg.main) :
-                                      getOwn(config.config, mod.map.id);
-                            return  c || {};
+                            return  getOwn(config.config, mod.map.id) || {};
                         },
-                        exports: defined[mod.map.id]
+                        exports: mod.exports || (mod.exports = {})
                     });
                 }
             }
@@ -628,7 +632,7 @@ var requirejs, require, define;
         }
 
         function checkLoaded() {
-            var map, modId, err, usingPathFallback,
+            var err, usingPathFallback,
                 waitInterval = config.waitSeconds * 1000,
                 //It is possible to disable the wait interval by using waitSeconds of 0.
                 expired = waitInterval && (context.startTime + waitInterval) < new Date().getTime(),
@@ -646,8 +650,8 @@ var requirejs, require, define;
 
             //Figure out the state of all the modules.
             eachProp(enabledRegistry, function (mod) {
-                map = mod.map;
-                modId = map.id;
+                var map = mod.map,
+                    modId = map.id;
 
                 //Skip things that are not enabled or in error state.
                 if (!mod.enabled) {
@@ -870,17 +874,14 @@ var requirejs, require, define;
                                 exports = context.execCb(id, factory, depExports, exports);
                             }
 
-                            if (this.map.isDefine) {
-                                //If setting exports via 'module' is in play,
-                                //favor that over return value and exports. After that,
-                                //favor a non-undefined return value over exports use.
+                            // Favor return value over exports. If node/cjs in play,
+                            // then will not have a return value anyway. Favor
+                            // module.exports assignment over exports object.
+                            if (this.map.isDefine && exports === undefined) {
                                 cjsModule = this.module;
-                                if (cjsModule &&
-                                        cjsModule.exports !== undefined &&
-                                        //Make sure it is not already the exports value
-                                        cjsModule.exports !== this.exports) {
+                                if (cjsModule) {
                                     exports = cjsModule.exports;
-                                } else if (exports === undefined && this.usingExports) {
+                                } else if (this.usingExports) {
                                     //exports already set the defined value.
                                     exports = this.exports;
                                 }
@@ -940,6 +941,7 @@ var requirejs, require, define;
 
                 on(pluginMap, 'defined', bind(this, function (plugin) {
                     var load, normalizedMap, normalizedMod,
+                        bundleId = getOwn(bundlesMap, this.map.id),
                         name = this.map.name,
                         parentName = this.map.parentMap ? this.map.parentMap.name : null,
                         localRequire = context.makeRequire(map.parentMap, {
@@ -982,6 +984,14 @@ var requirejs, require, define;
                             normalizedMod.enable();
                         }
 
+                        return;
+                    }
+
+                    //If a paths config, then just load that file instead to
+                    //resolve the plugin, as it is built into that paths layer.
+                    if (bundleId) {
+                        this.map.url = context.nameToUrl(bundleId);
+                        this.load();
                         return;
                     }
 
@@ -1249,30 +1259,37 @@ var requirejs, require, define;
                     }
                 }
 
-                //Save off the paths and packages since they require special processing,
+                //Save off the paths since they require special processing,
                 //they are additive.
-                var pkgs = config.pkgs,
-                    shim = config.shim,
+                var shim = config.shim,
                     objs = {
                         paths: true,
+                        bundles: true,
                         config: true,
                         map: true
                     };
 
                 eachProp(cfg, function (value, prop) {
                     if (objs[prop]) {
-                        if (prop === 'map') {
-                            if (!config.map) {
-                                config.map = {};
-                            }
-                            mixin(config[prop], value, true, true);
-                        } else {
-                            mixin(config[prop], value, true);
+                        if (!config[prop]) {
+                            config[prop] = {};
                         }
+                        mixin(config[prop], value, true, true);
                     } else {
                         config[prop] = value;
                     }
                 });
+
+                //Reverse map the bundles
+                if (cfg.bundles) {
+                    eachProp(cfg.bundles, function (value, prop) {
+                        each(value, function (v) {
+                            if (v !== prop) {
+                                bundlesMap[v] = prop;
+                            }
+                        });
+                    });
+                }
 
                 //Merge shim
                 if (cfg.shim) {
@@ -1294,29 +1311,25 @@ var requirejs, require, define;
                 //Adjust packages if necessary.
                 if (cfg.packages) {
                     each(cfg.packages, function (pkgObj) {
-                        var location;
+                        var location, name;
 
                         pkgObj = typeof pkgObj === 'string' ? { name: pkgObj } : pkgObj;
+
+                        name = pkgObj.name;
                         location = pkgObj.location;
+                        if (location) {
+                            config.paths[name] = pkgObj.location;
+                        }
 
-                        //Create a brand new object on pkgs, since currentPackages can
-                        //be passed in again, and config.pkgs is the internal transformed
-                        //state for all package configs.
-                        pkgs[pkgObj.name] = {
-                            name: pkgObj.name,
-                            location: location || pkgObj.name,
-                            //Remove leading dot in main, so main paths are normalized,
-                            //and remove any trailing .js, since different package
-                            //envs have different conventions: some use a module name,
-                            //some use a file name.
-                            main: (pkgObj.main || 'main')
-                                  .replace(currDirRegExp, '')
-                                  .replace(jsSuffixRegExp, '')
-                        };
+                        //Save pointer to main module ID for pkg name.
+                        //Remove leading dot in main, so main paths are normalized,
+                        //and remove any trailing .js, since different package
+                        //envs have different conventions: some use a module name,
+                        //some use a file name.
+                        config.pkgs[name] = pkgObj.name + '/' + (pkgObj.main || 'main')
+                                     .replace(currDirRegExp, '')
+                                     .replace(jsSuffixRegExp, '');
                     });
-
-                    //Done with modifications, assing packages back to context config
-                    config.pkgs = pkgs;
                 }
 
                 //If there are any "waiting to execute" modules in the registry,
@@ -1469,6 +1482,15 @@ var requirejs, require, define;
                         delete urlFetched[map.url];
                         delete undefEvents[id];
 
+                        //Clean queued defines too. Go backwards
+                        //in array so that the splices do not
+                        //mess up the iteration.
+                        eachReverse(defQueue, function(args, i) {
+                            if(args[0] === id) {
+                                defQueue.splice(i, 1);
+                            }
+                        });
+
                         if (mod) {
                             //Hold on to listeners in case the
                             //module will be attempted to be reloaded
@@ -1488,7 +1510,7 @@ var requirejs, require, define;
             /**
              * Called to enable a module if it is still in the registry
              * awaiting enablement. A second arg, parent, the parent module,
-             * is passed in for context, when this method is overriden by
+             * is passed in for context, when this method is overridden by
              * the optimizer. Not shown here to keep code compact.
              */
             enable: function (depMap) {
@@ -1562,8 +1584,19 @@ var requirejs, require, define;
              * internal API, not a public one. Use toUrl for the public API.
              */
             nameToUrl: function (moduleName, ext, skipExt) {
-                var paths, pkgs, pkg, pkgPath, syms, i, parentModule, url,
-                    parentPath;
+                var paths, syms, i, parentModule, url,
+                    parentPath, bundleId,
+                    pkgMain = getOwn(config.pkgs, moduleName);
+
+                if (pkgMain) {
+                    moduleName = pkgMain;
+                }
+
+                bundleId = getOwn(bundlesMap, moduleName);
+
+                if (bundleId) {
+                    return context.nameToUrl(bundleId, ext, skipExt);
+                }
 
                 //If a colon is in the URL, it indicates a protocol is used and it is just
                 //an URL to a file, or if it starts with a slash, contains a query arg (i.e. ?)
@@ -1577,7 +1610,6 @@ var requirejs, require, define;
                 } else {
                     //A module that needs to be converted to a path.
                     paths = config.paths;
-                    pkgs = config.pkgs;
 
                     syms = moduleName.split('/');
                     //For each module name segment, see if there is a path
@@ -1585,7 +1617,7 @@ var requirejs, require, define;
                     //and work up from it.
                     for (i = syms.length; i > 0; i -= 1) {
                         parentModule = syms.slice(0, i).join('/');
-                        pkg = getOwn(pkgs, parentModule);
+
                         parentPath = getOwn(paths, parentModule);
                         if (parentPath) {
                             //If an array, it means there are a few choices,
@@ -1594,16 +1626,6 @@ var requirejs, require, define;
                                 parentPath = parentPath[0];
                             }
                             syms.splice(0, i, parentPath);
-                            break;
-                        } else if (pkg) {
-                            //If module name is just the package name, then looking
-                            //for the main module.
-                            if (moduleName === pkg.name) {
-                                pkgPath = pkg.location + '/' + pkg.main;
-                            } else {
-                                pkgPath = pkg.location;
-                            }
-                            syms.splice(0, i, pkgPath);
                             break;
                         }
                     }
