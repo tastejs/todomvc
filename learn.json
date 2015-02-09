@@ -1481,9 +1481,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/backbone_marionette"
-		}, {
-			"name": "Example",
-			"url": "examples/backbone_marionette_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

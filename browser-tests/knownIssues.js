@@ -23,7 +23,7 @@ module.exports = [
 	'TodoMVC - typescript-backbone, Item, should allow me to mark items as complete',
 	'TodoMVC - typescript-backbone, Item, should allow me to un-mark items as complete',
 	'TodoMVC - typescript-backbone, Item, should allow me to edit an item',
-	
+
 	// https://github.com/tastejs/todomvc/issues/828
 	// routing should default to all
 	'TodoMVC - batman, Routing, should highlight the currently applied filter',
@@ -45,7 +45,7 @@ module.exports = [
 	'TodoMVC - atmajs, No Todos, should hide #main and #footer',
 
 	// https://github.com/tastejs/todomvc/issues/819
-	// the edit experience with soma is quite broken. You can 
+	// the edit experience with soma is quite broken. You can
 	// get multiple elements into an edit state
 	'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
 	'TodoMVC - somajs_require, Editing, should cancel edits on escape',
@@ -66,7 +66,6 @@ module.exports = [
 	'TodoMVC - thorax, Editing, should cancel edits on escape',
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
 	'TodoMVC - angularjs_require, Editing, should cancel edits on escape',
-	'TodoMVC - backbone_marionette_require, Editing, should cancel edits on escape',
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
@@ -89,7 +88,7 @@ module.exports = [
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
 	'TodoMVC - spine, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-	
+
 	// the following implementations do not support routing
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display active items',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display completed items',
