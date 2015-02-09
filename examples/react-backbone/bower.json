@@ -2,7 +2,7 @@
   "name": "todomvc-react-backbone",
   "version": "0.0.0",
   "dependencies": {
-    "react": "~0.10.0",
+    "react": "~0.12.1",
     "backbone": "~1.1.2",
     "backbone.localstorage": "~1.1.7",
     "jquery": "~2.1.0",
