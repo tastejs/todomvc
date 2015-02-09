@@ -1,5 +1,5 @@
 /**
- * @license RequireJS text 2.0.10 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
+ * @license RequireJS text 2.0.12 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/requirejs/text for details
  */
@@ -23,7 +23,7 @@ define(['module'], function (module) {
         masterConfig = (module.config && module.config()) || {};
 
     text = {
-        version: '2.0.10',
+        version: '2.0.12',
 
         strip: function (content) {
             //Strips <?xml ...?> declarations so that external SVG and XML
@@ -162,12 +162,12 @@ define(['module'], function (module) {
 
             // Do not bother with the work if a build and text will
             // not be inlined.
-            if (config.isBuild && !config.inlineText) {
+            if (config && config.isBuild && !config.inlineText) {
                 onLoad();
                 return;
             }
 
-            masterConfig.isBuild = config.isBuild;
+            masterConfig.isBuild = config && config.isBuild;
 
             var parsed = text.parseName(name),
                 nonStripName = parsed.moduleName +
@@ -257,7 +257,9 @@ define(['module'], function (module) {
                 }
                 callback(file);
             } catch (e) {
-                errback(e);
+                if (errback) {
+                    errback(e);
+                }
             }
         };
     } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
@@ -285,12 +287,14 @@ define(['module'], function (module) {
                 //Do not explicitly handle errors, those should be
                 //visible via console output in the browser.
                 if (xhr.readyState === 4) {
-                    status = xhr.status;
+                    status = xhr.status || 0;
                     if (status > 399 && status < 600) {
                         //An http 4xx or 5xx error. Signal an error.
                         err = new Error(url + ' HTTP status: ' + status);
                         err.xhr = xhr;
-                        errback(err);
+                        if (errback) {
+                            errback(err);
+                        }
                     } else {
                         callback(xhr.responseText);
                     }
@@ -347,7 +351,7 @@ define(['module'], function (module) {
             typeof Components !== 'undefined' && Components.classes &&
             Components.interfaces)) {
         //Avert your gaze!
-        Cc = Components.classes,
+        Cc = Components.classes;
         Ci = Components.interfaces;
         Components.utils['import']('resource://gre/modules/FileUtils.jsm');
         xpcIsWindows = ('@mozilla.org/windows-registry-key;1' in Cc);
