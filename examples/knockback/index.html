@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Knockback.js • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
 		<section id="todoapp" kb-inject="AppViewModel">
@@ -51,10 +52,10 @@
 		</footer>
 
 		<!-- App Dependencies -->
-		<script src="bower_components/todomvc-common/base.js"></script>
-		<script src="bower_components/jquery/jquery.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/jquery/dist/jquery.js"></script>
 		<script src="js/lib/knockback-full-stack-0.16.9.min.js"></script>
-		<script src="bower_components/Backbone.localStorage/backbone.localStorage.js"></script>
+		<script src="node_modules/backbone.localStorage/backbone.localStorage.js"></script>
 
 		<!-- App and Components -->
 		<script src="js/lib/knockout-extended-bindings.js"></script>
