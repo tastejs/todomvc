@@ -45,4 +45,4 @@ To run the app, spin up an HTTP server and visit `http://localhost:8000/`.
 
 ## Credit
 
-This TodoMVC implementation was created by the [FOAM team](https://github.com/orgs/foam-framework/members) at Google Waterloo.
+This TodoMVC implementation was created by the [FOAM team](https://github.com/orgs/foam-framework/people) at Google Waterloo.

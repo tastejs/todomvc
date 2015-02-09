@@ -23,15 +23,15 @@ define((function (global) {
 			packages: [
 				{
 					name: 'dojo',
-					location: './bower_components/dojo'
+					location: './node_modules/dojo'
 				},
 				{
 					name: 'dijit',
-					location: './bower_components/dijit'
+					location: './node_modules/dijit'
 				},
 				{
 					name: 'dojox',
-					location: './bower_components/dojox'
+					location: './node_modules/dojox'
 				},
 				{
 					name: 'todo',
@@ -54,7 +54,7 @@ define((function (global) {
 
 		useLoader: {
 			'host-node': 'dojo/dojo',
-			'host-browser': '../../bower_components/dojo/dojo.js'
+			'host-browser': '../../node_modules/dojo/dojo.js'
 		},
 
 		proxyPort: 9000,
@@ -84,6 +84,6 @@ define((function (global) {
 
 		suites: ['test/all'],
 
-		excludeInstrumentation: /^(bower_components|node_modules|test)/
+		excludeInstrumentation: /^(node_modules|test)/
 	};
 })(this));

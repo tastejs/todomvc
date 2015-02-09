@@ -15,21 +15,22 @@ module.exports = function (config) {
 		// list of files / patterns to load in the browser
 		files: [
 			// loaded without require
-			'bower_components/es5-shim/es5-shim.js',
-			'bower_components/es5-shim/es5-sham.js',
+			'node_modules/es5-shim/es5-shim.js',
+			'node_modules/es5-shim/es5-sham.js',
 
-			'bower_components/jquery/dist/jquery.js',
-			'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
-			'bower_components/jasmine-flight/lib/jasmine-flight.js',
+			'node_modules/jquery/dist/jquery.js',
+			'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+			'node_modules/jasmine-flight/lib/jasmine-flight.js',
 
 			// hack to load RequireJS after the shim libs
 			'node_modules/requirejs/require.js',
 			'node_modules/karma-requirejs/lib/adapter.js',
 
 			// loaded with require
-			{ pattern: 'bower_components/flight/**/*.js', included: false },
-			{ pattern: 'bower_components/depot/**/*.js', included: false },
-			{ pattern: 'bower_components/requirejs-text/text.js', included: false },
+			{ pattern: 'node_modules/flight/lib/*.js', included: false },
+			{ pattern: 'node_modules/flight/index.js', included: false },
+			{ pattern: 'node_modules/depot/depot.js', included: false },
+			{ pattern: 'node_modules/requirejs-text/text.js', included: false },
 			{ pattern: 'app/**/*.js', included: false },
 			{ pattern: 'app/**/*.html', included: false },
 			{ pattern: 'test/spec/**/*_spec.js', included: false },

@@ -11,15 +11,15 @@
 		packages: [
 			{
 				name: 'dojo',
-				location: './bower_components/dojo'
+				location: './node_modules/dojo'
 			},
 			{
 				name: 'dijit',
-				location: './bower_components/dijit'
+				location: './node_modules/dijit'
 			},
 			{
 				name: 'dojox',
-				location: './bower_components/dojox'
+				location: './node_modules/dojox'
 			},
 			{
 				name: 'todo',

@@ -1,8 +1,8 @@
 // Dojo build profile for TodoMVC.
 // Usage:
 //		> cd /path/to/todomvc/examples/dojo
-//		> bower install
-//		> ./bower_components/util/buildscripts/build.sh --profile ./profiles/todomvc.profile.js --release
+//		> npm install
+//		> ./node_modules/dojo-util/buildscripts/build.sh --profile ./profiles/todomvc.profile.js --release
 
 /*jshint unused:false*/
 var profile = {
@@ -20,15 +20,15 @@ var profile = {
 	packages: [
 		{
 			name: 'dojo',
-			location: '../bower_components/dojo'
+			location: '../node_modules/dojo'
 		},
 		{
 			name: 'dijit',
-			location: '../bower_components/dijit'
+			location: '../node_modules/dijit'
 		},
 		{
 			name: 'dojox',
-			location: '../bower_components/dojox'
+			location: '../node_modules/dojox'
 		}
 	],
 
@@ -64,7 +64,7 @@ var profile = {
 	},
 
 	staticHasFeatures: {
-		'dojo-sync-loader': false,
+		'dojo-sync-loader': false
 	},
 
 	selectorEngine: 'lite',
