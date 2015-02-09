@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Backbone.js + RequireJS • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
-		<script src="bower_components/todomvc-common/base.js"></script>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
 		<section id="todoapp">
@@ -24,6 +24,7 @@
 			<p>Written by <a href="http://addyosmani.github.com/todomvc/">Addy Osmani</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
-		<script data-main="js/main" src="bower_components/requirejs/require.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script data-main="js/main" src="node_modules/requirejs/require.js"></script>
 	</body>
 </html>
