@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Marionette • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
@@ -19,7 +20,7 @@
 				and <a href="http://github.com/derickbailey">Derick Bailey</a>
 				using <a href="http://marionettejs.com">Backbone.Marionette</a>
 			</p>
-			<p>Further variations on the Backbone.Marionette app are also <a href="https://github.com/marionettejs/backbone.marionette/wiki/Projects-and-websites-using-marionette">available</a>.</p>
+			<p>See who else is using marionette at <a href="http://marionettejs.com/">marionettejs.com</a>.</p>
 		</footer>
 		<script type="text/html" id="template-footer">
 			<span id="todo-count">
@@ -36,9 +37,7 @@
 					<a href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" <% if (!completedCount) { %>class="hidden"<% } %>>
-				Clear completed (<%= completedCount %>)
-			</button>
+			<button id="clear-completed" <% if (!completedCount) { %>class="hidden"<% } %>>Clear completed (<%= completedCount %>)</button>
 		</script>
 		<script type="text/html" id="template-header">
 			<h1>todos</h1>
@@ -58,12 +57,12 @@
 			<ul id="todo-list"></ul>
 		</script>
 		<!-- vendor libraries -->
-		<script src="bower_components/todomvc-common/base.js"></script>
-		<script src="bower_components/jquery/jquery.js"></script>
-		<script src="bower_components/underscore/underscore.js"></script>
-		<script src="bower_components/backbone/backbone.js"></script>
-		<script src="bower_components/backbone.localStorage/backbone.localStorage.js"></script>
-		<script src="bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/jquery/dist/jquery.js"></script>
+		<script src="node_modules/underscore/underscore.js"></script>
+		<script src="node_modules/backbone/backbone.js"></script>
+		<script src="node_modules/backbone.localstorage/backbone.localStorage.js"></script>
+		<script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
 		<!-- application -->
 		<script src="js/TodoMVC.js"></script>
 		<script src="js/TodoMVC.Todos.js"></script>
