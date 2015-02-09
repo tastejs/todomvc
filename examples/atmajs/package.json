@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "dependencies": {
+    "atma-class": "^1.0.68",
+    "includejs": "^0.9.10",
+    "jquery": "^2.1.3",
+    "maskjs": "^0.10.1",
+    "ruta": "^0.1.12",
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.0",
+  }
+}
