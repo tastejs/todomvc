@@ -74,6 +74,7 @@ angular.module('todomvc')
 			todo.title = todo.title.trim();
 
 			if (todo.title === $scope.originalTodo.title) {
+				$scope.editedTodo = null;
 				return;
 			}
 
