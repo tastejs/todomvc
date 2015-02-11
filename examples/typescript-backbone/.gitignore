@@ -3,6 +3,9 @@ node_modules/*
 node_modules/backbone/*
 !node_modules/backbone/backbone.js
 
+node_modules/backbone.localstorage/*
+!node_modules/backbone.localstorage/backbone.localStorage.js
+
 node_modules/jquery/**
 !node_modules/jquery/dist/jquery.js
 
