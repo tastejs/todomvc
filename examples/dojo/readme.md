@@ -32,8 +32,9 @@ To do so, do the following. You need either java or node on your system to run t
 
 ```
 cd /path/to/todomvc/examples/dojo
-bower install
-./bower_components/util/buildscripts/build.sh --profile ./profiles/todomvc.profile.js --release
+npm install
+mv ./node_modules/dojo-util ./node_modules/util
+./node_modules/util/buildscripts/build.sh --profile ./profiles/todomvc.profile.js --release
 ```
 
 

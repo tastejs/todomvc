@@ -47,7 +47,8 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 	<head>
 		<meta charset="utf-8">
 		<title>TypeScript & Backbone.js • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
 		<section id="todoapp">
@@ -95,18 +96,16 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 			<% } %>
 			<% if (done) { %>
 				<span class="todo-clear">
-					<button id="clear-completed">
-						Clear completed (<span class="number-done"><%= done %></span>)
-					</button>
+					<button id="clear-completed">Clear completed (<span class="number-done"><%= done %></span>)</button>
 				</span>
 			<% } %>
 		</script>
 
-		<script src="bower_components/todomvc-common/base.js"></script>
-		<script src="bower_components/jquery/jquery.js"></script>
-		<script src="bower_components/lodash/lodash.js"></script>
-		<script src="bower_components/backbone/backbone.js"></script>
-		<script src="js/libs/backbone/backbone.localStorage.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/jquery/dist/jquery.js"></script>
+		<script src="node_modules/lodash/index.js"></script>
+		<script src="node_modules/backbone/backbone.js"></script>
+		<script src="node_modules/backbone.localstorage/backbone.localStorage.js"></script>
 		<script src="js/app.js"></script>
 	</body>
 </html>

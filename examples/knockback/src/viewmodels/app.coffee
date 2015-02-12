@@ -11,12 +11,12 @@ window.AppViewModel = ->
 
 	# shared observables
 	@list_filter_mode = ko.observable('')
-	filter_fn = ko.computed(=>
+	filter_fn = ko.computed =>
 		switch @list_filter_mode()
-			when 'active' then return (model) -> return model.completed()
-			when 'completed' then return (model) -> return not model.completed()
-			else return -> return false
-	)
+			when 'active' then return (model) -> return not model.completed()
+			when 'completed' then return (model) -> return model.completed()
+			else return -> return true
+
 	@todos = kb.collectionObservable(@collections.todos, {view_model: TodoViewModel, filters: filter_fn})
 	@todos_changed = kb.triggeredObservable(@collections.todos, 'change add remove')
 	@tasks_exist = ko.computed(=> @todos_changed(); return !!@collections.todos.length)
@@ -35,18 +35,16 @@ window.AppViewModel = ->
 	#############################
 	# Main Section
 	#############################
-	@remaining_count = ko.computed(=> @todos_changed(); return @collections.todos.remainingCount())
-	@completed_count = ko.computed(=> @todos_changed(); return @collections.todos.completedCount())
-	@all_completed = ko.computed(
+	@remaining_count = ko.computed => @todos_changed(); return @collections.todos.remainingCount()
+	@completed_count = ko.computed => @todos_changed(); return @collections.todos.completedCount()
+	@all_completed = ko.computed
 		read: => return not @remaining_count()
 		write: (completed) => @collections.todos.completeAll(completed)
-	)
 
 	#############################
 	# Footer Section
 	#############################
-	@onDestroyCompleted = =>
-		@collections.todos.destroyCompleted()
+	@onDestroyCompleted = => @collections.todos.destroyCompleted()
 
 	#############################
 	# Localization
