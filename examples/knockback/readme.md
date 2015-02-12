@@ -30,10 +30,10 @@ To install CoffeeScript globally:
 
 To compile once:
 
-	# from architecture-examples/knockback
+	# from examples/knockback
 	cake build
 
 To compile on save
 
-	# from architecture-examples/knockback
+	# from examples/knockback
 	cake watch
