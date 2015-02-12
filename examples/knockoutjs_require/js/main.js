@@ -5,7 +5,7 @@
 // Require.js allows us to configure shortcut alias
 require.config({
 	paths: {
-		knockout: '../bower_components/knockout.js/knockout'
+		knockout: '../node_modules/knockout/build/output/knockout-latest'
 	}
 });
 
