@@ -72,7 +72,7 @@
 			revertTitleEdit: function() {
 				this.view.$().removeClass('editing');
 				// restore title
-				this.view.$(".edit").val(this.model.get('title'));
+				this.view.$('.edit').val(this.model.get('title'));
 			}
 		}).persist($$.adapter.localStorage, {
 			collection: 'todos-agilityjs'
