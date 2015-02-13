@@ -2,7 +2,7 @@ node_modules/agilityjs/*
 !node_modules/agilityjs/agility.js
 
 node_modules/jquery/*
-!node_modules/jquery/dist/jquery.min.js
+!node_modules/jquery/dist/jquery.js
 
 node_modules/todomvc-app-css/*
 !node_modules/todomvc-app-css/index.css
