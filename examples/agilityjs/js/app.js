@@ -189,5 +189,8 @@
 		if (location.hash) {
 			$(window).trigger('hashchange');
 		}
+
+		// autofocus
+		$('#new-todo').focus();
 	});
 })(window.jQuery, window.agility);
