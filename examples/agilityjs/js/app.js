@@ -163,7 +163,7 @@
 				}
 			},
 			applyFilter: function (hash) {
-				var isVisible = this.filters[hash || location.hash];
+				var isVisible = this.filters[hash || location.hash || '#/'];
 				if (isVisible) {
 					this.each(function (id, item) {
 						item.view.$().toggleClass('hidden', !isVisible(item));
