@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "agilityjs": "git://github.com/arturadib/agility",
     "jquery": "^2.1.3",
     "todomvc-app-css": "^1.0.0",
     "todomvc-common": "^1.0.1"
