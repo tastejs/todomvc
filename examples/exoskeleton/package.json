@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "exoskeleton": "~0.3.0",
+    "backbone.localstorage": "git://github.com/yavorsky/Backbone.localStorage.git#a47fe5aa410f70dae9066c439d84483e4b32507e",
+    "todomvc-app-css": "^1.0.0",
+    "todomvc-common": "^1.0.1",
+    "microtemplates": "~0.1.0"
+  }
+}
