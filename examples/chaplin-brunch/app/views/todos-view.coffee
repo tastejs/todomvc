@@ -18,7 +18,7 @@ module.exports = class TodosView extends CollectionView
     @renderCheckbox()
 
   renderCheckbox: ->
-    @find('#toggle-all').setAttribute 'checked', @collection.allAreCompleted()
+    @find('#toggle-all').checked = @collection.allAreCompleted()
     utils.toggle @el, @collection.length isnt 0
 
   toggleCompleted: (event) ->
