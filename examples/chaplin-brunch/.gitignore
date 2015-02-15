@@ -1,4 +1,3 @@
-# NPM packages.
 node_modules/chaplin/*
 !node_modules/chaplin/chaplin.js
 
@@ -18,11 +17,9 @@ node_modules/todomvc-common/*
 !node_modules/todomvc-common/base.css
 !node_modules/todomvc-common/base.js
 
-node_modules/coffee-script-brunch/
-node_modules/javascript-brunch/
-node_modules/handlebars-brunch/
-node_modules/uglify-js-brunch/
+node_modules/coffee-script-brunch/*
+node_modules/javascript-brunch/*
+node_modules/handlebars-brunch/*
+node_modules/uglify-js-brunch/*
 
-
-# Brunch folder for temporary files.
-tmp/
+tmp/*
