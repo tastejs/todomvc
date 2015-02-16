@@ -1,30 +1,17 @@
 {
-  "author": "Paul Miller (http://paulmillr.com/)",
-  "name": "brunch-with-chaplin-todomvc",
-  "description": "Brunch with Chaplin TODOMVC app",
-  "version": "0.0.1",
-  "engines": {
-    "node": "0.8 || 0.9"
-  },
-  "scripts": {
-    "start": "brunch watch --server",
-    "test": "brunch test"
-  },
+  "private": true,
   "dependencies": {
+    "chaplin": "^1.0.0",
+    "exoskeleton": "^0.6.3",
+    "backbone.localstorage": "^1.1.16",
+    "backbone.nativeview": "^0.3.2",
+
+    "todomvc-app-css": "^1.0.0",
+    "todomvc-common": "^1.0.1",
+
     "javascript-brunch": ">= 1.0 < 1.8",
     "coffee-script-brunch": ">= 1.0 < 1.8",
-
-    "css-brunch": ">= 1.0 < 1.8",
-    "stylus-brunch": ">= 1.0 < 1.8",
-
     "handlebars-brunch": ">= 1.0 < 1.8",
-
-    "uglify-js-brunch": ">= 1.0 < 1.8",
-    "clean-css-brunch": ">= 1.0 < 1.8"
-  },
-  "devDependencies": {
-    "chai": "~1.2.0",
-    "sinon": "~1.4.2",
-    "sinon-chai": "~2.1.2"
+    "uglify-js-brunch": ">= 1.0 < 1.8"
   }
 }

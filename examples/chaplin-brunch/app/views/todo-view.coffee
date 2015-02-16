@@ -14,6 +14,14 @@ module.exports = class TodoView extends View
   template: require './templates/todo'
   tagName: 'li'
 
+  render: ->
+    super
+    @toggleClass()
+
+  toggleClass: ->
+    isCompleted = @model.get('completed')
+    @el.classList.toggle 'completed', isCompleted
+
   clear: ->
     @model.destroy()
 
@@ -22,7 +30,9 @@ module.exports = class TodoView extends View
 
   edit: ->
     @el.classList.add 'editing'
-    @find('.edit').focus()
+    input = @find('.edit')
+    input.focus()
+    input.value = input.value;
 
   save: (event) ->
     ENTER_KEY = 13
