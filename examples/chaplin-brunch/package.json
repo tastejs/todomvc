@@ -3,7 +3,7 @@
   "dependencies": {
     "chaplin": "^1.0.0",
     "exoskeleton": "^0.6.3",
-    "backbone.localstorage": "git://github.com/yavorsky/Backbone.localStorage.git#a47fe5aa410f70dae9066c439d84483e4b32507e",
+    "backbone.localstorage": "^1.1.16",
     "backbone.nativeview": "^0.3.2",
 
     "todomvc-app-css": "^1.0.0",
