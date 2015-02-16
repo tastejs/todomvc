@@ -602,6 +602,17 @@ module.exports = TodoView = (function(_super) {
 
   TodoView.prototype.tagName = 'li';
 
+  TodoView.prototype.render = function() {
+    TodoView.__super__.render.apply(this, arguments);
+    return this.toggleClass();
+  };
+
+  TodoView.prototype.toggleClass = function() {
+    var isCompleted;
+    isCompleted = this.model.get('completed');
+    return this.el.classList.toggle('completed', isCompleted);
+  };
+
   TodoView.prototype.clear = function() {
     return this.model.destroy();
   };
@@ -611,8 +622,11 @@ module.exports = TodoView = (function(_super) {
   };
 
   TodoView.prototype.edit = function() {
+    var input;
     this.el.classList.add('editing');
-    return this.find('.edit').focus();
+    input = this.find('.edit');
+    input.focus();
+    return input.value = input.value;
   };
 
   TodoView.prototype.save = function(event) {
