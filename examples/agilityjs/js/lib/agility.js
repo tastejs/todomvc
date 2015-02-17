@@ -1,6 +1,6 @@
 /*
 
-  Agility.js
+  Agility.js    
   Licensed under the MIT license
   Copyright (c) Artur B. Adib, 2011
   http://agilityjs.com
@@ -15,11 +15,11 @@
   if (!window.jQuery) {
     throw "agility.js: jQuery not found";
   }
-
+  
   // Local references
   var document = window.document,
       location = window.location,
-
+  
   // In case $ is being used by another lib
   $ = jQuery,
 
@@ -28,13 +28,13 @@
 
   // Internal utility functions
   util = {},
-
+  
   // Default object prototype
   defaultPrototype = {},
-
+  
   // Global object counter
   idCounter = 0,
-
+  
   // Constant
   ROOT_SELECTOR = '&';
 
@@ -52,7 +52,7 @@
       return new Aux();
     };
   }
-
+  
   // Modified from John Resig's Object.getPrototypeOf()
   // The condition below ensures we override other manual implementations (most are not adequate)
   if (!Object.getPrototypeOf || Object.getPrototypeOf.toString().search(/native code/i)<0) {
@@ -66,21 +66,21 @@
         return object.constructor.prototype;
       };
     }
-  }
+  }  
 
 
   //////////////////////////////////////////////////////////////////////////
   //
   //  util.*
   //
-
+  
   // Checks if provided obj is an agility object
   util.isAgility = function(obj){
    return obj._agility === true;
   };
-
+  
   // Scans object for functions (depth=2) and proxies their 'this' to dest.
-  // * To ensure it works with previously proxied objects, we save the original function as
+  // * To ensure it works with previously proxied objects, we save the original function as 
   //   a '._preProxy' method and when available always use that as the proxy source.
   // * To skip a given method, create a sub-method called '_noProxy'.
   util.proxyAll = function(obj, dest){
@@ -109,7 +109,7 @@
       } // if not func
     } // for attr1
   }; // proxyAll
-
+  
   // Reverses the order of events attached to an object
   util.reverseEvents = function(obj, eventType){
     var events = $(obj).data('events');
@@ -123,7 +123,7 @@
       events[eventType] = reverseEvents;
     }
   }; //reverseEvents
-
+  
   // Determines # of attributes of given object (prototype inclusive)
   util.size = function(obj){
     var size = 0, key;
@@ -132,7 +132,7 @@
     }
     return size;
   };
-
+  
   // Find controllers to be extended (with syntax '~'), redefine those to encompass previously defined controllers
   // Example:
   //   var a = $$({}, '<button>A</button>', {'click &': function(){ alert('A'); }});
@@ -148,7 +148,7 @@
           matches = controllerName.match(/^(\~)*(.+)/); // 'click button', '~click button', '_create', etc
           extend = matches[1];
           eventName = matches[2];
-
+        
           if (!extend) return; // nothing to do
 
           // Redefine controller:
@@ -166,16 +166,16 @@
       })();
     } // for controllerName
   };
-
+  
   //////////////////////////////////////////////////////////////////////////
   //
   //  Default object prototype
   //
-
+  
   defaultPrototype = {
-
+    
     _agility: true,
-
+    
     //////////////////////////////////////////////////////////////////////////
     //
     //  _container
@@ -183,7 +183,7 @@
     //    API and related auxiliary functions for storing child Agility objects.
     //    Not all methods are exposed. See 'shortcuts' below for exposed methods.
     //
-
+    
     _container: {
 
       // Adds child object to container, appends/prepends/etc view, listens for child removal
@@ -196,28 +196,28 @@
         this.trigger(method, [obj, selector]);
         obj._parent = this;
         // ensures object is removed from container when destroyed:
-        obj.bind('destroy', function(event, id){
+        obj.bind('destroy', function(event, id){ 
           self._container.remove(id);
         });
         return this;
       },
 
-      append: function(obj, selector) {
-          return this._container._insertObject.call(this, obj, selector, 'append');
+      append: function(obj, selector) { 
+          return this._container._insertObject.call(this, obj, selector, 'append'); 
       },
 
-      prepend: function(obj, selector) {
-          return this._container._insertObject.call(this, obj, selector, 'prepend');
+      prepend: function(obj, selector) { 
+          return this._container._insertObject.call(this, obj, selector, 'prepend'); 
       },
 
-      after: function(obj, selector) {
-          return this._container._insertObject.call(this, obj, selector, 'after');
+      after: function(obj, selector) { 
+          return this._container._insertObject.call(this, obj, selector, 'after'); 
       },
 
-      before: function(obj, selector) {
-          return this._container._insertObject.call(this, obj, selector, 'before');
+      before: function(obj, selector) { 
+          return this._container._insertObject.call(this, obj, selector, 'before'); 
       },
-
+      
       // Removes child object from container
       remove: function(id){
         delete this._container.children[id];
@@ -230,7 +230,7 @@
         $.each(this._container.children, fn);
         return this; // for chainable calls
       },
-
+      
       // Removes all objects in container
       empty: function(){
         this.each(function(){
@@ -238,12 +238,12 @@
         });
         return this;
       },
-
+      
       // Number of children
       size: function() {
         return util.size(this._container.children);
       }
-
+      
     },
 
     //////////////////////////////////////////////////////////////////////////
@@ -261,7 +261,7 @@
       //    'event selector' : DOM event using 'selector'
       // Returns { type:'event' [, selector:'selector'] }
       parseEventStr: function(eventStr){
-        var eventObj = { type:eventStr },
+        var eventObj = { type:eventStr }, 
             spacePos = eventStr.search(/\s/);
         // DOM event 'event selector', e.g. 'click button'
         if (spacePos > -1) {
@@ -280,7 +280,7 @@
           if (eventObj.selector === ROOT_SELECTOR) {
             this.view.$().bind(eventObj.type, fn);
           }
-          else {
+          else {          
             this.view.$().delegate(eventObj.selector, eventObj.type, fn);
           }
         }
@@ -300,7 +300,7 @@
           if (eventObj.selector === ROOT_SELECTOR) {
             this.view.$().trigger(eventObj.type, params);
           }
-          else {
+          else {          
             this.view.$().find(eventObj.selector).trigger(eventObj.type, params);
           }
         }
@@ -319,7 +319,7 @@
         }
         return this; // for chainable calls
       } // trigger
-
+      
     }, // _events
 
     //////////////////////////////////////////////////////////////////////////
@@ -329,7 +329,7 @@
     //    Main model API. All methods are exposed, but methods starting with '_'
     //    are meant to be used internally only.
     //
-
+       
     model: {
 
       // Setter
@@ -365,7 +365,7 @@
         });
         return this; // for chainable calls
       },
-
+      
       // Getter
       get: function(arg){
         // Full model getter
@@ -373,31 +373,31 @@
           return this.model._data;
         }
         // Attribute getter
-        if (typeof arg === 'string') {
+        if (typeof arg === 'string') {            
           return this.model._data[arg];
         }
         throw 'agility.js: unknown argument for getter';
       },
-
+      
       // Resetter (to initial model upon object initialization)
       reset: function(){
         this.model.set(this.model._initData, {reset:true});
         return this; // for chainable calls
       },
-
+      
       // Number of model properties
       size: function(){
         return util.size(this.model._data);
       },
-
+      
       // Convenience function - loops over each model property
       each: function(fn){
         $.each(this.model._data, fn);
         return this; // for chainable calls
       }
-
+      
     }, // model prototype
-
+  
     //////////////////////////////////////////////////////////////////////////
     //
     //  View
@@ -405,30 +405,30 @@
     //    Main view API. All methods are exposed, but methods starting with '_'
     //    are meant to be used internally only.
     //
-
+  
     view: {
-
+        
       // Defaults
       format: '<div/>',
       style: '',
-
+      
       // Shortcut to view.$root or view.$root.find(), depending on selector presence
       $: function(selector){
         return (!selector || selector === ROOT_SELECTOR) ? this.view.$root : this.view.$root.find(selector);
       },
-
+      
       // Render $root
       // Only function to access $root directly other than $()
       render: function(){
         // Without format there is no view
         if (this.view.format.length === 0) {
           throw "agility.js: empty format in view.render()";
-        }
+        }                
         if (this.view.$root.size() === 0) {
           this.view.$root = $(this.view.format);
         }
         else {
-          this.view.$root.html( $(this.view.format).html() ); // can't overwrite $root as this would reset its presence in the DOM and all events already bound, and
+          this.view.$root.html( $(this.view.format).html() ); // can't overwrite $root as this would reset its presence in the DOM and all events already bound, and 
         }
         // Ensure we have a valid (non-empty) $root
         if (this.view.$root.size() === 0) {
@@ -436,7 +436,7 @@
         }
         return this;
       }, // render
-
+  
       // Parse data-bind string of the type '[attribute][=] variable[, [attribute][=] variable ]...'
       // If the variable is not an attribute, it must occur by itself
       //   all pairs in the list are assumed to be attributes
@@ -447,7 +447,7 @@
             regex = /([a-zA-Z0-9_\-]+)(?:[\s=]+([a-zA-Z0-9_\-]+))?/,
             keyAssigned = false,
             matched;
-
+        
         if (pairs.length > 0) {
           for (var i = 0; i < pairs.length; i++) {
             matched = pairs[i].match(regex);
@@ -461,8 +461,8 @@
             if (matched) {
               if (typeof(matched[2]) === "undefined" || matched[2] === "") {
                 if (keyAssigned) {
-                  throw new Error("You may specify only one key (" +
-                    keyAssigned + " has already been specified in data-bind=" +
+                  throw new Error("You may specify only one key (" + 
+                    keyAssigned + " has already been specified in data-bind=" + 
                     str + ")");
                 } else {
                   keyAssigned = matched[1];
@@ -474,10 +474,10 @@
             } // if (matched)
           } // for (pairs.length)
         } // if (pairs.length > 0)
-
+        
         return obj;
       },
-
+      
       // Apply two-way (DOM <--> Model) bindings to elements with 'data-bind' attributes
       bindings: function(){
         var self = this;
@@ -502,13 +502,13 @@
               } // for (bindData.attr)
             } // if (bindData.attr)
           }; // bindAttributesOneWay()
-
+          
           // <input type="checkbox">: 2-way binding
           if ($node.is('input:checkbox')) {
             // Model --> DOM
             self.bind('_change:'+bindData.key, function(){
               $node.prop("checked", self.model.get(bindData.key)); // this won't fire a DOM 'change' event, saving us from an infinite event loop (Model <--> DOM)
-            });
+            });            
             // DOM --> Model
             $node.change(function(){
               var obj = {};
@@ -518,7 +518,7 @@
             // 1-way attribute binding
             bindAttributesOneWay();
           }
-
+          
           // <select>: 2-way binding
           else if ($node.is('select')) {
             // Model --> DOM
@@ -526,7 +526,7 @@
               var nodeName = $node.attr('name');
               var modelValue = self.model.get(bindData.key);
               $node.val(modelValue);
-            });
+            });            
             // DOM --> Model
             $node.change(function(){
               var obj = {};
@@ -536,7 +536,7 @@
             // 1-way attribute binding
             bindAttributesOneWay();
           }
-
+          
           // <input type="radio">: 2-way binding
           else if ($node.is('input:radio')) {
             // Model --> DOM
@@ -544,7 +544,7 @@
               var nodeName = $node.attr('name');
               var modelValue = self.model.get(bindData.key);
               $node.siblings('input[name="'+nodeName+'"]').filter('[value="'+modelValue+'"]').prop("checked", true); // this won't fire a DOM 'change' event, saving us from an infinite event loop (Model <--> DOM)
-            });
+            });            
             // DOM --> Model
             $node.change(function(){
               if (!$node.prop("checked")) return; // only handles check=true events
@@ -555,7 +555,7 @@
             // 1-way attribute binding
             bindAttributesOneWay();
           }
-
+          
           // <input type="search"> (model is updated after every keypress event)
           else if ($node.is('input[type="search"]')) {
             // Model --> DOM
@@ -576,11 +576,11 @@
           }
 
           // <input type="text">, <input>, and <textarea>: 2-way binding
-          else if ($node.is('input:text, textarea')) {
+          else if ($node.is('input:text, input[type!="search"], textarea')) {
             // Model --> DOM
             self.bind('_change:'+bindData.key, function(){
               $node.val(self.model.get(bindData.key)); // this won't fire a DOM 'change' event, saving us from an infinite event loop (Model <--> DOM)
-            });
+            });            
             // Model <-- DOM
             $node.change(function(){
               var obj = {};
@@ -590,12 +590,13 @@
             // 1-way attribute binding
             bindAttributesOneWay();
           }
-
+          
           // all other <tag>s: 1-way binding
           else {
             if (bindData.key) {
               self.bind('_change:'+bindData.key, function(){
-                if (self.model.get(bindData.key)) {
+                var key = self.model.get(bindData.key);
+                if (key || key===0) {
                   $node.text(self.model.get(bindData.key).toString());
                 } else {
                   $node.text('');
@@ -607,7 +608,7 @@
         }); // nodes.each()
         return this;
       }, // bindings()
-
+      
       // Triggers _change and _change:* events so that view is updated as per view.bindings()
       sync: function(){
         var self = this;
@@ -655,9 +656,9 @@
         }
         return this;
       }
-
+      
     }, // view prototype
-
+  
     //////////////////////////////////////////////////////////////////////////
     //
     //  Controller
@@ -666,16 +667,16 @@
     //    with '_' are of internal use only, and take precedence over any other
     //    handler without that prefix. (See trigger()).
     //
-
+   
     controller: {
-
+  
       // Triggered after self creation
       _create: function(event){
         this.view.stylize();
         this.view.bindings(); // Model-View bindings
         this.view.sync(); // syncs View with Model
       },
-
+  
       // Triggered upon removing self
       _destroy: function(event){
         // destroy any appended agility objects
@@ -707,23 +708,23 @@
       },
 
       // Triggered after a child obj is removed from container (or self-removed)
-      _remove: function(event, id){
+      _remove: function(event, id){        
       },
 
       // Triggered after model is changed
       '_change': function(event){
       }
-
+      
     }, // controller prototype
 
     //////////////////////////////////////////////////////////////////////////
     //
     //  Shortcuts
     //
-
+        
     //
     // Self
-    //
+    //    
     destroy: function() {
       this.trigger('destroy', this._id); // parent must listen to 'remove' event and handle container removal!
       // can't return this as it might not exist anymore!
@@ -731,7 +732,7 @@
     parent: function(){
       return this._parent;
     },
-
+    
     //
     // _container shortcuts
     //
@@ -776,25 +777,25 @@
       this._events.trigger.apply(this, arguments);
       return this; // for chainable calls
     }
-
+      
   }; // prototype
-
+  
   //////////////////////////////////////////////////////////////////////////
   //
   //  Main object builder
   //
-
+  
   // Main agility object builder
   agility = function(){
-
+    
     // Real array of arguments
     var args = Array.prototype.slice.call(arguments, 0),
-
+    
     // Object to be returned by builder
     object = {},
-
+    
     prototype = defaultPrototype;
-
+            
     //////////////////////////////////////////////////////////////////////////
     //
     //  Define object prototype
@@ -802,10 +803,10 @@
 
     // Inherit object prototype
     if (typeof args[0] === "object" && util.isAgility(args[0])) {
-      prototype = args[0];
+      prototype = args[0];    
       args.shift(); // remaining args now work as though object wasn't specified
     } // build from agility object
-
+    
     // Build object from prototype as well as the individual prototype parts
     // This enables differential inheritance at the sub-object level, e.g. object.view.format
     object = Object.create(prototype);
@@ -835,7 +836,7 @@
     // Just the default prototype
     if (args.length === 0) {
     }
-
+  
     // Prototype differential from single {model,view,controller} object
     else if (args.length === 1 && typeof args[0] === 'object' && (args[0].model || args[0].view || args[0].controller) ) {
       for (var prop in args[0]) {
@@ -855,10 +856,10 @@
         }
       }
     } // {model, view, controller} arg
-
+    
     // Prototype differential from separate {model}, {view}, {controller} arguments
     else {
-
+      
       // Model from string
       if (typeof args[0] === 'object') {
         $.extend(object.model._data, args[0]);
@@ -870,21 +871,21 @@
       // View format from shorthand string (..., '<div>whatever</div>', ...)
       if (typeof args[1] === 'string') {
         object.view.format = args[1]; // extend view with .format
-      }
+      }  
       // View from object (..., {format:'<div>whatever</div>'}, ...)
       else if (typeof args[1] === 'object') {
         $.extend(object.view, args[1]);
-      }
+      }      
       else if (args[1]) {
         throw "agility.js: unknown argument type (view)";
       }
-
+      
       // View style from shorthand string (..., ..., 'p {color:red}', ...)
       if (typeof args[2] === 'string') {
         object.view.style = args[2];
         args.splice(2, 1); // so that controller code below works
       }
-
+      
       // Controller from object (..., ..., {method:function(){}})
       if (typeof args[2] === 'object') {
         $.extend(object.controller, args[2]);
@@ -893,14 +894,14 @@
       else if (args[2]) {
         throw "agility.js: unknown argument type (controller)";
       }
-
+      
     } // ({model}, {view}, {controller}) args
-
+    
     //////////////////////////////////////////////////////////////////////////
     //
     //  Bootstrap: Bindings, initializations, etc
     //
-
+    
     // Save model's initial state (so it can be .reset() later)
     object.model._initData = $.extend({}, object.model._data);
 
@@ -909,7 +910,7 @@
 
     // Initialize $root, needed for DOM events binding below
     object.view.render();
-
+  
     // Bind all controllers to their events
 
     var bindEvent = function(ev, handler){
@@ -922,24 +923,24 @@
       var events = eventStr.split(';');
       var handler = object.controller[eventStr];
       $.each(events, function(i, ev){
-        ev = ev.trim();
+        ev = $.trim(ev);
         bindEvent(ev, handler);
       });
     }
 
 
     // Auto-triggers create event
-    object.trigger('create');
-
+    object.trigger('create');    
+    
     return object;
-
+    
   }; // agility
-
+  
   //////////////////////////////////////////////////////////////////////////
   //
   //  Global objects
   //
-
+  
   // $$.document is a special Agility object, whose view is attached to <body>
   // This object is the main entry point for all DOM operations
   agility.document = agility({
@@ -952,10 +953,10 @@
       _create: function(){}
     }
   });
-
+  
   // Shortcut to prototype for plugins
   agility.fn = defaultPrototype;
-
+  
   // isAgility test
   agility.isAgility = function(obj) {
     if (typeof obj !== 'object') return false;
@@ -969,11 +970,11 @@
   //
   //  Bundled plugin: persist
   //
-
+  
   // Main initializer
   agility.fn.persist = function(adapter, params){
     var id = 'id'; // name of id attribute
-
+        
     this._data.persist = $.extend({adapter:adapter}, params);
     this._data.persist.openRequests = 0;
     if (params && params.id) {
@@ -981,7 +982,7 @@
     }
 
     // Creates persist methods
-
+    
     // .save()
     // Creates new model or update existing one, depending on whether model has 'id' property
     this.save = function(){
@@ -1016,16 +1017,16 @@
           self.trigger('persist:save:error');
         }
       });
-
+      
       return this; // for chainable calls
     }; // save()
-
+  
     // .load()
     // Loads model with given id
     this.load = function(){
       var self = this;
       if (this.model.get(id) === undefined) throw 'agility.js: load() needs model id';
-
+    
       if (this._data.persist.openRequests === 0) {
         this.trigger('persist:start');
       }
@@ -1042,12 +1043,12 @@
         success: function(data, textStatus, jqXHR){
           self.model.set(data);
           self.trigger('persist:load:success');
-        },
+        },      
         error: function(){
           self.trigger('persist:error');
           self.trigger('persist:load:error');
         }
-      });
+      });      
 
       return this; // for chainable calls
     }; // load()
@@ -1057,7 +1058,7 @@
     this.erase = function(){
       var self = this;
       if (this.model.get(id) === undefined) throw 'agility.js: erase() needs model id';
-
+    
       if (this._data.persist.openRequests === 0) {
         this.trigger('persist:start');
       }
@@ -1074,26 +1075,26 @@
         success: function(data, textStatus, jqXHR){
           self.destroy();
           self.trigger('persist:erase:success');
-        },
+        },      
         error: function(){
           self.trigger('persist:error');
           self.trigger('persist:erase:error');
         }
-      });
+      });            
 
       return this; // for chainable calls
     }; // erase()
 
     // .gather()
     // Loads collection and appends/prepends (depending on method) at selector. All persistence data including adapter comes from proto, not self
-    this.gather = function(proto, method, selectorOrQuery, query){
+    this.gather = function(proto, method, selectorOrQuery, query){      
       var selector, self = this;
       if (!proto) throw "agility.js plugin persist: gather() needs object prototype";
       if (!proto._data.persist) throw "agility.js plugin persist: prototype doesn't seem to contain persist() data";
 
       // Determines arguments
       if (query) {
-        selector = selectorOrQuery;
+        selector = selectorOrQuery;        
       }
       else {
         if (typeof selectorOrQuery === 'string') {
@@ -1132,13 +1133,13 @@
           self.trigger('persist:gather:error');
         }
       });
-
+    
       return this; // for chainable calls
     }; // gather()
-
+  
     return this; // for chainable calls
   }; // fn.persist()
-
+  
   // Persistence adapters
   // These are functions. Required parameters:
   //    {type: 'GET' || 'POST' || 'PUT' || 'DELETE'}
@@ -1152,5 +1153,5 @@
     }, _params);
     $.ajax(params);
   };
-
+  
 })(window);

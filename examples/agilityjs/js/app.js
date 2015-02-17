@@ -72,7 +72,7 @@
 			revertTitleEdit: function() {
 				this.view.$().removeClass('editing');
 				// restore title
-				this.view.$(".edit").val(this.model.get('title'));
+				this.view.$('.edit').val(this.model.get('title'));
 			}
 		}).persist($$.adapter.localStorage, {
 			collection: 'todos-agilityjs'
@@ -163,7 +163,7 @@
 				}
 			},
 			applyFilter: function (hash) {
-				var isVisible = this.filters[hash || location.hash];
+				var isVisible = this.filters[hash || location.hash || '#/'];
 				if (isVisible) {
 					this.each(function (id, item) {
 						item.view.$().toggleClass('hidden', !isVisible(item));
@@ -189,5 +189,8 @@
 		if (location.hash) {
 			$(window).trigger('hashchange');
 		}
+
+		// autofocus
+		$('#new-todo').focus();
 	});
 })(window.jQuery, window.agility);
