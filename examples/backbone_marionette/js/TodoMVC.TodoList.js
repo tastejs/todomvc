@@ -57,13 +57,13 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 		}
 	});
 
-	// TodoList Initializer
+	// On App start
 	// --------------------
 	//
 	// Get the TodoList up and running by initializing the mediator
 	// when the the application is started, pulling in all of the
 	// existing Todo items and displaying them.
-	TodoList.addInitializer(function () {
+	App.on('start', function () {
 		var controller = new TodoList.Controller();
 		controller.router = new TodoList.Router({
 			controller: controller
