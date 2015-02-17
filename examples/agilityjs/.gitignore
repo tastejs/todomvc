@@ -1,0 +1,6 @@
+node_modules
+
+!node_modules/agilityjs/agility.js
+!node_modules/jquery/jquery.js
+!node_modules/todomvc-common/base.css
+!node_modules/todomvc-common/base.js
