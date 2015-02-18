@@ -1448,38 +1448,41 @@
 	},
 	"marionettejs": {
 		"name": "Backbone.Marionette",
-		"description": "Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.",
+		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",
 		"homepage": "marionettejs.com",
 		"examples": [{
-			"name": "Example",
+			"name": "Example Basic Marionette",
 			"url": "examples/backbone_marionette"
+		}, {
+			"name": "Example Marionette with RequireJS",
+			"url": "examples/backbone_marionette_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "API Reference",
-				"url": "https://github.com/marionettejs/backbone.marionette/tree/master/docs"
+				"name": "Docs",
+				"url": "http://marionettejs.com/docs/current/"
 			}, {
-				"name": "Applications built with Backbone.Marionette",
-				"url": "https://github.com/marionettejs/backbone.marionette/wiki/Projects-and-websites-using-marionette"
+				"name": "Gitter",
+				"url": "https://gitter.im/marionettejs/backbone.marionette"
 			}, {
-				"name": "Introduction to Composite JavaScript Apps",
-				"url": "https://github.com/marionettejs/backbone.marionette/wiki/Introduction-to-composite-javascript-apps"
+				"name": "YouTube - Dancing with Marionette",
+				"url": "https://www.youtube.com/channel/UC6dVRPnSACav2AYB5XG7BZw"
 			}, {
-				"name": "FAQ",
-				"url": "https://github.com/marionettejs/backbone.marionette/wiki#frequently-asked-questions"
+				"name": "Marionette Inspector",
+				"url": "http://marionettejs.com/inspector/"
 			}, {
-				"name": "Backbone.Marionette on GitHub",
+				"name": "MarionetteJS on GitHub",
 				"url": "https://github.com/marionettejs/backbone.marionette"
 			}]
 		}, {
 			"heading": "Articles and Guides",
 			"links": [{
-				"name": "A Thorough Introduction to Backbone.Marionette",
-				"url": "http://coding.smashingmagazine.com/2013/02/11/introduction-backbone-marionette"
+				"name": "Marionette 101",
+				"url": "https://www.youtube.com/watch?v=7yZKsgKxziw#t=106"
 			}, {
-				"name": "Backbone Marionette: Better Backbone Apps",
-				"url": "http://www.joezimjs.com/javascript/backbone-marionette-better-backbone-apps"
+				"name": "Marionette - The Backbone Framework",
+				"url": "https://www.youtube.com/watch?v=EvQnntaqVdE#t=12"
 			}]
 		}, {
 			"heading": "Community",
