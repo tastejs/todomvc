@@ -1,47 +1,4 @@
 {
-	"agilityjs": {
-		"name": "Agility.js",
-		"description": "Agility.js is an MVC library for Javascript that lets you write maintainable and reusable browser code without the verbose or infrastructural overhead found in other MVC libraries. The goal is to enable developers to write web apps at least as quickly as with jQuery, while simplifying long-term maintainability through MVC objects.",
-		"homepage": "agilityjs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/agilityjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Official Documentation",
-				"url": "http://agilityjs.com/docs/docs.html"
-			}, {
-				"name": "Try it out on JSBin",
-				"url": "http://jsbin.com/agility/224/edit"
-			}, {
-				"name": "Applications built with Agility.js",
-				"url": "http://agilityjs.com/docs/gallery.html"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Step by step from jQuery to Agility.js",
-				"url": "https://gist.github.com/pindia/3166678"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Google Groups mailing list",
-				"url": "http://groups.google.com/group/agilityjs"
-			}, {
-				"name": "agility.js on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/agility.js"
-			}, {
-				"name": "Agility.js on Twitter",
-				"url": "https://twitter.com/agilityjs"
-			}, {
-				"name": "Agility.js on Google+",
-				"url": "https://plus.google.com/116251025970928820842/posts"
-			}]
-		}]
-	},
 	"angularjs": {
 		"name": "AngularJS",
 		"description": "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.",

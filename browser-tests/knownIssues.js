@@ -82,7 +82,6 @@ module.exports = [
 	'TodoMVC - flight, Routing, should respect the back button',
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
 	'TodoMVC - somajs_require, Routing, should respect the back button',
-	'TodoMVC - agilityjs, Routing, should respect the back button',
 	'TodoMVC - maria, Routing, should respect the back button',
 
 	// the following are covered by this issue:
