@@ -1853,6 +1853,37 @@
 			}]
 		}]
 	},
+	"riotjs": {
+		"name": "Riot.js",
+		"description": "Riot.js is a React-like, 3.5KB user interface library.",
+		"homepage": "muut.com/riotjs",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/riotjs"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "https://muut.com/riotjs/guide/"
+			}, {
+				"name": "API Reference",
+				"url": "https://muut.com/riotjs/api/"
+			}, {
+				"name": "Examples",
+				"url": "https://github.com/muut/riotjs#demos"
+			}, {
+				"name": "Riot.js on GitHub",
+				"url": "https://github.com/muut/riotjs"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Forum",
+				"url": "https://muut.com/riotjs/forum/"
+			}]
+		}]
+	},
 	"sammyjs": {
 		"name": "Sammy.js",
 		"description": "A small web framework with class.",
