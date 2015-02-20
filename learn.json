@@ -1436,10 +1436,10 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Marionette 101",
-				"url": "https://www.youtube.com/watch?v=7yZKsgKxziw#t=106"
+				"url": "https://www.youtube.com/watch?v=7yZKsgKxziw"
 			}, {
 				"name": "Marionette - The Backbone Framework",
-				"url": "https://www.youtube.com/watch?v=EvQnntaqVdE#t=12"
+				"url": "https://www.youtube.com/watch?v=EvQnntaqVdE"
 			}]
 		}, {
 			"heading": "Community",
