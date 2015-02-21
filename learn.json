@@ -292,6 +292,34 @@
 			}]
 		}]
 	},
+	"elm": {
+		"name": "Elm",
+		"description": "A functional reactive language for interactive applications",
+		"homepage": "http://elm-lang.org/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/elm"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Project Site",
+				"url": "http://elm-lang.org/"
+			}, {
+				"name": "Guides",
+				"url": "http://elm-lang.org/Learn.elm"
+			}, {
+				"name": "Syntax Reference",
+				"url": "http://elm-lang.org/learn/Syntax.elm"
+			}, {
+				"name": "Libraries",
+				"url": "http://elm-lang.org/Libraries.elm"
+			}, {
+				"name": "#elm IRC Channel on Freenode",
+				"url": "https://botbot.me/freenode/elm/"
+			}]
+		}]
+	},
 	"batman": {
 		"name": "Batman.js",
 		"description": "A client-side framework for Rails developers. Batman.js is a framework for building rich web applications with CoffeeScript.",
