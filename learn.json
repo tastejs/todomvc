@@ -295,7 +295,7 @@
 	"elm": {
 		"name": "Elm",
 		"description": "A functional reactive language for interactive applications",
-		"homepage": "http://elm-lang.org/",
+		"homepage": "elm-lang.org",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/elm"
