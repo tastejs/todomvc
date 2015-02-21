@@ -3,9 +3,9 @@ module Todo where
 
 This application is broken up into four distinct parts:
 
-  1. Model  - a full definition of the application's state
-  2. Update - a way to step the application state forward
-  3. View   - a way to visualize our application state with HTML
+  1. Model  - a full description of the application as data
+  2. Update - a way to update the model based on user actions
+  3. View   - a way to visualize our model with HTML
   4. Inputs - the signals necessary to manage events
 
 This clean division of concerns is a core part of Elm. You can read more about
@@ -13,10 +13,9 @@ this in the Pong tutorial: http://elm-lang.org/blog/Pong.elm
 
 This program is not particularly large, so definitely see the following
 document for notes on structuring more complex GUIs with Elm:
-https://gist.github.com/evancz/2b2ba366cae1887fe621
+http://elm-lang.org/learn/Architecture.elm
 -}
 
-import Graphics.Element (Element, container, midTop)
 import Html (..)
 import Html.Attributes (..)
 import Html.Events (..)
@@ -52,9 +51,9 @@ emptyModel =
 
 -- UPDATE
 
--- A description of the kinds of actions that can be performed on the state of
--- the application. See the following post for more info on this pattern and
--- some alternatives: https://gist.github.com/evancz/2b2ba366cae1887fe621
+-- A description of the kinds of actions that can be performed on the model of
+-- our application. See the following post for more info on this pattern and
+-- some alternatives: http://elm-lang.org/learn/Architecture.elm
 type Action
     = NoOp
     | UpdateField String
@@ -65,54 +64,54 @@ type Action
     | ChangeVisibility String
 
 
--- How we step the state forward for any given action
+-- How we update our Model on any given Action
 update : Action -> Model -> Model
-update action state =
+update action model =
     case action of
-      NoOp -> state
+      NoOp -> model
 
       UpdateField str ->
-          { state | field <- str }
+          { model | field <- str }
 
       Add ->
-          let description = String.trim state.field in
-          if String.isEmpty description then state else
-              { state |
-                  uid <- state.uid + 1,
+          let description = String.trim model.field in
+          if String.isEmpty description then model else
+              { model |
+                  uid <- model.uid + 1,
                   field <- "",
-                  tasks <- state.tasks ++ [Task.init description state.uid]
+                  tasks <- model.tasks ++ [Task.init description model.uid]
               }
 
       UpdateTask (id, taskAction) ->
           let updateTask t =
                 if t.id == id then Task.update taskAction t else Just t
           in
-              { state | tasks <- List.filterMap updateTask state.tasks }
+              { model | tasks <- List.filterMap updateTask model.tasks }
 
       DeleteComplete ->
-          { state | tasks <- List.filter (not << .completed) state.tasks }
+          { model | tasks <- List.filter (not << .completed) model.tasks }
 
       CheckAll bool ->
           let updateTask t = { t | completed <- bool }
-          in  { state | tasks <- List.map updateTask state.tasks }
+          in  { model | tasks <- List.map updateTask model.tasks }
 
       ChangeVisibility visibility ->
-          { state | visibility <- visibility }
+          { model | visibility <- visibility }
 
 
 -- VIEW
 
 view : Model -> Html
-view state =
+view model =
     div
       [ class "todomvc-wrapper"
       , style [ ("visibility", "hidden") ]
       ]
       [ section
           [ id "todoapp" ]
-          [ lazy taskEntry state.field
-          , lazy2 taskList state.visibility state.tasks
-          , lazy2 controls state.visibility state.tasks
+          [ lazy taskEntry model.field
+          , lazy2 taskList model.visibility model.tasks
+          , lazy2 controls model.visibility model.tasks
           ]
       , infoFooter
       ]
@@ -221,14 +220,9 @@ infoFooter =
 -- SIGNALS
 
 -- wire the entire application together
-main : Signal Element
+main : Signal Html
 main =
-    Signal.map2 scene model Window.dimensions
-
-
-scene : Model -> (Int,Int) -> Element
-scene model (w,h) =
-    container w h midTop (toElement 550 h (view model))
+    Signal.map view model
 
 
 -- manage the model of our application over time
