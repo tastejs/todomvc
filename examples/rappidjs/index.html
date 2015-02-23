@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>rAppid.js • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 		<style>
 			.hide {
 				display: none;
@@ -11,7 +12,7 @@
 		</style>
 	</head>
 	<body>
-		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="app/lib/rappidjs.min.js"></script>
 		<script>
 			rAppid.bootStrap('app/Todo.xml', 'config.json', function (err, systemManager, application) {

@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "dependencies": {
+    "todomvc-app-css": "^1.0.0",
+    "todomvc-common": "^1.0.1",
+    "dojo": "1.10.2",
+    "dijit": "git://github.com/dojo/dijit.git#1.10.2",
+    "dojox": "git://github.com/dojo/dojox.git#1.10.2",
+    "util": "git://github.com/dojo/util.git#1.10.2"
+  },
+  "devDependencies": {
+    "intern": "^2.2.2"
+  },
+  "scripts": {
+    "test": "node node_modules/intern/bin/intern-runner.js config=test/intern reporters=runner reporters=lcovhtml"
+  }
+}

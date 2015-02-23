@@ -2,15 +2,15 @@
   "name": "flatiron-director",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#0.2.1"
+    "polymer": "Polymer/polymer#^0.5.0"
   },
-  "version": "0.2.1",
+  "version": "0.5.0",
   "homepage": "https://github.com/Polymer/flatiron-director",
-  "_release": "0.2.1",
+  "_release": "0.5.0",
   "_resolution": {
     "type": "version",
-    "tag": "0.2.1",
-    "commit": "d01427ec016607908f939aad6b7ab4164b355a73"
+    "tag": "0.5.0",
+    "commit": "acddce5aebb2d22367e670aff8cbd902f18c6a50"
   },
   "_source": "git://github.com/Polymer/flatiron-director.git",
   "_target": "*",

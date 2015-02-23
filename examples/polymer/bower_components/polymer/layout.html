@@ -60,15 +60,23 @@ html /deep/ [layout][wrap-reverse] {
 }
 
 html /deep/ [flex] {
-  -ms-flex: 1;
+  -ms-flex: 1 1 0.000000001px;
   -webkit-flex: 1;
   flex: 1;
+  -webkit-flex-basis: 0.000000001px;
+  flex-basis: 0.000000001px;
+}
+
+html /deep/ [vertical][layout] > [flex][auto-vertical], html /deep/ [vertical][layout]::shadow [flex][auto-vertical] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
 }
 
 html /deep/ [flex][auto] {
   -ms-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
 }
 
 html /deep/ [flex][none] {
@@ -157,7 +165,7 @@ html /deep/ [layout][start] {
   align-items: flex-start;
 }
 
-html /deep/ [layout][center] {
+html /deep/ [layout][center], html /deep/ [layout][center-center] {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
@@ -177,7 +185,7 @@ html /deep/ [layout][start-justified] {
   justify-content: flex-start;
 }
 
-html /deep/ [layout][center-justified] {
+html /deep/ [layout][center-justified], html /deep/ [layout][center-center] {
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
@@ -190,7 +198,7 @@ html /deep/ [layout][end-justified] {
 }
 
 html /deep/ [layout][around-justified] {
-  -ms-flex-pack: around;
+  -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }

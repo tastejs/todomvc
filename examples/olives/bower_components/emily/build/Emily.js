@@ -7,7 +7,7 @@
  */
 
 /**
- * Emily
+ * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
  * MIT Licensed
  */
@@ -19,303 +19,372 @@ define('Tools',[],
  */
 function Tools(){
 
-	return {
-	    /**
-	     * For applications that don't run in a browser, window is not the global object.
-	     * This function returns the global object wherever the application runs.
-	     * @returns {Object} the global object
-	     */
-		getGlobal: function getGlobal() {
-		var func = function() {
-			return this;
-		};
-		return func.call(null);
-	    },
+    
 
-		/**
-		 * Mixes an object into another
-		 * @param {Object} source object to get values from
-		 * @param {Object} destination object to mix values into
-		 * @param {Boolean} optional, set to true to prevent overriding
-		 * @returns {Object} the destination object
-		 */
-	    mixin: function mixin(source, destination, dontOverride) {
-			this.loop(source, function (value, idx) {
-				if (!destination[idx] || !dontOverride) {
-					destination[idx] = source[idx];
-				}
-			});
-			return destination;
-		},
+    /**
+     * Get the closest number in an array
+     * @param {Number} item the base number
+     * @param {Array} array the array to search into
+     * @param {Function} getDiff returns the difference between the base number and
+     *   and the currently read item in the array. The item which returned the smallest difference wins.
+     * @private
+     */
+    function _getClosest(item, array, getDiff) {
+        var closest,
+            diff;
 
-		/**
-		 * Count the number of properties in an object
-		 * It doesn't look up in the prototype chain
-		 * @param {Object} object the object to count
-		 * @returns {Number}
-		 */
-		count: function count(object) {
-			var nbItems = 0;
-			this.loop(object, function () {
-				nbItems++;
-			});
+        if (!array) {
+            return;
+        }
 
-			return nbItems;
-		},
+        array.forEach(function (comparedItem, comparedItemIndex) {
+            var thisDiff = getDiff(comparedItem, item);
 
-		/**
-		 * Compares the properties of two objects and returns true if they're the same
-		 * It's doesn't do it recursively
-		 * @param {Object} first object
-		 * @param {Object} second object
-		 * @returns {Boolean} true if the two objets have the same properties
-		 */
-		compareObjects: function compareObjects(object1, object2) {
-			var getOwnProperties = function (object) {
-				return Object.getOwnPropertyNames(object).sort().join("");
-			};
-			return getOwnProperties(object1) == getOwnProperties(object2);
-		},
+            if (thisDiff >= 0 && (typeof diff == "undefined" || thisDiff < diff)) {
+                diff = thisDiff;
+                closest = comparedItemIndex;
+            }
+        });
 
-		/**
-		 * Compares two numbers and tells if the first one is bigger (1), smaller (-1) or equal (0)
-		 * @param {Number} number1 the first number
-		 * @param {Number} number2 the second number
-		 * @returns 1 if number1>number2, -1 if number2>number1, 0 if equal
-		 */
-		compareNumbers: function compareNumbers(number1, number2) {
-			  if (number1>number2) {
-			    return 1;
-			  } else if (number1<number2) {
-			    return -1;
-			  } else {
-				 return 0;
-			  }
-		},
+        return closest;
+    }
 
-		/**
-		 * Transform array-like objects to array, such as nodeLists or arguments
-		 * @param {Array-like object}
-		 * @returns {Array}
-		 */
-		toArray: function toArray(array) {
-			return [].slice.call(array);
-		},
+    return {
+        /**
+         * For applications that don't run in a browser, window is not the global object.
+         * This function returns the global object wherever the application runs.
+         * @returns {Object} the global object
+         */
+        getGlobal: function getGlobal() {
+            var func = function() {
+                return this;
+            };
+            return func.call(null);
+        },
 
-		/**
-		 * Small adapter for looping over objects and arrays
-		 * Warning: it's not meant to be used with nodeList
-		 * To use with nodeList, convert to array first
-		 * @param {Array/Object} iterated the array or object to loop through
-		 * @param {Function} callback the function to execute for each iteration
-		 * @param {Object} scope the scope in which to execute the callback
-		 * @returns {Boolean} true if executed
-		 */
-		loop: function loop(iterated, callback, scope) {
-			var i,
-				length;
+        /**
+         * Mixes an object into another
+         * @param {Object} source object to get values from
+         * @param {Object} destination object to mix values into
+         * @param {Boolean} optional, set to true to prevent overriding
+         * @returns {Object} the destination object
+         */
+        mixin: function mixin(source, destination, dontOverride) {
+            this.loop(source, function (value, idx) {
+                if (!destination[idx] || !dontOverride) {
+                    destination[idx] = source[idx];
+                }
+            });
+            return destination;
+        },
 
-			if (iterated instanceof Object && callback instanceof Function) {
-				if (iterated instanceof Array) {
-					for (i=0; i<iterated.length; i++) {
-						callback.call(scope, iterated[i], i, iterated);
-					}
-				} else {
-					for (i in iterated) {
-						if (iterated.hasOwnProperty(i)) {
-							callback.call(scope, iterated[i], i, iterated);
-						}
-					}
-				}
-				return true;
-			} else {
-				return false;
-			}
-		},
+        /**
+         * Count the number of properties in an object
+         * It doesn't look up in the prototype chain
+         * @param {Object} object the object to count
+         * @returns {Number}
+         */
+        count: function count(object) {
+            var nbItems = 0;
+            this.loop(object, function () {
+                nbItems++;
+            });
 
-		/**
-		 * Make a diff between two objects
-		 * @param {Array/Object} before is the object as it was before
-		 * @param {Array/Object} after is what it is now
-		 * @example:
-		 * 	With objects:
-		 *
-		 * 	before = {a:1, b:2, c:3, d:4, f:6}
-		 * 	after = {a:1, b:20, d: 4, e: 5}
-		 * 	will return :
-		 * 	{
-		 *  	unchanged: ["a", "d"],
-		 *  	updated: ["b"],
-		 *  	deleted: ["f"],
-		 *  	added: ["e"]
-		 * 	}
-		 *
-		 * It also works with Arrays:
-		 *
-		 * 	before = [10, 20, 30]
-		 * 	after = [15, 20]
-		 * 	will return :
-		 * 	{
-		 *  	unchanged: [1],
-		 *  	updated: [0],
-		 *  	deleted: [2],
-		 *  	added: []
-		 * 	}
-		 *
-		 * @returns object
-		 */
-		objectsDiffs : function objectsDiffs(before, after) {
-			if (before instanceof Object && after instanceof Object) {
-				var unchanged = [],
-					updated = [],
-					deleted = [],
-					added = [];
+            return nbItems;
+        },
 
-				 // Look through the after object
-				 this.loop(after, function (value, idx) {
+        /**
+         * Compares the properties of two objects and returns true if they're the same
+         * It's doesn't do it recursively
+         * @param {Object} first object
+         * @param {Object} second object
+         * @returns {Boolean} true if the two objets have the same properties
+         */
+        compareObjects: function compareObjects(object1, object2) {
+            var getOwnProperties = function (object) {
+                return Object.getOwnPropertyNames(object).sort().join("");
+            };
+            return getOwnProperties(object1) == getOwnProperties(object2);
+        },
 
-					 // To get the added
-					 if (typeof before[idx] == "undefined") {
-						 added.push(idx);
+        /**
+         * Compares two numbers and tells if the first one is bigger (1), smaller (-1) or equal (0)
+         * @param {Number} number1 the first number
+         * @param {Number} number2 the second number
+         * @returns 1 if number1>number2, -1 if number2>number1, 0 if equal
+         */
+        compareNumbers: function compareNumbers(number1, number2) {
+              if (number1>number2) {
+                return 1;
+              } else if (number1<number2) {
+                return -1;
+              } else {
+                 return 0;
+              }
+        },
 
-					 // The updated
-					 } else if (value !== before[idx]) {
-						 updated.push(idx);
+        /**
+         * Transform array-like objects to array, such as nodeLists or arguments
+         * @param {Array-like object}
+         * @returns {Array}
+         */
+        toArray: function toArray(array) {
+            return [].slice.call(array);
+        },
 
-					 // And the unchanged
-					 } else if (value === before[idx]) {
-						 unchanged.push(idx);
-					 }
+        /**
+         * Small adapter for looping over objects and arrays
+         * Warning: it's not meant to be used with nodeList
+         * To use with nodeList, convert to array first
+         * @param {Array/Object} iterated the array or object to loop through
+         * @param {Function} callback the function to execute for each iteration
+         * @param {Object} scope the scope in which to execute the callback
+         * @returns {Boolean} true if executed
+         */
+        loop: function loop(iterated, callback, scope) {
+            var i,
+                length;
 
-				 });
+            if (iterated instanceof Object && callback instanceof Function) {
+                if (iterated instanceof Array) {
+                    for (i=0; i<iterated.length; i++) {
+                        callback.call(scope, iterated[i], i, iterated);
+                    }
+                } else {
+                    for (i in iterated) {
+                        if (iterated.hasOwnProperty(i)) {
+                            callback.call(scope, iterated[i], i, iterated);
+                        }
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        },
 
-				 // Loop through the before object
-				 this.loop(before, function (value, idx) {
+        /**
+         * Make a diff between two objects
+         * @param {Array/Object} before is the object as it was before
+         * @param {Array/Object} after is what it is now
+         * @example:
+         *  With objects:
+         *
+         *  before = {a:1, b:2, c:3, d:4, f:6}
+         *  after = {a:1, b:20, d: 4, e: 5}
+         *  will return :
+         *  {
+         *      unchanged: ["a", "d"],
+         *      updated: ["b"],
+         *      deleted: ["f"],
+         *      added: ["e"]
+         *  }
+         *
+         * It also works with Arrays:
+         *
+         *  before = [10, 20, 30]
+         *  after = [15, 20]
+         *  will return :
+         *  {
+         *      unchanged: [1],
+         *      updated: [0],
+         *      deleted: [2],
+         *      added: []
+         *  }
+         *
+         * @returns object
+         */
+        objectsDiffs : function objectsDiffs(before, after) {
+            if (before instanceof Object && after instanceof Object) {
+                var unchanged = [],
+                    updated = [],
+                    deleted = [],
+                    added = [];
 
-					// To get the deleted
-					if (typeof after[idx] == "undefined") {
-						deleted.push(idx);
-					}
-				 });
+                 // Look through the after object
+                 this.loop(after, function (value, idx) {
 
-				return {
-					updated: updated,
-					unchanged: unchanged,
-					added: added,
-					deleted: deleted
-				};
+                     // To get the added
+                     if (typeof before[idx] == "undefined") {
+                         added.push(idx);
 
-			} else {
-				return false;
-			}
-		},
+                     // The updated
+                     } else if (value !== before[idx]) {
+                         updated.push(idx);
 
-		/**
-		 * Transforms Arrays and Objects into valid JSON
-		 * @param {Object/Array} object the object to JSONify
-		 * @returns the JSONified object or false if failed
-		 */
-		jsonify: function jsonify(object) {
-			if (object instanceof Object) {
-				return JSON.parse(JSON.stringify(object));
-			} else {
-				return false;
-			}
-		},
+                     // And the unchanged
+                     } else if (value === before[idx]) {
+                         unchanged.push(idx);
+                     }
 
-		/**
-		 * Clone an Array or an Object
-		 * @param {Array/Object} object the object to clone
-		 * @returns {Array/Object} the cloned object
-		 */
-		clone: function clone(object) {
-			if (object instanceof Array) {
-				return object.slice(0);
-			} else if (typeof object == "object" && object !== null && !(object instanceof RegExp)) {
-				return this.mixin(object, {});
-			} else {
-				return false;
-			}
-		},
+                 });
 
+                 // Loop through the before object
+                 this.loop(before, function (value, idx) {
 
-		/**
-		 *
-		 *
-		 *
-		 *
-		 * Refactoring needed for the following
-		 *
-		 *
-		 *
-		 *
-		 *
-		 */
+                    // To get the deleted
+                    if (typeof after[idx] == "undefined") {
+                        deleted.push(idx);
+                    }
+                 });
 
-		/**
-		 * Get the property of an object nested in one or more objects
-		 * given an object such as a.b.c.d = 5, getNestedProperty(a, "b.c.d") will return 5.
-		 * @param {Object} object the object to get the property from
-		 * @param {String} property the path to the property as a string
-		 * @returns the object or the the property value if found
-		 */
-		getNestedProperty: function getNestedProperty(object, property) {
-			if (object && object instanceof Object) {
-				if (typeof property == "string" && property != "") {
-					var split = property.split(".");
-					return split.reduce(function (obj, prop) {
-						return obj && obj[prop];
-					}, object);
-				} else if (typeof property == "number") {
-					return object[property];
-				} else {
-					return object;
-				}
-			} else {
-				return object;
-			}
-		},
+                return {
+                    updated: updated,
+                    unchanged: unchanged,
+                    added: added,
+                    deleted: deleted
+                };
 
-		/**
-		 * Set the property of an object nested in one or more objects
-		 * If the property doesn't exist, it gets created.
-		 * @param {Object} object
-		 * @param {String} property
-		 * @param value the value to set
-		 * @returns object if no assignment was made or the value if the assignment was made
-		 */
-		setNestedProperty: function setNestedProperty(object, property, value) {
-			if (object && object instanceof Object) {
-				if (typeof property == "string" && property != "") {
-					var split = property.split(".");
-					return split.reduce(function (obj, prop, idx) {
-						obj[prop] = obj[prop] || {};
-						if (split.length == (idx + 1)) {
-							obj[prop] = value;
-						}
-						return obj[prop];
-					}, object);
-				} else if (typeof property == "number") {
-					object[property] = value;
-					return object[property];
-				} else {
-					return object;
-				}
-			} else {
-				return object;
-			}
-		}
+            } else {
+                return false;
+            }
+        },
+
+        /**
+         * Transforms Arrays and Objects into valid JSON
+         * @param {Object/Array} object the object to JSONify
+         * @returns the JSONified object or false if failed
+         */
+        jsonify: function jsonify(object) {
+            if (object instanceof Object) {
+                return JSON.parse(JSON.stringify(object));
+            } else {
+                return false;
+            }
+        },
+
+        /**
+         * Clone an Array or an Object
+         * @param {Array/Object} object the object to clone
+         * @returns {Array/Object} the cloned object
+         */
+        clone: function clone(object) {
+            if (object instanceof Array) {
+                return object.slice(0);
+            } else if (typeof object == "object" && object !== null && !(object instanceof RegExp)) {
+                return this.mixin(object, {});
+            } else {
+                return false;
+            }
+        },
 
 
+        /**
+         *
+         *
+         *
+         *
+         * Refactoring needed for the following
+         *
+         *
+         *
+         *
+         *
+         */
 
-	};
+        /**
+         * Get the property of an object nested in one or more objects
+         * given an object such as a.b.c.d = 5, getNestedProperty(a, "b.c.d") will return 5.
+         * @param {Object} object the object to get the property from
+         * @param {String} property the path to the property as a string
+         * @returns the object or the the property value if found
+         */
+        getNestedProperty: function getNestedProperty(object, property) {
+            if (object && object instanceof Object) {
+                if (typeof property == "string" && property !== "") {
+                    var split = property.split(".");
+                    return split.reduce(function (obj, prop) {
+                        return obj && obj[prop];
+                    }, object);
+                } else if (typeof property == "number") {
+                    return object[property];
+                } else {
+                    return object;
+                }
+            } else {
+                return object;
+            }
+        },
+
+        /**
+         * Set the property of an object nested in one or more objects
+         * If the property doesn't exist, it gets created.
+         * @param {Object} object
+         * @param {String} property
+         * @param value the value to set
+         * @returns object if no assignment was made or the value if the assignment was made
+         */
+        setNestedProperty: function setNestedProperty(object, property, value) {
+            if (object && object instanceof Object) {
+                if (typeof property == "string" && property !== "") {
+                    var split = property.split(".");
+                    return split.reduce(function (obj, prop, idx) {
+                        obj[prop] = obj[prop] || {};
+                        if (split.length == (idx + 1)) {
+                            obj[prop] = value;
+                        }
+                        return obj[prop];
+                    }, object);
+                } else if (typeof property == "number") {
+                    object[property] = value;
+                    return object[property];
+                } else {
+                    return object;
+                }
+            } else {
+                return object;
+            }
+        },
+
+        /**
+         * Get the closest number in an array given a base number
+         * Example: closest(30, [20, 0, 50, 29]) will return 3 as 29 is the closest item
+         * @param {Number} item the base number
+         * @param {Array} array the array of numbers to search into
+         * @returns {Number} the index of the closest item in the array
+         */
+        closest: function closest(item, array) {
+            return _getClosest(item, array, function (comparedItem, item) {
+                return Math.abs(comparedItem - item);
+            });
+        },
+
+        /**
+         * Get the closest greater number in an array given a base number
+         * Example: closest(30, [20, 0, 50, 29]) will return 2 as 50 is the closest greater item
+         * @param {Number} item the base number
+         * @param {Array} array the array of numbers to search into
+         * @returns {Number} the index of the closest item in the array
+         */
+        closestGreater: function closestGreater(item, array) {
+            return _getClosest(item, array, function (comparedItem, item) {
+                return comparedItem - item;
+            });
+        },
+
+        /**
+         * Get the closest lower number in an array given a base number
+         * Example: closest(30, [20, 0, 50, 29]) will return 0 as 20 is the closest lower item
+         * @param {Number} item the base number
+         * @param {Array} array the array of numbers to search into
+         * @returns {Number} the index of the closest item in the array
+         */
+        closestLower: function closestLower(item, array) {
+            return _getClosest(item, array, function (comparedItem, item) {
+                return item - comparedItem;
+            });
+        }
+
+
+
+    };
 
 
 });
 
 
 /**
- * Emily
+ * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
  * MIT Licensed
  */
@@ -329,6 +398,8 @@ define('Observable',["Tools"],
 * This service creates an Observable on which you can add subscribers.
 */
 function Observable(Tools) {
+
+	
 
 	/**
 	 * Defines the Observable
@@ -361,6 +432,21 @@ function Observable(Tools) {
 			} else {
 				return false;
 			}
+		};
+
+		/**
+		 * Listen to an event just once before removing the handler
+		 * @param {String} topic the topic to observe
+		 * @param {Function} callback the callback to execute
+		 * @param {Object} scope the scope in which to execute the callback
+		 * @returns handle
+		 */
+		this.once = function once(topic, callback, scope) {
+			var handle = this.watch(topic, function () {
+				callback.apply(scope, arguments);
+				this.unwatch(handle);
+			}, this);
+			return handle;
 		};
 
 		/**
@@ -398,14 +484,16 @@ function Observable(Tools) {
 			if (observers) {
 				Tools.loop(observers, function (value) {
 					try {
-						value && value[0].apply(value[1] || null, args);
+						if (value) {
+							value[0].apply(value[1] || null, args);
+						}
 					} catch (err) { }
 				});
 				return true;
 			} else {
 				return false;
 			}
-		},
+		};
 
 		/**
 		 * Check if topic has the described observer
@@ -444,7 +532,7 @@ function Observable(Tools) {
 });
 
 /**
- * Emily
+ * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
  * MIT Licensed
  */
@@ -456,7 +544,9 @@ define('StateMachine',["Tools"],
  */
 function StateMachine(Tools) {
 
-	 /**
+	
+
+     /**
      * @param initState {String} the initial state
      * @param diagram {Object} the diagram that describes the state machine
      * @example
@@ -475,228 +565,229 @@ function StateMachine(Tools) {
      *
      * @return the stateMachine object
      */
-	function StateMachineConstructor($initState, $diagram) {
+    function StateMachineConstructor($initState, $diagram) {
 
-		/**
-		 * The list of states
-		 * @private
-		 */
-		var _states = {},
+        /**
+         * The list of states
+         * @private
+         */
+        var _states = {},
 
-		/**
-		 * The current state
-		 * @private
-		 */
-		_currentState = "";
+        /**
+         * The current state
+         * @private
+         */
+        _currentState = "";
 
-		/**
-		 * Set the initialization state
-		 * @param {String} name the name of the init state
-		 * @returns {Boolean}
-		 */
-		this.init = function init(name) {
-				if (_states[name]) {
-					_currentState = name;
-					return true;
-				} else {
-					return false;
-				}
-		};
+        /**
+         * Set the initialization state
+         * @param {String} name the name of the init state
+         * @returns {Boolean}
+         */
+        this.init = function init(name) {
+                if (_states[name]) {
+                    _currentState = name;
+                    return true;
+                } else {
+                    return false;
+                }
+        };
 
-		/**
-		 * Add a new state
-		 * @private
-		 * @param {String} name the name of the state
-		 * @returns {State} a new state
-		 */
-		this.add = function add(name) {
-			if (!_states[name]) {
-				return _states[name] = new Transition();
-			} else {
-				return _states[name];
-			}
-		};
+        /**
+         * Add a new state
+         * @private
+         * @param {String} name the name of the state
+         * @returns {State} a new state
+         */
+        this.add = function add(name) {
+            if (!_states[name]) {
+                var transition = _states[name] = new Transition();
+                return transition;
+            } else {
+                return _states[name];
+            }
+        };
 
-		/**
-		 * Get an existing state
-		 * @private
-		 * @param {String} name the name of the state
-		 * @returns {State} the state
-		 */
-		this.get = function get(name) {
-			return _states[name];
-		};
+        /**
+         * Get an existing state
+         * @private
+         * @param {String} name the name of the state
+         * @returns {State} the state
+         */
+        this.get = function get(name) {
+            return _states[name];
+        };
 
-		/**
-		 * Get the current state
-		 * @returns {String}
-		 */
-		this.getCurrent = function getCurrent() {
-			return _currentState;
-		};
+        /**
+         * Get the current state
+         * @returns {String}
+         */
+        this.getCurrent = function getCurrent() {
+            return _currentState;
+        };
 
-		/**
-		 * Tell if the state machine has the given state
-		 * @param {String} state the name of the state
-		 * @returns {Boolean} true if it has the given state
-		 */
-		this.has = function has(state) {
-			return _states.hasOwnProperty(state);
-		};
+        /**
+         * Tell if the state machine has the given state
+         * @param {String} state the name of the state
+         * @returns {Boolean} true if it has the given state
+         */
+        this.has = function has(state) {
+            return _states.hasOwnProperty(state);
+        };
 
-		/**
-		 * Advances the state machine to a given state
-		 * @param {String} state the name of the state to advance the state machine to
-		 * @returns {Boolean} true if it has the given state
-		 */
-		this.advance = function advance(state) {
-			if (this.has(state)) {
-				_currentState = state;
-				return true;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * Advances the state machine to a given state
+         * @param {String} state the name of the state to advance the state machine to
+         * @returns {Boolean} true if it has the given state
+         */
+        this.advance = function advance(state) {
+            if (this.has(state)) {
+                _currentState = state;
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * Pass an event to the state machine
-		 * @param {String} name the name of the event
-		 * @returns {Boolean} true if the event exists in the current state
-		 */
-		this.event = function event(name) {
-			var nextState;
+        /**
+         * Pass an event to the state machine
+         * @param {String} name the name of the event
+         * @returns {Boolean} true if the event exists in the current state
+         */
+        this.event = function event(name) {
+            var nextState;
 
-			nextState = _states[_currentState].event.apply(_states[_currentState].event, Tools.toArray(arguments));
-			// False means that there's no such event
-			// But undefined means that the state doesn't change
-			if (nextState === false) {
-				return false;
-			} else {
-				// There could be no next state, so the current one remains
-				if (nextState) {
-					// Call the exit action if any
-					_states[_currentState].event("exit");
-					_currentState = nextState;
-					// Call the new state's entry action if any
-					_states[_currentState].event("entry");
-				}
-				return true;
-			}
-		};
+            nextState = _states[_currentState].event.apply(_states[_currentState].event, Tools.toArray(arguments));
+            // False means that there's no such event
+            // But undefined means that the state doesn't change
+            if (nextState === false) {
+                return false;
+            } else {
+                // There could be no next state, so the current one remains
+                if (nextState) {
+                    // Call the exit action if any
+                    _states[_currentState].event("exit");
+                    _currentState = nextState;
+                    // Call the new state's entry action if any
+                    _states[_currentState].event("entry");
+                }
+                return true;
+            }
+        };
 
-		/**
-		 * Initializes the StateMachine with the given diagram
-		 */
-		Tools.loop($diagram, function (transition, state) {
-			var myState = this.add(state);
-			transition.forEach(function (params){
-				myState.add.apply(null, params);
-			});
-		}, this);
+        /**
+         * Initializes the StateMachine with the given diagram
+         */
+        Tools.loop($diagram, function (transition, state) {
+            var myState = this.add(state);
+            transition.forEach(function (params){
+                myState.add.apply(null, params);
+            });
+        }, this);
 
-		/**
-		 * Sets its initial state
-		 */
-		this.init($initState);
-	}
+        /**
+         * Sets its initial state
+         */
+        this.init($initState);
+    }
 
-	/**
-	 * Each state has associated transitions
+    /**
+     * Each state has associated transitions
      * @constructor
-	 */
-	function Transition() {
+     */
+    function Transition() {
 
-		/**
-		 * The list of transitions associated to a state
-		 * @private
-		 */
-		var _transitions = {};
+        /**
+         * The list of transitions associated to a state
+         * @private
+         */
+        var _transitions = {};
 
-		/**
-		 * Add a new transition
-		 * @private
-		 * @param {String} event the event that will trigger the transition
-		 * @param {Function} action the function that is executed
-		 * @param {Object} scope [optional] the scope in which to execute the action
-		 * @param {String} next [optional] the name of the state to transit to.
-		 * @returns {Boolean} true if success, false if the transition already exists
-		 */
-		this.add = function add(event, action, scope, next) {
+        /**
+         * Add a new transition
+         * @private
+         * @param {String} event the event that will trigger the transition
+         * @param {Function} action the function that is executed
+         * @param {Object} scope [optional] the scope in which to execute the action
+         * @param {String} next [optional] the name of the state to transit to.
+         * @returns {Boolean} true if success, false if the transition already exists
+         */
+        this.add = function add(event, action, scope, next) {
 
-			var arr = [];
+            var arr = [];
 
-			if (_transitions[event]) {
-				return false;
-			}
+            if (_transitions[event]) {
+                return false;
+            }
 
-			if (typeof event == "string"
-				&& typeof action == "function") {
+            if (typeof event == "string" &&
+                typeof action == "function") {
 
-					arr[0] = action;
+                    arr[0] = action;
 
-					if (typeof scope == "object") {
-						arr[1] = scope;
-					}
+                    if (typeof scope == "object") {
+                        arr[1] = scope;
+                    }
 
-					if (typeof scope == "string") {
-						arr[2] = scope;
-					}
+                    if (typeof scope == "string") {
+                        arr[2] = scope;
+                    }
 
-					if (typeof next == "string") {
-						arr[2] = next;
-					}
+                    if (typeof next == "string") {
+                        arr[2] = next;
+                    }
 
-					_transitions[event] = arr;
-					return true;
-			}
+                    _transitions[event] = arr;
+                    return true;
+            }
 
-			return false;
-		};
+            return false;
+        };
 
-		/**
-		 * Check if a transition can be triggered with given event
-		 * @private
-		 * @param {String} event the name of the event
-		 * @returns {Boolean} true if exists
-		 */
-		this.has = function has(event) {
-			return !!_transitions[event];
-		};
+        /**
+         * Check if a transition can be triggered with given event
+         * @private
+         * @param {String} event the name of the event
+         * @returns {Boolean} true if exists
+         */
+        this.has = function has(event) {
+            return !!_transitions[event];
+        };
 
-		/**
-		 * Get a transition from it's event
-		 * @private
-		 * @param {String} event the name of the event
-		 * @return the transition
-		 */
-		this.get = function get(event) {
-			return _transitions[event] || false;
-		};
+        /**
+         * Get a transition from it's event
+         * @private
+         * @param {String} event the name of the event
+         * @return the transition
+         */
+        this.get = function get(event) {
+            return _transitions[event] || false;
+        };
 
-		/**
-		 * Execute the action associated to the given event
-		 * @param {String} event the name of the event
-		 * @param {params} params to pass to the action
-		 * @private
-		 * @returns false if error, the next state or undefined if success (that sounds weird)
-		 */
-		this.event = function event(event) {
-			var _transition = _transitions[event];
-			if (_transition) {
-				_transition[0].apply(_transition[1], Tools.toArray(arguments).slice(1));
-				return _transition[2];
-			} else {
-				return false;
-			}
-		};
-	};
+        /**
+         * Execute the action associated to the given event
+         * @param {String} event the name of the event
+         * @param {params} params to pass to the action
+         * @private
+         * @returns false if error, the next state or undefined if success (that sounds weird)
+         */
+        this.event = function event(newEvent) {
+            var _transition = _transitions[newEvent];
+            if (_transition) {
+                _transition[0].apply(_transition[1], Tools.toArray(arguments).slice(1));
+                return _transition[2];
+            } else {
+                return false;
+            }
+        };
+    }
 
-	return StateMachineConstructor;
+    return StateMachineConstructor;
 
 });
 
 /**
- * Emily
+ * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
  * MIT Licensed
  */
@@ -708,107 +799,109 @@ define('Promise',["Observable", "StateMachine"],
  */
 function Promise(Observable, StateMachine) {
 
-	return function PromiseConstructor() {
+	
 
-		/**
-		 * The fulfilled value
-		 * @private
-		 */
-		var _value = null,
+    return function PromiseConstructor() {
 
-		/**
-		 * The rejection reason
-		 * @private
-		 */
-		_reason = null,
+        /**
+         * The fulfilled value
+         * @private
+         */
+        var _value = null,
 
-		/**
-		 * The funky observable
-		 * @private
-		 */
-		_observable = new Observable,
+        /**
+         * The rejection reason
+         * @private
+         */
+        _reason = null,
 
-		/**
-		 * The state machine States & transitions
-		 * @private
-		 */
-		_states = {
+        /**
+         * The funky observable
+         * @private
+         */
+        _observable = new Observable(),
 
-			// The promise is pending
-			"Pending": [
+        /**
+         * The state machine States & transitions
+         * @private
+         */
+        _states = {
 
-				// It can only be fulfilled when pending
-				["fulfill", function onFulfill(value) {
-					_value = value;
-					_observable.notify("fulfill", value);
-				// Then it transits to the fulfilled state
-				}, "Fulfilled"],
+            // The promise is pending
+            "Pending": [
 
-				// it can only be rejected when pending
-				["reject", function onReject(reason) {
-					_reason = reason;
-					_observable.notify("reject", reason);
-				// Then it transits to the rejected state
-				}, "Rejected"],
+                // It can only be fulfilled when pending
+                ["fulfill", function onFulfill(value) {
+                    _value = value;
+                    _observable.notify("fulfill", value);
+                // Then it transits to the fulfilled state
+                }, "Fulfilled"],
 
-				// When pending, add the resolver to an observable
-				["toFulfill", function toFulfill(resolver) {
-					_observable.watch("fulfill", resolver);
-				}],
+                // it can only be rejected when pending
+                ["reject", function onReject(reason) {
+                    _reason = reason;
+                    _observable.notify("reject", reason);
+                // Then it transits to the rejected state
+                }, "Rejected"],
 
-				// When pending, add the resolver to an observable
-				["toReject", function toReject(resolver) {
-					_observable.watch("reject", resolver);
-				}]],
+                // When pending, add the resolver to an observable
+                ["toFulfill", function toFulfill(resolver) {
+                    _observable.watch("fulfill", resolver);
+                }],
 
-			// When fulfilled,
-			"Fulfilled": [
-				// We directly call the resolver with the value
-				["toFulfill", function toFulfill(resolver) {
-					setTimeout(function () {
-						resolver(_value);
-					}, 0);
-				}]],
+                // When pending, add the resolver to an observable
+                ["toReject", function toReject(resolver) {
+                    _observable.watch("reject", resolver);
+                }]],
 
-			// When rejected
-			"Rejected": [
-				// We directly call the resolver with the reason
-				["toReject", function toReject(resolver) {
-					setTimeout(function () {
-						resolver(_reason);
-					}, 0);
-				}]]
-		},
+            // When fulfilled,
+            "Fulfilled": [
+                // We directly call the resolver with the value
+                ["toFulfill", function toFulfill(resolver) {
+                    setTimeout(function () {
+                        resolver(_value);
+                    }, 0);
+                }]],
 
-		/**
-		 * The stateMachine
-		 * @private
-		 */
-		_stateMachine = new StateMachine("Pending", _states);
+            // When rejected
+            "Rejected": [
+                // We directly call the resolver with the reason
+                ["toReject", function toReject(resolver) {
+                    setTimeout(function () {
+                        resolver(_reason);
+                    }, 0);
+                }]]
+        },
 
-		/**
-		 * Fulfilled the promise.
-		 * A promise can be fulfilld only once.
-		 * @param the fulfillment value
-		 * @returns the promise
-		 */
-		this.fulfill = function fulfill(value) {
-			_stateMachine.event("fulfill", value);
-			return this;
-		};
+        /**
+         * The stateMachine
+         * @private
+         */
+        _stateMachine = new StateMachine("Pending", _states);
 
-		/**
-		 * Reject the promise.
-		 * A promise can be rejected only once.
-		 * @param the rejection value
-		 * @returns true if the rejection function was called
-		 */
-		this.reject = function reject(reason) {
-			_stateMachine.event("reject", reason);
-			return this;
-		};
+        /**
+         * Fulfilled the promise.
+         * A promise can be fulfilld only once.
+         * @param the fulfillment value
+         * @returns the promise
+         */
+        this.fulfill = function fulfill(value) {
+            _stateMachine.event("fulfill", value);
+            return this;
+        };
 
-		/**
+        /**
+         * Reject the promise.
+         * A promise can be rejected only once.
+         * @param the rejection value
+         * @returns true if the rejection function was called
+         */
+        this.reject = function reject(reason) {
+            _stateMachine.event("reject", reason);
+            return this;
+        };
+
+        /**
          * The callbacks to call after fulfillment or rejection
          * @param {Function} fulfillmentCallback the first parameter is a success function, it can be followed by a scope
          * @param {Function} the second, or third parameter is the rejection callback, it can also be followed by a scope
@@ -822,88 +915,88 @@ function Promise(Observable, StateMachine) {
          * @returns {Promise} the new promise
          */
         this.then = function then() {
-		var promise = new PromiseConstructor;
+            var promise = new PromiseConstructor();
 
-		// If a fulfillment callback is given
-		if (arguments[0] instanceof Function) {
-			// If the second argument is also a function, then no scope is given
-		if (arguments[1] instanceof Function) {
-			_stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0]));
-		} else {
-			// If the second argument is not a function, it's the scope
-			_stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0], arguments[1]));
-		}
-		} else {
-			// If no fulfillment callback given, give a default one
-			_stateMachine.event("toFulfill", this.makeResolver(promise, function () {
-				promise.fulfill(_value);
-			}));
-		}
+            // If a fulfillment callback is given
+            if (arguments[0] instanceof Function) {
+                // If the second argument is also a function, then no scope is given
+                if (arguments[1] instanceof Function) {
+                    _stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0]));
+                } else {
+                    // If the second argument is not a function, it's the scope
+                    _stateMachine.event("toFulfill", this.makeResolver(promise, arguments[0], arguments[1]));
+                }
+            } else {
+                // If no fulfillment callback given, give a default one
+                _stateMachine.event("toFulfill", this.makeResolver(promise, function () {
+                    promise.fulfill(_value);
+                }));
+            }
 
-		// if the second arguments is a callback, it's the rejection one, and the next argument is the scope
-		if (arguments[1] instanceof Function) {
-		_stateMachine.event("toReject", this.makeResolver(promise, arguments[1], arguments[2]));
-		}
+            // if the second arguments is a callback, it's the rejection one, and the next argument is the scope
+            if (arguments[1] instanceof Function) {
+                _stateMachine.event("toReject", this.makeResolver(promise, arguments[1], arguments[2]));
+            }
 
-		// if the third arguments is a callback, it's the rejection one, and the next arguments is the sopce
-		if (arguments[2] instanceof Function) {
+            // if the third arguments is a callback, it's the rejection one, and the next arguments is the sopce
+            if (arguments[2] instanceof Function) {
                 _stateMachine.event("toReject", this.makeResolver(promise, arguments[2], arguments[3]));
-		}
+            }
 
-		// If no rejection callback is given, give a default one
-		if (!(arguments[1] instanceof Function) &&
-			!(arguments[2] instanceof Function)) {
-			_stateMachine.event("toReject", this.makeResolver(promise, function () {
-				promise.reject(_reason);
-			}));
-		}
+            // If no rejection callback is given, give a default one
+            if (!(arguments[1] instanceof Function) &&
+                !(arguments[2] instanceof Function)) {
+                _stateMachine.event("toReject", this.makeResolver(promise, function () {
+                    promise.reject(_reason);
+                }));
+            }
 
-		return promise;
+            return promise;
         };
 
         /**
-		 * Synchronize this promise with a thenable
-		 * @returns {Boolean} false if the given sync is not a thenable
-		 */
-		this.sync = function sync(syncWith) {
-			if (syncWith instanceof Object && syncWith.then) {
+         * Synchronize this promise with a thenable
+         * @returns {Boolean} false if the given sync is not a thenable
+         */
+        this.sync = function sync(syncWith) {
+            if (syncWith instanceof Object && syncWith.then) {
 
-				var onFulfilled = function onFulfilled(value) {
-					this.fulfill(value);
-				},
-				onRejected = function onRejected(reason) {
-					this.reject(reason);
-				};
+                var onFulfilled = function onFulfilled(value) {
+                    this.fulfill(value);
+                },
+                onRejected = function onRejected(reason) {
+                    this.reject(reason);
+                };
 
-				syncWith.then(onFulfilled.bind(this),
-						onRejected.bind(this));
+                syncWith.then(onFulfilled.bind(this),
+                        onRejected.bind(this));
 
-				return true;
-			} else {
-				return false;
-			}
-		};
+                return true;
+            } else {
+                return false;
+            }
+        };
 
         /**
          * Make a resolver
          * for debugging only
          * @private
          * @returns {Function} a closure
-		 */
+         */
         this.makeResolver = function makeResolver(promise, func, scope) {
-			return function resolver(value) {
-				var returnedPromise;
+            return function resolver(value) {
+                var returnedPromise;
 
-				try {
-					returnedPromise = func.call(scope, value);
-					if (!promise.sync(returnedPromise)) {
-						promise.fulfill(returnedPromise);
-					}
-				} catch (err) {
-					promise.reject(err);
-				}
+                try {
+                    returnedPromise = func.call(scope, value);
+                    if (!promise.sync(returnedPromise)) {
+                        promise.fulfill(returnedPromise);
+                    }
+                } catch (err) {
+                    promise.reject(err);
+                }
 
-			}
+            };
         };
 
         /**
@@ -912,7 +1005,7 @@ function Promise(Observable, StateMachine) {
          * @private
          */
         this.getReason = function getReason() {
-		return _reason;
+            return _reason;
         };
 
         /**
@@ -921,40 +1014,40 @@ function Promise(Observable, StateMachine) {
          * @private
          */
         this.getValue = function getValue() {
-		return _value;
+            return _value;
         };
 
-		/**
-		 * Get the promise's observable
-		 * for debugging only
-		 * @private
-		 * @returns {Observable}
-		 */
-		this.getObservable = function getObservable() {
-			return _observable;
-		};
+        /**
+         * Get the promise's observable
+         * for debugging only
+         * @private
+         * @returns {Observable}
+         */
+        this.getObservable = function getObservable() {
+            return _observable;
+        };
 
-		/**
-		 * Get the promise's stateMachine
-		 * for debugging only
-		 * @private
-		 * @returns {StateMachine}
-		 */
-		this.getStateMachine = function getStateMachine() {
-			return _stateMachine;
-		};
+        /**
+         * Get the promise's stateMachine
+         * for debugging only
+         * @private
+         * @returns {StateMachine}
+         */
+        this.getStateMachine = function getStateMachine() {
+            return _stateMachine;
+        };
 
-		/**
-		 * Get the statesMachine's states
-		 * for debugging only
-		 * @private
-		 * @returns {Object}
-		 */
-		this.getStates = function getStates() {
-			return _states;
-		};
+        /**
+         * Get the statesMachine's states
+         * for debugging only
+         * @private
+         * @returns {Object}
+         */
+        this.getStates = function getStates() {
+            return _states;
+        };
 
-	}
+    };
 
 
 
@@ -962,7 +1055,7 @@ function Promise(Observable, StateMachine) {
 });
 
 /**
- * Emily
+ * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
  * MIT Licensed
  */
@@ -975,297 +1068,379 @@ define('Store',["Observable", "Tools"],
  */
  function Store(Observable, Tools) {
 
-	/**
-	 * Defines the Store
-	 * @param {Array/Object} the data to initialize the store with
-	 * @returns
-	 */
-	return function StoreConstructor($data) {
+    
 
-		/**
-		 * Where the data is stored
-		 * @private
-		 */
-		var _data = Tools.clone($data) || {},
+    /**
+     * Defines the Store
+     * @param {Array/Object} the data to initialize the store with
+     * @returns
+     */
+    return function StoreConstructor($data) {
 
-		/**
-		 * The observable for publishing changes on the store iself
-		 * @private
-		 */
-		_storeObservable = new Observable(),
+        /**
+         * Where the data is stored
+         * @private
+         */
+        var _data = Tools.clone($data) || {},
 
-		/**
-		 * The observable for publishing changes on a value
-		 * @private
-		 */
-		_valueObservable = new Observable(),
+        /**
+         * The observable for publishing changes on the store iself
+         * @private
+         */
+        _storeObservable = new Observable(),
 
-		/**
-		 * Gets the difference between two objects and notifies them
-		 * @private
-		 * @param {Object} previousData
-		 */
-		_notifyDiffs = function _notifyDiffs(previousData) {
-			var diffs = Tools.objectsDiffs(previousData, _data);
-			["updated",
-			 "deleted",
-			 "added"].forEach(function (value) {
-				 diffs[value].forEach(function (dataIndex) {
-						_storeObservable.notify(value, dataIndex, _data[dataIndex]);
-						_valueObservable.notify(dataIndex, _data[dataIndex], value);
-				 });
-			});
-		};
+        /**
+         * The observable for publishing changes on a value
+         * @private
+         */
+        _valueObservable = new Observable(),
 
-		/**
-		 * Get the number of items in the store
-		 * @returns {Number} the number of items in the store
-		 */
-		this.getNbItems = function() {
-			return _data instanceof Array ? _data.length : Tools.count(_data);
-		};
+        /**
+         * Saves the handles for the subscriptions of the computed properties
+         * @private
+         */
+        _computed = [],
 
-		/**
-		 * Count is an alias for getNbItems
-		 * @returns {Number} the number of items in the store
-		 */
-		this.count = this.getNbItems;
+        /**
+         * Gets the difference between two objects and notifies them
+         * @private
+         * @param {Object} previousData
+         */
+        _notifyDiffs = function _notifyDiffs(previousData) {
+            var diffs = Tools.objectsDiffs(previousData, _data);
+            ["updated",
+             "deleted",
+             "added"].forEach(function (value) {
+                 diffs[value].forEach(function (dataIndex) {
+                        _storeObservable.notify(value, dataIndex, _data[dataIndex]);
+                        _valueObservable.notify(dataIndex, _data[dataIndex], value);
+                 });
+            });
+        };
 
-		/**
-		 * Get a value from its index
-		 * @param {String} name the name of the index
-		 * @returns the value
-		 */
-		this.get = function get(name) {
-			return _data[name];
-		};
+        /**
+         * Get the number of items in the store
+         * @returns {Number} the number of items in the store
+         */
+        this.getNbItems = function() {
+            return _data instanceof Array ? _data.length : Tools.count(_data);
+        };
 
-		/**
-		 * Checks if the store has a given value
-		 * @param {String} name the name of the index
-		 * @returns {Boolean} true if the value exists
-		 */
-		this.has = function has(name) {
-			return _data.hasOwnProperty(name);
-		};
+        /**
+         * Count is an alias for getNbItems
+         * @returns {Number} the number of items in the store
+         */
+        this.count = this.getNbItems;
 
-		/**
-		 * Set a new value and overrides an existing one
-		 * @param {String} name the name of the index
-		 * @param value the value to assign
-		 * @returns true if value is set
-		 */
-		this.set = function set(name, value) {
-			var hasPrevious,
-				previousValue,
-				action;
+        /**
+         * Get a value from its index
+         * @param {String} name the name of the index
+         * @returns the value
+         */
+        this.get = function get(name) {
+            return _data[name];
+        };
 
-			if (typeof name != "undefined") {
-				hasPrevious = this.has(name);
-				previousValue = this.get(name);
-				_data[name] = value;
-				action = hasPrevious ? "updated" : "added";
-				_storeObservable.notify(action, name, _data[name], previousValue);
-				_valueObservable.notify(name, _data[name], action, previousValue);
-				return true;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * Checks if the store has a given value
+         * @param {String} name the name of the index
+         * @returns {Boolean} true if the value exists
+         */
+        this.has = function has(name) {
+            return _data.hasOwnProperty(name);
+        };
 
-		/**
-		 * Update the property of an item.
-		 * @param {String} name the name of the index
-		 * @param {String} property the property to modify.
-		 * @param value the value to assign
-		 * @returns false if the Store has no name index
-		 */
-		this.update = function update(name, property, value) {
-			var item;
-			if (this.has(name)) {
-				item = this.get(name);
-				Tools.setNestedProperty(item, property, value);
-				_storeObservable.notify("updated", property, value);
-				_valueObservable.notify(name, item, "updated");
-				return true;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * Set a new value and overrides an existing one
+         * @param {String} name the name of the index
+         * @param value the value to assign
+         * @returns true if value is set
+         */
+        this.set = function set(name, value) {
+            var hasPrevious,
+                previousValue,
+                action;
 
-		/**
-		 * Delete value from its index
-		 * @param {String} name the name of the index from which to delete the value
-		 * @returns true if successfully deleted.
-		 */
-		this.del = function del(name) {
-			if (this.has(name)) {
-				if (!this.alter("splice", name, 1)) {
-					delete _data[name];
-					_storeObservable.notify("deleted", name);
-					_valueObservable.notify(name, _data[name], "deleted");
-				}
-				return true;
-			} else {
-				return false;
-			}
-		};
+            if (typeof name != "undefined") {
+                hasPrevious = this.has(name);
+                previousValue = this.get(name);
+                _data[name] = value;
+                action = hasPrevious ? "updated" : "added";
+                _storeObservable.notify(action, name, _data[name], previousValue);
+                _valueObservable.notify(name, _data[name], action, previousValue);
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * Delete multiple indexes. Prefer this one over multiple del calls.
-		 * @param {Array}
-		 * @returns false if param is not an array.
-		 */
-		this.delAll = function delAll(indexes) {
-			if (indexes instanceof Array) {
-				// Indexes must be removed from the greatest to the lowest
-				// To avoid trying to remove indexes that don't exist.
-				// i.e: given [0, 1, 2], remove 1, then 2, 2 doesn't exist anymore
-				indexes.sort(Tools.compareNumbers)
-					.reverse()
-					.forEach(this.del, this);
-				return true;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * Update the property of an item.
+         * @param {String} name the name of the index
+         * @param {String} property the property to modify.
+         * @param value the value to assign
+         * @returns false if the Store has no name index
+         */
+        this.update = function update(name, property, value) {
+            var item;
+            if (this.has(name)) {
+                item = this.get(name);
+                Tools.setNestedProperty(item, property, value);
+                _storeObservable.notify("updated", property, value);
+                _valueObservable.notify(name, item, "updated");
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * Alter the data be calling one of it's method
-		 * When the modifications are done, it notifies on changes.
-		 * @param {String} func the name of the method
-		 * @returns the result of the method call
-		 */
-		this.alter = function alter(func) {
-			var apply,
-				previousData;
+        /**
+         * Delete value from its index
+         * @param {String} name the name of the index from which to delete the value
+         * @returns true if successfully deleted.
+         */
+        this.del = function del(name) {
+            if (this.has(name)) {
+                if (!this.alter("splice", name, 1)) {
+                    delete _data[name];
+                    _storeObservable.notify("deleted", name);
+                    _valueObservable.notify(name, _data[name], "deleted");
+                }
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-			if (_data[func]) {
-				previousData = Tools.clone(_data);
-				apply = _data[func].apply(_data, Array.prototype.slice.call(arguments, 1));
-				_notifyDiffs(previousData);
-				return apply;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * Delete multiple indexes. Prefer this one over multiple del calls.
+         * @param {Array}
+         * @returns false if param is not an array.
+         */
+        this.delAll = function delAll(indexes) {
+            if (indexes instanceof Array) {
+                // Indexes must be removed from the greatest to the lowest
+                // To avoid trying to remove indexes that don't exist.
+                // i.e: given [0, 1, 2], remove 1, then 2, 2 doesn't exist anymore
+                indexes.sort(Tools.compareNumbers)
+                    .reverse()
+                    .forEach(this.del, this);
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * proxy is an alias for alter
-		 */
-		 this.proxy = this.alter;
+        /**
+         * Alter the data by calling one of it's method
+         * When the modifications are done, it notifies on changes.
+         * If the function called doesn't alter the data, consider using proxy instead
+         * which is much, much faster.
+         * @param {String} func the name of the method
+         * @params {*} any number of params to be given to the func
+         * @returns the result of the method call
+         */
+        this.alter = function alter(func) {
+            var apply,
+                previousData;
 
-		/**
-		 * Watch the store's modifications
-		 * @param {String} added/updated/deleted
-		 * @param {Function} func the function to execute
-		 * @param {Object} scope the scope in which to execute the function
-		 * @returns {Handle} the subscribe's handler to use to stop watching
-		 */
-		this.watch = function watch(name, func, scope) {
-			return _storeObservable.watch(name, func, scope);
-		};
+            if (_data[func]) {
+                previousData = Tools.clone(_data);
+                apply = this.proxy.apply(this, arguments);
+                _notifyDiffs(previousData);
+                _storeObservable.notify("altered", _data, previousData);
+                return apply;
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * Unwatch the store modifications
-		 * @param {Handle} handle the handler returned by the watch function
-		 * @returns
-		 */
-		this.unwatch = function unwatch(handle) {
-			return _storeObservable.unwatch(handle);
-		};
+        /**
+         * Proxy is similar to alter but doesn't trigger events.
+         * It's preferable to call proxy for functions that don't
+         * update the interal data source, like slice or filter.
+         * @param {String} func the name of the method
+         * @params {*} any number of params to be given to the func
+         * @returns the result of the method call
+         */
+        this.proxy = function proxy(func) {
+            if (_data[func]) {
+                return _data[func].apply(_data, Array.prototype.slice.call(arguments, 1));
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * Get the observable used for watching store's modifications
-		 * Should be used only for debugging
-		 * @returns {Observable} the Observable
-		 */
-		this.getStoreObservable = function getStoreObservable() {
-			return _storeObservable;
-		};
+        /**
+         * Watch the store's modifications
+         * @param {String} added/updated/deleted
+         * @param {Function} func the function to execute
+         * @param {Object} scope the scope in which to execute the function
+         * @returns {Handle} the subscribe's handler to use to stop watching
+         */
+        this.watch = function watch(name, func, scope) {
+            return _storeObservable.watch(name, func, scope);
+        };
 
-		/**
-		 * Watch a value's modifications
-		 * @param {String} name the name of the value to watch for
-		 * @param {Function} func the function to execute
-		 * @param {Object} scope the scope in which to execute the function
-		 * @returns handler to pass to unwatchValue
-		 */
-		this.watchValue = function watchValue(name, func, scope) {
-			return _valueObservable.watch(name, func, scope);
-		};
+        /**
+         * Unwatch the store modifications
+         * @param {Handle} handle the handler returned by the watch function
+         * @returns
+         */
+        this.unwatch = function unwatch(handle) {
+            return _storeObservable.unwatch(handle);
+        };
 
-		/**
-		 * Unwatch the value's modifications
-		 * @param {Handler} handler the handler returned by the watchValue function
-		 * @private
-		 * @returns true if unwatched
-		 */
-		this.unwatchValue = function unwatchValue(handler) {
-			return _valueObservable.unwatch(handler);
-		};
+        /**
+         * Get the observable used for watching store's modifications
+         * Should be used only for debugging
+         * @returns {Observable} the Observable
+         */
+        this.getStoreObservable = function getStoreObservable() {
+            return _storeObservable;
+        };
 
-		/**
-		 * Get the observable used for watching value's modifications
-		 * Should be used only for debugging
-		 * @private
-		 * @returns {Observable} the Observable
-		 */
-		this.getValueObservable = function getValueObservable() {
-			return _valueObservable;
-		};
+        /**
+         * Watch a value's modifications
+         * @param {String} name the name of the value to watch for
+         * @param {Function} func the function to execute
+         * @param {Object} scope the scope in which to execute the function
+         * @returns handler to pass to unwatchValue
+         */
+        this.watchValue = function watchValue(name, func, scope) {
+            return _valueObservable.watch(name, func, scope);
+        };
 
-		/**
-		 * Loop through the data
-		 * @param {Function} func the function to execute on each data
-		 * @param {Object} scope the scope in wich to run the callback
-		 */
-		this.loop = function loop(func, scope) {
-			Tools.loop(_data, func, scope);
-		};
+        /**
+         * Unwatch the value's modifications
+         * @param {Handler} handler the handler returned by the watchValue function
+         * @private
+         * @returns true if unwatched
+         */
+        this.unwatchValue = function unwatchValue(handler) {
+            return _valueObservable.unwatch(handler);
+        };
 
-		/**
-		 * Reset all data and get notifications on changes
-		 * @param {Arra/Object} data the new data
-		 * @returns {Boolean}
-		 */
-		this.reset = function reset(data) {
-			if (data instanceof Object) {
-				var previousData = Tools.clone(_data);
-				_data = Tools.clone(data) || {};
-				_notifyDiffs(previousData);
-				return true;
-			} else {
-				return false;
-			}
+        /**
+         * Get the observable used for watching value's modifications
+         * Should be used only for debugging
+         * @private
+         * @returns {Observable} the Observable
+         */
+        this.getValueObservable = function getValueObservable() {
+            return _valueObservable;
+        };
 
-		};
+        /**
+         * Loop through the data
+         * @param {Function} func the function to execute on each data
+         * @param {Object} scope the scope in wich to run the callback
+         */
+        this.loop = function loop(func, scope) {
+            Tools.loop(_data, func, scope);
+        };
 
-		/**
-		 * Returns a JSON version of the data
-		 * Use dump if you want all the data as a plain js object
-		 * @returns {String} the JSON
-		 */
-		this.toJSON = function toJSON() {
-			return JSON.stringify(_data);
-		};
+        /**
+         * Reset all data and get notifications on changes
+         * @param {Arra/Object} data the new data
+         * @returns {Boolean}
+         */
+        this.reset = function reset(data) {
+            if (data instanceof Object) {
+                var previousData = Tools.clone(_data);
+                _data = Tools.clone(data) || {};
+                _notifyDiffs(previousData);
+                _storeObservable.notify("resetted", _data, previousData);
+                return true;
+            } else {
+                return false;
+            }
 
-		/**
-		 * Returns the store's data
-		 * @returns {Object} the data
-		 */
-		this.dump = function dump() {
-			return _data;
-		};
-	};
+        };
+
+        /**
+         * Compute a new property from other properties.
+         * The computed property will look exactly similar to any none
+         * computed property, it can be watched upon.
+         * @param {String} name the name of the computed property
+         * @param {Array} computeFrom a list of properties to compute from
+         * @param {Function} callback the callback to compute the property
+         * @param {Object} scope the scope in which to execute the callback
+         * @returns {Boolean} false if wrong params given to the function
+         */
+        this.compute = function compute(name, computeFrom, callback, scope) {
+            var args = [];
+
+            if (typeof name == "string" &&
+                typeof computeFrom == "object" &&
+                typeof callback == "function" &&
+                !this.isCompute(name)) {
+
+                _computed[name] = [];
+
+                Tools.loop(computeFrom, function (property) {
+                    _computed[name].push(this.watchValue(property, function () {
+                        this.set(name, callback.call(scope));
+                    }, this));
+                }, this);
+
+                this.set(name, callback.call(scope));
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        /**
+         * Remove a computed property
+         * @param {String} name the name of the computed to remove
+         * @returns {Boolean} true if the property is removed
+         */
+        this.removeCompute = function removeCompute(name) {
+            if (this.isCompute(name)) {
+                Tools.loop(_computed[name], function (handle) {
+                    this.unwatchValue(handle);
+                }, this);
+                this.del(name);
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        /**
+         * Tells if a property is a computed property
+         * @param {String} name the name of the property to test
+         * @returns {Boolean} true if it's a computed property
+         */
+        this.isCompute = function isCompute(name) {
+            return !!_computed[name];
+        };
+
+        /**
+         * Returns a JSON version of the data
+         * Use dump if you want all the data as a plain js object
+         * @returns {String} the JSON
+         */
+        this.toJSON = function toJSON() {
+            return JSON.stringify(_data);
+        };
+
+        /**
+         * Returns the store's data
+         * @returns {Object} the data
+         */
+        this.dump = function dump() {
+            return _data;
+        };
+    };
 });
 
 /**
- * Emily
+ * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
  * MIT Licensed
  */
-
 define('Transport',[],
 /**
  * @class
@@ -1275,96 +1450,339 @@ define('Transport',[],
  */
 function Transport() {
 
-	/**
-	 * Create a Transport
-	 * @param {Emily Store} [optionanl] $reqHandlers an object containing the request handlers
-	 * @returns
-	 */
-	return function TransportConstructor($reqHandlers) {
+    
 
-		/**
-		 * The request handlers
-		 * @private
-		 */
-		var _reqHandlers = null;
+    /**
+     * Create a Transport
+     * @param {Emily Store} [optionanl] $reqHandlers an object containing the request handlers
+     * @returns
+     */
+    return function TransportConstructor($reqHandlers) {
 
-		/**
-		 * Set the requests handlers object
-		 * @param {Emily Store} reqHandlers an object containing the requests handlers
-		 * @returns
-		 */
-		this.setReqHandlers = function setReqHandlers(reqHandlers) {
-			if (reqHandlers instanceof Object) {
-				_reqHandlers = reqHandlers;
-				return true;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * The request handlers
+         * @private
+         */
+        var _reqHandlers = null;
 
-		/**
-		 * Get the requests handlers
-		 * @returns{ Emily Store} reqHandlers the object containing the requests handlers
-		 */
-		this.getReqHandlers = function getReqHandlers() {
-			return _reqHandlers;
-		};
+        /**
+         * Set the requests handlers object
+         * @param {Emily Store} reqHandlers an object containing the requests handlers
+         * @returns
+         */
+        this.setReqHandlers = function setReqHandlers(reqHandlers) {
+            if (reqHandlers instanceof Object) {
+                _reqHandlers = reqHandlers;
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-		/**
-		 * Issue a request to a request handler
-		 * @param {String} reqHandler the name of the request handler to issue the request to
-		 * @param {Object} data the data, or payload, to send to the request handler
-		 * @param {Function} callback the function to execute with the result
-		 * @param {Object} scope the scope in which to execute the callback
-		 * @returns
-		 */
-		this.request = function request(reqHandler, data, callback, scope) {
-			if (_reqHandlers.has(reqHandler)
-					&& typeof data != "undefined") {
+        /**
+         * Get the requests handlers
+         * @returns{ Emily Store} reqHandlers the object containing the requests handlers
+         */
+        this.getReqHandlers = function getReqHandlers() {
+            return _reqHandlers;
+        };
 
-				_reqHandlers.get(reqHandler)(data, function () {
-					callback && callback.apply(scope, arguments);
-				});
-				return true;
-			} else {
-				return false;
-			}
-		};
+        /**
+         * Issue a request to a request handler
+         * @param {String} reqHandler the name of the request handler to issue the request to
+         * @param {Object} data the data, or payload, to send to the request handler
+         * @param {Function} callback the function to execute with the result
+         * @param {Object} scope the scope in which to execute the callback
+         * @returns
+         */
+        this.request = function request(reqHandler, data, callback, scope) {
+            if (_reqHandlers.has(reqHandler) &&
+                typeof data != "undefined") {
 
-		/**
-		 * Issue a request to a reqHandler but keep listening for the response as it can be sent in several chunks
-		 * or remain open as long as the abort funciton is not called
-		 * @param {String} reqHandler the name of the request handler to issue the request to
-		 * @param {Object} data the data, or payload, to send to the request handler
-		 * @param {Function} callback the function to execute with the result
-		 * @param {Object} scope the scope in which to execute the callback
-		 * @returns {Function} the abort function to call to stop listening
-		 */
-		this.listen = function listen(reqHandler, data, callback, scope) {
-			if (_reqHandlers.has(reqHandler)
-					&& typeof data != "undefined"
-					&& typeof callback == "function") {
+                _reqHandlers.get(reqHandler)(data, function () {
+                    if (callback) {
+                        callback.apply(scope, arguments);
+                    }
+                });
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-				var func = function () {
-					callback.apply(scope, arguments);
-				},
-				abort;
+        /**
+         * Issue a request to a reqHandler but keep listening for the response as it can be sent in several chunks
+         * or remain open as long as the abort funciton is not called
+         * @param {String} reqHandler the name of the request handler to issue the request to
+         * @param {Object} data the data, or payload, to send to the request handler
+         * @param {Function} callback the function to execute with the result
+         * @param {Object} scope the scope in which to execute the callback
+         * @returns {Function} the abort function to call to stop listening
+         */
+        this.listen = function listen(reqHandler, data, callback, scope) {
+            if (_reqHandlers.has(reqHandler) &&
+                typeof data != "undefined" &&
+                typeof callback == "function") {
 
-				abort = _reqHandlers.get(reqHandler)(data, func, func);
-				return function () {
-					if (typeof abort == "function") {
-						abort();
-					} else if (typeof abort == "object" && typeof abort.func == "function") {
-						abort.func.call(abort.scope);
-					}
-				};
-			} else {
-				return false;
-			}
-		};
+                var func = function () {
+                    callback.apply(scope, arguments);
+                },
+                abort;
 
-		this.setReqHandlers($reqHandlers);
+                abort = _reqHandlers.get(reqHandler)(data, func, func);
+                return function () {
+                    if (typeof abort == "function") {
+                        abort();
+                    } else if (typeof abort == "object" && typeof abort.func == "function") {
+                        abort.func.call(abort.scope);
+                    }
+                };
+            } else {
+                return false;
+            }
+        };
 
-	};
+        this.setReqHandlers($reqHandlers);
+
+    };
+
+});
+
+/**
+ * Emily.js - http://flams.github.com/emily/
+ * Copyright(c) 2012-2013 Olivier Scherrer <pode.fr@gmail.com>
+ * MIT Licensed
+ */
+
+define('Router',["Observable", "Store", "Tools"],
+
+/**
+ * @class
+ * Routing allows for navigating in an application by defining routes.
+ */
+function Router(Observable, Store, Tools) {
+
+    
+
+    return function RouterConstructor() {
+
+        /**
+         * The routes observable (the applications use it)
+         * @private
+         */
+        var _routes = new Observable(),
+
+        /**
+         * The events observable (used by Routing)
+         * @private
+         */
+        _events = new Observable(),
+
+        /**
+         * The routing history
+         * @private
+         */
+        _history = new Store([]),
+
+        /**
+         * For navigating through the history, remembers the current position
+         * @private
+         */
+        _currentPos = -1,
+
+        /**
+         * The depth of the history
+         * @private
+         */
+        _maxHistory = 10;
+
+        /**
+         * Only for debugging
+         * @private
+         */
+        this.getRoutesObservable = function getRoutesObservable() {
+            return _routes;
+        };
+
+        /**
+         * Only for debugging
+         * @private
+         */
+        this.getEventsObservable = function getEventsObservable() {
+            return _events;
+        };
+
+        /**
+         * Set the maximum length of history
+         * As the user navigates through the application, the
+         * routeur keeps track of the history. Set the depth of the history
+         * depending on your need and the amount of memory that you can allocate it
+         * @param {Number} maxHistory the depth of history
+         * @returns {Boolean} true if maxHistory is equal or greater than 0
+         */
+        this.setMaxHistory = function setMaxHistory(maxHistory) {
+            if (maxHistory >= 0) {
+                _maxHistory = maxHistory;
+                return true;
+            } else {
+                return false;
+            }
+
+        };
+
+        /**
+         * Get the current max history setting
+         * @returns {Number} the depth of history
+         */
+        this.getMaxHistory = function getMaxHistory() {
+            return _maxHistory;
+        };
+
+        /**
+         * Set a new route
+         * @param {String} route the name of the route
+         * @param {Function} func the function to be execute when navigating to the route
+         * @param {Object} scope the scope in which to execute the function
+         * @returns a handle to remove the route
+         */
+        this.set = function set() {
+            return _routes.watch.apply(_routes, arguments);
+        };
+
+        /**
+         * Remove a route
+         * @param {Object} handle the handle provided by the set method
+         * @returns true if successfully removed
+         */
+        this.unset = function unset(handle) {
+            return _routes.unwatch(handle);
+        };
+
+        /**
+         * Navigate to a route
+         * @param {String} route the route to navigate to
+         * @param {*} *params
+         * @returns
+         */
+        this.navigate = function get(route, params) {
+            if (this.load.apply(this, arguments)) {
+                // Before adding a new route to the history, we must clear the forward history
+                _history.proxy("splice", _currentPos +1, _history.count());
+                _history.proxy("push", Tools.toArray(arguments));
+                this.ensureMaxHistory(_history);
+                _currentPos = _history.count() -1;
+                return true;
+            } else {
+                return false;
+            }
+
+        };
+
+        /**
+         * Ensure that history doesn't grow bigger than the max history setting
+         * @param {Store} history the history store
+         * @private
+         */
+        this.ensureMaxHistory = function ensureMaxHistory(history) {
+            var count = history.count(),
+                max = this.getMaxHistory(),
+                excess = count - max;
+
+            if (excess > 0) {
+                history.proxy("splice", 0, excess);
+            }
+        };
+
+        /**
+         * Actually loads the route
+         * @private
+         */
+        this.load = function load() {
+            var copy = Tools.toArray(arguments);
+
+            if (_routes.notify.apply(_routes, copy)) {
+                copy.unshift("route");
+                _events.notify.apply(_events, copy);
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        /**
+         * Watch for route changes
+         * @param {Function} func the func to execute when the route changes
+         * @param {Object} scope the scope in which to execute the function
+         * @returns {Object} the handle to unwatch for route changes
+         */
+        this.watch = function watch(func, scope) {
+            return _events.watch("route", func, scope);
+        };
+
+        /**
+         * Unwatch routes changes
+         * @param {Object} handle the handle was returned by the watch function
+         * @returns true if unwatch
+         */
+        this.unwatch = function unwatch(handle) {
+            return _events.unwatch(handle);
+        };
+
+        /**
+         * Get the history store, for debugging only
+         * @private
+         */
+        this.getHistoryStore = function getHistoryStore() {
+            return _history;
+        };
+
+        /**
+         * Get the current length of history
+         * @returns {Number} the length of history
+         */
+        this.getHistoryCount = function getHistoryCount() {
+            return _history.count();
+        };
+
+        /**
+         * Flush the entire history
+         */
+        this.clearHistory = function clearHistory() {
+            _history.reset([]);
+        };
+
+        /**
+         * Go back and forth in the history
+         * @param {Number} nb the amount of history to rewind/forward
+         * @returns true if history exists
+         */
+        this.go = function go(nb) {
+            var history = _history.get(_currentPos + nb);
+            if (history) {
+                _currentPos += nb;
+                this.load.apply(this, history);
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        /**
+         * Go back in the history, short for go(-1)
+         * @returns
+         */
+        this.back = function back() {
+            return this.go(-1);
+        };
+
+        /**
+         * Go forward in the history, short for go(1)
+         * @returns
+         */
+        this.forward = function forward() {
+            return this.go(1);
+        };
+
+    };
 
 });

@@ -20,6 +20,9 @@ var excludedFrameworks = [
 	'cujo', 'montage',
 	// sammyjs fails intermittently, it would appear that its state is sometimes updated asynchronously?
 	'sammyjs',
+	// elm-html batches UI updates with requestAnimationFrame which the tests
+	// don't wait for
+	'elm',
 	// these are examples that have been removed or are empty folders
 	'emberjs_require', 'dermis'
 ];

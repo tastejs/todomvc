@@ -45,7 +45,7 @@
 				<div class="col-md-4">
 					<h2>Introduction</h2>
 					<p>Developers these days are spoiled with choice when it comes to <a href="http://coding.smashingmagazine.com/2012/07/27/journey-through-the-javascript-mvc-jungle/">selecting</a> an <strong>MV* framework</strong> for structuring and organizing their JavaScript web apps.</p>
-					<p>Backbone, Ember, AngularJS... the list of new and stable solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
+					<p>Backbone, Ember, AngularJS… the list of new and stable solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
 					<p>To help solve this problem, we created <a href="https://github.com/tastejs/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p>
 					<a href="https://twitter.com/tastejs" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
 					<a href="https://twitter.com/share" class="twitter-share-button" data-via="tastejs" data-url="http://todomvc.com" data-text="TodoMVC - Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, and more"></a>
@@ -100,9 +100,6 @@
 									<a href="examples/yui/" data-source="http://yuilibrary.com" data-content="YUI's lightweight core and modular architecture make it scalable, fast, and robust. Built by frontend engineers at Yahoo!, YUI powers the most popular websites in the world.">YUI</a>
 								</li>
 								<li class="routing">
-									<a href="examples/agilityjs/" data-source="http://agilityjs.com" data-content="Agility.js is an MVC library for Javascript that lets you write maintainable and reusable browser code without the infrastructural overhead found in other MVC libraries. The goal is to enable developers to write web apps at least as quickly as with jQuery, while simplifying long-term maintainability through MVC objects.">Agility.js</a>
-								</li>
-								<li class="routing">
 									<a href="examples/knockback/" data-source="http://kmalakoff.github.com/knockback/" data-content="Knockback.js provides Knockout.js magic for Backbone.js Models and Collections.">Knockback.js</a>
 								</li>
 								<li class="routing">
@@ -126,6 +123,12 @@
 								<li class="routing">
 									<a href="examples/flight/" data-source="http://twitter.github.com/flight" data-content="Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes. Twitter uses it for their web applications.">Flight</a>
 								</li>
+								<li class="routing">
+									<a href="examples/vue/" data-source="http://vuejs.org" data-content="Vue.js provides the benefits of MVVM data binding and a composable component system with an extremely simple and flexible API.">Vue.js</a>
+								</li>
+								<li class="routing">
+									<a href="examples/backbone_marionette/" data-source="http://marionettejs.com" data-content="Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.">MarionetteJS</a>
+								</li>
 							</ul>
 						</div>
 						<div class="js-app-list" data-app-list="ctojs">
@@ -145,6 +148,9 @@
 								</li>
 								<li class="routing">
 									<a href="examples/closure/" data-source="http://code.google.com/closure/library/" data-content="The Closure Library is a broad, well-tested, modular, and cross-browser JavaScript library. You can pull just what you need from a large set of reusable UI widgets and controls, and from lower-level utilities for DOM manipulation, server communication, animation, data structures, unit testing, rich-text editing, and more.">Closure</a>
+								</li>
+								<li class="routing">
+									<a href="examples/elm/" data-source="http://elm-lang.org" data-content="A functional reactive language for interactive applications">Elm</a>
 								</li>
 								<li>
 									<a href="examples/angular-dart/web/" data-source="https://github.com/angular/angular.dart" data-content="Dart firstly targets the development of modern and large scale browser-side web apps. It's an object oriented language with a C-style syntax. AngularDart is a port of Angular to Dart.">AngularDart</a>
@@ -169,9 +175,6 @@
 								we are still evaluating.
 							</p>
 							<ul class="js-app-list-inner applist js">
-								<li class="routing">
-									<a href="examples/backbone_marionette/" data-source="http://marionettejs.com" data-content="Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.">MarionetteJS</a>
-								</li>
 								<li class="routing">
 									<a href="examples/thorax/" data-source="http://thoraxjs.org" data-content="An opinionated, battle tested Backbone + Handlebars framework to build large scale web applications.">Thorax</a>
 								</li>
@@ -273,9 +276,6 @@
 									<a href="examples/componentjs/" data-source="http://componentjs.com" data-content="ComponentJS is a stand-alone MPL-licensed Open Source library for JavaScript, providing a powerful run-time Component System for hierarchically structuring the User-Interface (UI) dialogs of complex HTML5-based Rich Clients (aka Single-Page-Apps) — under maximum applied Separation of Concerns (SoC) architecture principle, through optional Model, View and Controller component roles, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms, and fully independent and agnostic of the particular UI widget toolkit.">ComponentJS</a>
 								</li>
 								<li>
-									<a href="examples/vue/" data-source="http://vuejs.org" data-content="Vue.js provides the benefits of MVVM data binding and a composable component system with an extremely simple and flexible API.">Vue.js</a>
-								</li>
-								<li>
 									<a href="examples/react-backbone/" data-source="http://facebook.github.io/react/" data-content="This React example integrates Backbone for its model and router. It is a showcase of third-party library integration for developers wishing to use React together with a different JavaScript framework.">React + <br>Backbone.js</a>
 								</li>
 
@@ -363,7 +363,7 @@
 					<h2>Getting Involved</h2>
 					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
 					<p>If so, feel free to fork the repo, read our <a href="https://github.com/tastejs/todomvc/wiki">contribution guidelines</a>, and submit a pull request &mdash; we'll be happy to review it for inclusion.</p>
-					<p>Make sure you use the <a href="https://github.com/tastejs/todomvc/tree/master/template">template</a> as a starting point and read the <a href="https://github.com/tastejs/todomvc/blob/master/app-spec.md">app specification</a>.</p>
+					<p>Make sure you use the <a href="https://github.com/tastejs/todomvc-app-template">template</a> as a starting point and read the <a href="https://github.com/tastejs/todomvc/blob/master/app-spec.md">app specification</a>.</p>
 					<p>
 						<a class="zocial small ltgray" href="https://github.com/tastejs/todomvc/wiki">Submit Pull Request &raquo;</a>
 					</p>

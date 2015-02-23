@@ -14,13 +14,12 @@ module.exports = State.extend({
 	initialize: function () {
 		// Listen to changes to the todos collection that will
 		// affect lengths we want to calculate.
-		this.listenTo(this.todos, 'change:completed change:title add remove', this.handleTodosUpdate);
+		this.listenTo(this.todos, 'change:completed add remove', this.handleTodosUpdate);
 		// We also want to calculate these values once on init
 		this.handleTodosUpdate();
-
 		// Listen for changes to `mode` so we can update
 		// the collection mode.
-		this.on('change:mode', this.handleModeChange, this);
+		this.listenTo(this, 'change:mode', this.handleModeChange);
 	},
 	collections: {
 		todos: Todos
@@ -71,18 +70,17 @@ module.exports = State.extend({
 	// so they're easy to listen to and bind to DOM
 	// where needed.
 	handleTodosUpdate: function () {
-		var completed = 0;
-		var todos = this.todos;
-		todos.each(function (todo) {
-			if (todo.completed) {
-				completed++;
-			}
-		});
+		var total = this.todos.length;
+		// use a method we defined on the collection itself
+		// to count how many todos are completed
+		var completed = this.todos.getCompletedCount();
+		// We use `set` here in order to update multiple attributes at once
+		// It's possible to set directely using `this.completedCount = completed` ...
 		this.set({
 			completedCount: completed,
-			activeCount: todos.length - completed,
-			totalCount: todos.length,
-			allCompleted: todos.length === completed
+			activeCount: total - completed,
+			totalCount: total,
+			allCompleted: total === completed
 		});
 	},
 	handleModeChange: function () {

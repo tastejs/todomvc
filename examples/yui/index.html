@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>YUI • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
 		<section id="todoapp">
@@ -26,7 +27,7 @@
 			</p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
-		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
 		<script type="text/x-handlebars-template" id="item-template">
 			<div class="view">
 				<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
@@ -52,7 +53,7 @@
 			<button id="clear-completed">Clear completed ({{completed}})</button>
 			{{/if}}
 		</script>
-		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="js/lib/yui.js"></script>
 		<script>
 			YUI({

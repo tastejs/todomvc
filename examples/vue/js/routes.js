@@ -8,14 +8,14 @@
 
 	Object.keys(app.filters).forEach(function (filter) {
 		router.on(filter, function () {
-			app.filter = filter;
+			app.activeFilter = filter;
 		});
 	});
 
 	router.configure({
 		notfound: function () {
 			window.location.hash = '';
-			app.filter = 'all';
+			app.activeFilter = 'all';
 		}
 	});
 

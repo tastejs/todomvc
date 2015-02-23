@@ -3,10 +3,10 @@
 
 define([
 	'flight/lib/component',
-	'../store'
+	'app/store'
 ], function (defineComponent, dataStore) {
 	function stats() {
-		this.defaultAttrs({
+		this.attributes({
 			dataStore: dataStore
 		});
 

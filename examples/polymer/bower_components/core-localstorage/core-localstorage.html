@@ -30,12 +30,12 @@ triggered only when value is a different instance.
 <script>
 
   Polymer('core-localstorage', {
-
+    
     /**
      * Fired when a value is loaded from localStorage.
      * @event core-localstorage-load
      */
-
+     
     /**
      * The key to the data stored in localStorage.
      *
@@ -44,7 +44,7 @@ triggered only when value is a different instance.
      * @default null
      */
     name: '',
-
+    
     /**
      * The data associated with the specified name.
      *
@@ -53,7 +53,7 @@ triggered only when value is a different instance.
      * @default null
      */
     value: null,
-
+    
     /**
      * If true, the value is stored and retrieved without JSON processing.
      *
@@ -62,7 +62,7 @@ triggered only when value is a different instance.
      * @default false
      */
     useRaw: false,
-
+    
     /**
      * If true, auto save is disabled.
      *
@@ -71,18 +71,17 @@ triggered only when value is a different instance.
      * @default false
      */
     autoSaveDisabled: false,
-
-    attached: function() {
-      // wait for bindings are all setup
-      this.async('load');
-    },
-
+    
     valueChanged: function() {
       if (this.loaded && !this.autoSaveDisabled) {
         this.save();
       }
     },
 
+    nameChanged: function() {
+      this.load();
+    },
+    
     load: function() {
       var v = localStorage.getItem(this.name);
       if (this.useRaw) {
@@ -97,7 +96,7 @@ triggered only when value is a different instance.
         // be escaped, i.e. "null")
         // in this case we save any non-null current (default) value
         if (v === null) {
-          if (this.value !== null) {
+          if (this.value != null) {
             this.save();
           }
         } else {
@@ -111,8 +110,8 @@ triggered only when value is a different instance.
       this.loaded = true;
       this.asyncFire('core-localstorage-load');
     },
-
-    /**
+    
+    /** 
      * Saves the value to localStorage.
      *
      * @method save
@@ -121,7 +120,7 @@ triggered only when value is a different instance.
       var v = this.useRaw ? this.value : JSON.stringify(this.value);
       localStorage.setItem(this.name, v);
     }
-
+    
   });
 
 </script>
