@@ -27,7 +27,7 @@
 		<script type="text/template" id="item-template">
 			<div class="view">
 				<input class="toggle" type="checkbox" tabindex="0" <%= completed ? 'checked' : '' %>>
-				<span tabindex="0"><%- title %></span	>
+				<span tabindex="0"><%- title %></span>
 				<button class="destroy" title="Delete this to-do item"></button>
 			</div>
 			<input class="edit" value="<%- title %>">
@@ -46,7 +46,7 @@
 				</li>
 			</ul>
 			<% if (completed) { %>
-			<button id="clear-completed">Clear completed (<%= completed %>)</button>
+			<button type="button" id="clear-completed" tabindex="0">Clear completed (<%= completed %>)</button>
 			<% } %>
 		</script>
 		<script src="node_modules/todomvc-common/base.js"></script>
