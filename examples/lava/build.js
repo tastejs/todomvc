@@ -1,8 +1,7 @@
 /*
 
-Running:
+Running (don't forget "npm install"):
 > node build.js
-> node node_modules/uglify-js/bin/uglifyjs bundle.js -o bundle.min.js
 
 Building is optional: you can open index_raw in browser, and it will work as expected.
 This build script parses page template on server, so you don't see page sources while it's loading.
@@ -53,4 +52,16 @@ var bundle_content = [
 	page_widget_src
 ];
 
-fs.writeFileSync('bundle.js', bundle_content.join('\n\n'));
+var UglifyJS = require('uglify-js');
+
+var result = UglifyJS.minify(bundle_content.join('\n\n'), {
+	fromString: true,
+	mangle: true,
+	compress: {
+		dead_code: true,
+		unsafe: true,
+		unused: true
+	}
+});
+
+fs.writeFileSync("bundle.min.js", result.code);

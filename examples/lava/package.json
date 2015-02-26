@@ -1,9 +1,9 @@
 {
   "private": true,
   "dependencies": {
-    "lava": "^0.13.2",
+    "lava": "^0.13.6",
     "director": "~1.2.8",
-    "todomvc-app-css": "=1.0.0",
+    "todomvc-app-css": "=1.0.1",
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
