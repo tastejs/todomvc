@@ -193,7 +193,7 @@
 	};
 
 	/**
-	 * Will toggle ALL checkboxe's on/off state and completeness of models.
+	 * Will toggle ALL checkboxes' on/off state and completeness of models.
 	 * Just pass in the event object.
 	 */
 	Controller.prototype.toggleAll = function (completed) {
