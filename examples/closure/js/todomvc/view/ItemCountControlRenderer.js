@@ -23,10 +23,11 @@ goog.addSingletonGetter(todomvc.view.ItemCountControlRenderer);
  * @return {Element} Root element for the control.
  */
 todomvc.view.ItemCountControlRenderer.prototype.createDom = function(control) {
-    var html = todomvc.view.itemCount({
+    var sanitizedHtml = todomvc.view.itemCount({
         number: control.getContent()
     });
-    var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
+    var element = /**@type {!Element}*/ (goog.dom.htmlToDocumentFragment(
+        sanitizedHtml.toString()));
     this.setAriaStates(control, element);
     return element;
 };

@@ -34,11 +34,11 @@ todomvc.view.ToDoListContainerRenderer.prototype.canDecorate =
  */
 todomvc.view.ToDoListContainerRenderer.prototype.initializeDom =
     function(container) {
-    var elem = (/**@type {!Element}*/ container.getElement());
+    var elem = /**@type {!Element}*/ (container.getElement());
 
     // Set the ARIA role.
     var ariaRole = this.getAriaRole();
     if (ariaRole) {
-        goog.dom.a11y.setRole(elem, ariaRole);
+        goog.a11y.aria.setRole(elem, ariaRole);
     }
 };

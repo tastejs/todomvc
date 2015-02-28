@@ -25,10 +25,11 @@ goog.addSingletonGetter(todomvc.view.ClearCompletedControlRenderer);
  */
 todomvc.view.ClearCompletedControlRenderer.prototype.createDom =
     function(control) {
-    var html = todomvc.view.clearCompleted({
+    var sanitizedHtml = todomvc.view.clearCompleted({
         number: control.getContent()
     });
-    var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
+    var element = /**@type {!Element}*/ (goog.dom.htmlToDocumentFragment(
+        sanitizedHtml.toString()));
     this.setAriaStates(control, element);
     return element;
 };
