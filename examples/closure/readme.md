@@ -37,9 +37,10 @@ Note this project breaks with the convention of the others and uses spaces in pl
 
 ## Running
 
-A third party build tool called [Plovr](http://plovr.com/) is used to make running and compiling the code easier. To serve the code for development purposes (the example should run in compiled mode without using Plovr), first download the latest stable version from the [Plovr Google Code project](http://code.google.com/p/plovr/downloads/list) (at the time of writing plovr-eba786b34df9.jar). Copy the file into the build folder, rename it plovr.jar and run the following command from this folder -
+A third party build tool called [Plovr](http://plovr.com/) is used to make running and compiling the code easier. To serve the code for development purposes (the example should run in compiled mode without using Plovr), run the following command from this folder -
 
-`java -jar build/plovr.jar serve plovr.json`
+`npm install`
+`npm run serve`
 
 You'll also need to change the HTML file so that it references the served files instead of the compiled version (**make sure you comment out the compiled version otherwise it will not work**), to do this remove the compiled script reference and add the following -
 
@@ -56,16 +57,17 @@ Whilst Plovr features many of the tools from the Closure toolkit, one very usefu
 
 The linter must be installed before use, the installation package is included in the build folder and the instructions are available on the [linter homepage](https://developers.google.com/closure/utilities/). Once installed run the following to check for errors -
 
-`find . -name *.js | xargs gjslint`
+`find . -path ./node_modules -prune -o -name *.js | xargs gjslint`
 
 (or whatever floats your OSs boat)
 
 
 ## Compiling
 
-To compile the code from the command line run Plovr like so -
+To compile the code from the command line run -
 
-`java -jar build/plovr.jar build plovr.json > js/compiled.js`
+`npm install`
+`npm run build`
 
 This will overwrite the js/compiled.js file with the new version, be sure to change the script tag reference in the HTML page.
 

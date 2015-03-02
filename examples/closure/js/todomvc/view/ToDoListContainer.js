@@ -31,7 +31,7 @@ goog.inherits(todomvc.view.ToDoListContainer, goog.ui.Container);
  * @param {goog.events.BrowserEvent} e Mousedown event to handle.
  */
 todomvc.view.ToDoListContainer.prototype.handleMouseDown = function(e) {
-    if (this.enabled_) {
+    if (this.isEnabled()) {
         this.setMouseButtonPressed(true);
     }
 };
