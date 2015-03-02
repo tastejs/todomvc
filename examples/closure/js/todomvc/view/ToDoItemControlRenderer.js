@@ -23,11 +23,12 @@ goog.addSingletonGetter(todomvc.view.ToDoItemControlRenderer);
  * @return {Element} Root element for the control.
  */
 todomvc.view.ToDoItemControlRenderer.prototype.createDom = function(control) {
-    var html = todomvc.view.toDoItem({
+    var sanitizedHtml = todomvc.view.toDoItem({
         content: control.getContent(),
         checked: control.isChecked()
     });
-    var element = (/**@type {!Element}*/ goog.dom.htmlToDocumentFragment(html));
+    var element = /**@type {!Element}*/ (goog.dom.htmlToDocumentFragment(
+        sanitizedHtml.toString()));
     this.setAriaStates(control, element);
     this.setState(control, /** @type {goog.ui.Component.State} */
         (control.getState()), true);
