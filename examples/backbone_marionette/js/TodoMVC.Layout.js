@@ -2,6 +2,18 @@
 'use strict';
 
 TodoMVC.module('Layout', function (Layout, App, Backbone) {
+	// Layout Root View
+	// ------------------
+	Layout.Root = Backbone.Marionette.LayoutView.extend({
+		el: 'body',
+
+		regions: {
+			header: '#header',
+			main: '#main',
+			footer: '#footer'
+		}
+	});
+
 	// Layout Header View
 	// ------------------
 	Layout.Header = Backbone.Marionette.ItemView.extend({
