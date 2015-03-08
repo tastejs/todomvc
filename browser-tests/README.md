@@ -20,45 +20,30 @@ These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  I
 $ npm install
 ```
 
-The tests use Mocha, which must be installed as a command line module:
+You need to run a local server at the root of the TodoMVC project. Start the server using:
 
 ```sh
-$ npm install -g mocha
+$ npm run serve
 ```
-
-You need to run a local server at the root of the TodoMVC project. On Mac OSX, you can do the following:
-
-```sh
-$ python -m SimpleHTTPServer 8000
-```
-
-or its Ruby equivalent:
-
-```sh
-$ ruby -run -e httpd . -p 8000
-```
-
-And for Windows, the node [http-server](https://github.com/nodeapps/http-server) is a simple, zero-configuration alternative.
 
 To run the tests for all TodoMVC implementations, run the following:
 
 ```sh
-$ mocha allTests.js --no-timeouts --reporter spec
+$ npm run test
 ```
-
-Note that `--reporter spec` uses the mocha 'spec' reporter, which is quite informative. You can of course specify any other reporter.
 
 In order to run tests for a single TodoMVC implementation, supply a framework argument as follows:
 
 ```sh
-$ mocha allTests.js --no-timeouts --reporter spec --framework=angularjs
+$ npm run test -- --framework=angularjs
 ```
+
+N.B. Remember the extra -- to separate the script arguments from the npm arguments.
 
 In order to run a specific test, use the mocha 'grep' function. For example:
 
 ```
-	$ mocha allTests.js --no-timeouts --reporter spec --framework=jquery \
-		--grep 'should trim entered text'
+	$ npm run test -- --framework=jquery --grep 'should trim entered text'
 
 	  TodoMVC - jquery
 	    Editing
@@ -70,10 +55,10 @@ In order to run a specific test, use the mocha 'grep' function. For example:
 
 ### Specifying the browser
 
-You can also specify the browser that will be used to execute the tests via the `---browser` argument. The tests default to using Chrome (see the instructions below for installing ChromeDriver). For example, to run against phantomjs, use the following:
+You can also specify the browser that will be used to execute the tests via the `---browser` argument. The tests default to using Chrome. For example, to run against phantomjs, use the following:
 
 ```sh
-$ mocha allTests.js --no-timeouts --reporter spec --browser=phantomjs
+$ npm run test -- --browser=phantomjs
 ```
 
 You must install phantomjs first of course!
@@ -83,10 +68,10 @@ Valid browser names can be found within webdriver via the `webdriver.Browser` en
 
 ## Reporting against known issues
 
-The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these issues using the `mocha-known-issues-reporter`. This reporter is a separate npm module, as a result the easiest way to run it using the supplied gruntfile:
+The `knownIssues.js` file details the currently known issues with the TodoMVC implementations. You can run the tests and compare against these issues using the `mocha-known-issues-reporter`:
 
 ```sh
-$ grunt test --framework=angularjs
+$ npm run test -- --reporter=mocha-known-issues-reporter
 ```
 
 When run via grunt the suite supports exactly the same command line arguments.
@@ -94,7 +79,8 @@ When run via grunt the suite supports exactly the same command line arguments.
 An example output with the known issues reporter is shown below:
 
 ```
-$ grunt test --framework=jquery
+$ npm run test -- --reporter=mocha-known-issues-reporter --framework=jquery
+...
 Running "simplemocha:files" (simplemocha) task
 (1 of 27) pass: TodoMVC - jquery, No Todos, should hide #main and #footer
 [...]
@@ -118,16 +104,12 @@ resolved issues: 0
 
 The reporter indicates the number of passes, failed, new and resolved issues. This makes it ideal for regression testing.
 
-### Chrome
-
-In order to run the tests using the Chrome browser, you need to install ChromeDriver. Instructions for download and installation can be found on the [ChromeDriver homepage](http://code.google.com/p/selenium/wiki/ChromeDriver), or a simpler set of instructions is available [here](http://damien.co/resources/how-to-install-chromedriver-mac-os-x-selenium-python-7406).
-
 ### Example output
 
 A test run with the 'spec' reporter looks something like the following:
 
 ```
-$ mocha allTests.js --no-timeouts --reporter spec --framework=angularjs
+$ npm run test -- --framework=angularjs
 
   angularjs
     TodoMVC
@@ -178,7 +160,7 @@ $ mocha allTests.js --no-timeouts --reporter spec --framework=angularjs
 In order to keep each test case fully isolated, the browser is closed then re-opened in between each test. This does mean that the tests can take quite a long time to run. If you don't mind the risk of side-effects you can run the tests in speed mode by adding the `--speedMode` argument.
 
 ```sh
-$ mocha allTests.js --no-timeouts --reporter spec --speedMode
+$ npm run test -- --speedMode
 ```
 
 Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
@@ -190,7 +172,7 @@ There are certain implementations (e.g. GWT and Dojo) where the constraints of t
 
 
 ```sh
-$ mocha allTests.js --no-timeouts --reporter spec --laxMode
+$ npm run test -- --laxMode
 ```
 
 
