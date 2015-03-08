@@ -34,18 +34,18 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 			var header = new App.Layout.Header({
 				collection: todoList
 			});
-			App.header.show(header);
+			App.root.showChildView('header', header);
 		},
 
 		showFooter: function (todoList) {
 			var footer = new App.Layout.Footer({
 				collection: todoList
 			});
-			App.footer.show(footer);
+			App.root.showChildView('footer', footer);
 		},
 
 		showTodoList: function (todoList) {
-			App.main.show(new TodoList.Views.ListView({
+			App.root.showChildView('main', new TodoList.Views.ListView({
 				collection: todoList
 			}));
 		},
