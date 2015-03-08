@@ -34,20 +34,21 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 			var header = new App.Layout.Header({
 				collection: todoList
 			});
-			App.header.show(header);
+			App.rootEl.showChildView('header', header);
 		},
 
 		showFooter: function (todoList) {
 			var footer = new App.Layout.Footer({
 				collection: todoList
 			});
-			App.footer.show(footer);
+			App.rootEl.showChildView('footer', footer);
 		},
 
 		showTodoList: function (todoList) {
-			App.main.show(new TodoList.Views.ListView({
+			var main = new TodoList.Views.ListView({
 				collection: todoList
-			}));
+			});
+			App.rootEl.showChildView('main', main);
 		},
 
 		// Set the filter to show complete or all items
@@ -65,6 +66,7 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 	// existing Todo items and displaying them.
 	App.on('start', function () {
 		var controller = new TodoList.Controller();
+
 		controller.router = new TodoList.Router({
 			controller: controller
 		});
