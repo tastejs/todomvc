@@ -1438,9 +1438,6 @@
 		"examples": [{
 			"name": "Example Basic Marionette",
 			"url": "examples/backbone_marionette"
-		}, {
-			"name": "Example Marionette with RequireJS",
-			"url": "examples/backbone_marionette_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
