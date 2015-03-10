@@ -1,38 +1,19 @@
 
 
 //
-// Generated on Sun Dec 16 2012 22:47:05 GMT-0500 (EST) by Nodejitsu, Inc (Using Codesurgeon).
-// Version 1.1.9
+// Generated on Tue Dec 16 2014 12:13:47 GMT+0100 (CET) by Charlie Robbins, Paolo Fragomeni & the Contributors (Using Codesurgeon).
+// Version 1.2.6
 //
 
 (function (exports) {
 
-
 /*
  * browser.js: Browser specific functionality for director.
  *
- * (C) 2011, Nodejitsu Inc.
+ * (C) 2011, Charlie Robbins, Paolo Fragomeni, & the Contributors.
  * MIT LICENSE
  *
  */
-
-if (!Array.prototype.filter) {
-  Array.prototype.filter = function(filter, that) {
-    var other = [], v;
-    for (var i = 0, n = this.length; i < n; i++) {
-      if (i in this && filter.call(that, v = this[i], i, this)) {
-        other.push(v);
-      }
-    }
-    return other;
-  };
-}
-
-if (!Array.isArray){
-  Array.isArray = function(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]';
-  };
-}
 
 var dloc = document.location;
 
@@ -197,11 +178,12 @@ var Router = exports.Router = function (routes) {
 };
 
 Router.prototype.init = function (r) {
-  var self = this;
+  var self = this
+    , routeTo;
   this.handler = function(onChangeEvent) {
     var newURL = onChangeEvent && onChangeEvent.newURL || window.location.hash;
     var url = self.history === true ? self.getPath() : newURL.replace(/.*#/, '');
-    self.dispatch('on', url);
+    self.dispatch('on', url.charAt(0) === '/' ? url : '/' + url);
   };
 
   listener.init(this.handler, this.history);
@@ -210,13 +192,20 @@ Router.prototype.init = function (r) {
     if (dlocHashEmpty() && r) {
       dloc.hash = r;
     } else if (!dlocHashEmpty()) {
-      self.dispatch('on', dloc.hash.replace(/^#/, ''));
+      self.dispatch('on', '/' + dloc.hash.replace(/^(#\/|#|\/)/, ''));
     }
   }
   else {
-    var routeTo = dlocHashEmpty() && r ? r : !dlocHashEmpty() ? dloc.hash.replace(/^#/, '') : null;
-    if (routeTo) {
-      window.history.replaceState({}, document.title, routeTo);
+    if (this.convert_hash_in_init) {
+      // Use hash as route
+      routeTo = dlocHashEmpty() && r ? r : !dlocHashEmpty() ? dloc.hash.replace(/^#/, '') : null;
+      if (routeTo) {
+        window.history.replaceState({}, document.title, routeTo);
+      }
+    }
+    else {
+      // Use canonical url
+      routeTo = this.getPath();
     }
 
     // Router has been initialized, but due to the chrome bug it will not
@@ -352,7 +341,7 @@ function paramifyString(str, params, mod) {
       }
     }
   }
-  return mod === str ? "([._a-zA-Z0-9-]+)" : mod;
+  return mod === str ? "([._a-zA-Z0-9-%()]+)" : mod;
 }
 
 function regifyString(str, params) {
@@ -363,11 +352,16 @@ function regifyString(str, params) {
     out += str.substr(0, matches.index) + matches[0];
   }
   str = out += str.substr(last);
-  var captures = str.match(/:([^\/]+)/ig), length;
+  var captures = str.match(/:([^\/]+)/ig), capture, length;
   if (captures) {
     length = captures.length;
     for (var i = 0; i < length; i++) {
-      str = str.replace(captures[i], paramifyString(captures[i], params));
+      capture = captures[i];
+      if (capture.slice(0, 2) === "::") {
+        str = capture.slice(1);
+      } else {
+        str = str.replace(capture, paramifyString(capture, params));
+      }
     }
   }
   return str;
@@ -393,6 +387,8 @@ function terminator(routes, delimiter, start, stop) {
   return routes;
 }
 
+var QUERY_SEPARATOR = /\?.*/;
+
 Router.prototype.configure = function(options) {
   options = options || {};
   for (var i = 0; i < this.methods.length; i++) {
@@ -406,6 +402,7 @@ Router.prototype.configure = function(options) {
   this.resource = options.resource;
   this.history = options.html5history && this.historySupport || false;
   this.run_in_init = this.history === true && options.run_handler_in_init !== false;
+  this.convert_hash_in_init = this.history === true && options.convert_hash_in_init !== false;
   this.every = {
     after: options.after || null,
     before: options.before || null,
@@ -422,6 +419,7 @@ Router.prototype.param = function(token, matcher) {
   this.params[token] = function(str) {
     return str.replace(compiled, matcher.source || matcher);
   };
+  return this;
 };
 
 Router.prototype.on = Router.prototype.route = function(method, path, route) {
@@ -449,8 +447,20 @@ Router.prototype.on = Router.prototype.route = function(method, path, route) {
   this.insert(method, this.scope.concat(path), route);
 };
 
+Router.prototype.path = function(path, routesFn) {
+  var self = this, length = this.scope.length;
+  if (path.source) {
+    path = path.source.replace(/\\\//ig, "/");
+  }
+  path = path.split(new RegExp(this.delimiter));
+  path = terminator(path, this.delimiter);
+  this.scope = this.scope.concat(path);
+  routesFn.call(this, this);
+  this.scope.splice(length, path.length);
+};
+
 Router.prototype.dispatch = function(method, path, callback) {
-  var self = this, fns = this.traverse(method, path, this.routes, ""), invoked = this._invoked, after;
+  var self = this, fns = this.traverse(method, path.replace(QUERY_SEPARATOR, ""), this.routes, ""), invoked = this._invoked, after;
   this._invoked = true;
   if (!fns || fns.length === 0) {
     this.last = [];
@@ -485,20 +495,22 @@ Router.prototype.dispatch = function(method, path, callback) {
 
 Router.prototype.invoke = function(fns, thisArg, callback) {
   var self = this;
+  var apply;
   if (this.async) {
-    _asyncEverySeries(fns, function apply(fn, next) {
+    apply = function(fn, next) {
       if (Array.isArray(fn)) {
         return _asyncEverySeries(fn, apply, next);
       } else if (typeof fn == "function") {
-        fn.apply(thisArg, fns.captures.concat(next));
+        fn.apply(thisArg, (fns.captures || []).concat(next));
       }
-    }, function() {
+    };
+    _asyncEverySeries(fns, apply, function() {
       if (callback) {
         callback.apply(thisArg, arguments);
       }
     });
   } else {
-    _every(fns, function apply(fn) {
+    apply = function(fn) {
       if (Array.isArray(fn)) {
         return _every(fn, apply);
       } else if (typeof fn === "function") {
@@ -506,7 +518,8 @@ Router.prototype.invoke = function(fns, thisArg, callback) {
       } else if (typeof fn === "string" && self.resource) {
         self.resource[fn].apply(thisArg, fns.captures || []);
       }
-    });
+    };
+    _every(fns, apply);
   }
 };
 
@@ -686,7 +699,7 @@ Router.prototype.mount = function(routes, path) {
   function insertOrMount(route, local) {
     var rename = route, parts = route.split(self.delimiter), routeType = typeof routes[route], isRoute = parts[0] === "" || !self._methods[parts[0]], event = isRoute ? "on" : rename;
     if (isRoute) {
-      rename = rename.slice((rename.match(new RegExp(self.delimiter)) || [ "" ])[0].length);
+      rename = rename.slice((rename.match(new RegExp("^" + self.delimiter)) || [ "" ])[0].length);
       parts.shift();
     }
     if (isRoute && routeType === "object" && !Array.isArray(routes[route])) {
