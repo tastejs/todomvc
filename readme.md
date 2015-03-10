@@ -1,5 +1,7 @@
 # ![TodoMVC](media/logo.png)
 
+[![Join the chat at https://gitter.im/tastejs/todomvc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tastejs/todomvc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > Helping you select an MV\* framework
 
 ### [Website](http://todomvc.com)&nbsp;&nbsp;&nbsp;&nbsp;[Blog](http://blog.tastejs.com)&nbsp;&nbsp;&nbsp;&nbsp;[TasteJS](http://tastejs.com)
