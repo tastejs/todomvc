@@ -1409,28 +1409,6 @@
 			}]
 		}]
 	},
-	"maria": {
-		"name": "Maria",
-		"description": "The MVC framework for JavaScript applications. The real MVC. The Smalltalk MVC. The Gang of Four MVC.",
-		"homepage": "peter.michaux.ca/maria",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/maria"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Quick Start Tutorial",
-				"url": "http://peter.michaux.ca/maria/quick-start-tutorial-for-the-impatient.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://peter.michaux.ca/maria/api/maria.html"
-			}, {
-				"name": "GitHub",
-				"url": "https://github.com/petermichaux/maria"
-			}]
-		}]
-	},
 	"marionettejs": {
 		"name": "Backbone.Marionette",
 		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",

@@ -1,4 +1,0 @@
-ul.completed li.incompleted,
-ul.incompleted li.completed {
-	display: none;
-}
