@@ -61,6 +61,11 @@ Gianni is a programmer and designer currently working as the Chief Rigger at Met
 <img align="left" width="40" height="40" src="http://en.gravatar.com/userimage/602125/f2f1d93164ec62b527f0398c65b2d1f3.jpg?size=40">
 Sam is an Engineer at [MojoTech](http://mojotech.com) who is driven by an endless desire to create, solve problems, and improve developers lives.
 
+#### [Arthur Verschaeve](https://github.com/arthurvr) - Developer
+
+<img align="left" width="40" height="40" src="https://en.gravatar.com/avatar/e34daab0d2e344219adb5234198269c5?size=40">
+Arthur is an open-source fanboy from Belgium. He is passionated about developer tooling and all things JavaScript.
+
 ## Disclaimer
 
 <img align="right" width="230" height="230" src="media/icon-small.png">
