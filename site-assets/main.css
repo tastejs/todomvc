@@ -204,6 +204,10 @@ header nav a:not(:last-child) {
 	transition: max-height 0.7s ease-in;
 }
 
+.credit {
+	text-align: center;
+}
+
 .credit a {
 	margin: 5px;
 	white-space: nowrap;
