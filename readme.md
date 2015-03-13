@@ -56,6 +56,11 @@ Colin is a software consultant at Scott Logic who is passionate about all softwa
 <img align="left" width="40" height="40" src="http://www.gravatar.com/avatar/4b0209ae3652cc5a7d53545e759fbe39.png?s=40">
 Gianni is a programmer and designer currently working as the Chief Rigger at MetaLab.
 
+#### [Sam Saccone](https://github.com/samccone) - Developer
+
+<img align="left" width="40" height="40" src="http://en.gravatar.com/userimage/602125/f2f1d93164ec62b527f0398c65b2d1f3.jpg?size=40">
+Sam is an Engineer at [MojoTech](http://mojotech.com) who is driven by an endless desire to create, solve problems, and improve developers lives.
+
 ## Disclaimer
 
 <img align="right" width="230" height="230" src="media/icon-small.png">
