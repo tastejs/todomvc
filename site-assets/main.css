@@ -133,7 +133,6 @@ header nav a:not(:last-child) {
 	-webkit-flex-wrap: wrap;
 	    -ms-flex-wrap: wrap;
 	        flex-wrap: wrap;
-	transition: height .5s ease-in-out;
 }
 
 .applist li {
@@ -342,21 +341,6 @@ a.zocial {
 	        user-select: none;
 	position: relative;
 	border-radius: .3em;
-}
-
-@-webkit-keyframes swoosh-in {
-	from { opacity: 0; -webkit-transform: translateX(-500px); transform: translateX(-500px); }
-	to { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
-}
-
-@keyframes swoosh-in {
-	from { opacity: 0; -webkit-transform: translateX(-500px); transform: translateX(-500px); }
-	to { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
-}
-
-.anim-swoosh-in {
-	-webkit-animation: swoosh-in 0.5s;
-	        animation: swoosh-in 0.5s;
 }
 
 @media (max-width: 480px) {
