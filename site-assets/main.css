@@ -129,7 +129,6 @@ header nav a:not(:last-child) {
 	font-size: 17px;
 	display: flex;
 	flex-wrap: wrap;
-	transition: height .5s ease-in-out;
 }
 
 .applist li {
@@ -331,15 +330,6 @@ a.zocial {
 	user-select: none;
 	position: relative;
 	border-radius: .3em;
-}
-
-@keyframes swoosh-in {
-	from { opacity: 0; transform: translateX(-500px); }
-	to { opacity: 1; transform: translateX(0); }
-}
-
-.anim-swoosh-in {
-	animation: swoosh-in 0.5s;
 }
 
 @media (max-width: 480px) {
