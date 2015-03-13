@@ -7,7 +7,7 @@
 		'Todos/Input',
 		'Todos/List',
 		'Todos/Controls',
-		'bower_components/olives/src/LocalStore',
+		'node_modules/olives/build/src/LocalStore',
 		'Store'
 	],
 

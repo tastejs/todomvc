@@ -5,8 +5,8 @@
 	// It's going to be called Input
 	define('Todos/Input', [
 		// It uses the Olives' OObject and the Event Plugin to listen to dom events and connect them to methods
-		'bower_components/olives/src/OObject',
-		'bower_components/olives/src/Event.plugin'
+		'node_modules/olives/build/src/OObject',
+		'node_modules/olives/build/src/Event.plugin'
 	],
 
 	// The Input UI
