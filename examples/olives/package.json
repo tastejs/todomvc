@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "olives": "^1.6.0",
+    "emily": "^1.8.1",
+    "requirejs": "^2.1.5",
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.1"
+  }
+}
