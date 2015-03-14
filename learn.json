@@ -2067,31 +2067,6 @@
 			}]
 		}]
 	},
-	"stapes": {
-		"name": "Stapes.js",
-		"description": "A (really) tiny Javascript MVC microframework.",
-		"homepage": "hay.github.io/stapes",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/stapes"
-		}, {
-			"name": "Example",
-			"url": "examples/stapes_require"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://hay.github.io/stapes/#m-intro"
-			}, {
-				"name": "Documentation & API Reference",
-				"url": "http://hay.github.io/stapes"
-			}, {
-				"name": "Stapes.js on GitHub",
-				"url": "http://github.com/hay/stapes"
-			}]
-		}]
-	},
 	"thorax": {
 		"name": "Thorax",
 		"description": "An opinionated, battle-tested Backbone + Handlebars framework to build large scale web applications.",
