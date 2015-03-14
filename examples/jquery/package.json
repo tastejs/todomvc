@@ -1,6 +1,6 @@
 {
   "name": "todomvc-jquery",
-  "description": "TodoMVC implementation in Ampersand.js",
+  "description": "TodoMVC implementation in jQuery",
   "private": true,
   "dependencies": {
     "todomvc-common": "~1.0.1",
