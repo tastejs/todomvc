@@ -5,7 +5,7 @@ class Todo {
   String title;
   bool completed;
 
-  Todo(this.id, this.title, {this.completed : false});
+  Todo(this.id, this.title, {this.completed: false});
 
   Todo.fromJson(Map json) {
     id = json['id'];
@@ -15,10 +15,6 @@ class Todo {
 
   // this is automatically called by JSON.encode
   Map toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'completed': completed
-    };
+    return {'id': id, 'title': title, 'completed': completed};
   }
 }
