@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Epitome • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
 		<section id="todoapp">
@@ -51,11 +52,11 @@
 			<button id="clear-completed">Clear completed (<%=completed%>)</button>
 			<% } %>
 		</script>
-		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
 		<!-- mootools -->
 		<script src="js/lib/mootools-yui-compressed.js"></script>
 		<!-- epitome pre-compiled -->
-		<script src="bower_components/Epitome/Epitome-min.js"></script>
+		<script src="node_modules/Epitome/Epitome-min.js"></script>
 		<!-- todo app -->
 		<script src="js/models/todo-model.js"></script>
 		<script src="js/collections/todo-collection.js"></script>
