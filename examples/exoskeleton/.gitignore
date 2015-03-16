@@ -4,6 +4,9 @@ node_modules/exoskeleton/*
 node_modules/backbone.localstorage/*
 !node_modules/backbone.localstorage/backbone.localStorage.js
 
+node_modules/backbone.nativeview/*
+!node_modules/backbone.nativeview/backbone.nativeview.js
+
 node_modules/todomvc-app-css/*
 !node_modules/todomvc-app-css/index.css
 

@@ -41,7 +41,7 @@ var app = app || {};
 			var method = this.model.get('completed') ? 'add' : 'remove';
 			this.el.classList[method]('completed');
 			this.toggleVisible();
-			this.input = this.find('.edit');
+			this.input = this.$('.edit').item(0);
 			return this;
 		},
 
