@@ -63,7 +63,9 @@ list = list.filter(function (framework) {
 // if a specific framework has been named, just run this one
 if (argv.framework) {
 	list = list.filter(function (framework) {
-		return framework.name === argv.framework;
+		return [].concat(argv.framework).some(function (f) {
+			return f === framework.name;
+		});
 	});
 
 	if (list.length === 0) {
