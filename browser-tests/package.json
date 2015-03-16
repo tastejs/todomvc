@@ -9,7 +9,7 @@
     "mocha-known-issues-reporter": "git+https://github.com/ColinEberhardt/mocha-known-issues-reporter.git#v0.0.0",
     "optimist": "^0.6.1",
     "q": "^1.0.1",
-    "selenium-webdriver": "^2.42.1"
+    "selenium-webdriver": "^2.45.1"
   },
   "scripts": {
     "serve": "http-server -p 8000 ..",

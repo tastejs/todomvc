@@ -8,11 +8,13 @@ node_js:
     - '0.12'
 notifications:
     irc: 'irc.freenode.org#tastejs'
-branches:
-    only:
-        - master
+addons:
+    sauce_connect: true
 env:
+    # add in tokens for sauce labs
     global:
+        - secure: gd7Y1sZyUc4+eck+c4cZ19WdVkmvvfE16fegUMZ9/BMRVYaaEfLZ/805+mOPccAebu5nuGKX0dAjXBwDGcAk2T9YvXpgl8GHu5sAHT3ax0XTibwW7Je2ayf8dJqTO9eRelY616v2mYUlj9QMmbWCB2zESsscY3hi2DQAPeueMdo=
+        - secure: av1hgfvD9UpQr59Q2qcyC0WmiUvRivJHzdcrwj3uYiIJLxxpXv00EC4PzqMZAVREOaQEK1s9FwFVSYn8FbvtvWp5TnWNvSXUXCSjc+I0MYhxbtvcAuKlDzayHSfp17bt0BY3pxB/1BdwMdPwDYumEULphKOmsLr4ocsJCfng2Ds=
         # GH_OAUTH_TOKEN is the oauth token generated as described at
         # https://help.github.com/articles/creating-an-oauth-token-for-command-line-use
         #
@@ -31,20 +33,9 @@ env:
 before_script:
     # install dependencies
     - npm install -g gulp
+    - python -m SimpleHTTPServer &
+    - sleep 2
 script:
     # We want to gate on passing tests and a successful build
     - gulp
-after_success:
-    # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
-    - git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
-    - cd site
-    - if git checkout gh-pages; then git checkout -b gh-pages; fi
-    - git rm -r .
-    - cp -R ../dist/* .
-    - cp ../dist/.* .
-    - git add -f .
-    - git config user.email 'travis@rdrei.net'
-    - git config user.name 'TasteBot'
-    - git commit -am 'update the build files for gh-pages [ci skip]'
-    # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
-    - git push https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} HEAD:gh-pages > /dev/null 2>&1
+    - ./travis-runner.sh
