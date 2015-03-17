@@ -30,7 +30,7 @@
   "_resolution": {
     "type": "version",
     "tag": "v1.0.2",
-    "commit": "01604ba4bd5a0bf80d15b4b6a50b55cd0c52b13e"
+    "commit": "e706e307397a802847e25cf90a7a6c2e3d426d46"
   },
   "_source": "git://github.com/nhanfu/htmljs.git",
   "_target": "~1.0.2",

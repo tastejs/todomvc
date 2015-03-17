@@ -8,15 +8,16 @@
 //3. Write a book about MVVM on web
 
 (function (root, factory) {
+    'use strict';
     /* CommonJS/NodeJs */
-    if (typeof module === "object" && typeof module.exports === "object") module.exports = factory(root);
+    if (typeof module === 'object' && typeof module.exports === 'object') module.exports = factory(root);
         /* AMD module */
     else if (typeof define === 'function' && define.amd) define(factory(root));
         /* Browser global */
     else root.html = factory(root);
 }
 (this || (0, eval)('this'), function (window) {
-
+'use strict';
 var document           = window.document,
     JSON               = window.JSON,
     isOldIE            = !document.addEventListener,
@@ -55,12 +56,12 @@ isIE9 = isIE() === 9,
 isIE8 = isIE() === 8,
 //check if an object has some properties
 isPropertiesEnumerable = function(x) {
-    return typeof x === "object" && isNotNull(x) && !html.isDate(x);
+    return typeof x === 'object' && isNotNull(x) && !html.isDate(x);
 },
 //loop through properties of an object
 eachProperty = function(x, fn) {
     var prop; //declare variable first for faster performance
-    for (var prop in x) {
+    for (prop in x) {
         //loop through each property, call the callback function
         if(x.hasOwnProperty(prop)) fn.call(x, x[prop], prop);
     }
@@ -112,15 +113,14 @@ html.trim = trim;
 html.trimLeft = trimLeft;
 html.trimRight = trimRight;
 html.config = {lazyInput: false, historyEnabled: true};
-html.version = '1.0.1';
+html.version = '1.0.2';
 
 (function () {
-    var html = this
-        , element
-        , focusingInput
-        , notifier
-        , allEvents = {}
-        , expando = {};
+    var element,
+        focusingInput,
+        notifier,
+        allEvents = {},
+        expando = {};
     
     //this method doesn't create DOM element
     //this method is for extend properties from object to object
@@ -139,13 +139,14 @@ html.version = '1.0.1';
     
     //get|set expando properties of an DOM element
     this.expando = function(key, model) {
+        var uId;
         if(isNotNull(model)) {
-            var uId = element.uniqueId || ++uniqueId;
+            uId = element.uniqueId || ++uniqueId;
             element.uniqueId = uId;
             expando[uId] = expando[uId] || {};
             expando[uId][key] = model;
         } else {
-            var uId = element.uniqueId;
+            uId = element.uniqueId;
             if(!uId) return null;
             return expando[uId]? expando[uId][key]: null;
         }
@@ -164,12 +165,12 @@ html.version = '1.0.1';
         }
         //return html to facilitate fluent API
         return this;
-    }
+    };
 
     this.find = function (selector) {
         element = this.query(selector, element)[0];
         return this;
-    }
+    };
 
     //use this method for querying data from array, usage is similar to Linq
     //this method is also used for query DOM, using CSS query
@@ -193,7 +194,7 @@ html.version = '1.0.1';
             //create a safe loop
             var length = this.length, i = -1;
             while(++i < length) action(this[i], i);
-        }
+        };
 
         //add item into array, simply use push - native method
         this.add = Array.prototype.push;
@@ -203,7 +204,7 @@ html.version = '1.0.1';
             var result = [], length = this.length, i = -1;
             while(++i < length) result.push(mapping(this[i]));
             return html.array(result);
-        }
+        };
 
         //where is similar to filter in modern browser
         this.where = function (predicate) {
@@ -214,7 +215,7 @@ html.version = '1.0.1';
             while(++i < length)
                 if (predicate(this[i])) ret.push(this[i]);
             return html.array(ret);
-        }
+        };
 
         //reduce is a famous method in any functional programming language - also can use this with fluent API
         this.reduce = arrayFn.reduce || function (iterator, init, context) {
@@ -222,23 +223,23 @@ html.version = '1.0.1';
             var result = isNotNull(init)? init : [], length = this.length, i = -1;
             while(++i < length) result = iterator.call(context, result, this[i]);
             return result;
-        }
+        };
 
         //similar to reduce
         this.reduceRight = arrayFn.reduceRight || function (iterator, init, context) {
             var result = isNotNull(init)? init : [], length = this.length;
             while(length--) result = iterator.call(context, result, this[length]);
             return result;
-        }
+        };
 
         //find a item that fits the comparer, the array maybe map to another array before performing searching if mapper was passed
-        //NOTE: comparer takes 2 arguments and return a "better" one, then the find method can find the "best" one
+        //NOTE: comparer takes 2 arguments and return a 'better' one, then the find method can find the 'best' one
         this.find = function (comparer, mapper) {
             var arr = mapper ? this.select(mapper) : this;
             return arr.reduce(function (best, current) {
                 return best === comparer(best, current) ? best : current;
             }, arr[0]);
-        }
+        };
 
         //find the first one that matches condition, throw exception if no item matches
         this.first = function (predicate, predicateOwner) {
@@ -248,7 +249,7 @@ html.version = '1.0.1';
             var length = this.length, i = -1;
             while(++i < length) if (predicate.call(predicateOwner, this[i])) return this[i];
             throw 'Can\'t find any element matches';
-        }
+        };
 
         //find the first one that matches condition, if not found return null
         this.firstOrDefault = function (predicate, predicateOwner) {
@@ -258,7 +259,7 @@ html.version = '1.0.1';
             var length = this.length, i = -1;
             while(++i < length) if (predicate.call(predicateOwner, this[i])) return this[i];
             return null;
-        }
+        };
 
         //find index of the item in a list, this method is used for old browser
         //if indexOf method is native code, then just call it
@@ -266,20 +267,20 @@ html.version = '1.0.1';
             var length = this.length, i = -1;
             while(++i < length) if (this[i] === item) return i;
             return -1;
-        }
+        };
 
         //remove item from a list
         this.remove = function (itemToRemove) {
             var index = this.indexOf(itemToRemove);
             if (index >= 0 && index < this.length)
                 this.splice(index, 1);
-        }
+        };
 
         //remove specified item from a list by its index
         this.removeAt = function (index) {
             if (index >= 0 && index < this.length)
                 this.splice(index, 1);
-        }
+        };
 
         //swap to elements in a list
         this.swap = function (fromIndex, toIndex) {
@@ -288,7 +289,7 @@ html.version = '1.0.1';
                 this[fromIndex] = this[toIndex];
                 this[toIndex] = tmp;
             }
-        }
+        };
 
         //move item to a new 
         this.move = function(from, to) {
@@ -316,7 +317,7 @@ html.version = '1.0.1';
                     }
                 }
                 return 0;
-            }
+            };
         };
 
         //orderBy method, used to sort an array by ascending
@@ -345,15 +346,22 @@ html.version = '1.0.1';
                         //note that user can pass a string represent a field what is an observer
                         //so that we must use html.getData to get real value from that
                         if(expressionArgs[index] instanceof Function) return expressionArgs[index](x);
-                        return isString
-                                ? html.getData(x[expressionArgs[index]])
-                                : html.getData(x[expressionArgs[index].field]);
-                    }
+                        return isString ? html.getData(x[expressionArgs[index]]) : html.getData(x[expressionArgs[index].field]);
+                    };
                 })(i, isString);
                 //push expression into expression tree
-                isString || isFunction(expressionArgs[i])
-                        ? expTree.push({ expression: exp, isAscendant: isNotNull(expressionArgs[i].isAsc)?expressionArgs[i].isAsc: true })
-                        : expTree.push({ expression: exp, isAscendant: expressionArgs[i].isAsc });
+                if (isString || isFunction(expressionArgs[i])) {
+                    expTree.push({
+                        expression: exp,
+                        isAscendant: isNotNull(expressionArgs[i].isAsc) ? expressionArgs[i].isAsc: true
+                    });
+                }
+                else {
+                    expTree.push({
+                        expression: exp,
+                        isAscendant: expressionArgs[i].isAsc
+                    });
+                }
             }
             return this.sort(comparer(expTree));
         };
@@ -476,7 +484,7 @@ html.version = '1.0.1';
                 el['on' + eventName]();
             }
         } catch(e) {}
-    }
+    };
 
     //remove every events bounded to element via html.bind
     //dispose the element from document
@@ -528,7 +536,7 @@ html.version = '1.0.1';
     // bubble (optional, false): bubble event
     // isInternal (optional, false): only for internal use, remove event from allEvents
     this.unbind = function (name, listener, bubble, elem, isInternal) {
-        var elem = elem || element;
+        elem = elem || element;
         if (!element) {
             throw 'Element to unbind event must be specified';
         }
@@ -608,7 +616,7 @@ html.version = '1.0.1';
     //With this action, user can bind data, attribute, etc, ... with fluent API
     //e.g: say current Element is a div then user want to create an input, then code and DOM will look like
     //html.render(divTag).input()
-    //<div id="divTag"><input></input></div>
+    //<div id='divTag'><input></input></div>
     //after create input current Element pointer will change to the input not the div any more.
     //return the current element
     //name (string): tag name to create
@@ -639,7 +647,7 @@ html.version = '1.0.1';
     //We need numOfElement because we have no idea how many elements that renderer function will render,
     //by calculating start index and stop index in the list, we can remove correctly
     //the variable numOfElement will cause a redundant renderer function to be called
-    //but append to a "tmp" Node, the "tmpNode" will be disposed after all
+    //but append to a 'tmp' Node, the 'tmpNode' will be disposed after all
     //but it could lead to memory leak, the first need to handle memory leaking
     var removeChildList = function (parent, index, numOfElement) {
         //calculating start index
@@ -677,7 +685,7 @@ html.version = '1.0.1';
 
         //check if renderer renders nothing
         if (tmpNode.children.length === 0) {
-            throw Exception('You must add at least one element');
+            throw 'You must add at least one element';
         }
 
         //calculate index of previous node
@@ -700,7 +708,7 @@ html.version = '1.0.1';
     
     //The method to render a list of model
     //Update the DOM whenever list of model change
-    //(via add, remove, push and set aka "render" action)
+    //(via add, remove, push and set aka 'render' action)
     //
     //e.g list = html.data([])
     //list([1,2,3]).push(4) will trigger 2 actions: render and push
@@ -738,6 +746,7 @@ html.version = '1.0.1';
         //there are currently 4 actions: push, add, remove, render
         //in the future we may add 2 more actions: sort and swap
         var update = function (items, item, index, action) {
+            var numOfElement;
             //dispose the container if it doesn't belong to DOM tree
             html.disposable(parent, model, this);
             if(!isInDOM(parent)) {
@@ -770,12 +779,12 @@ html.version = '1.0.1';
                     tmpNode = null;
                     break;
                 case 'remove':
-                    var numOfElement = parent.children.length/(items.length + 1);
+                    numOfElement = parent.children.length/(items.length + 1);
                     //remove all elements that renderer created
                     removeChildList(parent, index, numOfElement);
                     break;
                 case 'move':
-                    var numOfElement = parent.children.length/items.length;
+                    numOfElement = parent.children.length/items.length;
                     //move item to a new position
                     var newIndex = index,
                         oldIndex = items.indexOf(item);
@@ -785,7 +794,7 @@ html.version = '1.0.1';
                     var firstOldElementIndex = oldIndex * numOfElement;
                     //get the first node to move upon
                     var nodeToInsert = oldIndex < newIndex? parent.children[(newIndex+1)*numOfElement]: parent.children[newIndex*numOfElement];
-                    for (var i = 0, j = numOfElement; i < j; i++) {
+                    for (var j = 0; j < numOfElement; j++) {
                         parent.insertBefore(parent.children[firstOldElementIndex], nodeToInsert);
                         if(oldIndex > newIndex) firstOldElementIndex++;
                     }
@@ -848,7 +857,7 @@ html.version = '1.0.1';
         var updateFn = function(enabled) {
             if (enabled) {
                 ele.disabled = false;
-                ele.removeAttribute("disabled");
+                ele.removeAttribute('disabled');
             } else {
                 ele.disabled = true;
                 ele.setAttribute('disabled', 'disabled');
@@ -907,7 +916,7 @@ html.version = '1.0.1';
     };
 
     //this method is used to get current element
-    //sometimes user wants to create their own "each" method and want to intercept renderer
+    //sometimes user wants to create their own 'each' method and want to intercept renderer
     //NOTE: only use this method to ensure encapsulation
     //in the future, we may hide element, declare it as private not publish anymore
     this.element = this.$$ = function () {
@@ -936,7 +945,7 @@ html.version = '1.0.1';
                 // if the value is truthy
                 // run renderer if there's no element inside
                 element = ele;
-                ele.children.length == 0 && renderer.call(ele);
+                ele.children.length === 0 && renderer.call(ele);
             } else {
                 // if the value is truthy
                 // empty the iff node
@@ -970,7 +979,7 @@ html.version = '1.0.1';
             span.innerHTML = val;
             html.disposable(span, observer, this);
             if(!isInDOM(span)) span = null;
-        }
+        };
         this.subscribe(observer, updateFn);            //subscribe update function
         return this;
     };
@@ -999,7 +1008,7 @@ html.version = '1.0.1';
             // create parameters for error handler functions (default and custom)
             validationResults = array.where.call(validationResults, function  (i) {
                 // only send to custom error handler invalid validation result
-                return i.isValid === false
+                return i.isValid === false;
             });
             // delegate to user to handle error
             errorHandler && errorHandler(validationResults, observer, input);
@@ -1009,7 +1018,7 @@ html.version = '1.0.1';
         // set default validation handler
         // it will run anyway if the data for text control changed
         observer.setDefaultValidationHandler(validationCallback);
-    };
+    }
     
     // default validation error message displaying
     // an error message will appear after a control
@@ -1021,7 +1030,7 @@ html.version = '1.0.1';
         error = error && error.nodeName.toLowerCase() === 'span' && error.className === 'html-error' && error || null;
         // get the first validation result that is invalid
         var firstError = html.array.firstOrDefault.call(validationResults, function (i) {
-            return i.isValid === false
+            return i.isValid === false;
         });
         if (validationResults.length && firstError !== null) {
             // check if there is any validation message
@@ -1052,9 +1061,9 @@ html.version = '1.0.1';
     array.each.call(textControls, function (controlName) {
         html[controlName] = function (observer, errorHandler) {
             //create the input
-            var input = element.nodeName.toLowerCase() === controlName
-                ? element                               // get the current element if current element is input/textarea
-                : this.createElement(controlName);      // otherwise create input/textarea
+            // get the current element if current element is input/textarea
+            // otherwise create input/textarea
+            var input = element.nodeName.toLowerCase() === controlName ? element : this.createElement(controlName);
             var observerValue = this.getData(observer);
             if (input.value !== '' && html.isNoU(observerValue)) {
             	// in case the input has value, perhaps it's rendered from server
@@ -1067,9 +1076,7 @@ html.version = '1.0.1';
                 // set default validation handler for observer/control
                 setValidation(observer, input, errorHandler);
                 // get lazyInput from global config or from observer
-                var lazyInput = isNotNull(observer.lazyInput)
-                    ? observer.lazyInput                 // get the lazyInput config from observer
-                    : this.config.lazyInput;             // get lazyInput default value from global config
+                var lazyInput = isNotNull(observer.lazyInput) ? observer.lazyInput : this.config.lazyInput;
                 // if observer is html.data then register change event
                 // so that any change can be notified
                 var change = function (e) {
@@ -1157,7 +1164,7 @@ html.version = '1.0.1';
         //subscribe update function to observer
         html.subscribe(observer, update);
         return this;
-    }
+    };
 
     //set inner HTML for a tag
     //this method is handle for unit test because it contains only one line of code
@@ -1219,7 +1226,7 @@ html.version = '1.0.1';
             }, false);
             //return html to facilitate fluent API
             return this;
-        }
+        };
     });
 
     //create radio button element
@@ -1284,9 +1291,7 @@ html.version = '1.0.1';
     //observer(optional html.data): observe any change
     this.checkbox = function (observer) {
         //create checkbox element
-        var chkBox = element.nodeName.toLowerCase() === 'input' && element.type === 'checkbox'
-                        ? element
-                        : this.createElement('input', 'checkbox')
+        var chkBox = element.nodeName.toLowerCase() === 'input' && element.type === 'checkbox' ? element : this.createElement('input', 'checkbox');
         //get value for the checkbox from observer
         var value = html.getData(observer);
         //set attribute and also set property checked
@@ -1410,7 +1415,7 @@ html.version = '1.0.1';
             html.createElement(ele);
             html.text(text);
             return html;
-        }
+        };
     });
 
     //set id for element, this method should be used at least by html js user
@@ -1555,7 +1560,7 @@ html.version = '1.0.1';
                 option.removeAttribute(selectedAttr);
                 option.selected = false;
             }
-        }
+        };
         html.subscribe(selected, update);
         return this;
     };
@@ -1636,19 +1641,15 @@ html.version = '1.0.1';
             if (val) {
                 // accept any truthy value e.g true, 1, 'some text'
                 // show it
-                isDisplayProp
-                    ? html(ele).css('display', html(ele).expando('display') || 'initial')
-                    : html(ele).css('visibility', 'visible');
+                isDisplayProp ? html(ele).css('display', html(ele).expando('display') || 'initial') : html(ele).css('visibility', 'visible');
             } else {
                 // if not truthy then display element
                 // hide it
-                isDisplayProp
-                    ? html(ele).css('display', 'none')
-                    : html(ele).css('visibility', 'hidden');
+                isDisplayProp ? html(ele).css('display', 'none') : html(ele).css('visibility', 'hidden');
             }
             html.disposable(ele, observer, this);
             if (!isInDOM(ele)) ele = null;
-        }
+        };
         update(value);
         this.subscribe(observer, update);
         return this;
@@ -1658,7 +1659,7 @@ html.version = '1.0.1';
     //if observer's value is truthy, then hide element otherwise display it
     //this is the opposite of visible
     //this method is needed because the visible binding only accept an function e.g model.isVisible
-    //but can't accept "negative" function like !model.isVisible
+    //but can't accept 'negative' function like !model.isVisible
     this.hidden = function (observer, isDisplayProp) {
         var ele = element;
         var value = html.getData(observer);
@@ -1669,19 +1670,15 @@ html.version = '1.0.1';
             if (!val) {
                 // accept any truthy value e.g true, 1, 'some text'
                 // show it
-                isDisplayProp
-                    ? html(ele).css('display', html(ele).expando('display'))
-                    : html(ele).css('visibility', 'visible');
+                isDisplayProp ? html(ele).css('display', html(ele).expando('display')) : html(ele).css('visibility', 'visible');
             } else {
                 // if not truthy then display element
                 // hide it
-                isDisplayProp
-                    ? html(ele).css('display', 'none')
-                    : html(ele).css('visibility', 'hidden');
+                isDisplayProp ? html(ele).css('display', 'none') : html(ele).css('visibility', 'hidden');
             }
             html.disposable(ele, observer, this);
             if (!isInDOM(ele)) ele = null;
-        }
+        };
         update(value);
         this.subscribe(observer, update);
         return this;
@@ -1702,7 +1699,7 @@ html.version = '1.0.1';
     };
     
     function isWindow( obj ) {
-        return obj != null && obj === obj.window;
+        return obj !== null && obj === obj.window;
     }
     function getWindow( elem ) {
         return isWindow( elem ) ? elem : elem.nodeType === 9 && elem.defaultView;
@@ -1737,7 +1734,7 @@ html.version = '1.0.1';
             delay               =  isArr? 0: null,                        // delay config, default is 0 for array, null for other types
             targets             =  [],                                    // targets that we need to notify after every changes
             dependencies        =  [],                                    // all computed functions that has been registered
-            validators          =  isArr? null: [],                       // all validation functions
+            validators          =  [],                                    // all validation functions
             validationResults   =  [],                                    // all validation result, including message and isValid properties
             validationCallback  =  null,                                  // callback to run when finishing validation
             customErrorHandler  =  null,                                  // custom error handler
@@ -1754,7 +1751,7 @@ html.version = '1.0.1';
         //name('Another one')
         //name() is getting 'Another one'
         //normally, set action will trigger all listeners
-        //if _newData is an array, then this action will trigger "render" action
+        //if _newData is an array, then this action will trigger 'render' action
         var init = function (obj, isFromUI) {
             if (obj !== null && obj !== undefined) {
                 //check if user wants to set
@@ -1794,11 +1791,11 @@ html.version = '1.0.1';
             // evaluate dependencies if the data is a computed property
             outerFrame.push(init);
             // we need to register dependencies when executing the function
-            res = html.getData(_newData);
+            html.getData(_newData);
             outerFrame.pop();
         }
         
-        init['delay'] = function (time) {
+        init.delay = function (time) {
             if (time === undefined) {
                 //get the delay
                 return delay;
@@ -1807,23 +1804,23 @@ html.version = '1.0.1';
                 delay = time;
             }
             return this; 
-        }
+        };
 
         //set a dependency
-        init['setDependency'] = function (dependency) {
+        init.setDependency = function (dependency) {
             var index = array.indexOf.call(dependencies, dependency);
             index < 0 && dependencies.push(dependency);
         };
         
         // get dependencies
-        init['getDependencies'] = function () {
+        init.getDependencies = function () {
             return dependencies;
         };
 
         //check if value is computed
         //return true if it's computed
         //return true if it's simple data type or an array (aka non-computed)
-        init['isComputed'] = function () {
+        init.isComputed = function () {
             // set dependency if available
             outerFrame.length && init.setDependency(outerFrame[outerFrame.length - 1]);
             return isFunction(_newData);
@@ -1831,7 +1828,7 @@ html.version = '1.0.1';
         
         // dirty checking
         // obj param is for internal use
-        init['isDirty'] = function (obj) {
+        init.isDirty = function (obj) {
             // set dependency if available
             outerFrame.length && init.setDependency(outerFrame[outerFrame.length - 1]);
             if (isDirty) return true;
@@ -1845,19 +1842,19 @@ html.version = '1.0.1';
         };
         
         // get all targets
-        init['targets'] = function () {
+        init.targets = function () {
             return targets;
         };
         
         //subscribe listeners to observer
-        init['subscribe'] = function (updateFn) {
+        init.subscribe = function (updateFn) {
             if ( isFunction(updateFn) && array.indexOf.call(targets, updateFn) < 0 )
                 targets.push(updateFn);
             return this;
         };
 
         //unsubscribe listeners from observer
-        init['unsubscribe'] = function (updateFn) {
+        init.unsubscribe = function (updateFn) {
             //we need to setTimeout here to avoid removing a target while other targets is still in processing
             //that will cause a bug that other targets won't fire correctly
             setTimeout(function () {
@@ -1879,7 +1876,9 @@ html.version = '1.0.1';
             }
             // only notifying changes when we have no validation rules
             // because we'll refresh all dependencies after validate data in 'setValidationResult'
-            validators.length === 0 && array.each.call(dependencies,function (de) { de.refresh(); });
+            validators.length === 0 && array.each.call(dependencies, function (de) {
+                de.refresh();
+            });
             newData = filteredArray || newData || html.getData(_newData);
             //fire bounded targets immediately
             array.each.call(targets, function(target) {
@@ -1891,7 +1890,7 @@ html.version = '1.0.1';
             _oldData = newData;
         };
         //refresh change
-        var refresh = init['refresh'] = init['f5'] = function () {
+        var refresh = init.refresh = init.f5 = function () {
             if (isNoU(delay)) {
                 refreshRunner();
             } else if (isStrNumber(delay)) {
@@ -1901,14 +1900,14 @@ html.version = '1.0.1';
         };
         
         // serialize data
-        init['serialize'] = function () {
+        init.serialize = function () {
             // set dependency if available
             outerFrame.length && init.setDependency(outerFrame[outerFrame.length - 1]);
             return html.serialize(_newData);
         };
 
         //silent set, this method is helpful for update value but not want UI to do anything
-        init['silentSet'] = function (val) {
+        init.silentSet = function (val) {
             _newData = val;
             return this;
         };
@@ -1918,7 +1917,7 @@ html.version = '1.0.1';
         html.extend(init, html.data.extensions);
         
         //call this method whenever you want to create custom validation rule
-        init['setValidationResult'] = function(isValid, message) {
+        init.setValidationResult = function(isValid, message) {
             //push the validation result object to the list
             validationResults.push({ isValid: isValid, message: message });
             if(validators.length === validationResults.length || !isValid) {
@@ -1932,7 +1931,7 @@ html.version = '1.0.1';
         };
         
         //call this method when you want to create custom validation rules
-        init['validate'] = function(validator) {
+        init.validate = function(validator) {
             if (validator) {
                 //simply put the validator into the queue
                 validators.push(validator);
@@ -1946,28 +1945,28 @@ html.version = '1.0.1';
             }
         };
         
-        init['setValidationHandler'] = function(callback) {
+        init.setValidationHandler = function(callback) {
             customErrorHandler = callback;
             return this;
         };
         
         // internal use
         // set default validation
-        init['setDefaultValidationHandler'] = function(callback) {
+        init.setDefaultValidationHandler = function(callback) {
             validationCallback = callback;
             return this;
         };
         
-        init['getValidationHandler'] = function() {
+        init.getValidationHandler = function() {
             return customErrorHandler;
         };
         
-        init['validators'] = function() { return array(validators); };
+        init.validators = function() { return array(validators); };
         
-        init['validationResults'] = function() { return array(validationResults); };
+        init.validationResults = function() { return array(validationResults); };
         
         // we should run this function in a callback if there are a rule running asynchronously (ajax)
-        init['isValid'] = function (valid) {
+        init.isValid = function (valid) {
             // set dependency if available
             outerFrame.length && init.setDependency(outerFrame[outerFrame.length - 1]);
             // in case valid is Boolean type
@@ -1983,22 +1982,22 @@ html.version = '1.0.1';
                 // do nothing if we want to set it as invalid
                 valid && validationCallback && validationCallback(validationResults);
                 // save valid state to a reference
-                init['isValid']['state'] = valid;
+                init.isValid.state = valid;
                 // do nothing but return state
                 return valid;
             }
             if (validators && validators.length !== validationResults.length) {
                 // we never run any rules
                 // so by default we return the last valid state or false value
-                return init['isValid']['state'] || false;
+                return init.isValid.state || false;
             } else {
                 // if there are any invalid state return false
                 // otherwise return true
                 return !array.any.call(validationResults, function(v) { return v.isValid === false; });
             }
         };
-        init['lazyInput'] = null;
-        init['displayDefaultErrorMessage'] = null;
+        init.lazyInput = null;
+        init.displayDefaultErrorMessage = null;
         
         //return init object immediately in case initial data is not array
         if (!isArr) {
@@ -2013,7 +2012,7 @@ html.version = '1.0.1';
         //otherwise perform 'add'
         //obj (object): item to be added
         //index (optional number): index indicates where to add item
-        init['add'] = function (obj, index) {
+        init.add = function (obj, index) {
             isDirty = true;
             //by default, index would be the last index
             //it must be the last index when filtering
@@ -2030,8 +2029,8 @@ html.version = '1.0.1';
         };
 
         //Remove item from array
-        //trigger "remove" action to update UI
-        init['remove'] = function (item) {
+        //trigger 'remove' action to update UI
+        init.remove = function (item) {
             isDirty = true;
             //get index of the item
             var index = _newData.indexOf(item);
@@ -2041,7 +2040,7 @@ html.version = '1.0.1';
         };
 
         //remove item from list by its index
-        init['removeAt'] = function (index) {
+        init.removeAt = function (index) {
             isDirty = true;
             //firstly, ensure that the object is array
             //otherwise user may want to test bug of the framework
@@ -2068,14 +2067,14 @@ html.version = '1.0.1';
         };
 
         //remove the first item of list
-        init['pop'] = function () {
+        init.pop = function () {
             isDirty = true;
             this.removeAt(_newData.length - 1);
             return this;
         };
 
         //push an item into the list
-        init['push'] = function (item) {
+        init.push = function (item) {
             isDirty = true;
             var index = _newData.length;
             //push item into array immediately
@@ -2090,7 +2089,7 @@ html.version = '1.0.1';
         };
         
         //use to move an item to a new position
-        init['move'] = function(oldPosition, newPosition) {
+        init.move = function(oldPosition, newPosition) {
             isDirty = true;
             var currentArr = filteredArray || _newData,
                 item = currentArr[oldPosition];
@@ -2108,7 +2107,7 @@ html.version = '1.0.1';
         //only swap in the current list, you can't filter and swap together
         //first (number): first index to swap
         //second (number): second index to swap
-        init['swap'] = function (first, second) {
+        init.swap = function (first, second) {
             isDirty = true;
             //do nothing when swap two elements at the same position
             if(first === second) return;
@@ -2124,14 +2123,14 @@ html.version = '1.0.1';
         };
         
         //support native splice method for array
-        init['splice'] = function (index, number, newItems) {
+        init.splice = function (index, number, newItems) {
             isDirty = true;
             for (var i = 0; i < number; i++) {
                 //firstly, remove deleted items
                 this.removeAt(index);
             }
             if(isArray(newItems)) {
-                for (var i = newItems.length - 1; i >= 0; i--) {
+                for (i = newItems.length - 1; i >= 0; i--) {
                     this.add(newItems[i], index);
                 }
             } else if(isNotNull(newItems)) {
@@ -2140,7 +2139,7 @@ html.version = '1.0.1';
         };
         
         //arguments are similar to orderBy in html.array.orderBy method
-        init['orderBy'] = function () {
+        init.orderBy = function () {
             var args = arguments;
             _newData.orderBy.apply(_newData, args);
             filteredArray && filteredArray.orderBy.apply(filteredArray, args);
@@ -2149,7 +2148,7 @@ html.version = '1.0.1';
         };
         
         //arguments are similar to where in html.array.where method
-        init['where'] = function () {
+        init.where = function () {
             var args = arguments;
             filteredArray = _newData.where.apply(_newData, args);
             if(!filteredArray || !filteredArray.length) {
@@ -2163,7 +2162,7 @@ html.version = '1.0.1';
         };
         
         //full text search on a list
-        init['filter'] = function(searchStr) {
+        init.filter = function(searchStr) {
             if(!searchStr) {
                 //when search string is null or empty
                 //just remove the filtered array
@@ -2193,13 +2192,13 @@ html.version = '1.0.1';
         /* END ARRAY METHODS */
         
         //get filtered array so user can do action on that array
-        init['getFilterResult'] = function() {
+        init.getFilterResult = function() {
             return filteredArray;
         };
         
         //use this method to set a another filter algorithm
         //for example user can implements full text search
-        init['setFilterResult'] = function(result) {
+        init.setFilterResult = function(result) {
             if(!isArray(result)) return;
             //set filteredArray from outside world
             //developer may want to implement by himself filter feature
@@ -2420,13 +2419,14 @@ html.version = '1.0.1';
         //loop through element
         //assign to result and then apply serialize recursively
         if (isList) {
-            for (var i = 0, j = rootObj.length; i < j; i++) {
+            i = 0;
+            for (var j = rootObj.length; i < j; i++) {
                 result[i] = html.serialize(rootObj[i]);
             }
         }
 
         return result;
-    }
+    };
 }).call(html);
 
 /* Document ready implementation 
@@ -2446,7 +2446,7 @@ html.version = '1.0.1';
             callbackQueue.push(callback);
         }
     },
-    DOMReadyCallback = function () {
+    documentReadyCallback = function () {
         while (callbackQueue.length) {
             (callbackQueue.shift())();
         }
@@ -2458,27 +2458,27 @@ html.version = '1.0.1';
     // The ready event handler
     DOMContentLoaded = function () {
         if (document.addEventListener) {
-            document.removeEventListener("DOMContentLoaded", DOMContentLoaded, false);
+            document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
         } else {
-            // we're here because readyState !== "loading" in oldIE
+            // we're here because readyState !== 'loading' in oldIE
             // which is good enough for us to call the DOM ready!
-            document.detachEvent("onreadystatechange", DOMContentLoaded);
+            document.detachEvent('onreadystatechange', DOMContentLoaded);
         }
-        DOMReady();
+        documentReady();
     },
 
     // Handle when the DOM is ready
-    DOMReady = function () {
+    documentReady = function () {
         // Make sure that the DOM is not already loaded
         if (!isReady) {
             // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
             if (!document.body) {
-                return setTimeout(DOMReady, 1);
+                return setTimeout(documentReady, 1);
             }
             // Remember that the DOM is ready
             isReady = true;
             // If there are functions bound, to execute
-            DOMReadyCallback();
+            documentReadyCallback();
             // Execute all of them
         }
     }, // /ready()
@@ -2493,27 +2493,27 @@ html.version = '1.0.1';
 
         // Catch cases where $ is called after the
         // browser event has already occurred.
-        if (document.readyState !== "loading") {
-            DOMReady();
+        if (document.readyState !== 'loading') {
+            documentReady();
         }
 
         // Mozilla, Opera and webkit nightlies currently support this event
         if (document.addEventListener) {
             // Use the handy event callback
-            document.addEventListener("DOMContentLoaded", DOMContentLoaded, false);
+            document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
             // A fallback to window.onload, that will always work
-            window.addEventListener("load", DOMContentLoaded, false);
+            window.addEventListener('load', DOMContentLoaded, false);
             // If IE event model is used
         } else if (document.attachEvent) {
             // ensure firing before onload,
             // maybe late but safe also for iframes
-            document.attachEvent("onreadystatechange", DOMContentLoaded);
+            document.attachEvent('onreadystatechange', DOMContentLoaded);
             // A fallback to window.onload, that will always work
-            window.attachEvent("onload", DOMContentLoaded);
+            window.attachEvent('onload', DOMContentLoaded);
             // If IE and not a frame
             // continually check to see if the document is ready
             try {
-                toplevel = window.frameElement == null;
+                toplevel = window.frameElement === null;
             } catch (e) { }
             if (document.documentElement.doScroll && toplevel) {
                 doScrollCheck();
@@ -2529,13 +2529,13 @@ html.version = '1.0.1';
         try {
             // If IE is used, use the trick by Diego Perini
             // http://javascript.nwbox.com/IEContentLoaded/
-            document.documentElement.doScroll("left");
+            document.documentElement.doScroll('left');
         } catch (error) {
             setTimeout(doScrollCheck, 1);
             return;
         }
         // and execute any waiting functions
-        DOMReady();
+        documentReady();
     };
 
 }).call(html);
@@ -2544,8 +2544,7 @@ html.version = '1.0.1';
 //Method Not documented
 //http://codegolf.stackexchange.com/questions/2211/smallest-javascript-css-selector-engine
 (function () {
-    var html = this,
-        curCSS,
+    var curCSS,
         rnotDigit = /\D+/g,
         attr = 'outline-color',
         attrOn = 'rgb(00,00,07)',
@@ -2558,7 +2557,7 @@ html.version = '1.0.1';
         var elem = document.getElementById(id);
         if (elem) {
             //verify it is a valid match!
-            if (elem.attributes['id'] && elem.attributes['id'].value == id) {
+            if (elem.attributes.id && elem.attributes.id.value == id) {
                 //valid match!
                 return elem;
             } else {
@@ -2566,7 +2565,7 @@ html.version = '1.0.1';
                 //the non-standard, document.all array has keys for all name'd, and id'd elements
                 //start at one, because we know the first match, is wrong!
                 for (var i = 1; i < document.all[id].length; i++) {
-                    if (document.all[id][i].attributes['id'] && document.all[id][i].attributes['id'].value == id) {
+                    if (document.all[id][i].attributes.id && document.all[id][i].attributes.id.value == id) {
                         return document.all[id][i];
                     }
                 }
@@ -2596,14 +2595,14 @@ html.version = '1.0.1';
         document.getElementsByTagName('head')[0].appendChild(style);
         try { style.innerHTML = selector + "{" + attr + ":" + attrOn + "}"; }
         //IE fix
-        catch (id) { style.styleSheet.cssText = selector + "{" + attr + ":" + attrOn + "}"; }
+        catch (ex) { style.styleSheet.cssText = selector + "{" + attr + ":" + attrOn + "}"; }
 
         if (document.defaultView && document.querySelectorAll) {
             id = "";
             var _id = context.id,
                 _context = context;
             if (context != document) {
-                id = "__slim__";
+                id = '__slim__';
                 context.id = id;
                 id = "#" + id + " ";
             }
@@ -2644,7 +2643,7 @@ html.version = '1.0.1';
 
     this.querySelector = function (selector, context, extend) {
         return this.querySelectorAll(selector, context, extend)[0];
-    }
+    };
 }).call(html);
 
 
@@ -2672,11 +2671,10 @@ html.scripts.render('jQuery').then('jQueryUI');
 html.styles.render('jQueryUI').then('bootstrap');*/
 
 (function () {
-    var html = this;
-    var scripts = {}, styles = {}
-        , urlList = html.array([])
-        , dependencies = html.array([])
-        , bundleQueue = html.array([]);
+    var scripts = {}, styles = {},
+        urlList = html.array([]),
+        dependencies = html.array([]),
+        bundleQueue = html.array([]);
 
     //create head section if not exists
     var head = document.getElementsByTagName('head')[0] || html.querySelector('head') || html(document).createElement('head').$$();
@@ -2729,7 +2727,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     //browser will know how to treat that node says load it and execute
     var createScriptNode = function (url, callback) {
         //check if the script has been loaded?
-        var isLoaded = urlList.firstOrDefault(function (x) { return x.url === url });
+        var isLoaded = urlList.firstOrDefault(function (x) { return x.url === url; });
         //if the script has been loaded and duplication is not allowed, do nothing
         if (isLoaded && !html.config.allowDuplicate) {
             callback();
@@ -2750,9 +2748,9 @@ html.styles.render('jQueryUI').then('bootstrap');*/
             node.parentElement.removeChild(node);
             //set a flag for url loading tracking state
             urlList.push({ url: url, isLoaded: true });
-            //call the callback, so can execute "then" function
+            //call the callback, so can execute 'then' function
             callback();
-        }
+        };
         if (node.onreadystatechange !== undefined) {
             node.onload = node.onreadystatechange = function () {
                 if (this.readyState == 'complete' || this.readyState == 'loaded') {
@@ -2771,7 +2769,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     //create style node, append them to head section of document
     //browser will know how to treat that node says load it and apply the css
     var createStyleNode = function (url) {
-        var isLoaded = urlList.firstOrDefault(function (x) { return x.url === url });
+        var isLoaded = urlList.firstOrDefault(function (x) { return x.url === url; });
         if (isLoaded && !html.config.allowDuplicate) return;
 
         var node = document.createElement('link');
@@ -2918,7 +2916,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     
     //navigate to an url
     //if the pattern of url is registered then run the callback
-    this.navigate = function(path) {
+    this.navigate = function (path) {
         // push state when history and routing enabled
         if (html.config.historyEnabled && history.pushState) {
             // push new state into history
@@ -2928,7 +2926,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
             location.hash = path;
         }
         // process the url
-        process.call({href: path});
+        process.call(path);
         return this;
     };
     
@@ -2954,12 +2952,12 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     //1. Back button of browser
     //2. Click on a link
     //3. Navigate by developer
-    var process = function() {
-        var path       = this.href || location.hash || location.pathname;
-        var isIgnored  = ignoredRoutes.any(function(r){return r.test(path);});
+    var process = function (href) {
+        var path      = isString(href) && href || location.hash || location.pathname,
+            isIgnored = ignoredRoutes.any(function(r){ return r.test(path); });
         //do nothing when the path is in ignored list
-        if(isIgnored) return;
-        var route      = routes.firstOrDefault(function(r){ return r.pattern.test(path); });
+        if (isIgnored) return;
+        var route = routes.firstOrDefault(function(r){ return r.pattern.test(path); });
         if (route) {
             //when we found a pattern that matches the path
             //reset the context
@@ -3021,7 +3019,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
             // try to go to the closest anchor link
             // because user really wants to click on the anchor link
             a = a.nodeName.toLowerCase() !== 'a'? html(a).$('a').$$(): a;
-        } catch (e) {
+        } catch (ex) {
             // in case we can't find the closest anchor link
             // do nothing, just avoid throwing unexpected exception
         }
@@ -3057,9 +3055,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     if (html.config.historyEnabled && history && history.pushState) {
         window.addEventListener('popstate', process);
     } else if (html.config.historyEnabled) {
-        window.addEventListener
-            ? window.addEventListener('hashchange', process)
-            : window.attachEvent('hashchange', process);
+        window.addEventListener ? window.addEventListener('hashchange', process) : window.attachEvent('hashchange', process);
     }
 
 }).call(html);
@@ -3070,7 +3066,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
 //we can reuse jQuery ajax for fast release
 //firstly, try to implement promise with setTimeout
 (function() {
-    var html = this, array = html.array;
+    var array = html.array;
     
     // Promise pattern for calling asynchronous code, usually ajax/setTimeout/setInterval
     this.Promise = function(task) {
@@ -3170,26 +3166,27 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     // 2 parameters are enough for ajax: url and data
     // all other parameters can be set after this method with fluent API
     var ajax = this.ajax = function(url, data, method, async) {
-        var method = method || 'GET', jsonp;
+        method = method || 'GET';               // default value for method is "GET"
+        async = isNotNull(async)? async: true;  // default value for asynchronous is true
+        var jsonp,
             header = {}, parser = null, timeout = null,
-            async = isNotNull(async)? async: true,
-            username = undefined, password = undefined,
+            username, password,
             // the promise object to return, user can set a lot of options using this, of course with done and fail
             promise = html.Promise(function(resolve, reject) {
                 // process jsonp first if there come a jsonp callback
                 if(jsonp) {
                     // create script node to load resource from another server
-                    var src = url + (/\?/.test(url)? "&" : "?");
-                    var head = document.getElementsByTagName("head")[0];
-                    var newScript = document.createElement("script");
-                    var params = [];
-                    var param_name = ""
+                    var src = url + (/\?/.test(url)? "&" : "?"),
+                        head = document.getElementsByTagName('head')[0],
+                        newScript = document.createElement('script'),
+                        params = [],
+                        param_name = "";
                     jsonpId++;
                     // save the reference of jsonp callback
                     html.ajax['jsonpId' + jsonpId] = jsonp;
                     data = data || {};
                     // append callback to data
-                    data["callback"] = "html.ajax.jsonpId" + jsonpId;
+                    data.callback = "html.ajax.jsonpId" + jsonpId;
                     // append all parameters to the url
                     for(param_name in data) {
                         params.push(param_name + "=" + encodeURIComponent(data[param_name]));
@@ -3211,7 +3208,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
                         html.ajax['jsonpId' + jsonpId] = undefined;
                         // set the script node null, for release memory (I think this doesn't help too much)
                         newScript = null;
-                    }
+                    };
                     // binding load event to the jsonp script node
                     if (newScript.onreadystatechange !== undefined) {
                         newScript.onload = newScript.onreadystatechange = function () {
@@ -3235,7 +3232,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
                         } catch (e) {
                             // reject the promise if the parser not work
                             reject('Invalid data type.');
-                        };
+                        }
                         // call resolve method when the ajax request success
                         resolve(res);
                     } else {
@@ -3322,7 +3319,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
             return data;
         }
 
-        if (typeof data === "string") {
+        if (typeof data === 'string') {
 
             // Make sure leading/trailing white-space is removed (IE can't handle it)
             data = trim( data );
@@ -3348,7 +3345,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     }
     var stringify = JSON && JSON.stringify || function (obj) {
         var t = typeof (obj);
-        if (t != "object" || obj === null) {
+        if (t != 'object' || obj === null) {
             // simple data type
             if (html.isString(t)) obj = '"'+obj+'"';
             // Date type
@@ -3367,8 +3364,8 @@ html.styles.render('jQueryUI').then('bootstrap');*/
             
             for (n in obj) {
                 v = obj[n]; t = typeof(v);
-                if (t == "string") v = '"'+v+'"';
-                else if (t == "object" && v !== null) v = stringify(v);
+                if (t == 'string') v = '"'+v+'"';
+                else if (t == 'object' && v !== null) v = stringify(v);
                 json.push((arr ? "" : '"' + n + '":') + String(v));
             }
             return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
@@ -3377,7 +3374,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
     
     if(!JSON) window.JSON = JSON = { parse: parseJSON, stringify: stringify };
     
-    // create shorthand for request JSON format with "GET" method
+    // create shorthand for request JSON format with 'GET' method
     this.getJSON = function(url, data, async) {
         var query = [];
         for (var key in data) {
@@ -3390,7 +3387,7 @@ html.styles.render('jQueryUI').then('bootstrap');*/
             .parser(parseJSON);
     };
 
-    // create shorthand for request JSON format with "POST" method
+    // create shorthand for request JSON format with 'POST' method
     this.postJSON = function(url, data, async) {
         // do ajax request, and pass JSON parser for user
         // return a promise to user
@@ -3458,8 +3455,9 @@ html.styles.render('jQueryUI').then('bootstrap');*/
         if (isNoU(obj)) {
             // test if the keys is kind of Array
             // turn it into Array anyway
-            var isArr = isArray(key);
-            key = isArr? key: [key], res = [];
+            var isArr = isArray(key),
+                res   = [];
+            key = isArr? key: [key];
             for (var i = 0, j = key.length; i < j; i++) {
                 // get values by its key in managedObjs
                 res.push(managedObjs[key[i]]);
