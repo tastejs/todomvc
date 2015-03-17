@@ -8,9 +8,6 @@ node_js:
     - '0.12'
 notifications:
     irc: 'irc.freenode.org#tastejs'
-branches:
-    only:
-        - master
 env:
     global:
         # GH_OAUTH_TOKEN is the oauth token generated as described at
@@ -35,16 +32,4 @@ script:
     # We want to gate on passing tests and a successful build
     - gulp
 after_success:
-    # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
-    - git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
-    - cd site
-    - if git checkout gh-pages; then git checkout -b gh-pages; fi
-    - git rm -r .
-    - cp -R ../dist/* .
-    - cp ../dist/.* .
-    - git add -f .
-    - git config user.email 'travis@rdrei.net'
-    - git config user.name 'TasteBot'
-    - git commit -am 'update the build files for gh-pages [ci skip]'
-    # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
-    - git push https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} HEAD:gh-pages > /dev/null 2>&1
+    - ./travis-runner.sh
