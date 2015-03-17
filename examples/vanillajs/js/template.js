@@ -2,6 +2,28 @@
 (function (window) {
 	'use strict';
 
+	var htmlEscapes = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		'\'': '&#x27;',
+		'`': '&#x60;'
+	};
+
+	var escapeHtmlChar = function (chr) {
+		return htmlEscapes[chr];
+	};
+
+	var reUnescapedHtml = /[&<>"'`]/g,
+	    reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
+
+	var escape = function (string) {
+		return (string && reHasUnescapedHtml.test(string))
+			? string.replace(reUnescapedHtml, escapeHtmlChar)
+			: string;
+	};
+
 	/**
 	 * Sets up defaults for all the Template methods such as a default template
 	 *
@@ -50,7 +72,7 @@
 			}
 
 			template = template.replace('{{id}}', data[i].id);
-			template = template.replace('{{title}}', data[i].title);
+			template = template.replace('{{title}}', escape(data[i].title));
 			template = template.replace('{{completed}}', completed);
 			template = template.replace('{{checked}}', checked);
 
