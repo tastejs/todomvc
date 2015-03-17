@@ -1,0 +1,15 @@
+node_modules/todomvc-app-css/*
+!node_modules/todomvc-app-css/index.css
+
+node_modules/todomvc-common/*
+!node_modules/todomvc-common/base.js
+!node_modules/todomvc-common/base.css
+
+node_modules/director/**
+!node_modules/director/build/director.js
+
+node_modules/soma.js/**
+!node_modules/soma.js/build/soma.js
+
+node_modules/soma-template/**
+!node_modules/soma-template/build/soma-template.js
