@@ -9,7 +9,7 @@ var App = Backbone.Marionette.Application.extend({
   }
 });
 
-window.TodoMVC = new App();
+ window.TodoMVC = new App();
 
 (function () {
   var filterState = new Backbone.Model({
