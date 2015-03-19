@@ -30,12 +30,6 @@ module.exports = [
 	'TodoMVC - plastronjs, Routing, should highlight the currently applied filter',
 	'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
 
-	// https://github.com/tastejs/todomvc/issues/824
-	// this implementation has numerous edit experience issues
-	'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
-	'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
-	'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-
 	// https://github.com/tastejs/todomvc/issues/815
 	// does not hide other controls while editing
 	'TodoMVC - dojo, Editing, should hide other controls when editing',
@@ -65,7 +59,6 @@ module.exports = [
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
 	'TodoMVC - thorax, Editing, should cancel edits on escape',
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
-	'TodoMVC - angularjs_require, Editing, should cancel edits on escape',
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',

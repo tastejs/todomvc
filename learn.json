@@ -7,9 +7,6 @@
 			"name": "Example",
 			"url": "examples/angularjs"
 		}, {
-			"name": "Example",
-			"url": "examples/angularjs_require"
-		}, {
 			"name": "AngularJS Optimized",
 			"url": "examples/angularjs-perf"
 		}, {
