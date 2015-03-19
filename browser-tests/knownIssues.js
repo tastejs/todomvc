@@ -63,7 +63,6 @@ module.exports = [
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
 	'TodoMVC - batman, Editing, should cancel edits on escape',
 	'TodoMVC - dijon, Editing, should cancel edits on escape',
-	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
 	// all the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/856
@@ -100,11 +99,6 @@ module.exports = [
 	'TodoMVC - duel, Routing, should allow me to display all items',
 	'TodoMVC - duel, Routing, should highlight the currently applied filter',
 	'TodoMVC - duel, Routing, should respect the back button',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display active items',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display completed items',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display all items',
-	'TodoMVC - knockoutjs_require, Routing, should highlight the currently applied filter',
-	'TodoMVC - knockoutjs_require, Routing, should respect the back button',
 	'TodoMVC - angular-dart, Routing, should allow me to display active items',
 	'TodoMVC - angular-dart, Routing, should allow me to display completed items',
 	'TodoMVC - angular-dart, Routing, should allow me to display all items',

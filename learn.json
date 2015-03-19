@@ -1318,9 +1318,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/knockoutjs"
-		}, {
-			"name": "Example",
-			"url": "examples/knockoutjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
