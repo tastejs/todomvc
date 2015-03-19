@@ -1979,9 +1979,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/somajs"
-		}, {
-			"name": "Example",
-			"url": "examples/somajs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

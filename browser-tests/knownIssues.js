@@ -38,12 +38,6 @@ module.exports = [
 	// atma does not hide the main section, instead it hides the toggle-all checkbox
 	'TodoMVC - atmajs, No Todos, should hide #main and #footer',
 
-	// https://github.com/tastejs/todomvc/issues/819
-	// the edit experience with soma is quite broken. You can
-	// get multiple elements into an edit state
-	'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
-	'TodoMVC - somajs_require, Editing, should cancel edits on escape',
-
 	// the following are covered by the following issue:
 	// https://github.com/tastejs/todomvc/issues/789
 	'TodoMVC - closure, Editing, should cancel edits on escape',
@@ -72,7 +66,6 @@ module.exports = [
 	'TodoMVC - serenadejs, Routing, should respect the back button',
 	'TodoMVC - flight, Routing, should respect the back button',
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
-	'TodoMVC - somajs_require, Routing, should respect the back button',
 
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
