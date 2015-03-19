@@ -1,4 +1,4 @@
-/*global qs, qsa, $on, $parent, $live */
+/*global qs, qsa, $on, $parent, $delegate */
 
 (function (window) {
     'use strict';
@@ -140,7 +140,7 @@
 
     View.prototype._bindItemEditDone = function (handler) {
         var that = this;
-        $live('#todo-list li .edit', 'blur', function () {
+        $delegate(that.$todoList, 'li .edit', 'blur', function () {
             if (!this.dataset.iscanceled) {
                 handler({
                     id: that._itemId(this),
@@ -149,7 +149,7 @@
             }
         });
 
-        $live('#todo-list li .edit', 'keypress', function (event) {
+        $delegate(that.$todoList, 'li .edit', 'keypress', function (event) {
             if (event.keyCode === that.ENTER_KEY) {
                 // Remove the cursor from the input when you hit enter just like if it
                 // were a real form
@@ -160,7 +160,7 @@
 
     View.prototype._bindItemEditCancel = function (handler) {
         var that = this;
-        $live('#todo-list li .edit', 'keyup', function (event) {
+        $delegate(that.$todoList, 'li .edit', 'keyup', function (event) {
             if (event.keyCode === that.ESCAPE_KEY) {
                 this.dataset.iscanceled = true;
                 this.blur();
@@ -188,17 +188,17 @@
             });
 
         } else if (event === 'itemEdit') {
-            $live('#todo-list li label', 'dblclick', function () {
+            $delegate(that.$todoList, 'li label', 'dblclick', function () {
                 handler({id: that._itemId(this)});
             });
 
         } else if (event === 'itemRemove') {
-            $live('#todo-list .destroy', 'click', function () {
+            $delegate(that.$todoList, '.destroy', 'click', function () {
                 handler({id: that._itemId(this)});
             });
 
         } else if (event === 'itemToggle') {
-            $live('#todo-list .toggle', 'click', function () {
+            $delegate(that.$todoList, '.toggle', 'click', function () {
                 handler({
                     id: that._itemId(this),
                     completed: this.checked
