@@ -370,9 +370,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/canjs"
-		}, {
-			"name": "Example",
-			"url": "examples/canjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
