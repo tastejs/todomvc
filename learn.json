@@ -205,9 +205,6 @@
 			"name": "Example",
 			"url": "examples/backbone"
 		}, {
-			"name": "Example",
-			"url": "examples/backbone_require"
-		}, {
 			"name": "Enyo & Backbone.js",
 			"url": "examples/enyo_backbone"
 		}, {

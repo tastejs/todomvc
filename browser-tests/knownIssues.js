@@ -61,7 +61,6 @@ module.exports = [
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
-	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
 	'TodoMVC - batman, Editing, should cancel edits on escape',
 	'TodoMVC - dijon, Editing, should cancel edits on escape',
 	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
