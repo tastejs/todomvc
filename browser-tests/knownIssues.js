@@ -30,12 +30,6 @@ module.exports = [
 	'TodoMVC - plastronjs, Routing, should highlight the currently applied filter',
 	'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
 
-	// https://github.com/tastejs/todomvc/issues/824
-	// this implementation has numerous edit experience issues
-	'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
-	'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
-	'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-
 	// https://github.com/tastejs/todomvc/issues/815
 	// does not hide other controls while editing
 	'TodoMVC - dojo, Editing, should hide other controls when editing',
@@ -43,12 +37,6 @@ module.exports = [
 	// https://github.com/tastejs/todomvc/issues/816
 	// atma does not hide the main section, instead it hides the toggle-all checkbox
 	'TodoMVC - atmajs, No Todos, should hide #main and #footer',
-
-	// https://github.com/tastejs/todomvc/issues/819
-	// the edit experience with soma is quite broken. You can
-	// get multiple elements into an edit state
-	'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
-	'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
 	// the following are covered by the following issue:
 	// https://github.com/tastejs/todomvc/issues/789
@@ -65,13 +53,10 @@ module.exports = [
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
 	'TodoMVC - thorax, Editing, should cancel edits on escape',
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
-	'TodoMVC - angularjs_require, Editing, should cancel edits on escape',
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
-	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
 	'TodoMVC - batman, Editing, should cancel edits on escape',
 	'TodoMVC - dijon, Editing, should cancel edits on escape',
-	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
 	// all the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/856
@@ -81,7 +66,6 @@ module.exports = [
 	'TodoMVC - serenadejs, Routing, should respect the back button',
 	'TodoMVC - flight, Routing, should respect the back button',
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
-	'TodoMVC - somajs_require, Routing, should respect the back button',
 
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
@@ -108,11 +92,6 @@ module.exports = [
 	'TodoMVC - duel, Routing, should allow me to display all items',
 	'TodoMVC - duel, Routing, should highlight the currently applied filter',
 	'TodoMVC - duel, Routing, should respect the back button',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display active items',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display completed items',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display all items',
-	'TodoMVC - knockoutjs_require, Routing, should highlight the currently applied filter',
-	'TodoMVC - knockoutjs_require, Routing, should respect the back button',
 	'TodoMVC - angular-dart, Routing, should allow me to display active items',
 	'TodoMVC - angular-dart, Routing, should allow me to display completed items',
 	'TodoMVC - angular-dart, Routing, should allow me to display all items',

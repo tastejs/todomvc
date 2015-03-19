@@ -7,9 +7,6 @@
 			"name": "Example",
 			"url": "examples/angularjs"
 		}, {
-			"name": "Example",
-			"url": "examples/angularjs_require"
-		}, {
 			"name": "AngularJS Optimized",
 			"url": "examples/angularjs-perf"
 		}, {
@@ -208,9 +205,6 @@
 			"name": "Example",
 			"url": "examples/backbone"
 		}, {
-			"name": "Example",
-			"url": "examples/backbone_require"
-		}, {
 			"name": "Enyo & Backbone.js",
 			"url": "examples/enyo_backbone"
 		}, {
@@ -376,9 +370,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/canjs"
-		}, {
-			"name": "Example",
-			"url": "examples/canjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -870,9 +861,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/emberjs"
-		}, {
-			"name": "Example",
-			"url": "examples/emberjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1330,9 +1318,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/knockoutjs"
-		}, {
-			"name": "Example",
-			"url": "examples/knockoutjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1994,9 +1979,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/somajs"
-		}, {
-			"name": "Example",
-			"url": "examples/somajs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
