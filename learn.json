@@ -861,9 +861,6 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/emberjs"
-		}, {
-			"name": "Example",
-			"url": "examples/emberjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
