@@ -1,11 +1,11 @@
 require.config({
 	baseUrl: 'js',
 	paths: {
-		$: '../bower_components/jquery/jquery',
-		jquery: '../bower_components/jquery/jquery',
-		mout: '../bower_components/mout/src',
-		dust: '../bower_components/dustjs-linkedin/dist/dust-full-1.1.1',
-		'dust-helpers': '../bower_components/dustjs-linkedin-helpers/dist/dust-helpers-1.1.1',
+		$: '../node_modules/jquery/dist/jquery',
+		jquery: '../node_modules/jquery/dist/jquery',
+		mout: '../node_modules/mout/src',
+		dust: '../node_modules/dustjs-linkedin/dist/dust-full',
+		'dust-helpers': '../node_modules/dustjs-helpers/dist/dust-helpers',
 		rdust: 'libs/require-dust',
 		lavaca: 'Lavaca',
 		Lavaca: 'lavaca'
