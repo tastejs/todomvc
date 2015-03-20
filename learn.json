@@ -1631,31 +1631,6 @@
 			}]
 		}]
 	},
-	"plastronjs": {
-		"name": "PlastronJS",
-		"description": "PlastronJS is an MVC library which uses the Google Closure library for use with the Closure Compiler.",
-		"homepage": "rhysbrettbowen.github.io/PlastronJS",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/plastronjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "PlastronJS on GitHub",
-				"url": "https://github.com/rhysbrettbowen/PlastronJS"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "The Future of PlastronJS",
-				"url": "http://modernjavascript.blogspot.com/2012/11/the-future-of-plastronjs.html"
-			}, {
-				"name": "Krisztian Toth's JavaScript Games, XRegExp, PlastronJS",
-				"url": "http://dailyjs.com/2012/04/06/toth-xregexp-plastron"
-			}]
-		}]
-	},
 	"polymer": {
 		"name": "Polymer",
 		"description": "Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.",
