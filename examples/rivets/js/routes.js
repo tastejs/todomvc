@@ -1,21 +1,25 @@
-(function (Router, TodoMVCView) {
-    'use strict';
-    
-    var routes = {
-		'/': function () {
-			TodoMVCView.setStatusFilter('');
+(function (Router, TodoStore) {
+	'use strict';
+
+	var routes = {
+		'/': function() {
+			TodoStore.statusFilter = '';
 		},
-		'/active': function () {
-			TodoMVCView.setStatusFilter('active');
+
+		'/active': function() {
+			TodoStore.statusFilter = 'active';
 		},
-		'/completed': function () {
-			TodoMVCView.setStatusFilter('completed');
+
+		'/completed': function() {
+			TodoStore.statusFilter = 'completed';
 		}
 	};
 
 	var router = new Router(routes).configure({ 
-		notfound: function() { TodoMVCView.setStatusFilter(''); } 
+		notfound: function() {
+			TodoStore.statusFilter = '';
+		}
 	});
+
 	router.init();
-    
-})(Router, TodoMVCView);
+})(Router, TodoStore);
