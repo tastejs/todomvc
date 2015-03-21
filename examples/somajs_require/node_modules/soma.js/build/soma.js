@@ -643,7 +643,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	'use strict';
 
-	soma.version = '2.1.0';
+	soma.version = '2.1.1';
 
 	soma.applyProperties = function(target, extension, bindToExtension, list) {
 		if (Object.prototype.toString.apply(list) === '[object Array]') {
@@ -776,13 +776,28 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				throw new Error('Error creating a plugin, plugin class is missing.');
 			}
 			var params = infuse.getConstructorParams(arguments[0]);
+			// add plugin function
 			var args = [arguments[0]];
-			for (var i=0; i<params.length; i++) {
+			// add injection mappings
+			for (var i=0, l=params.length; i < l; i++) {
 				if (this.injector.hasMapping(params[i]) || this.injector.hasInheritedMapping(params[i])) {
 					args.push(this.injector.getValue(params[i]));
 				}
+				else {
+					args.push(undefined);
+				}
 			}
-			for (var j=1; j<arguments.length; j++) {
+			// trim array
+			for (var a = args.length-1, b = args.length; a >= 0; a--) {
+				if (typeof args[a] === 'undefined') {
+					args.splice(a, 1);
+				}
+				else {
+					break;
+				}
+			}
+			// add arguments
+			for (var j=1, k=arguments.length; j < k; j++) {
 				args.push(arguments[j]);
 			}
 			return this.injector.createInstance.apply(this.injector, args);
