@@ -71,8 +71,19 @@ todomvc.view.ToDoItemControl.prototype.enterDocument = function() {
     this.getHandler().listen(inputElement, goog.events.EventType.KEYUP,
             function(e) {
         var be = e.getBrowserEvent();
-        if (be.keyCode === goog.events.KeyCodes.ENTER) {
-            this.setFocused(false);
+        switch (be.keyCode) {
+            case goog.events.KeyCodes.ENTER:
+                this.setFocused(false);
+                break;
+            case goog.events.KeyCodes.ESC:
+                /**
+                 * @type {Element}
+                 */
+                var inputElement = this.getRenderer().getInputElement(
+                    this.getElement());
+                inputElement.value = this.getContent();
+                this.setFocused(false);
+                break;
         }
     });
 };
@@ -85,7 +96,8 @@ todomvc.view.ToDoItemControl.prototype.enterDocument = function() {
  * component.
  */
 todomvc.view.ToDoItemControl.prototype.getRenderer = function() {
-    return (/**@type {todomvc.view.ToDoItemControlRenderer}*/ this.renderer_);
+    return /**@type {todomvc.view.ToDoItemControlRenderer}*/ (
+        this.getRenderer());
 };
 
 /**

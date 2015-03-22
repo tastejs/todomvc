@@ -3,7 +3,13 @@
 
 // TodoMVC is global for developing in the console
 // and functional testing.
-window.TodoMVC = new Backbone.Marionette.Application();
+var App = Backbone.Marionette.Application.extend({
+  setRootLayout: function() {
+    this.root = new TodoMVC.Layout.Root();
+  }
+});
+
+window.TodoMVC = new App();
 
 (function () {
   var filterState = new Backbone.Model({
@@ -15,12 +21,7 @@ window.TodoMVC = new Backbone.Marionette.Application();
   });
 })();
 
-TodoMVC.addRegions({
-	header: '#header',
-	main: '#main',
-	footer: '#footer'
-});
-
 TodoMVC.on('start', function () {
-	Backbone.history.start();
+  TodoMVC.setRootLayout();
+  Backbone.history.start();
 });

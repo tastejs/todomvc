@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.1",
+    "epitome": "epitome-mvc/Epitome#520364829b4b2b4a04645f9f3714f008e4f37e21"
+  }
+}

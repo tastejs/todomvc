@@ -16,6 +16,8 @@ goog.require('todomvc.model.ToDoItem');
  * @extends {goog.events.EventTarget}
  */
 todomvc.model.ToDoItemStore = function() {
+    goog.events.EventTarget.call(this);
+
     var mechanism = goog.storage.mechanism.mechanismfactory
             .createHTML5LocalStorage();
     /**

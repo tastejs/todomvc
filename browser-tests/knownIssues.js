@@ -27,7 +27,6 @@ module.exports = [
 	// https://github.com/tastejs/todomvc/issues/828
 	// routing should default to all
 	'TodoMVC - batman, Routing, should highlight the currently applied filter',
-	'TodoMVC - plastronjs, Routing, should highlight the currently applied filter',
 	'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
 
 	// https://github.com/tastejs/todomvc/issues/824
@@ -60,7 +59,6 @@ module.exports = [
 	'TodoMVC - epitome, Editing, should cancel edits on escape',
 	'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
 	'TodoMVC - olives, Editing, should cancel edits on escape',
-	'TodoMVC - plastronjs, Editing, should cancel edits on escape',
 	'TodoMVC - rappidjs, Editing, should cancel edits on escape',
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
 	'TodoMVC - thorax, Editing, should cancel edits on escape',
@@ -82,8 +80,6 @@ module.exports = [
 	'TodoMVC - flight, Routing, should respect the back button',
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
 	'TodoMVC - somajs_require, Routing, should respect the back button',
-	'TodoMVC - agilityjs, Routing, should respect the back button',
-	'TodoMVC - maria, Routing, should respect the back button',
 
 	// the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/795
@@ -144,54 +140,6 @@ module.exports = [
 	'TodoMVC - extjs, Routing, should allow me to display all items',
 	'TodoMVC - extjs, Routing, should highlight the currently applied filter',
 	'TodoMVC - extjs, Routing, should respect the back button',
-
-	// stapes is completely broken!
-	// see: https://github.com/tastejs/todomvc/issues/808
-	'TodoMVC - stapes, Mark all as completed, should allow me to mark all items as completed',
-	'TodoMVC - stapes, Mark all as completed, should allow me to clear the completion state of all items',
-	'TodoMVC - stapes, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-	'TodoMVC - stapes, Item, should allow me to mark items as complete',
-	'TodoMVC - stapes, Item, should allow me to un-mark items as complete',
-	'TodoMVC - stapes, Item, should allow me to edit an item',
-	'TodoMVC - stapes, Editing, should hide other controls when editing',
-	'TodoMVC - stapes, Editing, should save edits on enter',
-	'TodoMVC - stapes, Editing, should save edits on blur',
-	'TodoMVC - stapes, Editing, should trim entered text',
-	'TodoMVC - stapes, Editing, should remove the item if an empty text string was entered',
-	'TodoMVC - stapes, Editing, should cancel edits on escape',
-	'TodoMVC - stapes, Counter, should display the current number of todo items',
-	'TodoMVC - stapes, Clear completed button, should display the number of completed items',
-	'TodoMVC - stapes, Clear completed button, should remove completed items when clicked',
-	'TodoMVC - stapes, Clear completed button, should be hidden when there are no items that are completed',
-	'TodoMVC - stapes, Persistence, should persist its data',
-	'TodoMVC - stapes, Routing, should allow me to display active items',
-	'TodoMVC - stapes, Routing, should allow me to display completed items',
-	'TodoMVC - stapes, Routing, should allow me to display all items',
-	'TodoMVC - stapes, Routing, should respect the back button',
-	'TodoMVC - stapes_require, No Todos, should hide #main and #footer',
-	'TodoMVC - stapes_require, New Todo, should allow me to add todo items',
-	'TodoMVC - stapes_require, New Todo, should append new items to the bottom of the list',
-	'TodoMVC - stapes_require, New Todo, should trim text input',
-	'TodoMVC - stapes_require, Mark all as completed, should allow me to mark all items as completed',
-	'TodoMVC - stapes_require, Mark all as completed, should allow me to clear the completion state of all items',
-	'TodoMVC - stapes_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-	'TodoMVC - stapes_require, Item, should allow me to mark items as complete',
-	'TodoMVC - stapes_require, Item, should allow me to un-mark items as complete',
-	'TodoMVC - stapes_require, Item, should allow me to edit an item',
-	'TodoMVC - stapes_require, Editing, should hide other controls when editing',
-	'TodoMVC - stapes_require, Editing, should save edits on enter',
-	'TodoMVC - stapes_require, Editing, should save edits on blur',
-	'TodoMVC - stapes_require, Editing, should trim entered text',
-	'TodoMVC - stapes_require, Editing, should remove the item if an empty text string was entered',
-	'TodoMVC - stapes_require, Editing, should cancel edits on escape',
-	'TodoMVC - stapes_require, Counter, should display the current number of todo items',
-	'TodoMVC - stapes_require, Clear completed button, should display the number of completed items',
-	'TodoMVC - stapes_require, Clear completed button, should remove completed items when clicked',
-	'TodoMVC - stapes_require, Clear completed button, should be hidden when there are no items that are completed',
-	'TodoMVC - stapes_require, Routing, should allow me to display active items',
-	'TodoMVC - stapes_require, Routing, should allow me to display completed items',
-	'TodoMVC - stapes_require, Routing, should allow me to display all items',
-	'TodoMVC - stapes_require, Routing, should respect the back button',
 
 	// ----------------- Test framework issues -----------
 

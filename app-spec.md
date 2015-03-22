@@ -44,7 +44,7 @@ Keep in mind that framework’s best practices on how to structure your app come
 
 ### README
 
-All examples must include a README describing the framework, the general implementation and the build process if required. There is an [example readme](template/readme.md) included in the [template](template).
+All examples must include a README describing the framework, the general implementation and the build process if required. There is an [example readme](https://github.com/tastejs/todomvc-app-template/blob/master/app-readme.md) included in the [template](https://github.com/tastejs/todomvc-app-template).
 
 ### Dependency Management
 

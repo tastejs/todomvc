@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.1",
+    "director": "~1.2.0",
+    "requirejs": "~2.1.5",
+    "soma.js": "~2.1.0",
+    "soma-template": "~0.2.8"
+  }
+}

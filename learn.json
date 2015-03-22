@@ -1,47 +1,4 @@
 {
-	"agilityjs": {
-		"name": "Agility.js",
-		"description": "Agility.js is an MVC library for Javascript that lets you write maintainable and reusable browser code without the verbose or infrastructural overhead found in other MVC libraries. The goal is to enable developers to write web apps at least as quickly as with jQuery, while simplifying long-term maintainability through MVC objects.",
-		"homepage": "agilityjs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/agilityjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Official Documentation",
-				"url": "http://agilityjs.com/docs/docs.html"
-			}, {
-				"name": "Try it out on JSBin",
-				"url": "http://jsbin.com/agility/224/edit"
-			}, {
-				"name": "Applications built with Agility.js",
-				"url": "http://agilityjs.com/docs/gallery.html"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Step by step from jQuery to Agility.js",
-				"url": "https://gist.github.com/pindia/3166678"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Google Groups mailing list",
-				"url": "http://groups.google.com/group/agilityjs"
-			}, {
-				"name": "agility.js on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/agility.js"
-			}, {
-				"name": "Agility.js on Twitter",
-				"url": "https://twitter.com/agilityjs"
-			}, {
-				"name": "Agility.js on Google+",
-				"url": "https://plus.google.com/116251025970928820842/posts"
-			}]
-		}]
-	},
 	"angularjs": {
 		"name": "AngularJS",
 		"description": "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.",
@@ -332,6 +289,34 @@
 			}, {
 				"name": "&yet – The team behind Ampersand.js",
 				"url": "http://andyet.com"
+			}]
+		}]
+	},
+	"elm": {
+		"name": "Elm",
+		"description": "A functional reactive language for interactive applications",
+		"homepage": "elm-lang.org",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/elm"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Project Site",
+				"url": "http://elm-lang.org/"
+			}, {
+				"name": "Guides",
+				"url": "http://elm-lang.org/Learn.elm"
+			}, {
+				"name": "Syntax Reference",
+				"url": "http://elm-lang.org/learn/Syntax.elm"
+			}, {
+				"name": "Libraries",
+				"url": "http://elm-lang.org/Libraries.elm"
+			}, {
+				"name": "#elm IRC Channel on Freenode",
+				"url": "http://webchat.freenode.net/?channels=elm"
 			}]
 		}]
 	},
@@ -1424,62 +1409,40 @@
 			}]
 		}]
 	},
-	"maria": {
-		"name": "Maria",
-		"description": "The MVC framework for JavaScript applications. The real MVC. The Smalltalk MVC. The Gang of Four MVC.",
-		"homepage": "peter.michaux.ca/maria",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/maria"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Quick Start Tutorial",
-				"url": "http://peter.michaux.ca/maria/quick-start-tutorial-for-the-impatient.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://peter.michaux.ca/maria/api/maria.html"
-			}, {
-				"name": "GitHub",
-				"url": "https://github.com/petermichaux/maria"
-			}]
-		}]
-	},
 	"marionettejs": {
 		"name": "Backbone.Marionette",
-		"description": "Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.",
+		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",
 		"homepage": "marionettejs.com",
 		"examples": [{
-			"name": "Example",
+			"name": "Example Basic Marionette",
 			"url": "examples/backbone_marionette"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "API Reference",
-				"url": "https://github.com/marionettejs/backbone.marionette/tree/master/docs"
+				"name": "Docs",
+				"url": "http://marionettejs.com/docs/current/"
 			}, {
-				"name": "Applications built with Backbone.Marionette",
-				"url": "https://github.com/marionettejs/backbone.marionette/wiki/Projects-and-websites-using-marionette"
+				"name": "Gitter",
+				"url": "https://gitter.im/marionettejs/backbone.marionette"
 			}, {
-				"name": "Introduction to Composite JavaScript Apps",
-				"url": "https://github.com/marionettejs/backbone.marionette/wiki/Introduction-to-composite-javascript-apps"
+				"name": "YouTube - Dancing with Marionette",
+				"url": "https://www.youtube.com/channel/UC6dVRPnSACav2AYB5XG7BZw"
 			}, {
-				"name": "FAQ",
-				"url": "https://github.com/marionettejs/backbone.marionette/wiki#frequently-asked-questions"
+				"name": "Marionette Inspector",
+				"url": "http://marionettejs.com/inspector/"
 			}, {
-				"name": "Backbone.Marionette on GitHub",
+				"name": "MarionetteJS on GitHub",
 				"url": "https://github.com/marionettejs/backbone.marionette"
 			}]
 		}, {
 			"heading": "Articles and Guides",
 			"links": [{
-				"name": "A Thorough Introduction to Backbone.Marionette",
-				"url": "http://coding.smashingmagazine.com/2013/02/11/introduction-backbone-marionette"
+				"name": "Marionette 101",
+				"url": "https://www.youtube.com/watch?v=7yZKsgKxziw"
 			}, {
-				"name": "Backbone Marionette: Better Backbone Apps",
-				"url": "http://www.joezimjs.com/javascript/backbone-marionette-better-backbone-apps"
+				"name": "Marionette - The Backbone Framework",
+				"url": "https://www.youtube.com/watch?v=EvQnntaqVdE"
 			}]
 		}, {
 			"heading": "Community",
@@ -1665,31 +1628,6 @@
 			}, {
 				"name": "Olives.js on GitHub",
 				"url": "https://github.com/flams/olives"
-			}]
-		}]
-	},
-	"plastronjs": {
-		"name": "PlastronJS",
-		"description": "PlastronJS is an MVC library which uses the Google Closure library for use with the Closure Compiler.",
-		"homepage": "rhysbrettbowen.github.io/PlastronJS",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/plastronjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "PlastronJS on GitHub",
-				"url": "https://github.com/rhysbrettbowen/PlastronJS"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "The Future of PlastronJS",
-				"url": "http://modernjavascript.blogspot.com/2012/11/the-future-of-plastronjs.html"
-			}, {
-				"name": "Krisztian Toth's JavaScript Games, XRegExp, PlastronJS",
-				"url": "http://dailyjs.com/2012/04/06/toth-xregexp-plastron"
 			}]
 		}]
 	},
@@ -2129,31 +2067,6 @@
 			}, {
 				"name": "Spine's author, Alex MacCaw, on Twitter",
 				"url": "http://twitter.com/maccman"
-			}]
-		}]
-	},
-	"stapes": {
-		"name": "Stapes.js",
-		"description": "A (really) tiny Javascript MVC microframework.",
-		"homepage": "hay.github.io/stapes",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/stapes"
-		}, {
-			"name": "Example",
-			"url": "examples/stapes_require"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://hay.github.io/stapes/#m-intro"
-			}, {
-				"name": "Documentation & API Reference",
-				"url": "http://hay.github.io/stapes"
-			}, {
-				"name": "Stapes.js on GitHub",
-				"url": "http://github.com/hay/stapes"
 			}]
 		}]
 	},

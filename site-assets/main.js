@@ -206,7 +206,6 @@
 
 				var isSelected = el.dataset.appList === selected;
 				el.style.display = isSelected ? 'block' : 'none';
-				el.classList.toggle('anim-swoosh-in', isSelected);
 				if (isSelected) {
 					this.adjustHeight(el);
 				}
