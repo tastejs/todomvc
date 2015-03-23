@@ -1,11 +1,18 @@
 {
-	"name" : "todomvc-troopjs",
-	"version" : "2.0.0-SNAPSHOT",
-	"main" : "index.html",
-	"dependencies" : {
-		"todomvc-common" : "*",
-		"requirejs" : "~2.1",
-		"jquery" : "~2.0",
-		"troopjs-bundle" : "https://github.com/troopjs/troopjs-bundle/archive/build/2.x.zip"
+	"name": "todos-troopjs",
+	"private": true,
+	"main": "index.html",
+	"dependencies": {
+		"todomvc-common": "^1",
+		"todomvc-app-css": "^2",
+		"troopjs": "^3",
+		"troopjs-widget": "^1",
+		"troopjs-route-hash": "^1",
+		"jquery": "^2",
+		"poly": "^0.6",
+		"when": "^3.4"
+	},
+	"devDependencies": {
+		"requirejs": "^2"
 	}
 }

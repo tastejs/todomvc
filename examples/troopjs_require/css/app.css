@@ -1,8 +1,7 @@
 /* base.css overrides */
-#footer, #main {
-	display: none;
-}
-
+.footer,
+.main,
+.clear-completed,
 .filter-active .completed,
 .filter-completed .active {
 	display: none;
