@@ -51,8 +51,8 @@ define([
 		render: function () {
 			var completed = Todos.completed().length;
 			var remaining = Todos.remaining().length;
-
-			if (Todos.length) {
+			var size = Todos.length;
+			if (size) {
 				this.$main.show();
 				this.$footer.show();
 
@@ -70,7 +70,7 @@ define([
 				this.$footer.hide();
 			}
 
-			this.allCheckbox.checked = !remaining;
+			this.allCheckbox.checked = size && !remaining;
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
