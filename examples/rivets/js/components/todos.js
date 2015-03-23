@@ -14,7 +14,7 @@
 
 		if (this.newTodo && this.newTodo.trim()) {
 			TodoStore.add({
-				title: this.newTodo,
+				title: this.newTodo.trim(),
 				completed: false
 			});
 		}
