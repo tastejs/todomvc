@@ -1,8 +1,9 @@
+/*global rivets, TodoStore */
 (function (rivets, TodoStore) {
 	'use strict';
 
 	// Controller for the filter bar.
-	var FilterBarController = function(todos) {
+	var FilterBarController = function (todos) {
 		this.todos = todos;
 
 		this.filters = [
@@ -13,17 +14,17 @@
 	};
 
 	// Clears all completed todo items.
-	FilterBarController.prototype.clearCompleted = function() {
+	FilterBarController.prototype.clearCompleted = function () {
 		TodoStore.clearCompleted();
 	};
 
 	// Register <filter-bar> component.
 	rivets.components['filter-bar'] = {
-		template: function() {
+		template: function () {
 			return document.querySelector('#filter-bar').innerHTML;
 		},
 
-		initialize: function(el, data) {
+		initialize: function (el, data) {
 			return new FilterBarController(data.todos);
 		}
 	};

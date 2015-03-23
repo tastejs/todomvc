@@ -1,22 +1,23 @@
+/*global Router, TodoStore */
 (function (Router, TodoStore) {
 	'use strict';
 
 	var routes = {
-		'/': function() {
+		'/': function () {
 			TodoStore.statusFilter = '';
 		},
 
-		'/active': function() {
+		'/active': function () {
 			TodoStore.statusFilter = 'active';
 		},
 
-		'/completed': function() {
+		'/completed': function () {
 			TodoStore.statusFilter = 'completed';
 		}
 	};
 
-	var router = new Router(routes).configure({ 
-		notfound: function() {
+	var router = new Router(routes).configure({
+		notfound: function () {
 			TodoStore.statusFilter = '';
 		}
 	});

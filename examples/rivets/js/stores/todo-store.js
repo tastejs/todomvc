@@ -9,10 +9,10 @@
 		statusFilter: '',
 
 		// Returns the filtered todo list.
-		filtered: function() {
+		filtered: function () {
 			var status = this.statusFilter;
 
-			return this.all.filter(function(todo) {
+			return this.all.filter(function (todo) {
 				switch (status) {
 					case 'active':
 						return !todo.completed;
@@ -25,39 +25,39 @@
 		},
 
 		// Returns all active todos.
-		active: function() {
-			return this.all.filter(function(todo) {
+		active: function () {
+			return this.all.filter(function (todo) {
 				return !todo.completed;
 			});
 		},
 
 		// Adds a new todo by title and saves.
-		add: function(todo) {
+		add: function (todo) {
 			this.all.push(todo);
 			this.save();
 		},
 
 		// Removes a todo and saves.
-		remove: function(todo) {
+		remove: function (todo) {
 			this.all.splice(this.all.indexOf(todo), 1);
 			this.save();
 		},
 
 		// Toggles the todo as complete / active and saves.
-		toggle: function(todo) {
+		toggle: function (todo) {
 			todo.completed = !todo.completed;
 			this.save(true);
 		},
 
 		// Removes all completed todos and saves.
-		clearCompleted: function() {
+		clearCompleted: function () {
 			this.all = this.active();
 			this.save();
 		},
 
 		// Marks all as complete / active and saves.
-		markAll: function(completed) {
-			this.all.forEach(function(todo) {
+		markAll: function (completed) {
+			this.all.forEach(function (todo) {
 				todo.completed = completed;
 			});
 
@@ -65,15 +65,18 @@
 		},
 
 		// Returns true if all todos are marked as completed.
-		isAllCompleted: function() {
-			return this.all.every(function(todo) {
+		isAllCompleted: function () {
+			return this.all.every(function (todo) {
 				return todo.completed;
 			});
 		},
 
 		// Saves a snapshot of all todos in local storage.
-		save: function(notifyChanges) {
-			if (notifyChanges) this.all.splice(0, 0);
+		save: function (notifyChanges) {
+			if (notifyChanges) {
+				this.all.splice(0, 0);
+			}
+
 			localStorage['todos-rivets'] = JSON.stringify(this.all);
 		}
 	}

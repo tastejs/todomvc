@@ -1,3 +1,4 @@
+/*global rivets */
 (function (rivets) {
 	'use strict';
 
@@ -6,7 +7,7 @@
 	};
 
 	rivets.formatters.eq = function (value, eqValue) {
-		return value == eqValue;
+		return value === eqValue;
 	};
 
 	rivets.formatters.append = function (value, appValue) {
