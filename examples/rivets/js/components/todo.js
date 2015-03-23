@@ -15,7 +15,7 @@
 	// Starts edit mode for the todo item.
 	TodoController.prototype.edit = function() {
 		this.newTitle = this.todo.title;
-		this.editing = true;
+		TodoStore.editing = this.todo;
 	};
 
 	// Saves the todo item's new title. If the new title is empty, then the todo
@@ -41,7 +41,7 @@
 	// Reverts changes made for the new title and leaves edit mode.
 	TodoController.prototype.revert = function() {
 		this.newTitle = this.todo.title;
-		this.editing = false;
+		TodoStore.editing = null;
 	};
 
 	// Removes the todo item.

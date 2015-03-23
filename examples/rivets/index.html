@@ -31,7 +31,13 @@
 				<label for="toggle-all">Mark all as complete</label>
 
 				<ul id="todo-list">
-					<todo rv-each-todo="todos.filtered < all statusFilter" todo="todo"></todo>
+					<li
+						rv-each-todo="todos.filtered < all statusFilter"
+						rv-class-completed="todo.completed"
+						rv-class-editing="todos.editing | eq todo">
+
+						<todo todo="todo"></todo>
+					</li>
 				</ul>
 			</section>
 
@@ -41,7 +47,7 @@
 		</script>
 
 		<script type="text/template" id="todo">
-			<li rv-class-completed="todo.completed" rv-class-editing="editing">
+			<div>
 				<div class="view">
 					<input
 						class="toggle"
@@ -59,9 +65,9 @@
 						rv-value="newTitle"
 						rv-escape="revert"
 						rv-on-blur="save"
-						rv-focus="editing">
+						rv-focus="todos.editing | eq todo">
 				</form>
-			</li>
+			</div>
 		</script>
 
 		<script type="text/template" id="filter-bar">
