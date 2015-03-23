@@ -1,0 +1,125 @@
+<!doctype html>
+
+<html lang="en" data-framework="rivets">
+	<head>
+		<meta charset="utf-8">
+		<title>Rivets • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+
+	<body>
+		<script type="text/template" id="todos">
+			<header id="header">
+				<h1>todos</h1>
+				<form rv-on-submit='addTodo'>
+					<input
+						id="new-todo"
+						placeholder="What needs to be done?"
+						rv-value='newTodo'
+						autofocus>
+				</form>
+			</header>
+
+			<section id="main" rv-show="todos.all | length">
+				<input
+					id="toggle-all"
+					type="checkbox"
+					rv-prop-checked="todos.isAllCompleted < all"
+					rv-on-change="toggleAllCompleted">
+
+				<label for="toggle-all">Mark all as complete</label>
+
+				<ul id="todo-list">
+					<li
+						rv-each-todo="todos.filtered < all statusFilter"
+						rv-class-completed="todo.completed"
+						rv-class-editing="todos.editing | eq todo">
+
+						<todo todo="todo"></todo>
+					</li>
+				</ul>
+			</section>
+
+			<footer id="footer" rv-show="todos.all | length">
+				<filter-bar todos="todos"></filter-bar>
+			</footer> 
+		</script>
+
+		<script type="text/template" id="todo">
+			<div>
+				<div class="view">
+					<input
+						class="toggle"
+						type="checkbox"
+						rv-prop-checked="todo.completed"
+						rv-on-change="toggle">
+
+					<label rv-on-dblclick="edit">{ todo.title }</label>
+					<button class="destroy" rv-on-click="remove"></button>
+				</div>
+
+				<form rv-on-submit="save">
+					<input
+						class="edit"
+						rv-value="newTitle"
+						rv-escape="revert"
+						rv-on-blur="save"
+						rv-focus="todos.editing | eq todo">
+				</form>
+			</div>
+		</script>
+
+		<script type="text/template" id="filter-bar">
+			<span id="todo-count">
+				<strong>{ todos.active < all | length }</strong> 
+				{ todos.active < all | length | eq 1 | switch 'item' 'items' }
+				left
+			</span>
+
+			<ul id="filters">
+				<li rv-each-filter="filters">
+					<a
+						rv-class-selected="todos.statusFilter | eq filter.id"
+						rv-href="'#/' | append filter.id">
+
+						{ filter.title }
+					</a>
+				</li>
+			</ul>
+
+			<button id="clear-completed" rv-on-click="clearCompleted" rv-show="todos.all | length">
+				Clear completed ({ todos | length })
+			</button>
+		</script>
+
+		<section id="todoapp"></section>
+
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+
+			<p>
+				Written by <a href="http://github.com/mikeric">Michael Richards</a>
+				and <a href="http://altio.us">Andrew Gurinovich</a>
+			</p>
+
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/director/build/director.js"></script>
+		<script src="node_modules/sightglass/index.js"></script>
+		<script src="node_modules/rivets/dist/rivets.js"></script>
+
+		<script src="js/formatters.js"></script>
+		<script src="js/binders/escape.js"></script>
+		<script src="js/binders/focus.js"></script>
+		<script src="js/binders/prop.js"></script>
+		<script src="js/stores/todo-store.js"></script>
+		<script src="js/components/todos.js"></script>
+		<script src="js/components/todo.js"></script>
+		<script src="js/components/filter-bar.js"></script>
+		<script src="js/routes.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

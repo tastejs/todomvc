@@ -1828,6 +1828,34 @@
 			}]
 		}]
 	},
+	"rivets": {
+		"name": "Rivets",
+		"description": "Lightweight and powerful data binding + templating solution for building modern web applications.",
+		"homepage": "rivetsjs.com",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/rivets"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Github repository",
+				"url": "https://github.com/mikeric/rivets"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "Guide",
+				"url": "http://rivetsjs.com/docs/guide"
+			}, {
+				"name": "Binder reference",
+				"url": "http://rivetsjs.com/docs/reference/"
+			}, {
+				"name": "Adapters (for integration w/ Backbone, CanJS, YUI models)",
+				"url": "https://github.com/mikeric/rivets/wiki/Adapters"
+			}]
+		}]
+	},
 	"sammyjs": {
 		"name": "Sammy.js",
 		"description": "A small web framework with class.",
