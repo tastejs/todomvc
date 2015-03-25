@@ -25,7 +25,7 @@ module.exports = function Page(browser) {
 
 	// ----------------- navigation methods
 
-	this.back = function() {
+	this.back = function () {
 		return browser.navigate().back();
 	};
 
@@ -60,7 +60,7 @@ module.exports = function Page(browser) {
 	// ----------------- DOM element access methods
 
 	this.getFocussedElementId = function () {
-		return browser.switchTo().activeElement().getAttribute('id').then(function(id) {
+		return browser.switchTo().activeElement().getAttribute('id').then(function (id) {
 			return id;
 		});
 	};
@@ -152,7 +152,9 @@ module.exports = function Page(browser) {
 		return this.getItemLabelAtIndex(index).then(function (itemLabel) {
 			// double click is not 'natively' supported, so we need to send the
 			// event direct to the element see:
+			// jscs:disable
 			// http://stackoverflow.com/questions/3982442/selenium-2-webdriver-how-to-double-click-a-table-row-which-opens-a-new-window
+			// jscs:enable
 			browser.executeScript('var evt = document.createEvent("MouseEvents");' +
 				'evt.initMouseEvent("dblclick",true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0,null);' +
 				'arguments[0].dispatchEvent(evt);', itemLabel);
