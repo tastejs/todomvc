@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.0",
+    "director": "^1.2.0",
+    "sightglass": "^0.2.4",
+    "rivets": "^0.8.1"
+  }
+}
