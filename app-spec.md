@@ -111,7 +111,7 @@ Displays the number of active todos in a pluralized form. Make sure the number i
 
 ### Clear completed button
 
-Displays the number of completed todos, and when clicked, removes them. Should be hidden when there are no completed todos.
+Removes completed todos when clicked. Should be hidden when there are no completed todos.
 
 ### Persistence
 
