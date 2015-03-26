@@ -2,6 +2,7 @@
 
 > *Aurelia* is a next generation JavaScript client framework that leverages simple conventions to empower your creativity.
 
+
 ## Local Installation
 
 Requirements:
@@ -12,20 +13,29 @@ Requirements:
 
 Clone the repository:
 
-    git clone https://github.com/mhoyer/todomvc-aurelia
+```
+$ git clone https://github.com/mhoyer/todomvc-aurelia
+```
 
 Install jspm and npm packages:
 
-    npm install
-    jspm install
+```
+$ npm install
+$ jspm install
+```
 
 Simply build, test, bundle, export:
 
-    gulp
+```
+$ gulp
+```
 
 Run tests and HTTP-server:
 
-    gulp watch
+```
+$ gulp watch
+```
+
 
 ## Resources
 
@@ -40,6 +50,7 @@ Run tests and HTTP-server:
 - [Gitter](https://gitter.im/Aurelia/Discuss)
 
 *Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
+
 
 ## Implementation
 
@@ -56,6 +67,7 @@ Run tests and HTTP-server:
 ### Open Questions While Developing
 
 - See [Issues](https://github.com/mhoyer/todomvc-aurelia/issues/)
+
 
 ## Credit
 
