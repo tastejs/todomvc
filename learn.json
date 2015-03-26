@@ -200,6 +200,40 @@
 			}]
 		}]
 	},
+	"aurelia": {
+		"name": "Aurelia",
+		"description": "Aurelia is a next generation JavaScript client framework that leverages simple conventions to empower your creativity.",
+		"homepage": "aurelia.io",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/aurelia"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Get started",
+				"url": "http://aurelia.io/get-started.html"
+			}, {
+				"name": "Docs",
+				"url": "http://aurelia.io/docs.html"
+			}, {
+				"name": "Aurelia on GitHub",
+				"url": "https://github.com/aurelia"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "Blog",
+				"url": "http://blog.durandal.io/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Aurelia dicussions on Gitter",
+				"url": "https://gitter.im/Aurelia/Discuss"
+			}]
+		}]
+	},
 	"backbonejs": {
 		"name": "Backbone.js",
 		"description": "Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.",
