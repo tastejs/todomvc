@@ -809,7 +809,7 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Getting StartED with Dojo",
-				"url": "http://startdojo.com"
+				"url": "http://dojotoolkit.org/documentation/tutorials/1.10/start/"
 			}]
 		}, {
 			"heading": "Community",
