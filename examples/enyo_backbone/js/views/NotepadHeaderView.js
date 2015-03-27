@@ -1,4 +1,4 @@
-﻿/*jshint strict:false */
+/*jshint strict:false */
 /*global enyo:false, ENTER_KEY:false */
 // Header section for adding a new task.
 enyo.kind({
@@ -18,6 +18,9 @@ enyo.kind({
 			kind: 'enyo.Input',
 			id: 'new-todo',
 			placeholder: 'What needs to be done?',
+			attributes: {
+				autofocus: 'autofocus'
+			},
 			handlers: {
 				onkeypress: 'saveNew'
 			},
