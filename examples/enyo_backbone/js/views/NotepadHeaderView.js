@@ -17,10 +17,10 @@ enyo.kind({
 			// up the enyo object hierarchy to our controller
 			kind: 'enyo.Input',
 			id: 'new-todo',
+			placeholder: 'What needs to be done?',
 			attributes: {
 				autofocus: 'autofocus'
 			},
-			placeholder: 'What needs to be done?',
 			handlers: {
 				onkeypress: 'saveNew'
 			},
