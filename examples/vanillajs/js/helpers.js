@@ -15,36 +15,24 @@
 		target.addEventListener(type, callback, !!useCapture);
 	};
 
-	// Register events on elements that may or may not exist yet:
-	// $live('div a', 'click', function (event) {});
-	window.$live = (function () {
-		var eventRegistry = {};
-
+	// Attach a handler to event for all elements that match the selector,
+	// now or in the future, based on a root element
+	window.$delegate = function (target, selector, type, handler) {
 		function dispatchEvent(event) {
 			var targetElement = event.target;
+			var potentialElements = window.qsa(selector, target);
+			var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
-			eventRegistry[event.type].forEach(function (entry) {
-				var potentialElements = window.qsa(entry.selector);
-				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
-
-				if (hasMatch) {
-					entry.handler.call(targetElement, event);
-				}
-			});
+			if (hasMatch) {
+				handler.call(targetElement, event);
+			}
 		}
 
-		return function (selector, event, handler) {
-			if (!eventRegistry[event]) {
-				eventRegistry[event] = [];
-				window.$on(document.documentElement, event, dispatchEvent, true);
-			}
+		// https://developer.mozilla.org/en-US/docs/Web/Events/blur
+		var useCapture = type === 'blur' || type === 'focus';
 
-			eventRegistry[event].push({
-				selector: selector,
-				handler: handler
-			});
-		};
-	}());
+		window.$on(target, type, dispatchEvent, useCapture);
+	};
 
 	// Find the element's parent with the given tag name:
 	// $parent(qs('a'), 'div');
