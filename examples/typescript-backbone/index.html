@@ -77,13 +77,13 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 		<!-- Templates -->
 
 		<script type="text/template" id="item-template">
-			<div class="todo <%= done ? 'done' : '' %>">
+			<div class="todo <%= completed ? 'done' : '' %>">
 				<div class="view display">
-					<input class="toggle check" type="checkbox" <%= done ? 'checked' : '' %>>
-					<label class="todo-content"><%= content %></label>
+					<input class="toggle check" type="checkbox" <%= completed ? 'checked' : '' %>>
+					<label class="todo-content"><%= title %></label>
 					<button class="destroy"></button>
 				</div>
-				<input class="edit todo-input" value="<%= content %>">
+				<input class="edit todo-input" value="<%= title %>">
 			</div>
 		</script>
 
@@ -94,9 +94,9 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 					<span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left
 				</span>
 			<% } %>
-			<% if (done) { %>
+			<% if (completed) { %>
 				<span class="todo-clear">
-					<button id="clear-completed">Clear completed (<span class="number-done"><%= done %></span>)</button>
+					<button id="clear-completed">Clear completed (<span class="number-done"><%= completed %></span>)</button>
 				</span>
 			<% } %>
 		</script>

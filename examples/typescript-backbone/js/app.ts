@@ -93,27 +93,27 @@ declare var Store: any;
 // Todo Model
 // ----------
 
-// Our basic **Todo** model has `content`, `order`, and `done` attributes.
+// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
 class Todo extends Backbone.Model {
 
 	// Default attributes for the todo.
 	defaults() {
 		return {
-			content: '',
-			done: false
+			title: '',
+			completed: false
 		}
 	}
 
-	// Ensure that each todo created has `content`.
+	// Ensure that each todo created has `title`.
 	initialize() {
-		if (!this.get('content')) {
-			this.set({ 'content': this.defaults().content });
+		if (!this.get('title')) {
+			this.set({ 'title': this.defaults().title });
 		}
 	}
 
-	// Toggle the `done` state of this todo item.
+	// Toggle the `completed` state of this todo item.
 	toggle() {
-		this.save({ done: !this.get('done') });
+		this.save({ completed: !this.get('completed') });
 	}
 
 	// Remove this Todo from *localStorage* and delete its view.
@@ -136,14 +136,14 @@ class TodoList extends Backbone.Collection {
 	// Save all of the todo items under the `'todos'` namespace.
 	localStorage = new Store('todos-typescript-backbone');
 
-	// Filter down the list of all todo items that are finished.
-	done() {
-		return this.filter((todo: Todo) => todo.get('done'));
+	// Filter down the list of all todo items that are completed.
+	completed() {
+		return this.filter((todo: Todo) => todo.get('completed'));
 	}
 
-	// Filter down the list to only todo items that are still not finished.
+	// Filter down the list to only todo items that are still not completed.
 	remaining() {
-		return this.without.apply(this, this.done());
+		return this.without.apply(this, this.completed());
 	}
 
 	// We keep the Todos in sequential order, despite being saved by unordered
@@ -212,7 +212,7 @@ class TodoView extends Backbone.View {
 		return this;
 	}
 
-	// Toggle the `'done'` state of the model.
+	// Toggle the `completed` state of the model.
 	toggleDone() {
 		this.model.toggle();
 	}
@@ -228,7 +228,7 @@ class TodoView extends Backbone.View {
 		var trimmedValue = this.input.val().trim();
 
 		if (trimmedValue) {
-			this.model.save({ content: trimmedValue });
+			this.model.save({ title: trimmedValue });
 		} else {
 			this.clear();
 		}
@@ -247,7 +247,7 @@ class TodoView extends Backbone.View {
 		if (e.which === TodoView.ESC_KEY) {
 			this.$el.removeClass('editing');
 			// Also reset the hidden input back to the original value.
-			this.input.val(this.model.get('content'));
+			this.input.val(this.model.get('title'));
 		}
 	}
 
@@ -304,7 +304,7 @@ class AppView extends Backbone.View {
 	// Re-rendering the App just means refreshing the statistics -- the rest
 	// of the app doesn't change.
 	render() {
-		var done = Todos.done().length;
+		var completed = Todos.completed().length;
 		var remaining = Todos.remaining().length;
 
 		if (Todos.length) {
@@ -313,7 +313,7 @@ class AppView extends Backbone.View {
 
 			this.$('#todo-stats').html(this.statsTemplate({
 				total: Todos.length,
-				done: done,
+				completed: completed,
 				remaining: remaining
 			}));
 		} else {
@@ -339,9 +339,9 @@ class AppView extends Backbone.View {
 	// Generate the attributes for a new Todo item.
 	newAttributes() {
 		return {
-			content: this.input.val().trim(),
+			title: this.input.val().trim(),
 			order: Todos.nextOrder(),
-			done: false
+			completed: false
 		};
 	}
 
@@ -354,15 +354,15 @@ class AppView extends Backbone.View {
 		}
 	}
 
-	// Clear all done todo items, destroying their models.
+	// Clear all completed todo items, destroying their models.
 	clearCompleted() {
-		_.each(Todos.done(), (todo: Todo) => todo.clear());
+		_.each(Todos.completed(), (todo: Todo) => todo.clear());
 		return false;
 	}
 
 	toggleAllComplete() {
-		var done = this.allCheckbox.checked;
-		Todos.each((todo: Todo) => todo.save({ 'done': done }));
+		var completed = this.allCheckbox.checked;
+		Todos.each((todo: Todo) => todo.save({ 'completed': completed }));
 	}
 
 }
