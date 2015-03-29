@@ -354,55 +354,6 @@
 			}]
 		}]
 	},
-	"batman": {
-		"name": "Batman.js",
-		"description": "A client-side framework for Rails developers. Batman.js is a framework for building rich web applications with CoffeeScript.",
-		"homepage": "batmanjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/batman"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://batmanjs.org/docs/batman.html"
-			}, {
-				"name": "Get Started",
-				"url": "http://batmanjs.org/download.html"
-			}, {
-				"name": "Applications built with Batman.js",
-				"url": "http://batmanjs.org/examples.html"
-			}, {
-				"name": "Blog",
-				"url": "http://batmanjs.org/2012/04/02/batman-packs-a-punch.html"
-			}, {
-				"name": "Batman.js on GitHub",
-				"url": "https://github.com/shopify/batman"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Simple address book app with Batman.js",
-				"url": "http://kubyshkin.ru/posts/simple-address-book-app-with-batman-js.html"
-			}, {
-				"name": "Batman.js vs Knockout.js",
-				"url": "http://blog.erlware.org/2011/08/28/batman-js-vs-knockout-js"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Batman.js on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/batman.js"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/batmanjs"
-			}, {
-				"name": "Batman.js on Twitter",
-				"url": "http://twitter.com/batmanjs"
-			}]
-		}]
-	},
 	"canjs": {
 		"name": "CanJS",
 		"description": "CanJS is a MIT-licensed, client-side, JavaScript framework that makes building rich web applications easy.",

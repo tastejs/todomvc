@@ -62,12 +62,8 @@ var app = app || {};
 			this.props.model.destroy(todo);
 		},
 
-		edit: function (todo, callback) {
-			// refer to todoItem.js `handleEdit` for the reasoning behind the
-			// callback
-			this.setState({editing: todo.id}, function () {
-				callback();
-			});
+		edit: function (todo) {
+			this.setState({editing: todo.id});
 		},
 
 		save: function (todoToSave, text) {
