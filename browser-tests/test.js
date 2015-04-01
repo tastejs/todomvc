@@ -262,12 +262,10 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 
 		test.describe('Clear completed button', function () {
-			test.it('should display the number of completed items', function () {
+			test.it('should display the correct text', function () {
 				createStandardItems();
 				page.toggleItemAtIndex(1);
-				testOps.assertClearCompleteButtonText('Clear completed (1)');
-				page.toggleItemAtIndex(2);
-				testOps.assertClearCompleteButtonText('Clear completed (2)');
+				testOps.assertClearCompleteButtonText('Clear completed');
 			});
 
 			test.it('should remove completed items when clicked', function () {
