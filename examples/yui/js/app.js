@@ -115,6 +115,9 @@ YUI.add('todo-app', function (Y) {
 				fragment.append(view.render().get('container'));
 			});
 
+			// To delete previously attached views and fix the memory leak.
+			this.get('container').one('#todo-list').destroy({recursivePurge: true});
+
 			this.get('container').one('#todo-list').setContent(fragment);
 		},
 
