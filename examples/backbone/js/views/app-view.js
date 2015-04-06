@@ -38,7 +38,7 @@ var app = app || {};
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
-			this.listenTo(app.todos, 'all', this.render);
+			this.listenTo(app.todos, 'all', _.debounce(this.render));
 
 			// Suppresses 'add' events with {reset: true} and prevents the app view
 			// from being re-rendered for every model. Only renders when the 'reset'
@@ -51,8 +51,8 @@ var app = app || {};
 		render: function () {
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
-
-			if (app.todos.length) {
+			var size = app.todos.length;
+			if (size) {
 				this.$main.show();
 				this.$footer.show();
 
@@ -70,7 +70,7 @@ var app = app || {};
 				this.$footer.hide();
 			}
 
-			this.allCheckbox.checked = !remaining;
+			this.allCheckbox.checked = size && !remaining;
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
