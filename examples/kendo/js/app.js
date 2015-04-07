@@ -164,9 +164,6 @@ var app = app || {};
 		activeCountText: function () {
 			return this.activeCount() === 1 ? 'item' : 'items';
 		},
-		clearCompletedText: function () {
-			return 'Clear completed (' + this.completedCount() + ')';
-		},
 
 		// Class attribute bound methods
 		todoItemClass: function (item) {
