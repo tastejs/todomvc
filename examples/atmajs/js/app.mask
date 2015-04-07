@@ -24,7 +24,7 @@ section #todoapp {
 
 			+if (status.completedCount > 0) {
 				button #clear-completed x-signal = 'click: removeAllCompleted' >
-					'Clear completed (~[bind:status.completedCount])'
+					'Clear completed'
 			}
 		}
 	}
