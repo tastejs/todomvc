@@ -98,7 +98,7 @@
 
 	{macro itemsclear()}
 		{if data.itemscompleted > 0}
-			<button id="clear-completed" {on click "clearCompleted"/}>Clear completed (${data.itemscompleted})</button>
+			<button id="clear-completed" {on click "clearCompleted"/}>Clear completed</button>
 		{/if}
 	{/macro}
 
