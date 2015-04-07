@@ -259,7 +259,7 @@ puremvc.define({
 
 			updateClearButton: function() {
 				this.clearButton.style.display = ( this.stats.todoCompleted === 0 ) ? 'none' : 'block';
-				this.clearButton.innerHTML = 'Clear completed (' + this.stats.todoCompleted + ')';
+				this.clearButton.innerHTML = 'Clear completed';
 			},
 
 			updateTodoCount: function() {
