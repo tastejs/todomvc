@@ -30,7 +30,7 @@
         <footer id="footer">
             <span id="todo-count"><strong>{[ this.controller.incompleteCount() ]}</strong> {[ ( this.controller.incompleteCount() == 1 ) ? "item" : "items" ]} left</span>
             <tpl if="this.controller.completedCount()">
-                <button id="clear-completed" class="clearcompleted">Clear completed ({[ this.controller.completedCount() ]})</button>
+                <button id="clear-completed" class="clearcompleted">Clear completed</button>
             </tpl>
         </footer>
     </tpl>
