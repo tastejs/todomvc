@@ -30,7 +30,7 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 Running this app requires [Node.js](http://nodejs.org).
 
-	# from labs/architecture-examples/socketstream
+	# from examples/socketstream
 	npm install
 	npm start
 
