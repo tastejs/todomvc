@@ -63,7 +63,6 @@ module.exports = [
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
 	'TodoMVC - thorax, Editing, should cancel edits on escape',
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
-	'TodoMVC - angularjs_require, Editing, should cancel edits on escape',
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',

@@ -12,6 +12,6 @@ require.config({
 	}
 });
 
-require(['angular', 'app', 'controllers/todo', 'directives/todoFocus'], function (angular) {
+require(['angular', 'app', 'controllers/todo', 'directives/todoFocus', 'directives/todoEscape'], function (angular) {
 	angular.bootstrap(document, ['todomvc']);
 });
