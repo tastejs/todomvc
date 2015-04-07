@@ -4312,8 +4312,8 @@ z="<strong>"+x+"</strong> item"
 J.Qy(this.e,z+(x!==1?"s":"")+" left")
 z=this.f
 if(y===0)J.Y(z.style,"none")
-else{J.Y(z.style,"block")
-z.textContent="Clear completed ("+y+")"}this.nW()},
+else J.Y(z.style,"block")
+this.nW()},
 nW:function(){switch(window.location.hash){case"#/active":this.dK()
 break
 case"#/completed":this.bI()
