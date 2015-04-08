@@ -12,4 +12,4 @@
 		<a <%= flag === 'completed' ? 'class=selected' : '' %> href="#/completed">Completed</a>
 	</li>
 </ul>
-<button id="clear-completed" <%= completedCount === 0 ? 'class=hidden' : '' %>>Clear completed (<%= completedCount %>)</button>
+<button id="clear-completed" <%= completedCount === 0 ? 'class=hidden' : '' %>>Clear completed</button>
