@@ -80,8 +80,6 @@ class TodoApp extends Spine.Controller
 		active = Todo.active().length
 		completed = Todo.completed().length
 		@count.html "<strong>#{ active }</strong> #{ text active } left"
-		@clearCompleted.text "Clear completed (#{ completed })"
-
 
 $ ->
 	new TodoApp el: $('#todoapp')

@@ -133,8 +133,7 @@
       };
       active = Todo.active().length;
       completed = Todo.completed().length;
-      this.count.html("<strong>" + active + "</strong> " + (text(active)) + " left");
-      return this.clearCompleted.text("Clear completed (" + completed + ")");
+      return this.count.html("<strong>" + active + "</strong> " + (text(active)) + " left");
     };
 
     return TodoApp;
