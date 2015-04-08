@@ -7,6 +7,6 @@
     "maskjs": "^0.10.1",
     "ruta": "^0.1.12",
     "todomvc-common": "^1.0.1",
-    "todomvc-app-css": "^1.0.0",
+    "todomvc-app-css": "^1.0.0"
   }
 }
