@@ -9,5 +9,9 @@ todomvc.directive('todoBlur', function () {
 		elem.bind('blur', function () {
 			scope.$apply(attrs.todoBlur);
 		});
+
+		scope.$on('$destroy', function () {
+			elem.unbind('blur');
+		});
 	};
 });
