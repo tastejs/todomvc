@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "dependencies": {
+    "fire": "^0.32.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jade": "^0.14.1",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "q": "^1.2.0",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/grunt-cli/bin/grunt build && ./node_modules/grunt-cli/bin/grunt release"
+  }
+}
