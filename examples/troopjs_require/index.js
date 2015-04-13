@@ -1,5 +1,5 @@
 require({
-	baseUrl: 'bower_components',
+	baseUrl: 'node_modules',
 
 	packages: [{
 		name: 'todos-troopjs',
