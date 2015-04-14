@@ -49,7 +49,7 @@ dedicated version of Chromium with an embedded Dart VM.
 ## Compiling
 
 ```
-dart2js src/main.dart -o dist/main.js
+dart2js web/main.dart -o web/main.js
 ```
 
 The dart2js compilator can be found in the SDK.

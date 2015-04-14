@@ -44,9 +44,8 @@ var todos;
     function todoBlur() {
         return {
             link: function ($scope, element, attributes) {
-                element.bind('blur', function () {
-                    $scope.$apply(attributes.todoBlur);
-                });
+                element.bind('blur', function () { $scope.$apply(attributes.todoBlur); });
+                $scope.$on('$destroy', function () { element.unbind('blur'); });
             }
         };
     }
@@ -54,7 +53,7 @@ var todos;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
 var todos;
-(function (_todos) {
+(function (todos_1) {
     'use strict';
     /**
      * Services that persists and retrieves TODOs from localStorage.
@@ -71,7 +70,7 @@ var todos;
         };
         return TodoStorage;
     })();
-    _todos.TodoStorage = TodoStorage;
+    todos_1.TodoStorage = TodoStorage;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
 var todos;
@@ -106,7 +105,9 @@ var todos;
             $scope.location = $location;
         }
         TodoCtrl.prototype.onPath = function (path) {
-            this.$scope.statusFilter = (path === '/active') ? { completed: false } : (path === '/completed') ? { completed: true } : null;
+            this.$scope.statusFilter = (path === '/active') ?
+                { completed: false } : (path === '/completed') ?
+                { completed: true } : null;
         };
         TodoCtrl.prototype.onTodos = function () {
             this.$scope.remainingCount = this.filterFilter(this.todos, { completed: false }).length;
@@ -139,9 +140,7 @@ var todos;
             this.$scope.todos = this.todos = this.todos.filter(function (todoItem) { return !todoItem.completed; });
         };
         TodoCtrl.prototype.markAll = function (completed) {
-            this.todos.forEach(function (todoItem) {
-                todoItem.completed = completed;
-            });
+            this.todos.forEach(function (todoItem) { todoItem.completed = completed; });
         };
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -166,6 +165,20 @@ var todos;
 var todos;
 (function (todos) {
     'use strict';
-    var todomvc = angular.module('todomvc', []).controller('todoCtrl', todos.TodoCtrl).directive('todoBlur', todos.todoBlur).directive('todoFocus', todos.todoFocus).service('todoStorage', todos.TodoStorage);
+    var todomvc = angular.module('todomvc', [])
+        .controller('todoCtrl', todos.TodoCtrl)
+        .directive('todoBlur', todos.todoBlur)
+        .directive('todoFocus', todos.todoFocus)
+        .service('todoStorage', todos.TodoStorage);
 })(todos || (todos = {}));
+/// <reference path='libs/jquery/jquery.d.ts' />
+/// <reference path='libs/angular/angular.d.ts' />
+/// <reference path='models/TodoItem.ts' />
+/// <reference path='interfaces/ITodoScope.ts' />
+/// <reference path='interfaces/ITodoStorage.ts' />
+/// <reference path='directives/TodoFocus.ts' />
+/// <reference path='directives/TodoBlur.ts' />
+/// <reference path='services/TodoStorage.ts' />
+/// <reference path='controllers/TodoCtrl.ts' />
+/// <reference path='Application.ts' />
 //# sourceMappingURL=Application.js.map

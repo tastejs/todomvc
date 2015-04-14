@@ -75,11 +75,11 @@ It's definitely possible to convert the vanillajs todo app into TypeScript, but 
 
 A standalone TypeScript compiler is available on NPM.
 
-	npm install -g typescript
+	npm install
 
 To compile the TypeScript in this project:
 
 	# from labs/architecture-examples/typescript-angular
-	tsc --sourcemap --out js/Application.js js/_all.ts
+	run `npm run compile`
 
 Or use Visual Studio with the TypeScript plugin.

@@ -13,5 +13,9 @@ todomvc.directive('todoEscape', function () {
 				scope.$apply(attrs.todoEscape);
 			}
 		});
+
+		scope.$on('$destroy', function () {
+			elem.unbind('keydown');
+		});
 	};
 });
