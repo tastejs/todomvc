@@ -17,8 +17,9 @@ var app = app || {};
 
 		// The DOM events specific to an item.
 		events: {
-			'click .toggle': 'toggleCompleted',
-			'dblclick label': 'edit',
+			'click .toggle': 'toggleClick',
+			'dblclick span': 'edit',
+			'keypress span': 'editOnEnter',
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
@@ -65,6 +66,15 @@ var app = app || {};
 				app.TodoFilter === 'completed';
 		},
 
+		// Captures singular user "clicks", which could be spacebar presses;
+		// calls `toggleCompleted` to change model state;
+		// ensures focus is retained by input, to support keyboard users who
+		// may want to "click" the checkbox again.
+		toggleClick: function(e) {
+			this.toggleCompleted();
+			this.$("input").focus();
+        },
+
 		// Toggle the `"completed"` state of the model.
 		toggleCompleted: function () {
 			this.model.toggle();
@@ -74,6 +84,13 @@ var app = app || {};
 		edit: function () {
 			this.$el.addClass('editing');
 			this.$input.focus();
+		},
+
+		// If you hit `enter` on a focused idem, we edit.
+		editOnEnter: function (e) {
+			if (e.which === ENTER_KEY) {
+				this.edit();
+			}
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
