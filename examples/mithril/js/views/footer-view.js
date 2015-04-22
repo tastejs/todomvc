@@ -31,6 +31,6 @@ app.footer = function (ctrl) {
 			])
 		]), ctrl.amountCompleted() === 0 ? '' : m('button#clear-completed', {
 			onclick: ctrl.clearCompleted.bind(ctrl)
-		}, 'Clear completed (' + amountCompleted + ')')
+		}, 'Clear completed')
 	]);
 };

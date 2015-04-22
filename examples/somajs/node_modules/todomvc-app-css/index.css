@@ -316,20 +316,10 @@ html #clear-completed:active {
 	line-height: 20px;
 	text-decoration: none;
 	cursor: pointer;
-	visibility: hidden;
 	position: relative;
 }
 
-#clear-completed::after {
-	visibility: visible;
-	content: 'Clear completed';
-	position: absolute;
-	top: 0;
-	right: 0;
-	white-space: nowrap;
-}
-
-#clear-completed:hover::after {
+#clear-completed:hover {
 	text-decoration: underline;
 }
 

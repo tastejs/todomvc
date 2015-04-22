@@ -417,7 +417,6 @@ module.exports = FooterView = (function(_super) {
     this.find('#todo-count > strong').textContent = active;
     countDescription = (active === 1 ? 'item' : 'items');
     this.find('.todo-count-title').textContent = countDescription;
-    this.find('#completed-count').textContent = "(" + completed + ")";
     utils.toggle(this.find('#clear-completed'), completed > 0);
     return utils.toggle(this.el, total > 0);
   };
@@ -481,7 +480,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<span id=\"todo-count\">\n  <strong></strong>\n  <span class=\"todo-count-title\">items</span>\n  left\n</span>\n<ul id=\"filters\">\n  <li>\n    <a href=\"#/\">All</a>\n  </li>\n  <li>\n    <a href=\"#/active\">Active</a>\n  </li>\n  <li>\n    <a href=\"#/completed\">Completed</a>\n  </li>\n</ul>\n<button id=\"clear-completed\">Clear completed <span id=\"completed-count\"></span></button>\n";
+  return "<span id=\"todo-count\">\n  <strong></strong>\n  <span class=\"todo-count-title\">items</span>\n  left\n</span>\n<ul id=\"filters\">\n  <li>\n    <a href=\"#/\">All</a>\n  </li>\n  <li>\n    <a href=\"#/active\">Active</a>\n  </li>\n  <li>\n    <a href=\"#/completed\">Completed</a>\n  </li>\n</ul>\n<button id=\"clear-completed\">Clear completed</button>\n";
   });
 if (typeof define === 'function' && define.amd) {
   define([], function() {

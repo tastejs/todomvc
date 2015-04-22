@@ -99,7 +99,6 @@ class TodoApp {
       clearCompletedElement.style.display = 'none';
     } else {
       clearCompletedElement.style.display = 'block';
-      clearCompletedElement.text = 'Clear completed ($complete)';
     }
     updateFilter();
   }
