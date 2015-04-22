@@ -91,7 +91,7 @@
         return function() {
           var count;
           if ((count = _this.completed_count())) {
-            return "Clear completed (" + count + ")";
+            return "Clear completed";
           } else {
             return '';
           }

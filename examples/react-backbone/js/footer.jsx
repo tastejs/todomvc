@@ -21,7 +21,7 @@ var app = app || {};
 					<button
 						id="clear-completed"
 						onClick={this.props.onClearCompleted}>
-						Clear completed ({this.props.completedCount})
+						Clear completed
 					</button>
 				);
 			}
