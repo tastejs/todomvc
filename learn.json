@@ -1813,6 +1813,43 @@
 			}]
 		}]
 	},
+	"reagent": {
+		"name": "Reagent",
+		"description": "Reagent provides a minimalistic interface between ClojureScript and React. It allows you to define efficient React components using nothing but plain ClojureScript functions and data, that describe your UI using a Hiccup-like syntax.",
+	    "homepage": "reagent-project.github.io/",
+		"examples": [{
+			"name": "Reagent Cookbook",
+			"url": "https://github.com/reagent-project/reagent-cookbook"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Reagent Template",
+				"url": "https://github.com/reagent-project/reagent-template"
+			}, {
+				"name": "Reagent Cookbook",
+				"url": "https://github.com/reagent-project/reagent-cookbook"
+			}, {
+				"name": "Reagent Forms",
+				"url": "https://github.com/reagent-project/reagent-forms"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Reagent on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/reagent"
+			}, {
+				"name": "Google Groups Mailing List",
+				"url": "https://groups.google.com/forum/#!forum/reagent-project"
+			}, {
+				"name": "Reagent on Twitter",
+				"url": "https://twitter.com/ReagentProject"
+			}, {
+				"name": "Reagent YouTube Channel",
+				"url": "https://www.youtube.com/channel/UC1UP5LiNNNf0a45dA9eDA0Q"
+			}]
+		}]
+	},
 	"sammyjs": {
 		"name": "Sammy.js",
 		"description": "A small web framework with class.",
