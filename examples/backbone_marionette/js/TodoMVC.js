@@ -21,7 +21,6 @@ window.TodoMVC = new App();
   });
 })();
 
-TodoMVC.on('start', function () {
+TodoMVC.on('before:start', function () {
   TodoMVC.setRootLayout();
-  Backbone.history.start();
 });
