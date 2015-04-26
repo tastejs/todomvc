@@ -41,7 +41,7 @@ define([
 			this.listenTo(Todos, 'reset', this.addAll);
 			this.listenTo(Todos, 'change:completed', this.filterOne);
 			this.listenTo(Todos, 'filter', this.filterAll);
-			this.listenTo(Todos, 'all', this.render);
+			this.listenTo(Todos, 'all', _.debounce(this.render, 0));
 
 			Todos.fetch({reset:true});
 		},
