@@ -9,9 +9,6 @@ require.config({
 		angular: {
 			exports: 'angular'
 		}
-	}
-});
-
-require(['angular', 'app', 'controllers/todo', 'directives/todoFocus', 'directives/todoEscape'], function (angular) {
-	angular.bootstrap(document, ['todomvc']);
+	},
+	deps: ['app']
 });

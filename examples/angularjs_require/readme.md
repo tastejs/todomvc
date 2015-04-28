@@ -34,3 +34,10 @@ Get help from other AngularJS users:
 * [AngularjS on Google +](https://plus.google.com/+AngularJS/posts)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+## Unit Tests
+
+To run the test suite, run these commands:
+
+    npm install
+    npm test
