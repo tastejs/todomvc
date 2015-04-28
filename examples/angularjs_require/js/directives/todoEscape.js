@@ -1,4 +1,9 @@
 /*global define*/
+
+/**
+ * Directive that catches the "Escape" key on the element applied to and evaluates the expression it binds to.
+ */
+ 
 define([
 	'angular'
 ], function (angular) {
