@@ -1,8 +1,10 @@
 /*global define*/
 'use strict';
+
 /**
  * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true.
  */
+ 
 define([
 	'angular'
 ], function (angular) {
