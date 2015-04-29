@@ -22,13 +22,13 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 		function launchBrowser() {
 
-			if (process.env.SAUCE_USERNAME !== undefined) {
+			if (process.env.UN !== undefined) {
 				browser = new webdriver.Builder()
 				.usingServer(
 					'http://' +
-					process.env.SAUCE_USERNAME +
+					process.env.UN +
 					':' +
-					process.env.SAUCE_ACCESS_KEY +
+					process.env.PP +
 					'@ondemand.saucelabs.com:80/wd/hub'
 				)
 				.withCapabilities({
