@@ -1,13 +1,13 @@
 /*global define*/
+'use strict';
 
 /**
  * Directive that catches the "Escape" key on the element applied to and evaluates the expression it binds to.
  */
- 
+
 define([
 	'angular'
 ], function (angular) {
-	'use strict';
 	var moduleName = 'TodoEscapeDirective';
 	angular
 		.module(moduleName, [])
