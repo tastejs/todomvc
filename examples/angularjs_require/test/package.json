@@ -1,0 +1,17 @@
+{
+  "name": "todomvc-angularjs-requirejs-tests",
+  "description": "Unit tests for the AngularJS and RequireJS example of TodoMVC",
+  "author": "Leonardo Giovanetti <hello@leog.me>",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "grunt-contrib-jasmine": "0.8.1",
+    "grunt-template-jasmine-requirejs": "0.2.0",
+    "angular-mocks": "^1.3.13",
+    "jquery": "2.1.4"
+  },
+  "scripts": {
+    "test": "grunt jasmine"
+  }
+}
