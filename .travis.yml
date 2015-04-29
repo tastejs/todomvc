@@ -33,7 +33,7 @@ env:
 before_script:
     # install dependencies
     - npm install -g gulp
-    - python -m SimpleHTTPServer &
+    - python -m SimpleHTTPServer > /dev/null 2>&1 &
     - sleep 2
 script:
     # We want to gate on passing tests and a successful build
