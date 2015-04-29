@@ -26,6 +26,8 @@ else
   then
     exit 0
   else
+    env UN=$(echo "$u" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]')
+    env PP=$(echo "$pp" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]')
     echo changes | xargs npm run test --
   fi
 
