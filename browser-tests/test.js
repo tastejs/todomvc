@@ -22,21 +22,21 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 		function launchBrowser() {
 
-			if (process.env.SAUCE_USERNAME !== undefined) {
+			if (process.env.UN !== undefined) {
 				browser = new webdriver.Builder()
 				.usingServer(
 					'http://' +
-					process.env.SAUCE_USERNAME +
+					process.env.UN +
 					':' +
-					process.env.SAUCE_ACCESS_KEY +
+					process.env.PP +
 					'@ondemand.saucelabs.com:80/wd/hub'
 				)
 				.withCapabilities({
 					'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
 					build: process.env.TRAVIS_BUILD_NUMBER,
 					browserName: browserName,
-					username: process.env.SAUCE_USERNAME,
-					accessKey: process.env.SAUCE_ACCESS_KEY
+					username: process.env.UN,
+					accessKey: process.env.PP
 				})
 				.build();
 			} else {
