@@ -20,7 +20,14 @@ else
   git fetch current && \
   cd browser-tests/ && \
   npm i && \
-  git diff HEAD current/master --name-only |  awk 'BEGIN {FS = "/"}; {print $1 "/" $2 "/" $3}' | uniq | grep -v \/\/ | grep examples | awk -F '[/]' '{print "--framework=" $2}' | xargs npm run test --
+  changes=$(git diff HEAD origin/master --name-only |  awk 'BEGIN {FS = "/"}; {print $1 "/" $2 "/" $3}' | uniq | grep -v \/\/ | grep examples | awk -F '[/]' '{print "--framework=" $2}')
+
+  if [ "${#changes}" = 0 ]
+  then
+    exit 0
+  else
+    echo changes | xargs npm run test --
+  fi
 
   exit $?
 fi
