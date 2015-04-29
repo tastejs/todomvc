@@ -26,7 +26,9 @@ else
   then
     exit 0
   else
-    echo changes | xargs npm run test --
+    export UN=$(echo "$u" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]')
+    export PP=$(echo "$pp" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]')
+    echo $changes | xargs npm run test --
   fi
 
   exit $?

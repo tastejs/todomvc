@@ -13,8 +13,8 @@ addons:
 env:
     # add in tokens for sauce labs
     global:
-        - secure: gd7Y1sZyUc4+eck+c4cZ19WdVkmvvfE16fegUMZ9/BMRVYaaEfLZ/805+mOPccAebu5nuGKX0dAjXBwDGcAk2T9YvXpgl8GHu5sAHT3ax0XTibwW7Je2ayf8dJqTO9eRelY616v2mYUlj9QMmbWCB2zESsscY3hi2DQAPeueMdo=
-        - secure: av1hgfvD9UpQr59Q2qcyC0WmiUvRivJHzdcrwj3uYiIJLxxpXv00EC4PzqMZAVREOaQEK1s9FwFVSYn8FbvtvWp5TnWNvSXUXCSjc+I0MYhxbtvcAuKlDzayHSfp17bt0BY3pxB/1BdwMdPwDYumEULphKOmsLr4ocsJCfng2Ds=
+        - u: 'fnzppbar'
+        - pp: 'rq90o9rp-297r-4sp1-91ps-41ns38535175'
         # GH_OAUTH_TOKEN is the oauth token generated as described at
         # https://help.github.com/articles/creating-an-oauth-token-for-command-line-use
         #
