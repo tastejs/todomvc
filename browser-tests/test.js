@@ -32,6 +32,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 					'@ondemand.saucelabs.com:80/wd/hub'
 				)
 				.withCapabilities({
+					'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
 					build: process.env.TRAVIS_BUILD_NUMBER,
 					browserName: browserName,
 					username: process.env.UN,

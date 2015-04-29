@@ -10,6 +10,8 @@ notifications:
     irc: 'irc.freenode.org#tastejs'
 addons:
     sauce_connect: true
+before_install:
+  - ./tasks/set-sauce-env.sh
 env:
     # add in tokens for sauce labs
     global:
