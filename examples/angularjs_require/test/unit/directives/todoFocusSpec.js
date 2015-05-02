@@ -6,7 +6,7 @@ define([
 
 	beforeEach(module(todoFocusDir));
 
-	describe('todoFocus directive', function() {
+	describe('todoFocus directive', function () {
 		var scope, compile, browser;
 
 		beforeEach(inject(function ($rootScope, $compile, $browser) {

@@ -13,7 +13,7 @@ define([
 		element.triggerHandler(e);
 	};
 
-	describe('todoEscape directive', function() {
+	describe('todoEscape directive', function () {
 		var scope, compile, browser;
 
 		beforeEach(inject(function ($rootScope, $compile, $browser) {
@@ -22,11 +22,11 @@ define([
 			browser = $browser;
 		}));
 
-		it('should focus on truthy expression', function () {
+		it('should evaluate the expression binded to the directive', function () {
 			var someValue = false,
 				el = angular.element('<input todo-escape="doSomething()">');
 
-			scope.doSomething = function() {
+			scope.doSomething = function () {
 				someValue = !someValue;
 			};
 

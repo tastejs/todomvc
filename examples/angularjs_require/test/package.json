@@ -1,8 +1,4 @@
 {
-  "name": "todomvc-angularjs-requirejs-tests",
-  "description": "Unit tests for the AngularJS and RequireJS example of TodoMVC",
-  "author": "Leonardo Giovanetti <hello@leog.me>",
-  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "grunt": "0.4.5",

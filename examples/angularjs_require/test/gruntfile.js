@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 						requireConfig: {
 							baseUrl: '../js',
 							paths: {
-								'jquery': '../test/node_modules/jquery/dist/jquery',
+								jquery: '../test/node_modules/jquery/dist/jquery',
 								'angular-mocks': '../test/node_modules/angular-mocks/angular-mocks'
 							},
 							shim: {
