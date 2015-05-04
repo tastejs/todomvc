@@ -1,0 +1,29 @@
+{
+    "version": "1.4.1",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noLib": false
+    },
+    "filesGlob": [
+        "./build/src/**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./build/src/actions/TodoActions.ts",
+        "./build/src/app.ts",
+        "./build/src/components/Footer.react.ts",
+        "./build/src/components/Header.react.ts",
+        "./build/src/components/MainSection.react.ts",
+        "./build/src/components/TodoApp.react.ts",
+        "./build/src/components/TodoItem.react.ts",
+        "./build/src/components/TodoTextInput.react.ts",
+        "./build/src/constants/TodoConstants.ts",
+        "./build/src/dispatcher/AppDispatcher.ts",
+        "./build/src/react/ReactComponent.ts",
+        "./build/src/stores/TodoStore.ts"
+    ]
+}
