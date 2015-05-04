@@ -71,20 +71,14 @@ This project also supports minification using Google's Closure Compiler.
 
 ## Running
 
-You must have [npm](https://www.npmjs.org/) and [grunt](https://gruntjs.com/) installed on your computer. From the root project directory run these commands from the command line:
+You must have [node.js](https://nodejs.org/) installed on your computer, which includes [npm](https://www.npmjs.org/). From the root project directory run these commands from the command line:
 
 ```
 npm install
 ```
 
-That will install all dependencies. To build the project, first run this command:
-
-```
-grunt build
-```
-
-That will build `public/js/bundle.js`, which are used by `public/index.html`.
-Once you've built the project you can open `public/index.html` in your browser.
+That will install all dependencies and build `public/js/bundle.js`, which is used by `public/index.html`.
+Once you've built the project you can open `public/index.html` in your browser, or simply run `npm start`.
 
 
 ## Demo

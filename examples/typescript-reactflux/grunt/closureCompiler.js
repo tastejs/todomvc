@@ -24,7 +24,7 @@ module.exports =  function (grunt) {
                  */
                 compilation_level: 'ADVANCED_OPTIMIZATIONS',
                 // compilation_level: 'SIMPLE_OPTIMIZATIONS',
-                externs: ['externs/browserify.js','externs/react.js'],
+                externs: ['src/externs/browserify.js','src/externs/react.js'],
                 // define: ["'goog.DEBUG=false'"],
                 // define: ["'require=undefined'"],
                 // warning_level: 'verbose',

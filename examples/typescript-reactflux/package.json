@@ -6,13 +6,15 @@
   "license": "MIT",
   "repository": "https://github.com/bparadie/fluxts-todomvc",
   "scripts": {
-    "build": "grunt build"
+    "postinstall": "./node_modules/grunt-cli/bin/grunt --gruntfile .grunt build",
+    "start": "open ./public/index.html"
   },
   "devDependencies": {
     "closure-compiler": "0.2.6",
     "flux": "2.0.3",
     "grunt": "0.4.5",
     "grunt-browserify": "3.8.0",
+    "grunt-cli": "^0.1.13",
     "grunt-closure-compiler": "0.0.21",
     "grunt-closure-tools": "0.9.8",
     "grunt-contrib-clean": "0.6.0",
@@ -31,9 +33,6 @@
     "time-grunt": "1.1.1",
     "tslint": "2.1.1",
     "typescript": "1.4.1"
-  },
-  "peerDependencies": {
-    "grunt-cli": "file:/usr/local/bin/grunt"
   },
   "dependencies": {
     "react": "0.13.2"
