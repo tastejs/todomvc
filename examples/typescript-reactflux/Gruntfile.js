@@ -50,5 +50,4 @@ module.exports = function(grunt) {
             config: config
         }
     });
-
-    };
+};

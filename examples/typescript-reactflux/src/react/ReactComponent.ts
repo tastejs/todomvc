@@ -29,4 +29,3 @@ class ReactComponent<P,S> extends React.Component<P,S>
 }
 
 export = ReactComponent;
-

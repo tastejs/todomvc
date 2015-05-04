@@ -1,4 +1,3 @@
-
 // @see https://github.com/jmreidy/grunt-browserify
 
 module.exports =  function (grunt) {
@@ -19,4 +18,3 @@ module.exports =  function (grunt) {
     }
   };
 };
-

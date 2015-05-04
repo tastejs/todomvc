@@ -1,9 +1,8 @@
-
 module.exports = function (grunt) {
   'use strict';
 
   grunt.registerTask('check-code-style', [
-      'jshint:all',
+      // 'jshint:all',
       'tslint:all'
   ]);
 
@@ -13,10 +12,10 @@ module.exports = function (grunt) {
     'copy:tsx',
     'copy:typings',
     'replace:jsx',
-    'tslint:all',
+    // 'tslint:all',
     'ts:app',
     'browserify:dist',
-    'jshint:all',
+    // 'jshint:all',
     'closureCompiler:bundle'
   ]);
 
