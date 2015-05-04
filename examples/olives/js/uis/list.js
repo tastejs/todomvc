@@ -5,17 +5,19 @@ var BindPlugin = require('olives')['Bind.plugin'];
 var Tools = require('../lib/Tools');
 
 module.exports = function listInit(view, model, stats) {
-	// The OObject (the controller) inits with a default model which is a simple store
-	// But it can be init'ed with any other store, like the LocalStore
+	// The OObject (the controller) initializes with a default model which is a simple store
+	// But it can be initialized with any other store, like the LocalStore
 	var list = new OObject(model);
+	var modelPlugin = new BindPlugin(model, {
+		toggleClass: Tools.toggleClass
+	});
 	var ENTER_KEY = 13;
+	var ESC_KEY = 27;
 
 	// The plugins
 	list.seam.addAll({
 		event: new EventPlugin(list),
-		model: new BindPlugin(model, {
-			toggleClass: Tools.toggleClass
-		}),
+		model: modelPlugin,
 		stats: new BindPlugin(stats, {
 			toggleClass: Tools.toggleClass,
 			toggleCheck: function (value) {
@@ -40,18 +42,18 @@ module.exports = function listInit(view, model, stats) {
 
 	// Enter edit mode
 	list.startEdit = function (event, node) {
-		var taskId = node.getAttribute('data-model_id');
+		var taskId = modelPlugin.getItemIndex(node);
 
-		Tools.toggleClass.call(view.querySelector('li[data-model_id="' + taskId + '"]'), true, 'editing');
-		view.querySelector('input.edit[data-model_id="' + taskId + '"]').focus();
+		toggleEditing(taskId, true);
+		getElementByModelId('input.edit', taskId).focus();
 	};
 
 	// Leave edit mode
 	list.stopEdit = function (event, node) {
-		var taskId = node.getAttribute('data-model_id');
+		var taskId = modelPlugin.getItemIndex(node);
 		var value;
 
-		if (event.keyCode === ENTER_KEY) {
+		if (event.keyCode === ENTER_KEY || event.type === 'blur') {
 			value = node.value.trim();
 
 			if (value) {
@@ -62,13 +64,24 @@ module.exports = function listInit(view, model, stats) {
 
 			// When task #n is removed, #n+1 becomes #n, the dom node is updated to the new value, so editing mode should exit anyway
 			if (model.has(taskId)) {
-				Tools.toggleClass.call(view.querySelector('li[data-model_id="' + taskId + '"]'), false, 'editing');
+				toggleEditing(taskId, false);
 			}
-		} else if (event.type === 'blur') {
-			Tools.toggleClass.call(view.querySelector('li[data-model_id="' + taskId + '"]'), false, 'editing');
+		} else if (event.keyCode === ESC_KEY) {
+			toggleEditing(taskId, false);
+			// Also reset the input field to the previous value so that the blur event doesn't pick up the discarded one
+			node.value = model.get(taskId).title;
 		}
 	};
 
 	// Alive applies the plugins to the HTML view
 	list.alive(view);
+
+	function toggleEditing(taskId, bool) {
+		var li = getElementByModelId('li', taskId);
+		Tools.toggleClass.call(li, bool, 'editing');
+	}
+
+	function getElementByModelId(selector, taskId) {
+		return view.querySelector(selector + '[data-model_id="' + taskId + '"]');
+	}
 };
