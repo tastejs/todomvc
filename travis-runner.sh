@@ -1,6 +1,14 @@
 #!/bin/bash
 set -o pipefail
 
+
+get_changes ()
+{
+  git remote add current https://github.com/tastejs/todomvc.git && \
+  git fetch --quiet current && \
+  git diff HEAD origin/master --name-only |  awk 'BEGIN {FS = "/"}; {print $1 "/" $2 "/" $3}' | uniq | grep -v \/\/ | grep examples | awk -F '[/]' '{print "--framework=" $2}'
+}
+
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
   git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
@@ -16,17 +24,16 @@ then
   # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
   git push https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} HEAD:gh-pages > /dev/null 2>&1
 else
-  git remote add current https://github.com/tastejs/todomvc.git && \
-  git fetch current && \
-  cd browser-tests/ && \
-  npm i && \
-  changes=$(git diff HEAD origin/master --name-only |  awk 'BEGIN {FS = "/"}; {print $1 "/" $2 "/" $3}' | uniq | grep -v \/\/ | grep examples | awk -F '[/]' '{print "--framework=" $2}')
+  changes=$(get_changes)
 
   if [ "${#changes}" = 0 ]
   then
     exit 0
   else
-    echo changes | xargs npm run test --
+    cd tooling && \
+    echo $changes | xargs ./run.sh && \
+    cd ../browser-tests && \
+    echo $changes | xargs ./run.sh
   fi
 
   exit $?
