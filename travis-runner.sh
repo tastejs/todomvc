@@ -32,7 +32,7 @@ else
   else
     cd tooling && \
     echo $changes | xargs ./run.sh && \
-    cd ../browser-tests && \
+    cd ../tests && \
     echo $changes | xargs ./run.sh
   fi
 
