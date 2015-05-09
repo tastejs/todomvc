@@ -106,12 +106,9 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 			this.listenTo(App.request('filterState'), 'change:filter', this.render, this);
 		},
 
-		addChild: function (child) {
+		filter: function (child) {
 			var filteredOn = App.request('filterState').get('filter');
-
-			if (child.matchesFilter(filteredOn)) {
-				Backbone.Marionette.CompositeView.prototype.addChild.apply(this, arguments);
-			}
+			return child.matchesFilter(filteredOn);
 		},
 
 		onRender: function () {
