@@ -99,7 +99,8 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 		},
 
 		collectionEvents: {
-			'all': 'update'
+			'change:completed': 'render',
+			all: 'setCheckAllState'
 		},
 
 		initialize: function () {
@@ -111,17 +112,12 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 			return child.matchesFilter(filteredOn);
 		},
 
-		onRender: function () {
-			this.update();
-		},
-
-		update: function () {
+		setCheckAllState: function () {
 			function reduceCompleted(left, right) {
 				return left && right.get('completed');
 			}
 
 			var allCompleted = this.collection.reduce(reduceCompleted, true);
-
 			this.ui.toggle.prop('checked', allCompleted);
 			this.$el.parent().toggle(!!this.collection.length);
 		},
