@@ -27,7 +27,12 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 			this.showHeader(this.todoList);
 			this.showFooter(this.todoList);
 			this.showTodoList(this.todoList);
+			this.todoList.on('all', this.updateHiddenElements, this);
 			this.todoList.fetch();
+		},
+
+		updateHiddenElements: function () {
+			$('#main, #footer').toggle(!!this.todoList.length);
 		},
 
 		showHeader: function (todoList) {
