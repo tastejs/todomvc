@@ -10,6 +10,9 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 	Views.ItemView = Marionette.ItemView.extend({
 		tagName: 'li',
 		template: '#template-todoItemView',
+		className: function () {
+			return this.model.get('completed') ? 'completed' : 'active';
+		},
 
 		ui: {
 			edit: '.edit',
@@ -28,16 +31,6 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 
 		modelEvents: {
 			change: 'render'
-		},
-
-		onRender: function () {
-			this.$el.removeClass('active completed');
-
-			if (this.model.get('completed')) {
-				this.$el.addClass('completed');
-			} else {
-				this.$el.addClass('active');
-			}
 		},
 
 		deleteModel: function () {
