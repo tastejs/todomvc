@@ -27,7 +27,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 		},
 
 		modelEvents: {
-			'change': 'render'
+			change: 'render'
 		},
 
 		onRender: function () {
@@ -65,7 +65,8 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 		},
 
 		onEditKeypress: function (e) {
-			var ENTER_KEY = 13, ESC_KEY = 27;
+			var ENTER_KEY = 13;
+			var ESC_KEY = 27;
 
 			if (e.which === ENTER_KEY) {
 				this.onEditFocusout();
@@ -132,7 +133,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 			var isChecked = e.currentTarget.checked;
 
 			this.collection.each(function (todo) {
-				todo.save({ 'completed': isChecked });
+				todo.save({ completed: isChecked });
 			});
 		}
 	});
