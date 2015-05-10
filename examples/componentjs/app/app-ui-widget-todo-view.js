@@ -63,8 +63,7 @@
 						if (items.length === 0) {
 							$('.todo__main', ui).addClass('hidden');
 							$('.todo__footer', ui).addClass('hidden');
-						}
-						else {
+						} else {
 							$('.todo__main', ui).removeClass('hidden');
 							$('.todo__footer', ui).removeClass('hidden');
 						}
@@ -79,7 +78,7 @@
 
 						// one-way bind key-press and field blur interactions to leave editing mode
 						var blur = function (el, takeTitle) {
-							var id = $(el).parent().data('id') + '';
+							var id = String($(el).parent().data('id'));
 							$(el).parent().removeClass('editing');
 							if (takeTitle) {
 								var items = cs(self).value('data:item-list');
@@ -109,7 +108,7 @@
 
 						// one-way bind click interaction to toggle item completion
 						$('.todo__toggle', ui).click(function (ev) {
-							var id = $(ev.target).parent().parent().data('id') + '';
+							var id = String($(ev.target).parent().parent().data('id'));
 							var items = cs(self).value('data:item-list');
 							var item = _.find(items, { id: id });
 							item.completed = !item.completed;
@@ -119,7 +118,7 @@
 
 						// one-way bind click interaction to remove item
 						$('.todo__destroy', ui).click(function (ev) {
-							var id = $(ev.target).parent().parent().data('id') + '';
+							var id = String($(ev.target).parent().parent().data('id'));
 							var items = cs(self).value('data:item-list');
 							var item = _.find(items, { id: id });
 							cs(self).value('data:item-list', _.without(items, item));
@@ -167,8 +166,7 @@
 						if (value > 0) {
 							$('.todo__completed', ui).css('display', 'block');
 							$('*[data-bind=\'data:status-items-completed\']', ui).text(value);
-						}
-						else {
+						} else {
 							$('.todo__completed', ui).css('display', 'none');
 						}
 					}

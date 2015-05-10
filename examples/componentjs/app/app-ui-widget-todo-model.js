@@ -50,8 +50,7 @@
 						cs(self).value('data:status-items-remaining', remaining);
 						if (remaining === 0 && completed > 0) {
 							cs(self).value('state:all-item-selected', true);
-						}
-						else if (remaining > 0) {
+						} else if (remaining > 0) {
 							cs(self).value('state:all-item-selected', false);
 						}
 					}
