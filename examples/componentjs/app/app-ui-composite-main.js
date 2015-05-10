@@ -1,4 +1,4 @@
-/* global cs, app, Router, $, _ */
+/* global cs, app, Router, $ */
 (function () {
 	'use strict';
 
