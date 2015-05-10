@@ -76,7 +76,7 @@
 			{ name: 'completedCount', model_: 'IntProperty' },
 			{ name: 'activeCount', model_: 'IntProperty', postSet: function (_, c) { this.toggle = !c; }},
 			{ name: 'toggle', model_: 'BooleanProperty', postSet: function (_, n) {
-					if (n === (this.activeCount > 0)) { this.dao.update(SET(Todo.COMPLETED, n)); }
+				if (n === (this.activeCount > 0)) { this.dao.update(SET(Todo.COMPLETED, n)); }
 			}},
 			{
 				name: 'query',
