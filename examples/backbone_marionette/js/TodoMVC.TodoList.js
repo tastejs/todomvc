@@ -17,17 +17,22 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 	//
 	// Control the workflow and logic that exists at the application
 	// level, above the implementation detail of views and models
-    TodoList.Controller = Marionette.Controller.extend({
-        initialize: function () {
-            this.todoList = new App.Todos.TodoList();
-        },
+	TodoList.Controller = Marionette.Controller.extend({
+		initialize: function () {
+			this.todoList = new App.Todos.TodoList();
+		},
 		// Start the app by showing the appropriate views
 		// and fetching the list of todo items, if there are any
 		start: function () {
 			this.showHeader(this.todoList);
 			this.showFooter(this.todoList);
 			this.showTodoList(this.todoList);
+			this.todoList.on('all', this.updateHiddenElements, this);
 			this.todoList.fetch();
+		},
+
+		updateHiddenElements: function () {
+			$('#main, #footer').toggle(!!this.todoList.length);
 		},
 
 		showHeader: function (todoList) {

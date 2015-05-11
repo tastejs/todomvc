@@ -10,6 +10,9 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 	Views.ItemView = Marionette.ItemView.extend({
 		tagName: 'li',
 		template: '#template-todoItemView',
+		className: function () {
+			return this.model.get('completed') ? 'completed' : 'active';
+		},
 
 		ui: {
 			edit: '.edit',
@@ -27,17 +30,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 		},
 
 		modelEvents: {
-			'change': 'render'
-		},
-
-		onRender: function () {
-			this.$el.removeClass('active completed');
-
-			if (this.model.get('completed')) {
-				this.$el.addClass('completed');
-			} else {
-				this.$el.addClass('active');
-			}
+			change: 'render'
 		},
 
 		deleteModel: function () {
@@ -65,7 +58,8 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 		},
 
 		onEditKeypress: function (e) {
-			var ENTER_KEY = 13, ESC_KEY = 27;
+			var ENTER_KEY = 13;
+			var ESC_KEY = 27;
 
 			if (e.which === ENTER_KEY) {
 				this.onEditFocusout();
@@ -98,32 +92,25 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 		},
 
 		collectionEvents: {
-			'all': 'update'
+			'change:completed': 'render',
+			all: 'setCheckAllState'
 		},
 
 		initialize: function () {
 			this.listenTo(App.request('filterState'), 'change:filter', this.render, this);
 		},
 
-		addChild: function (child) {
+		filter: function (child) {
 			var filteredOn = App.request('filterState').get('filter');
-
-			if (child.matchesFilter(filteredOn)) {
-				Backbone.Marionette.CompositeView.prototype.addChild.apply(this, arguments);
-			}
+			return child.matchesFilter(filteredOn);
 		},
 
-		onRender: function () {
-			this.update();
-		},
-
-		update: function () {
+		setCheckAllState: function () {
 			function reduceCompleted(left, right) {
 				return left && right.get('completed');
 			}
 
 			var allCompleted = this.collection.reduce(reduceCompleted, true);
-
 			this.ui.toggle.prop('checked', allCompleted);
 			this.$el.parent().toggle(!!this.collection.length);
 		},
@@ -132,7 +119,7 @@ TodoMVC.module('TodoList.Views', function (Views, App, Backbone, Marionette) {
 			var isChecked = e.currentTarget.checked;
 
 			this.collection.each(function (todo) {
-				todo.save({ 'completed': isChecked });
+				todo.save({ completed: isChecked });
 			});
 		}
 	});
