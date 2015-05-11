@@ -39,8 +39,8 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		onInputKeypress: function (e) {
-			var ENTER_KEY = 13,
-			todoText = this.ui.input.val().trim();
+			var ENTER_KEY = 13;
+			var todoText = this.ui.input.val().trim();
 
 			if (e.which === ENTER_KEY && todoText) {
 				this.collection.create({
@@ -72,7 +72,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		collectionEvents: {
-			'all': 'render'
+			all: 'render'
 		},
 
 		templateHelpers: {
