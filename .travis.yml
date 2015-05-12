@@ -38,4 +38,4 @@ before_script:
 script:
     # We want to gate on passing tests and a successful build
     - gulp
-    - ./travis-runner.sh
+    - ./test-runner.sh

@@ -23,6 +23,7 @@
 		"function",
 		"typeof"
 	],
+	"excludeFiles": ["**/node_modules/**", "**/bower_components/**"],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
 	"requireSpacesInConditionalExpression": true,
