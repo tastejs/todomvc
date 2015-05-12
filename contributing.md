@@ -38,7 +38,7 @@ We think it's best for the project if the code you write looks like the code the
 ## Submitting a New App
 
 - **Read the [App Specification](app-spec.md) thoroughly**
-- Use the [automated browser tests](/browser-tests) to ensure that your app meets the app specification requirements. For bonus points add the test output to your pull request!
+- Use the [automated browser tests](/tests) to ensure that your app meets the app specification requirements. For bonus points add the test output to your pull request!
 - Make sure it hasn't already been submitted or declined by searching the issue tracker
 - Looking at our most recent [reference app](https://github.com/tastejs/todomvc/tree/master/examples/backbone)
 
