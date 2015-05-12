@@ -1,6 +1,3 @@
-node_modules/grunt
-node_modules/grunt-contrib-connect
-
 node_modules/rx/*
 node_modules/rx/dist/*
 !node_modules/rx/dist
