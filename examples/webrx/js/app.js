@@ -1,4 +1,4 @@
-/*global wx */
+/*global wx, Rx */
 (function () {
 	'use strict';
 
