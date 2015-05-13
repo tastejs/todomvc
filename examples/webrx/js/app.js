@@ -123,12 +123,9 @@
 		// setup routing
 		var self = this;
 
-		// Configure the Base-Url for all states (in a production-setup you would probably
-		// pass this from server to client via a custom query-parameter or something similar)
-		wx.router.baseUrl = '/examples/webrx/';
-
 		wx.router.state({
 			name: '$',
+			url: '/examples/webrx/',
 			onEnter: function () {
 				self.showMode(displayModeAll);
 			}
