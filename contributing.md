@@ -45,7 +45,7 @@ We think it's best for the project if the code you write looks like the code the
 One of us will be happy to review your submission and discuss any changes that may be required before it can be included.
 
 Please think about the fact that contributing a new app means more than just a one-off pull request submitting the app. When the app gets included on the site, you will need to help us maintain the app and help us to solve issues with the implementation.
-If the app breaks for a decent amount of time, we will (temporary) remove it from the site, until somebody opens a PR to fix the raised issues and if somebody volunteers to help us keep it up to date.
+If the app breaks for a decent amount of time, we will (temporarily) remove it from the site, until somebody opens a PR to fix the raised issues and if somebody volunteers to help us keep it up to date.
 
 ## Browser Compatibility
 
@@ -56,7 +56,7 @@ Modern browser (latest: Chrome, Firefox, Opera, Safari, IE9)
 
 At present, due to the large number of apps in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted.
 
-We do however plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework.
+We do, however, plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework.
 
 If you are a library author or contributor wishing to start work on writing tests for an implementation, we'll happily consider including them in the future. This may change based on how we specify unit tests must be structured and so on post 1.0.
 
