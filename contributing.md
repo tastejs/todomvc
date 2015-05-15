@@ -45,7 +45,7 @@ We think it's best for the project if the code you write looks like the code the
 One of us will be happy to review your submission and discuss any changes that may be required before it can be included.
 
 Please think about the fact that contributing a new app means more than just a one-off pull request submitting the app. When the app gets included on the site, you will need to help us maintain the app and help us to solve issues with the implementation.
-If the app breaks for a decent amount of time, we will (temporary) remove it from the site, until somebody opens a PR to fix the raised issues and if somebody volunteers to help us keep it up to date.
+If the app breaks for a decent amount of time, we will (temporarily) remove it from the site, until somebody opens a PR to fix the raised issues and if somebody volunteers to help us keep it up to date.
 
 ## Browser Compatibility
 
