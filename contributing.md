@@ -56,7 +56,7 @@ Modern browser (latest: Chrome, Firefox, Opera, Safari, IE9)
 
 At present, due to the large number of apps in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted.
 
-We do however plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework.
+We do, however, plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework.
 
 If you are a library author or contributor wishing to start work on writing tests for an implementation, we'll happily consider including them in the future. This may change based on how we specify unit tests must be structured and so on post 1.0.
 
