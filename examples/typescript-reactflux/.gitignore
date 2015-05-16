@@ -1,0 +1,19 @@
+# Generated folders 
+build/
+node_modules/
+
+# Visual Studio Code settings
+.settings/
+
+# typings
+/typings/*
+!/typings/tsd.d.ts
+!/typings/todomvc/todomvc.d.ts
+!/typings/react-jsx/react-jsx.d.ts
+!/typings/react-tools/react-tools.d.ts
+
+# Node logs
+npm-debug.log
+
+# OSX
+.DS_Store
