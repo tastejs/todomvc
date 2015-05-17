@@ -56,10 +56,10 @@ gulp.task('jsx', function() {
     if( match )
     {
       try {
-	reactCode = reactTools.transform(match, { harmony: false });
+	       reactCode = reactTools.transform(match, { harmony: false });
       }
       catch (ex) {
-	gutil.error('Problem transforming the following:\n' + match + '\n\n' + ex);
+	       gutil.error('Problem transforming the following:\n' + match + '\n\n' + ex);
       }
     }
 
@@ -102,11 +102,21 @@ gulp.task('bundle', function() {
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
 
-  return gulp.src( config.build + '/js/app.js')
+  // 'function ieKeyFix(key)' => 'var ieKeyFix = function(key)'
+  // node_modules/store/store.js declares a function 'ieKeyFix' in the middle of another function and triggers:
+  // ERROR - functions can only be declared at top level or immediately within another function in ES5 strict mode
+
+  // 'this.module !== module' => 'window.module !== module' 
+  // node_modules/store/store.js has some questionable code that triggered:
+  // Uncaught TypeError: Cannot read property 'module' of undefined
+  
+  return gulp.src( config.build + '/js/app.jsx.js')
 	.pipe(browserify({
 	  insertGlobals : true,
 	  debug: true
 	}))
+  .pipe(replace(/function ieKeyFix\(key\)/gm, 'var ieKeyFix = function(key)'))
+  .pipe(replace(/this.module !== module/gm, 'window.module !== module'))
 	.pipe(concat('bundle.js'))
 	.pipe(log())
 	.pipe(gulp.dest( config.web + '/js/'));
@@ -317,6 +327,6 @@ gulp.task('help', function(callback) {
   gutil.log('');
 });
 
-gulp.task('build', ['debug']);
+gulp.task('build', ['release']);
 
 gulp.task('default', ['release']);

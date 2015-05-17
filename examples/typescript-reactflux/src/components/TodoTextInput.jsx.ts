@@ -17,6 +17,7 @@ import ReactJSX = require('../react/ReactJSX');
 
 var ReactPropTypes = React.PropTypes;
 var ENTER_KEY_CODE = 13;
+var ENTER_ESC_CODE = 27;
 
 interface TodoTextInputState {
   value: string;
@@ -76,6 +77,13 @@ class TodoTextInput extends ReactComponent<any,TodoTextInputState> {
   private _onKeyDown = (event: KeyboardEvent) => {
     if (event.keyCode === ENTER_KEY_CODE) {
       this._save();
+    }
+    else if (event.keyCode === ENTER_ESC_CODE) 
+    {
+      this.props.onSave(this.props.value);
+      this.setState({
+        value: this.props.value
+      });
     }
   };
 

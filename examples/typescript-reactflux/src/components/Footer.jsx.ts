@@ -80,7 +80,7 @@ class Footer extends ReactComponent<FooterProps,any> {
 				<button
 	       id='clear-completed'
 	       onClick={this._onClearCompletedClick}>
-	       Clear completed ({completed})
+	       Clear completed
 				</button>`,
 				this,
 				{

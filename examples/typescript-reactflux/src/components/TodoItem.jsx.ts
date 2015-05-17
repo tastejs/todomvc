@@ -52,8 +52,15 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
    * @param  {string} text
    */
   private _onSave = (text: string) => {
-    TodoActions.updateText(this.props.todo.id, text);
-    this.setState({isEditing: false});
+    if( text.length > 0 )
+    {
+      TodoActions.updateText(this.props.todo.id, text);
+      this.setState({isEditing: false});
+    }	 
+    else
+    {
+      this._onDestroyClick(); 
+    }
   };
 
   private _onDestroyClick = () => {

@@ -16,16 +16,32 @@
 ///<reference path='../../typings/eventemitter3/eventemitter3.d.ts'/>
 ///<reference path='../../typings/todomvc/todomvc.d.ts'/>
 ///<reference path='../../typings/object-assign/object-assign.d.ts'/>
+///<reference path='../../typings/store/store.d.ts'/>
 
 import AppDispatcher = require('../dispatcher/AppDispatcher');
 import TodoConstants = require('../constants/TodoConstants');
 import assign = require('object-assign');
 import EventEmitter = require('eventemitter3');
+import store = require('store');
 
 var CHANGE_EVENT = 'change';
 
 type TodoMap = MapStringTo<TodoData>;
-var _todos: TodoMap = {};
+
+var keyPrefix = "TodoItem-";
+
+function loadFromStore(): TodoMap
+{
+  var map: TodoMap = {};
+  store.forEach(function(key: string, val: TodoData) {
+    if( typeof(key) == 'string' && key.indexOf(keyPrefix) == 0 ) {
+      map[key.substring(keyPrefix.length)] = val;
+    }
+  });
+  return map;
+}
+
+var _todos: TodoMap = loadFromStore();
 
 interface TodoUpdateData {
   id?: string;
@@ -47,6 +63,7 @@ function create(text:string): void {
     complete: false,
     text: text
   };
+  store.set(keyPrefix + id, _todos[id]);
 }
 
 /**
@@ -57,6 +74,7 @@ function create(text:string): void {
  */
 function update(id: string, updates: TodoUpdateData): void {
   _todos[id] = assign<TodoData,TodoUpdateData>({}, _todos[id], updates);
+  store.set(keyPrefix + id, _todos[id]);
 }
 
 /**
@@ -81,6 +99,7 @@ function updateAll(updates:TodoUpdateData): void {
  */
 function destroy(id: string): void {
   delete _todos[id];
+  store.remove(keyPrefix + id);
 }
 
 /**
