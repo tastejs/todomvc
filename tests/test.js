@@ -84,6 +84,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		} else {
 			test.beforeEach(function () {
 				launchBrowser();
+				page.ensureAppIsVisible();
 			});
 			test.afterEach(function () {
 				closeBrowser();
