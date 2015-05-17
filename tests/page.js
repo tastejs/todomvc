@@ -104,6 +104,16 @@ module.exports = function Page(browser) {
 	};
 
 	// ----------------- page actions
+	this.ensureAppIsVisible = function () {
+		return browser.findElements(webdriver.By.css('#todoapp'))
+		.then(function (elms) {
+			if (elms.length > 0) {
+				return true;
+			} else {
+				throw new Error('Unable to find application root, did you start your local server?');
+			}
+		});
+	};
 
 	this.clickMarkAllCompletedCheckBox = function () {
 		return this.getMarkAllCompletedCheckBox().then(function (checkbox) {
