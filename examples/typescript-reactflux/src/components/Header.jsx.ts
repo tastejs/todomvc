@@ -44,11 +44,11 @@ class Header extends ReactComponent<HeaderProps,any> {
    */
   public render(): React.ReactElement<HeaderElement> {
     return ReactJSX<HeaderElement>(`
-      <header id="header">
+      <header id='header'>
 		    <h1>todos</h1>
 		    <TodoTextInput
-		      id="new-todo"
-		      placeholder="What needs to be done?"
+		      id='new-todo'
+		      placeholder='What needs to be done?'
 		      onSave={this._onSave}
 		    />
 		  </header>`,

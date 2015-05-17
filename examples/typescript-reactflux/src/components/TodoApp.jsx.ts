@@ -12,7 +12,7 @@
  */
 
 /**
- * This component operates as a "Controller-View".  It listens for changes in
+ * This component operates as a 'Controller-View'.  It listens for changes in
  * the TodoStore and passes the new data to its children.
  */
 

@@ -13,9 +13,9 @@
  *
  */
 
-///<reference path="../../typings/eventemitter3/eventemitter3.d.ts"/>
-///<reference path="../../typings/todomvc/todomvc.d.ts"/>
-///<reference path="../../typings/object-assign/object-assign.d.ts"/>
+///<reference path='../../typings/eventemitter3/eventemitter3.d.ts'/>
+///<reference path='../../typings/todomvc/todomvc.d.ts'/>
+///<reference path='../../typings/object-assign/object-assign.d.ts'/>
 
 import AppDispatcher = require('../dispatcher/AppDispatcher');
 import TodoConstants = require('../constants/TodoConstants');

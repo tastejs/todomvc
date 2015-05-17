@@ -10,7 +10,7 @@
  * @see https://github.com/facebook/flux/blob/master/examples/flux-todomvc/js/components/Footer.react.js
  */
 
-///<reference path="../../typings/todomvc/todomvc.d.ts"/>
+///<reference path='../../typings/todomvc/todomvc.d.ts'/>
 
 import React = require('react/addons');
 import ReactComponent = require('../react/ReactComponent');
@@ -78,7 +78,7 @@ class Footer extends ReactComponent<FooterProps,any> {
       clearCompletedButton =
 	     ReactJSX<ClearCompletedButton>(`
 				<button
-	       id="clear-completed"
+	       id='clear-completed'
 	       onClick={this._onClearCompletedClick}>
 	       Clear completed ({completed})
 				</button>`,
@@ -89,8 +89,8 @@ class Footer extends ReactComponent<FooterProps,any> {
     }
 
     return ReactJSX<FooterElement>(`
-      <footer id="footer">
-	     <span id="todo-count">
+      <footer id='footer'>
+	     <span id='todo-count'>
 	       <strong>
 	       {itemsLeft}
 	       </strong>

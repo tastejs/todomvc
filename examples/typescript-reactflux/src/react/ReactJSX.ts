@@ -1,6 +1,6 @@
-///<reference path="../../typings/react/react.d.ts"/>
-///<reference path="../../typings/react/react-addons.d.ts"/>
-///<reference path="../../typings/react-tools/react-tools.d.ts"/>
+///<reference path='../../typings/react/react.d.ts'/>
+///<reference path='../../typings/react/react-addons.d.ts'/>
+///<reference path='../../typings/react-tools/react-tools.d.ts'/>
 
 import React = require('react/addons');
 import ReactTools = require('react-tools');
@@ -21,18 +21,18 @@ interface MapStringTo<T> {
 */
 
 function ReactJSX<T>( jsx: string, owner: any = null, imports: MapStringTo<any> = {} ): React.ReactElement<T> {
-  var reactCode: string = "function jsx(imports) { \n";
+  var reactCode: string = 'function jsx(imports) { \n';
 
   // No need to let every call site add React to the imports.
   // That one comes for free, we'll add it here:
-  reactCode += "var React = imports.React;\n";
+  reactCode += 'var React = imports.React;\n';
   imports['React'] = _react;
 
   for( var im in imports ) {
-    reactCode += "var " + im + " = imports." + im + ";\n";
+    reactCode += 'var ' + im + ' = imports.' + im + ';\n';
   }
 
-  reactCode += "return (" + ReactTools.transform(jsx, { harmony: false }) + "); }; jsx;";
+  reactCode += 'return (' + ReactTools.transform(jsx, { harmony: false }) + '); }; jsx;';
 
   // I believe the discussion in http://perfectionkills.com/global-eval-what-are-the-options/
   // missed that you can eval code that creates a function.

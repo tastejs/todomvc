@@ -11,7 +11,7 @@
  *
  */
 
-///<reference path="../../typings/react-jsx/react-jsx.d.ts"/>
+///<reference path='../../typings/react-jsx/react-jsx.d.ts'/>
 
 import React = require('react/addons');
 import TodoActions = require('../actions/TodoActions');
@@ -77,7 +77,7 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
     if (this.state.isEditing) {
       input = ReactJSX<TodoTextInputElement>(`
 	     <TodoTextInput
-	       className="edit"
+	       className='edit'
 	       onSave={this._onSave}
 	       value={todo.text}
 	     />`,
@@ -100,17 +100,17 @@ class TodoItem extends ReactComponent<TodoItemProps,TodoItemState> {
 					'editing': this.state.isEditing
 				})}
 				key={todo.id}>
-				<div className="view">
+				<div className='view'>
 				<input
-						className="toggle"
-				    type="checkbox"
+						className='toggle'
+				    type='checkbox'
 						checked={todo.complete}
 				    onChange={this._onToggleComplete}
 				/>
 				<label onDoubleClick={this._onDoubleClick}>
 					{todo.text}
 				</label>
-				<button className="destroy" onClick={this._onDestroyClick} />
+				<button className='destroy' onClick={this._onDestroyClick} />
 				</div>
 				{input}
       </li>

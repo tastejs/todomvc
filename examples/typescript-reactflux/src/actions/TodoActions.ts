@@ -12,7 +12,7 @@
  * @see https://github.com/facebook/flux/blob/master/examples/flux-todomvc/js/actions/TodoActions.js
  */
 
-///<reference path="../stores/TodoStore.ts"/>
+///<reference path='../stores/TodoStore.ts'/>
 
 import AppDispatcher = require('../dispatcher/AppDispatcher');
 import TodoConstants = require('../constants/TodoConstants');

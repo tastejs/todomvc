@@ -11,7 +11,7 @@
  *
  */
 
-///<reference path="../typings/tsd.d.ts"/>
+///<reference path='../typings/tsd.d.ts'/>
 
 import React = require('react');
 import ReactJSX = require('./react/ReactJSX');
