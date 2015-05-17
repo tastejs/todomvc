@@ -2,19 +2,19 @@
 
 > TypeScript is a language for application-scale JavaScript development. TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. Any browser. Any host. Any OS. Open Source.
 
-> _[TypeScript - typescriptlang.org](https://typescriptlang.org/)_
+_[TypeScript - typescriptlang.org](https://typescriptlang.org/)_
 
 <br>
 
 > Flux is the application architecture that Facebook uses for building client-side web applications. It complements React's composable view components by utilizing a unidirectional data flow.  
 
-> _[Flux - facebook.github.io/flux](https://facebook.github.io/flux/)_
+_[Flux - facebook.github.io/flux](https://facebook.github.io/flux/)_
 
 <br>
 
 > React is a Javascript library for building user interfaces. React uses a virtual DOM diff implementation for ultra-high performance.
 
-> _[React - facebook.github.io/react](https://facebook.github.io/react/)_
+_[React - facebook.github.io/react](https://facebook.github.io/react/)_
 
 
 ## Learning TypeScript
@@ -64,7 +64,7 @@ which are used by the original [flux-todomvc](https://github.com/facebook/flux/t
 
 During the build phase all `*.tsx` and `*.ts` are first being copied to a temporary `./build` folder and then compiled to Javascript using the Typescript compiler.
 A second pass then intelligently replaces `React.jsx(...)` with transformed JSX code. For more details see `./grunt/replace.js`.
-The build mechanics are all implemented in `./grunt/aliases.js`. The output folder is `./public`.
+The build mechanics are all implemented in `./grunt/aliases.js`. The output folder is `./web`.
 
 This project also supports minification using Google's Closure Compiler.
 
@@ -77,8 +77,8 @@ You must have [node.js](https://nodejs.org/) installed on your computer, which i
 npm install
 ```
 
-That will install all dependencies and build `public/js/bundle.js`, which is used by `public/index.html`.
-Once you've built the project you can open `public/index.html` in your browser, or simply run `npm start`.
+That will install all dependencies and build `web/js/bundle.js`, which is used by `web/index.html`.
+Once you've built the project you can open `web/index.html` in your browser, or simply run `npm start`.
 
 
 ## Demo
