@@ -46,6 +46,8 @@ To edit and debug the code, you can use Dart Editor. The editor ships with the
 [SDK](http://dartlang.org) and [Dartium](http://www.dartlang.org/dartium/), a
 dedicated version of Chromium with an embedded Dart VM.
 
+If you would like to edit the code without an IDE you must install Dart and run `pub get` to install the dependencies from the project root.
+
 ## Compiling
 
 ```
