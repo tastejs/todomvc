@@ -44,11 +44,11 @@ A third party build tool called [Plovr](http://plovr.com/) is used to make runni
 
 You'll also need to change the HTML file so that it references the served files instead of the compiled version (**make sure you comment out the compiled version otherwise it will not work**), to do this remove the compiled script reference and add the following -
 
-`<script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=RAW"></script>`
+`<script src="http://localhost:9810/compile?id=todomvc&mode=RAW"></script>`
 
 This will serve up the javascript files in RAW mode which is ideal for rapid development and debugging. To run the compiler, and therefore all the associated type checks etc., change RAW for ADVANCED -
 
-`<script type="text/javascript" src="http://localhost:9810/compile?id=todomvc&mode=ADVANCED"></script>`
+`<script src="http://localhost:9810/compile?id=todomvc&mode=ADVANCED"></script>`
 
 
 ## Linting
