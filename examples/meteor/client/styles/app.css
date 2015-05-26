@@ -1,3 +1,4 @@
 #filters li a {
+	cursor: pointer;
 	text-transform: capitalize;
 }

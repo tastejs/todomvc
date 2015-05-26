@@ -22,7 +22,7 @@ button {
 body {
 	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
-	background: #eaeaea url('bg.png');
+	background: #eaeaea url('/images/bg.png');
 	color: #4d4d4d;
 	width: 550px;
 	margin: 0 auto;
@@ -196,7 +196,6 @@ label[for='toggle-all'] {
 }
 
 #todo-list li.editing .edit {
-	display: block;
 	width: 506px;
 	padding: 13px 17px 12px 17px;
 	margin: 0 0 0 43px;
@@ -285,9 +284,9 @@ label[for='toggle-all'] {
 	display: block;
 }
 
-#todo-list li .edit {
-	display: none;
-}
+/*#todo-list li .edit {*/
+	/*display: none;*/
+/*}*/
 
 #todo-list li.editing:last-child {
 	margin-bottom: -1px;
