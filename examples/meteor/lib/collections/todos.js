@@ -17,6 +17,11 @@ if (Meteor.isServer) {
 	Meteor.methods({
 		clearCompleted: function() {
 			Todos.remove({completed: true});
+		},
+
+		setAll: function(completed) {
+			Todos.update({completed: !completed}, {$set: {completed: completed}},
+				{multi: true});
 		}
 	});
 }

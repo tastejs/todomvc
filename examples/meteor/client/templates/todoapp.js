@@ -47,6 +47,10 @@ Template.todoapp.events({
 
 	'click #clear-completed': function() {
 		Meteor.call('clearCompleted');
+	},
+
+	'click #toggle-all': function(event) {
+		Meteor.call('setAll', event.target.checked);
 	}
 });
 
