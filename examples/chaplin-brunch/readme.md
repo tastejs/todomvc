@@ -42,17 +42,17 @@ If you haven't already installed [Brunch](http://brunch.io), run:
 
 Once you have Brunch, install this application's dependencies:
 
-	# from labs/dependency-examples/chaplin-brunch
+	# from examples/chaplin-brunch
 	npm install & bower install
 
 To build the app, run:
 
-	# from labs/dependency-examples/chaplin-brunch
+	# from examples/chaplin-brunch
 	brunch build
 
 To watch for changes and re-compile:
 
-	# from labs/dependency-examples/chaplin-brunch
+	# from examples/chaplin-brunch
 	brunch watch
 
 Open `public/index.html` in your browser to see it in action!

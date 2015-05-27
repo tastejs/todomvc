@@ -41,6 +41,4 @@ Install the libraries needed using bower ([soma.js](http://somajs.github.io/soma
 
 	bower install
 
-To run the app, spin up an HTTP server and visit
-
-	http://localhost/todomvc/labs/dependency-examples/somajs_require/
+To run the app, spin up an HTTP server and visit `examples/somajs_require/`.

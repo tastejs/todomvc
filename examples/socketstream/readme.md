@@ -42,4 +42,4 @@ Open http://localhost:3000 in two side-by-side browser windows, add a todo, and 
 How to publish to our Heroku remote:
 
 - `git remote add heroku-todomvc-socketstream master` *(first time only)*
-- `git subtree push --prefix labs/architecture-examples/socketstream heroku-todomvc-socketstream master`
+- `git subtree push --prefix examples/socketstream heroku-todomvc-socketstream master`
