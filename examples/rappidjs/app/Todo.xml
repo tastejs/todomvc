@@ -48,7 +48,7 @@
 				</li>
 			</ul>
 			<button id="clear-completed" onclick="clearCompleted" visible="{todoList.hasCompletedTodos()}">
-				Clear completed ({todoList.numCompletedTodos()})
+				Clear completed
 			</button>
 		</footer>
 	</section>
