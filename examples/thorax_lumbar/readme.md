@@ -28,7 +28,7 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 To re-compile the files, run:
 
-	# from labs/dependency-examples/thorax_lumbar
+	# from examples/thorax_lumbar
 	npm install
 	npm start
 

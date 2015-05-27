@@ -42,7 +42,7 @@ If you don't have Meteor installed already, from a terminal window:
 
 To run the app:
 
-	# from labs/architecture-examples/meteor
+	# from examples/meteor
 	meteor
 
 The app should now be running on http://localhost:3000.
@@ -52,7 +52,7 @@ The app should now be running on http://localhost:3000.
 
 To deploy to meteor.com:
 
-	# from labs/architecture-examples/meteor
+	# from examples/meteor
 	meteor deploy myapp.meteor.com
 
 
