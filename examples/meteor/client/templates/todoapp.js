@@ -8,7 +8,7 @@ Filters.insert({name: 'all', filter: {}});
 Filters.insert({name: 'active', filter: {completed: false}});
 Filters.insert({name: 'completed', filter: {completed: true}});
 
-Template.todoapp.onCreated(function() {
+Template.todoapp.onCreated(function () {
 	/*
 	 * Try to avoid using Session variables if you're able, as they pollute the
 	 * global namespace. Instead, in the shell, run "meteor add reactive-var" and
@@ -22,7 +22,7 @@ Template.todoapp.onCreated(function() {
 
 // Event map for all items in todoapp template (found in todoapp.html)
 Template.todoapp.events({
-	'keyup #new-todo': function(event) {
+	'keyup #new-todo': function (event) {
 		if (event.which === 13) { //enter key
 			/*
 			 * In a real production app, you would most likely have a Meteor.call()
@@ -41,15 +41,15 @@ Template.todoapp.events({
 		}
 	},
 
-	'click #filters li a': function(event, template) {
+	'click #filters li a': function (event, template) {
 		template.filter.set($(event.target).text());
 	},
 
-	'click #clear-completed': function() {
+	'click #clear-completed': function () {
 		Meteor.call('clearCompleted');
 	},
 
-	'click #toggle-all': function(event) {
+	'click #toggle-all': function (event) {
 		Meteor.call('setAll', event.target.checked);
 	}
 });
@@ -61,26 +61,26 @@ Template.todoapp.events({
  */
 
 Template.todoapp.helpers({
-	todos: function() {
+	todos: function () {
 		var filterName = Template.instance().filter.get();
 		var filter = Filters.findOne({name: filterName}).filter;
 
 		return Todos.find(filter, {sort: {createdAt: 1}});
 	},
 
-	todoCount: function() {
+	todoCount: function () {
 		return Todos.find().count();
 	},
 
-	todoCompletedCount: function(completed) {
+	todoCompletedCount: function (completed) {
 		return Todos.find({completed: completed}).count();
 	},
 
-	filters: function() {
+	filters: function () {
 		return Filters.find();
 	},
 
-	filterSelected: function(filter) {
+	filterSelected: function (filter) {
 		return Template.instance().filter.get() === filter;
 	}
 });

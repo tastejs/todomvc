@@ -1,4 +1,4 @@
-Template.todo.onCreated(function() {
+Template.todo.onCreated(function () {
 	// 'this' refers to the template instance within onCreated() and onRendered()
 	this.editing = new ReactiveVar(false);
 	this.previousText = new ReactiveVar(null);
@@ -6,7 +6,7 @@ Template.todo.onCreated(function() {
 
 // When the edit field is shown, set focus to the input and move the cursor
 // to the end
-Template.todoEdit.onRendered(function() {
+Template.todoEdit.onRendered(function () {
 	var inputField = this.find('input');
 	var inputLength = inputField.value.length;
 
@@ -15,20 +15,20 @@ Template.todoEdit.onRendered(function() {
 })
 
 Template.todo.events({
-	'click input.toggle': function() {
+	'click input.toggle': function () {
 		Todos.update(this._id, {$set: {completed: !this.completed}});
 	},
 
-	'dblclick label': function(event, template) {
+	'dblclick label': function (event, template) {
 		template.editing.set(true);
 		template.previousText.set($(event.target).text());
 	},
 
-	'click button.destroy': function() {
+	'click button.destroy': function () {
 		Todos.remove(this._id);
 	},
 
-	'keyup li.editing input.edit, focusout li.editing input.edit': function(event,
+	'keyup li.editing input.edit, focusout li.editing input.edit': function (event,
 		template) {
 		if ((event.type === 'keyup' && event.which === 13) ||
 			event.type === 'focusout') {
@@ -49,11 +49,11 @@ Template.todo.events({
  * {{helperName 'hello'}}.
  */
 Template.todo.helpers({
-	todoCompleted: function() {
+	todoCompleted: function () {
 		return this.completed;
 	},
 
-	todoEditing: function() {
+	todoEditing: function () {
 		// in a helper, use Template.instance() to refer to this template instance
 		return Template.instance().editing.get();
 	}
