@@ -45,6 +45,6 @@ A standalone TypeScript compiler is available on NPM.
 
 To compile the TypeScript in this project:
 
-	# from labs/architecture-examples/typescript-backbone
+	# from examples/typescript-backbone
 	tsc js/app.ts
 	open index.html

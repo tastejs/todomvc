@@ -38,12 +38,12 @@ To install CoffeeScript globally:
 
 To compile once:
 
-	# from architecture-examples/knockback
+	# from examples/spine
 	cake build
 
 To compile on save
 
-	# from architecture-examples/knockback
+	# from examples/spine
 	cake watch
 
 

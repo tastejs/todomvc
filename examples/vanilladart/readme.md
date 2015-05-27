@@ -51,7 +51,7 @@ package dependencies. If you did not open the project in Dart Editor,
 you need to manually install the dependencies:
 
 ```
-cd vanilla-examples/vanilladart
+cd examples/vanilladart
 pub get
 ```
 
@@ -60,7 +60,7 @@ pub get
 You need to compile the app into JavaScript to run in your browser.
 
 ```
-cd vanilla-examples/vanilladart
+cd examples/vanilladart
 pub build
 ```
 

@@ -38,17 +38,17 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 To install the dependencies locally, compile the CoffeScript, and run the demo server:
 
-	# from labs/architecture-examples/derby
+	# from examples/derby
 	make run
 
 To edit the code while running the demo server:
 
-	# from labs/architecture-examples/derby
+	# from examples/derby
 	make
 
 Open up another terminal window:
 
-	# from labs/architecture-examples/derby
+	# from examples/derby
 	node server
 
 Open the URL shown.

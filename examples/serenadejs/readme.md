@@ -42,10 +42,10 @@ If you would like to install CoffeeScript globally:
 
 If you wish to install CoffeeScript just for the purposes of this app:
 
-	# from labs/architecture-examples/serenadejs:
+	# from examples/serenadejs:
 	npm install
 
 Once CoffeeScript is installed:
 
-	# from labs/architecture-examples/serenadejs:
+	# from examples/serenadejs:
 	npm run-script compile
