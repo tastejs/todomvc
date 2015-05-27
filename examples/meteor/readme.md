@@ -27,23 +27,23 @@ Articles and guides from the community:
 
 Get help from other Meteor users:
 
+* [Official Meteor Forums](https://forums.meteor.com/)
 * [Meteor on StackOverflow](http://stackoverflow.com/questions/tagged/meteor)
-* [Mailing list on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/meteor-core)
-* [Meteor on Twitter](http://twitter.com/meteorjs)
 
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+_If you have other helpful links to share, or find any of the links above no
+longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
 
 
 ## Running
 
 If you don't have Meteor installed already, from a terminal window:
 
-	curl install.meteor.com | /bin/sh
+	$ curl https://install.meteor.com/ | sh
 
 To run the app:
 
-	# from labs/architecture-examples/meteor
-	meteor
+	# from the todomvc/examples/meteor folder
+	$ meteor
 
 The app should now be running on http://localhost:3000.
 
@@ -52,10 +52,11 @@ The app should now be running on http://localhost:3000.
 
 To deploy to meteor.com:
 
-	# from labs/architecture-examples/meteor
-	meteor deploy myapp.meteor.com
+	# from the todomvc/examples/meteor folder
+	$ meteor deploy myapp
 
 
 ## Credit
 
 This TodoMVC application was created by [MStumpp](https://github.com/MStumpp).
+Updated on May 23, 2015 by [ffxsam](https://github.com/ffxsam).

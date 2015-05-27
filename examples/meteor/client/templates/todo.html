@@ -1,0 +1,19 @@
+<template name="todo">
+  <li
+    class="{{#if todoCompleted}}completed{{/if}}{{#if todoEditing}}editing{{/if}}">
+		{{#unless todoEditing}}
+			<div class="view">
+				<input class="toggle" type="checkbox"
+							 checked="{{#if todoCompleted}}checked{{/if}}">
+				<label>{{title}}</label>
+				<button class="destroy"></button>
+			</div>
+		{{else}}
+			{{> todoEdit}}
+		{{/unless}}
+  </li>
+</template>
+
+<template name="todoEdit">
+  <input class="edit" value="{{title}}">
+</template>
