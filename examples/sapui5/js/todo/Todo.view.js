@@ -45,7 +45,9 @@
 			newTodo = new todo.SmartTextField('new-todo', {
 				placeholder: 'What needs to be done?',
 				// Don't autofocus in case of MSIE and Opera as both hide placeholder on focus
+				//jscs:disable
 				autofocus: !sap.ui.Device.browser.internet_explorer && !$.browser.opera
+				//jscs:enable
 			}).attachChange(function () {
 				oController.createTodo(this.getProperty('value'));
 				this.setValue('');
