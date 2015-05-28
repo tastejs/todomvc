@@ -39,12 +39,13 @@
 				return;
 			}
 
-			this.model.setProperty('/todos/', this.model.getProperty('/todos/')
-				.push({
-					id: jQuery.sap.uid(),
-					done: false,
-					text: todo
-				}));
+			var todos = this.model.getProperty('/todos/');
+			todos.push({
+				id: jQuery.sap.uid(),
+				done: false,
+				text: todo
+			});
+			this.model.setProperty('/todos/', todos);
 
 			this.store.set(this.model.getData());
 
