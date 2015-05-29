@@ -13,7 +13,7 @@ define([
 		'hub:memory/todos/change': function onChange(items) {
 			var count = items.filter(filter).length;
 
-			this.$element.text('Clear completed (' + count + ')').toggle(count > 0);
+			this.$element.toggle(count > 0);
 		},
 
 		'dom/click': function onClear() {
