@@ -45,7 +45,8 @@ gulp.task('copy', function () {
     'bower_components/**',
     'learn.json',
     'CNAME',
-    '.nojekyll'
+    '.nojekyll',
+    'site-assets/favicon.ico'
   ], {
     dot: true,
     base: './'
