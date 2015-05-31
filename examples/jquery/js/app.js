@@ -1,8 +1,8 @@
-/*global jQuery, Handlebars */
+/*global jQuery, Handlebars, Router */
 jQuery(function ($) {
 	'use strict';
 
-	Handlebars.registerHelper('eq', function(a, b, options) {
+	Handlebars.registerHelper('eq', function (a, b, options) {
 		return a === b ? options.fn(this) : options.inverse(this);
 	});
 
@@ -44,7 +44,7 @@ jQuery(function ($) {
 			this.cacheElements();
 			this.bindEvents();
 
-			Router({
+			new Router({
 				'/:filter': function (filter) {
 					this.filter = filter;
 					this.render();
