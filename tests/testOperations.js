@@ -22,9 +22,15 @@ function TestOperations(page) {
 		});
 	}
 
-	this.assertFocussedElementId = function(expectedId) {
-		page.getFocussedElementId().then(function(id) {
-			assert.equal(id, expectedId, 'The focused element did not have the expected id ' + expectedId);
+	function testElementEquality(elm1, elm2) {
+		assert.deepEqual(elm1.id_.value_.ELEMENT, elm2.id_.value_.ELEMENT);
+	}
+
+	this.assertEntryIsFocussed = function () {
+		return page.getItemInputField().then(function (elm) {
+			return page.getFocussedElement().then(function (activeElm) {
+				testElementEquality(elm, activeElm);
+			});
 		});
 	};
 
