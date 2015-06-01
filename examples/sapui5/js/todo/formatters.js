@@ -25,18 +25,6 @@
 			return 'false';
 		},
 
-		// Counts the number of closed todos
-		completedTodoCountFormatter: function (aTodos) {
-			var numberOfCompletedItems = 0;
-			aTodos.forEach(function (todo) {
-				if (todo.done === true) {
-					numberOfCompletedItems++;
-				}
-			});
-
-			return 'Clear completed (' + numberOfCompletedItems + ')';
-		},
-
 		// Returns whether a completed todo is available
 		hasCompletedTodosFormatter: function (aTodos) {
 			return aTodos.some(function (element, index, array) {

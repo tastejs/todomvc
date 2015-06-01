@@ -138,10 +138,7 @@
 			clearCompleted = new sap.ui.commons.Button({
 				id: 'clear-completed',
 				lite: true,
-				text: {
-					path: '/todos/',
-					formatter: todo.formatters.completedTodoCountFormatter
-				},
+				text: 'Clear Completed',
 				visible: {
 					path: '/todos/',
 					formatter: todo.formatters.hasCompletedTodosFormatter
