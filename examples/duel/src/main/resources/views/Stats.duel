@@ -19,5 +19,5 @@
 --%>
 	<button id="clear-completed"
 		if="<%= data.completed %>"
-		onclick="<%= todos.actions.clear_click %>">Clear completed (<%= data.completed %>)</button>
+		onclick="<%= todos.actions.clear_click %>">Clear completed</button>
 </footer>
