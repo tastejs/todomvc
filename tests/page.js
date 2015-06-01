@@ -59,10 +59,8 @@ module.exports = function Page(browser) {
 
 	// ----------------- DOM element access methods
 
-	this.getFocussedElementId = function () {
-		return browser.switchTo().activeElement().getAttribute('id').then(function (id) {
-			return id;
-		});
+	this.getFocussedElement = function () {
+		return browser.switchTo().activeElement();
 	};
 
 	this.getEditInputForItemAtIndex = function (index) {
@@ -71,7 +69,9 @@ module.exports = function Page(browser) {
 	};
 
 	this.getItemInputField = function () {
-		return this.findByXpath('//input[@id="new-todo"]');
+		return this.findFirstExisting(
+				webdriver.By.xpath('//input[@id="new-todo"]'),
+				webdriver.By.css('input.new-todo'));
 	};
 
 	this.getMarkAllCompletedCheckBox = function () {
