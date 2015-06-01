@@ -4,7 +4,7 @@ var testSuite = require('./test.js');
 var fs = require('fs');
 var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
 var rootUrl = 'http://localhost:8000/';
-var frameworkNamePattern = /^[a-z-_]+$/;
+var frameworkNamePattern = /^[a-z-_\d]+$/;
 
 var excludedFrameworks = [
 	// this implementation deviates from the specification to such an extent that they are
