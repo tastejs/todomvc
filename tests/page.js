@@ -103,15 +103,28 @@ module.exports = function Page(browser) {
 		return this.tryFindByXpath(xpath);
 	};
 
+	this.findFirstExisting = function () {
+		var args = [].slice.call(arguments);
+
+		if (args.length === 0) {
+			throw new Error('Unable to find any matching elements');
+		}
+
+		return browser.findElements(args.pop())
+		.then(function (elms) {
+			if (elms.length) {
+				return elms[0];
+			}
+
+			return this.findFirstExisting(args);
+		}.bind(this));
+	};
+
 	// ----------------- page actions
 	this.ensureAppIsVisible = function () {
-		return browser.findElements(webdriver.By.css('#todoapp'))
-		.then(function (elms) {
-			if (elms.length > 0) {
-				return true;
-			} else {
-				throw new Error('Unable to find application root, did you start your local server?');
-			}
+		return this.findFirstExisting(webdriver.By.css('#todoapp'), webdriver.By.css('.todoapp'))
+		.thenCatch(function () {
+			throw new Error('Unable to find application root, did you start your local server?');
 		});
 	};
 
