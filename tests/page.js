@@ -87,11 +87,17 @@ module.exports = function Page(browser) {
 	};
 
 	this.getItemElements = function () {
-		return this.tryFindByXpath(this.getTodoListXpath() + '/li');
+		return this.getTodoListXpath()
+		.then(function (xpath) {
+			return this.tryFindByXpath(xpath + '/li');
+		}.bind(this));
 	};
 
 	this.getNonCompletedItemElements = function () {
-		return this.tryFindByXpath(this.getTodoListXpath() + '/li[not(contains(@class,"completed"))]');
+		return this.getTodoListXpath()
+		.then(function (xpath) {
+			return this.tryFindByXpath(xpath + '/li[not(contains(@class,"completed"))]');
+		}.bind(this));
 	};
 
 	this.getItemsCountElement = function () {
@@ -107,8 +113,10 @@ module.exports = function Page(browser) {
 	};
 
 	this.getItemLabels = function () {
-		var xpath = this.getTodoListXpath() + '/li//label';
-		return this.tryFindByXpath(xpath);
+		return this.getTodoListXpath()
+		.then(function (xpath) {
+			return this.tryFindByXpath(xpath + '/li//label');
+		}.bind(this));
 	};
 
 	this.findFirstExisting = function () {
@@ -150,9 +158,13 @@ module.exports = function Page(browser) {
 	};
 
 	this.enterItem = function (itemText) {
-		var textField = this.getItemInputField();
-		textField.sendKeys(itemText);
-		textField.sendKeys(webdriver.Key.ENTER);
+		return this.getItemInputField()
+		.then(function (textField) {
+			return textField.sendKeys(itemText)
+			.then(function () {
+				return textField.sendKeys(webdriver.Key.ENTER);
+			});
+		});
 	};
 
 	this.toggleItemAtIndex = function (index) {
