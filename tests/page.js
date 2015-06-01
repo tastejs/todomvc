@@ -15,7 +15,15 @@ module.exports = function Page(browser) {
 	};
 
 	this.getTodoListXpath = function () {
-		return '//ul[@id="todo-list"]';
+		return this.findFirstExisting(
+				webdriver.By.xpath(),
+				webdriver.By.css('ul.todo-list'))
+			.then(function (elm) {
+				if (elm.getAttribute('id') === 'todo-list') {
+					return '//ul[@id="todo-list"]';
+				}
+				return '//ul[@class="todo-list"]';
+			});
 	};
 
 	this.xPathForItemAtIndex = function (index) {
