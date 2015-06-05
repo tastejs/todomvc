@@ -211,7 +211,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
-
 		});
 
 		test.describe('Editing', function () {

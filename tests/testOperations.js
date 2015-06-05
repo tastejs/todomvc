@@ -24,7 +24,7 @@ function TestOperations(page) {
 
 	this.assertFocussedElementId = function (expectedId) {
 		page.getFocussedElementId().then(function (id) {
-			assert.equal(id, expectedId, 'The focused element did not have the expected id ' + expectedId);
+			assert.notEqual(-1, id.indexOf(expectedId), 'The focused element did not have the expected id ' + expectedId);
 		});
 	};
 
