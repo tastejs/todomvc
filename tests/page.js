@@ -2,6 +2,7 @@
 
 var webdriver = require('selenium-webdriver');
 
+var idSelectors = false;
 module.exports = function Page(browser) {
 
 	// ----------------- utility methods
@@ -110,8 +111,20 @@ module.exports = function Page(browser) {
 			if (elms.length > 0) {
 				return true;
 			} else {
-				throw new Error('Unable to find application root, did you start your local server?');
+				return browser.findElements(webdriver.By.css('.todoapp'));
 			}
+		})
+		.then(function (elms) {
+			if (elms === true) {
+				return true;
+			}
+
+			if (elms.length) {
+				idSelectors = true;
+				return true;
+			}
+
+			throw new Error('Unable to find application root, did you start your local server?');
 		});
 	};
 
