@@ -18,7 +18,7 @@ define(function () {
 
 	function setTextProp(nodes, value) {
 		for (var i = 0; i < nodes.length; i++) {
-			nodes[i][textProp] = '' + value;
+			nodes[i][textProp] = String(value);
 		}
 	}
 
