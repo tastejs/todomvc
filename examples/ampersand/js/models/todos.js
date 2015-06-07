@@ -30,8 +30,8 @@ module.exports = Collection.extend({
 		// and persist on change
 		this.on('all', this.writeToLocalStorage, this);
 	},
-	getCompletedCount: function() {
-		return this.reduce(function(total, todo){
+	getCompletedCount: function () {
+		return this.reduce(function (total, todo) {
 			return todo.completed ? ++total : total;
 		}, 0);
 	},
