@@ -52,9 +52,9 @@ module.exports = View.extend({
 			type: 'switchClass',
 			name: 'selected',
 			cases: {
-				'all': '[data-hook=all-mode]',
-				'active': '[data-hook=active-mode]',
-				'completed': '[data-hook=completed-mode]',
+				all: '[data-hook=all-mode]',
+				active: '[data-hook=active-mode]',
+				completed: '[data-hook=completed-mode]'
 			}
 		},
 		// Bind 'checked' state of checkbox

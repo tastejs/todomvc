@@ -6,7 +6,7 @@ define(function () {
 	// GUID-like generation, not actually a GUID, tho, from:
 	// http://stackoverflow.com/questions/7940616/what-makes-this-pseudo-guid-generator-better-than-math-random
 	function s4() {
-		return (((1 + Math.random()) * 0x10000)|0).toString(16).substring(1);
+		return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 	}
 
 	function guidLike() {
