@@ -13,23 +13,17 @@
  *
  */
 
-include
-	.load('todoTask.mask::Template')
-	.done(function (response) {
+(function () {
 	'use strict';
 
 	var STATE_VIEW = '';
 	var STATE_EDIT = 'editing';
-
-	mask.registerHandler(':todoTask', Compo({
+	include.exports = {
 		scope: {
 			state: STATE_VIEW
 		},
 
-		template: response.load.Template,
 		slots: {
-			inputCanceled: '_editEnd',
-
 			taskChanged: function () {
 				if (!this.model.title) {
 
@@ -40,7 +34,7 @@ include
 					return false;
 				}
 
-				this._editEnd();
+				this.scope.state = STATE_VIEW;
 			},
 			taskRemoved: function () {
 				// remove component
@@ -49,31 +43,33 @@ include
 				// add arguments to the signal
 				return [this.model];
 			},
-
+			cancel: function () {
+				this.scope.state = STATE_VIEW;
+			},
+			submit: function () {
+				// do not send the signal to the app
+				return false;
+			},
 			edit: function () {
 				this.scope.state = STATE_EDIT;
-				this.compos.input.focus();
+				this.compos.input.$.focus();
 			}
-
 		},
 		compos: {
-			input: 'compo: todo:input'
+			input: 'compo: TaskEdit'
 		},
 
 		//= Private Methods
 
-		_editEnd: function () {
-			this.scope.state = STATE_VIEW;
-		},
-
 		_isVisible: function (completed, action) {
-			if ('completed' === action && !completed) {
+			if (action === 'completed' && !completed) {
 				return false;
 			}
-			if ('active' === action && completed) {
+			if (action === 'active' && completed) {
 				return false;
 			}
 			return true;
 		}
-	}));
-});
+	};
+
+})();

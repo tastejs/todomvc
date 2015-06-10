@@ -31,10 +31,15 @@
 				})
 				.save();
 		},
+		removeCompleted: function () {
+			this.del(function (x) {
+				return x.completed === true;
+			});
+		},
 		status: {
 			count: 0,
 			todoCount: 0,
-			completedCount: 0,
+			completedCount: 0
 		},
 		Override: {
 			// Override mutators and recalculate status,
@@ -58,7 +63,7 @@
 		calcStatus: function () {
 			var todos = 0;
 			var completed = 0;
-			this.forEach(function(todo){
+			this.forEach(function (todo) {
 				todo.completed && ++completed || ++todos;
 			});
 
