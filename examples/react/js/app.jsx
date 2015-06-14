@@ -35,17 +35,17 @@ var app = app || {};
 		},
 
 		handleNewTodoKeyDown: function (event) {
-			if (event.which !== ENTER_KEY) {
+			if (event.keyCode !== ENTER_KEY) {
 				return;
 			}
 
 			event.preventDefault();
 
-			var val = this.refs.newField.getDOMNode().value.trim();
+			var val = React.findDOMNode(this.refs.newField).value.trim();
 
 			if (val) {
 				this.props.model.addTodo(val);
-				this.refs.newField.getDOMNode().value = '';
+				React.findDOMNode(this.refs.newField).value = '';
 			}
 		},
 
