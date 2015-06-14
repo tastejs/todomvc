@@ -67,7 +67,7 @@ var app = app || {};
 		 */
 		componentDidUpdate: function (prevProps) {
 			if (!prevProps.editing && this.props.editing) {
-				var node = this.refs.editField.getDOMNode();
+				var node = React.findDOMNode(this.refs.editField);
 				node.focus();
 				node.setSelectionRange(node.value.length, node.value.length);
 			}
