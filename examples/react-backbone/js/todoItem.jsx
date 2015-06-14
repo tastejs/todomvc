@@ -58,7 +58,7 @@ var app = app || {};
 
 		render: function () {
 			return (
-				<li className={React.addons.classSet({
+				<li className={classNames({
 					completed: this.props.todo.get('completed'),
 					editing: this.props.editing
 				})}>

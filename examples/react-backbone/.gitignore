@@ -15,6 +15,9 @@ node_modules/react/dist/*
 !node_modules/react/dist/react-with-addons.js
 !node_modules/react/dist/JSXTransformer.js
 
+node_modules/classnames/*
+!node_modules/classnames/index.js
+
 node_modules/todomvc-app-css/*
 !node_modules/todomvc-app-css/index.css
 
