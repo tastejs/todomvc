@@ -43,14 +43,14 @@ N.B. Remember the extra -- to separate the script arguments from the npm argumen
 In order to run a specific test, use the mocha 'grep' function. For example:
 
 ```
-	$ npm run test -- --framework=jquery --grep 'should trim entered text'
+$ npm run test -- --framework=jquery --grep 'should trim entered text'
 
-	  TodoMVC - jquery
-	    Editing
-	      ✓ should trim entered text (1115ms)
+  TodoMVC - jquery
+    Editing
+      ✓ should trim entered text (1115ms)
 
 
-	  1 passing (3s)
+  1 passing (3s)
 ```
 
 ### Specifying the browser
