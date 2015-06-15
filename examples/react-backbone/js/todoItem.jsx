@@ -36,7 +36,7 @@ var app = app || {};
 			// immediately manipulate the DOM as if the rendering's over. Put it as a
 			// callback. Refer to app.jsx' `edit` method
 			this.props.onEdit(function () {
-				var node = this.refs.editField.getDOMNode();
+				var node = React.findDOMNode(this.refs.editField);
 				node.focus();
 				node.setSelectionRange(node.value.length, node.value.length);
 			}.bind(this));
@@ -58,7 +58,7 @@ var app = app || {};
 
 		render: function () {
 			return (
-				<li className={React.addons.classSet({
+				<li className={classNames({
 					completed: this.props.todo.get('completed'),
 					editing: this.props.editing
 				})}>

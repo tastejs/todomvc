@@ -26,8 +26,6 @@ var app = app || {};
 				);
 			}
 
-			// React idiom for shortcutting to `classSet` since it'll be used often
-			var cx = React.addons.classSet;
 			var nowShowing = this.props.nowShowing;
 			return (
 				<footer id="footer">
@@ -38,7 +36,7 @@ var app = app || {};
 						<li>
 							<a
 								href="#/"
-								className={cx({selected: nowShowing === app.ALL_TODOS})}>
+								className={classNames({selected: nowShowing === app.ALL_TODOS})}>
 									All
 							</a>
 						</li>
@@ -46,7 +44,7 @@ var app = app || {};
 						<li>
 							<a
 								href="#/active"
-								className={cx({selected: nowShowing === app.ACTIVE_TODOS})}>
+								className={classNames({selected: nowShowing === app.ACTIVE_TODOS})}>
 									Active
 							</a>
 						</li>
@@ -54,7 +52,7 @@ var app = app || {};
 						<li>
 							<a
 								href="#/completed"
-								className={cx({selected: nowShowing === app.COMPLETED_TODOS})}>
+								className={classNames({selected: nowShowing === app.COMPLETED_TODOS})}>
 									Completed
 							</a>
 						</li>

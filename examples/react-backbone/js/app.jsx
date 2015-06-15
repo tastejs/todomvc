@@ -90,17 +90,17 @@ var app = app || {};
 				return;
 			}
 
-			var val = this.refs.newField.getDOMNode().value.trim();
+			var val = React.findDOMNode(this.refs.newField).value.trim();
 			if (val) {
 				this.props.todos.create({
 					title: val,
 					completed: false,
 					order: this.props.todos.nextOrder()
 				});
-				this.refs.newField.getDOMNode().value = '';
+				React.findDOMNode(this.refs.newField).value = '';
 			}
 
-			return false;
+			event.preventDefault();
 		},
 
 		toggleAll: function (event) {
@@ -212,7 +212,7 @@ var app = app || {};
 		}
 	});
 
-	React.renderComponent(
+	React.render(
 		<TodoApp todos={app.todos} />,
 		document.getElementById('todoapp')
 	);
