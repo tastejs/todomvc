@@ -120,6 +120,11 @@ module.exports = [
 	'TodoMVC - typescript-backbone, Routing, should allow me to display all items',
 	'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
 	'TodoMVC - typescript-backbone, Routing, should respect the back button',
+	'TodoMVC - typescript-reactflux, Routing, should allow me to display active items',
+	'TodoMVC - typescript-reactflux, Routing, should allow me to display completed items',
+	'TodoMVC - typescript-reactflux, Routing, should allow me to display all items',
+	'TodoMVC - typescript-reactflux, Routing, should highlight the currently applied filter',
+	'TodoMVC - typescript-reactflux, Routing, should respect the back button',
 
 	// EXTJS is not spec compliant (by a long way!)
 	'TodoMVC - extjs, New Todo, should show #main and #footer when items added',

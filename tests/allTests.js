@@ -42,6 +42,7 @@ var exceptions = [
 	{ name: 'canjs_require', path: 'examples/canjs_require/' },
 	{ name: 'troopjs', path: 'examples/troopjs_require/' },
 	{ name: 'thorax_lumbar', path: 'examples/thorax_lumbar/public' },
+	{ name: 'typescript-reactflux', path: 'examples/typescript-reactflux/web' },
 ];
 list = list.map(function (framework) {
 	var exception = exceptions.filter(function (exFramework) {

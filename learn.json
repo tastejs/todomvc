@@ -1786,6 +1786,9 @@
 		}, {
 			"name": "React & Backbone.js",
 			"url": "examples/react-backbone"
+		}, {
+			"name": "React & Flux & TypeScript",
+			"url": "examples/typescript-reactflux/web"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -2133,6 +2136,9 @@
 		}, {
 			"name": "TypeScript & Backbone.js",
 			"url": "examples/typescript-backbone"
+		}, {
+			"name": "TypeScript & React & Flux",
+			"url": "examples/typescript-reactflux/web"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

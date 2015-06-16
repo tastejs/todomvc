@@ -1,0 +1,44 @@
+{
+    "version": "1.5.0-beta",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": true,
+        "removeComments": false,
+        "noLib": false,
+        "outDir": "./build/js/"
+    },
+    "filesGlob": [
+        "./src/**/*.ts",
+        "./build/src/**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./build/src/actions/TodoActions.ts",
+        "./build/src/app.ts",
+        "./build/src/components/Footer.react.ts",
+        "./build/src/components/Header.react.ts",
+        "./build/src/components/MainSection.react.ts",
+        "./build/src/components/TodoApp.react.ts",
+        "./build/src/components/TodoItem.react.ts",
+        "./build/src/components/TodoTextInput.react.ts",
+        "./build/src/constants/TodoConstants.ts",
+        "./build/src/dispatcher/AppDispatcher.ts",
+        "./build/src/react/ReactComponent.ts",
+        "./build/src/react/ReactJSX.ts",
+        "./build/src/stores/TodoStore.ts",
+        "./build/typings/browserify/browserify.d.ts",
+        "./build/typings/flux/flux.d.ts",
+        "./build/typings/node/node.d.ts",
+        "./build/typings/object-assign/object-assign.d.ts",
+        "./build/typings/react-jsx/react-jsx.d.ts",
+        "./build/typings/react-tools/react-tools.d.ts",
+        "./build/typings/react/react-addons.d.ts",
+        "./build/typings/react/react-global.d.ts",
+        "./build/typings/react/react.d.ts",
+        "./build/typings/todomvc/todomvc.d.ts",
+        "./build/typings/tsd.d.ts",
+        "./build/typings/typings/tsd.d.ts"
+    ]
+}
