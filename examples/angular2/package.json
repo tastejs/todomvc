@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "cp node_modules/systemjs/node_modules/es6-module-loader/dist/es6-module-loader.js node_modules/systemjs/dist && ./node_modules/.bin/tsd query angular2 node-uuid storejs node --action install",
+    "dev": "tsc --watch -m commonjs -t es5 --emitDecoratorMetadata app.ts"
+  },
+  "devDependencies": {
+    "tsd": "^0.6.0",
+    "typescript": "^1.5.0-beta"
+  },
+  "dependencies": {
+    "bower-traceur-runtime": "git://github.com/jmcriffey/bower-traceur-runtime#0.0.87",
+    "node-uuid": "^1.4.3",
+    "store.js": "^1.0.4",
+    "systemjs": "^0.16.11",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.1"
+  }
+}
