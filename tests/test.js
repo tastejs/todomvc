@@ -140,8 +140,11 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		});
 
 		test.describe('Mark all as completed', function () {
-			test.it('should allow me to mark all items as completed', function () {
+			test.beforeEach(function () {
 				createStandardItems();
+			});
+
+			test.it('should allow me to mark all items as completed', function () {
 				page.clickMarkAllCompletedCheckBox();
 
 				testOps.assertItemAtIndexIsCompleted(0);
@@ -150,7 +153,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should allow me to clear the completion state of all items', function () {
-				createStandardItems();
 				page.clickMarkAllCompletedCheckBox();
 				page.clickMarkAllCompletedCheckBox();
 
@@ -160,7 +162,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('complete all checkbox should update state when items are completed / cleared', function () {
-				createStandardItems();
 				page.clickMarkAllCompletedCheckBox();
 
 				testOps.assertCompleteAllIsChecked();
@@ -209,10 +210,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.editItemAtIndex(1, 'buy some sausages' + webdriver.Key.ENTER);
 
 				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
-			});
-
-			test.it('should show the remove button on hover', function () {
-				// assert(false);
 			});
 		});
 
@@ -285,14 +282,16 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 
 		test.describe('Clear completed button', function () {
-			test.it('should display the correct text', function () {
+			test.beforeEach(function () {
 				createStandardItems();
+			});
+
+			test.it('should display the correct text', function () {
 				page.toggleItemAtIndex(1);
 				testOps.assertClearCompleteButtonText('Clear completed');
 			});
 
 			test.it('should remove completed items when clicked', function () {
-				createStandardItems();
 				page.toggleItemAtIndex(1);
 				page.clickClearCompleteButton();
 				testOps.assertItemCount(2);
@@ -300,7 +299,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should be hidden when there are no items that are completed', function () {
-				createStandardItems();
 				page.toggleItemAtIndex(1);
 				testOps.assertClearCompleteButtonIsVisible();
 				page.clickClearCompleteButton();
@@ -334,8 +332,10 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		});
 
 		test.describe('Routing', function () {
-			test.it('should allow me to display active items', function () {
+			test.beforeEach(function () {
 				createStandardItems();
+			});
+			test.it('should allow me to display active items', function () {
 				page.toggleItemAtIndex(1);
 				page.filterByActiveItems();
 
@@ -362,7 +362,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should allow me to display completed items', function () {
-				createStandardItems();
 				page.toggleItemAtIndex(1);
 				page.filterByCompletedItems();
 
@@ -370,7 +369,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should allow me to display all items', function () {
-				createStandardItems();
 				page.toggleItemAtIndex(1);
 
 				// apply the other filters first, before returning to the 'all' state
@@ -382,8 +380,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should highlight the currently applied filter', function () {
-				createStandardItems();
-
 				// initially 'all' should be selected
 				testOps.assertFilterAtIndexIsSelected(0);
 

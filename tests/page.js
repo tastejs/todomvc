@@ -1,6 +1,7 @@
 'use strict';
 
 var webdriver = require('selenium-webdriver');
+var idSelectors = false;
 
 module.exports = function Page(browser) {
 
@@ -15,7 +16,35 @@ module.exports = function Page(browser) {
 	};
 
 	this.getTodoListXpath = function () {
-		return '//ul[@id="todo-list"]';
+		return !idSelectors ? '//ul[@id="todo-list"]' : '//ul[@class="todo-list"]';
+	};
+
+	this.getMainSectionXpath = function () {
+		return !idSelectors ? '//section[@id="main"]' : '//section[contains(@class, "main")]';
+	};
+
+	this.getFooterSectionXpath = function () {
+		return !idSelectors ? '//footer[@id="footer"]' : '//footer[contains(@class, "footer")]';
+	};
+
+	this.getCompletedButtonXpath = function () {
+		return !idSelectors ? '//button[@id="clear-completed"]' : '//button[contains(@class, "clear-completed")]';
+	};
+
+	this.getNewInputXpath = function () {
+		return !idSelectors ? '//input[@id="new-todo"]' : '//input[contains(@class,"new-todo")]';
+	};
+
+	this.getToggleAllXpath = function () {
+		return !idSelectors ? '//input[@id="toggle-all"]' : '//input[contains(@class,"toggle-all")]';
+	};
+
+	this.getCountXpath = function () {
+		return !idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
+	};
+
+	this.getFilterElementsXpath = function () {
+		return !idSelectors ? '//ul[@id="filters"]//a' : '//ul[contains(@class, "filters")]';
 	};
 
 	this.xPathForItemAtIndex = function (index) {
@@ -37,15 +66,15 @@ module.exports = function Page(browser) {
 	// elements which *might* be present in the DOM, hence the try/get name.
 
 	this.tryGetMainSectionElement = function () {
-		return this.tryFindByXpath('//section[@id="main"]');
+		return this.tryFindByXpath(this.getMainSectionXpath());
 	};
 
 	this.tryGetFooterElement = function () {
-		return this.tryFindByXpath('//footer[@id="footer"]');
+		return this.tryFindByXpath(this.getFooterSectionXpath());
 	};
 
 	this.tryGetClearCompleteButton = function () {
-		return this.tryFindByXpath('//button[@id="clear-completed"]');
+		return this.tryFindByXpath(this.getCompletedButtonXpath());
 	};
 
 	this.tryGetToggleForItemAtIndex = function (index) {
@@ -60,9 +89,7 @@ module.exports = function Page(browser) {
 	// ----------------- DOM element access methods
 
 	this.getFocussedElementId = function () {
-		return browser.switchTo().activeElement().getAttribute('id').then(function (id) {
-			return id;
-		});
+		return browser.switchTo().activeElement().getAttribute(!idSelectors ? 'id' : 'class');
 	};
 
 	this.getEditInputForItemAtIndex = function (index) {
@@ -71,11 +98,11 @@ module.exports = function Page(browser) {
 	};
 
 	this.getItemInputField = function () {
-		return this.findByXpath('//input[@id="new-todo"]');
+		return this.findByXpath(this.getNewInputXpath());
 	};
 
 	this.getMarkAllCompletedCheckBox = function () {
-		return this.findByXpath('//input[@id="toggle-all"]');
+		return this.findByXpath(this.getToggleAllXpath());
 	};
 
 	this.getItemElements = function () {
@@ -87,7 +114,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.getItemsCountElement = function () {
-		return this.findByXpath('//span[@id="todo-count"]');
+		return this.findByXpath(this.getCountXpath());
 	};
 
 	this.getItemLabelAtIndex = function (index) {
@@ -95,7 +122,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.getFilterElements = function () {
-		return this.tryFindByXpath('//ul[@id="filters"]//a');
+		return this.tryFindByXpath(this.getFilterElementsXpath());
 	};
 
 	this.getItemLabels = function () {
@@ -110,8 +137,20 @@ module.exports = function Page(browser) {
 			if (elms.length > 0) {
 				return true;
 			} else {
-				throw new Error('Unable to find application root, did you start your local server?');
+				return browser.findElements(webdriver.By.css('.todoapp'));
 			}
+		})
+		.then(function (elms) {
+			if (elms === true) {
+				return true;
+			}
+
+			if (elms.length) {
+				idSelectors = true;
+				return true;
+			}
+
+			throw new Error('Unable to find application root, did you start your local server?');
 		});
 	};
 
