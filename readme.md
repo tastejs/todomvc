@@ -24,6 +24,8 @@ Click on the button below to view the code in a Web IDE. Feel free to edit the c
 
 ## Team
 
+*(big group of suckers as arthur vr)*
+
 TodoMVC would not be possible without a strong team of [contributors](https://github.com/tastejs/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
 
 #### [Addy Osmani](http://github.com/addyosmani) - Founder/Lead
