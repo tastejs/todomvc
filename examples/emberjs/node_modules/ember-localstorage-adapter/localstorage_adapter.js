@@ -5,15 +5,15 @@
 
   DS.LSSerializer = DS.JSONSerializer.extend({
 
-    serializeHasMany: function(record, json, relationship) {
+    serializeHasMany: function(snapshot, json, relationship) {
       var key = relationship.key;
       var payloadKey = this.keyForRelationship ? this.keyForRelationship(key, "hasMany") : key;
-      var relationshipType = record.constructor.determineRelationshipType(relationship);
+      var relationshipType = snapshot.type.determineRelationshipType(relationship);
 
       if (relationshipType === 'manyToNone' ||
           relationshipType === 'manyToMany' ||
           relationshipType === 'manyToOne') {
-        json[payloadKey] = record.get(key).mapBy('id');
+        json[payloadKey] = snapshot.hasMany(key).mapBy('id');
         // TODO support for polymorphic manyToNone and manyToMany relationships
       }
     },
@@ -223,9 +223,10 @@
       return Ember.RSVP.resolve(results);
     },
 
-    createRecord: function (store, type, record) {
+    createRecord: function (store, type, snapshot) {
       var namespaceRecords = this._namespaceForType(type);
-      var recordHash = record.serialize({includeId: true});
+      var serializer = store.serializerFor(type.typeKey);
+      var recordHash = serializer.serialize(snapshot, {includeId: true});
 
       namespaceRecords.records[recordHash.id] = recordHash;
 
@@ -233,19 +234,20 @@
       return Ember.RSVP.resolve();
     },
 
-    updateRecord: function (store, type, record) {
+    updateRecord: function (store, type, snapshot) {
       var namespaceRecords = this._namespaceForType(type);
-      var id = record.get('id');
+      var id = snapshot.id;
+      var serializer = store.serializerFor(type.typeKey);
 
-      namespaceRecords.records[id] = record.serialize({ includeId: true });
+      namespaceRecords.records[id] = serializer.serialize(snapshot, {includeId: true});
 
       this.persistData(type, namespaceRecords);
       return Ember.RSVP.resolve();
     },
 
-    deleteRecord: function (store, type, record) {
+    deleteRecord: function (store, type, snapshot) {
       var namespaceRecords = this._namespaceForType(type);
-      var id = record.get('id');
+      var id = snapshot.id;
 
       delete namespaceRecords.records[id];
 
@@ -264,7 +266,7 @@
     },
 
     loadData: function () {
-      var storage = localStorage.getItem(this.adapterNamespace());
+      var storage = this.getLocalStorage().getItem(this.adapterNamespace());
       return storage ? JSON.parse(storage) : {};
     },
 
@@ -274,7 +276,38 @@
 
       localStorageData[modelNamespace] = data;
 
-      localStorage.setItem(this.adapterNamespace(), JSON.stringify(localStorageData));
+      this.getLocalStorage().setItem(this.adapterNamespace(), JSON.stringify(localStorageData));
+    },
+
+    getLocalStorage: function() {
+      if (this._localStorage) { return this._localStorage; }
+
+      var storage;
+      try {
+        storage = this.getNativeStorage() || this._enableInMemoryStorage();
+      } catch (e) {
+        storage = this._enableInMemoryStorage(e);
+      }
+
+      return this._localStorage = storage;
+    },
+
+    _enableInMemoryStorage: function(reason) {
+      this.trigger('persistenceUnavailable', reason);
+      return {
+        storage: {},
+        getItem: function(name) {
+          return this.storage[name];
+        },
+        setItem: function(name, value) {
+          this.storage[name] = value;
+        }
+      };
+    },
+
+    // This exists primarily as a testing extension point
+    getNativeStorage: function() {
+      return localStorage;
     },
 
     _namespaceForType: function (type) {
