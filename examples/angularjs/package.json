@@ -4,7 +4,7 @@
     "test": "karma start test/config/karma.conf.js"
   },
   "dependencies": {
-    "angular": "^1.3.12",
+    "angular": "^1.4.1",
     "todomvc-common": "^1.0.0",
     "todomvc-app-css": "^1.0.1",
     "angular-route": "^1.3.12"
