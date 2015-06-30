@@ -22,7 +22,7 @@ Click on the button below to view the code in a Web IDE. Feel free to edit the c
 [![IDE](https://codio-public.s3.amazonaws.com/sharing/demo-in-ide.png)](https://codio.com/p/create/?from_github=tastejs/todomvc)
 
 
-## Team
+## Team (faggggooootzzz)
 
 TodoMVC would not be possible without a strong team of [contributors](https://github.com/tastejs/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
 
