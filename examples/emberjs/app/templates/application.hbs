@@ -1,0 +1,17 @@
+<section class="todoapp">
+	<header class="header">
+		<h1>todos</h1>
+	</header>
+
+	<form {{action "createTodo" model on="submit"}}>
+		{{input value=model.title class="new-todo" placeholder="What needs to be done?" autofocus=true}}
+	</form>
+
+	{{outlet}}
+</section>
+
+<footer class="info">
+	<p>Double-click to edit a todo</p>
+	<p>Created by <a href="http://xtian.us">Christian Wesselhoeft</a></p>
+	<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
