@@ -184,10 +184,8 @@ enyo.kind({
 				// update the clear completed button
 				if (completedTasks.length === 0) {
 					enyo.$['clear-completed'].hide();
-					enyo.$['clear-completed'].setContent('');
 				} else {
 					enyo.$['clear-completed'].show();
-					enyo.$['clear-completed'].setContent('Clear completed (' + completedTasks.length + ')');
 				}
 			}
 			// set the correct ui representation for each task.  Use the top level todo-list object to navigate down the rows
