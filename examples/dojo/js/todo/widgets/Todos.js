@@ -17,7 +17,8 @@ define([
 	'../store/TodoLocalStorage',
 	'dojox/mvc/Element',
 	'dojox/mvc/WidgetList',
-	'./CSSToggleWidget'
+	'./CSSToggleWidget',
+	'./TodoEnter'
 ], function (declare,
 	array,
 	lang,
