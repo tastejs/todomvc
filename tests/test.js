@@ -1,6 +1,7 @@
 'use strict';
 
 var webdriver = require('selenium-webdriver');
+var chrome = require('selenium-webdriver/chrome');
 var test = require('selenium-webdriver/testing');
 var Page = require('./page');
 var PageLaxMode = require('./pageLaxMode');
@@ -21,31 +22,19 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		}
 
 		function launchBrowser() {
+			var chromeOptions = new chrome.Options();
+			chromeOptions.addArguments('no-sandbox');
 
-			if (process.env.SAUCE_USERNAME !== undefined) {
-				browser = new webdriver.Builder()
-				.usingServer(
-					'http://' +
-					process.env.SAUCE_USERNAME +
-					':' +
-					process.env.SAUCE_ACCESS_KEY +
-					'@ondemand.saucelabs.com:80/wd/hub'
-				)
-				.withCapabilities({
-					'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-					build: process.env.TRAVIS_BUILD_NUMBER,
-					browserName: browserName,
-					username: process.env.SAUCE_USERNAME,
-					accessKey: process.env.SAUCE_ACCESS_KEY
-				})
-				.build();
-			} else {
-				browser = new webdriver.Builder()
-				.withCapabilities({
-					browserName: browserName
-				})
-				.build();
+			if (process.env.CHROME_PATH !== undefined) {
+				chromeOptions.setChromeBinaryPath(process.env.CHROME_PATH);
 			}
+
+			browser = new webdriver.Builder()
+			.withCapabilities({
+				browserName: browserName
+			})
+			.setChromeOptions(chromeOptions)
+			.build();
 
 			browser.get(baseUrl);
 
