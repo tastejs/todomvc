@@ -33,7 +33,7 @@
 					<header id="header">
 						<h1>todos</h1>
 						<form id="todo-form" data-dojo-attach-event="submit: addTodo">
-							<input id="new-todo" placeholder="What needs to be done?" data-dojo-type="dojox/mvc/Element" data-dojo-props="_setDisabledAttr: 'domNode', value: at(this, 'newTodo'), disabled: at(this, 'saving')" autofocus>
+							<input id="new-todo" placeholder="What needs to be done?" data-dojo-type="dojox/mvc/Element" data-dojo-mixins="todo/widgets/TodoEnter" data-dojo-props="_setDisabledAttr: 'domNode', value: at(this, 'newTodo'), disabled: at(this, 'saving')" autofocus>
 						</form>
 					</header>
 					<section id="main" data-dojo-type="dijit/_WidgetBase" data-dojo-props="_setHiddenAttr: '', hidden: at(this.get('todos'), 'length').transform(this.emptyConverter)">
