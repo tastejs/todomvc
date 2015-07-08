@@ -343,7 +343,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should respect the back button', function () {
-				createStandardItems();
 				page.toggleItemAtIndex(1);
 
 				page.filterByActiveItems();
