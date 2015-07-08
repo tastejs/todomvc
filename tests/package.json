@@ -10,9 +10,11 @@
     "optimist": "^0.6.1",
     "q": "^1.0.1",
     "selenium-webdriver": "^2.46.1",
+    "leaky": "samccone/leaky"
   },
   "scripts": {
     "serve": "http-server -p 8000 ..",
-    "test": "mocha allTests.js --no-timeouts --reporter spec"
+    "test": "mocha allTests.js --no-timeouts --reporter spec",
+    "leaks": "node leaks.js"
   }
 }
