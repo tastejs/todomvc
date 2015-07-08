@@ -43,8 +43,28 @@ module.exports = function Page(browser) {
 		return !idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
 	};
 
-	this.getFilterElementsXpath = function () {
-		return !idSelectors ? '//ul[@id="filters"]//a' : '//ul[contains(@class, "filters")]//a';
+	this.getFiltersElementXpath = function () {
+		return !idSelectors ? '//ul[@id="filters"]' : '//ul[contains(@class, "filters")]';
+	};
+
+	this.getFilterXpathByIndex = function (index) {
+		return this.getFiltersElementXpath() + '/li[' + index + ']/a';
+	};
+
+	this.getSelectedFilterXPathByIndex = function (index) {
+		return this.getFilterXpathByIndex(index) + '[contains(@class, "selected")]';
+	};
+
+	this.getFilterAllXpath = function () {
+		return this.getFilterXpathByIndex(1);
+	};
+
+	this.getFilterActiveXpath = function () {
+		return this.getFilterXpathByIndex(2);
+	};
+
+	this.getFilterCompletedXpath = function () {
+		return this.getFilterXpathByIndex(3);
 	};
 
 	this.xPathForItemAtIndex = function (index) {
@@ -119,10 +139,6 @@ module.exports = function Page(browser) {
 
 	this.getItemLabelAtIndex = function (index) {
 		return this.findByXpath(this.xPathForItemAtIndex(index) + '//label');
-	};
-
-	this.getFilterElements = function () {
-		return this.tryFindByXpath(this.getFilterElementsXpath());
 	};
 
 	this.getItemLabels = function () {
@@ -211,20 +227,14 @@ module.exports = function Page(browser) {
 	};
 
 	this.filterByActiveItems = function () {
-		return this.getFilterElements().then(function (filters) {
-			filters[1].click();
-		});
+		return this.findByXpath(this.getFilterActiveXpath()).click();
 	};
 
 	this.filterByCompletedItems = function () {
-		return this.getFilterElements().then(function (filters) {
-			filters[2].click();
-		});
+		return this.findByXpath(this.getFilterCompletedXpath()).click();
 	};
 
 	this.filterByAllItems = function () {
-		return this.getFilterElements().then(function (filters) {
-			filters[0].click();
-		});
+		return this.findByXpath(this.getFilterAllXpath()).click();
 	};
 };

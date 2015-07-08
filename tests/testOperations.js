@@ -173,30 +173,10 @@ function TestOperations(page) {
 		});
 	};
 
-	function isSelected(cssClass) {
-		return cssClass.indexOf('selected') !== -1;
-	}
-
 	this.assertFilterAtIndexIsSelected = function (selectedIndex) {
-		page.getFilterElements().then(function (filterElements) {
-
-			// create an array of promises, each one holding a test
-			var tests = [];
-
-			// push a test into the array, avoiding the classic JS for loops + closures issue!
-			function pushTest(itemIndex) {
-				tests.push(filterElements[itemIndex].getAttribute('class').then(function (cssClass) {
-					assert(selectedIndex === itemIndex ? isSelected(cssClass) : !isSelected(cssClass),
-						'the filter / route at index ' + selectedIndex + ' should have been selected');
-				}));
-			}
-
-			for (var i = 0; i < 3; i++) {
-				pushTest(i);
-			}
-
-			// execute all the tests
-			return Q.all(tests);
+		page.findByXpath(page.getSelectedFilterXPathByIndex(selectedIndex + 1))
+		.then(function (elm) {
+			assert.notEqual(undefined, elm, 'the filter / route at index ' + selectedIndex + ' should have been selected');
 		});
 	};
 
