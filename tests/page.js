@@ -47,16 +47,24 @@ module.exports = function Page(browser) {
 		return !idSelectors ? '//ul[@id="filters"]' : '//ul[contains(@class, "filters")]';
 	};
 
+	this.getFilterXpathByIndex = function (index) {
+		return this.getFiltersElementXpath() + '/li[' + index + ']/a';
+	};
+
+	this.getSelectedFilterXPathByIndex = function (index) {
+		return this.getFilterXpathByIndex(index) + '[contains(@class, "selected")]';
+	};
+
 	this.getFilterAllXpath = function () {
-		return this.getFiltersElementXpath() + '/li[1]/a';
+		return this.getFilterXpathByIndex(1);
 	};
 
 	this.getFilterActiveXpath = function () {
-		return this.getFiltersElementXpath() + '/li[2]/a';
+		return this.getFilterXpathByIndex(2);
 	};
 
 	this.getFilterCompletedXpath = function () {
-		return this.getFiltersElementXpath() + '/li[3]/a';
+		return this.getFilterXpathByIndex(3);
 	};
 
 	this.xPathForItemAtIndex = function (index) {
@@ -131,10 +139,6 @@ module.exports = function Page(browser) {
 
 	this.getItemLabelAtIndex = function (index) {
 		return this.findByXpath(this.xPathForItemAtIndex(index) + '//label');
-	};
-
-	this.getFilterElements = function () {
-		return this.tryFindByXpath(this.getFilterElementsXpath());
 	};
 
 	this.getItemLabels = function () {
