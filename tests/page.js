@@ -43,8 +43,20 @@ module.exports = function Page(browser) {
 		return !idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
 	};
 
-	this.getFilterElementsXpath = function () {
-		return !idSelectors ? '//ul[@id="filters"]//a' : '//ul[contains(@class, "filters")]//a';
+	this.getFiltersElementXpath = function () {
+		return !idSelectors ? '//ul[@id="filters"]' : '//ul[contains(@class, "filters")]';
+	};
+
+	this.getFilterAllXpath = function () {
+		return this.getFiltersElementXpath() + '/li[1]/a';
+	};
+
+	this.getFilterActiveXpath = function () {
+		return this.getFiltersElementXpath() + '/li[2]/a';
+	};
+
+	this.getFilterCompletedXpath = function () {
+		return this.getFiltersElementXpath() + '/li[3]/a';
 	};
 
 	this.xPathForItemAtIndex = function (index) {
@@ -211,20 +223,14 @@ module.exports = function Page(browser) {
 	};
 
 	this.filterByActiveItems = function () {
-		return this.getFilterElements().then(function (filters) {
-			filters[1].click();
-		});
+		return this.findByXpath(this.getFilterActiveXpath()).click();
 	};
 
 	this.filterByCompletedItems = function () {
-		return this.getFilterElements().then(function (filters) {
-			filters[2].click();
-		});
+		return this.findByXpath(this.getFilterCompletedXpath()).click();
 	};
 
 	this.filterByAllItems = function () {
-		return this.getFilterElements().then(function (filters) {
-			filters[0].click();
-		});
+		return this.findByXpath(this.getFilterAllXpath()).click();
 	};
 };
