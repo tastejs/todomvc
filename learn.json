@@ -2215,46 +2215,6 @@
 			}]
 		}]
 	},
-	"yui": {
-		"name": "YUI",
-		"description": "YUI is a free, open source JavaScript and CSS library for building richly interactive web applications.",
-		"homepage": "yuilibrary.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/yui"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://yuilibrary.com/yui/docs"
-			}, {
-				"name": "Quick Start",
-				"url": "http://yuilibrary.com/yui/quick-start"
-			}, {
-				"name": "Tutorials",
-				"url": "http://yuilibrary.com/yui/docs/tutorials"
-			}, {
-				"name": "Examples",
-				"url": "http://yuilibrary.com/yui/docs/examples"
-			}, {
-				"name": "Blog",
-				"url": "http://yuiblog.com"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "YUI on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/yui"
-			}, {
-				"name": "Forums",
-				"url": "http://yuilibrary.com/forum"
-			}, {
-				"name": "YUI on Twitter",
-				"url": "http://twitter.com/yuilibrary"
-			}]
-		}]
-	},
 	"webrx": {
 		"name": "WebRx",
 		"description": "WebRx is a browser-based MVVM-Framework written in Typescript that combines functional-reactive programming with declarative Data-Binding and Templating.",

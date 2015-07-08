@@ -52,7 +52,6 @@ module.exports = [
 	// the following are covered by the following issue:
 	// https://github.com/tastejs/todomvc/issues/789
 	'TodoMVC - closure, Editing, should cancel edits on escape',
-	'TodoMVC - yui, Editing, should cancel edits on escape',
 	'TodoMVC - ariatemplates, Editing, should cancel edits on escape',
 	'TodoMVC - dermis, Editing, should cancel edits on escape',
 	'TodoMVC - duel, Editing, should cancel edits on escape',
