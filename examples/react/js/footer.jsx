@@ -16,7 +16,7 @@ var app = app || {};
 			if (this.props.completedCount > 0) {
 				clearButton = (
 					<button
-						id="clear-completed"
+						className="clear-completed"
 						onClick={this.props.onClearCompleted}>
 						Clear completed
 					</button>
@@ -27,11 +27,11 @@ var app = app || {};
 			var cx = React.addons.classSet;
 			var nowShowing = this.props.nowShowing;
 			return (
-				<footer id="footer">
-					<span id="todo-count">
+				<footer className="footer">
+					<span className="todo-count">
 						<strong>{this.props.count}</strong> {activeTodoWord} left
 					</span>
-					<ul id="filters">
+					<ul className="filters">
 						<li>
 							<a
 								href="#/"
