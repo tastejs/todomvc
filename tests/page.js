@@ -99,11 +99,11 @@ module.exports = function Page(browser) {
 
 	this.tryGetToggleForItemAtIndex = function (index) {
 		var xpath = this.xPathForItemAtIndex(index) + '//input[contains(@class,"toggle")]';
-		return this.tryFindByXpath(xpath);
+		return this.findByXpath(xpath);
 	};
 
 	this.tryGetItemLabelAtIndex = function (index) {
-		return this.tryFindByXpath(this.xPathForItemAtIndex(index) + '//label');
+		return this.findByXpath(this.xPathForItemAtIndex(index) + '//label');
 	};
 
 	// ----------------- DOM element access methods
@@ -144,6 +144,55 @@ module.exports = function Page(browser) {
 	this.getItemLabels = function () {
 		var xpath = this.getTodoListXpath() + '/li//label';
 		return this.tryFindByXpath(xpath);
+	};
+
+	this.getVisibleLabelText = function () {
+		var self = this;
+		return this.getVisibleItemLabels()
+		.then(function (indicies) {
+			return webdriver.promise.map(indicies, function (elmIndex) {
+				var ret;
+				return browser.wait(function () {
+					return self.tryGetItemLabelAtIndex(elmIndex).getText()
+					.then(function (v) {
+						ret = v;
+						return true;
+					})
+					.thenCatch(function () { return false; });
+				}, 5000)
+				.then(function () {
+					return ret;
+				});
+			});
+		});
+	};
+
+	this.getVisibleItemLabels = function () {
+		var self = this;
+		var ret;
+		return this.getItemLabels()
+		.then(function (elms) {
+			return elms.map(function (elm, i) {
+				return i;
+			});
+		})
+		.then(function (elms) {
+			return webdriver.promise.filter(elms, function (elmIndex) {
+				return browser.wait(function () {
+					return self.tryGetItemLabelAtIndex(elmIndex).isDisplayed()
+					.then(function (v) {
+						ret = v;
+						return true;
+					})
+					.thenCatch(function () {
+						return false;
+					});
+				}, 5000)
+				.then(function () {
+					return ret;
+				});
+			});
+		});
 	};
 
 	// ----------------- page actions
@@ -190,10 +239,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.toggleItemAtIndex = function (index) {
-		return this.tryGetToggleForItemAtIndex(index).then(function (elements) {
-			var toggleElement = elements[0];
-			toggleElement.click();
-		});
+		return this.tryGetToggleForItemAtIndex(index).click();
 	};
 
 	this.editItemAtIndex = function (index, itemText) {
@@ -226,15 +272,29 @@ module.exports = function Page(browser) {
 		});
 	};
 
+	this.filterBy = function (selectorFn) {
+		var self = this;
+
+		return browser.wait(function () {
+			return self.findByXpath(selectorFn()).click()
+			.then(function () {
+				return self.findByXpath(selectorFn()).getAttribute('class');
+			})
+			.then(function (klass) {
+				return klass.indexOf('selected') !== -1;
+			});
+		}, 5000);
+	};
+
 	this.filterByActiveItems = function () {
-		return this.findByXpath(this.getFilterActiveXpath()).click();
+		return this.filterBy(this.getFilterActiveXpath.bind(this));
 	};
 
 	this.filterByCompletedItems = function () {
-		return this.findByXpath(this.getFilterCompletedXpath()).click();
+		return this.filterBy(this.getFilterCompletedXpath.bind(this));
 	};
 
 	this.filterByAllItems = function () {
-		return this.findByXpath(this.getFilterAllXpath()).click();
+		return this.filterBy(this.getFilterAllXpath.bind(this));
 	};
 };
