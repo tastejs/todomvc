@@ -4365,7 +4365,7 @@ if(z!=null)try{y=C.xr.kV(z)
 J.kH(y,new Y.nv(this))}catch(x){H.Ru(x)
 P.JS("Could not load todos form local storage.")}},
 XY:function(){var z,y
-z=document.querySelector("#new-todo")
+z=document.querySelector(".new-todo")
 y=J.Zm(z)
 H.J(new W.O(0,y.Q,y.a,W.V(new Y.f1(this,z)),y.b),[H.N(y,0)]).Z()
 y=J.Vg(this.c)
@@ -4429,7 +4429,7 @@ this.XY()
 var z=H.J(new W.R(window,"hashchange",!1),[null])
 H.J(new W.O(0,z.Q,z.a,W.V(new Y.T(this)),z.b),[H.N(z,0)]).Z()
 this.xG()},
-static:{P:function(){var z=new Y.W(H.J([],[Y.S]),document.querySelector("#todo-list"),document.querySelector("#main"),document.querySelector("#toggle-all"),document.querySelector("#footer"),document.querySelector("#todo-count"),document.querySelector("#clear-completed"),document.querySelector("#filters a[href=\"#/\"]"),document.querySelector("#filters a[href=\"#/active\"]"),document.querySelector("#filters a[href=\"#/completed\"]"))
+static:{P:function(){var z=new Y.W(H.J([],[Y.S]),document.querySelector(".todo-list"),document.querySelector(".main"),document.querySelector(".toggle-all"),document.querySelector(".footer"),document.querySelector(".todo-count"),document.querySelector(".clear-completed"),document.querySelector(".filters a[href=\"#/\"]"),document.querySelector(".filters a[href=\"#/active\"]"),document.querySelector(".filters a[href=\"#/completed\"]"))
 z.Y()
 return z}}},
 T:{

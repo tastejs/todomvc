@@ -3,16 +3,16 @@ part of todomvc;
 class TodoApp {
   List<TodoWidget> todoWidgets = new List<TodoWidget>();
 
-  Element todoListElement = querySelector('#todo-list');
-  Element mainElement = querySelector('#main');
-  InputElement checkAllCheckboxElement = querySelector('#toggle-all');
-  Element footerElement = querySelector('#footer');
-  Element countElement = querySelector('#todo-count');
-  Element clearCompletedElement = querySelector('#clear-completed');
-  Element showAllElement = querySelector('#filters a[href="#/"]');
-  Element showActiveElement = querySelector('#filters a[href="#/active"]');
+  Element todoListElement = querySelector('.todo-list');
+  Element mainElement = querySelector('.main');
+  InputElement checkAllCheckboxElement = querySelector('.toggle-all');
+  Element footerElement = querySelector('.footer');
+  Element countElement = querySelector('.todo-count');
+  Element clearCompletedElement = querySelector('.clear-completed');
+  Element showAllElement = querySelector('.filters a[href="#/"]');
+  Element showActiveElement = querySelector('.filters a[href="#/active"]');
   Element showCompletedElement =
-      querySelector('#filters a[href="#/completed"]');
+      querySelector('.filters a[href="#/completed"]');
 
   TodoApp() {
     initLocalStorage();
@@ -36,7 +36,7 @@ class TodoApp {
   }
 
   void initElementEventListeners() {
-    InputElement newTodoElement = querySelector('#new-todo');
+    InputElement newTodoElement = querySelector('.new-todo');
 
     newTodoElement.onKeyDown.listen((KeyboardEvent e) {
       if (e.keyCode == KeyCode.ENTER) {
