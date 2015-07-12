@@ -5,6 +5,6 @@
     "todomvc-app-css": "^1.0.1"
   },
   "devDependencies": {
-    "jasmine-core": "^0.3.0"
+    "jasmine-core": "^2.0.0"
   }
 }

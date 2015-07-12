@@ -3,14 +3,14 @@
 	<head>
 		<title>Jasmine Spec Runner</title>
 
-		<link rel="stylesheet" href="../node_modules/jasmine/lib/jasmine-core/jasmine.css">
-		<script src="../node_modules/jasmine/lib/jasmine-core/jasmine.js"></script>
-		<script src="../node_modules/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+		<link rel="stylesheet" href="../node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
+		<script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+		<script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+		<script src="../node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
 
 		<!-- include spec files here... -->
 		<script src="ControllerSpec.js"></script>
 
-		<!-- include source files here... -->
 		<script>
 			// Bootstrap app data
 			window.app = {};
@@ -19,28 +19,6 @@
 		<script src="../js/helpers.js"></script>
 		<script src="../js/view.js"></script>
 		<script src="../js/controller.js"></script>
-
-		<script type="text/javascript">
-			(function() {
-				var jasmineEnv = jasmine.getEnv();
-
-				var htmlReporter = new jasmine.HtmlReporter();
-				jasmineEnv.addReporter(htmlReporter);
-
-				jasmineEnv.specFilter = function(spec) {
-					return htmlReporter.specFilter(spec);
-				};
-
-				var currentWindowOnload = window.onload;
-
-				window.onload = function() {
-					if (currentWindowOnload) {
-						currentWindowOnload();
-					}
-					jasmineEnv.execute();
-				};
-			})();
-		</script>
 	</head>
 	<body>
 	</body>
