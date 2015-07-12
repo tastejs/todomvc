@@ -18,13 +18,13 @@
         this.ENTER_KEY = 13;
         this.ESCAPE_KEY = 27;
 
-        this.$todoList = qs('#todo-list');
-        this.$todoItemCounter = qs('#todo-count');
-        this.$clearCompleted = qs('#clear-completed');
-        this.$main = qs('#main');
-        this.$footer = qs('#footer');
-        this.$toggleAll = qs('#toggle-all');
-        this.$newTodo = qs('#new-todo');
+        this.$todoList = qs('.todo-list');
+        this.$todoItemCounter = qs('.todo-count');
+        this.$clearCompleted = qs('.clear-completed');
+        this.$main = qs('.main');
+        this.$footer = qs('.footer');
+        this.$toggleAll = qs('.toggle-all');
+        this.$newTodo = qs('.new-todo');
     }
 
     View.prototype._removeItem = function (id) {
@@ -41,8 +41,8 @@
     };
 
     View.prototype._setFilter = function (currentPage) {
-        qs('#filters .selected').className = '';
-        qs('#filters [href="#/' + currentPage + '"]').className = 'selected';
+        qs('.filters .selected').className = '';
+        qs('.filters [href="#/' + currentPage + '"]').className = 'selected';
     };
 
     View.prototype._elementComplete = function (id, completed) {
