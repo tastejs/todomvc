@@ -41,14 +41,11 @@ need to run `pub build` to prep the app for browsers without Dart VM.
 
 ## Installing the SDK
 
-First, download [Dart Editor][editor] (which includes the Dart SDK)
-or the [Dart SDK][sdk]. Put the SDK's bin directory on your PATH.
+First, the [Dart SDK][sdk]. Put the SDK's bin directory on your PATH.
 
 ## Installing packages
 
-Dart Editor automatically runs Dart's package manager to install
-package dependencies. If you did not open the project in Dart Editor,
-you need to manually install the dependencies:
+Run the following commands to install the dependencies
 
 ```
 cd examples/vanilladart
@@ -112,6 +109,5 @@ This TodoMVC application was created by [Mathieu Lorber](http://mlorber.net).
 [buildstatus]: https://drone.io/mlorber/todomvc-dart/latest
 [sdk]: https://www.dartlang.org/tools/sdk/
 [pub]: http://pub.dartlang.org
-[editor]: https://www.dartlang.org/tools/editor/
 [pkglayout]: http://pub.dartlang.org/doc/package-layout.html
 [Dartium]: https://www.dartlang.org/tools/dartium/
