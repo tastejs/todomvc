@@ -51,23 +51,23 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
-		<section id="todoapp">
-			<header id="header">
+		<section class="todoapp">
+			<header class="header">
 				<h1>todos</h1>
-				 <div id="create-todo">
-					<input id="new-todo" placeholder="What needs to be done?" autofocus>
+				 <div class="create-todo">
+					<input class="new-todo" placeholder="What needs to be done?" autofocus>
 				</div>
 			</header>
-			<section id="main">
-				<input class="check mark-all-done" id="toggle-all" type="checkbox">
+			<section class="main">
+				<input class="check toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list"></ul>
+				<ul class="todo-list"></ul>
 			</section>
-			<footer id="footer">
-				<div id="todo-stats"></div>
+			<footer class="footer">
+				<div class="todo-stats"></div>
 			</footer>
 		</section>
-		<footer id="info">
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>TypeScript version by <a href="http://blogs.msdn.com/lukeh">Luke Hoban</a></p>
 			<p>Cleanup, edits: <a href="http://addyosmani.com">Addy Osmani</a></p>
@@ -87,14 +87,14 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 
 		<script type="text/template" id="stats-template">
 			<% if (total) { %>
-				<span id="todo-count">
+				<span class="todo-count">
 					<strong class="number"><%= remaining %></strong>
 					<span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left
 				</span>
 			<% } %>
 			<% if (completed) { %>
 				<span class="todo-clear">
-					<button id="clear-completed">Clear completed</button>
+					<button class="clear-completed">Clear completed</button>
 				</span>
 			<% } %>
 		</script>
