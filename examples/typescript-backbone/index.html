@@ -77,14 +77,12 @@ https://github.com/documentcloud/backbone/blob/master/examples/todos/index.html
 		<!-- Templates -->
 
 		<script type="text/template" id="item-template">
-			<div class="todo <%= completed ? 'done' : '' %>">
-				<div class="view display">
-					<input class="toggle check" type="checkbox" <%= completed ? 'checked' : '' %>>
-					<label class="todo-content"><%= title %></label>
-					<button class="destroy"></button>
-				</div>
-				<input class="edit todo-input" value="<%= title %>">
+			<div class="view display">
+				<input class="toggle check" type="checkbox" <%= completed ? 'checked' : '' %>>
+				<label class="todo-content"><%= title %></label>
+				<button class="destroy"></button>
 			</div>
+			<input class="edit todo-input" value="<%= title %>">
 		</script>
 
 		<script type="text/template" id="stats-template">

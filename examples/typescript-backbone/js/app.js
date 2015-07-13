@@ -138,7 +138,7 @@ var TodoView = (function (_super) {
     }
     // Re-render the contents of the todo item.
     TodoView.prototype.render = function () {
-        this.$el.html(this.template(this.model.toJSON()));
+        this.$el.html(this.template(this.model.toJSON())).toggleClass('completed', this.model.get('completed'));
         this.input = this.$('.todo-input');
         return this;
     };

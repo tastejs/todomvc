@@ -207,7 +207,10 @@ class TodoView extends Backbone.View {
 
 	// Re-render the contents of the todo item.
 	render() {
-		this.$el.html(this.template(this.model.toJSON()));
+		this.$el
+			.html(this.template(this.model.toJSON()))
+			.toggleClass('completed', this.model.get('completed'));
+
 		this.input = this.$('.todo-input');
 		return this;
 	}
