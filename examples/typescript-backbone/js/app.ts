@@ -181,7 +181,7 @@ class TodoView extends Backbone.View {
 	static ENTER_KEY:number = 13;
 	static ESC_KEY:number = 27;
 
-	constructor (options? ) {
+	constructor(options? ) {
 		//... is a list tag.
 		this.tagName = 'li';
 
@@ -277,7 +277,7 @@ class AppView extends Backbone.View {
 	footerElement: HTMLElement;
 	statsTemplate: (params: any) => string;
 
-	constructor () {
+	constructor() {
 		super();
 		// Instead of generating a new element, bind to the existing skeleton of
 		// the App already present in the HTML.
