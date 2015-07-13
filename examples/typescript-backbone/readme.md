@@ -39,12 +39,10 @@ This application uses TypeScript classes to create Backbone.js models and views,
 
 ## Running
 
-A standalone TypeScript compiler is available on NPM.
+To compile the TypeScript in this project, install the dependencies and run the `compile` script.
 
-	npm install -g typescript
-
-To compile the TypeScript in this project:
-
-	# from examples/typescript-backbone
-	tsc js/app.ts
-	open index.html
+```
+# from examples/typescript-backbone
+$ npm run compile
+$ open index.html
+```
