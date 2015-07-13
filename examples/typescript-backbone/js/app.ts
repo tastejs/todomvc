@@ -269,9 +269,9 @@ class AppView extends Backbone.View {
 
 	// Delegated events for creating new items, and clearing completed ones.
 	events = {
-		'keypress #new-todo': 'createOnEnter',
+		'keypress .new-todo': 'createOnEnter',
 		'click .todo-clear button': 'clearCompleted',
-		'click .mark-all-done': 'toggleAllComplete'
+		'click .toggle-all': 'toggleAllComplete'
 	};
 
 	input: any;
@@ -284,17 +284,17 @@ class AppView extends Backbone.View {
 		super();
 		// Instead of generating a new element, bind to the existing skeleton of
 		// the App already present in the HTML.
-		this.setElement($('#todoapp'), true);
+		this.setElement($('.todoapp'), true);
 
 		// At initialization we bind to the relevant events on the `Todos`
 		// collection, when items are added or changed. Kick things off by
 		// loading any preexisting todos that might be saved in *localStorage*.
 		_.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
 
-		this.input = this.$('#new-todo');
-		this.allCheckbox = this.$('.mark-all-done')[0];
-		this.mainElement = this.$('#main')[0];
-		this.footerElement = this.$('#footer')[0];
+		this.input = this.$('.new-todo');
+		this.allCheckbox = this.$('.toggle-all')[0];
+		this.mainElement = this.$('.main')[0];
+		this.footerElement = this.$('.footer')[0];
 		this.statsTemplate = _.template($('#stats-template').html());
 
 		Todos.bind('add', this.addOne);
@@ -314,7 +314,7 @@ class AppView extends Backbone.View {
 			this.mainElement.style.display = 'block';
 			this.footerElement.style.display = 'block';
 
-			this.$('#todo-stats').html(this.statsTemplate({
+			this.$('.todo-stats').html(this.statsTemplate({
 				total: Todos.length,
 				completed: completed,
 				remaining: remaining
@@ -331,7 +331,7 @@ class AppView extends Backbone.View {
 	// appending its element to the `<ul>`.
 	addOne(todo) {
 		var view = new TodoView({ model: todo });
-		this.$('#todo-list').append(view.render().el);
+		this.$('.todo-list').append(view.render().el);
 	}
 
 	// Add all items in the **Todos** collection at once.
