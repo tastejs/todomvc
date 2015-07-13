@@ -38,7 +38,7 @@ var exceptions = [
 	{ name: 'chaplin-brunch', path: 'examples/chaplin-brunch/public' },
 	{ name: 'angular-dart', path: 'examples/angular-dart/web' },
 	{ name: 'duel', path: 'examples/duel/www' },
-	{ name: 'dart', path: 'examples/vanilladart/build/' },
+	{ name: 'vanilladart', path: 'examples/vanilladart/build/web' },
 	{ name: 'canjs_require', path: 'examples/canjs_require/' },
 	{ name: 'troopjs', path: 'examples/troopjs_require/' },
 	{ name: 'thorax_lumbar', path: 'examples/thorax_lumbar/public' }

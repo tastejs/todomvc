@@ -23,7 +23,11 @@
 		"function",
 		"typeof"
 	],
-	"excludeFiles": ["**/node_modules/**", "**/bower_components/**"],
+	"excludeFiles": [
+		"**/node_modules/**",
+		"**/bower_components/**",
+		"examples/vanilladart/**/*.js"
+	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
 	"requireSpacesInConditionalExpression": true,
