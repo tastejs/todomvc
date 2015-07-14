@@ -80,6 +80,6 @@ A standalone TypeScript compiler is available on NPM.
 To compile the TypeScript in this project:
 
 	# from examples/typescript-angular
-	run `npm run compile`
+	$ npm run compile
 
 Or use Visual Studio with the TypeScript plugin.
