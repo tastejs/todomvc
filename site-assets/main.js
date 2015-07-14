@@ -43,12 +43,6 @@
 		});
 	};
 
-	function redirect() {
-		if (location.hostname === 'addyosmani.github.io') {
-			location.href = location.href.replace('addyosmani.github.io/todomvc', 'todomvc.com');
-		}
-	}
-
 	var Quotes = {};
 	Quotes.build = function (quotes, template) {
 		var quoteContainer = document.createElement('q');
@@ -145,9 +139,6 @@
 			Quotes.init.call(this, quotes);
 		});
 	};
-
-	// Redirect if not on main site.
-	redirect();
 
 	// Apps popover
 	$('.applist a').persistantPopover();
