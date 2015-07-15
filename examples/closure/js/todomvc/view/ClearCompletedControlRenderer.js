@@ -44,17 +44,6 @@ todomvc.view.ClearCompletedControlRenderer.prototype.canDecorate =
 };
 
 /**
- * @param {Element} element Element to populate.
- * @param {goog.ui.ControlContent} content Text caption or DOM.
- */
-todomvc.view.ClearCompletedControlRenderer.prototype.setContent =
-    function(element, content) {
-    element.innerHTML = todomvc.view.clearCompletedInner({
-        number: content
-    });
-};
-
-/**
  * Updates the appearance of the control in response to a state change.
  *
  * @param {goog.ui.Control} control Control instance to update.

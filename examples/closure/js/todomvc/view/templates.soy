@@ -34,16 +34,7 @@
 
 /**
  * A todo list clear completed template
- * @param number the count of items
  */
 {template .clearCompleted}
-<button id="clear-completed">{call .clearCompletedInner data="all"/}</button>
-{/template}
-
-/**
- * A todo list clear completed template
- * @param number the count of items
- */
-{template .clearCompletedInner}
-Clear completed ({$number})
+<button id="clear-completed">Clear completed</button>
 {/template}
