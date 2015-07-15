@@ -165,7 +165,6 @@
 					func: function (ev, value) {
 						if (value > 0) {
 							$('.todo__completed', ui).css('display', 'block');
-							$('*[data-bind=\'data:status-items-completed\']', ui).text(value);
 						} else {
 							$('.todo__completed', ui).css('display', 'none');
 						}
