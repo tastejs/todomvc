@@ -160,7 +160,6 @@ function redraw() {
     var remainingCount = items.length - (doneCount);
     toggleAll.checked = remainingCount === 0;
     itemCountControl.setContent(remainingCount.toString());
-    clearCompletedControl.setContent(doneCount.toString());
     clearCompletedControl.setVisible(doneCount > 0);
     goog.style.setElementShown(main, items.length > 0);
     goog.style.setElementShown(footer, items.length > 0);
