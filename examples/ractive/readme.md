@@ -7,9 +7,9 @@
 
 ## Learning Ractive.js
 
-[Try the 60 second setup](https://github.com/Rich-Harris/Ractive/wiki/60-second-setup), or [follow the interactive tutorials](http://learn.ractivejs.org).
+[Try the 60 second setup](http://www.ractivejs.org/60-second-setup), or [follow the interactive tutorials](http://learn.ractivejs.org).
 
-You can find the [API documentation on GitHub](https://github.com/Rich-Harris/Ractive/wiki).
+You can find the [API documentation on docs.ractivejs.org](http://docs.ractivejs.org/latest/get-started).
 
 If you have questions, try [Stack Overflow](http://stackoverflow.com/questions/tagged/ractivejs) or [@RactiveJS on Twitter](http://twitter.com/RactiveJS).
 
