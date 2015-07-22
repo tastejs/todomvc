@@ -4,7 +4,7 @@
 
 	beforeEach(module('todomvc'));
 
-	describe('todoFocus directive', function () {
+	describe('Focus directive', function () {
 		var scope, compile, browser;
 
 		beforeEach(inject(function ($rootScope, $compile, $browser) {

@@ -9,10 +9,10 @@ module.exports = function (config) {
 			'node_modules/angular-route/angular-route.js',
 			'node_modules/angular-mocks/angular-mocks.js',
 			'js/**/*.js',
-			'test/unit/**/*.js'
+			'test/unit/**/*.spec.js'
 		],
 		autoWatch: true,
 		singleRun: false,
-		browsers: ['Chrome', 'Firefox']
+		browsers: ['Chrome']
 	});
 };
