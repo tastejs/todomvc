@@ -8,7 +8,7 @@
  * model.
  */
 angular.module('todomvc')
-	.factory('todoStorage', function ($http, $injector) {
+	.factory('storage', function ($http, $injector) {
 		'use strict';
 
 		// Detect if an API backend is present. If so, return the API module, else

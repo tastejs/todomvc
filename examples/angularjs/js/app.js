@@ -10,12 +10,12 @@ angular.module('todomvc', ['ngRoute'])
 		'use strict';
 
 		var routeConfig = {
-			controller: 'TodoCtrl',
+			controller: 'TodoController as vm',
 			templateUrl: 'todomvc-index.html',
 			resolve: {
-				store: function (todoStorage) {
+				store: function (storage) {
 					// Get the correct module (API or localStorage).
-					return todoStorage.then(function (module) {
+					return storage.then(function (module) {
 						module.get(); // Fetch the todo records in the background.
 						return module;
 					});
