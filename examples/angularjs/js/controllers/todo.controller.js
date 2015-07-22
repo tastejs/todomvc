@@ -119,11 +119,8 @@ angular.module('todomvc')
     }, true);
 
     // Monitor the current route for changes and adjust the filter accordingly.
-    $scope.$on('$viewContentLoaded', function () {
-      console.log('Mudou');
+    $scope.$on('$routeChangeSuccess', function () {
       vm.status = $routeParams.status || '';
-      vm.statusFilter = (vm.status === 'active') ?
-      { completed: false } : (vm.status === 'completed') ?
-      { completed: true } : {};
+      vm.statusFilter = (vm.status === 'active') ? { completed: false } : (vm.status === 'completed') ? { completed: true } : {};
     });
 	});
