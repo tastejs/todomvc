@@ -31,7 +31,7 @@
 					"global": true
 				},
 				{
-					"src": "src/js/lib/backbone-localstorage.js",
+					"src": "bower_components/Backbone.localStorage/backbone.localStorage.js",
 					"global": true
 				},
 				{
