@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	// Todo Collection
@@ -37,7 +37,7 @@
 	// Create our global collection of **Todos**.
 	window.app.Todos = new TodoList();
 
-  // Ensure that we always have data available
-  window.app.Todos.fetch();
+	// Ensure that we always have data available
+	window.app.Todos.fetch();
 
 }());
