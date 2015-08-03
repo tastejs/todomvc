@@ -29,4 +29,4 @@ This app was built using typescript and angular2. To make changes simply
 
 ## Credit
 
-Created by [Sam Saccone](http://github.com/samcone)
+Created by [Sam Saccone](http://github.com/samccone)
