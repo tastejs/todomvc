@@ -1,0 +1,294 @@
+v0.13.4
+----------------------------
+* fix "options.ready" is not defined
+* router improvements
+  ** Firebrick.router.getRoute() - now has property "urlParameters" in return map for regex parameter matches in the current url
+
+v0.13.2
+----------------------------
+* fix options.ready is not a function
+
+v0.13.2
+----------------------------
+* remove params from url matcher (router)
+
+v0.13.1
+----------------------------
+* remove global window.fb - now only window.Firebrick
+
+v0.13.0
+----------------------------
+* declared _defaults as a parameter in the router callback function to call the function manually
+* include scroll to hash with history api
+** with hashbang use param ?scrollTo=#123
+* fix options.go is undefined
+* Firebrick.ready renamed to Firebrick.application
+** go function option renamed to ready
+* make property callback optional for router patterns with property "require" defined
+* fix a view / unbind bug when re-creating a class that has a non set id defined
+** "fb-view-bind" html element attribute is no longer the class id but a primitive boolean value 
+** reference to the actual class object is passed to the element property "fb-view-bind" which has the html attribute "fb-view-bind=true" also
+* add Firebrick.history.location to change the url programmatically when using the history api
+* fix history api "undefined popstate" on browser back button
+
+v0.12.0
+----------------------------
+* classes .on function no longer recieves the eventname as it's first argument
+* function passEvent removed
+* add params property store to pass data parameters when loading a store
+* remove store as first argument from load() callback
+* fix store toPlainObject(), so that it calls getData() first before transforming knockout observables
+* added util function argsToArray( arguments ) to convert function arguments array to simple array 
+* simplify _renderHTML and allow for animations property in views - this property is passed to the $.show() functions when called
+* allow comma separated selectors for events: this.on("myevent, secondevent", function(){});
+* refactor history and hashbang api to allow "regex" type urls
+** init function for history or hashbang api moved 1 level up to Firebrick.router.init();
+** get url parameters for example /user/:id - parameters are passed as arguments to the callback function
+* fix isBound() always returning false
+
+v0.11.0
+----------------------------
+* implement HTML5 JS history API
+* change router to router.history and router.hashbang
+* Firebrick.fireEvent - returns event object
+* defaults for router configuration has been removed - replaced with "/"
+
+v0.10.4
+----------------------------
+* class creaton id fix
+* sName property for all classes, sName is short name for extending classes or getting them with Firebrick.get(sName)
+* fix how classes are destroyed
+* fix getElement when enclosedBind = true
+
+v0.10.0
+----------------------------
+* change the bower location by setting require.config({config:{configuration: {bowerPath: "..." }}});
+* lang keys Firebrick.text(...)  are CaseSensitive
+* fix mixin bugs
+* fix remove class bugs
+* Firebrick.define attempts to asynchronously load any file a class extends from
+* app path is define with RequireJs config - app name must be the same key used 
+* interval callback scope get function this.stop to clear interval
+* remove listener bug fix
+* Firebrick.events.on callback has property this.destroy() - call inside callback inorder to remove the listener
+
+
+v0.9.22
+----------------------------
+* view property change from "html" to "_html"
+* preReady event for classes
+* view method isBound return true|false if the target is bound with data of the current view
+* view new method isTargetBound returns true|false if the target is generally bound with data
+* new configurable property "scrollContainerSelector"
+
+v.0.9.17
+----------------------------
+* htmlRendered event added when component html is rendered (before data binding)
+* add parameter initialConfig to all classes on creation, these are the initial config parameters that were used when the class was created with Firebrick.create("ABC", {...config...}}
+
+v0.9.15
+----------------------------
+* re-introduction for enclosed binding - property enclosedBind:true
+* refactorise bind function in views
+* improve store error message on ajax error
+
+v0.9.12
+----------------------------
+* fix when removal of classes when stores are created without shorthand function createStore, createController, createView
+
+v0.9.11
+----------------------------
+* add autoDestroy property to base class so that all classes inherit it. - set autoDestroy:false to a view/component if you want to store to remain intact when the view is unbound
+* changed property enclosedBind to applyBindingsToDescendants - after KO (view)
+
+v0.9.9
+----------------------------
+* router bug fix hasOwnProperty typo
+* call router init function to do an immediate check after settings the router with Firebrick.router.set()
+* {defaults:function(){}} a fallback on router.set() if no url patterns are found 
+* router hash pattern   http://{url}/#/{pattern}
+* unbind firebrick bug fix causing: ko multiple bindings error
+* add require js configurations file
+* router improved. Firebrick.router.getRoute() provides you with a breakdown of the url including its parameters and value as an Object (key|value}
+* as single page FB requires hash - "#/mypage" - add paramter scrollTo=ItemId to mimic anchor jumps - use property "Firebrick.scrollTopOffset" (integer or function) if you need to add offset the scroll due to a fix header or the likes 
+* when using Firebrick.router.set() - define pattern value as object if you wish to require files before the callback {"#/pattern1", {require:["file1", "file2"], callback:function(){}}}
+
+v0.9.0
+----------------------------
+* map from json string aswell (stores)
+* dataType store fix and camelcase
+* ajax store fix - get on load, post on submit - loadProtocol and submitProtocol for configuration
+* stringifyData property for store - creates one parameter e.g: {data: "JSON STRING"}
+* Array.slice fix for chrome
+* store.load takes function as single argument as well... instead of {callback:function(){}}
+* mixin bug fix
+* improve how ko mapped object is checked when setting data by using function ko.mapping.isMapped
+* fix recursive listener clone during init
+
+v0.8.48
+----------------------------
+* classes: change getClassId to getId and _classId to id
+
+v0.8.47
+----------------------------
+* copy only own properties in a mixin
+* remove "evil twins" http://archive.oreilly.com/pub/a/javascript/excerpts/javascript-good-parts/bad-parts.html
+* $.type to typeof
+* remove function creation inside loop - ajax request
+* change view property "appendContent" to "appendTarget"
+* bug fix when another function with "callParent" abilities within a "callParent" call
+* view now has a "enclosedBind" property to bind the data to the element but not the target the element is rendered to - wraps element/view with its own div
+* fix submit function on stores
+
+v0.8.35
+----------------------------
+* add Firebrick.classes.overwrite to overwrite defined classes
+* removed view references to Firebrick.ui and placed them in the ui framework
+* "extend" bug fix for overwriting functions to primitives
+* fix arguments bug when calling this.callParent(arguments)
+* add arguments parameter to all "callParent" calls
+* activate jshint and "use strict"
+* only init store view if the store is already set
+* change $.each loops to "for" loops - performance : http://jsperf.com/loops/188 - http://jsperf.com/lodash-each-vs-object-keys/6 - http://jsperf.com/fastest-array-loops-in-javascript/287
+* check if mixin has been injected with ".hasMixin({String}) function"
+
+
+v0.8.27
+----------------------------
+* bootstrap dependency removed and moved to firebrick.ui
+* css file removed
+
+v0.8.25
+----------------------------
+* comment typo
+* allow use of mixins for classes by injecting them when classes are defined
+* classes now have a constructor function - this is called when defining the class
+* changed function "mixinFor" to "merge"
+
+v0.8.21
+----------------------------
+* minor changes
+* documentation
+
+v0.8.20
+----------------------------
+* fb.text accepts a function as well
+
+v0.8.19
+----------------------------
+* overwrite/mixin function deep option
+* firebrick.require returns and object of responses when requiring multiple files
+* add utils function mixinFor - iterate all parents of an object and mix the object properties and values for a specified property name together
+* bower json update (typo)
+* create a view "on-the-fly" by not passing a name when using Firebrick.createView({...})
+* bug fix amd load where firebrick was not returned
+* remove redundant extend function utils.extend - use classes.extend instead
+* a view tpl parameter that is a function (rather than an html string) is executed and returned before it is rendered ...in the init stage
+* add passEvent function to classes
+* when using listeners:{} to declare event listeners in a class default the scope to itself if listeners.scope is not defined
+* when lang key is not found, return the unmodified key
+* Firebrick UI support in views with use of the "items" parameter
+* .contains is not supported in IE - change to indexOf
+* add event "beforeRender" to views
+* added parameter "appendContent", when the view is rendered, if true the view html is appended to the target instead of overwriting its contents
+* fix when bug when creating a class on-the-fly without name .create({...})
+
+v0.8.4
+----------------------------
+* fix the shortcut Firebrick.createStore("MyStore", {...}) when creating a store "on-the-fly"
+* update bower jquery dep from ~2.0.0 to ~2.1.1
+* added shortcut createController() - saves using having to define extend property "Firebrick.controller.Base"
+* fix bug viewReady not fired when creating view/Index.html
+
+v0.8.0
+----------------------------
+* internal changes on how create and define work
+* javascript prototype oop when using create and define and not mixin
+* calling create() on an already created object returns the original object and uses the second "config" argument as a mixin
+* change "destroyed" event to "unbound"
+* call render() to re-render an "unbound" view
+* createView and defineView are shortcuts of create() and define()
+* viewRegistry removed and merged with classRegistry
+* getViewById removed - use getById()
+* getView removed - use get()
+* dashboard demo update
+
+v0.7.8
+----------------------------
+* cache function overlooked when loading store 
+
+v0.7.7
+----------------------------
+* when defining the root parameter in a store - this will be taken into account when calling getData()
+* firebrick dev mode so that requirejs errors are output to console 
+* clear up ready function internal
+* change "Firebrick.view" to "views"
+* views are loaded asynchronously by default
+* views can be loaded synchronously by setting the parameter false
+* pass the store as first argument in load callback
+
+v0.6.1
+----------------------------
+* stores load by default asynchronously
+* fix typo bug with setInterval
+* interval big fixes
+* language keys are loaded asynchronously
+* added ko to fb argument
+* firebrick uses requirejs
+* fix event memory leak
+
+v0.5.0
+----------------------------
+* allow an object of events to be passed to .on() - controller/view for example
+* fix passing data to index view
+* fix "destroy" event on views
+* fire event "ready" when all inits on a class(constructor, view, store) has been called
+* ability to update views with new data
+* changed initialData to viewData
+* ability to define subviews of a view
+* listeners object to classes so that you can add listeners when creating or defining an object without having to create the init function
+* memory leak fixes when calling create or createView on the same object multiple times
+* allow a language JSON to be called and change the language of the views using knockout
+* add window.fb for shortcut access, handy for fb.text() in templates
+
+v0.4.4
+----------------------------
+* improved hash routing
+* allow interval functions to be created and removed Firebrick.utils.setInterval() && Firebrick.utils.clearInterval() with custom ids
+* fix memory leak with event firing per class
+
+v0.4.0
+----------------------------
+* fix cleanNode error with invalid target
+* improve how files are required and loaded
+* implement requirejs
+* autoLoad store parameter - defaults to false
+* records removed completely and from stores - data made observable into the store when created
+* added dashboard example
+
+
+v0.3.1
+----------------------------
+* fix so that files can only be required once
+
+v0.3.0
+----------------------------
+* showLoading parameter default value to true
+* replace javascript reserved word extends to extend
+* fix bug where all define() object required function hasDependencies()
+* fire event viewRendered when view is rendered :)
+* clear view so that you can dynamically change the content of an item with a new template and data
+
+v0.2.0
+----------------------------
+* added splash screen option before initial view is rendered
+* fixed that Firebrick.ready({require:...}) can also be a string
+* added event "main-viewRendered" when Index.html from Firebrick.ready is auto rendered
+* add the ability to show a loader whilst the view is loading
+* bootstrap dependency added
+* path builder bug fix
+* bug fix create store with no extra config options
+* rename view bind parameter from data to store (data is deprecated)
+* fix registering this.app.on events where the controller was passed into the event construction
+* fix so that events are truly registered even when there page has not finished loading
+* changed from rivets to knockout js

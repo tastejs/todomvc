@@ -1,0 +1,14 @@
+{
+  "name": "knockout-mapping",
+  "homepage": "https://github.com/SteveSanderson/knockout.mapping",
+  "version": "2.4.1",
+  "_release": "2.4.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.4.1",
+    "commit": "35482d03ee7520b1afe0b437a6e66150369378a7"
+  },
+  "_source": "git://github.com/SteveSanderson/knockout.mapping.git",
+  "_target": "2.x",
+  "_originalSource": "knockout-mapping"
+}

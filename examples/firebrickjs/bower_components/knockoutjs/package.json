@@ -1,0 +1,39 @@
+{
+  "name": "knockout",
+  "description": "Knockout makes it easier to create rich, responsive UIs with JavaScript",
+  "homepage": "http://knockoutjs.com/",
+  "version": "3.3.0",
+  "license": "MIT",
+  "author": "The Knockout.js team",
+  "main": "build/output/knockout-latest.debug.js",
+  "scripts": {
+    "prepublish": "grunt",
+    "test": "node spec/runner.node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knockout/knockout.git"
+  },
+  "bugs": "https://github.com/knockout/knockout/issues",
+  "testling": {
+    "preprocess": "build/build.sh",
+    "html": "spec/runner.html?src=build/output/knockout-latest.js&testling=true",
+    "browsers": [
+      "ie/6..latest",
+      "chrome/20..latest",
+      "firefox/3..latest",
+      "safari/5.0.5..latest",
+      "opera/11.0..latest",
+      "iphone/6..latest",
+      "ipad/6..latest"
+    ]
+  },
+  "licenses": [
+    { "type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.php" }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.0",
+    "closure-compiler": "~0.2.1"
+  }
+}

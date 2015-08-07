@@ -1,0 +1,13 @@
+#!/bin/sh
+
+SourceFiles=
+
+# Now call Google Closure Compiler to produce a minified version
+cp ../knockout.mapping.js output/knockout.mapping-latest.debug.js
+sed -i~ -e "s/var DEBUG=true;/\/**@const*\/var DEBUG=false;/g" output/knockout.mapping-latest.debug.js
+curl -d output_info=compiled_code -d output_format=text -d compilation_level=SIMPLE_OPTIMIZATIONS --data-urlencode js_code@output/knockout.mapping-latest.debug.js "http://closure-compiler.appspot.com/compile" >> output/knockout.mapping-latest.js~
+cat version-header.js output/knockout.mapping-latest.js~ > output/knockout.mapping-latest.js
+
+cat version-header.js ../knockout.mapping.js > output/knockout.mapping-latest.debug.js
+
+rm -f output/*.js~
