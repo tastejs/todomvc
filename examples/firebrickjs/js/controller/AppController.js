@@ -1,178 +1,180 @@
 /*!
  * @author Steven Masala [me@smasala.com]
  */
-define(["jquery", "knockout-mapping"], function($, kom){
-	"use strict";
-	var ENTER_KEY = 13,
-		ESCAPE_KEY = 27; 
-	return Firebrick.createController("TODOMVC.controll.AppController", {
-		
-		init: function(){
-			var me = this;
-			
-			me.app.on({
-				".new-todo": {
-					keyup: me.onNewKeyUp
+define(['jquery', 'knockout-mapping'], function ($, kom) {
+	'use strict';
+	var ENTER_KEY = 13;
+	var ESCAPE_KEY = 27;
+	return Firebrick.createController('TODOMVC.controll.AppController', {
+
+		init: function () {
+			var self = this;
+
+			self.app.on({
+				'.new-todo': {
+					keyup: self.onNewKeyUp
 				},
-				".todo-list li label": {
-					dblclick: me.onLabelDblClick
+				'.todo-list li label': {
+					dblclick: self.onLabelDblClick
 				},
-				".todo-list li input.edit": {
-					blur: me.onEditBlur,
-					keyup: me.onEditKeyUp
+				'.todo-list li input.edit': {
+					blur: self.onEditBlur,
+					keyup: self.onEditKeyUp
 				},
-				".clear-completed": {
-					click: me.clearCompleted
+				'.clear-completed': {
+					click: self.clearCompleted
 				},
-				".destroy": {
-					click: me.onDestroy
+				'.destroy': {
+					click: self.onDestroy
 				},
-				scope: me
+				scope: self
 			});
-			
-			me.routes();
-			
-			return me.callParent( arguments ); //important!
+
+			self.routes();
+
+			return self.callParent(arguments); //important!
 		},
-		
+
 		/**
 		 * @method routes
 		 */
-		routes: function(){
-			var me = this;
+		routes: function () {
+			var self = this;
 			Firebrick.router.hashbang.set({
-				"/": {
-					require: ["view/AppView"]
+				'/': {
+					require: ['view/AppView']
 				},
-				"*/#/": {
-					require: ["view/AppView"],
-					callback: function(){
-						me.filterTodos( "none" );
+				'*/#/': {
+					require: ['view/AppView'],
+					callback: function () {
+						self.filterTodos('none');
 					}
 				},
-				"*/#/:filter": {
-					require: ["view/AppView"],
-					callback: function(filter){
-						me.filterTodos(filter);
+				'*/#/:filter': {
+					require: ['view/AppView'],
+					callback: function (filter) {
+						self.filterTodos(filter);
 					}
-				},
+				}
 			});
 			Firebrick.router.init();
 		},
-		
+
 		/**
 		 * @method filterTodos
 		 */
-		filterTodos: function( filter ){
-			Firebrick.getById("mytodoview").getData().filter( filter );
+		filterTodos: function (filter) {
+			Firebrick.getById('mytodoview').getData().filter(filter);
 		},
-		
+
 		/**
 		 * @method clearCompleted
 		 */
-		clearCompleted: function(){
-			var todos = Firebrick.getById("mytodoview").getData().todos;
-			Firebrick.getById("mytodoview").getData().todos( todos().filter(function(it){
+		clearCompleted: function () {
+			var todos = Firebrick.getById('mytodoview').getData().todos;
+			Firebrick.getById('mytodoview').getData().todos(todos().filter(function (it) {
 				return !it.done();
 			}));
 		},
-		
+
 		/**
 		 * @method onNewKeyUp
 		 */
-		onNewKeyUp: function( event, element ){
-			var me = this,
-				$el,
-				key = event.which,
-				value;
-			if( key === ENTER_KEY ){
+		onNewKeyUp: function (event, element) {
+			var self = this;
+			var $el;
+			var key = event.which;
+			var value;
+			if (key === ENTER_KEY) {
 				$el = $(element);
 				value = $el.val();
-				me.newTodo( $el.val() );
-				$el.val("");
+				self.newTodo($el.val());
+				$el.val('');
 			}
 		},
-		
-		newTodo: function( text ){
-			Firebrick.getById("mytodoview").getData().todos.push( kom.fromJS({
+
+		/**
+		 * @method newTodo
+		 * @param text {String} text for the new todo
+		 */
+		newTodo: function (text) {
+			Firebrick.getById('mytodoview').getData().todos.push(kom.fromJS({
 				text: text,
 				done: false,
 				editing: false
-			}) );
+			}));
 		},
-		
+
 		/**
 		 * @method onDestroy
 		 */
-		onDestroy: function(event, element){
-			var me = this,
-				$li = $(element).closest("li"),
-				id = $li.attr("id");
-			Firebrick.getById("mytodoview").getData().todos.splice(id, 1);
+		onDestroy: function (event, element) {
+			var self = this;
+			var $li = $(element).closest('li');
+			var id = $li.attr('id');
+			Firebrick.getById('mytodoview').getData().todos.splice(id, 1);
 		},
-		
+
 		/**
 		 * @method onLabelDblClick
 		 */
-		onLabelDblClick: function(event, element){
-			var me = this,
-				$el = $(element).closest("li");
-			me.toggleEdit( $el );
+		onLabelDblClick: function (event, element) {
+			var self = this;
+			var $el = $(element).closest('li');
+			self.toggleEdit($el);
 		},
-		
+
 		/**
 		 * @method onEditBlur
 		 */
-		onEditBlur: function(event, element){
-			var me = this,
-				$el = $(element).parent("li");
-			me.toggleEdit( $el );
+		onEditBlur: function (event, element) {
+			var self = this;
+			var $el = $(element).parent('li');
+			self.toggleEdit($el);
 		},
-		
+
 		/**
 		 * @method onEditKeyUp
 		 * @param $li {jQuery Object}
 		 */
-		onEditKeyUp: function(event, element){
-			var me = this,
-				key = event.which,
-				$el = $(element).closest("li");
-			if( key === ENTER_KEY ){
-				$el.find(".edit").blur();
-			}else if( key === ESCAPE_KEY ){
-				me.cancelEdit( $el );
+		onEditKeyUp: function (event, element) {
+			var self = this;
+			var key = event.which;
+			var $el = $(element).closest('li');
+			if (key === ENTER_KEY) {
+				$el.find('.edit').blur();
+			} else if (key === ESCAPE_KEY) {
+				self.cancelEdit($el);
 			}
 		},
-		
+
 		/**
 		 * @method cancelEdit
 		 * @param $li {jQuery Object}
 		 */
-		cancelEdit: function( $li ){
-			var me = this,
-				data = Firebrick.utils.dataFor( $li[0] ),
-				$edit = $li.find(".edit");
-			$li.prop("reset-value", $li.prop("original-value") );
+		cancelEdit: function ($li) {
+			var $edit = $li.find('.edit');
+			$li.prop('reset-value', $li.prop('original-value'));
 			$edit.blur();
 		},
-		
+
 		/**
 		 * @method toggleEdit
 		 * @param $li {jQuery Object} parent li element
 		 */
-		toggleEdit: function( $li ){
-			var data = Firebrick.utils.dataFor( $li[0] ),
-				editing = data.editing(),
-				$edit = $li.find(".edit");
-			data.editing( !editing );
-			if( $li.prop("reset-value") ){
-				data.text( $li.prop("reset-value") );
-				$li.removeProp("reset-value");
-			}else if( !editing ){
-				$li.prop("original-value", data.text() );
+		toggleEdit: function ($li) {
+			var data = Firebrick.utils.dataFor($li[0]);
+			var editing = data.editing();
+			var $edit = $li.find('.edit');
+			data.editing(!editing);
+			if ($li.prop('reset-value')) {
+				data.text($li.prop('reset-value'));
+				$li.removeProp('reset-value');
+			} else if (!editing) {
+				$li.prop('original-value', data.text());
 				$edit.focus();
 			}
 		}
-		
+
 	});
 });

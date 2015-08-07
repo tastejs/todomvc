@@ -1,33 +1,33 @@
 /*!
  * @author Steven Masala [me@smasala.com]
  */
-define([], function(){
-	"use strict";
-	var bowerPath = "../bower_components";
-	
+define([], function () {
+	'use strict';
+	var bowerPath = '../bower_components';
+
 	require.config({
 		config:{
-			"configuration":{
+			configuration:{
 				bowerPath: bowerPath
 			}
 		},
 		paths: {
-			"configuration": bowerPath + "/firebrick/src/configuration"
+			configuration: bowerPath + '/firebrick/src/configuration'
 		},
 		shim:{
-			"firebrick": ["configuration"]
+			firebrick: ['configuration']
 		}
 	});
-	
-	require(["firebrick"], function(){
-		
+
+	require(['firebrick'], function () {
+
 		Firebrick.application({
 			app:{
-				name:"TODOMVC"
+				name:'TODOMVC'
 			},
-			require: ["controller/AppController"],
+			require: ['controller/AppController'],
 			autoRender: false
 		});
-		
+
 	});
 });
