@@ -68,12 +68,12 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 		 * @method onUnload
 		 */
 		onUnload: function () {
-			$(window).unload(function () {
+			window.onbeforeunload = function () {
 				var todos = kom.toJS(Firebrick.getById('mytodoview').getData().todos);
 				if (todos.length) {
-					window.localStorage.setItem('todomvc.todos', JSON.stringify(todos));
+					window.localStorage.setItem('todos-firebrickjs', JSON.stringify(todos));
 				}
-			});
+			};
 		},
 
 		/**

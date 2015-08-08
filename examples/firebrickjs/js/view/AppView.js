@@ -9,7 +9,7 @@ define(['text!./AppView.html', 'knockout', 'jquery'], function (tpl, ko, $) {
 		tpl: tpl,
 		store: {
 			todos: (function () {
-				var todos = window.localStorage.getItem('todomvc.todos');
+				var todos = window.localStorage.getItem('todos-firebrickjs');
 				if (todos) {
 					return JSON.parse(todos);
 				}
