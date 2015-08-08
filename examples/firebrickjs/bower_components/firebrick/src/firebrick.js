@@ -1976,7 +1976,7 @@
 						 * convert all : params in url with regex
 						 * /users/:surname/:age => /users/[a-z0-9._-]+/[a-z0-9._-]+
 						*/ 
-						regex = regex.replace(/:[a-zA-Z0-9._-]*/ig, "[a-zA-Z0-9._-]+");
+						regex = regex.replace(/:[a-z0-9._-]*/ig, "[a-z0-9._-]+");
 						/*
 						 * /users/[a-z0-9._-]+/[a-z0-9._-]+  =>   ^\/users\/[a-z0-9._-]+\/[a-z0-9._-]+$
 						 */
@@ -2050,7 +2050,7 @@
 				
 				for(var key in routes){
 					if(routes.hasOwnProperty(key)){
-						match = href.match(key);
+						match = href.match(new RegExp( key, "i" ));
 						if(match){
 							match = routes[key];
 							break;
@@ -2084,14 +2084,17 @@
 					matchUrl = match.path.split("/");
 					url = url.replace( window.location.origin, "" );
 					url = url.split("/");
+					matchUrl.reverse();
+					url.reverse();
 					for(var i = 0, l = matchUrl.length; i<l; i++){
 						it = matchUrl[i];
-						if( it.indexOf(":") === 0){
+						if(it.indexOf(":") === 0){
 							val = url[i];
 							params.map[it.substr(1)] = val;
 							params.arr.push( val );
 						}
 					}
+					params.arr.reverse();
 					return params;
 				}
 			},
@@ -2165,7 +2168,7 @@
 					match;
 
 				match = me.match( url ) || me.match("404");
-				
+
 				if(match){
 					
 					params = me._getParamsForMatch( match );

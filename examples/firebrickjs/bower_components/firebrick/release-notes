@@ -1,3 +1,7 @@
+v0.13.5
+----------------------------
+* router regex improvements
+
 v0.13.4
 ----------------------------
 * fix "options.ready" is not defined

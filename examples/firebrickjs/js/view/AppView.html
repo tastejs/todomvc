@@ -1,7 +1,7 @@
 <section class="todoapp">
 	<header class="header">
 		<h1>todos</h1>
-		<input class="new-todo" placeholder="What needs to be done?" autofocus>
+		<input class="new-todo" placeholder="What needs to be done?">
 	</header>
 	<!-- This section should be hidden by default and shown when there are todos -->
 	<section class="main" data-bind="visible: todos().length">
@@ -26,17 +26,17 @@
 		<!-- Remove this if you don't implement routing -->
 		<ul class="filters">
 			<li>
-				<a class="selected" href="#/">All</a>
+				<a data-bind="css: {selected: filter() === 'none'}" href="#/">All</a>
 			</li>
 			<li>
-				<a href="#/active">Active</a>
+				<a href="#/active" data-bind="css: {selected: filter() === 'active'}">Active</a>
 			</li>
 			<li>
-				<a href="#/completed">Completed</a>
+				<a href="#/completed" data-bind="css: {selected: filter() === 'completed'}">Completed</a>
 			</li>
 		</ul>
 		<!-- Hidden if no completed items are left ↓ -->
-		<button class="clear-completed">Clear completed</button>
+		<button class="clear-completed" data-bind="visible: getTodosCompleted()">Clear completed</button>
 	</footer>
 </section>
 <footer class="info">

@@ -31,6 +31,7 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 			});
 
 			self.routes();
+			self.onUnload();
 
 			return self.callParent(arguments); //important!
 		},
@@ -41,16 +42,19 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 		routes: function () {
 			var self = this;
 			Firebrick.router.hashbang.set({
+				'*/index.html': {	//for the selenium tests
+					require: ['view/AppView']
+				},
 				'/': {
 					require: ['view/AppView']
 				},
-				'*/#/': {
+				'*#/': {
 					require: ['view/AppView'],
 					callback: function () {
 						self.filterTodos('none');
 					}
 				},
-				'*/#/:filter': {
+				'*#/:filter': {
 					require: ['view/AppView'],
 					callback: function (filter) {
 						self.filterTodos(filter);
@@ -58,6 +62,18 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 				}
 			});
 			Firebrick.router.init();
+		},
+
+		/**
+		 * @method onUnload
+		 */
+		onUnload: function () {
+			$(window).unload(function () {
+				var todos = kom.toJS(Firebrick.getById('mytodoview').getData().todos);
+				if (todos.length) {
+					window.localStorage.setItem('todomvc.todos', JSON.stringify(todos));
+				}
+			});
 		},
 
 		/**
@@ -99,7 +115,7 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 		 */
 		newTodo: function (text) {
 			Firebrick.getById('mytodoview').getData().todos.push(kom.fromJS({
-				text: text,
+				text: text.trim(),
 				done: false,
 				editing: false
 			}));
@@ -112,6 +128,14 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 			var self = this;
 			var $li = $(element).closest('li');
 			var id = $li.attr('id');
+			self.deleteTodo(id);
+		},
+
+		/**
+		 * @method deleteTodo
+		 * @param id {Integer}
+		 */
+		deleteTodo: function (id) {
 			Firebrick.getById('mytodoview').getData().todos.splice(id, 1);
 		},
 
@@ -130,6 +154,10 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 		onEditBlur: function (event, element) {
 			var self = this;
 			var $el = $(element).parent('li');
+			var $edit = $('input.edit', $el);
+			var val = $edit.val().trim();
+			var todos = Firebrick.getById('mytodoview').getData().todos;
+			todos()[$el.attr('id')].text(val);
 			self.toggleEdit($el);
 		},
 
@@ -140,11 +168,18 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 		onEditKeyUp: function (event, element) {
 			var self = this;
 			var key = event.which;
-			var $el = $(element).closest('li');
+			var val;
+			var $el = $(element);
+			var $li = $el.closest('li');
 			if (key === ENTER_KEY) {
-				$el.find('.edit').blur();
+				val = $el.val().trim();
+				if (val) {
+					$el.blur();
+				} else {
+					self.deleteTodo($li.attr('id'));
+				}
 			} else if (key === ESCAPE_KEY) {
-				self.cancelEdit($el);
+				self.cancelEdit($li);
 			}
 		},
 

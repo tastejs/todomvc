@@ -1,18 +1,28 @@
 /*!
  * @author Steven Masala [me@smasala.com]
  */
-define(['text!./AppView.html', 'knockout'], function (tpl, ko) {
+define(['text!./AppView.html', 'knockout', 'jquery'], function (tpl, ko, $) {
 	'use strict';
 	return Firebrick.createView('TODOMVC.view.AppView', {
 		id: 'mytodoview',
 		target: '#app',
 		tpl: tpl,
 		store: {
-			todos: []
+			todos: (function () {
+				var todos = window.localStorage.getItem('todomvc.todos');
+				if (todos) {
+					return JSON.parse(todos);
+				}
+				return [];
+			})()
 		},
 		init: function () {
 			var self = this;
 			var computed;
+
+			self.on('rendered', function () {
+				$('.new-todo').focus();
+			});
 
 			self.store.allChecked = function () {
 				computed = computed || ko.computed({
@@ -69,6 +79,10 @@ define(['text!./AppView.html', 'knockout'], function (tpl, ko) {
 				return self.getData().todos().filter(function (it) {
 					return !it.done();
 				}).length;
+			};
+
+			self.store.getTodosCompleted = function () {
+				return self.getData().todos().length - self.getData().getTodosLeft();
 			};
 
 			self.store.itemText = function () {
