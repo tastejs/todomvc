@@ -157,8 +157,12 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 			var $edit = $('input.edit', $el);
 			var val = $edit.val().trim();
 			var todos = Firebrick.getById('mytodoview').getData().todos;
-			todos()[$el.attr('id')].text(val);
-			self.toggleEdit($el);
+			if (val) {
+				todos()[$el.attr('id')].text(val);
+				self.toggleEdit($el);
+			} else {
+				self.deleteTodo($li.attr('id'));
+			}
 		},
 
 		/**
