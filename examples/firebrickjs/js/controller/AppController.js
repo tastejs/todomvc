@@ -43,7 +43,10 @@ define(['jquery', 'knockout-mapping'], function ($, kom) {
 			var self = this;
 			Firebrick.router.hashbang.set({
 				'*/index.html': {	//for the selenium tests
-					require: ['view/AppView']
+					require: ['view/AppView'],
+					callback: function () {
+						self.filterTodos('none');
+					}
 				},
 				'/': {
 					require: ['view/AppView']
