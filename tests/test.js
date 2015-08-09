@@ -43,7 +43,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			// for apps that use require, we have to wait a while for the dependencies to
 			// be loaded. There must be a more elegant solution than this!
-			browser.sleep(200);
+			browser.sleep(1000);
 		}
 
 		function closeBrowser() {
@@ -314,6 +314,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				// navigate away and back again
 				browser.get('about:blank');
 				browser.get(baseUrl);
+				browser.sleep(1000);
 
 				// repeat the state test
 				stateTest();
@@ -335,17 +336,21 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 
 				page.filterByActiveItems();
+				browser.sleep(1000);
 				page.filterByCompletedItems();
+				browser.sleep(1000);
 
 				// should show completed items
 				testOps.assertItems([TODO_ITEM_TWO]);
 
 				// then active items
 				page.back();
+				browser.sleep(1000);
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
 
 				// then all items
 				page.back();
+				browser.sleep(1000);
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]);
 			});
 
