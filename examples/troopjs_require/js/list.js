@@ -203,12 +203,14 @@ define([
 		'dom/dblclick(label)': function ($event) {
 			var $target = $($event.target);
 
-			// Add class `editing` to `.closest` `li`, `.find` `.edit` and update `.val` with `$target.text()`, trigger `focus` DOM event
 			$target
+				// Add class `editing` to `.closest` `li`,
 				.closest('li')
 				.addClass('editing')
+				// `.find` `.edit` and update `.val` with `$target.text()`,
 				.find('.edit')
 				.val($target.text())
+				// `.focus` to trigger DOM event
 				.focus();
 		},
 
