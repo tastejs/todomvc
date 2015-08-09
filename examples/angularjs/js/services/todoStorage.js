@@ -59,7 +59,7 @@ angular.module('todomvc')
 				var originalTodos = store.todos.slice(0);
 
 				store.todos.splice(store.todos.indexOf(todo), 1);
-				return store.api.delete({id:todo.id},
+				return store.api.delete({ id: todo.id },
 					function () {},
 					function error() {
 						store.todos = originalTodos;
@@ -73,10 +73,15 @@ angular.module('todomvc')
 			},
 
 			insert: function (todo) {
+				var originalTodos = store.todos.slice(0);
+
 				return store.api.save(todo,
 					function success(resp) {
 						todo.id = resp.id;
 						store.todos.push(todo);
+					},
+					function error() {
+						angular.copy(originalTodos, store.todos);
 					})
 					.$promise;
 			},
