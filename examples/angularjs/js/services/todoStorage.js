@@ -49,8 +49,8 @@ angular.module('todomvc')
 				angular.copy(incompleteTodos, store.todos);
 
 				return store.api.delete(
-					function() {},
-					function error() {
+					function() {
+					}, function error() {
 						angular.copy(originalTodos, store.todos);
 					});
 			},
@@ -60,8 +60,8 @@ angular.module('todomvc')
 
 				store.todos.splice(store.todos.indexOf(todo), 1);
 				return store.api.delete({ id: todo.id },
-					function () {},
-					function error() {
+					function () {
+					}, function error() {
 						angular.copy(originalTodos, store.todos);
 					});
 			},
@@ -79,8 +79,7 @@ angular.module('todomvc')
 					function success(resp) {
 						todo.id = resp.id;
 						store.todos.push(todo);
-					},
-					function error() {
+					}, function error() {
 						angular.copy(originalTodos, store.todos);
 					})
 					.$promise;
