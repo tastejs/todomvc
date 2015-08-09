@@ -51,7 +51,7 @@ angular.module('todomvc')
 				return store.api.delete(
 					function() {},
 					function error() {
-						store.todos = originalTodos;
+						angular.copy(originalTodos, store.todos);
 					});
 			},
 
@@ -62,7 +62,7 @@ angular.module('todomvc')
 				return store.api.delete({ id: todo.id },
 					function () {},
 					function error() {
-						store.todos = originalTodos;
+						angular.copy(originalTodos, store.todos);
 					});
 			},
 
