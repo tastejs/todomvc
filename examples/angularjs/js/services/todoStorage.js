@@ -21,11 +21,17 @@ angular.module('todomvc')
 			});
 	})
 
-	.factory('api', function ($http) {
+	.factory('api', function ($resource) {
 		'use strict';
 
 		var store = {
 			todos: [],
+
+			api: $resource('/api/todos/:id', null,
+				{
+					'update': { method:'PUT' }
+				}
+			),
 
 			clearCompleted: function () {
 				var originalTodos = store.todos.slice(0);
@@ -42,12 +48,10 @@ angular.module('todomvc')
 
 				angular.copy(incompleteTodos, store.todos);
 
-				return $http.delete('/api/todos')
-					.then(function success() {
-						return store.todos;
-					}, function error() {
-						angular.copy(originalTodos, store.todos);
-						return originalTodos;
+				return store.api.delete(
+					function() {},
+					function error() {
+						store.todos = originalTodos;
 					});
 			},
 
@@ -55,48 +59,31 @@ angular.module('todomvc')
 				var originalTodos = store.todos.slice(0);
 
 				store.todos.splice(store.todos.indexOf(todo), 1);
-
-				return $http.delete('/api/todos/' + todo.id)
-					.then(function success() {
-						return store.todos;
-					}, function error() {
-						angular.copy(originalTodos, store.todos);
-						return originalTodos;
+				return store.api.delete({id:todo.id},
+					function () {},
+					function error() {
+						store.todos = originalTodos;
 					});
 			},
 
 			get: function () {
-				return $http.get('/api/todos')
-					.then(function (resp) {
-						angular.copy(resp.data, store.todos);
-						return store.todos;
-					});
+				return store.api.query(function(resp) {
+					angular.copy(resp, store.todos);
+				});
 			},
 
 			insert: function (todo) {
-				var originalTodos = store.todos.slice(0);
-
-				return $http.post('/api/todos', todo)
-					.then(function success(resp) {
-						todo.id = resp.data.id;
+				return store.api.save(todo,
+					function success(resp) {
+						todo.id = resp.id;
 						store.todos.push(todo);
-						return store.todos;
-					}, function error() {
-						angular.copy(originalTodos, store.todos);
-						return store.todos;
-					});
+					})
+					.$promise;
 			},
 
 			put: function (todo) {
-				var originalTodos = store.todos.slice(0);
-
-				return $http.put('/api/todos/' + todo.id, todo)
-					.then(function success() {
-						return store.todos;
-					}, function error() {
-						angular.copy(originalTodos, store.todos);
-						return originalTodos;
-					});
+				return store.api.update({ id: todo.id }, todo)
+					.$promise;
 			}
 		};
 
