@@ -59,7 +59,7 @@ Sam is an Engineer at [MojoTech](http://mojotech.com) who is driven by an endles
 #### [Arthur Verschaeve](https://github.com/arthurvr) - Developer
 
 <img align="left" width="40" height="40" src="https://en.gravatar.com/avatar/e34daab0d2e344219adb5234198269c5?size=40">
-Arthur is an open-source fanboy from Belgium. He is passionated about developer tooling and all things JavaScript.
+Arthur is an open-source fanboy from Belgium. He is passionate about developer tooling and all things JavaScript.
 
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
