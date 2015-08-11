@@ -9,40 +9,40 @@
 	 * @param {object} view The view instance
 	 */
 	function Controller(model, view) {
-		var that = this;
-		that.model = model;
-		that.view = view;
+		var self = this;
+		self.model = model;
+		self.view = view;
 
-		that.view.bind('newTodo', function (title) {
-			that.addItem(title);
+		self.view.bind('newTodo', function (title) {
+			self.addItem(title);
 		});
 
-		that.view.bind('itemEdit', function (item) {
-			that.editItem(item.id);
+		self.view.bind('itemEdit', function (item) {
+			self.editItem(item.id);
 		});
 
-		that.view.bind('itemEditDone', function (item) {
-			that.editItemSave(item.id, item.title);
+		self.view.bind('itemEditDone', function (item) {
+			self.editItemSave(item.id, item.title);
 		});
 
-		that.view.bind('itemEditCancel', function (item) {
-			that.editItemCancel(item.id);
+		self.view.bind('itemEditCancel', function (item) {
+			self.editItemCancel(item.id);
 		});
 
-		that.view.bind('itemRemove', function (item) {
-			that.removeItem(item.id);
+		self.view.bind('itemRemove', function (item) {
+			self.removeItem(item.id);
 		});
 
-		that.view.bind('itemToggle', function (item) {
-			that.toggleComplete(item.id, item.completed);
+		self.view.bind('itemToggle', function (item) {
+			self.toggleComplete(item.id, item.completed);
 		});
 
-		that.view.bind('removeCompleted', function () {
-			that.removeCompletedItems();
+		self.view.bind('removeCompleted', function () {
+			self.removeCompletedItems();
 		});
 
-		that.view.bind('toggleAll', function (status) {
-			that.toggleAll(status.completed);
+		self.view.bind('toggleAll', function (status) {
+			self.toggleAll(status.completed);
 		});
 	}
 
@@ -62,9 +62,9 @@
 	 * todo-list
 	 */
 	Controller.prototype.showAll = function () {
-		var that = this;
-		that.model.read(function (data) {
-			that.view.render('showEntries', data);
+		var self = this;
+		self.model.read(function (data) {
+			self.view.render('showEntries', data);
 		});
 	};
 
@@ -72,9 +72,9 @@
 	 * Renders all active tasks
 	 */
 	Controller.prototype.showActive = function () {
-		var that = this;
-		that.model.read({ completed: false }, function (data) {
-			that.view.render('showEntries', data);
+		var self = this;
+		self.model.read({ completed: false }, function (data) {
+			self.view.render('showEntries', data);
 		});
 	};
 
@@ -82,9 +82,9 @@
 	 * Renders all completed tasks
 	 */
 	Controller.prototype.showCompleted = function () {
-		var that = this;
-		that.model.read({ completed: true }, function (data) {
-			that.view.render('showEntries', data);
+		var self = this;
+		self.model.read({ completed: true }, function (data) {
+			self.view.render('showEntries', data);
 		});
 	};
 
@@ -93,15 +93,15 @@
 	 * object and it'll handle the DOM insertion and saving of the new item.
 	 */
 	Controller.prototype.addItem = function (title) {
-		var that = this;
+		var self = this;
 
 		if (title.trim() === '') {
 			return;
 		}
 
-		that.model.create(title, function () {
-			that.view.render('clearNewTodo');
-			that._filter(true);
+		self.model.create(title, function () {
+			self.view.render('clearNewTodo');
+			self._filter(true);
 		});
 	};
 
@@ -109,9 +109,9 @@
 	 * Triggers the item editing mode.
 	 */
 	Controller.prototype.editItem = function (id) {
-		var that = this;
-		that.model.read(id, function (data) {
-			that.view.render('editItem', {id: id, title: data[0].title});
+		var self = this;
+		self.model.read(id, function (data) {
+			self.view.render('editItem', {id: id, title: data[0].title});
 		});
 	};
 
@@ -119,13 +119,13 @@
 	 * Finishes the item editing mode successfully.
 	 */
 	Controller.prototype.editItemSave = function (id, title) {
-		var that = this;
+		var self = this;
 		if (title.trim()) {
-			that.model.update(id, {title: title}, function () {
-				that.view.render('editItemDone', {id: id, title: title});
+			self.model.update(id, {title: title}, function () {
+				self.view.render('editItemDone', {id: id, title: title});
 			});
 		} else {
-			that.removeItem(id);
+			self.removeItem(id);
 		}
 	};
 
@@ -133,9 +133,9 @@
 	 * Cancels the item editing mode.
 	 */
 	Controller.prototype.editItemCancel = function (id) {
-		var that = this;
-		that.model.read(id, function (data) {
-			that.view.render('editItemDone', {id: id, title: data[0].title});
+		var self = this;
+		self.model.read(id, function (data) {
+			self.view.render('editItemDone', {id: id, title: data[0].title});
 		});
 	};
 
@@ -147,26 +147,26 @@
 	 * storage
 	 */
 	Controller.prototype.removeItem = function (id) {
-		var that = this;
-		that.model.remove(id, function () {
-			that.view.render('removeItem', id);
+		var self = this;
+		self.model.remove(id, function () {
+			self.view.render('removeItem', id);
 		});
 
-		that._filter();
+		self._filter();
 	};
 
 	/**
 	 * Will remove all completed items from the DOM and storage.
 	 */
 	Controller.prototype.removeCompletedItems = function () {
-		var that = this;
-		that.model.read({ completed: true }, function (data) {
+		var self = this;
+		self.model.read({ completed: true }, function (data) {
 			data.forEach(function (item) {
-				that.removeItem(item.id);
+				self.removeItem(item.id);
 			});
 		});
 
-		that._filter();
+		self._filter();
 	};
 
 	/**
@@ -179,16 +179,16 @@
 	 * @param {boolean|undefined} silent Prevent re-filtering the todo items
 	 */
 	Controller.prototype.toggleComplete = function (id, completed, silent) {
-		var that = this;
-		that.model.update(id, { completed: completed }, function () {
-			that.view.render('elementComplete', {
+		var self = this;
+		self.model.update(id, { completed: completed }, function () {
+			self.view.render('elementComplete', {
 				id: id,
 				completed: completed
 			});
 		});
 
 		if (!silent) {
-			that._filter();
+			self._filter();
 		}
 	};
 
@@ -197,14 +197,14 @@
 	 * Just pass in the event object.
 	 */
 	Controller.prototype.toggleAll = function (completed) {
-		var that = this;
-		that.model.read({ completed: !completed }, function (data) {
+		var self = this;
+		self.model.read({ completed: !completed }, function (data) {
 			data.forEach(function (item) {
-				that.toggleComplete(item.id, completed, true);
+				self.toggleComplete(item.id, completed, true);
 			});
 		});
 
-		that._filter();
+		self._filter();
 	};
 
 	/**
@@ -212,16 +212,16 @@
 	 * number of todos.
 	 */
 	Controller.prototype._updateCount = function () {
-		var that = this;
-		that.model.getCount(function (todos) {
-			that.view.render('updateElementCount', todos.active);
-			that.view.render('clearCompletedButton', {
+		var self = this;
+		self.model.getCount(function (todos) {
+			self.view.render('updateElementCount', todos.active);
+			self.view.render('clearCompletedButton', {
 				completed: todos.completed,
 				visible: todos.completed > 0
 			});
 
-			that.view.render('toggleAll', {checked: todos.completed === todos.total});
-			that.view.render('contentBlockVisibility', {visible: todos.total > 0});
+			self.view.render('toggleAll', {checked: todos.completed === todos.total});
+			self.view.render('contentBlockVisibility', {visible: todos.total > 0});
 		});
 	};
 
