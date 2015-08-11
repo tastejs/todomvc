@@ -15,8 +15,8 @@
 		return htmlEscapes[chr];
 	};
 
-	var reUnescapedHtml = /[&<>"'`]/g,
-	    reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
+	var reUnescapedHtml = /[&<>"'`]/g;
+	var reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
 
 	var escape = function (string) {
 		return (string && reHasUnescapedHtml.test(string))
