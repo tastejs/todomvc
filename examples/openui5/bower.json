@@ -1,6 +1,6 @@
 {
-  "name": "todomvc-sapui5",
-  "version": "0.0.0",
+  "name": "todomvc-openui5",
+  "version": "latest",
   "dependencies": {
     "todomvc-common": "~0.3.0"
   }
