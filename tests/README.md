@@ -14,7 +14,7 @@ The TodoMVC project has a great many implementations of exactly the same app usi
 
 ## Running the tests
 
-These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests you will need to install the dependencies. Run the following command from within the `tests` folder:
+These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests you will need to install the dependencies.  NPM must be version 2.0.0 or greater, so upgrade it first with `npm install -g npm` if `npm --version` outputs anything less than 2.0.0.  Run the following command from within the `tests` folder:
 
 ```sh
 $ npm install
