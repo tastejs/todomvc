@@ -39,7 +39,9 @@
 						<g:Hyperlink targetHistoryToken="/completed" styleName="{style.inline}" ui:field="routingCompleted">Completed</g:Hyperlink>
 					</li>
 				</ul>
-				<g:Button ui:field="clearCompleted"></g:Button>
+				<g:Button ui:field="clearCompleted">
+					Clear completed (<span class="number-done" ui:field="clearTasksCount"></span>)
+				</g:Button>
 			</footer>
 		</section>
 
