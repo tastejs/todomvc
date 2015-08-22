@@ -60,9 +60,6 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 	Element todoStatsContainer;
 
 	@UiField
-	SpanElement clearTasksCount;
-
-	@UiField
 	Button clearCompleted;
 
 	@UiField
@@ -149,7 +146,6 @@ public class ToDoView extends Composite implements ToDoPresenter.View {
 
 		remainingTasksCount.setInnerText(Integer.toString(remainingTasks));
 		remainingTasksLabel.setInnerText(remainingTasks > 1 || remainingTasks == 0 ? "items" : "item");
-		clearTasksCount.setInnerHTML(Integer.toString(completedTasks));
 
 		toggleAll.setChecked(totalTasks == completedTasks);
 	}
