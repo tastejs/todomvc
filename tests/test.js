@@ -191,15 +191,6 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				testOps.assertItemAtIndexIsNotCompleted(0);
 				testOps.assertItemAtIndexIsNotCompleted(1);
 			});
-
-			test.it('should allow me to edit an item', function () {
-				createStandardItems();
-				page.doubleClickItemAtIndex(1);
-
-				page.editItemAtIndex(1, 'buy some sausages' + webdriver.Key.ENTER);
-
-				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
-			});
 		});
 
 		test.describe('Editing', function () {
