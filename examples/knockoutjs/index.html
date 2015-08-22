@@ -22,7 +22,7 @@
 							<label data-bind="text: title, event: { dblclick: $root.editItem }"></label>
 							<button class="destroy" data-bind="click: $root.remove"></button>
 						</div>
-						<input class="edit" data-bind="value: title, valueUpdate: 'afterkeydown', enterKey: $root.saveEditing, escapeKey: $root.cancelEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }">
+						<input class="edit" data-bind="value: title, valueUpdate: 'afterkeydown', enterKey: $root.saveEditing, escapeKey: $root.cancelEditing, selectAndFocus: editing, event: { blur: $root.saveEditing }">
 					</li>
 				</ul>
 			</section>

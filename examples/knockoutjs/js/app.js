@@ -175,7 +175,8 @@
 
 		// internal computed observable that fires whenever anything changes in our todos
 		ko.computed(function () {
-			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
+			// store a clean copy to local storage, which also creates a dependency on
+			// the observableArray and all observables in each item
 			localStorage.setItem('todos-knockoutjs', ko.toJSON(this.todos));
 		}.bind(this)).extend({
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' }
