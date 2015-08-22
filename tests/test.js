@@ -203,27 +203,23 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		});
 
 		test.describe('Editing', function () {
-			test.it('should hide other controls when editing', function () {
+			test.beforeEach(function () {
 				createStandardItems();
 				page.doubleClickItemAtIndex(1);
+			});
 
+			test.it('should hide other controls when editing', function () {
 				testOps.assertItemToggleIsHidden(1);
 				testOps.assertItemLabelIsHidden(1);
 			});
 
 			test.it('should save edits on enter', function () {
-				createStandardItems();
-				page.doubleClickItemAtIndex(1);
-
 				page.editItemAtIndex(1, 'buy some sausages' + webdriver.Key.ENTER);
 
 				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
 
 			test.it('should save edits on blur', function () {
-				createStandardItems();
-				page.doubleClickItemAtIndex(1);
-
 				page.editItemAtIndex(1, 'buy some sausages');
 
 				// click a toggle button so that the blur() event is fired
@@ -233,27 +229,18 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should trim entered text', function () {
-				createStandardItems();
-				page.doubleClickItemAtIndex(1);
-
 				page.editItemAtIndex(1, '    buy some sausages  ' + webdriver.Key.ENTER);
 
 				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE]);
 			});
 
 			test.it('should remove the item if an empty text string was entered', function () {
-				createStandardItems();
-				page.doubleClickItemAtIndex(1);
-
 				page.editItemAtIndex(1, webdriver.Key.ENTER);
 
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
 			});
 
 			test.it('should cancel edits on escape', function () {
-				createStandardItems();
-				page.doubleClickItemAtIndex(1);
-
 				page.editItemAtIndex(1, 'foo' + webdriver.Key.ESCAPE);
 
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE]);
