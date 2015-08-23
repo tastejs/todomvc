@@ -1,0 +1,36 @@
+{
+  "name": "firebrick",
+  "description": "A lightweight JavaScript MVC Framework powered with jQuery, Knockout JS and Require JS",
+  "license": "MIT",
+  "homepage": "http://firebrickjs.com",
+  "main": "firebrick.min.js",
+  "ignore": [
+    ""
+  ],
+  "authors": [
+    "Steven Masala"
+  ],
+  "keywords": [
+    "mvc",
+    "mvvm",
+    "framework",
+    "javascript"
+  ],
+  "version": "0.13.5",
+  "dependencies": {
+    "jquery": "2.x",
+    "knockoutjs": "3.x",
+    "knockout-mapping": "2.x",
+    "requirejs": "2.x",
+    "text": "2.x"
+  },
+  "_release": "0.13.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.13.5",
+    "commit": "5b23e20b026b2eb6dc4c5fd7ff0b649500c072ec"
+  },
+  "_source": "git://github.com/smasala/firebrick.git",
+  "_target": "*",
+  "_originalSource": "firebrick"
+}

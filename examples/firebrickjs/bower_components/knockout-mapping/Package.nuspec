@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Knockout.Mapping</id>
+    <version>2.4.1</version>
+    <authors>Roy Jacobs</authors>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://knockoutjs.com/documentation/plugins-mapping.html</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The mapping plugin gives you a straightforward way to map plain JavaScript objects into a view model with the appropriate Knockout observables. This is an alternative to manually writing your own JavaScript code that constructs a view model based on some data you've fetched from the server.</description>
+    <dependencies>
+      <dependency id="knockoutjs" version="2.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="build\output\*.*" target="Content\scripts" /> 
+  </files>
+</package>

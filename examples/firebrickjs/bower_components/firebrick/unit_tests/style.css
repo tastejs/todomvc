@@ -1,0 +1,7 @@
+.outOfSight{
+	position:absolute;
+	height:500px;
+	width:500px;
+	top:-600px;
+	left:-600px;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>QUnit Test Suite</title>
+	<link rel="stylesheet" href="lib/qunit-1.10.0.css" type="text/css" media="screen">
+	<script type="text/javascript" src="lib/qunit-1.10.0.js"></script>
+	<script type="text/javascript" src="lib/json2.js"></script>
+	<script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-2.2.0.js"></script>
+	<script type="text/javascript" src="../knockout.mapping.js"></script>
+	<script type="text/javascript">
+		var curModuleName;
+		
+		QUnit.moduleStart = function(module) {
+			curModuleName = module.name;
+		};
+	
+		QUnit.moduleDone = function() {
+			curModuleName = "";
+		};
+	
+		var testStart = [];
+		QUnit.testStart = function() {
+			ko.mapping.resetDefaultOptions();
+			testStart[curModuleName] && testStart[curModuleName]();
+		};
+		
+		var testDone = [];
+		QUnit.testDone = function(module) {
+			testDone[curModuleName] && testDone[curModuleName]();
+		};
+		</script>
+    <script type="text/javascript" src="mappingBehaviors.js"></script>
+    <script type="text/javascript" src="proxyDependentObservableBehaviors.js"></script>
+    <script type="text/javascript" src="issues.js"></script>
+</head>
+<body>
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+</body>
+</html>

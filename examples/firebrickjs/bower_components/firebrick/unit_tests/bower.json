@@ -1,0 +1,13 @@
+{
+	"name": "Unit Test",
+	"version": "0.0.0",
+	"dependencies": {
+		"jasmine": "latest",
+		"jasmine-ajax": "latest",
+		"requirejs": "latest",
+		"jquery": "latest",
+		"knockoutjs": "latest",
+		"knockout-mapping": "latest",
+		"text": "2.x"
+	}	
+}

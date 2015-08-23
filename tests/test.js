@@ -43,7 +43,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			// for apps that use require, we have to wait a while for the dependencies to
 			// be loaded. There must be a more elegant solution than this!
-			browser.sleep(200);
+			browser.sleep(500);
 		}
 
 		function closeBrowser() {

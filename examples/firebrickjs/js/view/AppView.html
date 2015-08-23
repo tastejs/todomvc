@@ -1,0 +1,49 @@
+<section class="todoapp">
+	<header class="header">
+		<h1>todos</h1>
+		<input class="new-todo" placeholder="What needs to be done?">
+	</header>
+	<!-- This section should be hidden by default and shown when there are todos -->
+	<section class="main" data-bind="visible: todos().length">
+		<input class="toggle-all" type="checkbox" data-bind="checked: allChecked()">
+		<label for="toggle-all">Mark all as complete</label>
+		<ul class="todo-list" data-bind="foreach: getTodos()">
+			<!-- These are here just to show the structure of the list items -->
+			<li data-bind="css: {completed: done, editing: editing}, attr: {id: $index}">
+				<div class="view" data-bind="visible: !editing()">
+					<input class="toggle" type="checkbox" data-bind="checked: done">
+					<label data-bind="text: text"></label>
+					<button class="destroy"></button>
+				</div>
+				<input class="edit" data-bind="value: text, visible: editing">
+			</li>
+		</ul>
+	</section>
+	<!-- This footer should hidden by default and shown when there are todos -->
+	<footer class="footer" data-bind="visible: todos().length">
+		<!-- This should be `0 items left` by default -->
+		<span class="todo-count"><strong data-bind="text: getTodosLeft()"></strong> <span data-bind="text: itemText()"></span> left</span>
+		<!-- Remove this if you don't implement routing -->
+		<ul class="filters">
+			<li>
+				<a data-bind="css: {selected: filter() === 'none'}" href="#/">All</a>
+			</li>
+			<li>
+				<a href="#/active" data-bind="css: {selected: filter() === 'active'}">Active</a>
+			</li>
+			<li>
+				<a href="#/completed" data-bind="css: {selected: filter() === 'completed'}">Completed</a>
+			</li>
+		</ul>
+		<!-- Hidden if no completed items are left ↓ -->
+		<button class="clear-completed" data-bind="visible: getTodosCompleted()">Clear completed</button>
+	</footer>
+</section>
+<footer class="info">
+	<p>Double-click to edit a todo</p>
+	<!-- Remove the below line ↓ -->
+	<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+	<!-- Change this out with your name and url ↓ -->
+	<p>Created by <a href="http://firebrickjs.com">Steven Masala</a></p>
+	<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
