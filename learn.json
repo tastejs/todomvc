@@ -1855,8 +1855,8 @@
 	},
 	"riotjs": {
 		"name": "Riot.js",
-		"description": "Riot.js is a React-like, 3.5KB user interface library.",
-		"homepage": "muut.com/riotjs",
+		"description": "Riot.js is a React-like user interface micro-library.",
+		"homepage": "http://riotjs.com/",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/riotjs"
@@ -1865,22 +1865,22 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "https://muut.com/riotjs/guide/"
+				"url": "http://riotjs.com/guide/"
 			}, {
 				"name": "API Reference",
-				"url": "https://muut.com/riotjs/api/"
+				"url": "http://riotjs.com/api/"
 			}, {
 				"name": "Examples",
-				"url": "https://github.com/muut/riotjs#demos"
+				"url": "https://github.com/riot/riot#demos"
 			}, {
 				"name": "Riot.js on GitHub",
-				"url": "https://github.com/muut/riotjs"
+				"url": "https://github.com/riot/riot"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Forum",
-				"url": "https://muut.com/riotjs/forum/"
+				"name": "Gitter chat room",
+				"url": "https://gitter.im/riot/riot"
 			}]
 		}]
 	},
