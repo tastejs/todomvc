@@ -19,6 +19,11 @@ describe('Nodoka00\'s coding challenge', function() {
 		todoForm.submit().then(fxn);
 	}
 
+	function changeView(name, fxn) {
+		var linkToUse = element(By.linkText(name));
+		linkToUse.click().then(fxn);
+	}
+
 	// Prelude:
 	beforeEach(function() {
 		browser.get(site);
@@ -40,7 +45,7 @@ describe('Nodoka00\'s coding challenge', function() {
 		});
 	});
 
-	iit ('should verify the TODO list is correct', function() {
+	it ('should verify the TODO list is correct', function() {
 		for (var x = 0; x < 5; x++) {
 			todoField.sendKeys(todoList[x]);
 			submitForm();
@@ -49,7 +54,19 @@ describe('Nodoka00\'s coding challenge', function() {
 		expect(actualTodoList.getText()).toEqual(todoList);
 	});
 
-	it ('should verify that a user can change views', function() {
+	iit ('should verify that a user can change views', function() {
+		todoField.sendKeys(todoList[0]);
+		submitForm(function() {
+			changeView('All', function() {
+				changeView('Active', function() {
+					changeView('Completed', function() {
+						changeView('All', function() {
+							expect(true);
+						});
+					});
+				});
+			});
+		});
 	});
 
 	it ('should verify that an item is marked as Completed', function() {
