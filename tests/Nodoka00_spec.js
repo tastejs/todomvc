@@ -86,7 +86,19 @@ describe('Nodoka00\'s coding challenge', function() {
 		});
 	});
 
-	it ('should verify that an item has been deleted', function() {
+	iit ('should verify that an item has been deleted', function() {
+		for (var x = 0; x < 5; x++) {
+			todoField.sendKeys(todoList[x]);
+			submitForm();
+		}
+		var targetBox = element.all(by.exactRepeater('todo in todos').row(4)).then(function(target) {
+			var targetBox = target[0].element(by.model('todo.completed'));
+			unCheckItem(targetBox, function() {
+				element(by.id('clear-completed')).click().then(function() {
+					expect(actualTodoList.count()).toEqual(4);
+				});
+			});
+		});
 	});
 
 	it ('should verify that the list of Completed items has been cleared', function() {
