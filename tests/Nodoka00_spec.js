@@ -22,8 +22,8 @@ describe('Nodoka00\'s coding challenge', function() {
 		expect(browser.getCurrentUrl()).toEqual(site);
 	});
 
-	/*
 	it ('should verify the title', function() {
+		expect(browser.getTitle()).toEqual('AngularJS • TodoMVC');
 	});
 
 	it ('should allow the user to add a TODO item', function() {
@@ -49,5 +49,4 @@ describe('Nodoka00\'s coding challenge', function() {
 
 	it ('should verify that the user has cookies enabled on his/her browser', function() {
 	});
-	*/
 });
