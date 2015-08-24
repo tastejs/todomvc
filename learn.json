@@ -949,37 +949,6 @@
 			}]
 		}]
 	},
-	"epitome": {
-		"name": "Epitome",
-		"description": "Epitome is a new extensible and modular open-source MVC* framework, built out of MooTools Classes and Events.",
-		"homepage": "dimitarchristoff.github.io/Epitome",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/epitome"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "API Reference",
-				"url": "http://dimitarchristoff.github.io/Epitome"
-			}, {
-				"name": "Examples",
-				"url": "http://dimitarchristoff.github.io/Epitome/#examples"
-			}, {
-				"name": "Download & Building",
-				"url": "http://dimitarchristoff.github.io/Epitome/#download-building"
-			}, {
-				"name": "Epitome on GitHub",
-				"url": "https://github.com/DimitarChristoff/Epitome"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Epitome on Twitter",
-				"url": "http://twitter.com/D_mitar"
-			}]
-		}]
-	},
 	"exoskeleton": {
 		"name": "Exoskeleton",
 		"description": "A faster and leaner Backbone for your HTML5 apps.",

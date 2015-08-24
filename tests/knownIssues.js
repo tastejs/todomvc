@@ -55,7 +55,6 @@ module.exports = [
 	'TodoMVC - ariatemplates, Editing, should cancel edits on escape',
 	'TodoMVC - dermis, Editing, should cancel edits on escape',
 	'TodoMVC - duel, Editing, should cancel edits on escape',
-	'TodoMVC - epitome, Editing, should cancel edits on escape',
 	'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
 	'TodoMVC - olives, Editing, should cancel edits on escape',
 	'TodoMVC - rappidjs, Editing, should cancel edits on escape',
