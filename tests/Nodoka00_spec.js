@@ -14,6 +14,7 @@ describe('Nodoka00\'s coding challenge', function() {
 	var todoField = element(by.id('new-todo'));
 	var actualTodoList = element.all(by.repeater('todo in todos'));
 
+	// Helper functions:
 	function submitForm(fxn) {
 		var todoForm = element(by.id('todo-form'));
 		todoForm.submit().then(fxn);
@@ -22,6 +23,10 @@ describe('Nodoka00\'s coding challenge', function() {
 	function changeView(name, fxn) {
 		var linkToUse = element(By.linkText(name));
 		linkToUse.click().then(fxn);
+	}
+
+	function unCheckItem(box, fxn) {
+		box.click().then(fxn);
 	}
 
 	// Prelude:
@@ -54,7 +59,7 @@ describe('Nodoka00\'s coding challenge', function() {
 		expect(actualTodoList.getText()).toEqual(todoList);
 	});
 
-	iit ('should verify that a user can change views', function() {
+	it ('should verify that a user can change views', function() {
 		todoField.sendKeys(todoList[0]);
 		submitForm(function() {
 			changeView('All', function() {
@@ -70,6 +75,15 @@ describe('Nodoka00\'s coding challenge', function() {
 	});
 
 	it ('should verify that an item is marked as Completed', function() {
+		todoField.sendKeys(todoList[1]);
+		submitForm(function() {
+			var targetBox = element.all(by.exactRepeater('todo in todos').row(0)).then(function(target) {
+				var targetBox = target[0].element(by.model('todo.completed'));
+				unCheckItem(targetBox, function() {
+					expect(targetBox.isSelected()).toBe(true);
+				});
+			});
+		});
 	});
 
 	it ('should verify that an item has been deleted', function() {
@@ -79,6 +93,17 @@ describe('Nodoka00\'s coding challenge', function() {
 	});
 
 	it ('should verify that an item, once checked, can be unchecked', function() {
+		todoField.sendKeys(todoList[3]);
+		submitForm(function() {
+			var targetBox = element.all(by.exactRepeater('todo in todos').row(0)).then(function(target) {
+				var targetBox = target[0].element(by.model('todo.completed'));
+				unCheckItem(targetBox);
+				browser.waitForAngular();
+				unCheckItem(targetBox, function() {
+					expect(targetBox.isSelected()).toBe(false);
+				});
+			});
+		});
 	});
 
 	it ('should verify that the user has cookies enabled on his/her browser', function() {

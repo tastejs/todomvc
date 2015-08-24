@@ -5,7 +5,10 @@
     "bootstrap": "~3.2.0",
     "paper-tabs": "Polymer/paper-tabs#~0.4.0",
     "lodash": "~3.10.1",
-    "protractor": "~2.1.0"
+    "protractor": "~2.1.0",
+    "jasmine": "~2.3.4",
+    "jscs": "~2.1.0",
+    "purescript-webdriver": "~0.2.3"
   },
   "devDependencies": {
     "prefixfree": "91790e8aff6d807cd62018479db2307e1972b92a"

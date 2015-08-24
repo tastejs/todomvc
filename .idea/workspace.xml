@@ -11,6 +11,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower_components/jquery/dist/jquery.min.map" afterPath="$PROJECT_DIR$/bower_components/jquery/dist/jquery.min.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower_components/platform/platform.js" afterPath="$PROJECT_DIR$/bower_components/platform/platform.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower_components/prefixfree/prefixfree.min.js" afterPath="$PROJECT_DIR$/bower_components/prefixfree/prefixfree.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="todomvc-poc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,8 +45,8 @@
       <file leaf-file-name="Nodoka00_spec.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/Nodoka00_spec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.70872486">
-              <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.6657718">
+              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -119,7 +120,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Bower" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/Nodoka00_conf.js" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -257,8 +258,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/Nodoka00_spec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70872486">
-          <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.6657718">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding />
         </state>
       </provider>
