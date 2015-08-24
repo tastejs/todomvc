@@ -133,12 +133,16 @@ describe('Nodoka00\'s coding challenge', function() {
 		});
 	});
 
-	iit ('should verify that a TODO item has been edited', function() {
+	it ('should verify that a TODO item has been edited', function() {
 		todoField.sendKeys(todoList[4]);
 		submitForm();
 		expect(actualTodoList.count()).toEqual(1);
-		element.all(by.exactRepeater('todo in todos').row(0)).then(function(target) {
-			var targetField = target[0].element(by.tagName('label'));
+		var targetField = element.all(by.tagName('label')).last();
+		browser.actions().mouseMove(targetField).mouseDown(targetField).doubleClick().perform().then(function() {
+			var borderedInput = element(by.model('todo.title'));
+			borderedInput.sendKeys('.. and maybe get some sleep.\n');
+			expect(actualTodoList.count()).toEqual(1);
+			expect(actualTodoList.getText()).toEqual([ 'Watch some anime... and maybe get some sleep.' ]);
 		});
 	});
 });
