@@ -12,6 +12,7 @@ describe('Nodoka00\'s coding challenge', function() {
 	var viewList = ['All', 'Active', 'Completed'];
 	var clearButton = element(by.id('clear-completed'));
 	var todoField = element(by.id('new-todo'));
+	var actualTodoList = element.all(by.repeater('todo in todos'));
 
 	function submitForm(fxn) {
 		var todoForm = element(by.id('todo-form'));
@@ -32,14 +33,20 @@ describe('Nodoka00\'s coding challenge', function() {
 		expect(browser.getTitle()).toEqual('AngularJS • TodoMVC');
 	});
 
-	iit ('should allow the user to add a TODO item', function() {
+	it ('should allow the user to add a TODO item', function() {
 		todoField.sendKeys(todoList[4]);
 		submitForm(function() {
 			expect(true);
 		});
 	});
 
-	it ('should verify the TODO list is correct', function() {
+	iit ('should verify the TODO list is correct', function() {
+		for (var x = 0; x < 5; x++) {
+			todoField.sendKeys(todoList[x]);
+			submitForm();
+		}
+		browser.waitForAngular();
+		expect(actualTodoList.getText()).toEqual(todoList);
 	});
 
 	it ('should verify that a user can change views', function() {
