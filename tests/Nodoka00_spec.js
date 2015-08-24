@@ -86,12 +86,30 @@ describe('Nodoka00\'s coding challenge', function() {
 		});
 	});
 
-	iit ('should verify that an item has been deleted', function() {
+	it ('should verify that an item has been deleted', function() {
+		todoField.sendKeys(todoList[3]);
+		submitForm();
+		expect(actualTodoList.count()).toEqual(1);
+		todoField.sendKeys(todoList[4]);
+		submitForm();
+		expect(actualTodoList.count()).toEqual(2);
+		element.all(by.exactRepeater('todo in todos').row(1)).then(function(target) {
+			var targetBox = target[0].element(by.model('todo.completed'));
+			targetBox.click().then(function() {
+				var targetX = target[0].element(by.partialButtonText(''));
+				targetX.click();
+				expect(actualTodoList.count()).toEqual(1);
+			});
+		});
+	});
+
+	it ('should verify that the list of Completed items has been cleared', function() {
 		for (var x = 0; x < 5; x++) {
 			todoField.sendKeys(todoList[x]);
 			submitForm();
 		}
-		var targetBox = element.all(by.exactRepeater('todo in todos').row(4)).then(function(target) {
+		expect(actualTodoList.count()).toEqual(5);
+		element.all(by.exactRepeater('todo in todos').row(4)).then(function(target) {
 			var targetBox = target[0].element(by.model('todo.completed'));
 			unCheckItem(targetBox, function() {
 				element(by.id('clear-completed')).click().then(function() {
@@ -101,13 +119,10 @@ describe('Nodoka00\'s coding challenge', function() {
 		});
 	});
 
-	it ('should verify that the list of Completed items has been cleared', function() {
-	});
-
 	it ('should verify that an item, once checked, can be unchecked', function() {
 		todoField.sendKeys(todoList[3]);
 		submitForm(function() {
-			var targetBox = element.all(by.exactRepeater('todo in todos').row(0)).then(function(target) {
+			element.all(by.exactRepeater('todo in todos').row(0)).then(function(target) {
 				var targetBox = target[0].element(by.model('todo.completed'));
 				unCheckItem(targetBox);
 				browser.waitForAngular();
@@ -118,6 +133,12 @@ describe('Nodoka00\'s coding challenge', function() {
 		});
 	});
 
-	it ('should verify that the user has cookies enabled on his/her browser', function() {
+	iit ('should verify that a TODO item has been edited', function() {
+		todoField.sendKeys(todoList[4]);
+		submitForm();
+		expect(actualTodoList.count()).toEqual(1);
+		element.all(by.exactRepeater('todo in todos').row(0)).then(function(target) {
+			var targetField = target[0].element(by.tagName('label'));
+		});
 	});
 });
