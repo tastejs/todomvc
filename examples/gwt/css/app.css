@@ -12,7 +12,7 @@
    specific style. */
 
 #filters li div.selected a {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 /* The GWT TodoMVC uses a CellList - a framework widget for rendering a list of cells - to
