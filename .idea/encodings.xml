@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/tests/Nodoka00_conf.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/Nodoka00_spec.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests/conf.js" charset="UTF-8" />
+  </component>
+</project>
