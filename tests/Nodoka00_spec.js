@@ -1,7 +1,7 @@
 // Written 23 August 2015 by Josh "Nodoka" Johnson, Nodoka00 [at] gmail {dot} com.
 describe('Nodoka00\'s coding challenge', function() {
 	// Variables, to make life easier:
-	var testList = [
+	var todoList = [
 		'Write some hearty code.',
 		'Test said code until satisfied.',
 		'Make commits and push.',
@@ -11,6 +11,12 @@ describe('Nodoka00\'s coding challenge', function() {
 	var site = 'http://localhost:8080/todomvc-poc/examples/angularjs/index.html#/';
 	var viewList = ['All', 'Active', 'Completed'];
 	var clearButton = element(by.id('clear-completed'));
+	var todoField = element(by.id('new-todo'));
+
+	function submitForm(fxn) {
+		var todoForm = element(by.id('todo-form'));
+		todoForm.submit().then(fxn);
+	}
 
 	// Prelude:
 	beforeEach(function() {
@@ -26,7 +32,11 @@ describe('Nodoka00\'s coding challenge', function() {
 		expect(browser.getTitle()).toEqual('AngularJS • TodoMVC');
 	});
 
-	it ('should allow the user to add a TODO item', function() {
+	iit ('should allow the user to add a TODO item', function() {
+		todoField.sendKeys(todoList[4]);
+		submitForm(function() {
+			expect(true);
+		});
 	});
 
 	it ('should verify the TODO list is correct', function() {
