@@ -1,4 +1,4 @@
-// Written 23 August 2015 by Josh "Nodoka" Johnson.
+// Written 23 August 2015 by Josh "Nodoka" Johnson, Nodoka00 [at] gmail {dot} com.
 describe('Nodoka00\'s coding challenge', function() {
 	// Variables, to make life easier:
 	var testList = [
@@ -19,8 +19,10 @@ describe('Nodoka00\'s coding challenge', function() {
 
 	// Pending tests:
 	it ('should verify the correct URL', function() {
+		expect(browser.getCurrentUrl()).toEqual(site);
 	});
 
+	/*
 	it ('should verify the title', function() {
 	});
 
@@ -47,5 +49,5 @@ describe('Nodoka00\'s coding challenge', function() {
 
 	it ('should verify that the user has cookies enabled on his/her browser', function() {
 	});
-	// Postlude:
+	*/
 });

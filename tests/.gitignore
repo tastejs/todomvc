@@ -2,3 +2,5 @@ node_modules
 ../.bashrc
 ../.idea/
 ../Vagrantfile~
+../bower_components/
+../bower.json
