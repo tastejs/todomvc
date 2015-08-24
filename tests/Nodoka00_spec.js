@@ -29,7 +29,7 @@ describe('Nodoka00\'s coding challenge', function() {
 		box.click().then(fxn);
 	}
 
-	// Prelude:
+	// Prelude, to load the page:
 	beforeEach(function() {
 		browser.get(site);
 	});
@@ -144,5 +144,11 @@ describe('Nodoka00\'s coding challenge', function() {
 			expect(actualTodoList.count()).toEqual(1);
 			expect(actualTodoList.getText()).toEqual([ 'Watch some anime... and maybe get some sleep.' ]);
 		});
+	});
+
+	// Postlude, to clear storage between tests:
+	afterEach(function() {
+		browser.executeScript('window.sessionStorage.clear();');
+		browser.executeScript('window.localStorage.clear();');
 	});
 });
