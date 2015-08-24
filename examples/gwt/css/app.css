@@ -12,7 +12,7 @@
    specific style. */
 
 #filters li div.selected a {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 /* The GWT TodoMVC uses a CellList - a framework widget for rendering a list of cells - to
@@ -24,7 +24,7 @@
 #todo-list .listItem {
 	position: relative;
 	font-size: 24px;
-	border-bottom: 1px dotted #ccc;
+	border-bottom: 1px solid #ededed;
 }
 
 #todo-list div :last-child .listItem {
@@ -49,74 +49,62 @@
 
 #todo-list .listItem .toggle {
 	text-align: center;
-	width: 35px;
+	width: 40px;
+	/* auto, since non-WebKit browsers doesn't support input styling */
+	height: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	border: none; /* Mobile Safari */
 	-webkit-appearance: none;
-	/*-moz-appearance: none;*/
-	-ms-appearance: none;
-	-o-appearance: none;
 	appearance: none;
 }
 
 #todo-list .listItem .toggle:after {
-	font-size: 18px;
-	content: '✔';
-	line-height: 40px;
-	font-size: 20px;
-	color: #d9d9d9;
-	text-shadow: 0 -1px 0 #bfbfbf;
+	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
 }
 
 #todo-list .listItem .toggle:checked:after {
-	color: #85ada7;
-	text-shadow: 0 1px 0 #669991;
-	bottom: 1px;
-	position: relative;
+	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
 }
 
 #todo-list .listItem label {
+	white-space: pre;
 	word-break: break-word;
-	margin: 20px 15px;
-	display: inline-block;
-	-webkit-transition: color 0.4s;
-	-moz-transition: color 0.4s;
-	-ms-transition: color 0.4s;
-	-o-transition: color 0.4s;
+	padding: 15px 60px 15px 15px;
+	margin-left: 45px;
+	display: block;
+	line-height: 1.2;
 	transition: color 0.4s;
 }
 
 #todo-list .listItem.completed label {
-	color: #a9a9a9;
+	color: #d9d9d9;
 	text-decoration: line-through;
 }
 
 #todo-list .listItem .destroy {
 	display: none;
 	position: absolute;
-	top: 10px;
+	top: 0;
 	right: 10px;
+	bottom: 0;
 	width: 40px;
 	height: 40px;
-	font-size: 22px;
-	color: #a88a8a;
-	-webkit-transition: all 0.2s;
-	-moz-transition: all 0.2s;
-	-ms-transition: all 0.2s;
-	-o-transition: all 0.2s;
-	transition: all 0.2s;
+	margin: auto 0;
+	font-size: 30px;
+	color: #cc9a9a;
+	margin-bottom: 11px;
+	transition: color 0.2s ease-out;
 }
 
 #todo-list .listItem .destroy:hover {
-	text-shadow: 0 0 1px #000,
-				 0 0 10px rgba(199, 107, 107, 0.8);
-	-webkit-transform: scale(1.3);
-	-moz-transform: scale(1.3);
-	-ms-transform: scale(1.3);
-	-o-transform: scale(1.3);
-	transform: scale(1.3);
+	color: #af5b5e;
 }
 
 #todo-list .listItem .destroy:after {
-	content: '✖';
+	content: '×';
 }
 
 #todo-list .listItem:hover .destroy {
@@ -129,4 +117,14 @@
 
 #todo-list div :last-child .listItem.editing {
 	margin-bottom: -1px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.todo-list .listItem .toggle {
+		background: none;
+	}
+
+	#todo-list .listItem .toggle {
+		height: 40px;
+	}
 }
