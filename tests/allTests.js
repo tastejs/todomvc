@@ -13,7 +13,7 @@ var excludedFrameworks = [
 	// selenium webdriver cannot see the shadow dom
 	'polymer',
 	// these implementations cannot be run offline, because they are hosted
-	'derby', 'firebase-angular', 'meteor', 'socketstream',
+	'firebase-angular', 'meteor', 'socketstream',
 	// YUI is a special case here, it is not hosted, but fetches JS files dynamically
 	'yui',
 	// these frameworks take a long time to start-up, and there is no easy way to determine when they are ready
