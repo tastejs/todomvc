@@ -74,6 +74,8 @@ TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta St
 
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
+Also, please keep in mind that TodoMVC is not the perfect way to compare the size of different frameworks. We intentionally use the unminified versions to make reading the source code easier.
+
 
 ## Getting Involved
 
