@@ -44,7 +44,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.getFiltersElementXpath = function () {
-		return !idSelectors ? '//ul[@id="filters"]' : '//ul[contains(@class, "filters")]';
+		return !idSelectors ? '//*[@id="filters"]' : '//*[contains(@class, "filters")]';
 	};
 
 	this.getFilterXpathByIndex = function (index) {
