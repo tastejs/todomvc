@@ -658,59 +658,6 @@
 			}]
 		}]
 	},
-	"derby": {
-		"name": "Derby",
-		"description": "MVC framework making it easy to write realtime, collaborative applications that run in both Node.js and browsers.",
-		"homepage": "derbyjs.com",
-		"examples": [{
-			"name": "Real-time Example",
-			"url": "http://todomvc.derbyjs.com",
-			"source_url": "examples/derby"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://derbyjs.com/#introduction"
-			}, {
-				"name": "Getting Started",
-				"url": "http://derbyjs.com/#getting_started"
-			}, {
-				"name": "Applications built with Derby",
-				"url": "https://github.com/codeparty/derby/wiki/Community-Projects#website-showcase"
-			}, {
-				"name": "Blog",
-				"url": "http://blog.derbyjs.com"
-			}, {
-				"name": "FAQ",
-				"url": "https://github.com/codeparty/derby/wiki/Frequently-Asked-Questions"
-			}, {
-				"name": "Derby on GitHub",
-				"url": "https://github.com/codeparty/derby"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Learning DerbyJS",
-				"url": "http://nickofnicks.com/2013/04/24/nodejs/derbyjs/learning-derbyjs/"
-			}, {
-				"name": "Screencast - 6 Things I'm Loving about DerbyJS",
-				"url": "http://micknelson.wordpress.com/2012/07/27/6-things-im-loving-about-derbyjs"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Derby on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/derbyjs"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/derbyjs"
-			}, {
-				"name": "Derby on Twitter",
-				"url": "http://twitter.com/derbyjs"
-			}]
-		}]
-	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",
