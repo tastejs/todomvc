@@ -35,7 +35,7 @@ function TestOperations(page) {
 
 	this.assertClearCompleteButtonIsVisible = function () {
 		page.tryGetClearCompleteButton().then(function (element) {
-			testIsVisible(element, 'clear completed items button');
+			testIsVisible([element], 'clear completed items button');
 		});
 	};
 
@@ -47,11 +47,9 @@ function TestOperations(page) {
 	};
 
 	this.assertClearCompleteButtonText = function (buttonText) {
-		page.tryGetClearCompleteButton().then(function (elements) {
-			var button = elements[0];
-			button.getText().then(function (text) {
+		return page.tryGetClearCompleteButton()
+		.getText().then(function (text) {
 				assert.equal(buttonText, text);
-			});
 		});
 	};
 
