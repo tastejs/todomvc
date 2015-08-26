@@ -13427,12 +13427,16 @@ Elm.Todo.make = function (_elm) {
                                              Delete(todo.id))]),
                                 _L.fromArray([]))]))
                    ,A2($Html.input,
-                   _L.fromArray([$Html$Attributes.$class("edit")
-                                ,$Html$Attributes.value(todo.description)
+                   _L.fromArray([$Html$Attributes.value(todo.description)
                                 ,$Html$Attributes.name("title")
-                                ,$Html$Attributes.$class(A2($Basics._op["++"],
-                                "todo-",
-                                $Basics.toString(todo.id)))
+                                ,$Html$Attributes.classList(_L.fromArray([{ctor: "_Tuple2"
+                                                                          ,_0: "edit"
+                                                                          ,_1: true}
+                                                                         ,{ctor: "_Tuple2"
+                                                                          ,_0: A2($Basics._op["++"],
+                                                                          "todo-",
+                                                                          $Basics.toString(todo.id))
+                                                                          ,_1: true}]))
                                 ,A3($Html$Events.on,
                                 "input",
                                 $Html$Events.targetValue,
@@ -13563,7 +13567,7 @@ Elm.Todo.make = function (_elm) {
                  "#todo-",
                  $Basics.toString(_v3._0));}
             _U.badCase($moduleName,
-            "on line 335, column 42 to 65");
+            "on line 334, column 42 to 65");
          }();
       };
       var needsFocus = function (act) {
