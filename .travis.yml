@@ -33,6 +33,7 @@ before_install:
 before_script:
     # install dependencies
     - npm install -g gulp
+    - cp site-assets/favicon.ico favicon.ico
     - python -m SimpleHTTPServer > /dev/null 2>&1 &
     - sleep 2
 script:
