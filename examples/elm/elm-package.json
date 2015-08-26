@@ -8,8 +8,8 @@
     ],
     "exposed-modules": [],
     "dependencies": {
-        "elm-lang/core": "1.0.0 <= v < 2.0.0",
-        "evancz/elm-html": "1.0.0 <= v < 2.0.0",
-        "evancz/local-channel": "1.0.0 <= v < 2.0.0"
-    }
+        "elm-lang/core": "2.0.0 <= v < 3.0.0",
+        "evancz/elm-html": "3.0.0 <= v < 4.0.0"
+    },
+    "elm-version": "0.15.0 <= v < 0.16.0"
 }

@@ -46,7 +46,7 @@ Run the following commands from the root of this project:
 
 ```bash
 elm-package install
-elm-make Todo.elm --output build/Todo.js
+elm-make Todo.elm
 ```
 
 Then open `index.html` in your browser!

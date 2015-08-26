@@ -3,9 +3,9 @@ module Todo where
 
 This application is broken up into four distinct parts:
 
-  1. Model  - a full description of the application as data
-  2. Update - a way to update the model based on user actions
-  3. View   - a way to visualize our model with HTML
+  1. Model  - a full definition of the application's state
+  2. Update - a way to step the application state forward
+  3. View   - a way to visualize our application state with HTML
   4. Inputs - the signals necessary to manage events
 
 This clean division of concerns is a core part of Elm. You can read more about
@@ -16,27 +16,40 @@ document for notes on structuring more complex GUIs with Elm:
 http://elm-lang.org/learn/Architecture.elm
 -}
 
-import Html (..)
-import Html.Attributes (..)
-import Html.Events (..)
-import Html.Lazy (lazy, lazy2)
-import List
-import LocalChannel as LC
-import Maybe
-import Signal
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Html.Lazy exposing (lazy, lazy2, lazy3)
+import Json.Decode as Json
+import Signal exposing (Signal, Address)
 import String
-import Task
 import Window
 
-
--- MODEL
+---- MODEL ----
 
 -- The full application state of our todo app.
 type alias Model =
-    { tasks      : List Task.Model
-    , field      : String
-    , uid        : Int
+    { tasks : List Task
+    , field : String
+    , uid : Int
     , visibility : String
+    }
+
+
+type alias Task =
+    { description : String
+    , completed : Bool
+    , editing : Bool
+    , id : Int
+    }
+
+
+newTask : String -> Int -> Task
+newTask desc id =
+    { description = desc
+    , completed = False
+    , editing = False
+    , id = id
     }
 
 
@@ -49,7 +62,7 @@ emptyModel =
     }
 
 
--- UPDATE
+---- UPDATE ----
 
 -- A description of the kinds of actions that can be performed on the model of
 -- our application. See the following post for more info on this pattern and
@@ -57,84 +70,115 @@ emptyModel =
 type Action
     = NoOp
     | UpdateField String
+    | EditingTask Int Bool
+    | UpdateTask Int String
     | Add
-    | UpdateTask (Int, Task.Action)
+    | Delete Int
     | DeleteComplete
+    | Check Int Bool
     | CheckAll Bool
     | ChangeVisibility String
 
 
--- How we update our Model on any given Action
+-- How we update our Model on a given Action?
 update : Action -> Model -> Model
 update action model =
     case action of
       NoOp -> model
 
+      Add ->
+          { model |
+              uid <- model.uid + 1,
+              field <- "",
+              tasks <-
+                  if String.isEmpty model.field
+                    then model.tasks
+                    else model.tasks ++ [newTask model.field model.uid]
+          }
+
       UpdateField str ->
           { model | field <- str }
 
-      Add ->
-          let description = String.trim model.field in
-          if String.isEmpty description then model else
-              { model |
-                  uid <- model.uid + 1,
-                  field <- "",
-                  tasks <- model.tasks ++ [Task.init description model.uid]
-              }
-
-      UpdateTask (id, taskAction) ->
-          let updateTask t =
-                if t.id == id then Task.update taskAction t else Just t
+      EditingTask id isEditing ->
+          let updateTask t = if t.id == id then { t | editing <- isEditing } else t
           in
-              { model | tasks <- List.filterMap updateTask model.tasks }
+              { model | tasks <- List.map updateTask model.tasks }
+
+      UpdateTask id task ->
+          let updateTask t = if t.id == id then { t | description <- task } else t
+          in
+              { model | tasks <- List.map updateTask model.tasks }
+
+      Delete id ->
+          { model | tasks <- List.filter (\t -> t.id /= id) model.tasks }
 
       DeleteComplete ->
           { model | tasks <- List.filter (not << .completed) model.tasks }
 
-      CheckAll bool ->
-          let updateTask t = { t | completed <- bool }
-          in  { model | tasks <- List.map updateTask model.tasks }
+      Check id isCompleted ->
+          let updateTask t = if t.id == id then { t | completed <- isCompleted } else t
+          in
+              { model | tasks <- List.map updateTask model.tasks }
+
+      CheckAll isCompleted ->
+          let updateTask t = { t | completed <- isCompleted }
+          in
+              { model | tasks <- List.map updateTask model.tasks }
 
       ChangeVisibility visibility ->
           { model | visibility <- visibility }
 
 
--- VIEW
+---- VIEW ----
 
-view : Model -> Html
-view model =
+view : Address Action -> Model -> Html
+view address model =
     div
       [ class "todomvc-wrapper"
       , style [ ("visibility", "hidden") ]
       ]
       [ section
-          [ id "todoapp" ]
-          [ lazy taskEntry model.field
-          , lazy2 taskList model.visibility model.tasks
-          , lazy2 controls model.visibility model.tasks
+          [ class "todoapp" ]
+          [ lazy2 taskEntry address model.field
+          , lazy3 taskList address model.visibility model.tasks
+          , lazy3 controls address model.visibility model.tasks
           ]
       , infoFooter
       ]
 
-taskEntry : String -> Html
-taskEntry task =
+
+onEnter : Address a -> a -> Attribute
+onEnter address value =
+    on "keydown"
+      (Json.customDecoder keyCode is13)
+      (\_ -> Signal.message address value)
+
+
+is13 : Int -> Result String ()
+is13 code =
+  if code == 13 then Ok () else Err "not the right key code"
+
+
+taskEntry : Address Action -> String -> Html
+taskEntry address task =
     header
-      [ id "header" ]
+      [ class "header" ]
       [ h1 [] [ text "todos" ]
       , input
-          [ id "new-todo"
+          [ class "new-todo"
           , placeholder "What needs to be done?"
           , autofocus True
           , value task
           , name "newTodo"
-          , on "input" targetValue (Signal.send actions << UpdateField)
-          , Task.onFinish (Signal.send actions Add) (Signal.send actions NoOp)
+          , on "input" targetValue (Signal.message address << UpdateField)
+          , onEnter address Add
           ]
           []
       ]
 
-taskList : String -> List Task.Model -> Html
-taskList visibility tasks =
+
+taskList : Address Action -> String -> List Task -> Html
+taskList address visibility tasks =
     let isVisible todo =
             case visibility of
               "Completed" -> todo.completed
@@ -146,124 +190,157 @@ taskList visibility tasks =
         cssVisibility = if List.isEmpty tasks then "hidden" else "visible"
     in
     section
-      [ id "main"
+      [ class "main"
       , style [ ("visibility", cssVisibility) ]
       ]
       [ input
-          [ id "toggle-all"
+          [ class "toggle-all"
           , type' "checkbox"
           , name "toggle"
           , checked allCompleted
-          , onClick (Signal.send actions (CheckAll (not allCompleted)))
+          , onClick address (CheckAll (not allCompleted))
           ]
           []
       , label
           [ for "toggle-all" ]
           [ text "Mark all as complete" ]
       , ul
-          [ id "todo-list" ]
-          (List.map (Task.view taskActions) (List.filter isVisible tasks))
+          [ class "todo-list" ]
+          (List.map (todoItem address) (List.filter isVisible tasks))
       ]
 
-controls : String -> List Task.Model -> Html
-controls visibility tasks =
+
+todoItem : Address Action -> Task -> Html
+todoItem address todo =
+    li
+      [ classList [ ("completed", todo.completed), ("editing", todo.editing) ] ]
+      [ div
+          [ class "view" ]
+          [ input
+              [ class "toggle"
+              , type' "checkbox"
+              , checked todo.completed
+              , onClick address (Check todo.id (not todo.completed))
+              ]
+              []
+          , label
+              [ onDoubleClick address (EditingTask todo.id True) ]
+              [ text todo.description ]
+          , button
+              [ class "destroy"
+              , onClick address (Delete todo.id)
+              ]
+              []
+          ]
+      , input
+          [ class "edit"
+          , value todo.description
+          , name "title"
+          , class ("todo-" ++ toString todo.id)
+          , on "input" targetValue (Signal.message address << UpdateTask todo.id)
+          , onBlur address (EditingTask todo.id False)
+          , onEnter address (EditingTask todo.id False)
+          ]
+          []
+      ]
+
+
+controls : Address Action -> String -> List Task -> Html
+controls address visibility tasks =
     let tasksCompleted = List.length (List.filter .completed tasks)
         tasksLeft = List.length tasks - tasksCompleted
         item_ = if tasksLeft == 1 then " item" else " items"
     in
     footer
-      [ id "footer"
+      [ class "footer"
       , hidden (List.isEmpty tasks)
       ]
       [ span
-          [ id "todo-count" ]
+          [ class "todo-count" ]
           [ strong [] [ text (toString tasksLeft) ]
           , text (item_ ++ " left")
           ]
       , ul
-          [ id "filters" ]
-          [ visibilitySwap "#/" "All" visibility
+          [ class "filters" ]
+          [ visibilitySwap address "#/" "All" visibility
           , text " "
-          , visibilitySwap "#/active" "Active" visibility
+          , visibilitySwap address "#/active" "Active" visibility
           , text " "
-          , visibilitySwap "#/completed" "Completed" visibility
+          , visibilitySwap address "#/completed" "Completed" visibility
           ]
       , button
           [ class "clear-completed"
           , id "clear-completed"
           , hidden (tasksCompleted == 0)
-          , onClick (Signal.send actions DeleteComplete)
+          , onClick address DeleteComplete
           ]
           [ text ("Clear completed (" ++ toString tasksCompleted ++ ")") ]
       ]
 
-visibilitySwap : String -> String -> String -> Html
-visibilitySwap uri visibility actualVisibility =
-    let className = if visibility == actualVisibility then "selected" else "" in
+
+visibilitySwap : Address Action -> String -> String -> String -> Html
+visibilitySwap address uri visibility actualVisibility =
     li
-      [ onClick (Signal.send actions (ChangeVisibility visibility)) ]
-      [ a [ class className, href uri ] [ text visibility ] ]
+      [ onClick address (ChangeVisibility visibility) ]
+      [ a [ href uri, classList [("selected", visibility == actualVisibility)] ] [ text visibility ] ]
+
 
 infoFooter : Html
 infoFooter =
-    footer [ id "info" ]
+    footer [ class "info" ]
       [ p [] [ text "Double-click to edit a todo" ]
-      , p [] [ text "Written by "
-             , a [ href "https://github.com/evancz" ] [ text "Evan Czaplicki" ]
-             ]
-      , p [] [ text "Part of "
-             , a [ href "http://todomvc.com" ] [ text "TodoMVC" ]
-             ]
+      , p []
+          [ text "Written by "
+          , a [ href "https://github.com/evancz" ] [ text "Evan Czaplicki" ]
+          ]
+      , p []
+          [ text "Part of "
+          , a [ href "http://todomvc.com" ] [ text "TodoMVC" ]
+          ]
       ]
 
 
--- SIGNALS
+---- INPUTS ----
 
 -- wire the entire application together
 main : Signal Html
 main =
-    Signal.map view model
+  Signal.map (view actions.address) model
 
 
 -- manage the model of our application over time
 model : Signal Model
 model =
-    Signal.foldp update initialModel allActions
+  Signal.foldp update initialModel actions.signal
 
 
 initialModel : Model
 initialModel =
-    Maybe.withDefault emptyModel savedModel
+  Maybe.withDefault emptyModel getStorage
 
-
-allActions : Signal Action
-allActions =
-    Signal.merge
-      (Signal.subscribe actions)
-      (Signal.map ChangeVisibility route)
-
-
--- interactions with localStorage
-port savedModel : Maybe Model
-
-port save : Signal Model
-port save = model
-
--- routing
-port route : Signal String
 
 -- actions from user input
-actions : Signal.Channel Action
-actions = Signal.channel NoOp
+actions : Signal.Mailbox Action
+actions =
+  Signal.mailbox NoOp
 
-taskActions : LC.LocalChannel (Int, Task.Action)
-taskActions = LC.create UpdateTask actions
 
-port focus : Signal (Maybe Int)
+port focus : Signal String
 port focus =
-    let toSelector action =
-            case action of
-              UpdateTask (id, Task.Focus) -> Just id
-              _ -> Nothing
+    let needsFocus act =
+            case act of
+              EditingTask id bool -> bool
+              _ -> False
+
+        toSelector (EditingTask id _) = ("#todo-" ++ toString id)
     in
-        Signal.map toSelector (Signal.subscribe actions)
+        actions.signal
+          |> Signal.filter needsFocus (EditingTask 0 True)
+          |> Signal.map toSelector
+
+
+-- interactions with localStorage to save the model
+port getStorage : Maybe Model
+
+port setStorage : Signal Model
+port setStorage = model
