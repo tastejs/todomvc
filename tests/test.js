@@ -76,6 +76,11 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.ensureAppIsVisible();
 			});
 			test.afterEach(function () {
+				(new webdriver.WebDriver.Logs(browser))
+				.get('browser')
+				.then(function (v) {
+					v && v.length && console.log(v);
+				});
 				closeBrowser();
 			});
 		}
