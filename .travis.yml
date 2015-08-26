@@ -29,7 +29,7 @@ before_install:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
     - curl -Lo chrome.zip https://download-chromium.appspot.com/dl/Linux_x64 && unzip chrome.zip
-    - curl -Lo chromedriver.zip http://chromedriver.storage.googleapis.com/2.16/chromedriver_linux64.zip && unzip chromedriver.zip
+    - curl -Lo chromedriver.zip http://chromedriver.storage.googleapis.com/2.18/chromedriver_linux64.zip && unzip chromedriver.zip
 before_script:
     # install dependencies
     - npm install -g gulp
