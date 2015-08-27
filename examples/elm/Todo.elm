@@ -235,7 +235,8 @@ todoItem address todo =
       , input
           [ value todo.description
           , name "title"
-          , classList [ ("edit", True), ("todo-" ++ toString todo.id, True)]
+          , class "edit"
+          , id ("todo-" ++ toString todo.id)
           , on "input" targetValue (Signal.message address << UpdateTask todo.id)
           , onBlur address (EditingTask todo.id False)
           , onEnter address (EditingTask todo.id False)
