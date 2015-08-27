@@ -44,6 +44,47 @@ type alias Task =
     }
 
 
+-- A subset of the model that we want to persist
+type alias SaveModel =
+    { tasks : List SaveTask
+    , uid : Int
+    }
+
+type alias SaveTask =
+    { description : String
+    , completed : Bool
+    , id : Int
+    }
+
+modelToSaveModel : Model -> SaveModel
+modelToSaveModel m =
+    { tasks = List.map taskToSaveTask m.tasks
+    , uid = m.uid
+    }
+
+taskToSaveTask : Task -> SaveTask
+taskToSaveTask t =
+    { description = t.description
+    , completed = t.completed
+    , id = t.id
+    }
+
+saveTaskToTask : SaveTask -> Task
+saveTaskToTask t =
+    { description = t.description
+    , completed = t.completed
+    , id = t.id
+    , editing = False
+    }
+
+saveModelToModel : SaveModel -> Model
+saveModelToModel m =
+    { emptyModel |
+        uid <- m.uid,
+        tasks <- List.map saveTaskToTask m.tasks
+    }
+
+
 newTask : String -> Int -> Task
 newTask desc id =
     { description = desc
@@ -316,7 +357,7 @@ model =
 
 initialModel : Model
 initialModel =
-  Maybe.withDefault emptyModel getStorage
+  Maybe.withDefault emptyModel (Maybe.map saveModelToModel getStorage)
 
 
 -- actions from user input
@@ -340,7 +381,7 @@ port focus =
 
 
 -- interactions with localStorage to save the model
-port getStorage : Maybe Model
+port getStorage : Maybe SaveModel
 
-port setStorage : Signal Model
-port setStorage = model
+port setStorage : Signal SaveModel
+port setStorage = Signal.map modelToSaveModel model
