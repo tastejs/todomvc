@@ -1,8 +1,0 @@
-{
-  "name": "flatiron-director",
-  "private": true,
-  "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.0"
-  },
-  "version": "0.5.0"
-}
