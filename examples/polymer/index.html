@@ -11,12 +11,15 @@
 		<link rel="import" href="elements/td-todos.html">
 	</head>
 	<body>
-		<header>
-			<h1>todos</h1>
-		</header>
-		<core-localstorage id="storage" name="todos-polymer"></core-localstorage>
-		<td-model id="model" storageId="storage"></td-model>
-		<td-todos modelId="model"></td-todos>
+		<div id="todoapp">
+			<header>
+				<h1>todos</h1>
+			</header>
+			<template is="dom-bind" id="root">
+				<td-model id="model" items="{{todos}}"></td-model>
+				<td-todos items="{{todos}}"></td-todos>
+			</template>
+		</div>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://www.polymer-project.org">The Polymer Authors</a></p>
