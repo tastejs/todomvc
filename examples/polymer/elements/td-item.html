@@ -3,7 +3,6 @@
 
 <polymer-element name="td-item" extends="li" attributes="item editing" on-blur="{{commitAction}}">
 	<template>
-		<link rel="stylesheet" href="td-item.css">
 		<div class="view {{ {completed: item.completed, editing: editing} | tokenList }}" hidden?="{{editing}}" on-dblclick="{{editAction}}">
 			<input type="checkbox" class="toggle" checked="{{item.completed}}" on-click="{{itemChangeAction}}">
 			<label>{{item.title}}</label>
