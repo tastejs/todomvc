@@ -4,7 +4,7 @@
 	<header class="header">
 		<h1>todos</h1>
 		<input class="new-todo" placeholder="What needs to be done?" autofocus
-			onblur="<%= todos.actions.add_blur %>" onkeydown="<%= todos.actions.add_keypress %>">
+			onblur="<%= todos.actions.add_blur %>" onkeydown="<%= todos.actions.addOnKeydown %>">
 	</header>
 	<call view="Tasks" data="data" />
 	<call view="Stats" data="data.stats" />

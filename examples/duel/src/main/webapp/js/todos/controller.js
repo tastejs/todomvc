@@ -71,7 +71,7 @@ var todos = todos || {};
 
 	// event handlers
 	todos.actions = {
-		add_keypress: function (e) {
+		addOnKeydown: function (e) {
 			if (e.keyCode === ENTER_KEY) {
 				add(this);
 			} else if (e.keyCode === ESC_KEY) {
@@ -79,14 +79,14 @@ var todos = todos || {};
 			}
 		},
 
-		edit_blur: function (id) {
+		editOnBlur: function (id) {
 			// create a closure around the ID
 			return function () {
 				edit(this, id);
 			};
 		},
 
-		edit_keypress: function (id) {
+		editOnKeydown: function (id) {
 			// create a closure around the ID
 			return function (e) {
 				if (e.keyCode === ENTER_KEY) {
@@ -99,7 +99,7 @@ var todos = todos || {};
 			};
 		},
 
-		remove_click: function (id) {
+		removeOnClick: function (id) {
 			// create a closure around the ID
 			return function () {
 				todos.model.remove(id);
@@ -107,37 +107,35 @@ var todos = todos || {};
 			};
 		},
 
-		clear_click: function () {
+		clearOnClick: function () {
 			todos.model.expunge();
 			refreshView();
 		},
 
-		content_dblclick: function () {
-			var li = this;
-			while (li.tagName !== 'LI') {
-				li = li.parentNode;
+		editOnDblclick: function () {
+			var self = this;
+			while (self.tagName !== 'LI') {
+				self = self.parentNode;
 			}
 
-			li.className = 'editing';
+			self.className = 'editing';
 
-			var input = find('input[type=text]', li);
+			var input = find('input[type=text]', self);
 			if (input) {
 				input.focus();
 			}
 		},
 
-		completed_change: function (id) {
+		completedOnChange: function (id) {
 			// create a closure around the ID
 			return function () {
-				var checkbox = this;
-				todos.model.toggle(id, checkbox.checked);
+				todos.model.toggle(id, this.checked);
 				refreshView();
 			};
 		},
 
-		toggle_change: function () {
-			var checkbox = this;
-			todos.model.toggleAll(checkbox.checked);
+		toggleOnChange: function () {
+			todos.model.toggleAll(this.checked);
 			refreshView();
 		}
 	};

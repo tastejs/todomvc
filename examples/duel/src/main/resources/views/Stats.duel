@@ -19,5 +19,5 @@
 	<!-- Hidden if no completed items are left ↓ -->
 	<button class="clear-completed"
 		if="<%= data.completed %>"
-		onclick="<%= todos.actions.clear_click %>">Clear completed</button>
+		onclick="<%= todos.actions.clearOnClick %>">Clear completed</button>
 </footer>
