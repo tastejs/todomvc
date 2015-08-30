@@ -72,13 +72,10 @@ var todos = todos || {};
 	// event handlers
 	todos.actions = {
 		add_keypress: function (e) {
-			switch (e.keyCode) {
-				case ENTER_KEY:
-					add(this);
-					break;
-				case ESC_KEY:
-					refreshView();
-					break;
+			if (e.keyCode === ENTER_KEY) {
+				add(this);
+			} else if (e.keyCode === ESC_KEY) {
+				refreshView();
 			}
 		},
 
@@ -92,15 +89,12 @@ var todos = todos || {};
 		edit_keypress: function (id) {
 			// create a closure around the ID
 			return function (e) {
-				switch (e.keyCode) {
-					case ENTER_KEY:
-						// just blur so doesn't get triggered twice
-						this.blur();
-						break;
-					case ESC_KEY:
-						reset(this, id);
-						this.blur();
-						break;
+				if (e.keyCode === ENTER_KEY) {
+					// just blur so doesn't get triggered twice
+					this.blur();
+				} else if (e.keyCode === ESC_KEY) {
+					reset(this, id);
+					this.blur();
 				}
 			};
 		},
