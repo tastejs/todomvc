@@ -1,21 +1,17 @@
-# DUEL TodoMVC Example
+# DUEL • [TodoMVC](http://todomvc.com)
 
 > DUEL is a dual-side templating engine using HTML for layout and 100% pure JavaScript as the binding language. The same views may be executed both directly in the browser (client-side template) and on the server (server-side template).
 
-> _[DUEL - bitbucket.org/mckamey/duel/wiki/Home](http://bitbucket.org/mckamey/duel/wiki/Home)_
 
+## Resources
 
-## Learning DUEL
+- [Website](http://duelengine.org)
+- [Documentation](http://bitbucket.org/mckamey/duel/wiki/Home)
+- [Syntax](https://bitbucket.org/mckamey/duel/wiki/Syntax)
+- [Examples](https://bitbucket.org/mckamey/duel/wiki/Examples)
+- [Source](https://bitbucket.org/mckamey/duel/src)
 
-The [DUEL website](http://bitbucket.org/mckamey/duel/wiki/Home) is a great resource for getting started.
-
-Here are some links you may find helpful:
-
-* [Syntax](https://bitbucket.org/mckamey/duel/wiki/Syntax)
-* [Examples](https://bitbucket.org/mckamey/duel/wiki/Examples)
-* [DUEL on BitBucket](https://bitbucket.org/mckamey/duel/src)
-
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+*Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
 
 
 ## Implementation
@@ -44,4 +40,8 @@ To run a debug-able version using Tomcat 7 as the web server, use this Maven com
 
 	mvn tomcat7:run
 
-Then navigate your browser to http://localhost:8080/
+Then navigate your browser to <http://localhost:8080/>
+
+## Credit
+
+Created by [Stephen McKamey](http://mck.me)

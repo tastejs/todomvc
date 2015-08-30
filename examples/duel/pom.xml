@@ -5,9 +5,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example.todos</groupId>
+	<groupId>com.todomvc.duel</groupId>
 	<artifactId>todomvc</artifactId>
-	<version>0.1.0</version>
+	<version>0.2.0</version>
 	<packaging>war</packaging>
 
 	<name>TodoMVC</name>
@@ -17,14 +17,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<resourcesDir>${project.basedir}/src/main/resources</resourcesDir>
 
-		<staticapps.version>0.8.5</staticapps.version>
-		<merge.version>0.5.2</merge.version>
-		<duel.version>0.8.2</duel.version>
-		<slf4j.version>1.6.4</slf4j.version>
-		<javac.version>1.6</javac.version>
+		<staticapps.version>0.9.9</staticapps.version>
+		<merge.version>0.6.0</merge.version>
+		<duel.version>0.9.6</duel.version>
+		<slf4j.version>1.7.9</slf4j.version>
+		<javac.version>1.7</javac.version>
 
 		<duel.clientPrefix>todos.views</duel.clientPrefix>
-		<duel.serverPrefix>com.example.todos.views</duel.serverPrefix>
+		<duel.serverPrefix>com.todomvc.duel.views</duel.serverPrefix>
 		<duel.sourceDir>${resourcesDir}/views/</duel.sourceDir>
 		<duel.clientPath>/js/</duel.clientPath>
 
