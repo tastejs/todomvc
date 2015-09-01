@@ -53,25 +53,40 @@ var todos = todos || {};
 		tasks = [];
 	}
 
+	function filterTasks(filter) {
+		if (filter === 'completed' || filter === 'active') {
+			var completed = filter === 'completed';
+			return tasks.filter(function (task) {
+				return task.completed === completed;
+			});
+		}
+		return tasks;
+	}
+
+	function calcStats(filter) {
+		var stats = {
+			total: tasks.length,
+
+			completed: tasks.filter(function (task) {
+					return task.completed;
+				}).length,
+
+			filter: filter || ''
+		};
+
+		stats.active = stats.total - stats.completed;
+
+		return stats;
+	}
+
 	/*-- export public interface -------------------------------*/
 
 	todos.model = {
-		tasks: function () {
-			return tasks;
-		},
-
-		stats: function () {
-			var stats = {};
-
-			stats.total = tasks.length;
-
-			stats.completed = tasks.filter(function (task) {
-				return task.completed;
-			}).length;
-
-			stats.active = stats.total - stats.completed;
-
-			return stats;
+		viewData: function (filter) {
+			return {
+				tasks: filterTasks(filter),
+				stats: calcStats(filter)
+			};
 		},
 
 		add: function (title) {

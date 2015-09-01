@@ -11,16 +11,20 @@ var todos = todos || {};
 	var ESC_KEY = 27;
 	var ENTER_KEY = 13;
 
+	// Poor man's routing.
+	addEventListener('hashchange', refreshView, false);
+
+	function curFilter() {
+		return document.location.hash.substr(2);
+	}
+
 	function find(selector, scope) {
 		return (scope || document).querySelector(selector);
 	}
 
 	function refreshView() {
 		// get the data
-		var data = {
-			tasks: todos.model.tasks(),
-			stats: todos.model.stats()
-		};
+		var data = todos.model.viewData(curFilter());
 
 		// build the view
 		var view = todos.views.TodoApp(data).toDOM();
@@ -141,6 +145,7 @@ var todos = todos || {};
 	};
 
 	/*-- init task list -------------------------------*/
+
 	refreshView();
 
 })(todos, window.document);
