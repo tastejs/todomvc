@@ -127,6 +127,7 @@ header nav a:not(:last-child) {
 	margin: 0;
 	padding: 0;
 	font-size: 17px;
+	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
@@ -195,7 +196,8 @@ header nav a:not(:last-child) {
 .collapsed {
 	overflow: hidden;
 	max-height: 0;
-	transition: max-height 0.7s ease-out;
+	-webkit-transition: max-height 0.7s ease-out;
+	        transition: max-height 0.7s ease-out;
 }
 
 #news-expander {
@@ -204,7 +206,8 @@ header nav a:not(:last-child) {
 
 #news-expander:checked ~ .collapsed {
 	max-height: 999px;
-	transition: max-height 0.7s ease-in;
+	-webkit-transition: max-height 0.7s ease-in;
+	        transition: max-height 0.7s ease-in;
 }
 
 .credit {

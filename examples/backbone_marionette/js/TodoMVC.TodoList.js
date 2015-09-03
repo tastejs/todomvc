@@ -17,7 +17,7 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 	//
 	// Control the workflow and logic that exists at the application
 	// level, above the implementation detail of views and models
-	TodoList.Controller = Marionette.Controller.extend({
+	TodoList.Controller = Marionette.Object.extend({
 		initialize: function () {
 			this.todoList = new App.Todos.TodoList();
 		},
