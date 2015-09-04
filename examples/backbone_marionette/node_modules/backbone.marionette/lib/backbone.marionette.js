@@ -1,6 +1,6 @@
 // MarionetteJS (Backbone.Marionette)
 // ----------------------------------
-// v2.4.1
+// v2.4.2
 //
 // Copyright (c)2015 Derick Bailey, Muted Solutions, LLC.
 // Distributed under MIT license
@@ -38,7 +38,7 @@
   /* istanbul ignore next */
   // Backbone.BabySitter
   // -------------------
-  // v0.1.6
+  // v0.1.7
   //
   // Copyright (c)2015 Derick Bailey, Muted Solutions, LLC.
   // Distributed under MIT license
@@ -167,7 +167,7 @@
       // return the public API
       return Container;
     }(Backbone, _);
-    Backbone.ChildViewContainer.VERSION = "0.1.6";
+    Backbone.ChildViewContainer.VERSION = "0.1.7";
     Backbone.ChildViewContainer.noConflict = function() {
       Backbone.ChildViewContainer = previousChildViewContainer;
       return this;
@@ -178,9 +178,9 @@
   /* istanbul ignore next */
   // Backbone.Wreqr (Backbone.Marionette)
   // ----------------------------------
-  // v1.3.1
+  // v1.3.3
   //
-  // Copyright (c)2014 Derick Bailey, Muted Solutions, LLC.
+  // Copyright (c)2015 Derick Bailey, Muted Solutions, LLC.
   // Distributed under MIT license
   //
   // http://github.com/marionettejs/backbone.wreqr
@@ -188,7 +188,7 @@
     "use strict";
     var previousWreqr = Backbone.Wreqr;
     var Wreqr = Backbone.Wreqr = {};
-    Backbone.Wreqr.VERSION = "1.3.1";
+    Backbone.Wreqr.VERSION = "1.3.3";
     Backbone.Wreqr.noConflict = function() {
       Backbone.Wreqr = previousWreqr;
       return this;
@@ -245,8 +245,7 @@
             return;
           }
           return function() {
-            var args = Array.prototype.slice.apply(arguments);
-            return config.callback.apply(config.context, args);
+            return config.callback.apply(config.context, arguments);
           };
         },
         // Remove a handler for the specified name
@@ -312,7 +311,7 @@
     //
     // A simple command pattern implementation. Register a command
     // handler and execute it.
-    Wreqr.Commands = function(Wreqr) {
+    Wreqr.Commands = function(Wreqr, _) {
       "use strict";
       return Wreqr.Handlers.extend({
         // default storage type
@@ -321,13 +320,12 @@
           this.options = options || {};
           this._initializeStorage(this.options);
           this.on("handler:add", this._executeCommands, this);
-          var args = Array.prototype.slice.call(arguments);
-          Wreqr.Handlers.prototype.constructor.apply(this, args);
+          Wreqr.Handlers.prototype.constructor.apply(this, arguments);
         },
         // Execute a named command with the supplied args
-        execute: function(name, args) {
+        execute: function(name) {
           name = arguments[0];
-          args = Array.prototype.slice.call(arguments, 1);
+          var args = _.rest(arguments);
           if (this.hasHandler(name)) {
             this.getHandler(name).apply(this, args);
           } else {
@@ -356,24 +354,22 @@
           this.storage = storage;
         }
       });
-    }(Wreqr);
+    }(Wreqr, _);
     // Wreqr.RequestResponse
     // ---------------------
     //
     // A simple request/response implementation. Register a
     // request handler, and return a response from it
-    Wreqr.RequestResponse = function(Wreqr) {
+    Wreqr.RequestResponse = function(Wreqr, _) {
       "use strict";
       return Wreqr.Handlers.extend({
-        request: function() {
-          var name = arguments[0];
-          var args = Array.prototype.slice.call(arguments, 1);
+        request: function(name) {
           if (this.hasHandler(name)) {
-            return this.getHandler(name).apply(this, args);
+            return this.getHandler(name).apply(this, _.rest(arguments));
           }
         }
       });
-    }(Wreqr);
+    }(Wreqr, _);
     // Event Aggregator
     // ----------------
     // A pub-sub object that can be used to decouple various parts
@@ -440,7 +436,7 @@
     // --------------
     //
     // An object that lets you communicate with many channels.
-    Wreqr.radio = function(Wreqr) {
+    Wreqr.radio = function(Wreqr, _) {
       "use strict";
       var Radio = function() {
         this._channels = {};
@@ -480,12 +476,11 @@
       var proxyMethod = function(radio, system, method) {
         return function(channelName) {
           var messageSystem = radio._getChannel(channelName)[system];
-          var args = Array.prototype.slice.call(arguments, 1);
-          return messageSystem[method].apply(messageSystem, args);
+          return messageSystem[method].apply(messageSystem, _.rest(arguments));
         };
       };
       return new Radio();
-    }(Wreqr);
+    }(Wreqr, _);
     return Backbone.Wreqr;
   })(Backbone, _);
 
@@ -494,7 +489,7 @@
 
   var Marionette = Backbone.Marionette = {};
 
-  Marionette.VERSION = '2.4.1';
+  Marionette.VERSION = '2.4.2';
 
   Marionette.noConflict = function() {
     root.Marionette = previousMarionette;
@@ -1161,10 +1156,12 @@
         // as it's a potentially-slow method
         var displayedViews = [];
   
-        var triggerBeforeAttach = showOptions.triggerBeforeAttach || this.triggerBeforeAttach;
-        var triggerAttach = showOptions.triggerAttach || this.triggerAttach;
+        var attachOptions = _.extend({
+          triggerBeforeAttach: this.triggerBeforeAttach,
+          triggerAttach: this.triggerAttach
+        }, showOptions);
   
-        if (attachedRegion && triggerBeforeAttach) {
+        if (attachedRegion && attachOptions.triggerBeforeAttach) {
           displayedViews = this._displayedViews(view);
           this._triggerAttach(displayedViews, 'before:');
         }
@@ -1172,7 +1169,7 @@
         this.attachHtml(view);
         this.currentView = view;
   
-        if (attachedRegion && triggerAttach) {
+        if (attachedRegion && attachOptions.triggerAttach) {
           displayedViews = this._displayedViews(view);
           this._triggerAttach(displayedViews);
         }
@@ -2117,7 +2114,7 @@
     }
   });
   
-  /* jshint maxstatements: 14 */
+  /* jshint maxstatements: 20, maxcomplexity: 7 */
   
   // Collection View
   // ---------------
@@ -2141,14 +2138,17 @@
     // option to pass `{comparator: compFunction()}` to allow the `CollectionView`
     // to use a custom sort order for the collection.
     constructor: function(options) {
-  
       this.once('render', this._initialEvents);
       this._initChildViewStorage();
   
       Marionette.View.apply(this, arguments);
   
-      this.on('show', this._onShowCalled);
-  
+      this.on({
+        'before:show':   this._onBeforeShowCalled,
+        'show':          this._onShowCalled,
+        'before:attach': this._onBeforeAttachCalled,
+        'attach':        this._onAttachCalled
+      });
       this.initRenderBuffer();
     },
   
@@ -2165,33 +2165,38 @@
     },
   
     endBuffering: function() {
+      // Only trigger attach if already shown and attached, otherwise Region#show() handles this.
+      var canTriggerAttach = this._isShown && Marionette.isNodeAttached(this.el);
+      var nestedViews;
+  
       this.isBuffering = false;
-      this._triggerBeforeShowBufferedChildren();
   
-      this.attachBuffer(this);
+      if (this._isShown) {
+        this._triggerMethodMany(this._bufferedChildren, this, 'before:show');
+      }
+      if (canTriggerAttach && this._triggerBeforeAttach) {
+        nestedViews = this._getNestedViews();
+        this._triggerMethodMany(nestedViews, this, 'before:attach');
+      }
   
-      this._triggerShowBufferedChildren();
+      this.attachBuffer(this, this._createBuffer());
+  
+      if (canTriggerAttach && this._triggerAttach) {
+        nestedViews = this._getNestedViews();
+        this._triggerMethodMany(nestedViews, this, 'attach');
+      }
+      if (this._isShown) {
+        this._triggerMethodMany(this._bufferedChildren, this, 'show');
+      }
       this.initRenderBuffer();
     },
   
-    _triggerBeforeShowBufferedChildren: function() {
-      if (this._isShown) {
-        _.each(this._bufferedChildren, _.partial(this._triggerMethodOnChild, 'before:show'));
-      }
-    },
+    _triggerMethodMany: function(targets, source, eventName) {
+      var args = _.drop(arguments, 3);
   
-    _triggerShowBufferedChildren: function() {
-      if (this._isShown) {
-        _.each(this._bufferedChildren, _.partial(this._triggerMethodOnChild, 'show'));
-  
-        this._bufferedChildren = [];
-      }
-    },
-  
-    // Internal method for _.each loops to call `Marionette.triggerMethodOn` on
-    // a child view
-    _triggerMethodOnChild: function(event, childView) {
-      Marionette.triggerMethodOn(childView, event);
+      _.each(targets, function(target) {
+        Marionette.triggerMethodOn.apply(target, [target, eventName, target, source].concat(args));
+      });
     },
   
     // Configured the initial events that the collection view
@@ -2231,8 +2236,29 @@
       this.checkEmpty();
     },
   
+    _onBeforeShowCalled: function() {
+      // Reset attach event flags at the top of the Region#show() event lifecycle; if the Region's
+      // show() options permit onBeforeAttach/onAttach events, these flags will be set true again.
+      this._triggerBeforeAttach = this._triggerAttach = false;
+      this.children.each(function(childView) {
+        Marionette.triggerMethodOn(childView, 'before:show', childView);
+      });
+    },
+  
     _onShowCalled: function() {
-      this.children.each(_.partial(this._triggerMethodOnChild, 'show'));
+      this.children.each(function(childView) {
+        Marionette.triggerMethodOn(childView, 'show', childView);
+      });
+    },
+  
+    // If during Region#show() onBeforeAttach was fired, continue firing it for child views
+    _onBeforeAttachCalled: function() {
+      this._triggerBeforeAttach = true;
+    },
+  
+    // If during Region#show() onAttach was fired, continue firing it for child views
+    _onAttachCalled: function() {
+      this._triggerAttach = true;
     },
   
     // Render children views. Override this method to
@@ -2265,8 +2291,10 @@
         this.render();
       } else {
         // get the DOM nodes in the same order as the models
-        var els = _.map(models, function(model) {
-          return children.findByModel(model).el;
+        var els = _.map(models, function(model, index) {
+          var view = children.findByModel(model);
+          view._index = index;
+          return view.el;
         });
   
         // since append moves elements that are already in the DOM,
@@ -2319,7 +2347,7 @@
     // process
     _renderChildren: function() {
       this.destroyEmptyView();
-      this.destroyChildren();
+      this.destroyChildren({checkEmpty: false});
   
       if (this.isEmpty(this.collection)) {
         this.showEmptyView();
@@ -2413,6 +2441,10 @@
     // but "add:child" events are not fired, and the event from
     // emptyView are not forwarded
     addEmptyView: function(child, EmptyView) {
+      // Only trigger attach if already shown, attached, and not buffering, otherwise endBuffer() or
+      // Region#show() handles this.
+      var canTriggerAttach = this._isShown && !this.isBuffering && Marionette.isNodeAttached(this.el);
+      var nestedViews;
   
       // get the emptyViewOptions, falling back to childViewOptions
       var emptyViewOptions = this.getOption('emptyViewOptions') ||
@@ -2430,23 +2462,35 @@
       // Proxy emptyView events
       this.proxyChildEvents(view);
   
-      // trigger the 'before:show' event on `view` if the collection view
-      // has already been shown
+      // trigger the 'before:show' event on `view` if the collection view has already been shown
       if (this._isShown) {
-        Marionette.triggerMethodOn(view, 'before:show');
+        Marionette.triggerMethodOn(view, 'before:show', view);
       }
   
       // Store the `emptyView` like a `childView` so we can properly
       // remove and/or close it later
       this.children.add(view);
   
+      // Trigger `before:attach` following `render` to avoid adding logic and event triggers
+      // to public method `renderChildView()`.
+      if (canTriggerAttach && this._triggerBeforeAttach) {
+        nestedViews = [view].concat(view._getNestedViews());
+        view.once('render', function() {
+          this._triggerMethodMany(nestedViews, this, 'before:attach');
+        }, this);
+      }
+  
       // Render it and show it
       this.renderChildView(view, this._emptyViewIndex);
   
-      // call the 'show' method if the collection view
-      // has already been shown
+      // Trigger `attach`
+      if (canTriggerAttach && this._triggerAttach) {
+        nestedViews = [view].concat(view._getNestedViews());
+        this._triggerMethodMany(nestedViews, this, 'attach');
+      }
+      // call the 'show' method if the collection view has already been shown
       if (this._isShown) {
-        Marionette.triggerMethodOn(view, 'show');
+        Marionette.triggerMethodOn(view, 'show', view);
       }
     },
   
@@ -2482,7 +2526,9 @@
       // increment indices of views after this one
       this._updateIndices(view, true, index);
   
+      this.triggerMethod('before:add:child', view);
       this._addChildView(view, index);
+      this.triggerMethod('add:child', view);
   
       view._parent = this;
   
@@ -2512,27 +2558,42 @@
     // Internal Method. Add the view to children and render it at
     // the given index.
     _addChildView: function(view, index) {
+      // Only trigger attach if already shown, attached, and not buffering, otherwise endBuffer() or
+      // Region#show() handles this.
+      var canTriggerAttach = this._isShown && !this.isBuffering && Marionette.isNodeAttached(this.el);
+      var nestedViews;
+  
       // set up the child view event forwarding
       this.proxyChildEvents(view);
   
-      this.triggerMethod('before:add:child', view);
-  
-      // trigger the 'before:show' event on `view` if the collection view
-      // has already been shown
+      // trigger the 'before:show' event on `view` if the collection view has already been shown
       if (this._isShown && !this.isBuffering) {
-        Marionette.triggerMethodOn(view, 'before:show');
+        Marionette.triggerMethodOn(view, 'before:show', view);
       }
   
-      // Store the child view itself so we can properly
-      // remove and/or destroy it later
+      // Store the child view itself so we can properly remove and/or destroy it later
       this.children.add(view);
+  
+      // Trigger `before:attach` following `render` to avoid adding logic and event triggers
+      // to public method `renderChildView()`.
+      if (canTriggerAttach && this._triggerBeforeAttach) {
+        nestedViews = [view].concat(view._getNestedViews());
+        view.once('render', function() {
+          this._triggerMethodMany(nestedViews, this, 'before:attach');
+        }, this);
+      }
+  
       this.renderChildView(view, index);
   
-      if (this._isShown && !this.isBuffering) {
-        Marionette.triggerMethodOn(view, 'show');
+      // Trigger `attach`
+      if (canTriggerAttach && this._triggerAttach) {
+        nestedViews = [view].concat(view._getNestedViews());
+        this._triggerMethodMany(nestedViews, this, 'attach');
       }
-  
-      this.triggerMethod('add:child', view);
+      // Trigger `show`
+      if (this._isShown && !this.isBuffering) {
+        Marionette.triggerMethodOn(view, 'show', view);
+      }
     },
   
     // render the child view
@@ -2589,14 +2650,14 @@
     },
   
     // You might need to override this if you've overridden attachHtml
-    attachBuffer: function(collectionView) {
-      collectionView.$el.append(this._createBuffer(collectionView));
+    attachBuffer: function(collectionView, buffer) {
+      collectionView.$el.append(buffer);
     },
   
     // Create a fragment buffer from the currently buffered children
-    _createBuffer: function(collectionView) {
+    _createBuffer: function() {
       var elBuffer = document.createDocumentFragment();
-      _.each(collectionView._bufferedChildren, function(b) {
+      _.each(this._bufferedChildren, function(b) {
         elBuffer.appendChild(b.el);
       });
       return elBuffer;
@@ -2657,7 +2718,7 @@
       if (this.isDestroyed) { return this; }
   
       this.triggerMethod('before:destroy:collection');
-      this.destroyChildren();
+      this.destroyChildren({checkEmpty: false});
       this.triggerMethod('destroy:collection');
   
       return Marionette.View.prototype.destroy.apply(this, arguments);
@@ -2665,10 +2726,20 @@
   
     // Destroy the child views that this collection view
     // is holding on to, if any
-    destroyChildren: function() {
+    destroyChildren: function(options) {
+      var destroyOptions = options || {};
+      var shouldCheckEmpty = true;
       var childViews = this.children.map(_.identity);
+  
+      if (!_.isUndefined(destroyOptions.checkEmpty)) {
+        shouldCheckEmpty = destroyOptions.checkEmpty;
+      }
+  
       this.children.each(this.removeChildView, this);
-      this.checkEmpty();
+  
+      if (shouldCheckEmpty) {
+        this.checkEmpty();
+      }
       return childViews;
     },
   
@@ -2840,9 +2911,9 @@
     },
   
     // You might need to override this if you've overridden attachHtml
-    attachBuffer: function(compositeView) {
+    attachBuffer: function(compositeView, buffer) {
       var $container = this.getChildViewContainer(compositeView);
-      $container.append(this._createBuffer(compositeView));
+      $container.append(buffer);
     },
   
     // Internal method. Append a view to the end of the $el.
@@ -2864,7 +2935,7 @@
     // Internal method to ensure an `$childViewContainer` exists, for the
     // `attachHtml` method to use.
     getChildViewContainer: function(containerView, childView) {
-      if ('$childViewContainer' in containerView) {
+      if (!!containerView.$childViewContainer) {
         return containerView.$childViewContainer;
       }
   
@@ -2898,7 +2969,7 @@
     // Internal method to reset the `$childViewContainer` on render
     resetChildViewContainer: function() {
       if (this.$childViewContainer) {
-        delete this.$childViewContainer;
+        this.$childViewContainer = undefined;
       }
     }
   });
