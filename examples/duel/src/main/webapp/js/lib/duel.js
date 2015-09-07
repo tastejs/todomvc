@@ -1,7 +1,7 @@
 /*global window */
 
 /**
- * @license DUEL v0.9.6 http://duelengine.org
+ * @license DUEL v0.9.7 http://duelengine.org
  * Copyright (c)2006-2012 Stephen M. McKamey.
  * Licensed under The MIT License.
  */
@@ -986,9 +986,9 @@ var duel = (
 	 * @param {Array} node The result tree
 	 */
 	function renderComment(buffer, node) {
-		if (node[0] === '!DOCTYPE') {
+		if (node[0].toLowerCase() === '!doctype') {
 			// emit doctype
-			buffer.append('<!DOCTYPE ', node[1], '>');
+			buffer.append('<!doctype ', node[1], '>');
 
 		} else {
 			// emit HTML comment
