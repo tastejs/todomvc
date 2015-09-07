@@ -18,10 +18,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<resourcesDir>${project.basedir}/src/main/resources</resourcesDir>
 
-		<staticapps.version>0.9.10</staticapps.version>
+		<staticapps.version>0.9.11</staticapps.version>
 		<merge.version>0.6.0</merge.version>
-		<duel.version>0.9.6</duel.version>
-		<slf4j.version>1.7.9</slf4j.version>
+		<duel.version>0.9.7</duel.version>
+		<slf4j.version>1.7.12</slf4j.version>
 		<javac.version>1.7</javac.version>
 
 		<duel.clientPrefix>todos.views</duel.clientPrefix>
@@ -76,10 +76,11 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0-beta-1</version>
+				<version>2.2</version>
 				<configuration>
 					<path>/</path>
 					<port>8080</port>
+					<uriEncoding>UTF-8</uriEncoding>
 					<warSourceDirectory>${project.build.directory}/${project.build.finalName}/</warSourceDirectory>
 				</configuration>
 			</plugin>
