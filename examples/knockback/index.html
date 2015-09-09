@@ -12,8 +12,8 @@
 				<h1>todos</h1>
 				<input class="new-todo" type="text" data-bind="value: title, valueUpdate: 'afterkeydown', event: {keyup: onAddTodo}" placeholder="What needs to be done?" autofocus>
 			</header>
-			<section class="main" data-bind="visible: tasks_exist">
-				<input class="toggle-all" type="checkbox" data-bind="checked: all_completed">
+			<section class="main" data-bind="visible: todoStats().tasksExist">
+				<input class="toggle-all" type="checkbox" data-bind="checked: toggleCompleted">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list" data-bind="foreach: todos">
 					<li data-bind="css: {completed: completed, editing: editing}">
@@ -22,24 +22,27 @@
 							<label data-bind="text: title"></label>
 							<button class="destroy" data-bind="click: onDestroy"></button>
 						</div>
-						<input class="edit" type="text" data-bind="value: edit_title, event: {blur: onCheckEditEnd, keyup: onCheckEditEnd}">
+						<input class="edit" type="text" data-bind="value: editTitle, event: {blur: onCheckEditEnd, keyup: onCheckEditEnd}">
 					</li>
 				</ul>
 			</section>
-			<footer class="footer" data-bind="visible: tasks_exist">
-				<span class="todo-count" data-bind="html: loc.remaining_message"></span>
+			<footer class="footer" data-bind="visible: todoStats().tasksExist">
+				<span class="todo-count">
+					<strong data-bind="text: todoStats().remainingCount">0</strong>
+					<span data-bind="text: getLabel(todoStats().remainingCount)"></span> left
+				</span>
 				<ul class="filters">
 					<li>
-						<a href="#/" data-bind="css: {selected: list_filter_mode()==''}">All</a>
+						<a href="#/" data-bind="css: {selected: filterMode()==''}">All</a>
 					</li>
 					<li>
-						<a href="#/active" data-bind="css: {selected: list_filter_mode()=='active'}">Active</a>
+						<a href="#/active" data-bind="css: {selected: filterMode()=='active'}">Active</a>
 					</li>
 					<li>
-						<a href="#/completed" data-bind="css: {selected: list_filter_mode()=='completed'}">Completed</a>
+						<a href="#/completed" data-bind="css: {selected: filterMode()=='completed'}">Completed</a>
 					</li>
 				</ul>
-				<button class="clear-completed" data-bind="text: loc.clear_message, visible: loc.clear_message, click: onClearCompleted"></button>
+				<button class="clear-completed" data-bind="visible: todoStats().completedCount, click: onClearCompleted">Clear completed</button>
 			</footer>
 		</section>
 		<footer class="info">
@@ -61,7 +64,8 @@
 		<script src="node_modules/backbone.localStorage/backbone.localStorage.js"></script>
 
 		<!-- App and Components -->
-		<script src="js/models/todo_collection.js"></script>
+		<script src="js/models/todo.js"></script>
+		<script src="js/collections/todos.js"></script>
 		<script src="js/viewmodels/todo.js"></script>
 		<script src="js/viewmodels/app.js"></script>
 	</body>
