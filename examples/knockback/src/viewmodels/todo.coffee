@@ -1,30 +1,31 @@
-window.TodoViewModel = (model) ->
-	ENTER_KEY = 13
-	ESCAPE_KEY = 27
+ENTER_KEY = 13
+ESCAPE_KEY = 27
 
-	@editing = ko.observable(false)
-	@completed = kb.observable(model, {key: 'completed', read: (-> return model.completed()), write: ((completed) -> model.completed(completed)) }, @)
+class window.TodoViewModel extends kb.ViewModel
+	constructor: (model, options) ->
+		super(model, {requires: ['title', 'completed']}, options)
 
-	@title = kb.observable(model, {
-		key: 'title'
-		write: ((title) =>
-			if $.trim(title) then model.save(title: $.trim(title)) else _.defer(->model.destroy())
+		@completed.subscribe((completed) => @model().save({completed}))
+		@edit_title = ko.observable()
+		@editing = ko.observable(false)
+
+	onDestroy: => @model().destroy()
+
+	onCheckEditBegin: =>
+		return if @editing()
+
+		@edit_title(@title())
+		@editing(true)
+		$('.todo-input').focus()
+
+	onCheckEditEnd: (vm, event) =>
+		return unless @editing()
+
+		if (event.keyCode is ESCAPE_KEY)
 			@editing(false)
-		)
-	}, @)
 
-	@onDestroyTodo = => model.destroy()
-
-	@onCheckEditBegin = =>
-		if not @editing()
-			@editing(true)
-			$('.todo-input').focus()
-
-	@onCheckEditEnd = (view_model, event) =>
-		if (event.keyCode == ESCAPE_KEY)
-			@editing(false)
-		if (event.keyCode == ENTER_KEY) or (event.type == 'blur')
+		if (event.keyCode is ENTER_KEY) or (event.type is 'blur')
 			$('.todo-input').blur()
+			title = @edit_title()
+			if $.trim(title) then @model().set({title}).save({title: $.trim(title)}) else _.defer(=>@model().destroy())
 			@editing(false)
-
-	return
