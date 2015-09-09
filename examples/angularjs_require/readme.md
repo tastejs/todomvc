@@ -13,7 +13,7 @@ Here are some links you may find helpful:
 * [Tutorial](http://docs.angularjs.org/tutorial)
 * [API Reference](http://docs.angularjs.org/api)
 * [Developer Guide](http://docs.angularjs.org/guide)
-* [Applications built with AngularJS](http://builtwith.angularjs.org)
+* [Applications built with AngularJS](https://www.madewithangular.com/)
 * [Blog](http://blog.angularjs.org)
 * [FAQ](http://docs.angularjs.org/misc/faq)
 * [AngularJS Meetups](http://www.youtube.com/angularjs)
