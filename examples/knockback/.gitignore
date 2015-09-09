@@ -1,24 +1,23 @@
-node_modules/knockback/*
-!node_modules/knockback/knockback.js
-!node_modules/knockback/node_modules
+node_modules/backbone/*
+!node_modules/backbone/backbone.js
 
-node_modules/knockback/node_modules/backbone/*
-!node_modules/knockback/node_modules/backbone/backbone.js
-
-node_modules/knockback/node_modules/underscore/*
-!node_modules/knockback/node_modules/underscore/underscore.js
-
-node_modules/knockback/node_modules/knockout/*
-!node_modules/knockback/node_modules/knockout/build
-node_modules/knockback/node_modules/knockout/build/*
-!node_modules/knockback/node_modules/knockout/build/output
-node_modules/knockback/node_modules/knockout/build/output/*
-!node_modules/knockback/node_modules/knockout/build/output/knockout-latest.debug.js
+node_modules/backbone.localStorage/*
+!node_modules/backbone.localStorage/backbone.localStorage.js
 
 node_modules/jquery/*
 !node_modules/jquery/dist
 node_modules/jquery/dist/*
 !node_modules/jquery/dist/jquery.js
+
+node_modules/knockback/*
+!node_modules/knockback/knockback.js
+
+node_modules/knockout/*
+!node_modules/knockout/build
+node_modules/knockout/build/*
+!node_modules/knockout/build/output
+node_modules/knockout/build/output/*
+!node_modules/knockout/build/output/knockout-latest.debug.js
 
 node_modules/todomvc-app-css/*
 !node_modules/todomvc-app-css/index.css
@@ -26,3 +25,6 @@ node_modules/todomvc-app-css/*
 node_modules/todomvc-common/*
 !node_modules/todomvc-common/base.css
 !node_modules/todomvc-common/base.js
+
+node_modules/underscore/*
+!node_modules/underscore/underscore.js
