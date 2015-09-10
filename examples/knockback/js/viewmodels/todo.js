@@ -12,11 +12,10 @@ var app = app || {};
 
 	app.TodoViewModel = kb.ViewModel.extend({
 		constructor: function (model, options) {
-			// Using 'requires' automatically creates two-way observables only for title and completed attributes.
-			// Using 'keys' will allow any discovered attributes to be created in addition to title and completed.
-			// Using 'excludes' will block observables being created for specific attributes.
-			// Using 'internal' will use an underscored name like _title for the observable name.
-			kb.ViewModel.prototype.constructor.call(this, model, {requires: ['title', 'completed']}, options);
+			// 'keys' option ensures two-way observables are created only for the title and completed attributes.
+			// 'requires' option allows observables to be created for any attributes in addition to ensuring title and completed.
+			// 'excludes' option blocks observables being created for specific attributes.
+			kb.ViewModel.prototype.constructor.call(this, model, {keys: ['title', 'completed']}, options);
 
 			// Use editTitle to delay updating model attributes until changes are accepted.
 			this.editTitle = ko.observable();
