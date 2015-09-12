@@ -49,7 +49,7 @@ function TestOperations(page) {
 	this.assertClearCompleteButtonText = function (buttonText) {
 		return page.tryGetClearCompleteButton()
 		.getText().then(function (text) {
-				assert.equal(buttonText, text);
+			assert.equal(buttonText, text);
 		});
 	};
 
