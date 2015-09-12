@@ -1,12 +1,18 @@
-/*global TodoMVC */
-'use strict';
+/*global TodoMVC:true, Backbone, $ */
 
-TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
+var TodoMVC = TodoMVC || {};
+
+(function () {
+	'use strict';
+
+	var filterChannel = Backbone.Radio.channel('filter');
+
 	// TodoList Router
 	// ---------------
 	//
-	// Handle routes to show the active vs complete todo items
-	TodoList.Router = Marionette.AppRouter.extend({
+	// Handles a single dynamic route to show
+	// the active vs complete todo items
+	TodoMVC.Router = Backbone.Marionette.AppRouter.extend({
 		appRoutes: {
 			'*filter': 'filterItems'
 		}
@@ -17,10 +23,12 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 	//
 	// Control the workflow and logic that exists at the application
 	// level, above the implementation detail of views and models
-	TodoList.Controller = Marionette.Object.extend({
+	TodoMVC.Controller = Backbone.Marionette.Object.extend({
+
 		initialize: function () {
-			this.todoList = new App.Todos.TodoList();
+			this.todoList = new TodoMVC.TodoList();
 		},
+
 		// Start the app by showing the appropriate views
 		// and fetching the list of todo items, if there are any
 		start: function () {
@@ -36,21 +44,21 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 		},
 
 		showHeader: function (todoList) {
-			var header = new App.Layout.Header({
+			var header = new TodoMVC.HeaderLayout({
 				collection: todoList
 			});
-			App.root.showChildView('header', header);
+			TodoMVC.App.root.showChildView('header', header);
 		},
 
 		showFooter: function (todoList) {
-			var footer = new App.Layout.Footer({
+			var footer = new TodoMVC.FooterLayout({
 				collection: todoList
 			});
-			App.root.showChildView('footer', footer);
+			TodoMVC.App.root.showChildView('footer', footer);
 		},
 
 		showTodoList: function (todoList) {
-			App.root.showChildView('main', new TodoList.Views.ListView({
+			TodoMVC.App.root.showChildView('main', new TodoMVC.ListView({
 				collection: todoList
 			}));
 		},
@@ -58,22 +66,7 @@ TodoMVC.module('TodoList', function (TodoList, App, Backbone, Marionette) {
 		// Set the filter to show complete or all items
 		filterItems: function (filter) {
 			var newFilter = filter && filter.trim() || 'all';
-			App.request('filterState').set('filter', newFilter);
+			filterChannel.request('filterState').set('filter', newFilter);
 		}
 	});
-
-	// On App start
-	// --------------------
-	//
-	// Get the TodoList up and running by initializing the mediator
-	// when the the application is started, pulling in all of the
-	// existing Todo items and displaying them.
-	App.on('start', function () {
-		var controller = new TodoList.Controller();
-		controller.router = new TodoList.Router({
-			controller: controller
-		});
-
-		controller.start();
-	});
-});
+})();
