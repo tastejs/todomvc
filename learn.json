@@ -1772,7 +1772,7 @@
 	"riotjs": {
 		"name": "Riot.js",
 		"description": "Riot.js is a React-like user interface micro-library.",
-		"homepage": "http://riotjs.com/",
+		"homepage": "riotjs.com",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/riotjs"
