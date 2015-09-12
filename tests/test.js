@@ -79,7 +79,9 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				(new webdriver.WebDriver.Logs(browser))
 				.get('browser')
 				.then(function (v) {
-					v && v.length && console.log(v);
+					if (v && v.length) {
+						console.log(v);
+					}
 				});
 				closeBrowser();
 			});
