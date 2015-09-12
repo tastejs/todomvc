@@ -1,12 +1,13 @@
 <view name="HomePage"><!doctype html>
-<html lang="en" data-framework="duel">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DUEL &bull; TodoMVC</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>DUEL • TodoMVC</title>
 	<link rel="stylesheet" href="/css/styles.merge">
 </head>
 <body>
-	<footer id="info">
+	<footer class="info">
 		<p>Double-click to edit a todo</p>
 		<p>Ported to <a href="http://duelengine.org">DUEL</a> by <a href="http://mck.me">Stephen McKamey</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
