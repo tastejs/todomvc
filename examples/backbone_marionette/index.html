@@ -63,20 +63,14 @@
 		<script src="node_modules/backbone/backbone.js"></script>
 		<script src="node_modules/backbone.localstorage/backbone.localStorage.js"></script>
 		<script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
+		<script src="node_modules/backbone.radio/build/backbone.radio.js"></script>
 		<!-- application -->
-		<script src="js/TodoMVC.js"></script>
+		<script src="js/TodoMVC.Application.js"></script>
 		<script src="js/TodoMVC.Todos.js"></script>
 		<script src="js/TodoMVC.Layout.js"></script>
 		<script src="js/TodoMVC.TodoList.Views.js"></script>
-		<script src="js/TodoMVC.TodoList.js"></script>
-		<script>
-			$(function () {
-				TodoMVC.on('start', function () {
-					Backbone.history.start();
-				});
-				// start the TodoMVC app (defined in js/TodoMVC.js)
-				TodoMVC.start();
-			});
-		</script>
+		<script src="js/TodoMVC.Router.js"></script>
+		<script src="js/TodoMVC.FilterState.js"></script>
+		<script src="js/TodoMVC.js"></script>
 	</body>
 </html>
