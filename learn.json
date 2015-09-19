@@ -1092,6 +1092,28 @@
 			}]
 		}]
 	},
+	"humble": {
+		"name": "Humble + GopherJS",
+		"description": "Humble is a collection of loosely-coupled tools designed to build client-side and hybrid web applications using GopherJS, which compiles Go code to JavaScript.",
+		"homepage": "https://github.com/go-humble/humble",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/humble"
+		}],
+		"link_groups": [{
+			"heading": "Resources",
+			"links": [{
+				"name": "Source Code and Documentation",
+				"url": "https://github.com/go-humble"
+			}, {
+				"name": "GopherJS on Stack Overflow",
+				"url": "http://stackoverflow.com/search?q=gopherjs"
+			}, {
+				"name": "GopherJS Google Group",
+				"url": "https://groups.google.com/forum/#!forum/gopherjs"
+			}]
+		}]
+	},
 	"javascript": {
 		"name": "JavaScript",
 		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
