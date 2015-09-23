@@ -15,7 +15,7 @@ existing problems.
 It doesn't matter whether your app is written in plain JavaScript and HTML or is cross-compiled to
 something a modern browser can execute. We care about bold ideas
 that bring something truly new to the table, but minor variations of existing
-frameworks or languages only add to [Frontend Choice
+frameworks or languages only add to [Front-end Choice
 Paralysis](http://addyosmani.com/blog/front-end-choice-paralysis/).
 
 Please bear in mind that your project should have reached a certain level of
