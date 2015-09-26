@@ -51,7 +51,8 @@ app.view = (function () {
 							classes += task.completed() ? 'completed' : '';
 							classes += task.editing() ? ' editing' : '';
 							return classes;
-						})()
+						})(),
+						key: task.key
 						}, [
 							m('.view', [
 								m('input.toggle[type=checkbox]', {
