@@ -1,31 +1,62 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="td-input.html">
 
-<polymer-element name="td-item" extends="li" attributes="item editing" on-blur="{{commitAction}}">
+<dom-module id="td-item">
 	<template>
-		<link rel="stylesheet" href="td-item.css">
-		<div class="view {{ {completed: item.completed, editing: editing} | tokenList }}" hidden?="{{editing}}" on-dblclick="{{editAction}}">
-			<input type="checkbox" class="toggle" checked="{{item.completed}}" on-click="{{itemChangeAction}}">
-			<label>{{item.title}}</label>
-			<button class="destroy" on-click="{{destroyAction}}"></button>
-		</div>
-		<input is="td-input" id="edit" class="edit" value="{{item.title}}" hidden?="{{!editing}}" on-td-input-commit="{{commitAction}}" on-td-input-cancel="{{cancelAction}}">
+		<template is="dom-if" if="{{!editing}}">
+			<div on-dblclick="editAction">
+				<input type="checkbox" class="toggle" checked="{{item.completed::change}}" on-click="itemChangeAction">
+				<label>{{item.title}}</label>
+				<button class="destroy" on-click="destroyAction"></button>
+			</div>
+		</template>
+		<template is="dom-if" if="{{editing}}">
+			<input is="td-input" id="edit" class="edit" value$="{{item.title}}" on-td-input-commit="commitAction" on-td-input-cancel="cancelAction" on-blur="onBlur">
+		</template>
 	</template>
 	<script>
 		(function() {
-			Polymer('td-item', {
-				editing: false,
+			'use strict';
+
+			Polymer({
+				is: 'td-item',
+				extends: 'li',
+				properties: {
+					editing: {
+						type: Boolean,
+						value: false
+					},
+					item: {
+						type: Object,
+						value: function() {
+							return {};
+						}
+					},
+				},
+				observers: ['setRootClass(item.completed, editing)'],
+				setRootClass: function(completed, editing) {
+					this.classList[completed ? 'add' : 'remove']('completed');
+					this.classList[editing ? 'add' : 'remove']('editing');
+				},
+				onBlur: function() {
+					this.commitAction();
+					this.editing = false;
+				},
 				editAction: function() {
 					this.editing = true;
-					// schedule focus for the end of microtask, when the input will be visible
-					this.asyncMethod(function() {
-						this.$.edit.focus();
+					this.async(function() {
+						var elm = this.querySelector('#edit');
+						// It looks like polymer is trying to be smart here and not updating the
+						// title attribute on the input when it is changed. To work around this, we manually have
+						// to set the value again when we go into edit mode.
+						elm.value = this.item.title;
+						elm.focus();
 					});
 				},
 				commitAction: function() {
 					if (this.editing) {
 						this.editing = false;
-						this.item.title = this.item.title.trim();
+						this.set('item.title', this.querySelector('#edit').value.trim());
 						if (this.item.title === '') {
 							this.destroyAction();
 						}
@@ -35,7 +66,8 @@
 				cancelAction: function() {
 					this.editing = false;
 				},
-				itemChangeAction: function() {
+				itemChangeAction: function(e, details) {
+					this.set('item.completed', e.target.checked);
 					this.fire('td-item-changed');
 				},
 				destroyAction: function() {
@@ -44,4 +76,4 @@
 			});
 		})();
 	</script>
-</polymer-element>
+</dom-module>
