@@ -10,8 +10,6 @@ var excludedFrameworks = [
 	// this implementation deviates from the specification to such an extent that they are
 	// not worth testing via a generic mechanism
 	'gwt',
-	// selenium webdriver cannot see the shadow dom
-	'polymer',
 	// these implementations cannot be run offline, because they are hosted
 	'firebase-angular', 'meteor', 'socketstream',
 	// YUI is a special case here, it is not hosted, but fetches JS files dynamically
