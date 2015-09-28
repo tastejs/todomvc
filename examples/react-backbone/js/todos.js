@@ -13,7 +13,7 @@ var app = app || {};
 		// Reference to this collection's model.
 		model: app.Todo,
 
-		// Save all of the todo items under the `"todos"` namespace.
+		// Save all of the todo items under this example's namespace.
 		localStorage: new Backbone.LocalStorage('todos-react-backbone'),
 
 		// Filter down the list of all todo items that are finished.
