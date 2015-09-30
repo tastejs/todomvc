@@ -4,7 +4,9 @@ module.exports = [
 	// chapling brunch does not mark items as completed via the completed CSS class
 	'TodoMVC - chaplin-brunch, No Todos, should hide #main and #footer',
 	'TodoMVC - chaplin-brunch, Mark all as completed, should allow me to mark all items as completed',
+	// jscs:disable
 	'TodoMVC - chaplin-brunch, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+	// jscs:enable
 	'TodoMVC - chaplin-brunch, Item, should allow me to mark items as complete',
 	'TodoMVC - chaplin-brunch, Item, should allow me to un-mark items as complete',
 	'TodoMVC - chaplin-brunch, Item, should allow me to edit an item',
@@ -33,8 +35,10 @@ module.exports = [
 	// this implementation has numerous edit experience issues
 	'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
 	'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
+	// jscs:disable
 	'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
 
+	// jscs:enable
 	// https://github.com/tastejs/todomvc/issues/815
 	// does not hide other controls while editing
 	'TodoMVC - dojo, Editing, should hide other controls when editing',

@@ -1,10 +1,11 @@
 /*global window */
 
 /**
- * @license DUEL v0.8.2 http://duelengine.org
+ * @license DUEL v0.9.7 http://duelengine.org
  * Copyright (c)2006-2012 Stephen M. McKamey.
  * Licensed under The MIT License.
  */
+/*jshint smarttabs:true */
 
 /**
  * @public
@@ -67,7 +68,7 @@ var duel = (
 
 	/**
 	 * Wraps a data value to maintain as raw markup in output
-	 *
+	 * 
 	 * @private
 	 * @this {Markup}
 	 * @param {string} value The value
@@ -84,7 +85,7 @@ var duel = (
 
 	/**
 	 * Renders the value
-	 *
+	 * 
 	 * @public
 	 * @override
 	 * @this {Markup}
@@ -96,7 +97,7 @@ var duel = (
 
 	/**
 	 * Determines if the value is an Array
-	 *
+	 * 
 	 * @private
 	 * @param {*} val the object being tested
 	 * @return {boolean}
@@ -106,8 +107,30 @@ var duel = (
 	};
 
 	/**
+	 * Determines if the value is a string
+	 * 
+	 * @private
+	 * @param {*} val the object being tested
+	 * @return {boolean}
+	 */
+	function isString(val) {
+		return (typeof val === 'string');
+	}
+
+	/**
+	 * Determines if the value is a function
+	 * 
+	 * @private
+	 * @param {*} val the object being tested
+	 * @return {boolean}
+	 */
+	function isFunction(val) {
+		return (typeof val === 'function');
+	}
+
+	/**
 	 * Determines the type of the value
-	 *
+	 * 
 	 * @private
 	 * @param {*} val the object being tested
 	 * @return {number}
@@ -126,162 +149,8 @@ var duel = (
 	}
 
 	/**
-	 * Determines if the value is a string
-	 *
-	 * @private
-	 * @param {*} val the object being tested
-	 * @return {boolean}
-	 */
-	function isString(val) {
-		return (typeof val === 'string');
-	}
-
-	/**
-	 * Determines if the value is a function
-	 *
-	 * @private
-	 * @param {*} val the object being tested
-	 * @return {boolean}
-	 */
-	function isFunction(val) {
-		return (typeof val === 'function');
-	}
-
-	/**
-	 * String buffer
-	 *
-	 * @private
-	 * @this {Buffer}
-	 * @constructor
-	 */
-	function Buffer() {
-		/**
-		 * @type {Array|string}
-		 * @private
-		 */
-		this.value = Buffer.FAST ? '' : [];
-	}
-
-	/**
-	 * Only IE<9 benefits from Array.join()
-	 *
-	 * @private
-	 * @constant
-	 * @type {boolean}
-	 */
-	Buffer.FAST = !(scriptEngine && scriptEngine() < 9);
-
-	/**
-	 * Appends to the internal value
-	 *
-	 * @public
-	 * @this {Buffer}
-	 * @param {null|string} v1
-	 * @param {null|string=} v2
-	 * @param {null|string=} v3
-	 */
-	Buffer.prototype.append = function(v1, v2, v3) {
-		if (Buffer.FAST) {
-			if (v1 !== null) {
-				this.value += v1;
-
-				if (v2 !== null && v2 !== undef) {
-					this.value += v2;
-
-					if (v3 !== null && v3 !== undef) {
-						this.value += v3;
-					}
-				}
-			}
-
-		} else {
-			this.value.push.apply(
-				// Closure Compiler type cast
-				/** @type{Array} */(this.value),
-				arguments);
-		}
-	};
-
-	/**
-	 * Clears the internal value
-	 *
-	 * @public
-	 * @this {Buffer}
-	 */
-	Buffer.prototype.clear = function() {
-		this.value = Buffer.FAST ? '' : [];
-	};
-
-	/**
-	 * Renders the value
-	 *
-	 * @public
-	 * @override
-	 * @this {Buffer}
-	 * @return {string} value
-	 */
-	Buffer.prototype.toString = function() {
-		return Buffer.FAST ?
-			// Closure Compiler type cast
-			/** @type{string} */(this.value) :
-			this.value.join('');
-	};
-
-	function digits(n) {
-        return (n < 10) ? '0'+n : n;
-    }
-
-	/**
-	 * Formats the value as a string
-	 *
-	 * @private
-	 * @param {*} val the object being rendered
-	 * @return {string|null}
-	 */
-	function asString(val) {
-		var buffer, needsDelim;
-		switch (getType(val)) {
-			case VAL:
-				return ''+val;
-			case NUL:
-				return '';
-			case ARY:
-				// flatten into simple list
-				buffer = new Buffer();
-				for (var i=0, length=val.length; i<length; i++) {
-					if (needsDelim) {
-						buffer.append(', ');
-					} else {
-						needsDelim = true;
-					}
-					buffer.append(asString(val[i]));
-				}
-				return buffer.toString();
-			case OBJ:
-				// format JSON-like
-				buffer = new Buffer();
-				buffer.append('{');
-				for (var key in val) {
-					if (val.hasOwnProperty(key)) {
-						if (needsDelim) {
-							buffer.append(', ');
-						} else {
-							needsDelim = true;
-						}
-						buffer.append(key, '=', asString(val[key]));
-					}
-				}
-				buffer.append('}');
-				return buffer.toString();
-		}
-
-		// Closure Compiler type cast
-		return /** @type{string} */(val);
-	}
-
-	/**
 	 * Wraps a binding result with rendering methods
-	 *
+	 * 
 	 * @private
 	 * @this {Result}
 	 * @param {Array|Object|string|number} view The result tree
@@ -292,7 +161,7 @@ var duel = (
 			// ensure is rooted element
 			view = ['', view];
 		}
-
+	
 		/**
 		 * @type {Array}
 		 * @const
@@ -402,11 +271,20 @@ var duel = (
 	 */
 	var NAME = 'name';
 
+	/**
+	 * Callback allowed to modify the bound node
+	 * 
+	 * @private
+	 * @param {Array} elem bound node
+	 * @return {Array}
+	 */
+	var bindFilter;
+
 	var bind;
 
 	/**
 	 * Appends a node to a parent
-	 *
+	 * 
 	 * @private
 	 * @param {Array} parent The parent node
 	 * @param {Array|Object|string|number} child The child node
@@ -479,7 +357,7 @@ var duel = (
 
 	/**
 	 * Binds the child nodes ignoring parent element and attributes
-	 *
+	 * 
 	 * @private
 	 * @param {Array} node The template subtree root
 	 * @param {*} data The data item being bound
@@ -510,7 +388,7 @@ var duel = (
 
 	/**
 	 * Binds the content once for each item in data
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number|function(*,number,number):*} node The template subtree root
 	 * @param {*} data The data item being bound
@@ -588,7 +466,7 @@ var duel = (
 			}
 		}
 
-		var type = getType(items);
+		var type = getType(items); 
 		if (type === ARY) {
 			// iterate over the items
 			for (i=0, length=items.length; i<length; i++) {
@@ -607,7 +485,7 @@ var duel = (
 
 	/**
 	 * Binds the node to the first conditional block that evaluates to true
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number|function(*,number,number):Array|Object|string} node The template subtree root
 	 * @param {*} data The data item being bound
@@ -644,7 +522,7 @@ var duel = (
 
 	/**
 	 * Calls into another view
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number|function(*,*,*,*):(Object|null)} node The template subtree root
 	 * @param {*} data The data item being bound
@@ -679,12 +557,12 @@ var duel = (
 
 		return (v && isFunction(v.getView)) ?
 			// Closure Compiler type cast
-			bind(v.getView(), d, /** @type {number} */i, /** @type {number} */c, /** @type {string} */k, p) : null;
+			bind(v.getView(), d, (/** @type {number} */i), (/** @type {number} */c), (/** @type {string} */k), p) : null;
 	}
 
 	/**
 	 * Replaces a place holder part with the named part from the calling view
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number|function(*,*,*,*):(Object|null)} node The template subtree root
 	 * @param {*} data The data item being bound
@@ -705,7 +583,7 @@ var duel = (
 
 	/**
 	 * Binds the node to data
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number|function(*,*,*,*):(Object|null)} node The template subtree root
 	 * @param {*} data The data item being bound
@@ -752,7 +630,7 @@ var duel = (
 				for (var i=1, length=node.length; i<length; i++) {
 					append(elem, bind(node[i], data, index, count, key, parts));
 				}
-				return elem;
+				return bindFilter ? bindFilter(elem) : elem;
 
 			case OBJ:
 				// attribute map
@@ -770,22 +648,79 @@ var duel = (
 		return node;
 	};
 
+	/**
+	 * Boolean attribute map (used by both render.js & dom.js)
+	 * 
+	 * @private
+	 * @constant
+	 * @type {Object.<number>}
+	 */
+	var ATTR_BOOL = {
+		'allowfullscreen': 1,
+		'async': 1,
+		'autofocus': 1,
+		'autoplay': 1,
+		'checked': 1,
+		'compact': 1,
+		'controls': 1,
+		'declare': 1,
+		'default': 1,
+		'defaultchecked': 1,
+		'defaultmuted': 1,
+		'defaultselected': 1,
+		'defer': 1,
+		'disabled': 1,
+		'draggable': 1,
+		'enabled': 1,
+		'formnovalidate': 1,
+		'hidden': 1,
+		'indeterminate': 1,
+		'inert': 1,
+		'ismap': 1,
+		'itemscope': 1,
+		'loop': 1,
+		'multiple': 1,
+		'muted': 1,
+		'nohref': 1,
+		'noresize': 1,
+		'noshade': 1,
+		'novalidate': 1,
+		'nowrap': 1,
+		'open': 1,
+		'pauseonexit': 1,
+		'readonly': 1,
+		'required': 1,
+		'reversed': 1,
+		'scoped': 1,
+		'seamless': 1,
+		'selected': 1,
+		'sortable': 1,
+		'spellcheck': 1,
+		'translate': 1,
+		'truespeed': 1,
+		'typemustmatch': 1,
+		'visible': 1
+
+		// update non-readonly attributes as spec changes
+		// curl -s "http://www.w3.org/TR/html51/single-page.html" | grep "attribute boolean" > boolean.txt
+	};
+
 	/* factory.js --------------------*/
 
 	/**
-	 * Renders an error as text
-	 *
+	 * Renders an error directly as text
+	 * 
 	 * @private
 	 * @param {Error} ex The exception
-	 * @return {string}
+	 * @return {string|Result}
 	 */
-	function onError(ex) {
-		return '['+ex+']';
-	}
+	var onError = function(ex) {
+		return '[ '+ex+' ]';
+	};
 
 	/**
 	 * Wraps a view definition with binding method
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number} view The template definition
 	 * @return {function(*)}
@@ -798,7 +733,7 @@ var duel = (
 
 		/**
 		 * Binds and wraps the result
-		 *
+		 * 
 		 * @public
 		 * @param {*} data The data item being bound
 		 * @param {number} index The index of the current data item
@@ -816,15 +751,24 @@ var duel = (
 					isFinite(count) ? count : 1,
 					isString(key) ? key : null);
 				return new Result(result);
+
 			} catch (ex) {
 				// handle error with context
-				return new Result(onError(ex));
+				var errValue = onError(ex);
+
+				if (errValue instanceof Result) {
+					return errValue;
+
+				} else {
+					// render the error as a text node
+					return new Result(''+errValue);
+				}
 			}
 		};
 
 		/**
 		 * Gets the internal view definition
-		 *
+		 * 
 		 * @private
 		 * @return {Array}
 		 */
@@ -847,6 +791,26 @@ var duel = (
 
 	/**
 	 * @public
+	 * @param {string} value error callback
+	 */
+	duel.onerror = function(value) {
+		if (isFunction(value)) {
+			onError = value;
+		}
+	};
+
+	/**
+	 * @public
+	 * @param {string} value onbind filter callback
+	 */
+	duel.onbind = function(value) {
+		if (isFunction(value)) {
+			bindFilter = value;
+		}
+	};
+
+	/**
+	 * @public
 	 * @param {string} value Markup text
 	 * @return {Markup}
 	 */
@@ -858,115 +822,174 @@ var duel = (
 
 	/**
 	 * Void tag lookup
-	 *
-	 * @private
-	 * @constant
-	 * @type {Object.<boolean>}
-	 */
-	var VOID_TAGS = {
-		'area' : true,
-		'base' : true,
-		'basefont' : true,
-		'br' : true,
-		'col' : true,
-		'frame' : true,
-		'hr' : true,
-		'img' : true,
-		'input' : true,
-		'isindex' : true,
-		'keygen' : true,
-		'link' : true,
-		'meta' : true,
-		'param' : true,
-		'source' : true,
-		'wbr' : true
-	};
-
-	/**
-	 * Boolean attribute map
-	 *
+	 *  
 	 * @private
 	 * @constant
 	 * @type {Object.<number>}
 	 */
-	var ATTR_BOOL = {
-		'async': 1,
-		'checked': 1,
-		'defer': 1,
-		'disabled': 1,
-		'hidden': 1,
-		'novalidate': 1,
-		'formnovalidate': 1
-		// can add more attributes here as needed
+	var VOID_TAGS = {
+		'area': 1,
+		'base': 1,
+		'basefont': 1,
+		'br': 1,
+		'col': 1,
+		'frame': 1,
+		'embed': 1,
+		'hr': 1,
+		'img': 1,
+		'input': 1,
+		'isindex': 1,
+		'keygen': 1,
+		'link': 1,
+		'menuitem': 1,
+		'meta': 1,
+		'param': 1,
+		'source': 1,
+		'track': 1,
+		'wbr': 1
+
+		// update elements as spec changes
+		// http://www.w3.org/TR/html51/single-page.html#void-elements
 	};
 
 	/**
+	 * String buffer
+	 * 
+	 * @private
+	 * @this {Buffer}
+	 * @constructor
+	 */
+	function Buffer() {
+		/**
+		 * @type {Array|string}
+		 * @private
+		 */
+		this.value = Buffer.FAST ? '' : [];
+	}
+
+	/**
+	 * IE<9 benefits from Array.join() for large strings
+	 * 
+	 * @private
+	 * @constant
+	 * @type {boolean}
+	 */
+	Buffer.FAST = !(scriptEngine && scriptEngine() < 9);
+
+	/**
+	 * Appends to the internal value
+	 * 
+	 * @public
+	 * @this {Buffer}
+	 * @param {string} a
+	 * @param {string=} b
+	 * @param {string=} c
+	 */
+	Buffer.prototype.append = function(a, b, c) {
+		var args = arguments;
+
+		if (Buffer.FAST) {
+			var len = args.length;
+			if (len > 1) {
+				if (len > 2) {
+					b += c;
+				}
+				a += b;
+			}
+			this.value += a;
+
+		} else {
+			this.value.push.apply(
+				// Closure Compiler type cast
+				/** @type{Array} */(this.value),
+				args);
+		}
+	};
+
+	/**
+	 * Renders the value
+	 * 
+	 * @public
+	 * @override
+	 * @this {Buffer}
+	 * @return {string} value
+	 */
+	Buffer.prototype.toString = function() {
+		return Buffer.FAST ?
+			// Closure Compiler type cast
+			/** @type{string} */(this.value) :
+			this.value.join('');
+	};
+
+//	/**
+//	 * Resets the internal value
+//	 * 
+//	 * @public
+//	 * @this {Buffer}
+//	 */
+//	Buffer.prototype.clear = function() {
+//		this.value = Buffer.FAST ? '' : [];
+//	};
+
+	/**
 	 * Encodes invalid literal characters in strings
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number} val The value
-	 * @return {Array|Object|string|number}
+	 * @return {string}
 	 */
 	function htmlEncode(val) {
 		if (!isString(val)) {
-			return val;
+			return (val !== null && val !== undef) ? ''+val : '';
 		}
 
-		return val.replace(/[&<>]/g,
-			function(ch) {
-				switch(ch) {
-					case '&':
-						return '&amp;';
-					case '<':
-						return '&lt;';
-					case '>':
-						return '&gt;';
-					default:
-						return ch;
-				}
-			});
+		var map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;'
+		};
+
+		return val.replace(/[&<>]/g, function(ch) {
+			return map[ch] || ch;
+		});
 	}
 
 	/**
 	 * Encodes invalid attribute characters in strings
-	 *
+	 * 
 	 * @private
 	 * @param {Array|Object|string|number} val The value
-	 * @return {Array|Object|string|number}
+	 * @return {string}
 	 */
 	function attrEncode(val) {
 		if (!isString(val)) {
-			return val;
+			return (val !== null && val !== undef) ? ''+val : '';
 		}
 
-		return val.replace(/[&<>"]/g,
-			function(ch) {
-				switch(ch) {
-					case '&':
-						return '&amp;';
-					case '<':
-						return '&lt;';
-					case '>':
-						return '&gt;';
-					case '"':
-						return '&quot;';
-					default:
-						return ch;
-				}
-			});
+		var map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;'
+		};
+
+		return val.replace(/[&<>"]/g, function(ch) {
+			return map[ch] || ch;
+		});
 	}
 
 	/**
 	 * Renders the comment as a string
-	 *
+	 * 
 	 * @private
 	 * @param {Buffer} buffer The output buffer
 	 * @param {Array} node The result tree
 	 */
 	function renderComment(buffer, node) {
-		if (node[0] === '!DOCTYPE') {
+		if (node[0].toLowerCase() === '!doctype') {
 			// emit doctype
-			buffer.append('<!DOCTYPE ', node[1], '>');
+			buffer.append('<!doctype ', node[1], '>');
+
 		} else {
 			// emit HTML comment
 			buffer.append('<!--', node[1], '-->');
@@ -975,7 +998,7 @@ var duel = (
 
 	/**
 	 * Renders the element as a string
-	 *
+	 * 
 	 * @private
 	 * @param {Buffer} buffer The output buffer
 	 * @param {Array} node The result tree
@@ -1002,20 +1025,23 @@ var duel = (
 				for (var name in child) {
 					if (child.hasOwnProperty(name)) {
 						var val = child[name];
-						if (ATTR_BOOL[name]) {
+						if (ATTR_BOOL[name.toLowerCase()]) {
 							if (val) {
 								val = name;
+
 							} else {
 								// falsey boolean attributes must not be present
 								continue;
 							}
 						}
+						if (getType(val) === NUL) {
+							// null/undefined removes attributes
+							continue;
+						}
 
 						buffer.append(' ', name);
-						if (getType(val) !== NUL) {
-							// Closure Compiler type cast
-							buffer.append('="', /** @type{string} */(attrEncode(val)), '"');
-						}
+						// Closure Compiler type cast
+						buffer.append('="', attrEncode(val), '"');
 					}
 				}
 				i++;
@@ -1031,10 +1057,10 @@ var duel = (
 			child = node[i];
 			if (isArray(child)) {
 				renderElem(buffer, child);
+
 			} else {
 				// encode string literals
-				// Closure Compiler type cast
-				buffer.append(/** @type{string} */(htmlEncode(child)));
+				buffer.append(htmlEncode(child));
 			}
 		}
 
@@ -1042,29 +1068,38 @@ var duel = (
 			// emit close tag
 			buffer.append('</', tag, '>');
 		}
+
+		return buffer;
 	}
 
 	/**
 	 * Renders the result as a string
-	 *
+	 * 
 	 * @private
 	 * @param {Array} view The compiled view
 	 * @return {string}
 	 */
 	 function render(view) {
 		try {
-			var buffer = new Buffer();
-			renderElem(buffer, view);
-			return buffer.toString();
+			return renderElem(new Buffer(), view).toString();
+
 		} catch (ex) {
 			// handle error with context
-			return onError(ex);
+			var errValue = onError(ex);
+
+			if (errValue instanceof Result) {
+				return render(errValue.value);
+
+			} else {
+				// render the error as a string
+				return (''+errValue);
+			}
 		}
 	}
 
 	/**
 	 * Returns result as HTML text
-	 *
+	 * 
 	 * @public
 	 * @override
 	 * @this {Result}
@@ -1076,7 +1111,7 @@ var duel = (
 
 	/**
 	 * Immediately writes the resulting value to the document
-	 *
+	 * 
 	 * @public
 	 * @this {Result}
 	 * @param {Document} doc optional Document reference
@@ -1105,43 +1140,80 @@ var duel = (
 
 	/**
 	 * Attribute name map
-	 *
+	 * 
 	 * @private
 	 * @constant
 	 * @type {Object.<string>}
 	 */
 	var ATTR_MAP = {
-		'rowspan': 'rowSpan',
-		'colspan': 'colSpan',
+		'allowfullscreen': 'allowFullscreen',
+		'accesskey': 'accessKey',
+		'bgcolor': 'bgColor',
 		'cellpadding': 'cellPadding',
 		'cellspacing': 'cellSpacing',
-		'tabindex': 'tabIndex',
-		'accesskey': 'accessKey',
+		'checked': 'defaultChecked',
+		'class': 'className',
+		'colspan': 'colSpan',
+		'contenteditable': 'contentEditable',
+		'defaultchecked': 'defaultChecked',
+		'defaultselected': 'defaultSelected',
+		'defaultmuted': 'defaultMuted',
+		'for': 'htmlFor',
+		'formnovalidate': 'formNoValidate',
 		'hidefocus': 'hideFocus',
-		'usemap': 'useMap',
+		'ismap': 'isMap',
+		'itemscope': 'itemScope',
 		'maxlength': 'maxLength',
+		'muted': 'defaultMuted',
+		'nohref': 'noHref',
+		'noresize': 'noResize',
+		'noshade': 'noShade',
+		'novalidate': 'noValidate',
+		'nowrap': 'noWrap',
+		'pauseonexit': 'pauseOnExit',
 		'readonly': 'readOnly',
-		'contenteditable': 'contentEditable'
+		'rowspan': 'rowSpan',
+		'selected': 'defaultSelected',
+		'spellcheck': 'spellCheck',
+		'tabindex': 'tabIndex',
+		'truespeed': 'trueSpeed',
+		'typemustmatch': 'typeMustMatch',
+		'usemap': 'useMap',
+		'willvalidate': 'willValidate'
 		// can add more attributes here as needed
 	};
 
 	/**
 	 * Attribute duplicates map
-	 *
+	 * 
 	 * @private
 	 * @constant
 	 * @type {Object.<string>}
 	 */
 	var ATTR_DUP = {
 		'enctype': 'encoding',
-		'onscroll': 'DOMMouseScroll',
-		'checked': 'defaultChecked'
+		'onscroll': 'DOMMouseScroll'
+		// can add more attributes here as needed
+	};
+
+	/**
+	 * Attributes to be set via DOM
+	 * 
+	 * @private
+	 * @constant
+	 * @type {Object.<number>}
+	 */
+	var ATTR_DOM = {
+		'autocapitalize': 1,
+		'autocomplete': 1,
+		'autocorrect': 1,
+		'type': 1
 		// can add more attributes here as needed
 	};
 
 	/**
 	 * Leading SGML line ending pattern
-	 *
+	 * 
 	 * @private
 	 * @constant
 	 * @type {RegExp}
@@ -1150,7 +1222,7 @@ var duel = (
 
 	/**
 	 * Trailing SGML line ending pattern
-	 *
+	 * 
 	 * @private
 	 * @constant
 	 * @type {RegExp}
@@ -1158,8 +1230,8 @@ var duel = (
 	var TRAILING = /[\r\n]+$/;
 
 	/**
-	 * Creates a DOM element
-	 *
+	 * Creates a DOM element 
+	 * 
 	 * @private
 	 * @param {string} tag The element's tag name
 	 * @return {Node}
@@ -1187,7 +1259,7 @@ var duel = (
 
 	/**
 	 * Appends a child to an element
-	 *
+	 * 
 	 * @private
 	 * @param {Node} elem The parent element
 	 * @param {Node} child The child
@@ -1248,36 +1320,58 @@ var duel = (
 
 	/**
 	 * Adds an event handler to an element
-	 *
+	 * 
 	 * @private
 	 * @param {Node} elem The element
 	 * @param {string} name The event name
 	 * @param {function(Event)} handler The event handler
 	 */
 	function addHandler(elem, name, handler) {
+		if (name.substr(0,2) === 'on') {
+			name = name.substr(2);
+		}
+
 		switch (typeof handler) {
 			case 'function':
 				if (elem.addEventListener) {
 					// DOM Level 2
-					elem.addEventListener((name.substr(0,2) === 'on') ? name.substr(2) : name, handler, false);
+					elem.addEventListener(name, handler, false);
+
+				} else if (isFunction(window.jQuery) && getType(elem[name]) !== NUL) {
+					// cop out and patch IE6-8 with jQuery
+					var $elem = window.jQuery(elem);
+					if (isFunction($elem.on)) {
+						$elem.on(name, handler);	// v1.7+
+					} else {
+						$elem.bind(name, handler);	// pre-1.7
+					}
+
+				} else if (elem.attachEvent && getType(elem[name]) !== NUL) {
+					// IE legacy events
+					elem.attachEvent('on'+name, handler);
+
 				} else {
 					// DOM Level 0
-					elem[name] = handler;
+					var old = elem['on'+name] || elem[name];
+					elem['on'+name] = elem[name] = !isFunction(old) ? handler :
+						function(e) {
+							return (old.call(this, e) !== false) && (handler.call(this, e) !== false);
+						};
 				}
 				break;
 
 			case 'string':
 				// inline functions are DOM Level 0
 				/*jslint evil:true */
-				elem[name] = new Function('event', handler);
+				elem['on'+name] = new Function('event', handler);
 				/*jslint evil:false */
 				break;
 		}
 	}
 
 	/**
-	 * Appends a child to an element
-	 *
+	 * Appends an attribute to an element
+	 * 
 	 * @private
 	 * @param {Node} elem The element
 	 * @param {Object} attr Attributes object
@@ -1304,52 +1398,70 @@ var duel = (
 
 				if (name) {
 					if (type === NUL) {
-						value = '';
-						type = VAL;
+						// null/undefined removes attributes
+						continue;
 					}
 
 					name = ATTR_MAP[name.toLowerCase()] || name;
-					if (ATTR_BOOL[name]) {
-						elem[name] = !!value;
 
-						// also set duplicated attributes
-						if (ATTR_DUP[name]) {
-							elem[ATTR_DUP[name]] = !!value;
-						}
-
-					} else if (name === 'style') {
-						if (typeof elem.style.cssText !== 'undefined') {
+					if (name === 'style') {
+						if (getType(elem.style.cssText) !== NUL) {
 							elem.style.cssText = value;
 						} else {
 							elem.style = value;
 						}
 
-					} else if (name === 'class') {
-						elem.className = value;
-
 					} else if (name.substr(0,2) === 'on') {
 						addHandler(elem, name, value);
 
 						// also set duplicated events
-						if (ATTR_DUP[name]) {
-							addHandler(elem, ATTR_DUP[name], value);
+						name = ATTR_DUP[name];
+						if (name) {
+							addHandler(elem, name, value);
 						}
 
-					} else if (type === VAL && name.charAt(0) !== '$') {
-						elem.setAttribute(name, value);
+					} else if (!ATTR_DOM[name.toLowerCase()] && (type !== VAL || name.charAt(0) === '$' || getType(elem[name]) !== NUL || getType(elem[ATTR_DUP[name]]) !== NUL)) {
+						// direct setting of existing properties
+						try {
+							elem[name] = value;
 
-						// also set duplicated attributes
-						if (ATTR_DUP[name]) {
-							elem.setAttribute(ATTR_DUP[name], value);
+							// also set duplicated properties
+							name = ATTR_DUP[name];
+							if (name) {
+								elem[name] = value;
+							}
+
+						} catch(ex2) {
+							if (name.toLowerCase() === 'type' && elem.tagName.toLowerCase() === 'input') {
+								// IE9 doesn't like HTML5 input types
+								continue;
+							}
+
+							throw new Error('DOM property '+elem.tagName+'.'+name+': '+ex2);
+						}
+
+					} else if (ATTR_BOOL[name.toLowerCase()]) {
+						if (value) {
+							// boolean attributes
+							elem.setAttribute(name, name);
+
+							// also set duplicated attributes
+							name = ATTR_DUP[name];
+							if (name) {
+								elem.setAttribute(name, name);
+							}
 						}
 
 					} else {
-						// allow direct setting of complex properties
-						elem[name] = value;
+						// http://www.quirksmode.org/dom/w3c_core.html#attributes
+
+						// custom and 'data-*' attributes
+						elem.setAttribute(name, value);
 
 						// also set duplicated attributes
-						if (ATTR_DUP[name]) {
-							elem[ATTR_DUP[name]] = value;
+						name = ATTR_DUP[name];
+						if (name) {
+							elem.setAttribute(name, value);
 						}
 					}
 				}
@@ -1360,7 +1472,7 @@ var duel = (
 
 	/**
 	 * Tests a node for whitespace
-	 *
+	 * 
 	 * @private
 	 * @param {Node} node The node
 	 * @return {boolean}
@@ -1371,7 +1483,7 @@ var duel = (
 
 	/**
 	 * Trims whitespace pattern from the text node
-	 *
+	 * 
 	 * @private
 	 * @param {Node} node The node
 	 */
@@ -1383,7 +1495,7 @@ var duel = (
 
 	/**
 	 * Removes leading and trailing whitespace nodes
-	 *
+	 * 
 	 * @private
 	 * @param {Node} elem The node
 	 */
@@ -1406,7 +1518,7 @@ var duel = (
 
 	/**
 	 * Converts the markup to DOM nodes
-	 *
+	 * 
 	 * @private
 	 * @param {string|Markup} value The node
 	 * @return {Node}
@@ -1414,7 +1526,7 @@ var duel = (
 	function toDOM(value) {
 		var wrapper = createElement('div');
 		wrapper.innerHTML = ''+value;
-
+	
 		// trim extraneous whitespace
 		trimWhitespace(wrapper);
 
@@ -1433,7 +1545,7 @@ var duel = (
 
 	/**
 	 * Retrieve and remove method
-	 *
+	 * 
 	 * @private
 	 * @param {Node} elem The element
 	 * @param {string} key The callback name
@@ -1445,8 +1557,11 @@ var duel = (
 			try {
 				delete elem[key];
 			} catch (ex) {
-				// sometimes IE doesn't like deleting from DOM
-				elem[key] = undef;
+				try {
+					// IE7 doesn't like deleting from DOM
+					elem[key] = '';
+					elem.removeAttribute(key);
+				} catch (ex2) {}
 			}
 
 			if (!isFunction(method)) {
@@ -1454,7 +1569,7 @@ var duel = (
 					/*jslint evil:true */
 					method = new Function(''+method);
 					/*jslint evil:false */
-				} catch (ex2) {
+				} catch (ex3) {
 					// filter
 					method = null;
 				}
@@ -1466,7 +1581,7 @@ var duel = (
 
 	/**
 	 * Executes oninit/onload callbacks
-	 *
+	 * 
 	 * @private
 	 * @param {Node} elem The element
 	 */
@@ -1498,7 +1613,7 @@ var duel = (
 
 	/**
 	 * Applies node to DOM
-	 *
+	 * 
 	 * @private
 	 * @param {Node} elem The element to append
 	 * @param {Array} node The node to populate
@@ -1560,19 +1675,8 @@ var duel = (
 	}
 
 	/**
-	 * Renders an error as a text node
-	 *
-	 * @private
-	 * @param {Error} ex The exception
-	 * @return {Node}
-	 */
-	function onErrorDOM(ex) {
-		return document.createTextNode(onError(ex));
-	}
-
-	/**
 	 * Returns result as DOM objects
-	 *
+	 * 
 	 * @public
 	 * @this {Result}
 	 * @param {Node|string=} elem An optional element or element ID to be replaced or merged
@@ -1582,9 +1686,14 @@ var duel = (
 	Result.prototype.toDOM = function(elem, merge) {
 		// resolve the element ID
 		if (getType(elem) === VAL) {
+			// try as id, then as query selector
 			elem = document.getElementById(
 				// Closure Compiler type cast
-				/** @type{string} */(elem));
+				/** @type{string} */(elem)) || (('querySelector' in document) ?
+				document.querySelector(
+					// Closure Compiler type cast
+					/** @type{string} */(elem)) :
+				null);
 		}
 
 		var view;
@@ -1598,7 +1707,15 @@ var duel = (
 
 		} catch (ex) {
 			// handle error with context
-			view = onErrorDOM(ex);
+			var errValue = onError(ex);
+
+			if (errValue instanceof Result) {
+				return errValue.toDOM(elem || view);
+
+			} else {
+				// render the error as a text node
+				view = document.createTextNode(''+errValue);
+			}
 		}
 
 		if (elem && elem.parentNode) {
@@ -1612,7 +1729,7 @@ var duel = (
 
 	/**
 	 * Replaces entire document with this Result
-	 *
+	 * 
 	 * @public
 	 * @this {Result}
 	 */
@@ -1643,7 +1760,7 @@ var duel = (
 		} catch (ex) {
 			/*jslint evil:true*/
 			doc = doc.open('text/html');
-			doc.write(this.toString());
+			doc.write(''+this);
 			doc.close();
 			/*jslint evil:false*/
 		}

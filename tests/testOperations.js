@@ -30,12 +30,14 @@ function TestOperations(page) {
 	this.assertClearCompleteButtonIsHidden = function () {
 		page.tryGetClearCompleteButton().then(function (element) {
 			testIsHidden(element, 'clear completed items button');
+		}, function (_error) {
+			assert(_error.code === 7, 'error accessing clear completed items button, error: ' + _error.message);
 		});
 	};
 
 	this.assertClearCompleteButtonIsVisible = function () {
 		page.tryGetClearCompleteButton().then(function (element) {
-			testIsVisible(element, 'clear completed items button');
+			testIsVisible([element], 'clear completed items button');
 		});
 	};
 
@@ -47,11 +49,9 @@ function TestOperations(page) {
 	};
 
 	this.assertClearCompleteButtonText = function (buttonText) {
-		page.tryGetClearCompleteButton().then(function (elements) {
-			var button = elements[0];
-			button.getText().then(function (text) {
-				assert.equal(buttonText, text);
-			});
+		return page.tryGetClearCompleteButton()
+		.getText().then(function (text) {
+			assert.equal(buttonText, text);
 		});
 	};
 

@@ -13,4 +13,4 @@ esac
 done
 
 npm i && \
-eval "npm run lint -- -c ../.jscsrc $PATHS"
+eval "npm run lint -- -c ../.jscsrc $PATHS ../tests/"

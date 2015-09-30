@@ -1,2 +1,3 @@
-# todomvc base file
-/bower_components/todomvc-common/base.css
+# todomvc base files
+/css/base.css
+/css/index.css

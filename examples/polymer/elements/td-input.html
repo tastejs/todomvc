@@ -1,11 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="td-input" extends="input" on-keyup="{{keyupAction}}" on-keypress="{{keypressAction}}">
+<dom-module id="td-input">
 	<script>
 		(function() {
+			'use strict';
+
 			var ENTER_KEY = 13;
 			var ESC_KEY = 27;
-			Polymer('td-input', {
+			Polymer({
+				is: 'td-input',
+				extends: 'input',
+				listeners: {
+					'keyup': 'keyupAction',
+					'keypress': 'keypressAction'
+				},
 				keypressAction: function(e, detail, sender) {
 					// Listen for enter on keypress but esc on keyup, because
 					// IE doesn't fire keyup for enter.
@@ -21,4 +29,4 @@
 			});
 		})();
 	</script>
-</polymer-element>
+</dom-module>

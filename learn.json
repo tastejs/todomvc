@@ -37,7 +37,7 @@
 				"url": "http://docs.angularjs.org/guide"
 			}, {
 				"name": "Applications built with AngularJS",
-				"url": "http://builtwith.angularjs.org"
+				"url": "https://www.madewithangular.com/"
 			}, {
 				"name": "Blog",
 				"url": "http://blog.angularjs.org"
@@ -1766,6 +1766,37 @@
 			}, {
 				"name": "Reagent YouTube Channel",
 				"url": "https://www.youtube.com/channel/UC1UP5LiNNNf0a45dA9eDA0Q"
+			}]
+		}]
+	},
+	"riotjs": {
+		"name": "Riot.js",
+		"description": "Riot.js is a React-like user interface micro-library.",
+		"homepage": "riotjs.com",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/riotjs"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://riotjs.com/guide/"
+			}, {
+				"name": "API Reference",
+				"url": "http://riotjs.com/api/"
+			}, {
+				"name": "Examples",
+				"url": "https://github.com/riot/riot#demos"
+			}, {
+				"name": "Riot.js on GitHub",
+				"url": "https://github.com/riot/riot"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Gitter chat room",
+				"url": "https://gitter.im/riot/riot"
 			}]
 		}]
 	},

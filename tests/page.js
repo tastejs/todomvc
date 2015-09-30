@@ -44,7 +44,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.getFiltersElementXpath = function () {
-		return !idSelectors ? '//ul[@id="filters"]' : '//ul[contains(@class, "filters")]';
+		return !idSelectors ? '//*[@id="filters"]' : '//*[contains(@class, "filters")]';
 	};
 
 	this.getFilterXpathByIndex = function (index) {
@@ -94,7 +94,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.tryGetClearCompleteButton = function () {
-		return this.tryFindByXpath(this.getCompletedButtonXpath());
+		return this.findByXpath(this.getCompletedButtonXpath());
 	};
 
 	this.tryGetToggleForItemAtIndex = function (index) {
@@ -226,10 +226,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.clickClearCompleteButton = function () {
-		return this.tryGetClearCompleteButton().then(function (elements) {
-			var button = elements[0];
-			button.click();
-		});
+		return this.tryGetClearCompleteButton().click();
 	};
 
 	this.enterItem = function (itemText) {
