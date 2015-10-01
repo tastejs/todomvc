@@ -18,8 +18,8 @@
 		},
 		observers: ['setRootClass(item.completed, editing)'],
 		setRootClass: function (completed, editing) {
-			this.classList[completed ? 'add' : 'remove']('completed');
-			this.classList[editing ? 'add' : 'remove']('editing');
+			this.classList.toggle('completed', completed);
+			this.classList.toggle('editing', editing);
 		},
 		onBlur: function () {
 			this.commitAction();
