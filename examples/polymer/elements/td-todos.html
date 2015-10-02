@@ -6,140 +6,142 @@
 
 <dom-module id="td-todos">
 	<template>
-		<flatiron-director id="router" route="{{route}}"></flatiron-director>
+	  <style>
+		  :host {
+		  	display: block;
+		  }
+	  </style>
+		<flatiron-director route="{{route}}" hidden></flatiron-director>
 		<section id="todoapp">
 			<header id="header">
-				<input is="td-input" id="new-todo" placeholder="What needs to be done?" autofocus on-td-input-commit="addTodoAction" on-td-input-cancel="cancelAddTodoAction">
+				<input is="td-input" id="new-todo"
+				       placeholder="What needs to be done?" autofocus
+				       on-td-input-commit="addTodoAction"
+				       on-td-input-cancel="cancelAddTodoAction">
 			</header>
-			<template is="dom-if" if="{{hasTodos(items.length)}}">
+
+			<template is="dom-if" if="{{items.length}}">
 				<section id="main">
-					<input id="toggle-all" type="checkbox" on-change="toggleAllCompletedAction" checked="[[areAllCompleted]]">
+					<input id="toggle-all" type="checkbox" checked="[[allCompleted]]"
+					       on-change="toggleAllCompletedAction">
 					<label for="toggle-all">Mark all as complete</label>
 					<ul id="todo-list" on-td-destroy-item="destroyItemAction">
-						<template id="todo-list-repeater" is="dom-repeat" items="{{items}}" filter="matchesFilter" observe="completed">
+						<template id="todo-list-repeater" is="dom-repeat" items="{{items}}"
+						          filter="{{matchesFilter(route)}}" observe="completed">
 							<li is="td-item" item="{{item}}"></li>
 						</template>
 					</ul>
 				</section>
-			</template>
-			<template is="dom-if" if="{{hasTodos(items.length)}}">
+
 				<footer id="footer">
-					<span id="todo-count"><strong>{{getActiveCount(items, items.*)}}</strong> <span>{{getItemWord(items, items.*)}}</span> left</span>
-					<iron-selector on-tap="onTap" id="filters" selected="{{getSelectedRoute(route)}}}}" attr-for-selected="name">
-						<li name="all">
-							<a href="#/">All</a>
+					<span id="todo-count">
+					  <strong>{{activeCount}}</strong>
+					  <span>{{_computeItemsLeft(activeCount)}}</span> left
+					</span>
+
+					<iron-selector id="filters" selected="{{route}}" attr-for-selected="route">
+						<li route="">
+							<a href="#/" class$="{{_computeLinkClass(route, '')}}">All</a>
 						</li>
-						<li name="active">
-							<a href="#/active">Active</a>
+						<li route="active">
+							<a href="#/active" class$="{{_computeLinkClass(route, 'active')}}">Active</a>
 						</li>
-						<li name="completed">
-							<a href="#/completed">Completed</a>
+						<li route="completed">
+							<a href="#/completed" class$="{{_computeLinkClass(route, 'completed')}}">Completed</a>
 						</li>
 					</iron-selector>
-					<template is="dom-if" if="{{anyCompleted(items, items.*)}}">
-						<button id="clear-completed" on-click="clearCompletedAction" style="visibility:visible">Clear completed</button>
+
+					<template is="dom-if" if="{{anyCompleted}}">
+						<button id="clear-completed" on-tap="clearCompletedAction"
+										style="visibility:visible">Clear completed</button>
 					</template>
+
 				</footer>
 			</template>
+
 		</section>
 	</template>
-
 	<script>
 		(function() {
 			'use strict';
 
-			var ENTER_KEY = 13;
-			var ESC_KEY = 27;
 			Polymer({
 				is: 'td-todos',
+
 				properties: {
-					modelId: String,
-					areAllCompleted: {
-						type: Boolean,
-						computed: 'allCompleted(items.*)'
-					},
 					items: {
 						type: Array
 					},
 					model: {
 						type: Object
 					},
+					modelId: {
+						type: String
+					},
 					route: {
-						type: String,
-						observer: 'refreshFiltered'
+						type: String
+					},
+					allCompleted: {
+						type: Boolean,
+						computed: '_computeAllCompleted(anyCompleted, activeCount)'
+					},
+					activeCount: {
+						type: Number,
+						computed: '_computeActiveCount(items, items.*)'
+					},
+					anyCompleted: {
+						type: Boolean,
+						computed: '_computeAnyCompleted(items, items.*)'
 					}
 				},
-				onTap: function() {
-					this.setActiveFilterChildClass();
-				},
-				setActiveFilterChildClass: function() {
-					// iron-selector should maybe allow selecting of arbitrary subnodes?
-					var filters = this.querySelector('#filters');
-					var prev = filters.querySelector('a.selected');
 
-					prev && prev.classList.remove('selected');
-					this.async(function() {
-						filters.selectedItem.querySelector('a').classList.add('selected');
-					});
-				},
-				getSelectedRoute: function(route) {
-					return route || 'all';
-				},
-				anyCompleted: function(items) {
-					return this.model.getCompletedCount(items) > 0;
-				},
-				getActiveCount: function(items) {
-					return this.model.getActiveCount(items);
-				},
-				refreshFiltered: function() {
-					// WAT: So it would be nice if repeat would be able to "observe" and external instance prop
-					// since it does not we have to "hack" this.
-					var elm = this.querySelector('#todo-list-repeater');
-					elm && elm._applyFullRefresh();
-				},
-				matchesFilter: function(item) {
-					return this.model.matchesFilter(item, this.route);
-				},
 				attached: function() {
-					document.querySelector('#router').addEventListener('director-route', this.routeChanged.bind(this));
+					this.model = document.querySelector('#' + this.modelId);
+				},
 
-					// get a reference to the "model" which is our datastore interface
-					this.set('model', document.querySelector('#model'));
+				_computeLinkClass: function(currRoute, route) {
+					return currRoute === route ? 'selected' : '';
+				},
 
-					// this seems like smell... however I am not sure of a better way
-					this.addEventListener('dom-change', function() {
-						if (this.querySelector('#filters') !== null) {
-							this.setActiveFilterChildClass();
-							this.removeEventListener('dom-change');
-						}
-					});
+				_computeAnyCompleted: function(items) {
+					return this.model ? this.model.getCompletedCount() > 0 : false;
 				},
-				allCompleted: function(items) {
-					return this.model.areAllCompleted(this.items);
+
+				_computeActiveCount: function(items) {
+					return this.model ? this.model.getActiveCount() : 0;
 				},
-				getItemWord: function(items) {
-					return items.length === 1 ? 'item' : 'items';
+
+				_computeAllCompleted: function(anyCompleted, activeCount) {
+					return anyCompleted && !activeCount;
 				},
-				hasTodos: function(todoCount) {
-					return todoCount > 0;
+
+				_computeItemsLeft: function(count) {
+					return count < 2 ? 'item' : 'items';
 				},
-				routeChanged: function(e) {
-					this.model.filter = e.detail;
+
+				matchesFilter: function(route) {
+					return function(item, index, array) {
+						return this.model ? this.model.matchesFilter(item, route) : false;
+				  }.bind(this);
 				},
+
 				addTodoAction: function() {
 					this.model.newItem(this.$['new-todo'].value);
-					// when polyfilling Object.observe, make sure we update immediately
 					this.$['new-todo'].value = '';
 				},
+
 				cancelAddTodoAction: function() {
 					this.$['new-todo'].value = '';
 				},
+
 				destroyItemAction: function(e, detail) {
 					this.model.destroyItem(detail);
 				},
+
 				toggleAllCompletedAction: function(e) {
 					this.model.setItemsCompleted(e.target.checked);
 				},
+
 				clearCompletedAction: function() {
 					this.model.clearCompletedItems();
 				}
