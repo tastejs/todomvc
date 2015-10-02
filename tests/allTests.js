@@ -15,7 +15,7 @@ var excludedFrameworks = [
 	// YUI is a special case here, it is not hosted, but fetches JS files dynamically
 	'yui',
 	// these frameworks take a long time to start-up, and there is no easy way to determine when they are ready
-	'cujo', 'montage',
+	'cujo',
 	// sammyjs fails intermittently, it would appear that its state is sometimes updated asynchronously?
 	'sammyjs',
 	// elm-html batches UI updates with requestAnimationFrame which the tests
