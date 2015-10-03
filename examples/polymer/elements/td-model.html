@@ -7,7 +7,7 @@
 				on-iron-localstorage-load-empty="_initializeDefaultTodos"></iron-localstorage>
 	</template>
 	<script>
-		(function() {
+		(function () {
 			'use strict';
 
 			Polymer({
@@ -27,7 +27,7 @@
 					}
 				},
 
-				_initializeDefaultTodos: function() {
+				_initializeDefaultTodos: function () {
 					this.items = [];
 				},
 
@@ -41,11 +41,11 @@
 					this.push('items', {title: title, completed: false});
 				},
 
-				getCompletedCount: function() {
+				getCompletedCount: function () {
 					return this.items ? this.items.filter(this.filters.completed).length : 0;
 				},
 
-				getActiveCount: function() {
+				getActiveCount: function () {
 					return this.items.length - this.getCompletedCount(this.items);
 				},
 
@@ -61,12 +61,12 @@
 					}
 				},
 
-				clearCompletedItems: function() {
+				clearCompletedItems: function () {
 					this.items = this.items.filter(this.filters.active);
 				},
 
 				setItemsCompleted: function(completed) {
-          for (var i = 0; i < this.items.length; ++i) {
+					for (var i = 0; i < this.items.length; ++i) {
 						this.set(['items', i, 'completed'], completed);
 					}
 				},
