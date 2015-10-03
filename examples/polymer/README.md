@@ -46,6 +46,6 @@ Polymer and the web component polyfills are intended to work in the latest versi
 
 If you want to make a change to any of the elements in elements/elements.html, you'll need to install `polybuild` (Polymer's build tool) and re-vulcanize elements.build.html.
 
-1. Run `npm install`
+1. Run `npm install` (first time only)
 1. Make a change
-2. Run `npm run build`
+1. Run `npm run build`
