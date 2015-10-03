@@ -36,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	</dom-module>
 <dom-module id="td-todos" assetpath="/">
 	<template>
-	  <style>		:host {			display: block;		}	</style>
+		<style>			:host {				display: block;			}		</style>
 		<flatiron-director route="{{route}}" hidden=""></flatiron-director>
 		<section id="todoapp">
 			<header id="header">
@@ -56,8 +56,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				<footer id="footer">
 					<span id="todo-count">
-					  <strong>{{activeCount}}</strong>
-					  <span>{{_computeItemsLeft(activeCount)}}</span> left
+						<strong>{{activeCount}}</strong>
+						<span>{{_computeItemsLeft(activeCount)}}</span> left
 					</span>
 
 					<iron-selector id="filters" selected="{{route}}" attr-for-selected="route">

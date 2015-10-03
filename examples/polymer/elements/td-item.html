@@ -20,7 +20,7 @@
 		</template>
 	</template>
 	<script>
-		(function() {
+		(function () {
 			'use strict';
 
 			Polymer({
@@ -35,7 +35,7 @@
 					},
 					item: {
 						type: Object,
-						value: function() { return {}; }
+						value: function () { return {}; }
 					},
 				},
 
@@ -48,21 +48,21 @@
 					this.toggleClass('editing', editing);
 				},
 
-				_onBlur: function() {
+				_onBlur: function () {
 					this._commitAction();
 					this.editing = false;
 				},
 
-				_editAction: function() {
+				_editAction: function () {
 					this.editing = true;
 					this._editingValue = this.item.title;
 					// Wait one tick template to stamp.
-					this.async(function() {
+					this.async(function () {
 						this.querySelector('#edit').focus();
 					});
 				},
 
-				_commitAction: function() {
+				_commitAction: function () {
 					if (this.editing) {
 						this.editing = false;
 						this.set('item.title', this._editingValue.trim());
@@ -72,11 +72,11 @@
 					}
 				},
 
-				_cancelAction: function() {
+				_cancelAction: function () {
 					this.editing = false;
 				},
 
-				_destroyAction: function() {
+				_destroyAction: function () {
 					this.fire('td-destroy-item', this.item);
 				}
 			});
