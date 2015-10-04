@@ -4,23 +4,30 @@
 <dom-module id="td-item">
 	<template>
 		<template is="dom-if" if="{{!editing}}">
-			<div on-dblclick="editAction">
-				<input type="checkbox" class="toggle" checked="{{item.completed::change}}" on-click="itemChangeAction">
+			<div on-dblclick="_editAction">
+				<input type="checkbox" class="toggle"
+							 checked="{{item.completed::change}}">
 				<label>{{item.title}}</label>
-				<button class="destroy" on-click="destroyAction"></button>
+				<button class="destroy" on-tap="_destroyAction"></button>
 			</div>
 		</template>
 		<template is="dom-if" if="{{editing}}">
-			<input is="td-input" id="edit" class="edit" value$="{{item.title}}" on-td-input-commit="commitAction" on-td-input-cancel="cancelAction" on-blur="onBlur">
+			<input is="td-input" id="edit" class="edit"
+						 value="{{_editingValue::input}}"
+						 on-td-input-commit="_commitAction"
+						 on-td-input-cancel="_cancelAction"
+						 on-blur="_onBlur">
 		</template>
 	</template>
 	<script>
-		(function() {
+		(function () {
 			'use strict';
 
 			Polymer({
 				is: 'td-item',
+
 				extends: 'li',
+
 				properties: {
 					editing: {
 						type: Boolean,
@@ -28,49 +35,48 @@
 					},
 					item: {
 						type: Object,
-						value: function() {
-							return {};
-						}
+						value: function () { return {}; }
 					},
 				},
-				observers: ['setRootClass(item.completed, editing)'],
-				setRootClass: function(completed, editing) {
-					this.classList[completed ? 'add' : 'remove']('completed');
-					this.classList[editing ? 'add' : 'remove']('editing');
+
+				observers: ['setHostClass(item.completed, editing)'],
+
+				setHostClass: function(completed, editing) {
+					// Note: TodoMVC has styling for classes. Too bad we can't use the
+					// editing property and reflectToAttribute.
+					this.toggleClass('completed', completed);
+					this.toggleClass('editing', editing);
 				},
-				onBlur: function() {
-					this.commitAction();
+
+				_onBlur: function () {
+					this._commitAction();
 					this.editing = false;
 				},
-				editAction: function() {
+
+				_editAction: function () {
 					this.editing = true;
-					this.async(function() {
-						var elm = this.querySelector('#edit');
-						// It looks like polymer is trying to be smart here and not updating the
-						// title attribute on the input when it is changed. To work around this, we manually have
-						// to set the value again when we go into edit mode.
-						elm.value = this.item.title;
-						elm.focus();
+					this._editingValue = this.item.title;
+					// Wait one tick template to stamp.
+					this.async(function () {
+						this.querySelector('#edit').focus();
 					});
 				},
-				commitAction: function() {
+
+				_commitAction: function () {
 					if (this.editing) {
 						this.editing = false;
-						this.set('item.title', this.querySelector('#edit').value.trim());
+						this.set('item.title', this._editingValue.trim());
 						if (this.item.title === '') {
-							this.destroyAction();
+							this._destroyAction();
 						}
-						this.fire('td-item-changed');
 					}
 				},
-				cancelAction: function() {
+
+				_cancelAction: function () {
 					this.editing = false;
 				},
-				itemChangeAction: function(e, details) {
-					this.set('item.completed', e.target.checked);
-					this.fire('td-item-changed');
-				},
-				destroyAction: function() {
+
+				_destroyAction: function () {
 					this.fire('td-destroy-item', this.item);
 				}
 			});

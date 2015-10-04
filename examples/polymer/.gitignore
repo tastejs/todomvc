@@ -1,3 +1,5 @@
+node_modules
+
 bower_components/iron-localstorage/.bower.json
 bower_components/iron-localstorage/.gitignore
 bower_components/iron-localstorage/README.md
@@ -19,7 +21,7 @@ bower_components/flatiron-director
 !bower_components/flatiron-director/flatiron-director.html
 
 bower_components/webcomponentsjs
-!bower_components/webcomponentsjs/webcomponents.js
+!bower_components/webcomponentsjs/webcomponents-lite.min.js
 
 bower_components/polymer/.bower.json
 bower_components/polymer/LICENSE.txt
