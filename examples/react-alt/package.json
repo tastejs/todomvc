@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "alt": "^0.17.3",
+    "director": "^1.2.0",
+    "react": "^0.13.3",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.1"
+  }
+}
