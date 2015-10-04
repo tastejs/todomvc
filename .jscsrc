@@ -28,7 +28,8 @@
 		"**/bower_components/**",
 		"examples/vanilladart/**/*.js",
 		"examples/duel/www/**",
-		"examples/duel/src/main/webapp/js/lib/**"
+		"examples/duel/src/main/webapp/js/lib/**",
+		"examples/polymer/elements/elements.build.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
