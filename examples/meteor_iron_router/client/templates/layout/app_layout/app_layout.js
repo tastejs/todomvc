@@ -1,5 +1,5 @@
 Template.AppLayout.helpers({
-	emptyList: function() {
+	emptyList: function () {
 		return Tasks.find({}).count();
 	}
 });

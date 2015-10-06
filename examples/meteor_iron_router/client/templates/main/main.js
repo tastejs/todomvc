@@ -12,9 +12,9 @@ Template.Main.helpers({
 		return Tasks.find(this.q, {sort: {createdAt: -1}});
 	},
 	check: function () {
-    // All tasks are complete
-    if (!Tasks.find({completed: false}).count()) {
-      return 'checked';
-    }
-  }
+		// All tasks are complete
+		if (!Tasks.find({completed: false}).count()) {
+			return 'checked';
+		}
+	}
 });
