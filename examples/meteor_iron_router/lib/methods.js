@@ -1,28 +1,28 @@
 Meteor.methods({
-	setTodo: function(id, todo) {
+	setTodo: function (id, todo) {
 		todo = todo.trim();
-		if(todo !== '') {
+		if (todo !== '') {
 			Tasks.update(id, {$set: {title: todo}});
 		} else {
 			Meteor.call('removeTask', id);
 		}
 	},
-	setComplete: function(id, complete) {
+	setComplete: function (id, complete) {
 		Tasks.update(id, {$set: {completed: complete}});
 	},
-	addTask: function(todo) {
+	addTask: function (todo) {
 		todo = todo.trim();
-		if(todo !== '') {
+		if (todo !== '') {
 			Tasks.insert({
 				title: todo,
 				createdAt: new Date(),
 				completed: false
 			});
-		} else { 
+		} else {
 			console.log('Fail: Empty Task');
 		}
 	},
-	removeTask: function(id) {
+	removeTask: function (id) {
 		Tasks.remove(id);
 	}
 });
