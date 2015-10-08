@@ -1,22 +1,16 @@
-node_modules/.bin
-node_modules/jquery
-!node_modules/jquery/dist/jquery.js
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-node_modules/components-ember
-!node_modules/components-ember/ember.js
+# compiled output
+/tmp
 
-node_modules/ember-data
-!node_modules/ember-data.js
+# dependencies
+/node_modules
+/bower_components
 
-node_modules/ember-localstorage-adapter
-!node_modules/ember-localstorage-adapter/localstorage_adapter.js
-
-node_modules/handlebars
-!node_modules/handlebars/dist/handlebars.js
-
-node_modules/todomvc-app-css
-!node_modules/todomvc-app-css/index.css
-
-node_modules/todomvc-common
-!node_modules/todomvc-common/base.css
-!node_modules/todomvc-common/base.js
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log

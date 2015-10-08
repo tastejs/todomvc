@@ -1,0 +1,21 @@
+{{#each todos as |todo|}}
+	<li class="{{if todo.isCompleted 'completed'}} {{if todo.isEditing 'editing'}}">
+		{{#if todo.isEditing}}
+			{{input
+				class="edit"
+				value=todo.title
+				focus-out=(action "updateTodo" todo)
+				insert-newline=(action "updateTodo" todo)
+				escape-press=(action "cancelEditing" todo)}}
+		{{else}}
+			<input
+				{{action "toggleTodo" todo on="change"}}
+				class="toggle"
+				type="checkbox"
+				checked={{todo.isCompleted}}>
+
+			<label {{action "editTodo" todo on="doubleClick"}}>{{todo.title}}</label>
+			<button class="destroy" {{action "deleteTodo" todo}}></button>
+		{{/if}}
+	</li>
+{{/each}}

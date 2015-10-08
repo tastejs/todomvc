@@ -29,8 +29,9 @@
 		"examples/vanilladart/**/*.js",
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
+		"examples/emberjs/**",
 		"examples/polymer/elements/elements.build.js",
-	    "**/generated/**"
+		"**/generated/**"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
