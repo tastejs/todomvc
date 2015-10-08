@@ -19,7 +19,6 @@ Here are some links you may find helpful:
 
 Articles and guides from the community:
 
-* [Philosophy](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
 * [How is Facebook's React JavaScript library](http://www.quora.com/React-JS-Library/How-is-Facebooks-React-JavaScript-library)
 * [React: Under the hood](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
 
