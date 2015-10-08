@@ -30,6 +30,7 @@
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
 		"examples/polymer/elements/elements.build.js",
+		"examples/montage/**/*.js",
 	    "**/generated/**"
 	],
 	"requireSpaceBeforeBlockStatements": true,
