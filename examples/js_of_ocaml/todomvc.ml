@@ -99,7 +99,7 @@ module Action = struct
     | Update_field of Js.js_string Js.t
     | Editing_task of (int * bool)
     | Update_task of (int * Js.js_string Js.t)
-    | Add
+    | Add of Js.js_string Js.t
     | Delete of int
     | Delete_complete
     | Check of (int * bool)
@@ -126,27 +126,33 @@ module View = struct
     Ev.(async @@ (fun () -> ev elem handler))
 
 
-  (* New task input field *)
-  let task_entry task =
-    let task_input =
-      Html5.(input ~a:[
-          a_input_type `Text ;
-          a_class ["new-todo"] ;
-          a_placeholder "What needs to be done?" ;
-          a_autofocus `Autofocus ;
-          a_value task ;
-          a_onkeypress (fun evt -> if evt##keyCode = 13 then send_some Add; true) ;
-        ] ())
-    in
-    let task_input_dom = To_dom.of_input task_input in
+  let task_input =
+    Html5.(input ~a:[
+        a_class ["new-todo"] ;
+        a_placeholder "What needs to be done?" ;
+        a_autofocus `Autofocus ;
+      ] ())
 
+  let task_input_dom = To_dom.of_input task_input
+
+  (* New task input field *)
+  let task_entry =
     bind_event Ev.inputs task_input_dom (fun _ ->
       Lwt.return @@ send_some (Update_field task_input_dom##value)) ;
+
+    bind_event Ev.keypresses task_input_dom (fun evt ->
+      Lwt.return @@ if evt##keyCode = 13 then send_some (Add task_input_dom##value)) ;
 
     Html5.(header ~a:[a_class ["header"]] [
         h1 [ pcdata "todos" ];
         task_input
       ])
+
+  let set_task_input v =
+    task_input_dom##value <- Js.string v
+
+  let focus_task_input () =
+    task_input_dom##focus ()
 
   (** One item in the tasks list *)
   let todo_item (todo:Model.task) =
@@ -208,6 +214,10 @@ module View = struct
       input_edit;
     ])
 
+  let focus_todo_item id =
+    let e = Dom_html.getElementById(Printf.sprintf "todo-%u" id) in
+    Js.Opt.case (Dom_html.CoerceTo.input e)
+      (fun e -> ()) (fun e -> e##focus ())
 
   (** Build the tasks list *)
   let task_list visibility tasks =
@@ -315,8 +325,8 @@ module View = struct
     Html5.(
       div ~a:[a_class ["todomvc-wrapper"]] [
         section ~a:[a_class ["todoapp"]] [
-          task_entry m.Model.field;
-          task_list m.Model.visibility m.Model.tasks;
+          task_entry ;
+          task_list m.Model.visibility m.Model.tasks ;
           controls m.Model.visibility m.Model.tasks
         ];
         info_footer
@@ -340,15 +350,15 @@ struct
     let open Action in
     let open Model in
     let m = match a with
-      | Add ->
+      | Add field ->
+        let field = Js.to_string field in
         let uid = m.uid + 1 in
         let tasks =
-          let v = String.trim m.field in
+          let v = String.trim field in
           if v = "" then m.tasks
           else (new_task v m.uid) :: m.tasks
         in
         { m with uid = uid; field = ""; tasks = tasks }
-
       | Update_field field ->
         { m with field = Js.to_string field }
       | Editing_task (id, is_edit) ->
@@ -356,7 +366,7 @@ struct
           if (t.id = id) then
             let v = String.trim t.description in
             { t with editing = is_edit; description = v; backup = v }
-          else t
+          else { t with editing = false }
         in
         let l = List.map update_task m.tasks in
         let l = List.filter (fun e -> e.description <> "") l in
@@ -392,9 +402,25 @@ struct
         { m with tasks = List.map unedit_task m.tasks }
     in
     begin match a with
+      | Add _ -> View.set_task_input "" ;
+      | _ -> ()
+    end ;
+    begin match a with
       | Update_field _
       | Update_task _ -> ()
       | _ -> View.refresh parent m
+    end ;
+    begin match a with
+      | Update_field _
+      | Update_task _ -> ()
+      | Editing_task (_, is_edit) ->
+        if not is_edit then View.focus_task_input ()
+      | _ -> View.focus_task_input () ;
+    end ;
+    begin match a with
+      | Editing_task (id, is_edit) ->
+        if is_edit then View.focus_todo_item id
+      | _ -> ();
     end ;
     Storage.set @@ Model.to_json m ;
     m
@@ -418,7 +444,9 @@ let main _ =
         { m with Model.visibility = v }
   in
   (* init the view *)
-  let () = View.refresh parent m in
+  View.refresh parent m ;
+  View.set_task_input m.Model.field ;
+  View.focus_task_input () ;
   (* main loop *)
   let rec run m =
     try_lwt
