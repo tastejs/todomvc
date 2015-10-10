@@ -11,6 +11,8 @@ get_changes ()
 
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
+	npm i -g gulp
+	gulp
 	git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
 	cd site
 	if git checkout gh-pages; then git checkout -b gh-pages; fi
