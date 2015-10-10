@@ -1121,6 +1121,12 @@
 				"name": "StackOverflow",
 				"url": "https://stackoverflow.com/questions/tagged/js-of-ocaml"
 			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "TodoMVC: a reactive version",
+				"url": "https://ocsigen.github.io/blog/2015/10/07/react-example-todomvc/"
+			}]
 		}]
 	},
 	"jquery": {
