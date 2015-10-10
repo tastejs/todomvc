@@ -59,4 +59,4 @@ module.exports = function (names) {
 			return f === framework.name;
 		});
 	});
-}
+};
