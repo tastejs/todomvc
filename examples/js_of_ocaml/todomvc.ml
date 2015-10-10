@@ -434,7 +434,12 @@ let main _ =
       (fun () -> assert false)
   in
   (* restore the saved state or empty state if not found *)
-  let m = Model.from_json @@ Storage.init @@ Model.to_json Model.empty in
+  let m =
+    try
+      Model.from_json @@ Storage.init @@ Model.to_json Model.empty
+    with
+    | _ -> Model.empty
+  in
   (* set the visibility by looking at the current url *)
   let m =
     match Url.Current.get() with
