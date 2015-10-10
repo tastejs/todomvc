@@ -60,5 +60,3 @@ module.exports = function (names) {
 		});
 	});
 };
-}
->>>>>>> e128a63... Add automatic memory leak detection tests
