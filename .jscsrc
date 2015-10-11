@@ -29,7 +29,11 @@
 		"examples/vanilladart/**/*.js",
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
+		"examples/ampersand/todomvc.bundle.js",
+		"examples/angular2/**/*.js",
 		"examples/polymer/elements/elements.build.js",
+		"examples/typescript-react/js/*.js",
+		"examples/js_of_ocaml/js/*.js",
 	    "**/generated/**"
 	],
 	"requireSpaceBeforeBlockStatements": true,
