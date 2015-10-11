@@ -33,6 +33,7 @@
     "gulp-vulcanize": "^1.0.0",
     "jshint-stylish": "^1.0.0",
     "psi": "^0.1.1",
-    "run-sequence": "^1.0.1"
+    "run-sequence": "^1.0.1",
+    "serve-favicon": "^2.3.0"
   }
 }
