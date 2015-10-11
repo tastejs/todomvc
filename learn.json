@@ -1647,6 +1647,9 @@
 		}, {
 			"name": "Scala.js & React",
 			"url": "examples/scalajs-react"
+		}, {
+			"name": "TypeScript & React",
+			"url": "examples/typescript-react"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -2065,6 +2068,9 @@
 		}, {
 			"name": "TypeScript & Backbone.js",
 			"url": "examples/typescript-backbone"
+		}, {
+			"name": "TypeScript & React",
+			"url": "examples/typescript-react"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

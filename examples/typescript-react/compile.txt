@@ -1,0 +1,7 @@
+--jsx react
+./js/constants.ts
+./js/utils.ts
+./js/todoModel.ts
+./js/todoItem.tsx
+./js/footer.tsx
+./js/app.tsx
