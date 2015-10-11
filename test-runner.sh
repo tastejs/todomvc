@@ -9,9 +9,9 @@ get_changes ()
 	git diff HEAD origin/master --name-only |  awk 'BEGIN {FS = "/"}; {print $1 "/" $2 "/" $3}' | grep -v \/\/ | grep examples | awk -F '[/]' '{print "--framework=" $2}'|uniq
 }
 
+npm i -g gulp
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
-	npm i -g gulp
 	gulp
 	git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
 	cd site
@@ -35,6 +35,8 @@ else
 		cd tooling && \
 		echo $changes | xargs ./run.sh && \
 		cd ../tests && \
+		(gulp test-server &) && \
+		sleep 2 && \ # give the server time to boot in the background
 		echo $changes | xargs ./run.sh
 	fi
 
