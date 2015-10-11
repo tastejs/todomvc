@@ -1101,6 +1101,34 @@
 			"url": "examples/vanillajs"
 		}]
 	},
+	"js_of_ocaml": {
+		"name": "js_of_ocaml",
+		"description": "Js_of_ocaml is a compiler of OCaml bytecode to Javascript. It makes it possible to run Ocaml programs in a Web browser.",
+		"homepage": "ocsigen.org/js_of_ocaml/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/js_of_ocaml"
+		}],
+		"link_groups": [{
+			"heading": "Resources",
+			"links": [{
+				"name": "Manual",
+				"url": "https://ocsigen.org/js_of_ocaml/manual/"
+			}, {
+				"name": "GitHub",
+				"url": "https://github.com/ocsigen/js_of_ocaml"
+			}, {
+				"name": "StackOverflow",
+				"url": "https://stackoverflow.com/questions/tagged/js-of-ocaml"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "TodoMVC: a reactive version",
+				"url": "https://ocsigen.github.io/blog/2015/10/07/react-example-todomvc/"
+			}]
+		}]
+	},
 	"jquery": {
 		"name": "jQuery",
 		"description": "jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.",
