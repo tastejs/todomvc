@@ -84,7 +84,8 @@ var app;
                     }
                 }, this);
                 var todoItems = shownTodos.map(function (todo) {
-                    return (React.createElement(components.TodoItem, {"key": todo.id, "todo": todo, "onToggle": this.toggle.bind(this, todo), "onDestroy": this.destroy.bind(this, todo), "onEdit": this.edit.bind(this, todo), "editing": this.state.editing === todo.id, "onSave": this.save.bind(this, todo), "onCancel": this.cancel}));
+                    var _this = this;
+                    return (React.createElement(components.TodoItem, {"key": todo.id, "todo": todo, "onToggle": this.toggle.bind(this, todo), "onDestroy": this.destroy.bind(this, todo), "onEdit": this.edit.bind(this, todo), "editing": this.state.editing === todo.id, "onSave": this.save.bind(this, todo), "onCancel": function (e) { return _this.cancel(); }}));
                 }, this);
                 var activeTodoCount = todos.reduce(function (accum, todo) {
                     return todo.completed ? accum : accum + 1;

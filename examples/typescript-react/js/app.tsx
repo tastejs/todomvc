@@ -104,7 +104,7 @@ namespace app.components {
             onEdit={this.edit.bind(this, todo)}
             editing={this.state.editing === todo.id}
             onSave={this.save.bind(this, todo)}
-            onCancel={this.cancel}
+            onCancel={ e => this.cancel() }
           />
         );
       }, this);
