@@ -20,10 +20,12 @@ These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  I
 $ npm install
 ```
 
-You need to run a local server at the root of the TodoMVC project. Start the server using:
+If you haven't already run `npm install` in the root directory, execute `npm install` there as well.
+
+You need to run a local server for the tests. Start the test server using:
 
 ```sh
-$ npm run serve
+$ gulp test-server
 ```
 
 To run the tests for all TodoMVC implementations, run the following:
