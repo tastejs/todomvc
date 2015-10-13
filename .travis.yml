@@ -30,6 +30,10 @@ before_install:
     - sh -e /etc/init.d/xvfb start
     - curl -Lo chrome.zip https://download-chromium.appspot.com/dl/Linux_x64 && unzip chrome.zip
     - curl -Lo chromedriver.zip http://chromedriver.storage.googleapis.com/2.18/chromedriver_linux64.zip && unzip chromedriver.zip
+before_script:
+    - cp site-assets/favicon.ico favicon.ico
+    - python -m SimpleHTTPServer > /dev/null 2>&1 &
+    - sleep 2
 script:
     # We want to gate on passing tests and a successful build
     - ./test-runner.sh

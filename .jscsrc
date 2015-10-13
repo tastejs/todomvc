@@ -34,7 +34,7 @@
 		"examples/polymer/elements/elements.build.js",
 		"examples/typescript-react/js/*.js",
 		"examples/js_of_ocaml/js/*.js",
-	    "**/generated/**"
+		"**/generated/**"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
