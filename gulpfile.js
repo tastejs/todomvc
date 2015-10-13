@@ -109,3 +109,7 @@ gulp.task('pagespeed', pagespeed.bind(null, {
 gulp.task('serve', function (cb) {
 	app.listen(8080, cb);
 });
+
+gulp.task('test-server', function (cb) {
+	app.listen(8000, cb);
+});
