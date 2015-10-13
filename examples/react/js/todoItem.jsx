@@ -37,7 +37,9 @@ var app = app || {};
 		},
 
 		handleChange: function (event) {
-			this.setState({editText: event.target.value});
+			if (this.props.editing) {
+				this.setState({editText: event.target.value});
+			}
 		},
 
 		getInitialState: function () {
