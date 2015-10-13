@@ -33,7 +33,8 @@
 		"examples/angular2/**/*.js",
 		"examples/polymer/elements/elements.build.js",
 		"examples/js_of_ocaml/js/*.js",
-	    "**/generated/**"
+		"examples/typescript-react/js/*.js",
+		"**/generated/**"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
