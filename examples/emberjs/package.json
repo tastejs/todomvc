@@ -5,7 +5,7 @@
     "todomvc-common": "^1.0.1",
     "jquery": "^2.1.0",
     "handlebars": "^2.0.0",
-    "ember": "components/ember#1.10.0-beta.3",
+    "ember": "components/ember#2.2.0-beta.1",
     "ember-localstorage-adapter": "^0.5.0"
   }
 }
