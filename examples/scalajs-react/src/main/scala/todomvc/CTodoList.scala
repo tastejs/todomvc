@@ -1,22 +1,24 @@
 package todomvc
 
-import japgolly.scalajs.react.ScalazReact._
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra._
-import japgolly.scalajs.react.extra.router2.RouterCtl
+import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.ext.KeyCode
-
-import scala.scalajs.js
-import scalaz.effect.IO
-import scalaz.std.anyVal.unitInstance
-import scalaz.syntax.semigroup._
+import org.scalajs.dom.html
 
 object CTodoList {
 
-  case class Props private[CTodoList] (ctl: RouterCtl[TodoFilter], model: TodoModel, currentFilter: TodoFilter)
+  case class Props private[CTodoList] (
+    ctl:           RouterCtl[TodoFilter],
+    model:         TodoModel,
+    currentFilter: TodoFilter
+  )
 
-  case class State(todos: Seq[Todo], editing: Option[TodoId])
+  case class State(
+    todos:      Seq[Todo],
+    editing:    Option[TodoId]
+  )
 
   /**
    * These specify when it makes sense to skip updating this component (see comment on `Listenable` below)
@@ -31,38 +33,55 @@ object CTodoList {
    *
    * It extends OnUnmount so unsubscription of events can be made automatically.
    */
-  case class Backend($: BackendScope[Props, State]) extends OnUnmount {
+  class Backend($: BackendScope[Props, State]) extends OnUnmount {
 
-    def handleNewTodoKeyDown(event: ReactKeyboardEventI): Option[IO[Unit]] =
-      Some((event.nativeEvent.keyCode, UnfinishedTitle(event.target.value).validated)) collect {
-        case (KeyCode.Enter, Some(title)) =>
-          IO(event.target.value = "") |+| $.props.model.addTodo(title)
-      }
-    
-    def updateTitle(id: TodoId)(title: Title): IO[Unit] =
-      editingDone(cb = $.props.model.update(id, title))
+    /**
+     *  A backend lives for the entire life of a component. During that time,
+     *   it might receive new Props,
+     *   so we use this mechanism to keep state that is derived from Props, so
+     *   we only update it again if Props changed in a meaningful way (as determined
+     *   by the implicit `Reusability` defined above )
+     */
+    case class Callbacks(P: Props) {
+      val handleNewTodoKeyDown: ReactKeyboardEventI => Option[Callback] =
+        e => Some((e.nativeEvent.keyCode, UnfinishedTitle(e.target.value).validated)) collect {
+          case (KeyCode.Enter, Some(title)) =>
+            Callback(e.target.value = "") >> P.model.addTodo(title)
+        }
 
-    def startEditing(id: TodoId): IO[Unit] =
-      $.modStateIO(_.copy(editing = Some(id)))
+      val updateTitle: TodoId => Title => Callback =
+        id => title => editingDone(cb = P.model.update(id, title))
+
+      val toggleAll: ReactEventI => Callback =
+        e => P.model.toggleAll(e.target.checked)
+    }
+
+    val cbs = Px.cbA($.props).map(Callbacks)
+
+    val startEditing: TodoId => Callback =
+      id => $.modState(_.copy(editing = Some(id)))
 
     /**
      * @param cb Two changes to the same `State` must be combined using a callback like this.
      *           If not, rerendering will prohibit the second from having its effect.
      *           For this example, the current `State` contains both `editing` and the list of todos.
      */
-    def editingDone(cb: OpCallbackIO = js.undefined): IO[Unit] =
-      $.modStateIO(_.copy(editing = None), cb)
+    def editingDone(cb: Callback = Callback.empty): Callback =
+      $.modState(_.copy(editing = None), cb)
 
-    def toggleAll(e: ReactEventI): IO[Unit] =
-      $.props.model.toggleAll(e.target.checked)
-
-    def render: ReactElement = {
-      val todos           = $.state.todos
-      val filteredTodos   = todos filter $.props.currentFilter.accepts
+    def render(P: Props, S: State): ReactTagOf[html.Div] = {
+      val todos           = S.todos
+      val filteredTodos   = todos filter P.currentFilter.accepts
 
       val activeCount     = todos count TodoFilter.Active.accepts
       val completedCount  = todos.length - activeCount
 
+      /**
+        * `cbs.value()` checks if `Props` changed (according to `Reusability`),
+        * and, if it did, creates a new instance of `Callbacks`. For best
+        * performance, it's best to call value() once per render() pass.
+        */
+      val callbacks       = cbs.value()
       <.div(
         <.h1("todos"),
         <.header(
@@ -70,62 +89,65 @@ object CTodoList {
           <.input(
             ^.className     := "new-todo",
             ^.placeholder   := "What needs to be done?",
-            ^.onKeyDown  ~~>? handleNewTodoKeyDown _,
+            ^.onKeyDown   ==>? callbacks.handleNewTodoKeyDown,
             ^.autoFocus     := true
           )
         ),
-        todos.nonEmpty ?= todoList(filteredTodos, activeCount),
-        todos.nonEmpty ?= footer(activeCount, completedCount)
+        todos.nonEmpty ?= todoList(P, callbacks, S.editing, filteredTodos, activeCount),
+        todos.nonEmpty ?= footer(P, activeCount, completedCount)
       )
     }
 
-    def todoList(filteredTodos: Seq[Todo], activeCount: Int): ReactElement =
+    def todoList(P:             Props,
+                 callbacks:     Callbacks,
+                 editing:       Option[TodoId],
+                 filteredTodos: Seq[Todo],
+                 activeCount:   Int): ReactTagOf[html.Element] =
       <.section(
         ^.className := "main",
         <.input(
           ^.className  := "toggle-all",
           ^.`type`     := "checkbox",
           ^.checked    := activeCount == 0,
-          ^.onChange ~~> toggleAll _
+          ^.onChange  ==> callbacks.toggleAll
         ),
         <.ul(
           ^.className := "todo-list",
           filteredTodos.map(todo =>
-            CTodoItem(
-              onToggle         = $.props.model.toggleCompleted(todo.id),
-              onDelete         = $.props.model.delete(todo.id),
+            CTodoItem(CTodoItem.Props(
+              onToggle         = P.model.toggleCompleted(todo.id),
+              onDelete         = P.model.delete(todo.id),
               onStartEditing   = startEditing(todo.id),
-              onUpdateTitle    = updateTitle(todo.id),
+              onUpdateTitle    = callbacks.updateTitle(todo.id),
               onCancelEditing  = editingDone(),
               todo             = todo,
-              isEditing        = $.state.editing.contains(todo.id)
-            )
+              isEditing        = editing.contains(todo.id)
+            ))
           )
         )
       )
 
-    def footer(activeCount: Int, completedCount: Int): ReactElement =
-      CFooter(
-        filterLink       = $.props.ctl.link,
-        onClearCompleted = $.props.model.clearCompleted,
-        currentFilter    = $.props.currentFilter,
+    def footer(P: Props, activeCount: Int, completedCount: Int): ReactElement =
+      CFooter(CFooter.Props(
+        filterLink       = P.ctl.link,
+        onClearCompleted = P.model.clearCompleted,
+        currentFilter    = P.currentFilter,
         activeCount      = activeCount,
         completedCount   = completedCount
-      )
+      ))
   }
 
   private val component = ReactComponentB[Props]("CTodoList")
     /* state derived from the props */
-    .initialStateP(p => State(p.model.todos, None))
-    .backend(Backend)
-    .render(_.backend.render)
+    .initialState_P(p => State(p.model.todos, None))
+    .renderBackend[Backend]
     /**
      * Makes the component subscribe to events coming from the model.
      * Unsubscription on component unmount is handled automatically.
      * The last function is the actual event handling, in this case
      *  we just overwrite the whole list in `state`.
      */
-    .configure(Listenable.installIO((p: Props) => p.model, ($, todos: Seq[Todo]) => $.modStateIO(_.copy(todos = todos))))
+    .configure(Listenable.install((p: Props) => p.model, $ => (todos: Seq[Todo]) => $.modState(_.copy(todos = todos))))
     /**
      * Optimization where we specify whether the component can have changed.
      * In this case we avoid comparing model and routerConfig, and only do

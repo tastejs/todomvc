@@ -1,100 +1,87 @@
 package todomvc
 
-import japgolly.scalajs.react.ScalazReact._
 import japgolly.scalajs.react._
+import japgolly.scalajs.react.extra.{Reusability, Px}
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.ext.KeyCode
-import scalaz.effect.IO
-import scalaz.syntax.semigroup._
-import scalaz.syntax.std.option._
-import scalaz.std.anyVal.unitInstance
 
 object CTodoItem {
 
-  case class Props private[CTodoItem] (
-    onToggle:        IO[Unit],
-    onDelete:        IO[Unit],
-    onStartEditing:  IO[Unit],
-    onUpdateTitle:   Title => IO[Unit],
-    onCancelEditing: IO[Unit],
+  case class Props (
+    onToggle:        Callback,
+    onDelete:        Callback,
+    onStartEditing:  Callback,
+    onUpdateTitle:   Title => Callback,
+    onCancelEditing: Callback,
     todo:            Todo,
     isEditing:       Boolean
   )
 
+  implicit val reusableProps = Reusability.fn[Props]((p1, p2) =>
+    (p1.todo eq p2.todo) && (p1.isEditing == p2.isEditing)
+  )
+
   case class State(editText: UnfinishedTitle)
 
-  case class Backend($: BackendScope[Props, State]) {
+  class Backend($: BackendScope[Props, State]) {
+    case class Callbacks(P: Props) {
+      val editFieldSubmit: Callback =
+        $.state.flatMap(_.editText.validated.fold(P.onDelete)(P.onUpdateTitle))
 
-    def editFieldSubmit: IO[Unit] =
-      $.state.editText.validated.fold($.props.onDelete)($.props.onUpdateTitle)
+      val resetText: Callback =
+        $.modState(_.copy(editText = P.todo.title.editable))
 
-    /**
-     * It's OK to make these into `val`s as long as they don't touch state.
-     */
-    val resetText: IO[Unit] =
-      $.modStateIO(_.copy(editText = $.props.todo.title.editable))
+      val editFieldKeyDown: ReactKeyboardEvent => Option[Callback] =
+        e => e.nativeEvent.keyCode match {
+          case KeyCode.Escape => Some(resetText >> P.onCancelEditing)
+          case KeyCode.Enter  => Some(editFieldSubmit)
+          case _              => None
+        }
+    }
+    val cbs = Px.cbA($.props).map(Callbacks)
 
-    val editFieldKeyDown: ReactKeyboardEvent => Option[IO[Unit]] =
-      e => e.nativeEvent.keyCode match {
-        case KeyCode.Escape => (resetText |+| $.props.onCancelEditing).some
-        case KeyCode.Enter  => editFieldSubmit.some
-        case _              => None
-      }
+    val editFieldChanged: ReactEventI => Callback =
+      e => $.modState(_.copy(editText = UnfinishedTitle(e.target.value)))
 
-    val editFieldChanged: ReactEventI => IO[Unit] =
-      e => $.modStateIO(_.copy(editText = UnfinishedTitle(e.target.value)))
-
-    def render: ReactElement = {
+    def render(P: Props, S: State): ReactElement = {
+      val cb = cbs.value()
       <.li(
         ^.classSet(
-          "completed" -> $.props.todo.isCompleted,
-          "editing"   -> $.props.isEditing
+          "completed" -> P.todo.isCompleted,
+          "editing"   -> P.isEditing
         ),
         <.div(
           ^.className := "view",
           <.input(
             ^.className := "toggle",
             ^.`type`    := "checkbox",
-            ^.checked   := $.props.todo.isCompleted,
-            ^.onChange ~~> $.props.onToggle
+            ^.checked   := P.todo.isCompleted,
+            ^.onChange --> P.onToggle
           ),
-          <.label($.props.todo.title.value, ^.onDoubleClick ~~> $.props.onStartEditing),
-          <.button(^.className := "destroy", ^.onClick ~~> $.props.onDelete)
+          <.label(
+            P.todo.title.value,
+            ^.onDoubleClick --> P.onStartEditing
+          ),
+          <.button(
+            ^.className := "destroy",
+            ^.onClick --> P.onDelete
+          )
         ),
         <.input(
           ^.className   := "edit",
-          ^.onBlur     ~~> editFieldSubmit,
-          ^.onChange   ~~> editFieldChanged,
-          ^.onKeyDown ~~>? editFieldKeyDown,
-          ^.value       := $.state.editText.value
+          ^.onBlur     --> cb.editFieldSubmit,
+          ^.onChange   ==> editFieldChanged,
+          ^.onKeyDown ==>? cb.editFieldKeyDown,
+          ^.value       := S.editText.value
         )
       )
     }
   }
 
-  private val component = ReactComponentB[Props]("CTodoItem")
-    .initialStateP(p => State(p.todo.title.editable))
-    .backend(Backend)
-    .render(_.backend.render)
-    .build
+  val component = ReactComponentB[Props]("CTodoItem")
+    .initialState_P(p => State(p.todo.title.editable))
+    .renderBackend[Backend].build
 
-  def apply(onToggle:        IO[Unit],
-            onDelete:        IO[Unit],
-            onStartEditing:  IO[Unit],
-            onUpdateTitle:   Title => IO[Unit],
-            onCancelEditing: IO[Unit],
-            todo:            Todo,
-            isEditing:       Boolean) =
-
-    component.withKey(todo.id.id.toString)(
-      Props(
-        onToggle        = onToggle,
-        onDelete        = onDelete,
-        onStartEditing  = onStartEditing,
-        onUpdateTitle   = onUpdateTitle,
-        onCancelEditing = onCancelEditing,
-        todo            = todo,
-        isEditing       = isEditing
-      )
-    )
+  def apply(P: Props) =
+    component.withKey(P.todo.id.id.toString)(P)
 }
