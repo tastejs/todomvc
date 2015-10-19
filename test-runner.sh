@@ -36,7 +36,7 @@ else
 		echo $changes | xargs ./run.sh && \
 		cd ../tests && \
 		(gulp test-server &) && \
-		sleep 2 && \ # give the server time to boot in the background
+		sleep 2 && \
 		echo $changes | xargs ./run.sh
 	fi
 
