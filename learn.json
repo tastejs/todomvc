@@ -2110,7 +2110,7 @@
 				"url": "http://www.typescriptlang.org/Playground"
 			}, {
 				"name": "Documentation",
-				"url": "http://typescript.codeplex.com/documentation"
+				"url": "https://github.com/Microsoft/TypeScript/wiki"
 			}, {
 				"name": "Applications built with TypeScript",
 				"url": "http://www.typescriptlang.org/Samples"
@@ -2119,7 +2119,7 @@
 				"url": "http://blogs.msdn.com/b/typescript"
 			}, {
 				"name": "Source Code",
-				"url": "http://typescript.codeplex.com/sourcecontrol/latest#README.txt"
+				"url": "https://github.com/Microsoft/TypeScript"
 			}]
 		}, {
 			"heading": "Articles and Guides",
@@ -2137,7 +2137,7 @@
 				"url": "http://stackoverflow.com/questions/tagged/typescript"
 			}, {
 				"name": "Forums",
-				"url": "http://typescript.codeplex.com/discussions"
+				"url": "https://github.com/Microsoft/TypeScript/issues"
 			}, {
 				"name": "TypeScript on Twitter",
 				"url": "http://twitter.com/typescriptlang"
