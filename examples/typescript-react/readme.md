@@ -16,10 +16,10 @@ Here are some links you may find helpful:
 
 * [Tutorial](http://www.typescriptlang.org/Tutorial)
 * [Code Playground](http://www.typescriptlang.org/Playground)
-* [Documentation](http://typescript.codeplex.com/documentation)
+* [Documentation](https://github.com/Microsoft/TypeScript/wiki)
 * [Applications built with TypeScript](http://www.typescriptlang.org/Samples)
 * [Blog](http://blogs.msdn.com/b/typescript)
-* [Source Code](http://typescript.codeplex.com/sourcecontrol/latest#README.txt)
+* [Source Code](https://github.com/Microsoft/TypeScript)
 
 Articles and guides from the community:
 
@@ -29,7 +29,7 @@ Articles and guides from the community:
 Get help from other TypeScript users:
 
 * [TypeScript on StackOverflow](http://stackoverflow.com/questions/tagged/typescript)
-* [Forums](http://typescript.codeplex.com/discussions)
+* [Forums](https://github.com/Microsoft/TypeScript/issues)
 * [TypeScript on Twitter](http://twitter.com/typescriptlang)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
