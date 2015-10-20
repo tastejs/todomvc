@@ -2234,7 +2234,7 @@
 	"jsblocks": {
 		"name": "jsblocks",
 		"description": "From simple user interfaces to complex single-page applications using faster, server-side rendered and easy to learn framework",
-		"homepage": "http://jsblocks.com",
+		"homepage": "jsblocks.com",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/jsblocks"
