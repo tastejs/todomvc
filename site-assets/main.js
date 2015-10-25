@@ -175,9 +175,10 @@
 	}]);
 
 	function AppTabs() {
-		document.querySelector(AppTabs.selectors.tabs).addEventListener(
-			'core-select', this.onSelect.bind(this));
+		var tabs = document.querySelector(AppTabs.selectors.tabs)
+		tabs.addEventListener('iron-select', this.onSelect.bind(this));
 		this.listHeight = 0;
+		tabs.select(0);
 	}
 
 	AppTabs.selectors = {
@@ -187,14 +188,9 @@
 	};
 
 	AppTabs.prototype.onSelect = function (e) {
-		var selected = e.target.selected;
+		var selected = e.currentTarget.selectedItem.dataset.target;
 		[].slice.call(document.querySelectorAll(AppTabs.selectors.list)).forEach(
 			function (el) {
-				if (!e.detail.isSelected) {
-					// Don't handle unselection events.
-					return;
-				}
-
 				var isSelected = el.dataset.appList === selected;
 				el.style.display = isSelected ? 'block' : 'none';
 				if (isSelected) {
