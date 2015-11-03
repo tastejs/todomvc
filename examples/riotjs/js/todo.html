@@ -51,7 +51,6 @@
 
 	saveTodos() {
 		todoStorage.save(self.todos);
-		self.update();
 	};
 
 	filteredTodos() {
@@ -85,7 +84,6 @@
 				self.todos.splice(self.todos.indexOf(t), 1);
 			}
 		});
-		self.update();
 	};
 
 	toggleAll(e) {
