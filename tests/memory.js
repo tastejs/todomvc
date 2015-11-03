@@ -48,6 +48,7 @@ list.forEach(function (framework) {
 		},
 		action: function (name) {
 			driver.wait(function () {
+				driver.sleep(500);
 				return driver.findElement(drool.webdriver.By.css(newTodoSelector(name)))
 					.sendKeys('find magical goats', drool.webdriver.Key.ENTER)
 					.thenCatch(function () {
