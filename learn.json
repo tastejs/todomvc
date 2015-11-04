@@ -1670,14 +1670,17 @@
 			"name": "Example",
 			"url": "examples/react"
 		}, {
-			"name": "React & Backbone.js",
+			"name": "React + Backbone.js",
 			"url": "examples/react-backbone"
 		}, {
-			"name": "Scala.js & React",
+			"name": "Scala.js + React",
 			"url": "examples/scalajs-react"
 		}, {
-			"name": "TypeScript & React",
+			"name": "TypeScript + React",
 			"url": "examples/typescript-react"
+		}, {
+			"name": "React + Alt",
+			"url": "examples/react-alt"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
