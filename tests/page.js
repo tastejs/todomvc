@@ -16,7 +16,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.getTodoListXpath = function () {
-		return !idSelectors ? '//ul[@id="todo-list"]' : '//ul[@class="todo-list"]';
+		return !idSelectors ? '//ul[@id="todo-list"]' : '//ul[contains(@class, "todo-list")]';
 	};
 
 	this.getMainSectionXpath = function () {
