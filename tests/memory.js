@@ -1,3 +1,5 @@
+'use strict';
+
 var drool = require('drool');
 var frameworkPathLookup = require('./framework-path-lookup');
 var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
@@ -18,7 +20,7 @@ function idApp() {
 	.thenCatch(function () { return false; });
 }
 
-function newTodoSelector(name) {
+function newTodoSelector() {
 	return idApp().then(function (isId) {
 		if (isId) {
 			return '#new-todo';
@@ -28,7 +30,7 @@ function newTodoSelector(name) {
 	});
 }
 
-function listSelector(name) {
+function listSelector() {
 	return idApp().then(function (isId) {
 		if (isId) {
 			return '#todo-list li';
@@ -46,6 +48,7 @@ list.forEach(function (framework) {
 		},
 		action: function (name) {
 			driver.wait(function () {
+				driver.sleep(500);
 				return driver.findElement(drool.webdriver.By.css(newTodoSelector(name)))
 					.sendKeys('find magical goats', drool.webdriver.Key.ENTER)
 					.thenCatch(function () {
@@ -55,7 +58,7 @@ list.forEach(function (framework) {
 					return driver.findElement(drool.webdriver.By.css(listSelector(name))).isDisplayed()
 						.then(function () {
 							return true;
-						})
+						});
 				});
 			}, 10000);
 
@@ -87,7 +90,7 @@ list.forEach(function (framework) {
 			}
 
 		}.bind(framework.name)
-	}, driver)
+	}, driver);
 });
 
 driver.quit();
