@@ -230,9 +230,17 @@ module.exports = function Page(browser) {
 	};
 
 	this.enterItem = function (itemText) {
-		var textField = this.getItemInputField();
-		textField.sendKeys(itemText);
-		textField.sendKeys(webdriver.Key.ENTER);
+		var self = this;
+		browser.wait(function () {
+			var textField = self.getItemInputField();
+			textField.sendKeys(itemText);
+			textField.sendKeys(webdriver.Key.ENTER);
+
+			return self.getVisibleLabelText()
+				.then(function (labels) {
+					return labels.indexOf(itemText.trim()) !== -1;
+				});
+		}, 5000);
 	};
 
 	this.toggleItemAtIndex = function (index) {
