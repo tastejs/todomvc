@@ -148,7 +148,7 @@ module.exports = function Page(browser) {
 
 	this.getVisibleLabelText = function () {
 		var self = this;
-		return this.getVisibileLabelIndicies ()
+		return this.getVisibileLabelIndicies()
 		.then(function (indicies) {
 			return webdriver.promise.map(indicies, function (elmIndex) {
 				var ret;
@@ -234,11 +234,20 @@ module.exports = function Page(browser) {
 
 		browser.wait(function () {
 			return self.getItemInputField().then(function (textField) {
-				return textField.sendKeys(itemText, webdriver.Key.ENTER);
-			}).then(function () {
+				return textField.sendKeys(itemText, webdriver.Key.ENTER)
+					.then(function () {
+						return textField;
+					});
+			}).then(function (textField) {
 				return self.getVisibleLabelText()
 					.then(function (labels) {
-						return labels.indexOf(itemText.trim()) !== -1;
+						if (labels.indexOf(itemText.trim()) !== -1) {
+							return true;
+						}
+
+						return textField.clear().then(function () {
+							return false;
+						});
 					});
 			});
 		}, 5000);
