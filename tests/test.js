@@ -288,6 +288,13 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 
 				function stateTest() {
+					// wait until things are visible
+					browser.wait(function () {
+						return page.getVisibleLabelText().then(function (labels) {
+							return labels.length > 0;
+						});
+					}, 5000);
+
 					testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO]);
 					testOps.assertItemAtIndexIsCompleted(1);
 					testOps.assertItemAtIndexIsNotCompleted(0);
