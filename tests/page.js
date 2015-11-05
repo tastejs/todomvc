@@ -148,7 +148,7 @@ module.exports = function Page(browser) {
 
 	this.getVisibleLabelText = function () {
 		var self = this;
-		return this.getVisibleItemLabels()
+		return this.getVisibileLabelIndicies ()
 		.then(function (indicies) {
 			return webdriver.promise.map(indicies, function (elmIndex) {
 				var ret;
@@ -167,7 +167,7 @@ module.exports = function Page(browser) {
 		});
 	};
 
-	this.getVisibleItemLabels = function () {
+	this.getVisibileLabelIndicies = function () {
 		var self = this;
 		var ret;
 		return this.getItemLabels()
