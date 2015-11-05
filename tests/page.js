@@ -231,14 +231,16 @@ module.exports = function Page(browser) {
 
 	this.enterItem = function (itemText) {
 		var self = this;
-		browser.wait(function () {
-			var textField = self.getItemInputField();
-			textField.sendKeys(itemText, webdriver.Key.ENTER);
 
-			return self.getVisibleLabelText()
-				.then(function (labels) {
-					return labels.indexOf(itemText.trim()) !== -1;
-				});
+		browser.wait(function () {
+			return self.getItemInputField().then(function (textField) {
+				return textField.sendKeys(itemText, webdriver.Key.ENTER);
+			}).then(function () {
+				return self.getVisibleLabelText()
+					.then(function (labels) {
+						return labels.indexOf(itemText.trim()) !== -1;
+					});
+			});
 		}, 5000);
 	};
 
