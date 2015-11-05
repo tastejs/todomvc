@@ -233,8 +233,7 @@ module.exports = function Page(browser) {
 		var self = this;
 		browser.wait(function () {
 			var textField = self.getItemInputField();
-			textField.sendKeys(itemText);
-			textField.sendKeys(webdriver.Key.ENTER);
+			textField.sendKeys(itemText, webdriver.Key.ENTER);
 
 			return self.getVisibleLabelText()
 				.then(function (labels) {
