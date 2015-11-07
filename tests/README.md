@@ -14,7 +14,7 @@ The TodoMVC project has a great many implementations of exactly the same app usi
 
 ## Running the tests
 
-These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests you will need to install the dependencies.  npm must be version 2.0.0 or greater, so upgrade it first with `npm install -g npm` if `npm --version` outputs anything less than 2.0.0.  Run the following command from within the `tests` folder:
+These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests, you will need to install the dependencies.  npm must be version 2.0.0 or greater, so upgrade it first with `npm install -g npm` if `npm --version` outputs anything less than 2.0.0.  Run the following command from within the `tests` folder:
 
 ```sh
 $ npm install
@@ -165,12 +165,12 @@ In order to keep each test case fully isolated, the browser is closed then re-op
 $ npm run test -- --speedMode
 ```
 
-Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
+Before each test, all the todo items are checked as completed and the 'clear complete' button pressed. This makes the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
 
 
 ## Lax mode
 
-There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
+There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases, the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
 
 
 ```sh

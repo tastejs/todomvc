@@ -46,7 +46,7 @@ Colin is a software consultant at Scott Logic who is passionate about all softwa
 #### [Sam Saccone](https://github.com/samccone) - Developer
 
 <img align="left" width="40" height="40" src="http://en.gravatar.com/userimage/602125/f2f1d93164ec62b527f0398c65b2d1f3.jpg?size=40">
-Sam is a Software Engineer at Google who is driven by an endless desire to create, solve problems, and improve developers lives.
+Sam is a Software Engineer at Google who is driven by an endless desire to create, solve problems, and improve developers' lives.
 
 #### [Arthur Verschaeve](https://github.com/arthurvr) - Developer
 
