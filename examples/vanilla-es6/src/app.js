@@ -1,14 +1,14 @@
-import View from './view'
-import * as helpers from './helpers'
 import Controller from './controller'
-import Model from './model'
-import Store from './store'
+import * as helpers from './helpers'
 import Template from './template'
+import Store from './store'
+import Model from './model'
+import View from './view'
 
-let $on = helpers.$on
+const $on = helpers.$on
 var todo
 
-let setView = () => {
+const setView = () => {
   todo.controller.setView(document.location.hash)
 }
 
