@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "gulp": "gulp",
+    "production": "gulp build:production",
+    "version": "gulp rev uglify"
+  },
+  "dependencies": {
+    "todomvc-app-css": "^2.0.1",
+    "todomvc-common": "^1.0.2"
+  },
+  "devDependencies": {
+    "fannypack": "^1.2.0",
+    "gulp": "^3.9.0",
+    "npm-css": "^0.2.3"
+  }
+}
