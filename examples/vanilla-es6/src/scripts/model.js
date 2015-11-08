@@ -7,14 +7,15 @@ export default class Model {
   constructor(storage) {
   	this.storage = storage
   }
-  
+
   /**
    * Creates a new todo model
    *
    * @param {string} [title] The title of the task
    * @param {function} [callback] The callback to fire after the model is created
    */
-  create(title = '', callback){
+  create(title, callback){
+  	title = title || ''
   	callback = callback || () => false
 
   	var newItem = {
