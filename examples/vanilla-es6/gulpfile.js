@@ -12,7 +12,7 @@ Fannypack.Config.root = {
 Fannypack.Config.js.src = 'scripts'
 Fannypack.Config.js.dest = 'assets/js'
 Fannypack.Config.js.entries = {
-  main: ['./main.js']
+  app: ['./app.js']
 }
 
 Fannypack.Config.sass.src = 'styles'
