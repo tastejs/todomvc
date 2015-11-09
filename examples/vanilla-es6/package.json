@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "prepublish": "babel src --out-dir=dist && browserify dist/app.js > bundle.js"
+    "prepublish": "babel src --out-dir=dist && browserify dist/app.js > dist/bundle.js"
   },
   "dependencies": {
     "todomvc-app-css": "^2.0.1",
