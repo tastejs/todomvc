@@ -867,7 +867,7 @@ var Template = (function () {
 	}, {
 		key: 'clearCompletedButton',
 		value: function clearCompletedButton(completedTodos) {
-			return completedTodos > 0 ? 'Clear Completed' : '';
+			return completedTodos > 0 ? 'Clear completed' : '';
 		}
 	}]);
 
