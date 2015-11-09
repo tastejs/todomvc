@@ -36,14 +36,8 @@ angular.module('todomvc')
 			clearCompleted: function () {
 				var originalTodos = store.todos.slice(0);
 
-				var completeTodos = [];
-				var incompleteTodos = [];
-				store.todos.forEach(function (todo) {
-					if (todo.completed) {
-						completeTodos.push(todo);
-					} else {
-						incompleteTodos.push(todo);
-					}
+				var incompleteTodos = store.todos.filter(function (todo) {
+					return !todo.completed;
 				});
 
 				angular.copy(incompleteTodos, store.todos);
@@ -112,14 +106,8 @@ angular.module('todomvc')
 			clearCompleted: function () {
 				var deferred = $q.defer();
 
-				var completeTodos = [];
-				var incompleteTodos = [];
-				store.todos.forEach(function (todo) {
-					if (todo.completed) {
-						completeTodos.push(todo);
-					} else {
-						incompleteTodos.push(todo);
-					}
+				var incompleteTodos = store.todos.filter(function (todo) {
+					return !todo.completed;
 				});
 
 				angular.copy(incompleteTodos, store.todos);
