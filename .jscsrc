@@ -34,6 +34,7 @@
 		"examples/polymer/elements/elements.build.js",
 		"examples/js_of_ocaml/js/*.js",
 		"examples/typescript-*/js/**/*.js",
+		"examples/vanilla-es6/**/*.js",
 		"**/generated/**"
 	],
 	"requireSpaceBeforeBlockStatements": true,
