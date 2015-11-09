@@ -15,7 +15,7 @@ function TestOperations(page) {
 	}
 
 	function testIsVisible(elements, name) {
-		assert.equal(1, elements.length);
+		assert.equal(elements.length, 1);
 		elements[0].isDisplayed().then(function (isDisplayed) {
 			assert(isDisplayed, 'the ' + name + ' element should be displayed');
 		});
@@ -23,7 +23,7 @@ function TestOperations(page) {
 
 	this.assertFocussedElementId = function (expectedId) {
 		page.getFocussedElementId().then(function (id) {
-			assert.notEqual(-1, id.indexOf(expectedId), 'The focused element did not have the expected id ' + expectedId);
+			assert.notEqual(id.indexOf(expectedId), -1, 'The focused element did not have the expected id ' + expectedId);
 		});
 	};
 
@@ -43,7 +43,7 @@ function TestOperations(page) {
 
 	this.assertItemCount = function (itemCount) {
 		page.getItemElements().then(function (toDoItems) {
-			assert.equal(itemCount, toDoItems.length,
+			assert.equal(toDoItems.length, itemCount,
 				itemCount + ' items expected in the todo list, ' + toDoItems.length + ' items observed');
 		});
 	};
@@ -51,7 +51,7 @@ function TestOperations(page) {
 	this.assertClearCompleteButtonText = function (buttonText) {
 		return page.tryGetClearCompleteButton()
 		.getText().then(function (text) {
-			assert.equal(buttonText, text);
+			assert.equal(text, buttonText);
 		});
 	};
 
@@ -94,13 +94,13 @@ function TestOperations(page) {
 
 	this.assertItemInputFieldText = function (text) {
 		page.getItemInputField().getText().then(function (inputFieldText) {
-			assert.equal(text, inputFieldText);
+			assert.equal(inputFieldText, text);
 		});
 	};
 
 	this.assertItemText = function (itemIndex, textToAssert) {
 		page.getItemLabelAtIndex(itemIndex).getText().then(function (text) {
-			assert.equal(textToAssert, text,
+			assert.equal(text, textToAssert,
 				'A todo item with text \'' + textToAssert + '\' was expected at index ' +
 				itemIndex + ', the text \'' + text + '\' was observed');
 		});
@@ -110,13 +110,13 @@ function TestOperations(page) {
 	this.assertItems = function (textArray) {
 		return page.getVisibleLabelText()
 		.then(function (visibleText) {
-			assert.deepEqual(textArray.sort(), visibleText.sort());
+			assert.deepEqual(visibleText.sort(), textArray.sort());
 		});
 	};
 
 	this.assertItemCountText = function (textToAssert) {
 		page.getItemsCountElement().getText().then(function (text) {
-			assert.equal(textToAssert, text.trim(), 'the item count text was incorrect');
+			assert.equal(text.trim(), textToAssert, 'the item count text was incorrect');
 		});
 	};
 
@@ -144,7 +144,7 @@ function TestOperations(page) {
 	this.assertFilterAtIndexIsSelected = function (selectedIndex) {
 		page.findByXpath(page.getSelectedFilterXPathByIndex(selectedIndex + 1))
 		.then(function (elm) {
-			assert.notEqual(undefined, elm, 'the filter / route at index ' + selectedIndex + ' should have been selected');
+			assert.notEqual(elm, undefined, 'the filter / route at index ' + selectedIndex + ' should have been selected');
 		});
 	};
 
