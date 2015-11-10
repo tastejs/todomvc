@@ -126,8 +126,8 @@
 				store.insert({ title: 'Uncompleted Item 0', completed: false });
 				store.insert({ title: 'Uncompleted Item 1', completed: false });
 				store.insert({ title: 'Uncompleted Item 2', completed: false });
-				store.insert({ title: 'Completed Item 0', completed: true })
-				store.insert({ title: 'Completed Item 1', completed: true })
+				store.insert({ title: 'Completed Item 0', completed: true });
+				store.insert({ title: 'Completed Item 1', completed: true });
 				scope.$digest();
 			}));
 

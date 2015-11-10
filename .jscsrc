@@ -34,7 +34,13 @@
 		"examples/polymer/elements/elements.build.js",
 		"examples/js_of_ocaml/js/*.js",
 		"examples/typescript-*/js/**/*.js",
+<<<<<<< HEAD
+		"examples/vanilla-es6/**/*.js",
 		"**/generated/**"
+=======
+		"**/generated/**",
+		"examples/humble/js/**"
+>>>>>>> tastejs/master
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,

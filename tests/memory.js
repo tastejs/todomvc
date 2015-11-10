@@ -1,6 +1,7 @@
 'use strict';
 
 var drool = require('drool');
+var exceptions = require('./memory-exceptions.json');
 var frameworkPathLookup = require('./framework-path-lookup');
 var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
 var driverConfig = {
@@ -77,15 +78,17 @@ list.forEach(function (framework) {
 		assert: function (after, initial) {
 			var nodeIncrease = (after.nodes - initial.nodes);
 			var listenerIncrease = (after.jsEventListeners - initial.jsEventListeners);
+			var memoryExceptions = exceptions[framework.name] || {};
+
 			console.log(this + ', ' +  nodeIncrease + ', ' +
 				(after.jsHeapSizeUsed - initial.jsHeapSizeUsed) + ', ' + listenerIncrease);
 
 			//https://code.google.com/p/chromium/issues/detail?id=516153
-			if (nodeIncrease > 5) {
+			if (nodeIncrease > memoryExceptions.nodes || 0) {
 				throw new Error('Node Count leak detected!');
 			}
 
-			if (listenerIncrease > 0) {
+			if (listenerIncrease > memoryExceptions.listeners || 0) {
 				throw new Error('Event Listener leak detected!');
 			}
 
