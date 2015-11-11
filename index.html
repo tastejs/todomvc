@@ -54,8 +54,12 @@
 				<div class="col-md-8">
 					<h2>Examples</h2>
 					<style is="custom-style">
-						paper-tabs /deep/ paper-ripple {
-						  color: #b12d2b;
+						paper-tabs {
+							--paper-tabs-selection-bar-color: #b12d2b;
+						}
+
+						paper-tab {
+							--paper-tab-ink: #b12d2b;
 						}
 
 						paper-tabs, core-toolbar {
@@ -64,18 +68,14 @@
 							font-family: 'Helvetica Neue', Helvetica, Arial;
 							box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
 						}
-
-						paper-tabs #selectionBar {
-							background-color: #b12d2b;
-						}
 					</style>
-					<paper-tabs selected="{{selected-tab}}" class="js-app-tabs">
+					<paper-tabs selected="{{selectedTab}}" class="js-app-tabs">
 						<paper-tab data-target="js">JavaScript</paper-tab>
 						<paper-tab data-target="ctojs">Compile-to-JS</paper-tab>
 						<paper-tab data-target="labs">Labs</paper-tab>
 					</paper-tabs>
 
-					<iron-pages selected="{{selected-tab}}" class="app-lists">
+					<iron-pages selected="{{selectedTab}}" class="app-lists">
 						<div class="js-app-list" data-app-list="js">
 							<p class="applist-intro">
 								These are examples written in pure JavaScript.

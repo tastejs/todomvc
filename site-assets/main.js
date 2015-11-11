@@ -175,7 +175,7 @@
 	}]);
 
 	function AppTabs() {
-		var tabs = document.querySelector(AppTabs.selectors.tabs)
+		var tabs = document.querySelector(AppTabs.selectors.tabs);
 		tabs.addEventListener('iron-select', this.onSelect.bind(this));
 		this.listHeight = 0;
 		tabs.select(0);
