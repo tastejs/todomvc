@@ -53,29 +53,29 @@
 				</div>
 				<div class="col-md-8">
 					<h2>Examples</h2>
-					<style is="custom-style">
-						paper-tabs {
-							--paper-tabs-selection-bar-color: #b12d2b;
-						}
-
-						paper-tab {
-							--paper-tab-ink: #b12d2b;
-						}
-
+					<style shim-shadowdom>
 						paper-tabs, core-toolbar {
 							color: rgb(53, 53, 53);
 							background-color: #f4f4f4;
 							font-family: 'Helvetica Neue', Helvetica, Arial;
 							box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
 						}
+
+						paper-tabs::shadow #selectionBar {
+							background-color: #b12d2b;
+						}
+
+						paper-tab::shadow paper-ripple#ink {
+							color: #b12d2b;
+						}
 					</style>
-					<paper-tabs selected="{{selectedTab}}" class="js-app-tabs">
-						<paper-tab data-target="js">JavaScript</paper-tab>
-						<paper-tab data-target="ctojs">Compile-to-JS</paper-tab>
-						<paper-tab data-target="labs">Labs</paper-tab>
+					<paper-tabs selected="js" class="js-app-tabs">
+						<paper-tab name="js">JavaScript</paper-tab>
+						<paper-tab name="ctojs">Compile-to-JS</paper-tab>
+						<paper-tab name="labs">Labs</paper-tab>
 					</paper-tabs>
 
-					<iron-pages selected="{{selectedTab}}" class="app-lists">
+					<div class="app-lists">
 						<div class="js-app-list" data-app-list="js">
 							<p class="applist-intro">
 								These are examples written in pure JavaScript.
@@ -296,7 +296,7 @@
 							</ul>
 						</div>
 
-					</iron-pages>
+					</div>
 					<ul class="legend">
 						<li><span class="label">R</span> = App also demonstrates routing</li>
 					</ul>
