@@ -46,7 +46,7 @@
 				},
 
 				getActiveCount: function () {
-					return this.items.length - this.getCompletedCount(this.items);
+					return this.items ? (this.items.length - this.getCompletedCount(this.items)) : 0;
 				},
 
 				matchesFilter: function(item, filter) {
