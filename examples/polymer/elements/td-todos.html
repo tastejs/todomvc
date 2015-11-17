@@ -5,7 +5,7 @@
 <link rel="import" href="td-item.html">
 
 <dom-module id="td-todos">
-	<template>
+	<template strip-whitespace>
 		<style>
 			:host {
 				display: block;
@@ -27,7 +27,9 @@
 					<label for="toggle-all">Mark all as complete</label>
 					<ul id="todo-list" on-td-destroy-item="destroyItemAction">
 						<template id="todo-list-repeater" is="dom-repeat" items="{{items}}"
-											filter="{{matchesFilter(route)}}" observe="completed">
+											filter="{{matchesFilter(route)}}" observe="completed"
+											initial-count="10"
+											strip-whitespace>
 							<li is="td-item" item="{{item}}"></li>
 						</template>
 					</ul>
@@ -36,7 +38,7 @@
 				<footer id="footer">
 					<span id="todo-count">
 						<strong>{{activeCount}}</strong>
-						<span>{{_computeItemsLeft(activeCount)}}</span> left
+						<span>{{_computeItemsLeft(activeCount)}}</span><span> left</span>
 					</span>
 
 					<iron-selector id="filters" selected="{{route}}" attr-for-selected="route">
@@ -51,7 +53,7 @@
 						</li>
 					</iron-selector>
 
-					<template is="dom-if" if="{{anyCompleted}}">
+					<template is="dom-if" if="{{anyCompleted}}" strip-whitespace>
 						<button id="clear-completed" on-tap="clearCompletedAction"
 										style="visibility:visible">Clear completed</button>
 					</template>
