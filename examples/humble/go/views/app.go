@@ -107,8 +107,11 @@ func (v *App) CreateTodo(ev dom.Event) {
 	if !ok {
 		panic("Could not convert event target to dom.HTMLInputElement")
 	}
-	v.Todos.AddTodo(strings.TrimSpace(input.Value))
-	document.QuerySelector(".new-todo").(dom.HTMLElement).Focus()
+	title := strings.TrimSpace(input.Value)
+	if title != "" {
+		v.Todos.AddTodo(title)
+		document.QuerySelector(".new-todo").(dom.HTMLElement).Focus()
+	}
 }
 
 // ClearCompleted is an event listener which removes all the completed todos
