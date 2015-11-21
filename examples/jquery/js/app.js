@@ -61,15 +61,15 @@ jQuery(function ($) {
 			this.$todoList = $('#todo-list');
 		},
 		bindEvents: function () {
-			var list = this.$todoList;
 			this.$newTodo.on('keyup', this.create.bind(this));
 			this.$toggleAll.on('change', this.toggleAll.bind(this));
 			this.$footer.on('click', '#clear-completed', this.destroyCompleted.bind(this));
-			list.on('change', '.toggle', this.toggle.bind(this));
-			list.on('dblclick', 'label', this.edit.bind(this));
-			list.on('keyup', '.edit', this.editKeyup.bind(this));
-			list.on('focusout', '.edit', this.update.bind(this));
-			list.on('click', '.destroy', this.destroy.bind(this));
+			this.$todoList
+				.on('change', '.toggle', this.toggle.bind(this))
+				.on('dblclick', 'label', this.edit.bind(this))
+				.on('keyup', '.edit', this.editKeyup.bind(this))
+				.on('focusout', '.edit', this.update.bind(this))
+				.on('click', '.destroy', this.destroy.bind(this));
 		},
 		render: function () {
 			var todos = this.getFilteredTodos();
