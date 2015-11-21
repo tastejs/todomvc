@@ -54,13 +54,11 @@ jQuery(function ($) {
 		cacheElements: function () {
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
-			this.$todoApp = $('#todoapp');
-			this.$header = this.$todoApp.find('#header');
-			this.$main = this.$todoApp.find('#main');
-			this.$footer = this.$todoApp.find('#footer');
-			this.$newTodo = this.$header.find('#new-todo');
-			this.$toggleAll = this.$main.find('#toggle-all');
-			this.$todoList = this.$main.find('#todo-list');
+			this.$main = $('#main');
+			this.$footer = $('#footer');
+			this.$newTodo = $('#new-todo');
+			this.$toggleAll = $('#toggle-all');
+			this.$todoList = $('#todo-list');
 		},
 		bindEvents: function () {
 			var list = this.$todoList;
