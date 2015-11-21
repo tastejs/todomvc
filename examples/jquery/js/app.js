@@ -61,8 +61,6 @@ jQuery(function ($) {
 			this.$newTodo = this.$header.find('#new-todo');
 			this.$toggleAll = this.$main.find('#toggle-all');
 			this.$todoList = this.$main.find('#todo-list');
-			this.$count = this.$footer.find('#todo-count');
-			this.$clearBtn = this.$footer.find('#clear-completed');
 		},
 		bindEvents: function () {
 			var list = this.$todoList;
