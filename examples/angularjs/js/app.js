@@ -21,10 +21,24 @@ angular.module('tasker', ['ngRoute', 'ngResource'])
 					});
 				}
 			}
-		};
+		}
+
+		var landingConfig = {
+			controller: 'JobCtrl',
+			templateUrl: 'landing.html',
+			resolve: {
+				store: function (jobStorage) {
+					// Get the correct module (API or localStorage).
+					return jobStorage.then(function (module) {
+						module.get(); // Fetch the job records in the background.
+						return module;
+					});
+				}
+			}
+		}
 
 		$routeProvider
-			.when('/', routeConfig)
+			.when('/', landingConfig)
 			.when('/:status', routeConfig)
 			.when('/job/new', routeConfig)
 			.otherwise({
@@ -41,7 +55,7 @@ angular.module('todomvc', ['ngRoute', 'ngResource'])
 
 		var routeConfig = {
 			controller: 'TodoCtrl',
-			templateUrl: 'todomvc-index.html',
+			templateUrl: 'landing.html',
 			resolve: {
 				store: function (todoStorage) {
 					// Get the correct module (API or localStorage).
