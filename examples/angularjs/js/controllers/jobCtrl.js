@@ -30,7 +30,12 @@ angular.module('tasker')
 
 		$scope.addJob = function () {
 			var newJob = {
-				title: $scope.newJob.trim(),
+				title: $scope.newJob.title.trim(),
+				duration: $scope.newJob.duration.trim(),
+				price: $scope.newJob.price.trim(),
+				location: $scope.newJob.location.trim(),
+				when: $scope.newJob.when.trim(),
+				details: $scope.newJob.details.trim(),
 				completed: false
 			};
 
@@ -46,6 +51,8 @@ angular.module('tasker')
 				.finally(function () {
 					$scope.saving = false;
 				});
+
+			console.log(newJob);
 		};
 
 		$scope.editJob = function (job) {

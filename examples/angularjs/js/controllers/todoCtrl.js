@@ -5,7 +5,7 @@
  * - retrieves and persists the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
  */
-angular.module('todomvc')
+angular.module('tasker')
 	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store) {
 		'use strict';
 
