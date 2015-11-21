@@ -17,8 +17,8 @@
 					<h1>new job</h1>
 					<form id="new-form" ng-submit="addJob()">
 						<input id="new-title" placeholder="Briefly, what needs to be done?" ng-model="newJob.title" ng-disabled="saving" autofocus>
-						<input id="new-duration" placeholder="How many hours will it take?" ng-model="newJob.duration" ng-disabled="saving">
-						<input id="new-price" placeholder="£" ng-model="newJob.price" ng-disabled="saving">
+						<input type="number" min="1" max="96" id="new-duration" placeholder="How many hours will it take?" ng-model="newJob.duration" ng-disabled="saving">
+						<input type="number" min="1" max="1000" id="new-price" placeholder="£" ng-model="newJob.price" ng-disabled="saving">
 						<input id="new-locaion" placeholder="Where is the job?" ng-model="newJob.location" ng-disabled="saving" autofocus>
 						<input id="new-when" placeholder="When do you want the job done?" ng-model="newJob.when" ng-disabled="saving" autofocus>
 						<input id="new-details" placeholder="What details do you need to tell the teen-tasker?" ng-model="newJob.details" ng-disabled="saving" autofocus>
