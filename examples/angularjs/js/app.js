@@ -5,13 +5,13 @@
  *
  * @type {angular.Module}
  */
-angular.module('todomvc', ['ngRoute', 'ngResource', 'firebase'])
+angular.module('todomvc', ['ngRoute', 'ngResource'])
 	.config(function ($routeProvider) {
 		'use strict';
 
 		var routeConfig = {
 			controller: 'TodoCtrl',
-			templateUrl: 'todomvc-index.html',
+			templateUrl: 'landing.html',
 			resolve: {
 				store: function (todoStorage) {
 					// Get the correct module (API or localStorage).
