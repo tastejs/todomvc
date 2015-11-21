@@ -2,8 +2,8 @@
 <link rel="import" href="td-input.html">
 
 <dom-module id="td-item">
-	<template>
-		<template is="dom-if" if="{{!editing}}">
+	<template strip-whitespace>
+		<template is="dom-if" if="{{!editing}}" strip-whitespace>
 			<div on-dblclick="_editAction">
 				<input type="checkbox" class="toggle"
 							 checked="{{item.completed::change}}">
@@ -11,7 +11,7 @@
 				<button class="destroy" on-tap="_destroyAction"></button>
 			</div>
 		</template>
-		<template is="dom-if" if="{{editing}}">
+		<template is="dom-if" if="{{editing}}" strip-whitespace>
 			<input is="td-input" id="edit" class="edit"
 						 value="{{_editingValue::input}}"
 						 on-td-input-commit="_commitAction"
