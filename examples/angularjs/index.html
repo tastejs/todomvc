@@ -24,7 +24,7 @@
 	                    <span class="icon-bar"></span>
 	                    <span class="icon-bar"></span>
 	                </button>
-	                <a class="navbar-brand page-scroll" href="#page-top">TeenTasker</a>
+	                <a class="navbar-brand page-scroll" href="#/">TeenTasker</a>
 	            </div>
 
 	            <!-- Collect the nav links, forms, and other content for toggling -->
@@ -34,10 +34,10 @@
 	                        <a href="#page-top"></a>
 	                    </li>
 	                    <li>
-	                        <a class="page-scroll" href="#services">Jobs</a>
+	                        <a class="page-scroll" href="#/jobs">Jobs</a>
 	                    </li>
 	                    <li>
-	                        <a class="page-scroll" href="#portfolio">Post a job</a>
+	                        <a class="page-scroll" href="#/job/new">Post a job</a>
 	                    </li>
 	                </ul>
 	            </div>
@@ -47,6 +47,20 @@
 	    </nav>
 
 		<ng-view />
+
+		<script type="text/ng-template" id="joblist.html">
+			<div class="media" ng-repeat="job in jobs">
+			  <div class="media-left">
+			    <a href="#">
+			      <img class="media-object" src="..." alt="...">
+			    </a>
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading">{{ job.title }}</h4>
+			    {{ job.details }}
+			  </div>
+			</div>
+		</script>
 
 		<script type="text/ng-template" id="landing.html">
 			<!-- Header -->

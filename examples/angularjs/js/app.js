@@ -37,9 +37,23 @@ angular.module('tasker', ['ngRoute', 'ngResource'])
 			}
 		}
 
+		var jobsConfig = {
+			controller: 'JobCtrl',
+			templateUrl: 'joblist.html',
+			resolve: {
+				store: function (jobStorage) {
+					// Get the correct module (API or localStorage).
+					return jobStorage.then(function (module) {
+						module.get(); // Fetch the job records in the background.
+						return module;
+					});
+				}
+			}
+		}
+
 		$routeProvider
 			.when('/', landingConfig)
-			.when('/:status', routeConfig)
+			.when('/jobs', jobsConfig)
 			.when('/job/new', routeConfig)
 			.otherwise({
 				redirectTo: '/'
