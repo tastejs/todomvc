@@ -1,10 +1,40 @@
 /*global angular */
 
 /**
- * The main TodoMVC app module
+ * The main MVC app module
  *
  * @type {angular.Module}
  */
+angular.module('tasker', ['ngRoute', 'ngResource'])
+	.config(function ($routeProvider) {
+		'use strict';
+
+		var routeConfig = {
+			controller: 'JobCtrl',
+			templateUrl: 'job-new.html',
+			resolve: {
+				store: function (jobStorage) {
+					// Get the correct module (API or localStorage).
+					return jobStorage.then(function (module) {
+						module.get(); // Fetch the job records in the background.
+						return module;
+					});
+				}
+			}
+		};
+
+		$routeProvider
+			.when('/', routeConfig)
+			.when('/:status', routeConfig)
+			.when('/job/new', routeConfig)
+			.otherwise({
+				redirectTo: '/'
+			});
+	});
+
+
+
+
 angular.module('todomvc', ['ngRoute', 'ngResource'])
 	.config(function ($routeProvider) {
 		'use strict';
@@ -30,3 +60,4 @@ angular.module('todomvc', ['ngRoute', 'ngResource'])
 				redirectTo: '/'
 			});
 	});
+
