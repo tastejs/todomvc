@@ -176,18 +176,15 @@ jQuery(function ($) {
 			var $el = $(el);
 			var val = $el.val().trim();
 
-			if ($el.data('abort')) {
-				$el.data('abort', false);
-				this.render();
+			if (!val) {
+				this.destroy(e);
 				return;
 			}
 
-			var i = this.indexFromEl(el);
-
-			if (val) {
-				this.todos[i].title = val;
+			if ($el.data('abort')) {
+				$el.data('abort', false);
 			} else {
-				this.todos.splice(i, 1);
+				this.todos[this.indexFromEl(el)].title = val;
 			}
 
 			this.render();
