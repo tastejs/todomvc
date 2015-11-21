@@ -408,20 +408,58 @@
 
 
 		<script type="text/ng-template" id="job-new.html">
+		    <!-- New Job Form Section -->
 			<section id="taskerapp">
-				<header id="header">
-					<h1>new job</h1>
-					<form id="new-form" ng-submit="addJob()">
-						<input id="new-title" placeholder="Briefly, what needs to be done?" ng-model="newJob.title" ng-disabled="saving" autofocus>
-						<input type="number" min="1" max="96" id="new-duration" placeholder="How many hours will it take?" ng-model="newJob.duration" ng-disabled="saving">
-						<input type="number" min="1" max="1000" id="new-price" placeholder="£" ng-model="newJob.price" ng-disabled="saving">
-						<input id="new-locaion" placeholder="Where is the job?" ng-model="newJob.location" ng-disabled="saving" autofocus>
-						<input id="new-when" placeholder="When do you want the job done?" ng-model="newJob.when" ng-disabled="saving" autofocus>
-						<input id="new-details" placeholder="What details do you need to tell the teen-tasker?" ng-model="newJob.details" ng-disabled="saving" autofocus>
-						<input type="submit" value="Save Job">
-					</form>
-				</header>
-			</section>
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12 text-center">
+		                    <h2 class="section-heading">New Job</h2>
+		                    <h3 class="section-subheading text-muted">Post your advert for the job you need doing here:</h3>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <form id="new-form" ng-submit="addJob()">
+		                        <div class="row">
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" id="new-title" placeholder="Briefly, what needs to be done?" ng-model="newJob.title" ng-disabled="saving" autofocus required data-validation-required-message="Please enter a job title.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="number" min="1" max="48" class="form-control" id="new-duration" placeholder="How many hours will it take?" ng-model="newJob.duration" ng-disabled="saving" required data-validation-required-message="Please enter estimated hours.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="number" min="4" max="100" class="form-control" id="new-price" placeholder="£" ng-model="newJob.price" ng-disabled="saving" required data-validation-required-message="Please enter price you will pay for the job.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input class="form-control" id="new-location" placeholder="Where is the job?" ng-model="newJob.location" ng-disabled="saving" required data-validation-required-message="Please enter where the job is.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input class="form-control" id="new-when" placeholder="When do you want the job done?" ng-model="newJob.when" ng-disabled="saving" required data-validation-required-message="Please enter date and time you want the job done.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <textarea class="form-control" id="new-details" placeholder="What details do you need to tell the teen-tasker?" ng-model="newJob.details" ng-disabled="saving"></textarea>
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="clearfix"></div>
+		                            <div class="col-lg-12 text-center">
+		                                <div id="success"></div>
+		                                <button type="submit" class="btn btn-xl">Save Job</button>
+		                            </div>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
 		</script>
 
 
