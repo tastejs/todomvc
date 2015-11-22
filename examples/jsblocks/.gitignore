@@ -1,9 +1,0 @@
-node_modules/blocks/*
-!node_modules/blocks/blocks.js
-
-node_modules/todomvc-app-css/*
-!node_modules/todomvc-app-css/index.css
-
-node_modules/todomvc-common/*
-!node_modules/todomvc-common/base.css
-!node_modules/todomvc-common/base.js

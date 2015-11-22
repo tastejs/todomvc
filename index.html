@@ -1,408 +1,351 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framework="angularjs">
 	<head>
 		<meta charset="utf-8">
-		<title>TodoMVC</title>
-		<meta name="description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, Spine and many more">
-		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<meta name="twitter:card" content="summary">
-		<meta name="twitter:title" content="TodoMVC">
-		<meta name="twitter:site" content="@TasteJS">
-		<meta name="twitter:description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS and many more">
-		<meta name="twitter:image" content="https://raw.githubusercontent.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png">
-		<meta property="og:url" content="http://todomvc.com">
-		<meta property="og:title" content="TodoMVC">
-		<meta property="og:image" content="https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png">
-		<meta property="og:description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, Spine and many more">
-		<link rel="shortcut icon" href="site-assets/favicon.ico">
-		<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-		<!-- build:remove -->
-		<script src="bower_components/prefixfree/prefixfree.min.js"></script>
-		<!-- endbuild -->
-		<!-- build:css site-assets/main.min.css -->
-		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="site-assets/main.css">
-		<!-- endbuild -->
-		<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+		<title>TeenTaskers</title>
+		<link rel="stylesheet" href="./css/agency.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+		<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+		<style>
+			/*animation demo*/
+			.test-jobs-items.ng-enter {
+		    max-height: 0;
+		    transition: max-height .4s ease-out;
+			}
+			.test-jobs-items.ng-enter-active {
+		    max-height: 200px;
+			}
+			.test-jobs-items.ng-leave {
+		    max-height: 200px;
+		    opacity: 1;
+		    transition: opacity .4s ease-out, max-height 0.4s;
+			}
+			.test-jobs-items.ng-leave-active {
+		    max-height: 0;
+		    opacity: 0;
+			}
+		</style>
 	</head>
-	<body>
-		<div class="container">
-			<header class="row">
-				<div class="col-md-8">
-					<img class="logo" src="site-assets/logo.svg" width="500" height="86" alt="TodoMVC">
-					<p>Helping you <strong>select</strong> an MV* framework</p>
-					<nav>
-						<a href="https://github.com/tastejs/todomvc/archive/master.zip" class="zocial red">Download</a>
-						<a href="https://github.com/tastejs/todomvc" class="zocial ltgray">View on GitHub</a>
-						<a href="http://blog.tastejs.com/" class="zocial ltgray">Blog</a>
-					</nav>
+
+	<body ng-app="tasker">
+		<!-- Navigation -->
+	    <nav class="navbar navbar-default navbar-fixed-top">
+	        <div class="container">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header page-scroll">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand page-scroll" href="#/">TeenTasker</a>
+	            </div>
+
+	            <!-- Collect the nav links, forms, and other content for toggling -->
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li class="hidden">
+	                        <a href="#page-top"></a>
+	                    </li>
+	                    <li>
+	                        <a class="page-scroll" href="#/jobs">Jobs</a>
+	                    </li>
+	                    <li>
+	                        <a class="page-scroll" href="#/job/new">Post a job</a>
+	                    </li>
+	                </ul>
+	            </div>
+	            <!-- /.navbar-collapse -->
+	        </div>
+	        <!-- /.container-fluid -->
+	    </nav>
+
+		<ng-view />
+
+		<script type="text/ng-template" id="joblist.html">
+			<div class="media" ng-repeat="job in jobs">
+			  <div class="media-left">
+			    <a href="#">
+			      <img class="media-object" src="..." alt="...">
+			    </a>
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading">{{ job.title }}</h4>
+			    {{ job.details }}
+			  </div>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="landing.html">
+			<!-- Header -->
+		    <header>
+		        <div class="container">
+		            <div class="intro-text">
+		            	<div class="intro-heading">TeenTasker</div>
+		                <div class="intro-lead-in">Bridging the gap between youth and their community</div>
+		                <a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>
+		            </div>
+		        </div>
+		    </header>
+
+		    <!-- Services Section -->
+		    <section id="services">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12 text-center">
+		                    <h2 class="section-heading">Services</h2>
+		                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+		                </div>
+		            </div>
+		            <div class="row text-center">
+		                <div class="col-md-4">
+		                    <span class="fa-stack fa-4x">
+		                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+		                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+		                    </span>
+		                    <h4 class="service-heading">E-Commerce</h4>
+		                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+		                </div>
+		                <div class="col-md-4">
+		                    <span class="fa-stack fa-4x">
+		                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+		                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+		                    </span>
+		                    <h4 class="service-heading">Responsive Design</h4>
+		                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+		                </div>
+		                <div class="col-md-4">
+		                    <span class="fa-stack fa-4x">
+		                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+		                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+		                    </span>
+		                    <h4 class="service-heading">Web Security</h4>
+		                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+
+		    <!-- Team Section -->
+		    <section id="team" class="bg-light-gray">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12 text-center">
+		                    <h2 class="section-heading">Our Amazing Team</h2>
+		                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-sm-4">
+		                    <div class="team-member">
+		                        <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
+		                        <h4>Kay Garland</h4>
+		                        <p class="text-muted">Lead Designer</p>
+		                        <ul class="list-inline social-buttons">
+		                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+		                            </li>
+		                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+		                            </li>
+		                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                </div>
+		                <div class="col-sm-4">
+		                    <div class="team-member">
+		                        <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+		                        <h4>Larry Parker</h4>
+		                        <p class="text-muted">Lead Marketer</p>
+		                        <ul class="list-inline social-buttons">
+		                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+		                            </li>
+		                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+		                            </li>
+		                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                </div>
+		                <div class="col-sm-4">
+		                    <div class="team-member">
+		                        <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+		                        <h4>Diana Pertersen</h4>
+		                        <p class="text-muted">Lead Developer</p>
+		                        <ul class="list-inline social-buttons">
+		                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+		                            </li>
+		                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+		                            </li>
+		                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-8 col-lg-offset-2 text-center">
+		                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+
+		    <!-- Contact Section -->
+		    <!-- <section id="contact">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12 text-center">
+		                    <h2 class="section-heading">Contact Us</h2>
+		                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <form name="sentMessage" id="contactForm" novalidate>
+		                        <div class="row">
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="clearfix"></div>
+		                            <div class="col-lg-12 text-center">
+		                                <div id="success"></div>
+		                                <button type="submit" class="btn btn-xl">Send Message</button>
+		                            </div>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </section> -->
+		</script>
+		<title>Teen Tasker</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<style>[ng-cloak] { display: none; }</style>
+	</head>
+
+
+		<script type="text/ng-template" id="job-new.html">
+		    <!-- New Job Form Section -->
+			<section id="taskerapp">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12 text-center">
+		                    <h2 class="section-heading">New Job</h2>
+		                    <h3 class="section-subheading text-muted">Post your advert for the job you need doing here:</h3>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <form id="new-form" ng-submit="addJob()">
+		                        <div class="row">
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" id="new-title" placeholder="Briefly, what needs to be done? *" ng-model="newJob.title" ng-disabled="saving" autofocus required data-validation-required-message="Please enter a job title.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="number" min="1" max="48" class="form-control" id="new-duration" placeholder="How many hours will it take? *" ng-model="newJob.duration" ng-disabled="saving" required data-validation-required-message="Please enter estimated hours.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="number" min="3.87" max="100.00" class="form-control" id="new-price" placeholder="£ Price you will pay *" ng-model="newJob.price" ng-disabled="saving" required data-validation-required-message="Please enter price you will pay for the job. Minimum wage is £3.87/hr for U18, £5.30/hr for U20 and £6.70/hr for over 21s.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input class="form-control" id="new-location" placeholder="Where is the job? *" ng-model="newJob.location" ng-disabled="saving" required data-validation-required-message="Please enter where the job is.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="datetime-local" step="900" class="form-control" id="new-when" placeholder="When do you want the job done? *" ng-model="newJob.when" ng-disabled="saving" required data-validation-required-message="Please enter date and time you want the job started.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <textarea class="form-control" id="new-details" placeholder="What details do you need to tell the teen-tasker?" ng-model="newJob.details" ng-disabled="saving"></textarea>
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="clearfix"></div>
+		                            <div class="col-lg-12 text-center">
+		                                <div id="success"></div>
+		                                <button type="submit" class="btn btn-xl">Save Job</button>
+		                            </div>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		</script>
+
+		<script type="text/ng-template" id="test.html">
+			<div style="margin-top: 100px; overflow: hidden;">
+				<div class="test-jobs-container"
+					style="float: left; width: 48%">
+					Jobs List
+					<div class="test-jobs-items"
+						style="position: relative; border: 2px solid lightgray; padding: 5px; margin-bottom:5px; background: white; border-radius: 7px"
+						ng-repeat="job in jobs | orderBy:'$id':true">
+						<a href="#"
+							style="position: absolute; top: 5px; right: 5px; text-decoration: none"
+							ng-if="job.employer === employerId"
+							ng-click="testJobDelete($event, job)">X</a>
+						<p><b>Title:</b> {{ job.title }}</p>
+						<p><b>Date:</b> {{ job.date | date:'mediumDate' }}</p>
+						<p><b>Duration:</b> {{ job.duration }}</p>
+						<p><b>Rate:</b> {{ job.rate }}</p>
+						<p><b>Details:</b> {{ job.details }}</p>
+					</div>
 				</div>
-				<div class="col-md-4">
-					<img class="logo-icon" src="site-assets/logo-icon.png" width="330" height="330" alt="TodoMVC">
-				</div>
-			</header>
-			<div class="row">
-				<div class="col-md-4">
-					<h2>Introduction</h2>
-					<p>Developers these days are spoiled with choice when it comes to <a href="http://coding.smashingmagazine.com/2012/07/27/journey-through-the-javascript-mvc-jungle/">selecting</a> an <strong>MV* framework</strong> for structuring and organizing their JavaScript web apps.</p>
-					<p>Backbone, Ember, AngularJS… the list of new and stable solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
-					<p>To help solve this problem, we created <a href="https://github.com/tastejs/todomvc">TodoMVC</a> - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p>
-					<a href="https://twitter.com/tastejs" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
-					<a href="https://twitter.com/share" class="twitter-share-button" data-via="tastejs" data-url="http://todomvc.com" data-text="TodoMVC - Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, and more"></a>
-					<div class="g-plusone" data-size="medium" data-annotation="none" data-href="http://todomvc.com"></div>
-				</div>
-				<div class="col-md-8">
-					<h2>Examples</h2>
-					<style is="custom-style">
-						paper-tabs {
-							--paper-tabs-selection-bar-color: #b12d2b;
-						}
-
-						paper-tab {
-							--paper-tab-ink: #b12d2b;
-						}
-
-						paper-tabs, core-toolbar {
-							color: rgb(53, 53, 53);
-							background-color: #f4f4f4;
-							font-family: 'Helvetica Neue', Helvetica, Arial;
-							box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-						}
-					</style>
-					<paper-tabs selected="{{selectedTab}}" class="js-app-tabs">
-						<paper-tab data-target="js">JavaScript</paper-tab>
-						<paper-tab data-target="ctojs">Compile-to-JS</paper-tab>
-						<paper-tab data-target="labs">Labs</paper-tab>
-					</paper-tabs>
-
-					<iron-pages selected="{{selectedTab}}" class="app-lists">
-						<div class="js-app-list" data-app-list="js">
-							<p class="applist-intro">
-								These are examples written in pure JavaScript.
-							</p>
-							<ul class="js-app-list-inner applist js">
-								<li class="routing">
-									<a href="examples/backbone/" data-source="http://backbonejs.org/" data-content="Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.">Backbone.js</a>
-								</li>
-								<li class="routing">
-									<a href="examples/angularjs/" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps">AngularJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/emberjs/" data-source="http://emberjs.com" data-content="Ember is a JavaScript framework for creating ambitious web applications that eliminates boilerplate and provides a standard application architecture.">Ember.js</a>
-								</li>
-								<li class="routing">
-									<a href="examples/knockoutjs/" data-source="http://knockoutjs.com" data-content="Simplify dynamic JavaScript UIs by applying the Model-View-View Model (MVVM) pattern">KnockoutJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/dojo/" data-source="http://dojotoolkit.org" data-content="Dojo saves you time and scales with your development process, using web standards as its platform. It’s the toolkit experienced developers turn to for building high quality desktop and mobile web applications.">Dojo</a>
-								</li>
-								<li class="routing">
-									<a href="examples/knockback/" data-source="http://kmalakoff.github.com/knockback/" data-content="Knockback.js provides Knockout.js magic for Backbone.js Models and Collections.">Knockback.js</a>
-								</li>
-								<li class="routing">
-									<a href="examples/canjs/" data-source="http://canjs.us" data-content="CanJS with jQuery. CanJS is a client-side, JavaScript framework that makes building rich web applications easy. It provides can.Model (for connecting to RESTful JSON interfaces), can.View (for template loading and caching), can.Observe (for key-value binding), can.EJS (live binding templates), can.Control (declarative event bindings) and can.route (routing support).">CanJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/polymer/index.html" data-source="http://polymer-project.org" data-content="Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.">Polymer</a>
-								</li>
-								<li class="routing">
-									<a href="examples/react/" data-source="http://facebook.github.io/react/" data-content="React is a JavaScript library for building user interfaces.">React</a>
-								</li>
-								<li class="routing">
-									<a href="examples/mithril/" data-source="http://lhorie.github.io/mithril/" data-content="Mithril is a client-side MVC framework - a tool to organize code in a way that is easy to think about and to maintain.">Mithril</a>
-								</li>
-								<li class="routing">
-									<a href="examples/ampersand/" data-source="http://ampersandjs.com" data-content="A highly modular, loosely coupled, non-frameworky framework for building advanced JavaScript apps.">Ampersand</a>
-								</li>
-								<li class="routing">
-									<a href="examples/flight/" data-source="https://flightjs.github.io/" data-content="Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes. Twitter uses it for their web applications.">Flight</a>
-								</li>
-								<li class="routing">
-									<a href="examples/vue/" data-source="http://vuejs.org" data-content="Vue.js provides the benefits of MVVM data binding and a composable component system with an extremely simple and flexible API.">Vue.js</a>
-								</li>
-								<li class="routing">
-									<a href="examples/backbone_marionette/" data-source="http://marionettejs.com" data-content="Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.">MarionetteJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/troopjs_require/" data-source="https://github.com/troopjs/" data-content="TroopJS attempts to package popular front-end technologies and bind them with minimal effort for the developer. It includes jQuery for DOM manipulation, When.js for promises, RequireJS for modularity and Has.js for feature detection. On top, it includes Pub/Sub support, templating, weaving (widgets to DOM) and auto-wiring.">TroopJS + RequireJS</a>
-								</li>
-							</ul>
-						</div>
-						<div class="js-app-list" data-app-list="ctojs">
-							<p class="applist-intro">
-								These are applications written in programming
-								languages that compile to JavaScript.
-							</p>
-							<ul class="js-app-list-inner applist js">
-								<li class="routing">
-									<a href="examples/spine/" data-source="http://spinejs.com" data-content="Spine is a lightweight framework for building JavaScript web applications. Spine gives you an MVC structure and then gets out of your way, allowing you to concentrate on the fun stuff, building awesome web applications.">Spine</a>
-								</li>
-								<li class="routing">
-									<a href="examples/vanilladart/build/web/" data-source="http://dartlang.org" data-content="Dart firstly targets the development of modern and large scale browser-side web apps. It's an object oriented language with a C-style syntax. It has two run modes : it can be compiled to JS, and will later run in native VM in compliant browsers (just in a dedicated Chromium provided with Dart SDK for the moment).">Dart</a>
-								</li>
-								<li class="routing">
-									<a href="examples/gwt/" data-source="https://developers.google.com/web-toolkit/" data-content="Google Web Toolkit (GWT) is an MVP development toolkit for building and optimizing complex browser-based applications. GWT is used by many products at Google, including Google AdWords.">GWT</a>
-								</li>
-								<li class="routing">
-									<a href="examples/closure/" data-source="http://code.google.com/closure/library/" data-content="The Closure Library is a broad, well-tested, modular, and cross-browser JavaScript library. You can pull just what you need from a large set of reusable UI widgets and controls, and from lower-level utilities for DOM manipulation, server communication, animation, data structures, unit testing, rich-text editing, and more.">Closure</a>
-								</li>
-								<li class="routing">
-									<a href="examples/elm/" data-source="http://elm-lang.org" data-content="A functional reactive language for interactive applications">Elm</a>
-								</li>
-								<li>
-									<a href="examples/angular-dart/web/" data-source="https://github.com/angular/angular.dart" data-content="Dart firstly targets the development of modern and large scale browser-side web apps. It's an object oriented language with a C-style syntax. AngularDart is a port of Angular to Dart.">AngularDart</a>
-								</li>
-								<li>
-									<a href="examples/typescript-backbone/" data-source="http://typescriptlang.org" data-content="TypeScript is a language for application-scale JavaScript development. It offers classes, modules, interfaces and type-checking at compile time to help you build robust components.">TypeScript <br>+ Backbone.js</a>
-								</li>
-								<li>
-									<a href="examples/typescript-angular/" data-source="http://typescriptlang.org" data-content="An AngularJS + TypeScript implementation of TodoMVC. The only significant difference between this and the vanilla Angular app is that dependency injection is done via annotated constructors, which allows minification of JavaScript.">TypeScript <br>+ AngularJS</a>
-								</li>
-								<li>
-									<a href="examples/typescript-react/" data-source="http://typescriptlang.org" data-content="An TypeScript + React implementation of TodoMVC. TypeScript is a language for application-scale JavaScript development. It offers classes, modules, interfaces and type-checking at compile time to help you build robust components. This examples showcases how to work with TSX files, which allow us to enjoy native JSX support while working with  TypeScript.">TypeScript <br>+ React</a>
-								</li>
-								<li>
-									<a href="examples/serenadejs/" data-source="https://github.com/elabs/serenade.js" data-content="Serenade.js is yet another MVC client side JavaScript framework. Why do we indulge in recreating the wheel? We believe that Serenade.js more closely follows the ideas of classical MVC than competing frameworks.">Serenade.js</a>
-								</li>
-								<li class="routing">
-									<a href="examples/reagent/" data-source="https://reagent-project.github.io/" data-content="Reagent provides a minimalistic interface between ClojureScript and React.">Reagent</a>
-								</li>
-								<li class="routing">
-									<a href="examples/scalajs-react/" data-source="https://github.com/japgolly/scalajs-react" data-content="Facebook's React on Scala.js.">Scala.js + React</a>
-								</li>
-								<li class="routing">
-									<a href="examples/js_of_ocaml/" data-source="http://ocsigen.org/js_of_ocaml/" data-content="Js_of_ocaml is a compiler of OCaml bytecode to Javascript.">js_of_ocaml</a>
-								</li>
-								<li class="routing">
-									<a href="examples/humble/" data-source="https://github.com/go-humble/humble" data-content="Humble is a collection of loosely-coupled tools designed to build client-side and hybrid web applications using GopherJS, which compiles Go code to JavaScript.">Humble + GopherJS</a>
-								</li>
-							</ul>
-						</div>
-						<div class="js-app-list" data-app-list="labs">
-							<p class="applist-intro">
-								These are examples written in JavaScript that
-								we are still evaluating.
-							</p>
-							<ul class="js-app-list-inner applist js">
-								<li class="routing">
-									<a href="examples/thorax/" data-source="http://thoraxjs.org" data-content="An opinionated, battle tested Backbone + Handlebars framework to build large scale web applications.">Thorax</a>
-								</li>
-								<li class="routing">
-									<a href="examples/chaplin-brunch/public/" data-source="http://chaplinjs.org" data-content="Chaplin is an architecture for JavaScript applications using the Backbone.js library. Chaplin addresses Backbone’s limitations by providing a lightweight and flexible structure that features well-proven design patterns and best practises.">Chaplin + Brunch</a>
-								</li>
-								<li class="routing">
-									<a href="examples/backbone_require/" data-source="http://requirejs.org" data-content="RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.">Backbone.js + RequireJS</a>
-								</li>
-								<li>
-									<a href="examples/knockoutjs_require/" data-source="http://knockoutjs.com" data-content="This project is an adaptation of /examples/knockoutjs with require.js.">KnockoutJS + RequireJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/angularjs_require/" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps. This is an example of using it with AMD modules.">AngularJS + RequireJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/canjs_require/" data-source="http://canjs.us" data-content="CanJS is a client-side, JavaScript framework that makes building rich web applications easy. The AMD version lets you use the framework in a fully modular fashion and will only what you actually need.">CanJS + RequireJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/thorax_lumbar/public/" data-source="http://walmartlabs.github.com/lumbar" data-content="An opinionated, battle tested Backbone + Handlebars framework to build large scale web applications. This implementation uses Lumbar, a route based module loader.">Thorax + Lumbar</a>
-								</li>
-								<li class="routing">
-									<a href="examples/somajs_require/" data-source="http://somajs.github.com/somajs" data-content="soma.js is a framework created to build scalable and maintainable javascript applications.">soma.js + RequireJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/durandal/" data-source="http://durandaljs.com/" data-content="Single Page Apps Done Right">Durandal</a>
-								</li>
-								<li class="routing">
-									<a href="examples/lavaca_require/" data-source="http://getlavaca.com" data-content="A curated collection of tools for building mobile web applications.">Lavaca + RequireJS</a>
-								</li>
-
-								<li>
-									<a href="examples/cujo/index.html" data-source="http://cujojs.com" data-content="cujoJS is an architectural framework for building highly modular, scalable, maintainable applications in Javascript.  It provides architectural plumbing, such as modules (AMD and CommonJS), declarative application composition, declarative connections, and aspect oriented programming.">cujoJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/sammyjs/" data-source="http://sammyjs.org" data-content="Sammy.js is a tiny JavaScript framework developed to ease the pain and provide a basic structure for developing JavaScript applications.">Sammy.js</a>
-								</li>
-								<li>
-									<a href="examples/somajs/" data-source="http://somajs.github.com/somajs" data-content="soma.js is a framework created to build scalable and maintainable javascript applications.">soma.js</a>
-								</li>
-								<li>
-									<a href="examples/duel/www/" data-source="https://bitbucket.org/mckamey/duel/wiki/Home" data-content="DUEL is a dual-side templating engine using HTML for layout and 100% pure JavaScript as the binding language. The same views may be executed both directly in the browser (client-side template) and on the server (server-side template).">DUEL</a>
-								</li>
-								<li class="routing">
-									<a href="examples/kendo/" data-source="http://www.kendoui.com/" data-content="Kendo UI is a comprehensive HTML5, JavaScript framework for modern web and mobile app development">Kendo UI</a>
-								</li>
-								<li class="routing">
-									<a href="examples/puremvc/" data-source="http://puremvc.github.com" data-content="PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern.">PureMVC</a>
-								</li>
-								<li>
-									<a href="examples/olives/" data-source="https://github.com/flams/olives" data-content="Olives is a JS MVC framework that helps you create realtime UIs. It includes a set of AMD/CommonJS modules that are easily extensive, a high level of abstraction to reduce boilerplate and is based on socket.io, to provide a powerful means to communicate with node.js.">Olives</a>
-								</li>
-								<li>
-									<a href="examples/dijon/" data-source="https://github.com/creynders/dijon-framework" data-content="Dijon is an IOC and DI micro-framework for Javascript. Originally it was meant to be a port of Robotlegs, but deviated to something quite different. It remains however heavily inspired by Robotlegs, and more specifically Swiftsuspenders.">Dijon</a>
-								</li>
-								<li class="routing">
-									<a href="examples/rappidjs/" data-source="http://www.rappidjs.com" data-content="rAppid.js is a declarative JavaScript framework for rapid web application development. It supports dependency loading, Model-View binding, View-Model binding, dependency injection and i18n.">rAppid.js</a>
-								</li>
-								<li>
-									<a href="examples/extjs_deftjs/" data-source="http://deftjs.org/" data-content="Essential extensions for enterprise web and mobile application development with Ext JS and Sencha Touch">DeftJS + ExtJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/ariatemplates/" data-source="http://ariatemplates.com/" data-content="Aria Templates has been designed for web apps that are used 8+ hours a day, and that need to display and process high amount of data with a minimum of bandwidth consumption.">Aria Templates</a>
-								</li>
-								<li class="routing">
-									<a href="examples/enyo_backbone/" data-source="http://enyojs.com/" data-content="Enyo is a simple but powerful encapsulation model, which helps you factor application functionality into self-contained building blocks that are easy to reuse and maintain.">Enyo +<br>Backbone.js</a>
-								</li>
-								<li class="routing">
-									<a href="examples/angularjs-perf/" data-source="http://angularjs.org" data-content="What HTML would have been had it been designed for web apps. A version with several performance optimizations.">AngularJS <br>(optimized)</a>
-								</li>
-								<li class="routing">
-									<a href="examples/sapui5/" data-source="http://scn.sap.com/community/developer-center/front-end" data-content="SAPUI5 is SAP's HTML5-based UI technology that allows you to build rich, interactive Web applications.">SAPUI5</a>
-								</li>
-								<li class="routing">
-									<a href="examples/exoskeleton/" data-source="http://exosjs.com/" data-content="A faster and leaner Backbone for your HTML5 apps.">Exoskeleton</a>
-								</li>
-								<li class="routing">
-									<a href="examples/atmajs/" data-source="http://atmajs.com/" data-content="HMVC and the component-based architecture for building client, server or hybrid applications">Atma.js</a>
-								</li>
-								<li>
-									<a href="examples/ractive/" data-source="http://ractivejs.org" data-content="Ractive.js is a next-generation DOM manipulation library, optimised for developer sanity.">Ractive.js</a>
-								</li>
-								<li>
-									<a href="examples/componentjs/" data-source="http://componentjs.com" data-content="ComponentJS is a stand-alone MPL-licensed Open Source library for JavaScript, providing a powerful run-time Component System for hierarchically structuring the User-Interface (UI) dialogs of complex HTML5-based Rich Clients (aka Single-Page-Apps) — under maximum applied Separation of Concerns (SoC) architecture principle, through optional Model, View and Controller component roles, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms, and fully independent and agnostic of the particular UI widget toolkit.">ComponentJS</a>
-								</li>
-								<li class="routing">
-									<a href="examples/react-alt/" data-source="http://alt.js.org" data-content="This React example integrates Alt for an example of an application following the Flux architecture.">React + Alt</a>
-								</li>
-								<li>
-									<a href="examples/react-backbone/" data-source="http://facebook.github.io/react/" data-content="This React example integrates Backbone for its model and router. It is a showcase of third-party library integration for developers wishing to use React together with a different JavaScript framework.">React + <br>Backbone.js</a>
-								</li>
-								<li>
-									<a href="examples/aurelia/" data-source="http://aurelia.io/" data-content="Aurelia is a next generation JavaScript client framework that leverages simple conventions to empower your creativity">Aurelia</a>
-								</li>
-								<li class="routing">
-									<a href="examples/foam/" data-source="http://foam-framework.github.io/foam/" data-content="FOAM is a deeply MVC Javascript metaprogramming framework being developed by a team at Google.">FOAM</a>
-								</li>
-								<li class="routing">
-									<a href="examples/webrx/" data-source="http://webrxjs.org" data-content="WebRx is a Javascript MVVM-Framework that combines functional-reactive programming with declarative Data-Binding, Templating and Client-Side Routing. The framework is built on top of ReactiveX for Javascript (RxJs) which is a powerful set of libraries for processing and querying asynchronous data-streams that can originate from diverse sources such as Http-Requests, Input-Events, Timers and much more.">WebRx</a>
-								</li>
-								<li>
-									<a href="examples/angular2/" data-source="http://angular.io" data-content="Angular is a development platform for building mobile and desktop web applications">Angular 2.0</a>
-								</li>
-								<li class="routing">
-									<a href="examples/riotjs/" data-source="http://riotjs.com/" data-content="Riot.js is a React-like user interface micro-library.">Riot</a>
-								</li>
-								<li class="routing">
-									<a href="examples/jsblocks/" data-source="http://jsblocks.com/" data-content="From simple user interfaces to complex single-page applications using faster, server-side rendered and easy to learn framework.">JSBlocks</a>
-								</li>
-							</ul>
-						</div>
-
-					</iron-pages>
-					<ul class="legend">
-						<li><span class="label">R</span> = App also demonstrates routing</li>
-					</ul>
-					<hr>
-					<h2>Real-time</h2>
-					<ul class="applist">
-						<li>
-							<a href="http://todomvcapp.meteor.com" data-source="http://meteor.com" data-content="Meteor is an ultra-simple environment for building modern websites. A Meteor application is a mix of JavaScript that runs inside a client web browser, JavaScript that runs on the Meteor server inside a Node.js container, and all the supporting HTML fragments, CSS rules, and static assets. Meteor automates the packaging and transmission of these different components. And, it is quite flexible about how you choose to structure those components in your file tree.">Meteor</a>
-						</li>
-						<li class="routing">
-							<a href="http://todomvc-socketstream.herokuapp.com" data-source="http://www.socketstream.org" data-content="SocketStream is a fast, modular Node.js web framework dedicated to building realtime single-page apps">SocketStream</a>
-						</li>
-						<li class="routing">
-							<a href="examples/firebase-angular/" data-source="https://www.firebase.com" data-content="Firebase is a scalable realtime backend that lets you build apps without managing servers. Firebase persists and updates JSON data in realtime and is best used in combination with a JavaScript MV* framework such as AngularJS or Backbone.">Firebase + AngularJS</a>
-						</li>
-					</ul>
-					<hr>
-					<h2>Node.js</h2>
-					<ul class="applist">
-						<li>
-							<a href="http://gcloud-todos.appspot.com" data-source="http://googlecloudplatform.github.io/gcloud-node/" data-content="An Express backend implementation for the AngularJS front end using Google Cloud Client Library for Node.js.">Express + gcloud-node</a>
-						</li>
-					</ul>
-					<hr>
-					<h2>Compare these to a non-framework implementation</h2>
-					<ul class="applist">
-						<li class="routing">
-							<a href="examples/vanillajs/" data-source="https://developer.mozilla.org/en/JavaScript" data-content="You know JavaScript right? :P">Vanilla JS</a>
-						</li>
-						<li class="routing">
-							<a href="examples/jquery/" data-source="http://jquery.com" data-content="jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.">jQuery</a>
-						</li>
-					</ul>
+				<div class="test-jobs-create-container"
+					style="float: right; width: 48%">
+					New Jobs
+	        <form ng-submit="testNewSubmit()">
+	        	<input type="text" placeholder="title" ng-model="testNewVars.title">
+	        	<input type="date" ng-model="testNewVars.date">
+	        	<input type="number" placeholder="duration (hrs)" ng-model="testNewVars.duration">
+	        	<input type="number" placeholder="rate (£/hr)" ng-model="testNewVars.rate">
+	        	<textarea placeholder="details" ng-model="testNewVars.details"></textarea>
+  					<button type="submit">Add</button>
+	        </form>
 				</div>
 			</div>
-			<hr>
-			<div class="row">
-				<div class="col-md-6 quotes">
-					<blockquote class="quote speech-bubble">
-						<p></p>
-						<footer>
-							<img width="40" height="40" alt="">
-							<a></a>
-						</footer>
-					</blockquote>
-				</div>
-				<div class="col-md-6">
-					<img class="screenshot" src="site-assets/screenshot.png" width="558" height="246" alt="Todo app screenshot">
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="col-md-4">
-					<h2>New in 1.3</h2>
-					<ul class="whats-new">
-						<li>We now have 64 applications.
-							<label class="link" for="news-expander">New since 1.3 ▼</label>
-							<input type="checkbox" id="news-expander">
-							<ul class="collapsed" id="new-apps">
-								<li><a href="examples/angular-dart/web/">AngularDart</a></li>
-								<li><a href="examples/durandal/">Durandel</a></li>
-								<li><a href="examples/atmajs/">Atma.js</a></li>
-								<li><a href="examples/exoskeleton/">Exoskeleton</a></li>
-								<li><a href="examples/componentjs/">ComponentJS</a></li>
-							</ul>
-						</li>
-						<li>Updates have been made to apps including Vanilla, Angular, React, Backbone, Ember, jQuery &amp; many more.</li>
-						<li>The knockoutjs_classBindingProvider application has been removed.</li>
-					</ul>
-				</div>
-				<div class="col-md-4">
-					<h2>Selecting a Framework</h2>
-					<p>Once you've downloaded the latest release and played around with the apps, you'll want to decide on a specific framework to try out.</p>
-					<p>Study the syntax required for defining models, views and (where applicable) controllers and classes in the frameworks you're interested in and try your hand at editing the code to see how it feels using it first-hand.</p>
-					<p>Please ensure that if you're happy with this, you do spend more time investigating the framework (including reading the official docs, the source and its complete feature list). There's often a lot more to a framework than what we present in our examples.</p>
-				</div>
-				<div class="col-md-4">
-					<h2>Getting Involved</h2>
-					<p>Is there a bug we haven't fixed or an MV* framework you feel would benefit from being included in TodoMVC?</p>
-					<p>If so, feel free to fork the repo, read our <a href="https://github.com/tastejs/todomvc/wiki">contribution guidelines</a>, and submit a pull request &mdash; we'll be happy to review it for inclusion.</p>
-					<p>Make sure you use the <a href="https://github.com/tastejs/todomvc-app-template">template</a> as a starting point and read the <a href="https://github.com/tastejs/todomvc/blob/master/app-spec.md">app specification</a>.</p>
-					<p>
-						<a class="zocial small ltgray" href="https://github.com/tastejs/todomvc/wiki">Submit Pull Request &raquo;</a>
-					</p>
-				</div>
-			</div>
-			<hr>
-			<footer class="credit">
-				<p>Brought to you by
-					<a href="https://github.com/addyosmani"><img src="http://gravatar.com/avatar/96270e4c3e5e9806cf7245475c00b275?s=80" width="40" height="40" alt="Addy Osmani">Addy</a>
-					<a href="https://github.com/sindresorhus"><img src="http://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9.png?s=80" width="40" height="40" alt="Sindre Sorhus">Sindre</a>
-					<a href="https://github.com/passy"><img src="http://gravatar.com/avatar/be451fcdbf0e5ff07f23ed16cb5c90a3.png?s=80" width="40" height="40" alt="Pascal Hartig">Pascal</a>
-					<a href="https://github.com/stephenplusplus"><img src="http://gravatar.com/avatar/098cfe2d360e77c3229f2cd5298354c4?s=80" width="40" height="40" alt="Stephen Sawchuk">Stephen</a>
-					<a href="https://github.com/colineberhardt"><img src="http://gravatar.com/avatar/73bba00b41ff1c9ecc3ee29487bace7d?s=80" width="40" height="40" alt="Colin Eberhardt">Colin</a>
-					<a href="https://github.com/arthurvr"><img src="https://avatars1.githubusercontent.com/u/6025224?v=3&s=80" width="40" height="40" alt="Arthur Verschaeve">Arthur</a>
-					<a href="https://github.com/samccone"><img src="https://avatars0.githubusercontent.com/u/883126?v=3&s=80" width="40" height="40" alt="Sam Saccone">Sam</a>
-				</p>
-			</footer>
-		</div>
-		<!-- build:js site-assets/main.min.js -->
-		<script src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="site-assets/main.js"></script>
-		<!-- endbuild -->
-		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		<script>(function(){var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script>
-		<script>var _gaq=[['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>
+		</script>
+
+
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-route/angular-route.js"></script>
+		<script src="node_modules/angular-resource/angular-resource.js"></script>
+		<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+		<script src="node_modules/angularfire/dist/angularfire.min.js"></script>
+		<script src="js/firebase.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/jobCtrl.js"></script>
+		<script src="js/controllers/testCtrl.js"></script>
+		<script src="js/services/appStorage.js"></script>
 	</body>
 </html>
