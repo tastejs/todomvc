@@ -5,7 +5,7 @@
  *
  * @type {angular.Module}
  */
-angular.module('tasker', ['ngRoute', 'ngResource'])
+angular.module('tasker', ['ngRoute', 'ngResource', 'firebase'])
 	.config(function ($routeProvider) {
 		'use strict';
 
