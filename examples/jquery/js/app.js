@@ -41,7 +41,8 @@ jQuery(function ($) {
 	var App = {
 		init: function () {
 			this.todos = util.store('todos-jquery');
-			this.cacheElements();
+			this.todoTemplate = Handlebars.compile($('#todo-template').html());
+			this.footerTemplate = Handlebars.compile($('#footer-template').html());
 			this.bindEvents();
 
 			new Router({
@@ -50,10 +51,6 @@ jQuery(function ($) {
 					this.render();
 				}.bind(this)
 			}).init('/all');
-		},
-		cacheElements: function () {
-			this.todoTemplate = Handlebars.compile($('#todo-template').html());
-			this.footerTemplate = Handlebars.compile($('#footer-template').html());
 		},
 		bindEvents: function () {
 			$('#new-todo').on('keyup', this.create.bind(this));
