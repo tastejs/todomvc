@@ -423,23 +423,23 @@
 		                        <div class="row">
 		                            <div class="col-md-6">
 		                                <div class="form-group">
-		                                    <input type="text" class="form-control" id="new-title" placeholder="Briefly, what needs to be done?" ng-model="newJob.title" ng-disabled="saving" autofocus required data-validation-required-message="Please enter a job title.">
+		                                    <input type="text" class="form-control" id="new-title" placeholder="Briefly, what needs to be done? *" ng-model="newJob.title" ng-disabled="saving" autofocus required data-validation-required-message="Please enter a job title.">
 		                                    <p class="help-block text-danger"></p>
 		                                </div>
 		                                <div class="form-group">
-		                                    <input type="number" min="1" max="48" class="form-control" id="new-duration" placeholder="How many hours will it take?" ng-model="newJob.duration" ng-disabled="saving" required data-validation-required-message="Please enter estimated hours.">
+		                                    <input type="number" min="1" max="48" class="form-control" id="new-duration" placeholder="How many hours will it take? *" ng-model="newJob.duration" ng-disabled="saving" required data-validation-required-message="Please enter estimated hours.">
 		                                    <p class="help-block text-danger"></p>
 		                                </div>
 		                                <div class="form-group">
-		                                    <input type="number" min="4" max="100" class="form-control" id="new-price" placeholder="£" ng-model="newJob.price" ng-disabled="saving" required data-validation-required-message="Please enter price you will pay for the job.">
+		                                    <input type="number" min="3.87" max="100.00" class="form-control" id="new-price" placeholder="£ Price you will pay *" ng-model="newJob.price" ng-disabled="saving" required data-validation-required-message="Please enter price you will pay for the job. Minimum wage is £3.87/hr for U18, £5.30/hr for U20 and £6.70/hr for over 21s.">
 		                                    <p class="help-block text-danger"></p>
 		                                </div>
 		                                <div class="form-group">
-		                                    <input class="form-control" id="new-location" placeholder="Where is the job?" ng-model="newJob.location" ng-disabled="saving" required data-validation-required-message="Please enter where the job is.">
+		                                    <input class="form-control" id="new-location" placeholder="Where is the job? *" ng-model="newJob.location" ng-disabled="saving" required data-validation-required-message="Please enter where the job is.">
 		                                    <p class="help-block text-danger"></p>
 		                                </div>
 		                                <div class="form-group">
-		                                    <input class="form-control" id="new-when" placeholder="When do you want the job done?" ng-model="newJob.when" ng-disabled="saving" required data-validation-required-message="Please enter date and time you want the job done.">
+		                                    <input type="datetime-local" step="900" class="form-control" id="new-when" placeholder="When do you want the job done? *" ng-model="newJob.when" ng-disabled="saving" required data-validation-required-message="Please enter date and time you want the job started.">
 		                                    <p class="help-block text-danger"></p>
 		                                </div>
 		                            </div>
