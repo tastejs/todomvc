@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "angular": "^1.4.3",
+    "angular-animate": "^1.4.8",
     "angular-resource": "^1.4.3",
     "angular-route": "^ 1.4.3",
     "angularfire": "^1.1.3",

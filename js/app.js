@@ -5,87 +5,39 @@
  *
  * @type {angular.Module}
  */
-angular.module('tasker', ['ngRoute', 'ngResource', 'firebase'])
+angular.module('tasker', [
+	'ngRoute',
+	'ngResource',
+	'ngAnimate',
+	'firebase'
+])
 	.config(function ($routeProvider) {
 		'use strict';
 
 		var routeConfig = {
 			controller: 'JobCtrl',
-			templateUrl: 'job-new.html',
-			resolve: {
-				store: function (jobStorage) {
-					// Get the correct module (API or localStorage).
-					return jobStorage.then(function (module) {
-						module.get(); // Fetch the job records in the background.
-						return module;
-					});
-				}
-			}
-		}
+			templateUrl: 'job-new.html'
+		};
 
 		var landingConfig = {
 			controller: 'JobCtrl',
-			templateUrl: 'landing.html',
-			resolve: {
-				store: function (jobStorage) {
-					// Get the correct module (API or localStorage).
-					return jobStorage.then(function (module) {
-						module.get(); // Fetch the job records in the background.
-						return module;
-					});
-				}
-			}
-		}
+			templateUrl: 'landing.html'
+		};
 
 		var jobsConfig = {
 			controller: 'JobCtrl',
-			templateUrl: 'joblist.html',
-			resolve: {
-				store: function (jobStorage) {
-					// Get the correct module (API or localStorage).
-					return jobStorage.then(function (module) {
-						module.get(); // Fetch the job records in the background.
-						return module;
-					});
-				}
-			}
-		}
+			templateUrl: 'joblist.html'
+		};
 
 		$routeProvider
 			.when('/', landingConfig)
 			.when('/jobs', jobsConfig)
 			.when('/job/new', routeConfig)
+			.when('/test', {
+				controller: 'TestCtrl',
+				templateUrl: 'test.html'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});
 	});
-
-
-
-
-angular.module('todomvc', ['ngRoute', 'ngResource'])
-	.config(function ($routeProvider) {
-		'use strict';
-
-		var routeConfig = {
-			controller: 'TodoCtrl',
-			templateUrl: 'landing.html',
-			resolve: {
-				store: function (todoStorage) {
-					// Get the correct module (API or localStorage).
-					return todoStorage.then(function (module) {
-						module.get(); // Fetch the todo records in the background.
-						return module;
-					});
-				}
-			}
-		};
-
-		$routeProvider
-			.when('/', routeConfig)
-			.when('/:status', routeConfig)
-			.otherwise({
-				redirectTo: '/'
-			});
-	});
-

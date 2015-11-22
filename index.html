@@ -10,6 +10,25 @@
 		<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+		<style>
+			/*animation demo*/
+			.test-jobs-items.ng-enter {
+		    max-height: 0;
+		    transition: max-height .4s ease-out;
+			}
+			.test-jobs-items.ng-enter-active {
+		    max-height: 200px;
+			}
+			.test-jobs-items.ng-leave {
+		    max-height: 200px;
+		    opacity: 1;
+		    transition: opacity .4s ease-out, max-height 0.4s;
+			}
+			.test-jobs-items.ng-leave-active {
+		    max-height: 0;
+		    opacity: 0;
+			}
+		</style>
 	</head>
 
 	<body ng-app="tasker">
@@ -283,74 +302,50 @@
 		    </section>
 		</script>
 
-
-		<script type="text/ng-template" id="todomvc-index.html">
-			<section id="todoapp">
-				<header id="header">
-					<h1>todos</h1>
-					<form id="todo-form" ng-submit="addTodo()">
-						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
-					</form>
-				</header>
-				<section id="main" ng-show="todos.length" ng-cloak>
-					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-					<label for="toggle-all">Mark all as complete</label>
-					<ul id="todo-list">
-						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
-							<div class="view">
-								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
-								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
-								<button class="destroy" ng-click="removeTodo(todo)"></button>
-							</div>
-							<form ng-submit="saveEdits(todo, 'submit')">
-								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
-							</form>
-						</li>
-					</ul>
-				</section>
-				<footer id="footer" ng-show="todos.length" ng-cloak>
-					<span id="todo-count"><strong>{{remainingCount}}</strong>
-						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
-					</span>
-					<ul id="filters">
-						<li>
-							<a ng-class="{selected: status == ''} " href="#/">All</a>
-						</li>
-						<li>
-							<a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
-						</li>
-						<li>
-							<a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
-						</li>
-					</ul>
-					<button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed</button>
-				</footer>
-			</section>
-			<footer id="info">
-				<p>Double-click to edit a todo</p>
-				<p>Credits:
-					<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
-					<a href="http://ericbidelman.com">Eric Bidelman</a>,
-					<a href="http://jacobmumm.com">Jacob Mumm</a> and
-					<a href="http://blog.igorminar.com">Igor Minar</a>
-				</p>
-				<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-			</footer>
+		<script type="text/ng-template" id="test.html">
+			<div style="margin-top: 100px; overflow: hidden;">
+				<div class="test-jobs-container"
+					style="float: left; width: 48%">
+					Jobs List
+					<div class="test-jobs-items"
+						style="position: relative; border: 2px solid lightgray; padding: 5px; margin-bottom:5px; background: white; border-radius: 7px"
+						ng-repeat="job in jobs | orderBy:'$id':true">
+						<a href="#"
+							style="position: absolute; top: 5px; right: 5px; text-decoration: none"
+							ng-if="job.employer === employerId"
+							ng-click="testJobDelete($event, job)">X</a>
+						<p><b>Title:</b> {{ job.title }}</p>
+						<p><b>Date:</b> {{ job.date | date:'mediumDate' }}</p>
+						<p><b>Duration:</b> {{ job.duration }}</p>
+						<p><b>Rate:</b> {{ job.rate }}</p>
+						<p><b>Details:</b> {{ job.details }}</p>
+					</div>
+				</div>
+				<div class="test-jobs-create-container"
+					style="float: right; width: 48%">
+					New Jobs
+	        <form ng-submit="testNewSubmit()">
+	        	<input type="text" placeholder="title" ng-model="testNewVars.title">
+	        	<input type="date" ng-model="testNewVars.date">
+	        	<input type="number" placeholder="duration (hrs)" ng-model="testNewVars.duration">
+	        	<input type="number" placeholder="rate (£/hr)" ng-model="testNewVars.rate">
+	        	<textarea placeholder="details" ng-model="testNewVars.details"></textarea>
+  					<button type="submit">Add</button>
+	        </form>
+				</div>
+			</div>
 		</script>
-
-
-
 
 
 		<script src="node_modules/angular/angular.js"></script>
 		<script src="node_modules/angular-route/angular-route.js"></script>
 		<script src="node_modules/angular-resource/angular-resource.js"></script>
+		<script src="node_modules/angular-animate/angular-animate.min.js"></script>
 		<script src="node_modules/angularfire/dist/angularfire.min.js"></script>
 		<script src="js/firebase.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/controllers/jobCtrl.js"></script>
-		<script src="js/services/jobStorage.js"></script>
-		<script src="js/directives/todoFocus.js"></script>
-		<script src="js/directives/todoEscape.js"></script>
+		<script src="js/controllers/testCtrl.js"></script>
+		<script src="js/services/appStorage.js"></script>
 	</body>
 </html>

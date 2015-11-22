@@ -6,19 +6,19 @@
  * - exposes the model to the template and provides event handlers
  */
 angular.module('tasker')
-	.controller('JobCtrl', function JobCtrl($scope, $routeParams, $filter, store) {
+	.controller('JobCtrl', function JobCtrl($scope, $routeParams, $filter, appStorage) {
 		'use strict';
 
-		var jobs = $scope.jobs = store.jobs;
+		var jobs = $scope.jobs;  // = store.jobs;
 
 		$scope.newJob = '';
 		$scope.editedJob = null;
 
-		$scope.$watch('jobs', function () {
-			$scope.remainingCount = $filter('filter')(jobs, { completed: false }).length;
-			$scope.completedCount = jobs.length - $scope.remainingCount;
-			$scope.allChecked = !$scope.remainingCount;
-		}, true);
+		// $scope.$watch('jobs', function () {
+		// 	$scope.remainingCount = $filter('filter')(jobs, { completed: false }).length;
+		// 	$scope.completedCount = jobs.length - $scope.remainingCount;
+		// 	$scope.allChecked = !$scope.remainingCount;
+		// }, true);
 
 		// Monitor the current route for changes and adjust the filter accordingly.
 		$scope.$on('$routeChangeSuccess', function () {
@@ -44,13 +44,13 @@ angular.module('tasker')
 			}
 
 			$scope.saving = true;
-			store.insert(newJob)
-				.then(function success() {
-					$scope.newJob = '';
-				})
-				.finally(function () {
-					$scope.saving = false;
-				});
+			// store.insert(newJob)
+			// 	.then(function success() {
+			// 		$scope.newJob = '';
+			// 	})
+			// 	.finally(function () {
+			// 		$scope.saving = false;
+			// 	});
 
 			console.log(newJob);
 		};
@@ -84,13 +84,13 @@ angular.module('tasker')
 				return;
 			}
 
-			store[job.title ? 'put' : 'delete'](job)
-				.then(function success() {}, function error() {
-					job.title = $scope.originalJob.title;
-				})
-				.finally(function () {
-					$scope.editedJob = null;
-				});
+			// store[job.title ? 'put' : 'delete'](job)
+			// 	.then(function success() {}, function error() {
+			// 		job.title = $scope.originalJob.title;
+			// 	})
+			// 	.finally(function () {
+			// 		$scope.editedJob = null;
+			// 	});
 		};
 
 		$scope.revertEdits = function (job) {
@@ -101,25 +101,25 @@ angular.module('tasker')
 		};
 
 		$scope.removeJob = function (job) {
-			store.delete(job);
+			// store.delete(job);
 		};
 
 		$scope.saveJob = function (job) {
-			store.put(job);
+			// store.put(job);
 		};
 
 		$scope.toggleCompleted = function (job, completed) {
 			if (angular.isDefined(completed)) {
 				job.completed = completed;
 			}
-			store.put(job, jobs.indexOf(job))
-				.then(function success() {}, function error() {
-					job.completed = !job.completed;
-				});
+			// store.put(job, jobs.indexOf(job))
+			// 	.then(function success() {}, function error() {
+			// 		job.completed = !job.completed;
+			// 	});
 		};
 
 		$scope.clearCompletedJobs = function () {
-			store.clearCompleted();
+			// store.clearCompleted();
 		};
 
 		$scope.markAll = function (completed) {
