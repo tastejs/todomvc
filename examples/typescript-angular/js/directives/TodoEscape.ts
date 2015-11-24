@@ -3,7 +3,7 @@
 module todos {
 	'use strict';
 
-	var ESCAPE_KEY = 27;
+	const ESCAPE_KEY = 27;
 
 	/**
 	 * Directive that cancels editing a todo if the user presses the Esc key.
