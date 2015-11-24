@@ -74,10 +74,24 @@ module todos {
 
 		editTodo(todoItem: TodoItem) {
 			this.$scope.editedTodo = todoItem;
+
+			// Clone the original todo in case editing is cancelled.
+			this.$scope.originalTodo = angular.extend({}, todoItem);
+		}
+
+		revertEdits(todoItem: TodoItem) {
+			this.todos[this.todos.indexOf(todoItem)] = this.$scope.originalTodo;
+			this.$scope.reverted = true;
 		}
 
 		doneEditing(todoItem: TodoItem) {
 			this.$scope.editedTodo = null;
+			this.$scope.originalTodo = null;
+			if (this.$scope.reverted) {
+				// Todo edits were reverted, don't save.
+				this.$scope.reverted = null;
+				return;
+			}
 			todoItem.title = todoItem.title.trim();
 			if (!todoItem.title) {
 				this.removeTodo(todoItem);

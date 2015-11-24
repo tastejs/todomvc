@@ -53,6 +53,28 @@ var todos;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
 var todos;
+(function (todos) {
+    'use strict';
+    var ESCAPE_KEY = 27;
+    /**
+     * Directive that cancels editing a todo if the user presses the Esc key.
+     */
+    function todoEscape() {
+        return {
+            link: function ($scope, element, attributes) {
+                element.bind('keydown', function (event) {
+                    if (event.keyCode === ESCAPE_KEY) {
+                        $scope.$apply(attributes.todoEscape);
+                    }
+                });
+                $scope.$on('$destroy', function () { element.unbind('keydown'); });
+            }
+        };
+    }
+    todos.todoEscape = todoEscape;
+})(todos || (todos = {}));
+/// <reference path='../_all.ts' />
+var todos;
 (function (todos_1) {
     'use strict';
     /**
@@ -125,9 +147,21 @@ var todos;
         };
         TodoCtrl.prototype.editTodo = function (todoItem) {
             this.$scope.editedTodo = todoItem;
+            // Clone the original todo in case editing is cancelled.
+            this.$scope.originalTodo = angular.extend({}, todoItem);
+        };
+        TodoCtrl.prototype.revertEdits = function (todoItem) {
+            this.todos[this.todos.indexOf(todoItem)] = this.$scope.originalTodo;
+            this.$scope.reverted = true;
         };
         TodoCtrl.prototype.doneEditing = function (todoItem) {
             this.$scope.editedTodo = null;
+            this.$scope.originalTodo = null;
+            if (this.$scope.reverted) {
+                // Todo edits were reverted, don't save.
+                this.$scope.reverted = null;
+                return;
+            }
             todoItem.title = todoItem.title.trim();
             if (!todoItem.title) {
                 this.removeTodo(todoItem);
@@ -169,6 +203,7 @@ var todos;
         .controller('todoCtrl', todos.TodoCtrl)
         .directive('todoBlur', todos.todoBlur)
         .directive('todoFocus', todos.todoFocus)
+        .directive('todoEscape', todos.todoEscape)
         .service('todoStorage', todos.TodoStorage);
 })(todos || (todos = {}));
 /// <reference path='libs/jquery/jquery.d.ts' />
@@ -178,6 +213,7 @@ var todos;
 /// <reference path='interfaces/ITodoStorage.ts' />
 /// <reference path='directives/TodoFocus.ts' />
 /// <reference path='directives/TodoBlur.ts' />
+/// <reference path='directives/TodoEscape.ts' />
 /// <reference path='services/TodoStorage.ts' />
 /// <reference path='controllers/TodoCtrl.ts' />
 /// <reference path='Application.ts' />
