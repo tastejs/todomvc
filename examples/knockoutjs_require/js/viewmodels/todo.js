@@ -44,6 +44,7 @@ define([
 		// edit an item
 		self.editItem = function (item) {
 			item.editing(true);
+			item.previousTitle = item.title();
 		};
 
 		// stop editing an item.  Remove the item, if it is now empty
@@ -63,6 +64,12 @@ define([
 			if (!trimmedTitle) {
 				self.remove(item);
 			}
+		};
+
+		// cancel editing an item and revert to the previous content
+		self.cancelEditing = function (item) {
+			item.editing(false);
+			item.title(item.previousTitle);
 		};
 
 		// count of all completed todos
