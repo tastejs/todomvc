@@ -44,6 +44,7 @@ define([
 		// edit an item
 		self.editItem = function (item) {
 			item.editing(true);
+			item.previousTitle = item.title();
 		};
 
 		// stop editing an item.  Remove the item, if it is now empty
@@ -54,7 +55,7 @@ define([
 			var trimmedTitle = title.trim();
 
 			// Observable value changes are not triggered if they're consisting of whitespaces only
-			// Therefore we've to compare untrimmed version with a trimmed one to chech whether anything changed
+			// Therefore, compare untrimmed version with a trimmed one to check whether anything changed
 			// And if yes, we've to set the new value manually
 			if (title !== trimmedTitle) {
 				item.title(trimmedTitle);
@@ -63,6 +64,12 @@ define([
 			if (!trimmedTitle) {
 				self.remove(item);
 			}
+		};
+
+		// cancel editing an item and revert to the previous content
+		self.cancelEditing = function (item) {
+			item.editing(false);
+			item.title(item.previousTitle);
 		};
 
 		// count of all completed todos
@@ -99,7 +106,8 @@ define([
 
 		// internal computed observable that fires whenever anything changes in our todos
 		ko.computed(function () {
-			// store a clean copy to local storage, which also creates a dependency on the observableArray and all observables in each item
+			// store a clean copy to local storage, which also creates a dependency
+			// on the observableArray and all observables in each item
 			window.localStorage.setItem(g.localStorageItem, ko.toJSON(self.todos));
 		}).extend({
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' }
