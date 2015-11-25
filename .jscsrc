@@ -26,16 +26,17 @@
 	"excludeFiles": [
 		"**/node_modules/**",
 		"**/bower_components/**",
-		"examples/vanilladart/**/*.js",
-		"examples/duel/www/**",
-		"examples/duel/src/main/webapp/js/lib/**",
+		"**/generated/**",
 		"examples/ampersand/todomvc.bundle.js",
 		"examples/angular2/**/*.js",
-		"examples/polymer/elements/elements.build.js",
+		"examples/duel/www/**",
+		"examples/duel/src/main/webapp/js/lib/**",
+		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
+		"examples/polymer/elements/elements.build.js",
+		"examples/thorax/js/lib/backbone-localstorage.js",
 		"examples/typescript-*/js/**/*.js",
-		"**/generated/**",
-		"examples/humble/js/**"
+		"examples/vanilladart/**/*.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
