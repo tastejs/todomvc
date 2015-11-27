@@ -62,6 +62,7 @@ gulp.task('styles', function () {
 	])
 	.pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
 	.pipe(gulp.dest('dist/site-assets'))
+	.pipe($.size({title: 'styles'}))
 	.pipe(gulp.dest('.tmp/site-assets'));
 });
 
@@ -72,7 +73,6 @@ gulp.task('minify', function() {
 	.pipe($.cssmin())
 	.pipe($.rename({suffix: '.min'}))
 	.pipe(gulp.dest('site-assets'))
-	.pipe($.size({title: 'styles'}))
 });
 
 // Scan Your HTML For Assets & Optimize Them
