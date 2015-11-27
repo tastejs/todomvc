@@ -1,4 +1,5 @@
-/*global Thorax, ENTER_KEY, ESCAPE_KEY*/
+/*global Thorax, $, ENTER_KEY, ESCAPE_KEY */
+
 $(function () {
 	'use strict';
 
