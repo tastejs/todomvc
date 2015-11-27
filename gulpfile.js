@@ -62,6 +62,9 @@ gulp.task('styles', function () {
 	])
 	.pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
 	.pipe(gulp.dest('dist/site-assets'))
+	.pipe($.cssmin())
+	.pipe($.rename({suffix: '.min'}))
+	.pipe(gulp.dest('site-assets'))
 	.pipe($.size({title: 'styles'}))
 	.pipe(gulp.dest('.tmp/site-assets'));
 });
