@@ -1,3 +1,5 @@
+/*global Thorax, _ */
+
 Thorax.View.extend({
 	name: 'stats',
 
@@ -10,6 +12,7 @@ Thorax.View.extend({
 	},
 
 	initialize: function () {
+		'use strict';
 		// Whenever the Todos collection changes re-render the stats
 		// render() needs to be called with no arguments, otherwise calling
 		// it with arguments will insert the arguments as content
@@ -20,6 +23,7 @@ Thorax.View.extend({
 
 	// Clear all completed todo items, destroying their models.
 	clearCompleted: function () {
+		'use strict';
 		_.each(window.app.Todos.completed(), function (todo) {
 			todo.destroy();
 		});
@@ -31,6 +35,7 @@ Thorax.View.extend({
 	// be called to generate the context / scope that the template
 	// will be called with. "context" defaults to "return this"
 	context: function () {
+		'use strict';
 		var remaining = window.app.Todos.remaining().length;
 		return {
 			itemText: remaining === 1 ? 'item' : 'items',
@@ -41,9 +46,10 @@ Thorax.View.extend({
 
 	// Highlight which filter will appear to be active
 	highlightFilter: function () {
+		'use strict';
 		this.$('#filters li a')
-		.removeClass('selected')
-		.filter('[href="#/' + (window.app.TodoFilter || '') + '"]')
-		.addClass('selected');
+			.removeClass('selected')
+			.filter('[href="#/' + (window.app.TodoFilter || '') + '"]')
+			.addClass('selected');
 	}
 });
