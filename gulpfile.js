@@ -62,11 +62,17 @@ gulp.task('styles', function () {
 	])
 	.pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
 	.pipe(gulp.dest('dist/site-assets'))
+	.pipe(gulp.dest('.tmp/site-assets'));
+});
+
+gulp.task('minify', function() {
+	return gulp.src([
+		'site-assets/main.css'
+	])
 	.pipe($.cssmin())
 	.pipe($.rename({suffix: '.min'}))
 	.pipe(gulp.dest('site-assets'))
 	.pipe($.size({title: 'styles'}))
-	.pipe(gulp.dest('.tmp/site-assets'));
 });
 
 // Scan Your HTML For Assets & Optimize Them
@@ -95,7 +101,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
-	runSequence(['styles', 'copy'], ['jshint', 'html', 'images'], cb);
+	runSequence(['styles', 'minify', 'copy'], ['jshint', 'html', 'images'], cb);
 });
 
 // Run PageSpeed Insights
