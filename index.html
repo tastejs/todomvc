@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="site-assets/main.min.css">
 		<!-- endbuild -->
-		<link rel="import" href="bower_components/paper-tabs/paper-tabs.html" assync>
+		<link rel="import" href="bower_components/paper-tabs/paper-tabs.html" async>
 	</head>
 	<body>
 		<div class="container">
@@ -401,18 +401,20 @@
 		<script src="site-assets/main.js"></script>
 		<script>
 			(function () {
-				var webComponentsSupported = ('registerElement' in document
-				    && 'import' in document.createElement('link')
-				    && 'content' in document.createElement('template'));
+				var webComponentsSupported = (
+					'registerElement' in document &&
+					'import' in document.createElement('link') &&
+					'content' in document.createElement('template')
+				);
 
 				if (!webComponentsSupported) {
-				  var script = document.createElement('script');
-				  script.async = true;
-				  script.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
-				  script.onload = finishLazyLoading;
-				  document.head.appendChild(script);
+					var script = document.createElement('script');
+					script.async = true;
+					script.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
+					script.onload = finishLazyLoading;
+					document.head.appendChild(script);
 				} else {
-				  finishLazyLoading();
+					finishLazyLoading();
 				}
 
 				function finishLazyLoading() {
