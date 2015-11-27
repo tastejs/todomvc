@@ -91,6 +91,7 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 }());
 
 ;;
+/*global Thorax, ENTER_KEY, ESCAPE_KEY*/
 $(function () {
 	'use strict';
 
@@ -111,7 +112,7 @@ $(function () {
 			'click .toggle':	'toggleCompleted',
 			'dblclick label':	'edit',
 			'click .destroy':	'clear',
-			'keypress .edit':	'updateOnEnter',
+			'keyup .edit':		'keyListener',
 			'blur .edit':		'close',
 			// The "rendered" event is triggered by Thorax each time render()
 			// is called and the result of the template has been appended
@@ -129,11 +130,16 @@ $(function () {
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function () {
 			this.$el.addClass('editing');
-			this.$('.edit').focus();
+			this.$('.edit').val(this.model.get('title')).focus();
 		},
 
-		// Close the `"editing"` mode, saving changes to the todo.
+		// Close the `"editing"` mode.
 		close: function () {
+			// If editing was cancelled, don't save
+			if (!this.$el.hasClass('editing')) {
+				return;
+			}
+
 			var value = this.$('.edit').val().trim();
 
 			if (value) {
@@ -145,10 +151,17 @@ $(function () {
 			this.$el.removeClass('editing');
 		},
 
-		// If you hit `enter`, we're through editing the item.
-		updateOnEnter: function (e) {
+		// User cancelled editing, don't update the todo.
+		cancelEdits: function () {
+			this.$el.removeClass('editing');
+		},
+
+		// Enter completes the editing, Escape cancels it
+		keyListener: function (e) {
 			if (e.which === ENTER_KEY) {
 				this.close();
+			} else if (e.which === ESCAPE_KEY) {
+				this.cancelEdits();
 			}
 		},
 
@@ -305,7 +318,10 @@ Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoap
 }());
 
 ;;
+/*global Thorax, Backbone*/
+/*jshint unused:false*/
 var ENTER_KEY = 13;
+var ESCAPE_KEY = 27;
 
 $(function () {
 	// Kick things off by creating the **App**.
