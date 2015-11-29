@@ -36,7 +36,8 @@
 		"examples/polymer/elements/elements.build.js",
 		"examples/thorax/js/lib/backbone-localstorage.js",
 		"examples/typescript-*/js/**/*.js",
-		"examples/vanilladart/**/*.js"
+		"examples/vanilladart/**/*.js",
+		"examples/riotjs/js/todo.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,

@@ -24,12 +24,18 @@
 
 *Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
 
+## Compilation
+
+Pre-Compile the tag file (`js/todo.tag`) beforehand so that the browser doesn't need to use Riot's client-side compiler.
+
+```bash
+npm install
+npm run compile
+```
 
 ## Implementation
 
 Riot is tiny and super flexible, there are many different ways to use riot. For example, you can use compiler to compile the tags files, you can also use browserify to build bundled javascript, you can even use the tiny Riot compiler on your page and compile tags on the fly.
-
-This example is using compiler on the page to compile the tag file (`js/todo.html`).
 
 This example is following TodoMVC's [coding style](https://github.com/tastejs/todomvc/blob/master/codestyle.md), however officially Riot recommends a [different coding style](https://github.com/riot/riot/blob/master/CONTRIBUTING.md), FYI.
 
@@ -37,3 +43,4 @@ This example is following TodoMVC's [coding style](https://github.com/tastejs/to
 ## Credit
 
 Created by [Tianxiang Chen](https://github.com/txchen)
+Edited by [Luke Edwards](https://github.com/lukeed)
