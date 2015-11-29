@@ -1,8 +1,11 @@
 {
   "private": true,
+  "scripts": {
+    "compile": "./node_modules/.bin/riot js/todo.tag js/todo.js"
+  },
   "dependencies": {
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1",
-    "riot": "^2.2.4"
+    "riot": "2.2.4"
   }
 }
