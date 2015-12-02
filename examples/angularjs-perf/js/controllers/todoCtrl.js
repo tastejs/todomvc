@@ -85,9 +85,9 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, $filter, tod
 
 	$scope.markAll = function (completed) {
 		todos.forEach(function (todo) {
-			todo.completed = !completed;
+			todo.completed = completed;
 		});
-		$scope.remainingCount = completed ? todos.length : 0;
+		$scope.remainingCount = completed ? 0 : todos.length;
 		todoStorage.put(todos);
 	};
 });
