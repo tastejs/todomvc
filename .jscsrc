@@ -34,6 +34,7 @@
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
 		"examples/polymer/elements/elements.build.js",
+		"examples/spine/js/**",
 		"examples/thorax/js/lib/backbone-localstorage.js",
 		"examples/thorax_lumbar/public/*.js",
 		"examples/typescript-*/js/**/*.js",
