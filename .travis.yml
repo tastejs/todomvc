@@ -28,7 +28,7 @@ env:
 before_install:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    - wget 'https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F362621%2Fchrome-linux.zip?generation=1449032023307000&alt=media' -O chrome.zip && unzip chrome.zip
+    - wget 'https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F362586%2Fchrome-linux.zip?generation=1449027526136000&alt=media' -O chrome.zip && unzip chrome.zip
     - curl -Lo chromedriver.zip http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip && unzip chromedriver.zip
 script:
     # We want to gate on passing tests and a successful build
