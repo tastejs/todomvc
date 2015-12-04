@@ -46,6 +46,8 @@ DEALINGS IN THE SOFTWARE.
 // to persist Backbone models within your browser.
 
 declare var $: any;
+
+// TODO: Use DefinitelyTyped rather than ad-hoc definition here
 declare module Backbone {
 	export class Model {
 		constructor (attr? , opts? );
@@ -56,6 +58,7 @@ declare module Backbone {
 		destroy(): void;
 		bind(ev: string, f: Function, ctx?: any): void;
 		toJSON(): any;
+		trigger(eventName: string, ...args: any[]): any;
 	}
 	export class Collection {
 		constructor (models? , opts? );
@@ -69,6 +72,7 @@ declare module Backbone {
 		last(n: number): any[];
 		filter(f: (elem: any) => any): Collection;
 		without(...values: any[]): Collection;
+		trigger(eventName: string, ...args: any[]): any;
 	}
 	export class View {
 		constructor (options? );
@@ -85,6 +89,16 @@ declare module Backbone {
 
 		static extend: any;
 	}
+	export class Router {
+		constructor (routes?: any );
+		routes: any;
+	}
+	export class History {
+		start(options?: any);
+		navigate(fragment: string, options: any);
+		pushState();
+	}
+	export var history: History;
 }
 declare var _: any;
 declare var Store: any;
@@ -161,7 +175,8 @@ class TodoList extends Backbone.Collection {
 }
 
 // Create our global collection of **Todos**.
-var Todos = new TodoList();
+const Todos = new TodoList();
+var taskFilter;
 
 // Todo Item View
 // --------------
@@ -200,9 +215,10 @@ class TodoView extends Backbone.View {
 		// Cache the template function for a single item.
 		this.template = _.template($('#item-template').html());
 
-		_.bindAll(this, 'render', 'close', 'remove');
+		_.bindAll(this, 'render', 'close', 'remove', 'toggleVisible');
 		this.model.bind('change', this.render);
 		this.model.bind('destroy', this.remove);
+		this.model.bind('visible', this.toggleVisible);
 	}
 
 	// Re-render the contents of the todo item.
@@ -210,7 +226,7 @@ class TodoView extends Backbone.View {
 		this.$el
 			.html(this.template(this.model.toJSON()))
 			.toggleClass('completed', this.model.get('completed'));
-
+		this.toggleVisible();
 		this.input = this.$('.todo-input');
 		return this;
 	}
@@ -218,6 +234,14 @@ class TodoView extends Backbone.View {
 	// Toggle the `completed` state of the model.
 	toggleDone() {
 		this.model.toggle();
+	}
+
+	toggleVisible() {
+		var completed =  this.model.get('completed');
+		var hidden =
+			(taskFilter === 'completed' && !completed) ||
+			(taskFilter === 'active' && completed);
+		this.$el.toggleClass('hidden', hidden);
 	}
 
 	// Switch this view into `'editing'` mode, displaying the input field.
@@ -261,6 +285,28 @@ class TodoView extends Backbone.View {
 
 }
 
+// Todo Router
+// -----------
+
+class TodoRouter extends Backbone.Router {
+
+	routes = {
+		'*filter': 'setFilter'
+	};
+
+	constructor() {
+		super();
+		(<any>this)._bindRoutes();
+	}
+
+	setFilter(param: string = '') {
+		// Trigger a collection filter event, causing hiding/unhiding
+		// of Todo view items
+		Todos.trigger('filter', param);
+	}
+}
+
+
 // The Application
 // ---------------
 
@@ -289,7 +335,7 @@ class AppView extends Backbone.View {
 		// At initialization we bind to the relevant events on the `Todos`
 		// collection, when items are added or changed. Kick things off by
 		// loading any preexisting todos that might be saved in *localStorage*.
-		_.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
+		_.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete', 'filter');
 
 		this.input = this.$('.new-todo');
 		this.allCheckbox = this.$('.toggle-all')[0];
@@ -300,8 +346,13 @@ class AppView extends Backbone.View {
 		Todos.bind('add', this.addOne);
 		Todos.bind('reset', this.addAll);
 		Todos.bind('all', this.render);
-
+		Todos.bind('change:completed', this.filterOne);
+		Todos.bind('filter', this.filter);
 		Todos.fetch();
+
+		// Initialize the router, showing the selected view
+		const todoRouter = new TodoRouter();
+		Backbone.history.start();
 	}
 
 	// Re-rendering the App just means refreshing the statistics -- the rest
@@ -319,6 +370,12 @@ class AppView extends Backbone.View {
 				completed: completed,
 				remaining: remaining
 			}));
+
+			this.$('.filters li a')
+				.removeClass('selected')
+				.filter('[href="#/' + (taskFilter || '') + '"]')
+				.addClass('selected');
+
 		} else {
 			this.mainElement.style.display = 'none';
 			this.footerElement.style.display = 'none';
@@ -329,7 +386,7 @@ class AppView extends Backbone.View {
 
 	// Add a single todo item to the list by creating a view for it, and
 	// appending its element to the `<ul>`.
-	addOne(todo) {
+	addOne(todo: Todo) {
 		var view = new TodoView({ model: todo });
 		this.$('.todo-list').append(view.render().el);
 	}
@@ -337,6 +394,20 @@ class AppView extends Backbone.View {
 	// Add all items in the **Todos** collection at once.
 	addAll() {
 		Todos.each(this.addOne);
+	}
+
+	// Filter out completed/remaining tasks
+	filter(criteria: string) {
+		taskFilter = criteria;
+		this.filterAll();
+	}
+
+	filterOne(todo: Todo) {
+		todo.trigger('visible');
+	}
+
+	filterAll() {
+		Todos.each(this.filterOne);
 	}
 
 	// Generate the attributes for a new Todo item.
