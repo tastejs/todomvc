@@ -49,11 +49,11 @@
 	}
 	function removeClass(el, className) {
 		var pat = '\\b' + className + '\\b';
-		var re = new RegExp(pat,'g');
-		el.className = el.className.replace(re,'');
+		var re = new RegExp(pat, 'g');
+		el.className = el.className.replace(re, '');
 	}
 	function todoIndexByEl(el) {
-		var id = closest(el,'li').dataset.id;
+		var id = closest(el, 'li').dataset.id;
 		for (var i = 0;i < todos.length;i++) {
 			if (todos[i].id === id) {
 				return i;
@@ -127,7 +127,7 @@
 		if (completedCount === 0) {
 			data.clearCompletedClass = 'style="display=none"';
 		}
-		var s = simpleTemplateEngine('footer-template', data,{});
+		var s = simpleTemplateEngine('footer-template', data, {});
 		document.getElementById('footer').innerHTML = s;
 		document.getElementById('toggle-all').checked = (activeTodoCount === 0);
 
@@ -146,7 +146,7 @@
 		function onDblclickLabel(e) {
 			var el = e.target;
 			var todo = todos[todoIndexByEl(el)];
-			var li = closest(el,'li');
+			var li = closest(el, 'li');
 			li.className += ' editing';
 			var input = li.querySelector('.edit');
 			input.value = todo.title;
@@ -159,14 +159,14 @@
 			}
 
 			if (e.which === 27) {//escape key
-				var li = closest(el,'li');
+				var li = closest(el, 'li');
 				e.stopPropagation();
-				removeClass(li,'editing');
+				removeClass(li, 'editing');
 			}
 		}
 		function update(e) {
 			var el = e.target;
-			var li = closest(el,'li');
+			var li = closest(el, 'li');
 			if (li.className.search('editing') === -1) {
 				return;
 			}
@@ -183,11 +183,11 @@
 			todo.completed = !todo.completed;
 			renderAndSave();
 		}
-		attachBySelector('#todo-list li .destroy','onclick', destroy);
-		attachBySelector('#todo-list li label','ondblclick', onDblclickLabel);
-		attachBySelector('#todo-list li .edit','onblur', update);
-		attachBySelector('#todo-list li .toggle','onchange', onchange);
-		attachBySelector('#todo-list li .edit','onkeyup', editKeyup);
+		attachBySelector('#todo-list li .destroy', 'onclick', destroy);
+		attachBySelector('#todo-list li label', 'ondblclick', onDblclickLabel);
+		attachBySelector('#todo-list li .edit', 'onblur', update);
+		attachBySelector('#todo-list li .toggle', 'onchange', onchange);
+		attachBySelector('#todo-list li .edit', 'onkeyup', editKeyup);
 	}
 	function attachPageEventHandles() {
 		var newTodo = document.getElementById('new-todo');
