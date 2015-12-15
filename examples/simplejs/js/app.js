@@ -5,8 +5,8 @@
 	function guid() {
 		//from http://slavik.meltser.info/the-efficient-way-to-create-guid-uuid-in-javascript-with-explanation/
 		function _p8(s) {
-			var p = (Math.random().toString(16) + '000000000').substr(2,8);
-			return s ? '-' + p.substr(0,4) + '-' + p.substr(4,4) : p ;
+			var p = (Math.random().toString(16) + '000000000').substr(2, 8);
+			return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p ;
 		}
 		return _p8() + _p8(true) + _p8(true) + _p8();
 	}
@@ -19,7 +19,7 @@
 		.replace(/</g, '&lt;')
 		.replace(/>/g, '&gt;');
 	}
-	function simpleTemplateEngine(templateId, data,data2) {
+	function simpleTemplateEngine(templateId, data, data2) {
 		var template;
 		function lookup(key) {
 			var ans = data[key];
@@ -33,7 +33,7 @@
 			return htmlEscape(lookup(match.substring(1)));
 		});
 	}
-	function closest(el,nodeName) { //because native 'closest' implementation is "experimental"
+	function closest(el, nodeName) { //because native 'closest' implementation is "experimental"
 		while (el) {
 			el = el.parentNode;
 			if (el.nodeName.toUpperCase() === nodeName.toUpperCase()) {
@@ -41,13 +41,13 @@
 			}
 		}
 	}
-	function attachBySelector(selector,eventname,handler) {
+	function attachBySelector(selector, eventname, handler) {
 		var l = document.querySelectorAll(selector);
 		for (var i = 0;i < l.length;i++) {
 			l[i][eventname] = handler;
 		}
 	}
-	function removeClass(el,className) {
+	function removeClass(el, className) {
 		var pat = '\\b' + className + '\\b';
 		var re = new RegExp(pat,'g');
 		el.className = el.className.replace(re,'');
@@ -87,7 +87,7 @@
 					liClass:'class=completed'
 				};
 			}
-			s += simpleTemplateEngine('todo-template',item,calculated);
+			s += simpleTemplateEngine('todo-template', item, calculated);
 		}
 		document.getElementById('todo-list').innerHTML = s;
 	}
@@ -127,7 +127,7 @@
 		if (completedCount === 0) {
 			data.clearCompletedClass = 'style="display=none"';
 		}
-		var s = simpleTemplateEngine('footer-template',data,{});
+		var s = simpleTemplateEngine('footer-template', data,{});
 		document.getElementById('footer').innerHTML = s;
 		document.getElementById('toggle-all').checked = (activeTodoCount === 0);
 
@@ -140,7 +140,7 @@
 	}
 	function attachTodoEventHandlers() {
 		function destroy(e) {
-			todos.splice(todoIndexByEl(e.target),1);
+			todos.splice(todoIndexByEl(e.target), 1);
 			renderAndSave();
 		}
 		function onDblclickLabel(e) {
@@ -183,11 +183,11 @@
 			todo.completed = !todo.completed;
 			renderAndSave();
 		}
-		attachBySelector('#todo-list li .destroy','onclick',destroy);
-		attachBySelector('#todo-list li label','ondblclick',onDblclickLabel);
-		attachBySelector('#todo-list li .edit','onblur',update);
-		attachBySelector('#todo-list li .toggle','onchange',onchange);
-		attachBySelector('#todo-list li .edit','onkeyup',editKeyup);
+		attachBySelector('#todo-list li .destroy','onclick', destroy);
+		attachBySelector('#todo-list li label','ondblclick', onDblclickLabel);
+		attachBySelector('#todo-list li .edit','onblur', update);
+		attachBySelector('#todo-list li .toggle','onchange', onchange);
+		attachBySelector('#todo-list li .edit','onkeyup', editKeyup);
 	}
 	function attachPageEventHandles() {
 		var newTodo = document.getElementById('new-todo');
