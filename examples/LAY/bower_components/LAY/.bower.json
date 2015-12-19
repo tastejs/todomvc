@@ -1,0 +1,34 @@
+{
+  "name": "LAY",
+  "description": "page layout engine",
+  "main": "LAY.min.js",
+  "authors": [
+    "relfor <me@relfor.co>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "engine",
+    "mvc"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/TheRelforFoundation/LAY.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ],
+  "version": "0.8.3",
+  "_release": "0.8.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.8.3",
+    "commit": "c01cbe008d6d96ddd46419087030d81499f507ae"
+  },
+  "_source": "git://github.com/TheRelforFoundation/LAY.js.git",
+  "_target": "~0.8.3",
+  "_originalSource": "LAY",
+  "_direct": true
+}
