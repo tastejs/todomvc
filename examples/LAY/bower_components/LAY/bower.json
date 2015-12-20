@@ -1,0 +1,23 @@
+{
+  "name": "LAY",
+  "description": "page layout engine",
+  "main": "LAY.min.js",
+  "authors": [
+    "relfor <me@relfor.co>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "engine",
+    "mvc"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ]
+}
