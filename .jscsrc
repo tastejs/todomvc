@@ -33,6 +33,7 @@
 		"examples/duel/src/main/webapp/js/lib/**",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
+		"examples/LAY/todomvc.js",
 		"examples/polymer/elements/elements.build.js",
 		"examples/spine/js/**",
 		"examples/thorax/js/lib/backbone-localstorage.js",

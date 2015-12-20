@@ -1,0 +1,18 @@
+{
+  "name": "LAY",
+  "homepage": "https://github.com/relfor/todomvc",
+  "authors": [
+    "relfor <me@relfor.co>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
