@@ -1,16 +1,11 @@
-import * as uuid from 'node-uuid';
-import 'store.js';
-
 export class Todo {
 	completed: Boolean;
 	editing: Boolean;
 	title: String;
-	uid: String;
 	setTitle(title: String) {
 		this.title = title.trim();
 	}
 	constructor(title: String) {
-		this.uid = uuid.v4();
 		this.completed = false;
 		this.editing = false;
 		this.title = title.trim();
@@ -20,17 +15,16 @@ export class Todo {
 export class TodoStore {
 	todos: Array<Todo>;
 	constructor() {
-		let persistedTodos = store.get('angular2-todos') || [];
+		let persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
 		// Normalize back into classes
-		this.todos = persistedTodos.map( (todo: {title: String, completed: Boolean, uid: String}) => {
+		this.todos = persistedTodos.map( (todo: {title: String, completed: Boolean}) => {
 			let ret = new Todo(todo.title);
 			ret.completed = todo.completed;
-			ret.uid = todo.uid;
 			return ret;
 		});
 	}
 	_updateStore() {
-		store.set('angular2-todos', this.todos);
+		localStorage.setItem('angular2-todos', JSON.stringify(this.todos));
 	}
 	get(state: {completed: Boolean}) {
 		return this.todos.filter((todo: Todo) => todo.completed === state.completed);
@@ -51,22 +45,12 @@ export class TodoStore {
 	getCompleted() {
 		return this.get({completed: true});
 	}
-	toggleCompletion(uid: String) {
-		for (let todo of this.todos) {
-			if (todo.uid === uid) {
-				todo.completed = !todo.completed;
-				break;
-			}
-		};
+	toggleCompletion(todo: Todo) {
+		todo.completed = !todo.completed;
 		this._updateStore();
 	}
-	remove(uid: String) {
-		for (let todo of this.todos) {
-			if (todo.uid === uid) {
-				this.todos.splice(this.todos.indexOf(todo), 1);
-				break;
-			}
-		}
+	remove(todo: Todo) {
+		this.todos.splice(this.todos.indexOf(todo), 1);
 		this._updateStore();
 	}
 	add(title: String) {
