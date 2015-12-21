@@ -18,9 +18,9 @@ const ENTER_KEY = 13;
 				<ul class="todo-list">
 					<li *ngFor="#todo of todoStore.todos" [class.completed]="todo.completed" [class.editing]="todo.editing">
 						<div class="view">
-							<input class="toggle" type="checkbox" (click)="toggleCompletion(todo.uid)" [checked]="todo.completed">
+							<input class="toggle" type="checkbox" (click)="toggleCompletion(todo)" [checked]="todo.completed">
 							<label (dblclick)="editTodo(todo)">{{todo.title}}</label>
-							<button class="destroy" (click)="remove(todo.uid)"></button>
+							<button class="destroy" (click)="remove(todo)"></button>
 						</div>
 						<input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo)" (keyup.enter)="updateEditingTodo(editedtodo, todo)" (keyup.escape)="cancelEditingTodo(todo)">
 					</li>
@@ -47,7 +47,7 @@ class TodoApp {
 		todo.editing = false;
 
 		if (editedTitle.length === 0) {
-			return this.todoStore.remove(todo.uid);
+			return this.todoStore.remove(todo);
 		}
 
 		todo.setTitle(editedTitle);
@@ -58,11 +58,11 @@ class TodoApp {
 	removeCompleted() {
 		this.todoStore.removeCompleted();
 	}
-	toggleCompletion(uid: String) {
-		this.todoStore.toggleCompletion(uid);
+	toggleCompletion(todo: Todo) {
+		this.todoStore.toggleCompletion(todo);
 	}
-	remove(uid: String){
-		this.todoStore.remove(uid);
+	remove(todo: Todo){
+		this.todoStore.remove(todo);
 	}
 	addTodo($event, newtodo) {
 		if ($event.which === ENTER_KEY && newtodo.value.trim().length) {
