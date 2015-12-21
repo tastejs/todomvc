@@ -10,9 +10,6 @@
     "noImplicitAny": false
   },
   "files": [
-    "typings/node-uuid/node-uuid-base.d.ts",
-    "typings/node-uuid/node-uuid-cjs.d.ts",
-    "typings/storejs/storejs.d.ts",
     "app.ts"
   ]
 }

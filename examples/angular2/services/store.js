@@ -1,8 +1,5 @@
-var uuid = require('node-uuid');
-require('store.js');
 var Todo = (function () {
     function Todo(title) {
-        this.uid = uuid.v4();
         this.completed = false;
         this.editing = false;
         this.title = title.trim();
@@ -15,17 +12,16 @@ var Todo = (function () {
 exports.Todo = Todo;
 var TodoStore = (function () {
     function TodoStore() {
-        var persistedTodos = store.get('angular2-todos') || [];
+        var persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
         // Normalize back into classes
         this.todos = persistedTodos.map(function (todo) {
             var ret = new Todo(todo.title);
             ret.completed = todo.completed;
-            ret.uid = todo.uid;
             return ret;
         });
     }
     TodoStore.prototype._updateStore = function () {
-        store.set('angular2-todos', this.todos);
+        localStorage.setItem('angular2-todos', JSON.stringify(this.todos));
     };
     TodoStore.prototype.get = function (state) {
         return this.todos.filter(function (todo) { return todo.completed === state.completed; });
@@ -46,25 +42,12 @@ var TodoStore = (function () {
     TodoStore.prototype.getCompleted = function () {
         return this.get({ completed: true });
     };
-    TodoStore.prototype.toggleCompletion = function (uid) {
-        for (var _i = 0, _a = this.todos; _i < _a.length; _i++) {
-            var todo = _a[_i];
-            if (todo.uid === uid) {
-                todo.completed = !todo.completed;
-                break;
-            }
-        }
-        ;
+    TodoStore.prototype.toggleCompletion = function (todo) {
+        todo.completed = !todo.completed;
         this._updateStore();
     };
-    TodoStore.prototype.remove = function (uid) {
-        for (var _i = 0, _a = this.todos; _i < _a.length; _i++) {
-            var todo = _a[_i];
-            if (todo.uid === uid) {
-                this.todos.splice(this.todos.indexOf(todo), 1);
-                break;
-            }
-        }
+    TodoStore.prototype.remove = function (todo) {
+        this.todos.splice(this.todos.indexOf(todo), 1);
         this._updateStore();
     };
     TodoStore.prototype.add = function (title) {
