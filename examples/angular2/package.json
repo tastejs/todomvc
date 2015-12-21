@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "tsd": "^0.6.0",
-    "typescript": "^1.7.3"
+    "typescript": "1.7.5"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
