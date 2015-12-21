@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "cp node_modules/systemjs/node_modules/es6-module-loader/dist/es6-module-loader.js node_modules/systemjs/dist && ./node_modules/.bin/tsd query angular2 node-uuid storejs node --action install",
+    "postinstall": "./node_modules/.bin/tsd query node-uuid-base node-uuid-cjs storejs --action install",
     "dev": "tsc --watch"
   },
   "devDependencies": {
