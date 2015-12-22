@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
 var TodoApp = (function () {
-    function TodoApp() {
+    function TodoApp(todoStore) {
         this.newTodoText = '';
-        this.todoStore = new store_1.TodoStore();
+        this.todoStore = todoStore;
     }
     TodoApp.prototype.stopEditing = function (todo, editedTitle) {
         todo.title = editedTitle;
@@ -52,7 +52,7 @@ var TodoApp = (function () {
             selector: 'todo-app',
             templateUrl: 'app/app.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [store_1.TodoStore])
     ], TodoApp);
     return TodoApp;
 })();
