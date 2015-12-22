@@ -1,4 +1,4 @@
-/*global todomvc, angular */
+/*global angular */
 'use strict';
 
 angular.module('todoCtrl', [])

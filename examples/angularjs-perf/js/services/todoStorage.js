@@ -1,4 +1,4 @@
-/*global todomvc */
+/*global angular */
 'use strict';
 
 angular.module('todoStorage', [])
