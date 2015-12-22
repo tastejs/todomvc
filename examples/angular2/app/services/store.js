@@ -42,6 +42,7 @@ var TodoStore = (function () {
     };
     TodoStore.prototype.removeCompleted = function () {
         this.todos = this.getWithCompleted(false);
+        this.updateStore();
     };
     TodoStore.prototype.getRemaining = function () {
         return this.getWithCompleted(false);

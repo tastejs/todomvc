@@ -1,14 +1,13 @@
 import {Component} from 'angular2/core';
 import {TodoStore, Todo} from './services/store';
 
-const ENTER_KEY = 13;
-
 @Component({
 	selector: 'todo-app',
 	templateUrl: 'app/app.html'
 })
 export default class TodoApp {
 	todoStore: TodoStore;
+	newTodoText = '';
 
 	constructor() {
 		this.todoStore = new TodoStore();
@@ -50,10 +49,10 @@ export default class TodoApp {
 		this.todoStore.remove(todo);
 	}
 
-	addTodo($event: KeyboardEvent, newtodo: HTMLInputElement) {
-		if ($event.which === ENTER_KEY && newtodo.value.trim().length) {
-			this.todoStore.add(newtodo.value);
-			newtodo.value = '';
+	addTodo() {
+		if (this.newTodoText.trim().length) {
+			this.todoStore.add(this.newTodoText);
+			this.newTodoText = '';
 		}
 	}
 }
