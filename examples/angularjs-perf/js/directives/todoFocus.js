@@ -1,19 +1,21 @@
 /*global angular */
-'use strict';
+(function () {
+	'use strict';
 
-angular.module('todoFocus', [])
+	angular.module('todoFocus', [])
 
-/**
- * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true
- */
-.directive('todoFocus', function ($timeout) {
-	return function (scope, elem, attrs) {
-		scope.$watch(attrs.todoFocus, function (newVal) {
-			if (newVal) {
-				$timeout(function () {
-					elem[0].focus();
-				}, 0, false);
-			}
-		});
-	};
-});
+	/**
+	 * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true
+	 */
+	.directive('todoFocus', function ($timeout) {
+		return function (scope, elem, attrs) {
+			scope.$watch(attrs.todoFocus, function (newVal) {
+				if (newVal) {
+					$timeout(function () {
+						elem[0].focus();
+					}, 0, false);
+				}
+			});
+		};
+	});
+})();
