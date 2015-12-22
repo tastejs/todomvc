@@ -9,8 +9,8 @@ export default class TodoApp {
 	todoStore: TodoStore;
 	newTodoText = '';
 
-	constructor() {
-		this.todoStore = new TodoStore();
+	constructor(todoStore: TodoStore) {
+		this.todoStore = todoStore;
 	}
 
 	stopEditing(todo: Todo, editedTitle: string) {
