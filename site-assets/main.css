@@ -15,8 +15,7 @@ body {
 }
 body.learn-page{
     max-width: 1600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
 h1,
