@@ -1,93 +1,87 @@
-/*global todomvc, angular */
-'use strict';
+/*global angular */
+(function () {
+	'use strict';
 
-/**
- * The main controller for the app. The controller:
- * - retrieves and persists the model via the todoStorage service
- * - exposes the model to the template and provides event handlers
- */
-todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, $filter, todoStorage) {
-	var todos = $scope.todos = todoStorage.get();
+	angular.module('todoCtrl', [])
 
-	$scope.newTodo = '';
-	$scope.remainingCount = $filter('filter')(todos, {completed: false}).length;
-	$scope.editedTodo = null;
+	/**
+	 * The main controller for the app. The controller:
+	 * - retrieves and persists the model via the todoStorage service
+	 * - exposes the model to the template and provides event handlers
+	 */
+	.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage) {
+		var TC = this;
+		var todos = TC.todos = todoStorage.get();
 
-	if ($location.path() === '') {
-		$location.path('/');
-	}
+		TC.newTodo = {title: '', completed: false};
 
-	$scope.location = $location;
+		TC.editedTodo = {};
 
-	$scope.$watch('location.path()', function (path) {
-		$scope.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
-	});
-
-	$scope.$watch('remainingCount == 0', function (val) {
-		$scope.allChecked = val;
-	});
-
-	$scope.addTodo = function () {
-		var newTodo = $scope.newTodo.trim();
-		if (newTodo.length === 0) {
-			return;
+		if ($location.path() === '') {
+			$location.path('/');
 		}
 
-		todos.push({
-			title: newTodo,
-			completed: false
+		TC.location = $location;
+
+		$scope.$watch('TC.location.path()', function (path) {
+			TC.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
 		});
-		todoStorage.put(todos);
 
-		$scope.newTodo = '';
-		$scope.remainingCount++;
-	};
+		// 3rd argument `true` for deep object watching
+		$scope.$watch('TC.todos', function () {
+			TC.remainingCount = todos.filter(function(todo) {return !todo.completed; }).length;
+			TC.allChecked = (TC.remainingCount === 0);
 
-	$scope.editTodo = function (todo) {
-		$scope.editedTodo = todo;
-		// Clone the original todo to restore it on demand.
-		$scope.originalTodo = angular.extend({}, todo);
-	};
+			// Save any changes to localStorage
+			todoStorage.put(todos);
+		}, true);
 
-	$scope.doneEditing = function (todo) {
-		$scope.editedTodo = null;
-		todo.title = todo.title.trim();
+		TC.addTodo = function () {
+			var newTitle = TC.newTodo.title = TC.newTodo.title.trim();
+			if (newTitle.length === 0) {
+				return;
+			}
 
-		if (!todo.title) {
-			$scope.removeTodo(todo);
-		}
+			todos.push(TC.newTodo);
 
-		todoStorage.put(todos);
-	};
+			TC.newTodo = {title: '', completed: false};
+		};
 
-	$scope.revertEditing = function (todo) {
-		todos[todos.indexOf(todo)] = $scope.originalTodo;
-		$scope.doneEditing($scope.originalTodo);
-	};
+		TC.editTodo = function (todo) {
+			TC.editedTodo = todo;
 
-	$scope.removeTodo = function (todo) {
-		$scope.remainingCount -= todo.completed ? 0 : 1;
-		todos.splice(todos.indexOf(todo), 1);
-		todoStorage.put(todos);
-	};
+			// Clone the original todo to restore it on demand.
+			TC.originalTodo = angular.copy(todo);
+		};
 
-	$scope.todoCompleted = function (todo) {
-		$scope.remainingCount += todo.completed ? -1 : 1;
-		todoStorage.put(todos);
-	};
+		TC.doneEditing = function (todo, index) {
+			TC.editedTodo = {};
+			todo.title = todo.title.trim();
 
-	$scope.clearCompletedTodos = function () {
-		$scope.todos = todos = todos.filter(function (val) {
-			return !val.completed;
-		});
-		todoStorage.put(todos);
-	};
+			if (!todo.title) {
+				TC.removeTodo(index);
+			}
+		};
 
-	$scope.markAll = function (completed) {
-		todos.forEach(function (todo) {
-			todo.completed = completed;
-		});
-		$scope.remainingCount = completed ? 0 : todos.length;
-		todoStorage.put(todos);
-	};
-});
+		TC.revertEditing = function (index) {
+			todos[index] = TC.originalTodo;
+			TC.doneEditing(TC.originalTodo);
+		};
+
+		TC.removeTodo = function (index) {
+			todos.splice(index, 1);
+		};
+
+		TC.clearCompletedTodos = function () {
+			TC.todos = todos = todos.filter(function (val) {
+				return !val.completed;
+			});
+		};
+
+		TC.markAll = function (completed) {
+			todos.forEach(function (todo) {
+				todo.completed = completed;
+			});
+		};
+	});
+})();
