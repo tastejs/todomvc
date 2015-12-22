@@ -5,11 +5,11 @@
 ## Resources
 
 - [Website](https://angular.io/)
-- [Documentation](https://angular.io/docs/js/latest/)
+- [Documentation](https://angular.io/docs/ts/latest/)
 
 ### Articles
 
-- [Angular 2 Status preview](http://ng-learn.org/2014/03/AngularJS-2-Status-Preview/)
+- [Angular 2 Beta Announcement](http://angularjs.blogspot.co.uk/2015/12/angular-2-beta.html)
 
 ### Support
 
@@ -22,7 +22,7 @@
 
 ## Implementation
 
-This app was built using typescript and angular2. To make changes simply
+This app was built using TypeScript and Angular 2 beta. To make changes simply
 
 * `npm i`
 * `npm run dev`
