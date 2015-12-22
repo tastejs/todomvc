@@ -19,7 +19,9 @@ var TodoApp = (function () {
         todo.setTitle(editedTitle.value);
         todo.editing = false;
     };
-    TodoApp.prototype.cancelEditingTodo = function (todo) { todo.editing = false; };
+    TodoApp.prototype.cancelEditingTodo = function (todo) {
+        todo.editing = false;
+    };
     TodoApp.prototype.updateEditingTodo = function (editedTitle, todo) {
         editedTitle = editedTitle.value.trim();
         todo.editing = false;
