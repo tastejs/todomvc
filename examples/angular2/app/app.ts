@@ -10,14 +10,20 @@ const ENTER_KEY = 13;
 })
 export default class TodoApp {
 	todoStore: TodoStore;
+
 	constructor() {
 		this.todoStore = new TodoStore();
 	}
+
 	stopEditing(todo: Todo, editedTitle) {
 		todo.setTitle(editedTitle.value);
 		todo.editing = false;
 	}
-	cancelEditingTodo(todo: Todo) { todo.editing = false; }
+
+	cancelEditingTodo(todo: Todo) {
+		todo.editing = false;
+	}
+
 	updateEditingTodo(editedTitle, todo: Todo) {
 		editedTitle = editedTitle.value.trim();
 		todo.editing = false;
@@ -28,18 +34,23 @@ export default class TodoApp {
 
 		todo.setTitle(editedTitle);
 	}
+
 	editTodo(todo: Todo) {
 		todo.editing = true;
 	}
+
 	removeCompleted() {
 		this.todoStore.removeCompleted();
 	}
+
 	toggleCompletion(todo: Todo) {
 		this.todoStore.toggleCompletion(todo);
 	}
+
 	remove(todo: Todo){
 		this.todoStore.remove(todo);
 	}
+
 	addTodo($event, newtodo) {
 		if ($event.which === ENTER_KEY && newtodo.value.trim().length) {
 			this.todoStore.add(newtodo.value);
