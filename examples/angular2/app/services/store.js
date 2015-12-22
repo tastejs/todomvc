@@ -4,9 +4,16 @@ var Todo = (function () {
         this.editing = false;
         this.title = title.trim();
     }
-    Todo.prototype.setTitle = function (title) {
-        this.title = title.trim();
-    };
+    Object.defineProperty(Todo.prototype, "title", {
+        get: function () {
+            return this._title;
+        },
+        set: function (value) {
+            this._title = value.trim();
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Todo;
 })();
 exports.Todo = Todo;
@@ -15,44 +22,44 @@ var TodoStore = (function () {
         var persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
         // Normalize back into classes
         this.todos = persistedTodos.map(function (todo) {
-            var ret = new Todo(todo.title);
+            var ret = new Todo(todo._title);
             ret.completed = todo.completed;
             return ret;
         });
     }
-    TodoStore.prototype._updateStore = function () {
+    TodoStore.prototype.updateStore = function () {
         localStorage.setItem('angular2-todos', JSON.stringify(this.todos));
     };
-    TodoStore.prototype.get = function (state) {
-        return this.todos.filter(function (todo) { return todo.completed === state.completed; });
+    TodoStore.prototype.getWithCompleted = function (completed) {
+        return this.todos.filter(function (todo) { return todo.completed === completed; });
     };
     TodoStore.prototype.allCompleted = function () {
         return this.todos.length === this.getCompleted().length;
     };
-    TodoStore.prototype.setAllTo = function (toggler) {
-        this.todos.forEach(function (t) { return t.completed = toggler.checked; });
-        this._updateStore();
+    TodoStore.prototype.setAllTo = function (completed) {
+        this.todos.forEach(function (t) { return t.completed = completed; });
+        this.updateStore();
     };
     TodoStore.prototype.removeCompleted = function () {
-        this.todos = this.get({ completed: false });
+        this.todos = this.getWithCompleted(false);
     };
     TodoStore.prototype.getRemaining = function () {
-        return this.get({ completed: false });
+        return this.getWithCompleted(false);
     };
     TodoStore.prototype.getCompleted = function () {
-        return this.get({ completed: true });
+        return this.getWithCompleted(true);
     };
     TodoStore.prototype.toggleCompletion = function (todo) {
         todo.completed = !todo.completed;
-        this._updateStore();
+        this.updateStore();
     };
     TodoStore.prototype.remove = function (todo) {
         this.todos.splice(this.todos.indexOf(todo), 1);
-        this._updateStore();
+        this.updateStore();
     };
     TodoStore.prototype.add = function (title) {
         this.todos.push(new Todo(title));
-        this._updateStore();
+        this.updateStore();
     };
     return TodoStore;
 })();

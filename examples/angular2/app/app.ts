@@ -1,7 +1,6 @@
 import {Component} from 'angular2/core';
 import {TodoStore, Todo} from './services/store';
 
-const ESC_KEY = 27;
 const ENTER_KEY = 13;
 
 @Component({
@@ -15,8 +14,8 @@ export default class TodoApp {
 		this.todoStore = new TodoStore();
 	}
 
-	stopEditing(todo: Todo, editedTitle) {
-		todo.setTitle(editedTitle.value);
+	stopEditing(todo: Todo, editedTitle: string) {
+		todo.title = editedTitle;
 		todo.editing = false;
 	}
 
@@ -24,15 +23,15 @@ export default class TodoApp {
 		todo.editing = false;
 	}
 
-	updateEditingTodo(editedTitle, todo: Todo) {
-		editedTitle = editedTitle.value.trim();
+	updateEditingTodo(todo: Todo, editedTitle: string) {
+		editedTitle = editedTitle.trim();
 		todo.editing = false;
 
 		if (editedTitle.length === 0) {
 			return this.todoStore.remove(todo);
 		}
 
-		todo.setTitle(editedTitle);
+		todo.title = editedTitle;
 	}
 
 	editTodo(todo: Todo) {
@@ -51,7 +50,7 @@ export default class TodoApp {
 		this.todoStore.remove(todo);
 	}
 
-	addTodo($event, newtodo) {
+	addTodo($event: KeyboardEvent, newtodo: HTMLInputElement) {
 		if ($event.which === ENTER_KEY && newtodo.value.trim().length) {
 			this.todoStore.add(newtodo.value);
 			newtodo.value = '';
