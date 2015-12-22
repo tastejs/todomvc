@@ -2,3 +2,5 @@
 /bower_components
 /dist
 /tooling/node_modules
+.DS_Store
+
