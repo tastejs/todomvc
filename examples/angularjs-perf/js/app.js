@@ -3,8 +3,8 @@
 'use strict';
 
 /**
- * The main TodoMVC app module
+ * The main TodoMVC app module that pulls all dependency modules declared in same named files
  *
  * @type {angular.Module}
  */
-var todomvc = angular.module('todomvc', []);
+angular.module('todomvc', ['todoCtrl', 'todoEscape', 'todoStorage']);

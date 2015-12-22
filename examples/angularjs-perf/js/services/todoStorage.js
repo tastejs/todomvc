@@ -1,10 +1,12 @@
-/*global todomvc */
+/*global angular */
 'use strict';
+
+angular.module('todoStorage', [])
 
 /**
  * Services that persists and retrieves TODOs from localStorage
 */
-todomvc.factory('todoStorage', function () {
+.factory('todoStorage', function () {
 	var STORAGE_ID = 'todos-angularjs-perf';
 
 	return {

@@ -1,12 +1,14 @@
-/*global todomvc, angular */
+/*global angular */
 'use strict';
+
+angular.module('todoCtrl', [])
 
 /**
  * The main controller for the app. The controller:
  * - retrieves and persists the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
  */
-todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, $filter, todoStorage) {
+.controller('TodoCtrl', function TodoCtrl($scope, $location, $filter, todoStorage) {
 	var todos = $scope.todos = todoStorage.get();
 
 	$scope.newTodo = '';
