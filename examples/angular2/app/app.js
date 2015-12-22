@@ -9,26 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
-var ESC_KEY = 27;
 var ENTER_KEY = 13;
 var TodoApp = (function () {
     function TodoApp() {
         this.todoStore = new store_1.TodoStore();
     }
     TodoApp.prototype.stopEditing = function (todo, editedTitle) {
-        todo.setTitle(editedTitle.value);
+        todo.title = editedTitle;
         todo.editing = false;
     };
     TodoApp.prototype.cancelEditingTodo = function (todo) {
         todo.editing = false;
     };
-    TodoApp.prototype.updateEditingTodo = function (editedTitle, todo) {
-        editedTitle = editedTitle.value.trim();
+    TodoApp.prototype.updateEditingTodo = function (todo, editedTitle) {
+        editedTitle = editedTitle.trim();
         todo.editing = false;
         if (editedTitle.length === 0) {
             return this.todoStore.remove(todo);
         }
-        todo.setTitle(editedTitle);
+        todo.title = editedTitle;
     };
     TodoApp.prototype.editTodo = function (todo) {
         todo.editing = true;
