@@ -1,0 +1,9 @@
+-lib haxedci
+-lib slambda
+-lib mithril
+-lib dataclass
+-cp src 
+-debug
+-main TodoMVC
+-js js/app.js 
+-dce full
