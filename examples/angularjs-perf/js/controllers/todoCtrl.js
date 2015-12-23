@@ -1,4 +1,11 @@
+/* jshint undef: true, unused: true */
 /*global angular */
+
+/*
+ * Line below lets us save `this` as `TC`
+ * to make properties look exactly the same as in the template
+ */
+//jscs:disable safeContextKeyword
 (function () {
 	'use strict';
 
@@ -13,9 +20,14 @@
 		var TC = this;
 		var todos = TC.todos = todoStorage.get();
 
-		TC.newTodo = {title: '', completed: false};
-
+		TC.ESCAPE_KEY = 27;
 		TC.editedTodo = {};
+
+		function resetTodo() {
+			TC.newTodo = {title: '', completed: false};
+		}
+
+		resetTodo();
 
 		if ($location.path() === '') {
 			$location.path('/');
@@ -43,8 +55,7 @@
 			}
 
 			todos.push(TC.newTodo);
-
-			TC.newTodo = {title: '', completed: false};
+			resetTodo();
 		};
 
 		TC.editTodo = function (todo) {
@@ -64,8 +75,8 @@
 		};
 
 		TC.revertEditing = function (index) {
+			TC.editedTodo = {};
 			todos[index] = TC.originalTodo;
-			TC.doneEditing(TC.originalTodo);
 		};
 
 		TC.removeTodo = function (index) {
@@ -85,3 +96,4 @@
 		};
 	});
 })();
+//jscs:enable

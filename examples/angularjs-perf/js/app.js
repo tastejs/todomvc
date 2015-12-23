@@ -1,5 +1,5 @@
+/* jshint undef: true, unused: true */
 /*global angular */
-/*jshint unused:false */
 (function () {
 	'use strict';
 
@@ -8,5 +8,5 @@
 	 *
 	 * @type {angular.Module}
 	 */
-	angular.module('todomvc', ['todoCtrl', 'todoEscape', 'todoFocus', 'todoStorage']);
+	angular.module('todomvc', ['todoCtrl', 'todoFocus', 'todoStorage']);
 })();

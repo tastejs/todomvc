@@ -1,3 +1,4 @@
+/* jshint undef: true, unused: true */
 /*global angular */
 (function () {
 	'use strict';
