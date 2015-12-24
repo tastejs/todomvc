@@ -8,45 +8,51 @@
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
 	<body>
-		<section id="todoapp" ng-controller="TodoCtrl">
+		<section id="todoapp" ng-controller="TodoCtrl as TC">
 			<header id="header">
 				<h1>todos</h1>
-				<form id="todo-form" ng-submit="addTodo()">
-					<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
+				<form id="todo-form" ng-submit="TC.addTodo()">
+					<input id="new-todo" placeholder="What needs to be done?" ng-model="TC.newTodo.title" autofocus>
 				</form>
 			</header>
-			<section id="main" ng-show="todos.length" ng-cloak>
-				<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+			<section id="main" ng-show="TC.todos.length" ng-cloak>
+				<input id="toggle-all" type="checkbox" ng-model="TC.allChecked" ng-click="TC.markAll(TC.allChecked)">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
-					<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+					<li ng-repeat="todo in TC.todos | filter:TC.statusFilter track by $index" 
+						ng-class="{completed: todo.completed, editing: todo === TC.editedTodo}">
 						<div class="view">
-							<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="todoCompleted(todo)">
-							<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
-							<button class="destroy" ng-click="removeTodo(todo)"></button>
+							<input class="toggle" type="checkbox" ng-model="todo.completed">
+							<label ng-dblclick="TC.editTodo(todo)">{{todo.title}}</label>
+							<button class="destroy" ng-click="TC.removeTodo($index)"></button>
 						</div>
-						<form ng-submit="doneEditing(todo)">
-							<input class="edit" ng-trim="false" ng-model="todo.title" ng-blur="doneEditing(todo)" todo-escape="revertEditing(todo)" todo-focus="todo == editedTodo">
+						<form ng-submit="TC.doneEditing(todo, $index)">
+							<input class="edit" 
+								ng-trim="false" 
+								ng-model="todo.title" 
+								ng-blur="TC.doneEditing(todo, $index)" 
+								ng-keydown="($event.keyCode === TC.ESCAPE_KEY) && TC.revertEditing($index)" 
+								todo-focus="todo === TC.editedTodo">
 						</form>
 					</li>
 				</ul>
 			</section>
-			<footer id="footer" ng-show="todos.length" ng-cloak>
-				<span id="todo-count"><strong>{{remainingCount}}</strong>
-					<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+			<footer id="footer" ng-show="TC.todos.length" ng-cloak>
+				<span id="todo-count"><strong>{{TC.remainingCount}}</strong>
+					<ng-pluralize count="TC.remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
 				</span>
 				<ul id="filters">
 					<li>
-						<a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
+						<a ng-class="{selected: TC.location.path() == '/'} " href="#/">All</a>
 					</li>
 					<li>
-						<a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
+						<a ng-class="{selected: TC.location.path() == '/active'}" href="#/active">Active</a>
 					</li>
 					<li>
-						<a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+						<a ng-class="{selected: TC.location.path() == '/completed'}" href="#/completed">Completed</a>
 					</li>
 				</ul>
-				<button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="remainingCount < todos.length">Clear completed</button>
+				<button id="clear-completed" ng-click="TC.clearCompletedTodos()" ng-show="TC.remainingCount < TC.todos.length">Clear completed</button>
 			</footer>
 		</section>
 		<footer id="info">
@@ -65,6 +71,5 @@
 		<script src="js/controllers/todoCtrl.js"></script>
 		<script src="js/services/todoStorage.js"></script>
 		<script src="js/directives/todoFocus.js"></script>
-		<script src="js/directives/todoEscape.js"></script>
 	</body>
 </html>
