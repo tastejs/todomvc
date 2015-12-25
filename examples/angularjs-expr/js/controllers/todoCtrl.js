@@ -41,10 +41,10 @@
 
 		// 3rd argument `true` for deep object watching
 		$scope.$watch('TC.todos', function () {
-			TC.remainingCount = todos.filter(function (todo) { return !todo.completed; }).length;
-			TC.allChecked = (TC.remainingCount === 0);
+			// TC.remainingCount = todos.filter(function (todo) { return !todo.completed; }).length;
+			// //TC.allChecked = (TC.remainingCount === 0);
 
-			// Save any changes to localStorage
+			// // Save any changes to localStorage
 			todoStorage.put(todos);
 		}, true);
 
