@@ -50,7 +50,7 @@
 								ng-click="todo.completed = !todo.completed; state.toggleAll = false"
 							>
 							<label ng-dblclick="TC.editTodo(todo)">{{todo.title}}</label>
-							<button class="destroy" ng-click="TC.removeTodo($index)"></button>
+							<button class="destroy" ng-click="TC.todos.splice($index, 1)"></button>
 						</div>
 						<form ng-submit="TC.doneEditing(todo, $index)">
 							<input class="edit" 

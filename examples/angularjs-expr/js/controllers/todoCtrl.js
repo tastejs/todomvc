@@ -23,12 +23,6 @@
 		TC.ESCAPE_KEY = 27;
 		TC.editedTodo = {};
 
-		function resetTodo() {
-			TC.newTodo = {title: '', completed: false};
-		}
-
-		resetTodo();
-
 		if ($location.path() === '') {
 			$location.path('/');
 		}
@@ -41,22 +35,8 @@
 
 		// 3rd argument `true` for deep object watching
 		$scope.$watch('TC.todos', function () {
-			// TC.remainingCount = todos.filter(function (todo) { return !todo.completed; }).length;
-			// //TC.allChecked = (TC.remainingCount === 0);
-
-			// // Save any changes to localStorage
 			todoStorage.put(todos);
 		}, true);
-
-		TC.addTodo = function () {
-			var newTitle = TC.newTodo.title = TC.newTodo.title.trim();
-			if (newTitle.length === 0) {
-				return;
-			}
-
-			todos.push(TC.newTodo);
-			resetTodo();
-		};
 
 		TC.editTodo = function (todo) {
 			TC.editedTodo = todo;
@@ -79,19 +59,9 @@
 			todos[index] = TC.originalTodo;
 		};
 
-		TC.removeTodo = function (index) {
-			todos.splice(index, 1);
-		};
-
 		TC.clearCompletedTodos = function () {
 			TC.todos = todos = todos.filter(function (val) {
 				return !val.completed;
-			});
-		};
-
-		TC.markAll = function (completed) {
-			todos.forEach(function (todo) {
-				todo.completed = completed;
 			});
 		};
 	});
