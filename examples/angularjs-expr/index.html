@@ -11,8 +11,12 @@
 		<section id="todoapp" ng-controller="TodoCtrl as TC">
 			<header id="header">
 				<h1>todos</h1>
-				<form id="todo-form" ng-submit="TC.addTodo()">
-					<input id="new-todo" placeholder="What needs to be done?" ng-model="TC.newTodo.title" autofocus>
+				<form 
+					id="todo-form"
+					ng-init="todoTitle = ''"
+					ng-submit="todoTitle.trim().length && TC.todos.push({ title: todoTitle.trim(), completed: false }); todoTitle = ''"
+				>
+					<input id="new-todo" placeholder="What needs to be done?" ng-model="todoTitle" autofocus>
 				</form>
 			</header>
 			<section id="main" ng-show="TC.todos.length" ng-cloak>
