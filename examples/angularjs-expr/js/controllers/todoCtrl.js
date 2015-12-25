@@ -59,6 +59,10 @@
 			todos[index] = TC.originalTodo;
 		};
 
+		TC.removeTodo = function (index) {
+			todos.splice(index, 1);
+		};
+
 		TC.clearCompletedTodos = function () {
 			TC.todos = todos = todos.filter(function (val) {
 				return !val.completed;

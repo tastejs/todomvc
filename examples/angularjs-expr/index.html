@@ -64,19 +64,10 @@
 				</ul>
 			</section>
 			<footer id="footer" ng-show="TC.todos.length" ng-cloak>
-
-				<!-- If state.toggleAll = true AND allChecked = true, 0 items remain 
-					 Else if state.toggleAll = true AND allChecked = false, all items remain 
-					 Otherwise only items with completed = false remain
-					 We save the result as state.remainingCount
-					==================================================== -->
 				<span id="todo-count">
 					<strong>
 						{{ 
-							state.remainingCount = 
-						  		state.toggleAll  ?  
-						  			(TC.allChecked ? 0 : TC.todos.length)
-						  		  	: (TC.todos | filter:{completed:false}).length
+							state.remainingCount = (TC.todos | filter:{completed:false}).length
 						}}
 					</strong>
 					<ng-pluralize count="state.remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
