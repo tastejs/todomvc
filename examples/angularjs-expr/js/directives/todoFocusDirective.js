@@ -3,7 +3,7 @@
 (function () {
 	'use strict';
 
-	angular.module('todoFocus', [])
+	angular.module('todoFocusDirective', [])
 
 	/**
 	 * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true
