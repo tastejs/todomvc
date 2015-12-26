@@ -17,18 +17,25 @@
 		 Also initialize constants that become available throughout the element.
 		======================================================================== -->
 	<body			
-		ng-init="state={todos: todoStorage.get()}; ESCAPE_KEY = 27"
+		ng-init="state={}; ESCAPE_KEY = 27"
+		ng-controller="TodoCtrl as TC" 
 	>
 
-		<!-- Make services available on the scope -->
+		<!-- Make services available on the scope.
+			====================================== -->
 		<todo-import service="$location"></todo-import>
 		<todo-import service="todoStorage"></todo-import>
 
-		<!-- Save changes upon each digest cycle -->
-		<!-- <div ng-hide="todoStorage.put(state.todos); true"></div> -->
+		<!-- Load todos from our storage service.
+			===================================== -->
+		<div ng-init="state.todos = todoStorage.get()" ng-hide="true"></div>
+
+		<!-- Save changes upon each digest cycle.
+			===================================== -->
+		<div ng-hide="todoStorage.put(state.todos); true"></div>
+
 		<section 
 			id="todoapp" 
-			ng-controller="TodoCtrl as TC" 
 		>
 			<header id="header">
 				<h1>todos</h1>
@@ -40,12 +47,12 @@
 				<form 
 					id="todo-form"
 					ng-init="todoTitle = ''"
-					ng-submit="todoTitle.length && TC.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
+					ng-submit="todoTitle.length && state.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
 				>
 					<input id="new-todo" placeholder="What needs to be done?" ng-model="todoTitle" autofocus>
 				</form>
 			</header>
-			<section id="main" ng-show="TC.todos.length" ng-cloak>
+			<section id="main" ng-show="state.todos.length" ng-cloak>
 
 				<!-- When clicked, toggleAll flag set true 
 					======================================= -->
@@ -60,7 +67,7 @@
 
 					<!-- Angular's (in)famous filter "filter" :)
 						========================================= -->
-					<li ng-repeat="todo in TC.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
+					<li ng-repeat="todo in state.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
 						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
 					>
 						<div class="view">
@@ -82,28 +89,28 @@
 							<label 
 								ng-dblclick="state.originalTitle = todo.title; state.editedTodo = todo"
 							>{{todo.title}}</label>
-							<button class="destroy" ng-click="TC.todos.splice($index, 1)"></button>
+							<button class="destroy" ng-click="state.todos.splice($index, 1)"></button>
 
 						</div>
 
 						<!-- Angular automatically trims ng-model, 
 							 if the title is empty after trimming, we remove the todo
 							========================================================== -->
-						<form ng-submit="todo.title.length || TC.todos.splice($index, 1); state.editedTodo = {}">
+						<form ng-submit="todo.title.length || state.todos.splice($index, 1); state.editedTodo = {}">
 							<input class="edit" 
 								ng-model="todo.title"
-								ng-blur="todo.title.length || TC.todos.splice($index, 1); state.editedTodo = {}" 
+								ng-blur="todo.title.length || state.todos.splice($index, 1); state.editedTodo = {}" 
 								ng-keydown="($event.keyCode === ESCAPE_KEY) && (todo.title = state.originalTitle) && (state.editedTodo = {})" 
 								todo-focus="todo === state.editedTodo">
 						</form>
 					</li>
 				</ul>
 			</section>		
-			<footer id="footer" ng-show="TC.todos.length" ng-cloak>
+			<footer id="footer" ng-show="state.todos.length" ng-cloak>
 				<span id="todo-count">
 					<strong>
 						{{ 
-							state.remainingCount = (TC.todos | filter:{completed:false}).length
+							state.remainingCount = (state.todos | filter:{completed:false}).length
 						}}
 					</strong>
 					<ng-pluralize count="state.remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
@@ -128,7 +135,7 @@
 				<button 
 					id="clear-completed" 
 					ng-click="state.clearCompletedTodos = true"
-					ng-show="(TC.todos | filter:{completed:true}).length || (state.clearCompletedTodos = false)"
+					ng-show="(state.todos | filter:{completed:true}).length || (state.clearCompletedTodos = false)"
 				>Clear completed</button>
 
 				<!-- This is how we can iterate over arrays without defining functions 
@@ -137,8 +144,8 @@
 					=================================================================== -->
 				<div ng-hide="true">
 					<div 
-						ng-repeat="todo in TC.todos"
-						ng-bind="state.clearCompletedTodos && todo.completed && TC.todos.splice($index, 1)"
+						ng-repeat="todo in state.todos"
+						ng-bind="state.clearCompletedTodos && todo.completed && state.todos.splice($index, 1)"
 					></div>
 				</div>
 			</footer>

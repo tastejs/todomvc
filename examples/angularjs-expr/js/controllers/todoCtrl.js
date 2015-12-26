@@ -21,9 +21,9 @@
 		var todos = TC.todos = todoStorage.get();
 
 		// 3rd argument `true` for deep object watching
-		$scope.$watch('TC.todos', function () {
-			todoStorage.put(todos);
-		}, true);
+		// $scope.$watch('TC.todos', function () {
+		// 	todoStorage.put(todos);
+		// }, true);
 	});
 })();
 //jscs:enable

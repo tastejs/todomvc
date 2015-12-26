@@ -9,7 +9,7 @@
 	 * Services that persists and retrieves TODOs from localStorage
 	*/
 	.factory('todoStorage', function () {
-		var STORAGE_ID = 'todos-angularjs-perf';
+		var STORAGE_ID = 'todos-angularjs-expr';
 
 		return {
 			get: function () {
