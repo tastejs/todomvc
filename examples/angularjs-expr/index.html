@@ -43,6 +43,10 @@
 					id="todo-form"
 					ng-submit="todoTitle.length && state.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
 				>
+
+					<!-- Use `ng-model` for two-way data binding, 
+					     so we only need to read from the scope.
+					    =========================================  -->
 					<input id="new-todo" placeholder="What needs to be done?" ng-model="todoTitle" autofocus>
 				</form>
 			</header>
@@ -51,7 +55,14 @@
 
 				<!-- When checkbox is clicked, indicate it is taking over the controll
 					 by setting the toggleAll flag true.
-					================================================================== -->
+					 Here we need both update the checkbox and listen to the user interaction,
+					 so we carefully split the two-way binding into
+					 the `ng-checked` and `ng-click` properties.
+					 The `ng-checked` expression is evaluated on every Angular's digest cycle
+					 and updates the checkbox state,
+					 whereas the `ng-click` expression is evaluated on every click,
+					 and lauches a digest cycle.
+					========================================================================= -->
 				<input 
 					id="toggle-all" 
 					type="checkbox"
@@ -63,7 +74,8 @@
 
 					<!-- Angular's (in)famous filter "filter". :)
 						 Filter `state.todos` via the custom object depending on the location path.
-						===================================================== -->
+						 Dynamically adjust the class depending what todo is currently being edited.
+						=========================================================================== -->
 					<li ng-repeat="todo in state.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
 						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
 					>
@@ -82,7 +94,8 @@
 								ng-click="todo.completed = !todo.completed; state.toggleAll = false"
 							>
 
-							<!-- On double click save copy of the original title -->
+							<!-- On double click save a copy of the current title.
+								================================================= -->
 							<label 
 								ng-dblclick="state.originalTitle = todo.title; state.editedTodo = todo"
 							>{{todo.title}}</label>
@@ -90,11 +103,11 @@
 
 						</div>
 
-						<!-- Angular automatically trims ng-model, 
-							 if the title is empty after trimming, we remove the todo.
+						<!-- Angular automatically trims the `ng-model`'s variable. 
+							 If the title is empty after trimming, we remove the todo from the list.
 							 Special care is needed since the "blur" event is also fired 
 							 when the input element is closed programmatically.
-							========================================================== -->
+							======================================================================== -->
 						<form ng-submit="todo.title.length || state.todos.splice($index, 1); state.editedTodo = {}">
 							<input class="edit" 
 								ng-model="todo.title"
@@ -141,10 +154,11 @@
 					ng-show="(state.todos | filter:{completed:true}).length || (state.clearCompletedTodos = false)"
 				>Clear completed</button>
 
-				<!-- This is how we can iterate over arrays without defining functions 
-					 (which is illegal in Angular's expressions).
-					 Instead we use hidden elements to perform the removal one-by-one.
-					=================================================================== -->
+				<!-- This is how we can iterate over arrays without using loops or `forEach`
+					 as both loops and defining new functions are illegal in Angular's expressions.
+					 Instead we use hidden DOM elements to perform the removal one-by-one.
+					 That is still performant as the browser never needs to show these elements.
+					=============================================================================== -->
 				<div ng-hide="true">
 					<div 
 						ng-repeat="todo in state.todos"
