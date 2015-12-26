@@ -8,5 +8,5 @@
 	 *
 	 * @type {angular.Module}
 	 */
-	angular.module('todomvc', ['todoCtrl', 'todoFocusDirective', 'todoImportDirective','todoStorage']);
+	angular.module('todomvc', ['todoFocusDirective', 'todoImportDirective','todoStorage']);
 })();

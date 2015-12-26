@@ -5,21 +5,17 @@
 		<title>AngularJS • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-		<link rel="stylesheet" href="css/app.css">
 
-		<!-- This is how we hide parts of HTML until Angular processing.
+		<!-- This hides parts of HTML until Angular's compilation.
 			============================================================  -->
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
 
 
-	<!-- Initialize state to hold properties shared by different scopes.
-		 Also initialize constants that become available throughout the element.
+	<!-- Initialize state to hold properties shared by different scopes,
+		 and constants to become available on the scope.
 		======================================================================== -->
-	<body			
-		ng-init="state={}; ESCAPE_KEY = 27"
-		ng-controller="TodoCtrl as TC" 
-	>
+	<body ng-init="state={}; ESCAPE_KEY = 27">
 
 		<!-- Make services available on the scope.
 			====================================== -->
@@ -34,28 +30,28 @@
 			===================================== -->
 		<div ng-hide="todoStorage.put(state.todos); true"></div>
 
-		<section 
-			id="todoapp" 
-		>
+		<section id="todoapp">
+
 			<header id="header">
 				<h1>todos</h1>
 
-				<!-- On submit we push the todo with new Title to our list,
-					 but only when the Title is not empty.
-					 Note that Angular's ng-model trims it value for us
+				<!-- On submit create new todo and push to the list,
+					 but only when the title is not empty.
+					 Note that Angular's ng-model trims it value for us.
 					======================================================= -->
 				<form 
 					id="todo-form"
-					ng-init="todoTitle = ''"
 					ng-submit="todoTitle.length && state.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
 				>
 					<input id="new-todo" placeholder="What needs to be done?" ng-model="todoTitle" autofocus>
 				</form>
 			</header>
+
 			<section id="main" ng-show="state.todos.length" ng-cloak>
 
-				<!-- When clicked, toggleAll flag set true 
-					======================================= -->
+				<!-- When checkbox is clicked, indicate it is taking over the controll
+					 by setting the toggleAll flag true.
+					================================================================== -->
 				<input 
 					id="toggle-all" 
 					type="checkbox"
@@ -65,8 +61,9 @@
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
 
-					<!-- Angular's (in)famous filter "filter" :)
-						========================================= -->
+					<!-- Angular's (in)famous filter "filter". :)
+						 Filter `state.todos` via the custom object depending on the location path.
+						===================================================== -->
 					<li ng-repeat="todo in state.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
 						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
 					>
@@ -94,7 +91,9 @@
 						</div>
 
 						<!-- Angular automatically trims ng-model, 
-							 if the title is empty after trimming, we remove the todo
+							 if the title is empty after trimming, we remove the todo.
+							 Special care is needed since the "blur" event is also fired 
+							 when the input element is closed programmatically.
 							========================================================== -->
 						<form ng-submit="todo.title.length || state.todos.splice($index, 1); state.editedTodo = {}">
 							<input class="edit" 
@@ -105,7 +104,8 @@
 						</form>
 					</li>
 				</ul>
-			</section>		
+			</section>
+
 			<footer id="footer" ng-show="state.todos.length" ng-cloak>
 				<span id="todo-count">
 					<strong>
@@ -113,7 +113,10 @@
 							state.remainingCount = (state.todos | filter:{completed:false}).length
 						}}
 					</strong>
-					<ng-pluralize count="state.remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+					<ng-pluralize 
+						count="state.remainingCount" 
+						when="{ one: 'item left', other: 'items left' }"
+					></ng-pluralize>
 				</span>
 				<ul id="filters">
 					<li>
@@ -165,7 +168,6 @@
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="node_modules/angular/angular.js"></script>
 		<script src="js/app.js"></script>
-		<script src="js/controllers/todoCtrl.js"></script>
 		<script src="js/services/todoStorage.js"></script>
 		<script src="js/directives/todoImportDirective.js"></script>
 		<script src="js/directives/todoFocusDirective.js"></script>
