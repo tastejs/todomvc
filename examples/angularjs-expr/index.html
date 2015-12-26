@@ -23,7 +23,7 @@
 		<section 
 			id="todoapp" 
 			ng-controller="TodoCtrl as TC" 
-			ng-init="state={}; ESCAPE_KEY = 27"
+			ng-init="state={todos: todoStorage.get()}; ESCAPE_KEY = 27"
 		>
 			<header id="header">
 				<h1>todos</h1>
@@ -105,7 +105,7 @@
 				</span>
 				<ul id="filters">
 					<li>
-						<a ng-class="{selected: $location.path() == '/'} " href="#/">All</a>
+						<a ng-class="{selected: $location.path() == ''} " href="#">All</a>
 					</li>
 					<li>
 						<a ng-class="{selected: $location.path() == '/active'}" href="#/active">Active</a>

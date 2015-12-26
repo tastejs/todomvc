@@ -20,10 +20,6 @@
 		var TC = this;
 		var todos = TC.todos = todoStorage.get();
 
-		if ($location.path() === '') {
-			$location.path('/');
-		}
-
 		TC.location = $location;
 
 		$scope.$watch('TC.location.path()', function (path) {
