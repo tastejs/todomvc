@@ -18,13 +18,15 @@
 	<body ng-init="state={}; ESCAPE_KEY = 27">
 
 		<!-- Make services available on the scope.
-			====================================== -->
-		<todo-import service="$location"></todo-import>
-		<todo-import service="todoStorage"></todo-import>
+			 Use one-time-binding syntax with :: for better performance
+			 whenever the attribute value is not changing
+			=========================================================== -->
+		<todo-import service="$location" ng-hide="::true"></todo-import>
+		<todo-import service="todoStorage" ng-hide="::true"></todo-import>
 
 		<!-- Load todos from our storage service.
 			===================================== -->
-		<div ng-init="state.todos = todoStorage.get()" ng-hide="true"></div>
+		<div ng-init="state.todos = todoStorage.get()" ng-hide="::true"></div>
 
 		<!-- Save changes upon each digest cycle.
 			===================================== -->
@@ -159,7 +161,7 @@
 					 Instead we use hidden DOM elements to perform the removal one-by-one.
 					 That is still performant as the browser never needs to show these elements.
 					=============================================================================== -->
-				<div ng-hide="true">
+				<div ng-hide="::true">
 					<div 
 						ng-repeat="todo in state.todos"
 						ng-bind="state.clearCompletedTodos && todo.completed && state.todos.splice($index, 1)"
