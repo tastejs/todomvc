@@ -216,6 +216,11 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.doubleClickItemAtIndex(1);
 			});
 
+			test.it('should focus the input', function () {
+				testOps.assertInputFocused();
+				testOps.assertNewInputNotFocused();
+			});
+
 			test.it('should hide other controls when editing', function () {
 				testOps.assertItemToggleIsHidden(1);
 				testOps.assertItemLabelIsHidden(1);
