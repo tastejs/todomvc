@@ -20,12 +20,6 @@
 		var TC = this;
 		var todos = TC.todos = todoStorage.get();
 
-		TC.location = $location;
-
-		$scope.$watch('TC.location.path()', function (path) {
-			TC.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
-		});
-
 		// 3rd argument `true` for deep object watching
 		$scope.$watch('TC.todos', function () {
 			todoStorage.put(todos);

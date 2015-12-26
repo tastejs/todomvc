@@ -11,19 +11,24 @@
 			============================================================  -->
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
-	<body>
+
+
+	<!-- Initialize state to hold properties shared by different scopes.
+		 Also initialize constants that become available throughout the element.
+		======================================================================== -->
+	<body			
+		ng-init="state={todos: todoStorage.get()}; ESCAPE_KEY = 27"
+	>
 
 		<!-- Make services available on the scope -->
 		<todo-import service="$location"></todo-import>
 		<todo-import service="todoStorage"></todo-import>
 
-		<!-- Initialize state to hold properties shared by different scopes.
-			 Also initialize constants that become available throughout the element.
-			======================================================================== -->
+		<!-- Save changes upon each digest cycle -->
+		<!-- <div ng-hide="todoStorage.put(state.todos); true"></div> -->
 		<section 
 			id="todoapp" 
 			ng-controller="TodoCtrl as TC" 
-			ng-init="state={todos: todoStorage.get()}; ESCAPE_KEY = 27"
 		>
 			<header id="header">
 				<h1>todos</h1>
@@ -55,7 +60,7 @@
 
 					<!-- Angular's (in)famous filter "filter" :)
 						========================================= -->
-					<li ng-repeat="todo in TC.todos | filter:TC.statusFilter track by $index" 
+					<li ng-repeat="todo in TC.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
 						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
 					>
 						<div class="view">
