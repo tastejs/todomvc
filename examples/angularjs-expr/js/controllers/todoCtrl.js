@@ -20,9 +20,6 @@
 		var TC = this;
 		var todos = TC.todos = todoStorage.get();
 
-		TC.ESCAPE_KEY = 27;
-		TC.editedTodo = {};
-
 		if ($location.path() === '') {
 			$location.path('/');
 		}
@@ -37,31 +34,6 @@
 		$scope.$watch('TC.todos', function () {
 			todoStorage.put(todos);
 		}, true);
-
-		TC.editTodo = function (todo) {
-			TC.editedTodo = todo;
-
-			// Clone the original todo to restore it on demand.
-			TC.originalTodo = angular.copy(todo);
-		};
-
-		TC.doneEditing = function (todo, index) {
-			TC.editedTodo = {};
-			todo.title = todo.title.trim();
-
-			if (!todo.title) {
-				TC.removeTodo(index);
-			}
-		};
-
-		TC.revertEditing = function (index) {
-			TC.editedTodo = {};
-			todos[index] = TC.originalTodo;
-		};
-
-		TC.removeTodo = function (index) {
-			todos.splice(index, 1);
-		};
 
 		TC.clearCompletedTodos = function () {
 			TC.todos = todos = todos.filter(function (val) {

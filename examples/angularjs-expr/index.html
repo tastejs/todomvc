@@ -5,17 +5,32 @@
 		<title>AngularJS • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+
+		<!-- This is how we hide parts of HTML until Angular processing.
+			============================================================  -->
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
 	<body>
-		<!-- Initialize state to hold properties shared by different scopes -->
-		<section id="todoapp" ng-controller="TodoCtrl as TC" ng-init="state={}">
+
+		<!-- Initialize state to hold properties shared by different scopes.
+			 Also initialize constants that become available throughout the element.
+			======================================================================== -->
+		<section 
+			id="todoapp" 
+			ng-controller="TodoCtrl as TC" 
+			ng-init="state={}; ESCAPE_KEY = 27"
+		>
 			<header id="header">
 				<h1>todos</h1>
+
+				<!-- On submit we push the todo with new Title to our list,
+					 but only when the Title is not empty.
+					 Note that Angular's ng-model trims it value for us
+					======================================================= -->
 				<form 
 					id="todo-form"
 					ng-init="todoTitle = ''"
-					ng-submit="todoTitle.trim().length && TC.todos.push({title: todoTitle.trim(), completed: false}); todoTitle = ''"
+					ng-submit="todoTitle.length && TC.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
 				>
 					<input id="new-todo" placeholder="What needs to be done?" ng-model="todoTitle" autofocus>
 				</form>
@@ -28,12 +43,15 @@
 					id="toggle-all" 
 					type="checkbox"
 					ng-checked="state.remainingCount === 0"
-					ng-click="TC.allChecked = !TC.allChecked; state.toggleAll = true;"
+					ng-click="state.allChecked = !state.allChecked; state.toggleAll = true;"
 				>
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
+
+					<!-- Angular's (in)famous filter "filter" :)
+						========================================= -->
 					<li ng-repeat="todo in TC.todos | filter:TC.statusFilter track by $index" 
-						ng-class="{completed: todo.completed, editing: todo === TC.editedTodo}"
+						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
 					>
 						<div class="view">
 
@@ -46,23 +64,31 @@
 							<input
 								class="toggle" 
 								type="checkbox"
-								ng-checked="todo.completed = (state.toggleAll ? TC.allChecked : todo.completed)"
+								ng-checked="todo.completed = (state.toggleAll ? state.allChecked : todo.completed)"
 								ng-click="todo.completed = !todo.completed; state.toggleAll = false"
 							>
-							<label ng-dblclick="TC.editTodo(todo)">{{todo.title}}</label>
+
+							<!-- On double click save copy of the original title -->
+							<label 
+								ng-dblclick="state.originalTitle = todo.title; state.editedTodo = todo"
+							>{{todo.title}}</label>
 							<button class="destroy" ng-click="TC.todos.splice($index, 1)"></button>
+
 						</div>
-						<form ng-submit="TC.doneEditing(todo, $index)">
+
+						<!-- Angular automatically trims ng-model, 
+							 if the title is empty after trimming, we remove the todo
+							========================================================== -->
+						<form ng-submit="todo.title.length || TC.todos.splice($index, 1); state.editedTodo = {}">
 							<input class="edit" 
-								ng-trim="false" 
-								ng-model="todo.title" 
-								ng-blur="TC.doneEditing(todo, $index)" 
-								ng-keydown="($event.keyCode === TC.ESCAPE_KEY) && TC.revertEditing($index)" 
-								todo-focus="todo === TC.editedTodo">
+								ng-model="todo.title"
+								ng-blur="todo.title.length || TC.todos.splice($index, 1); state.editedTodo = {}" 
+								ng-keydown="($event.keyCode === ESCAPE_KEY) && (todo.title = state.originalTitle) && (state.editedTodo = {})" 
+								todo-focus="todo === state.editedTodo">
 						</form>
 					</li>
 				</ul>
-			</section>
+			</section>		
 			<footer id="footer" ng-show="TC.todos.length" ng-cloak>
 				<span id="todo-count">
 					<strong>
@@ -83,9 +109,14 @@
 						<a ng-class="{selected: TC.location.path() == '/completed'}" href="#/completed">Completed</a>
 					</li>
 				</ul>
-				<button id="clear-completed" ng-click="TC.clearCompletedTodos()" ng-show="state.remainingCount < TC.todos.length">Clear completed</button>
+				<button 
+					id="clear-completed" 
+					ng-click="TC.clearCompletedTodos()" 
+					ng-show="state.remainingCount < TC.todos.length"
+				>Clear completed</button>
 			</footer>
 		</section>
+
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
 			<p>Credits:
@@ -96,6 +127,7 @@
 			</p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
+
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="node_modules/angular/angular.js"></script>
 		<script src="js/app.js"></script>
