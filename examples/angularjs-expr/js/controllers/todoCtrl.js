@@ -34,12 +34,6 @@
 		$scope.$watch('TC.todos', function () {
 			todoStorage.put(todos);
 		}, true);
-
-		TC.clearCompletedTodos = function () {
-			TC.todos = todos = todos.filter(function (val) {
-				return !val.completed;
-			});
-		};
 	});
 })();
 //jscs:enable

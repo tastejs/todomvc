@@ -5,6 +5,7 @@
 		<title>AngularJS • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="css/app.css">
 
 		<!-- This is how we hide parts of HTML until Angular processing.
 			============================================================  -->
@@ -109,11 +110,28 @@
 						<a ng-class="{selected: TC.location.path() == '/completed'}" href="#/completed">Completed</a>
 					</li>
 				</ul>
+
+				<!-- On click, we set the flag `clearCompletedTodos` to true.
+					 This kicks `ng-bind` listeners below removing all completed Todos.
+					 The expression of `ng-show` keeps evaluating until no more completed Todos remain,
+					 after which `clearCompletedTodos` is set back to false to stop the process.
+					===============================================================================  -->
 				<button 
 					id="clear-completed" 
-					ng-click="TC.clearCompletedTodos()" 
-					ng-show="state.remainingCount < TC.todos.length"
+					ng-click="state.clearCompletedTodos = true"
+					ng-show="(TC.todos | filter:{completed:true}).length || (state.clearCompletedTodos = false)"
 				>Clear completed</button>
+
+				<!-- This is how we can iterate over arrays without defining functions 
+					 (which is illegal in Angular's expressions).
+					 Instead we use hidden elements to perform the removal one-by-one.
+					=================================================================== -->
+				<div ng-hide="true">
+					<div 
+						ng-repeat="todo in TC.todos"
+						ng-bind="state.clearCompletedTodos && todo.completed && TC.todos.splice($index, 1)"
+					></div>
+				</div>
 			</footer>
 		</section>
 
