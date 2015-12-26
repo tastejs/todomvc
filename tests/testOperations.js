@@ -21,8 +21,22 @@ function TestOperations(page) {
 		});
 	}
 
+	this.assertNewInputNotFocused = function () {
+		return page.getFocussedElementId()
+			.then(function(name) {
+				assert.notEqual(name, 'new-todo');
+			});
+	};
+
+	this.assertInputFocused = function () {
+		return page.getFocussedTagName()
+			.then(function (name) {
+				assert.equal(name, 'input', 'input does not have focus');
+			});
+	};
+
 	this.assertFocussedElementId = function (expectedId) {
-		page.getFocussedElementId().then(function (id) {
+		page.getFocussedTagName().then(function (id) {
 			assert.notEqual(id.indexOf(expectedId), -1, 'The focused element did not have the expected id ' + expectedId);
 		});
 	};
