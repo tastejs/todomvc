@@ -12,7 +12,7 @@
 	</head>
 
 
-	<!-- Initialize state to hold properties shared by different scopes,
+	<!-- Initialize `state` object to hold properties shared by different scopes,
 		 and constants to become available on the scope.
 		======================================================================== -->
 	<body ng-init="state={}; ESCAPE_KEY = 27">
@@ -32,22 +32,25 @@
 
 		<section id="todoapp">
 
-			<header id="header">
+			<!-- Initialize `header` object to hold properties specific to this component.
+				========================================================================== -->
+			<header id="header" ng-init="header = {}">
 				<h1>todos</h1>
 
 				<!-- On submit create new todo and push to the list,
 					 but only when the title is not empty.
-					 Note that Angular's ng-model trims it value for us.
-					==================================================== -->
+					 Note that Angular's ng-model trims its bound variable,
+					 so no need to `todoTitle.trim()`.
+					======================================================= -->
 				<form 
 					id="todo-form"
-					ng-submit="todoTitle.length && state.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
+					ng-submit="header.todoTitle.length && state.todos.push({title: header.todoTitle, completed: false}); header.todoTitle = ''"
 				>
 
 					<!-- Use `ng-model` for two-way data binding, 
 					     so we only need to read from the scope.
 					    =========================================  -->
-					<input id="new-todo" placeholder="What needs to be done?" ng-model="todoTitle" autofocus>
+					<input id="new-todo" placeholder="What needs to be done?" ng-model="header.todoTitle" autofocus>
 				</form>
 			</header>
 
