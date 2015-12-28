@@ -7,7 +7,7 @@
 - Everything is inside HTML done with [Angular Expressions](https://docs.angularjs.org/guide/expression).
 
 ## Why?
-- I wanted a proof of concept demonstrating the power of Angular Expressions. With some of the recent critics of Angular's apparent shortcommings, Angular's great and powerful parts become sidelined. HTML is the language of the Web, and AngularJS extends its capabilities.
+- I wanted a proof of concept demonstrating the power of Angular Expressions. With some of the recent critics of Angular's apparent shortcomings, Angular's great and powerful parts become sidelined. HTML is the language of the Web, and AngularJS extends its capabilities.
 - HTML files with maximum preserved structure may look friendlier to a designer or maintainer who just wants to make few text/style changes without getting deep into the code.
 - The code can be smaller and faster to prototype.
 - HTML can be a more natural place to put some logic, side-by-side with HTML-native accessibility and fallback support.
