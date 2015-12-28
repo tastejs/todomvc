@@ -34,7 +34,7 @@ However, limitations may not necessarily be a bad thing:
 <imput ng-model="text">Your typed: {{text}}
 ```
 
-- Many apparent limitations can be easily overcome as demonstated in this implementation. The `if-then` flow can be easily replaced by the ternary operator `(a ? b : c)` or connecting expressions with `&&` and `||`. Even non-trivial array iterations can be performed using hidden DOM elements (see `index.html`). Functions and services, even if cannot be used inside Angular Expressions directly, can be separately defined and [injected via dedicated directives](https://github.com/dmitriz/todomvc/blob/angularjs-expr/examples/angularjs-expr/js/directives/todoImportDirective.js).
+- Many apparent limitations can be easily overcome as demonstated in this implementation. The `if-then` flow can be easily replaced by the ternary operator `(a ? b : c)` or connecting expressions with `&&` and `||`. Even non-trivial array iterations can be performed using hidden DOM elements (see `index.html`). Functions and services, even if cannot be used inside Angular Expressions directly, can be separately defined and injected via dedicated directives as implemented here.
 
 ### A warning
 If these ways mentioned here to overcome the limitations feel like "dirty hacks" or "anti-patterns", it is because they are or can be :-). In no way I want to recommend (over-)using them. My goal here is a mere proof of concept. They look reasonably clean and manageable in this simple app. They may not in different situations, obviously. Being "hacky" and harder to implement, they don't get you into temptation to over-use them, which is a good thing. ;-)
