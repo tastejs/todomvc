@@ -1,7 +1,7 @@
 # AngularJS HTML Only TodoMVC Example
 
 ## What?
-- Perhaps one of the unusual AngularJS examples out there.
+- Perhaps one of the unusual AngularJS examples.
 - Literally no JavaScript, apart from 2 tiny helper directives. 
 - No controllers!
 - Everything is inside HTML done with [Angular Expressions](https://docs.angularjs.org/guide/expression).
