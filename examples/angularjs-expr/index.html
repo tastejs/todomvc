@@ -18,15 +18,13 @@
 	<body ng-init="state={}; ESCAPE_KEY = 27">
 
 		<!-- Make services available on the scope.
-			 Use one-time-binding syntax with :: for better performance
-			 whenever the attribute value is not changing
-			=========================================================== -->
-		<todo-import service="$location" ng-hide="::true"></todo-import>
-		<todo-import service="todoStorage" ng-hide="::true"></todo-import>
+			====================================== -->
+		<todo-import service="$location" hidden></todo-import>
+		<todo-import service="todoStorage" hidden></todo-import>
 
 		<!-- Load todos from our storage service.
 			===================================== -->
-		<div ng-init="state.todos = todoStorage.get()" ng-hide="::true"></div>
+		<div ng-init="state.todos = todoStorage.get()" hidden></div>
 
 		<!-- Save changes upon each digest cycle.
 			===================================== -->
@@ -40,7 +38,7 @@
 				<!-- On submit create new todo and push to the list,
 					 but only when the title is not empty.
 					 Note that Angular's ng-model trims it value for us.
-					======================================================= -->
+					==================================================== -->
 				<form 
 					id="todo-form"
 					ng-submit="todoTitle.length && state.todos.push({title: todoTitle, completed: false}); todoTitle = ''"
@@ -77,7 +75,7 @@
 					<!-- Angular's (in)famous filter "filter". :)
 						 Filter `state.todos` via the custom object depending on the location path.
 						 Dynamically adjust the class depending what todo is currently being edited.
-						=========================================================================== -->
+						============================================================================ -->
 					<li ng-repeat="todo in state.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
 						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
 					>
@@ -161,7 +159,7 @@
 					 Instead we use hidden DOM elements to perform the removal one-by-one.
 					 That is still performant as the browser never needs to show these elements.
 					=============================================================================== -->
-				<div ng-hide="::true">
+				<div hidden>
 					<div 
 						ng-repeat="todo in state.todos"
 						ng-bind="state.clearCompletedTodos && todo.completed && state.todos.splice($index, 1)"
