@@ -239,7 +239,14 @@ module.exports = function Page(browser) {
 	};
 
 	this.clickClearCompleteButton = function () {
-		return this.tryGetClearCompleteButton().click();
+		var self = this;
+
+		return self.waitForVisibleElement(function () {
+			return self.tryGetClearCompleteButton();
+		})
+		.then(function (clearCompleteButton) {
+			return clearCompleteButton.click();
+		});
 	};
 
 	this.enterItem = function (itemText) {
