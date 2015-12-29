@@ -36,7 +36,7 @@ function TestOperations(page) {
 	};
 
 	this.assertFocussedElementId = function (expectedId) {
-		page.getFocussedTagName().then(function (id) {
+		page.getFocussedElementName().then(function (id) {
 			assert.notEqual(id.indexOf(expectedId), -1, 'The focused element did not have the expected id ' + expectedId);
 		});
 	};
