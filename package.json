@@ -11,12 +11,16 @@
     "index.html",
     "learn.json"
   ],
+  "scripts": {
+    "test-server": "gulp test-server &",
+    "gulp": "gulp"
+  },
   "dependencies": {
     "express": "^4.10.0"
   },
   "devDependencies": {
     "del": "^0.1.1",
-    "gulp": "^3.8.5",
+    "gulp": "^3.9.0",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-cache": "^0.2.0",
     "gulp-csso": "^0.2.9",
