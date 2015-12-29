@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "lint": "jscs"
+    "lint": "pushd .. && jscs",
+    "postlint": "popd"
   },
   "dependencies": {
-    "jscs": "^1.13.1"
+    "jscs": "^2.7.0"
   }
 }
