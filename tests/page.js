@@ -210,25 +210,24 @@ module.exports = function Page(browser) {
 
 	// ----------------- page actions
 	this.ensureAppIsVisible = function () {
-		return browser.findElements(webdriver.By.css('#todoapp'))
-		.then(function (elms) {
-			if (elms.length > 0) {
-				return true;
-			} else {
-				return browser.findElements(webdriver.By.css('.todoapp'));
-			}
-		})
-		.then(function (elms) {
-			if (elms === true) {
-				return true;
-			}
+		var self = this;
+		return browser.wait(function () {
+			// try to find main element by ID
+			return browser.isElementPresent(webdriver.By.css('.new-todo'))
+				.then(function (foundById) {
+					if (foundById) {
+						idSelectors = true;
+						return true;
+					}
 
-			if (elms.length) {
-				idSelectors = true;
-				return true;
+					// try to find main element by CSS class
+					return browser.isElementPresent(webdriver.By.css('#new-todo'));
+				});
+		}, 5000)
+		.then(function (hasFoundNewTodoElement) {
+			if (!hasFoundNewTodoElement) {
+				throw new Error('Unable to find application, did you start your local server?');
 			}
-
-			throw new Error('Unable to find application root, did you start your local server?');
 		});
 	};
 
