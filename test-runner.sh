@@ -29,15 +29,15 @@ else
 
 	if [ "${#changes}" = 0 ]
 	then
-		exit 0
-	else
-	npm run test-server && \
-		cd tooling && \
-		echo $changes | xargs ./run.sh && \
-		cd ../tests && \
-		sleep 2 && \
-		echo $changes | xargs ./run.sh
+		changes="--framework=backbone"
 	fi
+
+	npm run test-server && \
+	cd tooling && \
+	echo $changes | xargs ./run.sh && \
+	cd ../tests && \
+	sleep 2 && \
+	echo $changes | xargs ./run.sh
 
 	exit $?
 fi
