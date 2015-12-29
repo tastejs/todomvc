@@ -175,9 +175,24 @@ module.exports = function Page(browser) {
 		});
 	};
 
+	this.waitForVisibleElement = function (getElementFn, timeout) {
+		var foundVisibleElement;
+		timeout = timeout || 500;
+
+		return browser.wait(function () {
+			foundVisibleElement = getElementFn();
+			return foundVisibleElement.isDisplayed();
+		}, timeout)
+		.then(function () {
+			return foundVisibleElement;
+		})
+		.thenCatch(function (err) {
+			return false;
+		});
+	}
+
 	this.getVisibileLabelIndicies = function () {
 		var self = this;
-		var ret;
 		return this.getItemLabels()
 		.then(function (elms) {
 			return elms.map(function (elm, i) {
@@ -186,18 +201,8 @@ module.exports = function Page(browser) {
 		})
 		.then(function (elms) {
 			return webdriver.promise.filter(elms, function (elmIndex) {
-				return browser.wait(function () {
-					return self.tryGetItemLabelAtIndex(elmIndex).isDisplayed()
-					.then(function (v) {
-						ret = v;
-						return true;
-					})
-					.thenCatch(function () {
-						return false;
-					});
-				}, 5000)
-				.then(function () {
-					return ret;
+				return self.waitForVisibleElement(function () {
+					return self.tryGetItemLabelAtIndex(elmIndex);
 				});
 			});
 		});
