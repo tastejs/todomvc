@@ -23,7 +23,7 @@ function TestOperations(page) {
 
 	this.assertNewInputNotFocused = function () {
 		return page.getFocussedElementName()
-			.then(function(name) {
+			.then(function (name) {
 				assert.notEqual(name, 'new-todo');
 			});
 	};
