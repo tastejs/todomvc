@@ -68,9 +68,14 @@ function TestOperations(page) {
 	};
 
 	this.assertClearCompleteButtonText = function (buttonText) {
-		return page.tryGetClearCompleteButton()
-		.getText().then(function (text) {
-			assert.equal(text, buttonText);
+		return page.waitForVisibleElement(function () {
+			return page.tryGetClearCompleteButton();
+		})
+		.then(function (clearCompleteButton) {
+			return clearCompleteButton.getText();
+		})
+		.then(function (text) {
+			return assert.equal(text, buttonText);
 		});
 	};
 
