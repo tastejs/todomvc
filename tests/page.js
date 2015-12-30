@@ -233,7 +233,7 @@ module.exports = function Page(browser) {
 
 	this.clickMarkAllCompletedCheckBox = function () {
 		return this.getMarkAllCompletedCheckBox().then(function (checkbox) {
-			checkbox.click();
+			return checkbox.click();
 		});
 	};
 
