@@ -149,15 +149,17 @@ class TodoList implements Mithril implements Context
 			self.value = i.title;
 		}
 
-		function input(e : js.html.KeyboardEvent) : Void {
-			var field : js.html.InputElement = cast e.target;
+		function input(e : KeyboardEvent) {
 			switch(e.keyCode) {
 				case TodoMVC.ENTER_KEY:
-					if(field.value.length == 0) self.deleteItem();
-					else self.saveText();
+					if(self.value.length == 0) 
+						self.deleteItem();
+					else if(self.value.trim().length > 0) 
+						self.saveText();
 				case TodoMVC.ESC_KEY:
 					self.stopEditing();
 				case _: 
+					var field : InputElement = cast e.target;
 					self.value = field.value;
 			}
 		}
@@ -173,7 +175,7 @@ class TodoList implements Mithril implements Context
 
 		function saveText() {
 			if (self.item == null) return;
-			self.item.title = self.value;
+			self.item.title = self.value.trim();
 			items.save();
 			self.stopEditing();
 		}
@@ -227,9 +229,9 @@ class TodoList implements Mithril implements Context
 			LABEL({"for": "toggle-all"}, "Mark all as complete"),
 			UL.todo-list(items.filtered().map(function(i) {
 				LI({
-						key: i.id, 
-						'class': (i.completed ? "completed " : "") + 
-								 (editor.item == i ? "editing" : "")
+					key: i.id, 
+					'class': (i.completed ? "completed " : "") + 
+							 (editor.item == i ? "editing" : "")
 					}, [
 					DIV.view([
 						INPUT.toggle[type=checkbox]({

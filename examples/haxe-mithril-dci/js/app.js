@@ -394,18 +394,19 @@ TodoList.prototype = {
 	}
 	,editor__input: function(e) {
 		var self = this.get_editor();
-		var field = e.target;
 		var _g = e.keyCode;
 		switch(_g) {
 		case 13:
-			if(field.value.length == 0) this.editor__deleteItem(); else this.editor__saveText();
+			if(self.value.length == 0) this.editor__deleteItem(); else if(StringTools.trim(self.value).length > 0) this.editor__saveText();
 			break;
 		case 27:
 			this.editor__stopEditing();
 			break;
 		default:
+			var field = e.target;
 			self.value = field.value;
 		}
+		return self;
 	}
 	,editor__stopEditing: function() {
 		var self = this.get_editor();
@@ -422,7 +423,7 @@ TodoList.prototype = {
 	,editor__saveText: function() {
 		var self = this.get_editor();
 		if(self.item == null) return self;
-		self.item.title = self.value;
+		self.item.title = StringTools.trim(self.value);
 		this.get_items().save();
 		this.editor__stopEditing();
 		return self;
