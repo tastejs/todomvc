@@ -15,10 +15,15 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		var browser, testOps, page;
 
 		// a number of tests use this set of ToDo items.
-		function createStandardItems() {
-			page.enterItem(TODO_ITEM_ONE);
-			page.enterItem(TODO_ITEM_TWO);
-			page.enterItem(TODO_ITEM_THREE);
+		function createStandardItems(done) {
+			return page.enterItem(TODO_ITEM_ONE)
+				.then(function () { return page.enterItem(TODO_ITEM_TWO); })
+				.then(function () { return page.enterItem(TODO_ITEM_THREE); })
+				.then(function () {
+					if (done instanceof Function) {
+						done();
+					};
+				});
 		}
 
 		function launchBrowser() {
