@@ -1,0 +1,85 @@
+@sapUiDlgFooterHeight: 44px;
+
+.sapUiDlg {
+	border: none;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiDlgHdr {
+	font-size: 15px;
+	font-weight: bold;
+	color: @sapUiDeepText;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: @sapUiHighlight;
+}
+
+.sapUiDlgHdrBtns {
+	padding: 0;
+	right: 10px;
+}
+
+.sapUiDlgHdrBtns > a {
+	margin: 9px 0 0;
+	overflow: hidden;
+}
+
+.sapUiDlgCloseBtn {
+	background-image: url(img/dlg-close.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	outline: none;
+}
+
+.sapUiDlgCloseBtn:hover,
+.sapUiDlgCloseBtn:focus {
+	background-image: url(img/dlg-close-hov.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiDlgCloseBtn:active {
+	background-image: url(img/dlg-close-hov.png);
+	background-color: @sapUiDarkBG;
+}
+
+.sapUiDlgCont {
+	padding: 10px 10px 12px;
+	font-size: 13px;
+	top: 31px;
+	border-width: 0;
+	bottom: 44px;
+}
+.sapUiDlgFlexHeight.sapUiDlgNoButtons .sapUiDlgCont {
+	margin-bottom: 4px;
+}
+.sapUiDlgNoButtons .sapUiDlgCont {
+	bottom: 4px;
+	margin-bottom: 0;
+}
+
+.sapUiDlgFooter {
+	padding: 12px 10px 0;
+	height: 44px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sapUiDlgFlexHeight .sapUiDlgFooter {
+	position: relative;
+}
+
+.sapUiDlgNoButtons .sapUiDlgFooter {
+	display: none;
+}
+
+.sapUiDlgBtns {
+	padding: 0;
+}
+
+.sapUiDlgGrip {
+	bottom: 0;
+	right: 0;
+	height: 12px;
+	width: 12px;
+}

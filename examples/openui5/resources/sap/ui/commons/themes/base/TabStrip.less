@@ -1,0 +1,82 @@
+.sapUiTabStrip {
+	border: solid 1px @sapUiMediumBorder;
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position:relative;
+}
+
+.sapUiTabBar {
+	cursor: default;
+}
+
+.sapUiTabBarCnt {
+	overflow:hidden;
+	margin-top: 0;
+	padding-left: 0;
+}
+
+.sapUiTab,
+.sapUiTabSel,
+.sapUiTabDsbl {
+	position: relative;
+	display: block;
+	white-space:nowrap;
+	float:left;
+}
+
+.sapUiTabL {
+	overflow: hidden;
+}
+
+.sapUiTabDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiTabDsbl .sapUiTabIco {  /* make icon on disabled tab look faded out */
+	opacity: .3;
+	filter: alpha(opacity=30);
+}
+
+.sapUiTabClose {
+	vertical-align:top;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.sapUiTabIco {
+	width:16px; /* TODO: application contract... */
+	height:16px;
+	vertical-align:top;
+}
+
+span.sapUiTabIco {
+	font-size: 16px;
+}
+
+.sapUiTabBar .sapUiTabMenu {
+	display: inline-block;
+	float: right;
+	display:none; /* will be toggled by framework code */
+}
+
+.sapUiTabPanel {
+	overflow: auto;
+	left:0;
+	right:0;
+}
+
+/* If height is defined it must be positioned absolute to fit the height*/
+.sapUiTabPanelHeight {
+	position: absolute;
+	bottom:0;
+}
+
+.sapUiTabStripNoSelection {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}

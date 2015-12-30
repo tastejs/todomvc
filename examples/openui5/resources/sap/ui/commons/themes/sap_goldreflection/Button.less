@@ -1,0 +1,324 @@
+/* ================================================= */
+/* CSS for control sap.ui.commons/Button.control     */
+/* Goldreflection                                    */
+/* ================================================= */
+
+.sapUiBtnS{
+	padding: 0 7px 1px;
+	height: 22px;
+	outline: none;
+}
+
+.sapUiBtnS.sapUiBtnNorm{
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.sapUiBtnS.sapUiBtnLite{
+	padding: 0 8px 1px;
+	font-weight: bold;
+}
+
+.sapUiBtnS > .sapUiBtnTxt { /* the additional span introduced when there is an icon next to the button label */
+	margin-top: 0;
+}
+
+.sapUiBtnS > .sapUiBtnIcoL { /* padding between icon and text */
+	padding-right: 8px;
+}
+
+.sapUiBtnS > .sapUiBtnIcoR { /* padding between icon and text */
+	padding-left: 8px;
+}
+
+/* pixel-perfect vertical alignment of text and images with varying height at the same time as
+   perfect alignment inside the Button as per the spec is a pain.
+   Welcome to pain:     */
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: -3px;
+}
+
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnIcoL,
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnIcoR,
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnTxt,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS > .sapUiBtnTxt {
+/* fine for safari 5.1. in safari 5.0 is is moved by 1px. */
+	margin-top: 1px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS,
+html[data-sap-ui-browser="ie10"] .sapUiBtnS{
+	padding-top: 2px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite{
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco,
+html[data-sap-ui-browser="ie9"] .sapUiBtnS > .sapUiBtnTxt,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco{
+	margin-top: -1px;
+}
+
+/* End of pain */
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd{
+	color: @sapUiButtonTextColor;
+	box-shadow: inset 0 1px 0 lighten(@sapUiButtonBackground, 11%);
+	-moz-box-shadow: inset 0 1px 0 lighten(@sapUiButtonBackground, 11%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(@sapUiButtonBackground, 11%);
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd{
+	color: @sapUiButtonLiteTextColor;
+}
+
+.sapUiBtnS.sapUiBtnStd:hover,
+/* extra css class for the hover styling of the FileUploader */
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdHover,
+.sapUiBtnS.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	color: @sapUiButtonHoverTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover,
+/* extra css class for the hover styling of the FileUploader */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdHover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus {
+	box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiHighlight, 50%), 30%);
+	-moz-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiHighlight, 50%), 30%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiHighlight, 50%), 30%);
+}
+
+.sapUiBtnS.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnStd:active{
+	color: @sapUiButtonHoverTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:active{
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+/* prevent IE to move text on pressing button */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl:active{
+	padding-bottom: 3px;
+	padding-left: 6px;
+	padding-right: 8px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl:active{
+	padding-bottom: 3px;
+	padding-left: 7px;
+	padding-right: 9px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnAct > .sapUiBtnTxt,
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnDsbl:active > .sapUiBtnTxt{
+	margin-top: -2px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite.sapUiBtnAct > .sapUiBtnTxt,
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl:active > .sapUiBtnTxt{
+	margin-top: 0;
+}
+
+/* emphasized button */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph{
+	background-image: -moz-linear-gradient(top center, @sapUiButtonEmphasizedHoverBackground, @sapUiButtonEmphasizedActiveBackground);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@sapUiButtonEmphasizedHoverBackground), to(@sapUiButtonEmphasizedActiveBackground));
+}
+
+.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph{
+	/* don't use filter because of problems with font, round corners and no shadow with filter */
+	background-image: url(img/button/EmphButton_regular_BG.png);
+	background-repeat: repeat-x;
+	background-position: left bottom; /*because IE8 don't know background-size*/
+	background-size: 1px 100%;
+	-moz-background-size: 1px 100%;
+	-webkit-background-size: 1px 100%;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnStd:hover{
+	background-image: none;
+	box-shadow: inset 0 1px 0 lighten(@sapUiButtonBackground, 11%);
+	-moz-box-shadow: inset 0 1px 0 lighten(@sapUiButtonBackground, 11%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(@sapUiButtonBackground, 11%);
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnStd:active{
+	background-image: none;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl{
+	color: @sapUiButtonEmphasizedTextColor;
+	opacity: 0.25;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl > .sapUiBtnIco{
+	/*no opacity on icon because whole button has one*/
+	opacity: 1;
+}
+
+.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl{
+	filter: alpha(opacity=25);
+}
+
+/* accept button */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept{
+	background-image: -moz-linear-gradient(top center, @sapUiButtonAcceptBackground, @sapUiButtonAcceptActiveBackground);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@sapUiButtonAcceptBackground), to(@sapUiButtonAcceptActiveBackground));
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept {
+	color: @sapUiFieldSuccessColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept:focus{
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd{
+	box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonAcceptBackground, 50%), 30%);
+	-moz-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonAcceptBackground, 50%), 30%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonAcceptBackground, 50%), 30%);
+}
+
+.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept{
+	/* don't use filter because of problems with font, round corners and no shadow with filter */
+	background-image: url(img/button/EmphButton_accept_BG.png);
+	background-repeat: repeat-x;
+	background-position: left bottom; /*because IE8 don't know background-size*/
+	background-size: 1px 100%;
+	-moz-background-size: 1px 100%;
+	-webkit-background-size: 1px 100%;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:hover{
+	background-image: none;
+	box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonAcceptBackground, 50%), 30%);
+	-moz-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonAcceptBackground, 50%), 30%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonAcceptBackground, 50%), 30%);
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:active{
+	background-image: none;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl{
+	opacity: 0.25;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl > .sapUiBtnIco{
+	/*no opacity on icon because whole button has one*/
+	opacity: 1;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl{
+	filter: alpha(opacity=25);
+}
+
+/* reject button */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject{
+	background-image: -moz-linear-gradient(top center, @sapUiButtonRejectBackground, @sapUiButtonRejectActiveBackground);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@sapUiButtonRejectBackground), to(@sapUiButtonRejectActiveBackground));
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject{
+	color: @sapUiFieldInvalidColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject:focus{
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd{
+	box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonRejectBackground, 50%), 30%);
+	-moz-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonRejectBackground, 50%), 30%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonRejectBackground, 50%), 30%);
+}
+
+.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject{
+	/* don't use filter because of problems with font, round corners and no shadow with filter */
+	background-image: url(img/button/EmphButton_reject_BG.png);
+	background-repeat: repeat-x;
+	background-position: left bottom; /*because IE8 don't know background-size*/
+	background-size: 1px 100%;
+	-moz-background-size: 1px 100%;
+	-webkit-background-size: 1px 100%;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:hover{
+	background-image: none;
+	box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonRejectBackground, 50%), 30%);
+	-moz-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonRejectBackground, 50%), 30%);
+	-webkit-box-shadow: inset 0 1px 0 lighten(desaturate(@sapUiButtonRejectBackground, 50%), 30%);
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:active{
+	background-image: none;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl{
+	opacity: 0.25;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl > .sapUiBtnIco{
+	/*no opacity on icon because whole button has one*/
+	opacity: 1;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl{
+	filter: alpha(opacity=25);
+}
+
+.sapUiBtn > span.sapUiBtnIco{
+	font-size: 16px;
+	margin-top: 1px;
+}
+
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnIconOnly > span.sapUiBtnIco,
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnIconOnly > span.sapUiBtnIco{
+	margin-top: 1px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS,
+html[data-sap-ui-browser="ie10"] .sapUiBtnS {
+	> img,
+	> span.sapUiBtnTxt,
+	&.sapUiBtnIconOnly > span.sapUiBtnIco,
+	> span.sapUiBtnIco {
+		margin-top: 0;
+	}
+}

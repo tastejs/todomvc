@@ -1,0 +1,75 @@
+/* ========================================== */
+/* CSS for control sap.ui.ux3/Overlay.control */
+/* ========================================== */
+
+.sapUiUx3Overlay {
+}
+
+.sapUiUx3OverlayOverlay {
+	color: @sapUiBaseText;
+	background-color: @sapUiWhiteBG;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	opacity: .93;
+	border: 1px solid @sapUiDarkLine;
+}
+
+.sapUiUx3OverlayCloseButton {
+	background: url("img/close.png");
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+	z-index: 99;
+}
+
+.sapUiUx3OverlayCloseButton:hover {
+	background: url("img/close_hover.png");
+}
+
+.sapUiUx3OverlayCloseButton:focus {
+	background: url("img/close_hover.png");
+}
+
+.sapUiUx3OverlayOpenButton {
+	background: url("img/open_in_new_window_hover.png");
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding-right:22px;
+	color: @sapUiTextSelection;
+	font-weight: bold;
+	position: absolute;
+	right: 50px;
+	top: 5px;
+	display: inline-block;
+	height: 16px;
+	cursor: pointer;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+}
+
+.sapUiUx3OverlayOpenButton:hover {
+	background-color: @sapUiHighlight;
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding-right:22px;
+
+}
+
+.sapUiUx3OverlayOpenButton:focus {
+	background-color: @sapUiHighlight;
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding-right:22px;
+}
+
+.sapUiUx3OverlayFocusDummyPane {
+	width:0;
+	height:0;
+}

@@ -1,0 +1,70 @@
+/* ================================================== */
+/* CSS for control sap.ui.commons/InPlaceEdit.control */
+/* Goldreflection                                     */
+/* ================================================== */
+
+.sapUiIpe{
+	height: 22px;
+}
+
+.sapUiIpe:not(.sapUiIpeEdit){
+	/* to fade success color out if removed after some seconds */
+	transition: background-color 1s linear;
+	-moz-transition: background-color 1s linear;
+	-webkit-transition: background-color 1s linear;
+	-ms-transition: background-color 1s linear;
+}
+
+.sapUiIpeUndo > .sapUiIpeCont > .sapUiTfBrd{
+	border-right: none;
+	outline: none; /* hide webkit outline*/
+}
+
+/* since focusout handling is delayed simulate focus on TextField */
+.sapUiIpeFocus > .sapUiIpeCont > .sapUiTfBrd{
+	border-color: @sapUiHighlight;
+}
+
+.sapUiIpeCombo:hover,
+.sapUiIpeFocus.sapUiIpeCombo,
+.sapUiIpeFocus > .sapUiIpeCombo{
+	background-image: url(img/combobox/ComboBoxArrow_regular.png);
+	background-position: center right;
+	background-repeat: no-repeat;
+	padding-right: 20px;
+}
+
+.sapUiIpeEdit.sapUiIpeFocus > .sapUiIpeCombo{
+	background-image: none;
+	padding-right: 0;
+}
+
+/* Revert/Edit Button */
+.sapUiIpe > .sapUiBtnS.sapUiBtnLite,
+.sapUiIpeCont > .sapUiBtnS.sapUiBtnLite{
+	width: 22px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnLite,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnLite{
+	padding-left: 2px;
+	padding-right: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+@sapUiIpeUndoImageURL: ~"/img/Delete_button.png";
+@sapUiIpeUndoImageDownURL: ~"/img/Delete_button_down.png";
+@sapUiIpeEditImageURL: ~"/img/Edit.png";
+@sapUiIpeEditImageDownURL: ~"/img/Edit_hover.png";

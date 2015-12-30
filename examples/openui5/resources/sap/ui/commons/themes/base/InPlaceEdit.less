@@ -1,0 +1,151 @@
+/* ================================================== */
+/* CSS for control sap.ui.commons/InPlaceEdit.control */
+/* ================================================== */
+
+.sapUiIpeInvisible,
+.sapUiIpeInvisible.sapUiTv,
+.sapUiIpeInvisible.sapUiTv.sapUiIpeFocus,
+.sapUiIpeInvisible.sapUiTf {
+	display: none;
+}
+
+.sapUiIpe{
+	border: 1px solid transparent; /* to avoid reposition if border is painted on focus */
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	overflow: hidden;
+	position: relative;
+	display: inline-block;
+	width: 22ex; /* default width if no width is given */
+}
+
+/* Content area if revert button is available*/
+.sapUiIpeUndo{
+	padding-right: 22px;
+}
+
+.sapUiIpe:hover,
+.sapUiIpeFocus{
+	border-color: @sapUiHighlight;
+	cursor: text;
+	outline: none;
+}
+
+.sapUiIpe.sapUiIpeRo:hover,
+.sapUiIpeFocus.sapUiIpeRo,
+.sapUiIpe.sapUiIpeLink:hover,
+.sapUiIpeFocus.sapUiIpeLink{
+	border-color: transparent;
+	cursor: default;
+}
+
+/* disable outline on display controls - focus is visualized on outer DIV */
+.sapUiIpeFocus .sapUiTv,
+.sapUiIpeFocus .sapUiLnk:focus{
+	outline: none;
+}
+
+.sapUiIpeUndo{
+	background-color: @sapUiListHoverBackground;
+}
+
+.sapUiIpeEdit,
+.sapUiIpeEdit.sapUiIpeUndo{
+	border: none;
+	background-color: @sapUiFieldBackground;
+}
+
+/* success state */
+.sapUiIpeSucc,
+.sapUiIpeUndo.sapUiIpeSucc{
+	background-color: @sapUiFieldSuccessBackground;
+}
+
+/* invalid state */
+.sapUiIpeErr,
+.sapUiIpeUndo.sapUiIpeErr{
+	border-color: @sapUiFieldInvalidColor;
+	background-color: @sapUiFieldInvalidBackground;
+}
+
+/* warning state */
+.sapUiIpeWarn,
+.sapUiIpeUndo.sapUiIpeWarn{
+	background-color: @sapUiFieldWarningBackground;
+}
+
+/* Content area if revert button is available*/
+.sapUiIpeCont{
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.sapUiIpeLink > .sapUiIpeCont{
+	display: inline-block;
+	box-sizing: border-box;
+	-moz-box-sizing: padding-box;
+	-webkit-box-sizing: border-box;
+	max-width: 100%;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiIpeLink > .sapUiIpeCont{
+	width:100%; /* as max-width seems not to work in IE8 */
+}
+
+.sapUiIpeEdit.sapUiIpeLink > .sapUiIpeCont{
+	display: block;
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	padding-right: auto;
+}
+
+.sapUiIpeLink:hover > .sapUiIpeCont,
+.sapUiIpeFocus.sapUiIpeLink > .sapUiIpeCont{
+	padding-right: 20px;
+}
+
+.sapUiIpeEdit.sapUiIpeFocus.sapUiIpeLink > .sapUiIpeCont{
+	padding-right: 0;
+}
+
+/* Revert/Edit Button */
+.sapUiIpe > .sapUiBtnS.sapUiBtnLite,
+.sapUiIpeCont > .sapUiBtnS.sapUiBtnLite{
+	position: absolute;
+	right: -1px; /*because of border of outer DIV in display mode*/
+	/*top: -1px;*/ /*because of border of outer DIV in display mode*/
+	top: 0;
+	height: 100%;
+}
+
+.sapUiIpeEdit > .sapUiBtnS.sapUiBtnLite{
+	visibility: hidden;
+	border-color: @sapUiHighlight;
+	right: 0;
+	top: 0;
+	border-style: solid;
+	border-width: 1px 1px 1px 0;
+}
+
+.sapUiIpeEdit.sapUiIpeUndo > .sapUiBtnS.sapUiBtnLite{
+	visibility: visible;
+}
+
+.sapUiIpeCont > a{
+	height: 100%;
+	padding-right: 2px; /* to have some space before edit button */
+}
+
+.sapUiIpeEBtn{
+	visibility: hidden;
+}
+
+.sapUiIpe:hover > .sapUiIpeEBtn,
+.sapUiIpeFocus > .sapUiIpeEBtn,
+.sapUiIpe:hover > .sapUiIpeCont > .sapUiIpeEBtn,
+.sapUiIpeFocus > .sapUiIpeCont > .sapUiIpeEBtn{
+	visibility: visible;
+}

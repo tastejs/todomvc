@@ -1,0 +1,45 @@
+/* ********** */
+/* BASE Theme */
+/* ********** */
+/* ============================================= */
+/* CSS for control sap.m/Input.control           */
+/* ============================================= */
+
+.sapMDialog.sapMInputSuggestionPopup .sapMDialogScrollCont {
+	padding: 0;
+}
+
+.sapMInputDescription {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sapMInputDescription > span {
+	padding-left: 0.5rem;
+	font-family: @sapUiFontFamily;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.sapMInputSuggestionTableHidden {
+	visibility: hidden;
+}
+
+
+/* valueHelpOnly overwrites text cursor for input */
+.sapMInputVHO,
+.sapMInput.sapMInputVHO > input {
+	cursor: pointer;
+}
+
+/* if ValueHalp and Description, place icon left to description */
+.sapMInputDescription.sapMInputVH > span{
+	position: relative;
+	display: inline-Block;
+	height: 100%;
+}
+
+.sapMInputValHelpInner.sapUiIcon {
+	vertical-align: top;
+}

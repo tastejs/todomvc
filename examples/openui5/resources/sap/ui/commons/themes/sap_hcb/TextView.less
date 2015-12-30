@@ -1,0 +1,66 @@
+/* ================================================ */
+/* CSS for control sap.ui.commons/TextView.control  */
+/* SAP-HCB theme                                    */
+/* ================================================ */
+
+.sapUiTv {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTvH1 { /* be careful - used in other controls with title too */
+	font-size: @sapUiFontHeader1Size;
+}
+
+.sapUiTvH2 {
+	font-size: @sapUiFontHeader2Size;
+}
+
+.sapUiTvH3 {
+	font-size: @sapUiFontHeader3Size;
+}
+
+.sapUiTvH4 {
+	font-size: @sapUiFontHeader4Size;
+}
+
+.sapUiTvH5 {
+	font-size: @sapUiFontHeader5Size;
+}
+
+.sapUiTvH6 {
+	font-size: @sapUiFontHeader6Size;
+}
+
+.sapUiTvSmall {
+	font-size: @sapUiFontSmallSize;
+}
+
+/* as in HCB inverted popups are black too - no inverted text color */
+.sapUiInverted-CTX .sapUiTv {
+	color: @sapUiBaseText;
+}
+
+/* invalid state */
+.sapUiTvErr {
+	color: @sapHCNegative;
+	border-color: transparent;
+	background-color: transparent;
+}
+
+/* warning state */
+.sapUiTvWarn,
+.sapUiInverted-CTX .sapUiTvWarn {
+	color: @sapHCCritical;
+	background-color: transparent;
+}
+
+/* success state */
+.sapUiTvSucc {
+	color: @sapHCPositive;
+	background-color: transparent;
+}
+
+/* Designs */
+.sapUiTvMono {
+	font-family: Lucida Console, monospace;
+}

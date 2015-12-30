@@ -1,0 +1,131 @@
+@sapUiListBoxBorderRadius: 0;
+
+.sapUiLbx {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid @sapUiDarkBorder;
+	-moz-border-radius: @sapUiListBoxBorderRadius;
+	-webkit-border-radius: @sapUiListBoxBorderRadius;
+	border-radius: @sapUiListBoxBorderRadius;
+	background-color: @sapUiFieldBackground;
+	display: inline-block;
+	padding: 1px 0;
+	cursor: default;
+	overflow-x: hidden;
+	overflow-y: auto;
+	white-space: nowrap;
+	-moz-user-select: none; /*disable ugly text selection - for other browsers the onselectstart event is used */
+	color: @sapUiBaseText;
+}
+
+.sapUiLbxSep {
+	display: table-row;
+}
+
+.sapUiLbxSep > hr {
+	display: table-cell;
+	padding: 0;
+	border: 0px solid transparent;
+	border-top-width: 1px;
+	margin: 0;
+	height: 2px;
+	background-color: @sapUiMediumBorder;
+	background-clip: padding-box;
+	-webkit-background-clip: padding;
+	-moz-background-clip: padding;
+}
+
+.sapUiLbxSep > hr:first-child {
+	border-left-width: 1px;
+}
+
+.sapUiLbxSep > hr:lastChild {
+	border-right-width: 1px;
+}
+
+.sapUiLbxStd > ul > .sapUiLbxISel > span, /* Fix for IE10 bug - need to set the color on children as well */
+.sapUiLbxStd > ul > .sapUiLbxISel {
+	color: @sapUiTextSelection;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiLbxDis,
+.sapUiLbxIDis {
+	color: @sapUiContentDisabledTextColor;
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiLbxDis,
+.sapUiLbxStd > ul > .sapUiLbxIDis {
+	background-color: @sapUiFieldReadOnlyBackground;
+}
+
+.sapUiLbxDis > ul .sapUiLbxIIco > img,
+.sapUiLbxIDis > .sapUiLbxIIco > img {
+	opacity: 0.5;
+}
+
+.sapUiLbxRo {
+	background-color: @sapUiFieldReadOnlyBackground;
+}
+
+.sapUiLbxITxt {
+	white-space: nowrap;
+	font-size: @sapUiFontSize;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.sapUiLbx > ul {
+	display: table;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	position: relative;
+}
+
+.sapUiLbx.sapUiLbxFixed > ul {
+	table-layout: fixed; /*To have ellipsis if item is too long*/
+}
+
+.sapUiLbxI {
+	display: table-row;
+	outline-offset: -1px; /* push outline inside the element, so it does not cause a scrollbar when the last item is focused in a ListBox where the elements do fit exactly without scrollbar */
+}
+
+.sapUiLbxI:focus {
+	outline: 1px dotted @sapUiBlackBorder;
+}
+
+.sapUiLbxI > span,
+.sapUiLbxIIco {
+	padding: 2px 5px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.sapUiLbxI > span:first-child {
+	padding-left: 6px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiLbx.sapUiLbxFlexWidth > ul > li > span:last-child {
+	padding-right: 2px;
+}
+
+.sapUiLbx.sapUiLbxFlexWidth > ul > li > span:last-child {
+	padding-right: 18px; /* above mentioned problem does not appear in IE9 */
+}
+
+.sapUiLbxIIco,
+.sapUiLbxISec {
+	width: 16px; /* = minimum width! */
+}
+
+.sapUiLbxIIco {
+	text-align: center;
+}
+
+.sapUiLbxIIco > img {
+	vertical-align: middle;
+}

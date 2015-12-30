@@ -1,0 +1,23 @@
+.sapMShellBrandingBar {
+	display: none;
+}
+.sap-desktop .sapMShellCentralBox {
+	box-shadow: none;
+}
+.sapMShellGlobalOuterBackground, .sapMShellGlobalInnerBackground, .sapUshellShellBackground, .sapUiGlobalBackgroundColor, .sapMGlobalBackgroundColor {
+	background-color: transparent;
+	background-image: none;
+}
+.header>h1 {
+	margin-top: 83px;
+	margin-bottom: 83px;
+}
+.sapMNav, .sapMPage>section {
+	overflow: visible !important;
+}
+.sap-desktop .sapMShellAppWidthLimited .sapMShellCentralBox {
+	width: 100%;
+	left: auto;
+	background-color: transparent;
+	margin-left: auto;
+}

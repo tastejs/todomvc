@@ -1,0 +1,88 @@
+.sapUiTb {
+	height: 28px;
+}
+
+.sapUiTbDesignStandard {
+	background-color: @sapUiToolbarBackground;
+}
+
+.sapUiTbCont {
+	padding: 3px 0 3px 6px;
+	line-height: 18px;
+}
+
+.sapUiTbInner > label,
+.sapUiTbInnerRight > label {
+	line-height: 22px;
+}
+
+// Related to sap.ui.commons.Button icon position
+html[data-sap-ui-browser="ie9"],
+html[data-sap-ui-browser="ie10"] {
+	.sapUiTbCont .sapUiBtn {
+		line-height: normal;
+	}
+}
+
+.sapUiTbStandalone .sapUiTbCont {
+	border-color: transparent;
+	border-width: 0px;
+}
+
+.sapUiTbOB:hover {
+	background-color: @sapUiDarkBG;
+}
+.sapUiTbOB:focus {
+	outline: 1px dashed @sapUiHighlight;
+}
+
+/* opened state of the overflow button */
+.sapUiTbOBAct,
+.sapUiTbOBAct:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTbOBAct:hover  {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTbDD {
+	background-color: @sapUiToolbarBackground;
+	border: 3px solid @sapUiHighlight;
+}
+
+.sapUiTbSeparator {
+	height: 18px;
+	margin-bottom: 8px;
+	width: 2px;
+	background-color: @sapUiToolbarSeparatorColor;
+}
+
+.sapUiTbSeparator.sapUiTbSepFullHeight {
+	height: 28px;
+	margin-top: -3px;
+	margin-bottom: 3px;
+	width: 2px;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiTbDD .sapUiTbSepFullHeight {
+	display: none;
+}
+
+.sapUiTbDD .sapUiTbSeparator {
+	margin: 4px 6px 2px 6px;
+}
+
+.sapUiTbContLeft.sapUiTbCont {
+	padding: 3px;
+	height: 28px;
+}
+
+.sapUiTbInnerRight {
+	padding: 3px 0px 3px 6px;
+}
+
+.sapUiTbInner > * , .sapUiTbInnerRight > * {
+	margin-right: 6px;
+}

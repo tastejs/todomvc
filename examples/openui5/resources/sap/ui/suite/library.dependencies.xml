@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<library  version="2.0" name="sap.ui.suite">
+  <module name="sap/ui/suite/QuickViewUtils.js" size="6347" compressedSize="3993">
+    <description>Provides</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/suite/TaskCircle.js" size="3354" compressedSize="1105">
+    <description>Provides control sap.ui.suite.TaskCircle.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/EnabledPropagator.js"/>
+      <module name="sap/ui/suite/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/suite/TaskCircleRenderer.js" size="3584" compressedSize="1777">
+    <description>provides default renderer for sap.ui.suite.TaskCircle</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/suite/VerticalProgressIndicator.js" size="4448" compressedSize="1310">
+    <description>Provides control sap.ui.suite.VerticalProgressIndicator.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/EnabledPropagator.js"/>
+      <module name="sap/ui/suite/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/suite/VerticalProgressIndicatorRenderer.js" size="2575" compressedSize="1200">
+    <description>provides default renderer for sap.ui.suite.VerticalProgressIndicator</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/suite/library.js" size="1393" compressedSize="617">
+    <description>Initialization Code and shared classes of library sap.ui.suite.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/suite/manifest.json" size="734">
+  </module>
+</library>

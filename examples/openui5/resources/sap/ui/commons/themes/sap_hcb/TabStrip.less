@@ -1,0 +1,119 @@
+/* ======================================= */
+/* CSS for control sap.ui.commons/TabStrip */
+/* SAP-HCB Theme                           */
+/* ======================================= */
+
+.sapUiTabStrip {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTabBar {
+	background-image: url(img/tabstrip/tab-bar.png);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	padding: 4px 0 2px 0;
+	height: 18px;
+}
+
+.sapUiTab, 
+.sapUiTabSel,
+.sapUiTabDsbl {
+	line-height: 18px;
+	-moz-background-origin: padding, padding, content;
+	-webkit-background-origin: padding, padding, content;
+	background-origin: padding-box, padding-box, content-box;
+	-moz-background-size: auto auto, auto auto, 100% 28px;
+	-webkit-background-size: auto auto, auto auto, 100% 28px;
+	background-size: auto auto, auto auto, 100% 28px;
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-position:top left, top right, left top;
+	padding-right: 13px;
+	padding-left: 16px;
+	height: 18px;
+	outline-offset: -2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTab,
+html[data-sap-ui-browser="ie8"] .sapUiTabSel,
+html[data-sap-ui-browser="ie8"] .sapUiTabDsbl{
+	background-repeat: no-repeat;
+	background-position:top left;
+	border-right: 1px solid @sapUiMediumBorder;
+	padding-right: 12px;
+}
+
+.sapUiTab,
+.sapUiTabDsbl {
+	background-image:url(img/tabstrip/tab-left.png), url(img/tabstrip/tab-right.png),url(img/tabstrip/tab.png);
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTab,
+html[data-sap-ui-browser="ie8"] .sapUiTabDsbl{
+	background-image:url(img/tabstrip/tab-ie.png);
+}
+
+.sapUiTabSel {
+	background-image:url(img/tabstrip/tab-left-first-sel.png), url(img/tabstrip/tab-right-sel.png),url(img/tabstrip/tab-sel.png);
+	font-weight: bold; 
+	margin-left: -9px;
+	padding-left: 25px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTabSel{
+	background-image:url(img/tabstrip/tab-first-sel-ie.png);
+}
+
+.sapUiTab:first-child,
+.sapUiTabDsbl:first-child {
+	background-image:url(img/tabstrip/tab-left-first.png), url(img/tabstrip/tab-right.png),url(img/tabstrip/tab.png);
+	padding-left: 25px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTab:first-child,
+html[data-sap-ui-browser="ie8"] .sapUiTabDsbl:first-child{
+	background-image:url(img/tabstrip/tab-first-ie.png);
+}
+
+.sapUiTabSel:first-child {
+	margin-left: 0;
+}
+
+.sapUiTabClose {
+	background-image:url(img/tabstrip/tab-close.gif);
+	background-repeat:no-repeat;
+	background-positon:top right;
+	width: 13px;
+	height: 13px;
+	margin-top: 3px;
+	position: relative;
+	left: 4px;
+}
+
+.sapUiTabSel .sapUiTabClose {
+	background-image:url(img/tabstrip/tab-close.gif);
+}
+
+.sapUiTabClose:hover {
+	background-image:url(img/tabstrip/tab-close-hov.gif);
+}
+
+.sapUiTabIco {
+	margin-right: 4px;
+	margin-top: 2px;
+}
+
+.sapUiTabBar .sapUiTabMenu {
+	background-image: url(img/tabstrip/tab-menu.png);
+	width: 16px;
+	height: 16px;
+	margin-right: 1px;
+}
+
+.sapUiTabPanel {
+	top: 24px;
+}
+
+.sapUiTabDsbl:focus,
+html[data-sap-ui-browser^="ff"] .sapUiTabDsbl:focus{
+	outline: 3px solid @sapUiContentDisabledTextColor;
+}

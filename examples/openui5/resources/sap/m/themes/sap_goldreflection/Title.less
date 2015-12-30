@@ -1,0 +1,126 @@
+/* =================================================== */
+/* CSS for sap.m.Title.control (base)                  */
+/* =================================================== */
+
+@sapMTitleSize1: @sapUiFontHeader1Size;
+@sapMTitleSize2: @sapUiFontHeader2Size;
+@sapMTitleSize3: @sapUiFontHeader3Size;
+@sapMTitleSize4: @sapUiFontHeader4Size;
+@sapMTitleSize5: @sapUiFontHeader5Size;
+@sapMTitleSize6: @sapUiFontHeader6Size;
+@sapMTitleColor: @sapUiTextTitle;
+@sapMTitleFontFamily: @sapUiFontFamily;
+@sapMTitleFontWeight: normal;
+
+.sapMTitle {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0;
+	-webkit-margin-end: 0;
+	font-weight: @sapMTitleFontWeight;
+	color: @sapMTitleColor;
+	font-family: @sapMTitleFontFamily;
+	box-sizing: border-box;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	cursor: text;
+}
+
+.sapMTitleMaxWidth {
+	max-width: 100%;
+}
+
+
+/* Alignments */
+
+.sapMTitleAlignBegin {
+	text-align: left;
+	text-align: start;
+}
+
+html[dir=rtl][data-sap-ui-browser^="ie"] .sapMTitleAlignBegin,
+html[dir=rtl][data-sap-ui-browser^="ed"] .sapMTitleAlignBegin {
+	text-align: right;
+}
+
+.sapMTitleAlignLeft {
+	text-align: left;
+}
+
+.sapMTitleAlignEnd {
+	text-align: right;
+	text-align: end;
+}
+
+html[dir=rtl][data-sap-ui-browser^="ie"] .sapMTitleAlignEnd,
+html[dir=rtl][data-sap-ui-browser^="ed"] .sapMTitleAlignEnd {
+	text-align: left;
+}
+
+.sapMTitleAlignRight {
+	text-align: right;
+}
+
+.sapMTitleAlignCenter {
+	text-align: center;
+}
+
+
+/* Level Styling */
+
+/* Level Auto*/
+
+.sapMTitleStyleAuto {
+	font-size: @sapMTitleSize5;
+}
+
+.sapMTB-Transparent-CTX > .sapMTitleTB.sapMTitleStyleAuto {
+	font-size: @sapMTitleSize4;
+}
+
+.sapMTB-Info-CTX > .sapMTitle {
+	font-size: @sapMTitleSize6;
+	font-style: italic;
+	text-shadow: none;
+	color: @sapUiContentContrastTextColor;
+}
+
+/* Level H1 */
+
+.sapMTitleStyleH1 {
+	font-size: @sapMTitleSize1;
+}
+
+/* Level H2 */
+
+.sapMTitleStyleH2 {
+	font-size: @sapMTitleSize2;
+}
+
+/* Level H3 */
+
+.sapMTitleStyleH3 {
+	font-size: @sapMTitleSize3;
+}
+
+/* Level H4 */
+
+.sapMTitleStyleH4 {
+	font-size: @sapMTitleSize4;
+}
+
+/* Level H5 */
+
+.sapMTitleStyleH5 {
+	font-size: @sapMTitleSize5;
+}
+
+/* Level H6 */
+
+.sapMTitleStyleH6 {
+	font-size: @sapMTitleSize6;
+}

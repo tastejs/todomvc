@@ -1,0 +1,27 @@
+/* =============================================== */
+/* CSS for control sap.ui.commons/CheckBox.control */
+/* SAP-HCB Theme                                   */
+/* =============================================== */
+
+.sapUiCb {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiCb > label {
+	vertical-align: top;
+}
+
+.sapUiInverted-CTX .sapUiCb {
+	color: @sapUiBaseText;
+}
+
+.sapUiCb:focus{
+	outline-width: 2px;
+	outline-style: solid;
+	outline-offset: -2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiCb:focus:after {
+	border-width: 2px;
+	border-style: solid;
+}

@@ -1,0 +1,84 @@
+.sapMTB {
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+}
+
+.sapMTB:focus {
+	outline: 0;
+}
+
+.sapMTBActive,
+.sapMTBActive > * {
+	cursor: pointer;
+}
+
+.sapMTBShrinkItem {
+	min-width: 1rem; /* default min-width value for the shrinkable items */
+}
+
+/* NewFlex */
+.sapMTBNewFlex {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.sapMTBNewFlex > * {
+	-webkit-flex-shrink: 0;
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+}
+
+.sapMTBNewFlex > .sapMTBShrinkItem {
+	-webkit-flex-shrink: 1;
+	-ms-flex-negative: 1;
+	flex-shrink: 1;
+}
+
+/* OldFlex */
+.sapMTBOldFlex {
+	display: -webkit-box;
+}
+
+.sapMTBOldFlex > .sapMTBShrinkItem:not(.sapMFlexBox) {
+	/* old flex spec does not honour percentual width for non-block level elements */
+	/* @TODO: can we set the display of unknown item */ 
+	display: block;
+}
+
+.sapMTBOldFlex.sapMTBOverflow > .sapMTBShrinkItem {
+	/* shrinking hack for the old flex spec */
+	-webkit-box-flex: 1;
+}
+
+.sapMTB.sapMTBOldFlex > * {
+	/* old align-items: center does not respect margins and vertical align values */
+	vertical-align: middle;
+	margin-bottom: 0;
+	margin-top: 0
+}
+
+/* NonFlex */
+/* vertical centering trick, without flexbox */
+/* @TODO: This can break the after pseudo element theming */
+.sapMTBNoFlex::after {
+	content: "";
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.sapMTB.sapMTBNoFlex > * {
+	vertical-align: middle; 
+	display: inline-block; /* @TODO: can we set the display of unknown item? */ 
+	margin-bottom: 0;
+	margin-top: 0;
+	float: none; /* float has no effect on a flexible item */
+}

@@ -1,0 +1,4034 @@
+{
+	"resources":[
+		{
+			"name": "../../../.theming"
+		},
+		{
+			"name": "../../../jquery-1.7.1-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery-1.7.1.js"
+		},
+		{
+			"name": "../../../jquery-sap-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "../../../jquery-sap.js",
+			"merged":true
+		},
+		{
+			"name": "../../../jquery-ui-core-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery-ui-core.js"
+		},
+		{
+			"name": "../../../jquery-ui-datepicker-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery-ui-datepicker.js"
+		},
+		{
+			"name": "../../../jquery-ui-position-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery-ui-position.js"
+		},
+		{
+			"name": "../../../jquery.sap.act-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.act.js"
+		},
+		{
+			"name": "../../../jquery.sap.dom-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.dom.js"
+		},
+		{
+			"name": "../../../jquery.sap.encoder-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.encoder.js"
+		},
+		{
+			"name": "../../../jquery.sap.events-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.events.js"
+		},
+		{
+			"name": "../../../jquery.sap.global-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.global.js"
+		},
+		{
+			"name": "../../../jquery.sap.history-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.history.js"
+		},
+		{
+			"name": "../../../jquery.sap.keycodes-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.keycodes.js"
+		},
+		{
+			"name": "../../../jquery.sap.logger-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.logger.js"
+		},
+		{
+			"name": "../../../jquery.sap.mobile-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.mobile.js"
+		},
+		{
+			"name": "../../../jquery.sap.promise-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.promise.js"
+		},
+		{
+			"name": "../../../jquery.sap.properties-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.properties.js"
+		},
+		{
+			"name": "../../../jquery.sap.resources-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.resources.js"
+		},
+		{
+			"name": "../../../jquery.sap.script-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.script.js"
+		},
+		{
+			"name": "../../../jquery.sap.sjax-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.sjax.js"
+		},
+		{
+			"name": "../../../jquery.sap.storage-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.storage.js"
+		},
+		{
+			"name": "../../../jquery.sap.strings-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.strings.js"
+		},
+		{
+			"name": "../../../jquery.sap.trace-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.trace.js"
+		},
+		{
+			"name": "../../../jquery.sap.ui-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.ui.js"
+		},
+		{
+			"name": "../../../jquery.sap.unicode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.unicode.js"
+		},
+		{
+			"name": "../../../jquery.sap.xml-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../jquery.sap.xml.js"
+		},
+		{
+			"name": "../../../sap-ui-core-all-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core-all.js",
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core-lean-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core-lean.js",
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core-nojQuery-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core-nojQuery.js",
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-core.js",
+			"merged":true
+		},
+		{
+			"name": "../../../sap-ui-debug-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../sap-ui-debug.js"
+		},
+		{
+			"name": "../../../sap-ui-testenv-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../../../sap-ui-testenv.js"
+		},
+		{
+			"name": "../Device-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../Device.js"
+		},
+		{
+			"name": "../Global-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../Global.js"
+		},
+		{
+			"name": "../app/Application-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../app/Application.js"
+		},
+		{
+			"name": "../app/ApplicationMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../app/ApplicationMetadata.js"
+		},
+		{
+			"name": "../app/MockServer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../app/MockServer.js"
+		},
+		{
+			"name": "../base/BindingParser-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/BindingParser.js"
+		},
+		{
+			"name": "../base/DataType-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/DataType.js"
+		},
+		{
+			"name": "../base/Event-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/Event.js"
+		},
+		{
+			"name": "../base/EventProvider-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/EventProvider.js"
+		},
+		{
+			"name": "../base/Exception-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/Exception.js"
+		},
+		{
+			"name": "../base/ExpressionParser-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/ExpressionParser.js"
+		},
+		{
+			"name": "../base/Interface-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/Interface.js"
+		},
+		{
+			"name": "../base/ManagedObject-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/ManagedObject.js"
+		},
+		{
+			"name": "../base/ManagedObjectMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/ManagedObjectMetadata.js"
+		},
+		{
+			"name": "../base/Metadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/Metadata.js"
+		},
+		{
+			"name": "../base/Object-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/Object.js"
+		},
+		{
+			"name": "../base/ObjectPool-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../base/ObjectPool.js"
+		},
+		{
+			"name": ".library"
+		},
+		{
+			"name": ".theming"
+		},
+		{
+			"name": "AccessibleRole.type"
+		},
+		{
+			"name": "AppCacheBuster-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AppCacheBuster.js"
+		},
+		{
+			"name": "BarColor.type"
+		},
+		{
+			"name": "BusyIndicator-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "BusyIndicator.js"
+		},
+		{
+			"name": "BusyIndicatorUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "BusyIndicatorUtils.js"
+		},
+		{
+			"name": "CSSColor.type"
+		},
+		{
+			"name": "CSSSize.type"
+		},
+		{
+			"name": "CSSSizeShortHand.type"
+		},
+		{
+			"name": "CalendarType.type"
+		},
+		{
+			"name": "Collision.type"
+		},
+		{
+			"name": "Component-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Component.js"
+		},
+		{
+			"name": "ComponentContainer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ComponentContainer.control"
+		},
+		{
+			"name": "ComponentContainer.js"
+		},
+		{
+			"name": "ComponentContainerRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ComponentContainerRenderer.js"
+		},
+		{
+			"name": "ComponentMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ComponentMetadata.js"
+		},
+		{
+			"name": "CompositeSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "CompositeSupport.js"
+		},
+		{
+			"name": "Configuration-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Configuration.js"
+		},
+		{
+			"name": "Control-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Control.control"
+		},
+		{
+			"name": "Control.js"
+		},
+		{
+			"name": "Core-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Core.js"
+		},
+		{
+			"name": "CustomData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "CustomData.control"
+		},
+		{
+			"name": "CustomData.js"
+		},
+		{
+			"name": "CustomStyleClassSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "CustomStyleClassSupport.js"
+		},
+		{
+			"name": "CustomizingConfiguration-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "CustomizingConfiguration.js"
+		},
+		{
+			"name": "DeclarativeSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DeclarativeSupport.js"
+		},
+		{
+			"name": "Design.type"
+		},
+		{
+			"name": "Dock.type"
+		},
+		{
+			"name": "Element-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Element.control"
+		},
+		{
+			"name": "Element.js"
+		},
+		{
+			"name": "ElementMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ElementMetadata.js"
+		},
+		{
+			"name": "EnabledPropagator-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "EnabledPropagator.js"
+		},
+		{
+			"name": "EventBus-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "EventBus.js"
+		},
+		{
+			"name": "ExtensionPoint-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ExtensionPoint.js"
+		},
+		{
+			"name": "FocusHandler-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "FocusHandler.js"
+		},
+		{
+			"name": "Fragment-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Fragment.js"
+		},
+		{
+			"name": "HTML-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "HTML.control"
+		},
+		{
+			"name": "HTML.js"
+		},
+		{
+			"name": "HTMLRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "HTMLRenderer.js"
+		},
+		{
+			"name": "History-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "History.js"
+		},
+		{
+			"name": "HorizontalAlign.type"
+		},
+		{
+			"name": "ID.type"
+		},
+		{
+			"name": "IShrinkable.interface"
+		},
+		{
+			"name": "Icon-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Icon.control"
+		},
+		{
+			"name": "Icon.js"
+		},
+		{
+			"name": "IconColor.type"
+		},
+		{
+			"name": "IconPool-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "IconPool.js"
+		},
+		{
+			"name": "IconRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "IconRenderer.js"
+		},
+		{
+			"name": "ImeMode.type"
+		},
+		{
+			"name": "IntervalTrigger-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "IntervalTrigger.js"
+		},
+		{
+			"name": "InvisibleText-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "InvisibleText.control"
+		},
+		{
+			"name": "InvisibleText.js"
+		},
+		{
+			"name": "Item-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Item.control"
+		},
+		{
+			"name": "Item.js"
+		},
+		{
+			"name": "Label.interface"
+		},
+		{
+			"name": "LabelEnablement-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "LabelEnablement.js"
+		},
+		{
+			"name": "LayoutData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "LayoutData.control"
+		},
+		{
+			"name": "LayoutData.js"
+		},
+		{
+			"name": "ListItem-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ListItem.control"
+		},
+		{
+			"name": "ListItem.js"
+		},
+		{
+			"name": "LocalBusyIndicator-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "LocalBusyIndicator.control"
+		},
+		{
+			"name": "LocalBusyIndicator.js"
+		},
+		{
+			"name": "LocalBusyIndicatorRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "LocalBusyIndicatorRenderer.js"
+		},
+		{
+			"name": "LocalBusyIndicatorSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "LocalBusyIndicatorSupport.js"
+		},
+		{
+			"name": "Locale-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Locale.js"
+		},
+		{
+			"name": "LocaleData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "LocaleData.js"
+		},
+		{
+			"name": "Message-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Message.control"
+		},
+		{
+			"name": "Message.js"
+		},
+		{
+			"name": "MessageType.type"
+		},
+		{
+			"name": "OpenState.type"
+		},
+		{
+			"name": "Orientation.type"
+		},
+		{
+			"name": "Percentage.type"
+		},
+		{
+			"name": "Popup-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Popup.js"
+		},
+		{
+			"name": "PopupInterface.interface"
+		},
+		{
+			"name": "PopupSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "PopupSupport.js"
+		},
+		{
+			"name": "RenderManager-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "RenderManager.js"
+		},
+		{
+			"name": "Renderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Renderer.js"
+		},
+		{
+			"name": "ResizeHandler-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ResizeHandler.js"
+		},
+		{
+			"name": "SafariCheck.css"
+		},
+		{
+			"name": "ScrollBar-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ScrollBar.control"
+		},
+		{
+			"name": "ScrollBar.js"
+		},
+		{
+			"name": "ScrollBarAction.type"
+		},
+		{
+			"name": "ScrollBarRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ScrollBarRenderer.js"
+		},
+		{
+			"name": "Scrolling.type"
+		},
+		{
+			"name": "SeparatorItem-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "SeparatorItem.control"
+		},
+		{
+			"name": "SeparatorItem.js"
+		},
+		{
+			"name": "TextAlign.type"
+		},
+		{
+			"name": "TextDirection.type"
+		},
+		{
+			"name": "ThemeCheck-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ThemeCheck.js"
+		},
+		{
+			"name": "Title-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Title.control"
+		},
+		{
+			"name": "Title.js"
+		},
+		{
+			"name": "TitleLevel.type"
+		},
+		{
+			"name": "Toolbar.interface"
+		},
+		{
+			"name": "TooltipBase-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TooltipBase.control"
+		},
+		{
+			"name": "TooltipBase.js"
+		},
+		{
+			"name": "UIArea-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "UIArea.js"
+		},
+		{
+			"name": "UIComponent-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "UIComponent.control"
+		},
+		{
+			"name": "UIComponent.js"
+		},
+		{
+			"name": "UIComponentMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "UIComponentMetadata.js"
+		},
+		{
+			"name": "URI.type"
+		},
+		{
+			"name": "ValueState.type"
+		},
+		{
+			"name": "ValueStateSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ValueStateSupport.js"
+		},
+		{
+			"name": "VariantLayoutData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "VariantLayoutData.control"
+		},
+		{
+			"name": "VariantLayoutData.js"
+		},
+		{
+			"name": "VerticalAlign.type"
+		},
+		{
+			"name": "Wrapping.type"
+		},
+		{
+			"name": "XMLTemplateProcessor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "XMLTemplateProcessor.js"
+		},
+		{
+			"name": "any.type"
+		},
+		{
+			"name": "boolean.type"
+		},
+		{
+			"name": "cldr/Unicode-Data-Files-LICENSE.txt"
+		},
+		{
+			"name": "cldr/ar.json"
+		},
+		{
+			"name": "cldr/ar_EG.json"
+		},
+		{
+			"name": "cldr/ar_SA.json"
+		},
+		{
+			"name": "cldr/bg.json"
+		},
+		{
+			"name": "cldr/br.json"
+		},
+		{
+			"name": "cldr/ca.json"
+		},
+		{
+			"name": "cldr/cs.json"
+		},
+		{
+			"name": "cldr/da.json"
+		},
+		{
+			"name": "cldr/de.json"
+		},
+		{
+			"name": "cldr/de_AT.json"
+		},
+		{
+			"name": "cldr/de_CH.json"
+		},
+		{
+			"name": "cldr/el.json"
+		},
+		{
+			"name": "cldr/el_CY.json"
+		},
+		{
+			"name": "cldr/en.json"
+		},
+		{
+			"name": "cldr/en_AU.json"
+		},
+		{
+			"name": "cldr/en_GB.json"
+		},
+		{
+			"name": "cldr/en_HK.json"
+		},
+		{
+			"name": "cldr/en_IE.json"
+		},
+		{
+			"name": "cldr/en_IN.json"
+		},
+		{
+			"name": "cldr/en_NZ.json"
+		},
+		{
+			"name": "cldr/en_PG.json"
+		},
+		{
+			"name": "cldr/en_SG.json"
+		},
+		{
+			"name": "cldr/en_ZA.json"
+		},
+		{
+			"name": "cldr/es.json"
+		},
+		{
+			"name": "cldr/es_AR.json"
+		},
+		{
+			"name": "cldr/es_BO.json"
+		},
+		{
+			"name": "cldr/es_CL.json"
+		},
+		{
+			"name": "cldr/es_CO.json"
+		},
+		{
+			"name": "cldr/es_MX.json"
+		},
+		{
+			"name": "cldr/es_PE.json"
+		},
+		{
+			"name": "cldr/es_UY.json"
+		},
+		{
+			"name": "cldr/es_VE.json"
+		},
+		{
+			"name": "cldr/et.json"
+		},
+		{
+			"name": "cldr/fa.json"
+		},
+		{
+			"name": "cldr/fi.json"
+		},
+		{
+			"name": "cldr/fr.json"
+		},
+		{
+			"name": "cldr/fr_BE.json"
+		},
+		{
+			"name": "cldr/fr_CA.json"
+		},
+		{
+			"name": "cldr/fr_CH.json"
+		},
+		{
+			"name": "cldr/fr_LU.json"
+		},
+		{
+			"name": "cldr/he.json"
+		},
+		{
+			"name": "cldr/hi.json"
+		},
+		{
+			"name": "cldr/hr.json"
+		},
+		{
+			"name": "cldr/hu.json"
+		},
+		{
+			"name": "cldr/id.json"
+		},
+		{
+			"name": "cldr/it.json"
+		},
+		{
+			"name": "cldr/it_CH.json"
+		},
+		{
+			"name": "cldr/ja.json"
+		},
+		{
+			"name": "cldr/ko.json"
+		},
+		{
+			"name": "cldr/lt.json"
+		},
+		{
+			"name": "cldr/lv.json"
+		},
+		{
+			"name": "cldr/nb.json"
+		},
+		{
+			"name": "cldr/nl.json"
+		},
+		{
+			"name": "cldr/nl_BE.json"
+		},
+		{
+			"name": "cldr/nn.json"
+		},
+		{
+			"name": "cldr/pl.json"
+		},
+		{
+			"name": "cldr/pt.json"
+		},
+		{
+			"name": "cldr/pt_PT.json"
+		},
+		{
+			"name": "cldr/ro.json"
+		},
+		{
+			"name": "cldr/ru.json"
+		},
+		{
+			"name": "cldr/ru_UA.json"
+		},
+		{
+			"name": "cldr/sk.json"
+		},
+		{
+			"name": "cldr/sl.json"
+		},
+		{
+			"name": "cldr/sr.json"
+		},
+		{
+			"name": "cldr/sv.json"
+		},
+		{
+			"name": "cldr/th.json"
+		},
+		{
+			"name": "cldr/tr.json"
+		},
+		{
+			"name": "cldr/uk.json"
+		},
+		{
+			"name": "cldr/vi.json"
+		},
+		{
+			"name": "cldr/zh_CN.json"
+		},
+		{
+			"name": "cldr/zh_HK.json"
+		},
+		{
+			"name": "cldr/zh_SG.json"
+		},
+		{
+			"name": "cldr/zh_TW.json"
+		},
+		{
+			"name": "date/IslamicDate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "date/IslamicDate.js"
+		},
+		{
+			"name": "date/UniversalDate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "date/UniversalDate.js"
+		},
+		{
+			"name": "delegate/ItemNavigation-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "delegate/ItemNavigation.js"
+		},
+		{
+			"name": "delegate/ScrollEnablement-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "delegate/ScrollEnablement.js"
+		},
+		{
+			"name": "float.type"
+		},
+		{
+			"name": "format/DateFormat-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "format/DateFormat.js"
+		},
+		{
+			"name": "format/FileSizeFormat-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "format/FileSizeFormat.js"
+		},
+		{
+			"name": "format/NumberFormat-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "format/NumberFormat.js"
+		},
+		{
+			"name": "int.type"
+		},
+		{
+			"name": "library-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "library-preload.json",
+			"merged":true
+		},
+		{
+			"name": "library.dependencies.json"
+		},
+		{
+			"name": "library.dependencies.xml"
+		},
+		{
+			"name": "library.js"
+		},
+		{
+			"name": "library.templates.xml"
+		},
+		{
+			"name": "manifest.json"
+		},
+		{
+			"name": "message/ControlMessageProcessor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "message/ControlMessageProcessor.js"
+		},
+		{
+			"name": "message/Message-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "message/Message.js"
+		},
+		{
+			"name": "message/MessageManager-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "message/MessageManager.js"
+		},
+		{
+			"name": "message/MessageParser-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "message/MessageParser.js"
+		},
+		{
+			"name": "message/MessageProcessor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "message/MessageProcessor.js"
+		},
+		{
+			"name": "messagebundle.properties",
+			"raw":"messagebundle.properties",
+			"locale":""
+		},
+		{
+			"name": "messagebundle_ar.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ar"
+		},
+		{
+			"name": "messagebundle_bg.properties",
+			"raw":"messagebundle.properties",
+			"locale":"bg"
+		},
+		{
+			"name": "messagebundle_ca.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ca"
+		},
+		{
+			"name": "messagebundle_cs.properties",
+			"raw":"messagebundle.properties",
+			"locale":"cs"
+		},
+		{
+			"name": "messagebundle_da.properties",
+			"raw":"messagebundle.properties",
+			"locale":"da"
+		},
+		{
+			"name": "messagebundle_de.properties",
+			"raw":"messagebundle.properties",
+			"locale":"de"
+		},
+		{
+			"name": "messagebundle_el.properties",
+			"raw":"messagebundle.properties",
+			"locale":"el"
+		},
+		{
+			"name": "messagebundle_en.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en"
+		},
+		{
+			"name": "messagebundle_en_US_sappsd.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en_US_sappsd"
+		},
+		{
+			"name": "messagebundle_en_US_saptrc.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en_US_saptrc"
+		},
+		{
+			"name": "messagebundle_es.properties",
+			"raw":"messagebundle.properties",
+			"locale":"es"
+		},
+		{
+			"name": "messagebundle_et.properties",
+			"raw":"messagebundle.properties",
+			"locale":"et"
+		},
+		{
+			"name": "messagebundle_fi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"fi"
+		},
+		{
+			"name": "messagebundle_fr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"fr"
+		},
+		{
+			"name": "messagebundle_hi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hi"
+		},
+		{
+			"name": "messagebundle_hr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hr"
+		},
+		{
+			"name": "messagebundle_hu.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hu"
+		},
+		{
+			"name": "messagebundle_it.properties",
+			"raw":"messagebundle.properties",
+			"locale":"it"
+		},
+		{
+			"name": "messagebundle_iw.properties",
+			"raw":"messagebundle.properties",
+			"locale":"iw"
+		},
+		{
+			"name": "messagebundle_ja.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ja"
+		},
+		{
+			"name": "messagebundle_ko.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ko"
+		},
+		{
+			"name": "messagebundle_lt.properties",
+			"raw":"messagebundle.properties",
+			"locale":"lt"
+		},
+		{
+			"name": "messagebundle_lv.properties",
+			"raw":"messagebundle.properties",
+			"locale":"lv"
+		},
+		{
+			"name": "messagebundle_nl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"nl"
+		},
+		{
+			"name": "messagebundle_no.properties",
+			"raw":"messagebundle.properties",
+			"locale":"no"
+		},
+		{
+			"name": "messagebundle_pl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"pl"
+		},
+		{
+			"name": "messagebundle_pt.properties",
+			"raw":"messagebundle.properties",
+			"locale":"pt"
+		},
+		{
+			"name": "messagebundle_ro.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ro"
+		},
+		{
+			"name": "messagebundle_ru.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ru"
+		},
+		{
+			"name": "messagebundle_sh.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sh"
+		},
+		{
+			"name": "messagebundle_sk.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sk"
+		},
+		{
+			"name": "messagebundle_sl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sl"
+		},
+		{
+			"name": "messagebundle_sv.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sv"
+		},
+		{
+			"name": "messagebundle_th.properties",
+			"raw":"messagebundle.properties",
+			"locale":"th"
+		},
+		{
+			"name": "messagebundle_tr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"tr"
+		},
+		{
+			"name": "messagebundle_uk.properties",
+			"raw":"messagebundle.properties",
+			"locale":"uk"
+		},
+		{
+			"name": "messagebundle_vi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"vi"
+		},
+		{
+			"name": "messagebundle_zh_CN.properties",
+			"raw":"messagebundle_zh.properties",
+			"locale":"CN"
+		},
+		{
+			"name": "messagebundle_zh_TW.properties",
+			"raw":"messagebundle_zh.properties",
+			"locale":"TW"
+		},
+		{
+			"name": "mimes/logo/icoonly_black_100x80.png"
+		},
+		{
+			"name": "mimes/logo/icoonly_white_100x80.png"
+		},
+		{
+			"name": "mimes/logo/icotxt_black_111x111.png"
+		},
+		{
+			"name": "mimes/logo/icotxt_black_220x72.png"
+		},
+		{
+			"name": "mimes/logo/icotxt_white_111x111.png"
+		},
+		{
+			"name": "mimes/logo/icotxt_white_220x72.png"
+		},
+		{
+			"name": "mimes/logo/icotxt_white_220x72_blue.png"
+		},
+		{
+			"name": "mimes/logo/sap_50x26.png"
+		},
+		{
+			"name": "mimes/logo/sap_73x36.gif"
+		},
+		{
+			"name": "mimes/logo/txtonly_134x35.png"
+		},
+		{
+			"name": "mimes/logo/txtonly_16x16.ico"
+		},
+		{
+			"name": "mimes/logo/txtonly_244x55.png"
+		},
+		{
+			"name": "mimes/logo/txtonly_32x32.png"
+		},
+		{
+			"name": "mimes/logo/txtonly_white_32x32.png"
+		},
+		{
+			"name": "mvc/Controller-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/Controller.js"
+		},
+		{
+			"name": "mvc/HTMLView-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/HTMLView.control"
+		},
+		{
+			"name": "mvc/HTMLView.js"
+		},
+		{
+			"name": "mvc/HTMLViewRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/HTMLViewRenderer.js"
+		},
+		{
+			"name": "mvc/JSONView-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/JSONView.control"
+		},
+		{
+			"name": "mvc/JSONView.js"
+		},
+		{
+			"name": "mvc/JSONViewRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/JSONViewRenderer.js"
+		},
+		{
+			"name": "mvc/JSView-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/JSView.control"
+		},
+		{
+			"name": "mvc/JSView.js"
+		},
+		{
+			"name": "mvc/JSViewRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/JSViewRenderer.js"
+		},
+		{
+			"name": "mvc/TemplateView-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/TemplateView.control"
+		},
+		{
+			"name": "mvc/TemplateView.js"
+		},
+		{
+			"name": "mvc/TemplateViewRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/TemplateViewRenderer.js"
+		},
+		{
+			"name": "mvc/View-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/View.control"
+		},
+		{
+			"name": "mvc/View.js"
+		},
+		{
+			"name": "mvc/ViewRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/ViewRenderer.js"
+		},
+		{
+			"name": "mvc/ViewType.type"
+		},
+		{
+			"name": "mvc/XMLView-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/XMLView.control"
+		},
+		{
+			"name": "mvc/XMLView.js"
+		},
+		{
+			"name": "mvc/XMLViewRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "mvc/XMLViewRenderer.js"
+		},
+		{
+			"name": "object.type"
+		},
+		{
+			"name": "plugin/DeclarativeSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/DeclarativeSupport.js"
+		},
+		{
+			"name": "plugin/LessSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/LessSupport.js"
+		},
+		{
+			"name": "plugin/TemplatingSupport-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/TemplatingSupport.js"
+		},
+		{
+			"name": "routing/HashChanger-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/HashChanger.js"
+		},
+		{
+			"name": "routing/History-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/History.js"
+		},
+		{
+			"name": "routing/HistoryDirection.type"
+		},
+		{
+			"name": "routing/Route-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/Route.js"
+		},
+		{
+			"name": "routing/Router-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/Router.js"
+		},
+		{
+			"name": "routing/Target-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/Target.js"
+		},
+		{
+			"name": "routing/Targets-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/Targets.js"
+		},
+		{
+			"name": "routing/Views-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "routing/Views.js"
+		},
+		{
+			"name": "search/OpenSearchProvider-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "search/OpenSearchProvider.control"
+		},
+		{
+			"name": "search/OpenSearchProvider.js"
+		},
+		{
+			"name": "search/SearchProvider-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "search/SearchProvider.control"
+		},
+		{
+			"name": "search/SearchProvider.js"
+		},
+		{
+			"name": "string.type"
+		},
+		{
+			"name": "support/PerformanceRecorder-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/PerformanceRecorder.js"
+		},
+		{
+			"name": "support/Plugin-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/Plugin.js"
+		},
+		{
+			"name": "support/Support-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/Support.js"
+		},
+		{
+			"name": "support/ToolsAPI-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/ToolsAPI.js"
+		},
+		{
+			"name": "support/bootstrapFallback-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/bootstrapFallback.js"
+		},
+		{
+			"name": "support/msiebridge.html"
+		},
+		{
+			"name": "support/plugins/Breakpoint-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/Breakpoint.js"
+		},
+		{
+			"name": "support/plugins/ControlTree-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/ControlTree.js"
+		},
+		{
+			"name": "support/plugins/Debugging-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/Debugging.js"
+		},
+		{
+			"name": "support/plugins/Interaction-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/Interaction.js"
+		},
+		{
+			"name": "support/plugins/LocalStorage-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/LocalStorage.js"
+		},
+		{
+			"name": "support/plugins/MessageTest-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/MessageTest.js"
+		},
+		{
+			"name": "support/plugins/Performance-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/Performance.js"
+		},
+		{
+			"name": "support/plugins/Selector-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/Selector.js"
+		},
+		{
+			"name": "support/plugins/TechInfo-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/TechInfo.js"
+		},
+		{
+			"name": "support/plugins/Trace-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/plugins/Trace.js"
+		},
+		{
+			"name": "support/support.css"
+		},
+		{
+			"name": "support/support.html"
+		},
+		{
+			"name": "support/trace/E2eTraceLib-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/trace/E2eTraceLib.js"
+		},
+		{
+			"name": "support/trace/EppLib-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "support/trace/EppLib.js"
+		},
+		{
+			"name": "themes/base/.theming",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/BlindLayer.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/BusyIndicator.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Icon.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/LocalBusyIndicator.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/ScrollBar.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Shadow.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/TechnicalInfo.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/View.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/base.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/fonts/SAP-icons.eot",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/fonts/SAP-icons.ttf",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/global.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/1x1.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/Busy.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/16x16/Message_Icon_Error.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/16x16/Message_Icon_Information.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/16x16/Message_Icon_Success.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/16x16/Message_Icon_Warning.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/32x32/Message_Icon_Error.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/32x32/Message_Icon_Information.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/32x32/Message_Icon_Success.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/message/32x32/Message_Icon_Warning.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/1x1.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/Busy.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/16x16/Message_Icon_Error.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/16x16/Message_Icon_Information.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/16x16/Message_Icon_Success.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/16x16/Message_Icon_Warning.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/32x32/Message_Icon_Error.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/32x32/Message_Icon_Information.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/32x32/Message_Icon_Success.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/message/32x32/Message_Icon_Warning.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-parameters.json",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.source.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/media.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/parameterClasses.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/shared.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/sap_hcb/.theming",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/BrowserScrollbar.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/BusyIndicator.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/Icon.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/LocalBusyIndicator.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/Shadow.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/global.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/16x16/Message_Icon_Error.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/16x16/Message_Icon_Information.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/16x16/Message_Icon_Success.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/16x16/Message_Icon_Warning.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/32x32/Message_Icon_Error.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/32x32/Message_Icon_Information.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/32x32/Message_Icon_Success.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/message/32x32/Message_Icon_Warning.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/16x16/Message_Icon_Error.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/16x16/Message_Icon_Information.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/16x16/Message_Icon_Success.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/16x16/Message_Icon_Warning.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/32x32/Message_Icon_Error.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/32x32/Message_Icon_Information.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/32x32/Message_Icon_Success.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/message/32x32/Message_Icon_Warning.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-parameters.json",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.source.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/shared.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "theming/Parameters-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "theming/Parameters.js"
+		},
+		{
+			"name": "tmpl/DOMAttribute-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/DOMAttribute.control"
+		},
+		{
+			"name": "tmpl/DOMAttribute.js"
+		},
+		{
+			"name": "tmpl/DOMElement-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/DOMElement.control"
+		},
+		{
+			"name": "tmpl/DOMElement.js"
+		},
+		{
+			"name": "tmpl/DOMElementRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/DOMElementRenderer.js"
+		},
+		{
+			"name": "tmpl/HandlebarsTemplate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/HandlebarsTemplate.js"
+		},
+		{
+			"name": "tmpl/Template-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/Template.control"
+		},
+		{
+			"name": "tmpl/Template.js"
+		},
+		{
+			"name": "tmpl/TemplateControl-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/TemplateControl.control"
+		},
+		{
+			"name": "tmpl/TemplateControl.js"
+		},
+		{
+			"name": "tmpl/TemplateControlRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "tmpl/TemplateControlRenderer.js"
+		},
+		{
+			"name": "util/Export-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/Export.js"
+		},
+		{
+			"name": "util/ExportCell-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/ExportCell.js"
+		},
+		{
+			"name": "util/ExportColumn-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/ExportColumn.js"
+		},
+		{
+			"name": "util/ExportRow-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/ExportRow.js"
+		},
+		{
+			"name": "util/ExportType-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/ExportType.js"
+		},
+		{
+			"name": "util/ExportTypeCSV-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/ExportTypeCSV.js"
+		},
+		{
+			"name": "util/File-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/File.js"
+		},
+		{
+			"name": "util/LibraryInfo-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/LibraryInfo.js"
+		},
+		{
+			"name": "util/MockServer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/MockServer.js"
+		},
+		{
+			"name": "util/XMLPreprocessor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/XMLPreprocessor.js"
+		},
+		{
+			"name": "util/serializer/HTMLViewSerializer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/HTMLViewSerializer.js"
+		},
+		{
+			"name": "util/serializer/Serializer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/Serializer.js"
+		},
+		{
+			"name": "util/serializer/ViewSerializer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/ViewSerializer.js"
+		},
+		{
+			"name": "util/serializer/XMLViewSerializer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/XMLViewSerializer.js"
+		},
+		{
+			"name": "util/serializer/delegate/Delegate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/delegate/Delegate.js"
+		},
+		{
+			"name": "util/serializer/delegate/HTML-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/delegate/HTML.js"
+		},
+		{
+			"name": "util/serializer/delegate/XML-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "util/serializer/delegate/XML.js"
+		},
+		{
+			"name": "void.type"
+		},
+		{
+			"name": "ws/ReadyState-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ws/ReadyState.js"
+		},
+		{
+			"name": "ws/SapPcpWebSocket-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ws/SapPcpWebSocket.js"
+		},
+		{
+			"name": "ws/WebSocket-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ws/WebSocket.js"
+		},
+		{
+			"name": "../debug/ControlTree-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../debug/ControlTree.js"
+		},
+		{
+			"name": "../debug/DebugEnv-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../debug/DebugEnv.js"
+		},
+		{
+			"name": "../debug/Highlighter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../debug/Highlighter.js"
+		},
+		{
+			"name": "../debug/LogViewer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../debug/LogViewer.js"
+		},
+		{
+			"name": "../debug/PropertyList-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../debug/PropertyList.js"
+		},
+		{
+			"name": "../debug/TechnicalInfo-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../debug/TechnicalInfo.js"
+		},
+		{
+			"name": "../debug/images/delete.gif"
+		},
+		{
+			"name": "../debug/images/link.gif"
+		},
+		{
+			"name": "../debug/images/minus.gif"
+		},
+		{
+			"name": "../debug/images/plus.gif"
+		},
+		{
+			"name": "../debug/images/refresh.gif"
+		},
+		{
+			"name": "../debug/images/space.gif"
+		},
+		{
+			"name": "../model/Binding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/Binding.js"
+		},
+		{
+			"name": "../model/BindingMode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/BindingMode.js"
+		},
+		{
+			"name": "../model/ChangeReason-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ChangeReason.js"
+		},
+		{
+			"name": "../model/ClientContextBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ClientContextBinding.js"
+		},
+		{
+			"name": "../model/ClientListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ClientListBinding.js"
+		},
+		{
+			"name": "../model/ClientModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ClientModel.js"
+		},
+		{
+			"name": "../model/ClientPropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ClientPropertyBinding.js"
+		},
+		{
+			"name": "../model/ClientTreeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ClientTreeBinding.js"
+		},
+		{
+			"name": "../model/ClientTreeBindingAdapter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ClientTreeBindingAdapter.js"
+		},
+		{
+			"name": "../model/CompositeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/CompositeBinding.js"
+		},
+		{
+			"name": "../model/CompositeType-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/CompositeType.js"
+		},
+		{
+			"name": "../model/Context-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/Context.js"
+		},
+		{
+			"name": "../model/ContextBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ContextBinding.js"
+		},
+		{
+			"name": "../model/DataState-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/DataState.js"
+		},
+		{
+			"name": "../model/Filter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/Filter.js"
+		},
+		{
+			"name": "../model/FilterOperator-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/FilterOperator.js"
+		},
+		{
+			"name": "../model/FilterProcessor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/FilterProcessor.js"
+		},
+		{
+			"name": "../model/FilterType-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/FilterType.js"
+		},
+		{
+			"name": "../model/FormatException-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/FormatException.js"
+		},
+		{
+			"name": "../model/ListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ListBinding.js"
+		},
+		{
+			"name": "../model/MetaModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/MetaModel.js"
+		},
+		{
+			"name": "../model/Model-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/Model.js"
+		},
+		{
+			"name": "../model/ParseException-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ParseException.js"
+		},
+		{
+			"name": "../model/PropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/PropertyBinding.js"
+		},
+		{
+			"name": "../model/SelectionModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/SelectionModel.js"
+		},
+		{
+			"name": "../model/SimpleType-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/SimpleType.js"
+		},
+		{
+			"name": "../model/Sorter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/Sorter.js"
+		},
+		{
+			"name": "../model/SorterProcessor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/SorterProcessor.js"
+		},
+		{
+			"name": "../model/TreeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/TreeBinding.js"
+		},
+		{
+			"name": "../model/TreeBindingAdapter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/TreeBindingAdapter.js"
+		},
+		{
+			"name": "../model/TreeBindingCompatibilityAdapter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/TreeBindingCompatibilityAdapter.js"
+		},
+		{
+			"name": "../model/TreeBindingUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/TreeBindingUtils.js"
+		},
+		{
+			"name": "../model/Type-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/Type.js"
+		},
+		{
+			"name": "../model/ValidateException-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/ValidateException.js"
+		},
+		{
+			"name": "../model/analytics/AnalyticalBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/analytics/AnalyticalBinding.js"
+		},
+		{
+			"name": "../model/analytics/AnalyticalTreeBindingAdapter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/analytics/AnalyticalTreeBindingAdapter.js"
+		},
+		{
+			"name": "../model/analytics/AnalyticalVersionInfo-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/analytics/AnalyticalVersionInfo.js"
+		},
+		{
+			"name": "../model/analytics/BatchResponseCollector-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/analytics/BatchResponseCollector.js"
+		},
+		{
+			"name": "../model/analytics/ODataModelAdapter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/analytics/ODataModelAdapter.js"
+		},
+		{
+			"name": "../model/analytics/odata4analytics-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/analytics/odata4analytics.js"
+		},
+		{
+			"name": "../model/control/ControlModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/control/ControlModel.js"
+		},
+		{
+			"name": "../model/control/ControlPropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/control/ControlPropertyBinding.js"
+		},
+		{
+			"name": "../model/json/JSONListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/json/JSONListBinding.js"
+		},
+		{
+			"name": "../model/json/JSONModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/json/JSONModel.js"
+		},
+		{
+			"name": "../model/json/JSONPropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/json/JSONPropertyBinding.js"
+		},
+		{
+			"name": "../model/json/JSONTreeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/json/JSONTreeBinding.js"
+		},
+		{
+			"name": "../model/message/MessageListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/message/MessageListBinding.js"
+		},
+		{
+			"name": "../model/message/MessageModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/message/MessageModel.js"
+		},
+		{
+			"name": "../model/message/MessagePropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/message/MessagePropertyBinding.js"
+		},
+		{
+			"name": "../model/odata/AnnotationHelper-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/AnnotationHelper.js"
+		},
+		{
+			"name": "../model/odata/AnnotationParser-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/AnnotationParser.js"
+		},
+		{
+			"name": "../model/odata/CountMode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/CountMode.js"
+		},
+		{
+			"name": "../model/odata/Filter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/Filter.js"
+		},
+		{
+			"name": "../model/odata/ODataAnnotations-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataAnnotations.js"
+		},
+		{
+			"name": "../model/odata/ODataContextBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataContextBinding.js"
+		},
+		{
+			"name": "../model/odata/ODataListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataListBinding.js"
+		},
+		{
+			"name": "../model/odata/ODataMessageParser-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataMessageParser.js"
+		},
+		{
+			"name": "../model/odata/ODataMetaModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataMetaModel.js"
+		},
+		{
+			"name": "../model/odata/ODataMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataMetadata.js"
+		},
+		{
+			"name": "../model/odata/ODataModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataModel.js"
+		},
+		{
+			"name": "../model/odata/ODataPropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataPropertyBinding.js"
+		},
+		{
+			"name": "../model/odata/ODataTreeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataTreeBinding.js"
+		},
+		{
+			"name": "../model/odata/ODataTreeBindingAdapter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataTreeBindingAdapter.js"
+		},
+		{
+			"name": "../model/odata/ODataUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/ODataUtils.js"
+		},
+		{
+			"name": "../model/odata/OperationMode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/OperationMode.js"
+		},
+		{
+			"name": "../model/odata/UpdateMethod-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/UpdateMethod.js"
+		},
+		{
+			"name": "../model/odata/_AnnotationHelperBasics-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/_AnnotationHelperBasics.js"
+		},
+		{
+			"name": "../model/odata/_AnnotationHelperExpression-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/_AnnotationHelperExpression.js"
+		},
+		{
+			"name": "../model/odata/_ODataMetaModelUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/_ODataMetaModelUtils.js"
+		},
+		{
+			"name": "../model/odata/datajs-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/datajs.js"
+		},
+		{
+			"name": "../model/odata/type/Boolean-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Boolean.js"
+		},
+		{
+			"name": "../model/odata/type/Byte-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Byte.js"
+		},
+		{
+			"name": "../model/odata/type/DateTime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/DateTime.js"
+		},
+		{
+			"name": "../model/odata/type/DateTimeBase-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/DateTimeBase.js"
+		},
+		{
+			"name": "../model/odata/type/DateTimeOffset-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/DateTimeOffset.js"
+		},
+		{
+			"name": "../model/odata/type/Decimal-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Decimal.js"
+		},
+		{
+			"name": "../model/odata/type/Double-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Double.js"
+		},
+		{
+			"name": "../model/odata/type/Guid-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Guid.js"
+		},
+		{
+			"name": "../model/odata/type/Int-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Int.js"
+		},
+		{
+			"name": "../model/odata/type/Int16-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Int16.js"
+		},
+		{
+			"name": "../model/odata/type/Int32-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Int32.js"
+		},
+		{
+			"name": "../model/odata/type/Int64-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Int64.js"
+		},
+		{
+			"name": "../model/odata/type/ODataType-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/ODataType.js"
+		},
+		{
+			"name": "../model/odata/type/SByte-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/SByte.js"
+		},
+		{
+			"name": "../model/odata/type/Single-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Single.js"
+		},
+		{
+			"name": "../model/odata/type/String-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/String.js"
+		},
+		{
+			"name": "../model/odata/type/Time-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/type/Time.js"
+		},
+		{
+			"name": "../model/odata/v2/BatchMode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/v2/BatchMode.js"
+		},
+		{
+			"name": "../model/odata/v2/ODataContextBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/v2/ODataContextBinding.js"
+		},
+		{
+			"name": "../model/odata/v2/ODataListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/v2/ODataListBinding.js"
+		},
+		{
+			"name": "../model/odata/v2/ODataModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/v2/ODataModel.js"
+		},
+		{
+			"name": "../model/odata/v2/ODataTreeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/odata/v2/ODataTreeBinding.js"
+		},
+		{
+			"name": "../model/resource/ResourceModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/resource/ResourceModel.js"
+		},
+		{
+			"name": "../model/resource/ResourcePropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/resource/ResourcePropertyBinding.js"
+		},
+		{
+			"name": "../model/type/Boolean-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/Boolean.js"
+		},
+		{
+			"name": "../model/type/Currency-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/Currency.js"
+		},
+		{
+			"name": "../model/type/Date-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/Date.js"
+		},
+		{
+			"name": "../model/type/DateTime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/DateTime.js"
+		},
+		{
+			"name": "../model/type/FileSize-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/FileSize.js"
+		},
+		{
+			"name": "../model/type/Float-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/Float.js"
+		},
+		{
+			"name": "../model/type/Integer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/Integer.js"
+		},
+		{
+			"name": "../model/type/String-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/String.js"
+		},
+		{
+			"name": "../model/type/Time-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/type/Time.js"
+		},
+		{
+			"name": "../model/xml/XMLListBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/xml/XMLListBinding.js"
+		},
+		{
+			"name": "../model/xml/XMLModel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/xml/XMLModel.js"
+		},
+		{
+			"name": "../model/xml/XMLPropertyBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/xml/XMLPropertyBinding.js"
+		},
+		{
+			"name": "../model/xml/XMLTreeBinding-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../model/xml/XMLTreeBinding.js"
+		},
+		{
+			"name": "../qunit/QUnitUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../qunit/QUnitUtils.js"
+		},
+		{
+			"name": "../qunit/qunit-coverage-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../qunit/qunit-coverage.js"
+		},
+		{
+			"name": "../qunit/qunit-css-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../qunit/qunit-css.js"
+		},
+		{
+			"name": "../qunit/qunit-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../qunit/qunit-junit-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../qunit/qunit-junit.js"
+		},
+		{
+			"name": "../qunit/qunit-redirect-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../qunit/qunit-redirect.js"
+		},
+		{
+			"name": "../qunit/qunit.js"
+		},
+		{
+			"name": "../test/ControlTree-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/ControlTree.js"
+		},
+		{
+			"name": "../test/Opa-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/Opa.js"
+		},
+		{
+			"name": "../test/Opa5-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/Opa5.js"
+		},
+		{
+			"name": "../test/OpaFrame.css"
+		},
+		{
+			"name": "../test/OpaPlugin-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/OpaPlugin.js"
+		},
+		{
+			"name": "../test/PageObjectFactory-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/PageObjectFactory.js"
+		},
+		{
+			"name": "../test/TestEnv-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/TestEnv.js"
+		},
+		{
+			"name": "../test/TestUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/TestUtils.js"
+		},
+		{
+			"name": "../test/matchers/AggregationContainsPropertyEqual-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/AggregationContainsPropertyEqual.js"
+		},
+		{
+			"name": "../test/matchers/AggregationFilled-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/AggregationFilled.js"
+		},
+		{
+			"name": "../test/matchers/AggregationLengthEquals-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/AggregationLengthEquals.js"
+		},
+		{
+			"name": "../test/matchers/Ancestor-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/Ancestor.js"
+		},
+		{
+			"name": "../test/matchers/BindingPath-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/BindingPath.js"
+		},
+		{
+			"name": "../test/matchers/Matcher-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/Matcher.js"
+		},
+		{
+			"name": "../test/matchers/Properties-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/Properties.js"
+		},
+		{
+			"name": "../test/matchers/PropertyStrictEquals-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/matchers/PropertyStrictEquals.js"
+		},
+		{
+			"name": "../test/opaQunit-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../test/opaQunit.js"
+		},
+		{
+			"name": "../thirdparty/IPv6-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/IPv6.js"
+		},
+		{
+			"name": "../thirdparty/SecondLevelDomains-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/SecondLevelDomains.js"
+		},
+		{
+			"name": "../thirdparty/URI-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/URI.js"
+		},
+		{
+			"name": "../thirdparty/URITemplate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/URITemplate.js"
+		},
+		{
+			"name": "../thirdparty/blanket-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/blanket.js"
+		},
+		{
+			"name": "../thirdparty/caja-html-sanitizer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/caja-html-sanitizer.js"
+		},
+		{
+			"name": "../thirdparty/crossroads-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/crossroads.js"
+		},
+		{
+			"name": "../thirdparty/d3-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/d3.js"
+		},
+		{
+			"name": "../thirdparty/datajs-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/datajs.js"
+		},
+		{
+			"name": "../thirdparty/es6-promise-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/es6-promise.js"
+		},
+		{
+			"name": "../thirdparty/flexie-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/flexie.js"
+		},
+		{
+			"name": "../thirdparty/handlebars-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/handlebars.js"
+		},
+		{
+			"name": "../thirdparty/hasher-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/hasher.js"
+		},
+		{
+			"name": "../thirdparty/iscroll-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/iscroll-lite-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/iscroll-lite.js"
+		},
+		{
+			"name": "../thirdparty/iscroll.js"
+		},
+		{
+			"name": "../thirdparty/jquery-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery-mobile-custom-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery-mobile-custom.js"
+		},
+		{
+			"name": "../thirdparty/jquery.js"
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.10.1-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.10.1.js"
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.10.2-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.10.2.js"
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.11.1-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.11.1.js"
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.7.1-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.7.1.js"
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.8.1-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-1.8.1.js"
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-2.1.4-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jquery/jquery-2.1.4.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-blind-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-blind.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-bounce-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-bounce.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-clip-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-clip.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-core-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-core.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-drop-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-drop.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-explode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-explode.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-fade-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-fade.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-fold-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-fold.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-highlight-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-highlight.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-pulsate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-pulsate.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-scale-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-scale.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-shake-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-shake.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-slide-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-slide.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-transfer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-effects-transfer.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-core-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-core.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-datepicker-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-datepicker.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-draggable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-draggable.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-droppable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-droppable.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-blind-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-blind.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-bounce-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-bounce.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-clip-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-clip.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-drop-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-drop.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-explode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-explode.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-fade-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-fade.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-fold-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-fold.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-highlight-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-highlight.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-pulsate-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-pulsate.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-scale-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-scale.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-shake-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-shake.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-slide-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-slide.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-transfer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect-transfer.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-effect.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-mouse-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-mouse.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-position-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-position.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-resizable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-resizable.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-selectable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-selectable.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-sortable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-sortable.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-widget-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jqueryui/jquery-ui-widget.js"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/animated-overlay.gif"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_flat_75_ffffff_40x100.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_glass_65_ffffff_1x400.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_glass_75_dadada_1x400.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-icons_222222_256x240.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-icons_2e83ff_256x240.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-icons_454545_256x240.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-icons_888888_256x240.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/images/ui-icons_cd0a0a_256x240.png"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.all.css"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.base.css"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.core.css"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.datepicker.css"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.resizable.css"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.selectable.css"
+		},
+		{
+			"name": "../thirdparty/jqueryui/themes/base/jquery.ui.theme.css"
+		},
+		{
+			"name": "../thirdparty/jszip-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/jszip.js"
+		},
+		{
+			"name": "../thirdparty/less-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/less.js"
+		},
+		{
+			"name": "../thirdparty/licenses/Caja-Apache-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/D3-BSD-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/DataJS-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/Flexie-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/JSZip-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/LESS-Apache-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/MobiScroll-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/SinonJS-BSD-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/TDOP-Apache-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/URI-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/array-polyfills-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/blanket-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/crossroads-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/es6-promise-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/handlebars-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/hasher-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/iscroll-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/jQuery-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/mobify-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/punycode-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/qunit-composite-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/qunit-reporter-junit-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/requireJS-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/signals-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/swipeview-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/unorm-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/licenses/zyngascroll-MIT-LICENSE.txt"
+		},
+		{
+			"name": "../thirdparty/mobify-carousel-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/mobify-carousel.js"
+		},
+		{
+			"name": "../thirdparty/mobiscroll/css/mobiscroll-core.css"
+		},
+		{
+			"name": "../thirdparty/mobiscroll/js/mobiscroll-core-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/mobiscroll/js/mobiscroll-core.js"
+		},
+		{
+			"name": "../thirdparty/mobiscroll/js/mobiscroll-datetime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/mobiscroll/js/mobiscroll-datetime.js"
+		},
+		{
+			"name": "../thirdparty/mobiscroll/js/mobiscroll-scroller-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/mobiscroll/js/mobiscroll-scroller.js"
+		},
+		{
+			"name": "../thirdparty/punycode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/punycode.js"
+		},
+		{
+			"name": "../thirdparty/qunit-composite-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/qunit-composite.css"
+		},
+		{
+			"name": "../thirdparty/qunit-composite.js"
+		},
+		{
+			"name": "../thirdparty/qunit-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/qunit-reporter-junit-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/qunit-reporter-junit.js"
+		},
+		{
+			"name": "../thirdparty/qunit.css"
+		},
+		{
+			"name": "../thirdparty/qunit.js"
+		},
+		{
+			"name": "../thirdparty/readme.html"
+		},
+		{
+			"name": "../thirdparty/require-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/require.js"
+		},
+		{
+			"name": "../thirdparty/signals-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/signals.js"
+		},
+		{
+			"name": "../thirdparty/sinon-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/sinon-ie-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/sinon-ie.js"
+		},
+		{
+			"name": "../thirdparty/sinon-qunit-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/sinon-qunit.js"
+		},
+		{
+			"name": "../thirdparty/sinon-server-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/sinon-server.js"
+		},
+		{
+			"name": "../thirdparty/sinon.js"
+		},
+		{
+			"name": "../thirdparty/swipe-view-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/swipe-view.js"
+		},
+		{
+			"name": "../thirdparty/unorm-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/unorm.js"
+		},
+		{
+			"name": "../thirdparty/unormdata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/unormdata.js"
+		},
+		{
+			"name": "../thirdparty/vkbeautify-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/vkbeautify.js"
+		},
+		{
+			"name": "../thirdparty/zyngascroll-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "../thirdparty/zyngascroll.js"
+		}
+	]
+}

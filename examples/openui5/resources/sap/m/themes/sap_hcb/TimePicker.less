@@ -1,0 +1,202 @@
+/* ======================================== */
+/* CSS for control sap.m/TimePicker.control */
+/* High Contrast Black theme                */
+/* ======================================== */
+
+.sapMTimePicker {
+  .sapUiIcon {
+	color: @sapHCStandardFG;
+	&:hover {
+	  background: @sapHCHighlightBG;
+	}
+	&:active {
+	  background: @sapHCHighlightAltBG;
+	}
+	&:focus {
+	  	outline: 1px dotted @sapUiFocus;
+	  	outline-offset: -1px;
+	}
+  }
+  &.sapMTPInputActive {
+
+	.sapUiIcon {
+
+	  background-color: @sapHCHighlightAltBG;
+	  border-left: 0.0625rem solid @sapHCStandardFG;
+	  margin-left: -0.0625rem;
+	}
+	.sapMInputIE9.sapUiIcon {
+	  .sapUiIcon;
+	}
+  }
+}
+
+/* Compact size */
+
+.sapUiSizeCompact .sapMDP > .sapUiIcon {
+  top : 0.25rem;
+}
+
+/* fix for IE9 icon border missing */
+html[data-sap-ui-browser^="ie9"] {
+  .sapMDP > .sapUiIcon {
+	border: 1px solid transparent;
+  }
+  .sapMDP > .sapUiIcon:hover {
+	border: 1px solid @sapHCStandardFG;
+  }
+  .sapUiSizeCompact .sapMDP > .sapUiIcon,
+  .sapUiSizeCompact .sapMDP > .sapUiIcon:hover {
+	border-top: 0 none;
+	border-bottom: 0 none;
+  }
+}
+
+
+.sapMTimePickerDropDown {
+  .sapMTimePickerContainer {
+
+	.sapMTPColumn {
+	  .sapMTimePickerLabel {
+		  font-size: @sapMFontSmallSize;
+	  }
+	  .sapMTimePickerItemArrows {
+		  span{
+			  border: 1px solid @sapHCReducedAltFG;
+			  border-radius: 3px;
+			  &.sapMTimePickerItemArrowDown {
+				  margin-top: 3px;
+			  }
+		  }
+	  }
+	  .sapMTimePickerSlider {
+		.sapMTimePickerItem {
+		  background: @sapHCStandardBG;
+		  border: 1px solid @sapHCReducedAltFG;
+		  font-size: @sapMFontMediumSize;
+		  color: @sapHCStandardFG;
+		  text-align: center;
+
+		  &:hover {
+			background: @sapHCHighlightBG;
+			font-weight: bold;
+		  }
+		  &:active {
+			background: @sapHCHighlightAltBG;
+			font-weight: bold;
+		  }
+		  &:focus {
+			outline: 2px dotted @sapHCStandardFG;
+		  }
+		  &.sapMTimePickerItemSelected {
+			//	background: @sapHCHighlightAltBG;
+			font-weight: bold;
+			&:active {
+			  border: 2px solid @sapHCStandardFG;
+			}
+		  }
+		}
+		.sapMTPPickerSelectionFrame {
+		}
+		& > ul {
+		}
+
+	  }
+	  &.sapMTPSliderExpanded {
+		font-weight: normal;
+		.sapMTimePickerSlider {
+			.sapMTimePickerItem {
+				background: @sapHCStandardBG;
+
+				&:hover {
+					background: @sapHCHighlightBG;
+				}
+				&:active {
+					background: @sapHCHighlightAltBG;
+				}
+				&:focus {
+					outline: 2px dotted @sapHCStandardFG;
+				}
+				&.sapMTimePickerItemSelected {
+					background: @sapHCHighlightAltBG;
+					font-weight: bold;
+				}
+			}
+			.sapMTPPickerSelectionFrame {
+				outline: 2px solid @sapHCStandardFG;
+				outline-offset: -5px;
+				font-weight: bold;
+			}
+		}
+	  }
+	  &:focus {
+		outline: none;
+	  }
+	}
+  }
+}
+
+/* IE mobile and desktop ignores outline-offset. Use an overlay: */
+html[data-sap-ui-browser^="ie"] {
+	.sapMTimePickerDropDown .sapMTimePickerContainer .sapMTPColumn.sapMTPSliderExpanded .sapMTPPickerSelectionFrame {
+		outline: none;
+	}
+	.sapMTPPickerSelectionFrame:before {
+		content: " ";
+		box-sizing: border-box;
+		position: absolute;
+		left: 0.1875rem;
+		top: 0.1875rem;
+		bottom: 0.0625rem;
+		right: 0.0625rem;
+		border: 2px solid @sapHCStandardFG;
+		pointer-events: none;
+	}
+}
+
+.sapUiSizeCompact {
+	.sapMTPColumn:not(.sapMTimePickerSliderShort) {
+		.sapMTimePickerSlider {
+			box-sizing: border-box;
+			border-top: 1px solid @sapHCReducedAltFG;
+			border-bottom: 1px solid @sapHCReducedAltFG;
+		}
+	}
+}
+
+html[data-sap-ui-browser^="ie"].sapUiSizeCompact,
+html[data-sap-ui-browser^="ie"] .sapUiSizeCompact {
+	.sapMTPPickerSelectionFrame:before {
+		left: 0.375rem;
+		top: 0.375rem;
+		bottom: 0.125rem;
+		right: 0.125rem;
+	}
+}
+
+.sap-phone {
+  /* ======================================== */
+  /* TimePicker Input Field                   */
+  /* ======================================== */
+  .sapMTimePicker {
+	.sapMInputBaseInner {
+
+	}
+	.sapUiIcon {
+	  &:active {
+		background-color: @sapHCHighlightAltBG !important;
+	  }
+	  &:focus {
+		outline: 1px dotted @sapUiFocus;
+		outline-offset: -1px;
+	  }
+	}
+  }
+  //in order to not be displayed hover in mobile
+  //is there a better way?
+  .sapMTimePickerItem{
+	&:hover {
+	  background-color: transparent !important;
+	}
+  }
+}

@@ -1,0 +1,199 @@
+
+/* ================================================== */
+/* GR CSS for control sap.ui.ux3/ExactList.control    */
+/* ================================================== */
+
+@sapUiUx3ExactLstExpandOffset: -1 -2;
+@sapUiUx3ExactLstRootExpandOffset: 0 3;
+@sapUiUx3ExactLstContentTop: 25px;
+
+.sapUiUx3ExactLst {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ExactLstLst {
+	background-color: @sapUiFieldBackground;
+	top: 24px;
+	border-color: @sapUiDarkBorder;
+}
+
+
+/* List - Item Texts */
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > span.sapUiLbxITxt {
+	border-color: transparent;
+}
+
+/* List - Sub-Attribute Indicator */
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > span.sapUiLbxIIco {
+	background-image: url("img/exact/expand_item_regular.png");
+	background-repeat: no-repeat;
+	background-color: transparent;
+	border-width: 0px;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco:after {
+	content: "";
+}
+
+
+/* List - Focus, Hover, Select */
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3ExactLstLb > ul > .sapUiLbxISel,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ExactLstLb > ul > .sapUiLbxISel,
+html[data-sap-ui-browser="ie10"] .sapUiUx3ExactLstLb > ul > .sapUiLbxISel {
+	border: 1px solid @sapUiListSelectionBackgroundColor;
+}
+
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel > span {
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover > span,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus > span {
+	background-color: @sapUiListHoverBackground;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:hover,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:focus,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:hover > span,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:focus > span {
+	background-color: @sapUiListSelectionHoverBackground;
+}
+
+
+/* Expander */
+
+.sapUiUx3ExactLstExp {
+	background-color: transparent;
+	background-image: url("img/exact/expand_list_regular.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: transparent;
+    height: 21px;
+    cursor: pointer;
+    font-size: 0;
+    border-top: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiUx3ExactLstExp:hover {
+	background-image: url("img/exact/expand_list_hover.png");
+}
+
+.sapUiUx3ExactLstExpanded > .sapUiUx3ExactLstExp {
+	background-image: url("img/exact/collapse_list_regular.png");
+}
+
+.sapUiUx3ExactLstExpanded > .sapUiUx3ExactLstExp:hover {
+	background-image: url("img/exact/collapse_list_hover.png");
+}
+
+/* Header */
+
+.sapUiUx3ExactLstHead {
+	background-color: @sapUiLightestBG;
+    border-top: 1px solid @sapUiDarkBorder;
+	border-left: 1px solid @sapUiDarkBorder;
+	border-right: 1px solid @sapUiDarkBorder;
+	border-bottom: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead {
+	background-color: @sapUiLightestBG;
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiUx3ExactLstHeadTopTxt,
+.sapUiUx3ExactLstHeadTxt {
+    color: @sapUiExtraDarkText;
+}
+
+.sapUiUx3ExactLstHeadTopTxt {
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ExactLstHeadAct {
+	top: 5px;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct {
+	left: 4px;
+}
+
+.sapUiUx3ExactLstHide, .sapUiUx3ExactLstClose {
+	font-size: 0;
+	color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.sapUiUx3ExactLstHide {
+	background-image: url("img/exact/expand_regular.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide {
+	background-image: url("img/exact/expand_2_regular.png");
+}
+
+.sapUiUx3ExactLstHide:focus, .sapUiUx3ExactLstHide:hover {
+	background-image: url("img/exact/expand_hover.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide:focus,
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide:hover {
+	background-image: url("img/exact/expand_2_hover.png");
+}
+
+.sapUiUx3ExactLstHide:active {
+	background-image: url("img/exact/expand_down.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide:active {
+	background-image: url("img/exact/expand_2_down.png");
+}
+
+.sapUiUx3ExactLstClose {
+	background-image: url("img/exact/close_regular.png");
+}
+
+.sapUiUx3ExactLstClose:focus, .sapUiUx3ExactLstClose:hover {
+	background-image: url("img/exact/close_hover.png");
+}
+
+.sapUiUx3ExactLstClose:active {
+	background-image: url("img/exact/close_down.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead {
+	border-bottom: 1px solid @sapUiExtraLightBorder;
+}
+
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadTxt {
+	left: -4px; /*should be right -> swapped with right by RTL transformation*/
+}
+
+
+/* Content */
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstCntnt {
+	border: 0px solid transparent;
+	background-color: @sapUiGroupContentBackground;
+	border-left: 1px solid @sapUiGroupContentBackground;
+	border-right: 1px solid @sapUiGroupContentBackground;
+}
+
+
+/* Resize */
+
+.sapUiUx3ExactLstRSz.sapUiUx3ExactLstRSzDrag, 
+.sapUiUx3ExactLstRSz:hover {
+	background-image: url("img/exact/resize.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+}

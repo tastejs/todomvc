@@ -1,0 +1,290 @@
+/* Shared CSS for 'base' theme */
+
+.sapUiThemeDesignerCustomCssCheck() when(@sapUiThemeDesignerCustomCss = true){
+	visible:true;
+}
+.sapUiThemeDesignerCustomCssCheck() when not(@sapUiThemeDesignerCustomCss = true){
+}
+
+.sapUiThemeDesignerCustomCss{
+	.sapUiThemeDesignerCustomCssCheck;
+}
+
+.sapUiBody {
+	background-color: @sapUiExtraLightBG;
+	color: @sapUiText;
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+	-webkit-tap-highlight-color: rgba(0,0,0,0); /* to prevent touch highlight on the entire body */
+}
+
+.sapUiArea {
+	background-color: @sapUiExtraLightBG;
+	color: @sapUiText;
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+}
+
+/* 
+ * used for static (Core) and hidden (HTML) area 
+ * (TODO: think about renaming static area also to hidden since static is not
+ *        required for newer browsers anymore => position: static) 
+ */
+.sapUiHidden {
+	position: absolute;
+	visibility: hidden;
+	left: -10000px;
+	top: -10000px;
+	background-color: @sapUiExtraLightBG; /* repeat the body style in case the application adapts it */
+	color: @sapUiText;
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+}
+
+.sapUiForcedHidden, .sapUiForcedHidden * {
+	visibility: hidden !important;
+}
+
+.sapUiCorePlaintext {
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+	line-height: @sapUiLineHeight;
+}
+
+.sapUiCoreDefaultFont {
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+}
+
+.sapUiCoreDefaultCursor {
+	cursor: default;
+}
+
+.sapUiBLy {
+	background-color: #CCCCCC;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	position: fixed;
+	outline: 0 none;
+}
+
+.sapUiBLyBack{
+	/* to prevent HTML page from scrolling if blocked */
+	overflow: hidden;
+}
+
+.sapUiPopupShield{
+	position: absolute;
+}
+
+[data-sap-ui-type] {
+	visibility:hidden;
+}
+
+/* CSS for windows 8 combi devices */
+.sapUiBody {
+	/* disable pinch zooming */
+	content-zooming: none;
+	-ms-content-zooming: none;
+}
+
+@media (max-width:599px) {
+	.sapUiHideOnPhone {
+		display : none !important;
+	}
+	.sapUiVisibleOnlyOnTablet {
+		display : none !important;
+	}
+	.sapUiVisibleOnlyOnDesktop {
+		display : none !important;
+	}
+}
+
+@media (min-width:600px) and (max-width:1023px) {
+	.sapUiHideOnTablet {
+		display : none !important;
+	}
+	.sapUiVisibleOnlyOnDesktop {
+		display : none !important;
+	}
+	.sapUiVisibleOnlyOnPhone {
+		display : none !important;
+	}
+}
+
+@media (min-width:1024px) {
+	.sapUiHideOnDesktop {
+		display : none !important;
+	}
+	.sapUiVisibleOnlyOnTablet {
+		display : none !important;
+	}
+	.sapUiVisibleOnlyOnPhone {
+		display : none !important;
+	}
+}
+
+.sapUiOverlay {
+	background-color: fade(@sapUiExtraLightBG, 80%);
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+/*
+ * Enforces 'auto' width. To be used in combination 
+ * with pre-defined margin classes to remove any '100%'
+ * width's that might be set.
+ */
+.sapUiForceWidthAuto { width: auto !important; }
+
+/* 
+ * Pre-defined margins classes. These contain css margin
+ * properties which are flagged 'important' to make sure
+ * margins that come with a control are overwritten (an
+ * example for a control with a pre defined margin is the
+ * sap.m.List). 
+ *
+ * In case your control comes with width '100%', horizontal
+ * margins will not work properly. If your control has a
+ * width property (which is usually the case), you should
+ * set that property to 'auto'.
+ *
+ * There are some control's though which do not have a width
+ * property but still have a default width of '100%' 
+ * (one example would be the SimpleForm). For these cases,  
+ * please use css class 'sapUiForceWidthAuto' to which replace
+ * your control's default width with value 'auto'.
+ */
+
+/* Margins all around */
+.sapUiTinyMargin 	{ margin: @sapUiMarginTiny !important; }
+.sapUiSmallMargin 	{ margin: @sapUiMarginSmall !important; }
+.sapUiMediumMargin 	{ margin: @sapUiMarginMedium !important; }
+.sapUiLargeMargin 	{ margin: @sapUiMarginLarge !important; }
+
+/* Two-sided margins */
+.sapUiTinyMarginBeginEnd { 
+	margin-left: @sapUiMarginTiny !important; 
+	margin-right: @sapUiMarginTiny !important; 
+}
+.sapUiTinyMarginTopBottom {
+	margin-top: @sapUiMarginTiny !important; 
+	margin-bottom: @sapUiMarginTiny !important; 
+}
+.sapUiSmallMarginBeginEnd { 
+	margin-left: @sapUiMarginSmall !important; 
+	margin-right: @sapUiMarginSmall !important; 
+}
+.sapUiSmallMarginTopBottom {
+	margin-top: @sapUiMarginSmall !important; 
+	margin-bottom: @sapUiMarginSmall !important; 
+}
+.sapUiMediumMarginBeginEnd {
+	margin-left: @sapUiMarginMedium !important; 
+	margin-right: @sapUiMarginMedium !important; 
+}
+.sapUiMediumMarginTopBottom {
+	margin-top: @sapUiMarginMedium !important; 
+	margin-bottom: @sapUiMarginMedium !important; 
+}
+.sapUiLargeMarginBeginEnd {
+	margin-left: @sapUiMarginLarge !important; 
+	margin-right: @sapUiMarginLarge !important; 
+}
+.sapUiLargeMarginTopBottom { 
+	margin-top: @sapUiMarginLarge !important; 
+	margin-bottom: @sapUiMarginLarge !important; 
+}
+
+/* Single-sided margins */
+.sapUiTinyMarginTop    { margin-top: @sapUiMarginTiny !important; }
+.sapUiTinyMarginBottom { margin-bottom: @sapUiMarginTiny !important; }
+.sapUiTinyMarginBegin  { margin-left: @sapUiMarginTiny !important; }
+.sapUiTinyMarginEnd    { margin-right: @sapUiMarginTiny !important; }
+
+.sapUiSmallMarginTop    { margin-top: @sapUiMarginSmall !important; }
+.sapUiSmallMarginBottom { margin-bottom: @sapUiMarginSmall !important; }
+.sapUiSmallMarginBegin  { margin-left: @sapUiMarginSmall !important; }
+.sapUiSmallMarginEnd    { margin-right: @sapUiMarginSmall !important; }
+
+.sapUiMediumMarginTop    { margin-top: @sapUiMarginMedium !important; }
+.sapUiMediumMarginBottom { margin-bottom: @sapUiMarginMedium !important; }
+.sapUiMediumMarginBegin  { margin-left: @sapUiMarginMedium !important; }
+.sapUiMediumMarginEnd    { margin-right: @sapUiMarginMedium !important; }
+
+.sapUiLargeMarginTop    { margin-top: @sapUiMarginLarge !important; }
+.sapUiLargeMarginBottom { margin-bottom: @sapUiMarginLarge !important; }
+.sapUiLargeMarginBegin  { margin-left: @sapUiMarginLarge !important; }
+.sapUiLargeMarginEnd    { margin-right: @sapUiMarginLarge !important; }
+
+
+/* 
+ * Class for responsive margins which adapts to the screen size of the currently used device
+ */
+@media (max-width:599px) {
+	.sapMSplitContainerHideMode > .sapMSplitContainerDetail .sapUiResponsiveMargin,
+	.sapMSplitContainerPortrait > .sapMSplitContainerDetail .sapUiResponsiveMargin,
+	.sapUiResponsiveMargin {
+		margin: 0 0 1rem 0 !important;
+	}
+}
+
+@media (min-width:600px) and (max-width:1023px) {
+	.sapMSplitContainerHideMode > .sapMSplitContainerDetail .sapUiResponsiveMargin,
+	.sapUiResponsiveMargin {
+		margin: 1rem !important;
+	}
+}
+
+@media (min-width:1024px) {
+	.sapMSplitContainerHideMode > .sapMSplitContainerDetail .sapUiResponsiveMargin,
+	.sapUiResponsiveMargin {
+		margin: 1rem 2rem !important;
+	}
+}
+
+/*
+ * Content of SplitContainer Master
+ * (Left hand-side of SplitContainer)
+ */
+.sapMSplitContainerMaster .sapUiResponsiveMargin
+{
+	margin: 0 0 1rem 0 !important;
+}
+
+/*
+ * Content of SplitContainer Detail 
+ * (Right hand-side of SplitContainer)
+ */
+.sapMSplitContainerDetail .sapUiResponsiveMargin{
+	margin: 1rem !important;
+}
+
+
+/*
+ * No margins, use these classes to remove existing margins.
+ * IMPORTANT: THESE CLASSES MUST COME AFTER ALL OTHER PRE-DEFINED MARGINS
+ * to make sure that their 'IMPORTANT' statement wins
+ */
+.sapUiNoMargin    { margin: 0 !important; } /*Removes ALL margins*/
+/*Use the following to remove a margin on a particular side of your container*/    
+.sapUiNoMarginTop    { margin-top: 0 !important; }
+.sapUiNoMarginBottom { margin-bottom: 0 !important; }
+.sapUiNoMarginBegin  { margin-left: 0 !important; }
+.sapUiNoMarginEnd    { margin-right: 0 !important; }
+
+.sapUiInvisibleText, .sapUiHiddenPlaceholder {
+	display: none !important;
+}
+
+/* hides the content to sighted users, but still allow it to be read by screen readers */
+.sapUiPseudoInvisibleText {
+	position: absolute !important;
+	clip: rect(1px, 1px, 1px, 1px);
+}

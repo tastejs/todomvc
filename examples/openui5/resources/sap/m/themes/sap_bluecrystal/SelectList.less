@@ -1,0 +1,95 @@
+/* ====================================================== */
+/* CSS for control sap.m/Select.control BlueCrystal theme */
+/* ====================================================== */
+
+/* ====================================================== */
+/* Select List                                            */
+/* ====================================================== */
+
+/* ------------------------------ */
+/* list                           */
+/* ------------------------------ */
+
+.sapMSelectList {
+	background: @sapUiListBackground;
+}
+
+/* ------------------------------ */
+/* item                           */
+/* ------------------------------ */
+
+.sapMSelectListItemBase {
+	font-size: @sapMFontMediumSize;
+	height: 2.5rem;
+	cursor: pointer;
+}
+
+.sapMSelectListItem {
+	padding: 0 1rem 0 1rem;
+	line-height: 2.5rem;
+}
+
+/* selected */
+
+.sapMSelectListItemBaseSelected {
+	background: @sapUiListSelectionBackgroundColor;
+}
+
+/* hover */
+
+.sapMSelectListItemBaseHoverable:hover {
+	background: @sapUiListHoverBackground;
+}
+
+/* pressed */
+
+.sapMSelectListItemBase.sapMSelectListItemBasePressed {
+	color: @sapUiListActiveTextColor;
+	background: @sapUiListActiveBackground;
+}
+
+/* disabled */
+
+.sapMSelectListItemBaseDisabled {
+	opacity: 0.5;
+}
+
+/* focus */
+
+.sap-desktop .sapMSelectListItemBase:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+/* ------------------------------ */
+/* cell                           */
+/* ------------------------------ */
+
+.sapMSelectListCell {
+	padding-left: 1rem;
+}
+
+.sapMSelectListLastCell {
+	padding-right: 1rem;
+}
+
+/* ------------------------------ */
+/* separator                      */
+/* ------------------------------ */
+
+.sapMSelectListSeparatorItem {
+	border: 1px solid @sapUiToolbarSeparatorColor;
+}
+
+/* compact size  */
+
+/* ------------------------------ */
+/* commons styles                 */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMSelectListItemBase {
+	height: 2rem;
+}
+
+.sapUiSizeCompact .sapMSelectListItem {
+	line-height: 2rem;
+}

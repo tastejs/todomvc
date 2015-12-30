@@ -1,0 +1,124 @@
+/* ======================================================== */
+/* CSS for control sap.ui.commons/ProgressIndicator.control */
+/* ======================================================== */
+
+.sapUiProgInd {
+	display: inline-block;
+}
+
+.sapUiProgIndBorder {
+	display: inline-block;
+	border: 1px solid @sapUiContentForegroundBorderColor;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sapUiProgIndBar {
+	position: relative;
+	background-color: lighten(desaturate(@sapUiHighlight, 49), 44);
+	color: contrast(lighten(desaturate(@sapUiHighlight, 49), 44), @sapTextColor, @sapUiTextInverted);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndBarPos {
+	position: relative;
+	background-color: @sapUiFieldSuccessBackground;
+	color: contrast(@sapUiFieldSuccessBackground, @sapTextColor, @sapUiTextInverted);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndBarNeg {
+	position: relative;
+	background-color: @sapUiFieldInvalidBackground;
+	color: contrast(@sapUiFieldInvalidBackground, @sapTextColor, @sapUiTextInverted);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndBarCrit{
+	position: relative;
+	background-color: @sapUiFieldWarningBackground;
+	color: contrast(@sapUiFieldWarningBackground, @sapTextColor, @sapUiTextInverted);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndFont{
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 14px;
+	padding-left: 5px;
+	vertical-align: top;
+	font-size: 11px;
+	white-space: nowrap;
+}
+
+.sapUiProgIndEndHidden{
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: hidden;
+}
+
+.sapUiProgIndEnd{
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+.sapUiProgIndPosEnd{
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+.sapUiProgIndNegEnd{
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+.sapUiProgIndCritEnd {
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}

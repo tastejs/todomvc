@@ -1,0 +1,82 @@
+
+/* ============================================= */
+/* CSS for controlsap.m/BusyIndicator.control    */
+/* ============================================= */
+
+.sapMBusyIndicator {
+	display: inline-block;
+	text-align: center;
+
+	.sapMBusyIndicatorBusyArea {
+		min-width: 3em;
+		min-height: 1em;
+		margin: 0 auto;
+	}
+
+	.sapMLabel {
+		display: block;
+	}
+
+	.sapUiLocalBusyIndicator {
+		background: none;
+		font-size: inherit;
+	}
+}
+
+.sapMBar-CTX .sapMBusyIndicator {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.sapMBsyIndAnimation(@name) {
+	-moz-animation:    @name 2s linear 0s infinite normal none;
+	-webkit-animation: @name 2s linear 0s infinite normal none;
+	animation:         @name 2s linear 0s infinite normal none;
+}
+
+html[dir='rtl'] .sapMBsyIndIcon {
+	.sapMBsyIndAnimation(sapMBsyIndRotateRTL);
+}
+
+.sapMBsyIndIcon {
+	vertical-align: middle;
+	-webkit-transform: rotate(0deg) translateZ(0);
+	-ms-transform: rotate(0deg) translateZ(0);
+	transform: rotate(0deg) translateZ(0);
+	-webkit-transition-duration: 0ms;
+	-ms-transition-duration: 0ms;
+	transition-duration: 0ms;
+
+	.sapMBsyIndAnimation(sapMBsyIndRotate);
+}
+
+@-moz-keyframes sapMBsyIndRotate {
+	from { -moz-transform: rotate(0deg); }
+	to { -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes sapMBsyIndRotate {
+	from { -webkit-transform:rotate(0deg) translateZ(0); }
+	to { -webkit-transform:rotate(360deg) translateZ(0); }
+}
+
+@keyframes sapMBsyIndRotate {
+	from { transform:rotate(0deg) translateZ(0); }
+	to { transform:rotate(360deg) translateZ(0); }
+}
+
+@-moz-keyframes sapMBsyIndRotateRTL {
+	from { -moz-transform: rotate(0deg); }
+	to { -moz-transform: rotate(-360deg); }
+}
+
+@-webkit-keyframes sapMBsyIndRotateRTL {
+	from { -webkit-transform:rotate(0deg) translateZ(0); }
+	to { -webkit-transform:rotate(-360deg) translateZ(0); }
+}
+
+@keyframes sapMBsyIndRotateRTL {
+	from { transform:rotate(0deg) translateZ(0); }
+	to { transform:rotate(-360deg) translateZ(0); }
+}

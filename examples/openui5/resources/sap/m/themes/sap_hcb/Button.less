@@ -1,0 +1,383 @@
+/* ============================================= */
+/* CSS for control sap.m/Button.control          */
+/* High Contrast Black theme                     */
+/* ============================================= */
+
+.sapMBtn {
+	height: 3.000rem;
+	margin:           0;
+	padding:          0.250rem 0;
+	vertical-align:   top;
+	background-color: transparent;
+	border:           none;
+}
+
+.sapMBtnBack {
+	min-width:        5.000rem;
+}
+
+.sapMBtn:focus {
+	outline:          none;
+}
+
+.sapMBtnInner {
+	height:           2.500rem;
+	min-width:        2.500rem;
+	margin:           0;
+	padding:          0;
+	vertical-align:   top;
+	background-color: @sapHCStandardBG;
+	border:           1px solid @sapHCStandardFG;
+	border-radius:    0.375rem;
+	color:             @sapHCStandardFG;
+	font-family:      @sapUiFontFamily;
+	font-size:        0.875rem;
+}
+
+.sapMBtnInner::-moz-focus-inner {
+	border: 0;
+}
+
+.sapMBtnPaddingLeft {
+	padding-left:     0.75rem;
+}
+
+.sapMBtnPaddingRight {
+	padding-right:    0.75rem;
+}
+
+.sapMBtnInner:focus,
+.sapMBtnContent>span:focus {
+	outline:          none;
+}
+
+.sapMBtnContent {
+	line-height:      2.375rem;
+}
+
+.sapMBtnIcon {
+	color:            @sapHCStandardFG;
+	font-size:        1.375rem;
+	line-height:      2.375rem;
+	width:            2.375rem;
+	text-align:       center;
+	margin:           0;
+	padding:          0;
+	vertical-align:   top;
+	max-height:       2.375rem;
+}
+
+/* ---------------------------------------- */
+
+.sapMBtn:hover > .sapMBtnHoverable,
+.sapMBtnActive {
+	background-color: @sapHCHighlightBG;
+}
+
+/* --------------------------------------------------------------------- */
+/* Custom focus outline:                                                 */
+/* --------------------------------------------------------------------- */
+
+.sap-desktop .sapMBtn:focus > .sapMFocusable {
+	outline:           0.125rem dotted @sapHCStandardFG;
+	outline-offset:   -0.125rem;
+	border-color:      transparent;
+	border-radius:     0;
+}
+
+.sap-desktop .sapMBtn:focus > .sapMFocusable:not(.sapMBtnActive) {
+	border-radius: 0;
+}
+
+/* IE ignores outline-offset. Use an overlay: */
+.sap-desktop[data-sap-ui-browser^="ie"],
+.sap-phone[data-sap-ui-browser^="ie"] {
+
+	.sapMBtn:focus > .sapMBtnInner.sapMFocusable {
+		outline:          none;
+		position:         relative;
+	}
+
+	.sapMBtn:focus > .sapMBtnInner.sapMFocusable:before {
+		content: " ";
+		box-sizing:       border-box;
+		width:            100%;
+		height:           100%;
+		position:         absolute;
+		left:             0;
+		top:              0;
+		border:           0.125rem dotted @sapHCStandardFG;
+	}
+
+	/* This is for IE9 - if a button overflows inside of a bar,
+	ellipsis will be shown and it will hide completely if there is no position relative set.*/
+	.sapMBar .sapMBtnInner {
+		position: relative;
+	}
+}
+
+/* ---------------------------------------------------------------------*/
+/* Disabled and active states:                                          */
+/* ---------------------------------------------------------------------*/
+
+.sapMBtnDisabled {
+	cursor:           default;
+}
+
+.sapMBtnDisabled .sapMBtnInner{
+	border-color:      @sapHCReducedFG;
+	color:            @sapHCReducedFG;
+}
+
+.sapMBtnDisabled .sapMBtnInner .sapMBtnIcon {
+	color:            @sapHCReducedFG;
+}
+
+.sapMBtnDisabled .sapMBtnActive {
+	background-color: @sapHCStandardBG;
+}
+
+/* ---------------------------------------------------------------------*/
+/* Special buttons have the same look on a page and in a header/footer. */
+/* ---------------------------------------------------------------------*/
+
+div.sapMBtnInner.sapMBtnEmphasized {
+	border-width: 0.125rem;
+}
+
+/* ------------------------------------------------ */
+/* Buttons in a Bar                                 */
+/* (add separators, remove top/bottom border)       */
+/* ------------------------------------------------ */
+
+.sapMIBar .sapMBtnInner {
+/* remove top/bottom borders, compensate with padding */
+	padding-top:      1px;
+	padding-bottom:   1px;
+	vertical-align:   top;
+}
+
+.sapMIBar-CTX .sapMBtnContent {
+  line-height:      2.25rem;
+}
+
+/* ------------------------------------------------ */
+/* Buttons in an ActionSelect                       */
+/* ------------------------------------------------ */
+
+.sapMActionSelectPicker.sapMSltPicker .sapMBtn { //overriding the .sapMSltPicker .sapMBtn selector from Select.less
+	display: block;
+	width: 100%;
+    padding: 0.25rem;
+	text-shadow: none;
+    height: 3rem;
+}
+
+.sapMActionSelectPicker .sapMBtnInner {
+ 	border: 1px solid @sapHCStandardFG;
+}
+
+.sapMSltPickerStandalone .sapMBtn {
+	height: 3rem;
+}
+
+.sapMSltPickerStandalone .sapMBtnInner > .sapMBtnContent {
+	line-height: 2.5rem;
+}
+
+.sap-desktop .sapMActionSelectPicker .sapMBtnDefault:focus {
+	outline-color: @sapHCHighlightBG;
+}
+
+/* ------------------------------------------------ */
+/* Buttons in a Toolbar                             */
+/* ------------------------------------------------ */
+
+/* increase outline offset */
+.sapMTB > .sapMBtnInner.sapMFocusable:focus {
+	outline-offset:       -0.125rem;
+}
+
+/* ------------------------------------------------ */
+/* Compact size                                     */
+/* ------------------------------------------------ */
+
+.sapUiSizeCompact{
+	.sapMBtn {
+		height:           2.000rem;
+		padding:          0.1875rem 0;
+	}
+
+	.sapMBtnBack {
+		min-width:        4.000rem;
+	}
+
+	.sapMBtnInner {
+		height:           1.625rem;
+		min-width:        2.0rem;
+		padding:          0 0.4375rem;
+		text-shadow:      none;
+	}
+
+	.sapMBtnInner > img {
+		height:           1.500rem;
+		width:            1.500rem;
+		margin-left:      0.250rem;
+		margin-right:     0.250rem;
+	}
+
+	.sapMBtnIconLeft {
+		margin-left:      0.4375rem;
+		margin-right:     0.4375rem;
+		top:              0;
+		left:             0;
+	}
+
+	.sapMBtnBackIconLeft {
+		margin-left:      0.4375rem;
+		margin-right:     0.4375rem;
+		top:              0;
+		left:             2.000rem;
+	}
+
+	.sapMBtnIconRight {
+		margin-left:      0.4375rem;
+		margin-right:     0.4375rem;
+		top:              0;
+		right:            0;
+	}
+
+	.sapMBtnPaddingLeft {
+		padding-left:     0.4375rem;
+	}
+
+	.sapMBtnPaddingRight {
+		padding-right:    0.4375rem;
+	}
+
+	 .sapMBar-CTX .sapMBtnInner {
+		margin:           0;
+	}
+
+	.sapMBtnContent {
+		line-height:      1.500rem;
+	}
+
+	.sapMBtnContentLeft {
+		padding-right:    1.500rem;
+	}
+
+	.sapMBtnContentRight {
+		padding-left:     1.500rem;
+	}
+
+	.sapMBtnBackContentRight {
+		padding-left:     3.500rem;
+	}
+
+	.sapMBtnIcon {
+		line-height:      1.500rem;
+		width:            1.000rem;
+		font-size:        1.000rem;
+		max-height:       1.500rem;
+	}
+
+}
+
+.sapUiSizeCompact.sapMActionSelectPicker.sapMSltPicker .sapMBtnInner {
+ 	height:           1.625rem;
+}
+
+.sapUiSizeCompact.sapMActionSelectPicker.sapMSltPicker .sapMBtnContent {
+	line-height:      1.625rem;
+}
+
+.sapUiSizeCompact.sapMActionSelectPicker.sapMSltPicker .sapMBtn {
+	height:           2rem;
+    padding: 0.187rem 0.25rem;
+}
+
+/* ------------------------------------------------ */
+/* Condensed size                                   */
+/* ------------------------------------------------ */
+
+.sapUiSizeCondensed .sapUiTableCell {
+	.sapMBtn {
+		height:           1.375rem;
+		padding:          0;
+	}
+
+	.sapMBtnBack {
+		min-width:        4.000rem;
+	}
+
+	.sapMBtnInner {
+		height:           1.375rem;
+		min-width:        2.0rem;
+		padding:          0 0.4375rem;
+		text-shadow:      none;
+	}
+
+	.sapMBtnInner > img {
+		height:           1.250rem;
+		width:            1.250rem;
+		margin-left:      0.250rem;
+		margin-right:     0.250rem;
+	}
+
+	.sapMBtnIconLeft {
+		margin-left:      0.4375rem;
+		margin-right:     0.4375rem;
+		top:              0;
+		left:             0;
+	}
+
+	.sapMBtnBackIconLeft {
+		margin-left:      0.4375rem;
+		margin-right:     0.4375rem;
+		top:              0;
+		left:             2.000rem;
+	}
+
+	.sapMBtnIconRight {
+		margin-left:      0.4375rem;
+		margin-right:     0.4375rem;
+		top:              0;
+		right:            0;
+	}
+
+	.sapMBtnPaddingLeft {
+		padding-left:     0.4375rem;
+	}
+
+	.sapMBtnPaddingRight {
+		padding-right:    0.4375rem;
+	}
+
+	 .sapMBar-CTX .sapMBtnInner {
+		margin:           0;
+	}
+
+	.sapMBtnContent {
+		line-height:      1.250rem;
+	}
+
+	.sapMBtnContentLeft {
+		padding-right:    1.500rem;
+	}
+
+	.sapMBtnContentRight {
+		padding-left:     1.500rem;
+	}
+
+	.sapMBtnBackContentRight {
+		padding-left:     3.500rem;
+	}
+
+	.sapMBtnIcon {
+		line-height:      1.250rem;
+		width:            1.000rem;
+		font-size:        1.000rem;
+		max-height:       1.250rem;
+	}
+}

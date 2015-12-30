@@ -1,0 +1,97 @@
+/* ================================================ */
+/* HCB CSS for control sap.ui.ux3/ExactList.control */
+/* SAP-HCB Theme                                    */
+/* ================================================ */
+
+.sapUiUx3ExactLst {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* List */
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI {
+	border: 2px solid transparent;
+	box-sizing: border-box;
+}
+
+/* List - Item Texts */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus {
+	outline: 2px solid @sapUiTextSelection;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb.sapUiLbx > ul > .sapUiLbxI > .sapUiLbxITxt {
+	border-bottom-style: none;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover *,   /* FIXME!!! (star rule with any-parent selector...) */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus * {
+	border-color: transparent;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover,
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus {
+	border: 2px solid @sapUiTextSelection;
+	outline-width: 0px;
+}
+
+/* List - Sub-Attribute Indicator */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > span {
+	padding-top: 3px;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco {
+    top: 2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > span {
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco {
+	top: 0px;
+}
+
+/* Expander */
+.sapUiUx3ExactLstExp {
+	border-top: 1px solid @sapUiMediumBorder;
+	background-color: @sapUiExtraLightBG;
+}
+
+/* Header */
+.sapUiUx3ExactLstHeadAct {
+	top: -1px;	
+	font-weight: bold;
+	outline: none;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstClose {
+    left: 2px;
+}
+
+/* Content */
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstCntnt {
+	border: 1px solid @sapUiMediumBorder;
+}
+
+/*Top Menu*/
+.sapUiUx3ExactLstHeadTopIco,
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt > .sapUiUx3ExactLstHeadTopIco {
+	background-image: url("img/exact/tophead.gif");
+	bottom: 3px;
+    height: 12px;
+    width: 6px;
+}
+
+html[dir=rtl] .sapUiUx3ExactLstHeadTopIco,
+html[dir=rtl] .sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt > .sapUiUx3ExactLstHeadTopIco {
+	right: -3px;
+	width: 12px;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt {
+	color: @sapUiText;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:focus {
+	outline: 3px solid white;
+}

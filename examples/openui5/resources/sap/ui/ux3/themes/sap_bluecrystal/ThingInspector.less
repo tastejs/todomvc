@@ -1,0 +1,301 @@
+/* ================================================= */
+/* CSS for control sap.ui.ux3/ThingInspector.control */
+/* ================================================= */
+
+.sapUiUx3TI {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiShd.sapUiUx3TI {
+}
+
+.sapUiUx3TIOverlay {
+}
+
+.sapUiUx3TI .sapUiUx3OverlayOverlay {
+	opacity: .60;
+}
+
+.sapUiUx3TICollection {
+	position: absolute;
+	top: 0px;
+	left: 29px;
+	bottom: 29px;
+	width:200px;
+	opacity: 1;
+	padding: 0;
+}
+
+.sapUiUx3TICollectionHeader {
+	position: absolute;
+	background-color: @sapUiFieldInvalidColor;
+	top: 0px;
+	left: 0px;
+	height:20px;
+	right:0px;
+	opacity: 1;
+	padding: 8px 0px 0px 10px;
+	font-size: 12px;
+	font-weight: bold;
+	color: @sapUiTextInverted;
+	text-transform: uppercase;
+}
+
+.sapUiUx3TICollectionContent {
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	bottom:40px;
+	right:0px;
+	opacity: 1;
+	padding: 0;
+}
+
+.sapUiUx3TICollectionFooter {
+	position: absolute;
+	left: 0px;
+	bottom:0px;
+	right:0px;
+	height:38px;
+	padding:2px;
+	opacity: 1;
+}
+
+.sapUiUx3TICollectionThingAction {
+	height: 21px;
+	padding: 10px 5px 5px 10px;
+	border: 2px solid #444;
+	font-size: 14px;
+	font-weight: bold;
+	color: @sapUiTextInverted;
+	background-image: url("img/overflow_regular.png");
+	background-repeat:no-repeat;
+	background-position:right;
+}
+
+.sapUiUx3TIContentScrollContainer {
+	position: absolute;
+	background-color: @sapUiLightBG;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	padding: 0;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+.sapUiUx3TIHeader {
+	background-color: @sapUiLightBG;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 270px;
+}
+
+.sapUiUx3TIFacets {
+	background-color: @sapUiLightestBG;
+	position: absolute;
+	top: 0px;
+	left: 270px;
+	right: 0px;
+}
+
+.sapUiUx3TIToolbar {
+	background-color: @sapUiMediumBG;
+}
+
+.sapUiUx3TIToolbar > .sapUiUx3ActionBar {
+	background-color: transparent;
+}
+
+.sapUiUx3TIHeaderContent {
+	background-color: @sapUiLightBG;
+}
+
+.sapUiUx3TIHeaderContainer {
+	padding: 0px 10px 5px 10px;
+}
+
+.sapUiUx3TIHeaderContainerIdentifier {
+	padding: 10px 10px 0px 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 28px;
+}
+
+.sapUiUx3TIIdentifier {
+	font-size: 16px;
+	font-weight: bold;
+	color: @sapUiMediumText;
+	height: 27px;
+	width: 100%;
+	text-transform: uppercase;
+}
+
+.sapUiUx3TITitle {
+	font-weight: bold;
+	padding-left: 10px;
+	color: @sapUiBaseText;
+	display: inline-block;
+	vertical-align: top;
+	position:relative;
+	width:67%; /*174px;*/
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.sapUiUx3TITitleFirst {
+	font-size: 16px;
+}
+
+.sapUiUx3TITitleSecond {
+	font-size: 14px;
+	font-weight: regular;
+	padding-top: 4px;
+}
+
+.sapUiUx3TIIconBar {
+	position: relative;
+	padding: 10px 0px 15px 0px;
+}
+
+.sapUiUx3TIIcon {
+	padding: 8px;
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	border: 1px solid @sapUiMediumBorder;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+.sapUiUx3TIIcon>IMG {
+	width: 100%;
+	height: 100%;
+}
+
+.sapUiUx3TIOverview {
+}
+
+.sapUiUx3TIHRGrey {
+	background-color: @sapUiDarkBG;
+	border: 0;
+	height: 2px;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiUx3TIHRWhite {
+	background-color: @sapUiLightestBG;
+	border: 0;
+	height: 2px;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiUx3TIHeaderGroupTitle {
+	font-weight: bold;
+	font-size: 12px;
+	color: @sapUiExtraDarkText;
+	text-transform: uppercase;
+	padding-top:7px;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.sapUiUx3TIHeaderGroupContent {
+	margin: 10px 0px 0px 0px;
+	font: 12px arial, sans-serif;
+}
+
+.sapUiUx3TIFacetBar {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 0px;
+	height: 38px;
+	padding: 10px 0px 0px 0px;
+}
+
+.sapUiUx3TIFacetContent {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 40px;
+	bottom: 0px;
+	overflow-y: auto;
+	overflow-x: auto;
+}
+
+.sapUiUx3TIFacetItem {
+	display: inline-block;
+	padding: 5px;
+}
+
+.sapUiUx3TIFacetThingGroup {
+	width: 50%;
+	/*height: 300px;*/
+	min-width: 400px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sapUiUx3TIFacetThingGroupSpan {
+	width: 100%;
+	/*height: 300px;*/
+	min-width: 600px;
+	display: block;
+	vertical-align: top;
+}
+
+.sapUiUx3TIFacetThingGroupContent {
+	margin: 5px 20px 0px 20px;
+}
+
+.sapUiUx3TIFacetThingGroupContentTitle {
+	margin: 10px 20px 0px 20px;
+	font-weight: bold;
+	font-size: 14px;
+	color: @sapUiMediumText;
+	padding-bottom: 8px;
+	text-transform: uppercase;
+	border-bottom: 2px solid @sapUiMediumBorder;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.sapUiUx3TIFacetThingGroupContentTitle.HR {
+	margin-top: 8px;
+	padding: 0px;
+	height: 2px;
+}
+
+.sapUiUx3TIHeaderGroupScrollContainer {
+	overflow-y: auto;
+	position: absolute;
+	top: 40px;
+	bottom: 0px;
+	width: 270px;
+}
+
+
+.sapUiUx3TI.sapUiUx3TINoFrame {
+	border-left: 1px solid @sapUiLightBorder;
+	border-right: 1px solid @sapUiLightBorder;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3TI.sapUiUx3TINoFrame {
+	margin-top: 0px;
+	outline-width: 0px;
+}
+
+.sapUiUx3TI.sapUiUx3TINoFrame .sapUiUx3TV > .sapUiUx3TVContent {
+	border-width: 0;
+}

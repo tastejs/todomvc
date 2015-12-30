@@ -1,0 +1,179 @@
+/* ================================================= */
+/* CSS for control sap.m.QuickView */
+/* ================================================= */
+
+.sapMQuickView .sapMNav,
+.sapMQuickViewCard .sapMNav {
+	white-space: nowrap;
+}
+
+.sapMQuickViewCard.sapMQuickViewCardNoScroll {
+	height: 100%;
+}
+
+.sapMQuickViewPage.sapMNavItem {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.sapMQuickViewPage.sapMNavItem.sapMNavItemHidden {
+	display: none;
+}
+
+.sapMQuickViewPage.sapMNavItem.sapMNavItemOffset {
+	left: -100%;
+}
+
+.sap-desktop .sapMQuickViewPage .sapUiFormResGrid > div,
+.sap-tablet .sapMQuickViewPage .sapUiFormResGrid > div {
+	padding: 0;
+	margin: 0;
+}
+.sap-desktop .sapMQuickViewPage.sapMNavItem.sapMScrollContScroll,
+.sap-tablet .sapMQuickViewPage.sapMNavItem.sapMScrollContScroll,
+.sap-desktop .sapMQuickViewPage.sapMNavItem.sapMPage,
+.sap-tablet .sapMQuickViewPage.sapMNavItem.sapMPage {
+	position: relative;
+	height: 100%;
+	box-sizing: border-box;
+	padding-top: 3rem;
+}
+
+.sap-desktop .sapUiSizeCompact .sapMQuickViewPage.sapMNavItem.sapMScrollContScroll,
+.sap-tablet .sapUiSizeCompact .sapMQuickViewPage.sapMNavItem.sapMScrollContScroll,
+.sap-desktop .sapUiSizeCompact .sapMQuickViewPage.sapMNavItem.sapMPage,
+.sap-tablet .sapUiSizeCompact .sapMQuickViewPage.sapMNavItem.sapMPage {
+	padding-top: 2.5rem;
+}
+
+.sap-phone .sapMQuickViewPage.sapMNavItem.sapMPage {
+	position: relative;
+}
+
+.sap-desktop .sapMQuickViewPage.sapMPage > header,
+.sap-tablet .sapMQuickViewPage.sapMPage > header {
+	position: absolute;
+	height: 3rem;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-size: 16px;
+}
+
+.sap-desktop .sapUiSizeCompact .sapMQuickViewPage.sapMPage > header,
+.sap-tablet .sapUiSizeCompact .sapMQuickViewPage.sapMPage > header {
+	height: 2.5rem;
+
+}
+
+.sapMQuickViewPage.sapMPage > header .sapMBarRight .sapUiIcon {
+	font-size: 1rem;
+}
+
+.sap-desktop .sapMQuickViewPage > section,
+.sap-tablet .sapMQuickViewPage > section {
+	position: static;
+	height: 100%;
+	padding: 1rem;
+}
+
+.sapMQuickViewPage .sapUiFormResGridCont > div {
+	padding: 0;
+}
+
+.sapMQuickViewPage .sapUiHLayout .sapUiIcon {
+	line-height: 3rem;
+	margin-right: .75rem;
+	font-size: 2.25rem;
+	font-weight: normal;
+}
+
+.sapMQuickViewPage .sapUiHLayout .sapUiIcon:before {
+	line-height: 3rem;
+}
+
+.sapMQuickViewPage .sapUiVlt .sapMText {
+	font-weight: normal;
+}
+
+.sapMQuickViewPage .sapUiFormResGrid > div {
+	background-color : transparent;
+}
+
+.sapMQuickViewPage .sapUiSimpleForm .sapMTitle {
+	margin-top: 1rem;
+}
+
+.sapMQuickViewPage .sapMFlexItem:first-child {
+	width: 70%;
+	display: inline-block;
+}
+
+.sapMQuickViewPage .sapMFlexItem:last-child {
+	width: 30%;
+	display: inline-block;
+	font-family: SAP-icons;
+	min-width: 3rem;
+	text-align: right;
+	left: -1px;
+}
+
+.sapMQuickViewPage .sapMQuickViewThumbnail {
+	font-family: SAP-icons;
+	font-size: 2.5rem;
+	font-weight: normal;
+	width: 3rem;
+	height: 3rem;
+}
+
+.sapMQuickViewPage .sapUiHLayout {
+	margin-bottom: 2rem;
+}
+
+.sap-phone .sapMQuickViewPage .sapUiHLayout {
+	margin: 1rem 0 0 0.75rem;
+}
+
+.sapMQuickViewPage .sapUiHLayoutChildWrapper + .sapUiHLayoutChildWrapper {
+	width: ~'calc(100% - 3.75rem)';
+}
+
+.sapMQuickViewPage .sapUiVltCell {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.sapMQuickViewPage .sapUiVltCell:first-child {
+	max-height: 3rem;
+	margin-bottom: 0.5rem;
+	overflow: hidden;
+}
+
+.sapMQuickViewPage .sapUiVltCell + .sapUiVltCell span {
+	width: 100%;
+	max-height: 2rem;
+	overflow: hidden;
+}
+
+.sapMQuickViewPage .sapUiIcon {
+	margin: 1px;
+}
+
+.sapMQuickViewPage .sapUiSimpleForm .sapUiIcon {
+	margin: 0;
+	width: 100%;
+	text-align: right;
+	outline: none;
+}
+
+.sapMQuickViewPage .sapUiSimpleForm .sapUiIcon:before {
+	margin-right: 3px;
+}
+
+.sapMQuickViewPage div[class*="sapUiRespGrid"] > div[class*="sapUiRespGridSpan"] {
+	overflow: visible;
+}
+

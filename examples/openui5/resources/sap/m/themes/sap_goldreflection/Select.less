@@ -1,0 +1,104 @@
+/* ====================================================== */
+/* CSS for control sap.m/Select.control                   */
+/* ====================================================== */
+
+/* ------------------------------ */
+/* Select commons styles          */
+/* ------------------------------ */
+
+.sapMSlt,
+.sapMSltNative,
+.sapMSlt > .sapMSltLabel,
+.sapMSltPicker-CTX .sapMIBar {
+	box-sizing: border-box;
+}
+
+.sapMSltNative,
+.sapMSltNative > option {
+	font: inherit;
+}
+
+.sapMSlt,
+.sapMSltLabel,
+.sapMSltArrow {
+	display: inline-block;
+}
+
+.sapMSlt,
+.sapMSltLabel {
+	overflow: hidden;
+}
+
+.sapMSlt:not(.sapMSltDisabled),
+.sapMSlt:not(.sapMSltDisabled) > .sapMSltLabel,
+.sapMSltIconOnly:not(.sapMSltDisabled) .sapMSltIcon {
+	cursor: pointer;
+}
+
+/* ------------------------------ */
+/* Select                         */
+/* ------------------------------ */
+
+.sapMSlt {
+	position: relative;
+	vertical-align: top;
+	outline: none;
+}
+
+/* ------------------------------ */
+/* Select Label                   */
+/* ------------------------------ */
+
+.sapMSlt > .sapMSltLabel {
+	position: absolute;
+	left: 0;
+	right: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-decoration: none;
+	text-indent: 0;
+	text-align: start;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.sapMSltAutoAdjustedWidth > .sapMSltLabel {
+	position: relative;
+	vertical-align: top;
+}
+
+.sapMILI-CTX .sapMSltLabel {
+	text-align: end;
+}
+
+/* ------------------------------ */
+/* Select Icon                    */
+/* ------------------------------ */
+
+.sapMSltIcon {
+	position: absolute;
+	display: block;
+
+	/* prevent IE to focus the icon (non-focusable element) */
+	pointer-events: none;
+}
+
+.sapMSltAutoAdjustedWidth .sapMSltIcon {
+	position: relative;
+}
+
+/* ------------------------------ */
+/* Native HTML select element     */
+/* ------------------------------ */
+
+.sapMSltNative {
+	-webkit-appearance: none;
+	position: relative;
+	cursor: inherit;
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: auto;
+	opacity: 0;
+}

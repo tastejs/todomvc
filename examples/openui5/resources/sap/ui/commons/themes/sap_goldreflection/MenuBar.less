@@ -1,0 +1,67 @@
+.sapUiMnuBar {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.sapUiMnuBarDsbl {
+	border-color: transparent;
+}
+
+.sapUiMnuBarArea {
+	height: 24px;
+}
+
+.sapUiMnuBarItm {
+	border: 1px solid transparent;
+	outline: medium none;
+	padding: 2px 5px 2px 5px;
+	margin-top: 1px;
+	margin-bottom: 4px;
+	color: @sapUiBaseText;
+}
+
+.sapUiMnuBarItmDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarHeader > .sapUiMnuBarArea > .sapUiMnuBarItm {
+	color: white;
+}
+
+.sapUiMnuBarHeader > .sapUiMnuBarArea > .sapUiMnuBarItmDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarItm:focus {
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiHighlight;
+	color: @sapUiTextSelection;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarItmDsbl:hover {
+	background-color: transparent;
+	border: 1px solid transparent;
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarItmDsbl:focus {
+	background-color: transparent;
+	border: 1px dotted @sapUiContentDisabledTextColor;
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarOvrFlw:after{
+	content: "";
+}
+
+.sapUiMnuBarOvrFlw > span{
+	background-image: url(img/menu/bar-overflow.png);
+	background-position: right top;
+	padding-left: 9px;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarOvrFlw {
+	padding: 0 0 4px 0;
+	top: 1px;
+	margin-right: 3px;
+}

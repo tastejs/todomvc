@@ -1,0 +1,227 @@
+/* ===================================================================== */
+/* CSS for control sap.m/TimePicker.control BlueCrystal theme            */
+/* ===================================================================== */
+
+/* ======================================== */
+/* TimePicker Input Field                   */
+/* ======================================== */
+.sapMTimePicker {
+	.sapUiIcon {
+		color: @sapUiElement;
+		&:hover {
+			background-color: @sapUiBtnBGTransparentHover;
+		}
+		&:focus {
+			background-color: @sapUiBtnBGTransparentHover;
+			outline: 1px dotted @sapUiFocus;
+			outline-offset: -1px;
+		}
+		&:active {
+			background-color: @sapUiBtnBGTransparentDown;
+			color: @sapUiBtnTextActive;
+			outline: 1px dotted @sapUiInvertedFocus;
+		}
+	}
+
+	&.sapMTPInputActive {
+		.sapMInputBaseInner {
+			border: 1px solid @sapUiInputBaseFocus;
+		}
+		.sapUiIcon {
+			background-color: @sapUiBtnBGTransparentDown;
+			color: @sapUiBtnTextActive;
+			&:hover {
+				background-color: @sapUiBtnBGTransparentHover;
+				color: @sapUiElement;
+			}
+			&:focus {
+				background-color: @sapUiBtnBGTransparentHover;
+			}
+		}
+		.sapMInputIE9.sapUiIcon {
+			.sapUiIcon;
+		}
+	}
+}
+/* ======================================== */
+/* TimePicker Dropdown                      */
+/* ======================================== */
+.sapMTimePickerDropDown {
+	.sapMTimePickerContainer {
+
+		.sapMTPColumn {
+			.sapMTimePickerLabel {
+				font-size: @sapMFontSmallSize;
+				color: @sapUiLightText;
+				text-align: center;
+				vertical-align: middle;
+			}
+			.sapMTimePickerItemArrows {
+			}
+			.sapMTimePickerSlider {
+				.sapMTimePickerItem {
+					background: @sapUiHighlight;
+					border: 1px solid @sapUiLightestBorder;
+					font-size: @sapMFontMediumSize;
+					color: @sapUiTextInverted;
+					text-align: center;
+					&:hover {
+						background: darken(@sapUiHighlight, 10);
+						color: @sapUiTextInverted;
+					}
+					&:active {
+						background: @sapUiHighlight;
+						color: @sapUiTextInverted;
+					}
+					&:focus {
+						outline: 1px dotted @sapUiTextInverted;
+						outline-offset: -3px;
+					}
+				}
+				.sapMTPPickerSelectionFrame {
+				}
+				& > ul {
+				}
+			}
+			&.sapMTPSliderExpanded {
+				.sapMTimePickerLabel {
+				}
+				.sapMTimePickerItemArrows {
+				}
+				.sapMTimePickerSlider {
+					.sapMTimePickerItem {
+						background: @sapUiExtraLightBG;
+						color: @sapUiStandardText;
+						&:hover {
+							background: darken(@sapUiExtraLightBG, 10);
+						}
+						&:active {
+							background: @sapUiExtraLightBG;
+						}
+						&:focus {
+							outline: 1px dotted @sapUiFocus;
+							outline-offset: -3px;
+						}
+						&.sapMTimePickerItemSelected {
+						}
+					}
+					.sapMTPPickerSelectionFrame {
+						border: 2px solid @sapUiHighlight;
+						&:hover {
+							//border: 2px solid darken(@sapUiHighlight,10);
+						}
+					}
+					& > ul {
+					}
+				}
+			}
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+}
+
+.sap-phone {
+	/* ======================================== */
+	/* TimePicker Input Field                   */
+	/* ======================================== */
+	.sapMTimePicker {
+		.sapMInputBaseInner {
+
+		}
+		.sapUiIcon {
+			color: @sapUiElement;
+			&:focus {
+				background-color: @sapUiBtnBGTransparentHover;
+				outline: 1px dotted @sapUiFocus;
+				outline-offset: -1px;
+			}
+			&:active {
+				background-color: @sapUiBtnBGTransparentDown;
+				color: @sapUiBtnTextActive;
+				outline: 1px dotted @sapUiInvertedFocus;
+			}
+		}
+		&.sapMTPInputActive {
+			.sapMInputBaseInner {
+				border: 1px solid @sapUiInputBaseFocus;
+			}
+			.sapUiIcon {
+				background-color: @sapUiBtnBGTransparentDown;
+				color: @sapUiBtnTextActive;
+			}
+			.sapMInputIE9.sapUiIcon {
+				.sapUiIcon;
+			}
+		}
+	}
+	/* ======================================== */
+	/* TimePicker Dropdown                      */
+	/* ======================================== */
+	.sapMTimePickerDropDown {
+		.sapMTimePickerContainer {
+			.sapMTimePickerContainerLabel {
+				font-size: @sapMFontMediumSize;
+				color: @sapUiAccent4;
+			}
+			.sapMTPColumn {
+				.sapMTimePickerLabel {
+					font-size: @sapMFontSmallSize;
+					color: @sapUiLightText;
+					text-align: center;
+					vertical-align: middle;
+				}
+				.sapMTimePickerItemArrows {
+				}
+				.sapMTimePickerSlider {
+					.sapMTimePickerItem {
+						background: @sapUiHighlight;
+						border: 1px solid @sapUiLightestBorder;
+						font-size: @sapMFontMediumSize;
+						color: @sapUiTextInverted;
+						text-align: center;
+						&:active {
+							background: @sapUiHighlight;
+							color: @sapUiTextInverted;
+						}
+						&:focus {
+							outline: 1px dotted @sapUiTextInverted;
+							outline-offset: -3px;
+						}
+					}
+					.sapMTPPickerSelectionFrame {
+					}
+					& > ul {
+					}
+				}
+				&.sapMTPSliderExpanded {
+					.sapMTimePickerLabel {
+					}
+					.sapMTimePickerItemArrows {
+					}
+					.sapMTimePickerSlider {
+						.sapMTimePickerItem {
+							background: @sapUiExtraLightBG;
+							color: @sapUiStandardText;
+							&:active {
+							}
+							&:focus {
+								outline: 1px dotted @sapUiFocus;
+								outline-offset: -3px;
+							}
+						}
+						.sapMTPPickerSelectionFrame {
+							border: 2px solid @sapUiHighlight;
+						}
+						& > ul {
+						}
+					}
+				}
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+	}
+}

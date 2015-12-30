@@ -1,0 +1,37 @@
+.sapMText {
+	display: inline-block;
+	box-sizing: border-box;
+	white-space: pre-line;
+	word-wrap: break-word; /* works only if browser knows the width */
+	cursor: text;
+}
+
+.sapMTextNoWrap,
+.sapMTextMaxLine{
+	overflow: hidden;
+}
+
+.sapMTextNoWrap {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal; /* overwrite */
+}
+
+.sapMTextLineClamp {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+
+.sapMTextBreakWord {
+	/* to break all words even browser does not know the width */
+	word-break: break-all;
+	word-break: break-word;  /* Non standard for old webkits */
+}
+
+.sapMTextMaxWidth {
+	max-width: 100%;
+}
+
+.sapMLIBActionable .sapMText {
+	cursor: pointer;
+}

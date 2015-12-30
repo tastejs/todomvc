@@ -1,0 +1,412 @@
+/* ============================================= */
+/* CSS for control sap.m/DateTimeInput.control	 */
+/* ============================================= */
+
+/* Custom DateTimePicker Style*/
+
+.sapMDTICustom .dw {
+	padding: 0;
+}
+
+.sapMDTICustom .dwo {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: auto;
+	height: auto;
+}
+
+.sapMDTICustom .dwwr {
+	padding: 0;
+	min-width: 18rem;
+	position: relative;
+	font-size:0;
+}
+
+.sapMDTICustom .dwbg .dwwr {
+	background: @sapHCStandardBG;
+}
+
+/* ------------------------------ */
+/* DTI header                     */
+/* ------------------------------ */
+.sapMDTICustom .dwv {
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 1rem;
+	color: @sapHCStandardFG;
+	font-family: @sapUiFontFamily;
+	text-shadow: none;
+	border-bottom: 0.0625rem solid @sapHCStandardFG;
+	padding: 0 1rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0;
+}
+
+.sapMDTICustom .dwbg .dwv {
+	background-color: @sapHCStandardBG;
+}
+
+/* dialog shadow and border */
+.sapMDTICustom .dwbg {
+	-webkit-box-shadow: 0 0 2.5rem 0.125rem @sapHCShadowTint;
+	-moz-box-shadow: 0 0 2.5rem 0.125rem @sapHCShadowTint;
+	box-shadow: 0 0 2.5rem 0.125rem @sapHCShadowTint;
+	border: 0.125rem solid @sapHCStandardFG;
+	border-radius: 0.250rem;
+}
+
+/* ------------------------------ */
+/* DTI wheels                     */
+/* ------------------------------ */
+.sapMDTICustom .dwbg .dwc .dwwl,
+.sapMDTICustom .dwbg .dwpm .dwwl{
+	border: 0;
+	border-radius: 0;
+	background: none;
+}
+
+.sapMDTICustom .dwwo{
+	background: none;
+}
+
+.sapMDTICustom .dwbg .dwwb,
+.sapMDTICustom .dwbg .dwwbp,
+.sapMDTICustom .dwbg .dwwbm {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	box-shadow: none;
+}
+
+.sapMDTICustom .dwbg .dwwbp {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,fade(@sapHCStandardBG, 0%)), color-stop(95%,@sapHCStandardBG));
+	background: -moz-linear-gradient(top, fade(@sapHCStandardBG, 0%) 50%,@sapHCStandardBG 95%);
+	background: -ms-linear-gradient(top, fade(@sapHCStandardBG, 0%) 50%,@sapHCStandardBG 95%);
+	background: linear-gradient(top,fade(@sapHCStandardBG, 0%) 50%,@sapHCStandardBG 95%);
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapHCStandardBG}', EndColorStr='@{sapHCStandardBG}')";  /* IE8+9 */ 
+	top:auto;
+	bottom:0;
+}
+
+.sapMDTICustom .dwbg .dwwbm{
+	background: -webkit-gradient(linear, left top,left bottom,color-stop(5%,@sapHCStandardBG),color-stop(50%,fade(@sapHCStandardBG,0%)));
+	background: -moz-linear-gradient(top, @sapHCStandardBG 5%,fade(@sapHCStandardBG,0%) 50%);
+	background: -ms-linear-gradient(top, @sapHCStandardBG 5%,fade(@sapHCStandardBG,0%) 50%);
+	background: linear-gradient(top, @sapHCStandardBG 5%,fade(@sapHCStandardBG,0%) 50%);
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapHCStandardBG}', EndColorStr='@{sapHCStandardBG}')";  /* IE8+9 */
+	top:0;
+	bottom:auto;
+}
+
+.sapMDTICustom .dwwb{
+	right: 0;
+	border-radius: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.sap-desktop .sapMDTICustom .dwwb:hover,
+.sapMDTICustom .dwbg .dwwl .dwb-a{
+	background: @sapHCStandardBG;
+}
+
+.sapMDTICustom .dwa .dwwb{
+	opacity:1;
+}
+
+/* up arrow */
+.sapMDTICustom .dwwbp > span:before {
+	content:"\e1e2";
+}
+
+/* down arrow */
+.sapMDTICustom .dwwbm > span:before{
+	content:"\e1e1";
+}
+
+.sapMDTICustom .dwwb > span:before{
+	font-size: 1.375rem;
+	color: @sapHCStandardFG;
+	font-family: 'SAP-icons';
+	font-weight: normal;
+	text-shadow: none;
+	opacity: 0;
+	-webkit-transition-property: opacity, background;
+	transition-property: opacity, background;
+	-webkit-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+}
+
+html[data-sap-ui-browser^="ie9"] .sapMDTICustom .dwwb > span:before{
+	color: @sapHCStandardFG;
+	opacity: 1;
+}
+
+.sap-desktop .sapMDTICustom .dwwb:hover > span:before,
+.sapMDTICustom .dwb-a > span:before{
+	color: @sapHCStandardFG;
+	opacity: 1;
+	-webkit-transition-property: opacity, background;
+	transition-property: opacity, background;
+	-webkit-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+}
+
+.sapMDTICustom .dwwb > span{
+	font-size: 0;
+	color: transparent;
+}
+
+.sapMDTICustom .dwhl{
+	padding: 0;
+}
+
+.sapMDTICustom .dwwc{
+	padding: 0 .750rem;
+	background: @sapHCStandardBG;
+}
+
+.sapMDTICustom .dwwc > table{
+	margin: 0 auto;
+}
+
+.sapMDTICustom .dwwc td > .dwwl{
+	margin: 0 .375rem 0 0;
+}
+
+.sapMDTICustom .dwwc td .dww{
+	background: @sapHCStandardBG;
+	padding: 1px 0;
+	margin: 0;
+}
+
+.sapMDTICustom .dwwc td .dww:before {
+	content: "";
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@sapHCStandardBG), color-stop(20%,fade(@sapHCStandardBG,0%)));
+	background: -webkit-linear-gradient(top, @sapHCStandardBG 20%,fade(@sapHCStandardBG,0%) 100%);
+	background: -moz-linear-gradient(top, @sapHCStandardBG 20%,fade(@sapHCStandardBG,0%) 100%);
+	background: -ms-linear-gradient(top, @sapHCStandardBG 20%,fade(@sapHCStandardBG,0%) 100%);
+	background: linear-gradient(top, @sapHCStandardBG 20%,fade(@sapHCStandardBG,0%) 100%);
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapHCStandardBG}', EndColorStr='@{sapHCStandardBG}')";  /* IE8+9 */
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 80%;
+	z-index:3;
+}
+
+.sapMDTICustom .dwwc td .dww:after {
+	content: "";
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,fade(@sapHCStandardBG,0%)), color-stop(80%,@sapHCStandardBG));
+	background: -webkit-linear-gradient(top, fade(@sapHCStandardBG,0%) 0%,@sapHCStandardBG 80%);
+	background: -moz-linear-gradient(top, fade(@sapHCStandardBG,0%) 0%,@sapHCStandardBG 80%);
+	background: -ms-linear-gradient(top, fade(@sapHCStandardBG,0%) 0%,@sapHCStandardBG 80%);
+	background: linear-gradient(top, fade(@sapHCStandardBG,0%) 0%,@sapHCStandardBG 80%);
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapHCStandardBG}', EndColorStr='@{sapHCStandardBG}')";  /* IE8+9 */
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 80%;
+	bottom: 0;
+	z-index:3;
+}
+
+.sapMDTICustom .dwwc td:last-child > .dwwl{
+	margin: 0;
+}
+
+.sapMDTICustom .dwwc td .dwwb ~ .dww:before{
+	display: none;
+}
+
+.sapMDTICustom .dwwc td .dwwb ~ .dww:after{
+	display: none;
+}
+
+.sapMDTICustom .dwwc td:last-child > .dwwl {
+	margin: 0;
+}
+
+.sapMDTICustom .dw-i{
+	padding: 0 .5rem 0 .375rem;
+	margin: 0 .125rem 0 .125rem;
+}
+
+.sapMDTICustom .dw-i,
+.sapMDTICustom .dw-i > span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* selected value */
+.sapMDTICustom .dw-sel .dw-i{
+	color: @sapHCStandardFG;
+	border: 0.0625rem solid @sapHCStandardFG;
+	box-sizing:       border-box;
+	background: @sapHCStandardBG;
+}
+
+.sapMDTICustom .dw-li {
+	font-size: 1rem;
+	color: @sapHCStandardFG;
+	font-family: @sapUiFontFamily;
+	text-shadow: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sapMDTICustom .dw-li.dw-hl {
+	background: none;
+}
+
+.sapMDTICustom .dwwol {
+	display: none;
+}
+
+.sapMDTICustom .dwc {
+	margin: 0;
+	overflow: hidden;
+}
+
+/* ------------------------------ */
+/* DTI buttons bar                */
+/* ------------------------------ */
+.sapMDTICustom .dwbc {
+	margin: 0;
+	padding: 0;
+	height: 3rem;
+	background-color: @sapHCStandardBG;
+	background-image: none;
+	border-top: 0.0625rem solid @sapHCStandardFG;
+}
+
+.sap-desktop .sapMDTICustom .dwbc{
+	background-color: @sapHCStandardBG;
+}
+
+.sapMDTICustom .dwbw{
+	border: 0;
+	margin: 0;
+	padding: 0.25rem;
+}
+
+/* button */
+.sapMDTICustom .dwbg .dwb{
+	background: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	box-shadow: none;
+	color: @sapHCStandardFG;
+	font-family: @sapUiFontFamily;
+	font-size: .875rem;
+	border: 0.0625rem solid @sapHCStandardFG;
+	border-radius: 0.375rem;
+	margin: 0;
+	padding: 0 1.063rem 0 1rem;
+	font-weight: normal;
+	text-shadow: none;
+	cursor: hand;
+	cursor: pointer;
+}
+
+/* button hover */
+.sap-desktop .sapMDTICustom .dwbg .dwbw:hover .dwb,
+.sapMDTICustom .dwbg .dwbw .dwb-a{
+	text-shadow: none;
+	background: @sapHCHighlightBG;
+}
+
+.sapMDTICustom .dwbg .dwbw{
+	border-radius: 0;
+}
+
+/* ------------------------------ */
+/* BUBBLE display mode            */
+/* ------------------------------ */
+.sapMDTICustom.dw-bubble .dw-arr{
+	-webkit-box-shadow: inset @sapHCStandardFG 0.063rem 0 0 0, inset @sapHCStandardFG 0 0.063rem 0 0, inset @sapHCStandardFG -0.063rem 0 0 0, inset @sapHCStandardFG -0.063rem 0 0 0;
+	-moz-box-shadow: inset @sapHCStandardFG 0.063rem 0 0 0, inset @sapHCStandardFG 0 0.063rem 0 0, inset @sapHCStandardFG -0.063rem 0 0 0, inset @sapHCStandardFG -0.063rem 0 0 0;
+	-ms-box-shadow: inset @sapHCStandardFG 0.063rem 0 0 0, inset @sapHCStandardFG 0 0.063rem 0 0, inset @sapHCStandardFG -0.063rem 0 0 0, inset @sapHCStandardFG -0.063rem 0 0 0;
+	box-shadow: inset @sapHCStandardFG 0.063rem 0 0 0, inset @sapHCStandardFG 0 0.063rem 0 0, inset @sapHCStandardFG -0.063rem 0 0 0, inset @sapHCStandardFG -0.063rem 0 0 0;
+	border: none;
+	height: 1.5rem;
+	width: 1.5rem;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	margin: 0;
+	margin-left: -0.73rem;
+}
+
+.sapMDTICustom .dw-bubble-bottom .dw-arrw {
+	top: -2.250rem;
+}
+
+.sapMDTICustom.sapMDTICustomHdr .dw-bubble-bottom .dw-arr{
+	background-color: @sapHCStandardFG;
+	top: 1.5rem;
+}
+
+.sapMDTICustom .dw-bubble-bottom .dw-arr{
+	background-color: @sapHCStandardFG;
+	top: 1.5rem;
+}
+
+.sapMDTICustom .dw-bubble-top .dw-arr{
+	background-color: @sapHCStandardFG;
+	top: -0.75rem;
+}
+.sap-desktop .sapMDTICustom .dw-bubble-top .dw-arr{
+	background-color: @sapHCStandardFG;
+}
+
+.sapMDTICustom.dw-bubble .dw-persp{
+	width: 0;
+}
+
+.sapMDTICustom.dw-bubble .dwo{
+	display: none;
+}
+
+.sap-desktop .sapMDTICustom .dwww:focus {
+	outline: none;
+}
+
+.sap-desktop {
+	.sapMDTICustom .dwww:focus .dw-sel>.dw-i {
+		border:           none;
+		position:         relative;
+	}
+
+	.sapMDTICustom .dwww:focus .dw-sel>.dw-i:after {
+		content: " ";
+		position: absolute;
+		top: 0.125rem;
+		left: 0.125rem;
+		right: 0.125rem;
+		bottom: 0.125rem;
+		display: block;
+		outline: 0.125rem dotted @sapHCStandardFG;
+	}
+}
+
+.sap-desktop .sapMDTICustom .dwbw a:focus {
+	outline: 0.125rem dotted @sapHCStandardFG;
+	outline-offset:  -0.0625rem;
+	border: none;
+}
+
+.sapMDTICustom.dw-bubble .dw{
+	margin: 1.125rem 0 0 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapMCustomSlt.dw-bubble .dw {
+	border: 0.0625rem solid @sapHCStandardFG;
+}

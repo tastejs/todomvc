@@ -1,0 +1,49 @@
+/* ================================================== */
+/* CSS for control sap.ui.commons/ColorPicker.control */
+/* High Contrast Black Theme                          */
+/* ================================================== */
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar,
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi
+	{
+	border: none;
+	background-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar,
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi {
+	height: 10px;
+	border: 1px solid @sapUiButtonBorderColor;
+	background-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi {
+	border-right: none;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/ColorPicker/Alphaslider_BG.png') progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#FF000000',GradientType=1 );
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip:focus {
+	border-width: 3px;
+	height: 10px;
+	width: 4px;
+	padding: 0;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip:focus {
+	border-width: 3px;
+	height: 10px;
+	width: 4px;
+	padding: 0;
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliR,
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliL{
+	border-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliR,
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliL{
+	border-color: transparent;
+}

@@ -1,0 +1,210 @@
+/* List CSS for IE9 (no FLEX)     */
+/* replace flex boxes with tables */
+
+li.sapMLIB.sapMLIBNoFlex{
+	width: 100%;
+	display: table;
+	border-collapse: collapse;
+	padding: 0; /* reset padding settings of the normal list */
+}
+
+li.sapMLIB.sapMLIBNoFlex{
+	
+	&>div{ /* all direct DIV child elements are table cells */
+		display: table-cell;
+		vertical-align: middle;
+		margin: 0; /* reset margin settings of the normal list */
+	}
+
+	/* content cell */
+	&>.sapMLIBContent {
+		width: 100%; /* the content cell pushes other sells to sides */
+		padding: 0;  /* reset padding settings of the normal list */
+	}
+	&>.sapMLIBSelectSM + .sapMLIBContent,
+	&>.sapMLIBContent:first-child{
+		padding-left: 1rem; /* padding for all leftmost content cells */
+	}	
+	&>.sapMLIBContent:last-child{
+		padding-right: 1rem;
+	}
+	&.sapMCLI>.sapMLIBContent{
+		padding: 0; /* custom list item, however, has no padding at all */
+	}
+	
+	/* internal table of the content cell */
+	&:not(.sapMCLI)>.sapMLIBContent>div.sapMLIBContentNF{
+		display: table;
+		width: 100%;
+		padding: 0;
+	}
+	/* use a fixed table for the display and input list items, to collapse the label */
+	&.sapMDLI>.sapMLIBContent>.sapMLIBContentNF,
+	&.sapMILI>.sapMLIBContent>.sapMLIBContentNF{
+		table-layout:fixed;
+	}
+	
+	/* special case: mimic white space collapse in case of the small icon */
+	&.sapMSLI.sapMSLIIcon:not(.sapMSLIIconThumb)>div:not(.sapMLIBSelectSM)+.sapMLIBContent>.sapMLIBContentNF>.sapUiIcon{
+		min-width: 2rem;
+		width: 2rem;
+		text-align: left;
+	}
+	
+	/* for custom list item we should not overwrite the display property */
+	&:not(.sapMCLI)>.sapMLIBContent>.sapMLIBContentNF{
+		&>div, &>span, &>label, &>button{
+			display: table-cell;
+			vertical-align: middle;
+			min-width: 3rem;
+		}
+		&>label{
+    		overflow: hidden;
+    		text-overflow: ellipsis;
+    		white-space: nowrap;			
+		}
+	}
+	
+	&>.sapMLIBContent>.sapMLIBContentNF{		
+		&>div.sapMSLIDescriptionDiv{
+			min-width: 0;
+		}
+		&>img.sapMSLIImg{ /* this image is 2rem instead of 3rem */
+			margin: 0;
+			min-width: 0;
+			padding: 0.5rem;
+		}
+		&>span.sapMSLIImgThumbIcon{
+			padding-right: 0.75rem; /* right margin has no effect in a table cell */
+		} 
+		&>.sapMSLIDiv{
+			width: 100%;
+		}
+		&>.sapMSLIDiv>.sapMSLITitleDiv{
+			display:table;
+			table-layout:fixed;
+			width: 100%;
+		}
+		&>.sapMSLIDiv>.sapMSLITitleDiv>.sapMSLITitle{
+			display:table-cell;
+			width: 100%;
+    		overflow: hidden;
+    		text-overflow: ellipsis;
+    		white-space: nowrap;			
+		}
+		&>.sapMSLIDiv>.sapMSLIDescriptionDiv{
+			display:table;
+			table-layout:fixed;
+			width: 100%;
+		}
+		&>.sapMSLIDiv>.sapMSLIDescriptionDiv>div{
+			display:table-cell;
+    		overflow: hidden;
+    		text-overflow: ellipsis;
+    		white-space: nowrap;			
+		}
+		&>.sapMSLIDiv>.sapMSLIDescriptionDiv>.sapMSLIInfo{
+			width: 33%;
+		}
+		/* special case of a Title only list item: info is on the line with the title */
+		&>.sapMSLIDiv>.sapMLIBNoFlex{
+			display:table;
+			table-layout:fixed;
+			width: 100%;
+		}
+		&>.sapMSLIDiv>.sapMLIBNoFlex>div{
+			display:table-cell;
+    		overflow: hidden;
+    		text-overflow: ellipsis;
+    		white-space: nowrap;			
+		}
+	}
+	&>.sapMLIBIconDet:last-child {
+		margin-right: 0;
+	}	
+	&>div.sapMLIBSelectD{
+		text-align: center;
+		min-width: 3rem;
+		&>span.sapMLIBIconDel{
+			min-width: 3rem;
+		}
+	}
+	&>div.sapMLIBSelectD>span.sapUiIcon{
+		height: auto; /* reset 100% height of the standard list */
+	}
+	&>div.sapMLIBSelectM>div.sapMCb{
+		padding: 0; /* standard check box has 3em padding to the right */
+	}
+	&>div.sapMLIBCounter{
+		text-align: right;
+	}
+	&>div.sapMLIBCounter:last-child{
+		padding-right: 1rem;
+	}
+	/* navigation icon */
+	&>div>.sapMLIBImgNav{
+		margin:0;
+		padding:0;
+		height:auto;
+		width: 3rem;
+		vertical-align: middle;
+	}
+	&>div:not(:last-child)>.sapMLIBImgNav{
+	 width: 2rem;
+	 text-align: right;
+	}
+
+} /* li.sapMLIB.sapMLIBNoFlex */
+
+/* "no data" is rendered without .sapMLIBNoFlex */ 
+html[data-sap-ui-browser*='ie9'] .sapMListNoData {
+	text-align: center;
+	line-height: 3rem;
+	height: 3rem;
+}
+
+/*Reset the list styles in IE9 when it's inside popup (dialog, popover) to make it only get the space it really needs*/
+.sapMDialog>section:not([style*="width"]), .sapMPopover {
+	.sapMList:not([style*="width"])>ul>li.sapMLIB.sapMLIBNoFlex,
+	.sapMList[style*="auto"]>ul>li.sapMLIB.sapMLIBNoFlex,
+	.sapMList[style*="100%"]>ul>li.sapMLIB.sapMLIBNoFlex {
+		> .sapMLIBContent {
+			width: auto;
+			> .sapMLIBContentNF > .sapMSLIDiv{
+				width: auto;
+				> .sapMLIBNoFlex {
+					display: block;
+				}
+				> .sapMSLITitleDiv, > .sapMSLIDescriptionDiv{
+					width: auto;
+				}
+			}
+		}
+		>.sapMLIBContent >.sapMLIBContentNF{
+			width: auto;
+			/* labels for input list items have fixed width of 15em */
+			> label.sapMILILabel{
+				display: inline-block;
+				line-height: 3rem;
+				padding-right: 1.5rem;
+				min-width: 15rem;
+				max-width: 15rem;
+			}
+		}
+		> div:last-child{
+			>.sapUiIcon, >.sapMImg {
+				float: right;
+			}
+		}
+
+		/* align navigation icons vertically */
+		>.sapMLIBImgNav.sapUiIcon{
+			display: table-cell;
+		}
+		/* there is no alignmnent, add spacing between lits item parts at least */
+		.sapMSLITitleOnly, .sapMDLILabel, .sapMSLIDescription{
+			padding-right: 2rem;
+		}
+	}
+}
+

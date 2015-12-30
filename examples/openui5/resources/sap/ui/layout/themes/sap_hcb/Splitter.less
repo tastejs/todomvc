@@ -1,0 +1,62 @@
+/* ============================================= */
+/* CSS for control sap.ui.unified/Splitter.control */
+/* ============================================= */
+
+.sapUiLoSplitter > .sapUiLoSplitterBar,
+.sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar {
+	color: @sapHCStandardFG;
+}
+
+.sapUiLoSplitter > .sapUiLoSplitterBar:hover {
+	background-color: @sapHCHighlightBG;
+	color: @sapHCStandardFG;
+}
+
+.sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar {
+	background-color: @sapHCStandardBG;
+}
+
+.sapUiLoSplitter > .sapUiLoSplitterBar:focus {
+	outline: 1px dotted @sapHCStandardFG;
+}
+
+/* HCB Additional Styles */
+
+.sapUiLoSplitter > .sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar {
+	color: @sapHCStandardFG;
+}
+
+.sapUiLoSplitterH > .sapUiLoSplitterBar > .sapUiLoSplitterBarIcon, 
+.sapUiLoSplitterH > .sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar > .sapUiIcon.sapUiLoSplitterBarIcon {
+	height: 2rem;
+	line-height: 1rem;
+	margin-top: -1rem;
+	top: 50%;
+}
+
+.sapUiLoSplitterH > .sapUiLoSplitterBar > .sapUiIcon.sapUiLoSplitterBarIcon::before, 
+.sapUiLoSplitterH > .sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar > .sapUiIcon.sapUiLoSplitterBarIcon::before {
+	content: "\e1fa\e1fa";
+	width: 0.125rem;
+	word-break: break-all;
+	display: inline-block;
+	white-space: pre-wrap;
+}
+
+.sapUiLoSplitterV > .sapUiLoSplitterBar > .sapUiLoSplitterBarIcon, 
+.sapUiLoSplitterV > .sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar > .sapUiIcon.sapUiLoSplitterBarIcon {
+	width: 2rem;
+	margin-left: -1.0625rem;
+	left: 50%;
+}
+
+.sapUiLoSplitterV > .sapUiLoSplitterBar > .sapUiIcon.sapUiLoSplitterBarIcon::before, 
+.sapUiLoSplitterV > .sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar > .sapUiIcon.sapUiLoSplitterBarIcon::before {
+	content: "\e1fb";
+	margin-right: 0.125rem;
+}
+
+.sapUiLoSplitterV > .sapUiLoSplitterBar > .sapUiIcon.sapUiLoSplitterBarIcon::after, 
+.sapUiLoSplitterV > .sapUiLoSplitterOverlay > .sapUiLoSplitterOverlayBar > .sapUiIcon.sapUiLoSplitterBarIcon::after {
+	content: "\e1fb";
+}

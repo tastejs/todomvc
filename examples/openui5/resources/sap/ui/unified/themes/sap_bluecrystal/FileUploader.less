@@ -1,0 +1,152 @@
+/* ======================================================= */
+/* CSS for control sap.ui.unified.FileUploader control     */
+/* BlueCrystal theme                                       */
+/* ======================================================= */
+
+.sapUiFupGroup > div > div:last-child {
+	padding-left: 4px;
+}
+
+.sapUiFup:hover .sapUiBtnS.sapUiBtnStdFocus {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFup:active .sapUiBtnS {
+	background-color: @sapUiButtonActiveBackground;
+}
+
+.sapUiFup:active .sapUiBtnS.sapUiBtnNorm {
+	border-color: @sapUiButtonActiveBorderColor;
+}
+
+.sapUiFup:hover .sapMBtnHoverable {
+	background-image: none;
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFup:hover .sapMBtnHoverable.sapMBtnAccept:not(.sapMBtnActive) {
+	background-color: @sapUiButtonAcceptHoverBackground;
+	border-color:     @sapUiButtonAcceptHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnHoverable.sapMBtnAccept:not(.sapMBtnActive) {
+	background-color: @sapUiButtonAcceptActiveBackground;
+	border-color:     @sapUiButtonAcceptActiveBorderColor;
+}
+
+.sapUiFup:hover .sapMBtnHoverable.sapMBtnReject:not(.sapMBtnActive) {
+	background-color: @sapUiButtonRejectHoverBackground;
+	border-color:     @sapUiButtonRejectHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnHoverable.sapMBtnReject:not(.sapMBtnActive) {
+	background-color: @sapUiButtonRejectActiveBackground;
+	border-color:     @sapUiButtonRejectActiveBorderColor;
+}
+
+.sapUiFup:hover .sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive) {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	border-color:     @sapUiButtonEmphasizedHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive) {
+	background-color: @sapUiButtonEmphasizedActiveBackground;
+	border-color:     @sapUiButtonEmphasizedActiveBorderColor;
+	text-shadow:      none;
+}
+
+.sapUiFup:hover .sapMBtnTransparent.sapMBtnHoverable {
+	background-color: @sapUiButtonLiteHoverBackground;
+	border-color: @sapUiButtonLiteHoverBorderColor;
+}
+
+/* increase outline offset */
+.sapMIBar-CTX .sapUiFup:focus .sapMBtnInner.sapMFocusable {
+	outline-offset: -.125rem;
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable:not(.sapMBtnActive) {
+	background-color: @sapUiButtonFooterHoverBackground;
+	color:            @sapUiButtonActiveTextColor;
+	text-shadow:      0 1px 0 fade(@sapUiDarkShadowTint, 50);
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable.sapMBtnAccept:not(.sapMBtnActive) {
+	background-color: @sapUiButtonAcceptHoverBackground;
+	border-color:     @sapUiButtonAcceptHoverBorderColor;
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable.sapMBtnReject:not(.sapMBtnActive) {
+	background-color: @sapUiButtonRejectHoverBackground;
+	border-color:     @sapUiButtonRejectHoverBorderColor;
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive) {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	border-color:     @sapUiButtonEmphasizedHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnInner,
+.sapUiFup:active .sapMBtnTransparent.sapMBtnHoverable {
+	background-image: none;
+	background-color: @sapUiButtonActiveBackground;
+	border-color:     @sapUiButtonActiveBorderColor;
+	color:            @sapUiButtonActiveTextColor;
+	text-shadow:      none;
+}
+
+.sapUiFup:active .sapMBtnInner .sapMBtnIcon {
+	color:            @sapUiButtonActiveTextColor;
+}
+
+.sapUiFup:focus .sapMBtn {
+	outline:          none;
+}
+
+html.sap-desktop .sapUiFup:focus .sapMFocusable,
+html.sap-desktop .sapUiFup:active .sapMFocusable {
+	outline:          1px dotted @sapUiFocus;
+	outline-offset:   -1px;
+}
+
+.sapMFooter-CTX .sapUiFup:focus .sapMBtnInner.sapMFocusable,
+.sapMFooter-CTX .sapUiFup:active .sapMBtnInner.sapMFocusable,
+.sapUiFup:active .sapMBtnInner.sapMBtnAccept,
+html.sap-desktop .sapUiFup:active .sapMBtnInner.sapMBtnAccept,
+.sapUiFup:active .sapMBtnInner.sapMBtnReject,
+html.sap-desktop .sapUiFup:active .sapMBtnInner.sapMBtnReject,
+.sapUiFup:active .sapMBtnInner.sapMBtnEmphasized,
+html.sap-desktop .sapUiFup:active .sapMBtnInner.sapMBtnEmphasized {
+	outline-color:    @sapUiInvertedFocus;
+	outline-offset: -.125rem;
+}
+
+.sapMFooter-CTX .sapUiFup:active .sapMBtnInner.sapMFocusable {
+	background-color: @sapUiButtonActiveBackground;
+}
+
+/* IE ignores outline-offset. Use an overlay: */
+
+html[data-sap-ui-browser^="ie"] {
+
+	.sapUiFup:focus .sapMBtnInner.sapMFocusable {
+		outline:          none;
+		position:         relative;
+	}
+
+	.sapUiFup:focus .sapMBtnInner.sapMFocusable:before {
+		content: " ";
+		box-sizing:       border-box;
+		width:            100%;
+		height:           100%;
+		position:         absolute;
+		left:             0;
+		top:              0;
+		border:           1px dotted @sapUiFocus;
+	}
+
+	.sapMFooter-CTX .sapUiFup:focus .sapMBtnInner.sapMFocusable:before {
+		border-color:     @sapUiInvertedFocus;
+	}
+
+}

@@ -1,0 +1,85 @@
+.sapUiDSC {
+	&:after {
+		clear: both;
+		content: " ";
+		display: block;
+		font-size: 0;
+		height: 0;
+		visibility: hidden;
+	}
+
+	> div[class^="sapUiDSCSpan"] {
+		float: left;
+		overflow: auto;
+	}
+
+	> aside[class^="sapUiDSCSpan"] {
+		float: left;
+		overflow: auto;
+	}
+
+	> div.sapUiDSCMCFixed {
+		width: ~"calc(100% - 340px)";
+		float: left;
+	}
+
+	> aside.sapUiDSCSCFixed,
+	> div.sapUiDSCSCFixed {
+		width: 340px;
+		float: left;
+	}
+
+	> .sapUiDSCSpan1 {
+		width: 8.333%;
+	}
+
+	> .sapUiDSCSpan2 {
+		width: 16.666%;
+	}
+
+	> .sapUiDSCSpan3 {
+		width: 25%;
+	}
+
+	> .sapUiDSCSpan4 {
+		width: 33.333%;
+	}
+
+	> .sapUiDSCSpan5 {
+		width: 41.666%;
+	}
+
+	> .sapUiDSCSpan6 {
+		width: 50%;
+	}
+
+	> .sapUiDSCSpan7 {
+		width: 58.333%;
+	}
+
+	> .sapUiDSCSpan8 {
+		width: 66.666%;
+	}
+
+	> .sapUiDSCSpan9 {
+		width: 75%;
+	}
+
+	> .sapUiDSCSpan10 {
+		width: 83.333%;
+	}
+
+	> .sapUiDSCSpan11 {
+		width: 91.666%;
+	}
+
+	> .sapUiDSCSpan12 {
+		width: 100%;
+	}
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, mainContent) */
+.sapUiContainerContentPadding(~".sapUiDSC", ~"> div:first-child");
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, sideContent) */
+.sapUiContainerContentPadding(~".sapUiDSC", ~"> aside");

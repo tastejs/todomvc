@@ -1,0 +1,15 @@
+{ "aBuildFiles" : [ "library" ],
+  "aFiles" : [ "library" ],
+  "oExtends" : "Base",
+  "sBaseFileId" : "library",
+  "sBaseLibraryId" : "sap/ui/core",
+  "sBaseThemeId" : "base",
+  "sEntity" : "Framework",
+  "sId" : "UI5",
+  "sLabel" : "SAP Development Toolkit for HTML5",
+  "sRuntimePathPattern" : "/%frameworkId%/%libId%/themes/%themeId%/%fileId%.css",
+  "sRuntimeResourcePathPattern" : "%../%%frameworkId%/%libId%/themes/%themeId%",
+  "sSourcePathPattern" : "/%frameworkId%/%libId%/themes/%themeId%/%fileId%.less",
+  "sVendor" : "SAP",
+  "sCompiler" : "Less"
+}

@@ -1,0 +1,180 @@
+/* =================================================== */
+/* CSS for sap.ui.unfied.ShellLayout.control (base)    */
+/* =================================================== */
+
+@sapUiUfdShellBrandHeight: 4px;
+@sapUiUfdShellHeaderBarHeight: 44px;
+@sapUiUfdShellHeadHeight: @sapUiUfdShellBrandHeight + @sapUiUfdShellHeaderBarHeight;
+@sapUiUfdShellAnimDuration: 500ms; /*Duration of the transitions (must be defined in ms)*/
+
+.sapUiUfdShell {
+}
+
+.sapUiUfdShellBG {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+
+._sapUiUfdShellSubHdr {  /* Testpage only */
+	background-color: @sapUiExtraLightBG;
+	color: @sapUiBaseText;
+}
+
+
+/* Basics */
+
+.sapUiUfdShellCntnt {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.sapUiUfdShellPad {
+	padding: 10px;
+}
+
+.sapUiUfdShellHidden {
+	display: none;
+}
+
+
+/* Animations */
+
+.sapUiUfdShellAnim .sapUiUfdShellHead,
+.sapUiUfdShellAnim .sapUiUfdShellHead > div,
+.sapUiUfdShellAnim .sapUiUfdShellCurtain,
+.sapUiUfdShellAnim .sapUiUfdShellCanvas {
+	-webkit-transition-duration: @sapUiUfdShellAnimDuration;
+	transition-duration: @sapUiUfdShellAnimDuration;
+	-moz-transition-duration: @sapUiUfdShellAnimDuration;
+}
+
+.sapUiUfdShellAnim .sapUiUfdShellCanvas {
+	-webkit-transition-property: top;
+	transition-property: top;
+	-moz-transition-property: top;
+}
+
+.sapUiUfdShellAnim .sapUiUfdShellCurtain {
+	-webkit-transition-property: top, bottom;
+	transition-property: top, bottom;
+	-moz-transition-property: top, bottom;
+}
+
+.sapUiUfdShellAnim .sapUiUfdShellHead {
+	perspective: 400px;
+	-webkit-perspective: 400px;
+	-webkit-transition-property: top;
+	transition-property: top;
+	-moz-transition-property: top;
+}
+
+.sapUiUfdShellAnim .sapUiUfdShellHead > div {
+	-webkit-transform: rotateX(0);
+	-webkit-transform-origin: bottom center;
+	transform: rotateX(0);
+	transform-origin: bottom center;
+	-webkit-transition-property: opacity, -webkit-transform;
+	transition-property: opacity, transform;
+	-moz-transition-property: opacity, -moz-transform;
+}
+
+.sapUiUfdShellAnim.sapUiUfdShellHeadHidden .sapUiUfdShellHead > div {
+	-webkit-transform: rotateX(90deg);
+	transform: rotateX(90deg);
+	opacity: 0.3;
+}
+
+
+/* Header */
+
+.sapUiUfdShellBrand {
+	position: absolute;
+	top: 0;
+	height: @sapUiUfdShellBrandHeight;
+	left: 0;
+	right: 0;
+	border: medium none;
+	margin: 0;
+	z-index: 7;
+	background-color: @sapUiBrand;
+}
+
+.sapUiUfdShell.sapUiUfdShellNoHead > .sapUiUfdShellBrand {
+	display: none;
+}
+
+.sapUiUfdShellHead {
+	position: absolute;
+	top: @sapUiUfdShellBrandHeight;
+	height: @sapUiUfdShellHeaderBarHeight;
+	left: 0;
+	right: 0;
+	z-index: 3;
+	overflow: hidden;
+}
+
+.sapUiUfdShell.sapUiUfdShellNoHead > .sapUiUfdShellHead {
+	display: none;
+}
+
+.sapUiUfdShellHead > div {
+	position: absolute;
+	top: 0;
+	height: @sapUiUfdShellHeaderBarHeight;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	opacity: 1;
+}
+
+.sapUiUfdShell.sapUiUfdShellHeadHidden .sapUiUfdShellHead {
+	top: -@sapUiUfdShellHeaderBarHeight;
+}
+
+
+/* Canvas / Curtain */
+
+.sapUiUfdShellCanvas {
+	top: @sapUiUfdShellHeadHeight;
+}
+
+.sapUiUfdShell.sapUiUfdShellNoHead > .sapUiUfdShellCanvas {
+	top: 0;
+}
+
+.sapUiUfdShellCurtain {
+	top: 0;
+	z-index: 1;
+}
+
+.sapUiUfdShell.sapUiUfdShellHeadHidden .sapUiUfdShellCanvas {
+	top: @sapUiUfdShellBrandHeight;
+}
+
+.sapUiUfdShellCurtain > .sapUiUfdShellCntnt {
+	overflow: auto;
+	top: @sapUiUfdShellHeadHeight;
+	-webkit-overflow-scrolling: touch;
+}
+
+.sapUiUfdShell.sapUiUfdShellNoHead > .sapUiUfdShellCurtain > .sapUiUfdShellCntnt {
+	top: 0;	
+}
+
+.sapUiUfdShell.sapUiUfdShellCurtainHidden .sapUiUfdShellCurtain {
+	top: -100%;
+	bottom: 100%;
+}
+
+.sapUiUfdShell.sapUiUfdShellCurtainHidden.sapUiUfdShellCurtainClosed .sapUiUfdShellCurtain > div,
+.sapUiUfdShell.sapUiUfdShellCurtainHidden.sapUiUfdShellCurtainClosed .sapUiUfdShellCurtain > span {
+	display: none;
+}

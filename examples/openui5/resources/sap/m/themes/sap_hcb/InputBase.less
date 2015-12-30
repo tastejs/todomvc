@@ -1,0 +1,296 @@
+/* ================================================================= */
+/* CSS for control sap.m/InputBase.control High Contrast Black theme */
+/* ================================================================= */
+
+.sapMInputBase {
+	border: none;
+	padding: 0.25rem 0;
+	height: 3rem;
+}
+
+.sapMInputBaseInner {
+	color: @sapHCStandardFG;
+	background: @sapHCStandardBG;
+	border: 1px solid @sapHCStandardFG;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-family: @sapUiFontFamily;
+	line-height: normal;
+	height: 2.5rem;
+	padding: 0 0.75rem;
+}
+
+.sapMInputBaseDisabled {
+	opacity: 1;
+}
+
+.sapMInputBaseDisabled .sapMInputBaseInner {
+	background: @sapHCReducedBG;
+	border-color: @sapHCReducedAltFG;
+	color: @sapHCReducedFG;
+	font-weight: normal;
+	-webkit-text-fill-color: @sapHCReducedFG;
+}
+
+.sapMInputBaseInner::-webkit-input-placeholder {
+	color: @sapHCReducedAltFG;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.sapMInputBaseInner::-moz-placeholder {
+	color: @sapHCReducedAltFG;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-weight: normal;
+	opacity: 1;
+}
+
+.sapMInputBaseInner:-ms-input-placeholder {
+	color: @sapHCReducedAltFG;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.sapMInputBasePlaceholder {
+	color: @sapHCReducedAltFG;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 2.5rem;
+	padding: 0 0.75rem;
+}
+
+.sapMInputBaseWarning > .sapMInputBasePlaceholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	background: @sapHCStandardBG;
+}
+
+.sapMInputBaseError > .sapMInputBasePlaceholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.sapMInputBaseStateInner {
+	border-width: 1px;
+	padding: 0 0.6875rem;
+}
+
+.sapMInputBaseWarningInner {
+	border-style: dashed;
+	font-weight: normal;
+	font-style: italic;
+}
+
+.sapMInputBaseWarningInner::-webkit-input-placeholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.sapMInputBaseWarningInner::-moz-placeholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: normal;
+	opacity: 1;
+}
+
+.sapMInputBaseWarningInner:-ms-input-placeholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.sapMInputBaseErrorInner {
+	background: @sapHCHighlightBG;
+	border-style: dashed;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.sapMInputBaseErrorInner::-webkit-input-placeholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.sapMInputBaseErrorInner::-moz-placeholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: bold;
+	opacity: 1;
+}
+
+.sapMInputBaseErrorInner:-ms-input-placeholder {
+	color: @sapHCStandardFG;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.sapMInputBaseInner.sapMInputBaseReadonlyInner {
+	border-color: @sapHCReducedAltFG;
+	background: @sapHCReducedBG;
+}
+
+.sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):not(.sapMInputBaseStateInner):focus,
+.sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):not(.sapMInputBaseStateInner):not(.sapMInputBaseDisabledInner):hover {
+	border-color: @sapHCStandardFG;
+}
+
+.sapMILI-CTX .sapMInputBaseInner {
+	text-align: right;
+	background: transparent;
+}
+
+html[dir=rtl] .sapMILI-CTX .sapMInputBaseInner,
+html[dir=rtl] .sapMILI-CTX .sapMInputBasePlaceholder {
+	text-align: left;
+}
+
+.sapMILI-CTX .sapMInputBasePlaceholder {
+	text-align: right;
+}
+
+.sapMILI-CTX :not(.sapMInputVH) .sapMInputBaseInner:not(.sapMInputBaseStateInner){
+	border: none;
+}
+
+.sapMLIBActive .sapMInputBaseInner {
+	color: @sapHCStandardFG;
+	background: transparent;
+}
+
+.sapMLIBActive .sapMInputBaseInner::-webkit-input-placeholder {
+	color: @sapHCStandardFG;
+}
+
+.sapMInputBaseMessage {
+	color: @sapHCStandardFG;
+	font-size: @sapMFontSmallSize;
+	font-family: @sapUiFontFamily;
+	padding: 0.3rem 0.625rem;
+	min-width: 6rem;
+	max-width: 22rem;
+}
+
+.sapMInputBaseMessageError,
+.sapMInputBaseMessageWarning {
+	background: @sapHCStandardBG;
+	border: 2px solid @sapHCStandardFG;
+	color: @sapHCStandardFG;
+}
+
+.sapMInputBaseMessageTop {
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	margin-bottom: -0.125rem;
+}
+
+.sapMInputBaseMessageBottom {
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	margin-top: -0.125rem;
+}
+
+/* Compact size */
+.sapUiSizeCompact {
+
+	.sapMInputBase {
+		height: 2rem;
+		padding: 0.1875rem 0;
+	}
+
+	.sapMInputBaseInner {
+		height: 1.625rem;
+		padding: 0 0.5rem;
+	}
+
+	.sapMInputBasePlaceholder {
+		line-height: 1.625rem;
+		padding: 0 0.5rem;
+	}
+}
+
+/* Condensed size */
+.sapUiSizeCondensed .sapUiTableCell {
+	.sapMInputBase {
+		height: 1.5rem;
+		padding: 0;
+	}
+
+	.sapMInputBaseInner {
+		border-color: @sapHCStandardFG;
+	}
+
+	.sapMInputBaseInner {
+		height: 1.5rem;
+	}
+
+	.sapMInputBasePlaceholder {
+		line-height: 1.5rem;
+	}
+
+	.sapMInputDescription > span {
+		line-height: 1.5rem;
+	}
+}
+
+/* focus on browsers except IE */
+.sapMInputBase .sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):focus {
+	outline: 0.125rem dotted @sapHCStandardFG;
+	outline-offset: -0.188rem;
+}
+
+/* focus in IE (workaround) */
+html[data-sap-ui-browser^="ie"] {
+	.sapMInputBase > .sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):focus,
+	.sapMInputBase > .sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):hover {
+		outline: none;
+	}
+
+	.sapMFocus.sapMInputBase:not(.sapMInputBaseReadonly):not(.sapMInputBaseDisabled) {
+		&::before {
+			content: "";
+			position: absolute;
+			top: 5px;
+			left: 1px;
+			right: 1px;
+			bottom:5px;
+			display: block;
+			border: 2px dotted @sapHCStandardFG;
+			box-sizing: border-box;
+			pointer-events: none;
+		}
+	}
+}
+
+/* Input selection fix -
+ * Due to the fact that the CSS parsing rules require dropping the whole rule when encountering an invalid
+ * pseudo-element, two separate rules must be written */
+.sapMInputBaseInner {
+
+	&::selection {
+		background: @sapHCHighlightAltBG;
+		color: @sapHCStandardFG;
+	}
+
+	&::-moz-selection {
+		background: @sapHCHighlightAltBG;
+		color: @sapHCStandardFG;
+	}
+}
+
+/* Google chrome and Safari input selection fix:
+ * The browser renders the selection background with 50% opacity by default.
+ * The solution is to use fade with a value for alpha 99 if it's set 100 the browser ignores it.
+ */
+html[data-sap-ui-browser^="sf"],
+html[data-sap-ui-browser^="cr"] {
+	.sapMInputBaseInner::selection {
+		background: fade(@sapHCHighlightAltBG, 99);
+	}
+}

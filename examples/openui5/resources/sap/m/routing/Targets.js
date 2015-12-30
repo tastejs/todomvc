@@ -1,0 +1,6 @@
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(['sap/ui/core/routing/Targets','./TargetHandler','./Target'],function(T,a,b){"use strict";var M=T.extend("sap.m.routing.Targets",{constructor:function(o){if(o.targetHandler){this._oTargetHandler=o.targetHandler;}else{this._oTargetHandler=new a();this._bHasOwnTargetHandler=true;}T.prototype.constructor.apply(this,arguments);},destroy:function(){T.prototype.destroy.apply(this,arguments);if(this._bHasOwnTargetHandler){this._oTargetHandler.destroy();}this._oTargetHandler=null;},getTargetHandler:function(){return this._oTargetHandler;},display:function(){var v,n;this._oLastDisplayedTarget=null;var r=T.prototype.display.apply(this,arguments);if(this._oLastDisplayedTarget){v=this._oLastDisplayedTarget._oOptions.viewLevel;n=this._oLastDisplayedTarget._oOptions.name;}this._oTargetHandler.navigate({viewLevel:v,navigationIdentifier:n});return r;},_constructTarget:function(o,p){return new b(o,this._oViews,p,this._oTargetHandler);},_displaySingleTarget:function(n){var t=this.getTarget(n);if(t){this._oLastDisplayedTarget=t;}return T.prototype._displaySingleTarget.apply(this,arguments);}});return M;},true);

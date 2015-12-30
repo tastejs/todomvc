@@ -1,0 +1,73 @@
+/* ============================================= */
+/* CSS for control sap.m/BarBase.control */
+/* ============================================= */
+
+.sapMIBar .sapMBarChild:first-child {
+	margin-left:0.25rem;
+}
+
+.sapMIBar .sapMBarChild {
+	margin-left:0.25rem;
+}
+
+.sapMIBar > .sapMBarChild:last-child {
+	margin-right: 0.25rem;
+}
+
+.sapMIBar-CTX.sapMFooter-CTX {
+	color: @sapUiFooterText;
+	/* 1px down black shadow with 50% opacity */
+	text-shadow: 0em 0.0625em 0em fade(@sapUiStandardText, 50%);
+	background-color: @sapUiFooterBG;
+	background-image: none;
+	border-top: 0.0625rem solid fade(@sapUiExtraLightBorder,20%);
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.sapMIBar.sapMSubHeader-CTX {
+	color: @sapUiBarText;
+	background-color: @sapUiHeaderBG;
+}
+
+.sap-desktop .sapMIBar.sapMFooter-CTX {
+	background-color: @sapUiFooterOnDesktopBG;
+}
+
+/* footer separator inside of a SplitContainer control */
+.sapMSplitContainerMaster .sapMFooter-CTX {
+	border-right: 0.0625rem solid fade(@sapUiExtraLightBorder,20%);
+}
+
+.sapMBarGradient(@color, @alpha:100%) {
+	background-color: fade(@color, @alpha);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=fade(lighten(@color, 2), @alpha), endColorstr=fade(darken(@color, 2), @alpha),GradientType=0 );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, fade(lighten(@color, 2), @alpha)), color-stop(0.33, fade(@color, @alpha)), color-stop(0.75, fade(@color, @alpha)), color-stop(1, fade(darken(@color, 2), @alpha)));
+	background: -webkit-linear-gradient(top, fade(lighten(@color, 2), @alpha) 0%, fade(@color, @alpha) 33%, fade(@color, @alpha) 75%, fade(darken(@color, 2), @alpha) 100%);
+	background: linear-gradient(top, fade(lighten(@color, 2), @alpha) 0%, fade(@color, @alpha) 33%, fade(@color, @alpha) 75%, fade(darken(@color, 2), @alpha) 100%);
+}
+
+.sapMIBar.sapMHeader-CTX {
+	.sapMBarGradient(@sapUiBarBG);
+	color: @sapUiBarHeading;
+}
+
+.sap-desktop .sapMIBar.sapMHeader-CTX { /* remove gradient on desktop */
+	background-color: @sapUiLightestBG;
+	filter: none;
+	background-image: none;
+}
+
+.sapMPopup-CTX .sapMIBar.sapMHeader-CTX { /* remove gradient in popups; restore grey header color when in popup on desktop */
+	background-color: @sapUiBarBG;
+	filter: none;
+	background-image: none;
+}
+
+html[data-sap-ui-browser*='ie9'] .sapMPageHeader::after {
+	content: "";
+	position: absolute;
+	width:100%;
+	bottom: 0;
+	border-bottom: 0.0625em solid @sapUiLightBorder;
+}

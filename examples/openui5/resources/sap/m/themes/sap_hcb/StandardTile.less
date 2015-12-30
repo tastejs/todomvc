@@ -1,0 +1,64 @@
+/* ==================================================== */
+/* CSS HCB theme for control sap.m/StandardTile.control */
+/* ==================================================== */
+
+.sapMStdTileIconDiv,
+.sapMStdIconMonitor,
+.sapMStdTileTitle {
+	color: @sapHCStandardFG;
+}
+
+.sapMStdIconCreate {
+	color: @sapHCStandardFG;
+	opacity: .3;
+}
+
+.sapMStdTileNum,
+.sapMStdTileNumM,
+.sapMStdTileNumS {
+	font-family: @sapUiFontFamily;
+	font-stretch: condensed; /* for Firefox */
+	color: @sapHCStandardFG;
+}
+
+.sapMStdTileNumUnit {
+	color: @sapHCStandardFG;
+	text-transform: uppercase;
+}
+
+.sapMStdTileInfoError {
+	color: @sapHCNegative;
+}
+
+.sapMStdTileInfoWarning {
+	color: @sapHCCritical;
+}
+
+.sapMStdTileInfoSuccess {
+	color: @sapHCPositive;
+}
+
+.sapMStdTileMonitorType {
+	background-color: @sapHCStandardBG;
+}
+
+.sapMTileActive-CTX {
+	.sapMStdTileInfoWarning,
+	.sapMStdTileInfoSuccess,
+	.sapMStdTileInfoError,
+	.sapMStdTileTitle,
+	.sapMStdTileNumUnit,
+	.sapMStdTileNum,
+	.sapMStdTileNumM,
+	.sapMStdTileNumS,
+	.sapMStdTileInfo,
+	.sapMStdTileIconDiv,
+	.sapMStdIconMonitor,
+	.sapMStdIconCreate {
+		color: @sapHCStandardFG;
+	}
+
+	.sapMStdIconCreate {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,117 @@
+/* ==================================================== */
+/* CSS for control sap.m/Page.control BlueCrystal theme */
+/* ==================================================== */
+
+.sapMPageBgSolid {
+	background-color: @sapUiPageBG;
+}
+
+/* page with standard padding */
+
+.sapMPage.sapUiStdPage > section > .sapMPageScroll {
+	padding: 1rem;
+}
+
+/* page with header and subHeader */
+.sapMPage > .sapMPageHeader + .sapMPageSubHeader + section {
+	top: 6rem;
+}
+
+/* page with header */
+.sapMPage > .sapMPageHeader + section,
+/* page with subheader */
+.sapMPage > .sapMPageSubHeader + section,
+/* page with header and invisible subheader */
+.sapMPage > .sapMPageHeader + .sapUiHiddenPlaceholder + section, {
+	top: 3rem;
+}
+
+/* page with footer */
+
+.sapMPageWithFooter > section {
+	bottom: 3rem;
+}
+
+/* page app icon */
+
+.sapMBar-CTX .sapMBarLeft > .sapMImg.sapMPageAppIcon {
+	max-height: 1.375rem;
+	max-width: 1.375rem;
+	margin: 0.8125rem;
+}
+
+/* vertical scroll bar */
+
+.sapMPage .sapMScrollbarV > div {
+	background-color: @sapUiScrollBarFaceColor;
+	border-color: @sapUiScrollBarBorderColor;
+}
+
+/* Branding line, covers any content under it (approved by UX) */
+.sapMPageHeader::before {
+	content: "";
+	position: absolute;
+	width:100%;
+	top: 0;
+	border-top: 0.25rem solid @sapUiBarBrandingBG;
+	/* I don't know why its 7 but i will definitely not change it because i fear i will break something */
+	z-index: 7;
+}
+
+/* don't show branding bars in popovers */
+.sapMPopover .sapMPageHeader::before {
+	display: none;
+}
+
+/* sap.m.Shell + Tiles Page specific style */
+
+@media (min-height: @sapMShellMinHeightForHeader) {
+	.sap-desktop .sapMShell .sapMPage.sapMPageHideHeaderWhenShellHeader header.sapMIBar {
+		display: none;
+	}
+}
+
+.sap-tablet .sapUiFioriObjectPage > section,
+.sap-desktop .sapUiFioriObjectPage > section {
+	padding-bottom: 1rem;
+}
+
+/* Compact size */
+.sapUiSizeCompact {
+	/* Header and footer have 2.5 rem */
+	.sapMPageWithHeader > section {
+		top: 2.5rem;
+	}
+
+	.sapMPageHeader.sapMIBar,
+	.sapMPageFooter.sapMIBar {
+		height : 2.5rem;
+
+		.sapMBarLeft,
+		.sapMBarRight,
+		.sapMBarPH {
+			height: 2.5rem;
+			padding-top: 0.25rem;
+			padding-bottom: 0.25rem;
+		}
+	}
+
+	.sapMPageWithFooter > section {
+		bottom: 2.5rem;
+	}
+
+	/* Subheader only 2 rem */
+	.sapMPageWithSubHeader > section {
+		top: 2rem;
+	}
+
+	.sapMPageWithHeader.sapMPageWithSubHeader > section {
+		top: 4.5rem;
+	}
+
+	.sapMBar-CTX .sapMBarLeft > .sapMImg.sapMPageAppIcon {
+		max-height: 1rem;
+		max-width: 1rem;
+		margin: 0.5rem;
+	}
+}

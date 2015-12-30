@@ -1,0 +1,18 @@
+/* ============================================= */
+/* CSS for control sap.m/DateTimeInput.control	 */
+/* ============================================= */
+
+.sapMDTICustom .dwwr {
+	min-width: 13rem;
+}
+
+.sapMDTICustom .dwbg .dwb {
+	padding-right: .25rem;
+	padding-left: .25rem;
+}
+
+/* time field must be in given order even in RTL mode */
+html[dir=rtl] .sapMDTICustomTime .dwc,
+html[dir=rtl] .sapMDTICustomDateTime .dwc:last-child {
+	direction: ltr;
+}

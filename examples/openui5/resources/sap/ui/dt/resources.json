@@ -1,0 +1,272 @@
+{
+	"resources":[
+		{
+			"name": ".library"
+		},
+		{
+			"name": ".theming"
+		},
+		{
+			"name": "AggregationOverlay-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AggregationOverlay.js"
+		},
+		{
+			"name": "AggregationOverlayRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AggregationOverlayRenderer.js"
+		},
+		{
+			"name": "ControlObserver-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ControlObserver.js"
+		},
+		{
+			"name": "DOMUtil-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DOMUtil.js"
+		},
+		{
+			"name": "DesignTime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DesignTime.js"
+		},
+		{
+			"name": "DesignTimeMetadata-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DesignTimeMetadata.js"
+		},
+		{
+			"name": "ElementOverlay-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ElementOverlay.js"
+		},
+		{
+			"name": "ElementOverlayRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ElementOverlayRenderer.js"
+		},
+		{
+			"name": "ElementUtil-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ElementUtil.js"
+		},
+		{
+			"name": "ManagedObjectObserver-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ManagedObjectObserver.js"
+		},
+		{
+			"name": "Overlay-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Overlay.js"
+		},
+		{
+			"name": "OverlayRegistry-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "OverlayRegistry.js"
+		},
+		{
+			"name": "OverlayUtil-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "OverlayUtil.js"
+		},
+		{
+			"name": "Plugin-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Plugin.js"
+		},
+		{
+			"name": "Preloader-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Preloader.js"
+		},
+		{
+			"name": "RenderingUtil-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "RenderingUtil.js"
+		},
+		{
+			"name": "Selection-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Selection.js"
+		},
+		{
+			"name": "SelectionMode.type"
+		},
+		{
+			"name": "library-all-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "library-all.js",
+			"merged":true
+		},
+		{
+			"name": "library-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "library-preload.json",
+			"merged":true
+		},
+		{
+			"name": "library.dependencies.json"
+		},
+		{
+			"name": "library.dependencies.xml"
+		},
+		{
+			"name": "library.js"
+		},
+		{
+			"name": "library.templates.xml"
+		},
+		{
+			"name": "manifest.json"
+		},
+		{
+			"name": "plugin/ControlDragDrop-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/ControlDragDrop.js"
+		},
+		{
+			"name": "plugin/DragDrop-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/DragDrop.js"
+		},
+		{
+			"name": "plugin/MouseSelection-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/MouseSelection.js"
+		},
+		{
+			"name": "plugin/Rename-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "plugin/Rename.js"
+		},
+		{
+			"name": "themes/base/.theming",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Overlay.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-parameters.json",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.source.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/shared.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/sap_hcb/.theming",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-parameters.json",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.source.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/shared.less",
+			"theme":"sap_hcb"
+		}
+	]
+}

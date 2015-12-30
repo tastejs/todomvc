@@ -1,0 +1,172 @@
+/* ============================================= */
+/* CSS for control sap.m/RadioButton.control     */
+/* BlueCrystal theme                             */
+/* ============================================= */
+.sapMRbB {
+	font-size: 1rem; /* override font size of the message dialog */
+	height: 2.875rem;
+	width: 2.875rem;
+	padding: 1px; /* using padding here so that margin won't collide */
+}
+
+.sapMRbBLabel {
+	line-height: 3rem;
+	height: 3rem;
+}
+
+.sapMRbB .sapMRbBOut {
+	height: 1em;
+	width: 1em;
+	border: 2px solid @sapUiFieldBorderColor;
+	background-color: @sapUiFieldBackground;
+	margin: 0.8125em;
+	padding: 1px; /* using padding here so that margin won't collide */
+}
+
+.sapMRb:focus:before {
+	border: .0625rem dotted @sapUiFocus;
+}
+
+.sapMLIBActive .sapMRbB .sapMRbBOut{
+	border: 2px solid @sapUiLightestBorder;
+}
+
+.sapMRbBInn {
+	background-color: transparent;
+	-webkit-user-select: none;
+}
+
+.sapMRbB .sapMRbBInn {
+	height: 0.5em;
+	width: 0.5em;
+	padding: 1px;
+	border-radius: 1em;
+	margin: 0.1875em;
+}
+
+.sapMRbHoverable:hover {
+	border-color: @sapUiFieldHoverBorderColor;
+}
+
+.sapMRb.sapMRbBTouched .sapMRbBOut{
+	border-color: @sapUiHighlight;
+}
+
+/* IE cannot handle more than 2 decimal places, and therefore the radio button dot is misaligned when using em */
+html[data-sap-ui-browser^="ie"] .sapMRbB .sapMRbBInn {
+	margin: 3px;
+}
+
+.sapMRbSel .sapMRbBInn {
+	background-color: @sapUiSelected;
+}
+
+.sapMLIBActive .sapMRbSel .sapMRbBInn {
+	background-color: @sapUiFieldBackground;
+}
+
+.sapMRbDis {
+	opacity: @sapContent_DisabledOpacity;
+}
+
+/* Value states */
+
+.sapMRbErr.sapMRbSel .sapMRbBInn {
+	background-color: @sapUiFieldInvalidColor;
+}
+
+.sapMRbErr .sapMRbBOut,
+.sapMRbErr.sapMRbBTouched .sapMRbBOut {
+	border-color: @sapUiFieldInvalidColor;
+}
+
+.sapMRbWarn.sapMRbSel .sapMRbBInn {
+	background-color: @sapUiDarkestBG;
+}
+
+.sapMRbWarn .sapMRbBOut,
+.sapMRbWarn.sapMRbBTouched .sapMRbBOut {
+	border-color: @sapUiFieldWarningColor;
+}
+
+/* Read only */
+.sapMRbRo .sapMRbBOut {
+	background-color: @sapUiBaseBG;
+	border-color: @sapUiFieldBorderColor;
+}
+
+.sapMRbRo.sapMRbSel .sapMRbBInn {
+	background-color: @sapUiElement;
+}
+
+/* Compact size */
+.sapUiSizeCompact{
+	.sapMRb {
+		height : 2rem;
+	}
+
+	.sapMRbB {
+		font-size: 1rem; /* override font size of the message dialog */
+		height: 1.875rem;
+		width: 1.875rem;
+	}
+
+	.sapMRbB .sapMRbBOut {
+		height: 0.75rem;
+		width: 0.75rem;
+		border-width: 1px;
+		margin: 0.5rem;
+	}
+
+	.sapMRbB .sapMRbBInn {
+		height: 0.25rem;
+		width: 0.25rem;
+		margin: 0.1875rem;
+	}
+
+	.sapMRbBLabel {
+		line-height: 2rem;
+		height: 2rem;
+	}
+	
+	.sapMRbHasLabel.sapMRb:focus:before {
+		right: -.0625rem;
+	}
+}
+
+/* Compact size */
+.sapUiSizeCondensed.sapUiTable,
+.sapUiSizeCondensed .sapUiTable {
+	.sapMRb {
+		height : 1.5rem;
+		vertical-align: top;
+	}
+
+	.sapMRbB {
+		font-size: 1rem; /* override font size of the message dialog */
+		height: 1.375rem;
+		width: 1.375rem;
+	}
+
+	.sapUiTableCell>.sapMRb>.sapMRbB{
+			margin: 0 0.25rem; /* extra space in the condensed ULV */
+	}
+
+	.sapMRbB .sapMRbBOut {
+		height: 0.75rem;
+		width: 0.75rem;
+		border-width: 1px;
+		margin: 0.1875rem;
+	}
+
+	.sapMRbB .sapMRbBInn {
+		height: 0.25rem;
+		width: 0.25rem;
+		margin: 0.1875rem;
+	}
+
+	.sapMRbBLabel {
+		line-height: 1.5rem;
+		height: 1.5rem;
+	}
+}

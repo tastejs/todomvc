@@ -1,0 +1,73 @@
+/* ============================================== */
+/* CSS for sap.ui.unfied.ShellOverlay.control (hcb)*/
+/* ============================================== */
+
+.sapUiUfdShellOvrlyCntnt,
+.sapUiUfdShellOvrlyHeadCntnt {
+	background-color: @sapHCStandardBG;
+}
+
+.sapUiUfdShellOvrlyHeadClose,
+.sapUiUfdShellOvrlyHeadClose:focus,
+.sapUiUfdShellOvrlyHeadClose:visited {
+	color: @sapHCStandardFG;
+}
+
+.sapUiUfdShellOvrlyHeadClose:active,
+.sapUiUfdShellOvrlyHeadClose:hover{
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiUfdShellOvrlyHeadClose {
+	right: 0;
+	height: @sapUiUfdShellHeaderBarHeight - 8px;
+	margin: 4px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid @sapHCStandardFG;
+	border-radius: 6px;
+	line-height: 1;
+}
+
+.sapUiUfdShellOvrlyHeadClose:before {
+	background-color: @sapHCStandardFG;
+	content: " ";
+	height: 76%;
+	top: 12%;
+	position: absolute;
+	left: -8px;
+	width: 1px;
+}
+
+.sapUiUfdShellOvrlyHeadClose:focus {
+		border: 2px dotted @sapHCStandardFG;
+		border-radius: 0;
+		padding: 9px;
+	}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellOvrlyHeadClose:hover,
+.sapUiMedia-Std-Desktop .sapUiUfdShellOvrlyHeadClose:active:hover {
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiUfdShellOvrlyAnim.sapUiUfdShellOvrly {
+	background: fade(@sapHCStandardBG, 30);
+}
+
+.sapUiUfdShellOvrlyAnim.sapUiUfdShellOvrly > div {
+	box-shadow: 0 0 40px 2px @sapHCShadowTint;
+}
+
+.sapUiUfdShellOvrlyHead,
+.sapUiUfdShellOvrlyCntnt > div {
+	border-width: 0 2px 1px 2px;
+	border-color: @sapHCStandardFG;
+	border-style: solid;
+}
+
+.sapUiMedia-Std-Phone .sapUiUfdShellOvrlyCntnt > div,
+.sapUiMedia-Std-Phone .sapUiUfdShellOvrlyHead {
+	border-left: 0;
+	border-right: 0;
+}

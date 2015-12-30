@@ -1,0 +1,78 @@
+/* ============================================= */
+/* Shared CSS for High Contrast Black theme      */
+/* ============================================= */
+
+:focus {
+	outline-width: 0;
+}
+
+/* commons */
+.sapMScrollbarV,
+.sapMScrollbarH,
+.sapMScrollbarV > div,
+.sapMScrollbarH > div {
+	position: absolute;
+}
+
+.sapMScrollbarV > div,
+.sapMScrollbarH > div {
+	box-sizing: border-box;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border-width: 0.0625rem;
+	border-style: solid;
+	border-color: rgba(255, 255, 255, 0.901961);
+	border-radius: 0.1875rem;
+	background-color: rgba(0, 0, 0, 0.498039);
+}
+
+/* vertical scrollbar */
+.sapMScrollbarV {
+	width: 0.438rem;
+	right: 0.063rem;
+	top: 0;
+	bottom: 0;
+}
+
+.sapMScrollbarV > div {
+	width: 100%;
+}
+
+/* horizontal scrollbar */
+.sapMScrollbarH {
+	height: 0.4375rem;
+	bottom: 0.0625rem;
+	left: 0.125rem;
+	right: 0.125rem;
+}
+
+.sapMScrollbarH > div {
+	height: 100%;
+}
+
+/* ObjectListItem and ObjectHeader share styles for markers such as flag and favorite */
+.sapMObjStatusMarker {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjStatusMarker .sapUiIcon + .sapUiIcon,
+.sapMObjStatusMarker .sapUiHiddenPlaceholder + .sapUiIcon {
+	margin-left: .5rem;
+}
+
+.sapMObjStatusMarkerInvisible{
+	visibility: hidden;
+}
+
+/* Common CSS for condensed table cell content controls */
+.sapUiCondensedTableCellContent {
+	box-sizing: border-box;
+	padding: 0 0.5rem;
+	line-height: 1.5rem;
+	vertical-align: middle;
+}
+
+/* CURSORS */
+.sapMPointer{
+	cursor: pointer;
+}

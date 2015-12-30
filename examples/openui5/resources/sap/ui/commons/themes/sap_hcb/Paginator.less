@@ -1,0 +1,79 @@
+/* ============================================= */
+/* CSS for control sap.ui.commons/Paginator      */
+/* BASE CSS                                      */
+/* ============================================= */
+
+.sapUiPag {
+	display: inline-block;
+}
+
+.sapUiPagAccDesc {
+	display: none;
+}
+
+/* back/forward buttons */
+.sapUiPagBtn {
+	display: inline-block;
+}
+
+.sapUiPagBtn.sapUiLnkDsbl {
+	color: @sapUiBaseText;
+}
+
+.sapUiPagFirst {
+	margin-right: 6px;
+}
+
+.sapUiPagBack {
+	background: url(img/paginator/arrow_previous.gif) no-repeat;
+	background-position: left top;
+	padding-left: 14px;
+}
+
+.sapUiPagForward {
+	background: url(img/paginator/arrow_next.gif) no-repeat;
+	background-position: right top;
+	padding-right: 14px;
+}
+
+.sapUiPagLast {
+	margin-left: 6px;
+}
+
+/* numbered pages */
+.sapUiPag > ul {
+	display: inline-block;
+	padding: 0;
+	vertical-align: top;
+	margin: 0 6px 0;
+}
+
+.sapUiPagPage {
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	padding: 0 4px;
+	border: 1px solid transparent;
+	margin: 0;
+	cursor: pointer;
+}
+
+.sapUiPag > .sapUiLnk,
+.sapUiPag > .sapUiLnkDsbl,
+.sapUiPagPage > .sapUiLnk,
+.sapUiPagPage > .sapUiLnkDsbl {
+	line-height: normal;
+	text-decoration: none;
+}
+
+.sapUiPagCurrentPage {
+	border: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiPagPage.sapUiPagCurrentPage {
+	cursor: default;
+}
+
+.sapUiPagCurrentPage > .sapUiLnkDsbl {
+	color: @sapUiBaseText;
+}

@@ -1,0 +1,73 @@
+.sapMTB {
+	padding: 0;
+	height: 3rem;
+	background: @sapUiToolbarBackground;
+	border-bottom: 1px solid @sapUiGroupTitleBorderColor;
+}
+
+.sapMTBShrinkItem {
+	min-width: 2.5rem; /* default min-width value for the shrinkable items */
+}
+
+/* Transparent Toolbar Context */
+.sapMTB-Transparent-CTX.sapMTB {
+	padding-left: 1rem;
+}
+
+/* Overwrite the margin of the IBar for Transparent context*/
+.sapMIBar.sapMTB-Transparent-CTX.sapMTB > :first-child {
+	margin-left: 0;
+}
+
+/* Solid Toolbar Context */
+.sapMTB-Solid-CTX.sapMTB {
+	background: @sapUiListHeaderBackground;
+}
+
+/* Info Toolbar Context */
+.sapMTB-Info-CTX.sapMTB {
+	height: 2rem;
+	padding: 0 .5rem;
+	background: @sapUiToolbarInfoBG;
+	border-bottom: 1px solid @sapUiListBorderColor;
+}
+
+.sapMTB-Info-CTX.sapMTBActive:hover {
+	background: @sapUiToolbarInfoHoverBG;
+}
+
+.sapMTB-Info-CTX.sapMTBActive:active {
+	background: @sapUiToolbarInfoActiveBG;
+}
+
+.sap-desktop .sapMTBActive:focus {
+	outline: 1px dotted @sapUiFocus;
+	outline-offset: -0.125rem;
+}
+
+.sap-desktop .sapMTB-Info-CTX.sapMTBActive:focus {
+	outline-color: @sapUiInvertedFocus;
+}
+
+.sapMTB-Info-CTX.sapMTB > * {
+	margin: 0 .5rem;
+}
+
+/* Overwrite the margin of the IBar for Info context */
+.sapMIBar.sapMTB-Info-CTX.sapMTB > :first-child {
+	margin: 0 .5rem;
+}
+
+
+/********** COMPACT DESIGN ************/
+
+/* toolbar has 2rem height in compact mode */
+.sapUiSizeCompact .sapMTB {
+	height: 2rem;
+}
+
+/* default min-width value for the shrinkable items */
+.sapUiSizeCompact .sapMTBShrinkItem,
+.sapUiSizeCondensed .sapUiTableCell .sapMTBShrinkItem{
+	min-width: 2rem; 
+}

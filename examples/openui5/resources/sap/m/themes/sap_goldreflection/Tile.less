@@ -1,0 +1,66 @@
+/* ====================================== */
+/* CSS for control sap.m/Tile control     */
+/* ====================================== */
+
+.sapMTile {
+	border: 1px solid @sapUiLightBorder;
+	display: inline-block;
+	-webkit-transition-property: transform3d;
+	-webkit-transition-duration: 0.2s;
+	-moz-transition-property: transform3d;
+	-moz-transition-duration: 0.2s;
+	transition-property: transform3d;
+	transition-duration: 0.2s;
+	width: 12rem;
+	height: 14rem;
+	margin:0.5rem;
+	-webkit-touch-callout: none;
+	background-color: @sapUiWhite;
+}
+
+.sapMTile * {   /* FIXME!!! (star rule with any-parent selector...) */
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	-moz-user-select:  -moz-none;
+	-ms-user-select: none;
+}
+
+.sapMTCEditable .sapMTile {
+	background-color: fade(@sapUiWhite, 50%);
+}
+
+html[data-sap-ui-browser*='ie'] .sapMTile {
+	transition-property: transform;
+}
+
+.sapMTile.sapMTileActive{
+	background: @sapUiHighlight;
+}
+
+.sap-phone .sapMTile {
+	width: 8.5rem;
+	height: 10rem;
+	margin: 0.5rem;
+}
+
+.sap-phone .sapMTileContent {
+	width: 8.5rem;
+	height: 10rem;
+}
+
+.sapMTileContent {
+	overflow: hidden;
+	width: 12rem;
+	height: 14rem;
+}
+
+.sapMTileDrag {
+	opacity : 0.8;
+	z-index : 10;
+	-webkit-transition-property : none;
+	-moz-transition-property: none;
+	transition-property: none;
+}
+.sapMNavItemFlipping .sapMTile{
+	opacity:0.01;
+}

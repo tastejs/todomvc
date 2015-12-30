@@ -1,0 +1,87 @@
+/* ============================================= */
+/* CSS for control sap.m/Bar.control             */
+/* High Contrast Black theme                     */
+/* ============================================= */
+
+.sapMBarPH {
+	vertical-align: top; /* needed for ios and android */
+}
+
+/* select control in a bar */
+.sapMBar .sapMSlt {
+	vertical-align: top;
+}
+
+.sapMBar {
+	height: 3rem;
+	line-height: 3rem;
+	color: @sapHCStandardFG;
+	background-color: @sapHCStandardBG;
+	border-bottom: 1px solid @sapHCStandardFG;
+	box-sizing: border-box;
+}
+
+/* this "sapMBrandingBar-CTX" CSS class can be set by any container control that comes with its own branding bar, so any pages inside will not display their branding bar */
+.sapMBrandingBar-CTX .sapMBar.sapMPageHeader:before,
+/* since Shell may run without sap.m and we can run without the shell this selector is currently in our lib */
+.sapUiUfdShell .sapMBar.sapMPageHeader:before {
+	display: none;
+}
+
+@media (min-height: @sapMShellMinHeightForHeader) {
+	/* Shell draws its own branding bar */
+	.sap-desktop .sapMShell .sapMBar.sapMPageHeader:before {
+		display: none;
+	}
+}
+
+.sapMBar .sapMBarLeft > .sapMImg,
+.sapMBar .sapMBarPH > .sapMImg, 
+.sapMBar .sapMBarRight > .sapMImg {
+	vertical-align: middle;
+}
+
+/* Compact size */
+.sapUiSizeCompact{
+	.sapMBar {
+		height: 2rem;
+	}
+	.sapMBarLeft, .sapMBarRight, .sapMBarPH {
+		height: 2rem;
+		line-height: 2rem;
+	}
+}
+
+/*don't use margins on the childs to keep the calculation of the bar correct*/
+.sapMBarRight,
+.sapMBarRight > .sapMBarChild:last-child {
+	margin-right: 0;
+}
+
+.sapMBarLeft,
+.sapMIBar.sapMBar .sapMBarChild:first-child {
+	margin-left: 0;
+}
+
+/*To replace margins, add padding to the containers*/
+.sapMBarRight,
+.sapMBarLeft,
+.sapMBarPH {
+	box-sizing: border-box;
+}
+
+.sapMBarRight,
+.sapMBarPH {
+	padding-right: 0.25rem;
+}
+
+.sapMBarLeft,
+.sapMBarPH {
+	padding-left: 0.25rem;
+}
+
+
+.sapMIBar > .sapMBarLeft > .sapMBarChild:last-child,
+.sapMIBar .sapMBarPH > .sapMBarChild:last-child {
+	margin-right: 0;
+}

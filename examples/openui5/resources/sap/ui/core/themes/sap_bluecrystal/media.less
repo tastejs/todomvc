@@ -1,0 +1,36 @@
+/************ Media queries for screen sizes ************
+
+Usage:
+
+@media (@sapUiMediaQuery_Std_Desktop) {
+      .test {
+            width: 50em;
+      }
+}
+
+*********************************************************/
+
+
+/* see sap.ui.Device.media.RANGESETS.SAP_STANDARD*/
+@sapUiMediaQuery_Std_Desktop:  ~"screen and (min-width : 1024px)";
+@sapUiMediaQuery_Std_Tablet:  ~"screen and (min-width : 600px) and (max-width : 1023px)";
+@sapUiMediaQuery_Std_Phone:  ~"screen and (max-width : 599px)";
+
+/* see sap.ui.Device.media.RANGESETS.SAP_3STEPS*/
+@sapUiMediaQuery_3Step_L:  ~"screen and (min-width : 960px)";
+@sapUiMediaQuery_3Step_M:  ~"screen and (min-width : 520px) and (max-width : 959px)";
+@sapUiMediaQuery_3Step_S:  ~"screen and (max-width : 519px)";
+
+/* see sap.ui.Device.media.RANGESETS.SAP_4STEPS*/
+@sapUiMediaQuery_4Step_XL:  ~"screen and (min-width : 960px)";
+@sapUiMediaQuery_4Step_L:  ~"screen and (min-width : 760px) and (max-width : 959px)";
+@sapUiMediaQuery_4Step_M:  ~"screen and (min-width : 520px) and (max-width : 759px)";
+@sapUiMediaQuery_4Step_S:  ~"screen and (max-width : 519px)";
+
+/* see sap.ui.Device.media.RANGESETS.SAP_6STEPS*/
+@sapUiMediaQuery_6Step_XXL:  ~"screen and (min-width : 960px)";
+@sapUiMediaQuery_6Step_XL:  ~"screen and (min-width : 768px) and (max-width : 959px)";
+@sapUiMediaQuery_6Step_L:  ~"screen and (min-width : 541px) and (max-width : 767px)";
+@sapUiMediaQuery_6Step_M:  ~"screen and (min-width : 400px) and (max-width : 540px)";
+@sapUiMediaQuery_6Step_S:  ~"screen and (min-width : 241px) and (max-width : 399px)";
+@sapUiMediaQuery_6Step_XS:  ~"screen and (max-width : 240px)";

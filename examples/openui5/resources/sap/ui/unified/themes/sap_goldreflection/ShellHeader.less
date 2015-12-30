@@ -1,0 +1,408 @@
+/* =================================================== */
+/* CSS for sap.ui.unfied.ShellHeader.control (base)    */
+/* =================================================== */
+
+@sapUiUfdShellHeadCenterAnimDuration: 200ms; /*Duration of the transitions of the header center area width (must be defined in ms)*/
+@sapUiUfdShellHeadCenterAnimDelay: 30ms; /*Delay of the transitions of the header center area width (must be defined in ms)*/
+@sapUiUfdShellHeadButtonOuterSpace: 4px; /*Left/Right spacing of the header buttons*/
+@sapUiUfdShellHeadButtonInnerSpace: 9px; /*Spacing between icons and text (user button)*/
+@sapUiUfdShellHeadButtonOutlineWidth: 1px;
+@sapUiUfdShellHeadButtonSeparatorWidth: 1px;
+@sapUiUfdShellHeadButtonBorderRadius: 2px;
+@sapUiUfdShellHeadButtonHeight: @sapUiUfdShellHeaderBarHeight - 2*@sapUiUfdShellHeadButtonOuterSpace;
+
+
+.sapUiUfdShellHeader {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+/* Animations */
+
+.sapUiUfdShellAnim .sapUiUfdShellHeadItmMarker {
+	-webkit-transition-duration: @sapUiUfdShellAnimDuration;
+	transition-duration: @sapUiUfdShellAnimDuration;
+	-moz-transition-duration: @sapUiUfdShellAnimDuration;
+}
+
+.sapUiUfdShellAnim .sapUiUfdShellHeadCenter.sapUiUfdShellAnim {
+	-webkit-transition-duration: @sapUiUfdShellHeadCenterAnimDuration;
+	transition-duration: @sapUiUfdShellHeadCenterAnimDuration;
+	-moz-transition-duration: @sapUiUfdShellHeadCenterAnimDuration;
+	-webkit-transition-delay: @sapUiUfdShellHeadCenterAnimDelay;
+	transition-delay: @sapUiUfdShellHeadCenterAnimDelay;
+	-moz-transition-delay: @sapUiUfdShellHeadCenterAnimDelay;
+	-webkit-transition-property: left, right;
+	transition-property: left, right;
+	-moz-transition-property: left, right;
+	z-index: 1;
+}
+
+.sapUiUfdShellAnim .sapUiUfdShellHeadItmMarker {
+	-webkit-transition-property: bottom;
+	transition-property: bottom;
+	-moz-transition-property: bottom;
+}
+
+
+/* Header */
+
+.sapUiUfdShellHeadBegin,
+.sapUiUfdShellHeadCenter,
+.sapUiUfdShellHeadEnd {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+.sapUiUfdShellHeadBegin {
+	left: 0;
+	max-width: 265px;
+	white-space: nowrap;
+}
+
+.sapUiUfdShellHeadCenter {
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+.sapUiUfdShellHeadEnd {
+	right: 0;
+	max-width: 390px;
+	white-space: nowrap;
+}
+
+.sapUiUfdShellHeadEnd > .sapUiUfdShellIco,
+.sapUiUfdShellHeadBegin > .sapUiUfdShellIco {
+	height: 100%;
+	display: inline-block;
+	vertical-align: top;
+	line-height: @sapUiUfdShellHeaderBarHeight - @sapUiUfdShellHeaderBarHeight/10;
+}
+
+.sapUiUfdShellHeadEnd > .sapUiUfdShellIco {
+	text-align: right;
+	padding-right: 8px;
+}
+
+.sapUiUfdShellHeadBegin > .sapUiUfdShellIco {
+	padding-left: 8px;
+}
+
+.sapUiUfdShellHeadEnd > .sapUiUfdShellIco > img,
+.sapUiUfdShellHeadBegin > .sapUiUfdShellIco > img {
+	max-height: @sapUiUfdShellHeaderBarHeight - @sapUiUfdShellBrandHeight * 2;
+	max-width: 96px;
+	vertical-align: middle;
+}
+
+.sapUiUfdShellIco.sapUiUfdShellHidden {
+	display: none;
+}
+
+.sapUiUfdShellHeadEnd > * {
+	float: right;
+}
+
+.sapUiUfdShellHeadContainer {
+	overflow: hidden;
+	display: inline-block;
+}
+
+.sapUiUfdShellHeadItm {
+	width:  @sapUiUfdShellHeaderBarHeight;
+	height: 100%;
+	display: inline-block;
+	text-decoration: none;
+	vertical-align: top;
+	overflow: hidden;
+	position: relative;
+}
+
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep {
+	width:  @sapUiUfdShellHeaderBarHeight + 2*@sapUiUfdShellHeadButtonOuterSpace + @sapUiUfdShellHeadButtonSeparatorWidth;
+}
+
+.sapUiUfdShellHeadItm.sapUiUfdShellHidden {
+	display: none;
+}
+
+.sapUiUfdShellHeadItm > span {
+	width: @sapUiUfdShellHeadButtonHeight;
+	height: @sapUiUfdShellHeadButtonHeight;
+	display: inline-block;
+	font-weight: normal;
+	line-height: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth;
+	text-align: center;
+	font-size: @sapUiUfdShellHeaderBarHeight / 2;
+	margin: @sapUiUfdShellHeadButtonOuterSpace - @sapUiUfdShellHeadButtonOutlineWidth;
+	margin-top: @sapUiUfdShellHeadButtonOuterSpace;
+	color: @sapUiBaseText;
+	-moz-border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-webkit-border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.sapUiUfdShellHeadBegin .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep > span {
+	margin-right: 3*@sapUiUfdShellHeadButtonOuterSpace + @sapUiUfdShellHeadButtonSeparatorWidth;
+	margin-left: @sapUiUfdShellHeadButtonOuterSpace;
+}
+
+.sapUiUfdShellHeadEnd .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep > span {
+	margin-left: 3*@sapUiUfdShellHeadButtonOuterSpace + @sapUiUfdShellHeadButtonSeparatorWidth;
+	margin-right: @sapUiUfdShellHeadButtonOuterSpace;
+}
+
+.sapUiUfdShellHeadUsrItm:before,
+.sapUiUfdShellHeadEnd .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:before,
+.sapUiUfdShellHeadBegin .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:after {
+	content: " ";
+    height: @sapUiUfdShellHeadButtonHeight - @sapUiUfdShellHeadButtonOuterSpace;
+    top: @sapUiUfdShellHeadButtonOuterSpace * 3 / 2;
+    position: absolute;
+    width: @sapUiUfdShellHeadButtonOuterSpace + @sapUiUfdShellHeadButtonSeparatorWidth;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.sapUiUfdShellHeadBegin .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:after {
+    right: 0;
+    border-right: @sapUiUfdShellHeadButtonOuterSpace solid transparent;
+    border-left: @sapUiUfdShellHeadButtonSeparatorWidth solid @sapUiBaseBorder;
+}
+
+.sapUiUfdShellHeadUsrItm:before,
+.sapUiUfdShellHeadEnd .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:before {
+    left: 0;
+    border-left: @sapUiUfdShellHeadButtonOuterSpace solid transparent;
+    border-right: @sapUiUfdShellHeadButtonSeparatorWidth solid @sapUiBaseBorder;
+}
+
+.sapUiUfdShellHeadItm:active > span,
+.sapUiUfdShellHeadItm:active:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm:active:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItm:hover > *,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItm:hover:active > *,
+.sapUiUfdShellHeadUsrItm:active > *,
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel > span,
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel:active > span,
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel:active:hover > span {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel:hover > span {
+	background-color: darken(@sapUiHighlight, 5%);
+}
+
+.sapUiUfdShellHeadItm > span > img {
+	margin-top: @sapUiUfdShellHeaderBarHeight / 4 - 4px;
+	width: @sapUiUfdShellHeaderBarHeight / 2;
+	height: @sapUiUfdShellHeaderBarHeight / 2;
+	border-width: 0;
+}
+
+.sapUiUfdShellHeadItm:focus,
+.sapUiUfdShellHeadUsrItm:focus {
+	outline: none;
+}
+
+.sapUiUfdShellHeadItm:focus > span {
+	border: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+}
+
+.sapUiUfdShellSearch {
+	display: inline-block;
+	position: relative;
+	width: 95%;
+	max-width: 415px;
+	height: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	text-align: left;
+	line-height: @sapUiUfdShellHeaderBarHeight - @sapUiUfdShellHeaderBarHeight/10;
+	padding-left: @sapUiUfdShellHeadButtonOuterSpace;
+	padding-right: @sapUiUfdShellHeadButtonOuterSpace;
+}
+
+.sapUiUfdShellSearch.sapUiUfdShellHidden {
+	display: none;
+}
+
+.sapUiUfdShellSearch > div {
+	width: 100%;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.sapUiUfdShellHeadItmMarker {
+	position: absolute;
+	bottom: -7px;
+	left: 15px;
+	width: 14px;
+	height: 7px;
+	background-color: transparent;
+    overflow: hidden;
+}
+
+.sapUiUfdShellHeadItmMark > .sapUiUfdShellHeadItmMarker {
+	bottom: 0;
+}
+
+.sapUiUfdShellHeadItmMarker > div {
+	position: relative;
+    top: 100%;
+}
+
+.sapUiUfdShellHeadItmMarker > div:after,
+.sapUiUfdShellHeadItmMarker > div:before {
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+    left: 50%;
+    border-bottom-color: @sapUiBaseText;
+}
+
+.sapUiUfdShellHeadItmMarker > div:after {
+	border-width: 6px;
+	margin-left: -6px;
+}
+
+.sapUiUfdShellHeadItmMarker > div:before {
+	border-width: 7px;
+	margin-left: -7px;
+}
+
+
+/* User Item */
+
+.sapUiUfdShellHeadUsrItm {
+	text-decoration: none;
+	overflow: hidden;
+	position: relative;
+	line-height: @sapUiUfdShellHeaderBarHeight;
+	display: inline-block;
+	vertical-align: top;
+	height: 100%;
+	color: @sapUiBaseText;
+}
+
+.sapUiUfdShellHeadUsrItm > * {
+	display: inline-block;
+	vertical-align: top;
+	height: @sapUiUfdShellHeadButtonHeight;
+	line-height: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth;
+	margin-top: @sapUiUfdShellHeadButtonOuterSpace;
+	margin-bottom: @sapUiUfdShellHeadButtonOuterSpace - @sapUiUfdShellHeadButtonOutlineWidth;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.sapUiUfdShellHeadUsrItmImg {
+	font-weight: normal;
+	text-align: center;
+	font-size: @sapUiUfdShellHeaderBarHeight / 2;
+	-moz-border-top-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-webkit-border-top-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-top-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-moz-border-bottom-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-webkit-border-bottom-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-bottom-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	margin-left: 3*@sapUiUfdShellHeadButtonOuterSpace + @sapUiUfdShellHeadButtonSeparatorWidth;
+	border-left: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	border-top: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	border-bottom: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	padding-left: @sapUiUfdShellHeadButtonInnerSpace;
+	padding-right: @sapUiUfdShellHeadButtonInnerSpace;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmImg {
+	border-left: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+	border-top: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+	border-bottom: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+}
+
+.sapUiUfdShellHeadUsrItmImg > img {
+	margin-top: 1px;
+	width: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth - 2px;
+	height: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth - 2px;
+	-moz-border-radius: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth - 2px;
+	-webkit-border-radius: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth - 2px;
+	border-radius: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth - 2px;
+	border-width: 0;
+}
+
+.sapUiUfdShellHeadUsrItmName {
+	font-size: 14px;
+	max-width: 241px; /*15rem + 1px*/
+	overflow: hidden;
+	padding-right: @sapUiUfdShellHeadButtonInnerSpace;
+	text-overflow: ellipsis;
+	border-top: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	border-bottom: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmName {
+	border-top: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+	border-bottom: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+}
+
+.sapUiUfdShellHeadUsrItmLimit > .sapUiUfdShellHeadUsrItmName,
+.sapUiMedia-Std-Phone .sapUiUfdShellHeadUsrItmName,
+.sapUiMedia-Std-Phone .sapUiUfdShellHeadUsrItmExp {
+	display: none; 
+}
+
+.sapUiMedia-Std-Phone .sapUiUfdShellHeadUsrItmImg {
+	margin-right: @sapUiUfdShellHeadButtonOuterSpace;
+	-moz-border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-webkit-border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+}
+
+.sapUiUfdShellHeadUsrItmExp {
+	font-size: 16px;
+    padding-right: @sapUiUfdShellHeadButtonInnerSpace;
+    margin-right: @sapUiUfdShellHeadButtonOuterSpace;
+    -moz-border-top-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-webkit-border-top-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-top-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-moz-border-bottom-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	-webkit-border-bottom-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-bottom-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-right: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	border-top: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+	border-bottom: @sapUiUfdShellHeadButtonOutlineWidth solid transparent;
+}
+
+.sapUiUfdShellHeadUsrItmExp:after {
+	content: "\e1ef";
+	font-family: 'SAP-icons';
+	outline: none;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmExp {
+	border-right: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+	border-top: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+	border-bottom: @sapUiUfdShellHeadButtonOutlineWidth dotted @sapUiBaseText;
+}
+
+.sapUiUfdShellHeadUsrItmWithoutPopup .sapUiUfdShellHeadUsrItmExp {
+	padding-right: 0;
+}
+
+.sapUiUfdShellHeadUsrItmWithoutPopup .sapUiUfdShellHeadUsrItmExp:after {
+	content: "";
+}

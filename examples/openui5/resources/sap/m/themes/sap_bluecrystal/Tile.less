@@ -1,0 +1,24 @@
+/* ====================================== */
+/* CSS for control sap.m/Tile control     */
+/* ====================================== */
+
+.sapMTile {
+	border: 1px solid @sapUiLightBorder;
+	border-radius: 2px;	
+	box-shadow: 0px 1px 3px fade(@sapUiShadowTint,15%); 
+	/*margin:0.6em;*/ /* in case of some behavior problems uncomment this line, it was comment because the margin causes the blurring of the focus rectangle in IE9*/
+	background-color: @sapUiLightestBG;
+}
+
+.sapMTCEditable .sapMTile {
+	background-color: fade(@sapUiLightestBG, 50%);
+}
+
+.sapMTile:focus {
+	outline: 1px dotted @sapUiFocus;
+} 
+
+.sapMTile .sapMTileDrag {
+	opacity : 0.6;
+	box-shadow: 0px 1px 3px fade(@sapUiShadowTint,60%);
+}

@@ -1,0 +1,6 @@
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(['jquery.sap.global',"sap/m/semantic/SemanticPage","sap/m/semantic/SemanticPageRenderer","sap/m/semantic/MultiSelectAction"],function(q,S,a,M){"use strict";var b=S.extend("sap.m.semantic.MasterPage",{metadata:{aggregations:{addAction:{type:"sap.m.semantic.AddAction",multiple:false},mainAction:{type:"sap.m.semantic.MainAction",multiple:false},positiveAction:{type:"sap.m.semantic.PositiveAction",multiple:false},negativeAction:{type:"sap.m.semantic.NegativeAction",multiple:false},multiSelectAction:{type:"sap.m.semantic.MultiSelectAction",multiple:false},forwardAction:{type:"sap.m.semantic.ForwardAction",multiple:false},editAction:{type:"sap.m.semantic.EditAction",multiple:false},saveAction:{type:"sap.m.semantic.SaveAction",multiple:false},cancelAction:{type:"sap.m.semantic.CancelAction",multiple:false},sort:{type:"sap.m.semantic.ISort",multiple:false},filter:{type:"sap.m.semantic.IFilter",multiple:false},group:{type:"sap.m.semantic.IGroup",multiple:false},messagesIndicator:{type:"sap.m.semantic.MessagesIndicator",multiple:false}}},renderer:a.render});return b;},true);

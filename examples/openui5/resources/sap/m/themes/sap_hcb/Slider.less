@@ -1,0 +1,94 @@
+/* ============================================= */
+/* CSS for control sap.m/Slider.control          */
+/* High Contrast Black theme                     */
+/* ============================================= */
+
+/* slider */
+.sapMSlider {
+	height: 3rem;
+	padding: 1.406rem 1.1875rem;
+}
+
+.sapMSliderInner {
+	border: 1px solid @sapHCStandardFG;
+	background-color: @sapHCStandardBG;
+	border-radius: 0.125rem;
+}
+
+.sapMSliderInner,.sapMSliderProgress {
+	height: 0.1875rem;
+}
+
+/* slider progress bar */
+.sapMSliderProgress {
+	background-color: @sapHCStandardFG;
+}
+
+/* slider handle */
+.sapMSliderHandle {
+	margin-left: -1rem;
+	top: -0.91rem;
+	height: 1.75rem;
+	width: 1.75rem;
+	//note: some browsers like Samsung Galaxy S4 with Android 4.2 does notsupport the "border-radius" shorthand property
+	//but does support the long-hand properties for each corner like "border-top-left-radius"
+	border-top-left-radius: 1rem;
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+	background-color: fade(@sapHCStandardFG, 0);
+	border: 0.125rem solid @sapHCStandardFG;
+}
+
+/* hover */
+.sap-desktop .sapMSliderHandle:hover {
+	background-color: @sapHCHighlightBG;
+}
+
+/* focus */
+.sap-desktop .sapMSliderHandle:focus {
+	outline: 0.125rem dotted @sapHCStandardFG;
+}
+
+/* pressed */
+.sapMSliderPressed:not(.sapMSliderInnerDisabled ) > .sapMSliderHandle {
+	background-color: @sapHCHighlightBG;
+	border: 0.125rem solid @sapHCStandardFG;
+}
+
+/* disabled */
+.sapMSliderDisabled {
+	opacity: 1;
+}
+
+.sapMSliderInnerDisabled {
+	border: 0.063rem solid @sapHCReducedAltFG;
+}
+
+.sapMSliderInnerDisabled .sapMSliderProgress {
+	background-color: @sapHCReducedBG;
+}
+
+.sapMSliderInnerDisabled > .sapMSliderHandle {
+	background-color: transparent;
+	border:0.125rem solid @sapHCReducedFG
+}
+/* ==================================================== */
+/* CSS for control sap.m/Slider.control compact size 	*/
+/* High Contrast Black theme  							*/
+/* ==================================================== */
+
+/* slider */
+.sapUiSizeCompact .sapMSlider {
+	height: 2rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+/* slider handle */
+.sapUiSizeCompact .sapMSliderHandle {
+	height: 1.375rem;
+	width: 1.375rem;
+	margin-left: -0.8125rem;
+	top: -0.75rem;
+}

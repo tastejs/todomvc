@@ -1,0 +1,153 @@
+.sapUiTv {
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+	vertical-align: top;
+	line-height: @sapUiLineHeight;
+	display: inline-block;
+}
+
+.sapUiInverted-CTX .sapUiTv {
+	color: @sapUiTextInverted;
+}
+
+/* Do not invert for table */
+.sapUiInverted-CTX .sapUiTable .sapUiTv {
+	color: @sapUiBaseText;
+}
+
+.sapUiTvH1 { /* be careful - used in other controls with title too */
+	font-size: @sapUiFontHeader1Size;
+	font-weight: bold;
+	line-height: 122%;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTvH2 {
+	font-size: @sapUiFontHeader2Size;
+	font-weight: bold;
+	line-height: 122%;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTvH3 {
+	font-size: @sapUiFontHeader3Size;
+	font-weight: bold;
+	line-height: 122%;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTvH4 {
+	font-size: @sapUiFontHeader4Size;
+	font-weight: bold;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTvH5 {
+	font-size: @sapUiFontHeader5Size;
+	font-weight: bold;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTvH6 {
+	font-size: @sapUiFontHeader6Size;
+	font-weight: bold;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTvItalic {
+	font-style: italic;
+}
+
+.sapUiTvSmall {
+	font-size: @sapUiFontSmallSize;
+}
+
+.sapUiTvMono {
+	font-family: monospace;
+}
+
+.sapUiTvULine {
+	text-decoration: underline;
+}
+
+/* disabled */
+.sapUiTvDsbl {
+	cursor: default;
+	-moz-user-select: none;
+	color: @sapUiContentDisabledTextColor;
+	outline: none;
+}
+
+.sapUiInverted-CTX .sapUiTv.sapUiTvDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+/* success state */
+.sapUiTvSucc {
+	background-color: @sapUiFieldSuccessBackground;
+}
+
+.sapUiInverted-CTX .sapUiTvSucc {
+	color: @sapUiBaseText;
+}
+
+/* Do not invert for table */
+.sapUiInverted-CTX .sapUiTable .sapUiTvSucc {
+	color: @sapUiFieldSuccessBackground;
+}
+
+/* invalid state */
+.sapUiTvErr {
+	color: @sapUiFieldInvalidColor;
+	border-color: @sapUiFieldInvalidColor;
+	background-color: @sapUiFieldInvalidBackground;
+}
+
+.sapUiInverted-CTX .sapUiTvErr {
+	color: @sapUiFieldInvalidColor;
+}
+
+/* warning state */
+.sapUiTvWarn {
+	background-color: @sapUiFieldWarningBackground;
+}
+
+.sapUiInverted-CTX .sapUiTvWarn {
+	color: @sapUiBaseText;
+}
+
+/* Do not invert for table */
+.sapUiInverted-CTX .sapUiTable .sapUiTvWarn {
+	color: @sapUiBaseText;
+}
+
+/* Designs */
+.sapUiTvEmph {
+	font-weight: bold;
+}
+
+/* alignments */
+.sapUiTvAlignRight{
+	text-align: right;
+}
+
+.sapUiTvAlignLeft{
+	text-align: left;
+}
+
+.sapUiTvAlignCenter{
+	text-align: center;
+}
+
+.sapUiTvInfo{
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: @sapBackgroundColor;
+}
+
+.sapUiTvWrap{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

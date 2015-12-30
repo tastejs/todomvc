@@ -1,0 +1,110 @@
+/* ====================================================== */
+/* CSS for control sap.ui.commons/SegmentedButton.control */
+/* ====================================================== */
+
+.sapUiSegmentedButton{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/*std button styling */
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus {
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus:not(.sapUiSegButtonSelected),
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:focus:not(.sapUiSegButtonSelected),
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:hover:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco {
+	box-shadow:  none;
+	cursor: default;
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:focus > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:focus > span.sapUiBtnIco {
+	background-color: darken(@sapUiHighlight, 5);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco{
+	background-color: fade(@sapUiHighlight, 25);
+	color: fade(@sapUiTextInverted, 75);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct:focus {
+	border-color: @sapUiDarkBorder;
+}
+
+/* lite button styling */
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd {
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd:focus {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+	cursor: default;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:focus > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:focus > span.sapUiBtnIco {
+	background-color: darken(@sapUiHighlight, 5);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco {
+	background-color: fade(@sapUiHighlight, 25);
+	color: fade(@sapUiTextInverted, 75);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnStd:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	outline: 1px dotted @sapUiHighlight;
+	outline-offset: -1px;
+}

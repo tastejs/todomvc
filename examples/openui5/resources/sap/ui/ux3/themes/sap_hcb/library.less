@@ -1,0 +1,1159 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../sap/ui/core/themes/sap_hcb/global.less";
+/* START "shared.less" */
+/* This CSS inherits rules from default/shared.css */
+/* END "shared.less" */
+
+
+/* START "ActionBar.less" */
+/* =========================================== */
+/* CSS for controlsap.ui.ux3/ActionBar.control */
+/* SAP-HCB Theme                               */
+/* =========================================== */
+
+.sapUiUx3ActionBar {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ActionBarMoreButton {
+	color: @sapUiBase;
+	font-weight: normal;
+}
+
+.sapUiUx3ActionBarItem:focus {
+	outline: none;
+}
+
+
+.sapUiUx3ActionBarItemRight {
+	display: inline;
+	color: @sapUiBase;
+	padding: 0px 0px 0px 6px;
+	vertical-align: middle;
+}
+
+
+.sapUiUx3ActionBarAction:focus {
+	outline: none; 
+}
+
+.sapUiUx3ActionBarAction:hover {
+	border: 1px solid @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarAction {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	padding: 0px;
+	border: 1px solid transparent;
+}
+
+button.sapUiUx3ActionBarLiteMoreButton>span.sapUiBtnTxt  {
+	color: @sapUiBase;
+	font-weight: normal;
+}
+
+button.sapUiUx3ActionBarLiteMoreButton:hover>span.sapUiBtnTxt  {
+	color: @sapUiBase;
+	font-weight: normal;
+}
+
+button.sapUiUx3ActionBarLiteMoreButton:focus>span.sapUiBtnTxt  {
+	color: @sapUiBase;
+	font-weight: normal;
+}
+
+/* ============================================= */
+/* Update                                        */
+.sapUiUx3ActionBarUpdateAction {
+	background-image: url("img/update_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/*.sapUiUx3ActionBarUpdateAction:hover {
+	background-image: url("img/update_regular.png");
+	background-color: @sapUiBase;
+}*/
+
+.sapUiUx3ActionBarUpdateAction:focus,
+.sapUiUx3ActionBarUpdateAction:hover,
+.sapUiUx3ActionBarUpdateAction:active {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected {
+	background-image: url("img/update_hover.png");
+	background-color: transparent;
+	border: 1px solid @sapUiBase;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected:hover {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected:active {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected:focus,
+.sapUiUx3ActionBarUpdateAction.Selected:hover,
+.sapUiUx3ActionBarUpdateAction.Selected:active {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarUpdatePopup.sapUiUx3TP {
+	color: @sapUiBaseBG;
+	padding: 5px;
+}
+
+.sapUiUx3ActionBarFeeder {
+	width:300px;
+}
+
+/* ============================================= */
+/* Follow (Feed)                                 */
+.sapUiUx3ActionBarFollowAction {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-color: transparent;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFollowAction.Default {
+	background-image: url("img/not_following_hover.png");
+	border: 1px solid transparent;
+}
+
+/*.sapUiUx3ActionBarFollowAction.Default:hover {
+	background-image: url("img/not_following_regular.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFollowAction.Default:active {
+	background-image: url("img/not_following_regular.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}*/
+
+.sapUiUx3ActionBarFollowAction.Default:focus,
+.sapUiUx3ActionBarFollowAction.Default:hover,
+.sapUiUx3ActionBarFollowAction.Default:active {
+	background-image: url("img/not_following_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFollowAction.Default:disabled {
+	opacity: 0.25;
+}
+
+.sapUiUx3ActionBarFollowAction.Follow {
+	background-image: url("img/following_hover.png");
+	background-color: transparent;
+	border: 1px solid @sapUiBase;
+}
+
+/*.sapUiUx3ActionBarFollowAction.Follow:hover {
+	background-image: url("img/following_regular_bw.png");
+	background-color: @sapUiBase;
+	border: 1px solid @sapUiBase;
+}
+
+.sapUiUx3ActionBarFollowAction.Follow:active {
+	background-image: url("img/following_regular_bw.png");
+	background-color: @sapUiBase;
+	border: 1px solid @sapUiBase;
+}*/
+
+.sapUiUx3ActionBarFollowAction.Follow:focus,
+.sapUiUx3ActionBarFollowAction.Follow:hover,
+.sapUiUx3ActionBarFollowAction.Follow:active {
+	background-image: url("img/following_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiBase;
+}
+
+.sapUiUx3ActionBarFollowAction.Hold {
+	background-image: url("img/hold_hover.png");
+	background-color: transparent;
+	border: 1px solid transparent;
+}
+
+/*.sapUiUx3ActionBarFollowAction.Hold:hover {
+	background-image: url("img/hold_regular_bw.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFollowAction.Hold:active {
+	background-image: url("img/hold_regular_bw.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}*/
+
+.sapUiUx3ActionBarFollowAction.Hold:focus,
+.sapUiUx3ActionBarFollowAction.Hold:hover,
+.sapUiUx3ActionBarFollowAction.Hold:active {
+	background-image: url("img/hold_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+/* ============================================= */
+/* Flag                                     */
+.sapUiUx3ActionBarFlagAction {
+	background-image: url("img/flag_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFlagAction:disabled {
+	opacity: 0.25;
+}
+
+.sapUiUx3ActionBarFlagAction:focus,
+.sapUiUx3ActionBarFlagAction:hover,
+.sapUiUx3ActionBarFlagAction:active {
+	background-image: url("img/flag_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+/*.sapUiUx3ActionBarFlagAction:hover {
+	background-image: url("img/flag_regular.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFlagAction:active {
+	background-image: url("img/flag_regular.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}*/
+
+.sapUiUx3ActionBarFlagAction.Selected {
+	background-image: url("img/flag_hover.png");
+	background-color: transparent;
+	border: 1px solid @sapUiBase;
+}
+
+/*.sapUiUx3ActionBarFlagAction.Selected:hover {
+	background-image: url("img/flag_regular.png");
+	background-color: @sapUiBase;
+}
+
+.sapUiUx3ActionBarFlagAction.Selected:active {
+	background-image: url("img/flag_regular.png");
+	background-color: @sapUiBase;
+}*/
+
+.sapUiUx3ActionBarFlagAction.Selected:focus,
+.sapUiUx3ActionBarFlagAction.Selected:hover,
+.sapUiUx3ActionBarFlagAction.Selected:active {
+	background-image: url("img/flag_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+/* ============================================= */
+/* Favorite                                     */
+.sapUiUx3ActionBarFavoriteAction {
+	background-image: url("img/favorite_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFavoriteAction:disabled {
+	opacity: 0.25;
+}
+
+.sapUiUx3ActionBarFavoriteAction:focus,
+.sapUiUx3ActionBarFavoriteAction:hover,
+.sapUiUx3ActionBarFavoriteAction:active {
+	background-image: url("img/favorite_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+/*.sapUiUx3ActionBarFavoriteAction:hover {
+	background-image: url("img/favorite_regular.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFavoriteAction:active {
+	background-image: url("img/favorite_regular.png");
+	background-color: @sapUiBase;
+	border: 1px solid transparent;
+}*/
+
+.sapUiUx3ActionBarFavoriteAction.Selected {
+	background-image: url("img/favorite_hover.png");
+	background-color: transparent;
+	border: 1px solid @sapUiBase;
+}
+
+/*.sapUiUx3ActionBarFavoriteAction.Selected:hover {
+	background-image: url("img/favorite_regular.png");
+	background-color: @sapUiBase;
+}
+
+.sapUiUx3ActionBarFavoriteAction.Selected:active {
+	background-image: url("img/favorite_regular.png");
+	background-color: @sapUiBase;
+}*/
+
+.sapUiUx3ActionBarFavoriteAction.Selected:focus,
+.sapUiUx3ActionBarFavoriteAction.Selected:hover,
+.sapUiUx3ActionBarFavoriteAction.Selected:active {
+	background-image: url("img/favorite_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+/* ============================================= */
+/* Open Thing                                    */
+.sapUiUx3ActionBarOpenThingAction {
+	background-image: url("img/inspect_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/*.sapUiUx3ActionBarOpenThingAction:hover {
+	background-image: url("img/inspect_regular.png");
+	background-color: @sapUiBase;
+}*/
+
+.sapUiUx3ActionBarOpenThingAction:focus,
+.sapUiUx3ActionBarOpenThingAction:hover,
+.sapUiUx3ActionBarOpenThingAction:active {
+	background-image: url("img/inspect_hover.png");
+	background-color: @sapUiHighlight;
+}
+/* END "ActionBar.less" */
+
+/* START "CollectionInspector.less" */
+/* ============================================= */
+/* CSS for control sap.ui.ux3/Collection.control */
+/* SAP-HCB Theme                                 */
+/* ============================================= */
+
+.sapUiUx3CI {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "CollectionInspector.less" */
+
+/* START "DataSet.less" */
+/* ========================================== */
+/* CSS for control sap.ui.ux3/DataSet.control */
+/* SAP-HCB Theme                              */
+/* ========================================== */
+
+.sapUiUx3DS {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "DataSet.less" */
+
+/* START "DataSetSimpleView.less" */
+/* ==================================================== */
+/* CSS for control sap.ui.ux3/DataSetSimpleView.control */
+/* SAP-HCB Theme                                        */
+/* ==================================================== */
+
+.sapUiUx3DSSV {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* change for matching */
+.sapUiUx3DSSVItem:hover {
+	background-color: @sapHCHighlightBG;
+}
+.sapUiUx3DSSVSelected {
+	background-color: @sapHCHighlightBG;
+}
+/* END "DataSetSimpleView.less" */
+
+/* START "Exact.less" */
+/* ======================================== */
+/* CSS for control sap.ui.ux3/Exact.control */
+/* SAP-HCB Theme                            */
+/* ======================================== */
+
+.sapUiUx3Exact {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Exact.less" */
+
+/* START "ExactArea.less" */
+/* ============================================ */
+/* CSS for control sap.ui.ux3/ExactArea.control */
+/* SAP-HCB Theme                                */
+/* ============================================ */
+
+.sapUiUx3ExactArea {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ExactAreaTbTitle {
+	line-height: 20px;
+}
+/* END "ExactArea.less" */
+
+/* START "ExactBrowser.less" */
+/* =============================================== */
+/* CSS for control sap.ui.ux3/ExactBrowser.control */
+/* SAP-HCB Theme                                   */
+/* =============================================== */
+
+.sapUiUx3ExactBrwsr {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ExactBrowser.less" */
+
+/* START "ExactList.less" */
+/* ================================================ */
+/* HCB CSS for control sap.ui.ux3/ExactList.control */
+/* SAP-HCB Theme                                    */
+/* ================================================ */
+
+.sapUiUx3ExactLst {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* List */
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI {
+	border: 2px solid transparent;
+	box-sizing: border-box;
+}
+
+/* List - Item Texts */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus {
+	outline: 2px solid @sapUiTextSelection;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb.sapUiLbx > ul > .sapUiLbxI > .sapUiLbxITxt {
+	border-bottom-style: none;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover *,   /* FIXME!!! (star rule with any-parent selector...) */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus * {
+	border-color: transparent;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover,
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus {
+	border: 2px solid @sapUiTextSelection;
+	outline-width: 0px;
+}
+
+/* List - Sub-Attribute Indicator */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > span {
+	padding-top: 3px;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco {
+    top: 2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > span {
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco {
+	top: 0px;
+}
+
+/* Expander */
+.sapUiUx3ExactLstExp {
+	border-top: 1px solid @sapUiMediumBorder;
+	background-color: @sapUiExtraLightBG;
+}
+
+/* Header */
+.sapUiUx3ExactLstHeadAct {
+	top: -1px;	
+	font-weight: bold;
+	outline: none;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstClose {
+    left: 2px;
+}
+
+/* Content */
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstCntnt {
+	border: 1px solid @sapUiMediumBorder;
+}
+
+/*Top Menu*/
+.sapUiUx3ExactLstHeadTopIco,
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt > .sapUiUx3ExactLstHeadTopIco {
+	background-image: url("img/exact/tophead.gif");
+	bottom: 3px;
+    height: 12px;
+    width: 6px;
+}
+
+html[dir=rtl] .sapUiUx3ExactLstHeadTopIco,
+html[dir=rtl] .sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt > .sapUiUx3ExactLstHeadTopIco {
+	right: -3px;
+	width: 12px;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt {
+	color: @sapUiText;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:focus {
+	outline: 3px solid white;
+}
+/* END "ExactList.less" */
+
+/* START "FacetFilter.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/FacetFilter.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+.sapUiUx3FacetFilter {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* END "FacetFilter.less" */
+
+/* START "FacetFilterList.less" */
+/* ====================================================== */
+/* CSS for control sap.ui.commons/FacetFilterList.control */
+/* SAP-HCB Theme                                          */
+/* ====================================================== */
+
+/* Header */
+.sapUiUx3FFLstHead {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3FFLstHeadTxt {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* Facet Filter List*/
+.sapUiUx3FFLst {
+	font-size: @sapUiDesktopFontSize;
+}
+
+
+/* END "FacetFilterList.less" */
+
+/* START "Feed.less" */
+/* ============================================= */
+/* CSS for control sap.ui.ux3/Feed.control       */
+/* HCB                                           */
+/* ============================================= */
+
+.sapUiFeed{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiFeed > header {
+	margin-top: 20px;
+}
+
+.sapUiFeed > header > h4 {
+	margin: 0;
+	font-size: @sapUiFontHeader1Size;
+	height: 22px;
+}
+
+.sapUiFeedToolbar {
+	margin-top: 2px;
+	padding: 3px;
+}
+
+.sapUiFeed > section {
+	margin-top: 2px;
+}
+/* END "Feed.less" */
+
+/* START "FeedChunk.less" */
+/* ============================================= */
+/* CSS for control sap.ui.ux3/FeedChunk.control  */
+/* HCB                                           */
+/* ============================================= */
+
+.sapUiFeedChunk {
+	padding: 15px 15px 10px 15px;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiFeedChunk a:hover {
+	text-decoration: none;
+}
+
+.sapUiFeedChunkComment {
+	margin-bottom: 2px;
+	padding: 9px 15px 9px 9px;
+}
+
+.sapUiFeedChunk > img {
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.sapUiFeedChunkComment > img {
+	width: 32px;
+	height: 32px;
+}
+
+.sapUiFeedChunkText {
+	font-family: Arial, regular;
+	font-size: 13px;
+	line-height: 19px;
+	margin-right: 27px;
+	margin-left:58px;
+	margin-top: -2px;
+	min-height: 57px;
+	height: 57px;
+	overflow: hidden;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkText {
+	min-height: 19px;
+	margin-left:42px;
+	height: auto;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkText {
+	min-height: 19px;
+	margin-left:42px;
+	height: auto;
+}
+
+.sapUiFeedChunkText > .sapUiMenuButton.sapUiBtnS {
+	padding: 0;
+	height: 19px;
+	width: 12px;
+	background-image: url(img/feed/ico12_click.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-right: 2px;
+}
+
+.sapUiFeedChunkText > .sapUiMenuButton:focus,
+.sapUiFeedChunkText > .sapUiMenuButton:hover {
+	background-color: transparent;
+}
+
+.sapUiFeedChunkStatusIcons {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 12px;
+	height: 53px;
+	padding-left: 15px;
+	margin: 0;
+}
+
+.sapUiFeedChunkStatusIcons > li {
+	width:12px;
+	height: 12px;
+	margin-bottom: 2px;
+}
+
+.sapUiFeedChunkByline {
+	font-family: Arial, regular;
+	font-size: 11px;
+	margin-top: 5px;
+	margin-left:58px;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkByline {
+	margin-left:42px;
+	display: block;
+}
+
+.sapUiFeedChunk button {
+	color: @sapUiBaseText;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	outline: none;
+	padding: 0;
+	background-color: @sapUiButtonBackground;
+	border: 1px solid @sapUiButtonBorderColor;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.sapUiFeedChunk button:focus,
+.sapUiFeedChunk button:hover {
+	border-color: @sapUiButtonHoverBorderColor;
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFeedChunkExpand,
+.sapUiFeedChunkCollapse {
+	width: 16px;
+	height: 16px;
+	margin-left: 15px;
+	font-size: 10px;
+}
+
+.sapUiFeedChunkAct,
+.sapUiFeedChunk > .sapUiMenuButton {
+	width: 22px;
+	height: 22px;
+}
+
+.sapUiFeedChunkDel {
+	width: 16px;
+	height: 16px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	outline: none;
+}
+
+.sapUiFeedChunk > section {
+	margin-left: 53px;
+}
+
+.sapUiFeedChunk > section > header {
+	border-top: 1px solid  darken(@sapUiBase, 10);
+	margin-top: 7px;
+	padding-top: 0;
+	height: 8px;
+	padding-left: 10px;
+	font-family: Arial, regular;
+	font-size: 12px;
+	height: 25px; /* 1px more because header line is part of the height in this case*/
+	line-height: 24px;
+}
+/* END "FeedChunk.less" */
+
+/* START "Feeder.less" */
+/* ========================================= */
+/* CSS for control sap.ui.ux3/Feeder.control */
+/* HCB                                       */
+/* ========================================= */
+
+.sapUiFeeder {
+	border: 2px solid @sapUiMediumBorder;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiFeederLarge {
+	padding: 8px;
+}
+
+.sapUiFeederMedium {
+	padding: 6px 8px;
+}
+
+.sapUiFeederComment {
+	padding: 9px;
+	border-width: 1px;
+}
+
+.sapUiFeeder > img {
+	border-width: 2px;
+	border-style: solid;
+}
+
+.sapUiFeederLarge > img {
+	margin-right: 10px;
+}
+
+.sapUiFeederMedium > img {
+	margin-right: 8px;
+}
+
+.sapUiFeederComment > img {
+	margin-right: 10px;
+	border: none;
+}
+
+.sapUiFeederInput {
+	font-family: Arial, regular;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.sapUiFeederLarge > .sapUiFeederInput {
+	margin-left: 78px;
+	padding: 1px 69px 1px 5px;
+	min-height: 62px;
+}
+
+.sapUiFeederMedium > .sapUiFeederInput {
+	margin-left: 60px;
+	padding: 1px 53px 1px 5px;
+	min-height: 46px;
+}
+
+.sapUiFeederComment > .sapUiFeederInput {
+	margin-left: 40px;
+	padding: 3px 53px 3px 5px;
+	min-height: 22px;
+}
+
+.sapUiFeeder > button {
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.sapUiFeederLarge > button {
+	width: 58px;
+	margin: 15px 15px 15px 3px;
+}
+
+.sapUiFeederMedium > button {
+	width: 44px;
+	margin: 12px 14px 12px 2px;
+}
+
+.sapUiFeederComment > button {
+	width: 35px;
+	margin: 13px 13px 13px 1px;
+}
+
+.sapUiFeederEmptyText {
+	font-style: italic;
+}
+/* END "Feeder.less" */
+
+/* START "NavigationBar.less" */
+/* ==================================================== */
+/* CSS for control sap.ui.commons/NavigationBar.control */
+/* SAP-HCB Theme                                        */
+/* ==================================================== */
+
+.sapUiUx3NavBar {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3NavBarBack,
+.sapUiUx3NavBarForward {
+	width: 16px;
+	color: @sapUiLink;
+	border: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiUx3NavBarItemSel > a {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3NavBarOverflowBtn {
+	color: @sapUiLink;
+	border: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiUx3NavBarItem:focus {
+	outline: 3px solid white;
+}
+/* END "NavigationBar.less" */
+
+/* START "NotificationBar.less" */
+/* ================================================== */
+/* CSS for control sap.ui.ux3/NotificationBar.control */
+/* HCB                                                */
+/* ================================================== */
+
+.sapUiNotificationBar {
+	border-top: 1px solid @sapUiBase;
+	border-left: 1px solid @sapUiBase;
+	border-right: 1px solid @sapUiBase;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiNotifierCallout {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiNotifierTitle {
+	font-size: @sapUiDesktopFontSize;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiNotifierCallout .sapUiCltArr.sapUiCltBaseArr {
+	z-index: -100;
+}
+
+.sapUiBarToggle {
+	border-top: 1px solid @sapUiBase;
+	border-left: 1px solid @sapUiBase;
+	border-right: 1px solid @sapUiBase;
+}
+
+/* Enlarge Arrow */
+.sapUiBarToggleArrowUp {
+	background-image: url("img/notification_bar/arrows/DoubleArrow_up_hover.png");
+}
+
+/* Minimize Arrow */
+.sapUiBarToggleArrowDown {
+	background-image: url("img/notification_bar/arrows/DoubleArrow_down_hover.png");
+}
+
+/* BarUp */
+.sapUiBarToggleBarUp {
+	background-image: url("img/notification_bar/arrows/ArrowBar_up_hover.png");
+}
+
+/* BarDown */
+.sapUiBarToggleBarDown {
+	background-image: url("img/notification_bar/arrows/ArrowBar_down_hover.png");
+}
+
+.sapUiNotifierMessageCount {
+	background-color: @sapUiHighlightColor;
+	border-color: @sapUiBase;
+	color : @sapUiBase;
+}
+
+.sapUiNotifierMessageCount.sapUiMessage,
+.sapUiNotifierMessageCount.sapUiMessage.sapUiMessageInformation,
+.sapUiNotifierMessageCount.sapUiMessage.sapUiMessageSuccess,
+.sapUiNotifierMessageCount.sapUiMessage.sapUiMessageWarning,
+.sapUiNotifierMessageCount.sapUiMessage.sapUiMessageError {
+	color : @sapUiBase;
+	background-color: @sapUiMessageNotifierCountBG;
+}
+/* END "NotificationBar.less" */
+
+/* START "Overlay.less" */
+/* ========================================== */
+/* CSS for control sap.ui.ux3/Overlay.control */
+/* SAP-HCB Theme                              */
+/* ========================================== */
+
+.sapUiUx3OverlayOverlay {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Overlay.less" */
+
+/* START "OverlayContainer.less" */
+/* =================================================== */
+/* CSS for control sap.ui.ux3/OverlayContainer.control */
+/* SAP-HCB Theme                                       */
+/* =================================================== */
+
+.sapUiUx3OC {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "OverlayContainer.less" */
+
+/* START "QuickView.less" */
+/* ==================================== */
+/* CSS for sap.ui.ux3/QuickView.control */
+/* SAP-HCB Theme                        */
+/* ==================================== */
+
+.sapUiUx3QV {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "QuickView.less" */
+
+/* START "Shell.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/Shell.control */
+/* SAP-HCB Theme                                    */
+/* ================================================ */
+
+.sapUiUx3Shell {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ShellHeader {
+	border-bottom: 1px solid @sapUiMediumBorder;
+	background-color: @sapUiBaseBG;
+}
+
+.sapUiUx3ShellPaneEntry {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3ShellCanvas,
+.sapUiUx3ShellCanvasBackground  {
+	border: 1px solid @sapUiMediumBorder;
+	border-bottom-style: none;
+}
+
+.sapUiUx3ShellNoTools .sapUiUx3ShellCanvasBackground,
+.sapUiUx3ShellNoTools .sapUiUx3ShellCanvas {
+	border-left-width: 0;
+}
+
+.sapUiUx3ShellNoPane .sapUiUx3ShellCanvasBackground,
+.sapUiUx3ShellNoPane .sapUiUx3ShellCanvas {
+	border-right-width: 0;
+}
+
+.sapUiUx3ShellTool:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ShellTool-search {
+	background-image: url(img/shell/tools/Search_hover.png);
+}
+
+.sapUiUx3ShellTool-inspector {
+	background-image: url(img/shell/tools/Inspector_hover.png);
+}
+
+.sapUiUx3ShellTool-inspector:active,
+.sapUiUx3ShellTool-inspector.sapUiUx3ShellToolSelected {
+	background-image: url(img/shell/tools/Inspector_selected.png);
+}
+
+.sapUiUx3ShellTool-feeder {
+	background-image: url(img/shell/tools/Feed_hover.png);
+}
+
+.sapUiUx3ShellToolSelected .sapUiUx3ShellToolFontIcon,
+.sapUiUx3ShellToolHover .sapUiUx3ShellToolFontIcon {
+	color: @sapUiText;
+}
+
+/* header buttons */
+.sapUiUx3ShellHeader .sapUiBtn {
+	display: inline-block;
+	height: 16px;
+	font-size: 11px;
+	border: none;
+	background-color: transparent;
+	color: @sapUiBaseText;
+	border: 1px solid @sapUiMediumBorder;
+	vertical-align: top;
+	outline: none;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	padding: 0 4px 0 5px;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn::-moz-focus-inner { /* override extra button padding in Firefox */
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn:focus,
+.sapUiUx3ShellHeader .sapUiLnk:focus,
+.sapUiUx3ShellHeader .sapUiBtn:hover,
+.sapUiUx3ShellHeader .sapUiLnk:hover,
+.sapUiUx3ShellHeader .sapUiBtn:active,
+.sapUiUx3ShellHeader .sapUiLnk:active {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ShellHeader .sapUiMenuButtonIco {
+	width: 5px;
+	background-position: 0% 50%;
+}
+
+.sapUiUx3ShellHeader-logout {
+	background-image: url(img/shell/LogOut_icon.png);
+}
+
+.sapUiUx3ShellHeader-logout:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	top: 2px;
+}
+
+
+/** Overflow button and menu**/
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton {
+	border-top: 1px solid @sapUiLightBorder;
+	background-color: @sapUiBaseBG;
+}
+
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton > span {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton > span:hover {
+	background-color: @sapUiHighlight;
+}
+/* END "Shell.less" */
+
+/* START "ShellColorPicker.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons/ShellColorPicker.control */
+/* SAP-HCB Theme                                           */
+/* ======================================================= */
+
+.sapUiUx3ShellColorPicker {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ShellColorPicker.less" */
+
+/* START "ShellPersonalization.less" */
+/* =========================================================== */
+/* CSS for control sap.ui.commons/ShellPersonalization.control */
+/* SAP-HCB Theme                                               */
+/* =========================================================== */
+
+.sapUiUx3ShellP13n {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ShellPersonalization.less" */
+
+/* START "ThingInspector.less" */
+/* ================================================= */
+/* CSS for control sap.ui.ux3/ThingInspector.control */
+/* SAP-HCB Theme                                     */
+/* ================================================= */
+
+.sapUiUx3TI {
+	font-size: @sapUiDesktopFontSize;
+}
+.sapUiUx3TIContent {
+	background-color: @sapHCHighlightBG;
+}
+/* END "ThingInspector.less" */
+
+/* START "ThingViewer.less" */
+/* ================================================= */
+/* CSS for control sap.ui.ux3/ThingInspector.control */
+/* SAP-HCB Theme                                     */
+/* ================================================= */
+
+.sapUiUx3TV {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ThingViewer.less" */
+
+/* START "ToolPopup.less" */
+/* ============================================ */
+/* CSS for control sap.ui.ux3/ToolPopup.control */
+/* SAP-HCB Theme                                */
+/* ============================================ */
+
+.sapUiUx3TP {
+	font-size: @sapUiDesktopFontSize;
+}
+.sapUiUx3TPTitleSep {
+	background-color: @sapHCStandardFG;
+}
+.sapUiUx3TPButtonsSep {
+	background-color: @sapHCStandardFG;
+}
+/* END "ToolPopup.less" */
+

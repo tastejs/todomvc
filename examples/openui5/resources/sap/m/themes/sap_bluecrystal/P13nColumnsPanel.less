@@ -1,0 +1,47 @@
+/* ============================================= */
+/* CSS for control sap.m/ColumnsPanel.control */
+/* ============================================= */
+
+.sapMP13nColumnsPanel{
+  color: @sapUiTextColor;
+  border: 0.0625rem solid lightgrey;
+}
+
+
+.sapMP13nColumnsPanel .sapMLIB.sapMLIBSelected,
+.sapMP13nColumnsPanel .sapMLIB.sapMLIBSelected > td {
+  background-color: transparent;
+}
+
+.sapMP13nColumnsPanel .sapMListBGTranslucent .sapMLIB.sapMListTblRow.sapMP13nColumnsPanelItemSelected,
+.sapMP13nColumnsPanel .sapMListBGTranslucent .sapMLIB.sapMListTblRow.sapMP13nColumnsPanelItemSelected:focus
+{
+	background-color: @sapUiActiveBG;
+}
+
+.sapMP13nColumnsPanel .sapMLIBActive .sapMText,
+.sapMP13nColumnsPanel .sapMLIBActive .sapMListTblCell .sapMText {
+	color: @sapUiDarkText;
+}
+
+.sapMP13nColumnsPanel .sapMLIBActive .sapMCbBg,
+.sapMP13nColumnsPanel .sapMLIBActive.sapMLIB,
+.sapMP13nColumnsPanel .sapMLIBActive.sapMLIB > td {
+	background-color: transparent;
+}
+
+.sapMP13nColumnsPanel .sapMLIBActive .sapMCbBg,
+.sapMP13nColumnsPanel .sapMLIBActive .sapMCbBg.sapMCbMarkChecked,
+.sapMP13nColumnsPanel .sapMLIBActive .sapMCbBg.sapMCbBgDis,
+.sapMP13nColumnsPanel .sapMLIBActive .sapMCbBg.sapMCbBgDis.sapMCbMarkChecked {
+	border-color: @sapUiDarkBorder;
+}
+
+.sapMP13nColumnsPanel .sapMLIBActive .sapMCbBg.sapMCbMarkChecked::before {
+	color: @sapUiSelected;
+}
+
+.sap-desktop .sapMP13nColumnsPanel .sapMLIBSelected:not(.sapMLIBActive):not(.sapMALI):hover,
+.sap-desktop .sapMP13nColumnsPanel .sapMLIBSelected:not(.sapMLIBActive):not(.sapMALI):hover > td {
+	background-color: @sapUiLightestBGHover;
+}

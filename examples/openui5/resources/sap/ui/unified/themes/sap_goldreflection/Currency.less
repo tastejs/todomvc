@@ -1,0 +1,51 @@
+.sapUiUfdCurrency {
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+}
+
+.sapUiUfdCurrencyAlign {
+	text-align: end;
+	width: 200px;
+	float: right;
+}
+/* special handling for IE / Edge, as it does not support text-align: end */
+html[data-sap-ui-browser^="ie"] .sapUiUfdCurrencyAlign,
+html[data-sap-ui-browser^="ed"] .sapUiUfdCurrencyAlign {
+	text-align: right;
+}
+html[dir=rtl][data-sap-ui-browser^="ie"] .sapUiUfdCurrencyAlign,
+html[dir=rtl][data-sap-ui-browser^="ed"] .sapUiUfdCurrencyAlign {
+	text-align: left;
+}
+
+.sapUiUfdCurrencyValue,
+.sapUiUfdCurrencyCurrency {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.sapUiUfdCurrencyValue {
+	text-align: end;
+}
+/* special handling for IE / Edge, as it does not support text-align: end */
+html[data-sap-ui-browser^="ie"] .sapUiUfdCurrencyValue,
+html[data-sap-ui-browser^="ed"] .sapUiUfdCurrencyValue {
+	text-align: right;
+}
+html[dir=rtl][data-sap-ui-browser^="ie"] .sapUiUfdCurrencyValue,
+html[dir=rtl][data-sap-ui-browser^="ed"] .sapUiUfdCurrencyValue {
+	text-align: left;
+}
+
+.sapUiUfdCurrencyCurrency {
+	text-align: start;
+	margin-left: 0.5rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sapUiUfdCurrencyNoVal .sapUiUfdCurrencyValue,
+.sapUiUfdCurrencyNoVal .sapUiUfdCurrencyCurrency {
+	display: none;
+}

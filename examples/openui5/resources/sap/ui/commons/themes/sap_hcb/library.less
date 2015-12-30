@@ -1,0 +1,2595 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../sap/ui/core/themes/sap_hcb/global.less";
+
+/* START "AbsoluteLayout.less" */
+/* ===================================================== */
+/* CSS for control sap.ui.commons.AbsoluteLayout.control */
+/* SAP-HCB Theme                                         */
+/* ===================================================== */
+
+.sapUiLayoutAbs{
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "AbsoluteLayout.less" */
+
+/* START "Accordion.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/Accordion.control */
+/* SAP-HCB Theme                                    */
+/* ================================================ */
+
+.sapUiAcd{
+	border: 1px solid @sapUiMediumBorder;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiAcd-section{
+	display: block;
+	position:relative;
+}
+/* END "Accordion.less" */
+
+/* START "AccordionSection.less" */
+/******************************************************
+*	High contrast black
+*******************************************************/
+.sapUiAcdSection {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiAcdSectionHdr {
+	border-bottom: 1px solid @sapUiMediumBorder;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapuicommons-Accordion-section-last .sapUiAcdSectionHdr {
+	border-bottom: none;
+}
+
+.sapUiAcdSectionHdr > div > span {
+	height: 20px;
+	font-weight: normal;
+}
+
+.sapUiAcdSectionHdr > div > span > img { /* the header icon */
+	margin: 0;
+	max-width: 22px;
+	max-height: 20px;
+}
+
+.sapUiAcdSectionHdrRight {
+	right: 5px;
+}
+
+.sapUiAcdSectionMinBtn {
+	background-image: url(img/panel/minimize.png);
+}
+
+.sapUiAcdSectionColl .sapUiAcdSectionMinBtn {
+	background-image: url(img/panel/maximize.png);
+}
+
+.sapUiAcdSectionTb {
+	border-width: 2px
+}
+
+.sapUiAcdSectionCont {
+	border-top: none;
+	padding: 8px;
+	border-bottom: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiAcdSectionWithTb .sapUiAcdSectionCont {
+	top: 51px;
+}
+
+.sapUiAcdSectionArea .sapUiAcdSectionCont {
+	background-color: @sapUiWhiteBG;
+}
+
+.sapUiAcdSectionMinArrow {
+	padding-right:5px;
+	margin-top:3px;
+}
+
+.sapUiAcdSectionHdr > div > span > span {
+	margin-top: 2px;
+}
+
+.sapUiAcdSectionHdr > div > span.sapUiAcdSectionHdrRight {
+	margin-right: 7px;
+}
+/* END "AccordionSection.less" */
+
+/* START "ApplicationHeader.less" */
+/* ============================================ */
+/* HIGH CONTRAST BLACK CSS 
+/*============================================= */
+
+.sapUiAppHdr {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ApplicationHeader.less" */
+
+/* START "AutoComplete.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/AutoComplete       */
+/* HCB                                               */
+/* ================================================= */
+
+.sapUiTfBrd.sapUiTfCombo.sapUiTfAutoComp > .sapUiTfInner {
+	padding-right: 3px;
+}
+/* END "AutoComplete.less" */
+
+/* START "BorderLayout.less" */
+/* ================================================= */
+/* CSS for control layout.uilib/BorderLayout.control */
+/* SAP-HCB Theme                                     */
+/* ================================================= */
+
+.sapUiBorderLayout {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "BorderLayout.less" */
+
+/* START "Button.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/Button.control     */
+/* SAP-HCB Theme                                     */
+/* ================================================= */
+
+@sapUiButtonHeight: 18px;
+
+.sapUiBtnS {
+	border-radius: 2px;
+	font-size: @sapUiDesktopFontSize;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	padding: 0 4px 0 5px;
+	color: @sapHCStandardFG;
+}
+
+.sapUiBtnS.sapUiBtnLite,
+.sapUiBtnS.sapUiBtnLite > .sapUiBtnTxt {
+	text-decoration: underline;
+}
+
+.sapUiBtnS.sapUiBtnStd {
+	&.sapUiBtnReject,
+	&.sapUiBtnAccept {
+		color: @sapHCStandardFG;
+	}
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS {
+	line-height: normal;
+}
+
+.sapUiBtnS > .sapUiBtnIco {
+	margin-top: -1px;
+}
+
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnIco {
+	margin-top: -1px;
+}
+
+html[data-sap-ui-browser="sf5"] .sapUiBtnS.sapUiBtnLite > .sapUiBtnIco,
+html[data-sap-ui-browser="sf5"] .sapUiBtnS.sapUiBtnLite > .sapUiBtnTxt {
+	margin-top: -1px;
+}
+
+.sapUiBtnS.sapUiBtnIconOnly {
+	padding-right: 5px;
+}
+
+html[data-sap-ui-browser*="ie"] .sapUiBtnS.sapUiBtnIconOnly {
+	padding-top: 1px;
+}
+
+.sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: -1px;
+}
+
+html[data-sap-ui-browser*="ff"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: -2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: -3px;
+}
+
+.sapUiBtnS > .sapUiBtnIcoR {
+	padding-right: 1px;
+	padding-left: 4px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl:active {
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 6px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl:active {
+	padding-bottom: 2px;
+	padding-left: 4px;
+	padding-right: 5px;
+}
+
+.sapUiBtn > span.sapUiBtnIco{
+	margin-top: -1px;
+}
+
+html[data-sap-ui-browser^="ie9"],
+html[data-sap-ui-browser^="ie10"],
+html[data-sap-ui-browser^="ie11"] {
+	.sapUiBtnS {
+		&.sapUiBtnAct:not(.sapUiBtnIconAndText) {
+			padding-bottom: 2px;
+			padding-left: 4px;
+			padding-right: 5px;
+		}
+		&.sapUiBtnDsbl:not(.sapUiBtnIconAndText):active {
+			padding-bottom: 2px;
+			padding-left: 4px;
+			padding-right: 5px;
+		}
+		&.sapUiBtnNorm {
+			&.sapUiBtnIconOnly.sapUiBtnAct:active {
+				padding-top: 0;
+				padding-right: 6px;
+			}
+			&.sapUiBtnIconAndText:active {
+				padding-top: 0;
+				padding-left: 4px;
+				padding-right: 5px;
+				span,
+				img {
+					margin-top: -2px;
+				}
+			}
+		}
+		&.sapUiBtnLite {
+			&.sapUiBtnIconOnly.sapUiBtnAct:active {
+				padding-top: 0;
+				padding-bottom: 1px;
+				padding-left: 4px;
+				padding-right: 6px;
+			}
+			&.sapUiBtnIconAndText:active {
+				padding-top: 0;
+				padding-left: 4px;
+				padding-right: 5px;
+				span,
+				img {
+					margin-top: -3px;
+				}
+			}
+		}
+	}
+}
+
+/* END "Button.less" */
+
+/* START "Callout.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/Callout.control */
+/* SAP-HCB Theme                                  */
+/* ============================================== */
+
+.sapUiClt{
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Callout.less" */
+
+/* START "CalloutBase.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/CalloutBase.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+.sapUiCltBase{
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* END "CalloutBase.less" */
+
+/* START "Carousel.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/Carousel.control   */
+/* SAP-HCB Theme                                     */
+/* ================================================= */
+
+.sapUiCrslCnt {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Carousel.less" */
+
+/* START "CheckBox.less" */
+/* =============================================== */
+/* CSS for control sap.ui.commons/CheckBox.control */
+/* SAP-HCB Theme                                   */
+/* =============================================== */
+
+.sapUiCb {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiCb > label {
+	vertical-align: top;
+}
+
+.sapUiInverted-CTX .sapUiCb {
+	color: @sapUiBaseText;
+}
+
+.sapUiCb:focus{
+	outline-width: 2px;
+	outline-style: solid;
+	outline-offset: -2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiCb:focus:after {
+	border-width: 2px;
+	border-style: solid;
+}
+/* END "CheckBox.less" */
+
+/* START "ColorPicker.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/ColorPicker.control */
+/* High Contrast Black Theme                          */
+/* ================================================== */
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar,
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi
+	{
+	border: none;
+	background-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar,
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi {
+	height: 10px;
+	border: 1px solid @sapUiButtonBorderColor;
+	background-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi {
+	border-right: none;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/ColorPicker/Alphaslider_BG.png') progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#FF000000',GradientType=1 );
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip:focus {
+	border-width: 3px;
+	height: 10px;
+	width: 4px;
+	padding: 0;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip:focus {
+	border-width: 3px;
+	height: 10px;
+	width: 4px;
+	padding: 0;
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliR,
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliL{
+	border-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliR,
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliL{
+	border-color: transparent;
+}
+
+/* END "ColorPicker.less" */
+
+/* START "ComboBox.less" */
+/* =============================================== */
+/* CSS for control sap.ui.commons/ComboBox.control */
+/* HCB theme                                       */
+/* =============================================== */
+
+@sapUiComboBoxHeight: 18px;
+
+.sapUiTfCombo {
+	padding: 0 18px 0 0;
+	height: @sapUiComboBoxHeight;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTfComboIcon{
+	width: 16px;
+	height: 16px;
+	text-align: center;
+	border-left: 1px solid transparent;
+	line-height: 16px;
+}
+
+.sapUiTfStd > .sapUiTfComboIcon{
+	font-size: 12px;
+	color: @sapUiBaseText;
+}
+
+.sapUiTfDsbl > .sapUiTfComboIcon{
+	font-size: 12px;
+	color: @sapUiContentDisabledTextColor;
+	cursor: default;
+}
+
+.sapUiTfStd > .sapUiTfComboIcon:hover,
+.sapUiTfStd.sapUiTfFoc > .sapUiTfComboIcon{
+	border-left: 1px solid @sapUiFieldHoverBorderColor;
+	background-color: @sapUiFieldHoverHelpBackground;
+}
+/* END "ComboBox.less" */
+
+/* START "DatePicker.less" */
+/****************************************************************/
+/*                        HCB DATEPICKER                        */
+/****************************************************************/
+
+/********************* inputField *********************/
+.sapUiTfCombo {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTfCombo .sapUiTfDateIcon {
+	background-image: url(img/datepicker/icon_cal.png);
+	background-position: 2px 2px;
+	height: 16px;
+	width: 16px;
+}
+
+.sapUiTfStd > .sapUiTfDateIcon:hover,
+.sapUiTfFoc > .sapUiTfDateIcon {
+	border-color: @sapUiMediumBorder;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTfStd > .sapUiTfDateIcon:active,
+.sapUiTfFoc > .sapUiTfDateIcon:active {
+	border-color: @sapUiMediumBorder;
+}
+/* END "DatePicker.less" */
+
+/* START "Dialog.less" */
+/* ============================================= */
+/* CSS for control sap.ui.commons/Dialog.control */
+/* SAP-HCB Theme                                 */
+/* ============================================= */
+
+@sapUiDlgFooterHeight: 36px;
+
+/* header */
+
+.sapUiDlg {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiDlgHdr {
+	background-color: @sapUiExtraLightBG;
+	margin:0;
+	padding: 6px 10px 0 10px;
+	color: @sapUiTextTitle;
+	border-width: 1px 1px 0px 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+}
+
+.sapUiDlgHdrBtns > a {
+	color: @sapUiTextTitle;
+	background-color: @sapUiExtraLightBG;
+	text-align: center;
+	border-width: 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+	margin: 4px 1px 0 0;
+}
+
+.sapUiDlgCloseBtn {
+  background-image: url(img/formattedTextView/close-hcb.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+.sapUiDlgCloseBtn:hover,
+.sapUiDlgCloseBtn:focus {
+  background-image: url(img/formattedTextView/close-hcb-hover.png);
+}
+
+/* reset text-indent for IE */
+html[data-sap-ui-browser="ie7"] .sapUiDlgHdrBtns > a,
+html[data-sap-ui-browser="ie8"] .sapUiDlgHdrBtns > a {
+	text-indent: 0px;
+	font-size: @sapUiFontSize;
+}
+
+/* content */
+
+.sapUiDlgCont {
+	background-color: @sapUiExtraLightBG;
+	border-width: 1px 1px 0px 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+	top: 27px;
+}
+
+.sapUiDlgNoButtons .sapUiDlgCont {
+	padding-bottom: 8px;
+	bottom: 20px;
+}
+
+/* footer */
+
+.sapUiDlgFooter {
+	background-color: @sapUiExtraLightBG;
+	border-width: 1px 1px 1px 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+}
+
+.sapUiDlgNoButtons .sapUiDlgFooter {
+	background-position: left -16px;
+	height: 20px;
+}
+
+.sapUiDlgBtns {
+	background-color: @sapUiExtraLightBG;  /* to cover the other background image with the lower line */
+	padding: 9px 25px 3px 16px;
+}
+
+.sapUiDlgNoButtons .sapUiDlgBtns,
+.sapUiDlgNoButtons .sapUiDlgWave {
+	display: none;
+}
+
+.sapUiDlgGrip{
+	color: @sapUiBaseText;
+	text-align: center;
+	padding: 3px;
+	height: 8px;
+	width: 4px;
+}
+
+/* reset text-indent for IE */
+html[data-sap-ui-browser="ie7"] .sapUiDlgGrip,
+html[data-sap-ui-browser="ie8"] .sapUiDlgGrip {
+	text-indent: -1px;
+}
+
+/* END "Dialog.less" */
+
+/* START "DropdownBox.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/DropdownBox.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+.sapUiTfCombo {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "DropdownBox.less" */
+
+/* START "FormattedTextView.less" */
+/* ==================================================== */
+/* CSS for control sap.ui.dev/FormattedTextView.control */
+/* SAP-HCB Theme                                        */
+/* ==================================================== */
+
+.sapUiFTV {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiInverted-CTX .sapUiFTV {
+	color: @sapUiBaseText;
+}
+/* END "FormattedTextView.less" */
+
+/* START "HorizontalDivider.less" */
+/* ======================================================== */
+/* CSS for control sap.ui.commons/HorizontalDivider.control */
+/* SAP-HCB Theme                                            */
+/* ======================================================== */
+
+.sapUiCommonsHoriDiv{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiCommonsHoriDivTypePage{
+	border-color: @sapUiBase;
+}
+
+.sapUiCommonsHoriDivTypeArea{
+	border-color: @sapUiBase;
+}
+/* END "HorizontalDivider.less" */
+
+/* START "Image.less" */
+/* ============================================ */
+/* CSS for control sap.ui.commons/Image.control */
+/* SAP-HCB Theme                                */
+/* ============================================ */
+
+.sapUiImg {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Image.less" */
+
+/* START "InPlaceEdit.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/InPlaceEdit.control */
+/* HCB                                               */
+/* ================================================== */
+
+.sapUiIpe{
+	height: 18px;
+	margin: 1px; /* otherwise focus outline is cut in MatrixLayout */
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiIpeFocus,
+.sapUiIpeFocus:hover{
+	outline:1px solid @sapUiMediumBorder;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiIpeUndo{
+	background-color: @sapUiFieldBackground;
+	border-color: @sapUiMediumBorder;
+	border-style: dotted;
+	padding-right: 18px;
+}
+
+.sapUiIpeCombo:hover,
+.sapUiIpeFocus.sapUiIpeCombo,
+.sapUiIpeFocus > .sapUiIpeCombo{
+	background-image: url(img/menubutton/arrow.gif);
+	background-position: center right;
+	background-repeat: no-repeat;
+	padding-right: 13px;
+}
+
+.sapUiIpeEdit.sapUiIpeFocus > .sapUiIpeCombo{
+	background-image: none;
+	padding-right: 0;
+}
+
+.sapUiIpeLink:hover > .sapUiIpeCont,
+.sapUiIpeFocus.sapUiIpeLink > .sapUiIpeCont{
+	padding-right: 18px;
+}
+
+/* warning state */
+.sapUiIpeWarn,
+.sapUiIpeUndo.sapUiIpeWarn{
+	color: @sapUiTextInverted;
+}
+
+/* Revert/Edit Button */
+.sapUiIpe > .sapUiBtnS.sapUiBtnLite,
+.sapUiIpeCont > .sapUiBtnS.sapUiBtnLite{
+	width: 18px;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	text-decoration: none;
+	padding-left: 4px;
+	padding-right: 6px;
+}
+
+html[data-sap-ui-browser^="cr"] .sapUiIpe > .sapUiBtnS.sapUiBtnLite > span,
+html[data-sap-ui-browser^="cr"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnLite > span,
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnLite > span,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnLite > span{
+	margin-top: -2px;
+}
+
+.sapUiIpeEdit > .sapUiBtnS.sapUiBtnLite{
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiIpeErr.sapUiIpeEdit > .sapUiBtnS.sapUiBtnLite{
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiIpeWarn.sapUiIpeEdit > .sapUiBtnS.sapUiBtnLite{
+	background-color: @sapUiFieldBackground;
+}
+/* END "InPlaceEdit.less" */
+
+/* START "Label.less" */
+/* ============================================ */
+/* CSS for control sap.ui.commons/Label.control */
+/* SAP-HCB Theme                                */
+/* ============================================ */
+
+.sapUiLbl {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiLblIco {
+	margin-top: 1px;
+}
+
+.sapUiLbLReqInd {
+	color: @sapUiBaseText;
+}
+
+.sapUiInverted-CTX .sapUiLbl {
+	color: @sapUiBaseText;
+}
+/* END "Label.less" */
+
+/* START "layout.less" */
+/*
+ * in HCB no background colors
+ */
+
+.sapUiMlt {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* BackGround design */
+.sapUiMltBgBorder,
+.sapUiMltBgFill1,
+.sapUiMltBgFill2,
+.sapUiMltBgFill3,
+.sapUiMltBgHeader,
+.sapUiMltBgPlain {
+	background-color:@sapUiExtraLightBG;
+}
+/* END "layout.less" */
+
+/* START "Link.less" */
+/* =========================================== */
+/* CSS for control sap.ui.commons/Link.control */
+/* SAP-HCB Theme                               */
+/* =========================================== */
+
+.sapUiLnk,
+.sapUiLnkDsbl {
+	text-decoration: underline;
+	font-size: @sapUiDesktopFontSize;
+}
+.sapUiLnk:hover {
+	text-decoration: none;
+}
+
+/* END "Link.less" */
+
+/* START "ListBox.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/ListBox.control */
+/* SAP-HCB Theme                                  */
+/* ============================================== */
+
+@sapUiListBoxBorderRadius: 2px;
+
+.sapUiLbx {
+	border-collapse: separate; /* to prevent inheriting "collapse" */
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiLbxITxt {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiLbxI:focus {
+	outline: none;
+}
+
+.sapUiLbxDis,
+.sapUiLbxIDis {
+	border-color: darken(@sapUiBaseBorder, 40);
+}
+
+/* each item has a border which may be colored when selected */
+.sapUiLbxI > span {
+	border: 2px solid transparent;
+	border-right-width: 0;
+	border-left-width: 0;
+}
+
+.sapUiLbxI > span.sapUiLbxISec,
+.sapUiLbxI:focus > span.sapUiLbxISec,
+.sapUiLbxRo > ul > .sapUiLbxI.sapUiLbxISel:focus > span.sapUiLbxISec,
+.sapUiLbxDis > ul > .sapUiLbxI:focus > span.sapUiLbxISec,
+.sapUiLbxRo > ul > .sapUiLbxI:focus > span.sapUiLbxISec,
+.sapUiLbxIDis:focus > span.sapUiLbxISec {
+	border-left: 1px solid darken(@sapUiBaseBorder, 40);
+}
+
+.sapUiLbxI > span,
+.sapUiLbxIIco {
+	padding: 0 5px;
+}
+
+/* color of border around the items depends on the selection and enabled state */
+.sapUiLbxI:focus > span,
+.sapUiLbxRo > ul > .sapUiLbxI.sapUiLbxISel:focus > span {
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiLbxDis > ul > .sapUiLbxI:focus > span,
+.sapUiLbxRo > ul > .sapUiLbxI:focus > span,
+.sapUiLbxIDis:focus > span {
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiLbxIIcoFont{
+	font-size: 14px;
+	line-height: 14px;
+}
+/* END "ListBox.less" */
+
+/* START "MenuBar.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/MenuBar.control */
+/* SAP-HCB Theme                                  */
+/* ============================================== */
+
+.sapUiMnuBar {
+	background-color: @sapUiExtraLightBG;
+	border-color: @sapUiBaseBorder;
+	font-size: @sapUiDesktopFontSize;
+	font-weight: bold;
+}
+
+.sapUiMnuBarDsbl {
+	border-color: @sapUiBaseBorder;
+}
+
+.sapUiMnuBarArea {
+	height: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+}
+
+.sapUiMnuBarItm {
+	border: 2px solid transparent;
+	padding: 1px 8px 1px 8px;
+	margin-right: 2px;
+	outline: medium none;
+}
+
+.sapUiMnuBarItmDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarItm > span {
+	background-image: url("img/menu/trg.png");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	padding-right: 13px;
+	padding-bottom: 2px;
+}
+
+html[dir=rtl][data-sap-ui-browser*="ie"] .sapUiMnuBarItm > span {
+	display: inline-block;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarItmDsbl > span {
+	background-image: url("img/menu/trg-dis.png");
+}
+
+.sapUiMnuBarItm:focus {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarItmDsbl:focus {
+	background-color: darken(@sapUiBlackBG, 24.7);
+}
+
+.sapUiMnuBarOvrFlw:after{
+	content: "";
+}
+
+.sapUiMnuBarOvrFlw > span{
+	background-image: url("img/menu/bar-overflow.gif");
+	background-position: center center;
+	padding-left: 9px;
+}
+
+html[dir=rtl][data-sap-ui-browser*="ie"] .sapUiMnuBarItm.sapUiMnuBarOvrFlw > span {
+	display: inline;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarOvrFlw {
+	padding: 0 0 2px 0;
+	top: 0px;
+	margin-right: 3px;
+}
+/* END "MenuBar.less" */
+
+/* START "MenuButton.less" */
+/* ===================================================== */
+/* HCB for sap.ui.commons/MenuButton.control             */
+/* ===================================================== */
+
+.sapUiMenuButton{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiBtn.sapUiMenuButton{
+	padding-right: 0px;
+	padding-bottom: 1px;
+}
+
+.sapUiBtn.sapUiMenuButton > .sapUiBtnIco {
+	margin-top: -2px;
+}
+
+.sapUiBtn.sapUiMenuButton > .sapUiBtnTxt {
+	padding-bottom: 1px;
+}
+
+.sapUiMenuButtonIco {
+	width: 12px;
+	height: 11px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiMenuButtonIco {
+	height: 12px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiMenuButton.sapUiBtnIconOnly{
+	padding-top: 0px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiMenuButton.sapUiBtnIconOnly > .sapUiBtnIco{
+	margin-top: -3px;
+}
+/* END "MenuButton.less" */
+
+/* START "Message.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/Message.control */
+/* SAP-HCB Theme                                  */
+/* ============================================== */
+
+.sapUiMsg {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Message.less" */
+
+/* START "MessageBar.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/MessageBar.control */
+/* ================================================= */
+/*****************************************************/
+/*                  HCB definitions                  */
+/*****************************************************/
+/*****************************************************/
+/* Styling of the messageBar                         */
+/*****************************************************/
+
+.sapUiMsgBar {
+	background-color: @sapUiWhiteBG;
+	font-size: @sapUiDesktopFontSize;
+	padding: 2px;
+}
+
+/* Styling the left Open-Hide arrow: */
+.sapUiMsgBarToggle {
+	width: 14px;
+}
+
+/* Styling the Icons-Counters container: */
+.sapUiMsgBarSums {
+	background-image: none;
+	background-color: @sapUiBaseBG;
+	border: 1px solid transparent;
+	padding: 0px;
+}
+
+.sapUiMsgBarOpen .sapUiMsgBarSums,
+.sapUiMsgBarSums:hover {
+	background-color: @sapUiHighlight;
+}
+
+/* Styling the re-dock container: */
+.sapUiMsgBarHome {
+	background-color: @sapUiBaseBG;
+	border: 0px solid transparent;
+	height: 21px;
+	margin: 0 0 0 3px;
+}
+
+.sapUiRtl .sapUiMsgBarHome {
+	margin: 0 3px 0 0;
+}
+
+.sapUiMsgBarHome:hover {
+	background-color: @sapUiHighlight;
+	border: 0px solid transparent;
+}
+/* END "MessageBar.less" */
+
+/* START "MessageBox.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/MessageBox.control */
+/* SAP-HCB Theme                                     */
+/* ================================================= */
+
+.sapUiMboxCont {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxText {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxIcon {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxInfo {
+	background-image: url(img/messagebox/32x32/information.png);
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxQuestion {
+	background-image: url(img/messagebox/32x32/question.png);
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxWarning {
+	background-image: url(img/messagebox/32x32/warning.png);
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxCritical,
+.sapUiMboxError {
+	background-image: url(img/messagebox/32x32/error.png);
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxSuccess {
+	background-image: url(img/messagebox/32x32/success.png);
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "MessageBox.less" */
+
+/* START "MessageList.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/MessageList.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+/* Container: */
+.sapUiMsgList {
+	border: 1px solid @sapUiBaseBorder;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "MessageList.less" */
+
+/* START "MessageToast.less" */
+/* =================================================== */
+/* CSS for control sap.ui.commons/MessageToast.control */
+/* SAP-HCB Theme                                       */
+/* =================================================== */
+
+/* The Specs say: "No semantic colors!" */
+.sapUiMsgToastMsg {
+	background-color: @sapUiBlackBG !important;
+	font-size: @sapUiDesktopFontSize;
+	border-color: @sapUiBaseBorder !important;
+}
+
+.sapUiMsgToastArrow {
+	background-image: url("img/messagebar/toastarrow.gif") !important;
+}
+/* END "MessageToast.less" */
+
+/* START "Pagniator.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/Pagniator.control */
+/* SAP-HCB Theme                                    */
+/* ================================================ */
+
+.sapUiPag {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiPagPage {
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Pagniator.less" */
+
+/* START "Panel.less" */
+/* ============================================ */
+/* CSS for control sap.ui.commons/Panel.control */
+/* SAP-HCB Theme                                */
+/* ============================================ */
+
+@sapUiPanelBorderRadius: 3px;
+
+.sapUiPanel {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiPanelHdr {
+	min-height: 22px;
+	padding: 0 8px 0 4px;
+}
+
+.sapUiPanelTitle {
+	margin-left: 2px;
+}
+
+.sapUiPanelHeightSet > .sapUiPanelCont {
+	top: 22px;
+}
+
+.sapUiPanelHdr > a:focus {
+	outline-color: @sapUiBaseText;
+}
+
+.sapUiPanelTitle.sapUiTvH4,
+.sapUiPanelTitle.sapUiTvH5{
+	font-size: 11px; /* to be compatible */
+}
+/* END "Panel.less" */
+
+/* START "ProgressIndicator.less" */
+/* ======================================================== */
+/* CSS for control sap.ui.commons/ProgressIndicator.control */
+/* SAP-HCB Theme                                            */
+/* ======================================================== */
+
+.sapUiProgInd{
+	display: inline-block;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiProgIndBorder{
+	display: inline-block;
+	background-color: darken(@sapUiBase, 30);
+	border: 1px solid @sapUiContentForegroundBorderColor;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sapUiProgIndBar{
+	position: relative;
+	background-color: #BAD2E9;
+	color: @sapUiTextInverted;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndBarPos {
+	position: relative;
+	background-color: #B6E7A9;
+	color: @sapUiTextInverted;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndBarNeg {
+	position: relative;
+	background-color: #FF9C93;
+	color: @sapUiTextInverted;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndBarCrit {
+	position: relative;
+	background-color: #F9F0A7;
+	color: @sapUiTextInverted;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 14px;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.sapUiProgIndFont {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 14px;
+	padding-left: 5px;
+	vertical-align: top;
+	font-size: 11px;
+}
+
+.sapUiProgIndEndHidden {
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: hidden;
+}
+
+.sapUiProgIndEnd {
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+.sapUiProgIndPosEnd {
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+.sapUiProgIndNegEnd {
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+.sapUiProgIndCritEnd {
+	display: inline-block;
+	width: 1px;
+	height: 14px;
+	visibility: visible;
+	background-color: @sapUiContentForegroundBorderColor;
+}
+
+/* END "ProgressIndicator.less" */
+
+/* START "RadioButton.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/RadioButton.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+.sapUiRb {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiRb > label {
+	vertical-align: top;
+}
+
+/* disabled + readonly 
+.sapUiRbDis
+.sapUiRbRo
+
+ error + warning 
+.sapUiRbErr
+.sapUiRbWarn 
+
+*/
+
+.sapUiInverted-CTX .sapUiRb {
+	color: @sapUiBaseText;
+}
+
+.sapUiRb:focus{
+	outline-width: 2px;
+	outline-style: solid;
+	outline-offset: -2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiRb:focus:after {
+	border-width: 2px;
+	border-style: solid;
+}
+/* END "RadioButton.less" */
+
+/* START "RadioButtonGroup.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons/RadioButtonGroup.control */
+/* SAP-HCB Theme                                           */
+/* ======================================================= */
+
+.sapUiRbG{
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "RadioButtonGroup.less" */
+
+/* START "RatingIndicator.less" */
+/* ====================================================== */
+/* CSS for control sap.ui.commons/RatingIndicator.control */
+/* SAP-HCB Theme                                          */
+/* ====================================================== */
+
+.sapUiRating {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiRating:focus {
+	outline-width: 3px;
+	outline-style: solid;
+	outline-color: @sapHCStandardFG;
+}
+
+/* END "RatingIndicator.less" */
+
+/* START "RichTooltip.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/RichTooltip.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+.sapUiRtt {
+	border: 1px solid @sapUiMediumBorder;
+	border-radius: 6px;
+	font-size: @sapUiDesktopFontSize;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.sapUiRttContent {
+	padding: 0;
+}
+
+.sapUiRttSep {
+	margin: 0;
+}
+
+.sapUiRttValueStateText.individual {
+	padding-top: 0;
+	margin: 0;
+}
+/* END "RichTooltip.less" */
+
+/* START "RoadMap.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/RoadMap.control */
+/* SAP-HCB Theme                                  */
+/* ============================================== */
+
+.sapUiRoadMap {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* Step Styles */
+.sapUiRoadMapDisabled {
+	color: lighten(@sapUiContentDisabledTextColor, 20);
+}
+
+.sapUiRoadMapStepAdd1,
+.sapUiRoadMapStepAdd2 {
+	background-color: @sapUiBlackBG;
+}
+
+.sapUiRoadMapStepBox{
+	background-color: @sapUiWhiteBG;
+	border: 1px solid @sapUiBaseBorder;
+}
+
+.sapUiRoadMapStepBox:focus {
+	outline: 1px solid @sapUiBaseBorder;
+}
+
+.sapUiRoadMapSelected > .sapUiRoadMapStepBox {
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiBaseBorder;
+}
+
+.sapUiRoadMapDisabled > .sapUiRoadMapStepBox {
+	background-color: @sapUiFieldReadOnlyBackground;
+	border: 1px solid @sapUiButtonDisabledBorderColor;
+}
+
+.sapUiRoadMapDisabled > .sapUiRoadMapStepBox:focus {
+	border: 1px solid @sapUiBaseBorder;
+}
+
+.sapUiRoadMapTitle {
+	height: 28px; /*double line-height*/
+	font-size: 11px;
+	font-family: @sapUiFontFamily;
+}
+
+.sapUiRoadMapStepIco {
+	display: inline;
+	position: absolute;
+	bottom: 0px;
+	left: 3px;
+	height: 16px;
+	width: 16px;
+	background-image: url("img/roadmap/roundtrip.gif");
+}
+
+.sapUiRoadMapDisabled > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco {
+	background-image: url("img/roadmap/roundtrip_dsbl.gif");
+}
+
+.sapUiRoadMapExpanded > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco {
+	right: 2px;
+	left: auto;
+	height: 12px;
+	width: 12px;
+	background-image: url("img/roadmap/roundtrip_start.gif");
+}
+
+.sapUiRoadMapExpanded.sapUiRoadMapDisabled > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco {
+	background-image: url("img/roadmap/roundtrip_start_dsbl.gif");
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco {
+	left: 2px;
+	background-image: url("img/roadmap/roundtrip_end.gif");
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded.sapUiRoadMapDisabled > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco {
+	background-image: url("img/roadmap/roundtrip_end_dsbl.gif");
+}
+
+/* Delimiter Styles */
+.sapUiRoadMapStartScroll {
+	background-image: url("img/roadmap/morebefore.gif");
+}
+
+.sapUiRoadMapStartFixed {
+	background-image: url("img/roadmap/startpoint.gif");
+}
+
+.sapUiRoadMapEndScroll {
+	background-image: url("img/roadmap/moreafter.gif");
+}
+
+.sapUiRoadMapEndFixed {
+	background-image: url("img/roadmap/endpoint.gif");
+}
+
+.sapUiRoadMapStartScroll:after,
+.sapUiRoadMapStartFixed:after,
+.sapUiRoadMapEndScroll:after,
+.sapUiRoadMapEndFixed:after {
+	content: "";
+}
+/* END "RoadMap.less" */
+
+/* START "RowRepeater.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/RowRepeater.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+/* Row Container */
+.sapUiRrBody {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiRrDesignStandard > .sapUiRrStb {
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiRrDesignStandard > .sapUiRrFtr {
+	background-color: @sapHCHighlightBG;
+}
+
+
+/** Common Design **/
+
+/** Standard Design **/
+
+/** Transparent Design **/
+
+/** BareShell Design **/
+
+/* END "RowRepeater.less" */
+
+/* START "SearchField.less" */
+/* ====================================================== */
+/* HCB CSS for control sap.ui.commons/SearchField.control */
+/* ====================================================== */
+
+.sapUiSearchField {
+	height: 18px; /*@sapUiTextFieldHeight;*/
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiSearchFieldTf {
+	height: 18px; /*@sapUiTextFieldHeight;*/
+	margin-top: 0px;
+}
+
+.sapUiSearchFieldProvIco {
+	margin-top: 0;
+	left: 0;
+}
+
+.sapUiSearchFieldIco {
+	margin-top: 1px;
+}
+
+.sapUiSearchFieldCb,
+.sapUiSearchFieldCb.sapUiTfRo {
+	padding: 0 36px 0 0;
+}
+
+.sapUiSearchFieldCb .sapUiSearchFieldIco,
+.sapUiSearchFieldCb.sapUiTfRo .sapUiSearchFieldIco {
+	right: 19px;
+}
+
+.sapUiSearchFieldDsbl .sapUiSearchFieldProvIco,
+.sapUiSearchFieldDsbl .sapUiSearchFieldIco {
+	opacity: 0.5;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	font-size: 0;
+	color: transparent; 
+	background-image: url("img/search/clear.gif");
+	margin-top: 2px;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	width: 15px;
+	margin-top: 1px;
+}
+/* END "SearchField.less" */
+
+/* START "SegmentedButton.less" */
+/* ====================================================== */
+/* CSS for control sap.ui.commons/SegmentedButton.control */
+/* SAP-HCB Theme                                          */
+/* ====================================================== */
+
+.sapUiSegmentedButton{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnStd:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	outline: 3px solid @sapUiBaseBorder;
+}
+/* END "SegmentedButton.less" */
+
+/* START "Slider.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/Slider.control     */
+/* HCB Theme                                         */
+/* ================================================= */
+
+.sapUiSli{
+	border: none;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiSliHori.sapUiSli{
+	padding: 16px 0 0 0;
+	height: 16px;
+}
+
+.sapUiSliVert.sapUiSli{
+	padding: 0 0 0 30px;
+	width: 16px;
+}
+
+.sapUiSliR,
+.sapUiSliL{
+	border-style: solid;
+	border-color:  @sapUiMediumBorder;
+}
+
+.sapUiSliHori > .sapUiSliR,
+.sapUiSliHori .sapUiSliL{
+	height: 2px;
+}
+
+.sapUiSliVert > .sapUiSliR,
+.sapUiSliVert .sapUiSliL{
+	width: 2px;
+}
+
+.sapUiSliHori > .sapUiSliR {
+	border-width: 1px 0px 1px 0;
+	margin-right: 6px;
+	margin-left: 6px;
+}
+
+.sapUiSliVert > .sapUiSliR {
+	border-width: 0px 1px 0px 1px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+.sapUiSliHori .sapUiSliL {
+	border-width: 1px 1px 1px 1px;
+	top: -1px;
+}
+
+.sapUiSliVert .sapUiSliL {
+	border-width: 1px 1px 1px 1px;
+	left: -1px;
+}
+
+.sapUiSliHori .sapUiSliBar,
+.sapUiSliHori .sapUiSliHiLi {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	height: 2px;
+	top: -1px;
+}
+
+.sapUiSliVert .sapUiSliBar,
+.sapUiSliVert .sapUiSliHiLi {
+	border-left: 1px solid;
+	border-right: 1px solid;
+	width: 2px;
+	left: -1px;
+}
+
+.sapUiSliHori .sapUiSliBar {
+	border-top-color: @sapUiMediumBorder;
+	border-bottom-color: @sapUiMediumBorder;
+	border-left-color: @sapUiMediumBorder;
+	background-color: @sapHCStandardBG;
+}
+
+.sapUiSliHori.sapUiSliDsbl .sapUiSliBar {
+	border-top-color: @sapUiMediumLine;
+	border-bottom-color: @sapUiMediumLine;
+	border-left-color: @sapUiMediumLine;
+	background-color: @sapUiMediumLine;
+}
+
+.sapUiSliVert .sapUiSliBar {
+	border-left-color: @sapUiMediumBorder;
+	border-right-color: @sapUiMediumBorder;
+	border-bottom-color: @sapUiMediumBorder;
+	background-color: @sapHCStandardBG;
+}
+
+.sapUiSliVert.sapUiSliDsbl .sapUiSliBar {
+	border-left-color: @sapUiMediumLine;
+	border-right-color: @sapUiMediumLine;
+	border-bottom-color: @sapUiMediumLine;
+	background-color: @sapUiMediumLine;
+}
+
+.sapUiSliHori .sapUiSliHiLi{
+	left: -1px;
+}
+
+.sapUiSliVert .sapUiSliHiLi{
+	bottom: -1px;
+}
+
+.sapUiSliStd .sapUiSliHiLi,
+.sapUiSliRo .sapUiSliHiLi {
+	background-color: @sapHCStandardFG;
+}
+
+.sapUiSliStd.sapUiSliHori  .sapUiSliHiLi,
+.sapUiSliHori.sapUiSliRo .sapUiSliHiLi {
+	border-top-color: @sapHCStandardFG;
+	border-bottom-color: @sapHCStandardFG;
+	border-left-color: @sapHCStandardFG;
+}
+
+.sapUiSliStd.sapUiSliVert .sapUiSliHiLi,
+.sapUiSliVert.sapUiSliRo .sapUiSliHiLi {
+	border-left-color: @sapHCStandardFG;
+	border-right-color: @sapHCStandardFG;
+	border-bottom-color: @sapHCStandardFG;
+}
+
+.sapUiSliHori.sapUiSliDsbl .sapUiSliHiLi {
+	border-top-color: @sapUiMediumLine;
+	border-bottom-color: @sapUiMediumLine;
+	border-left-color: @sapUiMediumLine;
+	background-color: @sapUiMediumLine;
+}
+
+.sapUiSliVert.sapUiSliDsbl .sapUiSliHiLi {
+	border-left-color: @sapUiMediumLine;
+	border-right-color: @sapUiMediumLine;
+	border-bottom-color: @sapUiMediumLine;
+	background-color: @sapUiMediumLine;
+}
+
+.sapUiSliGrip {
+	border-style: solid;
+	border-width: 2px;
+}
+
+.sapUiSliHori .sapUiSliGrip {
+	height: 12px;
+	width: 6px;
+	top: -7px;
+}
+
+.sapUiSliVert .sapUiSliGrip {
+	height: 6px;
+	width: 12px;
+	left: -7px;
+}
+
+.sapUiSliHori.sapUiSliRo .sapUiSliGrip {
+	width: 0px;
+}
+
+.sapUiSliVert.sapUiSliRo .sapUiSliGrip {
+	height: 0px;
+}
+
+.sapUiSliStd .sapUiSliGrip,
+.sapUiSliRo .sapUiSliGrip {
+	background-color: @sapHCStandardBG;
+	border-color: @sapHCStandardFG;
+}
+
+.sapUiSliStd .sapUiSliGrip:hover {
+	background-color: @sapHCHighlightBG;
+	border-color: @sapHCStandardFG;
+	border-width: 1px;
+	padding: 1px;
+}
+
+.sapUiSliStd .sapUiSliGrip:focus,
+.sapUiSliStd .sapUiSliGrip:active {
+	border-color: @sapHCStandardFG;
+	background-color: @sapHCHighlightBG;
+	border-width: 1px;
+	padding: 1px;
+	outline: none;
+}
+
+.sapUiSliDsbl .sapUiSliGrip {
+	border-color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiSliRo .sapUiSliGrip:focus {
+	outline: none;
+}
+
+.sapUiSliHori .sapUiSliTick {
+	height: 4px;
+	width: 0;
+	top: -5px;
+	border-left: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiSliHori.sapUiSliDsbl .sapUiSliTick {
+	border-left: 1px solid @sapUiMediumLine;
+}
+
+.sapUiSliVert .sapUiSliTick {
+	height: 0;
+	width: 4px;
+	left: -5px;
+	border-top: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiSliVert.sapUiSliDsbl .sapUiSliTick {
+	border-top: 1px solid @sapUiMediumLine;
+}
+
+.sapUiSliRo .sapUiSliText {
+	color: @sapUiBaseText;
+}
+
+.sapUiSliDsbl .sapUiSliText {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiSliHori .sapUiSliText {
+	top: -20px;
+}
+
+.sapUiSliVert .sapUiSliText {
+	right: 10px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiSliHori .sapUiSliText {
+	top: -19px;
+}
+
+.sapUiSliHori .sapUiSliTextLeft {
+	left: -2px;
+}
+
+.sapUiSliVert .sapUiSliTextLeft {
+	bottom: -2px;
+}
+
+.sapUiSliHori .sapUiSliTextRight {
+	right: -1px;
+}
+
+.sapUiSliVert .sapUiSliTextRight {
+	top: -1px;
+}
+/* END "Slider.less" */
+
+/* START "Splitter.less" */
+/* =============================================== */
+/* CSS for control sap.ui.commons/Splitter.control */
+/* SAP-HCB Theme                                   */
+/* =============================================== */
+
+.sapUiVerticalSplitterBar {
+	background-image: url(img/splitter/splitter_vert_grip.png);
+	background-color: @sapUiBase;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiHorizontalSplitterBar {
+	background-image: url(img/splitter/splitter_horiz_grip.png);
+	background-color: @sapUiBase;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiVerticalSplitterBar:hover {
+	background-color: darken(@sapUiBase, 20);
+}
+
+.sapUiHorizontalSplitterBar:hover {
+	background-color: darken(@sapUiBase, 20);
+}
+
+/*
+.sapUiSplitterFocus,
+.sapUiVSplitterSecondPane:focus,
+.sapUiHSplitterSecondPane:focus,
+.sapUiVSplitterFirstPane:focus,
+.sapUiHSplitterFirstPane:focus {
+	outline: @sapUiBaseBorder solid 3px;
+}
+*/
+
+.sapUiHorizontalSplitterBar:focus,
+.sapUiVerticalSplitterBar:focus {
+	outline: @sapUiBaseBorder solid 3px;
+}
+/* END "Splitter.less" */
+
+/* START "TabStrip.less" */
+/* ======================================= */
+/* CSS for control sap.ui.commons/TabStrip */
+/* SAP-HCB Theme                           */
+/* ======================================= */
+
+.sapUiTabStrip {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTabBar {
+	background-image: url(img/tabstrip/tab-bar.png);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	padding: 4px 0 2px 0;
+	height: 18px;
+}
+
+.sapUiTab, 
+.sapUiTabSel,
+.sapUiTabDsbl {
+	line-height: 18px;
+	-moz-background-origin: padding, padding, content;
+	-webkit-background-origin: padding, padding, content;
+	background-origin: padding-box, padding-box, content-box;
+	-moz-background-size: auto auto, auto auto, 100% 28px;
+	-webkit-background-size: auto auto, auto auto, 100% 28px;
+	background-size: auto auto, auto auto, 100% 28px;
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-position:top left, top right, left top;
+	padding-right: 13px;
+	padding-left: 16px;
+	height: 18px;
+	outline-offset: -2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTab,
+html[data-sap-ui-browser="ie8"] .sapUiTabSel,
+html[data-sap-ui-browser="ie8"] .sapUiTabDsbl{
+	background-repeat: no-repeat;
+	background-position:top left;
+	border-right: 1px solid @sapUiMediumBorder;
+	padding-right: 12px;
+}
+
+.sapUiTab,
+.sapUiTabDsbl {
+	background-image:url(img/tabstrip/tab-left.png), url(img/tabstrip/tab-right.png),url(img/tabstrip/tab.png);
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTab,
+html[data-sap-ui-browser="ie8"] .sapUiTabDsbl{
+	background-image:url(img/tabstrip/tab-ie.png);
+}
+
+.sapUiTabSel {
+	background-image:url(img/tabstrip/tab-left-first-sel.png), url(img/tabstrip/tab-right-sel.png),url(img/tabstrip/tab-sel.png);
+	font-weight: bold; 
+	margin-left: -9px;
+	padding-left: 25px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTabSel{
+	background-image:url(img/tabstrip/tab-first-sel-ie.png);
+}
+
+.sapUiTab:first-child,
+.sapUiTabDsbl:first-child {
+	background-image:url(img/tabstrip/tab-left-first.png), url(img/tabstrip/tab-right.png),url(img/tabstrip/tab.png);
+	padding-left: 25px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTab:first-child,
+html[data-sap-ui-browser="ie8"] .sapUiTabDsbl:first-child{
+	background-image:url(img/tabstrip/tab-first-ie.png);
+}
+
+.sapUiTabSel:first-child {
+	margin-left: 0;
+}
+
+.sapUiTabClose {
+	background-image:url(img/tabstrip/tab-close.gif);
+	background-repeat:no-repeat;
+	background-positon:top right;
+	width: 13px;
+	height: 13px;
+	margin-top: 3px;
+	position: relative;
+	left: 4px;
+}
+
+.sapUiTabSel .sapUiTabClose {
+	background-image:url(img/tabstrip/tab-close.gif);
+}
+
+.sapUiTabClose:hover {
+	background-image:url(img/tabstrip/tab-close-hov.gif);
+}
+
+.sapUiTabIco {
+	margin-right: 4px;
+	margin-top: 2px;
+}
+
+.sapUiTabBar .sapUiTabMenu {
+	background-image: url(img/tabstrip/tab-menu.png);
+	width: 16px;
+	height: 16px;
+	margin-right: 1px;
+}
+
+.sapUiTabPanel {
+	top: 24px;
+}
+
+.sapUiTabDsbl:focus,
+html[data-sap-ui-browser^="ff"] .sapUiTabDsbl:focus{
+	outline: 3px solid @sapUiContentDisabledTextColor;
+}
+/* END "TabStrip.less" */
+
+/* START "TextArea.less" */
+/* =============================================== */
+/* CSS for control sap.ui.commons/TextArea.control */
+/* HCB theme                                       */
+/* =============================================== */
+
+.sapUiTxtA{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTf.sapUiTxtA{
+	padding-top: 3px;	
+}
+	
+
+/* END "TextArea.less" */
+
+/* START "TextField.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/TextField.control */
+/* HCB theme                                        */
+/* ================================================ */
+
+@sapUiTextFieldHeight: 18px;
+
+.sapUiTf {
+	outline: none; /* remove Safari glow effect */
+	font-size: @sapUiDesktopFontSize;
+	padding-left: 3px;
+	padding-top: 1px;
+}
+
+.sapUiTf:not(.sapUiTfInner) {
+	height: @sapUiTextFieldHeight;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTf { /* IE8 ignores statement above */
+	height: @sapUiTextFieldHeight;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTfMono.sapUiTf { /* in IE with monospace its not alligned */
+	padding-top: 3px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiTfMono.sapUiTf { /* in IE with monospace its not alligned */
+	padding-top: 2px;
+}
+
+.sapUiTfBrd.sapUiTfDsbl,
+.sapUiTfBrd.sapUiTfRo {
+	border-color: @sapUiFieldReadOnlyBorderColor;
+}
+
+.sapUiTfBrd.sapUiTfFoc {
+	outline:1px solid @sapUiMediumBorder;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiTfErr {
+	font-style: italic;
+	font-weight: bold;
+	border-style: dashed;
+}
+
+.sapUiTfErr.sapUiTfStd {
+	border-color: @sapUiMediumBorder;
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiTfErr.sapUiTfFoc {
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiTfWarn {
+	font-style: italic;
+	border-style: dashed;
+}
+
+.sapUiTfWarn.sapUiTfStd {
+	background-color: @sapUiFieldBackground;
+}
+/* END "TextField.less" */
+
+/* START "TextView.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/TextView.control  */
+/* SAP-HCB theme                                    */
+/* ================================================ */
+
+.sapUiTv {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTvH1 { /* be careful - used in other controls with title too */
+	font-size: @sapUiFontHeader1Size;
+}
+
+.sapUiTvH2 {
+	font-size: @sapUiFontHeader2Size;
+}
+
+.sapUiTvH3 {
+	font-size: @sapUiFontHeader3Size;
+}
+
+.sapUiTvH4 {
+	font-size: @sapUiFontHeader4Size;
+}
+
+.sapUiTvH5 {
+	font-size: @sapUiFontHeader5Size;
+}
+
+.sapUiTvH6 {
+	font-size: @sapUiFontHeader6Size;
+}
+
+.sapUiTvSmall {
+	font-size: @sapUiFontSmallSize;
+}
+
+/* as in HCB inverted popups are black too - no inverted text color */
+.sapUiInverted-CTX .sapUiTv {
+	color: @sapUiBaseText;
+}
+
+/* invalid state */
+.sapUiTvErr {
+	color: @sapHCNegative;
+	border-color: transparent;
+	background-color: transparent;
+}
+
+/* warning state */
+.sapUiTvWarn,
+.sapUiInverted-CTX .sapUiTvWarn {
+	color: @sapHCCritical;
+	background-color: transparent;
+}
+
+/* success state */
+.sapUiTvSucc {
+	color: @sapHCPositive;
+	background-color: transparent;
+}
+
+/* Designs */
+.sapUiTvMono {
+	font-family: Lucida Console, monospace;
+}
+/* END "TextView.less" */
+
+/* START "ToggleButton.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons/ToggleButton.control     */
+/* SAP-HCB Theme                                           */
+/* ======================================================= */
+
+.sapUiBtnS{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn {
+	background-color: @sapUiExtraLightBG;
+}
+
+/* In IE9, content is automatically mirrored, but not in IE10 */
+html[dir=rtl][data-sap-ui-browser="ie9"]  .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:before,
+html[dir=rtl][data-sap-ui-browser="ie9"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:before, 
+html[dir=rtl][data-sap-ui-browser="ie9"]  .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active:before,
+html[dir=rtl][data-sap-ui-browser="ie9"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:active:before {
+	content: url("img/toggleButton/arrow_down_hover.png");
+	display: inline-block;
+	height: 18px;
+	vertical-align: middle;
+}
+
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:hover:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:active:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:hover:before,
+html[dir=rtl][data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active:before {
+	content: url("img/toggleButton/arrow_left_hover.png");
+	display: inline-block;
+	height: 18px;
+	vertical-align: middle;
+}
+
+html[dir=rtl][data-sap-ui-browser="ie8"]  .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:before,
+html[dir=rtl][data-sap-ui-browser="ie8"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:before, 
+html[dir=rtl][data-sap-ui-browser="ie8"]  .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active:before,
+html[dir=rtl][data-sap-ui-browser="ie8"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:active:before {
+	content: url("img/toggleButton/arrow_down_hover.png");
+	display: inline-block;
+	height: 18px;
+	vertical-align: middle;
+}
+
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:hover:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:active:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:hover:before,
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active:before {
+	content: url("img/toggleButton/arrow_right_hover.png");
+	display: inline-block;
+	height: 18px;
+	vertical-align: middle;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:before,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:before, 
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active:before,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:active:before {
+	content: url("img/toggleButton/arrow_down_hover.png");
+	display: inline-block;
+	height: 18px;
+	vertical-align: middle;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:before,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:before,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:before,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:before,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:hover:before,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:active:before,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:hover:before,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active:before {
+	content: url("img/toggleButton/arrow_right_hover.png");
+	display: inline-block;
+	height: 18px;
+	vertical-align: middle;
+}
+
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn:focus {
+	opacity: 0.35;
+	color: @sapUiText;
+	filter: alpha(opacity=35);
+	border-color: @sapUiBaseText;
+}
+
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn > .sapUiBtnIco {
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiToggleBtn:active,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn:focus,
+.sapUiBtnS.sapUiBtnAccept.sapUiToggleBtn:focus,
+.sapUiBtnS.sapUiBtnReject.sapUiToggleBtn:focus {
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	background-color: @sapUiToggleButtonPressedDisabledBackground;
+}
+
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active {
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn {
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active {
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-left: 4px;
+}
+
+html[dir=rtl][data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn {
+	padding-top: 0px;
+}
+
+html[dir=rtl][data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active {
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-left: 4px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active {
+	padding-top: 0px;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoL,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoR,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active > .sapUiBtnIcoL,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active > .sapUiBtnIcoR,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoL,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoR {
+	margin-top: -3px;
+	margin-left: -1px;
+	margin-right: 1px;
+}
+
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn:active > .sapUiBtnIco,
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIco,
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn:active > .sapUiBtnIco,
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIco {
+	margin-top: -3px;
+	margin-left: 0px;
+	margin-right: 1px;
+}
+
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed > .sapUiBtnIco, 
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser^='ie'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed > .sapUiBtnIco {
+	margin-top: -3px;
+	margin-left: 0px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn {
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active {
+	padding-left: 4px;
+	padding-right: 5px;
+	padding-top: 0px;
+}
+
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnTxt,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoR {
+	margin-top: -4px;
+}
+
+html[data-sap-ui-browser^='sf'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser^='sf'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed > .sapUiBtnIco {
+	margin-top: -3px;
+}
+
+html[data-sap-ui-browser^='sf'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser^='sf'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed > .sapUiBtnIco,
+html[data-sap-ui-browser^='cr'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser^='cr'] .sapUiBtnS.sapUiBtnNorm.sapUiBtnIconOnly.sapUiToggleBtn.sapUiToggleBtnPressed > .sapUiBtnIco {
+	margin-top: -5px;
+}
+
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn {
+	vertical-align: middle;
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn {
+	vertical-align: middle;
+}
+
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnTxt,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoR {
+	margin-top: -5px;
+}
+
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnTxt,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:active > .sapUiBtnIcoR {
+	margin-top: -2px;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnAccept.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnAccept.sapUiToggleBtn:active,
+.sapUiBtnS.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	color: @sapUiFieldSuccessColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnReject.sapUiToggleBtn,
+.sapUiBtnS.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnReject.sapUiToggleBtn:active,
+.sapUiBtnS.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	color: @sapUiFieldInvalidColor;
+}
+/* END "ToggleButton.less" */
+
+/* START "Toolbar.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/Toolbar.control */
+/* SAP-HCB Theme                                  */
+/* ============================================== */
+
+.sapUiTb {
+	height: 27px;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTb.sapUiTbStandalone {
+	height: 29px;
+}
+
+.sapUiTbDesignStandard {
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiTbCont {
+	height: 23px;
+}
+
+.sapUiTbOB {
+	background-image: url(img/toolbar/arrow.gif);
+}
+
+.sapUiTbDD > div {
+	background-color:  @sapUiExtraLightBG;
+}
+
+.sapUiTbContLeft.sapUiTbCont {
+	padding: 4px 0px 4px 10px;
+	height: 29px;
+}
+
+.sapUiTbInner > * , .sapUiTbInnerRight > * {
+	margin-right: 8px;
+}
+
+.sapUiTbInnerRight {
+	padding: 5px 0px 3px 10px;
+	height: 22px;
+}
+/* END "Toolbar.less" */
+
+/* START "Tree.less" */
+/* ============================================= */
+/* CSS for control sap.ui.commons/Tree.control   */
+/* HCB Theme                                     */
+/* ============================================= */
+
+.sapUiTree{
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* Since HCB is already inverted compared to GF it
+must be re-inverted */
+.sapUiInverted-CTX .sapUiTree {
+	color: @sapUiBaseText;
+}
+
+.sapUiTreeHeader{
+	background-color: @sapUiBaseBG;
+	border:1px solid @sapUiListHeaderBorderColor;
+	border-bottom:none;
+}
+
+.sapUiTreeTitle {
+	top:6px;
+}
+
+.sapUiTree .sapUiBtn.sapUiBtnS.sapUiBtnLite{
+	border: 1px solid @sapUiButtonBorderColor;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.sapUiTreeCont{
+	border:1px solid @sapUiBaseBorder;
+}
+
+.sapUiTreeNode{
+	background-position: left 1px;
+	padding-left: 18px;
+}
+
+.sapUiTreeNode:hover{
+	border:1px solid @sapUiHighlight;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTreeNodeSelectedParent, .sapUiTreeNodeSelectedParent:Hover, .sapUiTreeNodeSelected, .sapUiTreeNodeSelected:Hover{
+	border:1px solid @sapUiHighlight;
+	background-color: @sapUiHighlight;
+	font-weight: bold;
+}
+/* END "Tree.less" */
+
+/* START "TriStateCheckBox.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons.TriStateCheckBox.control */
+/* SAP-HCB Theme                                           */
+/* ======================================================= */
+
+.sapUiTriCb {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiInverted-CTX .sapUiTriCb {
+	color: @sapUiBaseText;
+}
+/* END "TriStateCheckBox.less" */
+
+/* START "ValueHelpField.less" */
+/* ===================================================== */
+/* CSS for control sap.ui.commons/ValueHelpField.control */
+/* SAP-HCB Theme                                         */
+/* ===================================================== */
+
+/* High Contrast Black */
+
+@sapUiValueHelpIconRegularUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconHoverUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconDsblUrl: ~"/img/valuehelpfield/F4-Help_icon_dsbl.png";
+
+.sapUiTfCombo {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpIcon {
+	height: 16px;
+	width: 16px;
+}
+
+.sapUiTfCombo > span.sapUiTfValueHelpIcon {
+	font-size: 12px;
+	color: @sapUiText;
+	padding-top: 2px;
+	height: 14px;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpRegularIcon:hover,
+.sapUiTfCombo > span.sapUiTfValueHelpIcon:hover {
+	border-left: 1px solid @sapUiFieldHoverBorderColor;
+	color: @sapUiText;
+	background-color: @sapUiFieldHoverHelpBackground;
+}
+
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon:hover,
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon:hover {
+	border-left: none;
+	background-color: transparent;
+}
+
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon,
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon:hover {
+	color: @sapUiBaseText;
+}
+
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon,
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon:hover {
+	color: @sapUiLightText;
+}
+
+/* END "ValueHelpField.less" */
+

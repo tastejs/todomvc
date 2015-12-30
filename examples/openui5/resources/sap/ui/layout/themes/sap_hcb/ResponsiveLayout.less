@@ -1,0 +1,106 @@
+/* =========================================================== */
+/* CSS for control sap.ui.layout.form/ResponsiveLayout.control */
+/* HCB                                                         */
+/* =========================================================== */
+
+.sapUiFormResLayout > div {
+	padding: 1rem;
+	-moz-box-sizing: padding-box;
+	box-sizing: border-box;
+}
+
+.sapUiFormResLayout .sapUiFormTitle > img,
+.sapUiFormResLayout .sapUiFormTitle > span{
+	margin-right: 0.1875rem;
+}
+
+.sapUiRLContainer > .sapUiFormTitle > button{
+	bottom: 0.3125rem;
+}
+
+.sapUiFormM .sapUiRFLPaddingClass,
+.sapUiFormM .sapUiRFLMultiContent.sapUiRFLPaddingClass {
+	padding: 0 0 0 0.5rem;
+}
+
+.sapUiRLContainerCont > .sapUiRFL >.sapUiRFLRow >.sapUiRFLContainer{
+	padding-right: 0.5rem;
+}
+
+.sapUiRLContainerCont > .sapUiRFL >.sapUiRFLRow >.sapUiRFLContainer:last-child{
+	padding-right: 0;
+}
+
+.sapUiRLElementWithLabel > .sapUiRFLCompleteRow:first-child > .sapUiRFLContainer.sapUiRFLFullLength > .sapUiRFLContainerContent.sapUiRFLPaddingClass{
+	padding-bottom: 0;
+}
+
+.sapUiFormEdit.sapUiFormM .sapUiRLElementWithLabel > .sapUiRFLRow:not(.sapUiRFLCompleteRow) > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent{
+	padding-top: 1rem;
+}
+
+html[data-sap-ui-browser^="ff"] .sapUiFormEdit.sapUiFormM .sapUiRLElementWithLabel > .sapUiRFLRow:not(.sapUiRFLCompleteRow) > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent{
+	padding-top: 0.9375rem;
+}
+
+.sapUiSizeCompact .sapUiFormEdit.sapUiFormM .sapUiRLElementWithLabel > .sapUiRFLRow:not(.sapUiRFLCompleteRow) > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent{
+	padding-top: 0.5rem;
+}
+
+html[data-sap-ui-browser^="ff"].sapUiSizeCompact .sapUiFormEdit.sapUiFormM .sapUiRLElementWithLabel > .sapUiRFLRow:not(.sapUiRFLCompleteRow) > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent,
+html[data-sap-ui-browser^="ff"] .sapUiSizeCompact .sapUiFormEdit.sapUiFormM .sapUiRLElementWithLabel > .sapUiRFLRow:not(.sapUiRFLCompleteRow) > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent{
+	padding-top: 0.4375rem;
+}
+
+.sapUiFormResLayout .sapUiRFLRow > .sapUiRFLContainer.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiRLElement > .sapUiRFLRow:last-child > .sapUiRFLFullLength:last-child{
+	padding-bottom: 0.625rem;
+}
+.sapUiFormResLayout .sapUiRFLRow:last-child > .sapUiRFLContainer.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiRLElement > .sapUiRFLRow:last-child > .sapUiRFLFullLength:last-child{
+	/* last element in row has no padding bottom */
+	padding-bottom: 0;
+}
+
+.sapUiRLElementFields > .sapUiRFLRow > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent.sapUiRFLPaddingClass:first-child,
+.sapUiRLElementFields > .sapUiRFLRow > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent.sapUiRFLMultiContainerContent.sapUiRFLPaddingClass:first-child > .sapUiRFLMultiContent.sapUiRFLPaddingClass:first-child{
+	padding-left: 0.5rem;
+}
+.sapUiRLElementFields > .sapUiRFLRow > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent.sapUiRFLMultiContainerContent.sapUiRFLPaddingClass:first-child,
+.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiRLElementFields > .sapUiRFLRow > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent.sapUiRFLPaddingClass:first-child,
+.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiRLElementFields > .sapUiRFLRow > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent.sapUiRFLPaddingClass:first-child > .sapUiRFLMultiContent.sapUiRFLPaddingClass:first-child{
+	padding-left: 0;
+}
+
+.sapUiRFLRow > .sapUiRFLContainer > .sapUiRFLContainerContent > .sapUiRLContainer{
+	/* space between 2 containers, devide it to previous and next container to have the same size for all*/
+	padding-left: 0.5rem;
+	padding-right: 1rem;
+}
+.sapUiRFLRow > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent > .sapUiRLContainer{
+	padding-left: 0;
+}
+.sapUiRFLRow > .sapUiRFLContainer:last-child > .sapUiRFLContainerContent > .sapUiRLContainer{
+	padding-right: 0;
+}
+
+/* Title */
+.sapUiFormResLayout > .sapUiFormTitle{
+	height: 3rem;
+	line-height: 3rem;
+	-moz-box-sizing: padding-box;
+	box-sizing: border-box;
+	padding: 0 1rem 0 1rem;
+}
+
+.sapUiRLContainer > .sapUiFormTitle{
+	border: none;
+	margin-bottom: 1rem;
+}
+
+/* vertical spacing between containers */
+.sapUiFormResLayout > .sapUiRFL > .sapUiRFLRow > .sapUiRFLContainer > .sapUiRFLContainerContent > .sapUiRLContainer{
+	padding-top: 1rem;
+}
+
+.sapUiFormResLayout > .sapUiRFL > .sapUiRFLRow:first-child > .sapUiRFLContainer > .sapUiRFLContainerContent > .sapUiRLContainer{
+	padding-top: 0;
+}

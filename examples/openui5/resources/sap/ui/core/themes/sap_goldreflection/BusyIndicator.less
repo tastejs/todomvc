@@ -1,0 +1,52 @@
+.sapUiBusy {
+	height: 5px;
+	width: 100%;
+
+	-moz-background-size: 40% 5px;
+	-webkit-background-size: 40% 5px;
+	background-size: 40% 5px;
+
+	background-image: -moz-linear-gradient(left, rgba(239,170,0,0), rgba(239,170,0,1) 30%, rgba(239,170,0,1) 70%, rgba(239,170,0,0));
+	background-image: -webkit-linear-gradient(left, rgba(239,170,0,0), rgba(239,170,0,1) 30%, rgba(239,170,0,1) 70%, rgba(239,170,0,0));
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(239,170,0,0)), color-stop(0.3, rgba(239,170,0,1)), color-stop(0.7, rgba(239,170,0,1)), color-stop(1, rgba(239,170,0,0)));
+	background-image: linear-gradient(left, rgba(239,170,0,0), rgba(239,170,0,1) 30%, rgba(239,170,0,1) 70%, rgba(239,170,0,0));
+	/* IE is handled using a real bg image */
+	background-repeat: no-repeat;
+
+	-webkit-animation: slide 1.5s linear infinite;
+	-moz-animation: slide 1.5s linear;
+	animation: slide 1.5s linear infinite;
+}
+
+html[data-sap-ui-browser^=ie] .sapUiBusy {
+	background-color: white;
+	background-image: url(img/Busy.png);
+	background-repeat: repeat-y;
+}
+
+@-webkit-keyframes slide {
+    0% {
+    	background-position: -500px 0;
+    }
+    100% {
+    	background-position: 250% 0;
+    }
+}
+
+@-moz-keyframes slide {
+    0% {
+    	background-position: -500px 0;
+    }
+    100% {
+    	background-position: 250% 0;
+    }
+}
+
+@keyframes slide {
+    0% {
+    	background-position: -500px 0;
+    }
+    100% {
+    	background-position: 250% 0;
+    }
+}

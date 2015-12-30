@@ -1,0 +1,226 @@
+.sapUiUx3NavBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-bottom: 0px solid @sapUiLink;
+	text-transform: none;
+}
+
+.sapUiUx3NavBarItem:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarItem {
+	color: @sapUiLightText;
+	font-family: @sapUiDesktopFontFamily;
+	font-size: (@sapUiDesktopFontSize + 2px);
+	font-weight: normal;
+}
+
+.sapUiUx3NavBarItem:hover {
+	color: @sapUiHighlight;
+	font-weight: normal;
+	font-size: 14px;
+}
+
+.sapUiUx3NavBarItemSel > a {
+	color: @sapUiDarkText;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.sapUiUx3NavBarItemSel > a:hover {
+	color: @sapUiLink;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+/** Top-Level NavigationBar **/ 
+
+.sapUiUx3NavBarToplevel {
+	border-bottom: none;
+	text-transform: uppercase;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem:focus {
+	outline: 0px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarList > li,
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem {
+	color: @sapUiLightText;
+	font-size: 15px;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarList > li:hover,
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem:hover {
+	color: @sapUiHighlight;
+	font-size: 15px;
+}
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItemSel > a {
+	color: @sapUiDarkText;
+	font-size: 15px;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItemSel > a:hover {
+	color: @sapUiHighlight;
+	font-size: 15px;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarArrow {
+	display: none;
+	border-color: @sapUiBaseText transparent @sapUiHighlight;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+	display: none;
+	border-color: @sapUiBaseText transparent @sapUiUx3ShellBackgroundColor;
+}
+
+
+/* standard design arrows */
+
+.sapUiUx3NavBarBack,
+.sapUiUx3NavBarForward {
+	color: transparent;
+	font-size: 0;
+	height: 18px;
+	width: 18px;
+	background-position: 4px 3px;
+}
+
+.sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/facetPrev.png);
+}
+
+.sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/facetNext.png);
+}
+
+.sapUiUx3NavBarBack:focus,
+.sapUiUx3NavBarForward:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:hover,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:hover {
+	background-color: @sapUiHighlight;
+	background-position: -13px 3px;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:active,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:active {
+	background-color: @sapUiDarkBG;
+	background-position: -13px 3px;
+}
+
+
+
+
+/* toplevel design arrows */
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-position: 3px 3px;
+	padding: 0;
+	height: 22px;
+	width: 22px;
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/WS_scroll_prev.png);
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/WS_scroll_next.png);
+}
+.sapUiUx3NavBar {
+	border-bottom: 0px solid @sapUiHighlight;
+	text-transform: none;
+}
+
+.sapUiUx3NavBarToplevel {
+	border-bottom: none;
+	text-transform: uppercase;
+}
+
+.sapUiUx3NavBarArrow {
+	border-color: @sapUiBaseText transparent @sapUiHighlight;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+	border-color: @sapUiBaseText transparent @sapUiUx3ShellBackgroundColor;
+}
+
+
+/* standard design arrows */
+.sapUiUx3NavBarBack,
+.sapUiUx3NavBarForward {
+	color: transparent;
+	font-size: 0;
+	height: 18px;
+	width: 18px;
+	background-position: 4px 3px;
+}
+
+.sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/facetPrev.png);
+}
+
+.sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/facetNext.png);
+}
+
+.sapUiUx3NavBarBack:focus,
+.sapUiUx3NavBarForward:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:hover,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:hover {
+	background-color: @sapUiHighlight;
+	background-position: -13px 3px;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:active,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:active {
+	background-color: @sapUiDarkBG;
+	background-position: -13px 3px;
+}
+
+
+/* toplevel design arrows */
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-position: 3px 3px;
+	padding: 0;
+	height: 22px;
+	width: 22px;
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/WS_scroll_prev.png);
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/WS_scroll_next.png);
+}
+
+
+/* rtl mode arrow corrections */
+
+html[dir="rtl"] .sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+html[dir="rtl"] .sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-position: -13px 3px;
+}
+
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:hover,
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:hover,
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:active,
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:active {
+	background-position: 3px 3px;
+}
+

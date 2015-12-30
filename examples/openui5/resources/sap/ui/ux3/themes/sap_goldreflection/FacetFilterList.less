@@ -1,0 +1,51 @@
+/* ======================================================= */
+/* Base CSS for control sap.ui.ux3/FacetFilterList.control */
+/* ======================================================= */
+
+/* Header */
+.sapUiUx3FFLstHead {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	display: block;
+	line-height: 25px;
+	border-top: 1px solid @sapUiListHeaderBorderColor;
+	border-left: 1px solid @sapUiListHeaderBorderColor;
+	border-right: 1px solid @sapUiListHeaderBorderColor;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiUx3FFLstHeadTxt {
+	font-size: 12px;
+	margin-bottom: 0;
+	margin-top: 0;
+	margin-right: 37px;
+	overflow: hidden;
+	white-space: nowrap;
+	color: @sapUiText;
+	padding-left: 6px;
+	text-overflow: ellipsis;
+}
+
+/* Facet Filter List*/
+.sapUiUx3FFLst {
+	display: inline-block;
+	position: relative;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	cursor: default;
+	height: 100%;
+	width: 100%;
+	outline: none;
+}
+
+/* List Box */
+.sapUiUx3FFLst > .sapUiLbx {
+	width: 100%;
+	border-bottom: 1px solid @sapUiListHeaderBorderColor;
+	position: relative;
+	height: 92%;
+	height: ~"calc(100% - 29px)";
+	height: ~"-webkit-calc(100% - 29px)";
+}

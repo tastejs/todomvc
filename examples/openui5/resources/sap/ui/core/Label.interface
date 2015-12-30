@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<interface xmlns="http://www.sap.com/sap.ui.library.xsd">
+    <name>Label</name>
+    <derived/>
+    <documentation>Marker interface for controls which are suitable for use as label.</documentation>
+</interface>

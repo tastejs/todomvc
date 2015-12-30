@@ -1,0 +1,126 @@
+
+/* ============================================= */
+/* CSS for control sap.ui.commons/Paginator      */
+/* SAP GOLD REFLECTION                           */
+/* ============================================= */
+
+.sapUiPag > ul {
+	margin: 0;
+}
+
+.sapUiPag > .sapUiLnkDsbl,
+.sapUiPagPage > .sapUiLnkDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiPagText {
+	display: none;
+}
+
+.sapUiPagPage {
+	height: 16px;
+	margin: 0 1px 0 0;
+	padding: 2px 6px 0;
+}
+
+.sapUiPagPage > .sapUiLnk,
+.sapUiPagPage > .sapUiLnkDsbl {
+	color: @sapUiBaseText;
+}
+
+.sapUiPagBtn {
+	background-image: url(img/paginator/paginator.png);
+	background-repeat: no-repeat;
+	height: 20px;
+	width: 20px;
+	margin: 0 1px 0 0;
+}
+
+.sapUiPagBtn.sapUiLnk:hover,
+.sapUiPagPage:hover {
+	background-color: @sapUiDarkBG;
+}
+.sapUiPagPage:hover > .sapUiLnk {
+	color: @sapUiTextSelection;
+	text-decoration: none;
+}
+
+.sapUiPagCurrentPage,
+.sapUiPagCurrentPage:hover,
+.sapUiPagCurrentPage > .sapUiLnkDsbl,
+.sapUiPagCurrentPage:hover > .sapUiLnkDsbl {
+	border-color: @sapUiHighlight;
+	background-color: @sapUiHighlight;
+	color: @sapUiTextSelection;
+	text-decoration: none;
+}
+.sapUiPagCurrentPage > a:focus {
+	outline: 1px dashed @sapUiTextSelection;
+}
+
+.sapUiPagBtn.sapUiLnk:active,
+.sapUiPagPage:active {
+	background-color: @sapUiHighlight;
+}
+.sapUiPagPage:active > .sapUiLnk {
+	color: @sapUiTextSelection;
+	text-decoration: none;
+}
+
+.sapUiPagBtn.sapUiLnkDsbl:focus {
+	outline: 1px dashed @sapUiTextDisabled;
+}
+
+.sapUiPagFirst {
+	background-position: 0px 0;
+}
+.sapUiPagBack {
+	background-position: -40px 0;
+	padding-left: 0;
+}
+.sapUiPagForward {
+	background-position: -60px 0;
+	padding-right: 0;
+}
+.sapUiPagLast {
+	background-position: -100px 0;
+}
+
+.sapUiPagFirst:hover {
+	background-position: 0px -20px;
+}
+.sapUiPagBack:hover {
+	background-position: -40px -20px;
+}
+.sapUiPagForward:hover {
+	background-position: -60px -20px;
+}
+.sapUiPagLast:hover {
+	background-position: -100px -20px;
+}
+
+.sapUiPagFirst:active {
+	background-position: 0px -40px;
+}
+.sapUiPagBack:active {
+	background-position: -40px -40px;
+}
+.sapUiPagForward:active {
+	background-position: -60px -40px;
+}
+.sapUiPagLast:active {
+	background-position: -100px -40px;
+}
+
+.sapUiPagFirst.sapUiLnkDsbl {
+	background-position: 0px -60px;
+}
+.sapUiPagBack.sapUiLnkDsbl {
+	background-position: -40px -60px;
+}
+.sapUiPagForward.sapUiLnkDsbl {
+	background-position: -60px -60px;
+}
+.sapUiPagLast.sapUiLnkDsbl {
+	background-position: -100px -60px;
+}

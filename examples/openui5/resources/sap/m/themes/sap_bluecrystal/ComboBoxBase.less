@@ -1,0 +1,142 @@
+/* ============================================================ */
+/* CSS for control sap.m/ComboBoxBase.control BlueCrystal theme */
+/* ============================================================ */
+
+.sapMComboBoxBaseArrow::before,
+.sapMComboBoxBaseBar::before {
+	font-family: "SAP-icons";
+	speak: none;
+	content: "\e1ef";
+}
+
+.sapMComboBoxBaseArrow,
+.sapMComboBoxBaseBar::before {
+	position: absolute;
+	text-align: center;
+	color: @sapUiElement;
+}
+
+/* ------------------------------ */
+/* ComboBox                       */
+/* ------------------------------ */
+
+input.sapMComboBoxBaseInputInner:not(.sapMComboBoxBaseInputInnerReadonly) {
+	padding-right: 3rem;
+}
+
+/* note: do not optimize this selector, the sap.m.MulticomboBox DOM structure differ from sap.m.ComboBox */
+.sapMComboBoxBasePressed .sapMComboBoxBaseInputInner:not(.sapMInputBaseStateInner) {
+	border-color: @sapUiFieldFocusBorderColor;
+}
+
+/* ------------------------------ */
+/* ComboBox's Arrow               */
+/* ------------------------------ */
+
+.sapMComboBoxBaseArrow {
+	width: 2.5rem;
+	height: 2.375rem;
+	line-height: 2.375rem;
+	right: 0.0625rem;
+
+	/* note: add a non-transparent background because the input field text overflows arrow button in IE10 */
+	background: @sapUiFieldBackground;
+}
+
+.sapMComboBoxBaseState .sapMComboBoxBaseArrow {
+	height: 2.25rem;
+	line-height: 2.25rem;
+	right: 0.125rem;
+}
+
+/* hover */
+
+.sap-desktop .sapMComboBoxBaseArrow:not(.sapMComboBoxBasePressed):hover {
+	background: contrast(@sapUiFieldHoverBackground, darken(@sapUiFieldHoverBackground, 6), lighten(@sapUiFieldHoverBackground, 6));
+}
+
+/* pressed */
+
+/* note: do not optimize this selector, the sap.m.MulticomboBox DOM structure differ from sap.m.ComboBox */
+.sapMComboBoxBasePressed .sapMComboBoxBaseArrow,
+.sap-desktop .sapMComboBoxBasePressed .sapMComboBoxBaseArrow:hover {
+	background: @sapUiFieldActiveBackground;
+}
+
+ /* note: do not optimize this selector, the sap.m.MulticomboBox DOM structure differ from sap.m.ComboBox */
+.sapMComboBoxBasePressed .sapMComboBoxBaseArrow::before {
+	color: @sapUiInvertedElement;
+}
+
+/* ------------------------------ */
+/* ComboBox's Picker              */
+/* ------------------------------ */
+
+div.sapMComboBoxBasePicker {
+	box-shadow: 0 0.0625rem 0.1875rem fade(@sapUiDarkShadowTint, 50);
+	border: none;
+}
+
+/* ------------------------------ */
+/* ComboBox's Dialog              */
+/* ------------------------------ */
+
+.sapMComboBoxBaseBar {
+	box-shadow: none;
+}
+
+div.sapMComboBoxBasePicker .sapMDialogScrollCont {
+	padding: 0;
+}
+
+/* pressed */
+
+.sapMComboBoxBaseBar::before {
+	top: 0;
+	right: 0;
+	line-height: 3rem;
+	width: 3.5rem;
+	color: @sapUiInvertedElement;
+	background: @sapUiFieldActiveBackground;
+}
+
+/* Bar inside the ComboBox's Dialog */
+
+.sapMComboBoxBasePicker .sapMComboBoxBaseBar {
+	background: @sapUiFieldBackground;
+	border: 0.0625rem solid @sapUiFieldActiveBorderColor;
+}
+
+/* Input inside the ComboBox's Dialog */
+
+.sapMComboBoxBasePicker input {
+	padding-right: 3.5rem;
+	vertical-align: top; /* override the default vertical align of the input control */
+}
+
+/* ===================================================================== */
+/* CSS for control sap.m/ComboBox.control BlueCrystal theme compact size */
+/* ===================================================================== */
+
+.sapUiSizeCompact input.sapMComboBoxBaseInputInner:not(.sapMComboBoxBaseInputInnerReadonly) {
+	padding-right: 2.5rem;
+}
+
+/* ------------------------------ */
+/* ComboBox Arrow                 */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMComboBoxBaseArrow {
+	width: 2rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+}
+
+.sapUiSizeCompact .sapMComboBoxBaseState .sapMComboBoxBaseArrow {
+	height: 1.375rem;
+	line-height: 1.375rem;
+}
+
+.sapUiSizeCondensed .sapUiTableCell .sapMComboBoxBaseArrow {
+	right: 0;
+}

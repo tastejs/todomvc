@@ -1,0 +1,131 @@
+/* ============= */
+/* Label control */
+/* ============= */
+
+.sapUiLbl {
+	vertical-align: top;
+	line-height: @sapUiLineHeight;
+	display: inline-block;
+}
+
+.sapUiLblNowrap {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sapUiLblEmph {
+	font-weight: bold;
+}
+
+.sapUiLblIco {
+	vertical-align: top;
+	margin: 3px 0 0 0;
+}
+
+.sapUiLblIcoL { /* icon at begin of label (which is on the left in LTR mode and right in RTL mode) */
+	margin-right: 5px; /* will be transformed to margin-left automatically in RTL mode */
+}
+.sapUiLblIcoR {
+	margin-left: 5px;
+}
+
+/* a label for a required control */
+.sapUiLbl.sapUiLblReqEnd:after {
+	padding-left: 5px;
+}
+
+.sapUiLbl.sapUiLblReqBeg:before {
+	padding-right: 5px;
+}
+
+.sapUiLbLReqInd { /* to allow reuse */
+	content : '*';
+	color: @sapUiFieldInvalidColor;
+}
+
+.sapUiLbl.sapUiLblReqEnd:after,
+.sapUiLbl.sapUiLblReqBeg:before {
+	.sapUiLbLReqInd;
+}
+
+.sapUiInverted-CTX .sapUiLbl {
+	color: @sapUiTextInverted;
+}
+
+/* Do not invert for table */
+.sapUiInverted-CTX .sapUiTable .sapUiLbl {
+	color: @sapUiBaseText;
+}
+
+/* ============================ */
+/* Overwrites for Label in Form */
+/* ============================ */
+
+/* GridLayout */
+td.sapUiFormElementLbl:not(.sapUiGridLabelFull) > .sapUiLbl{
+	max-width: 100%;
+	float: right;
+}
+
+/* required symbol is now left - if indicator is already at begin, don't change it */
+td.sapUiFormElementLbl:not(.sapUiGridLabelFull) > .sapUiLbl.sapUiLblReqEnd:after {
+	padding-left: 0;
+	content : '';
+}
+
+td.sapUiFormElementLbl:not(.sapUiGridLabelFull) > .sapUiLbl.sapUiLblReqEnd:before {
+	.sapUiLbLReqInd;
+}
+
+/* ResponsiveLayout */
+.sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div > .sapUiLbl.sapUiLblReqEnd:after { /* required symbol is now left */
+	padding-left: 0;
+	content : '';
+}
+
+.sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div > .sapUiLbl.sapUiLblReqEnd:before {
+	.sapUiLbLReqInd;
+}
+
+/* ResponsiveGridLayout */
+.sapUiFormResGridCont > .sapUiFormElementLbl > .sapUiLbl {
+	max-width: 100%; /* to have ellipsis if cell gets too small */
+}
+
+/* make labels right aligned if left from fields*/
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanS12) > .sapUiLbl,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanM12) > .sapUiLbl,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanL12) > .sapUiLbl,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanXL12) > .sapUiLbl {
+	float: right;
+}
+
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanS12) > .sapUiLbl.sapUiLblReqEnd:after,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanM12) > .sapUiLbl.sapUiLblReqEnd:after,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanL12) > .sapUiLbl.sapUiLblReqEnd:after,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanXL12) > .sapUiLbl.sapUiLblReqEnd:after {
+	padding-left: 0;
+	content : '';
+}
+
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanS12) > .sapUiLbl.sapUiLblReqEnd:before,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanM12) > .sapUiLbl.sapUiLblReqEnd:before,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanL12) > .sapUiLbl.sapUiLblReqEnd:before,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanXL12) > .sapUiLbl.sapUiLblReqEnd:before {
+	.sapUiLbLReqInd;
+}
+
+/*
+.sapUiLblInfo{
+	position: absolute;
+	line-height: @sapUiLineHeight;
+	left: 0;
+	top: 0;
+	background-color: @sapBackgroundColor;
+}
+*/
+span.sapUiLblIco { /* icon font */
+	margin-top: 0;
+	line-height: @sapUiLineHeight;
+}

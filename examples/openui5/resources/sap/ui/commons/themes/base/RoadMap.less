@@ -1,0 +1,213 @@
+/* ============================================== */
+/* CSS for control sap.ui.commons/RoadMap.control */
+/* ============================================== */
+
+/* General Styles */
+.sapUiRoadMap {
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+}
+
+.sapUiRoadMap:focus {
+	outline: 0px dotted transparent;
+}
+
+.sapUiRoadMapStepArea {
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+	margin: 0;
+	padding: 1px 0 0;
+}
+
+.sapUiRoadMapContent {
+	border-style: none;
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+	white-space: normal;
+}
+
+.sapUiRoadMapHidden {
+	display: none;
+}
+
+/* Step Styles */
+.sapUiRoadMapStep {
+	width: 98px;
+	position: relative;
+}
+
+.sapUiRoadMapSubStep {
+}
+
+.sapUiRoadMapSubStep.sapUiRoadMapStep {
+	padding-top: 4px;
+}
+
+.sapUiRoadMapStepEnd {
+}
+
+.sapUiRoadMapSelected {
+	font-weight: bold;
+}
+
+.sapUiRoadMapExpanded {
+}
+
+.sapUiRoadMapDisabled {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiRoadMapStepAdd1,
+.sapUiRoadMapStepAdd2 {
+	display: inline-block;
+	position: absolute;
+	height: 1px;
+	width: 37px;
+	background-color: @sapUiBlackBG;
+	top: 11px;
+}
+
+.sapUiRoadMapStepAdd1 {
+	left: 0px;
+}
+
+.sapUiRoadMapStepAdd2 {
+	right: 0px;
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded > .sapUiRoadMapStepAdd1,
+.sapUiRoadMapExpanded > .sapUiRoadMapStepAdd2,
+.sapUiRoadMapSubStep > .sapUiRoadMapStepAdd1,
+.sapUiRoadMapSubStep > .sapUiRoadMapStepAdd2 {
+	top: 21px;
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded > .sapUiRoadMapStepAdd2 {
+	top: 11px;
+}
+
+.sapUiRoadMapSubStep > .sapUiRoadMapStepAdd1,
+.sapUiRoadMapSubStep > .sapUiRoadMapStepAdd2 {
+	width: 39px;
+}
+
+.sapUiRoadMapStepBox {
+	border: 1px solid black;
+	cursor: pointer;
+	line-height: 20px;
+	width: 22px;
+	margin: auto;
+	position: relative;
+}
+
+.sapUiRoadMapStepBox:focus{
+	outline: 1px dotted @sapUiBlackBorder;
+}
+
+.sapUiRoadMapSubStep.sapUiRoadMapStep > .sapUiRoadMapStepBox{
+	line-height: 16px;
+	width: 19px;
+}
+
+.sapUiRoadMapSelected > .sapUiRoadMapStepBox{
+	border: 1px solid @sapUiFieldInvalidColor;
+	cursor: default;
+}
+
+.sapUiRoadMapDisabled > .sapUiRoadMapStepBox{
+	border: 1px solid @sapUiButtonDisabledBorderColor;
+	cursor: default;
+}
+
+.sapUiRoadMapStepIco {
+	display: none;
+}
+
+.sapUiRoadMapTitle {
+	display: inline-block;
+	width: 90px;
+	overflow: hidden;
+	/*text-overflow: ellipsis;*/
+	word-wrap: break-word;
+	height: 38px;/*double line-height*/
+}
+
+.sapUiRoadMapTitle > span:after {
+	content: "...";
+}
+
+.sapUiRoadMapStep:hover > .sapUiRoadMapTitle {
+	text-decoration: underline;
+}
+
+.sapUiRoadMapStep.sapUiRoadMapDisabled:hover > .sapUiRoadMapTitle {
+	text-decoration: none;
+}
+
+.sapUiRoadMapStep.sapUiRoadMapSelected:hover > .sapUiRoadMapTitle {
+	text-decoration: none;
+}
+
+/* No special styling for Expanded Step titles according to UX
+.sapUiRoadMapExpanded > .sapUiRoadMapTitle {
+	position: relative;
+	left: 15px;
+	text-align: left;
+	width: 55px;
+}
+
+html[dir=rtl] .sapUiRoadMapExpanded > .sapUiRoadMapTitle {
+	text-align: right;
+}
+
+.sapUiRoadMapExpanded.sapUiRoadMapStepEnd > .sapUiRoadMapTitle{
+	left: auto;
+	right: 15px;
+	text-align: right;
+}
+
+html[dir=rtl] .sapUiRoadMapExpanded.sapUiRoadMapStepEnd > .sapUiRoadMapTitle {
+	text-align: left;
+}*/
+
+/* Delimiter Styles */
+.sapUiRoadMapDelim {
+	background-position: center 4px;
+	background-repeat: no-repeat;
+	height: 18px;
+	width: 17px;
+	margin-top: 1px;
+}
+
+.sapUiRoadMapDelim:focus {
+	outline: 0px dotted transparent;
+}
+
+.sapUiRoadMapStartScroll {
+	cursor: pointer;
+}
+
+.sapUiRoadMapStartScroll:after {
+	content: "<<";
+}
+
+.sapUiRoadMapStartFixed:after{
+	content: "|>";
+}
+
+.sapUiRoadMapEndScroll {
+	cursor: pointer;
+}
+
+.sapUiRoadMapEndScroll:after {
+	content: ">>";
+}
+
+.sapUiRoadMapEndFixed:after {
+	content: "<|";
+}

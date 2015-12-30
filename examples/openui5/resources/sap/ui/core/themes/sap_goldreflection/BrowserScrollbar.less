@@ -1,0 +1,132 @@
+@sapUiScrollbarBG: transparent;
+@sapUiScrollbarTrack: #B8C2CC;
+@sapUiScrollbarTrackHov: @sapUiHighlight;
+
+
+/****** IE ******/
+
+html[data-sap-ui-browser*="ie"] .sapUiBody {
+	scrollbar-3dlight-color: @sapUiExtraLightBG;
+	scrollbar-arrow-color: @sapUiText;
+	scrollbar-base-color: @sapUiScrollbarBG;
+	scrollbar-darkshadow-color: @sapUiExtraLightBG;
+	scrollbar-face-color: @sapUiScrollbarTrack;
+	scrollbar-highlight-color: @sapUiExtraLightBG;
+	scrollbar-shadow-color: @sapUiScrollbarTrack;
+	scrollbar-track-color: @sapUiExtraLightBG;
+}
+
+
+/****** Safari + Chrome ******/
+
+/*Thumb*/
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar {
+	width: 16px;
+	height: 16px;
+	border: 1px solid @sapUiScrollbarBG;
+	background-color: @sapUiScrollbarBG;
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-thumb,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-thumb {
+	background-color: @sapUiScrollbarTrack; 
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-clip: content-box;
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-thumb:horizontal,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-thumb:horizontal {
+	background-image: url('img/scrollbar_grip_horizontal.png');
+	min-width: 20px;
+	height: 8px;
+	border-top: 4px solid @sapUiScrollbarBG;
+	border-bottom: 4px solid @sapUiScrollbarBG;
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-thumb:horizontal:hover,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-thumb:horizontal:hover {
+	border-top: 4px solid @sapUiScrollbarTrackHov;
+	border-bottom: 4px solid @sapUiScrollbarTrackHov;
+	background-color: @sapUiScrollbarTrackHov;
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-thumb:vertical,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-thumb:vertical {
+	background-image: url('img/scrollbar_grip_vertical.png');
+	min-height: 20px;
+	width: 8px;
+	border-left: 4px solid @sapUiScrollbarBG;
+	border-right: 4px solid @sapUiScrollbarBG;
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-thumb:vertical:hover,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-thumb:vertical:hover {
+	border-left: 4px solid @sapUiScrollbarTrackHov;
+	border-right: 4px solid @sapUiScrollbarTrackHov;
+	background-color: @sapUiScrollbarTrackHov;
+}
+
+/*Scrollbar corner*/
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-corner,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-corner {
+	background-color: @sapUiScrollbarBG;
+}
+
+/*Scrollbar buttons*/
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button {
+	background-color: @sapUiScrollbarBG;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:horizontal:increment,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:horizontal:increment {
+	background-image: url('img/arrow_RIGHT.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:horizontal:increment:hover,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:horizontal:increment:hover {
+	background-color: @sapUiScrollbarTrackHov;
+	background-image: url('img/arrow_RIGHT_hover.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:horizontal:decrement,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:horizontal:decrement {
+	background-image: url('img/arrow_LEFT.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:horizontal:decrement:hover,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:horizontal:decrement:hover {
+	background-color: @sapUiScrollbarTrackHov;
+	background-image: url('img/arrow_LEFT_hover.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:vertical:increment,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:vertical:increment {
+	background-image: url('img/arrow_DOWN.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:vertical:increment:hover,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:vertical:increment:hover {
+	background-color: @sapUiScrollbarTrackHov;
+	background-image: url('img/arrow_DOWN_hover.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:vertical:decrement,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:vertical:decrement {
+	background-image: url('img/arrow_UP.png');
+}
+
+html[data-sap-ui-browser*="sf"] .sapUiBody ::-webkit-scrollbar-button:vertical:decrement:hover,
+html[data-sap-ui-browser*="cr"] .sapUiBody ::-webkit-scrollbar-button:vertical:decrement:hover {
+	background-color: @sapUiScrollbarTrackHov;
+	background-image: url('img/arrow_UP_hover.png');
+}

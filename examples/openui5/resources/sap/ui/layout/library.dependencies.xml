@@ -1,0 +1,376 @@
+<?xml version="1.0" ?>
+<library  version="2.0" name="sap.ui.layout">
+  <module name="sap/ui/layout/DynamicSideContent.js" size="21547" compressedSize="9551">
+    <description>Provides control sap.ui.layout.DynamicSideContent.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/ResizeHandler.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/DynamicSideContentRenderer.js" size="2478" compressedSize="1328">
+    <description>Provides default renderer for control sap.ui.layout.DynamicSideContent</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/FixFlex.js" size="8391" compressedSize="3305">
+    <description>Provides control sap.ui.layout.FixFlex.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/EnabledPropagator.js"/>
+      <module name="sap/ui/core/ResizeHandler.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/FixFlexRenderer.js" size="3623" compressedSize="1556">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/Grid.js" size="10299" compressedSize="4937">
+    <description>Provides control sap.ui.layout.Grid.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/GridData.js" size="15533" compressedSize="6567">
+    <description>Provides control sap.ui.layout.GridData.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/LayoutData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/GridRenderer.js" size="12855" compressedSize="5304">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/HorizontalLayout.js" size="1647" compressedSize="583">
+    <description>Provides control sap.ui.layout.HorizontalLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/HorizontalLayoutRenderer.js" size="1464" compressedSize="642">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/ResponsiveFlowLayout.js" size="21204" compressedSize="8244">
+    <description>Provides control sap.ui.layout.ResponsiveFlowLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/IntervalTrigger.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/layout/ResponsiveFlowLayoutData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/ResponsiveFlowLayoutData.js" size="4050" compressedSize="1517">
+    <description>Provides control sap.ui.layout.ResponsiveFlowLayoutData.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/LayoutData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/ResponsiveFlowLayoutRenderer.js" size="1328" compressedSize="509">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/Splitter.js" size="40896" compressedSize="14328">
+    <description>Provides control sap.ui.layout.Splitter.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/SplitterLayoutData.js" size="2001" compressedSize="595">
+    <description>Provides control sap.ui.layout.SplitterLayoutData.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/LayoutData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/SplitterRenderer.js" size="4272" compressedSize="1949">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/VerticalLayout.designtime.js" size="527" compressedSize="369">
+    <description>Provides the Design Time Metadata for the sap.ui.layout.VerticalLayout control</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/VerticalLayout.js" size="2017" compressedSize="719">
+    <description>Provides control sap.ui.layout.VerticalLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/EnabledPropagator.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/VerticalLayoutRenderer.js" size="1699" compressedSize="667">
+    <description>Provides default renderer for control sap.ui.layout.VerticalLayout</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/Form.designtime.js" size="674" compressedSize="473">
+    <description>Provides the Design Time Metadata for the sap.ui.layout.form.Form control</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/Form.js" size="7129" compressedSize="2275">
+    <description>Provides control sap.ui.layout.form.Form.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/FormContainer.designtime.js" size="487" compressedSize="337">
+    <description>Provides the Design Time Metadata for the sap.ui.layout.form.FormContainer control</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/FormContainer.js" size="7471" compressedSize="2979">
+    <description>Provides control sap.ui.layout.form.FormContainer.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/core/EnabledPropagator.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/FormElement.js" size="9423" compressedSize="3667">
+    <description>Provides control sap.ui.layout.form.FormElement.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/core/EnabledPropagator.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/FormLayout.js" size="27419" compressedSize="12167">
+    <description>Provides control sap.ui.layout.form.FormLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/layout/form/Form.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/FormLayoutRenderer.js" size="6209" compressedSize="2975">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/FormRenderer.js" size="2114" compressedSize="1101">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/GridContainerData.js" size="1839" compressedSize="481">
+    <description>Provides control sap.ui.layout.form.GridContainerData.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/LayoutData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/GridElementData.js" size="2145" compressedSize="566">
+    <description>Provides control sap.ui.layout.form.GridElementData.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/LayoutData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/GridLayout.js" size="7945" compressedSize="2712">
+    <description>Provides control sap.ui.layout.form.GridLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/layout/form/FormLayout.js"/>
+      <module name="sap/ui/layout/form/GridContainerData.js"/>
+      <module name="sap/ui/layout/form/GridElementData.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/GridLayoutRenderer.js" size="17029" compressedSize="6958">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/layout/form/FormLayoutRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/ResponsiveGridLayout.js" size="32958" compressedSize="12794">
+    <description>Provides control sap.ui.layout.form.ResponsiveGridLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/layout/Grid.js"/>
+      <module name="sap/ui/layout/GridData.js"/>
+      <module name="sap/ui/layout/form/FormLayout.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/ResponsiveGridLayoutRenderer.js" size="1477" compressedSize="732">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/layout/form/FormLayoutRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/ResponsiveLayout.js" size="29704" compressedSize="10003">
+    <description>Provides control sap.ui.layout.form.ResponsiveLayout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/layout/ResponsiveFlowLayout.js"/>
+      <module name="sap/ui/layout/ResponsiveFlowLayoutData.js"/>
+      <module name="sap/ui/layout/form/FormLayout.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/ResponsiveLayoutRenderer.js" size="1417" compressedSize="719">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/layout/form/FormLayoutRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/SimpleForm.js" size="47701" compressedSize="18035">
+    <description>Provides control sap.ui.layout.form.SimpleForm.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/layout/ResponsiveFlowLayoutData.js"/>
+      <module name="sap/ui/layout/form/Form.js"/>
+      <module name="sap/ui/layout/form/FormContainer.js"/>
+      <module name="sap/ui/layout/form/FormElement.js"/>
+      <module name="sap/ui/layout/form/FormLayout.js"/>
+      <module name="sap/ui/layout/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/form/SimpleFormRenderer.js" size="1253" compressedSize="575">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/library.js" size="7773" compressedSize="2820">
+    <description>Initialization Code and shared classes of library sap.ui.layout.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/base/DataType.js"/>
+      <module name="sap/ui/core/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/layout/manifest.json" size="717">
+  </module>
+  <module name="sap/ui/layout/messagebundle.properties" size="512">
+  </module>
+  <module name="sap/ui/layout/messagebundle_ar.properties" size="591">
+  </module>
+  <module name="sap/ui/layout/messagebundle_bg.properties" size="838">
+  </module>
+  <module name="sap/ui/layout/messagebundle_ca.properties" size="439">
+  </module>
+  <module name="sap/ui/layout/messagebundle_cs.properties" size="444">
+  </module>
+  <module name="sap/ui/layout/messagebundle_da.properties" size="430">
+  </module>
+  <module name="sap/ui/layout/messagebundle_de.properties" size="438">
+  </module>
+  <module name="sap/ui/layout/messagebundle_el.properties" size="766">
+  </module>
+  <module name="sap/ui/layout/messagebundle_en.properties" size="390">
+  </module>
+  <module name="sap/ui/layout/messagebundle_en_US_sappsd.properties" size="801">
+  </module>
+  <module name="sap/ui/layout/messagebundle_en_US_saptrc.properties" size="482">
+  </module>
+  <module name="sap/ui/layout/messagebundle_es.properties" size="443">
+  </module>
+  <module name="sap/ui/layout/messagebundle_et.properties" size="398">
+  </module>
+  <module name="sap/ui/layout/messagebundle_fi.properties" size="444">
+  </module>
+  <module name="sap/ui/layout/messagebundle_fr.properties" size="454">
+  </module>
+  <module name="sap/ui/layout/messagebundle_hi.properties" size="691">
+  </module>
+  <module name="sap/ui/layout/messagebundle_hr.properties" size="419">
+  </module>
+  <module name="sap/ui/layout/messagebundle_hu.properties" size="469">
+  </module>
+  <module name="sap/ui/layout/messagebundle_it.properties" size="449">
+  </module>
+  <module name="sap/ui/layout/messagebundle_iw.properties" size="580">
+  </module>
+  <module name="sap/ui/layout/messagebundle_ja.properties" size="472">
+  </module>
+  <module name="sap/ui/layout/messagebundle_ko.properties" size="464">
+  </module>
+  <module name="sap/ui/layout/messagebundle_lt.properties" size="447">
+  </module>
+  <module name="sap/ui/layout/messagebundle_lv.properties" size="426">
+  </module>
+  <module name="sap/ui/layout/messagebundle_nl.properties" size="423">
+  </module>
+  <module name="sap/ui/layout/messagebundle_no.properties" size="416">
+  </module>
+  <module name="sap/ui/layout/messagebundle_pl.properties" size="498">
+  </module>
+  <module name="sap/ui/layout/messagebundle_pt.properties" size="459">
+  </module>
+  <module name="sap/ui/layout/messagebundle_ro.properties" size="446">
+  </module>
+  <module name="sap/ui/layout/messagebundle_ru.properties" size="856">
+  </module>
+  <module name="sap/ui/layout/messagebundle_sh.properties" size="429">
+  </module>
+  <module name="sap/ui/layout/messagebundle_sk.properties" size="469">
+  </module>
+  <module name="sap/ui/layout/messagebundle_sl.properties" size="444">
+  </module>
+  <module name="sap/ui/layout/messagebundle_sv.properties" size="440">
+  </module>
+  <module name="sap/ui/layout/messagebundle_th.properties" size="622">
+  </module>
+  <module name="sap/ui/layout/messagebundle_tr.properties" size="463">
+  </module>
+  <module name="sap/ui/layout/messagebundle_uk.properties" size="820">
+  </module>
+  <module name="sap/ui/layout/messagebundle_vi.properties" size="495">
+  </module>
+  <module name="sap/ui/layout/messagebundle_zh_CN.properties" size="436">
+  </module>
+  <module name="sap/ui/layout/messagebundle_zh_TW.properties" size="430">
+  </module>
+</library>

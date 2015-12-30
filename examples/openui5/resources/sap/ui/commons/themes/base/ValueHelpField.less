@@ -1,0 +1,31 @@
+/* ============================================= */
+/* CSS for control /ValueHelpField.control       */
+/* ============================================= */
+
+@sapUiValueHelpIconRegularUrl: ~"/img/valuehelpfield/F4-Help_icon_regular.png";
+@sapUiValueHelpIconHoverUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconDsblUrl: ~"/img/valuehelpfield/F4-Help_icon_dsbl.png";
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpIcon {
+	border: none;
+	display: inline;
+	font-size: 0;
+	position: absolute;
+	right: 0;
+	line-height: 100%;
+}
+
+.sapUiTfCombo > span.sapUiTfValueHelpIcon {
+	display: inline-block;
+	font-size: @sapUiFontSize;
+	text-align: center;
+	color: @sapUiDarkText;
+	cursor: default;
+}
+
+.sapUiTfCombo > .sapUiTfValueHelpDsblIcon,  /* make disabled icon look "reduced" */
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon {
+	opacity: .3;
+	filter: alpha(opacity=30);
+}

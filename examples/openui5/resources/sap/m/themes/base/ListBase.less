@@ -1,0 +1,132 @@
+/* ============================================= */
+/* CSS for control sap.m/ListBase.control 		 */
+/* ============================================= */
+.sapMList {
+	position: relative;	/* This should not break the list but help swipe list content position calculation */
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.sapMListUl {
+	list-style-type: none;
+}
+
+.sapMListSwipable {
+	/* IE Windows 8 */
+	/* This elements receives events when not panning in vertial direction */
+	touch-action: pan-y;
+	-ms-touch-action: pan-y;
+}
+
+.sapMList:focus,
+.sapMListUl:focus {
+	outline: none;
+}
+
+.sapMListSwp {
+	overflow: hidden;
+	position: absolute;
+	right: 0.5em;
+	z-index: 1;
+	opacity: 0;
+	pointer-events: auto;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+/* swipe animations */
+@-webkit-keyframes sapMListSwpInAnim {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes sapMListSwpInAnim {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes sapMListSwpOutAnim {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes sapMListSwpOutAnim {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.sapMListSwpInAnim {
+	-webkit-animation: sapMListSwpInAnim 0.2s ease-in forwards;
+	animation: sapMListSwpInAnim 0.2s ease-in forwards;
+}
+
+.sapMListSwpOutAnim {
+	-webkit-animation: sapMListSwpOutAnim 0.2s ease-in forwards;
+	animation: sapMListSwpOutAnim 0.2s ease-in forwards;
+}
+
+.sapMListNoData {
+	list-style-type: none;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	height: 2.75em;
+}
+
+.sapMListNoDataText{
+	-ms-flex-negative: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.sapMListShowSeparatorsAll{
+	/*class will be added for others, just a reminder*/
+}
+
+.sapMListShowSeparatorsInner{
+	/*class will be added for others, just a reminder*/
+}
+
+.sapMListShowSeparatorsNone{
+	/*class will be added for others, just a reminder*/
+}
+
+/* Growing feature */
+.sapMGrowingListTrigger {
+	display: block;
+	text-align: center;
+	overflow: hidden;
+}
+
+.sapMGrowingListBusyIndicatorVisible .sapMGrowingListTriggerText,
+.sapMGrowingListBusyIndicatorVisible .sapMGrowingListDescription {
+	visibility: hidden;
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, contentSelector) */
+.sapUiContainerContentPadding(~".sapMList");

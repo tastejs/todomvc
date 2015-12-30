@@ -1,0 +1,291 @@
+/* ====================================================== */
+/* CSS for control sap.m/Switch.control BlueCrystal theme */
+/* ====================================================== */
+
+/* ------------------------------ */
+/* Switch required variables      */
+/* ------------------------------ */
+
+@sapMSwitch-ONPOSITION: -32;
+@sapMSwitch-OFFPOSITION: 0;
+@sapMSwitch-TRANSITIONTIME: 175;
+
+/* ------------------------------ */
+/* Switch common styles           */
+/* ------------------------------ */
+
+.sapMSwtText,
+.sapMSwtAcceptReject .sapMSwtHandle {
+	box-sizing: border-box;
+}
+
+/* ------------------------------ */
+/* Switch container               */
+/* ------------------------------ */
+
+.sapMSwtCont {
+	padding: 0.5rem 0 0.5rem 0;
+}
+
+/* focus */
+
+.sap-desktop .sapMSwtCont:focus > .sapMSwt {
+	outline: 0.0625rem dotted @sapUiFocus;
+}
+
+/* ------------------------------ */
+/* Switch                         */
+/* ------------------------------ */
+
+.sapMSwt {
+	width: 4rem;
+	height: 2rem;
+
+	/* use px instead of rem, borders sized in "rem" disappear when the page is zoomed out in Chrome. */
+	border: 1px solid;
+
+	/* note: some browsers like Samsung Galaxy S4 with Android 4.2 does not support the "border-radius" shorthand property
+	but does support the long-hand properties for each corner like "border-top-left-radius" */
+	border-top-left-radius: 1rem;
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+	overflow: hidden;
+}
+
+/* background */
+
+.sapMSwtOn:not(.sapMSwtAcceptReject) {
+	background: @sapUiFieldActiveBackground;
+	border-color: @sapUiFieldActiveBorderColor;
+}
+
+.sapMSwtOff:not(.sapMSwtAcceptReject) {
+	background: @sapUiFieldBackground;
+	border-color: @sapUiFieldBorderColor;
+}
+
+/* hover */
+
+.sapMSwt.sapMSwtHoverable:hover {
+	border-color: @sapUiFieldHoverBorderColor;
+}
+
+.sapMSwtHoverable.sapMSwtOn:not(.sapMSwtAcceptReject):hover {
+	background: darken(@sapUiFieldActiveBackground, 5);
+}
+
+/* disabled */
+
+.sapMSwtDisabled {
+	opacity: 0.5;
+}
+
+/* ------------------------------ */
+/* Switch inner                   */
+/* ------------------------------ */
+
+.sapMSwtOff > .sapMSwtInner {
+	left: -2rem;
+}
+
+.sapMSwtOn > .sapMSwtInner {
+	left: 0;
+}
+
+/* CSS transitions */
+
+.sapMSwtTrans > .sapMSwtInner {
+	-webkit-transition: left 0.125s ease-in-out;
+	transition: left 0.125s ease-in-out;
+}
+
+html[dir=rtl] .sapMSwtTrans > .sapMSwtInner {
+	-webkit-transition-property: right;
+	transition-property: right;
+}
+
+/* ------------------------------ */
+/* Switch text                    */
+/* ------------------------------ */
+
+.sapMSwtText {
+	font-size: @sapMFontSmallSize;
+	width: 100%;
+	line-height: 2rem;
+}
+
+.sapMSwtOn .sapMSwtText {
+	color: @sapUiContentContrastTextColor;
+}
+
+.sapMSwtOff .sapMSwtText {
+	color: @sapUiContentLabelColor;
+}
+
+.sapMSwtTextOff {
+	left: 2rem;
+}
+
+.sapMSwtLabel {
+	display: block;
+	width: 1.875rem;
+	padding: 0 0.1875rem;
+	text-transform: uppercase;
+	line-height: inherit;
+}
+
+.sapMSwtLabelOff {
+	float: right;
+}
+
+/* ------------------------------ */
+/* Switch handler                 */
+/* ------------------------------ */
+
+.sapMSwtHandle {
+	width: 1.5rem;
+	height: 1.5rem;
+	left: 2.25rem;
+
+	// note: some browsers like Samsung Galaxy S4 with Android 4.2 does not support the "border-radius" shorthand property
+	// but does support the long-hand properties for each corner like "border-top-left-radius"
+	border-top-left-radius: 0.75rem;
+	border-top-right-radius: 0.75rem;
+	border-bottom-right-radius: 0.75rem;
+	border-bottom-left-radius: 0.75rem;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+/* background */
+
+.sapMSwtOn .sapMSwtHandle {
+	background: @sapUiInvertedElement;
+}
+
+.sapMSwtOff .sapMSwtHandle {
+	background: @sapUiFieldBorderColor;
+}
+
+/* ====================================================== */
+/* Switch type "AcceptReject"                             */
+/* ====================================================== */
+
+/* ----------------------------------------- */
+/* Switch type "AcceptReject" common styles  */
+/* ----------------------------------------- */
+
+/* background */
+
+.sapMSwtAcceptReject.sapMSwtOn {
+	border-color: @sapUiPositiveElement;
+}
+
+.sapMSwtAcceptReject.sapMSwtOff {
+	border-color: @sapUiNegativeElement;
+}
+
+/* ------------------------------ */
+/* Switch                         */
+/* ------------------------------ */
+
+/* background */
+
+.sapMSwtAcceptReject.sapMSwt {
+	background: @sapUiFieldBackground;
+}
+
+/* ------------------------------ */
+/* Switch text                    */
+/* ------------------------------ */
+
+/* icon fonts */
+
+.sapMSwtAcceptReject .sapMSwtLabel {
+	font-size: @sapMFontLargeSize;
+}
+
+.sapMSwtAcceptReject .sapMSwtLabelOn::before {
+	content: "\e05b";
+	color: @sapUiPositiveElement;
+}
+
+.sapMSwtAcceptReject .sapMSwtLabelOff::before {
+	content: "\e03e";
+	color: @sapUiNegativeElement;
+}
+
+/* ------------------------------ */
+/* Switch handler                 */
+/* ------------------------------ */
+
+.sapMSwtAcceptReject .sapMSwtHandle {
+	background: @sapUiFieldBackground;
+	border-style: solid;
+	border-width: 0.125rem;
+}
+
+.sapMSwtAcceptReject.sapMSwtOn .sapMSwtHandle {
+	border-color: @sapUiPositiveElement;
+}
+
+.sapMSwtAcceptReject.sapMSwtOff .sapMSwtHandle {
+	border-color: @sapUiNegativeElement;
+}
+
+/*  Workaround for a WebKit bug that causes a rendering issue. @link https://bugs.webkit.org/show_bug.cgi?id=21819
+
+	Affected platforms:
+	BlackBerry 10 Z30 device. */
+
+.sapMSwtAcceptReject .sapMSwtWebKit537-35.sapMSwtHandle {
+	border: none;
+}
+
+.sapMSwtAcceptReject.sapMSwtOn .sapMSwtWebKit537-35.sapMSwtHandle {
+	box-shadow: inset 0 0 0 0.125rem @sapUiPositiveElement;
+}
+
+.sapMSwtAcceptReject.sapMSwtOff .sapMSwtWebKit537-35.sapMSwtHandle {
+	box-shadow: inset 0 0 0 0.125rem @sapUiNegativeElement;
+}
+
+/* =================================================================== */
+/* CSS for control sap.m/Switch.control BlueCrystal theme compact size */
+/* =================================================================== */
+
+/* ------------------------------ */
+/* Switch container               */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMSwtCont {
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+}
+
+/* ------------------------------ */
+/* Switch                         */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMSwt {
+	width: 3.5rem;
+	height: 1.625rem;
+}
+
+/* ------------------------------ */
+/* Switch text                    */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMSwtText {
+	line-height: 1.625rem;
+}
+
+/* ------------------------------ */
+/* Switch handler                 */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMSwtHandle {
+	height: 1rem;
+	width: 1rem;
+}

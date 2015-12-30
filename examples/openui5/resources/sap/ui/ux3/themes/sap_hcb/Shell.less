@@ -1,0 +1,124 @@
+/* ================================================ */
+/* CSS for control sap.ui.commons/Shell.control */
+/* SAP-HCB Theme                                    */
+/* ================================================ */
+
+.sapUiUx3Shell {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ShellHeader {
+	border-bottom: 1px solid @sapUiMediumBorder;
+	background-color: @sapUiBaseBG;
+}
+
+.sapUiUx3ShellPaneEntry {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3ShellCanvas,
+.sapUiUx3ShellCanvasBackground  {
+	border: 1px solid @sapUiMediumBorder;
+	border-bottom-style: none;
+}
+
+.sapUiUx3ShellNoTools .sapUiUx3ShellCanvasBackground,
+.sapUiUx3ShellNoTools .sapUiUx3ShellCanvas {
+	border-left-width: 0;
+}
+
+.sapUiUx3ShellNoPane .sapUiUx3ShellCanvasBackground,
+.sapUiUx3ShellNoPane .sapUiUx3ShellCanvas {
+	border-right-width: 0;
+}
+
+.sapUiUx3ShellTool:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ShellTool-search {
+	background-image: url(img/shell/tools/Search_hover.png);
+}
+
+.sapUiUx3ShellTool-inspector {
+	background-image: url(img/shell/tools/Inspector_hover.png);
+}
+
+.sapUiUx3ShellTool-inspector:active,
+.sapUiUx3ShellTool-inspector.sapUiUx3ShellToolSelected {
+	background-image: url(img/shell/tools/Inspector_selected.png);
+}
+
+.sapUiUx3ShellTool-feeder {
+	background-image: url(img/shell/tools/Feed_hover.png);
+}
+
+.sapUiUx3ShellToolSelected .sapUiUx3ShellToolFontIcon,
+.sapUiUx3ShellToolHover .sapUiUx3ShellToolFontIcon {
+	color: @sapUiText;
+}
+
+/* header buttons */
+.sapUiUx3ShellHeader .sapUiBtn {
+	display: inline-block;
+	height: 16px;
+	font-size: 11px;
+	border: none;
+	background-color: transparent;
+	color: @sapUiBaseText;
+	border: 1px solid @sapUiMediumBorder;
+	vertical-align: top;
+	outline: none;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	padding: 0 4px 0 5px;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn::-moz-focus-inner { /* override extra button padding in Firefox */
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn:focus,
+.sapUiUx3ShellHeader .sapUiLnk:focus,
+.sapUiUx3ShellHeader .sapUiBtn:hover,
+.sapUiUx3ShellHeader .sapUiLnk:hover,
+.sapUiUx3ShellHeader .sapUiBtn:active,
+.sapUiUx3ShellHeader .sapUiLnk:active {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ShellHeader .sapUiMenuButtonIco {
+	width: 5px;
+	background-position: 0% 50%;
+}
+
+.sapUiUx3ShellHeader-logout {
+	background-image: url(img/shell/LogOut_icon.png);
+}
+
+.sapUiUx3ShellHeader-logout:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	top: 2px;
+}
+
+
+/** Overflow button and menu**/
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton {
+	border-top: 1px solid @sapUiLightBorder;
+	background-color: @sapUiBaseBG;
+}
+
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton > span {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton > span:hover {
+	background-color: @sapUiHighlight;
+}

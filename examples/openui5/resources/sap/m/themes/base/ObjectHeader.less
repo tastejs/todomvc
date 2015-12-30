@@ -1,0 +1,735 @@
+/* ============================================= */
+/* CSS for control sap.m/ObjectHeaderItem.control */
+/* ============================================= */
+.sapMOH h1, .sapMOHR h1 {
+	margin: 0;
+	font-weight: normal;
+}
+
+.sapMOH {
+	margin: 1rem;
+	padding: 1rem;
+}
+
+.sap-phone .sapMOH {
+	padding: 1rem 0;
+}
+
+.sapMDialog .sapMOH {
+	margin: 1rem;
+}
+
+.sapMPopover .sapMOH {
+	margin: 1rem;
+	padding: 1rem 0;
+}
+
+.sapMOH.sapMOHC {
+	margin: 0;
+	padding: 1.125rem 2rem 1rem 2rem;
+}
+
+.sap-phone .sapMOH.sapMOHC {
+	margin: 0;
+	padding: 1.125rem 1rem 1rem 1rem;
+}
+
+.sapMDialog .sapMOH.sapMOHC {
+	margin: 0;
+}
+
+.sapMPopover .sapMOH.sapMOHC {
+	margin: 0;
+	padding: 1.125rem 0 1rem 0;
+}
+
+.sapMOHIntro {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 0.875rem;
+	margin-top: 0.375rem;
+	margin-bottom: 0.625rem;
+}
+
+.sapMOHIntroActive > a:active,
+.sap-desktop .sapMOHIntroActive > a:hover,
+.sapMOHTitleActive h1 .sapMText:active,
+.sap-desktop .sapMOHTitleActive h1 .sapMText:hover {
+	text-decoration: underline;
+}
+
+.sapMOHTitleDiv {
+	box-sizing: border-box;
+	max-height: 6.3rem;
+	width: 65%;
+	overflow: hidden;
+	float: left;
+}
+
+.sapMOHC>.sapMOHTitleDiv {
+	padding-right: 0.5rem;
+}
+
+.sapMOHC>.sapMOHTitleDivFull,.sapMOHTitleDivFull {
+	width: 100%;
+}
+
+.sapMOHTitleDiv.sapMOHNumberWrap {
+	max-height: 4.2rem;
+}
+
+.sap-phone .sapMOHTitleDiv {
+	max-height: 5rem;
+}
+
+.sap-phone .sapMOHTitleDiv.sapMOHNumberWrap {
+	max-height: 3.4rem;
+}
+
+.sapMOHIcon {
+	position: absolute;
+	margin-top: 0.375rem;
+	width: 3rem;
+
+}
+
+.sapMOHTitle {
+	margin-top: 0.375rem;
+	display: inline-block;
+	position: relative;
+}
+
+.sapMText.sapMOHTitle {
+	position: relative;
+}
+
+.sapMOHTitle h1 .sapMText {
+	font-size: 1.375rem;
+}
+
+.sapMListTbl .sapMOHTitle h1 .sapMText {
+	font-size: 0.875rem;
+}
+
+.sapMOHTitleFollowArrow {
+	margin-right: 3rem;
+}
+
+.sapMOHC .sapMOHTitleFollowArrow {
+	margin-right: 2.5rem;
+}
+
+.sapMOHTitleAndArrow {
+	display: inline-block;
+	position: relative;
+	min-height: 3rem;
+}
+
+.sapMOHTitleIcon {
+	min-height: 3rem;
+}
+
+.sap-phone .sapMOHTitleIcon {
+	min-height: 2.5rem;
+}
+
+.sap-phone .sapMText.sapMOHTitle {
+	font-size: 1.188rem;
+}
+
+.sapMOHIcon+.sapMOHTitle {
+	margin-left: 4rem;
+}
+
+.sapMOHIcon+.sapMOHTitleAndArrow {
+	margin-left: 3.5rem;
+}
+
+.sapMOHTitleArrow {
+	display: inline-block;
+	vertical-align: top;
+	position: absolute;
+	right: 0;
+}
+
+.sapMOHC .sapMOHTitleArrow {
+	margin-top: 0.3rem;
+}
+
+.sapMOHTitleArrow .sapUiIcon {
+	margin-top: 1px;
+	vertical-align: top;
+	display: inline-block;
+	padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHTitleArrow .sapUiIcon,
+.sap-phone .sapMOHTitleArrow .sapUiIcon {
+	padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+}
+
+.sapMOHTitle+.sapMOHTitleArrow {
+	margin-left: 0.5rem;
+}
+
+.sapMOHNumberDiv {
+	margin-top: 0.375rem;
+	display: inline-block;
+	float: right;
+	text-align: end;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.sapMOHC > .sapMOHNumberDiv {
+	padding-left: 0.5rem;
+}
+
+.sapMOHC .sapMOHTitle h1 >.sapMText,
+.sap-phone .sapMOHC .sapMOHTitle h1 >.sapMText {
+	line-height: 1.8rem;
+	font-size: 1.125rem;
+}
+
+html[data-sap-ui-browser^=ie] .sapMOHNumberDiv,
+html[data-sap-ui-browser^=ed] .sapMOHNumberDiv {
+	text-align: right;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMOHNumberDiv,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMOHNumberDiv {
+	text-align: left;
+}
+
+.sapMOHNumberWrap {
+	width: 100%;
+}
+
+.sap-phone .sapMOHNumberWrap {
+	margin-top: 0.25rem;
+}
+
+.sapMOHNumber {
+	display: block;
+	font-size: 1.75rem;
+	margin-top: -0.25rem;
+}
+
+.sapMOHNumberUnit {
+	display: block;
+	font-size: 0.75rem;
+	margin-top: -0.25rem;
+}
+
+.sapMOHBottomRow {
+	margin-top: 1rem;
+	font-size: 0.875rem;
+}
+
+.sapMOHAttrRow {
+	margin-top: 0.625rem;
+	overflow: hidden;
+}
+
+.sapMOHAttrRow:first-child {
+	margin-top: 0;
+}
+
+.sapMOHC>.sapMOHAttr {
+	margin-top: 0.125rem;
+}
+
+.sapMOHAttr {
+	box-sizing: border-box;
+	display: inline-block;
+	width: 65%;
+	text-align: start;
+	vertical-align: top;
+	overflow: hidden;
+	float: left;
+}
+
+html[data-sap-ui-browser^=ie] .sapMOHAttr,
+html[data-sap-ui-browser^=ed] .sapMOHAttr {
+	text-align: left;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMOHAttr,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMOHAttr {
+	text-align: right;
+}
+
+.sapMOH .sapMObjectAttributeDiv {
+	display: inline-block;
+	text-overflow: inherit;
+	white-space: inherit;
+}
+
+.sapMOHStatus,
+.sapMOHStatusFixedWidth {
+	box-sizing: border-box;
+	display: inline-block;
+	text-align: end;
+	vertical-align: top;
+	overflow: hidden;
+	float: right;
+	white-space: nowrap;
+}
+
+.sapMOHStatusFixedWidth {
+	width: 35%;
+}
+
+.sapMOHStatusFixedWidth>.sapMPI {
+	float: right;
+}
+
+.sapMOHDivider,
+.sapMOHLastDivider {
+	clear: both;
+}
+
+/*
+ * Do NOT clear if ObjectHeader is placed in a responsive grid layout.
+ * The layout will clear after the ObjectHeader by itself. This caused problems
+ * on webkit browser on phones (CSN 0120031469 0000034838 2014)
+ */
+div[class*='sapUiRespGrid'] > .sapMOH > .sapMOHLastDivider {
+	clear: none;
+}
+
+
+html[data-sap-ui-browser^=ie] .sapMOHStatus,
+html[data-sap-ui-browser^=ie] .sapMOHStatusFixedWidth,
+html[data-sap-ui-browser^=ed] .sapMOHStatus,
+html[data-sap-ui-browser^=ed] .sapMOHStatusFixedWidth {
+	text-align: right;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMOHStatus,
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMOHStatusFixedWidth,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMOHStatus,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMOHStatusFixedWidth {
+	text-align: left;
+}
+
+/* Styles for Responsive Object Header */
+
+.sapMOHR {
+	width: 100%;
+	height: 100%;
+	padding: 1.1rem 2rem 0 2rem;
+	box-sizing: border-box;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHR,
+.sap-phone .sapMOHR {
+	padding: 0.625rem 1rem 0 1rem;
+}
+
+div[class*='sapMOHRBg']:only-child {
+	padding-bottom: 1.5rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone div[class*='sapMOHRBg']:only-child,
+.sap-phone div[class*='sapMOHRBg']:only-child {
+	padding-bottom: 1rem;
+}
+
+/* Group1 (title, flags and number) */
+.sapMOHRTitleNumberDiv {
+	display: inline-block;
+	max-width: 95rem; // set max width in order the content not to be stretched too much on a very wide screen
+	width: 100%;
+}
+
+.sapMOHRStatesOneOrThree {
+	max-width: 95rem; // set max width in order the content not to be stretched too much on a very wide screen
+}
+
+.sap-desktop .sapMOHRStatesOneOrThree .sapMOHRTitleNumberDiv {
+	width: 70%;
+	max-width: none;
+}
+
+/* icon*/
+.sapMOHRIcon {
+	position: absolute;
+	top: 0.4375rem;
+	width: 3rem;
+	height: 3rem;
+	margin-right: 1rem;
+	background-size: cover;
+	display: block;
+}
+
+.sapMOHRHideIcon{
+	display: none;
+	visibility: hidden;
+	margin-left: 0;
+}
+
+.sapMOHRTitleIcon > .sapMOHRTitle {
+	margin-left: 4rem;
+	min-height: 3.375rem;
+}
+
+html[data-sap-ui-browser ^= "ie"] {
+	.sapMOHRTitleIcon > .sapMOHRTitle {
+		min-height: 3.5rem;
+	}
+}
+
+/* 1) title block */
+.sapMOHRTitleDiv {
+	display: inline-block;
+	box-sizing: border-box;
+	overflow: hidden;
+	vertical-align: top;
+	position: relative;
+	width: 100%;
+}
+
+.sapMOHRTitleTextWrappable {
+	white-space: normal;
+}
+
+.sapMOHRTitleText {
+	margin-top: 0.4rem;
+	text-decoration:none;
+}
+
+.sapMOHRTitleTextContainer {
+	margin: 0.4rem 0.5rem 0 0;
+	display: inline-block;
+	position: relative;
+}
+
+.sapMOHR .sapMObjStatusMarker{
+	font-family: SAP-icons;
+	font-size: 1rem;
+	white-space: nowrap;
+}
+
+.sapMOHR .sapMObjStatusMarker .sapUiIcon {
+	display: inline;
+	margin-left: 0.5rem;
+}
+
+.sapMOHR .sapMObjStatusMarker.sapMObjStatusMarkerOpposite .sapUiIcon {
+	margin-right: 0.5rem;
+	margin-left: 0;
+}
+
+/* overwrite transform for the markers favorite and flag icon */
+html[dir=rtl] .sapMObjStatusMarker > .sapUiIcon.sapUiIconMirrorInRTL {
+	-ms-transform: none; /* IE 9 */
+	-webkit-transform: none; /* Chrome, Safari, Opera */
+	transform: none;
+}
+
+.sapMOHRIntro {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-top: 0.5rem;
+	line-height: normal;
+}
+
+.sapMOHRIntroMargin {
+	margin-top: 0;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRIntroMargin,
+.sap-phone .sapMOHRIntroMargin {
+	margin-top: -0.3rem;
+}
+
+.sapMOHRIntroActive > a:active,
+.sap-desktop .sapMOHRIntroActive > a:hover,
+.sapMOHRTitleActive .sapMOHRTitleText:active,
+.sap-desktop .sapMOHRTitleActive .sapMOHRTitleText:hover {
+	text-decoration: underline;
+}
+
+.sapMOHRTitleArrow {
+	display: inline-block;
+	vertical-align: top;
+	min-height: 2.56rem;
+}
+
+.sapMOHRTitleArrow .sapUiIcon {
+	margin-top: 1px;
+	vertical-align: top;
+	position: absolute;
+	display: inline-block;
+	padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTitleArrow .sapUiIcon,
+.sap-phone .sapMOHRTitleArrow .sapUiIcon {
+	padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+}
+
+.sapMOHRTitleFollowArrow {
+	margin-right: 2.5rem;
+	padding-right: 0;
+}
+
+/* 3) states block */
+.sapMOHRStates {
+	display: inline-block;
+	box-sizing: border-box;
+	vertical-align: top;
+	padding-top: 1rem;
+	width: 100%;
+	max-width: 95rem; // set max width in order the content not to be stretched too much on a very wide screen
+}
+
+.sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRStates {
+	width: 30%;
+	box-sizing: border-box;
+	padding: 0.85rem 0 0 1rem;
+	text-align: end;
+}
+
+html[data-sap-ui-browser^=ie].sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRStates,
+html[data-sap-ui-browser^=ed].sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRStates {
+	text-align: right;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie].sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRStates,
+html[dir=rtl][data-sap-ui-browser^=ed].sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRStates {
+	text-align: left;
+}
+
+.sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRStates .sapMObjectAttributeDiv > span[class*='sapMObjectAttribute'] {
+	float: none;
+}
+
+.sapMOHR .sapMObjectNumber {
+	display: inline-block;
+	padding: 0.4rem 0 0 1rem;
+}
+
+.sapMOHR .sapMObjectNumberUnit {
+	padding-top: 0.4375rem;
+}
+
+.sap-desktop .sapMOHR .sapMObjectNumber {
+	width: 30%;
+	box-sizing: border-box;
+}
+
+.sap-desktop.sapUiMedia-Std-Tablet .sapMOHR .sapMObjectNumber,
+.sap-tablet .sapMOHR .sapMObjectNumber {
+	width: 35%;
+	box-sizing: border-box;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHR .sapMObjectNumber,
+.sap-phone .sapMOHR .sapMObjectNumber {
+	box-sizing: border-box;
+	float: right;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHR .sapMObjectNumber.sapMObjectNumberBelowTitle,
+.sap-phone .sapMOHR .sapMObjectNumber.sapMObjectNumberBelowTitle {
+	width: 100%;
+	padding: 0.5rem 0 0 0;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRNumberWrap,
+.sap-phone .sapMOHRNumberWrap {
+	width: 100%;
+	text-align: left;
+	margin-left: 0;
+}
+
+.sap-desktop .sapMOHRTitleDiv,
+.sap-desktop .sapMOHRStatesOneOrThree > .sapMOHRTitleNumberDiv > .sapMOHRTitleDiv {
+	width: 70%;
+}
+
+.sap-desktop.sapUiMedia-Std-Tablet .sapMOHRTitleDiv,
+.sap-desktop.sapUiMedia-Std-Tablet .sapMOHRStatesOneOrThree > .sapMOHRTitleNumberDiv > .sapMOHRTitleDiv,
+.sap-tablet .sapMOHRTitleDiv,
+.sap-tablet .sapMOHRStatesOneOrThree > .sapMOHRTitleNumberDiv > .sapMOHRTitleDiv {
+	width: 65%;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTitleDiv,
+.sap-phone .sapMOHRTitleDiv {
+	width: 60%;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTitleDivFull.sapMOHRTitleDiv,
+.sap-phone .sapMOHRTitleDivFull.sapMOHRTitleDiv,
+.sapMOHRTitleDivFull.sapMOHRTitleDiv {
+	width: 100%;
+}
+
+.sapMOHRStatesCont1,
+.sapMOHRStatesCont2,
+.sapMOHRStatesCont3,
+.sapMOHRStatesCont4 {
+	float: left;
+}
+
+.sapMOHROneCols {
+	width: 100%;
+}
+
+.sapMOHRTwoCols {
+	width: 50%;
+	box-sizing: border-box;
+}
+
+.sapMOHRTwoCols.sapMOHRStatesCont1 {
+	padding-right: 0.5rem;
+}
+
+.sapMOHRTwoCols.sapMOHRStatesCont2 {
+	text-align: end;
+	padding-left: 0.5rem;
+}
+
+html[data-sap-ui-browser^=ie] .sapMOHRTwoCols.sapMOHRStatesCont2,
+html[data-sap-ui-browser^=ed] .sapMOHRTwoCols.sapMOHRStatesCont2 {
+	text-align: right;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMOHRTwoCols.sapMOHRStatesCont2,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMOHRTwoCols.sapMOHRStatesCont2 {
+	text-align: left;
+}
+
+.sapMOHRTwoCols.sapMOHRStatesCont2 .sapMOHRAttr .sapMObjectAttributeDiv > span[class*='sapMObjectAttribute'] {
+	float: none;
+}
+
+.sapMOHRThreeCols {
+	width: 33%;
+	box-sizing: border-box;
+}
+
+.sapMOHRThreeCols.sapMOHRStatesCont1 {
+	padding-right: 0.66rem;
+}
+
+.sapMOHRThreeCols.sapMOHRStatesCont3 {
+	padding-left: 0.66rem;
+}
+
+.sapMOHRThreeCols.sapMOHRStatesCont2 {
+	padding-left: 0.33rem;
+	padding-right: 0.33rem;
+}
+
+.sapMOHRFourCols {
+	width: 25%;
+	box-sizing: border-box;
+}
+
+.sapMOHRFourCols.sapMOHRStatesCont1 {
+	padding-right: 0.75rem;
+}
+
+.sapMOHRFourCols.sapMOHRStatesCont4 {
+	padding-left: 0.75rem;
+}
+
+.sapMOHRFourCols.sapMOHRStatesCont2 {
+	padding-right: 0.5rem;
+	padding-left: 0.25rem;
+}
+
+.sapMOHRFourCols.sapMOHRStatesCont3 {
+	padding-left: 0.5rem;
+	padding-right: 0.25rem;
+}
+
+div[class*='sapMOHRStatesCont'] > div:last-child {
+	padding-bottom: 0;
+}
+
+.sapMOHR .sapMITH {
+	position: relative;
+	margin-left: -2rem;
+	margin-right: -2rem;
+}
+
+.sap-phone .sapMOHRTabs .sapMITH,
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITH {
+	position: relative;
+	margin-left: -1rem;
+	margin-right: -1rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBHead {
+	margin: 1rem 1rem 0 1rem;
+}
+
+html[data-sap-ui-os=win8].sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBHead {
+	margin: 1rem 0 0;
+}
+
+.sap-phone .sapMOHRTabs .sapMITBScrollContainer,
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBScrollContainer {
+	margin: 0 1rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBArrowScrollLeft {
+	left: 0.25rem;
+	padding: 1rem 0;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBArrowScrollRight {
+	padding: 1rem 0;
+	right: 0.25rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBArrowScrollLeftTextOnly {
+	left: 0.25rem;
+	padding: 1.25rem 0 0.75rem;
+}
+
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs .sapMITBArrowScrollRightTextOnly {
+	padding: 1.25rem 0 0.75rem;
+	right: 0.25rem;
+}
+
+.sapMOHRTabs {
+	margin: 0 0 0 0;
+	padding-top: 0;
+}
+
+.sap-phone .sapMOHRTabs,
+.sap-desktop.sapUiMedia-Std-Phone .sapMOHRTabs {
+	margin: 0 0 0 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.sap-phone .sapMOHRTabs .sapMITBTextOnly > .sapMITBFilter > .sapMITBText + .sapMITBContentArrow {
+	height: 0.75rem;
+}
+
+.sapMOHR .sapMITB {
+	display: block;
+	position: relative;
+	width: 100%;
+}
+
+.sapMOHR .sapMITBHead {
+	display: block;
+	font-size: 0.75rem;
+	overflow: hidden;
+	position: relative;
+	white-space: nowrap;
+}
+
+.sapMOHR .sapMPI {
+	margin: 0;
+}

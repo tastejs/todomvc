@@ -1,0 +1,114 @@
+@sapUiTabBorderRadius: 0;
+
+.sapUiTabStrip {
+	border: none;
+}
+
+.sapUiTabBar {
+	height: 29px;
+}
+
+.sapUiTabBarCnt {
+	height: 27px;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: @sapUiHighlight;
+	padding: 0;
+}
+
+.sapUiTab,
+.sapUiTabSel,
+.sapUiTabDsbl {
+	height: 16px;
+	margin: 6px 0 0;
+	padding: 2px 10px;
+	background-color: @sapUiExtraLightBG;
+	border: 1px solid @sapUiMediumBorder;
+	border-bottom-width: 0;
+	-moz-border-radius: @sapUiTabBorderRadius @sapUiTabBorderRadius 0 0;
+	-webkit-border-radius: @sapUiTabBorderRadius @sapUiTabBorderRadius 0 0;
+	border-radius: @sapUiTabBorderRadius @sapUiTabBorderRadius 0 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiTab,
+html[data-sap-ui-browser^="ie"] .sapUiTabSel,
+html[data-sap-ui-browser^="ie"] .sapUiTabDsbl {
+	/*in IE outline-offset not works, so use border instead*/
+	border-bottom-width: 1px;
+	padding-bottom: 1px;
+}
+
+.sapUiTab:hover {
+	background-color: @sapUiExtraLightBG;
+	border-width: 2px;
+	border-bottom-width: 0;
+	padding: 1px 9px 2px 9px;
+	border-color: @sapUiHighlight;
+}
+
+.sapUiTab:focus,
+.sapUiTabDsbl:focus {
+	outline: 1px dashed @sapUiHighlight;
+	outline-offset: -1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiTab:focus,
+html[data-sap-ui-browser^="ie"] .sapUiTabDsbl:focus{
+	/*in IE outline-offset not works, so use border instead*/
+	outline: none;
+	border: 1px dashed @sapUiHighlight;
+}
+
+.sapUiTabSel:focus {
+	outline: 1px dashed @sapUiTextSelection;
+	outline-offset: -1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiTabSel:focus{
+	/*in IE outline-offset not works, so use border instead*/
+	outline: none;
+	border: 1px dashed @sapUiTextSelection;
+}
+
+.sapUiTabSel {
+	padding-top: 3px;
+	margin: 5px 0 0;
+	color: @sapUiTextSelection;
+	font-weight: bold;
+	background-color: @sapUiHighlight;
+	border-color: @sapUiHighlight;
+}
+
+.sapUiTabClose {
+	background-image: url(img/tab-close.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 12px;
+	height: 12px;
+	border: 1px solid transparent;
+	margin: 0;
+	position: relative;
+	left: 6px;
+	padding: 0;
+}
+.sapUiTabClose:hover {
+	border-color: @sapUiMediumBorder;
+}
+.sapUiTabSel .sapUiTabClose {
+	background-image:url(img/tab-close-sel.png);
+}
+
+.sapUiTabSel .sapUiTabClose:hover {
+	border-color: @sapUiTextSelection;
+}
+
+.sapUiTabIco {
+	margin-right:2px;
+}
+
+.sapUiTabPanel {
+	top: 29px;
+	border: 2px solid @sapUiDarkBorder;
+	border-top-width: 0;
+	padding: 6px;
+}

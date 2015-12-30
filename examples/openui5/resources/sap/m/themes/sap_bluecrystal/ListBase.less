@@ -1,0 +1,150 @@
+.sapMList {
+	margin: 0;
+	padding: 0;
+}
+
+.sapMListUl {
+	padding: 0;
+	margin: 0;
+}
+
+.sapUiFioriObjectPage > section > .sapMList:not(.sapMListInsetBG){
+	margin: 1rem 0;
+	padding: 0 1rem;
+	box-sizing:           border-box;
+}
+.sapUiFioriObjectPage > section > .sapMITB + .sapMList:not(.sapMListInsetBG){
+	margin-top: 1rem;
+}
+.sap-phone .sapUiFioriObjectPage > section > .sapMList:not(.sapMListInsetBG){
+	padding: 0;
+}
+
+.sapUIMeTabContainerContent .sapMList{
+	padding: 1rem;
+	box-sizing:           border-box;
+}
+
+.sap-phone .sapUIMeTabContainerContent .sapMList{
+	padding: 0rem;
+	box-sizing:           border-box;
+}
+
+.sapMListSwp {
+	margin-top: -1px;
+}
+
+.sapMListInsetBG{
+	padding: 2rem;
+}
+.sapMListInsetBG > .sapMListSwp {
+	margin-right: 2rem;
+}
+
+.sap-phone .sapMListInsetBG{
+	padding: 1rem;
+}
+.sap-phone .sapMListInsetBG > .sapMListSwp {
+	margin-right: 1rem;
+}
+
+.sapMListHdr {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: @sapMFontHeader4Size;
+	font-family: @sapUiFontHeaderFamily;
+	text-shadow: 0 1px 0 @sapUiLightShadowTint;
+	color: @sapUiGroupTitleTextColor;
+	height: 3rem;
+	line-height: 3rem;
+	padding: 0 1rem;
+	background-color: @sapUiGroupTitleBackground;
+	border-bottom: 1px solid @sapUiGroupTitleBorderColor;
+}
+
+.sapMListFtr{
+	height: 2rem;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: none;	/* To improve readability Mobile Safari automatically increases the size of small text so let's disable this */
+	font-size: @sapMFontMediumSize;
+	line-height: 2rem;
+	background-color: @sapUiListFooterBackground;
+	color: @sapUiListFooterTextColor;
+	padding: 0 1rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sapMListNoData {
+	color: @sapUiListTextColor;
+	background-color: @sapUiListBackground;
+	border-bottom: 1px solid @sapUiListBorderColor;
+	padding: 0 1rem !important;
+	height:3rem;
+}
+
+.sapMListTopBorder {
+	border-top: 1px solid @sapUiListBorderColor;
+}
+
+.sapMListShowSeparatorsNone .sapMListNoData{
+	border-bottom: 0px;
+}
+
+.sapUIMeTabContainerContent .sapMList{
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+.sapUIMeTabContainerContent .sapMFeedListItem {
+	display: block;
+	padding: .5rem 0;
+}
+
+/* Growing feature */
+.sapMGrowingListTrigger {
+	border-top: 1px solid @sapUiListHeaderBorderColor;
+	height: 5.0rem;
+}
+.sapMGrowingListBusyIndicator {
+	margin: 1.5rem 1.0rem ;
+	position: absolute;
+}
+.sapMGrowingListTriggerText {
+	padding: 0 4rem;
+}
+.sapMGrowingListTriggerText > .sapMSLITitle {
+	margin: 0.813rem 0; /* overwrites any user-agent default margin values */
+}
+.sapMGrowingListDescription {
+	padding: 0 4rem;
+	text-align: center;
+}
+
+/* Compact size */
+.sapUiSizeCompact .sapMListNoData {
+	height: 2rem;
+	font-size: @sapMFontMediumSize;
+}
+
+.sapUiSizeCompact .sapMListFtr{
+	font-size: @sapMFontSmallSize;
+}
+
+.sapUiSizeCompact .sapMTB.sapMListHdrTBar {
+	height: 3rem;
+}
+
+.sapUiSizeCompact .sapMGrowingListTrigger{
+	height: 4rem;
+}
+
+.sapUiSizeCompact .sapMGrowingListTrigger > .sapMGrowingListBusyIndicator{
+	margin: 1rem;
+}
+
+.sapUiSizeCompact .sapMGrowingListTriggerText > .sapMSLITitle {
+	margin-bottom: 0;
+}

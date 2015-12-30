@@ -1,0 +1,46 @@
+/* ============================================= */
+/* CSS for control commons/DatePicker.control    */
+/* ============================================= */
+/****************************************************************/
+/*                       Base DATEPICKER                        */
+/****************************************************************/
+
+/* calendar icon */
+.sapUiTfCombo > .sapUiTfDateIcon {
+	background-image: url(img/datepicker/icon_cal.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	border-width: 0 0 0 1px;  /* Placeholder for active and hover */
+	border-style: solid;
+	border-color: transparent;
+	display: inline;
+	font-size: 0;
+	position: absolute;
+	right: 0;
+}
+
+.sapUiTfStd > .sapUiTfDateIcon{
+	cursor: pointer;
+}
+
+/* Disabled icon */
+.sapUiTfCombo.sapUiTfDsbl > .sapUiTfDateIcon {
+	background-image: url(img/datepicker/icon_cal_disabled.png);
+}
+
+.sapUiTableCellEdit .sapUiTfStd > .sapUiTfDateIcon:hover,
+.sapUiTableCellEdit .sapUiTfFoc > .sapUiTfDateIcon {
+	background-color: @sapUiWhiteBG;
+	background-image: url(img/datepicker/icon_cal.png), -moz-linear-gradient(top, @sapUiWhiteBG, @sapUiWhiteBG);
+	background-image: url(img/datepicker/icon_cal.png), -webkit-gradient(linear, left top, left bottom, from(@sapUiWhiteBG), to(@sapUiWhiteBG));
+	border-width: 0px;
+}
+
+.sapUiTableCellEdit .sapUiTfStd > .sapUiTfDateIcon:active,
+.sapUiTableCellEdit .sapUiTfFoc > .sapUiTfDateIcon:active {
+	background-color: @sapUiWhiteBG;
+	background-image: url(img/datepicker/icon_cal.png), -moz-linear-gradient(top, @sapUiWhiteBG, @sapUiWhiteBG 0px, @sapUiWhiteBG 13px, @sapUiWhiteBG 16px, @sapUiWhiteBG);
+	background-image: url(img/datepicker/icon_cal.png), -webkit-gradient(linear, left top, left bottom, from(@sapUiWhiteBG), color-stop(0.05, @sapUiWhiteBG), color-stop(0.75, @sapUiWhiteBG), color-stop(0.95, @sapUiWhiteBG),  to(@sapUiWhiteBG));
+	border-width: 0px;
+}

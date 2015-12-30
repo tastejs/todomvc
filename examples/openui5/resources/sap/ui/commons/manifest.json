@@ -1,0 +1,42 @@
+{
+  "_version": "1.2.0",
+  "sap.app": {
+    "_version": "1.2.0",
+    "id": "sap.ui.commons",
+    "type": "library",
+    "embeds": [],
+    "applicationVersion": {
+      "version": "1.32.9"
+    },
+    "title": "Common basic controls, mainly intended for desktop scenarios",
+    "description": "Common basic controls, mainly intended for desktop scenarios",
+    "ach": "CA-UI5-CTR",
+    "resources": "resources.json",
+    "offline": true
+  },
+  "sap.ui": {
+    "_version": "1.1.0",
+    "technology": "UI5",
+    "supportedThemes": [
+      "base",
+      "sap_hcb"
+    ]
+  },
+  "sap.ui5": {
+    "_version": "1.1.0",
+    "dependencies": {
+      "minUI5Version": "1.32",
+      "libs": {
+        "sap.ui.core": {
+          "minVersion": "1.32.9"
+        },
+        "sap.ui.layout": {
+          "minVersion": "1.32.9"
+        },
+        "sap.ui.unified": {
+          "minVersion": "1.32.9"
+        }
+      }
+    }
+  }
+}

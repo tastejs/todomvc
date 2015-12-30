@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<interface xmlns="http://www.sap.com/sap.ui.library.xsd">
+    <name>ToolbarItem</name>
+    <derived/>
+    <documentation>Marker interface for common controls which are suitable for use within a toolbar.
+The most prominent example of a toolbar item is a button which is mostly used with
+an icon instead of a text caption.
+
+Toolbar items must have a fixed height compatible with the toolbar being
+a single horizontal row. They can refer to the toolbar's marker class
+&quot;sapUiTb&quot; to adjust their own theming when used inside a toolbar.</documentation>
+</interface>

@@ -1,0 +1,167 @@
+/* ================================================== */
+/* CSS for control sap.ui.commons/RowRepeater.control */
+/* ================================================== */
+
+/* RowRepeater root
+
+Three possible designs with corresponding CSS classes:
+- Standard: sapUiRrDesignStandard
+- Transparent: sapUiRrDesignTransparent
+- BareShell: sapUiRrDesignBareShell
+*/
+
+/** Common Design **/
+
+/* Primary Toolbar */
+.sapUiRrPtb {
+	display: table;
+	width: 100%;
+	border-top: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+}
+
+/* Primary Toolbar: Logo + Title */
+.sapUiRrLogo {
+	display: table-cell;
+	padding-left: 10px;
+}
+
+.sapUiRrTitle {
+	display: table-cell;
+	white-space: nowrap;
+	font-size: @sapUiFontLargeSize;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+/* Primary Toolbar - Filters */
+.sapUiRrFilters {
+	display: table-cell;
+	width: 100%;
+	vertical-align: middle;
+	font-size: @sapUiFontLargeSize;
+}
+
+/* Primary Toolbar - Controller */
+.sapUiRrCtrl {
+	display: table-cell;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+/* Secondary Toolbar */
+.sapUiRrStb {
+	width: 100%;
+	display: table;
+	border-top: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+}
+
+/* Secondary Toolbar - Sort By */
+.sapUiRrSortBy {
+	display: table-cell;
+	white-space: nowrap;
+	font-weight: bold;
+	padding-left: 10px;
+	vertical-align: middle;
+}
+
+/* Secondary Toolbar - Sorters */
+.sapUiRrSorters {
+	width: 100%;
+	display: table-cell;
+}
+
+/* Row Container */
+.sapUiRrBody {
+	width: 100%;
+	border: 1px solid;
+	background-color: transparent;
+	overflow: hidden;
+	position: relative;
+}
+
+/* Page */
+.sapUiRrPage {
+	list-style: none;
+	padding-left: 0px;
+	position: relative;
+	margin-top: 0px;
+	margin-bottom:0px;
+}
+
+/* Row */
+.sapUiRrRow {
+}
+
+/* No Data - Special Row */
+.sapUiRrNoData {
+	font-size: @sapUiFontLargeSize;
+	font-weight: bold;
+	margin: 10px;
+}
+
+/* Footer */
+.sapUiRrFtr {
+	width: 100%;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	height: 22px;
+	text-align: center;
+}
+
+.sapUiRrFtr > .sapUiPag {
+	padding-top: 3px;
+}
+
+/** Standard Design **/
+.sapUiRrDesignStandard > .sapUiRrPtb {
+	background-color: @sapUiExtraLightBG;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiRrDesignStandard > .sapUiRrStb {
+	background-color: @sapUiDarkBG;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiRrDesignStandard > .sapUiRrFtr {
+	background-color: @sapUiDarkBG;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiRrDesignStandard > .sapUiRrBody {
+	border-color: @sapUiMediumBorder;
+}
+
+/** Transparent Design **/
+.sapUiRrDesignTransparent > .sapUiRrPtb {
+	background-color: transparent;
+	border: none;
+}
+
+.sapUiRrDesignTransparent > .sapUiRrStb {
+	background-color: transparent;
+	border: none;
+}
+
+.sapUiRrDesignTransparent .sapUiTb {
+	background-image: none;
+}
+
+.sapUiRrDesignTransparent > .sapUiRrFtr {
+	background-color: transparent;
+	border: none;
+}
+
+.sapUiRrDesignTransparent > .sapUiRrBody {
+	border: none;
+}
+
+/** BareShell Design **/
+.sapUiRrDesignBareShell > .sapUiRrBody {
+	border: none;
+}

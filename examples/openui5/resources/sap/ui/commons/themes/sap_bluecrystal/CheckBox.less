@@ -1,0 +1,135 @@
+.sapUiCb {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	line-height: 20px;
+	height: 21px;
+	padding-top: 1px;
+	position: relative;
+}
+
+.sapUiCb:focus{
+	outline-color: @sapUiKeyboardFocus;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiCb:focus:after {
+	border-color: @sapUiKeyboardFocus;
+}
+
+.sapUiCb > input { /* make the real checkbox vanish from the screen */
+	position: absolute;
+	visibility: hidden;
+	margin: 4px 1px; /* only needed for QTP tests which may derive the click position from <input> position */
+	left: 0;
+}
+
+.sapUiCb > label { /* render an image as checkbox replacement */
+	background-image: url(img/checkbox.png);
+	background-repeat: no-repeat;
+	background-position: left 1px;
+	padding: 1px 0 2px 22px;
+}
+
+.sapUiCb .sapUiCbNoText {
+	padding-left: 15px;
+}
+
+
+.sapUiCbChk > label {
+	background-position: left -29px;
+}
+
+/* hover */
+.sapUiCbStd:hover > label {
+	background-position: left -59px;
+}
+
+.sapUiCbStd:hover.sapUiCbChk > label {
+	background-position: left -89px;
+}
+
+/* readonly */
+.sapUiCbRo > label {
+	background-position: left -179px;
+}
+
+.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -209px;
+}
+
+/* error */
+.sapUiCbErr > label {
+	background-position: left -239px;
+}
+
+.sapUiCbErr.sapUiCbChk > label {
+	background-position: left -269px;
+}
+
+/* error hover */
+.sapUiCbInteractive.sapUiCbErr:hover > label {
+	background-position: left -539px;
+}
+
+.sapUiCbInteractive.sapUiCbErr.sapUiCbChk:hover > label {
+	background-position: left -569px;
+}
+
+/* warning */
+.sapUiCbWarn > label {
+	background-position: left -299px;
+}
+
+.sapUiCbWarn.sapUiCbChk > label {
+	background-position: left -329px;
+}
+
+/* warning hover */
+.sapUiCbInteractive.sapUiCbWarn:hover > label {
+	background-position: left -479px;
+}
+
+.sapUiCbInteractive.sapUiCbWarn.sapUiCbChk:hover > label {
+	background-position: left -509px;
+}
+
+/* readonly error */
+.sapUiCbErr.sapUiCbRo > label {
+	background-position: left -359px;
+}
+
+.sapUiCbErr.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -389px;
+}
+
+/* readonly warning */
+.sapUiCbWarn.sapUiCbRo > label {
+	background-position: left -419px;
+}
+
+.sapUiCbWarn.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -449px;
+}
+
+/* disabled */
+.sapUiCbDis > label,
+.sapUiCbDis.sapUiCbWarn.sapUiCbRo > label,
+.sapUiCbDis.sapUiCbErr.sapUiCbRo > label {
+	text-color: @sapUiContentDisabledTextColor;
+	background-position: left -119px;
+}
+
+.sapUiCbDis.sapUiCbChk > label,
+.sapUiCbDis.sapUiCbWarn.sapUiCbRo.sapUiCbChk > label,
+.sapUiCbDis.sapUiCbErr.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -149px;
+}
+
+/* ============================ */
+/* Overwrites for Label in Form */
+/* ============================ */
+
+/* GridLayout */
+html[data-sap-ui-browser="ie8"] .sapUiGrid td > .sapUiCb,
+html[data-sap-ui-browser^="cr"] .sapUiGrid td > .sapUiCb{
+	padding-top: 0;
+}

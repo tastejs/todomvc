@@ -1527,6 +1527,76 @@
 			}]
 		}]
 	},
+	"openui5": {
+			"name": "OpenUI5",
+			"description": "OpenUI5 lets you build enterprise-ready web applications, responsive to all devices, running on almost any browser of your choice.",
+			"homepage": "http://openui5.org/",
+			"examples": [{
+				"name": "Example",
+				"url": "examples/openui5"
+			}],
+			"link_groups": [{
+				"heading": "Official Resources",
+				"links": [{
+					"name": "Key Features of OpenUI5",
+					"url": "http://openui5.org/features.html"
+				}, {
+						"name": "Who is using UI5?",
+						"url": "http://openui5.org/whoUsesUI5.html"
+				}, {
+					"name": "Developer Guide",
+					"url": "https://openui5.hana.ondemand.com/#docs/guide/Documentation.html"
+				}, {
+					"name": "API Reference",
+					"url": "https://openui5.hana.ondemand.com/#docs/api/symbols/sap.ui.html"
+				}, {
+					"name": "Explored App",
+					"url": "https://openui5.hana.ondemand.com/explored.html"
+				}, {
+					"name": "Blog",
+					"url": "http://openui5.tumblr.com/"
+				}, {
+					"name": "FAQ",
+					"url": "http://openui5.org/faq.html"
+				}]
+			}, {
+				"heading": "Articles and Guides",
+				"links": [{
+					"name": "OpenUI5 Intro @ OSCON 2014",
+					"url": "https://www.youtube.com/watch?v=y7iR3RBUUpY"
+				}, {
+					"name": "Video Tutorial @ The New Stack",
+					"url": "http://thenewstack.io/video-tutorial-saps-openui5-an-open-source-javascript-ui-library/"
+				}, {
+					"name": "Getting Started",
+					"url": "http://openui5.org/getstarted.html"
+				}, {
+					"name": "Detailed Walkthrough",
+					"url": "https://openui5.hana.ondemand.com/#docs/guide/3da5f4be63264db99f2e5b04c5e853db.html"
+				}, {
+					"name": "Further Tutorials on YouTube",
+					"url": "https://www.youtube.com/channel/UCOlLpeus2uAJhmxjKHHGTgA"
+				}]
+			}, {
+				"heading": "Community",
+				"links": [{
+					"name": "OpenUI5 Community News Feed",
+					"url": "http://openui5.org/planet/"
+				}, {
+					"name": "OpenUI5 on Stack Overflow",
+					"url": "http://stackoverflow.com/questions/tagged/sapui5%20or%20openui5"
+				}, {
+					"name": "OpenUI5 on SCN",
+					"url": "http://scn.sap.com/community/developer-center/front-end/content"
+				}, {
+					"name": "OpenUI5 on GitHub",
+					"url": "https://github.com/sap/openui5"
+				}, {
+					"name": "OpenUI5 on Twitter",
+					"url": "https://twitter.com/OpenUI5"
+				}]
+			}]
+		},
 	"polymer": {
 		"name": "Polymer",
 		"description": "Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers. It is comprised of core platform features (e.g Shadow DOM, Custom Elements, MDV) enabled with polyfills and a next generation web application framework built on these technologies.",

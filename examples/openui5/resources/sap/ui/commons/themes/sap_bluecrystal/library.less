@@ -1,0 +1,4110 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../../Base/baseLib/sap_bluecrystal/base.less"; /* ORIGINAL IMPORT PATH: "../../../../../sap/ui/core/themes/sap_bluecrystal/base.less" */
+
+@import "../../../../../sap/ui/core/themes/sap_bluecrystal/global.less";
+
+/* START "AbsoluteLayout.less" */
+/* ===================================================== */
+/* CSS for control sap.ui.commons.AbsoluteLayout.control */
+/* Blue Crystal                                          */
+/* ===================================================== */
+
+.sapUiLayoutAbs{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "AbsoluteLayout.less" */
+
+/* START "Accordion.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/Accordion.control */
+/* Blue Crystal Desktop                             */
+/* =================================================*/
+
+.sapUiAcd{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	display: block;
+	position: relative;
+	border: 1px solid @sapUiLightestBorder;
+	padding: 2px;
+	background-color: @sapUiDarkBorder;
+}
+
+.sapUiAcd-section{
+	display: block;
+	position: relative;
+}
+
+.sapUiAcd-panel{
+	display: block;
+	position: relative;
+}
+/* END "Accordion.less" */
+
+/* START "AccordionSection.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons/AccordionSection.control */
+/* Blue Crystal Desktop                                    */
+/* ========================================================*/
+
+.sapUiAcdSection {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiAcdSectionHdr {
+	color: @sapUiExtraDarkText;
+	background-color: @sapUiListSelectionBackgroundColor;
+	min-height: 27px;
+	font-size: @sapUiDesktopFontSize;
+	border-bottom: 2px solid @sapUiDarkBorder;
+}
+
+.sapUiAcdSectionColl .sapUiAcdSectionHdr {
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiAcdSectionHdr:hover {
+	color: @sapUiTextInverted;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiAcdSectionDis .sapUiAcdSectionHdr {
+	background-color: @sapUiLightestBG;
+	color: @sapUiExtraDarkText;
+}
+
+.sapUiAcdSectionCont {
+	border-top-width: 0;
+	padding: 6px;
+	border-bottom: 2px solid @sapUiDarkBorder;
+}
+
+.sapUiAcdSectionHdr > div > span{
+	margin-top: 5px;
+}
+
+.sapUiAcdSectionColl .sapUiAcdSectionHdr > div > span{
+	margin-top: 6px;
+}
+
+.sapUiAcdSectionDis .sapUiAcdSectionHdr > div > span{
+	opacity: 0.3;
+}
+
+.sapUiAcdSectionMinArrow {
+	/* the 'collapse' icon on the left-hand side of the panel header */
+	background-image: url(img/arrow_down.png);
+	width: 16px;
+	height: 16px;
+	margin-top: -1px;
+}
+
+.sapUiAcdSectionHdr:hover .sapUiAcdSectionMinArrow,
+.sapUiAcdSectionMinArrow:hover {
+	/* the 'collapse' icon on the left-hand side of the panel header */
+	background-image: url(img/arrow_down_hover.png);
+}
+
+.sapUiAcdSectionColl .sapUiAcdSectionMinArrow {
+	background-image: url(img/arrow_right.png);
+	width: 16px;
+	height: 16px;
+}
+
+.sapUiAcdSectionColl .sapUiAcdSectionHdr:hover .sapUiAcdSectionMinArrow,
+.sapUiAcdSectionColl .sapUiAcdSectionMinArrow:hover {
+	background-image: url(img/arrow_right_hover.png);
+}
+
+.sapUiAcdSectionDis.sapUiAcdSectionColl .sapUiAcdSectionHdr:hover .sapUiAcdSectionMinArrow,
+.sapUiAcdSectionDis.sapUiAcdSectionColl .sapUiAcdSectionMinArrow:hover {
+	background-image: url(img/arrow_right.png);
+}
+/* END "AccordionSection.less" */
+
+/* START "ApplicationHeader.less" */
+/* ============================================= */
+/* SAP Blue Crystal CSS
+/* ============================================= */
+
+.sapUiAppHdr {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	-moz-background-size: 100% 110px;
+	-moz-box-shadow: 0 0 8px @sapUiShadowTint;
+	background-image: -moz-linear-gradient(top center, @sapUiDarkAltBG, @sapUiExtraDarkBG);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@sapUiDarkAltBG), to(@sapUiExtraDarkBG));
+	background-image: -webkit-linear-gradient(top center, @sapUiDarkAltBG, @sapUiExtraDarkBG);
+	background-image: -ms-linear-gradient(@sapUiDarkAltBG, @sapUiExtraDarkBG); /* starting with IE10 this works in IE */
+	background-image: linear-gradient(top center, @sapUiDarkAltBG, @sapUiExtraDarkBG);
+	background-position: left top;
+	background-size: 100% 110px;
+	text-shadow: 1px 1px 2px @sapUiDarkText;
+	color: @sapUiTextInverted;
+	border: 0px solid @sapUiBrand;
+	border-top-width: 8px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiAppHdr,
+html[data-sap-ui-browser="ie9"] .sapUiAppHdr {
+	background-image: url(img/applicationheader/Header_bg.png);
+	background-size: auto; /* IE9 does understand background-size, but it is meant for the gradient which it does not understand... */
+}
+
+.sapUiAppHdr .sapUiTv {
+	font-size: 13px;
+}
+
+.sapUiAppHdr .sapUiBtn.sapUiBtnS.sapUiBtnLite{
+	color: @sapUiTextInverted;
+}
+
+.sapUiAppHdr .sapUiBtn.sapUiBtnS.sapUiBtnLite:focus{
+	color: @sapUiTextInverted;
+	background-color: transparent;
+	outline: 1px dotted @sapUiTextInverted;
+	outline-offset: -1px;
+}
+
+.sapUiAppHdrWelcomeLogoffArea > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAct{
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiAppHdrWelcomeLogoffArea > .sapUiTbSeparator {
+	display: inline-block;
+	vertical-align: top;
+	height: 10px;
+	width: 1px;
+	background-color: @sapUiMediumLine;
+	margin: 4px 6px 0 6px;
+}
+/* END "ApplicationHeader.less" */
+
+/* START "AutoComplete.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/AutoComplete       */
+/* Goldreflection                                    */
+/* ================================================= */
+
+.sapUiTfBrd.sapUiTfCombo.sapUiTfAutoComp > .sapUiTfInner {
+	padding-right: 5px;
+}
+/* END "AutoComplete.less" */
+
+/* START "BorderLayout.less" */
+/* ================================================= */
+/* CSS for control layout.uilib/BorderLayout.control */
+/* Blue Crystal                                      */
+/* ================================================= */
+
+.sapUiBorderLayout {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* END "BorderLayout.less" */
+
+/* START "Button.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/Button.control     */
+/* Blue Crystal                                      */
+/* ================================================= */
+
+.sapUiBtnS{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	padding: 0 7px 1px;
+	height: 22px;
+	outline: none;
+}
+
+.sapUiBtnS.sapUiBtnNorm{
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.sapUiBtnS.sapUiBtnLite{
+	padding: 0 8px 1px;
+	font-weight: bold;
+}
+
+.sapUiBtnS > .sapUiBtnTxt { /* the additional span introduced when there is an icon next to the button label */
+	margin-top: 0;
+}
+
+.sapUiBtnS > .sapUiBtnIcoL { /* padding between icon and text */
+	padding-right: 8px;
+}
+
+.sapUiBtnS > .sapUiBtnIcoR { /* padding between icon and text */
+	padding-left: 8px;
+}
+
+/* button state */
+.sapUiBtnS.sapUiBtnStd:focus,
+/* extra css class for the focus styling of the FileUploader */
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	background-color: @sapUiButtonBackground;
+	outline: 1px dotted @sapUiKeyboardFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnStd:focus:hover,
+/* extra css class for the focus styling of the FileUploader */
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus:hover {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus,
+/* extra css class for the focus styling of the FileUploader */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus {
+	background-color: @sapUiButtonBackground;
+	outline: 1px dotted @sapUiKeyboardFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:not(.sapUiBtnEmph):focus:hover,
+/* extra css class for the focus styling of the FileUploader */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus:hover {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+/* button focus state for Dialog */
+.sapUiDlgBtns > .sapUiBtnS.sapUiBtnStd:focus,
+.sapUiUx3ActionBarItemRight > .sapUiBtnS.sapUiBtnStd:focus,
+.sapUiUx3TPBtnRow > .sapUiBtnS.sapUiBtnStd:focus,
+/* extra css class for the focus styling of the FileUploader */
+.sapUiDlgBtns > .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus,
+.sapUiUx3ActionBarItemRight > .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus,
+.sapUiUx3TPBtnRow > .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	outline: 2px dotted @sapUiInvertedFocus;
+}
+
+.sapUiDlgBtns > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus,
+.sapUiUx3ActionBarItemRight > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus,
+.sapUiUx3TPBtnRow > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus,
+/* extra css class for the focus styling of the FileUploader */
+.sapUiDlgBtns > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus,
+.sapUiUx3ActionBarItemRight > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus,
+.sapUiUx3TPBtnRow > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus {
+	outline: 2px dotted @sapUiInvertedFocus;
+}
+
+/* button disabled */
+.sapUiBtnS.sapUiBtnDsbl,
+.sapUiBtnS.sapUiBtnDsbl:focus {
+	color: @sapUiButtonTextColor;
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl:focus {
+	border-color: @sapUiButtonBorderColor;
+	background-color: @sapUiButtonBackground;
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtnS.sapUiBtnDsbl > img.sapUiBtnIco {  /* make disabled icon look "reduced" */
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+/* pixel-perfect vertical alignment of text and images with varying height at the same time as
+   perfect alignment inside the Button as per the spec is a pain.
+   Welcome to pain:     */
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: -3px;
+}
+
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnIcoL,
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnIcoR,
+html[data-sap-ui-browser="sf5"] .sapUiBtnS > .sapUiBtnTxt,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS > .sapUiBtnTxt {
+/* fine for safari 5.1. in safari 5.0 is is moved by 1px. */
+	margin-top: 1px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS,
+html[data-sap-ui-browser="ie10"] .sapUiBtnS{
+	padding-top: 2px;
+}
+
+html[data-sap-ui-browser="ie11"] .sapUiBtnS > .sapUiBtnTxt,
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite{
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco,
+html[data-sap-ui-browser="ie9"] .sapUiBtnS > .sapUiBtnTxt,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco{
+	margin-top: -1px;
+}
+
+/* End of pain */
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd{
+	color: @sapUiButtonTextColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd:focus{
+	color: @sapUiButtonLiteTextColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl:hover > span.sapUiBtnIco{
+	color: @sapUiButtonIconColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd:focus{
+	background-color: transparent;
+	outline: 1px dotted @sapUiKeyboardFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd:hover{
+	background-color: darken(@sapUiButtonHoverBackground,5);
+	/*opacity: .5;
+	filter: alpha(opacity=50);*/
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl{
+	color: @sapUiButtonLiteTextColor;
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtnS.sapUiBtnStd:hover,
+/* extra css class for the hover styling of the FileUploader */
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdHover,
+.sapUiBtnS.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	color: @sapUiButtonHoverTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover,
+/* extra css class for the hover styling of the FileUploader */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdHover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiBtnStdFocus {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.sapUiBtnS.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnStd:active,
+.sapUiBtnS.sapUiBtnStd.sapUiBtnAct{
+	color: @sapUiTextInverted;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:active{
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+/* prevent IE to move text on pressing button */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl:active{
+	padding-bottom: 3px;
+	padding-left: 6px;
+	padding-right: 8px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl:active{
+	padding-bottom: 3px;
+	padding-left: 7px;
+	padding-right: 9px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnAct > .sapUiBtnTxt,
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnDsbl:active > .sapUiBtnTxt{
+	margin-top: -2px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite.sapUiBtnAct > .sapUiBtnTxt,
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl:active > .sapUiBtnTxt{
+	margin-top: 0;
+}
+
+/* emphasized button */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph{
+	background-color: @sapUiButtonEmphasizedBackground;
+	color: @sapUiButtonEmphasizedTextColor;
+	text-shadow: 0 1px 0 @sapUiButtonEmphasizedTextShadow;
+}
+
+/*.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph{
+	don't use filter because of problems with font, round corners and no shadow with filter
+	background-image: url(img/button/EmphButton_regular_BG.png);
+	background-repeat: repeat-x;
+	background-position: left bottom; because IE8 don't know background-size
+	background-size: 1px 100%;
+	-moz-background-size: 1px 100%;
+	-webkit-background-size: 1px 100%;
+	background-color: @sapUiButtonEmphasizedBackground;
+	color: @sapUiButtonEmphasizedTextColor;
+}*/
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnStd:hover{
+	background-image: none;
+	color: @sapUiButtonEmphasizedTextColor;
+	text-shadow: 0 1px 0 @sapUiButtonEmphasizedTextShadow;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnStd:active{
+	background-image: none;
+	color: @sapUiButtonEmphasizedTextColor;
+	text-shadow: 0 1px 0 @sapUiButtonEmphasizedTextShadow;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl{
+	color: @sapUiButtonEmphasizedTextColor;
+	text-shadow: 0 1px 0 @sapUiButtonEmphasizedTextShadow;
+	opacity: 0.25;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl > .sapUiBtnIco{
+	/*no opacity on icon because whole button has one*/
+	opacity: 1;
+}
+
+.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl{
+	filter: alpha(opacity=25);
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnEmph,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnEmph > span.sapUiBtnIco{
+	color: @sapUiButtonEmphasizedBackground;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnDsbl,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnDsbl > span.sapUiBtnIco{
+	color: @sapUiButtonEmphasizedBackground;
+	opacity: 0.5;
+}
+
+/* accept button */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept{
+	background-color: @sapUiButtonAcceptBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept > span.sapUiBtnIco{
+	color: @sapUiFieldSuccessColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept:focus{
+	background-color: transparent;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnAccept:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiBtnAccept:hover{
+	background-color: @sapUiButtonAcceptHoverBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd{
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+/*.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept{
+	don't use filter because of problems with font, round corners and no shadow with filter
+	background-image: url(img/button/EmphButton_accept_BG.png);
+	background-repeat: repeat-x;
+	background-position: left bottom; because IE8 don't know background-size
+	background-size: 1px 100%;
+	-moz-background-size: 1px 100%;
+	-webkit-background-size: 1px 100%;
+}*/
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:hover{
+	background-image: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd:focus:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:focus:hover {
+	background-color: @sapUiButtonAcceptHoverBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:active{
+	background-image: none;
+}
+
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnStd:focus {
+	background-color: @sapUiButtonAcceptBackground;
+	outline: 1px dotted @sapUiInvertedFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnLite.sapUiBtnStd:focus {
+	outline: 1px dotted @sapUiKeyboardFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl{
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl > .sapUiBtnIco{
+	/*no opacity on icon because whole button has one*/
+	opacity: 1;
+}
+
+/*html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl{
+	filter: alpha(opacity=25);
+}*/
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiBtnDsbl,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiBtnDsbl > span.sapUiBtnIco{
+	color: @sapUiFieldSuccessColor;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+/* reject button */
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject{
+	background-color: @sapUiButtonRejectBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject > span.sapUiBtnIco{
+	color: @sapUiFieldInvalidColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject:focus{
+	background-color: transparent;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnReject:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiBtnReject:hover{
+	background-color: @sapUiButtonRejectHoverBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd{
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+/*.sapUiBtnNoGradient.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject{
+	don't use filter because of problems with font, round corners and no shadow with filter
+	background-image: url(img/button/EmphButton_reject_BG.png);
+	background-repeat: repeat-x;
+	background-position: left bottom; because IE8 don't know background-size
+	background-size: 1px 100%;
+	-moz-background-size: 1px 100%;
+	-webkit-background-size: 1px 100%;
+}*/
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:hover{
+	background-image: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd:focus:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:focus:hover {
+	background-color: @sapUiButtonRejectHoverBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnAct,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnAct:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnAct:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:active{
+	background-image: none;
+}
+
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnStd:focus {
+	background-color: @sapUiButtonRejectBackground;
+	outline: 1px dotted @sapUiInvertedFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnReject.sapUiBtnLite.sapUiBtnStd:focus {
+	outline: 1px dotted @sapUiKeyboardFocus;
+	outline-offset: -1px;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl{
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl > .sapUiBtnIco{
+	/*no opacity on icon because whole button has one*/
+	opacity: 1;
+}
+
+/*html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl{
+	filter: alpha(opacity=25);
+}*/
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiBtnDsbl,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiBtnDsbl > span.sapUiBtnIco{
+	color: @sapUiFieldInvalidColor;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtn > span.sapUiBtnIco{
+	font-size: 16px;
+	margin-top: 1px;
+}
+
+html[data-sap-ui-browser="ie10"] .sapUiBtn > span.sapUiBtnIco{
+	margin-top: -1px;
+}
+
+.sapUiBtnS.sapUiBtnNorm > span.sapUiBtnIco{
+	color: @sapUiButtonIconColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph:focus > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph:active > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph:active > span.sapUiBtnIco{
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnEmph:focus{
+	background-color: transparent;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnEmph:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiBtnEmph:active{
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept:focus > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept:active > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept:active > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject:focus > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject:active > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnReject:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnReject:active > span.sapUiBtnIco{
+	color: @sapUiTextInverted;
+}
+
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdHover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnStd:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnStd:focus > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus > span.sapUiBtnIco{
+	color: @sapUiButtonHoverTextColor;
+}
+
+.sapUiBtnS.sapUiBtnAct > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnAct:focus > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnAct:hover > span.sapUiBtnIco,
+.sapUiBtnS.sapUiBtnStd:active > span.sapUiBtnIco{
+	color: @sapUiTextInverted;
+}
+
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnIconOnly > span.sapUiBtnIco,
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnIconOnly > span.sapUiBtnIco{
+	margin-top: 1px;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl > span.sapUiBtnIco {  /* make disabled icon look "reduced" */
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl > span.sapUiBtnIco {  /* switch back for lite button: make disabled icon look "reduced" */
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBtnS,
+html[data-sap-ui-browser="ie10"] .sapUiBtnS {
+	> img,
+	> span.sapUiBtnTxt,
+	&.sapUiBtnIconOnly > span.sapUiBtnIco,
+	> span.sapUiBtnIco {
+		margin-top: 0;
+	}
+}
+
+/* END "Button.less" */
+
+/* START "Callout.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/Callout.control */
+/* Blue Crystal                                   */
+/* ============================================== */
+
+.sapUiClt{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiClt.sapUiShd {
+	box-shadow: @sapUiCalloutShadow;
+	-webkit-box-shadow: @sapUiCalloutShadow;
+	-moz-box-shadow: @sapUiCalloutShadow;
+}
+/* END "Callout.less" */
+
+/* START "CalloutBase.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/CalloutBase.control */
+/* sap_goldreflection theme                           */
+/* ================================================== */
+
+.sapUiCltBase{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	color: @sapUiBaseText;
+	background-color: @sapUiLightestBG;
+	border: 4px solid @sapUiLightestBorder;
+	min-width: 40px;
+	min-height: 30px;
+}
+
+.sapUiCltBaseCont{
+	background-color: @sapUiLightestBG;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiCltBase{
+	/* IE8 does not support border shadow */
+	padding: 0px;
+	border: 1.5px solid @sapUiDarkBorder;
+	outline-style: none;
+}
+
+.sapUiCltBaseArr{
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+	padding: 0px;
+	background-color: @sapUiLightestBG;
+	position: absolute;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	z-index: -1;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiCltBaseArr{
+	border: 1px solid @sapUiDarkBorder;
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476, sizingMethod='auto expand');
+}
+/* END "CalloutBase.less" */
+
+/* START "Carousel.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/Carousel.control   */
+/* Goldreflection                                    */
+/* ================================================= */
+
+.sapUiCrslCnt {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-color: @sapUiBaseBorder;
+}
+
+.sapUiCrslHorizontal .sapUiCrslCnt {
+	border-width: 1px 0px;
+}
+
+.sapUiCrslVertical .sapUiCrslCnt {
+	border-width: 0px 1px;
+}
+
+.sapUiCrslNextBtn, .sapUiCrslPrevBtn {
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.sapUiCrslNextBtn:hover, .sapUiCrslPrevBtn:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiCrslHorizontal .sapUiCrslNextBtn {
+	background-image: url(img/arrow_right.png);
+	font-size: 0;
+}
+
+.sapUiCrslHorizontal .sapUiCrslPrevBtn {
+	background-image: url(img/arrow_left.png);
+	font-size: 0;
+}
+
+.sapUiCrslVertical .sapUiCrslNextBtn {
+	background-image: url(img/arrow_down.png);
+	font-size: 0;
+}
+
+.sapUiCrslVertical .sapUiCrslPrevBtn {
+	background-image: url(img/arrow_up.png);
+	font-size: 0;
+}
+
+.sapUiCrslHorizontal .sapUiCrslNextBtn:hover {
+	background-image: url(img/arrow_right_hover.png);
+}
+
+.sapUiCrslHorizontal .sapUiCrslPrevBtn:hover {
+	background-image: url(img/arrow_left_hover.png);
+}
+
+.sapUiCrslVertical .sapUiCrslNextBtn:hover {
+	background-image: url(img/arrow_down_hover.png);
+}
+
+.sapUiCrslVertical .sapUiCrslPrevBtn:hover {
+	background-image: url(img/arrow_up_hover.png);
+}
+/* END "Carousel.less" */
+
+/* START "CheckBox.less" */
+.sapUiCb {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	line-height: 20px;
+	height: 21px;
+	padding-top: 1px;
+	position: relative;
+}
+
+.sapUiCb:focus{
+	outline-color: @sapUiKeyboardFocus;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiCb:focus:after {
+	border-color: @sapUiKeyboardFocus;
+}
+
+.sapUiCb > input { /* make the real checkbox vanish from the screen */
+	position: absolute;
+	visibility: hidden;
+	margin: 4px 1px; /* only needed for QTP tests which may derive the click position from <input> position */
+	left: 0;
+}
+
+.sapUiCb > label { /* render an image as checkbox replacement */
+	background-image: url(img/checkbox.png);
+	background-repeat: no-repeat;
+	background-position: left 1px;
+	padding: 1px 0 2px 22px;
+}
+
+.sapUiCb .sapUiCbNoText {
+	padding-left: 15px;
+}
+
+
+.sapUiCbChk > label {
+	background-position: left -29px;
+}
+
+/* hover */
+.sapUiCbStd:hover > label {
+	background-position: left -59px;
+}
+
+.sapUiCbStd:hover.sapUiCbChk > label {
+	background-position: left -89px;
+}
+
+/* readonly */
+.sapUiCbRo > label {
+	background-position: left -179px;
+}
+
+.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -209px;
+}
+
+/* error */
+.sapUiCbErr > label {
+	background-position: left -239px;
+}
+
+.sapUiCbErr.sapUiCbChk > label {
+	background-position: left -269px;
+}
+
+/* error hover */
+.sapUiCbInteractive.sapUiCbErr:hover > label {
+	background-position: left -539px;
+}
+
+.sapUiCbInteractive.sapUiCbErr.sapUiCbChk:hover > label {
+	background-position: left -569px;
+}
+
+/* warning */
+.sapUiCbWarn > label {
+	background-position: left -299px;
+}
+
+.sapUiCbWarn.sapUiCbChk > label {
+	background-position: left -329px;
+}
+
+/* warning hover */
+.sapUiCbInteractive.sapUiCbWarn:hover > label {
+	background-position: left -479px;
+}
+
+.sapUiCbInteractive.sapUiCbWarn.sapUiCbChk:hover > label {
+	background-position: left -509px;
+}
+
+/* readonly error */
+.sapUiCbErr.sapUiCbRo > label {
+	background-position: left -359px;
+}
+
+.sapUiCbErr.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -389px;
+}
+
+/* readonly warning */
+.sapUiCbWarn.sapUiCbRo > label {
+	background-position: left -419px;
+}
+
+.sapUiCbWarn.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -449px;
+}
+
+/* disabled */
+.sapUiCbDis > label,
+.sapUiCbDis.sapUiCbWarn.sapUiCbRo > label,
+.sapUiCbDis.sapUiCbErr.sapUiCbRo > label {
+	text-color: @sapUiContentDisabledTextColor;
+	background-position: left -119px;
+}
+
+.sapUiCbDis.sapUiCbChk > label,
+.sapUiCbDis.sapUiCbWarn.sapUiCbRo.sapUiCbChk > label,
+.sapUiCbDis.sapUiCbErr.sapUiCbRo.sapUiCbChk > label {
+	background-position: left -149px;
+}
+
+/* ============================ */
+/* Overwrites for Label in Form */
+/* ============================ */
+
+/* GridLayout */
+html[data-sap-ui-browser="ie8"] .sapUiGrid td > .sapUiCb,
+html[data-sap-ui-browser^="cr"] .sapUiGrid td > .sapUiCb{
+	padding-top: 0;
+}
+/* END "CheckBox.less" */
+
+/* START "ColorPicker.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/ColorPicker.control */
+/* BlueCrystal Theme                                  */
+/* ================================================== */
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar,
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi
+	{
+	border: none;
+	background-color: transparent;
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar,
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar .sapUiSliHiLi
+	{
+	border: none;
+	background-color: transparent;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/ColorPicker/Alphaslider_BG.png') progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#FF000000',GradientType=1 );
+}
+
+/* END "ColorPicker.less" */
+
+/* START "ComboBox.less" */
+.sapUiTfCombo{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTfBrd.sapUiTfCombo {
+	padding: 0 20px 0 0;
+}
+
+.sapUiTfComboIcon {
+	width: 20px;
+	height: 20px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.sapUiTfStd > .sapUiTfComboIcon {
+	background-image: url(img/combobox/ComboBoxArrow_regular.png);
+}
+
+.sapUiTfStd > .sapUiTfComboIcon:hover {
+	background-image: url(img/combobox/ComboBoxArrow_hover.png);
+	background-color: @sapUiFieldHoverHelpBackground;
+}
+
+.sapUiTfDsbl > .sapUiTfComboIcon {
+	background-image: url(img/combobox/ComboBoxArrow_dsbl.png);
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+html[data-sap-ui-browser="ie9"] .sapUiGrid td > .sapUiTfBrd > div,
+html[data-sap-ui-browser="ie10"] .sapUiGrid td > .sapUiTfBrd > div{
+	top: 0; /* because of padding-top the icon must be moved */
+}
+/* END "ComboBox.less" */
+
+/* START "DatePicker.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/DatePicker.control */
+/* BlueCrystal theme                                 */
+/* ================================================= */
+
+/**************** INPUT ****************/
+.sapUiTfCombo {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTfCombo > .sapUiTfDateIcon {
+	height: 20px;
+	width: 20px;
+}
+
+.sapUiTfStd > .sapUiTfDateIcon,
+.sapUiTfRo > .sapUiTfDateIcon {
+	background-image: url(img/datepicker/Calendar_regular.png);
+}
+
+.sapUiTfStd > .sapUiTfDateIcon:hover {
+	background-color: @sapUiHighlight;
+	background-image: url(img/datepicker/Calendar_hover.png);
+}
+
+/* Disabled icon */
+.sapUiTfCombo.sapUiTfDsbl > .sapUiTfDateIcon {
+	background-image: url(img/datepicker/Calendar_dsbl.png);
+}
+
+html[data-sap-ui-os^="iOS6"] .sapUiTfDsbl > .sapUiTfInner.sapUiTf[type="date"]{
+	/* On iPad with iOS6 for disabled input fields an opacity is set.*/
+	color: darken(@sapUiContentDisabledTextColor, 25); /* looks better than original color because this is nor readable*/
+}
+/* END "DatePicker.less" */
+
+/* START "Dialog.less" */
+/* ============================================= */
+/* CSS for control sap.ui.commons/Dialog.control */
+/* Blue Crystal Desktop                          */
+/* ============================================= */
+
+@sapUiDlgHeaderHeight: 40px;
+@sapUiDlgFooterHeight: 44px;
+
+.sapUiDlg {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiDlg.sapUiDlgModal {
+	border: 1px solid darken(@sapUiDarkBorder, 35);
+}
+
+.sapUiDlgHdr {
+	height: @sapUiDlgHeaderHeight;
+	color: @sapUiLightText;
+	border-bottom: 0;
+	margin-top: 0;
+}
+
+.sapUiDlgHdr > .sapUiDlgHdrLeft {
+	color: @sapUiLightText;
+	font-size: 16px;
+	top: 30%;
+	position: relative;
+}
+
+.sapUiDlgHdrSep {
+	height: 1px;
+	background-color: @sapUiLightBorder;
+}
+
+.sapUiDlgHdrBtns {
+	padding: 0;
+	right: 10px;
+}
+
+.sapUiDlgHdrBtns > a {
+	margin: 12px 0 0;
+}
+
+.sapUiDlgCloseBtn {
+	background-image: url(img/dlg-close.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	outline: none;
+}
+
+.sapUiDlgCloseBtn:hover,
+.sapUiDlgCloseBtn:focus {
+	background-image: url(img/dlg-close-hov.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiDlgCloseBtn:active {
+	background-image: url(img/dlg-close-hov.png);
+	background-color: @sapUiDarkBG;
+}
+
+.sapUiDlgCont {
+	background-color: @sapUiLightestBG;
+	padding: 10px 10px 12px;
+	font-size: 13px;
+	top: 41px;
+	border-width: 0;
+	bottom: 44px;
+}
+.sapUiDlgFlexHeight.sapUiDlgNoButtons .sapUiDlgCont {
+	margin-bottom: 4px;
+}
+.sapUiDlgNoButtons .sapUiDlgCont {
+	bottom: 4px;
+	margin-bottom: 0;
+}
+
+.sapUiDlgFooterSep {
+	height: 1px;
+	position: absolute;
+	bottom: 44px;
+	background: @sapUiExtraLightBorder;
+	width: 100%;
+}
+
+.sapUiDlgFooter {
+	padding: 0 10px 0;
+	background-color: @sapUiExtraDarkBG;
+	height: 44px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sapUiDlgFlexHeight .sapUiDlgFooter {
+	position: relative;
+}
+
+.sapUiDlgNoButtons .sapUiDlgFooter {
+	display: none;
+}
+
+.sapUiDlgBtns {
+	padding: 11px 0 0 0;
+}
+
+.sapUiDlgGrip {
+	bottom: 0;
+	right: 0;
+	height: 12px;
+	width: 12px;
+}
+
+/* END "Dialog.less" */
+
+/* START "DropdownBox.less" */
+.sapUiTfCombo {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* END "DropdownBox.less" */
+
+/* START "FileUploader.less" */
+.sapUiFupGroup > div > div:last-child {
+	padding-left: 4px;
+}
+/* END "FileUploader.less" */
+
+/* START "FormattedTextView.less" */
+/* ==================================================== */
+/* CSS for control sap.ui.dev/FormattedTextView.control */
+/* Blue Crystal                                         */
+/* ==================================================== */
+
+.sapUiFTV {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "FormattedTextView.less" */
+
+/* START "HorizontalDivider.less" */
+/* ======================================================== */
+/* CSS for control sap.ui.commons/HorizontalDivider.control */
+/* ======================================================== */
+
+.sapUiCommonsHoriDiv{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiCommonsHoriDivTypePage{
+	border-width: 1px 0px 1px 0px;
+	border-top-color: @sapUiMediumLine;
+	border-bottom-color: lighten(@sapUiMediumLine, 15%);
+}
+
+.sapUiCommonsHoriDivTypeArea{
+	border-color: @sapUiMediumLine;
+}
+/* END "HorizontalDivider.less" */
+
+/* START "Image.less" */
+.sapUiImg {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Image.less" */
+
+/* START "InPlaceEdit.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/InPlaceEdit.control */
+/* Bluecrystal                                        */
+/* ================================================== */
+
+.sapUiIpe{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	height: 22px;
+}
+
+.sapUiIpe:not(.sapUiIpeEdit){
+	/* to fade success color out if removed after some seconds */
+	transition: background-color 1s linear;
+	-moz-transition: background-color 1s linear;
+	-webkit-transition: background-color 1s linear;
+	-ms-transition: background-color 1s linear;
+}
+
+.sapUiIpeUndo{
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiIpeUndo > .sapUiIpeCont > .sapUiTfBrd{
+	border-right: none;
+	outline: none; /* hide webkit outline*/
+}
+
+/* since focusout handling is delayed simulate focus on TextField */
+.sapUiIpeFocus > .sapUiIpeCont > .sapUiTfBrd{
+	border-color: @sapUiHighlight;
+}
+
+.sapUiIpeCombo:hover,
+.sapUiIpeFocus.sapUiIpeCombo,
+.sapUiIpeFocus > .sapUiIpeCombo{
+	background-image: url(img/combobox/ComboBoxArrow_regular.png);
+	background-position: center right;
+	background-repeat: no-repeat;
+	padding-right: 20px;
+}
+
+.sapUiIpeEdit.sapUiIpeFocus > .sapUiIpeCombo{
+	background-image: none;
+	padding-right: 0;
+}
+
+/* Revert/Edit Button */
+.sapUiIpe > .sapUiBtnS.sapUiBtnLite,
+.sapUiIpeCont > .sapUiBtnS.sapUiBtnLite{
+	width: 22px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.sapUiIpe > .sapUiBtnS.sapUiBtnStd.sapUiBtnLite:not(:hover) > span.sapUiBtnIco,
+.sapUiIpeCont > .sapUiBtnS.sapUiBtnStd.sapUiBtnLite:not(:hover) > span.sapUiBtnIco{
+	color: @sapUiButtonIconColor;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnLite,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnLite{
+	padding-left: 2px;
+	padding-right: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnIconOnly > .sapUiBtnIco {
+	margin-top: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiIpe > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiIpeCont > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct{
+	padding-left: 0;
+	padding-right: 0;
+}
+/* END "InPlaceEdit.less" */
+
+/* START "Label.less" */
+.sapUiLbl {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	color: @sapUiContentLabelColor;
+}
+
+.sapUiLbLReqInd { /* to allow reuse */
+	font-size: 20px;
+	font-weight: bold;
+	vertical-align: middle;
+	color: darken(@sapUiHighlight, 5%);
+}
+
+.sapUiInverted-CTX .sapUiLbl.sapUiLblReqEnd:after,
+.sapUiInverted-CTX .sapUiLbl.sapUiLblRegBeg:before {
+	color: lighten(@sapUiHighlight, 18%);
+}
+
+span.sapUiLblIco { /* icon font */
+	font-size: 16px;
+}
+
+/* ============================ */
+/* Overwrites for Label in Form */
+/* ============================ */
+
+/* GridLayout */
+.sapUiGrid td > .sapUiLbl{
+	margin-top: 2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiGrid td > .sapUiLbl{
+	margin-top: 1px;
+}
+
+html[data-sap-ui-browser^="cr"] .sapUiGrid td > .sapUiLbl.sapUiLblReq {
+	margin-top: 1px;
+}
+
+/* required symbol is now left - if indicator is already at begin, don't change it */
+.sapUiInverted-CTX .sapUiLbl.sapUiLblReqEnd:before {
+	color: lighten(@sapUiHighlight, 18%);
+}
+
+/* ResponsiveLayout */
+/* If label is above the fields it's left aligned, if it's left of the fields it's right aligned */
+.sapUiFormResLayout .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent > .sapUiLbl{
+	text-align: end !important; /* to overwrite setting on label */
+	width: 100%; /* to react on touch/click on whole label cell */
+	padding-right: 4px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+html[data-sap-ui-browser^=ie] .sapUiFormResLayout .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent > .sapUiLbl{
+	text-align: right !important; /* to overwrite setting on label */
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapUiFormResLayout .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child > .sapUiRFLContainerContent > .sapUiLbl{
+	text-align: left !important; /* to overwrite setting on label */
+}
+
+.sapUiFormResLayout .sapUiRFLRow:first-child > .sapUiRFLContainer.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiLbl{
+	text-align: start !important; /* to overwrite setting on label */
+	padding-bottom: 2px;
+}
+
+html[data-sap-ui-browser^=ie] .sapUiFormResLayout .sapUiRFLRow:first-child > .sapUiRFLContainer.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiLbl{
+	text-align: left !important; /* to overwrite setting on label */
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapUiFormResLayout .sapUiRFLRow:first-child > .sapUiRFLContainer.sapUiRFLFullLength > .sapUiRFLContainerContent > .sapUiLbl{
+	text-align: right !important; /* to overwrite setting on label */
+}
+
+/* ResponsiveGridLayout */
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanS12) > .sapUiLbl,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanM12) > .sapUiLbl,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanL12) > .sapUiLbl,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > .sapUiFormElementLbl:not(.sapUiRespGridSpanXL12) > .sapUiLbl {
+	margin-top: 2px;
+}
+
+/* END "Label.less" */
+
+/* START "layout.less" */
+/*
+ * Note: capital letters in comment only explain abbreviations, but these still
+ * follow original capitalization
+ */
+
+/* MatrixLayouT */
+.sapUiMlt {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "layout.less" */
+
+/* START "Link.less" */
+.sapUiLnk {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	text-decoration: none;
+}
+
+.sapUiLnk:hover {
+	text-decoration: underline;
+}
+
+.sapUiLnk:focus {
+	outline: 1px dashed @sapUiHighlight;
+}
+
+.sapUiLnkDsbl {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+.sapUiGrid td > .sapUiLnk{
+	margin-top: 2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiGrid td > .sapUiLnk{
+	margin-top: 1px;
+}
+
+/* ResponsiveGridLayout */
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > div > .sapUiLnk,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > div > .sapUiLnk,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > div > .sapUiLnk,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > div > .sapUiLnk {
+	margin-top: 2px;
+}
+/* END "Link.less" */
+
+/* START "ListBox.less" */
+.sapUiLbx {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-collapse: separate; /* to prevent inheriting "collapse" */
+}
+
+.sapUiLbxITxt {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiLbxI {
+	line-height: 15px;
+}
+
+.sapUiLbxI:focus {
+	outline: 1px dotted @sapUiFocus;
+	outline-offset: 0; /* not beautiful because parts of the outline are invisible, but this works across browsers without writing tons of CSS */
+}
+
+/* each item has a border which may be colored when selected */
+.sapUiLbxI > span {
+	border: 2px solid transparent;
+	border-right-width: 0;
+	border-left-width: 0;
+	padding: 0 5px;
+}
+
+.sapUiLbxI > span:first-child {
+	padding-left: 4px;
+	border-left-width: 2px;
+}
+
+.sapUiLbxI > span:last-child {
+	border-right-width: 2px;
+	padding-right: 3px;
+}
+
+.sapUiLbxI:hover:not(.sapUiLbxIDis),
+.sapUiLbx:not(.sapUiLbxDis) > ul > .sapUiLbxI:hover:not(.sapUiLbxISel):not(.sapUiLbxIDis) > span {  /* Fix for IE10 :hover bug - need to set the color on children as well */
+	background-color: @sapUiListHoverBackground;
+}
+
+.sapUiLbxRo:not(.sapUiLbxIDis) > ul > .sapUiLbxI.sapUiLbxISel:hover,
+.sapUiLbxStd > ul > .sapUiLbxISel:hover > span,
+.sapUiLbxStd > ul > .sapUiLbxISel:hover {
+	background-color: @sapUiListSelectionHoverBackground;
+}
+
+/*
+no special style for focus!
+
+.sapUiLbxI:focus:not(.sapUiLbxIDis),
+.sapUiLbxRo:not(.sapUiLbxIDis) > ul > .sapUiLbxI.sapUiLbxISel:focus,
+.sapUiLbxStd > ul > .sapUiLbxISel > span:focus,
+.sapUiLbxStd > ul > .sapUiLbxISel:focus,
+.sapUiLbx:not(.sapUiLbxDis) > ul > .sapUiLbxI:focus:not(.sapUiLbxISel):not(.sapUiLbxIDis) > span {
+	background-color: @sapUiListHoverBackground;
+	color: @sapUiHighlightTextColor;
+}
+*/
+
+.sapUiLbxDis > ul > .sapUiLbxISel,
+.sapUiLbxDis > ul > .sapUiLbxI.sapUiLbxISel:hover,
+.sapUiLbxDis > ul > .sapUiLbxI.sapUiLbxISel:focus {
+	background-color: @sapUiMediumBG;
+	color: @sapUiHighlightTextColor;
+}
+
+.sapUiLbxDis,
+.sapUiLbxStd > ul > .sapUiLbxIDis,
+.sapUiLbxDis > ul > .sapUiLbxI:hover,
+.sapUiLbxDis > ul > .sapUiLbxI:focus {
+	color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiFieldDisabledBackground;
+}
+
+/* adjust end paddings where the scrollbar could overlap the items */
+
+.sapUiLbx.sapUiLbxFlexWidth > ul > li > span:last-child {
+	padding-right: 16px; /* when width is not set, a scrollbar may cover the last part of the text which is not nice because no width means "adapted to content" */
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiLbx.sapUiLbxFlexWidth > ul > li > span:last-child {
+	padding-right: 0; /* above mentioned problem does not appear in IE9 */
+}
+
+.sapUiLbxStd > ul > .sapUiLbxISel > span, /* Fix for IE10 bug - need to set the color on children as well */
+.sapUiLbxStd > ul > .sapUiLbxISel {
+	color: @sapUiBaseText;
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiLbxIIcoFont{
+	font-size: 16px;
+	line-height: 16px;
+}
+
+/* END "ListBox.less" */
+
+/* START "MenuBar.less" */
+.sapUiMnuBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.sapUiMnuBarDsbl {
+	border-color: transparent;
+}
+
+.sapUiMnuBarArea {
+	height: 24px;
+}
+
+.sapUiMnuBarItm {
+	border: 1px solid transparent;
+	outline: medium none;
+	padding: 2px 5px 2px 5px;
+	margin-top: 1px;
+	margin-bottom: 4px;
+	color: @sapUiBaseText;
+}
+
+.sapUiMnuBarItmDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarHeader > .sapUiMnuBarArea > .sapUiMnuBarItm {
+	color: @sapUiBaseText;
+}
+
+.sapUiMnuBarHeader > .sapUiMnuBarArea > .sapUiMnuBarItmDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarItm:focus {
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiHighlight;
+	color: @sapUiTextSelection;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarItmDsbl:hover {
+	background-color: transparent;
+	border: 1px solid transparent;
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarItmDsbl:focus {
+	background-color: transparent;
+	border: 1px dotted @sapUiContentDisabledTextColor;
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuBarOvrFlw:after{
+	content: "";
+}
+
+.sapUiMnuBarOvrFlw > span{
+	background-image: url(img/menu/bar-overflow.png);
+	background-position: right top;
+	padding-left: 9px;
+}
+
+.sapUiMnuBarItm.sapUiMnuBarOvrFlw {
+	padding: 0 0 4px 0;
+	top: 1px;
+	margin-right: 3px;
+}
+
+/* END "MenuBar.less" */
+
+/* START "MenuButton.less" */
+/* ========================================================== */
+/* Blue Crystal Desktop for sap.ui.commons/MenuButton.control */
+/* ========================================================== */
+
+.sapUiMenuButton{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	position: relative;
+}
+
+.sapUiMenuButton.sapUiBtnS{
+	padding-right: 15px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiMenuButton.sapUiBtnS.sapUiBtnAct,
+html[data-sap-ui-browser^="ie"] .sapUiMenuButton.sapUiBtnS.sapUiBtnDsbl:active{
+	padding-right: 16px;
+}
+
+.sapUiMenuButtonIco {
+	margin-left: 6px;
+	bottom: 4px;
+	right: 3px;
+	position: absolute;
+}
+
+.sapUiBtnLite > .sapUiMenuButtonIco{
+	right: 4px;
+}
+
+html[data-sap-ui-browser="ff3"] .sapUiMenuButtonIco{
+	right: 10px; /*Firefox positions icon too much right - why ever*/
+}
+
+html[dir=rtl][data-sap-ui-browser="ff3"] .sapUiMenuButtonIco{
+	right: -10px; /*Firefox positions icon too much right - why ever*/
+}
+
+html[data-sap-ui-browser="ff3"] .sapUiBtnLite > .sapUiMenuButtonIco{
+	right: 11px; /*Firefox positions icon too much right - why ever*/
+	bottom: 6px;
+}
+
+html[dir=rtl][data-sap-ui-browser="ff3"] .sapUiBtnLite > .sapUiMenuButtonIco{
+	right: -11px; /*Firefox positions icon too much right - why ever*/
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiMenuButtonIco{
+	bottom: 3px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiBtnLite > .sapUiMenuButtonIco{
+	bottom: 4px;
+}
+
+.sapUiBtnS.sapUiBtnAccept > .sapUiMenuButtonIco,
+.sapUiBtnS.sapUiBtnReject > .sapUiMenuButtonIco,
+.sapUiBtnS.sapUiBtnEmph > .sapUiMenuButtonIco{
+	background-image: url("img/menubutton/Menu_Hover.png");
+}
+/* END "MenuButton.less" */
+
+/* START "Message.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/Message.control */
+/* Blue Crystal                                   */
+/* ============================================== */
+
+.sapUiMsg {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Message.less" */
+
+/* START "MessageBar.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/MessageBar.control */
+/* ================================================= */
+/*****************************************************/
+/*                 Gold Reflection                   */
+/*****************************************************/
+
+.sapUiMsgBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiHighlight;
+}
+
+/* Styling the Icons-Counters container: */
+.sapUiMsgBarSums {
+	background-color: @sapUiWhiteBG;
+	background-image: none;
+	border: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiMsgBarOpen .sapUiMsgBarSums {
+	background-color: @sapUiWhiteBG;
+	background-image: none;
+}
+
+.sapUiMsgBarHome:hover {
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiLightestBorder;
+}
+
+/* END "MessageBar.less" */
+
+/* START "MessageBox.less" */
+.sapUiMboxCont {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxText {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiMboxIcon {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+
+.sapUiMboxInfo {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-image: url(img/messagebox/32x32/information.png);
+}
+.sapUiMboxQuestion {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-image: url(img/messagebox/32x32/question.png);
+}
+.sapUiMboxWarning {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-image: url(img/messagebox/32x32/warning.png);
+}
+.sapUiMboxCritical,
+.sapUiMboxError {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-image: url(img/messagebox/32x32/error.png);
+}
+.sapUiMboxSuccess {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-image: url(img/messagebox/32x32/success.png);
+}
+/* END "MessageBox.less" */
+
+/* START "MessageList.less" */
+/* ================================================== */
+/* CSS for control sap.ui.commons/MessageList.control */
+/* ================================================== */
+/*****************************************************/
+/*                 Blue Crystal                      */
+/*****************************************************/
+
+.sapUiMsgList {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiWhiteBG;
+	border-color: @sapUiDarkBorder;
+}
+/* END "MessageList.less" */
+
+/* START "MessageToast.less" */
+/* =================================================== */
+/* CSS for control sap.ui.commons/MessageToast.control */
+/* =================================================== */
+/*****************************************************/
+/*                 Blue Crystal                      */
+/*****************************************************/
+
+.sapUiMsgToastMsg {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiWhiteBG;
+	border-color: @sapUiDarkBorder;
+}
+
+/* Priorities affect the coloring of the Toast */
+.sapUiMsgTError .sapUiMsgToastMsg {
+	background-color: @sapUiFieldInvalidBackground;
+	border-color: @sapUiFieldInvalidColor;
+}
+.sapUiMsgTWarning .sapUiMsgToastMsg {
+	background-color: @sapUiFieldWarningBackground;
+	border-color: @sapUiFieldWarningColor;
+}
+.sapUiMsgTSuccess .sapUiMsgToastMsg {
+	background-color: @sapUiFieldSuccessBackground;
+	border-color: @sapUiFieldSuccessColor;
+}
+/* END "MessageToast.less" */
+
+/* START "Paginator.less" */
+/* ============================================= */
+/* CSS for control sap.ui.commons/Paginator      */
+/* SAP Blue Crystal                              */
+/* ============================================= */
+
+.sapUiPag {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiPag > ul {
+	margin: 0;
+}
+
+.sapUiPag > .sapUiLnkDsbl,
+.sapUiPagPage > .sapUiLnkDsbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiPagText {
+	display: none;
+}
+
+.sapUiPagPage {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	height: 16px;
+	margin: 0 1px 0 0;
+	padding: 2px 6px 0;
+}
+
+.sapUiPagPage > .sapUiLnk,
+.sapUiPagPage > .sapUiLnkDsbl {
+	color: @sapUiBaseText;
+}
+
+.sapUiPagBtn {
+	background-image: url(img/paginator/paginator.png);
+	background-repeat: no-repeat;
+	height: 20px;
+	width: 20px;
+	margin: 0 1px 0 0;
+}
+
+.sapUiPagBtn.sapUiLnk:hover,
+.sapUiPagPage:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiPagPage:hover > .sapUiLnk {
+	color: @sapUiTextSelection;
+	text-decoration: none;
+}
+
+.sapUiPagCurrentPage:hover > a,
+.sapUiPagCurrentPage > a:hover,
+.sapUiPagCurrentPage:hover > .sapUiLnkDsbl {
+	border-color: @sapUiHighlight;
+	background-color: @sapUiHighlight;
+	color: @sapUiTextSelection;
+}
+
+.sapUiPagCurrentPage,
+.sapUiPagCurrentPage > .sapUiLnkDsbl {
+	border-color: @sapUiDarkBorder;
+	background-color: @sapUiListSelectionBackgroundColor;
+	text-decoration: none;
+}
+
+.sapUiPagPage > a:focus {
+	outline: 1px dashed @sapUiFocus;
+}
+
+.sapUiPagPage:hover > a:focus {
+	outline-color: @sapUiInvertedFocus;
+}
+
+.sapUiPagBtn.sapUiLnk:active,
+.sapUiPagPage:active {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiPagPage:active > .sapUiLnk {
+	color: @sapUiTextSelection;
+	text-decoration: none;
+}
+
+.sapUiPagBtn.sapUiLnkDsbl:focus {
+	outline: 1px dashed @sapUiTextDisabled;
+}
+
+.sapUiPagFirst {
+	background-position: 0px 0;
+}
+
+.sapUiPagBack {
+	background-position: -40px 0;
+	padding-left: 0;
+}
+
+.sapUiPagForward {
+	background-position: -60px 0;
+	padding-right: 0;
+}
+
+.sapUiPagLast {
+	background-position: -100px 0;
+}
+
+.sapUiPagFirst:hover {
+	background-position: 0px -20px;
+}
+
+.sapUiPagBack:hover {
+	background-position: -40px -20px;
+}
+
+.sapUiPagForward:hover {
+	background-position: -60px -20px;
+}
+
+.sapUiPagLast:hover {
+	background-position: -100px -20px;
+}
+
+.sapUiPagFirst:active {
+	background-position: 0px -40px;
+}
+
+.sapUiPagBack:active {
+	background-position: -40px -40px;
+}
+
+.sapUiPagForward:active {
+	background-position: -60px -40px;
+}
+
+.sapUiPagLast:active {
+	background-position: -100px -40px;
+}
+
+.sapUiPagFirst.sapUiLnkDsbl {
+	background-position: 0px -60px;
+}
+
+.sapUiPagBack.sapUiLnkDsbl {
+	background-position: -40px -60px;
+}
+
+.sapUiPagForward.sapUiLnkDsbl {
+	background-position: -60px -60px;
+}
+
+.sapUiPagLast.sapUiLnkDsbl {
+	background-position: -100px -60px;
+}
+
+/* END "Paginator.less" */
+
+/* START "Panel.less" */
+.sapUiPanel {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border: none;
+}
+
+.sapUiPanelHdr {
+	color: @sapUiMediumText;
+	background-color: fade(@sapUiLightestBG, 80);
+	min-height: 27px;
+	border: none;
+	border-bottom: 2px solid @sapUiLightBorder;
+}
+
+.sapUiPanelHdrEmph {
+	background-color: fade(@sapUiLightestBG, 80);
+	border-bottom: 2px solid @sapUiLightBorder;
+}
+
+.sapUiPanelTitle {
+	margin-left: 2px;
+	font-size: 14px;
+}
+
+.sapUiPanelCollArrow,
+.sapUiPanelCollIco {
+	margin-right: 4px;
+}
+
+.sapUiPanelCollArrow,
+html[data-sap-ui-browser*="ie"] .sapUiPanelCollArrow {
+	display: none; /* not this one in Platinum */
+}
+
+.sapUiPanelCollIco,
+html[data-sap-ui-browser*="ie"] .sapUiPanelCollIco {
+	/* the 'collapse' button on the right-hand side of the panel header - in open state */
+	display: block;
+	background-image: url(img/panel_container/Minimize.png);
+}
+
+.sapUiPanelCollIco:hover,
+html[data-sap-ui-browser*="ie"] .sapUiPanelCollIco:hover {
+	background-color: @sapUiButtonHoverBackground;
+/*	background-image: url(img/panel_container/Minimize_hover.png); hover background now lighter for BlueCrystal */
+}
+
+.sapUiPanelCollIco:focus {
+	outline: 1px dashed @sapUiHighlight;
+}
+
+.sapUiPanelColl .sapUiPanelCollIco,
+html[data-sap-ui-browser*="ie"] .sapUiPanelColl .sapUiPanelCollIco {
+	/* the 'collapse' button on the right-hand side of the panel header - in collapsed state */
+	background-image: url(img/panel_container/Maximize.png);
+}
+
+.sapUiPanelColl .sapUiPanelCollIco:hover,
+html[data-sap-ui-browser*="ie"] .sapUiPanelColl .sapUiPanelCollIco:hover {
+/*	background-image: url(img/panel_container/Maximize_hover.png); hover background now lighter for BlueCrystal */
+}
+
+.sapUiPanelCont {
+	border-top-width: 0;
+}
+
+.sapUiPanelAreaDesignFill > .sapUiPanelCont {
+	background-color: fade(@sapUiLightestBG, 80);
+}
+
+.sapUiPanelHeightSet > .sapUiPanelCont {
+	top: 27px;
+}
+
+html[data-sap-ui-browser*="ie"] .sapUiPanelTitle {
+	height: 26px;
+	line-height: 26px;
+}
+/* END "Panel.less" */
+
+/* START "ProgressIndicator.less" */
+/* ======================================================== */
+/* CSS for control sap.ui.commons/ProgressIndicator.control */
+/* Blue Crystal                                             */
+/* ======================================================== */
+
+.sapUiProgInd {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiProgInd:focus{ /* IE only */
+	outline: 1px dotted;
+}
+/* END "ProgressIndicator.less" */
+
+/* START "RadioButton.less" */
+.sapUiRb {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	line-height: 20px;
+	height: 21px;
+	padding-top: 1px;
+	position: relative;
+}
+
+.sapUiRb:focus{
+	outline-color: @sapUiKeyboardFocus;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiRb:focus:after {
+	border-color: @sapUiKeyboardFocus;
+}
+
+.sapUiRb > input { /* make the real radiobutton vanish from the screen */
+	position: absolute;
+	visibility: hidden;
+	left: 0;
+}
+
+
+.sapUiRb > label { /* render an image as radiobutton replacement */
+	background-image: url(img/radiobutton.png);
+	background-repeat: no-repeat;
+	background-position: left 1px;
+	padding: 1px 0 2px 22px;
+}
+
+.sapUiRb .sapUiRbNoText {
+	padding-left: 15px;
+}
+
+
+.sapUiRbSel > label {
+	background-position: left -29px;
+}
+
+/* hover */
+.sapUiRbStd:hover > label {
+	background-position: left -59px;
+}
+
+.sapUiRbStd:hover.sapUiRbSel > label {
+	background-position: left -89px;
+}
+
+
+
+/* readonly */
+.sapUiRbRo > label {
+	background-position: left -179px;
+}
+
+.sapUiRbRo.sapUiRbSel > label {
+	background-position: left -209px;
+}
+
+/* error */
+.sapUiRbErr > label {
+	background-position: left -239px;
+}
+
+.sapUiRbErr.sapUiRbSel > label {
+	background-position: left -269px;
+}
+
+/* error hover */
+.sapUiRbInteractive.sapUiRbErr:hover > label {
+	background-position: left -539px;
+}
+
+.sapUiRbInteractive.sapUiRbErr.sapUiRbSel:hover > label {
+	background-position: left -569px;
+}
+
+/* warning */
+.sapUiRbWarn > label {
+	background-position: left -299px;
+}
+
+.sapUiRbWarn.sapUiRbSel > label {
+	background-position: left -329px;
+}
+
+/* warning hover */
+.sapUiRbInteractive.sapUiRbWarn:hover > label {
+	background-position: left -479px;
+}
+
+.sapUiRbInteractive.sapUiRbWarn.sapUiRbSel:hover > label {
+	background-position: left -509px;
+}
+
+/* readonly error */
+.sapUiRbErr.sapUiRbRo > label {
+	background-position: left -359px;
+}
+
+.sapUiRbErr.sapUiRbRo.sapUiRbSel > label {
+	background-position: left -389px;
+}
+
+/* readonly warning */
+.sapUiRbWarn.sapUiRbRo > label {
+	background-position: left -419px;
+}
+
+.sapUiRbWarn.sapUiRbRo.sapUiRbSel > label {
+	background-position: left -449px;
+}
+
+/* disabled */
+.sapUiRbDis > label,
+.sapUiRbDis.sapUiRbWarn.sapUiRbRo > label,
+.sapUiRbDis.sapUiRbErr.sapUiRbRo > label {
+	text-color: @sapUiContentDisabledTextColor;
+	background-position: left -119px;
+}
+
+.sapUiRbDis.sapUiRbSel > label,
+.sapUiRbDis.sapUiRbWarn.sapUiRbRo.sapUiRbSel > label,
+.sapUiRbDis.sapUiRbErr.sapUiRbRo.sapUiRbSel > label {
+	background-position: left -149px;
+}
+/* END "RadioButton.less" */
+
+/* START "RadioButtonGroup.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons/RadioButtonGroup.control */
+/* Blue Crystal                                            */
+/* ======================================================= */
+
+.sapUiRbG{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "RadioButtonGroup.less" */
+
+/* START "RatingIndicator.less" */
+.sapUiRating {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	margin-top: -2px;
+}
+/* END "RatingIndicator.less" */
+
+/* START "RichTooltip.less" */
+/* RichTooltip Blue Crystal */
+
+.sapUiRtt {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border: 1px solid @sapUiDarkBorder;
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiRttSep {
+	height: 1px;
+	background-color: @sapUiMediumBG;
+}
+
+/* END "RichTooltip.less" */
+
+/* START "RoadMap.less" */
+/* ============================================== */
+/* CSS for control sap.ui.commons/RoadMap.control */
+/* ============================================== */
+
+.sapUiRoadMap {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* Step Styles */
+.sapUiRoadMapDisabled{
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiRoadMapStepAdd1,
+.sapUiRoadMapStepAdd2{
+	background-color: @sapUiLightLine;
+}
+
+.sapUiRoadMapStepBox{
+	background-color: @sapUiButtonBackground;
+	color: @sapUiButtonTextColor;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	border: 1px solid @sapUiButtonBorderColor;
+}
+
+.sapUiRoadMapStepBox:focus{
+	outline: 1px dotted @sapUiHighlight;
+}
+
+.sapUiRoadMapSelected > .sapUiRoadMapStepBox {
+	color: @sapUiToggleButtonPressedTextColor;
+	background-color: @sapUiToggleButtonPressedBackground;
+	border-color: @sapUiToggleButtonPressedBorderColor;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+
+}
+
+.sapUiRoadMapDisabled > .sapUiRoadMapStepBox {
+	background-color: @sapUiButtonDisabledBackground;
+	color: @sapUiContentDisabledTextColor;
+	border: 1px solid  @sapUiButtonDisabledBorderColor;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.sapUiRoadMapTitle {
+	height: 30px;/*double line-height*/
+	font-size: 12px;
+	font-family: @sapUiFontFamily;
+}
+
+.sapUiRoadMapStepIco{
+	display: inline;
+	position: absolute;
+	bottom: 0px;
+	left: 3px;
+	height: 16px;
+	width: 16px;
+	background-image: url("img/roadmap/roundtrip.gif");
+}
+
+.sapUiRoadMapStep:hover > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco,
+.sapUiRoadMapStep.sapUiRoadMapSelected:hover > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_hov.gif");
+}
+
+.sapUiRoadMapDisabled > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_dsbl.gif");
+}
+
+.sapUiRoadMapSelected > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_hov.gif");
+}
+
+.sapUiRoadMapExpanded > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	right: 2px;
+	left: auto;
+	height: 12px;
+	width: 12px;
+	background-image: url("img/roadmap/roundtrip_start.gif");
+}
+
+.sapUiRoadMapExpanded:hover > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco,
+.sapUiRoadMapExpanded.sapUiRoadMapSelected:hover > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_start_hov.gif");
+}
+
+.sapUiRoadMapExpanded.sapUiRoadMapDisabled > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_start_dsbl.gif");
+}
+
+.sapUiRoadMapExpanded.sapUiRoadMapSelected > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_start_hov.gif");
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	left: 2px;
+	background-image: url("img/roadmap/roundtrip_end.gif");
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded:hover > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco,
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded.sapUiRoadMapSelected:hover > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_end_hov.gif");
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded.sapUiRoadMapDisabled > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_end_dsbl.gif");
+}
+
+.sapUiRoadMapStepEnd.sapUiRoadMapExpanded.sapUiRoadMapSelected > .sapUiRoadMapStepBox > .sapUiRoadMapStepIco{
+	background-image: url("img/roadmap/roundtrip_end_hov.gif");
+}
+
+.sapUiRoadMapStep:hover > .sapUiRoadMapTitle{
+	color: @sapUiLinkHover;
+}
+
+.sapUiRoadMapStep.sapUiRoadMapDisabled:hover > .sapUiRoadMapTitle{
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiRoadMapStep.sapUiRoadMapSelected:hover > .sapUiRoadMapTitle{
+	color: @sapUiBaseText;
+}
+
+.sapUiRoadMapStep:hover > .sapUiRoadMapStepBox{
+	background-color: @sapUiHighlight;
+	background-image: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	border: 1px solid @sapUiButtonHoverBorderColor;
+	color: @sapUiTextSelection;
+}
+
+.sapUiRoadMapStep.sapUiRoadMapDisabled:hover > .sapUiRoadMapStepBox{
+	background-color: @sapUiButtonDisabledBackground;
+	color: @sapUiContentDisabledTextColor;
+	border: 1px solid  @sapUiButtonDisabledBorderColor;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.sapUiRoadMapStep.sapUiRoadMapSelected:hover > .sapUiRoadMapStepBox{
+	color: @sapUiTextSelection;
+	background-color: @sapUiHighlight;
+	border-color: @sapUiButtonHoverBorderColor;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+/* Delimiter Styles */
+
+.sapUiRoadMapDelim{
+	background-color: @sapUiLightBG;
+	height: 22px;
+	width: 7px;
+}
+
+.sapUiRoadMapStartScroll{
+	background-color: @sapUiHighlight;
+}
+
+.sapUiRoadMapEndScroll{
+	background-color: @sapUiHighlight;
+}
+
+.sapUiRoadMapStartScroll:after,
+.sapUiRoadMapStartFixed:after,
+.sapUiRoadMapEndScroll:after,
+.sapUiRoadMapEndFixed:after{
+	content: "";
+}
+/* END "RoadMap.less" */
+
+/* START "RowRepeater.less" */
+/* =============================================================== */
+/* Blue Crystal CSS for control sap.ui.commons/RowRepeater.control */
+/* =============================================================== */
+
+/* Row Container */
+.sapUiRrBody {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/** Common Design **/
+
+/** Standard Design **/
+
+.sapUiRrDesignStandard {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiRrDesignStandard > .sapUiRrPtb {
+	background-color: @sapUiWhiteBG;
+	border-style: none none solid none;
+	border-width: 2px;
+	border-color: @sapUiLightBorder;
+}
+
+.sapUiRrDesignStandard > .sapUiRrStb {
+	background-color: @sapUiWhiteBG;
+	border: none;
+}
+
+.sapUiRrDesignStandard > .sapUiRrBody {
+	border: none;
+}
+
+.sapUiRrDesignStandard > .sapUiRrFtr {
+	background-color: @sapUiWhiteBG;
+	border: none;
+}
+
+/** Transparent Design **/
+
+/** BareShell Design **/
+/* END "RowRepeater.less" */
+
+/* START "SearchField.less" */
+/* ===================================================== */
+/* GR CSS for control sap.ui.commons/SearchField.control */
+/* ===================================================== */
+
+.sapUiSearchField {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	height: 22px; /*@sapUiTextFieldHeight;*/
+}
+
+.sapUiSearchFieldTf {
+	height: 22px; /*@sapUiTextFieldHeight;*/
+	margin-top: 0;
+}
+
+.sapUiSearchFieldCb .sapUiTfComboIcon {
+	color: transparent;
+	font-size: 0;
+}
+
+.sapUiSearchFieldCb,
+.sapUiSearchFieldCb.sapUiTfBrd.sapUiTfCombo {
+	padding: 0 40px 0 0;
+}
+
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb,
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb.sapUiTfBrd.sapUiTfCombo,
+.sapUiSearchFieldTf.sapUiTfBrd,
+.sapUiSearchFieldCb.sapUiTfRo,
+.sapUiSearchFieldCb.sapUiTfBrd.sapUiTfCombo.sapUiTfRo {
+	padding: 0 20px 0 0;
+}
+
+.sapUiSearchFieldCb .sapUiSearchFieldIco {
+	right: 20px;
+}
+
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb .sapUiSearchFieldIco {
+	right: 0px;
+}
+
+.sapUiSearchFieldIco,
+.sapUiSearchFieldTf .sapUiSearchFieldIco,
+.sapUiSearchFieldCb.sapUiTfRo .sapUiSearchFieldIco {
+	right: 0;
+}
+
+.sapUiSearchFieldIco:hover {
+	background-image: url("img/search/search_hover.png");
+	background-color: @sapUiFieldHoverHelpBackground;
+}
+
+.sapUiSearchFieldDsbl .sapUiSearchFieldIco {
+	background-image: url("img/search/search_dsbl.png");
+	background-color: transparent;
+	opacity: 1;
+}
+
+.sapUiSearchFieldDsbl .sapUiSearchFieldIco:hover {
+	cursor: auto;
+	opacity: 1;
+	background-image: url("img/search/search_dsbl.png");
+	background-color: transparent;
+}
+
+.sapUiSearchFieldIco {
+	height: 20px;
+	margin-top: 0px;
+	width: 20px;
+	background-position: center center;
+}
+
+.sapUiSearchFieldProvIco {
+	height: 18px;
+	margin-top: 0;
+	top: 1px;
+}
+
+.sapUiSearchFieldClear > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	background-image: url("img/search/search_unclickable.png");
+	background-color: transparent;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	background-image: url("img/search/search_dsbl.png");
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldCb > .sapUiSearchFieldIco{
+	font-size: 0;
+	color: transparent;
+	background-image: url("img/search/clear.png");
+	background-position: center center;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldTf > .sapUiSearchFieldIco:hover,
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldCb > .sapUiSearchFieldIco:hover {
+	background-image: url("img/search/clear_hover.png");
+	background-color: transparent;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco:hover,
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco:hover {
+	background-image: url("img/search/search_dsbl.png");
+	background-color: transparent;
+}
+
+html[data-sap-ui-browser='ie8'] .sapUiSearchFieldCb.sapUiSearchFieldCbProv > .sapUiTf {
+	padding-left: 20px;
+}
+/* END "SearchField.less" */
+
+/* START "SegmentedButton.less" */
+/* ====================================================== */
+/* CSS for control sap.ui.commons/SegmentedButton.control */
+/* ====================================================== */
+
+.sapUiSegmentedButton{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/*std button styling */
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus {
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:focus:not(.sapUiSegButtonSelected),
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:focus:not(.sapUiSegButtonSelected),
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:hover:not(.sapUiSegButtonSelected) {
+	box-shadow: none;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco {
+	box-shadow:  none;
+	cursor: default;
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiSegButtonSelected:focus > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct.sapUiSegButtonSelected:focus > span.sapUiBtnIco {
+	background-color: darken(@sapUiHighlight, 5);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco{
+	background-color: fade(@sapUiHighlight, 25);
+	color: fade(@sapUiTextInverted, 75);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnNorm.sapUiBtnAct:focus {
+	border-color: @sapUiDarkBorder;
+}
+
+/* lite button styling */
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd {
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd:focus {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+	cursor: default;
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:hover,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnStd.sapUiSegButtonSelected:focus > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:hover > span.sapUiBtnIco,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiSegButtonSelected:focus > span.sapUiBtnIco {
+	background-color: darken(@sapUiHighlight, 5);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiSegButtonSelected > span.sapUiBtnIco {
+	background-color: fade(@sapUiHighlight, 25);
+	color: fade(@sapUiTextInverted, 75);
+}
+
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnStd:focus,
+.sapUiSegmentedButton > span > .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+	outline: 1px dotted @sapUiHighlight;
+	outline-offset: -1px;
+}
+/* END "SegmentedButton.less" */
+
+/* START "Slider.less" */
+/* ================================================= */
+/* CSS for control sap.ui.commons/Slider.control     */
+/* Blue Crystal Theme                                */
+/* ================================================= */
+
+.sapUiSli{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border: none;
+}
+
+.sapUiSliHori.sapUiSli{
+	padding: 20px 0 0 0;
+	height: 16px;
+}
+
+.sapUiSliVert.sapUiSli{
+	padding: 0 0 0 30px;
+	width: 16px;
+}
+
+.sapUiSliR,
+.sapUiSliL{
+	border-style: solid;
+	border-color:  @sapUiMediumBorder;
+}
+
+.sapUiSliHori > .sapUiSliR,
+.sapUiSliHori .sapUiSliL{
+	height: 2px;
+}
+
+.sapUiSliVert > .sapUiSliR,
+.sapUiSliVert .sapUiSliL{
+	width: 2px;
+}
+
+.sapUiSliHori > .sapUiSliR {
+	border-width: 1px 0px 1px 0;
+	margin-right: 6px;
+	margin-left: 6px;
+}
+
+.sapUiSliVert > .sapUiSliR {
+	border-width: 0px 1px 0px 1px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+.sapUiSliHori .sapUiSliL {
+	border-width: 1px 0 1px 0px;
+	top: -1px;
+}
+
+.sapUiSliVert .sapUiSliL {
+	border-width: 0px 1px 0px 1px;
+	left: -1px;
+}
+
+.sapUiSliHori .sapUiSliBar,
+.sapUiSliHori .sapUiSliHiLi {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	height: 2px;
+	top: -1px;
+}
+
+.sapUiSliVert .sapUiSliBar,
+.sapUiSliVert .sapUiSliHiLi {
+	border-left: 1px solid;
+	border-right: 1px solid;
+	width: 2px;
+	left: -1px;
+}
+
+.sapUiSliHori .sapUiSliBar {
+	border-top-color: @sapUiMediumBorder;
+	border-bottom-color: @sapUiMediumBorder;
+	border-left-color: @sapUiMediumBorder;
+	background-color: @sapUiMediumBorder;
+}
+
+.sapUiSliVert .sapUiSliBar {
+	border-left-color: @sapUiMediumBorder;
+	border-right-color: @sapUiMediumBorder;
+	border-bottom-color: @sapUiMediumBorder;
+	background-color: @sapUiMediumBorder;
+}
+
+.sapUiSliHori .sapUiSliHiLi{
+	left: -1px;
+}
+
+.sapUiSliVert .sapUiSliHiLi{
+	bottom: -1px;
+}
+
+.sapUiSliStd .sapUiSliHiLi {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiSliStd.sapUiSliHori  .sapUiSliHiLi {
+	border-top-color: @sapUiHighlight;
+	border-bottom-color: @sapUiHighlight;
+	border-left-color: @sapUiHighlight;
+}
+
+.sapUiSliStd.sapUiSliVert .sapUiSliHiLi {
+	border-left-color: @sapUiHighlight;
+	border-right-color: @sapUiHighlight;
+	border-bottom-color: @sapUiHighlight;
+}
+
+.sapUiSliHori.sapUiSliRo .sapUiSliHiLi,
+.sapUiSliHori.sapUiSliDsbl .sapUiSliHiLi {
+	border-top-color: @sapUiMediumLine;
+	border-bottom-color: @sapUiMediumLine;
+	border-left-color: @sapUiMediumLine;
+	background-color: @sapUiMediumLine;
+}
+
+.sapUiSliVert.sapUiSliRo .sapUiSliHiLi,
+.sapUiSliVert.sapUiSliDsbl .sapUiSliHiLi {
+	border-left-color: @sapUiMediumLine;
+	border-right-color: @sapUiMediumLine;
+	border-bottom-color: @sapUiMediumLine;
+	background-color: @sapUiMediumLine;
+}
+
+
+.sapUiSliGrip {
+	border-style: solid;
+	border-width: 2px;
+}
+
+.sapUiSliHori .sapUiSliGrip {
+	height: 12px;
+	width: 6px;
+	top: -7px;
+}
+
+.sapUiSliVert .sapUiSliGrip {
+	height: 6px;
+	width: 12px;
+	left: -7px;
+}
+
+.sapUiSliHori.sapUiSliRo .sapUiSliGrip {
+	width: 0px;
+}
+
+.sapUiSliVert.sapUiSliRo .sapUiSliGrip {
+	height: 0px;
+}
+
+.sapUiSliStd .sapUiSliGrip {
+	background-color: @sapUiExtraLightBG;
+	border-color: @sapUiExtraLightText;
+}
+
+.sapUiSliStd .sapUiSliGrip:hover {
+	background-color: @sapUiDarkBG;
+	border-color: @sapUiDarkBG;
+}
+
+.sapUiSliStd .sapUiSliGrip:focus,
+.sapUiSliStd .sapUiSliGrip:active {
+	border-color: @sapUiHighlight;
+	background-color: @sapUiHighlight;
+	outline: 1px dotted @sapUiDarkestBorder;
+}
+
+.sapUiSliRo .sapUiSliGrip,
+.sapUiSliDsbl .sapUiSliGrip {
+	border-color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiSliRo .sapUiSliGrip:focus {
+	outline: 1px dotted @sapUiDarkestBorder;
+}
+
+.sapUiSliHori .sapUiSliTick {
+	height: 4px;
+	width: 0;
+	top: -5px;
+	border-left: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiSliVert .sapUiSliTick {
+	height: 0;
+	width: 4px;
+	left: -5px;
+	border-top: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiSliHori .sapUiSliText {
+	top: -20px;
+}
+
+.sapUiSliVert .sapUiSliText {
+	right: 10px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiSliHori .sapUiSliText {
+	top: -19px;
+}
+
+.sapUiSliHori .sapUiSliTextLeft {
+	left: -2px;
+}
+
+.sapUiSliVert .sapUiSliTextLeft {
+	bottom: -2px;
+}
+
+.sapUiSliHori .sapUiSliTextRight {
+	right: -1px;
+}
+
+.sapUiSliVert .sapUiSliTextRight {
+	top: -1px;
+}
+/* END "Slider.less" */
+
+/* START "Splitter.less" */
+/* ==================================================== */
+/* Blue Crystal for control sap.ui.dev/Splitter.control */
+/* ==================================================== */
+
+.sapUiVerticalSplitterBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiHorizontalSplitterBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiVSplitterSecondPane:focus,
+.sapUiHSplitterSecondPane:focus,
+.sapUiVSplitterFirstPane:focus,
+.sapUiHSplitterFirstPane:focus {
+	outline: @sapUiHighlight dashed 1px;
+}
+
+.sapUiVerticalSplitterBar:hover{
+	background-color: @sapUiExtraLightBG;
+	cursor: e-resize;
+}
+
+.sapUiHorizontalSplitterBar:hover{
+	background-color: @sapUiExtraLightBG;
+	cursor: n-resize;
+}
+
+.sapUiVSBGhost{
+	background-image: none;
+	background-color: @sapUiHighlight;
+	cursor: e-resize;
+}
+
+.sapUiHSBGhost{
+	background-image: none;
+	background-color: @sapUiHighlight;
+	cursor: n-resize;
+}
+/* END "Splitter.less" */
+
+/* START "TabStrip.less" */
+@sapUiTabBorderRadius: 0;
+
+.sapUiTabStrip {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border: none;
+}
+
+.sapUiTabBar {
+	height: 28px;
+}
+
+.sapUiTabBarCnt {
+	height: 27px;
+	border-bottom: 1px solid @sapUiDarkBorder;
+	padding: 0;
+}
+
+.sapUiTab,
+.sapUiTabSel,
+.sapUiTabDsbl {
+	height: 16px;
+	margin: 6px 0 0;
+	padding: 2px 10px;
+	background-color: @sapUiExtraLightBG;
+	border: 1px solid @sapUiMediumBorder;
+	border-bottom-width: 0;
+	-moz-border-radius: @sapUiTabBorderRadius @sapUiTabBorderRadius 0 0;
+	-webkit-border-radius: @sapUiTabBorderRadius @sapUiTabBorderRadius 0 0;
+	border-radius: @sapUiTabBorderRadius @sapUiTabBorderRadius 0 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiTab,
+html[data-sap-ui-browser^="ie"] .sapUiTabSel,
+html[data-sap-ui-browser^="ie"] .sapUiTabDsbl {
+	/*in IE outline-offset not works, so use border instead*/
+	border-bottom-width: 1px;
+	padding-bottom: 1px;
+}
+
+.sapUiTab:hover,
+.sapUiTabSel:hover {
+	background-color: @sapUiHighlight;
+	border-width: 2px;
+	border-bottom-width: 0;
+	padding: 1px 9px 2px 9px;
+	border-color: @sapUiHighlight;
+	color: @sapUiTextSelection;
+}
+
+.sapUiTabSel:hover {
+	border-bottom-width: 1px;
+	padding-top: 2px;
+}
+
+.sapUiTab:hover .sapUiTabClose,
+.sapUiTabSel:hover .sapUiTabClose {
+	background-image:url(img/tab-close-sel.png);
+}
+
+.sapUiTab:focus,
+.sapUiTabDsbl:focus{
+	outline: 1px dashed @sapUiHighlight;
+	outline-offset: -1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiTab:focus,
+html[data-sap-ui-browser^="ie"] .sapUiTabDsbl:focus{
+	/*in IE outline-offset not works, so use border instead*/
+	outline: none;
+	border: 1px dashed @sapUiHighlight;
+}
+
+.sapUiTabSel:focus {
+	outline: 1px dashed @sapUiHighlight;
+	outline-offset: -1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiTabSel:focus{
+	/*in IE outline-offset not works, so use border instead*/
+	outline: none;
+	border: 1px dashed @sapUiHighlight;
+}
+
+.sapUiTabSel {
+	padding-top: 3px;
+	margin: 5px 0 0;
+	font-weight: bold;
+	background-color: @sapUiListSelectionBackgroundColor;
+	/*border-color: @sapUiHighlight;*/
+}
+
+.sapUiTabClose {
+	background-image: url(img/tab-close.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 12px;
+	height: 12px;
+	border: 1px solid transparent;
+	margin: 0;
+	position: relative;
+	left: 6px;
+	padding: 0;
+}
+
+.sapUiTabClose:hover {
+	border-color: @sapUiMediumBorder;
+}
+
+/*.sapUiTabSel .sapUiTabClose {
+	background-image:url(img/tab-close-sel.png);
+}*/
+
+.sapUiTabSel .sapUiTabClose:hover {
+	border-color: @sapUiTextSelection;
+}
+
+.sapUiTabIco {
+	margin-right:2px;
+}
+
+.sapUiTabPanel {
+	top: 28px;
+	border: 1px solid @sapUiDarkBorder;
+	border-top-width: 0;
+	padding: 6px;
+	background-color: @sapUiLightestBG;
+}
+/* END "TabStrip.less" */
+
+/* START "TextArea.less" */
+/* =============================================== */
+/* CSS for control sap.ui.commons/TextArea.control */
+/* =============================================== */
+
+.sapUiTxtA{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "TextArea.less" */
+
+/* START "TextField.less" */
+.sapUiTf{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTfMono{
+	font-family: @sapUiFontMonospaceFamily;
+}
+
+.sapUiTfBrd {
+	padding: 2px 5px 3px 5px;
+	height: 22px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-width: 1px;
+}
+
+/* in IE with monospace its not aligned */
+html[data-sap-ui-browser="ie8"] .sapUiTfMono.sapUiTf{
+	padding-top: 5px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiTfMono.sapUiTf{
+	padding-top: 4px;
+}
+
+html[data-sap-ui-browser="ie10"] .sapUiTf:not(.sapUiTfInner){
+	padding-top: 3px;
+}
+
+.sapUiTfBrd.sapUiTfStd:hover {
+	border-color: @sapUiFieldHoverBorderColor;
+}
+
+html[data-sap-ui-os^='iOS'] .sapUiTfBrd.sapUiTfStd:not(.sapUiTfFoc):hover {
+	border-color: @sapUiFieldBorderColor; /* disable hover effect on iPad */
+}
+
+html[data-sap-ui-os^='iOS'] .sapUiTfBrd.sapUiTfErr:not(.sapUiTfFoc):hover {
+	border-color: @sapUiFieldInvalidColor; /* disable hover effect on iPad */
+}
+
+html[data-sap-ui-os^='iOS'] .sapUiTfBrd.sapUiTfWarn:not(.sapUiTfFoc):hover {
+	border-color: @sapUiFieldWarningColor; /* disable hover effect on iPad */
+}
+
+.sapUiTfBrd > .sapUiTfInner {
+	padding: 0 2px 0 5px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTfBrd > .sapUiTfInner {
+	padding: 2px 2px 0 5px;
+}
+
+html[data-sap-ui-browser^="ff"] .sapUiTfBrd > .sapUiTfInner,
+html[data-sap-ui-browser^="cr"] .sapUiTfBrd > .sapUiTfInner{
+	padding-bottom: 1px;
+}
+
+.sapUiTfDsbl{
+	background-color: @sapUiFieldDisabledBackground;
+}
+
+.sapUiTfRo{
+	border-color: @sapUiFieldReadOnlyBorderColor;
+}
+
+.sapUiTfRo.sapUiTfBrd.sapUiTfErr{
+	border-color: @sapUiFieldReadOnlyBorderColor;
+	color: darken(@sapUiFieldInvalidColor, 8);
+}
+
+.sapUiTfRo.sapUiTfBrd.sapUiTfWarn {
+	border-color: @sapUiFieldReadOnlyBorderColor;
+	color: @sapUiCriticalText; /*looks more like yellow: darken(@sapUiFieldWarningColor, 17);*/
+}
+
+/* need to be separate statements for each browser, otherwise it will not work */
+.sapUiTfPlace{
+	color: @sapUiFieldPlaceholderTextColor;
+}
+.sapUiTf::-webkit-input-placeholder{
+	color: @sapUiFieldPlaceholderTextColor;
+}
+.sapUiTf::-moz-placeholder{
+	color: @sapUiFieldPlaceholderTextColor;
+}
+.sapUiTf:-ms-input-placeholder{
+	color: @sapUiFieldPlaceholderTextColor;
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+html[data-sap-ui-browser="ie9"] .sapUiGrid td > .sapUiTfBrd,
+html[data-sap-ui-browser="ie10"] .sapUiGrid td > .sapUiTfBrd{
+	padding-top: 3px; /* in IE9 text of TextField it 1px moved */
+	padding-bottom: 2px;
+}
+
+/* ResponsiveGridLayout */
+html[data-sap-ui-browser^="ie"].sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > div > .sapUiTf,
+html[data-sap-ui-browser^="ie"].sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > div > .sapUiTf,
+html[data-sap-ui-browser^="ie"].sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > div > .sapUiTf,
+html[data-sap-ui-browser^="ie"].sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > div > .sapUiTf {
+	line-height: 16px;
+}
+/* END "TextField.less" */
+
+/* START "TextView.less" */
+/* ================================================ */
+/* CSS for control sap.ui.commons/TextView.control  */
+/* SAP Blue Crystal theme                           */
+/* ================================================ */
+
+.sapUiTv {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTvH1 { /* be careful - used in other controls with title too */
+	font-size: @sapUiFontHeader1Size;
+}
+
+.sapUiTvH2 {
+	font-size: @sapUiFontHeader2Size;
+}
+
+.sapUiTvH3 {
+	font-size: @sapUiFontHeader3Size;
+}
+
+.sapUiTvH4 {
+	font-size: @sapUiFontHeader4Size;
+}
+
+.sapUiTvH5 {
+	font-size: @sapUiFontHeader5Size;
+}
+
+.sapUiTvH6 {
+	font-size: @sapUiFontHeader6Size;
+}
+
+.sapUiTvSmall {
+	font-size: @sapUiFontSmallSize;
+}
+
+/* success state */
+.sapUiTvSucc,
+.sapUiInverted-CTX .sapUiTvSucc {
+	color: @sapUiPositiveText;
+	background-color: transparent;
+}
+
+/* Designs */
+.sapUiTvH6 {
+	color: @sapUiBaseText;
+}
+
+.sapUiTvMono {
+	font-family: Lucida Console, monospace;
+}
+
+/* invalid state */
+.sapUiTvErr {
+	transition: color .25s linear;
+	-webkit-transition: color .25s linear;
+	-moz-transition: color .25s linear;
+	background-color: transparent;
+	color: @sapUiNegativeText;
+}
+
+.sapUiInverted-CTX .sapUiTvErr {
+	color: @sapUiNegativeText;
+}
+
+/* warning state */
+.sapUiTvWarn {
+	transition: color 1s linear;
+	-webkit-transition: color 1s linear;
+	-moz-transition: color 1s linear;
+	color: @sapUiCriticalText; /*looks more like yellow: darken(@sapUiFieldWarningColor, 17);*/
+	background-color: transparent;
+}
+
+.sapUiInverted-CTX .sapUiTvWarn {
+	color: @sapUiCriticalText; /*looks more like yellow: darken(@sapUiFieldWarningColor, 17);*/
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+.sapUiGrid td > .sapUiTv{
+	margin-top: 2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiGrid td > .sapUiTv{
+	margin-top: 1px;
+}
+
+/* ResponsiveGridLayout */
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > div > .sapUiTv,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > div > .sapUiTv,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > div > .sapUiTv,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > div > .sapUiTv {
+	margin-top: 2px;
+}
+/* END "TextView.less" */
+
+/* START "ToggleButton.less" */
+.sapUiBtnS{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* normal button */
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:focus {
+	color: @sapUiButtonHoverTextColor;
+	background-color: @sapUiButtonHoverBackground;
+	border-color: @sapUiButtonHoverBorderColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed {
+	color: @sapUiToggleButtonPressedTextColor;
+	background-color: @sapUiToggleButtonPressedBackground;
+	border-color: @sapUiToggleButtonPressedBorderColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	color: @sapUiToggleButtonPressedTextColor;
+	background-color: @sapUiToggleButtonPressedHoverBackground;
+	border-color: @sapUiToggleButtonPressedHoverBorderColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn:active,
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:active,
+.sapUiBtn.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	color: @sapUiToggleButtonPressedTextColor;
+	background-color: @sapUiButtonActiveBackground;
+	border-color: @sapUiButtonActiveBorderColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiInvertedFocus;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn.sapUiToggleBtnPressed > span.sapUiBtnIco {
+	color: @sapUiToggleButtonPressedTextColor;
+}
+
+html[data-sap-ui-browser='ie9'] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoL,
+html[data-sap-ui-browser='ie9'] .sapUiBtnS.sapUiBtnNorm.sapUiToggleBtn > .sapUiBtnIcoR {
+	margin-top: -1px;
+}
+
+/*.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiToggleBtn {
+	color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiButtonBackground;
+	border-color: @sapUiButtonDisabledBorderColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed {
+	color: @sapUiToggleButtonPressedDisabledTextColor;
+	background-color: @sapUiToggleButtonPressedDisabledBackground;
+	border-color: @sapUiToggleButtonPressedDisabledBorderColor;
+}
+
+.sapUiBtnS.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiToggleButtonPressedDisabledBackground;
+}*/
+
+/* lite button */
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn {
+	border: 1px solid transparent;
+	margin: 0px;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoL,
+.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoR {
+	margin-top: 0px;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser='ie9'] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoR,
+html[data-sap-ui-browser='ie9'] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoL {
+	margin-top: -1px;
+}
+
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="sf"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="cr"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn > .sapUiBtnIcoR {
+	margin-top: 1px;
+}
+
+/* prevent IE to move text on pressing button */
+html[data-sap-ui-browser="ie9"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active {
+	padding-bottom: 4px;
+	padding-top: 2px;
+	padding-left: 7px;
+	padding-right: 9px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active {
+	padding-bottom: 4px;
+	padding-top: 1px;
+	padding-left: 7px;
+	padding-right: 9px;
+}
+
+html[data-sap-ui-browser^="ie"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active > .sapUiBtnTxt,
+html[data-sap-ui-browser^="ie"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active > .sapUiBtnIcoL,
+html[data-sap-ui-browser^="ie"]  .sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active > .sapUiBtnIcoR,
+html[data-sap-ui-browser^="ie"]  .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn:active > .sapUiBtnIco,
+html[data-sap-ui-browser='ie9'] .sapUiBtnS.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco,
+html[data-sap-ui-browser='ie8'] .sapUiBtnS.sapUiBtnLite.sapUiBtnIconOnly.sapUiToggleBtn > .sapUiBtnIco {
+	margin-top: -3px;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:hover,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:focus {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed {
+	color: @sapUiToggleButtonPressedTextColor;
+	background-color: @sapUiToggleButtonPressedBackground;
+	border: 1px solid @sapUiToggleButtonPressedBorderColor;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	background-color: @sapUiToggleButtonPressedHoverBackground;
+	border: 1px solid @sapUiToggleButtonPressedHoverBorderColor;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn:active,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+/*	color: @sapUiButtonTextColor;*/
+	background-color: darken(@sapUiToggleButtonPressedHoverBackground, 7);
+	border: 1px solid darken(@sapUiToggleButtonPressedHoverBackground, 7);
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiInvertedFocus;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+/*.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn:hover {
+	color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiButtonLiteBackground;
+	border:none;
+	margin: 0px;
+}*/
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiToggleButtonPressedDisabledBackground;
+}
+
+/* emphasized button */
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	background-image: none;
+	border-color: @sapUiButtonEmphasizedHoverBackground;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiInvertedFocus;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnStd.sapUiToggleBtn:focus,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnStd.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:hover,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	background-image: none;
+	border-color: @sapUiButtonEmphasizedHoverBackground;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiInvertedFocus;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+html[data-sap-ui-browser^="ie"] .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	border-color: @sapUiButtonEmphasizedBorderColor;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn {
+	color: @sapUiButtonEmphasizedBackground;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonEmphasizedBackground;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn:active,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	border-color: @sapUiButtonEmphasizedHoverBackground;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn:active {
+	opacity: 0.25;
+/*	color: @sapUiContentDisabledTextColor;*/
+	background-color: @sapUiButtonLiteBackground;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	opacity: 0.25;
+/*	color: @sapUiContentDisabledTextColor;*/
+	background-color: @sapUiButtonEmphasizedBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn {
+	background-color: @sapUiButtonEmphasizedBackground;
+	border-color: @sapUiButtonEmphasizedBorderColor;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnEmph.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	background-color: @sapUiButtonEmphasizedBackground;
+	border-color: @sapUiButtonEmphasizedBorderColor;
+	color: @sapUiButtonEmphasizedTextColor;
+}
+
+
+/* accept button */
+
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd.sapUiToggleBtn:focus,
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:hover,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	background-color: @sapUiButtonAcceptHoverBackground;
+	background-image: none;
+	border-color: @sapUiButtonAcceptHoverBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnAccept.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiInvertedFocus;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnAccept.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+html[data-sap-ui-browser^="ie"] .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonAcceptHoverBackground;
+	border-color: @sapUiButtonAcceptBorderColor;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonAcceptBackground;
+	border-color: @sapUiButtonAcceptBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	background-color: @sapUiButtonAcceptHoverBackground;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiBtnDsbl.sapUiToggleBtn {
+	opacity: 0.25;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAccept.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	opacity: 0.25;
+	color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiButtonAcceptHoverBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl.sapUiToggleBtn {
+	background-color: @sapUiButtonAcceptBackground;
+	border-color: @sapUiButtonAcceptBorderColor;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnAccept.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonAcceptBackground;
+	border-color: @sapUiButtonAcceptBorderColor;
+	color: @sapUiTextSelection;
+}
+
+/* reject button */
+
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd.sapUiToggleBtn:focus,
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd.sapUiToggleBtn:hover,
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:hover,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed:hover {
+	background-color: @sapUiButtonRejectHoverBackground;
+	background-image: none;
+	border-color: @sapUiButtonRejectHoverBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnReject.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiInvertedFocus;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapUiBtnS.sapUiBtnReject.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed:focus,
+html[data-sap-ui-browser^="ie"] .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed:focus {
+	outline: 1px dotted @sapUiFocus;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonRejectHoverBackground;
+	border-color: @sapUiButtonRejectBorderColor;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonRejectBackground;
+	border-color: @sapUiButtonRejectBackground;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	background-color: @sapUiButtonRejectHoverBackground;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiBtnDsbl.sapUiToggleBtn {
+	opacity: 0.25;
+}
+
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed,
+.sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnReject.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed:active {
+	opacity: 0.25;
+	color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiButtonRejectHoverBackground;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl.sapUiToggleBtn {
+	background-color: @sapUiButtonRejectBackground;
+	border-color: @sapUiButtonRejectBorderColor;
+	color: @sapUiTextSelection;
+}
+
+.sapUiBtnS.sapUiBtnNorm.sapUiBtnReject.sapUiBtnDsbl.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiButtonRejectBackground;
+	border-color: @sapUiButtonRejectBorderColor;
+	color: @sapUiTextSelection;
+}
+
+/* END "ToggleButton.less" */
+
+/* START "Toolbar.less" */
+.sapUiTb {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	height: 28px;
+}
+
+.sapUiTbDesignStandard {
+	background-color: @sapUiToolbarBackground;
+}
+
+.sapUiTbCont {
+	padding: 3px 0 3px 6px;
+	line-height: 18px;
+}
+
+.sapUiTbInner > label,
+.sapUiTbInnerRight > label {
+	line-height: 22px;
+}
+
+// Related to sap.ui.commons.Button icon position
+html[data-sap-ui-browser="ie9"],
+html[data-sap-ui-browser="ie10"] {
+	.sapUiTbCont .sapUiBtn {
+		line-height: normal;
+	}
+}
+
+.sapUiTbStandalone .sapUiTbCont {
+	border-color: transparent;
+	border-width: 0px;
+}
+
+.sapUiTbOB:hover {
+	background-color: @sapUiDarkBG;
+}
+.sapUiTbOB:focus {
+	outline: 1px dashed @sapUiHighlight;
+}
+
+/* opened state of the overflow button */
+.sapUiTbOBAct,
+.sapUiTbOBAct:hover {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTbOBAct:hover  {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTbDD {
+	background-color: @sapUiGroupContentBackground;
+	border: 3px solid @sapUiHighlight;
+}
+
+.sapUiTbSeparator {
+	height: 18px;
+	margin-bottom: 8px;
+	width: 2px;
+	background-color: @sapUiToolbarSeparatorColor;
+}
+
+.sapUiTbSeparator.sapUiTbSepFullHeight {
+	height: 28px;
+	margin-top: -3px;
+	margin-bottom: 3px;
+	width: 2px;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiTbDD .sapUiTbSepFullHeight {
+	display: none;
+}
+
+.sapUiTbDD .sapUiTbSeparator {
+	margin: 4px 6px 2px 6px;
+}
+
+.sapUiTbContLeft.sapUiTbCont {
+	padding: 3px;
+	height: 28px;
+}
+
+.sapUiTbInnerRight {
+	padding: 3px 0px 3px 6px;
+}
+
+.sapUiTbInner > * , .sapUiTbInnerRight > * {
+	margin-right: 6px;
+}
+
+/* END "Toolbar.less" */
+
+/* START "Tree.less" */
+/* ============================================= */
+/* CSS for control sap.ui.commons/Tree.control   */
+/* ============================================= */
+
+/* ============================================= */
+/* Blue Crystal Theme                            */
+/* ============================================= */
+
+.sapUiTree{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiDarkBorder;
+	box-sizing: border-box;
+}
+
+.sapUiTreeTransparent {
+	background-color: transparent;
+	border: none;
+}
+
+.sapUiTreeHeader{
+	background-color: @sapUiLightestBG;
+	border: none;
+	border-bottom: 2px solid @sapUiDarkBorder;
+	width: auto;
+	margin: 0 10px;
+}
+
+.sapUiTreeCont{
+	background-color: @sapUiLightestBG;
+	border: none;
+	top: 28px;
+}
+
+.sapUiTreeNode:hover{
+	background-color: @sapUiListHoverBackground;
+	background-image: url(img/tree/TreeNode.gif);
+}
+
+.sapUiTreeNode:focus {
+	outline: 1px dashed @sapUiListHighlightColor;
+}
+
+.sapUiTreeNodeSelectedParent:Hover, .sapUiTreeNodeSelected:Hover {
+	background-color: @sapUiListSelectionHoverBackground;
+}
+
+.sapUiTreeNodeSelectedParent, .sapUiTreeNodeSelected {
+	color: @sapUiBaseText;
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiTreeNodeExpanded.sapUiTreeNodeSelectedParent,
+.sapUiTreeNodeExpanded.sapUiTreeNodeSelected {
+	background-image: url(img/tree/TreeNode_Exp.gif);
+}
+
+.sapUiTreeNodeExpanded.sapUiTreeNodeSelectedParent:Hover,
+.sapUiTreeNodeExpanded.sapUiTreeNodeSelected:Hover,
+.sapUiTreeNodeExpanded.sapUiTreeNodeSelected.sapUiTreeNode:Hover {
+	background-color: @sapUiListSelectionHoverBackground;
+	background-image: url(img/tree/TreeNode_Exp.gif);
+}
+
+.sapUiTreeNodeExpanded.sapUiTreeNode:Hover{
+	background-color: @sapUiListHoverBackground;
+	background-image: url(img/tree/TreeNode_Exp.gif);
+}
+
+.sapUiTreeNodeCollapsed.sapUiTreeNodeSelectedParent,
+.sapUiTreeNodeCollapsed.sapUiTreeNodeSelected {
+	background-image: url(img/tree/TreeNode_Coll.gif);
+}
+
+.sapUiTreeNodeCollapsed.sapUiTreeNodeSelectedParent:Hover,
+.sapUiTreeNodeCollapsed.sapUiTreeNodeSelected:Hover,
+.sapUiTreeNodeCollapsed.sapUiTreeNodeSelected.sapUiTreeNode:Hover {
+	background-color: @sapUiListSelectionHoverBackground;
+	background-image: url(img/tree/TreeNode_Coll.gif);
+}
+
+.sapUiTreeNodeCollapsed.sapUiTreeNode:Hover {
+	background-color: @sapUiListHoverBackground;
+	background-image: url(img/tree/TreeNode_Coll.gif);
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite{
+	width: 30px;
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAct,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite:hover,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite:focus{
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-top: 1px;
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeCol,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiTreeCol,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeCol:hover,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeCol:focus{
+	background-image: url(img/tree/CollapseAll.png);
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeCol:active {
+	background-image: url(img/tree/CollapseAll_pressed.png);
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeExp,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAct.sapUiTreeExp,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeExp:hover,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeExp:focus{
+	background-image: url(img/tree/ExpandAll.png);
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiTreeExp:active {
+	background-image: url(img/tree/ExpandAll_pressed.png);
+}
+
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite > .sapUiBtnIco,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite.sapUiBtnAct > .sapUiBtnIco,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite:hover > .sapUiBtnIco,
+.sapUiTreeTbCont > .sapUiBtn.sapUiBtnS.sapUiBtnLite:focus > .sapUiBtnIco{
+	display: none;
+}
+/* END "Tree.less" */
+
+/* START "TriStateCheckBox.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.commons.TriStateCheckBox.control */
+/* Blue Crystal                                            */
+/* ======================================================= */
+
+.sapUiTriCb {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "TriStateCheckBox.less" */
+
+/* START "ValueHelpField.less" */
+/* ===================================================== */
+/* CSS for control sap.ui.commons/ValueHelpField.control */
+/* ===================================================== */
+
+/* Blue Crystal */
+
+@sapUiValueHelpIconRegularUrl: ~"/img/valuehelpfield/F4-Help_icon_regular.png";
+@sapUiValueHelpIconHoverUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconDsblUrl: ~"/img/valuehelpfield/F4-Help_icon_dsbl.png";
+
+.sapUiTfCombo {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpIcon {
+	height: 16px;
+	padding: 2px;
+	width: 16px;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpRegularIcon:hover,
+.sapUiTfCombo > span.sapUiTfValueHelpIcon:hover {
+	background-color: @sapUiFieldHoverHelpBackground;
+	color: @sapUiTextInverted;
+}
+
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon:hover {
+	background-color: transparent;
+	color: @sapUiDarkText;
+}
+
+.sapUiTfRo.sapUiTfCombo > .sapUiTfValueHelpIcon {
+	visibility: hidden;
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+html[data-sap-ui-browser="ie9"] .sapUiGrid td > .sapUiTfBrd > .sapUiTfValueHelpIcon,
+html[data-sap-ui-browser="ie10"] .sapUiGrid td > .sapUiTfBrd > .sapUiTfValueHelpIcon{
+	top: 0; /* because of padding-top the icon must be moved */
+}
+/* END "ValueHelpField.less" */
+

@@ -1,0 +1,88 @@
+/* ============================================= */
+/* CSS for control sap.m/SplitContainer.control  */
+/* High Contrast Black theme                     */
+/* ============================================= */
+
+.sapMSplitContainerMaster {
+	background-color: @sapHCStandardBG;
+}
+
+/* separator line over the content of the master page */
+
+.sapMSplitContainerMaster:after{
+	content: "";
+	position: absolute;
+	width: 0px;
+	right: 0px;
+	height: 100%;
+	bottom: 0;
+	border-right: 1px solid @sapHCReducedAltFG;;
+	z-index: 5;
+}
+
+/* 4px border for the branding bar */
+
+.sapMSplitContainerMaster:before{
+	content: "";
+	position: absolute;
+	width: 0px;
+	right: 0px;
+	height: 0.25rem;
+	top: 0;
+	border-right: 1px solid @sapHCReducedAltFG;
+	z-index: 6;
+}
+
+/* reset the separator and branding bar when master is shown in an overlay */
+
+.sapMSplitContainerShowHide.sapMSplitContainerPortrait,
+.sapMSplitContainerHideMode {
+	> .sapMSplitContainerMaster:after,
+	> .sapMSplitcontainerMaster:before {
+		display: none;
+	}
+}
+
+.sapUiUfdShell,
+.sapMPopoverCont {
+	.sapMSplitContainerMaster:before{
+		display: none; /* do not show in a popover */
+	}
+}
+
+@media (min-height: @sapMShellMinHeightForHeader) {
+	/* Shell draws its own branding bar */
+	.sap-desktop .sapMShell .sapMSplitContainerMaster:before{
+		display: none;
+	}
+}
+
+/* footer separator has priority */
+.sapMSplitContainerMaster footer {
+	z-index: 6;
+}
+
+.sapMPopoverCont .sapMSplitContainerMaster:after{
+	/* popover has its own border, do not show separator */
+	display: none;
+}
+
+.sapMSplitContainerStretchCompress,
+.sapMSplitContainerShowHide:not(.sapMSplitContainerPortrait),
+.sapMSplitContainerPopover:not(.sapMSplitContainerPortrait)  {
+	> .sapMSplitContainerMaster {
+		border-radius: 0;
+	}
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerShowHide,
+.sapMSplitContainerHideMode {
+	> .sapMSplitContainerMaster {
+		border-right: 1px solid @sapHCStandardFG;
+	}
+}
+
+/* HCB Additional Styles */
+.sapMSplitContainerDetail {
+	background-color: @sapHCStandardBG;
+}

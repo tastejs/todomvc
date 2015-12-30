@@ -1,0 +1,139 @@
+/* ==================================================== */
+/* CSS for control sap.m/ComboBoxBase.control HCB theme */
+/* ==================================================== */
+
+.sapMComboBoxBaseArrow::before,
+.sapMComboBoxBaseBar::before {
+	font-family: "SAP-icons";
+	speak: none;
+	content: "\e1ef";
+}
+
+.sapMComboBoxBaseArrow,
+.sapMComboBoxBaseBar::before {
+	position: absolute;
+	text-align: center;
+	color: @sapHCStandardFG;
+}
+
+/* ------------------------------ */
+/* ComboBox                       */
+/* ------------------------------ */
+
+input.sapMComboBoxBaseInputInner:not(.sapMComboBoxBaseInputInnerReadonly) {
+	padding-right: 3rem;
+}
+
+/* note: do not optimize this selector, the sap.m.MulticomboBox DOM structure differ from sap.m.ComboBox */
+.sapMComboBoxBasePressed .sapMComboBoxBaseInputInner:not(.sapMInputBaseStateInner) {
+	border-color: @sapHCStandardFG;
+}
+
+/* ------------------------------ */
+/* ComboBox's Arrow               */
+/* ------------------------------ */
+
+.sapMComboBoxBaseArrow {
+	width: 2.5rem;
+	height: 2.375rem;
+	line-height: 2.375rem;
+	right: 0.0625rem;
+}
+
+/* hover */
+
+.sap-desktop .sapMComboBoxBaseArrow:not(.sapMComboBoxBasePressed):hover {
+	background: @sapHCHighlightBG;
+	border-left: 1px solid @sapHCStandardFG;
+}
+
+/* pressed */
+/* note: do not optimize this selector, the sap.m.MulticomboBox DOM structure differ from sap.m.ComboBox */
+.sapMComboBoxBasePressed .sapMComboBoxBaseArrow,
+.sap-desktop .sapMComboBoxBasePressed .sapMComboBoxBaseArrow:hover {
+	background: @sapHCHighlightAltBG;
+	border-left: 1px solid @sapHCStandardFG;
+}
+
+ /* note: do not optimize this selector, the sap.m.MulticomboBox DOM structure differ from sap.m.ComboBox */
+.sapMComboBoxBasePressed .sapMComboBoxBaseArrow::before {
+	color: @sapHCStandardFG;
+}
+
+/* Disabled */
+.sapMComboBoxBaseDisabled .sapMComboBoxBaseArrow,
+.sapMComboBoxBaseDisabled .sapMComboBoxBaseBar::before {
+	color: @sapHCReducedFG;
+}
+
+/* ------------------------------ */
+/* ComboBox's Picker              */
+/* ------------------------------ */
+
+div.sapMComboBoxBasePicker {
+	box-shadow: 0 .25rem 1.875rem .125rem fade(@sapHCStandardFG, 80%);
+	border: none;
+}
+
+/* This is used to make border of the combobox's list not scrollable */
+.sapMComboBoxBasePicker > div {
+	box-sizing: border-box;
+	border: solid @sapHCStandardFG;
+	border-width: 1px 2px 2px;
+}
+
+/* ------------------------------ */
+/* ComboBox's Dialog              */
+/* ------------------------------ */
+
+div.sapMComboBoxBasePicker .sapMDialogScrollCont {
+	padding: 0;
+}
+
+/* pressed */
+
+.sapMComboBoxBaseBar::before {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 3.5rem;
+	border-left: 1px solid @sapHCStandardFG;
+	color: @sapHCStandardFG;
+	background: @sapHCHighlightAltBG;
+}
+
+/* Bar inside the ComboBox's Dialog */
+
+.sapMComboBoxBasePicker .sapMComboBoxBaseBar {
+	background: @sapHCHighlightAltBG;
+	border: 0.0625rem solid @sapHCStandardFG;
+}
+
+/* Input inside the ComboBox's Dialog */
+
+.sapMComboBoxBasePicker input {
+	padding-right: 3.5rem;
+	vertical-align: top; /* override the default vertical align of the input control */
+}
+
+/* ===================================================================== */
+/* CSS for control sap.m/ComboBox.control HCB theme compact size         */
+/* ===================================================================== */
+
+.sapUiSizeCompact input.sapMComboBoxBaseInputInner:not(.sapMComboBoxBaseInputInnerReadonly) {
+	padding-right: 2.5rem;
+}
+
+/* ------------------------------ */
+/* ComboBox Arrow                 */
+/* ------------------------------ */
+
+.sapUiSizeCompact .sapMComboBoxBaseArrow {
+	width: 2rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+}
+
+.sapUiSizeCondensed .sapUiTableCell .sapMComboBoxBaseArrow {
+	right: 0;
+}

@@ -1,0 +1,221 @@
+/* ============================================= */
+/* CSS for control sap.m/ListItemBase.control    */
+/* ============================================= */
+
+.sapMLIB {
+	border-bottom: 1px solid @sapHCReducedAltFG;
+	background-color: @sapHCStandardBG;
+	padding: 0 1rem 0 1rem;
+}
+
+.sapMLIBFocusable:focus {
+	outline: 0.125rem dotted @sapHCStandardFG;
+	outline-offset: -0.125rem;
+}
+
+.sapMLIBLegacyOutline:focus {
+  	outline: none;
+}
+
+/* IE ignores outline-offset. Use an overlay: */
+.sapMLIBLegacyOutline:focus::before {
+	border: 0.125rem dotted @sapHCStandardFG;
+}
+
+.sapMListModeDelete .sapMLIB,
+.sapMListModeSingleSelect .sapMLIB,
+.sapMLIB.sapMLIBTypeNavigation {
+	padding-right: 0;
+}
+
+.sapMListShowSeparatorsNone .sapMLIBShowSeparator{
+	border-bottom: 1px solid transparent;
+}
+
+.sapMListShowSeparatorsInner .sapMLIBShowSeparator:last-child {
+	border-bottom-color: transparent;
+}
+
+.sapMLIB.sapMListTblSupRow {
+	border-bottom: 0;
+}
+
+.sapMLIBSelectSL,
+.sapMLIBSelectM {
+	width:3rem;
+	margin-left: -1rem;
+}
+
+.sapMLIBSelectD,
+.sapMLIBSelectS {
+	width: 3rem;
+	text-align: center;
+}
+
+.sapMLIBSelectD {
+	cursor: pointer;
+}
+
+.sapMLIBSelectD > .sapUiIcon {
+	font-size: 1.5rem;
+	color: @sapHCStandardFG;
+	font-weight: normal;
+	width : 100%;
+}
+
+.sapMLIBSelectAnimation {
+	-webkit-animation-duration: 0.25s;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-name: resize;
+	animation-duration: 0.25s;
+	animation-timing-function: ease-in;
+	animation-name: resize;
+}
+
+@-webkit-keyframes resize {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 3rem;
+	}
+}
+
+@keyframes resize {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 3rem;
+	}
+}
+
+.sapMLIBUnselectAnimation {
+	-webkit-animation-duration: 0.25s;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-name: close;
+	animation-duration: 0.25s;
+	animation-timing-function: ease-in;
+	animation-name: close;
+}
+
+@-webkit-keyframes close {
+	0% {
+		width: 3rem;
+	}
+	100% {
+		width: 0;
+	}
+}
+
+@keyframes close {
+	0% {
+		width: 3rem;
+	}
+	100% {
+		width: 0;
+	}
+}
+
+.sapMLIBUnread,
+.sapMLIBUnread > .sapMListTblCell,
+.sapMLIBUnread + .sapMListTblSubRow {
+	font-family: @sapUiFontFamily;
+	font-weight: bold;
+}
+
+.sapMLIBCounter {
+	font-size: 0.875rem;
+	color: @sapHCStandardFG;
+	padding-left: 1rem;
+}
+
+.sapMLIBImgNav {
+	width: 3rem;
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 0.75rem;
+	color: @sapHCStandardFG;
+}
+
+.sapMLIBIconDet {
+	width: 3rem;
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 1.375rem;
+	color: @sapHCStandardFG;
+	margin-right: -1rem;
+	margin-left: 0.5rem;
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	-ms-flex: none;
+	flex: none;
+}
+
+.sapMLIBActive .sapMLIBImgNav,
+.sapMLIBActive .sapMLIBIconDet,
+.sapMLIBActive .sapMLIBIconDel,
+.sapMLIBIconDet:active,
+.sapMLIBIconDel:active {
+	color: @sapHCStandardFG;
+}
+
+.sapMLIBTypeDetailAndActive .sapMLIBIconDet:active,
+.sapMLIBTypeDetail .sapMLIBIconDet:active,
+.sapMLIBSelectD > .sapUiIcon:active {
+	background : @sapHCHighlightBG;
+}
+
+.sap-desktop .sapMLIBImgNav:focus,
+.sap-desktop .sapMLIBIconDet:focus,
+.sap-desktop .sapMLIBIconDel:focus {
+	outline: 1px dotted @sapHCReducedAltFG;
+	outline-offset: -1px;
+}
+
+.sapMLIBImgDel {
+	height: 3rem;
+	width: 3rem;
+}
+
+.sapMLIB {
+	background: @sapHCStandardBG;
+}
+
+.sapMLIBSelected {
+	background: @sapHCHighlightAltBG;
+}
+
+.sapMLIBActive {
+	color: @sapHCStandardFG;
+	background: @sapHCHighlightBG;
+}
+
+.sapMLIBHoverable:hover {
+	background : @sapUiListHoverBackground;
+}
+
+.sapMLIBActive div,
+.sapMLIBActive .sapMLIBCounter {
+	color: @sapHCStandardFG;
+}
+
+.sapMLIBActive .sapThemeHighlight-asColor {
+	color: @sapHCStandardFG;
+}
+.sapMLIBActive .sapThemeHighlight-asBorderColor {
+	border-color: @sapHCReducedAltFG;
+}
+
+/* Compact size */
+.sapUiSizeCompact .sapMLIBSelectSL,
+.sapUiSizeCompact .sapMLIBSelectM {
+	padding-left: 0.5rem;
+	width:2.5rem;
+}
+
+.sapUiSizeCompact .sapMLIBImgNav,
+.sapUiSizeCompact .sapMLIBIconDet{
+	height: 2rem;
+	line-height: 2rem;
+}

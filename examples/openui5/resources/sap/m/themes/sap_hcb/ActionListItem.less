@@ -1,0 +1,87 @@
+/* ============================================= */
+/* CSS for control sap.m/ActionListItem.control  */
+/* ============================================= */
+
+/* ------------------------------ */
+/* ActionListItem container       */
+/* ------------------------------ */
+.sapMALI {
+	height: 3rem;
+}
+
+.sapMLIB.sapMALI {
+	border-bottom: 0; /* overrides LIB style */
+	padding: 0 0.25rem; /* overrides LIB style */
+}
+
+/*The active indicator of the list is not specific enough to overwrite this style */
+.sapMList .sapMLIB.sapMALI {
+	background: @sapHCStandardBG; /* overrides LIB style */
+}
+
+.sapMList .sapMLIB.sapMALI:focus {
+	outline: none; /* overrides LIB style */
+}
+
+/* ------------------------------ */
+/* ActionListItem content         */
+/* ------------------------------ */
+
+.sapMALI > .sapMLIBContent {
+	height: 2.5rem;
+	border: 0.0625rem solid @sapHCStandardFG;
+	border-radius: 0.375rem;
+	box-sizing: border-box;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+/* active */
+.sapMLIBActive.sapMLIB.sapMALI .sapMLIBContent {
+	background: @sapHCHighlightBG;
+}
+
+/* focus */
+.sapMList .sapMLIB.sapMALI:focus .sapMLIBContent {
+	outline: 0.125rem dotted @sapHCStandardFG;
+	outline-offset: -0.125rem;
+	border: none;
+}
+/* focus in IE (outline-offset is ignored in IE) */
+[data-sap-ui-browser^="ie"] .sapMList .sapMLIB.sapMALI:focus .sapMLIBContent {
+	outline: none;
+	border-width: 0.125rem;
+	border-style: dotted;
+	border-radius: 0;
+}
+
+/* hover */
+.sap-desktop .sapMList .sapMLIB.sapMALI:hover .sapMLIBContent {
+	background: @sapHCHighlightBG;
+}
+
+/* nested text */
+.sapMALIText {
+	color: @sapHCStandardFG;
+	font-weight: normal;
+	line-height: 1.25rem;
+	font-size: 1.125rem;
+	margin: 0 0 0 0.5rem;
+}
+
+/* ------------------------------ */
+/* Compact size                   */
+/* ------------------------------ */
+.sapUiSizeCompact .sapMALI {
+	height: 2rem;
+}
+
+.sapUiSizeCompact .sapMALI > .sapMLIBContent {
+	height: 1.625rem;
+}
+
+.sapUiSizeCompact .sapMALIText {
+	font-size: @sapMFontMediumSize;
+}

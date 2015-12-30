@@ -1,0 +1,795 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../../Base/baseLib/sap_bluecrystal/base.less"; /* ORIGINAL IMPORT PATH: "base.less" */
+
+@import "global.less";
+/* START "shared.less" */
+/* Shared CSS for 'sap_bluecrystal' theme */
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-touch-callout: none;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+}
+
+.sapMContainerMargin {
+	padding: 1rem;
+}
+
+.sapMContainer2RemPadding {
+	padding: 2rem;
+}
+
+.sapUiTheme-sap_bluecrystal {
+	font-size: @sapUiFontSize;
+}
+
+html.sap-phone *, html.sap-tablet * {   /* FIXME!!! (star rule with any-parent selector...) */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+html.sap-phone input, html.sap-phone textarea, html.sap-phone [contenteditable=true], html.sap-phone [contenteditable=true] > div, html.sap-phone .sapUiSelectable,
+html.sap-tablet input, html.sap-tablet textarea, html.sap-tablet [contenteditable=true], html.sap-tablet [contenteditable=true] > div , html.sap-tablet .sapUiSelectable {
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+/* FONTS */
+
+.sapUiBody {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background-color: @sapUiPageBG;
+	font-family: @sapUiFontFamily;
+	font-size: 1rem;
+}
+
+.sapUiBLy {
+	background-color: @sapUiBlockLayerColor;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+/* 	this overwrites the default position: fixed which extends the window when something rendered outside */
+	position: absolute;
+}
+
+.sapUiMedia-Std-Desktop .sapUiBLy {
+	position: fixed; /* otherwise UX3 shell would not work... */
+}
+
+.sapUiSearchHighlightBG {
+	background-color: @sapUiSearchHighlight;
+}
+
+/* CURSORS */
+.sapMPointer{
+	cursor: pointer;
+}
+
+/* Typography */
+.sapMH1FontSize,
+.sapMH1Style {
+	font-size: @sapMFontHeader1Size !important;
+}
+
+.sapMH2FontSize,
+.sapMH2Style {
+	font-size: @sapMFontHeader2Size !important;
+}
+
+.sapMH3FontSize,
+.sapMH3Style {
+	font-size: @sapMFontHeader3Size !important;
+}
+
+.sapMH4FontSize,
+.sapMH4Style {
+	font-size: @sapMFontHeader4Size !important;
+}
+
+.sapMH5FontSize,
+.sapMH5Style {
+	font-size: @sapMFontHeader5Size !important;
+}
+
+.sapMH6FontSize,
+.sapMH6Style {
+	font-size: @sapMFontHeader6Size !important;
+}
+
+.sapMH1Style,
+.sapMH2Style,
+.sapMH3Style,
+.sapMH4Style,
+.sapMH5Style,
+.sapMH6Style {
+	font-family: @sapUiFontHeaderFamily !important;
+	font-weight: @sapUiFontHeaderWeight !important;
+	color: @sapUiHeaderText !important;
+	text-shadow: 0 0.0625rem 0 fade(@sapUiLightShadowTint, 50%) !important;
+}
+
+
+/* Calculate the Background Variants */
+
+.sapGlobalBackgroundVariantMixin() when (@sapUiGlobalBackgroundVariant = 1) {
+	
+	@_PRIVATE_sapUiBackgroundGradientStart: fade(@sapUiGlobalBackgroundGradientStartColor, 30);
+	@_PRIVATE_sapUiBackgroundGradientEnd: fade(@sapUiGlobalBackgroundGradientEndColor, 20);
+	@_PRIVATE_sapUiGlobalBackgroundGradientStartIE9: fade(@sapUiGlobalBackgroundGradientStartColor, 100%); /* no transparency in IE9 filter string */
+	@_PRIVATE_sapUiGlobalBackgroundGradientEndIE9: mix(white, @sapUiGlobalBackgroundGradientEndColor, 80%);
+
+	.sapGlobalBackgroundColorMixin() when not (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		background-color: @sapUiGlobalBackgroundColor;
+		background-image: none;
+	}
+
+	.sapGlobalBackgroundColorMixin() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		background-image: -moz-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@_PRIVATE_sapUiBackgroundGradientStart), color-stop(100%,@_PRIVATE_sapUiBackgroundGradientEnd));
+		background-image: -webkit-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%,@_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: -ms-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%,@_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: linear-gradient(to bottom, @_PRIVATE_sapUiBackgroundGradientStart 0%,@_PRIVATE_sapUiBackgroundGradientEnd 100%);
+	}
+	
+	.sapGlobalBackgroundColorMixinWithImage(@Image) {
+		background-image: @Image, -moz-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: @Image, -webkit-gradient(linear, left top, left bottom, color-stop(0%,@_PRIVATE_sapUiBackgroundGradientStart), color-stop(100%,@_PRIVATE_sapUiBackgroundGradientEnd));
+		background-image: @Image, -webkit-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%,@_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: @Image, -ms-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%,@_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: @Image, linear-gradient(to bottom, @_PRIVATE_sapUiBackgroundGradientStart 0%,@_PRIVATE_sapUiBackgroundGradientEnd 100%);
+	}
+	
+	.sapGlobalBackgroundColorMixinIE9() when not (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		filter: none;
+	}
+	
+	.sapGlobalBackgroundColorMixinIE9() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{_PRIVATE_sapUiGlobalBackgroundGradientStartIE9}', EndColorStr='@{_PRIVATE_sapUiGlobalBackgroundGradientEndIE9}')";  /* IE8+9 */
+	}
+
+	.sapGlobalBackgroundColorStrongMixin() {
+	}
+
+	.sapGlobalBackgroundColorStrongMixinIE9() {
+	}
+	
+	.sapMShellGlobalInnerBackgroundMixin() {
+	}
+	
+	.sapMShellGlobalInnerBackgroundMixinIE9() {
+	}
+	
+	.sapGlobalBackgroundColorStrongTextMixin() when not (iscolor(@sapUiGlobalStrongBackgroundTextContrastColor)) {
+		color: @sapUiDarkText;
+	}
+	
+	.sapGlobalBackgroundColorStrongTextMixin() when (iscolor(@sapUiGlobalStrongBackgroundTextContrastColor)) {
+		color: @sapUiGlobalStrongBackgroundTextContrastColor;
+	}
+
+}
+
+.sapGlobalBackgroundVariantMixin() when (@sapUiGlobalBackgroundVariant = 2) {
+
+	@_PRIVATE_sapUiBackgroundGradientStart: mix(@sapUiGlobalBackgroundGradientStartColor, @sapUiWhite, 15);
+	@_PRIVATE_sapUiBackgroundGradientMiddle: mix(@sapUiGlobalBackgroundGradientMiddleColor, @sapUiWhite, 15);
+	@_PRIVATE_sapUiBackgroundGradientEnd: mix(@sapUiGlobalBackgroundGradientEndColor, @sapUiWhite, 15);
+	@_PRIVATE_sapUiGlobalBackgroundGradientStartIE9: mix(fade(@sapUiGlobalBackgroundGradientStartColor, 100%), @sapUiWhite, 15); /* no transparency in IE9 filter string */
+	@_PRIVATE_sapUiGlobalBackgroundGradientEndIE9: mix(fade(@sapUiGlobalBackgroundGradientEndColor, 100%), @sapUiWhite, 15);
+	
+	.sapGlobalBackgroundColorMixin() when not (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		background-color: @sapUiGlobalBackgroundColor;
+		background-image: none;
+	}
+
+	.sapGlobalBackgroundColorMixin() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		background-image: -moz-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@_PRIVATE_sapUiBackgroundGradientStart), color-stop(50%,@_PRIVATE_sapUiBackgroundGradientMiddle), color-stop(100%,@_PRIVATE_sapUiBackgroundGradientEnd));
+		background-image: -webkit-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: -ms-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: linear-gradient(to bottom, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+	}
+	
+	.sapGlobalBackgroundColorMixinWithImage(@Image) {
+		background-image: @Image, -moz-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: @Image, -webkit-gradient(linear, left top, left bottom, color-stop(0%,@_PRIVATE_sapUiBackgroundGradientStart), color-stop(50%,@_PRIVATE_sapUiBackgroundGradientMiddle), color-stop(100%,@_PRIVATE_sapUiBackgroundGradientEnd));
+		background-image: @Image, -webkit-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: @Image, -ms-linear-gradient(top, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+		background-image: @Image, linear-gradient(to bottom, @_PRIVATE_sapUiBackgroundGradientStart 0%, @_PRIVATE_sapUiBackgroundGradientMiddle 50%, @_PRIVATE_sapUiBackgroundGradientEnd 100%);
+	}
+	
+	.sapGlobalBackgroundColorMixinIE9() when not (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		filter: none;
+	}
+	
+	.sapGlobalBackgroundColorMixinIE9() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{_PRIVATE_sapUiGlobalBackgroundGradientStartIE9}', EndColorStr='@{_PRIVATE_sapUiGlobalBackgroundGradientEndIE9}')";  /* IE8+9 */
+	}
+	
+	.sapGlobalBackgroundColorStrongMixin() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		background-image: -moz-linear-gradient(top, @sapUiGlobalBackgroundGradientStartColor 0%, @sapUiGlobalBackgroundGradientMiddleColor 50%, @sapUiGlobalBackgroundGradientEndColor 100%);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@sapUiGlobalBackgroundGradientStartColor), color-stop(50%,@sapUiGlobalBackgroundGradientMiddleColor), color-stop(100%,@sapUiGlobalBackgroundGradientEndColor));
+		background-image: -webkit-linear-gradient(top, @sapUiGlobalBackgroundGradientStartColor 0%, @sapUiGlobalBackgroundGradientMiddleColor 50%, @sapUiGlobalBackgroundGradientEndColor 100%);
+		background-image: -ms-linear-gradient(top, @sapUiGlobalBackgroundGradientStartColor 0%, @sapUiGlobalBackgroundGradientMiddleColor 50%, @sapUiGlobalBackgroundGradientEndColor 100%);
+		background-image: linear-gradient(to bottom, @sapUiGlobalBackgroundGradientStartColor 0%, @sapUiGlobalBackgroundGradientMiddleColor 50%, @sapUiGlobalBackgroundGradientEndColor 100%);
+	}
+
+	.sapGlobalBackgroundColorStrongMixinIE9() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapUiGlobalBackgroundGradientStartColor}', EndColorStr='@{sapUiGlobalBackgroundGradientEndColor}')";  /* IE8+9 */
+	}
+	
+	.sapMShellGlobalInnerBackgroundMixin when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		.sapGlobalBackgroundColorMixin;
+	}
+	
+	.sapMShellGlobalInnerBackgroundMixinIE9() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+		.sapGlobalBackgroundColorMixinIE9;
+	}
+	
+	
+	.sapGlobalBackgroundColorStrongTextMixin_Internal() when not (iscolor(@sapUiGlobalStrongBackgroundTextContrastColor)) {
+		
+		.sapGlobalBackgroundColorStrongTextMixin() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+			color: contrast(average(@sapUiGlobalBackgroundGradientStartColor, @sapUiGlobalBackgroundGradientEndColor), @sapUiDarkText, @sapUiTextInverted);
+		}
+	
+		.sapGlobalBackgroundColorStrongTextMixin() when not (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+			color: contrast(@sapUiGlobalBackgroundColor, @sapUiDarkText, @sapUiTextInverted);
+		}
+		
+	}
+	
+	.sapGlobalBackgroundColorStrongTextMixin_Internal() when (iscolor(@sapUiGlobalStrongBackgroundTextContrastColor)) {
+		
+		.sapGlobalBackgroundColorStrongTextMixin() {
+			color: @sapUiGlobalStrongBackgroundTextContrastColor;
+		}
+		
+	}
+	
+	.sapGlobalBackgroundColorStrongTextMixin_Internal;
+}
+
+.sapGlobalBackgroundVariantMixin;
+
+	
+.sapGlobalBackgroundRepeatMixin() when (@sapUiGlobalBackgroundRepeat) {
+	background-repeat: repeat;
+	background-position: left top;
+	background-size: auto;
+}
+
+.sapGlobalBackgroundRepeatMixin() when not (@sapUiGlobalBackgroundRepeat) {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.sapGlobalBackgroundImageMixin() when not (@sapUiGlobalBackgroundImage = none) {
+	background-image: @sapUiGlobalBackgroundImage;
+}
+
+.sapGlobalBackgroundImageMixin() when (@sapUiGlobalBackgroundImage = none) {
+	background-image: @sapUiGlobalBackgroundImageDefault;
+}
+
+.sapGlobalBackgroundImageOnlyDefaultMixin()  when (@sapUiGlobalBackgroundImage = none) { /* default background image: display it normally */
+	background-image: @sapUiGlobalBackgroundImageDefault;
+	opacity: @sapUiGlobalBackgroundImageOpacity;
+	.sapGlobalBackgroundRepeatMixin;
+}
+
+.sapGlobalBackgroundImageOnlyDefaultMixin()  when not (@sapUiGlobalBackgroundImage = none) { /* custom background image: do not display it here, only in main page background */
+	background-image: none;
+}
+
+
+.sapUiBodyMixin() when (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+	background-color: @sapUiGlobalBackgroundColorDefault;
+   
+	.sapUiBodyMixin_BGImage() when not (@sapUiGlobalBackgroundImage = none) {
+		/*.sapGlobalBackgroundColorMixinWithImage(@sapUiGlobalBackgroundImage);*/ /*Custom BG Image currently not supported*/
+		.sapGlobalBackgroundColorMixin;
+	}
+  
+	.sapUiBodyMixin_BGImage() when (@sapUiGlobalBackgroundImage = none) {
+		.sapUiBodyMixin_DfltBGImage() when not (@sapUiGlobalBackgroundImageDefault = none) {
+		    .sapGlobalBackgroundColorMixinWithImage(@sapUiGlobalBackgroundImageDefault);
+		}
+    
+		.sapUiBodyMixin_DfltBGImage() when (@sapUiGlobalBackgroundImageDefault = none) {
+			.sapGlobalBackgroundColorMixin;
+   		}
+    
+		.sapUiBodyMixin_DfltBGImage;
+	}
+  
+	.sapUiBodyMixin_Repeat() when (@sapUiGlobalBackgroundImage = none), not (@sapUiGlobalBackgroundImageDefault = none) {
+		.sapUiBodyMixin_RepeatInner() when (@sapUiGlobalBackgroundRepeat) {
+			background-repeat: repeat, no-repeat;
+		}
+
+		.sapUiBodyMixin_RepeatInner() when not (@sapUiGlobalBackgroundRepeat) {
+			background-repeat: no-repeat, no-repeat;
+		}
+    
+		.sapUiBodyMixin_RepeatInner;
+	}
+	
+	.sapUiBodyMixin_BGImage;
+	.sapUiBodyMixin_Repeat;
+}
+
+.sapUiBodyMixin() when not (@sapUiGlobalBackgroundColor = @sapUiGlobalBackgroundColorDefault) {
+   background-color: @sapUiGlobalBackgroundColor;
+   .sapGlobalBackgroundImageMixin;
+   .sapGlobalBackgroundRepeatMixin;
+}
+
+
+/* Themeable Backgrounds */
+
+/********************************************************************************************************************************/
+/* Reset BackgroundColor, -Images to ensure proper display in ThemeDesigner (loads original and modified theme in the same page)*/
+
+.sapMGlobalBackgroundColor, /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+.sapUiGlobalBackgroundColor,
+.sapUshellShellBackground,
+html[data-sap-ui-browser="ie9"] .sapUshellShellBackground,
+html[data-sap-ui-browser="ie9"] .sapMGlobalBackgroundColor, /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+html[data-sap-ui-browser="ie9"] .sapUiGlobalBackgroundColor,
+.sapMGlobalBackgroundColorStrong, /*Only legacy support: Use sapUiStrongBackgroundColor instead*/
+html[data-sap-ui-browser="ie9"] .sapMGlobalBackgroundColorStrong, /*Only legacy support: Use sapUiStrongBackgroundColor instead*/
+.sapUiStrongBackgroundColor,
+html[data-sap-ui-browser="ie9"] .sapUiStrongBackgroundColor,
+.sapMShellGlobalOuterBackground,
+html[data-sap-ui-browser="ie9"] .sapMShellGlobalOuterBackground,
+.sapMShellGlobalInnerBackground,
+html[data-sap-ui-browser="ie9"] .sapMShellGlobalInnerBackground,
+.sapUiBodyBackground,
+.sapUiBody,
+html[data-sap-ui-browser="ie8"] .sapUiBodyBackground,
+html[data-sap-ui-browser="ie9"] .sapUiBodyBackground,
+html[data-sap-ui-browser="ie9"] .sapUiBodyBackgroundIE9Layer1,
+html[data-sap-ui-browser="ie8"] .sapUiBodyBackgroundIE9Layer1,
+html[data-sap-ui-browser="ie8"],
+html[data-sap-ui-browser="ie9"] {
+	background-color: transparent;
+	background-image: none;
+	filter: none;
+}
+
+/********************************************************************************************************************************/
+
+
+.sapUshellShellBackground,
+.sapUiGlobalBackgroundColor,
+.sapMGlobalBackgroundColor { /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+	background-color: @sapUiGlobalBackgroundColorDefault;
+
+	.sapGlobalBackgroundColorMixin;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUshellShellBackground,
+html[data-sap-ui-browser="ie9"] .sapUiGlobalBackgroundColor,
+html[data-sap-ui-browser="ie9"] .sapMGlobalBackgroundColor { /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+	.sapGlobalBackgroundColorMixinIE9;
+}
+
+.sapMGlobalBackgroundColorStrong, /*Only legacy support: Use sapUiStrongBackgroundColor instead*/
+.sapUiStrongBackgroundColor {
+	.sapGlobalBackgroundColorStrongMixin;
+}
+
+html[data-sap-ui-browser="ie9"] .sapMGlobalBackgroundColorStrong, /*Only legacy support: Use sapUiStrongBackgroundColor instead*/
+html[data-sap-ui-browser="ie9"] .sapUiStrongBackgroundColor {
+	.sapGlobalBackgroundColorStrongMixinIE9;
+}
+
+.sapUiStrongBackgroundTextColor{
+	.sapGlobalBackgroundColorStrongTextMixin;
+}
+
+
+.sapMShellGlobalOuterBackground {
+	background-color: @sapUiGlobalBackgroundColorDefault;
+	.sapGlobalBackgroundColorMixin;
+	.sapGlobalBackgroundColorStrongMixin;
+}
+
+html[data-sap-ui-browser="ie9"] .sapMShellGlobalOuterBackground {
+	.sapGlobalBackgroundColorMixinIE9;
+	.sapGlobalBackgroundColorStrongMixinIE9;
+}
+
+.sapMShellGlobalInnerBackground {
+	.sapMShellGlobalInnerBackgroundMixin;
+}
+
+html[data-sap-ui-browser="ie9"] .sapMShellGlobalInnerBackground {
+	.sapMShellGlobalInnerBackgroundMixinIE9;
+}
+
+
+/* no standard background for nested elements */
+.sapUiGlobalBackgroundColor .sapUiGlobalBackgroundColor:not(.sapUiGlobalBackgroundColorForce),
+.sapMGlobalBackgroundColor .sapUiGlobalBackgroundColor:not(.sapUiGlobalBackgroundColorForce),
+.sapUiGlobalBackgroundColor .sapMGlobalBackgroundColor, /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+.sapMGlobalBackgroundColor .sapMGlobalBackgroundColor { /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+	background-color: transparent;
+	background-image: none;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiGlobalBackgroundColor .sapUiGlobalBackgroundColor:not(.sapUiGlobalBackgroundColorForce),
+html[data-sap-ui-browser="ie9"] .sapMGlobalBackgroundColor .sapUiGlobalBackgroundColor:not(.sapUiGlobalBackgroundColorForce),
+html[data-sap-ui-browser="ie9"] .sapUiGlobalBackgroundColor .sapMGlobalBackgroundColor, /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+html[data-sap-ui-browser="ie9"] .sapMGlobalBackgroundColor .sapMGlobalBackgroundColor { /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+	filter: none;
+}
+
+.sapMGlobalBackgroundImage, /*Only legacy support: Use sapUiGlobalBackgroundImage instead*/
+.sapUiGlobalBackgroundImage {
+	display: block;
+	position: absolute;
+	box-sizing: border-box;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	
+	opacity: @sapUiGlobalBackgroundImageOpacity;
+	.sapGlobalBackgroundImageMixin;
+	.sapGlobalBackgroundRepeatMixin;
+}
+
+.sapMGlobalBackgroundImageOnlyIfDefault, /*Only legacy support: Use sapUiGlobalBackgroundImageOnlyIfDefault instead*/
+.sapUiGlobalBackgroundImageOnlyIfDefault {
+	display: block;
+	position: absolute;
+	box-sizing: border-box;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	.sapGlobalBackgroundImageOnlyDefaultMixin;
+}
+
+/* hide this background image if a background is configured somewhere above */
+.sapUiGlobalBackgroundColor * > .sapMGlobalBackgroundImage, /*Only legacy support: Use sapUiGlobalBackgroundImage instead*/
+.sapMGlobalBackgroundColor * > .sapMGlobalBackgroundImage, /*Only legacy support: Use sapUiGlobalBackgroundImage and sapUiGlobalBackgroundColor instead*/
+.sapMGlobalBackgroundColor * > .sapUiGlobalBackgroundImage, /*Only legacy support: Use sapUiGlobalBackgroundColor instead*/
+.sapUiGlobalBackgroundColor * > .sapUiGlobalBackgroundImage { 
+	display: none;
+}
+
+/* Ensure that background image is shown again when forced to do so (overrides previous declaration) */
+.sapMGlobalBackgroundImage.sapUshellShellBG, /* Remove this when UShell control is adapted accordingly */
+.sapUiGlobalBackgroundImage.sapUiGlobalBackgroundImageForce {
+	display: block;
+}
+
+.sapMGlobalLogoImage {
+	background-image: @sapUiGlobalLogo;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+
+
+
+/* BODY Background Styling */
+
+.sapUiBodyBackground,
+.sapUiBody {
+	.sapUiBodyMixin;
+}
+
+.sapUiBody {
+	background-attachment: fixed;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiBodyBackground,
+html[data-sap-ui-browser="ie9"] .sapUiBodyBackground {
+	.sapGlobalBackgroundColorMixin;
+	.sapGlobalBackgroundColorMixinIE9;
+}
+
+html[data-sap-ui-browser="ie8"],
+html[data-sap-ui-browser="ie9"] {
+	.sapGlobalBackgroundColorMixin;
+	.sapGlobalBackgroundColorMixinIE9;
+	margin: 0;
+	padding: 0;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBody:before {
+	content: " ";
+	z-index: -999;
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	.sapGlobalBackgroundImageOnlyDefaultMixin;
+	opacity: 1;
+}
+
+/* 
+  Workaround for maximum backwards compatibility when using UI5 inside the application without an 
+  extra iFrame (for example inside a div): add class="sapUiSuppressBackgroundStyles" to html-element
+*/
+
+html.sapUiSuppressBackgroundStyles {
+	background-color: transparent;
+	-ms-filter: "none";
+}
+
+html.sapUiSuppressBackgroundStyles .sapUiBody:before {
+	display: none;
+}
+
+/* 
+  Classes to be used on the container element when UI5 is used in IE9 inside an element that
+  is not the HTML body tag 
+*/
+html[data-sap-ui-browser="ie9"] .sapUiBodyBackgroundIE9Layer1,
+html[data-sap-ui-browser="ie8"] .sapUiBodyBackgroundIE9Layer1 {
+	background-color: @sapUiGlobalBackgroundColorDefault;
+	.sapGlobalBackgroundColorMixin;
+	.sapGlobalBackgroundColorMixinIE9;
+	margin: 0;
+	padding: 0;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiBodyBackgroundIE9Layer2 {
+	content: " ";
+	z-index: -999;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	.sapGlobalBackgroundImageOnlyDefaultMixin;
+	opacity: 1;
+}
+
+.sapUiOverlay {
+	background-color: fade(@sapUiLightestBG, 80%);
+}
+
+/**
+ * Class used to hide the line-sliding busy indicator at the top (as used in goldreflection)
+ */
+.sapUiBusy {
+	display: none;
+}
+/* END "shared.less" */
+
+
+/* START "BrowserScrollbar.less" */
+/****** IE ******/
+
+html[data-sap-ui-browser*="ie"] .sapUiBody {
+	scrollbar-face-color: @sapUiScrollBarFaceColor;
+	scrollbar-highlight-color: @sapUiScrollBarFaceColor;
+	scrollbar-shadow-color: @sapUiScrollBarFaceColor;
+	scrollbar-track-color: @sapUiScrollBarTrackColor;
+}
+
+/****** Safari + Chrome on Desktop ******/
+
+.sap-desktop ::-webkit-scrollbar {
+	width: 16px;
+	height: 16px;
+	background-color: @sapUiScrollBarTrackColor;
+}
+
+.sap-desktop ::-webkit-scrollbar-thumb {
+	background-color: @sapUiScrollBarFaceColor;
+}
+
+.sap-desktop ::-webkit-scrollbar-thumb:hover {
+	background-color: @sapUiScrollBarHoverFaceColor;
+}
+
+.sap-desktop ::-webkit-scrollbar-corner {
+	background-color: @sapUiScrollBarTrackColor;
+}
+
+/* END "BrowserScrollbar.less" */
+
+/* START "BusyIndicator.less" */
+.sapUiBusy {
+	height: 5px;
+	width: 100%;
+
+	-moz-background-size: 40% 5px;
+	-webkit-background-size: 40% 5px;
+	background-size: 40% 5px;
+
+	background-image: -moz-linear-gradient(left, fade(@sapUiHighlight, 0%), fade(@sapUiHighlight, 0%) 30%, fade(@sapUiHighlight, 100%) 70%, fade(@sapUiHighlight, 0%));
+	background-image: -webkit-linear-gradient(left, fade(@sapUiHighlight, 0%), fade(@sapUiHighlight, 100%) 30%, fade(@sapUiHighlight, 100%) 70%, fade(@sapUiHighlight, 0%));
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0, fade(@sapUiHighlight, 0%)), color-stop(0.3, fade(@sapUiHighlight, 100%)), color-stop(0.7, fade(@sapUiHighlight, 100%)), color-stop(1, fade(@sapUiHighlight, 0%)));
+	background-image: linear-gradient(left, fade(@sapUiHighlight, 0%), fade(@sapUiHighlight, 100%) 30%, fade(@sapUiHighlight, 100%) 70%, fade(@sapUiHighlight, 0%));
+	/* IE is handled using a real bg image */
+	background-repeat: no-repeat;
+	
+	-webkit-animation: slide 1.5s linear infinite;
+	-moz-animation: slide 1.5s linear;
+	animation: slide 1.5s linear infinite;
+}
+
+html[data-sap-ui-browser^=ie] .sapUiBusy {
+	background-color: white;
+	background-image: url(img/Busy.png);
+	background-repeat: repeat-y;
+}
+
+@-webkit-keyframes slide {
+    0% {
+    	background-position: -500px 0;
+    }
+    100% {
+    	background-position: 200% 0;
+    }
+}
+
+@-moz-keyframes slide {
+    0% {
+    	background-position: -500px 0;
+    }
+    100% {
+    	background-position: 200% 0;
+    }
+}
+
+@keyframes slide {
+    0% {
+    	background-position: -500px 0;
+    }
+    100% {
+    	background-position: 200% 0;
+    }
+}
+/* END "BusyIndicator.less" */
+
+/* START "DatePicker.less" */
+/* ============================================== */
+/* CSS for control sap.ui.core/DatePicker.control */
+/* Bluecrystal                                    */
+/* ============================================== */
+
+.sapUiDP{
+	width: 190px;
+}
+
+.sapUiDPHead > button{
+	width: 16px;
+}
+/* END "DatePicker.less" */
+
+/* START "Icon.less" */
+.sapUiIcon:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapMTB-Info-CTX > .sapUiIcon {
+	width: 1rem;
+	font-size: 1rem;
+	color: @sapUiInvertedElement;
+}
+
+.sapUiSizeCondensed .sapUiTableCell>.sapUiIcon:first-child {
+	padding-left: 0.5rem;
+}
+
+.sapUiSizeCondensed .sapUiTableCell>.sapUiIcon:last-child {
+	padding-right: 0.5rem;
+}
+
+.sapUiIconColorNeutral {
+	color: @sapUiNeutral;
+}
+
+.sapUiIconColorCritical {
+	color: @sapUiCritical;
+}
+
+.sapUiIconColorPositive {
+	color: @sapUiPositive;
+}
+
+.sapUiIconColorNegative {
+	color: @sapUiNegative;
+}
+
+.sapUiIconBGColorNeutral {
+	background-color: @sapUiNeutral;
+}
+
+.sapUiIconBGColorCritical {
+	background-color: @sapUiCritical;
+}
+
+.sapUiIconBGColorPositive {
+	background-color: @sapUiPositive;
+}
+
+.sapUiIconBGColorNegative {
+	background-color: @sapUiNegative;
+}
+/* END "Icon.less" */
+
+/* START "parameterClasses.less" */
+
+/* mobile-specific CSS parameters */
+
+.sapThemePageBG {
+	background-color: @sapUiPageBG;
+}
+.sapThemePageBG-asColor {
+	color: @sapUiPageBG;
+}
+
+.sapThemeBarBG {
+	background-color: @sapUiBarBG;
+}
+
+.sapThemeBarHeading {
+	color: @sapUiBarHeading;
+}
+
+.sapThemeBarText {
+	color: @sapUiBarText;
+}
+
+.sapThemeNegativeText{
+	color: @sapUiNegativeText;
+}
+
+.sapThemeCriticalText{
+	color: @sapUiCriticalText;
+}
+
+.sapThemePositiveText{
+	color: @sapUiPositiveText;
+}
+
+.sapThemeLightText{
+	color: @sapUiLightText;	
+}
+
+.sapThemeMediumText{
+	color: @sapUiMediumText;
+}
+
+.sapThemeDarkText{
+	color: @sapUiDarkText;
+}
+/* END "parameterClasses.less" */
+
+/* START "Shadow.less" */
+html[data-sap-ui-browser=ie8] .sapUiShd {
+	outline: 2px solid @sapUiDarkBorder;
+}
+/* END "Shadow.less" */
+

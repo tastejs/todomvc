@@ -1,0 +1,109 @@
+/* ============================================= */
+/* CSS High Contrast Black for control sap.m/ObjectListItem.control */
+/* ============================================= */
+
+.sapMObjLIntro {
+	font-family: @sapUiFontFamily;
+	color: @sapHCStandardFG;
+	font-size: @sapMFontMediumSize;
+	padding-bottom: .75rem;
+}
+
+.sapMText.sapMObjLTitle {
+	color: @sapHCStandardFG;
+	font-size: @sapMFontHeader4Size;
+	font-weight: @sapUiFontHeaderWeight;
+	line-height: 1.5rem;
+}
+
+.sapMObjLIcon {
+	color: @sapHCStandardFG;
+}
+
+.sapMLIBActive .sapMObjLIcon {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjLIcon {
+	margin-top: 2px;
+}
+
+.sapMObjLIconDiv {
+	float: left;
+	margin-right: .75rem;
+	width: 3rem;
+	height: 3rem;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+
+.sapMObjLNumber {
+	font-family: @sapUiFontFamily;
+	font-size: 1.375rem;
+	font-weight: @sapUiFontHeaderWeight;
+	color: @sapHCStandardFG;
+}
+
+.sapMObjLNumberUnit {
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontSmallSize;
+}
+
+.sapMObjLItem .sapMObjLAttrDiv {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjLAdditAttribs {
+	color: @sapHCStandardFG;
+}
+
+/* special rendering for browsers without flex support (IE9) */
+li.sapMLIB.sapMLIBNoFlex.sapMObjLItem>.sapMLIBContent>.sapMLIBContentNF>div{
+	/* the outer container has 16px vertical padding */
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+li.sapMLIB.sapMLIBNoFlex.sapMObjLItem>.sapMLIBContent>.sapMLIBContentNF .sapMObjLIntro,
+li.sapMLIB.sapMLIBNoFlex.sapMObjLItem>.sapMLIBContent>.sapMLIBContentNF .sapMObjLAttrRow{
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+li.sapMLIB.sapMLIBNoFlex.sapMObjLItem>.sapMLIBContent>.sapMLIBContentNF .sapMObjLAttrRow>div{
+	display: table-cell;
+}
+li.sapMLIB.sapMLIBNoFlex.sapMObjLItem>.sapMLIBContent>.sapMLIBContentNF .sapMObjLIntro>span{
+	display: table-cell;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.sapMObjLAttrDiv.sapMObjAttrWithMarker {
+	padding-top: .1875rem;
+}
+
+.sapMObjLNumberStateNone {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjLNumberStateError {
+	color: @sapUiNegativeText;
+}
+
+.sapMObjLNumberStateWarning {
+	color: @sapUiCriticalText;
+}
+
+.sapMObjLNumberStateSuccess {
+	color: @sapUiPositiveText;
+}
+
+.sapMLIB:hover .sapMObjLNumber {
+	color: @sapHCStandardFG;
+}
+
+.sapMLIB:hover .sapMObjLNumberUnit {
+	color: @sapHCStandardFG;
+}

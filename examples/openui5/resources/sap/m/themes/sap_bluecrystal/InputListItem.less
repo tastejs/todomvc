@@ -1,0 +1,30 @@
+/* ============================================= */
+/* CSS for control sap.m/InputListItem.control   */
+/* ============================================= */
+
+.sapMILI {
+	height: 3rem;
+}
+
+.sapMILILabel {
+	font-size: 1.125rem;
+	max-width: 60%;	/*we can have very long title so lets give a limit */
+	color: @sapUiListTextColor;
+}
+
+.sapMILIDiv{
+	margin: 0 0 0 1rem;
+}
+
+.sapMLIBActive .sapMILILabel {
+	color: @sapUiListActiveTextColor;
+}
+
+/* Compact size */
+.sapUiSizeCompact .sapMILI {
+	height: 2rem;
+}
+
+.sapUiSizeCompact .sapMILILabel {
+	font-size: @sapMFontMediumSize;
+}

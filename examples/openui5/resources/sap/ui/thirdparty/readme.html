@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8" />
+		<title>Open Source Usage</title>
+		
+		<script id="sap-ui-bootstrap"
+				type="text/javascript"
+				src="../../../sap-ui-core.js">
+		</script>
+		
+		<script>
+			jQuery.sap.require("sap.ui.core.util.LibraryInfo");
+			
+			sap.ui.getCore().attachInit(function(){
+				var libInfo = new sap.ui.core.util.LibraryInfo();
+				libInfo._getThirdPartyInfo("sap.ui.core", function(oData){
+					var aBuffer = [];
+					for(var i=0; i<oData.libs.length; i++){
+						aBuffer.push("<h4>", oData.libs[i].displayName, "</h4>");
+						aBuffer.push("Web Site: <a href=\"", oData.libs[i].homepage, "\" target=\"blank\">", oData.libs[i].homepage, "</a><br/>");
+						aBuffer.push("For license conditions see <a href=\"", oData.libs[i].license.url, "\" target=\"blank\">", oData.libs[i].license.url, "</a>.<br/><br/>");
+						aBuffer.push("'", oData.libs[i].displayName, "' has been licensed by SAP under <i>", oData.libs[i].license.type, "</i>:<br/>");
+						aBuffer.push("<iframe width=\"600px\" src=\"", oData.libs[i].license.file, "\"></iframe><br/><br/>");
+					}
+					jQuery("#thirdparty").html(aBuffer.join(""));
+				});
+			});
+		</script>
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				font-family: Arial,Helvetica,sans-serif;
+    			font-size: 14px;
+				color: #444444;
+				background-color: #F2F2F2;
+				margin: 0px;
+				position: relative;
+			}
+			
+			.banner, .content {
+				position: absolute;
+				left: 10px;
+				right: 10px;
+			}
+			
+			.banner {
+				top: 10px;
+				height: 40px;
+				border-bottom: 5px solid #F0AB00;
+			}
+			
+			.banner > * {
+				position: absolute;
+				bottom: 2px;
+			}
+			
+			.banner > img {
+				height: 30px;
+			}
+			
+			.banner > h1 {
+				font-size: 1.5em;
+				left: 45px;
+				margin: 0;
+			}
+			
+			.content {
+				top: 70px; 
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		<div class="banner">
+			<img src="../core/mimes/logo/icoonly_black_100x80.png" style="left:5px;" alt="SAP SE"/>
+			<h1>SAPUI5 Runtime &amp; UI Libraries</h1>
+			<img src="../core/mimes/logo/sap_73x36.gif" style="right:5px;" alt="SAP SE"/>	
+		</div>
+		<div class="content">
+
+			<h2>Third Party Open Source Software</h2>
+			
+			This Software includes 3rd party open source software from different sources:
+		
+			<div id="thirdparty"></div>
+    	</div>
+	</body>
+</html>

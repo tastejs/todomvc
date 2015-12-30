@@ -1,0 +1,54 @@
+.sapUiMnuBar {
+	border: 1px solid black;
+	display: inline-block;
+	width: 100%;
+	position: relative;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sapUiMnuBarHeader {
+}
+
+.sapUiMnuBarDsbl {
+	border: 1px solid lighten(@sapUiBlackBorder, 50);
+}
+
+.sapUiMnuBarArea {
+	height: 22px;
+	overflow: hidden;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 5px;
+	padding-right: 22px;
+	position: relative;
+	margin: 0;
+}
+
+.sapUiMnuBarItm {
+	cursor: pointer;
+	display: inline-block;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.sapUiMnuBarItm span{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.sapUiMnuBarItmDsbl {
+	cursor: default;
+	color: lighten(@sapUiBaseText, 50);
+}
+
+.sapUiMnuBarOvrFlw {
+	position: absolute;
+	right: 1px;
+	top: 2px;
+}
+
+.sapUiMnuBarOvrFlw:after{
+	content: ">>";
+}

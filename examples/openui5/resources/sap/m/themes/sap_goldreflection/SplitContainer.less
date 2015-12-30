@@ -1,0 +1,223 @@
+/* ============================================= */
+/* CSS for control sap.m/SplitContainer.control */
+/* ============================================= */
+.sapMSplitContainer {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+	overflow: hidden;
+}
+
+.sapMSplitContainerMaster {
+	box-sizing: border-box;
+	width: 320px;
+	float: left;
+	left: 0;
+}
+
+.sapMSplitContainerMaster > .sapMSplitContainerMasterBlindLayer {
+	border: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	display: none;
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerShowHide > .sapMSplitContainerMaster > .sapMSplitContainerMasterBlindLayer,
+.sapMSplitContainerHideMode > .sapMSplitContainerMaster > .sapMSplitContainerMasterBlindLayer {
+	display: block;
+}
+
+.sapMSplitContainerDetail {
+	box-sizing: border-box;
+	height: 100%;
+
+	/* IE Windows 8 */
+	/* This elements receives events when not panning in vertial direction */
+	touch-action: pan-y;
+	-ms-touch-action: pan-y;
+}
+
+/* Default Master Animation Behavior */
+.sapMSplitContainerStretchCompress > .sapMSplitContainerMaster,
+.sapMSplitContainerShowHide:not(.sapMSplitContainerPortrait) > .sapMSplitContainerMaster,
+.sapMSplitContainerPopover:not(.sapMSplitContainerPortrait) > .sapMSplitContainerMaster {
+	border-radius: 0.3125em;
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerShowHide > .sapMSplitContainerMaster,
+.sapMSplitContainerHideMode > .sapMSplitContainerMaster {
+	display: inline-block;
+	position: absolute;
+	transform: translate3d(-330px,0,0);
+	transition: all 0ms;
+	-webkit-transform: translate3d(-330px,0,0);
+	-webkit-transition: all 0ms;
+	-moz-transform: translate3d(-330px,0,0);
+	-moz-transition: all 0ms;
+	z-index: 5;
+	top: 0;
+	height: 100%;
+	border-right: none;
+}
+
+html[data-sap-ui-browser^="ie9"] .sapMSplitContainerPortrait.sapMSplitContainerShowHide > .sapMSplitContainerMaster,
+html[data-sap-ui-browser^="ie9"] .sapMSplitContainerHideMode > .sapMSplitContainerMaster {
+	left: -320px;
+}
+
+.sapMSplitContainerPopover > .sapMPopoverCont > .sapMPopoverScroll > .sapMSplitContainerMaster {
+	border-right: none;
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerShowHide > .sapMSplitContainerDetail,
+.sapMSplitContainerHideMode > .sapMSplitContainerDetail,
+.sapMSplitContainerPopover .sapMSplitContainerDetail {
+	margin-left: 0;
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerShowHide > .sapMSplitContainerMasterVisible,
+.sapMSplitContainerHideMode > .sapMSplitContainerMasterVisible {
+	transform: translate3d(0,0,0);
+	transition: all 300ms;
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-transition: all 300ms;
+	-moz-transform: translate3d(0,0,0);
+	-moz-transition: all 300ms;
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerShowHide > .sapMSplitContainerMasterHidden,
+.sapMSplitContainerHideMode > .sapMSplitContainerMasterHidden {
+	transform: translate3d(-330px,0,0);
+	transition: all 300ms;
+	-webkit-transform: translate3d(-330px,0,0);
+	-webkit-transition: all 300ms;
+	-moz-transform: translate3d(-330px,0,0);
+	-moz-transition: all 300ms;
+}
+
+.sapMSplitContainerPortrait.sapMSplitContainerStretchCompress > .sapMSplitContainerMaster {
+	width: 320px !important;
+	left: 0;
+}
+
+/* Keyframe Animations */
+@-webkit-keyframes sapMSplitContainerSlidein {
+	from {
+		width: 0px;
+	}
+	to {
+		width: 320px;
+	}
+}
+
+@-webkit-keyframes sapMSplitContainerSlideout {
+	from {
+		width: 320px;
+	}
+	to {
+		width: 0px;
+	}
+}
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0.7; }
+}
+
+/* Firefox */
+@-moz-keyframes sapMSplitContainerSlidein {
+	from {
+		width: 0px;
+	}
+	to {
+		width: 320px;
+	}
+}
+
+@-moz-keyframes sapMSplitContainerSlideout {
+	from {
+		width: 320px;
+	}
+	to {
+		width: 0px;
+	}
+}
+
+@-moz-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@-moz-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0.7; }
+}
+
+/* IE */
+@keyframes sapMSplitContainerSlideout {
+	from {
+		width: 320px;
+	}
+	to {
+		width: 0px;
+	}
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0.7; }
+}
+
+.sapMSplitContainerPortrait .sapMSplitContainerMasterBtnShow {
+	display: block;
+	animation: fadeIn 300ms;
+	-webkit-animation: fadeIn 300ms;
+	-moz-animation: fadeIn 300ms;
+}
+
+.sapMSplitContainerPortrait .sapMSplitContainerMasterBtnHide {
+	animation: fadeOut 150ms;
+	-webkit-animation: fadeOut 150ms;
+	-moz-animation: fadeOut 150ms;
+}
+
+.sapMSplitContainerMasterBtnShow {
+	display: block;
+	animation: fadeIn 1ms;
+	-webkit-animation: fadeIn 1ms;
+	-moz-animation: fadeIn 1ms;
+}
+
+.sapMSplitContainerMasterBtnHide {
+	animation: fadeOut 5ms;
+	-webkit-animation: fadeOut 5ms;
+	-moz-animation: fadeOut 5ms;
+}
+
+.sapMSplitContainerMasterBtnHidden {
+	display: none;
+}
+
+.sapMSplitContainerMobile {
+	width: 100%;
+	height: 100%;
+}
+
+.sapMSplitContainer > .sapMSplitContainerDetail .sapMSplitContainerHiddenChild {
+	display: none;
+}

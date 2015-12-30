@@ -1,0 +1,6 @@
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(['jquery.sap.global'],function(q){"use strict";q.sap.sjaxSettings={complexResult:true,fallback:undefined};q.sap.sjax=function sjax(o){var s=q.extend(true,{},q.sap.sjaxSettings,o,{async:false,success:function(d,t,x){r={success:true,data:d,status:t,statusCode:x&&x.status};},error:function(x,t,e){r={success:false,data:undefined,status:t,error:e,statusCode:x.status,errorResponse:x.responseText};}});var r;q.ajax(s);if(!s.complexResult){return r.success?r.data:s.fallback;}return r;};q.sap.syncHead=function(u){return q.sap.sjax({type:'HEAD',url:u}).success;};q.sap.syncGet=function syncGet(u,d,D){return q.sap.sjax({url:u,data:d,type:'GET',dataType:D||'text'});};q.sap.syncPost=function syncPost(u,d,D){return q.sap.sjax({url:u,data:d,type:'POST',dataType:D||'text'});};q.sap.syncGetText=function syncGetText(u,d,f){return q.sap.sjax({url:u,data:d,type:'GET',dataType:'text',fallback:f,complexResult:(arguments.length<3)});};q.sap.syncGetJSON=function syncGetJSON(u,d,f){return q.sap.sjax({url:u,data:d||null,type:'GET',dataType:'json',fallback:f,complexResult:(arguments.length<3)});};return q;});

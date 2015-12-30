@@ -1,0 +1,62 @@
+/* ================================================ */
+/* CSS for control sap.ui.layout/FormLayout.control */
+/* ================================================ */
+
+@sapUiFormTitleSize: ~"H3";
+@sapUiFormSubTitleSize: ~"H4";
+
+.sapUiFormLayout{
+	border: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiFormTitle{
+	margin: 0;
+}
+
+.sapUiFormLayout > .sapUiFormContainer{
+	display: block;
+}
+
+.sapUiFormTitle{
+	border-bottom: 2px solid @sapUiMediumBorder;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: block;
+	width: 100%;
+	font-weight: bold;
+	color: @sapUiTextTitle;
+}
+
+.sapUiFormTitle.sapUiFormTitleEmph{
+	border-color: @sapUiHighlight;
+}
+
+/* Title levels - can not use TextView CSS from commons, because also used in mobile */
+.sapUiFormTitleH1 {
+	font-size: @sapUiFontHeader1Size;
+	line-height: 122%;
+}
+
+.sapUiFormTitleH2 {
+	font-size: @sapUiFontHeader2Size;
+	line-height: 122%;
+}
+
+.sapUiFormTitleH3 {
+	font-size: @sapUiFontHeader3Size;
+	line-height: 122%;
+}
+
+.sapUiFormTitleH4 {
+	font-size: @sapUiFontHeader4Size;
+}
+
+.sapUiFormTitleH5 {
+	font-size: @sapUiFontHeader5Size;
+}
+
+.sapUiFormTitleH6 {
+	font-size: @sapUiFontHeader6Size;
+	color: @sapUiTextTitle;
+}

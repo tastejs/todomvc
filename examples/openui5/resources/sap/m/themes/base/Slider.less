@@ -1,0 +1,43 @@
+/* ======================================= */
+/* CSS for control sap.m/Slider.control    */
+/* ======================================= */
+
+/* ------------------------------ */
+/* Slider commons styles          */
+/* ------------------------------ */
+
+.sapMSlider {
+	display: inline-block;
+	vertical-align: top;
+	box-sizing: border-box;
+	position: relative;
+
+	/* IE Windows 8 */
+	/* This elements receives events when not panning in vertial direction */
+	touch-action: pan-y;
+	-ms-touch-action: pan-y;
+}
+
+.sapMSlider:not(.sapMSliderDisabled) {
+	cursor: pointer;
+}
+
+.sapMSliderInner {
+	width: 100%;
+	position: relative;
+	background-repeat: no-repeat;
+}
+
+.sapMSliderProgress,
+.sapMSliderHandle {
+	position: absolute;
+}
+
+.sapMSliderHandle {
+	display: block;
+	outline: none;
+}
+
+.sapMSliderInput {
+	display: none;
+}

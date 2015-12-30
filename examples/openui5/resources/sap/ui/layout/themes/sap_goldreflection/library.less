@@ -1,0 +1,134 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../../Base/baseLib/sap_goldreflection/base.less"; /* ORIGINAL IMPORT PATH: "../../../../../sap/ui/core/themes/sap_goldreflection/base.less" */
+
+@import "../../../../../sap/ui/core/themes/sap_goldreflection/global.less";
+
+/* START "Form.less" */
+/* =============================================== */
+/* CSS for control sap.ui.layout/form/Form.control */
+/* Goldreflection                                  */
+/* =============================================== */
+
+@sapUiFormContainerExpImageURL: ~"/img/form/Maximize.png";
+@sapUiFormContainerExpImageDownURL: ~"/img/form/Maximize_hover.png";
+@sapUiFormContainerColImageURL: ~"/img/form/Minimize.png";
+@sapUiFormContainerColImageDownURL: ~"/img/form/Minimize_hover.png";
+
+.sapUiForm .sapUiFormTitle > button{
+	height: 16px;
+	width: 16px;
+	padding-left: 0;
+	padding-right:0;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite{
+	padding-top: 1px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite > img{
+	margin-top: -2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct{
+	padding-left: 0;
+	padding-right:0px;
+	padding-top: 0px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct > img{
+	margin-left: -1px;
+	margin-top: -3px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct > img{
+	margin-left: -2px;
+}
+/* END "Form.less" */
+
+/* START "GridLayout.less" */
+/* ===================================================== */
+/* CSS for control sap.ui.layout/form/GridLayout.control */
+/* Goldreflection                                        */
+/* ===================================================== */
+/*
+.sapUiGrid{
+
+}
+*/
+
+.sapUiGrid td{
+	padding: 3px 0 0 3px; /*Maybe better 2 1 1 2 because of focus outline of some controls ?*/
+}
+
+.sapUiGrid td:first-child{
+	padding-left: 0;
+}
+
+.sapUiGrid .sapUiGridHeader{
+	padding: 0;
+}
+
+.sapUiGrid th > .sapUiFormTitle,
+.sapUiGrid td > .sapUiFormTitle{
+	text-transform: uppercase;
+
+	margin-bottom: 2px;
+	margin-top: 20px;
+	padding-bottom: 5px;
+}
+
+.sapUiGridSpace{
+	width: 30px;
+}
+
+.sapUiGrid .sapUiFormTitle > img,
+.sapUiGrid .sapUiFormTitle > span{
+	margin-right: 3px;
+}
+
+.sapUiGridHeader > .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite{
+	bottom: 5px;
+}
+/* END "GridLayout.less" */
+
+/* START "ResponsiveGridLayout.less" */
+/* =============================================================== */
+/* CSS for control sap.ui.layout.form/ResponsiveGridLayout.control */
+/* Goldreflection                                                  */
+/* =============================================================== */
+/* END "ResponsiveGridLayout.less" */
+
+/* START "ResponsiveLayout.less" */
+/* =========================================================== */
+/* CSS for control sap.ui.layout.form/ResponsiveLayout.control */
+/* Goldreflection                                              */
+/* =========================================================== */
+
+.sapUiFormResLayout > .sapUiFormTitle,
+.sapUiRLContainer > .sapUiFormTitle{
+	text-transform: uppercase;
+	padding-bottom: 5px;
+}
+
+.sapUiFormResLayout .sapUiFormTitle > img,
+.sapUiFormResLayout .sapUiFormTitle > span{
+	margin-right: 3px;
+}
+
+.sapUiRLContainer > .sapUiFormTitle > button{
+	bottom: 5px;
+}
+
+.sapUiRLContainerCont{
+	padding: 6px;
+}
+/* END "ResponsiveLayout.less" */
+

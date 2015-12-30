@@ -1,0 +1,99 @@
+/* ============================================= */
+/* CSS for control sap.m/Page.control            */
+/* ============================================= */
+
+.sapMPage,
+.sapMPage > section,
+.sapMPageScroll {
+	width: 100%;
+}
+
+.sapMPage {
+	height: 100%;
+	position: relative;
+	isolation: isolate; /* makes sure the z-index stuff for headers/footer has no effect outside the Page; only works in the very newest browsers as of 03/2015 */
+	z-index: 0; /* workaround for missing "isolation" support in most browsers; TODO: check when this can be removed */
+}
+
+.sapMPage > section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.sapMPageScroll:not(.sapMPageScrollEnabled) {
+	height: 100%;
+}
+
+.sapMPageScroll {
+	min-height: 100%;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+/*
+	* Workaround for IOS 7 - on orientation change to lanscape mode:
+	* on the Ipad the footer is cut off.
+	* on the phone, the header is cut off and if you open the nav Bar(clicking in the footer), the header will be cut off even more.
+	* setting the body to fixed seems to work. We also tried it with absolute, but it does not work (tested only on ipad).
+ */
+@media (orientation:landscape) {
+	html[data-sap-ui-os^="iOS7"][data-sap-ui-browser^="msf"] {
+		padding : 0;
+		margin : 0;
+		bottom : 0;
+	}
+
+	html[data-sap-ui-os^="iOS7"][data-sap-ui-browser^="msf"] body {
+		position: fixed;
+		top : 0;
+		bottom: 0;
+	}
+}
+
+/*
+* workaround on the phone footer has to be fixed or the footer will not be shown
+* on tablet this breaks the split app
+*/
+html[data-sap-ui-os^="iOS7"][data-sap-ui-browser^="msf"]:not(.sap-tablet){
+	.sapMPageWithFooter > section > .sapMPageScroll {
+		bottom: 3rem;
+	}
+	.sapUiSizeCompact.sapMPageWithFooter .sapMPageScroll,
+	.sapUiSizeCompact .sapMPageWithFooter .sapMPageScroll {
+		bottom: 2.5rem;
+	}
+}
+
+/* ============================================= */
+/* CSS for displaying the Footer/Header controls at the correct position */
+/* ============================================= */
+
+.sapMPageFooter {
+	position: absolute;
+	bottom: 0em;
+	left: 0em;
+	/* footer has to overlap the header if the page is very small (phone with open keyboard)*/
+	z-index : 2;
+}
+
+.sapMPageFooter.sapMTB {
+	right: 0;
+	border-bottom-width: 0;
+}
+
+.sapMPageSubHeader,
+.sapMPageHeader {
+	/* header has to be on top of the Scroll container */
+	z-index : 1;
+}
+
+.sapMPage.sapMPageBusyCoversAll > .sapUiLocalBusyIndicator {
+	/* busyIndicator within page needs a z-index to render on top of header/footer */
+	z-index : 3;
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, contentSelector) */
+.sapUiContainerContentPadding(~".sapMPage", ~"> section");

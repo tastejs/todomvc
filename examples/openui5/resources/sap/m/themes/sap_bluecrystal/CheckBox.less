@@ -1,0 +1,189 @@
+/* ============================================= */
+/* CSS for control sap.m/CheckBox.control        */
+/* BlueCrystal theme                             */
+/* ============================================= */
+.sapMCb {
+	box-sizing: border-box;
+	height: 3rem;
+	line-height: 3rem;
+	vertical-align: top;
+	text-align: left;
+	padding: 0 0 0 3rem;
+}
+
+.sapMCb>label {
+	vertical-align: top;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	/* If you put a CB in a form the with has to be 100% in rtl for text align */
+	width : 100%
+}
+
+.sapMCbBg { /* check box itself */
+	background-color: @sapUiFieldBackground;
+	position: absolute;
+	left: 0.8125rem;
+	top: 0.8125rem;
+	height: 1.125rem;
+	width: 1.125rem;
+	line-height: 1.125rem;
+	padding: 0;
+
+	text-align: center;
+
+	border: solid 0.125rem @sapUiFieldBorderColor;
+
+	// note: some browsers like Samsung Galaxy S4 with Android 4.2 does not support the "border-radius" shorthand property
+	// but does support the long-hand properties for each corner like "border-top-left-radius"
+	border-top-left-radius: 0.125rem;
+	border-top-right-radius: 0.125rem;
+	border-bottom-right-radius: 0.125rem;
+	border-bottom-left-radius: 0.125rem;
+	-webkit-focus-ring-color: none;
+}
+
+.sapUiForm .sapMCbBg { /* In forms, align left with '0.0625rem' ( the focus width) */
+	left: 0.0625rem;
+}
+
+.sapMCbBg.sapMCbMarkChecked:before {
+	content: "\e05b";
+	font-family: "SAP-icons";
+	color: @sapUiSelected;
+}
+
+.sapMCbBg > input{
+	position: absolute;
+	/* in FF the input needs to be positioned exactly behind the visible checkbox for the focus outline */
+	left: 0;
+	-webkit-appearance:none;
+	visibility: hidden;
+}
+
+.sapMCbBg:focus,
+.sapMCbBg:active,
+.sap-desktop .sapMCbBg.sapMCbBgDis:focus {
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	outline: none;
+}
+
+.sapMCb:focus {
+	outline: none;
+}
+
+.sapMCb:not(.sapMCbBgDis):focus > .sapMCbBg,
+.sapMCb:not(.sapMCbBgDis)		> .sapMCbBg:focus { /* in IE clicking on checkbox input does not cause focus on checkbox wrapper div */
+	outline-color: @sapUiFocus;
+	outline-width: 1px;
+	outline-style: dotted;
+}
+
+.sapMFooter-CTX .sapMCb:not(.sapMCbBgDis):focus > .sapMCbBg,
+.sapMFooter-CTX .sapMCb:not(.sapMCbBgDis)		> .sapMCbBg:focus {
+	outline-color: @sapUiInvertedFocus;
+}
+
+.sapMLIBActive .sapMCbBg,
+.sapMLIBActive .sapMCbBg.sapMCbMarkChecked,
+.sapMLIBActive .sapMCbBg.sapMCbBgDis,
+.sapMLIBActive .sapMCbBg.sapMCbBgDis.sapMCbMarkChecked{
+	border-color: @sapUiLightestBorder;
+}
+
+.sapMLIBActive .sapMCbBg{
+	background-color: @sapUiSelected;
+}
+
+.sapMCbHoverable:hover{
+	border-color: @sapUiSelected;
+}
+
+.sapMCbBgDis {
+	opacity: @sapUiContentDisabledOpacity;
+}
+
+.sapMLIBActive .sapMActive .sapMCbBg.sapMCbActiveStateOff.sapMCbMarkChecked:before,
+.sapMLIBActive .sapMCbBg:active.sapMCbActiveStateOff.sapMCbMarkChecked:before,
+.sapMLIBActive .sapMCbBg.sapMCbMarkChecked:before,
+.sapMLIBActive .sapMActive .sapMCbBg.sapMCbMarkChecked:before,
+.sapMLIBActive .sapMCbBg:active.sapMCbMarkChecked:before,
+.sapMLIBActive .sapMCbBg.sapMCbBgDis.sapMCbMarkChecked:before{
+	color: @sapUiTextInverted;
+}
+
+.sapMActive .sapMCbBg.sapMCbActiveStateOff.sapMCbMarkChecked:before,
+.sapMCbBg:active.sapMCbActiveStateOff.sapMCbMarkChecked:before,
+.sapMActive .sapMCbBg.sapMCbMarkChecked:before,
+.sapMCbBg:active.sapMCbMarkChecked:before {
+	color: @sapUiSelected;
+}
+
+.sapMCbBg.sapMCbBgDis.sapMCbMarkChecked:before {
+	color: fade(@sapUiSelected, 25);
+}
+
+/* this needed for ie9 in multi select list */
+.sapMLIBSelectM > .sapMCb {
+	width : 3rem;
+}
+
+/* Read only */
+.sapMCbRo .sapMCbBg {
+	background-color: @sapUiBaseBG;
+	border-color: @sapUiFieldBorderColor;
+}
+
+.sapMCbRo > .sapMCbBg.sapMCbMarkChecked:before {
+	color: @sapUiElement;
+}
+
+/* Compact size */
+.sapUiSizeCompact{
+
+	.sapMCb{
+		height: 2rem;
+		line-height: 2rem;
+		padding-left: 2rem;
+	}
+
+	.sapMCbBg { /* check box itself */
+		left: 0.5rem;
+		top: 0.5rem;
+		height: 0.75rem;
+		width: 0.75rem;
+		line-height: 0.75rem;
+		font-size: 0.625rem;
+		border-radius: 0;
+	}
+
+	.sapMLIBSelectM > .sapMCb {
+		width : 2rem;
+	}
+}
+
+/* Condensed size */
+.sapUiSizeCondensed.sapUiTable,
+.sapUiSizeCondensed .sapUiTable {
+
+	.sapMCb{
+		height: 1.5rem;
+		line-height: 1.5rem;
+		padding-left: 1.5rem;
+	}
+
+	.sapUiTableCell>.sapMCb{
+		margin-left: 0.25rem;
+		padding-left: 1.75rem;
+	}
+
+	.sapMCbBg { /* check box itself */
+		left: 0.25rem;
+		top: 0.25rem;
+		height: 0.75rem;
+		width: 0.75rem;
+		line-height: 0.75rem;
+		font-size: 0.625rem;
+		border-radius: 0;
+	}
+}

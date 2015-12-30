@@ -1,0 +1,63 @@
+/* =============================================================== */
+/* CSS for control sap.m/BarBase.control High Contrast Black theme */
+/* =============================================================== */
+
+.sapMIBar .sapMBarChild:first-child {
+	margin-left: 0.25rem;
+}
+
+.sapMIBar .sapMBarChild {
+	margin-left: 0.25rem;
+}
+
+.sapMIBar > .sapMBarChild:last-child {
+	margin-right: 0.25rem;
+}
+
+.sapMIBar-CTX.sapMFooter-CTX {
+	color: @sapHCStandardFG;
+	background-color: @sapHCStandardBG;
+	background-image: none;
+	border-top: 1px solid @sapHCStandardFG;
+	border-bottom: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.sapMIBar.sapMSubHeader-CTX {
+	color: @sapHCStandardFG;
+	background-color: @sapHCStandardBG;
+}
+
+.sap-desktop .sapMIBar.sapMFooter-CTX {
+	background-color: @sapHCStandardBG;
+}
+
+/* footer separator inside of a SplitContainer control */
+.sapMSplitContainerMaster .sapMFooter-CTX {
+	border-right: 1px solid @sapHCStandardFG;
+}
+
+.sapMIBar.sapMHeader-CTX {
+	color: @sapHCStandardFG;
+}
+
+.sap-desktop .sapMIBar.sapMHeader-CTX { /* remove gradient on desktop */
+	background-color: @sapHCStandardBG;
+	filter: none;
+	background-image: none;
+}
+
+.sapMPopup-CTX .sapMIBar.sapMHeader-CTX { /* remove gradient in popups; restore grey header color when in popup on desktop */
+	background-color: @sapHCStandardBG;
+	filter: none;
+	background-image: none;
+}
+
+html[data-sap-ui-browser*='ie9'] .sapMPageHeader::after {
+	content: "";
+	position: absolute;
+	width:100%;
+	bottom: 0;
+	border-bottom: 1px solid @sapHCStandardFG;
+}

@@ -1,0 +1,91 @@
+.sapMMsgStrip {
+	border: 1px solid;
+	border-radius: 0.1875rem;
+	box-sizing: border-box;
+	font-size: 0.875rem;
+	font-weight: normal;
+	padding: 0.4375rem 1rem;
+	position: relative;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+
+	&[data-sap-ui-ms-closable='true'] > .sapMMsgStripMessage {
+		margin-right: 1rem;
+	}
+}
+
+.sapMMsgStripClosing {
+	opacity: 0;
+}
+
+.sapMMsgStripIcon {
+	position: absolute;
+	top: 0.375rem;
+	left: 0;
+	width: 2.5rem;
+	font-size: 1rem;
+	text-align: center;
+
+	& ~ .sapMMsgStripMessage {
+		margin-left: 1.5rem;
+	}
+}
+
+.sapMMsgStripMessage {
+	max-height: 10rem;
+	overflow: auto;
+
+	& > .sapMText,
+	& > .sapMLnk {
+		display: inline;
+	}
+
+	& > .sapMLnk {
+		margin-left: 0.25rem;
+	}
+}
+
+.sapMMsgStripCloseButton {
+	border: 0;
+	padding: 0;
+	background: transparent;
+	color: inherit;
+	width: 1.5rem;
+	height: 1.5rem;
+	position: absolute;
+	top: 0.1875rem;
+	right: 0.1875rem;
+	box-sizing: border-box;
+	font-family: 'SAP-icons';
+	font-size: 0.75rem;
+	cursor: pointer;
+	opacity: 0.6;
+	-webkit-transition: opacity 0.1s;
+	transition: opacity 0.1s;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&:focus {
+		outline: 0;
+	}
+
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: -25%;
+		bottom: -25%;
+		left: -25%;
+		right: -25%;
+	}
+
+	&::after {
+		content: '\e03e';
+		position: absolute;
+	}
+}

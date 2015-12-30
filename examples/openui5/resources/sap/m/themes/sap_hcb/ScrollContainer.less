@@ -1,0 +1,24 @@
+
+/* ============================================= */
+/* CSS for control sap.m/ScrollContainer.control */
+/* ============================================= */
+
+.sapMScrollCont {
+	overflow: hidden;
+	position: relative; /* to make the iScroll scrollbars appear at the correct position, if enabled */
+
+	/*
+	* Performance tweak - force the section content on to the GPU effectively separating it in a different
+	* composite layer. This is better done with will-change: transform, but at the moment is not supported on
+	* many platforms. When will-change becomes widely adopted than it's better to use it rather than translate3d
+	*/
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
+.sapMScrollContV .sapMScrollContScroll {
+	display: block; /* when there is only vertical scrolling, the whole available width should be consumed */
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, contentSelector) */
+.sapUiContainerContentPadding(~".sapMScrollCont", ~"> .sapMScrollContScroll");

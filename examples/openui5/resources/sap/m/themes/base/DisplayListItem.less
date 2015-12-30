@@ -1,0 +1,49 @@
+/* ============================================= */
+/* CSS for controlsap.m/DisplayListItem.control  */
+/* ============================================= */
+.sapMDLI {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	height: 2.75em;
+}
+
+.sapMDLILabel {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: auto;
+	flex: auto;
+	-ms-flex-negative: 1; /* IE10 does not shrink by auto */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 3rem;
+	display: block;
+}
+
+.sapMLIBActionable .sapMDLILabel {
+	cursor: pointer;
+}
+
+.sapMDLIValue {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: auto;
+	flex: auto;
+	-ms-flex-negative: 1; /* IE10 does not shrink by auto */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 3rem;
+}
+
+.sapMDLI > .sapMLIBContent{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

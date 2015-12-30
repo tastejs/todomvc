@@ -1,0 +1,112 @@
+/* ========================================= */
+/* CSS for control sap.ui.ux3/Feeder.control */
+/* Blue Crystal Desktop                      */
+/* ========================================= */
+
+.sapUiFeeder {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiFeederLarge {
+	padding: 10px;
+}
+
+.sapUiFeederMedium {
+	padding: 8px 10px;
+}
+
+.sapUiFeederComment {
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiExtraLightBorder;
+	padding: 10px;
+}
+
+.sapUiFeederInput {
+	border-width: 1px;
+}
+
+.sapUiFeeder > img {
+	border: 2px solid @sapUiLightestBorder;
+}
+
+.sapUiFeederLarge > img {
+	border: 2px solid @sapUiLightestBorder;
+	margin-right: 10px;
+}
+
+.sapUiFeederMedium > img {
+	margin-right: 8px;
+}
+
+.sapUiFeederComment > img {
+	margin-right: 10px;
+	border: none;
+}
+
+.sapUiFeederInput {
+	font-family: Arial, regular;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.sapUiFeederLarge > .sapUiFeederInput {
+	margin-left: 78px;
+	padding: 1px 69px 1px 5px;
+	min-height: 62px;
+}
+
+.sapUiFeederMedium > .sapUiFeederInput {
+	margin-left: 60px;
+	padding: 1px 53px 1px 5px;
+	min-height: 46px;
+}
+
+.sapUiFeederComment > .sapUiFeederInput {
+	margin-left: 40px;
+	padding: 3px 53px 3px 5px;
+	min-height: 22px;
+}
+
+.sapUiFeederLarge > .sapUiBtnS.sapUiBtnNorm {
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+.sapUiFeederLarge > button {
+	width: 58px;
+	margin: 15px 15px 15px 3px;
+}
+
+.sapUiFeederMedium > .sapUiBtnS.sapUiBtnNorm {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.sapUiFeederMedium > button {
+	width: 44px;
+	margin: 12px 14px 12px 2px;
+}
+
+.sapUiFeederComment > .sapUiBtnS.sapUiBtnNorm {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.sapUiFeederComment > button {
+	width: 35px;
+	margin: 13px 13px 13px 1px;
+}
+
+.sapUiFeederEmptyText {
+	color: @sapUiExtraLightText;
+	font-style: italic;
+}
+
+html[data-sap-ui-browser="ie10"],
+html[data-sap-ui-browser="ie9"] {
+	.sapUiFeeder .sapUiBtnS.sapUiBtnIconOnly > span.sapUiBtnIco {
+		margin-top: 1px;
+	}
+}

@@ -1,0 +1,85 @@
+/* =============================================== */
+/* CSS for control sap.ui.unified/CalendarLegend.control */
+/* Bluecrystal                                     */
+/* =============================================== */
+.sapUiUnifiedLegend {
+	background-color: @sapUiLightestBG;
+	font-size: @sapMFontSmallSize;
+}
+
+/*** compact mode (desktop size) ***/
+
+.sapUiSizeCompact .sapUiUnifiedLegend,
+.sapUiSizeCompact.sapUiUnifiedLegend {
+	padding: 8px;
+	column-gap: 6px;
+	-moz-column-gap: 6px; /* Firefox */
+	-webkit-column-gap: 6px; /* Safari and Chrome */
+}
+
+.sapUiSizeCompact .sapUiUnifiedLegendItem {
+	display: inline-block;
+	width: 100%;
+	margin: 2px;
+}
+
+/*** items and colors ***/
+
+.sapUiUnifiedLegendToday > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	height: 10px;
+	width: 10px;
+	background-color: transparent;
+	border: 2px solid @sapUiPurple;
+}
+
+.sapUiUnifiedLegendSelected > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiHighlight;
+}
+
+.sapUiUnifiedLegendNormalDay > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiExtraLightBG;
+}
+
+.sapUiUnifiedLegendNonWorkingDay > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: lighten(@sapBaseColor, 39.7);
+}
+
+.sapUiCalLegDayType01 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor{
+	background: @sapUiAccent1;
+}
+
+.sapUiCalLegDayType02 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent2;
+}
+
+.sapUiCalLegDayType03 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent3;
+}
+
+.sapUiCalLegDayType04 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: darken(@sapUiAccent2, 20%);
+}
+
+.sapUiCalLegDayType05 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: lighten(@sapUiAccent4, 20%);
+}
+
+.sapUiCalLegDayType06 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent6;
+}
+
+.sapUiCalLegDayType07 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent7;
+}
+
+.sapUiCalLegDayType08 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent8;
+}
+
+.sapUiCalLegDayType09 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: lighten(@sapUiAccent6, 15%);
+}
+
+.sapUiCalLegDayType10 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: darken(@sapUiAccent4, 10%);
+}

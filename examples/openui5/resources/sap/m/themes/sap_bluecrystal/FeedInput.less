@@ -1,0 +1,109 @@
+/* ======================================== */
+/* CSS for control sap.m/FeedInput.control  */
+/* bluecrystal                              */
+/* ======================================== */
+
+.sapMFeedIn {
+	background-color: @sapUiContentForegroundColor;
+	padding: 0.5rem 0.5rem 0.5rem 5rem;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/*hide the icon if the width of the screen <=25rem */
+@media (max-width: 25rem) {
+	.sapMFeedInFigure {
+		display: none;
+	}
+	
+	.sapMFeedIn {
+		padding-left: 0.5rem;
+	}
+}
+
+.sapMFeedInNoIcon {
+	padding-left: 0.5rem;
+}
+
+.sapMFeedInFigure {
+	position: absolute;
+	height: 4rem;
+	width: 4rem;
+	margin: 0 0 0 0.5rem;
+	background-color: darken(@sapUiGroupContentBackground, 5);
+	border: 0.125rem;
+	box-sizing: border-box;
+	border-style: solid;
+	border-color: @sapUiGroupContentBackground;
+	left: 0;
+	overflow: hidden;
+}
+
+.sapMFeedInImage {
+	color: darken(@sapUiGroupContentBackground,25);
+}
+
+.sapMFeedIn .sapMFeedInContainer {
+	background-color: @sapUiGroupContentBackground;
+	width: 100%;
+	min-height: 4rem;
+	max-height: 20rem;
+	position: relative;
+}
+
+.sapMFeedIn >.sapMFeedInContainer >.sapMInputBase {
+	width: 100%;
+	padding: 0 4.0rem 0 0;
+	margin: 0;
+	min-height: 4rem;
+}
+.sapMFeedIn >.sapMFeedInContainer > .sapMTextArea> .sapMInputBaseInner {
+	border-bottom-style: hidden;
+	border-top-style: hidden;
+	border-left-style: hidden;
+	border-right-style: hidden;
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-weight: normal;
+	color: @sapUiStandardText;
+	line-height: 1.4;
+	padding: 0.5rem 0.05rem 0.5rem 0.5rem;
+	min-height: 4rem;
+}
+
+.sapMFeedIn .sapMBtn {
+	width: 4.0rem;
+	height: 3.75rem;
+	padding-top: 0.25rem;
+	padding-right: 0.25rem;
+	padding-bottom: 0.25rem;
+	position: absolute;
+	right: -0.25rem;
+	bottom: 0.25rem;
+}
+
+html[data-sap-ui-browser*='ie'] .sapMFeedIn .sapMBtnInner {
+	width: 3.5rem;
+	display: block;
+}
+
+.sapMFeedIn .sapMBtnInner {
+	width: 3.5rem;
+	height: 3.5rem;
+	background-color: @sapUiButtonBackground;
+	padding: 0;
+}
+
+.sapMFeedIn .sapMBtnIcon{
+	width: 3.5rem;
+	height: 3.5rem;
+}
+
+.sapMFeedIn .sapMBtnIcon {
+	width: 2.375rem;
+	height: 2.375rem;
+	padding: 0.5rem;
+	font-size: 1.5rem;
+	line-height: 2.375rem;
+}

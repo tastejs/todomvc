@@ -1,0 +1,125 @@
+/* ================================================== */
+/* CSS for sap.ui.unfied.ShellHeader.control (hcb)    */
+/* ================================================== */
+
+@sapUiUfdShellHeadButtonBorderRadius: 6px;
+@sapUiUfdShellHeadButtonHeight: 40px;
+@sapUiUfdShellHeadButtonBorderWidth: 1px;
+
+.sapUiUfdShellHeadBegin .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:after {
+	border-left: @sapUiUfdShellHeadButtonBorderWidth solid @sapHCStandardFG;
+	right: -@sapUiUfdShellHeadButtonOuterSpace;
+	top: @sapUiUfdShellHeadButtonOuterSpace/2;
+}
+
+.sapUiUfdShellHeadUsrItm:before,
+.sapUiUfdShellHeadEnd .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:before {
+	border-right: @sapUiUfdShellHeadButtonBorderWidth solid @sapHCStandardFG;
+	top: @sapUiUfdShellHeadButtonOuterSpace/2;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm:hover > span {
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiUfdShellHeadItm {
+	margin-right: @sapUiUfdShellHeadButtonOuterSpace;
+}
+
+.sapUiUfdShellHeadItm > span {
+	border: @sapUiUfdShellHeadButtonBorderWidth solid @sapHCStandardFG;
+	border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	color: @sapHCStandardFG;
+	height: @sapUiUfdShellHeadButtonHeight;
+	line-height: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth;
+	margin-right: 2*@sapUiUfdShellHeadButtonOuterSpace;
+	margin-top: 0;
+	padding: @sapUiUfdShellHeadButtonBorderWidth;
+	width: @sapUiUfdShellHeadButtonHeight;
+	-webkit-font-smoothing: antialiased;
+}
+
+.sapUiUfdShellHeadUsrItmImg,
+.sapUiUfdShellHeadUsrItmName,
+.sapUiUfdShellHeadUsrItmExp {
+	border: @sapUiUfdShellHeadButtonBorderWidth solid @sapHCStandardFG;
+	height: @sapUiUfdShellHeadButtonHeight;
+	line-height: @sapUiUfdShellHeadButtonHeight - 2*@sapUiUfdShellHeadButtonOutlineWidth;;
+	margin-top: 0;
+	padding-top: @sapUiUfdShellHeadButtonBorderWidth;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItmImg,
+.sapUiMedia-Std-Tablet .sapUiUfdShellHeadUsrItmImg {
+	border-bottom-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-right: none;
+	border-top-left-radius: @sapUiUfdShellHeadButtonBorderRadius;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItmImg > img,
+.sapUiMedia-Std-Tablet .sapUiUfdShellHeadUsrItmImg > img {
+	margin: 0;
+}
+
+.sapUiUfdShellHeadUsrItmName {
+	border-left: none;
+	border-right: none;
+}
+
+.sapUiUfdShellHeadUsrItmExp {
+	border-bottom-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+	border-left: none;
+	border-top-right-radius: @sapUiUfdShellHeadButtonBorderRadius;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmImg,
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmName,
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmExp {
+	border-radius: 0;
+	border-style: dotted;
+	border-width: 2*@sapUiUfdShellHeadButtonBorderWidth;
+	padding-top: 0;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmImg {
+	border-right: none;
+	padding-bottom: 0;
+	padding-left: @sapUiUfdShellHeadButtonInnerSpace - @sapUiUfdShellHeadButtonBorderWidth;
+	padding-top: 0;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmName {
+	border-left: none;
+	border-right: none;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmExp {
+	border-left: none;
+	padding-bottom: 0;
+	padding-right: @sapUiUfdShellHeadButtonInnerSpace - @sapUiUfdShellHeadButtonBorderWidth;
+	padding-top: 0;
+}
+
+.sapUiMedia-Std-Phone .sapUiUfdShellHeadUsrItmImg {
+	border-radius: @sapUiUfdShellHeadButtonBorderRadius;
+}
+
+.sapUiMedia-Std-Phone .sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmImg {
+	border-right: 2*@sapUiUfdShellHeadButtonBorderWidth dotted @sapHCStandardFG;
+	padding-right: @sapUiUfdShellHeadButtonInnerSpace - @sapUiUfdShellHeadButtonBorderWidth;
+}
+
+.sapUiUfdShellHeadItmMarker > div:after,
+.sapUiUfdShellHeadItmMarker > div:before {
+	border-bottom-color: @sapHCStandardFG;
+}
+
+.sapUiUfdShellHeadItm:focus > span {
+	border: 2*@sapUiUfdShellHeadButtonBorderWidth dotted @sapHCStandardFG;
+	border-radius: 0;
+	padding: 0;
+}
+
+.sapUiUfdShellHeadUsrItmWithoutPopup .sapUiUfdShellHeadUsrItmExp {
+	padding-right: @sapUiUfdShellHeadButtonBorderRadius;
+}

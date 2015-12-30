@@ -1,0 +1,2758 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../../Base/baseLib/sap_bluecrystal/base.less"; /* ORIGINAL IMPORT PATH: "../../../../../sap/ui/core/themes/sap_bluecrystal/base.less" */
+
+@import "../../../../../sap/ui/core/themes/sap_bluecrystal/global.less";
+/* START "shared.less" */
+/* This CSS shares it rules with all other CSS of this library */
+/* END "shared.less" */
+
+
+/* START "ActionBar.less" */
+/* =========================================== */
+/* CSS for controlsap.ui.ux3/ActionBar.control */
+/* =========================================== */
+
+.sapUiUx3ActionBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	position:relative;
+	background-color: @sapUiExtraDarkBG;
+	height: 40px;
+	margin: 0;
+	white-space:nowrap;
+}
+
+.sapUiUx3ActionBarSocialActions {
+	margin: 0;
+	padding: 0px 6px 0px 0px;
+	list-style: none;
+	display: inline-block;
+	float: left;
+}
+
+.sapUiUx3ActionBarBusinessActions {
+	position: absolute;
+	right: 6px;
+	top: 9px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sapUiUx3ActionBarBusinessActions .sapUiUx3ActionBarLiteMoreButton .sapUiMenuButtonIco {
+	color: @sapUiTextInverted;
+	background-image: url("img/menubutton/Menu_Hover.png");
+}
+
+.sapUiUx3ActionBarBusinessActions .sapUiUx3ActionBarLiteMoreButton .sapUiBtnTxt {
+	color: @sapUiTextInverted;
+}
+
+.sapUiUx3ActionBarItem {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	padding: 0px 0px 0px 0px;
+	height: 40px;
+	border-right: 1px solid @sapUiDarkestBorder;
+}
+
+.sapUiUx3ActionBarMoreButton {
+	padding: 0px 0px 0px 0px;
+}
+
+.sapUiUx3ActionBarItem:focus {
+	outline: none;
+}
+
+.sapUiUx3ActionBarItemRight {
+	display: inline;
+	color: @sapUiText;
+	font-weight: normal;
+	padding: 0px 0px 0px 6px;
+}
+
+.sapUiUx3ActionBarAction:focus {
+	outline: none;
+}
+
+.sapUiUx3ActionBarAction:hover {
+	border: 1px solid @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarAction {
+	display: inline-block;
+	width: 38px;
+	height: 38px;
+	padding: 0px;
+}
+
+button.sapUiUx3ActionBarLiteMoreButton>span.sapUiBtnTxt  {
+	color: @sapUiBaseText;
+	font-weight: normal;
+}
+
+button.sapUiUx3ActionBarLiteMoreButton:hover>span.sapUiBtnTxt  {
+	color: @sapUiTextInverted;
+	font-weight: normal;
+}
+
+button.sapUiUx3ActionBarLiteMoreButton:focus>span.sapUiBtnTxt  {
+	color: @sapUiTextInverted;
+	font-weight: normal;
+}
+
+/* ============================================= */
+/* Update                                        */
+.sapUiUx3ActionBarUpdateAction {
+	background-image: url("img/update_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.sapUiUx3ActionBarUpdateAction:hover {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarUpdateAction:focus {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiHighlight;
+}
+.sapUiUx3ActionBarUpdateAction:active {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected {
+	background-image: url("img/update_hover.png");
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected:focus,
+.sapUiUx3ActionBarUpdateAction.Selected:hover {
+	background-color: darken(@sapUiToggleButtonPressedBackground, 6);
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarUpdateAction.Selected:active {
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+.sapUiUx3ActionBarUpdatePopup.sapUiUx3TP {
+	color: @sapUiBaseText;
+	padding: 5px;
+}
+
+.sapUiUx3ActionBarUpdatePopup > .sapUiUx3TPContent {
+	 margin: 0;
+}
+
+.sapUiUx3ActionBarFeeder {
+	width:300px;
+}
+
+/* ============================================= */
+/* Follow (Feed)                                 */
+.sapUiUx3ActionBarFollowAction {
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.sapUiUx3ActionBarFollowAction.Default {
+	background-image: url("img/not_following_hover.png");
+}
+
+.sapUiUx3ActionBarFollowAction.Default:focus,
+.sapUiUx3ActionBarFollowAction.Default:hover {
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFollowAction.Default:active {
+	background-image: url("img/not_following_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+
+.sapUiUx3ActionBarFollowAction.Default:disabled {
+	opacity: 0.25;
+}
+
+.sapUiUx3ActionBarFollowAction.Follow {
+	background-image: url("img/following_regular_bw.png");
+	background-color: @sapUiToggleButtonPressedBackground;
+	border: 1px solid transparent;
+}
+.sapUiUx3ActionBarFollowAction.Hold:hover,
+.sapUiUx3ActionBarFollowAction.Hold:focus,
+.sapUiUx3ActionBarFollowAction.Follow:focus,
+.sapUiUx3ActionBarFollowAction.Follow:hover {
+	background-color: darken(@sapUiToggleButtonPressedBackground, 6);
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFollowAction.Hold:active,
+.sapUiUx3ActionBarFollowAction.Follow:active {
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+.sapUiUx3ActionBarFollowAction.Hold {
+	background-image: url("img/hold_regular_bw.png");
+	background-color: @sapUiToggleButtonPressedBackground;
+	border: 1px solid transparent;
+}
+
+/* ============================================= */
+/* Flag                                     */
+.sapUiUx3ActionBarFlagAction {
+	background-image: url("img/flag_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.sapUiUx3ActionBarFlagAction:disabled {
+	opacity: 0.25;
+}
+
+.sapUiUx3ActionBarFlagAction:hover,
+.sapUiUx3ActionBarFlagAction:focus {
+	background-image: url("img/flag_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFlagAction:active {
+	background-image: url("img/flag_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarFlagAction.Selected {
+	background-image: url("img/flag_regular.png");
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+.sapUiUx3ActionBarFlagAction.Selected:focus,
+.sapUiUx3ActionBarFlagAction.Selected:hover {
+	background-color: darken(@sapUiToggleButtonPressedBackground, 6);
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFlagAction.Selected:active {
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+
+/* ============================================= */
+/* Favorite                                     */
+.sapUiUx3ActionBarFavoriteAction {
+	background-image: url("img/favorite_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.sapUiUx3ActionBarFavoriteAction:disabled {
+	opacity: 0.25;
+}
+
+.sapUiUx3ActionBarFavoriteAction:hover,
+.sapUiUx3ActionBarFavoriteAction:focus {
+	background-image: url("img/favorite_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid transparent;
+}
+
+
+.sapUiUx3ActionBarFavoriteAction:active {
+	background-image: url("img/favorite_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarFavoriteAction.Selected {
+	background-image: url("img/favorite_regular.png");
+	background-color: @sapUiToggleButtonPressedBackground;
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFavoriteAction.Selected:focus,
+.sapUiUx3ActionBarFavoriteAction.Selected:hover {
+	background-color: darken(@sapUiToggleButtonPressedBackground, 6);
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ActionBarFavoriteAction.Selected:active {
+	background-color: @sapUiToggleButtonPressedBackground;
+}
+
+
+
+/* ============================================= */
+/* Open Thing                                    */
+.sapUiUx3ActionBarOpenThingAction {
+	background-image: url("img/inspect_hover.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.sapUiUx3ActionBarOpenThingAction:hover {
+	background-image: url("img/inspect_hover.png");
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ActionBarOpenThingAction:focus {
+	background-image: url("img/inspect_hover.png");
+	background-color: @sapUiHighlight;
+	border: 1px solid @sapUiHighlight;
+}
+
+/*
+ * Inside QuickView: make sure the action bar fits exactly
+ * into the surrounding CallOut.
+ */
+.sapUiCltBaseCont .sapUiUx3ActionBar {
+	margin: -6px -4px 0px -4px;
+	top: 7px;
+}
+
+/* END "ActionBar.less" */
+
+/* START "CollectionInspector.less" */
+/* ============================================= */
+/* CSS for control sap.ui.ux3/Collection.control */
+/* ============================================= */
+
+.sapUiUx3CI {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3CIToolBar, .sapUiUx3CISidebar {
+	border: 0;
+}
+
+.sapUiUx3CIFitParent .sapUiUx3CISidebar, .sapUiUx3CIFitParent .sapUiUx3CIContent {
+	top: 29px;
+}
+
+.sapUiUx3CIToggleButton button {
+	padding: 0 3px;
+	background-image: url(img/collection_inspector/facet_right_grey.png);
+	background-repeat: no-repeat;
+	background-position: 3px;
+}
+
+.sapUiUx3CIToggleButton button:hover {
+	background-image: url(img/collection_inspector/facet_right_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtnPressed {
+	background-image: url(img/collection_inspector/facet_down_grey.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtnPressed:hover {
+	background-image: url(img/collection_inspector/facet_down_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc {
+	background-image: url(img/collection_inspector/facet_right_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc.sapUiToggleBtnPressed {
+	background-image: url(img/collection_inspector/facet_down_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc,
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc.sapUiToggleBtnPressed {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3CIToolBar, .sapUiUx3CICollectionListContainer {
+	background-color: @sapUiExtraDarkBG;
+}
+
+.sapUiUx3CICollectionListContainer {
+	background-color: @sapUiExtraDarkBG;
+}
+
+ul.sapUiUx3CICollectionList li {
+	border-bottom: 1px solid lighten(@sapUiDarkLine, 20%);
+	background-color: @sapUiExtraDarkBG;
+	color: @sapUiDarkBorder;
+}
+
+ul.sapUiUx3CICollectionList li:hover, ul.sapUiUx3CICollectionList li.sapUiUx3CICollectionListItemSelected {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+ul.sapUiUx3CICollectionList .sapUiUx3SidebarFoc,
+ul.sapUiUx3CICollectionList li:focus {
+	outline: 1px dashed @sapUiLightestBorder;
+}
+
+.sapUiUx3CIToolBar .sapUiSegmentedButton > button.sapUiBtnS.sapUiBtnNorm,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiExtraDarkBG;
+	color: @sapUiDarkBorder;
+	font-weight: bold;
+	height: 22px;
+}
+
+.sapUiUx3CIToolBar .sapUiSegmentedButton > button.sapUiBtnS.sapUiBtnNorm:hover,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm:hover,
+.sapUiUx3CIToolBar .sapUiSegmentedButton > button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn:hover,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn:hover {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton  {
+	background-color: @sapUiExtraDarkBG;
+	color: @sapUiDarkBorder;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton:hover,
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton.sapUiBtnStd:hover {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd,
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm:hover,
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm:focus,
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:not(.sapUiSegButtonSelected),
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover:not(.sapUiSegButtonSelected) {
+	margin: 0;
+	border: 0;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+/* END "CollectionInspector.less" */
+
+/* START "DataSet.less" */
+/* ========================================== */
+/* CSS for control sap.ui.ux3/DataSet.control */
+/* ========================================== */
+
+.sapUiUx3DS {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3DSToolbar {
+	background-color: @sapUiMediumBG;
+}
+/* END "DataSet.less" */
+
+/* START "DataSetSimpleView.less" */
+/* ==================================================== */
+/* CSS for control sap.ui.ux3/DataSetSimpleView.control */
+/* ==================================================== */
+
+.sapUiUx3DSSV {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "DataSetSimpleView.less" */
+
+/* START "Exact.less" */
+/* ======================================== */
+/* CSS for control sap.ui.ux3/Exact.control */
+/* ======================================== */
+
+.sapUiUx3Exact {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "Exact.less" */
+
+/* START "ExactArea.less" */
+/* ============================================ */
+/* CSS for control sap.ui.ux3/ExactArea.control */
+/* ============================================ */
+
+.sapUiUx3ExactArea {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ExactArea > .sapUiTb {
+	background-color: @sapUiDarkestBG;
+}
+
+.sapUiUx3ExactAreaTbTitle {
+	margin-top: 2px;
+}
+/* END "ExactArea.less" */
+
+/* START "ExactBrowser.less" */
+/* =============================================== */
+/* CSS for control sap.ui.ux3/ExactBrowser.control */
+/* =============================================== */
+
+.sapUiUx3ExactBrwsr {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ExactBrwsrHd {
+	height: 22px;
+	line-height: 22px;
+}
+/* END "ExactBrowser.less" */
+
+/* START "ExactList.less" */
+
+/* ================================================== */
+/* GR CSS for control sap.ui.ux3/ExactList.control    */
+/* ================================================== */
+
+@sapUiUx3ExactLstExpandOffset: -1 -2;
+@sapUiUx3ExactLstRootExpandOffset: 0 3;
+@sapUiUx3ExactLstContentTop: 25px;
+
+.sapUiUx3ExactLst {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3ExactLstLst {
+	background-color: @sapUiFieldBackground;
+	top: 24px;
+	border-color: @sapUiDarkBorder;
+}
+
+
+/* List - Item Texts */
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > span.sapUiLbxITxt {
+	border-color: transparent;
+}
+
+/* List - Sub-Attribute Indicator */
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > span.sapUiLbxIIco {
+	background-image: url("img/exact/expand_item_regular.png");
+	background-repeat: no-repeat;
+	background-color: transparent;
+	border-width: 0px;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco:after {
+	content: "";
+}
+
+
+/* List - Focus, Hover, Select */
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3ExactLstLb > ul > .sapUiLbxISel,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ExactLstLb > ul > .sapUiLbxISel,
+html[data-sap-ui-browser="ie10"] .sapUiUx3ExactLstLb > ul > .sapUiLbxISel {
+	border: 1px solid @sapUiListSelectionBackgroundColor;
+}
+
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel > span {
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:hover > span,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI:focus > span {
+	background-color: @sapUiListHoverBackground;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:hover,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:focus,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:hover > span,
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiLbxISel:focus > span {
+	background-color: @sapUiListSelectionHoverBackground;
+}
+
+
+/* Expander */
+
+.sapUiUx3ExactLstExp {
+	background-color: transparent;
+	background-image: url("img/exact/expand_list_regular.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: transparent;
+    height: 21px;
+    cursor: pointer;
+    font-size: 0;
+    border-top: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiUx3ExactLstExp:hover {
+	background-image: url("img/exact/expand_list_hover.png");
+}
+
+.sapUiUx3ExactLstExpanded > .sapUiUx3ExactLstExp {
+	background-image: url("img/exact/collapse_list_regular.png");
+}
+
+.sapUiUx3ExactLstExpanded > .sapUiUx3ExactLstExp:hover {
+	background-image: url("img/exact/collapse_list_hover.png");
+}
+
+/* Header */
+
+.sapUiUx3ExactLstHead {
+	background-color: @sapUiLightestBG;
+    border-top: 1px solid @sapUiDarkBorder;
+	border-left: 1px solid @sapUiDarkBorder;
+	border-right: 1px solid @sapUiDarkBorder;
+	border-bottom: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead {
+	background-color: @sapUiLightestBG;
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiUx3ExactLstHeadTopTxt,
+.sapUiUx3ExactLstHeadTxt {
+    color: @sapUiExtraDarkText;
+}
+
+.sapUiUx3ExactLstHeadTopTxt {
+	border: 1px solid transparent;
+}
+
+.sapUiUx3ExactLstHeadAct {
+	top: 5px;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct {
+	left: 4px;
+}
+
+.sapUiUx3ExactLstHide, .sapUiUx3ExactLstClose {
+	font-size: 0;
+	color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.sapUiUx3ExactLstHide {
+	background-image: url("img/exact/expand_regular.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide {
+	background-image: url("img/exact/expand_2_regular.png");
+}
+
+.sapUiUx3ExactLstHide:focus, .sapUiUx3ExactLstHide:hover {
+	background-image: url("img/exact/expand_hover.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide:focus,
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide:hover {
+	background-image: url("img/exact/expand_2_hover.png");
+}
+
+.sapUiUx3ExactLstHide:active {
+	background-image: url("img/exact/expand_down.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide:active {
+	background-image: url("img/exact/expand_2_down.png");
+}
+
+.sapUiUx3ExactLstClose {
+	background-image: url("img/exact/close_regular.png");
+}
+
+.sapUiUx3ExactLstClose:focus, .sapUiUx3ExactLstClose:hover {
+	background-image: url("img/exact/close_hover.png");
+}
+
+.sapUiUx3ExactLstClose:active {
+	background-image: url("img/exact/close_down.png");
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead {
+	border-bottom: 1px solid @sapUiExtraLightBorder;
+}
+
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadTxt {
+	left: -4px; /*should be right -> swapped with right by RTL transformation*/
+}
+
+
+/* Content */
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstCntnt {
+	border: 0px solid transparent;
+	background-color: @sapUiGroupContentBackground;
+	border-left: 1px solid @sapUiGroupContentBackground;
+	border-right: 1px solid @sapUiGroupContentBackground;
+}
+
+
+/* Resize */
+
+.sapUiUx3ExactLstRSz.sapUiUx3ExactLstRSzDrag, 
+.sapUiUx3ExactLstRSz:hover {
+	background-image: url("img/exact/resize.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+/* END "ExactList.less" */
+
+/* START "FacetFilter.less" */
+/* ========================================================== */
+/* BlueCrystal CSS for control sap.ui.ux3/FacetFilter.control */
+/* ========================================================== */
+
+.sapUiUx3FacetFilter {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "FacetFilter.less" */
+
+/* START "FacetFilterList.less" */
+/* ============================================================== */
+/* BlueCrystal CSS for control sap.ui.ux3/FacetFilterList.control */
+/* ============================================================== */
+
+/* Header */
+.sapUiUx3FFLstHead {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-top: 1px solid @sapUiDarkBorder;
+	border-left: 1px solid @sapUiDarkBorder;
+	border-right: 1px solid @sapUiDarkBorder;
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiUx3FFLstHeadTxt {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* Facet Filter List*/
+.sapUiUx3FFLst {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* List Box */
+.sapUiUx3FFLst > .sapUiLbx {
+	width: 100%;
+	border-bottom: 1px solid @sapUiDarkBorder;
+}
+
+/* END "FacetFilterList.less" */
+
+/* START "Feed.less" */
+/* ============================================= */
+/* CSS for control sap.ui.ux3/Feed.control       */
+/* Goldreflection                                */
+/* ============================================= */
+
+@sapUiFeedToolsIconUrl: ~"/img/feed/Action_Menu_regular.png";
+@sapUiFeedToolsIconHoverUrl: ~"/img/feed/Action_Menu_hover.png";
+
+.sapUiFeed{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiFeed > header {
+	margin-top: 20px;
+}
+
+.sapUiFeed > header > h4 {
+	margin: 0;
+	height: 22px;
+}
+
+.sapUiFeed > header > h4 > button {
+	margin-left: 2px;
+}
+
+.sapUiFeed > header > h4 > .sapUiMenuButton {
+	width: 22px;
+	padding-right: 8px;
+}
+
+.sapUiFeed > header > h4 > .sapUiMenuButton > .sapUiMenuButtonIco {
+	display: none;
+}
+
+.sapUiFeedToolbar {
+	margin-top: 2px;
+	background-color: @sapUiMediumBG;
+	padding: 3px;
+}
+
+.sapUiFeed > section {
+	margin-top: 2px;
+}
+/* END "Feed.less" */
+
+/* START "FeedChunk.less" */
+/* ============================================= */
+/* CSS for control sap.ui.ux3/FeedChunk.control  */
+/* Blue Crystal                                  */
+/* ============================================= */
+
+.sapUiFeedChunk{
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-color: @sapUiExtraLightBorder;
+	padding: 15px 15px 10px 15px;
+}
+
+.sapUiFeedChunk a {
+	text-decoration: none;
+}
+
+.sapUiFeedChunk a:focus,
+.sapUiFeedChunk a:hover {
+	text-decoration: underline;
+}
+
+.sapUiFeedChunkComment {
+	margin-bottom: 2px;
+	padding: 9px 15px 9px 9px;
+}
+
+.sapUiFeedChunk > img {
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.sapUiFeedChunkComment > img {
+/*	margin-bottom: 0px;*/
+	width: 32px;
+	height: 32px;
+}
+
+.sapUiFeedChunkText {
+	font-family: Arial, regular;
+	font-size: 13px;
+	line-height: 19px;
+	margin-right: 27px;
+	margin-left:58px;
+	margin-top: -2px;
+	min-height: 57px;
+	height: 57px;
+	overflow: hidden;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkText {
+	min-height: 19px;
+	margin-left:42px;
+	height: auto;
+}
+
+.sapUiFeedChunkText > .sapUiMenuButton.sapUiBtnS {
+	padding: 0;
+	height: 19px;
+	width: 12px;
+	background-image: url(img/feed/ico12_click.png);
+	margin-right: 2px;
+}
+
+.sapUiFeedChunkText > .sapUiMenuButton:focus,
+.sapUiFeedChunkText > .sapUiMenuButton:hover {
+	background-color: transparent;
+}
+
+.sapUiFeedChunkStatusIcons {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 12px;
+	height: 53px;
+	padding-left: 15px;
+	margin: 0;
+}
+
+.sapUiFeedChunkStatusIcons > li {
+	width:12px;
+	height: 12px;
+	color: transparent;
+	font-size: 0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin-bottom: 2px;
+}
+
+.sapUiFeedChunkFlagged {
+	background-image: url(img/status_ico_flag.png);
+}
+
+.sapUiFeedChunkFavorite {
+	background-image: url(img/status_ico_favorite.png);
+}
+
+.sapUiFeedChunkShared {
+	background-image: url(img/status_ico_shared.png);
+}
+
+.sapUiFeedChunkByline {
+	font-family: Arial, regular;
+	font-size: 11px;
+	color: @sapUiLightText;
+	margin-top: 5px;
+	margin-left:58px;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkByline {
+	margin-left:42px;
+	display: block;
+}
+
+.sapUiFeedChunk button {
+	color: transparent;
+	font-size: 0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	border: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	outline: none;
+	padding: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiFeedChunk button {
+	filter: none;
+}
+
+.sapUiFeedChunk button:focus,
+.sapUiFeedChunk button:hove r{
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFeedChunk button:active {
+	background-color: @sapUiDarkBG;
+}
+
+.sapUiFeedChunkExpand,
+.sapUiFeedChunkCollapse {
+	width: 16px;
+	height: 16px;
+	margin-left: 15px;
+
+}
+
+.sapUiFeedChunkExpand {
+	background-image: url(img/feed/Expand_button.png);
+}
+
+.sapUiFeedChunkExpand:focus,
+.sapUiFeedChunkExpand:hover {
+	background-image: url(img/feed/Expand_button_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkCollapse {
+	background-image: url(img/feed/Collapse_button.png);
+}
+
+.sapUiFeedChunkCollapse:focus,
+.sapUiFeedChunkCollapse:hover {
+	background-image: url(img/feed/Collapse_button_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkAct,
+.sapUiFeedChunk > .sapUiMenuButton {
+	width: 22px;
+	height: 22px;
+/*	visibility: hidden;*/ /* only show on hover in Chunk */
+}
+/*
+.sapUiFeedChunk:focus > .sapUiFeedChunkAct,
+.sapUiFeedChunk:hover > .sapUiFeedChunkAct,
+.sapUiFeedChunk:focus > .sapUiMenuButton,
+.sapUiFeedChunk:hover > .sapUiMenuButton{
+	visibility: visible;
+}
+*/
+.sapUiFeedChunkActComment {
+	background-image: url(img/feed/Action_Comment_regular.png);
+}
+
+.sapUiFeedChunkActComment:hover,
+.sapUiFeedChunkActComment:focus {
+	background-image: url(img/feed/Action_Comment_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkActFlag {
+	background-image: url(img/feed/Action_Flag_regular.png);
+}
+
+.sapUiFeedChunkActFlag:hover,
+.sapUiFeedChunkActFlag:focus {
+	background-image: url(img/feed/Action_Flag_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkActFavorite {
+	background-image: url(img/feed/Action_Favorite_regular.png);
+}
+
+.sapUiFeedChunkActFavorite:hover,
+.sapUiFeedChunkActFavorite:focus {
+	background-image: url(img/feed/Action_Favorite_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkActInspect {
+	background-image: url(img/feed/Action_Inspect_regular.png);
+}
+
+.sapUiFeedChunkActInspect:hover,
+.sapUiFeedChunkActInspect:focus {
+	background-image: url(img/feed/Action_Inspect_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkActShare {
+	background-image: url(img/feed/Share.png);
+}
+
+.sapUiFeedChunkActShare:hover,
+.sapUiFeedChunkActShare:focus {
+	background-image: url(img/feed/Share_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunk > .sapUiMenuButton {
+	padding-right: 8px;
+}
+
+.sapUiFeedChunk > .sapUiMenuButton > .sapUiMenuButtonIco {
+	display: none;
+}
+
+.sapUiFeedChunkDel {
+	border: none;
+	background-image: url(img/feed/Delete_button.png);
+	width: 16px;
+	height: 16px;
+	color: transparent;
+	font-size: 0;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	outline: none;
+}
+
+.sapUiFeedChunkDel:hover,
+.sapUiFeedChunkDel:focus {
+	background-image: url(img/feed/Delete_button_hover.png);
+	background-color: @sapUiHighlight;
+}
+
+.sapUiFeedChunkDel:active {
+	background-image: url(img/feed/Delete_button_down.png);
+}
+
+.sapUiFeedChunk > section {
+	margin-left: 53px;
+}
+
+.sapUiFeedChunk > section > header {
+/*	border-color: @sapUiExtraLightBorder;*/
+	border: none;
+	height: 8px;
+	background-image: url(img/feed/Triangle_Comments.png), url(img/feed/Line_Comments.png), url(img/feed/Line_Comments.png);
+	background-image: url(img/feed/Triangle_Comments.png), -moz-linear-gradient(center bottom , @sapUiExtraLightBorder, @sapUiExtraLightBorder), -moz-linear-gradient(center bottom , @sapUiExtraLightBorder, @sapUiExtraLightBorder);
+	background-image: url(img/feed/Triangle_Comments.png), -webkit-gradient(linear, left top, left bottom, from(@sapUiExtraLightBorder), to(@sapUiExtraLightBorder)), -webkit-gradient(linear, left top, left bottom, from(@sapUiExtraLightBorder), to(@sapUiExtraLightBorder));
+	background-position: 10px top, left 7px, 15px top;
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-size: auto auto, 10px 1px, 100% 1px;
+	-moz-background-size: auto auto, 10px 1px, 100% 1px;
+	-webkit-background-size: auto auto, 10px 1px, 100% 1px;
+	background-origin: padding, padding, content;
+	-moz-background-origin: padding, padding, content;
+	-webkit-background-origin: padding, padding, content;
+	background-origin: padding-box, padding-box, content-box;
+	padding-top: 7px;
+	padding-left: 10px;
+	font-family: Arial, regular;
+	font-size: 12px;
+	height: 25px; /* 1px more because header line is part of the height in this case*/
+	line-height: 24px;
+
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiFeedChunk > section > header{
+	border-top: 1px solid  @sapUiExtraLightBorder;
+	margin-top: 7px;
+	padding-top: 0;
+}
+/* END "FeedChunk.less" */
+
+/* START "Feeder.less" */
+/* ========================================= */
+/* CSS for control sap.ui.ux3/Feeder.control */
+/* Blue Crystal Desktop                      */
+/* ========================================= */
+
+.sapUiFeeder {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiFeederLarge {
+	padding: 10px;
+}
+
+.sapUiFeederMedium {
+	padding: 8px 10px;
+}
+
+.sapUiFeederComment {
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiExtraLightBorder;
+	padding: 10px;
+}
+
+.sapUiFeederInput {
+	border-width: 1px;
+}
+
+.sapUiFeeder > img {
+	border: 2px solid @sapUiLightestBorder;
+}
+
+.sapUiFeederLarge > img {
+	border: 2px solid @sapUiLightestBorder;
+	margin-right: 10px;
+}
+
+.sapUiFeederMedium > img {
+	margin-right: 8px;
+}
+
+.sapUiFeederComment > img {
+	margin-right: 10px;
+	border: none;
+}
+
+.sapUiFeederInput {
+	font-family: Arial, regular;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.sapUiFeederLarge > .sapUiFeederInput {
+	margin-left: 78px;
+	padding: 1px 69px 1px 5px;
+	min-height: 62px;
+}
+
+.sapUiFeederMedium > .sapUiFeederInput {
+	margin-left: 60px;
+	padding: 1px 53px 1px 5px;
+	min-height: 46px;
+}
+
+.sapUiFeederComment > .sapUiFeederInput {
+	margin-left: 40px;
+	padding: 3px 53px 3px 5px;
+	min-height: 22px;
+}
+
+.sapUiFeederLarge > .sapUiBtnS.sapUiBtnNorm {
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+.sapUiFeederLarge > button {
+	width: 58px;
+	margin: 15px 15px 15px 3px;
+}
+
+.sapUiFeederMedium > .sapUiBtnS.sapUiBtnNorm {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.sapUiFeederMedium > button {
+	width: 44px;
+	margin: 12px 14px 12px 2px;
+}
+
+.sapUiFeederComment > .sapUiBtnS.sapUiBtnNorm {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.sapUiFeederComment > button {
+	width: 35px;
+	margin: 13px 13px 13px 1px;
+}
+
+.sapUiFeederEmptyText {
+	color: @sapUiExtraLightText;
+	font-style: italic;
+}
+
+html[data-sap-ui-browser="ie10"],
+html[data-sap-ui-browser="ie9"] {
+	.sapUiFeeder .sapUiBtnS.sapUiBtnIconOnly > span.sapUiBtnIco {
+		margin-top: 1px;
+	}
+}
+
+/* END "Feeder.less" */
+
+/* START "NavigationBar.less" */
+.sapUiUx3NavBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-bottom: 0px solid @sapUiLink;
+	text-transform: none;
+}
+
+.sapUiUx3NavBarItem:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarItem {
+	color: @sapUiLightText;
+	font-family: @sapUiDesktopFontFamily;
+	font-size: (@sapUiDesktopFontSize + 2px);
+	font-weight: normal;
+}
+
+.sapUiUx3NavBarItem:hover {
+	color: @sapUiHighlight;
+	font-weight: normal;
+	font-size: 14px;
+}
+
+.sapUiUx3NavBarItemSel > a {
+	color: @sapUiDarkText;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.sapUiUx3NavBarItemSel > a:hover {
+	color: @sapUiLink;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+/** Top-Level NavigationBar **/ 
+
+.sapUiUx3NavBarToplevel {
+	border-bottom: none;
+	text-transform: uppercase;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem:focus {
+	outline: 0px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarList > li,
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem {
+	color: @sapUiLightText;
+	font-size: 15px;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarList > li:hover,
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem:hover {
+	color: @sapUiHighlight;
+	font-size: 15px;
+}
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItemSel > a {
+	color: @sapUiDarkText;
+	font-size: 15px;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItemSel > a:hover {
+	color: @sapUiHighlight;
+	font-size: 15px;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarArrow {
+	display: none;
+	border-color: @sapUiBaseText transparent @sapUiHighlight;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+	display: none;
+	border-color: @sapUiBaseText transparent @sapUiUx3ShellBackgroundColor;
+}
+
+
+/* standard design arrows */
+
+.sapUiUx3NavBarBack,
+.sapUiUx3NavBarForward {
+	color: transparent;
+	font-size: 0;
+	height: 18px;
+	width: 18px;
+	background-position: 4px 3px;
+}
+
+.sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/facetPrev.png);
+}
+
+.sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/facetNext.png);
+}
+
+.sapUiUx3NavBarBack:focus,
+.sapUiUx3NavBarForward:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:hover,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:hover {
+	background-color: @sapUiHighlight;
+	background-position: -13px 3px;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:active,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:active {
+	background-color: @sapUiDarkBG;
+	background-position: -13px 3px;
+}
+
+
+
+
+/* toplevel design arrows */
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-position: 3px 3px;
+	padding: 0;
+	height: 22px;
+	width: 22px;
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/WS_scroll_prev.png);
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/WS_scroll_next.png);
+}
+.sapUiUx3NavBar {
+	border-bottom: 0px solid @sapUiHighlight;
+	text-transform: none;
+}
+
+.sapUiUx3NavBarToplevel {
+	border-bottom: none;
+	text-transform: uppercase;
+}
+
+.sapUiUx3NavBarArrow {
+	border-color: @sapUiBaseText transparent @sapUiHighlight;
+}
+
+.sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+	border-color: @sapUiBaseText transparent @sapUiUx3ShellBackgroundColor;
+}
+
+
+/* standard design arrows */
+.sapUiUx3NavBarBack,
+.sapUiUx3NavBarForward {
+	color: transparent;
+	font-size: 0;
+	height: 18px;
+	width: 18px;
+	background-position: 4px 3px;
+}
+
+.sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/facetPrev.png);
+}
+
+.sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/facetNext.png);
+}
+
+.sapUiUx3NavBarBack:focus,
+.sapUiUx3NavBarForward:focus {
+	outline: 1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:hover,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:hover {
+	background-color: @sapUiHighlight;
+	background-position: -13px 3px;
+}
+
+.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:active,
+.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:active {
+	background-color: @sapUiDarkBG;
+	background-position: -13px 3px;
+}
+
+
+/* toplevel design arrows */
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-position: 3px 3px;
+	padding: 0;
+	height: 22px;
+	width: 22px;
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack {
+	background-image: url(img/navigationbar/WS_scroll_prev.png);
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-image: url(img/navigationbar/WS_scroll_next.png);
+}
+
+
+/* rtl mode arrow corrections */
+
+html[dir="rtl"] .sapUiUx3NavBarToplevel > .sapUiUx3NavBarBack,
+html[dir="rtl"] .sapUiUx3NavBarToplevel > .sapUiUx3NavBarForward {
+	background-position: -13px 3px;
+}
+
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:hover,
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:hover,
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollBack > .sapUiUx3NavBarBack:active,
+html[dir="rtl"] .sapUiUx3NavBarToplevel.sapUiUx3NavBarScrollForward > .sapUiUx3NavBarForward:active {
+	background-position: 3px 3px;
+}
+
+
+/* END "NavigationBar.less" */
+
+/* START "NotificationBar.less" */
+/* ================================================== */
+/* CSS for control sap.ui.ux3/NotificationBar.control */
+/* BlueCrystal Desktop                                */   
+/* ================================================== */
+
+.sapUiNotificationBar {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-radius: 0;
+	border-top: 1px solid @sapUiNotificationBarBorder;
+}
+
+.sapUiNotifierCallout {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	padding: 0 4px;
+	border-radius: 2px;
+}
+
+.sapUiNotifierTitle {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	padding-left: 4px;
+}
+
+.sapUiBarToggle {
+	border-top: 1px solid @sapUiNotificationBarBorder;
+	border-left: 1px solid @sapUiNotificationBarBorder;
+	border-right: 1px solid @sapUiNotificationBarBorder;
+}
+
+
+/* Workaround: border of callout should be "border: 1px solid @sapUiNotificationBarBorder;" but arrow positioning wrong */
+
+.sapUiNotifierCallout {
+	padding: 0;
+}
+
+
+.sapUiNotifierCallout > .sapUiCltBaseCont.sapUiCltCont {
+	min-height: 30px;
+	border: 1px solid @sapUiNotificationBarBorder;
+	border-radius: 2px;
+}
+
+/* Workaround end */
+/* END "NotificationBar.less" */
+
+/* START "Overlay.less" */
+/* ========================================== */
+/* CSS for control sap.ui.ux3/Overlay.control */
+/* ========================================== */
+
+.sapUiUx3OverlayOverlay {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background-color: @sapUiDarkestBG;
+}
+
+.sapUiUx3OverlayOpenButton {
+	background: url("img/open_in_new_window.png");
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+.sapUiUx3OverlayOpenButton:focus {
+	background-color: transparent;
+	outline: 1px dotted @sapUiTextInverted;
+	outline-offset: -1px;
+}
+
+.sapUiUx3OverlayOpenButton:focus:hover {
+	background-color: @sapUiHighlight;
+}
+/* END "Overlay.less" */
+
+/* START "OverlayContainer.less" */
+/* =================================================== */
+/* CSS for control sap.ui.ux3/OverlayContainer.control */
+/* =================================================== */
+
+.sapUiUx3OC {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3OC .sapUiUx3OverlayOverlay {
+	opacity: .60;
+}
+
+.sapUiUx3OCOverlay {
+}
+
+.sapUiUx3OCContent {
+	background-color: @sapUiLightestBG;
+	position: absolute;
+	top: 29px;
+	left: 29px;
+	bottom: 29px;
+	right: 29px;
+	opacity: 1;
+	padding: 0;
+}
+/* END "OverlayContainer.less" */
+
+/* START "OverlayDialog.less" */
+
+/* ============================================= */
+/* CSS for control sap.ui.ux3/OverlayDialog.control */
+/* ============================================= */
+
+.sapUiUx3OD {
+}
+
+.sapUiUx3OD .sapUiUx3OverlayOverlay {
+	opacity: .40;
+}
+
+.sapUiUx3ODOverlay {
+}
+
+.sapUiUx3ODContent {
+	background-color: @sapUiLightestBG;
+}
+
+/* END "OverlayDialog.less" */
+
+/* START "QuickView.less" */
+/* ==================================== */
+/* CSS for sap.ui.ux3/QuickView.control */
+/* Blue Crystal Theme                   */
+/* ==================================== */
+
+.sapUiUx3QV {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	background: @sapUiLightestBG;
+	border: none;
+}
+
+.sapUiUx3QVHeader{
+	color: @sapUiLightText;
+}
+
+.sapUiUx3QVTitle1 {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3QV a,
+.sapUiUx3QV a:link,
+.sapUiUx3QV a:visited,
+.sapUiUx3QV a:active {
+	text-decoration: none;
+	color: @sapUiLink;
+}
+
+.sapUiUx3QV a:hover {
+	text-decoration: underline;
+	color: @sapUiLink;
+}
+
+.sapUiUx3QVTitle2 {
+	color: @sapUiExtraDarkText;
+}
+
+
+/* END "QuickView.less" */
+
+/* START "Shell.less" */
+/* ============================================== */
+/* CSS for sap.ui.ux3.Shell.control    (BC-D theme) */
+/* ============================================== */
+
+.sapUiUx3Shell {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* BC  */
+
+.sapUiUx3ShellHeader {
+    color: @sapTextColor;
+
+    background-color:   @sapUiLightestBG;
+    background-image:   none;
+    padding:            9px 5px 0;
+    height:             31px;
+}
+
+.sapUiUx3ShellHeader > hr {
+    background-color: @sapUiBrand;
+    height:             4px;
+}
+
+.sapUiUx3ShellHeader > img,
+.sapUiUx3ShellHeader > h1 {
+    color:              @sapUiLightText;
+    margin-top:         -3px;
+    text-shadow:        none;
+    font-size:          12px;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn,
+.sapUiUx3ShellHeader .sapUiLnk {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    display: inline-block;
+    height: 22px;
+    font-size: 11px;
+    vertical-align: top;
+    font-family: @sapUiDesktopFontFamily;
+    padding: 0 10px;
+    text-decoration: none;
+    color: @sapUiLightText;
+}
+
+.sapUiUx3ShellHeader .sapUiLnk {
+    line-height: 22px;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn::-moz-focus-inner { /* override extra button padding in Firefox */
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sapUiUx3ShellHeader .sapUiBtn:focus,
+.sapUiUx3ShellHeader .sapUiLnk:focus {
+    outline: 1px dashed @sapUiKeyboardFocus;
+}
+.sapUiUx3ShellHeader .sapUiBtn:hover,
+.sapUiUx3ShellHeader .sapUiLnk:hover {
+    background-color:           @sapUiHighlight;
+    text-decoration:            underline;
+    color:                      @sapUiTextInverted;
+}
+.sapUiUx3ShellHeader .sapUiBtn:active,
+.sapUiUx3ShellHeader .sapUiLnk:active {
+    background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ShellHeader span.sapUiUx3ShellHeaderSep {
+    background-color:   @sapUiLightBorder;
+}
+
+.sapUiUx3ShellHeader .sapUiUx3ShellHeaderTitleRight {
+    right: 5px;
+    top: 7px;
+}
+
+.sapUiUx3ShellHeader .sapUiMenuButton > .sapUiMenuButtonIco,
+.sapUiUx3ShellHeader .sapUiBtnDsbl.sapUiMenuButton > .sapUiMenuButtonIco {
+    display: none;
+}
+
+.sapUiUx3ShellHeader > .sapUiUx3ShellHeaderTitleRight > .sapUiTv {
+    padding: 0 10px;
+    font-size: 11px;
+    line-height: 22px;
+}
+
+.sapUiUx3ShellHeader > .sapUiUx3ShellHeaderTitleRight > .sapUiLbl {
+    color: inherit;
+}
+
+.sapUiUx3ShellHeader-logout {
+    background-image: url(img/shell/LogOut_icon.png);
+    margin-top: 0px;
+    height: 22px;
+    padding: 0 10px;
+}
+.sapUiUx3ShellHeader-logout:hover {
+    background-image: url(img/shell/LogOut_icon_hover.png);
+}
+
+.sapUiUx3ShellHeader-logout:focus {
+    outline: 1px dashed @sapUiKeyboardFocus;
+    outline-offset: -1px;
+}
+
+.sapUiUx3ShellHeader-logout:hover {
+    background-color: @sapUiNegativeElement; /* FIXME */
+}
+
+.sapUiUx3ShellHeaderSep {
+    margin: 6px 0 0;
+}
+
+/* Workset area and items */
+
+.sapUiUx3ShellBg {
+    background-color: transparent;
+}
+
+.sapUiUx3ShellBgImg {
+    background-size:    auto auto;
+    background-position: left top;
+}
+
+.sapUiUx3ShellCanvas > .sapUiUx3NavBar {
+	background-color: @sapUiLightBG;
+	padding-right: 0;
+}
+
+
+.sapUiUx3Shell > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBarToplevel .sapUiUx3NavBarList {
+    padding-top:        8px;
+    left: 				5px;
+}
+
+.sapUiUx3ShellNoPane.sapUiUx3ShellHeadStandard > .sapUiUx3ShellWorksetBar,
+.sapUiUx3ShellNoTools.sapUiUx3ShellNoPane.sapUiUx3ShellHeadStandard > .sapUiUx3ShellWorksetBar,
+.sapUiUx3ShellNoPane.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar,
+.sapUiUx3ShellNoTools.sapUiUx3ShellNoPane.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar {
+	margin-right: 0;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBar.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem {
+	font-size: 15px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBar.sapUiUx3NavBarToplevel .sapUiUx3NavBarItem.sapUiUx3NavBarDummyItem{
+	font-size: 15px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar,
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBar.sapUiUx3NavBarToplevel,
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBar.sapUiUx3NavBarToplevel > .sapUiUx3NavBarList {
+	height: 50px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBar.sapUiUx3NavBarToplevel > .sapUiUx3NavBarList {
+	top: 5px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar > .sapUiUx3NavBar.sapUiUx3NavBarToplevel > .sapUiUx3NavBarList > li {
+	line-height: 36px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellWorksetBar {
+	margin-top: 30px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellToolPaletteArea {
+	top: 0px;
+}
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellPaneBar {
+	top: 70px;
+}
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellCanvasBackground {
+	top: 108px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadSlimNavigation > .sapUiUx3ShellCanvas {
+	top: 80px;
+}
+
+
+.sapUiUx3Shell > .sapUiUx3ShellWorksetBar .sapUiUx3NavBarForward {
+    background-image:   url(img/navigationbar/light_WS_scroll_next.png);
+}
+
+.sapUiUx3Shell > .sapUiUx3ShellWorksetBar .sapUiUx3NavBarBack {
+    background-image:   url(img/navigationbar/light_WS_scroll_prev.png);
+}
+
+.sapUiUx3ShellHeadStandard > .sapUiUx3ShellWorksetBar {
+    margin:             30px 40px 0;
+}
+
+.sapUiUx3ShellNoTools.sapUiUx3ShellHeadStandard > .sapUiUx3ShellWorksetBar {
+    margin:             30px 12px 0;
+}
+
+.sapUiUx3Shell .sapUiUx3ShellWorksetBar {
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiUx3Shell .sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+	display: inline-block;
+	bottom: 0px;
+	border-left: 8px solid transparent;
+	border-bottom: 8px solid @sapUiLightBG;
+	border-right: 8px solid transparent;
+}
+
+.sapUiUx3NavBarToplevel > .sapUiUx3NavBarList {
+	height: 37px;
+}
+
+.sapUiUx3ShellWorksetBar > .sapUiUx3NavBarToplevel .sapUiUx3NavBarOverflowBtn {
+    top: 23px;
+}
+
+
+html[dir="rtl"] .sapUiUx3Shell .sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+    clip:               inherit;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3Shell .sapUiUx3NavBarToplevel .sapUiUx3NavBarArrow {
+	display:			inline-block;
+    background:         transparent;
+    border-color:       transparent transparent @sapUiDarkBorder transparent;
+    border-width:       0 7px 7px 7px;
+    width:              auto;
+    height:             auto;
+    top:                auto;
+}
+
+.sapUiUx3ShellCanvas .sapUiUx3ShellContent {
+	padding-left: 20px; 
+	padding-right: 20px; 
+}
+
+.sapUiUx3ShellNoContentPadding .sapUiUx3ShellContent {
+    padding:        0;
+} 
+
+.sapUiUx3ShellCanvas .sapUiUx3NavBar .sapUiUx3NavBarList > li > a {
+    padding:            0 10px 0 10px;
+}
+
+.sapUiUx3ShellCanvas > .sapUiUx3NavBar > .sapUiUx3NavBarList {
+	padding-left: 9px; /* to align the first entry to the top navbar */
+	top: 2px; /* to center the menu items vertically */
+	margin-right: 10px;
+}
+
+.sapUiUx3ShellCanvas > .sapUiUx3NavBar > .sapUiUx3NavBarBack {
+	right: 40px;
+}
+
+.sapUiUx3ShellCanvas > .sapUiUx3NavBar > .sapUiUx3NavBarForward {
+	right: 20px;
+}
+
+.sapUiUx3ShellCanvas .sapUiUx3NavBar .sapUiUx3NavBarList > li > a.sapUiUx3NavBarDummyItem {
+    padding:            0;
+    width:              5px;
+    margin-left:        -5px;
+}
+ 
+.sapUiUx3ShellContent {
+	width: auto;
+}
+
+
+.sapUiUx3ShellHeadNoNavigation .sapUiUx3ShellCanvas > .sapUiUx3NavBar,
+.sapUiUx3ShellHeadBrandOnly .sapUiUx3ShellCanvas > .sapUiUx3NavBar {
+	background-color: @sapUiLightestBG;
+}
+    
+.sapUiUx3ShellHeadNoNavigation .sapUiUx3ShellCanvas .sapUiUx3NavBarItem,
+.sapUiUx3ShellHeadBrandOnly .sapUiUx3ShellCanvas .sapUiUx3NavBarItem {
+	font-size: 15px;
+}
+
+   
+    
+    
+/* tool palette area */
+
+.sapUiUx3ShellToolPaletteArea, .sapUiUx3ShellPaneBarRight {
+    background-color:   @sapUiLightestBG;
+    top:                0px;
+    padding-top:        80px;
+}
+
+.sapUiUx3ShellPaneBar {
+    top:                70px;
+}
+
+.sapUiUx3ShellPaneBar > .sapUiUx3ShellPaneBarRight {
+    background-color:   @sapUiLightestBG;
+    width:              40px;
+    top:                -92px;
+    bottom:				0;
+    height:				inherit;
+}
+
+.sapUiUx3ShellPaneBar > .sapUiUx3ShellPaneBarContent {
+    border-bottom:      0px solid @sapUiMediumBorder;
+    border-top:         0px solid @sapUiMediumBorder;
+    right:              39px;
+}
+
+.sapUiUx3ShellTool:hover,
+.sapUiUx3ShellTool:active,
+.sapUiUx3ShellTool.sapUiUx3ShellToolSelected {
+    background-color: @sapUiHighlight;
+}
+
+.sapUiUx3ShellTool-search,
+.sapUiUx3ShellTool-inspector,
+.sapUiUx3ShellTool-feeder {
+    background-image: url(img/shell/tools.png);
+}
+
+.sapUiUx3ShellTool-search {
+    background-position: 4px -64px;
+}
+.sapUiUx3ShellTool-search:hover,
+.sapUiUx3ShellTool-search:active, 
+.sapUiUx3ShellTool-search.sapUiUx3ShellToolSelected {
+    background-position: -28px -64px;
+}
+
+.sapUiUx3ShellTool-inspector {
+    background-position: 4px -32px;
+}
+.sapUiUx3ShellTool-inspector:hover {
+    background-position: -28px -32px;
+}
+.sapUiUx3ShellTool-inspector:active, 
+.sapUiUx3ShellTool-inspector.sapUiUx3ShellToolSelected {
+    background-position: -60px -32px;
+}
+
+.sapUiUx3ShellTool-feeder {
+    background-position: 4px 0;
+}
+.sapUiUx3ShellTool-feeder:hover,
+.sapUiUx3ShellTool-feeder:active, 
+.sapUiUx3ShellTool-feeder.sapUiUx3ShellToolSelected {
+    background-position: -28px 0;
+}
+
+
+.sapUiUx3ShellTool:focus {
+    outline: 1px dashed @sapUiKeyboardFocus;
+    outline-offset: -2px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadNoNavigation > .sapUiUx3ShellCanvas,
+.sapUiUx3Shell.sapUiUx3ShellHeadNoNavigation > .sapUiUx3ShellCanvasBackground,
+.sapUiUx3Shell.sapUiUx3ShellHeadNoNavigation > .sapUiUx3ShellToolPaletteArea {
+	top: 31px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadNoNavigation > .sapUiUx3ShellToolPaletteArea {
+    padding-top: 22px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadBrandOnly > .sapUiUx3ShellToolPaletteArea,
+.sapUiUx3Shell.sapUiUx3ShellHeadBrandOnly > .sapUiUx3ShellPaneBar,
+.sapUiUx3Shell.sapUiUx3ShellHeadBrandOnly > .sapUiUx3ShellCanvasBackground {
+    top: 4px;
+}
+
+.sapUiUx3Shell.sapUiUx3ShellHeadBrandOnly > .sapUiUx3ShellToolPaletteArea {
+    padding-top: 9px;
+}
+
+
+/* pane bar */
+
+.sapUiUx3ShellPaneEntry {
+    color:                      @sapUiLightText;
+    height:                     40px;
+    font-size:                  14px;
+    font-weight:                normal;
+}
+
+.sapUiUx3ShellPaneBarRight:hover .sapUiUx3ShellPaneEntry {
+    color:                      @sapUiDarkBG;
+}
+
+.sapUiUx3ShellPaneEntrySelected,
+.sapUiUx3ShellPaneBarRight:hover .sapUiUx3ShellPaneEntry.sapUiUx3ShellPaneEntrySelected {
+    color:                      @sapUiTextTitle;
+}
+
+.sapUiUx3ShellPaneEntrySelected {
+    color:                      @sapUiDarkText;
+    background-image:           none;
+    font-size:                  14px;
+    font-weight:                bold;
+}
+
+.sapUiUx3ShellPaneEntrySelected:hover {
+    color:                      @sapUiHighlight;
+    font-size:                  14px;
+    background-image:           none;
+}
+
+.sapUiUx3ShellPaneBarRight:hover .sapUiUx3ShellPaneEntry:hover {
+    color:                      @sapUiHighlight;
+}
+
+.sapUiUx3ShellPaneEntry:focus {
+    outline-offset:             -2px;
+	outline:                    1px dashed @sapUiKeyboardFocus;
+}
+
+.sapUiUx3ShellPaneBarContent {
+	background-color: @sapUiLightestBG;
+	border-bottom: 2px solid @sapUiMediumBorder;
+	border-top: 2px solid @sapUiMediumBorder;
+	top: -39px;
+	bottom: 0px;
+	padding-top: 69px;
+}
+
+.sapUiUx3ShellPaneBar .sapUiUx3ShellPaneBarContent,
+.sapUiUx3ShellPaneBarOpen .sapUiUx3ShellPaneBarContent,
+.sapUiUx3ShellPaneBar.sapUiUx3ShellPaneBarClose .sapUiUx3ShellPaneBarContent {
+	display: none;
+}
+
+.sapUiUx3ShellPaneBarOpened .sapUiUx3ShellPaneBarContent {
+	display: inline-block;
+}
+
+.sapUiUx3ShellPaneBarOpen > .sapUiUx3ShellPaneBarContent {
+    border-right-width: 0px;
+}
+
+.sapUiUx3ShellPaneBarOpen > .sapUiUx3ShellPaneBarRight {
+    border-left: 0px solid @sapUiMediumBorder;
+}
+
+.sapUiUx3ShellPaneBarRight {
+    border-left: 0px solid transparent;
+}
+
+.sapUiUx3ShellNoPane .sapUiUx3ShellPaneBarRight {
+	display: none;
+}
+
+.sapUiUx3ShellPaneBarRight > .sapUiUx3ShellPaneOverflowButton {
+	background-color: @sapUiLightestBG;
+}
+
+
+
+/* content */
+
+.sapUiUx3ShellCanvasBackground {
+    border-left:        0px solid @sapUiMediumBorder;
+    border-right:       0px solid @sapUiMediumBorder;
+
+	background-color: transparent;
+}
+
+.sapUiUx3ShellCanvas {
+    overflow-x:         visible;
+    overflow-y:         visible;
+    bottom:             0;
+    background-color:   transparent;
+    padding:            10px;
+}
+
+/* hack for IE 9+*/
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3ShellCanvasBackground,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ShellCanvasBackground,
+html[data-sap-ui-browser="ie8"] .sapUiUx3ShellCanvas,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ShellCanvas,
+html[data-sap-ui-browser="ie8"] .sapUiUx3ShellBgImg,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ShellBgImg,
+html[data-sap-ui-browser="ie8"] .sapUiUx3ShellBg,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ShellBg {
+	background-color: transparent;
+	background-image: none;
+}
+
+.sapUiUx3ShellCanvas {
+    padding:            0;
+}
+
+.sapUiUx3ShellHeadStandard > .sapUiUx3ShellCanvas {
+    top:                80px;
+}
+
+.sapUiUx3ShellCanvasBackgroundRight {
+    position: absolute;
+    height: 100%;
+    right: -4px;
+    width: 4px;
+}
+
+.sapUiUx3ShellNoPane > .sapUiUx3ShellCanvasBackground > .sapUiUx3ShellCanvasBackgroundRight {
+    display: none;
+}
+
+.sapUiUx3ShellNoPane > .sapUiUx3ShellCanvas:after {
+    width:              0px;
+}
+
+
+/******** NotificationArea *********/
+
+.sapUiUx3ShellNotify.sapUiUx3ShellNotifyTI > .sapUiUx3ShellNotifyBG,
+.sapUiUx3ShellNotify.sapUiUx3ShellNotifyOverlay > .sapUiUx3ShellNotifyBG {
+    background-color: @sapUiExtraDarkBG;
+    opacity: .3;
+}
+
+.sapUiUx3ShellHeadBrandOnly > .sapUiUx3ShellNotify.sapUiUx3ShellNotifyTI > .sapUiUx3ShellNotifyBG {
+    background-color: transparent;
+}
+
+.sapUiUx3ShellNotify > .sapUiNotificationBar {
+	left: 1px;
+	right: 1px;
+}
+
+
+.sapUiUx3ShellPaneBar > .sapUiUx3ShellPaneOverflowButton {
+    background-color: @sapUiLightestBG;
+}
+
+.sapUiUx3ShellPaneBar > .sapUiUx3ShellPaneOverflowButton > span {
+	color: @sapUiLightText;
+}
+
+.sapUiUx3ShellPaneBar > .sapUiUx3ShellPaneOverflowButton > span:hover {
+	color: @sapUiHighlight;
+}
+
+
+/* Search and Feeder tools */
+
+.sapUiUx3TP.sapUiUx3TPNoTitle.sapUiUx3TP-feeder {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.sapUiUx3TP-search > .sapUiUx3TPContent,
+.sapUiUx3TP-feeder > .sapUiUx3TPContent {
+	margin: 0;
+}
+
+
+
+/* END "Shell.less" */
+
+/* START "ShellColorPicker.less" */
+.sapUiUx3ShellColorPicker {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ShellColorPicker.less" */
+
+/* START "ShellPersonalization.less" */
+.sapUiUx3ShellP13n {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+/* END "ShellPersonalization.less" */
+
+/* START "ThingInspector.less" */
+/* ================================================= */
+/* CSS for control sap.ui.ux3/ThingInspector.control */
+/* ================================================= */
+
+.sapUiUx3TI {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiShd.sapUiUx3TI {
+}
+
+.sapUiUx3TIOverlay {
+}
+
+.sapUiUx3TI .sapUiUx3OverlayOverlay {
+	opacity: .60;
+}
+
+.sapUiUx3TICollection {
+	position: absolute;
+	top: 0px;
+	left: 29px;
+	bottom: 29px;
+	width:200px;
+	opacity: 1;
+	padding: 0;
+}
+
+.sapUiUx3TICollectionHeader {
+	position: absolute;
+	background-color: @sapUiFieldInvalidColor;
+	top: 0px;
+	left: 0px;
+	height:20px;
+	right:0px;
+	opacity: 1;
+	padding: 8px 0px 0px 10px;
+	font-size: 12px;
+	font-weight: bold;
+	color: @sapUiTextInverted;
+	text-transform: uppercase;
+}
+
+.sapUiUx3TICollectionContent {
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	bottom:40px;
+	right:0px;
+	opacity: 1;
+	padding: 0;
+}
+
+.sapUiUx3TICollectionFooter {
+	position: absolute;
+	left: 0px;
+	bottom:0px;
+	right:0px;
+	height:38px;
+	padding:2px;
+	opacity: 1;
+}
+
+.sapUiUx3TICollectionThingAction {
+	height: 21px;
+	padding: 10px 5px 5px 10px;
+	border: 2px solid #444;
+	font-size: 14px;
+	font-weight: bold;
+	color: @sapUiTextInverted;
+	background-image: url("img/overflow_regular.png");
+	background-repeat:no-repeat;
+	background-position:right;
+}
+
+.sapUiUx3TIContentScrollContainer {
+	position: absolute;
+	background-color: @sapUiLightBG;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	padding: 0;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+.sapUiUx3TIHeader {
+	background-color: @sapUiLightBG;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 270px;
+}
+
+.sapUiUx3TIFacets {
+	background-color: @sapUiLightestBG;
+	position: absolute;
+	top: 0px;
+	left: 270px;
+	right: 0px;
+}
+
+.sapUiUx3TIToolbar {
+	background-color: @sapUiMediumBG;
+}
+
+.sapUiUx3TIToolbar > .sapUiUx3ActionBar {
+	background-color: transparent;
+}
+
+.sapUiUx3TIHeaderContent {
+	background-color: @sapUiLightBG;
+}
+
+.sapUiUx3TIHeaderContainer {
+	padding: 0px 10px 5px 10px;
+}
+
+.sapUiUx3TIHeaderContainerIdentifier {
+	padding: 10px 10px 0px 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 28px;
+}
+
+.sapUiUx3TIIdentifier {
+	font-size: 16px;
+	font-weight: bold;
+	color: @sapUiMediumText;
+	height: 27px;
+	width: 100%;
+	text-transform: uppercase;
+}
+
+.sapUiUx3TITitle {
+	font-weight: bold;
+	padding-left: 10px;
+	color: @sapUiBaseText;
+	display: inline-block;
+	vertical-align: top;
+	position:relative;
+	width:67%; /*174px;*/
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.sapUiUx3TITitleFirst {
+	font-size: 16px;
+}
+
+.sapUiUx3TITitleSecond {
+	font-size: 14px;
+	font-weight: regular;
+	padding-top: 4px;
+}
+
+.sapUiUx3TIIconBar {
+	position: relative;
+	padding: 10px 0px 15px 0px;
+}
+
+.sapUiUx3TIIcon {
+	padding: 8px;
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	border: 1px solid @sapUiMediumBorder;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+.sapUiUx3TIIcon>IMG {
+	width: 100%;
+	height: 100%;
+}
+
+.sapUiUx3TIOverview {
+}
+
+.sapUiUx3TIHRGrey {
+	background-color: @sapUiDarkBG;
+	border: 0;
+	height: 2px;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiUx3TIHRWhite {
+	background-color: @sapUiLightestBG;
+	border: 0;
+	height: 2px;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiUx3TIHeaderGroupTitle {
+	font-weight: bold;
+	font-size: 12px;
+	color: @sapUiExtraDarkText;
+	text-transform: uppercase;
+	padding-top:7px;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.sapUiUx3TIHeaderGroupContent {
+	margin: 10px 0px 0px 0px;
+	font: 12px arial, sans-serif;
+}
+
+.sapUiUx3TIFacetBar {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 0px;
+	height: 38px;
+	padding: 10px 0px 0px 0px;
+}
+
+.sapUiUx3TIFacetContent {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 40px;
+	bottom: 0px;
+	overflow-y: auto;
+	overflow-x: auto;
+}
+
+.sapUiUx3TIFacetItem {
+	display: inline-block;
+	padding: 5px;
+}
+
+.sapUiUx3TIFacetThingGroup {
+	width: 50%;
+	/*height: 300px;*/
+	min-width: 400px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sapUiUx3TIFacetThingGroupSpan {
+	width: 100%;
+	/*height: 300px;*/
+	min-width: 600px;
+	display: block;
+	vertical-align: top;
+}
+
+.sapUiUx3TIFacetThingGroupContent {
+	margin: 5px 20px 0px 20px;
+}
+
+.sapUiUx3TIFacetThingGroupContentTitle {
+	margin: 10px 20px 0px 20px;
+	font-weight: bold;
+	font-size: 14px;
+	color: @sapUiMediumText;
+	padding-bottom: 8px;
+	text-transform: uppercase;
+	border-bottom: 2px solid @sapUiMediumBorder;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.sapUiUx3TIFacetThingGroupContentTitle.HR {
+	margin-top: 8px;
+	padding: 0px;
+	height: 2px;
+}
+
+.sapUiUx3TIHeaderGroupScrollContainer {
+	overflow-y: auto;
+	position: absolute;
+	top: 40px;
+	bottom: 0px;
+	width: 270px;
+}
+
+
+.sapUiUx3TI.sapUiUx3TINoFrame {
+	border-left: 1px solid @sapUiLightBorder;
+	border-right: 1px solid @sapUiLightBorder;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3TI.sapUiUx3TINoFrame {
+	margin-top: 0px;
+	outline-width: 0px;
+}
+
+.sapUiUx3TI.sapUiUx3TINoFrame .sapUiUx3TV > .sapUiUx3TVContent {
+	border-width: 0;
+}
+/* END "ThingInspector.less" */
+
+/* START "ThingViewer.less" */
+/* ================================================= */
+/* CSS for control sap.ui.ux3/ThingInspector.control */
+/* ================================================= */
+
+.sapUiUx3TV {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiUx3TVContent {
+	background-color: @sapUiDarkBG;
+	border: 0px;
+}
+
+.sapUiUx3TVContentScrollContainer {
+	background-color: @sapUiLightBG;
+}
+
+.sapUiUx3TVHeader {
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiUx3TVFacets {
+	border-left: 1px solid @sapUiLightBorder;
+	background-color: @sapUiLightestBG;
+}
+.sapUiUx3TVFacetBar {
+	left: 0px;
+	right: 0px;
+}
+.sapUiUx3TVIcon {
+	border: 0px;
+	padding: 0px;
+}
+.sapUiUx3TVTitleSecond {
+	color: @sapUiLightText;
+}
+.sapUiUx3TVFacetBar .sapUiUx3NavBarDummyItem {
+	padding: 0 5px 0 0;
+}
+
+.sapUiUx3TVToolbar {
+	background-color: @sapUiToolbarBackground;
+	padding: 0px; 
+	height: 40px;
+}
+
+.sapUiUx3TVActionBar {
+	bottom: 40px;
+}
+
+/*.sapUiUx3TVToolbar > .sapUiUx3ActionBar {
+	background-color: transparent;
+}*/
+
+.sapUiUx3TVHeaderContent {
+	background-color: @sapUiLightestBG; /*@sapUiLightBG;*/
+}
+
+.sapUiUx3TVIdentifier {
+	color: @sapUiMediumText;
+}
+
+.sapUiUx3TVTitle {
+	color: @sapUiBaseText;
+}
+
+.sapUiUx3TVHRGrey {
+	background-color: @sapUiDarkBG;
+}
+
+.sapUiUx3TVHRWhite {
+	background-color: @sapUiLightBorder;
+	height:1px;
+}
+
+.sapUiUx3TVHeaderGroupTitle {
+	color: @sapUiExtraDarkText;
+}
+
+.sapUiUx3TVFacetThingGroupContentTitle {
+	color: @sapUiMediumText;
+	border-bottom: 1px solid @sapUiMediumBorder;
+}
+
+.sapUiUx3TV.sapUiUx3TVNoFrame {
+	margin-top: 3px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3TV.sapUiUx3TVNoFrame {
+	margin-top: 0px;
+	outline-width: 0px;
+}
+
+.sapUiUx3TV.sapUiUx3TVNoFrame > .sapUiUx3TVContent {
+	border-width: 0;
+}
+
+.sapUiUx3TV.sapUiUx3TVNoFrame > .sapUiUx3TVContent > .sapUiUx3TVToolbar {
+	border-color: @sapUiLightestBorder;
+}
+
+.sapUiUx3TV.sapUiUx3TVNoFrame > .sapUiUx3TVContent > .sapUiUx3TVFacets {
+	border-color: @sapUiLightestBorder;
+}
+/* END "ThingViewer.less" */
+
+/* START "ToolPopup.less" */
+/* ============================================ */
+/* CSS for control sap.ui.ux3/ToolPopup.control */
+/* Blue Crystal                                 */
+/* ============================================ */
+
+.sapUiUx3TP {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	padding: 0;
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiUx3TP.sapUiShd {
+	box-shadow: @sapUiUx3ToolPopupShadow;
+	-webkit-box-shadow: @sapUiUx3ToolPopupShadow;
+	-moz-box-shadow: @sapUiUx3ToolPopupShadow;
+}
+
+.sapUiUx3TP.sapUiUx3TPNoTitle {
+	padding-top: 10px;
+}
+
+.sapUiUx3TP.sapUiUx3TPNoTitle.sapUiUx3TPNoButtons  {
+	padding-bottom: 10px;
+}
+
+.sapUiUx3TPContent {
+	margin: 0 22px;
+}
+
+.sapUiUx3TPTitle {
+	padding: 10px 0;
+	margin: 0 22px;
+}
+
+.sapUiUx3TPTitleText {
+	color: @sapUiLightText;
+}
+
+.sapUiUx3TPTitleSep {
+	height: 1px;
+	margin: 0 0 6px 0;
+	background-color: @sapUiLightBorder;
+}
+
+.sapUiUx3TPButtonsSep {
+	height: 1px;
+	margin: 6px 0 0 0;
+	background-color: fase(@sapUiExtraLightBorder, 20%);
+}
+
+.sapUiUx3TPBtnRow {
+	height: 40px;
+	padding: 0 22px;
+	background-color: @sapUiExtraDarkBG;
+}
+
+.sapUiUx3TPBtnRow button {
+	top: 22%;
+	position: relative;
+}
+
+.sapUiUx3TPArrow {
+	position: absolute;
+	overflow: hidden;
+
+	height: 26px;
+	background-image: none;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrow{
+	width: 12px;
+}
+
+.sapUiUx3TPArrow>.sapUiUx3TPArrowBorder {
+	background: @sapUiDarkBorder;
+
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+
+	position: relative;
+	width: 18px;
+	height: 26px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrow>.sapUiUx3TPArrowBorder {
+	/* equals a rotation of 45 degrees */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067690849304, M12=-0.7071067690849304, M21=0.7071067690849304, M22=0.7071067690849304, SizingMethod='auto expand')";
+}
+
+.sapUiUx3TPArrowLeft>.sapUiUx3TPArrowBorder {
+	top: -4px;
+	left: 6px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowLeft>.sapUiUx3TPArrowBorder {
+	left: 0;
+	top: -2px;
+}
+
+.sapUiUx3TPArrowRight>.sapUiUx3TPArrowBorder {
+	top: 1px;
+	left: -13px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowRight>.sapUiUx3TPArrowBorder {
+	left: -18px;
+	top: -1px;
+}
+
+.sapUiUx3TPArrow.sapUiUx3TPArrowUp,
+.sapUiUx3TPArrow.sapUiUx3TPArrowDown {
+	height: 13px;
+	width: 26px;
+}
+.sapUiUx3TPArrowUp>.sapUiUx3TPArrowBorder {
+	top: 3px;
+	left: 0px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowUp>.sapUiUx3TPArrowBorder {
+	left: -6px;
+	top: 1px;
+}
+
+.sapUiUx3TPArrowDown>.sapUiUx3TPArrowBorder {
+	top: -15px;
+	left: 6px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowDown>.sapUiUx3TPArrowBorder {
+	left: 0;
+	top: -17px;
+}
+/* END "ToolPopup.less" */
+

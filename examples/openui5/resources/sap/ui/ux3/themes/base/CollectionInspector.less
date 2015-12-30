@@ -1,0 +1,193 @@
+/* ====================================================== */
+/* CSS for control sap.ui.ux3/CollectionInspector.control */
+/* ====================================================== */
+
+.sapUiUx3CI {
+	position: relative;
+}
+
+.sapUiUx3CI.sapUiUx3CIFitParent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+/* special case for collection inspector in overlay */
+.sapUiUx3OCContent .sapUiUx3CI {
+	top: -29px;
+}
+
+.sapUiUx3CIClear {
+	clear: left;
+}
+
+.sapUiUx3CIFitParent .sapUiUx3CISidebar,
+.sapUiUx3CIFitParent .sapUiUx3CIContent {
+	position: absolute;
+	bottom: 0;
+	top: 30px;
+}
+
+.sapUiUx3CIFitParent  .sapUiUx3CISidebar button {
+	position: absolute;
+	bottom: 0;
+}
+
+.sapUiUx3CIContent {
+	position: absolute;
+	right: 0;
+}
+
+.sapUiUx3CIToolBar {
+	height: 24px;
+	padding: 4px 0 2px 0;
+	border: 1px solid @sapUiBaseBorder;
+	border-bottom: 0;
+}
+
+/* special case for collection inspector in overlay */
+.sapUiUx3OCContent .sapUiUx3CIToolBar {
+	display: inline-block;
+	background-color: transparent;
+}
+
+.sapUiUx3CIItems {
+	margin-left: 27px;
+}
+
+.sapUiUx3CIToggleButton {
+	display: inline;
+	padding: 0;
+	margin-right: 4px;
+}
+
+.sapUiUx3CIToggleButton button {
+	padding: 0 3px;
+	width: 22px;
+	height: 22px;
+}
+
+.sapUiUx3CICollectionSelector {
+	display: inline;
+	height: 22px;
+}
+
+.sapUiUx3CISidebar {
+	position: relative;
+	float: left;
+	border: 1px solid @sapUiBaseBorder;
+	border-right: 0;
+}
+
+.sapUiUx3CICollectionListContainer {
+	overflow: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.sapUiUx3CIWithEditButton .sapUiUx3CICollectionListContainer {
+	bottom: 35px;
+}
+
+.sapUiUx3CISidebarOpened .sapUiUx3CISidebar {
+	width: 150px;
+}
+
+.sapUiUx3CISidebarOpened .sapUiUx3CIContent {
+	left: 150px;
+}
+
+.sapUiUx3CISidebarClosed .sapUiUx3CISidebar {
+	width: 0px;
+}
+
+.sapUiUx3CISidebarClosed .sapUiUx3CISidebar {
+	left: 0px;
+}
+
+ul.sapUiUx3CICollectionList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+ul.sapUiUx3CICollectionList li {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin: 0;
+	padding: 8px;
+	border: 0;
+	border-bottom: 1px solid @sapUiBaseBorder;
+	font-weight: bold;
+	color: @sapUiBaseText;
+	cursor: pointer;
+}
+
+ul.sapUiUx3CICollectionList li:hover,
+ul.sapUiUx3CICollectionList li.sapUiUx3CICollectionListItemSelected {
+	background-color: @sapUiHoverBG;
+	color: @sapUiTextInverted;
+}
+
+ul.sapUiUx3CICollectionList .sapUiUx3SidebarFoc,
+ul.sapUiUx3CICollectionList li:focus {
+	outline: 1px dashed @sapUiTextInverted;
+}
+
+ul.sapUiUx3CICollectionList li.sapUiUx3CICollectionListItemSelected {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+ul.sapUiUx3CICollectionList li:last-of-type {
+	border-bottom: 0;
+}
+
+.sapUiUx3CIContent {
+	left: 0px;
+}
+
+.sapUiUx3CIToolBar .sapUiSegmentedButton>button.sapUiBtnS.sapUiBtnNorm,
+.sapUiUx3CIToolBar>button.sapUiBtnS.sapUiBtnNorm,
+.sapUiUx3CIToolBar .sapUiSegmentedButton>button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd .sapUiToggleBtn,
+.sapUiUx3CIToolBar>button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd .sapUiToggleBtn,
+.sapUiUx3CIToolBar>button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed {
+	font-weight: bold;
+	height: 22px;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton {
+	font-weight: bold;
+	padding: 0;
+	height: 33px;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton,
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton:hover,
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton:focus,
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton:active {
+	margin: 0;
+	border: 0;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	margin-top: 2px;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton:hover,
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton.sapUiBtnStd:hover {
+	background-color: @sapUiHoverBG;
+	color: @sapUiTextInverted;
+	margin-top: 2px;
+}

@@ -1,0 +1,160 @@
+@sapUiMnuItmHeight: 1.5625rem;
+@sapUiMnuItmPadding: 0.5rem;
+@sapUiMnuItmFontsize: 0.75rem;
+
+.sapUiMnu {
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiMnuItmFontsize;
+	padding: 1px;
+	min-width: 5rem;
+	background-color: @sapUiExtraLightBG;
+	border: 1px solid @sapUiMediumLine;
+	color: @sapUiDarkText;
+}
+
+.sapUiMnu.sapUiMnuTop {
+	border: 1px solid @sapUiDarkBG;
+	background-color: transparent;
+	padding: 0;
+}
+
+.sapUiMnu.sapUiMnuScroll {
+	overflow-x: none;
+	overflow-y: auto;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItmR {
+	width: @sapUiMnuItmPadding + 1rem;
+}
+
+.sapUiMnuItm {
+	height: @sapUiMnuItmHeight;
+	line-height: @sapUiMnuItmHeight;
+}
+
+.sapUiMnuLst {
+	color: @sapUiBaseText;
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiMnuItmFontsize;
+}
+
+.sapUiMnuTop > .sapUiMnuLst {
+	background-color: @sapUiBlackBG;
+	color: @sapUiTextInverted;
+	background-color: rgba(0, 0, 0, .84);
+}
+
+.sapUiMnuItm.sapUiMnuItmHov {
+	color: @sapUiTextSelection;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiMnuItm.sapUiMnuItmHov:active {
+	color: @sapUiTextInverted;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiMnuItm.sapUiMnuItmDsbl.sapUiMnuItmHov,
+.sapUiMnuItm.sapUiMnuItmDsbl.sapUiMnuItmHov:active {
+	color: @sapUiContentDisabledTextColor;
+	background-color: transparent;
+}
+
+.sapUiMnuItmL {
+	width: 0;
+}
+
+.sapUiMnuItmR,
+.sapUiMnuNoIco .sapUiMnuItmL {
+	width: @sapUiMnuItmPadding;
+}
+
+.sapUiMnuItmIco {
+	width: @sapUiMnuItmHeight;
+}
+
+.sapUiMnuItm.sapUiMnuItmDsbl .sapUiMnuItmIco {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuItm.sapUiMnuItmDsbl.sapUiMnuItmHov:active .sapUiMnuItmIco {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuItmIco > img {
+	padding-left: 0;
+	max-width: 1rem;
+	max-width: 1rem;
+}
+
+.sapUiMnuDiv > hr {
+	left: @sapUiMnuItmPadding;
+	right: @sapUiMnuItmPadding;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmHeight + @sapUiMnuItmPadding;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmHeight + @sapUiMnuItmPadding + 1rem;
+}
+
+.sapUiMnuNoSbMnu > .sapUiMnuItm > .sapUiMnuItmTxt,
+.sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmPadding;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuNoSbMnu > .sapUiMnuItm > .sapUiMnuItmTxt,
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmPadding + 1rem;
+}
+
+.sapUiMnuNoIco .sapUiMnuItmTxt {
+	padding-left: 0;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt > .sapUiMnuTfItemWrppr {
+	right: @sapUiMnuItmPadding;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemTf {
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiMnuItmFontsize;
+	padding: 0.125rem 0.3125rem 0.125rem 0.3125rem;
+	margin-top: 0.125rem;
+	height: @sapUiMnuItmHeight - 0.25rem;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemTf.sapUiMnuTfItemTfDsbl {
+	background-color: @sapUiFieldDisabledBackground;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemLbl {
+	line-height: @sapUiMnuItmHeight;
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiMnuItmFontsize;
+	color: @sapUiContentLabelColor;
+	margin-right: @sapUiMnuItmPadding;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm.sapUiMnuItmHov .sapUiMnuTfItemLbl,
+.sapUiMnu.sapUiMnuTop .sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemLbl {
+	color: @sapUiTextInverted;
+}
+
+.sapUiMnu.sapUiMnuTop .sapUiMnuItm.sapUiMnuItmDsbl .sapUiMnuTfItemLbl {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuItmSbMnu {
+	right: 0;
+	width: @sapUiMnuItmHeight;
+	text-align: center;
+	font-size: 0.75rem;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItmSbMnu {
+	right: 1rem;
+}

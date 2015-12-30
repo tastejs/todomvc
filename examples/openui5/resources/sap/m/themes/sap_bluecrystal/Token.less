@@ -1,0 +1,77 @@
+/* ============================================= */
+/* CSS for control sap.m/Token.control BlueCrystal theme*/
+/* ============================================= */
+
+.sapMToken {
+	font-size: @sapMFontMediumSize;
+	background: @sapUiButtonBackground;
+	border: 1px solid darken(@sapUiButtonBackground, 10);
+	border-radius: 0.125rem;
+	color: @sapUiDarkText;
+	padding-left: 0.375rem;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+	height: 1.625rem;
+}
+
+.sapMToken.sapMTokenReadOnly {
+	padding: 0.25rem 0.375rem;
+}
+
+.sap-desktop .sapMToken:hover {
+	background: @sapUiButtonHoverBackground;
+	border: 1px solid darken(@sapUiButtonHoverBackground, 5);
+	border-radius: 0.125rem;
+}
+
+.sapMToken:focus {
+	border: 0.0625rem dotted @sapUiFocus;
+}
+
+.sapMTokenSelected {
+	color: @sapUiButtonActiveTextColor;
+	background: @sapUiButtonActiveBackground;
+	border: 1px solid darken(@sapUiButtonActiveBackground, 5);
+	border-radius: 0.125rem;
+}
+
+.sapMToken.sapMTokenSelected:hover {
+	background: darken(@sapUiButtonActiveBackground, 5);
+	border: 1px solid darken(@sapUiButtonActiveBackground, 5);
+	border-radius: 0.125rem;
+}
+
+.sapMTokenSelected .sapMTokenIcon {
+	color: @sapUiInvertedElement;
+}
+
+.sapMTokenIcon {
+	padding: 0.25rem 0.5rem;
+	font-size: @sapMFontLargeSize;
+	color: @sapUiElement;
+	vertical-align: middle;
+}
+
+.sapUiSizeCompact .sapMToken {
+	padding-left: 0.25rem;
+	padding-bottom: 0.1rem;
+	height: 1.25rem;
+}
+
+.sapUiSizeCompact .sapMToken.sapMTokenReadOnly {
+	padding: 0.1rem 0.25rem;
+}
+
+.sapUiSizeCompact .sapMTokenIcon {
+	font-size: @sapMFontSmallSize;
+	padding: 0.1rem 0.25rem;
+	vertical-align: baseline;
+}
+
+.sapUiSizeCompact .sapMListTbl .sapMToken .sapUiIcon:not(.sapMLIBImgNav) {
+	font-size: 0.75rem;
+}
+
+.sapMToken.sapMTokenActive {
+	background: darken(@sapUiButtonBackground, 5);
+}

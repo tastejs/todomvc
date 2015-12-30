@@ -1,0 +1,178 @@
+{
+	"resources":[
+		{
+			"name": ".library"
+		},
+		{
+			"name": ".theming"
+		},
+		{
+			"name": "QuickViewUtils-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "QuickViewUtils.js"
+		},
+		{
+			"name": "TaskCircle-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TaskCircle.control"
+		},
+		{
+			"name": "TaskCircle.js"
+		},
+		{
+			"name": "TaskCircleColor.type"
+		},
+		{
+			"name": "TaskCircleRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TaskCircleRenderer.js"
+		},
+		{
+			"name": "VerticalProgressIndicator-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "VerticalProgressIndicator.control"
+		},
+		{
+			"name": "VerticalProgressIndicator.js"
+		},
+		{
+			"name": "VerticalProgressIndicatorRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "VerticalProgressIndicatorRenderer.js"
+		},
+		{
+			"name": "library-all-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "library-all.js",
+			"merged":true
+		},
+		{
+			"name": "library-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "library-preload.json",
+			"merged":true
+		},
+		{
+			"name": "library.dependencies.json"
+		},
+		{
+			"name": "library.dependencies.xml"
+		},
+		{
+			"name": "library.js"
+		},
+		{
+			"name": "library.templates.xml"
+		},
+		{
+			"name": "manifest.json"
+		},
+		{
+			"name": "themes/base/.theming",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/TaskCircle.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/VerticalProgressIndicator.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-parameters.json",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.source.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/shared.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/sap_hcb/.theming",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/TaskCircle.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/VerticalProgressIndicator.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-parameters.json",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.source.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/shared.less",
+			"theme":"sap_hcb"
+		}
+	]
+}

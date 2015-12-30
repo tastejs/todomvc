@@ -1,0 +1,41 @@
+/* ============================================= */
+/* CSS for control sap.m/ObjectAttribute.control */
+/* ============================================= */
+
+.sapMObjectAttributeDiv .sapMText,
+.sapMObjectAttributeDiv .sapMObjectAttributeTitle,
+.sapMObjectAttributeDiv .sapMObjectAttributeText {
+	font-size: .875rem;
+}
+
+.sapMObjectAttributeActive {
+	pointer-events: none;
+}
+
+.sapMObjectAttributeActive .sapMText {
+	color: @sapUiLink;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.sapMObjectAttributeActive .sapMObjectAttributeText {
+	pointer-events: auto;
+}
+
+.sapMObjectAttributeActive .sapMText:active,
+.sapMObjectAttributeActive .sapMText:focus,
+.sapMObjectAttributeActive .sapMText:hover {
+	text-decoration: underline;
+}
+
+.sapMObjectAttributeText > .sapMLnk {
+	display: inline;
+}
+
+.sapMOHR .sapMObjectAttributeText > .sapMText {
+	display: inline;
+}
+
+.sapMOH .sapMObjectAttributeText > .sapMText {
+	vertical-align: bottom;
+}

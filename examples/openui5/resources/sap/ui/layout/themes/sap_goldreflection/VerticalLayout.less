@@ -1,0 +1,16 @@
+/* ====================================================== */
+/* CSS for control sap.ui.layout/VerticalLayout.control   */
+/* ====================================================== */
+
+.sapUiVlt {
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiVlt {
+	vertical-align: baseline;
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, contentSelector) */
+.sapUiContainerContentPadding(~".sapUiVlt");

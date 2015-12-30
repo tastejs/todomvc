@@ -1,0 +1,22 @@
+.sapMImg {
+	border: none;
+
+	/* fix the highlight color on tap*/
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-webkit-touch-callout: none;
+}
+
+span.sapMImg {
+	display: inline-block;
+}
+
+.sapMImg.sapMNoImg {
+	visibility: hidden;
+}
+
+/* fix chrome browser yellow border on focus problem*/
+.sapMImg:focus {
+	outline: none;
+}

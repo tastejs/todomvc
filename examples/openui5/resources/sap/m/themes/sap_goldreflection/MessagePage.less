@@ -1,0 +1,40 @@
+/* MessagePage general styles */
+.sapMMessagePage {
+	width: 100%;
+	height: 100%;
+}
+
+/* MessagePage inner controls styles*/
+.sapMMessagePage > .sapMPage > section > .sapMText,
+.sapMMessagePage > .sapMPage > section > .sapMLnk {
+	font-family: @sapUiFontFamily;
+	margin-top: 1rem;
+}
+.sapMMessagePage .sapMMessagePageMainText {
+	font-size: 1.5rem;
+	line-height: 2rem;
+	display: block;
+}
+
+.sapMMessagePage .sapMMessagePageDescription {
+	font-size: 1rem;
+	display: inline-block;
+}
+
+.sapMMessagePage > .sapMPage {
+	section {
+		max-width: 30rem;
+		box-sizing: border-box;
+		text-align: center;
+		margin: -5% auto 0;
+		top: 30%;
+	}
+	> .sapMPageHeader + section {
+		top: 30%;
+	}
+}
+
+
+.sapMMessagePage > .sapMPage > section > .sapUiIcon::before {
+	font-size: 6rem;
+}

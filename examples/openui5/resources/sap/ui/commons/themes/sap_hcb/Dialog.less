@@ -1,0 +1,104 @@
+/* ============================================= */
+/* CSS for control sap.ui.commons/Dialog.control */
+/* SAP-HCB Theme                                 */
+/* ============================================= */
+
+@sapUiDlgFooterHeight: 36px;
+
+/* header */
+
+.sapUiDlg {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiDlgHdr {
+	background-color: @sapUiExtraLightBG;
+	margin:0;
+	padding: 6px 10px 0 10px;
+	color: @sapUiTextTitle;
+	border-width: 1px 1px 0px 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+}
+
+.sapUiDlgHdrBtns > a {
+	color: @sapUiTextTitle;
+	background-color: @sapUiExtraLightBG;
+	text-align: center;
+	border-width: 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+	margin: 4px 1px 0 0;
+}
+
+.sapUiDlgCloseBtn {
+  background-image: url(img/formattedTextView/close-hcb.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+.sapUiDlgCloseBtn:hover,
+.sapUiDlgCloseBtn:focus {
+  background-image: url(img/formattedTextView/close-hcb-hover.png);
+}
+
+/* reset text-indent for IE */
+html[data-sap-ui-browser="ie7"] .sapUiDlgHdrBtns > a,
+html[data-sap-ui-browser="ie8"] .sapUiDlgHdrBtns > a {
+	text-indent: 0px;
+	font-size: @sapUiFontSize;
+}
+
+/* content */
+
+.sapUiDlgCont {
+	background-color: @sapUiExtraLightBG;
+	border-width: 1px 1px 0px 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+	top: 27px;
+}
+
+.sapUiDlgNoButtons .sapUiDlgCont {
+	padding-bottom: 8px;
+	bottom: 20px;
+}
+
+/* footer */
+
+.sapUiDlgFooter {
+	background-color: @sapUiExtraLightBG;
+	border-width: 1px 1px 1px 1px;
+	border-color: @sapUiMediumBorder;
+	border-style: solid;
+}
+
+.sapUiDlgNoButtons .sapUiDlgFooter {
+	background-position: left -16px;
+	height: 20px;
+}
+
+.sapUiDlgBtns {
+	background-color: @sapUiExtraLightBG;  /* to cover the other background image with the lower line */
+	padding: 9px 25px 3px 16px;
+}
+
+.sapUiDlgNoButtons .sapUiDlgBtns,
+.sapUiDlgNoButtons .sapUiDlgWave {
+	display: none;
+}
+
+.sapUiDlgGrip{
+	color: @sapUiBaseText;
+	text-align: center;
+	padding: 3px;
+	height: 8px;
+	width: 4px;
+}
+
+/* reset text-indent for IE */
+html[data-sap-ui-browser="ie7"] .sapUiDlgGrip,
+html[data-sap-ui-browser="ie8"] .sapUiDlgGrip {
+	text-indent: -1px;
+}

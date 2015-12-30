@@ -1,0 +1,85 @@
+
+/* ======================================================= */
+/* CSS for control sap.ui.commons/RadioButtonGroup.control */
+/* ======================================================= */
+
+.sapMRbG:not(.sapMRbGTab){
+	display: inline-block;
+}
+
+.sapMRbGTab{
+	display: box;
+	display: -moz-box;
+	display: -webkit-box;
+}
+
+html[data-sap-ui-browser^="ie"] .sapMRbGTab{
+	display: table;
+	table-layout: fixed;
+}
+
+.sapMRbGCol{
+	vertical-align: top;
+	min-width: 10px;
+	margin-right: 0;
+	padding: 1px;
+	overflow: hidden; /* needed in Safari */
+}
+
+.sapMRbGTabFlex > .sapMRbGCol{
+	-moz-box-flex: 1;
+	-webkit-box-flex: 1;
+	box-flex: 1;
+}
+
+html[data-sap-ui-browser^="ie"] .sapMRbGCol{
+	display: table-cell;
+	padding-right: 15px;
+}
+
+.sapMRbGDummy{
+	-moz-box-flex: 1000;
+	-webkit-box-flex: 1000;
+	box-flex: 1000;
+	min-width: 1px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapMRbGDummy{
+	display: table-cell;
+	width: 1px;
+}
+
+.sapMRbG > .sapMRb,
+.sapMRbGCol > .sapMRb{
+	float: left;
+	clear: left;
+	text-overflow: ellipsis;
+}
+
+.sapMRbG.sapMRbG1Row > .sapMRb{
+	clear: none;
+	margin-right: 15px;
+}
+
+.sapMRbGCol > .sapMRb{
+	width: 100%;
+	outline-offset: -1px;
+}
+
+.sapMRbG .sapMRbB {
+	position: absolute;
+	left: 0;
+}
+
+.sapMRbG .sapMRbBLabel {
+	padding-left: 2.875rem;
+	display: inline-block;
+}
+
+.sapMRbG[dir=rtl] .sapMRbB {
+	right: 0;
+}
+
+.sapMRbG[dir=rtl] .sapMRbBLabel {
+	padding-right: 2.875rem;
+}

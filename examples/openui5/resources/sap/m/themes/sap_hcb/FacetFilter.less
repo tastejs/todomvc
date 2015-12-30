@@ -1,0 +1,108 @@
+/* ============================================= */
+/* HCB CSS for control sap.m/FacetFilter.control */
+/* ============================================= */
+
+.sapMFF {
+	position: relative;
+}
+
+.sapMFFHead {
+	margin-left: 0;
+	white-space: nowrap;
+	position: relative;
+	overflow: hidden;
+}
+
+.sapMFF .sapUiIcon,
+.sapMFF .sapMTB .sapMBtnIcon .sapUiIcon {
+/* Override the default button icon size since it is too big. */
+	font-size: 1rem;
+}
+
+.sap-phone .sapMFFHead {
+	margin: 1rem;
+}
+
+/* Scroll arrows */
+.sap-desktop .sapMFFScrolling > .sapMFFHead {
+	margin-right: 2rem;
+	margin-left: 3rem;
+}
+
+.sapMFFArrowScroll {
+	font-size: 1rem;
+	line-height: 1rem;
+	position: absolute;
+	top: 0;
+	color: @sapHCStandardFG;
+	padding: 1rem 0.4rem;
+}
+
+.sapMFFArrowScrollLeft {
+	left: 1rem;
+}
+
+.sapMFFArrowScrollRight {
+	right: 0;
+}
+
+.sapMFFNoScrolling > .sapMFFArrowScroll {
+	visibility: hidden;
+}
+
+.sap-desktop .sapMFFScrolling.sapMFFNoScrollBack > .sapMFFArrowScrollLeft,
+.sap-desktop .sapMFFScrolling.sapMFFNoScrollForward > .sapMFFArrowScrollRight {
+	visibility: hidden;
+}
+
+/* Reset button */
+.sapMFFResetDiv {
+	position: absolute;
+	width: 3rem;
+	right: -3rem;
+	top: 0
+}
+
+.sapMFFResetSpacer {
+	/* Space reserved at the end of the FacetFilter for placing the reset button */
+	margin-right: 3rem;
+}
+
+.sapMFF .sapMTB-Info-CTX .sapMBtnIcon .sapUiIcon {
+	color: @sapHCStandardFG;
+}
+
+/* Move the reset button to the end of the toolbar */
+.sapMFF .sapMTB-Info-CTX.sapMTB > .sapMBtn {
+    margin: 0;
+}
+
+.sapMFF .sapMTB-Info-CTX.sapMTB {
+	 padding-right: 0;
+ }
+
+.sapMFF .sapMTB-Info-CTX.sapMTB > .sapMBtn:hover {
+    background-color: @sapHCHighlightBG;
+}
+
+.sapMFF .sapMTB-Info-CTX.sapMTB > .sapMBtn:active {
+    background-color: @sapHCHighlightAltBG;
+}
+
+.sapMFFCheckbar {
+	cursor: pointer
+}
+
+.sapMFFDialog .sapMCbLabel
+{
+	cursor: pointer
+}
+
+.sapMFF .sapMFFArrowScroll:hover {
+	background-color: @sapHCHighlightBG;
+}
+
+.sapMFF .sapMFFArrowScroll:active {
+	background-color: @sapHCHighlightAltBG;
+	color: white;
+}

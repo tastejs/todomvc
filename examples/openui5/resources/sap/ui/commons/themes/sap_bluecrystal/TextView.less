@@ -1,0 +1,100 @@
+/* ================================================ */
+/* CSS for control sap.ui.commons/TextView.control  */
+/* SAP Blue Crystal theme                           */
+/* ================================================ */
+
+.sapUiTv {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiTvH1 { /* be careful - used in other controls with title too */
+	font-size: @sapUiFontHeader1Size;
+}
+
+.sapUiTvH2 {
+	font-size: @sapUiFontHeader2Size;
+}
+
+.sapUiTvH3 {
+	font-size: @sapUiFontHeader3Size;
+}
+
+.sapUiTvH4 {
+	font-size: @sapUiFontHeader4Size;
+}
+
+.sapUiTvH5 {
+	font-size: @sapUiFontHeader5Size;
+}
+
+.sapUiTvH6 {
+	font-size: @sapUiFontHeader6Size;
+}
+
+.sapUiTvSmall {
+	font-size: @sapUiFontSmallSize;
+}
+
+/* success state */
+.sapUiTvSucc,
+.sapUiInverted-CTX .sapUiTvSucc {
+	color: @sapUiPositiveText;
+	background-color: transparent;
+}
+
+/* Designs */
+.sapUiTvH6 {
+	color: @sapUiBaseText;
+}
+
+.sapUiTvMono {
+	font-family: Lucida Console, monospace;
+}
+
+/* invalid state */
+.sapUiTvErr {
+	transition: color .25s linear;
+	-webkit-transition: color .25s linear;
+	-moz-transition: color .25s linear;
+	background-color: transparent;
+	color: @sapUiNegativeText;
+}
+
+.sapUiInverted-CTX .sapUiTvErr {
+	color: @sapUiNegativeText;
+}
+
+/* warning state */
+.sapUiTvWarn {
+	transition: color 1s linear;
+	-webkit-transition: color 1s linear;
+	-moz-transition: color 1s linear;
+	color: @sapUiCriticalText; /*looks more like yellow: darken(@sapUiFieldWarningColor, 17);*/
+	background-color: transparent;
+}
+
+.sapUiInverted-CTX .sapUiTvWarn {
+	color: @sapUiCriticalText; /*looks more like yellow: darken(@sapUiFieldWarningColor, 17);*/
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+.sapUiGrid td > .sapUiTv{
+	margin-top: 2px;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiGrid td > .sapUiTv{
+	margin-top: 1px;
+}
+
+/* ResponsiveGridLayout */
+.sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont > div > .sapUiTv,
+.sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont > div > .sapUiTv,
+.sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont > div > .sapUiTv,
+.sapUiRespGridMedia-Std-LargeDesktop.sapUiFormResGridCont > div > .sapUiTv {
+	margin-top: 2px;
+}

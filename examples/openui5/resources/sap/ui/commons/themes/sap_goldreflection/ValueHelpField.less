@@ -1,0 +1,44 @@
+/* ===================================================== */
+/* CSS for control sap.ui.commons/ValueHelpField.control */
+/* ===================================================== */
+
+/* Gold Reflection */
+
+@sapUiValueHelpIconRegularUrl: ~"/img/valuehelpfield/F4-Help_icon_regular.png";
+@sapUiValueHelpIconHoverUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconDsblUrl: ~"/img/valuehelpfield/F4-Help_icon_dsbl.png";
+
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpIcon {
+	height: 16px;
+	padding: 2px;
+	width: 16px;
+}
+
+.sapUiTfCombo > span.sapUiTfValueHelpIcon {
+	font-size: 16px;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpRegularIcon:hover,
+.sapUiTfCombo > span.sapUiTfValueHelpIcon:hover {
+	background-color: @sapUiFieldHoverHelpBackground;
+	color: @sapUiTextInverted;
+}
+
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon:hover,
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon:hover {
+	background-color: transparent;
+	color: @sapUiDarkText;
+}
+
+/* ================= */
+/* Alignment in Form */
+/* ================= */
+
+/* GridLayout */
+html[data-sap-ui-browser="ie9"] .sapUiGrid td > .sapUiTfBrd > .sapUiTfValueHelpIcon,
+html[data-sap-ui-browser="ie10"] .sapUiGrid td > .sapUiTfBrd > .sapUiTfValueHelpIcon{
+	top: 0; /* because of padding-top the icon must be moved */
+}

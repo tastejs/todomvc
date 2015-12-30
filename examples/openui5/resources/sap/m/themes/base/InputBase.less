@@ -1,0 +1,102 @@
+/* ============================================= */
+/* CSS for control sap.m/InputBase.control       */
+/* ============================================= */
+
+.sapMInputBase,
+.sapMInputBaseInner,
+.sapMInputBasePlaceholder,
+.sapMInputBaseMessage {
+	box-sizing: border-box;
+}
+
+.sapMInputBasePlaceholder {
+	cursor: text;
+	position: absolute;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.sapMInputBaseDisabled > .sapMInputBaseReadonly,
+.sapMInputBaseDisabled > .sapMInputBasePlaceholder {
+	cursor: default;
+}
+
+.sapMInputBase,
+.sapMInputBaseInner {
+	font: inherit;
+}
+
+.sapMInputBaseInner,
+.sapMInputBasePlaceholder {
+	width: 100%;	/* fit the parents(sapMInputBase) width */
+}
+
+.sapMInputBaseInner::-webkit-outer-spin-button,
+.sapMInputBaseInner::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.sapMInputBase {
+	background: transparent;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sapMILI-CTX .sapMInputBase {
+	display: block;
+}
+
+.sapMInputBaseInner {
+	-webkit-appearance: none;
+	border-radius: 0;
+	vertical-align: top;
+	margin: 0;
+	-moz-appearance: textfield;
+}
+
+.sapMInputBaseInner:focus {
+	outline: none;
+	outline-width: 0;
+}
+
+/* remove user agent pseudo-element clear button (IE specifix) */
+.sapMInputBaseInner::-ms-clear {
+
+	/* note: don't use display: none; see BCP 1570024996 */
+	height: 0;
+}
+
+.sapMPointer > .sapMInputBaseInner {
+	cursor: pointer;
+}
+
+.sapMInputBaseDisabled {
+	opacity: 0.5;
+}
+
+.sapMInputBaseInner[placeholder] {
+	text-overflow: ellipsis;
+}
+
+.sapMInputBaseInner::-webkit-input-placeholder {
+	text-overflow: ellipsis !important; /* important is necessary to overwrite inline style of shadow dom */
+}
+
+.sapMInputBaseMessage {
+	padding: 0.3125rem;
+	background: @sapUiFieldBackground;
+	display: inline-block;
+}
+
+.sapMInputBaseMessageText {
+	width: 100%;
+}
+
+.sapMInputBaseInner:invalid {
+
+	/* disable native browser input validation visualization e.g. for type email or number */
+	box-shadow: none;
+}

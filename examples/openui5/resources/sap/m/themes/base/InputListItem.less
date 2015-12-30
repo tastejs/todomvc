@@ -1,0 +1,50 @@
+/* ============================================= */
+/* CSS for control sap.m/InputListItem.control   */
+/* ============================================= */
+.sapMILI {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	height: 2.75em;
+}
+
+.sapMILILabel {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: auto;
+	flex: auto;
+	-ms-flex-negative: 1; /* IE10 does not shrink by auto */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+.sapMLIBActionable .sapMILILabel {
+	cursor: pointer;
+}
+
+.sapMILI > .sapMLIBContent {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.sapMILIDiv {
+	-webkit-box-flex: 9;
+	-moz-box-flex: 9;
+	-ms-flex: auto;
+	flex: auto;
+	-ms-flex-negative: 1; /* IE10 does not shrink by auto */
+	text-align: right;
+}
+
+html[dir=rtl] .sapMILIDiv {
+	text-align: left;
+}

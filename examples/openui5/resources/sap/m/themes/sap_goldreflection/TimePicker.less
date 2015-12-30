@@ -1,0 +1,342 @@
+/* ============================================= */
+/* CSS for control sap.m/TimePicker.control      */
+/* ============================================= */
+
+/* ======================================== */
+/* TimePicker Input Field                   */
+/* ======================================== */
+.sapMTimePicker {
+	.sapMInputBaseInner {
+		padding-right: 2.5rem;
+	}
+	.sapUiIcon {
+		cursor: pointer;
+	}
+}
+/* ======================================== */
+/* TimePicker Dropdown                      */
+/* ======================================== */
+.sapMTimePickerDropDown {
+  overflow: hidden !important;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	.sapMTimePickerContainer {
+		height: 100%;
+		min-width: 20rem;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		padding: 1rem;
+		text-align: center;
+		&:before {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+		}
+		.sapMTimePickerContainerLabel {
+			display: none;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		.sapMTPColumn {
+			display: inline-block;
+			overflow: hidden;
+			height: 3rem;
+			vertical-align: middle;
+			text-align: center;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			cursor: pointer;
+			.sapMTimePickerLabel {
+				display: none;
+				box-sizing: border-box;
+				height: 2rem;
+				line-height: 2rem;
+				width: 4.5rem;
+				text-align: center;
+			}
+			.sapMTimePickerItemArrows {
+				display: none;
+			}
+			.sapMTimePickerSlider {
+				overflow: hidden;
+				height: 100%;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				.sapMTimePickerItem {
+					height: 3rem;
+					line-height: 3rem;
+					width: 4.5rem;
+					box-sizing: border-box;
+				}
+				.sapMTPPickerSelectionFrame {
+					width: 4.5rem;
+					height: 3rem;
+					position: absolute;
+					-moz-box-sizing: border-box;
+					box-sizing: border-box;
+					display: none;
+				}
+				& > ul {
+					list-style: none;
+					margin: 0;
+					padding: 0;
+				}
+			}
+			&.sapMTPSliderExpanded {
+				height: 100%;
+				cursor: default;
+				margin: 0;
+				.sapMTimePickerLabel {
+					display: block;
+				}
+				.sapMTimePickerItemArrows {
+					display: none;
+				}
+				.sapMTimePickerSlider {
+					height: calc(100% - 2rem);
+					.sapMTimePickerItem {
+					}
+					.sapMTPPickerSelectionFrame {
+						display: block;
+					}
+					& > ul {
+						box-sizing: border-box;
+					}
+				}
+			}
+		}
+	}
+}
+/* ======================================== */
+/* COMPACT MODE STYLES                      */
+/* ======================================== */
+.sapUiSizeCompact {
+	/* ======================================== */
+	/* TimePicker Input Field                   */
+	/* ======================================== */
+	.sapMTimePicker {
+		.sapMInputBaseInner {
+			padding-right: 1.625rem;
+		}
+		.sapUiIcon {
+			cursor: pointer;
+		}
+	}
+	/* ======================================== */
+	/* TimePicker Dropdown                      */
+	/* ======================================== */
+	.sapMTimePickerDropDown {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+		.sapMTimePickerContainer {
+			height: 100%;
+			min-width: 17rem;
+			padding: 0.5rem;
+			box-sizing: border-box;
+			margin: auto;
+			.sapMTimePickerContainerLabel {
+				display: none;
+			}
+			.sapMTPColumn {
+				height: 2rem;
+				margin: 0 1px;
+				overflow: hidden;
+				text-align: center;
+				cursor: pointer;
+				.sapMTimePickerLabel {
+					height: 2rem;
+					width: 4rem;
+					text-align: center;
+					vertical-align: middle;
+					display: none;
+				}
+				.sapMTimePickerItemArrows {
+					border: 0.0625rem;
+					border-radius: 0.125rem;
+					box-sizing: border-box;
+					height: 2rem;
+					width: 4rem;
+					font-size: 1.375rem;
+					vertical-align: middle;
+					display: none;
+					padding: 0 0.5rem;
+				}
+				.sapMTimePickerSlider {
+					height: 100%;
+					overflow: hidden;
+					.sapMTimePickerItem {
+						height: 2rem;
+						line-height: 2rem;
+						width: 4rem;
+						box-sizing: border-box;
+						-moz-box-sizing: border-box;
+					}
+					.sapMTPPickerSelectionFrame {
+						position:absolute;
+						width: 4rem;
+						height: 2rem;
+						box-sizing: border-box;
+						-moz-box-sizing: border-box;
+						display: none;
+					}
+					& > ul {
+						list-style: none;
+						margin: 0;
+						padding: 0;
+					}
+				}
+				&.sapMTPSliderExpanded {
+					height: 100%;
+					cursor: default;
+					.sapMTimePickerLabel {
+						display: block;
+					}
+					.sapMTimePickerItemArrows {
+						display: block;
+					}
+					.sapMTimePickerSlider {
+						height: ~"calc(100% - 6rem)";
+						overflow: hidden;
+						.sapMTimePickerItem {
+							height: 2rem;
+							width: 4rem;
+							box-sizing: border-box;
+						}
+						.sapMTPPickerSelectionFrame {
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* PHONE STYLES */
+
+.sap-phone {
+	/* ======================================== */
+	/* TimePicker Input Field                   */
+	/* ======================================== */
+	.sapMTimePicker {
+		.sapMInputBaseInner {
+			padding-right: 2.5rem;
+		}
+	}
+	/* ======================================== */
+	/* TimePicker Dropdown                      */
+	/* ======================================== */
+	.sapMTimePickerDropDown {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+		/* This centers content in landscape & portrait mode */
+		.sapMDialogScrollCont {
+			display: flex;
+			height: 100%;
+			padding: 0;
+		}
+		.sapMTimePickerContainer {
+			height: 100%;
+			padding: 1rem;
+			box-sizing: border-box;
+			margin: auto;
+			text-align: center;
+			&:before {
+				content: '';
+				display: inline-block;
+				height: 100%;
+				margin-right: -0.25rem;
+				vertical-align: middle;
+			}
+			.sapMTimePickerContainerLabel {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translate(-50%, 0);
+				display: block;
+				height: 2rem;
+				line-height: 2rem;
+			}
+			.sapMTPColumn {
+				display: inline-block;
+				height: 3rem;
+				text-align: center;
+				overflow: hidden;
+				cursor: pointer;
+				vertical-align: middle;
+				box-sizing: border-box;
+				.sapMTimePickerLabel {
+					height: 2rem;
+					width: 4.5rem;
+					text-align: center;
+					vertical-align: middle;
+					display: none;
+				}
+				.sapMTimePickerItemArrows {
+					display: none;
+				}
+				.sapMTimePickerSlider {
+					height: 100%;
+					//for Android 4.1 - 4.3 calc is not supported, so use 100% instead
+					max-height: 100%;
+					overflow: hidden;
+					.sapMTimePickerItem {
+						height: 3rem;
+						line-height: 3rem;
+						width: 4.5rem;
+						box-sizing: border-box;
+					}
+					.sapMTPPickerSelectionFrame {
+						width: 4.5rem;
+						height: 3rem;
+						position: absolute;
+						display: none;
+						box-sizing: border-box;
+					}
+					& > ul {
+						list-style: none;
+						margin: 0;
+						padding: 0;
+					}
+				}
+				&.sapMTPSliderExpanded {
+					height: 100%;
+					cursor: default;
+					.sapMTimePickerLabel {
+						display: block;
+					}
+					.sapMTimePickerItemArrows {
+						display: none;
+					}
+					.sapMTimePickerSlider {
+						height: calc(100% - 2rem);
+						//for Android 4.1 - 4.3 calc is not supported, so use 100% instead
+						max-height: 100%;
+						overflow: hidden;
+						.sapMTimePickerItem {
+							height: 3rem;
+							line-height: 3rem;
+							width: 4.5rem;
+							box-sizing: border-box;
+						}
+						.sapMTPPickerSelectionFrame {
+							display: block;
+						}
+						& > ul {
+						}
+					}
+				}
+			}
+		}
+	}
+}

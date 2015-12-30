@@ -1,0 +1,93 @@
+/* ============================================================ */
+/* CSS for control sap.m/Page.control High Contrast Black theme */
+/* ============================================================ */
+
+.sapMPageBgSolid {
+	background-color: @sapHCStandardBG;
+}
+
+/* page with standard padding */
+.sapMPage.sapUiStdPage > section > .sapMPageScroll {
+	padding: 1rem;
+}
+
+/* page with header or subHeader */
+.sapMPageWithHeader > section,
+.sapMPageWithSubHeader > section {
+	top: 3rem;
+}
+
+/* page with header and subHeader */
+.sapMPageWithHeader.sapMPageWithSubHeader > section {
+	top: 6rem;
+}
+
+/* page with footer */
+.sapMPageWithFooter > section {
+	bottom: 3rem;
+}
+
+/* page app icon */
+.sapMBar-CTX .sapMBarLeft > .sapMImg.sapMPageAppIcon {
+	max-height: 1.375rem;
+	max-width: 1.375rem;
+	margin: 0.8125rem;
+}
+
+/* vertical scroll bar */
+.sapMPage .sapMScrollbarV > div {
+	background-color: @sapHCStandardBG;
+	border-color: @sapHCReducedAltFG;
+}
+
+/* sap.m.Shell + Tiles Page specific style */
+@media (min-height: @sapMShellMinHeightForHeader) {
+	.sap-desktop .sapMShell .sapMPage.sapMPageHideHeaderWhenShellHeader header.sapMIBar {
+		display: none;
+	}
+}
+
+.sap-tablet .sapUiFioriObjectPage > section,
+.sap-desktop .sapUiFioriObjectPage > section {
+	padding-bottom: 1rem;
+}
+
+/* Compact size */
+.sapUiSizeCompact {
+	/* Header and footer have 2.5 rem */
+	.sapMPageWithHeader > section {
+		top: 2.5rem;
+	}
+
+	.sapMPageHeader.sapMIBar,
+	.sapMPageFooter.sapMIBar {
+		height : 2.5rem;
+
+		.sapMBarLeft,
+		.sapMBarRight,
+		.sapMBarPH {
+			height: 2.5rem;
+			padding-top: 0.25rem;
+			padding-bottom: 0.25rem;
+		}
+	}
+
+	.sapMPageWithFooter > section {
+		bottom: 2.5rem;
+	}
+
+	/* Subheader only 2 rem */
+	.sapMPageWithSubHeader > section {
+		top: 2rem;
+	}
+
+	.sapMPageWithHeader.sapMPageWithSubHeader > section {
+		top: 4.5rem;
+	}
+
+	.sapMBar-CTX .sapMBarLeft > .sapMImg.sapMPageAppIcon {
+		max-height: 1rem;
+		max-width: 1rem;
+		margin: 0.5rem;
+	}
+}

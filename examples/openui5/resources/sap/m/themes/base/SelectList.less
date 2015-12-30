@@ -1,0 +1,78 @@
+/* ============================================= */
+/* CSS for control sap.m/SelectList.control      */
+/* ============================================= */
+
+/* ------------------------------ */
+/* commons styles                 */
+/* ------------------------------ */
+
+.sapMSelectList,
+.sapMSelectListItemBase {
+	box-sizing: border-box;
+}
+
+/* disabled */
+
+.sapMSelectListDisabled,
+.sapMSelectListItemBaseDisabled {
+	pointer-events: none;
+}
+
+/* ------------------------------ */
+/* list                           */
+/* ------------------------------ */
+
+.sapMSelectList {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	list-style-type: none;
+}
+
+.sapMSelectListTableLayout {
+	display: table;
+	border-collapse: collapse;
+}
+
+/* ------------------------------ */
+/* item                           */
+/* ------------------------------ */
+
+.sapMSelectListItemBase {
+	outline: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.sapMSelectListItem {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+li.sapMSelectListItemBaseInvisible {
+	display: none;
+}
+
+/* ------------------------------ */
+/* row                            */
+/* ------------------------------ */
+
+.sapMSelectListRow {
+	display: table-row;
+}
+
+/* ------------------------------ */
+/* cell                           */
+/* ------------------------------ */
+
+.sapMSelectListCell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.sapMSelectListLastCell {
+	text-align: right;
+}

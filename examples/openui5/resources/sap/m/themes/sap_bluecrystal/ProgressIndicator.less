@@ -1,0 +1,55 @@
+
+.sapMPI {
+	outline: none;
+	background: @sapUiGroupContentBackground;
+	height: 2.5rem;
+}
+
+.sapMPIGradient(@color){
+	background: -moz-linear-gradient(top, lighten(@color, 5) 0%, darken(@color, 5) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(@color, 5)), color-stop(100%,darken(@color, 5))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, lighten(@color,5) 0%,darken(@color, 5) 100%); /* Chrome10+,Safari5.1+ */
+	background: -ms-linear-gradient(top, lighten(@color, 5) 0%,darken(@color, 5) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, lighten(@color, 5) 0%,darken(@color, 5) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=lighten(@color, 5), endColorstr=darken(@color, 5),GradientType=0 ); /* IE6-9 */
+}
+
+.sapMPIBarNeutral {
+	.sapMPIGradient(@sapUiNeutralElement);
+}
+
+.sapMPIBarPositive {
+	.sapMPIGradient(@sapUiPositiveElement);
+}
+
+.sapMPIBarNegative {
+	.sapMPIGradient(@sapUiNegativeElement);
+}
+
+.sapMPIBarCritical {
+	.sapMPIGradient(@sapUiCriticalElement);
+}
+
+
+.sapMPIText{
+	font-family: @sapUiFontFamily;
+	font-weight: bold;
+	line-height: 2.25rem;
+}
+
+.sapUiSizeCompact .sapMPI {
+	height: 1.625rem;
+}
+
+.sapUiSizeCompact .sapMPIText{
+	line-height: 1.375rem;
+}
+
+.sapUiSizeCondensed .sapUiTableCell .sapMPI {
+	height: 1.5rem;
+	margin: 0;
+}
+
+.sapUiSizeCondensed .sapUiTableCell .sapMPIText{
+	line-height: 1.25rem;
+}

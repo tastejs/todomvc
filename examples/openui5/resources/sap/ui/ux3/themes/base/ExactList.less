@@ -1,0 +1,437 @@
+/* ================================================== */
+/* Base CSS for control sap.ui.ux3/ExactList.control  */
+/* ================================================== */
+
+.sapUiUx3ExactLst {
+	display: inline-block;
+	position: relative;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	height: 100%;
+	outline: none;
+}
+
+.sapUiUx3ExactLstFoc {
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+}
+
+.sapUiUx3ExactLstFoc:focus {
+	outline-width: 0;
+}
+
+.sapUiUx3ExactLst.sapUiUx3ExactLstTop {
+	width: 100%;
+	background-color: transparent;
+	display: block;
+}
+
+.sapUiUx3ExactLstLst {
+	display: inline-block;
+	position: absolute;
+	bottom: 0;
+	top: @sapUiUx3ExactLstHeaderHeight;
+	begin: 0;
+	width: 168px;
+	border: 1px solid @sapUiMediumBorder;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+html[data-sap-ui-browser^="ed"] .sapUiUx3ExactLstLst,
+html[data-sap-ui-browser^="ie"] .sapUiUx3ExactLstLst {
+	left: 0;
+}
+
+.sapUiUx3ExactLstLst.sapUiUx3ExactLstExpandedBL {
+	bottom: auto;
+}
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstLst {
+	top: 28px;
+}
+
+/* List */
+.sapUiUx3ExactLstLb {
+	overflow-y: hidden;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	border-width: 0;
+}
+
+.sapUiUx3ExactLstLstExp > .sapUiUx3ExactLstLb {
+	bottom: 22px;
+}
+
+.sapUiUx3ExactLstLb:hover {
+	overflow-y: auto;
+}
+
+.sapUiUx3ExactLstLb > ul {
+	display: block;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI {
+	height: 21px;
+	margin-bottom: 1px;
+	display: block;
+	position: relative;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI,
+html[data-sap-ui-browser="ie10"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI {
+	border: 1px solid transparent;
+	box-sizing: border-box;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstLst {
+	display: none;
+}
+
+/* List - Sub-Attribute Indicator */
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco {
+	display: inline-block;
+	position: absolute;
+	right: 5px;
+    height: 12px;
+    padding: 0;
+    right: 22px; /*Just a placeholder for: 5+ScrollbarWidth*/
+    top: 4px;
+    width: 12px;
+    font-weight: bold;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco:after {
+	content: ">";
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI.sapUiUx3ExactLstNoIco > .sapUiLbxIIco {
+	display: none;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco,
+html[data-sap-ui-browser="ie9"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco,
+html[data-sap-ui-browser="ie10"] .sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco {
+	top: 3px;
+}
+
+.sapUiUx3ExactLstLst.sapUiUx3ExactLstScroll > .sapUiUx3ExactLstLb:hover > ul > .sapUiLbxI > .sapUiLbxIIco {
+	right: 5px !important;
+}
+
+.sapUiUx3ExactLstLb > ul > .sapUiLbxI > .sapUiLbxIIco > img {
+	display: none;
+}
+
+/* List - Item Texts */
+.sapUiUx3ExactLstLb.sapUiLbx > ul > .sapUiLbxI > .sapUiLbxITxt {
+	display: block;
+	margin-right: 37px; /*Just a placeholder for: 20+ScrollbarWidth*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 0px;
+}
+
+.sapUiUx3ExactLstLst.sapUiUx3ExactLstScroll > .sapUiUx3ExactLstLb:hover > ul > .sapUiLbxI > .sapUiLbxITxt {
+	margin-right: 20px !important;
+}
+
+/* Expander */
+.sapUiUx3ExactLstExp {
+    height: 21px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.sapUiUx3ExactLstLst > .sapUiUx3ExactLstExp {
+	display: none;
+}
+
+.sapUiUx3ExactLstLstExp > .sapUiUx3ExactLstExp {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+/* Header */
+.sapUiUx3ExactLstHead {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	display: block;
+	height: @sapUiUx3ExactLstHeaderHeight;
+    line-height: @sapUiUx3ExactLstHeaderHeight;
+    border-top: 1px solid @sapUiMediumBorder;
+	border-left: 1px solid @sapUiMediumBorder;
+	border-right: 1px solid @sapUiMediumBorder;
+	position: absolute;
+	background-color: @sapUiExtraLightBG;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead {
+	display: inline-block;
+	width: 168px;
+	border: 1px solid @sapUiMediumBorder;
+	background-color: transparent;
+	margin: 0;
+}
+
+.sapUiUx3ExactLstHeadTxt {
+	position: absolute;
+	left: 0;
+	right: 0;
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 37px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: @sapUiText;
+    padding-left: 6px;
+    text-overflow: ellipsis;
+}
+
+.sapUiUx3ExactLstHeadTopTxt {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 21px;
+	white-space: nowrap;
+	padding-bottom: 4px;
+	text-transform: uppercase;
+	border: 1px solid @sapUiMediumBorder;
+	margin: 0;
+}
+
+.sapUiUx3ExactLstHeadTopTxt > .sapUiUx3ExactLstHeadTopTxtTxt {
+	position: absolute;
+	left: 6px;
+	right: 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.sapUiUx3ExactLstHeadAct {
+	display: none;
+	position: absolute;
+	right: 8px;
+	top: 0;
+	width: 30px;
+	height: 14px;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct {
+	width: 14px;
+	height: 30px;
+	left: 5px;
+	right: auto;
+}
+
+.sapUiUx3ExactLstHeadAct.sapUiUx3ExactLstHeadActNoClose,
+.sapUiUx3ExactLstCollapsed  > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct.sapUiUx3ExactLstHeadActNoClose {
+	width: 14px;
+	height: 14px;
+}
+
+.sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadAct,
+.sapUiUx3ExactLstHead.sapUiUx3ExactLstHeadFocus > .sapUiUx3ExactLstHeadAct {
+	display: inline-block;
+}
+
+.sapUiUx3ExactLstHide, .sapUiUx3ExactLstClose {
+	cursor: pointer;
+	outline: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	position: absolute;
+}
+
+.sapUiUx3ExactLstHeadActNoClose .sapUiUx3ExactLstClose {
+	display: none;
+}
+
+.sapUiUx3ExactLstClose {
+	right: 0;
+}
+
+.sapUiUx3ExactLstHide {
+	left: 0;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstClose {
+	right: auto;
+	left: 0;
+	top: 0;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadAct > .sapUiUx3ExactLstHide {
+	bottom: 0;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead {
+	border-bottom: 1px solid @sapUiMediumBorder;
+	bottom: 1px;
+	height: auto;
+	width: @sapUiUx3ExactLstCollapseWidth;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead:focus {
+	outline: 1px dotted @sapUiText;
+	outline-offset: -2px;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadTxt {
+	-moz-transform:rotate(270deg);
+	-webkit-transform:rotate(270deg);
+	-ms-transform:rotate(270deg);
+	-moz-transform-origin: 0 0;
+	-webkit-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	background-color: transparent;
+	bottom: -20px;
+	left: -1px;
+	right: auto;
+}
+
+html[dir=rtl] .sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadTxt {
+	bottom: 5px;
+	left: 22px; /*should be right -> swapped with right by RTL transformation*/
+	-moz-transform-origin: 0% 100%; /*should be '100% 100%' -> swapped with right by RTL transformation*/
+	-webkit-transform-origin: 0% 100%; /*should be '100% 100%' -> swapped with right by RTL transformation*/
+	-ms-transform-origin: 0% 100%; /*should be '100% 100%' -> swapped with right by RTL transformation*/
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadTxt {
+	bottom: 165px;
+	top: auto;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+html[dir=rtl][data-sap-ui-browser="ie8"] .sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstHead > .sapUiUx3ExactLstHeadTxt {
+	left: -2px; /*should be right -> swapped with right by RTL transformation*/
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+
+/* Content */
+.sapUiUx3ExactLstCntnt {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	display: inline-block;
+	height: 100%;
+	margin-left: 168px;
+	position: relative;
+	border-top: @sapUiUx3ExactLstContentTop solid transparent;
+	white-space: nowrap;
+}
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstCntnt {
+	position: absolute;
+	left: 176px;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin-left: 0;
+	border: 1px solid @sapUiMediumBorder;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	height: auto;
+}
+
+.sapUiUx3ExactLstTop > .sapUiUx3ExactLstCntnt > .sapUiUx3ExactLst {
+	margin-right: 4px;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstCntnt {
+	border-top-width: 0px;
+	margin-left: @sapUiUx3ExactLstCollapseWidth;
+}
+
+/* Resize */
+.sapUiUx3ExactLstRSz {
+	position: absolute;
+	top: @sapUiUx3ExactLstHeaderHeight;
+	bottom: 0;
+	left: 164px;
+	width: 8px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+    cursor: col-resize;
+}
+
+.sapUiUx3ExactLstCollapsed > .sapUiUx3ExactLstRSz {
+	display: none;
+}
+
+.sapUiUx3ExactLstRSzGhost{
+	position: fixed;
+	cursor: col-resize;
+	bottom: 0;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+
+
+/*Top Menu*/
+.sapUiUx3ExactLstHeadTopIco {
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
+	background-image: url("img/exact/tophead_regular.png");
+    background-repeat: no-repeat;
+    height: 5px;
+    width: 5px;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead {
+	cursor: pointer;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:focus {
+	outline: 1px dotted @sapUiText;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt {
+	color: @sapUiTextInverted;
+}
+
+.sapUiUx3ExactLstTopActive.sapUiUx3ExactLstTop > .sapUiUx3ExactLstHead:hover > .sapUiUx3ExactLstHeadTopTxt > .sapUiUx3ExactLstHeadTopIco {
+	background-image: url("img/exact/tophead_hover.png");
+}
+
+/* Hidden Top-List*/
+.sapUiUx3ExactLstTop.sapUiUx3ExactLstTopHidden > .sapUiUx3ExactLstLst,
+.sapUiUx3ExactLstTop.sapUiUx3ExactLstTopHidden > .sapUiUx3ExactLstHead,
+.sapUiUx3ExactLstTop.sapUiUx3ExactLstTopHidden > .sapUiUx3ExactLstRSz {
+	display: none;
+}
+
+.sapUiUx3ExactLstTop.sapUiUx3ExactLstTopHidden > .sapUiUx3ExactLstCntnt {
+	left: 0;
+}

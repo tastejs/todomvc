@@ -1,0 +1,69 @@
+/* ============================================= */
+/* CSS for control sap.m/Link.control            */
+/* High Contrast Black theme                     */
+/* ============================================= */
+
+.sapMLnk {
+	font-size: @sapMFontMediumSize;
+	color: @sapHCStandardFG;
+	text-decoration: underline;
+}
+
+.sapMLnkDsbl, .sapMLnkDsbl:visited {
+	outline: none;
+	cursor: default;
+	color: @sapHCReducedFG;
+	text-decoration: underline;
+}
+
+.sapMLnk:focus:not(.sapMLnkDsbl) {
+	text-decoration: none;
+	outline: 0.125rem dotted @sapHCStandardFG;
+	outline-offset: -0.125rem;
+}
+
+/* IE ignores outline-offset. Use an overlay: */
+html[data-sap-ui-browser^="ie"] {
+	.sapMLnk:focus {
+		outline: none;
+		position: relative;
+	}
+	.sapMLnk:focus:not(.sapMLnkDsbl):before {
+		content: " ";
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		border: 0.125rem dotted @sapHCStandardFG;
+		pointer-events: none;
+	}
+}
+
+.sap-desktop .sapMLnk:hover:not(.sapMLnkDsbl) {
+	text-decoration: none;
+}
+
+.sapMLnk:hover.sapMLnkDsbl, .sapMLnk:focus.sapMLnkDsbl {
+	outline: none;
+}
+
+.sapUiFormEdit .sapMLnk {
+	line-height: 3rem;
+}
+
+.sapMLnkEmphasized {
+	font-weight: bold;
+}
+
+/* Compact size */
+.sapUiSizeCompact .sapUiFormEdit .sapMLnk {
+	line-height: 2rem;
+}
+
+/* Condensed size */
+.sapUiSizeCondensed .sapUiTableCell>.sapMLnk {
+	.sapUiCondensedTableCellContent; /* see shared.css */
+}
+

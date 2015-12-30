@@ -1,0 +1,102 @@
+/* ===================================================== */
+/* CSS for control sap.ui.layout.form/GridLayout.control */
+/* HCB                                                   */
+/* ===================================================== */
+
+.sapUiGrid{
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiGrid > tbody > tr > td:first-child{
+	padding-left: 1rem;
+}
+
+.sapUiGrid > tbody > tr:first-child > td, /* if no title */
+.sapUiForm[aria-labelledby] > .sapUiGrid > tbody > tr:nth-child(2) > td{
+	padding-top: 1rem;
+}
+
+.sapUiGrid > tbody > tr > td:last-child{
+	padding-right: 1rem;
+}
+
+.sapUiGrid > tbody > tr:last-child > td{
+	padding-bottom: 1rem;
+}
+
+.sapUiGrid > tbody > tr > td{
+	padding: 0.25rem 0 0.25rem 0.5rem;
+}
+
+.sapUiFormM > .sapUiGrid > tbody > tr > td{
+	padding: 0 0 0 0.5rem;
+}
+
+.sapUiGrid > tbody > tr > td.sapUiFormElementLbl{
+	padding-right: 0.25rem;
+}
+
+.sapUiGrid > tbody > tr > td.sapUiGridLabelFull{
+	padding-bottom: 0.125rem;
+}
+
+.sapUiFormEdit.sapUiFormM > .sapUiGrid > tbody > tr > td.sapUiFormElementLbl{
+	padding-top: 1rem;
+}
+
+html[data-sap-ui-browser^="ff"] .sapUiFormEdit.sapUiFormM > .sapUiGrid > tbody > tr > td.sapUiFormElementLbl{
+	padding-top: 0.9375rem;
+}
+
+.sapUiSizeCompact .sapUiFormEdit.sapUiFormM > .sapUiGrid > tbody > tr > td.sapUiFormElementLbl{
+	padding-top: 0.5rem;
+}
+
+html[data-sap-ui-browser^="ff"].sapUiSizeCompact .sapUiFormEdit.sapUiFormM > .sapUiGrid > tbody > tr > td.sapUiFormElementLbl,
+html[data-sap-ui-browser^="ff"] .sapUiSizeCompact .sapUiFormEdit.sapUiFormM > .sapUiGrid > tbody > tr > td.sapUiFormElementLbl{
+	padding-top: 0.4375rem;
+}
+
+.sapUiFormEdit.sapUiFormM > .sapUiGrid > tbody > tr > td.sapUiGridLabelFull{
+	padding-top: 0;
+}
+
+.sapUiGrid .sapUiGridHeader{
+	padding: 0;
+}
+
+.sapUiGrid th > .sapUiFormTitle{
+	height: 3rem;
+	line-height: 3rem;
+	-moz-box-sizing: padding-box;
+	box-sizing: border-box;
+	padding: 0 1rem 0 1rem;
+}
+
+.sapUiGrid > tbody > tr > td > .sapUiFormTitle{
+	border: none;
+	margin-bottom: 1rem;
+	margin-top: 2rem;
+}
+
+.sapUiGrid > tbody > tr:first-child > td > .sapUiFormTitle, /* if no title */
+.sapUiForm[aria-labelledby] > .sapUiGrid > tbody > tr:nth-child(2) > td > .sapUiFormTitle{
+	margin-top: 0;
+}
+
+.sapUiGridSpace{
+	width: 2rem;
+}
+
+.sapUiGrid .sapUiFormTitle > img,
+.sapUiGrid .sapUiFormTitle > span{
+	margin-right: 0.25rem;
+}
+
+.sapUiGridHeader > .sapUiFormTitle > button{
+	right: 0.1875rem;
+}
+
+.sapUiGridHeader > .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite{
+	bottom: 0.125rem;
+}

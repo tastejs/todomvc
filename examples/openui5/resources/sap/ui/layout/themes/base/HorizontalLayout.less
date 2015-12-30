@@ -1,0 +1,27 @@
+/* ====================================================== */
+/* CSS for control sap.ui.layout/HorizontalLayout.control */
+/* ====================================================== */
+
+.sapUiHLayout {
+	display: inline-block;
+}
+
+.sapUiHLayoutNoWrap {
+	white-space: nowrap;
+}
+
+.sapUiHLayoutChildWrapper {
+	white-space: normal;
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, contentSelector) */
+.sapUiContainerContentPadding(~".sapUiHLayout");
+
+/* fix for BCP: 1580166858
+ * HorizontalLayout inside table cell doesn't respect the width of the cell but the width of the control that is inside it
+ */
+.sapMListTblCell .sapUiHLayout {
+	width: 100%;
+}

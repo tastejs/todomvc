@@ -1,0 +1,744 @@
+{
+	"resources":[
+		{
+			"name": ".library"
+		},
+		{
+			"name": ".theming"
+		},
+		{
+			"name": "DynamicSideContent-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DynamicSideContent.js"
+		},
+		{
+			"name": "DynamicSideContentRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DynamicSideContentRenderer.js"
+		},
+		{
+			"name": "FixFlex-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "FixFlex.control"
+		},
+		{
+			"name": "FixFlex.js"
+		},
+		{
+			"name": "FixFlexRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "FixFlexRenderer.js"
+		},
+		{
+			"name": "Grid-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Grid.control"
+		},
+		{
+			"name": "Grid.js"
+		},
+		{
+			"name": "GridData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "GridData.control"
+		},
+		{
+			"name": "GridData.js"
+		},
+		{
+			"name": "GridIndent.type"
+		},
+		{
+			"name": "GridPosition.type"
+		},
+		{
+			"name": "GridRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "GridRenderer.js"
+		},
+		{
+			"name": "GridSpan.type"
+		},
+		{
+			"name": "HorizontalLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "HorizontalLayout.control"
+		},
+		{
+			"name": "HorizontalLayout.js"
+		},
+		{
+			"name": "HorizontalLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "HorizontalLayoutRenderer.js"
+		},
+		{
+			"name": "ResponsiveFlowLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ResponsiveFlowLayout.control"
+		},
+		{
+			"name": "ResponsiveFlowLayout.js"
+		},
+		{
+			"name": "ResponsiveFlowLayoutData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ResponsiveFlowLayoutData.control"
+		},
+		{
+			"name": "ResponsiveFlowLayoutData.js"
+		},
+		{
+			"name": "ResponsiveFlowLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ResponsiveFlowLayoutRenderer.js"
+		},
+		{
+			"name": "SideContentFallDown.type"
+		},
+		{
+			"name": "SideContentVisibility.type"
+		},
+		{
+			"name": "Splitter-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Splitter.control"
+		},
+		{
+			"name": "Splitter.js"
+		},
+		{
+			"name": "SplitterLayoutData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "SplitterLayoutData.control"
+		},
+		{
+			"name": "SplitterLayoutData.js"
+		},
+		{
+			"name": "SplitterRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "SplitterRenderer.js"
+		},
+		{
+			"name": "VerticalLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "VerticalLayout.control"
+		},
+		{
+			"name": "VerticalLayout.designtime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "VerticalLayout.designtime.js"
+		},
+		{
+			"name": "VerticalLayout.js"
+		},
+		{
+			"name": "VerticalLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "VerticalLayoutRenderer.js"
+		},
+		{
+			"name": "form/Form-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/Form.control"
+		},
+		{
+			"name": "form/Form.designtime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/Form.designtime.js"
+		},
+		{
+			"name": "form/Form.js"
+		},
+		{
+			"name": "form/FormContainer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/FormContainer.control"
+		},
+		{
+			"name": "form/FormContainer.designtime-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/FormContainer.designtime.js"
+		},
+		{
+			"name": "form/FormContainer.js"
+		},
+		{
+			"name": "form/FormElement-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/FormElement.control"
+		},
+		{
+			"name": "form/FormElement.js"
+		},
+		{
+			"name": "form/FormLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/FormLayout.control"
+		},
+		{
+			"name": "form/FormLayout.js"
+		},
+		{
+			"name": "form/FormLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/FormLayoutRenderer.js"
+		},
+		{
+			"name": "form/FormRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/FormRenderer.js"
+		},
+		{
+			"name": "form/GridContainerData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/GridContainerData.control"
+		},
+		{
+			"name": "form/GridContainerData.js"
+		},
+		{
+			"name": "form/GridElementCells.type"
+		},
+		{
+			"name": "form/GridElementData-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/GridElementData.control"
+		},
+		{
+			"name": "form/GridElementData.js"
+		},
+		{
+			"name": "form/GridLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/GridLayout.control"
+		},
+		{
+			"name": "form/GridLayout.js"
+		},
+		{
+			"name": "form/GridLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/GridLayoutRenderer.js"
+		},
+		{
+			"name": "form/ResponsiveGridLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/ResponsiveGridLayout.control"
+		},
+		{
+			"name": "form/ResponsiveGridLayout.js"
+		},
+		{
+			"name": "form/ResponsiveGridLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/ResponsiveGridLayoutRenderer.js"
+		},
+		{
+			"name": "form/ResponsiveLayout-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/ResponsiveLayout.control"
+		},
+		{
+			"name": "form/ResponsiveLayout.js"
+		},
+		{
+			"name": "form/ResponsiveLayoutRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/ResponsiveLayoutRenderer.js"
+		},
+		{
+			"name": "form/SimpleForm-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/SimpleForm.control"
+		},
+		{
+			"name": "form/SimpleForm.js"
+		},
+		{
+			"name": "form/SimpleFormLayout.type"
+		},
+		{
+			"name": "form/SimpleFormRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "form/SimpleFormRenderer.js"
+		},
+		{
+			"name": "library-all-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "library-all.js",
+			"merged":true
+		},
+		{
+			"name": "library-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "library-preload.json",
+			"merged":true
+		},
+		{
+			"name": "library.dependencies.json"
+		},
+		{
+			"name": "library.dependencies.xml"
+		},
+		{
+			"name": "library.js"
+		},
+		{
+			"name": "library.templates.xml"
+		},
+		{
+			"name": "manifest.json"
+		},
+		{
+			"name": "messagebundle.properties",
+			"raw":"messagebundle.properties",
+			"locale":""
+		},
+		{
+			"name": "messagebundle_ar.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ar"
+		},
+		{
+			"name": "messagebundle_bg.properties",
+			"raw":"messagebundle.properties",
+			"locale":"bg"
+		},
+		{
+			"name": "messagebundle_ca.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ca"
+		},
+		{
+			"name": "messagebundle_cs.properties",
+			"raw":"messagebundle.properties",
+			"locale":"cs"
+		},
+		{
+			"name": "messagebundle_da.properties",
+			"raw":"messagebundle.properties",
+			"locale":"da"
+		},
+		{
+			"name": "messagebundle_de.properties",
+			"raw":"messagebundle.properties",
+			"locale":"de"
+		},
+		{
+			"name": "messagebundle_el.properties",
+			"raw":"messagebundle.properties",
+			"locale":"el"
+		},
+		{
+			"name": "messagebundle_en.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en"
+		},
+		{
+			"name": "messagebundle_en_US_sappsd.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en_US_sappsd"
+		},
+		{
+			"name": "messagebundle_en_US_saptrc.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en_US_saptrc"
+		},
+		{
+			"name": "messagebundle_es.properties",
+			"raw":"messagebundle.properties",
+			"locale":"es"
+		},
+		{
+			"name": "messagebundle_et.properties",
+			"raw":"messagebundle.properties",
+			"locale":"et"
+		},
+		{
+			"name": "messagebundle_fi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"fi"
+		},
+		{
+			"name": "messagebundle_fr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"fr"
+		},
+		{
+			"name": "messagebundle_hi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hi"
+		},
+		{
+			"name": "messagebundle_hr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hr"
+		},
+		{
+			"name": "messagebundle_hu.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hu"
+		},
+		{
+			"name": "messagebundle_it.properties",
+			"raw":"messagebundle.properties",
+			"locale":"it"
+		},
+		{
+			"name": "messagebundle_iw.properties",
+			"raw":"messagebundle.properties",
+			"locale":"iw"
+		},
+		{
+			"name": "messagebundle_ja.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ja"
+		},
+		{
+			"name": "messagebundle_ko.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ko"
+		},
+		{
+			"name": "messagebundle_lt.properties",
+			"raw":"messagebundle.properties",
+			"locale":"lt"
+		},
+		{
+			"name": "messagebundle_lv.properties",
+			"raw":"messagebundle.properties",
+			"locale":"lv"
+		},
+		{
+			"name": "messagebundle_nl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"nl"
+		},
+		{
+			"name": "messagebundle_no.properties",
+			"raw":"messagebundle.properties",
+			"locale":"no"
+		},
+		{
+			"name": "messagebundle_pl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"pl"
+		},
+		{
+			"name": "messagebundle_pt.properties",
+			"raw":"messagebundle.properties",
+			"locale":"pt"
+		},
+		{
+			"name": "messagebundle_ro.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ro"
+		},
+		{
+			"name": "messagebundle_ru.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ru"
+		},
+		{
+			"name": "messagebundle_sh.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sh"
+		},
+		{
+			"name": "messagebundle_sk.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sk"
+		},
+		{
+			"name": "messagebundle_sl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sl"
+		},
+		{
+			"name": "messagebundle_sv.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sv"
+		},
+		{
+			"name": "messagebundle_th.properties",
+			"raw":"messagebundle.properties",
+			"locale":"th"
+		},
+		{
+			"name": "messagebundle_tr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"tr"
+		},
+		{
+			"name": "messagebundle_uk.properties",
+			"raw":"messagebundle.properties",
+			"locale":"uk"
+		},
+		{
+			"name": "messagebundle_vi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"vi"
+		},
+		{
+			"name": "messagebundle_zh_CN.properties",
+			"raw":"messagebundle_zh.properties",
+			"locale":"CN"
+		},
+		{
+			"name": "messagebundle_zh_TW.properties",
+			"raw":"messagebundle_zh.properties",
+			"locale":"TW"
+		},
+		{
+			"name": "themes/base/.theming",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/DynamicSideContent.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/FixFlex.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Form.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/FormLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Grid.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/GridLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/HorizontalLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/ResponsiveFlowLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/ResponsiveGridLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/ResponsiveLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/SimpleForm.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Splitter.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/VerticalLayout.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/create.txt",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-parameters.json",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.source.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/sap_hcb/.theming",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/Form.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/FormLayout.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/GridLayout.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/ResponsiveFlowLayout.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/ResponsiveGridLayout.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/ResponsiveLayout.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/SimpleForm.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/Splitter.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/form/Maximize.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/form/Minimize.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/form/Maximize.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/form/Minimize.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-parameters.json",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.source.less",
+			"theme":"sap_hcb"
+		}
+	]
+}

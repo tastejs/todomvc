@@ -1,0 +1,44 @@
+/* ============================================= */
+/* CSS for control sap.m/ToggleButton.control    */
+/* High Contrast Black theme                     */
+/* ============================================= */
+
+/* toggled without context */
+.sapMToggleBtnPressed {
+	text-shadow: none;
+	background-image: none;
+	color: @sapHCStandardFG;
+	border-color: @sapHCStandardFG;
+	background-color: @sapHCHighlightAltBG;
+}
+
+/*hover and down on toggled*/
+.sapMBtn .sapMBtnHoverable.sapMToggleBtnPressed:hover,
+.sapMBtn .sapMBtnActive.sapMToggleBtnPressed {
+	background-image: none;
+	background-color: @sapHCHighlightBG;
+}
+
+/* toggled - icon has to be adapted */
+.sapMToggleBtnPressed .sapMBtnIcon,
+.sapMToggleBtnPressed.sapMBtnTransparent > .sapMBtnIcon {
+	color: @sapHCStandardFG;
+}
+
+/* Focus of toggled button */
+.sapMBtn:focus > .sapMBtnInner.sapMToggleBtnPressed.sapMFocusable {
+	outline: 0.125rem dotted @sapHCStandardFG;
+	outline-offset: -0.125rem;
+}
+
+/* Disabled toggled button */
+.sapMBtnDisabled .sapMToggleBtnPressed.sapMBtnInner {
+	color: @sapHCReducedAltFG;
+	border-color: @sapHCReducedAltFG;
+	background-color: @sapHCReducedBG;
+}
+
+/* Icon in disabled toggled button */
+.sapMBtnDisabled .sapMToggleBtnPressed.sapMBtnInner .sapMBtnIcon {
+	color: @sapHCReducedAltFG;
+}

@@ -1,0 +1,63 @@
+/* ================================================ */
+/* CSS for control sap.ui.commons/TextField.control */
+/* HCB theme                                        */
+/* ================================================ */
+
+@sapUiTextFieldHeight: 18px;
+
+.sapUiTf {
+	outline: none; /* remove Safari glow effect */
+	font-size: @sapUiDesktopFontSize;
+	padding-left: 3px;
+	padding-top: 1px;
+}
+
+.sapUiTf:not(.sapUiTfInner) {
+	height: @sapUiTextFieldHeight;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTf { /* IE8 ignores statement above */
+	height: @sapUiTextFieldHeight;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTfMono.sapUiTf { /* in IE with monospace its not alligned */
+	padding-top: 3px;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiTfMono.sapUiTf { /* in IE with monospace its not alligned */
+	padding-top: 2px;
+}
+
+.sapUiTfBrd.sapUiTfDsbl,
+.sapUiTfBrd.sapUiTfRo {
+	border-color: @sapUiFieldReadOnlyBorderColor;
+}
+
+.sapUiTfBrd.sapUiTfFoc {
+	outline:1px solid @sapUiMediumBorder;
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiTfErr {
+	font-style: italic;
+	font-weight: bold;
+	border-style: dashed;
+}
+
+.sapUiTfErr.sapUiTfStd {
+	border-color: @sapUiMediumBorder;
+	background-color: @sapHCHighlightBG;
+}
+
+.sapUiTfErr.sapUiTfFoc {
+	border-color: @sapUiMediumBorder;
+}
+
+.sapUiTfWarn {
+	font-style: italic;
+	border-style: dashed;
+}
+
+.sapUiTfWarn.sapUiTfStd {
+	background-color: @sapUiFieldBackground;
+}

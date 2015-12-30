@@ -1,0 +1,218 @@
+/* table */
+.sapMListTblHeader,
+.sapMListTblFooter {
+	background: @sapHCStandardBG;
+}
+
+.sapMListTblNavCol,
+.sapMListTblSelCol {
+	vertical-align: top;
+	padding: 0;
+}
+
+.sapMListTblNavCol > .sapMLIBImgNav {
+	display: block;
+}
+
+.sapMListTblSelCol {
+	width: 3rem;
+}
+
+.sapMListTblNavCol .sapMLIBIconDet {
+	margin-left: 0;
+}
+
+.sapMListModeSingleSelect .sapMListTblSelCol {
+	padding: 0;
+}
+
+.sapMListTblSelCol > .sapMLIBSelectSL,
+.sapMListTblSelCol > .sapMLIBSelectD,
+.sapMListTblSelCol > .sapMLIBSelectM {
+	margin: 0;
+	padding: 0;
+}
+
+.sapMListTblUnreadCol {
+	display: none;
+}
+
+.sapMListTbl {
+	font-size: @sapMFontMediumSize;
+	/* HCB Additional Style */
+	border: 1px solid @sapHCStandardFG;
+}
+
+.sapMListTbl .sapMText,
+.sapMListTbl .sapMLabel {
+	padding-top: 1px;
+	font-size: @sapMFontMediumSize;
+	color: @sapHCStandardFG;
+	font-weight: normal;
+}
+
+.sapMListTbl .sapUiIcon:not(.sapMLIBImgNav) {
+	font-size: @sapMFontLargeSize;
+}
+
+.sapMListTbl .sapMLIBSelectD > .sapUiIcon {
+	font-size: @sapMFontHeader2Size;
+	padding: .75rem 0;
+}
+
+.sapMListTblCell {
+	padding: .875rem .5rem;
+	vertical-align: top;
+	font-size: @sapMFontMediumSize;
+}
+
+.sapMListTblCell.sapMListTblCellNoData {
+	font-size: 1rem;
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	line-height: 1.6;
+	border-bottom: 1px solid @sapHCReducedAltFG;
+}
+
+.sapMListTblCell:first-child,
+.sapMListTblNone:first-child + .sapMListTblCell {
+	padding-left: 1rem;
+}
+
+.sapMListTblSelCol + .sapMListTblCell {
+	padding-left: 0;
+}
+
+.sapMListTblCell.sapMListTblCellNoData,
+.sapMListTblRow > :nth-last-child(2) {
+	padding-right: 1rem;
+}
+
+.sapMListTblHasNav .sapMListTblRow > :nth-last-child(2),
+.sapMListModeSingleSelect.sapMListTblHasNav .sapMListTblRow > :nth-last-child(2) {
+	padding-right: 0;
+}
+
+.sapMListTblHasNav .sapMListTblNavCol {
+	width: 3rem;
+}
+
+.sapMLIB.sapMListTblRow {
+	border-bottom: 0;
+}
+
+.sapMListTblCell.sapMListTblCellDup {
+	border-color: transparent;
+}
+
+.sapMListModeMultiSelect .sapMListTblSubCnt,
+.sapMListModeSingleSelectLeft .sapMListTblSubCnt {
+	padding-left: 3rem;
+}
+
+/* table column header */
+.sapMListTbl th {
+	background: @sapHCStandardBG;
+	border-bottom: 0.125rem solid @sapHCStandardFG;
+}
+
+/* table footer */
+.sapMListTblFooter > td {
+	border-top: 0.125rem solid @sapHCStandardFG;
+}
+
+/* footer text should be bold */
+.sapMListTblFooter .sapMText,
+.sapMListTblFooter .sapMLabel {
+	font-weight: bold;
+}
+
+/********** COMPACT DESIGN ************/
+
+/* overwite cell style */
+.sapUiSizeCompact .sapMListTblCell {
+	padding-top: 0;
+	padding-bottom: 0;
+	vertical-align: middle;
+}
+
+.sapUiSizeCompact .sapMListTblCell.sapMListTblCellNoData {
+	font-size: @sapMFontMediumSize;
+}
+
+/* overwrite text control styles */
+.sapUiSizeCompact .sapMListTblCell > .sapMLnk,
+.sapUiSizeCompact .sapMListTblCell > .sapMText,
+.sapUiSizeCompact .sapMListTblCell > .sapMLabel,
+.sapUiSizeCompact .sapMListTblCell > .sapMObjectNumber {
+	vertical-align: middle;
+	line-height: 1.4;
+}
+
+/* special class name to add margin to multiline contents */
+.sapUiSizeCompact .sapMTableContentMargin {
+	margin: .5rem 0;
+}
+
+/* navigation and selection columns are in the middle */
+.sapUiSizeCompact .sapMListTblNavCol,
+.sapUiSizeCompact .sapMListTblSelCol {
+	vertical-align: middle;
+	text-align: center;
+}
+
+/* decrease the navigation icon size */
+.sapUiSizeCompact .sapMListTblNavCol > .sapMLIBImgNav {
+	width : auto;
+	height: 2rem;
+	line-height: 2rem;
+}
+
+/* decrease the selection column width */
+.sapUiSizeCompact .sapMListTblSelCol {
+	width: 2.5rem;
+}
+
+/* decrease the navigation column width */
+.sapUiSizeCompact .sapMListTblHasNav .sapMListTblNavCol {
+	width: 2rem;
+}
+
+/* let the checkbox have its own natural size for selection column */
+.sapUiSizeCompact .sapMListTblSelCol .sapMCb {
+	width : auto;
+}
+
+/* min height for the table cells */
+.sapUiSizeCompact .sapMListTblCell {
+	height: 2rem;
+}
+
+/* table delete icon */
+.sapUiSizeCompact .sapMListTbl .sapMLIBSelectD {
+	width: auto;
+}
+
+.sapUiSizeCompact .sapMListTbl .sapMLIBSelectD > .sapUiIcon {
+	font-size: 1rem;
+	padding: 0;
+}
+
+.sapUiSizeCompact .sapMListTblNavCol .sapMLIBIconDet {
+	margin-right: 0;
+	width: 2rem;
+	height: 2rem;
+	line-height: 2rem;
+}
+
+/* align relative float left checkbox in table cell */
+.sapUiSizeCompact .sapMListTblSelCol > .sapMLIBSelectS .sapMRbB,
+.sapUiSizeCompact .sapMListTblSelCol >.sapMLIBSelectSL .sapMRbB {
+	margin-left: 0.25rem;
+	padding: 0;
+}
+
+/* reset height of cells when no header is defined */
+.sapMListTblHeaderNone > .sapMListTblCell {
+	height: 0;
+}

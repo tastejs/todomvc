@@ -1,0 +1,51 @@
+/* ======================================================== */
+/* CSS for sap.ui.unfied.ShellHeader.control (bluecrystal)  */
+/* ======================================================== */
+
+.sapUiUfdShellHeadBegin .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:after {
+    border-left: 1px solid darken(@sapUiHeaderBG,10);
+}
+
+.sapUiUfdShellHeadUsrItm:before,
+.sapUiUfdShellHeadEnd .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:before {
+    border-right: 1px solid darken(@sapUiHeaderBG,10);
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItm:hover > * {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel:hover > span {
+	background-color: darken(@sapUiHighlight, 5%);
+}
+
+.sapUiUfdShellHeadItm > span,
+.sapUiUfdShellHeadUsrItm {
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 0 1px 0 fade(@sapUiWhite,50);
+	color: @sapUiLightText;
+}
+
+.sapUiUfdShellHeadItmMarker > div:after {
+	border-bottom-color: mix(@sapUiHighlight, @sapUiWhite, 10); /*#E6F2F9*/
+}
+
+.sapUiUfdShellHeadItmMarker > div:before {
+	border-bottom-color: @sapUiMediumBG;
+}
+
+.sapUiUfdShellHeadItm:active > span,
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel > span,
+.sapUiUfdShellHeadItm:active:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItm:hover:active > *,
+.sapUiUfdShellHeadUsrItm:active > * {
+	color: @sapUiTextInverted;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmExp,
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmName,
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmImg,
+.sapUiUfdShellHeadItm:focus > span {
+	border-color: @sapUiFocus;
+}

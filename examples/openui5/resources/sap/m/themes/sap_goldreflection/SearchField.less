@@ -1,0 +1,49 @@
+/* ============================================= */
+/* CSS for control     sap.m/SearchField.control */
+/* Styling is in general reused from sap.m.Input */
+/* ============================================= */
+
+.sapMSF{
+	position: relative;
+	-moz-user-modify: read-only;
+	-webkit-user-modify: read-only;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.sapMSFI[type="search"] {
+	font-size: 0.88em;
+	-webkit-appearance:none;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.sapMSFI[type="search"]::-webkit-search-decoration,
+.sapMSFI[type="search"]::-webkit-search-results-decoration,
+.sapMSFI[type="search"]::-webkit-search-results-button {
+	-webkit-appearance: none;
+}
+
+.sapMSFI[type="search"]:focus {
+	-webkit-appearance: none;
+}
+
+input.sapMSFI[type="search"]:focus {
+	outline: none;
+	outline-width: 0;
+}
+
+.sapMSFR {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 1.8em;
+	height: 100%;
+	background: transparent;
+}
+
+.sapMSFPlaceholder {
+	font-size: 0.88em;
+	display: none;
+}

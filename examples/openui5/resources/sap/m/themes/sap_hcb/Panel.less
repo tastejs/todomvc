@@ -1,0 +1,40 @@
+/* ============================================= */
+/* HCB Theme CSS for control sap.m/Panel.control */
+/* ============================================= */
+.sapMPanel {
+	border: 1px solid @sapHCStandardFG;
+}
+
+.sapMPanelBGSolid,
+.sapMPanelBGTranslucent,
+.sapMPanelBGTransparent {
+	background-color: @sapHCStandardBG;
+}
+
+.sapMPanelWrappingDivTb {
+	// border is 2px in this case because
+	// there is 1px border around the whole Panel
+	border-bottom: 0.125rem solid @sapHCStandardFG;
+}
+
+// headerToolbar is the one with transparent design
+.sapMPanel .sapMTB-Transparent-CTX,
+.sapMPanelWrappingDivTbExpanded {
+	border-bottom: 0.1875rem solid @sapHCStandardFG;
+}
+
+.sapMPanelHdr {
+	font-weight: @sapUiFontHeaderWeight;
+	font-size: @sapMFontHeader5Size;
+	font-family: @sapUiFontFamily;
+	color: @sapHCStandardFG;
+	background-color: @sapHCStandardBG;
+}
+
+.sapMPanelExpandableIcon {
+	color: @sapHCStandardFG;
+
+	&:focus::after {
+		border: 2px dotted @sapHCStandardFG;
+	}
+}

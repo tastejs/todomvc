@@ -1,0 +1,164 @@
+
+/* ======================================================== */
+/* CSS for control sap.m/FeedListItem.control (bluecrystal) */
+/* ======================================================== */
+
+.sapMFeedListItemTextText{
+	font-size: @sapMFontMediumSize;
+	color: @sapUiStandardText;
+	word-wrap: break-word;
+}
+
+.sapMFeedListItemImage:focus{
+	outline-style: dotted;
+	outline-color: @sapUiFocus;
+	outline-width: 0.0625rem;
+}
+
+.sap-tablet .sapMFeedListItem .sapMLnk:focus{
+	outline-style: dotted;
+	outline-color: @sapUiFocus;
+	outline-width: 0.0625rem;
+}
+
+/*
+	Allow image outline(-left) to be rendered completely
+*/
+.sapMFeedListShowSeparatorsAll .sapMFeedListItem{
+	padding-left: 0.0625rem;
+}
+.sapMFeedListItemTitleDiv.sapMLIB{
+	padding-left: 0.9375rem;
+}
+
+
+.sap-desktop .sapMFeedListItem .sapMLnk:focus{
+	outline-color: @sapUiFocus;
+}
+
+.sapMFeedListItemImage,
+.sapMLIBActive .sapMFeedListItem span.sapMFeedListItemImage{
+	color: lighten(@sapUiElement, 35);
+}
+
+.sapMFeedListItemTextName{
+	font-size: @sapMFontMediumSize;
+	color: @sapUiStandardText;
+}
+
+.sapMFeedListItemFooter {
+	font-size: @sapMFontSmallSize;
+	color: @sapUiContentLabelColor;
+}
+
+.sapMFeedListItem .sapMFeedListItemTextText a,
+.sapMFeedListItem .sapMFeedListItemTextText span,
+.sapMFeedListItem .sapMFeedListItemTextName a{
+	font-size: @sapMFontMediumSize;
+	color: @sapUiLink;
+}
+
+.sapMFeedListItemText{
+	color: @sapUiStandardText;
+}
+
+.sapMLIBActive .sapMFeedListItemFigure.sapMFeedListItemIsDefaultIcon{
+	background: darken(@sapUiGroupContentBackground, 5);
+}
+
+.sapMFeedListItemFigure.sapMFeedListItemIsDefaultIcon{
+	background: darken(@sapUiGroupContentBackground, 5);
+}
+
+.sapMLIBActive .sapMFeedListItem a,
+.sapMLIBActive .sapMFeedListItem span,
+.sapMLIBActive .sapMFeedListItem p,
+.sapMLIBActive .sapMFeedListItemFooter,
+.sapMLIBActive .sapMFeedListItemText,
+.sapMLIBActive .sapMFeedListItemTimestamp,
+.sapMLIBActive .sapMFeedListItem .sapMFeedListItemTextText .sapMFeedListItemTextString,
+.sapMLIBActive .sapMFeedListItem:hover .sapMFeedListItemTextText> .sapMFeedListItemLinkExpandCollapse,
+.sapMLIBActive .sapMFeedListItemTextText,
+.sapMLIBActive .sapMFeedListItemTextText>.sapMLnk,
+.sapMLIBActive .sapMFeedListItemTextText>.sapMLnk.sapMLnkDsbl
+.sapMLIBActive .sapMFeedListItemTextName>.sapMLnk,
+.sapMLIBActive .sapMFeedListItemTextName>.sapMLnk.sapMLnkDsbl {
+	color: @sapUiContentContrastTextColor;
+	opacity: 1;
+	text-decoration: none;
+}
+
+.sapMFeedListItemTextText>.sapMLnk.sapMLnkDsbl,
+.sapMFeedListItemTextName>.sapMLnk.sapMLnkDsbl,
+.sap-desktop .sapMFeedListItemTextName>.sapMLnk.sapMLnkDsbl:hover {
+	opacity: 1;
+	color: @sapUiStandardText;
+}
+
+.sapMFeedListItemTextText>.sapMLnk {
+    display: inline;
+}
+
+.sapMFeedListItemTextText>.sapMLnk.sapMLnkDsbl {
+	color: @sapUiStandardText;
+}
+
+.sap-desktop .sapMFeedListItemTextText>.sapMLnk.sapMLnkDsbl:hover {
+	color: @sapUiStandardText;
+}
+
+.sapMFeedListShowSeparatorsAll.sapMLIB {
+	border-bottom: 0.063rem solid @sapUiListBorderColor;
+}
+
+/* special rendering for browsers without flex support (IE9) */
+li.sapMLIB.sapMFeedListItemTitleDiv.sapMLIBNoFlex>.sapMLIBContent>.sapMLIBContentNF{
+	&{
+		table-layout: fixed;
+		width: 100%;
+	}
+	article.sapMFeedListItem{
+		display: table-cell;
+		overflow: hidden;
+	}
+}
+
+.sap-phone .sapMFeedListItemTextName a {
+	line-height: normal;
+	font-size: @sapMFontLargeSize;
+}
+
+.sap-phone .sapMFeedListItemText,
+.sap-phone .sapMFeedListItemTimestamp{
+	font-size: @sapMFontMediumSize;
+}
+
+.sap-phone .sapMFeedListItemFooter {
+	font-size: @sapMFontSmallSize;
+}
+
+.sap-phone .sapMFeedListItemTimestamp {
+	color: @sapUiContentLabelColor;
+	line-height: normal;
+}
+
+.sapMFeedListItem .sapMFeedListItemTextText> .sapMFeedListItemLinkExpandCollapse {
+	font-weight: normal;
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	font-weight: normal;
+	color: @sapUiContentLabelColor;
+}
+
+.sapMFeedListItem:hover .sapMFeedListItemTextText> .sapMFeedListItemLinkExpandCollapse {
+	color: @sapUiLink;
+}
+
+.sapMFeedListItem .sapMFeedListItemTextText .sapMFeedListItemTextString{
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	font-style: normal;
+	font-weight: normal;
+	color: @sapUiStandardText;
+	line-height: 1.4;
+}

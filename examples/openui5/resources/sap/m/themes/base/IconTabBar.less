@@ -1,0 +1,80 @@
+/* ============================================ */
+/* CSS for control sap.m/IconTabBar.control			*/
+/* ============================================ */
+
+.sapMITB {
+	display: block;
+	position: relative;
+	width: 100%;
+}
+
+.sapMITBContentClosed {
+	background-color: transparent;
+	border-bottom: none;
+	margin-top: 0.750rem;
+	padding: 0.125rem 0 0 0;
+	position: relative;
+}
+
+.sapMITBTab {
+	display: block;
+}
+
+.sapMITBFilterIcon,
+.sapMITBTextOnly .sapMITBFilter,
+.sapMITBTextOnly .sapMITBText,
+.sapMITBAll {
+	cursor: pointer;
+}
+
+.sapMITBTextUpperCase .sapMITBText {
+	text-transform: uppercase;
+}
+
+.sapMITBStretch {
+	bottom: 0;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	flex-direction: column;
+	-ms-flex-direction: column;
+	-webkit-flex-direction: column;
+	position: absolute;
+	top: 0;
+}
+
+.sapMITBStretch > .sapMITBContainerContent {
+	-webkit-flex-grow: 1;
+	-ms-flex: 1 1;
+	flex-grow: 1;
+}
+
+.sapMITBStretch > .sapMITBContainerContent > .sapMITBContent {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.sapMITB.sapMITBNoContentPadding > .sapMITBContainerContent > .sapMITBContent {
+	padding: 0;
+}
+
+.sapMITBBackgroundDesignTransparent > .sapMITBContainerContent > .sapMITBContent {
+	background-color: transparent;
+}
+
+/* fix rendering issue in BlackBerry - CSN: 0120061532 0001463943 2014 */
+.sap-bb .sapMITBContainerContent {
+	overflow: hidden;
+}
+
+.sapMITB.sapMITBNoContentPadding > .sapMITBContainerContent, /* legacy class */
+.sapMITB.sapUiNoContentPadding > .sapMITBContainerContent {
+	border-bottom: 0;
+	border-top: 0;
+}
+
+/* mixin call for creating container content padding classes (arguments: rootContainer, contentSelector) */
+.sapUiContainerContentPadding(~".sapMITB", ~"> .sapMITBContainerContent > .sapMITBContent");

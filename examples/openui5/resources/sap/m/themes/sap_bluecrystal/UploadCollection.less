@@ -1,0 +1,94 @@
+/* ===================================================================================== */
+/* CSS for control sap.m/UploadCollection.control                                        */
+/*                                                                                       */
+/* BlueCrystal Theme                                                                     */
+/* ===================================================================================== */
+
+
+/* List Header */
+.sapMTB.sapMUCListHeader {
+	background-color:		@sapUiGroupTitleBackground;
+	border-bottom-color:	@sapUiGroupTitleBorderColor;
+	font-size:				@sapMFontHeader4Size;
+	font-weight:			@sapUiFontHeaderWeight;
+	color:					@sapUiGroupTitleTextColor;
+	text-shadow:			0.0625rem 0rem @sapUiLightShadowTint;
+	font-family:			@sapUiFontHeaderFamily;
+}
+
+.sapMLIB.sapMUCListSingleItem,
+.sapMLIB.sapMUCListFirstItem,
+.sapMLIB.sapMUCListLastItem,
+.sapMLIB.sapMUCListItem {
+	border-bottom-color:	@sapUiListBorderColor;
+}
+
+/* Item Icon */
+.sapMUCItemIcon {
+	color:					@sapUiElement;
+}
+
+/*if no image is provided a standard placeholder is displayed */
+.sapMUCItemPlaceholder {
+	background-color: darken(@sapUiGroupContentBackground, 5);
+	color: darken(@sapUiExtraLightBG, 20);
+}
+
+
+/*if no link is provided the file name is displayed as an disabled link */
+.sapMLnkDsbl.sapMUCFileName {
+	color: @sapUiListTextColor;
+}
+
+/* regular and hover state */
+.sapMUCDeleteBtn > .sapMBtnInner > .sapMBtnIcon {
+	color: @sapUiNegativeElement;
+}
+
+/* disabled state */
+.sapMBtnDisabled.sapMUCDeleteBtn > .sapMBtnInner > .sapMBtnIcon {
+	color: @sapUiElement;
+}
+
+/*for width > 30rem the buttons should be displayed as buttons of type transparent */
+@media(min-width: 30rem) {
+	.sapMUCButtonContainer >.sapMBtn >.sapMBtnInner {
+		background-image: none;
+  		background-color: @sapUiButtonLiteBackground;
+  		border-color: @sapUiButtonLiteBorderColor;
+  		color: @sapUiButtonLiteTextColor;
+  		text-shadow: none;
+  	}
+}
+
+/* an edit and delete button in a hover state; it should look like a transparent button in a hover state */
+@media(min-width: 30rem) {
+	.sapMUCEditBtn:hover >.sapMBtnHoverable, .sapMUCDeleteBtn:hover >.sapMBtnHoverable {
+		background-color: @sapUiButtonLiteHoverBackground;
+		border-color: @sapUiButtonLiteHoverBorderColor;
+	}
+}
+
+/*an edit and delete button in a pressed state; it should look like a transparent button in a pressed state  */
+@media(min-width: 30rem) {
+	:not(.sapMBtnDisabled).sapMUCEditBtn > .sapMBtnActive,
+	:not(.sapMBtnDisabled).sapMUCEditBtn:hover > .sapMBtnActive,
+	:not(.sapMBtnDisabled).sapMUCDeleteBtn > .sapMBtnActive,
+	:not(.sapMBtnDisabled).sapMUCDeleteBtn:hover > .sapMBtnActive {
+	background-color: @sapUiButtonLiteActiveBackground;
+	border-color:     @sapUiButtonLiteActiveBorderColor;
+	}
+}
+
+.sapMUCAttrContainer {
+	color: @sapUiContentLabelColor;
+}
+
+/* Text: Filename */
+.sapMUCFileName.sapMLnk {
+	font-size: 			@sapMFontLargeSize; /* it cannot be moved to base as the LESS constant is not known there */
+}
+
+.sapMUCAttrContainer, .sapMUCStatusContainer {
+	font-size: @sapMFontMediumSize; /* it cannot be moved to base as the LESS constant is not known there */
+}

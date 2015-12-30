@@ -1,0 +1,257 @@
+<?xml version="1.0" ?>
+<library  version="2.0" name="sap.ui.table">
+  <module name="sap/ui/table/AnalyticalColumn.js" size="12773" compressedSize="5646">
+    <description>Provides control sap.ui.table.AnalyticalColumn.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/table/Column.js"/>
+      <module name="sap/ui/table/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/AnalyticalColumnMenu.js" size="3540" compressedSize="1685">
+    <description>Provides control sap.ui.table.AnalyticalColumnMenu.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/table/ColumnMenu.js"/>
+      <module name="sap/ui/table/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/AnalyticalColumnMenuRenderer.js" size="532" compressedSize="333">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/table/ColumnMenuRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/AnalyticalTable.js" size="52522" compressedSize="23342">
+    <description>Provides control sap.ui.table.AnalyticalTable.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/table/AnalyticalColumn.js"/>
+      <module name="sap/ui/table/Table.js"/>
+      <module name="sap/ui/table/TreeTable.js"/>
+      <module name="sap/ui/table/library.js"/>
+      <module name="sap/ui/model/analytics/ODataModelAdapter.js"/>
+      <module name="sap/ui/core/IconPool.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/AnalyticalTableRenderer.js" size="1435" compressedSize="663">
+    <description>! UI development toolkit for HTML5 (OpenUI5) (c) Copyright 2009-2015 SAP SE or an SAP affiliate company. Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/table/TableRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/Column.js" size="29961" compressedSize="12390">
+    <description>Provides control sap.ui.table.Column.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/core/RenderManager.js"/>
+      <module name="sap/ui/model/Filter.js"/>
+      <module name="sap/ui/model/Sorter.js"/>
+      <module name="sap/ui/model/Type.js"/>
+      <module name="sap/ui/model/type/String.js"/>
+      <module name="sap/ui/table/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/ColumnMenu.js" size="13735" compressedSize="6328">
+    <description>Provides control sap.ui.table.ColumnMenu.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/RenderManager.js"/>
+      <module name="sap/ui/table/library.js"/>
+      <module name="sap/ui/unified/Menu.js"/>
+      <module name="sap/ui/unified/MenuItem.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/ColumnMenuRenderer.js" size="602" compressedSize="340">
+    <description>Provides default renderer for control sap.ui.table.ColumnMenuRenderer</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/unified/MenuRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/DataTable.js" size="221546" compressedSize="96755">
+    <description>Provides control sap.ui.table.DataTable.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/IntervalTrigger.js"/>
+      <module name="sap/ui/core/ScrollBar.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/model/SelectionModel.js"/>
+      <module name="sap/ui/table/Row.js"/>
+      <module name="sap/ui/model/odata/ODataTreeBindingAdapter.js"/>
+      <module name="sap/ui/table/library.js"/>
+      <module name="sap/ui/core/IconPool.js"/>
+      <module name="jquery.sap.dom.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/DataTableRenderer.js" size="564" compressedSize="332">
+    <description>Provides default renderer for control sap.ui.table.DataTable</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/table/TreeTableRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/Row.js" size="6263" compressedSize="2028">
+    <description>Provides control sap.ui.table.Row.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/table/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/Table.js" size="204639" compressedSize="90813">
+    <description>Provides control sap.ui.table.Table.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/IntervalTrigger.js"/>
+      <module name="sap/ui/core/ScrollBar.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/model/SelectionModel.js"/>
+      <module name="sap/ui/model/ChangeReason.js"/>
+      <module name="sap/ui/table/Row.js"/>
+      <module name="sap/ui/table/library.js"/>
+      <module name="sap/ui/core/IconPool.js"/>
+      <module name="jquery.sap.dom.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/TablePersoController.js" size="13298" compressedSize="6427">
+    <description>Provides TablePersoController</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/base/ManagedObject.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/TableRenderer.js" size="35360" compressedSize="20441">
+    <description>Provides default renderer for control sap.ui.table.Table</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/TreeAutoExpandMode.js" size="925" compressedSize="315">
+    <description>Provides enumeration sap.ui.table.TreeAutoExpandMode</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/TreeTable.js" size="29534" compressedSize="10752">
+    <description>Provides control sap.ui.table.TreeTable.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/table/Table.js"/>
+      <module name="sap/ui/model/odata/ODataTreeBindingAdapter.js"/>
+      <module name="sap/ui/model/ClientTreeBindingAdapter.js"/>
+      <module name="sap/ui/model/TreeBindingCompatibilityAdapter.js"/>
+      <module name="sap/ui/table/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/TreeTableRenderer.js" size="959" compressedSize="612">
+    <description>Provides default renderer for control sap.ui.table.TreeTable</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="sap/ui/table/TableRenderer.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/library.js" size="6232" compressedSize="1967">
+    <description>Initialization Code and shared classes of library sap.ui.table.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+      <module name="sap/ui/core/library.js"/>
+      <module name="sap/ui/unified/library.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/table/manifest.json" size="820">
+  </module>
+  <module name="sap/ui/table/messagebundle.properties" size="4574">
+  </module>
+  <module name="sap/ui/table/messagebundle_ar.properties" size="8297">
+  </module>
+  <module name="sap/ui/table/messagebundle_bg.properties" size="10055">
+  </module>
+  <module name="sap/ui/table/messagebundle_ca.properties" size="5038">
+  </module>
+  <module name="sap/ui/table/messagebundle_cs.properties" size="5476">
+  </module>
+  <module name="sap/ui/table/messagebundle_da.properties" size="4946">
+  </module>
+  <module name="sap/ui/table/messagebundle_de.properties" size="4995">
+  </module>
+  <module name="sap/ui/table/messagebundle_el.properties" size="9690">
+  </module>
+  <module name="sap/ui/table/messagebundle_en.properties" size="4453">
+  </module>
+  <module name="sap/ui/table/messagebundle_en_US_sappsd.properties" size="11006">
+  </module>
+  <module name="sap/ui/table/messagebundle_en_US_saptrc.properties" size="5511">
+  </module>
+  <module name="sap/ui/table/messagebundle_es.properties" size="5059">
+  </module>
+  <module name="sap/ui/table/messagebundle_et.properties" size="4977">
+  </module>
+  <module name="sap/ui/table/messagebundle_fi.properties" size="5316">
+  </module>
+  <module name="sap/ui/table/messagebundle_fr.properties" size="5146">
+  </module>
+  <module name="sap/ui/table/messagebundle_hi.properties" size="9411">
+  </module>
+  <module name="sap/ui/table/messagebundle_hr.properties" size="4797">
+  </module>
+  <module name="sap/ui/table/messagebundle_hu.properties" size="5913">
+  </module>
+  <module name="sap/ui/table/messagebundle_it.properties" size="4962">
+  </module>
+  <module name="sap/ui/table/messagebundle_iw.properties" size="7925">
+  </module>
+  <module name="sap/ui/table/messagebundle_ja.properties" size="6706">
+  </module>
+  <module name="sap/ui/table/messagebundle_ko.properties" size="6534">
+  </module>
+  <module name="sap/ui/table/messagebundle_lt.properties" size="5479">
+  </module>
+  <module name="sap/ui/table/messagebundle_lv.properties" size="5350">
+  </module>
+  <module name="sap/ui/table/messagebundle_nl.properties" size="4807">
+  </module>
+  <module name="sap/ui/table/messagebundle_no.properties" size="4866">
+  </module>
+  <module name="sap/ui/table/messagebundle_pl.properties" size="5420">
+  </module>
+  <module name="sap/ui/table/messagebundle_pt.properties" size="4911">
+  </module>
+  <module name="sap/ui/table/messagebundle_ro.properties" size="5116">
+  </module>
+  <module name="sap/ui/table/messagebundle_ru.properties" size="9834">
+  </module>
+  <module name="sap/ui/table/messagebundle_sh.properties" size="4802">
+  </module>
+  <module name="sap/ui/table/messagebundle_sk.properties" size="5329">
+  </module>
+  <module name="sap/ui/table/messagebundle_sl.properties" size="4950">
+  </module>
+  <module name="sap/ui/table/messagebundle_sv.properties" size="4920">
+  </module>
+  <module name="sap/ui/table/messagebundle_th.properties" size="9156">
+  </module>
+  <module name="sap/ui/table/messagebundle_tr.properties" size="5645">
+  </module>
+  <module name="sap/ui/table/messagebundle_uk.properties" size="10504">
+  </module>
+  <module name="sap/ui/table/messagebundle_vi.properties" size="6305">
+  </module>
+  <module name="sap/ui/table/messagebundle_zh_CN.properties" size="5462">
+  </module>
+  <module name="sap/ui/table/messagebundle_zh_TW.properties" size="5505">
+  </module>
+</library>

@@ -1,0 +1,791 @@
+/*******************************************************************************
+ * TABLE PARAMETERS
+ ******************************************************************************/
+
+@sapUiTableRowHeight: 23px;
+@sapUiTableColHdrHeight: 23px;
+@sapUiTableRowHdrWidth: 22px;
+@sapUiTableToolbarDesign: ~"Transparent"; /* should be one of the sap.m.ToolbarDesign enumeration */
+
+/*
+ * BEHAVIOR CLASSES:
+ * -----------------
+ * sapUiTableVScr   - display vertical scrollbar
+ * sapUiTableHScr   - display horizontal scrollbar
+ * sapUiTableRSel   - display row selector column
+ * sapUiTableCHdr   - display column header row
+ * sapUiTableShNoDa - indicator to enable empty table message
+ * sapUiTableEmpty  - display the empty table message
+ */
+
+
+/*******************************************************************************
+ * BOX SIZING FOR TABLE!
+ ******************************************************************************/
+
+.sapUiTable,
+.sapUiTableHdr,
+.sapUiTableTbr,
+.sapUiTableExt,
+.sapUiTableFtr,
+
+.sapUiTableCnt,
+
+.sapUiTableColRowHdr,
+.sapUiTableColRowHdrIco,
+.sapUiTableColHdrScr,
+.sapUiTableColHdr,
+.sapUiTableCol,
+.sapUiTableColRsz,
+
+.sapUiTableRowHdrScr,
+.sapUiTableRowHdr,
+
+.sapUiTableCtrlScr,
+.sapUiTableCtrlCnt,
+.sapUiTableCtrl,
+.sapUiTableTr,
+.sapUiTableTr > th,
+.sapUiTableTr > td,
+.sapUiTableCtrlEmpty,
+.sapUiTableCell,
+
+.sapUiTableVSb,
+.sapUiTableHSb {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.sapUiTableVSb {
+	z-index: 2;
+}
+
+
+/*******************************************************************************
+ * TABLE SECTIONS
+ ******************************************************************************/
+
+.sapUiTable {
+	color: @sapUiBaseText;
+	position: relative;
+}
+
+.sapUiTable > div {
+	border: 1px solid @sapUiListHeaderBorderColor;
+	border-bottom: none;
+}
+
+.sapUiTable > div:last-child {
+	border-top: 1px solid @sapUiListHeaderBorderColor;
+	border-bottom: 1px solid @sapUiListHeaderBorderColor;
+}
+
+.sapUiTable.sapUiLocalBusy > div:nth-last-child(2) {
+	border-bottom: 1px solid @sapUiListHeaderBorderColor;
+}
+
+.sapUiTable > div.sapUiLocalBusyIndicator {
+	border-bottom: none;
+	z-index: 2;
+}
+
+
+.sapUiTableHdr,
+.sapUiTableFtr {
+	padding: 0px 10px;
+	height: 22px;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiTableHdr {
+	font-weight: bold;
+}
+
+.sapUiTableHdrTitle {
+	font-size: @sapUiFontHeader2Size;
+	font-weight: bold;
+	color: @sapUiTextTitle;
+}
+
+.sapUiTableTbr {
+	height: 25px;
+	border-bottom: none;
+}
+
+.sapUiTableExt {
+	border-bottom: none;
+}
+
+.sapUiTableTbr .sapUiTb,
+.sapUiTableTbr .sapUiTbCont {
+	border: none;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTable {
+	border-bottom: 1px solid @sapUiListHeaderBorderColor;
+}
+
+
+/*******************************************************************************
+ * TABLE CONTROL
+ ******************************************************************************/
+
+.sapUiTableCnt {
+	position: relative;
+	overflow: hidden; /* avoid scrollbar for column resize handlers */
+}
+
+.sapUiTableCCnt {
+	position: relative;
+}
+
+/* COL HEADER */
+.sapUiTableColHdrCnt {
+	display: none;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapUiTableColHdrCnt {
+	min-height: @sapUiTableColHdrHeight;
+}
+
+.sapUiTableCHdr .sapUiTableColHdrCnt {
+	display: block;
+}
+
+.sapUiTableColHdrScr {
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+	white-space: nowrap;
+}
+
+.sapUiTableRSel .sapUiTableColHdrScr,
+.sapUiTableRSel .sapUiTableColHdrFixed {
+	margin-left: @sapUiTableRowHdrWidth;
+}
+
+.sapUiTableVScr .sapUiTableColHdrScr {
+	margin-right: 16px;
+}
+
+.sapUiTableColHdr {
+	display: table;
+	width: 1000%; /* to prevent wrapping of floating divs, percentage needed for tables without defined width */
+}
+
+.sapUiTableColHdrFixed {
+	float: left;
+}
+
+.sapUiTableCtrlCol > th > * {
+	display: none;
+}
+
+.sapUiTableCol {
+	float: left;
+	display: block;
+	position: relative;
+	vertical-align: top;
+}
+
+.sapUiTableColCell, .sapUiTableColRowHdrIco {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 8px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: normal;
+}
+
+.sapUiTableColRowHdr {
+	display: none;
+	position: absolute;
+	height: inherit;
+	width: @sapUiTableRowHdrWidth;
+}
+
+.sapUiTableRSel .sapUiTableColRowHdr {
+	display: block;
+}
+
+.sapUiTableAriaRowSel {
+	font-size: 0;
+}
+
+.sapUiTableColRowHdrIco {
+	height: @sapUiLineHeight;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* ROW HEADER */
+.sapUiTableRowHdrScr {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: @sapUiTableRowHdrWidth;
+	z-index: 1; /* needed for grouping text visible on ipad */
+	/* overflow: hidden; visible for grouping! */
+}
+
+.sapUiTableRSel .sapUiTableRowHdrScr {
+	display: block;
+}
+
+/* TABLE */
+.sapUiTableCtrlScr {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+}
+
+.sapUiTableRSel .sapUiTableCtrlScr,
+.sapUiTableRSel .sapUiTableCtrlScrFixed {
+	margin-left: @sapUiTableRowHdrWidth;
+}
+
+.sapUiTableVScr .sapUiTableCtrlScr {
+	margin-right: 16px;
+}
+
+.sapUiTableCtrlCol {
+	/* row defining the width of the cols */
+	height: 0px !important;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.sapUiTableCtrlCol > th {
+	height: inherit;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.sapUiTableCtrl {
+	position: relative;
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.sapUiTableCtrl tr {
+	height: @sapUiTableRowHeight;
+}
+
+.sapUiTableTr > td {
+	/* height: inherit; */
+	padding: 0;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.sapUiTableCtrlScrFixed {
+	float: left;
+}
+
+.sapUiTableCell {
+	height: inherit;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 8px;
+	white-space: nowrap;
+}
+
+.sapUiTableRowHidden .sapUiTableCell,
+.sapUiTableCellHidden .sapUiTableCell {
+	visibility: hidden; /* hidden row (no content) */
+}
+
+.sapUiTableColIcons {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 8px;
+	padding-top: 4px;
+}
+
+.sapUiTableColCell.sapUiTableColSorted,
+.sapUiTableColCell.sapUiTableColFiltered {
+	padding-right: 24px;
+}
+
+.sapUiTableColCell.sapUiTableColSorted.sapUiTableColFiltered {
+	padding-right: 38px;
+}
+
+.sapUiTableCtrlEmpty {
+	display: none;
+	position: absolute;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	background-color: @sapUiExtraLightBG;
+	padding-right: @sapUiTableRowHdrWidth; /* text will be aligned in real center of the table*/
+	/* z-index: 1; */
+}
+
+.sapUiTableSelModeNone .sapUiTableCtrlEmpty {
+	padding-right: 0;
+}
+
+.sapUiTableCtrlEmptyMsg {
+	position: absolute;
+	top: 50%;
+	margin-top: -0.5em;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 1rem;
+	white-space: pre-wrap;
+}
+
+.sapUiTableShNoDa.sapUiTableEmpty .sapUiTableCtrlEmpty {
+	display: block;
+}
+
+.sapUiTableRSel .sapUiTableCtrlEmpty {
+	left: @sapUiTableRowHdrWidth;
+}
+
+.sapUiTablePaginator {
+	text-align: center;
+	padding: 2px;
+}
+
+.sapUiTableDragDrop {
+	cursor: move;
+
+	.sapUiTableCCnt, .sapUiTableColRsz {
+		pointer-events: none;
+	} 
+
+	.sapUiTableCol {
+		cursor: move;
+		
+		* {
+			cursor: move;
+		}
+	}
+}
+
+
+/*******************************************************************************
+ * DND & RESIZE ELEMENTS
+ ******************************************************************************/
+
+.sapUiTableColGhost {
+	position: absolute;
+	width: auto;
+	cursor: pointer;
+	padding: 0 8px;
+	background-color: @sapUiExtraLightBG;
+	border: 1px solid @sapUiListHighlightColor;
+	opacity: 0.5;
+}
+
+.sapUiTableColRsz {
+	position: absolute;
+	top: 0px;
+	width: 5px;
+	margin-left: -4px;
+	bottom: 0px;
+	cursor: col-resize;
+	z-index: 1;
+}
+
+html[dir=rtl] .sapUiTableColRsz {
+	margin-right: -3px;
+}
+
+.sapUiTableHScr .sapUiTableColRsz {
+	bottom: 18px;
+}
+
+.sapUiTableColRszActive,
+.sapUiTableColRsz:hover {
+	background-color: @sapUiListHoverBackground;
+	opacity: 0.5;
+}
+
+
+/*******************************************************************************
+ * VERTICAL SCROLLBAR
+ ******************************************************************************/
+
+.sapUiTableVSb {
+	display: none;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 16px; /* 17px */
+	bottom: 0px;
+	/* z-index: 2; */
+}
+
+.sapUiTableVScr .sapUiTableVSb {
+	display: block;
+}
+
+/* Cozy Mode when sap.m. library is loaded */
+.sapUiSizeCozy .sapUiTable {
+
+	/* Header */
+	& > .sapUiTableCnt > .sapUiTableColHdrCnt {
+		min-height: 3rem;
+	}
+
+	/* Footer */
+	&  > .sapUiTableFtr {
+		height: 3rem;
+		line-height: 3rem;
+		padding-top: 0;
+	}
+
+	/* Row */
+	.sapUiTableCtrl tr {
+		height: 3rem;
+	}
+	
+	/* Header */
+	.sapUiTableCol, .sapUiTableColRowHdr {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	
+	.sapUiTableColRowHdr {
+		margin-top: -1px;
+	}
+	
+	.sapUiTableColCell {
+		height: 3rem;
+	}
+	
+	.sapUiTableColCell > * {
+		height: 100%;
+		line-height: 3rem;
+	}
+	
+	.sapUiTableColRowHdrIco {
+		height:100%;
+	}
+
+	/* Cell Adjustments */
+	
+	.sapUiTableColIcons {
+		padding-top: 0;
+	}
+
+	/* Group Header Adjustments */
+	div.sapUiTableGroupHeader div.sapUiTableGroupIcon {
+		background-color: transparent;
+	}
+
+	/* Footer Adjustments */
+	.sapUiTableFtr > .sapMLabel {
+		// Subtract the outer padding of the footer, when it is a table text view
+		height: 3rem;
+		line-height: 3rem;
+	}
+}
+
+
+/*******************************************************************************
+ * HORIZONTAL SCROLLBAR
+ ******************************************************************************/
+
+.sapUiTableHSb {
+	display: none;
+	position: relative;
+	height: 19px;
+	margin: 0;
+	border-top: 1px solid @sapUiListHeaderBorderColor;
+	/* z-index: 2; */
+}
+
+.sapUiTableRSel .sapUiTableHSb {
+	padding-left: @sapUiTableRowHdrWidth;
+}
+
+.sapUiTableHScr .sapUiTableHSb {
+	display: block;
+}
+
+.sapUiTableVScr .sapUiTableHSb {
+	padding-right: 16px; /* 17px */
+}
+
+
+/*******************************************************************************
+ * CHILD CONTROL STYLES
+ ******************************************************************************/
+
+.sapUiTableCol .sapUiLbl,
+.sapUiTableCell > .sapUiTf,
+.sapUiTableCell > .sapUiSearchField,
+.sapUiTableCell > .sapUiSearchField > .sapUiTfCombo,
+.sapUiTableCell > .sapUiTfCombo {
+	border: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+.sapUiTableCell > .sapUiTf.sapUiTfErr.sapUiTfStd,
+.sapUiTableCell > .sapUiTfCombo.sapUiTfErr.sapUiTfStd {
+	background-color: @sapUiFieldInvalidBackground;
+}
+.sapUiTableCell > .sapUiTf.sapUiTfWarn.sapUiTfStd,
+.sapUiTableCell > .sapUiTfCombo.sapUiTfWarn.sapUiTfStd {
+	background-color: @sapUiFieldWarningBackground;
+}
+.sapUiTableCell > .sapUiTf.sapUiTfSucc.sapUiTfStd,
+.sapUiTableCell > .sapUiTfCombo.sapUiTfSucc.sapUiTfStd {
+	background-color: @sapUiFieldSuccessBackground;
+}
+
+.sapUiTableCell > .sapUiTfCombo {
+	padding: 0 8px 0 0;
+}
+
+.sapUiTableCell > .sapUiTv,
+.sapUiTableCell > .sapUiLbl,
+.sapUiTableCell > .sapUiLnk {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Keep sure that sap.m.Link is vertically aligned inside a table cell */
+.sapUiTableCell .sapUiLnk, .sapUiTableColCell .sapUiImg {
+	vertical-align: middle;
+}
+
+.sapUiTableCell > .sapUiImg {
+	margin-top: 1px;
+}
+
+.sapUiTableRowHidden .sapUiTableCell > .sapUiImg {
+	display: none; /* images will be removed to avoid pushing the height of the line */
+}
+
+.sapUiTableCell > .sapUiRating {
+	display: block;
+}
+
+
+/*******************************************************************************
+ * TREETABLE & GROUPING STYLES
+ ******************************************************************************/
+
+.sapUiTableGroupIconOpen,
+.sapUiTableTreeIconNodeOpen {
+	background-image: url(img/ico12_open_minus.gif);
+}
+
+.sapUiTableGroupIconClosed,
+.sapUiTableTreeIconNodeClosed {
+	background-image: url(img/ico12_closed_plus.gif);
+}
+
+.sapUiTableTreeIconLeaf {
+	background-image: url(img/ico12_leaf.gif);
+}
+
+.sapUiTableTreeIcon {
+	display: inline-block;
+	width: 12px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.sapUiSizeCompact .sapUiTableTreeIcon {
+	background-image: none;
+	width: 25px;
+	margin-right: 5px;
+	padding: 0;
+}
+
+.sapUiTableGroupIcon {
+	background-position: center left;
+	background-repeat: no-repeat;
+	/* height: @sapUiTableRowHeight; */
+	padding-left: 20px;
+	margin-left: 2px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.sapUiSizeCompact, .sapUiSizeCozy {
+	// Hide plus/minus
+	.sapUiTableGroupIcon {
+		padding-left: 0;
+		margin-left: 0;
+		background-image: none;
+	}
+
+	// Show arrow
+	.sapUiTableGroupIcon::before,
+	.sapUiTableTreeIcon::before {
+		font-family: "SAP-icons";
+		font-size: 12px;
+		font-weight: normal;
+		display: inline-block;
+		width: @sapUiTableRowHdrWidth;
+		text-align: center;
+		vertical-align: middle;
+	}
+	
+	// Show arrow
+	.sapUiTableGroupIcon.sapUiTableGroupIconOpen::before,
+	.sapUiTableTreeIconNodeOpen::before {
+		content: '\e1e2';
+	}
+	
+	// Show arrow
+	.sapUiTableGroupIcon.sapUiTableGroupIconClosed::before,
+	.sapUiTableTreeIconNodeClosed::before {
+		content: '\e066';
+	}
+	
+	.sapUiTableRowHdr.sapUiTableGroupHeader > .sapUiTableGroupIcon {
+		left: 0;
+	}
+}
+
+// Mirror arrow of closed tree node
+html[dir=rtl] {
+	.sapUiSizeCompact, .sapUiSizeCozy {
+		.sapUiTableGroupIcon.sapUiTableGroupIconClosed::before,
+		.sapUiTableTreeIconNodeClosed::before {
+			content: '\e067';
+		}
+	}
+}
+
+.sapUiTableGroupIcon {
+	line-height: @sapUiTableRowHeight;
+}
+
+.sapUiTableRowHdr.sapUiTableGroupHeader {
+	border-right: none;
+	position: relative;
+}
+
+.sapUiTableRowHdr.sapUiTableGroupHeader > .sapUiTableGroupIcon {
+	position: absolute;
+	left: 3px;
+	
+	// vertical centering
+	top: 50%;
+	-moz-transform: translatey(-50%);
+	-ms-transform: translatey(-50%);
+	-webkit-transform: translatey(-50%);
+	transform: translatey(-50%);
+	
+	white-space: nowrap;
+	z-index: 1;
+	font-weight: normal;
+	color: @sapUiBaseText;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 48px;
+}
+
+.sapUiSizeCompact .sapUiTableTr > td {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.sapUiTableColumnVisibilityMenu .sapUiMnuItm {
+	padding-right: 18px;
+}
+
+.sapUiTableSplitterBar {
+	background-image: url(img/splitter_horiz_grip.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: #dbe5ec;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.sapUiTableSplitterBar:hover {
+	background-color: @sapUiExtraLightBG;
+	cursor: n-resize;
+}
+
+.sapUiTableSelModeNone .sapUiTableRowHdr {
+	width: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+.sapUiTableSelModeNone .sapUiTableRowHdr.sapUiTableGroupHeader {
+	width: @sapUiTableRowHdrWidth;
+}
+
+/* FIX for IE fixed columns */
+html[data-sap-ui-browser^="ie"] .sapUiTableColHdrCnt {
+	width: 100%;
+}
+
+.sapUiTableHiddenSizeDetector {
+	position: absolute;
+	left: -1000px;
+	visibility: hidden;
+	display: inline-block;
+}
+
+.sapUiTable > div.sapUiOverlay.sapUiTableOverlay {
+	border: 0; /* Overlay should not have border */
+}
+
+.sapUiTableColCellMenu div {
+	display: inline-block;
+	position: absolute;
+	font-family: 'SAP-icons';
+	font-size: 1.375rem;
+	text-align: center;
+	-moz-transform: translatey(-50%);
+	-ms-transform: translatey(-50%);
+	-webkit-transform: translatey(-50%);
+	transform: translatey(-50%);
+	top:50%;
+}
+
+.sapUiTableColCellMenu .sapUiTableColDropDown {
+	left: 0;
+	width: 2rem;
+	right: 2rem;
+	text-align: center;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	cursor: default;
+}
+
+ .sapUiTableColDropDown:active {
+ 	color: @sapUiTextInverted;
+ }
+
+.sapUiTableColResizer {
+	right: 0;
+	width: 2rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	cursor: default;
+}

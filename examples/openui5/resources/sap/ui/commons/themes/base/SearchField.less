@@ -1,0 +1,142 @@
+/* ======================================================= */
+/* Base CSS for control sap.ui.commons/SearchField.control */
+/* ======================================================= */
+
+.sapUiSearchField {
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+	width: 22ex;
+}
+
+.sapUiSearchFieldTf {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	vertical-align: top;
+	overflow: visible;
+	display: inline-block;
+	outline: none;
+	padding: 0 18px 0 0;
+	/*height: @sapUiTextFieldHeight;*/
+	margin-top: 1px;
+}
+
+.sapUiSearchField input[type="search"]::-webkit-search-cancel-button {
+	/* Do not show the 'X' in the searchfield */
+	-webkit-appearance: none;
+}
+
+.sapUiSearchFieldCb {
+	padding: 0 30px 0 0;
+}
+
+/*The cursor position in Chrome and Safari on Mac in LTR case is to far on the right*/
+html[data-sap-ui-browser^="cr"][data-sap-ui-os="mac"]:not([dir=rtl]) .sapUiSearchField > .sapUiSearchFieldTf > .sapUiTf,
+html[data-sap-ui-browser^="cr"][data-sap-ui-os="mac"]:not([dir=rtl]) .sapUiSearchField > .sapUiSearchFieldCb > .sapUiTf,
+html[data-sap-ui-browser^="sf"][data-sap-ui-os="mac"]:not([dir=rtl]) .sapUiSearchField > .sapUiSearchFieldTf > .sapUiTf,
+html[data-sap-ui-browser^="sf"][data-sap-ui-os="mac"]:not([dir=rtl]) .sapUiSearchField > .sapUiSearchFieldCb > .sapUiTf {
+	margin-left: -4px;
+	padding-left: 0px;
+}
+
+html[data-sap-ui-browser^="cr"][data-sap-ui-os="mac"]:not([dir=rtl]) .sapUiSearchField > .sapUiSearchFieldCb.sapUiSearchFieldCbProv > .sapUiTf,
+html[data-sap-ui-browser^="sf"][data-sap-ui-os="mac"]:not([dir=rtl]) .sapUiSearchField > .sapUiSearchFieldCb.sapUiSearchFieldCbProv > .sapUiTf {
+	padding-left: 16px;
+}
+
+.sapUiSearchFieldTf, .sapUiSearchFieldCb {
+	width: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	min-width: 50px;
+}
+
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb,
+.sapUiSearchFieldCb.sapUiTfRo {
+	padding: 0 18px 0 0;
+}
+
+.sapUiSearchFieldCb .sapUiTfComboIcon {
+	color: inherit;
+	font-size: inherit;
+}
+
+.sapUiSearchFieldIco {
+	overflow: visible;
+	display: inline;
+	position: absolute;
+	font-size: 0;
+	color: transparent; 
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	background-image: url("img/search/search.png");
+	height: 15px;
+	width: 15px;
+	background-repeat: no-repeat;
+	background-position: top right;	
+	background-color: transparent; 
+	margin-top: 3px;
+	cursor: pointer;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	font-size: 0;
+	color: transparent; 
+	background-image: url("img/search/search.png");
+}
+
+.sapUiSearchFieldProvIco {
+	display: inline;
+	position: absolute;
+	height: 16px;
+	width: 16px;
+	left: 1px;
+	margin-top: 2px;
+}
+
+.sapUiSearchFieldProvIco > img {
+	height: 16px;
+	width: 16px;
+}
+
+.sapUiSearchFieldCb.sapUiSearchFieldCbProv > .sapUiTf {
+	padding-left: 20px;
+}
+
+.sapUiSearchFieldDsbl .sapUiSearchFieldProvIco,
+.sapUiSearchFieldDsbl .sapUiSearchFieldIco{
+	cursor: auto;
+	opacity: 0.6;
+}
+
+.sapUiSearchFieldTf .sapUiSearchFieldIco {
+	right: 1px;
+}
+
+.sapUiSearchFieldCb .sapUiSearchFieldIco {
+	right: 13px;
+}
+
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb .sapUiSearchFieldIco {
+	right: 1px;
+}
+
+.sapUiSearchFieldCb.sapUiTfRo .sapUiSearchFieldIco {
+	right: 1px;
+}
+
+.sapUiSearchField > .sapUiBtn {
+	position: absolute;
+	margin-left: 5px;
+	right: 0;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	font-size: inherit;
+	color: inherit;
+	background-image: none;
+}

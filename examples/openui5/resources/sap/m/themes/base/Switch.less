@@ -1,0 +1,104 @@
+/* ===================================== */
+/* CSS for control sap.m/Switch.control  */
+/* ===================================== */
+
+/* ------------------------------ */
+/* Switch common styles           */
+/* ------------------------------ */
+
+.sapMSwtText,
+.sapMSwtHandle,
+.sapMSwtInner {
+	position: absolute;
+}
+
+/* ------------------------------ */
+/* Switch container               */
+/* ------------------------------ */
+
+.sapMSwtCont {
+	display: inline-block;
+	vertical-align: top;
+	outline: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.sapMSwtCont:not(.sapMSwtContDisabled) {
+	cursor: pointer;
+}
+
+.sapMSwtCont > input {
+	display: none;
+}
+
+/* ------------------------------ */
+/* Switch                         */
+/* ------------------------------ */
+
+.sapMSwt {
+	position: relative;
+	outline: none;
+
+	/* IE Windows 8 */
+	/* This elements receives events when not panning in vertial direction */
+	touch-action: pan-y;
+	-ms-touch-action: pan-y;
+}
+
+/* focus */
+
+.sapMSwtDisabled:focus {
+	outline: none;
+}
+
+/* ------------------------------ */
+/* Switch inner                   */
+/* ------------------------------ */
+
+.sapMSwtInner {
+	width: 100%;
+	height: 100%;
+}
+
+/* ------------------------------ */
+/* Switch text                    */
+/* ------------------------------ */
+
+.sapMSwtText {
+	text-align: center;
+}
+
+.sapMSwtLabel {
+	white-space: nowrap;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+/* ------------------------------ */
+/* Switch handler                 */
+/* ------------------------------ */
+
+.sapMSwtHandle {
+	display: block;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+/* ====================================================== */
+/* switch type "AcceptReject"                             */
+/* ====================================================== */
+
+/* ------------------------------ */
+/* Switch text                    */
+/* ------------------------------ */
+
+.sapMSwtAcceptReject .sapMSwtLabelOn::before,
+.sapMSwtAcceptReject .sapMSwtLabelOff::before {
+	font-family: 'SAP-icons';
+	speak: none;
+}

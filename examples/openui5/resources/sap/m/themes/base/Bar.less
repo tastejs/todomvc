@@ -1,0 +1,85 @@
+/* ============================================ */
+/* CSS for control sap.m/Bar.control			*/
+/* ============================================ */
+
+.sapMBar {
+	display: block;
+	width: 100%;
+	position: relative;
+}
+
+.sapMBarContainer {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+/* fix for ff */
+.sap-desktop[data-sap-ui-browser^="ff"] {
+	.sapMBarContainer {
+		display : flex;
+		align-items: center;
+	}
+
+	.sapMBarPH {
+		justify-content: center;
+	}
+
+	.sapMBarRight {
+		justify-content: flex-end;
+	}
+
+	.sapMBarContainer > .sapMBarChild {
+		flex : none;
+	}
+
+	.sapMBarContainer > .sapMButton,
+	.sapMBarContainer > .sapMText,
+	.sapMBarContainer > .sapMLabel {
+		flex : initial;
+	}
+}
+
+
+.sapMBarLeft,
+.sapMBarRight {
+	position: absolute;
+	height: 100%;
+}
+
+.sapMBarLeft {
+	left: 0px;
+}
+
+/* IE / Edge does not support "text-align: end" */
+/* use "right" and "left" instead        */
+.sapMBarRight {
+	text-align: right;
+	right: 0px;
+}
+
+.sapMBarRight.sapMRTL {
+	text-align: left;
+}
+
+.sapMBarPH {
+	display: inline-block;
+	height: 3rem;
+}
+
+.sapMBarMiddle {
+	text-align: center;
+	width: 100%;
+	height: 0px;
+	top: 0px;
+	left: 0px;
+}
+
+.sapMBar .sapMLabel {
+	display: inline;
+}
+
+.sapMBarFlexBoxWidth100 {
+  width: 100%;
+}

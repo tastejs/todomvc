@@ -1,0 +1,51 @@
+/* ===================================================== */
+/* CSS for control sap.ui.commons/ValueHelpField.control */
+/* SAP-HCB Theme                                         */
+/* ===================================================== */
+
+/* High Contrast Black */
+
+@sapUiValueHelpIconRegularUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconHoverUrl: ~"/img/valuehelpfield/F4-Help_icon_hover.png";
+@sapUiValueHelpIconDsblUrl: ~"/img/valuehelpfield/F4-Help_icon_dsbl.png";
+
+.sapUiTfCombo {
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpIcon {
+	height: 16px;
+	width: 16px;
+}
+
+.sapUiTfCombo > span.sapUiTfValueHelpIcon {
+	font-size: 12px;
+	color: @sapUiText;
+	padding-top: 2px;
+	height: 14px;
+}
+
+/* textField icon */
+.sapUiTfCombo > .sapUiTfValueHelpRegularIcon:hover,
+.sapUiTfCombo > span.sapUiTfValueHelpIcon:hover {
+	border-left: 1px solid @sapUiFieldHoverBorderColor;
+	color: @sapUiText;
+	background-color: @sapUiFieldHoverHelpBackground;
+}
+
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon:hover,
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon:hover {
+	border-left: none;
+	background-color: transparent;
+}
+
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon,
+.sapUiTfCombo.sapUiTfDsbl > span.sapUiTfValueHelpIcon:hover {
+	color: @sapUiBaseText;
+}
+
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon,
+.sapUiTfCombo.sapUiTfRo > span.sapUiTfValueHelpIcon:hover {
+	color: @sapUiLightText;
+}

@@ -1,0 +1,112 @@
+/* ===================================================== */
+/* GR CSS for control sap.ui.commons/SearchField.control */
+/* ===================================================== */
+
+.sapUiSearchField {
+	height: 22px; /*@sapUiTextFieldHeight;*/
+}
+
+.sapUiSearchFieldTf {
+	height: 22px; /*@sapUiTextFieldHeight;*/
+	margin-top: 0;
+}
+
+.sapUiSearchFieldCb .sapUiTfComboIcon {
+	color: transparent;
+	font-size: 0;
+}
+
+.sapUiSearchFieldCb,
+.sapUiSearchFieldCb.sapUiTfBrd.sapUiTfCombo {
+	padding: 0 40px 0 0;
+}
+
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb,
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb.sapUiTfBrd.sapUiTfCombo,
+.sapUiSearchFieldTf.sapUiTfBrd,
+.sapUiSearchFieldCb.sapUiTfRo,
+.sapUiSearchFieldCb.sapUiTfBrd.sapUiTfCombo.sapUiTfRo {
+	padding: 0 20px 0 0;
+}
+
+.sapUiSearchFieldCb .sapUiSearchFieldIco {
+	right: 20px;
+}
+
+.sapUiSearchFieldNoExp .sapUiSearchFieldCb .sapUiSearchFieldIco {
+	right: 0px;
+}
+
+.sapUiSearchFieldIco,
+.sapUiSearchFieldTf .sapUiSearchFieldIco,
+.sapUiSearchFieldCb.sapUiTfRo .sapUiSearchFieldIco {
+	right: 0;
+}
+
+.sapUiSearchFieldIco:hover {
+	background-image: url("img/search/search_hover.png");
+	background-color: @sapUiFieldHoverHelpBackground;
+}
+
+.sapUiSearchFieldDsbl .sapUiSearchFieldIco {
+	background-image: url("img/search/search_dsbl.png");
+	background-color: transparent;
+	opacity: 1;
+}
+
+.sapUiSearchFieldDsbl .sapUiSearchFieldIco:hover {
+	cursor: auto;
+	opacity: 1;
+	background-image: url("img/search/search_dsbl.png");
+	background-color: transparent;
+}
+
+.sapUiSearchFieldIco {
+	height: 20px;
+	margin-top: 0px;
+	width: 20px;
+	background-position: center center;
+}
+
+.sapUiSearchFieldProvIco {
+	height: 18px;
+	margin-top: 0;
+	top: 1px;
+}
+
+.sapUiSearchFieldClear > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	background-image: url("img/search/search_unclickable.png");
+	background-color: transparent;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco {
+	background-image: url("img/search/search_dsbl.png");
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldCb > .sapUiSearchFieldIco{
+	font-size: 0;
+	color: transparent; 
+	background-image: url("img/search/clear.png");
+	background-position: center center;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldTf > .sapUiSearchFieldIco:hover,
+.sapUiSearchFieldClear.sapUiSearchFieldVal > .sapUiSearchFieldCb > .sapUiSearchFieldIco:hover {
+	background-image: url("img/search/clear_hover.png");
+	background-color: transparent;
+}
+
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco,
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldTf > .sapUiSearchFieldIco:hover,
+.sapUiSearchFieldClear.sapUiSearchFieldDsbl > .sapUiSearchFieldCb > .sapUiSearchFieldIco:hover {
+	background-image: url("img/search/search_dsbl.png");
+	background-color: transparent;
+}
+
+html[data-sap-ui-browser='ie8'] .sapUiSearchFieldCb.sapUiSearchFieldCbProv > .sapUiTf {
+	padding-left: 20px;
+}

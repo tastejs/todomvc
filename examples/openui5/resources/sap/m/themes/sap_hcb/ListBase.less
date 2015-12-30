@@ -1,0 +1,175 @@
+.sapMList {
+	margin: 0;
+	padding: 0;
+}
+
+.sapMListUl {
+	padding: 0;
+	margin: 0;
+}
+
+.sapUiFioriObjectPage > section > .sapMList:not(.sapMListInsetBG){
+	margin: 1rem 0;
+	padding: 0 1rem;
+	box-sizing:           border-box;
+}
+.sapUiFioriObjectPage > section > .sapMITB + .sapMList:not(.sapMListInsetBG){
+	margin-top: 1rem;
+}
+.sap-phone .sapUiFioriObjectPage > section > .sapMList:not(.sapMListInsetBG){
+	padding: 0;
+}
+
+.sapUIMeTabContainerContent .sapMList{
+	padding: 1rem;
+	box-sizing:           border-box;
+}
+
+.sap-phone .sapUIMeTabContainerContent .sapMList{
+	padding: 0rem;
+	box-sizing:           border-box;
+}
+
+.sapMListSwp {
+	margin-top: -1px;
+}
+
+.sapMListInsetBG{
+	padding: 2rem;
+}
+.sapMListInsetBG > .sapMListSwp {
+	margin-right: 2rem;
+}
+
+.sap-phone .sapMListInsetBG{
+	padding: 1rem;
+}
+.sap-phone .sapMListInsetBG > .sapMListSwp {
+	margin-right: 1rem;
+}
+
+.sapMListHdr {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font: normal 1rem Arial;
+	text-shadow: none;
+	color: @sapHCStandardFG;
+	height: 3rem;
+	line-height: 3rem;
+	padding: 0 1rem;
+	background-color: @sapHCStandardBG;
+	border-bottom: 0.1875rem solid @sapHCStandardFG;
+	box-sizing:           border-box;
+}
+
+.sapMListFtr{
+	height: 2rem;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: none;	/* To improve readability Mobile Safari automatically increases the size of small text so let's disable this */
+	font-size: @sapMFontMediumSize;
+	line-height: 2rem;
+	background-color: @sapHCReducedBG;
+	color: @sapHCStandardFG;
+	padding: 0 1rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sapMListNoData {
+	color: @sapHCStandardFG;
+	background-color: @sapHCReducedBG;
+	border-bottom: 1px solid @sapHCReducedAltFG;
+	padding: 0 1rem !important;
+	height:3rem;
+}
+
+.sapMListTopBorder {
+	border-top: 1px solid @sapHCReducedAltFG;
+}
+
+.sapMListShowSeparatorsNone .sapMListNoData{
+	border-bottom: 0px;
+}
+
+.sapUIMeTabContainerContent .sapMList{
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+.sapUIMeTabContainerContent .sapMFeedListItem {
+	display: block;
+	padding: .5rem 0;
+}
+
+/*Growing feature*/
+.sapMGrowingListTrigger {
+	border-top: 0.0625em solid @sapHCStandardFG;
+	height: 3.0rem;
+}
+.sapMGrowingListTriggerText {
+	padding: 0 4rem;
+}
+.sapMGrowingListTriggerText > .sapMSLITitle {
+	margin: 0.813rem 0; /* overwrites any user-agent default margin values */
+}
+.sapMGrowingListDescription {
+	padding: 0 4rem;
+	text-align: center;
+}
+
+/*HCB additional styles for Growing feature*/
+.sapMLIBContent > .sapMGrowingListTrigger{
+	box-sizing:           border-box;
+	border-radius: 0.375rem;
+	background: @sapHCStandardBG;
+	border: 0.0625em solid @sapHCStandardFG;
+}
+
+.sap-desktop .sapMLIBContent > .sapMGrowingListTrigger:hover{
+	background: @sapHCHighlightBG;
+}
+.sap-desktop .sapMGrowingList > .sapMCLI:hover{
+	background: @sapHCStandardBG !important;
+}
+
+//Needed to fix the margin collapsing behaviour on safari
+.sap-desktop .sapMGrowingList > .sapMCLI{
+	padding: 0.25rem;
+}
+
+.sap-desktop .sapMGrowingList  .sapMCLI.sapMLIB.sapMLIB-CTX:focus{
+	outline:none;
+}
+
+.sap-desktop .sapMLIB-CTX:focus .sapMGrowingListTrigger {
+	border: 0.125rem dotted @sapHCStandardFG;
+	border-radius: 0;
+}
+
+/* Compact size */
+.sapUiSizeCompact .sapMListNoData {
+	height: 2rem;
+	font-size: @sapMFontMediumSize;
+}
+
+.sapUiSizeCompact .sapMListFtr{
+	font-size: @sapMFontSmallSize;
+}
+
+.sapUiSizeCompact .sapMTB.sapMListHdrTBar {
+	height: 3rem;
+}
+
+.sapUiSizeCompact .sapMGrowingListTrigger{
+	height: 4rem;
+}
+
+.sapUiSizeCompact .sapMGrowingListTrigger > .sapMGrowingListBusyIndicator{
+	margin: 1rem;
+}
+
+.sapUiSizeCompact .sapMGrowingListTriggerText > .sapMSLITitle {
+	margin-bottom: 0;
+}

@@ -1,0 +1,223 @@
+/* ============================================= */
+/* CSS for control sap.ui.commons/Tree.control   */
+/* Base Theme                                    */
+/* ============================================= */
+
+.sapUiTree {
+	color: @sapUiBaseText;
+}
+
+/* if the Tree is used within another control that 
+has a black/dark background the Tree itself has to
+invert its text to white as well */
+.sapUiInverted-CTX .sapUiTree {
+	color: @sapUiTextInverted;
+}
+
+.sapUiTreeFixedHeight {
+	position:relative;
+}
+
+.sapUiTree .sapUiBtn.sapUiBtnS {
+	margin-right: 3px;
+	vertical-align: middle;
+}
+
+
+.sapUiTreeList {
+	list-style-position: inside;
+	margin: 0px;
+	padding-left: 10px;
+	padding-right: 2px;
+}
+
+html:not([data-sap-ui-browser="ie8"]) .sapUiTreeContScroll .sapUiTreeList {
+	float: left;
+	min-width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sapUiTreeHeader {
+	border-bottom:none;
+	height:26px;
+	overflow-y:hidden;
+	text-align: right;
+	width:100%;
+}
+
+.sapUiTreeFixedHeight .sapUiTreeHeader {
+	width: auto;
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+html[dir=rtl] .sapUiTreeTbCont {
+	text-align:left;
+}
+
+html[dir=rtl] .sapUiTreeTitle {
+	text-align:right;
+}
+
+.sapUiTreeTitle {
+	display: inline-block;
+	font-weight: bold;
+	float: left;
+	left: 10px;
+	overflow:hidden;
+	position: relative;
+	top: 5px;
+	white-space:nowrap;
+	width: 50%;
+	text-overflow:ellipsis;
+	text-align: left;
+}
+
+.sapUiTreeTbCont {
+	float: right;
+	line-height: 21px;
+}
+
+.sapUiTreeTbCont .sapUiTbInner {
+	margin-right: 0px;
+}
+
+.sapUiTreeCont {
+	border:1px solid @sapUiMediumBorder;
+	overflow: auto;
+	background-color: @sapUiExtraLightBG;
+	width: 100%;
+	top: 26px;
+}
+
+.sapUiTreeTransparent .sapUiTreeCont {
+	background-color: transparent;
+	border:none;
+	top: 0px;
+}
+
+.sapUiTreeFixedHeight .sapUiTreeCont {
+	width: auto;
+	position:absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+.sapUiTreeContNoScroll {
+	overflow-x: hidden;
+}
+
+.sapUiTreeIcon {
+	height: 16px;
+	margin-right: 4px;
+	width: 16px;
+	position: relative;
+	top: 3px;
+	font-size: 16px;
+}
+
+.sapUiTreeNode {
+	list-style: none;
+	background: url(img/tree/TreeNode.gif) no-repeat left 4px;
+	padding-left: 14px;
+	line-height: 18px;
+	white-space: nowrap;
+	margin-bottom: 3px;
+	border: 1px solid transparent;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	-moz-user-select: none;
+}
+
+html:not([data-sap-ui-browser="ie8"]) .sapUiTreeContScroll .sapUiTreeNode {
+	float: left;
+	clear: left;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* use the white icon on black background */
+.sapUiInverted-CTX .sapUiTreeNode {
+	background-image: url(img/tree/TreeNode-inverted.gif);
+}
+
+.sapUiInverted-CTX .sapUiTreeNode:hover {
+	background-color: mix(@sapUiHighlight, @sapUiBlackBG, 60%);
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiTreeNode{
+	padding-right:2px;
+}
+
+.sapUiTreeNodeContent {
+	cursor: default;
+	display: inline-block;
+	vertical-align:middle;
+	position: relative;
+	top: -2px;
+	width: 100%;
+}
+
+.sapUiTreeNodeNotSelectable {
+	cursor: pointer;
+}
+
+.sapUiTreeContNoScroll .sapUiTreeNodeContent {
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+
+.sapUiTreeNodeExpanded {
+	list-style: none;
+	background-image: url(img/tree/TreeNode_Exp.gif);
+	cursor: pointer;
+}
+
+/* use the white icon on black background */
+.sapUiInverted-CTX .sapUiTreeNodeExpanded {
+	background-image: url(img/tree/TreeNode_Exp-inverted.gif)
+}
+
+.sapUiTreeNodeCollapsed {
+	list-style: none;
+	background-image: url(img/tree/TreeNode_Coll.gif);
+	cursor: pointer;
+}
+
+/* use the white icon on black background */
+.sapUiInverted-CTX .sapUiTreeNodeCollapsed {
+	background-image: url(img/tree/TreeNode_Coll-inverted.gif)
+}
+
+.sapUiTreeChildrenNodes {
+	display:block;
+	padding-left: 16px;
+}
+
+.sapUiTreeContScroll .sapUiTreeChildrenNodes {
+	clear: left;
+}
+
+.sapUiTreeContScroll .sapUiTreeChildrenNodes:before,
+.sapUiTreeContScroll .sapUiTreeChildrenNodes:after,
+.sapUiTreeContScroll .sapUiTreeList:before,
+.sapUiTreeContScroll .sapUiTreeList:after {
+    content: " ";
+    display: table;
+}
+
+.sapUiTreeContScroll .sapUiTreeChildrenNodes:after,
+.sapUiTreeContScroll .sapUiTreeList:after {
+    clear: left;
+}
+
+.sapUiTreeHiddenChildrenNodes {
+	display: none;
+}

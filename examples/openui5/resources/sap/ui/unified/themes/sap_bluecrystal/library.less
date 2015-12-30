@@ -1,0 +1,1296 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+
+@import "../base/library.less";
+@import "../../../../../../Base/baseLib/sap_bluecrystal/base.less"; /* ORIGINAL IMPORT PATH: "../../../../../sap/ui/core/themes/sap_bluecrystal/base.less" */
+
+@import "../../../../../sap/ui/core/themes/sap_bluecrystal/global.less";
+
+/* START "Calendar.less" */
+/* =============================================== */
+/* CSS for control sap.ui.unified/Calendar.control */
+/* Bluecrystal                                     */
+/* =============================================== */
+
+/* tablet(large) size is default */
+
+.sapUiCal{
+	padding: 1rem 0.5rem 0 0.5rem;
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiCalMulti{
+	max-width: 76rem; /* maximal 4 months in one row */
+}
+
+/* calendar should have only a border if on popup */
+.sapUiCal[data-sap-ui-popup]{
+	border-color: @sapUiDarkBorder;
+	-webkit-box-shadow: 0 0.0625rem 0.1875rem fade(@sapUiDarkShadowTint, 50);
+	box-shadow: 0 0.0625rem 0.1875rem fade(@sapUiDarkShadowTint, 50);
+}
+
+/*** HEADER ***/
+.sapUiCalHead{
+	height: 2.5rem;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiCalHead > button,
+.sapUiCalCancel{
+	height: 2.5rem;
+	padding: 0;
+	font-size: @sapMFontMediumSize
+}
+
+.sapUiCalHeadPrev,
+.sapUiCalHeadNext{
+	width: 2.5rem;
+}
+
+.sapUiCal .sapUiCalHeadPrev{
+	left: 0.5rem;
+}
+
+.sapUiCal .sapUiCalHeadNext{
+	right: 0.5rem;
+}
+
+.sap-desktop .sapUiCalHeadB:focus{
+	border: 0.0625rem dotted @sapUiKeyboardFocus;
+}
+
+.sapUiCalHead > .sapUiCalHeadB,
+.sapUiCalCancel,
+.sap-desktop .sapUiCalHead > .sapUiCalHeadB:hover,
+.sap-desktop .sapUiCalHead > .sapUiCalHeadB:focus{
+	color: @sapUiLink;
+}
+
+.sap-desktop .sapUiCalHead > .sapUiCalHeadB:active{
+	color: @sapUiTextSelection;
+}
+
+.sapUiCalHeadB{
+	width: 5.75rem;
+}
+
+.sapUiCalHeadBFirst{
+	margin-right: 0.25rem;
+}
+
+.sapUiCalHeadBLast{
+	margin-left: 0.25rem;
+}
+
+.sapUiCalMulti .sapUiCalHeadB1,
+.sapUiCalIntLarge .sapUiCalHeadB1{
+	width: 12.5rem;
+}
+
+/*** days, months, years ***/
+.sapUiCalMonthView,
+.sapUiCalMonthPicker,
+.sapUiCalYearPicker{
+	width: 18rem; /* +1rem padding left and right = 320 px*/
+}
+
+.sapUiCalMonthView,
+.sapUiCalMonthPicker,
+.sapUiCalYearPicker,
+.sapUiCalRow{
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiCalHeadText{
+	height: 2rem;
+	line-height: 2rem;
+	color: @sapUiAccent4;
+}
+
+.sapUiCal .sapUiCalMonthView,
+.sapUiCal .sapUiCalRow{
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.sapUiCalWH,
+.sapUiCalItem{
+	border: 0.0625rem solid @sapUiLightestBG;
+	box-sizing: border-box;
+}
+
+.sapUiCalWH{
+	height: 2rem;
+	line-height: 1.875rem;
+}
+
+.sapUiCalItem,
+.sapUiCalWeekNum{
+	height: 3rem;
+	line-height: 2.875rem;
+}
+
+.sapUiCalItemText{
+	box-sizing: border-box;
+}
+
+.sapUiCalWeekNum{
+	top: -0.0625rem;
+}
+
+.sapUiCalWH{
+	font-size: @sapMFontSmallSize
+}
+
+.sapUiCalItem,
+.sapUiCalWeekNum{
+	font-size: @sapMFontMediumSize
+}
+
+.sapUiCalItem{
+	color: @sapUiStandardText;
+}
+
+/* make outline for days on number to prevent it around week number */
+/* hide outline for all devices, but enable later for desktop */
+.sapUiCalItem:focus{
+	outline: none;
+	overflow: visible;
+}
+
+/* hover and focus makes only sense on desktops. On mobile devices it's not needed */
+.sap-desktop .sapUiCalItem:hover,
+.sap-desktop .sapUiCalItem:focus{
+	background-color: darken(@sapUiExtraLightBG, 10);
+}
+
+.sap-desktop .sapUiCalItem:focus > .sapUiCalItemText{
+	outline: 0.0625rem dotted @sapUiKeyboardFocus;
+}
+
+.sap-desktop .sapUiCalMonthPicker .sapUiCalItem:focus,
+.sap-desktop .sapUiCalYearPicker .sapUiCalItem:focus{
+	outline: 0.0625rem dotted @sapUiKeyboardFocus;
+	outline-offset: -0.0625rem;
+}
+
+html[data-sap-ui-browser^="ie"].sap-desktop .sapUiCalMonthPicker .sapUiCalItem:focus,
+html[data-sap-ui-browser^="ie"].sap-desktop .sapUiCalYearPicker .sapUiCalItem:focus{
+	/* as IE don't support outline-offset */
+	outline: none;
+	border: 0.0625rem dotted @sapUiKeyboardFocus;
+}
+
+.sap-desktop .sapUiCalItemWeekEnd:hover,
+.sap-desktop .sapUiCalItemWeekEnd:focus{
+	background-color: darken(@sapUiLightBG, 10);
+}
+
+.sapUiCalItemNow > .sapUiCalItemText{
+	border: 0.125rem solid @sapUiAccent4;
+	line-height: 2.6875rem;
+}
+
+.sapUiCalItemOtherMonth{
+	background-color: transparent;
+	color: lighten(@sapUiStandardText, 50);
+}
+
+.sap-desktop .sapUiCalItemOtherMonth:hover,
+.sap-desktop .sapUiCalItemOtherMonth:focus{
+	background-color: darken(@sapUiLightestBG, 10);
+}
+
+.sapUiCalItemSel{
+	color: @sapUiTextInverted;
+}
+
+.sapUiCalItemSel.sapUiCalItemOtherMonth{
+	background-color: @sapUiSelected;
+}
+
+.sapUiCalItemSelBetween,
+.sapUiCalItemSelBetween.sapUiCalItemOtherMonth{
+	background-color: lighten(@sapUiSelected, 50%);
+	color: @sapUiStandardText;
+}
+
+.sap-desktop .sapUiCalItemSel:hover,
+.sap-desktop .sapUiCalItemSel:focus,
+.sap-desktop .sapUiCalItemSel.sapUiCalItemOtherMonth:hover,
+.sap-desktop .sapUiCalItemSel.sapUiCalItemOtherMonth:focus{
+	background-color: darken(@sapUiSelected, 10);
+}
+
+html[data-sap-ui-browser^="ie"].sap-desktop .sapUiCalMonthPicker .sapUiCalItemSel:focus,
+html[data-sap-ui-browser^="ie"].sap-desktop .sapUiCalYearPicker .sapUiCalItemSel:focus{
+	/* as IE don't support outline-offset */
+	border-color: @sapUiLightestBG;
+}
+
+.sap-desktop .sapUiCalItemSelBetween:hover,
+.sap-desktop .sapUiCalItemSelBetween:focus,
+.sap-desktop .sapUiCalItemSelBetween.sapUiCalItemOtherMonth:hover,
+.sap-desktop .sapUiCalItemSelBetween.sapUiCalItemOtherMonth:focus{
+	background-color: lighten(@sapUiSelected, 40%);
+}
+
+.sapUiCalItemNow.sapUiCalItemSel{
+	color: @sapUiTextInverted;
+}
+
+.sapUiCalItemNow.sapUiCalItemSel > .sapUiCalItemText{
+	box-shadow: inset 0.0625rem 0.0625rem 0 0 @sapUiLightestBorder, inset -0.0625rem -0.0625rem 0 0 @sapUiLightestBorder;
+}
+
+.sapUiCalItemNow.sapUiCalItemSelBetween{
+	color: @sapUiStandardText;
+}
+
+.sapUiCalContentOver{
+	background-color: @sapUiBlockLayerColor;
+}
+
+.sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalContent > .sapUiCalYearPicker{
+	top: 0;
+	padding: 2rem 0.5rem 1rem 0.5rem;
+	background-color: @sapUiLightestBG;
+	left: 50%;
+	margin-left: -9.5rem; /* to position in the middle (for multi-month) */
+}
+
+.sapUiCalInt > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalInt > .sapUiCalContent > .sapUiCalYearPicker{
+	margin-left: 0;
+	left: 0;
+	padding-bottom: 0;
+}
+
+.sapUiCalTimeInt > .sapUiCalContent > .sapUiCalDatesRow{
+	top: 0;
+	padding: 0 0.5rem 0 0.5rem;
+	margin: 0;
+}
+
+.sapUiCalTimeInt > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalTimeInt > .sapUiCalContent > .sapUiCalYearPicker,
+.sapUiCalMonthInt > .sapUiCalContent > .sapUiCalYearPicker{
+	padding-top: 0;
+}
+
+.sapUiCalInt.sapUiCalIntHead > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalInt.sapUiCalIntHead > .sapUiCalContent > .sapUiCalYearPicker{
+	padding-top: 4rem;
+}
+
+.sapUiCalTimeInt.sapUiCalIntHead > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalTimeInt.sapUiCalIntHead > .sapUiCalContent > .sapUiCalYearPicker,
+.sapUiCalTimeInt.sapUiCalIntHead > .sapUiCalContent > .sapUiCalDatesRow,
+.sapUiCalMonthInt.sapUiCalIntHead > .sapUiCalContent > .sapUiCalYearPicker{
+	padding-top: 2rem;
+}
+
+.sapUiCalMulti > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalMulti > .sapUiCalContent > .sapUiCalYearPicker{
+	top: 1rem;
+	bottom: auto;
+	padding: 1rem;
+	margin-left: -10rem;
+}
+
+.sapUiCalContent > .sapUiCalYearPicker.sapUiCalYearNoTop{
+	padding-top: 0;
+}
+
+/*** compact mode (desktop size) ***/
+
+.sapUiSizeCompact .sapUiCal,
+.sapUiSizeCompact.sapUiCal{
+	padding: 0.5rem 0.25rem 0 0.25rem;
+}
+
+.sapUiSizeCompact .sapUiCalMulti,
+.sapUiSizeCompact.sapUiCalMulti{
+	max-width: 66rem; /* maximal 4 months in one row */
+}
+
+.sapUiSizeCompact .sapUiCalHead{
+	height: 2rem;
+	padding: 0;
+}
+
+.sapUiSizeCompact .sapUiCalMonthView,
+.sapUiSizeCompact .sapUiCalMonthPicker,
+.sapUiSizeCompact .sapUiCalYearPicker{
+	width: 16rem;
+}
+
+.sapUiSizeCompact .sapUiCal .sapUiCalMonthView,
+.sapUiSizeCompact.sapUiCal .sapUiCalMonthView,
+.sapUiSizeCompact .sapUiCal .sapUiCalRow,
+.sapUiSizeCompact.sapUiCal .sapUiCalRow{
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+	margin-bottom: 0.5rem;
+}
+
+.sapUiSizeCompact .sapUiCalHead > button{
+	height: 2rem;
+}
+
+.sapUiSizeCompact .sapUiCalHeadPrev,
+.sapUiSizeCompact .sapUiCalHeadNext{
+	width: 2rem;
+}
+
+.sapUiSizeCompact .sapUiCal .sapUiCalHeadPrev,
+.sapUiSizeCompact.sapUiCal .sapUiCalHeadPrev{
+	left: 0.25rem;
+}
+
+.sapUiSizeCompact .sapUiCal .sapUiCalHeadNext,
+.sapUiSizeCompact.sapUiCal .sapUiCalHeadNext{
+	right: 0.25rem;
+}
+
+.sapUiSizeCompact .sapUiCalHeadB{
+	width: 4.25rem;
+}
+
+.sapUiSizeCompact .sapUiCalHeadBFirst{
+	margin-right: 0.25rem;
+}
+
+.sapUiSizeCompact .sapUiCalHeadBLast{
+	margin-left: 0.25rem;
+}
+
+.sapUiSizeCompact .sapUiCalHeadB1{
+	width: 6.25rem;
+}
+
+.sapUiSizeCompact .sapUiCalMulti .sapUiCalHeadB1,
+.sapUiSizeCompact.sapUiCalMulti .sapUiCalHeadB1,
+.sapUiSizeCompact .sapUiCalIntLarge .sapUiCalHeadB1,
+.sapUiSizeCompact.sapUiCalIntLarge .sapUiCalHeadB1{
+	width: 12.5rem;
+}
+
+.sapUiSizeCompact .sapUiCalItem,
+.sapUiSizeCompact .sapUiCalWeekNum{
+	height: 2rem;
+	line-height: 1.875rem;
+}
+
+.sapUiSizeCompact .sapUiCalItemNow > .sapUiCalItemText{
+	line-height: 1.6875rem;
+}
+
+.sapUiSizeCompact .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiSizeCompact .sapUiCalContent > .sapUiCalYearPicker{
+	top: 0;
+	padding: 2rem 0.25rem 0.5rem 0.25rem;
+	margin-left: -8.25rem; /* to position in the middle (for multi-month) */
+}
+
+.sapUiSizeCompact .sapUiCalTimeInt > .sapUiCalContent > .sapUiCalDatesRow{
+	margin: 0;
+}
+
+.sapUiSizeCompact .sapUiCalTimeInt > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiSizeCompact .sapUiCalTimeInt > .sapUiCalContent > .sapUiCalYearPicker,
+.sapUiSizeCompact .sapUiCalMonthInt > .sapUiCalContent > .sapUiCalYearPicker{
+	padding-top: 0;
+}
+
+.sapUiSizeCompact .sapUiCalInt > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiSizeCompact .sapUiCalInt > .sapUiCalContent > .sapUiCalYearPicker{
+	margin-left: 0;
+}
+
+.sapUiSizeCompact .sapUiCalMulti > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiSizeCompact.sapUiCalMulti > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiSizeCompact .sapUiCalMulti > .sapUiCalContent > .sapUiCalYearPicker,
+.sapUiSizeCompact.sapUiCalMulti > .sapUiCalContent > .sapUiCalYearPicker{
+	top: 1.5rem;
+	padding: 0.5rem;
+	margin-left: -8.5rem;
+}
+
+/*** Phone ***/
+/* make calendar full-screen if on popup (DatePicker), but not if stand alone */
+
+.sap-phone .sapUiCal[data-sap-ui-popup]{
+	position: absolute;
+	top: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	width: auto;
+	border: none;
+}
+
+.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalMonthView,
+.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalMonthPicker,
+.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalYearPicker{
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	padding-left: 0.5rem; /* use padding instead of margin because of 100% width including padding */
+	padding-right: 0.5rem;
+	padding-bottom: 1rem;
+}
+
+.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalCancel{
+	display: block;
+}
+
+.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalMonthPicker,
+.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalYearPicker{
+	left: 0;
+}
+
+@media only screen
+and (orientation: portrait)
+and (min-height: 380px) {
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalCancel{
+		bottom: 1rem;
+		left: 25%;
+		width: 50%;
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
+}
+
+.sapUiCalendarLandscape(){
+	.sap-phone .sapUiCal[data-sap-ui-popup]{
+		overflow: auto;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalHead{
+		height: 1.875rem;
+		padding-right: 5rem;
+		box-sizing: border-box;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent{
+		position: absolute;
+		top: 2.875rem;
+		left: 0.5rem;
+		right: 0.5rem;
+		bottom: 1rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalWH{
+		height: 1.25rem;
+		line-height: 1.25rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalHead > button{
+		height: 100%;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalHeadPrev,
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalHeadNext{
+		padding-bottom: 0.5rem;
+		box-sizing: border-box;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalHeadNext{
+		right: 5.5rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalItems{
+		position: absolute;
+		top: 3.125rem;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: auto;
+		margin: 1rem;
+		min-height: 11.25rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalMonthPicker,
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalContent > .sapUiCalYearPicker{
+		padding: 1.25rem 0.5rem 0 0.5rem;
+		min-height: 11.25rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalItem{
+		height: 16.66%;
+		min-height: 1.875rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalItem,
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalWeekNum{
+		line-height: 2.1875rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalItemNow > .sapUiCalItemText{
+		line-height: 1.9375rem;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] .sapUiCalWeekNum{
+		height: 100%;
+		top: 0;
+	}
+
+	.sap-phone .sapUiCal[data-sap-ui-popup] > .sapUiCalCancel{
+		top: 1rem;
+		right: 1rem;
+		width: 5rem;
+		height: 1.875rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.5rem;
+		box-sizing: border-box;
+	}
+}
+
+@media only screen
+and (min-width : 320px)
+and (max-height: 379px) {
+	.sapUiCalendarLandscape();
+}
+
+@media only screen
+and (min-width : 320px)
+and (min-height: 380px)
+and (orientation: landscape) {
+	.sapUiCalendarLandscape();
+}
+
+/* colors for special days */
+.dayColorMixIn(@class, @color){
+	.@{class} > .sapUiCalItemText{
+		box-shadow: inset 0 -0.125rem 0 @color;
+	}
+
+	.@{class}.sapUiCalItemSel > .sapUiCalItemText{
+		box-shadow: inset 0 -0.125rem 0 @color, inset 0 -0.1875rem @sapUiLightestBorder;
+	}
+	
+	.@{class}.sapUiCalItemNow > .sapUiCalItemText{
+		box-shadow: inset 0.0625rem 0.0625rem 0 0 @sapUiLightestBorder, inset -0.0625rem -0.0625rem 0 0 @sapUiLightestBorder, inset 0 -0.1875rem 0 @color, inset 0 -0.25rem @sapUiLightestBorder;
+	}
+
+	.@{class}.sapUiCalItemSel.sapUiCalItemNow > .sapUiCalItemText{
+		box-shadow: inset 0.0625rem 0.0625rem 0 0 @sapUiLightestBorder, inset -0.0625rem -0.0625rem 0 0 @sapUiLightestBorder, inset 0 -0.1875rem 0 @color, inset 0 -0.25rem @sapUiLightestBorder;
+	}
+}
+
+.dayColorMixIn(sapUiCalItemType01, @sapUiAccent1);
+.dayColorMixIn(sapUiCalItemType02, @sapUiAccent2);
+.dayColorMixIn(sapUiCalItemType03, @sapUiAccent3);
+.dayColorMixIn(sapUiCalItemType04, darken(@sapUiAccent2, 20%));
+.dayColorMixIn(sapUiCalItemType05, lighten(@sapUiAccent4, 20%));
+.dayColorMixIn(sapUiCalItemType06, @sapUiAccent6);
+.dayColorMixIn(sapUiCalItemType07, @sapUiAccent7);
+.dayColorMixIn(sapUiCalItemType08, @sapUiAccent8);
+.dayColorMixIn(sapUiCalItemType09, lighten(@sapUiAccent6, 15%));
+.dayColorMixIn(sapUiCalItemType10, darken(@sapUiAccent4, 10%));
+
+/* END "Calendar.less" */
+
+/* START "CalendarLegend.less" */
+/* =============================================== */
+/* CSS for control sap.ui.unified/CalendarLegend.control */
+/* Bluecrystal                                     */
+/* =============================================== */
+.sapUiUnifiedLegend {
+	background-color: @sapUiLightestBG;
+	font-size: @sapMFontSmallSize;
+}
+
+/*** compact mode (desktop size) ***/
+
+.sapUiSizeCompact .sapUiUnifiedLegend,
+.sapUiSizeCompact.sapUiUnifiedLegend {
+	padding: 8px;
+	column-gap: 6px;
+	-moz-column-gap: 6px; /* Firefox */
+	-webkit-column-gap: 6px; /* Safari and Chrome */
+}
+
+.sapUiSizeCompact .sapUiUnifiedLegendItem {
+	display: inline-block;
+	width: 100%;
+	margin: 2px;
+}
+
+/*** items and colors ***/
+
+.sapUiUnifiedLegendToday > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	height: 10px;
+	width: 10px;
+	background-color: transparent;
+	border: 2px solid @sapUiPurple;
+}
+
+.sapUiUnifiedLegendSelected > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiHighlight;
+}
+
+.sapUiUnifiedLegendNormalDay > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiExtraLightBG;
+}
+
+.sapUiUnifiedLegendNonWorkingDay > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: lighten(@sapBaseColor, 39.7);
+}
+
+.sapUiCalLegDayType01 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor{
+	background: @sapUiAccent1;
+}
+
+.sapUiCalLegDayType02 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent2;
+}
+
+.sapUiCalLegDayType03 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent3;
+}
+
+.sapUiCalLegDayType04 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: darken(@sapUiAccent2, 20%);
+}
+
+.sapUiCalLegDayType05 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: lighten(@sapUiAccent4, 20%);
+}
+
+.sapUiCalLegDayType06 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent6;
+}
+
+.sapUiCalLegDayType07 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent7;
+}
+
+.sapUiCalLegDayType08 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: @sapUiAccent8;
+}
+
+.sapUiCalLegDayType09 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: lighten(@sapUiAccent6, 15%);
+}
+
+.sapUiCalLegDayType10 > .sapUiUnifiedLegendSquare > .sapUiUnifiedLegendSquareColor {
+	background: darken(@sapUiAccent4, 10%);
+}
+/* END "CalendarLegend.less" */
+
+/* START "ContentSwitcher.less" */
+/* BUILD ME!!!! */
+
+/* END "ContentSwitcher.less" */
+
+/* START "Currency.less" */
+.sapUiUfdCurrency {
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-family: @sapUiFontFamily;
+	line-height: normal;
+}
+
+.sapUiUfdCurrencyCurrency {
+	width: 2rem;
+}
+
+.sapUiSizeCondensed .sapUiTableCell>.sapUiUfdCurrency {
+	box-sizing: border-box;
+	padding-right: 0.5rem;
+	vertical-align: middle;
+}
+/* END "Currency.less" */
+
+/* START "FileUploader.less" */
+/* ======================================================= */
+/* CSS for control sap.ui.unified.FileUploader control     */
+/* BlueCrystal theme                                       */
+/* ======================================================= */
+
+.sapUiFupGroup > div > div:last-child {
+	padding-left: 4px;
+}
+
+.sapUiFup:hover .sapUiBtnS.sapUiBtnStdFocus {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFup:active .sapUiBtnS {
+	background-color: @sapUiButtonActiveBackground;
+}
+
+.sapUiFup:active .sapUiBtnS.sapUiBtnNorm {
+	border-color: @sapUiButtonActiveBorderColor;
+}
+
+.sapUiFup:hover .sapMBtnHoverable {
+	background-image: none;
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFup:hover .sapMBtnHoverable.sapMBtnAccept:not(.sapMBtnActive) {
+	background-color: @sapUiButtonAcceptHoverBackground;
+	border-color:     @sapUiButtonAcceptHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnHoverable.sapMBtnAccept:not(.sapMBtnActive) {
+	background-color: @sapUiButtonAcceptActiveBackground;
+	border-color:     @sapUiButtonAcceptActiveBorderColor;
+}
+
+.sapUiFup:hover .sapMBtnHoverable.sapMBtnReject:not(.sapMBtnActive) {
+	background-color: @sapUiButtonRejectHoverBackground;
+	border-color:     @sapUiButtonRejectHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnHoverable.sapMBtnReject:not(.sapMBtnActive) {
+	background-color: @sapUiButtonRejectActiveBackground;
+	border-color:     @sapUiButtonRejectActiveBorderColor;
+}
+
+.sapUiFup:hover .sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive) {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	border-color:     @sapUiButtonEmphasizedHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive) {
+	background-color: @sapUiButtonEmphasizedActiveBackground;
+	border-color:     @sapUiButtonEmphasizedActiveBorderColor;
+	text-shadow:      none;
+}
+
+.sapUiFup:hover .sapMBtnTransparent.sapMBtnHoverable {
+	background-color: @sapUiButtonLiteHoverBackground;
+	border-color: @sapUiButtonLiteHoverBorderColor;
+}
+
+/* increase outline offset */
+.sapMIBar-CTX .sapUiFup:focus .sapMBtnInner.sapMFocusable {
+	outline-offset: -.125rem;
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable:not(.sapMBtnActive) {
+	background-color: @sapUiButtonFooterHoverBackground;
+	color:            @sapUiButtonActiveTextColor;
+	text-shadow:      0 1px 0 fade(@sapUiDarkShadowTint, 50);
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable.sapMBtnAccept:not(.sapMBtnActive) {
+	background-color: @sapUiButtonAcceptHoverBackground;
+	border-color:     @sapUiButtonAcceptHoverBorderColor;
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable.sapMBtnReject:not(.sapMBtnActive) {
+	background-color: @sapUiButtonRejectHoverBackground;
+	border-color:     @sapUiButtonRejectHoverBorderColor;
+}
+
+.sapMFooter-CTX .sapUiFup:hover .sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive) {
+	background-color: @sapUiButtonEmphasizedHoverBackground;
+	border-color:     @sapUiButtonEmphasizedHoverBorderColor;
+}
+
+.sapUiFup:active .sapMBtnInner,
+.sapUiFup:active .sapMBtnTransparent.sapMBtnHoverable {
+	background-image: none;
+	background-color: @sapUiButtonActiveBackground;
+	border-color:     @sapUiButtonActiveBorderColor;
+	color:            @sapUiButtonActiveTextColor;
+	text-shadow:      none;
+}
+
+.sapUiFup:active .sapMBtnInner .sapMBtnIcon {
+	color:            @sapUiButtonActiveTextColor;
+}
+
+.sapUiFup:focus .sapMBtn {
+	outline:          none;
+}
+
+html.sap-desktop .sapUiFup:focus .sapMFocusable,
+html.sap-desktop .sapUiFup:active .sapMFocusable {
+	outline:          1px dotted @sapUiFocus;
+	outline-offset:   -1px;
+}
+
+.sapMFooter-CTX .sapUiFup:focus .sapMBtnInner.sapMFocusable,
+.sapMFooter-CTX .sapUiFup:active .sapMBtnInner.sapMFocusable,
+.sapUiFup:active .sapMBtnInner.sapMBtnAccept,
+html.sap-desktop .sapUiFup:active .sapMBtnInner.sapMBtnAccept,
+.sapUiFup:active .sapMBtnInner.sapMBtnReject,
+html.sap-desktop .sapUiFup:active .sapMBtnInner.sapMBtnReject,
+.sapUiFup:active .sapMBtnInner.sapMBtnEmphasized,
+html.sap-desktop .sapUiFup:active .sapMBtnInner.sapMBtnEmphasized {
+	outline-color:    @sapUiInvertedFocus;
+	outline-offset: -.125rem;
+}
+
+.sapMFooter-CTX .sapUiFup:active .sapMBtnInner.sapMFocusable {
+	background-color: @sapUiButtonActiveBackground;
+}
+
+/* IE ignores outline-offset. Use an overlay: */
+
+html[data-sap-ui-browser^="ie"] {
+
+	.sapUiFup:focus .sapMBtnInner.sapMFocusable {
+		outline:          none;
+		position:         relative;
+	}
+
+	.sapUiFup:focus .sapMBtnInner.sapMFocusable:before {
+		content: " ";
+		box-sizing:       border-box;
+		width:            100%;
+		height:           100%;
+		position:         absolute;
+		left:             0;
+		top:              0;
+		border:           1px dotted @sapUiFocus;
+	}
+
+	.sapMFooter-CTX .sapUiFup:focus .sapMBtnInner.sapMFocusable:before {
+		border-color:     @sapUiInvertedFocus;
+	}
+
+}
+/* END "FileUploader.less" */
+
+/* START "Menu.less" */
+@sapUiMnuItmHeight: 2rem;
+@sapUiMnuItmPadding: 0.5rem;
+@sapUiMnuItmHeightCozy: 3rem;
+@sapUiMnuItmPaddingCozy: 1rem;
+
+.sapUiMnu {
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	padding: 0;
+	min-width: 5rem;
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiDarkBorder;
+	color: @sapUiStandardText;
+	-webkit-box-shadow: 0 0.0625rem 0.1875rem fade(@sapUiDarkShadowTint, 50);
+	box-shadow: 0 0.0625rem 0.1875rem fade(@sapUiDarkShadowTint, 50);
+}
+
+.sapUiMnu.sapUiMnuScroll {
+	overflow-x: none;
+	overflow-y: auto;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItmR {
+	width: @sapUiMnuItmPadding + 1rem;
+}
+
+.sapUiMnuItm {
+	height: @sapUiMnuItmHeight;
+	line-height: @sapUiMnuItmHeight;
+}
+
+.sapUiMnuLst {
+	color: @sapUiStandardText;
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+}
+
+.sapUiMnuItm.sapUiMnuItmSubMnuOpen,
+.sapUiMnuItm.sapUiMnuItmSubMnuOpen.sapUiMnuItmHov {
+	background-color: @sapUiActiveBG;
+}
+
+.sapUiMnuItm.sapUiMnuItmHov {
+	color: @sapUiStandardText;
+	background-color: darken(@sapUiLightestBG, 6);
+}
+
+.sapUiMnuItm.sapUiMnuItmHov:active {
+	color: @sapUiTextInverted;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiMnuItm.sapUiMnuItmDsbl.sapUiMnuItmHov,
+.sapUiMnuItm.sapUiMnuItmDsbl.sapUiMnuItmHov:active {
+	color: @sapUiContentDisabledTextColor;
+	background-color: transparent;
+}
+
+.sapUiMnuItmL {
+	width: 0;
+}
+
+.sapUiMnuItmR,
+.sapUiMnuNoIco .sapUiMnuItmL {
+	width: @sapUiMnuItmPadding;
+}
+
+.sapUiMnuItmIco {
+	width: @sapUiMnuItmHeight;
+	color: @sapUiElement;
+}
+
+.sapUiMnuItm.sapUiMnuItmDsbl .sapUiMnuItmIco {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuItm.sapUiMnuItmHov:active .sapUiMnuItmIco {
+	color: @sapUiInvertedElement;
+}
+
+.sapUiMnuItm.sapUiMnuItmDsbl.sapUiMnuItmHov:active .sapUiMnuItmIco {
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiMnuItmIco > img {
+	padding-left: 0;
+	max-width: @sapUiMnuItmHeight / 2;
+	max-height: @sapUiMnuItmHeight / 2;
+}
+
+.sapUiMnuDiv > hr {
+	left: @sapUiMnuItmPadding;
+	right: @sapUiMnuItmPadding;
+	border-color: @sapUiDarkBorder;
+}
+
+.sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmHeight + @sapUiMnuItmPadding;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmHeight + @sapUiMnuItmPadding + 1rem;
+}
+
+.sapUiMnuNoSbMnu > .sapUiMnuItm > .sapUiMnuItmTxt,
+.sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmPadding;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuNoSbMnu > .sapUiMnuItm > .sapUiMnuItmTxt,
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt {
+	padding-right: @sapUiMnuItmPadding + 1rem;
+}
+
+.sapUiMnuNoIco .sapUiMnuItmTxt {
+	padding-left: 0;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt > .sapUiMnuTfItemWrppr {
+	right: @sapUiMnuItmPadding;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemTf {
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	padding: 0.125rem 0.3125rem 0.125rem 0.3125rem;
+	margin-top: 0.1875rem;
+	height: @sapUiMnuItmHeight - 0.375rem;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemTf.sapUiMnuTfItemTfDsbl {
+	background-color: @sapUiFieldDisabledBackground;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemLbl {
+	line-height: @sapUiMnuItmHeight;
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	color: @sapUiStandardText;
+	margin-right: @sapUiMnuItmPadding;
+}
+
+.sapUiMnuItm.sapUiMnuTfItm.sapUiMnuItmHov .sapUiMnuTfItemLbl {
+	color: @sapUiStandardText;
+}
+
+.sapUiMnuItmSbMnu > div:after {
+	content: "\e1ed";
+}
+
+.sapUiMnuItmSbMnu {
+	right: 0;
+	width: @sapUiMnuItmHeight;
+	text-align: center;
+	font-size: 0.75rem;
+}
+
+.sapUiMnu.sapUiMnuScroll .sapUiMnuItmSbMnu {
+	right: 1rem;
+}
+
+/** Cozy Mode **/
+
+.sapUiMnu.sapUiMnuCozySupport.sapUiSizeCozy {
+
+	&.sapUiMnuScroll .sapUiMnuItmR {
+		width: @sapUiMnuItmPaddingCozy + 1rem;
+	}
+	
+	.sapUiMnuItm {
+		height: @sapUiMnuItmHeightCozy;
+		line-height: @sapUiMnuItmHeightCozy;
+	}
+	
+	.sapUiMnuItmR,
+	.sapUiMnuNoIco .sapUiMnuItmL {
+		width: @sapUiMnuItmPaddingCozy;
+	}
+	
+	.sapUiMnuItmIco {
+		width: @sapUiMnuItmHeightCozy;
+		font-size: @sapUiMnuItmHeightCozy / 2 - 0.125rem;
+	}
+	
+	.sapUiMnuItmIco > img {
+		max-width: @sapUiMnuItmHeightCozy / 2 - 0.125rem;
+		max-height: @sapUiMnuItmHeightCozy / 2 - 0.125rem;
+	}
+	
+	.sapUiMnuDiv > hr {
+		left: @sapUiMnuItmPaddingCozy;
+		right: @sapUiMnuItmPaddingCozy;
+	}
+	
+	.sapUiMnuItmTxt {
+		padding-right: @sapUiMnuItmHeightCozy + @sapUiMnuItmPaddingCozy;
+	}
+	
+	&.sapUiMnuScroll .sapUiMnuItmTxt {
+		padding-right: @sapUiMnuItmHeightCozy + @sapUiMnuItmPaddingCozy + 1rem;
+	}
+	
+	.sapUiMnuNoSbMnu > .sapUiMnuItm > .sapUiMnuItmTxt,
+	.sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt {
+		padding-right: @sapUiMnuItmPaddingCozy;
+	}
+	
+	&.sapUiMnuScroll .sapUiMnuNoSbMnu > .sapUiMnuItm > .sapUiMnuItmTxt,
+	&.sapUiMnuScroll .sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt {
+		padding-right: @sapUiMnuItmPaddingCozy + 1rem;
+	}
+	
+	.sapUiMnuItm.sapUiMnuTfItm > .sapUiMnuItmTxt > .sapUiMnuTfItemWrppr {
+		right: @sapUiMnuItmPaddingCozy;
+	}
+	
+	.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemTf {
+		height: @sapUiMnuItmHeightCozy - 0.375rem;
+	}
+	
+	.sapUiMnuItm.sapUiMnuTfItm .sapUiMnuTfItemLbl {
+		line-height: @sapUiMnuItmHeightCozy;
+		margin-right: @sapUiMnuItmPaddingCozy;
+	}
+	
+	.sapUiMnuItmSbMnu {
+		width: @sapUiMnuItmHeightCozy;
+	}
+
+}
+/* END "Menu.less" */
+
+/* START "Shell.less" */
+/* ========================================================== */
+/* CSS for sap.ui.unfied.Shell.control (bluecrystal)          */
+/* ========================================================== */
+
+/* END "Shell.less" */
+
+/* START "ShellHeader.less" */
+/* ======================================================== */
+/* CSS for sap.ui.unfied.ShellHeader.control (bluecrystal)  */
+/* ======================================================== */
+
+.sapUiUfdShellHeadBegin .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:after {
+    border-left: 1px solid darken(@sapUiHeaderBG,10);
+}
+
+.sapUiUfdShellHeadUsrItm:before,
+.sapUiUfdShellHeadEnd .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSep:before {
+    border-right: 1px solid darken(@sapUiHeaderBG,10);
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItm:hover > * {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel:hover > span {
+	background-color: darken(@sapUiHighlight, 5%);
+}
+
+.sapUiUfdShellHeadItm > span,
+.sapUiUfdShellHeadUsrItm {
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 0 1px 0 fade(@sapUiWhite,50);
+	color: @sapUiLightText;
+}
+
+.sapUiUfdShellHeadItmMarker > div:after {
+	border-bottom-color: mix(@sapUiHighlight, @sapUiWhite, 10); /*#E6F2F9*/
+}
+
+.sapUiUfdShellHeadItmMarker > div:before {
+	border-bottom-color: @sapUiMediumBG;
+}
+
+.sapUiUfdShellHeadItm:active > span,
+.sapUiUfdShellHeadItm.sapUiUfdShellHeadItmSel > span,
+.sapUiUfdShellHeadItm:active:hover > span,
+.sapUiMedia-Std-Desktop .sapUiUfdShellHeadUsrItm:hover:active > *,
+.sapUiUfdShellHeadUsrItm:active > * {
+	color: @sapUiTextInverted;
+}
+
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmExp,
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmName,
+.sapUiUfdShellHeadUsrItm:focus .sapUiUfdShellHeadUsrItmImg,
+.sapUiUfdShellHeadItm:focus > span {
+	border-color: @sapUiFocus;
+}
+/* END "ShellHeader.less" */
+
+/* START "ShellLayout.less" */
+/* ======================================================== */
+/* CSS for sap.ui.unfied.ShellLayout.control (bluecrystal)  */
+/* ======================================================== */
+
+@sapUiUfdShellCurtainBGStartColor: fade(@sapUiLightestBG,97);
+@sapUiUfdShellCurtainBGEndColor: fade(lighten(desaturate(@sapUiHighlight,37),56),97);
+@sapUiUfdShellCurtainBGStartColor_IE: fade(@sapUiLightestBG, 100);
+@sapUiUfdShellCurtainBGEndColor_IE: fade(lighten(desaturate(@sapUiHighlight,37),56),100); /*#e5f2f9*/
+@sapUiUfdShellHeadBGStartColor: lighten(@sapUiExtraLightBG,2);
+@sapUiUfdShellHeadBGEndColor: lighten(@sapUiLightBG,3);
+
+
+._sapUiUfdShellSubHdr { /* Testpage only */
+	background-color: mix(@sapUiHighlight, @sapUiWhite, 10);
+	color: @sapUiLightText;
+}
+
+.sapUiUfdShell .sapUiUfdShellHead {
+	background-color: @sapUiDarkestBG;
+}
+
+.sapUiUfdShell .sapUiUfdShellHead > div {
+	background-color: @sapUiExtraLightBG;
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapUiUfdShellHeadBGStartColor}', EndColorStr='@{sapUiUfdShellHeadBGEndColor}',GradientType=0)";
+	background: -ms-linear-gradient(top,@sapUiUfdShellHeadBGStartColor 0,@sapUiExtraLightBG 33%,@sapUiExtraLightBG 75%,@sapUiUfdShellHeadBGEndColor 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0,@sapUiUfdShellHeadBGStartColor),color-stop(0.33,@sapUiExtraLightBG),color-stop(0.75,@sapUiExtraLightBG),color-stop(1,@sapUiUfdShellHeadBGEndColor));
+	background-image: -webkit-linear-gradient(top,@sapUiUfdShellHeadBGStartColor 0,@sapUiExtraLightBG 33%,@sapUiExtraLightBG 75%,@sapUiUfdShellHeadBGEndColor 100%);
+	background: linear-gradient(top,@sapUiUfdShellHeadBGStartColor 0,@sapUiExtraLightBG 33%,@sapUiExtraLightBG 75%,@sapUiUfdShellHeadBGEndColor 100%);
+		
+	-webkit-box-shadow: inset 0 -0.0625em @sapUiMediumBG;
+	box-shadow: inset 0 -0.0625em @sapUiMediumBG;
+}
+
+.sapUiUfdShell.sapUiUfdShellCurtainVisible .sapUiUfdShellHead,
+.sapUiUfdShell.sapUiUfdShellCurtainVisible .sapUiUfdShellHead > div {
+	background: none;
+	background-color: @sapUiLightestBG;
+	filter: none;
+}
+
+.sapUiUfdShellCurtain {
+	border-bottom: 1px solid @sapUiMediumBG;
+	background-image: linear-gradient(to bottom, @sapUiUfdShellCurtainBGStartColor 0%, @sapUiUfdShellCurtainBGEndColor 100%);
+	background-image: -webkit-linear-gradient(top, @sapUiUfdShellCurtainBGStartColor 0%, @sapUiUfdShellCurtainBGEndColor 100%);
+	background-image: -ms-linear-gradient(top, @sapUiUfdShellCurtainBGStartColor 0%, @sapUiUfdShellCurtainBGEndColor 100%);
+	background-attachment: fixed;
+	background-repeat: repeat, no-repeat;
+}
+
+html[data-sap-ui-browser="ie8"] .sapUiUfdShellCurtain,
+html[data-sap-ui-browser="ie9"] .sapUiUfdShellCurtain {
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapUiUfdShellCurtainBGStartColor_IE}', EndColorStr='@{sapUiUfdShellCurtainBGEndColor_IE}',GradientType=0)";
+}
+/* END "ShellLayout.less" */
+
+/* START "ShellOverlay.less" */
+/* ============================================== */
+/* CSS for sap.ui.unfied.ShellOverlay.control (blue crystal)*/
+/* ============================================== */
+
+.sapUiUfdShellOvrlyBrand {
+	background-color: @sapUiBrand;
+}
+
+.sapUiUfdShellOvrlyCntnt {
+	background-color: @sapUiLightestBG;
+}
+
+.sapUiUfdShellOvrlyHeadCntnt {
+	background-color: @sapUiExtraLightBG;
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr='@{sapUiUfdShellHeadBGStartColor}', EndColorStr='@{sapUiUfdShellHeadBGEndColor}',GradientType=0)";
+	background: -ms-linear-gradient(top,@sapUiUfdShellHeadBGStartColor 0,@sapUiExtraLightBG 33%,@sapUiExtraLightBG 75%,@sapUiUfdShellHeadBGEndColor 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0,@sapUiUfdShellHeadBGStartColor),color-stop(0.33,@sapUiExtraLightBG),color-stop(0.75,@sapUiExtraLightBG),color-stop(1,@sapUiUfdShellHeadBGEndColor));
+	background-image: -webkit-linear-gradient(top,@sapUiUfdShellHeadBGStartColor 0,@sapUiExtraLightBG 33%,@sapUiExtraLightBG 75%,@sapUiUfdShellHeadBGEndColor 100%);
+	background: linear-gradient(top,@sapUiUfdShellHeadBGStartColor 0,@sapUiExtraLightBG 33%,@sapUiExtraLightBG 75%,@sapUiUfdShellHeadBGEndColor 100%);
+		
+	-webkit-box-shadow: inset 0 -0.0625em @sapUiMediumBG;
+	box-shadow: inset 0 -0.0625em @sapUiMediumBG;
+}
+
+.sapUiUfdShellOvrlyHeadClose,
+.sapUiUfdShellOvrlyHeadClose:active,
+.sapUiUfdShellOvrlyHeadClose:hover,
+.sapUiUfdShellOvrlyHeadClose:focus,
+.sapUiUfdShellOvrlyHeadClose:visited {
+	color: @sapUiLightText;
+	text-shadow: 0 1px 0 fade(@sapUiWhite,50);
+}
+
+.sapUiUfdShellOvrlyHeadClose:active {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+.sapUiUfdShellOvrlyHeadClose {
+	right: 0;
+	height: @sapUiUfdShellHeaderBarHeight - 8px;
+	margin: 4px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.sapUiUfdShellOvrlyHeadClose:before {
+	background-color: darken(@sapUiHeaderBG,10);
+    content: " ";
+    height: 76%;
+    top: 12%;
+    position: absolute;
+    left: -4px;
+    width: 1px;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellOvrlyHeadClose:hover {
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiMedia-Std-Desktop .sapUiUfdShellOvrlyHeadClose:active:hover {
+	background-color: @sapUiHighlight;
+}
+/* END "ShellOverlay.less" */
+
+/* START "SplitContainer.less" */
+.sapUiUfdSpltContPane {
+	background-color: @sapUiLightestBG;
+}
+
+/* END "SplitContainer.less" */
+

@@ -1,0 +1,12 @@
+node_modules/todomvc-app-css
+!node_modules/todomvc-app-css/index.css
+
+node_modules/todomvc-common
+!node_modules/todomvc-common/base.js
+!node_modules/todomvc-common/base.css
+
+node_modules/grunt
+node_modules/grunt-openui5
+
+.editorconfig
+.gitattributes

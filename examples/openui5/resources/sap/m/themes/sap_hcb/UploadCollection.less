@@ -1,0 +1,78 @@
+/* ===================================================================================== */
+/* CSS for control sap.m/UploadCollection.control                                        */
+/*                                                                                       */
+/* HCB Theme                                                                             */
+/* ===================================================================================== */
+
+/* List Header */
+.sapMTB.sapMUCListHeader {
+	background-color:		@sapHCStandardBG;
+	border-bottom-width: 	0.1875rem;
+	border-bottom-color:	@sapHCStandardFG;
+	font-size:				@sapMFontHeader4Size;
+	font-weight:			@sapUiFontHeaderWeight;
+	color:					@sapHCStandardFG;
+	text-shadow:			none;
+	box-sizing:				border-box;
+}
+
+/* Item Icon */
+.sapMUCItemIcon {
+	color:					@sapHCStandardFG;
+}
+
+/*if no image is provided a placeholder camera is displayed */
+.sapMUCItemPlaceholder {
+	background-color: @sapHCStandardBG;
+	box-sizing: border-box;
+	border-width: 0.0625rem;
+	border-style: solid;
+	border-color: @sapHCReducedAltFG;
+	border-radius: 0;
+}
+
+/*pictogram color for the placeholder */
+.sapMUCItemPlaceholder.sapUiIcon::before {
+	color: @sapHCReducedAltFG;
+}
+
+/*padding between buttons */
+.sapMBtn.sapMUCFirstButton {
+	padding-right:		0.5rem;
+}
+
+
+/*padding between buttons */
+.sapUiSizeCompact .sapMBtn.sapMUCFirstButton {
+	padding-right:		0.5rem;
+}
+
+
+/* Text: Description (Progress) */
+.sapMLabel.sapMUCProgress {
+	font-size:				@sapMFontMediumSize;
+	color:					@sapHCStandardFG;
+}
+
+/* Text: Filename */
+.sapMUCFileName.sapMLnk {
+	font-size: 			@sapMFontLargeSize; /* it cannot be moved to base as the LESS constant is not known there */
+}
+
+.sapMUCAttrContainer, .sapMUCStatusContainer {
+	font-size: @sapMFontMediumSize; /* it cannot be moved to base as the LESS constant is not known there */
+}
+
+/*if no link is provided the file name is displayed as an disabled link */
+.sapMLnkDsbl.sapMUCFileName {
+	color: @sapHCStandardFG;
+}
+
+/* ************************************************************************************* */
+/* local fixes: should be done by used simple controls
+/* ************************************************************************************* */
+.sapMUCItemIcon.sapUiIcon:focus,
+.sapMUCItemImage:focus {
+	outline-width:			0.125rem;
+	outline-style:			dotted;
+}

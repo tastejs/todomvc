@@ -1,0 +1,33 @@
+/* ============================================= */
+/* CSS for control sap.m/Token.control */
+/* ============================================= */
+
+.sapMToken{
+	display: inline;	
+	overflow: hidden;	
+	box-sizing: border-box;
+}
+
+.sapMTokenText{
+	display: inline;		
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	// at least for Microsoft Surface Tablet we experienced problems when not setting these properties - touches on the Token seemed to be propageted to the Span inside the Token-Div and thereby (part of) the text contained in the Span would appear selected
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;	
+}
+
+.sapMTokenIcon{
+	display: inline;	
+}
+
+.sapMToken .sapUiIcon{
+	display: inline-block;
+	min-width: 1.4375rem;		
+}

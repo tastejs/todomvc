@@ -1,0 +1,63 @@
+/* ============================================ */
+/* CSS for control sap.ui.layout/Form.control   */
+/* HCB                                          */
+/* ============================================ */
+
+@sapUiFormContainerExpImageURL: ~"/img/form/Maximize.png";
+@sapUiFormContainerExpImageDownURL: ~"/img/form/Maximize.png";
+@sapUiFormContainerColImageURL: ~"/img/form/Minimize.png";
+@sapUiFormContainerColImageDownURL: ~"/img/form/Minimize.png";
+
+.sapUiForm .sapUiFormTitle > button{
+	height: 1rem;
+	width: 1rem;
+	padding-left: 0;
+	padding-right:0;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite > img{
+	margin-top: -0.125rem;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct{
+	padding-left: 0;
+	padding-right:0;
+	padding-top: 0;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct > img{
+	margin-left: -0.0625rem;
+	margin-top: -0.1875rem;
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiFormTitle > .sapUiBtnS.sapUiBtnLite.sapUiBtnAct > img{
+	margin-left: -0.125rem;
+}
+
+.sapUiFormTitle > .sapMBtn{
+	min-width: 0;
+	border: none;
+	background-color: transparent;
+}
+
+.sapUiFormTitle > .sapMBtn > .sapMBtnContent{
+	line-height: 1rem;
+	height: 1rem;
+	width: 1rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.sapUiFormTitle > .sapMBtn > .sapMBtnContent > img{
+	vertical-align: top;
+}
+
+.sap-tablet .sapUiFioriObjectPage > section > .sapUiForm,
+.sap-desktop .sapUiFioriObjectPage > section > .sapUiForm {
+	margin: 1rem 0;
+	padding: 0 1rem;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}

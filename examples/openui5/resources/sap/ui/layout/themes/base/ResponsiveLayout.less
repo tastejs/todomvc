@@ -1,0 +1,32 @@
+/* =========================================================== */
+/* CSS for control sap.ui.layout.form/ResponsiveLayout.control */
+/* =========================================================== */
+
+.sapUiRLContainer > .sapUiFormTitle{
+	position: relative;
+}
+
+.sapUiRLContainer > .sapUiFormTitle > button{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.sapUiRLContainerColl > .sapUiRLContainerCont{
+	display: none;
+}
+
+/* make labels before fields right aligned */
+.sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div{
+	text-align: end;
+}
+
+html[data-sap-ui-browser^=ie] .sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div,
+html[data-sap-ui-browser^=ed] .sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div {
+	text-align: right;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapUiRLElementWithLabel > .sapUiRFLRow:first-child > .sapUiRFLContainer:first-child:not(.sapUiRFLFullLength) > div {
+	text-align: left;
+}

@@ -1,0 +1,96 @@
+.sapUiLbx {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	border-collapse: separate; /* to prevent inheriting "collapse" */
+}
+
+.sapUiLbxITxt {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiLbxI {
+	line-height: 15px;
+}
+
+.sapUiLbxI:focus {
+	outline: 1px dotted @sapUiFocus;
+	outline-offset: 0; /* not beautiful because parts of the outline are invisible, but this works across browsers without writing tons of CSS */
+}
+
+/* each item has a border which may be colored when selected */
+.sapUiLbxI > span {
+	border: 2px solid transparent;
+	border-right-width: 0;
+	border-left-width: 0;
+	padding: 0 5px;
+}
+
+.sapUiLbxI > span:first-child {
+	padding-left: 4px;
+	border-left-width: 2px;
+}
+
+.sapUiLbxI > span:last-child {
+	border-right-width: 2px;
+	padding-right: 3px;
+}
+
+.sapUiLbxI:hover:not(.sapUiLbxIDis),
+.sapUiLbx:not(.sapUiLbxDis) > ul > .sapUiLbxI:hover:not(.sapUiLbxISel):not(.sapUiLbxIDis) > span {  /* Fix for IE10 :hover bug - need to set the color on children as well */
+	background-color: @sapUiListHoverBackground;
+}
+
+.sapUiLbxRo:not(.sapUiLbxIDis) > ul > .sapUiLbxI.sapUiLbxISel:hover,
+.sapUiLbxStd > ul > .sapUiLbxISel:hover > span,
+.sapUiLbxStd > ul > .sapUiLbxISel:hover {
+	background-color: @sapUiListSelectionHoverBackground;
+}
+
+/*
+no special style for focus!
+
+.sapUiLbxI:focus:not(.sapUiLbxIDis),
+.sapUiLbxRo:not(.sapUiLbxIDis) > ul > .sapUiLbxI.sapUiLbxISel:focus,
+.sapUiLbxStd > ul > .sapUiLbxISel > span:focus,
+.sapUiLbxStd > ul > .sapUiLbxISel:focus,
+.sapUiLbx:not(.sapUiLbxDis) > ul > .sapUiLbxI:focus:not(.sapUiLbxISel):not(.sapUiLbxIDis) > span {
+	background-color: @sapUiListHoverBackground;
+	color: @sapUiHighlightTextColor;
+}
+*/
+
+.sapUiLbxDis > ul > .sapUiLbxISel,
+.sapUiLbxDis > ul > .sapUiLbxI.sapUiLbxISel:hover,
+.sapUiLbxDis > ul > .sapUiLbxI.sapUiLbxISel:focus {
+	background-color: @sapUiMediumBG;
+	color: @sapUiHighlightTextColor;
+}
+
+.sapUiLbxDis,
+.sapUiLbxStd > ul > .sapUiLbxIDis,
+.sapUiLbxDis > ul > .sapUiLbxI:hover,
+.sapUiLbxDis > ul > .sapUiLbxI:focus {
+	color: @sapUiContentDisabledTextColor;
+	background-color: @sapUiFieldDisabledBackground;
+}
+
+/* adjust end paddings where the scrollbar could overlap the items */
+
+.sapUiLbx.sapUiLbxFlexWidth > ul > li > span:last-child {
+	padding-right: 16px; /* when width is not set, a scrollbar may cover the last part of the text which is not nice because no width means "adapted to content" */
+}
+
+html[data-sap-ui-browser="ie9"] .sapUiLbx.sapUiLbxFlexWidth > ul > li > span:last-child {
+	padding-right: 0; /* above mentioned problem does not appear in IE9 */
+}
+
+.sapUiLbxStd > ul > .sapUiLbxISel > span, /* Fix for IE10 bug - need to set the color on children as well */
+.sapUiLbxStd > ul > .sapUiLbxISel {
+	color: @sapUiBaseText;
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiLbxIIcoFont{
+	font-size: 16px;
+	line-height: 16px;
+}

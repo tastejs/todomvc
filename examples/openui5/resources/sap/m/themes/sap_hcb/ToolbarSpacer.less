@@ -1,0 +1,16 @@
+.sapMTBSpacer {
+	/* should never have padding/margin/border */
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	
+	/* without height chrome ignores the element */
+	height: 1px;
+}
+
+.sapMTBSpacerFlex {
+	-webkit-flex-grow: 1;
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1 auto;
+	flex: auto;
+}

@@ -1,0 +1,70 @@
+/** TODO: Move to global.css in core (pending discussion with Jens P and Michael S)
+/* The animation duration must be in ms so it returns the correct integer value when used with parseInt */
+@sapUiUfdSplitContAnimationDuration: 500ms;
+
+.sapUiUfdSpltCont {
+	overflow: hidden;
+	position: relative;
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+
+.sapUiUfdSpltContAnim .sapUiUfdSpltContCanvas,
+.sapUiUfdSpltContAnim .sapUiUfdSpltContPane {
+	transition: height @sapUiUfdSplitContAnimationDuration ease 0ms, width @sapUiUfdSplitContAnimationDuration ease 0ms, left @sapUiUfdSplitContAnimationDuration ease 0ms, top @sapUiUfdSplitContAnimationDuration ease 0ms;
+	-webkit-transition: height @sapUiUfdSplitContAnimationDuration ease 0ms, width @sapUiUfdSplitContAnimationDuration ease 0ms, left @sapUiUfdSplitContAnimationDuration ease 0ms, top @sapUiUfdSplitContAnimationDuration ease 0ms;
+}
+
+.sapUiUfdSpltContPane {
+	background-color: @sapUiWhiteBG;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.sapUiUfdSpltContPane.sapUiUfdSplitContSecondClosed > div {
+	display: none;
+}
+
+.sapUiUfdSpltContCanvas {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+
+.sapUiUfdSpltContCntnt {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.sapUiUfdSpltContPad {
+	padding: 10px;
+}
+
+.sapUiUfdSpltContH {}
+
+.sapUiUfdSpltContH .sapUiUfdSpltContPane {
+	border-right: 1px solid @sapUiMediumBorder;
+	bottom: 0;
+}
+
+
+.sapUiUfdSpltContV {}
+
+.sapUiUfdSpltContV .sapUiUfdSpltContPane {
+	border-bottom: 1px solid @sapUiMediumBorder;
+	right: 0;
+}
+

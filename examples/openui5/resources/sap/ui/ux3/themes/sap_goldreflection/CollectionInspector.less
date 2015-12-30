@@ -1,0 +1,108 @@
+/* ============================================= */
+/* CSS for control sap.ui.ux3/Collection.control */
+/* ============================================= */
+
+.sapUiUx3CIToolBar, .sapUiUx3CISidebar {
+	border: 0;
+}
+
+.sapUiUx3CIFitParent .sapUiUx3CISidebar, .sapUiUx3CIFitParent .sapUiUx3CIContent {
+	top: 29px;
+}
+
+.sapUiUx3CIToggleButton button {
+	padding: 0 3px;
+	background-image: url(img/collection_inspector/facet_right_grey.png);
+	background-repeat: no-repeat;
+	background-position: 3px;
+}
+
+.sapUiUx3CIToggleButton button:hover {
+	background-image: url(img/collection_inspector/facet_right_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtnPressed {
+	background-image: url(img/collection_inspector/facet_down_grey.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtnPressed:hover {
+	background-image: url(img/collection_inspector/facet_down_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc {
+	background-image: url(img/collection_inspector/facet_right_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc.sapUiToggleBtnPressed {
+	background-image: url(img/collection_inspector/facet_down_white.png);
+}
+
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc,
+.sapUiUx3CIToggleButton button.sapUiToggleBtn.sapUiBtnS.sapUiBtnStd.sapUiBtnNorm.sapUiBtnFoc.sapUiToggleBtnPressed {
+	background-color: @sapUiHighlight;
+}
+
+.sapUiUx3CIToolBar, .sapUiUx3CICollectionListContainer {
+	background-color: @sapUiDeepBG;
+}
+
+.sapUiUx3CICollectionListContainer {
+	background-color: @sapUiDeepBG;
+}
+
+ul.sapUiUx3CICollectionList li {
+	border-bottom: 1px solid lighten(@sapUiDarkLine, 20%);
+	background-color: @sapUiDeepBG;
+	color: @sapUiDarkBorder;
+}
+
+ul.sapUiUx3CICollectionList li:hover, ul.sapUiUx3CICollectionList li.sapUiUx3CICollectionListItemSelected {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+ul.sapUiUx3CICollectionList .sapUiUx3SidebarFoc,
+ul.sapUiUx3CICollectionList li:focus {
+	outline: 1px dashed @sapUiWhiteBorder;
+}
+
+.sapUiUx3CIToolBar .sapUiSegmentedButton > button.sapUiBtnS.sapUiBtnNorm,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn.sapUiToggleBtnPressed {
+	background-color: @sapUiDeepBG;
+	color: @sapUiDarkBorder;
+	font-weight: bold;
+	height: 22px;
+}
+
+.sapUiUx3CIToolBar .sapUiSegmentedButton > button.sapUiBtnS.sapUiBtnNorm:hover,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm:hover,
+.sapUiUx3CIToolBar .sapUiSegmentedButton > button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn:hover,
+.sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd.sapUiToggleBtn:hover {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton  {
+	background-color: @sapUiDeepBG;
+	color: @sapUiDarkBorder;
+}
+
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton:hover,
+button.sapUiBtnS.sapUiBtnNorm.sapUiUx3EditCollectionButton.sapUiBtnStd:hover {
+	background-color: @sapUiHighlight;
+	color: @sapUiTextInverted;
+}
+
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd,
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm:hover,
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm:focus,
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:first-of-type:not(.sapUiSegButtonSelected),
+.sapUiUx3CI .sapUiUx3CIToolBar button.sapUiBtnS.sapUiBtnNorm.sapUiBtnStd:hover:not(.sapUiSegButtonSelected) {
+	margin: 0;
+	border: 0;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}

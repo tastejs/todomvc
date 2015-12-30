@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>FlexWrap</name>
+	<author>SAP SE</author>
+	<documentation>Available wrap options for flexbox layouts</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Wrap">
+			<documentation>Items wrap in the direction of the cross-axis when space along the main axis is insufficient. Makes the flexbox container multi-line.</documentation>
+		</value>
+		<value name="Nowrap">
+			<documentation>Items do not wrap even when space along the main axis is insufficient. Makes the flexbox container single-line.</documentation>
+		</value>
+		<value name="WrapReverse">
+			<documentation>Items wrap in the reverse direction of the cross-axis when space along the main axis is insufficient. Makes the flexbox container multi-line.</documentation>
+		</value>
+		<value name="Inherit">
+			<documentation>Inherits the value from its parent.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

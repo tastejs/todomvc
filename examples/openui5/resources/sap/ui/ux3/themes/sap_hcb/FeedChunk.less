@@ -1,0 +1,151 @@
+/* ============================================= */
+/* CSS for control sap.ui.ux3/FeedChunk.control  */
+/* HCB                                           */
+/* ============================================= */
+
+.sapUiFeedChunk {
+	padding: 15px 15px 10px 15px;
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiFeedChunk a:hover {
+	text-decoration: none;
+}
+
+.sapUiFeedChunkComment {
+	margin-bottom: 2px;
+	padding: 9px 15px 9px 9px;
+}
+
+.sapUiFeedChunk > img {
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.sapUiFeedChunkComment > img {
+	width: 32px;
+	height: 32px;
+}
+
+.sapUiFeedChunkText {
+	font-family: Arial, regular;
+	font-size: 13px;
+	line-height: 19px;
+	margin-right: 27px;
+	margin-left:58px;
+	margin-top: -2px;
+	min-height: 57px;
+	height: 57px;
+	overflow: hidden;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkText {
+	min-height: 19px;
+	margin-left:42px;
+	height: auto;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkText {
+	min-height: 19px;
+	margin-left:42px;
+	height: auto;
+}
+
+.sapUiFeedChunkText > .sapUiMenuButton.sapUiBtnS {
+	padding: 0;
+	height: 19px;
+	width: 12px;
+	background-image: url(img/feed/ico12_click.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-right: 2px;
+}
+
+.sapUiFeedChunkText > .sapUiMenuButton:focus,
+.sapUiFeedChunkText > .sapUiMenuButton:hover {
+	background-color: transparent;
+}
+
+.sapUiFeedChunkStatusIcons {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 12px;
+	height: 53px;
+	padding-left: 15px;
+	margin: 0;
+}
+
+.sapUiFeedChunkStatusIcons > li {
+	width:12px;
+	height: 12px;
+	margin-bottom: 2px;
+}
+
+.sapUiFeedChunkByline {
+	font-family: Arial, regular;
+	font-size: 11px;
+	margin-top: 5px;
+	margin-left:58px;
+}
+
+.sapUiFeedChunkComment > .sapUiFeedChunkByline {
+	margin-left:42px;
+	display: block;
+}
+
+.sapUiFeedChunk button {
+	color: @sapUiBaseText;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	outline: none;
+	padding: 0;
+	background-color: @sapUiButtonBackground;
+	border: 1px solid @sapUiButtonBorderColor;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.sapUiFeedChunk button:focus,
+.sapUiFeedChunk button:hover {
+	border-color: @sapUiButtonHoverBorderColor;
+	background-color: @sapUiButtonHoverBackground;
+}
+
+.sapUiFeedChunkExpand,
+.sapUiFeedChunkCollapse {
+	width: 16px;
+	height: 16px;
+	margin-left: 15px;
+	font-size: 10px;
+}
+
+.sapUiFeedChunkAct,
+.sapUiFeedChunk > .sapUiMenuButton {
+	width: 22px;
+	height: 22px;
+}
+
+.sapUiFeedChunkDel {
+	width: 16px;
+	height: 16px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	outline: none;
+}
+
+.sapUiFeedChunk > section {
+	margin-left: 53px;
+}
+
+.sapUiFeedChunk > section > header {
+	border-top: 1px solid  darken(@sapUiBase, 10);
+	margin-top: 7px;
+	padding-top: 0;
+	height: 8px;
+	padding-left: 10px;
+	font-family: Arial, regular;
+	font-size: 12px;
+	height: 25px; /* 1px more because header line is part of the height in this case*/
+	line-height: 24px;
+}

@@ -1,0 +1,55 @@
+/* =============================================== */
+/* CSS for control sap.ui.commons/ComboBox.control */
+/* =============================================== */
+
+.sapUiTfCombo {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	vertical-align: top;
+	width: 22ex;
+	position: relative;
+	overflow: visible;
+	display: inline-block;
+	outline: none;
+}
+
+.sapUiTfCombo > select{
+	background-color: transparent;
+	height: 100%;
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+}
+
+.sapUiTfCombo > select + input{
+	/*to put input field over select and make it focused on click*/
+	position: relative;
+}
+
+.sapUiTfCombo > input + select{ /* DropdownBox */
+	left: 0;
+}
+
+.sapUiTfComboIcon{
+	right: 0;
+	overflow: visible;
+	display: inline;
+	position: absolute;
+	font-size: 0;
+	color: transparent;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.sapUiTfStd > .sapUiTfComboIcon{
+	cursor: pointer;
+}
+
+.sapUiComboPopup>* {
+	visibility: hidden;
+	/* initially hidden off the screen */
+	position: absolute;
+	top: -10000px;
+	display: block;
+}

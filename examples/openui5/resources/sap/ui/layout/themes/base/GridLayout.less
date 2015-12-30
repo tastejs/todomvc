@@ -1,0 +1,51 @@
+/* ====================================================== */
+/* CSS for control sap.ui.layout/form/GridLayout.control  */
+/* ====================================================== */
+
+/*.sapUiGrid{
+
+}*/
+
+.sapUiGrid td{
+	vertical-align: top;
+	overflow: hidden;
+}
+
+.sapUiGrid td.sapUiGridHeader{
+	vertical-align: bottom;
+}
+
+.sapUiGrid th > .sapUiFormTitle,
+.sapUiGrid td > .sapUiFormTitle{
+	text-align: start;
+/*	border-bottom: 2px solid @sapUiHighlight;*/
+	position: relative;
+}
+
+/* Internet Explorer / Edge  does not support "text-align: start"!
+Therefore the title needs to be positioned separately for RTL and LTR mode */
+[data-sap-ui-browser^=ie] .sapUiGrid th > .sapUiFormTitle,
+[data-sap-ui-browser^=ie] .sapUiGrid td > .sapUiFormTitle,
+[data-sap-ui-browser^=ed] .sapUiGrid th > .sapUiFormTitle,
+[data-sap-ui-browser^=ed] .sapUiGrid td > .sapUiFormTitle { 
+	text-align: left;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapUiGrid th > .sapUiFormTitle,
+html[dir=rtl][data-sap-ui-browser^=ie] .sapUiGrid td > .sapUiFormTitle,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapUiGrid th > .sapUiFormTitle,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapUiGrid td > .sapUiFormTitle { 
+	text-align: right;
+}
+
+/*
+.sapUiGrid td[colspan="8"] > .sapUiFormTitle{
+	border-color: @sapUiMediumBorder;
+}
+*/
+
+.sapUiGridHeader > .sapUiFormTitle > button{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}

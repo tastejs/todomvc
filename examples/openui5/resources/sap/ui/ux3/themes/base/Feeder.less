@@ -1,0 +1,73 @@
+/* ============================================= */
+/* CSS for control sap.ui.commons/Feeder.control */
+/* ============================================= */
+
+.sapUiFeeder {
+/*	width: 100%;*/
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.sapUiFeeder > img {
+	display: inline-block;
+	float: left;
+	background-color: @sapUiWhiteBG;
+}
+
+.sapUiFeederLarge > img {
+	width: 64px;
+	height: 64px;
+}
+
+.sapUiFeederMedium > img {
+	width: 48px;
+	height: 48px;
+}
+
+.sapUiFeederComment > img {
+	width: 32px;
+	height: 32px;
+}
+
+.sapUiFeederInput {
+	background-color: @sapUiFieldBackground;
+	border: 2px solid @sapUiMediumBorder;
+	color: @sapUiText;
+	min-height: 64px;
+	word-wrap: break-word;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiFeederInput > p {
+	margin: 0;
+}
+
+.sapUiFeeder > button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom:0;
+	height: auto;
+}
+
+.sapUiFeederLarge > button > span.sapUiBtnIco{
+	font-size: 32px;
+	line-height: 32px;
+	height: 32px;
+}
+
+.sapUiFeederMedium > button > span.sapUiBtnIco{
+	font-size: 24px;
+	line-height: 24px;
+	height: 24px;
+}
+
+.sapUiFeederComment > button > span.sapUiBtnIco{
+	font-size: 19px;
+	line-height: 19px;
+	height: 18px;
+}
+
+.sapUiFeederEmptyText {
+	color: @sapUiContentDisabledTextColor;
+}

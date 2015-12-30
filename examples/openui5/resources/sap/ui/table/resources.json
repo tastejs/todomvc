@@ -1,0 +1,747 @@
+{
+	"resources":[
+		{
+			"name": ".library"
+		},
+		{
+			"name": ".theming"
+		},
+		{
+			"name": "AnalyticalColumn-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AnalyticalColumn.control"
+		},
+		{
+			"name": "AnalyticalColumn.js"
+		},
+		{
+			"name": "AnalyticalColumnMenu-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AnalyticalColumnMenu.control"
+		},
+		{
+			"name": "AnalyticalColumnMenu.js"
+		},
+		{
+			"name": "AnalyticalColumnMenuRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AnalyticalColumnMenuRenderer.js"
+		},
+		{
+			"name": "AnalyticalTable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AnalyticalTable.control"
+		},
+		{
+			"name": "AnalyticalTable.js"
+		},
+		{
+			"name": "AnalyticalTableRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "AnalyticalTableRenderer.js"
+		},
+		{
+			"name": "Column-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Column.control"
+		},
+		{
+			"name": "Column.js"
+		},
+		{
+			"name": "ColumnMenu-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ColumnMenu.control"
+		},
+		{
+			"name": "ColumnMenu.js"
+		},
+		{
+			"name": "ColumnMenuRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "ColumnMenuRenderer.js"
+		},
+		{
+			"name": "DataTable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DataTable.control"
+		},
+		{
+			"name": "DataTable.js"
+		},
+		{
+			"name": "DataTableRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "DataTableRenderer.js"
+		},
+		{
+			"name": "NavigationMode.type"
+		},
+		{
+			"name": "Row-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Row.control"
+		},
+		{
+			"name": "Row.js"
+		},
+		{
+			"name": "SelectionBehavior.type"
+		},
+		{
+			"name": "SelectionMode.type"
+		},
+		{
+			"name": "SortOrder.type"
+		},
+		{
+			"name": "Table-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "Table.control"
+		},
+		{
+			"name": "Table.js"
+		},
+		{
+			"name": "TablePersoController-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TablePersoController.js"
+		},
+		{
+			"name": "TableRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TableRenderer.js"
+		},
+		{
+			"name": "TreeAutoExpandMode-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TreeAutoExpandMode.js"
+		},
+		{
+			"name": "TreeTable-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TreeTable.control"
+		},
+		{
+			"name": "TreeTable.js"
+		},
+		{
+			"name": "TreeTableRenderer-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "TreeTableRenderer.js"
+		},
+		{
+			"name": "VisibleRowCountMode.type"
+		},
+		{
+			"name": "library-all-dbg.js",
+			"isDebug":true,
+			"merged":true
+		},
+		{
+			"name": "library-all.js",
+			"merged":true
+		},
+		{
+			"name": "library-dbg.js",
+			"isDebug":true
+		},
+		{
+			"name": "library-preload.json",
+			"merged":true
+		},
+		{
+			"name": "library.dependencies.json"
+		},
+		{
+			"name": "library.dependencies.xml"
+		},
+		{
+			"name": "library.js"
+		},
+		{
+			"name": "library.templates.xml"
+		},
+		{
+			"name": "manifest.json"
+		},
+		{
+			"name": "messagebundle.properties",
+			"raw":"messagebundle.properties",
+			"locale":""
+		},
+		{
+			"name": "messagebundle_ar.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ar"
+		},
+		{
+			"name": "messagebundle_bg.properties",
+			"raw":"messagebundle.properties",
+			"locale":"bg"
+		},
+		{
+			"name": "messagebundle_ca.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ca"
+		},
+		{
+			"name": "messagebundle_cs.properties",
+			"raw":"messagebundle.properties",
+			"locale":"cs"
+		},
+		{
+			"name": "messagebundle_da.properties",
+			"raw":"messagebundle.properties",
+			"locale":"da"
+		},
+		{
+			"name": "messagebundle_de.properties",
+			"raw":"messagebundle.properties",
+			"locale":"de"
+		},
+		{
+			"name": "messagebundle_el.properties",
+			"raw":"messagebundle.properties",
+			"locale":"el"
+		},
+		{
+			"name": "messagebundle_en.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en"
+		},
+		{
+			"name": "messagebundle_en_US_sappsd.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en_US_sappsd"
+		},
+		{
+			"name": "messagebundle_en_US_saptrc.properties",
+			"raw":"messagebundle.properties",
+			"locale":"en_US_saptrc"
+		},
+		{
+			"name": "messagebundle_es.properties",
+			"raw":"messagebundle.properties",
+			"locale":"es"
+		},
+		{
+			"name": "messagebundle_et.properties",
+			"raw":"messagebundle.properties",
+			"locale":"et"
+		},
+		{
+			"name": "messagebundle_fi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"fi"
+		},
+		{
+			"name": "messagebundle_fr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"fr"
+		},
+		{
+			"name": "messagebundle_hi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hi"
+		},
+		{
+			"name": "messagebundle_hr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hr"
+		},
+		{
+			"name": "messagebundle_hu.properties",
+			"raw":"messagebundle.properties",
+			"locale":"hu"
+		},
+		{
+			"name": "messagebundle_it.properties",
+			"raw":"messagebundle.properties",
+			"locale":"it"
+		},
+		{
+			"name": "messagebundle_iw.properties",
+			"raw":"messagebundle.properties",
+			"locale":"iw"
+		},
+		{
+			"name": "messagebundle_ja.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ja"
+		},
+		{
+			"name": "messagebundle_ko.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ko"
+		},
+		{
+			"name": "messagebundle_lt.properties",
+			"raw":"messagebundle.properties",
+			"locale":"lt"
+		},
+		{
+			"name": "messagebundle_lv.properties",
+			"raw":"messagebundle.properties",
+			"locale":"lv"
+		},
+		{
+			"name": "messagebundle_nl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"nl"
+		},
+		{
+			"name": "messagebundle_no.properties",
+			"raw":"messagebundle.properties",
+			"locale":"no"
+		},
+		{
+			"name": "messagebundle_pl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"pl"
+		},
+		{
+			"name": "messagebundle_pt.properties",
+			"raw":"messagebundle.properties",
+			"locale":"pt"
+		},
+		{
+			"name": "messagebundle_ro.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ro"
+		},
+		{
+			"name": "messagebundle_ru.properties",
+			"raw":"messagebundle.properties",
+			"locale":"ru"
+		},
+		{
+			"name": "messagebundle_sh.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sh"
+		},
+		{
+			"name": "messagebundle_sk.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sk"
+		},
+		{
+			"name": "messagebundle_sl.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sl"
+		},
+		{
+			"name": "messagebundle_sv.properties",
+			"raw":"messagebundle.properties",
+			"locale":"sv"
+		},
+		{
+			"name": "messagebundle_th.properties",
+			"raw":"messagebundle.properties",
+			"locale":"th"
+		},
+		{
+			"name": "messagebundle_tr.properties",
+			"raw":"messagebundle.properties",
+			"locale":"tr"
+		},
+		{
+			"name": "messagebundle_uk.properties",
+			"raw":"messagebundle.properties",
+			"locale":"uk"
+		},
+		{
+			"name": "messagebundle_vi.properties",
+			"raw":"messagebundle.properties",
+			"locale":"vi"
+		},
+		{
+			"name": "messagebundle_zh_CN.properties",
+			"raw":"messagebundle_zh.properties",
+			"locale":"CN"
+		},
+		{
+			"name": "messagebundle_zh_TW.properties",
+			"raw":"messagebundle_zh.properties",
+			"locale":"TW"
+		},
+		{
+			"name": "themes/base/.theming",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/AnalyticalColumnMenu.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/AnalyticalTable.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/Table.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_closed_plus.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_filter.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_help_options.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_leaf.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_open_minus.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_open_top.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_sort_asc.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_sort_desc.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico12_unsorted.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico_act_menu.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico_filter_sml.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/ico_tick.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/resize_vertical.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img-RTL/splitter_horiz_grip.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_closed_plus.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_filter.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_help_options.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_leaf.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_open_minus.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_open_top.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_sort_asc.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_sort_desc.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico12_unsorted.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico_act_menu.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico_filter_sml.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/ico_tick.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/resize_vertical.png",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/sort.cur",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/img/splitter_horiz_grip.gif",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-RTL.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-dbg.css",
+			"isDebug":true,
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library-parameters.json",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.css",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/base/library.source.less",
+			"theme":"base"
+		},
+		{
+			"name": "themes/sap_hcb/.theming",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/Table.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/Select_All_Icon-HCB.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/TreeNode.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/TreeNode_Coll.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/TreeNode_Exp.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/drop-down_ico-HCB.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_closed_plus.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_filter.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_help_options.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_leaf.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_open_minus.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_open_top.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_sort_asc.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_sort_desc.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico12_unsorted.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico_act_menu.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico_filter_sml.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/ico_tick.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img-RTL/resize_vertical.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/Select_All_Icon-HCB.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/TreeNode.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/TreeNode_Coll.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/TreeNode_Exp.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/drop-down_ico-HCB.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_closed_plus.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_filter.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_help_options.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_leaf.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_open_minus.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_open_top.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_sort_asc.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_sort_desc.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico12_unsorted.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico_act_menu.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico_filter_sml.gif",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/ico_tick.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/img/resize_vertical.png",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-RTL.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-dbg.css",
+			"isDebug":true,
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library-parameters.json",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.css",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.less",
+			"theme":"sap_hcb"
+		},
+		{
+			"name": "themes/sap_hcb/library.source.less",
+			"theme":"sap_hcb"
+		}
+	]
+}

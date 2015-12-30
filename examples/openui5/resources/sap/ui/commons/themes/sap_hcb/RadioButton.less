@@ -1,0 +1,37 @@
+/* ================================================== */
+/* CSS for control sap.ui.commons/RadioButton.control */
+/* SAP-HCB Theme                                      */
+/* ================================================== */
+
+.sapUiRb {
+	font-size: @sapUiDesktopFontSize;
+}
+
+.sapUiRb > label {
+	vertical-align: top;
+}
+
+/* disabled + readonly 
+.sapUiRbDis
+.sapUiRbRo
+
+ error + warning 
+.sapUiRbErr
+.sapUiRbWarn 
+
+*/
+
+.sapUiInverted-CTX .sapUiRb {
+	color: @sapUiBaseText;
+}
+
+.sapUiRb:focus{
+	outline-width: 2px;
+	outline-style: solid;
+	outline-offset: -2px;
+}
+
+html[data-sap-ui-browser^="ie"] .sapUiRb:focus:after {
+	border-width: 2px;
+	border-style: solid;
+}

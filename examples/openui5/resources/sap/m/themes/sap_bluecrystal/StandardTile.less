@@ -1,0 +1,88 @@
+/* ============================================= */
+/* CSS blue crystal theme for control sap.m/StandardTile.control */
+/* ============================================= */
+
+.sapMStdTileIconDiv {
+	color: @sapUiHighlight;
+}
+
+.sapMStdIconMonitor {
+	color: @sapUiLightText;
+}
+
+
+.sapMStdIconCreate {
+	color: @sapUiLightText;
+	opacity: .3;
+}
+
+.sapMStdTileNum,
+.sapMStdTileNumM,
+.sapMStdTileNumS {
+	font-family: @sapUiFontCondensedFamily;
+	font-stretch: condensed; /* for Firefox */
+	color: @sapUiLightText;
+}
+
+.sapMStdTileNumUnit {
+	color: @sapUiLightText;
+	text-transform: uppercase;
+}
+
+
+.sapMStdTileTitle {
+	color: @sapUiHighlight;
+}
+
+.sapMStdTileInfoNone {
+}
+
+.sapMStdTileInfoError {
+	color: @sapUiNegativeText;
+}
+
+.sapMStdTileInfoWarning {
+	color: @sapUiCriticalText;
+}
+
+.sapMStdTileInfoSuccess {
+	color: @sapUiPositiveText;
+}
+
+.sapMStdTileMonitorType {
+	background-color: @sapUiExtraLightBG;
+}
+
+.sapMTCEditable .sapMStdTileMonitorType {
+	background-color: fade(@sapUiExtraLightBG, 50%);
+}
+
+.sapMStdTileMonitorType .sapMStdTileTitle {
+	color: @sapUiLightText;
+}
+
+.sapMTileActive-CTX .sapMStdTileMonitorType {
+	background-color: transparent;
+}
+
+.sapMTileActive-CTX .sapMStdIconCreate {
+	opacity: 1;
+}
+
+.sapMTileActive-CTX .sapMStdTileInfoWarning,
+.sapMTileActive-CTX .sapMStdTileInfoSuccess,
+.sapMTileActive-CTX .sapMStdTileInfoError,
+.sapMTileActive-CTX .sapMStdTileTitle,
+.sapMTileActive-CTX .sapMStdTileNumUnit,
+.sapMTileActive-CTX .sapMStdTileNum,
+.sapMTileActive-CTX .sapMStdTileNumM,
+.sapMTileActive-CTX .sapMStdTileNumS,
+.sapMTileActive-CTX .sapMStdTileInfo {
+	color: @sapUiTextInverted;
+} 
+
+.sapMTileActive-CTX .sapMStdTileIconDiv,
+.sapMTileActive-CTX .sapMStdIconMonitor,
+.sapMTileActive-CTX .sapMStdIconCreate {
+	color: @sapUiInvertedElement;
+}

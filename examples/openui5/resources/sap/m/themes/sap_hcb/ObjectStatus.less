@@ -1,0 +1,70 @@
+
+/* ============================================= */
+/* CSS for control sap.m/ObjectStatus.control */
+/* ============================================= */
+
+.sapMObjStatus {
+	font-size: @sapMFontMediumSize;
+}
+
+.sapMObjStatus {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjStatus > .sapMObjStatusTitle {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjStatusNone > .sapMObjStatusText,
+.sapMObjStatusNone > .sapMObjStatusIcon {
+	color: @sapHCStandardFG;
+}
+
+.sapMObjStatusError > .sapMObjStatusText,
+.sapMObjStatusError > .sapMObjStatusIcon {
+	color: @sapHCNegative;
+}
+
+.sapMObjStatusWarning > .sapMObjStatusText,
+.sapMObjStatusWarning > .sapMObjStatusIcon {
+	color: @sapHCCritical;
+}
+
+.sapMObjStatusSuccess > .sapMObjStatusText,
+.sapMObjStatusSuccess > .sapMObjStatusIcon {
+	color: @sapHCPositive;
+}
+
+/* ============================================= */
+/* FIX: CSS 0120061532 0001316230 2014 */
+/* ============================================= */
+.sapMLIBActive .sapMObjStatusNone > .sapMObjStatusText,
+.sapMLIBActive .sapMObjStatusNone > .sapMObjStatusIcon,
+.sapMLIBActive .sapMObjStatusError > .sapMObjStatusText,
+.sapMLIBActive .sapMObjStatusError > .sapMObjStatusIcon,
+.sapMLIBActive .sapMObjStatusWarning > .sapMObjStatusText,
+.sapMLIBActive .sapMObjStatusWarning > .sapMObjStatusIcon,
+.sapMLIBActive .sapMObjStatusSuccess > .sapMObjStatusText,
+.sapMLIBActive .sapMObjStatusSuccess > .sapMObjStatusIcon {
+	color: @sapHCStandardFG;
+}
+
+/* Condensed size */
+.sapUiSizeCondensed .sapUiTableCell>.sapMObjStatus>.sapMObjStatusText {
+	.sapUiCondensedTableCellContent; /* see shared.css */
+	font-size: @sapMFontMediumSize; 
+}
+
+/* HCB theme specific styles */
+.sapMLIBSelected, .sapMLIB:hover { 
+	.sapMObjStatusNone > .sapMObjStatusText,
+	.sapMObjStatusNone > .sapMObjStatusIcon,
+	.sapMObjStatusError > .sapMObjStatusText,
+	.sapMObjStatusError > .sapMObjStatusIcon,
+	.sapMObjStatusWarning > .sapMObjStatusText,
+	.sapMObjStatusWarning > .sapMObjStatusIcon,
+	.sapMObjStatusSuccess > .sapMObjStatusText,
+	.sapMObjStatusSuccess > .sapMObjStatusIcon {
+		color: @sapHCStandardFG;
+	}
+}

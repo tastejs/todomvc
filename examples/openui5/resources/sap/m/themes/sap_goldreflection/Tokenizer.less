@@ -1,0 +1,108 @@
+/* ============================================= */
+/* CSS for control sap.m/Tokenizer.control */
+/* ============================================= */
+
+.sapMTokenizer {
+	position: relative;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.sapMTokenizer .sapMToken{
+	margin-top: 0.375rem;
+	margin-bottom: 0.375rem;
+	margin-right: 0.375rem;
+	line-height: normal;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 1.625rem;
+	display: inline-block;
+}
+
+.sapMTokenizerClip {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	display: block;
+	font-size: 1px;
+	z-index: -1;
+	color: transparent;
+	background: transparent;
+	overflow: hidden;
+	border: none;
+	padding: 0;
+	resize: none;
+	outline: none;
+	-webkit-user-select: text;
+	user-select: text;
+}
+
+.sapMTokenTruncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: relative;
+}
+
+.sapMTokenTruncate > .sapMTokenIcon {
+	position: absolute;
+	right: 0rem;
+}
+
+.sapMTokenTruncate > .sapMTokenText {
+	line-height: 1.625rem;
+	display: inline-block;
+	width: calc(~"100% - 2rem");
+}
+
+.sap-phone .sapMTokenizerMultiLine {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.sap-phone .sapMTokenizerMultiLine > .sapMTokenizerScrollContainer > .sapMToken {
+	display: table;
+}
+
+.sapMMultiInputMultiModeBorder .sapMTokenizer{
+	white-space: normal;
+}
+
+.sapMMultiInputMultiModeBorder .sapMTokenizer .sapMToken{
+	margin-bottom: 0;
+}
+
+.sapUiSizeCompact .sapMTokenizer .sapMToken{
+	height: 1.25rem;	
+	margin-top: 0.125rem;
+	margin-bottom: 0.125rem;
+	margin-right: 0.125rem;
+}
+
+.sapUiSizeCompact .sapMMultiInputMultiModeBorder .sapMTokenizer .sapMToken{
+	margin-bottom: -0.125rem;
+}
+
+.sapUiSizeCompact .sapMTokenTruncate > .sapMTokenText {
+	line-height: 1.25rem;
+	width: calc(~"100% - 1.25rem");
+}
+
+.sapMTokenizer:focus{
+	outline: none;
+}
+
+.sapMTokenizerScrollContainer{
+	display: inline-block;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select: none;
+}
+
+.sapMMultiInputMultiModeBorder .sapMTokenizerEmpty {
+	height: 0;
+	display: block;
+}

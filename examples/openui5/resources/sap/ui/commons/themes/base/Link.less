@@ -1,0 +1,44 @@
+/* ============= */
+/* Link control  */
+/* ============= */
+
+.sapUiLnk,
+.sapUiLnkDsbl {
+	font-family: @sapUiFontFamily;
+	font-size: @sapUiFontSize;
+	line-height: @sapUiLineHeight;
+	color: @sapUiLink;
+	vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+}
+
+.sapUiLnk:active,
+.sapUiLnk:focus {
+	color: @sapUiLinkActive;
+}
+
+.sapUiLnk:visited {
+	color: @sapUiLinkVisited;
+}
+
+.sapUiLnk:hover {
+	color: @sapUiLinkHover;
+}
+
+.sapUiLnkDsbl {
+	color: @sapUiContentDisabledTextColor;
+	cursor: default;
+}
+
+/* If control is used on black/dark background */
+.sapUiInverted-CTX .sapUiLnk {
+	color: @sapUiLinkInverted;
+}
+
+/* Do not invert for table */
+.sapUiInverted-CTX .sapUiTable .sapUiLnk {
+	color: @sapUiLink;
+}

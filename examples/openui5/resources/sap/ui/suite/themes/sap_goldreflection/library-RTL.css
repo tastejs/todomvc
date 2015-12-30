@@ -1,0 +1,12 @@
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+ 
+/*!
+ * UI development toolkit for HTML5 (OpenUI5)
+ * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+ .sapUiTaskCircle{font-weight:bold;text-align:center;border:2px solid #bfbfbf;box-shadow:0 2px 2px rgba(0,0,0,0.5);background-color:#7f7f7f;color:#000000}.sapUiVerticalProgressOuterContainer{border:2px solid #808080;width:31px;height:58px;box-shadow:0 2px 3px rgba(0,0,0,0.5);background-color:#dddddd}.sapUiVerticalProgressInnerContainer{position:relative;background-color:#666666}.sapUiTaskCircle{border:2px solid #ffffff}.sapUiTaskCircleColorRed{background-color:#cc1919;color:#ffffff}.sapUiTaskCircleColorYellow{background-color:#d99900;color:#ffffff}.sapUiTaskCircleColorGreen{background-color:#007833;color:#ffffff}.sapUiTaskCircleColorGray{background-color:#cccccc;color:#444444}.sapUiVerticalProgressOuterContainer{border:2px solid #ffffff}

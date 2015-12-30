@@ -1,0 +1,22 @@
+/* ============================================== */
+/* CSS for control sap.m/TablePersoDialog.control */
+/* ============================================== */
+
+html[data-sap-ui-browser="ie9"] .sapMPersoDialog .sapMPersoDialogFixedBar .sapMPersoDialogSelectAllCb {
+	// in IE9 the list items have 1rem padding so this align the checkbox
+	margin-left: 1rem;
+}
+
+.sapMPersoDialogFixedBar {
+	position: relative;
+
+	.sapMPersoDialogSelectAllCb > .sapMCbLabel {
+		font-size: 1.125rem;
+	}
+
+	.sapMPersoDialogResetBtn {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+}

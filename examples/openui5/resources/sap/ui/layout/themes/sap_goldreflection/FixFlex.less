@@ -1,0 +1,173 @@
+/* ==========================================================================
+   CSS for control sap.m/FlexBox.control
+   ========================================================================== */
+
+/* Class for vertical (default) layout
+   ========================================================================== */
+.sapUiFixFlex {
+	box-sizing: border-box;
+
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	-webkit-box-direction: normal;
+	-webkit-box-orient: vertical;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+
+	height: 100%;
+}
+
+/* Flexible child */
+.sapUiFixFlexFlexible {
+	box-sizing: border-box;
+
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	-webkit-box-flex: 1;
+	-webkit-flex-grow: 1;
+	-ms-flex: 1 1;
+	flex-grow: 1;
+
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+
+.sapUiFixFlexFlexibleContainer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	& > .sapUiFixFlex {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+/* Fixed child */
+.sapUiFixFlexFixed {
+	box-sizing: border-box;
+
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+
+/* Class for horizontal layout
+   ========================================================================== */
+
+.sapUiFixFlexRow {
+	-webkit-box-direction: normal;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+
+	& > .sapUiFixFlexFlexible,
+	& > .sapUiFixFlexFixed {
+		width: auto;
+		height: 100%;
+	}
+}
+
+/* Legacy browser support
+   ========================================================================== */
+
+.sapUiFixFlexRow {
+	&.sapUiFixFlex-Legacy {
+		position: relative;
+
+		& > .sapUiFixFlexFixed,
+		& > .sapUiFixFlexFlexible {
+			position: relative;
+			float: left;
+		}
+	}
+}
+
+/* Styles for scrolling
+   ========================================================================== */
+.sapUiFixFlexInnerScrolling {
+	& > .sapUiFixFlexFlexible {
+		// The change from overflow-y to overflow is needed due to a bug in "Edge" browser
+		// BCP: 1570807842
+		overflow: auto;
+
+		-webkit-overflow-scrolling: touch;
+
+		/*
+		* Performance tweak - force the section content on to the GPU effectively separating it in a different
+		* composite layer. This is better done with will-change: transform, but at the moment is not supported on
+		* many platforms. When will-change becomes widely adopted than it's better to use it rather than translate3d
+		*/
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+
+		// BCP: 1570807842
+		.sapUiFixFlexFlexibleContainer {
+			overflow-x: hidden;
+		}
+	}
+
+	&.sapUiFixFlexRow {
+		& > .sapUiFixFlexFlexible {
+			overflow-y: hidden;
+		}
+	}
+}
+
+.sapUiFixFlexScrolling {
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	display: block;
+
+	/*
+	* Performance tweak - force the section content on to the GPU effectively separating it in a different
+	* composite layer. This is better done with will-change: transform, but at the moment is not supported on
+	* many platforms. When will-change becomes widely adopted than it's better to use it rather than translate3d
+	*/
+
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+
+	& > .sapUiFixFlexFlexible {
+		display: block;
+
+		& > .sapUiFixFlexFlexibleContainer {
+			position: static;
+			height: 100%;
+		}
+	}
+
+	&.sapUiFixFlexRow {
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+		& > .sapUiFixFlexFlexible,
+		& > .sapUiFixFlexFixed {
+			display: inline-block;
+		}
+	}
+}

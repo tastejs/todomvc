@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<interface xmlns="http://www.sap.com/sap.ui.library.xsd">
+    <name>IShrinkable</name>
+    <derived/>
+    <documentation>Interface for the controls which are suitable to shrink. 
+
+This means the control should still look fine when it gets smaller than its normal size,
+e.g. Text controls which can show ellipsis in case of shrink.
+ 
+Note: This marker interface can be implemented by controls to give a hint to the container. 
+The control itself does not need to implement anything. A parent control that respects this interface 
+will apply the &quot;flex-shrink&quot; as a CSS property which determines how much the item will shrink relative 
+to the rest of the items in the container when negative free space is distributed.</documentation>
+    <since>1.26</since>
+</interface>

@@ -1,0 +1,162 @@
+/* ========================================================= */
+/* CSS for control sap.m/InputBase.control BlueCrystal theme */
+/* ========================================================= */
+
+.sapMInputBase {
+	border: none;
+	padding: 0.25rem 0;
+	height: 3rem;
+}
+
+.sapMInputBaseInner {
+	color: @sapUiFieldTextColor;
+	background: @sapUiFieldBackground;
+	border: 1px solid @sapUiFieldBorderColor;
+	font-size: @sapMFontMediumSize;
+	font-family: @sapUiFontFamily;
+	line-height: normal;
+	height: 2.5rem;
+	padding: 0 0.75rem;
+}
+
+.sapMInputBaseInner::-webkit-input-placeholder {
+	color: @sapUiFieldPlaceholderTextColor;
+	font-size: @sapMFontMediumSize;
+	font-style: italic;
+}
+
+.sapMInputBaseInner::-moz-placeholder {
+	color: @sapUiFieldPlaceholderTextColor;
+	font-size: @sapMFontMediumSize;
+	font-style: italic;
+}
+
+.sapMInputBaseInner:-ms-input-placeholder {
+	color: @sapUiFieldPlaceholderTextColor;
+	font-size: @sapMFontMediumSize;
+	font-style: italic;
+}
+
+.sapMInputBasePlaceholder {
+	color: @sapUiFieldPlaceholderTextColor;
+	font-size: @sapMFontMediumSize;
+	font-style: italic;
+	line-height: 2.5rem;
+	padding: 0 0.75rem;
+}
+
+.sapMInputBaseStateInner {
+	border-width: 2px;
+	padding: 0 0.6875rem;
+}
+
+.sapMInputBaseWarningInner {
+	border-color: @sapUiFieldWarningColor;
+}
+
+.sapMInputBaseErrorInner {
+	border-color: @sapUiFieldInvalidColor;
+}
+
+.sapMInputBaseSuccessInner {
+	border-color: @sapUiFieldSuccessColor;
+}
+
+.sapMInputBaseInner.sapMInputBaseReadonlyInner {
+	border-color: transparent;
+	background: transparent;
+}
+
+.sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):not(.sapMInputBaseStateInner):focus {
+	border-color: @sapUiFieldFocusBorderColor;
+}
+
+.sapMInputBaseInner:not(.sapMInputBaseReadonlyInner):not(.sapMInputBaseStateInner):not(.sapMInputBaseDisabledInner):hover {
+	border-color: @sapUiFieldHoverBorderColor;
+}
+
+.sapMILI-CTX .sapMInputBaseInner {
+	text-align: right;
+	background: transparent;
+}
+
+html[dir=rtl] .sapMILI-CTX .sapMInputBaseInner,
+html[dir=rtl] .sapMILI-CTX .sapMInputBasePlaceholder {
+	text-align: left;
+}
+
+.sapMILI-CTX .sapMInputBasePlaceholder {
+	text-align: right;
+}
+
+.sapMILI-CTX :not(.sapMInputVH) .sapMInputBaseInner:not(.sapMInputBaseStateInner) {
+	border: none;
+}
+
+.sapMLIBActive .sapMInputBaseInner {
+	color: @sapUiListActiveTextColor;
+	background: transparent;
+}
+
+.sapMLIBActive .sapMInputBaseInner::-webkit-input-placeholder {
+	color: @sapUiListActiveTextColor;
+}
+
+.sapMInputBaseMessage {
+	color: @sapUiFieldTextColor;
+	border-width: 0;
+	font-size: @sapMFontSmallSize;
+	font-family: @sapUiFontFamily;
+	padding: 0.3rem 0.625rem;
+	min-width: 6rem;
+	max-width: 22rem;
+}
+
+.sapMInputBaseMessageError {
+	background: @sapUiFieldInvalidBackground;
+	border-color: @sapUiFieldInvalidColor;
+}
+
+.sapMInputBaseMessageWarning {
+	background: @sapUiFieldWarningBackground;
+	border-color: @sapUiFieldWarningColor;
+}
+
+/* Compact size */
+.sapUiSizeCompact {
+
+	.sapMInputBase {
+		height: 2rem;
+		padding: 0.1875rem 0;
+	}
+
+	.sapMInputBaseInner {
+		height: 1.625rem;
+		padding: 0 0.5rem;
+	}
+
+	.sapMInputBasePlaceholder {
+		line-height: 1.625rem;
+		padding: 0 0.5rem;
+	}
+}
+
+/* Compact size */
+.sapUiSizeCondensed .sapUiTableCell {
+	.sapMInputBase {
+		height: 1.5rem;
+		padding: 0;
+	}
+
+	.sapMInputBaseInner {
+		border-color: transparent;
+	}
+
+	.sapMInputBaseInner {
+		height: 1.5rem;
+	}
+
+	.sapMInputBasePlaceholder {
+		line-height: 1.5rem;
+	}
+}

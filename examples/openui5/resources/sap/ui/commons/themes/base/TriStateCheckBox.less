@@ -1,0 +1,108 @@
+/* ======================================================= */
+/* CSS for control sap.ui.commons.TriStateCheckBox.control */
+/* ======================================================= */
+
+.sapUiTriCb {
+	line-height: @sapUiLineHeight;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
+	text-overflow: ellipsis;
+}
+
+/* If control is used on black/dark background */
+.sapUiInverted-CTX .sapUiTriCb {
+	color: @sapUiTextInverted;
+}
+
+/* Do not invert for table */
+.sapUiInverted-CTX .sapUiTable .sapUiTriCb {
+	color: @sapUiBaseText;
+}
+
+
+.sapUiTriCbInner {
+	height:11px;
+	width:11px;
+	display: inline-block;
+	vertical-align: text-bottom;
+	background-image: none;
+	background-position: -2px -2px;
+	border: 2px solid @sapUiMediumBorder;
+	background-color: @sapUiWhiteBG;
+	background-repeat: no-repeat;
+}
+
+.sapUiTriCbInner.sapUiTriCbCheck,
+.sapUiTriCbInner.sapUiTriCbMix {
+	background-image: url(img/TriStateCheckBox.png);
+}
+
+.sapUiTriCbInner.sapUiTriCbMix {
+	background-position: -2px -17px;
+}
+
+.sapUiTriCbErr.sapUiTriCbCheck {
+	background-position: -32px -2px;
+}
+
+.sapUiTriCbErr.sapUiTriCbMix {
+	background-position: -32px -17px;
+}
+
+.sapUiTriCbWarn.sapUiTriCbCheck {
+	background-position: -47px -2px;
+}
+
+.sapUiTriCbWarn.sapUiTriCbMix {
+	background-position: -47px -17px;
+}
+
+.sapUiTriCbRo.sapUiTriCbCheck {
+	background-position: -17px -2px;
+}
+
+.sapUiTriCbRo.sapUiTriCbMix {
+	background-position: -17px -17px;
+}
+
+.sapUiTriCb:hover > .sapUiTriCbInner {
+	border: 2px solid @sapUiHighlight;
+}
+
+.sapUiTriCb:hover > .sapUiTriCbRo {
+	border: 2px solid @sapUiMediumBorder;
+}
+
+.sapUiTriCbErr {
+	background-color: @sapUiFieldInvalidBackground;
+	border: 2px solid @sapUiFieldInvalidColor;
+}
+
+.sapUiTriCbWarn {
+	background-color: @sapUiFieldWarningBackground;
+	border: 2px solid @sapUiFieldWarningColor;
+}
+
+.sapUiTriCb:hover > .sapUiTriCbWarn.sapUiTriCbRo {
+	border: 2px solid @sapUiFieldWarningColor;
+}
+
+.sapUiTriCb:hover > .sapUiTriCbErr.sapUiTriCbRo {
+	border: 2px solid @sapUiFieldInvalidColor;
+}
+
+.sapUiTriCbDis, .sapUiTriCb:hover .sapUiTriCbDis {
+	opacity: 0.5;
+	filter: Alpha(Opacity=50);
+	border: 2px solid @sapUiMediumBorder;
+}
+
+.sapUiTriCbRo, 
+.sapUiTriCb:hover > .sapUiTriCbRo {
+	background-color: @sapUiFieldReadOnlyBackground;
+}
+
+.sapUiTriCbLbl {
+	margin-left: 6px;
+}

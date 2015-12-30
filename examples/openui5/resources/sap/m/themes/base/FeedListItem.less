@@ -1,0 +1,207 @@
+
+/* ================================================= */
+/* CSS for control sap.m/FeedListItem.control (base) */
+/* ================================================= */
+
+.sapMFeedListItem{
+	display: block;
+}
+
+.sapMFeedListShowSeparatorsAll .sapMFeedListItem{
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.sapMFeedListShowSeparatorsNone .sapMFeedListItem{
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+/*
+	Makes sure that floating image is not displayed in next	list item.
+*/
+.sapMFeedListItem:after {
+	content: " ";
+	display: block;
+	height: 0rem;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.sapMFeedListItem .sapMFeedListItemTextText a, 
+.sapMFeedListItem .sapMFeedListItemTextText span, 
+.sapMFeedListItem .sapMFeedListItemTextName a{
+	font-family: @sapUiFontFamily;
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+/*
+ The following is necessary to make sure that image links 
+ do not show a border when run in IE.
+ */
+.sapMFeedListItemFigure img {
+	border: 0rem;
+}
+
+.sapMFeedListItemText{
+	vertical-align: top;
+	margin: 0rem;
+}
+
+.sapMFeedListItemText .sapMLnk {
+	vertical-align: top;
+}
+
+.sap-tablet .sapMFeedListItemHasFigure, .sap-desktop .sapMFeedListItemHasFigure{
+	margin-left: 3.75rem;
+}
+
+.sapMFeedListItemTextText{
+	margin: 0rem;
+	line-height: 1.4;
+	font-family: @sapUiFontFamily;
+	text-overflow: ellipsis;
+}
+
+.sapMFeedListItemFigure{
+	float: left;
+	height: 3rem;
+	width: 3rem;
+	overflow: visible;
+	margin: 0rem;
+}
+
+.sapMFeedListItemImage{
+	width: 3rem;
+	height: 3rem;	
+	line-height: 3rem;
+	font-size: 3rem;
+	margin-left: 0rem;
+	margin-right: 0rem;
+	overflow: hidden;
+}
+
+.sapMFeedListItemTimestamp {
+	line-height: auto;
+}
+
+.sapMFeedListItemInfo {
+	line-height: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sapMFeedListItemTextName{
+	line-height: 1.4;
+	font-family: @sapUiFontFamily;  
+	font-weight: bold;
+}
+
+html[dir=rtl] .sapMFeedListItemTextName{
+	/* 	In rtl mode, this will be converted to 'float: right;' which 
+		is the correct value
+	*/
+	float: left;
+	margin-right: 0.3rem;
+}
+
+html[dir=rtl].sap-phone .sapMFeedListItemTextName{
+	/* 	Overwrite rtl values for phones 
+	*/
+	float: none;
+	margin-right: 0;
+}
+
+.sapMFeedListItemFooter {
+	margin-top: 0.375rem;
+	margin-bottom: 0rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-family: @sapUiFontFamily;  
+}
+
+.sapMFeedListItemTitleDiv.sapMLIB {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-align: center;
+/*	-ms-flex-direction: row; */
+/*	-ms-flex-align: center; */
+	flex-direction: row;
+	align-items: center;
+}
+
+.sapMFeedListShowSeparatorsNone.sapMLIB {
+	border-bottom: 0;
+}
+
+html[data-sap-ui-browser="ie9"] .sapMFeedListItemTitleDiv {
+	display: block;
+}
+
+.sapMFeedListItemTitleDiv .sapMLIBContent {
+	flex-basis: auto;
+	overflow: hidden;
+}
+
+
+/* phone adoption */
+.sap-phone .sapMFeedListItemHeader {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.sap-phone .sapMFeedListItemHeader.sapMFeedListItemFullHeight,
+.sap-phone .sapMFeedListItemHeader.sapMFeedListItemHasFigure {
+	height: 3rem;
+}
+
+.sap-phone .sapMFeedListItemImage {
+	width: 3rem;
+	heigth: 3rem;
+	line-height: 3rem;
+	font-size: 2.5rem;
+}
+
+.sap-phone .sapMFeedListItemTextName {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
+}
+
+.sap-phone .sapMFeedListItemTextName a {
+	font-family: @sapUiFontFamily;  
+	font-weight: normal; 
+	width: 100%;
+}
+
+.sap-phone .sapMFeedListItemFigure {
+	height: 3rem;
+	width: 3rem;
+	margin-right: 0.75rem
+}
+
+.sap-phone .sapMFeedListItemFooter {
+	margin-top: 0.375rem;
+	margin-bottom: 0rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sap-phone .sapMFeedListItemTimestamp {
+	margin-top: 0;
+	margin-bottom: 0.25rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sap-phone .sapMFeedListItemText{
+	clear: left;
+	line-height: 1.4;
+	margin-top: 0.75rem;
+	margin-bottom: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

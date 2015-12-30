@@ -1,0 +1,65 @@
+/* ============================================= */
+/* CSS for control sap.m/ToggleButton.control    */
+/* BlueCrystal theme                             */
+/* ============================================= */
+
+/************************************/
+/* Common styles        */
+/************************************/
+/* toggled without context */
+.sapMToggleBtnPressed,
+/* Bar context*/
+.sapMIBar-CTX .sapMToggleBtnPressed,
+/* Toolbar transparent context */
+.sapMTB-Transparent-CTX .sapMBtnInner.sapMToggleBtnPressed {
+	background-image: none;
+	background-color: @sapUiToggleButtonPressedBackground;
+	border-color:     @sapUiToggleButtonPressedBorderColor;
+	color:            @sapUiToggleButtonPressedTextColor;
+	text-shadow:      none;
+}
+
+/*hover and down on toggled*/
+.sapMBtn:hover .sapMBtnHoverable.sapMToggleBtnPressed, /*in Firefox the button receives the hover state, not it's inner child */
+.sapMBtn .sapMBtnHoverable.sapMToggleBtnPressed:hover,
+.sapMToggleBtnPressed.sapMBtnHoverable .sapMBtnIcon:hover,
+/* Toolbar transparent context*/
+.sapMTB-Transparent-CTX .sapMBtnHoverable.sapMToggleBtnPressed:hover  {
+	background-image: none;
+	background-color: @sapUiToggleButtonPressedHoverBackground;
+}
+
+/* toggled - icon has to be adapted */
+.sapMToggleBtnPressed .sapMBtnIcon,
+.sapMToggleBtnPressed.sapMBtnTransparent > .sapMBtnIcon {
+	color:            @sapUiInvertedElement;
+}
+
+/* Focus of toggled button */
+.sapMBtn:focus > .sapMBtnInner.sapMToggleBtnPressed.sapMFocusable {
+	outline:          1px dotted @sapUiInvertedFocus;
+	outline-offset:   -1px;
+}
+
+/* override the custom button's outline in IE for the press state */
+html[data-sap-ui-browser^="ie"] .sapMBtn:focus > .sapMToggleBtnPressed.sapMFocusable::before {
+	border-color: @sapUiInvertedFocus;
+}
+
+/************************************/
+/* Bar context                      */
+/************************************/
+
+/* hover and down on toggled button part 1*/
+
+.sapMIBar-CTX .sapMBtn .sapMBtnHoverable.sapMToggleBtnPressed:hover {
+	background-color: @sapUiToggleButtonPressedHoverBackground;
+	border-color:     @sapUiToggleButtonPressedBorderColor;
+	color:            @sapUiToggleButtonPressedTextColor;
+	text-shadow:      none;
+}
+
+/* hover and down on toggled button part 2*/
+.sapMIBar-CTX.sapMFooter-CTX .sapMToggleBtnPressed.sapMBtnActive:not(.sapMBtnDisabled) .sapMBtnIcon {
+	background-color: @sapUiToggleButtonPressedHoverBackground;
+}

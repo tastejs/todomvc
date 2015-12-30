@@ -1,0 +1,244 @@
+/* =============================================== */
+/* CSS for control sap.ui.unified/Calendar.control */
+/* =============================================== */
+
+.sapUiCal{
+	background: none repeat scroll 0 0 @sapUiFieldBackground;
+	overflow: hidden;
+	position: relative;
+	outline: none;
+	display: inline-block;
+}
+
+.sapUiCalInt{
+	box-sizing: border-box;
+}
+
+/* calendar should have only a border if on popup */
+.sapUiCal.sapUiShd{
+	border: 0.0625rem solid @sapUiFieldBorderColor;
+}
+
+/*** HEADER ***/
+.sapUiCalHead{
+	width: 100%;
+	height: @sapUiLineHeight;
+	position: relative;
+	text-align:center;
+}
+
+.sapUiCalHead > button,
+.sapUiCalCancel{
+	background-color: @sapUiButtonLiteBackground;
+	border: none;
+	color: @sapUiButtonTextColor;
+	cursor: pointer;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.sapUiCalHeadPrev,
+.sapUiCalHeadNext{
+	position: absolute;
+}
+
+.sapUiCalHeadPrev{
+	left: 0;
+}
+
+.sapUiCalHeadNext{
+	right: 0;
+}
+
+/* no default (browser) outline, if device needs focus visualization its defined later */
+.sapUiCalHead > button:focus,
+.sapUiCalCancel:focus{
+	outline: none;
+}
+
+/* hover and focus makes only sense on desktops. On mobile devices it's not needed */
+.sap-desktop .sapUiCalHead > button:focus,
+.sap-desktop .sapUiCalCancel:focus{
+	background-color: @sapUiButtonHoverBackground;
+	color: @sapUiButtonHoverTextColor;
+}
+
+.sap-desktop .sapUiCalHead > button:hover,
+.sap-desktop .sapUiCalCancel:hover{
+	background-color: @sapUiButtonHoverBackground;
+	color: @sapUiButtonHoverTextColor;
+}
+
+/* once for desktop to overwrite focus and once for all devices needed */
+.sapUiCalHead > button:active,
+.sapUiCalCancel:active,
+.sap-desktop .sapUiCalHead > button:active,
+.sap-desktop .sapUiCalCancel:active{
+	background-color: @sapUiHighlight;
+	color: @sapUiTextSelection;
+}
+
+.sapUiCalHead > button.sapUiCalDsbl{
+	cursor: default;
+	opacity: .3;
+	filter: alpha(opacity=30);
+}
+
+.sap-desktop .sapUiCalHead > button.sapUiCalDsbl:focus,
+.sapUiCalHead > button.sapUiCalDsbl:hover,
+.sapUiCalHead > button.sapUiCalDsbl:active{
+	background-color: @sapUiButtonLiteBackground;
+	color: @sapUiButtonTextColor;
+}
+
+/*** days, months, years ***/
+.sapUiCalMonthView{
+	vertical-align: top;
+}
+
+.sapUiCalMonthView,
+.sapUiCalMonthPicker,
+.sapUiCalYearPicker{
+	width: 14em;
+	display: inline-block;
+}
+
+.sapUiCalInt > .sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalInt > .sapUiCalContent > .sapUiCalYearPicker{
+	width: auto;
+}
+
+.sapUiCalHeadText{
+	text-align: center;
+}
+
+.sapUiCalRow .sapUiCalHeadText{
+	float: left;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	whitespace: nowrap;
+}
+
+.sapUiCalItems{
+	display: inline-block;
+	width: 100%;
+	white-space: nowrap;
+}
+
+.sapUiCalWH,
+.sapUiCalItem{
+	display: block;
+	overflow: hidden;
+	float: left;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: default;
+	text-align: center;
+}
+
+.sapUiCalMonthView .sapUiCalWH,
+.sapUiCalMonthView .sapUiCalItem{
+	width: 12.5%;
+}
+
+.sapUiCalMonthView.sapUiCalNoWeekNum .sapUiCalWH,
+.sapUiCalMonthView.sapUiCalNoWeekNum .sapUiCalItem{
+	width: 14.2857%;
+}
+
+.sapUiCalItemText{
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+
+.sapUiCalWeekNum{
+	position: absolute;
+	right: 100%;
+	width: 100%;
+	color: @sapUiLightText;
+	font-size: @sapUiFontSmallSize;
+	cursor: default;
+	pointer-events: none;
+}
+
+.sapUiCalWH{
+	color: @sapUiLightText;
+	white-space: nowrap;
+}
+
+.sapUiCalItem{
+	color: @sapUiBaseText;
+	background-color: @sapUiExtraLightBG;
+}
+
+.sap-desktop .sapUiCalItem:focus{
+	background-color: @sapUiFieldFocusBackground;
+}
+
+.sapUiCalMonthView .sapUiCalFirstWDay{
+	clear: both;
+	margin-left: 12.5%;
+	position: relative;
+	overflow: visible;
+}
+
+.sapUiCalMonthView.sapUiCalNoWeekNum .sapUiCalFirstWDay{
+	margin-left: 0;
+}
+
+.sapUiCalItemOtherMonth{
+	color: @sapUiContentDisabledTextColor;
+}
+
+.sapUiCalItemNow{
+	color: @sapUiHighlight;
+}
+
+.sapUiCalItemWeekEnd{
+	background-color: @sapUiLightBG;
+}
+
+.sapUiCalItemSel{
+	background-color: @sapUiSelected;
+}
+
+.sapUiCalContent{
+	position: relative;
+	text-align: center;
+}
+
+.sapUiCalContentOver{
+	background-color: #CCCCCC;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	outline: 0 none;
+}
+
+.sapUiCalContent > .sapUiCalMonthPicker,
+.sapUiCalContent > .sapUiCalYearPicker,
+.sapUiCalTimeInt > .sapUiCalContent > .sapUiCalDatesRow{
+	position: absolute;
+	top: @sapUiLineHeight;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: @sapUiFieldBackground;
+}
+
+.sapUiCalTimeInt > .sapUiCalContent > .sapUiCalDatesRow .sapUiCalWH{
+	display: none;
+}
+
+.sapUiCalCancel{
+	display: none; /* cancel button only visible on phones */
+	position: absolute;
+}

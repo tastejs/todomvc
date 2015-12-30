@@ -1,0 +1,64 @@
+.sapMWizard {
+	height: 100%;
+	position: relative;
+	counter-reset: steps-counter;
+	overflow: hidden;
+
+	.sapMWizardStepContainer {
+		position: relative;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 1rem;
+		transform: translateZ(0);
+	}
+
+	.sapMWizardStep  {
+		position: relative;
+		padding-bottom: 2rem;
+		display: none;
+	}
+
+	.sapMWizardStepActivated {
+		display: block;
+	}
+
+	.sapMWizardLastActivatedStep {
+		min-height: 100%;
+	}
+
+	.sapMWizardStepTitle::before {
+		counter-increment: steps-counter;
+		content: counter(steps-counter) ". ";
+	}
+
+	.sapMWizardNextButton {
+		bottom: -3rem;
+		opacity: 0;
+		transition: 0.4s linear;
+	}
+
+	.sapMWizardNextButtonVisible {
+		bottom: 0rem;
+		opacity: 1;
+	}
+}
+
+.sap-desktop .sapMWizard .sapMWizardNextButton {
+	display: block;
+}
+
+.sap-phone .sapMWizard {
+	.sapMWizardNextButton {
+		position: absolute;
+		left: 50%;
+		-webkit-transform: translate(-50%, 0);
+		-moz-transform: translate(-50%, 0);
+		-ms-transform: translate(-50%, 0);
+		-o-transform: translate(-50%, 0);
+		transform: translate(-50%, 0);
+	}
+
+	.sapMWizardNextButtonVisible {
+		bottom: 0.5rem;
+	}
+}

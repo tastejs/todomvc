@@ -1,0 +1,187 @@
+/* ============================================= */
+/* CSS for control sap.m/ActionSheet.control     */
+/* HCB theme                                     */
+/* ============================================= */
+
+.sapMActionSheet.sapMActionSheetMixedButtons button.sapMActionSheetButtonNoIcon > .sapMBtnInner > span.sapMBtnContent {
+	margin-left: 1.625rem;
+}
+
+.sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner {
+	text-align: start;
+}
+
+html[data-sap-ui-browser^=ie] .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner,
+html[data-sap-ui-browser^=ed] .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner {
+	text-align: left;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner {
+	text-align: right;
+}
+
+.sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner.sapMBtnTransparent .sapUiIcon {
+	color: @sapHCStandardFG;
+	text-shadow: none;
+}
+
+.sapMDialog.sapMActionSheetDialog.sapUiPopupWithPadding .sapMDialogScrollCont {
+	padding: 0;
+}
+
+/* ====== BEGIN ================================================= */
+/* Style for ActionSheet shown as a dialog sliding in from bottom */
+/* ============================================================== */
+
+.sapMDialog.sapMActionSheetDialog.sapMDialogPhone {
+	background-color: transparent;
+	border-radius: 0;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border: none;
+}
+
+.sapMDialog.sapMActionSheetDialog.sapMDialogPhone > section {
+	border-radius: 0;
+	background-color: @sapHCStandardBG;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone .sapMActionSheet button.sapMActionSheetButton {
+	width: 100%;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner {
+	color: @sapHCStandardFG;
+	box-sizing: border-box;
+	vertical-align: top;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone .sapMActionSheet button.sapMActionSheetButton.sapMBtnAccept > .sapMBtnInner,
+.sapMActionSheetDialog.sapMDialogPhone .sapMActionSheet button.sapMActionSheetButton.sapMBtnReject > .sapMBtnInner {
+	border-bottom: none;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone .sapMActionSheet button.sapMActionSheetCancelButton > .sapMBtnInner {
+	text-align: center;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	font-weight: normal;
+	border-radius: 0.375rem;
+	border-width: 0.125rem;
+	vertical-align: top;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone > .sapMIBar.sapMHeader-CTX {
+	background: transparent;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	color: @sapHCStandardFG;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone > .sapMBar.sapMHeader-CTX > .sapMBarMiddle {
+	text-align: start;
+}
+
+html[data-sap-ui-browser^=ie] .sapMActionSheetDialog.sapMDialogPhone > .sapMBar.sapMHeader-CTX > .sapMBarMiddle,
+html[data-sap-ui-browser^=ed] .sapMActionSheetDialog.sapMDialogPhone > .sapMBar.sapMHeader-CTX > .sapMBarMiddle {
+	text-align: left;
+}
+
+html[dir=rtl][data-sap-ui-browser^=ie] .sapMActionSheetDialog.sapMDialogPhone > .sapMBar.sapMHeader-CTX > .sapMBarMiddle,
+html[dir=rtl][data-sap-ui-browser^=ed] .sapMActionSheetDialog.sapMDialogPhone > .sapMBar.sapMHeader-CTX > .sapMBarMiddle {
+	text-align: right;
+}
+
+.sapMActionSheetDialog.sapMDialogPhone > .sapMBar.sapMHeader-CTX > .sapMBarMiddle > .sapMBarPH > .sapMLabel {
+	color: @sapHCStandardFG;
+	font-size: 0.875rem;
+	margin: 0 1rem 0 1rem;
+}
+/* ====== END =================================================== */
+/* Style for ActionSheet shown as a dialog sliding in from bottom */
+/* ============================================================== */
+
+/* ====== BEGIN =========================== */
+/* Style for ActionSheet shown as a Popover */
+/* ======================================== */
+
+.sapMActionSheetPopover.sapMPopover {
+	background-color: @sapHCStandardBG;
+}
+.sap-desktop .sapMActionSheetPopover.sapMPopover {
+	background-color: @sapHCStandardBG;
+
+	// use px because in IE the content width cannot be calculated correctly
+	border: solid 2px @sapHCStandardFG;
+}
+
+.sapMActionSheetPopover.sapMPopover > .sapMPopoverArrDown:after {
+	border-top-color: @sapHCStandardFG;
+}
+.sap-desktop .sapMActionSheetPopover.sapMPopover > .sapMPopoverArrDown:after {
+	border-top-color: @sapHCStandardFG;
+}
+
+.sapMActionSheetPopover.sapMPopover > .sapMPopoverArrUp:after {
+	border-bottom-color: @sapHCStandardFG;
+}
+.sap-desktop .sapMActionSheetPopover.sapMPopover > .sapMPopoverArrUp:after {
+	border-bottom-color: @sapHCStandardFG;
+}
+
+.sapMActionSheetPopover.sapMPopover > .sapMPopoverArrLeft:after {
+	border-right-color: @sapHCStandardFG;
+}
+.sap-desktop .sapMActionSheetPopover.sapMPopover > .sapMPopoverArrLeft:after {
+	border-right-color: @sapHCStandardFG;
+}
+
+.sapMActionSheetPopover.sapMPopover > .sapMPopoverArrRight:after {
+	border-left-color: @sapHCStandardFG;
+}
+.sap-desktop .sapMActionSheetPopover.sapMPopover > .sapMPopoverArrRight:after {
+	border-left-color: @sapHCStandardFG;
+}
+
+.sapMActionSheetPopover.sapMPopover .sapMActionSheet button.sapMActionSheetButton {
+	display: block;
+	width: 100%;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+}
+
+.sapMActionSheetPopover.sapMPopover .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner {
+	color: @sapHCStandardFG;
+	box-sizing: border-box;
+	vertical-align: top;
+}
+
+.sap-desktop .sapMActionSheetPopover .sapMActionSheet button.sapMActionSheetButton:hover .sapMBtnInner:not(.sapMBtnActive) {
+	background: @sapHCHighlightBG;
+}
+
+.sapMActionSheetPopover.sapMPopover .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner.sapMBtnAccept,
+.sapMActionSheetPopover.sapMPopover .sapMActionSheet button.sapMActionSheetButton > .sapMBtnInner.sapMBtnReject {
+	border-bottom: none;
+}
+/* ====== END ============================= */
+/* Style for ActionSheet shown as a Popover */
+/* ======================================== */
+
+/* HCB Additional Styles */
+
+.sapMDialog.sapMActionSheetDialog.sapMDialogPhone > .sapMDialogSection {
+	-webkit-box-shadow: 0 0 2.5rem 0.125rem fade(@sapHCStandardFG, 80);
+	-moz-box-shadow: 0 0 2.5rem 0.125rem fade(@sapHCStandardFG, 80);
+	box-shadow: 0 0 2.5rem 0.125rem fade(@sapHCStandardFG, 80);
+}
+
+.sapMDialog.sapMActionSheetDialog.sapMDialogPhone >.sapMBar {
+	border-bottom: solid 0.125rem @sapHCStandardFG;
+}

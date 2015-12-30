@@ -1,0 +1,51 @@
+/* ============================================= */
+/* CSS for control sap.ui.commons/Tree.control   */
+/* HCB Theme                                     */
+/* ============================================= */
+
+.sapUiTree{
+	font-size: @sapUiDesktopFontSize;
+}
+
+/* Since HCB is already inverted compared to GF it
+must be re-inverted */
+.sapUiInverted-CTX .sapUiTree {
+	color: @sapUiBaseText;
+}
+
+.sapUiTreeHeader{
+	background-color: @sapUiBaseBG;
+	border:1px solid @sapUiListHeaderBorderColor;
+	border-bottom:none;
+}
+
+.sapUiTreeTitle {
+	top:6px;
+}
+
+.sapUiTree .sapUiBtn.sapUiBtnS.sapUiBtnLite{
+	border: 1px solid @sapUiButtonBorderColor;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.sapUiTreeCont{
+	border:1px solid @sapUiBaseBorder;
+}
+
+.sapUiTreeNode{
+	background-position: left 1px;
+	padding-left: 18px;
+}
+
+.sapUiTreeNode:hover{
+	border:1px solid @sapUiHighlight;
+	background-color: @sapUiHighlight;
+}
+
+.sapUiTreeNodeSelectedParent, .sapUiTreeNodeSelectedParent:Hover, .sapUiTreeNodeSelected, .sapUiTreeNodeSelected:Hover{
+	border:1px solid @sapUiHighlight;
+	background-color: @sapUiHighlight;
+	font-weight: bold;
+}

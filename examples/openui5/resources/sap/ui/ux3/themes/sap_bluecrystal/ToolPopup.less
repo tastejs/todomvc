@@ -1,0 +1,137 @@
+/* ============================================ */
+/* CSS for control sap.ui.ux3/ToolPopup.control */
+/* Blue Crystal                                 */
+/* ============================================ */
+
+.sapUiUx3TP {
+	font-family: @sapUiDesktopFontFamily;
+	font-size: @sapUiDesktopFontSize;
+	padding: 0;
+	background-color: @sapUiLightestBG;
+	border: 1px solid @sapUiDarkBorder;
+}
+
+.sapUiUx3TP.sapUiShd {
+	box-shadow: @sapUiUx3ToolPopupShadow;
+	-webkit-box-shadow: @sapUiUx3ToolPopupShadow;
+	-moz-box-shadow: @sapUiUx3ToolPopupShadow;
+}
+
+.sapUiUx3TP.sapUiUx3TPNoTitle {
+	padding-top: 10px;
+}
+
+.sapUiUx3TP.sapUiUx3TPNoTitle.sapUiUx3TPNoButtons  {
+	padding-bottom: 10px;
+}
+
+.sapUiUx3TPContent {
+	margin: 0 22px;
+}
+
+.sapUiUx3TPTitle {
+	padding: 10px 0;
+	margin: 0 22px;
+}
+
+.sapUiUx3TPTitleText {
+	color: @sapUiLightText;
+}
+
+.sapUiUx3TPTitleSep {
+	height: 1px;
+	margin: 0 0 6px 0;
+	background-color: @sapUiLightBorder;
+}
+
+.sapUiUx3TPButtonsSep {
+	height: 1px;
+	margin: 6px 0 0 0;
+	background-color: fase(@sapUiExtraLightBorder, 20%);
+}
+
+.sapUiUx3TPBtnRow {
+	height: 40px;
+	padding: 0 22px;
+	background-color: @sapUiExtraDarkBG;
+}
+
+.sapUiUx3TPBtnRow button {
+	top: 22%;
+	position: relative;
+}
+
+.sapUiUx3TPArrow {
+	position: absolute;
+	overflow: hidden;
+
+	height: 26px;
+	background-image: none;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrow{
+	width: 12px;
+}
+
+.sapUiUx3TPArrow>.sapUiUx3TPArrowBorder {
+	background: @sapUiDarkBorder;
+
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+
+	position: relative;
+	width: 18px;
+	height: 26px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrow>.sapUiUx3TPArrowBorder {
+	/* equals a rotation of 45 degrees */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067690849304, M12=-0.7071067690849304, M21=0.7071067690849304, M22=0.7071067690849304, SizingMethod='auto expand')";
+}
+
+.sapUiUx3TPArrowLeft>.sapUiUx3TPArrowBorder {
+	top: -4px;
+	left: 6px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowLeft>.sapUiUx3TPArrowBorder {
+	left: 0;
+	top: -2px;
+}
+
+.sapUiUx3TPArrowRight>.sapUiUx3TPArrowBorder {
+	top: 1px;
+	left: -13px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowRight>.sapUiUx3TPArrowBorder {
+	left: -18px;
+	top: -1px;
+}
+
+.sapUiUx3TPArrow.sapUiUx3TPArrowUp,
+.sapUiUx3TPArrow.sapUiUx3TPArrowDown {
+	height: 13px;
+	width: 26px;
+}
+.sapUiUx3TPArrowUp>.sapUiUx3TPArrowBorder {
+	top: 3px;
+	left: 0px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowUp>.sapUiUx3TPArrowBorder {
+	left: -6px;
+	top: 1px;
+}
+
+.sapUiUx3TPArrowDown>.sapUiUx3TPArrowBorder {
+	top: -15px;
+	left: 6px;
+}
+
+HTML[data-sap-ui-browser='ie8'] .sapUiUx3TPArrowDown>.sapUiUx3TPArrowBorder {
+	left: 0;
+	top: -17px;
+}
