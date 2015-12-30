@@ -547,19 +547,12 @@ Footer.prototype = {
 	}
 	,items__completeCount: function() {
 		var self = this.get_items();
-		console.log(((function(_e) {
+		return ((function(_e) {
 			return function(pred) {
 				return Lambda.count(_e,pred);
 			};
 		})(self))(function(_) {
 			return _.completed;
-		}));
-		return ((function(_e1) {
-			return function(pred1) {
-				return Lambda.count(_e1,pred1);
-			};
-		})(self))(function(_1) {
-			return _1.completed;
 		});
 	}
 	,__class__: Footer
