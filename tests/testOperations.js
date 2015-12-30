@@ -35,10 +35,12 @@ function TestOperations(page) {
 			});
 	};
 
-	this.assertFocussedElementId = function (expectedId) {
-		return page.getFocussedElementIdOrClass().then(function (id) {
-			assert.notEqual(id.indexOf(expectedId), -1, 'The focused element did not have the expected id ' + expectedId);
-		});
+	this.assertFocussedElement = function (expectedIdentifier) {
+		return page.getFocussedElementIdOrClass()
+			.then(function (focusedElementIdentifier) {
+				var failMsg = 'The focused element did not have the expected class or id "' + expectedIdentifier + '"';
+				assert.notEqual(focusedElementIdentifier.indexOf(expectedIdentifier), -1, failMsg);
+			});
 	};
 
 	this.assertClearCompleteButtonIsHidden = function () {
