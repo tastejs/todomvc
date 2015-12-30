@@ -32,6 +32,7 @@
 
 - [Website](http://mithril.js.org)
 - [Getting Started](http://mithril.js.org/getting-started.html)
+- [Haxe library](https://github.com/ciscoheat/mithril-hx)
 - [API](http://mithril.js.org/mithril.html)
 - [Source Code](https://github.com/lhorie/mithril.js)
 
@@ -47,7 +48,7 @@
 
 - [Website](http://fulloo.info)
 - [Introductory article](http://www.artima.com/articles/dci_vision.html)
-- [Haxe/DCI Tutorial](https://github.com/ciscoheat/haxedci-example)
+- [Haxe library + DCI Tutorial](https://github.com/ciscoheat/haxedci-example)
 - [FAQ](http://www.fulloo.info/doku.php?id=faq)
 - [Discussion group](https://groups.google.com/forum/?fromgroups#!forum/object-composition)
 - [The trygve language project](https://github.com/jcoplien/trygve)
