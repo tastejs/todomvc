@@ -115,7 +115,7 @@ module.exports = function Page(browser) {
 		return this.getActiveElement().getTagName();
 	};
 
-	this.getFocussedElementName = function () {
+	this.getFocussedElementIdOrClass = function () {
 		return this.getActiveElement()
 			.getAttribute(!idSelectors ? 'id' : 'class');
 	};

@@ -22,9 +22,9 @@ function TestOperations(page) {
 	}
 
 	this.assertNewInputNotFocused = function () {
-		return page.getFocussedElementName()
-			.then(function (name) {
-				assert.notEqual(name, 'new-todo');
+		return page.getFocussedElementIdOrClass()
+			.then(function (focussedElementIdOrClass) {
+				assert.equal(focussedElementIdOrClass.indexOf('new-todo'), -1);
 			});
 	};
 
@@ -36,7 +36,7 @@ function TestOperations(page) {
 	};
 
 	this.assertFocussedElementId = function (expectedId) {
-		page.getFocussedElementName().then(function (id) {
+		return page.getFocussedElementIdOrClass().then(function (id) {
 			assert.notEqual(id.indexOf(expectedId), -1, 'The focused element did not have the expected id ' + expectedId);
 		});
 	};
