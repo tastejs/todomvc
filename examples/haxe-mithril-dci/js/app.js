@@ -503,7 +503,7 @@ Footer.__interfaces__ = [haxedci_Context,mithril_Mithril];
 Footer.prototype = {
 	view: function() {
 		var filter = m.route.param("filter");
-		return m.m("FOOTER.footer",[m.m("SPAN.todo-count",m.m("STRONG",this.items__notCompleteCount())," " + this.items__pluralizeItemWord() + " left"),m.m("UL.filters",[m.m("LI",m.m("A[href=\"/\"]",{ config : m.route, 'class' : filter == null?"selected":""},"All")),m.m("LI",m.m("A[href=\"/active\"]",{ config : m.route, 'class' : filter == "active"?"selected":""},"Active")),m.m("LI",m.m("A[href=\"/completed\"]",{ config : m.route, 'class' : filter == "completed"?"selected":""},"Completed"))]),this.items__completeCount() > 0?null:m.m("BUTTON.clear-completed",{ onclick : $bind(this,this.items__clearCompleted)},"Clear completed")]);
+		return m.m("FOOTER.footer",[m.m("SPAN.todo-count",m.m("STRONG",this.items__notCompleteCount())," " + this.items__pluralizeItemWord() + " left"),m.m("UL.filters",[m.m("LI",m.m("A[href=\"/\"]",{ config : m.route, 'class' : filter == null?"selected":""},"All")),m.m("LI",m.m("A[href=\"/active\"]",{ config : m.route, 'class' : filter == "active"?"selected":""},"Active")),m.m("LI",m.m("A[href=\"/completed\"]",{ config : m.route, 'class' : filter == "completed"?"selected":""},"Completed"))]),this.items__completeCount() == 0?null:m.m("BUTTON.clear-completed",{ onclick : $bind(this,this.items__clearCompleted)},"Clear completed")]);
 	}
 	,get_items: function() {
 		return this.__items;
@@ -547,12 +547,19 @@ Footer.prototype = {
 	}
 	,items__completeCount: function() {
 		var self = this.get_items();
-		return ((function(_e) {
+		console.log(((function(_e) {
 			return function(pred) {
 				return Lambda.count(_e,pred);
 			};
 		})(self))(function(_) {
 			return _.completed;
+		}));
+		return ((function(_e1) {
+			return function(pred1) {
+				return Lambda.count(_e1,pred1);
+			};
+		})(self))(function(_1) {
+			return _1.completed;
 		});
 	}
 	,__class__: Footer

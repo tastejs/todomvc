@@ -308,7 +308,7 @@ class Footer implements Mithril implements Context
 					'class': filter == "completed" ? "selected" : ""
 				}, "Completed"))
 			]),
-			items.completeCount() > 0 ? null : BUTTON.clear-completed({
+			items.completeCount() == 0 ? null : BUTTON.clear-completed({
 				onclick: items.clearCompleted
 			}, "Clear completed")
 		]);
