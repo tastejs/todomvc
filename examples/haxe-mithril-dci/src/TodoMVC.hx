@@ -271,7 +271,10 @@ class Footer implements Mithril implements Context
 			return self.notCompleteCount() == 1 ? "item" : "items";
 
 		function notCompleteCount() : Int
-			return self.filter.fn(!_.completed).count();
+			return self.count.fn(!_.completed);
+
+		function completeCount() : Int
+			return self.count.fn(_.completed);
 
 		function clearCompleted() {
 			for(item in self.filter.fn(_.completed))
@@ -305,7 +308,7 @@ class Footer implements Mithril implements Context
 					'class': filter == "completed" ? "selected" : ""
 				}, "Completed"))
 			]),
-			items.notCompleteCount() == 0 ? null : BUTTON.clear-completed({
+			items.completeCount() > 0 ? null : BUTTON.clear-completed({
 				onclick: items.clearCompleted
 			}, "Clear completed")
 		]);
