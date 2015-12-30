@@ -251,23 +251,22 @@ module.exports = function Page(browser) {
 	this.enterItem = function (itemText) {
 		var self = this;
 
-		browser.wait(function () {
-			return self.getItemInputField().then(function (textField) {
-				return textField.sendKeys(itemText, webdriver.Key.ENTER)
-					.then(function () {
-						return textField;
-					});
-			}).then(function (textField) {
-				return self.getVisibleLabelText()
-					.then(function (labels) {
-						if (labels.indexOf(itemText.trim()) !== -1) {
-							return true;
-						}
+		return browser.wait(function () {
+			var textField;
 
-						return textField.clear().then(function () {
-							return false;
-						});
-					});
+			return self.getItemInputField().then(function (itemInputField) {
+				textField = itemInputField;
+				return textField.sendKeys(itemText, webdriver.Key.ENTER);
+			})
+			.then(function () { return self.getVisibleLabelText(); })
+			.then(function (labels) {
+				if (labels.indexOf(itemText.trim()) >= 0) {
+					return true;
+				}
+
+				return textField.clear().then(function () {
+					return false;
+				});
 			});
 		}, 5000);
 	};
