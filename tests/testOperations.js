@@ -52,8 +52,11 @@ function TestOperations(page) {
 	};
 
 	this.assertClearCompleteButtonIsVisible = function () {
-		page.tryGetClearCompleteButton().then(function (element) {
-			testIsVisible([element], 'clear completed items button');
+		return page.waitForVisibleElement(function () {
+			return page.tryGetClearCompleteButton();
+		})
+		.then(function (clearCompleteButton) {
+			assert(clearCompleteButton, 'the clear completed items button element should be displayed');
 		});
 	};
 
