@@ -51,8 +51,14 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			browser.sleep(200);
 		}
 
-		function closeBrowser() {
-			browser.quit();
+		function closeBrowser(done) {
+			return browser
+				.quit()
+				.then(function () {
+					if (done instanceof Function) {
+						done();
+					};
+				});
 		}
 
 		if (speedMode) {
