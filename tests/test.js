@@ -26,7 +26,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				});
 		}
 
-		function launchBrowser() {
+		function launchBrowser(done) {
 			var chromeOptions = new chrome.Options();
 			chromeOptions.addArguments('no-sandbox');
 
@@ -35,20 +35,34 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			}
 
 			browser = new webdriver.Builder()
-			.withCapabilities({
-				browserName: browserName
-			})
-			.setChromeOptions(chromeOptions)
-			.build();
+				.withCapabilities({browserName: browserName})
+				.setChromeOptions(chromeOptions)
+				.build();
 
-			browser.get(baseUrl);
+			return browser.get(baseUrl)
+				.then(function () {
+					page = laxMode ? new PageLaxMode(browser) : new Page(browser);
+					testOps = new TestOperations(page);
+				})
+				.then(function () {
+					return page.ensureAppIsVisible();
+				})
+				.then(function () {
+					if (done instanceof Function) {
+						done();
+					};
+				});
+		}
 
-			page = laxMode ? new PageLaxMode(browser) : new Page(browser);
-			testOps = new TestOperations(page);
+		function printCapturedLogs() {
+			var logs = new webdriver.WebDriver.Logs(browser);
 
-			// for apps that use require, we have to wait a while for the dependencies to
-			// be loaded. There must be a more elegant solution than this!
-			browser.sleep(200);
+			return logs.get('browser')
+				.then(function (entries) {
+					if (entries && entries.length) {
+						console.log(entries);
+					}
+				});
 		}
 
 		function closeBrowser(done) {
@@ -62,39 +76,33 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		}
 
 		if (speedMode) {
-			test.before(function () {
-				launchBrowser();
-			});
-			test.after(function () {
-				closeBrowser();
-			});
-			test.beforeEach(function () {
-				page.getItemElements().then(function (items) {
-					if (items.length > 0) {
+			test.before(launchBrowser);
+			test.after(closeBrowser);
+			test.beforeEach(function (done) {
+				return page.getItemElements()
+					.then(function (items) {
+						if (items.length == 0) { return; }
+
 						// find any items that are not complete
-						page.getNonCompletedItemElements().then(function (nonCompleteItems) {
-							if (nonCompleteItems.length > 0) {
-								page.clickMarkAllCompletedCheckBox();
-							}
-							page.clickClearCompleteButton();
-						});
-					}
-				});
+						return page.getNonCompletedItemElements()
+							.then(function (nonCompleteItems) {
+								if (nonCompleteItems.length > 0) {
+									return page.clickMarkAllCompletedCheckBox();
+								}
+							})
+							.then(function () {
+								return page.clickClearCompleteButton();
+							});
+					})
+					.then(function () { done(); });
 			});
 		} else {
-			test.beforeEach(function () {
-				launchBrowser();
-				page.ensureAppIsVisible();
-			});
-			test.afterEach(function () {
-				(new webdriver.WebDriver.Logs(browser))
-				.get('browser')
-				.then(function (v) {
-					if (v && v.length) {
-						console.log(v);
-					}
-				});
-				closeBrowser();
+			test.beforeEach(launchBrowser);
+			test.afterEach(function (done) {
+				printCapturedLogs()
+					.then(function () {
+						return closeBrowser(done);
+					})
 			});
 		}
 
