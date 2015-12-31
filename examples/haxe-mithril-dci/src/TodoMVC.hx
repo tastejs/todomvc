@@ -254,7 +254,7 @@ class TodoList implements Mithril implements Context
 						onblur: editor.saveText
 					})
 				]);
-			}).array())
+			}))
 		]);
 	}
 }

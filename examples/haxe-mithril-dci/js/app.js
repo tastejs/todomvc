@@ -74,15 +74,6 @@ HxOverrides.iter = function(a) {
 var Lambda = function() { };
 $hxClasses["Lambda"] = Lambda;
 Lambda.__name__ = ["Lambda"];
-Lambda.array = function(it) {
-	var a = [];
-	var $it0 = $iterator(it)();
-	while( $it0.hasNext() ) {
-		var i = $it0.next();
-		a.push(i);
-	}
-	return a;
-};
 Lambda.map = function(it,f) {
 	var l = new List();
 	var $it0 = $iterator(it)();
@@ -371,7 +362,7 @@ TodoList.__interfaces__ = [haxedci_Context,mithril_Mithril];
 TodoList.prototype = {
 	view: function() {
 		var _g = this;
-		return m.m("SECTION.main",[m.m("INPUT.toggle-all[type=checkbox]",{ checked : this.items__isAllCompleted(), onclick : $bind(this,this.items__toggleFiltered)}),m.m("LABEL",{ 'for' : "toggle-all"},"Mark all as complete"),m.m("UL.todo-list",Lambda.array(Lambda.map(this.items__filtered(),function(i) {
+		return m.m("SECTION.main",[m.m("INPUT.toggle-all[type=checkbox]",{ checked : this.items__isAllCompleted(), onclick : $bind(this,this.items__toggleFiltered)}),m.m("LABEL",{ 'for' : "toggle-all"},"Mark all as complete"),m.m("UL.todo-list",Lambda.map(this.items__filtered(),function(i) {
 			return m.m("LI",{ key : i.id, 'class' : (i.completed?"completed ":"") + (_g.get_editor().item == i?"editing":"")},[m.m("DIV.view",[m.m("INPUT.toggle[type=checkbox]",{ checked : i.completed, onclick : (function(f,i1) {
 				return function() {
 					return f(i1);
@@ -387,7 +378,7 @@ TodoList.prototype = {
 			})($bind(_g,_g.items__destroy),i)})]),m.m("INPUT.edit",{ config : function(el) {
 				if(_g.get_editor().item == i) el.focus();
 			}, value : _g.get_editor().value, onkeyup : $bind(_g,_g.editor__input), onblur : $bind(_g,_g.editor__saveText)})]);
-		})))]);
+		}))]);
 	}
 	,get_editor: function() {
 		return this.__editor;
@@ -1742,7 +1733,13 @@ try {
 var __varName = window.m;
 (function(m) {
 			if (m.__haxecomponents) return;
-			m.m         = m;
+			m.m = function() {
+				if($hxClasses['List']) for(var i=0; i < arguments.length; ++i) if(arguments[i] instanceof List) {
+					var it = $iterator(arguments[i])();	arguments[i] = [];
+					while(it.hasNext())	arguments[i].push(it.next());
+				}
+				return m.apply(this, arguments);
+			}
 			m.__mount   = m.mount;
 			m.__component = m.component;
 			m.__haxecomponents = [];
@@ -1756,7 +1753,13 @@ GLOBAL.m = require("mithril");
 var __varName1 = GLOBAL.m;
 (function(m) {
 			if (m.__haxecomponents) return;
-			m.m         = m;
+			m.m = function() {
+				if($hxClasses['List']) for(var i=0; i < arguments.length; ++i) if(arguments[i] instanceof List) {
+					var it = $iterator(arguments[i])();	arguments[i] = [];
+					while(it.hasNext())	arguments[i].push(it.next());
+				}
+				return m.apply(this, arguments);
+			}
 			m.__mount   = m.mount;
 			m.__component = m.component;
 			m.__haxecomponents = [];
