@@ -1,7 +1,7 @@
 'use strict';
 
 var webdriver = require('selenium-webdriver');
-var idSelectors = false;
+var idSelectors = true;
 
 module.exports = function Page(browser) {
 
@@ -16,35 +16,35 @@ module.exports = function Page(browser) {
 	};
 
 	this.getTodoListXpath = function () {
-		return !idSelectors ? '//ul[@id="todo-list"]' : '//ul[contains(@class, "todo-list")]';
+		return idSelectors ? '//ul[@id="todo-list"]' : '//ul[contains(@class, "todo-list")]';
 	};
 
 	this.getMainSectionXpath = function () {
-		return !idSelectors ? '//section[@id="main"]' : '//section[contains(@class, "main")]';
+		return idSelectors ? '//section[@id="main"]' : '//section[contains(@class, "main")]';
 	};
 
 	this.getFooterSectionXpath = function () {
-		return !idSelectors ? '//footer[@id="footer"]' : '//footer[contains(@class, "footer")]';
+		return idSelectors ? '//footer[@id="footer"]' : '//footer[contains(@class, "footer")]';
 	};
 
 	this.getCompletedButtonXpath = function () {
-		return !idSelectors ? '//button[@id="clear-completed"]' : '//button[contains(@class, "clear-completed")]';
+		return idSelectors ? '//button[@id="clear-completed"]' : '//button[contains(@class, "clear-completed")]';
 	};
 
 	this.getNewInputXpath = function () {
-		return !idSelectors ? '//input[@id="new-todo"]' : '//input[contains(@class,"new-todo")]';
+		return idSelectors ? '//input[@id="new-todo"]' : '//input[contains(@class,"new-todo")]';
 	};
 
 	this.getToggleAllXpath = function () {
-		return !idSelectors ? '//input[@id="toggle-all"]' : '//input[contains(@class,"toggle-all")]';
+		return idSelectors ? '//input[@id="toggle-all"]' : '//input[contains(@class,"toggle-all")]';
 	};
 
 	this.getCountXpath = function () {
-		return !idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
+		return idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
 	};
 
 	this.getFiltersElementXpath = function () {
-		return !idSelectors ? '//*[@id="filters"]' : '//*[contains(@class, "filters")]';
+		return idSelectors ? '//*[@id="filters"]' : '//*[contains(@class, "filters")]';
 	};
 
 	this.getFilterXpathByIndex = function (index) {
@@ -117,7 +117,7 @@ module.exports = function Page(browser) {
 
 	this.getFocussedElementIdOrClass = function () {
 		return this.getActiveElement()
-			.getAttribute(!idSelectors ? 'id' : 'class');
+			.getAttribute(idSelectors ? 'id' : 'class');
 	};
 
 	this.getEditInputForItemAtIndex = function (index) {
@@ -214,9 +214,9 @@ module.exports = function Page(browser) {
 		return browser.wait(function () {
 			// try to find main element by ID
 			return browser.isElementPresent(webdriver.By.css('.new-todo'))
-				.then(function (foundById) {
-					if (foundById) {
-						idSelectors = true;
+				.then(function (foundByClass) {
+					if (foundByClass) {
+						idSelectors = false;
 						return true;
 					}
 
