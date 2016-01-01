@@ -168,6 +168,18 @@ The 'bundleName' references the language file ('js/i18n/i18n.properties') and in
 ### Component-preload.js (via Grunt)
 The whole app is wrapped into an OpenUI5 Component. Grunt is used to create a Component-preload.json file. You can find more information [here](https://www.npmjs.com/package/grunt-openui5). With this [practice](http://pipetree.com/qmacro/blog/2015/07/speeding-up-your-ui5-app-with-a-component-preload-file/), all Component-related files are merged into one preload file to avoid multiple HTTP GETs just for one component.
 
+As of right now, the ```grunt-openui5``` NPM package produces JSCS & JSHint invalid code. Hence, the example app have to add ignore comments in the newly generated ```Component-preload.js``` file, like outlined below.
+
+```js
+/* jshint ignore:start */
+// jscs:disable
+
+...
+
+/* jshint ignore:end */
+// jscs:enable
+```
+
 ### Version & 'resources' folder
 This app is using the most recent OpenUI5 version, hosted on the [CDN](http://openui5.org/download.html). As of today, this is version 1.32.9 (2015-12-14).
 
