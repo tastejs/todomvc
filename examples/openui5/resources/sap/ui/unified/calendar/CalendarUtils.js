@@ -1,6 +1,0 @@
-/*!
- * UI development toolkit for HTML5 (OpenUI5)
- * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
- * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
- */
-sap.ui.define(['jquery.sap.global','sap/ui/core/format/DateFormat','sap/ui/core/date/UniversalDate'],function(q,D,U){"use strict";var C={};C._createLocalDate=function(d,t){var l;if(d){var m;if(d instanceof U){m=new Date(d.getTime());}else{m=d;}l=new Date(m.getUTCFullYear(),m.getUTCMonth(),m.getUTCDate());if(m.getFullYear()<1000){l.setFullYear(m.getFullYear());}if(t){l.setHours(m.getUTCHours());l.setMinutes(m.getUTCMinutes());l.setSeconds(m.getUTCSeconds());l.setMilliseconds(m.getUTCMilliseconds());}}return l;};C._createUTCDate=function(d,t){var u;if(d){var m;if(d instanceof U){m=new Date(d.getTime());}else{m=d;}u=new Date(Date.UTC(m.getFullYear(),m.getMonth(),m.getDate()));if(m.getFullYear()<1000){u.setUTCFullYear(m.getFullYear());}if(t){u.setUTCHours(m.getHours());u.setUTCMinutes(m.getMinutes());u.setUTCSeconds(m.getSeconds());u.setUTCMilliseconds(m.getMilliseconds());}}return u;};C._createUniversalUTCDate=function(d,t){var u=new U(this._createUTCDate(d,t).getTime());return u;};C.calculateWeekNumber=function(d,y,l,L){return D.calculateWeekNumber(d,{UTC:true,baseYear:y,locale:l});};return C;},true);

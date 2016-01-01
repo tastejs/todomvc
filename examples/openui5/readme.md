@@ -169,9 +169,7 @@ The 'bundleName' references the language file ('js/i18n/i18n.properties') and in
 The whole app is wrapped into an OpenUI5 Component. Grunt is used to create a Component-preload.json file. You can find more information [here](https://www.npmjs.com/package/grunt-openui5). With this [practice](http://pipetree.com/qmacro/blog/2015/07/speeding-up-your-ui5-app-with-a-component-preload-file/), all Component-related files are merged into one preload file to avoid multiple HTTP GETs just for one component.
 
 ### Version & 'resources' folder
-This app is using OpenUI5 v1.32.9 (2015-12-14). Therefore, the 'resources' folder was taken from the [official UI5 Runtime](https://openui5.hana.ondemand.com/downloads/openui5-runtime-1.32.9.zip) ZIP archive.
-
-In case of a version update, the 'resource' folder would need to be replaced.
+This app is using the most recent OpenUI5 version, hosted on the [CDN](http://openui5.org/download.html). As of today, this is version 1.32.9 (2015-12-14).
 
 ## Credit
 Created by [Alexander Graebe](https://github.com/agraebe) & [Alexander Hauck](https://github.com/alexis90)

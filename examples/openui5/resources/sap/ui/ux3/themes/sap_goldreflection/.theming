@@ -1,6 +1,0 @@
-{
-  "sEntity" : "Theme",
-  "sId" : "sap_goldreflection",
-  "oExtends" : "UI5.sap/ui/ux3.base",
-  "sVendor" : "SAP"
-}

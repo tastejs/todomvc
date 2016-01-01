@@ -1,6 +1,0 @@
-/*!
- * UI development toolkit for HTML5 (OpenUI5)
- * (c) Copyright 2009-2015 SAP SE or an SAP affiliate company.
- * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
- */
-sap.ui.define(['jquery.sap.global'],function(q){"use strict";var Y={};Y.render=function(r,y){var t=y.getTooltip_AsString();var I=y.getId();var c=y.getYear();var a=y.getYears();var C=y.getColumns();var w="";r.write("<div");r.writeControlData(y);r.addClass("sapUiCalYearPicker");r.writeClasses();if(t){r.writeAttributeEscaped('title',t);}r.writeAccessibilityState(y,{role:"grid",readonly:"true",multiselectable:"false"});r.write(">");var b=c-Math.floor(a/2);if(b>=10000-a){b=10000-a;}else if(b<1){b=1;}if(C>0){w=(100/C)+"%";}else{w=(100/a)+"%";}for(var i=0;i<a;i++){if(C>0&&i%C==0){r.write("<div");r.writeAccessibilityState(null,{role:"row"});r.write(">");}r.write("<div");r.writeAttribute("id",I+"-y"+b);r.addClass("sapUiCalItem");if(b==c){r.addClass("sapUiCalItemSel");}r.writeAttribute("tabindex","-1");r.addStyle("width",w);r.writeClasses();r.writeStyles();r.writeAccessibilityState(null,{role:"gridcell"});r.write(">");r.write(b);r.write("</div>");b++;if(C>0&&((i+1)%C==0)){r.write("</div>");}}r.write("</div>");};return Y;},true);

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<interface xmlns="http://www.sap.com/sap.ui.library.xsd">
-    <name>IBar</name>
-    <derived/>
-    <documentation>Interface for controls which are suitable as a Header, Subheader or Footer of a Page.
-  If the control does not want to get a context base style class, it has to implement the isContextSensitive method and return false</documentation>
-    <since>1.22</since>
-</interface>
