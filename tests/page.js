@@ -107,9 +107,17 @@ module.exports = function Page(browser) {
 	};
 
 	// ----------------- DOM element access methods
+	this.getActiveElement = function () {
+		return browser.switchTo().activeElement();
+	};
 
-	this.getFocussedElementId = function () {
-		return browser.switchTo().activeElement().getAttribute(!idSelectors ? 'id' : 'class');
+	this.getFocussedTagName = function () {
+		return this.getActiveElement().getTagName();
+	};
+
+	this.getFocussedElementName = function () {
+		return this.getActiveElement()
+			.getAttribute(!idSelectors ? 'id' : 'class');
 	};
 
 	this.getEditInputForItemAtIndex = function (index) {

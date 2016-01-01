@@ -1,93 +1,99 @@
-/*global todomvc, angular */
-'use strict';
+/* jshint undef: true, unused: true */
+/*global angular */
 
-/**
- * The main controller for the app. The controller:
- * - retrieves and persists the model via the todoStorage service
- * - exposes the model to the template and provides event handlers
+/*
+ * Line below lets us save `this` as `TC`
+ * to make properties look exactly the same as in the template
  */
-todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, $filter, todoStorage) {
-	var todos = $scope.todos = todoStorage.get();
+//jscs:disable safeContextKeyword
+(function () {
+	'use strict';
 
-	$scope.newTodo = '';
-	$scope.remainingCount = $filter('filter')(todos, {completed: false}).length;
-	$scope.editedTodo = null;
+	angular.module('todoCtrl', [])
 
-	if ($location.path() === '') {
-		$location.path('/');
-	}
+	/**
+	 * The main controller for the app. The controller:
+	 * - retrieves and persists the model via the todoStorage service
+	 * - exposes the model to the template and provides event handlers
+	 */
+	.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage) {
+		var TC = this;
+		var todos = TC.todos = todoStorage.get();
 
-	$scope.location = $location;
+		TC.ESCAPE_KEY = 27;
+		TC.editedTodo = {};
 
-	$scope.$watch('location.path()', function (path) {
-		$scope.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
-	});
-
-	$scope.$watch('remainingCount == 0', function (val) {
-		$scope.allChecked = val;
-	});
-
-	$scope.addTodo = function () {
-		var newTodo = $scope.newTodo.trim();
-		if (newTodo.length === 0) {
-			return;
+		function resetTodo() {
+			TC.newTodo = {title: '', completed: false};
 		}
 
-		todos.push({
-			title: newTodo,
-			completed: false
-		});
-		todoStorage.put(todos);
+		resetTodo();
 
-		$scope.newTodo = '';
-		$scope.remainingCount++;
-	};
-
-	$scope.editTodo = function (todo) {
-		$scope.editedTodo = todo;
-		// Clone the original todo to restore it on demand.
-		$scope.originalTodo = angular.extend({}, todo);
-	};
-
-	$scope.doneEditing = function (todo) {
-		$scope.editedTodo = null;
-		todo.title = todo.title.trim();
-
-		if (!todo.title) {
-			$scope.removeTodo(todo);
+		if ($location.path() === '') {
+			$location.path('/');
 		}
 
-		todoStorage.put(todos);
-	};
+		TC.location = $location;
 
-	$scope.revertEditing = function (todo) {
-		todos[todos.indexOf(todo)] = $scope.originalTodo;
-		$scope.doneEditing($scope.originalTodo);
-	};
-
-	$scope.removeTodo = function (todo) {
-		$scope.remainingCount -= todo.completed ? 0 : 1;
-		todos.splice(todos.indexOf(todo), 1);
-		todoStorage.put(todos);
-	};
-
-	$scope.todoCompleted = function (todo) {
-		$scope.remainingCount += todo.completed ? -1 : 1;
-		todoStorage.put(todos);
-	};
-
-	$scope.clearCompletedTodos = function () {
-		$scope.todos = todos = todos.filter(function (val) {
-			return !val.completed;
+		$scope.$watch('TC.location.path()', function (path) {
+			TC.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
 		});
-		todoStorage.put(todos);
-	};
 
-	$scope.markAll = function (completed) {
-		todos.forEach(function (todo) {
-			todo.completed = !completed;
-		});
-		$scope.remainingCount = completed ? todos.length : 0;
-		todoStorage.put(todos);
-	};
-});
+		// 3rd argument `true` for deep object watching
+		$scope.$watch('TC.todos', function () {
+			TC.remainingCount = todos.filter(function (todo) { return !todo.completed; }).length;
+			TC.allChecked = (TC.remainingCount === 0);
+
+			// Save any changes to localStorage
+			todoStorage.put(todos);
+		}, true);
+
+		TC.addTodo = function () {
+			var newTitle = TC.newTodo.title = TC.newTodo.title.trim();
+			if (newTitle.length === 0) {
+				return;
+			}
+
+			todos.push(TC.newTodo);
+			resetTodo();
+		};
+
+		TC.editTodo = function (todo) {
+			TC.editedTodo = todo;
+
+			// Clone the original todo to restore it on demand.
+			TC.originalTodo = angular.copy(todo);
+		};
+
+		TC.doneEditing = function (todo, index) {
+			TC.editedTodo = {};
+			todo.title = todo.title.trim();
+
+			if (!todo.title) {
+				TC.removeTodo(index);
+			}
+		};
+
+		TC.revertEditing = function (index) {
+			TC.editedTodo = {};
+			todos[index] = TC.originalTodo;
+		};
+
+		TC.removeTodo = function (index) {
+			todos.splice(index, 1);
+		};
+
+		TC.clearCompletedTodos = function () {
+			TC.todos = todos = todos.filter(function (val) {
+				return !val.completed;
+			});
+		};
+
+		TC.markAll = function (completed) {
+			todos.forEach(function (todo) {
+				todo.completed = completed;
+			});
+		};
+	});
+})();
+//jscs:enable

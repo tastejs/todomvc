@@ -148,6 +148,16 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				testOps.assertItemAtIndexIsCompleted(2);
 			});
 
+			test.it('should correctly update the complete all checked state', function () {
+				// manually check all items
+				page.toggleItemAtIndex(0);
+				page.toggleItemAtIndex(1);
+				page.toggleItemAtIndex(2);
+
+				// ensure checkall is in the correct state
+				testOps.assertCompleteAllIsChecked();
+			});
+
 			test.it('should allow me to clear the completion state of all items', function () {
 				page.clickMarkAllCompletedCheckBox();
 				page.clickMarkAllCompletedCheckBox();
@@ -204,6 +214,11 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			test.beforeEach(function () {
 				createStandardItems();
 				page.doubleClickItemAtIndex(1);
+			});
+
+			test.it('should focus the input', function () {
+				testOps.assertInputFocused();
+				testOps.assertNewInputNotFocused();
 			});
 
 			test.it('should hide other controls when editing', function () {

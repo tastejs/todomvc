@@ -1,37 +1,34 @@
-/// <reference path="typings/angular2/angular2.d.ts" />
-import {Component, View, bootstrap, NgIf, NgFor} from 'angular2/angular2';
-import {TodoStore, Todo} from 'services/store';
+import {Component} from 'angular2/core';
+import {bootstrap} from 'angular2/platform/browser';
+import {TodoStore, Todo} from './services/store';
 
 const ESC_KEY = 27;
 const ENTER_KEY = 13;
 
 @Component({
 	selector: 'todo-app',
-})
-@View({
-	directives: [NgIf, NgFor],
 	template: `
 		<section class="todoapp">
 			<header class="header">
 				<h1>todos</h1>
 				<input class="new-todo" placeholder="What needs to be done?" autofocus="" #newtodo (keyup)="addTodo($event, newtodo)">
 			</header>
-			<section class="main" *ng-if="todoStore.todos.length > 0">
-				<input class="toggle-all" type="checkbox" *ng-if="todoStore.todos.length" #toggleall [checked]="todoStore.allCompleted()" (click)="todoStore.setAllTo(toggleall)">
+			<section class="main" *ngIf="todoStore.todos.length > 0">
+				<input class="toggle-all" type="checkbox" *ngIf="todoStore.todos.length" #toggleall [checked]="todoStore.allCompleted()" (click)="todoStore.setAllTo(toggleall)">
 				<ul class="todo-list">
-					<li *ng-for="#todo of todoStore.todos" [class.completed]="todo.completed" [class.editing]="todo.editing">
+					<li *ngFor="#todo of todoStore.todos" [class.completed]="todo.completed" [class.editing]="todo.editing">
 						<div class="view">
 							<input class="toggle" type="checkbox" (click)="toggleCompletion(todo.uid)" [checked]="todo.completed">
 							<label (dblclick)="editTodo(todo)">{{todo.title}}</label>
 							<button class="destroy" (click)="remove(todo.uid)"></button>
 						</div>
-						<input class="edit" *ng-if="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo)" (keyup.enter)="updateEditingTodo(editedtodo, todo)" (keyup.escape)="cancelEditingTodo(todo)">
+						<input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo)" (keyup.enter)="updateEditingTodo(editedtodo, todo)" (keyup.escape)="cancelEditingTodo(todo)">
 					</li>
 				</ul>
 			</section>
-			<footer class="footer" *ng-if="todoStore.todos.length > 0">
+			<footer class="footer" *ngIf="todoStore.todos.length > 0">
 				<span class="todo-count"><strong>{{todoStore.getRemaining().length}}</strong> {{todoStore.getRemaining().length == 1 ? 'item' : 'items'}} left</span>
-				<button class="clear-completed" *ng-if="todoStore.getCompleted().length > 0" (click)="removeCompleted()">Clear completed</button>
+				<button class="clear-completed" *ngIf="todoStore.getCompleted().length > 0" (click)="removeCompleted()">Clear completed</button>
 			</footer>
 		</section>`
 })
