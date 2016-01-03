@@ -1,5 +1,3 @@
-/* jshint ignore:start */
-// jscs:disable
 jQuery.sap.registerPreloadedModules({
 	"version": "2.0",
 	"name": "js/Component-preload",
@@ -15,5 +13,3 @@ jQuery.sap.registerPreloadedModules({
 		"js/i18n/i18n_en.properties": "# Component\nappTitle=OpenUI5 • TodoMVC\nappDescription=\n\n# Custom Control\ntitle=todos\nnewTodo=What needs to be done?\nmarkAllAsComplete=Mark all as complete\nclearCompleted=Clear completed\nall=All\nactive=Active\ncompleted=Completed\ndoubleClickInfo=Double-click to edit a todo\ncredits=Written by\npartOf=Part of\nmultipleLeft=items left\nsingleLeft=item left\n"
 	}
 });
-/* jshint ignore:end */
-// jscs:enable
