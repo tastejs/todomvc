@@ -181,7 +181,26 @@ As of right now, the ```grunt-openui5``` NPM package produces JSCS & JSHint inva
 ```
 
 ### Version & 'resources' folder
-This app is using the most recent OpenUI5 version, hosted on the [CDN](http://openui5.org/download.html). As of today, this is version 1.32.9 (2015-12-14).
+This app is using OpenUI5 v1.32.9 (2015-12-14). Therefore, the *required* files from the 'resources' folder were taken from the [official UI5 Runtime](https://openui5.hana.ondemand.com/downloads/openui5-runtime-1.32.9.zip) ZIP archive. The required files are (limited to English - no i18n variations included):
+- ```jquery.sap.storage.js```
+- ```sap-ui-core.js```
+- ```sap-ui-version.json```
+- ```sap/m/themes/sap_bluecrystal/library-parameters.json```
+- ```sap/m/themes/sap_bluecrystal/library.css```
+- ```sap/m/library-preload.json```
+- ```sap/m/library.js```
+- ```sap/m/messagebundle_en.properties```
+- ```sap/ui/core/themes/sap_bluecrystal/library-parameters.json```
+- ```sap/ui/core/themes/sap_bluecrystal/library.css```
+- ```sap/ui/core/library-preload.json```
+- ```sap/ui/core/library.js```
+- ```sap/ui/core/messagebundle_en.properties```
+- ``` sap/ui/thirdparty/crossroads.js```
+- ``` sap/ui/thirdparty/hasher.js```
+- ``` sap/ui/thirdparty/jquery-mobile-custom.js```
+- ``` sap/ui/thirdparty/signals.js```
+
+**Note:** In case of a version update, the 'resource' folder would need to be replaced.
 
 ## Credit
 Created by [Alexander Graebe](https://github.com/agraebe) & [Alexander Hauck](https://github.com/alexis90)
