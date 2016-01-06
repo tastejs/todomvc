@@ -8,7 +8,7 @@ sap.ui.define([
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
-	return Control.extend('example.control.ToDoControl', {
+	return Control.extend('ToDoMVC.control.ToDoControl', {
 		metadata: {
 			properties: {
 				toDosObject: {
