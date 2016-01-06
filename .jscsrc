@@ -33,13 +33,13 @@
 		"examples/duel/src/main/webapp/js/lib/**",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
+		"examples/openui5/js/Component-preload.js",
 		"examples/polymer/elements/elements.build.js",
 		"examples/spine/js/**",
 		"examples/thorax/js/lib/backbone-localstorage.js",
 		"examples/thorax_lumbar/public/*.js",
 		"examples/typescript-*/js/**/*.js",
-		"examples/vanilladart/**/*.js",
-		"examples/openui5/js/Component-preload.js"
+		"examples/vanilladart/**/*.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
