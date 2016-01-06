@@ -52,7 +52,7 @@ module todos {
 		onPath(path: string) {
 			this.$scope.statusFilter = (path === '/active') ?
 				{ completed: false } : (path === '/completed') ?
-				{ completed: true } : null;
+				{ completed: true } : {};
 		}
 
 		onTodos() {
