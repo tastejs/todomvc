@@ -15,7 +15,7 @@
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>
-				Created by <a href="http://github.com/samccone">Sam Saccone</a>
+				Created by <a href="http://github.com/samccone">Sam Saccone</a> and <a href="http://github.com/colineberhardt">Colin Eberhardt</a>
 				using <a href="http://angular.io">Angular2</a>
 			</p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
@@ -27,14 +27,9 @@
 						format: 'cjs',
 						defaultExtension: 'js'
 					}
-				},
-				map: {
-					'node-uuid': 'node_modules/node-uuid/uuid.js',
-					'store.js': 'node_modules/store.js/store.js',
-					'app': './',
 				}
 			});
-			System.import('app/app');
+			System.import('app/bootstrap');
 		</script>
 	</body>
 </html>

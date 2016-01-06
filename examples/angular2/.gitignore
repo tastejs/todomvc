@@ -3,12 +3,6 @@ node_modules/.bin
 # ignore the source / documentation of each node module, but retain the
 # distribution builds
 
-node_modules/node-uuid
-!node_modules/node-uuid/uuid.js
-
-node_modules/store.js
-!node_modules/store.js/store.js
-
 node_modules/systemjs
 !node_modules/systemjs/dist/system.src.js
 
@@ -29,5 +23,5 @@ node_modules/rxjs
 node_modules/tsd
 node_modules/typescript
 
-
+*.js.map
 typings
