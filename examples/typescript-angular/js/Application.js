@@ -129,7 +129,7 @@ var todos;
         TodoCtrl.prototype.onPath = function (path) {
             this.$scope.statusFilter = (path === '/active') ?
                 { completed: false } : (path === '/completed') ?
-                { completed: true } : null;
+                { completed: true } : {};
         };
         TodoCtrl.prototype.onTodos = function () {
             this.$scope.remainingCount = this.filterFilter(this.todos, { completed: false }).length;
