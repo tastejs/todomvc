@@ -50,9 +50,9 @@ module todos {
 		}
 
 		onPath(path: string) {
-            this.$scope.statusFilter = (path === '/active') ?
-                { completed: false } : (path === '/completed') ?
-                    { completed: true } : {};
+			this.$scope.statusFilter = (path === '/active') ?
+				{ completed: false } : (path === '/completed') ?
+				{ completed: true } : {};
 		}
 
 		onTodos() {
