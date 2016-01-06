@@ -10,7 +10,7 @@ module todos {
 		doneCount: number;
 		allChecked: boolean;
 		reverted: boolean;
-		statusFilter: { completed: boolean; };
+		statusFilter: any;
 		location: ng.ILocationService;
 		vm: TodoCtrl;
 	}
