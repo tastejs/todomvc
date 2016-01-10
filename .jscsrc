@@ -29,6 +29,8 @@
 		"**/generated/**",
 		"examples/ampersand/todomvc.bundle.js",
 		"examples/angular2/**/*.js",
+		"examples/angular2_es2015/vendor.bundle.js",
+		"examples/angular2_es2015/boot.bundle.js",
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
 		"examples/humble/js/**",
