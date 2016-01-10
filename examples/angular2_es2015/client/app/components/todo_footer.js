@@ -4,27 +4,27 @@ import {TodoLocalStore} from '../services/store';
 import todoFooterTemplate from './todo_footer.html';
 
 @Component({
-  selector: 'todo-footer',
-  template: todoFooterTemplate
+	selector: 'todo-footer',
+	template: todoFooterTemplate
 })
 export class TodoFooter {
-  constructor(todoStore: TodoLocalStore) {
-    this._todoStore = todoStore;
-  }
+	constructor(todoStore:TodoLocalStore) {
+		this._todoStore = todoStore;
+	}
 
-  removeCompleted() {
-    this._todoStore.removeCompleted();
-  }
+	removeCompleted() {
+		this._todoStore.removeCompleted();
+	}
 
-  getCount() {
-    return this._todoStore.todos.length;
-  }
+	getCount() {
+		return this._todoStore.todos.length;
+	}
 
-  getRemainingCount() {
-    return this._todoStore.getRemaining().length;
-  }
+	getRemainingCount() {
+		return this._todoStore.getRemaining().length;
+	}
 
-  hasCompleted() {
-    return this._todoStore.getCompleted().length > 0;
-  }
+	hasCompleted() {
+		return this._todoStore.getCompleted().length > 0;
+	}
 }
