@@ -88,7 +88,12 @@ class Header implements Mithril implements Context
 	// A DCI Role
 	@role var items : {
 		// The DCI RoleObjectContract, ie. what is required 
-		// for the object to play this Role
+		// for the object to play this Role. 
+		// 
+		// By using subtyping instead of an interface or another 
+		// type, focus is shifted from classes to objects, and 
+		// the programmer can understand the Context without 
+		// considering other types (with a much larger interface).
 		function add(title : String) : Void;
 		function save() : Void;
 	};
@@ -140,6 +145,8 @@ class Header implements Mithril implements Context
 // Model+View
 class TodoList implements Mithril implements Context
 {
+	// The "editor" Role, for the text field when double-clicking
+	// an item. It requires an item and a value for the field.
 	@role var editor : { 
 		item: TodoItem, 
 		value: String 
@@ -217,6 +224,7 @@ class TodoList implements Mithril implements Context
 
 	public function new(items) {
 		this.items = items;
+		// This is the state for the editor.
 		this.editor = {item: null, value: ""};
 	}
 
@@ -264,6 +272,9 @@ class TodoList implements Mithril implements Context
 // View
 class Footer implements Mithril implements Context
 {
+	// This RoleObjectInterface is the same as in TodoList, but
+	// should not be reused, since the Roles could and should evolve 
+	// independenly.
 	@role var items : {
 		function save() : Void;
 		function remove(item : TodoItem) : Bool;

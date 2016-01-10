@@ -8,6 +8,8 @@ class TodoItems implements haxedci.Context
 	static var STORAGE_KEY = "todos-haxe-mithril";
 
 	// This is where the TodoItem are persisted.
+	// Using the Haxe serializer for handling of any type.
+	// normal JSON serialization should work too in this simple case.
 	@role var storage : {
 		function getItem(key : String) : String;
 		function setItem(key : String, value : String) : Void;

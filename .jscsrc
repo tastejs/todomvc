@@ -31,6 +31,7 @@
 		"examples/angular2/**/*.js",
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
+		"examples/haxe-mithril-dci/js/**",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
 		"examples/polymer/elements/elements.build.js",
@@ -38,8 +39,7 @@
 		"examples/thorax/js/lib/backbone-localstorage.js",
 		"examples/thorax_lumbar/public/*.js",
 		"examples/typescript-*/js/**/*.js",
-		"examples/vanilladart/**/*.js",
-		"examples/haxe-mithril-dci/js/**/*.js"
+		"examples/vanilladart/**/*.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
