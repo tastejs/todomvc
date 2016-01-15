@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "scripts": {
+    "compile": "babel src --presets es2015 --out-dir=dist && browserify dist/app.js > dist/bundle.js",
+    "prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "todomvc-app-css": "^2.0.1",
+    "todomvc-common": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.1.0",
+    "babel-preset-es2015": "^6.1.18",
+    "browserify": "^12.0.1"
+  }
+}
