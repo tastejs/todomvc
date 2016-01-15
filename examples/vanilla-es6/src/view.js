@@ -153,25 +153,25 @@ export default class View {
 				break;
 
 			case 'toggleAll':
-				$on(this.$toggleAll, 'click', function(){
+				$on(this.$toggleAll, 'click', function () {
 					handler({completed: this.checked});
 				});
 				break;
 
 			case 'itemEdit':
-				$delegate(this.$todoList, 'li label', 'dblclick', function(){
+				$delegate(this.$todoList, 'li label', 'dblclick', function () {
 					handler({id: _itemId(this)});
 				});
 				break;
 
 			case 'itemRemove':
-				$delegate(this.$todoList, '.destroy', 'click', function(){
+				$delegate(this.$todoList, '.destroy', 'click', function () {
 					handler({id: _itemId(this)});
 				});
 				break;
 
 			case 'itemToggle':
-				$delegate(this.$todoList, '.toggle', 'click', function(){
+				$delegate(this.$todoList, '.toggle', 'click', function () {
 					handler({
 						id: _itemId(this),
 						completed: this.checked
