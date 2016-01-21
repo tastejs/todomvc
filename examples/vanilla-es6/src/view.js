@@ -1,13 +1,13 @@
 import {qs, qsa, $on, $parent, $delegate} from './helpers';
 
-let _itemId = element => parseInt($parent(element, 'li').dataset.id, 10);
+const _itemId = element => parseInt($parent(element, 'li').dataset.id, 10);
 
-let _setFilter = currentPage => {
+const _setFilter = currentPage => {
 	qs('.filters .selected').className = '';
 	qs(`.filters [href="#/${currentPage}"]`).className = 'selected';
 };
 
-let _elementComplete = (id, completed) => {
+const _elementComplete = (id, completed) => {
 	const listItem = qs(`[data-id="${id}"]`);
 
 	if (!listItem) {
@@ -20,7 +20,7 @@ let _elementComplete = (id, completed) => {
 	qs('input', listItem).checked = completed;
 };
 
-let _editItem = (id, title) => {
+const _editItem = (id, title) => {
 	const listItem = qs(`[data-id="${id}"]`);
 
 	if (!listItem) {
@@ -29,7 +29,7 @@ let _editItem = (id, title) => {
 
 	listItem.className += ' editing';
 
-	let input = document.createElement('input');
+	const input = document.createElement('input');
 	input.className = 'edit';
 
 	listItem.appendChild(input);
@@ -109,7 +109,7 @@ export default class View {
 	}
 
 	_bindItemEditDone(handler) {
-		let self = this;
+		const self = this;
 
 		$delegate(self.$todoList, 'li .edit', 'blur', function () {
 			if (!this.dataset.iscanceled) {
@@ -129,11 +129,11 @@ export default class View {
 	}
 
 	_bindItemEditCancel(handler) {
-		let self = this;
+		const self = this;
 
 		$delegate(self.$todoList, 'li .edit', 'keyup', function (event) {
 			if (event.keyCode === self.ESCAPE_KEY) {
-				let id = _itemId(this);
+				const id = _itemId(this);
 				this.dataset.iscanceled = true;
 				this.blur();
 

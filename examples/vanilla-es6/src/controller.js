@@ -177,7 +177,7 @@ export default class Controller {
 	 * @param {boolean|undefined} force  forces a re-painting of todo items.
 	 */
 	_filter(force) {
-		let active = this._activeRoute;
+		const active = this._activeRoute;
 		const activeRoute = active.charAt(0).toUpperCase() + active.substr(1);
 
 		// Update the elements on the page, which change with each completed todo
