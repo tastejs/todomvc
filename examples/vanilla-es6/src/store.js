@@ -39,7 +39,7 @@ export default class Store {
 		 * })
 	 */
 	find(query, callback){
-		let todos = JSON.parse(localStorage[this._dbName]).todos;
+		const todos = JSON.parse(localStorage[this._dbName]).todos;
 
 		callback.call(this, todos.filter(todo => {
 			for (let q in query) {
@@ -72,7 +72,7 @@ export default class Store {
 	 */
 	save(updateData, callback, id){
 		const data = JSON.parse(localStorage[this._dbName]);
-		let todos = data.todos;
+		const todos = data.todos;
 		const len = todos.length;
 
 		// If an ID was actually given, find the item and update each property
@@ -112,7 +112,7 @@ export default class Store {
 	 */
 	remove(id, callback){
 		const data = JSON.parse(localStorage[this._dbName]);
-		let todos = data.todos;
+		const todos = data.todos;
 		const len = todos.length;
 
 		for (let i = 0; i < todos.length; i++) {
