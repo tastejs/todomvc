@@ -19,7 +19,7 @@ export function $on(target, type, callback, useCapture) {
 // Attach a handler to event for all elements that match the selector,
 // now or in the future, based on a root element
 export function $delegate(target, selector, type, handler) {
-	let dispatchEvent = event => {
+	const dispatchEvent = event => {
 		const targetElement = event.target;
 		const potentialElements = qsa(selector, target);
 		const hasMatch = Array.from(potentialElements).includes(targetElement);
