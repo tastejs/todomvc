@@ -17,7 +17,7 @@ export default class Model {
 	create(title, callback){
 		title = title || '';
 
-		let newItem = {
+		const newItem = {
 			title: title.trim(),
 			completed: false
 		};
@@ -88,7 +88,7 @@ export default class Model {
 	 * Returns a count of all todos
 	 */
 	getCount(callback){
-		let todos = {
+		const todos = {
 			active: 0,
 			completed: 0,
 			total: 0

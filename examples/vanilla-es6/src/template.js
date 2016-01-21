@@ -10,8 +10,8 @@ const htmlEscapes = {
 const reUnescapedHtml = /[&<>"'`]/g;
 const reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
 
-let escape = str => (str && reHasUnescapedHtml.test(str)) ? str.replace(reUnescapedHtml, escapeHtmlChar) : str;
-let escapeHtmlChar = chr => htmlEscapes[chr];
+const escape = str => (str && reHasUnescapedHtml.test(str)) ? str.replace(reUnescapedHtml, escapeHtmlChar) : str;
+const escapeHtmlChar = chr => htmlEscapes[chr];
 
 export default class Template {
 	constructor() {
@@ -44,10 +44,10 @@ export default class Template {
 		 * })
 	 */
 	show(data){
-		let view = data.map(d => {
-			let template = this.defaultTemplate;
-			let completed = d.completed ? 'completed' : '';
-			let checked = d.completed ? 'checked' : '';
+		const view = data.map(d => {
+			const template = this.defaultTemplate;
+			const completed = d.completed ? 'completed' : '';
+			const checked = d.completed ? 'checked' : '';
 
 			return this.defaultTemplate
 				.replace('{{id}}', d.id)
@@ -66,7 +66,7 @@ export default class Template {
 	 * @returns {string} String containing the count
 	 */
 	itemCounter(activeTodos){
-		let plural = activeTodos === 1 ? '' : 's';
+		const plural = activeTodos === 1 ? '' : 's';
 		return `<strong>${activeTodos}</strong> item${plural} left`;
 	}
 
