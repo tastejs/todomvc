@@ -1,0 +1,32 @@
+const {dom, modelFor} = require('duet');
+
+module.exports = (state) => {
+    const model = modelFor(state);
+    const ids = Object.keys(state.todos);
+
+    const selected = (filter) => state.filter === filter ? 'selected' : '';
+
+    const clear = (model) => {
+        ids.forEach((id) => {
+            if (model.todos.get(id).completed) {
+                model.todos['delete'](id);
+            }
+        });
+    };
+
+    const numCompleted = ids.reduce(function (sum, id) {
+        return state.todos[id].completed ? sum + 1 : sum;
+    }, 0);
+
+    return dom`
+        <footer.footer className=${ids.length ? '' : 'hidden'}>
+            <span className="todo-count"></span>
+            <ul.filters>
+                <li><a className=${selected('all')} href="/#/">All</a></li>
+                <li><a className=${selected('active')} href="/#/active">Active</a></li>
+                <li><a className=${selected('completed')} href="/#/completed">Completed</a></li>
+            </ul>
+            <button className=${'clear-completed' + (numCompleted ? '' : ' hidden')} data-click=${model.ev(clear)}>Clear completed</button>
+        </footer>
+    `;
+}
