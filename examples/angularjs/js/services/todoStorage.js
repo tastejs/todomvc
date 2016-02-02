@@ -34,18 +34,11 @@ angular.module('todomvc')
 			),
 
 			clearCompleted: function () {
-				var originalTodos = store.todos.slice(0);
-
-				var incompleteTodos = store.todos.filter(function (todo) {
-					return !todo.completed;
-				});
-
-				angular.copy(incompleteTodos, store.todos);
-
-				return store.api.delete(function () {
-					}, function error() {
-						angular.copy(originalTodos, store.todos);
-					});
+                                for (var i = 0; i < store.todos.length; i++) {
+                                    if (store.todos[i].completed === true ){
+                                       this.delete(store.todos[i]);
+                                    }
+                                }
 			},
 
 			delete: function (todo) {
