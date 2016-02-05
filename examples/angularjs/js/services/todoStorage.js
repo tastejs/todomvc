@@ -66,7 +66,7 @@ angular.module('todomvc')
 			put: function (todo) {
 				return store.api.update({ id: todo.id }, todo)
 					.$promise;
-			}
+			},
 			
 			clearCompleted: function () {
 				for (var i = 0; i < store.todos.length; i++) {
