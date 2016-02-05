@@ -33,9 +33,6 @@ angular.module('todomvc')
 				}
 			),
 
-			clearCompleted: function () {for (var i = 0; i < store.todos.length; i++) {if (store.todos[i].completed === true) {this.delete(store.todos[i]);}
-			},
-
 			delete: function (todo) {
 				var originalTodos = store.todos.slice(0);
 
@@ -69,6 +66,14 @@ angular.module('todomvc')
 			put: function (todo) {
 				return store.api.update({ id: todo.id }, todo)
 					.$promise;
+			}
+			
+			clearCompleted: function () {
+				for (var i = 0; i < store.todos.length; i++) {
+					if (store.todos[i].completed === true) {
+						this.delete(store.todos[i]);
+						
+					}
 			}
 		};
 
