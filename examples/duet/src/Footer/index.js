@@ -26,7 +26,7 @@ module.exports = (state) => {
                 <li><a className=${selected('active')} href="/#/active">Active</a></li>
                 <li><a className=${selected('completed')} href="/#/completed">Completed</a></li>
             </ul>
-            <button className=${'clear-completed' + (numCompleted ? '' : ' hidden')} data-click=${model.ev(clear)}>Clear completed</button>
+            <button className=${'clear-completed' + (numCompleted ? '' : ' hidden')} dataset=${{click: model.ev(clear)}}>Clear completed</button>
         </footer>
     `;
 }
