@@ -30,8 +30,10 @@ module.exports = (state) => {
             <input className="new-todo"
                 name="new-todo"
                 value=${state.newTodo}
-                data-keydown=${model.ev(onKeydown)}
-                data-default="keydown"
+                dataset=${{
+                    keydown: model.ev(onKeydown),
+                    default: 'keydown'
+                }}
                 placeholder="What needs to be done?"
                 autofocus>
         </header>

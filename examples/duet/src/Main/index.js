@@ -92,16 +92,18 @@ module.exports = (state) => {
                     <input.toggle type="checkbox"
                         key=${'toggle--' + id + (todo.completed ? '--checked' : '')}
                         checked=${todo.completed ? 'checked' : ''}
-                        data-change=${model.ev(toggleCompleted, id)}>
-                    <label data-dblclick=${model.ev(edit, id)}>${todo.title}</label>
-                    <button.destroy data-click=${model.ev(clear, id)}></button>
+                        dataset=${{change: model.ev(toggleCompleted, id)}}>
+                    <label dataset=${{dblclick: model.ev(edit, id)}}>${todo.title}</label>
+                    <button.destroy dataset=${{click: model.ev(clear, id)}}></button>
                 </div>
                 <input.edit
                     name="title"
                     value=${todo.title}
-                    data-keydown=${model.ev(onKeydown, id)}
-                    data-focusout=${model.ev(close)}
-                    data-default="keydown">
+                    dataset=${{
+                        keydown: model.ev(onKeydown, id),
+                        focusout: model.ev(close),
+                        default: 'keydown'
+                    }}>
             </li>
         `;
     };
@@ -111,7 +113,7 @@ module.exports = (state) => {
             <input className="toggle-all" type="checkbox"
                 key=${'toggle-all' + (numActive === 0 ? '--checked' : '')}
                 checked=${numActive === 0 ? 'checked' : ''}
-                data-change=${model.ev(toggleAllCompleted)}>
+                dataset=${{change: model.ev(toggleAllCompleted)}}>
             <label htmlFor="toggle-all">Mark all as complete</label>
             <ul className="todo-list">
                 ${filteredIds.map(Todo)}
