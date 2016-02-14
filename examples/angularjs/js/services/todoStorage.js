@@ -37,9 +37,9 @@ angular.module('todomvc')
 				var completeTodos = store.todos.filter(function (todo) {
 					return todo.completed;
 				});
-				angular.forEach(completeTodos, function (value, key) {
-					store.delete(value);
-				});
+				for (var i = 0; i < completeTodos.length; i++) {
+					store.delete(completeTodos[i]);
+				};
 			},
 
 			delete: function (todo) {
