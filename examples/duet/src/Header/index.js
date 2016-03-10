@@ -35,7 +35,7 @@ module.exports = (state) => {
                     default: 'keydown'
                 }}
                 placeholder="What needs to be done?"
-                autofocus>
+                autofocus=${state.isInitLoad ? 'autofocus' : ''}>
         </header>
     `;
 };

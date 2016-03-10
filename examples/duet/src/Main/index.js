@@ -103,7 +103,8 @@ module.exports = (state) => {
                         keydown: model.ev(onKeydown, id),
                         focusout: model.ev(close),
                         default: 'keydown'
-                    }}>
+                    }}
+                    autofocus=${state.editing === id ? 'autofocus' : ''}>
             </li>
         `;
     };
