@@ -7,7 +7,7 @@
     "start": "npm install && npm run compile && npm run watch"
   },
   "dependencies": {
-    "duet": "^1.9.0",
+    "duet": "^1.9.1",
     "todomvc-app-css": "^2.0.1",
     "todomvc-common": "^1.0.2"
   },

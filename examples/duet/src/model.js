@@ -12,10 +12,18 @@ module.exports = (stored) => {
     const todos = stored != null && typeof stored === 'object' && stored || {};
 
     const appModel = model({
+        isInitLoad: value(true),
         todos: varhash(todos, Todo),
         newTodo: value(''),
         editing: value(null),
         filter: value('all')
+    });
+
+    const initLoad = appModel(function (state) {
+        if (state.isInitLoad) {
+            initLoad();
+            appModel.isInitLoad.set(false);
+        }
     });
 
     appModel.todos((todosState) => {
