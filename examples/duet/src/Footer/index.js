@@ -19,14 +19,16 @@ module.exports = (state) => {
     }, 0);
 
     return dom`
-        <footer.footer className=${ids.length ? '' : 'hidden'}>
-            <span className="todo-count"></span>
-            <ul.filters>
-                <li><a className=${selected('all')} href="/#/">All</a></li>
-                <li><a className=${selected('active')} href="/#/active">Active</a></li>
-                <li><a className=${selected('completed')} href="/#/completed">Completed</a></li>
+        <footer class=${'footer' + (ids.length ? '' : ' hidden')}>
+            <span class="todo-count"></span>
+            <ul class="filters">
+                <li><a class=${selected('all')} href="/#/">All</a></li>
+                <li><a class=${selected('active')} href="/#/active">Active</a></li>
+                <li><a class=${selected('completed')} href="/#/completed">Completed</a></li>
             </ul>
-            <button className=${'clear-completed' + (numCompleted ? '' : ' hidden')} dataset=${{click: model.ev(clear)}}>Clear completed</button>
+            <button
+                class=${'clear-completed' + (numCompleted ? '' : ' hidden')}
+                dataset=${{click: model.ev(clear)}}>Clear completed</button>
         </footer>
     `;
 }

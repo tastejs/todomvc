@@ -25,9 +25,10 @@ module.exports = (state) => {
     const model = modelFor(state);
 
     return dom`
-        <header.header>
+        <header class="header">
             <h1>todos</h1>
-            <input className="new-todo"
+            <input type="text"
+                class="new-todo"
                 name="new-todo"
                 value=${state.newTodo}
                 dataset=${{
@@ -35,7 +36,7 @@ module.exports = (state) => {
                     default: 'keydown'
                 }}
                 placeholder="What needs to be done?"
-                autofocus=${state.isInitLoad ? 'autofocus' : ''}>
+                ${state.isInitLoad ? 'autofocus' : ''} />
         </header>
     `;
 };

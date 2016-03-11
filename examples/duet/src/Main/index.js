@@ -87,16 +87,18 @@ module.exports = (state) => {
         const todo = state.todos[id];
 
         return dom`
-            <li className=${state.editing === id ? 'editing' : ''} key=${'todo--' + id}>
-                <div.view>
-                    <input.toggle type="checkbox"
+            <li class=${state.editing === id ? 'editing' : ''} key=${'todo--' + id}>
+                <div class="view">
+                    <input type="checkbox"
+                        class="toggle"
                         key=${'toggle--' + id + (todo.completed ? '--checked' : '')}
-                        checked=${todo.completed ? 'checked' : ''}
-                        dataset=${{change: model.ev(toggleCompleted, id)}}>
+                        ${todo.completed ? 'checked' : ''}
+                        dataset=${{change: model.ev(toggleCompleted, id)}} />
                     <label dataset=${{dblclick: model.ev(edit, id)}}>${todo.title}</label>
-                    <button.destroy dataset=${{click: model.ev(clear, id)}}></button>
+                    <button class="destroy" dataset=${{click: model.ev(clear, id)}}></button>
                 </div>
-                <input.edit
+                <input type="text"
+                    class="edit"
                     name="title"
                     value=${todo.title}
                     dataset=${{
@@ -104,19 +106,20 @@ module.exports = (state) => {
                         focusout: model.ev(close),
                         default: 'keydown'
                     }}
-                    autofocus=${state.editing === id ? 'autofocus' : ''}>
+                    ${state.editing === id ? 'autofocus' : ''} />
             </li>
         `;
     };
 
     return dom`
-        <section.main className=${ids.length ? '' : 'hidden'}>
-            <input className="toggle-all" type="checkbox"
+        <section class=${'main' + (ids.length ? '' : ' hidden')}>
+            <input type="checkbox"
+                class="toggle-all"
                 key=${'toggle-all' + (numActive === 0 ? '--checked' : '')}
-                checked=${numActive === 0 ? 'checked' : ''}
-                dataset=${{change: model.ev(toggleAllCompleted)}}>
-            <label htmlFor="toggle-all">Mark all as complete</label>
-            <ul className="todo-list">
+                ${numActive === 0 ? 'checked' : ''}
+                dataset=${{change: model.ev(toggleAllCompleted)}} />
+            <label for="toggle-all">Mark all as complete</label>
+            <ul class="todo-list">
                 ${filteredIds.map(Todo)}
             </ul>
         </section>
