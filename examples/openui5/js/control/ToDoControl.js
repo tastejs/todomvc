@@ -108,11 +108,11 @@ sap.ui.define([
 			var elems = this.getToDosObject();
 			var toDoIds = [];
 
-			for (var i = 0; i < elems.length; i++) {
-				if (elems[i].completed === status) {
-					toDoIds.push(parseInt(elems[i].id));
+			elems.forEach(function (value) {
+				if (value.completed === status) {
+					toDoIds.push(parseInt(value.id));
 				}
-			}
+			}, this);
 
 			return toDoIds;
 		},
@@ -182,22 +182,23 @@ sap.ui.define([
 
 			if (toDoIds.length > 0) {
 				// complete all uncompleted toDos
-				for (var i = 0; i < toDoIds.length; i++) {
+				toDoIds.forEach(function (value) {
 					// fire changed event
 					this.fireEvent('completedToDoPressed', {
-						toDoId: toDoIds[i],
+						toDoId: value,
 						completed: true
 					});
-				}
+				}, this);
+
 			} else {
 				// uncomplete all toDos
-				for (var j = 0; j < elems.length; j++) {
+				elems.forEach(function (value) {
 					// fire changed event
 					this.fireEvent('completedToDoPressed', {
-						toDoId: elems[j].id,
+						toDoId: value.id,
 						completed: false
 					});
-				}
+				}, this);
 			}
 
 			this.rerender();
@@ -220,24 +221,23 @@ sap.ui.define([
 			// what happens when user clicks on 'Clear completed' link in the bottom right?
 			$('#deleteAllCompleted-' + controlId).click(this.onDeleteAllCompletedToDos.bind(this));
 
-			for (var i = 0; i < allToDosObjects.length; i++) {
-
+			allToDosObjects.forEach(function (value) {
 				// what happens when user delets toDo?
-				$('#destroyToDo-' + allToDosObjects[i].id + '-' + controlId).click(this.onDeleteToDo.bind(this));
+				$('#destroyToDo-' + value.id + '-' + controlId).click(this.onDeleteToDo.bind(this));
 
 				// what happens when user double-clicks a toDo?
-				$('#labelFor-' + allToDosObjects[i].id + '-' + controlId).dblclick(this.onEditToDo.bind(this));
+				$('#labelFor-' + value.id + '-' + controlId).dblclick(this.onEditToDo.bind(this));
 
 				// what happens when user removes focus while editing a toDo?
 				// captures blur events in IE as well
-				$('#editField-' + allToDosObjects[i].id + '-' + controlId).focusout(this.onLeaveEditToDoFocus.bind(this));
+				$('#editField-' + value.id + '-' + controlId).focusout(this.onLeaveEditToDoFocus.bind(this));
 
 				// what happens when user presses a key while editing a toDo?
-				$('#editField-' + allToDosObjects[i].id + '-' + controlId).keydown(this._onEditKeyPress.bind(this));
+				$('#editField-' + value.id + '-' + controlId).keydown(this._onEditKeyPress.bind(this));
 
 				// what happens when user checks the completed checkbox for a toDo?
-				$('#completeToDo-' + allToDosObjects[i].id + '-' + controlId).click(this.onToggleToDo.bind(this));
-			}
+				$('#completeToDo-' + value.id + '-' + controlId).click(this.onToggleToDo.bind(this));
+			}, this);
 
 			// set focus on input textfield
 			document.getElementById('inputToDo-' + this.sId).focus();
@@ -289,8 +289,7 @@ sap.ui.define([
 
 				if (toDosAvailable) {
 
-					for (var i = 0; i < toDos.length; i++) {
-						var toDoObject = toDos[i];
+					toDos.forEach(function (toDoObject) {
 						var shouldDisplayToDoObject = (filter === 'all' || (filter === 'completed' && toDoObject.completed) ||
 							(filter === 'active' && !toDoObject.completed));
 
@@ -316,7 +315,7 @@ sap.ui.define([
 												toDoObject.title + '">');
 							oRm.write('</li>');
 						}
-					}
+					}, this);
 				}
 
 				oRm.write('</ul>');
