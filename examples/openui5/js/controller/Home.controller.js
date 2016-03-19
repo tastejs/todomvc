@@ -64,12 +64,12 @@ sap.ui.define([
 					var allStillExistingToDos = oModel.getProperty('/allToDos');
 
 					// remove todo from localStorage
-					for (var i = 0; i < allStillExistingToDos.length; i++) {
-						if (allStillExistingToDos[i].id === oEvent.getParameter('toDoId')) {
+					allStillExistingToDos.some(function (value, i) {
+						if (value.id === oEvent.getParameter('toDoId')) {
 							allStillExistingToDos.splice(i, 1);
-							break;
+							return true;
 						}
-					}
+					}, this);
 
 					oStorage.put('todos-openui5', oModel.getData());
 					oModel.refresh(true);
@@ -81,29 +81,34 @@ sap.ui.define([
 
 					// remove completed todos from localStorage
 					while (elems.length > 0) {
-						for (var i = 0; i < allStillExistingToDos.length; i++) {
-							if (elems[0] === allStillExistingToDos[i].id) {
-								allStillExistingToDos.splice(i, 1);
-								elems.splice(0, 1);
-								break;
-							}
-						}
+						this._removeCompletedElems(elems, allStillExistingToDos);
 					}
 
 					oStorage.put('todos-openui5', oModel.getData());
 					oModel.refresh(true);
 				},
 
+				_removeCompletedElems: function (elems, allStillExistingToDos) {
+					allStillExistingToDos.some(function (value, i) {
+						if (elems[0] === value.id) {
+							allStillExistingToDos.splice(i, 1);
+							elems.splice(0, 1);
+							return true;
+						}
+					}, this);
+				},
+
 				completedToDoPressed: function (oEvent) {
 					var allStillExistingToDos = oModel.getProperty('/allToDos');
 
 					// update todo within localStorage
-					for (var i = 0; i < allStillExistingToDos.length; i++) {
-						if (allStillExistingToDos[i].id === oEvent.getParameter('toDoId')) {
-							allStillExistingToDos[i].completed = oEvent.getParameter('completed');
-							break;
+					allStillExistingToDos.some(function (value) {
+						if (value.id === oEvent.getParameter('toDoId')) {
+							value.completed = oEvent.getParameter('completed');
+							// short circuit the loop
+							return true;
 						}
-					}
+					}, this);
 
 					oStorage.put('todos-openui5', oModel.getData());
 					oModel.refresh(true);
@@ -113,12 +118,12 @@ sap.ui.define([
 					var allStillExistingToDos = oModel.getProperty('/allToDos');
 
 					// update todo within localStorage
-					for (var i = 0; i < allStillExistingToDos.length; i++) {
-						if (allStillExistingToDos[i].id === oEvent.getParameter('toDoId')) {
-							allStillExistingToDos[i].title = oEvent.getParameter('title');
-							break;
+					allStillExistingToDos.some(function (value) {
+						if (value.id === oEvent.getParameter('toDoId')) {
+							value.title = oEvent.getParameter('title');
+							return true;
 						}
-					}
+					}, this);
 
 					oStorage.put('todos-openui5', oModel.getData());
 					oModel.refresh(true);
