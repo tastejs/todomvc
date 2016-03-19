@@ -40,7 +40,7 @@
 		"examples/thorax/js/lib/backbone-localstorage.js",
 		"examples/thorax_lumbar/public/*.js",
 		"examples/typescript-*/js/**/*.js",
-		"examples/vanilladart/**/*.js"
+		"examples/vanilladart/**/*.js",
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,

@@ -24,7 +24,7 @@ Here are some links you may find helpful:
 
 Articles and guides from the community:
 
-* [JavaScript MVC frameworks: A Comparison of Marionette and Chaplin](http://9elements.com/io/index.php/comparison-of-marionette-and-chaplin)
+* [JavaScript MVC frameworks: A Comparison of Marionette and Chaplin](http://9elements.com/io/index.php/comparison-of-marionette-and-chaplin/)
 
 Get help from other Chaplin users:
 
