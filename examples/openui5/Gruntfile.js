@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 							'js/**/*.properties'
 						]
 					},
-					dest: '',
+					dest: '.',
 					compress: true
 				},
 				components: true

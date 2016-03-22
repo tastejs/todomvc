@@ -8,6 +8,10 @@ sap.ui.define([
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
+	// vars required for renderer
+	var controlID, toDos, filter, toDosAvailable, toDosUncompleted,
+		sItem, oBundle, shouldDisplayToDoObject;
+
 	return Control.extend('ToDoMVC.control.ToDoControl', {
 		metadata: {
 			properties: {
@@ -78,11 +82,11 @@ sap.ui.define([
 		},
 
 		onAddToDo: function (evt) {
-			if (evt.keyCode === ENTER_KEY) {
+			if (+evt.keyCode === ENTER_KEY) {
 				var title = evt.target.value.trim();
 
 				// prevent firing an event if title is empty
-				if (!title || title.length === 0) {
+				if (!title || +title.length === 0) {
 					return;
 				}
 
@@ -98,7 +102,7 @@ sap.ui.define([
 			var itemId = evt.target.id.replace('destroyToDo-', '');
 
 			this.fireEvent('deleteToDoPressed', {
-				toDoId: parseInt(itemId.split('-')[0])
+				toDoId: +itemId.split('-')[0]
 			});
 
 			this.rerender();
@@ -110,7 +114,7 @@ sap.ui.define([
 
 			elems.forEach(function (value) {
 				if (value.completed === status) {
-					toDoIds.push(parseInt(value.id));
+					toDoIds.push(+value.id);
 				}
 			}, this);
 
@@ -129,7 +133,7 @@ sap.ui.define([
 			var itemId = evt.target.id.replace('completeToDo-', '');
 
 			this.fireEvent('completedToDoPressed', {
-				toDoId: parseInt(itemId.split('-')[0]),
+				toDoId: +itemId.split('-')[0],
 				completed: evt.target.checked
 			});
 
@@ -149,9 +153,9 @@ sap.ui.define([
 
 		_onEditKeyPress: function (evt) {
 			// recognize ESC and RETURN
-			if (evt.keyCode === ENTER_KEY) {
+			if (+evt.keyCode === ENTER_KEY) {
 				this.onLeaveEditToDoFocus(evt);
-			} else if (evt.keyCode === ESCAPE_KEY) {
+			} else if (+evt.keyCode === ESCAPE_KEY) {
 				// no changes on ESC, just invalidate
 				this.rerender();
 			}
@@ -162,13 +166,13 @@ sap.ui.define([
 			var newTitle = evt.target.value.trim();
 
 			// destroy toDo if new title is empty
-			if (!newTitle || newTitle.length === 0) {
+			if (!newTitle || +newTitle.length === 0) {
 				this.fireEvent('deleteToDoPressed', {
-					toDoId: parseInt(toDoId)
+					toDoId: +toDoId
 				});
 			} else {
 				this.fireEvent('toDoChangedPressed', {
-					toDoId: parseInt(toDoId),
+					toDoId: +toDoId,
 					title: newTitle
 				});
 			}
@@ -247,135 +251,97 @@ sap.ui.define([
 		 * Define how the ToDoMVC control should be rendered
 		 */
 		renderer: {
-			render: function (oRm, oControl) {
+			controlID,
 
-				var controlID = oControl.getId();
-				var toDos = oControl.getToDosObject();
-				var filter = oControl.getFilter();
-				var toDosAvailable = (toDos && toDos.length > 0) ? true : false;
-				var toDosUncompleted = oControl._getAllToDosWithStatus(false);
-				var sItem;
-				var oBundle = oControl.getModel('i18n').getResourceBundle();
+			render: function (oRm, oControl) {
+				controlID = oControl.getId();
+				toDos = oControl.getToDosObject();
+				filter = oControl.getFilter();
+				toDosAvailable = (toDos && toDos.length > 0) ? true : false;
+				toDosUncompleted = oControl._getAllToDosWithStatus(false);
+				oBundle = oControl.getModel('i18n').getResourceBundle();
 
 				//Create the control
 				oRm.write('<div');
 				oRm.writeControlData(oControl);
-				oRm.write('>');
-				oRm.write('<section class="todoapp">');
-				oRm.write('<header class="header">');
-				oRm.write('<h1>' + oBundle.getText('title') + '</h1>');
-				oRm.write('<input id="inputToDo-' + controlID +
-									'" class="new-todo" placeholder="' + oBundle.getText('newTodo') + '" autofocus>');
+				oRm.write('><section class="todoapp"><header class="header">' +
+					'<h1>' + oBundle.getText('title') + '</h1><input id="inputToDo-' + controlID +
+					'" class="new-todo" placeholder="' + oBundle.getText('newTodo') +
+					'" autofocus></header>');
 
-				oRm.write('</header>');
+				oRm.write(toDosAvailable ? '<section class="main">' : '<section class="main" style="display:none;">');
 
-				if (toDosAvailable) {
-					oRm.write('<section class="main">');
-				} else {
-					oRm.write('<section class="main" style="display:none;">');
-				}
+				oRm.write(+toDosUncompleted.length === 0 ? '<input id="inputToDoToggle-' + controlID +
+					'" class="toggle-all" type="checkbox" checked>' : '<input id="inputToDoToggle-' + controlID +
+					'" class="toggle-all" type="checkbox">');
 
-				if (toDosUncompleted.length === 0) {
-					oRm.write('<input id="inputToDoToggle-' + controlID + '" class="toggle-all" type="checkbox" checked>');
-				} else {
-					oRm.write('<input id="inputToDoToggle-' + controlID + '" class="toggle-all" type="checkbox">');
-				}
 
 				oRm.write('<label id="labelToDo-' +
-									controlID + '" for="toggle-all">' +
-									oBundle.getText('markAllAsComplete') + '</label>');
-
-				oRm.write('<ul id="listToDo" class="todo-list">');
+					controlID + '" for="toggle-all">' +
+					oBundle.getText('markAllAsComplete') + '</label>' +
+					'<ul id="listToDo" class="todo-list">');
 
 				if (toDosAvailable) {
 
 					toDos.forEach(function (toDoObject) {
-						var shouldDisplayToDoObject = (filter === 'all' || (filter === 'completed' && toDoObject.completed) ||
+						shouldDisplayToDoObject = (filter === 'all' || (filter === 'completed' && toDoObject.completed) ||
 							(filter === 'active' && !toDoObject.completed));
 
 						if (shouldDisplayToDoObject) {
 
 							if (toDoObject.completed) {
-								oRm.write('<li id="' + toDoObject.id + '-' + controlID + '" class="completed">');
+								oRm.write('<li id="' + toDoObject.id + '-' + controlID + '" class="completed"><div class="view">' +
+									'<input id="completeToDo-' + toDoObject.id + '-' + controlID +
+									'" class="toggle" type="checkbox" checked>');
 							} else {
-								oRm.write('<li id="' + toDoObject.id + '-' + controlID + '">');
+								oRm.write('<li id="' + toDoObject.id + '-' + controlID + '"><div class="view">' +
+									'<input id="completeToDo-' + toDoObject.id + '-' + controlID + '" class="toggle" type="checkbox">');
 							}
-							oRm.write('<div class="view">');
 
-							if (toDoObject.completed) {
-								oRm.write('<input id="completeToDo-' + toDoObject.id + '-' + controlID +
-													'" class="toggle" type="checkbox" checked>');
-							} else {
-								oRm.write('<input id="completeToDo-' + toDoObject.id + '-' + controlID + '" class="toggle" type="checkbox">');
-							}
-							oRm.write('<label id="labelFor-' + toDoObject.id + '-' + controlID + '">' + toDoObject.title + '</label>');
-							oRm.write('<button id="destroyToDo-' + toDoObject.id + '-' + controlID + '" class="destroy"></button>');
-							oRm.write('</div>');
-							oRm.write('<input id="editField-' + toDoObject.id + '-' + controlID + '" class="edit" value="' +
-												toDoObject.title + '">');
-							oRm.write('</li>');
+							oRm.write('<label id="labelFor-' + toDoObject.id + '-' + controlID + '">' + toDoObject.title + '</label>' +
+								'<button id="destroyToDo-' + toDoObject.id + '-' + controlID + '" class="destroy"></button>' +
+								'</div><input id="editField-' + toDoObject.id + '-' + controlID + '" class="edit" value="' +
+								toDoObject.title + '"></li>');
 						}
 					}, this);
 				}
 
-				oRm.write('</ul>');
-				oRm.write('</section>');
+				oRm.write('</ul></section>');
+
 				if (toDosAvailable) {
-					oRm.write('<footer id="footer" class="footer">');
-					oRm.write('<span id="toDoCounter" class="todo-count">');
-					if (toDosUncompleted.length === 1) {
-						sItem = oBundle.getText('singleLeft');
-					} else {
-						sItem = oBundle.getText('multipleLeft');
-					}
-					oRm.write('<strong>' + toDosUncompleted.length + '</strong> ' + sItem);
-					oRm.write('</span>');
-					oRm.write('<ul class="filters">');
-					oRm.write('<li>');
+					oRm.write('<footer id="footer" class="footer"><span id="toDoCounter" class="todo-count">');
 
-					if (filter === 'all') {
-						oRm.write('<a class="selected" href="#/">' + oBundle.getText('all') + '</a>');
-					} else {
-						oRm.write('<a href="#/">' + oBundle.getText('all') + '</a>');
-					}
+					sItem = (+toDosUncompleted.length === 1 ? oBundle.getText('singleLeft') : oBundle.getText('multipleLeft'));
 
-					oRm.write('</li>');
-					oRm.write('<li>');
+					oRm.write('<strong>' + toDosUncompleted.length + '</strong> ' + sItem +
+						'</span><ul class="filters"><li>');
 
-					if (filter === 'active') {
-						oRm.write('<a class="selected" href="#/active">' + oBundle.getText('active') + '</a>');
-					} else {
-						oRm.write('<a href="#/active">' + oBundle.getText('active') + '</a>');
-					}
+					oRm.write(filter === 'all' ? '<a class="selected" href="#/">' +
+						oBundle.getText('all') + '</a></li><li>' : '<a href="#/">' + oBundle.getText('all') + '</a></li><li>');
 
-					oRm.write('</li>');
-					oRm.write('<li>');
+					oRm.write(filter === 'active' ? '<a class="selected" href="#/active">' +
+						oBundle.getText('active') + '</a></li><li>' : '<a href="#/active">' +
+						oBundle.getText('active') + '</a></li><li>');
 
-					if (filter === 'completed') {
-						oRm.write('<a class="selected" href="#/completed">' + oBundle.getText('completed') + '</a>');
-					} else {
-						oRm.write('<a href="#/completed">' + oBundle.getText('completed') + '</a>');
-					}
+					oRm.write(filter === 'completed' ? '<a class="selected" href="#/completed">' +
+						oBundle.getText('completed') + '</a></li></ul>' : '<a href="#/completed">' +
+						oBundle.getText('completed') + '</a></li></ul>');
 
-					oRm.write('</li>');
-					oRm.write('</ul>');
-					if ((toDos.length - toDosUncompleted.length) > 0) {
+
+					if ((+toDos.length - +toDosUncompleted.length) > 0) {
 						oRm.write('<button id="deleteAllCompleted-' + controlID + '" class="clear-completed">' +
-											oBundle.getText('clearCompleted') + '</button>');
+							oBundle.getText('clearCompleted') + '</button>');
 					}
 					oRm.write('</footer>');
 				} else {
 					oRm.write('<footer id="footer" class="footer" style="display:none;"></footer>');
 				}
-				oRm.write('</section>');
-				oRm.write('<footer class="info">');
-				oRm.write('<p>' + oBundle.getText('doubleClickInfo') + '</p>');
-				oRm.write('<p>' + oBundle.getText('credits') +
-									' <a href="https://github.com/agraebe">Alexander Graebe</a> &amp;' +
-									' <a href="https://github.com/alexis90">Alexander Hauck</a></p>');
-				oRm.write('<p>' + oBundle.getText('partOf') + ' <a href="http://todomvc.com">TodoMVC</a></p>');
-				oRm.write('</footer>');
-				oRm.write('</div>');
+				oRm.write('</section><footer class="info"><p>' + oBundle.getText('doubleClickInfo') + '</p>' +
+					'<p>' + oBundle.getText('credits') +
+					' <a href="https://github.com/agraebe">Alexander Graebe</a> &amp;' +
+					' <a href="https://github.com/alexis90">Alexander Hauck</a></p>' +
+					'<p>' + oBundle.getText('partOf') +
+					' <a href="http://todomvc.com">TodoMVC</a></p></footer></div>');
 			}
 		}
 	});

@@ -47,11 +47,11 @@ sap.ui.define([
 
 				addToDoPressed: function (oEvent) {
 					// generate new ID
-					localStorage.setItem('0', parseInt(localStorage.getItem('0')) + 1);
+					localStorage.setItem('0', +localStorage.getItem('0') + 1);
 
 					// add new todo to localStorage
 					oModel.getProperty('/allToDos').push({
-						id: parseInt(localStorage.getItem('0')),
+						id: +localStorage.getItem('0'),
 						title: oEvent.getParameter('title'),
 						completed: false
 					});
@@ -65,7 +65,7 @@ sap.ui.define([
 
 					// remove todo from localStorage
 					allStillExistingToDos.some(function (value, i) {
-						if (value.id === oEvent.getParameter('toDoId')) {
+						if (value.id === +oEvent.getParameter('toDoId')) {
 							allStillExistingToDos.splice(i, 1);
 							return true;
 						}
@@ -78,24 +78,21 @@ sap.ui.define([
 				deleteAllCompletedToDosPressed: function (oEvent) {
 					var allStillExistingToDos = oModel.getProperty('/allToDos');
 					var elems = oEvent.getParameter('toDoIds');
-
-					// remove completed todos from localStorage
-					while (elems.length > 0) {
-						this._removeCompletedElems(elems, allStillExistingToDos);
-					}
-
-					oStorage.put('todos-openui5', oModel.getData());
-					oModel.refresh(true);
-				},
-
-				_removeCompletedElems: function (elems, allStillExistingToDos) {
-					allStillExistingToDos.some(function (value, i) {
-						if (elems[0] === value.id) {
+					var removeIthElement = function (value, i) {
+						if (+elems[0] === value.id) {
 							allStillExistingToDos.splice(i, 1);
 							elems.splice(0, 1);
 							return true;
 						}
-					}, this);
+					};
+
+					// remove completed todos from localStorage
+					while (elems.length > 0) {
+						allStillExistingToDos.some(removeIthElement, this);
+					}
+
+					oStorage.put('todos-openui5', oModel.getData());
+					oModel.refresh(true);
 				},
 
 				completedToDoPressed: function (oEvent) {
@@ -103,7 +100,7 @@ sap.ui.define([
 
 					// update todo within localStorage
 					allStillExistingToDos.some(function (value) {
-						if (value.id === oEvent.getParameter('toDoId')) {
+						if (value.id === +oEvent.getParameter('toDoId')) {
 							value.completed = oEvent.getParameter('completed');
 							// short circuit the loop
 							return true;
@@ -119,7 +116,7 @@ sap.ui.define([
 
 					// update todo within localStorage
 					allStillExistingToDos.some(function (value) {
-						if (value.id === oEvent.getParameter('toDoId')) {
+						if (value.id === +oEvent.getParameter('toDoId')) {
 							value.title = oEvent.getParameter('title');
 							return true;
 						}
