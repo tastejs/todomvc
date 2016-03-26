@@ -7,7 +7,7 @@
     "mocha": "*",
     "mocha-known-issues-reporter": "git+https://github.com/ColinEberhardt/mocha-known-issues-reporter.git#v0.0.0",
     "optimist": "^0.6.1",
-    "selenium-webdriver": "^2.46.1",
+    "selenium-webdriver": "~2.46.1",
     "drool": "0.2.2"
   },
   "scripts": {
