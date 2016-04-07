@@ -2,7 +2,6 @@
 
 > *Aurelia* is a next generation JavaScript client framework that leverages simple conventions to empower your creativity.
 
-
 ## Local Installation
 
 Requirements:
@@ -13,44 +12,35 @@ Requirements:
 
 Clone the repository:
 
-```
-$ git clone https://github.com/mhoyer/todomvc-aurelia
-```
+    git clone https://github.com/mhoyer/todomvc-aurelia
 
 Install jspm and npm packages:
 
-```
-$ npm install
-$ jspm install
-```
+    npm install
+    jspm install
 
 Simply build, test, bundle, export:
 
-```
-$ gulp
-```
+    gulp
 
 Run tests and HTTP-server:
 
-```
-$ gulp watch
-```
-
+    gulp watch
 
 ## Resources
 
-- [Aurelia • TodoMVC](https://github.com/mhoyer/todomvc-aurelia) original sources
-- [Website](http://aurelia.io/)
-- [Documentation](http://aurelia.io/docs.html)
-- [Blog](http://blog.durandal.io/)
+- [Aurelia TodoMVC source](https://github.com/mhoyer/todomvc-aurelia)
+- [TodoMVC](https://github.com/tastejs/todomvc) home of all TodoMVC apps
+- [Aurelia Website](http://aurelia.io/)
+- [Aurelia Documentation](http://aurelia.io/docs.html)
+- [Durandal Blog](http://blog.durandal.io/)
 
 ### Support
 
-- [Twitter](http://twitter.com/pixelplastic)
-- [Gitter](https://gitter.im/Aurelia/Discuss)
+- [Twitter @pixelplastic](http://twitter.com/pixelplastic)
+- [Gitter Aurelia/Discuss](https://gitter.im/Aurelia/Discuss)
 
 *Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
-
 
 ## Implementation
 
@@ -58,6 +48,22 @@ $ gulp watch
 - Attempt to go TDD where possible
 
 ### Changelog
+
+#### 0.2.0
+
+- Fixed [#5 - ```<form>``` wrapping](https://github.com/mhoyer/todomvc-aurelia/issues/5)
+- Fixed [#10 - FF backslash bug](https://github.com/mhoyer/todomvc-aurelia/issues/10)
+- Fixed [#11 - IE11 support - Object.observe](https://github.com/mhoyer/todomvc-aurelia/issues/11)
+- Updated Aurelia dependencies to latest 1.0.0-beta.1
+- Updated todomvc assets to latest versions
+
+#### 0.1.1
+
+- Prepared all assets (README, learn.json, index.html, etc) to fulfill the [Contribution Docs](https://github.com/tastejs/todomvc/blob/master/contributing.md)
+- Cleaned up obsolete files (```*.src.js```, empty ```css/app.css```)
+- Fixed [#6](https://github.com/mhoyer/todomvc-aurelia/issues/6)
+- Fixed [#7](https://github.com/mhoyer/todomvc-aurelia/issues/7)
+- Fixed [#9](https://github.com/mhoyer/todomvc-aurelia/issues/9)
 
 #### 0.1.0
 
@@ -67,7 +73,6 @@ $ gulp watch
 ### Open Questions While Developing
 
 - See [Issues](https://github.com/mhoyer/todomvc-aurelia/issues/)
-
 
 ## Credit
 
