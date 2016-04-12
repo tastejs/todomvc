@@ -6,8 +6,8 @@ Binding.scala can be used as a **[reactive](https://en.wikipedia.org/wiki/Reacti
 It enables you use native XML literal syntax to create reactive DOM nodes,
 which are able to automatically change whenever the data source changes.
 
-Binding.scala's TodoMVC implementation has less code than any other framework,
-only one source file, 150 lines of code.
+Binding.scala's TodoMVC application has the tiniest code size among all the TodoMVC implementations,
+only one source file, 150 lines of code!
 
 Enjoy it!
 
