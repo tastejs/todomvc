@@ -56,18 +56,18 @@ import org.scalajs.dom.raw._
   @dom def header = {
     <header className="header">
       <h1>todos</h1>
-			<input className="new-todo" autofocus={true} placeholder="What needs to be done?" onkeydown={ event: KeyboardEvent =>
-			  event.keyCode match {
-			    case KeyCode.Enter =>
+      <input className="new-todo" autofocus={true} placeholder="What needs to be done?" onkeydown={ event: KeyboardEvent =>
+        event.keyCode match {
+          case KeyCode.Enter =>
             dom.currentTarget[HTMLInputElement].value.trim match {
               case "" =>
               case title =>
                 allTodos.get += new Todo(title, false)
                 dom.currentTarget[HTMLInputElement].value = ""
             }
-			    case _ =>
-			  }
-			}/>
+          case _ =>
+        }
+      }/>
     </header>
   }
 
@@ -125,7 +125,7 @@ import org.scalajs.dom.raw._
 
   @dom def footer = <footer className="footer" style:display={ if (allTodos.length.each == 0) "none" else "" }>
     <span className="todo-count">
-			<strong>{ active.items.length.each.toString }</strong> { if (active.items.length.each == 1) "item" else "items"} left
+      <strong>{ active.items.length.each.toString }</strong> { if (active.items.length.each == 1) "item" else "items"} left
     </span>
     <ul className="filters">{ for { todoList <- Constants(todoLists: _*) } yield filterListItem(todoList).each }</ul>
     <button className="clear-completed"
