@@ -32,6 +32,7 @@
 		"examples/aurelia/config.js",
 		"examples/aurelia/dist/*.js",
 		"examples/aurelia/jspm_packages/**/*.js",
+		"examples/binding-scala/js/*.js",
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
 		"examples/humble/js/**",
