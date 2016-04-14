@@ -9,8 +9,6 @@ which are able to automatically change whenever the data source changes.
 Binding.scala's TodoMVC application has the tiniest code size among all the TodoMVC implementations,
 only one source file, 150 lines of code!
 
-Enjoy it!
-
 ## Getting Started
 
 ``` scala
@@ -27,10 +25,18 @@ Enjoy it!
 }
 ```
 
+## Instructions to build this application
+
+1. Download and install [sbt](http://www.scala-sbt.org/)
+2. Clone this repository `git clone https://github.com/ThoughtWorksInc/todo.git`
+3. Execute the shell command `sbt indexHtml` at the base directory of this code base.
+4. Open the generated `index.html` in your browser. Enjoy it! 😋
+
 ## Links
 
-* [Project Page](https://github.com/ThoughtWorksInc/Binding.scala)
+* [The Binding.scala Project Page](https://github.com/ThoughtWorksInc/Binding.scala)
+* [This “Binding.scala • TodoMVC” Project Page](https://github.com/ThoughtWorksInc/todo)
+* [This “Binding.scala • TodoMVC” DEMO](https://thoughtworksinc.github.io/todo)
 * [API documentation](https://oss.sonatype.org/service/local/repositories/releases/archive/com/thoughtworks/binding/unidoc_2.11/4.0.1/unidoc_2.11-4.0.1-javadoc.jar/!/com/thoughtworks/binding/package.html)
 * [Other live DEMOs](https://thoughtworksinc.github.io/Binding.scala/)
 * [Chat on Gitter](https://gitter.im/ThoughtWorksInc/Binding.scala)
-* [Standalone repository of this TodoMVC application](https://github.com/ThoughtWorksInc/todo)
