@@ -3,30 +3,29 @@ package com.thoughtworks.todo
 import com.thoughtworks.binding.Binding._
 import com.thoughtworks.binding.dom
 import scala.collection.GenSeq
-import scala.scalajs.js
-import scala.scalajs.js.JSConverters._
 import scala.scalajs.js.annotation.JSExport
 import org.scalajs.dom._
 import org.scalajs.dom.ext._
 import org.scalajs.dom.raw._
+import upickle.default._
 
 @JSExport object Main {
 
   final class Todo(val title: String, val completed: Boolean)
+
+  object Todo {
+    def apply(title: String, completed: Boolean) = new Todo(title, completed)
+    def unapply(todo: Todo) = Option((todo.title, todo.completed))
+  }
+
   final case class TodoList(text: String, hash: String, items: BindingSeq[Todo])
 
   object Models {
-    def save(todos: Seq[Todo]) = {
-      val literals = for { todo <- todos } yield js.Dynamic.literal("title" -> todo.title, "completed" -> todo.completed)
-      LocalStorage("todos-binding.scala") = js.JSON.stringify(literals.toJSArray)
+    def load() = LocalStorage("todos-binding.scala") match {
+      case None => Seq()
+      case Some(json) => read[Seq[Todo]](json)
     }
-    def load(): Seq[Todo] = LocalStorage("todos-binding.scala") match {
-      case None =>
-        Seq()
-      case Some(json) =>
-        val jsArray = js.JSON.parse(json).asInstanceOf[js.Array[js.Dynamic]]
-        for { d <- jsArray } yield new Todo(d.title.toString, d.completed == true)
-    }
+    def save(todos: Seq[Todo]) = LocalStorage("todos-binding.scala") = write(todos)
 
     val allTodos = Vars[Todo](load(): _*)
 
@@ -41,8 +40,8 @@ import org.scalajs.dom.raw._
     val editingTodo = Var[Option[Todo]](None)
 
     val all = TodoList("All", "#/", allTodos)
-    val active = TodoList("Active", "#/active", for { todo <- allTodos if !todo.completed } yield todo)
-    val completed = TodoList("Completed", "#/completed", for { todo <- allTodos if todo.completed } yield todo)
+    val active = TodoList("Active", "#/active", for {todo <- allTodos if !todo.completed} yield todo)
+    val completed = TodoList("Completed", "#/completed", for {todo <- allTodos if todo.completed} yield todo)
     val todoLists = Seq(all, active, completed)
 
     def getCurrentTodoList = todoLists.find(_.hash == location.hash).getOrElse(all)
@@ -56,16 +55,16 @@ import org.scalajs.dom.raw._
   @dom def header = {
     <header className="header">
       <h1>todos</h1>
-      <input className="new-todo" autofocus={true} placeholder="What needs to be done?" onkeydown={ event: KeyboardEvent =>
-        event.keyCode match {
-          case KeyCode.Enter =>
-            dom.currentTarget[HTMLInputElement].value.trim match {
-              case "" =>
-              case title =>
-                allTodos.get += new Todo(title, false)
-                dom.currentTarget[HTMLInputElement].value = ""
-            }
-          case _ =>
+      <input className="new-todo" autofocus={true} placeholder="What needs to be done?" onkeydown={event: KeyboardEvent =>
+      event.keyCode match {
+        case KeyCode.Enter =>
+          dom.currentTarget[HTMLInputElement].value.trim match {
+            case "" =>
+            case title =>
+              allTodos.get += new Todo(title, false)
+              dom.currentTarget[HTMLInputElement].value = ""
+          }
+        case _ =>
         }
       }/>
     </header>
@@ -85,8 +84,8 @@ import org.scalajs.dom.raw._
     }
     val edit = <input className="edit" value={ todo.title } onblur={ 
       if (suppressOnBlur.each) { _: Any =>
-      } else { _: Any =>
-        submit(dom.currentTarget[HTMLInputElement].value)        
+    } else { _: Any =>
+      submit(dom.currentTarget[HTMLInputElement].value)
       }
     } onkeydown={ event: KeyboardEvent =>
       event.keyCode match {
@@ -98,21 +97,21 @@ import org.scalajs.dom.raw._
         case _ =>
       }
     }/>;
-    <li className={ s"${ if (todo.completed) "completed" else "" } ${ if (editingTodo.each.contains(todo)) "editing" else "" }" }>
+    <li className={s"${if (todo.completed) "completed" else ""} ${if (editingTodo.each.contains(todo)) "editing" else ""}"}>
       <div className="view">
-        <input className="toggle" type="checkbox" checked={ todo.completed } onclick={ _: Any =>
+        <input className="toggle" type="checkbox" checked={todo.completed} onclick={_: Any =>
           allTodos.get(allTodos.get.indexOf(todo)) = new Todo(todo.title, dom.currentTarget[HTMLInputElement].checked)
         }/>
         <label ondblclick={ _: Any => editingTodo := Some(todo); edit.focus() }>{ todo.title }</label>
-        <button className="destroy" onclick={ _: Any => allTodos.get.remove(allTodos.get.indexOf(todo)) }></button>
+        <button className="destroy" onclick={_: Any => allTodos.get.remove(allTodos.get.indexOf(todo))}></button>
       </div>
       { edit }
     </li>
   }
 
-  @dom def mainSection = <section className="main" style:display={ if (allTodos.length.each == 0) "none" else "" }>
-    <input type="checkbox" className="toggle-all" checked={ active.items.length.each == 0 } onclick={ _: Any =>
-      val newTodos = for { todo <- allTodos.get } yield new Todo(todo.title, dom.currentTarget[HTMLInputElement].checked)
+  @dom def mainSection = <section className="main" style:display={if (allTodos.length.each == 0) "none" else ""}>
+    <input type="checkbox" className="toggle-all" checked={active.items.length.each == 0} onclick={_: Any =>
+    val newTodos = for {todo <- allTodos.get} yield new Todo(todo.title, dom.currentTarget[HTMLInputElement].checked)
       allTodos.reset(newTodos: _*)
     }/>
     <label htmlFor="toggle-all">Mark all as complete</label>
@@ -123,25 +122,25 @@ import org.scalajs.dom.raw._
     <a href={ todoList.hash } className={ if (todoList == currentTodoList.each) "selected" else "" }>{ todoList.text }</a>
   </li>
 
-  @dom def footer = <footer className="footer" style:display={ if (allTodos.length.each == 0) "none" else "" }>
+  @dom def footer = <footer className="footer" style:display={if (allTodos.length.each == 0) "none" else ""}>
     <span className="todo-count">
       <strong>{ active.items.length.each.toString }</strong> { if (active.items.length.each == 1) "item" else "items"} left
     </span>
     <ul className="filters">{ for { todoList <- Constants(todoLists: _*) } yield filterListItem(todoList).each }</ul>
     <button className="clear-completed"
-            style:visibility={ if (completed.items.length.each == 0) "hidden" else "visible" }
-            onclick={ _: Any => allTodos.reset((for { todo <- allTodos.get if !todo.completed } yield todo): _*) }>
+            style:visibility={if (completed.items.length.each == 0) "hidden" else "visible"}
+            onclick={_: Any => allTodos.reset((for {todo <- allTodos.get if !todo.completed} yield todo): _*)}>
       Clear completed
     </button>
   </footer>
 
   @dom def todoapp = {
     <section className="todoapp">{ header.each }{ mainSection.each }{ footer.each }</section>
-    <footer className="info">
-      <p>Double-click to edit a todo</p>
+      <footer className="info">
+        <p>Double-click to edit a todo</p>
       <p>Written by <a href="https://github.com/atry">Yang Bo</a></p>
       <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-    </footer>
+      </footer>
   }
 
   @JSExport def main() = dom.render(document.body, todoapp)
