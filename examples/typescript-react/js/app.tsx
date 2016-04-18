@@ -9,7 +9,7 @@
 
 declare var Router;
 
-import { TodoModel } from "./TodoModel";
+import { TodoModel } from "./todoModel";
 import { TodoFooter } from "./footer";
 import { TodoItem } from "./todoItem";
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS, ENTER_KEY } from "./constants";
