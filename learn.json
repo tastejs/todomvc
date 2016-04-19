@@ -2304,10 +2304,6 @@
 		{
 		  "name": "Example",
 		  "url": "examples/backendless"
-		},
-		{
-		  "name": "Backendless & Backbone.js",
-		  "url": "examples/backendless-backbone"
 		}
 	  ],
 	  "link_groups": [{
