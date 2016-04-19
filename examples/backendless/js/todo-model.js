@@ -8,9 +8,9 @@
  *  - @completed {Boolean} = false;
  */
 function Todo(args) {
-  this.order = new Date().getTime();
-  this.title = args && args.title || '';
-  this.completed = args && args.completed || false;
+	this.order = new Date().getTime();
+	this.title = args && args.title || '';
+	this.completed = args && args.completed || false;
 }
 
 /**

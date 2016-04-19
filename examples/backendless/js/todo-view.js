@@ -2,123 +2,123 @@
  * @class TodoView
  * @summary View of Todo item
  */
-var TodoView = (function() {
-  function TodoView(todo, todosList) {
-    var todoView = this;
+var TodoView = (function () {
+	function TodoView(todo, todosList) {
+		var self = this;
 
-    this.data = todo;
-    this.todosList = todosList;
+		this.data = todo;
+		this.todosList = todosList;
 
-    this.el = document.createElement('LI');
-    this.el.innerHTML = this.template;
+		this.el = document.createElement('LI');
+		this.el.innerHTML = this.template;
 
-    this.toggler = this.el.querySelector('.toggle');
-    this.destroyBtn = this.el.querySelector('.destroy');
-    this.label = this.el.querySelector('label');
-    this.editInput = this.el.querySelector('.edit');
+		this.toggler = this.el.querySelector('.toggle');
+		this.destroyBtn = this.el.querySelector('.destroy');
+		this.label = this.el.querySelector('label');
+		this.editInput = this.el.querySelector('.edit');
 
-    this.destroyBtn.addEventListener('click', function() {
-      todoView.destroy();
-    });
+		this.destroyBtn.addEventListener('click', function () {
+			self.destroy();
+		});
 
-    this.toggler.addEventListener('change', function(e) {
-      todoView.updateCompleted(e.currentTarget.checked);
-    });
+		this.toggler.addEventListener('change', function (e) {
+			self.updateCompleted(e.currentTarget.checked);
+		});
 
-    this.label.addEventListener('dblclick', function() {
-      todoView.enableEdit();
-    });
+		this.label.addEventListener('dblclick', function () {
+			self.enableEdit();
+		});
 
-    this.updateTitle(this.data.title);
-    this.updateCompleted(this.data.completed);
-  }
+		this.updateTitle(this.data.title);
+		this.updateCompleted(this.data.completed);
+	}
 
-  TodoView.prototype.template = document.querySelector('#todo-item').innerHTML;
+	TodoView.prototype.template = document.querySelector('#todo-item').innerHTML;
 
-  TodoView.prototype.enableEdit = function() {
-    var todoView = this;
+	TodoView.prototype.enableEdit = function () {
+		var self = this;
 
-    addClass(todoView.el, 'editing');
+		addClass(self.el, 'editing');
 
-    this.editInput.focus();
-    this.editInput.addEventListener('blur', finishEditing);
-    this.editInput.addEventListener('keypress', onEditInputKeyPress);
-    this.editInput.addEventListener('keydown', onEditInputKeyDown);
+		this.editInput.focus();
+		this.editInput.addEventListener('blur', finishEditing);
+		this.editInput.addEventListener('keypress', onEditInputKeyPress);
+		this.editInput.addEventListener('keydown', onEditInputKeyDown);
 
-    function finishEditing() {
-      var title = todoView.editInput.value.trim();
+		function finishEditing() {
+			var title = self.editInput.value.trim();
 
-      if (title) {
-        todoView.updateTitle(title);
-        todoView.save();
+			if (title) {
+				self.updateTitle(title);
+				self.save();
 
-        disableEdit();
+				disableEdit();
 
-      } else {
-        todoView.destroy();
-      }
-    }
+			} else {
+				self.destroy();
+			}
+		}
 
-    function onEditInputKeyPress(e) {
-      if (e.which === ENTER_KEY) {
-        todoView.editInput.blur();
-      }
-    }
+		function onEditInputKeyPress(e) {
+			if (e.which === ENTER_KEY) {
+				self.editInput.blur();
+			}
+		}
 
-    function onEditInputKeyDown(e) {
-      if (e.which === ESC_KEY) {
-        disableEdit();
-      }
-    }
+		function onEditInputKeyDown(e) {
+			if (e.which === ESC_KEY) {
+				disableEdit();
+			}
+		}
 
-    function disableEdit() {
-      removeClass(todoView.el, 'editing');
+		function disableEdit() {
+			removeClass(self.el, 'editing');
 
-      todoView.editInput.value = todoView.data.title;
-      todoView.editInput.removeEventListener('blur', finishEditing);
-      todoView.editInput.removeEventListener('keypress', onEditInputKeyPress);
-      todoView.editInput.removeEventListener('keydown', onEditInputKeyDown);
-    }
-  };
+			self.editInput.value = self.data.title;
+			self.editInput.removeEventListener('blur', finishEditing);
+			self.editInput.removeEventListener('keypress', onEditInputKeyPress);
+			self.editInput.removeEventListener('keydown', onEditInputKeyDown);
+		}
+	};
 
-  TodoView.prototype.updateCompleted = function(completed) {
-    if (this.data.completed !== completed) {
-      this.data.completed = completed
-      this.save();
-    }
+	TodoView.prototype.updateCompleted = function (completed) {
+		if (this.data.completed !== completed) {
+			this.data.completed = completed;
+			this.save();
+		}
 
-    this.toggler.checked = this.data.completed;
+		this.toggler.checked = this.data.completed;
 
-    toggleClass(this.el, 'completed', this.data.completed);
+		toggleClass(this.el, 'completed', this.data.completed);
 
-    this.toggle();
-  };
+		this.toggle();
+	};
 
-  TodoView.prototype.updateTitle = function(title) {
-    this.data.title = title;
-    this.label.innerText = title;
-    this.editInput.value = title;
-  };
+	TodoView.prototype.updateTitle = function (title) {
+		this.data.title = title;
+		this.label.innerText = title;
+		this.editInput.value = title;
+	};
 
-  TodoView.prototype.save = function() {
-    //update todo item on the server, use Backendless.Async for asynchronous request
-    TodoStorage.save(this.data, new Backendless.Async());
+	TodoView.prototype.save = function () {
+		//update todo item on the server, use Backendless.Async for asynchronous request
+		TodoStorage.save(this.data, new Backendless.Async());
 
-    this.todosList.onTodoCompleteChange();
-  };
+		this.todosList.onTodoCompleteChange();
+	};
 
-  TodoView.prototype.destroy = function() {
-    //delete todo item on the server, use Backendless.Async for asynchronous request
-    TodoStorage.remove(this.data, new Backendless.Async());
+	TodoView.prototype.destroy = function () {
+		//delete todo item on the server, use Backendless.Async for asynchronous request
+		TodoStorage.remove(this.data, new Backendless.Async());
 
-    this.todosList.onTodoDestroy(this);
-  };
+		this.todosList.onTodoDestroy(this);
+	};
 
-  TodoView.prototype.toggle = function(filter) {
-    var isHidden = this.data.completed ? this.todosList.filter === 'active' : this.todosList.filter === 'completed';
+	TodoView.prototype.toggle = function (filter) {
+		var isHidden = this.data.completed ? this.todosList.filter === 'active' : this.todosList.filter === 'completed';
 
-    toggleClass(this.el, 'hidden', isHidden);
-  };
+		toggleClass(this.el, 'hidden', isHidden);
+	};
 
-  return TodoView;
+	return TodoView;
 })();

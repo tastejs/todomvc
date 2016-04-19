@@ -1,4 +1,3 @@
-
 /**
  * @type Function
  * @summary add class to DOM element
@@ -7,11 +6,11 @@
  * @param className {String}
  */
 function addClass(el, className) {
-  var classes = el.className.split(' ');
+	var classes = el.className.split(' ');
 
-  if (classes.indexOf(className) === -1) {
-    el.className = classes.concat([className]).join(' ');
-  }
+	if (classes.indexOf(className) === -1) {
+		el.className = classes.concat([className]).join(' ');
+	}
 }
 
 /**
@@ -22,13 +21,13 @@ function addClass(el, className) {
  * @param className {String}
  */
 function removeClass(el, className) {
-  var classes = el.className.split(' ');
+	var classes = el.className.split(' ');
 
-  if (classes.indexOf(className) !== -1) {
-    classes.splice(classes.indexOf(className), 1);
+	if (classes.indexOf(className) !== -1) {
+		classes.splice(classes.indexOf(className), 1);
 
-    el.className = classes.join(' ');
-  }
+		el.className = classes.join(' ');
+	}
 }
 
 /**
@@ -40,9 +39,9 @@ function removeClass(el, className) {
  * @param add {Boolean}
  */
 function toggleClass(el, className, add) {
-  if (add) {
-    addClass(el, className);
-  } else {
-    removeClass(el, className);
-  }
+	if (add) {
+		addClass(el, className);
+	} else {
+		removeClass(el, className);
+	}
 }
