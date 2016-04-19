@@ -2298,8 +2298,18 @@
 	},
 	"backendless": {
 	  "name": "Backendless",
-	  "description": "cool sdk :)",
+	  "description": "The Backendless Platform is a tightly integrated system designed to streamline and accelerate application development process. Individual platform products can address requirements of developers working on mobile, web-based or enterprise applications. However the platform as a whole establishes a unified approach for building applications faster, at a reduced development cost and with the utmost reliability.",
 	  "homepage": "https://backendless.com/",
+	  "examples": [
+		{
+		  "name": "Example",
+		  "url": "examples/backendless"
+		},
+		{
+		  "name": "Backendless & Backbone.js",
+		  "url": "examples/backendless-backbone"
+		}
+	  ],
 	  "link_groups": [{
 		"heading": "Official Resources",
 		"links": [{
