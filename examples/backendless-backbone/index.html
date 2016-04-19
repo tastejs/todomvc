@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-framework="backendless-backbone">
+<head>
+  <meta charset="utf-8">
+  <title>Backendless & Backbone.js • TodoMVC</title>
+  <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+  <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/underscore/underscore-min.js"></script>
+  <script src="node_modules/backbone/backbone-min.js"></script>
+  <script src="node_modules/backendless/libs/backendless.min.js"></script>
+  <script src="node_modules/backendless-backbone/lib/backendless-backbone-min.js"></script>
+</head>
+
+<body>
+
+<section class="todoapp">
+  <header class="header">
+    <h1>logging...</h1>
+  </header>
+</section>
+
+<footer class="info">
+  <p>Double-click to edit a todo</p>
+
+  <p>Written by <a href="https://github.com/Valodya">Vladimir Upirov</a></p>
+
+  <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
+
+<script type="text/template" id="main-app">
+  <header class="header">
+    <h1>todos</h1>
+    <input class="new-todo" placeholder="What needs to be done?" autofocus>
+  </header>
+  <section class="main">
+    <input class="toggle-all" id="toggle-all" type="checkbox">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list"></ul>
+  </section>
+  <footer class="footer">
+    <span class="todo-count"></span>
+    <ul class="filters">
+      <li>
+        <a href="#/">All</a>
+      </li>
+      <li>
+        <a href="#/active">Active</a>
+      </li>
+      <li>
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <button class="clear-completed">Clear completed</button>
+  </footer>
+</script>
+
+<script type="text/template" id="item-template">
+  <div class="view">
+    <input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
+    <label><%- title %></label>
+    <button class="destroy"></button>
+  </div>
+  <input class="edit" value="<%- title %>">
+</script>
+
+<script src="node_modules/todomvc-common/base.js"></script>
+
+<script src="js/todos.js"></script>
+<script src="js/todo-view.js"></script>
+<script src="js/app-view.js"></script>
+<script src="js/router.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
