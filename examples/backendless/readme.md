@@ -1,6 +1,6 @@
 # Backendless • [TodoMVC](http://todomvc.com/examples/backendless)
 
-> Official description of the framework (from its website)
+> The [Backendless](https://backendless.com/) Platform is a tightly integrated system designed to streamline and accelerate application development process. Individual platform products can address requirements of developers working on mobile, web-based or enterprise applications. However the platform as a whole establishes a unified approach for building applications faster, at a reduced development cost and with the utmost reliability.
 
 
 ## Resources
@@ -27,7 +27,6 @@
 
   - [Backendless config](#backendless-config )  
       - [Setup App](#setup-backendless-app)
-      - [Init App](#init-backendless-app)
       - [User's Permission](#backendless-users-permission)
       - [Create Todo table](#create-todo-table)
       - [Configure Todo table](#configure-todo-table)
@@ -44,26 +43,10 @@
 
 ### Setup Backendless App
   
-  - The first you need to register your Backendless account, you can do it by the [link](http://develop.backendless.com/#registration) if you already have account just skip the step
-  - Login to Backendless dev console 
+  - The first you need to [register](http://develop.backendless.com/) your Backendless account
+  - [Login](https://develop.backendless.com/) to Backendless dev console 
   - Create a new Backendless Application
   
-  
-### Init Backendless App
-Go to App Settings section and copy and paste `App ID` and `JavaScript Secret key` into code of your feature application  
-
-![Init Backendless App](media/backendless-app-settings.jpg)
-   
-   
-```js
-    
-    var APP_ID = 'xxxxx-xxxxx-xxxxx-xxxxx-xxxxx';
-    var JS_SECRET_KEY = 'xxxxx-xxxxx-xxxxx-xxxxx-xxxxx';
-    var APP_VERSION = 'v1'; 
-
-    Backendless.initApp(APP_ID, JS_SECRET_KEY, APP_VERSION);
-```
-   
 ### Backendless User's Permission
 Our Application is public and anyone can create a new user and add/remove/change/find own todos.
 And we don't want that someone has access to our own items and especially can modify or remove something.
@@ -96,7 +79,7 @@ Also I want to mention that owner can `find/modify/remove` by default
 We want that only `NotAuthenticatedUser` has an ability create a new user, so configure it  
 ![Backendless User's Permission](media/backendless-configure-users-table.jpg)
  
-And alos we don't want that user can remove/modify himself, so let's configure the rule      
+And also we don't want that user can remove/modify himself, so let's configure the rule      
 ![Backendless User's Owner Permission](media/backendless-configure-users-owner.jpg)     
  
 ### Backendless Data Security
@@ -104,19 +87,24 @@ You can get more information about Backendless Data Security by following [link]
    
    
 ## Your Application
-   
+  - [Install Backendless JS-SDK](#install-backendless-js-sdk)
+  - [Init Application](#init-your-application)
+  - [User Login](#user-login)
+      
 ### Install Backendless JS-SDK
 The first you need to get Backendless JS-SDK, you can do it by a few ways:
 
   - Download from our [site](https://backendless.com/downloads/) 
   - Download from [Github](https://github.com/Backendless/JS-SDK)
   - Install with [NPM](https://www.npmjs.com/), `npm i backendless --save`
-  - Install with [Bower](http://bower.io/), 'bower install backendless --save'
+  - Install with [Bower](http://bower.io/), `bower install backendless --save`
 
 Don't forget to include the JS-SDK into your project      
         
 ### Init Your Application
-Now when we have Backendless App and Backendless JS-SDK we need to bind our application with Backendless App, so for it add only one line into our code:
+Now when we have Backendless App and Backendless JS-SDK we need to bind our application with Backendless App.
+Go to App Settings section and copy/paste `App ID` and `JavaScript Secret key` into code of your application  
+![Init Backendless App](media/backendless-app-settings.jpg)
 
 ```js 
 
@@ -124,7 +112,7 @@ Now when we have Backendless App and Backendless JS-SDK we need to bind our appl
 
 ```
 
-But for more readable we move secret keys into variables
+But for more readable we moved secret keys into variables
  
 ```js
 
