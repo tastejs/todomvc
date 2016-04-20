@@ -2331,6 +2331,12 @@
 			}
 		  ]
 		}, {
+		  "heading": "Articles and Guides",
+		  "links": [{
+		    "name": "Quick Start Guide",
+		    "url": "https://backendless.com/quick-start-guide-for-integrating-backendless-with-backbone-js/"
+		  }]
+	  	}, {
 		  "heading": "Community",
 		  "links": [
 			{
