@@ -27,17 +27,17 @@ var AppUser = (function (_super) {
     function createAndLoginUser() {
         //create a new Backendless user
         var user = (new Backendless.User());
-        // create a random and uniq user name
-        var userName = user.name = guid();
+        // create a random and uniq user email
+        var userEmail = user.email = guid() + '@email.com';
         // create a random user password
         var userPass = user.password = guid();
         //register a new user
         Backendless.UserService.register(user, new Backendless.Async(function () {
             //login new created user and keep it logged, event if you refreshed browser page the user stay logged
-            Backendless.UserService.login(userName, userPass, true, new Backendless.Async(startApp));
+            Backendless.UserService.login(userEmail, userPass, true, new Backendless.Async(startApp));
         }));
     }
-    //just generate random "username" and "password" for a new Backendless User
+    //just generate random "useremail" and "password" for a new Backendless User
     function guid() {
         return s4() + s4() + s4() + s4() + '-' + (new Date()).getTime();
     }

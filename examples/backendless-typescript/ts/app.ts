@@ -5,7 +5,7 @@ var ENTER_KEY:number = 13;
 var ESC_KEY:number = 27;
 
 class AppUser extends Backendless.User {
-    name:string;
+    email:string;
     password:string;
 }
 
@@ -28,7 +28,7 @@ class AppUser extends Backendless.User {
         var user:AppUser = <AppUser>(new Backendless.User());
 
         // create a random and uniq user name
-        var userName:string = user.name = guid();
+        var userEmail:string = user.email = guid() + '@email.com';
 
         // create a random user password
         var userPass:string = user.password = guid();
@@ -36,11 +36,11 @@ class AppUser extends Backendless.User {
         //register a new user
         Backendless.UserService.register(user, new Backendless.Async(function () {
             //login new created user and keep it logged, event if you refreshed browser page the user stay logged
-            Backendless.UserService.login(userName, userPass, true, new Backendless.Async(startApp));
+            Backendless.UserService.login(userEmail, userPass, true, new Backendless.Async(startApp));
         }));
     }
 
-    //just generate random "username" and "password" for a new Backendless User
+    //just generate random "useremail" and "password" for a new Backendless User
     function guid():string {
         return s4() + s4() + s4() + s4() + '-' + (new Date()).getTime();
     }

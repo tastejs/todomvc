@@ -41,11 +41,11 @@ class TodosList {
     createItem(todo:TodoI):void {
         var todoModel:Todo = new Todo(todo);
 
-        this.renderItem(todoModel);
-
         TodoStorage.save(todoModel, new Backendless.Async(function (newItem:TodoI) {
             todoModel.objectId = newItem.objectId;
         }));
+
+        this.renderItem(todoModel);
     }
 
     renderItem(todo:Todo):void {

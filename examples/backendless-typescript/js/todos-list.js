@@ -26,10 +26,10 @@ var TodosList = (function () {
     }
     TodosList.prototype.createItem = function (todo) {
         var todoModel = new Todo(todo);
-        this.renderItem(todoModel);
         TodoStorage.save(todoModel, new Backendless.Async(function (newItem) {
             todoModel.objectId = newItem.objectId;
         }));
+        this.renderItem(todoModel);
     };
     TodosList.prototype.renderItem = function (todo) {
         var todoView = new TodoView(todo, this);
