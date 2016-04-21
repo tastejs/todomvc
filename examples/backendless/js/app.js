@@ -18,7 +18,7 @@ const ESC_KEY = 27;
 		var user = new Backendless.User();
 
 		// create a random and uniq user email
-		var userEmail = user.email = guid()+'@email.com';
+		var userEmail = user.email = guid() + '@email.com';
 
 		// create a random user password
 		var userPass = user.password = guid();
