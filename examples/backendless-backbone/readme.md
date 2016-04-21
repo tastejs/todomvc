@@ -135,7 +135,7 @@ That's all what we need to create a new project and start use all of Backendless
 ### User Login
 Our app works with real data which stored on the server, and each todo item must has an owner, 
 so for it we need to register and login a new Backendless User when user open our App the first time.
-We register a new User with random __username__ and __password__ and then just login the user.
+We register a new User with random __email__ and __password__ and then just login the user.
 The code you can see in `app.js` file    
      
 ## Backendless & Backbone.js 

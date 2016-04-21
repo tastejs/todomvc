@@ -88,7 +88,7 @@ var AppView = Backbone.View.extend({
 		var title = this.$input.val().trim();
 
 		if (e.which === ENTER_KEY && title) {
-			this.collection.create({title: title});
+			this.collection.create({title: title}, {async: false});
 
 			this.$input.val('');
 		}
