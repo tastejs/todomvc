@@ -6,7 +6,7 @@ var excludedFrameworks = [
 	// not worth testing via a generic mechanism
 	'gwt',
 	// these implementations cannot be run offline, because they are hosted
-	'firebase-angular', 'meteor', 'socketstream',
+	'firebase-angular', 'meteor', 'socketstream', 'backendless-backbone',
 	// YUI is a special case here, it is not hosted, but fetches JS files dynamically
 	'yui',
 	// these frameworks take a long time to start-up, and there is no easy way to determine when they are ready
