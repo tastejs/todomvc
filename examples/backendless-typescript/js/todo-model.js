@@ -1,11 +1,12 @@
 /// <reference path="../node_modules/backendless/libs/backendless.d.ts" />
 var Todo = (function () {
-    function Todo(args) {
-        this.order = new Date().getTime();
-        this.title = args && args.title || '';
-        this.completed = args && args.completed || false;
-    }
-    return Todo;
+	function Todo(args) {
+		this.order = new Date().getTime();
+		this.title = args && args.title || '';
+		this.completed = args && args.completed || false;
+	}
+
+	return Todo;
 }());
 /**
  * @instance of {@class Backendless.DataStore}

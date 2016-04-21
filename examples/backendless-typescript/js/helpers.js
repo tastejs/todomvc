@@ -6,10 +6,10 @@
  * @param className {String}
  */
 function addClass(el, className) {
-    var classes = el.className.split(' ');
-    if (classes.indexOf(className) === -1) {
-        el.className = classes.concat([className]).join(' ');
-    }
+	var classes = el.className.split(' ');
+	if (classes.indexOf(className) === -1) {
+		el.className = classes.concat([className]).join(' ');
+	}
 }
 /**
  * @type Function
@@ -19,11 +19,11 @@ function addClass(el, className) {
  * @param className {String}
  */
 function removeClass(el, className) {
-    var classes = el.className.split(' ');
-    if (classes.indexOf(className) !== -1) {
-        classes.splice(classes.indexOf(className), 1);
-        el.className = classes.join(' ');
-    }
+	var classes = el.className.split(' ');
+	if (classes.indexOf(className) !== -1) {
+		classes.splice(classes.indexOf(className), 1);
+		el.className = classes.join(' ');
+	}
 }
 /**
  * @type Function
@@ -34,10 +34,9 @@ function removeClass(el, className) {
  * @param add {Boolean}
  */
 function toggleClass(el, className, add) {
-    if (add) {
-        addClass(el, className);
-    }
-    else {
-        removeClass(el, className);
-    }
+	if (add) {
+		addClass(el, className);
+	} else {
+		removeClass(el, className);
+	}
 }
