@@ -624,6 +624,31 @@
 			}]
 		}]
 	},
+	"diffhtml": {
+		"name": "diffHTML",
+		"description": "diffHTML provides an easy way to swap out markup with an intelligent virtual dom, optionally exposes a Custom Element's polyfill, and supports transition hooks for element, attribute, and text modifications. These transitions can delay future renders until an animation/transition Promise has resolved.",
+		"homepage": "diffhtml.org",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/diffhtml"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "http://diffhtml.org/"
+			}, {
+				"name": "diffHTML on GitHub",
+				"url": "https://github.com/tbranyen/diffhtml"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "diffHTML on Twitter",
+				"url": "http://twitter.com/diffhtml"
+			}]
+		}]
+	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",
