@@ -34,7 +34,6 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
-  - curl -Lo chromedriver.zip http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip && unzip chromedriver.zip
 script:
 # We want to gate on passing tests and a successful build
   - ./test-runner.sh
