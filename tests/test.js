@@ -53,7 +53,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 		}
 
 		function printCapturedLogs() {
-			var logs = new webdriver.WebDriver.Logs(browser);
+			var logs = browser.manage().logs();
 
 			return logs.get('browser')
 				.then(function (entries) {
