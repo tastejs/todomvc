@@ -1,4 +1,4 @@
-# ![TodoMVC](media/logo.png)
+# jscs "examples/backendless-typescript" "tests/"
 
 > Helping you select an MV\* framework
 
