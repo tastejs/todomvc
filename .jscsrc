@@ -34,6 +34,7 @@
 		"examples/aurelia/jspm_packages/**/*.js",
 		"examples/duel/www/**",
 		"examples/duel/src/main/webapp/js/lib/**",
+		"examples/haxe-mithril-dci/js/**",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
 		"examples/polymer/elements/elements.build.js",
