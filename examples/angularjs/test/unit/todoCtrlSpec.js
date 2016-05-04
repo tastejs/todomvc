@@ -45,7 +45,7 @@
 				scope.$emit('$routeChangeSuccess');
 
 				expect(scope.status).toBe('');
-				expect(scope.statusFilter).toBeNull();
+				expect(angular.equals(scope.statusFilter, {})).toBeTruthy();
 			});
 
 			describe('being at /active', function () {
