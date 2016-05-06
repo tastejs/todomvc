@@ -1,49 +1,62 @@
-/*jshint eqeqeq:false */
+import {Item, ItemList, ItemQuery, ItemUpdate, emptyItemQuery} from './item';
 
-/**
- * Creates a new client side storage object and will create an empty
- * collection if no collection already exists.
- *
- * @param {string} name The name of our DB we want to use
- * @param {function} callback Our fake DB uses callbacks because in
- * real life you probably would be making AJAX calls
- */
 export default class Store {
+	/**
+	 * @param {!string} name Database name
+	 * @param {function()} [callback] Called when the Store is ready
+	 */
 	constructor(name, callback) {
-		this._dbName = name;
+		/**
+		 * @type {Storage}
+		 */
+		const localStorage = window.localStorage;
 
-		if (!localStorage[name]) {
-			const data = {
-				todos: []
-			};
+		/**
+		 * @type {ItemList}
+		 */
+		let liveTodos;
 
-			localStorage[name] = JSON.stringify(data);
-		}
+		/**
+		 * Read the local ItemList from localStorage.
+		 *
+		 * @returns {ItemList} Current array of todos
+		 */
+		this.getLocalStorage = () => {
+			return liveTodos || JSON.parse(localStorage.getItem(name) || '[]');
+		};
+
+		/**
+		 * Write the local ItemList to localStorage.
+		 *
+		 * @param {ItemList} todos Array of todos to write
+		 */
+		this.setLocalStorage = (todos) => {
+			localStorage.setItem(name, JSON.stringify(liveTodos = todos));
+		};
 
 		if (callback) {
-			callback.call(this, JSON.parse(localStorage[name]));
+			callback();
 		}
 	}
 
 	/**
-	 * Finds items based on a query given as a JS object
+	 * Find items with properties matching those on query.
 	 *
-	 * @param {object} query The query to match against (i.e. {foo: 'bar'})
-	 * @param {function} callback   The callback to fire when the query has
-	 * completed running
+	 * @param {ItemQuery} query Query to match
+	 * @param {function(ItemList)} callback Called when the query is done
 	 *
 	 * @example
-	 * db.find({foo: 'bar', hello: 'world'}, function (data) {
-		 *	 // data will return any items that have foo: bar and
-		 *	 // hello: world in their properties
-		 * })
+	 * db.find({completed: true}, data => {
+	 *	 // data shall contain items whose completed properties are true
+	 * })
 	 */
-	find(query, callback){
-		const todos = JSON.parse(localStorage[this._dbName]).todos;
+	find(query, callback) {
+		const todos = this.getLocalStorage();
+		let k;
 
-		callback.call(this, todos.filter(todo => {
-			for (let q in query) {
-				if (query[q] !== todo[q]) {
+		callback(todos.filter(todo => {
+			for (k in query) {
+				if (query[k] !== todo[k]) {
 					return false;
 				}
 			}
@@ -52,93 +65,90 @@ export default class Store {
 	}
 
 	/**
-	 * Will retrieve all data from the collection
+	 * Update an item in the Store.
 	 *
-	 * @param {function} callback The callback to fire upon retrieving data
+	 * @param {ItemUpdate} update Record with an id and a property to update
+	 * @param {function()} [callback] Called when partialRecord is applied
 	 */
-	findAll(callback){
-		if (callback) {
-			callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
-		}
-	}
+	update(update, callback) {
+		const id = update.id;
+		const todos = this.getLocalStorage();
+		let i = todos.length;
+		let k;
 
-	/**
-	 * Will save the given data to the DB. If no item exists it will create a new
-	 * item, otherwise it'll simply update an existing item's properties
-	 *
-	 * @param {object} updateData The data to save back into the DB
-	 * @param {function} callback The callback to fire after saving
-	 * @param {number} id An optional param to enter an ID of an item to update
-	 */
-	save(updateData, callback, id){
-		const data = JSON.parse(localStorage[this._dbName]);
-		const todos = data.todos;
-		const len = todos.length;
-
-		// If an ID was actually given, find the item and update each property
-		if (id) {
-			for (let i = 0; i < len; i++) {
-				if (todos[i].id === id) {
-					for (let key in updateData) {
-						todos[i][key] = updateData[key];
-					}
-					break;
+		while (i--) {
+			if (todos[i].id === id) {
+				for (k in update) {
+					todos[i][k] = update[k];
 				}
-			}
-
-			localStorage[this._dbName] = JSON.stringify(data);
-
-			if (callback) {
-				callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
-			}
-		} else {
-			// Generate an ID
-			updateData.id = new Date().getTime();
-
-			todos.push(updateData);
-			localStorage[this._dbName] = JSON.stringify(data);
-
-			if (callback) {
-				callback.call(this, [updateData]);
-			}
-		}
-	}
-
-	/**
-	 * Will remove an item from the Store based on its ID
-	 *
-	 * @param {number} id The ID of the item you want to remove
-	 * @param {function} callback The callback to fire after saving
-	 */
-	remove(id, callback){
-		const data = JSON.parse(localStorage[this._dbName]);
-		const todos = data.todos;
-		const len = todos.length;
-
-		for (let i = 0; i < todos.length; i++) {
-			if (todos[i].id == id) {
-				todos.splice(i, 1);
 				break;
 			}
 		}
 
-		localStorage[this._dbName] = JSON.stringify(data);
+		this.setLocalStorage(todos);
 
 		if (callback) {
-			callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+			callback();
 		}
 	}
 
 	/**
-	 * Will drop all storage and start fresh
+	 * Insert an item into the Store.
 	 *
-	 * @param {function} callback The callback to fire after dropping the data
+	 * @param {Item} item Item to insert
+	 * @param {function()} [callback] Called when item is inserted
 	 */
-	drop(callback){
-		localStorage[this._dbName] = JSON.stringify({todos: []});
+	insert(item, callback) {
+		const todos = this.getLocalStorage();
+		todos.push(item);
+		this.setLocalStorage(todos);
 
 		if (callback) {
-			callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+			callback();
 		}
+	}
+
+	/**
+	 * Remove items from the Store based on a query.
+	 *
+	 * @param {ItemQuery} query Query matching the items to remove
+	 * @param {function(ItemList)|function()} [callback] Called when records matching query are removed
+	 */
+	remove(query, callback) {
+		let k;
+
+		const todos = this.getLocalStorage().filter(todo => {
+			for (k in query) {
+				if (query[k] !== todo[k]) {
+					return true;
+				}
+			}
+			return false;
+		});
+
+		this.setLocalStorage(todos);
+
+		if (callback) {
+			callback(todos);
+		}
+	}
+
+	/**
+	 * Count total, active, and completed todos.
+	 *
+	 * @param {function(number, number, number)} callback Called when the count is completed
+	 */
+	count(callback) {
+		this.find(emptyItemQuery, data => {
+			const total = data.length;
+
+			let i = total;
+			let completed = 0;
+
+			while (i--) {
+				completed += data[i].completed;
+			}
+			callback(total, total - completed, completed);
+		});
 	}
 }

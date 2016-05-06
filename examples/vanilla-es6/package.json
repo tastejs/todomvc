@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "compile": "babel src --presets es2015 --out-dir=dist && browserify dist/app.js > dist/bundle.js",
+    "compile": "java -jar node_modules/google-closure-compiler/compiler.jar -O ADVANCED --language_in=ES6_STRICT --new_type_inf --js_output_file='dist/bundle.js' 'src/**.js' -W VERBOSE",
     "prepublish": "npm run compile"
   },
   "dependencies": {
@@ -9,8 +9,6 @@
     "todomvc-common": "^1.0.2"
   },
   "devDependencies": {
-    "babel-core": "^6.1.0",
-    "babel-preset-es2015": "^6.1.18",
-    "browserify": "^12.0.1"
+    "google-closure-compiler": "^20160315.2.0"
   }
 }

@@ -1123,6 +1123,15 @@
 			"url": "examples/vanillajs"
 		}]
 	},
+  	"es6": {
+		"name": "ECMAScript 6",
+		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
+		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
+		"examples": [{
+			"name": "Vanilla ES6 Example",
+			"url": "examples/vanilla-es6"
+		}]
+	},
 	"js_of_ocaml": {
 		"name": "js_of_ocaml",
 		"description": "Js_of_ocaml is a compiler of OCaml bytecode to Javascript. It makes it possible to run Ocaml programs in a Web browser.",
