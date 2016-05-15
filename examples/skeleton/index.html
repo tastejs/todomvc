@@ -1,0 +1,37 @@
+<html lang="en" data-framework="Skeleton">
+<head>
+	<title>Skeleton • TodoMVC</title>
+</head>
+<body>
+	<div class="todos-header">
+		<span onClick="removeAll()">Remove All</span>
+	</div>
+	<form name="todo-form">
+		<input type="text" placeholder="What needs to be done?" id="todo-input" />
+	</form>
+	<div id="todo-list"></div>
+	<div class="todos-footer">
+		<span id="todos-size">0</span> items left
+		<span onClick="filterTodos('all')">All</span>
+		<span onClick="filterTodos('active')">Active</span>
+		<span onClick="filterTodos('completed')">Completed</span>
+		<buton onClick="clearCompleted()">Clear Completed</span>
+	</div>
+</body>
+<!-- Todo Template -->
+<template id="todo-template">
+	<div data-id="{{ index }}">
+		<input type="checkbox" onChange="toggleTodo({{ index }})" data-checked="isCompleted" />
+		<span onDblclick="editTodo({{ index }})">{{ text }}</span>
+		<button onClick="removeTodo({{ index }})">x</button>
+	</div>
+</template>
+<!-- Scripts -->
+<script type="text/javascript" src="skeleton.js"></script>
+<script type="text/javascript" src="models/TodoModel.js"></script>
+<script type="text/javascript" src="lists/TodoList.js"></script>
+<script type="text/javascript" src="forms/TodoForm.js"></script>
+<script type="text/javascript" src="utils/functions.js"></script>
+<script type="text/javascript" src="utils/subscriptions.js"></script>
+<script type="text/javascript" src="utils/starter.js"></script>
+</html>
