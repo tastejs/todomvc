@@ -22,7 +22,7 @@
 <template id="todo-template">
 	<div data-id="{{ index }}">
 		<input type="checkbox" onChange="toggleTodo({{ index }})" data-checked="isCompleted" />
-		<span onDblclick="editTodo({{ index }})">{{ text }}</span>
+		<span>{{ text }}</span>
 		<button onClick="removeTodo({{ index }})">x</button>
 	</div>
 </template>

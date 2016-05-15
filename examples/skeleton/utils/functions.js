@@ -3,11 +3,6 @@ window.removeTodo = (index) => {
 	TodosList.remove(index);
 }
 
-// Edit Todo
-window.editTodo = (index) => {
-	return;
-}
-
 // Toggle Todo
 window.toggleTodo = (index) => {
 	let isCompleted = !TodosList.get(index).isCompleted;
