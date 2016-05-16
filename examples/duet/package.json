@@ -7,9 +7,10 @@
     "start": "npm install && npm run compile && npm run watch"
   },
   "dependencies": {
-    "duet": "^2.1.1",
+    "duet": "^2.2.0",
     "todomvc-app-css": "^2.0.1",
-    "todomvc-common": "^1.0.2"
+    "todomvc-common": "^1.0.2",
+    "wayfarer": "^6.1.0"
   },
   "devDependencies": {
     "gazer": "0.0.3"
