@@ -12,9 +12,9 @@
 	<div id="todo-list"></div>
 	<div class="todos-footer">
 		<span id="todos-size">0</span> items left
-		<span onClick="filterTodos('all')">All</span>
-		<span onClick="filterTodos('active')">Active</span>
-		<span onClick="filterTodos('completed')">Completed</span>
+		<span id="filter-all" onClick="router.visit('/all')">All</span>
+		<span id="filter-active" onClick="router.visit('/active')">Active</span>
+		<span id="filter-completed" onClick="router.visit('/completed')">Completed</span>
 		<buton onClick="clearCompleted()">Clear Completed</span>
 	</div>
 </body>
@@ -27,11 +27,12 @@
 	</div>
 </template>
 <!-- Scripts -->
-<script type="text/javascript" src="skeleton.js"></script>
-<script type="text/javascript" src="models/TodoModel.js"></script>
-<script type="text/javascript" src="lists/TodoList.js"></script>
-<script type="text/javascript" src="forms/TodoForm.js"></script>
-<script type="text/javascript" src="utils/functions.js"></script>
-<script type="text/javascript" src="utils/subscriptions.js"></script>
-<script type="text/javascript" src="utils/starter.js"></script>
+<script type="text/javascript" src="/lib/skeleton.js"></script>
+<script type="text/javascript" src="router.js"></script>
+<script type="text/javascript" src="/models/TodoModel.js"></script>
+<script type="text/javascript" src="/lists/TodoList.js"></script>
+<script type="text/javascript" src="/forms/TodoForm.js"></script>
+<script type="text/javascript" src="/utils/functions.js"></script>
+<script type="text/javascript" src="/utils/subscriptions.js"></script>
+<script type="text/javascript" src="/utils/starter.js"></script>
 </html>

@@ -508,6 +508,77 @@ function Model(attributes) {
 
  }
 
+ /*******************
+ 	Skeleton Router
+  *******************/
+function Router() {
+
+	if(!(this instanceof Router)) {
+		return new Router();
+	}
+
+	if(!window)
+		throw new Error('I only run on the browser!');
+	window.onpopstate = function() {
+		return pathUpdated();
+	}
+
+	var params = {};
+	var handlers = {};	
+
+	var pathUpdated = function() {
+		var handler;
+		var match = 0;
+		var path = location.pathname;
+		var parts = path.split('/').slice(1);
+
+		for(route in handlers) {
+			if(match == 1)
+				break;
+			
+			handler = handlers[route];
+			route = route.split(',');
+			if(route.length != parts.length) {
+				continue;
+			}
+			for(var i=0; i<route.length; i++) {
+				var r = route[i];
+				if(r[0] == ':') {
+					match = 1;
+					params[r.slice(1)] = parts[i];
+				}
+				else {
+					if(r == parts[i]) {
+						match = 1;
+						continue;
+					}
+					else {
+						match = 0;
+						params = {};
+						handler = null;
+						break;
+					}
+				}
+			}
+		}
+
+		if(!handler)
+			throw new Error('No handler set for this route!');
+		handler(params);
+		return params = {};
+	}
+
+	this.path = function(destination, handler) {
+		handlers[destination.split('/').slice(1)] = handler;
+	}
+
+	this.visit = function(destination) {
+		history.pushState(null,null,destination);
+		return pathUpdated();
+	}
+
+}
+
 /***************************************
     Skeleton Storage Helper Functions
  ***************************************/
@@ -739,6 +810,7 @@ function bind(textNodeId) {
 return {
 	Model,
 	List,
+	Router,
 	storage,
 	form, 
 	input,

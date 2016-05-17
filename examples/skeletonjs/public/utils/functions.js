@@ -1,3 +1,5 @@
+(function() {
+
 // Remove Todo
 window.removeTodo = (index) => {
 	TodosList.remove(index);
@@ -13,13 +15,17 @@ window.toggleTodo = (index) => {
 window.filterTodos = (type) => {
 	if(type === 'all') {
 		TodosList.filter(todo => true);
+		styleFilter('all');
 	}
 	else if(type === 'active') {
 		TodosList.filter(todo => !todo.isCompleted);
+		styleFilter('active');
 	}
 	else { // type = 'completed'
 		TodosList.filter(todo => todo.isCompleted);
+		styleFilter('completed');
 	}
+	Skeleton.storage.save({ filter: type });
 }
 
 // Clear Completed
@@ -38,6 +44,24 @@ window.removeAll = () => {
 
 // Update Size
 var todosSize = document.getElementById('todos-size');
-const updateSize = () => {
+window.updateSize = () => {
 	todosSize.textContent = TodosList.models().filter(todo => !todo.isCompleted).length;
 } 
+
+// Style on choosing filter
+var filters = {
+	all: document.getElementById('filter-all'),
+	active: document.getElementById('filter-active'),
+	completed: document.getElementById('filter-completed')
+}
+
+function styleFilter(filter) {
+	Object.keys(filters).forEach(fltr => {
+		if(fltr === filter) {
+			return filters[fltr].style.fontStyle = 'italic';
+		}
+		return filters[fltr].style.fontStyle = 'normal';
+	});
+}
+
+})();
