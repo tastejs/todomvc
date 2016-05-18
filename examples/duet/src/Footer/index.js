@@ -1,4 +1,5 @@
-const {dom, modelFor} = require('duet');
+const dom        = require('duet/util/dom');
+const {modelFor} = require('duet/util/model');
 
 module.exports = (state) => {
   const model = modelFor(state);

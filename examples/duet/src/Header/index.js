@@ -1,5 +1,6 @@
-const {dom, modelFor} = require('duet');
-const {uuid}          = require('../utils');
+const dom        = require('duet/util/dom');
+const {modelFor} = require('duet/util/model');
+const {uuid}     = require('../utils');
 
 const ENTER_KEY = 13;
 

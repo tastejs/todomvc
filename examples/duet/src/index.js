@@ -1,11 +1,12 @@
-const duet = require('duet');
-const app  = require('./app');
+const duet     = require('duet');
+const ls       = require('duet/bridges/local-storage');
+const location = require('duet/bridges/location');
+const vdom     = require('duet/bridges/virtual-dom');
+const app      = require('./app');
 
-duet(app, '.todoapp', {
-  bridges: [
-    require('duet/bridges/local-storage'),
-    require('duet/bridges/location')
-  ],
+const options = {
   // forceSingleThread: true,
   isDebug: true
-});
+};
+
+duet([ls, location, vdom], app, options);

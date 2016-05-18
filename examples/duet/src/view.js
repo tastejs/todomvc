@@ -1,4 +1,4 @@
-const {dom}  = require('duet');
+const dom    = require('duet/util/dom');
 const Header = require('./Header');
 const Main   = require('./Main');
 const Footer = require('./Footer');

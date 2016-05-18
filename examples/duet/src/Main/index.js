@@ -1,6 +1,6 @@
-const {dom, modelFor} = require('duet');
-const {extend}        = require('../utils');
-const {create}        = require('duet/node_modules/virtual-dom');
+const dom        = require('duet/util/dom');
+const {modelFor} = require('duet/util/model');
+const {extend}   = require('../utils');
 
 const ENTER_KEY = 13;
 const ESCAPE_KEY = 27;
