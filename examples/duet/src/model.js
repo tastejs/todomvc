@@ -1,4 +1,4 @@
-const {model, value, varhash} = require('duet');
+const {model, value, varhash} = require('duet/util/model');
 const {store}                 = require('./utils');
 
 const Todo = ({title, completed}, key) => {

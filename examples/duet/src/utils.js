@@ -1,4 +1,4 @@
-const localStorage = require('duet/bridges/local-storage');
+const storage = require('duet/bridges/local-storage');
 
 const uuid = () => {
   let uuid = '';
@@ -16,12 +16,12 @@ const uuid = () => {
 
 const store = (namespace, dataOrHandler) => {
   if (typeof dataOrHandler === 'function') {
-    return localStorage.getItem(namespace, function (storeJSON) {
+    return storage(namespace, function (storeJSON) {
       dataOrHandler((storeJSON && JSON.parse(storeJSON)) || []);
     });
   }
 
-  return localStorage.setItem(namespace, JSON.stringify(dataOrHandler));
+  return storage(namespace, JSON.stringify(dataOrHandler));
 };
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
