@@ -7,9 +7,12 @@
     "start": "npm install && npm run compile && npm run watch"
   },
   "dependencies": {
-    "duet": "^3.0.0",
+    "duet": "^3.2.0",
+    "hyperx": "^2.0.3",
+    "send-action": "^1.1.0",
     "todomvc-app-css": "^2.0.1",
     "todomvc-common": "^1.0.2",
+    "virtual-dom": "^2.1.1",
     "wayfarer": "^6.1.0"
   },
   "devDependencies": {

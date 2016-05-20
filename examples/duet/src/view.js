@@ -1,14 +1,14 @@
-const dom    = require('duet/util/dom');
+const {dom}  = require('./utils');
 const Header = require('./Header');
 const Main   = require('./Main');
 const Footer = require('./Footer');
 
-module.exports = (state) => {
+module.exports = (state, send) => {
   return dom`
     <div>
-      ${Header(state)}
-      ${Main(state)}
-      ${Footer(state)}
+      ${Header(state, send)}
+      ${Main(state, send)}
+      ${Footer(state, send)}
     </div>
   `;
 };

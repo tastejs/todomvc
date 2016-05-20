@@ -1,18 +1,17 @@
 node_modules/.bin
 
 node_modules/duet
-
 node_modules/gazer
+node_modules/hyperx
+node_modules/send-action
+node_modules/virtual-dom
+node_modules/wayfarer
 
 node_modules/todomvc-app-css/*
 !node_modules/todomvc-app-css/index.css
-
 node_modules/todomvc-common/*
 !node_modules/todomvc-common/base.css
 !node_modules/todomvc-common/base.js
 
-node_modules/wayfarer
-
 npm-debug.log
-
 public/index.html

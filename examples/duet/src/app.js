@@ -1,15 +1,23 @@
-const vdom         = require('duet/bridges/virtual-dom');
-const createModel  = require('./model');
-const createRouter = require('./router');
-const view         = require('./view');
-const {store}      = require('./utils');
+const vdom      = require('duet/bridges/virtual-dom');
+const model     = require('./model');
+const router    = require('./router');
+const view      = require('./view');
+const {storage} = require('./utils');
 
 module.exports = () => {
-  store('todos-duet', (stored) => {
-    const model = createModel(stored);
-    const update = vdom('.todoapp', view(model()));
+  const update = vdom('.todoapp');
 
-    model((state) => update(view(state)));
-    createRouter(model);
+  const send = model((params, state, oldState) => {
+    update(view(state, send));
+
+    if (!state.isInitLoad) {
+      storage('todos-duet', state.todos);
+    }
+  });
+
+  router(send);
+
+  storage('todos-duet', (todos) => {
+    send('load', {todos: todos});
   });
 };

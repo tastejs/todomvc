@@ -1,30 +1,8 @@
-const dom        = require('duet/util/dom');
-const {modelFor} = require('duet/util/model');
-const {uuid}     = require('../utils');
+const {dom} = require('../utils');
 
 const ENTER_KEY = 13;
 
-const onKeydown = (model, data) => {
-  var title;
-
-  if (data.event.keyCode !== ENTER_KEY) {
-    return;
-  }
-
-  title = data.form['new-todo'].trim();
-
-  if (title) {
-    model.todos.put(uuid(), {
-      title: title,
-      completed: false
-    });
-    model.newTodo.set('');
-  }
-};
-
-module.exports = (state) => {
-  const model = modelFor(state);
-
+module.exports = (state, send) => {
   return dom`
     <header class="header">
       <h1>todos</h1>
@@ -33,8 +11,18 @@ module.exports = (state) => {
         name="new-todo"
         value=${state.newTodo}
         dataset=${{
-          keydown: model.ev(onKeydown),
-          default: 'keydown'
+          keydown: (event, value) => {
+            if (event.keyCode !== ENTER_KEY) {
+              return;
+            }
+
+            let title = value['new-todo'].trim();
+
+            if (title) {
+              send('create', {title: title})
+            }
+          },
+          preventDefault: 'keydown'
         }}
         placeholder="What needs to be done?"
         ${state.isInitLoad ? 'autofocus' : ''} />

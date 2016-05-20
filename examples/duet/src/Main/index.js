@@ -1,78 +1,12 @@
-const dom        = require('duet/util/dom');
-const {modelFor} = require('duet/util/model');
-const {extend}   = require('../utils');
+const {dom, extend} = require('../utils');
 
 const ENTER_KEY = 13;
 const ESCAPE_KEY = 27;
 
-module.exports = (state) => {
-  const model = modelFor(state);
-  const ids = Object.keys(state.todos);
+module.exports = (state, send) => {
+  const numActive = state.todos.filter((todo) => !todo.completed).length;
 
-  const toggleAllCompleted = (model) => {
-    const numActive = Object.keys(model().todos).reduce(function (sum, id) {
-      return state.todos[id].completed ? sum : sum + 1;
-    }, 0);
-
-    ids.forEach((id) => {
-      const todo = model.todos.get(id);
-
-      model.todos.put(id, extend(todo, {completed: numActive > 0}));
-    });
-  };
-
-  const toggleCompleted = (model, data) => {
-    const id = data.custom;
-    const todo = model.todos.get(id);
-
-    model.todos.put(id, extend(todo, {completed: !todo.completed}));
-  };
-
-  const edit = (model, data) => {
-    model.editing.set(data.custom);
-  };
-
-  const clear = (model, data) => {
-    model.todos['delete'](data.custom);
-  };
-
-  const onKeydown = (model, data) => {
-    const id = data.custom;
-    let title, todo;
-
-    if (data.event.keyCode === ESCAPE_KEY) {
-      model.editing.set(null);
-
-      return;
-    }
-
-    if (data.event.keyCode !== ENTER_KEY) {
-      return;
-    }
-
-    title = data.form.title;
-    todo = model.todos.get(id);
-
-    console.log(title);
-
-    model.todos.put(id, extend(todo, {title: title}));
-    model.editing.set(null);
-  };
-
-
-  const close = (model) => {
-    model.editing.set(null);
-  };
-
-  const numActive = ids.reduce(function (sum, id) {
-    return state.todos[id].completed ? sum : sum + 1;
-  }, 0);
-
-  const numCompleted = ids.length - numActive;
-
-  const filteredIds = ids.filter(function (id) {
-    const todo = state.todos[id];
-
+  const visibleTodos = state.todos.filter((todo) => {
     switch (state.filter) {
       case 'completed':
         return todo.completed;
@@ -83,44 +17,51 @@ module.exports = (state) => {
     }
   });
 
-  const Todo = (id) => {
-    const todo = state.todos[id];
-
+  const Todo = (todo) => {
     return dom`
-      <li class=${state.editing === id ? 'editing' : ''} key=${'todo--' + id}>
+      <li class=${state.editing === todo.id ? 'editing' : ''} key=${'todo--' + todo.id}>
         <div class="view">
           <input type="checkbox"
             class="toggle"
-            key=${'toggle--' + id + (todo.completed ? '--checked' : '')}
+            key=${'toggle--' + todo.id + (todo.completed ? '--checked' : '')}
             ${todo.completed ? 'checked' : ''}
-            dataset=${{change: model.ev(toggleCompleted, id)}} />
-          <label dataset=${{dblclick: model.ev(edit, id)}}>${todo.title}</label>
-          <button class="destroy" dataset=${{click: model.ev(clear, id)}}></button>
+            dataset=${{change: send.event('toggle', {id: todo.id})}} />
+          <label dataset=${{dblclick: send.event('edit-start', {id: todo.id})}}>${todo.title}</label>
+          <button class="destroy" dataset=${{click: send.event('remove', {id: todo.id})}}></button>
         </div>
         <input type="text"
           class="edit"
           name="title"
           value=${todo.title}
           dataset=${{
-            keydown: model.ev(onKeydown, id),
-            focusout: model.ev(close),
-            default: 'keydown'
+            keydown: (event, value) => {
+              if (event.keyCode === ESCAPE_KEY) {
+                return send('edit-end');
+              }
+
+              if (event.keyCode === ENTER_KEY) {
+                send('update', {id: todo.id, title: value.title});
+                send('edit-end');
+              }
+            },
+            focusout: send.event('edit-end'),
+            preventDefault: 'keydown'
           }}
-          ${state.editing === id ? 'autofocus' : ''} />
+          ${state.editing === todo.id ? 'autofocus' : ''} />
       </li>
     `;
   };
 
   return dom`
-    <section class=${'main' + (ids.length ? '' : ' hidden')}>
+    <section class=${'main' + (visibleTodos.length ? '' : ' hidden')}>
       <input type="checkbox"
         class="toggle-all"
         key=${'toggle-all' + (numActive === 0 ? '--checked' : '')}
         ${numActive === 0 ? 'checked' : ''}
-        dataset=${{change: model.ev(toggleAllCompleted)}} />
+        dataset=${{change: send.event('toggle-visible')}} />
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
-        ${filteredIds.map(Todo)}
+        ${visibleTodos.map(Todo)}
       </ul>
     </section>
   `;

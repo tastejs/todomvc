@@ -1,15 +1,11 @@
 const {subscribe} = require('duet/bridges/location');
 const wayfarer    = require('wayfarer');
 
-module.exports = (model) => {
-  const filter = (value) => {
-    model.filter.set(value);
-  };
-
-  let router = wayfarer()
-  .on('/',          filter.bind(null, 'all'))
-  .on('/active',    filter.bind(null, 'active'))
-  .on('/completed', filter.bind(null, 'completed'));
+module.exports = (send) => {
+  const router = wayfarer()
+  .on('/',          send.event('filter', {filter: 'all'}))
+  .on('/active',    send.event('filter', {filter: 'active'}))
+  .on('/completed', send.event('filter', {filter: 'completed'}));
 
   subscribe(router, true);
 };
