@@ -1,4 +1,10 @@
-const storage = require('duet/bridges/local-storage');
+const h      = require('virtual-dom/h');
+const hyperx = require('hyperx');
+const ls     = require('duet/bridges/local-storage');
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+const dom = hyperx(h);
 
 const uuid = () => {
   let uuid = '';
@@ -14,17 +20,15 @@ const uuid = () => {
   return uuid;
 };
 
-const store = (namespace, dataOrHandler) => {
-  if (typeof dataOrHandler === 'function') {
-    return storage(namespace, function (storeJSON) {
-      dataOrHandler((storeJSON && JSON.parse(storeJSON)) || []);
+const storage = (namespace, dataOrFn) => {
+  if (typeof dataOrFn === 'function') {
+    return ls(namespace, function (json) {
+      dataOrFn((json && JSON.parse(json)) || []);
     });
   }
 
-  return storage(namespace, JSON.stringify(dataOrHandler));
+  return ls(namespace, JSON.stringify(dataOrFn));
 };
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 const extend = (...args) => {
   const target = {};
@@ -43,7 +47,8 @@ const extend = (...args) => {
 }
 
 module.exports = {
+  dom,
   uuid,
-  store,
+  storage,
   extend
 };

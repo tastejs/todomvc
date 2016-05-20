@@ -1,26 +1,12 @@
-const dom        = require('duet/util/dom');
-const {modelFor} = require('duet/util/model');
+const {dom} = require('../utils');
 
-module.exports = (state) => {
-  const model = modelFor(state);
-  const ids = Object.keys(state.todos);
+module.exports = (state, send) => {
+  const completed = state.todos.filter((todo) => todo.completed);
 
   const selected = (filter) => state.filter === filter ? 'selected' : '';
 
-  const clear = (model) => {
-    ids.forEach((id) => {
-      if (model.todos.get(id).completed) {
-        model.todos['delete'](id);
-      }
-    });
-  };
-
-  const numCompleted = ids.reduce(function (sum, id) {
-    return state.todos[id].completed ? sum + 1 : sum;
-  }, 0);
-
   return dom`
-    <footer class=${'footer' + (ids.length ? '' : ' hidden')}>
+    <footer class=${'footer' + (state.todos.length ? '' : ' hidden')}>
       <span class="todo-count"></span>
       <ul class="filters">
         <li><a class=${selected('all')} href="/#/">All</a></li>
@@ -28,8 +14,8 @@ module.exports = (state) => {
         <li><a class=${selected('completed')} href="/#/completed">Completed</a></li>
       </ul>
       <button
-        class=${'clear-completed' + (numCompleted ? '' : ' hidden')}
-        dataset=${{click: model.ev(clear)}}>Clear completed</button>
+        class=${'clear-completed' + (completed.length ? '' : ' hidden')}
+        dataset=${{click: send.event('remove-completed')}}>Clear completed</button>
     </footer>
   `;
 }
