@@ -18,6 +18,11 @@ module.exports = (state, send) => {
   });
 
   const Todo = (todo) => {
+    const update = (title) => {
+      send('update', {id: todo.id, title: title});
+      send('edit-end');
+    }
+
     return dom`
       <li class=${state.editing === todo.id ? 'editing' : ''} key=${'todo--' + todo.id}>
         <div class="view">
@@ -40,11 +45,12 @@ module.exports = (state, send) => {
               }
 
               if (event.keyCode === ENTER_KEY) {
-                send('update', {id: todo.id, title: value.title});
-                send('edit-end');
+                update(value.title);
               }
             },
-            focusout: send.event('edit-end'),
+            focusout: (event, value) => {
+              update(value.title);
+            },
             preventDefault: 'keydown'
           }}
           ${state.editing === todo.id ? 'autofocus' : ''} />

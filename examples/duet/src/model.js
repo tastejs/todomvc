@@ -17,7 +17,7 @@ module.exports = (onchange) => {
           state.filter = params.filter;
           break;
         case 'create':
-          state.todos.unshift({id: uuid(), title: params.title, completed: false});
+          state.todos.push({id: uuid(), title: params.title, completed: false});
           state.newTodo = '';
           break;
         case 'edit-start':
