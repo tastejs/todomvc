@@ -13,12 +13,12 @@ export default Ember.Component.extend({
 			Ember.run.scheduleOnce('afterRender', this, 'focusInput');
 		},
 
-		doneEditing(e) {
-			let newTitle = e.target.value.trim();
-			if (Ember.isBlank(newTitle)) {
+		doneEditing(todoTitle) {
+			if (!this.get('editing')) { return; }
+			if (Ember.isBlank(todoTitle)) {
 				this.send('removeTodo');
-			} else if (this.get('editing')) {
-				this.set('todo.title', newTitle);
+			} else {
+				this.set('todo.title', todoTitle.trim());
 				this.set('editing', false);
 				this.get('onEndEdit')();
 			}
@@ -26,7 +26,7 @@ export default Ember.Component.extend({
 
 		handleKeydown(e) {
 			if (e.keyCode === 13) {
-				this.send('doneEditing', e);
+				e.target.blur();
 			} else if (e.keyCode === 27) {
 				this.set('editing', false);
 			}

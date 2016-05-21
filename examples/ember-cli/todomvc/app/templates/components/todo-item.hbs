@@ -3,4 +3,4 @@
   <label ondblclick={{action 'startEditing'}}>{{todo.title}}</label>
   <button onclick={{action 'removeTodo'}} class="destroy"></button>
 </div>
-<input type="text" class="edit" value={{todo.title}} onblur={{action 'doneEditing'}} onkeydown={{action 'handleKeydown'}} autofocus>
+<input type="text" class="edit" value={{todo.title}} onblur={{action 'doneEditing' value='target.value'}} onkeydown={{action 'handleKeydown'}} autofocus>
