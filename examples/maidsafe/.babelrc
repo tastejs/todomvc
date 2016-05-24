@@ -1,0 +1,11 @@
+{
+  "env": {
+    "development": {
+      "presets": ["es2015", "react"],
+      "sourceMaps": "inline"
+    },
+    "test": {
+      "presets": ["es2015","react"]
+    }
+  }
+}
