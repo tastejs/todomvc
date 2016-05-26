@@ -22,9 +22,11 @@ module.exports = (state, send) => {
       send('update', {id: todo.id, title: title});
       send('edit-end');
     }
+    let className = (todo.completed ? 'completed ' : '') +
+      (state.editing === todo.id ? 'editing' : '');
 
     return dom`
-      <li class=${state.editing === todo.id ? 'editing' : ''} key=${'todo--' + todo.id}>
+      <li class=${className} key=${'todo--' + todo.id}>
         <div class="view">
           <input type="checkbox"
             class="toggle"
