@@ -1,4 +1,4 @@
-const {dom, extend} = require('../utils');
+const {dom} = require('../utils');
 
 const ENTER_KEY = 13;
 const ESCAPE_KEY = 27;

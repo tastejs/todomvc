@@ -1,13 +1,17 @@
 {
   "private": true,
   "scripts": {
-    "compile": "duet --debug",
+    "compile": "duet-build --debug",
     "watch": "gazer -p 'src/**/*.js' npm run compile & gazer -p 'node_modules/duet/lib/**/*.js' npm run compile",
-    "prepublish": "duet && rm public/index.html",
+    "prepublish": "duet-build && rm public/index.html",
     "start": "npm install && npm run compile && npm run watch"
   },
   "dependencies": {
-    "duet": "^3.2.0",
+    "console": "^0.5.2",
+    "duet": "^4.0.1",
+    "duet-local-storage": "^1.0.0",
+    "duet-location": "^1.0.0",
+    "duet-virtual-dom": "^1.0.0",
     "hyperx": "^2.0.3",
     "send-action": "^1.1.0",
     "todomvc-app-css": "^2.0.1",
@@ -16,6 +20,7 @@
     "wayfarer": "^6.1.0"
   },
   "devDependencies": {
+    "duet-build": "^1.0.0",
     "gazer": "0.0.3"
   }
 }

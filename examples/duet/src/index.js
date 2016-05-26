@@ -1,12 +1,13 @@
+const console  = require('console');
 const duet     = require('duet');
-const ls       = require('duet/bridges/local-storage');
-const location = require('duet/bridges/location');
-const vdom     = require('duet/bridges/virtual-dom');
+const storage  = require('duet-local-storage/channel');
+const location = require('duet-location/channel');
+const vdom     = require('duet-virtual-dom/channel');
 const app      = require('./app');
 
 const options = {
   // forceSingleThread: true,
-  isDebug: true
+  logger: console.debug.bind(console)
 };
 
-duet([ls, location, vdom], app, options);
+duet([storage, location, vdom], app, options);

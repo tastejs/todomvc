@@ -5,10 +5,10 @@ const Footer = require('./Footer');
 
 module.exports = (state, send) => {
   return dom`
-    <div>
+    <section class="todoapp">
       ${Header(state, send)}
       ${Main(state, send)}
       ${Footer(state, send)}
-    </div>
+    </section>
   `;
 };

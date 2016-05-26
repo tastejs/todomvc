@@ -1,5 +1,5 @@
-const {subscribe} = require('duet/bridges/location');
-const wayfarer    = require('wayfarer');
+const subscribe = require('duet-location');
+const wayfarer  = require('wayfarer');
 
 module.exports = (send) => {
   const router = wayfarer()

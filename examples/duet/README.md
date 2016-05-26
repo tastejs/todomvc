@@ -1,8 +1,6 @@
 # duet • [TodoMVC](http://todomvc.com)
 
-> duet is library for building unidirectional apps, based on web workers and virtual-dom rendering, which asynchronously exposes APIs to the worker that aren't usually available to it (DOM, localStorage, location, etc). You can write duet apps in ES5, but this example uses some ES2015 (ES6) features.
-
-> _[duet](https://github.com/colingourlay/duet)_
+> _[duet](https://github.com/colingourlay/duet)_ is library for building performant apps, based on web workers, which asynchronously exposes APIs to the worker thread that aren't usually available to it (DOM, localStorage, location, etc). You can write duet apps in ES5, but this example uses some ES2015 (ES6) features.
 
 ## Installation
 

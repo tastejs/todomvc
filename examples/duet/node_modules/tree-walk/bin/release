@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+npm run prepublish
+npm version "$@" -m "v%s"
+read -p "Press [Enter] to publish this release..."
+git push --tags
+npm publish

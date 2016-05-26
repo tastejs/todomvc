@@ -9,9 +9,9 @@ module.exports = (state, send) => {
     <footer class=${'footer' + (state.todos.length ? '' : ' hidden')}>
       <span class="todo-count"></span>
       <ul class="filters">
-        <li><a class=${selected('all')} href="/#/">All</a></li>
-        <li><a class=${selected('active')} href="/#/active">Active</a></li>
-        <li><a class=${selected('completed')} href="/#/completed">Completed</a></li>
+        <li><a class=${selected('all')} href="#/">All</a></li>
+        <li><a class=${selected('active')} href="#/active">Active</a></li>
+        <li><a class=${selected('completed')} href="#/completed">Completed</a></li>
       </ul>
       <button
         class=${'clear-completed' + (completed.length ? '' : ' hidden')}
