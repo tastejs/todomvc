@@ -1,4 +1,5 @@
 import { html, innerHTML } from 'diffhtml';
+import * as diff from 'diffhtml';
 import store from '../redux/store';
 import * as todoAppActions from '../redux/actions/todo-app';
 import renderTodoList from './todo-list';
@@ -172,6 +173,7 @@ export default class TodoApp {
 				${allTodos.length ? html`
 					<section class="main">
 						<input class="toggle-all" type="checkbox" ${this.setCheckedState()}>
+
 						<ul class="todo-list">${
 							renderTodoList.call(this, {
 								stopEditing: this.stopEditing.bind(this),
@@ -185,7 +187,6 @@ export default class TodoApp {
 							<strong>${activeTodos.length}</strong>
 							${activeTodos.length == 1 ? 'item' : 'items'} left
 						</span>
-
 
 						<ul class="filters">
 							<li>
