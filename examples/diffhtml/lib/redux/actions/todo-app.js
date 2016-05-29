@@ -13,32 +13,32 @@ export function addTodo(title) {
 	};
 }
 
-export function removeTodo(index) {
+export function removeTodo(key) {
 	return {
 		type: REMOVE_TODO,
-		index
+		key
 	};
 }
 
-export function toggleCompletion(index, completed) {
+export function toggleCompletion(key, completed) {
 	return {
 		type: TOGGLE_COMPLETION,
-		index,
+		key,
 		completed
 	};
 }
 
-export function startEditing(index) {
+export function startEditing(key) {
 	return {
 		type: START_EDITING,
-		index
+		key
 	};
 }
 
-export function stopEditing(index, title) {
+export function stopEditing(key, title) {
 	return {
 		type: STOP_EDITING,
-		index,
+		key,
 		title
 	};
 }

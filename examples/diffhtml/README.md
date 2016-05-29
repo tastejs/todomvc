@@ -24,12 +24,9 @@ Get help from diffHTML devs and users:
 The diffHTML implementation of TodoMVC has a few key differences from other
 implementations:
 
-* [Custom Elements](http://w3c.github.io/webcomponents/explainer/) allow you to
-	create new HTML elements that are reusable, composable, and encapsulated.
-* [Transitions](https://github.com/tbranyen/diffhtml#add-a-transition-state-callback)
-	are added since they are trivial to write with diffHTML. They provide a
-	smoother and more pleasing experience by adding animations that hook into the
-	rendering engine.
+* [Transitions](https://github.com/tbranyen/diffhtml/tree/master/packages/diffhtml-middleware-inline-transitions)
+  are included as they are a base feature with diffHTML. They make the app look
+  a bit nicer.
 
 ## Compatibility
 

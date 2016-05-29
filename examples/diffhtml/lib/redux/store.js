@@ -1,5 +1,4 @@
 import { compose, combineReducers, createStore, applyMiddleware } from 'redux';
-import createLogger from 'redux-logger';
 import todoApp from './reducers/todo-app';
 import url from './reducers/url';
 
@@ -7,7 +6,7 @@ import url from './reducers/url';
 // could be in the future for testing purposes.
 const createStoreWithMiddleware = compose(
 	// Adds in store middleware, such as async thunk and logging.
-	applyMiddleware(createLogger()),
+	applyMiddleware(),
 
 	// Hook devtools into our store.
 	window.devToolsExtension ? window.devToolsExtension() : f => f

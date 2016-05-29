@@ -1,5 +1,15 @@
 import * as todoAppActions from '../actions/todo-app';
 
+const { assign } = Object;
+
+// Generates good-enough-for-a-demo keys using uuidv4.
+const uuidv4 = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+const uuid = () => uuidv4.replace(/[xy]/g, c => {
+	const r = Math.random() * 16 | 0;
+	return (c == 'x' ? r : r & 0x3 | 0x8).toString(16);
+});
+
+// Persists todos to localStorage and
 const initialState = {
 	todos: JSON.parse(localStorage['diffhtml-todos'] || '[]'),
 
@@ -20,71 +30,72 @@ export default function todoApp(state = initialState, action) {
 		case todoAppActions.ADD_TODO: {
 			if (!action.title) { return state; }
 
-			return Object.assign({}, state, {
+			return assign({}, state, {
 				todos: state.todos.concat({
 					completed: false,
 					editing: false,
 
 					title: action.title.trim(),
-					key: Date.now() + state.todos.length
+					key: uuid()
 				})
 			});
 		}
 
 		case todoAppActions.REMOVE_TODO: {
-			state.todos.splice(action.index, 1);
-
-			return Object.assign({}, state, {
-				todos: [].concat(state.todos)
+			return assign({}, state, {
+				todos: state.todos.filter(todo => todo.key !== action.key)
 			});
 		}
 
 		case todoAppActions.TOGGLE_COMPLETION: {
-			const todo = state.todos[action.index];
+			const index = state.todos.findIndex(todo => todo.key === action.key);
+			const todo = state.todos[index];
 
-			state.todos[action.index] = Object.assign({}, todo, {
+			state.todos[index] = assign({}, todo, {
 				completed: action.completed
 			});
 
-			return Object.assign({}, state, {
-				todos: [].concat(state.todos)
+			return assign({}, state, {
+				todos: [...state.todos]
 			});
 		}
 
 		case todoAppActions.START_EDITING: {
-			const todo = state.todos[action.index];
+			const index = state.todos.findIndex(todo => todo.key === action.key);
+			const todo = state.todos[index];
 
-			state.todos[action.index] = Object.assign({}, todo, {
+			state.todos[index] = assign({}, todo, {
 				editing: true
 			});
 
-			return Object.assign({}, state, {
-				todos: [].concat(state.todos)
+			return assign({}, state, {
+				todos: [...state.todos]
 			});
 		}
 
 		case todoAppActions.STOP_EDITING: {
-			const todo = state.todos[action.index];
+			const index = state.todos.findIndex(todo => todo.key === action.key);
+			const todo = state.todos[index];
 
-			state.todos[action.index] = Object.assign({}, todo, {
+			state.todos[index] = assign({}, todo, {
 				title: action.title,
 				editing: false
 			});
 
-			return Object.assign({}, state, {
-				todos: [].concat(state.todos)
+			return assign({}, state, {
+				todos: [...state.todos]
 			});
 		}
 
 		case todoAppActions.CLEAR_COMPLETED: {
-			return Object.assign({}, state, {
+			return assign({}, state, {
 				todos: state.todos.filter(todo => todo.completed === false)
 			});
 		}
 
 		case todoAppActions.TOGGLE_ALL: {
-			return Object.assign({}, state, {
-				todos: state.todos.map(todo => Object.assign({}, todo, {
+			return assign({}, state, {
+				todos: state.todos.map(todo => assign({}, todo, {
 					completed: action.completed
 				}))
 			});
@@ -95,4 +106,3 @@ export default function todoApp(state = initialState, action) {
 		}
 	}
 }
-

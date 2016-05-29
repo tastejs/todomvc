@@ -4,28 +4,13 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="index.css">
 
 	<title>diffHTML • TodoMVC</title>
-
-	<style>todo-app footer.info { opacity: 0; }</style>
 </head>
 <body>
-	<todo-app data-reducer="todoApp">
-		<footer class="info">
-			<p>Double-click to edit a todo</p>
-
-			<p>
-				Created by <a href="http://github.com/tbranyen">Tim Branyen</a>
-				using <a href="http://diffhtml.org">diffHTML</a>
-			</p>
-
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-		</footer>
-	</todo-app>
-
-	<script src="node_modules/todomvc-common/base.js" async></script>
-	<script src="dist/todomvc.js" async></script>
+	<todo-app></todo-app>
+	<script src="dist/todomvc.min.js" async></script>
 </body>
 </html>
