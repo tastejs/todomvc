@@ -1,5 +1,6 @@
-import { html, innerHTML } from 'diffhtml';
 import * as diff from 'diffhtml';
+
+const { html, innerHTML } = diff;
 
 function encode(str) {
 	return str.replace(/["&'<>`]/g, match => `&#${match.charCodeAt(0)};`);

@@ -1,18 +1,63 @@
-import { html, innerHTML } from 'diffhtml';
 import * as diff from 'diffhtml';
 import store from '../redux/store';
 import * as todoAppActions from '../redux/actions/todo-app';
 import renderTodoList from './todo-list';
 
+const { html, innerHTML, addTransitionState } = diff;
+
+// Used to silence errors produced by missing Web Animations API support in the
+// transition promises below.
+const warnAboutWebAnim = () => console.info('No Web Animations API support');
+
 export default class TodoApp {
 	static create(mount) { return new TodoApp(mount); }
 
 	constructor(mount) {
+		addTransitionState('attached', this.animateAttached);
+		addTransitionState('detached', this.animateDetached);
+
 		this.mount = mount;
 		this.existingMarkup = this.mount.innerHTML;
 		this.unsubscribeStore = store.subscribe(() => this.render());
 
 		this.render();
+	}
+
+	animateAttached(element) {
+		if (element.matches('footer.info')) {
+			new Promise(resolve => element.animate([
+				{ opacity: 0, transform: 'scale(.5)' },
+				{ opacity: 1, transform: 'scale(1)' }
+			], { duration: 250 }).onfinish = resolve).then(() => {
+				element.style.opacity = 1;
+			}).then(null, warnAboutWebAnim);
+		}
+
+		// Animate Todo item being added.
+		if (element.matches('.todo-list li, footer.info')) {
+			new Promise(resolve => element.animate([
+				{ opacity: 0, transform: 'scale(.5)' },
+				{ opacity: 1, transform: 'scale(1)' }
+			], { duration: 250 }).onfinish = resolve).then(null, warnAboutWebAnim);
+		}
+
+		// Animate the entire app loading.
+		if (element.matches('.todoapp')) {
+			new Promise(resolve => element.animate([
+				{ opacity: 0, transform: 'translateY(100%)', easing: 'ease-out' },
+				{ opacity: 1, transform: 'translateY(0)' }
+			], { duration: 375 }).onfinish = resolve).then(null, warnAboutWebAnim);
+		}
+	}
+
+	animateDetached(el) {
+		// We are removing an item from the list.
+		if (el.matches('.todo-list li')) {
+			return new Promise(resolve => el.animate([
+				{ opacity: 1, transform: 'scale(1)' },
+				{ opacity: 0, transform: 'scale(.5)' }
+			], { duration: 250 }).onfinish = resolve).then(null, warnAboutWebAnim);
+		}
 	}
 
 	addTodo(ev) {
