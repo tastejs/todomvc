@@ -1,36 +1,39 @@
 import * as diff from 'diffhtml';
+import inlineTransitions from 'diffhtml-inline-transitions';
 import store from '../redux/store';
 import * as todoAppActions from '../redux/actions/todo-app';
 import renderTodoList from './todo-list';
 
-const { html, innerHTML, addTransitionState } = diff;
+const { html, innerHTML } = diff;
 
 // Used to silence errors produced by missing Web Animations API support in the
 // transition promises below.
 const warnAboutWebAnim = () => console.info('No Web Animations API support');
 
+// Allow diffHTML transitions to be bound inside the tagged helper.
+inlineTransitions(diff);
+
 export default class TodoApp {
 	static create(mount) { return new TodoApp(mount); }
 
 	constructor(mount) {
-		addTransitionState('attached', this.animateAttached);
-		addTransitionState('detached', this.animateDetached);
-
 		this.mount = mount;
-		this.existingMarkup = this.mount.innerHTML;
+		this.existingFooter = this.mount.querySelector('footer').cloneNode(true);
 		this.unsubscribeStore = store.subscribe(() => this.render());
 
 		this.render();
 	}
 
-	animateAttached(element) {
+	animateAttached(parent, element) {
+		if (!element.animate) { return; }
+
 		if (element.matches('footer.info')) {
 			new Promise(resolve => element.animate([
 				{ opacity: 0, transform: 'scale(.5)' },
 				{ opacity: 1, transform: 'scale(1)' }
 			], { duration: 250 }).onfinish = resolve).then(() => {
 				element.style.opacity = 1;
-			}).then(null, warnAboutWebAnim);
+			});
 		}
 
 		// Animate Todo item being added.
@@ -38,7 +41,7 @@ export default class TodoApp {
 			new Promise(resolve => element.animate([
 				{ opacity: 0, transform: 'scale(.5)' },
 				{ opacity: 1, transform: 'scale(1)' }
-			], { duration: 250 }).onfinish = resolve).then(null, warnAboutWebAnim);
+			], { duration: 250 }).onfinish = resolve);
 		}
 
 		// Animate the entire app loading.
@@ -46,17 +49,19 @@ export default class TodoApp {
 			new Promise(resolve => element.animate([
 				{ opacity: 0, transform: 'translateY(100%)', easing: 'ease-out' },
 				{ opacity: 1, transform: 'translateY(0)' }
-			], { duration: 375 }).onfinish = resolve).then(null, warnAboutWebAnim);
+			], { duration: 375 }).onfinish = resolve);
 		}
 	}
 
-	animateDetached(el) {
+	animateDetached(parent, element) {
+		if (!element.animate) { return; }
+
 		// We are removing an item from the list.
-		if (el.matches('.todo-list li')) {
-			return new Promise(resolve => el.animate([
+		if (element.matches('.todo-list li')) {
+			return new Promise(resolve => element.animate([
 				{ opacity: 1, transform: 'scale(1)' },
 				{ opacity: 0, transform: 'scale(.5)' }
-			], { duration: 250 }).onfinish = resolve).then(null, warnAboutWebAnim);
+			], { duration: 250 }).onfinish = resolve);
 		}
 	}
 
@@ -198,6 +203,8 @@ export default class TodoApp {
 
 		innerHTML(this.mount, html`
 			<section class="todoapp"
+				attached=${this.animateAttached}
+				detached=${this.animateDetached}
 				onsubmit=${this.onSubmitHandler.bind(this)}
 				onclick=${this.onClickHandler.bind(this)}
 				onkeydown=${this.handleKeyDown.bind(this)}
@@ -260,7 +267,7 @@ export default class TodoApp {
 				` : ''}
 			</section>
 
-			${this.existingMarkup}
+			${this.existingFooter}
 		`);
 	}
 }

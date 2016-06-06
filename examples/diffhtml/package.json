@@ -23,15 +23,16 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "derequire": "^2.0.3",
+    "diffhtml-inline-transitions": "^1.0.0-rc3",
     "mocha": "^2.5.3",
+    "transform-tagged-diffhtml": "tbranyen/transform-tagged-diffhtml#588e6ed052616dafa87bf735787f7770bc6d8ba5",
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "diffhtml": "tbranyen/diffhtml#a6570c577f1a08b78aca52ba68e19b4aed34c911",
+    "diffhtml": "tbranyen/diffhtml#24ad47b9b76bd6a2ccc2882a5f22f69e507d14cc",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "todomvc-app-css": "^2.0.6",
-    "todomvc-common": "^1.0.2",
-    "transform-tagged-diffhtml": "tbranyen/transform-tagged-diffhtml#588e6ed052616dafa87bf735787f7770bc6d8ba5"
+    "todomvc-common": "^1.0.2"
   }
 }
