@@ -6,10 +6,6 @@ import renderTodoList from './todo-list';
 
 const { html, innerHTML } = diff;
 
-// Used to silence errors produced by missing Web Animations API support in the
-// transition promises below.
-const warnAboutWebAnim = () => console.info('No Web Animations API support');
-
 // Allow diffHTML transitions to be bound inside the tagged helper.
 inlineTransitions(diff);
 
