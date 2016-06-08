@@ -23,7 +23,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "derequire": "^2.0.3",
-    "diffhtml-inline-transitions": "^1.0.0-rc3",
+    "diffhtml-inline-transitions": "^1.1.0",
     "mocha": "^2.5.3",
     "transform-tagged-diffhtml": "tbranyen/transform-tagged-diffhtml#588e6ed052616dafa87bf735787f7770bc6d8ba5",
     "watchify": "^3.7.0"
