@@ -1,0 +1,8 @@
+#toggle-all {
+	display: none;
+}
+
+.todos-one #toggle-all,
+.todos-many #toggle-all {
+	display: block;
+}

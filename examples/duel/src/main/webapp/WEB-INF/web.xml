@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<servlet>
+		<servlet-name>routing-servlet</servlet-name>
+		<servlet-class>org.duelengine.duel.staticapps.RoutingServlet</servlet-class>
+		<init-param>
+			<param-name>config-path</param-name>
+			<param-value>staticapp.json</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dev-mode-override</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>routing-servlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html;charset=utf-8</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css;charset=utf-8</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>js</extension>
+		<mime-type>application/javascript;charset=utf-8</mime-type>
+	</mime-mapping>
+</web-app>

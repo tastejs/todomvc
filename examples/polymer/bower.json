@@ -1,0 +1,12 @@
+{
+	"name": "todomvc-polymer",
+	"version": "0.0.2",
+	"dependencies": {
+		"todomvc-common": "^1.0.1",
+		"todomvc-app-css": "^1.0.0",
+		"polymer": "Polymer/polymer#^1.2.3",
+		"iron-selector": "PolymerElements/iron-selector#^1.0.5",
+		"flatiron-director": "PolymerLabs/flatiron-director#^1.0.0",
+		"iron-localstorage": "PolymerElements/iron-localstorage#^1.0.4"
+	}
+}

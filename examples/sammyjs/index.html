@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-framework="sammyjs">
+	<head>
+		<meta charset="utf-8">
+		<title>Sammy.js • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<section id="main"></section>
+			<footer id="footer"></footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by <a href="https://github.com/stephenplusplus">Stephen Sawchuk</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/jquery/jquery.js"></script>
+		<script src="bower_components/sammy/sammy.js"></script>
+		<script src="bower_components/sammy/sammy.template.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/TodoItem.js"></script>
+		<script src="js/controllers/TodoList.js"></script>
+		<script src="js/models/Todos.js"></script>
+		<script src="js/routes/active.js"></script>
+		<script src="js/routes/completed.js"></script>
+		<script src="js/routes/home.js"></script>
+		<script src="js/views/TodoItem.js"></script>
+		<script src="js/views/TodoList.js"></script>
+	</body>
+</html>

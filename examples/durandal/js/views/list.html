@@ -1,0 +1,36 @@
+<section id="main" data-bind="visible: todos().length">
+	<div>
+		<input id="toggle-all" data-bind="checked: allCompleted" type="checkbox">
+		<label for="toggle-all">Mark all as complete</label>
+	</div>
+	<ul id="todo-list" data-bind="foreach: filteredTodos">
+		<li data-bind="css: { completed: completed, editing: $root.isThisItemBeingEdited($data) }">
+			<div class="view">
+				<input class="toggle" data-bind="checked: completed" type="checkbox">
+				<label data-bind="text: title, event: { dblclick: $root.editItem }"></label>
+				<button class="destroy" data-bind="click: $root.remove"></button>
+			</div>
+			<input class="edit" data-bind="value: $root.editTitle, valueUpdate: 'afterkeydown', escKey : $root.cancelEditing, enterKey: $root.stopEditing, selectAndFocus: $root.isThisItemBeingEdited($data), event: { blur: $root.stopEditing }">
+		</li>
+	</ul>
+</section>
+<footer id="footer" data-bind="visible: completedCount() || remainingCount()">
+	<span id="todo-count">
+		<strong data-bind="text: remainingCount">0</strong>
+		<span data-bind="text: getLabel(remainingCount)"></span> left
+	</span>
+	<ul id="filters">
+		<li>
+			<a data-bind="css: { selected: showMode() == 'all' }" href="#/all" >All</a>
+		</li>
+		<li>
+			<a data-bind="css: { selected: showMode() == 'active' }" href="#/active">Active</a>
+		</li>
+		<li>
+			<a data-bind="css: { selected: showMode() == 'completed' }" href="#/completed">Completed</a>
+		</li>
+	</ul>
+	<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">
+		Clear completed
+	</button>
+</footer>

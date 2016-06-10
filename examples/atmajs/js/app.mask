@@ -1,0 +1,42 @@
+import * as AppController from 'app.js';
+import TodoInput from 'Controls/TodoInput';
+import TodoList from 'Todos/TodoList';
+import Filter from 'Controls/Filter';
+
+define App extends AppController {
+	section .todoapp {
+		header {
+			h1 > 'todos'
+	
+			TodoInput .new-todo
+				autofocus
+				placeholder = 'What needs to be done?'
+				;
+		}
+	
+		+if (status.count) {
+			section .main >
+				TodoList;
+	
+			footer .footer {
+	
+				span .todo-count {
+					strong > '~[bind: status.todoCount]'
+					span > ' item~[bind: status.todoCount != 1 ? "s"] left'
+				}
+	
+				Filter;
+	
+				+if (status.completedCount > 0) {
+					button .clear-completed x-tap = 'removeAllCompleted' >
+						'Clear completed'
+				}
+			}
+		}
+	}
+	footer .info {
+		p { 'Double-click to edit a todo' }
+		p { 'Created by ' a href='http://github.com/tenbits' > 'Alex Kit' }
+		p { 'Part of ' a href='http://todomvc.com' > 'TodoMVC' }
+	}
+}

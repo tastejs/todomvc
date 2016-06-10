@@ -1,0 +1,45 @@
+/**
+ *	Extend INPUT tag to edit a todo's title
+ *		- format string
+ *		- complete edit on ENTER
+ *		- complete edit on BLUR
+ *
+ *	Used as
+ *		- the main application's input
+ *		- single todo item editor
+ *
+ *	Public Signals
+ *		- cancel: input interrupted
+ *		- submit: input formatted and completed
+ */
+define TodoInput as (input type='text') {
+	
+	event blur (e) {
+		this.submit();
+	}
+	
+	event press:esc (e) {
+		this.cancel();
+	}
+
+	event press:enter (e) {
+		this.submit();
+		// prevent IE from button click - `Clear Completed`
+		e.preventDefault();
+	}
+
+	function submit () {
+		var str = this.$.val().trim();
+		this.emitOut('submit', str);
+		this.afterEdit();
+	}
+
+	function cancel () {
+		this.emitOut('cancel');
+		this.afterEdit();
+	}
+
+	function afterEdit () {
+		this.$.val(this.attr.preserve ? this.model.title : '');
+	}
+}

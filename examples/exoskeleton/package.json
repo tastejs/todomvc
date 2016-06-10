@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "exoskeleton": "^0.7.0",
+    "backbone.localstorage": "^1.1.16",
+    "backbone.nativeview": "^0.3.2",
+    "todomvc-app-css": "^1.0.0",
+    "todomvc-common": "^1.0.1",
+    "microtemplates": "^0.1.0"
+  }
+}

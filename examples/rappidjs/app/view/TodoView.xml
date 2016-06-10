@@ -1,0 +1,87 @@
+<ui:View xmlns="http://www.w3.org/1999/xhtml"
+		 xmlns:js="js.core" xmlns:ui="js.ui" componentClass="{todo.status()}">
+	<js:Script>
+		<![CDATA[
+		(function () {
+			'use strict';
+
+			var ENTER_KEY = 13;
+
+			return {
+				defaults: {
+					editing: false
+				},
+
+				$classAttributes: ['todo', 'inputElement'],
+
+				events: ['remove'],
+
+				editTodo: function (e) {
+					e.preventDefault();
+
+					this.set('editing', true);
+
+					this.$.inputElement.$el.focus();
+					return false;
+				},
+
+				checkTodo: function () {
+					var todo = this.get('todo');
+
+					todo.setCompleted(!todo.isCompleted());
+					todo.save();
+				},
+
+				preventEditing: function (e) {
+					e.stopPropagation();
+				},
+
+				updateTodo: function (e) {
+					var todo;
+
+					if (e.domEvent.keyCode === ENTER_KEY || e.domEvent.type === 'blur') {
+						todo = this.get('todo');
+
+						if (todo.hasTitle()) {
+							this.set('editing', false);
+							todo.save();
+						} else {
+							this.trigger('remove', todo);
+						}
+					}
+				},
+
+				triggerOnRemove: function () {
+					this.trigger('remove', this.get('todo'));
+				},
+
+				_renderEditing: function (editing) {
+					if (editing) {
+						this.addClass('editing');
+					} else {
+						this.removeClass('editing');
+						this.$.inputElement.$el.blur();
+					}
+				},
+
+				trim: function (title) {
+					if (title) {
+						return title.trim();
+					}
+					return '';
+				}
+			};
+		})
+		]]>
+	</js:Script>
+	<js:Template name="layout">
+			<div class="view">
+				<input class="toggle" type="checkbox" onclick="checkTodo" ondblclick="preventEditing"
+					   checked="{todo.completed}"/>
+				<label ondblclick="editTodo">{todo.title}</label>
+				<button class="destroy" onclick="triggerOnRemove"/>
+			</div>
+			<input class="edit" cid="inputElement" type="text" value="{{todo.title|trim()}}"
+				   onkeyup="updateTodo" onblur="updateTodo" updateOnEvent="change"/>
+	</js:Template>
+</ui:View>

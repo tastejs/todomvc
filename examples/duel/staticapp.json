@@ -1,0 +1,21 @@
+{
+	"targetDir": "www/",
+	"sourceDir": "target/todomvc/",
+	"serverPrefix" : "com.todomvc.duel.views",
+	"cdnMap": "cdn",
+	"cdnLinksMap": "cdnLinks",
+	"cdnHost": "./",
+	"isDevMode": false,
+	"views": {
+		"index.html":
+			{
+				"view": "HomePage",
+				"data": {},
+				"extras": {}
+			}
+	},
+	"files": [
+		"robots.txt",
+		"favicon.ico"
+	]
+}

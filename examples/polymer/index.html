@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-framework="polymer">
+	<head>
+		<meta charset="utf-8">
+		<title>Polymer • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="stylesheet" href="bower_components/todomvc-app-css/index.css">
+		<link rel="import" href="elements/elements.build.html" async>
+		<!-- <link rel="import" href="elements/elements.html"> for dev -->
+	</head>
+	<body>
+		<div id="todoapp">
+			<header>
+				<h1>todos</h1>
+			</header>
+			<template is="dom-bind">
+				<td-model id="model" items="{{todos}}"></td-model>
+				<td-todos model-id="model" items="{{todos}}"></td-todos>
+			</template>
+		</div>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="https://www.polymer-project.org/1.0/">The Polymer Authors</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="bower_components/todomvc-common/base.js" async></script>
+		<script>
+			(function () {
+				// Feature detect and conditionally load the polyfills.
+				var webComponentsSupported = ('registerElement' in document
+					&& 'import' in document.createElement('link')
+					&& 'content' in document.createElement('template'));
+
+				if (!webComponentsSupported) {
+					var script = document.createElement('script');
+					script.async = true;
+					script.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
+					document.head.appendChild(script);
+				}
+			})();
+		</script>
+	</body>
+</html>

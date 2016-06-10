@@ -1,0 +1,42 @@
+{
+	"xamlClasses": [
+		"app/Todo",
+		"app/view/TodoView",
+		"js/ui/ButtonGroup",
+		"js/ui/Link",
+		"js/ui/List",
+		"js/ui/MenuButton",
+		"js/ui/Modal",
+		"js/ui/ScrollView",
+		"js/ui/SplitButton",
+		"js/ui/TabView"
+	],
+	"namespaceMap": null,
+	"rewriteMap": null,
+	"paths": {
+		"xaml": "js/plugins/xaml",
+		"json": "js/plugins/json",
+		"raw": "js/plugins/raw",
+		"flow": "js/lib/flow",
+		"inherit": "js/lib/inherit",
+		"underscore": "js/lib/underscore",
+		"JSON": "js/lib/json2.js"
+	},
+	"shim": {
+		"inherit": {
+			"exports": "inherit"
+		},
+		"flow": {
+			"exports": "flow"
+		},
+		"underscore": {
+			"exports": "_"
+		},
+		"js/lib/parser": {
+			"exports": "parser"
+		},
+		"JSON": {
+			"exports": "JSON"
+		}
+	}
+}

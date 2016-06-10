@@ -1,0 +1,17 @@
+# todomvc base file
+#/js/lib/todos.js
+
+# libraries
+/js/lib/duel.js
+
+# compiled views
+/js/todos/views/Stats.js
+/js/todos/views/Task.js
+/js/todos/views/Tasks.js
+/js/todos/views/TodoApp.js
+
+# model
+/js/todos/model.js
+
+# controller
+/js/todos/controller.js

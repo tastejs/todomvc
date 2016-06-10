@@ -1,0 +1,9 @@
+{
+  "name": "todomvc-kendo",
+  "version": "0.0.0",
+  "dependencies": {
+    "todomvc-common": "~0.3.0",
+    "jquery": "~2.1.0",
+    "kendo-ui": "~2013.3.1119"
+  }
+}

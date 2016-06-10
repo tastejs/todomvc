@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" ng-app="todomvc" data-framework="typescript">
+	<head>
+		<meta charset="utf-8">
+		<title>Typescript & AngularJS • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<style>[ng-cloak] { display: none; }</style>
+	</head>
+	<body>
+		<section class="todoapp" ng-controller="todoCtrl">
+			<header class="header">
+				<h1>todos</h1>
+				<form class="todo-form" ng-submit="vm.addTodo()">
+					<input class="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
+				</form>
+			</header>
+			<section class="main" ng-show="todos.length" ng-cloak>
+				<input class="toggle-all" type="checkbox" ng-model="allChecked" ng-click="vm.markAll(allChecked)">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+					<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-model="todo.completed">
+							<label ng-dblclick="vm.editTodo(todo)">{{todo.title}}</label>
+							<button class="destroy" ng-click="vm.removeTodo(todo)"></button>
+						</div>
+						<form ng-submit="vm.doneEditing(todo)">
+							<input class="edit" ng-model="todo.title" todo-blur="vm.doneEditing(todo)" todo-focus="todo == editedTodo" todo-escape="vm.revertEdits(todo)">
+						</form>
+					</li>
+				</ul>
+			</section>
+			<footer class="footer" ng-show="todos.length" ng-cloak>
+				<span class="todo-count"><strong>{{remainingCount}}</strong>
+					<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+				</span>
+				<ul class="filters">
+					<li>
+						<a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
+					</li>
+					<li>
+						<a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
+					</li>
+					<li>
+						<a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<button class="clear-completed" ng-click="vm.clearDoneTodos()" ng-show="doneCount">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Credits:
+					<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
+					<a href="http://ericbidelman.com">Eric Bidelman</a>,
+					<a href="http://jacobmumm.com">Jacob Mumm</a>,
+					<a href="http://blog.igorminar.com">Igor Minar</a> and
+					<a href="http://zamboch.blogspot.com">Pavel Savara</a>
+			</p>
+		</footer>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="js/Application.js"></script>
+	</body>
+</html>

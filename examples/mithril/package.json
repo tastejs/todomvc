@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.1",
+    "mithril": "~0.2.0"
+  }
+}

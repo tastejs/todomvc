@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jasmine": "^0.8.1",
+    "grunt-template-jasmine-requirejs": "^0.2.0",
+    "angular-mocks": "^1.3.13",
+    "jquery": "^2.1.4"
+  },
+  "scripts": {
+    "test": "grunt jasmine"
+  }
+}

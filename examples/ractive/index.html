@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" data-framework="ractive">
+	<head>
+		<meta charset="utf-8">
+		<title>Ractive.js • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<section id="todoapp"></section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://rich-harris.co.uk">Rich Harris</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<!-- Templates -->
+		<script id="main" type="text/ractive">
+			<header id="header">
+				<h1>todos</h1>
+
+				<!-- In app.js, we define a custom `enter` event, which fires when the user hits the enter key, submitting a new todo. -->
+				<input id="new-todo" on-enter="newTodo" placeholder="What needs to be done?" autofocus>
+			</header>
+
+			<!--
+			We only render the main section and the footer if we have one or more todos - in other words, `items.length` is not falsy.
+			-->
+			{{#items.length}}
+				<section id="main">
+					<!-- Here, we compare the total number of tasks (`items.length`) with the number of completed tasks (`completedTasks().length`). This calculation happens reactively, so we never need to manually trigger an update. When the `change` event fires on the input, the `toggleAll` event fires on the Ractive instance. -->
+					<input id="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
+					<label for="toggle-all">Mark all as complete</label>
+
+					<ul id="todo-list">
+						{{#items:i}}
+							<!-- The {{>item}} partial is defined in the script tag below -->
+							{{>item}}
+						{{/items}}
+					</ul>
+				</section>
+
+				<footer id="footer">
+					<span id="todo-count">
+						<!-- The number of active tasks updates reactively -->
+						<strong>{{ activeTasks().length }}</strong> {{ activeTasks().length === 1 ? 'item' : 'items' }} left
+					</span>
+
+					<ul id="filters">
+						<li>
+							<a class="{{ currentFilter === 'all' ? 'selected' : '' }}" href="#/">All</a>
+						</li>
+						<li>
+							<a class="{{ currentFilter === 'active' ? 'selected' : '' }}" href="#/active">Active</a>
+						</li>
+						<li>
+							<a class="{{ currentFilter === 'completed' ? 'selected' : '' }}" href="#/completed">Completed</a>
+						</li>
+					</ul>
+
+					<!-- This section is only rendered if there are one or more completed tasks -->
+					{{# completedTasks().length }}
+						<!-- When the user clicks this button, the `clearCompleted` event fires -->
+						<button id="clear-completed" on-click="clearCompleted">
+							Clear completed
+						</button>
+					{{/ end of filter }}
+				</footer>
+			{{/items.length}}
+		</script>
+
+		<script id="item" type="text/ractive">
+			<!-- This is the {{>item}} partial. It is rendered for each task in the array (`this` corresponds to the current task). But we only want to actually show those tasks that pass the current filter. -->
+			{{# filter(this) }}
+				<li class="{{ completed ? 'completed' : '' }} {{ editing ? 'editing' : '' }}">
+					<div class="view">
+						<input class="toggle" type="checkbox" checked="{{completed}}">
+						<label on-dblclick="edit">{{description}}</label>
+						<button on-click="remove:{{i}}" class="destroy"></button>
+					</div>
+
+					<!-- This section only exists in the DOM when editing is taking place -->
+					{{#.editing}}
+						<!-- Here, we use custom events (`enter`) alongside standard DOM events (`blur`) to handle user interaction -->
+						<input id="edit" class="edit" on-blur-enter="submit" on-escape="cancel" autofocus>
+					{{/.editing}}
+				</li>
+			{{/ end of filter }}
+		</script>
+
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/ractive/build/Ractive.js"></script>
+		<script src="node_modules/director/build/director.js"></script>
+
+		<script src="js/app.js"></script>
+		<script src="js/persistence.js"></script>
+		<script src="js/routes.js"></script>
+	</body>
+</html>

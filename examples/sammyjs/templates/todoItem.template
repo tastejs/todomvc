@@ -1,0 +1,8 @@
+<li data-id="<%= id %>" class="<%= completed ? 'completed' : '' %>">
+	<div class="view">
+		<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
+		<label><%= name %></label>
+		<button class="destroy"></button>
+	</div>
+	<input class="edit" value="<%= name %>">
+</li>

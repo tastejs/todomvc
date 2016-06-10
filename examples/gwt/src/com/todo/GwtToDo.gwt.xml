@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='gwttodo'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.google.gwt.json.JSON' />
+
+	<!-- Don't inherit any GWT styles - they're ugly! -->
+	<!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/> -->
+
+	<!-- Other module inherits -->
+
+	<!-- Specify the app entry point class. -->
+	<entry-point class='com.todo.client.GwtToDo' />
+
+	<!-- Specify the paths for translatable code -->
+	<source path='client' />
+
+	<add-linker name="xs" />
+</module>

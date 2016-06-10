@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-framework="serenadejs">
+	<head>
+		<meta charset="utf-8">
+		<title>Serenade.js • TodoMVC</title>
+		<link href="node_modules/todomvc-common/base.css" rel="stylesheet">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<script id="app" type="text/serenade">
+			section#todoapp
+				header#header
+					form[event:submit=newTodo!]
+						h1 "todos"
+
+						input#new-todo[binding:change=@newTitle placeholder="What needs to be done?" autofocus="autofocus"]
+
+				- if @allCount
+					section#main
+						input#toggle-all[type="checkbox" binding:change=@allCompleted]
+
+						label[for="toggle-all"] "Mark all as complete"
+
+						ul#todo-list
+							- collection @filtered
+								- view "todo"
+
+					footer#footer
+						span#todo-count
+							strong @activeCount
+							" "
+							@label
+
+						ul#filters
+							li
+								a.all[class:selected=@filterAll href="#/"] "All"
+							li
+								a.active[class:selected=@filterActive href="#/active"] "Active"
+							li
+								a.completed[class:selected=@filterCompleted href="#/completed"] "Completed"
+						- if @completedCount
+							button#clear-completed[event:click=clearCompleted]
+								"Clear completed"
+		</script>
+
+		<script id="todo" type="text/serenade">
+			li[class:editing=@edit class:completed=@completed]
+				form[event:submit=edited!]
+					input.edit[on:load=loadField event:blur=edited! binding:change=@title]
+
+				- unless @edit
+					input.toggle[type="checkbox" binding:change=@completed]
+					label[event:dblclick=edit] @title
+					button.destroy[event:click=removeTodo]
+		</script>
+
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://elabs.se">Elabs</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/director/build/director.js"></script>
+		<script src="js/lib/serenade.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
