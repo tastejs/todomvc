@@ -1,6 +1,0 @@
-# Ignore file for Nodemon: https://github.com/remy/nodemon
-# Install with 'npm install -g nodemon' then start your app with 'nodemon app.js'
-# From then on, all changes you make to /server will cause your app to automatically restart
-
-/client/*
-./README.md

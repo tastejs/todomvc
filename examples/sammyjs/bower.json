@@ -1,9 +1,0 @@
-{
-  "name": "todomvc-sammyjs",
-  "version": "0.0.0",
-  "dependencies": {
-    "sammy": "~0.7.4",
-    "jquery": "~1.9.1",
-    "todomvc-common": "~0.3.0"
-  }
-}

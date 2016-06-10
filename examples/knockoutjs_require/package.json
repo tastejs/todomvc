@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "knockout": "^3.2.0",
-    "requirejs": "^2.1.15",
-    "todomvc-app-css": "^1.0.0",
-    "todomvc-common": "^1.0.1"
-  }
-}
