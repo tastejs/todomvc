@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Harmony • TodoMVC using handlebars.js</title>
+	<link rel="stylesheet" href="../../assets/base.css">
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+<section id="todoapp" data-sub="ns:todos_harmony">
+	<header id="header">
+		<h1>todos</h1>
+		<input id="new-todo" placeholder="What needs to be done?" autofocus
+		       data-sub="val:newTask|enter;
+						 $enter:handlers.addTask">
+	</header>
+	<section id="main" data-sub="show:tasks">
+
+		<input id="toggle-all" type="checkbox" data-sub="val:isAllDone;
+														 $change:handlers.toggleAllDone">
+
+		<label for="toggle-all">Mark all as complete</label>
+
+		<ul id="todo-list" data-sub="listView:tasks;toggleClass:showType">
+			{{#if length}}
+				{{#each .}}
+					{{> todos_row }}
+				{{/each}}
+			{{else}}
+				{{> todos_row }}
+			{{/if}}
+		</ul>
+	</section>
+	<footer id="footer" data-sub="show:tasks">
+			<span id="todo-count">
+				<strong data-sub="text:unfinishedCount"></strong> item
+				<span data-sub="show:unfinishedCount|>1">s</span> left
+			</span>
+		<ul id="filters" data-sub="tabContainer:showType">
+			<li>
+				<a data-tabLink="" href="#">All</a>
+			</li>
+			<li>
+				<a data-tabLink="active" href="#">Active</a>
+			</li>
+			<li>
+				<a data-tabLink="completed" href="#">Completed</a>
+			</li>
+		</ul>
+		<button id="clear-completed" data-sub="show:finishedCount;
+											   $click:handlers.clearFinishedTasks">
+			Clear completed (<span data-sub="text:finishedCount"></span>)
+		</button>
+	</footer>
+</section>
+
+<script type="handlebars" id="todos_row">
+	<li data-sub="{{keyToNs}};
+						  addClass:done|completed;
+						  addClass:*isEditMode|editing">
+
+		<div class="view">
+			<input class="toggle" type="checkbox" data-sub="val:done">
+
+			<label data-sub="text:taskName;
+									 $dblclick:*isEditMode|*true"></label>
+
+			<button class="destroy" data-sub="del:."></button>
+		</div>
+
+		<input class="edit" data-sub="val:taskName|enter blur;
+											  $enter blur:*isEditMode|*false;
+											  focus:*isEditMode">
+	</li>
+</script>
+
+<footer id="info">
+	<p>Double-click to edit a todo</p>
+
+	<p>Created by <a href="http://github.com/fredyang">Fred Yang</a></p>
+
+	<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
+<script src="../../assets/base.js"></script>
+<script src="../../assets/jquery.min.js"></script>
+<script src="js/lib/handlebars.js"></script>
+<script src="js/lib/jquery.ba-bbq.min.js"></script>
+<script src="js/lib/harmony.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
