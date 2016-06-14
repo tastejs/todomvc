@@ -1,209 +1,221 @@
 (function (window) {
 	'use strict';
+	var $ = window.$;
+	var RenderModel = window.RenderModel;
+	var MultitabModel = window.MultitabModel;
 
 	// Your starting point. Enjoy the ride!
-    var listTmpl = $("#listTmpl").html();
-    var counterTmpl = $("#couterTmpl").html();
+	var listTmpl = $('#listTmpl').html();
+	var counterTmpl = $('#couterTmpl').html();
 
-    var conter = new RenderModel({
-        tmpl: counterTmpl,
-        data: {
-            num: 0
-        },
-        el: ".todo-count",
-        onreset: function(){
-            $(this.el).html('');
-        }
-    });
-    // RenderModel is a Rendering Model
-    var allList = new RenderModel({
-      data: JSON.parse(window.localStorage.getItem('todo-abstract.js')) || {
-        list: []
-      },
-      el: "#todo-list",
-      onreset: function(){
-           var activeList = this.data.list.filter(function(item){
-                return ! item.finished;
-           });
+	// The Models are relationship with Mutex
+	var route = new MultitabModel();
 
-           this.data.list.length ?
-                $(".main,.footer").show() :
-                $(".main,.footer").hide();
+	var conter = new RenderModel({
+			tmpl: counterTmpl,
+			data: {
+					num: 0
+				},
+			el: '.todo-count',
+			onreset: function () {
+				$(this.el).html('');
+			}
+		});
+	// RenderModel is a Rendering Model
+	var allList = new RenderModel({
+		data: JSON.parse(window.localStorage.getItem('todo-abstract.js')) || {
+			list: []
+		},
+		el: '#todo-list',
+		onreset: function () {
+					var activeList = this.data.list.filter(function (item) {
+							return !item.finished;
+						});
 
-           this.data.list.length - activeList.length ?
-                $(".clear-completed").show() :
-                $(".clear-completed").hide();
+					if (this.data.list.length) {
+						$('.main,.footer').show();
+					}else {
+						$('.main,.footer').hide();
+					}
 
-           activeList.length ?
-                $(".toggle-all").prop('checked', false) :
-                $(".toggle-all").prop('checked', true);
+					if (this.data.list.length - activeList.length) {
+						$('.clear-completed').show();
+					}else {
+						$('.clear-completed').hide();
+					}
 
-           conter.data.num = activeList.length;
-           conter.refresh();
+					if (activeList.length) {
+						$('.toggle-all').prop('checked', false);
+					}else {
+						$('.toggle-all').prop('checked', true);
+					}
 
-           window.localStorage.setItem('todo-abstract.js', JSON.stringify(this.data));
-      },
-     
-      tmpl: listTmpl,
-      events: function(){
-         var _this = this;
-         var input = $('.new-todo');
+					conter.data.num = activeList.length;
+					conter.refresh();
 
-         input.on('keydown', function(e){
-          var text = input.val();
-          if(e.keyCode === 13 && text.trim()){
-              _this.data.list = _this.data.list.concat({
-                  name: text,
-                  finished: false
-              });
-         
-              input.val('');
-         
-              route.refresh();
-          }
-        });
+					window.localStorage.setItem('todo-abstract.js', JSON.stringify(this.data));
+				},
 
-        $(this.el).on('click', '.destroy', function(){
-            var index = $(this).closest('li').data('index');
+		tmpl: listTmpl,
+		events: function () {
+				var self = this;
+				var input = $('.new-todo');
 
-            _this.data.list.splice(index, 1);
+				input.on('keydown', function (e) {
+					var text = input.val();
+					if (e.keyCode === 13 && text.trim()) {
+						self.data.list = self.data.list.concat({
+								name: text,
+								finished: false
+							});
 
-            route.refresh();
-        });
+						input.val('');
 
-        $(this.el).on('click', '.toggle', function(){
-            var index = $(this).closest('li').data('index');
+						route.refresh();
+					}
+				});
 
-            _this.data.list[index].finished  = ! _this.data.list[index].finished;
+				$(this.el).on('click', '.destroy', function () {
+						var index = $(this).closest('li').data('index');
 
-            route.refresh();
-        });
+						self.data.list.splice(index, 1);
 
-        $(".clear-completed").on('click', function(){
-            var activeList = _this.data.list.filter(function(item){
-                return ! item.finished;
-            });
+						route.refresh();
+					});
 
-            _this.data.list = activeList;
-            
-            route.refresh();
-        });
+				$(this.el).on('click', '.toggle', function () {
+						var index = $(this).closest('li').data('index');
 
-        $(".toggle-all").on("click", function(){
-            var isAllChecked = $(this).prop('checked') ? true : false;
+						self.data.list[index].finished  = !self.data.list[index].finished;
 
-            _this.data.list.map(function(item){
-                item.finished = isAllChecked;
-            });
+						route.refresh();
+					});
 
-            route.refresh();
-        });
+				$('.clear-completed').on('click', function () {
+						var activeList = self.data.list.filter(function (item) {
+								return !item.finished;
+							});
 
-        $(this.el).on('dblclick', 'li', function(e){
-            $(this).addClass('editing');
-            $(this).find('.edit').focus();
-        });
+						self.data.list = activeList;
 
-        $(this.el).on('click', '.edit', function(e){
-            e.stopPropagation();
-        });
-        
-        var lastKeyCode;
-        $(this.el).on('focus', '.edit', function(e){
-            lastKeyCode;
-        });
-        $(this.el).on('keydown', '.edit', function(e){
-              var index = $(this).closest('li').data('index');
-              var text = $(this).val();
+						route.refresh();
+					});
 
-              lastKeyCode = e.keyCode;
-              if(e.keyCode === 13 && text.trim()){
-                  _this.data.list[index].name = text;
-             
-                  route.refresh();
-              }else if(e.keyCode === 27){
-                  route.refresh();
-              }
-         });
+				$('.toggle-all').on('click', function () {
+						var isAllChecked = $(this).prop('checked') ? true : false;
 
-         $(window).on('click', function(e){
-              var editing = $(".editing");
-              if(editing.length){
-                  var index = editing.data('index');
-                  var text = editing.find('.edit').val();
+						self.data.list.map(function (item) {
+								item.finished = isAllChecked;
+							});
 
-                  if(text.trim()){
-                      _this.data.list[index].name = text;
-                 
-                      route.refresh();
-                  }
+						route.refresh();
+					});
 
-                  $(".editing").removeClass("editing");
-              }
-         });
+				$(this.el).on('dblclick', 'li', function () {
+						$(this).addClass('editing');
+						$(this).find('.edit').focus();
+					});
 
-          $(this.el).on('blur', '.editing', function(e){
-              var editing = $(this);
+				$(this.el).on('click', '.edit', function (e) {
+						e.stopPropagation();
+					});
 
-              if(editing.length && lastKeyCode !== 27){
-                  var index = editing.data('index');
-                  var text = editing.find('.edit').val();
+				var lastKeyCode;
+				$(this.el).on('focus', '.edit', function () {
+						lastKeyCode = null;
+					});
 
-                  if(text.trim()){
-                      _this.data.list[index].name = text;
-                 
-                      route.refresh();
-                  }
+				$(this.el).on('keydown', '.edit', function (e) {
+							var index = $(this).closest('li').data('index');
+							var text = $(this).val();
 
-                  $(".editing").removeClass("editing");
-              }
-         });
+							lastKeyCode = e.keyCode;
+							if (e.keyCode === 13 && text.trim()) {
+								self.data.list[index].name = text;
 
-      }
-    });
+								route.refresh();
+							}else if (e.keyCode === 27) {
+								route.refresh();
+							}
+						});
+
+				$(window).on('click', function () {
+						var editing = $('.editing');
+						if (editing.length) {
+							var index = editing.data('index');
+							var text = editing.find('.edit').val();
+
+							if (text.trim()) {
+								self.data.list[index].name = text;
+
+								route.refresh();
+							}
+
+							$('.editing').removeClass('editing');
+						}
+					});
+
+				$(this.el).on('blur', '.editing', function () {
+						var editing = $(this);
+
+						if (editing.length && lastKeyCode !== 27) {
+							var index = editing.data('index');
+							var text = editing.find('.edit').val();
+
+							if (text.trim()) {
+								self.data.list[index].name = text;
+
+								route.refresh();
+							}
+
+							$('.editing').removeClass('editing');
+						}
+					});
+
+			}
+	});
 
 
 
-    // activeList is another RenderModel extending from allList
-    var activeList = allList.extend({
-        processData: function(data){
-            var activeList = data.list.filter(function(item){
-                return ! item.finished;
-            });
+	// activeList is another RenderModel extending from allList
+	var activeList = allList.extend({
+			processData: function (data) {
+					var activeList = data.list.filter(function (item) {
+							return !item.finished;
+						});
 
-            return {
-                list: activeList
-            };
-        }
-    });
+					return {
+							list: activeList
+						};
+				}
+		});
 
-    // completedList is another RenderModel extending from allList
-    var completedList = allList.extend({
-      processData: function(data){
-            var activeList = data.list.filter(function(item){
-                return item.finished;
-            });
+	// completedList is another RenderModel extending from allList
+	var completedList = allList.extend({
+		processData: function (data) {
+					var activeList = data.list.filter(function (item) {
+							return item.finished;
+						});
 
-            return {
-                list: activeList
-            };
-        }
-    });
+					return {
+							list: activeList
+						};
+				}
+	});
 
-    // Telling the relationships between Models
-    // The Models are relationship with Mutex
-    var route = new MultitabModel();
+	// Telling the relationships between Models
 
-    route.add('#all', allList);
-    route.add('#active', activeList);
-    route.add('#completed', completedList);
+	route.add('#all', allList);
+	route.add('#active', activeList);
+	route.add('#completed', completedList);
 
-    route.init(window.location.hash.replace('/', ''));
-    $(window).on('hashchange', function(e){
-        route.switchTo('#' + (window.location.hash.replace('#/', '') || 'all'));
-    });
+	route.init(window.location.hash.replace('/', ''));
 
-    // Starting App
-    route.rock();
+	$(window).on('hashchange', function () {
+			route.switchTo('#' + (window.location.hash.replace('#/', '') || 'all'));
+		});
+
+	// Starting App
+	route.rock();
 
 })(window);
