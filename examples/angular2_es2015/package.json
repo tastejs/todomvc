@@ -1,29 +1,31 @@
 {
   "private": true,
   "scripts": {
-    "dev": "webpack --config ./webpack.conf.js --watch"
+    "dev": "webpack --config ./webpack.conf.js --watch",
+    "start": "http-server -a 0.0.0.0 -p 9000"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.1",
-    "es6-promise": "3.0.2",
-    "es6-shim": "0.33.13",
+    "angular2": "2.0.0-beta.13",
+    "es6-promise": "3.1.2",
+    "es6-shim": "0.35.0",
     "localStorage": "1.0.3",
     "node-uuid": "1.4.7",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
+    "rxjs": "5.0.0-beta.2",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1",
-    "zone.js": "0.5.10"
+    "zone.js": "0.6.9"
   },
   "devDependencies": {
-    "babel-core": "6.4.0",
-    "babel-loader": "6.2.1",
+    "babel-core": "6.7.4",
+    "babel-loader": "6.2.4",
     "babel-plugin-angular2-annotations": "5.0.0",
-    "babel-plugin-transform-class-properties": "6.4.0",
+    "babel-plugin-transform-class-properties": "6.6.0",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
-    "babel-plugin-transform-flow-strip-types": "6.4.0",
-    "babel-preset-es2015": "6.3.13",
-    "html-loader": "0.4.0",
-    "webpack": "1.12.10"
+    "babel-plugin-transform-flow-strip-types": "6.7.0",
+    "babel-preset-es2015": "6.6.0",
+    "html-loader": "0.4.3",
+    "http-server": "^0.9.0",
+    "webpack": "1.12.14"
   }
 }

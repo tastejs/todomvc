@@ -9,35 +9,39 @@ webpackJsonp([0],{
 
 	__webpack_require__(3);
 
-	__webpack_require__(26);
+	__webpack_require__(7);
 
-	var _browser = __webpack_require__(46);
+	__webpack_require__(30);
 
-	var _store = __webpack_require__(262);
+	__webpack_require__(31);
 
-	var _todo = __webpack_require__(265);
+	var _browser = __webpack_require__(32);
 
-	(0, _browser.bootstrap)(_todo.TodoApp, [_store.TodoLocalStore]);
+	var _store = __webpack_require__(258);
+
+	var _todo = __webpack_require__(261);
+
+	(0, _browser.bootstrap)(_todo.TodoApp, [_store.TodoLocalStore, _browser.BrowserDomAdapter]);
 
 /***/ },
 
-/***/ 262:
+/***/ 258:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.TodoLocalStore = exports.Todo = undefined;
 
-	var _nodeUuid = __webpack_require__(263);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _nodeUuid = __webpack_require__(259);
 
 	var uuid = _interopRequireWildcard(_nodeUuid);
 
-	var _localStorage = __webpack_require__(264);
+	var _localStorage = __webpack_require__(260);
 
 	var _localStorage2 = _interopRequireDefault(_localStorage);
 
@@ -167,33 +171,33 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 265:
+/***/ 261:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.TodoApp = undefined;
 
-	var _core = __webpack_require__(67);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _store = __webpack_require__(262);
+	var _dec, _class;
 
-	var _todo = __webpack_require__(266);
+	var _core = __webpack_require__(54);
+
+	var _store = __webpack_require__(258);
+
+	var _todo = __webpack_require__(262);
 
 	var _todo2 = _interopRequireDefault(_todo);
 
-	var _todo_header = __webpack_require__(267);
+	var _todo_header = __webpack_require__(263);
 
-	var _todo_footer = __webpack_require__(269);
+	var _todo_footer = __webpack_require__(265);
 
-	var _todo_item = __webpack_require__(271);
+	var _todo_item = __webpack_require__(267);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -243,32 +247,32 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 266:
+/***/ 262:
 /***/ function(module, exports) {
 
 	module.exports = "<section class=\"todoapp\">\n    <todo-header></todo-header>\n    <section class=\"main\" *ngIf=\"getTodos().length\">\n        <input class=\"toggle-all\" type=\"checkbox\" #toggleall [checked]=\"allCompleted()\" (click)=\"setAllTo(toggleall)\">\n        <ul class=\"todo-list\">\n            <todo-item *ngFor=\"#todo of getTodos()\" [todo]=\"todo\" (itemRemoved)=\"remove($event)\" (itemModified)=\"update($event)\"></todo-item>\n        </ul>\n    </section>\n    <todo-footer></todo-footer>\n</section>\n<footer class=\"info\">\n    <p>Double-click to edit a todo</p>\n    <p>Created by <a href=\"http://github.com/blacksonic\">Soós Gábor</a> using <a href=\"http://angular.io\">Angular2</a></p>\n    <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</footer>";
 
 /***/ },
 
-/***/ 267:
+/***/ 263:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.TodoHeader = undefined;
 
-	var _core = __webpack_require__(67);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _store = __webpack_require__(262);
+	var _dec, _class;
 
-	var _todo_header = __webpack_require__(268);
+	var _core = __webpack_require__(54);
+
+	var _store = __webpack_require__(258);
+
+	var _todo_header = __webpack_require__(264);
 
 	var _todo_header2 = _interopRequireDefault(_todo_header);
 
@@ -304,32 +308,32 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 268:
+/***/ 264:
 /***/ function(module, exports) {
 
 	module.exports = "<header class=\"header\">\n    <h1>todos</h1>\n    <input class=\"new-todo\" id=\"new-todo\" placeholder=\"What needs to be done?\" [(ngModel)]=\"newTodo\" autofocus=\"\" (keyup.enter)=\"addTodo()\">\n</header>\n";
 
 /***/ },
 
-/***/ 269:
+/***/ 265:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.TodoFooter = undefined;
 
-	var _core = __webpack_require__(67);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _store = __webpack_require__(262);
+	var _dec, _class;
 
-	var _todo_footer = __webpack_require__(270);
+	var _core = __webpack_require__(54);
+
+	var _store = __webpack_require__(258);
+
+	var _todo_footer = __webpack_require__(266);
 
 	var _todo_footer2 = _interopRequireDefault(_todo_footer);
 
@@ -375,32 +379,32 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 270:
+/***/ 266:
 /***/ function(module, exports) {
 
 	module.exports = "<footer class=\"footer\" *ngIf=\"getCount()\">\n    <span class=\"todo-count\"><strong>{{getRemainingCount()}}</strong> {{getRemainingCount() == 1 ? 'item' : 'items'}} left</span>\n    <button class=\"clear-completed\" *ngIf=\"hasCompleted()\" (click)=\"removeCompleted()\">Clear completed</button>\n</footer>\n";
 
 /***/ },
 
-/***/ 271:
+/***/ 267:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.TodoItem = undefined;
 
-	var _core = __webpack_require__(67);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _trim = __webpack_require__(272);
+	var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
-	var _todo_item = __webpack_require__(273);
+	var _core = __webpack_require__(54);
+
+	var _trim = __webpack_require__(268);
+
+	var _todo_item = __webpack_require__(269);
 
 	var _todo_item2 = _interopRequireDefault(_todo_item);
 
@@ -528,21 +532,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 272:
+/***/ 268:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.TrimPipe = undefined;
 
-	var _core = __webpack_require__(67);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _core = __webpack_require__(54);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -563,7 +567,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 273:
+/***/ 269:
 /***/ function(module, exports) {
 
 	module.exports = "<li [class.completed]=\"todo.completed\" [class.editing]=\"editing\">\n    <div class=\"view\">\n        <input class=\"toggle\" type=\"checkbox\" (click)=\"toggleCompletion()\" [checked]=\"todo.completed\">\n        <label (dblclick)=\"edit(todo)\">{{todo.title | trim}}</label>\n        <button class=\"destroy\" (click)=\"remove()\"></button>\n    </div>\n    <input class=\"edit\" *ngIf=\"editing\" [value]=\"todo.title\" #editedtodo (blur)=\"stopEditing(editedtodo)\" (keyup.enter)=\"stopEditing(editedtodo)\" (keyup.escape)=\"cancelEditing()\">\n</li>\n";
