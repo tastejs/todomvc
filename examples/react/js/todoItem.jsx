@@ -37,7 +37,9 @@ var app = app || {};
 		},
 
 		handleChange: function (event) {
-			this.setState({editText: event.target.value});
+			if (this.props.editing) {
+				this.setState({editText: event.target.value});
+			}
 		},
 
 		getInitialState: function () {
@@ -75,7 +77,7 @@ var app = app || {};
 
 		render: function () {
 			return (
-				<li className={React.addons.classSet({
+				<li className={classNames({
 					completed: this.props.todo.completed,
 					editing: this.props.editing
 				})}>

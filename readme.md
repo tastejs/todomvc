@@ -14,14 +14,6 @@ Backbone, Ember, AngularJS... the list of new and stable solutions goes on and o
 To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV\* frameworks of today.
 
 
-## View & Run in Web IDE
-
-Click on the button below to view the code in a Web IDE. Feel free to edit the code and then run it all from your browser.
-
-[![IDE](site-assets/editcloud9.png)](https://c9.io/open/git/?url=git://github.com/tastejs/todomvc.git)
-[![IDE](https://codio-public.s3.amazonaws.com/sharing/demo-in-ide.png)](https://codio.com/p/create/?from_github=tastejs/todomvc)
-
-
 ## Team
 
 TodoMVC would not be possible without a strong team of [contributors](https://github.com/tastejs/todomvc/contributors) helping push the project forward each day. In addition, we have a core project team composed of:
@@ -54,7 +46,7 @@ Colin is a software consultant at Scott Logic who is passionate about all softwa
 #### [Sam Saccone](https://github.com/samccone) - Developer
 
 <img align="left" width="40" height="40" src="http://en.gravatar.com/userimage/602125/f2f1d93164ec62b527f0398c65b2d1f3.jpg?size=40">
-Sam is an Engineer at [MojoTech](http://mojotech.com) who is driven by an endless desire to create, solve problems, and improve developers lives.
+Sam is a Software Engineer at Google who is driven by an endless desire to create, solve problems, and improve developers' lives.
 
 #### [Arthur Verschaeve](https://github.com/arthurvr) - Developer
 
@@ -73,6 +65,8 @@ Gianni is a programmer and designer currently working as the Chief Rigger at Met
 TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV\* frameworks. Whilst we hope that this project is able to offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of what a framework may be capable of.
 
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured and we heavily recommend investing time researching a solution in more depth before opting to use it.
+
+Also, please keep in mind that TodoMVC is not the perfect way to compare the size of different frameworks. We intentionally use the unminified versions to make reading the source code easier.
 
 
 ## Getting Involved

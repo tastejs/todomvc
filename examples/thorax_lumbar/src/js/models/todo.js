@@ -1,3 +1,4 @@
+/*global Thorax */
 (function () {
 	'use strict';
 

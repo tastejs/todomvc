@@ -6,24 +6,24 @@ The TodoMVC project has a great many implementations of exactly the same app usi
 ## Todo
 
 - [ ] Complete the test implementation (27 out of 28 are now complete). The only test that I am struggling with is to test that the delete button becomes visible on hover.
-- [ ] Find a more elegant solution for TodoMVC apps that use RequireJS, currently there is a short 'sleep' statement in order to give the browser time to load dependencies. Yuck!
-- [ ] Run JSHint over my code ;-)
 - [ ] Make it work with PhantomJS. In practice, Phantom is only a little bit faster, but it should work. Currently there are a few Phantom specific failures.
 - [ ] Allow testing of apps that require a server (see: https://github.com/tastejs/todomvc/pull/821/files#r9377070)
 
 
 ## Running the tests
 
-These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests you will need to install the dependencies.  npm must be version 2.0.0 or greater, so upgrade it first with `npm install -g npm` if `npm --version` outputs anything less than 2.0.0.  Run the following command from within the `tests` folder:
+These tests use Selenium 2 (WebDriver), via the JavaScript API (WebdriverJS).  In order to run the tests, you will need to install the dependencies.  npm must be version 2.0.0 or greater, so upgrade it first with `npm install -g npm` if `npm --version` outputs anything less than 2.0.0.  Run the following command from within the `tests` folder:
 
 ```sh
 $ npm install
 ```
 
-You need to run a local server at the root of the TodoMVC project. Start the server using:
+If you haven't already run `npm install` in the root directory, execute `npm install` there as well.
+
+You need to run a local server for the tests. Start the test server using:
 
 ```sh
-$ npm run serve
+$ gulp test-server
 ```
 
 To run the tests for all TodoMVC implementations, run the following:
@@ -163,12 +163,12 @@ In order to keep each test case fully isolated, the browser is closed then re-op
 $ npm run test -- --speedMode
 ```
 
-Before each test all the todo items are checked as completed and the 'clear complete' button pressed. This make the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
+Before each test, all the todo items are checked as completed and the 'clear complete' button pressed. This makes the tests run in around half the time, but with the obvious risk that the tear-down code may fail.
 
 
 ## Lax mode
 
-There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
+There are certain implementations (e.g. GWT and Dojo) where the constraints of the framework mean that it is not possible to match exactly the HTML specification for TodoMVC. In these cases, the tests can be run in a 'lax' mode where the XPath queries used to locate DOM elements are more general. For example, rather than looking for a checkbox `input` element with a class of `toggle`, in lax mode it simply looks for any `input` elements of type `checkbox`. To run the tests in lax mode, simply use the `--laxMode` argument:
 
 
 ```sh

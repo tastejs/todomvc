@@ -8,7 +8,7 @@ app.controller = function () {
 	this.list = app.storage.get();
 
 	// Update with props
-	this.list = this.list.map(function(item) {
+	this.list = this.list.map(function (item) {
 		return new app.Todo(item);
 	});
 
@@ -53,6 +53,10 @@ app.controller = function () {
 	};
 
 	this.doneEditing = function (todo, index) {
+		if (!todo.editing()) {
+			return;
+		}
+
 		todo.editing(false);
 		todo.title(todo.title().trim());
 		if (!todo.title()) {

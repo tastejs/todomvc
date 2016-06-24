@@ -16,7 +16,7 @@
 				</form>
 			</header>
 			<section class="main" ng-show="todos.length" ng-cloak>
-				<input class="toggle-all" type="checkbox" ng-model="allChecked" ng-click="vm.markAll(!allChecked)">
+				<input class="toggle-all" type="checkbox" ng-model="allChecked" ng-click="vm.markAll(allChecked)">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list">
 					<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
@@ -26,7 +26,7 @@
 							<button class="destroy" ng-click="vm.removeTodo(todo)"></button>
 						</div>
 						<form ng-submit="vm.doneEditing(todo)">
-							<input class="edit" ng-model="todo.title" todo-blur="vm.doneEditing(todo)" todo-focus="todo == editedTodo">
+							<input class="edit" ng-model="todo.title" todo-blur="vm.doneEditing(todo)" todo-focus="todo == editedTodo" todo-escape="vm.revertEdits(todo)">
 						</form>
 					</li>
 				</ul>
@@ -54,8 +54,8 @@
 			<p>Credits:
 					<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
 					<a href="http://ericbidelman.com">Eric Bidelman</a>,
-					<a href="http://jacobmumm.com">Jacob Mumm</a>
-					<a href="http://igorminar.com">Igor Minar</a> and
+					<a href="http://jacobmumm.com">Jacob Mumm</a>,
+					<a href="http://blog.igorminar.com">Igor Minar</a> and
 					<a href="http://zamboch.blogspot.com">Pavel Savara</a>
 			</p>
 		</footer>

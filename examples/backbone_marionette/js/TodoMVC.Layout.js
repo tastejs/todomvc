@@ -1,10 +1,16 @@
-/*global TodoMVC */
-'use strict';
+/*global TodoMVC:true, Backbone */
 
-TodoMVC.module('Layout', function (Layout, App, Backbone) {
+var TodoMVC = TodoMVC || {};
 
-	Layout.Root = Backbone.Marionette.LayoutView.extend({
+(function () {
+	'use strict';
+
+	var filterChannel = Backbone.Radio.channel('filter');
+
+	TodoMVC.RootLayout = Backbone.Marionette.LayoutView.extend({
+
 		el: '#todoapp',
+
 		regions: {
 			header: '#header',
 			main: '#main',
@@ -14,7 +20,8 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 
 	// Layout Header View
 	// ------------------
-	Layout.Header = Backbone.Marionette.ItemView.extend({
+	TodoMVC.HeaderLayout = Backbone.Marionette.ItemView.extend({
+
 		template: '#template-header',
 
 		// UI bindings create cached attributes that
@@ -53,7 +60,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 
 	// Layout Footer View
 	// ------------------
-	Layout.Footer = Backbone.Marionette.ItemView.extend({
+	TodoMVC.FooterLayout = Backbone.Marionette.ItemView.extend({
 		template: '#template-footer',
 
 		// UI bindings create cached attributes that
@@ -82,7 +89,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 		},
 
 		initialize: function () {
-			this.listenTo(App.request('filterState'), 'change:filter', this.updateFilterSelection, this);
+			this.listenTo(filterChannel.request('filterState'), 'change:filter', this.updateFilterSelection, this);
 		},
 
 		serializeData: function () {
@@ -103,7 +110,7 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 
 		updateFilterSelection: function () {
 			this.ui.filters.removeClass('selected');
-			this.ui[App.request('filterState').get('filter')]
+			this.ui[filterChannel.request('filterState').get('filter')]
 			.addClass('selected');
 		},
 
@@ -114,4 +121,4 @@ TodoMVC.module('Layout', function (Layout, App, Backbone) {
 			});
 		}
 	});
-});
+})();

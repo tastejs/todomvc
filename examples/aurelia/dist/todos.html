@@ -1,45 +1,47 @@
 <template>
-	<import from="behaviors/focus"></import>
-	<header id="header">
-		<h1>todos</h1>
-		<form role="form" submit.delegate="addNewTodo(newTodoTitle)">
-			<input id="new-todo" value.bind="newTodoTitle" placeholder="What needs to be done?" autofocus>
-		</form>
-	</header>
-	<section id="main" show.bind="items.length">
-		<input id="toggle-all" type="checkbox" checked.bind="areAllChecked" change.delegate="areAllCheckedChanged()">
-		<label for="toggle-all">Mark all as complete</label>
-		<ul id="todo-list">
-			<li repeat.for="todoItem of filteredItems" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
-				<div class="view">
-					<input class="toggle" type="checkbox" checked.bind="todoItem.isCompleted">
-					<label click.delegate="todoItem.labelClicked()">${todoItem.title}</label>
-					<button click.delegate="$parent.deleteTodo(todoItem)" class="destroy"></button>
-				</div>
-				<form role="form" submit.delegate="todoItem.finishEditing()">
-					<input class="edit" value.bind="todoItem.editTitle"
-								 blur.delegate="todoItem.finishEditing()"
-								 keyup.delegate="todoItem.onKeyUp($event)"
-								 focus.bind="todoItem.isEditing">
-				</form>
-			</li>
-		</ul>
-	</section>
-	<footer id="footer" show.bind="items.length">
-		<span id="todo-count">
-			<strong>${countTodosLeft}</strong>
-			${countTodosLeft == 1 ? 'item' : 'items'} left</span>
-		<ul id="filters">
-			<li>
-				<a class="${filter == '!' ? 'selected' : ''}" href="#!/">All</a>
-			</li>
-			<li>
-				<a class="${filter == 'active' ? 'selected' : ''}" href="#/active">Active</a>
-			</li>
-			<li>
-				<a class="${filter == 'completed' ? 'selected' : ''}" href="#/completed">Completed</a>
-			</li>
-		</ul>
-		<button id="clear-completed" click.delegate="clearCompletedTodos()" show.bind="countTodosLeft < items.length"></button>
-	</footer>
+  <import from="behaviors/focus"></import>
+
+  <header class="header">
+    <h1>todos</h1>
+    <input class="new-todo" placeholder="What needs to be done?" autofocus
+           keyup.delegate="onKeyUp($event)"
+           value.bind="newTodoTitle">
+  </header>
+
+  <section class="main" show.bind="items.length">
+    <input class="toggle-all" type="checkbox" checked.bind="areAllChecked" change.delegate="onToggleAllChanged()">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list">
+      <li repeat.for="todoItem of filteredItems" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
+        <div class="view">
+          <input class="toggle" type="checkbox" checked.bind="todoItem.isCompleted">
+          <label dblclick.delegate="todoItem.labelDoubleClicked()">${todoItem.title}</label>
+          <button click.delegate="$parent.deleteTodo(todoItem)" class="destroy"></button>
+        </div>
+        <input class="edit"
+               value.bind="todoItem.editTitle"
+               focus.bind="todoItem.isEditing"
+               focusout.delegate="todoItem.finishEditing($event)"
+               keyup.delegate="todoItem.onKeyUp($event)">
+      </li>
+    </ul>
+  </section>
+
+  <footer class="footer" show.bind="items.length">
+    <span class="todo-count">
+      <strong>${countTodosLeft}</strong>
+      ${countTodosLeft == 1 ? 'item' : 'items'} left</span>
+    <ul class="filters">
+      <li>
+        <a class="${filter == '!' ? 'selected' : ''}" href="#!/">All</a>
+      </li>
+      <li>
+        <a class="${filter == 'active' ? 'selected' : ''}" href="#/active">Active</a>
+      </li>
+      <li>
+        <a class="${filter == 'completed' ? 'selected' : ''}" href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <button class="clear-completed" click.delegate="clearCompletedTodos()" show.bind="countTodosLeft < items.length">Clear completed</button>
+  </footer>
 </template>

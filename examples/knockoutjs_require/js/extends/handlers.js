@@ -6,30 +6,33 @@ define([
 ], function (ko, g) {
 	'use strict';
 
-	// a custom binding to handle the enter key (could go in a separate library)
-	ko.bindingHandlers.enterKey = {
-		init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
-			var wrappedHandler;
-			var newValueAccessor;
+	function keyupBindingFactory(keyCode) {
+		return {
+			init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
+				var wrappedHandler, newValueAccessor;
 
-			// wrap the handler with a check for the enter key
-			wrappedHandler = function (data, event) {
-				if (event.keyCode === g.ENTER_KEY) {
-					valueAccessor().call(this, data, event);
-				}
-			};
-
-			// create a valueAccessor with the options that we would want to pass to the event binding
-			newValueAccessor = function () {
-				return {
-					keyup: wrappedHandler
+				// wrap the handler with a check for the enter key
+				wrappedHandler = function (data, event) {
+					if (event.keyCode === keyCode) {
+						valueAccessor().call(this, data, event);
+					}
 				};
-			};
 
-			// call the real event binding's init function
-			ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
-		}
-	};
+				// create a valueAccessor with the options that we would want to pass to the event binding
+				newValueAccessor = function () {
+					return {
+						keyup: wrappedHandler
+					};
+				};
+
+				// call the real event binding's init function
+				ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
+			}
+		};
+	}
+
+	ko.bindingHandlers.enterKey = keyupBindingFactory(g.ENTER_KEY);
+	ko.bindingHandlers.escapeKey = keyupBindingFactory(g.ESCAPE_KEY);
 
 	// wrapper to hasfocus that also selects text and applies focus async
 	ko.bindingHandlers.selectAndFocus = {

@@ -21,4 +21,17 @@
 		<servlet-name>routing-servlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html;charset=utf-8</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css;charset=utf-8</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>js</extension>
+		<mime-type>application/javascript;charset=utf-8</mime-type>
+	</mime-mapping>
 </web-app>

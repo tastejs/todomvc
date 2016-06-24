@@ -19,14 +19,13 @@ Here are some links you may find helpful:
 
 Articles and guides from the community:
 
-* [Philosophy](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
 * [How is Facebook's React JavaScript library](http://www.quora.com/React-JS-Library/How-is-Facebooks-React-JavaScript-library)
 * [React: Under the hood](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
 
 Get help from other React users:
 
 * [React on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
-* [Mailing list on Google Groups](https://groups.google.com/forum/#!forum/reactjs)
+* [Discussion Forum](https://discuss.reactjs.org/)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
 

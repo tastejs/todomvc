@@ -45,7 +45,7 @@ Read [idiomatic.js](https://github.com/rwldrn/idiomatic.js) for general JavaScri
 
 ## Anonymous Functions
 
-When using anonymous functions, leave a space between the function name and opening parenthesis.
+When using anonymous functions, leave a space between the function name and the opening parenthesis.
 
 Example:
 
@@ -113,7 +113,7 @@ define('Block', [
 
 When you submit your pull request, one of the first things we will do is run JSHint against your code.
 
-You can help speed the process by running it yourself:
+You can help speed up the process by running it yourself:
 
 ```
 jshint path/to/your/app/js

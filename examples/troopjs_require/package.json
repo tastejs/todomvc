@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "dependencies": {
+    "jquery": "^2",
+    "when": "^3.4",
+    "poly": "git://github.com/cujojs/poly#0.6.0",
+    "requirejs": "^2.1",
+    "todomvc-app-css": "^2",
+    "todomvc-common": "^1"
+  },
+  "devDependencies": {
+    "napa": "^1.2.0"
+  },
+  "scripts": {
+    "install": "napa"
+  },
+  "napa": {
+    "mu-error": "mu-lib/mu-error#0.0.1",
+    "mu-emitter": "mu-lib/mu-emitter#0.1.0",
+    "mu-getargs": "mu-lib/mu-getargs#0.0.3",
+    "mu-merge": "mu-lib/mu-merge#0.0.2",
+    "mu-selector-set": "mu-lib/mu-selector-set#1.1.0",
+    "mu-jquery-destroy": "mu-lib/mu-jquery-destroy#0.0.2",
+    "mu-jquery-hashchange": "mu-lib/mu-jquery-hashchange#0.0.1",
+    "troopjs": "troopjs/troopjs#3.0.0-rc.7",
+    "troopjs-route-hash": "troopjs/troopjs-route-hash#1.0.0-rc.3",
+    "troopjs-widget": "troopjs/troopjs-widget#1.0.0-rc.5"
+  }
+}

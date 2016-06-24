@@ -1,6 +1,8 @@
+/* global _ */
 (function () {
 	'use strict';
 
+	/* jshint ignore:start */
 	// Underscore's Template Module
 	// Courtesy of underscorejs.org
 	var _ = (function (_) {
@@ -112,8 +114,14 @@
 	})({});
 
 	if (location.hostname === 'todomvc.com') {
-		window._gaq = [['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-31081062-1', 'auto');
+		ga('send', 'pageview');
 	}
+	/* jshint ignore:end */
 
 	function redirect() {
 		if (location.hostname === 'tastejs.github.io') {
@@ -175,13 +183,17 @@
 
 		if (learnJSON.backend) {
 			this.frameworkJSON = learnJSON.backend;
+			this.frameworkJSON.issueLabel = framework;
 			this.append({
 				backend: true
 			});
 		} else if (learnJSON[framework]) {
 			this.frameworkJSON = learnJSON[framework];
+			this.frameworkJSON.issueLabel = framework;
 			this.append();
 		}
+
+		this.fetchIssueCount();
 	}
 
 	Learn.prototype.append = function (opts) {
@@ -210,6 +222,26 @@
 
 		document.body.className = (document.body.className + ' learn-bar').trim();
 		document.body.insertAdjacentHTML('afterBegin', aside.outerHTML);
+	};
+
+	Learn.prototype.fetchIssueCount = function () {
+		var issueLink = document.getElementById('issue-count-link');
+		if (issueLink) {
+			var url = issueLink.href.replace('https://github.com', 'https://api.github.com/repos');
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
+			xhr.onload = function (e) {
+				var parsedResponse = JSON.parse(e.target.responseText);
+				if (parsedResponse instanceof Array) {
+					var count = parsedResponse.length;
+					if (count !== 0) {
+						issueLink.innerHTML = 'This app has ' + count + ' open issues';
+						document.getElementById('issue-count').style.display = 'inline';
+					}
+				}
+			};
+			xhr.send();
+		}
 	};
 
 	redirect();

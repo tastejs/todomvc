@@ -57,23 +57,25 @@ class TodoApp extends Spine.Controller
 		@addNew todo for todo in @getByFilter()
 
 	toggleAll: (e) ->
+		checked = e.target.checked
 		Todo.each (todo) ->
 			###
 			TODO: Model updateAttribute sometimes won't stick:
 				https://github.com/maccman/spine/issues/219
 			###
-			todo.updateAttribute 'completed', e.target.checked
+			todo.updateAttribute 'completed', checked
 			todo.trigger 'update', todo
 
 	clearCompletedItem: ->
 		Todo.destroyCompleted()
 
 	toggleElems: =>
-		isTodos = !!Todo.count()
-		@main.toggle isTodos
-		@footer.toggle isTodos
-		@clearCompleted.toggle !!Todo.completed().length
-		@toggleAllElem.removeAttr 'checked' if !Todo.completed().length
+		completed = Todo.completed().length
+		total = Todo.count()
+		@main.toggle total != 0
+		@footer.toggle total != 0
+		@toggleAllElem.prop 'checked', completed == total
+		@clearCompleted.toggle completed != 0
 
 	renderFooter: =>
 		text = (count) -> if count is 1 then 'item' else 'items'

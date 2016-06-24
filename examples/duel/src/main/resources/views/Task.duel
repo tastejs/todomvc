@@ -1,19 +1,14 @@
 <view name="Task">
 
-<%-- could have embedded in 'tasks' for-loop, but this allows us to add single tasks --%>
-
+<%-- List items should get the class `editing` when editing and `completed` when marked as completed. --%>
 <li class="<%= data.completed ? 'completed' : '' %>">
-
 	<div class="view">
 		<input class="toggle" type="checkbox" checked="<%= data.completed %>"
-			onchange="<%= todos.actions.completed_change(data.id) %>">
-
-		<label ondblclick="<%= todos.actions.content_dblclick(data.id) %>"><%= data.title %></label>
-
-		<button class="destroy" onclick="<%= todos.actions.remove_click(data.id) %>"></button>
+			onchange="<%= todos.actions.completedOnChange(data.id) %>">
+		<label ondblclick="<%= todos.actions.editOnDblclick %>"><%= data.title %></label>
+		<button class="destroy" onclick="<%= todos.actions.removeOnClick(data.id) %>"></button>
 	</div>
-
 	<input class="edit" type="text" value="<%= data.title %>"
-		onblur="<%= todos.actions.edit_blur(data.id) %>"
-		onkeypress="<%= todos.actions.edit_keypress(data.id) %>">
+		onblur="<%= todos.actions.editOnBlur(data.id) %>"
+		onkeydown="<%= todos.actions.editOnKeydown(data.id) %>">
 </li>

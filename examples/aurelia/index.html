@@ -1,27 +1,29 @@
 <!doctype html>
 <html lang="en" data-framework="aurelia">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Aurelia • TodoMVC</title>
-		<link rel="stylesheet" href="jspm_packages/npm/todomvc-common@1.0.1/base.css">
-		<link rel="stylesheet" href="jspm_packages/npm/todomvc-app-css@1.0.1/index.css">
-	</head>
-	<body>
-		<section id="todoapp" aurelia-app>
-			<!-- this is where Aurelia will fill out the content -->
-		</section>
-		<footer id="info">
-			<p>Double-click to edit a todo</p>
-			<p>Created by <a href="http://marcelhoyer.de">Marcel Hoyer</a></p>
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-		</footer>
-		<script src="jspm_packages/npm/todomvc-common@1.0.1/base.js"></script>
-		<script src="jspm_packages/system.js"></script>
-		<script src="config.js"></script>
-		<script>
-			System.baseUrl = 'dist';
-			System.import('aurelia-bootstrapper');
-		</script>
-	</body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aurelia • TodoMVC</title>
+  <link rel="stylesheet" type="text/css" href="jspm_packages/npm/todomvc-common@1.0.2/base.css">
+  <link rel="stylesheet" type="text/css" href="jspm_packages/npm/todomvc-app-css@2.0.4/index.css">
+</head>
+<body>
+  <section class="todoapp" aurelia-app="main">
+    <!-- this is where Aurelia will fill out the content -->
+  </section>
+
+  <footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Created by <a href="http://marcelhoyer.de">Marcel Hoyer</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
+
+  <!-- Scripts here. Don't remove ↓ -->
+  <script src="jspm_packages/npm/todomvc-common@1.0.2/base.js"></script>
+  <script src="jspm_packages/system.js"></script>
+  <script src="config.js"></script>
+  <script>
+    System.import('aurelia-bootstrapper');
+  </script>
+</body>
 </html>

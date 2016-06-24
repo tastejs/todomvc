@@ -1,13 +1,13 @@
 # AngularDart TodoMVC Example
 
-	> AngularDart is heavily inspired by AngularJS and is supercharged for Dart.
-	> Core Angular features such as directives, data binding, and dependency
-	> injection, are all there, and they've taken advantage of Dart's features
-	> like metadata, types, and classes to feel natural for Dart developers.
-	> AngularDart is also the first version of Angular to be built on emerging
-	> web standards like Shadow DOM.
+> AngularDart is heavily inspired by AngularJS and is supercharged for Dart.
+> Core Angular features such as directives, data binding, and dependency
+> injection, are all there, and they've taken advantage of Dart's features
+> like metadata, types, and classes to feel natural for Dart developers.
+> AngularDart is also the first version of Angular to be built on emerging
+> web standards like Shadow DOM.
 
-	> _[AngularDart](http://news.dartlang.org/2013/11/angular-announces-angulardart.html)_
+_[AngularDart](http://news.dartlang.org/2013/11/angular-announces-angulardart.html)_
 
 ## Learning Dart
 

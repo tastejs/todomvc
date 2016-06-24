@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "cp node_modules/todomvc-app-css/*.css src/main/webapp/css/ && cp node_modules/todomvc-common/*.css src/main/webapp/css/ && cp node_modules/todomvc-common/base.js src/main/webapp/js/lib/todos.js"
+  },
+  "dependencies": {
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.1"
+  }
+}

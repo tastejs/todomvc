@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PATHS=""
-EXAMPLES_DIR="../examples/"
+EXAMPLES_DIR="examples/"
 
 for arg in "$@"
 do
@@ -13,4 +13,4 @@ esac
 done
 
 npm i && \
-eval "npm run lint -- -c ../.jscsrc $PATHS"
+eval "npm run lint -- $PATHS tests/"

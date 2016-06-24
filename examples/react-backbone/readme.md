@@ -28,8 +28,8 @@ Articles and guides from the community:
 Get help from other React users:
 
 * [React on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
-* [Mailing list on Google Groups](https://groups.google.com/forum/#!forum/reactjs)
-*
+* [Discussion Forum](https://discuss.reactjs.org/)
+
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
 
 

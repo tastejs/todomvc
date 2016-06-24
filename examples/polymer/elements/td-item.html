@@ -1,47 +1,85 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="td-input.html">
 
-<polymer-element name="td-item" extends="li" attributes="item editing" on-blur="{{commitAction}}">
-	<template>
-		<link rel="stylesheet" href="td-item.css">
-		<div class="view {{ {completed: item.completed, editing: editing} | tokenList }}" hidden?="{{editing}}" on-dblclick="{{editAction}}">
-			<input type="checkbox" class="toggle" checked="{{item.completed}}" on-click="{{itemChangeAction}}">
-			<label>{{item.title}}</label>
-			<button class="destroy" on-click="{{destroyAction}}"></button>
-		</div>
-		<input is="td-input" id="edit" class="edit" value="{{item.title}}" hidden?="{{!editing}}" on-td-input-commit="{{commitAction}}" on-td-input-cancel="{{cancelAction}}">
+<dom-module id="td-item">
+	<template strip-whitespace>
+		<template is="dom-if" if="{{!editing}}" strip-whitespace>
+			<div on-dblclick="_editAction">
+				<input type="checkbox" class="toggle"
+							 checked="{{item.completed::change}}">
+				<label>{{item.title}}</label>
+				<button class="destroy" on-tap="_destroyAction"></button>
+			</div>
+		</template>
+		<template is="dom-if" if="{{editing}}" strip-whitespace>
+			<input is="td-input" id="edit" class="edit"
+						 value="{{_editingValue::input}}"
+						 on-td-input-commit="_commitAction"
+						 on-td-input-cancel="_cancelAction"
+						 on-blur="_onBlur">
+		</template>
 	</template>
 	<script>
-		(function() {
-			Polymer('td-item', {
-				editing: false,
-				editAction: function() {
-					this.editing = true;
-					// schedule focus for the end of microtask, when the input will be visible
-					this.asyncMethod(function() {
-						this.$.edit.focus();
-					});
-				},
-				commitAction: function() {
-					if (this.editing) {
-						this.editing = false;
-						this.item.title = this.item.title.trim();
-						if (this.item.title === '') {
-							this.destroyAction();
-						}
-						this.fire('td-item-changed');
+		(function () {
+			'use strict';
+
+			Polymer({
+				is: 'td-item',
+
+				extends: 'li',
+
+				properties: {
+					editing: {
+						type: Boolean,
+						value: false
+					},
+					item: {
+						type: Object,
+						value: function () { return {}; }
 					}
 				},
-				cancelAction: function() {
+
+				observers: ['setHostClass(item.completed, editing)'],
+
+				setHostClass: function(completed, editing) {
+					// Note: TodoMVC has styling for classes. Too bad we can't use the
+					// editing property and reflectToAttribute.
+					this.toggleClass('completed', completed);
+					this.toggleClass('editing', editing);
+				},
+
+				_onBlur: function () {
+					this._commitAction();
 					this.editing = false;
 				},
-				itemChangeAction: function() {
-					this.fire('td-item-changed');
+
+				_editAction: function () {
+					this.editing = true;
+					this._editingValue = this.item.title;
+					// Wait one tick template to stamp.
+					this.async(function () {
+						this.querySelector('#edit').focus();
+					});
 				},
-				destroyAction: function() {
+
+				_commitAction: function () {
+					if (this.editing) {
+						this.editing = false;
+						this.set('item.title', this._editingValue.trim());
+						if (this.item.title === '') {
+							this._destroyAction();
+						}
+					}
+				},
+
+				_cancelAction: function () {
+					this.editing = false;
+				},
+
+				_destroyAction: function () {
 					this.fire('td-destroy-item', this.item);
 				}
 			});
 		})();
 	</script>
-</polymer-element>
+</dom-module>

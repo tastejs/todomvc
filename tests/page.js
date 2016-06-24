@@ -1,7 +1,7 @@
 'use strict';
 
 var webdriver = require('selenium-webdriver');
-var idSelectors = false;
+var idSelectors = true;
 
 module.exports = function Page(browser) {
 
@@ -16,35 +16,35 @@ module.exports = function Page(browser) {
 	};
 
 	this.getTodoListXpath = function () {
-		return !idSelectors ? '//ul[@id="todo-list"]' : '//ul[@class="todo-list"]';
+		return idSelectors ? '//ul[@id="todo-list"]' : '//ul[contains(@class, "todo-list")]';
 	};
 
 	this.getMainSectionXpath = function () {
-		return !idSelectors ? '//section[@id="main"]' : '//section[contains(@class, "main")]';
+		return idSelectors ? '//section[@id="main"]' : '//section[contains(@class, "main")]';
 	};
 
 	this.getFooterSectionXpath = function () {
-		return !idSelectors ? '//footer[@id="footer"]' : '//footer[contains(@class, "footer")]';
+		return idSelectors ? '//footer[@id="footer"]' : '//footer[contains(@class, "footer")]';
 	};
 
 	this.getCompletedButtonXpath = function () {
-		return !idSelectors ? '//button[@id="clear-completed"]' : '//button[contains(@class, "clear-completed")]';
+		return idSelectors ? '//button[@id="clear-completed"]' : '//button[contains(@class, "clear-completed")]';
 	};
 
 	this.getNewInputXpath = function () {
-		return !idSelectors ? '//input[@id="new-todo"]' : '//input[contains(@class,"new-todo")]';
+		return idSelectors ? '//input[@id="new-todo"]' : '//input[contains(@class,"new-todo")]';
 	};
 
 	this.getToggleAllXpath = function () {
-		return !idSelectors ? '//input[@id="toggle-all"]' : '//input[contains(@class,"toggle-all")]';
+		return idSelectors ? '//input[@id="toggle-all"]' : '//input[contains(@class,"toggle-all")]';
 	};
 
 	this.getCountXpath = function () {
-		return !idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
+		return idSelectors ? '//span[@id="todo-count"]' : '//span[contains(@class, "todo-count")]';
 	};
 
 	this.getFiltersElementXpath = function () {
-		return !idSelectors ? '//ul[@id="filters"]' : '//ul[contains(@class, "filters")]';
+		return idSelectors ? '//*[@id="filters"]' : '//*[contains(@class, "filters")]';
 	};
 
 	this.getFilterXpathByIndex = function (index) {
@@ -94,7 +94,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.tryGetClearCompleteButton = function () {
-		return this.tryFindByXpath(this.getCompletedButtonXpath());
+		return this.findByXpath(this.getCompletedButtonXpath());
 	};
 
 	this.tryGetToggleForItemAtIndex = function (index) {
@@ -107,9 +107,17 @@ module.exports = function Page(browser) {
 	};
 
 	// ----------------- DOM element access methods
+	this.getActiveElement = function () {
+		return browser.switchTo().activeElement();
+	};
 
-	this.getFocussedElementId = function () {
-		return browser.switchTo().activeElement().getAttribute(!idSelectors ? 'id' : 'class');
+	this.getFocussedTagName = function () {
+		return this.getActiveElement().getTagName();
+	};
+
+	this.getFocussedElementIdOrClass = function () {
+		return this.getActiveElement()
+			.getAttribute(idSelectors ? 'id' : 'class');
 	};
 
 	this.getEditInputForItemAtIndex = function (index) {
@@ -148,7 +156,7 @@ module.exports = function Page(browser) {
 
 	this.getVisibleLabelText = function () {
 		var self = this;
-		return this.getVisibleItemLabels()
+		return this.getVisibileLabelIndicies()
 		.then(function (indicies) {
 			return webdriver.promise.map(indicies, function (elmIndex) {
 				var ret;
@@ -167,9 +175,24 @@ module.exports = function Page(browser) {
 		});
 	};
 
-	this.getVisibleItemLabels = function () {
+	this.waitForVisibleElement = function (getElementFn, timeout) {
+		var foundVisibleElement;
+		timeout = timeout || 500;
+
+		return browser.wait(function () {
+			foundVisibleElement = getElementFn();
+			return foundVisibleElement.isDisplayed();
+		}, timeout)
+		.then(function () {
+			return foundVisibleElement;
+		})
+		.thenCatch(function (err) {
+			return false;
+		});
+	}
+
+	this.getVisibileLabelIndicies = function () {
 		var self = this;
-		var ret;
 		return this.getItemLabels()
 		.then(function (elms) {
 			return elms.map(function (elm, i) {
@@ -178,18 +201,8 @@ module.exports = function Page(browser) {
 		})
 		.then(function (elms) {
 			return webdriver.promise.filter(elms, function (elmIndex) {
-				return browser.wait(function () {
-					return self.tryGetItemLabelAtIndex(elmIndex).isDisplayed()
-					.then(function (v) {
-						ret = v;
-						return true;
-					})
-					.thenCatch(function () {
-						return false;
-					});
-				}, 5000)
-				.then(function () {
-					return ret;
+				return self.waitForVisibleElement(function () {
+					return self.tryGetItemLabelAtIndex(elmIndex);
 				});
 			});
 		});
@@ -197,45 +210,65 @@ module.exports = function Page(browser) {
 
 	// ----------------- page actions
 	this.ensureAppIsVisible = function () {
-		return browser.findElements(webdriver.By.css('#todoapp'))
-		.then(function (elms) {
-			if (elms.length > 0) {
-				return true;
-			} else {
-				return browser.findElements(webdriver.By.css('.todoapp'));
-			}
-		})
-		.then(function (elms) {
-			if (elms === true) {
-				return true;
-			}
+		var self = this;
+		return browser.wait(function () {
+			// try to find main element by ID
+			return browser.isElementPresent(webdriver.By.css('.new-todo'))
+				.then(function (foundByClass) {
+					if (foundByClass) {
+						idSelectors = false;
+						return true;
+					}
 
-			if (elms.length) {
-				idSelectors = true;
-				return true;
+					// try to find main element by CSS class
+					return browser.isElementPresent(webdriver.By.css('#new-todo'));
+				});
+		}, 5000)
+		.then(function (hasFoundNewTodoElement) {
+			if (!hasFoundNewTodoElement) {
+				throw new Error('Unable to find application, did you start your local server?');
 			}
-
-			throw new Error('Unable to find application root, did you start your local server?');
 		});
 	};
 
 	this.clickMarkAllCompletedCheckBox = function () {
 		return this.getMarkAllCompletedCheckBox().then(function (checkbox) {
-			checkbox.click();
+			return checkbox.click();
 		});
 	};
 
 	this.clickClearCompleteButton = function () {
-		return this.tryGetClearCompleteButton().then(function (elements) {
-			var button = elements[0];
-			button.click();
+		var self = this;
+
+		return self.waitForVisibleElement(function () {
+			return self.tryGetClearCompleteButton();
+		})
+		.then(function (clearCompleteButton) {
+			return clearCompleteButton.click();
 		});
 	};
 
 	this.enterItem = function (itemText) {
-		var textField = this.getItemInputField();
-		textField.sendKeys(itemText);
-		textField.sendKeys(webdriver.Key.ENTER);
+		var self = this;
+
+		return browser.wait(function () {
+			var textField;
+
+			return self.getItemInputField().then(function (itemInputField) {
+				textField = itemInputField;
+				return textField.sendKeys(itemText, webdriver.Key.ENTER);
+			})
+			.then(function () { return self.getVisibleLabelText(); })
+			.then(function (labels) {
+				if (labels.indexOf(itemText.trim()) >= 0) {
+					return true;
+				}
+
+				return textField.clear().then(function () {
+					return false;
+				});
+			});
+		}, 5000);
 	};
 
 	this.toggleItemAtIndex = function (index) {

@@ -5,15 +5,18 @@ var app = app || {};
 // View utility
 app.watchInput = function (onenter, onescape) {
 	return function (e) {
+		m.redraw.strategy('none');
 		if (e.keyCode === app.ENTER_KEY) {
 			onenter();
+			m.redraw.strategy('diff');
 		} else if (e.keyCode === app.ESC_KEY) {
 			onescape();
+			m.redraw.strategy('diff');
 		}
 	};
 };
 
-app.view = (function() {
+app.view = (function () {
 	var focused = false;
 
 	return function (ctrl) {
@@ -48,7 +51,8 @@ app.view = (function() {
 							classes += task.completed() ? 'completed' : '';
 							classes += task.editing() ? ' editing' : '';
 							return classes;
-						})()
+						})(),
+						key: task.key
 						}, [
 							m('.view', [
 								m('input.toggle[type=checkbox]', {
@@ -63,13 +67,17 @@ app.view = (function() {
 								})
 							]), m('input.edit', {
 								value: task.title(),
-								onkeyup: app.watchInput(ctrl.doneEditing.bind(ctrl, task, index),
-									ctrl.cancelEditing.bind(ctrl, task)),
-								oninput: m.withAttr('value', task.title),
+								onkeyup: app.watchInput(
+									ctrl.doneEditing.bind(ctrl, task, index),
+									ctrl.cancelEditing.bind(ctrl, task)
+								),
+								oninput: m.withAttr('value', function (value) {
+									m.redraw.strategy('none');
+									task.title(value);
+								}),
 								config: function (element) {
 									if (task.editing()) {
 										element.focus();
-										element.selectionStart = element.value.length;
 									}
 								},
 								onblur: ctrl.doneEditing.bind(ctrl, task, index)
