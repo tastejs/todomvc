@@ -8,10 +8,4 @@ import template from './app.template.html';
   directives: [ROUTER_DIRECTIVES],
   template: template
 })
-export class AppComponent {
-
-  constructor(@Inject('AUTHOR') author) {
-    this.author = author;
-  }
-
-}
+export class AppComponent {}

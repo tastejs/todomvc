@@ -14,6 +14,5 @@ import { AppComponent } from './components/app/app.component';
 
 bootstrap(AppComponent, [
   TodoStoreService,
-  routeProvider,
-  { provide: 'AUTHOR', useValue: 'Soós Gábor' }
+  routeProvider
 ]);

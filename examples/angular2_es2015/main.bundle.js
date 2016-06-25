@@ -71,7 +71,7 @@
 	
 	var _app = __webpack_require__(/*! ./components/app/app.component */ 425);
 	
-	(0, _platformBrowserDynamic.bootstrap)(_app.AppComponent, [_todoStore.TodoStoreService, _todo.routeProvider, { provide: 'AUTHOR', useValue: 'Soós Gábor' }]);
+	(0, _platformBrowserDynamic.bootstrap)(_app.AppComponent, [_todoStore.TodoStoreService, _todo.routeProvider]);
 
 /***/ },
 /* 1 */
@@ -3995,7 +3995,7 @@
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -64184,12 +64184,9 @@
 	  selector: 'todo-app',
 	  directives: [_router.ROUTER_DIRECTIVES],
 	  template: _appTemplate2.default
-	}), _dec(_class = function AppComponent(author) {
+	}), _dec(_class = function AppComponent() {
 	  _classCallCheck(this, AppComponent);
-	
-	  this.author = author;
 	}) || _class);
-	(0, _core.Inject)('AUTHOR')(AppComponent, null, 0);
 
 /***/ },
 /* 426 */
@@ -64198,7 +64195,7 @@
   \**********************************************/
 /***/ function(module, exports) {
 
-	module.exports = "<router-outlet></router-outlet>\n<footer class=\"info\">\n    <p>Double-click to edit a todo</p>\n    <p>Written by <a href=\"https://github.com/blacksonic\">{{ author }}</a></p>\n</footer>"
+	module.exports = "<router-outlet></router-outlet>\n<footer class=\"info\">\n    <p>Double-click to edit a todo</p>\n    <p>Written by <a href=\"https://github.com/blacksonic\">Soós Gábor</a></p>\n</footer>"
 
 /***/ }
 /******/ ]);
