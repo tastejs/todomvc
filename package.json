@@ -25,7 +25,7 @@
     "gulp-cache": "^0.2.0",
     "gulp-csso": "^0.2.9",
     "gulp-if": "^1.2.1",
-    "gulp-imagemin": "1.0.0",
+    "gulp-imagemin": "3.0.0",
     "gulp-jshint": "^1.6.3",
     "gulp-load-plugins": "^0.7.0",
     "gulp-rename": "^1.2.0",
