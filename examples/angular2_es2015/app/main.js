@@ -13,6 +13,6 @@ import { TodoStoreService } from './services/todo-store.service';
 import { AppComponent } from './components/app/app.component';
 
 bootstrap(AppComponent, [
-  TodoStoreService,
-  routeProvider
+	TodoStoreService,
+	routeProvider
 ]);

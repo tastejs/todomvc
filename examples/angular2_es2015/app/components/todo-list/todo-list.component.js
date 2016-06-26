@@ -8,50 +8,48 @@ import { TodoFooterComponent } from '../todo-footer/todo-footer.component';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
 
 @Component({
-  selector: 'todo-list',
-  template: template,
-  directives: [TodoHeaderComponent, TodoFooterComponent, TodoItemComponent]
+	selector: 'todo-list',
+	template: template,
+	directives: [TodoHeaderComponent, TodoFooterComponent, TodoItemComponent]
 })
 export class TodoComponent {
-  constructor(todoStore: TodoStoreService, route: ActivatedRoute) {
-    this._todoStore = todoStore;
-    this._route = route;
-    this._currentStatus = '';
-  }
+	constructor(todoStore:TodoStoreService, route:ActivatedRoute) {
+		this._todoStore = todoStore;
+		this._route = route;
+		this._currentStatus = '';
+	}
 
-  ngOnInit() {
-    this._route.params
-      .map(params => params.status)
-      .subscribe((status) => {
-        this._currentStatus = status;
-      });
-  }
+	ngOnInit() {
+		this._route.params
+			.map(params => params.status)
+			.subscribe((status) => {
+				this._currentStatus = status;
+			});
+	}
 
-  remove(uid) {
-    this._todoStore.remove(uid);
-  }
+	remove(uid) {
+		this._todoStore.remove(uid);
+	}
 
-  update() {
-    this._todoStore.persist();
-  }
+	update() {
+		this._todoStore.persist();
+	}
 
-  getTodos() {
-    if (this._currentStatus == 'completed') {
-      return this._todoStore.getCompleted();
-    }
-    else if (this._currentStatus == 'active') {
-      return this._todoStore.getRemaining();
-    }
-    else {
-      return this._todoStore.todos;
-    }
-  }
+	getTodos() {
+		if (this._currentStatus == 'completed') {
+			return this._todoStore.getCompleted();
+		} else if (this._currentStatus == 'active') {
+			return this._todoStore.getRemaining();
+		} else {
+			return this._todoStore.todos;
+		}
+	}
 
-  allCompleted() {
-    return this._todoStore.allCompleted();
-  }
+	allCompleted() {
+		return this._todoStore.allCompleted();
+	}
 
-  setAllTo(toggleAll) {
-    this._todoStore.setAllTo(toggleAll.checked);
-  }
+	setAllTo(toggleAll) {
+		this._todoStore.setAllTo(toggleAll.checked);
+	}
 }
