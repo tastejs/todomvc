@@ -65,13 +65,15 @@
 	
 	var _platformBrowserDynamic = __webpack_require__(/*! @angular/platform-browser-dynamic */ 34);
 	
+	var _common = __webpack_require__(/*! @angular/common */ 35);
+	
 	var _todo = __webpack_require__(/*! ./components/todo.routes */ 357);
 	
 	var _todoStore = __webpack_require__(/*! ./services/todo-store.service */ 415);
 	
 	var _app = __webpack_require__(/*! ./components/app/app.component */ 425);
 	
-	(0, _platformBrowserDynamic.bootstrap)(_app.AppComponent, [_todoStore.TodoStoreService, _todo.routeProvider]);
+	(0, _platformBrowserDynamic.bootstrap)(_app.AppComponent, [_todoStore.TodoStoreService, _todo.routeProvider, { provide: _common.LocationStrategy, useClass: _common.HashLocationStrategy }]);
 
 /***/ },
 /* 1 */
@@ -3995,7 +3997,7 @@
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -59087,7 +59089,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.routeProvider = exports.routes = undefined;
 	
@@ -63521,7 +63523,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TodoComponent = undefined;
 	
@@ -63550,63 +63552,63 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var TodoComponent = exports.TodoComponent = (_dec = (0, _core.Component)({
-	  selector: 'todo-list',
-	  template: _todoListTemplate2.default,
-	  directives: [_todoHeader.TodoHeaderComponent, _todoFooter.TodoFooterComponent, _todoItem.TodoItemComponent]
+		selector: 'todo-list',
+		template: _todoListTemplate2.default,
+		directives: [_todoHeader.TodoHeaderComponent, _todoFooter.TodoFooterComponent, _todoItem.TodoItemComponent]
 	}), _dec(_class = function () {
-	  function TodoComponent(todoStore, route) {
-	    _classCallCheck(this, TodoComponent);
+		function TodoComponent(todoStore, route) {
+			_classCallCheck(this, TodoComponent);
 	
-	    this._todoStore = todoStore;
-	    this._route = route;
-	    this._currentStatus = '';
-	  }
+			this._todoStore = todoStore;
+			this._route = route;
+			this._currentStatus = '';
+		}
 	
-	  _createClass(TodoComponent, [{
-	    key: 'ngOnInit',
-	    value: function ngOnInit() {
-	      var _this = this;
+		_createClass(TodoComponent, [{
+			key: 'ngOnInit',
+			value: function ngOnInit() {
+				var _this = this;
 	
-	      this._route.params.map(function (params) {
-	        return params.status;
-	      }).subscribe(function (status) {
-	        _this._currentStatus = status;
-	      });
-	    }
-	  }, {
-	    key: 'remove',
-	    value: function remove(uid) {
-	      this._todoStore.remove(uid);
-	    }
-	  }, {
-	    key: 'update',
-	    value: function update() {
-	      this._todoStore.persist();
-	    }
-	  }, {
-	    key: 'getTodos',
-	    value: function getTodos() {
-	      if (this._currentStatus == 'completed') {
-	        return this._todoStore.getCompleted();
-	      } else if (this._currentStatus == 'active') {
-	        return this._todoStore.getRemaining();
-	      } else {
-	        return this._todoStore.todos;
-	      }
-	    }
-	  }, {
-	    key: 'allCompleted',
-	    value: function allCompleted() {
-	      return this._todoStore.allCompleted();
-	    }
-	  }, {
-	    key: 'setAllTo',
-	    value: function setAllTo(toggleAll) {
-	      this._todoStore.setAllTo(toggleAll.checked);
-	    }
-	  }]);
+				this._route.params.map(function (params) {
+					return params.status;
+				}).subscribe(function (status) {
+					_this._currentStatus = status;
+				});
+			}
+		}, {
+			key: 'remove',
+			value: function remove(uid) {
+				this._todoStore.remove(uid);
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				this._todoStore.persist();
+			}
+		}, {
+			key: 'getTodos',
+			value: function getTodos() {
+				if (this._currentStatus == 'completed') {
+					return this._todoStore.getCompleted();
+				} else if (this._currentStatus == 'active') {
+					return this._todoStore.getRemaining();
+				} else {
+					return this._todoStore.todos;
+				}
+			}
+		}, {
+			key: 'allCompleted',
+			value: function allCompleted() {
+				return this._todoStore.allCompleted();
+			}
+		}, {
+			key: 'setAllTo',
+			value: function setAllTo(toggleAll) {
+				this._todoStore.setAllTo(toggleAll.checked);
+			}
+		}]);
 	
-	  return TodoComponent;
+		return TodoComponent;
 	}()) || _class);
 	Reflect.defineMetadata('design:paramtypes', [_todoStore.TodoStoreService, _router.ActivatedRoute], TodoComponent);
 
@@ -63620,7 +63622,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TodoStoreService = undefined;
 	
@@ -63637,113 +63639,113 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var TodoStoreService = exports.TodoStoreService = function () {
-	  function TodoStoreService() {
-	    _classCallCheck(this, TodoStoreService);
+		function TodoStoreService() {
+			_classCallCheck(this, TodoStoreService);
 	
-	    this.todos = [];
+			this.todos = [];
 	
-	    var persistedTodos = JSON.parse(_localStorage2.default.getItem('angular2-todos')) || [];
+			var persistedTodos = JSON.parse(_localStorage2.default.getItem('angular2-todos')) || [];
 	
-	    this.todos = persistedTodos.map(function (todo) {
-	      var ret = new _todo.TodoModel(todo.title);
-	      ret.completed = todo.completed;
-	      ret.uid = todo.uid;
-	      return ret;
-	    });
-	  }
+			this.todos = persistedTodos.map(function (todo) {
+				var ret = new _todo.TodoModel(todo.title);
+				ret.completed = todo.completed;
+				ret.uid = todo.uid;
+				return ret;
+			});
+		}
 	
-	  _createClass(TodoStoreService, [{
-	    key: 'get',
-	    value: function get(state) {
-	      return this.todos.filter(function (todo) {
-	        return todo.completed === state.completed;
-	      });
-	    }
-	  }, {
-	    key: 'allCompleted',
-	    value: function allCompleted() {
-	      return this.todos.length === this.getCompleted().length;
-	    }
-	  }, {
-	    key: 'setAllTo',
-	    value: function setAllTo(completed) {
-	      this.todos.forEach(function (todo) {
-	        return todo.completed = completed;
-	      });
-	      this.persist();
-	    }
-	  }, {
-	    key: 'removeCompleted',
-	    value: function removeCompleted() {
-	      this.todos = this.get({ completed: false });
-	      this.persist();
-	    }
-	  }, {
-	    key: 'getRemaining',
-	    value: function getRemaining() {
-	      if (!this.remainingTodos) {
-	        this.remainingTodos = this.get({ completed: false });
-	      }
+		_createClass(TodoStoreService, [{
+			key: 'get',
+			value: function get(state) {
+				return this.todos.filter(function (todo) {
+					return todo.completed === state.completed;
+				});
+			}
+		}, {
+			key: 'allCompleted',
+			value: function allCompleted() {
+				return this.todos.length === this.getCompleted().length;
+			}
+		}, {
+			key: 'setAllTo',
+			value: function setAllTo(completed) {
+				this.todos.forEach(function (todo) {
+					return todo.completed = completed;
+				});
+				this.persist();
+			}
+		}, {
+			key: 'removeCompleted',
+			value: function removeCompleted() {
+				this.todos = this.get({ completed: false });
+				this.persist();
+			}
+		}, {
+			key: 'getRemaining',
+			value: function getRemaining() {
+				if (!this.remainingTodos) {
+					this.remainingTodos = this.get({ completed: false });
+				}
 	
-	      return this.remainingTodos;
-	    }
-	  }, {
-	    key: 'getCompleted',
-	    value: function getCompleted() {
-	      if (!this.completedTodos) {
-	        this.completedTodos = this.get({ completed: true });
-	      }
+				return this.remainingTodos;
+			}
+		}, {
+			key: 'getCompleted',
+			value: function getCompleted() {
+				if (!this.completedTodos) {
+					this.completedTodos = this.get({ completed: true });
+				}
 	
-	      return this.completedTodos;
-	    }
-	  }, {
-	    key: 'toggleCompletion',
-	    value: function toggleCompletion(uid) {
-	      var todo = this._findByUid(uid);
+				return this.completedTodos;
+			}
+		}, {
+			key: 'toggleCompletion',
+			value: function toggleCompletion(uid) {
+				var todo = this._findByUid(uid);
 	
-	      if (todo) {
-	        todo.completed = !todo.completed;
-	        this.persist();
-	      }
-	    }
-	  }, {
-	    key: 'remove',
-	    value: function remove(uid) {
-	      var todo = this._findByUid(uid);
+				if (todo) {
+					todo.completed = !todo.completed;
+					this.persist();
+				}
+			}
+		}, {
+			key: 'remove',
+			value: function remove(uid) {
+				var todo = this._findByUid(uid);
 	
-	      if (todo) {
-	        this.todos.splice(this.todos.indexOf(todo), 1);
-	        this.persist();
-	      }
-	    }
-	  }, {
-	    key: 'add',
-	    value: function add(title) {
-	      this.todos.push(new _todo.TodoModel(title));
-	      this.persist();
-	    }
-	  }, {
-	    key: 'persist',
-	    value: function persist() {
-	      this._clearCache();
-	      _localStorage2.default.setItem('angular2-todos', JSON.stringify(this.todos));
-	    }
-	  }, {
-	    key: '_findByUid',
-	    value: function _findByUid(uid) {
-	      return this.todos.find(function (todo) {
-	        return todo.uid == uid;
-	      });
-	    }
-	  }, {
-	    key: '_clearCache',
-	    value: function _clearCache() {
-	      this.completedTodos = null;
-	      this.remainingTodos = null;
-	    }
-	  }]);
+				if (todo) {
+					this.todos.splice(this.todos.indexOf(todo), 1);
+					this.persist();
+				}
+			}
+		}, {
+			key: 'add',
+			value: function add(title) {
+				this.todos.push(new _todo.TodoModel(title));
+				this.persist();
+			}
+		}, {
+			key: 'persist',
+			value: function persist() {
+				this._clearCache();
+				_localStorage2.default.setItem('angular2-todos', JSON.stringify(this.todos));
+			}
+		}, {
+			key: '_findByUid',
+			value: function _findByUid(uid) {
+				return this.todos.find(function (todo) {
+					return todo.uid == uid;
+				});
+			}
+		}, {
+			key: '_clearCache',
+			value: function _clearCache() {
+				this.completedTodos = null;
+				this.remainingTodos = null;
+			}
+		}]);
 
-	  return TodoStoreService;
+		return TodoStoreService;
 	}();
 
 /***/ },
@@ -63756,7 +63758,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TodoModel = undefined;
 	
@@ -63771,26 +63773,26 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var TodoModel = exports.TodoModel = function () {
-	  _createClass(TodoModel, [{
-	    key: 'setTitle',
-	    value: function setTitle(title) {
-	      this.title = title.trim();
-	    }
-	  }]);
+		_createClass(TodoModel, [{
+			key: 'setTitle',
+			value: function setTitle(title) {
+				this.title = title.trim();
+			}
+		}]);
 	
-	  function TodoModel(title) {
-	    _classCallCheck(this, TodoModel);
+		function TodoModel(title) {
+			_classCallCheck(this, TodoModel);
 	
-	    this.completed = this.completed;
-	    this.title = this.title;
-	    this.uid = this.uid;
+			this.completed = this.completed;
+			this.title = this.title;
+			this.uid = this.uid;
 	
-	    this.uid = uuid.v4();
-	    this.completed = false;
-	    this.title = title.trim();
-	  }
+			this.uid = uuid.v4();
+			this.completed = false;
+			this.title = title.trim();
+		}
 	
-	  return TodoModel;
+		return TodoModel;
 	}();
 
 /***/ },
@@ -63812,7 +63814,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TodoHeaderComponent = undefined;
 	
@@ -63833,28 +63835,28 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var TodoHeaderComponent = exports.TodoHeaderComponent = (_dec = (0, _core.Component)({
-	  selector: 'todo-header',
-	  template: _todoHeaderTemplate2.default
+		selector: 'todo-header',
+		template: _todoHeaderTemplate2.default
 	}), _dec(_class = function () {
-	  function TodoHeaderComponent(todoStore) {
-	    _classCallCheck(this, TodoHeaderComponent);
+		function TodoHeaderComponent(todoStore) {
+			_classCallCheck(this, TodoHeaderComponent);
 	
-	    this.newTodo = '';
+			this.newTodo = '';
 	
-	    this._todoStore = todoStore;
-	  }
+			this._todoStore = todoStore;
+		}
 	
-	  _createClass(TodoHeaderComponent, [{
-	    key: 'addTodo',
-	    value: function addTodo() {
-	      if (this.newTodo.trim().length) {
-	        this._todoStore.add(this.newTodo);
-	        this.newTodo = '';
-	      }
-	    }
-	  }]);
+		_createClass(TodoHeaderComponent, [{
+			key: 'addTodo',
+			value: function addTodo() {
+				if (this.newTodo.trim().length) {
+					this._todoStore.add(this.newTodo);
+					this.newTodo = '';
+				}
+			}
+		}]);
 	
-	  return TodoHeaderComponent;
+		return TodoHeaderComponent;
 	}()) || _class);
 	Reflect.defineMetadata('design:paramtypes', [_todoStore.TodoStoreService], TodoHeaderComponent);
 
@@ -63877,7 +63879,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TodoFooterComponent = undefined;
 	
@@ -63900,52 +63902,52 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var TodoFooterComponent = exports.TodoFooterComponent = (_dec = (0, _core.Component)({
-	  selector: 'todo-footer',
-	  template: _todoFooterTemplate2.default,
-	  directives: [_router.ROUTER_DIRECTIVES]
+		selector: 'todo-footer',
+		template: _todoFooterTemplate2.default,
+		directives: [_router.ROUTER_DIRECTIVES]
 	}), _dec(_class = function () {
-	  function TodoFooterComponent(todoStore, route) {
-	    _classCallCheck(this, TodoFooterComponent);
+		function TodoFooterComponent(todoStore, route) {
+			_classCallCheck(this, TodoFooterComponent);
 	
-	    this._todoStore = todoStore;
-	    this._route = route;
-	    this.currentStatus = '';
-	  }
+			this._todoStore = todoStore;
+			this._route = route;
+			this.currentStatus = '';
+		}
 	
-	  _createClass(TodoFooterComponent, [{
-	    key: 'ngOnInit',
-	    value: function ngOnInit() {
-	      var _this = this;
+		_createClass(TodoFooterComponent, [{
+			key: 'ngOnInit',
+			value: function ngOnInit() {
+				var _this = this;
 	
-	      this._route.params.map(function (params) {
-	        return params.status;
-	      }).subscribe(function (status) {
-	        _this.currentStatus = status || '';
-	      });
-	    }
-	  }, {
-	    key: 'removeCompleted',
-	    value: function removeCompleted() {
-	      this._todoStore.removeCompleted();
-	    }
-	  }, {
-	    key: 'getCount',
-	    value: function getCount() {
-	      return this._todoStore.todos.length;
-	    }
-	  }, {
-	    key: 'getRemainingCount',
-	    value: function getRemainingCount() {
-	      return this._todoStore.getRemaining().length;
-	    }
-	  }, {
-	    key: 'hasCompleted',
-	    value: function hasCompleted() {
-	      return this._todoStore.getCompleted().length > 0;
-	    }
-	  }]);
+				this._route.params.map(function (params) {
+					return params.status;
+				}).subscribe(function (status) {
+					_this.currentStatus = status || '';
+				});
+			}
+		}, {
+			key: 'removeCompleted',
+			value: function removeCompleted() {
+				this._todoStore.removeCompleted();
+			}
+		}, {
+			key: 'getCount',
+			value: function getCount() {
+				return this._todoStore.todos.length;
+			}
+		}, {
+			key: 'getRemainingCount',
+			value: function getRemainingCount() {
+				return this._todoStore.getRemaining().length;
+			}
+		}, {
+			key: 'hasCompleted',
+			value: function hasCompleted() {
+				return this._todoStore.getCompleted().length > 0;
+			}
+		}]);
 	
-	  return TodoFooterComponent;
+		return TodoFooterComponent;
 	}()) || _class);
 	Reflect.defineMetadata('design:paramtypes', [_todoStore.TodoStoreService, _router.ActivatedRoute], TodoFooterComponent);
 
@@ -63968,7 +63970,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TodoItemComponent = undefined;
 	
@@ -63987,123 +63989,123 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _initDefineProp(target, property, descriptor, context) {
-	  if (!descriptor) return;
-	  Object.defineProperty(target, property, {
-	    enumerable: descriptor.enumerable,
-	    configurable: descriptor.configurable,
-	    writable: descriptor.writable,
-	    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-	  });
+		if (!descriptor) return;
+		Object.defineProperty(target, property, {
+			enumerable: descriptor.enumerable,
+			configurable: descriptor.configurable,
+			writable: descriptor.writable,
+			value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+		});
 	}
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-	  var desc = {};
-	  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-	    desc[key] = descriptor[key];
-	  });
-	  desc.enumerable = !!desc.enumerable;
-	  desc.configurable = !!desc.configurable;
+		var desc = {};
+		Object['ke' + 'ys'](descriptor).forEach(function (key) {
+			desc[key] = descriptor[key];
+		});
+		desc.enumerable = !!desc.enumerable;
+		desc.configurable = !!desc.configurable;
 	
-	  if ('value' in desc || desc.initializer) {
-	    desc.writable = true;
-	  }
+		if ('value' in desc || desc.initializer) {
+			desc.writable = true;
+		}
 	
-	  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-	    return decorator(target, property, desc) || desc;
-	  }, desc);
+		desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+			return decorator(target, property, desc) || desc;
+		}, desc);
 	
-	  if (context && desc.initializer !== void 0) {
-	    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-	    desc.initializer = undefined;
-	  }
+		if (context && desc.initializer !== void 0) {
+			desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+			desc.initializer = undefined;
+		}
 	
-	  if (desc.initializer === void 0) {
-	    Object['define' + 'Property'](target, property, desc);
-	    desc = null;
-	  }
+		if (desc.initializer === void 0) {
+			Object['define' + 'Property'](target, property, desc);
+			desc = null;
+		}
 	
-	  return desc;
+		return desc;
 	}
 	
 	function _initializerWarningHelper(descriptor, context) {
-	  throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+		throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 	}
 	
 	var TodoItemComponent = exports.TodoItemComponent = (_dec = (0, _core.Component)({
-	  selector: 'todo-item',
-	  template: _todoItemTemplate2.default,
-	  pipes: [_trim.TrimPipe]
+		selector: 'todo-item',
+		template: _todoItemTemplate2.default,
+		pipes: [_trim.TrimPipe]
 	}), _dec2 = (0, _core.Input)(), _dec3 = (0, _core.Output)(), _dec4 = (0, _core.Output)(), _dec(_class = (_class2 = function () {
-	  function TodoItemComponent() {
-	    _classCallCheck(this, TodoItemComponent);
+		function TodoItemComponent() {
+			_classCallCheck(this, TodoItemComponent);
 	
-	    _initDefineProp(this, 'todo', _descriptor, this);
+			_initDefineProp(this, 'todo', _descriptor, this);
 	
-	    _initDefineProp(this, 'itemModified', _descriptor2, this);
+			_initDefineProp(this, 'itemModified', _descriptor2, this);
 	
-	    _initDefineProp(this, 'itemRemoved', _descriptor3, this);
+			_initDefineProp(this, 'itemRemoved', _descriptor3, this);
 	
-	    this.editing = false;
-	  }
+			this.editing = false;
+		}
 	
-	  _createClass(TodoItemComponent, [{
-	    key: 'cancelEditing',
-	    value: function cancelEditing() {
-	      this.editing = false;
-	    }
-	  }, {
-	    key: 'stopEditing',
-	    value: function stopEditing(editedTitle) {
-	      this.todo.setTitle(editedTitle.value);
-	      this.editing = false;
+		_createClass(TodoItemComponent, [{
+			key: 'cancelEditing',
+			value: function cancelEditing() {
+				this.editing = false;
+			}
+		}, {
+			key: 'stopEditing',
+			value: function stopEditing(editedTitle) {
+				this.todo.setTitle(editedTitle.value);
+				this.editing = false;
 	
-	      if (this.todo.title.length === 0) {
-	        this.remove();
-	      } else {
-	        this.update();
-	      }
-	    }
-	  }, {
-	    key: 'edit',
-	    value: function edit() {
-	      this.editing = true;
-	    }
-	  }, {
-	    key: 'toggleCompletion',
-	    value: function toggleCompletion() {
-	      this.todo.completed = !this.todo.completed;
-	      this.update();
-	    }
-	  }, {
-	    key: 'remove',
-	    value: function remove() {
-	      this.itemRemoved.next(this.todo.uid);
-	    }
-	  }, {
-	    key: 'update',
-	    value: function update() {
-	      this.itemModified.next(this.todo.uid);
-	    }
-	  }]);
+				if (this.todo.title.length === 0) {
+					this.remove();
+				} else {
+					this.update();
+				}
+			}
+		}, {
+			key: 'edit',
+			value: function edit() {
+				this.editing = true;
+			}
+		}, {
+			key: 'toggleCompletion',
+			value: function toggleCompletion() {
+				this.todo.completed = !this.todo.completed;
+				this.update();
+			}
+		}, {
+			key: 'remove',
+			value: function remove() {
+				this.itemRemoved.next(this.todo.uid);
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				this.itemModified.next(this.todo.uid);
+			}
+		}]);
 	
-	  return TodoItemComponent;
+		return TodoItemComponent;
 	}(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'todo', [_dec2], {
-	  enumerable: true,
-	  initializer: function initializer() {
-	    return this.todo;
-	  }
+		enumerable: true,
+		initializer: function initializer() {
+			return this.todo;
+		}
 	}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'itemModified', [_dec3], {
-	  enumerable: true,
-	  initializer: function initializer() {
-	    return new _core.EventEmitter();
-	  }
+		enumerable: true,
+		initializer: function initializer() {
+			return new _core.EventEmitter();
+		}
 	}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'itemRemoved', [_dec4], {
-	  enumerable: true,
-	  initializer: function initializer() {
-	    return new _core.EventEmitter();
-	  }
+		enumerable: true,
+		initializer: function initializer() {
+			return new _core.EventEmitter();
+		}
 	})), _class2)) || _class);
 
 /***/ },
@@ -64116,7 +64118,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.TrimPipe = undefined;
 	
@@ -64129,18 +64131,18 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var TrimPipe = exports.TrimPipe = (_dec = (0, _core.Pipe)({ name: 'trim' }), _dec(_class = function () {
-	  function TrimPipe() {
-	    _classCallCheck(this, TrimPipe);
-	  }
+		function TrimPipe() {
+			_classCallCheck(this, TrimPipe);
+		}
 	
-	  _createClass(TrimPipe, [{
-	    key: 'transform',
-	    value: function transform(value, args) {
-	      return value.trim();
-	    }
-	  }]);
+		_createClass(TrimPipe, [{
+			key: 'transform',
+			value: function transform(value, args) {
+				return value.trim();
+			}
+		}]);
 
-	  return TrimPipe;
+		return TrimPipe;
 	}()) || _class);
 
 /***/ },
@@ -64162,7 +64164,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.AppComponent = undefined;
 	
@@ -64181,11 +64183,11 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var AppComponent = exports.AppComponent = (_dec = (0, _core.Component)({
-	  selector: 'todo-app',
-	  directives: [_router.ROUTER_DIRECTIVES],
-	  template: _appTemplate2.default
+		selector: 'todo-app',
+		directives: [_router.ROUTER_DIRECTIVES],
+		template: _appTemplate2.default
 	}), _dec(_class = function AppComponent() {
-	  _classCallCheck(this, AppComponent);
+		_classCallCheck(this, AppComponent);
 	}) || _class);
 
 /***/ },

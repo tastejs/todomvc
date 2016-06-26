@@ -7,12 +7,14 @@ import 'node-uuid';
 import 'localStorage';
 
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { routeProvider } from './components/todo.routes';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+import { routeProvider } from './components/todo.routes';
 import { TodoStoreService } from './services/todo-store.service';
 import { AppComponent } from './components/app/app.component';
 
 bootstrap(AppComponent, [
 	TodoStoreService,
-	routeProvider
+	routeProvider,
+	{ provide: LocationStrategy, useClass: HashLocationStrategy }
 ]);
