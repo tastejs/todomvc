@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o pipefail
-
+set -e
 
 get_changes ()
 {
