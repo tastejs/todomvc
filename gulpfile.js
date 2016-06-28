@@ -7,6 +7,7 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var pagespeed = require('psi');
 var app = require('./server');
+var vinylfs = require('vinyl-fs');
 
 var AUTOPREFIXER_BROWSERS = [
 	'ie >= 10',
@@ -40,7 +41,7 @@ gulp.task('images', function () {
 
 // Copy All Files At The Root Level (app)
 gulp.task('copy', function () {
-	return gulp.src([
+	return vinylfs.src([
 		'examples/**',
 		'bower_components/**',
 		'learn.json',
@@ -49,8 +50,10 @@ gulp.task('copy', function () {
 		'site-assets/favicon.ico'
 	], {
 		dot: true,
-		base: './'
-	}).pipe(gulp.dest('dist'))
+		base: './',
+		followSymlinks: false,
+	})
+	.pipe(vinylfs.dest('dist'))
 	.pipe($.size({title: 'copy'}));
 });
 
