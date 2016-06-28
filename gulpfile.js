@@ -75,8 +75,6 @@ gulp.task('html', function () {
 
 	return gulp.src('index.html')
 		.pipe(assets)
-		// Concatenate And Minify Styles
-		.pipe($.if('*.css', $.csso()))
 		.pipe(assets.restore())
 		.pipe($.useref())
 		// Output Files
