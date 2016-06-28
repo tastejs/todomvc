@@ -75,8 +75,6 @@ gulp.task('html', function () {
 
 	return gulp.src('index.html')
 		.pipe(assets)
-		// Concatenate And Minify JavaScript
-		.pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
 		// Concatenate And Minify Styles
 		.pipe($.if('*.css', $.csso()))
 		.pipe(assets.restore())
