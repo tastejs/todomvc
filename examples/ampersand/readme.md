@@ -30,7 +30,7 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 ## Implementation
 
-The app spec says to use bower for dependency management unless it goes against the best practices of the framework. Ampersand.js very specifically uses npm for dependency management so that's what we're using here.
+The app spec says to use bower for dependency management unless it goes against the best practices of the framework. Ampersand.js is very specifically uses npm for dependency management so that's what we're using here.
 
 
 ## Credit
