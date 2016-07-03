@@ -14,10 +14,8 @@ then
 	npm run gulp
 	git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
 	cd site
-	git checkout -B gh-pages
 	git rm -r .
 	cp -R ../dist/* .
-	cp ../dist/.* .
 	git add -f .
 	git config user.email 'travis@rdrei.net'
 	git config user.name 'TasteBot'
