@@ -41,7 +41,8 @@ function TestOperations(page) {
 	};
 
 	this.assertItemToggleIsHidden = function (index) {
-		return page.waitForVisibility(false, page.getListItemToggleCss(index), 'Expected the item toggle button to be hidden');
+		return page.waitForVisibility(false, page.getListItemToggleCss(index),
+			'Expected the item toggle button to be hidden');
 	};
 
 	this.assertItemLabelIsHidden = function (index) {
@@ -50,7 +51,8 @@ function TestOperations(page) {
 
 	this.assertNewItemInputFieldText = function (text) {
 		return page.waitForNewItemInputField()
-			.then(page.waitForTextContent.bind(page, text, 'Expected the new item input text field contents to be ' + text));
+			.then(page.waitForTextContent.bind(page, text,
+				'Expected the new item input text field contents to be ' + text));
 	};
 
 	this.assertItemText = function (itemIndex, text) {

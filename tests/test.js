@@ -114,9 +114,9 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			test.it('should allow me to add todo items', function (done) {
 				page.enterItem(TODO_ITEM_ONE);
-				testOps.assertItems([ TODO_ITEM_ONE ]);
+				testOps.assertItems([TODO_ITEM_ONE]);
 				page.enterItem(TODO_ITEM_TWO);
-				testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_TWO ])
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO])
 					.then(function () { done(); });
 			});
 
@@ -156,7 +156,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			test.it('should allow me to mark all items as completed', function (done) {
 				page.clickMarkAllCompletedCheckBox();
-				testOps.assertItemCompletedStates([ true, true, true ])
+				testOps.assertItemCompletedStates([true, true, true])
 					.then(function () { done(); });
 			});
 
@@ -175,7 +175,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.clickMarkAllCompletedCheckBox();
 				page.clickMarkAllCompletedCheckBox();
 
-				testOps.assertItemCompletedStates([ false, false, false ])
+				testOps.assertItemCompletedStates([false, false, false])
 					.then(function () { done(); });
 			});
 
@@ -202,10 +202,10 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.enterItem(TODO_ITEM_TWO);
 
 				page.toggleItemAtIndex(0);
-				testOps.assertItemCompletedStates([ true, false ]);
+				testOps.assertItemCompletedStates([true, false]);
 
 				page.toggleItemAtIndex(1);
-				testOps.assertItemCompletedStates([ true, true ])
+				testOps.assertItemCompletedStates([true, true])
 					.then(function () { done(); });
 			});
 
@@ -214,10 +214,10 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.enterItem(TODO_ITEM_TWO);
 
 				page.toggleItemAtIndex(0);
-				testOps.assertItemCompletedStates([ true, false ]);
+				testOps.assertItemCompletedStates([true, false]);
 
 				page.toggleItemAtIndex(0);
-				testOps.assertItemCompletedStates([ false, false ])
+				testOps.assertItemCompletedStates([false, false])
 					.then(function () { done(); });
 			});
 
@@ -245,7 +245,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			test.it('should save edits on enter', function (done) {
 				page.editItemAtIndex(1, 'buy some sausages' + webdriver.Key.ENTER);
-				testOps.assertItems([ TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
@@ -253,25 +253,25 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.editItemAtIndex(1, 'buy some sausages');
 				// click a toggle button so that the blur() event is fired
 				page.toggleItemAtIndex(0);
-				testOps.assertItems([ TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
 			test.it('should trim entered text', function (done) {
 				page.editItemAtIndex(1, '    buy some sausages  ' + webdriver.Key.ENTER);
-				testOps.assertItems([ TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, 'buy some sausages', TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
 			test.it('should remove the item if an empty text string was entered', function (done) {
 				page.editItemAtIndex(1, webdriver.Key.ENTER);
-				testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
 			test.it('should cancel edits on escape', function (done) {
 				page.editItemAtIndex(1, 'foo' + webdriver.Key.ESCAPE);
-				testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
@@ -303,7 +303,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 				page.clickClearCompleteButton();
 				testOps.assertItemCount(2);
-				testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
@@ -322,8 +322,8 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			test.it('should persist its data', function (done) {
 				function stateTest() {
 					testOps.assertItemCount(2);
-					testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_TWO ]);
-					return testOps.assertItemCompletedStates([ false, true ]);
+					testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO]);
+					return testOps.assertItemCompletedStates([false, true]);
 				}
 
 				// set up state
@@ -350,7 +350,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			test.it('should allow me to display active items', function (done) {
 				page.toggleItemAtIndex(1);
 				page.filterByActiveItems();
-				testOps.assertItems([ TODO_ITEM_ONE, page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_THREE])
 					.then(function () { return done(); });
 			});
 
@@ -358,18 +358,18 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 				page.filterByActiveItems();
 				page.filterByCompletedItems();
-				testOps.assertItems([ page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_TWO ]); // should show completed items
+				testOps.assertItems([page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_TWO]); // should show completed items
 				page.back(); // then active items
-				testOps.assertItems([ TODO_ITEM_ONE, page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_THREE ]);
+				testOps.assertItems([TODO_ITEM_ONE, page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_THREE]);
 				page.back(); // then all items
-				testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 
 			test.it('should allow me to display completed items', function (done) {
 				page.toggleItemAtIndex(1);
 				page.filterByCompletedItems();
-				testOps.assertItems([ page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_TWO ]);
+				testOps.assertItems([page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_TWO]);
 				page.filterByAllItems() // TODO: why
 					.then(function () { done(); });
 			});
@@ -381,7 +381,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.filterByActiveItems();
 				page.filterByCompletedItems();
 				page.filterByAllItems();
-				testOps.assertItems([ TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE ])
+				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
 

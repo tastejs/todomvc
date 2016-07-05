@@ -18,7 +18,7 @@ module.exports = function PageLaxMode() {
 		return [
 			'section > ul',
 			'section > div > ul',
-			'ul#todo-list',
+			'ul#todo-list'
 		].map(function (listCss) {
 			return listCss + (suffixCss || '');
 		}).join(', ');
@@ -28,7 +28,7 @@ module.exports = function PageLaxMode() {
 		return [
 			'section > input[type="checkbox"]',
 			'section > * > input[type="checkbox"]',
-			'input#toggle-all',
+			'input#toggle-all'
 		].join(', ');
 	};
 
@@ -36,14 +36,14 @@ module.exports = function PageLaxMode() {
 		return [
 			'footer > button',
 			'footer > * > button',
-			'button#clear-completed',
+			'button#clear-completed'
 		].join(', ');
 	};
 
 	this.getItemCountCss = function () {
 		return [
 			'footer > span',
-			'footer > * > span',
+			'footer > * > span'
 		].join(', ');
 	};
 
@@ -55,7 +55,7 @@ module.exports = function PageLaxMode() {
 		return [
 			'header > input',
 			'header > * > input',
-			'input#new-todo',
+			'input#new-todo'
 		].join(', ');
 	};
 
@@ -66,7 +66,7 @@ module.exports = function PageLaxMode() {
 	this.getListItemInputCss = function (index) {
 		return [
 			this.getListItemCss(index, ' input.edit'),
-			this.getListItemCss(index, ' input[type="text"]'),
+			this.getListItemCss(index, ' input[type="text"]')
 		].join(', ');
 	};
 
