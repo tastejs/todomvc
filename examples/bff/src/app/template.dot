@@ -1,0 +1,31 @@
+<div class="app-container">
+	<section class="todoapp">
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section class="main {{? it.length === 0 }}hidden{{?}}">
+			<input class="toggle-all" type="checkbox" {{? it.nActive === 0 }}checked{{?}}>
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list"></ul>
+		</section>
+		<footer class="footer {{? it.length === 0 }}hidden{{?}}">
+			<span class="todo-count">
+				<strong>{{= it.nActive }}</strong> item{{? it.nActive !== 1 }}s{{?}} left
+			</span>
+			<ul class="filters">
+				<li><a href="#/" class="{{? it.route === '' }}selected{{?}}">All</a></li>
+				<li><a href="#/active" class="{{? it.route === 'active' }}selected{{?}}">Active</a></li>
+				<li><a href="#/completed" class="{{? it.route === 'completed' }}selected{{?}}">Completed</a></li>
+			</ul>
+			<button class="clear-completed {{? it.nCompleted === 0 }}hidden{{?}}">
+				Clear completed
+			</button>
+		</footer>
+	</section>
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="https://github.com/oskargustafsson">Oskar Gustafsson</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+</div>

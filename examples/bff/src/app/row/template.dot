@@ -1,0 +1,8 @@
+<li class="{{? it.completed }}completed{{?}}{{? it.editing }} editing{{?}}{{? !it.visible }} hidden{{?}}">
+	<div class="view">
+		<input class="toggle" type="checkbox" {{? it.completed }}checked{{?}}>
+		<label>{{! it.title }}</label>
+		<button class="destroy"></button>
+	</div>
+	<input class="edit" value="{{! it.title }}">
+</li>

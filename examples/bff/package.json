@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "dependencies": {
+    "bff-lib": "^0.5.0",
+    "director": "^1.2.8",
+    "dot": "^1.0.3",
+    "requirejs": "^2.1.22",
+    "requirejs-text": "^2.0.12",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  }
+}
