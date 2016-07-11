@@ -171,8 +171,9 @@ module.exports = function Page(browser) {
 	// PAGE ACTIONS
 
 	this.ensureAppIsVisibleAndLoaded = function () {
-		return this.waitForVisibility(false, this.getFooterSectionCss(), 'Footer is not hidden') // Footer hidden -> app is active
-			.then(this.waitForElement.bind(this, '.new-todo, #new-todo', 'Could not find new todo input field', undefined))
+		return this.waitForVisibility(false, this.getFooterSectionCss(), 'Footer is not hidden')
+			.then(this.waitForElement.bind(
+				this, '.new-todo, #new-todo', 'Could not find new todo input field', undefined))
 			.then(function (newTodoElement) {
 				return newTodoElement.getAttribute('id');
 			})
@@ -188,7 +189,8 @@ module.exports = function Page(browser) {
 	};
 
 	this.clickClearCompleteButton = function () {
-		return this.waitForVisibility(true, this.getClearCompletedButtonCss(), 'Expected clear completed items button to be visible')
+		return this.waitForVisibility(true, this.getClearCompletedButtonCss(),
+			'Expected clear completed items button to be visible')
 			.then(function (clearCompleteButton) {
 				clearCompleteButton.click();
 			});
@@ -218,7 +220,8 @@ module.exports = function Page(browser) {
 			.then(function () {
 				return self.waitForElement(self.getLastListItemLabelCss(nItems));
 			})
-			.then(this.waitForTextContent.bind(this, itemText.trim(), 'Expected new item label to read ' + itemText.trim()));
+			.then(this.waitForTextContent.bind(this, itemText.trim(),
+				'Expected new item label to read ' + itemText.trim()));
 	};
 
 	this.toggleItemAtIndex = function (index) {
