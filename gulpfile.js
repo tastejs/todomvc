@@ -49,7 +49,7 @@ gulp.task('copy', function () {
 		'.nojekyll',
 		'site-assets/favicon.ico'
 	], {
-		dot: true,
+		dots: true,
 		base: './',
 		followSymlinks: false,
 	})
