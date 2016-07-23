@@ -1,5 +1,0 @@
-root = false
-
-[*.scala]
-indent_style = space
-indent_size = 2
