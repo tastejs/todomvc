@@ -71,7 +71,7 @@ list.forEach(function (framework) {
 				.then(function () {
 					return true;
 				});
-			});
+			}, 10000);
 
 			driver.findElement(drool.webdriver.By.css('.destroy')).click();
 		}.bind(null, framework.name),
