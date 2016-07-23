@@ -59,6 +59,8 @@ list.forEach(function (framework) {
 					return driver.findElement(drool.webdriver.By.css(listSelector(name))).isDisplayed()
 						.then(function () {
 							return true;
+						}).thenCatch(function () {
+							return false;
 						});
 				});
 			}, 10000);
