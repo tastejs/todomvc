@@ -41,6 +41,8 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				.setChromeOptions(chromeOptions)
 				.build();
 
+
+
 			browser.get(baseUrl);
 
 			page = laxMode ? new PageLaxMode(browser) : new Page(browser);
@@ -81,13 +83,17 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 					.then(function () { done(); });
 			});
 		} else {
-			test.beforeEach(launchBrowser);
-			test.afterEach(function (done) {
-				printCapturedLogs()
-					.then(function () {
+			try {
+				test.beforeEach(launchBrowser);
+				test.afterEach(function (done) {
+					printCapturedLogs().then(function () {
 						return closeBrowser(done);
 					});
-			});
+				});
+			} catch (e) {
+				printCapturedLogs();
+				throw e;
+			}
 		}
 
 		test.describe('When page is initially opened', function () {
