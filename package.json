@@ -37,6 +37,6 @@
     "psi": "^0.1.1",
     "run-sequence": "^1.0.1",
     "serve-favicon": "^2.3.0",
-    "vinyl-fs": "^2.4.3"
+    "vinyl-fs": "github:gulpjs/vinyl-fs#59386ca"
   }
 }
