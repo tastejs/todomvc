@@ -4,7 +4,7 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.html
 
-object CFooter {
+object Footer {
 
   case class Props(
     filterLink:       TodoFilter => ReactTag,
@@ -24,7 +24,12 @@ object CFooter {
       )
 
     def filterLink(P: Props)(s: TodoFilter): ReactTagOf[html.LI] =
-      <.li(P.filterLink(s)((P.currentFilter == s) ?= (^.className := "selected"), s.title))
+      <.li(
+        P.filterLink(s)(
+          s.title,
+          (P.currentFilter == s) ?= (^.className := "selected")
+        )
+      )
 
     def render(P: Props): ReactTagOf[html.Element] =
       <.footer(
@@ -42,10 +47,12 @@ object CFooter {
       )
   }
 
-  private val component = ReactComponentB[Props]("CFooter")
-    .stateless
-    .renderBackend[Backend]
-    .build
+  private val component =
+    ReactComponentB[Props]("Footer")
+      .stateless
+      .renderBackend[Backend]
+      .build
 
-  def apply(P: Props) = component(P)
+  def apply(P: Props): ReactElement =
+    component(P)
 }

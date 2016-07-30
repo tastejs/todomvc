@@ -1,11 +1,11 @@
 package todomvc
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.extra.{Reusability, Px}
+import japgolly.scalajs.react.extra.{Px, Reusability}
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.ext.KeyCode
 
-object CTodoItem {
+object TodoItem {
 
   case class Props (
     onToggle:        Callback,
@@ -17,9 +17,10 @@ object CTodoItem {
     isEditing:       Boolean
   )
 
-  implicit val reusableProps = Reusability.fn[Props]((p1, p2) =>
-    (p1.todo eq p2.todo) && (p1.isEditing == p2.isEditing)
-  )
+  implicit val reusableProps: Reusability[Props] =
+    Reusability.fn[Props]((p1, p2) =>
+      (p1.todo eq p2.todo) && (p1.isEditing == p2.isEditing)
+    )
 
   case class State(editText: UnfinishedTitle)
 
@@ -38,7 +39,9 @@ object CTodoItem {
           case _              => None
         }
     }
-    val cbs = Px.cbA($.props).map(Callbacks)
+
+    val cbs: Px[Callbacks] =
+      Px.cbA($.props).map(Callbacks)
 
     val editFieldChanged: ReactEventI => Callback =
       e => $.modState(_.copy(editText = UnfinishedTitle(e.target.value)))
@@ -78,10 +81,12 @@ object CTodoItem {
     }
   }
 
-  val component = ReactComponentB[Props]("CTodoItem")
-    .initialState_P(p => State(p.todo.title.editable))
-    .renderBackend[Backend].build
+  private val component =
+    ReactComponentB[Props]("TodoItem")
+      .initialState_P(p => State(p.todo.title.editable))
+      .renderBackend[Backend]
+      .build
 
-  def apply(P: Props) =
+  def apply(P: Props): ReactElement =
     component.withKey(P.todo.id.id.toString)(P)
 }

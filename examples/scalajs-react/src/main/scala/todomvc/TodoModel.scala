@@ -24,7 +24,7 @@ class TodoModel(storage: Storage) extends Broadcaster[Seq[Todo]] {
       })
   }
 
-  def restorePersisted =
+  def restorePersisted: Option[Callback] =
     storage.load[Seq[Todo]].map(existing => State.mod(_ ++ existing))
 
   def addTodo(title: Title): Callback =
