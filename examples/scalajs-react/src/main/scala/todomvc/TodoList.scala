@@ -7,9 +7,9 @@ import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.ext.KeyCode
 import org.scalajs.dom.html
 
-object CTodoList {
+object TodoList {
 
-  case class Props private[CTodoList] (
+  case class Props (
     ctl:           RouterCtl[TodoFilter],
     model:         TodoModel,
     currentFilter: TodoFilter
@@ -23,8 +23,10 @@ object CTodoList {
   /**
    * These specify when it makes sense to skip updating this component (see comment on `Listenable` below)
    */
-  implicit val r1 = Reusability.fn[Props]((p1, p2) => p1.currentFilter == p2.currentFilter)
-  implicit val r2 = Reusability.fn[State]((s1, s2) => s1.editing == s2.editing && (s1.todos eq s2.todos))
+  implicit val r1: Reusability[Props] =
+    Reusability.fn[Props]((p1, p2) => p1.currentFilter == p2.currentFilter)
+  implicit val r2: Reusability[State] =
+    Reusability.fn[State]((s1, s2) => s1.editing == s2.editing && (s1.todos eq s2.todos))
 
   /**
    * One difference between normal react and scalajs-react is the use of backends.
@@ -56,7 +58,8 @@ object CTodoList {
         e => P.model.toggleAll(e.target.checked)
     }
 
-    val cbs = Px.cbA($.props).map(Callbacks)
+    val cbs: Px[Callbacks] =
+      Px.cbA($.props).map(Callbacks)
 
     val startEditing: TodoId => Callback =
       id => $.modState(_.copy(editing = Some(id)))
@@ -81,7 +84,7 @@ object CTodoList {
         * and, if it did, creates a new instance of `Callbacks`. For best
         * performance, it's best to call value() once per render() pass.
         */
-      val callbacks       = cbs.value()
+      val callbacks = cbs.value()
       <.div(
         <.h1("todos"),
         <.header(
@@ -114,7 +117,7 @@ object CTodoList {
         <.ul(
           ^.className := "todo-list",
           filteredTodos.map(todo =>
-            CTodoItem(CTodoItem.Props(
+            TodoItem(TodoItem.Props(
               onToggle         = P.model.toggleCompleted(todo.id),
               onDelete         = P.model.delete(todo.id),
               onStartEditing   = startEditing(todo.id),
@@ -128,7 +131,7 @@ object CTodoList {
       )
 
     def footer(P: Props, activeCount: Int, completedCount: Int): ReactElement =
-      CFooter(CFooter.Props(
+      Footer(Footer.Props(
         filterLink       = P.ctl.link,
         onClearCompleted = P.model.clearCompleted,
         currentFilter    = P.currentFilter,
@@ -137,34 +140,35 @@ object CTodoList {
       ))
   }
 
-  private val component = ReactComponentB[Props]("CTodoList")
-    /* state derived from the props */
-    .initialState_P(p => State(p.model.todos, None))
-    .renderBackend[Backend]
-    /**
-     * Makes the component subscribe to events coming from the model.
-     * Unsubscription on component unmount is handled automatically.
-     * The last function is the actual event handling, in this case
-     *  we just overwrite the whole list in `state`.
-     */
-    .configure(Listenable.install((p: Props) => p.model, $ => (todos: Seq[Todo]) => $.modState(_.copy(todos = todos))))
-    /**
-     * Optimization where we specify whether the component can have changed.
-     * In this case we avoid comparing model and routerConfig, and only do
-     *  reference checking on the list of todos.
-     *
-     * The implementation of the «equality» checks are in the Reusability
-     *  typeclass instances for `State` and `Props` at the top of the file.
-     *
-     *  To understand how things are redrawn, change `shouldComponentUpdate` for
-     *  either `shouldComponentUpdateWithOverlay` or `shouldComponentUpdateAndLog`
-     */
-    .configure(Reusability.shouldComponentUpdate)
-    /**
-     * For performance reasons its important to only call `build` once for each component
-     */
-    .build
+  private val component =
+    ReactComponentB[Props]("TodoList")
+      /* state derived from the props */
+      .initialState_P(p => State(p.model.todos, None))
+      .renderBackend[Backend]
+      /**
+       * Makes the component subscribe to events coming from the model.
+       * Unsubscription on component unmount is handled automatically.
+       * The last function is the actual event handling, in this case
+       *  we just overwrite the whole list in `state`.
+       */
+      .configure(Listenable.install((p: Props) => p.model, $ => (todos: Seq[Todo]) => $.modState(_.copy(todos = todos))))
+      /**
+       * Optimization where we specify whether the component can have changed.
+       * In this case we avoid comparing model and routerConfig, and only do
+       *  reference checking on the list of todos.
+       *
+       * The implementation of the «equality» checks are in the Reusability
+       *  typeclass instances for `State` and `Props` at the top of the file.
+       *
+       *  To understand how things are redrawn, change `shouldComponentUpdate` for
+       *  either `shouldComponentUpdateWithOverlay` or `shouldComponentUpdateAndLog`
+       */
+      .configure(Reusability.shouldComponentUpdate)
+      /**
+       * For performance reasons its important to only call `build` once for each component
+       */
+      .build
 
-  def apply(model: TodoModel, currentFilter: TodoFilter)(ctl: RouterCtl[TodoFilter]) =
+  def apply(model: TodoModel, currentFilter: TodoFilter)(ctl: RouterCtl[TodoFilter]): ReactElement =
     component(Props(ctl, model, currentFilter))
 }
