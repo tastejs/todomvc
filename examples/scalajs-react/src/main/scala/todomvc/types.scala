@@ -25,5 +25,6 @@ object TodoFilter {
   object Active    extends TodoFilter("active",    "Active",    !_.isCompleted)
   object Completed extends TodoFilter("completed", "Completed",  _.isCompleted)
 
-  def values = List[TodoFilter](All, Active, Completed)
+  def values: List[TodoFilter] =
+    List(All, Active, Completed)
 }
