@@ -1,11 +1,12 @@
 package todomvc
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.extra.{Reusability, Px}
+import japgolly.scalajs.react.extra.{Px, Reusability}
 import japgolly.scalajs.react.vdom.prefix_<^._
+import org.scalajs.dom
 import org.scalajs.dom.ext.KeyCode
 
-object CTodoItem {
+object TodoItem {
 
   case class Props (
     onToggle:        Callback,
@@ -17,13 +18,17 @@ object CTodoItem {
     isEditing:       Boolean
   )
 
-  implicit val reusableProps = Reusability.fn[Props]((p1, p2) =>
-    (p1.todo eq p2.todo) && (p1.isEditing == p2.isEditing)
-  )
+  implicit val reusableProps: Reusability[Props] =
+    Reusability.fn[Props]((p1, p2) =>
+      (p1.todo eq p2.todo) && (p1.isEditing == p2.isEditing)
+    )
 
   case class State(editText: UnfinishedTitle)
 
   class Backend($: BackendScope[Props, State]) {
+    val inputRef: RefSimple[dom.html.Input] =
+      Ref.apply[dom.html.Input]("input")
+
     case class Callbacks(P: Props) {
       val editFieldSubmit: Callback =
         $.state.flatMap(_.editText.validated.fold(P.onDelete)(P.onUpdateTitle))
@@ -38,10 +43,16 @@ object CTodoItem {
           case _              => None
         }
     }
-    val cbs = Px.cbA($.props).map(Callbacks)
+
+    val cbs: Px[Callbacks] =
+      Px.cbA($.props).map(Callbacks)
 
     val editFieldChanged: ReactEventI => Callback =
-      e => $.modState(_.copy(editText = UnfinishedTitle(e.target.value)))
+      e => {
+        /* need to capture event data because React reuses events */
+        val captured = e.target.value
+        $.modState(_.copy(editText = UnfinishedTitle(captured)))
+      }
 
     def render(P: Props, S: State): ReactElement = {
       val cb = cbs.value()
@@ -68,6 +79,7 @@ object CTodoItem {
           )
         ),
         <.input(
+          ^.ref         := inputRef,
           ^.className   := "edit",
           ^.onBlur     --> cb.editFieldSubmit,
           ^.onChange   ==> editFieldChanged,
@@ -78,10 +90,19 @@ object CTodoItem {
     }
   }
 
-  val component = ReactComponentB[Props]("CTodoItem")
-    .initialState_P(p => State(p.todo.title.editable))
-    .renderBackend[Backend].build
+  private val component =
+    ReactComponentB[Props]("TodoItem")
+      .initialState_P(p => State(p.todo.title.editable))
+      .renderBackend[Backend]
+      .componentDidUpdate {
+        case ComponentDidUpdate(c, prevProps, _) ⇒
+          c.backend.inputRef(c)
+            .tryFocus
+            .when(c.props.isEditing && !prevProps.isEditing)
+            .void
+      }
+      .build
 
-  def apply(P: Props) =
+  def apply(P: Props): ReactElement =
     component.withKey(P.todo.id.id.toString)(P)
 }
