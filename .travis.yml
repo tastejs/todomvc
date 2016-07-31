@@ -5,31 +5,35 @@
 sudo: false
 language: node_js
 node_js:
-    - 'stable'
+  - 'stable'
 notifications:
-    irc: 'irc.freenode.org#tastejs'
+  irc: 'irc.freenode.org#tastejs'
+cache:
+  directories:
+    - tooling/node_modules
+    - tests/node_modules
+    - node_modules
 env:
-    global:
-        # GH_OAUTH_TOKEN is the oauth token generated as described at
-        # https://help.github.com/articles/creating-an-oauth-token-for-command-line-use
-        #
-        # curl -u 'username' -d '{"scopes":["repo"],"note":"push to gh-pages from travis"}' https://api.github.com/authorizations
-        #
-        # It must be encrypted using the travis gem
-        # http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables
-        #
-        # travis encrypt GH_OAUTH_TOKEN=XXXXXXXXXXXXXXX
-        #
-        # User specific env variables
-        - secure: 'fHgfjMpYuliwMr2QLnjYZExIViNrxprf9dhXRBLZ6P9Hz7P6m1BMYrI/xEG8X+fFbCi0+n3AXh8SEMHi9ou/Pty/cx12z4w/z3B2BHMxh4XBwpZHs+AB4IXkLiwwWoP4QFy4vTipgYnMDMq9CRhlRbhZEpenQBmaTEc472By1uM='
-        - GH_OWNER: tastejs
-        - GH_PROJECT_NAME: todomvc
-        - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
+  global:
+    # GH_OAUTH_TOKEN is the oauth token generated as described at
+    # https://help.github.com/articles/creating-an-oauth-token-for-command-line-use
+    #
+    # curl -u 'username' -d '{"scopes":["repo"],"note":"push to gh-pages from travis"}' https://api.github.com/authorizations
+    #
+    # It must be encrypted using the travis gem
+    # http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables
+    #
+    # travis encrypt GH_OAUTH_TOKEN=XXXXXXXXXXXXXXX
+    #
+    # User specific env variables
+    - secure: 'fHgfjMpYuliwMr2QLnjYZExIViNrxprf9dhXRBLZ6P9Hz7P6m1BMYrI/xEG8X+fFbCi0+n3AXh8SEMHi9ou/Pty/cx12z4w/z3B2BHMxh4XBwpZHs+AB4IXkLiwwWoP4QFy4vTipgYnMDMq9CRhlRbhZEpenQBmaTEc472By1uM='
+    - GH_OWNER: tastejs
+    - GH_PROJECT_NAME: todomvc
+    - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
 before_install:
-    - export DISPLAY=:99.0
-    - sh -e /etc/init.d/xvfb start
-    - wget 'https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F362586%2Fchrome-linux.zip?generation=1449027526136000&alt=media' -O chrome.zip && unzip chrome.zip
-    - curl -Lo chromedriver.zip http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip && unzip chromedriver.zip
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
 script:
-    # We want to gate on passing tests and a successful build
-    - ./test-runner.sh
+# We want to gate on passing tests and a successful build
+  - ./test-runner.sh

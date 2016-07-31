@@ -8,22 +8,27 @@ import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
 
 object Main extends JSApp {
-  val baseUrl = BaseUrl(dom.window.location.href.takeWhile(_ != '#'))
+  val baseUrl: BaseUrl =
+    BaseUrl(dom.window.location.href.takeWhile(_ != '#'))
 
-  val routerConfig: RouterConfig[TodoFilter] = RouterConfigDsl[TodoFilter].buildConfig { dsl =>
-    import dsl._
+  val routerConfig: RouterConfig[TodoFilter] =
+    RouterConfigDsl[TodoFilter].buildConfig { dsl =>
+      import dsl._
 
-    /* how the application renders the list given a filter */
-    def filterRoute(s: TodoFilter): Rule = staticRoute("#/" + s.link, s) ~> renderR(CTodoList(model, s))
+      /* how the application renders the list given a filter */
+      def filterRoute(s: TodoFilter): Rule =
+        staticRoute("#/" + s.link, s) ~> renderR(TodoList(model, s))
 
-    val filterRoutes: Rule = TodoFilter.values.map(filterRoute).reduce(_ | _)
+      val filterRoutes: Rule =
+        TodoFilter.values.map(filterRoute).reduce(_ | _)
 
-    /* build a final RouterConfig with a default page */
-    filterRoutes.notFound(redirectToPage(TodoFilter.All)(Redirect.Replace))
-  }
+      /* build a final RouterConfig with a default page */
+      filterRoutes.notFound(redirectToPage(TodoFilter.All)(Redirect.Replace))
+    }
 
   /* instantiate model and restore todos */
-  val model = new TodoModel(Storage(dom.ext.LocalStorage, "todos-scalajs-react"))
+  val model: TodoModel =
+    new TodoModel(Storage(dom.ext.LocalStorage, "todos-scalajs-react"))
 
   model.restorePersisted.foreach(_.runNow())
 

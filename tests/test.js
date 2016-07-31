@@ -8,7 +8,9 @@ var PageLaxMode = require('./pageLaxMode');
 var TestOperations = require('./testOperations');
 
 module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode, browserName) {
+
 	test.describe('TodoMVC - ' + frameworkName, function () {
+
 		var TODO_ITEM_ONE = 'buy some cheese';
 		var TODO_ITEM_TWO = 'feed the cat';
 		var TODO_ITEM_THREE = 'book a doctors appointment';
@@ -22,7 +24,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				.then(function () {
 					if (done instanceof Function) {
 						done();
-					};
+					}
 				});
 		}
 
@@ -44,16 +46,16 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			page = laxMode ? new PageLaxMode(browser) : new Page(browser);
 			testOps = new TestOperations(page);
 
-			return page.ensureAppIsVisible()
+			return page.ensureAppIsVisibleAndLoaded()
 				.then(function () {
 					if (done instanceof Function) {
 						done();
-					};
+					}
 				});
 		}
 
 		function printCapturedLogs() {
-			var logs = new webdriver.WebDriver.Logs(browser);
+			var logs = browser.manage().logs();
 
 			return logs.get('browser')
 				.then(function (entries) {
@@ -67,30 +69,15 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			return browser
 				.quit()
 				.then(function () {
-					if (done instanceof Function) {
-						done();
-					};
+					if (done instanceof Function) { done(); }
 				});
 		}
 
 		if (speedMode) {
 			test.before(launchBrowser);
 			test.after(closeBrowser);
-			test.beforeEach(function (done) {
-				return page.getItemElements()
-					.then(function (items) {
-						if (items.length == 0) { return; }
-
-						// find any items that are not complete
-						page.getNonCompletedItemElements()
-							.then(function (nonCompleteItems) {
-								if (nonCompleteItems.length > 0) {
-									return page.clickMarkAllCompletedCheckBox();
-								}
-							})
-
-						return page.clickClearCompleteButton();
-					})
+			test.afterEach(function (done) {
+				return browser.executeScript('window.localStorage && localStorage.clear(); location.reload(true);')
 					.then(function () { done(); });
 			});
 		} else {
@@ -99,27 +86,32 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				printCapturedLogs()
 					.then(function () {
 						return closeBrowser(done);
-					})
+					});
 			});
 		}
 
 		test.describe('When page is initially opened', function () {
+
 			test.it('should focus on the todo input field', function (done) {
-				testOps.assertFocussedElement('new-todo')
+				testOps.assertNewInputFocused()
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('No Todos', function () {
+
 			test.it('should hide #main and #footer', function (done) {
 				testOps.assertItemCount(0);
-				testOps.assertMainSectionIsHidden();
-				testOps.assertFooterIsHidden()
+				testOps.assertMainSectionVisibility(false);
+				testOps.assertFooterVisibility(false)
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('New Todo', function () {
+
 			test.it('should allow me to add todo items', function (done) {
 				page.enterItem(TODO_ITEM_ONE);
 				testOps.assertItems([TODO_ITEM_ONE]);
@@ -130,7 +122,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			test.it('should clear text input field when an item is added', function (done) {
 				page.enterItem(TODO_ITEM_ONE);
-				testOps.assertItemInputFieldText('')
+				testOps.assertNewItemInputFieldText('')
 					.then(function () { done(); });
 			});
 
@@ -151,20 +143,20 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			test.it('should show #main and #footer when items added', function (done) {
 				page.enterItem(TODO_ITEM_ONE);
-				testOps.assertMainSectionIsVisible();
-				testOps.assertFooterIsVisible()
+				testOps.assertMainSectionVisibility(true);
+				testOps.assertFooterVisibility(true)
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('Mark all as completed', function () {
+
 			test.beforeEach(createStandardItems);
 
 			test.it('should allow me to mark all items as completed', function (done) {
 				page.clickMarkAllCompletedCheckBox();
-				testOps.assertItemAtIndexIsCompleted(0);
-				testOps.assertItemAtIndexIsCompleted(1);
-				testOps.assertItemAtIndexIsCompleted(2)
+				testOps.assertItemCompletedStates([true, true, true])
 					.then(function () { done(); });
 			});
 
@@ -175,7 +167,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(2);
 
 				// ensure checkall is in the correct state
-				testOps.assertCompleteAllIsChecked()
+				testOps.assertCompleteAllCheckedStatus(true)
 					.then(function () { done(); });
 			});
 
@@ -183,39 +175,37 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.clickMarkAllCompletedCheckBox();
 				page.clickMarkAllCompletedCheckBox();
 
-				testOps.assertItemAtIndexIsNotCompleted(0);
-				testOps.assertItemAtIndexIsNotCompleted(1);
-				testOps.assertItemAtIndexIsNotCompleted(2)
+				testOps.assertItemCompletedStates([false, false, false])
 					.then(function () { done(); });
 			});
 
 			test.it('complete all checkbox should update state when items are completed / cleared', function (done) {
 				page.clickMarkAllCompletedCheckBox();
-				testOps.assertCompleteAllIsChecked();
+				testOps.assertCompleteAllCheckedStatus(true);
 
 				// all items are complete, now mark one as not-complete
 				page.toggleItemAtIndex(0);
-				testOps.assertCompleteAllIsClear();
+				testOps.assertCompleteAllCheckedStatus(false);
 
 				// now mark as complete, so that once again all items are completed
 				page.toggleItemAtIndex(0);
-				testOps.assertCompleteAllIsChecked()
+				testOps.assertCompleteAllCheckedStatus(true)
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('Item', function () {
+
 			test.it('should allow me to mark items as complete', function (done) {
 				page.enterItem(TODO_ITEM_ONE);
 				page.enterItem(TODO_ITEM_TWO);
 
 				page.toggleItemAtIndex(0);
-				testOps.assertItemAtIndexIsCompleted(0);
-				testOps.assertItemAtIndexIsNotCompleted(1);
+				testOps.assertItemCompletedStates([true, false]);
 
 				page.toggleItemAtIndex(1);
-				testOps.assertItemAtIndexIsCompleted(0);
-				testOps.assertItemAtIndexIsCompleted(1)
+				testOps.assertItemCompletedStates([true, true])
 					.then(function () { done(); });
 			});
 
@@ -224,17 +214,17 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.enterItem(TODO_ITEM_TWO);
 
 				page.toggleItemAtIndex(0);
-				testOps.assertItemAtIndexIsCompleted(0);
-				testOps.assertItemAtIndexIsNotCompleted(1);
+				testOps.assertItemCompletedStates([true, false]);
 
 				page.toggleItemAtIndex(0);
-				testOps.assertItemAtIndexIsNotCompleted(0);
-				testOps.assertItemAtIndexIsNotCompleted(1)
+				testOps.assertItemCompletedStates([false, false])
 					.then(function () { done(); });
 			});
+
 		});
 
-		test.describe('Editing', function (done) {
+		test.describe('Editing', function () {
+
 			test.beforeEach(function (done) {
 				createStandardItems();
 				page.doubleClickItemAtIndex(1)
@@ -242,8 +232,8 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			});
 
 			test.it('should focus the input', function (done) {
-				testOps.assertInputFocused();
-				testOps.assertNewInputNotFocused()
+				testOps.assertItemInputFocused();
+				testOps.assertNewInputBlurred()	// Unnecessary? The HTML spec dictates that only one element can be focused.
 					.then(function () { done(); });
 			});
 
@@ -284,9 +274,11 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE])
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('Counter', function () {
+
 			test.it('should display the current number of todo items', function (done) {
 				page.enterItem(TODO_ITEM_ONE);
 				testOps.assertItemCountText('1 item left');
@@ -294,9 +286,11 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				testOps.assertItemCountText('2 items left')
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('Clear completed button', function () {
+
 			test.beforeEach(createStandardItems);
 
 			test.it('should display the correct text', function (done) {
@@ -315,26 +309,21 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 			test.it('should be hidden when there are no items that are completed', function (done) {
 				page.toggleItemAtIndex(1);
-				testOps.assertClearCompleteButtonIsVisible();
+				testOps.assertClearCompleteButtonVisibility(true);
 				page.clickClearCompleteButton();
-				testOps.assertClearCompleteButtonIsHidden()
+				testOps.assertClearCompleteButtonVisibility(false)
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('Persistence', function () {
+
 			test.it('should persist its data', function (done) {
 				function stateTest() {
-					// wait until things are visible
-					browser.wait(function () {
-						return page.getVisibleLabelText().then(function (labels) {
-							return labels.length > 0;
-						});
-					}, 5000);
+					testOps.assertItemCount(2);
 					testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO]);
-					testOps.assertItemAtIndexIsCompleted(1);
-
-					return testOps.assertItemAtIndexIsNotCompleted(0);
+					return testOps.assertItemCompletedStates([false, true]);
 				}
 
 				// set up state
@@ -351,15 +340,17 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				stateTest()
 					.then(function () { done(); });
 			});
+
 		});
 
 		test.describe('Routing', function () {
+
 			test.beforeEach(createStandardItems);
 
 			test.it('should allow me to display active items', function (done) {
 				page.toggleItemAtIndex(1);
 				page.filterByActiveItems();
-				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE])
+				testOps.assertItems([TODO_ITEM_ONE, page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_THREE])
 					.then(function () { return done(); });
 			});
 
@@ -367,9 +358,9 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				page.toggleItemAtIndex(1);
 				page.filterByActiveItems();
 				page.filterByCompletedItems();
-				testOps.assertItems([TODO_ITEM_TWO]);// should show completed items
+				testOps.assertItems([page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_TWO]); // should show completed items
 				page.back(); // then active items
-				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_THREE]);
+				testOps.assertItems([TODO_ITEM_ONE, page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_THREE]);
 				page.back(); // then all items
 				testOps.assertItems([TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE])
 					.then(function () { done(); });
@@ -378,7 +369,7 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 			test.it('should allow me to display completed items', function (done) {
 				page.toggleItemAtIndex(1);
 				page.filterByCompletedItems();
-				testOps.assertItems([TODO_ITEM_TWO]);
+				testOps.assertItems([page.ITEM_HIDDEN_OR_REMOVED, TODO_ITEM_TWO]);
 				page.filterByAllItems() // TODO: why
 					.then(function () { done(); });
 			});
@@ -403,6 +394,9 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 				testOps.assertFilterAtIndexIsSelected(2)
 					.then(function () { done(); });
 			});
+
 		});
+
 	});
+
 };
