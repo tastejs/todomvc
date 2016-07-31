@@ -7,19 +7,29 @@ It enables you use native XML literal syntax to create reactive DOM nodes,
 which are able to automatically change whenever the data source changes.
 
 Binding.scala's TodoMVC application has the tiniest code size among all the TodoMVC implementations,
-only one source file, 152 lines of code!
+only one source file, 144 lines of code!
 
 ## Getting Started
 
 ``` scala
+/**
+ * Returns a bindable HTML DOM tree.
+ *
+ * The `@dom` annotations enable two magics:
+ *  1. XHTML literals to create DOM nodes
+ *  2. `xxx.bind` syntax, which make this DOM tree keep updated whenever `xxx` changes.
+ */
 @dom def render = {
   val value = Var("")
   <div>
-    <input onchange={ event: Event => dom.currentTarget.value }/>
-    Your input value is { value.each }
+    <input onchange={ event: Event => dom.currentTarget.asInstanceOf[HTMLInputElement].value }/>
+    Your input value is { value.bind }
   </div>
 }
 
+/**
+ * Renders a bindable HTML DOM node into the body of current web page.
+ */
 @JSExport def main(): Unit = {
   dom.render(document.body, render)
 }
