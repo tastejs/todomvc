@@ -1,13 +1,12 @@
 package com.thoughtworks.todo
 
-import com.thoughtworks.binding.Binding
-import com.thoughtworks.binding.Binding._
-import com.thoughtworks.binding.dom
+import com.thoughtworks.binding.{Binding, dom}
+import com.thoughtworks.binding.Binding.{BindingSeq, Constants, Var, Vars}
 import scala.scalajs.js.annotation.JSExport
-import org.scalajs.dom._
-import org.scalajs.dom.ext._
-import org.scalajs.dom.raw._
-import upickle.default._
+import org.scalajs.dom.{document, Event, KeyboardEvent, window}
+import org.scalajs.dom.ext.{KeyCode, LocalStorage}
+import org.scalajs.dom.raw.{HTMLInputElement, Node}
+import upickle.default.{read, write}
 
 @JSExport object Main {
 
@@ -45,7 +44,7 @@ import upickle.default._
   }
   import Models._
 
-  @dom def header = {
+  @dom def header: Binding[Node] = {
     val keyDownHandler = { event: KeyboardEvent =>
       (event.currentTarget, event.keyCode) match {
         case (input: HTMLInputElement, KeyCode.Enter) =>
@@ -64,7 +63,7 @@ import upickle.default._
     </header>
   }
 
-  @dom def todoListItem(todo: Todo) = {
+  @dom def todoListItem(todo: Todo): Binding[Node] = {
     // onblur is not only triggered by user interaction, but also triggered by programmatic DOM changes.
     // In order to suppress this behavior, we have to replace the onblur event listener to a dummy handler before programmatic DOM changes.
     val suppressOnBlur = Var(false)
@@ -102,7 +101,7 @@ import upickle.default._
     </li>
   }
 
-  @dom def mainSection = <section class="main" style:display={if (allTodos.length.bind == 0) "none" else ""}>
+  @dom def mainSection: Binding[Node] = <section class="main" style:display={if (allTodos.length.bind == 0) "none" else ""}>
     <input type="checkbox" class="toggle-all" checked={active.items.length.bind == 0} onclick={_: Event =>
       for ((todo, i) <- allTodos.get.zipWithIndex) {
         if (todo.completed != dom.currentTarget[HTMLInputElement].checked) {
@@ -114,11 +113,11 @@ import upickle.default._
     <ul class="todo-list">{ for { todo <- currentTodoList.bind.items } yield todoListItem(todo).bind }</ul>
   </section>
 
-  @dom def filterListItem(todoList: TodoList) = <li>
+  @dom def filterListItem(todoList: TodoList): Binding[Node] = <li>
     <a href={ todoList.hash } class={ if (todoList == currentTodoList.bind) "selected" else "" }>{ todoList.text }</a>
   </li>
 
-  @dom def footer = <footer class="footer" style:display={if (allTodos.length.bind == 0) "none" else ""}>
+  @dom def footer: Binding[Node] = <footer class="footer" style:display={if (allTodos.length.bind == 0) "none" else ""}>
     <span class="todo-count">
       <strong>{ active.items.length.bind.toString }</strong> { if (active.items.length.bind == 1) "item" else "items"} left
     </span>
@@ -130,7 +129,7 @@ import upickle.default._
     </button>
   </footer>
 
-  @dom def todoapp = {
+  @dom def todoapp: Binding[BindingSeq[Node]] = {
     <section class="todoapp">{ header.bind }{ mainSection.bind }{ footer.bind }</section>
     <footer class="info">
       <p>Double-click to edit a todo</p>
