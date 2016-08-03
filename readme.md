@@ -7,7 +7,7 @@ It enables you use native XML literal syntax to create reactive DOM nodes,
 which are able to automatically change whenever the data source changes.
 
 Binding.scala's TodoMVC application has the tiniest code size among all the TodoMVC implementations,
-only one source file, 144 lines of code!
+only one source file, 154 lines of code!
 
 ## Getting Started
 

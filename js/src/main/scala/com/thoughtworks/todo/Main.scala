@@ -67,7 +67,6 @@ import upickle.default.{read, write}
     // onblur is not only triggered by user interaction, but also triggered by programmatic DOM changes.
     // In order to suppress this behavior, we have to replace the onblur event listener to a dummy handler before programmatic DOM changes.
     val suppressOnBlur = Var(false)
-    def ignoreEvent = { _: Event => }
     def submit = { event: Event =>
       suppressOnBlur := true
       editingTodo := None
@@ -75,7 +74,7 @@ import upickle.default.{read, write}
         case "" =>
           allTodos.get.remove(allTodos.get.indexOf(todo))
         case trimmedTitle =>
-          allTodos.get(allTodos.get.indexOf(todo)) = new Todo(trimmedTitle, todo.completed)
+          allTodos.get(allTodos.get.indexOf(todo)) = Todo(trimmedTitle, todo.completed)
       }
     }
     def keyDownHandler = { event: KeyboardEvent =>
@@ -88,46 +87,58 @@ import upickle.default.{read, write}
         case _ =>
       }
     }
-    val edit = <input class="edit" value={ todo.title } onblur={if (suppressOnBlur.bind) ignoreEvent else submit} onkeydown={keyDownHandler} />;
+    def ignoreEvent = { _: Event => }
+    @dom def blureHandler: Binding[Event => Any] = if (suppressOnBlur.bind) ignoreEvent else submit
+    val edit = <input class="edit" value={ todo.title } onblur={ blureHandler.bind } onkeydown={ keyDownHandler } />
+    def toggleHandler = { event: Event =>
+      allTodos.get(allTodos.get.indexOf(todo)) = Todo(todo.title, event.currentTarget.asInstanceOf[HTMLInputElement].checked)
+    }
     <li class={s"${if (todo.completed) "completed" else ""} ${if (editingTodo.bind.contains(todo)) "editing" else ""}"}>
       <div class="view">
-        <input class="toggle" type="checkbox" checked={todo.completed} onclick={_: Event =>
-          allTodos.get(allTodos.get.indexOf(todo)) = new Todo(todo.title, dom.currentTarget[HTMLInputElement].checked)
-        }/>
+        <input class="toggle" type="checkbox" checked={todo.completed} onclick={toggleHandler}/>
         <label ondblclick={ _: Event => editingTodo := Some(todo); edit.focus() }>{ todo.title }</label>
-        <button class="destroy" onclick={_: Event => allTodos.get.remove(allTodos.get.indexOf(todo))}></button>
+        <button class="destroy" onclick={ _: Event => allTodos.get.remove(allTodos.get.indexOf(todo)) }></button>
       </div>
       { edit }
     </li>
   }
 
-  @dom def mainSection: Binding[Node] = <section class="main" style:display={if (allTodos.length.bind == 0) "none" else ""}>
-    <input type="checkbox" class="toggle-all" checked={active.items.length.bind == 0} onclick={_: Event =>
+  @dom def mainSection: Binding[Node] = {
+    def toggleAllClickHandler = { event: Event =>
       for ((todo, i) <- allTodos.get.zipWithIndex) {
-        if (todo.completed != dom.currentTarget[HTMLInputElement].checked) {
-          allTodos.get(i) = new Todo(todo.title, dom.currentTarget[HTMLInputElement].checked)
+        if (todo.completed != event.currentTarget.asInstanceOf[HTMLInputElement].checked) {
+          allTodos.get(i) = Todo(todo.title, event.currentTarget.asInstanceOf[HTMLInputElement].checked)
         }
       }
-    }/>
-    <label for="toggle-all">Mark all as complete</label>
-    <ul class="todo-list">{ for { todo <- currentTodoList.bind.items } yield todoListItem(todo).bind }</ul>
-  </section>
+    }
+    <section class="main" style:display={if (allTodos.length.bind == 0) "none" else ""}>
+      <input type="checkbox" class="toggle-all" checked={active.items.length.bind == 0} onclick={toggleAllClickHandler}/>
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">{ for { todo <- currentTodoList.bind.items } yield todoListItem(todo).bind }</ul>
+    </section>
+  }
 
-  @dom def filterListItem(todoList: TodoList): Binding[Node] = <li>
-    <a href={ todoList.hash } class={ if (todoList == currentTodoList.bind) "selected" else "" }>{ todoList.text }</a>
-  </li>
-
-  @dom def footer: Binding[Node] = <footer class="footer" style:display={if (allTodos.length.bind == 0) "none" else ""}>
-    <span class="todo-count">
-      <strong>{ active.items.length.bind.toString }</strong> { if (active.items.length.bind == 1) "item" else "items"} left
-    </span>
-    <ul class="filters">{ for { todoList <- Constants(todoLists: _*) } yield filterListItem(todoList).bind }</ul>
-    <button class="clear-completed"
-            style:visibility={if (completed.items.length.bind == 0) "hidden" else "visible"}
-            onclick={_: Event => allTodos.get --= (for {todo <- allTodos.get if todo.completed} yield todo) }>
-      Clear completed
-    </button>
-  </footer>
+  @dom def footer: Binding[Node] = {
+    def clearCompletedClickHandler = { _: Event =>
+      allTodos.get --= (for { todo <- allTodos.get if todo.completed } yield todo)
+    }
+    <footer class="footer" style:display={if (allTodos.length.bind == 0) "none" else ""}>
+      <span class="todo-count">
+        <strong>{ active.items.length.bind.toString }</strong> { if (active.items.length.bind == 1) "item" else "items"} left
+      </span>
+      <ul class="filters">{
+        for { todoList <- Constants(todoLists: _*) } yield {
+          <li>
+        		<a href={ todoList.hash } class={ if (todoList == currentTodoList.bind) "selected" else "" }>{ todoList.text }</a>
+          </li>
+        }
+      }</ul>
+      <button class="clear-completed" onclick={clearCompletedClickHandler}
+              style:visibility={if (completed.items.length.bind == 0) "hidden" else "visible"}>
+        Clear completed
+      </button>
+    </footer>
+  }
 
   @dom def todoapp: Binding[BindingSeq[Node]] = {
     <section class="todoapp">{ header.bind }{ mainSection.bind }{ footer.bind }</section>
