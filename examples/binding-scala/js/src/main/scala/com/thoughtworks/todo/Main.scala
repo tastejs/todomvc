@@ -88,8 +88,8 @@ import upickle.default.{read, write}
       }
     }
     def ignoreEvent = { _: Event => }
-    @dom def blureHandler: Binding[Event => Any] = if (suppressOnBlur.bind) ignoreEvent else submit
-    val edit = <input class="edit" value={ todo.title } onblur={ blureHandler.bind } onkeydown={ keyDownHandler } />
+    @dom def blurHandler: Binding[Event => Any] = if (suppressOnBlur.bind) ignoreEvent else submit
+    val edit = <input class="edit" value={ todo.title } onblur={ blurHandler.bind } onkeydown={ keyDownHandler } />
     def toggleHandler = { event: Event =>
       allTodos.get(allTodos.get.indexOf(todo)) = Todo(todo.title, event.currentTarget.asInstanceOf[HTMLInputElement].checked)
     }
@@ -140,7 +140,7 @@ import upickle.default.{read, write}
     </footer>
   }
 
-  @JSExport @dom def todoapp: Binding[BindingSeq[Node]] = {
+  @dom def todoapp: Binding[BindingSeq[Node]] = {
     <section class="todoapp">{ header.bind }{ mainSection.bind }{ footer.bind }</section>
     <footer class="info">
       <p>Double-click to edit a todo</p>

@@ -1912,6 +1912,36 @@
 			}]
 		}]
 	},
+	"binding-scala": {
+		"name": "Binding.scala",
+		"description": "Binding.scala is a Reactive Web Frameworks that helps you create complicated interactive web pages with very simple code base. <br/>This Binding.scala's TodoMVC application has the least code size among all the TodoMVC implementations, only one source file, 154 lines of code!",
+		"homepage:": "github.com/ThoughtWorksInc/Binding.scala",
+		"examples": [{
+			"name": "This TodoMVC application",
+			"url": "examples/binding-scala",
+			"source_url": "https://github.com/ThoughtWorksInc/todo"
+		}, {
+			"name": "Other live DEMOs",
+			"url": "https://thoughtworksinc.github.io/Binding.scala/",
+			"source_url": "https://github.com/ThoughtWorksInc/Binding.scala-website"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Project Page",
+				"url": "https://github.com/ThoughtWorksInc/Binding.scala"
+			}, {
+				"name": "API documentation",
+				"url": "https://oss.sonatype.org/service/local/repositories/releases/archive/com/thoughtworks/binding/unidoc_2.11/7.0.3/unidoc_2.11-7.0.3-javadoc.jar/!/com/thoughtworks/binding/package.html"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Binding.scala on Gitter",
+				"url": "https://gitter.im/ThoughtWorksInc/Binding.scala"
+			}]
+		}]
+	},
 	"serenadejs": {
 		"name": "Serenade.js",
 		"description": "Serenade.js is a client side framework built on the MVC pattern. It makes it simple to create rich client side applications by freeing you from having to keep the DOM up to date with your data through powerful data bindings.",
