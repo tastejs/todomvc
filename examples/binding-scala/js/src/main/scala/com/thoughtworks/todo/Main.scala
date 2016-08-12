@@ -140,7 +140,7 @@ import upickle.default.{read, write}
     </footer>
   }
 
-  @JSExport @dom def todoapp: Binding[BindingSeq[Node]] = {
+  @dom def todoapp: Binding[BindingSeq[Node]] = {
     <section class="todoapp">{ header.bind }{ mainSection.bind }{ footer.bind }</section>
     <footer class="info">
       <p>Double-click to edit a todo</p>
