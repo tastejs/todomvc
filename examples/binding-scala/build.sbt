@@ -8,7 +8,7 @@ val indexHtml = taskKey[File]("Generate an index.html that follows TodoMVC's App
 
 indexHtml := {
   val linkedJs = (scalaJSLinkedFile in js in Compile).value.asInstanceOf[org.scalajs.core.tools.io.FileVirtualJSFile]
-  val document = <html>
+  val document = <html lang="en" data-framework="binding-scala">
     <head>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
