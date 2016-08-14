@@ -47,6 +47,6 @@ only one source file, 154 lines of code!
 * [The Binding.scala Project Page](https://github.com/ThoughtWorksInc/Binding.scala)
 * [This “Binding.scala • TodoMVC” Project Page](https://github.com/ThoughtWorksInc/todo)
 * [This “Binding.scala • TodoMVC” DEMO](https://thoughtworksinc.github.io/todo)
-* [API documentation](https://oss.sonatype.org/service/local/repositories/releases/archive/com/thoughtworks/binding/unidoc_2.11/4.0.1/unidoc_2.11-4.0.1-javadoc.jar/!/com/thoughtworks/binding/package.html)
+* [API documentation](https://oss.sonatype.org/service/local/repositories/releases/archive/com/thoughtworks/binding/unidoc_2.11/8.0.0/unidoc_2.11-8.0.0-javadoc.jar/!/com/thoughtworks/binding/package.html)
 * [Other live DEMOs](https://thoughtworksinc.github.io/Binding.scala/)
 * [Chat on Gitter](https://gitter.im/ThoughtWorksInc/Binding.scala)
