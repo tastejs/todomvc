@@ -1917,10 +1917,12 @@
 		"description": "Binding.scala is a Reactive Web Frameworks that helps you create complicated interactive web pages with very simple code base. <br/>This Binding.scala's TodoMVC application has the least code size among all the TodoMVC implementations, only one source file, 154 lines of code!",
 		"homepage": "github.com/ThoughtWorksInc/Binding.scala",
 		"examples": [{
+			"type": "backend",
 			"name": "This TodoMVC application",
 			"url": "examples/binding-scala",
 			"source_url": "https://github.com/ThoughtWorksInc/todo"
 		}, {
+			"type": "backend",
 			"name": "Other live DEMOs",
 			"url": "https://thoughtworksinc.github.io/Binding.scala/",
 			"source_url": "https://github.com/ThoughtWorksInc/Binding.scala-website"
