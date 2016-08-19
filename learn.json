@@ -1,4 +1,4 @@
-﻿{
+{
 	"angularjs": {
 		"name": "AngularJS",
 		"description": "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.",
@@ -1918,8 +1918,7 @@
 		"homepage": "github.com/ThoughtWorksInc/Binding.scala",
 		"examples": [{
 			"name": "This TodoMVC application",
-			"url": "examples/binding-scala",
-			"source_url": "https://github.com/ThoughtWorksInc/todo"
+			"url": "examples/binding-scala"
 		}, {
 			"name": "Other live DEMOs",
 			"url": "https://thoughtworksinc.github.io/Binding.scala/",
