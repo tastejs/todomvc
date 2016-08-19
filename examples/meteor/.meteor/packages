@@ -1,1 +1,19 @@
-standard-app-packages
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base@1.0.4             # Packages every Meteor app needs to have
+mongo@1.1.11                   # The database Meteor supports right now
+blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
+tracker@1.1.0                 # Meteor's client-side reactive programming library
+
+standard-minifier-js@1.2.0    # JS minifier run for production mode
+es5-shim@4.6.14                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.5.8              # Enable ECMAScript2015+ syntax in app code
+
+reactive-dict@1.1.8
+kadira:flow-router
+zimme:active-route
+shell-server

@@ -46,6 +46,7 @@
 		"examples/thorax_lumbar/public/*.js",
 		"examples/typescript-*/js/**/*.js",
 		"examples/vanilladart/**/*.js",
+		"examples/meteor/.meteor/**",
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,

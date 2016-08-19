@@ -1,61 +1,69 @@
-# Meteor TodoMVC Example
+# Meteor • [TodoMVC](http://todomvc.com)
 
-> Meteor is an open-source platform for building top-quality web apps in a fraction of the time, whether you're an expert developer or just getting started.
-
-> _[Meteor - meteor.com](http://meteor.com)_
+> Meteor is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor includes a key set of technologies for building connected-client reactive applications, a build tool, and a curated set of packages from the Node.js and general JavaScript community.
 
 
-## Learning Meteor
+## Setup
 
-The [Meteor website](http://meteor.com) is a great resource for getting started.
+Make sure you have Meteor installed, if not do:
+```bash
+curl https://install.meteor.com/ | sh
+```
 
-Here are some links you may find helpful:
+Then:
+```bash
+cd examples/meteor
+meteor npm install
+meteor
+```
 
-* [Documentation](http://docs.meteor.com)
-* [Applications built with Meteor](http://madewith.meteor.com)
-* [Examples](http://meteor.com/examples)
-* [Blog](http://meteor.com/blog)
-* [FAQ](http://meteor.com/faq)
-* [Meteor on GitHub](https://github.com/meteor)
-* [Meteor on YouTube](http://www.youtube.com/user/MeteorVideos)
+Now you can go to [localhost:3000](http://localhost:3000)
 
-Articles and guides from the community:
+## Resources
 
-* [Learn Meteor Fundamentals and Best Practices](http://andrewscala.com/meteor)
-* [Introduction to Realtime Web with Meteor and Node.js](http://www.andrewmunsell.com/blog/introduction-to-realtime-web-meteor-and-nodejs)
-* [Confessions of a Meteor Newb](http://blog.jerodsanto.net/2012/04/confessions-of-a-meteor-newb)
+- [Website](http://meteor.com)
+- [Documentation](http://docs.meteor.com/#/full/)
+- [Guide](https://guide.meteor.com/)
+- [Tutorials](https://www.meteor.com/tutorials)
+- [Showcases](https://www.meteor.com/showcase)
+- [Blog](http://info.meteor.com/blog)
+- [FAQ](https://www.meteor.com/meteor-faq)
 
-Get help from other Meteor users:
+### Books & Learning Resources
 
-* [Meteor on StackOverflow](http://stackoverflow.com/questions/tagged/meteor)
-* [Mailing list on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/meteor-core)
-* [Meteor on Twitter](http://twitter.com/meteorjs)
+- [Discover Meteor](https://www.discovermeteor.com/)
+- [Meteor Tips: Your first meteor application](http://meteortips.com/)
+- [Meteor In Action](http://www.meteorinaction.com/)
 
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+### 3rd Party Community Sites
+
+- [Meteor Weekly](http://meteorweekly.com/)
+- [Kadira Voice](https://voice.kadira.io/)
+- [Meteor Chef](https://themeteorchef.com/)
+- [Podcast: Meteor Transmission](https://transmission.simplecast.fm/)
+- [Awesome Meteor](https://github.com/Urigo/awesome-meteor)
+
+### Support
+
+- [Stack Overflow](http://stackoverflow.com/questions/tagged/meteor)
+- [Twitter](http://twitter.com/meteor)
+- [Gitter](https://gitter.im/meteor/meteor)
+- [Slack](http://slack.themeteorchef.com/)
+
+*Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
 
 
-## Running
+## Implementation
 
-If you don't have Meteor installed already, from a terminal window:
+This example follows most recent practices described by Meteor Team in official guide.
 
-	curl install.meteor.com | /bin/sh
-
-To run the app:
-
-	# from examples/meteor
-	meteor
-
-The app should now be running on http://localhost:3000.
-
-
-## Deploying
-
-To deploy to meteor.com:
-
-	# from examples/meteor
-	meteor deploy myapp.meteor.com
+It uses few additional packages:
+- `reactive-dict` together with `tracker` - For managing state in templates in reactive manner
+- `kadira:flow-router` - Very simple router for Meteor. It does routing for client-side apps and does not handle rendering itself.
+- `zimme:active-route` - This package provide helpers for figuring out if some route or path is or isn't the currently active route.
+How was the app created? Anything worth sharing about the process of creating the app? Any spec violations?
 
 
 ## Credit
 
-This TodoMVC application was created by [MStumpp](https://github.com/MStumpp).
+Created by [Michał Sajnóg](http://github.com/michalsnik)
