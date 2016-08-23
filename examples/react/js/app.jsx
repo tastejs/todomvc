@@ -20,8 +20,7 @@ var app = app || {};
 		getInitialState: function () {
 			return {
 				nowShowing: app.ALL_TODOS,
-				editing: null,
-				newTodo: ''
+				editing: null
 			};
 		},
 
@@ -35,10 +34,6 @@ var app = app || {};
 			router.init('/');
 		},
 
-		handleChange: function (event) {
-			this.setState({newTodo: event.target.value});
-		},
-
 		handleNewTodoKeyDown: function (event) {
 			if (event.keyCode !== ENTER_KEY) {
 				return;
@@ -46,11 +41,11 @@ var app = app || {};
 
 			event.preventDefault();
 
-			var val = this.state.newTodo.trim();
+			var val = event.target.value.trim();
 
 			if (val) {
 				this.props.model.addTodo(val);
-				this.setState({newTodo: ''});
+				event.target.value="";
 			}
 		},
 
@@ -154,9 +149,7 @@ var app = app || {};
 						<input
 							className="new-todo"
 							placeholder="What needs to be done?"
-							value={this.state.newTodo}
 							onKeyDown={this.handleNewTodoKeyDown}
-							onChange={this.handleChange}
 							autoFocus={true}
 						/>
 					</header>

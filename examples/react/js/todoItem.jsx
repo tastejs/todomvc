@@ -85,7 +85,6 @@ var app = app || {};
 						<input
 							className="toggle"
 							type="checkbox"
-							checked={this.props.todo.completed}
 							onChange={this.props.onToggle}
 						/>
 						<label onDoubleClick={this.handleEdit}>
