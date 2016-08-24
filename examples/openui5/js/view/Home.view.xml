@@ -1,0 +1,3 @@
+<mvc:View controllerName="ToDoMVC.controller.Home" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page showHeader="false"/>
+</mvc:View>

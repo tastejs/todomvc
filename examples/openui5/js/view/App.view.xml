@@ -1,0 +1,3 @@
+<mvc:View controllerName="ToDoMVC.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+   <App id="app"/>
+</mvc:View>
