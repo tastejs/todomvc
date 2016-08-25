@@ -40,6 +40,7 @@
 		"examples/ember-cli/assets/**/*.js",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
+		"examples/lay/**/*.js",
 		"examples/polymer/elements/elements.build.js",
 		"examples/spine/js/**",
 		"examples/thorax/js/lib/backbone-localstorage.js",
