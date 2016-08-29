@@ -149,7 +149,7 @@ var TodoMVC = TodoMVC || {};
 			});
 		},
 
-		onRender: function() {
+		onRender: function () {
 			this.showChildView('listBody', new TodoMVC.ListViewBody({
 				collection: this.collection
 			}));
