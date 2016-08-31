@@ -13,6 +13,8 @@ document for notes on structuring more complex GUIs with Elm:
 http://guide.elm-lang.org/architecture/
 -}
 
+import Dom
+import Task
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -112,8 +114,8 @@ update msg model =
                     { model | tasks = List.filterMap updateTask model.tasks }
             in
                 case taskMsg of
-                    Todo.Task.Focus ->
-                        ( newModel, Cmd.batch [ save newModel, focus id ] )
+                    Todo.Task.Focus elementId ->
+                        newModel ! [ save newModel, focusTask elementId ]
 
                     _ ->
                         ( newModel, save newModel )
@@ -143,6 +145,11 @@ update msg model =
                     { model | visibility = visibility }
             in
                 ( newModel, save model )
+
+
+focusTask : String -> Cmd Msg
+focusTask elementId =
+    Task.perform (\_ -> NoOp) (\_ -> NoOp) (Dom.focus elementId)
 
 
 
@@ -376,9 +383,6 @@ init flags url =
 
 
 port save : Model -> Cmd msg
-
-
-port focus : Int -> Cmd msg
 
 
 subscriptions : Model -> Sub Msg

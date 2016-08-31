@@ -7157,6 +7157,12 @@ return {
 
 }();
 
+var _elm_lang$dom$Dom$blur = _elm_lang$dom$Native_Dom.blur;
+var _elm_lang$dom$Dom$focus = _elm_lang$dom$Native_Dom.focus;
+var _elm_lang$dom$Dom$NotFound = function (a) {
+	return {ctor: 'NotFound', _0: a};
+};
+
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
 
@@ -8451,7 +8457,7 @@ function applyPatch(domNode, patch)
 	switch (patch.type)
 	{
 		case 'p-redraw':
-			return redraw(domNode, patch.data, patch.eventNode);
+			return applyPatchRedraw(domNode, patch.data, patch.eventNode);
 
 		case 'p-facts':
 			applyFacts(domNode, patch.eventNode, patch.data);
@@ -8500,57 +8506,7 @@ function applyPatch(domNode, patch)
 			return domNode;
 
 		case 'p-reorder':
-			var data = patch.data;
-
-			// end inserts
-			var endInserts = data.endInserts;
-			var end;
-			if (typeof endInserts !== 'undefined')
-			{
-				if (endInserts.length === 1)
-				{
-					var insert = endInserts[0];
-					var entry = insert.entry;
-					var end = entry.tag === 'move'
-						? entry.data
-						: render(entry.vnode, patch.eventNode);
-				}
-				else
-				{
-					end = document.createDocumentFragment();
-					for (var i = 0; i < endInserts.length; i++)
-					{
-						var insert = endInserts[i];
-						var entry = insert.entry;
-						var node = entry.tag === 'move'
-							? entry.data
-							: render(entry.vnode, patch.eventNode);
-						end.appendChild(node);
-					}
-				}
-			}
-
-			// removals
-			domNode = applyPatchesHelp(domNode, data.patches);
-
-			// inserts
-			var inserts = data.inserts;
-			for (var i = 0; i < inserts.length; i++)
-			{
-				var insert = inserts[i];
-				var entry = insert.entry;
-				var node = entry.tag === 'move'
-					? entry.data
-					: render(entry.vnode, patch.eventNode);
-				domNode.insertBefore(node, domNode.childNodes[insert.index]);
-			}
-
-			if (typeof end !== 'undefined')
-			{
-				domNode.appendChild(end);
-			}
-
-			return domNode;
+			return applyPatchReorder(domNode, patch);
 
 		case 'p-custom':
 			var impl = patch.data;
@@ -8562,7 +8518,7 @@ function applyPatch(domNode, patch)
 }
 
 
-function redraw(domNode, vNode, eventNode)
+function applyPatchRedraw(domNode, vNode, eventNode)
 {
 	var parentNode = domNode.parentNode;
 	var newNode = render(vNode, eventNode);
@@ -8577,6 +8533,59 @@ function redraw(domNode, vNode, eventNode)
 		parentNode.replaceChild(newNode, domNode);
 	}
 	return newNode;
+}
+
+
+function applyPatchReorder(domNode, patch)
+{
+	var data = patch.data;
+
+	// remove end inserts
+	var frag = applyPatchReorderEndInsertsHelp(data.endInserts, patch);
+
+	// removals
+	domNode = applyPatchesHelp(domNode, data.patches);
+
+	// inserts
+	var inserts = data.inserts;
+	for (var i = 0; i < inserts.length; i++)
+	{
+		var insert = inserts[i];
+		var entry = insert.entry;
+		var node = entry.tag === 'move'
+			? entry.data
+			: render(entry.vnode, patch.eventNode);
+		domNode.insertBefore(node, domNode.childNodes[insert.index]);
+	}
+
+	// add end inserts
+	if (typeof frag !== 'undefined')
+	{
+		domNode.appendChild(frag);
+	}
+
+	return domNode;
+}
+
+
+function applyPatchReorderEndInsertsHelp(endInserts, patch)
+{
+	if (typeof endInserts === 'undefined')
+	{
+		return;
+	}
+
+	var frag = document.createDocumentFragment();
+	for (var i = 0; i < endInserts.length; i++)
+	{
+		var insert = endInserts[i];
+		var entry = insert.entry;
+		frag.appendChild(entry.tag === 'move'
+			? entry.data
+			: render(entry.vnode, patch.eventNode)
+		);
+	}
+	return frag;
 }
 
 
@@ -9663,8 +9672,14 @@ var _evancz$elm_todomvc$Todo_Task$Cancel = {ctor: 'Cancel'};
 var _evancz$elm_todomvc$Todo_Task$Edit = function (a) {
 	return {ctor: 'Edit', _0: a};
 };
-var _evancz$elm_todomvc$Todo_Task$Focus = {ctor: 'Focus'};
+var _evancz$elm_todomvc$Todo_Task$Focus = function (a) {
+	return {ctor: 'Focus', _0: a};
+};
 var _evancz$elm_todomvc$Todo_Task$view = function (model) {
+	var elementId = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'todo-',
+		_elm_lang$core$Basics$toString(model.id));
 	var description = A2(_elm_lang$core$Maybe$withDefault, model.description, model.edits);
 	var className = A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -9710,7 +9725,8 @@ var _evancz$elm_todomvc$Todo_Task$view = function (model) {
 						_elm_lang$html$Html$label,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$html$Html_Events$onDoubleClick(_evancz$elm_todomvc$Todo_Task$Focus)
+								_elm_lang$html$Html_Events$onDoubleClick(
+								_evancz$elm_todomvc$Todo_Task$Focus(elementId))
 							]),
 						_elm_lang$core$Native_List.fromArray(
 							[
@@ -9733,11 +9749,7 @@ var _evancz$elm_todomvc$Todo_Task$view = function (model) {
 						_elm_lang$html$Html_Attributes$class('edit'),
 						_elm_lang$html$Html_Attributes$value(description),
 						_elm_lang$html$Html_Attributes$name('title'),
-						_elm_lang$html$Html_Attributes$id(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'todo-',
-							_elm_lang$core$Basics$toString(model.id))),
+						_elm_lang$html$Html_Attributes$id(elementId),
 						_elm_lang$html$Html_Events$onInput(_evancz$elm_todomvc$Todo_Task$Edit),
 						_elm_lang$html$Html_Events$onBlur(_evancz$elm_todomvc$Todo_Task$Commit),
 						A2(_evancz$elm_todomvc$Todo_Task$onFinish, _evancz$elm_todomvc$Todo_Task$Commit, _evancz$elm_todomvc$Todo_Task$Cancel)
@@ -9851,122 +9863,6 @@ var _evancz$elm_todomvc$Todo$save = _elm_lang$core$Native_Platform.outgoingPort(
 			visibility: v.visibility
 		};
 	});
-var _evancz$elm_todomvc$Todo$focus = _elm_lang$core$Native_Platform.outgoingPort(
-	'focus',
-	function (v) {
-		return v;
-	});
-var _evancz$elm_todomvc$Todo$update = F2(
-	function (msg, model) {
-		var _p1 = A2(_elm_lang$core$Debug$log, 'MESSAGE: ', msg);
-		switch (_p1.ctor) {
-			case 'NoOp':
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-			case 'UpdateField':
-				var newModel = _elm_lang$core$Native_Utils.update(
-					model,
-					{field: _p1._0});
-				return {
-					ctor: '_Tuple2',
-					_0: newModel,
-					_1: _evancz$elm_todomvc$Todo$save(model)
-				};
-			case 'Add':
-				var description = _elm_lang$core$String$trim(model.field);
-				var newModel = _elm_lang$core$String$isEmpty(description) ? model : _elm_lang$core$Native_Utils.update(
-					model,
-					{
-						uid: model.uid + 1,
-						field: '',
-						tasks: A2(
-							_elm_lang$core$Basics_ops['++'],
-							model.tasks,
-							_elm_lang$core$Native_List.fromArray(
-								[
-									A2(_evancz$elm_todomvc$Todo_Task$init, description, model.uid)
-								]))
-					});
-				return {
-					ctor: '_Tuple2',
-					_0: newModel,
-					_1: _evancz$elm_todomvc$Todo$save(newModel)
-				};
-			case 'UpdateTask':
-				var _p4 = _p1._0._1;
-				var _p3 = _p1._0._0;
-				var updateTask = function (t) {
-					return _elm_lang$core$Native_Utils.eq(t.id, _p3) ? A2(_evancz$elm_todomvc$Todo_Task$update, _p4, t) : _elm_lang$core$Maybe$Just(t);
-				};
-				var newModel = _elm_lang$core$Native_Utils.update(
-					model,
-					{
-						tasks: A2(_elm_lang$core$List$filterMap, updateTask, model.tasks)
-					});
-				var _p2 = _p4;
-				if (_p2.ctor === 'Focus') {
-					return {
-						ctor: '_Tuple2',
-						_0: newModel,
-						_1: _elm_lang$core$Platform_Cmd$batch(
-							_elm_lang$core$Native_List.fromArray(
-								[
-									_evancz$elm_todomvc$Todo$save(newModel),
-									_evancz$elm_todomvc$Todo$focus(_p3)
-								]))
-					};
-				} else {
-					return {
-						ctor: '_Tuple2',
-						_0: newModel,
-						_1: _evancz$elm_todomvc$Todo$save(newModel)
-					};
-				}
-			case 'DeleteComplete':
-				var newModel = _elm_lang$core$Native_Utils.update(
-					model,
-					{
-						tasks: A2(
-							_elm_lang$core$List$filter,
-							function (_p5) {
-								return _elm_lang$core$Basics$not(
-									function (_) {
-										return _.completed;
-									}(_p5));
-							},
-							model.tasks)
-					});
-				return {
-					ctor: '_Tuple2',
-					_0: newModel,
-					_1: _evancz$elm_todomvc$Todo$save(newModel)
-				};
-			case 'CheckAll':
-				var updateTask = function (t) {
-					return _elm_lang$core$Native_Utils.update(
-						t,
-						{completed: _p1._0});
-				};
-				var newModel = _elm_lang$core$Native_Utils.update(
-					model,
-					{
-						tasks: A2(_elm_lang$core$List$map, updateTask, model.tasks)
-					});
-				return {
-					ctor: '_Tuple2',
-					_0: newModel,
-					_1: _evancz$elm_todomvc$Todo$save(newModel)
-				};
-			default:
-				var newModel = _elm_lang$core$Native_Utils.update(
-					model,
-					{visibility: _p1._0});
-				return {
-					ctor: '_Tuple2',
-					_0: newModel,
-					_1: _evancz$elm_todomvc$Todo$save(model)
-				};
-		}
-	});
 var _evancz$elm_todomvc$Todo$Model = F4(
 	function (a, b, c, d) {
 		return {tasks: a, field: b, uid: c, visibility: d};
@@ -9998,29 +9894,6 @@ var _evancz$elm_todomvc$Todo$visibilitySwap = F3(
 							_elm_lang$html$Html$text(visibility)
 						]))
 				]));
-	});
-var _evancz$elm_todomvc$Todo$urlUpdate = F2(
-	function (result, model) {
-		var _p6 = result;
-		if (_p6.ctor === 'Just') {
-			return A2(
-				_evancz$elm_todomvc$Todo$update,
-				_evancz$elm_todomvc$Todo$ChangeVisibility(
-					_elm_community$string_extra$String_Extra$toSentenceCase(_p6._0)),
-				model);
-		} else {
-			return A2(
-				_evancz$elm_todomvc$Todo$update,
-				_evancz$elm_todomvc$Todo$ChangeVisibility('All'),
-				model);
-		}
-	});
-var _evancz$elm_todomvc$Todo$init = F2(
-	function (flags, url) {
-		return A2(
-			_evancz$elm_todomvc$Todo$urlUpdate,
-			url,
-			A2(_elm_lang$core$Maybe$withDefault, _evancz$elm_todomvc$Todo$emptyModel, flags));
 	});
 var _evancz$elm_todomvc$Todo$CheckAll = function (a) {
 	return {ctor: 'CheckAll', _0: a};
@@ -10116,8 +9989,8 @@ var _evancz$elm_todomvc$Todo$taskList = F2(
 			},
 			tasks);
 		var isVisible = function (todo) {
-			var _p7 = visibility;
-			switch (_p7) {
+			var _p1 = visibility;
+			switch (_p1) {
 				case 'Completed':
 					return todo.completed;
 				case 'Active':
@@ -10190,6 +10063,148 @@ var _evancz$elm_todomvc$Todo$UpdateField = function (a) {
 	return {ctor: 'UpdateField', _0: a};
 };
 var _evancz$elm_todomvc$Todo$NoOp = {ctor: 'NoOp'};
+var _evancz$elm_todomvc$Todo$focusTask = function (elementId) {
+	return A3(
+		_elm_lang$core$Task$perform,
+		function (_p2) {
+			return _evancz$elm_todomvc$Todo$NoOp;
+		},
+		function (_p3) {
+			return _evancz$elm_todomvc$Todo$NoOp;
+		},
+		_elm_lang$dom$Dom$focus(elementId));
+};
+var _evancz$elm_todomvc$Todo$update = F2(
+	function (msg, model) {
+		var _p4 = A2(_elm_lang$core$Debug$log, 'MESSAGE: ', msg);
+		switch (_p4.ctor) {
+			case 'NoOp':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'UpdateField':
+				var newModel = _elm_lang$core$Native_Utils.update(
+					model,
+					{field: _p4._0});
+				return {
+					ctor: '_Tuple2',
+					_0: newModel,
+					_1: _evancz$elm_todomvc$Todo$save(model)
+				};
+			case 'Add':
+				var description = _elm_lang$core$String$trim(model.field);
+				var newModel = _elm_lang$core$String$isEmpty(description) ? model : _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						uid: model.uid + 1,
+						field: '',
+						tasks: A2(
+							_elm_lang$core$Basics_ops['++'],
+							model.tasks,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(_evancz$elm_todomvc$Todo_Task$init, description, model.uid)
+								]))
+					});
+				return {
+					ctor: '_Tuple2',
+					_0: newModel,
+					_1: _evancz$elm_todomvc$Todo$save(newModel)
+				};
+			case 'UpdateTask':
+				var _p6 = _p4._0._1;
+				var updateTask = function (t) {
+					return _elm_lang$core$Native_Utils.eq(t.id, _p4._0._0) ? A2(_evancz$elm_todomvc$Todo_Task$update, _p6, t) : _elm_lang$core$Maybe$Just(t);
+				};
+				var newModel = _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						tasks: A2(_elm_lang$core$List$filterMap, updateTask, model.tasks)
+					});
+				var _p5 = _p6;
+				if (_p5.ctor === 'Focus') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						newModel,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_evancz$elm_todomvc$Todo$save(newModel),
+								_evancz$elm_todomvc$Todo$focusTask(_p5._0)
+							]));
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: newModel,
+						_1: _evancz$elm_todomvc$Todo$save(newModel)
+					};
+				}
+			case 'DeleteComplete':
+				var newModel = _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						tasks: A2(
+							_elm_lang$core$List$filter,
+							function (_p7) {
+								return _elm_lang$core$Basics$not(
+									function (_) {
+										return _.completed;
+									}(_p7));
+							},
+							model.tasks)
+					});
+				return {
+					ctor: '_Tuple2',
+					_0: newModel,
+					_1: _evancz$elm_todomvc$Todo$save(newModel)
+				};
+			case 'CheckAll':
+				var updateTask = function (t) {
+					return _elm_lang$core$Native_Utils.update(
+						t,
+						{completed: _p4._0});
+				};
+				var newModel = _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						tasks: A2(_elm_lang$core$List$map, updateTask, model.tasks)
+					});
+				return {
+					ctor: '_Tuple2',
+					_0: newModel,
+					_1: _evancz$elm_todomvc$Todo$save(newModel)
+				};
+			default:
+				var newModel = _elm_lang$core$Native_Utils.update(
+					model,
+					{visibility: _p4._0});
+				return {
+					ctor: '_Tuple2',
+					_0: newModel,
+					_1: _evancz$elm_todomvc$Todo$save(model)
+				};
+		}
+	});
+var _evancz$elm_todomvc$Todo$urlUpdate = F2(
+	function (result, model) {
+		var _p8 = result;
+		if (_p8.ctor === 'Just') {
+			return A2(
+				_evancz$elm_todomvc$Todo$update,
+				_evancz$elm_todomvc$Todo$ChangeVisibility(
+					_elm_community$string_extra$String_Extra$toSentenceCase(_p8._0)),
+				model);
+		} else {
+			return A2(
+				_evancz$elm_todomvc$Todo$update,
+				_evancz$elm_todomvc$Todo$ChangeVisibility('All'),
+				model);
+		}
+	});
+var _evancz$elm_todomvc$Todo$init = F2(
+	function (flags, url) {
+		return A2(
+			_evancz$elm_todomvc$Todo$urlUpdate,
+			url,
+			A2(_elm_lang$core$Maybe$withDefault, _evancz$elm_todomvc$Todo$emptyModel, flags));
+	});
 var _evancz$elm_todomvc$Todo$taskEntry = function (task) {
 	return A2(
 		_elm_lang$html$Html$header,

@@ -10,6 +10,7 @@
     "dependencies": {
         "elm-community/string-extra": "1.0.2 <= v < 2.0.0",
         "elm-lang/core": "4.0.5 <= v < 5.0.0",
+        "elm-lang/dom": "1.1.0 <= v < 2.0.0",
         "elm-lang/html": "1.1.0 <= v < 2.0.0",
         "elm-lang/navigation": "1.0.0 <= v < 2.0.0"
     },

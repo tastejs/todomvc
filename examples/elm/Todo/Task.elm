@@ -32,7 +32,7 @@ init desc id =
 
 
 type Msg
-    = Focus
+    = Focus String
     | Edit String
     | Cancel
     | Commit
@@ -43,7 +43,7 @@ type Msg
 update : Msg -> Model -> Maybe Model
 update msg model =
     case msg of
-        Focus ->
+        Focus elementId ->
             Just { model | edits = Just model.description }
 
         Edit description ->
@@ -100,6 +100,9 @@ view model =
 
         description =
             Maybe.withDefault model.description model.edits
+
+        elementId =
+            "todo-" ++ toString model.id
     in
         li
             [ class className ]
@@ -113,7 +116,7 @@ view model =
                     ]
                     []
                 , label
-                    [ onDoubleClick Focus ]
+                    [ onDoubleClick (Focus elementId) ]
                     [ text description ]
                 , button
                     [ class "destroy"
@@ -125,7 +128,7 @@ view model =
                 [ class "edit"
                 , value description
                 , name "title"
-                , id ("todo-" ++ toString model.id)
+                , id (elementId)
                 , onInput Edit
                 , onBlur Commit
                 , onFinish Commit Cancel

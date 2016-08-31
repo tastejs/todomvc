@@ -27,16 +27,6 @@
 		todomvc.ports.save.subscribe(function (model) {
 			localStorage.setItem('elm-todo-model', JSON.stringify(model));
 		});
-
-		// Setting focus manually
-		todomvc.ports.focus.subscribe(function (id) {
-			setTimeout(function () {
-				var node = document.getElementById('todo-' + id);
-				if (document.activeElement !== node) {
-					node.focus();
-				}
-			}, 50);
-		});
 	}());
 </script>
 <script async src="node_modules/todomvc-common/base.js"></script>
