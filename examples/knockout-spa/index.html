@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" data-bind="attr: { 'class': pageClass }">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<main data-bind="template: { name: page.path, data: page.data, afterRender: page.data.afterRender }" role="main"></main>
+<!-- ko template: 'app/shared/footer' --><!-- /ko -->
+<script src="node_modules/todomvc-common/base.js"></script>
+<script data-main="app" src="node_modules/requirejs/require.js"></script>
+<script>
+	require.onError = function (err) {
+		err.requireModules && err.requireModules.length && err.requireModules.forEach(function (module) {
+			require.undef(module);
+		});
+		throw err;
+	};
+</script>
+</body>
+</html>
