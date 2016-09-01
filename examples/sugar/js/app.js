@@ -1,3 +1,5 @@
+/*global Sugar, Filter, Storage */
+
 (function (exports, filter, storage) {
 	/**
 	 * TodoMVC app define
@@ -7,34 +9,34 @@
 			var allTodos = storage.getAll();
 
 			config = this.cover(config, {
-				'target': '.todoapp',
-				'model': {
-					'type'       : 'all',
-					'todos'      : [],
-					'newTodo'    : '',
-					'allTodos'   : allTodos,
-					'toggleAll'  : allTodos.length === filter.completed(allTodos).length,
-					'editingTodo': null,
+				target: '.todoapp',
+				model: {
+					type: 'all',
+					todos: [],
+					newTodo: '',
+					allTodos: allTodos,
+					toggleAll: allTodos.length === filter.completed(allTodos).length,
+					editingTodo: null
 				},
-				'methods': {
-					'addTodo'       : this.addTodo,
-					'editTodo'      : this.editTodo,
-					'doneEdit'      : this.doneEdit,
-					'removeTodo'    : this.removeTodo,
-					'clearCompleted': this.clearCompleted
+				methods: {
+					addTodo: this.addTodo,
+					editTodo: this.editTodo,
+					doneEdit: this.doneEdit,
+					removeTodo: this.removeTodo,
+					clearCompleted: this.clearCompleted
 				},
-				'computed': {
-					'left': function computedLeft () {
+				computed: {
+					left: function computedLeft() {
 						return filter.active(this.allTodos).length;
 					},
-					'showClear': function computedShowClear () {
+					showClear: function computedShowClear() {
 						return filter.completed(this.allTodos).length > 0;
 					}
 				},
-				'customs': {
+				customs: {
 					// make edit-input get focus
 					// define custom directive refresh function
-					'focus': function focusEdit (editing) {
+					focus: function focusEdit(editing) {
 						if (editing) {
 							this.el.focus();
 						}
@@ -97,8 +99,8 @@
 
 			data.newTodo = '';
 			data.allTodos.push({
-				'title': todo,
-				'completed': false
+				title: todo,
+				completed: false
 			});
 		},
 
@@ -112,9 +114,8 @@
 
 		/**
 		 * complete edit, event `blur` or press enter
-		 * @param   {Object}  todo
 		 */
-		doneEdit: function (todo) {
+		doneEdit: function () {
 			this.vm.$data.editingTodo = null;
 		},
 
@@ -137,6 +138,10 @@
 		}
 	});
 
-	exports.TodoMVC = TodoMVC;
+	/**
+	 * create todomvc instance.
+	 * @type  {Object}
+	 */
+	exports.todoMVC = Sugar.core.create('todoMVC', TodoMVC);
 
 })(window, Filter, Storage);

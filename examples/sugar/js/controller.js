@@ -1,3 +1,5 @@
+/*global todoMVC, Router */
+
 (function (app, Controller) {
 	/**
 	 * router control for todoMVC.
@@ -20,7 +22,7 @@
 	 * handle for undefined router.
 	 */
 	controller.configure({
-		'notfound': function notfound () {
+		notfound: function notfound() {
 			window.location.hash = '';
 			app.vm.set('type', routers[0]);
 		}

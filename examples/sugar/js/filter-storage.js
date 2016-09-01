@@ -1,6 +1,8 @@
+/*jshint unused:false */
+
 (function (exports) {
 	/**
-	 * data filter, change by router type
+	 * Data filter, change by router type
 	 * @type  {Object}
 	 */
 	exports.Filter = {
@@ -20,15 +22,16 @@
 	}
 
 	/**
-	 * todos localStorage
+	 * Todos localStorage
 	 * @type  {Object}
 	 */
+	var todoKey = 'sugar-todos';
 	exports.Storage = {
 		save: function (todos) {
-			localStorage.setItem('TODOS', JSON.stringify(todos));
+			localStorage.setItem(todoKey, JSON.stringify(todos));
 		},
 		getAll: function () {
-			return JSON.parse(localStorage.getItem('TODOS') || '[]');
+			return JSON.parse(localStorage.getItem(todoKey) || '[]');
 		}
 	}
 

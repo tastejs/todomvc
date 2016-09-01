@@ -7,7 +7,9 @@
 	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	<style type="text/css">
-	[v-cloak] {display: none;}
+	[v-cloak] {
+		display: none;
+	}
 	</style>
 </head>
 <body>
@@ -28,7 +30,7 @@
 						<label v-on:dblclick="editTodo(todo, $event)">{{ todo.title }}</label>
 						<button class="destroy" v-on:click="removeTodo(todo)"></button>
 					</div>
-					<input type="text" class="edit" v-model="todo.title" v-custom:focus="todo === editingTodo" lazy v-on="{blur: doneEdit(todo), keyup.13: doneEdit(todo)}">
+					<input type="text" class="edit" v-model="todo.title" v-custom:focus="todo === editingTodo" lazy v-on="{blur: doneEdit, keyup.13: doneEdit}">
 				</li>
 			</ul>
 		</section>
@@ -62,13 +64,6 @@
 	<script type="text/javascript" src="node_modules/sugar-js/dist/sugar.min.js"></script>
 	<script type="text/javascript" src="js/filter-storage.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
-	<script type="text/javascript">
-	/**
-	 * Generate todomvc instance.
-	 * @type  {Object}
-	 */
-	this.todoMVC = Sugar.core.create('todoMVC', TodoMVC);
-	</script>
 	<!-- Implement routing -->
 	<script type="text/javascript" src="node_modules/director/build/director.min.js"></script>
 	<script type="text/javascript" src="js/controller.js"></script>
