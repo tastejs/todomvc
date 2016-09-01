@@ -25,6 +25,10 @@ Consists of two independent parts: **`sugar`** ( *support component system* ) an
 * Browser support: does not support IE8 and below
 
 
+## Repo name explanation
+
+I create my repository and named `sugar` for some time before I knew there was a famous JavaScript library also named `sugar`. Named this repository as `sugar` has a special meaning for me, so I decide keep this name. This repository still in improvement and maintenance, it can handle most of the development needs.
+
 ## Author
 
 This app is created by [TANG](https://github.com/tangbc), template thanks to [todomvc-app-template](https://github.com/tastejs/todomvc-app-template)
