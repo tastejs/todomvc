@@ -1,0 +1,73 @@
+{
+  "name": "todomvc-app-css",
+  "style": "index.css",
+  "version": "2.0.6",
+  "description": "CSS for TodoMVC apps",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tastejs/todomvc-app-css.git"
+  },
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "files": [
+    "index.css"
+  ],
+  "keywords": [
+    "todomvc",
+    "tastejs",
+    "app",
+    "todo",
+    "template",
+    "css",
+    "style",
+    "stylesheet"
+  ],
+  "gitHead": "715d629d85cf1e02de097971256e0cce63360799",
+  "bugs": {
+    "url": "https://github.com/tastejs/todomvc-app-css/issues"
+  },
+  "homepage": "https://github.com/tastejs/todomvc-app-css#readme",
+  "_id": "todomvc-app-css@2.0.6",
+  "scripts": {},
+  "_shasum": "0b3667c5e189f1568d9a9bf7947ebd928406961d",
+  "_from": "todomvc-app-css@>=2.0.0 <3.0.0",
+  "_npmVersion": "2.15.0",
+  "_nodeVersion": "4.4.2",
+  "_npmUser": {
+    "name": "sindresorhus",
+    "email": "sindresorhus@gmail.com"
+  },
+  "dist": {
+    "shasum": "0b3667c5e189f1568d9a9bf7947ebd928406961d",
+    "tarball": "https://registry.npmjs.org/todomvc-app-css/-/todomvc-app-css-2.0.6.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    },
+    {
+      "name": "addyosmani",
+      "email": "addyosmani@gmail.com"
+    },
+    {
+      "name": "passy",
+      "email": "phartig@rdrei.net"
+    },
+    {
+      "name": "stephenplusplus",
+      "email": "sawchuk@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/todomvc-app-css-2.0.6.tgz_1463394440686_0.7055042502470315"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/todomvc-app-css/-/todomvc-app-css-2.0.6.tgz",
+  "readme": "ERROR: No README data found!"
+}
