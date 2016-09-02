@@ -1,5 +1,5 @@
 ## sugar
-
+[![NPM version](https://img.shields.io/npm/v/sugar-js.svg?style=flat)](https://npmjs.com/package/sugar-js)
 [![Travis CI Status](https://travis-ci.org/tangbc/sugar.svg?branch=master)](https://travis-ci.org/tangbc/sugar)
 [![codecov](https://codecov.io/gh/tangbc/sugar/branch/master/graph/badge.svg)](https://codecov.io/gh/tangbc/sugar)
 
