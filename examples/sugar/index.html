@@ -27,10 +27,14 @@
 				<li v-for="todo of todos" v-bind:class="{completed: todo.completed, editing: todo === editingTodo}">
 					<div class="view">
 						<input class="toggle" type="checkbox" v-model="todo.completed">
-						<label v-on:dblclick="editTodo(todo, $event)">{{ todo.title }}</label>
+						<label v-on:dblclick="editTodo(todo)">{{ todo.title }}</label>
 						<button class="destroy" v-on:click="removeTodo(todo)"></button>
 					</div>
-					<input type="text" class="edit" v-model="todo.title" v-custom:focus="todo === editingTodo" lazy v-on="{blur: doneEdit, keyup.13: doneEdit}">
+					<input type="text" class="edit"
+						v-model="todo.title"
+						v-custom:focus="todo === editingTodo"
+						v-on="{blur: doneEdit(todo), keyup.13: doneEdit(todo), keyup.27: cancelEdit(todo)}"
+					>
 				</li>
 			</ul>
 		</section>
