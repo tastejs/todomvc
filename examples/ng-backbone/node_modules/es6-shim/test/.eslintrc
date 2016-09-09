@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "array-callback-return": 0,
+    "max-statements-per-line": [2, { "max": 2 }]
+  }
+}

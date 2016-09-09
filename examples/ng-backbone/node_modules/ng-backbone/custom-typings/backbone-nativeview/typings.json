@@ -1,0 +1,8 @@
+{
+  "name": "backbone-nativeview",
+  "main": "backbone-nativeview.d.ts",
+  "homepage": "https://github.com/dsheiko/ng-backbone",
+  "dependencies": {
+  },
+  "version": "0.0.1"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "backbone",
+  "main": "backbone-global.d.ts",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/",
+  "dependencies": {
+  },
+  "version": "1.3.3"
+}

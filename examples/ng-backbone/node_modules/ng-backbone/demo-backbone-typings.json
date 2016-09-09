@@ -1,0 +1,11 @@
+{
+  "globalDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "underscore": "registry:dt/underscore#1.7.0+20160720002543",
+    "node": "registry:dt/node#6.0.0+20160802155038",
+    "backbone": "github:dsheiko/ng-backbone/custom-typings/backbone/typings.json",
+    "backbone-nativeview": "github:dsheiko/ng-backbone/custom-typings/backbone-nativeview/typings.json",
+    "ng-backbone": "github:dsheiko/ng-backbone/custom-typings/ng-backbone/typings.json"
+  }
+}

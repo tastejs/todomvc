@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-framework="ng-backbone">
+	<head>
+		<meta charset="utf-8">
+		<title>ngBackbone • TodoMVC</title>
+		<link rel="stylesheet" href="./node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="./node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<todo-app></todo-app>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>
+				Created by <a href="https://github.com/dsheiko">Dmitry Sheiko</a>
+				using <a href="https://dsheiko.github.io/ng-backbone/">ngBackbone</a>
+			</p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+
+  <!-- ES6 shim -->
+  <script type="text/javascript" src="./node_modules/es6-shim/es6-shim.min.js"></script>
+
+  <!-- Backbone  -->
+  <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="./node_modules/underscore/underscore.js"></script>
+  <script type="text/javascript" src="./node_modules/backbone/backbone.js"></script>
+
+
+  <!-- Backbone.localStorage  -->
+  <script type="text/javascript" src="./node_modules/backbone.localstorage/backbone.localStorage.js"></script>
+
+  <!-- Module loader -->
+  <script type="text/javascript" src="./node_modules/systemjs/dist/system.src.js"></script>
+
+
+		<script>
+			System.config({
+        paths: {
+          "*": "node_modules/*"
+        },
+        packageConfigPaths: [ "./node_modules/*/package.json" ],
+				packages: {
+					'.': {
+						format: 'cjs',
+						defaultExtension: 'js'
+					}
+				}
+			});
+			System.import('./build/bootstrap');
+		</script>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+spec/
+examples/
+Makefile
+bower.json
+component.json
+CNAME

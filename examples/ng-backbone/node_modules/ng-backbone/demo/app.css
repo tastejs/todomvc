@@ -1,0 +1,10 @@
+.table {
+  margin-top: 32px;
+  font-size: 18px;
+}
+.table th:hover {
+  background: #EEE;
+}
+.is-inactive {
+  opacity: 0.2;
+}
