@@ -1,6 +1,6 @@
 # Vanilla ES6 (ES2015) • [TodoMVC](http://todomvc.com)
 
-> An exact port of the [Vanilla JS Example](http://todomvc.com/examples/vanillajs/), but translated into ES6, also known as ES2015.
+> A port of the [Vanilla JS Example](http://todomvc.com/examples/vanillajs/), but translated into ES6, also known as ES2015.
 
 ## Learning ES6
 
@@ -34,9 +34,10 @@ npm run compile
 
 ## Implementation
 
-Uses [Babel JS](https://babeljs.io/) to compile ES6 code to ES5, which is then readable by all browsers.
+Uses [Google Closure Compiler](https://developers.google.com/closure/compiler/) to compile ES6 code to ES5, which is then readable by all browsers.
 
 
 ## Credit
 
 Created by [Luke Edwards](http://www.lukeed.com)
+Refactored by [Aaron Muir Hamilton](https://github.com/xorgy)
