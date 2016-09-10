@@ -5,7 +5,7 @@ var TodoMVC = TodoMVC || {};
 (function () {
 	'use strict';
 
-	var TodoApp = Backbone.Marionette.Application.extend({
+	var TodoApp = Mn.Application.extend({
 		setRootLayout: function () {
 			this.root = new TodoMVC.RootLayout();
 		}

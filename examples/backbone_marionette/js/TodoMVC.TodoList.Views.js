@@ -12,7 +12,7 @@ var TodoMVC = TodoMVC || {};
 	//
 	// Display an individual todo item, and respond to changes
 	// that are made to the item, including marking completed.
-	TodoMVC.TodoView = Backbone.Marionette.ItemView.extend({
+	TodoMVC.TodoView = Mn.View.extend({
 
 		tagName: 'li',
 
@@ -81,18 +81,38 @@ var TodoMVC = TodoMVC || {};
 		}
 	});
 
-	// Item List View
+	// Item List View Body
 	// --------------
 	//
 	// Controls the rendering of the list of items, including the
-	// filtering of activs vs completed items for display.
-	TodoMVC.ListView = Backbone.Marionette.CompositeView.extend({
+	// filtering of items for display.
+	TodoMVC.ListViewBody = Mn.CollectionView.extend({
+		tagName: 'ul',
 
-		template: '#template-todoListCompositeView',
+		id: 'todo-list',
 
 		childView: TodoMVC.TodoView,
 
-		childViewContainer: '#todo-list',
+		filter: function (child) {
+			var filteredOn = filterChannel.request('filterState').get('filter');
+			return child.matchesFilter(filteredOn);
+		}
+	});
+
+	// Item List View
+	// --------------
+	//
+	// Manages List View
+	TodoMVC.ListView = Mn.View.extend({
+
+		template: '#template-todoListView',
+
+		regions: {
+			listBody: {
+				el: 'ul',
+				replaceElement: true
+			}
+		},
 
 		ui: {
 			toggle: '#toggle-all'
@@ -111,11 +131,6 @@ var TodoMVC = TodoMVC || {};
 			this.listenTo(filterChannel.request('filterState'), 'change:filter', this.render, this);
 		},
 
-		filter: function (child) {
-			var filteredOn = filterChannel.request('filterState').get('filter');
-			return child.matchesFilter(filteredOn);
-		},
-
 		setCheckAllState: function () {
 			function reduceCompleted(left, right) {
 				return left && right.get('completed');
@@ -132,6 +147,12 @@ var TodoMVC = TodoMVC || {};
 			this.collection.each(function (todo) {
 				todo.save({ completed: isChecked });
 			});
+		},
+
+		onRender: function () {
+			this.showChildView('listBody', new TodoMVC.ListViewBody({
+				collection: this.collection
+			}));
 		}
 	});
 })();

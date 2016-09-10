@@ -12,7 +12,7 @@ var TodoMVC = TodoMVC || {};
 	//
 	// Handles a single dynamic route to show
 	// the active vs complete todo items
-	TodoMVC.Router = Backbone.Marionette.AppRouter.extend({
+	TodoMVC.Router = Mn.AppRouter.extend({
 		appRoutes: {
 			'*filter': 'filterItems'
 		}
@@ -23,7 +23,7 @@ var TodoMVC = TodoMVC || {};
 	//
 	// Control the workflow and logic that exists at the application
 	// level, above the implementation detail of views and models
-	TodoMVC.Controller = Backbone.Marionette.Object.extend({
+	TodoMVC.Controller = Mn.Object.extend({
 
 		initialize: function () {
 			this.todoList = new TodoMVC.TodoList();
