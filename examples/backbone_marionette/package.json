@@ -1,10 +1,10 @@
 {
   "private": true,
   "dependencies": {
-    "backbone": "^1.1.2",
+    "backbone": "^1.3.3",
     "backbone.localstorage": "^1.1.6",
-    "backbone.marionette": "^2.4.1",
-    "backbone.radio": "^1.0.1",
+    "backbone.marionette": "^3.0.0",
+    "backbone.radio": "^2.0.0",
     "jquery": "^1.11.2",
     "todomvc-app-css": "^1.0.1",
     "todomvc-common": "^1.0.1",
