@@ -10,9 +10,6 @@
 			"name": "Require.js & AngularJS",
 			"url": "examples/angularjs_require"
 		}, {
-			"name": "AngularJS Optimized",
-			"url": "examples/angularjs-perf"
-		}, {
 			"name": "TypeScript & AngularJS",
 			"url": "examples/typescript-angular"
 		}, {
