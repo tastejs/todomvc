@@ -38,6 +38,8 @@
 		"examples/ember-cli/todomvc/dist/**/*.js",
 		"examples/ember-cli/todomvc/testem.js",
 		"examples/ember-cli/assets/**/*.js",
+		"examples/elm/build/elm.js",
+		"examples/elm/elm-stuff/**",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
 		"examples/polymer/elements/elements.build.js",
