@@ -42,6 +42,7 @@
 		"examples/elm/elm-stuff/**",
 		"examples/humble/js/**",
 		"examples/js_of_ocaml/js/*.js",
+		"examples/olives/olives-todo.js",
 		"examples/polymer/elements/elements.build.js",
 		"examples/spine/js/**",
 		"examples/thorax/js/lib/backbone-localstorage.js",

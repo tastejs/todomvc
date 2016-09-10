@@ -2,7 +2,9 @@
 var OObject = require('olives').OObject;
 var EventPlugin = require('olives')['Event.plugin'];
 var BindPlugin = require('olives')['Bind.plugin'];
-var Tools = require('../lib/Tools');
+var tools = require('../lib/tools');
+var router = require('../lib/router');
+var RouterPlugin = require('../lib/RouterPlugin');
 
 module.exports = function controlsInit(view, model, stats) {
 	// The OObject (the controller) inits with a default model which is a simple store
@@ -10,7 +12,7 @@ module.exports = function controlsInit(view, model, stats) {
 	var controls = new OObject(model);
 
 	// A function to get the completed tasks
-	var getCompleted = function () {
+	function getCompleted() {
 		var completed = [];
 		model.loop(function (value, id) {
 			if (value.completed) {
@@ -18,23 +20,24 @@ module.exports = function controlsInit(view, model, stats) {
 			}
 		});
 		return completed;
-	};
+	}
 
 	// Update all stats
-	var updateStats = function () {
+	function updateStats() {
 		var nbCompleted = getCompleted().length;
 
 		stats.set('nbItems', model.count());
 		stats.set('nbLeft', stats.get('nbItems') - nbCompleted);
 		stats.set('nbCompleted', nbCompleted);
 		stats.set('plural', stats.get('nbLeft') === 1 ? 'item' : 'items');
-	};
+	}
 
 	// Add plugins to the UI.
 	controls.seam.addAll({
 		event: new EventPlugin(controls),
+		router: new RouterPlugin(router),
 		stats: new BindPlugin(stats, {
-			toggleClass: Tools.toggleClass
+			toggleClass: tools.toggleClass
 		})
 	});
 
@@ -42,7 +45,7 @@ module.exports = function controlsInit(view, model, stats) {
 	controls.alive(view);
 
 	// Delete all tasks
-	controls.delAll = function () {
+	controls.delAll = function delAll() {
 		model.delAll(getCompleted());
 	};
 
