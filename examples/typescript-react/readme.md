@@ -24,7 +24,7 @@ Here are some links you may find helpful:
 Articles and guides from the community:
 
 * [Thoughts on TypeScript](http://www.nczonline.net/blog/2012/10/04/thoughts-on-typescript)
-* [ScreenCast - Why I Like TypeScript](http://www.leebrimelow.com/why-i-like-typescripts)
+* [ScreenCast - Why I Like TypeScript](https://www.youtube.com/watch?v=Mh5VQVfWTbs)
 
 Get help from other TypeScript users:
 
