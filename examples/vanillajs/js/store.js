@@ -92,7 +92,7 @@
 			}
 
 			localStorage[this._dbName] = JSON.stringify(data);
-			callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+			callback.call(this, todos);
 		} else {
 			// Generate an ID
 			updateData.id = new Date().getTime();
@@ -121,7 +121,7 @@
 		}
 
 		localStorage[this._dbName] = JSON.stringify(data);
-		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+		callback.call(this, todos);
 	};
 
 	/**
@@ -130,8 +130,9 @@
 	 * @param {function} callback The callback to fire after dropping the data
 	 */
 	Store.prototype.drop = function (callback) {
-		localStorage[this._dbName] = JSON.stringify({todos: []});
-		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+		var data = {todos: []};
+		localStorage[this._dbName] = JSON.stringify(data);
+		callback.call(this, data.todos);
 	};
 
 	// Export to window

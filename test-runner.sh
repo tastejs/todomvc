@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o pipefail
-
+set -e
 
 get_changes ()
 {
@@ -9,20 +9,17 @@ get_changes ()
 	git diff HEAD origin/master --name-only |  awk 'BEGIN {FS = "/"}; {print $1 "/" $2 "/" $3}' | grep -v \/\/ | grep examples | awk -F '[/]' '{print "--framework=" $2}'|uniq
 }
 
-npm i -g gulp
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
-	gulp
+	npm run gulp
 	git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
 	cd site
-	if git checkout gh-pages; then git checkout -b gh-pages; fi
 	git rm -r .
-	cp -R ../dist/* .
-	cp ../dist/.* .
+	cp -R ../dist/. .
 	git add -f .
 	git config user.email 'travis@rdrei.net'
 	git config user.name 'TasteBot'
-	git commit -am 'update the build files for gh-pages [ci skip]'
+	git commit --allow-empty -am 'update the build files for gh-pages [ci skip]'
 	# Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
 	git push https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} HEAD:gh-pages > /dev/null 2>&1
 else
@@ -30,15 +27,15 @@ else
 
 	if [ "${#changes}" = 0 ]
 	then
-		exit 0
-	else
-		cd tooling && \
-		echo $changes | xargs ./run.sh && \
-		cd ../tests && \
-		(gulp test-server &) && \
-		sleep 2 && \
-		echo $changes | xargs ./run.sh
+		changes="--framework=backbone"
 	fi
+
+	npm run test-server && \
+	cd tooling && \
+	echo $changes | xargs ./run.sh && \
+	cd ../tests && \
+	sleep 2 && \
+	echo $changes | xargs ./run.sh
 
 	exit $?
 fi

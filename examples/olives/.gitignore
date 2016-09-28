@@ -1,3 +1,6 @@
+node_modules/**
+**/.idea/
+
 node_modules/todomvc-app-css/*
 !node_modules/todomvc-app-css/index.css
 

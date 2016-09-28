@@ -7,6 +7,7 @@ Application['todomvc'] = (function() {
   /* router : todomvc */
 module.name = "todomvc";
 module.routes = {"":"setFilter",":filter":"setFilter"};
+/*global Thorax */
 (function () {
 	'use strict';
 
@@ -46,6 +47,7 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 }());
 
 ;;
+/*global Thorax, Store */
 (function () {
 	'use strict';
 
@@ -91,6 +93,8 @@ module.routes = {"":"setFilter",":filter":"setFilter"};
 }());
 
 ;;
+/*global Thorax, $, ENTER_KEY, ESCAPE_KEY */
+
 $(function () {
 	'use strict';
 
@@ -111,7 +115,7 @@ $(function () {
 			'click .toggle':	'toggleCompleted',
 			'dblclick label':	'edit',
 			'click .destroy':	'clear',
-			'keypress .edit':	'updateOnEnter',
+			'keyup .edit':		'keyListener',
 			'blur .edit':		'close',
 			// The "rendered" event is triggered by Thorax each time render()
 			// is called and the result of the template has been appended
@@ -129,11 +133,16 @@ $(function () {
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function () {
 			this.$el.addClass('editing');
-			this.$('.edit').focus();
+			this.$('.edit').val(this.model.get('title')).focus();
 		},
 
-		// Close the `"editing"` mode, saving changes to the todo.
+		// Close the `"editing"` mode.
 		close: function () {
+			// If editing was cancelled, don't save
+			if (!this.$el.hasClass('editing')) {
+				return;
+			}
+
 			var value = this.$('.edit').val().trim();
 
 			if (value) {
@@ -145,10 +154,17 @@ $(function () {
 			this.$el.removeClass('editing');
 		},
 
-		// If you hit `enter`, we're through editing the item.
-		updateOnEnter: function (e) {
+		// User cancelled editing, don't update the todo.
+		cancelEdits: function () {
+			this.$el.removeClass('editing');
+		},
+
+		// Enter completes the editing, Escape cancels it
+		keyListener: function (e) {
 			if (e.which === ENTER_KEY) {
 				this.close();
+			} else if (e.which === ESCAPE_KEY) {
+				this.cancelEdits();
 			}
 		},
 
@@ -160,7 +176,9 @@ $(function () {
 });
 
 ;;
-Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-count\"><strong>{{remaining}}</strong> {{itemText}} left</span>\n<ul id=\"filters\">\n  <li>\n    {{#link \"/\" class=\"selected\"}}All{{/link}}\n  </li>\n  <li>\n    {{#link \"/active\"}}Active{{/link}}\n  </li>\n  <li>\n    {{#link \"/completed\"}}Completed{{/link}}\n  </li>\n</ul>\n{{#if completed}}\n  <button id=\"clear-completed\">Clear completed</button>\n{{/if}}\n');Thorax.View.extend({
+Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-count\"><strong>{{remaining}}</strong> {{itemText}} left</span>\n<ul id=\"filters\">\n  <li>\n    {{#link \"/\" class=\"selected\"}}All{{/link}}\n  </li>\n  <li>\n    {{#link \"/active\"}}Active{{/link}}\n  </li>\n  <li>\n    {{#link \"/completed\"}}Completed{{/link}}\n  </li>\n</ul>\n{{#if completed}}\n  <button id=\"clear-completed\">Clear completed</button>\n{{/if}}\n');/*global Thorax, _ */
+
+Thorax.View.extend({
 	name: 'stats',
 
 	events: {
@@ -172,6 +190,7 @@ Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-co
 	},
 
 	initialize: function () {
+		'use strict';
 		// Whenever the Todos collection changes re-render the stats
 		// render() needs to be called with no arguments, otherwise calling
 		// it with arguments will insert the arguments as content
@@ -182,6 +201,7 @@ Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-co
 
 	// Clear all completed todo items, destroying their models.
 	clearCompleted: function () {
+		'use strict';
 		_.each(window.app.Todos.completed(), function (todo) {
 			todo.destroy();
 		});
@@ -193,6 +213,7 @@ Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-co
 	// be called to generate the context / scope that the template
 	// will be called with. "context" defaults to "return this"
 	context: function () {
+		'use strict';
 		var remaining = window.app.Todos.remaining().length;
 		return {
 			itemText: remaining === 1 ? 'item' : 'items',
@@ -203,15 +224,18 @@ Thorax.templates['src/templates/stats'] = Handlebars.compile('<span id=\"todo-co
 
 	// Highlight which filter will appear to be active
 	highlightFilter: function () {
+		'use strict';
 		this.$('#filters li a')
-		.removeClass('selected')
-		.filter('[href="#/' + (window.app.TodoFilter || '') + '"]')
-		.addClass('selected');
+			.removeClass('selected')
+			.filter('[href="#/' + (window.app.TodoFilter || '') + '"]')
+			.addClass('selected');
 	}
 });
 
 ;;
-Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoapp\">\n  <header id=\"header\">\n    <h1>todos</h1>\n    <input id=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  {{^empty collection}}\n    <section id=\"main\">\n      <input id=\"toggle-all\" type=\"checkbox\">\n      <label for=\"toggle-all\">Mark all as complete</label>\n      {{#collection item-view=\"todo-item\" tag=\"ul\" id=\"todo-list\"}}\n        <div class=\"view\">\n          <input class=\"toggle\" type=\"checkbox\" {{#if completed}}checked=\"checked\"{{/if}}>\n          <label>{{title}}</label>\n          <button class=\"destroy\"></button>\n        </div>\n        <input class=\"edit\" value=\"{{title}}\">\n      {{/collection}}\n    </section>\n    {{view \"stats\" tag=\"footer\" id=\"footer\"}}\n  {{/empty}}\n</section>\n<div id=\"info\">\n  <p>Double-click to edit a todo</p>\n  <p>Written by <a href=\"https://github.com/addyosmani\">Addy Osmani</a> &amp; <a href=\"https://github.com/eastridge\">Ryan Eastridge</a></p>\n  <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</div>\n');$(function ($) {
+Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoapp\">\n  <header id=\"header\">\n    <h1>todos</h1>\n    <input id=\"new-todo\" placeholder=\"What needs to be done?\" autofocus>\n  </header>\n  {{^empty collection}}\n    <section id=\"main\">\n      <input id=\"toggle-all\" type=\"checkbox\">\n      <label for=\"toggle-all\">Mark all as complete</label>\n      {{#collection item-view=\"todo-item\" tag=\"ul\" id=\"todo-list\"}}\n        <div class=\"view\">\n          <input class=\"toggle\" type=\"checkbox\" {{#if completed}}checked=\"checked\"{{/if}}>\n          <label>{{title}}</label>\n          <button class=\"destroy\"></button>\n        </div>\n        <input class=\"edit\" value=\"{{title}}\">\n      {{/collection}}\n    </section>\n    {{view \"stats\" tag=\"footer\" id=\"footer\"}}\n  {{/empty}}\n</section>\n<div id=\"info\">\n  <p>Double-click to edit a todo</p>\n  <p>Written by <a href=\"https://github.com/addyosmani\">Addy Osmani</a> &amp; <a href=\"https://github.com/eastridge\">Ryan Eastridge</a></p>\n  <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n</div>\n');/*global Thorax, $, ENTER_KEY */
+
+$(function () {
 	'use strict';
 
 	// The Application
@@ -281,6 +305,8 @@ Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoap
 });
 
 ;;
+/*global Thorax */
+
 (function () {
 	'use strict';
 
@@ -300,14 +326,18 @@ Thorax.templates['src/templates/app'] = Handlebars.compile('<section id=\"todoap
 			// force the collection to re-filter
 			window.app.Todos.trigger('filter');
 		}
-	}));
+	}))();
 
 }());
 
 ;;
+/*global Thorax, $ */
+/*jshint unused:false*/
 var ENTER_KEY = 13;
+var ESCAPE_KEY = 27;
 
 $(function () {
+	'use strict';
 	// Kick things off by creating the **App**.
 	var view = new Thorax.Views.app({
 		collection: window.app.Todos

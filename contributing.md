@@ -1,8 +1,8 @@
 # Contribute
 
-We're happy to accept contributions in the form of new apps, bug fixes, issues and so on. If you want to help out, add a comment on the issue you want to work on and hack away!
+We're happy to accept contributions in the form of new apps, bug fixes, issues and so on. If you want to help out, add a comment on the issue you want to work on and hack away! Before starting work on an app intended for submission, please open an issue to discuss it with the team. This will allow us to review the framework being used to determine if a spec-compatible app is likely to be accepted.
 
-Note: Before starting work on an app intended for submission, please open an issue to discuss it with the team. This will allow us to review the framework being used to determine if a spec-compatible app is likely to be accepted.
+Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms.
 
 
 ## Considerations before submitting a new app

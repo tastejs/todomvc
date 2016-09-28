@@ -7,11 +7,8 @@
 			"name": "Example",
 			"url": "examples/angularjs"
 		}, {
-			"name": "Example",
+			"name": "Require.js & AngularJS",
 			"url": "examples/angularjs_require"
-		}, {
-			"name": "AngularJS Optimized",
-			"url": "examples/angularjs-perf"
 		}, {
 			"name": "TypeScript & AngularJS",
 			"url": "examples/typescript-angular"
@@ -245,7 +242,7 @@
 			"name": "Example",
 			"url": "examples/backbone"
 		}, {
-			"name": "Example",
+			"name": "Require.js & Backbone.js",
 			"url": "examples/backbone_require"
 		}, {
 			"name": "Enyo & Backbone.js",
@@ -365,7 +362,7 @@
 			"name": "Example",
 			"url": "examples/canjs"
 		}, {
-			"name": "Example",
+			"name": "Require.js & CanJS",
 			"url": "examples/canjs_require"
 		}],
 		"link_groups": [{
@@ -806,7 +803,7 @@
 			"name": "Example",
 			"url": "examples/emberjs"
 		}, {
-			"name": "Example",
+			"name": "Require.js & Ember.js",
 			"url": "examples/emberjs_require"
 		}],
 		"link_groups": [{
@@ -1121,6 +1118,15 @@
 		"examples": [{
 			"name": "Vanilla JavaScript Example",
 			"url": "examples/vanillajs"
+		}]
+	},
+  	"es6": {
+		"name": "ECMAScript 6",
+		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
+		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
+		"examples": [{
+			"name": "Vanilla ES6 Example",
+			"url": "examples/vanilla-es6"
 		}]
 	},
 	"js_of_ocaml": {
@@ -1912,6 +1918,38 @@
 			}]
 		}]
 	},
+	"binding-scala": {
+		"name": "Binding.scala",
+		"description": "Binding.scala is a Reactive Web Frameworks that helps you create complicated interactive web pages with very simple code base. <br/>This Binding.scala's TodoMVC application has the least code size among all the TodoMVC implementations, only one source file, 154 lines of code!",
+		"homepage": "github.com/ThoughtWorksInc/Binding.scala",
+		"examples": [{
+			"type": "backend",
+			"name": "This TodoMVC application",
+			"url": "examples/binding-scala",
+			"source_url": "https://github.com/ThoughtWorksInc/todo"
+		}, {
+			"type": "backend",
+			"name": "Other live DEMOs",
+			"url": "https://thoughtworksinc.github.io/Binding.scala/",
+			"source_url": "https://github.com/ThoughtWorksInc/Binding.scala-website"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Project Page",
+				"url": "https://github.com/ThoughtWorksInc/Binding.scala"
+			}, {
+				"name": "API documentation",
+				"url": "https://oss.sonatype.org/service/local/repositories/releases/archive/com/thoughtworks/binding/unidoc_2.11/8.0.0/unidoc_2.11-8.0.0-javadoc.jar/!/com/thoughtworks/binding/package.html"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Binding.scala on Gitter",
+				"url": "https://gitter.im/ThoughtWorksInc/Binding.scala"
+			}]
+		}]
+	},
 	"serenadejs": {
 		"name": "Serenade.js",
 		"description": "Serenade.js is a client side framework built on the MVC pattern. It makes it simple to create rich client side applications by freeing you from having to keep the DOM up to date with your data through powerful data bindings.",
@@ -1983,7 +2021,7 @@
 			"name": "Example",
 			"url": "examples/somajs"
 		}, {
-			"name": "Example",
+			"name": "Require.js & soma.js",
 			"url": "examples/somajs_require"
 		}],
 		"link_groups": [{

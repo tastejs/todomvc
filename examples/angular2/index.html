@@ -5,24 +5,31 @@
 		<title>Angular2 • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-		<script src="node_modules/bower-traceur-runtime/traceur-runtime.js"></script>
-		<script src="node_modules/systemjs/dist/system.js"></script>
-		<script src="node_modules/store.js/store.js"></script>
-		<script src="vendor/angular2.dev.js"></script>
+		<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+		<script src="node_modules/systemjs/dist/system.src.js"></script>
+		<script src="node_modules/rxjs/bundles/Rx.js"></script>
+		<script src="node_modules/angular2/bundles/angular2.dev.js"></script>
 	</head>
 	<body>
 		<todo-app></todo-app>
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>
-				Created by <a href="http://github.com/samccone">Sam Saccone</a>
+				Created by <a href="http://github.com/samccone">Sam Saccone</a> and <a href="http://github.com/colineberhardt">Colin Eberhardt</a>
 				using <a href="http://angular.io">Angular2</a>
 			</p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
 		<script>
-			System.paths['node-uuid'] = 'node_modules/node-uuid/uuid.js';
-			System.import('app');
+			System.config({
+				packages: {
+					'app': {
+						format: 'cjs',
+						defaultExtension: 'js'
+					}
+				}
+			});
+			System.import('app/bootstrap');
 		</script>
 	</body>
 </html>

@@ -1,3 +1,5 @@
+/*global Thorax */
+
 (function () {
 	'use strict';
 
@@ -17,6 +19,6 @@
 			// force the collection to re-filter
 			window.app.Todos.trigger('filter');
 		}
-	}));
+	}))();
 
 }());

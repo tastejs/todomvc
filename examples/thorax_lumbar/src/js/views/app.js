@@ -1,4 +1,6 @@
-$(function ($) {
+/*global Thorax, $, ENTER_KEY */
+
+$(function () {
 	'use strict';
 
 	// The Application

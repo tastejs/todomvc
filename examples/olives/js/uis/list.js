@@ -2,14 +2,16 @@
 var OObject = require('olives').OObject;
 var EventPlugin = require('olives')['Event.plugin'];
 var BindPlugin = require('olives')['Bind.plugin'];
-var Tools = require('../lib/Tools');
+var tools = require('../lib/tools');
+var router = require('../lib/router');
+var RouterPlugin = require('../lib/routerPlugin');
 
 module.exports = function listInit(view, model, stats) {
 	// The OObject (the controller) initializes with a default model which is a simple store
 	// But it can be initialized with any other store, like the LocalStore
 	var list = new OObject(model);
 	var modelPlugin = new BindPlugin(model, {
-		toggleClass: Tools.toggleClass
+		toggleClass: tools.toggleClass
 	});
 	var ENTER_KEY = 13;
 	var ESC_KEY = 27;
@@ -18,8 +20,9 @@ module.exports = function listInit(view, model, stats) {
 	list.seam.addAll({
 		event: new EventPlugin(list),
 		model: modelPlugin,
+		router: new RouterPlugin(router),
 		stats: new BindPlugin(stats, {
-			toggleClass: Tools.toggleClass,
+			toggleClass: tools.toggleClass,
 			toggleCheck: function (value) {
 				this.checked = model.count() === value ? 'on' : '';
 			}
@@ -41,7 +44,7 @@ module.exports = function listInit(view, model, stats) {
 	};
 
 	// Enter edit mode
-	list.startEdit = function (event, node) {
+	list.startEdit = function startEdit(event, node) {
 		var taskId = modelPlugin.getItemIndex(node);
 
 		toggleEditing(taskId, true);
@@ -49,7 +52,7 @@ module.exports = function listInit(view, model, stats) {
 	};
 
 	// Leave edit mode
-	list.stopEdit = function (event, node) {
+	list.stopEdit = function stopEdit(event, node) {
 		var taskId = modelPlugin.getItemIndex(node);
 		var value;
 
@@ -62,7 +65,8 @@ module.exports = function listInit(view, model, stats) {
 				model.del(taskId);
 			}
 
-			// When task #n is removed, #n+1 becomes #n, the dom node is updated to the new value, so editing mode should exit anyway
+			// When task #n is removed, #n+1 becomes #n, the dom node is updated to the new value,
+			// so editing mode should exit anyway
 			if (model.has(taskId)) {
 				toggleEditing(taskId, false);
 			}
@@ -78,7 +82,7 @@ module.exports = function listInit(view, model, stats) {
 
 	function toggleEditing(taskId, bool) {
 		var li = getElementByModelId('li', taskId);
-		Tools.toggleClass.call(li, bool, 'editing');
+		tools.toggleClass.call(li, bool, 'editing');
 	}
 
 	function getElementByModelId(selector, taskId) {

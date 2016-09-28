@@ -1,28 +1,10 @@
 node_modules/.bin
 
-node_modules/node-uuid
-!node_modules/node-uuid/uuid.js
+# ignore the source / documentation of each node module, but retain the
+# distribution builds
 
-node_modules/store.js
-node_modules/store.js/store.js
-
-node_modules/systemjs/bower.json
-node_modules/systemjs/.npmignore
-node_modules/systemjs/.agignore
-node_modules/systemjs/test
-node_modules/systemjs/package.json
-node_modules/systemjs/LICENSE
-node_modules/systemjs/Makefile
-node_modules/systemjs/README.md
-node_modules/systemjs/lib
-node_modules/systemjs/node_modules
-node_modules/systemjs/dist/
-!node_modules/systemjs/dist/system.js.map
-!node_modules/systemjs/dist/system.js
-!node_modules/systemjs/dist/es6-module-loader.js
-
-node_modules/tsd
-node_modules/typescript
+node_modules/systemjs
+!node_modules/systemjs/dist/system.src.js
 
 node_modules/todomvc-app-css
 !node_modules/todomvc-app-css/index.css
@@ -30,7 +12,16 @@ node_modules/todomvc-app-css
 node_modules/todomvc-common
 !node_modules/todomvc-common/base.css
 
-node_modules/bower-traceur-runtime
-node_modules/bower-traceur-runtime/traceur-runtime.js
+node_modules/angular2
+!node_modules/angular2/bundles/angular2-polyfills.js
+!node_modules/angular2/bundles/angular2.dev.js
 
+node_modules/rxjs
+!node_modules/rxjs/bundles/Rx.js
+
+# Ignore development dependencies
+node_modules/tsd
+node_modules/typescript
+
+*.js.map
 typings
