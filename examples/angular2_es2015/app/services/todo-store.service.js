@@ -1,7 +1,8 @@
-import localStorage from 'localStorage';
+import { Injectable } from '@angular/core';
 
 import { TodoModel } from '../models/todo.model';
 
+@Injectable()
 export class TodoStoreService {
 	todos = [];
 

@@ -1,4 +1,5 @@
 'use strict';
+let webpack = require('webpack');
 
 module.exports = {
 	module: {
@@ -18,5 +19,14 @@ module.exports = {
 		]
 	},
 
-	devtool: false
+	plugins: [
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
+		})
+	],
+
+	devtool: 'source-map'
 };

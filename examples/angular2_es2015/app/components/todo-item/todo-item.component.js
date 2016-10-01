@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 
-import { TrimPipe } from '../../pipes/trim.pipe';
 import template from './todo-item.template.html';
 
 @Component({
 	selector: 'todo-item',
-	template: template,
-	pipes: [TrimPipe]
+	template: template
 })
 export class TodoItemComponent {
 	@Input() todo;

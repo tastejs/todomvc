@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { TodoStoreService } from '../../services/todo-store.service';
 import template from './todo-footer.template.html';
 
 @Component({
 	selector: 'todo-footer',
-	template: template,
-	directives: [ROUTER_DIRECTIVES]
+	template: template
 })
 export class TodoFooterComponent {
 	constructor(todoStore:TodoStoreService, route:ActivatedRoute) {
