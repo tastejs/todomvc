@@ -16,7 +16,7 @@
 			<section id="main" data-stats="bind:toggleClass,nbItems,show">
 				<input id="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list" data-model="foreach">
+				<ul id="todo-list" data-model="foreach" data-router="toggleClassOnRouteChange">
 					<li data-model="bind:toggleClass,completed,completed;">
 						<div class="view">
 							<input class="toggle" type="checkbox" data-model="bind:checked,completed">
@@ -29,6 +29,17 @@
 			</section>
 			<footer id="footer" data-stats="bind:toggleClass,nbItems,show">
 				<span id="todo-count"><strong data-stats="bind:innerHTML,nbLeft">0</strong> <span data-stats="bind:innerHTML,plural"></span> left</span>
+				<ul id="filters">
+				    <li>
+			        	<a data-router="isLinkActive:selected" href="#/">All</a>
+				    </li>
+					<li>
+			        	<a data-router="isLinkActive:selected" href="#/active">Active</a>
+				    </li>
+				    <li>
+			        	<a data-router="isLinkActive:selected" href="#/completed">Completed</a>
+				    </li>
+				</ul>
 				<button id="clear-completed" data-event="listen:click,delAll" data-stats="bind:toggleClass,nbCompleted,show">
 					Clear completed
 				</button>

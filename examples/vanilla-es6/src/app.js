@@ -1,30 +1,19 @@
 import Controller from './controller';
-import * as helpers from './helpers';
+import {$on} from './helpers';
 import Template from './template';
 import Store from './store';
-import Model from './model';
 import View from './view';
 
-const $on = helpers.$on;
-const setView = () => todo.controller.setView(document.location.hash);
+const store = new Store('todos-vanilla-es6');
 
-class Todo {
-	/**
-	 * Init new Todo List
-	 * @param  {string} The name of your list
-	 */
-	constructor(name) {
-		this.storage = new Store(name);
-		this.model = new Model(this.storage);
+const template = new Template();
+const view = new View(template);
 
-		this.template = new Template();
-		this.view = new View(this.template);
+/**
+ * @type {Controller}
+ */
+const controller = new Controller(store, view);
 
-		this.controller = new Controller(this.model, this.view);
-	}
-}
-
-const todo = new Todo('todos-vanillajs');
-
+const setView = () => controller.setView(document.location.hash);
 $on(window, 'load', setView);
 $on(window, 'hashchange', setView);

@@ -1,6 +1,6 @@
 # Elm TodoMVC Example
 
-> A functional reactive language for interactive applications
+> A functional language for interactive applications
 
 > _[Elm](http://elm-lang.org/)_
 
@@ -14,7 +14,7 @@ Here are some links you may find helpful:
 
 * [Try Elm](http://elm-lang.org/try)
 * [Learn Elm](http://elm-lang.org/Learn.elm)
-* [Elm Snippets](http://www.share-elm.com/)
+* [An Introduction to Elm](http://guide.elm-lang.org/)
 
 Get help from other Elm users:
 
@@ -28,25 +28,25 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 ## Project Structure
 
-All of the Elm code lives in `Todo.elm` and `Task.elm` and relies
-on the [elm-html][] library.
+All of the Elm code lives in `Todo.elm` and `Todo/Task.elm` and relies
+on the [elm-html][] and [elm-navigation][] packages.
 
-[elm-html]: http://library.elm-lang.org/catalog/evancz-elm-html/latest
+[elm-html]: http://package.elm-lang.org/packages/elm-lang/html/latest/
+[elm-navigation]: http://package.elm-lang.org/packages/elm-lang/navigation/latest/
 
 There also is a port handler set up in `index.html` to set the focus on
 particular text fields when necessary.
 
 ## Build Instructions
 
-You need to install
-[elm](https://github.com/elm-lang/elm-platform/blob/master/README.md#elm-platform)
+You need to install [elm](http://elm-lang.org/install)
 on your machine first.
 
 Run the following commands from the root of this project:
 
 ```bash
-elm-package install
-elm-make Todo.elm --output build/Todo.js
+elm-package install -y
+elm-make Todo.elm --output build/elm.js
 ```
 
 Then open `index.html` in your browser!
