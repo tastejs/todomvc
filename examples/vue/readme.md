@@ -14,7 +14,6 @@ Here are some links you may find helpful:
 * [Official Guide](http://vuejs.org/guide/)
 * [API Reference](http://vuejs.org/api/)
 * [Examples](http://vuejs.org/examples/)
-* [Building Larger Apps with Vue.js](http://vuejs.org/guide/application.html)
 
 Get help from other Vue.js users:
 
