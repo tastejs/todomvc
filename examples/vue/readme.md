@@ -1,6 +1,6 @@
 # Vue.js TodoMVC Example
 
-> Vue.js is a library for building interactive web interfaces. 
+> Vue.js is a library for building interactive web interfaces.
 It provides data-driven, nestable view components with a simple and flexible API.
 
 > _[Vue.js - vuejs.org](http://vuejs.org)_
@@ -14,6 +14,7 @@ Here are some links you may find helpful:
 * [Official Guide](http://vuejs.org/guide/)
 * [API Reference](http://vuejs.org/api/)
 * [Examples](http://vuejs.org/examples/)
+* [Building Larger Apps with Vue.js](http://v1.vuejs.org/guide/application.html)
 
 Get help from other Vue.js users:
 
