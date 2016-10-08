@@ -9,7 +9,7 @@
 
 ### Articles
 
-- [Angular 2 Beta Announcement](http://angularjs.blogspot.co.uk/2015/12/angular-2-beta.html)
+- [Angular 2.0 Final Release](http://angularjs.blogspot.jp/2016/09/angular2-final.html)
 
 ### Support
 
@@ -22,10 +22,11 @@
 
 ## Implementation
 
-This app was built using TypeScript and Angular 2 beta. To make changes simply
+This app was built using TypeScript and Angular 2 final release. To make changes simply
 
 * `npm i`
-* `npm run dev`
+* `npm run typings -- install`
+* `npm start`
 
 ## Credit
 

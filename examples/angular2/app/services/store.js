@@ -1,3 +1,4 @@
+"use strict";
 var Todo = (function () {
     function Todo(title) {
         this.completed = false;
@@ -15,7 +16,7 @@ var Todo = (function () {
         configurable: true
     });
     return Todo;
-})();
+}());
 exports.Todo = Todo;
 var TodoStore = (function () {
     function TodoStore() {
@@ -63,6 +64,6 @@ var TodoStore = (function () {
         this.updateStore();
     };
     return TodoStore;
-})();
+}());
 exports.TodoStore = TodoStore;
 //# sourceMappingURL=store.js.map

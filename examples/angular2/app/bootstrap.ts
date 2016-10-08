@@ -1,5 +1,5 @@
-import {bootstrap} from 'angular2/platform/browser';
-import TodoApp from './app'
-import {TodoStore} from './services/store';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-bootstrap(TodoApp, [TodoStore]);
+import { AppModule } from './app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
