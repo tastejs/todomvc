@@ -1,0 +1,27 @@
+{
+  "name": "redux-todo-mvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dist": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "node-uuid": "^1.4.7",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "v4.0.0-alpha.4",
+    "redux": "^3.6.0",
+    "todomvc-app-css": "^2.0.6",
+    "todomvc-common": "^1.0.2",
+    "webpack": "^1.13.2"
+  }
+}
