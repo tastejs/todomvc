@@ -50,6 +50,8 @@
 		"examples/typescript-*/js/**/*.js",
 		"examples/vanilladart/**/*.js",
 		"examples/vanilla-es6/dist/bundle.js",
+		"examples/react-redux/js/reducers/*.js",
+		"examples/react-redux/dist/*.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
