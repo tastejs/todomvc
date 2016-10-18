@@ -3,12 +3,15 @@ import Header from '../components/Header';
 import VisibleTodoList from '../containers/VisibleTodoList';
 import Footer from '../containers/Footer';
 
-const App = () => {
+const App = ({ todos }) => {
+	const visibleTodoList = todos.length ? <VisibleTodoList /> : null;
+	const footer = todos.length ? <Footer /> : null;
+
 	return (
 		<div>
 			<Header />
-			<VisibleTodoList />
-			<Footer />
+			{ visibleTodoList }
+			{ footer }
 		</div>
 	)
 }

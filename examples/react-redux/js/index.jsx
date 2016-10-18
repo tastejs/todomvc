@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
-import App from './components/App';
+import { Router, Route, hashHistory } from 'react-router';
+import App from './containers/App';
 import reducer from './reducers';
 import { loadState, saveState } from './storage';
 
@@ -22,7 +22,7 @@ render(
 	<Provider store={store}>
 		{/* Provider passes the store to child elements through React context
 		Router Creates a router with browser history (only modern browsers) */}
-		<Router history={browserHistory}>
+		<Router history={hashHistory}>
 			{/* path matches "/" and passes the filter
 			 string from the url (if there is one) in the
 			 'params' property to our app component */}
