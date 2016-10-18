@@ -18,7 +18,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
-    "react-router": "v4.0.0-alpha.4",
+    "react-router": "v3.0.0-beta.1",
     "redux": "^3.6.0",
     "todomvc-app-css": "^2.0.6",
     "todomvc-common": "^1.0.2",
