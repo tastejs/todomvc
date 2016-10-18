@@ -102,17 +102,20 @@ export default class Todo extends React.Component {
 	}
 
 	submit () {
-		const val = this.state.newText.trim();
-		if (val) {
+		const text = this.state.newText.trim(),
+			{ id } = this.props;
+		if (text) {
 			this.props.actions.editTodo({
-				id: this.props.id,
-				text: val
+				id,
+				text
 			});
-			this.setState({
-				newText: '',
-				editing: false
-			});
+		} else {
+			this.props.actions.removeTodo(id);
 		}
+		this.setState({
+			newText: '',
+			editing: false
+		});
 	}
 
 	handleEditChange (event) {

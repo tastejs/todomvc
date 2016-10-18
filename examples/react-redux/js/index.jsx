@@ -21,7 +21,7 @@ store.subscribe(() => saveState(store.getState()));
 render(
 	<Provider store={store}>
 		{/* Provider passes the store to child elements through React context
-		Router Creates a router with browser history (only modern browsers) */}
+		Router Creates a router with hash history */}
 		<Router history={hashHistory}>
 			{/* path matches "/" and passes the filter
 			 string from the url (if there is one) in the

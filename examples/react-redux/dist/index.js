@@ -73,8 +73,6 @@
 	// Loads the initial state from local storage
 	var initialState = (0, _storage.loadState)();
 	
-	console.log('initialState', initialState);
-	
 	// Creates our store with the './reducers'
 	// reducer and the initial state
 	var store = (0, _redux.createStore)(_reducers2.default, initialState);
@@ -28112,7 +28110,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _reactRedux = __webpack_require__(187);
@@ -28127,7 +28125,7 @@
 	
 	// Passes the state as a 'todos' property
 	var mapStateToProps = function mapStateToProps(state) {
-		return { todos: state };
+	  return { todos: state };
 	};
 	
 	// Exports a wrapped version of the presentational component
@@ -32836,17 +32834,21 @@
 		}, {
 			key: "submit",
 			value: function submit() {
-				var val = this.state.newText.trim();
-				if (val) {
+				var text = this.state.newText.trim();
+				var id = this.props.id;
+	
+				if (text) {
 					this.props.actions.editTodo({
-						id: this.props.id,
-						text: val
+						id: id,
+						text: text
 					});
-					this.setState({
-						newText: '',
-						editing: false
-					});
+				} else {
+					this.props.actions.removeTodo(id);
 				}
+				this.setState({
+					newText: '',
+					editing: false
+				});
 			}
 		}, {
 			key: "handleEditChange",
@@ -32967,7 +32969,7 @@
 					return t.completed;
 				}).length;
 				var activeCount = todos.length - completedCount;
-				var pluralizedItems = 'item' + (activeCount === 1 ? 's' : '');
+				var pluralizedItems = 'item' + (activeCount === 1 ? '' : 's');
 	
 				return _react2.default.createElement(
 					'footer',
@@ -33173,7 +33175,6 @@
 							return (0, _todo2.default)(todoItem, action);
 						})
 					};
-	
 				case actionTypes.REMOVE_TODO:
 					return {
 						v: state.filter(function (todoItem) {
@@ -33247,14 +33248,11 @@
 			case actionTypes.TOGGLE_ALL:
 				return action.toggleTo === state.completed ? state : toggleTodo(state);
 			case actionTypes.EDIT_TODO:
-				if (state.id !== action.id) {
+				if (state.id !== action.todo.id) {
 					return state;
 				}
 	
-				return _extends({}, state, {
-					/* jshint ignore:end */
-					text: action.newText
-				});
+				return _extends({}, state, action.todo);
 			default:
 				return state;
 		}

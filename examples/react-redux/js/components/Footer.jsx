@@ -19,7 +19,7 @@ export default class Footer extends React.Component {
 		const { todos } = this.props,
 			completedCount = todos.filter(t => t.completed).length,
 			activeCount = todos.length - completedCount,
-			pluralizedItems = `item${activeCount === 1 ? 's' : ''}`;
+			pluralizedItems = `item${activeCount === 1 ? '' : 's'}`;
 
 		return (
 			<footer className="footer">

@@ -29,7 +29,7 @@ const todo = (state = {}, action) => {
 		case actionTypes.TOGGLE_ALL:
 			return action.toggleTo === state.completed ? state : toggleTodo(state);
 		case actionTypes.EDIT_TODO:
-			if (state.id !== action.id) {
+			if (state.id !== action.todo.id) {
 				return state;
 			}
 
@@ -37,8 +37,8 @@ const todo = (state = {}, action) => {
 				// Object spread operator is not supported by jshint yet
 				/* jshint ignore:start */
 				...state,
+				...action.todo
 				/* jshint ignore:end */
-				text: action.newText
 			};
 		default:
 			return state;

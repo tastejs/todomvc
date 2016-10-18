@@ -36,7 +36,6 @@ const todos = (state = [], action) => {
 
 		case actionTypes.EDIT_TODO:
 			return state.map(todoItem => todo(todoItem, action));
-
 		case actionTypes.REMOVE_TODO:
 			return state.filter(todoItem => todoItem.id !== action.id);
 
