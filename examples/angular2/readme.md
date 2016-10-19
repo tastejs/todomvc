@@ -25,7 +25,6 @@
 This app was built using TypeScript and Angular 2 final release. To make changes simply
 
 * `npm i`
-* `npm run typings -- install`
 * `npm start`
 
 ## Credit
