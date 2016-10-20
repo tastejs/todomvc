@@ -18,6 +18,7 @@
     "systemjs": "0.19.39",
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
     "zone.js": "^0.6.25",
 
     "todomvc-app-css": "^2.0.0",
