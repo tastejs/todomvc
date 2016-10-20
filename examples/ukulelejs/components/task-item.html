@@ -1,0 +1,68 @@
+<uku-component>
+	<template>
+		<li uku-class="cc.getTaskClassName()">
+			<div class="view">
+				<input class="toggle" type="checkbox" uku-value="cc.task.completed" uku-onchange="cc.toggleTaskStatus()">
+				<label uku-text="cc.task.title" uku-ondblclick="cc.editBegin()"></label>
+				<button class="destroy" uku-onclick="cc.removeTask()"></button>
+			</div>
+			<input class="edit" uku-value="cc.titleBackup" uku-onkeyup="cc.onKeyUp()" uku-onblur="cc.editEnd()">
+		</li>
+	</template>
+	<script>
+        (function(){
+            return function(uku){
+                var cancelEdit = false;
+                this.task = {};
+                this.editing = false;
+                this.getTaskClassName = function(){
+                    if(this.editing){
+                        return ["editing"];
+                    }else if(this.task && this.task.completed){
+                        return ["completed"];
+                    }else{
+                        return "";
+                    }
+                };
+                this.editBegin = function(){
+                    this.editing = true;
+                    cancelEdit = false;
+                    this.titleBackup = this.task.title;
+                };
+                
+                this.onKeyUp = function(event){
+                    var code = event.keyCode;
+                    if(code === 13){
+                        this.editEnd();
+                    }else if (code === 27) {
+                        cancelEdit = true;
+                        this.editing = false;
+                    }
+                };
+
+                this.editEnd = function(){
+                    if(!cancelEdit){
+                        this.task.title = this.titleBackup;
+                        this.editing = false;
+                    }
+                };
+
+                this.toggleTaskStatus = function(){
+                    this.fire("toggletaskstatus",null,true);
+                };
+
+                this.removeTask = function(){
+                    this.fire("removetask",{message:this.task},true);
+                };
+
+                Object.defineProperty(this, "item", {
+                    set: function (value) {
+                        if(value){
+                            this.task = value;
+                        }
+                    }
+                });
+            };
+        })();
+    </script>
+</uku-component>

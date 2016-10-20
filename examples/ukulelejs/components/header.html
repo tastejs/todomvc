@@ -1,0 +1,24 @@
+<uku-component>
+	<template>
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" placeholder="What needs to be done?" 
+                uku-value="cc.newTask" uku-onkeyup="cc.enterHandler()" autofocus >
+		</header>
+	</template>
+    <script>
+        (function () {
+            return function(uku){
+                this.newTask = "";
+                this.enterHandler = function(event){
+                    if(event.keyCode === 13 && this.newTask) {
+                        var task = this.newTask;
+                        this.fire("newtaskinputed",{message:task});
+                        this.newTask = "";
+                        uku.refresh();          
+                    }
+                };
+            };
+        })();
+    </script>
+</uku-component>
