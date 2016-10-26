@@ -349,8 +349,8 @@
 				"name": "Libraries",
 				"url": "http://elm-lang.org/Libraries.elm"
 			}, {
-				"name": "#elm IRC Channel on Freenode",
-				"url": "http://webchat.freenode.net/?channels=elm"
+				"name": "Elm Slack Channel",
+				"url": "http://elmlang.herokuapp.com/"
 			}]
 		}]
 	},
