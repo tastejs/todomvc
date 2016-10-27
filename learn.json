@@ -340,8 +340,11 @@
 				"name": "Project Site",
 				"url": "http://elm-lang.org/"
 			}, {
-				"name": "Guides",
+				"name": "Documentation",
 				"url": "http://elm-lang.org/docs"
+			}, {
+				"name": "An Introduction to Elm",
+				"url": "https://guide.elm-lang.org/"
 			}, {
 				"name": "Syntax Reference",
 				"url": "http://elm-lang.org/docs/syntax"
