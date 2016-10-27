@@ -341,13 +341,13 @@
 				"url": "http://elm-lang.org/"
 			}, {
 				"name": "Guides",
-				"url": "http://elm-lang.org/Learn.elm"
+				"url": "http://elm-lang.org/docs"
 			}, {
 				"name": "Syntax Reference",
-				"url": "http://elm-lang.org/learn/Syntax.elm"
+				"url": "http://elm-lang.org/docs/syntax"
 			}, {
 				"name": "Libraries",
-				"url": "http://elm-lang.org/Libraries.elm"
+				"url": "http://package.elm-lang.org/"
 			}, {
 				"name": "#elm IRC Channel on Freenode",
 				"url": "http://webchat.freenode.net/?channels=elm"
