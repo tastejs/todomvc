@@ -43,7 +43,7 @@
 
     'use strict';
 
-    var version = '1.1.5';
+    var version = '1.2.0';
     var authors = ['Kevin Marcachi'];
 
     // ==================================
@@ -2214,6 +2214,22 @@
                         return;
                     }
 
+                    // Extract events bound to the element
+                    var elEvents = {};
+                    if (attr = element.getAttribute('data-events')) {
+                        var dataEvents = attr.split(';');
+                        each(dataEvents, function (i, dataEvent) {
+                            var components = dataEvent.split(':');
+                            if (components.length === 2) {
+                                var eventName = components[0];
+                                var eventFunction = components[1];
+                                elEvents[eventName] = elEvents[eventName] || [];
+                                elEvents[eventName].push(eventFunction);
+                            }
+                        });
+                        element.removeAttribute('data-events');
+                    }
+
                     if (attr = element.getAttribute('data-loop')) {
 
                         var LOOP_REF    = / in .*/g;
@@ -2329,8 +2345,20 @@
 
                             // If it's a select input, a checkbox, a button or a file input, we listen to "change" event
                             if (tag === 'select' || (tag === 'input' && (element.type === 'radio' || element.type === 'checkbox'))) {
-                                // Get function to run on click on the element, if there is
-                                var clickEvent = element.getAttribute('data-click');
+                                // Get functions to run on click on the element, if there are
+                                var otherTreatments = [];
+                                if (elEvents['click']) {
+                                    each(elEvents['click'], function (i, fn) {
+                                        otherTreatments.push(fn);
+                                    });
+                                    delete elEvents['click'];
+                                }
+                                if (elEvents['change']) {
+                                    each(elEvents['change'], function (i, fn) {
+                                        otherTreatments.push(fn);
+                                    });
+                                    delete elEvents['change'];
+                                }
                                 events.addListener('change', element, function(e) {
                                     var target = e.target || e.srcElement;
                                     var value = target.value;
@@ -2341,10 +2369,12 @@
                                         value = target.checked ? true : false;
                                     }
                                     var actualValue = value;
-                                    // If there is a function to run on click on the element
-                                    // Run it, and update actual value of target element
-                                    if (clickEvent) {
-                                        getValueOf(clickEvent);
+                                    // If there is functions to run on click or change on the element
+                                    // Run them, and update actual value of target element
+                                    if (otherTreatments) {
+                                        each(otherTreatments, function (i, fn) {
+                                            getValueOf(fn);
+                                        })
                                         actualValue = target.value;
                                         if (target.type === 'checkbox' && value === 'on') {
                                             actualValue = target.checked ? true : false;
@@ -2357,52 +2387,21 @@
                                         model.getPubsub().publish(msg, null, value);
                                     }
                                 });
-                                if (clickEvent) {
-                                    element.removeAttribute('data-click');
-                                }
                             // If it's another input, we listen to input change a different way
                             } else {
-                                var enterEvent = element.getAttribute('data-enter');
-                                (function (enterEvent) {
-                                    // New way (IE9+)
-                                    if ("oninput" in element) {
-                                        // Listen to key press on enter to run a function if provided
-                                        if (enterEvent) {
-                                            events.addListener('keypress', element, function (e) {
-                                                if (e.which === 13) {
-                                                    e.preventDefault();
-                                                    var target = e.target || e.srcElement;
-                                                    if (target.value) {
-                                                        target.value = target.value + ' ';
-                                                        model.getPubsub().publish(msg, null, target.value);
-                                                    }
-                                                    getValueOf(enterEvent);
-                                                }
-                                            });
-                                        }
-                                        // Keyup, keydown, keypress, paste ...
-                                        events.addListener('input', element, function (e) {
-                                            var target = e.target || e.srcElement;
-                                            model.getPubsub().publish(msg, null, target.value);
-                                        });
-                                    // Old fashion way (IE8-)
-                                    } else {
-                                        events.addListener('keyup, keypress', element, function (e) {
-                                            var target = e.target || e.srcElement;
-                                            // Listen to key press on enter to run a function if provided
-                                            if (enterEvent && e.which === 13) {
-                                                e.preventDefault();
-                                                if (target.value) {
-                                                    target.value = target.value + ' ';
-                                                    model.getPubsub().publish(msg, null, target.value);
-                                                }
-                                                getValueOf(enterEvent);
-                                                return;
-                                            }
-                                            model.getPubsub().publish(msg, null, target.value);
-                                        });
-                                    }
-                                }(enterEvent));
+                                // New way (IE9+)
+                                if ("oninput" in element) {
+                                    events.addListener('input', element, function (e) {
+                                        var target = e.target || e.srcElement;
+                                        model.getPubsub().publish(msg, null, target.value);
+                                    });
+                                // Old fashion way (IE8-)
+                                } else {
+                                    events.addListener('keyup, keypress', element, function (e) {
+                                        var target = e.target || e.srcElement;
+                                        model.getPubsub().publish(msg, null, target.value);
+                                    });
+                                }
                             }
                         }
 
@@ -2446,32 +2445,17 @@
                         element.removeAttribute('data-show');
                     }
 
-                    if (attr = element.getAttribute('data-click')) {
-                        (function(attr) {
-                            events.addListener('click', element, function(e) {
-                                getValueOf(attr);
-                            });
-                        }(attr));
-                        element.removeAttribute('data-click');
-                    }
-
-                    if (attr = element.getAttribute('data-double-click')) {
-                        (function(attr) {
-                            events.addListener('dblclick', element, function(e) {
-                                getValueOf(attr);
-                            });
-                        }(attr));
-                        element.removeAttribute('data-double-click');
-                    }
-
-                    if (attr = element.getAttribute('data-submit')) {
-                        (function(attr) {
-                            events.addListener('submit', element, function(e) {
-                                getValueOf(attr);
-                            });
-                        }(attr));
-                        element.removeAttribute('data-submit');
-                    }
+                    // Bind events to the element if there are
+                    each(elEvents, function (eventName, eventFunctions) {
+                        each(eventFunctions, function (i, eventFunction){
+                            (function(eventName, eventFunction) {
+                                events.addListener(eventName, element, function (e) {
+                                    context.e = e;
+                                    getValueOf(eventFunction);
+                                });
+                            }(eventName, eventFunction));
+                        });
+                    });
 
                     if (attr = element.getAttribute('data-effect-in')) {
                         stage.effectIn(element, attr);
