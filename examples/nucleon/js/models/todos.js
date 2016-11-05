@@ -5,7 +5,7 @@
 
     'use strict';
 
-    var ENTER_KEY  = 13;
+    var ENTER_KEY = 13;
     var ESCAPE_KEY = 27;
 
     // Registering a new model in the app
@@ -188,9 +188,9 @@
 
         // Save model in memory
         persist: function () {
-            var that = this;
+            var self = this;
             setTimeout(function () {
-                app.memory.set('todos', that);
+                app.memory.set('todos', self);
             }, 0);
         }
     });

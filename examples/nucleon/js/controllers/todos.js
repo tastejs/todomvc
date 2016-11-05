@@ -7,10 +7,10 @@
 
     // Fetching model and view for todos example in the app
     var model = app.models.get('todos');
-    var view  = app.views.get('todos');
+    var view = app.views.get('todos');
 
     // Registering our controller
-    var ctrl  = app.controllers.add('todos');
+    var ctrl = app.controllers.add('todos');
 
     // Registering an action in the controller for the example url
     ctrl.addAction('todos_home', {
