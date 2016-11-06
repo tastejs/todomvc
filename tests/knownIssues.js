@@ -1,17 +1,5 @@
 module.exports = [
 
-	// see: https://github.com/tastejs/todomvc/issues/832
-	// chapling brunch does not mark items as completed via the completed CSS class
-	'TodoMVC - chaplin-brunch, No Todos, should hide #main and #footer',
-	'TodoMVC - chaplin-brunch, Mark all as completed, should allow me to mark all items as completed',
-	// jscs:disable
-	'TodoMVC - chaplin-brunch, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-	// jscs:enable
-	'TodoMVC - chaplin-brunch, Item, should allow me to mark items as complete',
-	'TodoMVC - chaplin-brunch, Item, should allow me to un-mark items as complete',
-	'TodoMVC - chaplin-brunch, Item, should allow me to edit an item',
-
-
 	// durandal routing is very very slow.
 	// see: https://github.com/tastejs/todomvc/issues/831
 	'TodoMVC - durandal, Routing, should allow me to display active items',
