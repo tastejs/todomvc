@@ -28,7 +28,6 @@ module.exports = [
 
 	// https://github.com/tastejs/todomvc/issues/828
 	// routing should default to all
-	'TodoMVC - batman, Routing, should highlight the currently applied filter',
 	'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
 
 	// https://github.com/tastejs/todomvc/issues/824
@@ -68,7 +67,6 @@ module.exports = [
 	'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - thorax_lumbar, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
-	'TodoMVC - batman, Editing, should cancel edits on escape',
 	'TodoMVC - dijon, Editing, should cancel edits on escape',
 	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
