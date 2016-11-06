@@ -7,13 +7,6 @@ module.exports = [
 	'TodoMVC - durandal, Routing, should allow me to display all items',
 	'TodoMVC - durandal, Routing, should highlight the currently applied filter',
 
-	// see: https://github.com/tastejs/todomvc/issues/830
-	// typescript-backbone has a nested div within the li element, and sets /li/div[@class=done]
-	'TodoMVC - typescript-backbone, Mark all as completed, should allow me to mark all items as completed / cleared',
-	'TodoMVC - typescript-backbone, Item, should allow me to mark items as complete',
-	'TodoMVC - typescript-backbone, Item, should allow me to un-mark items as complete',
-	'TodoMVC - typescript-backbone, Item, should allow me to edit an item',
-
 	// https://github.com/tastejs/todomvc/issues/828
 	// routing should default to all
 	'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
