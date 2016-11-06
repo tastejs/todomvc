@@ -67,10 +67,6 @@ module.exports = [
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
 	'TodoMVC - somajs_require, Routing, should respect the back button',
 
-	// the following are covered by this issue:
-	// https://github.com/tastejs/todomvc/issues/795
-	'TodoMVC - spine, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-
 	// the following implementations do not support routing
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display active items',
 	'TodoMVC - extjs_deftjs, Routing, should allow me to display completed items',
