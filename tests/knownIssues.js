@@ -62,7 +62,6 @@ module.exports = [
 	// https://github.com/tastejs/todomvc/issues/856
 	'TodoMVC - knockoutjs, Routing, should respect the back button',
 	'TodoMVC - spine, Routing, should respect the back button',
-	'TodoMVC - componentjs, Routing, should respect the back button',
 	'TodoMVC - serenadejs, Routing, should respect the back button',
 	'TodoMVC - flight, Routing, should respect the back button',
 	'TodoMVC - lavaca_require, Routing, should respect the back button',
