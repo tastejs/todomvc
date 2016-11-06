@@ -504,40 +504,6 @@
 			}]
 		}]
 	},
-	"componentjs": {
-		"name": "ComponentJS",
-		"description": "Provides a powerful run-time Component System for hierarchically structuring the UI dialogs of complex HTML5-based Clients.  Fully isolates each UI segment, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms.",
-		"homepage": "componentjs.com/",
-		"source_path": [{
-			"name": "Example",
-			"url": "examples/componentjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Overview Video",
-				"url": "http://www.youtube.com/watch?v=gtz7PCMxzVA"
-			}, {
-				"name": "Demo",
-				"url": "http://componentjs.com/demo.html"
-			}, {
-				"name": "Tutorial",
-				"url": "http://componentjs.com/tutorial.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://componentjs.com/api.html"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "ComponentJS on GitHub",
-				"url": "https://github.com/rse/componentjs"
-			}, {
-				"name": "ComponentJS on Twitter",
-				"url": "http://twitter.com/componentjs"
-			}]
-		}]
-	},
 	"cujo": {
 		"name": "cujoJS",
 		"description": "cujo is an architectural toolkit for next generation JavaScript applications. It encourages highly modular development, declarative application assembly, and embraces the asynchronous nature of JavaScript and its fusion of object-oriented and functional programming styles.",
