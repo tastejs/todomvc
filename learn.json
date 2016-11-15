@@ -2062,43 +2062,6 @@
 			}]
 		}]
 	},
-	"thorax": {
-		"name": "Thorax",
-		"description": "An opinionated, battle-tested Backbone + Handlebars framework to build large scale web applications.",
-		"homepage": "thoraxjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/thorax"
-		}, {
-			"name": "Thorax & Lumbar",
-			"url": "examples/thorax_lumbar/public"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Getting Started",
-				"url": "http://thoraxjs.org/start.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://thoraxjs.org/api.html"
-			}, {
-				"name": "Screencast - Introduction to Thorax",
-				"url": "http://vimeo.com/60230630"
-			}, {
-				"name": "Seed Project",
-				"url": "https://github.com/walmartlabs/thorax-seed"
-			}, {
-				"name": "Thorax on GitHub",
-				"url": "https://github.com/walmartlabs/thorax"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Thorax on Twitter",
-				"url": "http://twitter.com/walmartlabs"
-			}]
-		}]
-	},
 	"troopjs": {
 		"name": "TroopJS",
 		"description": "The simple js framework that does as little as possible, then stays out of the way.",
