@@ -3,15 +3,9 @@ export const loadState = () => {
 		// Gets our state from the local storage
 		const serializedState = localStorage.getItem('todos-react-redux');
 
-		// If there's no stored data, returns undefined
-		// so reducers will use their own defaults
-		if (serializedState === null) {
-			return undefined;
-		}
-
-		// There's a string representing our state
-		// parses it and returns parsed object
-		return JSON.parse(serializedState);
+		// If there's a string representing our state parses it and returns parsed object
+		// else returns undefined so reducers will use their own defaults
+		return serializedState !== null && JSON.parse(serializedState) || undefined;
 	} catch (err) {
 		// If there was an error log it and let
 		// loadState return undefined by itself

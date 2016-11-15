@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { ENTER_KEY, ESCAPE_KEY } from '../constants';
 
 export default class Todo extends React.Component {
 
@@ -13,12 +14,8 @@ export default class Todo extends React.Component {
 		text: PropTypes.string.isRequired
 	}
 
-	static ENTER_KEY = 13
-
-	static ESCAPE_KEY = 27
-
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.edit = this.edit.bind(this);
 		this.toggle = this.toggle.bind(this);
 		this.handleEditKeyDown = this.handleEditKeyDown.bind(this);
@@ -35,31 +32,29 @@ export default class Todo extends React.Component {
 	}
 
 	render() {
-		const label = this.state.editing ?
-			null :
-			<label onDoubleClick={this.edit}>{this.props.text}</label>;
+		let label,
+			editInput;
+		if (this.state.editing) {
+			label = null;
 
-		const editInput = !this.state.editing ?
-			null :
-			<input className="edit"
-				type="text"
-				 value={this.state.newText}
-				 ref={input => {
-					 if (input != null) {
-						 input.focus()
-					 }
-				 }}
-				 onKeyDown={this.handleEditKeyDown}
-				 onBlur={this.submit}
-				 onChange={this.handleEditChange}></input>;
+			const inputFocus = input => input && input.focus();
+			editInput = (
+				<input className="edit"
+							 type="text"
+							 value={this.state.newText}
+							 ref={inputFocus}
+							 onKeyDown={this.handleEditKeyDown}
+							 onBlur={this.submit}
+							 onChange={this.handleEditChange}/>
+			);
+		} else {
+			label = <label onDoubleClick={this.edit}>{this.props.text}</label>;
+			editInput = null
+		}
 
 		let classNames = [];
-		if (this.props.completed) {
-			classNames.push('completed');
-		}
-		if (this.state.editing) {
-			classNames.push('editing');
-		}
+		this.props.completed && classNames.push('completed');
+		this.state.editing && classNames.push('editing');
 		classNames = classNames.join(' ');
 
 		return (
@@ -71,8 +66,7 @@ export default class Todo extends React.Component {
 						className="toggle"/>
 					{label}
 					<button className="destroy"
-						onClick={this.remove}
-					></button>
+									onClick={this.remove}/>
 				</div>
 				{editInput}
 			</li>
@@ -91,11 +85,11 @@ export default class Todo extends React.Component {
 	}
 
 	handleEditKeyDown (event) {
-		if (event.keyCode === Todo.ESCAPE_KEY) {
+		if (event.keyCode === ESCAPE_KEY) {
 			this.setState({
 				editing: false
 			});
-		} else if (event.keyCode === Todo.ENTER_KEY) {
+		} else if (event.keyCode === ENTER_KEY) {
 			event.preventDefault();
 			this.submit();
 		}

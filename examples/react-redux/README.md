@@ -20,7 +20,7 @@
 ## Implementation
 This is an implementation of the [Redux Todo app example](https://github.com/reactjs/redux/tree/master/examples/todomvc).
 In order to show React and Redux in a simple way, some cool features that are not directly related to React/Redux like multiple environments, a development server, CSS loading with webpack, etc, were not included.
-Also, some [todomvc.com](http://todomvc.com) features that are not in the Redux example were implemented in order to comply with the app specs.
+Also, some [todomvc.com](http://todomvc.com) features (eg: clear completed) were implemented in order to comply with the app specs.
 
 
 You can check it with any static web server (eg: `python -m SimpleHTTPServer`). The index.html file uses the bundled version by Babel created with `npm run dist` under the `dist` folder, but this bundle contains source maps to the JS source code located under the `js` folder, so developers can see and debug the application with the original code.

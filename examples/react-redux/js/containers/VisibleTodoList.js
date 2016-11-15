@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import TodoList from './TodoList';
+import { ALL, ACTIVE, COMPLETED } from '../constants';
 
 const getVisibleTodos = (todos, filter) => {
 	switch (filter) {
-		case 'ALL':
+		case ALL:
 			return todos;
-		case 'COMPLETED':
+		case COMPLETED:
 			return todos.filter(t => t.completed);
-		case 'ACTIVE':
+		case ACTIVE:
 			return todos.filter(t => !t.completed);
 		default:
 			throw new Error('Unknown filter: ' + filter);
@@ -17,7 +18,7 @@ const getVisibleTodos = (todos, filter) => {
 
 // Passes the filtered state as a 'todos' property of our list
 const mapStateToProps = (state, { params }) => ({
-	todos: getVisibleTodos(state, params.filter || 'ALL')
+	todos: getVisibleTodos(state, params.filter || ALL)
 });
 
 // Exports a wrapped version of the presentational component

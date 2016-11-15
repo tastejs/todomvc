@@ -4,8 +4,15 @@ import VisibleTodoList from '../containers/VisibleTodoList';
 import Footer from '../containers/Footer';
 
 const App = ({ todos }) => {
-	const visibleTodoList = todos.length ? <VisibleTodoList /> : null;
-	const footer = todos.length ? <Footer /> : null;
+	let visibleTodoList,
+		footer;
+
+	if (todos.length) {
+		visibleTodoList = <VisibleTodoList />
+		footer = <Footer />
+	} else {
+		visibleTodoList = footer = null;
+	}
 
 	return (
 		<div>

@@ -21,19 +21,11 @@ const todo = (state = {}, action) => {
 				completed: false
 			};
 		case actionTypes.TOGGLE_TODO:
-			if (state.id !== action.id) {
-				return state;
-			}
-
-			return toggleTodo(state);
+			return state.id !== action.id ? state : toggleTodo(state);
 		case actionTypes.TOGGLE_ALL:
 			return action.toggleTo === state.completed ? state : toggleTodo(state);
 		case actionTypes.EDIT_TODO:
-			if (state.id !== action.todo.id) {
-				return state;
-			}
-
-			return {
+			return state.id !== action.todo.id ? state : {
 				// Object spread operator is not supported by jshint yet
 				/* jshint ignore:start */
 				...state,

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import FilterLink from '../containers/FilterLink';
+import { ALL, ACTIVE, COMPLETED } from '../constants';
 
 export default class Footer extends React.Component {
 
@@ -10,8 +11,8 @@ export default class Footer extends React.Component {
 		todos: PropTypes.array.isRequired
 	}
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.remove = this.remove.bind(this);
 	}
 
@@ -19,7 +20,11 @@ export default class Footer extends React.Component {
 		const { todos } = this.props,
 			completedCount = todos.filter(t => t.completed).length,
 			activeCount = todos.length - completedCount,
-			pluralizedItems = `item${activeCount === 1 ? '' : 's'}`;
+			pluralizedItems = `item${activeCount === 1 ? '' : 's'}`,
+			clearCompleted = !completedCount ? null : (
+				<button className="clear-completed"
+								onClick={this.remove}>Clear completed</button>
+			);
 
 		return (
 			<footer className="footer">
@@ -28,27 +33,22 @@ export default class Footer extends React.Component {
 				</span>
 				<ul className="filters">
 					<li>
-						<FilterLink filter="ALL">
+						<FilterLink filter={ALL}>
 							All
 						</FilterLink>
 					</li>
 					<li>
-						<FilterLink filter="ACTIVE">
+						<FilterLink filter={ACTIVE}>
 							Active
 						</FilterLink>
 					</li>
 					<li>
-						<FilterLink filter="COMPLETED">
+						<FilterLink filter={COMPLETED}>
 							Completed
 						</FilterLink>
 					</li>
 				</ul>
-				{
-					!completedCount ?
-						null :
-						<button className="clear-completed"
-							onClick={this.remove}>Clear completed</button>
-				}
+				{clearCompleted}
 			</footer>
 		)
 	}

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { ENTER_KEY } from '../constants';
 
 export default class AddTodo extends React.Component {
 
@@ -8,10 +9,8 @@ export default class AddTodo extends React.Component {
 		}).isRequired
 	}
 
-	static ENTER_KEY = 13
-
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.handleNewTodoKeyDown = this.handleNewTodoKeyDown.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
@@ -23,7 +22,7 @@ export default class AddTodo extends React.Component {
 	}
 
 	handleNewTodoKeyDown (event) {
-		if (event.keyCode !== AddTodo.ENTER_KEY) {
+		if (event.keyCode !== ENTER_KEY) {
 			return;
 		}
 

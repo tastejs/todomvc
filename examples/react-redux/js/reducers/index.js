@@ -23,8 +23,7 @@ const todos = (state = [], action) => {
 
 		case actionTypes.TOGGLE_ALL:
 			// Calculates the new completed boolean value
-			const toggleTo = !state
-				.reduce((allCompleted, todo) => allCompleted && todo.completed, true);
+			const toggleTo = !!state.find(todo => !todo.completed);
 
 			return state.map(todoItem => todo(todoItem, {
 				// Object spread operator is not supported by jshint yet

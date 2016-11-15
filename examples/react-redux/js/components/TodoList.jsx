@@ -13,21 +13,20 @@ export default class TodoList extends React.Component {
 		}).isRequired).isRequired
 	}
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.toggleAll = this.toggleAll.bind(this);
 	}
 
 	render() {
-		const todos = this.props.todos.map(todo =>
+		const todos = this.props.todos.map(todo => (
 			<Todo
 				key={todo.id}
 				{...todo}
 			/>
-		);
+		));
 
-		const allCompleted = this.props.todos
-			.reduce((allCompleted, todo) => allCompleted && todo.completed, true);
+		const allCompleted = !this.props.todos.find(todo => !todo.completed);
 
 		return (
 			<section className="main">
