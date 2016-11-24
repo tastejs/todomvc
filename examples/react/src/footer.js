@@ -1,7 +1,7 @@
-import React from "react";
-import {pluralize} from "./utils";
-import {ACTIVE_TODOS, COMPLETED_TODOS, ALL_TODOS} from "./constants";
-import {IndexLink} from "react-router";
+import React from 'react';
+import {pluralize} from './utils';
+import {ACTIVE_TODOS, COMPLETED_TODOS, ALL_TODOS} from './constants';
+import {IndexLink} from 'react-router';
 
 class Footer extends React.Component {
 	render() {
@@ -12,7 +12,7 @@ class Footer extends React.Component {
 		if (completedCount > 0) {
 			clearButton = (
 				<button
-					className="clear-completed"
+					className='clear-completed'
 					onClick={onClearCompleted}>
 					Clear completed
 				</button>
@@ -20,16 +20,16 @@ class Footer extends React.Component {
 		}
 
 		return (
-			<footer className="footer">
-					<span className="todo-count">
+			<footer className='footer'>
+					<span className='todo-count'>
 						<strong>{count}</strong> {activeTodoWord} left
 					</span>
-				<ul className="filters">
-					<li><IndexLink to="/" activeClassName="selected">{ALL_TODOS}</IndexLink></li>
+				<ul className='filters'>
+					<li><IndexLink to='/' activeClassName='selected'>{ALL_TODOS}</IndexLink></li>
 					{' '}
-					<li><IndexLink to={"/" + ACTIVE_TODOS} activeClassName="selected">{ACTIVE_TODOS}</IndexLink></li>
+					<li><IndexLink to={'/' + ACTIVE_TODOS} activeClassName='selected'>{ACTIVE_TODOS}</IndexLink></li>
 					{' '}
-					<li><IndexLink to={"/" + COMPLETED_TODOS} activeClassName="selected">{COMPLETED_TODOS}</IndexLink>
+					<li><IndexLink to={'/' + COMPLETED_TODOS} activeClassName='selected'>{COMPLETED_TODOS}</IndexLink>
 					</li>
 				</ul>
 				{clearButton}

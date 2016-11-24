@@ -1,4 +1,4 @@
-import {store, uuid} from "./utils";
+import {store, uuid} from './utils';
 
 class TodoModel {
 	constructor(key) {

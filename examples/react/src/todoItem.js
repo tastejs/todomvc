@@ -1,6 +1,6 @@
-import React from "react";
-import classNames from "classnames";
-import {ESCAPE_KEY, ENTER_KEY} from "./constants";
+import React from 'react';
+import classNames from 'classnames';
+import {ESCAPE_KEY, ENTER_KEY} from './constants';
 
 class TodoItem extends React.Component {
 	constructor(props) {
@@ -51,20 +51,20 @@ class TodoItem extends React.Component {
 				completed: this.props.todo.completed,
 				editing: this.props.editing
 			})}>
-				<div className="view">
+				<div className='view'>
 					<input
-						className="toggle"
-						type="checkbox"
+						className='toggle'
+						type='checkbox'
 						checked={this.props.todo.completed}
 						onChange={() => this.props.onToggle()}
 					/>
 					<label onDoubleClick={() => this.handleEdit()}>
 						{this.props.todo.title}
 					</label>
-					<button className="destroy" onClick={(e) => this.props.onDestroy(e)}/>
+					<button className='destroy' onClick={(e) => this.props.onDestroy(e)}/>
 				</div>
 				<input
-					className="edit"
+					className='edit'
 					ref={input => this.textInput = input}
 					value={this.state.editText}
 					onBlur={() => this.handleSubmit()}

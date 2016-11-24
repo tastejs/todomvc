@@ -1,8 +1,8 @@
-import React from "react";
-import Footer from "./footer";
-import TodoItem from "./todoItem";
-import {ACTIVE_TODOS, COMPLETED_TODOS, ENTER_KEY} from "./constants";
-import TodoModel from "./todoModel";
+import React from 'react';
+import Footer from './footer';
+import TodoItem from './todoItem';
+import {ACTIVE_TODOS, COMPLETED_TODOS, ENTER_KEY} from './constants';
+import TodoModel from './todoModel';
 
 class App extends React.Component {
 	constructor(props) {
@@ -111,14 +111,14 @@ class App extends React.Component {
 
 		if (todos.length) {
 			main = (
-				<section className="main">
+				<section className='main'>
 					<input
-						className="toggle-all"
-						type="checkbox"
+						className='toggle-all'
+						type='checkbox'
 						onChange={e => this.toggleAll(e)}
 						checked={activeTodoCount === 0}
 					/>
-					<ul className="todo-list">
+					<ul className='todo-list'>
 						{todoItems}
 					</ul>
 				</section>
@@ -126,12 +126,12 @@ class App extends React.Component {
 		}
 
 		return (
-			<section className="todoapp">
-				<header className="header">
+			<section className='todoapp'>
+				<header className='header'>
 					<h1>todos</h1>
 					<input
-						className="new-todo"
-						placeholder="What needs to be done?"
+						className='new-todo'
+						placeholder='What needs to be done?'
 						value={this.state.newTodo}
 						onKeyDown={e => this.handleNewTodoKeyDown(e)}
 						onChange={e => this.handleChange(e)}
