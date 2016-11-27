@@ -57,7 +57,9 @@ Template.body.events({
 			return;
 		}
 
-		Meteor.call('tasks.insert', value);
+		if (value.length) {
+			Meteor.call('tasks.insert', value);
+		}
 
 		target.value = '';
 	},
