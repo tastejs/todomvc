@@ -16,7 +16,6 @@ var ELEMENT_MISSING = Object.freeze({});
 var ITEM_HIDDEN_OR_REMOVED = Object.freeze({});
 
 module.exports = function Page(browser) {
-
 	// CSS ELEMENT SELECTORS
 
 	this.getMainSectionCss = function () { return classOrId + 'main'; };
@@ -31,7 +30,10 @@ module.exports = function Page(browser) {
 
 	this.getItemCountCss = function () { return 'span' + classOrId + 'todo-count'; };
 
-	this.getFilterCss = function (index) { return classOrId + 'filters li:nth-of-type(' + (index + 1) + ') a'; };
+	this.getFilterCss = function (index) {
+		return classOrId + 'filters li:nth-of-type(' + (index + 1) + ') a, ' +
+			classOrId + 'filters a:nth-of-type(' + (index + 1) + ')';
+	};
 
 	this.getSelectedFilterCss = function (index) { return this.getFilterCss(index) + '.selected'; };
 

@@ -5,3 +5,11 @@
 .show {
 	display: block !important;
 }
+
+.show-completed li:not(.completed) {
+	display: none;
+}
+
+.show-active li.completed {
+	display: none;
+}

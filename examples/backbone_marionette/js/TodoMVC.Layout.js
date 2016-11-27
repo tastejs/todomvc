@@ -7,7 +7,7 @@ var TodoMVC = TodoMVC || {};
 
 	var filterChannel = Backbone.Radio.channel('filter');
 
-	TodoMVC.RootLayout = Backbone.Marionette.LayoutView.extend({
+	TodoMVC.RootLayout = Mn.View.extend({
 
 		el: '#todoapp',
 
@@ -20,7 +20,7 @@ var TodoMVC = TodoMVC || {};
 
 	// Layout Header View
 	// ------------------
-	TodoMVC.HeaderLayout = Backbone.Marionette.ItemView.extend({
+	TodoMVC.HeaderLayout = Mn.View.extend({
 
 		template: '#template-header',
 
@@ -60,7 +60,7 @@ var TodoMVC = TodoMVC || {};
 
 	// Layout Footer View
 	// ------------------
-	TodoMVC.FooterLayout = Backbone.Marionette.ItemView.extend({
+	TodoMVC.FooterLayout = Mn.View.extend({
 		template: '#template-footer',
 
 		// UI bindings create cached attributes that
@@ -82,7 +82,7 @@ var TodoMVC = TodoMVC || {};
 			all: 'render'
 		},
 
-		templateHelpers: {
+		templateContext: {
 			activeCountLabel: function () {
 				return (this.activeCount === 1 ? 'item' : 'items') + ' left';
 			}
