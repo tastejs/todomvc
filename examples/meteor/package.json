@@ -6,6 +6,7 @@
     "pretest": "npm run lint --silent"
   },
   "dependencies": {
+    "babel-runtime": "^6.18.0",
     "meteor-node-stubs": "~0.2.0",
     "todomvc-app-css": "^2.0.6",
     "todomvc-common": "^1.0.3"
