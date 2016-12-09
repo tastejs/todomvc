@@ -1,7 +1,10 @@
-/// <reference path='../_all.ts' />
+/// <reference path='../../_all.ts' />
 
-module todos {
-    'use strict';
+namespace todos {
+
+    angular
+        .module('todomvc')
+        .directive('todoBlur', todoBlur);
 
     /**
      * Directive that executes an expression when the element it is applied to loses focus.

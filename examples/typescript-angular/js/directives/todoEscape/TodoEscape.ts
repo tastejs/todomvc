@@ -1,7 +1,10 @@
-/// <reference path='../_all.ts' />
+/// <reference path='../../_all.ts' />
 
-module todos {
-	'use strict';
+namespace todos {
+
+	angular
+        .module('todomvc')
+        .directive('todoEscape', todoEscape);
 
 	const ESCAPE_KEY = 27;
 
