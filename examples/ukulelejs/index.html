@@ -13,9 +13,9 @@
 		<section class="todoapp">
 			<header id="myHeader"></header>
 			<!-- This section should be hidden by default and shown when there are todos -->
-			<main id="myMain" uku-todos="mainCtrl.todos"></main>
+			<main id="myMain" uku-todos="mainCtrl.displayTodos" uku-show-toggle-all="mainCtrl.isShowFooter()"></main>
 			<!-- This footer should hidden by default and shown when there are todos -->
-			<footer uku-count="mainCtrl.todoTasksCount"></footer>
+			<footer id="myFooter" uku-render="mainCtrl.isShowFooter()" uku-count="mainCtrl.todoTasksCount" uku-show-clear="mainCtrl.isShowClearBtn()"></footer>
 		</section>
 		<info></info>
 		<!-- Scripts here. Don't remove ↓ -->

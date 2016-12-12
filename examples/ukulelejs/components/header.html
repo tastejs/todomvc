@@ -6,19 +6,5 @@
                 uku-value="cc.newTask" uku-onkeyup="cc.enterHandler()" autofocus >
 		</header>
 	</template>
-    <script>
-        (function () {
-            return function(uku){
-                this.newTask = "";
-                this.enterHandler = function(event){
-                    if(event.keyCode === 13 && this.newTask) {
-                        var task = this.newTask;
-                        this.fire("newtaskinputed",{message:task});
-                        this.newTask = "";
-                        uku.refresh();          
-                    }
-                };
-            };
-        })();
-    </script>
+    <script src="./js/components/header.js"></script>
 </uku-component>

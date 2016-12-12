@@ -6,32 +6,18 @@
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters">
 					<li>
-						<a class="selected" href="#/">All</a>
+						<a uku-class="cc.getFilterButtonClass('all')" href="#" uku-onclick="cc.dofilter('all')">All</a>
 					</li>
 					<li>
-						<a href="#/active">Active</a>
+						<a uku-class="cc.getFilterButtonClass('active')" href="#" uku-onclick="cc.dofilter('active')">Active</a>
 					</li>
 					<li>
-						<a href="#/completed">Completed</a>
+						<a uku-class="cc.getFilterButtonClass('completed')" href="#" uku-onclick="cc.dofilter('completed')">Completed</a>
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
-				<button class="clear-completed">Clear completed</button>
+				<button class="clear-completed" uku-onclick="cc.clearCompleted()" uku-visible="cc.clear">Clear completed</button>
 			</footer>
     </template>
-    <script>
-         (function(){
-            return function(uku){
-                this.left = 0;
-
-                Object.defineProperty(this, "count", {
-                    set: function (value) {
-                        if(!isNaN(value)){
-                            this.left = value;
-                        }
-                    }
-                });
-            };
-        })();
-    </script>
+    <script src="./js/components/footer.js"></script>
 </uku-component>
