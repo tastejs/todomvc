@@ -11,25 +11,25 @@
 		this.displayTodos = [];
 		var isInit = true;
 		var routes = {
-			'/:filter': function(filter){
+			'/:filter': function (filter) {
 				self.currentFilterType = filter;
-				if(isInit){
+				if (isInit) {
 					isInit = false;
-				}else{
+				} else {
 					updateStatus();
 				}
-				
+
 			}
 		};
 		var router = Router(routes);
-      	router.init('all');
+		router.init('all');
 
-		(function loadData(){
+		(function loadData() {
 			var savedData = localStorage.getItem('todos-ukulelejs');
-			if(savedData){
+			if (savedData) {
 				savedData = JSON.parse(localStorage.getItem('todos-ukulelejs'));
 				//self.currentFilterType = savedData.filter;
-				self.todos =  savedData.todos;
+				self.todos = savedData.todos;
 				filterTodos(self.currentFilterType);
 			}
 		})();
@@ -45,48 +45,48 @@
 		}
 
 		this.todoTasksCount = getLeftCount();
-		this.isShowClearBtn = function(){
-			for(var i=0;i<this.todos.length;i++){
-				if(this.todos[i].completed === true){
+		this.isShowClearBtn = function () {
+			for (var i = 0; i < this.todos.length; i++) {
+				if (this.todos[i].completed === true) {
 					return true;
 				}
 			}
 			return false;
 		};
 
-		this.isShowFooter = function(){
-			if(this.todos.length > 0){
+		this.isShowFooter = function () {
+			if (this.todos.length > 0) {
 				return true;
 			}
 			return false;
 		};
 
-		this.isAllCompleted = function(){
-			for(var i=0;i<this.todos.length;i++){
-				if(this.todos[i].completed === false){
+		this.isAllCompleted = function () {
+			for (var i = 0; i < this.todos.length; i++) {
+				if (this.todos[i].completed === false) {
 					return false;
 				}
 			}
 			return true;
 		};
 
-		function filterTodos(type){
+		function filterTodos(type) {
 			self.displayTodos = [];
 			switch (type) {
 				case 'all':
 					self.displayTodos = self.todos;
 					break;
 				case 'active':
-					self.displayTodos = self.todos.filter(function(item){
-						if(item.completed === false){
+					self.displayTodos = self.todos.filter(function (item) {
+						if (item.completed === false) {
 							return true;
 						}
 						return false;
 					});
 					break;
 				case 'completed':
-					self.displayTodos = self.todos.filter(function(item){
-						if(item.completed === true){
+					self.displayTodos = self.todos.filter(function (item) {
+						if (item.completed === true) {
 							return true;
 						}
 						return false;
@@ -96,24 +96,30 @@
 					self.displayTodos = self.todos;
 			}
 		};
-		
-		function updateStatus(){
+
+		function updateStatus() {
 			self.todoTasksCount = getLeftCount();
 			filterTodos(self.currentFilterType);
-			localStorage.setItem('todos-ukulelejs',JSON.stringify({'todos':self.todos}));
+			localStorage.setItem('todos-ukulelejs', JSON.stringify({
+				'todos': self.todos
+			}));
 			uku.refresh('mainCtrl');
 
 		}
 		this.registerEventListener = function () {
 			document.getElementById('myHeader').addEventListener('newtaskinputed', function (event) {
 				var id = self.todos.length;
-				var newTask = { id: id, title: event.data.message, completed: false };
+				var newTask = {
+					id: id,
+					title: event.data.message,
+					completed: false
+				};
 				self.todos.push(newTask);
 				updateStatus();
 			});
 			document.getElementById('myMain').addEventListener('removetask', function (event) {
 				var task = event.data.message;
-				for (var i = self.todos.length-1; i >=0; i--) {
+				for (var i = self.todos.length - 1; i >= 0; i--) {
 					if (task.id === self.todos[i].id) {
 						self.todos.splice(i, 1);
 						updateStatus();
@@ -125,28 +131,28 @@
 				updateStatus();
 			});
 
-			document.getElementById('myMain').addEventListener('toggleall', function(event){
+			document.getElementById('myMain').addEventListener('toggleall', function (event) {
 				var isAllCompleted = event.data.message;
-				for(var i=0;i<self.todos.length;i++){
+				for (var i = 0; i < self.todos.length; i++) {
 					self.todos[i].completed = isAllCompleted;
 				}
 				updateStatus();
 			});
 
-			document.getElementById('myFooter').addEventListener('filtertodos',function(event){
+			document.getElementById('myFooter').addEventListener('filtertodos', function (event) {
 				self.currentFilterType = event.data.message;
 				updateStatus();
 			});
 
-			document.getElementById('myFooter').addEventListener('clearcompleted',function(event){
+			document.getElementById('myFooter').addEventListener('clearcompleted', function (event) {
 				var removeCount = 0;
-				for (var i = self.todos.length-1; i >=0; i--) {
+				for (var i = self.todos.length - 1; i >= 0; i--) {
 					if (self.todos[i].completed === true) {
 						self.todos.splice(i, 1);
 						removeCount++;
 					}
 				}
-				if(removeCount>0){
+				if (removeCount > 0) {
 					updateStatus();
 				}
 			});
