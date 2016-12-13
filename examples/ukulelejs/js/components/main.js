@@ -3,12 +3,12 @@
     'use strict';
     return function(uku){
         this.tasks = [];
-		this.isAllCompleted = false;
+		this._isAllCompleted = false;
 		this.isShowToggleAllBtn = false;
 		this.toggleAllTodos = function(){
-			this.isAllCompleted = !this.isAllCompleted;
-			this.fire('toggleall',{message:this.isAllCompleted});
+			this.fire('toggleall',{message:this._isAllCompleted});
 		};
+        
         Object.defineProperty(this, 'todos', {
             set: function (value) {
                 if(value){
@@ -19,6 +19,11 @@
 		Object.defineProperty(this, 'showToggleAll', {
             set: function (value) {
                 this.isShowToggleAllBtn = value;
+            }
+        });
+        Object.defineProperty(this, 'isAllCompleted',{
+            set: function(value) {
+                this._isAllCompleted = value;
             }
         });
     };

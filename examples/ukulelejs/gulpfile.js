@@ -4,7 +4,8 @@ var jshint = require('gulp-jshint');
 
 gulp.task('connect',function(){
     connect.server({
-        livereload: true
+        //livereload: true
+        livereload: false
     });
 });
 

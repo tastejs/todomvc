@@ -13,13 +13,18 @@
 		<section class="todoapp">
 			<header id="myHeader"></header>
 			<!-- This section should be hidden by default and shown when there are todos -->
-			<main id="myMain" uku-todos="mainCtrl.displayTodos" uku-show-toggle-all="mainCtrl.isShowFooter()"></main>
+			<main id="myMain" uku-todos="mainCtrl.displayTodos"
+				uku-show-toggle-all="mainCtrl.isShowFooter()" uku-is-all-completed="mainCtrl.isAllCompleted()"></main>
 			<!-- This footer should hidden by default and shown when there are todos -->
-			<footer id="myFooter" uku-render="mainCtrl.isShowFooter()" uku-count="mainCtrl.todoTasksCount" uku-show-clear="mainCtrl.isShowClearBtn()"></footer>
+			<footer id="myFooter" uku-render="mainCtrl.isShowFooter()" uku-filter-type="mainCtrl.currentFilterType"
+			 uku-count="mainCtrl.todoTasksCount" uku-show-clear="mainCtrl.isShowClearBtn()"></footer>
 		</section>
 		<info></info>
 		<!-- Scripts here. Don't remove ↓ -->
 		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/es6-promise/dist/es6-promise.auto.js"></script>
+		<script src="node_modules/ukulelejs/dist/polyfill/custom_event.js"></script>
+		<script src="node_modules/director/build/director.min.js"></script>
 		<script src="node_modules/ukulelejs/dist/uku.js"></script>
 		<script src="js/app.js"></script>
 	</body>

@@ -6,9 +6,33 @@
 	// Your starting point. Enjoy the ride!
 	function MainController(uku) {
 		var self = this;
-		var currentFilterType = 'all';
+		this.currentFilterType = 'all';
 		this.todos = [];
 		this.displayTodos = [];
+		var isInit = true;
+		var routes = {
+			'/:filter': function(filter){
+				self.currentFilterType = filter;
+				if(isInit){
+					isInit = false;
+				}else{
+					updateStatus();
+				}
+				
+			}
+		};
+		var router = Router(routes);
+      	router.init('all');
+
+		(function loadData(){
+			var savedData = localStorage.getItem('todos-ukulelejs');
+			if(savedData){
+				savedData = JSON.parse(localStorage.getItem('todos-ukulelejs'));
+				//self.currentFilterType = savedData.filter;
+				self.todos =  savedData.todos;
+				filterTodos(self.currentFilterType);
+			}
+		})();
 
 		function getLeftCount() {
 			var count = 0;
@@ -36,7 +60,17 @@
 			}
 			return false;
 		};
-		this.filterTodos = function(type){
+
+		this.isAllCompleted = function(){
+			for(var i=0;i<this.todos.length;i++){
+				if(this.todos[i].completed === false){
+					return false;
+				}
+			}
+			return true;
+		};
+
+		function filterTodos(type){
 			self.displayTodos = [];
 			switch (type) {
 				case 'all':
@@ -65,7 +99,8 @@
 		
 		function updateStatus(){
 			self.todoTasksCount = getLeftCount();
-			self.filterTodos(currentFilterType);
+			filterTodos(self.currentFilterType);
+			localStorage.setItem('todos-ukulelejs',JSON.stringify({'todos':self.todos}));
 			uku.refresh('mainCtrl');
 
 		}
@@ -95,14 +130,12 @@
 				for(var i=0;i<self.todos.length;i++){
 					self.todos[i].completed = isAllCompleted;
 				}
-				self.filterTodos(currentFilterType);
-				uku.refresh('mainCtrl');
+				updateStatus();
 			});
 
 			document.getElementById('myFooter').addEventListener('filtertodos',function(event){
-				currentFilterType = event.data.message;
-				self.filterTodos(currentFilterType);
-				uku.refresh('mainCtrl');
+				self.currentFilterType = event.data.message;
+				updateStatus();
 			});
 
 			document.getElementById('myFooter').addEventListener('clearcompleted',function(event){

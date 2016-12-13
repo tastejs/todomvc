@@ -5,6 +5,7 @@
         this.left = 0;
         this.clear = false;
         this.currentFilterType = 'all';
+        this.activeTodoWord = ' item left';
         this.dofilter = function (filterType, event) {
             this.currentFilterType = filterType;
             this.fire('filtertodos', { message: filterType });
@@ -25,6 +26,11 @@
             set: function (value) {
                 if (!isNaN(value)) {
                     this.left = value;
+                    if(this.left === 1){
+                        this.activeTodoWord = ' item left';
+                    }else{
+                        this.activeTodoWord = ' items left';
+                    }
                 }
             }
         });
@@ -35,5 +41,12 @@
                 }
             }
         });
+        Object.defineProperty(this, 'filterType', {
+            set: function (value) {
+                if(typeof value === 'string') {
+                    this.currentFilterType = value;
+                }
+            }
+        })
     };
 })();

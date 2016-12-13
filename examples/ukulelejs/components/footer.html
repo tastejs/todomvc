@@ -2,17 +2,17 @@
     <template>
         <footer class="footer">
 				<!-- This should be `0 items left` by default -->
-				<span class="todo-count"><strong uku-text="cc.left"></strong> item left</span>
+				<span class="todo-count"><strong uku-text="cc.left"></strong>{{cc.activeTodoWord}}</span>
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters">
 					<li>
-						<a uku-class="cc.getFilterButtonClass('all')" href="#" uku-onclick="cc.dofilter('all')">All</a>
+						<a uku-class="cc.getFilterButtonClass('all')" href="#/all" uku-onclick="cc.dofilter('all')">All</a>
 					</li>
 					<li>
-						<a uku-class="cc.getFilterButtonClass('active')" href="#" uku-onclick="cc.dofilter('active')">Active</a>
+						<a uku-class="cc.getFilterButtonClass('active')" href="#/active" uku-onclick="cc.dofilter('active')">Active</a>
 					</li>
 					<li>
-						<a uku-class="cc.getFilterButtonClass('completed')" href="#" uku-onclick="cc.dofilter('completed')">Completed</a>
+						<a uku-class="cc.getFilterButtonClass('completed')" href="#/completed" uku-onclick="cc.dofilter('completed')">Completed</a>
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->

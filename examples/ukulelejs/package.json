@@ -1,9 +1,11 @@
 {
   "private": true,
   "dependencies": {
+    "director": "^1.2.8",
+    "es6-promise": "^4.0.5",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.0",
-    "ukulelejs": "^1.2.0"
+    "ukulelejs": "^1.2.4"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
