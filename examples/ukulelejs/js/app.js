@@ -101,7 +101,7 @@
 			self.todoTasksCount = getLeftCount();
 			filterTodos(self.currentFilterType);
 			localStorage.setItem('todos-ukulelejs', JSON.stringify({
-				'todos': self.todos
+				todos: self.todos
 			}));
 			uku.refresh('mainCtrl');
 
