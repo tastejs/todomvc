@@ -19,7 +19,6 @@ gulp.task('lint', function () {
 });
 
 gulp.task('refresh', function () {
-	console.log("do refresh");
 	gulp.src('pages/*.html')
 		.pipe(connect.reload());
 });
