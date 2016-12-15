@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+
+<meta charset="utf-8" />
+
+<style>
+	html , body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		font: 12pt/1.25 "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		display: flex;
+	}
+
+	#sandbox {
+		border: none;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		box-shadow: 0 0 0 1px rgba(220, 220, 220, 1);
+	}
+</style>
+
+<iframe id="sandbox"></iframe>
+
+<script>
+
+	if( window.parent === window ) document.location = 'http://eigenmethod.github.io/mol/app/bench/#bench=' + encodeURIComponent( location.href )
+
+	var count = 100
+
+	var metaData = {
+		title : {
+			'en' : 'ToDoMVC workflow benchmark' ,
+			'ru' : 'ToDoMVC - производительность работы' ,
+		} ,
+		descr : {
+			'en' : 'Sample applications is [ToDOMVC](todomvc.com) implementations. Benchmark creates **' + count + ' tasks** in sequence and then removes them.' ,
+			'ru' : 'Варианты приложений являются реализациями [ToDOMVC](todomvc.com) приложения для управления списком дел. В тесте замеряется время последовательного создания **' + count + ' задач** с последующим их удалением.' ,
+		} ,
+		samples : {
+		} ,
+		steps : {
+			'start' : {
+				title : {
+					'en' : 'Load and init' ,
+					'ru' : 'Загрузка и запуск' ,
+				} ,
+			} ,
+			'fill' : {
+				title : {
+					'en' : 'Tasks creating' ,
+					'ru' : 'Создание задач' ,
+				} ,
+			} ,
+			'clear' : {
+				title : {
+					'en' : 'Tasks removing' ,
+					'ru' : 'Завершение задач' ,
+				} ,
+			} ,
+		} ,
+	}
+
+	var xhr = new XMLHttpRequest
+	xhr.open( 'get' , '../learn.json' , false )
+	xhr.send()
+	var learn = JSON.parse( xhr.responseText )
+
+	for( var lib in learn ) {
+		if( lib === 'templates' ) continue
+		learn[ lib ].examples.forEach( function( example ) {
+			if( !/^examples\/[-a-zA-Z0-9_\/]+$/.test( example.url ) ) return
+
+			metaData.samples[ example.url.replace( /(^examples\/|\/$)/g , '' ) ] = {
+				title : { 'en' : learn[ lib ].name + ' ' + example.name }
+			}
+		} )
+	}
+
+	var sandbox = document.getElementById( 'sandbox' )
+
+	var selector = {
+		adder : '#new-todo,.new-todo,.todo__new,[mol_app_todomvc_adder]' ,
+		adderForm : '#todo-form,.todo-form,#header form' ,
+		dropper : '.destroy,[mol_app_todomvc_tasker_dropper]' ,
+	}
+
+	function meta() {
+		done( metaData )
+	}
+
+	function start( sample ) {
+		var start = Date.now()
+		sandbox.src = '../examples/' + sample
+		sandbox.onload = function() {
+			step()
+			function step() {
+				if( sandbox.contentDocument.querySelector( selector.adder ) ) done( Date.now() - start + ' ms' )
+				else setTimeout( step , 10 )
+			}
+		}
+	}
+
+	function fill( sample ) {
+		var adder = sandbox.contentDocument.querySelector( selector.adder )
+		var adderForm = sandbox.contentDocument.querySelector( selector.adderForm )
+		var i = 1
+		var start = Date.now()
+
+		step()
+		function step() {
+			adder.value = 'Something to do ' + i
+			adder.dispatchEvent( new Event( 'input' , { bubbles : true } ) )
+			adder.dispatchEvent( new Event( 'change' , { bubbles : true } ) )
+
+			var event = new Event( 'keydown' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'keypress' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'compositionend' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'keyup' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'blur' , { bubbles : true } )
+			adder.dispatchEvent( event )
+
+			if( adderForm ) {
+				var event = new Event( 'submit' , { bubbles : true } )
+				event.keyCode = 13
+				event.which = 13
+				event.key = 'Enter'
+				adderForm.dispatchEvent( event )
+			}
+
+			if( ++i <= count ) setImmediate( step )
+			else done( Date.now() - start + ' ms' )
+		}
+	}
+
+	function clear( sample ) {
+		var start = Date.now()
+
+		step()
+		function step() {
+			var dropper = sandbox.contentDocument.querySelector( selector.dropper )
+			if( !dropper ) return done( Date.now() - start + ' ms' )
+
+			dropper.dispatchEvent( new Event( 'mousedown' , { bubbles : true } ) )
+			dropper.dispatchEvent( new Event( 'mouseup' , { bubbles : true } ) )
+			dropper.dispatchEvent( new Event( 'click' , { bubbles : true } ) )
+
+			setImmediate( step )
+		}
+	}
+
+	function done( result ) {
+		if( parent === window ) console.log( result )
+		else parent.postMessage( [ 'done' , result ] , '*' )
+	}
+
+	window.addEventListener( 'message' , function( event ) {
+		window[ event.data[0] ].apply( null , event.data.slice( 1 ) )
+	} )
+
+	var setImmediate_task
+	function setImmediate( task ) {
+		setImmediate_task = task
+		postMessage( [ 'setImmediate_task' ] , '*' )
+	}
+
+</script>
