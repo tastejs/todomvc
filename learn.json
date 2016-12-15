@@ -1181,6 +1181,16 @@
 			}]
 		}]
 	},
+	"mol": {
+		"name": "$mol",
+		"description": "$mol - full reactive micromodular framework",
+		"homepage": "https://github.com/eigenmethod/mol",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/mol"
+		}],
+		"link_groups": []
+	},
 	"kendo": {
 		"name": "Kendo UI",
 		"description": "Comprehensive HTML5/JavaScript framework for modern web and mobile app development.",
