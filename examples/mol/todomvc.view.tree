@@ -1,0 +1,57 @@
+$mol_app_todomvc $mol_scroller
+	childs / < pager $mol_lister childs /
+		< titler $mol_viewer
+			heightMinimal 142
+			childs / < title @ \todos
+		< paneler $mol_lister rows < panels /
+			< header $mol_viewer
+				heightMinimal 64
+				childs < headerContent /
+					< allCompleter $mol_checker
+						enabled < allCompleterEnabled false
+						checked > allCompleted false
+						childs / \❯
+					< adder $mol_app_todomvc_adder
+						value > taskNewTitle \
+						eventDone > eventAdd null
+			< lister $mol_lister rows < taskers /
+			< footer $mol_viewer
+				childs < footerContent /
+					< pendinger $mol_viewer childs / < pendingMessage @ \0 items left 
+					< filter $mol_barer childs < filterOptions /
+						< filterAll $mol_linker
+							childs / < filterAllLabel @ \All
+							arg * completed null
+						< filterActive $mol_linker
+							childs / < filterActiveLabel @ \Active
+							arg * completed false
+						< filterCompleted $mol_linker
+							childs / < filterCompletedLabel @ \Completed
+							arg * completed true
+					< sanitizer $mol_clicker_minor
+						enabled < sanitizerEnabled true
+						eventClick < eventSanitize null
+						childs / < sanitizerLabel @ \Clear completed
+	tasker# $mol_app_todomvc_tasker
+		completed > taskCompleted# false
+		title > taskTitle# \
+		eventDrop > eventTaskDrop# null
+
+$mol_app_todomvc_adder $mol_stringer
+	hint @ \What needs to be done?
+	event * keyup > eventPress null
+	> eventDone null
+
+$mol_app_todomvc_tasker $mol_viewer
+	heightMinimal 64
+	childs /
+		< completer $mol_checker
+			checked > completed false
+			childs /
+		< titler $mol_stringer
+			hint < titleHint @ \Task title
+			value > title \
+		< dropper $mol_clicker
+			childs / \✖
+			eventClick > eventDrop null
+	attr * mol_app_todomvc_tasker_completed < completed
