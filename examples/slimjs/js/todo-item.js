@@ -5,16 +5,16 @@
  */
 Slim.tag('add-todo', class extends Slim {
 
-    get template() { return `<input slim-id="inpAdd" class="new-todo" placeholder="What needs to be done?" autofocus>`}
+	get template() { return `<input slim-id="inpAdd" class="new-todo" placeholder="What needs to be done?" autofocus>`}
 
-    onAfterRender() {
-        this.inpAdd.onkeyup = e => {
-            if (e.which === 13) {
-                document.querySelector('todo-list').addItem( this.inpAdd.value )
-                this.inpAdd.value = ''
-            }
-        }
-    }
+	onAfterRender() {
+		this.inpAdd.onkeyup = e => {
+			if (e.which === 13) {
+				document.querySelector('todo-list').addItem( this.inpAdd.value )
+				this.inpAdd.value = ''
+			}
+		}
+	}
 
 })
 
@@ -27,29 +27,29 @@ Slim.tag('add-todo', class extends Slim {
  */
 Slim.tag('todo-list', class extends Slim {
 
-    get template() {
-        return `
+	get template() {
+		return `
 <ul class="todo-list">
-    <todo-item slim-repeat="items"></todo-item>
+	<todo-item slim-repeat="items"></todo-item>
 </ul>`
-    }
+	}
 
-    onBeforeCreated() {
-        this.items = []
-    }
+	onBeforeCreated() {
+		this.items = []
+	}
 
-    addItem(value) {
-        this.items.push(value)
-        this.update()
-    }
+	addItem(value) {
+		this.items.push(value)
+		this.update()
+	}
 
-    removeItem(value) {
-        let i = this.items.indexOf(value)
-        if (i >= 0) {
-            this.items.splice(i, 1)
-            this.update()
-        }
-    }
+	removeItem(value) {
+		let i = this.items.indexOf(value)
+		if (i >= 0) {
+			this.items.splice(i, 1)
+			this.update()
+		}
+	}
 
 
 })
@@ -65,34 +65,34 @@ Slim.tag('todo-list', class extends Slim {
  */
 Slim.tag('todo-item', class extends Slim {
 
-    get template() {
-        return `
+	get template() {
+		return `
 <li class="[[getCompleteClass(complete)]]">
 <div>
-    <input slim-id="inpToggle" class="toggle" type="checkbox" />
-    <label bind>[[data]]</label>
-    <button slim-id="inpDestroy" class="destroy"></button>
+	<input slim-id="inpToggle" class="toggle" type="checkbox" />
+	<label bind>[[data]]</label>
+	<button slim-id="inpDestroy" class="destroy"></button>
 </div>
 </li>`
-    }
+	}
 
-    getCompleteClass(value) {
-        if (value) {
-            return 'completed'
-        } else {
-            return ''
-        }
-    }
+	getCompleteClass(value) {
+		if (value) {
+			return 'completed'
+		} else {
+			return ''
+		}
+	}
 
-    onAfterRender() {
-        this.inpToggle.onchange = () => {
-            this.complete = !!this.inpToggle.checked
-        }
+	onAfterRender() {
+		this.inpToggle.onchange = () => {
+			this.complete = !!this.inpToggle.checked
+		}
 
-        this.inpDestroy.onclick = () => {
-            document.querySelector('todo-list').removeItem(this.data)
-        }
-    }
+		this.inpDestroy.onclick = () => {
+			document.querySelector('todo-list').removeItem(this.data)
+		}
+	}
 
 
 
