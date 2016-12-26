@@ -10,7 +10,7 @@ Slim.tag('add-todo', class extends Slim {
 	onAfterRender() {
 		this.inpAdd.onkeyup = e => {
 			if (e.which === 13) {
-				document.querySelector('todo-list').addItem( this.inpAdd.value )
+				document.querySelector('todo-list').addItem(this.inpAdd.value)
 				this.inpAdd.value = ''
 			}
 		}
