@@ -8,12 +8,12 @@
 		<style> [v-cloak] { display: none; } </style>
 	</head>
 	<body>
-		<section class="todoapp">
+		<section class="todoapp" v-cloak>
 			<header class="header">
 				<h1>todos</h1>
 				<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
 			</header>
-			<section class="main" v-show="todos.length" v-cloak>
+			<section class="main" v-show="todos.length">
 				<input class="toggle-all" type="checkbox" v-model="allDone">
 				<ul class="todo-list">
 					<li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed, editing: todo == editedTodo}">
@@ -26,9 +26,9 @@
 					</li>
 				</ul>
 			</section>
-			<footer class="footer" v-show="todos.length" v-cloak>
+			<footer class="footer" v-show="todos.length">
 				<span class="todo-count">
-					<strong v-text="remaining"></strong> {{remaining | pluralize 'item'}} left
+					<strong v-text="remaining"></strong> {{pluralize('item', remaining)}} left
 				</span>
 				<ul class="filters">
 					<li><a href="#/all" :class="{selected: visibility == 'all'}">All</a></li>
