@@ -1,235 +1,235 @@
 Ext.define('TodoMVC.controller.Controller', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.todomvc',
-    routes: {
-        active: 'showActiveItems',
-        completed: 'showCompletedItems',
-        '/': 'showAllItems'
-    },
-    init: function () {
+ extend: 'Ext.app.ViewController',
+ alias: 'controller.todomvc',
+ routes: {
+  active: 'showActiveItems',
+  completed: 'showCompletedItems',
+  '/': 'showAllItems'
+ },
+ init: function () {
 
-        /* load record localstorage */
-        this.getViewModel().getStore('todomvc').load();
+  /* load record localstorage */
+  this.getViewModel().getStore('todomvc').load();
 
-    },
-    onLoadStore: function (store) {
+ },
+ onLoadStore: function (store) {
 
-        console.log('onLoadStore', arguments);
-        this.updateLabels(store);
+  console.log('onLoadStore', arguments);
+  this.updateLabels(store);
 
-    },
-    onKeyupText: function (field, event) {
+ },
+ onKeyupText: function (field, event) {
 
-        var me = this,
-                store = me.getStore(),
-                value = field.getValue();
+  var me = this,
+    store = me.getStore(),
+    value = field.getValue();
 
-        if (event.getKey() !== Ext.event.Event.ENTER || Ext.isEmpty(value)) {
+  if (event.getKey() !== Ext.event.Event.ENTER || Ext.isEmpty(value)) {
 
-            return;
+   return;
 
-        }
+  }
 
-        store.add({
-            text: value.trim(),
-            active: true,
-            completed: false
-        });
+  store.add({
+   text: value.trim(),
+   active: true,
+   completed: false
+  });
 
-        store.sync();
+  store.sync();
 
-        field.reset();
-        field.focus();
+  field.reset();
+  field.focus();
 
-    },
-    onRenderColumnText: function (value, record, dataIndex, cell) {
+ },
+ onRenderColumnText: function (value, record, dataIndex, cell) {
 
-        console.log('onRenderColumnText', arguments);
+  console.log('onRenderColumnText', arguments);
 
-        if (record.data.completed) {
+  if (record.data.completed) {
 
-            cell.el.addCls('completed');
+   cell.el.addCls('completed');
 
-        } else {
+  } else {
 
-            cell.el.removeCls('completed');
+   cell.el.removeCls('completed');
 
-        }
+  }
 
-        return value;
+  return value;
 
-    },
-    /**
-     * Need to add class to be able to delete
-     */
-    onRendererDelete: function (value, record, dataIndex, cell) {
+ },
+ /**
+  * Need to add class to be able to delete
+  */
+ onRendererDelete: function (value, record, dataIndex, cell) {
 
-        cell.setCls('delete');
+  cell.setCls('delete');
 
-    },
-    onItemTapGrid: function (dataView, index, row, record, target) {
+ },
+ onItemTapGrid: function (dataView, index, row, record, target) {
 
-        /* Only if it is the class column delete */
-        if (target.target.className === 'x-gridcell delete') {
+  /* Only if it is the class column delete */
+  if (target.target.className === 'x-gridcell delete') {
 
-            var store = this.getStore();
-            record.erase();
-            store.sync();
-            this.updateLabels(store);
+   var store = this.getStore();
+   record.erase();
+   store.sync();
+   this.updateLabels(store);
 
-        }
+  }
 
-    },
-    onRemoveRecord: function (store) {
+ },
+ onRemoveRecord: function (store) {
 
-        console.log('onRemoveRecord', store);
-        store.sync();
+  console.log('onRemoveRecord', store);
+  store.sync();
 
-    },
-    onAddRecord: function (store) {
+ },
+ onAddRecord: function (store) {
 
-        console.log('onAddRecord', store);
-        this.updateLabels(store);
+  console.log('onAddRecord', store);
+  this.updateLabels(store);
 
-    },
-    updateLabels: function (store) {
+ },
+ updateLabels: function (store) {
 
-        console.log('updateLabels', arguments);
+  console.log('updateLabels', arguments);
 
-        var me = this,
-                btnTotalCompleted = me.lookup('btnTotalCompleted'),
-                lblTotal = me.lookup('lblTotal'),
-                totalCompleted = 0,
-                totalItems = 0;
+  var me = this,
+    btnTotalCompleted = me.lookup('btnTotalCompleted'),
+    lblTotal = me.lookup('lblTotal'),
+    totalCompleted = 0,
+    totalItems = 0;
 
-        store.each(function (record) {
+  store.each(function (record) {
 
-            if (record.data.completed) {
+   if (record.data.completed) {
 
-                ++totalCompleted;
+    ++totalCompleted;
 
-            }
+   }
 
-            ++totalItems;
+   ++totalItems;
 
-        }, me, {
-            /* Necessary to include all records */
-            filtered: true
-        });
+  }, me, {
+   /* Necessary to include all records */
+   filtered: true
+  });
 
-        lblTotal.setData({
-            total: totalItems
-        });
+  lblTotal.setData({
+   total: totalItems
+  });
 
-        btnTotalCompleted[totalCompleted > 0 ? 'show' : 'hide']();
+  btnTotalCompleted[totalCompleted > 0 ? 'show' : 'hide']();
 
-    },
-    updateColumnText: function (record) {
+ },
+ updateColumnText: function (record) {
 
-        var grid = this.getView().down('grid'),
-                rowGrid = grid.getItem(record);
+  var grid = this.getView().down('grid'),
+    rowGrid = grid.getItem(record);
 
-        if (!rowGrid) {
+  if (!rowGrid) {
 
-            return;
+   return;
 
-        }
+  }
 
-        if (record.data.completed) {
+  if (record.data.completed) {
 
-            rowGrid.cells[1].addCls('completed');
+   rowGrid.cells[1].addCls('completed');
 
-        } else {
+  } else {
 
-            rowGrid.cells[1].removeCls('completed');
+   rowGrid.cells[1].removeCls('completed');
 
-        }
+  }
 
-    },
-    onUpdateRecord: function (store, record, operation, modifiedFieldNames) {
+ },
+ onUpdateRecord: function (store, record, operation, modifiedFieldNames) {
 
-        console.log('onUpdateRecord', arguments);
+  console.log('onUpdateRecord', arguments);
 
-        this.updateColumnText(record);
+  this.updateColumnText(record);
 
-        if (!modifiedFieldNames) {
+  if (!modifiedFieldNames) {
 
-            return;
-        }
+   return;
+  }
 
-        if (modifiedFieldNames.indexOf('completed') !== -1) {
+  if (modifiedFieldNames.indexOf('completed') !== -1) {
 
-            console.log('update completed');
-            record.set('active', !record.data.completed);
-            store.sync();
-            this.updateLabels(store);
+   console.log('update completed');
+   record.set('active', !record.data.completed);
+   store.sync();
+   this.updateLabels(store);
 
-        }
+  }
 
-    },
-    onTapBtnAll: function () {
+ },
+ onTapBtnAll: function () {
 
-        this.redirectTo('/');
+  this.redirectTo('/');
 
-    },
-    onTapBtnActive: function () {
+ },
+ onTapBtnActive: function () {
 
-        this.redirectTo('active');
+  this.redirectTo('active');
 
-    },
-    showAllItems: function () {
+ },
+ showAllItems: function () {
 
-        var store = this.getStore();
+  var store = this.getStore();
 
-        store.clearFilter();
+  store.clearFilter();
 
-    },
-    showActiveItems: function () {
+ },
+ showActiveItems: function () {
 
-        var store = this.getStore();
+  var store = this.getStore();
 
-        store.clearFilter();
-        store.filter('active', true);
+  store.clearFilter();
+  store.filter('active', true);
 
-    },
-    showCompletedItems: function () {
+ },
+ showCompletedItems: function () {
 
-        var store = this.getStore();
+  var store = this.getStore();
 
-        store.clearFilter();
-        store.filter('completed', true);
+  store.clearFilter();
+  store.filter('completed', true);
 
-    },
-    onTapBtnCompleted: function () {
+ },
+ onTapBtnCompleted: function () {
 
-        this.redirectTo('completed');
+  this.redirectTo('completed');
 
-    },
-    onTapBtnClearCompleted: function () {
+ },
+ onTapBtnClearCompleted: function () {
 
-        var me = this,
-                store = me.getStore();
+  var me = this,
+    store = me.getStore();
 
-        store.each(function (record) {
+  store.each(function (record) {
 
-            if (record.data.completed) {
+   if (record.data.completed) {
 
-                record.erase();
+    record.erase();
 
-            }
+   }
 
-        }, me, {
-            /* Necessary to include all records */
-            filtered: true
-        });
+  }, me, {
+   /* Necessary to include all records */
+   filtered: true
+  });
 
-        me.updateLabels(store);
+  me.updateLabels(store);
 
-    },
-    getStore: function () {
+ },
+ getStore: function () {
 
-        return this.getViewModel().getStore('todomvc');
+  return this.getViewModel().getStore('todomvc');
 
-    }
+ }
 
 });
