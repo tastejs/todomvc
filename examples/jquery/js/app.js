@@ -121,7 +121,7 @@ jQuery(function ($) {
 		},
 		// accepts an element from inside the `.item` div and
 		// returns the corresponding index in the `todos` array
-		indexFromEl: function (el) {
+		getIndexFromEl: function (el) {
 			var id = $(el).closest('li').data('id');
 			var todos = this.todos;
 			var i = todos.length;
@@ -151,7 +151,7 @@ jQuery(function ($) {
 			this.render();
 		},
 		toggle: function (e) {
-			var i = this.indexFromEl(e.target);
+			var i = this.getIndexFromEl(e.target);
 			this.todos[i].completed = !this.todos[i].completed;
 			this.render();
 		},
@@ -181,13 +181,13 @@ jQuery(function ($) {
 			if ($el.data('abort')) {
 				$el.data('abort', false);
 			} else {
-				this.todos[this.indexFromEl(el)].title = val;
+				this.todos[this.getIndexFromEl(el)].title = val;
 			}
 
 			this.render();
 		},
 		destroy: function (e) {
-			this.todos.splice(this.indexFromEl(e.target), 1);
+			this.todos.splice(this.getIndexFromEl(e.target), 1);
 			this.render();
 		}
 	};
