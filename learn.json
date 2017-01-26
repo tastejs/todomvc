@@ -538,6 +538,15 @@
 			}]
 		}]
 	},
+	"cyclejs": {
+		"name": "CycleJS",
+		"description": "A functional and reactive JavaScript framework for cleaner code",
+		"homepage": "https://cycle.js.org",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/cyclejs"
+		}]
+	},
 	"dart": {
 		"name": "Dart",
 		"description": "Dart is a class-based, object-oriented language with lexical scoping, closures, and optional static typing. Dart helps you build structured modern web apps and is easy to learn for a wide range of developers.",
