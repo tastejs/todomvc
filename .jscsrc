@@ -47,7 +47,8 @@
 		"examples/spine/js/**",
 		"examples/typescript-*/js/**/*.js",
 		"examples/vanilladart/**/*.js",
-		"examples/vanilla-es6/dist/bundle.js",
+		"examples/meteor/.meteor/**",
+		"examples/vanilla-es6/dist/bundle.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
