@@ -1,7 +1,7 @@
 
 module.exports = {
 	resolve: {
-  	extensions: ['', '.jsx', '.js', 'es6']
+		extensions: ['', '.jsx', '.js', 'es6']
 	},
 	entry:  './es6/app.es6',
 	output: {
