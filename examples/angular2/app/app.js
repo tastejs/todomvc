@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
+var Rx_1 = require('rxjs/Rx');
 var FocusDirective = (function () {
     function FocusDirective(renderer, elementRef) {
         this.renderer = renderer;
@@ -16,9 +17,9 @@ var FocusDirective = (function () {
     }
     FocusDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
-        setTimeout(function () {
+        Rx_1.Observable.timer(0).subscribe(function () {
             _this.renderer.invokeElementMethod(_this.elementRef, 'focus', []);
-        }, 0);
+        });
     };
     FocusDirective = __decorate([
         core_1.Directive({
