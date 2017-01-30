@@ -9,6 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
+var FocusDirective = (function () {
+    function FocusDirective(renderer, elementRef) {
+        this.renderer = renderer;
+        this.elementRef = elementRef;
+    }
+    FocusDirective.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.renderer.invokeElementMethod(_this.elementRef, 'focus', []);
+        }, 0);
+    };
+    FocusDirective = __decorate([
+        core_1.Directive({
+            selector: '[todo-focus]',
+        }), 
+        __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
+    ], FocusDirective);
+    return FocusDirective;
+})();
+exports.FocusDirective = FocusDirective;
 var TodoApp = (function () {
     function TodoApp(todoStore) {
         this.newTodoText = '';
@@ -50,6 +70,7 @@ var TodoApp = (function () {
     TodoApp = __decorate([
         core_1.Component({
             selector: 'todo-app',
+            directives: [FocusDirective],
             templateUrl: 'app/app.html'
         }), 
         __metadata('design:paramtypes', [store_1.TodoStore])

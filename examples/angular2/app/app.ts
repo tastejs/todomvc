@@ -1,8 +1,24 @@
-import {Component} from 'angular2/core';
+import {Component, Directive, ElementRef, Renderer} from 'angular2/core';
 import {TodoStore, Todo} from './services/store';
+
+@Directive({
+	selector: '[todo-focus]',
+})
+export class FocusDirective {
+	constructor(private renderer: Renderer, private elementRef: ElementRef) {}
+	ngAfterViewInit() {
+		setTimeout(
+			() => {
+				this.renderer.invokeElementMethod(this.elementRef, 'focus', []);
+			},
+			0
+		);
+  }
+}
 
 @Component({
 	selector: 'todo-app',
+	directives: [FocusDirective],
 	templateUrl: 'app/app.html'
 })
 export default class TodoApp {

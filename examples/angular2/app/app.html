@@ -12,7 +12,7 @@
 					<label (dblclick)="editTodo(todo)">{{todo.title}}</label>
 					<button class="destroy" (click)="remove(todo)"></button>
 				</div>
-				<input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)" (keyup.escape)="cancelEditingTodo(todo)">
+				<input class="edit" todo-focus *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)" (keyup.escape)="cancelEditingTodo(todo)">
 			</li>
 		</ul>
 	</section>
