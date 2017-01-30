@@ -1,0 +1,17 @@
+{
+  "plugins": ["../../../src"],
+  "extra": {
+    "react-transform": {
+      "transforms": [
+        {
+          "transform": "my-custom-module/wrap",
+          "locals": ["module"],
+          "imports": ["react"]
+        },
+        {
+          "transform": "my-other-custom-module/wrap"
+        }
+      ]
+    }
+  }
+}
