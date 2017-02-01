@@ -1,10 +1,10 @@
 {
 	"$mol_app_todomvc_title": "todos",
-	"$mol_app_todomvc_pendingMessage": "0 items left ",
-	"$mol_app_todomvc_filterAllLabel": "All",
-	"$mol_app_todomvc_filterActiveLabel": "Active",
-	"$mol_app_todomvc_filterCompletedLabel": "Completed",
-	"$mol_app_todomvc_sanitizerLabel": "Clear completed",
-	"$mol_app_todomvc_adder_hint": "What needs to be done?",
-	"$mol_app_todomvc_tasker_titleHint": "Task title"
+	"$mol_app_todomvc_pending_message": "0 items left ",
+	"$mol_app_todomvc_filter_all_label": "All",
+	"$mol_app_todomvc_filter_active_label": "Active",
+	"$mol_app_todomvc_filter_completed_label": "Completed",
+	"$mol_app_todomvc_sanitize_label": "Clear completed",
+	"$mol_app_todomvc_add_hint": "What needs to be done?",
+	"$mol_app_todomvc_task_row_title_hint": "Task title"
 }
