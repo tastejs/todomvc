@@ -14,11 +14,13 @@
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
+    "@types/react": "^15.0.13",
+    "@types/react-dom": "^0.14.23",
     "ncp": "^2.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.3.0",
     "rimraf": "^2.6.0",
-    "typescript": "^2.1.4",
-    "webpack": "^2.2.0-rc.3"
+    "typescript": "^2.1.6",
+    "webpack": "^2.2.1"
   }
 }

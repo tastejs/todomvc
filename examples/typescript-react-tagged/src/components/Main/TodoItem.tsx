@@ -21,14 +21,14 @@ const TodoItemView = (p: TodoItemProps) =>
   </div>;
 
 const TodoItemEdit = (p: TodoItemProps) => {
-  const handleKeyDown = (event : __React.KeyboardEvent) => {
+  const handleKeyDown = (event : React.KeyboardEvent<any>) => {
     if (event.keyCode === KEY_ESCAPE) {
       p.controller({ name: "todoCancelEdit" });
     } else if (event.keyCode === KEY_ENTER) {
       p.controller({ name: "todoSubmit" });
     }
   };
-  const handleChange = (event : __React.FormEvent) => {
+  const handleChange = (event : React.FormEvent<any>) => {
     const input : any = event.target;
     p.controller({ name: "todoChange", text: input.value });
   };

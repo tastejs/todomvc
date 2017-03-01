@@ -8,7 +8,7 @@ export class NewTodo extends React.Component<AppProps, { editValue: string}> {
     this.state = { editValue: "" };
   }
 
-  private handleKeyDown(event : __React.KeyboardEvent) {
+  private handleKeyDown(event : React.KeyboardEvent<any>) {
     if (event.keyCode === KEY_ESCAPE) {
       this.setState(s => {
         s.editValue = "";

@@ -74,7 +74,9 @@ Then look in the ./build directory and view index.html in your favorite browser.
 
 ## Testing
 
-Failed test.
+Updated some versions and types.
 
-Adjusted to lint rule. ( Which I profoundly disagree with. )
+Adjusted to lint rule. Which I profoundly disagree with, tabs bad.  However, it passed the test.
+
+
 
