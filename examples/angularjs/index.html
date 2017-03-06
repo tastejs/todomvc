@@ -23,6 +23,7 @@
 				<section id="main" ng-show="todos.length" ng-cloak>
 					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
 					<label for="toggle-all">Mark all as complete</label>
+					<!-- I would rather do a component for the list instead of having all in index.html -->
 					<ul id="todo-list">
 						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
 							<div class="view">

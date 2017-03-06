@@ -19,8 +19,14 @@
 				controller: 'TodoCtrl as vm',
 				templateUrl: 'todomvc-index.html',
 				resolve: {
-					// I prefer to use name functions to detect bugs faster
-					store: getStorage
+					// I prefer to use named functions to detect bugs faster
+					store: function getStorage(todoStorage) {
+						// Get the correct module (API or localStorage).
+						return todoStorage.then(function (module) {
+							module.get(); // Fetch the todo records in the background.
+							return module;
+						});
+					}
 				}
 			};
 
@@ -31,13 +37,7 @@
 					redirectTo: '/'
 				});
 
-			function getStorage(todoStorage) {
-				// Get the correct module (API or localStorage).
-				return todoStorage.then(function (module) {
-					module.get(); // Fetch the todo records in the background.
-					return module;
-				});
-			}
+
 		});
 // ... and here it is executed
 })();

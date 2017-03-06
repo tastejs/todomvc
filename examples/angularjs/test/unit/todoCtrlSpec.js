@@ -153,12 +153,36 @@
 				expect(scope.todos.length).toBe(4);
 			});
 
+			it('should not trigger saving on blur', function () {
+				var todo = store.todos[2];
+				var length = store.todos.length;
+				scope.editTodo(todo);
+				todo.title = 'buy moar unicorns';
+				scope.saveEvent = 'submit';
+				scope.saveEdits(todo, 'blur');
+				expect(scope.todos.length).toBe(length);
+			});
+
 			it('should trim Todos on saving', function () {
 				var todo = store.todos[0];
 				scope.editTodo(todo);
 				todo.title = ' buy moar unicorns  ';
 				scope.saveEdits(todo);
 				expect(scope.todos[0].title).toBe('buy moar unicorns');
+			});
+
+			it('should clear $scope.reverted if necessary', function () {
+				var todo = store.todos[0];
+				scope.reverted = true;
+				scope.saveEdits(todo);
+				expect(scope.reverted).toBe(null);
+			});
+
+			it('should clear editedTodo if not modified', function () {
+				var todo = store.todos[0];
+				scope.editTodo(todo);
+				scope.saveEdits(todo);
+				expect(scope.editedTodo).toBe(null);
 			});
 
 			it('clearCompletedTodos() should clear completed Todos', function () {

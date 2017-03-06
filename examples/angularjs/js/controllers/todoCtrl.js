@@ -33,6 +33,8 @@ angular.module('todomvc')
 
 		// Personnaly I try to avoid watchers because the binding is rather good in angularjs
 		// it allows me to avoid injecting the scope, instead i create custom filters or directives
+		// but in this case it's better to use a watcher because the function is not
+		// complex enough to do otherwise.
 		$scope.$watch('todos', function () {
 			$scope.remainingCount = $filter('filter')(todos, { completed: false }).length;
 			$scope.completedCount = todos.length - $scope.remainingCount;
@@ -48,6 +50,7 @@ angular.module('todomvc')
 		});
 
 		// Commenting the function so it's not linked to $scope anymore
+		// and naming it to be used in the view via the controller directly
 		// $scope.addTodo =
 		function addTodo() {
 			var newTodo = {
