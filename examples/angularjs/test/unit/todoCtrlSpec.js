@@ -171,14 +171,14 @@
 				expect(scope.todos[0].title).toBe('buy moar unicorns');
 			});
 
-			it('should clear $scope.reverted if necessary', function () {
+			it('saveEdits should clear reverted if necessary', function () {
 				var todo = store.todos[0];
 				scope.reverted = true;
 				scope.saveEdits(todo);
 				expect(scope.reverted).toBe(null);
 			});
 
-			it('should clear editedTodo if not modified', function () {
+			it('saveEdits should clear editedTodo if not modified', function () {
 				var todo = store.todos[0];
 				scope.editTodo(todo);
 				scope.saveEdits(todo);
@@ -204,6 +204,20 @@
 				scope.$digest();
 				expect(scope.todos[0].title).toBe('Uncompleted Item 0');
 			});
+
+			it('removeTodo() should remove a todo', function() {
+				var todo = store.todos[0];
+				var length = store.todos.length;
+				scope.removeTodo(todo);
+				expect(scope.todos.length).toBe(length - 1);
+			});
+
+			it('saveTodo() should save a todo', function() {
+				var todo = store.todos[0];
+				todo.title = 'all good !';
+				scope.saveTodo(todo);
+				expect(scope.todos[0].title).toBe(todo.title);
+			})
 		});
 	});
 }());
