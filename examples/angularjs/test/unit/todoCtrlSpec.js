@@ -91,23 +91,26 @@
 			}));
 
 			it('should not add empty Todos', function () {
+				//now the addTodo function is linked to the controller instead of the scope
 				scope.newTodo = '';
-				scope.addTodo();
+				ctrl.addTodo();
 				scope.$digest();
 				expect(scope.todos.length).toBe(0);
 			});
 
 			it('should not add items consisting only of whitespaces', function () {
-				scope.newTodo = '   ';
-				scope.addTodo();
+				//same thing as in previous test
+				ctrl.newTodo = '   ';
+				ctrl.addTodo();
 				scope.$digest();
 				expect(scope.todos.length).toBe(0);
 			});
 
 
 			it('should trim whitespace from new Todos', function () {
-				scope.newTodo = '  buy some unicorns  ';
-				scope.addTodo();
+				//and here too
+				ctrl.newTodo = '  buy some unicorns  ';
+				ctrl.addTodo();
 				scope.$digest();
 				expect(scope.todos.length).toBe(1);
 				expect(scope.todos[0].title).toBe('buy some unicorns');

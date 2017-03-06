@@ -9,11 +9,30 @@ angular.module('todomvc')
 	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store) {
 		'use strict';
 
+		// Here the vm variable is defined to hold the instance of this controller
+		var vm = this;
+
+		// And here we expose the functions and variables to html files
+		// this allows to have 'private' functions, not accesible from the view
+		// (unless you use watchers)
+		angular.extend(vm, {
+			// variables
+			newTodo: '',
+			// etc...
+
+			// and functions
+			addTodo: addTodo
+			// etc...
+		});
+
 		var todos = $scope.todos = store.todos;
 
-		$scope.newTodo = '';
+		// Unlinking newTodo var from $scope
+		// $scope.newTodo = '';
 		$scope.editedTodo = null;
 
+		// Personnaly I try to avoid watchers because the binding is rather good in angularjs
+		// it allows me to avoid injecting the scope, instead i create custom filters or directives
 		$scope.$watch('todos', function () {
 			$scope.remainingCount = $filter('filter')(todos, { completed: false }).length;
 			$scope.completedCount = todos.length - $scope.remainingCount;
@@ -28,9 +47,11 @@ angular.module('todomvc')
 				{ completed: true } : {};
 		});
 
-		$scope.addTodo = function () {
+		// Commenting the function so it's not linked to $scope anymore
+		// $scope.addTodo =
+		function addTodo() {
 			var newTodo = {
-				title: $scope.newTodo.trim(),
+				title: vm.newTodo.trim(),
 				completed: false
 			};
 
@@ -41,7 +62,7 @@ angular.module('todomvc')
 			$scope.saving = true;
 			store.insert(newTodo)
 				.then(function success() {
-					$scope.newTodo = '';
+					vm.newTodo = '';
 				})
 				.finally(function () {
 					$scope.saving = false;

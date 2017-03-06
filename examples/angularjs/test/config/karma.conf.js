@@ -14,6 +14,11 @@ module.exports = function (config) {
 		],
 		autoWatch: true,
 		singleRun: false,
-		browsers: ['Chrome', 'Firefox']
+		browsers: ['Chrome', 'Firefox'],
+		// coverage reporter generates the coverage
+		preprocessors: {
+			'js/**/*.js': ['coverage']
+		},
+		reporters: ['progress', 'coverage'],
 	});
 };
