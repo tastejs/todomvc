@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "noUnusedLocals": true
+    },
+
+    "include": [
+	  "js/**/*"
+  ]
+}

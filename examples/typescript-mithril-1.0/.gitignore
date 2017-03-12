@@ -1,0 +1,7 @@
+node_modules/*/*
+!node_modules/todomvc-app-css/index.css
+!node_modules/todomvc-common/base.js
+!node_modules/todomvc-common/base.css
+!node_modules/mithril/mithril.js
+!node_modules/mithril/stream/stream.js
+.idea
