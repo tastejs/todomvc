@@ -1,22 +1,22 @@
 {
+  "name": "todomvc-fauna",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "classnames": "^2.1.5",
-    "director": "^1.2.0",
-    "react": "^0.13.3",
+    "classnames": "^2.2.5",
+    "director": "^1.2.8",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
-    "bin-up": "^1.1.0"
+    "react-scripts": "0.9.5"
   },
   "scripts": {
-    "cy:open": "bin-up cypress open --project ../.. --env framework=react",
-    "cy:run": "bin-up cypress run --project ../.. --env framework=react",
-    "cy:run:record": "npm run cy:run -- --record",
-    "start": "bin-up gulp test-server",
-    "test:gui": "bin-up run-p --race start cy:open",
-    "test": "bin-up run-p --race start cy:run",
-    "test:record": "bin-up run-p --race start cy:run:record"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
