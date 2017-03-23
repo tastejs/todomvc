@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-polymer",
+  "version": "0.0.2",
+  "dependencies": {
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.0",
+    "polymer": "Polymer/polymer#2.0.0-rc.1",
+    "iron-selector": "PolymerElements/iron-selector#2.0-preview",
+    "app-route": "PolymerElements/app-route#2.0-preview",
+    "iron-localstorage": "PolymerElements/iron-localstorage#2.0-preview",
+	"webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.4"
+  }
+}
