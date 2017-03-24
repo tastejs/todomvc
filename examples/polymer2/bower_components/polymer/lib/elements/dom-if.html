@@ -1,0 +1,262 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../polymer-element.html">
+<link rel="import" href="../utils/templatize.html">
+<link rel="import" href="../utils/debounce.html">
+<link rel="import" href="../utils/flush.html">
+
+<script>
+
+(function() {
+  'use strict';
+
+  /**
+   * The `<dom-if>` element will stamp a light-dom `<template>` child when
+   * the `if` property becomes truthy, and the template can use Polymer
+   * data-binding and declarative event features when used in the context of
+   * a Polymer element's template.
+   *
+   * When `if` becomes falsey, the stamped content is hidden but not
+   * removed from dom. When `if` subsequently becomes truthy again, the content
+   * is simply re-shown. This approach is used due to its favorable performance
+   * characteristics: the expense of creating template content is paid only
+   * once and lazily.
+   *
+   * Set the `restamp` property to true to force the stamped content to be
+   * created / destroyed when the `if` condition changes.
+   *
+   * @polymerElement
+   * @extends Polymer.Element
+   * @memberof Polymer
+   * @summary Custom element that conditionally stamps and hides or removes
+   *   template content based on a boolean flag.
+   */
+  class DomIf extends Polymer.Element {
+
+    // Not needed to find template; can be removed once the analyzer
+    // can find the tag name from customElements.define call
+    static get is() { return 'dom-if'; }
+
+    static get template() { return null; }
+
+    static get properties() {
+
+      return {
+
+        /**
+         * Fired whenever DOM is added or removed/hidden by this template (by
+         * default, rendering occurs lazily).  To force immediate rendering, call
+         * `render`.
+         *
+         * @event dom-change
+         */
+
+        /**
+         * A boolean indicating whether this template should stamp.
+         */
+        if: {
+          type: Boolean,
+          observer: '__debounceRender'
+        },
+
+        /**
+         * When true, elements will be removed from DOM and discarded when `if`
+         * becomes false and re-created and added back to the DOM when `if`
+         * becomes true.  By default, stamped elements will be hidden but left
+         * in the DOM when `if` becomes false, which is generally results
+         * in better performance.
+         */
+        restamp: {
+          type: Boolean,
+          observer: '__debounceRender'
+        }
+
+      }
+
+    }
+
+    constructor() {
+      super();
+      this.__renderDebouncer = null;
+      this.__invalidProps = null;
+      this.__instance = null;
+    }
+
+    __debounceRender() {
+      // Render is async for 2 reasons:
+      // 1. To eliminate dom creation trashing if user code thrashes `if` in the
+      //    same turn. This was more common in 1.x where a compound computed
+      //    property could result in the result changing multiple times, but is
+      //    mitigated to a large extent by batched property processing in 2.x.
+      // 2. To avoid double object propagation when a bag including values bound
+      //    to the `if` property as well as one or more hostProps could enqueue
+      //    the <dom-if> to flush before the <template>'s host property
+      //    forwarding. In that scenario creating an instance would result in
+      //    the host props being set once, and then the enqueued changes on the
+      //    template would set properties a second time, potentially causing an
+      //    object to be set to an instance more than once.  Creating the
+      //    instance async from flushing data ensures this doesn't happen. If
+      //    we wanted a sync option in the future, simply having <dom-if> flush
+      //    (or clear) its template's pending host properties before creating
+      //    the instance would also avoid the problem.
+      this.__renderDebouncer = Polymer.Debouncer.debounce(
+            this.__renderDebouncer
+          , Polymer.Async.microTask
+          , () => this.__render());
+      Polymer.enqueueDebouncer(this.__renderDebouncer);
+    }
+
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      if (!this.parentNode ||
+          (this.parentNode.nodeType == Node.DOCUMENT_FRAGMENT_NODE &&
+           !this.parentNode.host)) {
+        this.__teardownInstance();
+      }
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+      if (this.if) {
+        this.__debounceRender();
+      }
+    }
+
+    /**
+     * Forces the element to render its content. Normally rendering is
+     * asynchronous to a provoking change. This is done for efficiency so
+     * that multiple changes trigger only a single render. The render method
+     * should be called if, for example, template rendering is required to
+     * validate application state.
+     */
+    render() {
+      Polymer.flush();
+    }
+
+    __render() {
+      if (this.if) {
+        if (!this.__ensureInstance()) {
+          // No template found yet
+          return;
+        }
+        this._showHideChildren();
+      } else if (this.restamp) {
+        this.__teardownInstance();
+      }
+      if (!this.restamp && this.__instance) {
+        this._showHideChildren();
+      }
+      if (this.if != this._lastIf) {
+        this.dispatchEvent(new CustomEvent('dom-change', {bubbles: true}));
+        this._lastIf = this.if;
+      }
+    }
+
+    __ensureInstance() {
+      let parentNode = this.parentNode;
+      // Guard against element being detached while render was queued
+      if (parentNode) {
+        if (!this.__ctor) {
+          let template = this.querySelector('template');
+          if (!template) {
+            // Wait until childList changes and template should be there by then
+            let observer = new MutationObserver(() => {
+              if (this.querySelector('template')) {
+                observer.disconnect();
+                this.__render();
+              } else {
+                throw new Error('dom-if requires a <template> child');
+              }
+            })
+            observer.observe(this, {childList: true});
+            return false;
+          }
+          this.__ctor = Polymer.Templatize.templatize(template, this, {
+            // dom-if templatizer instances require `mutable: true`, as
+            // `__syncHostProperties` relies on that behavior to sync objects
+            mutableData: true,
+            forwardHostProp: function(prop, value) {
+              if (this.__instance) {
+                if (this.if) {
+                  this.__instance.forwardHostProp(prop, value);
+                } else {
+                  // If we have an instance but are squelching host property
+                  // forwarding due to if being false, note the invalidated
+                  // properties so `__syncHostProperties` can sync them the next
+                  // time `if` becomes true
+                  this.__invalidProps = this.__invalidProps || Object.create(null);
+                  this.__invalidProps[Polymer.Path.root(prop)] = true;
+                }
+              }
+            }
+          });
+        }
+        if (!this.__instance) {
+          this.__instance = new this.__ctor();
+          parentNode.insertBefore(this.__instance.root, this);
+        } else {
+          this.__syncHostProperties();
+          let c$ = this.__instance.children;
+          if (c$ && c$.length) {
+            // Detect case where dom-if was re-attached in new position
+            let lastChild = this.previousSibling;
+            if (lastChild !== c$[c$.length-1]) {
+              for (let i=0, n; (i<c$.length) && (n=c$[i]); i++) {
+                parentNode.insertBefore(n, this);
+              }
+            }
+          }
+        }
+      }
+      return true;
+    }
+
+    __syncHostProperties() {
+      let props = this.__invalidProps;
+      if (props) {
+        for (let prop in props) {
+          this.__instance._setPendingProperty(prop, this.__dataHost[prop]);
+        }
+        this.__invalidProps = null;
+        this.__instance._flushProperties();
+      }
+    }
+
+    __teardownInstance() {
+      if (this.__instance) {
+        let c$ = this.__instance.children;
+        if (c$ && c$.length) {
+          // use first child parent, for case when dom-if may have been detached
+          let parent = c$[0].parentNode;
+          for (let i=0, n; (i<c$.length) && (n=c$[i]); i++) {
+            parent.removeChild(n);
+          }
+        }
+        this.__instance = null;
+        this.__invalidProps = null;
+      }
+    }
+
+    _showHideChildren() {
+      let hidden = this.__hideTemplateChildren__ || !this.if;
+      if (this.__instance) {
+        this.__instance._showHideChildren(hidden);
+      }
+    }
+
+  }
+
+  customElements.define(DomIf.is, DomIf);
+
+  Polymer.DomIf = DomIf;
+
+})();
+</script>

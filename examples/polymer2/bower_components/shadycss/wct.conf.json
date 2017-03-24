@@ -1,0 +1,3 @@
+{
+  "suites": ["tests/runner.html"]
+}

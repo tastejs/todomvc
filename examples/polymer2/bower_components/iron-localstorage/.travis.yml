@@ -1,0 +1,21 @@
+language: node_js
+sudo: required
+before_script:
+  - npm install -g bower polymer-cli@next
+  - polymer install --variants
+env:
+  global:
+    - secure: KmeaX0PfIDo1jNKiVJSaeWEyAMvg4aW82cDTQq6/FJk9BMD1+FsgkphtfL6o4yXBe3a7+Pn5gEqgB9TjEzvV9O22oT0MCe7bEymme33UZxe01DTjs2W2LFKwnvb/rmHHVbQZU4OlZNqXjXfYUeQYclWrd1BShvD2/Ec9aMExxBE=
+    - secure: MzUlfYmnx7eqLi69X8mb0r3gQ2QwWC2OBxFkvxmHJpZ8rBymgUJTj2GB8bHqh7AKzK1E1O+Wt+JsJPhF52ATuYkpa7QG5PUrQwWZJgRkOV4RZxdTviqRulK24lxIH/3nDk4Hxt94/PMNChdG8hGNUVQGgM4x3wjlCj+r/u2TqiA=
+node_js: '6'
+addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+script:
+  - xvfb-run polymer test
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s ''default''; fi'
+dist: trusty

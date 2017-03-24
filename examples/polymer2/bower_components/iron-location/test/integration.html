@@ -1,0 +1,147 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <title>iron-location</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script>
+    // override edge's URL Implementation
+    try {
+      var href = new URL('http://www.google.com/?foo bar').href;
+      if (href !== 'http://www.google.com/?foo%20bar') {
+        window.forceJURL = true;
+      }
+    } catch (e) {
+      window.forceJURL = true;
+    }
+  </script>
+  <script src="../../url/url.js"></script>
+
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../promise-polyfill/promise-polyfill.html">
+  <link rel="import" href="../iron-query-params.html">
+  <link rel="import" href="../iron-location.html">
+</head>
+<body>
+  <dom-module id="integration-element">
+    <template>
+      <iron-location
+          id="location"
+          path="{{path}}"
+          query="{{query}}"
+          hash="{{hash}}">
+      </iron-location>
+      <iron-query-params
+          id="queryParams"
+          params-string="{{query}}"
+          params-object="{{queryParams}}">
+      </iron-query-params>
+    </template>
+    <script>
+      HTMLImports.whenReady(function() {
+        Polymer({
+          is: 'integration-element'
+        });
+      });
+    </script>
+  </dom-module>
+
+  <test-fixture id="Integration">
+    <template>
+      <integration-element></integration-element>
+    </template>
+  </test-fixture>
+
+  <script>
+    'use strict';
+
+    suite('Integration tests', function () {
+
+      var integration;
+      var ironLocation;
+      var ironQueryParams;
+
+      setup(function() {
+        integration = fixture('Integration');
+        ironLocation = integration.$.location;
+        ironQueryParams = integration.$.queryParams;
+      });
+
+      test('propagations from location to iqp', function() {
+        var queryEncodingExamples = {
+          'foo': '?foo',
+          '': '',
+          'foo bar': '?foo%20bar',
+          'foo#bar': '?foo%23bar',
+          'foo?bar': '?foo?bar',
+          '/foo\'bar\'baz': ['?/foo%27bar%27baz', '?/foo\'bar\'baz'],
+          'foo/bar/baz': '?foo/bar/baz'
+        };
+        for (var plainTextQuery in queryEncodingExamples) {
+          var encodedQueries = queryEncodingExamples[plainTextQuery];
+          var ironLocationQuery = encodedQueries;
+          if (typeof encodedQueries === 'string') {
+            encodedQueries = [encodedQueries];
+            ironLocationQuery = [ironLocationQuery.substring(1)];
+          } else {
+            ironLocationQuery = ironLocationQuery.map(function(value) {
+              return value.substring(1);
+            });
+          }
+
+          ironLocation.query = plainTextQuery;
+          expect(encodedQueries).to.contain(window.location.search);
+          expect(ironLocationQuery).to.contain(ironLocation.query);
+          expect(ironLocationQuery).to.contain(ironQueryParams.paramsString);
+          if (plainTextQuery) {
+            expect('').to.be.equal(ironQueryParams.paramsObject[plainTextQuery])
+          } else {
+            expect(ironQueryParams.paramsObject[plainTextQuery]).to.be.undefined;
+          }
+        }
+      });
+
+      test('propagations from iqp to location', function() {
+        var queryEncodingExamples = {
+          'foo': '?foo',
+          '': '',
+          'foo bar': '?foo%20bar',
+          'foo#bar': '?foo%23bar',
+          'foo?bar': '?foo?bar',
+          '/foo\'bar\'baz': ['?/foo%27bar%27baz', '?/foo\'bar\'baz'],
+          'foo/bar/baz': '?foo/bar/baz'
+        };
+        for (var plainTextQuery in queryEncodingExamples) {
+          var encodedQueries = queryEncodingExamples[plainTextQuery];
+          var ironLocationQuery = encodedQueries;
+          if (typeof encodedQueries === 'string') {
+            encodedQueries = [encodedQueries];
+            ironLocationQuery = [ironLocationQuery.substring(1)];
+          } else {
+            ironLocationQuery = ironLocationQuery.map(function(value) {
+              return value.substring(1);
+            });
+          }
+
+          var newParamsObject = {};
+          newParamsObject[plainTextQuery] = '';
+
+          ironQueryParams.paramsObject = newParamsObject;
+          expect(encodedQueries).to.contain(window.location.search);
+          expect(ironLocationQuery).to.contain(ironLocation.query);
+        }
+      });
+    });
+
+  </script>
+</body>

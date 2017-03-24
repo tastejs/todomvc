@@ -1,0 +1,339 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="legacy-element-mixin.html">
+<script>
+
+  (function() {
+
+    'use strict';
+
+    let LegacyElementMixin = Polymer.LegacyElementMixin;
+
+    let metaProps = {
+      attached: true,
+      detached: true,
+      ready: true,
+      created: true,
+      beforeRegister: true,
+      registered: true,
+      attributeChanged: true,
+      // meta objects
+      behaviors: true,
+      hostAttributes: true,
+      properties: true,
+      observers: true,
+      listeners: true
+    }
+
+    /**
+     * Applies a "legacy" behavior or array of behaviors to the provided class.
+     *
+     * Note: this method will automatically also apply the `Polymer.LegacyElementMixin`
+     * to ensure that any legacy behaviors can rely on legacy Polymer API on
+     * the underlying element.
+     *
+     * @param {Object|Array} behaviors Behavior object or array of behaviors
+     * @param {HTMLElement} klass Element class
+     * @memberof Polymer
+     */
+    function mixinBehaviors(behaviors, klass) {
+      if (!behaviors) {
+        return klass;
+      }
+      // NOTE: ensure the bahevior is extending a class with
+      // legacy element api. This is necessary since behaviors expect to be able
+      // to access 1.x legacy api.
+      klass = LegacyElementMixin(klass);
+      if (!Array.isArray(behaviors)) {
+        behaviors = [behaviors];
+      }
+      let superBehaviors = klass.behaviors;
+      // get flattened, deduped list of behaviors *not* already on super class
+      behaviors = flattenBehaviors(behaviors, null, superBehaviors);
+      // mixin new behaviors
+      klass = _mixinBehaviors(behaviors, klass);
+      if (superBehaviors) {
+        behaviors = superBehaviors.concat(behaviors);
+      }
+      klass.behaviors = behaviors;
+      return klass;
+    }
+
+    // NOTE:
+    // 1.x
+    // Behaviors were mixed in *in reverse order* and de-duped on the fly.
+    // The rule was that behavior properties were copied onto the element
+    // prototype if and only if the property did not already exist.
+    // Given: Polymer{ behaviors: [A, B, C, A, B]}, property copy order was:
+    // (1), B, (2), A, (3) C. This means prototype properties win over
+    // B properties win over A win over C. This mirrors what would happen
+    // with inheritance if element extended B extended A extended C.
+    //
+    // Again given, Polymer{ behaviors: [A, B, C, A, B]}, the resulting
+    // `behaviors` array was [C, A, B].
+    // Behavior lifecycle methods were called in behavior array order
+    // followed by the element, e.g. (1) C.created, (2) A.created,
+    // (3) B.created, (4) element.created. There was no support for
+    // super, and "super-behavior" methods were callable only by name).
+    //
+    // 2.x
+    // Behaviors are made into proper mixins which live in the
+    // element's prototype chain. Behaviors are placed in the element prototype
+    // eldest to youngest and de-duped youngest to oldest:
+    // So, first [A, B, C, A, B] becomes [C, A, B] then,
+    // the element prototype becomes (oldest) (1) Polymer.Element, (2) class(C),
+    // (3) class(A), (4) class(B), (5) class(Polymer({...})).
+    // Result:
+    // This means element properties win over B properties win over A win
+    // over C. (same as 1.x)
+    // If lifecycle is called (super then me), order is
+    // (1) C.created, (2) A.created, (3) B.created, (4) element.created
+    // (again same as 1.x)
+    function _mixinBehaviors(behaviors, klass) {
+      for (let i=0; i<behaviors.length; i++) {
+        let b = behaviors[i];
+        if (b) {
+          klass = Array.isArray(b) ? _mixinBehaviors(b, klass) :
+            GenerateClassFromInfo(b, klass);
+        }
+      }
+      return klass;
+    }
+
+    /**
+     * @param {Array} behaviors
+     * @param {Array=} list
+     * @param {Array=} exclude
+     */
+    function flattenBehaviors(behaviors, list, exclude) {
+      list = list || [];
+      for (let i=behaviors.length-1; i >= 0; i--) {
+        let b = behaviors[i];
+        if (b) {
+          if (Array.isArray(b)) {
+            flattenBehaviors(b, list);
+          } else {
+            // dedup
+            if (list.indexOf(b) < 0 && (!exclude || exclude.indexOf(b) < 0)) {
+              list.unshift(b);
+            }
+          }
+        } else {
+          Polymer._warn('behavior is null, check for missing or 404 import');
+        }
+      }
+      return list;
+    }
+
+    function GenerateClassFromInfo(info, Base) {
+
+      let registered = false;
+
+      class PolymerGenerated extends Base {
+
+        static get properties() {
+          return info.properties;
+        }
+
+        static get observers() {
+          return info.observers;
+        }
+
+        static get template() {
+          // get template first from any imperative set in `info._template`
+          return info._template ||
+            // next look in dom-module associated with this element's is.
+            Polymer.DomModule.import(this.is, 'template') ||
+            // next look for superclass template (note: use superclass symbol
+            // to ensure correct `this.is`)
+            Base.template ||
+            // finally fall back to `_template` in element's protoype.
+            this.prototype._template;
+        }
+
+        created() {
+          super.created();
+          if (info.created) {
+            info.created.call(this);
+          }
+        }
+
+        _registered() {
+          if (!registered) {
+            super._registered();
+            // call `registered` only if it was not called for *this* constructor
+            registered = true;
+            if (info.registered) {
+              info.registered.call(Object.getPrototypeOf(this));
+            }
+          }
+        }
+
+        _applyListeners() {
+          super._applyListeners();
+          if (info.listeners) {
+            for (let l in info.listeners) {
+              this._addMethodEventListenerToNode(this, l, info.listeners[l]);
+            }
+          }
+        }
+
+        // note: exception to "super then me" rule;
+        // do work before calling super so that super attributes
+        // only apply if not already set.
+        _ensureAttributes() {
+          if (info.hostAttributes) {
+            for (let a in info.hostAttributes) {
+              this._ensureAttribute(a, info.hostAttributes[a]);
+            }
+          }
+          super._ensureAttributes();
+        }
+
+        ready() {
+          super.ready();
+          if (info.ready) {
+            info.ready.call(this);
+          }
+        }
+
+        attached() {
+          super.attached();
+          if (info.attached) {
+            info.attached.call(this);
+          }
+        }
+
+        detached() {
+          super.detached();
+          if (info.detached) {
+            info.detached.call(this);
+          }
+        }
+
+        attributeChanged(name, old, value) {
+          super.attributeChanged(name, old, value);
+          if (info.attributeChanged) {
+            info.attributeChanged.call(this, name, old, value);
+          }
+       }
+      }
+
+      PolymerGenerated.generatedFrom =  info
+
+      for (let p in info) {
+        // NOTE: cannot copy `metaProps` methods onto prototype at least because
+        // `super.ready` must be called and is not included in the user fn.
+        if (!(p in metaProps)) {
+          let pd = Object.getOwnPropertyDescriptor(info, p);
+          if (pd) {
+            Object.defineProperty(PolymerGenerated.prototype, p, pd);
+          }
+        }
+      }
+
+      return PolymerGenerated;
+    }
+
+    /**
+     * Generates a class that extends `Polymer.LegacyElement` based on the
+     * provided info object.  Metadata objects on the `info` object
+     * (`properties`, `observers`, `listeners`, `behaviors`, `is`) are used
+     * for Polymer's meta-programming systems, and any functions are copied
+     * to the generated class.
+     *
+     * Valid "metadata" values are as follows:
+     *
+     * `is`: String providing the tag name to register the element under. In
+     * addition, if a `dom-module` with the same id exists, the first template
+     * in that `dom-module` will be stamped into the shadow root of this element,
+     * with support for declarative event listeners (`on-...`), Polymer data
+     * bindings (`[[...]]` and `{{...}}`), and id-based node finding into
+     * `this.$`.
+     *
+     * `properties`: Object describing property-related metadata used by Polymer
+     * features (key: property names, value: object containing property metadata).
+     * Valid keys in per-property metadata include:
+     * - `type` (String|Number|Object|Array|...): Used by
+     *   `attributeChangedCallback` to determine how string-based attributes
+     *   are deserialized to JavaScript property values.
+     * - `notify` (boolean): Causes a change in the property to fire a
+     *   non-bubbling event called `<property>-changed`. Elements that have
+     *   enabled two-way binding to the property use this event to observe changes.
+     * - `readOnly` (boolean): Creates a getter for the property, but no setter.
+     *   To set a read-only property, use the private setter method
+     *   `_setProperty(property, value)`.
+     * - `observer` (string): Observer method name that will be called when
+     *   the property changes. The arguments of the method are
+     *   `(value, previousValue)`.
+     * - `computed` (string): String describing method and dependent properties
+     *   for computing the value of this property (e.g. `'computeFoo(bar, zot)'`).
+     *   Computed properties are read-only by default and can only be changed
+     *   via the return value of the computing method.
+     *
+     * `observers`: Array of strings describing multi-property observer methods
+     *  and their dependent properties (e.g. `'observeABC(a, b, c)'`).
+     *
+     * `listeners`: Object describing event listeners to be added to each
+     *  instance of this element (key: event name, value: method name).
+     *
+     * `behaviors`: Array of additional `info` objects containing metadata
+     * and callbacks in the same format as the `info` object here which are
+     * merged into this element.
+     *
+     * `hostAttributes`: Object listing attributes to be applied to the host
+     *  once created (key: attribute name, value: attribute value).  Values
+     *  are serialized based on the type of the value.  Host attributes should
+     *  generally be limited to attributes such as `tabIndex` and `aria-...`.
+     *  Attributes in `hostAttributes` are only applied if a user-supplied
+     *  attribute is not already present (attributes in markup override
+     *  `hostAttributes`).
+     *
+     * In addition, the following Polymer-specific callbacks may be provided:
+     * - `registered`: called after first instance of this element,
+     * - `created`: called during `constructor`
+     * - `attached`: called during `connectedCallback`
+     * - `detached`: called during `disconnectedCallback`
+     * - `ready`: called before first `attached`, after all properties of
+     *   this element have been propagated to its template and all observers
+     *   have run
+     *
+     * @param {Object} info Object containing Polymer metadata and functions
+     *   to become class methods.
+     * @return {Polymer.LegacyElement} Generated class
+     * @memberof Polymer
+     */
+    Polymer.Class = function(info) {
+      if (!info) {
+        Polymer._warn('Polymer.Class requires `info` argument');
+      }
+      let klass = GenerateClassFromInfo(info, info.behaviors ?
+        // note: mixinBehaviors ensures `LegacyElementMixin`.
+        mixinBehaviors(info.behaviors, HTMLElement) :
+        LegacyElementMixin(HTMLElement));
+      // decorate klass with registration info
+      klass.is = info.is;
+      // behaviors on prototype for BC...
+      klass.prototype.behaviors = klass.behaviors;
+      // NOTE: while we could call `beforeRegister` here to maintain
+      // some BC, the state of the element at this point is not as it was in 1.0
+      // In 1.0, the method was called *after* mixing prototypes together
+      // but before processing of meta-objects. Since this is now done
+      // in 1 step via `GenerateClassFromInfo`, this is no longer possible.
+      // However, *most* work (not setting `is`) that was previously done in
+      // `beforeRegister` should be possible in `registered`.
+      return klass;
+    }
+
+    Polymer.mixinBehaviors = mixinBehaviors;
+
+  })();
+
+</script>

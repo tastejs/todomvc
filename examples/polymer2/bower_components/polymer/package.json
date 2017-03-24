@@ -1,0 +1,47 @@
+{
+  "name": "@polymer/polymer",
+  "version": "2.0.0-preview",
+  "description": "The Polymer library makes it easy to create your own web components. Give your element some markup and properties, and then use it on a site. Polymer provides features like dynamic templates and data binding to reduce the amount of boilerplate you need to write",
+  "main": "polymer.html",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "devDependencies": {
+    "babel-preset-babili": "0.0.10",
+    "del": "^2.2.1",
+    "dom5": "^1.3.1",
+    "eslint-plugin-html": "^1.3.0",
+    "google-closure-compiler": "^20161201.0.0",
+    "gulp": "^3.9.1",
+    "gulp-audit": "^1.0.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-size": "^2.1.0",
+    "gulp-vulcanize": "^6.0.1",
+    "lazypipe": "^1.0.1",
+    "merge-stream": "^1.0.1",
+    "polymer-build": "^0.6.0",
+    "run-sequence": "^1.1.0",
+    "through2": "^2.0.0",
+    "web-component-tester": "^6.0.0-prerelease.4"
+  },
+  "scripts": {
+    "build": "gulp",
+    "test": "gulp lint && wct",
+    "test-build": "gulp switch && wct && gulp restore"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Polymer/polymer.git"
+  },
+  "author": "The Polymer Project Authors",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/Polymer/polymer/issues"
+  },
+  "homepage": "https://github.com/Polymer/polymer"
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@webcomponents/shadycss",
+  "version": "0.0.1",
+  "description": "Styling helpers for ShadyDOM",
+  "main": "shadycss.min.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webcomponents/shadycss.git"
+  },
+  "author": "The Polymer Authors",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/webcomponents/shadycss/issues"
+  },
+  "scripts": {
+    "build": "gulp",
+    "lint": "eslint src test entrypoints",
+    "test": "npm run lint && gulp test-modules && wct"
+  },
+  "homepage": "http://webcomponents.org",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "eslint": "^3.4.0",
+    "eslint-plugin-html": "^2.0.0",
+    "google-closure-compiler": "^20170218.0.0",
+    "gulp": "^3.8.8",
+    "gulp-rename": "^1.2.2",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.4.0",
+    "rollup-stream": "^1.14.0",
+    "run-sequence": "^1.2.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "web-component-tester": "^6.0.0-prerelease.4"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "suites": ["test/runner.html"],
+  "environmentImports": [
+    "test-fixture/test-fixture.html"
+  ]
+}
