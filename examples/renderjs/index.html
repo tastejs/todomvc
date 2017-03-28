@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RenderJS • TodoMVC</title>
+  <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+
+	<script src="lib/handlebars.js"></script>
+	<script src="lib/rsvp.js"></script>
+	<script src="lib/renderjs.js"></script>
+
+	<script src="gadget_global.js"></script>
+	<script src="gadget_todo.js"></script>
+
+	<script id="list_template" type="text/x-handlebars-template">
+		<section id="main" class="main {{#unless todo_exists}}hidden{{/unless}}">
+			<label for="toggle-all" class="toggle-label">Mark all as complete</label>
+			<input id="toggle-all" class="toggle-all" type="checkbox" {{#if all_checked}}checked="true" {{/if}}>
+			<ul id="todo-list" class="todo-list"></ul>
+		</section>
+		<footer id="footer" class="footer {{#unless todo_exists}}hidden{{/unless}}">
+			<span id="todo-count" class="todo-count">{{todo_count}}</span>
+			<ul id="filters" class="filters">
+				<li><a href="#/">All</a></li>
+				<li><a href="#/active">Active</a></li>
+				<li><a href="#/completed">Completed</a></li>
+			</ul>
+			<button id="clear-completed" class="clear-completed {{#if all_completed}}hidden{{/if}}">Clear completed</button>
+		</footer>
+	</script>
+
+	<script id="item_template" type="text/x-handlebars-template">
+		<li class="todo-item {{#if this.completed}}completed{{/if}} {{#if this.editing}}editing{{/if}}" data-jio-id="{{this.id}}">
+			<div class="view {{#if this.edit}}hidden{{/if}}">
+				<input class="toggle" type="checkbox" {{#if this.completed}} checked="true" {{/if}}>
+				<label class="todo-label">{{this.title}}</label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit{{#unless this.editing}} hidden{{/unless}}">
+		</li>
+	</script>
+
+</head>
+
+<body>
+	<section id="todoapp" class="todoapp">
+		<header id="header" class="header">
+			<h1>todos</h1>
+			<form id="todo-form">
+				<input id="new-todo" class="new-todo" placeholder="What needs to be done?" autofocus>
+			</form>
+		</header>
+		<main class="handlebars">
+		</main>
+	</section>
+	<footer id="info" class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Credits:
+		  <a href="https://github.com/eyqs">Eugene Shen</a>,
+		  <a href="https://lab.nexedi.com/u/frequent">Sven Franck</a>
+		</p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+
+	<div data-gadget-url="gadget_model.html" data-gadget-scope="model" data-gadget-sandbox="public">
+	</div>
+	<script src="node_modules/todomvc-common/base.js"></script>
+</body>
+</html>
