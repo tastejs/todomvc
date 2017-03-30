@@ -5,11 +5,11 @@ interface $mol_app_todomvc_task {
 
 namespace $.$mol {
 	
-	export class $mol_app_todomvc_adder extends $.$mol_app_todomvc_adder {
+	export class $mol_app_todomvc_add extends $.$mol_app_todomvc_add {
 		
-		eventPress( next? : KeyboardEvent ) {
-			switch( next['code'] || next.key ) {
-				case 'Enter' : return this.eventDone( next )
+		event_press( next? : KeyboardEvent ) {
+			switch( next.keyCode ) {
+				case $mol_keyboard_code.enter : return this.event_done( next )
 			}
 		}
 		
@@ -17,18 +17,18 @@ namespace $.$mol {
 	
 	export class $mol_app_todomvc extends $.$mol_app_todomvc {
 		
-		taskIds( next? : number[] ) : number[] {
-			return $mol_state_local.value( this.stateKey( 'taskIds' ) , next ) || []
+		task_ids( next? : number[] ) : number[] {
+			return $mol_state_local.value( this.state_key( 'mol-todos' ) , next ) || []
 		}
 		
-		argCompleted() {
-			return $mol_state_arg.value( this.stateKey( 'completed' ) )
+		arg_completed() {
+			return $mol_state_arg.value( this.state_key( 'completed' ) )
 		}
 
 		@ $mol_mem()
-		groupsByCompleted() {
+		groups_completed() {
 			var groups : { [ index : string ] : number[] } = { 'true' : [] , 'false' : [] }
-			for( let id of this.taskIds() ) {
+			for( let id of this.task_ids() ) {
 				var task = this.task( id )
 				groups[ String( task.completed ) ].push( id )
 			}
@@ -36,20 +36,20 @@ namespace $.$mol {
 		}
 
 		@ $mol_mem()
-		tasksFiltered() {
-			var completed = this.argCompleted()
+		tasks_filtered() {
+			var completed = this.arg_completed()
 			if( completed ) {
-				return this.groupsByCompleted()[ completed ] || []
+				return this.groups_completed()[ completed ] || []
 			} else {
-				return this.taskIds()
+				return this.task_ids()
 			}
 		}
 
 		@ $mol_mem()
-		allCompleted( next? : boolean ) {
-			if( next === void 0 ) return this.groupsByCompleted()[ 'false' ].length === 0
+		completed_all( next? : boolean ) {
+			if( next === void 0 ) return this.groups_completed()[ 'false' ].length === 0
 			
-			for( let id of this.groupsByCompleted()[ String( !next ) ] ) {
+			for( let id of this.groups_completed()[ String( !next ) ] ) {
 				var task = this.task( id )
 				this.task( id , { title : task.title , completed : next } )
 			}
@@ -57,38 +57,40 @@ namespace $.$mol {
 			return next
 		}
 		
-		allCompleterEnabled() {
-			return this.taskIds().length > 0 
+		head_complete_enabled() {
+			return this.task_ids().length > 0 
 		}
 
 		@ $mol_mem()
-		pendingMessage() {
-			let count = this.groupsByCompleted()[ 'false' ].length
+		pending_message() {
+			let count = this.groups_completed()[ 'false' ].length
 			return ( count === 1 ) ? '1 item left' : `${count} items left`
 		}
 		
-		_idSeed = 0
+		_id_seed = 0
 
-		eventAdd( next : Event ) {
-			var title = this.taskNewTitle() 
+		event_add( next : Event ) {
+			var title = this.task_title_new() 
 			if( !title ) return
 			
-			var id = ++ this._idSeed
+			var id = ++ this._id_seed
 			var task = { completed : false , title }
 			this.task( id , task )
 			
-			this.taskIds( this.taskIds().concat( id ) )
-			this.taskNewTitle( '' )
+			this.task_ids( this.task_ids().concat( id ) )
+			this.task_title_new( '' )
 		}
 
 		@ $mol_mem()
-		taskers() {
-			return this.tasksFiltered().map( ( id , index )=> this.tasker( index ) )
+		task_rows() {
+			return this.tasks_filtered().map( ( id , index )=> this.Task_row( index ) )
 		}
 		
 		task( id : number , next? : $mol_app_todomvc_task ) {
-			const key = this.stateKey( `task=${id}` )
-			if( next === void 0 ) return $mol_state_local.value( key ) || { title : '' , completed : false }
+			const key = this.state_key( `mol-todos-${id}` )
+			if( next === void 0 ) {
+				return $mol_state_local.value<$mol_app_todomvc_task>( key ) || { title : '' , completed : false }
+			}
 			
 			$mol_state_local.value( key , next )
 			
@@ -96,8 +98,8 @@ namespace $.$mol {
 		}
 		
 		@ $mol_mem_key()
-		taskCompleted( index : number , next? : boolean ) {
-			var id = this.tasksFiltered()[ index ]
+		task_completed( index : number , next? : boolean ) {
+			var id = this.tasks_filtered()[ index ]
 			if( next === void 0 ) return this.task( id ).completed
 			
 			this.task( id , $mol_merge_dict( this.task( id ) , { completed : next } ) )
@@ -106,8 +108,8 @@ namespace $.$mol {
 		}
 		
 		@ $mol_mem_key()
-		taskTitle( index : number , next? : string ) {
-			var id = this.tasksFiltered()[ index ]
+		task_title( index : number , next? : string ) {
+			var id = this.tasks_filtered()[ index ]
 			if( next === void 0 ) return this.task( id ).title
 			
 			this.task( id , $mol_merge_dict( this.task( id ) , { title : next } ) )
@@ -115,16 +117,16 @@ namespace $.$mol {
 			return next
 		}
 		
-		eventTaskDrop( index : number , next? : Event ) {
-			var tasks = this.tasksFiltered()
+		event_task_drop( index : number , next? : Event ) {
+			var tasks = this.tasks_filtered()
 			var id = tasks[index]
 			tasks = tasks.slice( 0 , index ).concat( tasks.slice( index + 1 , tasks.length ) )
 			this.task( id , null )
-			this.taskIds( tasks )
+			this.task_ids( tasks )
 		}
 
-		eventSanitize() {
-			this.taskIds( this.taskIds().filter( id => {
+		event_sweep() {
+			this.task_ids( this.task_ids().filter( id => {
 				if( !this.task( id ).completed ) return true
 				this.task( id , null )
 				return false
@@ -133,18 +135,18 @@ namespace $.$mol {
 		
 		panels() {
 			return [
-				this.header() , 
-				this.lister() ,
-				this.footerVisible() ? this.footer() : null ,
+				this.Head() , 
+				this.List() ,
+				this.foot_visible() ? this.Foot() : null ,
 			]
 		}
 		
-		footerVisible() {
-			return this.taskIds().length > 0
+		foot_visible() {
+			return this.task_ids().length > 0
 		}
 
-		sanitizerEnabled() {
-			return this.groupsByCompleted()[ 'true' ].length > 0
+		sweep_enabled() {
+			return this.groups_completed()[ 'true' ].length > 0
 		}
 		
 	}
