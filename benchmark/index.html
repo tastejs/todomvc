@@ -11,15 +11,21 @@
 		height: 100%;
 		overflow: hidden;
 		font: 12pt/1.25 "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-		display: flex;
+	}
+
+	@keyframes measure {
+		from {
+			outline : 1px solid black;
+		}
+		to {
+			outline : 1px solid white;
+		}
 	}
 
 	#sandbox {
 		border: none;
 		width: 100%;
 		height: 100%;
-		margin: auto;
-		box-shadow: 0 0 0 1px rgba(220, 220, 220, 1);
 	}
 </style>
 
@@ -93,15 +99,20 @@
 	}
 
 	function start( sample ) {
-		var start = Date.now()
-		sandbox.src = '../examples/' + sample + '/'
-		sandbox.onload = function() {
-			step()
-			function step() {
-				if( sandbox.contentDocument.querySelector( selector.adder ) ) done( Date.now() - start + ' ms' )
-				else setTimeout( step , 10 )
+		var sandbox = document.getElementById( 'sandbox' )
+		sandbox.src = 'about:blank'
+		setTimeout( function() {
+			var start = Date.now()
+			sandbox.src = '../examples/' + sample + '/'
+			sandbox.onload = function() {
+				step()
+				function step() {
+					if( sandbox.contentDocument.querySelector( selector.adder ) ) done( Date.now() - start + ' ms' )
+					else setTimeout( step , 10 )
+				}
+				sandbox.onload = null
 			}
-		}
+		} )
 	}
 
 	function fill( sample ) {
@@ -152,7 +163,17 @@
 			}
 
 			if( ++i <= count ) setImmediate( step )
-			else done( Date.now() - start + ' ms' )
+			else {
+				sandbox.addEventListener( 'animationend' , end )
+				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
+					sandbox.style.animation = 'measure .001s'
+				} ) } )
+				function end() { // wait for painting ends
+					done( Date.now() - start + ' ms' )
+					sandbox.style.animation = ''
+					sandbox.removeEventListener( 'animationend' , end )
+				}
+			}
 		}
 	}
 
@@ -162,7 +183,18 @@
 		step()
 		function step() {
 			var dropper = sandbox.contentDocument.querySelector( selector.dropper )
-			if( !dropper ) return done( Date.now() - start + ' ms' )
+			if( !dropper ) {
+				sandbox.addEventListener( 'animationend' , end )
+				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
+					sandbox.style.animation = 'measure .001s'
+				} ) } )
+				function end() { // wait for painting ends
+					done( Date.now() - start + ' ms' )
+					sandbox.style.animation = ''
+					sandbox.removeEventListener( 'animationend' , end )
+				}
+				return
+			}
 
 			dropper.dispatchEvent( new Event( 'mousedown' , { bubbles : true } ) )
 			dropper.dispatchEvent( new Event( 'mouseup' , { bubbles : true } ) )
