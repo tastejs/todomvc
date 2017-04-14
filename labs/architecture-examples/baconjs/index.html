@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Bacon.js • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+  <link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+  <script type="text/html" id="todo-template">
+    <li>
+      <div class="view">
+        <input class="toggle" type="checkbox">
+        <label></label>
+        <button class="destroy"></button>
+      </div>
+      <input class="edit">
+    </li>
+  </script>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list">
+			</ul>
+		</section>
+		<footer id="footer">
+			<span id="todo-count"><strong>1</strong> item left</span>
+			<ul id="filters">
+				<li>
+					<a href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+      <button id="clear-completed">Clear completed (<span class="count"></span>)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="http://github.com/raimohanska">Juha Paananen</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="../../../assets/base.js"></script>
+	<script src="../../../assets/jquery.min.js"></script>
+	<script src="../../../assets/lodash.min.js"></script>
+	<script src="../../../assets/handlebars.min.js"></script>
+  <script src="js/jquery-hashchange-min.js"></script>
+	<script src="js/Bacon.js"></script>
+	<script src="js/Bacon.UI.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
