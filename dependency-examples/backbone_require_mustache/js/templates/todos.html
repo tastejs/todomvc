@@ -1,0 +1,11 @@
+<div class="view">
+	{{#completed}}
+		<input class="toggle" type="checkbox" checked="checked">
+	{{/completed}}
+	{{^completed}}
+		<input class="toggle" type="checkbox">
+	{{/completed}}
+	<label>{{title}}</label>
+	<button class="destroy"></button>
+</div>
+<input class="edit" value="{{title}}">
