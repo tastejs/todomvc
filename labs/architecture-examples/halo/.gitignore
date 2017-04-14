@@ -1,0 +1,16 @@
+components/jqueryp/libs
+components/jqueryp/src
+components/jqueryp/stage
+components/jqueryp/test
+components/jqueryp/.*
+components/jqueryp/LICENSE*
+components/jqueryp/README*
+components/jqueryp/component*
+components/jqueryp/grunt*
+components/jqueryp/package*
+components/jqueryp/dist/jqueryp.chainer*
+components/jqueryp/dist/jqueryp.js
+components/jqueryp/dist/jqueryp.min.js
+components/jqueryp/dist/jqueryp.require.min.js
+components/todomvc-common/component.json
+components/jqueryp/bower.json

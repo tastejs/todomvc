@@ -1,0 +1,15 @@
+<span id="todo-count"><strong>{{remaining}}</strong> item{{#if plural}}s{{/if}} left</span>
+<ul id="filters" class="radio">
+  <li>
+    <a href="#" class="radio-item {{#if filter.byAll}}selected{{/if}}" data-filter="all">All</a>
+  </li>
+  <li>
+    <a href="#" class="radio-item {{#if filter.byActive}}selected{{/if}}" data-filter="active">Active</a>
+  </li>
+  <li>
+    <a href="#" class="radio-item {{#if filter.byCompleted}}selected{{/if}}" data-filter="completed">Completed</a>
+  </li>
+</ul>
+{{#if completed}}
+<button id="clear-completed">Clear completed ({{completed}})</button>
+{{/if}}

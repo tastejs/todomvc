@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Halo • TodoMVC</title>
+  <link rel="stylesheet" href="../../../assets/base.css">
+
+  <!-- Load in Halo -->
+  <script src="public/js/halo.js"></script>
+</head>
+<body>
+  <!-- Create a container for the app -->
+  <div id="todoapp"></div>
+  <div id="info">
+    <p>Double-click to edit a todo</p>
+    <p>Created by <a href="https://github.com/Ensighten/Halo">Ensighten</a>.</p>
+  </div>
+
+  <!-- Configure and start up the app -->
+  <script>
+    require(['public/js/app.config'], function () {
+      require(['Sauron', 'jquery', 'mvc!c/main'], function (Sauron, $) {
+        Sauron.start().controller('main', $('#todoapp'));
+      });
+    });
+  </script>
+
+  <!-- DEV: Live reload for simpletons -->
+  <script>
+    // Grab the current version
+    $.get('/version.txt', function (version) {
+      // Watch the version to see if it changes
+      setInterval(function () {
+        // If it does, refresh the page
+        $.get('/version.txt', function (newVersion) {
+          if (newVersion !== version) {
+            location.reload();
+          }
+        });
+      }, 1e3);
+    });
+
+    // Re-grab the CSS now too
+    $('link[rel="stylesheet"]').each(function () {
+      var stylesheet = this,
+          href = stylesheet.href;
+      $.get(href, function (origCSS) {
+        // Watch the health to see if it changes
+        setInterval(function () {
+          // If it does, reload the CSS
+          $.get(href, function (css) {
+            if (origCSS !== css) {
+              var href = stylesheet.href;
+              stylesheet.href += href.indexOf('?') > -1 ? '1' : '?1';
+              origCSS = css;
+            }
+          });
+        }, 1e3);
+      });
+    });
+  </script>
+</body>
+</html>
