@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-riotjs",
+  "version": "0.0.1",
+  "authors": [
+    "Marcelo Eden <eden@3den.org>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "todomvc-common": "~0.1.9",
+    "jquery": "~2.0.3",
+    "riotjs": "~0.9.6"
+  }
+}
