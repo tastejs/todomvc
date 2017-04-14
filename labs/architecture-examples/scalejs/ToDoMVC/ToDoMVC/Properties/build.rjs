@@ -1,0 +1,6 @@
+﻿({
+	mainConfigFile: '../config.js',
+	name: 'Scripts/almond',
+	include: 'app/app',
+	preserveLicenseComments: false
+})

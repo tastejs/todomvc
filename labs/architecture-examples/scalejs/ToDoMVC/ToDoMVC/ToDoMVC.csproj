@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{C5839929-709E-4569-97D7-47D000A0F21A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <OutputPath>js</OutputPath>
+    <JSLintSkip>\Scripts\|\js\</JSLintSkip>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files (x86)\IIS Express\iisexpress.exe</StartProgram>
+    <StartArguments>/site:ToDoMVC</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <StartProgram>C:\Program Files (x86)\IIS Express\iisexpress.exe</StartProgram>
+    <StartArguments>/site:ToDoMVC</StartArguments>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="app\todo\bindings\todoBindings.js" />
+    <Content Include="app\todo\styles\todo.css" />
+    <Content Include="app\todo\todoModule.js" />
+    <Content Include="app\todo\viewmodels\itemViewModel.js" />
+    <Content Include="app\todo\viewmodels\todoViewModel.js" />
+    <Content Include="app\todo\views\todo.html" />
+    <Content Include="css\jasmine.css" />
+    <Content Include="README.txt" />
+    <Content Include="index.debug.html" />
+    <Content Include="index.html" />
+    <Content Include="index.release.html" />
+    <Content Include="index.test.html" />
+    <Content Include="Scripts\almond.js" />
+    <Content Include="Scripts\css-builder.js" />
+    <Content Include="Scripts\css.js" />
+    <Content Include="Scripts\jasmine-html.js" />
+    <Content Include="Scripts\jasmine.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\linq-vsdoc.js" />
+    <Content Include="Scripts\linq.js" />
+    <Content Include="Scripts\linq.js.d.ts" />
+    <Content Include="Scripts\linq.min.js" />
+    <Content Include="Scripts\native.history.js" />
+    <Content Include="Scripts\normalize.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\rx.binding.js" />
+    <Content Include="Scripts\rx.binding.min.js" />
+    <Content Include="Scripts\rx.compat.js" />
+    <Content Include="Scripts\rx.compat.min.js" />
+    <Content Include="Scripts\rx.experimental.js" />
+    <Content Include="Scripts\rx.experimental.min.js" />
+    <Content Include="Scripts\rx.js" />
+    <Content Include="Scripts\rx.min.js" />
+    <Content Include="Scripts\rx.time.js" />
+    <Content Include="Scripts\rx.time.min.js" />
+    <Content Include="Scripts\scalejs-0.3.3.js" />
+    <Content Include="Scripts\scalejs-0.3.3.min.js" />
+    <Content Include="Scripts\scalejs.functional-0.2.9.8.js" />
+    <Content Include="Scripts\scalejs.functional-0.2.9.8.min.js" />
+    <Content Include="Scripts\scalejs.linq-linqjs-3.0.3.1.js" />
+    <Content Include="Scripts\scalejs.linq-linqjs-3.0.3.1.min.js" />
+    <Content Include="Scripts\scalejs.mvvm-0.3.4.4.js" />
+    <Content Include="Scripts\scalejs.mvvm-0.3.4.4.min.js" />
+    <Content Include="Scripts\scalejs.mvvm.bindings.js" />
+    <Content Include="Scripts\scalejs.mvvm.views.js" />
+    <Content Include="Scripts\scalejs.reactive-2.1.20.1.js" />
+    <Content Include="Scripts\scalejs.reactive-2.1.20.1.min.js" />
+    <Content Include="Scripts\scalejs.routing-historyjs-1.8.2.1.js" />
+    <Content Include="Scripts\scalejs.routing-historyjs-1.8.2.1.min.js" />
+    <Content Include="Scripts\scalejs.sandbox.js" />
+    <Content Include="Scripts\scalejs.statechart-scion-0.3.0.0.js" />
+    <Content Include="Scripts\scalejs.statechart-scion-0.3.0.0.min.js" />
+    <Content Include="Scripts\scalejs.styles.js" />
+    <Content Include="Scripts\scion.js" />
+    <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="app\app.js" />
+    <Content Include="app\main\bindings\mainBindings.js" />
+    <Content Include="app\main\styles\main.css" />
+    <Content Include="app\main\viewmodels\mainViewModel.js" />
+    <Content Include="app\main\views\main.html" />
+    <Content Include="app\main\mainModule.js" />
+    <Content Include="Scripts\_scalejs.intellisense.js" />
+    <Content Include="test\all.tests.js" />
+    <Content Include="test\mainViewModel.test.js" />
+    <Content Include="config.js" />
+    <Content Include="Properties\build.rjs" />
+    <Content Include="Properties\ToDoMVC.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <ScalejsProjectType>Application</ScalejsProjectType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>ToDoMVC</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+  <Import Project="$(SolutionDir)\.scalejs\Scalejs.targets" />
+</Project>

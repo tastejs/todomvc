@@ -1,0 +1,34 @@
+﻿<div id="todo_items_template">
+    <section id="main" data-class="todo-visible">
+        <input id="toggle-all" type="checkbox" data-bind="checked: checkAll">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list" data-bind="foreach: viewableItems">
+            <li data-class="todo-item">
+                <div class="view">
+                    <input class="toggle" type="checkbox" data-bind="checked: completed">
+                    <label data-bind="text: title"></label>
+                    <button class="destroy" data-bind="click: remove"></button>
+                </div>
+                <input class="edit" data-class="todo-edit">
+            </li>
+        </ul>
+    </section>
+
+    <footer id="footer" data-class="todo-visible">
+        <span id="todo-count">
+            <strong data-bind="text: items().length"></strong>
+            <!-- ko class:todo-count-text -->
+            <!-- /ko -->
+        </span>
+        <ul id="filters" data-bind="foreach: viewableOptions">
+            <li>
+                <a href="#" data-class="todo-view"></a>
+            </li>
+        </ul>
+        <button id="clear-completed" data-class="todo-clear-completed"></button>
+    </footer>
+</div>
+
+<div id="todo_input_template">
+    <input id="new-todo" data-class="todo-input" placeholder="What needs to be done?" autofocus>
+</div>

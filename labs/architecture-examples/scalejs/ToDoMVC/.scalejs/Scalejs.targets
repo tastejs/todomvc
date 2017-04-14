@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask TaskName="Rjs" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <BuildRjs ParameterType="System.String" Required="true" />
+      <BaseUrl ParameterType="System.String" Required="true"/>
+      <Optimize ParameterType="System.String" Required="true"/>
+      <Out ParameterType="System.String" Required="false"/>
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Using Namespace="System" />
+      <Using Namespace="System.Diagnostics" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+                Log.LogMessage(MessageImportance.High, "r.js.cmd -o {0} baseUrl={1} out={2} optimize={3}", BuildRjs, BaseUrl, Out, Optimize);
+
+                var tempFile = Path.GetTempFileName();
+                var path = "cmd.exe";
+                var args = string.Format("/c r.js.cmd -o \"{0}\" baseUrl={1} out=\"{2}\" optimize={3} > \"{4}\"", BuildRjs, BaseUrl, Out, Optimize, tempFile);
+                var info = new ProcessStartInfo {FileName = path, Arguments = args, UseShellExecute = false, CreateNoWindow = true};
+
+                var process = Process.Start(info);
+                process.WaitForExit();
+
+                var result = File.ReadAllText(tempFile);
+                File.Delete(tempFile);
+
+                Log.LogMessage(MessageImportance.High, result);
+
+                var errorRegex = new Regex(@"Error:(.*)\s*Error", RegexOptions.Singleline);
+                var match = errorRegex.Match(result);
+                if (match.Success)
+                {
+                    Log.LogError(match.Groups[1].Value);
+                    return false;
+                }
+                return true;
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="AddSite" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <Name ParameterType="System.String" Required="true" />
+      <PhysicalPath ParameterType="System.String" Required="true" />
+      <Port ParameterType="System.Int32" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Using Namespace="System" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Xml.Linq" />
+      <Using Namespace="System.Xml.XPath" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            var iisConfig = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\IISExpress\config\applicationhost.config");
+            var xml = XDocument.Load(iisConfig);
+            var sites = xml.XPathSelectElement("/configuration/system.applicationHost/sites");
+            var site = sites.XPathSelectElement(string.Format("site[@name = '{0}']", Name));
+            if (site != null) {
+                var application = site.Element("application");
+                if (application == null) {
+                    Log.LogError("Site '{0}' already exists in {1} but no <application> node is specified. Either remove the site from the config file or configure it manually to point to project location.", Name, iisConfig);
+                    return false;
+                }
+                
+                var virtualDirectory = application.Element("virtualDirectory");
+                if (virtualDirectory == null) {
+                    Log.LogError("Site '{0}' already exists in {1} but no <virtualDirectory> node specified under <application>. Either remove the site from the config file or configure it manually to point to project location.", Name, iisConfig);
+                    return false;
+                }
+
+                var physicalPath = virtualDirectory.Attribute(XName.Get("physicalPath"));
+                if (physicalPath == null) {
+                    Log.LogError("Site '{0}' already exists in {1} but no 'physicalPath' attribute specified on its <virtualDirectory> node. Either remove the site from the config file or configure it manually to point to project location.", Name, iisConfig);
+                    return false;
+                }
+                
+                var physicalPathValue = physicalPath.Value;
+                if (!string.Equals(physicalPathValue, PhysicalPath, StringComparison.InvariantCultureIgnoreCase)) {
+                    Log.LogError("Site '{0}' already exists in {1} but its 'physicalPath' is set to {2} and not {3}. Either remove the site from the config file or configure it manually to point to project location.", Name, iisConfig, physicalPathValue, PhysicalPath);
+                    return false;
+                }
+
+                Log.LogMessage(MessageImportance.Low, "Site '{0}' is already configured.", Name);
+                return true;
+            }
+
+            var maxId = sites.XPathSelectElements("site")
+                .Select(s => s.Attribute("id").Value)
+                .Select(idString =>
+                    {
+                        int intId;
+                        return Int32.TryParse(idString, out intId) ? intId : -1;
+                    })
+                .Where(intId => intId >= 0)
+                .OrderByDescending(intId => intId)
+                .FirstOrDefault();
+
+            var id = maxId + 1;
+            site = new XElement("site", 
+                new XAttribute("name", Name), 
+                new XAttribute("id", id),
+                new XElement("application", 
+                    new XAttribute("path", "/"), 
+                    new XElement("virtualDirectory", 
+                        new XAttribute("path", "/"),
+                        new XAttribute("physicalPath", PhysicalPath))),
+                new XElement("bindings", 
+                    new XElement("binding", 
+                        new XAttribute("protocol", "http"),
+                        new XAttribute("bindingInformation", string.Format(":{0}:localhost", Port)))));
+            sites.Add(site);
+            File.WriteAllText(iisConfig, xml.ToString());
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="GetNuspecVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <NuspecFile ParameterType="System.String" Required="true" />
+      <Version ParameterType="System.String" Output="True" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Using Namespace="System" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Xml" />
+      <Using Namespace="System.Xml.Linq" />
+      <Using Namespace="System.Xml.XPath" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+                if (File.Exists(NuspecFile)) {
+                    var xml = XDocument.Load(NuspecFile);
+                    var nsm = new XmlNamespaceManager(new NameTable());
+                    nsm.AddNamespace("nu", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd");
+                    Version = xml.XPathSelectElement("/nu:package/nu:metadata/nu:version", nsm).Value;
+                    Log.LogMessage(MessageImportance.Low, "Version specified in nuspec file: {0}", Version);
+                }
+            ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="FixJsReferenceVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <Name ParameterType="System.String" Required="true" />
+      <Version ParameterType="System.String" Required="true" />
+      <FilePath ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Using Namespace="System" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            if (!File.Exists(FilePath)) {
+                Log.LogMessage(MessageImportance.High, "File {0} doesn't exists", FilePath);   
+            }
+            
+            var content = File.ReadAllText(FilePath);
+            var regex = new Regex("(" + Name + @").*?(js|min.js)", RegexOptions.IgnoreCase);
+            var newContent = regex.Replace(content, "$1-" + Version + ".$2");
+
+            File.WriteAllText(FilePath, newContent);
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <PropertyGroup>
+    <ScalejsBuildConfiguration Condition="'$(ScalejsBuildConfiguration)' == ''">$(Configuration)</ScalejsBuildConfiguration>
+    <ScalejsAppSitePort Condition="'$(ScalejsAppSitePort)' == ''">8888</ScalejsAppSitePort>
+    <ScalejsJsDirectory>$(MSBuildProjectDirectory)\js</ScalejsJsDirectory>
+    <ScalejsBuildDirectory>$(MSBuildProjectDirectory)\build</ScalejsBuildDirectory>
+    <ScalejsPropertiesDirectory>$(MSBuildProjectDirectory)\Properties</ScalejsPropertiesDirectory>
+    <ScalejsBuildRjs>$(ScalejsPropertiesDirectory)\build.rjs</ScalejsBuildRjs>
+    <ScalejsBaseUrl Condition="'$(ScalejsBaseUrl)' == ''">.</ScalejsBaseUrl>
+    <ScalejsNuspecFile>$(ScalejsPropertiesDirectory)\$(MSBuildProjectName).nuspec</ScalejsNuspecFile>
+  </PropertyGroup>
+
+  <Target Name="Clean">
+    <RemoveDir Condition="Exists('$(MSBuildProjectDirectory)\js')" Directories="$(MSBuildProjectDirectory)\js"/>
+    <RemoveDir Condition="Exists('$(ScalejsBuildDirectory)')" Directories="$(ScalejsBuildDirectory)"/>
+    <MakeDir Directories="$(MSBuildProjectDirectory)\js"/>
+    <MakeDir Directories="$(ScalejsBuildDirectory)"/>
+  </Target>
+
+  <Target Name="PrepareBuild">
+    <MakeDir Directories="$(ScalejsBuildDirectory)\$(Configuration)" Condition="!Exists('$(ScalejsbuildDirectory)\$(Configuration)')"/>
+  </Target>
+
+  <Target Name="CoreBuild" DependsOnTargets="CheckPrerequisites">
+    <GetNuspecVersion NuspecFile="$(ScalejsNuspecFile)">
+      <Output TaskParameter="Version" PropertyName="ScalejsNuspecVersion"/>
+    </GetNuspecVersion>
+    <CreateProperty Value="-$(ScalejsNuspecVersion)" Condition="'$(ScalejsNuspecVersion)' != ''">
+      <Output TaskParameter="Value" PropertyName="BuildSuffix"/>
+    </CreateProperty>
+    <Rjs BuildRjs="$(ScalejsBuildRjs)"
+         BaseUrl="$(ScalejsBaseUrl)"
+         Out="$(ScalejsJsDirectory)\$(MSBuildProjectName)-$(ScalejsNuspecVersion).js"
+         Optimize="none"
+         Condition="Exists('$(ScalejsBuildRjs)')"/>
+    <Rjs BuildRjs="$(ScalejsBuildRjs)"
+         BaseUrl="$(ScalejsBaseUrl)"
+         Out="$(ScalejsJsDirectory)\$(MSBuildProjectName)-$(ScalejsNuspecVersion).min.js"
+         Optimize="uglify2"
+         Condition="Exists('$(ScalejsBuildRjs)') And ('$(ScalejsBuildConfiguration)' == 'Release' Or '$(ScalejsProjectType)' == 'Extension' Or '$(ScalejsProjectType)' == 'Core')"/>
+    <AddSite Name="$(MSBuildProjectName)"
+             PhysicalPath="$(MSBuildProjectDirectory)"
+             Port="$(ScalejsAppSitePort)"
+             Condition="'$(ScalejsProjectType)' == 'Application'"/>
+    <FixJsReferenceVersion Name="$(MSBuildProjectName)"
+                           Version="$(ScalejsNuspecVersion)"
+                           FilePath="$(MSBuildProjectDirectory)\index.release.html"
+                           Condition="'$(ScalejsProjectType)' == 'Application'"/>
+    <Exec Command="$(NuGetExePath) pack $(ScalejsNuspecFile) -Version $(ScalejsNuspecVersion) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(ScalejsBuildDirectory)\$(Configuration) -NonInteractive -Verbosity quiet -Properties Configuration=$(Configuration)"
+          Condition="'$(ScalejsBuildConfiguration)' == 'Release' Or '$(ScalejsProjectType)' == 'Extension' Or '$(ScalejsProjectType)' == 'Core'"/>
+  </Target>
+
+  <Target Name="BeforeBuild">
+  </Target>
+
+  <Target Name="AfterBuild">
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="PrepareBuild;BeforeBuild;CoreBuild;AfterBuild">
+  </Target>
+
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
+  </Target>
+
+</Project>
