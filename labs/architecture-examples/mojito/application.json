@@ -1,0 +1,46 @@
+[
+	{
+		"settings": [ "master" ],
+		"specs": {
+			"main_ui": {
+				"type": "HTMLFrameMojit",
+				"config": {
+					"deploy": true,
+					"title": "Yahoo! Mojito • TodoMVC",
+					"child": { "type": "TodoMojit" },
+					"assets": {
+						"top": {
+							"blob": [
+								"<meta charset='utf-8'>",
+								"<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>"
+							]
+						}
+					}
+				}
+			}
+		},
+		"appPort": 6789,
+		"staticHandling": {
+			"appName": "todomvc"
+		},
+		"yui": {
+			"config": {
+				"combine": false,
+				"debug": true,
+				"logLevel": "info"
+			}
+		},
+		"builds": {
+			"html5app": {
+				"forceRelativePaths": true,
+				"attachManifest": false
+			}
+		}
+	},
+	{
+		"settings": [ "environment:development" ],
+		"staticHandling": {
+			"forceUpdate": true
+		}
+	}
+]
