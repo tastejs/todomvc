@@ -1,0 +1,55 @@
+﻿<plat-resources>
+    <injectable alias="converters">converters</injectable>
+</plat-resources>
+<section id="todoapp">
+    <header id="header">
+        <h1>todos</h1>
+        <form id="todo-form" plat-submit="addTodo()">
+            <input id="new-todo" placeholder="What needs to be done?" plat-bind="newTodo" autofocus>
+        </form>
+    </header>
+    <section id="main" plat-visible="{{todos.length > 0}}">
+        <input id="toggle-all" type="checkbox" plat-checked="{{allCompleted}}" plat-visible="{{todos.length > 0}}" plat-tap="toggleAll()">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list">
+            <plat-foreach plat-context="todos">
+                <plat-if plat-options="{ condition: @rootContext.filterBy === 'all' || @converters.booleanToState(completed) === @rootContext.filterBy }">
+                    <li class="{{@converters.booleanToCompleted(completed)}} {{@converters.booleanToEditing(@rootContext.editedTodo === @context)}}">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" plat-bind="completed" plat-change="updateStatus()">
+                            <label plat-dbltap="editTodo(@context)">{{title}}</label>
+                            <button class="destroy" plat-tap="removeTodo(@index)"></button>
+                        </div>
+                        <form id="todo-form" plat-submit="commitTodo(@context)">
+                            <input class="edit" plat-bind="title" plat-blur="commitTodo(@context)" plat-keydown="{ method: 'revert(@context)', key: 'escape' }">
+                        </form>
+                    </li>
+                </plat-if>
+            </plat-foreach>
+        </ul>
+    </section>
+    <footer id="footer" plat-visible="{{todos.length > 0}}">
+        <span id="todo-count">
+            <strong>{{remainingCount}}</strong> item{{@converters.booleanToValue('s', remainingCount !== 1)}} left
+        </span>
+        <ul id="filters">
+            <li>
+                <a class="{{ @converters.booleanToSelected(filterBy === 'all') }}">All</a>
+            </li>
+            <li>
+                <a class="{{ @converters.booleanToSelected(filterBy === 'active') }}" href="active">Active</a>
+            </li>
+            <li>
+                <a class="{{ @converters.booleanToSelected(filterBy === 'completed') }}" href="completed">Completed</a>
+            </li>
+        </ul>
+        <button id="clear-completed" plat-tap="clearCompletedTodos()" plat-visible="{{completedCount > 0}}">Clear completed ({{completedCount}})</button>
+    </footer>
+</section>
+<footer id="info">
+    <p>Double-click to edit a todo</p>
+    <p>
+        Credits:
+        <a href="http://twitter.com/">Platypi</a>,
+    </p>
+</footer>
