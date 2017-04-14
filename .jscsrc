@@ -29,6 +29,7 @@
 		"**/generated/**",
 		"examples/ampersand/todomvc.bundle.js",
 		"examples/angular2/**/*.js",
+		"examples/angular2_es2015/main.bundle.js",
 		"examples/aurelia/config.js",
 		"examples/aurelia/dist/*.js",
 		"examples/aurelia/jspm_packages/**/*.js",
@@ -47,7 +48,7 @@
 		"examples/spine/js/**",
 		"examples/typescript-*/js/**/*.js",
 		"examples/vanilladart/**/*.js",
-		"examples/vanilla-es6/dist/bundle.js",
+		"examples/vanilla-es6/dist/bundle.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
@@ -90,5 +91,6 @@
 	"disallowKeywords": ["with"],
 	"disallowSpacesInsideObjectBrackets": null,
 	"disallowImplicitTypeConversion": ["string"],
-	"safeContextKeyword": "self"
+	"safeContextKeyword": "self",
+	"esnext": true
 }
