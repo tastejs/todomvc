@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>AngularJS • CoffeeScript • TodoMVC</title>
+		<link rel="stylesheet" href="components/todomvc-common/base.css">
+		<!--[if IE]>
+		<script src="components/todomvc-common/ie.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<section id="todoapp" ng-controller="AppCtrl">
+			<header id="header">
+				<h1>todos</h1>
+				<form ng-submit="addItem(draft)">
+					<input id="new-todo" placeholder="What needs to be done?" autofocus ng-model="draft">
+				</form>
+			</header>
+			<section id="main" ng-show="totalCount()" ng-cloak>
+				<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+				<label for="toggle-all">Mark all as complete</label>
+
+				<ul id="todo-list">
+					<li ng-repeat="item in list | filter:statusFilter" ng-class="{completed: item.completed, editing: item == editedTodo}">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-model="item.completed">
+							<label ng-dblclick="editItem(item)">{{item.title}}</label>
+							<button class="destroy" ng-click="removeItem(item)"></button>
+						</div>
+						<form ng-submit="doneEditing(item)">
+							<input class="edit" todo-blur="doneEditing(item)" todo-focus="item == editedTodo" ng-model="item.title">
+						</form>
+					</li>
+				</ul>
+			</section>
+			<footer id="footer" ng-show="totalCount()" ng-cloak>
+				<span id="todo-count">
+					<strong>{{remainingCount()}}</strong>
+					<span ng-pluralize count="remainingCount()" when="{ one: 'item left', other: 'items left' }"></span>
+				</span>
+				<ul id="filters">
+					<li>
+						<a ng-class="{selected: location.path() == '/'}" href="#/">All</a>
+					</li>
+					<li>
+						<a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
+					</li>
+					<li>
+						<a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<button id="clear-completed" ng-show="completedCount()" ng-click="clearCompleteditems()">
+					Clear completed ({{completedCount()}})
+				</button>
+			</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Mostly inspired/based by/on the <a href="http://todomvc.com/architecture-examples/angularjs/">original</a> example</p>
+			<p>CoffeeScript on-the-fly version created by <a href="http://imcotton.com">Cotton Hou</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="components/todomvc-common/base.js"></script>
+
+		<script src="components/angular/angular.min.js"></script>
+		<script src="components/coffee-script/coffee-script.min.js"></script>
+
+		<script src="coffee/directives/todoBlur.coffee" type="text/coffeescript"></script>
+		<script src="coffee/directives/todoFocus.coffee" type="text/coffeescript"></script>
+		<script src="coffee/services/storage.coffee" type="text/coffeescript"></script>
+		<script src="coffee/controllers/AppCtrl.coffee" type="text/coffeescript"></script>
+		<script src="coffee/app.coffee" type="text/coffeescript"></script>
+
+	</body>
+</html>
