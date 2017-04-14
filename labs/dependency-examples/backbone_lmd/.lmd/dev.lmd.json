@@ -1,0 +1,45 @@
+{
+    "root": "../js/",
+    "output": "../compiled/dev.lmd.js",
+
+    "modules": {
+        "_": {
+            "path": "../../../../assets/lodash.min.js",
+            "exports": "_"
+        },
+        "underscore": "@_",
+
+        "$": {
+            "path": "lib/jquery/jquery.min.js",
+            "exports": "jQuery"
+        },
+
+        "Backbone": {
+            "path": "lib/backbone/backbone.js",
+            "require": {
+                "underscore": "_",
+                "jQuery": "$"
+            },
+            "exports": "Backbone"
+        },
+        "Store": "lib/backbone/localstorage.js",
+
+        "main": "main.js",
+        "Common": "common.js",
+
+        "Workspace": "routers/router.js",
+        "Todo": "models/todo.js",
+        "Todos": "collections/todos.js",
+        "TodoView": "views/todos.js",
+        "AppView": "views/app.js",
+
+        "statsTemplate": "templates/stats.html",
+        "todosTemplate": "templates/todos.html"
+    },
+    "main": "main",
+
+    "shortcuts": true,
+
+    "log": true,
+    "warn": true
+}

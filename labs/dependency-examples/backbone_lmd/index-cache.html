@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Backbone.js + LMD with Cache • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+	<script src="../../../assets/base.js"></script>
+
+    <script id="lmd-initializer"
+            data-src="compiled/dev-cache.lmd.js"
+            data-version="1.0"
+            data-key="lmd">(function(a,b,c,d,e,f){var g=a.eval,h=b.getElementById(c),i=h[e](d+"version"),j=h[e](d+"key"),k=h[e](d+"src"),l=a.localStorage,m=/^lmd:([^:]+):(.*)$/,n,o,p,q,r,s,t;if(l){q=l[j];if(q){try{o=a.JSON.parse(q),o&&o.version===i&&(r=g(o.main),s=g(o.lmd));for(j in l)t=j.match(m),t&&(t[1]===i?o.modules[t[2]]=a.JSON.parse(l[j]):l[f](j))}catch(u){}if(s&&r){s(a,r,o.modules,o.options);return}l[f](j);for(j in l)m.test(j)&&l[f](j)}}p=b.getElementsByTagName("head")[0],n=b.createElement("script"),n.setAttribute("src",k),p.insertBefore(n,p.firstChild)})(this,this.document,"lmd-initializer","data-","getAttribute","removeItem")</script>
+
+	<!--[if IE]>
+	<script src="../../../assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer"></footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+        <p>
+            Original by <a href="http://addyosmani.github.com/todomvc/">Addy Osmani</a>
+		    adapted for LMD by <a href="http://github.com/azproduction/">Mikhail Davydov</a>
+        </p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+</body>
+</html>
