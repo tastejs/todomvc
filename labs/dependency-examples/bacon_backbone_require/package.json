@@ -1,0 +1,13 @@
+{
+  "name": "bacon_transparency_require",
+  "version": "0.0.1",
+  "description": "TodoMVC example with Bacon.js, Transparency.js and Require.js",
+  "main": "grunt.js",
+  "dependencies": {
+    "grunt-contrib-coffee": ">=0.3.0"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.4.0"
+  },
+  "private": true
+}
