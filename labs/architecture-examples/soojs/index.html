@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>SOOJS • TodoMVC</title>
+	<link rel="stylesheet" href="../../../assets/base.css">
+	<!-- CSS overrides - remove if you don't need it -->
+	<link rel="stylesheet" href="css/app.css">
+	<!--[if IE]>
+	<script src="assets/ie.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<!-- This section should be hidden by default and shown when there are todos -->
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list">
+				<!-- These are here just to show the structure of the list items -->
+				<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+			</ul>
+		</section>
+		<!-- This footer should hidden by default and shown when there are todos -->
+		<footer id="footer">
+			<!-- This should be `0 items left` by default -->
+			<span id="todo-count"><strong>1</strong> item left</span>
+			<!-- Remove this if you don't implement routing -->
+			<ul id="filters" style="display: none;">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button id="clear-completed">Clear completed (1)</button>
+		</footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<!-- Change this out with your name and url ↓ -->
+		<p>Created by <a href="http://metal-sole.com/" target="_blank">Matt Maher</a></p>
+		<p>An example of the <a href="https://github.com/bladnman/soojs" target="_blank">SOOJS Pattern</a></p>
+	</footer>
+
+
+	<!-- Scripts here. Don't remove this ↓ -->
+
+    <!-- helper libraries -->
+    <script src="js/lib/MMU.js"></script>
+    <script src="../../../assets/jquery.min.js"></script>
+
+    <!-- view controllers -->
+    <script src="js/viewControllers/AppViewController.js"></script>
+    <script src="js/viewControllers/ItemViewController.js"></script>
+
+    <!-- connectors -->
+    <script src="js/connectors/DiskConnector.js"></script>
+
+    <!-- objects -->
+    <script src="js/vo/ItemVO.js"></script>
+
+    <!-- controllers -->
+    <script src="js/controllers/ItemCollection.js"></script>
+
+    <!-- template scripts -->
+    <script src="../../../assets/base.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
