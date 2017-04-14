@@ -1,0 +1,36 @@
+{
+  "name": "kissy",
+  "version": "1.4.0",
+  "homepage": "http://kissyui.com",
+  "authors": [
+    "yiminghe <yiminghe@gmail.com>"
+  ],
+  "description": "A Powerful Javascript Framework",
+  "main": "build/seed-min.js",
+  "keywords": [
+    "javascript",
+    "framework",
+    "library"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "docs",
+    "reports",
+    "tools",
+    "bin",
+    "node_modules",
+    "bower_components",
+    "src"
+  ],
+  "_release": "1.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.4.0",
+    "commit": "34f510a9edb019355be2843ce210676e5f2a4dcf"
+  },
+  "_source": "git://github.com/kissyteam/kissy.git",
+  "_target": "~1.4.0",
+  "_originalSource": "kissy",
+  "_direct": true
+}
