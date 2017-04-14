@@ -1,0 +1,19 @@
+{
+	"todo_header": "todos",
+	"input_placeholder": "What needs to be done?",
+	"clear_all": "Clear completed ({0})",
+	"completed": "Completed",
+	"active": "Active",
+	"all": "All",
+	"total": "Total",
+	"items_remaining": "item{0} left",
+	"choose_language": "Choose your language:",
+	"mark_all": "Mark all as complete",
+	"error_required": "{0} is a required field",
+	"error_pattern": "{0} is not formatted correctly",
+	"error_email": "{0} must be an email address",
+	"error_tel": "{0} must be a telephone number",
+	"error_number": "{0} must be a number",
+	"error_url": "{0} must be a URL",
+	"error_offline": "No internet connection available. Please check your settings and connection and try again."
+}

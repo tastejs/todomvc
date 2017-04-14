@@ -1,0 +1,43 @@
+/* base.css overrides */
+body {
+	width: auto;
+	max-width: 550px;
+}
+@media screen and (max-width: 550px) {
+	#todoapp {
+		margin-top: 50px;
+		border: 0;
+	}
+	#todoapp h1 {
+		top: -67px;
+		font-size: 40px;
+	}
+	#toggle-all {
+		top: -52px;
+	}
+	#filters {
+		position: static;
+		float: left;
+		text-align: left;
+	}
+	#todo-count {
+		display: none;
+	}
+	#todo-list li .destroy {
+		display: block;
+	}
+	#todo-list li.editing {
+		padding-left: 43px;
+	}
+	#todo-list li.editing .edit {
+		width: 100%;
+		box-sizing: border-box;
+		margin: 0;
+	}
+	#new-todo, .edit, #todo-list li {
+		font-size: 18px;
+	}
+	label {
+		margin-right: 45px;
+	}
+}
