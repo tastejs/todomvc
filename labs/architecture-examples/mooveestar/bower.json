@@ -1,0 +1,8 @@
+{
+	"name": "todomvc-mooveestar",
+	"version": "0.0.0",
+	"dependencies": {
+		"mooveestar":"~0.1.0",
+		"todomvc-common": "~0.1.6"
+	}
+}

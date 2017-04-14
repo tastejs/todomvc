@@ -1,0 +1,5 @@
+/* base.css overrides */
+
+.-filter-completed > [data-complete="false"],
+.-filter-active > [data-complete="true"],
+#todoapp[data-completed="0"] #clear-completed {display:none;}
