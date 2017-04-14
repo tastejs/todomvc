@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>jQuery.my • TodoMVC</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+	</head>
+	<body style="background-position:center center; padding: 0 100px;">
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<section id="main" class="hidden">
+				<input id="toggle-all" type="checkbox" value="done">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+					<li>
+						<div class="view">
+							<input class="toggle" type="checkbox" value="done">
+							<label></label>
+							<button class="destroy"></button>
+						</div>
+						<input class="edit" value="">
+					</li>
+				</ul>
+			</section>
+			<footer id="footer" class="hidden">
+				<span id="todo-count"></span>
+				<ul id="filters">
+					<li>
+						<a class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a href="#/active">Active</a>
+					</li>
+					<li>
+						<a href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<span class="hidden"><button id="clear-completed"></button></span>
+			</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="https://github.com/ermouth">ermouth</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="bower_components/sugar/release/sugar.min.js"></script>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/jquerymy/jquerymy.js"></script>
+		<script src="bower_components/director/build/director.min.js"></script>
+		
+		<script src="js/views/view-app.js"></script>
+		<script src="js/views/view-todo.js"></script>
+		<script src="js/app.js"></script>
+		
+	</body>
+</html>

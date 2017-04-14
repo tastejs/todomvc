@@ -1,0 +1,10 @@
+{
+	"name": "todomvc-jquerymy",
+	"version": "0.0.2",
+	"dependencies": {
+		"todomvc-common": "~0.1.4",
+		"jquery":"~1.11",
+		"sugar":"~1.4",
+		"jquerymy":">=0.9.8"
+	}
+}
