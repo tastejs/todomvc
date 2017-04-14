@@ -1,0 +1,82 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* base.css, part of YUI's CSS Foundation */
+h1 {
+	/*18px via YUI Fonts CSS foundation*/
+	font-size:138.5%;  
+}
+h2 {
+	/*16px via YUI Fonts CSS foundation*/
+	font-size:123.1%; 
+}
+h3 {
+	/*14px via YUI Fonts CSS foundation*/
+	font-size:108%;  
+}
+h1,h2,h3 {
+	/* top & bottom margin based on font size */
+	margin:1em 0;
+}
+h1,h2,h3,h4,h5,h6,strong {
+	/*bringing boldness back to headers and the strong element*/
+	font-weight:bold; 
+}
+abbr,acronym {
+	/*indicating to users that more info is available */
+	border-bottom:1px dotted #000;
+	cursor:help;
+} 
+em {
+	/*bringing italics back to the em element*/
+	font-style:italic;
+}
+blockquote,ul,ol,dl {
+	/*giving blockquotes and lists room to breath*/
+	margin:1em;
+}
+ol,ul,dl {
+	/*bringing lists on to the page with breathing room */
+	margin-left:2em;
+}
+ol {
+	/*giving OL's LIs generated numbers*/
+	list-style: decimal outside;	
+}
+ul {
+	/*giving UL's LIs generated disc markers*/
+	list-style: disc outside;
+}
+dl dd {
+	/*providing spacing for definition terms*/
+	margin-left:1em;
+}
+th,td {
+	/*borders and padding to make the table readable*/
+	border:1px solid #000;
+	padding:.5em;
+}
+th {
+	/*distinguishing table headers from data cells*/
+	font-weight:bold;
+	text-align:center;
+}
+caption {
+	/*coordinated margin to match cell's padding*/
+	margin-bottom:.5em;
+	/*centered so it doesn't blend in to other content*/
+	text-align:center;
+}
+p,fieldset,table,pre {
+	/*so things don't run into each other*/
+	margin-bottom:1em;
+}
+/* setting a consistent width, 160px; 
+   control of type=file still not possible */
+input[type=text],input[type=password],textarea{width:12.25em;*width:11.9em;}
+
+/* YUI CSS Detection Stamp */
+#yui3-css-stamp.cssbase { display: none; }

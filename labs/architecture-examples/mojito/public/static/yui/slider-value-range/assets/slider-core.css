@@ -1,0 +1,37 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-slider,
+.yui3-slider-rail {
+    /* xbrowser inline-block styles */
+    display: -moz-inline-stack; /* FF2 */
+    display: inline-block;
+    *display: inline; /* IE 7- (with zoom) */
+    zoom: 1;
+    vertical-align: middle;
+}
+
+.yui3-slider-content {
+    position: relative;
+    display: block;
+}
+.yui3-slider-rail {
+    position: relative;
+}
+
+.yui3-slider-rail-cap-top,
+.yui3-slider-rail-cap-left,
+.yui3-slider-rail-cap-bottom,
+.yui3-slider-rail-cap-right,
+.yui3-slider-thumb,
+.yui3-slider-thumb-image,
+.yui3-slider-thumb-shadow {
+    position: absolute;
+}
+
+.yui3-slider-thumb {
+    overflow: hidden;
+}

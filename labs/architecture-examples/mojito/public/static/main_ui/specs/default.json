@@ -1,0 +1,30 @@
+{
+    "base": "main_ui",
+    "instanceId": "yui_3_7_3_1_1360839739553_54",
+    "type": "HTMLFrameMojit",
+    "config": {
+        "deploy": true,
+        "title": "Yahoo! Mojito • TodoMVC",
+        "child": {
+            "type": "TodoMojit"
+        }
+    },
+    "id": "main_ui",
+    "defaults": {},
+    "definition": {},
+    "assets": {
+        "favicon.ico": "/favicon.ico"
+    },
+    "binders": {},
+    "langs": {},
+    "models": {},
+    "partials": {},
+    "views": {
+        "index": {
+            "content-path": ".",
+            "engine": "hb"
+        }
+    },
+    "acAddons": {},
+    "assetsRoot": "/static/HTMLFrameMojit/assets"
+}

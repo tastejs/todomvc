@@ -1,0 +1,48 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+v\:oval,
+v\:shadow,
+v\:fill {
+    behavior: url(#default#VML);
+    display: inline-block;
+    zoom: 1; *display: inline; /* IE < 8: fake inline-block */
+}
+.yui3-dial{
+	position:relative;
+	display:-moz-inline-stack;
+	display:inline-block;
+	zoom:1;
+	*display:inline;
+	/*text-align:center;   This causes problems with the angle calc with longer labels*/ 
+}
+.yui3-dial-content,
+.yui3-dial-ring{
+	position:relative;
+}
+.yui3-dial-handle,
+.yui3-dial-marker,
+.yui3-dial-center-button,
+.yui3-dial-reset-string,
+.yui3-dial-handle-vml,
+.yui3-dial-marker-vml,
+.yui3-dial-center-button-vml,
+.yui3-dial-ring-vml v\:oval,
+.yui3-dial-center-button-vml v\:oval
+{
+	position:absolute;
+}
+.yui3-dial-center-button-vml v\:oval {
+	font-size:1px;
+	top:0;
+	left:0;
+}
+.yui3-dial-content .yui3-dial-ring .yui3-dial-hidden v\:oval,
+.yui3-dial-content .yui3-dial-ring .yui3-dial-hidden {
+	/* [#2530206] using opacity instead of display:none;. display:none was mis-positioning the marker when we set the dial value on ring mousedown. */
+	opacity:0;
+	filter:alpha(opacity=0);	
+}

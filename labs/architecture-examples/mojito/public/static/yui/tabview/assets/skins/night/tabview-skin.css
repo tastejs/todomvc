@@ -1,0 +1,95 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-night .yui3-tabview-panel{
+	background-color:#333333;
+	color:#808080;
+	padding:1px;
+}
+.yui3-skin-night .yui3-tab-panel p{
+	margin:10px;
+}
+.yui3-skin-night .yui3-tabview-list {
+    background-color:#0f0f0f;
+    border-top:1px solid #000;
+	text-align:center;
+    height:46px;
+    background: -moz-linear-gradient(
+		0% 100% 90deg, 
+		#0f0f0f 0%, 
+		#1e1e1e 96%,
+		#292929 100%
+	);
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(#0f0f0f),
+        color-stop(0.96, #1e1e1e),
+        to(#292929)     
+    );
+}
+
+.yui3-skin-night .yui3-tabview-list li {
+	margin-top:8px;
+}
+.yui3-skin-night .yui3-tabview-list li a{
+	border:solid 1px #0c0c0c;
+	border-right-style:none;
+
+	-moz-box-shadow: 0 1px #222222; 
+	-webkit-box-shadow: 0 1px #222222;
+	box-shadow: 0 1px #222222; 
+
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.7);
+	font-size:85%;
+	text-align:center;
+	color: #fff;
+	padding: 6px 28px;
+	background-color:#555658;
+	background: -moz-linear-gradient(
+		0% 100% 90deg, 
+		#343536 0%, 
+		#555658 96%,
+		#3E3F41 100%
+	);
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(#343536),
+        color-stop(0.96, #555658),
+        to(#3E3F41)     
+    );
+}
+.yui3-skin-night .yui3-tabview-list li.yui3-tab-selected a {
+	background-color:#2B2D2D;
+	background: -moz-linear-gradient(
+		0% 100% 90deg, 
+		#242526 0%, 
+		#3b3c3d 96%,
+		#2C2D2F 100%
+	);
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(#242526),
+        color-stop(0.96, #3b3c3d),
+        to(#2C2D2F)     
+    );
+}
+.yui3-skin-night .yui3-tabview-list li:first-child a{
+	-moz-border-radius:6px 0 0 6px;
+	-webkit-border-radius:6px 0 0 6px;
+	border-radius:6px 0 0 6px;
+}
+.yui3-skin-night .yui3-tabview-list li:last-child a{
+	border-right-style:solid;
+	-moz-border-radius:0 6px 6px 0;
+	-webkit-border-radius:0 6px 6px 0;
+	border-radius:0 6px 6px 0;
+}

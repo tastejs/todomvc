@@ -1,0 +1,28 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-panel {
+    position: absolute;
+}
+.yui3-panel-hidden {
+    visibility: hidden;
+}
+.yui3-widget-tmp-forcesize .yui3-panel-content {
+    overflow: hidden !important;
+}
+.yui3-panel .yui3-widget-hd {
+    position: relative;
+}
+.yui3-panel .yui3-widget-hd .yui3-widget-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.yui3-panel .yui3-widget-ft .yui3-widget-buttons {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}

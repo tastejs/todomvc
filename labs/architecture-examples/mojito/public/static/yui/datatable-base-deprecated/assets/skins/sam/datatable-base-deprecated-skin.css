@@ -1,0 +1,243 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* basic skin styles */
+.yui3-skin-sam .yui3-datatable table {
+    margin:0;padding:0;
+    font-family:arial;font-size:inherit;
+    border-collapse:separate;*border-collapse:collapse;border-spacing:0; /* since ie6 and ie7 behave differently */
+    border:1px solid #7F7F7F;
+}
+.yui3-skin-sam .yui3-datatable thead {border-spacing:0;} /* for safari bug */
+
+.yui3-skin-sam .yui3-datatable caption {
+    color:#000000;
+    font-size:85%;
+    font-weight:normal;
+    font-style:italic;
+    line-height:1;
+    padding:1em 0pt;
+    text-align:center;
+}
+
+.yui3-skin-sam .yui3-datatable th {
+    background:#D8D8DA url(../../../../assets/skins/sam/sprite.png) repeat-x 0 0; /* header gradient */
+}
+.yui3-skin-sam .yui3-datatable th,
+.yui3-skin-sam .yui3-datatable th a {
+    font-weight:normal;text-decoration:none;color:#000; /* header text */
+    vertical-align:bottom;
+}
+.yui3-skin-sam .yui3-datatable th {
+    margin:0;padding:0;
+    border:none;
+    border-right:1px solid #CBCBCB;/*  inner column border */
+}
+.yui3-skin-sam .yui3-datatable tr.yui3-datatable-first td {
+    border-top:1px solid #7F7F7F;  /* tbody top border  */
+}
+.yui3-skin-sam .yui3-datatable th .yui3-datatable-liner {
+    white-space:nowrap;
+}
+.yui3-skin-sam .yui3-datatable-liner {
+    margin:0;padding:0;
+    padding:4px 10px 4px 10px; /* cell padding */
+	overflow:visible; /*to make ths where the title is really long work*/
+	border:0px solid black;
+}
+.yui3-skin-sam .yui3-datatable-coltarget {
+    width: 5px;
+    background-color: red;
+}
+.yui3-skin-sam .yui3-datatable td {
+    margin:0;padding:0;
+    border:none;
+    border-right:1px solid #CBCBCB; /* inner column border */
+    text-align:left;
+}
+.yui3-skin-sam .yui3-datatable-list td {
+    border-right:none; /* disable inner column border in list mode */
+}
+.yui3-skin-sam .yui3-datatable-resizer {
+    width:6px;
+}
+
+/* mask */
+.yui3-skin-sam .yui3-datatable-mask {
+    background-color: #000;
+    opacity: .25;
+    filter: alpha(opacity=25);  /* Set opacity in IE */
+}
+
+/* messaging */
+.yui3-skin-sam .yui3-datatable-message  {
+    background-color:#FFF;
+}
+
+/* scrolling */
+.yui3-skin-sam .yui3-datatable-scrollable table {border:none;}
+.yui3-skin-sam .yui3-datatable-scrollable .yui3-datatable-hd {border-left:1px solid #7F7F7F;border-top:1px solid #7F7F7F;border-right:1px solid #7F7F7F;}
+.yui3-skin-sam .yui3-datatable-scrollable .yui3-datatable-bd {border-left:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;border-right:1px solid #7F7F7F;background-color:#FFF;}
+.yui3-skin-sam .yui3-datatable-scrollable .yui3-datatable-data tr.yui3-datatable-last td {border-bottom:1px solid #7F7F7F;}
+
+/* sortable columns */
+.yui3-skin-sam th.yui3-datatable-asc,
+.yui3-skin-sam th.yui3-datatable-desc {
+    background:url(../../../../assets/skins/sam/sprite.png) repeat-x 0 -100px; /* sorted header gradient */
+}
+.yui3-skin-sam th.yui3-datatable-sortable .yui3-datatable-liner {
+    padding-right:20px; /* room for arrow */
+}
+.yui3-skin-sam th.yui3-datatable-asc .yui3-datatable-liner {
+    background:url(dt-arrow-up.png) no-repeat right; /* up arrow */
+}
+.yui3-skin-sam th.yui3-datatable-desc .yui3-datatable-liner {
+    background:url(dt-arrow-dn.png) no-repeat right; /* down arrow */
+}
+
+/* editing */
+tbody .yui3-datatable-editable {
+    cursor:pointer;
+}
+.yui3-datatable-editor {
+    text-align:left;
+    background-color:#F2F2F2;
+    border:1px solid #808080;
+    padding:6px;
+}
+.yui3-datatable-editor label {
+    padding-left:4px;padding-right:6px;
+}
+.yui3-datatable-editor .yui3-datatable-button {
+    padding-top:6px;text-align:right;
+}
+.yui3-datatable-editor .yui3-datatable-button button {
+    background:url(../../../../assets/skins/sam/sprite.png) repeat-x 0 0;
+    border:1px solid #999;
+    width:4em;height:1.8em;
+    margin-left:6px;
+}
+.yui3-datatable-editor .yui3-datatable-button button.yui3-datatable-default {
+    background:url(../../../../assets/skins/sam/sprite.png) repeat-x 0 -1400px;
+    background-color: #5584E0;
+    border:1px solid #304369;
+    color:#FFF
+}
+.yui3-datatable-editor .yui3-datatable-button button:hover {
+    background:url(../../../../assets/skins/sam/sprite.png) repeat-x 0 -1300px;
+    color:#000;
+}
+.yui3-datatable-editor .yui3-datatable-button button:active {
+    background:url(../../../../assets/skins/sam/sprite.png) repeat-x 0 -1700px;
+    color:#000;
+}
+
+/* striping */
+.yui3-skin-sam .yui3-datatable td { background-color:transparent; } /* none */
+.yui3-skin-sam tr.yui3-datatable-even td { background-color:#FFF; } /* white */
+.yui3-skin-sam tr.yui3-datatable-odd td { background-color:#EDF5FF; } /* light blue */
+.yui3-skin-sam tr.yui3-datatable-even td.yui3-datatable-asc,
+.yui3-skin-sam tr.yui3-datatable-even td.yui3-datatable-desc { background-color:#EDF5FF; } /* light blue sorted */
+.yui3-skin-sam tr.yui3-datatable-odd td.yui3-datatable-asc,
+.yui3-skin-sam tr.yui3-datatable-odd td.yui3-datatable-desc { background-color:#DBEAFF; } /* dark blue sorted */
+
+/* disable striping in list mode */
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-even { background-color:#FFF; } /* white */
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-odd { background-color:#FFF; } /* white */
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-even td.yui3-datatable-asc,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-even td.yui3-datatable-desc { background-color:#EDF5FF; } /* light blue sorted */
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-odd td.yui3-datatable-asc,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-odd td.yui3-datatable-desc { background-color:#EDF5FF; } /* light blue sorted */
+
+/* highlighting */
+.yui3-skin-sam th.yui3-datatable-highlighted,
+.yui3-skin-sam th.yui3-datatable-highlighted a {
+    background-color:#B2D2FF; /* med blue hover */
+}
+.yui3-skin-sam tr.yui3-datatable-highlighted,
+.yui3-skin-sam tr.yui3-datatable-highlighted td.yui3-datatable-asc,
+.yui3-skin-sam tr.yui3-datatable-highlighted td.yui3-datatable-desc,
+.yui3-skin-sam tr.yui3-datatable-even td.yui3-datatable-highlighted,
+.yui3-skin-sam tr.yui3-datatable-odd td.yui3-datatable-highlighted {
+    cursor:pointer;
+    background-color:#B2D2FF; /* med blue hover */
+}
+
+/* enable highlighting in list mode */
+.yui3-skin-sam .yui3-datatable-list th.yui3-datatable-highlighted,
+.yui3-skin-sam .yui3-datatable-list th.yui3-datatable-highlighted a {
+    background-color:#B2D2FF; /* med blue hover */
+}
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-highlighted,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-highlighted td.yui3-datatable-asc,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-highlighted td.yui3-datatable-desc,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-even td.yui3-datatable-highlighted,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-odd td.yui3-datatable-highlighted {
+    cursor:pointer;
+    background-color:#B2D2FF; /* med blue  hover */
+}
+
+/* selection */
+.yui3-skin-sam th.yui3-datatable-selected,
+.yui3-skin-sam th.yui3-datatable-selected a {
+    background-color:#446CD7; /* bright blue selected cell */
+}
+.yui3-skin-sam tr.yui3-datatable-selected td,
+.yui3-skin-sam tr.yui3-datatable-selected td.yui3-datatable-asc,
+.yui3-skin-sam tr.yui3-datatable-selected td.yui3-datatable-desc {
+    background-color:#426FD9; /* bright blue selected row */
+    color:#FFF;
+}
+.yui3-skin-sam tr.yui3-datatable-even td.yui3-datatable-selected,
+.yui3-skin-sam tr.yui3-datatable-odd td.yui3-datatable-selected {
+    background-color:#446CD7; /* bright blue selected cell */
+    color:#FFF;
+}
+
+/* enable selection in list mode */
+.yui3-skin-sam .yui3-datatable-list th.yui3-datatable-selected,
+.yui3-skin-sam .yui3-datatable-list th.yui3-datatable-selected a {
+    background-color:#446CD7; /* bright blue selected cell */
+}
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-selected td,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-selected td.yui3-datatable-asc,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-selected td.yui3-datatable-desc {
+    background-color:#426FD9; /* bright blue selected row */
+    color:#FFF;
+}
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-even td.yui3-datatable-selected,
+.yui3-skin-sam .yui3-datatable-list tr.yui3-datatable-odd td.yui3-datatable-selected {
+    background-color:#446CD7; /* bright blue selected cell */
+    color:#FFF;
+}
+
+/* pagination */
+.yui3-skin-sam .yui3-datatable-paginator {
+    display:block;margin:6px 0;white-space:nowrap;
+}
+.yui3-skin-sam .yui3-datatable-paginator .yui3-datatable-first,
+.yui3-skin-sam .yui3-datatable-paginator .yui3-datatable-last,
+.yui3-skin-sam .yui3-datatable-paginator .yui3-datatable-selected {
+    padding:2px 6px;
+}
+.yui3-skin-sam .yui3-datatable-paginator a.yui3-datatable-first,
+.yui3-skin-sam .yui3-datatable-paginator a.yui3-datatable-last {
+    text-decoration:none;
+}
+.yui3-skin-sam .yui3-datatable-paginator .yui3-datatable-previous,
+.yui3-skin-sam .yui3-datatable-paginator .yui3-datatable-next {
+    display:none;
+}
+.yui3-skin-sam a.yui3-datatable-page {
+    border:1px solid #CBCBCB;
+    padding:2px 6px;
+    text-decoration:none;
+    background-color:#fff
+}
+.yui3-skin-sam .yui3-datatable-selected {
+    border:1px solid #fff;
+    background-color:#fff;
+}

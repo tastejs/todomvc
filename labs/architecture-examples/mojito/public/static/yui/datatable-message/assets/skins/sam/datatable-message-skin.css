@@ -1,0 +1,11 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-sam .yui3-datatable-message-content {
+    border: 0 none;
+    border-bottom: 1px solid #cbcbcb;
+    padding: 4px 10px;
+}

@@ -1,0 +1,29 @@
+{
+    "type": "LazyLoad",
+    "instanceId": "yui_3_7_3_1_1360839739553_56",
+    "config": {},
+    "defaults": {},
+    "definition": {},
+    "assets": {
+        "favicon.ico": "/favicon.ico"
+    },
+    "binders": {
+        "index": "LazyLoadBinderIndex"
+    },
+    "langs": {},
+    "models": {},
+    "partials": {},
+    "views": {
+        "index": {
+            "content-path": "/static/LazyLoad/views/index.hb.html",
+            "engine": "hb"
+        }
+    },
+    "controller": "LazyLoad",
+    "acAddons": [
+        "assets",
+        "params",
+        "composite"
+    ],
+    "assetsRoot": "/static/LazyLoad/assets"
+}

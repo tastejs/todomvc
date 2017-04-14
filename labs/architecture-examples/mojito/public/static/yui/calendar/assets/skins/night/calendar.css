@@ -1,0 +1,7 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-calendar-column-hidden,.yui3-calendar-hidden{display:none}.yui3-calendar-day{cursor:pointer}.yui3-calendar-selection-disabled{cursor:default}.yui3-calendar-prevmonth-day{cursor:default}.yui3-calendar-nextmonth-day{cursor:default}.yui3-calendar-content:hover .yui3-calendar-day,.yui3-calendar-content:hover .yui3-calendar-prevmonth-day,.yui3-calendar-content:hover .yui3-calendar-nextmonth-day{-moz-user-select:none}.yui3-skin-night .yui3-calendar-day-highlighted{background-color:#555}.yui3-skin-night .yui3-calendar-day-selected.yui3-calendar-day-highlighted{background-color:#777}#yui3-css-stamp.skin-night-calendar{display:none}

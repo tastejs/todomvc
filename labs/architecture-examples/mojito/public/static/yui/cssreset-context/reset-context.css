@@ -1,0 +1,126 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/*e
+	TODO will need to remove settings on HTML since we can't namespace it.
+	TODO with the prefix, should I group by selector or property for weight savings?
+*/
+.yui3-cssreset html{
+	color:#000;
+	background:#FFF;
+}
+/*
+	TODO remove settings on BODY since we can't namespace it.
+*/
+/*
+	TODO test putting a class on HEAD.
+		- Fails on FF. 
+*/
+.yui3-cssreset body,
+.yui3-cssreset div,
+.yui3-cssreset dl,
+.yui3-cssreset dt,
+.yui3-cssreset dd,
+.yui3-cssreset ul,
+.yui3-cssreset ol,
+.yui3-cssreset li,
+.yui3-cssreset h1,
+.yui3-cssreset h2,
+.yui3-cssreset h3,
+.yui3-cssreset h4,
+.yui3-cssreset h5,
+.yui3-cssreset h6,
+.yui3-cssreset pre,
+.yui3-cssreset code,
+.yui3-cssreset form,
+.yui3-cssreset fieldset,
+.yui3-cssreset legend,
+.yui3-cssreset input,
+.yui3-cssreset textarea,
+.yui3-cssreset p,
+.yui3-cssreset blockquote,
+.yui3-cssreset th,
+.yui3-cssreset td {
+	margin:0;
+	padding:0;
+}
+.yui3-cssreset table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+.yui3-cssreset fieldset,
+.yui3-cssreset img {
+	border:0;
+}
+/*
+	TODO think about hanlding inheritence differently, maybe letting IE6 fail a bit...
+*/
+.yui3-cssreset address,
+.yui3-cssreset caption,
+.yui3-cssreset cite,
+.yui3-cssreset code,
+.yui3-cssreset dfn,
+.yui3-cssreset em,
+.yui3-cssreset strong,
+.yui3-cssreset th,
+.yui3-cssreset var {
+	font-style:normal;
+	font-weight:normal;
+}
+
+.yui3-cssreset ol,
+.yui3-cssreset ul {
+	list-style:none;
+}
+
+.yui3-cssreset caption,
+.yui3-cssreset th {
+	text-align:left;
+}
+.yui3-cssreset h1,
+.yui3-cssreset h2,
+.yui3-cssreset h3,
+.yui3-cssreset h4,
+.yui3-cssreset h5,
+.yui3-cssreset h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+.yui3-cssreset q:before,
+.yui3-cssreset q:after {
+	content:'';
+}
+.yui3-cssreset abbr,
+.yui3-cssreset acronym {
+	border:0;
+	font-variant:normal;
+}
+/* to preserve line-height and selector appearance */
+.yui3-cssreset sup {
+	vertical-align:text-top;
+}
+.yui3-cssreset sub {
+	vertical-align:text-bottom;
+}
+.yui3-cssreset input,
+.yui3-cssreset textarea,
+.yui3-cssreset select {
+	font-family:inherit;
+	font-size:inherit;
+	font-weight:inherit;
+}
+/*to enable resizing for IE*/
+.yui3-cssreset input,
+.yui3-cssreset textarea,
+.yui3-cssreset select {
+	*font-size:100%;
+}
+/*because legend doesn't inherit in IE */
+.yui3-cssreset legend {
+	color:#000;
+}
+/* YUI CSS Detection Stamp */
+#yui3-css-stamp.cssreset-context { display: none; }

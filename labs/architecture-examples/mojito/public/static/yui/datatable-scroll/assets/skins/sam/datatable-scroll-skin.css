@@ -1,0 +1,30 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-sam .yui3-datatable-scroll-columns {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+
+.yui3-skin-sam .yui3-datatable-scroll-columns .yui3-datatable-header {
+    padding: 0;
+}
+
+.yui3-skin-sam .yui3-datatable-x-scroller,
+.yui3-skin-sam .yui3-datatable-y-scroller-container {
+    border: 1px solid #cbcbcb;
+}
+
+.yui3-skin-sam .yui3-datatable-scrollable-x .yui3-datatable-y-scroller-container,
+.yui3-skin-sam .yui3-datatable-x-scroller .yui3-datatable-table,
+.yui3-skin-sam .yui3-datatable-y-scroller .yui3-datatable-table {
+    border: 0 none;
+}

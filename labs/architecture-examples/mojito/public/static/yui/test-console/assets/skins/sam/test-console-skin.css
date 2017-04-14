@@ -1,0 +1,64 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* Reset base Console skin styles */
+.yui3-skin-sam .yui3-testconsole .yui3-console-content,
+.yui3-skin-sam .yui3-testconsole .yui3-console-bd,
+.yui3-skin-sam .yui3-testconsole .yui3-console-entry,
+.yui3-skin-sam .yui3-testconsole .yui3-console-ft,
+.yui3-skin-sam .yui3-testconsole .yui3-console-ft .yui3-console-filters-categories,
+.yui3-skin-sam .yui3-testconsole .yui3-console-ft .yui3-console-filters-sources,
+.yui3-skin-sam .yui3-testconsole .yui3-console-hd {
+    background: none;
+    border: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.yui3-skin-sam .yui3-testconsole-content,
+.yui3-skin-sam .yui3-testconsole .yui3-console-bd {
+    color: #333;
+    font: 13px/1.4 Helvetica, 'DejaVu Sans', 'Bitstream Vera Sans', Arial, sans-serif;
+}
+
+.yui3-skin-sam .yui3-testconsole-content {
+    border: 1px solid #afafaf;
+}
+
+.yui3-skin-sam .yui3-testconsole .yui3-console-entry {
+    border-bottom: 1px solid #eaeaea;
+    font-family: Menlo, Inconsolata, Consolas, 'DejaVu Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size: 11px;
+}
+
+.yui3-skin-sam .yui3-testconsole .yui3-console-ft {
+    border-top: 1px solid;
+}
+
+.yui3-skin-sam .yui3-testconsole .yui3-console-hd {
+    border-bottom: 1px solid;
+    *zoom: 1;
+}
+
+.yui3-skin-sam .yui3-testconsole.yui3-console-collapsed .yui3-console-hd {
+    border: none;
+}
+
+.yui3-skin-sam .yui3-testconsole .yui3-console-ft,
+.yui3-skin-sam .yui3-testconsole .yui3-console-hd {
+    border-color: #cfcfcf;
+}
+
+.yui3-skin-sam .yui3-testconsole .yui3-testconsole-entry-fail {
+    background-color: #FFE0E0;
+    border-bottom-color: #FFC5C4;
+}
+
+.yui3-skin-sam .yui3-testconsole .yui3-testconsole-entry-pass {
+    background-color: #ECFFEA;
+    border-bottom-color: #D1FFCC;
+}

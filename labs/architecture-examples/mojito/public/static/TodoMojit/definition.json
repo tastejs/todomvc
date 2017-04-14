@@ -1,0 +1,42 @@
+{
+    "type": "TodoMojit",
+    "instanceId": "yui_3_7_3_1_1360839739553_52",
+    "config": {},
+    "defaults": {},
+    "definition": {},
+    "assets": {
+        "favicon.ico": "/favicon.ico",
+        "base.css": "/static/TodoMojit/assets/base.css",
+        "bg.png": "/static/TodoMojit/assets/bg.png",
+        "ie.js": "/static/TodoMojit/assets/ie.js"
+    },
+    "binders": {
+        "index": "TodoMojitBinderIndex"
+    },
+    "langs": {},
+    "models": {
+        "todo": "TodoMojitModelTodo"
+    },
+    "partials": {},
+    "views": {
+        "index": {
+            "content-path": "/static/TodoMojit/views/index.hb.html",
+            "engine": "hb"
+        },
+        "item": {
+            "content-path": "/static/TodoMojit/views/item.hb.html",
+            "engine": "hb"
+        },
+        "items": {
+            "content-path": "/static/TodoMojit/views/items.hb.html",
+            "engine": "hb"
+        }
+    },
+    "controller": "TodoMojit",
+    "acAddons": [
+        "models",
+        "assets",
+        "params"
+    ],
+    "assetsRoot": "/static/TodoMojit/assets"
+}

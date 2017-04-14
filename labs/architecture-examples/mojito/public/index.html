@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html manifest="cache.manifest">
+<head>
+<script type="text/javascript">var MOJITO_INIT=new Date().getTime();</script>
+
+
+<meta name="creator" content="Yahoo! Mojito ">
+
+
+<title>Yahoo! Mojito • TodoMVC</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link href="static/TodoMojit/assets/base.css" rel="stylesheet" type="text/css" />
+<!--[if IE]>
+<script src="static/TodoMojit/assets/ie.js"></script>
+<![endif]-->
+<script type="text/javascript" src="combo~/static/yui/yui-base/yui-base-min.js~/static/yui/loader-base/loader-base-min.js~/static/yui/loader-yui3/loader-yui3-min.js~/static/loader-app.js~/static/loader-app-base.js"></script>
+
+
+</head>
+<body>
+
+<div id="yui_3_7_3_1_1360839740228_14">
+    <section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+	</section>
+	<div id="info">
+		<p>Double-click to edit a todo</p>
+        <p>Created by
+          <a href="https://github.com/gvaish">Gaurav Vaish</a>
+        </p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+    YUI.applyConfig({"fetchCSS":true,"combine":true,"base":"http://yui.yahooapis.com/3.7.3/build/","comboBase":"http://yui.yahooapis.com/combo?","root":"3.7.3/build/","groups":{"app":{"combine":true,"maxURLLength":1024,"base":"/.","comboBase":"/combo~","comboSep":"~","root":""}},"logLevelOrder":["debug","mojito","info","warn","error","none"],"lang":"en"});
+    YUI().use('mojito-client','TodoMojitBinderIndex', function(Y) {
+    window.YMojito = { client: new Y.mojito.Client({"context":{"runtime":"client","site":"","device":"","lang":"en","langs":"en,en","region":"","jurisdiction":"","bucket":"","flavor":"","tz":""},"binderMap":{"yui_3_7_3_1_1360839740228_14":{"name":"TodoMojitBinderIndex","action":"index","config":{},"type":"TodoMojit","viewId":"yui_3_7_3_1_1360839740228_14","instanceId":"yui_3_7_3_1_1360839739553_51"}},"appConfig":{"specs":{"main_ui":{"type":"HTMLFrameMojit","config":{"deploy":true,"title":"Yahoo! Mojito • TodoMVC","child":{"type":"TodoMojit"}}},"tunnelProxy":{"type":"TunnelProxy"}},"appPort":6789,"staticHandling":{"appName":"todomvc","useRollups":true,"prefix":"static"},"log":{"server":{"yui":false,"level":"warn"},"client":{"yui":false,"level":"warn"}},"builds":{"html5app":{"forceRelativePaths":true,"attachManifest":true}},"actionTimeout":60000,"mojitsDirs":["mojits"],"routesFiles":["routes.json"],"tunnelPrefix":"/tunnel","yui":{},"viewEngine":{"preloadTemplates":false}},"routes":{"root":{"path":"/","verbs":{"GET":true},"call":"main_ui.index","name":"root","params":{},"regex":{},"query":{},"requires":{},"ext_match":"^/$","int_match":"^$"}}}) };
+        });
+</script>
+
+
+
+</body>
+</html>

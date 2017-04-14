@@ -1,0 +1,93 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* foundational CSS */
+
+/* mask */
+.yui3-skin-sam .yui3-datatable-mask {
+    position:absolute;
+    z-index:9500;
+}
+
+/* scrollable */
+.yui3-datatable-tmp {
+    position:absolute;
+    left:-9000px;
+}
+
+.yui3-datatable-scrollable .yui3-datatable-bd {
+    overflow:auto;
+}
+.yui3-datatable-scrollable .yui3-datatable-hd {
+    overflow:hidden;
+    position:relative; /* for ie overflow bug http://rowanw.com/bugs/overflow_relative.htm */
+} 
+
+.yui3-datatable-scrollable .yui3-datatable-bd thead tr,
+.yui3-datatable-scrollable .yui3-datatable-bd thead th {
+    position:absolute;
+    left:-1500px;
+}
+
+.yui3-datatable-scrollable tbody {
+    -moz-outline:none;
+}
+
+/* sortable columns */
+
+.yui3-skin-sam thead .yui3-datatable-sortable {
+    cursor:pointer;
+}
+
+/* draggable columns */
+.yui3-skin-sam thead .yui3-datatable-draggable {
+    cursor: move;
+}
+.yui3-datatable-coltarget {
+    position: absolute;
+    z-index: 999;
+}
+
+/* resizeable columns */
+.yui3-datatable-hd {
+    zoom:1; 
+}
+th.yui3-datatable-resizeable .yui3-datatable-resizerliner {
+    position:relative;
+}
+.yui3-datatable-resizer {
+    position:absolute;
+    right:0;
+    bottom:0;
+    height:100%;
+    cursor:e-resize;
+    cursor:col-resize;
+    background-color:#CCC;opacity:0;filter: alpha(opacity=0); /* Bug 1952811: IE transparency z-index */
+}
+.yui3-datatable-resizerproxy {
+    visibility:hidden;
+    position:absolute;
+    z-index:9000;
+    background-color:#CCC;opacity:0;filter: alpha(opacity=0); /* Bug 1952811: IE transparency z-index */
+}
+
+/* hidden columns */
+th.yui3-datatable-hidden .yui3-datatable-liner, 
+td.yui3-datatable-hidden .yui3-datatable-liner,
+th.yui3-datatable-hidden .yui3-datatable-resizer {
+    /*TODO: document change from 2.5.2 to 2.6
+    margin:0;
+    padding:0;
+    white-space:nowrap;
+    width:1px;
+    overflow:hidden;*/
+    display:none;
+}
+
+/* editing */
+.yui3-datatable-editor, .yui3-datatable-editor-shim {
+    position:absolute;z-index:9000;
+}

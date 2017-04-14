@@ -1,0 +1,14 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-testconsole .yui3-console-entry {
+    min-height: inherit;
+    padding: 5px;
+}
+
+.yui3-testconsole .yui3-console-controls {
+    display: none;
+}

@@ -1,0 +1,97 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* Horizontal Slider */
+
+/* Use thumbUrl /build/slider-base/assets/skins/audio/thumb-x.png */
+
+.yui3-skin-audio .yui3-slider-x .yui3-slider-rail,
+.yui3-skin-audio .yui3-slider-x .yui3-slider-rail-cap-left,
+.yui3-skin-audio .yui3-slider-x .yui3-slider-rail-cap-right {
+    background-image: url(rail-x.png);
+    background-repeat: repeat-x;
+}
+
+.yui3-skin-audio .yui3-slider-x .yui3-slider-rail {
+    height: 35px;
+    background-position: 0 7px;
+}
+.yui3-skin-audio .yui3-slider-x .yui3-slider-thumb {
+    height: 35px;
+    width: 19px;
+}
+
+.yui3-skin-audio .yui3-slider-x .yui3-slider-rail-cap-left {
+    background-position: 0 -20px;
+    height: 13px;
+    left: -5px;
+    width: 5px;
+    top: 7px;
+}
+.yui3-skin-audio .yui3-slider-x .yui3-slider-rail-cap-right {
+    background-position: 0 -40px;
+    height: 13px;
+    right: -5px;
+    width: 5px;
+    top: 7px;
+}
+
+.yui3-skin-audio .yui3-slider-x .yui3-slider-thumb-image {
+    left: 0;
+    top: -3px;
+}
+.yui3-skin-audio .yui3-slider-x .yui3-slider-thumb-shadow {
+    left: 0;
+    opacity: 0.15;
+    filter: alpha(opacity=15);
+    top: -43px;
+}
+
+/* Vertical Slider */
+
+/* Use thumbUrl /build/slider-base/assets/skins/audio/thumb-y.png */
+
+.yui3-skin-audio .yui3-slider-y .yui3-slider-rail,
+.yui3-skin-audio .yui3-slider-y .yui3-slider-rail-cap-top,
+.yui3-skin-audio .yui3-slider-y .yui3-slider-rail-cap-bottom {
+    background-image: url(rail-y.png);
+    background-repeat: repeat-y;
+}
+
+.yui3-skin-audio .yui3-slider-y .yui3-slider-rail {
+    width: 35px;
+    background-position: 7px 0;
+}
+.yui3-skin-audio .yui3-slider-y .yui3-slider-thumb {
+    width: 35px;
+    height: 19px;
+}
+
+.yui3-skin-audio .yui3-slider-y .yui3-slider-rail-cap-top {
+    background-position: -20px 0;
+    width: 13px;
+    top: -5px;
+    height: 5px;
+    left: 7px;
+}
+.yui3-skin-audio .yui3-slider-y .yui3-slider-rail-cap-bottom {
+    background-position: -40px 0;
+    width: 13px;
+    bottom: -5px;
+    height: 5px;
+    left: 7px;
+}
+
+.yui3-skin-audio .yui3-slider-y .yui3-slider-thumb-image {
+    left: -3px;
+    top: 0;
+}
+.yui3-skin-audio .yui3-slider-y .yui3-slider-thumb-shadow {
+    left: -43px;
+    opacity: 0.15;
+    filter: alpha(opacity=15);
+    top: 0;
+}

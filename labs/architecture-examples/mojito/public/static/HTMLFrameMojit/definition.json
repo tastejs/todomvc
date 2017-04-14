@@ -1,0 +1,22 @@
+{
+    "type": "HTMLFrameMojit",
+    "instanceId": "yui_3_7_3_1_1360839739553_57",
+    "config": {},
+    "defaults": {},
+    "definition": {},
+    "assets": {
+        "favicon.ico": "/favicon.ico"
+    },
+    "binders": {},
+    "langs": {},
+    "models": {},
+    "partials": {},
+    "views": {
+        "index": {
+            "content-path": ".",
+            "engine": "hb"
+        }
+    },
+    "acAddons": {},
+    "assetsRoot": "/static/HTMLFrameMojit/assets"
+}

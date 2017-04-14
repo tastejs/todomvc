@@ -1,0 +1,57 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+.yui3-skin-night [for=ac-input] { /* autocomplete label color */
+    color: #CBCBCB;
+}
+
+.yui3-skin-night .yui3-aclist-content {
+	font-size: 100%;
+    background-color: #151515;
+	color: #ccc;
+    border: 1px solid #303030;
+	-moz-box-shadow: 0 0 17px rgba(0,0,0,0.58);
+	-webkit-box-shadow: 0 0 17px rgba(0,0,0,0.58);
+	box-shadow: 0 0 17px rgba(0,0,0,0.58);
+}
+
+.yui3-skin-night .yui3-aclist-item-active {
+    background-color: #2F3030;
+    background: -moz-linear-gradient(
+		0% 100% 90deg,
+		#252626 0%,
+		#333434 100%
+	);
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#333434),
+        to(#252626)
+    );
+}
+.yui3-skin-night .yui3-aclist-item-hover {
+    background-color: #262727;
+    background: -moz-linear-gradient(
+		0% 100% 90deg,
+		#202121 0%,
+		#282929 100%
+	);
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#282929),
+        to(#202121)
+    );
+}
+
+.yui3-skin-night .yui3-aclist-item { 
+    padding: 0 1em;   /*0.4em 1em 0.6em*/
+    line-height: 2.25;
+}
+.yui3-skin-night .yui3-aclist-item-active { outline: none; }
+.yui3-skin-night .yui3-highlight { color:#EFEFEF; }

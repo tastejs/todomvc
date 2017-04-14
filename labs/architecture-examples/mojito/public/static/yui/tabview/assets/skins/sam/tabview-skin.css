@@ -1,0 +1,64 @@
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/* .yui-navset defaults to .yui-navset-top */
+.yui3-skin-sam .yui3-tabview-list {
+    border:solid #2647a0; /* color between tab list and content */
+    border-width:0 0 5px;
+    zoom:1;
+}
+
+.yui3-skin-sam .yui3-tab {
+    margin:0 0.2em 0 0;
+    padding:1px 0 0; /* gecko: make room for overflow */
+    zoom:1;
+}
+
+.yui3-skin-sam .yui3-tab-selected {
+    margin-bottom:-1px; /* for overlap (mapped to tabview-list border-width) */
+}
+
+.yui3-skin-sam .yui3-tab-label {
+    background:#d8d8d8 url(../../../../assets/skins/sam/sprite.png) repeat-x; /* tab background */
+    border:solid #a3a3a3;
+    border-width: 1px 1px 0 1px;
+    color:#000;
+    cursor:pointer;
+    font-size:85%;
+    padding:0.3em .75em;
+    text-decoration:none;
+}
+
+.yui3-skin-sam .yui3-tab-label:hover,
+.yui3-skin-sam .yui3-tab-label:focus {
+    background:#bfdaff url(../../../../assets/skins/sam/sprite.png) repeat-x left -1300px; /* hovered tab background */
+    outline:0;
+}
+
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label,
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label:focus,
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label:hover { /* no hover effect for selected */
+    background:#2647a0 url(../../../../assets/skins/sam/sprite.png) repeat-x left -1400px; /* selected tab background */
+    color:#fff;
+}
+
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label {
+    padding:0.4em 0.75em; /* raise selected tab */
+}
+
+.yui3-skin-sam .yui3-tab-selected .yui3-tab-label {
+    border-color:#243356; /* selected tab border color */
+}
+
+.yui3-skin-sam .yui3-tabview-panel {
+    background:#edf5ff; /* content background color */
+}
+
+.yui3-skin-sam .yui3-tabview-panel {
+    border:1px solid #808080; /* content border */
+    border-top-color:#243356; /* different border color */
+    padding:0.25em 0.5em; /* content padding */
+}
