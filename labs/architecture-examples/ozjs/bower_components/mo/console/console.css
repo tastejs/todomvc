@@ -1,0 +1,83 @@
+#console {
+    display:block;
+    padding:10px;
+    background:#000;
+    color:#0f0;
+    font:10px monospace;
+    min-height:50px;
+}
+#console p {
+    padding:5px 0;
+    margin:0;
+    border-bottom:1px dashed #161616;
+}
+#console .type {
+  display:inline-block;
+  width:6px;
+  height:6px;
+}
+#console .type-log {
+  background:#fff;
+}
+#console .type-info {
+  background:#ff0;
+}
+#console .type-warn {
+  background:#f60;
+}
+#console .type-error {
+  background:#f00;
+}
+#console .log {
+  margin:0 5px;
+}
+#console .obj-overview {
+  display:inline-block;
+  height: 10px;
+  line-height: 12px;
+  max-width:200px;
+  overflow:hidden;
+  word-break:break-all;
+}
+#console .obj-detail {
+  display:none;
+  background:#161616;
+  margin:-15px 5px 5px 15px;
+  padding:5px 5px 5px 5px;
+  color:#fff;
+  position:relative;
+}
+#console .obj-wrap {
+  background:#161616;
+}
+#console .obj-wrap:hover .obj-detail {
+  display:block;
+}
+#console .obj-start {
+  color:#06f;
+}
+#console .obj-end {
+  color:#06f;
+}
+#console .obj-item {
+  margin:0 5px;
+}
+#console .obj-overview .obj-end {
+  display:block;
+}
+#console .obj-detail .obj-start {
+  display:block;
+}
+#console .obj-detail .obj-end {
+  display:block;
+}
+#console .obj-detail .obj-item {
+  display:block;
+  margin:0 0 0 10px;
+}
+#console .obj-k {
+}
+#console .obj-v {
+  color:#0f0;
+}
+
