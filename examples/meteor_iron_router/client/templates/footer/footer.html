@@ -1,0 +1,19 @@
+<template name="Footer">
+	<footer class="footer">
+		<span class="todo-count"><strong>{{tasksRemaining}}</strong> item{{singular}} left</span>
+		<ul class="filters">
+			<li>
+				<a class='{{isActive "all"}}' href="/">All</a>
+			</li>
+			<li>
+				<a class='{{isActive "active"}}' href="/active">Active</a>
+			</li>
+			<li>
+				<a class='{{isActive "completed"}}' href="/completed">Completed</a>
+			</li>
+		</ul>
+		{{#if hasCompleted}}
+		<button class="clear-completed">Clear completed</button>
+		{{/if}}
+	</footer>
+</template>
