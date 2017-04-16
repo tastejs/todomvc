@@ -326,7 +326,10 @@ module.exports = View.extend({
 	},
 	// cache
 	initialize: function () {
-		this.mainInput = this.queryByHook('todo-input');
+		// cache reference to `todo-input` for speed/convenience. Will be available as this.mainInput
+		this.cacheElements({
+			mainInput: '[data-hook=todo-input]'
+		});
 		this.renderCollection(app.me.todos.subset, TodoView, this.queryByHook('todo-container'));
 	},
 	// handles DOM event from main input
@@ -417,8 +420,10 @@ module.exports = View.extend({
 		// Render this with template provided.
 		// Note that unlike backbone this includes the root element.
 		this.renderWithTemplate();
-		// cache reference to `input` for speed/convenience
-		this.input = this.queryByHook('input');
+		// cache reference to `input` for speed/convenience. Will be available as this.input
+		this.cacheElements({
+			input: '[data-hook=input]'
+		});
 	},
 	handleCheckboxChange: function (e) {
 		this.model.completed = e.target.checked;

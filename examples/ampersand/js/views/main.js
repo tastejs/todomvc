@@ -66,7 +66,10 @@ module.exports = View.extend({
 	},
 	// cache
 	initialize: function () {
-		this.mainInput = this.queryByHook('todo-input');
+		// cache reference to `todo-input` for speed/convenience. Will be available as this.mainInput
+		this.cacheElements({
+			mainInput: '[data-hook=todo-input]'
+		});
 		this.renderCollection(app.me.todos.subset, TodoView, this.queryByHook('todo-container'));
 	},
 	// handles DOM event from main input
