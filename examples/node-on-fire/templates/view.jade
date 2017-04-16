@@ -1,0 +1,14 @@
+doctype html
+html(ng-app="default")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="fragment" content="!")
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+        link(rel="stylesheet" href="/styles/default.css")
+        title Node on Fire • TodoMVC
+    body
+        div(ng-view)
+    script(src="/bower_components/angular/angular.min.js")
+    script(src="/bower_components/angular-route/angular-route.min.js")
+    script(src="/scripts/fire.min.js")
