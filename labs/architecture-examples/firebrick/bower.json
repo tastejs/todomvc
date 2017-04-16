@@ -1,0 +1,8 @@
+{
+	"name": "firebrick",
+	"version": "0.0.0",
+	"dependencies": {
+		"jquery": "~2.0.0",
+		"rivets": "~0.6.10"
+	}
+}
