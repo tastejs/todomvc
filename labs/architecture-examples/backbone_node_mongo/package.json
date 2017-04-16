@@ -1,0 +1,15 @@
+{
+    "name": "todos-backbone-node-mongo",
+    "author": "James O'Reilly",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app"
+    },
+    "dependencies": {
+        "express": "3.0.0alpha1",
+        "jade": "*",
+        "mongoose": "*",
+        "stylus": "*"
+    }
+}
