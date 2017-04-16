@@ -1,0 +1,39 @@
+{
+  "name": "HtmlJs",
+  "authors": "Nguyen Ta An Nhan <nhan.htmljs@gmail.com>",
+  "homepage": "http://nhanfu.github.io/htmljs/api/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhanfu/htmljs.git"
+  },
+  "description": "HtmlJs is the pure JavaScript framework, full-fledged for Single Page Application including unobstrusive MVVM, validation, routing, dynamic script loading, ajax, array utils",
+  "version": "1.0.2",
+  "main": "src/html.engine.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "api",
+    "benchmarks",
+    "examples",
+    "Tests",
+    "LICENSE",
+    "*.md",
+    "package.json"
+  ],
+  "keywords": [
+    "MVVM",
+    "javascript",
+    "library",
+    "HtmlJs"
+  ],
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.2",
+    "commit": "e706e307397a802847e25cf90a7a6c2e3d426d46"
+  },
+  "_source": "git://github.com/nhanfu/htmljs.git",
+  "_target": "~1.0.2",
+  "_originalSource": "htmljs",
+  "_direct": true
+}

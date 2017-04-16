@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="datepicker.css" />
+        <style type="text/css">
+            .dropdown-menu {
+                position: absolute;
+                left: 0;
+                z-index: 1000;
+                float: left;
+                min-width: 160px;
+                padding: 5px 0;
+                margin: 2px 0 0;
+                font-size: 14px;
+                text-align: left;
+                list-style: none;
+                background-color: #fff;
+                -webkit-background-clip: padding-box;
+                background-clip: padding-box;
+                border: 1px solid #ccc;
+                border: 1px solid rgba(0, 0, 0, .15);
+                border-radius: 4px;
+                -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+            }
+        </style>
+        <script type="text/javascript" src="../src/html.engine.js"></script>
+        <script type="text/javascript" src="datepicker.js"></script>
+        <script type="text/javascript" src="maskinput.js"></script>
+    </head>
+    
+    <body>
+        <div id="inlineDp"></div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <input type="text" id="datepicker" placeholder="Click here to select date" />
+        <span id="icon">Icon here</span>
+        </br />
+        <input type="text" id="mask" placeholder="Mask input" />
+        
+        <script type="text/javascript">
+            html(function () {
+                var dateOfBirth = html.data(new Date);
+                var dpicker = html.datepicker(dateOfBirth).input(html.id.datepicker).icon(html.id.icon);
+                var phone = html.data('');
+                html(html.id.mask).maskedInput(phone, '(999)999-999-99');
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-framework="knockoutjs">
+	<head>
+		<meta charset="utf-8">
+		<title>HtmlJs.js • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus />
+			</header>
+			<section id="main">
+                <input id="toggle-all" type="checkbox" />
+                <label for="toggle-all">Mark all as complete</label>
+                <ul id="todo-list">
+                    <li>
+                        <div class="view">
+                            <input class="toggle" type="checkbox" />
+                            <label>An example task</label>
+                            <button class="destroy"></button>
+                        </div>
+                        <form>
+                            <input class="edit" />
+                        </form>
+                    </li>
+                </ul>
+            </section>
+			<footer id="footer" style="display: block;">
+				<span id="todo-count"><strong>2</strong>
+						<span id="itemText">items</span> left
+                </span>
+                <ul id="filters">
+                    <li>
+                        <a id="showAll" href="#/">All</a>
+                    </li>
+                    <li>
+                        <a id="showActive" href="#/active">Active</a>
+                    </li>
+                    <li>
+                        <a id="showCompleted" href="#/completed">Completed</a>
+                    </li>
+                </ul>
+                <button id="clear-completed">Clear completed (<i id="itemCount"></i>)</button>
+			</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a>, <a href="http://knockmeout.net">Ryan Niemeyer</a> and <a href="https://twitter.com/loicknuchel">Loïc Knuchel</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+        <script src="bower_components/htmljs/src/html.engine.js"></script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="js/localStorage.js"></script>
+		<script src="js/ViewModel.js"></script>
+		<script src="js/customEvents.js"></script>
+		<script src="js/binding.js"></script>
+	</body>
+</html>
