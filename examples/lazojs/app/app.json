@@ -1,0 +1,12 @@
+{
+    "routes": {
+        "":             { "component": "todos-single" },
+        "multiple(/)":  { "component": "todos-multiple" },
+        "header(/)":    { "component": "header" },
+        "main(/)":      { "component": "main" },
+        "footer(/)":    { "component": "footer" },
+        "layout(/)":    { "component": "main", "layout": "todos-layout" }
+    },
+    "css": ["/app/client/bower_components/todomvc-common/base.css"],
+    "js": ["app/client/bower_components/todomvc-common/base"]
+}
