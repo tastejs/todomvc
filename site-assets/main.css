@@ -132,8 +132,11 @@ header nav a:not(:last-child) {
 }
 
 .applist li {
-	padding: 10px 0;
-	width: 160px;
+	padding: 10px 5px 10px 0;
+	width: 25%;
+}
+.applist li .popover {
+	width: 250px;
 }
 
 .applist a {
