@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "webpack"
+  },
+  "dependencies": {
+    "backscatter": "^1.0.4",
+    "underscore": ">=1.7.0",
+    "backbone": "^1.2.3",
+    "react": "^0.13.3",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "imports-loader": "^0.6.4",
+    "webpack": "^1.12.2"
+  }
+}
