@@ -1,0 +1,121 @@
+/*istanbul ignore next*/"use strict";
+
+exports.__esModule = true;
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Get whitespace around tokens.
+ */
+
+var Whitespace = function () {
+  function /*istanbul ignore next*/Whitespace(tokens) {
+    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Whitespace);
+
+    this.tokens = tokens;
+    this.used = {};
+  }
+
+  /**
+   * Count all the newlines before a node.
+   */
+
+  Whitespace.prototype.getNewlinesBefore = function getNewlinesBefore(node) {
+    var startToken = /*istanbul ignore next*/void 0;
+    var endToken = /*istanbul ignore next*/void 0;
+    var tokens = this.tokens;
+
+    var index = this._findToken(function (token) /*istanbul ignore next*/{
+      return token.start - node.start;
+    }, 0, tokens.length);
+    if (index >= 0) {
+      while (index && node.start === tokens[index - 1].start) /*istanbul ignore next*/{
+        --index;
+      }startToken = tokens[index - 1];
+      endToken = tokens[index];
+    }
+
+    return this.getNewlinesBetween(startToken, endToken);
+  };
+
+  /**
+   * Count all the newlines after a node.
+   */
+
+  Whitespace.prototype.getNewlinesAfter = function getNewlinesAfter(node) {
+    var startToken = /*istanbul ignore next*/void 0;
+    var endToken = /*istanbul ignore next*/void 0;
+    var tokens = this.tokens;
+
+    var index = this._findToken(function (token) /*istanbul ignore next*/{
+      return token.end - node.end;
+    }, 0, tokens.length);
+    if (index >= 0) {
+      while (index && node.end === tokens[index - 1].end) /*istanbul ignore next*/{
+        --index;
+      }startToken = tokens[index];
+      endToken = tokens[index + 1];
+      if (endToken.type.label === ",") endToken = tokens[index + 2];
+    }
+
+    if (endToken && endToken.type.label === "eof") {
+      return 1;
+    } else {
+      var lines = this.getNewlinesBetween(startToken, endToken);
+      if (node.type === "CommentLine" && !lines) {
+        // line comment
+        return 1;
+      } else {
+        return lines;
+      }
+    }
+  };
+
+  /**
+   * Count all the newlines between two tokens.
+   */
+
+  Whitespace.prototype.getNewlinesBetween = function getNewlinesBetween(startToken, endToken) {
+    if (!endToken || !endToken.loc) return 0;
+
+    var start = startToken ? startToken.loc.end.line : 1;
+    var end = endToken.loc.start.line;
+    var lines = 0;
+
+    for (var line = start; line < end; line++) {
+      if (typeof this.used[line] === "undefined") {
+        this.used[line] = true;
+        lines++;
+      }
+    }
+
+    return lines;
+  };
+
+  /**
+   * Find a token between start and end.
+   */
+
+  Whitespace.prototype._findToken = function _findToken(test, start, end) {
+    if (start >= end) return -1;
+    var middle = start + end >>> 1;
+    var match = test(this.tokens[middle]);
+    if (match < 0) {
+      return this._findToken(test, middle + 1, end);
+    } else if (match > 0) {
+      return this._findToken(test, start, middle);
+    } else if (match === 0) {
+      return middle;
+    }
+    return -1;
+  };
+
+  return Whitespace;
+}();
+
+/*istanbul ignore next*/exports.default = Whitespace;
+/*istanbul ignore next*/module.exports = exports["default"];

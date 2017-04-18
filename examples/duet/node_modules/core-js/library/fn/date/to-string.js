@@ -1,0 +1,5 @@
+var core      = require('../../modules/es6.date.to-string')
+  , $toString = Date.prototype.toString;
+module.exports = function toString(it){
+  return $toString.call(it);
+};
