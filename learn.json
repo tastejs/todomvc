@@ -1181,6 +1181,43 @@
 			}]
 		}]
 	},
+	"jquery-ui": {
+		"name": "jQuery-ui",
+		"description": "jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of jQuery. Whether you're building highly interactive web applications, or you just need to add a date picker to a form control, jQuery UI is the perfect choice.",
+		"homepage": "jqueryui.com",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/jquery-ui"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Official Demos",
+				"url": "http://jqueryui.com/demos/"
+			}, {
+				"name": "API Reference",
+				"url": "http://api.jqueryui.com/"
+			}]
+		}, {
+			"heading": "Get Help and Guides",
+			"links": [{
+				"name": "Forms",
+				"url": "http://forum.jquery.com/using-jquery-ui"
+			}, {
+				"name": "Bug and Issues",
+				"url": "http://bugs.jqueryui.com/"
+			}]
+		}, {
+			"heading": "Contribute to US",
+			"links": [{
+				"name": "jQuery-ui developing",
+				"url": "http://forum.jquery.com/developing-jquery-ui"
+			}, {
+				"name": "code standards",
+				"url": "http://wiki.jqueryui.com/w/page/12137737/Coding-standards"
+			}]
+		}]
+	},
 	"kendo": {
 		"name": "Kendo UI",
 		"description": "Comprehensive HTML5/JavaScript framework for modern web and mobile app development.",
