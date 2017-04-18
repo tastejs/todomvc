@@ -1,0 +1,81 @@
+#!/usr/bin/env node
+
+var Codesurgeon = require('codesurgeon').Codesurgeon;
+var surgeon = new Codesurgeon();
+
+var path    = require('path');
+
+var root    = path.join(__dirname, '..');
+var lib     = path.join(root, 'lib', 'director');
+
+//
+// Distill and package the browser version.
+//
+surgeon
+  //
+  .configure({
+    package: root + '/package.json',
+    owner: 'Charlie Robbins, Paolo Fragomeni & the Contributors (Using Codesurgeon).',
+    noVersion: true
+  })
+  .read(
+    path.join(lib, 'browser.js')
+  )
+  //
+  // We want everything so far. specify extract with no
+  // parameters to get everything into the output buffer.
+  //
+ .extract()
+  //
+  // Clear the input so far, but don't clear the output.
+  //
+  .clear('inputs')
+  //
+  // Read the `router.js` file
+  //
+  .read(
+    path.join(lib, 'router.js')
+  )
+  //
+  // The current input buffer contains stuff that we dont
+  // want in the browser build, so let's cherry pick from
+  // the buffer.
+  //
+  .extract(
+    '_every',
+    '_flatten',
+    '_asyncEverySeries',
+    'paramifyString',
+    'regifyString',
+    'terminator',
+    'QUERY_SEPARATOR',
+    'Router.prototype.configure',
+    'Router.prototype.param',
+    'Router.prototype.on',
+    'Router.prototype.path',
+    'Router.prototype.dispatch',
+    'Router.prototype.invoke',
+    'Router.prototype.traverse',
+    'Router.prototype.insert',
+    'Router.prototype.insertEx',
+    'Router.prototype.extend',
+    'Router.prototype.runlist',
+    'Router.prototype.mount'
+  )
+  //
+  // Wrap everything that is in the current buffer with a
+  // closure so that we don't get any collisions with other
+  // libraries.
+  //
+  .wrap()
+  //
+  // Write the debuggable version of the file. This file will
+  // get renamed to include the version from the package.json.
+  //
+  .write(root + '/build/director.js')
+  //
+  // Make a minified version for production use.
+  //
+  .uglify()
+  .write(root + '/build/director.min.js')
+;
