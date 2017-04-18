@@ -2263,6 +2263,28 @@
 			}]
 		}]
 	},
+	"sugar": {
+		"name": "sugar",
+		"description": "Sugar.js is a lightweight JavaScript MVVM library for building web UI component.",
+		"homepage": "https://github.com/tangbc/sugar",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/sugar"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [ {
+				"name": "Documentation",
+				"url": "https://github.com/tangbc/sugar/wiki/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Issues",
+				"url": "https://github.com/tangbc/sugar/issues"
+			}]
+		}]
+	},
 	"templates": {
 		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>"
 	}
