@@ -1,0 +1,18 @@
+{
+  "name": "todomvc-angular2-redux",
+  "author": "Jeff Lee",
+  "version": "1.0.0",
+  "description": "Features: - Initial port from Redux video course by Dan Abramov. Note some parts divert from the original. - Added Pipe to filter todos.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "angular2": "^2.0.0-beta.2",
+    "redux": "^3.2.0",
+    "rxjs": "^5.0.0-beta.0",
+    "systemjs": "^0.19.18",
+    "todomvc-app-css": "^2.0.4",
+    "todomvc-common": "^1.0.2"
+  },
+  "devDependencies": {}
+}

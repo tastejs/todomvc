@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>TODO MVC</title>
+
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css" />
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css" />
+
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.js"></script>
+
+    <script>
+        System.config({
+            map: {
+                app: "./js",
+                redux: "../node_modules/redux/dist/redux.js"
+            },
+            packages: {
+                app: {
+                    main: './bootstrap.js',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+
+        System.import('app')
+            .catch(console.error.bind(console));
+    </script>
+</head>
+
+<body>
+    <todo-app></todo-app>
+
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>
+            Created by <a href="https://github.com/leejefon">Jeff Lee</a>
+            using <a href="http://angular.io">Angular2</a> + <a href="http://redux.js.org/">Redux</a><br />
+        </p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+</body>
+</html>
