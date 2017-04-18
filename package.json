@@ -16,7 +16,8 @@
     "gulp": "gulp"
   },
   "dependencies": {
-    "express": "^4.10.0"
+    "express": "^4.13.4",
+    "js-skeleton": "^3.4.0"
   },
   "devDependencies": {
     "del": "^0.1.1",
