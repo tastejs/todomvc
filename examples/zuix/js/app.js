@@ -10,8 +10,8 @@
 	// 'todosComponent' holds reference to the to-do-mvc component
 	var todosComponent;
 	window.todosOptions = {
-		ready: function () {
-			todosComponent = this;
+		ready: function (ctx) {
+			todosComponent = ctx;
 		},
 		// disable local css for this component, since todo_mcv already provide its own global css
 		css: false
