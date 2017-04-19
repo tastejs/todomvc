@@ -10,11 +10,11 @@
 	// 'todosComponent' holds reference to the to-do-mvc component
 	var todosComponent;
 	window.todosOptions = {
-		"ready": function () {
+		ready: function () {
 			todosComponent = this;
 		},
 		// disable local css for this component, since todo_mcv already provide its own global css
-		"css": false
+		css: false
 	};
 
 	if ('onhashchange' in window) {

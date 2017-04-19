@@ -72,10 +72,10 @@ zuix.controller(function (cp) {
 			css: false,
 			text: description,
 			on: {
-				"checked": function (e, isChecked) {
+				checked: function (e, isChecked) {
 					updateStatus();
 				},
-				"removed": function () {
+				removed: function () {
 					removeItem(ctx)
 				}
 			},
