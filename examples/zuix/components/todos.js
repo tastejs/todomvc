@@ -127,10 +127,10 @@ zuix.controller(function (cp) {
 		var toggledItems = 0;
 		var itemsLeft = 0;
 		zuix.$.each(itemsData, function (k, v) {
-		    var ctx = getComponent(v);
-		    if (ctx.view() == null) {
-		        return false;
-		    }
+			var ctx = getComponent(v);
+			if (ctx.view() == null) {
+				return false;
+			}
 			var itemView = zuix.$(ctx.view());
 			itemView.show();
 			if (!v.checked) {
