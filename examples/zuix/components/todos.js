@@ -4,26 +4,31 @@ zuix.controller(function (cp) {
 	var SHOW_ALL = 0;
 	var SHOW_ACTIVE = 1;
 	var SHOW_COMPLETED = 2;
+	var STORE_NS = 'todo-mvc-data';
 
-	var todoItems = [];
+	var itemsData = [];
+	var lastItemId = 0;
 	var toggleMode = false;
 	var showFilter = SHOW_ALL;
 
 	var filterButtons;
 	var footer;
-	var toggleAll;
+	var header;
 
 	cp.create = function () {
 		filterButtons = cp.view('ul[class="filters"]').find('li');
 		footer = cp.field('footer');
+		header = cp.view('[class=main]');
 		// define event handlers
-		toggleAll = cp.field('toggle-all').on('click', function (e) {
+		cp.field('toggle').on('click', function (e) {
 			toggleItems();
 		});
 		cp.field('item-add').on('keydown', function (e) {
 			if (e.which == 13) {
 				if (this.value() != '') {
-					addItem(this.value());
+					var item = {text: this.value(), checked: false, id: ++lastItemId};
+					itemsData.push(item);
+					createComponent(item);
 				}
 				this.value('');
 			}
@@ -44,60 +49,74 @@ zuix.controller(function (cp) {
 					setFilter(SHOW_ALL);
 			}
 		});
-		// refresh component UI
-		updateStatus();
+
+		itemsData = store(STORE_NS);
+		if (itemsData.length > 0) {
+			lastItemId = itemsData[itemsData.length - 1].id;
+			zuix.$.each(itemsData, function (k, v) {
+				createComponent(v);
+			});
+		}
+
+		// set initial filter
 		setFilter(SHOW_ALL);
 	};
 
 	// private methods
 
 	function toggleItems() {
-		zuix.$.each(todoItems, function (k, v) {
-			if (this.view().style.display != 'none') {
-				this.checked(toggleMode);
+		zuix.$.each(itemsData, function (k, v) {
+			var ctx = getComponent(v);
+			var itemView = zuix.$(ctx.view());
+			if (itemView.display() != 'none') {
+				ctx.checked(toggleMode);
 			}
 		});
 		updateStatus();
 	}
 
-	function addItem(description) {
+	function createComponent(item) {
 		// append new item to the list
 		var li = document.createElement('li');
 		// method 'field' takes advantage of caching, so no need for storing element reference
 		cp.field('todo-list').append(li);
 		// load component "list_item" into the newly added list item
 		var ctx = zuix.load('components/todos/list_item', {
+			contextId: 'ctx-' + item.id,
 			container: li,
 			// disable local css for this component, since todo_mcv already provide its own global css
 			css: false,
-			text: description,
+			data: item,
 			on: {
-				checked: function (e, isChecked) {
+				checked: function () {
 					updateStatus();
 				},
 				removed: function () {
-					removeItem(ctx)
+					removeItem(item);
+					updateStatus();
 				}
 			},
 			ready: function () {
-				// component is ready, store a reference to it
-				todoItems.push(this);
-				updateStatus();
+				// component is ready, refresh status
+				setTimeout(updateStatus, 50);
 			}
 		});
 	}
 
-	function removeItem(ctx) {
-		zuix.unload(ctx);
-		todoItems.splice(todoItems.indexOf(ctx), 1);
-		updateStatus();
+	function getComponent(item) {
+		return zuix.context('ctx-' + item.id);
+	}
+
+	function removeItem(item) {
+		itemsData.splice(itemsData.indexOf(item));
+		// unload the associated component as well
+		zuix.unload(getComponent(item));
 	}
 
 	function clearCompleted() {
-		for (var i = todoItems.length - 1; i >= 0; i--) {
-			if (todoItems[i].checked()) {
-				zuix.unload(todoItems[i]);
-				todoItems.splice(i, 1);
+		for (var i = itemsData.length - 1; i >= 0; i--) {
+			if (itemsData[i].checked) {
+				removeItem(itemsData[i])
 			}
 		}
 		updateStatus();
@@ -107,10 +126,14 @@ zuix.controller(function (cp) {
 		var shownItems = 0;
 		var toggledItems = 0;
 		var itemsLeft = 0;
-		zuix.$.each(todoItems, function (k, v) {
-			var itemView = zuix.$(v.view());
+		zuix.$.each(itemsData, function (k, v) {
+		    var ctx = getComponent(v);
+		    if (ctx.view() == null) {
+		        return false;
+		    }
+			var itemView = zuix.$(ctx.view());
 			itemView.show();
-			if (!v.checked()) {
+			if (!v.checked) {
 				itemsLeft++;
 				if (showFilter == SHOW_COMPLETED) {
 					itemView.hide();
@@ -120,30 +143,32 @@ zuix.controller(function (cp) {
 			}
 			if (itemView.display() != 'none') {
 				shownItems++;
-				toggledItems += (v.checked() ? 1 : 0);
+				toggledItems += (v.checked ? 1 : 0);
 			}
 		});
 		// update to-do count
 		cp.field('count')
 			.html(itemsLeft + ' item' + (itemsLeft != 1 ? 's' : '') + ' left');
 		// show/hide 'clear completed' button
-		if (itemsLeft != todoItems.length) {
+		if (itemsLeft != itemsData.length) {
 			cp.field('clear').show();
 		} else {
 			cp.field('clear').hide();
 		}
 		// show/hide footer and toggle button
-		if (todoItems.length == 0) {
+		if (itemsData.length == 0) {
 			footer.hide();
 		} else {
 			footer.show();
 		}
 		if (shownItems == 0) {
-			toggleAll.hide();
+			header.hide();
 		} else {
-			toggleAll.show();
+			header.show();
 			toggleMode = (shownItems != toggledItems);
+			cp.field('toggle').checked(!toggleMode);
 		}
+		store(STORE_NS, itemsData);
 	}
 
 	function setFilter(filterIndex) {
@@ -156,6 +181,15 @@ zuix.controller(function (cp) {
 		});
 		showFilter = filterIndex;
 		updateStatus();
+	}
+
+	function store(namespace, data) {
+		if (arguments.length > 1) {
+			return localStorage.setItem(namespace, JSON.stringify(data));
+		} else {
+			var store = localStorage.getItem(namespace);
+			return (store && JSON.parse(store)) || [];
+		}
 	}
 
 });
