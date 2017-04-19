@@ -66,7 +66,7 @@ zuix.controller(function (cp) {
 		// method 'field' takes advantage of caching, so no need for storing element reference
 		cp.field('todo-list').append(li);
 		// load component "list_item" into the newly added list item
-		zuix.load('components/todos/list_item', {
+		var ctx = zuix.load('components/todos/list_item', {
 			container: li,
 			// disable local css for this component, since todo_mcv already provide its own global css
 			css: false,
