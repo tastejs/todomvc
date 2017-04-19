@@ -1,16 +1,30 @@
 zuix.controller(function (cp) {
 	'use strict';
 
-	var SHOW_ALL = 0, SHOW_ACTIVE = 1, SHOW_COMPLETED = 2;
-	var todoItems = [], filterButtons, showFilter = SHOW_ALL;
+	var SHOW_ALL = 0;
+	var SHOW_ACTIVE = 1;
+	var SHOW_COMPLETED = 2;
+
+	var todoItems = [];
+	var toggleMode = false;
+	var showFilter = SHOW_ALL;
+
+	var filterButtons;
+	var footer;
+	var toggleAll;
 
 	cp.create = function () {
 		filterButtons = cp.view('ul[class="filters"]').find('li');
+		footer = cp.field('footer');
 		// define event handlers
+		toggleAll = cp.field('toggle-all').on('click', function (e) {
+			toggleItems();
+		});
 		cp.field('item-add').on('keydown', function (e) {
 			if (e.which == 13) {
-				if (this.value() != '')
+				if (this.value() != '') {
 					addItem(this.value());
+				}
 				this.value('');
 			}
 		});
@@ -37,31 +51,40 @@ zuix.controller(function (cp) {
 
 	// private methods
 
+	function toggleItems() {
+		zuix.$.each(todoItems, function (k, v) {
+			if (this.view().style.display != 'none') {
+				this.checked(toggleMode);
+			}
+		});
+		updateStatus();
+	}
+
 	function addItem(description) {
 		// append new item to the list
 		var li = document.createElement('li');
 		// method 'field' takes advantage of caching, so no need for storing element reference
 		cp.field('todo-list').append(li);
 		// load component "list_item" into the newly added list item
-		var ctx = zuix.load('components/todos/list_item', {
+		zuix.load('components/todos/list_item', {
 			container: li,
 			// disable local css for this component, since todo_mcv already provide its own global css
 			css: false,
 			text: description,
 			on: {
-				'checked': function (e, isChecked) {
-					console.log(this, this.get(), isChecked);
+				"checked": function (e, isChecked) {
 					updateStatus();
 				},
-				'removed': function () {
-					console.log(this, this.get(), 'removed!');
+				"removed": function () {
 					removeItem(ctx)
 				}
+			},
+			ready: function () {
+				// component is ready, store a reference to it
+				todoItems.push(this);
+				updateStatus();
 			}
 		});
-		// keep track of all loaded components
-		todoItems.push(ctx);
-		updateStatus();
 	}
 
 	function removeItem(ctx) {
@@ -81,36 +104,59 @@ zuix.controller(function (cp) {
 	}
 
 	function updateStatus() {
+		var shownItems = 0;
+		var toggledItems = 0;
 		var itemsLeft = 0;
 		zuix.$.each(todoItems, function (k, v) {
 			var itemView = zuix.$(v.view());
 			itemView.show();
-			if (v.checked == null || !v.checked()) {
+			if (!v.checked()) {
 				itemsLeft++;
-				if (showFilter == SHOW_COMPLETED)
+				if (showFilter == SHOW_COMPLETED) {
 					itemView.hide();
-			} else if (showFilter == SHOW_ACTIVE)
+				}
+			} else if (showFilter == SHOW_ACTIVE) {
 				itemView.hide();
+			}
+			if (itemView.display() != 'none') {
+				shownItems++;
+				toggledItems += (v.checked() ? 1 : 0);
+			}
 		});
 		// update to-do count
 		cp.field('count')
 			.html(itemsLeft + ' item' + (itemsLeft != 1 ? 's' : '') + ' left');
 		// show/hide 'clear completed' button
-		if (itemsLeft != todoItems.length)
+		if (itemsLeft != todoItems.length) {
 			cp.field('clear').show();
-		else
+		} else {
 			cp.field('clear').hide();
+		}
+		// show/hide footer and toggle button
+		if (todoItems.length == 0) {
+			footer.hide();
+		} else {
+			footer.show();
+		}
+		if (shownItems == 0) {
+			toggleAll.hide();
+		} else {
+			toggleAll.show();
+			toggleMode = (shownItems != toggledItems);
+		}
 	}
 
 	function setFilter(filterIndex) {
 		filterButtons.each(function (k, v) {
-			if (k == filterIndex)
+			if (k == filterIndex) {
 				this.find('a').addClass('selected');
-			else
+			} else {
 				this.find('a').removeClass('selected');
+			}
 		});
 		showFilter = filterIndex;
 		updateStatus();
 	}
 
 });
+

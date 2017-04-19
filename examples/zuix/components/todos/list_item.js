@@ -1,7 +1,9 @@
 zuix.controller(function (cp) {
 	'use strict';
 
-	var isChecked = false, description;
+	var toggle;
+	var isChecked = false;
+	var description;
 
 	cp.create = function () {
 		description = cp.options().text;
@@ -14,28 +16,30 @@ zuix.controller(function (cp) {
 			});
 		// edit mode end on blur or enter key
 		cp.view().on('keydown', function (e) {
-			if (e.which == 13) editEnd();
+			if (e.which == 13) {
+				editEnd();
+			}
 		});
 		cp.field('edit').on('blur', function () {
 			editEnd();
 		});
 		// toggle and remove buttons/events
-		cp.field('toggle').on('click', function () {
-			isChecked = this.checked();
-			if (isChecked)
-				cp.view().addClass('completed');
-			else
-				cp.view().removeClass('completed');
+		toggle = cp.field('toggle').on('click', function () {
+			updateChecked();
 			// fire 'checked' event
-			cp.trigger('checked', isChecked);
+			cp.trigger('checked', toggle.checked());
 		});
 		cp.field('remove').on('click', function () {
 			// fire 'removed' event
 			cp.trigger('removed');
 		});
 		// expose public methods
-		cp.expose('checked', function () {
-			return isChecked;
+		cp.expose('checked', function (check) {
+			if (check == null) {
+				return toggle.checked();
+			}
+			toggle.checked(check);
+			updateChecked();
 		});
 	};
 
@@ -44,6 +48,14 @@ zuix.controller(function (cp) {
 	};
 
 	// private methods
+
+	function updateChecked() {
+		if (toggle.checked()) {
+			cp.view().addClass('completed');
+		} else {
+			cp.view().removeClass('completed');
+		}
+	}
 
 	function editBegin() {
 		cp.view().addClass('editing');
@@ -55,10 +67,12 @@ zuix.controller(function (cp) {
 	function editEnd() {
 		cp.view().removeClass('editing');
 		description = cp.field('edit').get().value;
-		if (description.trim().length == 0)
+		if (description.trim().length == 0) {
 			cp.trigger('removed');
-		else
+		} else {
 			cp.field('description').html(description);
+		}
 	}
 
 });
+
