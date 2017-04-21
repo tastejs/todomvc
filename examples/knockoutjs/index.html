@@ -10,19 +10,39 @@
 		<section id="todoapp">
 			<header id="header">
 				<h1>todos</h1>
-				<input id="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?" autofocus>
+				<div class="form-div-row">
+				<input 	id="new-todo" 
+						data-bind="valueUpdate: 'afterkeydown',value: current, event:{keypress:isNewTask()}, escapeKey: $root.cancel; enterKey: add" 
+						placeholder="What needs to be done?" autofocus>
+				</div>
+				<div class="form-div-row" data-bind="visible: showEditForm">
+					<label class="form-label form-label-assignee">Assignee:</label>
+					<select class="assignee" data-bind="options: $root.assignees, value: $root.selectedAssignee"></select>
+					<button class="submit" type="button" data-bind="click: $root.add">Save</button>
+					<button class="cancel" type="button" data-bind="click: $root.cancel">Cancel</button>
+				</div>
 			</header>
 			<section id="main" data-bind="visible: todos().length">
 				<input id="toggle-all" data-bind="checked: allCompleted" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list" data-bind="foreach: filteredTodos">
 					<li data-bind="css: { completed: completed, editing: editing }">
-						<div class="view">
+						<div class="form-div-row view">
 							<input class="toggle" data-bind="checked: completed" type="checkbox">
-							<label data-bind="text: title, event: { dblclick: $root.editItem }"></label>
+							<label class="form-label" data-bind="text: title() + ':' + assignee(), event: { dblclick: $root.editItem }"></label>
 							<button class="destroy" data-bind="click: $root.remove"></button>
 						</div>
-						<input class="edit" data-bind="value: title, valueUpdate: 'afterkeydown', enterKey: $root.saveEditing, escapeKey: $root.cancelEditing, selectAndFocus: editing, event: { blur: $root.saveEditing }">
+						<!--selectAndFocus: editing,-->
+						<div class="form-div-row">
+						<input class="edit" data-bind="value: title, valueUpdate: 'afterkeydown', enterKey: $root.saveEditing, escapeKey: $root.cancelEditing, event: { blur: $root.saveEditing }">
+						</div>
+						<!--<select class="assignee" data-bind="options: $root.assignees, value: $root.selectedAssignee"></select>-->
+						<div class="form-div-row" data-bind="visible:editing">
+							<label class="form-label form-label-assignee">Assignee:</label>
+							<select class="assignee" data-bind="options: $root.assignees, value: $root.selectedAssignee"></select>
+							<button class="submit" type="button" data-bind="click: $root.saveEditing">Save</button>
+							<button class="cancel" type="button" data-bind="click: $root.cancelEditing">Cancel</button>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -41,11 +61,15 @@
 					<li>
 						<a data-bind="css: { selected: showMode() == 'completed' }" href="#/completed">Completed</a>
 					</li>
+					<li>Assigned to:  
+						<select class="assignee-mini" data-bind="options: $root.assignees, value: $root.selectedAssigneeFilter"></select> 
+					</li>
 				</ul>
 				<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">Clear completed</button>
 			</footer>
 		</section>
 		<footer id="info">
+			<p><h4><a href="qunit.html" style="color: #686868; font-size: 14px; text-decoration: underline;" target="_blank">Click to run tests</a></h4></p>
 			<p>Double-click to edit a todo</p>
 			<p>Written by <a href="https://github.com/ashish01/knockoutjs-todos">Ashish Sharma</a> and <a href="http://knockmeout.net">Ryan Niemeyer</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
