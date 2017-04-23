@@ -1,0 +1,1 @@
+module.exports = require('express').createServer(require('express')['static'](__dirname));

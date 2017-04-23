@@ -1,0 +1,24 @@
+{
+    "name": "todomvc",
+    "description": "Yahoo! Mojito • TodoMVC",
+    "version": "0.0.1",
+    "author": {
+        "name": "Gaurav Vaish",
+        "email": "gvaish[AT]yahoo-inc.com"
+    },
+    "contributors": [
+          {
+              "name": "Gaurav Vaish",
+              "email": "gvaish[AT]yahoo-inc.com"
+          }
+    ],
+    "dependencies": {
+        "mojito": "0.3.30"
+    },
+    "engines": {
+        "node": "0.6.9"
+    },
+    "scripts": {
+        "start": "mojito start"
+    }
+}

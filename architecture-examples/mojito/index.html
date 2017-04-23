@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html manifest="./cache.manifest">
+<head>
+<script type="text/javascript">var MOJITO_INIT=new Date().getTime();</script>
+<meta name="creator" content="Yahoo! Mojito 0.2">
+
+<title>Yahoo! Mojito • TodoMVC</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!--[if IE]>
+<script src="static/TodoMojit/assets/ie.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/TodoMojit/assets/base.css"/>
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?3.5.1-2/build/yui/yui-min.js&3.5.1-2/build/yui-base/yui-base-min.js&3.5.1-2/build/oop/oop-min.js&3.5.1-2/build/event-custom-base/event-custom-base-min.js&3.5.1-2/build/intl-base/intl-base-min.js&3.5.1-2/build/event-custom-complex/event-custom-complex-min.js&3.5.1-2/build/intl/intl-min.js&3.5.1-2/build/querystring-stringify-simple/querystring-stringify-simple-min.js&3.5.1-2/build/io-base/io-base-min.js&3.5.1-2/build/features/features-min.js&3.5.1-2/build/dom-core/dom-core-min.js&3.5.1-2/build/dom-base/dom-base-min.js&3.5.1-2/build/selector-native/selector-native-min.js&3.5.1-2/build/selector/selector-min.js&3.5.1-2/build/node-core/node-core-min.js&3.5.1-2/build/node-base/node-base-min.js&3.5.1-2/build/event-base/event-base-min.js&3.5.1-2/build/event-delegate/event-delegate-min.js&3.5.1-2/build/get/get-min.js&3.5.1-2/build/json-stringify/json-stringify-min.js&3.5.1-2/build/array-extras/array-extras-min.js&3.5.1-2/build/querystring-parse/querystring-parse-min.js&3.5.1-2/build/cookie/cookie-min.js&3.5.1-2/build/json-parse/json-parse-min.js&3.5.1-2/build/node-event-delegate/node-event-delegate-min.js&3.5.1-2/build/pluginhost-base/pluginhost-base-min.js&3.5.1-2/build/pluginhost-config/pluginhost-config-min.js&3.5.1-2/build/node-pluginhost/node-pluginhost-min.js&3.5.1-2/build/dom-style/dom-style-min.js&3.5.1-2/build/dom-style-ie/dom-style-ie-min.js&3.5.1-2/build/dom-screen/dom-screen-min.js&3.5.1-2/build/node-screen/node-screen-min.js&3.5.1-2/build/node-style/node-style-min.js&3.5.1-2/build/classnamemanager/classnamemanager-min.js&3.5.1-2/build/attribute-core/attribute-core-min.js&3.5.1-2/build/base-core/base-core-min.js&3.5.1-2/build/attribute-events/attribute-events-min.js&3.5.1-2/build/attribute-extras/attribute-extras-min.js&3.5.1-2/build/attribute-base/attribute-base-min.js&3.5.1-2/build/base-base/base-base-min.js&3.5.1-2/build/base-build/base-build-min.js&3.5.1-2/build/history-base/history-base-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?3.5.1-2/build/event-synthetic/event-synthetic-min.js&3.5.1-2/build/yui-later/yui-later-min.js&3.5.1-2/build/history-html5/history-html5-min.js&3.5.1-2/build/history-hash/history-hash-min.js&3.5.1-2/build/history-hash-ie/history-hash-ie-min.js&3.5.1-2/build/router/router-min.js&3.5.1-2/build/pjax-base/pjax-base-min.js&3.5.1-2/build/view/view-min.js&3.5.1-2/build/app-base/app-base-min.js&3.5.1-2/build/app-transitions/app-transitions-min.js&3.5.1-2/build/escape/escape-min.js&3.5.1-2/build/model/model-min.js&3.5.1-2/build/array-invoke/array-invoke-min.js&3.5.1-2/build/arraylist/arraylist-min.js&3.5.1-2/build/model-list/model-list-min.js&3.5.1-2/build/handlebars-base/handlebars-base-min.js&3.5.1-2/build/handlebars-compiler/handlebars-compiler-min.js&3.5.1-2/build/event-focus/event-focus-min.js"></script>
+
+
+</head>
+<body>
+    
+<div id="yui_3_5_1_2_27_1345816854402_6">
+    <section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer"></footer>
+	</section>
+	<div id="info">
+		<p>Double-click to edit a todo</p>
+        <p>Created by
+          <a href="https://github.com/gvaish">Gaurav Vaish</a>
+        </p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</div>
+</div>
+
+    
+<script type="text/javascript" src="static/mojito/autoload/perf.client.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/mojito.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/logger.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/loader.common.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/config.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/view-renderer.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/util.common.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/output-adapter.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/route-maker.common.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/url.common.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/assets.common.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/cookie.client.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/params.common.js"></script>
+<script type="text/javascript" src="static/mojito/addons/ac/composite.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/action-context.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/controller-context.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/resource-store-adapter.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/dispatch.common.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/store.client.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/mojit-proxy.client.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/beanregistry/registry.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/beanregistry/dali_bean.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/transport.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/request_handler.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/request_formatter.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/requestor.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/io_facade.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/response_formatter.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/transport/response_processor.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/tunnel.client-optional.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/output-handler.client.js"></script>
+<script type="text/javascript" src="static/mojito/autoload/mojito-client.client.js"></script>
+<script type="text/javascript" src="static/todomvc/autoload/gallery-model-sync-local.client.js"></script>
+<script type="text/javascript" src="static/todomvc/autoload/model-todo.client.js"></script>
+<script type="text/javascript" src="static/todomvc/autoload/model-todolist.client.js"></script>
+<script type="text/javascript" src="static/todomvc/autoload/todoview.client.js"></script>
+<script type="text/javascript" src="static/todomvc/autoload/todo-app.client.js"></script>
+<script type="text/javascript" src="static/TodoMojit/binders/index.js"></script>
+<script type="text/javascript" src="static/mojito/addons/view-engines/mu.client.js"></script>
+<script type="text/javascript">
+    YUI_config = {"lang":"en","core":["get","features","intl-base","yui-log","mojito","yui-later"]};
+    YUI().use('*', function(Y) {
+    window.YMojito = { client: new Y.mojito.Client({"context":{"runtime":"client","site":"","device":"","lang":"en","langs":"en,en","region":"","jurisdiction":"","bucket":"","flavor":"","tz":""},"binderMap":{"yui_3_5_1_2_27_1345816854402_6":{"action":"index","config":{},"type":"TodoMojit","viewId":"yui_3_5_1_2_27_1345816854402_6","guid":"yui_3_5_1_2_23_1345816854402_8","instanceId":"yui_3_5_1_2_23_1345816854402_8","name":"TodoMojitBinderIndex","needs":{"yui-base":"http://yui.yahooapis.com/3.5.1-2/build/yui-base/yui-base-min.js","oop":"http://yui.yahooapis.com/3.5.1-2/build/oop/oop-min.js","event-custom-base":"http://yui.yahooapis.com/3.5.1-2/build/event-custom-base/event-custom-base-min.js","intl-base":"http://yui.yahooapis.com/3.5.1-2/build/intl-base/intl-base-min.js","event-custom-complex":"http://yui.yahooapis.com/3.5.1-2/build/event-custom-complex/event-custom-complex-min.js","intl":"http://yui.yahooapis.com/3.5.1-2/build/intl/intl-min.js","querystring-stringify-simple":"http://yui.yahooapis.com/3.5.1-2/build/querystring-stringify-simple/querystring-stringify-simple-min.js","io-base":"http://yui.yahooapis.com/3.5.1-2/build/io-base/io-base-min.js","features":"http://yui.yahooapis.com/3.5.1-2/build/features/features-min.js","dom-core":"http://yui.yahooapis.com/3.5.1-2/build/dom-core/dom-core-min.js","dom-base":"http://yui.yahooapis.com/3.5.1-2/build/dom-base/dom-base-min.js","selector-native":"http://yui.yahooapis.com/3.5.1-2/build/selector-native/selector-native-min.js","selector":"http://yui.yahooapis.com/3.5.1-2/build/selector/selector-min.js","node-core":"http://yui.yahooapis.com/3.5.1-2/build/node-core/node-core-min.js","node-base":"http://yui.yahooapis.com/3.5.1-2/build/node-base/node-base-min.js","event-base":"http://yui.yahooapis.com/3.5.1-2/build/event-base/event-base-min.js","event-delegate":"http://yui.yahooapis.com/3.5.1-2/build/event-delegate/event-delegate-min.js","mojito-perf":"/static/mojito/autoload/perf.client.js","mojito":"/static/mojito/autoload/mojito.common.js","mojito-logger":"/static/mojito/autoload/logger.common.js","get":"http://yui.yahooapis.com/3.5.1-2/build/get/get-min.js","mojito-loader":"/static/mojito/autoload/loader.common.js","mojito-config-addon":"/static/mojito/addons/ac/config.common.js","json-stringify":"http://yui.yahooapis.com/3.5.1-2/build/json-stringify/json-stringify-min.js","mojito-view-renderer":"/static/mojito/autoload/view-renderer.common.js","array-extras":"http://yui.yahooapis.com/3.5.1-2/build/array-extras/array-extras-min.js","mojito-util":"/static/mojito/autoload/util.common.js","mojito-output-adapter-addon":"/static/mojito/addons/ac/output-adapter.common.js","querystring-parse":"http://yui.yahooapis.com/3.5.1-2/build/querystring-parse/querystring-parse-min.js","mojito-route-maker":"/static/mojito/autoload/route-maker.common.js","mojito-url-addon":"/static/mojito/addons/ac/url.common.js","mojito-assets-addon":"/static/mojito/addons/ac/assets.common.js","cookie":"http://yui.yahooapis.com/3.5.1-2/build/cookie/cookie-min.js","mojito-cookie-addon":"/static/mojito/addons/ac/cookie.client.js","mojito-params-addon":"/static/mojito/addons/ac/params.common.js","mojito-composite-addon":"/static/mojito/addons/ac/composite.common.js","mojito-action-context":"/static/mojito/autoload/action-context.common.js","mojito-controller-context":"/static/mojito/autoload/controller-context.common.js","mojito-resource-store-adapter":"/static/mojito/autoload/resource-store-adapter.common.js","mojito-dispatcher":"/static/mojito/autoload/dispatch.common.js","mojito-client-store":"/static/mojito/autoload/store.client.js","mojito-mojit-proxy":"/static/mojito/autoload/mojit-proxy.client.js","breg":"/static/mojito/autoload/transport/beanregistry/registry.client-optional.js","dali-bean":"/static/mojito/autoload/transport/beanregistry/dali_bean.client-optional.js","dali-transport-base":"/static/mojito/autoload/transport/transport.client-optional.js","request-handler":"/static/mojito/autoload/transport/request_handler.client-optional.js","simple-request-formatter":"/static/mojito/autoload/transport/request_formatter.client-optional.js","json-parse":"http://yui.yahooapis.com/3.5.1-2/build/json-parse/json-parse-min.js","requestor":"/static/mojito/autoload/transport/requestor.client-optional.js","io-facade":"/static/mojito/autoload/transport/io_facade.client-optional.js","response-formatter":"/static/mojito/autoload/transport/response_formatter.client-optional.js","response-processor":"/static/mojito/autoload/transport/response_processor.client-optional.js","mojito-tunnel-client":"/static/mojito/autoload/tunnel.client-optional.js","mojito-output-handler":"/static/mojito/autoload/output-handler.client.js","mojito-client":"/static/mojito/autoload/mojito-client.client.js","node-event-delegate":"http://yui.yahooapis.com/3.5.1-2/build/node-event-delegate/node-event-delegate-min.js","pluginhost-base":"http://yui.yahooapis.com/3.5.1-2/build/pluginhost-base/pluginhost-base-min.js","pluginhost-config":"http://yui.yahooapis.com/3.5.1-2/build/pluginhost-config/pluginhost-config-min.js","node-pluginhost":"http://yui.yahooapis.com/3.5.1-2/build/node-pluginhost/node-pluginhost-min.js","dom-style":"http://yui.yahooapis.com/3.5.1-2/build/dom-style/dom-style-min.js","dom-style-ie":"http://yui.yahooapis.com/3.5.1-2/build/dom-style-ie/dom-style-ie-min.js","dom-screen":"http://yui.yahooapis.com/3.5.1-2/build/dom-screen/dom-screen-min.js","node-screen":"http://yui.yahooapis.com/3.5.1-2/build/node-screen/node-screen-min.js","node-style":"http://yui.yahooapis.com/3.5.1-2/build/node-style/node-style-min.js","classnamemanager":"http://yui.yahooapis.com/3.5.1-2/build/classnamemanager/classnamemanager-min.js","attribute-core":"http://yui.yahooapis.com/3.5.1-2/build/attribute-core/attribute-core-min.js","base-core":"http://yui.yahooapis.com/3.5.1-2/build/base-core/base-core-min.js","attribute-events":"http://yui.yahooapis.com/3.5.1-2/build/attribute-events/attribute-events-min.js","attribute-extras":"http://yui.yahooapis.com/3.5.1-2/build/attribute-extras/attribute-extras-min.js","attribute-base":"http://yui.yahooapis.com/3.5.1-2/build/attribute-base/attribute-base-min.js","base-base":"http://yui.yahooapis.com/3.5.1-2/build/base-base/base-base-min.js","base-build":"http://yui.yahooapis.com/3.5.1-2/build/base-build/base-build-min.js","history-base":"http://yui.yahooapis.com/3.5.1-2/build/history-base/history-base-min.js","event-synthetic":"http://yui.yahooapis.com/3.5.1-2/build/event-synthetic/event-synthetic-min.js","yui-later":"http://yui.yahooapis.com/3.5.1-2/build/yui-later/yui-later-min.js","history-html5":"http://yui.yahooapis.com/3.5.1-2/build/history-html5/history-html5-min.js","history-hash":"http://yui.yahooapis.com/3.5.1-2/build/history-hash/history-hash-min.js","history-hash-ie":"http://yui.yahooapis.com/3.5.1-2/build/history-hash-ie/history-hash-ie-min.js","router":"http://yui.yahooapis.com/3.5.1-2/build/router/router-min.js","pjax-base":"http://yui.yahooapis.com/3.5.1-2/build/pjax-base/pjax-base-min.js","view":"http://yui.yahooapis.com/3.5.1-2/build/view/view-min.js","app-base":"http://yui.yahooapis.com/3.5.1-2/build/app-base/app-base-min.js","app-transitions":"http://yui.yahooapis.com/3.5.1-2/build/app-transitions/app-transitions-min.js","escape":"http://yui.yahooapis.com/3.5.1-2/build/escape/escape-min.js","model":"http://yui.yahooapis.com/3.5.1-2/build/model/model-min.js","array-invoke":"http://yui.yahooapis.com/3.5.1-2/build/array-invoke/array-invoke-min.js","arraylist":"http://yui.yahooapis.com/3.5.1-2/build/arraylist/arraylist-min.js","model-list":"http://yui.yahooapis.com/3.5.1-2/build/model-list/model-list-min.js","gallery-model-sync-local":"/static/todomvc/autoload/gallery-model-sync-local.client.js","model-todo":"/static/todomvc/autoload/model-todo.client.js","model-todo-list":"/static/todomvc/autoload/model-todolist.client.js","handlebars-base":"http://yui.yahooapis.com/3.5.1-2/build/handlebars-base/handlebars-base-min.js","handlebars-compiler":"http://yui.yahooapis.com/3.5.1-2/build/handlebars-compiler/handlebars-compiler-min.js","todo-view":"/static/todomvc/autoload/todoview.client.js","event-focus":"http://yui.yahooapis.com/3.5.1-2/build/event-focus/event-focus-min.js","todo-app":"/static/todomvc/autoload/todo-app.client.js","TodoMojitBinderIndex":"/static/TodoMojit/binders/index.js","mojito-mu":"/static/mojito/addons/view-engines/mu.client.js"}}},"appConfig":{"tunnelPrefix":"/tunnel","yui":{"dependencyCalculations":"precomputed"},"appPort":6789,"staticHandling":{"appName":"todomvc"},"log":{"server":{"yui":false,"level":"warn"},"client":{"yui":false,"level":"warn"}},"builds":{"html5app":{"forceRelativePaths":true}}},"pathToRoot":".","routes":{"root":{"path":"/","verbs":{"GET":true},"call":"main_ui.index","name":"root","params":{},"regex":{},"query":{},"requires":{},"ext_match":"^/$","int_match":"^$"}}}) };
+        });
+</script>
+
+
+    
+</body>
+</html>
