@@ -1,79 +1,79 @@
 <todo-item class='todo { completed: todo.isCompleted, editing: todo.isEditing }'>
-  <div class='view'>
-    <input class='toggle' type='checkbox' checked={ this.todo.isCompleted } onclick={ toggleTodo }>
-    <label ondblclick={ editTodo }>{ todo.title }</label>
-    <button class='destroy' onclick={ removeTodo }></button>
-  </div>
-  <input ref='todoeditbox' class='edit' type='text' value={ todo.title } onblur={ endEditing } onkeyup={ onKeyup }>
+	<div class='view'>
+		<input class='toggle' type='checkbox' checked={ this.todo.isCompleted } onclick={ toggleTodo }>
+		<label ondblclick={ editTodo }>{ todo.title }</label>
+		<button class='destroy' onclick={ removeTodo }></button>
+	</div>
+	<input ref='todoeditbox' class='edit' type='text' value={ todo.title } onblur={ endEditing } onkeyup={ onKeyup }>
 
-  <script>
-  /* global opts, constants */
-  'use strict';
+	<script>
+	/* global opts, constants */
+	'use strict';
 
-  this.store = opts.store;
+	this.store = opts.store;
 
-  /**
-   * Toggle the completed state of the todo item
-   */
-  toggleTodo() {
-    this.store.updateTodo(
-      this.todo,
-      {
-        isCompleted: !this.todo.isCompleted
-      }
-    );
-  }
+	/**
+	 * Toggle the completed state of the todo item
+	 */
+	toggleTodo() {
+		this.store.updateTodo(
+			this.todo,
+			{
+				isCompleted: !this.todo.isCompleted
+			}
+		);
+	}
 
-  /**
-   * Enable the editing of the todo title
-   */
-  editTodo() {
-    this.store.updateTodo(
-      this.todo,
-      { isEditing: true }
-    );
-  }
+	/**
+	 * Enable the editing of the todo title
+	 */
+	editTodo() {
+		this.store.updateTodo(
+			this.todo,
+			{ isEditing: true }
+		);
+	}
 
-  /**
-   * Remove this todo from the collection
-   */
-  removeTodo() {
-    this.store.remove(this.todo);
-  }
+	/**
+	 * Remove this todo from the collection
+	 */
+	removeTodo() {
+		this.store.remove(this.todo);
+	}
 
-  /**
-   * End the editing of the todo title
-   * @param   {objwct} e - event object
-   */
-  endEditing(e) {
-    if (!this.todo.isEditing) {
-      return;
-    }
-    const enteredText = e.currentTarget.value;
+	/**
+	 * End the editing of the todo title
+	 * @param   {objwct} e - event object
+	 */
+	endEditing(e) {
+		if (!this.todo.isEditing) {
+			return;
+		}
+		const enteredText = e.currentTarget.value;
 
-    if (enteredText) {
-      this.store.updateTodo(
-        this.todo,
-        {
-          isEditing: false,
-          title: enteredText
-        }
-      );
-    } else {
-      this.store.remove(this.todo);
-    }
-  }
+		if (enteredText) {
+			this.store.updateTodo(
+				this.todo,
+				{
+					isEditing: false,
+					title: enteredText
+				}
+			);
+		} else {
+			this.store.remove(this.todo);
+		}
+	}
 
-  /**
-   * On keyup depending on the key pressed the todo title can be reset or updated
-   * @param   {object} e - event object
-   */
-  onKeyup(e) {
-    if (e.which === constants.ENTER_KEY) {
-      this.endEditing(e);
-    } else if (e.which === constants.ESC_KEY) {
-      this.refs.todoeditbox.value = this.todo.title;
-    }
-  }
-  </script>
+	/**
+	 * On keyup depending on the key pressed the todo title can be reset or updated
+	 * @param   {object} e - event object
+	 */
+	onKeyup(e) {
+		if (e.which === constants.ENTER_KEY) {
+			this.endEditing(e);
+		} else if (e.which === constants.ESC_KEY) {
+			this.refs.todoeditbox.value = this.todo.title;
+		}
+	}
+	</script>
 </todo-item>

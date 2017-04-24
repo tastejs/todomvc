@@ -1,25 +1,25 @@
 <todo-header>
-  <h1>todos</h1>
-  <input class='new-todo' autofocus autocomplete='off' placeholder='What needs to be done?' onkeyup={ add }>
-  <script>
-  /* global opts, constants */
-  'use strict';
+	<h1>todos</h1>
+	<input class='new-todo' autofocus autocomplete='off' placeholder='What needs to be done?' onkeyup={ add }>
+	<script>
+	/* global opts, constants */
+	'use strict';
 
-  this.store = opts.store;
+	this.store = opts.store;
 
-  /**
-   * Add a new todo item
-   */
-  add(e) {
-    if (e.which === constants.ENTER_KEY) {
-      const value = e.currentTarget.value;
-      if (!value) {
-        return;
-      }
+	/**
+	 * Add a new todo item
+	 */
+	add(e) {
+		if (e.which === constants.ENTER_KEY) {
+			const value = e.currentTarget.value;
+			if (!value) {
+				return;
+			}
 
-      this.store.add({ title: value });
-      e.target.value = '';
-    }
-  }
-  </script>
+			this.store.add({ title: value });
+			e.target.value = '';
+		}
+	}
+	</script>
 </todo-header>
