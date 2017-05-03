@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+  <title>Jasmine Test Runner</title>
+
+	<!-- include Jasmine source files -->
+  <link rel="stylesheet" type="text/css" href="../libs/jasmine/jasmine.css">
+  <script type="text/javascript" src="../libs/jasmine/jasmine-1.1.0.js"></script>
+  <script type="text/javascript" src="../libs/jasmine/jasmine-html.js"></script>
+
+	<!-- include Sinon source files -->
+	<script type="text/javascript" src="../libs/sinon/sinon-1.2.0.js"></script>
+	<script type="text/javascript" src="../libs/jasmine-sinon.js"></script>
+
+  <!-- include source files here -->
+  <script src="../../src/libs/curl/src/curl.js"></script>
+  <script>
+  curl(
+    {
+      baseUrl: '../../src/',
+      pluginPath: 'curl/plugin',
+      //debug: true,
+      paths: {
+        curl: 'libs/curl/src/curl',
+        spec: '../spec/suits'
+      },
+      packages: [
+        { name: 'underscore', path: 'libs/underscore', main: 'underscore' },
+        { name: 'backbone', path: 'libs/backbone', main: 'backbone-amd' },
+        { name: 'jquery', path: 'libs/jquery', main: 'jquery-min' },
+        { name: 'when', path: 'libs/when', main: 'when' },
+        { name: 'wire', path: 'libs/wire', lib: 'wire', main: 'wire' },
+        { name: 'aop', path: 'libs/aop', main: 'aop' }
+      ]
+    }
+  ).next( [
+      'spec/views/app',
+      'spec/views/todo',
+      'spec/collections/todos',
+      'spec/models/todo'
+    ], function() {
+      
+    // Run Jasmine
+    jasmine.getEnv().addReporter( new jasmine.TrivialReporter() );
+    jasmine.getEnv().execute();
+
+  } );
+  </script>
+
+</head>
+<body>
+
+</body>
+</html>

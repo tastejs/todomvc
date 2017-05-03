@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Todo App - Backbone - Curl - Wire - Thomas Davis</title>
+	<link rel="stylesheet" href="css/todos.css">
+
+	<script src="js/src/libs/curl/src/curl.js"></script>
+	<script>
+	curl(
+		{
+			baseUrl: 'js/src/',
+			pluginPath: 'curl/plugin',
+			//debug: true, // Uncomment to see loading order and errors
+			paths: {
+				curl: 'libs/curl/src/curl'
+			},
+			packages: [
+				{ name: 'underscore', path: 'libs/underscore', main: 'underscore' },
+				{ name: 'backbone', path: 'libs/backbone', main: 'backbone-amd' },
+				{ name: 'jquery', path: 'libs/jquery', main: 'jquery-min' },
+				{ name: 'when', path: 'libs/when', main: 'when' },
+				{ name: 'wire', path: 'libs/wire', lib: 'wire', main: 'wire' },
+				{ name: 'aop', path: 'libs/aop', main: 'aop' }
+			]
+		}
+	).next( [ 'wire!specs/main' ], function( context ) {
+
+		// Now that eveything has loaded
+		// Get todo's saved in localstorage
+		context.collection.fetch();
+
+	} );
+	</script>
+
+</head>
+<body>
+
+<div id="todoapp">
+
+			<div class="title">
+				<h1>Todos</h1>
+			</div>
+
+			<div class="content">
+
+				<div id="create-todo">
+					<input id="new-todo" placeholder="What needs to be done?" type="text" />
+					<span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
+				</div>
+
+				<div id="todos">
+					<input class="check mark-all-done" type="checkbox"/>
+					<label for="check-all">Mark all as complete</label>
+					<ul id="todo-list"></ul>
+				</div>
+
+				<div id="todo-stats"></div>
+
+			</div>
+
+		</div>
+
+		<div id="credits">
+				<p>Modularized by
+				<a href="http://backbonetutorials.com">Thomas Davis</a>.
+				Originally by 
+			<a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
+			</p>
+		</div>
+
+</body>
+</html>
