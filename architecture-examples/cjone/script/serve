@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Start the production server which will serve the contents of
+# out/public and the API for the sample application.
+
+lein run -m script.serve

@@ -1,0 +1,13 @@
+/docs/
+/lib/
+/public/javascripts/
+/.repl/
+/classes/
+/.lein-deps-sum
+*~
+/.lein-failures
+/.lein-git-deps/
+/.lein-cljsbuild-compiler-0/
+/.lein-plugins/
+out/
+target/
