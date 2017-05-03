@@ -1,0 +1,173 @@
+/**
+ * This Stylus file will be compiled to todos.css automatically by node when
+ * the server is started and a todos.css file doesn't exist.  To regenerate
+ * todos.css, simply delete the file and reload the app in a browser window.
+ *
+ * To see how the css file is generated look at app.js.
+ */
+
+@import "_mixins.styl";
+
+// ----------------------------------------------------------------------------
+// Styles
+// ----------------------------------------------------------------------------
+
+html, body
+  margin 0
+  padding 0
+
+body
+  font 14px "Helvetica Neue", Helvetica, Arial, sans-serif
+  line-height 1.4em
+  background #eeeeee
+  color #333333
+  width 520px
+  margin 0 auto
+  -webkit-font-smoothing antialiased
+
+#todoapp
+  background #fff
+  padding 20px
+  margin-bottom 40px
+  box-shadow rgba(0, 0, 0, 0.2) 0 2px 6px 0
+  border-radius 0 0 5px 5px
+
+  h1
+    font-size 36px
+    font-weight bold
+    text-align center
+    padding 0 0 10px 0
+
+  input[type="text"]
+    width 466px
+    font-size 24px
+    font-family inherit
+    line-height 1.4em
+    border 0
+    outline none
+    padding 6px
+    border 1px solid #999999
+    box-shadow rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset
+
+  input-webkit-input-placeholder
+    font-style italic
+
+  footer
+    display none
+    margin 0 -20px -20px -20px
+    overflow hidden
+    color #555555
+    background #f4fce8
+    border-top 1px solid #ededed
+    padding 0 20px
+    line-height 37px
+    border-radius 0 0 5px 5px
+
+#main
+  display none
+
+#todo-list
+  margin 10px 0
+  padding 0
+  list-style none
+
+  li
+    padding 18px 20px 18px 0
+    position relative
+    font-size 24px
+    border-bottom 1px solid #cccccc
+
+#todo-list
+  li
+    &:last-child
+      border-bottom none
+
+    &.done
+      label
+        color #777777
+        text-decoration line-through
+
+    .destroy
+      position absolute
+      right 5px
+      top 20px
+      display none
+      cursor pointer
+      width 20px
+      height 20px
+      background url(/images/destroy.png) no-repeat
+
+      &:hover
+        background-position 0 -20px
+
+    &:hover
+      .destroy
+        display block
+
+    &.editing
+      border-bottom none
+      margin-top -1px
+      padding 0
+
+      .view
+        display none
+
+      .edit
+        display block
+        width 444px
+        padding 13px 15px 14px 20px
+        margin 0
+
+      &:last-child
+        margin-bottom -1px
+
+    .view
+      label
+        word-break break-word
+
+    .edit
+      display none
+
+#clear-completed
+  float right
+  line-height 20px
+  text-decoration none
+  background rgba(0, 0, 0, 0.1)
+  color #555555
+  font-size 11px
+  margin-top 8px
+  margin-bottom 8px
+  padding 0 10px 1px
+  cursor pointer
+  border-radius 12px
+  box-shadow rgba(0, 0, 0, 0.2) 0 -1px 0 0
+
+  &:hover
+    background rgba(0, 0, 0, 0.15)
+    box-shadow rgba(0, 0, 0, 0.3) 0 -1px 0 0
+
+  &:active
+    position relative
+    top 1px
+
+#todo-count
+  span
+    font-weight bold
+
+#instructions
+  margin 10px auto
+  color #777777
+  text-shadow rgba(255, 255, 255, 0.8) 0 1px 0
+  text-align center
+
+  a
+    color #336699
+
+#credits
+  margin 30px auto
+  color #999
+  text-shadow rgba(255, 255, 255, 0.8) 0 1px 0
+  text-align center
+
+  a
+    color #888

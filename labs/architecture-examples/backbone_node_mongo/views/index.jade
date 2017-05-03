@@ -1,0 +1,53 @@
+extends layout
+
+block styles
+
+    link(rel='stylesheet', href='/stylesheets/todos.css')
+
+block content
+
+  #todoapp
+
+    header
+      h1 Todos
+      input#new-todo(type="text", placeholder="What needs to be done?")
+
+    section#main
+      input#toggle-all(type="checkbox")
+      label(for="toggle-all") Mark all as complete
+      ul#todo-list
+
+    footer
+      a#clear-completed Clear completed
+      #todo-count
+
+  #instructions
+    | Double-click to edit a todo.
+
+  #credits
+    | Created by&nbsp;
+    a(href="http://jgn.me/") J&eacute;r&ocirc;me Gravel-Niquet
+    br
+    | Rewritten by&nbsp;
+    a(href="http://addyosmani.github.com/todomvc") Addy Osmani
+    br
+    | Node.js and MongoDB added by&nbsp;
+    a(href="https://github.com/jamesor") James O'Reilly
+
+block bodyscripts
+
+  script#item-template(type="text/template")
+    |<div class="view">
+    |  <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+    |  <label><%= title %></label>
+    |  <a class="destroy"></a>
+    |</div>
+    |<input class="edit" type="text" value="<%= title %>" />
+
+  script#stats-template(type="text/template")
+    |<% if (done) { %>
+    |  <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
+    |<% } %>
+    |<div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+
+  script(type="text/javascript", src="javascripts/todos.js")
