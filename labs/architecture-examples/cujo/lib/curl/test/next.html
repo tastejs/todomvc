@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>test next()</title>
+
+<script>
+
+	curl = {
+		paths: {
+			curl: '../src/curl/'
+		}
+	};
+
+	// mock console for IE
+	if (!window.console) console = {};
+	if (!('log' in console)) {
+		console._msg = [];
+		console.log = function (msg) {
+			var _msg = this._msg;
+			_msg.push([].join.call(arguments, ' '));
+			clearTimeout(this._timeout);
+			this._timeout = setTimeout(function () {
+				alert(_msg.join('\n'));
+			}, 100);
+		};
+	}
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	var start = new Date();
+	curl(
+		[
+			'js!stuff/plain_old.js'
+		],
+		function () {
+			console.log('first callback', arguments);
+		}
+	).then(
+		function () {
+			console.log('this is a then()', arguments)
+		}
+	).next(
+		[
+			'js!stuff/plain_old_2.js'
+		],
+		function () {
+			console.log('second callback', arguments);
+		}
+	).next(
+		[
+			'stuff/three',
+			'css!stuff/base',
+			'text!stuff/template.html'
+		],
+		function () {
+			console.log('third callback', arguments);
+		}
+	)
+	.then(
+		function (three, link, template) {
+			console.log('total time:', new Date() - start);
+			if (document.body) {
+				document.body.appendChild(document.createTextNode('A module with dependencies loaded successfully if 3 == ' + three + '.'));
+				document.body.appendChild(document.createElement('br'));
+				document.body.appendChild(document.createTextNode('There should be a success message below if the text file loaded:'));
+				document.body.appendChild(document.createElement('div')).innerHTML = template;
+			}
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p>This text should all be the same <span style="color: #2faced;">color</span> if the css file loaded.</p>
+
+</body>
+</html>

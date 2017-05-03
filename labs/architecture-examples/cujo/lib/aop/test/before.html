@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>before Unit Tests</title>
+	<script type="text/javascript" src="util/doh/runner.js"></script>
+	<script type="text/javascript" src="../aop.js"></script>
+	<script type="text/javascript">
+		(function(global, doh, aop, undef) {
+
+			var arg = "foo"; // const
+
+			// Test fixture			
+			function Fixture() {
+				this.val = 0;
+			}
+			
+			Fixture.prototype = {
+				method: function(a) {
+                    return (++this.val);
+				}
+			};
+			
+			doh.register('before', [
+				function testBefore1() {
+					var target = new Fixture();
+					
+					aop.before(target, 'method', function before1(a) {
+						// this should be the advised object
+						doh.assertEqual(target, this);
+
+						// arg should not change
+						doh.assertEqual(arg, a);
+						
+						// before function should be called (duh) before
+						// the original, so val should not have changed yet.
+						doh.assertEqual(0, this.val);
+					});
+					
+					var ret = target.method(arg);
+					
+					// after method call, val should have changed
+					doh.assertEqual(1, target.val);
+
+					// Make sure the return value is preserved
+					doh.assertEqual(ret, target.val);
+				},
+				function testBefore2() {
+					var target = new Fixture();
+					var beforeCount = 0;
+					
+					// Add 3 before advices and test their invocation order,
+					// args, and return value
+
+					aop.before(target, 'method', function before0(a) {
+						doh.assertEqual(target, this);
+						doh.assertEqual(arg, a);
+
+						// *ALL* before functions should be called (duh) before
+						// the original, so val should not have changed yet.
+						doh.assertEqual(0, this.val);
+
+						// Before advice is stacked such that advice added
+						// later is called first, so beforeCount should have
+						// been incremented.
+						doh.assertEqual(2, beforeCount);
+					});
+					
+					aop.before(target, 'method', function before1(a) {
+						doh.assertEqual(target, this);
+						doh.assertEqual(arg, a);
+
+						// *ALL* before functions should be called (duh) before
+						// the original, so val should not have changed yet.
+						doh.assertEqual(0, this.val);
+
+						// Before advice is stacked "right to left", such that
+						// advice added later is called first, so before2
+						// should be called earlier than before1, and beforeCount
+						// should have been incremented.
+						doh.assertEqual(1, beforeCount);
+						
+						// Increment beforeCount so it can be verified in before0
+						beforeCount++;
+					});
+
+					aop.before(target, 'method', function before2(a) {
+						doh.assertEqual(target, this);
+						doh.assertEqual(arg, a);
+
+						// *ALL* before functions should be called (duh) before
+						// the original, so val should not have changed yet.
+						doh.assertEqual(0, this.val);
+						
+						// before2 should be called first, so beforeCount should
+						// be zero.
+						doh.assertEqual(0, beforeCount);
+						
+						// Increment beforeCount so it can be verified in before1
+						beforeCount++;
+					});
+					
+					var ret = target.method(arg);
+					
+					// original method should only have been called once, so
+					// val should only be 1.
+					doh.assertEqual(1, target.val);
+
+					// Make sure the return value is preserved
+					doh.assertEqual(ret, target.val);
+				}
+			]);
+
+			doh.run();
+			
+		})(window, doh, aop);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

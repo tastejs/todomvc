@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>plugin-specific-paths</title>
+
+<script>
+
+	curl = {
+		paths: {
+			curl: '../src/curl/',
+			'css!': 'stuff/',
+			'text!': 'stuff/',
+			'link!': 'http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/',
+			'link!resources/': '//ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/'
+		}
+	};
+
+	// mock console for IE
+	if (!window.console) console = {};
+	if (!('log' in console)) {
+		console._msg = [];
+		console.log = function (msg) {
+			var _msg = this._msg;
+			_msg.push([].join.call(arguments, ' '));
+			clearTimeout(this._timeout);
+			this._timeout = setTimeout(function () {
+				alert(_msg.join('\n'));
+			}, 100);
+		};
+	}
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	curl(
+		[
+			'stuff/three',
+			'css!base.css',
+			'text!template.html',
+			'link!resources/dojo.css',
+			'js!stuff/plain_old.js',
+			'domReady!'
+		]
+	).then(
+		function (three, baseCss, /*strings,*/ template, dojoCss) {
+			document.body.appendChild(document.createTextNode('A module with dependencies loaded successfully if 3 == ' + three + '.'));
+			document.body.appendChild(document.createElement('br'));
+			document.body.appendChild(document.createTextNode('A plain-old js file loaded if whizzah! == ' + testDomain.foo.bar));
+			document.body.appendChild(document.createElement('br'));
+			document.body.appendChild(document.createTextNode('There should be a success message below if the text file loaded:'));
+			document.body.appendChild(document.createElement('div')).innerHTML = template;
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

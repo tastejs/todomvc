@@ -1,0 +1,15 @@
+{
+  "name": "commonjs-test",
+  "version": "0.0.1",
+  "description": "curl package test",
+  "licenses": [
+     {
+         "type": "MIT",
+         "url": "http://www.opensource.org/licenses/mit-license.php"
+     }
+  ],
+  "directories": {
+    "lib": "."
+  },
+  "main": "./main"
+}

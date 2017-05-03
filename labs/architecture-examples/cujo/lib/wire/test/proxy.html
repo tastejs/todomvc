@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>init test</title>
+
+	<script src="util/doh/runner.js"></script>
+	<script src="test-config.js"></script>
+
+	<script type="text/javascript">
+		define('plugin', function() {
+			return {
+				wire$plugin: function() {
+					return {
+						facets: {
+							test: {
+								configure: function(resolver, facet, wire) {
+									wire.getProxy(facet.options).then(
+											function(proxy) {
+												if(typeof proxy.invoke != 'function') {
+													resolver.reject(new Error('getProxy did not return a proxy'));
+												} else {
+													resolver.resolve();
+												}
+											}
+									);
+								}
+							}
+						}
+					};
+				}
+			}
+		});
+
+		define('test', {});
+
+		require(['wire'], function(wire) {
+			doh.register('pluginApi.getProxy', [
+				function shouldReturnAProxy() {
+					var dohd = new doh.Deferred();
+
+					wire({
+						plugin: { module: 'plugin' },
+						test: {
+							module: 'test',
+							test: 'proxyTarget'
+						},
+						proxyTarget: {
+							module: 'test'
+						}
+					}).then(
+						function(context) {
+							dohd.callback(true);
+						},
+						function(e) {
+							dohd.errback(e);
+						}
+					);
+
+					return dohd;
+				}
+			]);
+
+			doh.run();
+
+		});
+	</script>
+</head>
+<body>
+<div>
+	<p id="node1"></p>
+</div>
+</body>
+</html>

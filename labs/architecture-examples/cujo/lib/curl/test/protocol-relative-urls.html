@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>protocol-relative-urls</title>
+
+<script>
+
+	curl = {
+		paths: {
+			curl: '../src/curl/',
+			resources: '//ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/'
+		}
+	};
+
+	// mock console for IE
+	if (!window.console) console = {};
+	if (!('log' in console)) {
+		console._msg = [];
+		console.log = function (msg) {
+			var _msg = this._msg;
+			_msg.push([].join.call(arguments, ' '));
+			clearTimeout(this._timeout);
+			this._timeout = setTimeout(function () {
+				alert(_msg.join('\n'));
+			}, 100);
+		};
+	}
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	curl(
+		[
+			'stuff/three',
+			'css!resources/dojo.css',
+			'text!stuff/template.html'
+		]
+	).then(
+		function (three, link, /*strings,*/ template) {
+			if (document.body) {
+				document.body.appendChild(document.createTextNode('A module with dependencies loaded successfully if 3 == ' + three + '.'));
+				document.body.appendChild(document.createElement('br'));
+				document.body.appendChild(document.createTextNode('There should be a success message below if the text file loaded:'));
+				document.body.appendChild(document.createElement('div')).innerHTML = template;
+			}
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

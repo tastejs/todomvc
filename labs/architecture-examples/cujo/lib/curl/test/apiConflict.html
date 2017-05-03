@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>noConflict api test</title>
+
+<script>
+var curl = function () {}, orig = curl;
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+</head>
+<body>
+</body>
+
+<script type="text/javascript">
+
+try {
+	curl({
+			paths: {
+				curl: '../src/curl/'
+			}
+		}
+	);
+	write('FAILED: curl should not overwrite global curl');
+}
+catch (ex) {
+	write('SUCCESS: curl should threw when it conflicted with no recourse: ' + ex.message);
+}
+
+curl({
+	apiContext: this, apiName: 'curl2'
+});
+
+write((orig == curl ? 'SUCCESS' : 'FAILED') + ': curl should restore previous curl()');
+write((curl2 ? 'SUCCESS' : 'FAILED') + ': curl should create non-conflicting curl2()');
+
+	function write (msg) {
+		document.body.appendChild(document.createElement('div')).innerHTML = msg;
+	}
+
+</script>
+</html>

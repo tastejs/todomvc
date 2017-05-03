@@ -1,0 +1,40 @@
+.remaining-count-zero,
+.remaining-count-one {
+	display: none;
+}
+
+.remaining-zero .remaining-count-zero {
+	display: inline;
+}
+
+.remaining-one .remaining-count-one {
+	display: inline;
+}
+
+.remaining-zero .remaining-count-many,
+.remaining-one .remaining-count-many {
+	display: none;
+}
+
+#clear-completed {
+	opacity: 1;
+	/* TODO: this is theme/skin. Move to a theme file */
+	-webkit-transition: all .1s ease;
+}
+.completed-zero #clear-completed {
+    opacity: 0;
+}
+
+#footer {
+    display: none;
+}
+
+.todos-one #footer,
+.todos-many #footer {
+    display: block;
+}
+
+/* TODO: Reinstate once we add routing */
+#filters {
+    display: none;
+}

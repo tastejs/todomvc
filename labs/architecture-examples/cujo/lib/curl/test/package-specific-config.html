@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>CommonJS Modules 1.1 loading test</title>
+
+<script>
+
+	curl = {
+		paths: {
+			curl: '../src/curl'
+		},
+		packages: {
+			commonjs: {
+				path: 'support/commonjs',
+				config: {
+					injectScript: true,
+					moduleLoader: 'curl/loader/cjsm11'
+				}
+			},
+			// this package should not use the moduleLoader above
+			hybrid: {
+				path: 'support/commonjs'
+			}
+		}
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	curl(
+		[
+			// test modules:
+			// load at least one from the configured package
+			'commonjs/nakedDependentCjsm1.1',
+			'commonjs/nakedSimpleCjsm1.1',
+			'hybrid/module'
+		]
+	).then(
+		function (dep, simple, module) {
+			var test3 = !!module,
+				test4 = !!dep;
+			write((test3 ? 'SUCCESS' : 'FAILED') + ': package without custom module loader loaded correctly');
+			write((test4 ? 'SUCCESS' : 'FAILED') + ': package with custom module loader loaded correctly');
+		},
+		function (ex) {
+			write('FAILED: ' + ex.message);
+		}
+	);
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

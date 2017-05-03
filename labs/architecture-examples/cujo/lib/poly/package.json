@@ -1,0 +1,39 @@
+{
+    "name": "poly",
+    "version": "0.4.0",
+    "description": "poly.js is the a collection of AMD modules that shim (aka \"polyfill\") old browsers to support modern (aka \"ES5-ish\") javascript.",
+    "keywords": ["poly", "cujo", "es5", "shim", "array", "object", "string", "function", "xhr", "json"],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/cujojs/poly"
+        }
+    ],
+    "bugs": "https://github.com/cujojs/poly/issues",
+    "maintainers": [
+        {
+            "name": "John Hann",
+            "web": "http://unscriptable.com"
+        }
+    ],
+    "collaborators": [
+        {
+            "name": "John Hann",
+            "web": "http://unscriptable.com"
+        },
+        {
+            "name": "Brian Cavalier",
+            "web": "http://hovercraftstudios.com"
+        }
+    ],
+    "main": "./poly",
+    "directories": {
+        "test": "test"
+    }
+}

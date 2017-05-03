@@ -1,0 +1,18 @@
+[submodule "test/util"]
+	path = test/util
+	url = https://github.com/dojo/util.git
+[submodule "support/aop"]
+	path = support/aop
+	url = git://github.com/cujojs/aop.git
+[submodule "test/curl"]
+	path = test/curl
+	url = git://github.com/cujojs/curl.git
+[submodule "support/sizzle"]
+	path = support/sizzle
+	url = https://github.com/cujojs/sizzle.git
+[submodule "support/when"]
+	path = support/when
+	url = git://github.com/cujojs/when.git
+[submodule "test/requirejs"]
+	path = test/requirejs
+	url = https://github.com/jrburke/requirejs.git

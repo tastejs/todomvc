@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>mapTokenList transform test</title>
+
+    <!--<script src="../../util/doh/runner.js"></script>-->
+    <script src="../../test-config.js"></script>
+
+    <script type="text/javascript">
+
+        require(['wire'], function(wire) {
+
+			var wired, undef;
+
+			wired = wire({
+				plugins: [
+//					{ module: 'wire/debug' },
+					{ module: 'wire/dom' },
+					{ module: 'wire/dom/render' }
+				],
+				mapper: {
+					create: {
+						module: 'wire/dom/transform/mapTokenList',
+						args: [
+							{
+								'true': 'true-token',
+								'false': 'false-token',
+								ambiguous: 'whatevs'
+							},
+							{ /* no options */ }
+						]
+					}
+				},
+				mapper2: {
+					create: {
+						module: 'wire/dom/transform/mapTokenList',
+						args: [
+							{
+								'one': 'dashed-name',
+								'two': 'moar-dashes'
+							},
+							{ /* no options */ }
+						]
+					}
+				},
+				mapper3: {
+					create: {
+						module: 'wire/dom/transform/mapTokenList',
+						args: [
+							{
+								'true': 'true-token',
+								'false': 'false-token',
+								ambiguous: 'whatevs'
+							},
+							{
+								// parser that only looks for pipes (|)
+								parser: /(^|\|)([^\|]+)/g
+							}
+						]
+					}
+				},
+				mapper4: {
+					create: {
+						module: 'wire/dom/transform/mapTokenList',
+						args: [
+							{
+								'true': 'true-token',
+								'false': 'false-token',
+								ambiguous: 'whatevs'
+							},
+							{
+								// comma delimiter instead of space
+								delimiter: ','
+							}
+						]
+					}
+				}
+			});
+
+			wired.then(
+				function(context) {
+					var mapper = context.mapper,
+						mapper2 = context.mapper2,
+						mapper3 = context.mapper3,
+						mapper4 = context.mapper4;
+
+					doh.register('basic', [
+						function mapTokenListShouldNotFailFromFalseyValues () {
+							var success;
+							try {
+								mapper('');
+								mapper();
+								mapper(null);
+								success = true;
+							}
+							catch (ex) {
+								success = false;
+							}
+							doh.assertTrue(success, 'did not fail');
+						},
+						function mapTokenListShouldTranslateTokens () {
+							var result;
+							result = mapper('true false');
+							doh.assertTrue(hasToken(result, 'true-token'), 'true-token');
+							doh.assertTrue(hasToken(result, 'false-token'), 'false-token');
+							result = mapper2('one two');
+							doh.assertTrue(hasToken(result, 'dashed-name'), 'dashed-name');
+							doh.assertTrue(hasToken(result, 'moar-dashes'), 'moar-dashes');
+						},
+						function mapTokenListShouldNotCreateLeadingOrTrailingWhitespace () {
+							var result;
+							result = mapper('true');
+							doh.assertFalse(/^\s|\s$/.test(result));
+							result = mapper('crazy-shiz');
+							doh.assertFalse(/^\s|\s$/.test(result));
+							result = mapper('');
+							doh.assertFalse(/^\s|\s$/.test(result));
+						},
+						function mapTokenListShouldNotRemoveExistingTokens (doh) {
+							var result;
+							result = mapper('foo-ish wow');
+							doh.assertTrue(hasToken(result, 'wow'), 'wow');
+							doh.assertTrue(hasToken(result, 'foo-ish'), 'foo-ish');
+						},
+						function mapTokenListShouldAddMultipleTokensAtOnce () {
+							var result;
+							// these should both be added
+							result = mapper('true false');
+							doh.assertTrue(hasToken(result, 'true-token'));
+							doh.assertTrue(hasToken(result, 'false-token'));
+						},
+						function mapTokenListShouldRemoveEntireGroupWhenProvidingBlank (doh) {
+							var result;
+							result = mapper('true false');
+							result = mapper('');
+							doh.assertFalse(hasToken(result, 'true-token'));
+							doh.assertFalse(hasToken(result, 'false-token'));
+						},
+						function mapTokenListShouldRemoveOtherTokenInGroup () {
+							var result;
+							result = mapper('true'); // this should get overridden by next line
+							result = mapper('false');
+							doh.assertTrue(hasToken(result, 'false-token'), 'false-token');
+							doh.assertFalse(hasToken(result, 'true-token'), 'true-token');
+						},
+						function mapTokenListShouldRemoveOtherTokensInGroup () {
+							var result;
+							// these should get overridden by following line
+							result = mapper('true false');
+							result = mapper('ambiguous');
+							doh.assertFalse(hasToken(result, 'false-token'));
+							doh.assertFalse(hasToken(result, 'true-token'));
+							doh.assertTrue(hasToken(result, 'whatevs'));
+						},
+						function mapTokenListShouldNotRemoveTokensInOtherMappers () {
+							var result, result2;
+							// these should stay
+							result = mapper('true false');
+							result2 = mapper2('one');
+							doh.assertTrue(hasToken(result2, 'dashed-name'), 'dashed-name');
+							doh.assertTrue(hasToken(result, 'true-token'), 'true-token');
+							doh.assertTrue(hasToken(result, 'false-token'), 'false-token');
+						}
+					]);
+					doh.register('options', [
+						function mapTokenListShouldAllowOptionalParser () {
+							var result;
+							result = mapper3('true|false');
+							doh.assertTrue(hasToken(result, 'false-token'), 'false-token');
+							doh.assertTrue(hasToken(result, 'true-token'), 'true-token');
+						},
+						function mapTokenListShouldAllowOptionalDelimiter () {
+							var result;
+							result = mapper4('true false');
+							doh.assertTrue(/false-token/.test(result), 'false-token');
+							doh.assertTrue(/true-token/.test(result), 'true-token');
+						}
+					]);
+					doh.run();
+
+				},
+				function(e) {
+					// somehow error here?
+				}
+			);
+
+
+        });
+
+	function hasToken (sring, token) {
+		var rx = new RegExp('(^|\\s)' + token + '($|\\s)');
+		return rx.test(sring);
+	}
+
+    </script>
+</head>
+<body>
+<div>
+    <p id="result" class="orig1"></p>
+</div>
+</body>
+</html>

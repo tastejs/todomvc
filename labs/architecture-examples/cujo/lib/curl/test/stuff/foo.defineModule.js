@@ -1,0 +1,1 @@
+foo.defineModule({ msg: 'this module doesn\'t use global define' });

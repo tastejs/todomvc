@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>after Unit Tests</title>
+	<script type="text/javascript" src="util/doh/runner.js"></script>
+	<script type="text/javascript" src="../aop.js"></script>
+	<script type="text/javascript">
+		(function(global, doh, aop, undef) {
+
+			var arg = "foo"; // const
+
+			// Test fixture			
+			function Fixture(shouldThrow) {
+				this.val = 0;
+				this.shouldThrow = shouldThrow;
+			}
+			
+			Fixture.prototype = {
+				method: function(a) {
+					this.val++;
+					if(this.shouldThrow) {
+						throw new Error('testing after advice with throw');
+					}
+
+					return this.val;
+				}
+			};
+			
+			doh.register('after', [
+				function testAfterReturn1() {
+					var target = new Fixture();
+					
+					// Starting value
+					doh.assertEqual(0, target.val);
+					
+					aop.after(target, 'method', function afterAdvice(a) {
+						// this should be the advised object
+						doh.assertEqual(target, this);
+
+						// arg should be the return value from the orig method
+						doh.assertEqual(this.val, a);
+						
+						// after function should be called (duh) after
+						// the original, so val will have changed.
+						doh.assertEqual(1, this.val);
+					});
+					
+					var ret = target.method(arg);
+					
+					// after method call, val should have changed
+					doh.assertEqual(1, target.val);
+
+					// Make sure the return value is preserved
+					doh.assertEqual(ret, target.val);
+				},
+				function testAfterThrow1() {
+					var target = new Fixture(true);
+					
+					// Starting value
+					doh.assertEqual(0, target.val);
+					
+					aop.after(target, 'method', function afterAdvice(a) {
+						// this should be the advised object
+						doh.assertEqual(target, this);
+
+						// arg should be the exception that was thrown
+						doh.assertTrue(a instanceof Error);
+						
+						// after function should be called (duh) after
+						// the original, so val will have changed.
+						doh.assertEqual(1, this.val);
+					});
+					
+					try {
+						target.method(arg);
+						doh.assertTrue(false);
+					} catch(e) {}
+					
+					// after method call, val should have changed
+					doh.assertEqual(1, target.val);
+
+				}
+			]);
+
+			doh.run();
+			
+		})(window, doh, aop);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

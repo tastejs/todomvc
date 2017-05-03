@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>test for github issue #37</title>
+
+<script src="../src/curl.js" type="text/javascript"></script>
+<!--<script src="support/curl-0.5.3.js"></script>-->
+<!--<script src="support/curl-0.5.4.js"></script>-->
+
+<script type="text/javascript">
+
+	curl(
+		{
+			baseUrl: '../src', // default path
+			paths: {
+				'css!': '/curl/test/stuff' // default path for css! resources
+			}
+		},
+		[
+			'css!/curl/test/stuff/second.css',
+			'domReady!'
+		]
+	).then(
+		function () {
+			var doc = document,
+				testEl = doc.getElementById('test'),
+				msg,
+				testVal;
+
+			testVal = window.getComputedStyle ?
+				window.getComputedStyle(testEl, null).textTransform :
+				testEl.currentStyle.textTransform;
+			msg = testVal.toLowerCase() == 'uppercase' ?
+				'SUCCESS: css file loaded.' :
+				'FAILED: css file not loaded.';
+			doc.body.appendChild(doc.createElement('div')).innerHTML = msg;
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+<p id="test">Success or failure message below:</p>
+
+</body>
+</html>

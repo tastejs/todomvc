@@ -1,0 +1,3 @@
+define({
+	itWorks: 'it works'
+});

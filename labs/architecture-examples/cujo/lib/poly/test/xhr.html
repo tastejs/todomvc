@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<title>xhr tests</title>
+
+<script>
+
+curl = {
+	baseUrl: '../',
+	paths: {
+		curl: 'test/curl'
+	},
+	packages: [
+		{ name: 'poly', location: '.', main: 'poly' }
+	]
+};
+
+</script>
+
+<script src="curl.js"></script>
+
+<script>
+
+// First, test that poly/xhr doesn't clobber native methods
+curl(['test/testutils', 'poly/xhr'], function (tester) {
+
+	tester.assertTrue('XHR exists as global function', function () {
+		return typeof XMLHttpRequest == 'function';
+	});
+
+});
+
+</script>
+
+</head>
+
+<body>
+
+<div id="output"></div>
+
+</body>
+</html>

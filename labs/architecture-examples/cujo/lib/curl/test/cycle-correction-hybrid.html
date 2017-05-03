@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>cycle correction for hybrid modules</title>
+
+<script>
+
+	curl = {
+		debug: true,
+		paths: {
+			curl: '../src/curl',
+			loop: 'support/commonjs/loop'
+		}
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	// doing .next to isolate the domReady resolution from the other modules
+	curl(['domReady!']).next(['loop/hybrid-loop1']).then(
+		function (loop1) {
+			// test add, subtract, and multiple
+			try {
+				loop1.add(1, 2);
+				loop1.subtract(1, 2);
+				loop1.multiply(1, 2);
+				success();
+			}
+			catch (ex) {
+				fail(ex);
+			}
+		},
+		fail
+	);
+
+	// fail if we haven't succeeded in 3 seconds. note: this is janky
+	var timeout = setTimeout(fail, 3000);
+
+	function success () {
+		clearTimeout(timeout);
+		write('SUCCESS: cycle corrected');
+	}
+
+	function fail (ex) {
+		clearTimeout(timeout);
+		write('FAILED: ' + (ex ? ex.message : 'timed out'));
+	}
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+
+</body>
+</html>

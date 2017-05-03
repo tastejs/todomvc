@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en-US" class="loading">
+<head>
+	<meta charset="UTF-8">
+	<title>Launcher test</title>
+
+    <script src="../test-config.js"></script>
+
+    <style>
+        body {
+            -webkit-transition: opacity 250ms ease;
+            -moz-transition: opacity 250ms ease;
+            transition: opacity 250ms ease;
+        }
+        .loading body {
+            opacity: 0;
+        }
+    </style>
+
+	<script type="text/javascript">
+		wire = {
+            initialValue: "Initial Value from page!"
+        };
+	</script>
+
+	<script type="text/javascript">
+		require(['wire', 'dijit/form/TextBox'], function(wire) {
+			wire('test/dojo/dijit1').then(function(context) {
+				// Properties/objects from the parent context are available via the prototype!
+				console.log("initialValue", context.initialValue);
+
+				// When the button is clicked, cleanup everything by
+				// destroying the context.  Note that this will destroy the programmatically
+				// created widget1 dijit, but not the dijit that is created via dojoType.
+				var d = context.destroyButton;
+				d.onclick = function() {
+					context.destroy();
+					d.onclick = null;
+				};
+
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<div id="container">
+		<input id="widget" data-dojo-type="dijit.form.TextBox">
+		<button id="destroy">Destroy</button>
+	</div>
+</body>
+</html>

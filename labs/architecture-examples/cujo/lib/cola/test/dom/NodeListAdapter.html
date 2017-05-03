@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>NodeListAdapterList test</title>
+
+<script src="../util/doh/runner.js"></script>
+<script src="../test-config.js"></script>
+
+<script type="text/javascript">
+require(['cola/dom/adapter/NodeList', 'cola/adapter/Object', 'domReady!'], function(NodeListAdapter, ObjectAdapter) {
+
+	var rootNode, itemNode, baseHtml;
+
+	function getNode (id) {
+		return document.getElementById(id);
+	}
+
+	function simulateEvent (node, type) {
+		var evt = createEvent(type);
+		if (node.dispatchEvent) {
+			node.dispatchEvent(evt);
+		}
+		else {
+			node.fireEvent('on' + type, evt);
+		}
+	}
+
+	function createEvent (type) {
+		if (document.createEvent) {
+			var evt = document.createEvent('HTMLEvents');
+			evt.initEvent(type, false, true);
+		}
+		else {
+			var evt = document.createEventObject();
+		}
+	}
+
+	function compareById (a, b) { return a.id - b.id; }
+	function symbolizeById (a) { return a.id; }
+	function querySelector (selector, node) { return (node||document).querySelector(selector); }
+	function querySelectorAll (selector, node) { return (node||document).querySelectorAll(selector); }
+	function on (node, event, handler) {
+		node.addEventListener(event, handler, false);
+		return function () {
+			node.removeEventListener(event, handler, false);
+		}
+	}
+
+	function init () {
+		// this function has to run to ensure that the browser hasn't
+		// attempted to preserve form values across a browser reload
+		rootNode = getNode('test');
+		itemNode = 'fieldset';
+		if (baseHtml) {
+			rootNode.innerHTML = baseHtml;
+		}
+		else {
+			baseHtml = rootNode.innerHTML;
+		}
+	}
+
+	doh.register('the basics', [
+		function shouldHandleNodes (doh) {
+			doh.assertTrue(NodeListAdapter.canHandle(getNode('test')), 'DOMNode');
+		},
+		function shouldNotHandleNonNodes (doh) {
+			doh.assertFalse(NodeListAdapter.canHandle(), 'undefined');
+			doh.assertFalse(NodeListAdapter.canHandle(null), 'null');
+			doh.assertFalse(NodeListAdapter.canHandle(function(){}), 'function');
+			doh.assertFalse(NodeListAdapter.canHandle([]), 'array');
+			doh.assertFalse(NodeListAdapter.canHandle({}), 'object');
+		}
+	]);
+	doh.register('events', [
+		function shouldAddNodeForEachItem (doh) {
+			var item, adapted, options;
+			init();
+			options = {
+				querySelector: querySelector,
+				on: on,
+				itemTemplateSelector: itemNode,
+				comparator: compareById,
+				identifier: symbolizeById
+			};
+			adapted = new NodeListAdapter(rootNode, options);
+			item = { id: 1 };
+			adapted.add(item);
+			adapted.add({ id: 9 });
+			adapted.add({ id: 3 });
+			doh.assertEqual(3, rootNode.querySelectorAll('fieldset').length);
+		},
+		function shouldUpdateNode (doh) {
+			var item, adapted, options;
+			init();
+			function lastNameHandler (node, item, info) {
+				node.value = item && item.last || '(unknown)';
+			}
+			options = {
+				querySelector: querySelector,
+				on: on,
+				itemTemplateSelector: itemNode,
+				comparator: compareById,
+				identifier: symbolizeById,
+				bindings: {
+					name: { selector: '', attr: 'name' },
+					first: { selector: '[name="first"]' },
+					last: { selector: '[name="last"]', handler: lastNameHandler }
+				}
+			};
+			adapted = new NodeListAdapter(rootNode, options);
+			item = { id: 1, name: 'bar' };
+			adapted.add(item);
+			adapted.update({ id: 1, name: 'foo', first: 'Jane' });
+			doh.assertEqual('foo', querySelector(itemNode).name);
+			doh.assertEqual('Jane', querySelector(options.bindings.first.selector).value, rootNode);
+			doh.assertEqual('(unknown)', querySelector(options.bindings.last.selector).value, rootNode);
+		},
+		function shouldUpdateMultipleNodes (doh) {
+			var item, adapted, options;
+			init();
+			function allHandler (nodes, item, info) {
+				nodes.forEach(function (node) {
+					node[info.attr] = item[info.prop];
+				});
+			}
+			function disabledHandler (node, item, info) {
+				node.disabled = !!item.each;
+			}
+			options = {
+				querySelector: querySelector,
+				on: on,
+				nodeFinder: querySelectorAll,
+				itemTemplateSelector: itemNode,
+				comparator: compareById,
+				identifier: symbolizeById,
+				bindings: {
+					all: {
+						selector: 'label',
+						attr: 'data-value',
+						all: allHandler
+					},
+					each: {
+						selector: 'input[name=first]',
+						attr: 'disabled',
+						each: disabledHandler
+					},
+					"both": {
+						selector: 'input[name=last]',
+						attr: 'value',
+						each: disabledHandler,
+						all: allHandler
+					}
+				}
+			};
+			adapted = new NodeListAdapter(rootNode, options);
+			item = { id: 1, all: 'bar', both: 'both' };
+			adapted.add(item);
+			adapted.add({ id: 2, all: 'bar', each: true, both: 'both' });
+			adapted.add({ id: 3, all: 'bar', each: false, both: 'both' });
+			var nodes, i;
+			// check "all" binding
+			nodes = querySelectorAll(options.bindings.all.selector, rootNode);
+			for (i = 0; i < nodes.length; i++) {
+				doh.assertEqual('bar', nodes[i]['data-value'], 'value ' + i);
+			}
+			// check "each" binding
+			nodes = querySelectorAll(options.bindings.each.selector, rootNode);
+			for (i = 0; i < nodes.length; i++) {
+				// every other data item is disabled
+				doh.assertEqual(!!(i % 2), nodes[i].disabled, 'disabled ' + i);
+			}
+			// check that "each-and-all" is calling both handlers
+			nodes = querySelectorAll(options.bindings.both.selector, rootNode);
+			for (i = 0; i < nodes.length; i++) {
+				// every other data item is disabled
+				doh.assertEqual(!!(i % 2), nodes[i].disabled, 'disabled ' + i);
+				doh.assertEqual('both', nodes[i].value, 'value '  + i);
+			}
+		},
+		function shouldRemoveNode (doh) {
+			var item, adapted, options;
+			init();
+			options = {
+				querySelector: querySelector,
+				on: on,
+				itemTemplateSelector: itemNode,
+				comparator: compareById,
+				identifier: symbolizeById
+			};
+			adapted = new NodeListAdapter(rootNode, options);
+			item = { id: 1 };
+			adapted.add(item);
+			adapted.add({ id: 2 });
+			adapted.add({ id: 3 });
+			adapted.remove(item);
+			doh.assertEqual(2, querySelectorAll(itemNode, rootNode).length, 'two items remain in list');
+		},
+		function shouldFindItemByNode (doh) {
+			var last, item, adapted, options;
+			init();
+			options = {
+				querySelector: querySelector,
+				on: on,
+				itemTemplateSelector: itemNode,
+				comparator: compareById,
+				identifier: symbolizeById
+			};
+			adapted = new NodeListAdapter(rootNode, options);
+			last = { id: 3 };
+			adapted.add({ id: 1 });
+			adapted.add({ id: 2 });
+			adapted.add(last);
+			item = adapted.findItem(querySelector('[data-cola-id="3"] [name="last"]', rootNode));
+			doh.assertEqual(item.id, last.id, 'last item in list');
+		},
+		function shouldFindNodeByXXX (doh) {
+			var last, node, adapted, options;
+			init();
+			options = {
+				querySelector: querySelector,
+				on: on,
+				itemTemplateSelector: itemNode,
+				comparator: compareById,
+				identifier: symbolizeById
+			};
+			adapted = new NodeListAdapter(rootNode, options);
+			last = { id: 3 };
+			adapted.add({ id: 1 });
+			adapted.add({ id: 2 });
+			adapted.add(last);
+			// find by item
+			node = adapted.findNode(last);
+			doh.assertEqual(node.getAttribute('data-cola-id'), last.id, 'last node in list');
+			// find by id
+			node = adapted.findNode(3);
+			doh.assertTrue(!!node, 'node is not undefined');
+			doh.assertEqual(node.getAttribute('data-cola-id'), '3', 'last node in list');
+		}
+	]);
+
+	doh.run();
+
+});
+</script>
+</head>
+<body>
+
+<form id="test">
+	<fieldset style="display:none">
+		<label>
+			<input name="first" value=""/>
+		</label>
+		<input name="last" value=""/>
+	</fieldset>
+</form>
+
+</body>
+</html>

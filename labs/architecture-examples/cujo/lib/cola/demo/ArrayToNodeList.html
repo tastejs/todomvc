@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Array to NodeListAdapter demo</title>
+
+<script src="../test/curl/src/curl.js"></script>
+
+<script type="text/javascript">
+curl({
+	baseUrl: '../',
+	paths: {
+		curl: 'test/curl/src/curl'
+	},
+	packages: {
+		cola: { location: '.', main: 'cola' },
+		when: { location: 'test/when', main: 'when' }
+	}
+});
+curl(
+	[
+		'cola/mediator/syncCollections',
+		'cola/ArrayAdapter',
+		'cola/dom/NodeListAdapter',
+		'cola/dom/NodeAdapter',
+		'cola/ObjectAdapter',
+		'cola/AdapterResolver',
+		'when'
+	],
+	function (syncCollections, ArrayAdapter, NodeListAdapter, NodeAdapter, ObjectAdapter, AdapterResolver, when) {
+	"use strict";
+
+		var itemNode, data, sortDirection;
+
+		sortDirection = 1;
+
+		window.names = data = [
+			{ id: 3, first: 'Ian', last: 'Cavalier' },
+			{ id: 1, first: 'Brian', last: 'Cavalier' },
+			{ id: 2, first: 'John', last: 'Hann' },
+			{ id: 4, first: 'Scott', last: 'Andrews' },
+			{ id: 5, first: 'Ilia', last: 'Gilderman' }
+		];
+
+		function getNode (id) {
+			return document.getElementById(id);
+		}
+
+		function compareByLast (a, b) {
+			return a.last < b.last ? -sortDirection : a.last > b.last ? sortDirection : 0;
+		}
+
+		function compareByFirst (a, b) {
+			return a.first < b.first ? -sortDirection : a.first > b.first ? sortDirection : 0;
+		}
+
+		function compareByLastThenFirst (a, b) {
+			var byLast = compareByLast(a, b);
+			return byLast == 0 ? compareByFirst(a, b) : byLast;
+		}
+
+		function symbolizeById (o) { return o && o.id; }
+
+		function querySelector (selector, node) {
+			return node.querySelector(selector);
+		}
+
+		function createAdapter(obj, type, options) {
+			// FIXME: This is just for initial testing
+			var Adapter, adapter, propertyTransforms;
+			Adapter = AdapterResolver(obj, type);
+			// if (!Adapter) throw new Error('wire/cola: could not find Adapter constructor for ' + type);
+
+			adapter = Adapter ? new Adapter(obj, options) : obj;
+
+//			if (options.bindings && type == 'object') {
+//				propertyTransforms = createTransformers(options.bindings);
+//				if (propertyTransforms) {
+//					adapter = addPropertyTransforms(adapter, propertyTransforms);
+//				}
+//			}
+			return adapter;
+		}
+
+		function init () {
+			var source, dest;
+
+			// register adapter constructors
+			AdapterResolver.register(ArrayAdapter, 'collection');
+			AdapterResolver.register(NodeListAdapter, 'collection');
+			AdapterResolver.register(NodeAdapter, 'object');
+			AdapterResolver.register(ObjectAdapter, 'object');
+
+			// create adapters
+			source = new ArrayAdapter(data, {
+				comparator: compareByLast,
+				symbolizer: symbolizeById
+			});
+			dest = new NodeListAdapter(getNode('test'), {
+				comparator: compareByLastThenFirst,
+				symbolizer: symbolizeById,
+				querySelector: querySelector,
+				bindings: {
+					first: { node: '[name=first]', prop: 'value' },
+					last: { node: '[name=last]', prop: 'value' },
+					id: { node: 'label', events: 'click' }
+				}
+			});
+
+			console.log("START");
+
+			syncCollections(source, dest, createAdapter, { sync: true });
+
+			console.log("BEFORE");
+
+			when(source.add({ id: 6, first: 'bob', last: 'smith' }), function() {
+				dest.forEach(function(node, item) {
+					console.log(item.first);
+				});
+			});
+			console.log("AFTER");
+
+			window.printNames = function(e) {
+				dest.forEach(function(node, item) {
+					console.log(node, item);
+				});
+			};
+
+			window.reverseSort = function () {
+				sortDirection = -sortDirection;
+				dest.setComparator(dest.comparator);
+			};
+
+		}
+
+		curl('domReady!', init);
+
+	}
+);
+</script>
+<style>
+	#test fieldset {
+		display: none;
+	}
+	#test.cola-list-bound fieldset {
+		display: block;
+	}
+</style>
+</head>
+<body>
+
+<form id="test">
+	<div>
+		Form header
+	</div>
+	<div>
+		<fieldset data-cola-role="item-template">
+			<label></label>
+			<input name="first"/>
+			<input name="last"/>
+		</fieldset>
+	</div>
+	<button type="button" onclick="reverseSort();">Reverse</button>
+</form>
+
+</body>
+</html>

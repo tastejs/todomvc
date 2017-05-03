@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>defineName/defineContext curl test file (2)</title>
+
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+foo = {};
+
+	curl({
+	        defineName: 'defineModule',
+	        defineContext: foo,
+			paths: {
+				curl: '../src/curl/'
+			}
+		},
+		['stuff/foo.defineModule']).then(
+		function (m) {
+			if (m.msg) {
+				write('SUCCESS: defineContext and defineName worked');
+			}
+			else {
+				write('FAILED: something went wrong');
+			}
+		},
+		function (ex) {
+			write('FAILED: ' + ex.message);
+		}
+	);
+
+	function write (msg) {
+		// hack to get the domReady! plugin to work:
+		define = foo.defineModule;
+		// now we can use domReady!:
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+</body>
+</html>

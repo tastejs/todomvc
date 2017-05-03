@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>js! plugin !test option</title>
+
+<script>
+
+	// mock console for IE
+	if (!window.console) console = {};
+	if (!('log' in console)) {
+		console._msg = [];
+		console.log = function (msg) {
+			var _msg = this._msg;
+			_msg.push(msg && msg.join ? msg.join(' ') : msg);
+			clearTimeout(this._timeout);
+			this._timeout = setTimeout(function () {
+				alert(_msg.join('\n'));
+			}, 100);
+		};
+	}
+
+	curl = {
+		paths: {
+			curl: '../src/curl'
+		},
+		pluginPath: 'curl/plugin'
+	};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	curl(
+		[
+//			'js!stuff/plain_old.js!order',
+			'js!stuff/plain_old_nonexistent.js?foo!order!exports=foo.bar',
+			'domReady!'
+		]
+	).then(
+		function () {
+			document.body.appendChild(document.createTextNode('FAILED: test for global variable succeeded when it shouldn\'t have'));
+		},
+		function () {
+			document.body.appendChild(document.createTextNode('SUCCESS: test for global variable failed as it should have'));
+		}
+	);
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

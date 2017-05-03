@@ -1,0 +1,39 @@
+{
+    "name": "when",
+    "version": "1.3.1",
+    "description": "A lightweight Promise and when() implementation, plus other async goodies.",
+    "keywords": ["promises", "when", "async"],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/cujojs/when"
+        }
+    ],
+    "bugs": "https://github.com/cujojs/when/issues",
+    "maintainers": [
+        {
+            "name": "Brian Cavalier",
+            "web": "http://hovercraftstudios.com"
+        },
+        {
+            "name": "John Hann",
+            "web": "http://unscriptable.com"
+        }
+    ],
+    "devDependencies": {
+        "buster": "~0.6"
+    },
+    "main": "when",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "./node_modules/buster/bin/buster-test -e node"
+    }
+}

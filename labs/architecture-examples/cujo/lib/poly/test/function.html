@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<title>function tests</title>
+
+<script>
+
+	curl = {
+		baseUrl: '../',
+		paths: {
+			curl: 'test/curl'
+		},
+		packages: [
+			{ name: 'poly', location: '.', main: 'poly' }
+		]
+	};
+
+</script>
+
+<script src="curl.js"></script>
+
+<script>
+
+var natives = {
+	bind: Function.prototype.bind
+};
+
+// First, test that poly/function doesn't clobber native methods
+curl(['test/testutils', 'poly/function'], function (tester) {
+
+	function test () {}
+	// Note: these tests won't run in evirons that don't support .trim()
+	if (natives.bind) {
+		tester.assertTrue('shim doesn\'t clobber bind', function () { return test.bind == natives.bind; });
+	}
+
+}).next(['curl/_privileged'], function (priv) {
+
+	// remove poly/function from cache
+	delete priv.cache['poly/function'];
+	// For testing in an ES env, remove shimmed methods first
+	delete Function.prototype.bind;
+
+}).next(['test/testutils', 'poly/function'], runTests);
+
+
+	function runTests (tester) {
+
+		function test () { return this.a; }
+
+		var method = {
+			foo: function () { return this.a; }
+		}.foo;
+
+		// check for existence of string prototype methods
+		for (var m in natives) {
+			tester.assertTrue(m + ' exists', function () {
+				return typeof test[m] == 'function';
+			});
+		}
+
+		// test bind
+		tester.assertEquals('bind calls a function in context', function () {
+			return test.bind({ a: 42 })();
+		}, 42);
+		tester.assertEquals('bind calls a method in context', function () {
+			return method.bind({ a: 42 })();
+		}, 42);
+		tester.assertEquals('bind calls a native object\'s method in context', function () {
+			var aDate, toString;
+			aDate = new Date('1/1/2000');
+			toString = aDate.getDay.bind(aDate);
+			return toString();
+		}, new Date('1/1/2000').getDay());
+
+	}
+
+</script>
+
+</head>
+
+<body>
+
+<div id="output"></div>
+
+</body>
+</html>

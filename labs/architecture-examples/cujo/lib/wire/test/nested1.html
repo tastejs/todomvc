@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>nested objects test</title>
+
+    <script src="test-config.js"></script>
+
+	<script type="text/javascript">
+        define('test-logger', {
+            log: function(message) {
+                this.logged = true;
+            }
+        });
+
+		require(['wire'], function(wire) {
+			wire({
+				// Plugins
+//				plugins: [
+//					{ module: 'wire/debug' }
+//				],
+				// The particular logger we want.
+				// Pick either the AlertLogger or SilentLogger and reload.
+				// Can inject concrete dependencies without having to modify Controller.
+				logger: {
+					module: 'test-logger'
+				},
+
+				// Silly, but shows that native values can be declared as usual, and can be wired in
+				name: "Test",
+				number: 10,
+				message: "I'm ready!",
+
+				// Simple object literals work just fine, too.
+				foo: {
+					bar: {
+						baz: 10
+					}
+				}
+			}).then(function(context) {
+				// This function will be called once the context defined by the wiring spec above has
+				// been fully wired.
+
+				// This is so simple that there's no reason to do it in a child context, but I want to
+				// show how parent/child contexts work.  The child (below) will "inherit" the objects
+				// from its parent (above)--in fact, it inherits from all its ancestors.
+				context.wire({
+					// Plugins
+					plugins: [
+						// { module: 'wire/debug' },
+						{ module: 'wire/dom' }
+					],
+					name: "Test 2",
+					// Create and configure a controller
+					controller: {
+						create: {
+							module: 'test/test1/Controller',
+							args: [{ $ref: "name" }] // from the parent context
+						},
+
+						// Properties will be set after construction
+						properties: {
+							number: { $ref: "number" }, // from the parent context
+							foo: { $ref: "foo" }, // from the parent context
+							logger: { $ref: "logger" }, // from the parent context
+							messageNode: { $ref: "dom!node1" } // inject reference to dom node by id
+						},
+						// Init function, named "ready", will be called after properties have been
+						// set.  Since the properties depend on a dom node, the init function can't
+						// be called until after domReady.
+						// You can call > 1 init function by adding them here
+						init: {
+							// Params can be a single value/ref/module or a mixed array of them
+							// e.g. [{ "$ref": "message" }] will work just fine here
+							ready: { $ref: "message" }
+						}
+					}
+				}).then(function(context2) {
+					// context2 is a child of context, so context2 will also have plugins, number,
+					// message, logger, and foo properties.  It will have a name property that
+					// overrides it's parent's name.
+
+                    doh.register('nested1', [
+                        function(doh) {
+                            doh.assertEqual("Test 2", context2.controller.name);
+                            doh.assertEqual(10, context2.controller.number);
+                            doh.assertTrue(context2.controller.logger.logged);
+                        }
+                    ]);
+
+					// context.destroy().then(function() { console.log("contexts destroyed"); });
+
+                    doh.run();
+				});
+			});
+		});
+
+	</script>
+</head>
+<body>
+	<div>
+		<p id="node1"></p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>aop test</title>
+
+    <script src="../../test-config.js"></script>
+
+	<script type="text/javascript">
+        define('Mixin', [], function() {
+            return {
+                doSomethingMixedIn: function(message) {
+                    this.introduced = true;
+                }
+            };
+        });
+        require(['wire'], function(wire) {
+			wire({
+				plugins: [
+//					{ module: 'wire/debug' },
+					{ module: 'wire/aop' }
+                ],
+                mixin1: { module: 'Mixin' },
+				thing: {
+					create: 'test/wire/aop/Thing',
+					introduce: 'mixin1'
+				}
+			}).then(
+				function(context) {
+                    doh.register('introduce1', [
+                        function(doh) {
+                            doh.assertFalse(context.thing.introduced);
+                            context.thing.doSomethingMixedIn('test1');
+                            doh.assertTrue(context.thing.introduced);
+                        }
+                    ]);
+
+                    doh.run();
+				},
+				function(err) {
+					console.log("aop: FAILED", err);
+				}
+			);			
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

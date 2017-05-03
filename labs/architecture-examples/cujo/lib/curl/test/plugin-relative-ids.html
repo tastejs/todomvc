@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>plugin relative ids test</title>
+
+<script>
+	curl = {
+			baseUrl: '',
+			paths: {
+				curl: '../src/curl'
+			}
+		};
+
+</script>
+<script src="../src/curl.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	define('plugin-that-processes-relative-ids', function(){
+		return {
+			load: function(id, require, loaded, config){
+				// loads two instead of one
+				require(['./two'], loaded);
+			}
+		};
+	});
+
+	curl(
+		['plugin-that-processes-relative-ids!stuff/one'],
+		function (two) {
+			var testId = 'should load sibling module';
+			if (2 == two) {
+				write('SUCCESS: ' + testId);
+			}
+			else {
+				write('FAILED: ' + testId);
+				write('- expected: 2, got: ' + two);
+			}
+		},
+		function (ex) {
+			write('ERROR: ' + ex.message);
+		}
+	);
+
+	function write (msg) {
+		curl('domReady!', function () {
+			document.body.appendChild(document.createElement('div')).innerHTML = msg;
+		});
+	}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

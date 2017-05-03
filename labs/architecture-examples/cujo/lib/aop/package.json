@@ -1,0 +1,33 @@
+{
+	"name": "aop",
+	"version": "0.5.3",
+	"description": "AOP for JS with before, on, afterReturning, afterThrowing, after advice, and pointcut support",
+	"keywords": ["aop"],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/cujojs/aop"
+		}
+	],
+	"bugs": "https://github.com/cujojs/aop/issues",
+	"maintainers": [
+		{
+			"name": "Brian Cavalier",
+			"web": "http://hovercraftstudios.com"
+		},
+		{
+			"name": "Brian Cavalier",
+			"web": "http://hovercraftstudios.com"
+		}
+	],
+	"main": "./aop",
+	"directories": {
+		"test": "test"
+	}
+}

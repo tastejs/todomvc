@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>wire/lib/dom/base test</title>
+
+	<script src="../test-config.js"></script>
+
+	<script type="text/javascript">
+
+	// test the functions exposed by wire/lib/dom/base
+	require(['wire/lib/dom/base', 'domReady!'], function(base) {
+
+		doh.register('byId', [
+			function byIdShouldFindElement (doh) {
+				doh.assertTrue(isElement(base.byId('container')), 'is an element');
+			},
+			function byIdShouldFindDeepElement (doh) {
+				doh.assertTrue(isElement(base.byId('inner')), 'is an element');
+			}
+		]);
+
+		doh.register('querySelector', [
+			function querySelectorShouldFindElement (doh) {
+				var el = base.querySelector('b');
+				doh.assertTrue(isElement(el), 'is an element');
+			},
+			function querySelectorShouldFindScopedElement (doh) {
+				var scope = base.byId('container'),
+					el = base.querySelector('b', scope),
+					actual = base.byId('target');
+				doh.assertEqual(el, actual);
+			},
+			function querySelectorShouldFindFirstElement (doh) {
+				var scope = base.byId('container'),
+					el = base.querySelector('b', scope);
+				doh.assertEqual(el.id, 'target');
+			},
+			function querySelectorShouldSupportCss3Queries (doh) {
+				var el = base.querySelector('#inner b.second');
+				doh.assertTrue(isElement(el));
+			}
+		]);
+
+		doh.register('querySelectorAll', [
+			function querySelectorAllShouldFindAllElements (doh) {
+				var els = base.querySelectorAll('b');
+				doh.assertEqual(els.length, 4);
+			},
+			function querySelectorAllShouldSupportCss3Queries (doh) {
+				var els = base.querySelectorAll('#inner b.b-element');
+				doh.assertEqual(els.length, 3);
+			}
+		]);
+
+		doh.register('addClass', [
+			function addClassShouldAddClassWithoutExtraSpaces (doh) {
+				var el = createTestNode();
+				base.addClass(el, 'foo');
+				doh.assertTrue(/^foo$/.test(el.className), 'class is added');
+				base.addClass(el, 'bar');
+				doh.assertTrue(/^foo\sbar$|^bar\sfoo$/.test(el.className), 'second class is added');
+				// test when adding blank
+				base.addClass(el, '');
+				doh.assertTrue(/^foo\sbar$|^bar\sfoo$/.test(el.className), 'classes remained the same');
+				destroyNode(el);
+			},
+			function addClassShouldAddClassWithoutRemovingExistingClasses (doh) {
+				var el = createTestNode();
+				el.className = 'one two';
+				base.addClass(el, 'foo');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" still exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" still exists');
+				doh.assertTrue(/\bfoo\b/.test(el.className), 'class "foo" still exists');
+				destroyNode(el);
+			},
+			function addClassShouldStillWorkIfClassNameHasExtraSpaces (doh) {
+				// addClass won't necessarily clean up all stray spaces
+				var el = createTestNode();
+				el.className = ' one \t two ';
+				base.addClass(el, 'foo');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertTrue(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				destroyNode(el);
+			},
+			function addClassShouldStillWorkIfAddedClassesHaveExtraSpaces (doh) {
+				var el = createTestNode();
+				el.className = ' one \t two ';
+				// note: the \n will stay, but that's ok
+				base.addClass(el, ' foo\nbar\t');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertTrue(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				doh.assertTrue(/\bbar\b/.test(el.className), 'class "bar" exists');
+				destroyNode(el);
+			}
+		]);
+
+		doh.register('removeClass', [
+			function removeClassShouldRemoveClassWithoutExtraSpaces (doh) {
+				var el = createTestNode();
+				el.className = 'foo bar';
+				base.removeClass(el, 'foo');
+				doh.assertFalse(/^\s|\s$/.test(el.className), 'spaces at ends exists');
+				base.removeClass(el, 'bar');
+				doh.assertFalse(/\s/.test(el.className), 'spaces exists');
+				// test when removing blank
+				el.className = 'foo bar';
+				base.removeClass(el, '');
+				doh.assertTrue(/^foo\sbar$|^bar\sfoo$/.test(el.className), 'classes remained the same');
+				destroyNode(el);
+			},
+			function removeClassShouldRemoveClassWithoutRemovingExistingClasses (doh) {
+				var el = createTestNode();
+				el.className = 'foo bar';
+				base.removeClass(el, 'foo');
+				doh.assertTrue(/\bbar\b/.test(el.className), 'class "bar" still exists');
+				doh.assertFalse(/\bfoo\b/.test(el.className), 'class "foo" still exists');
+				base.removeClass(el, 'bar');
+				doh.assertFalse(/\bbar\b/.test(el.className), 'class "bar" still exists');
+				destroyNode(el);
+			},
+			function removeClassShouldStillWorkIfClassNameHasExtraSpaces (doh) {
+				// removeClass won't necessarily clean up all stray spaces
+				var el = createTestNode();
+				el.className = ' one \t two ';
+				base.removeClass(el, 'foo');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertFalse(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				destroyNode(el);
+			},
+			function removeClassShouldStillWorkIfRemovedClassesHaveExtraSpaces (doh) {
+				var el = createTestNode();
+				el.className = 'one bar two foo';
+				// note: the \n will stay, but that's ok
+				base.removeClass(el, ' foo\nbar\t');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertFalse(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				doh.assertFalse(/\bbar\b/.test(el.className), 'class "bar" exists');
+				destroyNode(el);
+			}
+		]);
+
+		doh.register('toggleClass', [
+			function toggleClassShouldToggleClass (doh) {
+				var el = createTestNode();
+				el.className = 'foo';
+				base.toggleClass(el, 'foo');
+				doh.assertFalse(/foo/.test(el.className), 'class "foo" exists');
+				base.toggleClass(el, 'foo');
+				doh.assertTrue(/foo/.test(el.className), 'class "foo" exists');
+				// test when toggling blank
+				el.className = 'foo bar';
+				base.toggleClass(el, '');
+				doh.assertTrue(/^foo\sbar$|^bar\sfoo$/.test(el.className), 'classes remained the same');
+				destroyNode(el);
+			},
+			function toggleClassShouldToggleClassWithoutTogglingExistingClasses (doh) {
+				var el = createTestNode();
+				el.className = 'foo bar';
+				base.toggleClass(el, 'foo');
+				doh.assertFalse(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				base.toggleClass(el, 'foo');
+				doh.assertTrue(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				base.toggleClass(el, 'bar');
+				doh.assertFalse(/\bbar\b/.test(el.className), 'class "bar" exists');
+				base.toggleClass(el, 'bar');
+				doh.assertTrue(/\bbar\b/.test(el.className), 'class "bar" exists');
+				destroyNode(el);
+			},
+			function toggleClassShouldStillWorkIfClassNameHasExtraSpaces (doh) {
+				// removeClass won't necessarily clean up all stray spaces
+				var el = createTestNode();
+				el.className = ' one \t two \tfoo\t ';
+				base.toggleClass(el, 'foo');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertFalse(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				destroyNode(el);
+			},
+			function toggleClassShouldStillWorkIfToggledClassesHaveExtraSpaces (doh) {
+				var el = createTestNode();
+				el.className = 'one bar two foo';
+				// note: the \n will stay, but that's ok
+				base.toggleClass(el, ' foo\nbar\t');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertFalse(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				doh.assertFalse(/\bbar\b/.test(el.className), 'class "bar" exists');
+				base.toggleClass(el, ' foo\nbar\t');
+				doh.assertTrue(/\bone\b/.test(el.className), 'class "one" exists');
+				doh.assertTrue(/\btwo\b/.test(el.className), 'class "two" exists');
+				doh.assertTrue(/\bfoo\b/.test(el.className), 'class "foo" exists');
+				doh.assertTrue(/\bbar\b/.test(el.className), 'class "bar" exists');
+				destroyNode(el);
+			}
+		]);
+
+		// placeAt is tested indirectly via wire/dom tests
+		// TODO: move some of those tests here or create some meaningful tests here
+		doh.register('placeAt', [
+		]);
+
+		// TODO: create some nodeProxy tests
+		doh.register('nodeProxy', [
+		]);
+
+		doh.run();
+	});
+
+	function isNode (o) {
+		return o && o.nodeName && o.nodeType;
+	}
+
+	function isElement (o) {
+		return isNode(o) && o.nodeType == 1;
+	}
+
+	function createTestNode () {
+		var el = document.createElement('div');
+		el.innerHTML = 'test node';
+		return document.body.appendChild(el);
+	}
+
+	function destroyNode (node) {
+		if (node.parentNode) {
+			node.parentNode.removeChild(node);
+		}
+	}
+
+	</script>
+</head>
+<body>
+	<div>
+
+		<b class=b-element></b><!-- this is here to assert that scoping the querySelector works -->
+		<div id="container">
+			<div id="inner">
+				<b id="target" class="b-element"></b>
+				<b class="second b-element"></b>
+				<b class="b-element"></b>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

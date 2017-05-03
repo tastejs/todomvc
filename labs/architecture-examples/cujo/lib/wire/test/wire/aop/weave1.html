@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>aop weaving test</title>
+
+    <script src="../../test-config.js"></script>
+
+    <script type="text/javascript">
+
+        define('Target', [], function() {
+
+            var me = function() {
+            };
+
+            me.prototype = {
+                doSomething: function() {
+                    return 0
+                },
+                doSomethingElse: function() {
+                    throw new Error();
+                },
+                doOneMoreThing: function() {
+                    return 0;
+                }
+            };
+
+            return me;
+        });
+
+        define('Aspect', [], function() {
+            function makeAdvice(type) {
+                return function() {
+                    return 1;
+                }
+            }
+
+            return {
+                pointcut:       /^doSomething$/,
+                before:         makeAdvice('before'),
+                afterReturning: makeAdvice('afterReturning'),
+                afterThrowing:  makeAdvice('afterThrowing'),
+                around: function(joinpoint) {
+                    try {
+                        joinpoint.proceed();
+                        return 1;
+                    } catch(e) {
+                        return 2;
+                    }
+                }
+            };
+        });
+
+        require(['wire'], function(wire) {
+            wire({
+                plugins: [
+//                    { module: 'wire/debug', verbose: true },
+                    {
+                        module: 'wire/aop',
+                        aspects: [
+                            'testAspect', // points to testAspect directly
+                            {
+                                // Override pointcut, but use testAspect advices
+                                pointcut: ['doSomethingElse'],
+                                advice: 'testAspect'
+                            }
+                        ]
+                    }
+                ],
+                testAspect: { create: 'Aspect' },
+                thing1: { create: 'Target' },
+                thing2: { create: 'Target' }
+                // Add your test wiring declarations here
+
+            }).then(
+                function(context) {
+                    var t1, t2;
+
+                    t1 = context.thing1;
+                    t2 = context.thing2;
+
+                    doh.register('aop-weaving', [
+                        function(doh) {
+                            // doSomething should have been advised with around
+                            // that always returns 1
+                            doh.assertEqual(1, t1.doSomething());
+                            doh.assertEqual(1, t2.doSomething());
+                        },
+                        function(doh) {
+                            // doSomethingElse throws, and should have been
+                            // advised with around that will return 2
+                            doh.assertEqual(2, t1.doSomethingElse());
+                            doh.assertEqual(2, t2.doSomethingElse());
+                        },
+                        function(doh) {
+                            // doOneMoreThing should not be advised
+                            doh.assertEqual(0, t1.doOneMoreThing());
+                            doh.assertEqual(0, t2.doOneMoreThing());
+                        }
+                    ]);
+
+                    doh.run();
+                },
+                function(err) {
+                    console.log("aop: FAILED", err);
+                }
+            );
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
