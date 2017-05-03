@@ -1,0 +1,19 @@
+{
+    "language" : "Sprache",
+    "title":"Aufgaben",
+    "placeholder":"Was soll erledigt werden?",
+    "hint":"Drücke ENTER, um die Aufgabe anzulegen",
+    "markAllAsComplete":"Markiere alle als erledigt",
+    "itemsLeft":"[num|0] Aufgabe offen",
+    "itemsLeft_plural":"[num|0] Aufgaben offen",
+    "clearItems":"Entferne [item|0] erledigte [Aufgabe|1]",
+    "clearItems_plural":"Entferne [item|0] erledigte [Aufgaben|1]",
+    "sortTodos":"Sortieren",
+    "de_DE" : "Deutsch",
+    "en_EN" : "Englisch",
+    "all": "Alle",
+    "active": "Aktiv",
+    "completed" : "Erledigt",
+    "doubleClickToEdit":"Klicke doppelt auf eine Aufgabe, um diese zu bearbeiten …",
+    "credits":"Erstellt von [Marcus Krejpowicz|0] mit [< rAppid:js />|1] [br|3] Vielen Dank an [Tony Findeisen|2]"
+}

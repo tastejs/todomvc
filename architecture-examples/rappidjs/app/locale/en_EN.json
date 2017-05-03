@@ -1,0 +1,20 @@
+{
+    "language" : "Language",
+    "title":"Todos",
+    "placeholder":"What needs to be done?",
+    "hint":"Press Enter to save this task",
+    "markAllAsComplete":"Mark all as complete",
+    "itemsLeft":"[num|0] item left",
+    "itemsLeft_plural":"[num|0] items  left",
+    "clearItems":"Clear [num|0] completed [Task|1]",
+    "clearItems_plural":"Clear [num|0] completed [Tasks|1]",
+    "sortTodos":"Sort todos",
+    "de_DE":"German",
+    "en_EN":"English",
+
+    "all":"All",
+    "active":"Active",
+    "completed":"Completed",
+    "doubleClickToEdit": "Double - click to edit a todo",
+    "credits" : "Created by [Marcus Krejpowicz|0] with [< rAppid:js />|1] [br|3] Big credits to [Tony Findeisen|2]"
+}
