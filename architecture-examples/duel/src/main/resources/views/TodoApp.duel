@@ -1,0 +1,15 @@
+<view name="TodoApp">
+
+<section id="todoapp">
+	<header id="header">
+		<h1>todos</h1>
+		<input id="new-todo"
+			placeholder="What needs to be done?"
+			autofocus
+			onblur="<%= todos.actions.add_blur %>"
+			onkeypress="<%= todos.actions.add_keypress %>">
+	</header>
+
+	<call view="Tasks" data="data" />
+	<call view="Stats" data="data.stats" />
+</section>
