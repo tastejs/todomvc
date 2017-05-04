@@ -1,0 +1,5 @@
+{
+	"name": "todo",
+	"apps": {"index": "index"},
+	"minify": true
+}
